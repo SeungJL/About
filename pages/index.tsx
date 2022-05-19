@@ -1,13 +1,13 @@
-import axios from 'axios';
 import dayjs from 'dayjs';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
+import { getInterestingDate } from '../libs/dateUtils';
 
 const Root: NextPage = () => <div/>
 
 export const getServerSideProps: GetServerSideProps = async ()=> {
   
-  const today = dayjs().startOf('day')
+  const today = getInterestingDate()
 
   return {
     redirect: {

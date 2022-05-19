@@ -4,6 +4,7 @@ import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import {useState} from "react";
+import { getInterestingDate } from '../../libs/dateUtils';
 import dbConnect from "../../libs/dbConnect";
 import { IParticipant, IAttendence, Attendence } from "../../models/attendence";
 
@@ -79,13 +80,13 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   await dbConnect()
   
   const date = dayjs(rawDate, 'YYYY-MM-DD')
-  const today = dayjs().startOf('day')
+  const interestingDate = getInterestingDate()
 
   if (!date.isValid()) {
     return {
       redirect: {
         permanent: false,
-        destination: `/${today.format('YYYY-MM-DD')}`,
+        destination: `/${interestingDate.format('YYYY-MM-DD')}`,
       },
       props:{},
     }
@@ -93,7 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   const nullableAttendence = await Attendence.findOne({ date: rawDate })
   let attendence: IAttendence
   if (!nullableAttendence) {
-    if (date < today.add(2, 'day')) {
+    if (date <= interestingDate) {
       const newAttendence = new Attendence({
         date: rawDate,
         participants: [],
@@ -105,7 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
       return {
         redirect: {
           permanent: false,
-          destination: `/${today.format('YYYY-MM-DD')}`,
+          destination: `/${interestingDate.format('YYYY-MM-DD')}`,
         },
         props:{},
       }
