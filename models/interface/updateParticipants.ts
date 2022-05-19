@@ -1,6 +1,6 @@
-import { Participant } from "../participationModel";
+import { IParticipant } from "../attendence";
 
 export default interface UpdateParticipants {
   operation: 'append' | 'delete',
-  participant: Participant,
+  participant: IParticipant,
 }
