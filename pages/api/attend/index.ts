@@ -3,13 +3,13 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../libs/dbConnect'
 import UpdateParticipants from '../../../models/interface/updateParticipants';
 import { IAttendence, Attendence, IParticipant } from "../../../models/attendence";
-import { useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IAttendence>
 ) {
-  const session = getSession({ req })
+  const session = await getSession({ req })
   const { method, query, body } = req
   const date = query['date'] as string
 
