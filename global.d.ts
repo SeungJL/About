@@ -5,4 +5,6 @@ export declare global {
     conn?: Mongoose,
     promise?: Promise<Mongoose>,
   }
+
+  var _mongoClientPromise: Promise<MongoClient>,
 }

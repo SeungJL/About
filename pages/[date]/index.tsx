@@ -2,16 +2,18 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
+import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import {useState} from "react";
 import { getInterestingDate } from '../../libs/dateUtils';
 import dbConnect from "../../libs/dbConnect";
-import { IParticipant, IAttendence, Attendence } from "../../models/attendence";
+import { IAttendence, Attendence } from "../../models/attendence";
 
 const Home: NextPage<{
   attendence: IAttendence
 }> = ({ attendence: attendenceParam }) => {
   const router = useRouter()
+  const { data: session } = useSession()
   const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
 
   if (!attendence)
@@ -20,33 +22,24 @@ const Home: NextPage<{
         Invalid Date
       </div>
     )
-
-  const isAttending = attendence.participants.some(p => p.name === 'gggg')
+  
+  const isAttending = attendence.participants.some(p => p.name === session?.user?.name)
   const date = router.query.date as string
 
   const attend = async () => {
-    const participant: IParticipant = {
-      name: 'gggg',
-      time: '01:00',
-    }
 
     const { data } = await axios.patch(`/api/attend/${date}`, {
       operation: 'append',
-      participant,
+      time: '01:00',
     })
 
     setAttendence(data as IAttendence)
   }
 
   const absent = async () => {
-    const participant: IParticipant = {
-      name: 'gggg',
-      time: '',
-    }
 
     const { data } = await axios.patch(`/api/attend/${date}`, {
       operation: 'delete',
-      participant,
     })
 
     setAttendence(data as IAttendence)
@@ -76,6 +69,17 @@ const Home: NextPage<{
 }
 
 export const getServerSideProps: GetServerSideProps = async (context)=> {
+  const session = await getSession({ req: context.req })
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+      props: {},
+    }
+  }
+
   const rawDate = (context.params?.date || '') as string
   await dbConnect()
   
