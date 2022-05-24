@@ -30,6 +30,7 @@ export default async function handler(
       const { operation, time } = body as UpdateParticipants
 
       const participant: IParticipant = {
+        id: token?.uid as string || '',
         name: token?.name || '',
         time: time || '',
         img: token?.picture || '',

@@ -2,12 +2,14 @@ import mongoose, {model, Schema, Document, Model} from 'mongoose'
 
 
 export interface IParticipant {
+  id: string,
   name: string,
   time: string,
   img: string,
 }
 
 const ParticipantSchema: Schema<IParticipant> = new Schema({
+  id: String,
   name: String,
   time: String,
   img: String,
