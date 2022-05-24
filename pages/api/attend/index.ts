@@ -2,12 +2,14 @@ import dayjs from 'dayjs';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../libs/dbConnect'
 import UpdateParticipants from '../../../models/interface/updateParticipants';
-import { IAttendence, Attendence } from "../../../models/attendence";
+import { IAttendence, Attendence, IParticipant } from "../../../models/attendence";
+import { useSession } from 'next-auth/react';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IAttendence>
 ) {
+  const { data: session } = useSession()
   const { method, query, body } = req
   const date = query['date'] as string
 
@@ -23,7 +25,12 @@ export default async function handler(
       res.status(200).json(participation)
       break
     case 'PATCH':
-      const { operation, participant } = body as UpdateParticipants
+      const { operation, time } = body as UpdateParticipants
+
+      const participant: IParticipant = {
+        name: session?.user?.name || '',
+        time: time || '',
+      }
 
       if (operation === 'append') {
         await Attendence.updateOne({ date }, { $push: { participants: participant } })
