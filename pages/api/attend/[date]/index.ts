@@ -3,7 +3,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../../libs/dbConnect';
 import UpdateParticipants from '../../../../models/interface/updateParticipants';
 import { IAttendence, Attendence, IParticipant } from '../../../../models/attendence';
-import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
+
+const secret = process.env.NEXTAUTH_SECRET
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,9 +13,9 @@ export default async function handler(
 ) {
   const date = req.query.date as string
   const { method, body } = req
-  const session = await getSession({ req })
+  const token = await getToken({ req, secret })
 
-  if (!session) {
+  if (!token) {
     res.status(401)
   }
 
@@ -41,10 +43,11 @@ export default async function handler(
       const { operation, time } = body as UpdateParticipants
 
       const participant: IParticipant = {
-        name: session?.user?.name || '',
+        name: token?.name || '',
         time: time || '01:00',
+        img: token?.picture || '',
       }
-      
+
       if (operation === 'append') {
         await Attendence.updateOne({ date }, { $push: { participants: participant } })
       } else {

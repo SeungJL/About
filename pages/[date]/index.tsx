@@ -54,6 +54,7 @@ const Home: NextPage<{
         {
           attendence.participants.map(p => (
             <li key={p.name}>
+              <img src={p.img} />
               <span>{p.name}</span>
               <span>{p.time}</span>
             </li>

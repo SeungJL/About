@@ -3,13 +3,15 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../libs/dbConnect'
 import UpdateParticipants from '../../../models/interface/updateParticipants';
 import { IAttendence, Attendence, IParticipant } from "../../../models/attendence";
-import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
+
+const secret = process.env.NEXTAUTH_SECRET
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IAttendence>
 ) {
-  const session = await getSession({ req })
+  const token = await getToken({ req, secret })
   const { method, query, body } = req
   const date = query['date'] as string
 
@@ -28,8 +30,9 @@ export default async function handler(
       const { operation, time } = body as UpdateParticipants
 
       const participant: IParticipant = {
-        name: session?.user?.name || '',
+        name: token?.name || '',
         time: time || '',
+        img: token?.picture || '',
       }
 
       if (operation === 'append') {

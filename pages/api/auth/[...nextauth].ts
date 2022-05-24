@@ -15,6 +15,7 @@ export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   session: {
     strategy: 'jwt',
+    secret: process.env.NEXTAUTH_URL || '',
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
@@ -29,7 +30,7 @@ export default NextAuth({
           accessToken: account.access_token,
           uid: (profile as any)?.id,
           name: (profile as any)?.properties?.nickname,
-          image: (profile as any)?.properties?.profile_image,
+          picture: (profile as any)?.properties?.profile_image,
         }
       }
       return token
