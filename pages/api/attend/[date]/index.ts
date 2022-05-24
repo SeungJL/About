@@ -12,7 +12,7 @@ export default async function handler(
   const date = req.query.date as string
   const { method, body } = req
   const session = await getSession({ req })
-  console.log(session)
+
   if (!session) {
     res.status(401)
   }

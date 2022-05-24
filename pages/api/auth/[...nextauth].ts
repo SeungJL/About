@@ -32,7 +32,6 @@ export default NextAuth({
           image: (profile as any)?.properties?.profile_image,
         }
       }
-      console.log(token)
       return token
     },
     async session({ session, token, user }) {

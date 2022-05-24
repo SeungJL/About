@@ -9,7 +9,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IAttendence>
 ) {
-  const { data: session } = useSession()
+  const session = getSession({ req })
   const { method, query, body } = req
   const date = query['date'] as string
 
