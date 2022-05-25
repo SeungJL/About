@@ -1,14 +1,18 @@
-import { AspectRatio, Box, Button, Heading, Image, ListItem, Tag, Text, UnorderedList } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Heading, Image, ListItem, Tag, Text, UnorderedList, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import {useState} from "react";
+import {useState} from 'react';
+import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { getInterestingDate } from '../../libs/dateUtils';
-import dbConnect from "../../libs/dbConnect";
-import { IAttendence, Attendence } from "../../models/attendence";
+import dbConnect from '../../libs/dbConnect';
+import { IAttendence, Attendence } from '../../models/attendence';
+
+const GREEN = '#37b24d'
+const YELLOW = '#ffd43b'
 
 const Home: NextPage<{
   attendence: IAttendence
@@ -47,19 +51,60 @@ const Home: NextPage<{
   }
   const dateKr = `${date.substring(0, 4)}년 ${date.substring(5, 7)}월 ${date.substring(8)}일`
 
+  const isOpen = attendence.participants.length >= 3
+  const progress = isOpen ? 100 : attendence.participants.length / 3 * 100
+  const progressColor = isOpen ? GREEN : YELLOW
+
   return (
-    <div>
-      <Heading as='h1' size='2xl'>{dateKr}</Heading>
-      <Text>{attendence.participants.length}명</Text>
+    <Box>
+      <Heading as='h1' size='xl' width='100%' textAlign='center' >{dateKr}</Heading>
+      <Box padding='20px 50px'>
+        <CircularProgressbarWithChildren
+          value={progress}
+          styles={
+            buildStyles({
+              strokeLinecap: 'round',
+              pathTransitionDuration: 0.5,
+              pathColor: progressColor,
+              trailColor: '#d6d6d6',
+            })
+          }
+        >
+          <Button
+            width='80%'
+            height='80%'
+            borderRadius='100%'
+            variant='solid'
+            onClick={!isAttending ? attend : absent}
+          >
+            <VStack>
+              <Box>
+                <svg width='100px' viewBox='0 0 24 24'>
+                  <g>
+                    <path d='M0 0h24v24H0z' fill='none'/>
+                    <path d='M12 23a7.5 7.5 0 0 1-5.138-12.963C8.204 8.774 11.5 6.5 11 1.5c6 4 9 8 3 14 1 0 2.5 0 5-2.47.27.773.5 1.604.5 2.47A7.5 7.5 0 0 1 12 23z' fill={progressColor} />
+                  </g>
+                </svg>
+              </Box>
+              <Text fontSize='5xl'>{attendence.participants.length}명</Text>
+              <Text>
+                {
+                  !isAttending ? '불참' : '참여중'
+                }
+              </Text>
+            </VStack>
+          </Button>
+        </CircularProgressbarWithChildren>
+      </Box>
       <UnorderedList listStyleType='none' margin='10px 10px'>
         {
           attendence.participants.map(p => (
             <ListItem
               key={p.id}
               display='flex'
-              // flexDirection='row'
               justifyItems='space-between'
               alignItems='center'
+              marginBottom='5px'
             >
               <Box
                 display='flex'
@@ -76,34 +121,18 @@ const Home: NextPage<{
                 </AspectRatio>
                 <Text fontSize='lg' display='inline'>{p.name}</Text>
               </Box>
-              <Tag>
+              <Tag
+                colorScheme='green'
+                borderRadius='full'
+                variant='solid'
+              >
                 <Text fontSize='lg'>{p.time}</Text>
               </Tag>
             </ListItem>
           ))
         }
       </UnorderedList>
-      {
-        !isAttending ? (
-          <Button
-            colorScheme='yellow'
-            size='sm'
-            onClick={attend}
-          >
-            참가
-          </Button>
-        ) : (
-          <Button
-            colorScheme='yellow'
-            size='sm'
-            onClick={absent}
-          >
-            불참
-          </Button>
-        )
-      }
-      
-    </div>
+    </Box>
   )
 }
 
