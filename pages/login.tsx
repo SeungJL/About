@@ -1,3 +1,4 @@
+import { Box, Heading, Image, VStack } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import { BuiltInProviderType } from 'next-auth/providers';
@@ -15,13 +16,23 @@ const Login: NextPage<{
   }
 
   return (
-    <>
+    <VStack height='100%' justifyContent='center'>
+      <Box marginBottom='20px'>
+        <Image
+          src='logo.png'
+        />
+        <Heading textAlign='center'>VOTE HELPER</Heading>
+      </Box>
       {Object.values(providers).map((provider) => (
-        <div key={provider.name}>
-          <input type='image' src='kakao_login_medium_narrow.png' onClick={() => signIn(provider.id)} />
-        </div>
+        <Box key={provider.name}>
+          <Image
+            src='kakao_login.png'
+            htmlWidth='200px'
+            onClick={() => signIn(provider.id)}
+          />
+        </Box>
       ))}
-    </>
+    </VStack>
   )
 }
 

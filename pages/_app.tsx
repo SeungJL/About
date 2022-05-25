@@ -11,8 +11,8 @@ function App({
   return (
     <SessionProvider session={session}>
       <ChakraProvider>
-        <Header /> 
-        <Component {...pageProps} />
+          <Header />
+          <Component {...pageProps} />
       </ChakraProvider>
     </SessionProvider>
   )

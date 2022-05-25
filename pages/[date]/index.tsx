@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Button, Image, ListItem, Tag, Text, UnorderedList } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Heading, Image, ListItem, Tag, Text, UnorderedList } from '@chakra-ui/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import type { NextPage } from 'next'
@@ -49,7 +49,7 @@ const Home: NextPage<{
 
   return (
     <div>
-      <Text fontSize='xl'>{dateKr}</Text>
+      <Heading as='h1' size='2xl'>{dateKr}</Heading>
       <Text>{attendence.participants.length}명</Text>
       <UnorderedList listStyleType='none' margin='10px 10px'>
         {
