@@ -1,3 +1,4 @@
+import { Box, Button } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { FC } from "react";
 
@@ -12,12 +13,12 @@ const Header: FC = () => {
     )
 
   return (
-    <div>
-      <div>
+    <Box>
+      <Box>
 
-      </div>
-      <button onClick={() => signOut()}>로그아웃</button>
-    </div>
+      </Box>
+      <Button onClick={() => signOut()}>로그아웃</Button>
+    </Box>
   )
 }
 

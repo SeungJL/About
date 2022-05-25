@@ -1,3 +1,4 @@
+import { AspectRatio, Box, Button, Image, ListItem, Tag, Text, UnorderedList } from '@chakra-ui/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import type { NextPage } from 'next'
@@ -44,25 +45,62 @@ const Home: NextPage<{
 
     setAttendence(data as IAttendence)
   }
-
+  const dateKr = `${date.substring(0, 4)}년 ${date.substring(5, 7)}월 ${date.substring(8)}일`
 
   return (
     <div>
-      <h2>{date}</h2>
-      <p>{attendence.participants.length}명</p>
-      <ul>
+      <Text fontSize='xl'>{dateKr}</Text>
+      <Text>{attendence.participants.length}명</Text>
+      <UnorderedList listStyleType='none' margin='10px 10px'>
         {
           attendence.participants.map(p => (
-            <li key={p.name}>
-              <img src={p.img} />
-              <span>{p.name}</span>
-              <span>{p.time}</span>
-            </li>
+            <ListItem
+              key={p.id}
+              display='flex'
+              // flexDirection='row'
+              justifyItems='space-between'
+              alignItems='center'
+            >
+              <Box
+                display='flex'
+                flex='1'
+                flexDirection='row'
+                alignItems='center'
+              >
+                <AspectRatio ratio={1 / 1} width='40px' marginRight='10px'>
+                  <Image 
+                    borderRadius='35%'
+                    src={p.img}
+                    alt={p.name}
+                  />
+                </AspectRatio>
+                <Text fontSize='lg' display='inline'>{p.name}</Text>
+              </Box>
+              <Tag>
+                <Text fontSize='lg'>{p.time}</Text>
+              </Tag>
+            </ListItem>
           ))
         }
-      </ul>
+      </UnorderedList>
       {
-        !isAttending ? (<button onClick={attend}>참가</button>) : (<button onClick={absent}>불참</button>)
+        !isAttending ? (
+          <Button
+            colorScheme='yellow'
+            size='sm'
+            onClick={attend}
+          >
+            참가
+          </Button>
+        ) : (
+          <Button
+            colorScheme='yellow'
+            size='sm'
+            onClick={absent}
+          >
+            불참
+          </Button>
+        )
       }
       
     </div>
