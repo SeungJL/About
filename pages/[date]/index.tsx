@@ -80,6 +80,7 @@ const Home: NextPage<{
             height='80%'
             borderRadius='100%'
             variant='solid'
+            isDisabled={isLoading}
             onClick={!isAttending ? attend : absent}
           >
             <VStack>
