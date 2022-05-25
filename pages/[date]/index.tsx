@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Button, Heading, Image, ListItem, Tag, Text, UnorderedList, VStack } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Heading, Image, ListItem, Spinner, Tag, Text, UnorderedList, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import type { NextPage } from 'next'
@@ -20,6 +20,7 @@ const Home: NextPage<{
   const router = useRouter()
   const { data: session } = useSession()
   const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
+  const [isLoading, setIsLoading] = useState(false)
 
   if (!attendence)
     return (
@@ -32,21 +33,25 @@ const Home: NextPage<{
   const date = router.query.date as string
 
   const attend = async () => {
+    setIsLoading(true)
 
     const { data } = await axios.patch(`/api/attend/${date}`, {
       operation: 'append',
       time: '01:00',
     })
 
+    setIsLoading(false)
     setAttendence(data as IAttendence)
   }
 
   const absent = async () => {
+    setIsLoading(true)
 
     const { data } = await axios.patch(`/api/attend/${date}`, {
       operation: 'delete',
     })
 
+    setIsLoading(false)
     setAttendence(data as IAttendence)
   }
   const dateKr = `${date.substring(0, 4)}년 ${date.substring(5, 7)}월 ${date.substring(8)}일`
@@ -92,6 +97,7 @@ const Home: NextPage<{
                   !isAttending ? '불참' : '참여중'
                 }
               </Text>
+              { isLoading && <Spinner />}
             </VStack>
           </Button>
         </CircularProgressbarWithChildren>
