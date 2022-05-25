@@ -22,6 +22,12 @@ export default NextAuth({
     signIn: '/login',
   },
   callbacks: {
+    async session({ session, token }) {
+        session.accessToken = token.accessToken
+        session.uid = token.uid
+        session.user.name = token.name
+        return session;
+    },
     async jwt({ token, account, profile }) {
       if (account) {
         token = {
@@ -33,10 +39,5 @@ export default NextAuth({
       }
       return token
     },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken
-      return session
-    }
   }
 })

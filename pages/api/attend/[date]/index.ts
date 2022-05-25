@@ -43,10 +43,10 @@ export default async function handler(
       const { operation, time } = body as UpdateParticipants
 
       const participant: IParticipant = {
-        id: token?.uid as string || '',
-        name: token?.name || '',
+        id: token.uid as string,
+        name: token.name,
         time: time || '01:00',
-        img: token?.picture || '',
+        img: token.picture,
       }
 
       if (operation === 'append') {

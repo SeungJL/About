@@ -22,8 +22,8 @@ const Home: NextPage<{
         Invalid Date
       </div>
     )
-  
-  const isAttending = attendence.participants.some(p => p.name === session?.user?.name)
+
+  const isAttending = attendence.participants.some(p => p.id === session?.uid?.toString())
   const date = router.query.date as string
 
   const attend = async () => {
