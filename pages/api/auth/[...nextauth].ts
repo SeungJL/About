@@ -15,11 +15,9 @@ export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   session: {
     strategy: 'jwt',
-    secret: process.env.NEXTAUTH_URL || '',
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
-  secret: process.env.NEXTAUTH_URL,
   pages: {
     signIn: '/login',
   },
