@@ -18,9 +18,7 @@ const Login: NextPage<{
     <>
       {Object.values(providers).map((provider) => (
         <div key={provider.name}>
-          <button onClick={() => signIn(provider.id)}>
-            Sign in with {provider.name}
-          </button>
+          <input type='image' src='kakao_login_medium_narrow.png' onClick={() => signIn(provider.id)} />
         </div>
       ))}
     </>
