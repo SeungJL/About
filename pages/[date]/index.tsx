@@ -43,10 +43,14 @@ const Home: NextPage<{
   const interestingDate = getInterestingDate()
   
   const isActivated = interestingDate <= currentDate
-  const isAccessibleNextDay = nextDate.toDate() <= interestingDate.add(1, 'day').toDate()
+  const isAccessibleNextDay = nextDate.unix() <= interestingDate.add(1, 'day').unix()
   const isOpen = attendence.participants.length >= 3
   const progress = isOpen ? 100 : attendence.participants.length / 3 * 100
   const progressColor = isOpen ? GREEN : YELLOW
+
+  console.log(isAccessibleNextDay)
+  console.log(nextDate.unix())
+  console.log(interestingDate.add(1, 'day').unix())
 
   const dateKr = `${currentDate.format('YYYY년 MM월 DD일')}(${dayEnToKr[currentDate.format('ddd')]})`
 
