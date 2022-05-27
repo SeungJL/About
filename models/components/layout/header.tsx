@@ -22,25 +22,27 @@ const Header: FC = () => {
         <Box onClick={() => router.push(`${getInterestingDate().format('YYYY-MM-DD')}`)}>
           <Logo width='50' height='50' />
         </Box>
-        <Popover styleConfig={{ outerWidth: 'auto' }}>
-          <PopoverTrigger>
-            <button>
-              <AspectRatio ratio={1 / 1} width='40px' marginRight='10px'>
-                <Image 
-                  borderRadius='35%'
-                  src={session.user.image}
-                  alt={session.user.name}
-                />
-              </AspectRatio>
-            </button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <PopoverArrow />
-            <PopoverBody>
-              <Button onClick={() => signOut()}>로그아웃</Button>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
+        <div style={{ zIndex: 100 }}>
+          <Popover styleConfig={{ outerWidth: 'auto'}}>
+            <PopoverTrigger>
+              <button>
+                <AspectRatio ratio={1 / 1} width='40px' marginRight='10px'>
+                  <Image 
+                    borderRadius='35%'
+                    src={session.user.image}
+                    alt={session.user.name}
+                  />
+                </AspectRatio>
+              </button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverBody>
+                <Button onClick={() => signOut()}>로그아웃</Button>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        </div>
       </HStack>
     </Box>
   )

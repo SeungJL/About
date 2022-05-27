@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Button, Heading, HStack, Image, ListItem, Spinner, Tag, Text, UnorderedList, VStack } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, AspectRatio, Box, Button, Heading, HStack, Image, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
@@ -9,6 +9,7 @@ import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-pro
 import { getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
+import TimePickerModal from '../../models/components/timePickerModel';
 
 const GREEN = '#37b24d'
 const YELLOW = '#ffd43b'
@@ -29,6 +30,7 @@ const Home: NextPage<{
   const { data: session } = useSession()
   const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
   const [isLoading, setLoading] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     setAttendence(attendenceParam)
@@ -44,13 +46,10 @@ const Home: NextPage<{
   
   const isActivated = interestingDate <= currentDate
   const isAccessibleNextDay = nextDate.unix() <= interestingDate.add(1, 'day').unix()
-  const isOpen = attendence.participants.length >= 3
-  const progress = isOpen ? 100 : attendence.participants.length / 3 * 100
-  const progressColor = isOpen ? GREEN : YELLOW
-
-  console.log(isAccessibleNextDay)
-  console.log(nextDate.unix())
-  console.log(interestingDate.add(1, 'day').unix())
+  const isStudyOpen = attendence.participants.length >= 3
+  const isSetTime = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.time !== ''
+  const progress = isStudyOpen ? 100 : attendence.participants.length / 3 * 100
+  const progressColor = isStudyOpen ? GREEN : YELLOW
 
   const dateKr = `${currentDate.format('YYYY년 MM월 DD일')}(${dayEnToKr[currentDate.format('ddd')]})`
 
@@ -60,7 +59,7 @@ const Home: NextPage<{
 
     const { data } = await axios.patch(`/api/attend/${dateStr}`, {
       operation: 'append',
-      time: '01:00',
+      time: '',
     })
 
     setLoading(false)
@@ -88,8 +87,7 @@ const Home: NextPage<{
   }
 
   const visibility = isAccessibleNextDay ? 'visible' : 'hidden'
-  console.log(isAccessibleNextDay)
-  console.log(visibility)
+
   return (
     <Box>
       <HStack margin='0 10px'>
@@ -144,7 +142,15 @@ const Home: NextPage<{
           </Button>
         </CircularProgressbarWithChildren>
       </Box>
-      <UnorderedList listStyleType='none' margin='10px 10px'>
+      {
+        (isAttending && !isSetTime) && (
+          <Alert status='warning'>
+            <AlertIcon />
+            아직 시간을 지정하지 않았어요!
+          </Alert>
+        )
+      }
+      <UnorderedList listStyleType='none' margin='10px 25px'>
         {
           attendence.participants.map(p => (
             <ListItem
@@ -167,19 +173,28 @@ const Home: NextPage<{
                     alt={p.name}
                   />
                 </AspectRatio>
-                <Text fontSize='lg' display='inline'>{p.name}</Text>
+                <Text fontWeight='600' fontSize='lg' display='inline'>{p.name}</Text>
               </Box>
               <Tag
-                colorScheme='green'
+                width='4rem'
+                height='1.5rem'
+                textAlign='center'
+                colorScheme={p.time ? 'green' : 'red'}
                 borderRadius='full'
                 variant='solid'
+                onClick={(isActivated && session?.uid?.toString() === p.id) ? onOpen : null}
               >
-                <Text fontSize='lg'>{p.time}</Text>
+                <Text margin='auto' fontSize='lg'>{p.time || '-'}</Text>
               </Tag>
             </ListItem>
           ))
         }
       </UnorderedList>
+      {
+        isOpen && (
+          <TimePickerModal dateStr={dateStr} isOpen={isOpen} onClose={onClose} setAttendence={setAttendence} />
+        )
+      }
     </Box>
   )
 }

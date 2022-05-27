@@ -50,14 +50,18 @@ export default async function handler(
       const participant: IParticipant = {
         id: token.uid as string,
         name: token.name,
-        time: time || '01:00',
+        time: time || '',
         img: token.picture,
       }
 
-      if (operation === 'append') {
-        await Attendence.updateOne({ date: dateStr }, { $push: { participants: participant } })
-      } else {
-        await Attendence.updateOne({ date: dateStr }, { $pull: { participants: { id: participant.id } } })
+      switch (operation) {
+        case 'append':
+          await Attendence.updateOne({ date: dateStr }, { $push: { participants: participant } })
+          break
+        case 'delete':
+          await Attendence.updateOne({ date: dateStr }, { $pull: { participants: { id: participant.id } } })
+        case 'time_update':
+          await Attendence.updateOne({ date: dateStr, "participants.id": participant.id }, {'participants.$.time': time})
       }
       res.status(200).json(await Attendence.findOne({ date: dateStr }) as IAttendence)
       break
