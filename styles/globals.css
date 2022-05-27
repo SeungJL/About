@@ -17,17 +17,7 @@ a {
 }
 
 #__next {
+  margin: 0 auto;
   height: 100%;
+  max-width: 500px;
 }
-/* .CircularProgressbar-path {
-  stroke: red;
-}
-.CircularProgressbar-trail {
-  stroke: gray;
-}
-.CircularProgressbar-text {
-  fill: yellow;
-}
-.CircularProgressbar-background {
-  fill: green;
-} */
