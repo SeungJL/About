@@ -30,6 +30,7 @@ const Result: NextPage<{
         {
           participants.map((p) => (
             <ProfileImage
+              key={p.id}
               src={p.img}
               alt={p.name}
               width='60px'
