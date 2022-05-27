@@ -43,7 +43,7 @@ const Home: NextPage<{
   const interestingDate = getInterestingDate()
   
   const isActivated = interestingDate <= currentDate
-  const isAccessibleNextDay = nextDate <= interestingDate.add(1, 'day')
+  const isAccessibleNextDay = nextDate.toDate() <= interestingDate.add(1, 'day').toDate()
   const isOpen = attendence.participants.length >= 3
   const progress = isOpen ? 100 : attendence.participants.length / 3 * 100
   const progressColor = isOpen ? GREEN : YELLOW
@@ -83,10 +83,6 @@ const Home: NextPage<{
     router.push(`/${previousDate.format('YYYY-MM-DD')}`)
   }
 
-  console.log(isAccessibleNextDay)
-  console.log(dateStr)
-  console.log(nextDate)
-  console.log(interestingDate.add(1, 'day'))
   return (
     <Box>
       <HStack margin='0 10px'>
