@@ -10,7 +10,6 @@ import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-pro
 import { getInterestingDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
-import styles from './index.css'
 
 const GREEN = '#37b24d'
 const YELLOW = '#ffd43b'
