@@ -21,3 +21,7 @@ a {
   height: 100%;
   max-width: 500px;
 }
+
+.CircularProgressbar-trail {
+  stroke-width: 7
+}

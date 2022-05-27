@@ -10,6 +10,7 @@ import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-pro
 import { getInterestingDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
+import styles from './index.css'
 
 const GREEN = '#37b24d'
 const YELLOW = '#ffd43b'
@@ -66,6 +67,7 @@ const Home: NextPage<{
       <Box padding='20px 50px'>
         <CircularProgressbarWithChildren
           value={progress}
+          strokeWidth={10}
           styles={
             buildStyles({
               strokeLinecap: 'round',
@@ -98,8 +100,8 @@ const Home: NextPage<{
                   !isAttending ? '불참' : '참여중'
                 }
               </Text>
-              { isLoading && <Spinner />}
             </VStack>
+              { isLoading && <Spinner position='absolute' />}
           </Button>
         </CircularProgressbarWithChildren>
       </Box>
