@@ -89,8 +89,8 @@ const Home: NextPage<{
         <Button size='sm' onClick={() => onPreviousDay()}>이전날</Button>
         <Heading as='h1' size='lg' width='100%' textAlign='center' >{dateKr}</Heading>
         <Button
+          visibility={canGoNextDay ? 'visible' : 'hidden'}
           size='sm'
-          disabled={!canGoNextDay}
           onClick={() => onNextDay()}
         >
           다음날
