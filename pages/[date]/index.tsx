@@ -87,13 +87,16 @@ const Home: NextPage<{
     router.push(`/${previousDate.format('YYYY-MM-DD')}`)
   }
 
+  const visibility = isAccessibleNextDay ? 'visible' : 'hidden'
+  console.log(isAccessibleNextDay)
+  console.log(visibility)
   return (
     <Box>
       <HStack margin='0 10px'>
         <Button size='sm' onClick={() => onPreviousDay()}>이전날</Button>
         <Heading as='h1' size='lg' width='100%' textAlign='center' >{dateKr}</Heading>
         <Button
-          visibility={isAccessibleNextDay ? 'visible' : 'hidden'}
+          visibility={visibility}
           size='sm'
           onClick={() => onNextDay()}
         >
