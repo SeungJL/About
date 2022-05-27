@@ -1,6 +1,5 @@
 import { AspectRatio, Box, Button, Heading, HStack, Image, ListItem, Spinner, Tag, Text, UnorderedList, VStack } from '@chakra-ui/react';
 import axios from 'axios';
-import dayjs from 'dayjs';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
@@ -13,6 +12,15 @@ import { IAttendence, Attendence } from '../../models/attendence';
 
 const GREEN = '#37b24d'
 const YELLOW = '#ffd43b'
+const dayEnToKr = {
+  'Sun': '일',
+  'Mon': '월',
+  'Tue': '화',
+  'Wed': '수',
+  'Thu': '목',
+  'Fri': '금',
+  'Sat': '토',
+}
 
 const Home: NextPage<{
   attendence: IAttendence
@@ -29,15 +37,18 @@ const Home: NextPage<{
   const isAttending = attendence.participants.some(p => p.id === session?.uid?.toString())
   const dateStr = router.query.date as string
 
-  const dateKr = `${dateStr.substring(0, 4)}년 ${dateStr.substring(5, 7)}월 ${dateStr.substring(8)}일`
+  const currentDate = strToDate(dateStr)
   const nextDate = getNextDate(dateStr)
   const previousDate = getPreviousDate(dateStr)
+  const interestingDate = getInterestingDate()
   
-  const isActivated = getInterestingDate() <= strToDate(dateStr)
-  const canGoNextDay = nextDate <= getInterestingDate().add(1, 'day')
+  const isActivated = interestingDate <= currentDate
+  const canGoNextDay = nextDate <= interestingDate.add(1, 'day')
   const isOpen = attendence.participants.length >= 3
   const progress = isOpen ? 100 : attendence.participants.length / 3 * 100
   const progressColor = isOpen ? GREEN : YELLOW
+
+  const dateKr = `${currentDate.format('YYYY년 MM월 DD일')}(${dayEnToKr[currentDate.format('ddd')]})`
 
   const attend = async () => {
     if(!isActivated) return
