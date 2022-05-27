@@ -19,11 +19,13 @@ const ParticipantSchema: Schema<IParticipant> = new Schema({
 export interface IAttendence extends Document {
   date: string,
   participants: IParticipant[],
+  meetingTime: string,
 }
 
 export const AttendenceSchema: Schema<IAttendence> = new Schema({
   date: String,
   participants: [ParticipantSchema],
+  meetingTime: String,
 }, {
   timestamps: true,
 })

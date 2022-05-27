@@ -5,7 +5,7 @@ import { BuiltInProviderType } from 'next-auth/providers';
 import { ClientSafeProvider, getProviders, getSession, LiteralUnion, signIn } from 'next-auth/react'
 import { useState } from 'react';
 import { getInterestingDate } from '../libs/dateUtils';
-import Logo from '../models/components/logo';
+import Logo from '../components/logo';
 
 const Login: NextPage<{
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>,

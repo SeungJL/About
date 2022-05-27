@@ -6,22 +6,14 @@ import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-import { getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
+import { canResultOpen, convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
-import TimePickerModal from '../../models/components/timePickerModel';
+import TimePickerModal from '../../components/timePickerModel';
+import ProfileImage from '../../components/profileImage';
 
 const GREEN = '#37b24d'
 const YELLOW = '#ffd43b'
-const dayEnToKr = {
-  'Sun': '일',
-  'Mon': '월',
-  'Tue': '화',
-  'Wed': '수',
-  'Thu': '목',
-  'Fri': '금',
-  'Sat': '토',
-}
 
 const Home: NextPage<{
   attendence: IAttendence
@@ -51,7 +43,7 @@ const Home: NextPage<{
   const progress = isStudyOpen ? 100 : attendence.participants.length / 3 * 100
   const progressColor = isStudyOpen ? GREEN : YELLOW
 
-  const dateKr = `${currentDate.format('YYYY년 MM월 DD일')}(${dayEnToKr[currentDate.format('ddd')]})`
+  const dateKr = convertToKr(currentDate)
 
   const attend = async () => {
     if(!isActivated) return
@@ -134,7 +126,7 @@ const Home: NextPage<{
               <Text fontSize='5xl'>{attendence.participants.length}명</Text>
               <Text>
                 {
-                  !isAttending ? '불참' : '참여중'
+                  !isAttending ? '미참' : '참여중'
                 }
               </Text>
             </VStack>
@@ -166,20 +158,18 @@ const Home: NextPage<{
                 flexDirection='row'
                 alignItems='center'
               >
-                <AspectRatio ratio={1 / 1} width='40px' marginRight='10px'>
-                  <Image 
-                    borderRadius='35%'
-                    src={p.img}
-                    alt={p.name}
-                  />
-                </AspectRatio>
+                <ProfileImage
+                  src={p.img}
+                  alt={p.name}
+                  marginRight='10px'
+                />
                 <Text fontWeight='600' fontSize='lg' display='inline'>{p.name}</Text>
               </Box>
               <Tag
                 width='4rem'
                 height='1.5rem'
                 textAlign='center'
-                colorScheme={p.time ? 'green' : 'red'}
+                colorScheme={p.time ? 'green' : 'yellow'}
                 borderRadius='full'
                 variant='solid'
                 onClick={(isActivated && session?.uid?.toString() === p.id) ? onOpen : null}
@@ -193,6 +183,29 @@ const Home: NextPage<{
       {
         isOpen && (
           <TimePickerModal dateStr={dateStr} isOpen={isOpen} onClose={onClose} setAttendence={setAttendence} />
+        )
+      }
+
+      {
+        canResultOpen() && (
+          <Box
+           width='100%'
+           display='flex'
+           position='fixed'
+           bottom='20px'
+          >
+            <Button
+              colorScheme='green'
+              variant='outline'
+              borderRadius='100px'
+              margin='auto auto'
+              onClick={() => {
+                router.push('/result')
+              }}
+            >
+              결과 보기
+          </Button>
+          </Box>
         )
       }
     </Box>

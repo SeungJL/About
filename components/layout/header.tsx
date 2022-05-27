@@ -2,8 +2,9 @@ import { AspectRatio, Box, Button, Heading, HStack, Image, Popover, PopoverArrow
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FC } from "react";
-import { getInterestingDate } from "../../../libs/dateUtils";
+import { getInterestingDate } from "../../libs/dateUtils";
 import Logo from "../logo";
+import ProfileImage from "../profileImage";
 
 const Header: FC = () => {
   const { data: session } = useSession()
@@ -25,14 +26,11 @@ const Header: FC = () => {
         <div style={{ zIndex: 100 }}>
           <Popover styleConfig={{ outerWidth: 'auto'}}>
             <PopoverTrigger>
-              <button>
-                <AspectRatio ratio={1 / 1} width='40px' marginRight='10px'>
-                  <Image 
-                    borderRadius='35%'
-                    src={session.user.image}
-                    alt={session.user.name}
-                  />
-                </AspectRatio>
+              <button style={{ marginRight: '10px' }}>
+                <ProfileImage
+                  src={session.user.image}
+                  alt={session.user.name}
+                />
               </button>
             </PopoverTrigger>
             <PopoverContent>
