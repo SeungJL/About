@@ -4,6 +4,7 @@ import dbConnect from '../../../../libs/dbConnect';
 import UpdateParticipants from '../../../../models/interface/updateParticipants';
 import { IAttendence, Attendence, IParticipant } from '../../../../models/attendence';
 import { getToken } from 'next-auth/jwt';
+import { getInterestingDate, strToDate } from '../../../../libs/dateUtils';
 
 const secret = process.env.NEXTAUTH_SECRET
 
@@ -11,7 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IAttendence>
 ) {
-  const date = req.query.date as string
+  const dateStr = req.query.date as string
   const { method, body } = req
   const token = await getToken({ req, secret })
 
@@ -19,7 +20,7 @@ export default async function handler(
     res.status(401)
   }
 
-  if(date && !dayjs(date, 'YYYY-MM-DD').isValid()) {
+  if(dateStr && !dayjs(dateStr, 'YYYY-MM-DD').isValid()) {
     res.status(400)
   }
 
@@ -28,7 +29,7 @@ export default async function handler(
   switch (method) {
     case 'POST':
       const newAttendence = new Attendence({
-        date,
+        date: dateStr,
         participant: [],
       })
 
@@ -37,9 +38,13 @@ export default async function handler(
       res.status(201).json(savedAttendence)
       break
     case 'GET':
-      await Attendence.findOne({ date })
+      console.log('daaa')
+      await Attendence.findOne({ date: dateStr })
       break
     case 'PATCH':
+      const isActivated = getInterestingDate() <= strToDate(dateStr)
+      if (!isActivated) res.status(400)
+
       const { operation, time } = body as UpdateParticipants
 
       const participant: IParticipant = {
@@ -50,11 +55,11 @@ export default async function handler(
       }
 
       if (operation === 'append') {
-        await Attendence.updateOne({ date }, { $push: { participants: participant } })
+        await Attendence.updateOne({ date: dateStr }, { $push: { participants: participant } })
       } else {
-        await Attendence.updateOne({ date }, { $pull: { participants: { id: participant.id } } })
+        await Attendence.updateOne({ date: dateStr }, { $pull: { participants: { id: participant.id } } })
       }
-      res.status(200).json(await Attendence.findOne({ date }) as IAttendence)
+      res.status(200).json(await Attendence.findOne({ date: dateStr }) as IAttendence)
       break
     default:
       res.status(400)

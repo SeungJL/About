@@ -1,10 +1,13 @@
 import { AspectRatio, Box, Button, Heading, HStack, Image, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Portal } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { FC } from "react";
+import { getInterestingDate } from "../../../libs/dateUtils";
 import Logo from "../logo";
 
 const Header: FC = () => {
   const { data: session } = useSession()
+  const router = useRouter()
 
   if (!session) 
     return (
@@ -16,7 +19,9 @@ const Header: FC = () => {
     <Box marginBottom='15px'>
       <HStack justifyContent='space-between' margin='5px' alignItems='center' >
         <Box width='40px' />
-        <Logo width='50' height='50' />
+        <Box onClick={() => router.push(`${getInterestingDate().format('YYYY-MM-DD')}`)}>
+          <Logo width='50' height='50' />
+        </Box>
         <Popover styleConfig={{ outerWidth: 'auto' }}>
           <PopoverTrigger>
             <button>

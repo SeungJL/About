@@ -1,13 +1,13 @@
-import { AspectRatio, Box, Button, Heading, Image, ListItem, Spinner, Tag, Text, UnorderedList, VStack } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Heading, HStack, Image, ListItem, Spinner, Tag, Text, UnorderedList, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import {useState} from 'react';
+import { useEffect, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-import { getInterestingDate } from '../../libs/dateUtils';
+import { getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
 
@@ -20,49 +20,71 @@ const Home: NextPage<{
   const router = useRouter()
   const { data: session } = useSession()
   const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
-  if (!attendence)
-    return (
-      <div>
-        Invalid Date
-      </div>
-    )
+  useEffect(() => {
+    setAttendence(attendenceParam)
+  }, [attendenceParam])
 
   const isAttending = attendence.participants.some(p => p.id === session?.uid?.toString())
-  const date = router.query.date as string
+  const dateStr = router.query.date as string
 
-  const attend = async () => {
-    setIsLoading(true)
-
-    const { data } = await axios.patch(`/api/attend/${date}`, {
-      operation: 'append',
-      time: '01:00',
-    })
-
-    setIsLoading(false)
-    setAttendence(data as IAttendence)
-  }
-
-  const absent = async () => {
-    setIsLoading(true)
-
-    const { data } = await axios.patch(`/api/attend/${date}`, {
-      operation: 'delete',
-    })
-
-    setIsLoading(false)
-    setAttendence(data as IAttendence)
-  }
-  const dateKr = `${date.substring(0, 4)}년 ${date.substring(5, 7)}월 ${date.substring(8)}일`
-
+  const dateKr = `${dateStr.substring(0, 4)}년 ${dateStr.substring(5, 7)}월 ${dateStr.substring(8)}일`
+  const nextDate = getNextDate(dateStr)
+  const previousDate = getPreviousDate(dateStr)
+  
+  const isActivated = getInterestingDate() <= strToDate(dateStr)
+  const canGoNextDay = nextDate <= getInterestingDate().add(1, 'day')
   const isOpen = attendence.participants.length >= 3
   const progress = isOpen ? 100 : attendence.participants.length / 3 * 100
   const progressColor = isOpen ? GREEN : YELLOW
 
+  const attend = async () => {
+    if(!isActivated) return
+    setLoading(true)
+
+    const { data } = await axios.patch(`/api/attend/${dateStr}`, {
+      operation: 'append',
+      time: '01:00',
+    })
+
+    setLoading(false)
+    setAttendence(data as IAttendence)
+  }
+
+  const absent = async () => {
+    if(!isActivated) return
+    setLoading(true)
+
+    const { data } = await axios.patch(`/api/attend/${dateStr}`, {
+      operation: 'delete',
+    })
+
+    setLoading(false)
+    setAttendence(data as IAttendence)
+  }
+
+  const onNextDay = async () => {
+    router.push(`/${nextDate.format('YYYY-MM-DD')}`)
+  }
+
+  const onPreviousDay = () => {
+    router.push(`/${previousDate.format('YYYY-MM-DD')}`)
+  }
+
   return (
     <Box>
-      <Heading as='h1' size='xl' width='100%' textAlign='center' >{dateKr}</Heading>
+      <HStack margin='0 10px'>
+        <Button size='sm' onClick={() => onPreviousDay()}>이전날</Button>
+        <Heading as='h1' size='lg' width='100%' textAlign='center' >{dateKr}</Heading>
+        <Button
+          size='sm'
+          disabled={!canGoNextDay}
+          onClick={() => onNextDay()}
+        >
+          다음날
+        </Button>
+      </HStack>
       <Box padding='20px 50px'>
         <CircularProgressbarWithChildren
           value={progress}
@@ -81,7 +103,7 @@ const Home: NextPage<{
             height='80%'
             borderRadius='100%'
             variant='solid'
-            isDisabled={isLoading}
+            isDisabled={isLoading || !isActivated}
             onClick={!isAttending ? attend : absent}
           >
             <VStack>
@@ -156,10 +178,10 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  const rawDate = (context.params?.date || '') as string
+  const rawDate = context.params.date as string
   await dbConnect()
-  
-  const date = dayjs(rawDate, 'YYYY-MM-DD')
+
+  const date = strToDate(rawDate)
   const interestingDate = getInterestingDate()
 
   if (!date.isValid()) {
@@ -171,10 +193,11 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
       props:{},
     }
   }
+
   const nullableAttendence = await Attendence.findOne({ date: rawDate })
   let attendence: IAttendence
   if (!nullableAttendence) {
-    if (date <= interestingDate) {
+    if (date <= interestingDate.add(1, 'day')) {
       const newAttendence = new Attendence({
         date: rawDate,
         participants: [],
@@ -194,6 +217,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   } else {
     attendence = nullableAttendence
   }
+
   const serializableAttendence = attendence.toObject()
   serializableAttendence._id = serializableAttendence._id.toString()
   serializableAttendence.createdAt = (serializableAttendence.createdAt as Date).toISOString()
