@@ -25,20 +25,35 @@ const Result: NextPage<{
 
   return (
     <VStack>
-      <Text fontSize='2xl'>{convertToKr(strToDate(date))}</Text>
+      <Text fontSize='3xl' marginBottom='20px'>{convertToKr(strToDate(date))}</Text>
       <HStack>
         {
-          participants.map((p) => (
-            <ProfileImage
-              key={p.id}
-              src={p.img}
-              alt={p.name}
-              width='60px'
-            />
+          participants.map((p, idx) => (
+            <Box margin='0'>
+
+              <ProfileImage
+                position='relative'
+                right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
+                key={p.id}
+                src={p.img}
+                alt={p.name}
+                width='60px'
+              />
+            </Box>
           ))
         }
       </HStack>
-      <Text fontSize='xl'>{studyTime}</Text>
+      <Box>
+        <Box width='fit-content' margin='0 auto'>
+          <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
+          <Text as='span' fontSize='2xl' color='purple'>커피빈 광교점</Text>
+          <Text as='span' fontSize='lg'>에서 </Text>
+        </Box>
+        <Box width='fit-content' margin='0 auto'>
+          <Text as='span' fontSize='2xl' color='#ff6b6b'>{strToTimeKr(studyTime)}</Text>
+          <Text as='span' fontSize='lg'>에 열려요! 👏👏👏</Text>
+        </Box>
+      </Box>
     </VStack>
   )
 }
@@ -110,12 +125,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
         return epochMinute
       })
-      .reduce((pre, cur, _) => pre < cur ? cur : pre)
+      .reduce((pre, cur, _) => pre < cur ? cur : pre, Number.MAX_VALUE)
 
-    const hour = Math.floor(rawStudyTime / 60)
-    const minute = rawStudyTime % 60
-
-    studyTime = `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute }`
+    if (rawStudyTime === Number.MAX_VALUE) { // 아무도 시간을 정하지 않은 경우
+      studyTime = '01:00'
+    } else {
+      const hour = Math.floor(rawStudyTime / 60)
+      const minute = rawStudyTime % 60
+  
+      studyTime = `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute }`  
+    }
 
     await Attendence.updateOne({date: interestingDate.format('YYYY-MM-DD')}, {
       $set: {
@@ -132,6 +151,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       participants: JSON.stringify(attendence.participants),
     },
   }
+}
+
+const strToTimeKr = (rawTime: string) => {
+  if (rawTime === '' || rawTime.split(':').length !== 2) return ''
+
+  const hour = parseInt(rawTime.substring(0, 2))
+  const minute = rawTime.substring(3)
+
+  return `${hour < 12 ? '오전' :'오후'} ${hour > 12 ? hour-12 : hour}시${minute}분`
 }
 
 export default Result
