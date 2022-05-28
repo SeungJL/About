@@ -5,6 +5,7 @@ export interface IParticipant {
   id: string,
   name: string,
   time: string,
+  place: string,
   img: string,
 }
 
@@ -12,6 +13,7 @@ const ParticipantSchema: Schema<IParticipant> = new Schema({
   id: String,
   name: String,
   time: String,
+  place: String,
   img: String,
 }, { _id: false })
 

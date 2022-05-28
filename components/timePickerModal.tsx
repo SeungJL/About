@@ -13,9 +13,6 @@ const TimePickerModal: FC<{
   dateStr: string,
   setAttendence: (attendence: IAttendence) => void
 }> = ({ isOpen, onClose, dateStr, setAttendence }) => {
-  const time = useRef('')
-
-  
 
   const onSubmit = async (values: { hour: string, minute: string }, action: FormikHelpers<{ hour: string, minute: string }>) => {
     const hour = values.hour.length < 2 ? `0${values.hour}` : values.hour

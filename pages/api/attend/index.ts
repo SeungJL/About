@@ -27,12 +27,13 @@ export default async function handler(
       res.status(200).json(participation)
       break
     case 'PATCH':
-      const { operation, time } = body as UpdateParticipants
+      const { operation, time, place } = body as UpdateParticipants
 
       const participant: IParticipant = {
         id: token?.uid as string || '',
         name: token?.name || '',
         time: time || '',
+        place: place || '',
         img: token?.picture || '',
       }
 

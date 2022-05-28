@@ -45,12 +45,13 @@ export default async function handler(
       const isActivated = getInterestingDate() <= strToDate(dateStr)
       if (!isActivated) res.status(400)
 
-      const { operation, time } = body as UpdateParticipants
+      const { operation, time, place } = body as UpdateParticipants
 
       const participant: IParticipant = {
         id: token.uid as string,
         name: token.name,
         time: time || '',
+        place: place || '',
         img: token.picture,
       }
 
@@ -60,8 +61,13 @@ export default async function handler(
           break
         case 'delete':
           await Attendence.updateOne({ date: dateStr }, { $pull: { participants: { id: participant.id } } })
+          break
         case 'time_update':
           await Attendence.updateOne({ date: dateStr, "participants.id": participant.id }, {'participants.$.time': time})
+          break
+        case 'place_update':
+          await Attendence.updateOne({ date: dateStr, "participants.id": participant.id }, {'participants.$.place': place})
+          break
       }
       res.status(200).json(await Attendence.findOne({ date: dateStr }) as IAttendence)
       break

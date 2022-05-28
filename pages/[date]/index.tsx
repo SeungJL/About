@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, AspectRatio, Box, Button, Heading, HStack, Image, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Heading, HStack, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
@@ -9,11 +9,11 @@ import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-pro
 import { canShowResult, convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
-import TimePickerModal from '../../components/timePickerModel';
+import TimePickerModal from '../../components/timePickerModal';
 import ProfileImage from '../../components/profileImage';
-
-const GREEN = '#37b24d'
-const YELLOW = '#ffd43b'
+import PlacePickerModal from '../../components/placePickerModal';
+import { getPlaceColor } from '../../libs/placeUtils';
+import { Colors } from '../../libs/colors';
 
 const Home: NextPage<{
   attendence: IAttendence
@@ -22,7 +22,16 @@ const Home: NextPage<{
   const { data: session } = useSession()
   const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
   const [isLoading, setLoading] = useState(false)
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const {
+    isOpen: isTimePickerModalOpen,
+    onOpen: onTimePickerModalOpen,
+    onClose: onTimePickerModalClose
+  } = useDisclosure()
+  const {
+    isOpen: isPlacePickerModalOpen,
+    onOpen: onPlacePickerModalOpen,
+    onClose: onPlacePickerModalClose,
+  } = useDisclosure()
 
   useEffect(() => {
     setAttendence(attendenceParam)
@@ -40,8 +49,9 @@ const Home: NextPage<{
   const isAccessibleNextDay = nextDate.unix() <= interestingDate.add(1, 'day').unix()
   const isStudyOpen = attendence.participants.length >= 3
   const isSetTime = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.time !== ''
+  const isSetPlace = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.place !== ''
   const progress = isStudyOpen ? 100 : attendence.participants.length / 3 * 100
-  const progressColor = isStudyOpen ? GREEN : YELLOW
+  const progressColor = isStudyOpen ? Colors.green : Colors.yellow
 
   const dateKr = convertToKr(currentDate)
 
@@ -138,7 +148,31 @@ const Home: NextPage<{
         (isAttending && !isSetTime) && (
           <Alert status='warning'>
             <AlertIcon />
-            아직 시간을 지정하지 않았어요!
+            시간을 선택하지 않았어요!
+            <Button
+              marginLeft='auto'
+              variant='link'
+              colorScheme='black'
+              onClick={onTimePickerModalOpen}
+            >
+              시간 선택
+            </Button>
+          </Alert>
+        )
+      }
+      {
+        (isAttending && !isSetPlace) && (
+          <Alert status='warning'>
+            <AlertIcon />
+            장소를 선택하지 않았어요!
+            <Button
+              marginLeft='auto'
+              variant='link'
+              colorScheme='black'
+              onClick={onPlacePickerModalOpen}
+            >
+              장소 선택
+            </Button>
           </Alert>
         )
       }
@@ -168,24 +202,47 @@ const Home: NextPage<{
               <Tag
                 width='4rem'
                 height='1.5rem'
-                textAlign='center'
-                colorScheme={p.time ? 'green' : 'yellow'}
-                borderRadius='full'
+                marginRight='5px'
+                colorScheme={getPlaceColor(p.place)}
                 variant='solid'
-                onClick={(isActivated && session?.uid?.toString() === p.id) ? onOpen : null}
+                onClick={(isActivated && session?.uid?.toString() === p.id) ? onPlacePickerModalOpen : null}
+                visibility={p.place ? 'visible' : 'collapse'}
               >
-                <Text margin='auto' fontSize='lg'>{p.time || '-'}</Text>
+                <Text margin='auto' align='center' fontSize='lg'>{p.place}</Text>
+              </Tag>
+              <Tag
+                width='4rem'
+                height='1.5rem'
+                colorScheme={p.time ? 'green' : 'yellow'}
+                variant='solid'
+                onClick={(isActivated && session?.uid?.toString() === p.id) ? onTimePickerModalOpen : null}
+              >
+                <Text margin='auto' align='center' fontSize='lg'>{p.time || '-'}</Text>
               </Tag>
             </ListItem>
           ))
         }
       </UnorderedList>
       {
-        isOpen && (
-          <TimePickerModal dateStr={dateStr} isOpen={isOpen} onClose={onClose} setAttendence={setAttendence} />
+        isTimePickerModalOpen && (
+          <TimePickerModal
+            dateStr={dateStr}
+            isOpen={isTimePickerModalOpen}
+            onClose={onTimePickerModalClose}
+            setAttendence={setAttendence}
+          />
         )
       }
-
+      {
+        isPlacePickerModalOpen && (
+          <PlacePickerModal
+            dateStr={dateStr}
+            isOpen={isPlacePickerModalOpen}
+            onClose={onPlacePickerModalClose}
+            setAttendence={setAttendence}
+          />
+        )
+      }
       {
         canShowResult() && (
           <Box
