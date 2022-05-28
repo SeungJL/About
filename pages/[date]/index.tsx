@@ -6,7 +6,7 @@ import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-import { canResultOpen, convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
+import { canShowResult, convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
 import TimePickerModal from '../../components/timePickerModel';
@@ -187,7 +187,7 @@ const Home: NextPage<{
       }
 
       {
-        canResultOpen() && (
+        canShowResult() && (
           <Box
            width='100%'
            display='flex'

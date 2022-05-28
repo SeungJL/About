@@ -2,7 +2,7 @@ import { Box, VStack, Text, HStack } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession } from "next-auth/react"
 import ProfileImage from "../../components/profileImage"
-import { canResultOpen, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
+import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
 import { Attendence, IParticipant } from "../../models/attendence"
 
@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await dbConnect()
 
   const interestingDate = getInterestingDate()
-  const canIResultOpen = canResultOpen()
+  const canIResultOpen = canShowResult()
   if (!canIResultOpen) {
     return {
       redirect: {

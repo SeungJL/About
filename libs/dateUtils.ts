@@ -45,12 +45,12 @@ export const getPreviousDate = (dateStr: string) => {
 export const convertToKr = (date: Dayjs) => 
   `${date.format('YYYY년 MM월 DD일')}(${dayEnToKr[date.format('ddd')]})`
 
-export const canResultOpen = () => {
+export const canShowResult = () => {
   const now = dayjs().tz(TZ_SEOUL)
 
   const interestingDate = getInterestingDate()
-  const resultOpenTime = interestingDate.hour(23)
-  const resultCloseTime = interestingDate.add(1, 'day').hour(3)
+  const resultOpenTime = interestingDate.add(-1, 'day').hour(23)
+  const resultCloseTime = interestingDate.hour(15)
 
   return resultOpenTime <= now && now < resultCloseTime
 }
