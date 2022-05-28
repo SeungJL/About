@@ -29,8 +29,7 @@ const Result: NextPage<{
       <HStack>
         {
           participants.map((p, idx) => (
-            <Box margin='0'>
-
+            <Box key={p.id} margin='0'>
               <ProfileImage
                 position='relative'
                 right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
