@@ -12,14 +12,26 @@ const placeToColorScheme = {
   '': 'yellow' ,
 }
 
+const placeToImg = {
+  '커피빈': 'https://play-lh.googleusercontent.com/VJUZEoZtShO4aTHR4xSfLLGlYwP5fys_tU5qEsMoW1pIpo9FRZo90AMUzlEaOOcN3zHR=w480-h960-rw',
+  '아티제': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3Bs1bVw29kO7DfbwiJ-IeXe2JJBwkxnnKC6Ta_zprJmRPiHsmrB-_zMuQMMqbxepYWIo&usqp=CAU'
+}
+
 export const getPlaces = () => {
   return Object.keys(placeToColorScheme)
     .filter((p) => p !== '')
 }
 
 export const getPlaceColor = (place: string) => {
-  if (place in placeToColorScheme)
-    return placeToColorScheme[place]
+  if (place in placeToColor)
+    return placeToColor[place]
   
-  return placeToColorScheme['']
+  return placeToColor['']
+}
+
+export const getPlaceImg = (place: string) => {
+  if (place in placeToImg)
+    return placeToImg[place]
+  
+  return ''
 }

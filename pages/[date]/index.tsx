@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Button, Heading, HStack, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
+import { Alert, AlertIcon, AspectRatio, Box, Button, Heading, HStack, Image, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
@@ -12,7 +12,7 @@ import { IAttendence, Attendence } from '../../models/attendence';
 import TimePickerModal from '../../components/timePickerModal';
 import ProfileImage from '../../components/profileImage';
 import PlacePickerModal from '../../components/placePickerModal';
-import { getPlaceColor } from '../../libs/placeUtils';
+import { getPlaceColor, getPlaceImg } from '../../libs/placeUtils';
 import { Colors } from '../../libs/colors';
 
 const Home: NextPage<{
@@ -121,6 +121,12 @@ const Home: NextPage<{
             height='80%'
             borderRadius='100%'
             variant='solid'
+            background='none'
+            sx={{
+              ':hover': {
+                background: 'none'
+              }
+            }}
             isDisabled={isLoading || !isActivated}
             onClick={!isAttending ? attend : absent}
           >
@@ -145,7 +151,7 @@ const Home: NextPage<{
         </CircularProgressbarWithChildren>
       </Box>
       {
-        (isAttending && !isSetTime) && (
+        (isActivated && isAttending && !isSetTime) && (
           <Alert status='warning'>
             <AlertIcon />
             시간을 선택하지 않았어요!
@@ -161,7 +167,7 @@ const Home: NextPage<{
         )
       }
       {
-        (isAttending && !isSetPlace) && (
+        (isActivated && isAttending && !isSetPlace) && (
           <Alert status='warning'>
             <AlertIcon />
             장소를 선택하지 않았어요!
@@ -199,22 +205,25 @@ const Home: NextPage<{
                 />
                 <Text fontWeight='600' fontSize='lg' display='inline'>{p.name}</Text>
               </Box>
+              <Box
+                  height='1.8em'
+                  width='1.8em'
+                  visibility={p.place ? 'visible' : 'hidden'}
+                  borderRadius='0.375rem'
+                  marginRight='4px'
+                  boxShadow={`0px 0px 0px 0.15em ${getPlaceColor(p.place)} inset`}
+                  onClick={(isActivated && session?.uid?.toString() === p.id) ? onPlacePickerModalOpen: null}
+                  backgroundImage={`url('${getPlaceImg(p.place)}')`}
+                  backgroundSize='2em'
+                  backgroundPosition='center'
+                  cursor='pointer'
+              />
               <Tag
-                width='4rem'
-                height='1.5rem'
-                marginRight='5px'
-                colorScheme={getPlaceColor(p.place)}
-                variant='solid'
-                onClick={(isActivated && session?.uid?.toString() === p.id) ? onPlacePickerModalOpen : null}
-                visibility={p.place ? 'visible' : 'collapse'}
-              >
-                <Text margin='auto' align='center' fontSize='lg'>{p.place}</Text>
-              </Tag>
-              <Tag
-                width='4rem'
-                height='1.5rem'
+                width='4.5em'
+                height='2em'
                 colorScheme={p.time ? 'green' : 'yellow'}
                 variant='solid'
+                cursor='pointer'
                 onClick={(isActivated && session?.uid?.toString() === p.id) ? onTimePickerModalOpen : null}
               >
                 <Text margin='auto' align='center' fontSize='lg'>{p.time || '-'}</Text>
