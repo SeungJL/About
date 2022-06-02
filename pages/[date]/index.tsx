@@ -42,12 +42,11 @@ const Home: NextPage<{
   const isAttending = useMemo(() => attendence.participants.some(p => p.id === session?.uid?.toString()), [attendence])
 
   const [
-    currentDate,
     nextDate,
     previousDate,
     dateKr,
     isActivated,
-    visibility,
+    isAccessibleNextDay,
   ] = useMemo(() => {
     const interestingDate = getInterestingDate()
     const nextDate = getNextDate(dateStr)
@@ -55,12 +54,11 @@ const Home: NextPage<{
     const currentDate = strToDate(dateStr)
 
     return [
-      currentDate,
       nextDate,
       getPreviousDate(dateStr),
       convertToKr(currentDate),
       interestingDate <= currentDate,
-      isAccessibleNextDay ? 'visible' : 'hidden',  
+      isAccessibleNextDay,  
     ]
   }, [dateStr])
 
@@ -124,7 +122,7 @@ const Home: NextPage<{
         <Button size='sm' onClick={() => onPreviousDay()}>이전날</Button>
         <Heading as='h1' size='lg' width='100%' textAlign='center' >{dateKr}</Heading>
         <Button
-          visibility={visibility}
+          visibility={isAccessibleNextDay ? 'visible' : 'hidden'}
           size='sm'
           onClick={() => onNextDay()}
         >
