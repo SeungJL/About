@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { canShowResult, convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
 import dbConnect from '../../libs/dbConnect';
@@ -37,25 +37,55 @@ const Home: NextPage<{
     setAttendence(attendenceParam)
   }, [attendenceParam])
 
-  const isAttending = attendence.participants.some(p => p.id === session?.uid?.toString())
   const dateStr = router.query.date as string
 
-  const currentDate = strToDate(dateStr)
-  const nextDate = getNextDate(dateStr)
-  const previousDate = getPreviousDate(dateStr)
-  const interestingDate = getInterestingDate()
-  
-  const isActivated = interestingDate <= currentDate
-  const isAccessibleNextDay = nextDate.unix() <= interestingDate.add(1, 'day').unix()
-  const isStudyOpen = attendence.participants.length >= 3
-  const isSetTime = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.time !== ''
-  const isSetPlace = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.place !== ''
-  const progress = isStudyOpen ? 100 : attendence.participants.length / 3 * 100
-  const progressColor = isStudyOpen ? Colors.green : Colors.yellow
+  const isAttending = useMemo(() => attendence.participants.some(p => p.id === session?.uid?.toString()), [attendence])
 
-  const dateKr = convertToKr(currentDate)
+  const [
+    currentDate,
+    nextDate,
+    previousDate,
+    dateKr,
+    isActivated,
+    visibility,
+  ] = useMemo(() => {
+    const interestingDate = getInterestingDate()
+    const nextDate = getNextDate(dateStr)
+    const isAccessibleNextDay = nextDate.unix() <= interestingDate.add(1, 'day').unix()
+    const currentDate = strToDate(dateStr)
 
-  const attend = async () => {
+    return [
+      currentDate,
+      nextDate,
+      getPreviousDate(dateStr),
+      convertToKr(currentDate),
+      interestingDate <= currentDate,
+      isAccessibleNextDay ? 'visible' : 'hidden',  
+    ]
+  }, [dateStr])
+
+  const [
+    isSetTime,
+    isSetPlace,
+    progress,
+    progressColor,
+  ] = useMemo(() => {
+
+    const isStudyOpen = attendence.participants.length >= 3
+    const isSetTime = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.time !== ''
+    const isSetPlace = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.place !== ''
+    const progress = isStudyOpen ? 100 : attendence.participants.length / 3 * 100
+    const progressColor = isStudyOpen ? Colors.green : Colors.yellow
+
+    return [
+      isSetTime,
+      isSetPlace,
+      progress,
+      progressColor,
+    ]
+  }, [attendence])
+
+  const attend = useCallback(async () => {
     if(!isActivated) return
     setLoading(true)
 
@@ -66,9 +96,9 @@ const Home: NextPage<{
 
     setLoading(false)
     setAttendence(data as IAttendence)
-  }
+  }, [])
 
-  const absent = async () => {
+  const absent = useCallback(async () => {
     if(!isActivated) return
     setLoading(true)
 
@@ -78,17 +108,15 @@ const Home: NextPage<{
 
     setLoading(false)
     setAttendence(data as IAttendence)
-  }
+  }, [])
 
-  const onNextDay = async () => {
+  const onNextDay = useCallback(async () => {
     router.push(`/${nextDate.format('YYYY-MM-DD')}`)
-  }
+  }, [dateStr])
 
-  const onPreviousDay = () => {
+  const onPreviousDay = useCallback(() => {
     router.push(`/${previousDate.format('YYYY-MM-DD')}`)
-  }
-
-  const visibility = isAccessibleNextDay ? 'visible' : 'hidden'
+  }, [dateStr])
 
   return (
     <Box>
