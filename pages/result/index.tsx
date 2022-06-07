@@ -5,6 +5,7 @@ import ProfileImage from "../../components/profileImage"
 import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
 import { Attendence, IParticipant } from "../../models/attendence"
+import { IUser } from "../../models/user"
 
 const Result: NextPage<{
   isOpen: boolean,
@@ -29,13 +30,13 @@ const Result: NextPage<{
       <HStack>
         {
           participants.map((p, idx) => (
-            <Box key={p.id} margin='0'>
+            <Box key={(p.user as IUser).id} margin='0'>
               <ProfileImage
                 position='relative'
                 right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
-                key={p.id}
-                src={p.img}
-                alt={p.name}
+                key={(p.user as IUser).uid}
+                src={(p.user as IUser).thumbnailImage}
+                alt={(p.user as IUser).name}
                 width='60px'
               />
             </Box>
@@ -71,8 +72,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await dbConnect()
 
   const interestingDate = getInterestingDate()
-  const canIResultOpen = canShowResult()
-  if (!canIResultOpen) {
+  const canWeResultOpen = canShowResult()
+  if (!canWeResultOpen) {
     return {
       redirect: {
         permanent: false,
@@ -82,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  let attendence = await Attendence.findOne({ date: interestingDate.format('YYYY-MM-DD') })
+  let attendence = await Attendence.findOne({ date: interestingDate.format('YYYY-MM-DD') }).populate('participants.user')
   if (!attendence) {
     const newAttendence = new Attendence({
       date: interestingDate,
