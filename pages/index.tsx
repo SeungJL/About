@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
@@ -9,6 +8,15 @@ const Root: NextPage = () => <div />
 export const getServerSideProps: GetServerSideProps = async ( context )=> {
   const session = await getSession({ req: context.req })
   if (session) {
+    if (!['member', 'previliged'].includes(session.role as string)) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/unauthorized',
+        }
+      }
+    }
+
     const today = getInterestingDate()
 
     return {

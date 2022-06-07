@@ -69,6 +69,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {},
     }
   }
+
+  if (!['member', 'previliged'].includes(session.role as string)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/unauthorized',
+      }
+    }
+  }
+
   await dbConnect()
 
   const interestingDate = getInterestingDate()
