@@ -4,6 +4,7 @@ import KakaoProvider from 'next-auth/providers/kakao'
 import clientPromise from '../../../libs/mongodb';
 import axios from 'axios';
 import { User } from '../../../models/user';
+import dbConnect from '../../../libs/dbConnect';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -47,6 +48,8 @@ export default NextAuth({
       if (res.status !== 200) {
         return false
       }
+
+      await dbConnect()
 
       await User.updateOne({uid: user.uid}, {$set: {
         name: res.data.nickName,
