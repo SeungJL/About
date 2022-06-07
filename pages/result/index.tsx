@@ -93,10 +93,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  let attendence = await Attendence.findOne({ date: interestingDate.format('YYYY-MM-DD') }).populate('participants.user')
+  let attendence = await Attendence.findOne({ date: interestingDate.toDate() }).populate('participants.user')
   if (!attendence) {
     const newAttendence = new Attendence({
-      date: interestingDate,
+      date: interestingDate.toDate(),
       participants: [],
       meetingTime: '',
     })
@@ -105,7 +105,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (attendence.participants.length < 3) {
     if (attendence.meetingTime !== '') {
-      await Attendence.updateOne({date: interestingDate.format('YYYY-MM-DD')}, {
+      await Attendence.updateOne({date: interestingDate.toDate()}, {
         $set: {
           meetingTime: '',
         }
@@ -115,7 +115,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         isOpen: false,
         studyTime: '',
-        date: interestingDate.format('YYYY-MM-DD'),
+        date: interestingDate.toISOString(),
         participants: '[]',
       }
     }
@@ -146,7 +146,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       studyTime = `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute }`  
     }
 
-    await Attendence.updateOne({date: interestingDate.format('YYYY-MM-DD')}, {
+    await Attendence.updateOne({date: interestingDate.toDate()}, {
       $set: {
         meetingTime: studyTime,
       }
@@ -157,7 +157,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       isOpen: true,
       studyTime,
-      date: interestingDate.format('YYYY-MM-DD'),
+      date: interestingDate.toISOString(),
       participants: JSON.stringify(attendence.participants),
     },
   }

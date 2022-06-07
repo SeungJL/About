@@ -15,12 +15,15 @@ import PlacePickerModal from '../../components/placePickerModal';
 import { getPlaceColor, getPlaceImg } from '../../libs/placeUtils';
 import { Colors } from '../../libs/colors';
 import { IUser } from '../../models/user';
+import UserInfoModal from '../../components/userInfoModal';
 
 const Home: NextPage<{
   attendence: IAttendence
 }> = ({ attendence: attendenceParam }) => {
   const router = useRouter()
   const { data: session } = useSession()
+
+  attendenceParam.date = new Date(attendenceParam.date)
   const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
   const [isLoading, setLoading] = useState(false)
   const {
@@ -33,8 +36,14 @@ const Home: NextPage<{
     onOpen: onPlacePickerModalOpen,
     onClose: onPlacePickerModalClose,
   } = useDisclosure()
+  const {
+    isOpen: isUserInfoModalOpen,
+    onOpen: onUserInfoModalOpen,
+    onClose: onUserInfoModalClose,
+  } = useDisclosure()
 
   useEffect(() => {
+    attendenceParam.date = new Date(attendenceParam.date)
     setAttendence(attendenceParam)
   }, [attendenceParam])
 
@@ -232,6 +241,7 @@ const Home: NextPage<{
                   src={(p.user as IUser).thumbnailImage}
                   alt={(p.user as IUser).name}
                   marginRight='10px'
+                  onClick={onUserInfoModalOpen}
                 />
                 <Text fontWeight='600' fontSize='lg' display='inline'>{(p.user as IUser).name}</Text>
               </Box>
@@ -279,6 +289,16 @@ const Home: NextPage<{
             isOpen={isPlacePickerModalOpen}
             onClose={onPlacePickerModalClose}
             setAttendence={setAttendence}
+          />
+        )
+      }
+      {
+        isUserInfoModalOpen && (
+          <UserInfoModal
+            isOpen={isUserInfoModalOpen}
+            onClose={onUserInfoModalClose}
+            userName={'도형림'}
+            userId={'2255707346'}
           />
         )
       }
@@ -344,12 +364,12 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  const nullableAttendence = await Attendence.findOne({ date: rawDate }).populate('participants.user')
+  const nullableAttendence = await Attendence.findOne({ date }).populate('participants.user')
   let attendence: IAttendence
   if (!nullableAttendence) {
     if (date <= interestingDate.add(1, 'day')) {
       const newAttendence = new Attendence({
-        date: rawDate,
+        date,
         participants: [],
       })
 
@@ -380,6 +400,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     } as IUser
     return p
   })
+  serializableAttendence.date = (serializableAttendence.date as Date).toISOString()
   serializableAttendence.createdAt = (serializableAttendence.createdAt as Date).toISOString()
   serializableAttendence.updatedAt = (serializableAttendence.updatedAt as Date).toISOString()
 

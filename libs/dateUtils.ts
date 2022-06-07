@@ -21,6 +21,12 @@ export const strToDate = (dateStr: string) => {
   return dayjs(dateStr, 'YYYY-MM-DD').tz(TZ_SEOUL)
 }
 
+export const getToday = () => {
+  const currentTime = dayjs().tz(TZ_SEOUL)
+
+  return dayjs().tz(TZ_SEOUL).startOf('day')
+}
+
 export const getInterestingDate = () => {
   const currentTime = dayjs().tz(TZ_SEOUL)
   const today = dayjs().tz(TZ_SEOUL).startOf('day')

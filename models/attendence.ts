@@ -1,4 +1,4 @@
-import mongoose, {model, Schema, Document, Model} from 'mongoose'
+import mongoose, {model, Schema, Document, Model, Types} from 'mongoose'
 import { IUser } from './user'
 
 
@@ -19,15 +19,18 @@ const ParticipantSchema: Schema<IParticipant> = new Schema({
 
 
 export interface IAttendence extends Document {
-  date: string,
+  date: Date,
   participants: IParticipant[],
   meetingTime: string,
 }
 
 export const AttendenceSchema: Schema<IAttendence> = new Schema({
-  date: String,
+  date: Date,
   participants: [ParticipantSchema],
-  meetingTime: String,
+  meetingTime: {
+    type: String,
+    default: '',
+  },
 }, {
   timestamps: true,
 })
