@@ -1,6 +1,10 @@
 {
   "name": "votehelper",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.13.1",
+    "npm": "8.1.2"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
