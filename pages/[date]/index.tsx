@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, AspectRatio, Box, Button, Heading, HStack, Image, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Heading, HStack, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next';
@@ -14,6 +14,7 @@ import ProfileImage from '../../components/profileImage';
 import PlacePickerModal from '../../components/placePickerModal';
 import { getPlaceColor, getPlaceImg } from '../../libs/placeUtils';
 import { Colors } from '../../libs/colors';
+import { IUser } from '../../models/user';
 
 const Home: NextPage<{
   attendence: IAttendence
@@ -39,7 +40,16 @@ const Home: NextPage<{
 
   const dateStr = router.query.date as string
 
-  const isAttending = useMemo(() => attendence.participants.some(p => p.id === session?.uid?.toString()), [attendence])
+  const [isAttending, isSetTime, isSetPlace] = useMemo(
+    () => {
+      const attending = attendence.participants.some(p => (p.user as IUser).uid === session?.uid?.toString())
+      const setTime = attendence.participants.find((p) => ((p.user as IUser).uid == session?.uid?.toString()))?.time !== ''
+      const setPlace = attendence.participants.find((p) => ((p.user as IUser).uid == session?.uid?.toString()))?.place !== ''
+
+      return [attending, setTime, setPlace]
+    },
+    [attendence, session],
+  )
 
   const [
     nextDate,
@@ -63,21 +73,15 @@ const Home: NextPage<{
   }, [dateStr])
 
   const [
-    isSetTime,
-    isSetPlace,
     progress,
     progressColor,
   ] = useMemo(() => {
 
     const isStudyOpen = attendence.participants.length >= 3
-    const isSetTime = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.time !== ''
-    const isSetPlace = attendence.participants.find((p) => (p.id == session?.uid?.toString()))?.place !== ''
     const progress = isStudyOpen ? 100 : attendence.participants.length / 3 * 100
     const progressColor = isStudyOpen ? Colors.green : Colors.yellow
 
     return [
-      isSetTime,
-      isSetPlace,
       progress,
       progressColor,
     ]
@@ -212,7 +216,7 @@ const Home: NextPage<{
         {
           attendence.participants.map(p => (
             <ListItem
-              key={p.id}
+              key={(p.user as IUser).uid}
               display='flex'
               justifyItems='space-between'
               alignItems='center'
@@ -225,11 +229,11 @@ const Home: NextPage<{
                 alignItems='center'
               >
                 <ProfileImage
-                  src={p.img}
-                  alt={p.name}
+                  src={(p.user as IUser).thumbnailImage}
+                  alt={(p.user as IUser).name}
                   marginRight='10px'
                 />
-                <Text fontWeight='600' fontSize='lg' display='inline'>{p.name}</Text>
+                <Text fontWeight='600' fontSize='lg' display='inline'>{(p.user as IUser).name}</Text>
               </Box>
               <Box
                   height='1.8em'
@@ -238,7 +242,7 @@ const Home: NextPage<{
                   borderRadius='0.375rem'
                   marginRight='4px'
                   boxShadow={`0px 0px 0px 0.15em ${getPlaceColor(p.place)} inset`}
-                  onClick={(isActivated && session?.uid?.toString() === p.id) ? onPlacePickerModalOpen: null}
+                  onClick={(isActivated && session?.uid?.toString() === (p.user as IUser).uid) ? onPlacePickerModalOpen: null}
                   backgroundImage={`url('${getPlaceImg(p.place)}')`}
                   backgroundSize='2em'
                   backgroundPosition='center'
@@ -250,7 +254,7 @@ const Home: NextPage<{
                 colorScheme={p.time ? 'green' : 'yellow'}
                 variant='solid'
                 cursor='pointer'
-                onClick={(isActivated && session?.uid?.toString() === p.id) ? onTimePickerModalOpen : null}
+                onClick={(isActivated && session?.uid?.toString() === (p.user as IUser).uid) ? onTimePickerModalOpen : null}
               >
                 <Text margin='auto' align='center' fontSize='lg'>{p.time || '-'}</Text>
               </Tag>
@@ -332,7 +336,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  const nullableAttendence = await Attendence.findOne({ date: rawDate })
+  const nullableAttendence = await Attendence.findOne({ date: rawDate }).populate('participants.user')
   let attendence: IAttendence
   if (!nullableAttendence) {
     if (date <= interestingDate.add(1, 'day')) {
@@ -355,9 +359,19 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   } else {
     attendence = nullableAttendence
   }
-
   const serializableAttendence = attendence.toObject()
   serializableAttendence._id = serializableAttendence._id.toString()
+  serializableAttendence.participants = serializableAttendence.participants.map((p) => {
+    p.user = {
+      uid: p.user.uid,
+      name: p.user.name,
+      email: p.user.email,
+      thumbnailImage: p.user.thumbnailImage,
+      profileImage: p.user.profileImage,
+      role: p.user.role,
+    } as IUser
+    return p
+  })
   serializableAttendence.createdAt = (serializableAttendence.createdAt as Date).toISOString()
   serializableAttendence.updatedAt = (serializableAttendence.updatedAt as Date).toISOString()
 

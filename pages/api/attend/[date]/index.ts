@@ -38,7 +38,6 @@ export default async function handler(
       res.status(201).json(savedAttendence)
       break
     case 'GET':
-      console.log('daaa')
       await Attendence.findOne({ date: dateStr })
       break
     case 'PATCH':
@@ -48,28 +47,30 @@ export default async function handler(
       const { operation, time, place } = body as UpdateParticipants
 
       const participant: IParticipant = {
-        id: token.uid as string,
-        name: token.name,
+        user: token.id as string,
         time: time || '',
         place: place || '',
-        img: token.picture,
       }
 
       switch (operation) {
         case 'append':
+          const isExisting = await Attendence.findOne({date: dateStr, participants: {$elemMatch: {user: participant.user}}})
+          if (isExisting) {
+            break
+          }
           await Attendence.updateOne({ date: dateStr }, { $push: { participants: participant } })
           break
         case 'delete':
-          await Attendence.updateOne({ date: dateStr }, { $pull: { participants: { id: participant.id } } })
+          await Attendence.updateOne({ date: dateStr }, { $pull: { participants: {user: participant.user}} })
           break
         case 'time_update':
-          await Attendence.updateOne({ date: dateStr, "participants.id": participant.id }, {'participants.$.time': time})
+          await Attendence.updateOne({ date: dateStr, "participants.user": participant.user }, {'participants.$.time': time})
           break
         case 'place_update':
-          await Attendence.updateOne({ date: dateStr, "participants.id": participant.id }, {'participants.$.place': place})
+          await Attendence.updateOne({ date: dateStr, "participants.user": participant.user }, {'participants.$.place': place})
           break
       }
-      res.status(200).json(await Attendence.findOne({ date: dateStr }) as IAttendence)
+      res.status(200).json(await Attendence.findOne({ date: dateStr }).populate('participants.user') as IAttendence)
       break
     default:
       res.status(400)

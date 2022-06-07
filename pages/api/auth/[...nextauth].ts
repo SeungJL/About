@@ -1,8 +1,9 @@
-import { NextApiHandler } from 'next'
 import NextAuth from 'next-auth'
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import KakaoProvider from 'next-auth/providers/kakao'
 import clientPromise from '../../../libs/mongodb';
+import axios from 'axios';
+import { User } from '../../../models/user';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -10,31 +11,67 @@ export default NextAuth({
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID as string,
       clientSecret: process.env.KAKAO_CLIENT_SECRET as string,
+      profile: (profile) => ({
+        id: profile.id.toString(),
+        uid: profile.id.toString(),
+        name: profile.properties.nickname,
+        role: 'stranger',
+        thumbnailImage: profile.properties.thumbnail_image,
+        profileImage: profile.properties.profile_image,
+      }),
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
+    updateAge: 3 * 24 * 60 * 60, // 3 days
   },
   pages: {
     signIn: '/login',
   },
   callbacks: {
+    async signIn({ user, account }) {
+      const accessToken = account.access_token
+
+      if (!accessToken) {
+        return false
+      }
+
+      const res = await axios.get('https://kapi.kakao.com/v1/api/talk/profile', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
+
+      if (res.status !== 200) {
+        return false
+      }
+      
+      await User.updateOne({uid: user.uid}, {$set: {
+        name: res.data.nickName,
+        thumbnailImage: res.data.thumbnailURL,
+        profileImage: res.data.profileImageURL,
+      }})
+
+      return true
+    },
     async session({ session, token }) {
         session.accessToken = token.accessToken
-        session.uid = token.uid
+        session.uid = token.uid.toString()
         session.user.name = token.name
+        session.role = token.role
         return session;
     },
-    async jwt({ token, account, profile }) {
+    async jwt({ token, account, profile, user }) {
       if (account) {
         token = {
           accessToken: account.access_token,
+          id: user.id.toString(),
           uid: (profile as any)?.id,
           name: (profile as any)?.properties?.nickname,
           picture: (profile as any)?.properties?.profile_image,
+          role: user.role,
         }
       }
       return token

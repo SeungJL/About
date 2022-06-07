@@ -1,20 +1,20 @@
 import mongoose, {model, Schema, Document, Model} from 'mongoose'
+import { IUser } from './user'
 
 
 export interface IParticipant {
-  id: string,
-  name: string,
+  user: string | IUser,
   time: string,
   place: string,
-  img: string,
 }
 
 const ParticipantSchema: Schema<IParticipant> = new Schema({
-  id: String,
-  name: String,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   time: String,
   place: String,
-  img: String,
 }, { _id: false })
 
 
