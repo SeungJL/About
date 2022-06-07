@@ -47,6 +47,7 @@ export default NextAuth({
       if (res.status !== 200) {
         return false
       }
+
       await User.updateOne({uid: user.uid}, {$set: {
         name: res.data.nickName,
         thumbnailImage: res.data.thumbnailURL,
