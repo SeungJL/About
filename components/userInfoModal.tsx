@@ -1,7 +1,7 @@
-import { Modal, ModalOverlay, Image, ModalContent, ModalHeader, ModalBody, Select, ModalFooter, Button, HStack, Text, FormErrorMessage, Spinner, Box } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box } from "@chakra-ui/react";
 import axios from "axios";
 import dayjs from "dayjs";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { getToday } from "../libs/dateUtils";
 import { IUser } from "../models/user";
 import { UserAttendenceInfo } from "../models/UserAttendenceInfo";
@@ -10,9 +10,8 @@ import ProfileImage from "./profileImage";
 const UserInfoModal: FC<{
   isOpen: boolean,
   onClose: () => void,
-  userName: string,
   userId: string,
-}> = ({ isOpen, onClose, userName, userId }) => {
+}> = ({ isOpen, onClose, userId }) => {
   const [userAttendenceInfo, setUserAttendenceInfo] = useState<UserAttendenceInfo>(null)
   useEffect(() => {
     const getUserAttendenceInfo = async () => {
@@ -24,7 +23,13 @@ const UserInfoModal: FC<{
   }, [])
 
   const lastWeek = getToday().add(-1, 'week')
-  const cnt7days = userAttendenceInfo?.attendences?.filter((a) => dayjs(a.date) >= lastWeek)?.length
+
+  const attendence7Days = userAttendenceInfo?.attendences?.filter((a) => dayjs(a.date) >= lastWeek)
+  const cntVote7days = attendence7Days?.length
+  const cntOpen7days = attendence7Days?.filter((a) => a.meetingTime !== '')?.length
+
+  const cntVote1Mon = userAttendenceInfo?.attendences?.length
+  const cntOpen1Mon = userAttendenceInfo?.attendences?.filter((a) => a.meetingTime !== '')?.length
 
   const cooperatorFrequency = userAttendenceInfo?.attendences
     ?.filter((a) => a.meetingTime !== '')
@@ -40,7 +45,7 @@ const UserInfoModal: FC<{
     .slice(0, 3)
 
   return (
-      <Modal size='sm' onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal size='xs' onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
             <ModalContent>
               <ModalHeader>사용자 정보</ModalHeader>
@@ -53,15 +58,14 @@ const UserInfoModal: FC<{
                         alt={userAttendenceInfo.user.name}
                         width='150px'
                         margin='0 auto 20px auto'
-
                       />
                       <Box>
-                        <Text as='span' fontSize='lg'>최근 7일간 참여 횟수: </Text>
-                        <Text as='span' fontSize='lg' fontWeight='600'>{cnt7days}회</Text>
+                        <Text as='span' fontSize='lg'>최근 7일간 참여(투표): </Text>
+                        <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen7days}회({cntVote7days}회)</Text>
                       </Box>
                       <Box>
-                        <Text as='span' fontSize='lg'>최근 한달간 참여 횟수: </Text>
-                        <Text as='span' fontSize='lg' fontWeight='600'>{userAttendenceInfo.attendences.length}회</Text>
+                        <Text as='span' fontSize='lg'>최근 한달간 참여(투표): </Text>
+                        <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen1Mon}회({cntVote1Mon}회)</Text>
                       </Box>
                       <Box>
                         <Text as='span' fontSize='lg'>최근 함께 스터디한 친구: </Text>

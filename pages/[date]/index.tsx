@@ -26,6 +26,7 @@ const Home: NextPage<{
   attendenceParam.date = new Date(attendenceParam.date)
   const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
   const [isLoading, setLoading] = useState(false)
+  const [activeUserId, setActiveUserId] = useState('')
   const {
     isOpen: isTimePickerModalOpen,
     onOpen: onTimePickerModalOpen,
@@ -241,7 +242,10 @@ const Home: NextPage<{
                   src={(p.user as IUser).thumbnailImage}
                   alt={(p.user as IUser).name}
                   marginRight='10px'
-                  onClick={onUserInfoModalOpen}
+                  onClick={() => {
+                    setActiveUserId((p.user as IUser).uid)
+                    onUserInfoModalOpen()
+                  }}
                 />
                 <Text fontWeight='600' fontSize='lg' display='inline'>{(p.user as IUser).name}</Text>
               </Box>
@@ -297,8 +301,7 @@ const Home: NextPage<{
           <UserInfoModal
             isOpen={isUserInfoModalOpen}
             onClose={onUserInfoModalClose}
-            userName={'도형림'}
-            userId={'2255707346'}
+            userId={activeUserId}
           />
         )
       }
@@ -369,7 +372,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   if (!nullableAttendence) {
     if (date <= interestingDate.add(1, 'day')) {
       const newAttendence = new Attendence({
-        date,
+        date: date.toDate(),
         participants: [],
       })
 
