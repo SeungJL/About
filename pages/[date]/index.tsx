@@ -247,7 +247,10 @@ const Home: NextPage<{
                     onUserInfoModalOpen()
                   }}
                 />
-                <Text fontWeight='600' fontSize='lg' display='inline'>{(p.user as IUser).name}</Text>
+                <Text fontWeight='600' fontSize='lg' display='inline'>
+                  { (p.user as IUser).name }
+                  { session.uid === (p.user as IUser).uid ? '(나)' : '' }
+                </Text>
               </Box>
               <Box
                   height='1.8em'

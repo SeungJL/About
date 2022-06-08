@@ -53,12 +53,17 @@ const UserInfoModal: FC<{
                 {
                   userAttendenceInfo ? (
                     <>
-                      <ProfileImage
-                        src={userAttendenceInfo.user.profileImage}
-                        alt={userAttendenceInfo.user.name}
-                        width='150px'
-                        margin='0 auto 20px auto'
-                      />
+                      <Box marginBottom='20px'>
+                        <ProfileImage
+                          src={userAttendenceInfo.user.profileImage}
+                          alt={userAttendenceInfo.user.name}
+                          width='150px'
+                          margin='0 auto 5px auto'
+                        />
+                        <Box width='fit-content' margin='0 auto'>
+                          <Text as='span' fontSize='2xl' fontWeight='400'>{userAttendenceInfo.user.name}</Text>
+                        </Box>
+                      </Box>
                       <Box>
                         <Text as='span' fontSize='lg'>최근 7일간 참여(투표): </Text>
                         <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen7days}회({cntVote7days}회)</Text>
@@ -82,7 +87,9 @@ const UserInfoModal: FC<{
                       </Box>
                     </>
                   ) : (
-                    <Spinner />
+                    <Box width='fit-content' margin='auto'>
+                      <Spinner />
+                    </Box>
                   )
                 }
               </ModalBody>
