@@ -23,14 +23,15 @@ export default async function handler(
   if(dateStr && !dayjs(dateStr, 'YYYY-MM-DD').isValid()) {
     res.status(400)
   }
-  const date = strToDate(dateStr)
+  const dayjsDate = strToDate(dateStr)
+  const date = dayjsDate.toDate()
 
   await dbConnect()
 
   switch (method) {
     case 'POST':
       const newAttendence = new Attendence({
-        date: date,
+        date,
         participant: [],
       })
 
@@ -42,7 +43,7 @@ export default async function handler(
       await Attendence.findOne({ date })
       break
     case 'PATCH':
-      const isActivated = getInterestingDate() <= date
+      const isActivated = getInterestingDate() <= dayjsDate
       if (!isActivated) res.status(400)
 
       const { operation, time, place } = body as UpdateParticipants
@@ -55,23 +56,23 @@ export default async function handler(
 
       switch (operation) {
         case 'append':
-          const isExisting = await Attendence.findOne({date: date, participants: {$elemMatch: {user: participant.user}}})
+          const isExisting = await Attendence.findOne({date, participants: {$elemMatch: {user: participant.user}}})
           if (isExisting) {
             break
           }
-          await Attendence.updateOne({ date: date }, { $push: { participants: participant } })
+          await Attendence.updateOne({ date }, { $push: { participants: participant } })
           break
         case 'delete':
-          await Attendence.updateOne({ date: date }, { $pull: { participants: {user: participant.user}} })
+          await Attendence.updateOne({ date }, { $pull: { participants: {user: participant.user}} })
           break
         case 'time_update':
-          await Attendence.updateOne({ date: date, "participants.user": participant.user }, {'participants.$.time': time})
+          await Attendence.updateOne({ date, "participants.user": participant.user }, {'participants.$.time': time})
           break
         case 'place_update':
-          await Attendence.updateOne({ date: date, "participants.user": participant.user }, {'participants.$.place': place})
+          await Attendence.updateOne({ date, "participants.user": participant.user }, {'participants.$.place': place})
           break
       }
-      res.status(200).json(await Attendence.findOne({ date: date }).populate('participants.user') as IAttendence)
+      res.status(200).json(await Attendence.findOne({ date }).populate('participants.user') as IAttendence)
       break
     default:
       res.status(400)
