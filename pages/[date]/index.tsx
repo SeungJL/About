@@ -108,7 +108,7 @@ const Home: NextPage<{
 
     setLoading(false)
     setAttendence(data as IAttendence)
-  }, [])
+  }, [dateStr])
 
   const absent = useCallback(async () => {
     if(!isActivated) return
@@ -120,7 +120,7 @@ const Home: NextPage<{
 
     setLoading(false)
     setAttendence(data as IAttendence)
-  }, [])
+  }, [dateStr])
 
   const onNextDay = useCallback(async () => {
     router.push(`/${nextDate.format('YYYY-MM-DD')}`)

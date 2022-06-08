@@ -40,7 +40,7 @@ export default async function handler(
       res.status(201).json(savedAttendence)
       break
     case 'GET':
-      await Attendence.findOne({ date })
+      res.status(200).json(await Attendence.findOne({ date }).populate('participants.user'))
       break
     case 'PATCH':
       const isActivated = getInterestingDate() <= dayjsDate
@@ -71,11 +71,15 @@ export default async function handler(
         case 'place_update':
           await Attendence.updateOne({ date, "participants.user": participant.user }, {'participants.$.place': place})
           break
+        default:
+          res.status(400).end()
+          return
       }
-      res.status(200).json(await Attendence.findOne({ date }).populate('participants.user') as IAttendence)
-      break
+      const updatedAttendence = await Attendence.findOne({ date }).populate('participants.user') as IAttendence
+      res.status(200).json(updatedAttendence)
+      return
     default:
-      res.status(400)
+      res.status(400).end()
       break
   }
 }
