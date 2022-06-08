@@ -18,7 +18,7 @@ const dayEnToKr = {
 }
 
 export const strToDate = (dateStr: string) => {
-  return dayjs(dateStr, 'YYYY-MM-DD').tz(TZ_SEOUL)
+  return dayjs(dateStr, 'YYYY-MM-DD').tz(TZ_SEOUL).startOf('day')
 }
 
 export const getToday = () => {

@@ -70,7 +70,7 @@ const Home: NextPage<{
   ] = useMemo(() => {
     const interestingDate = getInterestingDate()
     const nextDate = getNextDate(dateStr)
-    const isAccessibleNextDay = nextDate.unix() <= interestingDate.add(1, 'day').unix()
+    const isAccessibleNextDay = nextDate.unix() - interestingDate.add(1, 'day').unix() <= 0
     const currentDate = strToDate(dateStr)
 
     return [
@@ -354,10 +354,10 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   const rawDate = context.params.date as string
   await dbConnect()
 
-  const date = strToDate(rawDate)
+  const dayjsDate = strToDate(rawDate)
   const interestingDate = getInterestingDate()
 
-  if (!date.isValid()) {
+  if (!dayjsDate.isValid()) {
     return {
       redirect: {
         permanent: false,
@@ -367,12 +367,12 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  const nullableAttendence = await Attendence.findOne({ date }).populate('participants.user')
+  const nullableAttendence = await Attendence.findOne({ date: dayjsDate.toDate() }).populate('participants.user')
   let attendence: IAttendence
   if (!nullableAttendence) {
-    if (date <= interestingDate.add(1, 'day')) {
+    if (dayjsDate <= interestingDate.add(1, 'day')) {
       const newAttendence = new Attendence({
-        date: date.toDate(),
+        date: dayjsDate.toDate(),
         participants: [],
       })
 
