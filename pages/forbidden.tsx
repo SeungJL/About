@@ -1,18 +1,23 @@
-import { CloseIcon } from '@chakra-ui/icons'
-import { Box, Text } from '@chakra-ui/react'
+import { NotAllowedIcon } from '@chakra-ui/icons'
+import { Box, Container, HStack, Text, VStack } from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
 
 const Forbidden: NextPage = () => (
-  <Box>
-    <CloseIcon
-      color='red'
-      boxSize='100px'
-    />
-    <Text fontSize='25px'>403 FORBIDDEN</Text>
-    <Text as='span' margin='auto 0'>권한이 없습니다</Text>
-    <Text as='span' margin='auto 10'>관리자에게 회원 등록을 요청하십시오</Text>
-  </Box>
+  <VStack height='100%'>
+      <Container width='fit-content'>
+        <HStack marginTop='20vh' justifyContent='center' marginBottom='20px'>
+          <NotAllowedIcon color='red' boxSize='120px'/>
+          <Box>
+            <Text fontSize='5xl'>403</Text>
+            <Text fontSize='3xl'> FORBIDDEN</Text>
+          </Box>
+        </HStack>
+        <Text fontSize='xl'>당신은 인가된 회원이 아닙니다</Text>
+        <Text fontSize='xl'>관리자에게 회원 등록을 요청하십시오</Text>
+        <Text fontSize='sm' marginTop='5px'>승인 후, 로그인 정보 갱신을 위해 다시 로그인해주십시오</Text>
+      </Container>
+  </VStack>
 )
 
 export const getServerSideProps: GetServerSideProps = async (context)=> {
