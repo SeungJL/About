@@ -5,6 +5,7 @@ import clientPromise from '../../../libs/mongodb';
 import axios from 'axios';
 import { User } from '../../../models/user';
 import dbConnect from '../../../libs/dbConnect';
+import { refreshAccessToken } from '../../../libs/tokenUtils';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -64,12 +65,15 @@ export default NextAuth({
         session.uid = token.uid.toString()
         session.user.name = token.name
         session.role = token.role
+        session.error = token.error
         return session;
     },
     async jwt({ token, account, profile, user }) {
-      if (account) {
-        token = {
-          accessToken: account.access_token,
+      if (account && user) {
+        return {
+          accessToken: account.access_token + 'saa',
+          refreshToken: account.refresh_token,
+          accessTokenExpires: Date.now() + account.expires_at * 1000,
           id: user.id.toString(),
           uid: (profile as any)?.id,
           name: (profile as any)?.properties?.nickname,
@@ -77,7 +81,11 @@ export default NextAuth({
           role: user.role,
         }
       }
-      return token
+      if (Date.now() < (token.accessTokenExpires as number) * 1000) {
+        return token
+      }
+
+      return refreshAccessToken(token)
     },
   }
 })
