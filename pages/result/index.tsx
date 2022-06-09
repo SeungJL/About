@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react"
 import ProfileImage from "../../components/profileImage"
 import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
+import { getOptimalTime } from "../../libs/timeUtils"
 import { Attendence, IParticipant } from "../../models/attendence"
 import { IUser } from "../../models/user"
 
@@ -120,38 +121,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
   }
-  let studyTime = attendence.meetingTime
-  if (studyTime === '') {
-    const rawStudyTime = attendence.participants
-      .map((p) => p.time)
-      .filter((t) => t !== '')
-      .map((t) => {
-        const [rawHour, rawMinute] = t.split(':')
+  let studyTime = getOptimalTime(attendence.participants.map((p) => p.time))
 
-        const hour = parseInt(rawHour)
-        const minute = parseInt(rawMinute)
-
-        const epochMinute = hour * 60 + minute
-
-        return epochMinute
-      })
-      .reduce((pre, cur, _) => pre < cur ? cur : pre, Number.MAX_VALUE)
-
-    if (rawStudyTime === Number.MAX_VALUE) { // 아무도 시간을 정하지 않은 경우
-      studyTime = '01:00'
-    } else {
-      const hour = Math.floor(rawStudyTime / 60)
-      const minute = rawStudyTime % 60
-  
-      studyTime = `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute }`  
+  await Attendence.updateOne({date: interestingDate.toDate()}, {
+    $set: {
+      meetingTime: studyTime,
     }
-
-    await Attendence.updateOne({date: interestingDate.toDate()}, {
-      $set: {
-        meetingTime: studyTime,
-      }
-    })
-  }
+  })
 
   return {
     props: {

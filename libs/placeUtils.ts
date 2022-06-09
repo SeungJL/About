@@ -35,3 +35,19 @@ export const getPlaceImg = (place: string) => {
   
   return ''
 }
+
+export const getOptimalPlace = (places: string[]) => {
+  const frequency = places.reduce((acc, curr) => (
+    acc[curr] ? ++acc[curr] : acc[curr] = 1, acc), {})
+
+  const sortByFrequency = Array.from(Object.keys(frequency))
+  .sort((a, b) => frequency[a] - frequency[b])
+
+  if (sortByFrequency.length > 0) {
+    return sortByFrequency[0]
+  } else {
+    const randomPlaces = Object.keys(placeToImg)
+
+    return randomPlaces[Math.random() * randomPlaces.length]
+  }
+}

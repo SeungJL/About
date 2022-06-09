@@ -22,6 +22,7 @@ export interface IAttendence extends Document {
   date: Date,
   participants: IParticipant[],
   meetingTime: string,
+  meetingPlace: string,
 }
 
 export const AttendenceSchema: Schema<IAttendence> = new Schema({
@@ -31,6 +32,10 @@ export const AttendenceSchema: Schema<IAttendence> = new Schema({
     type: String,
     default: '',
   },
+  meetingPlace: {
+    type: String,
+    default: ''
+  }
 }, {
   timestamps: true,
 })

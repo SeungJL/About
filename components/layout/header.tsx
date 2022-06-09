@@ -1,4 +1,5 @@
 import { Box, Button, HStack, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -15,6 +16,12 @@ const Header: FC = () => {
       <div>
       </div>
     )
+
+  const unlink = async () => {
+    await axios.delete('/api/user/withdrawal')
+
+    await signOut()
+  }
 
   return (
     <Box marginBottom='15px'>
@@ -37,6 +44,7 @@ const Header: FC = () => {
               <PopoverArrow />
               <PopoverBody>
                 <Button onClick={() => signOut()}>로그아웃</Button>
+                <Button onClick={unlink}>회원탈퇴</Button>
               </PopoverBody>
             </PopoverContent>
           </Popover>
