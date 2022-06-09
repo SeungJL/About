@@ -1,6 +1,7 @@
 import { Alert, AlertIcon, Box, Button, Heading, HStack, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import type { NextPage } from 'next'
+import NextLink from "next/link"
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -122,26 +123,21 @@ const Home: NextPage<{
     setAttendence(data as IAttendence)
   }, [dateStr])
 
-  const onNextDay = useCallback(async () => {
-    router.push(`/${nextDate.format('YYYY-MM-DD')}`)
-  }, [dateStr])
-
-  const onPreviousDay = useCallback(() => {
-    router.push(`/${previousDate.format('YYYY-MM-DD')}`)
-  }, [dateStr])
-
   return (
     <Box>
       <HStack margin='0 10px'>
-        <Button size='sm' onClick={() => onPreviousDay()}>이전날</Button>
+        <NextLink href={`/${previousDate.format('YYYY-MM-DD')}`}>
+          <Button size='sm'>이전날</Button>
+        </NextLink>
         <Heading as='h1' size='lg' width='100%' textAlign='center' >{dateKr}</Heading>
-        <Button
-          visibility={isAccessibleNextDay ? 'visible' : 'hidden'}
-          size='sm'
-          onClick={() => onNextDay()}
-        >
-          다음날
-        </Button>
+        <NextLink href={`/${nextDate.format('YYYY-MM-DD')}`}>
+          <Button
+            size='sm'
+            visibility={isAccessibleNextDay ? 'visible' : 'hidden'}
+          >
+            다음날
+          </Button>
+        </NextLink>
       </HStack>
       <Box padding='20px 50px'>
         <CircularProgressbarWithChildren
