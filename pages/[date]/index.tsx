@@ -393,17 +393,19 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   }
   const serializableAttendence = attendence.toObject()
   serializableAttendence._id = serializableAttendence._id.toString()
-  serializableAttendence.participants = serializableAttendence.participants.map((p) => {
-    p.user = {
-      uid: p.user.uid,
-      name: p.user.name,
-      email: p.user.email,
-      thumbnailImage: p.user.thumbnailImage,
-      profileImage: p.user.profileImage,
-      role: p.user.role,
-    } as IUser
-    return p
-  })
+  serializableAttendence.participants = serializableAttendence.participants
+    .filter((p) => p.user)
+    .map((p) => {
+      p.user = {
+        uid: p.user.uid,
+        name: p.user.name,
+        email: p.user.email,
+        thumbnailImage: p.user.thumbnailImage,
+        profileImage: p.user.profileImage,
+        role: p.user.role,
+      } as IUser
+      return p
+    })
   serializableAttendence.date = (serializableAttendence.date as Date).toISOString()
   serializableAttendence.createdAt = (serializableAttendence.createdAt as Date).toISOString()
   serializableAttendence.updatedAt = (serializableAttendence.updatedAt as Date).toISOString()
