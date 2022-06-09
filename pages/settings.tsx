@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Text, useDisclosure } from "@chakra-ui/react"
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Container, Text, useDisclosure } from "@chakra-ui/react"
 import axios from "axios"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, signOut } from "next-auth/react"
@@ -16,7 +16,7 @@ const Settings: NextPage = () => {
   }
 
   return (
-    <Box>
+    <Container>
       <Button colorScheme='red' onClick={onOpen}>회원탈퇴</Button>
 
       <AlertDialog
@@ -48,7 +48,7 @@ const Settings: NextPage = () => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-    </Box>
+    </Container>
   )
 }
 

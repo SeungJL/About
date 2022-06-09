@@ -31,15 +31,15 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  // if (session && ['member', 'previliged'].includes(session.role as string)) {
-  //   return {
-  //     redirect: {
-  //       permanent: false,
-  //       destination: '/',
-  //     },
-  //     props: {},
-  //   }
-  // }
+  if (session && ['member', 'previliged'].includes(session.role as string)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+      props: {},
+    }
+  }
 
   return {
     props: {}

@@ -240,7 +240,9 @@ const Home: NextPage<{
                   marginRight='10px'
                   onClick={() => {
                     setActiveUserId((p.user as IUser).uid)
-                    onUserInfoModalOpen()
+                    if ((p.user as IUser).uid) {
+                      onUserInfoModalOpen()
+                    }
                   }}
                 />
                 <Text fontWeight='600' fontSize='lg' display='inline'>

@@ -189,9 +189,12 @@ export const withdrawal = async (accessToken: string) => {
 
     const user = await User.findOne({ uid })
 
-    await Attendence.updateMany({}, {$pull: { participants: {user: user._id} }})
     await client.db('votehelper').collection('accounts').deleteMany({providerAccountId: uid})
-    await User.deleteMany({ uid })
+    await User.updateMany({ uid }, {$set: {
+      name: '(알수없음)',
+      role: 'stranger',
+      uid: '',
+    }})
   }
   return
 }
