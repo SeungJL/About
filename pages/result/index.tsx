@@ -20,6 +20,13 @@ const Result: NextPage<{
 }> = ({ isOpen, studyTime, studyPlace, date, participants: rawParticipants }) => {
   const [activeUserId, setActiveUserId] = useState('')
 
+  const {
+    isOpen: isUserInfoModalOpen,
+    onOpen: onUserInfoModalOpen,
+    onClose: onUserInfoModalClose,
+  } = useDisclosure()
+
+
   const participants = JSON.parse(rawParticipants) as IParticipant[]
 
   if (!isOpen) {
@@ -30,12 +37,6 @@ const Result: NextPage<{
       </VStack>
     )
   }
-
-  const {
-    isOpen: isUserInfoModalOpen,
-    onOpen: onUserInfoModalOpen,
-    onClose: onUserInfoModalClose,
-  } = useDisclosure()
 
   return (
     <VStack>
