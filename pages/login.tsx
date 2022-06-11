@@ -58,10 +58,19 @@ const Login: NextPage<{
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders()
   const session = await getSession({ req: context.req })
+  const returnTo = context.query.from as string
 
   const interestingDateStr = getInterestingDate().format('YYYY-MM-DD')
 
   if (session) {
+    if (returnTo) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: returnTo,
+        }
+      }
+    }
     return {
       redirect: {
         permanent: false,
