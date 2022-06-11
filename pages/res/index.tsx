@@ -32,67 +32,74 @@ const Result: NextPage<{
 
   if (!isOpen) {
     return (
-      <VStack>
-        <Text fontSize='2xl'>{convertToKr(strToDate(date))}</Text>
-        <Text>오늘은 스터디가 열리지 못 했어요</Text>
-      </VStack>
+      <>
+        <Head>
+          <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
+        </Head>
+        <VStack>
+          <Text fontSize='2xl'>{convertToKr(strToDate(date))}</Text>
+          <Text>오늘은 스터디가 열리지 못 했어요</Text>
+        </VStack>
+      </>
     )
   }
 
   return (
-    <VStack> 
+    <>
       <Head>
         <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
       </Head>
-      <Text fontSize='3xl' marginBottom='20px'>{convertToKr(strToDate(date))}</Text>
-      <HStack>
-        {
-          participants.map((p, idx) => (
-            <Box key={(p.user as IUser).id} margin='0'>
-              <ProfileImage
-                position='relative'
-                right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
-                key={(p.user as IUser).uid}
-                src={(p.user as IUser).thumbnailImage}
-                alt={(p.user as IUser).name}
-                width='60px'
-                onClick={() => {
-                  setActiveUserId((p.user as IUser).uid)
-                  if ((p.user as IUser).uid) {
-                    onUserInfoModalOpen()
-                  }
-                }}
-              />
-            </Box>
-          ))
-        }
-      </HStack>
       <VStack>
-        <Box width='fit-content' display='flex' alignContent='center' flexDirection='column' alignItems='center'>
-          <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
-          <Text as='span' fontSize='lg'>
-            <Text as='span' fontSize='2xl' color='purple'>{getPlaceFullName(studyPlace)}</Text>에서 
-          </Text>
+        <Text fontSize='3xl' marginBottom='20px'>{convertToKr(strToDate(date))}</Text>
+        <HStack>
+          {
+            participants.map((p, idx) => (
+              <Box key={(p.user as IUser).id} margin='0'>
+                <ProfileImage
+                  position='relative'
+                  right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
+                  key={(p.user as IUser).uid}
+                  src={(p.user as IUser).thumbnailImage}
+                  alt={(p.user as IUser).name}
+                  width='60px'
+                  onClick={() => {
+                    setActiveUserId((p.user as IUser).uid)
+                    if ((p.user as IUser).uid) {
+                      onUserInfoModalOpen()
+                    }
+                  }}
+                />
+              </Box>
+            ))
+          }
+        </HStack>
+        <VStack>
+          <Box width='fit-content' display='flex' alignContent='center' flexDirection='column' alignItems='center'>
+            <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
+            <Text as='span' fontSize='lg'>
+              <Text as='span' fontSize='2xl' color='purple'>{getPlaceFullName(studyPlace)}</Text>에서 
+            </Text>
 
-          
-          <Text as='span' fontSize='lg'>
-            <Text as='span' fontSize='2xl' color='#ff6b6b'>{strToTimeKr(studyTime)}</Text>에 열려요!
-          </Text>
-        </Box>
-        <Box width='fit-content' margin='0 auto'>
-        </Box>
+            
+            <Text as='span' fontSize='lg'>
+              <Text as='span' fontSize='2xl' color='#ff6b6b'>{strToTimeKr(studyTime)}</Text>에 열려요!
+            </Text>
+          </Box>
+          <Box width='fit-content' margin='0 auto'>
+          </Box>
+        </VStack>
+        {
+          isUserInfoModalOpen && (
+            <UserInfoModal
+              isOpen={isUserInfoModalOpen}
+              onClose={onUserInfoModalClose}
+              userId={activeUserId}
+              setActiveUserId={setActiveUserId}
+            />
+          )
+        }
       </VStack>
-      {
-        isUserInfoModalOpen && (
-          <UserInfoModal
-            isOpen={isUserInfoModalOpen}
-            onClose={onUserInfoModalClose}
-            userId={activeUserId}
-            setActiveUserId={setActiveUserId}
-          />
-        )
-      }
-    </VStack>
+    </>
   )
 }
 

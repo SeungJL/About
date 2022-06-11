@@ -1,15 +1,10 @@
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
-import Head from 'next/head';
 import { getInterestingDate } from '../libs/dateUtils';
 
 const Root: NextPage = () => (
-<div>
-  <Head>
-    <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
-  </Head>
-</div>
+<div />
 )
 
 export const getServerSideProps: GetServerSideProps = async ( context )=> {

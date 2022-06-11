@@ -52,12 +52,11 @@ export const convertToKr = (date: Dayjs) =>
   `${date.format('YYYY년 MM월 DD일')}(${dayEnToKr[date.format('ddd')]})`
 
 export const canShowResult = () => {
-  // const now = dayjs().tz(TZ_SEOUL)
+  const now = dayjs().tz(TZ_SEOUL)
 
-  // const interestingDate = getInterestingDate()
-  // const resultOpenTime = interestingDate.add(-1, 'day').hour(22)
-  // const resultCloseTime = interestingDate.hour(14)
+  const interestingDate = getInterestingDate()
+  const resultOpenTime = interestingDate.add(-1, 'day').hour(22)
+  const resultCloseTime = interestingDate.hour(14)
 
-  // return resultOpenTime <= now && now < resultCloseTime
-  return true
+  return resultOpenTime <= now && now < resultCloseTime
 }
