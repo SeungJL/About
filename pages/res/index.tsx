@@ -1,6 +1,7 @@
 import { Box, VStack, Text, HStack, useDisclosure } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession } from "next-auth/react"
+import Head from "next/head"
 import { useState } from "react"
 import ProfileImage from "../../components/profileImage"
 import UserInfoModal from "../../components/userInfoModal"
@@ -39,7 +40,10 @@ const Result: NextPage<{
   }
 
   return (
-    <VStack>
+    <VStack> 
+      <Head>
+        <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
+      </Head>
       <Text fontSize='3xl' marginBottom='20px'>{convertToKr(strToDate(date))}</Text>
       <HStack>
         {
@@ -121,7 +125,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/result/too/early'
+        destination: '/res/too/early'
       },
       props: {}
     }

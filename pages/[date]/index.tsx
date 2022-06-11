@@ -321,7 +321,7 @@ const Home: NextPage<{
               borderRadius='100px'
               margin='auto auto'
               onClick={() => {
-                router.push('/result')
+                router.push('/res')
               }}
             >
               결과 보기
