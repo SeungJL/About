@@ -12,7 +12,7 @@ const UserInfoModal: FC<{
   onClose: () => void,
   userId: string,
   setActiveUserId?: (activeUser: string) => void,
-}> = ({ isOpen, onClose, userId, setActiveUserId: setActiveUserId }) => {
+}> = ({ isOpen, onClose, userId, setActiveUserId }) => {
   const [userAttendenceInfo, setUserAttendenceInfo] = useState<UserAttendenceInfo>(null)
   useEffect(() => {
     const getUserAttendenceInfo = async () => {

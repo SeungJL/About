@@ -322,7 +322,7 @@ const Home: NextPage<{
             width='100%'
             display='flex'
             position='fixed'
-            bottom='20px'
+            bottom='9vh'
             >
               <Button
                 colorScheme='green'
