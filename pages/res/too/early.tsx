@@ -1,10 +1,14 @@
 import { Text, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
+import Head from "next/head";
 
 const TooEarly: NextPage = () => {
   return (
     <VStack height='100%' justifyContent='center'>
+      <Head>
+        <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
+      </Head>
       <Text fontSize='xl'>아직 결과가 나오지 않았어요 🤷</Text>
     </VStack>
   )
