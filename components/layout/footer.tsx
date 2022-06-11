@@ -25,7 +25,7 @@ const Footer: FC = () => {
           <NextLink href='/privacy/policy'><Link fontSize='sm'>개인정보 처리방침</Link></NextLink>
           <Text fontSize='sm' onClick={onContactModalOpen}>Contact</Text>
         </HStack>
-        <Text fontSize='xs'>Copyright 2022. <NextLink href='https://github.com/Dormarble'><Link>Dormarble</Link></NextLink>. All rights reserved.</Text>
+        <Text fontSize='xs'>Copyright 2022. <Link href='https://github.com/Dormarble'>Dormarble</Link>. All rights reserved.</Text>
       </VStack>
       {
         isContactModalOpen && (

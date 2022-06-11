@@ -11,7 +11,7 @@ const FooterContactModal: FC<{
             <ModalContent>
               <ModalHeader>Contact</ModalHeader>
               <ModalBody>
-                <Text>문의사항은 아래 연락처로 부탁드립니다.</Text>
+                <Text>문의사항은 아래 연락처로 보내주세요.</Text>
                 <Container marginTop='10px'>
                   <Text fontSize='sm'>E-MAIL: gudfla0814@gmail.com</Text>
                 </Container>
