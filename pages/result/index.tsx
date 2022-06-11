@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react"
 import ProfileImage from "../../components/profileImage"
 import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
+import { getOptimalPlace } from "../../libs/placeUtils"
 import { getOptimalTime } from "../../libs/timeUtils"
 import { Attendence, IParticipant } from "../../models/attendence"
 import { IUser } from "../../models/user"
@@ -11,9 +12,10 @@ import { IUser } from "../../models/user"
 const Result: NextPage<{
   isOpen: boolean,
   studyTime: string,
+  studyPlace: string,
   date: string,
   participants: string,
-}> = ({ isOpen, studyTime, date, participants: rawParticipants }) => {
+}> = ({ isOpen, studyTime, studyPlace, date, participants: rawParticipants }) => {
   const participants = JSON.parse(rawParticipants) as IParticipant[]
 
   if (!isOpen) {
@@ -47,7 +49,7 @@ const Result: NextPage<{
       <Box>
         <Box width='fit-content' margin='0 auto'>
           <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
-          <Text as='span' fontSize='2xl' color='purple'>커피빈 광교점</Text>
+          <Text as='span' fontSize='2xl' color='purple'>{studyPlace}</Text>
           <Text as='span' fontSize='lg'>에서 </Text>
         </Box>
         <Box width='fit-content' margin='0 auto'>
@@ -100,6 +102,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       date: interestingDate.toDate(),
       participants: [],
       meetingTime: '',
+      studyPlace: '',
     })
     attendence = await newAttendence.save()
   }
@@ -109,6 +112,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       await Attendence.updateOne({date: interestingDate.toDate()}, {
         $set: {
           meetingTime: '',
+          meetingPlace: '',
         }
       })
     }
@@ -116,23 +120,42 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         isOpen: false,
         studyTime: '',
+        studyPlace: '',
         date: interestingDate.toISOString(),
         participants: '[]',
       }
     }
   }
-  let studyTime = getOptimalTime(attendence.participants.map((p) => p.time))
 
-  await Attendence.updateOne({date: interestingDate.toDate()}, {
-    $set: {
-      meetingTime: studyTime,
-    }
-  })
+  let studyPlace = attendence.meetingPlace
+  if (!studyPlace) {
+    studyPlace = getOptimalPlace(attendence.participants.map((p) => p.place))
+
+    await Attendence.updateOne({date: interestingDate.toDate()}, {
+      $set: {
+        meetingPlace: studyPlace,
+      }
+    })
+
+  }
+  
+  let studyTime = attendence.meetingTime
+
+  if (!studyTime) {
+    studyTime = getOptimalTime(attendence.participants.map((p) => p.time))
+  
+    await Attendence.updateOne({date: interestingDate.toDate()}, {
+      $set: {
+        meetingTime: studyTime,
+      }
+    })
+  }
 
   return {
     props: {
       isOpen: true,
       studyTime,
+      studyPlace,
       date: interestingDate.toISOString(),
       participants: JSON.stringify(attendence.participants),
     },

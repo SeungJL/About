@@ -31,7 +31,7 @@ export const getInterestingDate = () => {
   const currentTime = dayjs().tz(TZ_SEOUL)
   const today = dayjs().tz(TZ_SEOUL).startOf('day')
   
-  if (currentTime < today.hour(15)) 
+  if (currentTime < today.hour(14)) 
     return today
   return today.add(1, 'day')
 }
@@ -55,8 +55,9 @@ export const canShowResult = () => {
   const now = dayjs().tz(TZ_SEOUL)
 
   const interestingDate = getInterestingDate()
-  const resultOpenTime = interestingDate.add(-1, 'day').hour(23)
-  const resultCloseTime = interestingDate.hour(15)
+  const resultOpenTime = interestingDate.add(-1, 'day').hour(22)
+  const resultCloseTime = interestingDate.hour(14)
 
   return resultOpenTime <= now && now < resultCloseTime
+  return true
 }

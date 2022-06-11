@@ -2,19 +2,24 @@ import { Colors } from "./colors"
 
 const placeToColor = {
   '커피빈': Colors.coffeebin,
-  '아티제': Colors.artisee,
+  '할리스': Colors.hollys,
   '': Colors.yellow ,
 }
 
 const placeToColorScheme = {
   '커피빈': 'purple',
-  '아티제': 'blue',
+  '할리스': 'red',
   '': 'yellow' ,
 }
 
 const placeToImg = {
   '커피빈': 'https://play-lh.googleusercontent.com/VJUZEoZtShO4aTHR4xSfLLGlYwP5fys_tU5qEsMoW1pIpo9FRZo90AMUzlEaOOcN3zHR=w480-h960-rw',
-  '아티제': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3Bs1bVw29kO7DfbwiJ-IeXe2JJBwkxnnKC6Ta_zprJmRPiHsmrB-_zMuQMMqbxepYWIo&usqp=CAU'
+  '할리스': 'https://play-lh.googleusercontent.com/RJj9PNtPWXcokaPm-t-FkEM1FB9IPnREhOhG6Re_kJCO7BS8CoHqSg1j3d7o_PHIBQw=w480-h960-rw'
+}
+
+const placeToFullName = {
+  '커피빈': '커피빈 광교중앙점',
+  '할리스': '할리스 아주대 삼거리점',
 }
 
 export const getPlaces = () => {

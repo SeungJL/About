@@ -20,8 +20,14 @@ export const UserSchema: Schema<IUser> = new Schema({
     required: true,
   },
   email: String,
-  thumbnailImage: String,
-  profileImage: String,
+  thumbnailImage: {
+    type: String,
+    default: 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+  },
+  profileImage: {
+    type: String,
+    default: 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+  },
   role: String,
 })
 

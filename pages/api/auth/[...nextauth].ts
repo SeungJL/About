@@ -17,7 +17,7 @@ export default NextAuth({
         id: profile.id.toString(),
         uid: profile.id.toString(),
         name: profile.properties.nickname,
-        role: 'stranger',
+        role: 'member',
         thumbnailImage: profile.properties.thumbnail_image,
         profileImage: profile.properties.profile_image,
       }),
