@@ -98,11 +98,11 @@ const PrivacyPolicy: NextPage = () => {
         <List styleType='circle' marginLeft='1em'>
           <ListItem>
             <Text>성명 : 도형림</Text>
-            <Text>이메일주소 : <a href='mailto:gudfla0814@gmail.com' target='_blank'>gudfla0814@gmail.com</a></Text>
+            <Text>이메일주소 : <a href='mailto:gudfla0814@gmail.com'>gudfla0814@gmail.com</a></Text>
           </ListItem>
           <ListItem>
             <Text>성명 : 이승주</Text>
-            <Text>이메일주소 : <a href='mailto:j44s11@naver.com' target='_blank'>j44s11@naver.com</a></Text>
+            <Text>이메일주소 : <a href='mailto:j44s11@naver.com'>j44s11@naver.com</a></Text>
           </ListItem>
         </List>
 
@@ -110,15 +110,15 @@ const PrivacyPolicy: NextPage = () => {
         <List styleType='circle' marginLeft='1em'>
           <ListItem>
             <Text>개인정보침해신고센터</Text>
-            <Text>(<NextLink href='http://privacy.kisa.or.kr' target='_blank' rel='noopener noreferrer'><Link>privacy.kisa.or.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 118)</Text>
+            <Text>(<NextLink href='http://privacy.kisa.or.kr'><Link>privacy.kisa.or.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 118)</Text>
           </ListItem>
           <ListItem>
             <Text>대검찰청 사이버수사과</Text>
-            <Text>(<NextLink href='http://www.spo.go.kr' target='_blank' rel='noopener noreferrer'><Link>www.spo.go.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 1301)</Text>
+            <Text>(<NextLink href='http://www.spo.go.kr'><Link>www.spo.go.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 1301)</Text>
           </ListItem>
           <ListItem>
             <Text>경찰청 사이버안전국</Text>
-            <Text>(<NextLink href='http://police.go.kr' target='_blank' rel='noopener noreferrer'><Link>police.go.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 182)</Text>
+            <Text>(<NextLink href='http://police.go.kr'><Link>police.go.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 182)</Text>
           </ListItem>
         </List>
       </Container>
