@@ -127,6 +127,10 @@ const Home: NextPage<{
   return (
     <>
       <Head>
+        <meta property="og:url" content={`/${dateStr}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="스터디 투표" />
+        <meta property="og:description" content="스터디 투표" />
         <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
       </Head>
       <Box>
