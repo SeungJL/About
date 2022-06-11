@@ -9,6 +9,8 @@ export default async function handler(
 ) {
   const { method } = req
 
+  return  // deprecated
+
   switch (method) {
     case 'POST':
       await sendResultMessages(getInterestingDate())

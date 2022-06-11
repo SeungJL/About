@@ -18,13 +18,20 @@ const placeToImg = {
 }
 
 const placeToFullName = {
-  '커피빈': '커피빈 광교중앙점',
-  '할리스': '할리스 아주대 삼거리점',
+  '커피빈': '커피빈 광교아브뉴프랑점',
+  '할리스': '할리스 아주대삼거리점',
 }
 
 export const getPlaces = () => {
   return Object.keys(placeToColorScheme)
     .filter((p) => p !== '')
+}
+
+export const getPlaceFullName = (place: string) => {
+  if (place in placeToColor)
+    return placeToFullName[place]
+
+  return '잘못된 장소'
 }
 
 export const getPlaceColor = (place: string) => {
@@ -49,10 +56,10 @@ export const getOptimalPlace = (places: string[]) => {
   .sort((a, b) => frequency[a] - frequency[b])
 
   if (sortByFrequency.length > 0) {
+    if (sortByFrequency.length == 2 && sortByFrequency[0] == sortByFrequency[1]) {
+      return '커피빈'
+    }
     return sortByFrequency[0]
-  } else {
-    const randomPlaces = Object.keys(placeToImg)
-
-    return randomPlaces[Math.random() * randomPlaces.length]
   }
+  return '커피빈'
 }

@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box, HStack } from "@chakra-ui/react";
 import axios from "axios";
 import dayjs from "dayjs";
 import { FC, useEffect, useState } from "react";
@@ -11,7 +11,8 @@ const UserInfoModal: FC<{
   isOpen: boolean,
   onClose: () => void,
   userId: string,
-}> = ({ isOpen, onClose, userId }) => {
+  setActiveUserId?: (activeUser: string) => void,
+}> = ({ isOpen, onClose, userId, setActiveUserId: setActiveUserId }) => {
   const [userAttendenceInfo, setUserAttendenceInfo] = useState<UserAttendenceInfo>(null)
   useEffect(() => {
     const getUserAttendenceInfo = async () => {
@@ -20,7 +21,7 @@ const UserInfoModal: FC<{
       setUserAttendenceInfo(res.data)
     }
     getUserAttendenceInfo()
-  }, [])
+  }, [userId])
 
   const lastWeek = getToday().add(-1, 'week')
 
@@ -69,11 +70,12 @@ const UserInfoModal: FC<{
                         <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen7days}회({cntVote7days}회)</Text>
                       </Box>
                       <Box>
-                        <Text as='span' fontSize='lg'>최근 한달간 참여(투표): </Text>
+                        <Text as='span' fontSize='lg'>최근 4주간 참여(투표): </Text>
                         <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen1Mon}회({cntVote1Mon}회)</Text>
                       </Box>
                       <Box>
                         <Text as='span' fontSize='lg'>최근 함께 스터디한 친구: </Text>
+                        <HStack spacing={1}>
                         {
                           cooperator.map((c) => (
                             <ProfileImage
@@ -81,9 +83,14 @@ const UserInfoModal: FC<{
                               src={c.thumbnailImage}
                               alt={c.name}
                               width='50px'
+                              onClick={() => {
+                                if (setActiveUserId)
+                                  setActiveUserId(c.uid)
+                              }}
                             />
                           ))
                         }
+                        </HStack>
                       </Box>
                     </>
                   ) : (

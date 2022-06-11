@@ -303,6 +303,7 @@ const Home: NextPage<{
             isOpen={isUserInfoModalOpen}
             onClose={onUserInfoModalClose}
             userId={activeUserId}
+            setActiveUserId={setActiveUserId}
           />
         )
       }

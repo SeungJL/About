@@ -1,10 +1,12 @@
-import { Box, VStack, Text, HStack } from "@chakra-ui/react"
+import { Box, VStack, Text, HStack, useDisclosure } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession } from "next-auth/react"
+import { useState } from "react"
 import ProfileImage from "../../components/profileImage"
+import UserInfoModal from "../../components/userInfoModal"
 import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
-import { getOptimalPlace } from "../../libs/placeUtils"
+import { getOptimalPlace, getPlaceFullName } from "../../libs/placeUtils"
 import { getOptimalTime } from "../../libs/timeUtils"
 import { Attendence, IParticipant } from "../../models/attendence"
 import { IUser } from "../../models/user"
@@ -16,6 +18,8 @@ const Result: NextPage<{
   date: string,
   participants: string,
 }> = ({ isOpen, studyTime, studyPlace, date, participants: rawParticipants }) => {
+  const [activeUserId, setActiveUserId] = useState('')
+
   const participants = JSON.parse(rawParticipants) as IParticipant[]
 
   if (!isOpen) {
@@ -26,6 +30,12 @@ const Result: NextPage<{
       </VStack>
     )
   }
+
+  const {
+    isOpen: isUserInfoModalOpen,
+    onOpen: onUserInfoModalOpen,
+    onClose: onUserInfoModalClose,
+  } = useDisclosure()
 
   return (
     <VStack>
@@ -41,22 +51,42 @@ const Result: NextPage<{
                 src={(p.user as IUser).thumbnailImage}
                 alt={(p.user as IUser).name}
                 width='60px'
+                onClick={() => {
+                  setActiveUserId((p.user as IUser).uid)
+                  if ((p.user as IUser).uid) {
+                    onUserInfoModalOpen()
+                  }
+                }}
               />
             </Box>
           ))
         }
       </HStack>
-      <Box>
-        <Box width='fit-content' margin='0 auto'>
+      <VStack>
+        <Box width='fit-content' display='flex' alignContent='center' flexDirection='column' alignItems='center'>
           <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
-          <Text as='span' fontSize='2xl' color='purple'>{studyPlace}</Text>
-          <Text as='span' fontSize='lg'>에서 </Text>
+          <Text as='span' fontSize='lg'>
+            <Text as='span' fontSize='2xl' color='purple'>{getPlaceFullName(studyPlace)}</Text>에서 
+          </Text>
+
+          
+          <Text as='span' fontSize='lg'>
+            <Text as='span' fontSize='2xl' color='#ff6b6b'>{strToTimeKr(studyTime)}</Text>에 열려요!
+          </Text>
         </Box>
         <Box width='fit-content' margin='0 auto'>
-          <Text as='span' fontSize='2xl' color='#ff6b6b'>{strToTimeKr(studyTime)}</Text>
-          <Text as='span' fontSize='lg'>에 열려요! 👏👏👏</Text>
         </Box>
-      </Box>
+      </VStack>
+      {
+        isUserInfoModalOpen && (
+          <UserInfoModal
+            isOpen={isUserInfoModalOpen}
+            onClose={onUserInfoModalClose}
+            userId={activeUserId}
+            setActiveUserId={setActiveUserId}
+          />
+        )
+      }
     </VStack>
   )
 }
@@ -136,7 +166,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         meetingPlace: studyPlace,
       }
     })
-
   }
   
   let studyTime = attendence.meetingTime

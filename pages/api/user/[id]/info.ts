@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../../libs/dbConnect';
-import { IAttendence, Attendence } from '../../../../models/attendence';
+import { Attendence } from '../../../../models/attendence';
 import { getToken } from 'next-auth/jwt';
-import { getToday } from '../../../../libs/dateUtils';
+import { getInterestingDate, getToday } from '../../../../libs/dateUtils';
 import { User } from '../../../../models/user';
 import { UserAttendenceInfo } from '../../../../models/UserAttendenceInfo';
 
@@ -26,7 +26,10 @@ export default async function handler(
     case 'GET':
       const user = await User.findOne({uid: uid})
       const attendences = await Attendence.find({
-        date: {$gte: getToday().add(-1, 'month')},
+        date: {
+          $gte: getToday().add(-4, 'week').toDate(),
+          $lte: getInterestingDate().add(-1, 'day').toDate(),
+        },
         'participants.user': user._id,
       }).populate('participants.user')
 
@@ -36,8 +39,4 @@ export default async function handler(
       res.status(400)
       break
   }
-}
-
-const getUserInfo = (_id: string) => {
-  Attendence.find({date: {$ge: {}}})
 }

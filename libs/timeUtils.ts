@@ -1,3 +1,5 @@
+const HOUR = 60 * 60
+
 export const getOptimalTime = (times: string[]) => {
   const epochTimes = times
     .filter((t) => t !== '')
@@ -8,18 +10,13 @@ export const getOptimalTime = (times: string[]) => {
       const minute = parseInt(rawMinute)
 
       const epochMinute = hour * 60 + minute
-
       return epochMinute
     })
-    .reduce((pre, cur, _) => pre < cur ? cur : pre, Number.MAX_VALUE)
 
-  let optimalTime = '01:00'   // 아무도 시간을 정하지 않은 경우
-  if (epochTimes !== Number.MAX_VALUE) {
-    const hour = Math.floor(epochTimes / 60)
-    const minute = epochTimes % 60
+  const studyEpochTime = epochTimes.length ? epochTimes[Math.floor(epochTimes.length / 2)] : 13 * HOUR
 
-    optimalTime = `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute }`  
-  }
+  const hour = Math.floor(studyEpochTime / 60)
+  const minute = studyEpochTime % 60
 
-  return optimalTime
+  return `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute }`  
 }

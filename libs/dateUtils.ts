@@ -59,5 +59,4 @@ export const canShowResult = () => {
   const resultCloseTime = interestingDate.hour(14)
 
   return resultOpenTime <= now && now < resultCloseTime
-  return true
 }

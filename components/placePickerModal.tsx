@@ -2,7 +2,7 @@ import { Modal, ModalOverlay, FormControl, ModalContent, ModalHeader, ModalClose
 import axios from "axios";
 import { Form, Field, Formik, FormikHelpers } from "formik";
 import { FC } from "react";
-import { getPlaces } from "../libs/placeUtils";
+import { getPlaceFullName, getPlaces } from "../libs/placeUtils";
 import { IAttendence } from "../models/attendence";
 
 const places = getPlaces()
@@ -63,7 +63,7 @@ const PlacePickerModal: FC<{
                           {
                             places.map((p) => (
                               <option key={p} value={p}>
-                                {p}
+                                {getPlaceFullName(p)}
                               </option>
                             ))
                           }

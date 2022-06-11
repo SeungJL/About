@@ -54,8 +54,8 @@ export default NextAuth({
 
       await User.updateOne({uid: user.uid}, {$set: {
         name: res.data.nickName,
-        thumbnailImage: res.data.thumbnailURL,
-        profileImage: res.data.profileImageURL,
+        thumbnailImage: res.data.thumbnailURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+        profileImage: res.data.profileImageURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
       }})
 
       return true
