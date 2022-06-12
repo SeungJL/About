@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  if (session && ['member', 'previliged'].includes(session.role as string)) {
+  if (['member', 'previliged'].includes(session.role as string)) {
     return {
       redirect: {
         permanent: false,

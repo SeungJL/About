@@ -15,7 +15,7 @@ import ProfileImage from '../../components/profileImage';
 import PlacePickerModal from '../../components/placePickerModal';
 import { getPlaceColor, getPlaceImg } from '../../libs/placeUtils';
 import { Colors } from '../../libs/colors';
-import { IUser } from '../../models/user';
+import { IUser, User } from '../../models/user';
 import UserInfoModal from '../../components/userInfoModal';
 import Head from 'next/head';
 
@@ -138,7 +138,7 @@ const Home: NextPage<{
           <NextLink href={`/${previousDate.format('YYYY-MM-DD')}`}>
             <Button size='sm'>이전날</Button>
           </NextLink>
-          <Heading as='h1' size='lg' width='100%' textAlign='center' >{dateKr}</Heading>
+          <Heading as='h1' size='lg' width='100%' textAlign='center' letterSpacing={-1}>{dateKr}</Heading>
           <NextLink href={`/${nextDate.format('YYYY-MM-DD')}`}>
             <Button
               size='sm'
@@ -354,17 +354,30 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
       props: {},
     }
   }
-  if (!['member', 'previliged'].includes(session.role as string)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/forbidden',
+
+  await dbConnect()
+
+  const user = await User.findOne({ uid: session.uid })
+
+  if (!['member', 'previliged'].includes(user?.role)) {
+    if (session.role !== user?.role) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: `/forbidden/signout?${session.role ? '?with_signout=true' : ''}`,
+        }
+      }
+    } else {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/forbidden',
+        }
       }
     }
   }
 
   const rawDate = context.params.date as string
-  await dbConnect()
 
   const dayjsDate = strToDate(rawDate)
   const interestingDate = getInterestingDate()
