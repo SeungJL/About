@@ -29,7 +29,7 @@ const PrivacyPolicy: NextPage = () => {
       <Container>
         <Text marginBottom='10px'>Vote Helper 스터디 참여 투표 자동화 서비스(이하 Vote Helper)는 이용자의 동의를 기반으로 개인정보를 수집·이용 및 제공하고 있으며, 이용자의 권리(개인정보 자기결정권)를 적극적으로 보장하며, 대한민국의 개인정보보호 규정 및 가이드라인을 준수하고 있습니다.</Text>
         <Text marginBottom='10px'>본 개인정보처리방침은 Vote Helper 서비스 사용자에게 적용됩니다.</Text>
-        <Text marginBottom='10px'>Vote Helper의 개인정보처리방침을 개정하는 경우 웹사이트 공지사항(또는 광교 카공스터디 톡오픈대화방 이하 오카방)을 통하여 공지할 것입니다.</Text>
+        <Text marginBottom='10px'>Vote Helper의 개인정보처리방침을 개정하는 경우 웹사이트 공지사항(또는 광교 카공스터디 카카오톡오픈대화방 이하 오카방)을 통하여 공지할 것입니다.</Text>
         <Text marginBottom='10px'>본 방침은 2022년 6월 11일부터 시행됩니다.</Text>
 
         <Heading as='h3' size='lg' marginTop='15px'> 1. 처리하는 개인정보 항목</Heading>
@@ -82,7 +82,7 @@ const PrivacyPolicy: NextPage = () => {
 
         <Heading as='h3' size='lg' marginTop='15px'>7. 개인정보의 보호대책</Heading>
         <Text>Vote Helper는 사용자의 개인정보를 소중하게 여기고, 개인정보를 처리함에 있어서 다음 조치를 하고 있습니다.</Text>
-        <Heading as='h4' size='sm' marginTop='10px'>카카오에서 제공하는 <NextLink href='https://oauth.net/2/'><Link>OAuth2.0<ExternalLinkIcon mx='2px' /></Link></NextLink> 서비스를 사용하고 있습니다.</Heading>
+        <Heading as='h4' size='sm' marginTop='10px'>카카오에서 제공하는 <NextLink href='https://datatracker.ietf.org/doc/html/rfc6749'><Link>OAuth2.0<ExternalLinkIcon mx='2px' /></Link></NextLink> 서비스를 사용하고 있습니다.</Heading>
         <Text>Vote Helper는 사용자 인증을 카카오 OAuth2.0을 통해 처리하고 있으며, 따라서 카카오 서비스 연결 동의 페이지에서 동의하신 개인정보(이름, 프로필 사진) 이외의 개인정보를 일절 제공받지 않습니다.</Text>
         <Text>또한, 카카오 OAuth2.0 인증 과정에서 Vote Helper는 어떠한 개입도 할 수 없습니다.</Text>
         <Heading as='h4' size='sm' marginTop='10px'>개인정보를 취급하는 사람을 최소화하고 있습니다.</Heading>
