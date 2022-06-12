@@ -72,16 +72,16 @@ const Home: NextPage<{
     isAccessibleNextDay,
   ] = useMemo(() => {
     const interestingDate = getInterestingDate()
-    const nextDate = getNextDate(dateStr)
-    const isAccessibleNextDay = nextDate.unix() - interestingDate.add(1, 'day').unix() <= 0
+    const next = getNextDate(dateStr)
+    const isAccessibleNext = next.unix() - interestingDate.add(1, 'week').unix() <= 0
     const currentDate = strToDate(dateStr)
 
     return [
-      nextDate,
+      next,
       getPreviousDate(dateStr),
       convertToKr(currentDate),
       interestingDate <= currentDate,
-      isAccessibleNextDay,  
+      isAccessibleNext,  
     ]
   }, [dateStr])
 
@@ -362,10 +362,12 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
 
   if (!isMember(user?.role)) {
     if (session.role !== user?.role) {
+      context.res.setHeader('Set-Cookie', 'next-auth.session-token=deleted')
+
       return {
         redirect: {
           permanent: false,
-          destination: `/forbidden/signout?${session.role ? '?with_signout=true' : ''}`,
+          destination: '/login?force_signout=true',
         }
       }
     } else {
@@ -396,7 +398,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   const nullableAttendence = await Attendence.findOne({ date: dayjsDate.toDate() }).populate('participants.user')
   let attendence: IAttendence
   if (!nullableAttendence) {
-    if (dayjsDate <= interestingDate.add(1, 'day')) {
+    if (dayjsDate <= interestingDate.add(1, 'week')) {
       const newAttendence = new Attendence({
         date: dayjsDate.toDate(),
         participants: [],
