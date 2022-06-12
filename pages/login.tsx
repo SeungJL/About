@@ -1,4 +1,4 @@
-import { Box, Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Container, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import { BuiltInProviderType } from 'next-auth/providers';
@@ -23,7 +23,7 @@ const Login: NextPage<{
   const kakaoProvider = Object.values(providers).find((p) => p.id == 'kakao')
 
   return (
-    <VStack height='100%' justifyContent='center'>
+    <VStack height='92vh' justifyContent='center'>
       <VStack marginBottom='20px'>
         <Logo />
         <Heading textAlign='center'>VOTE HELPER</Heading>
