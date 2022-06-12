@@ -5,6 +5,7 @@ import UpdateParticipants from '../../../../models/interface/updateParticipants'
 import { IAttendence, Attendence, IParticipant } from '../../../../models/attendence';
 import { getToken } from 'next-auth/jwt';
 import { getInterestingDate, strToDate } from '../../../../libs/dateUtils';
+import { isMember } from '../../../../libs/authUtils';
 
 const secret = process.env.NEXTAUTH_SECRET
 
@@ -17,11 +18,18 @@ export default async function handler(
   const token = await getToken({ req, secret })
 
   if (!token) {
-    res.status(401)
+    res.status(401).end()
+    return
+  }
+
+  if (!isMember(token.role as string)) {
+    res.status(403).end()
+    return
   }
 
   if(dateStr && !dayjs(dateStr, 'YYYY-MM-DD').isValid()) {
-    res.status(400)
+    res.status(400).end()
+    return
   }
   const dayjsDate = strToDate(dateStr)
   const date = dayjsDate.toDate()

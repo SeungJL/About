@@ -5,6 +5,7 @@ import { getToken } from 'next-auth/jwt';
 import { getInterestingDate, getToday } from '../../../../libs/dateUtils';
 import { User } from '../../../../models/user';
 import { UserAttendenceInfo } from '../../../../models/UserAttendenceInfo';
+import { isMember } from '../../../../libs/authUtils';
 
 const secret = process.env.NEXTAUTH_SECRET
 
@@ -16,8 +17,9 @@ export default async function handler(
   const { method } = req
   const token = await getToken({ req, secret })
 
-  if (!token || !['member', 'previlige'].includes(token.role as string)) {
-    res.status(401)
+  if (!token || !isMember(token.role as string)) {
+    res.status(401).end()
+    return
   }
 
   await dbConnect()
@@ -36,7 +38,7 @@ export default async function handler(
       res.status(200).json({ user, attendences })
       break
     default:
-      res.status(400)
+      res.status(400).end()
       break
   }
 }

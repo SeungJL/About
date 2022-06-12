@@ -18,6 +18,7 @@ import { Colors } from '../../libs/colors';
 import { IUser, User } from '../../models/user';
 import UserInfoModal from '../../components/userInfoModal';
 import Head from 'next/head';
+import { isMember } from '../../libs/authUtils';
 
 const Home: NextPage<{
   attendence: IAttendence
@@ -359,7 +360,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
 
   const user = await User.findOne({ uid: session.uid })
 
-  if (!['member', 'previliged'].includes(user?.role)) {
+  if (!isMember(user?.role)) {
     if (session.role !== user?.role) {
       return {
         redirect: {
