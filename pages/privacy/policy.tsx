@@ -1,18 +1,22 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Box, Container, Heading, Link, List, ListItem, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, Link, List, ListItem, Text } from "@chakra-ui/react";
 import { NextPage } from "next";
 import NextLink from "next/link"
+import { useRouter } from "next/router";
 
 const PrivacyPolicy: NextPage = () => {
+  const router = useRouter()
+
   return (
     <>
       <Box
         margin='10px'
-        padding='10px'
+        padding='15px'
         borderRadius='10px'
         bgGradient='linear(to-tl, #5CCA5C, #53B1A4, #509EE7)'
       >
         <Heading
+          as='h1'
           fontSize='xl'
           fontWeight='900'
           color='white'
@@ -32,7 +36,7 @@ const PrivacyPolicy: NextPage = () => {
         <Heading as='h4' size='sm'>회원정보</Heading>
         <List as='ol' marginLeft='1em' styleType='number'>
           <ListItem>
-            <Text>카카오톡 사용자 이름</Text>
+            <Text>카카오톡 프로필 이름</Text>
             <Text fontSize='sm'>사용목적: 서비스내 사용자의 구분</Text>
           </ListItem>
           <ListItem>
@@ -49,7 +53,7 @@ const PrivacyPolicy: NextPage = () => {
         </List>
 
         <Heading as='h3' size='lg' marginTop='15px'>2. 개인정보 수집 방법</Heading>
-        <Text>Vote Helper는 사용자의 개인정보를 (주)카카오로부터 사용자의 동의 하에 제공받고 있습니다.</Text>
+        <Text>Vote Helper는 사용자의 개인정보를 (주)카카오로부터 사용자의 동의에 따라 제공받고 있습니다.</Text>
 
         <Heading as='h3' size='lg' marginTop='15px'>3. 개인정보 처리목적</Heading>
         <Text>Vote Helper는 사용자의 개인정보를 다음과 같은 목적으로만 사용하며, 목적이 변경될 경우에는 웹사이트 공지사항(또는 오카방)을 통해 사전에 고지할 것입니다.</Text>
@@ -71,7 +75,7 @@ const PrivacyPolicy: NextPage = () => {
 
         <Heading as='h3' size='lg' marginTop='15px'>6. 개인정보의 제3자 제공</Heading>
         <Text>Vote Helper는 원칙적으로 법령에 따른 동의 없이는 사용자의 개인정보를 제3자에게 제공하지 않으며, 다음의 경우는 예외로 하고 있습니다.</Text>
-        <List>
+        <List as='ol' styleType='number' marginLeft='1em'>
           <ListItem>사전에 이용자로부터 법령에 따른 동의를 받은 경우</ListItem>
           <ListItem>다른 법령의 규정에 의한 경우</ListItem>
         </List>
@@ -93,7 +97,7 @@ const PrivacyPolicy: NextPage = () => {
         <Text>웹브라우저 상단의 도구&gt;인터넷 옵션&gt;개인정보 메뉴의 옵션 설정을 통해 쿠키 저장을 거부 할 수 있습니다. 쿠키 저장을 거부할 경우 맞춤형 서비스 이용에 어려움이 발생할 수 있으며 <strong>자동로그인 기능을 지원 받을 수 없습니다</strong></Text>
 
         <Heading as='h3' size='lg' marginTop='15px'>9. 개인정보 보호책임자</Heading>
-        <Text>VoteHelper를 사용하는 과저에서 개인정보보호 관련 문의, 불만, 조언이나 기타 사항은 개인정보 보호책임자로 연락해 주시기 바랍니다. Vote Helper는 신속하고 충분한 답변을 드리도록 최선을 다하겠습니다.</Text>
+        <Text>VoteHelper를 사용하는 과정에서 개인정보보호 관련 문의, 불만, 조언이나 기타 사항은 개인정보 보호책임자로 연락해 주시기 바랍니다. Vote Helper는 신속하고 충분한 답변을 드리도록 최선을 다하겠습니다.</Text>
         <Heading as='h4' size='sm' marginTop='10px'>개인정보 보호책임자</Heading>
         <List styleType='circle' marginLeft='1em'>
           <ListItem>
@@ -121,6 +125,15 @@ const PrivacyPolicy: NextPage = () => {
             <Text>(<NextLink href='http://police.go.kr'><Link>police.go.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 182)</Text>
           </ListItem>
         </List>
+        <Button
+          width='100%'
+          margin='10px 0'
+          onClick={() => {
+            router.push('/')
+          }}
+        >
+          홈으로 돌아가기
+        </Button>
       </Container>
     </>
   )
