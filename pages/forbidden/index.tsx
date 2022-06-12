@@ -2,6 +2,7 @@ import { NotAllowedIcon } from '@chakra-ui/icons'
 import { Box, Container, HStack, Text, VStack } from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
+import { isMember } from '../../libs/authUtils'
 
 const Forbidden: NextPage = () => (
   <VStack height='100%'>
@@ -31,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  if (session && ['member', 'previliged'].includes(session.role as string)) {
+  if (isMember(session.role as string)) {
     return {
       redirect: {
         permanent: false,

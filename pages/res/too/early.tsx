@@ -2,6 +2,7 @@ import { Text, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { isMember } from "../../../libs/authUtils";
 
 const TooEarly: NextPage = () => {
   return (
@@ -32,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  if (!['member', 'previliged'].includes(session.role as string)) {
+  if (!isMember(session.role as string)) {
     return {
       redirect: {
         permanent: false,

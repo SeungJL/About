@@ -2,7 +2,8 @@ import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import Header from '../components/layout/header'
-import { ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider } from '@chakra-ui/react'
+import Footer from '../components/layout/footer'
 
 function App({ 
   Component, 
@@ -12,7 +13,10 @@ function App({
     <SessionProvider session={session}>
       <ChakraProvider>
           <Header />
-          <Component {...pageProps} />
+          <Box as='main' paddingBottom='70px' minHeight='92vh'>
+            <Component {...pageProps} />
+          </Box>
+          <Footer />
       </ChakraProvider>
     </SessionProvider>
   )

@@ -11,8 +11,8 @@ export default async function handler(
   const { method } = req
   const token = await getToken({ req, secret })
 
-  if (!token || !['member', 'previlige'].includes(token.role as string)) {
-    res.status(401)
+  if (!token) {
+    res.status(401).end()
   }
 
   switch (method) {
@@ -21,7 +21,7 @@ export default async function handler(
       res.status(204).end()
       break
     default:
-      res.status(400)
+      res.status(400).end()
       break
   }
 }

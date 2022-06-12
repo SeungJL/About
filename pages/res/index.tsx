@@ -5,6 +5,7 @@ import Head from "next/head"
 import { useState } from "react"
 import ProfileImage from "../../components/profileImage"
 import UserInfoModal from "../../components/userInfoModal"
+import { isMember } from "../../libs/authUtils"
 import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
 import { getOptimalPlace, getPlaceFullName } from "../../libs/placeUtils"
@@ -115,7 +116,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  if (!['member', 'previliged'].includes(session.role as string)) {
+  if (!isMember(session.role as string)) {
     return {
       redirect: {
         permanent: false,

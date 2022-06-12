@@ -1,16 +1,25 @@
-import { Box, Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import type { NextPage } from 'next'
-import { GetServerSideProps } from 'next'
-import { BuiltInProviderType } from 'next-auth/providers';
-import { ClientSafeProvider, getProviders, getSession, LiteralUnion, signIn } from 'next-auth/react'
-import { useState } from 'react';
-import { getInterestingDate } from '../libs/dateUtils';
-import Logo from '../components/logo';
+import { VStack, Heading, Box, Button, HStack, Text, useDisclosure, AlertDialogOverlay, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader } from "@chakra-ui/react"
+import { NextPage, GetServerSideProps } from "next"
+import { BuiltInProviderType } from "next-auth/providers"
+import { LiteralUnion, ClientSafeProvider, signIn, getProviders, getSession } from "next-auth/react"
+import { useRouter } from "next/router"
+import { useEffect, useRef, useState } from "react"
+import Logo from "../components/logo"
+import { getInterestingDate } from "../libs/dateUtils"
 
 const Login: NextPage<{
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>,
 }> = ({ providers }) => {
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = useRef()
+
+  const forceSignOut = router.query.force_signout as string === 'true'
+
+  useEffect(() => {
+    if (forceSignOut) onOpen()
+  }, [])
 
   const customSignin = async (kakaoProvider: ClientSafeProvider) => {
     setLoading(true)
@@ -23,7 +32,7 @@ const Login: NextPage<{
   const kakaoProvider = Object.values(providers).find((p) => p.id == 'kakao')
 
   return (
-    <VStack height='100%' justifyContent='center'>
+    <VStack height='92vh' justifyContent='center'>
       <VStack marginBottom='20px'>
         <Logo />
         <Heading textAlign='center'>VOTE HELPER</Heading>
@@ -51,6 +60,31 @@ const Login: NextPage<{
           </HStack>
         </Button>
       </Box>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered
+        size='xs'
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              강제 로그아웃
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              <Text>관리자가 당신의 권한을 변경하여 강제 로그아웃되었습니다.</Text>
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button colorScheme='red' onClick={onClose} width='100%'>
+                확인
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </VStack>
   )
 }

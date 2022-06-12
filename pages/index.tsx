@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
+import { isMember } from '../libs/authUtils';
 import { getInterestingDate } from '../libs/dateUtils';
 
 const Root: NextPage = () => (
@@ -10,7 +11,7 @@ const Root: NextPage = () => (
 export const getServerSideProps: GetServerSideProps = async ( context )=> {
   const session = await getSession({ req: context.req })
   if (session) {
-    if (!['member', 'previliged'].includes(session.role as string)) {
+    if (!isMember(session.role as string)) {
       return {
         redirect: {
           permanent: false,

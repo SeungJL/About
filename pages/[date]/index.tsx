@@ -15,9 +15,10 @@ import ProfileImage from '../../components/profileImage';
 import PlacePickerModal from '../../components/placePickerModal';
 import { getPlaceColor, getPlaceImg } from '../../libs/placeUtils';
 import { Colors } from '../../libs/colors';
-import { IUser } from '../../models/user';
+import { IUser, User } from '../../models/user';
 import UserInfoModal from '../../components/userInfoModal';
 import Head from 'next/head';
+import { isMember } from '../../libs/authUtils';
 
 const Home: NextPage<{
   attendence: IAttendence
@@ -71,16 +72,16 @@ const Home: NextPage<{
     isAccessibleNextDay,
   ] = useMemo(() => {
     const interestingDate = getInterestingDate()
-    const nextDate = getNextDate(dateStr)
-    const isAccessibleNextDay = nextDate.unix() - interestingDate.add(1, 'day').unix() <= 0
+    const next = getNextDate(dateStr)
+    const isAccessibleNext = next.unix() - interestingDate.add(1, 'week').unix() <= 0
     const currentDate = strToDate(dateStr)
 
     return [
-      nextDate,
+      next,
       getPreviousDate(dateStr),
       convertToKr(currentDate),
       interestingDate <= currentDate,
-      isAccessibleNextDay,  
+      isAccessibleNext,  
     ]
   }, [dateStr])
 
@@ -138,7 +139,7 @@ const Home: NextPage<{
           <NextLink href={`/${previousDate.format('YYYY-MM-DD')}`}>
             <Button size='sm'>이전날</Button>
           </NextLink>
-          <Heading as='h1' size='lg' width='100%' textAlign='center' >{dateKr}</Heading>
+          <Heading as='h1' size='lg' width='100%' textAlign='center' letterSpacing={-1}>{dateKr}</Heading>
           <NextLink href={`/${nextDate.format('YYYY-MM-DD')}`}>
             <Button
               size='sm'
@@ -322,7 +323,7 @@ const Home: NextPage<{
             width='100%'
             display='flex'
             position='fixed'
-            bottom='20px'
+            bottom='9vh'
             >
               <Button
                 colorScheme='green'
@@ -354,17 +355,32 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
       props: {},
     }
   }
-  if (!['member', 'previliged'].includes(session.role as string)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/forbidden',
+
+  await dbConnect()
+
+  const user = await User.findOne({ uid: session.uid })
+
+  if (!isMember(user?.role)) {
+    if (session.role !== user?.role) {
+      context.res.setHeader('Set-Cookie', 'next-auth.session-token=deleted')
+
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/login?force_signout=true',
+        }
+      }
+    } else {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/forbidden',
+        }
       }
     }
   }
 
   const rawDate = context.params.date as string
-  await dbConnect()
 
   const dayjsDate = strToDate(rawDate)
   const interestingDate = getInterestingDate()
@@ -382,7 +398,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   const nullableAttendence = await Attendence.findOne({ date: dayjsDate.toDate() }).populate('participants.user')
   let attendence: IAttendence
   if (!nullableAttendence) {
-    if (dayjsDate <= interestingDate.add(1, 'day')) {
+    if (dayjsDate <= interestingDate.add(1, 'week')) {
       const newAttendence = new Attendence({
         date: dayjsDate.toDate(),
         participants: [],
