@@ -125,16 +125,21 @@ const PrivacyPolicy: NextPage = () => {
             <Text>(<NextLink href='http://police.go.kr'><Link>police.go.kr<ExternalLinkIcon mx='2px' /></Link></NextLink> / 국번없이 182)</Text>
           </ListItem>
         </List>
-        <Button
-          width='100%'
-          margin='10px 0'
-          onClick={() => {
-            router.push('/')
-          }}
-        >
-          홈으로 돌아가기
-        </Button>
       </Container>
+      <Button
+        position='fixed'
+        bottom='0'
+        backgroundColor='gray.200'
+        borderRadius='0'
+        width='100%'
+        height='8vh'
+        zIndex='1000'
+        onClick={() => {
+          router.push('/')
+        }}
+      >
+        홈으로 돌아가기
+      </Button>
     </>
   )
 }
