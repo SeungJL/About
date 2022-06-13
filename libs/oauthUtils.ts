@@ -7,6 +7,7 @@ import clientPromise from "./mongodb"
 import { Dayjs } from "dayjs"
 import { getOptimalPlace } from "./placeUtils"
 import { getOptimalTime } from "./timeUtils"
+import { kakaoProfileInfo } from "../models/interface/kakaoProfileInfo"
 
 export const getRefreshedAccessToken = async (uid: string, refreshToken: string) => {
   const token: JWT = {
@@ -167,8 +168,8 @@ export const getProfiles = async (accessToken: string) => {
   }
   
   return {
-    name: res.data.nickName,
-    thumbnailImage: res.data.thumbnailURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
-    profileImage: res.data.profileImageURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
-  }
+    name: res.data.nickName as string,
+    thumbnailImage: res.data.thumbnailURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+    profileImage: res.data.profileImageURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+  } as kakaoProfileInfo
 }

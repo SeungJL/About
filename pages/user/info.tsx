@@ -1,28 +1,46 @@
 import { RepeatIcon } from "@chakra-ui/icons"
-import { Text, Container, Heading, HStack, Divider, Box, Button, Badge, Spinner } from "@chakra-ui/react"
-import axios from "axios"
+import { Text, Container, Heading, HStack, Divider, Box, Button, Badge, Spinner, useToast } from "@chakra-ui/react"
+import axios, { AxiosError } from "axios"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, signOut } from "next-auth/react"
 import { useState } from "react"
+import { useMutation } from "react-query"
 import ProfileImage from "../../components/profileImage"
 import { getRoleName, isMember, isPreviliged, isStranger, role } from "../../libs/authUtils"
 import dbConnect from "../../libs/dbConnect"
+import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo"
 import { IUser, User } from "../../models/user"
 
 const UserInfo: NextPage<{
   user: IUser
 }> = ({ user: userParam }) => {
-  const [isLoading, setLoading] = useState(false)
+  const toast = useToast()
   const [user, setUser] = useState(userParam)
 
-  const updateProfile = async () => {
-    setLoading(true)
-    const res = await axios.patch('/api/user/profile')
+  const { isLoading, mutate: onUpdateProfile } = useMutation<kakaoProfileInfo, AxiosError>(
+    'updateProfile', 
+    async () => {
+      const res = await axios.patch('/api/user/profile')
 
-    const updatedUser: IUser = res.data
-    setUser(updatedUser)
-    setLoading(false)
-  }
+      return res.data
+    },
+    {
+      onSuccess: (data: IUser) => {
+        setUser(data)
+      },
+      onError: (error: AxiosError) => {
+        console.error(error)
+        toast({
+          title: '업데이트 실패',
+          description: "프로필 사진을 가져오지 못 했어요.",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+        })
+      }
+    },
+  )
 
   return (
     <Container>
@@ -46,10 +64,10 @@ const UserInfo: NextPage<{
             bottom='-5px'
             right='-5px'
             cursor='pointer'
-            onClick={updateProfile}
+            onClick={() => onUpdateProfile()}
           >
             {
-              isLoading ? <Spinner /> : <RepeatIcon fontSize='lg' rotate='' />
+              isLoading ? <Spinner size='sm' /> : <RepeatIcon fontSize='lg' rotate='' />
             }
           </Badge>
         </Box>
