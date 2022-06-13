@@ -1,4 +1,4 @@
-const role = {
+export const role = {
   stranger: '미인증 사용자',
   member: '회원',
   previliged: '관리자',
@@ -9,6 +9,10 @@ export const getRoleName = (roleStr: string) => {
     return role[roleStr]
   }
   return role.stranger
+}
+
+export const isStranger = (roleStr: string) => {
+  return getRoleName(roleStr) === role.stranger
 }
 
 export const isMember = (roleStr: string) => {

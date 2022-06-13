@@ -41,15 +41,15 @@ export const refreshAccessToken = async (token: JWT) => {
       throw refreshedTokens
     }
 
-    const updateFields = Object.assign({},
-      refreshedTokens.access_token && {access_token: refreshedTokens.access_token},
-      refreshedTokens.refresh_token && {refresh_token: refreshedTokens.refresh_token},
-      refreshedTokens.expires_in && {expires_at: refreshedTokens.expires_in},
-      refreshedTokens.refresh_token_expires_in && {refresh_token_expires_in: refreshedTokens.refresh_token_expires_in},
-    )
+    // const updateFields = Object.assign({},
+    //   refreshedTokens.access_token && {access_token: refreshedTokens.access_token},
+    //   refreshedTokens.refresh_token && {refresh_token: refreshedTokens.refresh_token},
+    //   refreshedTokens.expires_in && {expires_at: refreshedTokens.expires_in},
+    //   refreshedTokens.refresh_token_expires_in && {refresh_token_expires_in: refreshedTokens.refresh_token_expires_in},
+    // )
 
     const client = await clientPromise
-    client.db('votehelper').collection('accounts').updateMany({providerAccountId: token.uid.toString()}, { $set: updateFields })
+    // client.db('votehelper').collection('accounts').updateMany({providerAccountId: token.uid.toString()}, { $set: updateFields })
 
     return {
       ...token,
@@ -121,50 +121,6 @@ export const sendResultMessage = async (
   }
 }
 
-export const sendResultMessages = async (date: Dayjs) => {
-  await dbConnect()
-  const client = await clientPromise
-
-  const attendence = await Attendence.findOne({date: date.toDate()}).populate('participants.user')
-
-  const users = attendence.participants.map((p) => (p.user as IUser))
-  const accounts = await client.db('votehelper').collection('accounts').find({userId: {$in: users.map(u => u._id)}}).toArray()
-
-  if (attendence.participants.length < 3) {
-    const promises = accounts.map((account) => {
-      const accessToken = account.access_token as string
-      const refreshToken = account.refresh_token as string
-      const uid = account.providerAccountId
-
-      return sendResultMessage(accessToken, refreshToken, uid, date, false, '', '')
-    })
-
-    return await Promise.all(promises)
-  }
-
-  const meetingTime = attendence.meetingTime ? attendence.meetingTime : getOptimalTime(attendence.participants.map((p) => p.time))
-  const meetingPlace = attendence.meetingPlace ? attendence.meetingPlace : getOptimalPlace(attendence.participants.map((p) => p.place))
-
-  if (!attendence.meetingPlace || !attendence.meetingTime) {
-    const updateField = Object.assign({},
-      meetingTime && { meetingTime },
-      meetingPlace && { meetingPlace },
-    )
-
-    await Attendence.updateOne({date: date.toDate()}, { $set: updateField })
-  }
-
-  const promises = accounts.map((account) => {
-    const accessToken = account.access_token as string
-    const refreshToken = account.refresh_token as string
-    const uid = account.providerAccountId
-
-    return sendResultMessage(accessToken, refreshToken, uid, date, true, meetingTime, meetingPlace)
-  })
-
-  return await Promise.all(promises)
-}
-
 export const withdrawal = async (accessToken: string) => {
   const url = 'https://kapi.kakao.com/v1/user/unlink'
 
@@ -197,4 +153,22 @@ export const withdrawal = async (accessToken: string) => {
     }})
   }
   return
+}
+
+export const getProfiles = async (accessToken: string) => {
+  const res = await axios.get('https://kapi.kakao.com/v1/api/talk/profile', {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+  
+  return {
+    name: res.data.nickName,
+    thumbnailImage: res.data.thumbnailURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+    profileImage: res.data.profileImageURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+  }
 }
