@@ -4,7 +4,7 @@ import { Attendence } from '../../../../models/attendence';
 import { getToken } from 'next-auth/jwt';
 import { getInterestingDate, getToday } from '../../../../libs/dateUtils';
 import { User } from '../../../../models/user';
-import { UserAttendenceInfo } from '../../../../models/UserAttendenceInfo';
+import { UserAttendenceInfo } from '../../../../models/userAttendenceInfo';
 import { isMember } from '../../../../libs/authUtils';
 
 const secret = process.env.NEXTAUTH_SECRET
