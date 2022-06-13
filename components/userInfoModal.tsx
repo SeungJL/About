@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { FC, useEffect, useState } from "react";
 import { getToday } from "../libs/dateUtils";
 import { IUser } from "../models/user";
-import { UserAttendenceInfo } from "../models/UserAttendenceInfo";
+import { UserAttendenceInfo } from "../models/userAttendenceInfo";
 import ProfileImage from "./profileImage";
 
 const UserInfoModal: FC<{

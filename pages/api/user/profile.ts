@@ -6,7 +6,7 @@ import dbConnect from "../../../libs/dbConnect"
 import { getProfiles } from "../../../libs/oauthUtils"
 import { Attendence } from "../../../models/attendence"
 import { IUser, User } from "../../../models/user"
-import { UserAttendenceInfo } from "../../../models/UserAttendenceInfo"
+import { UserAttendenceInfo } from "../../../models/userAttendenceInfo"
 
 const secret = process.env.NEXTAUTH_SECRET
 
