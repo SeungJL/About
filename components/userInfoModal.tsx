@@ -1,7 +1,9 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box, HStack } from "@chakra-ui/react";
-import axios from "axios";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box, HStack, useToast, VStack, Badge } from "@chakra-ui/react";
+import axios, { AxiosError } from "axios";
 import dayjs from "dayjs";
 import { FC, useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
+import { isStranger, role, isMember, isPreviliged } from "../libs/authUtils";
 import { getToday } from "../libs/dateUtils";
 import { IUser } from "../models/user";
 import { UserAttendenceInfo } from "../models/userAttendenceInfo";
@@ -13,14 +15,35 @@ const UserInfoModal: FC<{
   userId: string,
   setActiveUserId?: (activeUser: string) => void,
 }> = ({ isOpen, onClose, userId, setActiveUserId }) => {
+  const toast = useToast()
+  const queryClient = useQueryClient()
   const [userAttendenceInfo, setUserAttendenceInfo] = useState<UserAttendenceInfo>(null)
-  useEffect(() => {
-    const getUserAttendenceInfo = async () => {
+  useQuery<UserAttendenceInfo, AxiosError>(
+    'fetchUserInfo',
+    async () => {
       const res = await axios.get(`/api/user/${userId}/info`)
+      return res.data
+    },
+    {
+      onSuccess: (data) => {
+        setUserAttendenceInfo(data)
+      },
+      onError: (error) => {
+        console.error(error)
+        toast({
+          title: '실패',
+          description: '사용자 정보를 불러오는데 실패했어요',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+        })
+      }
+    },
+  )
 
-      setUserAttendenceInfo(res.data)
-    }
-    getUserAttendenceInfo()
+  useEffect(() => {
+    queryClient.invalidateQueries('fetchUserInfo')
   }, [userId])
 
   const lastWeek = getToday().add(-1, 'week')
@@ -54,17 +77,33 @@ const UserInfoModal: FC<{
                 {
                   userAttendenceInfo ? (
                     <>
-                      <Box marginBottom='20px'>
+                      <HStack spacing={3} marginBottom='20px'>
                         <ProfileImage
                           src={userAttendenceInfo.user.profileImage}
                           alt={userAttendenceInfo.user.name}
-                          width='150px'
-                          margin='0 auto 5px auto'
+                          width='90px'
                         />
-                        <Box width='fit-content' margin='0 auto'>
+                        <VStack alignItems='flex-start'>
                           <Text as='span' fontSize='2xl' fontWeight='400'>{userAttendenceInfo.user.name}</Text>
-                        </Box>
-                      </Box>
+                          <HStack spacing={1}>
+                            {
+                              isStranger(userAttendenceInfo.user.role) && (
+                                <Badge key='stranger' colorScheme='yellow'>{role.stranger}</Badge>
+                              )
+                            }
+                            {
+                              isMember(userAttendenceInfo.user.role) && (
+                                <Badge key='member' colorScheme='green'>{role.member}</Badge>
+                              )
+                            }
+                            {
+                              isPreviliged(userAttendenceInfo.user.role) && (
+                                <Badge key='previlied' colorScheme='red'>{role.previliged}</Badge>
+                              )
+                            }
+                          </HStack>
+                        </VStack>
+                      </HStack>
                       <Box>
                         <Text as='span' fontSize='lg'>최근 7일간 참여(투표): </Text>
                         <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen7days}회({cntVote7days}회)</Text>
