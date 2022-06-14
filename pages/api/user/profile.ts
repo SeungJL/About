@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt"
 import { isMember } from "../../../libs/authUtils"
 import { getToday, getInterestingDate } from "../../../libs/dateUtils"
 import dbConnect from "../../../libs/dbConnect"
-import { getProfiles } from "../../../libs/oauthUtils"
+import { getProfile } from "../../../libs/oauthUtils"
 import { Attendence } from "../../../models/attendence"
 import { IUser, User } from "../../../models/user"
 import { UserAttendenceInfo } from "../../../models/userAttendenceInfo"
@@ -26,7 +26,7 @@ export default async function handler(
 
   switch (method) {
     case 'PATCH':
-      const profile = await getProfiles(token.accessToken as string)
+      const profile = await getProfile(token.accessToken as string)
 
       if (!profile) {
         res.status(500).end()

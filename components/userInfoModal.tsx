@@ -8,6 +8,7 @@ import { isStranger, role, isMember, isPreviliged } from "../libs/authUtils";
 import { getToday } from "../libs/dateUtils";
 import { IUser } from "../models/user";
 import { UserAttendenceInfo } from "../models/userAttendenceInfo";
+import InfoPopOver from "./infoPopover";
 import ProfileImage from "./profileImage";
 
 const UserInfoModal: FC<{
@@ -132,21 +133,30 @@ const UserInfoModal: FC<{
                 <Skeleton isLoaded={!isLoading}>
                   <HStack justifyContent='space-between' margin='5px 0'>
                     <Box key='1week' flex={1}>
-                      <Text fontSize='sm' width='fit-content' margin='auto'>7일 간</Text>
+                      <HStack justifyContent='center' alignItems='center'>
+                        <Text as='span' fontSize='sm' width='fit-content' marginRight='2px'>7일</Text>
+                        <InfoPopOver content={'최근 7일간 참여횟수(투표횟수)'} placement='top-start' />
+                      </HStack>
                       <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
                         {cntOpen7days}회({cntVote7days}회)
                       </Text>
                     </Box>
                     <Divider orientation='vertical' height='2rem' />
                     <Box key='4week' flex={1}>
-                      <Text fontSize='sm' width='fit-content' margin='auto'>4주 간</Text>
+                      <HStack justifyContent='center' alignItems='center'>
+                        <Text as='span' fontSize='sm' width='fit-content' marginRight='2px'>4주</Text>
+                        <InfoPopOver content={'최근 4주간 참여횟수(투표횟수)'} placement='top' />
+                      </HStack>
                       <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
                         {cntOpen1Mon}회({cntVote1Mon}회)
                       </Text>
                     </Box>
                     <Divider orientation='vertical' height='2rem' />
                     <Box key='status' flex={1}>
-                      <Text fontSize='sm' width='fit-content' margin='auto'>참여율</Text>
+                      <HStack justifyContent='center' alignItems='center'>
+                        <Text fontSize='sm' width='fit-content' marginRight='2px'>참여율</Text>
+                        <InfoPopOver content={'참여/투표 횟수가 반영된 결과입니다.'} placement='top-start' />
+                      </HStack>
                       <Text
                         fontSize='lg'
                         fontWeight='600'

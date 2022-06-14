@@ -1,15 +1,15 @@
 import axios, { AxiosError } from "axios"
 import { JWT } from "next-auth/jwt"
-import { Attendence } from "../models/attendence"
-import { IUser, User } from "../models/user"
+import { User } from "../models/user"
 import dbConnect from "./dbConnect"
 import clientPromise from "./mongodb"
 import { Dayjs } from "dayjs"
-import { getOptimalPlace } from "./placeUtils"
-import { getOptimalTime } from "./timeUtils"
 import { kakaoProfileInfo } from "../models/interface/kakaoProfileInfo"
 
-export const getRefreshedAccessToken = async (uid: string, refreshToken: string) => {
+export const getRefreshedAccessToken = async (uid: string) => {
+  const client = await clientPromise
+  const refreshToken = await client.db('votehelper').collection('accounts').findOne({providerAccountId: uid})
+
   const token: JWT = {
     uid,
     refreshToken,
@@ -17,7 +17,7 @@ export const getRefreshedAccessToken = async (uid: string, refreshToken: string)
 
   const refreshed = await refreshAccessToken(token)
 
-  return refreshed['accessToken']
+  return refreshed['accessToken'] as string
 }
 
 export const refreshAccessToken = async (token: JWT) => {
@@ -42,15 +42,15 @@ export const refreshAccessToken = async (token: JWT) => {
       throw refreshedTokens
     }
 
-    // const updateFields = Object.assign({},
-    //   refreshedTokens.access_token && {access_token: refreshedTokens.access_token},
-    //   refreshedTokens.refresh_token && {refresh_token: refreshedTokens.refresh_token},
-    //   refreshedTokens.expires_in && {expires_at: refreshedTokens.expires_in},
-    //   refreshedTokens.refresh_token_expires_in && {refresh_token_expires_in: refreshedTokens.refresh_token_expires_in},
-    // )
+    const updateFields = Object.assign({},
+      refreshedTokens.access_token && {access_token: refreshedTokens.access_token},
+      refreshedTokens.refresh_token && {refresh_token: refreshedTokens.refresh_token},
+      refreshedTokens.expires_in && {expires_at: refreshedTokens.expires_in},
+      refreshedTokens.refresh_token_expires_in && {refresh_token_expires_in: refreshedTokens.refresh_token_expires_in},
+    )
 
     const client = await clientPromise
-    // client.db('votehelper').collection('accounts').updateMany({providerAccountId: token.uid.toString()}, { $set: updateFields })
+    client.db('votehelper').collection('accounts').updateMany({providerAccountId: token.uid.toString()}, { $set: updateFields })
 
     return {
       ...token,
@@ -156,7 +156,7 @@ export const withdrawal = async (accessToken: string) => {
   return
 }
 
-export const getProfiles = async (accessToken: string) => {
+const getNullableProfile = async (accessToken: string) => {
   const res = await axios.get('https://kapi.kakao.com/v1/api/talk/profile', {
     headers: {
       'Authorization': `Bearer ${accessToken}`
@@ -172,4 +172,14 @@ export const getProfiles = async (accessToken: string) => {
     thumbnailImage: res.data.thumbnailURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
     profileImage: res.data.profileImageURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
   } as kakaoProfileInfo
+}
+
+export const getProfile = async (accessToken: string, uid: string) => {
+  const nullableProfile = getNullableProfile(accessToken)
+  if(nullableProfile) {
+    return nullableProfile
+  }
+
+  const refreshedAccessToken: string = await getRefreshedAccessToken(uid)
+  return getNullableProfile(refreshedAccessToken)
 }

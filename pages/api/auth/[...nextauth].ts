@@ -4,7 +4,7 @@ import KakaoProvider from 'next-auth/providers/kakao'
 import clientPromise from '../../../libs/mongodb';
 import { User } from '../../../models/user';
 import dbConnect from '../../../libs/dbConnect';
-import { getProfiles, refreshAccessToken } from '../../../libs/oauthUtils';
+import { getProfile, refreshAccessToken } from '../../../libs/oauthUtils';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -39,7 +39,7 @@ export default NextAuth({
         return false
       }
 
-      const kakaoProfile = await getProfiles(accessToken)
+      const kakaoProfile = await getProfile(accessToken)
 
       if (!kakaoProfile) {
         return false
