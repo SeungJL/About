@@ -111,7 +111,7 @@ const UserInfoModal: FC<{
                     <Skeleton isLoaded={!isLoading}>
                       <HStack spacing={1}>
                         {
-                          isStranger(userAttendenceInfo?.user?.role) && (
+                          userAttendenceInfo && isStranger(userAttendenceInfo?.user?.role) && (
                             <Badge key='stranger' colorScheme='yellow'>{role.stranger}</Badge>
                           )
                         }
@@ -168,29 +168,33 @@ const UserInfoModal: FC<{
                 </Skeleton>
                 <Divider />
                 <Box marginTop='5px'>
-                  <Skeleton isLoaded={!isLoading}>
-                    <Text as='span' fontSize='lg'>최근 함께 스터디한 친구: </Text>
-                    <HStack spacing={1}>
-                    {
-                      cooperator.map((c) => (
-                        <ProfileImage
-                          key={c.uid}
-                          src={c.thumbnailImage}
-                          alt={c.name}
-                          width='50px'
-                          onClick={() => {
-                            if (setActiveUserId)
-                              setActiveUserId(c.uid)
-                          }}
-                        />
-                      ))
-                    }
-                    </HStack>
-                  </Skeleton>
+                  {
+                    cooperator.length > 0 && (
+                      <>
+                        <Text as='span' fontSize='lg'>함께 참여한 친구: </Text>
+                        <HStack spacing={1}>
+                        {
+                          cooperator.map((c) => (
+                            <ProfileImage
+                              key={c.uid}
+                              src={c.thumbnailImage}
+                              alt={c.name}
+                              width='50px'
+                              onClick={() => {
+                                if (setActiveUserId)
+                                  setActiveUserId(c.uid)
+                              }}
+                            />
+                          ))
+                        }
+                        </HStack>
+                      </>
+                    )
+                  }
                 </Box>
               </ModalBody>
               <ModalFooter>
-                <Button onClick={onClose}>닫기</Button>
+                <Button width='100%' onClick={onClose}>닫기</Button>
               </ModalFooter>
             </ModalContent>
       </Modal>
