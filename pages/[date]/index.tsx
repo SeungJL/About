@@ -228,7 +228,7 @@ const Home: NextPage<{
             </Alert>
           )
         }
-        <UnorderedList listStyleType='none' margin='10px 25px'>
+        <UnorderedList listStyleType='none' margin='10px 15px'>
           {
             attendence.participants.map(p => (
               <ListItem

@@ -1,8 +1,9 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box, HStack, useToast, VStack, Badge } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box, HStack, useToast, VStack, Badge, Divider, Skeleton, SkeletonCircle } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
 import dayjs from "dayjs";
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
+import { attendStatus, getAttendStatus } from "../libs/attendUtils";
 import { isStranger, role, isMember, isPreviliged } from "../libs/authUtils";
 import { getToday } from "../libs/dateUtils";
 import { IUser } from "../models/user";
@@ -18,7 +19,7 @@ const UserInfoModal: FC<{
   const toast = useToast()
   const queryClient = useQueryClient()
   const [userAttendenceInfo, setUserAttendenceInfo] = useState<UserAttendenceInfo>(null)
-  useQuery<UserAttendenceInfo, AxiosError>(
+  const {isLoading} = useQuery<UserAttendenceInfo, AxiosError>(
     'fetchUserInfo',
     async () => {
       const res = await axios.get(`/api/user/${userId}/info`)
@@ -46,14 +47,34 @@ const UserInfoModal: FC<{
     queryClient.invalidateQueries('fetchUserInfo')
   }, [userId])
 
-  const lastWeek = getToday().add(-1, 'week')
+  const getAttendStatusColor = useCallback((status: string) => {
+    switch (status) {
+      case attendStatus.low:
+        return 'yellow'
+      case attendStatus.warn:
+        return 'orange'
+      case attendStatus.danger:
+        return 'red'
+      default:
+        return 'green'
+    }
+  }, [])
 
-  const attendence7Days = userAttendenceInfo?.attendences?.filter((a) => dayjs(a.date) >= lastWeek)
+  const oneWeekAgo = getToday().add(-1, 'week')
+  const twoWeeksAgo = getToday().add(-2, 'week')
+
+  const attendence7Days = userAttendenceInfo?.attendences?.filter((a) => dayjs(a.date) >= oneWeekAgo)
   const cntVote7days = attendence7Days?.length
   const cntOpen7days = attendence7Days?.filter((a) => a.meetingTime !== '')?.length
 
+  const attendence2Weeks = userAttendenceInfo?.attendences?.filter((a) => dayjs(a.date) >= twoWeeksAgo)
+  const cntVote2Weeks = attendence2Weeks?.length
+  const cntOpen2Weeks = attendence2Weeks?.filter((a) => a.meetingTime !== '')?.length
+
   const cntVote1Mon = userAttendenceInfo?.attendences?.length
   const cntOpen1Mon = userAttendenceInfo?.attendences?.filter((a) => a.meetingTime !== '')?.length
+
+  const attendenceStatus = getAttendStatus(cntOpen7days, cntVote7days, cntOpen2Weeks, cntVote2Weeks, cntOpen1Mon, cntVote1Mon)
 
   const cooperatorFrequency = userAttendenceInfo?.attendences
     ?.filter((a) => a.meetingTime !== '')
@@ -74,70 +95,92 @@ const UserInfoModal: FC<{
             <ModalContent>
               <ModalHeader>사용자 정보</ModalHeader>
               <ModalBody>
-                {
-                  userAttendenceInfo ? (
-                    <>
-                      <HStack spacing={3} marginBottom='20px'>
-                        <ProfileImage
-                          src={userAttendenceInfo.user.profileImage}
-                          alt={userAttendenceInfo.user.name}
-                          width='90px'
-                        />
-                        <VStack alignItems='flex-start'>
-                          <Text as='span' fontSize='2xl' fontWeight='400'>{userAttendenceInfo.user.name}</Text>
-                          <HStack spacing={1}>
-                            {
-                              isStranger(userAttendenceInfo.user.role) && (
-                                <Badge key='stranger' colorScheme='yellow'>{role.stranger}</Badge>
-                              )
-                            }
-                            {
-                              isMember(userAttendenceInfo.user.role) && (
-                                <Badge key='member' colorScheme='green'>{role.member}</Badge>
-                              )
-                            }
-                            {
-                              isPreviliged(userAttendenceInfo.user.role) && (
-                                <Badge key='previlied' colorScheme='red'>{role.previliged}</Badge>
-                              )
-                            }
-                          </HStack>
-                        </VStack>
-                      </HStack>
-                      <Box>
-                        <Text as='span' fontSize='lg'>최근 7일간 참여(투표): </Text>
-                        <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen7days}회({cntVote7days}회)</Text>
-                      </Box>
-                      <Box>
-                        <Text as='span' fontSize='lg'>최근 4주간 참여(투표): </Text>
-                        <Text as='span' fontSize='lg' fontWeight='600'>{cntOpen1Mon}회({cntVote1Mon}회)</Text>
-                      </Box>
-                      <Box>
-                        <Text as='span' fontSize='lg'>최근 함께 스터디한 친구: </Text>
-                        <HStack spacing={1}>
+                <HStack spacing={3} marginBottom='20px'>
+                  <SkeletonCircle width='fit-content' height='fit-content' isLoaded={!isLoading}>
+                    <ProfileImage
+                      src={userAttendenceInfo?.user?.profileImage}
+                      alt={userAttendenceInfo?.user?.name}
+                      width='90px'
+                    />
+                  </SkeletonCircle>
+                  <VStack alignItems='flex-start'>
+                    <Skeleton isLoaded={!isLoading}>
+                      <Text as='span' fontSize='2xl' fontWeight='400'>{userAttendenceInfo?.user?.name}</Text>
+                    </Skeleton>
+                    <Skeleton isLoaded={!isLoading}>
+                      <HStack spacing={1}>
                         {
-                          cooperator.map((c) => (
-                            <ProfileImage
-                              key={c.uid}
-                              src={c.thumbnailImage}
-                              alt={c.name}
-                              width='50px'
-                              onClick={() => {
-                                if (setActiveUserId)
-                                  setActiveUserId(c.uid)
-                              }}
-                            />
-                          ))
+                          isStranger(userAttendenceInfo?.user?.role) && (
+                            <Badge key='stranger' colorScheme='yellow'>{role.stranger}</Badge>
+                          )
                         }
-                        </HStack>
-                      </Box>
-                    </>
-                  ) : (
-                    <Box width='fit-content' margin='auto'>
-                      <Spinner />
+                        {
+                          isMember(userAttendenceInfo?.user?.role) && (
+                            <Badge key='member' colorScheme='green'>{role.member}</Badge>
+                          )
+                        }
+                        {
+                          isPreviliged(userAttendenceInfo?.user?.role) && (
+                            <Badge key='previlied' colorScheme='red'>{role.previliged}</Badge>
+                          )
+                        }
+                      </HStack>
+                    </Skeleton>
+                  </VStack>
+                </HStack>
+                <Divider />
+                <Skeleton isLoaded={!isLoading}>
+                  <HStack justifyContent='space-between' margin='5px 0'>
+                    <Box key='1week' flex={1}>
+                      <Text fontSize='sm' width='fit-content' margin='auto'>7일 간</Text>
+                      <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
+                        {cntOpen7days}회({cntVote7days}회)
+                      </Text>
                     </Box>
-                  )
-                }
+                    <Divider orientation='vertical' height='2rem' />
+                    <Box key='4week' flex={1}>
+                      <Text fontSize='sm' width='fit-content' margin='auto'>4주 간</Text>
+                      <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
+                        {cntOpen1Mon}회({cntVote1Mon}회)
+                      </Text>
+                    </Box>
+                    <Divider orientation='vertical' height='2rem' />
+                    <Box key='status' flex={1}>
+                      <Text fontSize='sm' width='fit-content' margin='auto'>참여율</Text>
+                      <Text
+                        fontSize='lg'
+                        fontWeight='600'
+                        width='fit-content'
+                        margin='auto'
+                        color={getAttendStatusColor(attendenceStatus)}
+                      >
+                        {attendenceStatus}
+                      </Text>
+                    </Box>
+                  </HStack>
+                </Skeleton>
+                <Divider />
+                <Box marginTop='5px'>
+                  <Skeleton isLoaded={!isLoading}>
+                    <Text as='span' fontSize='lg'>최근 함께 스터디한 친구: </Text>
+                    <HStack spacing={1}>
+                    {
+                      cooperator.map((c) => (
+                        <ProfileImage
+                          key={c.uid}
+                          src={c.thumbnailImage}
+                          alt={c.name}
+                          width='50px'
+                          onClick={() => {
+                            if (setActiveUserId)
+                              setActiveUserId(c.uid)
+                          }}
+                        />
+                      ))
+                    }
+                    </HStack>
+                  </Skeleton>
+                </Box>
               </ModalBody>
               <ModalFooter>
                 <Button onClick={onClose}>닫기</Button>
