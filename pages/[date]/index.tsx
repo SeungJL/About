@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Button, Heading, HStack, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Center, Heading, HStack, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import type { NextPage } from 'next'
 import NextLink from "next/link"
@@ -319,8 +319,9 @@ const Home: NextPage<{
         }
         {
           canShowResult() && (
-            <Box
+            <Center
             width='100%'
+            maxWidth='500px'
             display='flex'
             position='fixed'
             bottom='9vh'
@@ -328,6 +329,7 @@ const Home: NextPage<{
               <Button
                 colorScheme='green'
                 variant='outline'
+                backgroundColor='white'
                 borderRadius='100px'
                 margin='auto auto'
                 onClick={() => {
@@ -335,8 +337,8 @@ const Home: NextPage<{
                 }}
               >
                 결과 보기
-            </Button>
-            </Box>
+              </Button>
+            </Center>
           )
         }
       </Box>
