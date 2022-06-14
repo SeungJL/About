@@ -1,4 +1,4 @@
-import { Box, VStack, Text, HStack, useDisclosure } from "@chakra-ui/react"
+import { Box, VStack, Text, HStack, useDisclosure, Container, Heading, Image } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession } from "next-auth/react"
 import Head from "next/head"
@@ -34,12 +34,22 @@ const Result: NextPage<{
   if (!isOpen) {
     return (
       <>
-        <Head>
-          <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
-        </Head>
-        <VStack>
-          <Text fontSize='2xl'>{convertToKr(strToDate(date))}</Text>
-          <Text>오늘은 스터디가 열리지 못 했어요</Text>
+        <Heading
+          as='h1'
+          size='lg'
+          width='100%'
+          textAlign='center'
+          letterSpacing={-1}
+          marginBottom='15px'
+        >
+          {convertToKr(strToDate(date))}
+        </Heading>
+        <VStack height='100%'>
+          <Image
+            src='https://user-images.githubusercontent.com/48513798/173598609-8f0ceed0-968e-4ca5-afc8-4139db014069.png'
+            alt='background-image'
+          />
+          <Text fontSize='xl'>이번 스터디는 열리지 못 했어요 🙅‍♀️</Text>
         </VStack>
       </>
     )
@@ -47,33 +57,45 @@ const Result: NextPage<{
 
   return (
     <>
-      <Head>
-        <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
-      </Head>
       <VStack>
-        <Text fontSize='3xl' marginBottom='20px'>{convertToKr(strToDate(date))}</Text>
-        <HStack>
-          {
-            participants.map((p, idx) => (
-              <Box key={(p.user as IUser).id} margin='0'>
-                <ProfileImage
-                  position='relative'
-                  right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
-                  key={(p.user as IUser).uid}
-                  src={(p.user as IUser).thumbnailImage}
-                  alt={(p.user as IUser).name}
-                  width='60px'
-                  onClick={() => {
-                    setActiveUserId((p.user as IUser).uid)
-                    if ((p.user as IUser).uid) {
-                      onUserInfoModalOpen()
-                    }
-                  }}
-                />
-              </Box>
-            ))
-          }
-        </HStack>
+        <Box position='relative' marginBottom='40px'>
+          <Image
+            src='https://user-images.githubusercontent.com/48513798/173590653-56823862-d7ea-4963-85c1-9a1c1867165c.png'
+            alt='background-image'
+          />
+          <HStack justifyContent='center' position='absolute' bottom='-40px' width='100%'>
+            {
+              participants.map((p, idx) => (
+                <Box key={(p.user as IUser).id} margin='0'>
+                  <ProfileImage
+                    position='relative'
+                    right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
+                    key={(p.user as IUser).uid}
+                    src={(p.user as IUser).thumbnailImage}
+                    alt={(p.user as IUser).name}
+                    width='70px'
+                    onClick={() => {
+                      setActiveUserId((p.user as IUser).uid)
+                      if ((p.user as IUser).uid) {
+                        onUserInfoModalOpen()
+                      }
+                    }}
+                  />
+                </Box>
+              ))
+            }
+          </HStack>
+        </Box>
+        <Heading
+          as='h1'
+          size='lg'
+          width='100%'
+          textAlign='center'
+          letterSpacing={-1}
+          marginBottom='20px'
+        >
+          {convertToKr(strToDate(date))}
+        </Heading>
         <VStack>
           <Box width='fit-content' display='flex' alignContent='center' flexDirection='column' alignItems='center'>
             <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
@@ -165,7 +187,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         studyTime: '',
         studyPlace: '',
         date: interestingDate.toISOString(),
-        participants: '[]',
+        participants: JSON.stringify(attendence.participants),
       }
     }
   }

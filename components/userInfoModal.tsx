@@ -153,10 +153,7 @@ const UserInfoModal: FC<{
                     </Box>
                     <Divider orientation='vertical' height='2rem' />
                     <Box key='status' flex={1}>
-                      <HStack justifyContent='center' alignItems='center'>
-                        <Text fontSize='sm' width='fit-content' marginRight='2px'>참여율</Text>
-                        <InfoPopOver content={'참여/투표 횟수가 반영된 결과입니다.'} placement='top-start' />
-                      </HStack>
+                        <Text fontSize='sm' width='fit-content' marginRight='2px' margin='0 auto'>참여율</Text>
                       <Text
                         fontSize='lg'
                         fontWeight='600'
