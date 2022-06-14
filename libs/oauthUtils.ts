@@ -104,7 +104,7 @@ export const sendResultMessage = async (
   } catch (error) {
     const axiosError = error as AxiosError
     if ((axiosError.response.data as {msg: string, code: number}).code === -401) {
-      const accessToken = await getRefreshedAccessToken(uid, refreshToken)
+      const accessToken = await getRefreshedAccessToken(uid)
 
       try {
         await axios.post(url, `template_object=${message}`, {

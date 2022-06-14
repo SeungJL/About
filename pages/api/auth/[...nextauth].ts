@@ -39,7 +39,7 @@ export default NextAuth({
         return false
       }
 
-      const kakaoProfile = await getProfile(accessToken)
+      const kakaoProfile = await getProfile(accessToken, user.uid as string)
 
       if (!kakaoProfile) {
         return false

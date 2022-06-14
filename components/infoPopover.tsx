@@ -1,8 +1,8 @@
-import { Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger } from "@chakra-ui/react"
+import { Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverProps, PopoverTrigger } from "@chakra-ui/react"
 import { FC } from "react"
 import InfoIcon from "./icon/infoIcon"
 
-const InfoPopOver: FC<{
+const InfoPopOver: FC< PopoverProps & {
   content: string,
 }> = ({ content, ...props }) => (
     <Popover size='xs' { ...props }>

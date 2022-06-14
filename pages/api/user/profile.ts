@@ -26,7 +26,7 @@ export default async function handler(
 
   switch (method) {
     case 'PATCH':
-      const profile = await getProfile(token.accessToken as string)
+      const profile = await getProfile(token.accessToken as string, token.uid as string)
 
       if (!profile) {
         res.status(500).end()
