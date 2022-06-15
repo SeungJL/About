@@ -114,10 +114,9 @@ const UserInfo: NextPage<{
       <Divider />
       <SummaryAttendenceInfo attendences={attendences} />
       <Divider marginBottom='10px' />
-      <Tabs variant='enclosed' isFitted colorScheme='black'>
+      <Tabs variant='enclosed' colorScheme='black'>
         <TabList>
-          <Tab>참여 통계</Tab>
-          <Tab></Tab>   {/* TODO something */}
+          <Tab width='50%'>참여 통계</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -139,8 +138,6 @@ const UserInfo: NextPage<{
                 </Text>
               </Box>
             </Container>
-          </TabPanel>
-          <TabPanel>
           </TabPanel>
         </TabPanels>
       </Tabs>
