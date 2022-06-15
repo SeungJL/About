@@ -1,23 +1,28 @@
-import { RepeatIcon } from "@chakra-ui/icons"
-import { Text, Container, Heading, HStack, Divider, Box, Button, Badge, Spinner, useToast } from "@chakra-ui/react"
+import { RepeatIcon, SettingsIcon } from "@chakra-ui/icons"
+import { Text, Container, Heading, HStack, Divider, Box, Button, Badge, Spinner, useToast, Tab, TabList, TabPanel, TabPanels, Tabs, Image } from "@chakra-ui/react"
 import axios, { AxiosError } from "axios"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, signOut } from "next-auth/react"
+import NextLink from "next/link"
 import { useState } from "react"
 import { useMutation } from "react-query"
 import ProfileImage from "../../components/profileImage"
+import SummaryAttendenceInfo from "../../components/summaryAttendenceInfo"
 import { getRoleName, isMember, isPreviliged, isStranger, role } from "../../libs/authUtils"
+import { getToday, getInterestingDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
+import { Attendence, IAttendence } from "../../models/attendence"
 import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo"
 import { IUser, User } from "../../models/user"
 
 const UserInfo: NextPage<{
-  user: IUser
-}> = ({ user: userParam }) => {
+  user: IUser,
+  attendences: IAttendence[],
+}> = ({ user: userParam, attendences }) => {
   const toast = useToast()
   const [user, setUser] = useState(userParam)
 
-  const { isLoading, mutate: onUpdateProfile } = useMutation<kakaoProfileInfo, AxiosError>(
+  const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<kakaoProfileInfo, AxiosError>(
     'updateProfile', 
     async () => {
       const res = await axios.patch('/api/user/profile')
@@ -44,9 +49,14 @@ const UserInfo: NextPage<{
 
   return (
     <Container>
-      <Heading as='h1' fontSize='3xl' marginBottom='5px'>내정보</Heading>
+      <HStack justifyContent='space-between' alignItems='center'>
+        <Heading as='h1' fontSize='3xl' marginBottom='5px'>내정보</Heading>
+        <NextLink href='/settings'>
+          <SettingsIcon fontSize='30px' />
+        </NextLink>
+      </HStack>
       <Divider marginBottom='10px' />
-      <HStack>
+      <HStack marginBottom='10px'>
         <Box position='relative'>
           <ProfileImage
             src={user.profileImage}
@@ -67,7 +77,7 @@ const UserInfo: NextPage<{
             onClick={() => onUpdateProfile()}
           >
             {
-              isLoading ? <Spinner size='sm' /> : <RepeatIcon fontSize='lg' rotate='' />
+              isFetchingProfile ? <Spinner size='sm' /> : <RepeatIcon fontSize='lg' rotate='' />
             }
           </Badge>
         </Box>
@@ -101,6 +111,39 @@ const UserInfo: NextPage<{
           </Button>
         </HStack>
       </HStack>
+      <Divider />
+      <SummaryAttendenceInfo attendences={attendences} />
+      <Divider marginBottom='10px' />
+      <Tabs variant='enclosed' isFitted colorScheme='black'>
+        <TabList>
+          <Tab>참여 통계</Tab>
+          <Tab></Tab>   {/* TODO something */}
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Container position='relative'>
+              <Image
+                src='/temp_line_chart.svg'
+                filter='blur(5px)'
+              />
+              <Box width='fit-content' position='absolute' top='40%' left='50%'>
+                <Text
+                  fontSize='2xl'
+                  fontWeight='700'
+                  position='relative'
+                  bottom='50%'
+                  right='50%'
+                  color='green.500'
+                >
+                  COMING SOON!
+                </Text>
+              </Box>
+            </Container>
+          </TabPanel>
+          <TabPanel>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Container>
   )
 }
@@ -120,10 +163,34 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await dbConnect()
 
   const user = (await User.findOne({uid: session.uid})).toObject()
+  const attendences = await Attendence.find({
+    date: {
+      $gte: getToday().add(-4, 'week').toDate(),
+      $lte: getInterestingDate().add(-1, 'day').toDate(),
+    },
+    'participants.user': user._id,
+  }).populate('participants.user')
+
   user._id = user._id.toString()
+  const attendenceObjects = attendences.map(a => {
+    const attObj = a.toObject()
+    attObj._id = attObj._id.toString()
+    attObj.participants = attObj.participants.map(p => {
+      p.user._id = p.user._id.toString()
+      return p
+    })
+    attObj.date = (attObj.date as Date).toISOString()
+    attObj.createdAt = (attObj.createdAt as Date).toISOString()
+    attObj.updatedAt = (attObj.updatedAt as Date).toISOString()
+
+    return attObj
+  })
 
   return {
-    props: { user },
+    props: {
+      user,
+      attendences: attendenceObjects,
+    },
   }
 }
 
