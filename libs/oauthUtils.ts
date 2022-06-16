@@ -8,15 +8,14 @@ import { kakaoProfileInfo } from "../models/interface/kakaoProfileInfo"
 
 export const getRefreshedAccessToken = async (uid: string) => {
   const client = await clientPromise
-  const refreshToken = await client.db('votehelper').collection('accounts').findOne({providerAccountId: uid})
+  const account = await client.db('votehelper').collection('accounts').findOne({providerAccountId: uid.toString()})
 
   const token: JWT = {
     uid,
-    refreshToken,
+    refreshToken: account.refresh_token,
   }
 
   const refreshed = await refreshAccessToken(token)
-
   return refreshed['accessToken'] as string
 }
 
@@ -134,7 +133,6 @@ export const withdrawal = async (accessToken: string) => {
       },
     })
     uid = response.data.id.toString()
-    console.log(response)
   } catch (error) {
     const axiosError = error as AxiosError
     console.error(axiosError)
@@ -157,25 +155,25 @@ export const withdrawal = async (accessToken: string) => {
 }
 
 const getNullableProfile = async (accessToken: string) => {
-  const res = await axios.get('https://kapi.kakao.com/v1/api/talk/profile', {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
+  try{
+    const res = await axios.get('https://kapi.kakao.com/v1/api/talk/profile', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
 
-  if (res.status !== 200) {
+    return {
+      name: res.data.nickName as string,
+      thumbnailImage: res.data.thumbnailURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+      profileImage: res.data.profileImageURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+    } as kakaoProfileInfo
+  } catch(err) {
     return null
   }
-  
-  return {
-    name: res.data.nickName as string,
-    thumbnailImage: res.data.thumbnailURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
-    profileImage: res.data.profileImageURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
-  } as kakaoProfileInfo
 }
 
 export const getProfile = async (accessToken: string, uid: string) => {
-  const nullableProfile = getNullableProfile(accessToken)
+  const nullableProfile = await getNullableProfile(accessToken)
   if(nullableProfile) {
     return nullableProfile
   }

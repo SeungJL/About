@@ -60,6 +60,14 @@ export default NextAuth({
     },
     async jwt({ token, account, profile, user }) {
       if (account && user) {
+        const client = await clientPromise
+        await client.db('votehelper').collection('accounts').updateOne({ providerAccountId: account.providerAccountId }, {$set: {
+          access_token: account.access_token,
+          refresh_token: account.refresh_token,
+          expires_at: account.expires_at,
+          refresh_token_expires_in: account.refresh_token_expires_in,
+        }})
+
         return {
           accessToken: account.access_token,
           refreshToken: account.refresh_token,

@@ -307,12 +307,16 @@ const Home: NextPage<{
             />
           )
         }
-        <UserInfoModal
-          isOpen={isUserInfoModalOpen}
-          onClose={onUserInfoModalClose}
-          userId={activeUserId}
-          setActiveUserId={setActiveUserId}
-        />
+        {
+          isUserInfoModalOpen && (
+            <UserInfoModal
+              isOpen={isUserInfoModalOpen}
+              onClose={onUserInfoModalClose}
+              userId={activeUserId}
+              setActiveUserId={setActiveUserId}
+            />
+          )
+        }
         {
           canShowResult() && (
             <Center
