@@ -37,7 +37,7 @@ const UserInfo: NextPage<{
         console.error(error)
         toast({
           title: '업데이트 실패',
-          description: "프로필 사진을 가져오지 못 했어요.",
+          description: "프로필 사진을 업데이트하려면 재로그인이 필요해요.",
           status: 'error',
           duration: 5000,
           isClosable: true,
