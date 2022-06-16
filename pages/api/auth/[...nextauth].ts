@@ -2,10 +2,9 @@ import NextAuth from 'next-auth'
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import KakaoProvider from 'next-auth/providers/kakao'
 import clientPromise from '../../../libs/mongodb';
-import axios from 'axios';
 import { User } from '../../../models/user';
 import dbConnect from '../../../libs/dbConnect';
-import { refreshAccessToken } from '../../../libs/oauthUtils';
+import { getProfile, refreshAccessToken } from '../../../libs/oauthUtils';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -40,23 +39,15 @@ export default NextAuth({
         return false
       }
 
-      const res = await axios.get('https://kapi.kakao.com/v1/api/talk/profile', {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
+      const kakaoProfile = await getProfile(accessToken, user.uid as string)
 
-      if (res.status !== 200) {
+      if (!kakaoProfile) {
         return false
       }
 
       await dbConnect()
 
-      await User.updateOne({uid: user.uid}, {$set: {
-        name: res.data.nickName,
-        thumbnailImage: res.data.thumbnailURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
-        profileImage: res.data.profileImageURL || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
-      }})
+      await User.updateOne({uid: user.uid}, {$set: kakaoProfile})
 
       return true
     },

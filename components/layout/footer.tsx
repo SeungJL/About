@@ -14,6 +14,7 @@ const Footer: FC = () => {
     <>
       <VStack
         as='footer'
+        maxWidth='500px'
         height='8vh'
         justifyContent='space-around'
         position='absolute'

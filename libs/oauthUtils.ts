@@ -1,14 +1,15 @@
 import axios, { AxiosError } from "axios"
 import { JWT } from "next-auth/jwt"
-import { Attendence } from "../models/attendence"
-import { IUser, User } from "../models/user"
+import { User } from "../models/user"
 import dbConnect from "./dbConnect"
 import clientPromise from "./mongodb"
 import { Dayjs } from "dayjs"
-import { getOptimalPlace } from "./placeUtils"
-import { getOptimalTime } from "./timeUtils"
+import { kakaoProfileInfo } from "../models/interface/kakaoProfileInfo"
 
-export const getRefreshedAccessToken = async (uid: string, refreshToken: string) => {
+export const getRefreshedAccessToken = async (uid: string) => {
+  const client = await clientPromise
+  const refreshToken = await client.db('votehelper').collection('accounts').findOne({providerAccountId: uid})
+
   const token: JWT = {
     uid,
     refreshToken,
@@ -16,7 +17,7 @@ export const getRefreshedAccessToken = async (uid: string, refreshToken: string)
 
   const refreshed = await refreshAccessToken(token)
 
-  return refreshed['accessToken']
+  return refreshed['accessToken'] as string
 }
 
 export const refreshAccessToken = async (token: JWT) => {
@@ -103,7 +104,7 @@ export const sendResultMessage = async (
   } catch (error) {
     const axiosError = error as AxiosError
     if ((axiosError.response.data as {msg: string, code: number}).code === -401) {
-      const accessToken = await getRefreshedAccessToken(uid, refreshToken)
+      const accessToken = await getRefreshedAccessToken(uid)
 
       try {
         await axios.post(url, `template_object=${message}`, {
@@ -119,50 +120,6 @@ export const sendResultMessage = async (
       console.error(error)
     }
   }
-}
-
-export const sendResultMessages = async (date: Dayjs) => {
-  await dbConnect()
-  const client = await clientPromise
-
-  const attendence = await Attendence.findOne({date: date.toDate()}).populate('participants.user')
-
-  const users = attendence.participants.map((p) => (p.user as IUser))
-  const accounts = await client.db('votehelper').collection('accounts').find({userId: {$in: users.map(u => u._id)}}).toArray()
-
-  if (attendence.participants.length < 3) {
-    const promises = accounts.map((account) => {
-      const accessToken = account.access_token as string
-      const refreshToken = account.refresh_token as string
-      const uid = account.providerAccountId
-
-      return sendResultMessage(accessToken, refreshToken, uid, date, false, '', '')
-    })
-
-    return await Promise.all(promises)
-  }
-
-  const meetingTime = attendence.meetingTime ? attendence.meetingTime : getOptimalTime(attendence.participants.map((p) => p.time))
-  const meetingPlace = attendence.meetingPlace ? attendence.meetingPlace : getOptimalPlace(attendence.participants.map((p) => p.place))
-
-  if (!attendence.meetingPlace || !attendence.meetingTime) {
-    const updateField = Object.assign({},
-      meetingTime && { meetingTime },
-      meetingPlace && { meetingPlace },
-    )
-
-    await Attendence.updateOne({date: date.toDate()}, { $set: updateField })
-  }
-
-  const promises = accounts.map((account) => {
-    const accessToken = account.access_token as string
-    const refreshToken = account.refresh_token as string
-    const uid = account.providerAccountId
-
-    return sendResultMessage(accessToken, refreshToken, uid, date, true, meetingTime, meetingPlace)
-  })
-
-  return await Promise.all(promises)
 }
 
 export const withdrawal = async (accessToken: string) => {
@@ -197,4 +154,32 @@ export const withdrawal = async (accessToken: string) => {
     }})
   }
   return
+}
+
+const getNullableProfile = async (accessToken: string) => {
+  const res = await axios.get('https://kapi.kakao.com/v1/api/talk/profile', {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+  
+  return {
+    name: res.data.nickName as string,
+    thumbnailImage: res.data.thumbnailURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+    profileImage: res.data.profileImageURL as string || 'https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png',
+  } as kakaoProfileInfo
+}
+
+export const getProfile = async (accessToken: string, uid: string) => {
+  const nullableProfile = getNullableProfile(accessToken)
+  if(nullableProfile) {
+    return nullableProfile
+  }
+
+  const refreshedAccessToken: string = await getRefreshedAccessToken(uid)
+  return getNullableProfile(refreshedAccessToken)
 }

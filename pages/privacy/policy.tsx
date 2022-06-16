@@ -131,6 +131,7 @@ const PrivacyPolicy: NextPage = () => {
         bottom='0'
         backgroundColor='gray.200'
         borderRadius='0'
+        maxWidth='500px'
         width='100%'
         height='8vh'
         zIndex='1000'

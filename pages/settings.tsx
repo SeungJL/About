@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Container, Text, useDisclosure } from "@chakra-ui/react"
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Container, Divider, Heading, Text, useDisclosure } from "@chakra-ui/react"
 import axios from "axios"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, signOut } from "next-auth/react"
@@ -17,7 +17,13 @@ const Settings: NextPage = () => {
 
   return (
     <Container>
-      <Button colorScheme='red' onClick={onOpen}>회원탈퇴</Button>
+      <Heading as='h1' fontSize='3xl' marginBottom='10px'>설정</Heading>
+      <Divider marginTop='5px' marginBottom='10px'/>
+      <Box>
+        <Heading as='h2' fontSize='xl'>회원탈퇴</Heading>
+        <Divider marginTop='5px' marginBottom='10px'/>
+        <Button colorScheme='red' width='100%' height='50px' fontSize='xl' onClick={onOpen}>회원탈퇴</Button>
+      </Box>
 
       <AlertDialog
         isOpen={isOpen}
