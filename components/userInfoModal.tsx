@@ -17,9 +17,10 @@ const UserInfoModal: FC<{
   const toast = useToast()
   const queryClient = useQueryClient()
   const [userAttendenceInfo, setUserAttendenceInfo] = useState<UserAttendenceInfo>(null)
-  const {isLoading} = useQuery<UserAttendenceInfo, AxiosError>(
-    'fetchUserInfo',
-    async () => {
+  const {isFetching} = useQuery<UserAttendenceInfo, AxiosError, UserAttendenceInfo, [string, string]>(
+    ['fetchUserInfo', userId],
+    async ({ queryKey }) => {
+      const [_key, userId] = queryKey
       const res = await axios.get(`/api/user/${userId}/info`)
       return res.data
     },
@@ -66,7 +67,7 @@ const UserInfoModal: FC<{
               <ModalHeader>사용자 정보</ModalHeader>
               <ModalBody>
                 <HStack spacing={3} marginBottom='20px'>
-                  <SkeletonCircle width='fit-content' height='fit-content' isLoaded={!isLoading}>
+                  <SkeletonCircle width='fit-content' height='fit-content' isLoaded={!isFetching}>
                     <ProfileImage
                       src={userAttendenceInfo?.user?.profileImage}
                       alt={userAttendenceInfo?.user?.name}
@@ -74,10 +75,10 @@ const UserInfoModal: FC<{
                     />
                   </SkeletonCircle>
                   <VStack alignItems='flex-start'>
-                    <Skeleton isLoaded={!isLoading}>
+                    <Skeleton isLoaded={!isFetching}>
                       <Text as='span' fontSize='2xl' fontWeight='400'>{userAttendenceInfo?.user?.name}</Text>
                     </Skeleton>
-                    <Skeleton isLoaded={!isLoading}>
+                    <Skeleton isLoaded={!isFetching}>
                       <HStack spacing={1}>
                         {
                           userAttendenceInfo && isStranger(userAttendenceInfo?.user?.role) && (
@@ -99,35 +100,37 @@ const UserInfoModal: FC<{
                   </VStack>
                 </HStack>
                 <Divider />
-                <Skeleton isLoaded={!isLoading}>
+                <Skeleton isLoaded={!isFetching}>
                   <SummaryAttendenceInfo attendences={userAttendenceInfo?.attendences} />
                 </Skeleton>
                 <Divider />
-                <Box marginTop='5px'>
-                  {
-                    cooperator.length > 0 && (
-                      <>
-                        <Text as='span' fontSize='lg'>함께 참여한 친구: </Text>
-                        <HStack spacing={1}>
-                        {
-                          cooperator.map((c) => (
-                            <ProfileImage
-                              key={c.uid}
-                              src={c.thumbnailImage}
-                              alt={c.name}
-                              width='50px'
-                              onClick={() => {
-                                if (setActiveUserId)
-                                  setActiveUserId(c.uid)
-                              }}
-                            />
-                          ))
-                        }
-                        </HStack>
-                      </>
-                    )
-                  }
-                </Box>
+                <Skeleton isLoaded={!isFetching}>
+                  <Box marginTop='5px'>
+                    {
+                      cooperator.length > 0 && (
+                        <>
+                          <Text as='span' fontSize='lg'>함께 참여한 친구: </Text>
+                          <HStack spacing={1}>
+                          {
+                            cooperator.map((c) => (
+                              <ProfileImage
+                                key={c.uid}
+                                src={c.thumbnailImage}
+                                alt={c.name}
+                                width='50px'
+                                onClick={() => {
+                                  if (setActiveUserId)
+                                    setActiveUserId(c.uid)
+                                }}
+                              />
+                            ))
+                          }
+                          </HStack>
+                        </>
+                      )
+                    }
+                  </Box>
+                </Skeleton>
               </ModalBody>
               <ModalFooter>
                 <Button width='100%' onClick={onClose}>닫기</Button>
