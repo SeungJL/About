@@ -53,7 +53,7 @@ export const getOptimalPlace = (places: string[]) => {
     acc[curr] ? ++acc[curr] : acc[curr] = 1, acc), {})
 
   const sortByFrequency = Array.from(Object.keys(frequency))
-  .sort((a, b) => frequency[a] - frequency[b])
+  .sort((a, b) => frequency[b] - frequency[a])
 
   if (sortByFrequency.length > 0) {
     if (sortByFrequency.length == 2 && sortByFrequency[0] == sortByFrequency[1]) {
