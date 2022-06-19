@@ -14,14 +14,19 @@ export const getAttendStatus = (
   week4OpenCnt: number,
   week4VoteCnt: number,
 ) => {
-  const week1Cnt = week1OpenCnt + week1VoteCnt / 2
-  const week2Cnt = week2OpenCnt + week2VoteCnt / 2
-  const week4Cnt = week4OpenCnt + week4VoteCnt / 2
+  const week1Cnt = week1OpenCnt * 2 + (week1VoteCnt - week1OpenCnt)
+  const week2Cnt = (week2OpenCnt - week1OpenCnt) * 2 + (week2VoteCnt - week1VoteCnt - (week2OpenCnt - week1OpenCnt))
+  const week4Cnt = (week4OpenCnt - week2OpenCnt) * 2 + (week4VoteCnt - week2VoteCnt - (week4OpenCnt - week2OpenCnt))
+  const attendenceScore = week1Cnt * 10 + week2Cnt * 5 + week4Cnt * 3
 
-  if (week1Cnt >= 3) return attendStatus.high
-  if (week4Cnt >= 2 && week2Cnt == 1 && week1Cnt == 0) return attendStatus.low
-  if (week4Cnt <= 1 && week2Cnt == 0) return attendStatus.warn
-  if (week4Cnt == 0) return attendStatus.danger
-  
+  if (attendenceScore < 3) {
+    return attendStatus.danger
+  } else if (attendenceScore < 6) {
+    return attendStatus.warn
+  } else if (attendenceScore < 10) {
+    return attendStatus.low
+  } else if (attendenceScore > 60) {
+    return attendStatus.high
+  }
   return attendStatus.normal
 }
