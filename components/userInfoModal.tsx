@@ -58,7 +58,7 @@ const UserInfoModal: FC<{
 
   const cooperator = Array.from(cooperatorFrequency.keys())
     .sort((a, b) => cooperatorFrequency.get(a) - cooperatorFrequency.get(b))
-    .slice(0, 3)
+    .slice(0, 4)
 
   return (
       <Modal size='xs' onClose={onClose} isOpen={isOpen} isCentered>
