@@ -128,7 +128,7 @@ const Home: NextPage<{
   return (
     <>
       <Head>
-        <meta property="og:url" content={`/${dateStr}`} />
+        <meta property="og:url" content={`${process.env.NEXTAUTH_URL}/${dateStr}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="스터디 투표" />
         <meta property="og:description" content="스터디 투표" />
