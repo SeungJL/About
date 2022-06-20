@@ -44,6 +44,17 @@ const Login: NextPage<{
     }
   }, [redirectFrom])
 
+  const ogDesc = useMemo(() => {
+    switch (redirectFrom) {
+      case '/':
+        return '광교 카페 스터디 투표'
+      case '/res':
+        return '스터디 참여투표 결과'
+      default:
+        return ''
+    }
+  }, [redirectFrom])
+
   const ogImage = useMemo(() => {
     switch (redirectFrom) {
       case '/':
@@ -61,6 +72,7 @@ const Login: NextPage<{
         <meta property="og:url" content={`${process.env.NEXTAUTH_URL}/login${redirectFrom ? `?from=${redirectFrom}` : ''}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={ogTitle} />
+        <meta property="og:description" content={ogDesc} />
         <meta property="og:image" content={ogImage} />
       </Head>
       <VStack height='92vh' justifyContent='center'>
