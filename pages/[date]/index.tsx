@@ -132,7 +132,7 @@ const Home: NextPage<{
         <meta property="og:type" content="website" />
         <meta property="og:title" content="스터디 투표" />
         <meta property="og:description" content="스터디 투표" />
-        <meta property="og:image" content='https://user-images.githubusercontent.com/48513798/173183928-11974793-e983-48ec-b3da-42066deeabbc.png' /> 
+        <meta property="og:image" content='/meta_tag_img.png' /> 
       </Head>
       <Box>
         <HStack margin='0 10px'>
