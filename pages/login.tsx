@@ -58,7 +58,7 @@ const Login: NextPage<{
   return (
     <>
       <Head>
-        <meta property="og:url" content={`${process.env.NEXTAUTH_URL}/login`} />
+        <meta property="og:url" content={`${process.env.NEXTAUTH_URL}/login${redirectFrom ? `?from=${redirectFrom}` : ''}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={ogTitle} />
         <meta property="og:image" content={ogImage} />
