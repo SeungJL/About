@@ -4,7 +4,7 @@ import { BuiltInProviderType } from "next-auth/providers"
 import { LiteralUnion, ClientSafeProvider, signIn, getProviders, getSession } from "next-auth/react"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import Logo from "../components/logo"
 import { getInterestingDate } from "../libs/dateUtils"
 
@@ -17,6 +17,7 @@ const Login: NextPage<{
   const cancelRef = useRef()
 
   const forceSignOut = router.query.force_signout as string === 'true'
+  const redirectFrom = router.query.from as string
 
   useEffect(() => {
     if (forceSignOut) onOpen()
@@ -32,14 +33,35 @@ const Login: NextPage<{
 
   const kakaoProvider = Object.values(providers).find((p) => p.id == 'kakao')
 
+  const ogTitle = useMemo(() => {
+    switch (redirectFrom) {
+      case '/':
+        return '스터디 투표'
+      case '/res':
+        return '투표 결과'
+      default:
+        return ''
+    }
+  }, [redirectFrom])
+
+  const ogImage = useMemo(() => {
+    switch (redirectFrom) {
+      case '/':
+        return '/root_meta_tag_img.png'
+      case '/res':
+        return '/res_meta_tag_img.png'
+      default:
+        return ''
+    }
+  }, [redirectFrom])
+
   return (
     <>
       <Head>
         <meta property="og:url" content={`${process.env.NEXTAUTH_URL}/login`} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="스터디 투표" />
-        <meta property="og:description" content="스터디 투표" />
-        <meta property="og:image" content='/meta_tag_img.png' /> 
+        <meta property="og:title" content={ogTitle} />
+        <meta property="og:image" content={ogImage} />
       </Head>
       <VStack height='92vh' justifyContent='center'>
         <VStack marginBottom='20px'>
