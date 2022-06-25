@@ -5,6 +5,7 @@ import clientPromise from '../../../libs/mongodb';
 import { User } from '../../../models/user';
 import dbConnect from '../../../libs/dbConnect';
 import { getProfile, refreshAccessToken } from '../../../libs/oauthUtils';
+import { Account } from '../../../models/account';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -61,7 +62,7 @@ export default NextAuth({
     async jwt({ token, account, profile, user }) {
       if (account && user) {
         const client = await clientPromise
-        await client.db('votehelper').collection('accounts').updateOne({ providerAccountId: account.providerAccountId }, {$set: {
+        await Account.updateOne({ providerAccountId: account.providerAccountId }, {$set: {
           access_token: account.access_token,
           refresh_token: account.refresh_token,
           expires_at: account.expires_at,
