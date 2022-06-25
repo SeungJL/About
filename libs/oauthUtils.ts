@@ -2,13 +2,12 @@ import axios, { AxiosError } from "axios"
 import { JWT } from "next-auth/jwt"
 import { User } from "../models/user"
 import dbConnect from "./dbConnect"
-import clientPromise from "./mongodb"
 import { Dayjs } from "dayjs"
 import { kakaoProfileInfo } from "../models/interface/kakaoProfileInfo"
+import { Account } from "../models/account"
 
 export const getRefreshedAccessToken = async (uid: string) => {
-  const client = await clientPromise
-  const account = await client.db('votehelper').collection('accounts').findOne({providerAccountId: uid.toString()})
+  const account = await Account.findOne({providerAccountId: uid.toString()})
 
   const token: JWT = {
     uid,
@@ -48,8 +47,7 @@ export const refreshAccessToken = async (token: JWT) => {
       refreshedTokens.refresh_token_expires_in && {refresh_token_expires_in: refreshedTokens.refresh_token_expires_in},
     )
 
-    const client = await clientPromise
-    client.db('votehelper').collection('accounts').updateMany({providerAccountId: token.uid.toString()}, { $set: updateFields })
+    await Account.updateMany({providerAccountId: token.uid.toString()}, { $set: updateFields })
 
     return {
       ...token,
@@ -140,11 +138,10 @@ export const withdrawal = async (accessToken: string) => {
   
   if (uid) {
     await dbConnect()
-    const client = await clientPromise
 
     const user = await User.findOne({ uid })
 
-    await client.db('votehelper').collection('accounts').deleteMany({providerAccountId: uid})
+    await Account.deleteMany({providerAccountId: uid})
     await User.updateMany({ uid }, {$set: {
       name: '(알수없음)',
       role: 'stranger',
