@@ -58,8 +58,8 @@ export default async function handler(
 
       const participant: IParticipant = {
         user: token.id as string,
-        time: time || '',
-        place: place || '',
+        time,
+        place,
       }
 
       switch (operation) {
@@ -83,7 +83,7 @@ export default async function handler(
           res.status(400).end()
           return
       }
-      const updatedAttendence = await Attendence.findOne({ date }).populate('participants.user') as IAttendence
+      const updatedAttendence = await Attendence.findOne({ date }).populate(['participants.user', 'participants.place', 'meetingPlace']) as IAttendence
       res.status(200).json(updatedAttendence)
       return
     default:

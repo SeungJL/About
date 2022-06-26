@@ -1,20 +1,25 @@
-import mongoose, {model, Schema, Document, Model, Types} from 'mongoose'
+import mongoose, {model, Schema, Document, Model} from 'mongoose'
+import { IPlace } from './place'
 import { IUser } from './user'
 
 
 export interface IParticipant {
   user: string | IUser,
-  time: string,
-  place: string,
+  time?: string,
+  place?: string | IPlace,
 }
 
 const ParticipantSchema: Schema<IParticipant> = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   time: String,
-  place: String,
+  place: {
+    type: Schema.Types.ObjectId,
+    ref: 'Place',
+  },
 }, { _id: false })
 
 
@@ -22,7 +27,7 @@ export interface IAttendence extends Document {
   date: Date,
   participants: IParticipant[],
   meetingTime: string,
-  meetingPlace: string,
+  meetingPlace: string | IPlace,
 }
 
 export const AttendenceSchema: Schema<IAttendence> = new Schema({
@@ -33,9 +38,9 @@ export const AttendenceSchema: Schema<IAttendence> = new Schema({
     default: '',
   },
   meetingPlace: {
-    type: String,
-    default: ''
-  }
+    type: Schema.Types.ObjectId,
+    ref: 'Place',
+  },
 }, {
   timestamps: true,
 })

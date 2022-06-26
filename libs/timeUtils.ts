@@ -1,22 +1,18 @@
-const HOUR = 60 * 60
-
 export const getOptimalTime = (times: string[]) => {
-  const epochTimes = times
-    .filter((t) => t !== '')
+  const hourMinutes = times
+    .filter((t) => !!t)
     .map((t) => {
       const [rawHour, rawMinute] = t.split(':')
 
       const hour = parseInt(rawHour)
       const minute = parseInt(rawMinute)
 
-      const epochMinute = hour * 60 + minute
-      return epochMinute
+      return { hour, minute }
     })
-
-  const studyEpochTime = epochTimes.length ? epochTimes[Math.floor(epochTimes.length / 2)] : 13 * HOUR
-
-  const hour = Math.floor(studyEpochTime / 60)
-  const minute = studyEpochTime % 60
-
-  return `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute }`  
+    .sort((a, b) => (a.hour - b.hour + (a.hour === b.hour ? a.minute - b.minute : 0)))
+  
+  if (hourMinutes.length === 0) return '13:00'
+  if (hourMinutes.length === 1) return `${hourMinutes[0].hour}:${String(hourMinutes[0].minute).padStart(2, '0')}`
+  
+  return `${hourMinutes[1].hour}:${String(hourMinutes[1].minute).padStart(2, '0')}`
 }

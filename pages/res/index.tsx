@@ -1,25 +1,25 @@
-import { Box, VStack, Text, HStack, useDisclosure, Container, Heading, Image } from "@chakra-ui/react"
+import { Box, VStack, Text, HStack, useDisclosure, Heading, Image } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession } from "next-auth/react"
-import Head from "next/head"
 import { useState } from "react"
 import ProfileImage from "../../components/profileImage"
 import UserInfoModal from "../../components/userInfoModal"
 import { isMember } from "../../libs/authUtils"
 import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
 import dbConnect from "../../libs/dbConnect"
-import { getOptimalPlace, getPlaceFullName } from "../../libs/placeUtils"
+import { getOptimalPlace } from "../../libs/placeUtils"
 import { getOptimalTime } from "../../libs/timeUtils"
 import { Attendence, IParticipant } from "../../models/attendence"
+import { IPlace, Place } from "../../models/place"
 import { IUser } from "../../models/user"
 
 const Result: NextPage<{
   isOpen: boolean,
-  studyTime: string,
-  studyPlace: string,
+  studyTime?: string,
+  studyPlace?: string,
   date: string,
   participants: string,
-}> = ({ isOpen, studyTime, studyPlace, date, participants: rawParticipants }) => {
+}> = ({ isOpen, studyTime, studyPlace: rawStudyPlace, date, participants: rawParticipants }) => {
   const [activeUserId, setActiveUserId] = useState('')
 
   const {
@@ -28,7 +28,7 @@ const Result: NextPage<{
     onClose: onUserInfoModalClose,
   } = useDisclosure()
 
-
+  const studyPlace = JSON.parse(rawStudyPlace || null) as IPlace
   const participants = JSON.parse(rawParticipants) as IParticipant[]
 
   if (!isOpen) {
@@ -100,7 +100,7 @@ const Result: NextPage<{
           <Box width='fit-content' display='flex' alignContent='center' flexDirection='column' alignItems='center'>
             <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
             <Text as='span' fontSize='lg'>
-              <Text as='span' fontSize='2xl' color='purple'>{getPlaceFullName(studyPlace)}</Text>에서 
+              <Text as='span' fontSize='2xl' color='purple'>{studyPlace.fullname}</Text>에서 
             </Text>
 
             
@@ -161,13 +161,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  let attendence = await Attendence.findOne({ date: interestingDate.toDate() }).populate('participants.user')
+  let attendence = await Attendence.findOne({ date: interestingDate.toDate() })
+    .populate(['participants.user', 'participants.place', 'meetingPlace'])
   if (!attendence) {
     const newAttendence = new Attendence({
       date: interestingDate.toDate(),
       participants: [],
-      meetingTime: '',
-      studyPlace: '',
     })
     attendence = await newAttendence.save()
   }
@@ -176,25 +175,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (attendence.meetingTime !== '') {
       await Attendence.updateOne({date: interestingDate.toDate()}, {
         $set: {
-          meetingTime: '',
-          meetingPlace: '',
+          meetingTime: undefined,
+          meetingPlace: undefined,
         }
       })
     }
     return {
       props: {
         isOpen: false,
-        studyTime: '',
-        studyPlace: '',
         date: interestingDate.toISOString(),
         participants: JSON.stringify(attendence.participants),
       }
     }
   }
 
-  let studyPlace = attendence.meetingPlace
+  const totalPlaces = await Place.find({status: 'active'})
+  let studyPlace = attendence.meetingPlace as IPlace
+
   if (!studyPlace) {
-    studyPlace = getOptimalPlace(attendence.participants.map((p) => p.place))
+    studyPlace = getOptimalPlace(attendence.participants.map((p) => p.place as IPlace).filter(p => !!p), totalPlaces)
 
     await Attendence.updateOne({date: interestingDate.toDate()}, {
       $set: {
@@ -202,7 +201,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     })
   }
-  
   let studyTime = attendence.meetingTime
 
   if (!studyTime) {
@@ -219,7 +217,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       isOpen: true,
       studyTime,
-      studyPlace,
+      studyPlace: JSON.stringify(studyPlace),
       date: interestingDate.toISOString(),
       participants: JSON.stringify(attendence.participants),
     },
