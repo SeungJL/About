@@ -1,15 +1,10 @@
-import { Modal, ModalOverlay, FormControl, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Select, ModalFooter, Button, HStack, FormErrorMessage, Box } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Select, ModalFooter, Button, HStack, Spinner } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
-import { Form, Field, Formik, FormikHelpers } from "formik";
 import { ChangeEventHandler, FC, useState } from "react";
-import { getPlaceFullName, getPlaces } from "../libs/placeUtils";
 import { IAttendence } from "../models/attendence";
 import Map from "./map";
 import { useQuery } from "react-query";
 import { IPlace } from "../models/place";
-import map from "./map";
-
-const places = getPlaces()
 
 const PlacePickerModal: FC<{
   isOpen: boolean,
@@ -36,7 +31,7 @@ const PlacePickerModal: FC<{
   const onSubmit = async () => {
     const { data } = await axios.patch(`/api/attend/${dateStr}`, {
       operation: 'place_update',
-      place: selectedPlace,
+      place: selectedPlace?._id,
     })
     setAttendence(data as IAttendence)
 
@@ -52,13 +47,18 @@ const PlacePickerModal: FC<{
         <ModalBody>
           희망하는 카페를 선택해주세요
           {
+            isLoading && (
+              <Spinner />
+            )
+          }
+          {
             places && (
               <>
                 <Map
                   selectedPlace={selectedPlace}
                   places={places}
                   width='100%'
-                  height='300px'
+                  height='250px'
                 />
                 <HStack margin='10px 0' alignItems='flex-start' justifyContent='flex-start'>
                   <Select id='place' placeholder='장소' width='fit-content' onChange={onChange}>
@@ -77,7 +77,7 @@ const PlacePickerModal: FC<{
         </ModalBody>
         <ModalFooter>
           <Button onClick={onClose} marginRight='10px'>Close</Button>
-          <Button type='submit' colorScheme='yellow'>확인</Button>
+          <Button onClick={onSubmit} colorScheme='yellow'>확인</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

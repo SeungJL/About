@@ -18,15 +18,16 @@ import { IUser, User } from '../../models/user';
 import UserInfoModal from '../../components/userInfoModal';
 import Head from 'next/head';
 import { isMember } from '../../libs/authUtils';
+import FireIcon from '../../components/icon/fireIcon';
+import { IPlace } from '../../models/place';
 
 const Home: NextPage<{
-  attendence: IAttendence
-}> = ({ attendence: attendenceParam }) => {
+  serializedAttendence: string,
+}> = ({ serializedAttendence }) => {
   const router = useRouter()
   const { data: session } = useSession()
 
-  attendenceParam.date = new Date(attendenceParam.date)
-  const [attendence, setAttendence] = useState<IAttendence>(attendenceParam)
+  const [attendence, setAttendence] = useState<IAttendence>(JSON.parse(serializedAttendence) as IAttendence)
   const [isLoading, setLoading] = useState(false)
   const [activeUserId, setActiveUserId] = useState('')
   const {
@@ -46,17 +47,16 @@ const Home: NextPage<{
   } = useDisclosure()
 
   useEffect(() => {
-    attendenceParam.date = new Date(attendenceParam.date)
-    setAttendence(attendenceParam)
-  }, [attendenceParam])
+    setAttendence(JSON.parse(serializedAttendence) as IAttendence)
+  }, [serializedAttendence])
 
   const dateStr = router.query.date as string
 
   const [isAttending, isSetTime, isSetPlace] = useMemo(
     () => {
       const attending = attendence.participants.some(p => (p.user as IUser).uid === session?.uid?.toString())
-      const setTime = attendence.participants.find((p) => ((p.user as IUser).uid == session?.uid?.toString()))?.time !== ''
-      const setPlace = attendence.participants.find((p) => ((p.user as IUser).uid == session?.uid?.toString()))?.place !== ''
+      const setTime = !!attendence.participants.find((p) => ((p.user as IUser).uid == session?.uid?.toString()))?.time
+      const setPlace = !!attendence.participants.find((p) => ((p.user as IUser).uid == session?.uid?.toString()))?.place
 
       return [attending, setTime, setPlace]
     },
@@ -99,13 +99,12 @@ const Home: NextPage<{
     ]
   }, [attendence])
 
-  const attend = useCallback(async () => {
+  const onAttend = useCallback(async () => {
     if(!isActivated) return
     setLoading(true)
 
     const { data } = await axios.patch(`/api/attend/${dateStr}`, {
       operation: 'append',
-      time: '',
     })
 
     setLoading(false)
@@ -123,7 +122,6 @@ const Home: NextPage<{
     setLoading(false)
     setAttendence(data as IAttendence)
   }, [dateStr])
-
   return (
     <>
       <Head>
@@ -173,16 +171,11 @@ const Home: NextPage<{
                 }
               }}
               isDisabled={isLoading || !isActivated}
-              onClick={!isAttending ? attend : absent}
+              onClick={!isAttending ? onAttend : absent}
             >
               <VStack>
                 <Box>
-                  <svg width='100px' viewBox='0 0 24 24'>
-                    <g>
-                      <path d='M0 0h24v24H0z' fill='none'/>
-                      <path d='M12 23a7.5 7.5 0 0 1-5.138-12.963C8.204 8.774 11.5 6.5 11 1.5c6 4 9 8 3 14 1 0 2.5 0 5-2.47.27.773.5 1.604.5 2.47A7.5 7.5 0 0 1 12 23z' fill={progressColor} />
-                    </g>
-                  </svg>
+                  <FireIcon color={progressColor} />
                 </Box>
                 <Text fontSize='5xl'>{attendence.participants.length}명</Text>
                 <Text>
@@ -259,15 +252,16 @@ const Home: NextPage<{
                     { session?.uid === (p.user as IUser).uid ? '(나)' : '' }
                   </Text>
                 </Box>
+                
                 <Box
                     height='1.8em'
                     width='1.8em'
                     visibility={p.place ? 'visible' : 'hidden'}
                     borderRadius='0.375rem'
                     marginRight='4px'
-                    boxShadow={`0px 0px 0px 0.15em ${p.place} inset`}
+                    boxShadow={`0px 0px 0px 0.15em ${(p.place as IPlace)?.color || 'black'} inset`}
                     onClick={(isActivated && session?.uid?.toString() === (p.user as IUser).uid) ? onPlacePickerModalOpen: null}
-                    backgroundImage={`url('${p.place}')`}
+                    backgroundImage={`url('${(p.place as IPlace)?.image}')`}
                     backgroundSize='2em'
                     backgroundPosition='center'
                     cursor='pointer'
@@ -419,27 +413,9 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   } else {
     attendence = nullableAttendence
   }
-  const serializableAttendence = attendence.toObject()
-  serializableAttendence._id = serializableAttendence._id.toString()
-  serializableAttendence.participants = serializableAttendence.participants
-    .filter((p) => p.user)
-    .map((p) => {
-      p.user = {
-        uid: p.user.uid,
-        name: p.user.name,
-        email: p.user.email,
-        thumbnailImage: p.user.thumbnailImage,
-        profileImage: p.user.profileImage,
-        role: p.user.role,
-      } as IUser
-      return p
-    })
+  const serializedAttendence = JSON.stringify(attendence)
 
-  serializableAttendence.date = (serializableAttendence.date as Date).toISOString()
-  serializableAttendence.createdAt = (serializableAttendence.createdAt as Date).toISOString()
-  serializableAttendence.updatedAt = (serializableAttendence.updatedAt as Date).toISOString()
-
-  return { props: { attendence: serializableAttendence } }
+  return { props: { serializedAttendence } }
 }
 
 export default Home

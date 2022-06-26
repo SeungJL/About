@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { IPlace, Place } from "../models/place";
 
 const Map: FC<{
-  selectedPlace, IPlace,
+  selectedPlace: IPlace,
   places: IPlace[],
 } &
 ChakraProps> = ({ selectedPlace, places, ...props }) => {

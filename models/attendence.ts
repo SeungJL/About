@@ -1,18 +1,19 @@
-import mongoose, {model, Schema, Document, Model, Types} from 'mongoose'
-import { IPlace, PlaceSchema } from './place'
+import mongoose, {model, Schema, Document, Model} from 'mongoose'
+import { IPlace } from './place'
 import { IUser } from './user'
 
 
 export interface IParticipant {
   user: string | IUser,
-  time: string,
-  place: string | IPlace,
+  time?: string,
+  place?: string | IPlace,
 }
 
 const ParticipantSchema: Schema<IParticipant> = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   time: String,
   place: {

@@ -9,6 +9,7 @@ export interface IPlace extends Document {
   color?: string
   latitude: number
   longitude: number
+  priority?: number
 }
 
 export const PlaceSchema: Schema<IPlace> = new Schema({
@@ -35,8 +36,9 @@ export const PlaceSchema: Schema<IPlace> = new Schema({
   longitude: {
     type: Number,
     required: true,
-  }
+  },
+  priority: Number,
 })
 
 
-export const Place = mongoose.models?.Place as Model<IPlace, {}, {}, {}> || model<IPlace>('Place', PlaceSchema)
+export const Place = mongoose.models.Place as Model<IPlace, {}, {}, {}> || model<IPlace>('Place', PlaceSchema)
