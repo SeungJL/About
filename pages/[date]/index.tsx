@@ -13,7 +13,6 @@ import { IAttendence, Attendence } from '../../models/attendence';
 import TimePickerModal from '../../components/timePickerModal';
 import ProfileImage from '../../components/profileImage';
 import PlacePickerModal from '../../components/placePickerModal';
-import { getPlaceColor, getPlaceImg } from '../../libs/placeUtils';
 import { Colors } from '../../libs/colors';
 import { IUser, User } from '../../models/user';
 import UserInfoModal from '../../components/userInfoModal';
@@ -266,9 +265,9 @@ const Home: NextPage<{
                     visibility={p.place ? 'visible' : 'hidden'}
                     borderRadius='0.375rem'
                     marginRight='4px'
-                    boxShadow={`0px 0px 0px 0.15em ${getPlaceColor(p.place)} inset`}
+                    boxShadow={`0px 0px 0px 0.15em ${p.place} inset`}
                     onClick={(isActivated && session?.uid?.toString() === (p.user as IUser).uid) ? onPlacePickerModalOpen: null}
-                    backgroundImage={`url('${getPlaceImg(p.place)}')`}
+                    backgroundImage={`url('${p.place}')`}
                     backgroundSize='2em'
                     backgroundPosition='center'
                     cursor='pointer'
@@ -397,7 +396,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  const nullableAttendence = await Attendence.findOne({ date: dayjsDate.toDate() }).populate('participants.user')
+  const nullableAttendence = await Attendence.findOne({ date: dayjsDate.toDate() }).populate(['participants.user', 'participants.place', 'meetingPlace'])
   let attendence: IAttendence
   if (!nullableAttendence) {
     if (dayjsDate <= interestingDate.add(1, 'week')) {
@@ -435,6 +434,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
       } as IUser
       return p
     })
+
   serializableAttendence.date = (serializableAttendence.date as Date).toISOString()
   serializableAttendence.createdAt = (serializableAttendence.createdAt as Date).toISOString()
   serializableAttendence.updatedAt = (serializableAttendence.updatedAt as Date).toISOString()
