@@ -1,8 +1,9 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Spinner, Box, HStack, useToast, VStack, Badge, Divider, Skeleton, SkeletonCircle } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { isStranger, role, isMember, isPreviliged } from "../libs/authUtils";
+import { groupBy } from "../libs/utils";
 import { IUser } from "../models/user";
 import { UserAttendenceInfo } from "../models/userAttendenceInfo";
 import ProfileImage from "./profileImage";
@@ -16,8 +17,7 @@ const UserInfoModal: FC<{
 }> = ({ isOpen, onClose, userId, setActiveUserId }) => {
   const toast = useToast()
   const queryClient = useQueryClient()
-  const [userAttendenceInfo, setUserAttendenceInfo] = useState<UserAttendenceInfo>(null)
-  const {isFetching} = useQuery<UserAttendenceInfo, AxiosError, UserAttendenceInfo, [string, string]>(
+  const {isFetching, data: userAttendenceInfo} = useQuery<UserAttendenceInfo, AxiosError, UserAttendenceInfo, [string, string]>(
     ['fetchUserInfo', userId],
     async ({ queryKey }) => {
       const [_key, userId] = queryKey
@@ -25,9 +25,6 @@ const UserInfoModal: FC<{
       return res.data
     },
     {
-      onSuccess: (data) => {
-        setUserAttendenceInfo(data)
-      },
       onError: (error) => {
         console.error(error)
         toast({
@@ -46,19 +43,31 @@ const UserInfoModal: FC<{
     queryClient.invalidateQueries('fetchUserInfo')
   }, [userId])
 
+  const cooperator = useMemo(() => {
+    if (!userAttendenceInfo) return []
 
-  const cooperatorFrequency = userAttendenceInfo?.attendences
-    ?.filter((a) => a.meetingTime !== '')
-    ?.flatMap((a) => a.participants)
-    ?.map((p) => p.user as IUser)
-    ?.filter((u) => u.uid !== userId)
-    ?.reduce((acc, curr) => (
-      acc.get(curr) ? acc.set(curr, acc.get(curr)+1) : acc.set(curr, 1), acc
-    ), new Map<IUser, number>()) || new Map()
+    const users = userAttendenceInfo.attendences
+      .filter((a) => !!a.meetingTime)
+      .flatMap((a) => a.participants)
+      .map((p) => p.user as IUser)
+      .filter((u) => u.uid !== userId)
 
-  const cooperator = Array.from(cooperatorFrequency.keys())
-    .sort((a, b) => cooperatorFrequency.get(a) - cooperatorFrequency.get(b))
-    .slice(0, 4)
+    const usersById = groupBy(users, (user) => (user._id.toString()))
+  
+    const uniqueUsers = Array.from<string>(new Set(users.map(user => user._id.toString())))
+
+    return uniqueUsers
+      .map(userId => {
+        const userDups = usersById.get(userId)
+        const cnt = userDups?.length || 0
+        if (!cnt) return null
+        return { user: userDups[0], cnt }
+      })
+      .filter((u) => !!u)
+      .sort((a, b) => (b.cnt - a.cnt))
+      .slice(0, 4)
+      .map((userWithCnt => (userWithCnt.user)))
+  }, [userAttendenceInfo])
 
   return (
       <Modal size='xs' onClose={onClose} isOpen={isOpen} isCentered>
@@ -112,9 +121,9 @@ const UserInfoModal: FC<{
                           <Text as='span' fontSize='lg'>함께 참여한 친구: </Text>
                           <HStack spacing={1}>
                           {
-                            cooperator.map((c) => (
+                            cooperator.map((c, i) => (
                               <ProfileImage
-                                key={c.uid}
+                                key={c.uid + i}
                                 src={c.thumbnailImage}
                                 alt={c.name}
                                 width='50px'
