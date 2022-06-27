@@ -2,8 +2,7 @@ export const attendStatus = {
   high: '높음',
   normal: '보통',
   low: '저조',
-  warn: '경고',
-  danger: '위험',
+  nothing: '정보없음',
 }
 
 export const getAttendStatus = (
@@ -19,10 +18,8 @@ export const getAttendStatus = (
   const week4Cnt = (week4OpenCnt - week2OpenCnt) * 2 + (week4VoteCnt - week2VoteCnt - (week4OpenCnt - week2OpenCnt))
   const attendenceScore = week1Cnt * 10 + week2Cnt * 5 + week4Cnt * 3
 
-  if (attendenceScore < 3) {
-    return attendStatus.danger
-  } else if (attendenceScore < 6) {
-    return attendStatus.warn
+  if (attendenceScore === 0) {
+    return attendStatus.nothing
   } else if (attendenceScore < 10) {
     return attendStatus.low
   } else if (attendenceScore > 60) {
