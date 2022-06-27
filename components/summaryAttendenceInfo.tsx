@@ -27,12 +27,12 @@ const SummaryAttendenceInfo: FC<{
 
   const getAttendStatusColor = useCallback((status: string) => {
     switch (status) {
-      case attendStatus.low:
+      case attendStatus.high:
+        return 'blue.400'
+        case attendStatus.low:
         return 'yellow'
-      case attendStatus.warn:
-        return 'orange'
-      case attendStatus.danger:
-        return 'red'
+      case attendStatus.nothing:
+        return 'black'
       default:
         return 'green'
     }
