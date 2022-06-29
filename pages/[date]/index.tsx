@@ -397,6 +397,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
       const newAttendence = new Attendence({
         date: dayjsDate.toDate(),
         participants: [],
+        process: 'dismiss',
       })
 
       await newAttendence.save()

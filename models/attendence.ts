@@ -28,6 +28,7 @@ export interface IAttendence extends Document {
   participants: IParticipant[],
   meetingTime: string,
   meetingPlace: string | IPlace,
+  process: string,
 }
 
 export const AttendenceSchema: Schema<IAttendence> = new Schema({
@@ -40,6 +41,11 @@ export const AttendenceSchema: Schema<IAttendence> = new Schema({
   meetingPlace: {
     type: Schema.Types.ObjectId,
     ref: 'Place',
+  },
+  process: {
+    type: String,
+    enum: ['pending', 'dismiss', 'open'],
+    default: 'pending',
   },
 }, {
   timestamps: true,

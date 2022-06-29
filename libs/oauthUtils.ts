@@ -145,6 +145,7 @@ export const withdrawal = async (accessToken: string) => {
     await User.updateMany({ uid }, {$set: {
       name: '(알수없음)',
       role: 'stranger',
+      status: 'inactive',
       uid: '',
     }})
   }
