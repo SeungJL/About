@@ -3,8 +3,6 @@ import dbConnect from "../../../libs/dbConnect";
 import { getProfile } from "../../../libs/oauthUtils";
 import { IPlace, Place } from "../../../models/place";
 
-const secret = process.env.NEXTAUTH_SECRET
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IPlace[]>,
