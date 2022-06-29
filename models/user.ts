@@ -3,6 +3,7 @@ import mongoose, {model, Schema, Document, Model} from 'mongoose'
 
 export interface IUser extends Document {
   uid: string,
+  status: string,
   name: string,
   email: string,
   thumbnailImage: string,
@@ -14,6 +15,11 @@ export const UserSchema: Schema<IUser> = new Schema({
   uid: {
     type: String,
     required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+    default: 'active',
   },
   name: {
     type: String,

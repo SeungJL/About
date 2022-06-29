@@ -167,6 +167,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const newAttendence = new Attendence({
       date: interestingDate.toDate(),
       participants: [],
+      process: 'dismiss',
     })
     attendence = await newAttendence.save()
   }
@@ -177,6 +178,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         $set: {
           meetingTime: undefined,
           meetingPlace: undefined,
+          process: 'dismiss',
         }
       })
     }
@@ -191,24 +193,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const totalPlaces = await Place.find({status: 'active'})
   let studyPlace = attendence.meetingPlace as IPlace
-
-  if (!studyPlace) {
-    studyPlace = getOptimalPlace(attendence.participants.map((p) => p.place as IPlace).filter(p => !!p), totalPlaces)
-
-    await Attendence.updateOne({date: interestingDate.toDate()}, {
-      $set: {
-        meetingPlace: studyPlace,
-      }
-    })
-  }
   let studyTime = attendence.meetingTime
 
-  if (!studyTime) {
+  if (!studyPlace || !studyTime) {
+    studyPlace = getOptimalPlace(attendence.participants.map((p) => p.place as IPlace).filter(p => !!p), totalPlaces)
     studyTime = getOptimalTime(attendence.participants.map((p) => p.time))
   
     await Attendence.updateOne({date: interestingDate.toDate()}, {
       $set: {
+        meetingPlace: studyPlace,
         meetingTime: studyTime,
+        process: 'open',
       }
     })
   }
