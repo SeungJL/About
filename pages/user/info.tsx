@@ -87,12 +87,12 @@ const UserInfo: NextPage<{
             <HStack spacing={1}>
               {
                 isStranger(user.role) && (
-                  <Badge key='stranger' colorScheme='yellow'>{role.stranger}</Badge>
+                  <Badge key='stranger' colorScheme='yellow'>{role.stranger.display}</Badge>
                 )
               }
               {
                 isMember(user.role) && (
-                  <Badge key='member' colorScheme='green'>{role.member}</Badge>
+                  <Badge key='member' colorScheme='green'>{role.member.display}</Badge>
                 )
               }
               {

@@ -1,24 +1,24 @@
 export const role = {
-  stranger: '미인증 사용자',
-  member: '회원',
-  previliged: '관리자',
+  stranger: {value: 'stranger', display: '미인증 사용자'},
+  member: {value: 'member', display: '회원'},
+  previliged: {value: 'previliged', display: '관리자'},
 }
 
 export const getRoleName = (roleStr: string) => {
   if (role[roleStr]) {
     return role[roleStr]
   }
-  return role.stranger
+  return role.stranger.display
 }
 
 export const isStranger = (roleStr: string) => {
-  return getRoleName(roleStr) === role.stranger
+  return roleStr === role.stranger.value
 }
 
 export const isMember = (roleStr: string) => {
-  return [role.member, role.previliged].includes(getRoleName(roleStr))
+  return [role.member.value, role.previliged.value].includes(roleStr)
 }
 
 export const isPreviliged = (roleStr: string) => {
-  return getRoleName(roleStr) === role.previliged
+  return roleStr === role.previliged.value
 }
