@@ -91,17 +91,17 @@ const UserInfoModal: FC<{
                       <HStack spacing={1}>
                         {
                           userAttendenceInfo && isStranger(userAttendenceInfo?.user?.role) && (
-                            <Badge key='stranger' colorScheme='yellow'>{role.stranger}</Badge>
+                            <Badge key='stranger' colorScheme='yellow'>{role.stranger.display}</Badge>
                           )
                         }
                         {
                           isMember(userAttendenceInfo?.user?.role) && (
-                            <Badge key='member' colorScheme='green'>{role.member}</Badge>
+                            <Badge key='member' colorScheme='green'>{role.member.display}</Badge>
                           )
                         }
                         {
                           isPreviliged(userAttendenceInfo?.user?.role) && (
-                            <Badge key='previlied' colorScheme='red'>{role.previliged}</Badge>
+                            <Badge key='previlied' colorScheme='red'>{role.previliged.display}</Badge>
                           )
                         }
                       </HStack>

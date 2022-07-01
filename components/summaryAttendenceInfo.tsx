@@ -30,7 +30,7 @@ const SummaryAttendenceInfo: FC<{
       case attendStatus.high:
         return 'blue.400'
         case attendStatus.low:
-        return 'yellow'
+        return 'yellow.500'
       case attendStatus.nothing:
         return 'black'
       default:
