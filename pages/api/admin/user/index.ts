@@ -27,8 +27,8 @@ export default async function handler(
         {
           $match: {
             date: {
-              $gte: getToday().subtract(4, 'week').toDate(),
-              $lt: getToday().toDate(),
+              $gte: getToday().subtract(4, 'week').startOf('week').add(1, 'day').toDate(),
+              $lt: getToday().subtract(1, 'week').endOf('week').add(1, 'day').toDate(),
             },
             'participants.0': { $exists: true },
           },
@@ -63,8 +63,14 @@ export default async function handler(
         },
         {
             $group: {
-                _id: '$user_id',
-                attendences: { $push: { date: '$date', time: '$time', place: '$place', process: '$process', friends: '$friends' } },
+              _id: '$user_id',
+              attendences: { $push: { 
+                date: '$date',
+                time: '$time',
+                place: '$place',
+                process: '$process',
+                friends: '$friends'
+              }},
             }
         },
         {
@@ -137,14 +143,16 @@ export default async function handler(
           return User.updateOne({_id: user._id}, {$set: {statistic}})
         } else {
           return User.updateOne({_id: user._id}, {$set: {
-            attendences: [],
-            voteCnt4Week: 0,
-            openCnt4Week: 0,
-            voteCnt2Week: 0,
-            openCnt2Week: 0,
-            voteCnt1Week: 0,
-            openCnt1Week: 0,
-          } as IUserStatistic})
+            statistic: {
+              attendences: [],
+              voteCnt4Week: 0,
+              openCnt4Week: 0,
+              voteCnt2Week: 0,
+              openCnt2Week: 0,
+              voteCnt1Week: 0,
+              openCnt1Week: 0,
+            } as IUserStatistic
+          }})
         }
 
       })

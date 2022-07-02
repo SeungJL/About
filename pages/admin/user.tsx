@@ -1,10 +1,11 @@
-import { Container, Heading, HStack, useDisclosure } from "@chakra-ui/react";
+import { Container, Divider, Text, Heading, HStack, useDisclosure } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 import ProfileImage from "../../components/profileImage";
 import UserAdminModal from "../../components/userAdminModal";
-import { role } from "../../libs/authUtils";
+import { isPreviliged, role } from "../../libs/authUtils";
+import { convertToKr, getToday } from "../../libs/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 import { IUser, User } from "../../models/user";
 
@@ -18,17 +19,82 @@ const AdminUser: NextPage<{
     onClose: onUserAdminModalClose,
   } = useDisclosure()
 
-  const users = useMemo(() => (JSON.parse(usersParam) as IUser[]), [usersParam])
+  const users = useMemo(() => ((JSON.parse(usersParam) as IUser[])), [usersParam])
+  const [startDay, endDay] = useMemo(() => {
+    const today = getToday()
+    const start = today.subtract(2, 'week').startOf('week').add(1, 'day')
+    const end = today.subtract(1, 'week').endOf('week').add(1, 'day')
+
+    return [start, end]
+  }, [])
+
+
   return (
     <>
       <Container>
-        <Heading as='h2'>{role.previliged.display}</Heading>
+        <Container marginBottom='20px'>
+          <Heading as='h1'>권한별</Heading>
+          <Divider />
+          {
+            Object.values(role).map((r => (
+              <>
+                <Heading as='h2' size='lg'>{r.display}</Heading>
+                <HStack flexWrap='nowrap' overflowX='auto' paddingBottom='10px'>
+                  {
+                    users.filter((user) => (user.role === r.value)).map((user) => (
+                      <ProfileImage
+                        key={user.uid}
+                        flex='0 0 auto'
+                        width='60px'
+                        src={user.thumbnailImage}
+                        alt={user.name}
+                        onClick={() => {
+                          setActiveUserId(user.uid)
+                          onUserAdminModalOpen()
+                        }}
+                      />
+                    ))
+                  }
+                </HStack>
+              </>
+            )))
+          }
+        </Container>
+        <Heading as='h1'>참여별(2주)</Heading>
+        <Text>{convertToKr(startDay)} ~ {convertToKr(endDay)}</Text>
+        <Divider />
+          {
+            [0, 1, 2, 3, 4].map((attendCnt => (
+              <>
+                <Heading as='h2' size='lg'>{attendCnt}회</Heading>
+                <HStack flexWrap='nowrap' overflowX='auto' paddingBottom='10px'>
+                  {
+                    users.filter((user) => (user.statistic.openCnt2Week === attendCnt)).map((user) => (
+                      <ProfileImage
+                        key={user.uid}
+                        flex='0 0 auto'
+                        width='60px'
+                        src={user.thumbnailImage}
+                        alt={user.name}
+                        onClick={() => {
+                          setActiveUserId(user.uid)
+                          onUserAdminModalOpen()
+                        }}
+                      />
+                    ))
+                  }
+                </HStack>
+              </>
+            )))
+          }
+        <Heading as='h2' size='lg'>5회 이상</Heading>
         <HStack flexWrap='nowrap' overflowX='auto' paddingBottom='10px'>
           {
-            users.filter((user) => (user.role === role.previliged.value)).map((user) => (
+            users.filter((user) => (user.statistic.openCnt2Week > 4)).map((user) => (
               <ProfileImage
                 key={user.uid}
                 flex='0 0 auto'
+                width='60px'
                 src={user.thumbnailImage}
                 alt={user.name}
                 onClick={() => {
@@ -38,40 +104,6 @@ const AdminUser: NextPage<{
               />
             ))
           }
-        </HStack>
-        <Heading as='h2'>{role.member.display}</Heading>
-        <HStack flexWrap='nowrap' overflowX='auto' paddingBottom='10px'>
-          {
-            users.filter((user) => (user.role === role.member.value)).map((user) => (
-              <ProfileImage 
-                key={user.uid}
-                flex='0 0 auto'
-                src={user.thumbnailImage}
-                alt={user.name}
-                onClick={() => {
-                  setActiveUserId(user.uid)
-                  onUserAdminModalOpen()
-                }}
-              />
-            ))
-          }
-        </HStack>
-        <Heading as='h2'>{role.stranger.display}</Heading>
-        <HStack flexWrap='nowrap' overflowX='auto' paddingBottom='10px'>
-        {
-          users.filter((user) => (user.role === role.stranger.value)).map((user) => (
-            <ProfileImage
-              key={user.uid}
-              flex='0 0 auto'
-              src={user.thumbnailImage}
-              alt={user.name}
-              onClick={() => {
-                setActiveUserId(user.uid)
-                onUserAdminModalOpen()
-              }}
-            />
-          ))
-        }
         </HStack>
       </Container>
       {
@@ -99,14 +131,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  // if (!isPreviliged(session.role as string)) {
-  //   return {
-  //     redirect: {
-  //       permanent: false,
-  //       destination: '/forbidden',
-  //     }
-  //   }
-  // }
+  if (!isPreviliged(session.role as string)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/forbidden',
+      }
+    }
+  }
   await dbConnect()
 
   const users = await User.find({status: 'active'})

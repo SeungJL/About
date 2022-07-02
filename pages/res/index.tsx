@@ -63,28 +63,31 @@ const Result: NextPage<{
             src='https://user-images.githubusercontent.com/48513798/173590653-56823862-d7ea-4963-85c1-9a1c1867165c.png'
             alt='background-image'
           />
-          <HStack justifyContent='center' position='absolute' bottom='-40px' width='100%'>
-            {
-              participants.map((p, idx) => (
-                <Box key={(p.user as IUser).id} margin='0'>
-                  <ProfileImage
-                    position='relative'
-                    right={`${-20 * ((participants.length+1) / 2 - (idx+1))}px`}
-                    key={(p.user as IUser).uid}
-                    src={(p.user as IUser).thumbnailImage}
-                    alt={(p.user as IUser).name}
-                    width='70px'
-                    onClick={() => {
-                      setActiveUserId((p.user as IUser).uid)
-                      if ((p.user as IUser).uid) {
-                        onUserInfoModalOpen()
-                      }
-                    }}
-                  />
-                </Box>
-              ))
-            }
-          </HStack>
+          <Box position='absolute' bottom='-40px' width='100%' height='70px' overflow='hidden'>
+              <Box width='70px' height='70px' margin='0 auto' position='relative'>
+                {
+                  participants.map((p, idx) => (
+                    <Box key={(p.user as IUser).id} margin='0'>
+                      <ProfileImage
+                        position='absolute'
+                        top='0'
+                        right={`${-55 * ((participants.length+1) / 2 - (idx+1))}px`}
+                        key={(p.user as IUser).uid}
+                        src={(p.user as IUser).thumbnailImage}
+                        alt={(p.user as IUser).name}
+                        width='70px'
+                        onClick={() => {
+                          setActiveUserId((p.user as IUser).uid)
+                          if ((p.user as IUser).uid) {
+                            onUserInfoModalOpen()
+                          }
+                        }}
+                      />
+                    </Box>
+                  ))
+                }
+              </Box>
+          </Box>
         </Box>
         <Heading
           as='h1'

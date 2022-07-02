@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Box, HStack, useToast, VStack, Badge, Divider, Skeleton, SkeletonCircle, Select, FormControl } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Box, HStack, useToast, VStack, Badge, Divider, Skeleton, SkeletonCircle, Select, FormControl, Container } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { FC, useEffect, useState } from "react";
@@ -80,7 +80,28 @@ const UserAdminModal: FC<{
                       <Text as='span' fontSize='2xl' fontWeight='400'>{user?.name}</Text>
                     </Skeleton>
                   </VStack>
+                </HStack><HStack justifyContent='space-between' margin='5px 0'>
+                <HStack justifyContent='space-between' margin='5px 0'>
+                  <Box key='1week' flex={1}>
+                    <HStack justifyContent='center' alignItems='center'>
+                      <Text as='span' fontSize='sm' width='fit-content' marginRight='2px'>2주</Text>
+                    </HStack>
+                    <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
+                      {user?.statistic?.openCnt2Week}회({user?.statistic?.voteCnt2Week}회)
+                    </Text>
+                  </Box>
+                  <Divider orientation='vertical' height='2rem' />
+                  <Box key='4week' flex={1}>
+                    <HStack justifyContent='center' alignItems='center'>
+                      <Text as='span' fontSize='sm' width='fit-content' marginRight='2px'>4주</Text>
+                    </HStack>
+                    <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
+                      {user?.statistic?.openCnt4Week}회({user?.statistic?.voteCnt4Week}회)
+                    </Text>
+                  </Box>
+                  <Divider orientation='vertical' height='2rem' />
                 </HStack>
+              </HStack>
                 {
                   user && (
                     <Formik

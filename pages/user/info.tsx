@@ -1,10 +1,10 @@
 import { RepeatIcon, SettingsIcon } from "@chakra-ui/icons"
-import { Text, Container, Heading, HStack, Divider, Box, Button, Badge, Spinner, useToast, Tab, TabList, TabPanel, TabPanels, Tabs, Image } from "@chakra-ui/react"
+import { Text, Container, Heading, HStack, Divider, Box, Button, Badge, Spinner, useToast, Tab, TabList, TabPanel, TabPanels, Tabs, Image, Grid, GridItem, Link, SimpleGrid } from "@chakra-ui/react"
 import axios, { AxiosError } from "axios"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, signOut } from "next-auth/react"
 import NextLink from "next/link"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { useMutation } from "react-query"
 import ProfileImage from "../../components/profileImage"
 import SummaryAttendenceInfo from "../../components/summaryAttendenceInfo"
@@ -16,11 +16,12 @@ import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo"
 import { IUser, User } from "../../models/user"
 
 const UserInfo: NextPage<{
-  user: IUser,
-  attendences: IAttendence[],
-}> = ({ user: userParam, attendences }) => {
+  user: string,
+  attendences: string,
+}> = ({ user: userParam, attendences: attendencesParam }) => {
   const toast = useToast()
-  const [user, setUser] = useState(userParam)
+  const [user, setUser] = useState(JSON.parse(userParam) as IUser)
+  const attendences = useMemo(() => (JSON.parse(attendencesParam) as IAttendence[]), [attendencesParam])
 
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<kakaoProfileInfo, AxiosError>(
     'updateProfile', 
@@ -114,6 +115,29 @@ const UserInfo: NextPage<{
       <Divider />
       <SummaryAttendenceInfo attendences={attendences} />
       <Divider marginBottom='10px' />
+      {
+        isPreviliged(user.role) && (
+          <>
+            <Heading as='h2' size='lg'>관리</Heading>
+            <Divider marginBottom='10px' />
+            <SimpleGrid columns={2} spacing={1}>
+              <NextLink href='/admin/user'>
+                <Link fontSize='1.2rem' fontWeight='500'>사용자 관리</Link>
+              </NextLink>
+      
+              <Text fontSize='1.2rem' fontWeight='500' color='gray.400'>투표 관리</Text>
+              <Text fontSize='1.2rem' fontWeight='500' color='gray.400'>장소 관리</Text>
+              {/* <NextLink href='/admin/attendence' >
+                <Link fontSize='1.2rem' fontWeight='500'>투표 관리</Link>
+              </NextLink>
+              <NextLink href='/admin/place'>
+                <Link fontSize='1.2rem' fontWeight='500'>장소 관리</Link>
+              </NextLink> */}
+            </SimpleGrid>    
+          </>
+        )
+      }
+      <Divider marginBottom='10px' />
       <Tabs variant='enclosed' colorScheme='black'>
         <TabList>
           <Tab width='50%'>참여 통계</Tab>
@@ -159,7 +183,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   await dbConnect()
 
-  const user = (await User.findOne({uid: session.uid})).toObject()
+  const user = await User.findOne({uid: session.uid})
   const attendences = await Attendence.find({
     date: {
       $gte: getToday().add(-4, 'week').toDate(),
@@ -168,25 +192,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     'participants.user': user._id,
   }).populate('participants.user')
 
-  user._id = user._id.toString()
-  const attendenceObjects = attendences.map(a => {
-    const attObj = a.toObject()
-    attObj._id = attObj._id.toString()
-    attObj.participants = attObj.participants.map(p => {
-      p.user._id = p.user._id.toString()
-      return p
-    })
-    attObj.date = (attObj.date as Date).toISOString()
-    attObj.createdAt = (attObj.createdAt as Date).toISOString()
-    attObj.updatedAt = (attObj.updatedAt as Date).toISOString()
-
-    return attObj
-  })
-
   return {
     props: {
-      user,
-      attendences: attendenceObjects,
+      user: JSON.stringify(user),
+      attendences: JSON.stringify(attendences),
     },
   }
 }
