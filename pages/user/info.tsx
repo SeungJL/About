@@ -23,6 +23,7 @@ const UserInfo: NextPage<{
   const [user, setUser] = useState(JSON.parse(userParam) as IUser)
   const attendences = useMemo(() => (JSON.parse(attendencesParam) as IAttendence[]), [attendencesParam])
 
+  console.log(user)
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<kakaoProfileInfo, AxiosError>(
     'updateProfile', 
     async () => {
@@ -98,7 +99,7 @@ const UserInfo: NextPage<{
               }
               {
                 isPreviliged(user.role) && (
-                  <Badge key='previlied' colorScheme='red'>{getRoleName(user.role)}</Badge>
+                  <Badge key='previliged' colorScheme='red'>{role.previliged.display}</Badge>
                 )
               }
             </HStack>
@@ -127,12 +128,6 @@ const UserInfo: NextPage<{
       
               <Text fontSize='1.2rem' fontWeight='500' color='gray.400'>투표 관리</Text>
               <Text fontSize='1.2rem' fontWeight='500' color='gray.400'>장소 관리</Text>
-              {/* <NextLink href='/admin/attendence' >
-                <Link fontSize='1.2rem' fontWeight='500'>투표 관리</Link>
-              </NextLink>
-              <NextLink href='/admin/place'>
-                <Link fontSize='1.2rem' fontWeight='500'>장소 관리</Link>
-              </NextLink> */}
             </SimpleGrid>    
           </>
         )
