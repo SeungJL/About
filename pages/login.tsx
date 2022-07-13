@@ -5,7 +5,7 @@ import { LiteralUnion, ClientSafeProvider, signIn, getProviders, getSession } fr
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useRef, useState } from "react"
-import Logo from "../components/logo"
+import Logo from "../components/icon/logo"
 import { getInterestingDate } from "../libs/dateUtils"
 
 const Login: NextPage<{

@@ -3,7 +3,7 @@ import NextLink from "next/link"
 import { useSession } from "next-auth/react"
 import { FC } from "react"
 import { getInterestingDate } from "../../libs/dateUtils"
-import Logo from "../logo"
+import Logo from "../icon/logo"
 import ProfileImage from "../profileImage"
 import { BellIcon } from "@chakra-ui/icons"
 
