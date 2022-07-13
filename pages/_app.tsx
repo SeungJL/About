@@ -6,7 +6,6 @@ import { Box, ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import Footer from '../components/layout/footer'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Script from 'next/script'
-import theme from './theme'
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID
 
