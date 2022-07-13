@@ -58,7 +58,7 @@ const Login: NextPage<{
   const ogImage = useMemo(() => {
     switch (redirectFrom) {
       case '/':
-        return '/root_meta_tag_img.png'
+        return '/meta_tag_img_root.png'
       case '/res':
         return '/res_meta_tag_img.png'
       default:
@@ -99,7 +99,7 @@ const Login: NextPage<{
                   <path d="M91.0331 216.167C91.6506 213.791 93.9017 212.215 96.3456 212.447L193.205 221.656C197.833 222.096 199.408 228.063 195.6 230.729L74.2661 315.688C70.4575 318.355 65.3894 314.834 66.559 310.335L91.0331 216.167Z" fill="#000000"/>
                 </svg>
               </Box>
-              <Text fontSize='lg' flex='1' display='inline'>카카오 로그인</Text>
+              <Text fontSize='lg' flex='1' display='inline' color='black'>카카오 로그인</Text>
             </HStack>
           </Button>
         </Box>
