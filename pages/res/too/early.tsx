@@ -8,9 +8,8 @@ const TooEarly: NextPage = () => {
     <>
       <VStack height='100%' justifyContent='center'>
         <Image
-          src='https://user-images.githubusercontent.com/48513798/178657442-1e0dc9f2-a256-4740-9f16-1e63ac570695.jpg'
+          src='https://user-images.githubusercontent.com/48513798/178680377-ec09fa63-fe73-4487-8d96-abb163c659bc.png'
           alt='early'
-          marginTop='100px'
         />
         <Text fontSize='xl'>아직 결과가 나오지 않았어요 🤷</Text>
       </VStack>
