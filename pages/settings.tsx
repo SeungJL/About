@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Container, Divider, Heading, Text, useDisclosure } from "@chakra-ui/react"
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Container, Divider, Heading, Text, useColorMode, useDisclosure } from "@chakra-ui/react"
 import axios from "axios"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, signOut } from "next-auth/react"
@@ -7,6 +7,7 @@ import { useRef } from "react"
 const Settings: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
+  const { colorMode, toggleColorMode } = useColorMode()
 
   const unlink = async () => {
     await axios.delete('/api/user/withdrawal')
@@ -19,6 +20,13 @@ const Settings: NextPage = () => {
     <Container>
       <Heading as='h1' fontSize='3xl' marginBottom='10px'>설정</Heading>
       <Divider marginTop='5px' marginBottom='10px'/>
+      <Box>
+        <Heading as='h2' fontSize='xl'>테마</Heading>
+        <Divider marginTop='5px' marginBottom='10px' />
+        <Button width='100%' height='50px' fontSize='xl' marginBottom='20px' onClick={toggleColorMode}>
+           {colorMode === 'light' ? '라이트모드' : '다크모드'}
+        </Button>
+      </Box>
       <Box>
         <Heading as='h2' fontSize='xl'>회원탈퇴</Heading>
         <Divider marginTop='5px' marginBottom='10px'/>
