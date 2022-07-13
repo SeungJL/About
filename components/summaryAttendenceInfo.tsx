@@ -43,20 +43,20 @@ const SummaryAttendenceInfo: FC<{
       <Box key='1week' flex={1}>
         <HStack justifyContent='center' alignItems='center'>
           <Text as='span' fontSize='sm' width='fit-content' marginRight='2px'>7일</Text>
-          <InfoPopOver content={'최근 7일간 참여횟수(투표횟수)'} placement='top-start' />
+          <InfoPopOver content={'최근 7일간 참여횟수/투표횟수'} placement='top-start' />
         </HStack>
         <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
-          {cntOpen7days}회({cntVote7days}회)
+          {cntOpen7days}회/{cntVote7days}회
         </Text>
       </Box>
       <Divider orientation='vertical' height='2rem' />
       <Box key='4week' flex={1}>
         <HStack justifyContent='center' alignItems='center'>
-          <Text as='span' fontSize='sm' width='fit-content' marginRight='2px'>4주</Text>
-          <InfoPopOver content={'최근 4주간 참여횟수(투표횟수)'} placement='top' />
+          <Text as='span' fontSize='sm' width='fit-content' marginRight='2px'>2주</Text>
+          <InfoPopOver content={'최근 2주간 참여횟수/투표횟수'} placement='top' />
         </HStack>
         <Text fontSize='lg' fontWeight='600' width='fit-content' margin='auto'>
-          {cntOpen1Mon}회({cntVote1Mon}회)
+          {cntOpen2Weeks}회/{cntVote2Weeks}회
         </Text>
       </Box>
       <Divider orientation='vertical' height='2rem' />
