@@ -187,7 +187,7 @@ const Terms: NextPage = () => {
       <Button
         position='fixed'
         bottom='0'
-        backgroundColor='gray.200'
+        colorScheme='yellow'
         borderRadius='0'
         maxWidth='500px'
         width='100%'
