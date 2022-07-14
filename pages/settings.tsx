@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Container, Divider, Heading, HStack, Radio, RadioGroup, Text, useColorMode, useDisclosure } from "@chakra-ui/react"
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Container, Divider, Heading, HStack, Radio, RadioGroup, Text, useColorMode, useDisclosure, useRadio, useRadioGroup } from "@chakra-ui/react"
 import axios from "axios"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, signOut } from "next-auth/react"
@@ -9,7 +9,6 @@ const Settings: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
   const { colorMode, setColorMode } = useColorMode()
-
   const unlink = async () => {
     await axios.delete('/api/user/withdrawal')
 
@@ -17,27 +16,28 @@ const Settings: NextPage = () => {
     await signOut()
   }
 
-  console.log(colorMode)
-
   return (
     <Container>
       <Heading as='h1' fontSize='3xl' marginBottom='10px'>설정</Heading>
       <Divider marginTop='5px' marginBottom='10px'/>
-      <Box>
+      <Box marginBottom='20px'>
         <Heading as='h2' fontSize='xl'>테마</Heading>
         <Divider marginTop='5px' marginBottom='10px' />
         <RadioGroup value={colorMode} onChange={(value) => {setColorMode(value)}}>
           <HStack direction='row' justifyContent='space-around'>
             <Box>
               <Box
-                width='100px'
-                height='100px'
+                width='120px'
+                height='120px'
                 backgroundColor='white'
                 borderRadius='10px'
+                borderColor={ colorMode === 'light' && 'blue.300' }
+                borderWidth='3px'
                 display='flex'
                 justifyContent='center'
                 alignItems='center'
                 padding='0'
+                onClick={() => setColorMode('light')}
               >
                 <Logo width='80px' height='80px' />
               </Box>
@@ -48,14 +48,17 @@ const Settings: NextPage = () => {
 
             <Box>
               <Box
-                width='100px'
-                height='100px'
+                width='120px'
+                height='120px'
                 backgroundColor='#1A202C'
                 borderRadius='10px'
+                borderColor={ colorMode === 'dark' && 'blue.300' }
+                borderWidth='3px'
                 display='flex'
                 justifyContent='center'
                 alignItems='center'
                 padding='0'
+                onClick={() => setColorMode('dark')}
               >
                 <Logo width='80px' height='80px' />
               </Box>
@@ -65,9 +68,6 @@ const Settings: NextPage = () => {
             </Box>
           </HStack>
         </RadioGroup>
-        {/* <Button width='100%' height='50px' fontSize='xl' marginBottom='20px' onClick={toggleColorMode}>
-           {colorMode === 'light' ? '라이트모드' : '다크모드'}
-        </Button> */}
       </Box>
       <Box>
         <Heading as='h2' fontSize='xl'>회원탈퇴</Heading>
