@@ -72,7 +72,7 @@ const Home: NextPage<{
   ] = useMemo(() => {
     const interestingDate = getInterestingDate()
     const next = getNextDate(dateStr)
-    const isAccessibleNext = next.unix() - interestingDate.add(1, 'week').unix() <= 0
+    const isAccessibleNext = next.unix() - interestingDate.add(3, 'day').unix() <= 0
     const currentDate = strToDate(dateStr)
 
     return [
