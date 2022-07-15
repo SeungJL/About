@@ -130,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {},
     }
   }
-
+  
   if (!isPreviliged(session.role as string)) {
     return {
       redirect: {

@@ -393,7 +393,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   const nullableAttendence = await Attendence.findOne({ date: dayjsDate.toDate() }).populate(['participants.user', 'participants.place', 'meetingPlace'])
   let attendence: IAttendence
   if (!nullableAttendence) {
-    if (dayjsDate <= interestingDate.add(1, 'week')) {
+    if (dayjsDate <= interestingDate.add(3, 'day')) {
       const newAttendence = new Attendence({
         date: dayjsDate.toDate(),
         participants: [],
