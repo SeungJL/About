@@ -77,6 +77,12 @@ export default async function handler(
           await Attendence.updateOne({ date, "participants.user": participant.user }, {'participants.$.time': time})
           break
         case 'place_update':
+          const attendence = await Attendence.findOne({ date })
+          const votePlaceCnt = attendence.participants.filter((p) => p.place?.toString() === place).length
+
+          if (votePlaceCnt >= 6) {
+            return res.status(400).end()
+          }
           await Attendence.updateOne({ date, "participants.user": participant.user }, {'participants.$.place': place})
           break
         default:
