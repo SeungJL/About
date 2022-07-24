@@ -1,0 +1,1 @@
+export const VOTE_GET = 'vote_get'

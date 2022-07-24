@@ -59,30 +59,25 @@ export default async function handler(
     vote = await findOneVote(date)
   }
 
-  const isAttending = vote.participations.flatMap((participation) => (
-    participation.attendences.map((attendence) => (attendence.user as IUser)._id)
-  ))
-  .find((userId) => userId.toString() === token.id)
-
-  const isInvited = vote.participations
+  const isAttending = vote.participations
     .flatMap((participation) => (
-      participation.invitations.map((invitation) => (invitation.user as IUser)._id)
+      participation.attendences.map((attendence) => (attendence.user as IUser)._id)
     ))
-    .find((userId) => (userId.toString() === token.id))
+    .find((userId) => userId.toString() === token.id)
 
   switch (method) {
     case 'GET':
       return res.status(200).json(vote)
     case 'POST':
       if (isAttending) {
-        return res.status(200).json(vote)
+        return res.status(204).end()
       }
       const { place, start, end, anonymity, confirmed } = req.body as AttendDTO
       const attendence = { 
-        time: { start, end }, 
+        time: { start, end },
         user: token.id,
         confirmed,
-        anonymity, 
+        anonymity,
       } as IAttendence
 
       vote.participations = vote.participations.map((participation) => {
@@ -97,13 +92,20 @@ export default async function handler(
       })
       await vote.save()
 
-      return res.status(200).json(await findOneVote(date))
+      return res.status(204).end()
     case 'DELETE':
       if (!isAttending) {
-        return res.status(200).json(vote)
+        return res.status(204).end()
       }
-      break
-  }
+      vote.participations = vote.participations.map((participation) => (
+        {
+          ...participation,
+          attendences: participation.attendences.filter((attendence) => ((attendence.user as IUser)._id.toString() !== token.id)),
+        }
+      ))
+      await vote.save()
 
+      return res.status(204).end()
+  }
   return res.status(400).end()
 }

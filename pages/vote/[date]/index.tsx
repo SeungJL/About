@@ -1,52 +1,100 @@
-import { Box, Button, Container, Heading, HStack, Text, VStack } from "@chakra-ui/react"
-import axios from "axios"
+import { Box, Button, Container, Heading, HStack, Skeleton, Text, useToast, VStack } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react"
 import NextLink from 'next/link'
-import { useEffect, useMemo, useState } from "react"
+import { useRouter } from "next/router"
+import { useMemo } from "react"
+import { useQueryClient } from "react-query"
 import BarChart from "../../../components/chart/barChart"
 import FireIcon from "../../../components/icon/fireIcon"
+import { useAbsentMutation, useAttendMutation } from "../../../hooks/vote/mutations"
+import { useVoteQuery } from "../../../hooks/vote/queries"
 import { isMember } from "../../../libs/authUtils"
-import { convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate, toDate } from "../../../libs/dateUtils"
+import { convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from "../../../libs/dateUtils"
 import dbConnect from "../../../libs/dbConnect"
+import { VOTE_GET } from "../../../libs/queryKeys"
 import { AttendDTO } from "../../../models/interface/vote"
-import { Place } from "../../../models/place"
-import { User } from "../../../models/user"
-import { IParticipation, IVote, Vote } from "../../../models/vote"
+import { IUser, User } from "../../../models/user"
 
-const Main: NextPage<{
-  serializedVote: string
-}> = ({ serializedVote }) => {
+const Main: NextPage = () => {
   const { data: session } = useSession()
-  const [vote, setVote] = useState<IVote>(JSON.parse(serializedVote) as IVote)
+  const router = useRouter()
+  const toast = useToast()
+  const queryClient = useQueryClient()
+  const date = strToDate(router.query.date as string)
 
-  useEffect(() => {
-    setVote(JSON.parse(serializedVote) as IVote)
-  }, [serializedVote])
+  const { data: vote, isLoading, isFetching } = useVoteQuery(date, {
+    enabled: true,
+    onError: (err) => {
+      toast({
+        title: '불러오기 실패',
+        description: "투표 정보를 불러오지 못 했어요.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+      })
+    }
+  })
+
+  const { mutate: handleAttend, isLoading: attendLoading} = useAttendMutation(date, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([VOTE_GET, date])
+    },
+    onError: (err) => {
+      toast({
+        title: '오류',
+        description: "참여 신청 중 문제가 발생했어요.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+      })
+    }
+  })
+
+  const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(date, {
+    onSuccess: async () => {
+      console.log(vote)
+      await queryClient.invalidateQueries([VOTE_GET, date])
+    },
+    onError: (err) => {
+      toast({
+        title: '오류',
+        description: "참여 취소 신청 중 문제가 발생했어요.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+      })
+    }
+  })
 
   const [
     nextDate,
     previousDate,
-    currentDate,
     dateKr,
     isAccessibleNextDay,
   ] = useMemo(() => {
     const interestingDate = getInterestingDate()
-    const previous = getPreviousDate(vote.date)
-    const next = getNextDate(vote.date)
+    const previous = getPreviousDate(date.toDate())
+    const next = getNextDate(date.toDate())
     const isAccessibleNext = next.unix() - interestingDate.add(2, 'day').unix() <= 0
-    const current = toDate(vote.date)
 
     return [
       next,
       previous,
-      current,
-      convertToKr(current),
+      convertToKr(date),
       isAccessibleNext,
     ]
-  }, [vote.date])
+  }, [date])
 
-  const handleAttend = async () => {
+  const isAttending = vote?.participations?.flatMap((participant) => (
+    participant.attendences.map(a => (a.user as IUser).uid)
+  ))?.some((userId) => (userId === session?.uid?.toString())) || false
+
+  // tmp / for test
+  const onTmpAttend = async () => {
     const attendDTO = {
       place: '62b7e654f1dcc41a72e12468',
       start: new Date(),
@@ -55,9 +103,9 @@ const Main: NextPage<{
       anonymity: false,
     } as AttendDTO
 
-    const res = await axios.post(`/api/vote/${currentDate.format('YYYY-MM-DD')}`, attendDTO)
+    handleAttend(attendDTO)
   }
-  
+
   return (
     <Container>
       <HStack margin='10px 0'>
@@ -75,26 +123,38 @@ const Main: NextPage<{
         </NextLink>
       </HStack>
       <HStack padding='0' alignItems='stretch' justifyContent='space-around'>
-        <BarChart participations={vote.participations} />
+        <Skeleton isLoaded={!isLoading}>
+          {
+            vote && (
+              <BarChart participations={vote.participations} />
+            )
+          }
+        </Skeleton>
         <VStack flex='1'>
-          <Button
-            width='100%'
-            height='250px'
-            borderRadius='5px'
-            variant='solid'
-            backgroundColor='gray.200'
-            disabled={vote.participations.every((p) => (p.status !== 'pending'))}
-            onClick={handleAttend}
-          >
-            <VStack>
-              <Box>
-                <FireIcon color='green' />
-              </Box>
-              <Text fontSize='2xl'>
-                미참
-              </Text>
-            </VStack>
-          </Button>
+          <Skeleton isLoaded={!isLoading}>
+            {
+              vote && (
+                <Button
+                  width='100%'
+                  height='250px'
+                  borderRadius='5px'
+                  variant='solid'
+                  backgroundColor='gray.200'
+                  onClick={isAttending ? () => handleAbsent() : () => onTmpAttend()}
+                  isLoading={attendLoading || absentLoading}
+                >
+                  <VStack>
+                    <Box>
+                      <FireIcon color='green' />
+                    </Box>
+                    <Text fontSize='2xl'>
+                      { isAttending ? '참여중' : '미참' }
+                    </Text>
+                  </VStack>
+                </Button>
+              )
+            }
+          </Skeleton>
           </VStack>
         </HStack>
     </Container>
@@ -103,6 +163,7 @@ const Main: NextPage<{
 
 export const getServerSideProps: GetServerSideProps = async (context)=> {
   const session = await getSession({ req: context.req })
+
   if (!session) {
     return {
       redirect: {
@@ -162,44 +223,7 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 
-  let vote = await Vote.findOne({ date: dayjsDate.toDate() }).populate([
-    'participations.place',
-  ])
-
-  if (!vote) {
-    const places = await Place.find({ status: 'active' })
-    const participants = places.map((place) => {
-      return {
-        place: place._id,
-        attendences: [],
-        absences: [],
-        invitations: [],
-        status: 'pending',
-      } as IParticipation
-    })
-
-    await Vote.create({
-      date: dayjsDate.toDate(),
-      participations: participants,
-      regularMeeting: {
-        enable: false,
-      },
-      agg: {
-        invited: [],
-        cancelled: [],
-        voted: [],
-      },
-    })
-
-    vote = await Vote.findOne({ date: dayjsDate.toDate() }).populate([
-      'participations.place',
-    ])
-  }
-
-
-  const serializedVote = JSON.stringify(vote)
-
-  return { props: { serializedVote } }
+  return { props: {} }
 }
 
 export default Main

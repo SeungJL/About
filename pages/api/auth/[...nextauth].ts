@@ -66,6 +66,7 @@ export default NextAuth({
         session.user.name = token.name
         session.role = token.role
         session.error = token.error
+
         return session;
     },
     async jwt({ token, account, profile, user }) {

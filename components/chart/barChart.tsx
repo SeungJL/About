@@ -12,7 +12,6 @@ const Bar: FC<{
   absenceCnt: number,
   invitationCnt: number,
 }> = ({ place, attendenceCnt, absenceCnt, invitationCnt }) => {
-
   return (
     <VStack
       backgroundColor='gray.200'
@@ -23,27 +22,42 @@ const Bar: FC<{
       borderRadius='5px'
       justifyContent='flex-end'
     >
-      <Box
-        className='invitation'
-        backgroundColor='yellow.300'
-        width={`${BAR_WIDTH}px`}
-        height={`${UNIT_HEIGHT * invitationCnt}px`}
-        borderRadius='3px'
-      />
-      <Box 
-        className='absence' 
-        backgroundColor='red.500'
-        width={`${BAR_WIDTH}px`}
-        height={`${UNIT_HEIGHT * absenceCnt}px`}
-        borderRadius='3px'
-      />
-      <Box 
-        className='attendence'
-        backgroundColor='green.400'
-        width={`${BAR_WIDTH}px`}
-        height={`${UNIT_HEIGHT * attendenceCnt}px`}
-        borderRadius='3px'
-      />
+      {
+        Array.from(Array(invitationCnt).keys()).map((_, idx) => (
+          <Box
+            key={`inv-${idx}`}
+            className='invitation'
+            backgroundColor='yellow.300'
+            width={`${BAR_WIDTH}px`}
+            height={`${UNIT_HEIGHT}px`}
+            borderRadius='3px'
+          />
+        ))
+      }
+      {
+        Array.from(Array(absenceCnt).keys()).map((_, idx) => (
+          <Box 
+            key={`ab-${idx}`}
+            className='absence' 
+            backgroundColor='red.500'
+            width={`${BAR_WIDTH}px`}
+            height={`${UNIT_HEIGHT}px`}
+            borderRadius='3px'
+          />
+        ))
+      }
+      {
+        Array.from(Array(attendenceCnt).keys()).map((_, idx) => (
+          <Box 
+            key={`att-${idx}`}
+            className='attendence'
+            backgroundColor='green.400'
+            width={`${BAR_WIDTH}px`}
+            height={`${UNIT_HEIGHT}px`}
+            borderRadius='3px'
+          />
+        ))
+      }
     </VStack>
   )
 }
@@ -58,7 +72,7 @@ const BarChart: FC<{
         const place = participation.place as IPlace
 
         return (
-          <VStack>
+          <VStack key={place._id}>
             <Bar
               key={place._id}
               place={place}
