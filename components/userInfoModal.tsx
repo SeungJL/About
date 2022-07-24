@@ -2,7 +2,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter,
 import axios, { AxiosError } from "axios";
 import { FC, useEffect, useMemo } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { isStranger, role, isMember, isPreviliged } from "../libs/authUtils";
+import { isStranger, role, isMember, isPreviliged } from "../libs/utils/authUtils";
 import { groupBy } from "../libs/utils";
 import { IUser } from "../models/user";
 import { UserAttendenceInfo } from "../models/userAttendenceInfo";
@@ -53,7 +53,7 @@ const UserInfoModal: FC<{
       .filter((u) => u.uid !== userId)
 
     const usersById = groupBy(users, (user) => (user._id.toString()))
-  
+
     const uniqueUsers = Array.from<string>(new Set(users.map(user => user._id.toString())))
 
     return uniqueUsers

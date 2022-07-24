@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { strToDate } from "../../../libs/dateUtils";
+import { strToDate } from "../../../libs/utils/dateUtils";
 import dbConnect from "../../../libs/dbConnect";
 import { AttendDTO } from "../../../models/interface/vote";
 import { IPlace, Place } from "../../../models/place";
@@ -73,7 +73,7 @@ export default async function handler(
         return res.status(204).end()
       }
       const { place, start, end, anonymity, confirmed } = req.body as AttendDTO
-      const attendence = { 
+      const attendence = {
         time: { start, end },
         user: token.id,
         confirmed,
@@ -86,7 +86,7 @@ export default async function handler(
           return {
             ...participation,
             attendences: [...participation.attendences, attendence],
-          } 
+          }
         }
         return participation
       })

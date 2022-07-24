@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getToken } from 'next-auth/jwt'
-import { isPreviliged } from '../../../../../libs/authUtils'
+import { isPreviliged } from '../../../../../libs/utils/authUtils'
 import dbConnect from '../../../../../libs/dbConnect'
 import { IUser, User } from '../../../../../models/user'
 

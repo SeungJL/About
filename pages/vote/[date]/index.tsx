@@ -9,8 +9,8 @@ import BarChart from "../../../components/chart/barChart"
 import FireIcon from "../../../components/icon/fireIcon"
 import { useAbsentMutation, useAttendMutation } from "../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../hooks/vote/queries"
-import { isMember } from "../../../libs/authUtils"
-import { convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from "../../../libs/dateUtils"
+import { isMember } from "../../../libs/utils/authUtils"
+import { convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from "../../../libs/utils/dateUtils"
 import dbConnect from "../../../libs/dbConnect"
 import { VOTE_GET } from "../../../libs/queryKeys"
 import { AttendDTO } from "../../../models/interface/vote"
@@ -131,7 +131,7 @@ const Main: NextPage = () => {
           }
         </Skeleton>
         <VStack flex='1'>
-          <Skeleton isLoaded={!isLoading}>
+          <Skeleton isLoaded={!isLoading} width='100%'>
             {
               vote && (
                 <Button

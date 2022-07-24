@@ -4,11 +4,11 @@ import { getSession } from "next-auth/react"
 import { useState } from "react"
 import ProfileImage from "../../components/profileImage"
 import UserInfoModal from "../../components/userInfoModal"
-import { isMember } from "../../libs/authUtils"
-import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/dateUtils"
+import { isMember } from "../../libs/utils/authUtils"
+import { canShowResult, convertToKr, getInterestingDate, strToDate } from "../../libs/utils/dateUtils"
 import dbConnect from "../../libs/dbConnect"
-import { getOptimalPlace } from "../../libs/placeUtils"
-import { getOptimalTime } from "../../libs/timeUtils"
+import { getOptimalPlace } from "../../libs/utils/placeUtils"
+import { getOptimalTime } from "../../libs/utils/timeUtils"
 import { Attendence, IParticipant } from "../../models/attendence"
 import { IPlace, Place } from "../../models/place"
 import { IUser } from "../../models/user"
@@ -103,10 +103,10 @@ const Result: NextPage<{
           <Box width='fit-content' display='flex' alignContent='center' flexDirection='column' alignItems='center'>
             <Text as='span' fontSize='lg'>오늘 스터디는 </Text>
             <Text as='span' fontSize='lg'>
-              <Text as='span' fontSize='2xl' color='purple'>{studyPlace.fullname}</Text>에서 
+              <Text as='span' fontSize='2xl' color='purple'>{studyPlace.fullname}</Text>에서
             </Text>
 
-            
+
             <Text as='span' fontSize='lg'>
               <Text as='span' fontSize='2xl' color='#ff6b6b'>{strToTimeKr(studyTime)}</Text>에 열려요!
             </Text>
@@ -201,7 +201,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!studyPlace || !studyTime) {
     studyPlace = getOptimalPlace(attendence.participants.map((p) => p.place as IPlace).filter(p => !!p), totalPlaces)
     studyTime = getOptimalTime(attendence.participants.map((p) => p.time))
-  
+
     await Attendence.updateOne({date: interestingDate.toDate()}, {
       $set: {
         meetingPlace: studyPlace,

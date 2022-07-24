@@ -4,7 +4,7 @@ import KakaoProvider from 'next-auth/providers/kakao'
 import clientPromise from '../../../libs/mongodb';
 import { User } from '../../../models/user';
 import dbConnect from '../../../libs/dbConnect';
-import { getProfile, refreshAccessToken } from '../../../libs/oauthUtils';
+import { getProfile, refreshAccessToken } from '../../../libs/utils/oauthUtils';
 import { Account } from '../../../models/account';
 
 export default NextAuth({

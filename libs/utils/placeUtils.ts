@@ -1,5 +1,5 @@
-import { IPlace } from "../models/place"
-import { groupBy } from "./utils"
+import { IPlace } from "../../models/place"
+import { groupBy } from "../utils"
 
 export const getOptimalPlace = (votedPlaces: IPlace[], totalPlaces: IPlace[]) => {
   const groupByPID = groupBy(votedPlaces, (p) => p._id.toString())

@@ -1,7 +1,7 @@
 import { Text, VStack, Image } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
-import { isMember } from "../../../libs/authUtils";
+import { isMember } from "../../../libs/utils/authUtils";
 
 const TooEarly: NextPage = () => {
   return (

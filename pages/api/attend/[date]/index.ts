@@ -4,8 +4,8 @@ import dbConnect from '../../../../libs/dbConnect';
 import UpdateParticipants from '../../../../models/interface/updateParticipants';
 import { IAttendence, Attendence, IParticipant } from '../../../../models/attendence';
 import { getToken } from 'next-auth/jwt';
-import { getInterestingDate, strToDate } from '../../../../libs/dateUtils';
-import { isMember } from '../../../../libs/authUtils';
+import { getInterestingDate, strToDate } from '../../../../libs/utils/dateUtils';
+import { isMember } from '../../../../libs/utils/authUtils';
 
 const secret = process.env.NEXTAUTH_SECRET
 
