@@ -66,3 +66,7 @@ export const canShowResult = () => {
 
   return resultOpenTime <= now && now < resultCloseTime
 }
+
+export const splitDate = (date: Dayjs) => (
+  [date.tz(TZ_SEOUL).hour(), date.tz(TZ_SEOUL).minute()]
+)

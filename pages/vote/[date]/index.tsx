@@ -1,4 +1,4 @@
-import { Box, Button, Container, Heading, HStack, Skeleton, Text, useToast, VStack } from "@chakra-ui/react"
+import { Box, Button, Container, Heading, HStack, Skeleton, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react"
 import NextLink from 'next/link'
@@ -7,14 +7,14 @@ import { useMemo } from "react"
 import { useQueryClient } from "react-query"
 import BarChart from "../../../components/chart/barChart"
 import FireIcon from "../../../components/icon/fireIcon"
-import { useAbsentMutation, useAttendMutation } from "../../../hooks/vote/mutations"
+import { useAbsentMutation } from "../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../hooks/vote/queries"
 import { isMember } from "../../../libs/utils/authUtils"
 import { convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from "../../../libs/utils/dateUtils"
 import dbConnect from "../../../libs/dbConnect"
 import { VOTE_GET } from "../../../libs/queryKeys"
-import { AttendDTO } from "../../../models/interface/vote"
 import { IUser, User } from "../../../models/user"
+import VoteModal from "../../../components/voteModal"
 
 const Main: NextPage = () => {
   const { data: session } = useSession()
@@ -22,6 +22,12 @@ const Main: NextPage = () => {
   const toast = useToast()
   const queryClient = useQueryClient()
   const date = strToDate(router.query.date as string)
+
+  const { 
+    isOpen: isVoteModalOpen,
+    onOpen: onVoteModalOpen,
+    onClose: onVoteModalClose,
+  } = useDisclosure()
 
   const { data: vote, isLoading, isFetching } = useVoteQuery(date, {
     enabled: true,
@@ -37,21 +43,21 @@ const Main: NextPage = () => {
     }
   })
 
-  const { mutate: handleAttend, isLoading: attendLoading} = useAttendMutation(date, {
-    onSuccess: async () => {
-      await queryClient.invalidateQueries([VOTE_GET, date])
-    },
-    onError: (err) => {
-      toast({
-        title: '오류',
-        description: "참여 신청 중 문제가 발생했어요.",
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: 'bottom',
-      })
-    }
-  })
+  // const { mutate: handleAttend, isLoading: attendLoading} = useAttendMutation(date, {
+  //   onSuccess: async () => {
+  //     await queryClient.invalidateQueries([VOTE_GET, date])
+  //   },
+  //   onError: (err) => {
+  //     toast({
+  //       title: '오류',
+  //       description: "참여 신청 중 문제가 발생했어요.",
+  //       status: 'error',
+  //       duration: 5000,
+  //       isClosable: true,
+  //       position: 'bottom',
+  //     })
+  //   }
+  // })
 
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(date, {
     onSuccess: async () => {
@@ -93,20 +99,20 @@ const Main: NextPage = () => {
     participant.attendences.map(a => (a.user as IUser).uid)
   ))?.some((userId) => (userId === session?.uid?.toString())) || false
 
-  // tmp / for test
-  const onTmpAttend = async () => {
-    const attendDTO = {
-      place: '62b7e654f1dcc41a72e12468',
-      start: new Date(),
-      end: new Date(),
-      confirmed: false,
-      anonymity: false,
-    } as AttendDTO
+// tmp / for test
 
-    handleAttend(attendDTO)
-  }
+// const attendDTO = {
+//   place: '62b7e654f1dcc41a72e12468',
+//   start: new Date(),
+//   end: new Date(),
+//   confirmed: false,
+//   anonymity: false,
+// } as AttendDTO
+
+// handleAttend(attendDTO)
 
   return (
+    <>
     <Container>
       <HStack margin='10px 0'>
         <NextLink href={`/vote/${previousDate.format('YYYY-MM-DD')}`}>
@@ -140,8 +146,8 @@ const Main: NextPage = () => {
                   borderRadius='5px'
                   variant='solid'
                   backgroundColor='gray.200'
-                  onClick={isAttending ? () => handleAbsent() : () => onTmpAttend()}
-                  isLoading={attendLoading || absentLoading}
+                  onClick={isAttending ? () => handleAbsent() : () => onVoteModalOpen()}
+                  isLoading={absentLoading}
                 >
                   <VStack>
                     <Box>
@@ -158,6 +164,17 @@ const Main: NextPage = () => {
           </VStack>
         </HStack>
     </Container>
+    {
+      isVoteModalOpen && (
+        <VoteModal
+          isOpen={isVoteModalOpen}
+          onClose={onVoteModalClose}
+          participations={vote.participations}
+          date={date}
+        />
+      )
+    }
+    </>
   )
 }
 
