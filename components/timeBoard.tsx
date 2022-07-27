@@ -92,7 +92,7 @@ const TimeBoard: FC<{
 }> = ({ attendences }) => {
   return (
     <VStack>
-      <TimeRangeBar attendence={{
+      {/* <TimeRangeBar attendence={{
         user: { name: '도형림', uid: '', role: '', thumbnailImage: 'https://p.kakaocdn.net/th/talkp/wmDxMsJ8sA/NjOtzO6eb3u9Zu35Xq5oE1/u88khj_110x110_c.jpg', email: '', status: '' },
         time: { start: dayjs('1995-12-17T00:30:00Z').toDate(), end: dayjs('1995-12-17T09:00:00Z').toDate() },
         note: {
@@ -104,11 +104,10 @@ const TimeBoard: FC<{
         confirmed: false,
         anonymity: false,
         created: new Date(),
-      }} />
+      }} /> */}
       {
-        attendences.map((attendence) => (
-          <Box>
-          </Box>
+        attendences.map((attendence, idx) => (
+          <TimeRangeBar key={idx} attendence={attendence} />
         ))
       }
     </VStack>

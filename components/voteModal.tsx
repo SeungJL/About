@@ -99,8 +99,8 @@ const VoteModal: FC<{
                 </Select>
                 <HStack justifyContent='center' width='100%'>
                   {
-                    participations.map((participation) => (
-                      <VStack flex={1}>
+                    participations.map((participation, idx) => (
+                      <VStack key={idx} flex={1}>
                         <AspectRatio
                           title={(participation.place as IPlace)._id}
                           ratio={1 / 1}
