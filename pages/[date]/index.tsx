@@ -7,7 +7,7 @@ import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-import { canShowResult, convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/dateUtils';
+import { canShowResult, convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from '../../libs/utils/dateUtils';
 import dbConnect from '../../libs/dbConnect';
 import { IAttendence, Attendence } from '../../models/attendence';
 import TimePickerModal from '../../components/timePickerModal';
@@ -17,7 +17,7 @@ import { Colors } from '../../libs/colors';
 import { IUser, User } from '../../models/user';
 import UserInfoModal from '../../components/userInfoModal';
 import Head from 'next/head';
-import { isMember } from '../../libs/authUtils';
+import { isMember } from '../../libs/utils/authUtils';
 import FireIcon from '../../components/icon/fireIcon';
 import { IPlace } from '../../models/place';
 
@@ -80,7 +80,7 @@ const Home: NextPage<{
       getPreviousDate(dateStr),
       convertToKr(currentDate),
       interestingDate <= currentDate,
-      isAccessibleNext,  
+      isAccessibleNext,
     ]
   }, [dateStr])
 
@@ -129,7 +129,7 @@ const Home: NextPage<{
         <meta property="og:type" content="website" />
         <meta property="og:title" content="스터디 투표" />
         <meta property="og:description" content="스터디 투표" />
-        <meta property="og:image" content='/meta_tag_img.png' /> 
+        <meta property="og:image" content='/meta_tag_img.png' />
       </Head>
       <Box>
         <HStack margin='0 10px'>
@@ -252,7 +252,7 @@ const Home: NextPage<{
                     { session?.uid === (p.user as IUser).uid ? '(나)' : '' }
                   </Text>
                 </Box>
-                
+
                 <Box
                     height='1.8em'
                     width='1.8em'

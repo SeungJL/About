@@ -4,8 +4,8 @@ import { getSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 import ProfileImage from "../../components/profileImage";
 import UserAdminModal from "../../components/userAdminModal";
-import { isPreviliged, role } from "../../libs/authUtils";
-import { convertToKr, getToday } from "../../libs/dateUtils";
+import { isPreviliged, role } from "../../libs/utils/authUtils";
+import { convertToKr, getToday } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 import { IUser, User } from "../../models/user";
 
@@ -130,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {},
     }
   }
-  
+
   if (!isPreviliged(session.role as string)) {
     return {
       redirect: {

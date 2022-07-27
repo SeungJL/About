@@ -1,0 +1,1 @@
+export const MAX_USER_PER_PLACE = 6

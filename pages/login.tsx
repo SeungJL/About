@@ -6,7 +6,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useRef, useState } from "react"
 import Logo from "../components/icon/logo"
-import { getInterestingDate } from "../libs/dateUtils"
+import { getInterestingDate } from "../libs/utils/dateUtils"
 
 const Login: NextPage<{
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>,

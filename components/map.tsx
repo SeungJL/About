@@ -10,8 +10,11 @@ const Map: FC<{
 } &
 ChakraProps> = ({ selectedPlace, places, ...props }) => {
   useEffect(() => {
+    const lat = selectedPlace?.latitude || 37.2845789
+    const lng = selectedPlace?.longitude || 127.0443293
+
     const mapOptions = {
-      center: new naver.maps.LatLng(37.2845789, 127.0443293),
+      center: new naver.maps.LatLng(lat, lng),
       zoom: 14,
     };
     const container = document.getElementById('map')

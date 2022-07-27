@@ -1,8 +1,8 @@
 import { HStack, Box, Divider, Text } from "@chakra-ui/react"
 import dayjs from "dayjs"
 import { FC, useCallback } from "react"
-import { attendStatus, getAttendStatus } from "../libs/attendUtils"
-import { getToday } from "../libs/dateUtils"
+import { attendStatus, getAttendStatus } from "../libs/utils/attendUtils"
+import { getToday } from "../libs/utils/dateUtils"
 import { IAttendence } from "../models/attendence"
 import InfoPopOver from "./infoPopover"
 

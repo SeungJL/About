@@ -8,8 +8,8 @@ import { useMemo, useState } from "react"
 import { useMutation } from "react-query"
 import ProfileImage from "../../components/profileImage"
 import SummaryAttendenceInfo from "../../components/summaryAttendenceInfo"
-import { isMember, isPreviliged, isStranger, role } from "../../libs/authUtils"
-import { getToday, getInterestingDate } from "../../libs/dateUtils"
+import { isMember, isPreviliged, isStranger, role } from "../../libs/utils/authUtils"
+import { getToday, getInterestingDate } from "../../libs/utils/dateUtils"
 import dbConnect from "../../libs/dbConnect"
 import { Attendence, IAttendence } from "../../models/attendence"
 import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo"
@@ -25,7 +25,7 @@ const UserInfo: NextPage<{
 
   console.log(user)
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<kakaoProfileInfo, AxiosError>(
-    'updateProfile', 
+    'updateProfile',
     async () => {
       const res = await axios.patch('/api/user/profile')
 
@@ -125,10 +125,10 @@ const UserInfo: NextPage<{
               <NextLink href='/admin/user'>
                 <Link fontSize='1.2rem' fontWeight='500'>사용자 관리</Link>
               </NextLink>
-      
+
               <Text fontSize='1.2rem' fontWeight='500' color='gray.400'>투표 관리</Text>
               <Text fontSize='1.2rem' fontWeight='500' color='gray.400'>장소 관리</Text>
-            </SimpleGrid>    
+            </SimpleGrid>
           </>
         )
       }

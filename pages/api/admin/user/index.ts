@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { getToday } from "../../../../libs/dateUtils"
+import { getToday } from "../../../../libs/utils/dateUtils"
 import dbConnect from "../../../../libs/dbConnect"
 import { Attendence } from "../../../../models/attendence"
 import { IUserStatistic, User } from "../../../../models/user"
@@ -11,7 +11,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const { method } = req
-  const secret = req.headers.secret 
+  const secret = req.headers.secret
 
   await dbConnect()
 
@@ -33,7 +33,7 @@ export default async function handler(
             'participants.0': { $exists: true },
           },
         },
-        {  
+        {
             $project: {
                 _id: 0,
                 date: true,
@@ -64,7 +64,7 @@ export default async function handler(
         {
             $group: {
               _id: '$user_id',
-              attendences: { $push: { 
+              attendences: { $push: {
                 date: '$date',
                 time: '$time',
                 place: '$place',
