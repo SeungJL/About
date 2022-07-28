@@ -20,9 +20,6 @@ import Head from 'next/head';
 import { isMember } from '../../libs/utils/authUtils';
 import FireIcon from '../../components/icon/fireIcon';
 import { IPlace } from '../../models/place';
-import TimePicker from 'rc-time-picker';
-import 'rc-time-picker/assets/index.css';
-
 
 const Home: NextPage<{
   serializedAttendence: string,
@@ -190,7 +187,6 @@ const Home: NextPage<{
                 { isLoading && <Spinner position='absolute' />}
             </Button>
           </CircularProgressbarWithChildren>
-          <TimePicker />
         </Box>
         {
           (isActivated && isAttending && !isSetTime) && (
