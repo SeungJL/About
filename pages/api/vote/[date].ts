@@ -5,7 +5,7 @@ import dbConnect from "../../../libs/dbConnect";
 import { AttendDTO } from "../../../models/interface/vote";
 import { IPlace, Place } from "../../../models/place";
 import { IUser } from "../../../models/user";
-import { IAttendence, IParticipation, IVote, Vote } from "../../../models/vote";
+import { IAttendence, IParticipantNote, IParticipation, IVote, Vote } from "../../../models/vote";
 
 const secret = process.env.NEXTAUTH_SECRET
 
@@ -72,12 +72,18 @@ export default async function handler(
       if (isAttending) {
         return res.status(204).end()
       }
-      const { place, start, end, anonymity, confirmed } = req.body as AttendDTO
+      const { place, start, end, anonymity, confirmed, lunch, dinner } = req.body as AttendDTO
       const attendence = {
         time: { start, end },
         user: token.id,
         confirmed,
         anonymity,
+        note: {
+          lunch,
+          dinner,
+          desc: '',
+          afterDinner: 'no_select'
+        } as IParticipantNote
       } as IAttendence
 
       vote.participations = vote.participations.map((participation) => {
