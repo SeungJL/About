@@ -70,3 +70,7 @@ export const canShowResult = () => {
 export const splitDate = (date: Dayjs) => (
   [date.tz(TZ_SEOUL).hour(), date.tz(TZ_SEOUL).minute()]
 )
+
+export const hourMinToDate = (hour: number, min: string) => (
+  getInterestingDate().hour(hour).minute(parseInt(min, 10))
+)

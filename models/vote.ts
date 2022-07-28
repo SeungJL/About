@@ -9,7 +9,7 @@ export interface IParticipantTime {
 
 export interface IParticipantNote {
   desc: string
-  lanch: 'attend' | 'absent' | 'no_select'
+  lunch: 'attend' | 'absent' | 'no_select'
   dinner: 'attend' | 'absent' | 'no_select'
   afterDinner: 'attend' | 'absent' | 'no_select'
 }
@@ -75,7 +75,7 @@ const ParticipantTimeSchema: Schema<IParticipantTime> = new Schema({
 
 const ParticipantNoteSchema: Schema<IParticipantNote> = new Schema({
   desc: Schema.Types.String,
-  lanch: {
+  lunch: {
     type: Schema.Types.String,
     enum: ['attend', 'absent', 'no_select'],
     default: 'no_select',

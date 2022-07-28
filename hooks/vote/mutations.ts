@@ -4,7 +4,6 @@ import { useMutation, UseMutationOptions } from "react-query";
 import { AttendDTO } from "../../models/interface/vote";
 
 export const useAttendMutation = (
-
   currentDate: Dayjs,
   options?: Omit<UseMutationOptions<void, AxiosError, AttendDTO>, 'mutationKey' | 'mutationFn'>,
   ) => useMutation<void, AxiosError, AttendDTO>(
