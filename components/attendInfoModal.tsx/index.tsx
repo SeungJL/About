@@ -68,8 +68,8 @@ const AttendInfoModal: FC<{
                 overflowX='scroll'
               >
                 {
-                  lunchUser.map((user) => (
-                    <VStack width='60px'>
+                  lunchUser.map((user, idx) => (
+                    <VStack key={idx} width='60px'>
                       <ProfileImage
                         marginTop='5px'
                         src={user.thumbnailImage}
@@ -103,8 +103,9 @@ const AttendInfoModal: FC<{
                 overflowX='scroll'
               >
                 {
-                  dinnerUser.map((user) => (
+                  dinnerUser.map((user, idx) => (
                     <VStack
+                      key={idx}
                       width='60px'
                     >
                       <ProfileImage
@@ -140,8 +141,9 @@ const AttendInfoModal: FC<{
                 overflowX='scroll'
               >
                 {
-                  afterDinnerUser.map((user) => (
+                  afterDinnerUser.map((user, idx) => (
                     <VStack
+                      key={idx}
                       width='60px'
                     >
                       <ProfileImage
