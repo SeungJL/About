@@ -1,5 +1,5 @@
-import { Button, Text, Box, Radio, RadioGroup, Stack, Heading } from "@chakra-ui/react";
-import { ChangeEvent, FC } from "react";
+import { Box, Radio, RadioGroup, Stack, Heading } from "@chakra-ui/react";
+import { FC } from "react";
 import { IParticipantNote } from "../../models/vote";
 
 const Note: FC<{

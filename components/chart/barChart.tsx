@@ -1,7 +1,8 @@
-import { Box, HStack, Image, VStack } from "@chakra-ui/react";
-import { FC } from "react";
+import { Box, HStack, Image, useDisclosure, VStack } from "@chakra-ui/react";
+import { FC, useState } from "react";
 import { IPlace } from "../../models/place";
 import { IParticipation } from "../../models/vote";
+import AttendInfoModal from "../attendInfoModal.tsx";
 
 const BAR_WIDTH = 50
 const UNIT_HEIGHT = 40
@@ -64,37 +65,61 @@ const Bar: FC<{
 
 const BarChart: FC<{
   participations: IParticipation[]
-}> = ({ participations }) => (
-  <HStack spacing={3}>
-    {
-      participations.map((participation) => {
-        const { attendences, absences, invitations } = participation
-        const place = participation.place as IPlace
+}> = ({ participations }) => {
+  const [selectedParticipation, setSelectedParticipation] = useState<IParticipation>()
+  const {
+    isOpen: isAttendInfoModalOpen,
+    onOpen: onAttendInfoModalOpen,
+    onClose: onAttendInfoModalClose,
+  } = useDisclosure()
 
-        return (
-          <VStack key={place._id}>
-            <Bar
-              key={place._id}
-              place={place}
-              attendenceCnt={attendences.length}
-              absenceCnt={absences.length}
-              invitationCnt={invitations.length}
-            />
-            <Image
-              src={place.image}
-              alt={place.fullname}
-              width={`${BAR_WIDTH + 10}px`}
-              borderRadius='10px'
-              borderColor='gray.200'
-              borderWidth='5px'
-              borderStyle='solid'
-            />
-          </VStack>
+  return (
+    <HStack spacing={3}>
+      {
+        participations.map((participation) => {
+          const { attendences, absences, invitations } = participation
+          const place = participation.place as IPlace
 
+          return (
+            <VStack key={place._id}>
+              <Bar
+                key={place._id}
+                place={place}
+                attendenceCnt={attendences.length}
+                absenceCnt={absences.length}
+                invitationCnt={invitations.length}
+              />
+              <Image
+                src={place.image}
+                alt={place.fullname}
+                width={`${BAR_WIDTH + 10}px`}
+                borderRadius='10px'
+                borderColor='gray.200'
+                borderWidth='5px'
+                borderStyle='solid'
+                onClick={() => {
+                  setSelectedParticipation(participation)
+                  onAttendInfoModalOpen()
+                }}
+              />
+            </VStack>
+          )
+        })
+      }
+      {
+        isAttendInfoModalOpen && (
+          <AttendInfoModal
+            participation={selectedParticipation}
+            isOpen={isAttendInfoModalOpen}
+            onClose={() => {
+              setSelectedParticipation(null)
+              onAttendInfoModalClose()
+            }}
+          />
         )
-      })
-    }
-  </HStack>
-)
+      }
+    </HStack>
+  )
+}
 
 export default BarChart

@@ -43,22 +43,6 @@ const Main: NextPage = () => {
     }
   })
 
-  // const { mutate: handleAttend, isLoading: attendLoading} = useAttendMutation(date, {
-  //   onSuccess: async () => {
-  //     await queryClient.invalidateQueries([VOTE_GET, date])
-  //   },
-  //   onError: (err) => {
-  //     toast({
-  //       title: '오류',
-  //       description: "참여 신청 중 문제가 발생했어요.",
-  //       status: 'error',
-  //       duration: 5000,
-  //       isClosable: true,
-  //       position: 'bottom',
-  //     })
-  //   }
-  // })
-
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(date, {
     onSuccess: async () => {
       console.log(vote)
