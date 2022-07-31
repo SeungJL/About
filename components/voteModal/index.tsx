@@ -10,7 +10,7 @@ import { useQueryClient } from "react-query";
 import { VOTE_GET } from "../../libs/queryKeys";
 import PlaceSelector from "./placeSelector";
 import TimeSelector from "./timeSelector";
-import Note from "./Note";
+import Note from "./note";
 
 const VoteModal: FC<{
   isOpen: boolean,
@@ -164,11 +164,6 @@ const VoteModal: FC<{
                   완료
                 </Button>
               </HStack>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionButton padding={0} />
-            <AccordionPanel pb={4}>
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
