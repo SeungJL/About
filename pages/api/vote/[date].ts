@@ -72,7 +72,7 @@ export default async function handler(
       if (isAttending) {
         return res.status(204).end()
       }
-      const { place, start, end, anonymity, confirmed, lunch, dinner } = req.body as AttendDTO
+      const { place, start, end, anonymity, confirmed, lunch, dinner, afterDinner } = req.body as AttendDTO
       const attendence = {
         time: { start, end },
         user: token.id,
@@ -81,8 +81,8 @@ export default async function handler(
         note: {
           lunch,
           dinner,
+          afterDinner,
           desc: '',
-          afterDinner: 'no_select'
         } as IParticipantNote
       } as IAttendence
 
