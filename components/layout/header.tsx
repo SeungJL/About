@@ -15,14 +15,13 @@ const Header: FC = () => {
       <div />
     )
 
-
   return (
     <Box marginBottom='15px' padding='0 5px'>
       <HStack justifyContent='space-between' margin='5px' alignItems='center' >
         <NextLink href='/notice'>
           <BellIcon fontSize='4xl' />
         </NextLink>
-        <NextLink href={`/${getInterestingDate().format('YYYY-MM-DD')}`}>
+        <NextLink href={`/vote/${getInterestingDate().format('YYYY-MM-DD')}`}>
           <Box cursor='pointer'>
             <Logo width='50' height='50' />
           </Box>

@@ -44,10 +44,9 @@ const Main: NextPage = () => {
   })
 
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(date, {
-    onSuccess: async () => {
-      console.log(vote)
-      await queryClient.invalidateQueries([VOTE_GET, date])
-    },
+    onSuccess: async () => (
+      queryClient.invalidateQueries([VOTE_GET, date])
+    ),
     onError: (err) => {
       toast({
         title: '오류',
@@ -130,6 +129,7 @@ const Main: NextPage = () => {
                   borderRadius='5px'
                   variant='solid'
                   backgroundColor='gray.200'
+                  disabled={vote.participations.every((p) => p.status !== 'pending')}
                   onClick={isAttending ? () => handleAbsent() : () => onVoteModalOpen()}
                   isLoading={absentLoading}
                 >
