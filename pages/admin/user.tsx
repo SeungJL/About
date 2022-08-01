@@ -141,7 +141,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   await dbConnect()
 
-  const users = await User.find({status: 'active'})
+  const users = await User.find({role: {$in: ['member', 'previliged']}})
 
   return {
     props: {
