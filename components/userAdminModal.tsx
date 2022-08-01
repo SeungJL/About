@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { FC, useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { role } from "../libs/authUtils";
+import { role } from "../libs/utils/authUtils";
 import { IUser } from "../models/user";
 import ProfileImage from "./profileImage";
 
@@ -44,7 +44,7 @@ const UserAdminModal: FC<{
   useEffect(() => {
     queryClient.invalidateQueries('fetchUserInfo')
   }, [userId])
-  
+
   const onChangeRole = async (
     values: { role: string },
     action: FormikHelpers<{ role: string }>
@@ -52,7 +52,7 @@ const UserAdminModal: FC<{
     const { setSubmitting } = action
 
     setSubmitting(true)
-    
+
     await axios.patch(`/api/admin/user/${userId}/role`, {
       role: values.role
     })

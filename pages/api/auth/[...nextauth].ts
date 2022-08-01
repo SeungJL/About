@@ -4,7 +4,7 @@ import KakaoProvider from 'next-auth/providers/kakao'
 import clientPromise from '../../../libs/mongodb';
 import { User } from '../../../models/user';
 import dbConnect from '../../../libs/dbConnect';
-import { getProfile, refreshAccessToken } from '../../../libs/oauthUtils';
+import { getProfile, refreshAccessToken } from '../../../libs/utils/oauthUtils';
 import { Account } from '../../../models/account';
 
 export default NextAuth({
@@ -66,6 +66,7 @@ export default NextAuth({
         session.user.name = token.name
         session.role = token.role
         session.error = token.error
+
         return session;
     },
     async jwt({ token, account, profile, user }) {

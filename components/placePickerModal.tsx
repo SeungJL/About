@@ -3,8 +3,8 @@ import axios, { AxiosError } from "axios";
 import { ChangeEventHandler, FC, useState } from "react";
 import { IAttendence } from "../models/attendence";
 import Map from "./map";
-import { useQuery } from "react-query";
 import { IPlace } from "../models/place";
+import { usePlaceQuery } from "../hooks/vote/queries";
 
 const PlacePickerModal: FC<{
   isOpen: boolean,
@@ -14,13 +14,7 @@ const PlacePickerModal: FC<{
 }> = ({ isOpen, onClose, dateStr, setAttendence }) => {
   const toast = useToast()
   const [selectedPlace, setSelectedPlace] = useState<IPlace>()
-  const { data: places, isLoading } = useQuery<IPlace[], AxiosError, IPlace[]>(
-    'fetch_places',
-    async () => { 
-      const res = await axios.get('/api/place')
-      return res.data
-    },
-  )
+  const { data: places, isLoading } = usePlaceQuery()
 
   const onChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const value = e.target.value

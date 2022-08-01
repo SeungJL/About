@@ -21,6 +21,16 @@ export const strToDate = (dateStr: string) => {
   return dayjs(dateStr, 'YYYY-MM-DD').tz(TZ_SEOUL).startOf('day')
 }
 
+export const toDate = (raw: string | Date) => {
+  let dayjsDate: Dayjs
+  if (typeof(raw) === 'string') 
+    dayjsDate = strToDate(raw)
+  else
+    dayjsDate = dayjs(raw).tz(TZ_SEOUL).startOf('day')
+
+  return dayjs(dayjsDate).tz(TZ_SEOUL).startOf('day')
+}
+
 export const getToday = () => {
   const currentTime = dayjs().tz(TZ_SEOUL)
 
@@ -36,17 +46,13 @@ export const getInterestingDate = () => {
   return today.add(1, 'day')
 }
 
-export const getNextDate = (dateStr: string) => {
-  const currentDate = strToDate(dateStr)
+export const getNextDate = (raw: string | Date) => (
+  toDate(raw).add(1, 'day')
+)
 
-  return currentDate.add(1, 'day')
-}
-
-export const getPreviousDate = (dateStr: string) => {
-  const currentDate = strToDate(dateStr)
-
-  return currentDate.add(-1, 'day')
-}
+export const getPreviousDate = (raw: string | Date) => (
+  toDate(raw).add(-1, 'day')
+)
 
 export const convertToKr = (date: Dayjs) => 
   `${date.format('YYYY년 MM월 DD일')}(${dayEnToKr[date.format('ddd')]})`
@@ -60,3 +66,11 @@ export const canShowResult = () => {
 
   return resultOpenTime <= now && now < resultCloseTime
 }
+
+export const splitDate = (date: Dayjs) => (
+  [date.tz(TZ_SEOUL).hour(), date.tz(TZ_SEOUL).minute()]
+)
+
+export const hourMinToDate = (hour: number, min: string) => (
+  getInterestingDate().hour(hour).minute(parseInt(min, 10))
+)

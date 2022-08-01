@@ -2,10 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../../libs/dbConnect';
 import { Attendence } from '../../../../models/attendence';
 import { getToken } from 'next-auth/jwt';
-import { getInterestingDate, getToday } from '../../../../libs/dateUtils';
+import { getInterestingDate, getToday } from '../../../../libs/utils/dateUtils';
 import { User } from '../../../../models/user';
 import { UserAttendenceInfo } from '../../../../models/userAttendenceInfo';
-import { isMember } from '../../../../libs/authUtils';
+import { isMember } from '../../../../libs/utils/authUtils';
 
 const secret = process.env.NEXTAUTH_SECRET
 

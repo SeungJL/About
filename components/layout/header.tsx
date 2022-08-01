@@ -2,7 +2,7 @@ import { Box, HStack } from "@chakra-ui/react"
 import NextLink from "next/link"
 import { useSession } from "next-auth/react"
 import { FC } from "react"
-import { getInterestingDate } from "../../libs/dateUtils"
+import { getInterestingDate } from "../../libs/utils/dateUtils"
 import Logo from "../icon/logo"
 import ProfileImage from "../profileImage"
 import { BellIcon } from "@chakra-ui/icons"
@@ -10,11 +10,10 @@ import { BellIcon } from "@chakra-ui/icons"
 const Header: FC = () => {
   const { data: session } = useSession()
 
-  if (!session) 
+  if (!session)
     return (
       <div />
     )
-
 
   return (
     <Box marginBottom='15px' padding='0 5px'>
@@ -22,7 +21,7 @@ const Header: FC = () => {
         <NextLink href='/notice'>
           <BellIcon fontSize='4xl' />
         </NextLink>
-        <NextLink href={`/${getInterestingDate().format('YYYY-MM-DD')}`}>
+        <NextLink href={`/vote/${getInterestingDate().format('YYYY-MM-DD')}`}>
           <Box cursor='pointer'>
             <Logo width='50' height='50' />
           </Box>

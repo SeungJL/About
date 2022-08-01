@@ -2,7 +2,7 @@ import { NotAllowedIcon } from '@chakra-ui/icons'
 import { Box, Container, HStack, Text, VStack } from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
-import { isMember } from '../../libs/authUtils'
+import { isMember } from '../../libs/utils/authUtils'
 
 const Forbidden: NextPage = () => (
   <VStack height='100%'>

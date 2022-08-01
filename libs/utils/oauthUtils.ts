@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios"
 import { JWT } from "next-auth/jwt"
-import { User } from "../models/user"
-import dbConnect from "./dbConnect"
+import { User } from "../../models/user"
+import dbConnect from "../dbConnect"
 import { Dayjs } from "dayjs"
-import { kakaoProfileInfo } from "../models/interface/kakaoProfileInfo"
-import { Account } from "../models/account"
+import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo"
+import { Account } from "../../models/account"
 
 export const getRefreshedAccessToken = async (uid: string) => {
   const account = await Account.findOne({providerAccountId: uid.toString()})
@@ -122,7 +122,7 @@ export const sendResultMessage = async (
 export const withdrawal = async (accessToken: string) => {
   const url = 'https://kapi.kakao.com/v1/user/unlink'
 
-  let uid: string 
+  let uid: string
   try {
     const response = await axios.post(url, {}, {
       headers: {
@@ -135,7 +135,7 @@ export const withdrawal = async (accessToken: string) => {
     const axiosError = error as AxiosError
     console.error(axiosError)
   }
-  
+
   if (uid) {
     await dbConnect()
 
