@@ -6,6 +6,7 @@ import { getSession, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useRef } from "react"
 import { useQueryClient } from "react-query"
+import NextLink from 'next/link'
 import ProfileImage from "../../../../components/profileImage"
 import TimeBoard from "../../../../components/timeBoard"
 import { useAbsentMutation, useConfirmMutation, useDismissMutation } from "../../../../hooks/vote/mutations"
@@ -361,15 +362,11 @@ const ParticipationResult: NextPage = () => {
             padding='10px'
             zIndex={999}
           >
-            <Button
-              width='100%'
-              size='lg'
-              flex='2'
-              isLoading={confirmLoading}
-              onClick={() => handleConfirm()}
-            >
-              투표현황
-            </Button>
+            <NextLink href={`/vote/${date.format('YYYY-MM-DD')}/result/summary`}>
+              <Button width='100%' size='lg'>
+                투표현황
+              </Button>
+            </NextLink>
           </Box>
         )
       }
