@@ -256,7 +256,7 @@ const ParticipationResult: NextPage = () => {
                       const user = att.user as IUser
                       
                       return (
-                        <Box margin='3px 6px'>
+                        <Box key={user._id.toString()} margin='3px 6px'>
                           <Box position='relative'>
                             <ProfileImage
                               key={user.uid}
