@@ -1,18 +1,19 @@
 import { CheckIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
-import { useToast, Spinner, VStack, Box, Heading, Image, AspectRatio, Text, Container, HStack, Divider, Badge, Button } from "@chakra-ui/react"
+import { useToast, Spinner, VStack, Box, Heading, Image, AspectRatio, Text, Container, HStack, Divider, Badge, Button, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay } from "@chakra-ui/react"
 import dayjs from "dayjs"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
+import { useRef } from "react"
 import { useQueryClient } from "react-query"
 import ProfileImage from "../../../../components/profileImage"
 import TimeBoard from "../../../../components/timeBoard"
-import { useConfirmMutation } from "../../../../hooks/vote/mutations"
+import { useAbsentMutation, useConfirmMutation } from "../../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../../hooks/vote/queries"
 import dbConnect from "../../../../libs/dbConnect"
 import { VOTE_GET } from "../../../../libs/queryKeys"
 import { isMember } from "../../../../libs/utils/authUtils"
-import { strToDate, convertToKr } from "../../../../libs/utils/dateUtils"
+import { strToDate, convertToKr, canShowResult } from "../../../../libs/utils/dateUtils"
 import { getOptimalTime2 } from "../../../../libs/utils/timeUtils"
 import { IPlace } from "../../../../models/place"
 import { IUser } from "../../../../models/user"
@@ -25,6 +26,13 @@ const ParticipationResult: NextPage = () => {
   const { data: session } = useSession()
   const placeId = router.query.placeId as string
   const date = strToDate(router.query.date as string)
+
+  const cancelRef = useRef()
+  const {
+    isOpen: isAbsentAlertOpen,
+    onOpen: onAbsentAlertOpen,
+    onClose: onAbsentAlertClose,
+  } = useDisclosure()
 
   const { data: vote, isLoading } = useVoteQuery(
     date,
@@ -51,7 +59,26 @@ const ParticipationResult: NextPage = () => {
       onError: (err) => {
         toast({
           title: '오류',
-          description: "참여 확정 중 문제가 발생했어요. 다시 시도해보세요.",
+          description: "참여확정 중 문제가 발생했어요. 다시 시도해보세요.",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+        })
+      },
+    },
+  )
+
+  const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
+    date,
+    {
+      onSuccess: (data) => (
+        queryClient.invalidateQueries(VOTE_GET)
+      ),
+      onError: (err) => {
+        toast({
+          title: '오류',
+          description: "참여취소 중 문제가 발생했어요. 다시 시도해보세요.",
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -88,6 +115,10 @@ const ParticipationResult: NextPage = () => {
 
   const showConfirmButton = myAttendence && !myAttendence.confirmed
 
+  const imageSrc = status === 'dismissed' ?
+    'https://user-images.githubusercontent.com/48513798/182346011-e9cbad49-9cde-4608-a24d-f56ab40cb84c.jpg'
+    : 'https://user-images.githubusercontent.com/48513798/173590653-56823862-d7ea-4963-85c1-9a1c1867165c.png'
+
   const showExpectedTimeInfo = () => {
     toast({
       description: "참여 확정한 사용자 기준으로 예상한 참여시간이예요. 12시 전까지 변경될 수 있어요.",
@@ -102,26 +133,9 @@ const ParticipationResult: NextPage = () => {
       <VStack>
         <Box position='relative' marginBottom='40px'>
           <Image
-            src='https://user-images.githubusercontent.com/48513798/173590653-56823862-d7ea-4963-85c1-9a1c1867165c.png'
+            src={imageSrc}
             alt='background-image'
           />
-          {
-            showConfirmButton && (
-              <Box position='absolute' left='50%' top='50%'>
-                <Button
-                  size='lg'
-                  isLoading={confirmLoading}
-                  position='relative'
-                  transform='translateY(-50%)'
-                  right='50%'
-                  colorScheme='green'
-                  onClick={() => handleConfirm()}
-                >
-                  확정하기
-                </Button>
-              </Box>
-            ) 
-          }
           <Box position='absolute' bottom='-40px' width='100%' height='70px' overflow='hidden'>
             <Box width='70px' height='70px' margin='0 auto' position='relative'>
               {
@@ -152,31 +166,30 @@ const ParticipationResult: NextPage = () => {
         >
           {convertToKr(date)}
         </Heading>
-        <Box marginBottom='15px'>
-          <AspectRatio
-            ratio={1 / 1}
-            width='90px'
-          >
-            <Image
-              src={place.image}
-              alt={place.fullname}
-              borderRadius='15px'
-              borderStyle='solid'
-              borderWidth='3px'
-              borderColor='gray.200'
-            />
-          </AspectRatio>
-          <Heading
-            as='h3'
-            fontSize='md'
-            textAlign='center'
-            width='100%'
-          >
-            {place.branch}
-          </Heading>
-        </Box>
+        <AspectRatio
+          ratio={1 / 1}
+          width='90px'
+        >
+          <Image
+            src={place.image}
+            alt={place.fullname}
+            borderRadius='15px'
+            borderStyle='solid'
+            borderWidth='3px'
+            borderColor='gray.200'
+          />
+        </AspectRatio>
+        <Heading
+          as='h3'
+          fontSize='md'
+          textAlign='center'
+          width='100%'
+          paddingBottom='15px'
+        >
+          {place.fullname}
+        </Heading>
         {
-          ['pending', 'open'].includes(status) && (
+          status !== 'dismissed' && (
             <>
               <Box paddingBottom='20px'>
                 {
@@ -271,6 +284,74 @@ const ParticipationResult: NextPage = () => {
           )
         }
       </VStack>
+      {
+        showConfirmButton && (
+          <HStack
+            borderTop='1px'
+            borderColor='gray.200'
+            backgroundColor='white'
+            position='fixed'
+            bottom='0'
+            width='100%'
+            padding='10px'
+            zIndex={999}
+          >
+            <Button
+              size='lg'
+              flex='1'
+              colorScheme='red'
+              onClick={onAbsentAlertOpen}
+            >
+              참여취소
+            </Button>
+            <Button
+              size='lg'
+              flex='2'
+              isLoading={confirmLoading}
+              colorScheme='green'
+              onClick={() => handleConfirm()}
+            >
+              참여확정
+            </Button>
+          </HStack>
+        ) 
+      }
+
+      <AlertDialog
+        isOpen={isAbsentAlertOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onAbsentAlertClose}
+        isCentered
+        size='xs'
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              경고
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              정말 참여취소하실건가요?
+              <br />
+              취소하시면 <strong>다시 참여신청을 하실 수 없어요</strong>
+            </AlertDialogBody>
+
+            <AlertDialogFooter display='flex'>
+              <Button 
+                flex='1' 
+                isLoading={absentLoading}
+                colorScheme='red'
+                onClick={() => { handleAbsent(); onAbsentAlertClose() }}
+              >
+                참여취소
+              </Button>
+              <Button flex='2' ref={cancelRef} onClick={onAbsentAlertClose} ml={3}>
+                취소
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   )
 }
@@ -314,16 +395,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   await dbConnect()
 
-  // const canWeResultOpen = canShowResult()
-  // if (!canWeResultOpen) {
-  //   return {
-  //     redirect: {
-  //       permanent: false,
-  //       destination: '/res/too/early'
-  //     },
-  //     props: {}
-  //   }
-  // }
+  const canWeResultOpen = canShowResult()
+  if (!canWeResultOpen) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/res/too/early'
+      },
+      props: {}
+    }
+  }
 
   const vote = await Vote.findOne({ date: dayjsDate.toDate() })
 

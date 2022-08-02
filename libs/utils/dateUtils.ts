@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from "dayjs"
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { RESULT_CLOSE_TIME, RESULT_OPEN_TIME } from "../../constants/system";
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -65,8 +66,8 @@ export const canShowResult = () => {
   const now = dayjs().tz(TZ_SEOUL)
 
   const interestingDate = getInterestingDate()
-  const resultOpenTime = interestingDate.add(-1, 'day').hour(22)
-  const resultCloseTime = interestingDate.hour(14)
+  const resultOpenTime = interestingDate.add(-1, 'day').hour(RESULT_OPEN_TIME)
+  const resultCloseTime = interestingDate.hour(RESULT_CLOSE_TIME)
 
   return resultOpenTime <= now && now < resultCloseTime
 }

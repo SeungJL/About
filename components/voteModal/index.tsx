@@ -58,8 +58,9 @@ const VoteModal: FC<{
   const placeVoteInfo = participations.map((participant) => {
     const place = participant.place as IPlace
     const vote = participant.attendences.length
+    const status = participant.status
 
-    return { place, vote }
+    return { place, vote, status }
   })
 
   const onSubmit = () => {
