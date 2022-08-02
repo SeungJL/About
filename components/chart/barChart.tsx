@@ -1,4 +1,4 @@
-import { Box, HStack, Image, useDisclosure, VStack } from "@chakra-ui/react";
+import { AspectRatio, Box, HStack, Image, useDisclosure, VStack } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import { IPlace } from "../../models/place";
 import { IParticipation } from "../../models/vote";
@@ -89,19 +89,20 @@ const BarChart: FC<{
                 absenceCnt={absences.length}
                 invitationCnt={invitations.length}
               />
-              <Image
-                src={place.image}
-                alt={place.fullname}
-                width={`${BAR_WIDTH + 10}px`}
-                borderRadius='10px'
-                borderColor='gray.200'
-                borderWidth='5px'
-                borderStyle='solid'
-                onClick={() => {
-                  setSelectedParticipation(participation)
-                  onAttendInfoModalOpen()
-                }}
-              />
+              <AspectRatio ratio={1 / 1} width={`${BAR_WIDTH + 10}px`}>
+                <Image
+                  src={place.image}
+                  alt={place.fullname}
+                  borderRadius='10px'
+                  borderColor='gray.200'
+                  borderWidth='5px'
+                  borderStyle='solid'
+                  onClick={() => {
+                    setSelectedParticipation(participation)
+                    onAttendInfoModalOpen()
+                  }}
+                />
+              </AspectRatio>
             </VStack>
           )
         })

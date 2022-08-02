@@ -54,6 +54,10 @@ export const getPreviousDate = (raw: string | Date) => (
   toDate(raw).add(-1, 'day')
 )
 
+export const dateToDayjs = (date: Date) => (
+  dayjs(date).tz(TZ_SEOUL)
+)
+
 export const convertToKr = (date: Dayjs) => 
   `${date.format('YYYY년 MM월 DD일')}(${dayEnToKr[date.format('ddd')]})`
 

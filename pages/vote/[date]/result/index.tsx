@@ -5,7 +5,9 @@ import { useRouter } from "next/router"
 import { useVoteQuery } from "../../../../hooks/vote/queries"
 import dbConnect from "../../../../libs/dbConnect"
 import { isMember } from "../../../../libs/utils/authUtils"
-import { convertToKr, strToDate } from "../../../../libs/utils/dateUtils"
+import { canShowResult, convertToKr, strToDate } from "../../../../libs/utils/dateUtils"
+import { User } from "../../../../models/user"
+import { Vote } from "../../../../models/vote"
 
 const Result: NextPage = () => {
   const router = useRouter()
@@ -79,22 +81,58 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
+  const rawDate = context.params.date as string
+
+  const dayjsDate = strToDate(rawDate)
+
+  if (!dayjsDate.isValid()) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/vote/${rawDate}`,
+      },
+      props:{},
+    }
+  }
+
+
   await dbConnect()
 
   // const canWeResultOpen = canShowResult()
   // if (!canWeResultOpen) {
-    if(false) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: '/res/too/early'
+  //     },
+  //     props: {}
+  //   }
+  // }
+  const user = await User.findOne({ uid: session.uid })
+
+  const vote = await Vote.findOne({ date: dayjsDate.toDate() })
+  const participation = vote.participations.find((p) => (
+    !!p.attendences
+      .map((att) => att.user.toString())
+      .find((u) => u === user._id.toString())
+  ))
+
+  if (!participation) {
     return {
       redirect: {
         permanent: false,
-        destination: '/res/too/early'
+        destination: `/vote/${rawDate}`,
       },
       props: {}
     }
   }
 
   return {
-    props: {},
+    redirect: {
+      permanent: false,
+      destination: `/vote/${rawDate}/result/${participation.place as string}`,
+    },
+    props: {}
   }
 }
 

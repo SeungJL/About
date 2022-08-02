@@ -35,6 +35,7 @@ export interface IAbsence {
 
 export interface IParticipation {
   place: string | IPlace
+  time?: Date
   attendences: IAttendence[]
   absences: IAbsence[]
   invitations: IInvitation[]
@@ -133,6 +134,7 @@ const ParticipationSchema: Schema<IParticipation> = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Place',
   },
+  time: Date,
   attendences: [AttendenceSchema],
   absences: [AbsenceSchema],
   invitations: [InvitationSchema],
