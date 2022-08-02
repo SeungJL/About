@@ -1,5 +1,5 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Select, ModalFooter, Button, HStack, Spinner } from "@chakra-ui/react";
-import axios from "axios";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Select, ModalFooter, Button, HStack, Spinner, useToast } from "@chakra-ui/react";
+import axios, { AxiosError } from "axios";
 import { ChangeEventHandler, FC, useState } from "react";
 import { IAttendence } from "../models/attendence";
 import Map from "./map";
@@ -12,6 +12,7 @@ const PlacePickerModal: FC<{
   dateStr: string,
   setAttendence: (attendence: IAttendence) => void
 }> = ({ isOpen, onClose, dateStr, setAttendence }) => {
+  const toast = useToast()
   const [selectedPlace, setSelectedPlace] = useState<IPlace>()
   const { data: places, isLoading } = usePlaceQuery()
 
@@ -23,13 +24,26 @@ const PlacePickerModal: FC<{
   }
   
   const onSubmit = async () => {
-    const { data } = await axios.patch(`/api/attend/${dateStr}`, {
-      operation: 'place_update',
-      place: selectedPlace?._id,
-    })
-    setAttendence(data as IAttendence)
-
-    onClose()
+    try {
+      const { data } = await axios.patch(`/api/attend/${dateStr}`, {
+        operation: 'place_update',
+        place: selectedPlace?._id,
+      })
+      setAttendence(data as IAttendence)
+      onClose()
+    } catch (err) {
+      const error = err as AxiosError
+      if (error.response.status === 400) {
+        toast({
+          title: '투표 인원초과',
+          description: "한 장소에 최대 6명까지 신청할 수 있어요",
+          status: 'error',
+          duration: 5000,
+          isClosable: false,
+          position: 'bottom',
+        })
+      }
+    }
   }
 
   return (

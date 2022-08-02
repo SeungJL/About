@@ -21,7 +21,7 @@ export default async function handler(
         return res.status(403).end()
       }
 
-      const users = await User.find({status: 'active'})
+      const users = await User.find({role: {$in: ['member', 'previliged']}})
 
       const aggResult: IUserStatistic[] = await Attendence.aggregate([
         {
@@ -113,7 +113,7 @@ export default async function handler(
                 $size: {
                   $filter: {
                     input: '$attendences',
-                    as: 'att',
+                    as: 'att',  
                     cond: {$gte: ['$$att.date', getToday().subtract(1, 'week').toDate()]}
                   },
                 }
