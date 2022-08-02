@@ -8,7 +8,7 @@ import { useRef } from "react"
 import { useQueryClient } from "react-query"
 import ProfileImage from "../../../../components/profileImage"
 import TimeBoard from "../../../../components/timeBoard"
-import { useAbsentMutation, useConfirmMutation } from "../../../../hooks/vote/mutations"
+import { useAbsentMutation, useConfirmMutation, useDismissMutation } from "../../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../../hooks/vote/queries"
 import dbConnect from "../../../../libs/dbConnect"
 import { VOTE_GET } from "../../../../libs/queryKeys"
@@ -32,6 +32,12 @@ const ParticipationResult: NextPage = () => {
     isOpen: isAbsentAlertOpen,
     onOpen: onAbsentAlertOpen,
     onClose: onAbsentAlertClose,
+  } = useDisclosure()
+
+  const {
+    isOpen: isDismissAlertOpen,
+    onOpen: onDismissAlertOpen,
+    onClose: onDismissAlertClose,
   } = useDisclosure()
 
   const { data: vote, isLoading } = useVoteQuery(
@@ -60,6 +66,25 @@ const ParticipationResult: NextPage = () => {
         toast({
           title: '오류',
           description: "참여확정 중 문제가 발생했어요. 다시 시도해보세요.",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+        })
+      },
+    },
+  )
+
+  const { mutate: handleDismiss, isLoading: dismissLoading } = useDismissMutation(
+    date,
+    {
+      onSuccess: (data) => (
+        queryClient.invalidateQueries(VOTE_GET)
+      ),
+      onError: (err) => {
+        toast({
+          title: '오류',
+          description: "불참처리 중 문제가 발생했어요. 다시 시도해보세요.",
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -113,7 +138,9 @@ const ParticipationResult: NextPage = () => {
   const myAttendence = participation.attendences
     .find((att) => (att.user as IUser).uid === session?.uid)
 
-  const showConfirmButton = myAttendence && !myAttendence.confirmed
+  const showConfirmButton = myAttendence 
+    && !myAttendence.confirmed
+    && status === 'waiting_confirm'
 
   const imageSrc = status === 'dismissed' ?
     'https://user-images.githubusercontent.com/48513798/182346011-e9cbad49-9cde-4608-a24d-f56ab40cb84c.jpg'
@@ -275,6 +302,17 @@ const ParticipationResult: NextPage = () => {
                   }
                 </HStack>
               </Container>
+              {
+                myAttendence?.confirmed && (
+                  <Button
+                    size='sm'
+                    colorScheme='red'
+                    onClick={onDismissAlertOpen}
+                  >
+                    불참
+                  </Button>
+                )
+              }
             </>
           )
         }
@@ -285,7 +323,7 @@ const ParticipationResult: NextPage = () => {
         }
       </VStack>
       {
-        showConfirmButton && (
+        showConfirmButton ? (
           <HStack
             borderTop='1px'
             borderColor='gray.200'
@@ -314,7 +352,26 @@ const ParticipationResult: NextPage = () => {
               참여확정
             </Button>
           </HStack>
-        ) 
+        ) : (
+          <Box
+            backgroundColor='white'
+            position='fixed'
+            bottom='0'
+            width='100%'
+            padding='10px'
+            zIndex={999}
+          >
+            <Button
+              width='100%'
+              size='lg'
+              flex='2'
+              isLoading={confirmLoading}
+              onClick={() => handleConfirm()}
+            >
+              투표현황
+            </Button>
+          </Box>
+        )
       }
 
       <AlertDialog
@@ -346,6 +403,41 @@ const ParticipationResult: NextPage = () => {
                 참여취소
               </Button>
               <Button flex='2' ref={cancelRef} onClick={onAbsentAlertClose} ml={3}>
+                취소
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+
+      <AlertDialog
+        isOpen={isDismissAlertOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onDismissAlertClose}
+        isCentered
+        size='xs'
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              경고
+            </AlertDialogHeader>
+            <AlertDialogBody>
+              정말 불참하실건가요?
+              <br />
+              다시 참여신청을 하실 수 없고 불참으로 기록되요
+            </AlertDialogBody>
+
+            <AlertDialogFooter display='flex'>
+              <Button
+                flex='1' 
+                isLoading={dismissLoading}
+                colorScheme='red'
+                onClick={() => { handleDismiss(); onDismissAlertClose() }}
+              >
+                불참
+              </Button>
+              <Button flex='2' ref={cancelRef} onClick={onDismissAlertClose} ml={3}>
                 취소
               </Button>
             </AlertDialogFooter>

@@ -31,6 +31,7 @@ export default async function handler(
           }
         })
       })
+
       await vote.save()
       return res.status(204).end()
     }
