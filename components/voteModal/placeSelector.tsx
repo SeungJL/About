@@ -5,7 +5,7 @@ import { IPlace } from "../../models/place";
 import Map from '../map'
 
 const PlaceSelector: FC<{
-  placeVoteInfo: { place: IPlace, vote: number }[],
+  placeVoteInfo: { place: IPlace, vote: number, status: string }[],
   selectedPlace?: IPlace,
   setSelectedPlace: (place: IPlace) => void,
 }> = ({ placeVoteInfo, selectedPlace, setSelectedPlace }) => {
@@ -18,10 +18,21 @@ const PlaceSelector: FC<{
       return 'blue.200'
     }
     const placeInfo = placeVoteInfo.find((pv) => pv.place._id == place._id)
-    if (placeInfo.vote >= MAX_USER_PER_PLACE) {
+    if (placeInfo.vote >= MAX_USER_PER_PLACE || placeInfo.status !== 'pending') {
       return 'red.400'
     }
     return 'gray.200'
+  }
+
+  const showForbiddenMessage = () => {
+    toast({
+      title: '신청 불가',
+      description: `해당 장소는 투표 기간이 지났어요.`,
+      status: 'error',
+      duration: 3000,
+      isClosable: true,
+      position: 'bottom',
+    })
   }
 
   const handlePlaceIconClick = (place: IPlace) => {
@@ -51,29 +62,35 @@ const PlaceSelector: FC<{
       <Container>
         <Select value={selectedPlace?._id} margin='5px 0' placeholder='장소' width='100%'>
           {
-            places.map((p) => (
-              <option key={p._id} value={p._id}>
-                {p.fullname}
-              </option>
-            ))
+            placeVoteInfo
+              .filter((p) => p.status === 'pending')
+              .map((p) => (
+                <option key={p.place._id} value={p.place._id}>
+                  {p.place.fullname}
+                </option>
+              ))
           }
         </Select>
         <HStack justifyContent='center' width='100%'>
           {
-            places.map((place, idx) => (
+            placeVoteInfo.map((placeVoteInfo, idx) => (
               <VStack key={idx} flex={1}>
                 <AspectRatio
-                  title={(place as IPlace)._id}
+                  title={placeVoteInfo.place._id}
                   ratio={1 / 1}
                   width='60px'
                   margin='5px 0'
-                  onClick={() => handlePlaceIconClick(place)}
+                  onClick={
+                    placeVoteInfo.status === 'pending'
+                    ? () => handlePlaceIconClick(placeVoteInfo.place) 
+                    : showForbiddenMessage
+                  }
                 >
                   <Image
                     borderRadius='25%'
-                    src={place.image}
-                    alt={place.fullname}
-                    borderColor={placeIconBorderColor(place)}
+                    src={placeVoteInfo.place.image}
+                    alt={placeVoteInfo.place.fullname}
+                    borderColor={placeIconBorderColor(placeVoteInfo.place)}
                     borderWidth='4px'
                     borderStyle='solid'
                   />
@@ -83,7 +100,7 @@ const PlaceSelector: FC<{
                   top='-12px'
                   fontSize='xs'
                   letterSpacing={0}
-                >{place.branch}</Text>
+                >{placeVoteInfo.place.branch}</Text>
               </VStack>
             ))
           }
