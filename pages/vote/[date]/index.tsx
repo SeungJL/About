@@ -145,6 +145,11 @@ const Main: NextPage = () => {
               )
             }
           </Skeleton>
+          <NextLink href={`/vote/${date.format('YYYY-MM-DD')}/result/summary`}>
+            <Button width='100%' size='lg' flex='1'>
+              투표현황
+            </Button>
+          </NextLink>
           </VStack>
         </HStack>
     </Container>
