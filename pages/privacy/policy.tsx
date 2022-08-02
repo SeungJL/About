@@ -136,7 +136,7 @@ const PrivacyPolicy: NextPage = () => {
         height='8vh'
         zIndex='1000'
         onClick={() => {
-          router.push('/')
+          router.push('/vote')
         }}
       >
         홈으로 돌아가기
