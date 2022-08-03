@@ -1,11 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { MAX_USER_PER_PLACE, MIN_USER_FOR_STUDY } from "../../../../../../constants/system"
 import dbConnect from "../../../../../../libs/dbConnect"
-import { groupBy } from "../../../../../../libs/utils"
 import { dateToDayjs, strToDate } from "../../../../../../libs/utils/dateUtils"
-import { getCommonTime, getOptimalTime2, openable } from "../../../../../../libs/utils/timeUtils"
-import { IPlace } from "../../../../../../models/place"
-import { IParticipation, Vote } from "../../../../../../models/vote"
+import { getOptimalTime2, openable } from "../../../../../../libs/utils/timeUtils"
+import { Vote } from "../../../../../../models/vote"
 
 const SECRET = process.env.NEXTAUTH_SECRET
 
@@ -41,6 +39,7 @@ export default async function handler(
         const sourcePlaceId = sourceParticipation.place.toString()
         const attendence = sourceParticipation.attendences[0]
 
+        // 1명 장소 -> 2명 장소
         const targetParticipation1 = vote.participations
           .filter((p) => p.place.toString() !== sourcePlaceId)
           .find((p) => MIN_USER_FOR_STUDY-1 === p.attendences.length)
@@ -52,6 +51,7 @@ export default async function handler(
           break
         }
 
+        // 1명 장소 -> 3명 이상 장소
         const targetParticipation2 = vote.participations
         .filter((p) => p.place.toString() !== sourcePlaceId)
         .find((p) => p.attendences.length < MAX_USER_PER_PLACE && openable([
