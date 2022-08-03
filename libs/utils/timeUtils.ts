@@ -73,7 +73,9 @@ const isAlone = (participationTime: IParticipantTime, commonTime: boolean[]) => 
 
   const myTime = timeRange.filter((t) => (startNum <= t && t < endNum))
   
-  return myTime.filter((t, idx) => commonTime[idx]).length === 0
+  return myTime
+    .map((t) => timeRange.indexOf(t))
+    .filter((idx) => commonTime[idx]).length === 0
 }
 
 const getOptimalTime = (times: string[]) => {

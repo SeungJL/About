@@ -41,6 +41,21 @@ const ChangeTimeModal: FC<{
     }
   )
 
+  const onSubmit = () => {
+    if (start >= end) {
+      toast({
+        title: '잘못된 입력',
+        description: '시작시간은 끝시간 이전이여야 합니다',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom',
+      })
+      return
+    }
+    handleChangeTime({ start: start.toDate(), end: end.toDate() })
+  }
+
   return (
       <Modal size='md' onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
@@ -60,7 +75,7 @@ const ChangeTimeModal: FC<{
                 <Button
                   isLoading={isLoading}
                   colorScheme='yellow'
-                  onClick={() => handleChangeTime({ start: start.toDate(), end: end.toDate() })}
+                  onClick={onSubmit}
                 >
                   변경
                 </Button>

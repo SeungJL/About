@@ -1,8 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import { MAX_USER_PER_PLACE, MIN_USER_FOR_STUDY } from "../../../../../../constants/system"
 import dbConnect from "../../../../../../libs/dbConnect"
+import { groupBy } from "../../../../../../libs/utils"
 import { dateToDayjs, strToDate } from "../../../../../../libs/utils/dateUtils"
-import { getOptimalTime2, openable } from "../../../../../../libs/utils/timeUtils"
-import { Vote } from "../../../../../../models/vote"
+import { getCommonTime, getOptimalTime2, openable } from "../../../../../../libs/utils/timeUtils"
+import { IPlace } from "../../../../../../models/place"
+import { IParticipation, Vote } from "../../../../../../models/vote"
 
 const SECRET = process.env.NEXTAUTH_SECRET
 
@@ -25,11 +28,56 @@ export default async function handler(
       }
       const vote = await Vote.findOne({ date })
 
+      const sources = vote.participations.filter((participation) => {
+        const attendenceCnt = participation.attendences.length
+        const unconfirmedCnt = participation.attendences.filter((att) => !att.confirmed).length
+
+        return attendenceCnt === 1 && unconfirmedCnt === 1
+      })
+
+      for (let i=0; i<sources.length; i++) {
+        const sourceParticipation = sources[i]
+        
+        const sourcePlaceId = sourceParticipation.place.toString()
+        const attendence = sourceParticipation.attendences[0]
+
+        const targetParticipation1 = vote.participations
+          .filter((p) => p.place.toString() !== sourcePlaceId)
+          .find((p) => MIN_USER_FOR_STUDY-1 === p.attendences.length)
+
+        if (targetParticipation1) {
+          targetParticipation1.attendences.push(attendence)
+          sourceParticipation.attendences = []
+
+          break
+        }
+
+        const targetParticipation2 = vote.participations
+        .filter((p) => p.place.toString() !== sourcePlaceId)
+        .find((p) => p.attendences.length < MAX_USER_PER_PLACE && openable([
+          ...p.attendences.map((att) => att.time),
+          attendence.time,
+        ]))
+        
+        if (targetParticipation2) {
+          console.log(attendence)
+          targetParticipation2.attendences = [
+            ...targetParticipation2.attendences,
+            attendence,
+          ]
+          sourceParticipation.attendences = []
+
+          break
+        }
+      }
+
       vote.participations
         .flatMap((p) => p.attendences)
         .forEach((att) => {
           att.confirmed = true
         })
+      
+      // 결과 확정 및 모임 날짜 확정
       vote.participations.forEach((participation) => {
         const participationTimes = participation.attendences.map((att) => att.time)
 
@@ -38,6 +86,7 @@ export default async function handler(
         } else {
           participation.status = 'dismissed'
         }
+
         const times = participation.attendences.map((p) => ({
           start: dateToDayjs(p.time.start),
           end: dateToDayjs(p.time.end),
