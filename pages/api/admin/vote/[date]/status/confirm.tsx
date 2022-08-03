@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { MIN_USER_FOR_STUDY } from "../../../../../../constants/system"
 import dbConnect from "../../../../../../libs/dbConnect"
 import { dateToDayjs, strToDate } from "../../../../../../libs/utils/dateUtils"
-import { getOptimalTime2 } from "../../../../../../libs/utils/timeUtils"
+import { getOptimalTime2, openable } from "../../../../../../libs/utils/timeUtils"
 import { Vote } from "../../../../../../models/vote"
 
 const SECRET = process.env.NEXTAUTH_SECRET
@@ -32,7 +31,9 @@ export default async function handler(
           att.confirmed = true
         })
       vote.participations.forEach((participation) => {
-        if (participation.attendences.length >= MIN_USER_FOR_STUDY) {
+        const participationTimes = participation.attendences.map((att) => att.time)
+
+        if (openable(participationTimes)) {
           participation.status = 'open'
         } else {
           participation.status = 'dismissed'

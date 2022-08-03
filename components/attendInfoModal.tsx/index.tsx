@@ -69,7 +69,7 @@ const AttendInfoModal: FC<{
               >
                 {
                   lunchUser.map((user, idx) => (
-                    <VStack key={idx} width='60px'>
+                    <VStack key={idx} width='45px'>
                       <ProfileImage
                         marginTop='5px'
                         src={user.thumbnailImage}
@@ -104,10 +104,7 @@ const AttendInfoModal: FC<{
               >
                 {
                   dinnerUser.map((user, idx) => (
-                    <VStack
-                      key={idx}
-                      width='60px'
-                    >
+                    <VStack key={idx} width='45px'>
                       <ProfileImage
                         marginTop='5px'
                         src={user.thumbnailImage}
@@ -142,10 +139,7 @@ const AttendInfoModal: FC<{
               >
                 {
                   afterDinnerUser.map((user, idx) => (
-                    <VStack
-                      key={idx}
-                      width='60px'
-                    >
+                    <VStack key={idx} width='45px'>
                       <ProfileImage
                         marginTop='5px'
                         src={user.thumbnailImage}

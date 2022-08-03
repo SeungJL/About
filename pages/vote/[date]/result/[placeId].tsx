@@ -1,5 +1,5 @@
 import { CheckIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
-import { useToast, Spinner, VStack, Box, Heading, Image, AspectRatio, Text, Container, HStack, Divider, Badge, Button, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay } from "@chakra-ui/react"
+import { useToast, Spinner, VStack, Box, Heading, Image, AspectRatio, Text, Container, HStack, Divider, Badge, Button, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Alert, AlertIcon, AlertTitle } from "@chakra-ui/react"
 import dayjs from "dayjs"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react"
@@ -15,10 +15,11 @@ import dbConnect from "../../../../libs/dbConnect"
 import { VOTE_GET } from "../../../../libs/queryKeys"
 import { isMember } from "../../../../libs/utils/authUtils"
 import { strToDate, convertToKr, canShowResult } from "../../../../libs/utils/dateUtils"
-import { getOptimalTime2 } from "../../../../libs/utils/timeUtils"
+import { getCommonTime, getOptimalTime2, isAlone, openable } from "../../../../libs/utils/timeUtils"
 import { IPlace } from "../../../../models/place"
 import { IUser } from "../../../../models/user"
 import { Vote } from "../../../../models/vote"
+import ChangeTimeModal from "../../../../components/changeTimeModal"
 
 const ParticipationResult: NextPage = () => {
   const router = useRouter()
@@ -39,6 +40,12 @@ const ParticipationResult: NextPage = () => {
     isOpen: isDismissAlertOpen,
     onOpen: onDismissAlertOpen,
     onClose: onDismissAlertClose,
+  } = useDisclosure()
+
+  const {
+    isOpen: isChangeTimeOpen,
+    onOpen: onChangeTimeOpen,
+    onClose: onChangeTimeClose,
   } = useDisclosure()
 
   const { data: vote, isLoading } = useVoteQuery(
@@ -139,6 +146,11 @@ const ParticipationResult: NextPage = () => {
   const myAttendence = participation.attendences
     .find((att) => (att.user as IUser).uid === session?.uid)
 
+  const participationTimes = participation.attendences.map((att) => att.time)
+  const isOpenable = openable(participationTimes)
+  const commonTime = getCommonTime(participationTimes)
+  const amIAlone = myAttendence && isAlone(myAttendence.time, commonTime)
+
   const showConfirmButton = myAttendence 
     && !myAttendence.confirmed
     && status === 'waiting_confirm'
@@ -217,6 +229,22 @@ const ParticipationResult: NextPage = () => {
           {place.fullname}
         </Heading>
         {
+          amIAlone && (
+            <Alert status='error'>
+              <AlertIcon />
+              다른분들과 시간이 겹치지 않아요
+              <Button
+                marginLeft='auto'
+                variant='link'
+                colorScheme='black'
+                onClick={onChangeTimeOpen}
+              >
+                시간 변경
+              </Button>              
+            </Alert>
+          )
+        }
+        {
           status !== 'dismissed' && (
             <>
               <Box paddingBottom='20px'>
@@ -224,7 +252,7 @@ const ParticipationResult: NextPage = () => {
                   status === 'waiting_confirm' ? (
                     <>
                       {
-                        confirmedUser.length !== 0 && (
+                        confirmedUser.length !== 0 && isOpenable && (
                           <Text fontSize='xl'>
                             {getOptimalTime2(times).format('HH시 mm분')}
                             <Text as='span' fontSize='xs' marginTop='0'>
@@ -248,7 +276,7 @@ const ParticipationResult: NextPage = () => {
                 <TimeBoard attendences={confirmedAttendences} />
               </Box>
               <Container>
-                <Heading as='h2' fontSize='lg'>참여현황</Heading>
+                <Heading as='h2' marginTop='15px' fontSize='lg'>참여현황</Heading>
                 <Divider marginBottom='10px' />
                 <HStack justifyContent='start' overflowX='scroll' marginBottom='15px'>
                   {
@@ -359,6 +387,7 @@ const ParticipationResult: NextPage = () => {
             position='fixed'
             bottom='0'
             width='100%'
+            maxWidth='500px'
             padding='10px'
             zIndex={999}
           >
@@ -370,7 +399,17 @@ const ParticipationResult: NextPage = () => {
           </Box>
         )
       }
-
+      {
+        isChangeTimeOpen && (
+          <ChangeTimeModal
+            isOpen={isChangeTimeOpen}
+            onClose={onChangeTimeClose}
+            date={date}
+            myParticipantTime={myAttendence.time}
+            participation={participation}
+          />
+        )
+      }
       <AlertDialog
         isOpen={isAbsentAlertOpen}
         leastDestructiveRef={cancelRef}

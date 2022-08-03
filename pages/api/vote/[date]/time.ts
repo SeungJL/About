@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getToken } from "next-auth/jwt"
-import dbConnect from "../../../../../libs/dbConnect"
-import { strToDate } from "../../../../../libs/utils/dateUtils"
-import { IVote, Vote } from "../../../../../models/vote"
+import dbConnect from "../../../../libs/dbConnect"
+import { strToDate } from "../../../../libs/utils/dateUtils"
+import { IVote, Vote } from "../../../../models/vote"
 
 const secret = process.env.NEXTAUTH_SECRET
 
@@ -13,6 +13,7 @@ export default async function handler(
   const { method } = req
   const dateStr = req.query.date as string
   const date = strToDate(dateStr).toDate()
+  const { start, end } = req.body
 
   const token = await getToken({ req, secret })
   const _id = token.id
@@ -27,7 +28,8 @@ export default async function handler(
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
           if (att.user.toString() === _id.toString()) {
-            att.confirmed = true
+            att.time.start = new Date(start)
+            att.time.end = new Date(end)
           }
         })
       })
