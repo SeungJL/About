@@ -2,17 +2,10 @@ import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { FC } from "react";
 import { splitDate } from "../libs/utils/dateUtils";
+import { timeRange } from "../libs/utils/timeUtils";
 import { IUser } from "../models/user";
 import { IAttendence } from "../models/vote";
 import ProfileImage from "./profileImage";
-
-const START_HOUR = 9
-const END_HOUR = 22
-
-const range = []
-for (let i=START_HOUR; i<END_HOUR; i+=1/2) {
-  range.push(i)
-}
 
 const TimeRangeBar: FC<{
   attendence: IAttendence,
@@ -29,7 +22,7 @@ const TimeRangeBar: FC<{
   const user = attendence.user as IUser
 
   return (
-    <HStack alignItems='center' marginBottom='20px'>
+    <HStack alignItems='center'>
       <Box position='relative'>
         <ProfileImage
           src={user.thumbnailImage}
@@ -50,7 +43,7 @@ const TimeRangeBar: FC<{
       </Box>
       <Box width='100%' height='35px'>
         {
-          range.map((idx) => (
+          timeRange.map((idx) => (
             <Box
               key={idx}
               width='10px'
@@ -91,7 +84,7 @@ const TimeBoard: FC<{
   attendences: IAttendence[],
 }> = ({ attendences }) => {
   return (
-    <VStack>
+    <VStack spacing={7} marginBottom='30px'>
       {
         attendences.map((attendence, idx) => (
           <TimeRangeBar key={idx} attendence={attendence} />

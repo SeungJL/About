@@ -10,7 +10,7 @@ import { convertToKr, strToDate } from "../../../../libs/utils/dateUtils"
 import { IPlace } from "../../../../models/place"
 import { IUser } from "../../../../models/user"
 
-const statusMap = {
+export const statusMap = {
   'pending': { value: '투표중', color: 'gray' },
   'waiting_confirm': { value: '결과확인중', color: 'yellow' },
   'open': { value: 'OPEN', color: 'green' },
@@ -84,13 +84,13 @@ const SummaryResult: NextPage = () => {
               </HStack>
               <Divider marginTop='10px' marginBottom='5px' />
               <HStack alignItems='center'>
-                <HStack justifyContent='start' minHeight='80px' overflowX='scroll' flex='8'>
+                <HStack spacing={1} justifyContent='start' minHeight='80px' overflowX='scroll' flex='8'>
                   {
                     participation.attendences.map((attendence) => {
                       const user = attendence.user as IUser
 
                       return (
-                        <Box key={user._id.toString()} margin='4px'>
+                        <Box key={user._id.toString()} margin='4px 0'>
                           <ProfileImage src={user.thumbnailImage} alt={user.name} />
                           <Text
                             fontSize='xs'

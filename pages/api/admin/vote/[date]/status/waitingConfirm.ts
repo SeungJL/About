@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { MIN_USER_FOR_STUDY } from "../../../../../../constants/system"
 import dbConnect from "../../../../../../libs/dbConnect"
 import { strToDate } from "../../../../../../libs/utils/dateUtils"
 import { Vote } from "../../../../../../models/vote"
@@ -26,7 +25,7 @@ export default async function handler(
       const vote = await Vote.findOne({ date })
 
       vote.participations.forEach((participation) => {
-        if (participation.attendences.length < MIN_USER_FOR_STUDY) {
+        if (participation.attendences.length === 0) {
           participation.status = 'dismissed'
         } else {
           participation.status = 'waiting_confirm'

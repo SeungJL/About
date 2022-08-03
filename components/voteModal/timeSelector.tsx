@@ -1,11 +1,9 @@
 import { Box, Select, Text } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
+import { HOURS, MINUTES } from "../../libs/utils/timeUtils";
 import { IParticipation } from "../../models/vote";
 import TimeBoard from "../timeBoard";
-
-const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22]
-const minutes = ['00', '30']
 
 const TimeSelector: FC<{
   participation: IParticipation,
@@ -56,7 +54,7 @@ const TimeSelector: FC<{
           onChange={onChangeHour('start')}  
         >
           {
-            hours.map((h) => (
+            HOURS.map((h) => (
               <option key={h} value={h}>
                 { h.toString() }
               </option>
@@ -72,7 +70,7 @@ const TimeSelector: FC<{
           onChange={onChangeMin('start')}
         >
           {
-            minutes.map((m) => (
+            MINUTES.map((m) => (
               <option key={m} value={m}>{m}</option>
             ))
           }
@@ -91,7 +89,7 @@ const TimeSelector: FC<{
           onChange={onChangeHour('end')}  
         >
           {
-            hours.map((h) => (
+            HOURS.map((h) => (
               <option key={h} value={h}>
                 { h.toString() }
               </option>
@@ -107,7 +105,7 @@ const TimeSelector: FC<{
           onChange={onChangeMin('end')}
         >
           {
-            minutes.map((m) => (
+            MINUTES.map((m) => (
               <option key={m} value={m}>{m}</option>
             ))
           }
