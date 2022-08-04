@@ -9,12 +9,12 @@ import { useQueryClient } from "react-query"
 import NextLink from 'next/link'
 import ProfileImage from "../../../../components/profileImage"
 import TimeBoard from "../../../../components/timeBoard"
-import { useAbsentMutation, useConfirmMutation, useDismissMutation } from "../../../../hooks/vote/mutations"
+import { useAbsentMutation, useArrivedMutation, useConfirmMutation, useDismissMutation } from "../../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../../hooks/vote/queries"
 import dbConnect from "../../../../libs/dbConnect"
 import { VOTE_GET } from "../../../../libs/queryKeys"
 import { isMember } from "../../../../libs/utils/authUtils"
-import { strToDate, convertToKr, canShowResult } from "../../../../libs/utils/dateUtils"
+import { strToDate, convertToKr, canShowResult, now, dateToDayjs } from "../../../../libs/utils/dateUtils"
 import { getCommonTime, getOptimalTime2, isAlone, openable } from "../../../../libs/utils/timeUtils"
 import { IPlace } from "../../../../models/place"
 import { IUser } from "../../../../models/user"
@@ -122,6 +122,25 @@ const ParticipationResult: NextPage = () => {
     },
   )
 
+  const { mutate: handleArrived } = useArrivedMutation(
+    date,
+    {
+      onSuccess: (data) => (
+        queryClient.invalidateQueries(VOTE_GET)
+      ),
+      onError: (err) => {
+        toast({
+          title: '오류',
+          description: "출석체크 중 문제가 발생했어요. 다시 시도해보세요.",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+        })
+      },
+    }
+  )
+
   if (isLoading) {
     return (
       <Spinner />
@@ -151,6 +170,24 @@ const ParticipationResult: NextPage = () => {
   const isOpenable = openable(participationTimes)
   const commonTime = getCommonTime(participationTimes)
   const amIAlone = myAttendence && isAlone(myAttendence.time, commonTime)
+
+  const canShowAttendedButton = () => {
+    if (!myAttendence) return false
+    if (myAttendence.arrived) return false
+    if (status !== 'open') return false
+
+    const currentTime = now()
+
+    const {
+      start: markedStart,
+      end: markedEnd,
+    } = myAttendence.time
+
+    const startable = dateToDayjs(markedStart).subtract(2, 'hour')
+    const endable = dateToDayjs(markedEnd)
+
+    return startable <= currentTime && currentTime <= endable
+  }
 
   const showConfirmButton = myAttendence 
     && !myAttendence.confirmed
@@ -241,6 +278,22 @@ const ParticipationResult: NextPage = () => {
                 onClick={onChangeTimeOpen}
               >
                 시간 변경
+              </Button>              
+            </Alert>
+          )
+        }
+        {
+          canShowAttendedButton() && (
+            <Alert status='success'>
+              <AlertIcon />
+              도착하셨나요? 출석체크해주세요!
+              <Button
+                marginLeft='auto'
+                variant='link'
+                colorScheme='black'
+                onClick={() => handleArrived()}
+              >
+                출석체크
               </Button>              
             </Alert>
           )
@@ -346,7 +399,7 @@ const ParticipationResult: NextPage = () => {
                 </HStack>
               </Container>
               {
-                myAttendence?.confirmed && (
+                myAttendence?.confirmed && !myAttendence?.arrived && (
                   <Button
                     size='sm'
                     colorScheme='red'
@@ -475,7 +528,7 @@ const ParticipationResult: NextPage = () => {
             <AlertDialogBody>
               정말 불참하실건가요?
               <br />
-              다시 참여신청을 하실 수 없고 불참으로 기록되요
+              다시 참여신청을 하실 수 없고 불참으로 기록돼요
             </AlertDialogBody>
 
             <AlertDialogFooter display='flex'>

@@ -55,6 +55,10 @@ export const getPreviousDate = (raw: string | Date) => (
   toDate(raw).add(-1, 'day')
 )
 
+export const now = () => (
+  dayjs().tz(TZ_SEOUL)
+)
+
 export const dateToDayjs = (date: Date) => (
   dayjs(date).tz(TZ_SEOUL)
 )
