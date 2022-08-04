@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ( context )=> {
     return {
       redirect: {
         permanent: false,
-        destination: `/${today.format('YYYY-MM-DD')}`,
+        destination: `/vote/${today.format('YYYY-MM-DD')}`,
       },
       props: {},
     }

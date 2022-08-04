@@ -35,7 +35,7 @@ export default async function handler(
         const isTargetParticipation = !!participation.attendences.find((att) => att.user == _id)
         if (isTargetParticipation) {
           participation.attendences = participation.attendences.filter((att) => att.user != _id)
-          participation.absences = [...participation.absences, { user: _id, message: '' } as IAbsence]
+          participation.absences = [...participation.absences, { user: _id, noShow: false, message: '' } as IAbsence]
         }
       })
 

@@ -21,6 +21,7 @@ export interface IAttendence {
   confirmed: boolean
   anonymity: boolean
   created: Date
+  arrived?: Date
 }
 
 export interface IInvitation {
@@ -30,6 +31,7 @@ export interface IInvitation {
 
 export interface IAbsence {
   user: string | IUser,
+  noShow: boolean,
   message: string,
 }
 
@@ -104,6 +106,7 @@ const AttendenceSchema: Schema<IAttendence> = new Schema({
     type: Schema.Types.Boolean,
     default: false,
   },
+  arrived: Date,
   anonymity: {
     type: Schema.Types.Boolean,
     default: false,
@@ -114,6 +117,10 @@ const AbsenceSchema: Schema<IAbsence> = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+  },
+  noShow: {
+    type: Schema.Types.Boolean,
+    default: false,
   },
   message: Schema.Types.String,
 })

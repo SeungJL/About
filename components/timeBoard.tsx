@@ -1,7 +1,9 @@
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
+import { Box, HStack, Tag, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { FC } from "react";
-import { splitDate } from "../libs/utils/dateUtils";
+import { FC, useMemo } from "react";
+import { START_HOUR } from "../constants/system";
+import { dateToDayjs, splitDate } from "../libs/utils/dateUtils";
 import { timeRange } from "../libs/utils/timeUtils";
 import { IUser } from "../models/user";
 import { IAttendence } from "../models/vote";
@@ -18,16 +20,48 @@ const TimeRangeBar: FC<{
 
   const startIdx = startHour + startMin / 60
   const endIdx = endHour + endMin / 60
+  
+  const arrivedIdx = useMemo(() => {
+    if (!attendence.arrived) return null
+
+    const [arrivedHour, arrivedMin] = splitDate(dateToDayjs(attendence.arrived))
+    console.log(arrivedHour)
+    return arrivedHour + arrivedMin / 60
+  }, [attendence])
 
   const user = attendence.user as IUser
 
   return (
     <HStack alignItems='center'>
       <Box position='relative'>
-        <ProfileImage
-          src={user.thumbnailImage}
-          alt={user.name}
-        />
+        <Box position='relative'>
+          <ProfileImage
+            src={user.thumbnailImage}
+            alt={user.name}
+          />
+          {
+            arrivedIdx && (
+              <Tag
+                position='absolute'
+                size='sm'
+                width='10px'
+                height='10px'
+                borderRadius='100%'
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                bottom='-2px'
+                right='-2px'
+                cursor='pointer'
+                backgroundColor={
+                  endIdx+2 < arrivedIdx ? 'red.400' : 'green.400'
+                }
+              >
+                <CheckIcon color='white' fontSize='xs' />
+              </Tag>
+            )
+          }
+        </Box>
         <Text
           width='100%'
           position='absolute'
@@ -41,7 +75,7 @@ const TimeRangeBar: FC<{
           {user.name}
         </Text>
       </Box>
-      <Box width='100%' height='35px'>
+      <Box width='100%' height='35px' position='relative'>
         {
           timeRange.map((idx) => (
             <Box
@@ -74,6 +108,18 @@ const TimeRangeBar: FC<{
               }
             </Box>
           ))
+        }
+        {
+          attendence.arrived && (
+            <Box
+              position='absolute'
+              top='0px'
+              left={`${2*10*(arrivedIdx - START_HOUR)}px`}
+              height='35px'
+              width='3px'
+              backgroundColor='green'
+            />
+          )
         }
       </Box>
     </HStack>
