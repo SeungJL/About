@@ -151,7 +151,6 @@ const ParticipationResult: NextPage = () => {
   const isOpenable = openable(participationTimes)
   const commonTime = getCommonTime(participationTimes)
   const amIAlone = myAttendence && isAlone(myAttendence.time, commonTime)
-  console.log(amIAlone)
 
   const showConfirmButton = myAttendence 
     && !myAttendence.confirmed
