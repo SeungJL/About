@@ -267,7 +267,7 @@ const ParticipationResult: NextPage = () => {
           {place.fullname}
         </Heading>
         {
-          amIAlone && (
+          participation.attendences.length > 1 && amIAlone && (
             <Alert status='error'>
               <AlertIcon />
               다른분들과 시간이 겹치지 않아요
