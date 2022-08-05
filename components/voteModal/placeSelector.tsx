@@ -60,7 +60,7 @@ const PlaceSelector: FC<{
         height='200px'
       />
       <Container>
-        <Select value={selectedPlace?._id} margin='5px 0' placeholder='장소' width='100%'>
+        <Select disabled value={selectedPlace?._id} margin='5px 0' placeholder='장소' width='100%'>
           {
             placeVoteInfo
               .filter((p) => p.status === 'pending')

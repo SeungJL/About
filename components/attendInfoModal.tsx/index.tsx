@@ -10,7 +10,7 @@ import { IUser } from "../../models/user";
 const AttendInfoModal: FC<{
   participation: IParticipation,
   isOpen: boolean,
-  onClose: () => void
+  onClose: () => void,
 }> = ({ participation, isOpen, onClose }) => {
   const place = participation.place as IPlace
 
@@ -104,41 +104,6 @@ const AttendInfoModal: FC<{
               >
                 {
                   dinnerUser.map((user, idx) => (
-                    <VStack key={idx} width='45px'>
-                      <ProfileImage
-                        marginTop='5px'
-                        src={user.thumbnailImage}
-                        alt={user.name}
-                      />
-                      <Text
-                        fontSize='sm'
-                        width='100%'
-                        textAlign='center'
-                        margin='0 !important'
-                        overflow='hidden'
-                        whiteSpace='nowrap'
-                        textOverflow='ellipsis'
-                      >
-                        {user.name}
-                      </Text>
-                    </VStack>
-                  ))
-                }
-              </HStack>
-            </Container>
-            <Container>
-              <Heading as='h2' fontSize='md' marginTop='15px'>
-                저녁식사 이후
-              </Heading>
-              <HStack
-                alignItems='center'
-                minHeight='70px'
-                backgroundColor='gray.100'
-                borderRadius='10px'
-                overflowX='scroll'
-              >
-                {
-                  afterDinnerUser.map((user, idx) => (
                     <VStack key={idx} width='45px'>
                       <ProfileImage
                         marginTop='5px'
