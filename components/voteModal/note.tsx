@@ -18,7 +18,7 @@ const Note: FC<{
             <Radio colorScheme='green' value='attend'>
               네
             </Radio>
-            <Radio colorScheme='yellow' value='absent'>
+            <Radio colorScheme='red' value='absent'>
               아니요
             </Radio>
             <Radio colorScheme='yellow' value='no_select'>
@@ -56,7 +56,7 @@ const Note: FC<{
             <Radio colorScheme='green' value='attend'>
               네
             </Radio>
-            <Radio colorScheme='yellow' value='absent'>
+            <Radio colorScheme='red' value='absent'>
               아니요
             </Radio>
             <Radio colorScheme='yellow' value='no_select'>
