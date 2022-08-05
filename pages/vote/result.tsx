@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
-import { isMember } from '../libs/utils/authUtils';
-import { getInterestingDate } from '../libs/utils/dateUtils';
+import { isMember } from '../../libs/utils/authUtils'
+import { getInterestingDate } from '../../libs/utils/dateUtils'
 
 const Root: NextPage = () => (
-<div />
+  <div />
 )
 
 export const getServerSideProps: GetServerSideProps = async ( context )=> {
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ( context )=> {
     return {
       redirect: {
         permanent: false,
-        destination: `/vote/${today.format('YYYY-MM-DD')}`,
+        destination: `/vote/${today.format('YYYY-MM-DD')}/result`,
       },
       props: {},
     }

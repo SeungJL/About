@@ -1,15 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { strToDate } from "../../../libs/utils/dateUtils";
-import dbConnect from "../../../libs/dbConnect";
-import { AttendDTO } from "../../../models/interface/vote";
-import { IPlace, Place } from "../../../models/place";
-import { IUser } from "../../../models/user";
-import { IAttendence, IParticipantNote, IParticipation, IVote, Vote } from "../../../models/vote";
+import { strToDate } from "../../../../libs/utils/dateUtils";
+import dbConnect from "../../../../libs/dbConnect";
+import { AttendDTO } from "../../../../models/interface/vote";
+import { IPlace, Place } from "../../../../models/place";
+import { IUser } from "../../../../models/user";
+import { IAttendence, IParticipantNote, IParticipation, IVote, Vote } from "../../../../models/vote";
 
 const secret = process.env.NEXTAUTH_SECRET
 
-const findOneVote = ( date: Date ) => (
+export const findOneVote = ( date: Date ) => (
   Vote.findOne({ date }).populate([
     'participations.place',
     'participations.attendences.user',
