@@ -37,7 +37,7 @@ const VoteModal: FC<{
     desc: '',
     lunch: 'no_select',
     dinner: 'no_select',
-    afterDinner: 'no_select',
+    afterDinner: 'absent',
   })
 
   const toPreviousStep = () => setAccordionIndex(accordionIndex - 1)
