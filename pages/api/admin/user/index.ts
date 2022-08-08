@@ -27,8 +27,8 @@ export default async function handler(
         {
           $match: {
             date: {
-              $gte: getToday().subtract(4, 'week').startOf('week').add(1, 'day').toDate(),
-              $lt: getToday().subtract(1, 'week').endOf('week').add(1, 'day').toDate(),
+              $gte: getToday().startOf('month').toDate(),
+              $lt: getToday().endOf('month').add(1, 'day').toDate(),
             },
             'participants.0': { $exists: true },
           },
