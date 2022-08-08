@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 import { FC, useState } from "react";
 import { IPlace } from "../../models/place";
 import { IParticipantNote, IParticipation } from "../../models/vote";
-import { hourMinToDate } from "../../libs/utils/dateUtils";
+import { getInterestingDate, hourMinToDate } from "../../libs/utils/dateUtils";
 import { AttendDTO } from "../../models/interface/vote";
 import { useAttendMutation } from "../../hooks/vote/mutations";
 import { useQueryClient } from "react-query";
