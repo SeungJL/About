@@ -168,6 +168,16 @@ const Main: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context)=> {
+
+  // tmp
+  return {
+    redirect: {
+      permanent: false,
+      destination: `/${getInterestingDate().format('YYYY-MM-DD')}`,
+    },
+    props: {},
+  }
+
   const session = await getSession({ req: context.req })
 
   if (!session) {
