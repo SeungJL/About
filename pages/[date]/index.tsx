@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Button, Center, Heading, HStack, ListItem, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Center, Heading, HStack, ListItem, OrderedList, Spinner, Tag, Text, UnorderedList, useDisclosure, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import type { NextPage } from 'next'
 import NextLink from "next/link"
@@ -220,40 +220,50 @@ const Home: NextPage<{
             </Alert>
           )
         }
-        <UnorderedList listStyleType='none' margin='10px 15px'>
+        <OrderedList listStyleType='none' margin='10px 15px'>
           {
-            attendence.participants.map(p => (
-              <ListItem
-                key={(p.user as IUser).uid}
-                display='flex'
-                justifyItems='space-between'
-                alignItems='center'
-                marginBottom='5px'
-              >
-                <Box
-                  display='flex'
-                  flex='1'
-                  flexDirection='row'
-                  alignItems='center'
-                >
-                  <ProfileImage
-                    src={(p.user as IUser).thumbnailImage}
-                    alt={(p.user as IUser).name}
-                    marginRight='10px'
-                    onClick={() => {
-                      setActiveUserId((p.user as IUser).uid)
-                      if ((p.user as IUser).uid) {
-                        onUserInfoModalOpen()
-                      }
-                    }}
-                  />
-                  <Text fontWeight='600' fontSize='lg' display='inline'>
-                    { (p.user as IUser).name }
-                    { session?.uid === (p.user as IUser).uid ? '(나)' : '' }
-                  </Text>
-                </Box>
+            attendence.participants
+              .sort((a, b) => {
+                const [aHour, aMinute] = a.time.split(':')
+                const aTime = parseInt(aHour) + parseInt(aMinute) / 60
 
-                <Box
+                const [bHour, bMinute] = b.time.split(':')
+                const bTime = parseInt(bHour) + parseInt(bMinute) / 60
+
+                return aTime - bTime
+              })
+              .map(p => (
+                <ListItem
+                  key={(p.user as IUser).uid}
+                  display='flex'
+                  justifyItems='space-between'
+                  alignItems='center'
+                  marginBottom='5px'
+                >
+                  <Box
+                    display='flex'
+                    flex='1'
+                    flexDirection='row'
+                    alignItems='center'
+                  >
+                    <ProfileImage
+                      src={(p.user as IUser).thumbnailImage}
+                      alt={(p.user as IUser).name}
+                      marginRight='10px'
+                      onClick={() => {
+                        setActiveUserId((p.user as IUser).uid)
+                        if ((p.user as IUser).uid) {
+                          onUserInfoModalOpen()
+                        }
+                      }}
+                    />
+                    <Text fontWeight='600' fontSize='lg' display='inline'>
+                      { (p.user as IUser).name }
+                      { session?.uid === (p.user as IUser).uid ? '(나)' : '' }
+                    </Text>
+                  </Box>
+
+                  <Box
                     height='1.8em'
                     width='1.8em'
                     visibility={p.place ? 'visible' : 'hidden'}
@@ -265,21 +275,21 @@ const Home: NextPage<{
                     backgroundSize='2em'
                     backgroundPosition='center'
                     cursor='pointer'
-                />
-                <Tag
-                  width='4.5em'
-                  height='2em'
-                  colorScheme={p.time ? 'green' : 'yellow'}
-                  variant='solid'
-                  cursor='pointer'
-                  onClick={(isActivated && session?.uid?.toString() === (p.user as IUser).uid) ? onTimePickerModalOpen : null}
-                >
-                  <Text margin='auto' align='center' fontSize='lg'>{p.time || '-'}</Text>
-                </Tag>
-              </ListItem>
-            ))
+                  />
+                  <Tag
+                    width='4.5em'
+                    height='2em'
+                    colorScheme={p.time ? 'green' : 'yellow'}
+                    variant='solid'
+                    cursor='pointer'
+                    onClick={(isActivated && session?.uid?.toString() === (p.user as IUser).uid) ? onTimePickerModalOpen : null}
+                  >
+                    <Text margin='auto' align='center' fontSize='lg'>{p.time || '-'}</Text>
+                  </Tag>
+                </ListItem>
+              ))
           }
-        </UnorderedList>
+        </OrderedList>
         {
           isTimePickerModalOpen && (
             <TimePickerModal
