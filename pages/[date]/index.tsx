@@ -224,6 +224,8 @@ const Home: NextPage<{
           {
             attendence.participants
               .sort((a, b) => {
+                if (!a) return 1
+                if (!b) return 1
                 const [aHour, aMinute] = a.time.split(':')
                 const aTime = parseInt(aHour) + parseInt(aMinute) / 60
 
