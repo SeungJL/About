@@ -224,13 +224,13 @@ const Home: NextPage<{
           {
             attendence.participants
               .sort((a, b) => {
-                if (!a) return 1
-                if (!b) return 1
+                if (!a.time) return 1
+                if (!b.time) return -1
                 const [aHour, aMinute] = a.time.split(':')
-                const aTime = parseInt(aHour) + parseInt(aMinute) / 60
+                const aTime = parseInt(aHour)*60 + parseInt(aMinute)
 
                 const [bHour, bMinute] = b.time.split(':')
-                const bTime = parseInt(bHour) + parseInt(bMinute) / 60
+                const bTime = parseInt(bHour)*60 + parseInt(bMinute)
 
                 return aTime - bTime
               })
