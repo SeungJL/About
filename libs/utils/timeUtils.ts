@@ -34,10 +34,10 @@ const openable = (participationTimes: IParticipantTime[]) => {
     return timeOccurrance
       .map((val) => (val >= MIN_USER_FOR_STUDY))
       .reduce((acc, cur) => {
-        if (acc >= 4) return acc  // 최소 스터디인원이 겹치는 시간이 4시간 이상이면 오픈 가능
+        if (acc >= 2) return acc  // 최소 스터디인원이 겹치는 시간이 1시간 이상이면 오픈 가능
         if (cur) return acc + 1
         return 0
-      }, 0) >= 4  // 2시간 이상
+      }, 0) >= 2  // 1시간 이상
 }
 
 // 혼자 시간이 안 겹치는지 판단
