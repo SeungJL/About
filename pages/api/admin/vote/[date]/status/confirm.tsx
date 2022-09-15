@@ -45,7 +45,7 @@ export default async function handler(
           .find((p) => MIN_USER_FOR_STUDY-1 === p.attendences.length)
 
         if (targetParticipation1) {
-          targetParticipation1.attendences.push(attendence)
+          targetParticipation1.attendences = [...targetParticipation1.attendences, attendence]
           sourceParticipation.attendences = []
 
           break
@@ -60,7 +60,6 @@ export default async function handler(
         ]))
         
         if (targetParticipation2) {
-          console.log(attendence)
           targetParticipation2.attendences = [
             ...targetParticipation2.attendences,
             attendence,

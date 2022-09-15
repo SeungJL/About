@@ -22,6 +22,7 @@ export default async function handler(
       if (secret !== SECRET) {
         return res.status(403).end()
       }
+      
       const vote = await Vote.findOne({ date })
 
       vote.participations.forEach((participation) => {
