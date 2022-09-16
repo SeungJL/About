@@ -32,7 +32,7 @@ export default async function handler(
           if (att.user.toString() === _id.toString()) {
             const { start, end } = att.time
 
-            const startable = dateToDayjs(start).subtract(2)
+            const startable = dateToDayjs(start).subtract(2, 'hour')
             const endable = dateToDayjs(end)
 
             if (startable <= currentTime && currentTime <= endable) {
