@@ -307,6 +307,13 @@ const ParticipationResult: NextPage = () => {
           )
         }
         {
+          participation.status === 'waiting_confirm' && (
+            <Alert status='info'>
+              최종결과는 밤12시에 나와요!
+            </Alert>
+          )
+        }
+        {
           status !== 'dismissed' && (
             <>
               <Box>
