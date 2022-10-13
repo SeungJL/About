@@ -59,7 +59,7 @@ const Login: NextPage<{
     switch (redirectFrom) {
       case '/':
         return '/meta_tag_img_root.png'
-      case '/res':
+      case '/vote/result':
         return '/res_meta_tag_img.png'
       default:
         return ''
