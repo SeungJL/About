@@ -1,16 +1,15 @@
-import { Box, Button, Container, Heading, HStack, Skeleton, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react"
+import { Box, Button, Container, HStack, Skeleton, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react"
 import NextLink from 'next/link'
 import { useRouter } from "next/router"
-import { useMemo } from "react"
 import { useQueryClient } from "react-query"
 import BarChart from "../../../components/chart/barChart"
 import FireIcon from "../../../components/icon/fireIcon"
 import { useAbsentMutation } from "../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../hooks/vote/queries"
 import { isMember } from "../../../libs/utils/authUtils"
-import { convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from "../../../libs/utils/dateUtils"
+import { getInterestingDate, strToDate } from "../../../libs/utils/dateUtils"
 import dbConnect from "../../../libs/dbConnect"
 import { VOTE_GET } from "../../../libs/queryKeys"
 import { IUser, User } from "../../../models/user"
@@ -107,7 +106,7 @@ const Main: NextPage = () => {
                       <FireIcon color='green' />
                     </Box>
                     <Text fontSize='2xl'>
-                      { isAttending ? '참여중' : '미참' }
+                      { isAttending ? '참여취소' : '참여하기' }
                     </Text>
                   </VStack>
                 </Button>

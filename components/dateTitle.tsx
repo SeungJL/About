@@ -22,7 +22,7 @@ const DateTitle: FC<{
       .map((dateStr) => {
         switch(mode) {
           case 'vote':
-            return `vote/${dateStr}`
+            return `/vote/${dateStr}`
           case 'result':
             return `/vote/${dateStr}/result/summary`
         }
