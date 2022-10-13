@@ -96,7 +96,6 @@ const Main: NextPage = () => {
                   height='250px'
                   borderRadius='5px'
                   variant='solid'
-                  backgroundColor='gray.200'
                   disabled={vote.participations.every((p) => p.status !== 'pending')}
                   onClick={isAttending ? () => handleAbsent() : () => onVoteModalOpen()}
                   isLoading={absentLoading}
