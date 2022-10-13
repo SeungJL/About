@@ -6,9 +6,10 @@ import { useRouter } from "next/router"
 import ProfileImage from "../../../../components/profileImage"
 import { useVoteQuery } from "../../../../hooks/vote/queries"
 import { isMember } from "../../../../libs/utils/authUtils"
-import { convertToKr, strToDate } from "../../../../libs/utils/dateUtils"
+import { strToDate } from "../../../../libs/utils/dateUtils"
 import { IPlace } from "../../../../models/place"
 import { IUser } from "../../../../models/user"
+import DateTitle from "../../../../components/dateTitle"
 
 export const statusMap = {
   'pending': { value: '투표중', color: 'gray' },
@@ -44,16 +45,7 @@ const SummaryResult: NextPage = () => {
   
   return (
     <>
-      <Heading
-        as='h1'
-        size='lg'
-        width='100%'
-        textAlign='center'
-        letterSpacing={-1}
-        marginBottom='20px'
-      >
-        {convertToKr(date)}
-      </Heading>
+      <DateTitle today={date} mode='result' />
       {
         vote.participations.map((participation) => {
 
