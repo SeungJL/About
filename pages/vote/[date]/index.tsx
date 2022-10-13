@@ -1,20 +1,20 @@
-import { Box, Button, Container, Heading, HStack, Skeleton, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react"
+import { Box, Button, Container, HStack, Skeleton, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react"
 import NextLink from 'next/link'
 import { useRouter } from "next/router"
-import { useMemo } from "react"
 import { useQueryClient } from "react-query"
 import BarChart from "../../../components/chart/barChart"
 import FireIcon from "../../../components/icon/fireIcon"
 import { useAbsentMutation } from "../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../hooks/vote/queries"
 import { isMember } from "../../../libs/utils/authUtils"
-import { convertToKr, getInterestingDate, getNextDate, getPreviousDate, strToDate } from "../../../libs/utils/dateUtils"
+import { getInterestingDate, strToDate } from "../../../libs/utils/dateUtils"
 import dbConnect from "../../../libs/dbConnect"
 import { VOTE_GET } from "../../../libs/queryKeys"
 import { IUser, User } from "../../../models/user"
 import VoteModal from "../../../components/voteModal"
+import DateTitle from "../../../components/dateTitle"
 
 const Main: NextPage = () => {
   const { data: session } = useSession()
@@ -59,25 +59,6 @@ const Main: NextPage = () => {
     }
   })
 
-  const [
-    nextDate,
-    previousDate,
-    dateKr,
-    isAccessibleNextDay,
-  ] = useMemo(() => {
-    const interestingDate = getInterestingDate()
-    const previous = getPreviousDate(date.toDate())
-    const next = getNextDate(date.toDate())
-    const isAccessibleNext = next.unix() - interestingDate.add(2, 'day').unix() <= 0
-
-    return [
-      next,
-      previous,
-      convertToKr(date),
-      isAccessibleNext,
-    ]
-  }, [date])
-
   const isAttending = vote?.participations?.flatMap((participant) => (
     participant.attendences.map(a => (a.user as IUser).uid)
   ))?.some((userId) => (userId === session?.uid?.toString())) || false
@@ -97,20 +78,7 @@ const Main: NextPage = () => {
   return (
     <>
     <Container>
-      <HStack margin='10px 0'>
-        <NextLink href={`/vote/${previousDate.format('YYYY-MM-DD')}`}>
-          <Button size='sm'>이전날</Button>
-        </NextLink>
-        <Heading as='h1' size='lg' width='100%' textAlign='center' letterSpacing={-1}>{dateKr}</Heading>
-        <NextLink href={`/vote/${nextDate.format('YYYY-MM-DD')}`}>
-          <Button
-            size='sm'
-            visibility={isAccessibleNextDay ? 'visible' : 'hidden'}
-          >
-            다음날
-          </Button>
-        </NextLink>
-      </HStack>
+      <DateTitle today={date} mode='vote' />
       <HStack padding='0' alignItems='stretch' justifyContent='space-around'>
         <Skeleton isLoaded={!isLoading}>
           {
@@ -138,7 +106,7 @@ const Main: NextPage = () => {
                       <FireIcon color='green' />
                     </Box>
                     <Text fontSize='2xl'>
-                      { isAttending ? '참여중' : '미참' }
+                      { isAttending ? '참여취소' : '참여하기' }
                     </Text>
                   </VStack>
                 </Button>

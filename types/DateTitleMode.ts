@@ -1,0 +1,1 @@
+export type DateTitleMode = 'vote' | 'result'

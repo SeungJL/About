@@ -1,11 +1,8 @@
-import { VStack, Spinner, useToast, Box, Heading, Image } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession } from "next-auth/react"
-import { useRouter } from "next/router"
-import { useVoteQuery } from "../../../../hooks/vote/queries"
 import dbConnect from "../../../../libs/dbConnect"
 import { isMember } from "../../../../libs/utils/authUtils"
-import { canShowResult, convertToKr, strToDate } from "../../../../libs/utils/dateUtils"
+import { strToDate } from "../../../../libs/utils/dateUtils"
 import { User } from "../../../../models/user"
 import { Vote } from "../../../../models/vote"
 
