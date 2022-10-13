@@ -64,7 +64,7 @@ const AttendInfoModal: FC<{
             <Divider marginTop='30px' />
             {
               Object.keys(mealData).map((title) => (
-                <Container>
+                <Container key={title}>
                   <Heading as='h2' fontSize='md' marginTop='15px'>
                     {title}
                   </Heading>
