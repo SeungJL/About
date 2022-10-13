@@ -24,6 +24,11 @@ const AttendInfoModal: FC<{
     .filter((att) => (att.note.afterDinner === 'attend'))
     .map((att) => (att.user as IUser))
 
+  const mealData = {
+    '점심식사': lunchUser,
+    '저녁식사': dinnerUser,
+  }
+
   return (
     <Modal size='sm' onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay />
@@ -40,11 +45,12 @@ const AttendInfoModal: FC<{
               src={place.image}
               alt={place.fullname}
               width='80px'
+              marginRight='10px'
               display='inline-block'
               borderRadius='10px'
             />
             <Text
-              fontSize='lg'
+              fontSize='xl'
               display='inline-block'
             >
               {place.fullname}
@@ -56,76 +62,46 @@ const AttendInfoModal: FC<{
               <TimeBoard attendences={participation.attendences} />
             </Box>
             <Divider marginTop='30px' />
-            <Container>
-              <Heading as='h2' fontSize='md' marginTop='15px'>
-                점심식사
-              </Heading>
-              <HStack
-                alignItems='center'
-                minHeight='70px'
-                backgroundColor='gray.100'
-                borderRadius='10px'
-                overflowX='scroll'
-              >
-                {
-                  lunchUser.map((user, idx) => (
-                    <VStack key={idx} width='45px'>
-                      <ProfileImage
-                        marginTop='5px'
-                        src={user.thumbnailImage}
-                        alt={user.name}
-                      />
-                      <Text
-                        fontSize='sm'
-                        width='100%'
-                        textAlign='center'
-                        margin='0 !important'
-                        overflow='hidden'
-                        whiteSpace='nowrap'
-                        textOverflow='ellipsis'
-                      >
-                        {user.name}
-                      </Text>
-                    </VStack>
-                  ))
-                }
-              </HStack>
-            </Container>
-            <Container>
-              <Heading as='h2' fontSize='md' marginTop='15px'>
-                저녁식사
-              </Heading>
-              <HStack
-                alignItems='center'
-                minHeight='70px'
-                backgroundColor='gray.100'
-                borderRadius='10px'
-                overflowX='scroll'
-              >
-                {
-                  dinnerUser.map((user, idx) => (
-                    <VStack key={idx} width='45px'>
-                      <ProfileImage
-                        marginTop='5px'
-                        src={user.thumbnailImage}
-                        alt={user.name}
-                      />
-                      <Text
-                        fontSize='sm'
-                        width='100%'
-                        textAlign='center'
-                        margin='0 !important'
-                        overflow='hidden'
-                        whiteSpace='nowrap'
-                        textOverflow='ellipsis'
-                      >
-                        {user.name}
-                      </Text>
-                    </VStack>
-                  ))
-                }
-              </HStack>
-            </Container>
+            {
+              Object.keys(mealData).map((title) => (
+                <Container>
+                  <Heading as='h2' fontSize='md' marginTop='15px'>
+                    {title}
+                  </Heading>
+                  <HStack
+                    padding='8px'
+                    alignItems='center'
+                    minHeight='80px'
+                    backgroundColor='gray.100'
+                    borderRadius='10px'
+                    overflowX='scroll'
+                  >
+                    {
+                      mealData[title].map((user, idx) => (
+                        <VStack key={idx} width='45px'>
+                          <ProfileImage
+                            marginTop='5px'
+                            src={user.thumbnailImage}
+                            alt={user.name}
+                          />
+                          <Text
+                            fontSize='sm'
+                            width='100%'
+                            textAlign='center'
+                            margin='0 !important'
+                            overflow='hidden'
+                            whiteSpace='nowrap'
+                            textOverflow='ellipsis'
+                          >
+                            {user.name}
+                          </Text>
+                        </VStack>
+                      ))
+                    }
+                  </HStack>
+                </Container>
+              ))
+            }
           </Box>
           <HStack>
             <Button
