@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 import { FC, useState } from "react";
 import { IPlace } from "../../models/place";
 import { IParticipantNote, IParticipation } from "../../models/vote";
-import { getInterestingDate, hourMinToDate } from "../../libs/utils/dateUtils";
+import { hourMinToDate } from "../../libs/utils/dateUtils";
 import { AttendDTO } from "../../models/interface/vote";
 import { useAttendMutation } from "../../hooks/vote/mutations";
 import { useQueryClient } from "react-query";
@@ -11,6 +11,7 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import PlaceSelector from "./placeSelector";
 import TimeSelector from "./timeSelector";
 import Note from "./note";
+import Confirm from "./confirm"
 
 const VoteModal: FC<{
   isOpen: boolean,
@@ -27,6 +28,7 @@ const VoteModal: FC<{
     start: Dayjs,
     end: Dayjs,
     desc: string,
+    confirmed: boolean,
     lunch: 'attend' | 'absent' | 'no_select',
     dinner: 'attend' | 'absent' | 'no_select',
     afterDinner: 'attend' | 'absent' | 'no_select',
@@ -35,6 +37,7 @@ const VoteModal: FC<{
     start: hourMinToDate(13, '00'),
     end: hourMinToDate(16, '00'),
     desc: '',
+    confirmed: false,
     lunch: 'no_select',
     dinner: 'no_select',
     afterDinner: 'absent',
@@ -81,7 +84,7 @@ const VoteModal: FC<{
       place: (attendInfo.place as IPlace)._id,
       start: start.toDate(),
       end: end.toDate(),
-      confirmed: false,
+      confirmed: attendInfo.confirmed,
       anonymity: false,
       lunch: attendInfo.lunch,
       dinner: attendInfo.dinner,
@@ -148,6 +151,31 @@ const VoteModal: FC<{
               <Note
                 note={attendInfo as IParticipantNote}
                 setNote={(note) => setAttendInfo({ ...attendInfo, ...note })}
+              />
+              <HStack spacing={1}>
+                <Button
+                  flex={1}
+                  onClick={toPreviousStep}
+                >
+                  뒤로
+                </Button>
+                <Button
+                  flex={3}
+                  colorScheme='yellow'
+                  disabled={!canAccessTimeTab}
+                  onClick={toNextStep}
+                >
+                  다음
+                </Button>
+              </HStack>
+            </AccordionPanel>
+          </AccordionItem>
+          <AccordionItem>
+            <AccordionButton padding={0} />
+            <AccordionPanel pb={4}>
+              <Confirm
+                confirmed={attendInfo.confirmed}
+                setConfirmed={(c: boolean) => setAttendInfo({...attendInfo, confirmed: c})}
               />
               <HStack spacing={1}>
                 <Button

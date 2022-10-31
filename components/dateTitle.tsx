@@ -28,8 +28,6 @@ const DateTitle: FC<{
         }
       })
 
-  console.log(yesterdayLink)
-
   return (
     <HStack margin='10px 0'>
       <NextLink href={yesterdayLink}>
