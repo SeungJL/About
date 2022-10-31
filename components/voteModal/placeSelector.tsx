@@ -1,4 +1,4 @@
-import { AspectRatio, Container, HStack, Select, VStack, Image, Text, useToast } from "@chakra-ui/react";
+import { AspectRatio, Container, HStack, Select, VStack, Image, Text, useToast, Button } from "@chakra-ui/react";
 import { FC, MouseEvent } from "react";
 import { MAX_USER_PER_PLACE } from "../../constants/system";
 import { IPlace } from "../../models/place";
@@ -21,7 +21,7 @@ const PlaceSelector: FC<{
     if (placeInfo.vote >= MAX_USER_PER_PLACE || placeInfo.status !== 'pending') {
       return 'red.400'
     }
-    return 'gray.200'
+    return ''
   }
 
   const showForbiddenMessage = () => {
@@ -75,26 +75,33 @@ const PlaceSelector: FC<{
           {
             placeVoteInfo.map((placeVoteInfo, idx) => (
               <VStack key={idx} flex={1}>
-                <AspectRatio
-                  title={placeVoteInfo.place._id}
-                  ratio={1 / 1}
-                  width='60px'
+                <Button
+                  padding='0'
                   margin='5px 0'
-                  onClick={
-                    placeVoteInfo.status === 'pending'
-                    ? () => handlePlaceIconClick(placeVoteInfo.place) 
-                    : showForbiddenMessage
-                  }
+                  width='fit-content'
+                  height='fit-content'
+                  borderRadius='25%'
+                  borderColor={placeIconBorderColor(placeVoteInfo.place)}
+                  borderWidth='4px'
+                  borderStyle='solid'
+                  overflow='hidden'
                 >
-                  <Image
-                    borderRadius='25%'
-                    src={placeVoteInfo.place.image}
-                    alt={placeVoteInfo.place.fullname}
-                    borderColor={placeIconBorderColor(placeVoteInfo.place)}
-                    borderWidth='4px'
-                    borderStyle='solid'
-                  />
-                </AspectRatio>
+                  <AspectRatio
+                    title={placeVoteInfo.place._id}
+                    ratio={1 / 1}
+                    width='60px'
+                    onClick={
+                      placeVoteInfo.status === 'pending'
+                      ? () => handlePlaceIconClick(placeVoteInfo.place) 
+                      : showForbiddenMessage
+                    }
+                  >
+                    <Image
+                      src={placeVoteInfo.place.image}
+                      alt={placeVoteInfo.place.fullname}
+                    />
+                  </AspectRatio>
+                </Button>
                 <Text
                   position='relative'
                   top='-12px'
