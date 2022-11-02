@@ -1,4 +1,4 @@
-import { CheckIcon, QuestionOutlineIcon } from "@chakra-ui/icons"
+import { CheckIcon } from "@chakra-ui/icons"
 import { useToast, Spinner, VStack, Box, Heading, Image, AspectRatio, Text, Container, HStack, Divider, Badge, Button, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Alert, AlertIcon, AlertTitle, Tag } from "@chakra-ui/react"
 import dayjs from "dayjs"
 import { GetServerSideProps, NextPage } from "next"
@@ -9,13 +9,13 @@ import { useQueryClient } from "react-query"
 import NextLink from 'next/link'
 import ProfileImage from "../../../../components/profileImage"
 import TimeBoard from "../../../../components/timeBoard"
-import { useAbsentMutation, useArrivedMutation, useConfirmMutation, useDismissMutation } from "../../../../hooks/vote/mutations"
+import { useAbsentMutation, useArrivedMutation, useDismissMutation } from "../../../../hooks/vote/mutations"
 import { useVoteQuery } from "../../../../hooks/vote/queries"
 import dbConnect from "../../../../libs/dbConnect"
 import { VOTE_GET } from "../../../../libs/queryKeys"
 import { isMember } from "../../../../libs/utils/authUtils"
 import { strToDate, convertToKr, canShowResult, now, dateToDayjs } from "../../../../libs/utils/dateUtils"
-import { getCommonTime, getOptimalTime2, isAlone, openable } from "../../../../libs/utils/timeUtils"
+import { getCommonTime, isAlone, openable } from "../../../../libs/utils/timeUtils"
 import { IPlace } from "../../../../models/place"
 import { IUser } from "../../../../models/user"
 import { Vote } from "../../../../models/vote"
@@ -56,25 +56,6 @@ const ParticipationResult: NextPage = () => {
         toast({
           title: '오류',
           description: "데이터를 불러오는 중 문제가 생겼어요.",
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-          position: 'bottom',
-        })
-      },
-    },
-  )
-
-  const { mutate: handleConfirm, isLoading: confirmLoading } = useConfirmMutation(
-    date,
-    {
-      onSuccess: (data) => (
-        queryClient.invalidateQueries(VOTE_GET)
-      ),
-      onError: (err) => {
-        toast({
-          title: '오류',
-          description: "참여확정 중 문제가 발생했어요. 다시 시도해보세요.",
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -197,15 +178,6 @@ const ParticipationResult: NextPage = () => {
     'https://user-images.githubusercontent.com/48513798/182346011-e9cbad49-9cde-4608-a24d-f56ab40cb84c.jpg'
     : 'https://user-images.githubusercontent.com/48513798/173590653-56823862-d7ea-4963-85c1-9a1c1867165c.png'
 
-  const showExpectedTimeInfo = () => {
-    toast({
-      description: "참여 확정한 사용자 기준으로 예상한 참여시간이예요. 12시 전까지 변경될 수 있어요.",
-      duration: 5000,
-      isClosable: true,
-      position: 'bottom',
-    })
-  }
-
   return (
     <>
       <VStack>
@@ -299,49 +271,16 @@ const ParticipationResult: NextPage = () => {
           )
         }
         {
-          myAttendence?.confirmed === false && (
-            <Alert status='warning'>
-              <AlertIcon />
-              참여확정을 하지 않으면 임의로 장소가 바뀔 수도 있어요         
-            </Alert>
-          )
-        }
-        {
           participation.status === 'waiting_confirm' && (
             <Alert status='info'>
               <AlertIcon />
-              최종결과는 밤12시에 나와요!
+              최종결과는 밤10시에 나와요!
             </Alert>
           )
         }
         {
           status !== 'dismissed' && (
             <>
-              <Box>
-                {
-                  status === 'waiting_confirm' ? (
-                    <>
-                      {
-                        confirmedUser.length !== 0 && isOpenable && (
-                          <Text fontSize='xl'>
-                            {getOptimalTime2(times).format('HH시 mm분')}
-                            <Text as='span' fontSize='xs' marginTop='0'>
-                              (예상시간)
-                            </Text>
-                            <QuestionOutlineIcon
-                              fontSize='xs'
-                              color='yellow.600'
-                              onClick={showExpectedTimeInfo}
-                            />
-                          </Text>
-                        )
-                      }
-                    </>
-                  ) : (
-                    <Text fontSize='xl'>{participation.time && dayjs(participation.time).format('HH시 mm분')}</Text>
-                  )
-                }
-              </Box>
               <Box paddingBottom='20px'>
                 <Tag colorScheme={statusMap[participation.status].color}>
                   {statusMap[participation.status].value}
@@ -426,54 +365,21 @@ const ParticipationResult: NextPage = () => {
           )
         }
       </VStack>
-      {
-        showConfirmButton ? (
-          <HStack
-            borderTop='1px'
-            borderColor='gray.200'
-            backgroundColor='white'
-            position='fixed'
-            bottom='0'
-            width='100%'
-            padding='10px'
-            zIndex={999}
-          >
-            <Button
-              size='lg'
-              flex='1'
-              colorScheme='red'
-              onClick={onAbsentAlertOpen}
-            >
-              참여취소
-            </Button>
-            <Button
-              size='lg'
-              flex='2'
-              isLoading={confirmLoading}
-              colorScheme='green'
-              onClick={() => handleConfirm()}
-            >
-              참여확정
-            </Button>
-          </HStack>
-        ) : (
-          <Box
-            backgroundColor='white'
-            position='fixed'
-            bottom='0'
-            width='100%'
-            maxWidth='500px'
-            padding='10px'
-            zIndex={999}
-          >
-            <NextLink href={`/vote/${date.format('YYYY-MM-DD')}/result/summary`}>
-              <Button width='100%' size='lg'>
-                투표현황
-              </Button>
-            </NextLink>
-          </Box>
-        )
-      }
+      <Box
+        backgroundColor='white'
+        position='fixed'
+        bottom='0'
+        width='100%'
+        maxWidth='500px'
+        padding='10px'
+        zIndex={999}
+      >
+        <NextLink href={`/vote/${date.format('YYYY-MM-DD')}/result/summary`}>
+          <Button width='100%' size='lg'>
+            투표현황
+          </Button>
+        </NextLink>
+      </Box>
       {
         isChangeTimeOpen && (
           <ChangeTimeModal
@@ -485,42 +391,6 @@ const ParticipationResult: NextPage = () => {
           />
         )
       }
-      <AlertDialog
-        isOpen={isAbsentAlertOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onAbsentAlertClose}
-        isCentered
-        size='xs'
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              경고
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              정말 참여취소하실건가요?
-              <br />
-              취소하시면 <strong>다시 참여신청을 하실 수 없어요</strong>
-            </AlertDialogBody>
-
-            <AlertDialogFooter display='flex'>
-              <Button 
-                flex='1' 
-                isLoading={absentLoading}
-                colorScheme='red'
-                onClick={() => { handleAbsent(); onAbsentAlertClose() }}
-              >
-                참여취소
-              </Button>
-              <Button flex='2' ref={cancelRef} onClick={onAbsentAlertClose} ml={3}>
-                취소
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-
       <AlertDialog
         isOpen={isDismissAlertOpen}
         leastDestructiveRef={cancelRef}
