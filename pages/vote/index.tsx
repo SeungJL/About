@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ( context )=> {
   return {
     redirect: {
       permanent: false,
-      destination: '/login?from=/',
+      destination: '/login?from=/vote',
     },
     props: {},
   }
