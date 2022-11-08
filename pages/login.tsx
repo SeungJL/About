@@ -57,7 +57,7 @@ const Login: NextPage<{
 
   const ogImage = useMemo(() => {
     switch (redirectFrom) {
-      case '/':
+      case '/vote':
         return '/meta_tag_img_root.png'
       case '/vote/result':
         return '/res_meta_tag_img.png'
