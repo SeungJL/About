@@ -5,6 +5,7 @@ import { isMember } from "../../../../libs/utils/authUtils"
 import { strToDate } from "../../../../libs/utils/dateUtils"
 import { User } from "../../../../models/user"
 import { Vote } from "../../../../models/vote"
+import { confirmWithValidating } from "../../../../services/voteService"
 
 const Result: NextPage = () => (
   <div />
@@ -46,20 +47,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
   await dbConnect()
-
-  // const canWeResultOpen = canShowResult()
-  // if (!canWeResultOpen) {
-  //   return {
-  //     redirect: {
-  //       permanent: false,
-  //       destination: '/res/too/early'
-  //     },
-  //     props: {}
-  //   }
-  // }
   const user = await User.findOne({ uid: session.uid })
 
   const vote = await Vote.findOne({ date: dayjsDate.toDate() })
+  await confirmWithValidating(rawDate)
   const participation = vote.participations.find((p) => (
     !!p.attendences
       .map((att) => att.user.toString())
