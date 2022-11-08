@@ -366,7 +366,6 @@ const ParticipationResult: NextPage = () => {
         }
       </VStack>
       <Box
-        backgroundColor='white'
         position='fixed'
         bottom='0'
         width='100%'

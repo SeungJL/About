@@ -23,7 +23,7 @@ const Header: FC = () => {
         </NextLink>
         <NextLink href={`/vote/${getInterestingDate().format('YYYY-MM-DD')}`}>
           <Box cursor='pointer'>
-            <Logo width='50' height='50' />
+            <Logo imgSize='xs' boxSize={'50px'} />
           </Box>
         </NextLink>
         <NextLink href={'/user/info'}>

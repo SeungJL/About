@@ -77,7 +77,7 @@ const Login: NextPage<{
       </Head>
       <VStack height='92vh' justifyContent='center'>
         <VStack marginBottom='20px'>
-          <Logo />
+          <Logo imgSize='xl' boxSize='250px' />
           <Heading textAlign='center'>VOTE HELPER</Heading>
         </VStack>
 
@@ -152,7 +152,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       redirect: {
         permanent: false,
-        destination: `/${interestingDateStr}`,
+        destination: `/vote/${interestingDateStr}`,
       },
       props: {},
     }
