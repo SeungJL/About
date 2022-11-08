@@ -39,7 +39,7 @@ const Settings: NextPage = () => {
                 padding='0'
                 onClick={() => setColorMode('light')}
               >
-                <Logo width='80px' height='80px' />
+                <Logo imgSize='xl' boxSize='80px' />
               </Box>
               <Radio value='light'>
                 라이트모드
@@ -60,7 +60,7 @@ const Settings: NextPage = () => {
                 padding='0'
                 onClick={() => setColorMode('dark')}
               >
-                <Logo width='80px' height='80px' />
+                <Logo imgSize='xl' boxSize='80px' />
               </Box>
               <Radio value='dark'>
                 다크모드
