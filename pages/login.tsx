@@ -35,9 +35,9 @@ const Login: NextPage<{
 
   const ogTitle = useMemo(() => {
     switch (redirectFrom) {
-      case '/':
+      case '/vote':
         return '스터디 투표'
-      case '/res':
+      case '/vote/result':
         return '투표 결과'
       default:
         return ''
@@ -46,9 +46,9 @@ const Login: NextPage<{
 
   const ogDesc = useMemo(() => {
     switch (redirectFrom) {
-      case '/':
+      case '/vote':
         return '광교 카페 스터디 투표'
-      case '/res':
+      case '/vote/result':
         return '스터디 참여투표 결과'
       default:
         return ''
