@@ -374,7 +374,7 @@ const ParticipationResult: NextPage = () => {
         zIndex={999}
       >
         <NextLink href={`/vote/${date.format('YYYY-MM-DD')}/result/summary`}>
-          <Button width='100%' size='lg'>
+          <Button width='100%' size='lg' colorScheme='teal'>
             투표현황
           </Button>
         </NextLink>
