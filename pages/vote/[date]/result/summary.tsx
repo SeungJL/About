@@ -82,7 +82,11 @@ const SummaryResult: NextPage = () => {
                       const user = attendence.user as IUser
 
                       return (
-                        <Box key={user._id.toString()} margin='4px 0'>
+                        <Box 
+                          key={user._id.toString()}
+                          width='45px'
+                          margin='4px 0'
+                        >
                           <ProfileImage src={user.thumbnailImage} alt={user.name} />
                           <Text
                             fontSize='xs'
