@@ -3,7 +3,7 @@ import { END_HOUR, MIN_USER_FOR_STUDY, START_HOUR } from "../../constants/system
 import { IParticipantTime } from "../../models/vote"
 import { dateToDayjs, hourMinToDate } from "./dateUtils"
 
-const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22]
+const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
 const MINUTES = ['00', '30']
 
 const timeRange: number[] = []
