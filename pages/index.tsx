@@ -4,9 +4,7 @@ import { getSession } from 'next-auth/react'
 import { isMember } from '../libs/utils/authUtils';
 import { getInterestingDate } from '../libs/utils/dateUtils';
 
-const Root: NextPage = () => (
-<div />
-)
+const Root: NextPage = () => (<div />)
 
 export const getServerSideProps: GetServerSideProps = async ( context )=> {
   const session = await getSession({ req: context.req })

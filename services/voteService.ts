@@ -3,6 +3,14 @@ import { dateToDayjs, now, strToDate } from "../libs/utils/dateUtils"
 import { openable, getOptimalTime2 } from "../libs/utils/timeUtils"
 import { IParticipation, Vote } from "../models/vote"
 
+export const findOneVote = ( date: Date ) => (
+  Vote.findOne({ date }).populate([
+    'participations.place',
+    'participations.attendences.user',
+    'participations.invitations.user',
+    'participations.absences.user',
+  ])
+)
 export const confirm = async (dateStr: string) => {
   const date = strToDate(dateStr).toDate()
   
