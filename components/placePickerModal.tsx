@@ -1,6 +1,7 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Select, ModalFooter, Button, HStack, Spinner, useToast } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
 import { ChangeEventHandler, FC, useState } from "react";
+import { IAttendence } from "../models/attendence";
 import Map from "./map";
 import { IPlace } from "../models/place";
 import { usePlaceQuery } from "../hooks/vote/queries";
