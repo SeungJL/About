@@ -6,17 +6,9 @@ import { AttendDTO } from "../../../../models/interface/vote";
 import { IPlace, Place } from "../../../../models/place";
 import { IUser } from "../../../../models/user";
 import { IAttendence, IParticipantNote, IParticipation, IVote, Vote } from "../../../../models/vote";
+import { findOneVote } from "../../../../services/voteService";
 
 const secret = process.env.NEXTAUTH_SECRET
-
-export const findOneVote = ( date: Date ) => (
-  Vote.findOne({ date }).populate([
-    'participations.place',
-    'participations.attendences.user',
-    'participations.invitations.user',
-    'participations.absences.user',
-  ])
-)
 
 export default async function handler(
   req: NextApiRequest,

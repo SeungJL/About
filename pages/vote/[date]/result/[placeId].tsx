@@ -1,5 +1,5 @@
 import { CheckIcon } from "@chakra-ui/icons"
-import { useToast, Spinner, VStack, Box, Heading, Image, AspectRatio, Text, Container, HStack, Divider, Badge, Button, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Alert, AlertIcon, AlertTitle, Tag } from "@chakra-ui/react"
+import { useToast, Spinner, VStack, Box, Heading, Image, AspectRatio, Text, Container, HStack, Divider, Badge, Button, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Alert, AlertIcon, Tag } from "@chakra-ui/react"
 import dayjs from "dayjs"
 import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react"
@@ -15,11 +15,9 @@ import dbConnect from "../../../../libs/dbConnect"
 import { VOTE_GET } from "../../../../libs/queryKeys"
 import { isMember } from "../../../../libs/utils/authUtils"
 import { strToDate, convertToKr, canShowResult, now, dateToDayjs } from "../../../../libs/utils/dateUtils"
-import { getCommonTime, isAlone, openable } from "../../../../libs/utils/timeUtils"
 import { IPlace } from "../../../../models/place"
 import { IUser } from "../../../../models/user"
 import { Vote } from "../../../../models/vote"
-import ChangeTimeModal from "../../../../components/changeTimeModal"
 import { statusMap } from "./summary"
 
 const ParticipationResult: NextPage = () => {
@@ -41,12 +39,6 @@ const ParticipationResult: NextPage = () => {
     isOpen: isDismissAlertOpen,
     onOpen: onDismissAlertOpen,
     onClose: onDismissAlertClose,
-  } = useDisclosure()
-
-  const {
-    isOpen: isChangeTimeOpen,
-    onOpen: onChangeTimeOpen,
-    onClose: onChangeTimeClose,
   } = useDisclosure()
 
   const { data: vote, isLoading } = useVoteQuery(
@@ -148,9 +140,6 @@ const ParticipationResult: NextPage = () => {
     .find((att) => (att.user as IUser).uid === session?.uid)
 
   const participationTimes = participation.attendences.map((att) => att.time)
-  const isOpenable = openable(participationTimes)
-  const commonTime = getCommonTime(participationTimes)
-  const amIAlone = myAttendence && isAlone(myAttendence.time, commonTime)
 
   const canShowAttendedButton = () => {
     if (!myAttendence) return false
@@ -239,22 +228,6 @@ const ParticipationResult: NextPage = () => {
           {place.fullname}
         </Heading>
         {
-          participation.attendences.length > 1 && amIAlone && (
-            <Alert status='error'>
-              <AlertIcon />
-              다른분들과 시간이 겹치지 않아요
-              <Button
-                marginLeft='auto'
-                variant='link'
-                colorScheme='black'
-                onClick={onChangeTimeOpen}
-              >
-                시간 변경
-              </Button>              
-            </Alert>
-          )
-        }
-        {
           canShowAttendedButton() && (
             <Alert status='success'>
               <AlertIcon />
@@ -274,7 +247,7 @@ const ParticipationResult: NextPage = () => {
           participation.status === 'waiting_confirm' && (
             <Alert status='info'>
               <AlertIcon />
-              최종결과는 밤10시에 나와요!
+              투표결과는 밤10시에 나와요!
             </Alert>
           )
         }
@@ -361,7 +334,14 @@ const ParticipationResult: NextPage = () => {
         }
         {
           status === 'dismissed' && (
-            <Text fontSize='xl'>이번 스터디는 열리지 못 했어요 🙅‍♀️</Text>
+            <>
+              <Text fontSize='xl'>이번 스터디는 열리지 못 했어요 🙅‍♀️</Text>
+              {
+                participation.desc && (
+                  <Text>{participation.desc}</Text>
+                )
+              }
+            </>
           )
         }
       </VStack>
@@ -379,17 +359,6 @@ const ParticipationResult: NextPage = () => {
           </Button>
         </NextLink>
       </Box>
-      {
-        isChangeTimeOpen && (
-          <ChangeTimeModal
-            isOpen={isChangeTimeOpen}
-            onClose={onChangeTimeClose}
-            date={date}
-            myParticipantTime={myAttendence.time}
-            participation={participation}
-          />
-        )
-      }
       <AlertDialog
         isOpen={isDismissAlertOpen}
         leastDestructiveRef={cancelRef}
@@ -405,12 +374,12 @@ const ParticipationResult: NextPage = () => {
             <AlertDialogBody>
               정말 불참하실건가요?
               <br />
-              다시 참여신청을 하실 수 없고 불참으로 기록돼요
+              재참여는 할 수 없으며 불참으로 기록돼요
             </AlertDialogBody>
 
             <AlertDialogFooter display='flex'>
               <Button
-                flex='1' 
+                flex='1'
                 isLoading={dismissLoading}
                 colorScheme='red'
                 onClick={() => { handleDismiss(); onDismissAlertClose() }}
