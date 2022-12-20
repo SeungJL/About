@@ -74,6 +74,8 @@ export const confirm = async (dateStr: string) => {
       participation.status = 'open'
     } else {
       participation.status = 'dismissed'
+      participation.desc = participation.attendences.length >= MIN_USER_FOR_STUDY ?
+        `최소 ${MIN_USER_FOR_STUDY}명의 참여시간이 1시간 이상 겹치지 않아요` : `인원이 부족해요 (최소 인원: ${MIN_USER_FOR_STUDY})`
     }
 
     const times = participation.attendences.map((p) => ({

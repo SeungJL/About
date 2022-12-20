@@ -43,6 +43,7 @@ export interface IParticipation {
   invitations: IInvitation[]
   status: 'pending' | 'waiting_confirm' | 'open' | 'dismissed'
   showVote?: boolean
+  desc: string
 }
 
 export interface IRegularMeeting {
@@ -111,7 +112,7 @@ const AttendenceSchema: Schema<IAttendence> = new Schema({
     type: Schema.Types.Boolean,
     default: false,
   },
-}, {_id: false, timestamps: true })
+}, { _id: false, timestamps: true })
 
 const AbsenceSchema: Schema<IAbsence> = new Schema({
   user: {
@@ -123,7 +124,7 @@ const AbsenceSchema: Schema<IAbsence> = new Schema({
     default: false,
   },
   message: Schema.Types.String,
-})
+}, { _id: false, timestamps: true })
 
 const InvitationSchema: Schema<IInvitation> = new Schema({
   user: {
@@ -134,7 +135,7 @@ const InvitationSchema: Schema<IInvitation> = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-})
+}, { _id: false, timestamps: true })
 
 const ParticipationSchema: Schema<IParticipation> = new Schema({
   place: {
@@ -154,6 +155,10 @@ const ParticipationSchema: Schema<IParticipation> = new Schema({
     type: Schema.Types.Boolean,
     default: true,
   },
+  desc: {
+    type: Schema.Types.String,
+    default: '',
+  }
 }, {_id: false})
 
 const RegularMeetingSchema: Schema<IRegularMeeting> = new Schema({
