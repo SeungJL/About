@@ -1,27 +1,23 @@
 import { HStack, Box, Divider, Text } from "@chakra-ui/react"
-import dayjs from "dayjs"
 import { FC, useCallback } from "react"
 import { attendStatus, getAttendStatus } from "../libs/utils/attendUtils"
 import { getToday } from "../libs/utils/dateUtils"
-import { IAttendence } from "../models/attendence"
 import InfoPopOver from "./infoPopover"
 
-const SummaryAttendenceInfo: FC<{
-  attendences: IAttendence[],
-}> = ({ attendences }) => {
+const SummaryAttendenceInfo: FC = () => {
   const oneWeekAgo = getToday().add(-1, 'week')
   const twoWeeksAgo = getToday().add(-2, 'week')
 
-  const attendence7Days = attendences?.filter((a) => dayjs(a.date) >= oneWeekAgo)
-  const cntVote7days = attendence7Days?.length
-  const cntOpen7days = attendence7Days?.filter((a) => a.meetingTime !== '')?.length
+  // const attendence7Days = attendences?.filter((a) => dayjs(a.date) >= oneWeekAgo)
+  const cntVote7days = 0 // attendence7Days?.length
+  const cntOpen7days = 0 // attendence7Days?.filter((a) => a.meetingTime !== '')?.length
 
-  const attendence2Weeks = attendences?.filter((a) => dayjs(a.date) >= twoWeeksAgo)
-  const cntVote2Weeks = attendence2Weeks?.length
-  const cntOpen2Weeks = attendence2Weeks?.filter((a) => a.meetingTime !== '')?.length
+  // const attendence2Weeks = attendences?.filter((a) => dayjs(a.date) >= twoWeeksAgo)
+  const cntVote2Weeks = 0 // attendence2Weeks?.length
+  const cntOpen2Weeks = 0 // attendence2Weeks?.filter((a) => a.meetingTime !== '')?.length
 
-  const cntVote1Mon = attendences?.length
-  const cntOpen1Mon = attendences?.filter((a) => a.meetingTime !== '')?.length
+  const cntVote1Mon = 0 // attendences?.length
+  const cntOpen1Mon = 0 // attendences?.filter((a) => a.meetingTime !== '')?.length
 
   const attendenceStatus = getAttendStatus(cntOpen7days, cntVote7days, cntOpen2Weeks, cntVote2Weeks, cntOpen1Mon, cntVote1Mon)
 
