@@ -2,8 +2,7 @@ import styled from "styled-components";
 import VoteView from "./VoteView";
 
 const Container = styled.div`
-  margin-top: 90px;
-  border: 1px solid black;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
 `;

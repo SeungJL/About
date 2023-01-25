@@ -1,4 +1,6 @@
 import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document";
+
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -28,5 +30,22 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
+  }
+  render() {
+    return (
+      <Html>
+        <Head>
+          <meta charSet="utf-8"></meta>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap"
+            rel="stylesheet"
+          />
+          <body>
+            <Main />
+            <NextScript />
+          </body>
+        </Head>
+      </Html>
+    );
   }
 }

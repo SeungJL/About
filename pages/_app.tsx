@@ -36,9 +36,9 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <ChakraProvider>
             <Box
               as="main"
-              width="500px"
-              height="900px"
-              border="1px solid black"
+              min-width="500px"
+              min-height="900px"
+              border="1px solid rgb(0,0,0,0.1)"
             >
               <Component {...pageProps} />
             </Box>
