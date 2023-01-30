@@ -1,9 +1,22 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Select, ModalFooter, Button, HStack, Spinner, useToast } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Select,
+  ModalFooter,
+  Button,
+  HStack,
+  Spinner,
+  useToast,
+} from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
 import { ChangeEventHandler, FC, useState } from "react";
 import Map from "./map";
 import { IPlace } from "../models/place";
-import { usePlaceQuery } from "../hooks/vote/queries";
+import { usePlaceQuery } from "../api/queries";
 
 // const PlacePickerModal: FC<{
 //   isOpen: boolean,
@@ -17,11 +30,11 @@ import { usePlaceQuery } from "../hooks/vote/queries";
 
 //   const onChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
 //     const value = e.target.value
-    
+
 //     const selected = places.find(place => place._id === value)
 //     setSelectedPlace(selected)
 //   }
-  
+
 //   const onSubmit = async () => {
 //     try {
 //       const { data } = await axios.patch(`/api/attend/${dateStr}`, {
@@ -91,6 +104,6 @@ import { usePlaceQuery } from "../hooks/vote/queries";
 //   )
 // }
 
-const PlacePickerModal: FC = () => (<div />)
+const PlacePickerModal: FC = () => <div />;
 
-export default PlacePickerModal
+export default PlacePickerModal;

@@ -6,11 +6,44 @@ import { Box, ChakraProvider } from "@chakra-ui/react";
 import Footer from "../components/layout/footer";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Script from "next/script";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { RecoilRoot } from "recoil";
+import { useEffect } from "react";
+import Router from "next/router";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import styled from "styled-components";
+import { CenterDiv } from "../styles/LayoutStyles";
+import Cover from "../components/Cover";
+import "../styles/variable.css";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 
+const Container = styled.div`
+  border: 1px solid rgb(0, 0, 0, 0.1);
+`;
+
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
+
   const queryClient = useMemo(
     () =>
       new QueryClient({
@@ -33,16 +66,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
-          <ChakraProvider>
-            <Box
-              as="main"
-              min-width="500px"
-              min-height="900px"
-              border="1px solid rgb(0,0,0,0.1)"
-            >
-              <Component {...pageProps} />
-            </Box>
-          </ChakraProvider>
+          <RecoilRoot>
+            <ChakraProvider>
+              <Container as="main">
+                {loading ? <Cover /> : <Component {...pageProps} />}
+              </Container>
+            </ChakraProvider>
+          </RecoilRoot>
         </QueryClientProvider>
       </SessionProvider>
     </>
