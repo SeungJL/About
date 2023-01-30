@@ -41,6 +41,11 @@ export const isShowVoteCancleState = atom<Boolean>({
   default: false,
 });
 
+export const isNotCompletedState = atom<Boolean>({
+  key: "notCompleted",
+  default: false,
+});
+
 export enum Categories {
   "plan" = "plan",
   "complete" = "complete",

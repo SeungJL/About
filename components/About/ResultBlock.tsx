@@ -191,7 +191,7 @@ function ResultBlock({
             <VoterBtn onClick={() => handleVoterBtn()}>Voter</VoterBtn>
             <ResultStatus
               status={status}
-              onClick={status === "open" && handleOpenBtn}
+              onClick={status === "open" ? handleOpenBtn : null}
             >
               {status === "open"
                 ? "Open"
@@ -218,7 +218,6 @@ function ResultBlock({
           </ChartView>
         </ResultChart>
       </ResultBlockLayout>
-      {IsShowVoteCancle && <CancelModal />}
     </>
   );
 }

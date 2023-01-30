@@ -7,15 +7,16 @@ import Footer from "../components/layout/footer";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Script from "next/script";
 import { useMemo, useState } from "react";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 import Router from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import styled from "styled-components";
-import { CenterDiv } from "../styles/LayoutStyles";
+import { CenterDiv, FullScreen } from "../styles/LayoutStyles";
 import Cover from "../components/Cover";
 import "../styles/variable.css";
+import { isFullScreenState } from "../recoil/atoms";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 

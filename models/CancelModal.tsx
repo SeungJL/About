@@ -8,20 +8,37 @@ import { useDismissMutation } from "../hooks/vote/mutations";
 import { VOTE_GET } from "../libs/queryKeys";
 import { strToDate } from "../libs/utils/dateUtils";
 import { isShowVoteCancleState } from "../recoil/atoms";
+import { BaseModal, FullScreen } from "../styles/LayoutStyles";
+import { ReactDOM } from "react";
 
-const CancelModalLayout = styled.div`
+const CancelModalLayout = styled(BaseModal)`
   width: 200px;
   height: 200px;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
+  top: 50%;
+  justify-content: space-between;
 `;
 
 const Header = styled.header`
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--font-black);
   height: 30px;
 `;
 const Content = styled.div``;
-const Footer = styled.footer``;
+const Footer = styled.footer`
+  height: 30px;
+  border-top: 1px solid var(--font-black);
+  padding-top: 7px;
+  text-align: end;
+  > button {
+    background: var(--main-color);
+    margin-right: 5px;
+    border-radius: 10px;
+    padding: 3px;
+    color: white;
+    font-family: "-apple-system";
+    font-size: 12px;
+  }
+`;
 
 function CancelModal() {
   const router = useRouter();
@@ -50,17 +67,20 @@ function CancelModal() {
     setIsShowCancle(false);
   };
   return (
-    <CancelModalLayout>
-      <Header>경고</Header>
-      <Content>
-        정말로 불참하실건가요? <br /> 재참여는 할 수 없으며 불참으로 기록되어
-        경고를 받을 수 있어요.
-      </Content>
-      <Footer>
-        <button onClick={() => setIsShowCancle(false)}>취소</button>
-        <button onClick={handleCancleBtn}>불참</button>
-      </Footer>
-    </CancelModalLayout>
+    <>
+      <CancelModalLayout>
+        <Header>경고</Header>
+        <Content>
+          정말로 불참하실건가요? <br /> 재참여는 할 수 없으며 불참으로 기록되어
+          경고를 받을 수 있어요.
+        </Content>
+        <Footer>
+          <button onClick={() => setIsShowCancle(false)}>취소</button>
+          <button onClick={handleCancleBtn}>불참</button>
+        </Footer>
+      </CancelModalLayout>
+      <FullScreen onClick={() => setIsShowCancle(false)} />
+    </>
   );
 }
 export default CancelModal;

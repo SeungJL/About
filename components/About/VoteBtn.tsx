@@ -138,6 +138,7 @@ function VoteBtn() {
       });
     },
   });
+  console.log(isAttending, attended, CheckClosed);
   return (
     <>
       <OutlineCircle>
@@ -153,12 +154,12 @@ function VoteBtn() {
           disabled={CheckClosed}
           attended={attended}
         >
-          {attended !== -1
+          {isAttending
+            ? "voted"
+            : attended !== -1
             ? "Check"
             : CheckClosed
-            ? "closed"
-            : isAttending
-            ? "Voted"
+            ? "Closed"
             : "Vote"}
         </VoteCircle>
       </OutlineCircle>

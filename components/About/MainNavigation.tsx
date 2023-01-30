@@ -7,7 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isNotCompletedState } from "../../recoil/atoms";
 
 const MainNavLayout = styled.nav`
   height: 54vh;
@@ -70,17 +72,16 @@ const navigationItems = [
 ];
 
 function MainNavigation() {
+  const setIsNotCompleted = useSetRecoilState(isNotCompletedState);
   return (
     <MainNavLayout>
       {navigationItems.map((item) => (
-        <Link href={`/${item.name}`} key={item.name}>
-          <NavigationItem>
-            <div>
-              <IconBox>{item.icon}</IconBox>
-            </div>
-            <div>{item.name}</div>
-          </NavigationItem>
-        </Link>
+        <NavigationItem key={item.name} onClick={() => setIsNotCompleted(true)}>
+          <div>
+            <IconBox>{item.icon}</IconBox>
+          </div>
+          <div>{item.name}</div>
+        </NavigationItem>
       ))}
     </MainNavLayout>
   );

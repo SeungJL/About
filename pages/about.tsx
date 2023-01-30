@@ -21,14 +21,16 @@ import { IParticipation } from "../models/vote";
 import { useToast } from "@chakra-ui/react";
 import { getInterestingDate, strToDate } from "../libs/utils/dateUtils";
 import { useRouter } from "next/router";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import VoterModal from "../models/VoterModal";
 import ResultBlock from "../components/About/ResultBlock";
 import {
   attendingState,
   dateState,
+  isNotCompletedState,
   isShowOpenResultState,
+  isShowVoteCancleState,
   isShowVoterState,
   openBtnIdxState,
   voterBtnIdxState,
@@ -42,6 +44,9 @@ import dbConnect from "../libs/dbConnect";
 import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import OpenResultModal from "../models/OpenResultModal";
+import { FullScreen } from "../styles/LayoutStyles";
+import CancelModal from "../models/CancelModal";
+import NotCompletedModal from "../models/NotCompletedModal";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -132,7 +137,10 @@ function About() {
   const isShowOpenResult = useRecoilValue(isShowOpenResultState);
   const isOpenBtnIdx = useRecoilValue(openBtnIdxState);
   const isAttending = useRecoilValue(attendingState);
-  console.log(isAttending);
+  const setIsShowCancle = useSetRecoilState(isShowVoteCancleState);
+  const [isNotCompleted, setIsNotCompleted] =
+    useRecoilState(isNotCompletedState);
+  const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   let dayjs = require("dayjs");
 
   useEffect(() => {
@@ -163,17 +171,13 @@ function About() {
       <AboutLayout>
         <UpScreen>
           <TopNav>
-            <Link href="/notice">
-              <div>
-                <FontAwesomeIcon icon={faBell} size="xl" />
-              </div>
-            </Link>
+            <div onClick={() => setIsNotCompleted(true)}>
+              <FontAwesomeIcon icon={faBell} size="xl" />
+            </div>
             <Title>About</Title>
-            <Link href="/user/info">
-              <div>
-                <FontAwesomeIcon icon={faUserGear} size="xl" />
-              </div>
-            </Link>
+            <div onClick={() => setIsNotCompleted(true)}>
+              <FontAwesomeIcon icon={faUserGear} size="xl" />
+            </div>
           </TopNav>
           <InfoSection>
             <div>
@@ -231,6 +235,8 @@ function About() {
       {isShowOpenResult && (
         <OpenResultModal {...vote?.participations[isOpenBtnIdx as any]} />
       )}
+      {isShowVoteCancel && <CancelModal />}
+      {isNotCompleted && <NotCompletedModal />}
     </>
   );
 }
