@@ -66,6 +66,7 @@ const CancelBtn = styled.button<ICancelBtn>`
 
 const VoterBtn = styled.button`
   background-color: #ffc72c;
+  color: #2c3e50;
 `;
 
 interface IResultStatus {
@@ -74,7 +75,8 @@ interface IResultStatus {
 
 const ResultStatus = styled.button<IResultStatus>`
   background: ${(props) => (props.status === "open" ? "#68D391" : "#d3d3d3")};
-  color: ${(props) => (props.status === "open" ? "rgb(34,84,61)" : "black")};
+  color: ${(props) =>
+    props.status === "open" ? "rgb(34,84,61)" : "rgb(0,0,0,0.7)"};
 `;
 
 const ResultChart = styled.div`
@@ -162,12 +164,6 @@ function ResultBlock({
   let spaceName = "About";
   if ((place as IPlace).brand === "카탈로그") spaceName = "Katalog";
   if ((place as IPlace).brand === "아티제") spaceName = "Artisee";
-
-  const {
-    isOpen: isDismissAlertOpen,
-    onOpen: onDismissAlertOpen,
-    onClose: onDismissAlertClose,
-  } = useDisclosure();
 
   const myAttendence = attendences.find(
     (att) => (att.user as IUser).uid === session?.uid

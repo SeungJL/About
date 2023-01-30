@@ -30,11 +30,13 @@ const Footer = styled.footer`
   padding-top: 7px;
   text-align: end;
   > button {
-    background: var(--main-color);
     margin-right: 5px;
+    border: 1px solid black;
+    width: 50px;
+    height: 25px;
     border-radius: 10px;
     padding: 3px;
-    color: white;
+
     font-family: "-apple-system";
     font-size: 12px;
   }

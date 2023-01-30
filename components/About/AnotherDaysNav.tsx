@@ -43,8 +43,8 @@ function AnotherDaysNav({ date }) {
     tomorrow.unix() - interestingDate.add(2, "day").unix() <= 0;
 
   const [yesterdayLink, tommorrowLink] = [
-    yesterday.format("YYYY-MM-DD"),
-    tomorrow.format("YYYY-MM-DD"),
+    dayjs(yesterday).format("YYYY-MM-DD"),
+    dayjs(tomorrow).format("YYYY-MM-DD"),
   ].map((dateStr) => {
     return `/vote/${dateStr}`;
   });

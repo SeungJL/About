@@ -9,7 +9,15 @@ import { timeRange } from "../libs/utils/timeUtils";
 import { START_HOUR } from "../constants/system";
 import ProfileImage from "../components/profileImage";
 import { CheckIcon } from "@chakra-ui/icons";
-
+import { time } from "console";
+import { IAttendence } from "./vote";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 const FullScreen = styled.div`
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
@@ -23,6 +31,8 @@ const TimeRangeItem = styled.div`
   display: flex;
   align-items: stretch;
   padding-top: 5px;
+  width: 100%;
+  position: relative;
 `;
 
 const UserInfo = styled.div`
@@ -38,14 +48,20 @@ const TimeRange = styled.div`
 
 interface ITimeBox {
   index: any;
+  start: any;
+  end: any;
+  idx: any;
 }
 const TimeBox = styled.div<ITimeBox>`
   width: 9px;
   height: 35px;
   display: inline-block;
-  background-color: gray;
   position: relative;
   margin-right: ${(props) => (props.index === "solid" ? "0px" : "1px")};
+  border-right: ${(props) => (props.index === "solid" ? "1px " : "0px")} solid
+    #d3d3d3;
+  background-color: ${(props) =>
+    props.idx > props.start && props.idx <= props.end ? " #FBD72B" : "white"};
   > span {
     font-size: 8px;
     position: absolute;
@@ -53,27 +69,16 @@ const TimeBox = styled.div<ITimeBox>`
   }
 `;
 
-interface IBox {
-  width: any;
-}
-const Box = styled.div<IBox>`
-  height: 100%;
-  display: inline-block;
-  background-color: pink;
-  position: relative;
-  z-index: 1;
-  width: ${(props) => props.width}px;
-`;
-
-interface IBox2 {
+interface IArrived {
   left: any;
 }
-const Box2 = styled.div<IBox2>`
+const ArrivedTime = styled.div<IArrived>`
   position: absolute;
-  top: 0px;
-  left: ${(props) => props.left}px;
+  top: 6px;
+  left: ${(props) => 3 * 10 * (props.left + 1)}px;
   height: 35px;
-  width: 3px;
+  width: 2px;
+  background-color: var(--main-color);
 `;
 
 const TimeRangeBar = ({ attendence }: any) => {
@@ -93,25 +98,28 @@ const TimeRangeBar = ({ attendence }: any) => {
   }, [attendence]);
   const user = attendence.user as IUser;
 
+  const userName = (user.name as any).substr(0, 3);
+
   return (
     <TimeRangeItem>
       <UserInfo>
         <ProfileImage src={user.thumbnailImage} alt={user.name} />
-        <span>{user.name}</span>
+        <span>{userName}</span>
       </UserInfo>
       <TimeRange>
         {timeRange.map((idx) => (
-          <TimeBox key={idx} index={idx % 1 === 0 ? "solid" : "none"}>
+          <TimeBox
+            key={idx}
+            index={idx % 1 === 0 ? "solid" : "none"}
+            start={startIdx}
+            end={endIdx}
+            idx={idx}
+          >
             {idx % 1 === 0 && <span>{idx}</span>}
-            {startIdx === idx && (
-              <Box width={`${10 * (endIdx - startIdx) * 2}`} />
-            )}
           </TimeBox>
         ))}
       </TimeRange>
-      {attendence.arrived && (
-        <Box2 left={`${2 * 10 * (arrivedIdx - START_HOUR)}`} />
-      )}
+      {attendence.arrived && <ArrivedTime left={arrivedIdx - START_HOUR} />}
     </TimeRangeItem>
   );
 };
@@ -123,57 +131,96 @@ const ModalLayout = styled.div`
   width: 330px;
   height: 330px;
   top: 50%;
-  padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  display: flex;
-  flex-direction: column;
   border-radius: 10px;
-  > div:first-child {
-    height: 15%;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgb(0, 0, 0, 0.4);
-    font-size: 1.1em;
-  }
 `;
 
 const TimeRangeSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
   flex-wrap: nowrap;
   padding-top: 5px;
   overflow-y: scroll;
+  padding: 10px;
 `;
 const Header = styled.header`
-  height: 30px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgb(0, 0, 0, 0.8);
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding-right: 12px;
   > span {
     font-size: 16px;
     font-family: "NanumEx";
+    height: 30px;
   }
+  > div {
+    font-size: 14px;
+    height: 23px;
+    padding: 2px;
+    border-radius: 5px;
+    margin-left: 15px;
+  }
+`;
+
+const ArrowBtn = styled.div`
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  height: 30px;
+  z-index: 10;
+  color: var(--main-color);
 `;
 
 const OpenResultModal = ({ attendences }: any) => {
   const setOpenResultShow = useSetRecoilState(isShowOpenResultState);
-
+  const [isLeftPage, setIsLeftPage] = useState(true);
   return (
     <>
       <ModalLayout>
         <Header>
           <span>Open</span>
+          <div onClick={() => setOpenResultShow(false)}>
+            <FontAwesomeIcon icon={faX} />
+          </div>
         </Header>
-        <TimeRangeSection>
-          {attendences.map((attendence, idx) => (
-            <TimeRangeBar key={idx} attendence={attendence} />
-          ))}
-        </TimeRangeSection>
+        {isLeftPage ? (
+          <TimeRangeSection>
+            {attendences.map(
+              (attendence, idx) =>
+                idx < 4 && <TimeRangeBar key={idx} attendence={attendence} />
+            )}
+          </TimeRangeSection>
+        ) : (
+          <TimeRangeSection>
+            {attendences.map(
+              (attendence, idx) =>
+                idx >= 4 && <TimeRangeBar key={idx} attendence={attendence} />
+            )}
+          </TimeRangeSection>
+        )}
 
         <br />
+        <ArrowBtn>
+          {isLeftPage ? (
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              size="lg"
+              onClick={() => setIsLeftPage(false)}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size="lg"
+              onClick={() => setIsLeftPage(true)}
+            />
+          )}
+        </ArrowBtn>
       </ModalLayout>
+
       <FullScreen onClick={() => setOpenResultShow(false)} />
     </>
   );

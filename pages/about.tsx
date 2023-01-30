@@ -47,6 +47,7 @@ import OpenResultModal from "../models/OpenResultModal";
 import { FullScreen } from "../styles/LayoutStyles";
 import CancelModal from "../models/CancelModal";
 import NotCompletedModal from "../models/NotCompletedModal";
+import Cover from "../components/Cover";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -70,6 +71,9 @@ const UpScreen = styled.div`
 `;
 const TopNav = styled.nav`
   justify-content: space-between;
+  > div {
+    width: 20px;
+  }
 `;
 const Title = styled.span`
   height: 88%;
@@ -116,12 +120,12 @@ const LeftArrow = styled.aside<{ isSliderFirst: boolean }>`
   position: absolute;
   display: ${(props) => (props.isSliderFirst ? "none" : "block")};
   color: var(--main-color);
-  top: 44%;
+  top: 38%;
   left: -18px;
 `;
 const RightArrow = styled.aside<{ isSliderFirst: boolean }>`
   position: absolute;
-  top: 44%;
+  top: 38%;
   right: -18px;
   display: ${(props) => (!props.isSliderFirst ? "none" : "block")};
   color: var(--main-color);
@@ -142,7 +146,12 @@ function About() {
     useRecoilState(isNotCompletedState);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   let dayjs = require("dayjs");
-
+  const [isLoadingStart, setIsLoadingStart] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadingStart(false);
+    }, 2000);
+  }, []);
   useEffect(() => {
     setDate(interestingDate);
   }, []);
@@ -237,6 +246,7 @@ function About() {
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
+      {isLoadingStart && <Cover />}
     </>
   );
 }

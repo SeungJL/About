@@ -11,10 +11,11 @@ const ScreenBox = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;
-  width: 380px;
-  height: 653px;
+  width: 100vw;
+  height: 100vh;
   padding: 0;
   margin: 0;
+  z-index: 100;
 `;
 const MainBox = styled.div`
   margin-bottom: 170px;
@@ -31,16 +32,14 @@ const Cover = () => {
   return (
     <ScreenBox layoutId="cover">
       <MainBox>
-        <Link href="/">
-          <Image
-            alt="about"
-            width={185}
-            height={205}
-            src="/coffee.png"
-            priority={true}
-          />
-          <Title>About</Title>
-        </Link>
+        <Image
+          alt="about"
+          width={185}
+          height={205}
+          src="/icons/coffee.png"
+          priority={true}
+        />
+        <Title>About</Title>
       </MainBox>
     </ScreenBox>
   );

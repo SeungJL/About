@@ -39,8 +39,7 @@ const OutlineCircle = styled(CenterDiv)`
 `;
 
 interface IVoteCircle {
-  isAttending: Boolean;
-  attended: Number;
+  state: String;
 }
 const VoteCircle = styled.button<IVoteCircle>`
   font-family: "NanumEx";
@@ -48,21 +47,31 @@ const VoteCircle = styled.button<IVoteCircle>`
   width: 82%;
   height: 82%;
   background: ${(props) =>
-    props.attended !== -1
-      ? "pink"
-      : props.disabled
-      ? "#d3d3d3"
-      : props.isAttending
+    props.state === "Closed"
+      ? "linear-gradient(45deg,#F1F2F6,#C9C6C6)"
+      : props.state === "Check"
+      ? "linear-gradient(45deg,#FFDD00,#FBB034)"
+      : props.state === "Join ?"
+      ? "linear-gradient(45deg,RGB(143, 80, 23),RGB(83, 46, 13))"
+      : props.state === "Voted"
       ? "linear-gradient(45deg,#FFD700,#FEBE10)"
       : "linear-gradient(45deg,RGB(143, 80, 23),RGB(83, 46, 13))"};
   color: ${(props) =>
-    props.disabled ? "black" : props.isAttending ? "black" : "white"};
+    props.state === "Closed"
+      ? "rgb(0,0,0,0.7)"
+      : props.state === "Check"
+      ? "black"
+      : props.state === "Join ?"
+      ? "white"
+      : props.state === "Voted"
+      ? "#2c3e50"
+      : "white"};
   box-shadow: 0px 0px 12px RGB(83, 46, 13);
   font-size: 1.3em;
   padding-top: 3px;
 
   pointer-events: disabled;
-  ${(props) => (props.isAttending ? "disabled" : "disabled")}
+  ${(props) => (props.state === "Closed" ? "disabled" : null)}
 `;
 
 function VoteBtn() {
@@ -75,6 +84,8 @@ function VoteBtn() {
   const tomorrow = dayjs(date).add(1, "day");
   const today = strToDate(router.query.date as string);
   const attended = useRecoilValue(attendingState);
+  const dateDay = dayjs(date).format("MDD");
+  const todayDay = dayjs(today).format("MDD");
 
   const {
     data: vote,
@@ -117,12 +128,14 @@ function VoteBtn() {
     onClose: onVoteModalClose,
   } = useDisclosure();
 
-  const isAttending =
-    vote?.participations
-      ?.flatMap((participant) =>
-        participant.attendences.map((a) => (a.user as IUser).uid)
-      )
-      ?.some((userId) => userId === session?.uid?.toString()) || false;
+  const isAttending = vote?.participations?.flatMap((participant) => {
+    if (participant.status === "open") {
+      return participant.attendences.map((a) => (a.user as IUser).uid);
+    }
+  });
+
+  const realAttend =
+    isAttending?.some((userId) => userId === session?.uid?.toString()) || false;
 
   const CheckClosed = vote?.participations.every((p) => p.status !== "pending");
   const { mutate: handleArrived } = useArrivedMutation(today, {
@@ -138,28 +151,43 @@ function VoteBtn() {
       });
     },
   });
-  console.log(isAttending, attended, CheckClosed);
+
   return (
     <>
       <OutlineCircle>
         <VoteCircle
           onClick={
-            attended !== -1
+            dateDay < todayDay
+              ? null
+              : dateDay === todayDay && realAttend
               ? () => handleArrived()
-              : isAttending
+              : dateDay === todayDay
+              ? null
+              : attended !== -1
               ? () => handleAbsent()
               : () => onVoteModalOpen()
           }
-          isAttending={isAttending}
+          state={
+            dateDay < todayDay
+              ? "Closed"
+              : dateDay === todayDay && realAttend
+              ? "Check"
+              : dateDay === todayDay
+              ? "Join ?"
+              : attended !== -1
+              ? "Voted"
+              : "Vote"
+          }
           disabled={CheckClosed}
-          attended={attended}
         >
-          {isAttending
-            ? "voted"
-            : attended !== -1
-            ? "Check"
-            : CheckClosed
+          {dateDay < todayDay
             ? "Closed"
+            : dateDay === todayDay && realAttend
+            ? "Check"
+            : dateDay === todayDay
+            ? "Join ?"
+            : attended !== -1
+            ? "Voted"
             : "Vote"}
         </VoteCircle>
       </OutlineCircle>
