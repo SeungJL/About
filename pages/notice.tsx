@@ -19,15 +19,17 @@ const MainContent = styled.main`
 
 function Notice() {
   return (
-    <Container>
+    <>
       <Seo title="Notice" />
-
-      <MainContent>
-        <NoticeCategory />
-        <NoticeContents />
-      </MainContent>
-      <CreateNotice />
-    </Container>
+      <Container>
+        <div>안 가 우리</div>
+        <MainContent>
+          <NoticeCategory />
+          <NoticeContents />
+        </MainContent>
+        <CreateNotice />
+      </Container>
+    </>
   );
 }
 export default Notice;

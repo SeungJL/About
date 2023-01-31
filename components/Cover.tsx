@@ -32,13 +32,7 @@ const Cover = () => {
   return (
     <ScreenBox layoutId="cover">
       <MainBox>
-        <Image
-          alt="about"
-          width={185}
-          height={205}
-          src="/icons/coffee.png"
-          priority={true}
-        />
+        <Image alt="about" width={185} height={205} src="/icons/coffee.png" />
         <Title>About</Title>
       </MainBox>
     </ScreenBox>

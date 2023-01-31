@@ -1,13 +1,7 @@
-import { useDisclosure } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import CancelModal from "../../models/CancelModal";
-import { IPlace } from "../../models/place";
-import { IUser } from "../../models/user";
-import { IParticipation } from "../../models/vote";
+import Image from "next/image";
+
+import { useSetRecoilState } from "recoil";
 import {
   attendingState,
   isShowOpenResultState,
@@ -16,6 +10,12 @@ import {
   openBtnIdxState,
   voterBtnIdxState,
 } from "../../recoil/atoms";
+
+import { IPlace } from "../../models/place";
+import { IUser } from "../../models/user";
+import { IParticipation } from "../../models/vote";
+
+import { useSession } from "next-auth/react";
 
 const ResultBlockLayout = styled.div`
   display: flex;
@@ -132,8 +132,6 @@ function ResultBlock({
   index,
   status,
 }: IResultBlock) {
-  const router = useRouter();
-
   const { data: session } = useSession();
 
   const setIsShowVoter = useSetRecoilState(isShowVoterState);
@@ -141,9 +139,7 @@ function ResultBlock({
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   const setOpenBtnIdx = useSetRecoilState(openBtnIdxState);
   const setAttending = useSetRecoilState(attendingState);
-  const [IsShowVoteCancle, setIsShowVoteCancle] = useRecoilState(
-    isShowVoteCancleState
-  );
+  const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
 
   const handleVoterBtn = () => {
     setIsShowVoter(true);

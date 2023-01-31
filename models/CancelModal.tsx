@@ -1,6 +1,5 @@
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useRef } from "react";
 import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -9,11 +8,10 @@ import { VOTE_GET } from "../libs/queryKeys";
 import { strToDate } from "../libs/utils/dateUtils";
 import { isShowVoteCancleState } from "../recoil/atoms";
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
-import { ReactDOM } from "react";
 
 const CancelModalLayout = styled(BaseModal)`
-  width: 200px;
-  height: 200px;
+  width: 240px;
+  height: 180px;
   top: 50%;
   justify-content: space-between;
 `;

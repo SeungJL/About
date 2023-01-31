@@ -1,29 +1,27 @@
-import { Center, useDisclosure, useToast } from "@chakra-ui/react";
-import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
+import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
+import { useState } from "react";
+
+import { useDisclosure, useToast } from "@chakra-ui/react";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+
+import { CenterDiv } from "../../styles/LayoutStyles";
+
 import { useRecoilState, useRecoilValue } from "recoil";
-import styled from "styled-components";
+import { attendingState, dateState } from "../../recoil/atoms";
+
+import VoteModal from "../voteModal";
+
 import {
   useAbsentMutation,
   useArrivedMutation,
 } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
-import {
-  getInterestingDate,
-  getNextDate,
-  getPreviousDate,
-  strToDate,
-} from "../../libs/utils/dateUtils";
+import { strToDate } from "../../libs/utils/dateUtils";
 import { IUser } from "../../models/user";
-import { attendingState, dateState } from "../../recoil/atoms";
-import { CenterDiv } from "../../styles/LayoutStyles";
-import VoteModal from "../voteModal";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
@@ -79,11 +77,9 @@ function VoteBtn() {
   const router = useRouter();
   const toast = useToast();
   const queryClient = useQueryClient();
-  const [date, setDate] = useRecoilState(dateState);
-  const yesterday = dayjs(date).subtract(1, "day");
-  const tomorrow = dayjs(date).add(1, "day");
+  const date = useRecoilValue(dateState);
   const today = strToDate(router.query.date as string);
-  const attended = useRecoilValue(attendingState);
+  const [attended, setAttended] = useRecoilState(attendingState);
   const dateDay = dayjs(date).format("MDD");
   const todayDay = dayjs(today).format("MDD");
 
@@ -152,6 +148,10 @@ function VoteBtn() {
     },
   });
 
+  const handleVotedCancle = () => {
+    handleAbsent();
+    setAttended(-1);
+  };
   return (
     <>
       <OutlineCircle>
@@ -164,7 +164,7 @@ function VoteBtn() {
               : dateDay === todayDay
               ? null
               : attended !== -1
-              ? () => handleAbsent()
+              ? handleVotedCancle
               : () => onVoteModalOpen()
           }
           state={

@@ -1,30 +1,18 @@
-import {
-  faAngleLeft,
-  faAngleRight,
-  faBell,
-  faUserGear,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+/* Basic */
 import Link from "next/link";
 import styled from "styled-components";
-import Seo from "../components/Seo";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, A11y } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { useEffect } from "react";
-
 import { useState } from "react";
-import VoteBtn from "../components/About/VoteBtn";
-import { IParticipation } from "../models/vote";
-import { useToast } from "@chakra-ui/react";
-import { getInterestingDate, strToDate } from "../libs/utils/dateUtils";
-import { useRouter } from "next/router";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
-import VoterModal from "../models/VoterModal";
+/* Component */
+import Seo from "../components/Seo";
+import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
+import AnotherDaysNav from "../components/About/AnotherDaysNav";
+import MainNavigation from "../components/About/MainNavigation";
+import Cover from "../components/Cover";
+
+/*State*/
 import {
   attendingState,
   dateState,
@@ -35,19 +23,42 @@ import {
   openBtnIdxState,
   voterBtnIdxState,
 } from "../recoil/atoms";
-import AnotherDaysNav from "../components/About/AnotherDaysNav";
-import MainNavigation from "../components/About/MainNavigation";
-import { useVoteQuery } from "../hooks/vote/queries";
+
+/* Icon */
+import {
+  faAngleLeft,
+  faAngleRight,
+  faBell,
+  faUserGear,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+/* Swiper */
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, A11y } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+/* Modal */
+import OpenResultModal from "../models/OpenResultModal";
+import NotCompletedModal from "../models/NotCompletedModal";
+import CancelModal from "../models/CancelModal";
+
+/* Interface */
+import { IParticipation } from "../models/vote";
+import { useToast } from "@chakra-ui/react";
+import { getInterestingDate } from "../libs/utils/dateUtils";
+import { useRecoilState, useRecoilValue } from "recoil";
+import VoterModal from "../models/VoterModal";
+
+/* Backend */
 import { GetServerSideProps } from "next";
+import { useVoteQuery } from "../hooks/vote/queries";
 import { getSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-import OpenResultModal from "../models/OpenResultModal";
-import { FullScreen } from "../styles/LayoutStyles";
-import CancelModal from "../models/CancelModal";
-import NotCompletedModal from "../models/NotCompletedModal";
-import Cover from "../components/Cover";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -140,8 +151,6 @@ function About() {
   const interestingDate = getInterestingDate();
   const isShowOpenResult = useRecoilValue(isShowOpenResultState);
   const isOpenBtnIdx = useRecoilValue(openBtnIdxState);
-  const isAttending = useRecoilValue(attendingState);
-  const setIsShowCancle = useSetRecoilState(isShowVoteCancleState);
   const [isNotCompleted, setIsNotCompleted] =
     useRecoilState(isNotCompletedState);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
@@ -156,11 +165,7 @@ function About() {
     setDate(interestingDate);
   }, []);
 
-  const {
-    data: vote,
-    isLoading,
-    isFetching,
-  } = useVoteQuery(date, {
+  const { data: vote, isLoading } = useVoteQuery(date, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -184,9 +189,11 @@ function About() {
               <FontAwesomeIcon icon={faBell} size="xl" />
             </div>
             <Title>About</Title>
-            <div onClick={() => setIsNotCompleted(true)}>
-              <FontAwesomeIcon icon={faUserGear} size="xl" />
-            </div>
+            <Link href="/user/info">
+              <div>
+                <FontAwesomeIcon icon={faUserGear} size="xl" />
+              </div>
+            </Link>
           </TopNav>
           <InfoSection>
             <div>

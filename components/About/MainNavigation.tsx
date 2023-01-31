@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 import {
   faBookOpen,
   faCalendarCheck,
@@ -6,10 +8,10 @@ import {
   faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
+
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { isNotCompletedState } from "../../recoil/atoms";
+import Link from "next/link";
 
 const MainNavLayout = styled.nav`
   height: 54vh;
@@ -50,37 +52,58 @@ const navigationItems = [
   {
     icon: <FontAwesomeIcon icon={faCalendarCheck} size="2xl" />,
     name: "gather",
+    use: true,
   },
   {
     icon: <FontAwesomeIcon icon={faUsers} size="2xl" />,
     name: "members",
+    use: false,
   },
 
   {
     icon: <FontAwesomeIcon icon={faBookOpen} size="2xl" />,
     name: "book",
+    use: false,
   },
   { icon: <FontAwesomeIcon icon={faUtensils} size="2xl" />, name: "food" },
   {
     icon: <FontAwesomeIcon icon={faUser} size="2xl" />,
     name: "soon1",
+    use: false,
   },
   {
     icon: <FontAwesomeIcon icon={faUser} size="2xl" />,
     name: "soon2",
+    use: false,
   },
 ];
 
 function MainNavigation() {
   const setIsNotCompleted = useSetRecoilState(isNotCompletedState);
+
   return (
     <MainNavLayout>
       {navigationItems.map((item) => (
-        <NavigationItem key={item.name} onClick={() => setIsNotCompleted(true)}>
-          <div>
-            <IconBox>{item.icon}</IconBox>
-          </div>
-          <div>{item.name}</div>
+        <NavigationItem key={item.name}>
+          {item.use === true ? (
+            <>
+              <div>
+                <IconBox>
+                  <Link href="/$`{item.name}`">
+                    <a>{item.icon}</a>
+                  </Link>
+                </IconBox>
+              </div>
+              <div>{item.name}</div>
+            </>
+          ) : (
+            <>
+              <div onClick={() => setIsNotCompleted(true)}>
+                <IconBox>{item.icon}</IconBox>
+              </div>
+              <div>{item.name}</div>
+            </>
+          )}
         </NavigationItem>
       ))}
     </MainNavLayout>

@@ -2,11 +2,10 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { gatherIdState, gatherSelector, isWriteState } from "../recoil/atoms";
-
 import { AnimatePresence, motion } from "framer-motion";
-import PrintGather from "../components/Gather/PrintGather";
 import CreateGather from "../components/Gather/CreateGather";
 import SelectGather from "../components/Gather/SelectGather";
+import PrintGather from "../components/Gather/PrintGather";
 import JoinGather from "../components/Gather/JoinGather";
 import Seo from "../components/Seo";
 
@@ -38,8 +37,9 @@ function Gather() {
 
   return (
     <>
+      <Seo title="Gather" />
       <ScreenBox>
-        <Seo title="Gather" />
+        <div>23</div>
 
         <GatherHeader>
           {isWrite ? (
