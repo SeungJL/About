@@ -4,9 +4,10 @@ import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
-  title?: string | React.ReactNode;
   contents?: string | React.ReactNode;
   category: string;
+  title: string;
+  date: string;
 };
 
 function Accordion(props: Props) {
@@ -43,8 +44,8 @@ function Accordion(props: Props) {
   return (
     <Container>
       <Header onClick={handleButtonClick}>
+        <span>{props.date}</span>
         <span>{props.title}</span>
-        <span>{category === "notice" ? "공지사항" : "개발노트"}</span>
         <Button>{buttonText}</Button>
       </Header>
       <ContentsWrapper ref={parentRef}>
@@ -59,19 +60,21 @@ const Container = styled.div`
   position: relative;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 1px solid RGB(253, 232, 230, 0.8);
+  border-bottom: 1px solid RGB(113, 85, 63);
 `;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 15px;
-  height: 36px;
+  font-size: 14px;
+
+  height: 40px;
   margin: 0 32px 0 8px;
   > span:first-child {
-    color: #fde8e6;
     margin-right: 10px;
+    font-size: 13px;
+    color: brown;
   }
 `;
 

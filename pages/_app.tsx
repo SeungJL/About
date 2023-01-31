@@ -16,7 +16,6 @@ import styled from "styled-components";
 import { CenterDiv, FullScreen } from "../styles/LayoutStyles";
 import Cover from "../components/Cover";
 import "../styles/variable.css";
-import { isFullScreenState } from "../recoil/atoms";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 

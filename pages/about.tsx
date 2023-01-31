@@ -159,7 +159,7 @@ function About() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoadingStart(false);
-    }, 2000);
+    }, 1500);
   }, []);
   useEffect(() => {
     setDate(interestingDate);
@@ -185,9 +185,11 @@ function About() {
       <AboutLayout>
         <UpScreen>
           <TopNav>
-            <div onClick={() => setIsNotCompleted(true)}>
-              <FontAwesomeIcon icon={faBell} size="xl" />
-            </div>
+            <Link href="/notice">
+              <div>
+                <FontAwesomeIcon icon={faBell} size="xl" />
+              </div>
+            </Link>
             <Title>About</Title>
             <Link href="/user/info">
               <div>

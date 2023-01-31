@@ -46,6 +46,24 @@ export const isNotCompletedState = atom<Boolean>({
   default: false,
 });
 
+/* Notice */
+export const noticeState = atom<noticeState[]>({
+  key: "notices",
+  default: noticeTest,
+});
+export const noticeCategory = atom({
+  key: "noticeCategory",
+  default: "notice",
+});
+export const noticeSelector = selector({
+  key: "noticeSelector",
+  get: ({ get }) => {
+    const notices = get(noticeState);
+    const category = get(noticeCategory);
+    return notices.filter((notice) => notice.category === category);
+  },
+});
+
 export enum Categories {
   "plan" = "plan",
   "complete" = "complete",
@@ -93,22 +111,6 @@ interface noticeState {
   category: string;
   text: string;
 }
-export const noticeState = atom<noticeState[]>({
-  key: "notices",
-  default: noticeTest,
-});
-export const noticeCategory = atom({
-  key: "noticeCategory",
-  default: "notice",
-});
-export const noticeSelector = selector({
-  key: "noticeSelector",
-  get: ({ get }) => {
-    const notices = get(noticeState);
-    const category = get(noticeCategory);
-    return notices.filter((notice) => notice.category === category);
-  },
-});
 
 export const gatherIdState = atom({
   key: "gatherId",

@@ -5,13 +5,13 @@ import Accordion from "./Accordion";
 import * as dayjs from "dayjs";
 
 const TextContainer = styled.div`
-  background-color: RGB(77, 65, 57, 1);
-  height: 100%;
+  height: 80vh;
   padding: 10px;
-`;
-const TextContent = styled.div`
-  margin-bottom: 8px;
-  font-size: 17px;
+  border: 2px solid RGB(113, 85, 63);
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgb(255, 255, 255, 0.9);
 `;
 
 function NoticeContents() {
@@ -24,7 +24,8 @@ function NoticeContents() {
         {selectedContents.map((item: any) => (
           <li key={item.title}>
             <Accordion
-              title={currentDay}
+              title={item.title}
+              date={item.date}
               contents={item.text}
               category={item.category}
             ></Accordion>

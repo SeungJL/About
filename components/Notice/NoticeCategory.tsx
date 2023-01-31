@@ -1,22 +1,27 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { noticeCategory } from "../../recoil/atoms";
 
-const CategoryHeader = styled.header`
+const CategoryHeader = styled.span`
   > span:first-child {
-    border-right: 2px solid RGB(113, 85, 63);
+    border-right: 2px solid hsl(26.4, 28.409090909090907%, 34.509803921568626%);
     border-top-left-radius: 10px;
   }
 `;
 
-const NoticeBtn = styled.span`
+interface INoticeBtn {
+  state: Boolean;
+}
+
+const NoticeBtn = styled.span<INoticeBtn>`
+  background-color: ${(prop) =>
+    prop.state ? "brown" : "rgb(255, 255, 255, 0.9)"};
   border-top: 2px solid RGB(113, 85, 63);
   display: inline-block;
   width: 100px;
   height: 30px;
   text-align: center;
   padding: 5px;
-  background-color: RGB(77, 65, 57);
   border-right: 2px solid RGB(113, 85, 63);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -24,11 +29,21 @@ const NoticeBtn = styled.span`
 `;
 
 function NoticeCategory() {
-  const setCategory = useSetRecoilState(noticeCategory);
+  const [Category, setCategory] = useRecoilState(noticeCategory);
   return (
     <CategoryHeader>
-      <NoticeBtn onClick={() => setCategory("notice")}>공지사항</NoticeBtn>
-      <NoticeBtn onClick={() => setCategory("Release")}>릴리즈노트</NoticeBtn>
+      <NoticeBtn
+        state={Category === "notice" && true}
+        onClick={() => setCategory("notice")}
+      >
+        공지사항
+      </NoticeBtn>
+      <NoticeBtn
+        state={Category === "release" && true}
+        onClick={() => setCategory("release")}
+      >
+        릴리즈노트
+      </NoticeBtn>
     </CategoryHeader>
   );
 }
