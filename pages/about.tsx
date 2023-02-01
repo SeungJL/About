@@ -88,9 +88,9 @@ const TopNav = styled.nav`
 `;
 const Title = styled.span`
   height: 88%;
-  font-size: 4.5em;
+  font-size: 4em;
   align-self: flex-end;
-  font-family: "Marck Script", cursive;
+  font-family: "Nanum";
 `;
 const InfoSection = styled.section`
   padding: 0 13px;
