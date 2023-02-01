@@ -1,41 +1,40 @@
-import type { NextPage } from 'next'
-import { GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/react'
-import { isMember } from '../libs/utils/authUtils';
-import { getInterestingDate } from '../libs/utils/dateUtils';
+import type { NextPage } from "next";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import { isMember } from "../libs/utils/authUtils";
+import { getInterestingDate } from "../libs/utils/dateUtils";
 
-const Root: NextPage = () => (<div />)
+const Root: NextPage = () => <div />;
 
-export const getServerSideProps: GetServerSideProps = async ( context )=> {
-  const session = await getSession({ req: context.req })
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
   if (session) {
     if (!isMember(session.role as string)) {
       return {
         redirect: {
           permanent: false,
-          destination: '/forbidden',
-        }
-      }
+          destination: "/forbidden",
+        },
+      };
     }
 
-    const today = getInterestingDate()
+    const today = getInterestingDate();
 
     return {
       redirect: {
         permanent: false,
-        destination: `/vote/${today.format('YYYY-MM-DD')}`,
+        destination: `/about`,
       },
       props: {},
-    }
+    };
   }
   return {
     redirect: {
       permanent: false,
-      destination: '/login?from=/',
+      destination: "/login?from=/",
     },
     props: {},
-  }
-}
+  };
+};
 
-
-export default Root
+export default Root;
