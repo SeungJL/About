@@ -47,7 +47,7 @@ import CancelModal from "../models/CancelModal";
 
 /* Interface */
 import { IParticipation } from "../models/vote";
-import { useToast } from "@chakra-ui/react";
+import { useColorMode, useToast } from "@chakra-ui/react";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 import { useRecoilState, useRecoilValue } from "recoil";
 import VoterModal from "../models/VoterModal";
@@ -156,9 +156,11 @@ function About() {
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   let dayjs = require("dayjs");
   const [isLoadingStart, setIsLoadingStart] = useState(true);
+  const { colorMode, setColorMode } = useColorMode();
 
   useEffect(() => {
     setDate(interestingDate);
+    setColorMode(false);
   }, []);
 
   const { data: vote, isLoading } = useVoteQuery(date, {

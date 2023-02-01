@@ -52,7 +52,6 @@ const UserInfo: NextPage<{
     [attendencesParam]
   );
 
-  console.log(user);
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,
     AxiosError
