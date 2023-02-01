@@ -68,9 +68,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <QueryClientProvider client={queryClient}>
           <RecoilRoot>
             <ChakraProvider>
-              <Container as="main">
-                {loading ? <Cover /> : <Component {...pageProps} />}
-              </Container>
+              <Container as="main"></Container>
             </ChakraProvider>
           </RecoilRoot>
         </QueryClientProvider>
