@@ -1,4 +1,21 @@
-import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Button, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useToast, Box } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
+  Button,
+  HStack,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useToast,
+  Box,
+} from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { FC, useState } from "react";
 import { IPlace } from "../../models/place";
@@ -11,73 +28,76 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import PlaceSelector from "./placeSelector";
 import TimeSelector from "./timeSelector";
 import Note from "./note";
-import Confirm from "./confirm"
+import Confirm from "./confirm";
+import { useRecoilValue } from "recoil";
+import { dateState } from "../../recoil/atoms";
 
 const VoteModal: FC<{
-  isOpen: boolean,
-  onClose: () => void,
-  date: Dayjs,
-  participations: IParticipation[],
+  isOpen: boolean;
+  onClose: () => void;
+  date: Dayjs;
+  participations: IParticipation[];
 }> = ({ isOpen, onClose, date, participations }) => {
-  const toast = useToast()
-  const queryClient = useQueryClient()
-  const [accordionIndex, setAccordionIndex] = useState(0)
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  const [accordionIndex, setAccordionIndex] = useState(0);
 
   const [attendInfo, setAttendInfo] = useState<{
-    place: IPlace,
-    start: Dayjs,
-    end: Dayjs,
-    desc: string,
-    confirmed: boolean,
-    lunch: 'attend' | 'absent' | 'no_select',
-    dinner: 'attend' | 'absent' | 'no_select',
-    afterDinner: 'attend' | 'absent' | 'no_select',
+    place: IPlace;
+    start: Dayjs;
+    end: Dayjs;
+    desc: string;
+    confirmed: boolean;
+    lunch: "attend" | "absent" | "no_select";
+    dinner: "attend" | "absent" | "no_select";
+    afterDinner: "attend" | "absent" | "no_select";
   }>({
     place: null,
-    start: hourMinToDate(13, '00'),
-    end: hourMinToDate(16, '00'),
-    desc: '',
+    start: hourMinToDate(12, "00"),
+    end: hourMinToDate(18, "00"),
+    desc: "",
     confirmed: false,
-    lunch: 'no_select',
-    dinner: 'no_select',
-    afterDinner: 'absent',
-  })
+    lunch: "no_select",
+    dinner: "no_select",
+    afterDinner: "absent",
+  });
 
-  const toPreviousStep = () => setAccordionIndex(accordionIndex - 1)
-  const toNextStep = () => setAccordionIndex(accordionIndex + 1)
+  const toPreviousStep = () => setAccordionIndex(accordionIndex - 1);
+  const toNextStep = () => setAccordionIndex(accordionIndex + 1);
 
   const { mutate: patchAttend } = useAttendMutation(date, {
     onSuccess: () => {
-      queryClient.invalidateQueries(VOTE_GET)
-      onClose()
+      queryClient.invalidateQueries(VOTE_GET);
+      onClose();
     },
-    onError: (err) => {
-      
-    }
-  })
+    onError: (err) => {},
+  });
 
-  const selectedParticipation = participations.find((participation) => (participation.place as IPlace)._id == (attendInfo.place as IPlace)?._id)
+  const selectedParticipation = participations.find(
+    (participation) =>
+      (participation.place as IPlace)._id == (attendInfo.place as IPlace)?._id
+  );
 
   const placeVoteInfo = participations.map((participant) => {
-    const place = participant.place as IPlace
-    const vote = participant.attendences.length
-    const status = participant.status
+    const place = participant.place as IPlace;
+    const vote = participant.attendences.length;
+    const status = participant.status;
 
-    return { place, vote, status }
-  })
+    return { place, vote, status };
+  });
 
   const onSubmit = () => {
-    const { start, end } = attendInfo
+    const { start, end } = attendInfo;
     if (start >= end) {
       toast({
-        title: '잘못된 입력',
-        description: '시작시간은 끝시간 이전이여야 합니다',
-        status: 'error',
+        title: "잘못된 입력",
+        description: "시작시간은 끝시간 이전이여야 합니다",
+        status: "error",
         duration: 3000,
         isClosable: true,
-        position: 'bottom',
-      })
-      return
+        position: "bottom",
+      });
+      return;
     }
 
     const attendDTO = {
@@ -88,120 +108,123 @@ const VoteModal: FC<{
       anonymity: false,
       lunch: attendInfo.lunch,
       dinner: attendInfo.dinner,
-      afterDinner: attendInfo.afterDinner
-    } as AttendDTO
+      afterDinner: attendInfo.afterDinner,
+    } as AttendDTO;
 
-    patchAttend(attendDTO)
-  }
+    patchAttend(attendDTO);
+  };
 
-  const canAccessTimeTab = !!attendInfo.place
-
+  const canAccessTimeTab = !!attendInfo.place;
+  const voteInfo = useRecoilValue(dateState);
+  const voteDate = voteInfo.format("M월 DD일 스터디");
   return (
-    <Modal id='vote-modal' size='sm' onClose={onClose} isOpen={isOpen} isCentered>
+    <Modal
+      id="vote-modal"
+      size="sm"
+      onClose={onClose}
+      isOpen={isOpen}
+      isCentered
+    >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>참여</ModalHeader>
+        <ModalHeader fontSize="16px">{voteDate}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody padding='0'>
-        <Accordion index={accordionIndex}>
-          <AccordionItem>
-              <AccordionButton padding='0' />
-            <AccordionPanel pb={4} padding='0'>
-              <PlaceSelector
-                placeVoteInfo={placeVoteInfo}
-                selectedPlace={attendInfo.place}
-                setSelectedPlace={(place) => {
-                  setAttendInfo({...attendInfo, place })
-                  toNextStep()
-                }}
-              />
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionButton padding={0} />
-            <AccordionPanel pb={4}>
-              <TimeSelector
-                participation={selectedParticipation}
-                start={attendInfo.start}
-                setStart={(start: Dayjs) => setAttendInfo({...attendInfo, start })}
-                end={attendInfo.end}
-                setEnd={(end: Dayjs) => setAttendInfo({...attendInfo, end})}
-              />
-              <HStack spacing={1}>
-                <Button
-                  flex={1}
-                  onClick={toPreviousStep}
-                >
-                  뒤로
-                </Button>
-                <Button
-                  flex={3}
-                  colorScheme='yellow'
-                  disabled={!canAccessTimeTab}
-                  onClick={toNextStep}
-                >
-                  다음
-                </Button>
-              </HStack>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionButton padding={0} />
-            <AccordionPanel pb={4}>
-              <Note
-                note={attendInfo as IParticipantNote}
-                setNote={(note) => setAttendInfo({ ...attendInfo, ...note })}
-              />
-              <HStack spacing={1}>
-                <Button
-                  flex={1}
-                  onClick={toPreviousStep}
-                >
-                  뒤로
-                </Button>
-                <Button
-                  flex={3}
-                  colorScheme='yellow'
-                  disabled={!canAccessTimeTab}
-                  onClick={toNextStep}
-                >
-                  다음
-                </Button>
-              </HStack>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionButton padding={0} />
-            <AccordionPanel pb={4}>
-              <Confirm
-                confirmed={attendInfo.confirmed}
-                setConfirmed={(c: boolean) => setAttendInfo({...attendInfo, confirmed: c})}
-              />
-              <HStack spacing={1}>
-                <Button
-                  flex={1}
-                  onClick={toPreviousStep}
-                >
-                  뒤로
-                </Button>
-                <Button
-                  flex={3}
-                  colorScheme='yellow'
-                  disabled={!canAccessTimeTab}
-                  onClick={onSubmit}
-                >
-                  완료
-                </Button>
-              </HStack>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
+        <ModalBody padding="0">
+          <Accordion index={accordionIndex}>
+            <AccordionItem>
+              <AccordionButton padding="0" />
+              <AccordionPanel pb={4} padding="0">
+                <PlaceSelector
+                  placeVoteInfo={placeVoteInfo}
+                  selectedPlace={attendInfo.place}
+                  setSelectedPlace={(place) => {
+                    setAttendInfo({ ...attendInfo, place });
+                    toNextStep();
+                  }}
+                />
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionButton padding={0} />
+              <AccordionPanel pb={4}>
+                <TimeSelector
+                  participation={selectedParticipation}
+                  start={attendInfo.start}
+                  setStart={(start: Dayjs) =>
+                    setAttendInfo({ ...attendInfo, start })
+                  }
+                  end={attendInfo.end}
+                  setEnd={(end: Dayjs) => setAttendInfo({ ...attendInfo, end })}
+                />
+                <HStack spacing={1}>
+                  <Button flex={1} onClick={toPreviousStep}>
+                    뒤로
+                  </Button>
+                  <Button
+                    flex={3}
+                    colorScheme="yellow"
+                    disabled={!canAccessTimeTab}
+                    onClick={toNextStep}
+                  >
+                    다음
+                  </Button>
+                </HStack>
+              </AccordionPanel>
+            </AccordionItem>
+            {/*
+            <AccordionItem>
+              <AccordionButton padding={0} />
+              <AccordionPanel pb={4}>
+                <Note
+                  note={attendInfo as IParticipantNote}
+                  setNote={(note) => setAttendInfo({ ...attendInfo, ...note })}
+                />
+                <HStack spacing={1}>
+                  <Button flex={1} onClick={toPreviousStep}>
+                    뒤로
+                  </Button>
+                  <Button
+                    flex={3}
+                    colorScheme="yellow"
+                    disabled={!canAccessTimeTab}
+                    onClick={toNextStep}
+                  >
+                    다음
+                  </Button>
+                </HStack>
+              </AccordionPanel>
+            </AccordionItem>
+                */}
+            <AccordionItem>
+              <AccordionButton padding={0} />
+              <AccordionPanel pb={4}>
+                <Confirm
+                  confirmed={attendInfo.confirmed}
+                  setConfirmed={(c: boolean) =>
+                    setAttendInfo({ ...attendInfo, confirmed: c })
+                  }
+                />
+                <HStack spacing={1}>
+                  <Button flex={1} onClick={toPreviousStep}>
+                    뒤로
+                  </Button>
+                  <Button
+                    flex={3}
+                    colorScheme="yellow"
+                    disabled={!canAccessTimeTab}
+                    onClick={onSubmit}
+                  >
+                    완료
+                  </Button>
+                </HStack>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
         </ModalBody>
-        <ModalFooter>
-        </ModalFooter>
+        <ModalFooter></ModalFooter>
       </ModalContent>
     </Modal>
-  )
-}
+  );
+};
 
-export default VoteModal
+export default VoteModal;
