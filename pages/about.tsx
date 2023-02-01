@@ -156,11 +156,7 @@ function About() {
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   let dayjs = require("dayjs");
   const [isLoadingStart, setIsLoadingStart] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoadingStart(false);
-    }, 1500);
-  }, []);
+
   useEffect(() => {
     setDate(interestingDate);
   }, []);
@@ -255,7 +251,6 @@ function About() {
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
-      {isLoadingStart && <Cover />}
     </>
   );
 }
