@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useForm, useFormState } from "react-hook-form";
 import { categoryState, gatherState, isWriteState } from "../../recoil/atoms";
 import { useState } from "react";
-import { gatherTest } from "../../test/gathers";
+import { gatherTest } from "../../storage/gathers";
 
 const Container = styled.div`
   display: inline-block;

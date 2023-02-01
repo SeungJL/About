@@ -10,7 +10,7 @@ const NoticeLayout = styled.div`
 `;
 
 const MainContent = styled.main`
-  background: RGB(113, 85, 63);
+  background: RGB(113, 85, 63, 0.9);
   display: flex;
   flex-direction: column;
   align-items: stretch;

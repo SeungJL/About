@@ -2,7 +2,8 @@ import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { atom, selector } from "recoil";
 import { strToDate } from "../libs/utils/dateUtils";
-import { gatherTest, noticeTest } from "../test/gathers";
+import { gatherTest } from "../storage/gathers";
+import { noticeData } from "../storage/noticeData";
 
 /* About Page */
 
@@ -49,7 +50,7 @@ export const isNotCompletedState = atom<Boolean>({
 /* Notice */
 export const noticeState = atom<noticeState[]>({
   key: "notices",
-  default: noticeTest,
+  default: noticeData,
 });
 export const noticeCategory = atom({
   key: "noticeCategory",

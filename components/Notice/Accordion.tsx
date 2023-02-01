@@ -4,7 +4,7 @@ import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
-  contents?: string | React.ReactNode;
+  contents?: any;
   category: string;
   title: string;
   date: string;

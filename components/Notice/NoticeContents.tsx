@@ -22,14 +22,14 @@ function NoticeContents() {
     <TextContainer>
       <ul>
         {selectedContents.map((item: any) => (
-          <li key={item.title}>
+          <div key={item.title}>
             <Accordion
               title={item.title}
               date={item.date}
               contents={item.text}
               category={item.category}
             ></Accordion>
-          </li>
+          </div>
         ))}
       </ul>
     </TextContainer>
