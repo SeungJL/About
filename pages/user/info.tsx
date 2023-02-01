@@ -209,6 +209,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       user: JSON.stringify(user),
+      attendences: JSON.stringify(attendences),
     },
   };
 };
