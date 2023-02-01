@@ -1,29 +1,3 @@
-<<<<<<< HEAD
-import { RepeatIcon, SettingsIcon } from "@chakra-ui/icons"
-import { Text, Container, Heading, HStack, Divider, Box, Button, Badge, Spinner, useToast, Tab, TabList, TabPanel, TabPanels, Tabs, Image, Grid, GridItem, Link, SimpleGrid } from "@chakra-ui/react"
-import axios, { AxiosError } from "axios"
-import { GetServerSideProps, NextPage } from "next"
-import { getSession, signOut } from "next-auth/react"
-import NextLink from "next/link"
-import { useMemo, useState } from "react"
-import { useMutation } from "react-query"
-import ProfileImage from "../../components/profileImage"
-import SummaryAttendenceInfo from "../../components/summaryAttendenceInfo"
-import { isMember, isPreviliged, isStranger, role } from "../../libs/utils/authUtils"
-import { getToday, getInterestingDate } from "../../libs/utils/dateUtils"
-import dbConnect from "../../libs/dbConnect"
-import { Attendence, IAttendence } from "../../models/attendence"
-import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo"
-import { IUser, User } from "../../models/user"
-
-const UserInfo: NextPage<{
-  user: string,
-  attendences: string,
-}> = ({ user: userParam, attendences: attendencesParam }) => {
-  const toast = useToast()
-  const [user, setUser] = useState(JSON.parse(userParam) as IUser)
-  const attendences = useMemo(() => (JSON.parse(attendencesParam) as IAttendence[]), [attendencesParam])
-=======
 import { RepeatIcon, SettingsIcon } from "@chakra-ui/icons";
 import {
   Text,
@@ -51,7 +25,7 @@ import axios, { AxiosError } from "axios";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signOut } from "next-auth/react";
 import NextLink from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "react-query";
 import ProfileImage from "../../components/profileImage";
 import SummaryAttendenceInfo from "../../components/summaryAttendenceInfo";
@@ -61,16 +35,22 @@ import {
   isStranger,
   role,
 } from "../../libs/utils/authUtils";
+import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
+import { Attendence, IAttendence } from "../../models/attendence";
 import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo";
 import { IUser, User } from "../../models/user";
 
 const UserInfo: NextPage<{
   user: string;
-}> = ({ user: userParam }) => {
+  attendences: string;
+}> = ({ user: userParam, attendences: attendencesParam }) => {
   const toast = useToast();
   const [user, setUser] = useState(JSON.parse(userParam) as IUser);
->>>>>>> about
+  const attendences = useMemo(
+    () => JSON.parse(attendencesParam) as IAttendence[],
+    [attendencesParam]
+  );
 
   console.log(user);
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
@@ -164,20 +144,7 @@ const UserInfo: NextPage<{
         </HStack>
       </HStack>
       <Divider />
-<<<<<<< HEAD
       <SummaryAttendenceInfo attendences={attendences} />
-      <Divider marginBottom='10px' />
-      {
-        isPreviliged(user.role) && (
-          <>
-            <Heading as='h2' size='lg'>관리</Heading>
-            <Divider marginBottom='10px' />
-            <SimpleGrid columns={2} spacing={1}>
-              <NextLink href='/admin/user'>
-                <Link fontSize='1.2rem' fontWeight='500'>사용자 관리</Link>
-              </NextLink>
-=======
-      <SummaryAttendenceInfo />
       <Divider marginBottom="10px" />
       {isPreviliged(user.role) && (
         <>
@@ -191,7 +158,6 @@ const UserInfo: NextPage<{
                 사용자 관리
               </Link>
             </NextLink>
->>>>>>> about
 
             <Text fontSize="1.2rem" fontWeight="500" color="gray.400">
               투표 관리
@@ -245,18 +211,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   await dbConnect();
 
-<<<<<<< HEAD
-  const user = await User.findOne({uid: session.uid})
+  const user = await User.findOne({ uid: session.uid });
   const attendences = await Attendence.find({
     date: {
-      $gte: getToday().add(-4, 'week').toDate(),
-      $lte: getInterestingDate().add(-1, 'day').toDate(),
+      $gte: getToday().add(-4, "week").toDate(),
+      $lte: getInterestingDate().add(-1, "day").toDate(),
     },
-    'participants.user': user._id,
-  }).populate('participants.user')
-=======
-  const user = await User.findOne({ uid: session.uid });
->>>>>>> about
+    "participants.user": user._id,
+  }).populate("participants.user");
 
   return {
     props: {
