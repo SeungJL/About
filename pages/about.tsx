@@ -47,8 +47,8 @@ import CancelModal from "../models/CancelModal";
 
 /* Interface */
 import { IParticipation } from "../models/vote";
-import { useToast } from "@chakra-ui/react";
 import { getInterestingDate, now, strToDate } from "../libs/utils/dateUtils";
+import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import VoterModal from "../models/VoterModal";
 
