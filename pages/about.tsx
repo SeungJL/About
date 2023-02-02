@@ -47,8 +47,8 @@ import CancelModal from "../models/CancelModal";
 
 /* Interface */
 import { IParticipation } from "../models/vote";
-import { useToast } from "@chakra-ui/react";
 import { getInterestingDate, now, strToDate } from "../libs/utils/dateUtils";
+import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import VoterModal from "../models/VoterModal";
 
@@ -92,9 +92,9 @@ const TopNav = styled.nav`
 `;
 const Title = styled.span`
   height: 88%;
-  font-size: 4.5em;
+  font-size: 4em;
   align-self: flex-end;
-  font-family: "Marck Script", cursive;
+  font-family: "Nanum";
 `;
 const InfoSection = styled.section`
   padding: 0 13px;
@@ -271,7 +271,6 @@ function About() {
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
-      {isLoadingStart && <Cover />}
     </>
   );
 }

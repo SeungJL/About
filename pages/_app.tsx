@@ -69,7 +69,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <RecoilRoot>
             <ChakraProvider>
               <Container as="main">
-                {loading ? <Cover /> : <Component {...pageProps} />}
+                <Component {...pageProps} />
               </Container>
             </ChakraProvider>
           </RecoilRoot>

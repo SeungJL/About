@@ -52,7 +52,6 @@ const UserInfo: NextPage<{
     [attendencesParam]
   );
 
-  console.log(user);
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,
     AxiosError
@@ -84,9 +83,7 @@ const UserInfo: NextPage<{
   return (
     <Container>
       <HStack justifyContent="space-between" alignItems="center">
-        <Heading as="h1" fontSize="3xl" marginBottom="5px">
-          내정보
-        </Heading>
+        <Link href="/about">뒤로가기</Link>
         <NextLink href="/settings">
           <SettingsIcon fontSize="30px" />
         </NextLink>
