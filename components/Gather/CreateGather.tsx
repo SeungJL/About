@@ -39,7 +39,7 @@ function CreateGather() {
   const setGathers = useSetRecoilState(gatherState);
   const category = useRecoilValue(categoryState);
   const mm = useRecoilValue(gatherState);
-
+  const HI = "My Name is Hi";
   const {
     register,
     handleSubmit,
