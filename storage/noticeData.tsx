@@ -10,6 +10,18 @@ const Text = styled.p`
 
 export const noticeData: any = [
   {
+    date: "2월 2일",
+    title: "다크모드 관련",
+    text: (
+      <Text>
+        현재 웹 사이트는 다크모드로 지원하지 않고 있습니다. 해당 설정이 되어있는
+        경우, 메인페이지 우측 상단의 설정에 들어가서 라이트모드로 변경해주시기
+        바랍니다.
+      </Text>
+    ),
+    category: "notice",
+  },
+  {
     date: "2월 1일",
     title: "필독 - 웹사이트 리모델링 공지",
     text: (
@@ -31,12 +43,14 @@ export const noticeData: any = [
   },
   {
     date: "2월 1일",
-    title: "현재 오류",
+    title: "2/1 현재 오류 내용",
     text: (
       <Text>
-        투표 취소시 기능은 정상적으로 작동하나, 버튼 디자인이 바로 변경되지 않는
-        오류가 있습니다. 다른 날짜로 이동했다 돌아오면 변경되어 있습니다. 곧
-        수정하도록 하겠습니다.
+        투표 취소시 바로 버튼이 바뀌지 않는 현상
+        <br />
+        출석체크와 당일참여 버튼이 동작하지 않음 <br />
+        투표 확정 알고리즘이 제대로 동작하지 않아, 인원 3명 이상인 경우 열리게
+        설정 <br />
       </Text>
     ),
     category: "notice",
@@ -49,7 +63,7 @@ export const noticeData: any = [
   },
   {
     date: "2월 1일",
-    title: "필독 - 개발 내용",
+    title: "메인 페이지 설계",
     text: (
       <Text>
         <b>투표 날짜 이동:</b> Yesterday/Tomorrow.
@@ -66,8 +80,8 @@ export const noticeData: any = [
   },
   {
     date: "2월 1일",
-    title: "다음 계획 ",
-    text: <Text>공지사항 페이지 디자인. 팝업 창 디자인. 오류 수정....</Text>,
+    title: "Test",
+    text: <Text>test</Text>,
     category: "release",
   },
   {

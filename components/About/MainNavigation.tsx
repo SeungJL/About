@@ -87,12 +87,8 @@ function MainNavigation() {
         <NavigationItem key={item.name}>
           {item.use === true ? (
             <>
-              <div>
-                <IconBox>
-                  <Link href="/$`{item.name}`">
-                    <a>{item.icon}</a>
-                  </Link>
-                </IconBox>
+              <div onClick={() => setIsNotCompleted(true)}>
+                <IconBox>{item.icon}</IconBox>
               </div>
               <div>{item.name}</div>
             </>

@@ -40,6 +40,8 @@ import dbConnect from "../../libs/dbConnect";
 import { Attendence, IAttendence } from "../../models/attendence";
 import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo";
 import { IUser, User } from "../../models/user";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const UserInfo: NextPage<{
   user: string;
@@ -82,8 +84,10 @@ const UserInfo: NextPage<{
 
   return (
     <Container>
-      <HStack justifyContent="space-between" alignItems="center">
-        <Link href="/about">뒤로가기</Link>
+      <HStack justifyContent="space-between" alignItems="center" height="40px">
+        <Link href="/about">
+          <FontAwesomeIcon icon={faArrowLeft} size="xl" />
+        </Link>
         <NextLink href="/settings">
           <SettingsIcon fontSize="30px" />
         </NextLink>
