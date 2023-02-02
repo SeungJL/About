@@ -190,7 +190,7 @@ function About() {
 
   if (now() > voteEndTime) {
     vote?.participations?.map((participant) => {
-      if (participant.attendences.length >= 1) {
+      if (participant.attendences.length >= 3) {
         participant.status = "open";
       } else participant.status = "dismissed";
     });
