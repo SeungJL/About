@@ -48,7 +48,7 @@ import CancelModal from "../models/CancelModal";
 /* Interface */
 import { IParticipation } from "../models/vote";
 import { useToast } from "@chakra-ui/react";
-import { getInterestingDate } from "../libs/utils/dateUtils";
+import { getInterestingDate, now, strToDate } from "../libs/utils/dateUtils";
 import { useRecoilState, useRecoilValue } from "recoil";
 import VoterModal from "../models/VoterModal";
 
@@ -59,6 +59,7 @@ import { getSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
+import { useRouter } from "next/router";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -144,6 +145,7 @@ const RightArrow = styled.aside<{ isSliderFirst: boolean }>`
 
 function About() {
   const toast = useToast();
+  const router = useRouter();
   const [date, setDate] = useRecoilState(dateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
   const isShowVoter = useRecoilValue(isShowVoterState);
@@ -156,6 +158,8 @@ function About() {
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   let dayjs = require("dayjs");
   const [isLoadingStart, setIsLoadingStart] = useState(true);
+  const today = strToDate(router.query.date as string);
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoadingStart(false);

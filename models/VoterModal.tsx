@@ -6,6 +6,7 @@ import { isShowVoterState } from "../recoil/atoms";
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const Container = styled(BaseModal)`
+  height: 200px;
   > div {
     height: 20%;
     display: flex;
@@ -24,7 +25,7 @@ const VoterSection = styled.section`
 
 function VoterModal(voterList: any) {
   const setVoterShow = useSetRecoilState(isShowVoterState);
-
+  console.log(voterList);
   return (
     <>
       <Container>
@@ -41,6 +42,7 @@ function VoterModal(voterList: any) {
                   borderRadius: "30%",
                 }}
               />
+              <span>{who.user.name}</span>
             </div>
           ))}
         </VoterSection>
