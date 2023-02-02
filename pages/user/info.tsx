@@ -25,7 +25,7 @@ import axios, { AxiosError } from "axios";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signOut } from "next-auth/react";
 import NextLink from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "react-query";
 import ProfileImage from "../../components/profileImage";
 import SummaryAttendenceInfo from "../../components/summaryAttendenceInfo";
@@ -35,15 +35,22 @@ import {
   isStranger,
   role,
 } from "../../libs/utils/authUtils";
+import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
+import { Attendence, IAttendence } from "../../models/attendence";
 import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo";
 import { IUser, User } from "../../models/user";
 
 const UserInfo: NextPage<{
   user: string;
-}> = ({ user: userParam }) => {
+  attendences: string;
+}> = ({ user: userParam, attendences: attendencesParam }) => {
   const toast = useToast();
   const [user, setUser] = useState(JSON.parse(userParam) as IUser);
+  const attendences = useMemo(
+    () => JSON.parse(attendencesParam) as IAttendence[],
+    [attendencesParam]
+  );
 
   console.log(user);
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
@@ -137,7 +144,7 @@ const UserInfo: NextPage<{
         </HStack>
       </HStack>
       <Divider />
-      <SummaryAttendenceInfo />
+      <SummaryAttendenceInfo attendences={attendences} />
       <Divider marginBottom="10px" />
       {isPreviliged(user.role) && (
         <>
@@ -205,10 +212,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await dbConnect();
 
   const user = await User.findOne({ uid: session.uid });
+  const attendences = await Attendence.find({
+    date: {
+      $gte: getToday().add(-4, "week").toDate(),
+      $lte: getInterestingDate().add(-1, "day").toDate(),
+    },
+    "participants.user": user._id,
+  }).populate("participants.user");
 
   return {
     props: {
       user: JSON.stringify(user),
+      attendences: JSON.stringify(attendences),
     },
   };
 };
