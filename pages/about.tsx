@@ -60,6 +60,9 @@ import dbConnect from "../libs/dbConnect";
 import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import { useRouter } from "next/router";
+import { confirm, confirmWithValidating } from "../services/voteService";
+import Confirm from "../components/voteModal/confirm";
+import { VOTE_END_HOUR } from "../constants/system";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -183,6 +186,15 @@ function About() {
     },
   });
 
+  const voteEndTime = today.add(VOTE_END_HOUR, "hour");
+
+  if (now() > voteEndTime) {
+    vote?.participations?.map((participant) => {
+      if (participant.attendences.length >= 1) {
+        participant.status = "open";
+      } else participant.status = "dismissed";
+    });
+  }
   return (
     <>
       <Seo title="About" />

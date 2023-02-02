@@ -50,7 +50,7 @@ const VoteCircle = styled.button<IVoteCircle>`
       : props.state === "Check"
       ? "linear-gradient(45deg,#FFDD00,#FBB034)"
       : props.state === "Join ?"
-      ? "linear-gradient(45deg,RGB(108, 66, 28),RGB(53, 29, 8))"
+      ? "linear-gradient(45deg,RGB(108, 66, 28),rgb(78, 42, 11))"
       : props.state === "Voted"
       ? "linear-gradient(45deg,#FFD700,#FEBE10)"
       : "linear-gradient(45deg,RGB(143, 80, 23),RGB(83, 46, 13))"};
@@ -82,7 +82,7 @@ function VoteBtn() {
   const [attended, setAttended] = useRecoilState(attendingState);
   const dateDay = dayjs(date).format("MDD");
   const todayDay = dayjs(today).format("MDD");
-  console.log("today", today);
+
   const {
     data: vote,
     isLoading,
