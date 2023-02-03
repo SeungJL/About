@@ -102,7 +102,7 @@ const InfoSection = styled.section`
   font-size: 0.7em;
   line-height: 1.75;
   > div {
-    width: 28vw;
+    width: 32%;
     background-color: rgb(255, 255, 255, 0.05);
     border-radius: 2.2vh;
     display: flex;
