@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { dateToDayjs, splitDate } from "../libs/utils/dateUtils";
-import { isShowOpenResultState, isShowVoterState } from "../recoil/atoms";
+import { showOpenResultState } from "../recoil/atoms";
 import { IUser } from "./user";
 import { timeRange } from "../libs/utils/timeUtils";
 import { START_HOUR } from "../constants/system";
@@ -176,14 +176,14 @@ const ArrowBtn = styled.div`
 `;
 
 const OpenResultModal = ({ attendences }: any) => {
-  const setOpenResultShow = useSetRecoilState(isShowOpenResultState);
+  const setShowOpenResult = useSetRecoilState(showOpenResultState);
   const [isLeftPage, setIsLeftPage] = useState(true);
   return (
     <>
       <ModalLayout>
         <Header>
           <span>Open</span>
-          <div onClick={() => setOpenResultShow(false)}>
+          <div onClick={() => setShowOpenResult(null)}>
             <FontAwesomeIcon icon={faX} />
           </div>
         </Header>
@@ -221,7 +221,7 @@ const OpenResultModal = ({ attendences }: any) => {
         </ArrowBtn>
       </ModalLayout>
 
-      <FullScreen onClick={() => setOpenResultShow(false)} />
+      <FullScreen onClick={() => setShowOpenResult(null)} />
     </>
   );
 };

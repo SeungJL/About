@@ -12,29 +12,19 @@ export const dateState = atom<Dayjs>({
   default: null,
 });
 
-export const isShowVoterState = atom<Boolean>({
-  key: "isShowVoter",
-  default: false,
+export const showVoterState = atom<Number>({
+  key: "showVoterState",
+  default: null,
 });
 
-export const voterBtnIdxState = atom<Number>({
-  key: "voterBtnIdx",
-  default: 0,
-});
-
-export const isShowOpenResultState = atom<Boolean>({
-  key: "isShowOpenResult",
-  default: false,
-});
-
-export const openBtnIdxState = atom<Number>({
-  key: "OpenBtnIdx",
-  default: 0,
+export const showOpenResultState = atom<Number>({
+  key: "showOpenResult",
+  default: null,
 });
 
 export const attendingState = atom<Number>({
   key: "attendingState",
-  default: -1,
+  default: null,
 });
 
 export const isShowVoteCancleState = atom<Boolean>({

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import Image from "next/image";
 
+import { useEffect } from "react";
+
 import { useSetRecoilState } from "recoil";
 import {
   attendingState,
-  isShowOpenResultState,
   isShowVoteCancleState,
-  isShowVoterState,
-  openBtnIdxState,
-  voterBtnIdxState,
+  showOpenResultState,
+  showVoterState,
 } from "../../recoil/atoms";
 
 import { IPlace } from "../../models/place";
@@ -134,22 +134,10 @@ function ResultBlock({
 }: IResultBlock) {
   const { data: session } = useSession();
 
-  const setIsShowVoter = useSetRecoilState(isShowVoterState);
-  const setVoterBtnIdx = useSetRecoilState(voterBtnIdxState);
-  const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
-  const setOpenBtnIdx = useSetRecoilState(openBtnIdxState);
   const setAttending = useSetRecoilState(attendingState);
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
-
-  const handleVoterBtn = () => {
-    setIsShowVoter(true);
-    setVoterBtnIdx(index);
-  };
-
-  const handleOpenBtn = () => {
-    setIsShowOpenResult(true);
-    setOpenBtnIdx(index);
-  };
+  const setShowVoter = useSetRecoilState(showVoterState);
+  const setShowOpenResult = useSetRecoilState(showOpenResultState);
 
   const countArr = [];
   for (let i = 0; i < attendences.length + absences.length; i++) {
@@ -164,6 +152,7 @@ function ResultBlock({
   const myAttendence = attendences.find(
     (att) => (att.user as IUser).uid === session?.uid
   );
+
   if (myAttendence) setAttending(index);
 
   return (
@@ -180,10 +169,10 @@ function ResultBlock({
                 Cancel
               </CancelBtn>
             )}
-            <VoterBtn onClick={() => handleVoterBtn()}>Voter</VoterBtn>
+            <VoterBtn onClick={() => setShowVoter(index)}>Voter</VoterBtn>
             <ResultStatus
               status={status}
-              onClick={status === "open" ? handleOpenBtn : null}
+              onClick={status === "open" && (() => setShowOpenResult(index))}
             >
               {status === "open"
                 ? "Open"

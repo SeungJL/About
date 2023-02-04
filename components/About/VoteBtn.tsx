@@ -20,7 +20,7 @@ import {
 } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
-import { strToDate } from "../../libs/utils/dateUtils";
+import { getToday, strToDate } from "../../libs/utils/dateUtils";
 import { IUser } from "../../models/user";
 
 const OutlineCircle = styled(CenterDiv)`
@@ -78,10 +78,10 @@ function VoteBtn() {
   const toast = useToast();
   const queryClient = useQueryClient();
   const date = useRecoilValue(dateState);
-  const today = strToDate(router.query.date as string);
+  const today = getToday();
   const [attended, setAttended] = useRecoilState(attendingState);
-  const dateDay = dayjs(date).format("MDD");
-  const todayDay = dayjs(today).format("MDD");
+  const dateFormat = dayjs(date).format("MDD");
+  const todayFormat = dayjs(today).format("MDD");
 
   const {
     data: vote,
@@ -104,7 +104,10 @@ function VoteBtn() {
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     date,
     {
-      onSuccess: async () => queryClient.invalidateQueries([VOTE_GET, date]),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries([VOTE_GET, date]);
+        setAttended(null);
+      },
       onError: (err) => {
         toast({
           title: "오류",
@@ -134,6 +137,7 @@ function VoteBtn() {
     isAttending?.some((userId) => userId === session?.uid?.toString()) || false;
 
   const CheckClosed = vote?.participations.every((p) => p.status !== "pending");
+
   const { mutate: handleArrived } = useArrivedMutation(today, {
     onSuccess: (data) => queryClient.invalidateQueries(VOTE_GET),
     onError: (err) => {
@@ -148,45 +152,41 @@ function VoteBtn() {
     },
   });
 
-  const handleVotedCancle = () => {
-    handleAbsent();
-    setAttended(-1);
-  };
   return (
     <>
       <OutlineCircle>
         <VoteCircle
           onClick={
-            dateDay < todayDay
+            dateFormat < todayFormat
               ? null
-              : dateDay === todayDay && realAttend
+              : dateFormat === todayFormat && realAttend
               ? () => handleArrived()
-              : dateDay === todayDay
+              : dateFormat === todayFormat
               ? null
-              : attended !== -1
-              ? handleVotedCancle
+              : attended === null
+              ? () => handleAbsent()
               : () => onVoteModalOpen()
           }
           state={
-            dateDay < todayDay
+            dateFormat < todayFormat
               ? "Closed"
-              : dateDay === todayDay && realAttend
+              : dateFormat === todayFormat && realAttend
               ? "Check"
-              : dateDay === todayDay
+              : dateFormat === todayFormat
               ? "Join ?"
-              : attended !== -1
+              : attended === null
               ? "Voted"
               : "Vote"
           }
           disabled={CheckClosed}
         >
-          {dateDay < todayDay
+          {dateFormat < todayFormat
             ? "Closed"
-            : dateDay === todayDay && realAttend
+            : dateFormat === todayFormat && realAttend
             ? "Check"
-            : dateDay === todayDay
+            : dateFormat === todayFormat
             ? "Join ?"
-            : attended !== -1
+            : attended === null
             ? "Voted"
             : "Vote"}
         </VoteCircle>
