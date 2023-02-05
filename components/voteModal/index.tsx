@@ -37,7 +37,8 @@ const VoteModal: FC<{
   onClose: () => void;
   date: Dayjs;
   participations: IParticipation[];
-}> = ({ isOpen, onClose, date, participations }) => {
+  isLate?: Boolean;
+}> = ({ isOpen, onClose, date, participations, isLate }) => {
   const toast = useToast();
   const queryClient = useQueryClient();
   const [accordionIndex, setAccordionIndex] = useState(0);
@@ -199,6 +200,7 @@ const VoteModal: FC<{
               <AccordionButton padding={0} />
               <AccordionPanel pb={4}>
                 <Confirm
+                  isLate={isLate}
                   confirmed={attendInfo.confirmed}
                   setConfirmed={(c: boolean) =>
                     setAttendInfo({ ...attendInfo, confirmed: c })

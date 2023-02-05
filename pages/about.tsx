@@ -181,7 +181,7 @@ function About() {
   });
 
   //이후 알고리즘 수정 예정
-  const voteEndTime = today.add(VOTE_END_HOUR, "hour");
+  const voteEndTime = dayjs(date).subtract(1, "day").add(VOTE_END_HOUR, "hour");
 
   if (now() > voteEndTime) {
     vote?.participations?.map((participant) => {

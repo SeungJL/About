@@ -172,7 +172,9 @@ function ResultBlock({
             <VoterBtn onClick={() => setShowVoter(index)}>Voter</VoterBtn>
             <ResultStatus
               status={status}
-              onClick={status === "open" && (() => setShowOpenResult(index))}
+              onClick={
+                status === "open" ? () => setShowOpenResult(index) : null
+              }
             >
               {status === "open"
                 ? "Open"

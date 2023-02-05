@@ -1,27 +1,21 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
-import { useState } from "react";
-
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-
 import { CenterDiv } from "../../styles/LayoutStyles";
-
 import { useRecoilState, useRecoilValue } from "recoil";
 import { attendingState, dateState } from "../../recoil/atoms";
-
 import VoteModal from "../voteModal";
-
 import {
   useAbsentMutation,
   useArrivedMutation,
 } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
-import { getToday, strToDate } from "../../libs/utils/dateUtils";
+import { getToday } from "../../libs/utils/dateUtils";
 import { IUser } from "../../models/user";
+import { useState } from "react";
 
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
@@ -74,7 +68,6 @@ const VoteCircle = styled.button<IVoteCircle>`
 
 function VoteBtn() {
   const { data: session } = useSession();
-  const router = useRouter();
   const toast = useToast();
   const queryClient = useQueryClient();
   const date = useRecoilValue(dateState);
@@ -82,7 +75,7 @@ function VoteBtn() {
   const [attended, setAttended] = useRecoilState(attendingState);
   const dateFormat = dayjs(date).format("MDD");
   const todayFormat = dayjs(today).format("MDD");
-
+  const [isLate, setIsLate] = useState(false);
   const {
     data: vote,
     isLoading,
@@ -152,6 +145,14 @@ function VoteBtn() {
     },
   });
 
+  const lateVote = () => {
+    if (attended !== null) {
+      handleAbsent();
+    } else {
+      setIsLate(true);
+      onVoteModalOpen();
+    }
+  };
   return (
     <>
       <OutlineCircle>
@@ -162,8 +163,8 @@ function VoteBtn() {
               : dateFormat === todayFormat && realAttend
               ? () => handleArrived()
               : dateFormat === todayFormat
-              ? null
-              : attended === null
+              ? () => lateVote()
+              : attended !== null
               ? () => handleAbsent()
               : () => onVoteModalOpen()
           }
@@ -174,11 +175,10 @@ function VoteBtn() {
               ? "Check"
               : dateFormat === todayFormat
               ? "Join ?"
-              : attended === null
+              : attended !== null
               ? "Voted"
               : "Vote"
           }
-          disabled={CheckClosed}
         >
           {dateFormat < todayFormat
             ? "Closed"
@@ -186,7 +186,7 @@ function VoteBtn() {
             ? "Check"
             : dateFormat === todayFormat
             ? "Join ?"
-            : attended === null
+            : attended !== null
             ? "Voted"
             : "Vote"}
         </VoteCircle>
@@ -197,6 +197,7 @@ function VoteBtn() {
           onClose={onVoteModalClose}
           participations={vote.participations}
           date={date}
+          isLate={isLate}
         />
       )}
     </>
