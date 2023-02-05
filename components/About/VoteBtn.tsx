@@ -1,27 +1,21 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
-import { useState } from "react";
-
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-
 import { CenterDiv } from "../../styles/LayoutStyles";
-
 import { useRecoilState, useRecoilValue } from "recoil";
 import { attendingState, dateState } from "../../recoil/atoms";
-
 import VoteModal from "../voteModal";
-
 import {
   useAbsentMutation,
   useArrivedMutation,
 } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
-import { strToDate } from "../../libs/utils/dateUtils";
+import { getToday } from "../../libs/utils/dateUtils";
 import { IUser } from "../../models/user";
+import { useState } from "react";
 
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
@@ -74,15 +68,14 @@ const VoteCircle = styled.button<IVoteCircle>`
 
 function VoteBtn() {
   const { data: session } = useSession();
-  const router = useRouter();
   const toast = useToast();
   const queryClient = useQueryClient();
   const date = useRecoilValue(dateState);
-  const today = strToDate(router.query.date as string);
+  const today = getToday();
   const [attended, setAttended] = useRecoilState(attendingState);
-  const dateDay = dayjs(date).format("MDD");
-  const todayDay = dayjs(today).format("MDD");
-
+  const dateFormat = dayjs(date).format("MDD");
+  const todayFormat = dayjs(today).format("MDD");
+  const [isLate, setIsLate] = useState(false);
   const {
     data: vote,
     isLoading,
@@ -104,7 +97,10 @@ function VoteBtn() {
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     date,
     {
-      onSuccess: async () => queryClient.invalidateQueries([VOTE_GET, date]),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries([VOTE_GET, date]);
+        setAttended(null);
+      },
       onError: (err) => {
         toast({
           title: "오류",
@@ -134,6 +130,7 @@ function VoteBtn() {
     isAttending?.some((userId) => userId === session?.uid?.toString()) || false;
 
   const CheckClosed = vote?.participations.every((p) => p.status !== "pending");
+
   const { mutate: handleArrived } = useArrivedMutation(today, {
     onSuccess: (data) => queryClient.invalidateQueries(VOTE_GET),
     onError: (err) => {
@@ -148,45 +145,48 @@ function VoteBtn() {
     },
   });
 
-  const handleVotedCancle = () => {
-    handleAbsent();
-    setAttended(-1);
+  const lateVote = () => {
+    if (attended !== null) {
+      handleAbsent();
+    } else {
+      setIsLate(true);
+      onVoteModalOpen();
+    }
   };
   return (
     <>
       <OutlineCircle>
         <VoteCircle
           onClick={
-            dateDay < todayDay
+            dateFormat < todayFormat
               ? null
-              : dateDay === todayDay && realAttend
+              : dateFormat === todayFormat && realAttend
               ? () => handleArrived()
-              : dateDay === todayDay
-              ? null
-              : attended !== -1
-              ? handleVotedCancle
+              : dateFormat === todayFormat
+              ? () => lateVote()
+              : attended !== null
+              ? () => handleAbsent()
               : () => onVoteModalOpen()
           }
           state={
-            dateDay < todayDay
+            dateFormat < todayFormat
               ? "Closed"
-              : dateDay === todayDay && realAttend
+              : dateFormat === todayFormat && realAttend
               ? "Check"
-              : dateDay === todayDay
+              : dateFormat === todayFormat
               ? "Join ?"
-              : attended !== -1
+              : attended !== null
               ? "Voted"
               : "Vote"
           }
-          disabled={CheckClosed}
         >
-          {dateDay < todayDay
+          {dateFormat < todayFormat
             ? "Closed"
-            : dateDay === todayDay && realAttend
+            : dateFormat === todayFormat && realAttend
             ? "Check"
-            : dateDay === todayDay
+            : dateFormat === todayFormat
             ? "Join ?"
-            : attended !== -1
+            : attended !== null
             ? "Voted"
             : "Vote"}
         </VoteCircle>
@@ -197,6 +197,7 @@ function VoteBtn() {
           onClose={onVoteModalClose}
           participations={vote.participations}
           date={date}
+          isLate={isLate}
         />
       )}
     </>

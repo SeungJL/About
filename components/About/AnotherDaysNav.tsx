@@ -35,11 +35,11 @@ function AnotherDaysNav({ date }) {
 
   const moveYesterday = () => {
     setDateState((day) => dayjs(day).subtract(1, "day"));
-    setAttending(-1);
+    setAttending(null);
   };
   const moveTomorrow = () => {
     setDateState((day) => dayjs(day).add(1, "day"));
-    setAttending(-1);
+    setAttending(null);
   };
 
   return (
