@@ -10,6 +10,20 @@ const Text = styled.p`
 
 export const noticeData: any = [
   {
+    date: "2월 5일",
+    title: "투표 버튼/투표 결과 관련 오류 수정",
+    text: (
+      <Text>
+        당일 참여 Join 기능이 작동되지 않던 현상 수정
+        <br />
+        투표 취소시 바로 Vote로 변경되지 않는 현상 수정
+        <br />
+        투표 기간이 지났음에도 결과가 Voting...으로 출력되던 현상 수정
+      </Text>
+    ),
+    category: "notice",
+  },
+  {
     date: "2월 2일",
     title: "다크모드 관련",
     text: (

@@ -2,7 +2,8 @@ import { Image } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
-import { isShowVoterState } from "../recoil/atoms";
+import { showVoterState } from "../recoil/atoms";
+
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const Container = styled(BaseModal)`
@@ -24,8 +25,7 @@ const VoterSection = styled.section`
 `;
 
 function VoterModal(voterList: any) {
-  const setVoterShow = useSetRecoilState(isShowVoterState);
-  console.log(voterList);
+  const setShowVoter = useSetRecoilState(showVoterState);
   return (
     <>
       <Container>
@@ -47,7 +47,7 @@ function VoterModal(voterList: any) {
           ))}
         </VoterSection>
       </Container>
-      <FullScreen onClick={() => setVoterShow(false)} />
+      <FullScreen onClick={() => setShowVoter(null)} />
     </>
   );
 }

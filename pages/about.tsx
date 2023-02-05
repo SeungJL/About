@@ -17,11 +17,9 @@ import {
   attendingState,
   dateState,
   isNotCompletedState,
-  isShowOpenResultState,
   isShowVoteCancleState,
-  isShowVoterState,
-  openBtnIdxState,
-  voterBtnIdxState,
+  showOpenResultState,
+  showVoterState,
 } from "../recoil/atoms";
 
 /* Icon */
@@ -47,7 +45,12 @@ import CancelModal from "../models/CancelModal";
 
 /* Interface */
 import { IParticipation } from "../models/vote";
-import { getInterestingDate, now, strToDate } from "../libs/utils/dateUtils";
+import {
+  getInterestingDate,
+  getToday,
+  now,
+  strToDate,
+} from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import VoterModal from "../models/VoterModal";
@@ -63,6 +66,8 @@ import { useRouter } from "next/router";
 import { confirm, confirmWithValidating } from "../services/voteService";
 import Confirm from "../components/voteModal/confirm";
 import { VOTE_END_HOUR } from "../constants/system";
+
+let dayjs = require("dayjs");
 
 const AboutLayout = styled.div`
   position: relative;
@@ -148,26 +153,15 @@ const RightArrow = styled.aside<{ isSliderFirst: boolean }>`
 
 function About() {
   const toast = useToast();
-  const router = useRouter();
+  const today = getToday();
+  const interestingDate = getInterestingDate();
   const [date, setDate] = useRecoilState(dateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
-  const isShowVoter = useRecoilValue(isShowVoterState);
-  const isVoterBtnIdx = useRecoilValue(voterBtnIdxState);
-  const interestingDate = getInterestingDate();
-  const isShowOpenResult = useRecoilValue(isShowOpenResultState);
-  const isOpenBtnIdx = useRecoilValue(openBtnIdxState);
-  const [isNotCompleted, setIsNotCompleted] =
-    useRecoilState(isNotCompletedState);
+  const showOpenResult = useRecoilValue(showOpenResultState);
+  const showVoter = useRecoilValue(showVoterState);
+  const isNotCompleted = useRecoilValue(isNotCompletedState);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
-  let dayjs = require("dayjs");
-  const [isLoadingStart, setIsLoadingStart] = useState(true);
-  const today = strToDate(router.query.date as string);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoadingStart(false);
-    }, 1500);
-  }, []);
   useEffect(() => {
     setDate(interestingDate);
   }, []);
@@ -186,7 +180,8 @@ function About() {
     },
   });
 
-  const voteEndTime = today.add(VOTE_END_HOUR, "hour");
+  //이후 알고리즘 수정 예정
+  const voteEndTime = dayjs(date).subtract(1, "day").add(VOTE_END_HOUR, "hour");
 
   if (now() > voteEndTime) {
     vote?.participations?.map((participant) => {
@@ -195,6 +190,7 @@ function About() {
       } else participant.status = "dismissed";
     });
   }
+
   return (
     <>
       <Seo title="About" />
@@ -263,11 +259,11 @@ function About() {
           </RightArrow>
         </DownScreen>
       </AboutLayout>
-      {isShowVoter && (
-        <VoterModal {...vote?.participations[isVoterBtnIdx as any]} />
+      {showVoter !== null && (
+        <VoterModal {...vote?.participations[showVoter as any]} />
       )}
-      {isShowOpenResult && (
-        <OpenResultModal {...vote?.participations[isOpenBtnIdx as any]} />
+      {showOpenResult && (
+        <OpenResultModal {...vote?.participations[showOpenResult as any]} />
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
