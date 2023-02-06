@@ -46,7 +46,7 @@ function CancelModal() {
   const queryClient = useQueryClient();
   const toast = useToast();
   const setIsShowCancle = useSetRecoilState(isShowVoteCancleState);
-
+  console.log("to", today);
   const { mutate: handleDismiss, isLoading: dismissLoading } =
     useDismissMutation(today, {
       onSuccess: (data) => queryClient.invalidateQueries(VOTE_GET),

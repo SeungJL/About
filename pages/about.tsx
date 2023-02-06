@@ -62,9 +62,6 @@ import { getSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-import { useRouter } from "next/router";
-import { confirm, confirmWithValidating } from "../services/voteService";
-import Confirm from "../components/voteModal/confirm";
 import { VOTE_END_HOUR } from "../constants/system";
 
 let dayjs = require("dayjs");
@@ -151,9 +148,12 @@ const RightArrow = styled.aside<{ isSliderFirst: boolean }>`
   color: var(--main-color);
 `;
 
+const Loading = styled.span`
+  font-size: 18px;
+`;
+
 function About() {
   const toast = useToast();
-  const today = getToday();
   const interestingDate = getInterestingDate();
   const [date, setDate] = useRecoilState(dateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
@@ -236,18 +236,12 @@ function About() {
           >
             <SwiperSlide>
               {isLoading ? (
-                "Loading..."
+                <Loading>Loading . . .</Loading>
               ) : (
                 <MainContents>
                   {vote &&
                     vote.participations.map((item: IParticipation, idx) => (
-                      <ResultBlock
-                        {...item}
-                        index={idx}
-                        key={idx}
-                        vote={vote}
-                        isLoading={isLoading}
-                      />
+                      <ResultBlock {...item} index={idx} key={idx} />
                     ))}
                 </MainContents>
               )}

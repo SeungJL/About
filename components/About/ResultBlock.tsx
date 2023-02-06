@@ -121,8 +121,6 @@ const Box = styled.div<IBox>`
 
 interface IResultBlock extends IParticipation {
   index: Number;
-  vote: any;
-  isLoading: any;
 }
 
 function ResultBlock({
@@ -161,7 +159,7 @@ function ResultBlock({
         <ResultBlockHeader>
           <span>{spaceName}</span>
           <ResultBlockNav>
-            {myAttendence?.confirmed && !myAttendence?.arrived && (
+            {myAttendence /*&& !myAttendence?.arrived*/ && (
               <CancelBtn
                 onClick={() => setIsShowVoteCancle(true)}
                 status={status}
