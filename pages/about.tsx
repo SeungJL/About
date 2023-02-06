@@ -235,18 +235,22 @@ function About() {
             onSlideChange={() => setSilderFirst((cur) => !cur)}
           >
             <SwiperSlide>
-              <MainContents>
-                {vote &&
-                  vote.participations.map((item: IParticipation, idx) => (
-                    <ResultBlock
-                      {...item}
-                      index={idx}
-                      key={idx}
-                      vote={vote}
-                      isLoading={isLoading}
-                    />
-                  ))}
-              </MainContents>
+              {isLoading ? (
+                "Loading..."
+              ) : (
+                <MainContents>
+                  {vote &&
+                    vote.participations.map((item: IParticipation, idx) => (
+                      <ResultBlock
+                        {...item}
+                        index={idx}
+                        key={idx}
+                        vote={vote}
+                        isLoading={isLoading}
+                      />
+                    ))}
+                </MainContents>
+              )}
             </SwiperSlide>
             <SwiperSlide>
               <MainNavigation />

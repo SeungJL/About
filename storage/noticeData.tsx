@@ -11,7 +11,7 @@ const Text = styled.p`
 export const noticeData: any = [
   {
     date: "2월 6일",
-    title: "출석체크 관련 오류 수정 및 다크모드 비활성화",
+    title: "출석체크 오류 수정 및 다크모드 비활성화",
     text: (
       <Text>
         출석체크 기능이 동작하지 않던 현상 수정
