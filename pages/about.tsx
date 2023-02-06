@@ -97,7 +97,7 @@ const TopNav = styled.nav`
 `;
 const Title = styled.span`
   height: 88%;
-  font-size: 4em;
+  font-size: 3.5em;
   align-self: flex-end;
   font-family: "Nanum";
 `;

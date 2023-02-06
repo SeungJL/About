@@ -76,6 +76,7 @@ function VoteBtn() {
   const dateFormat = dayjs(date).format("MDD");
   const todayFormat = dayjs(today).format("MDD");
   const [isLate, setIsLate] = useState(false);
+
   const {
     data: vote,
     isLoading,
@@ -120,6 +121,17 @@ function VoteBtn() {
     onClose: onVoteModalClose,
   } = useDisclosure();
 
+  let isCheck = false;
+  vote?.participations?.flatMap((participant) => {
+    if (participant.status === "open") {
+      participant.attendences.map((a) => {
+        if (a.arrived && (a.user as IUser).uid === session?.uid?.toString()) {
+          isCheck = true;
+        }
+      });
+    }
+  });
+  console.log("isCheck", isCheck);
   const isAttending = vote?.participations?.flatMap((participant) => {
     if (participant.status === "open") {
       return participant.attendences.map((a) => (a.user as IUser).uid);
@@ -131,19 +143,25 @@ function VoteBtn() {
 
   const CheckClosed = vote?.participations.every((p) => p.status !== "pending");
 
-  const { mutate: handleArrived } = useArrivedMutation(today, {
-    onSuccess: (data) => queryClient.invalidateQueries(VOTE_GET),
-    onError: (err) => {
-      toast({
-        title: "오류",
-        description: "출석체크 중 문제가 발생했어요. 다시 시도해보세요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
+  const { mutate: handleArrived } = useArrivedMutation(
+    dayjs(today).subtract(1, "day"),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(VOTE_GET);
+        console.log(14);
+      },
+      onError: (err) => {
+        toast({
+          title: "오류",
+          description: "출석체크 중 문제가 발생했어요. 다시 시도해보세요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      },
+    }
+  );
 
   const lateVote = () => {
     if (attended !== null) {
@@ -153,12 +171,15 @@ function VoteBtn() {
       onVoteModalOpen();
     }
   };
+
   return (
     <>
       <OutlineCircle>
         <VoteCircle
           onClick={
             dateFormat < todayFormat
+              ? null
+              : isCheck
               ? null
               : dateFormat === todayFormat && realAttend
               ? () => handleArrived()
@@ -182,6 +203,8 @@ function VoteBtn() {
         >
           {dateFormat < todayFormat
             ? "Closed"
+            : isCheck
+            ? "출석완료"
             : dateFormat === todayFormat && realAttend
             ? "Check"
             : dateFormat === todayFormat
