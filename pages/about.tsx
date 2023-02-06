@@ -161,9 +161,11 @@ function About() {
   const showVoter = useRecoilValue(showVoterState);
   const isNotCompleted = useRecoilValue(isNotCompletedState);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
+  const { colorMode, setColorMode } = useColorMode();
 
   useEffect(() => {
     setDate(interestingDate);
+    setColorMode("light");
   }, []);
 
   const { data: vote, isLoading } = useVoteQuery(date, {
