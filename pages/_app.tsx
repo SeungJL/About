@@ -16,6 +16,7 @@ import styled from "styled-components";
 import { CenterDiv, FullScreen } from "../styles/LayoutStyles";
 import Cover from "../components/Cover";
 import "../styles/variable.css";
+import Head from "next/head";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 
@@ -59,6 +60,12 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+      </Head>
       <Script
         strategy="beforeInteractive"
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`}
