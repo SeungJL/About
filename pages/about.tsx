@@ -269,7 +269,7 @@ function About() {
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
-      {isShowUserInfoForm && <UserInfoForm />}
+      {!isShowUserInfoForm && <UserInfoForm />}
     </>
   );
 }

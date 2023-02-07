@@ -32,12 +32,15 @@ const InputItem = styled.div`
   > div {
     display: flex;
     > span {
-      width: 50px;
+      width: 60px;
     }
     > input {
-      width: 60px;
+      width: 100px;
       background-color: pink;
     }
+  }
+  > span {
+    font-size: 0.7em;
   }
 `;
 
@@ -77,20 +80,51 @@ function UserInfoForm() {
           </div>
           <span>{errors?.JoinDate?.message}</span>
         </InputItem>
-
         <InputItem>
-          <span>이름: </span>
-          <input />
+          <div>
+            <span>이름: </span>
+            <input
+              {...register("JoinDate", {
+                required: "필수입력",
+                pattern: {
+                  value: /^\d{4}-\d{2}-\d{2}$/,
+                  message: "한글로 입력헤주세요.",
+                },
+              })}
+            />
+          </div>
+          <span>{errors?.JoinDate?.message}</span>
         </InputItem>
         <InputItem>
-          <span>생년월일: </span>
-          <input />
+          <div>
+            <span>생년월일: </span>
+            <input
+              {...register("JoinDate", {
+                required: "필수입력",
+                pattern: {
+                  value: /^\d{4}-\d{2}-\d{2}$/,
+                  message: "한글로 입력헤주세요.",
+                },
+              })}
+            />
+          </div>
+          <span>{errors?.JoinDate?.message}</span>
         </InputItem>
         <InputItem>
-          <span>MBTI: </span>
-          <input />
+          <div>
+            <span>MBTI: </span>
+            <input
+              {...register("JoinDate", {
+                required: "필수입력",
+                pattern: {
+                  value: /^\d{4}-\d{2}-\d{2}$/,
+                  message: "한글로 입력헤주세요.",
+                },
+              })}
+            />
+          </div>
+          <span>{errors?.JoinDate?.message}</span>
         </InputItem>
-        <button>제출</button>
       </ModalLayout>
     </>
   );
