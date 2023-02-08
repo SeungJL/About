@@ -20,6 +20,12 @@ const Header = styled.header`
   height: 70px;
   background-color: yellow;
 `;
+const Title = styled.div`
+  display: flex;
+  font-size: 2em;
+  align-items: center;
+`;
+const HeaderInfo = styled.div``;
 const Main = styled.main`
   flex-wrap: nowrap;
 `;
@@ -47,7 +53,10 @@ function Books() {
   console.log(booksObj);
   return (
     <BooksLayout>
-      <Header>제목목</Header>
+      <Header>
+        <Title>Book</Title>
+        <HeaderInfo>헤더인포</HeaderInfo>
+      </Header>
       <Main>
         {books?.map((book: any) => (
           <BookItem key={book.doc.isbn13}>
