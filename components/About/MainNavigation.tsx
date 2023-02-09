@@ -52,7 +52,7 @@ const navigationItems = [
   {
     icon: <FontAwesomeIcon icon={faCalendarCheck} size="2xl" />,
     name: "gather",
-    use: true,
+    use: false,
   },
   {
     icon: <FontAwesomeIcon icon={faUsers} size="2xl" />,
@@ -63,7 +63,7 @@ const navigationItems = [
   {
     icon: <FontAwesomeIcon icon={faBookOpen} size="2xl" />,
     name: "book",
-    use: false,
+    use: true,
   },
   { icon: <FontAwesomeIcon icon={faUtensils} size="2xl" />, name: "food" },
   {
@@ -87,9 +87,11 @@ function MainNavigation() {
         <NavigationItem key={item.name}>
           {item.use === true ? (
             <>
-              <div onClick={() => setIsNotCompleted(true)}>
-                <IconBox>{item.icon}</IconBox>
-              </div>
+              <Link href={item.name}>
+                <div>
+                  <IconBox>{item.icon}</IconBox>
+                </div>
+              </Link>
               <div>{item.name}</div>
             </>
           ) : (
