@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { fetchFamousBooks } from "../../api/api";
-import Header from "../../components/layout/header";
-
+import Header from "../../components/Header";
 import Seo from "../../components/Seo";
 
 interface IBooks {
