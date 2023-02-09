@@ -17,7 +17,7 @@ import {
   attendingState,
   dateState,
   isNotCompletedState,
-  isShowUserInfoForm,
+  isShowUserInfoFormState,
   isShowVoteCancleState,
   showOpenResultState,
   showVoterState,
@@ -164,6 +164,7 @@ function About() {
   const isNotCompleted = useRecoilValue(isNotCompletedState);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   const { colorMode, setColorMode } = useColorMode();
+  const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
 
   useEffect(() => {
     setDate(interestingDate);
@@ -269,7 +270,7 @@ function About() {
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
-      {!isShowUserInfoForm && <UserInfoForm />}
+      {isShowUserInfoForm && <UserInfoForm />}
     </>
   );
 }
