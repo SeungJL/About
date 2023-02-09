@@ -113,7 +113,7 @@ export const isCancelState = atom({
   default: false,
 });
 
-export const isShowUserInfoForm = atom({
+export const isShowUserInfoFormState = atom({
   key: "isUserInfoForm",
-  default: true,
+  default: false,
 });
