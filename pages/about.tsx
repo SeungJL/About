@@ -17,6 +17,7 @@ import {
   attendingState,
   dateState,
   isNotCompletedState,
+  isShowUserInfoForm,
   isShowVoteCancleState,
   showOpenResultState,
   showVoterState,
@@ -52,7 +53,7 @@ import {
   strToDate,
 } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import VoterModal from "../models/VoterModal";
 
 /* Backend */
@@ -63,6 +64,7 @@ import dbConnect from "../libs/dbConnect";
 import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import { VOTE_END_HOUR } from "../constants/system";
+import UserInfoForm from "../models/UserInfoForm";
 
 let dayjs = require("dayjs");
 
@@ -267,6 +269,7 @@ function About() {
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
+      {!isShowUserInfoForm && <UserInfoForm />}
     </>
   );
 }
