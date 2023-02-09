@@ -102,7 +102,7 @@ function UserInfoForm() {
                 required: "필수입력",
                 pattern: {
                   value: /^\d{4}-\d{2}-\d{2}$/,
-                  message: "한글로 입력헤주세요.",
+                  message: "YYYY-MM-DD 형식으로 작성해주세요",
                 },
               })}
               placeholder="YYYY-MM-DD"
@@ -116,11 +116,11 @@ function UserInfoForm() {
                 required: "필수입력",
                 maxLength: {
                   value: 3,
-                  message: "세글자로 입력해주세요.",
+                  message: "세글자로 입력해주세요",
                 },
                 minLength: {
                   value: 3,
-                  message: "세글자로 입력해주세요.",
+                  message: "세글자로 입력해주세요",
                 },
               })}
             />
