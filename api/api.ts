@@ -1,3 +1,9 @@
+export function fetchFamousBooks() {
+  return fetch("/api/book", {
+    method: "get",
+  }).then((response) => response.json());
+}
+
 export function fetchMovies(date: number) {
   return fetch(
     `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${
