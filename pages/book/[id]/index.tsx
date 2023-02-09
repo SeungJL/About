@@ -1,3 +1,6 @@
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -45,24 +48,29 @@ function Book() {
   const { authors, bookImageURL, genre, id, name, publish, rank } =
     router.query;
   return (
-    <BookLayout>
-      <BookHeader>
-        <BookTitle>{name}</BookTitle>
-        <span>순위: {rank}</span>
-      </BookHeader>
-      <BookInfos>
-        <BookImg>
-          <img alt="bookImage" src={bookImageURL as string} />
-        </BookImg>
-        <Info>
-          <span>작가:{authors}</span>
-          <span>장르:{genre}</span>
-          <span>출판일: {publish}</span>
-        </Info>
-      </BookInfos>
-      <p>책 내용: ...</p>
-      <footer>비슷한 책 추천</footer>
-    </BookLayout>
+    <>
+      <BookLayout>
+        <BookHeader>
+          <BookTitle>{name}</BookTitle>
+          <Link href="/book">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </Link>
+        </BookHeader>
+        <BookInfos>
+          <BookImg>
+            <img alt="bookImage" src={bookImageURL as string} />
+          </BookImg>
+          <Info>
+            <span>순위: {rank}</span>
+            <span>작가:{authors}</span>
+            <span>장르:{genre}</span>
+            <span>출판일: {publish}</span>
+          </Info>
+        </BookInfos>
+        <p>책 내용: ...</p>
+        <footer>비슷한 책 추천</footer>
+      </BookLayout>
+    </>
   );
 }
 export default Book;

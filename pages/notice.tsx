@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Header from "../components/Header";
 import CreateNotice from "../components/Notice/CreateNotice";
 import NoticeCategory from "../components/Notice/NoticeCategory";
 import NoticeContents from "../components/Notice/NoticeContents";
 import Seo from "../components/Seo";
+import Header from "../components/Header";
 
 const NoticeLayout = styled.div`
   height: 100vh;
