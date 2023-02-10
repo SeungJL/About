@@ -23,6 +23,9 @@ export const now = () => dayjs().tz(TZ_SEOUL);
 export const getToday = () => {
   return now().startOf("day");
 };
+export const getTomorrow = () => {
+  return getToday().add(1, "day");
+};
 
 export const getInterestingDate = () => {
   const today = getToday();

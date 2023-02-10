@@ -9,19 +9,26 @@ import {
   useToast,
   Button,
 } from "@chakra-ui/react";
-import { FC, MouseEvent } from "react";
+import { FC, MouseEvent, useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { MAX_USER_PER_PLACE } from "../../constants/system";
 import { IPlace } from "../../models/place";
+import { selectPlacesState } from "../../recoil/atoms";
 import Map from "../map";
 
 const PlaceSelector: FC<{
   placeVoteInfo: { place: IPlace; vote: number; status: string }[];
   selectedPlace?: IPlace;
   setSelectedPlace: (place: IPlace) => void;
-}> = ({ placeVoteInfo, selectedPlace, setSelectedPlace }) => {
+  isSelectUnit?: boolean;
+}> = ({ placeVoteInfo, selectedPlace, setSelectedPlace, isSelectUnit }) => {
+  console.log("iss", isSelectUnit);
   const toast = useToast();
+  const [isUnit, setIsUnit] = useState(true);
 
-  const places = placeVoteInfo.map((pv) => pv.place);
+  const setSelectPlaces = useSetRecoilState(selectPlacesState);
+
+  useEffect(() => setIsUnit(isSelectUnit), [isSelectUnit]);
 
   const placeIconBorderColor = (place: IPlace) => {
     if (selectedPlace?._id == place._id) {
@@ -48,10 +55,15 @@ const PlaceSelector: FC<{
     });
   };
 
-  const handlePlaceIconClick = (place: IPlace) => {
+  const handlePlaceIconClick = (place: IPlace, isUnit: boolean) => {
     const vote = placeVoteInfo.find((pv) => pv.place._id == place._id);
+
     if (vote.vote < MAX_USER_PER_PLACE) {
-      setSelectedPlace(vote.place);
+      console.log(isUnit);
+      if (isUnit) setSelectedPlace(vote.place);
+      else {
+        setSelectPlaces((item) => [...item, vote.place]);
+      }
     } else {
       toast({
         title: "정원초과",
@@ -65,28 +77,7 @@ const PlaceSelector: FC<{
   };
   return (
     <>
-      <Map
-        selectedPlace={selectedPlace}
-        places={places}
-        width="100%"
-        height="200px"
-      />
       <Container>
-        <Select
-          disabled
-          value={selectedPlace?._id}
-          margin="5px 0"
-          placeholder="장소"
-          width="100%"
-        >
-          {placeVoteInfo
-            .filter((p) => p.status === "pending")
-            .map((p) => (
-              <option key={p.place._id} value={p.place._id}>
-                {p.place.fullname}
-              </option>
-            ))}
-        </Select>
         <HStack justifyContent="center" width="100%">
           {placeVoteInfo.map((placeVoteInfo, idx) => (
             <VStack key={idx} flex={1}>
@@ -105,7 +96,9 @@ const PlaceSelector: FC<{
                   title={placeVoteInfo.place._id}
                   ratio={1 / 1}
                   width="60px"
-                  onClick={() => handlePlaceIconClick(placeVoteInfo.place)}
+                  onClick={() =>
+                    handlePlaceIconClick(placeVoteInfo.place, isUnit)
+                  }
                 >
                   <Image
                     src={placeVoteInfo.place.image}

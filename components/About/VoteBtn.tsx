@@ -5,7 +5,11 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { CenterDiv } from "../../styles/LayoutStyles";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { attendingState, dateState } from "../../recoil/atoms";
+import {
+  attendingState,
+  dateState,
+  isShowStudyVoteModalState,
+} from "../../recoil/atoms";
 import VoteModal from "../voteModal";
 import {
   useAbsentMutation,
@@ -16,7 +20,7 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
 import { IUser } from "../../models/user";
 import { useState } from "react";
-
+import VoteStudyModal from "../../modals/StudyVoteModal";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;
@@ -75,7 +79,9 @@ function VoteBtn() {
   const dateFormat = dayjs(date).format("MDD");
   const todayFormat = dayjs(today).format("MDD");
   const [isLate, setIsLate] = useState(false);
-
+  const [isShowStudyVote, setIsShowStudyVote] = useRecoilState(
+    isShowStudyVoteModalState
+  );
   const {
     data: vote,
     isLoading,
@@ -182,7 +188,7 @@ function VoteBtn() {
               ? () => lateVote()
               : attended !== null
               ? () => handleAbsent()
-              : () => onVoteModalOpen()
+              : () => setIsShowStudyVote(true)
           }
           state={
             dateFormat < todayFormat
@@ -209,11 +215,9 @@ function VoteBtn() {
             : "Vote"}
         </VoteCircle>
       </OutlineCircle>
-      {isVoteModalOpen && (
-        <VoteModal
-          isOpen={isVoteModalOpen}
-          onClose={onVoteModalClose}
-          participations={vote.participations}
+      {isShowStudyVote && (
+        <VoteStudyModal
+          participations={vote?.participations}
           date={date}
           isLate={isLate}
         />

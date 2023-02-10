@@ -19,6 +19,7 @@ import {
   isNotCompletedState,
   isShowUserInfoFormState,
   isShowVoteCancleState,
+  isShowStudyVoteModalState,
   showOpenResultState,
   showVoterState,
 } from "../recoil/atoms";
@@ -65,6 +66,7 @@ import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import { VOTE_END_HOUR } from "../constants/system";
 import UserInfoForm from "../models/UserInfoForm";
+import VoteStudyModal from "../modals/StudyVoteModal";
 
 let dayjs = require("dayjs");
 
@@ -165,6 +167,7 @@ function About() {
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   const { colorMode, setColorMode } = useColorMode();
   const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
+  const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
 
   useEffect(() => {
     setDate(interestingDate);
