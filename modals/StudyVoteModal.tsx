@@ -5,10 +5,11 @@ import { Dayjs } from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Map from "../components/map";
 import PlaceSelector from "../components/voteModal/placeSelector";
+import TimeSelector from "../components/voteModal/timeSelector";
 import { MAX_USER_PER_PLACE } from "../constants/system";
 import { useAttendMutation } from "../hooks/vote/mutations";
 import { VOTE_GET } from "../libs/queryKeys";
@@ -101,7 +102,7 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
   });
 
   const places = placeVoteInfo.map((pv) => pv.place);
-  const selectPlaces = useRecoilValue(selectPlacesState);
+  const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
   const { mutate: patchAttend } = useAttendMutation(date, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -110,6 +111,7 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
   });
   const onSubmit = () => {
     const { start, end } = attendInfo;
+    setIsShowStudyVote(false);
     if (start >= end) {
       toast({
         title: "잘못된 입력",
@@ -135,13 +137,24 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
 
     patchAttend(attendDTO);
   };
+
+  const movePageSeoncd = () => {
+    setPage(1);
+    setSelectPlaces([]);
+  };
   const onSpaceSubmit = () => {
+    const selectedPlaces = new Set(selectPlaces);
+    console.log(selectedPlaces);
     selectPlaces.map((place) => {
       setAttendInfo({ ...attendInfo, place });
     });
     setPage(2);
-    onSubmit();
   };
+
+  const selectedParticipation = participations.find(
+    (participation) =>
+      (participation.place as IPlace)._id == (attendInfo.place as IPlace)?._id
+  );
   return (
     <ModalLayout>
       <ModalHeader>
@@ -169,8 +182,8 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
               isSelectUnit={true}
               setSelectedPlace={(place) => {
                 setAttendInfo({ ...attendInfo, place });
-                console.log(place);
-                setPage(1);
+
+                movePageSeoncd();
               }}
             />
           </SpaceSelector>
@@ -193,7 +206,6 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
               isSelectUnit={false}
               setSelectedPlace={(place) => {
                 setAttendInfo({ ...attendInfo, place });
-                setPage(1);
               }}
             />
           </SpaceSelector>
@@ -203,7 +215,19 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
           </SecondPageNav>
         </SpacePage>
       ) : (
-        <></>
+        <>
+          <TimeSelector
+            participation={selectedParticipation}
+            start={attendInfo.start}
+            setStart={(start: Dayjs) => setAttendInfo({ ...attendInfo, start })}
+            end={attendInfo.end}
+            setEnd={(end: Dayjs) => setAttendInfo({ ...attendInfo, end })}
+          />
+          <SecondPageNav style={{ marginTop: "100px" }}>
+            <button onClick={movePageSeoncd}>뒤로가기</button>
+            <button onClick={onSubmit}>제출</button>
+          </SecondPageNav>
+        </>
       )}
     </ModalLayout>
   );
