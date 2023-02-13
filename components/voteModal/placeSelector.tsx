@@ -9,23 +9,55 @@ import {
   useToast,
   Button,
 } from "@chakra-ui/react";
-import { FC, MouseEvent } from "react";
+import { FC, MouseEvent, useEffect, useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/system";
 import { IPlace } from "../../models/place";
+import { selectPlacesState } from "../../recoil/atoms";
 import Map from "../map";
 
-const PlaceSelector: FC<{
+interface IPlaceSelecter {
   placeVoteInfo: { place: IPlace; vote: number; status: string }[];
   selectedPlace?: IPlace;
   setSelectedPlace: (place: IPlace) => void;
-}> = ({ placeVoteInfo, selectedPlace, setSelectedPlace }) => {
-  const toast = useToast();
+  isSelectUnit?: boolean;
+}
 
-  const places = placeVoteInfo.map((pv) => pv.place);
+const PlaceSelectorLayout = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+const PlaceItem = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const PlaceIcon = styled.button<{ borderColor: string; borderColor2: string }>`
+  width: 60px;
+  height: 60px;
+  margin: 5px 0;
+  border-radius: 25%;
+  border: 4px solid black;
+  border-color: ${(props) =>
+    props.borderColor === "brown" ? props.borderColor : props.borderColor2};
+  overflow: hidden;
+`;
+
+const PlaceSelector = ({
+  placeVoteInfo,
+  selectedPlace,
+  setSelectedPlace,
+  isSelectUnit,
+}: IPlaceSelecter) => {
+  const toast = useToast();
+  const [isUnit, setIsUnit] = useState(true);
+  const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
+
+  useEffect(() => setIsUnit(isSelectUnit), [isSelectUnit]);
 
   const placeIconBorderColor = (place: IPlace) => {
     if (selectedPlace?._id == place._id) {
-      return "blue.200";
+      return "brown";
     }
     const placeInfo = placeVoteInfo.find((pv) => pv.place._id == place._id);
     if (
@@ -35,6 +67,18 @@ const PlaceSelector: FC<{
       return "red.400";
     }
     return "";
+  };
+
+  const placeDisabled = (place: IPlace) => {
+    if (selectedPlace?._id == place._id) {
+      return true;
+    }
+  };
+
+  const PlaceIconBorderColor2 = (place: IPlace) => {
+    if (selectPlaces.find((item) => item == place)) {
+      return "blue";
+    }
   };
 
   const showForbiddenMessage = () => {
@@ -48,10 +92,20 @@ const PlaceSelector: FC<{
     });
   };
 
-  const handlePlaceIconClick = (place: IPlace) => {
+  const handlePlaceIconClick = (place: IPlace, isUnit: boolean) => {
     const vote = placeVoteInfo.find((pv) => pv.place._id == place._id);
+
+    if (selectPlaces.find((item) => item == vote.place)) {
+      const temp = selectPlaces.filter((item) => item !== vote.place);
+      setSelectPlaces(temp);
+      return;
+    }
+
     if (vote.vote < MAX_USER_PER_PLACE) {
-      setSelectedPlace(vote.place);
+      if (isUnit) setSelectedPlace(vote.place);
+      else {
+        setSelectPlaces((item) => [...item, vote.place]);
+      }
     } else {
       toast({
         title: "정원초과",
@@ -63,69 +117,26 @@ const PlaceSelector: FC<{
       });
     }
   };
+
   return (
-    <>
-      <Map
-        selectedPlace={selectedPlace}
-        places={places}
-        width="100%"
-        height="200px"
-      />
-      <Container>
-        <Select
-          disabled
-          value={selectedPlace?._id}
-          margin="5px 0"
-          placeholder="장소"
-          width="100%"
-        >
-          {placeVoteInfo
-            .filter((p) => p.status === "pending")
-            .map((p) => (
-              <option key={p.place._id} value={p.place._id}>
-                {p.place.fullname}
-              </option>
-            ))}
-        </Select>
-        <HStack justifyContent="center" width="100%">
-          {placeVoteInfo.map((placeVoteInfo, idx) => (
-            <VStack key={idx} flex={1}>
-              <Button
-                padding="0"
-                margin="5px 0"
-                width="fit-content"
-                height="fit-content"
-                borderRadius="25%"
-                borderColor={placeIconBorderColor(placeVoteInfo.place)}
-                borderWidth="4px"
-                borderStyle="solid"
-                overflow="hidden"
-              >
-                <AspectRatio
-                  title={placeVoteInfo.place._id}
-                  ratio={1 / 1}
-                  width="60px"
-                  onClick={() => handlePlaceIconClick(placeVoteInfo.place)}
-                >
-                  <Image
-                    src={placeVoteInfo.place.image}
-                    alt={placeVoteInfo.place.fullname}
-                  />
-                </AspectRatio>
-              </Button>
-              <Text
-                position="relative"
-                top="-12px"
-                fontSize="xs"
-                letterSpacing={0}
-              >
-                {placeVoteInfo.place.branch}
-              </Text>
-            </VStack>
-          ))}
-        </HStack>
-      </Container>
-    </>
+    <PlaceSelectorLayout>
+      {placeVoteInfo.map((placeVoteInfo, idx) => (
+        <PlaceItem key={idx}>
+          <PlaceIcon
+            onClick={() => handlePlaceIconClick(placeVoteInfo.place, isUnit)}
+            borderColor={placeIconBorderColor(placeVoteInfo.place)}
+            borderColor2={PlaceIconBorderColor2(placeVoteInfo.place)}
+            disabled={placeDisabled(placeVoteInfo.place)}
+          >
+            <img
+              src={placeVoteInfo.place.image}
+              alt={placeVoteInfo.place.fullname}
+            />
+          </PlaceIcon>
+          <span>{placeVoteInfo.place.branch}</span>
+        </PlaceItem>
+      ))}
+    </PlaceSelectorLayout>
   );
 };
 

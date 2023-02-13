@@ -117,3 +117,35 @@ export const isShowUserInfoFormState = atom({
   key: "isUserInfoForm",
   default: false,
 });
+
+export const isShowStudyVoteModalState = atom({
+  key: "isShowVoteStudyModal",
+  default: false,
+});
+
+/* VoteModal */
+export const selectPlacesState = atom<any>({
+  key: "selectPlaces",
+  default: [],
+});
+
+export const tempState = atom({
+  key: "temp",
+  default: 0,
+});
+
+export const change = selector({
+  key: "change",
+  get: ({ get }) => {
+    const B = get(tempState);
+    return B / 10;
+  },
+  set: ({ set }, newValue) => {
+    set(tempState, newValue);
+  },
+});
+
+export const gatherJoinState = atom({
+  key: "gatherJoin",
+  default: false,
+});

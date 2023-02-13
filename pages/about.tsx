@@ -19,6 +19,7 @@ import {
   isNotCompletedState,
   isShowUserInfoFormState,
   isShowVoteCancleState,
+  isShowStudyVoteModalState,
   showOpenResultState,
   showVoterState,
 } from "../recoil/atoms";
@@ -52,7 +53,7 @@ import {
   now,
   strToDate,
 } from "../libs/utils/dateUtils";
-import { useColorMode, useToast } from "@chakra-ui/react";
+import { Circle, useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import VoterModal from "../models/VoterModal";
 
@@ -65,6 +66,8 @@ import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import { VOTE_END_HOUR } from "../constants/system";
 import UserInfoForm from "../models/UserInfoForm";
+import VoteStudyModal from "../modals/StudyVoteModal";
+import CircleAlert from "../components/icon/CircleAlert";
 
 let dayjs = require("dayjs");
 
@@ -92,6 +95,8 @@ const TopNav = styled.nav`
   justify-content: space-between;
   > div {
     width: 20px;
+    height: 20px;
+    position: relative;
   }
 `;
 const Title = styled.span`
@@ -165,6 +170,7 @@ function About() {
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   const { colorMode, setColorMode } = useColorMode();
   const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
+  const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
 
   useEffect(() => {
     setDate(interestingDate);
@@ -205,6 +211,7 @@ function About() {
             <Link href="/notice">
               <div>
                 <FontAwesomeIcon icon={faBell} size="xl" />
+                <CircleAlert />
               </div>
             </Link>
             <Title>About</Title>
