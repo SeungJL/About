@@ -22,6 +22,7 @@ export interface IAttendence {
   anonymity: boolean;
   created: Date;
   arrived?: Date;
+  firstChoice: boolean;
 }
 
 export interface IInvitation {
@@ -120,8 +121,12 @@ const AttendenceSchema: Schema<IAttendence> = new Schema(
       type: Schema.Types.Boolean,
       default: false,
     },
+    firstChoice: {
+      type: Schema.Types.Boolean,
+      default: true,
+    },
   },
-  { _id: false, timestamps: true }
+  { _id: false, timestamps: true, strict: false }
 );
 
 const AbsenceSchema: Schema<IAbsence> = new Schema(
