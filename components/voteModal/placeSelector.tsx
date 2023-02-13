@@ -97,7 +97,6 @@ const PlaceSelector = ({
 
     if (selectPlaces.find((item) => item == vote.place)) {
       const temp = selectPlaces.filter((item) => item !== vote.place);
-      console.log("temp", selectPlaces, temp);
       setSelectPlaces(temp);
       return;
     }

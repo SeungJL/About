@@ -1,5 +1,6 @@
 export interface AttendDTO {
   place: any;
+  subPlace: any;
   start?: Date;
   end?: Date;
   confirmed: boolean;

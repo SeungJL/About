@@ -103,12 +103,15 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
 
   const places = placeVoteInfo.map((pv) => pv.place);
   const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
+  const [subPlaces, setSubPlaces] = useState([]);
+
   const { mutate: patchAttend } = useAttendMutation(date, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
     },
     onError: (err) => {},
   });
+
   const onSubmit = () => {
     const { start, end } = attendInfo;
     setIsShowStudyVote(false);
@@ -126,6 +129,7 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
 
     const attendDTO = {
       place: (attendInfo.place as IPlace)._id,
+      subPlace: subPlaces,
       start: start.toDate(),
       end: end.toDate(),
       confirmed: attendInfo.confirmed,
@@ -143,11 +147,10 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
     setSelectPlaces([]);
   };
   const onSpaceSubmit = () => {
-    const selectedPlaces = new Set(selectPlaces);
-    console.log(selectedPlaces);
-    selectPlaces.map((place) => {
-      setAttendInfo({ ...attendInfo, place });
-    });
+    let selectedPlaces = Array.from(new Set(selectPlaces));
+    const subPlaceList = (selectedPlaces as any)?.map((place) => place?._id);
+    setSubPlaces(subPlaceList);
+
     setPage(2);
   };
 
