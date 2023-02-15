@@ -27,16 +27,15 @@ export const studyDateState = atom<"passed" | "today" | "not passed">({
   key: "studyDate",
   default: "today",
 });
-export const isLateSelector = selector({
-  key: "isLate",
-  get: ({ get }) => {
-    const studyDate = get(studyDateState);
-    const isAttending = get(isAttendingState);
-    if (studyDate === "today" && !isAttending) {
-      return true;
-    }
-    return false;
-  },
+
+export const isStudyOpenState = atom({
+  key: "studyOpen",
+  default: false,
+});
+
+export const isUserAttendState = atom({
+  key: "userAttend",
+  default: false,
 });
 
 export const voteStatusState = selector<
@@ -46,22 +45,23 @@ export const voteStatusState = selector<
   get: ({ get }) => {
     const studyDate = get(studyDateState);
     const isAttending = get(isAttendingState);
+    const isUserAttend = get(isUserAttendState);
+    const isStudyOpen = get(isStudyOpenState);
     if (studyDate === "passed") return "Closed";
     if (studyDate === "not passed") {
       if (isAttending) return "Voted";
       return "Vote";
     }
     if (studyDate === "today") {
-      if (now() > now().hour(23).minute(0)) {
-        if (isAttending) return "Check";
-        return "Join";
-      }
       if (now() > now().hour(14).minute(0)) {
         if (isAttending) return "Voted";
         return "Vote";
       }
-      if (isAttending) return "Check";
-      return "Join";
+      if (!isStudyOpen) return "Closed";
+      if (isUserAttend) {
+        if (isAttending) return "Check";
+        return "Join";
+      }
     }
   },
 });
