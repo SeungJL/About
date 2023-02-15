@@ -31,20 +31,23 @@ function VoterModal(voterList: any) {
       <Container>
         <div>참여인원</div>
         <VoterSection>
-          {voterList?.attendences?.map((who: any) => (
-            <div key={who.user._id}>
-              <Image
-                width={12}
-                height={12}
-                alt={who.user.name}
-                src={who.user.thumbnailImage}
-                style={{
-                  borderRadius: "30%",
-                }}
-              />
-              <span>{who.user.name}</span>
-            </div>
-          ))}
+          {voterList?.attendences?.map(
+            (who: any) =>
+              who.firstChoice && (
+                <div key={who.user._id}>
+                  <Image
+                    width={12}
+                    height={12}
+                    alt={who.user.name}
+                    src={who.user.thumbnailImage}
+                    style={{
+                      borderRadius: "30%",
+                    }}
+                  />
+                  <span>{who.user.name}</span>
+                </div>
+              )
+          )}
         </VoterSection>
       </Container>
       <FullScreen onClick={() => setShowVoter(null)} />

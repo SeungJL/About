@@ -59,7 +59,7 @@ import VoterModal from "../models/VoterModal";
 
 /* Backend */
 import { GetServerSideProps } from "next";
-import { useVoteQuery } from "../hooks/vote/queries";
+import { useChoiceSpaceQuery, useVoteQuery } from "../hooks/vote/queries";
 import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { IUser, User } from "../models/user";
@@ -68,6 +68,9 @@ import { isMember } from "../libs/utils/authUtils";
 import UserInfoForm from "../models/UserInfoForm";
 import VoteStudyModal from "../modals/StudyVoteModal";
 import StudyVoteModal from "../modals/StudyVoteModal";
+import CircleAlert from "../components/icon/CircleAlert";
+import axios from "axios";
+import { VOTE_END_HOUR } from "../constants/system";
 
 let dayjs = require("dayjs");
 
@@ -209,7 +212,8 @@ function About() {
       });
     },
   });
-
+  const B = useChoiceSpaceQuery(voteDate);
+  console.log(vote);
   return (
     <>
       <Seo title="About" />
