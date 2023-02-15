@@ -9,7 +9,9 @@ import {
   isAttendingState,
   isLateSelector,
   isShowStudyVoteModalState,
+  studyDateState,
   voteDateState,
+  VoteStatusState,
 } from "../../recoil/atoms";
 import VoteModal from "../voteModal";
 import {
@@ -18,7 +20,12 @@ import {
 } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
-import { convertToKr, getToday } from "../../libs/utils/dateUtils";
+import {
+  convertToKr,
+  getInterestingDate,
+  getToday,
+  now,
+} from "../../libs/utils/dateUtils";
 import { IUser } from "../../models/user";
 import { useState } from "react";
 import VoteStudyModal from "../../modals/StudyVoteModal";
@@ -71,17 +78,29 @@ const VoteCircle = styled.button<IVoteCircle>`
   ${(props) => (props.state === "Closed" ? "disabled" : null)}
 `;
 
-function VoteBtn({ session, vote }) {
+function VoteBtn() {
   const toast = useToast();
   const queryClient = useQueryClient();
   const voteDate = useRecoilValue(voteDateState);
-  const [isAttending, setIsAttending] = useRecoilState(isAttendingState);
-  const voteDateKr = convertToKr(voteDate, "MDD");
-  const todayKr = convertToKr(getToday(), "MDD");
-  const a = useRecoilValue(isLateSelector);
-  console.log(54, a);
   const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
+  const VoteStatus = useRecoilValue(VoteStatusState);
+  const setIsAttending = useSetRecoilState(isAttendingState);
 
+  const { mutate: handleArrived } = useArrivedMutation(getToday(), {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(VOTE_GET);
+    },
+    onError: (err) => {
+      toast({
+        title: "오류",
+        description: "출석체크 중 문제가 발생했어요. 다시 시도해보세요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     voteDate,
     {
@@ -100,82 +119,24 @@ function VoteBtn({ session, vote }) {
       },
     }
   );
-
-  const {
-    isOpen: isVoteModalOpen,
-    onOpen: onVoteModalOpen,
-    onClose: onVoteModalClose,
-  } = useDisclosure();
-
-  const { mutate: handleArrived } = useArrivedMutation(getToday(), {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries(VOTE_GET);
-    },
-    onError: (err) => {
-      toast({
-        title: "오류",
-        description: "출석체크 중 문제가 발생했어요. 다시 시도해보세요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
-
-  const lateVote = () => {
-    if (false) {
-      handleAbsent();
-    } else {
-      onVoteModalOpen();
-    }
-  };
-
-  const cancleVote = () => {
+  const onClickVoted = () => {
     handleAbsent();
     setIsAttending(false);
   };
-
   return (
     <>
       <OutlineCircle>
         <VoteCircle
           onClick={
-            voteDateKr < todayKr
-              ? null
-              : true
-              ? null
-              : voteDateKr === todayKr //&& realAttend
+            VoteStatus === "Check"
               ? () => handleArrived()
-              : voteDateKr === todayKr
-              ? () => lateVote()
-              : isAttending
-              ? cancleVote
-              : () => setIsShowStudyVote(true)
+              : ["join", "Vote"].includes(VoteStatus)
+              ? () => setIsShowStudyVote(true)
+              : onClickVoted
           }
-          state={
-            voteDateKr < todayKr
-              ? "Closed"
-              : voteDateKr === todayKr // && realAttend
-              ? "Check"
-              : voteDateKr === todayKr
-              ? "Join ?"
-              : isAttending
-              ? "Voted"
-              : "Vote"
-          }
+          state={VoteStatus}
         >
-          {voteDateKr < todayKr
-            ? "Closed"
-            : true
-            ? "출석완료"
-            : voteDateKr === todayKr //&& realAttend
-            ? "Check"
-            : voteDateKr === todayKr
-            ? "Join ?"
-            : isAttending
-            ? "Voted"
-            : "Vote"}
+          {VoteStatus}
         </VoteCircle>
       </OutlineCircle>
     </>

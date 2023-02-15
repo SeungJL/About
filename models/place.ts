@@ -10,6 +10,7 @@ export interface IPlace {
   latitude: number;
   longitude: number;
   priority?: number;
+  _id: string;
 }
 
 export const PlaceSchema: Schema<IPlace> = new Schema({

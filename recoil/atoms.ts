@@ -1,7 +1,12 @@
 import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { atom, selector } from "recoil";
-import { getInterestingDate, strToDate } from "../libs/utils/dateUtils";
+import {
+  getInterestingDate,
+  getToday,
+  now,
+  strToDate,
+} from "../libs/utils/dateUtils";
 import { gatherTest } from "../storage/gathers";
 import { noticeData } from "../storage/noticeData";
 
@@ -31,6 +36,29 @@ export const isLateSelector = selector({
       return true;
     }
     return false;
+  },
+});
+
+export const VoteStatusState = selector<
+  "Closed" | "Check" | "Join" | "Vote" | "Voted"
+>({
+  key: "voteStatus",
+  get: ({ get }) => {
+    const studyDate = get(studyDateState);
+    const isAttending = get(isAttendingState);
+    if (studyDate === "passed") return "Closed";
+    if (studyDate === "not passed") {
+      if (isAttending) return "Voted";
+      return "Vote";
+    }
+    if (studyDate === "today") {
+      if (now() > now().hour(14)) {
+        if (isAttending) return "Voted";
+        return "Vote";
+      }
+      if (isAttending) return "Check";
+      return "Join";
+    }
   },
 });
 

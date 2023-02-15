@@ -10,7 +10,6 @@ import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
 import MainNavigation from "../components/About/MainNavigation";
-import Cover from "../components/Cover";
 
 /*State*/
 import {
@@ -52,12 +51,9 @@ import {
   convertToKr,
   getInterestingDate,
   getToday,
-  getYesterday,
-  now,
-  strToDate,
 } from "../libs/utils/dateUtils";
-import { Circle, useColorMode, useToast } from "@chakra-ui/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useColorMode, useToast } from "@chakra-ui/react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import VoterModal from "../models/VoterModal";
 
 /* Backend */
@@ -67,11 +63,10 @@ import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { IUser, User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-import { VOTE_END_HOUR } from "../constants/system";
+
 import UserInfoForm from "../models/UserInfoForm";
 import VoteStudyModal from "../modals/StudyVoteModal";
-import CircleAlert from "../components/icon/CircleAlert";
-import { ISession, IUseSession } from "../types/DateTitleMode";
+import StudyVoteModal from "../modals/StudyVoteModal";
 
 let dayjs = require("dayjs");
 
@@ -166,7 +161,7 @@ const Loading = styled.span`
 function About() {
   const toast = useToast();
   const { data: session } = useSession();
-  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
+  const voteDate = useRecoilValue(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
   const showOpenResult = useRecoilValue(ShowOpenResultState);
   const showVoter = useRecoilValue(showVoterState);
@@ -174,13 +169,13 @@ function About() {
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   const { setColorMode } = useColorMode();
   const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
-  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
-  const [isAttending, setIsAttending] = useRecoilState(isAttendingState);
+  const setStudyDate = useSetRecoilState(studyDateState);
+  const setIsAttending = useSetRecoilState(isAttendingState);
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
-  //라이트모드로 강제 설정(임시)
-  console.log(22, studyDate, isAttending);
+  const today = getToday();
+
   useEffect(() => {
-    setColorMode("light");
+    setColorMode("light"); //라이트모드로 강제 설정(임시)
     if (voteDate < getInterestingDate()) {
       setStudyDate("passed");
     } else if (voteDate > getInterestingDate()) {
@@ -213,27 +208,6 @@ function About() {
       });
     },
   });
-  /*const { data: session } = useSession();
-  let isCheck = false;
-  vote?.participations?.flatMap((participant) => {
-    if (participant.status === "open") {
-      participant.attendences.map((a) => {
-        if (a.arrived && (a.user as IUser).uid === session?.uid?.toString()) {
-          isCheck = true;
-        }
-      });
-    }
-  });*/
-
-  //이후 알고리즘 수정 예정
-  /*
-  if (now() > voteEndTime) {
-    vote?.participations?.map((participant) => {
-      if (participant.attendences.length >= 3) {
-        participant.status = "open";
-      } else participant.status = "dismissed";
-    });
-  }*/
 
   return (
     <>
@@ -261,12 +235,12 @@ function About() {
             </div>
             <div>
               <span>Today</span>
-              <span> {convertToKr(now(), "MMM DD")}</span>
+              <span> {convertToKr(today, "MMM DD")}</span>
             </div>
           </InfoSection>
           <AnotherDaysNav />
         </UpScreen>
-        <VoteBtn session={session} vote={vote} />
+        <VoteBtn />
         <TodayDate>{!isLoading && convertToKr(voteDate, "M월 D일")}</TodayDate>
         <DownScreen>
           <Swiper
@@ -312,7 +286,7 @@ function About() {
       {isNotCompleted && <NotCompletedModal />}
       {isShowUserInfoForm && <UserInfoForm />}
       {isShowStudyVote && (
-        <VoteStudyModal participations={vote?.participations} date={voteDate} />
+        <StudyVoteModal participations={vote?.participations} />
       )}
     </>
   );

@@ -18,6 +18,7 @@ import {
   getNextDate,
   getTomorrow,
   hourMinToDate,
+  convertToKr,
 } from "../libs/utils/dateUtils";
 import { AttendDTO } from "../models/interface/vote";
 import { IPlace } from "../models/place";
@@ -26,6 +27,7 @@ import {
   isAttendingState,
   isShowStudyVoteModalState,
   selectPlacesState,
+  voteDateState,
 } from "../recoil/atoms";
 
 const ModalLayout = styled.div`
@@ -70,11 +72,11 @@ const SecondPageNav = styled.nav`
 
 interface IStudyVote {
   participations: IParticipation[];
-  isLate?: boolean;
-  date: Dayjs;
 }
-function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
+
+function StudyVoteModal({ participations }: IStudyVote) {
   const [page, setPage] = useState(0);
+  const voteDate = useRecoilValue(voteDateState);
   const toast = useToast();
   const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
   const queryClient = useQueryClient();
@@ -97,19 +99,19 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
     dinner: "no_select",
     afterDinner: "absent",
   });
-  const placeVoteInfo = participations.map((participant) => {
-    const place = participant.place as IPlace;
-    const vote = participant.attendences.length;
+  const placeInfo = participations.map((participant) => {
+    const placeName = participant.place as IPlace;
+    const voteCnt = participant.attendences.length;
     const status = participant.status;
 
-    return { place, vote, status };
+    return { placeName, voteCnt, status };
   });
 
-  const places = placeVoteInfo.map((pv) => pv.place);
+  const places = placeInfo.map((pv) => pv.placeName);
   const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
   const [subPlaces, setSubPlaces] = useState([]);
   const setIsAttending = useSetRecoilState(isAttendingState);
-  const { mutate: patchAttend } = useAttendMutation(date, {
+  const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
     },
@@ -154,7 +156,6 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
     let selectedPlaces = Array.from(new Set(selectPlaces));
     const subPlaceList = (selectedPlaces as any)?.map((place) => place?._id);
     setSubPlaces(subPlaceList);
-
     setPage(2);
   };
 
@@ -165,7 +166,7 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
   return (
     <ModalLayout>
       <ModalHeader>
-        <span>{date.format("M월 DD일 스터디")}</span>
+        <span>{convertToKr(voteDate, "M월 DD일 스터디")} </span>
         <div onClick={() => setIsShowStudyVote(false)}>
           <FontAwesomeIcon icon={faXmark} />
         </div>
@@ -184,12 +185,11 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
           <span>1지망 선택</span>
           <SpaceSelector>
             <PlaceSelector
-              placeVoteInfo={placeVoteInfo}
+              placeInfo={placeInfo}
               selectedPlace={attendInfo.place}
               isSelectUnit={true}
               setSelectedPlace={(place) => {
                 setAttendInfo({ ...attendInfo, place });
-
                 movePageSeoncd();
               }}
             />
@@ -208,7 +208,7 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
           <span>2지망 선택(여러개)</span>
           <SpaceSelector>
             <PlaceSelector
-              placeVoteInfo={placeVoteInfo}
+              placeInfo={placeInfo}
               selectedPlace={attendInfo.place}
               isSelectUnit={false}
               setSelectedPlace={(place) => {

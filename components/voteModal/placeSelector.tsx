@@ -18,7 +18,7 @@ import { selectPlacesState } from "../../recoil/atoms";
 import Map from "../map";
 
 interface IPlaceSelecter {
-  placeVoteInfo: { place: IPlace; vote: number; status: string }[];
+  placeInfo: { placeName: IPlace; voteCnt: number; status: string }[];
   selectedPlace?: IPlace;
   setSelectedPlace: (place: IPlace) => void;
   isSelectUnit?: boolean;
@@ -44,7 +44,7 @@ const PlaceIcon = styled.button<{ borderColor: string; borderColor2: string }>`
 `;
 
 const PlaceSelector = ({
-  placeVoteInfo,
+  placeInfo,
   selectedPlace,
   setSelectedPlace,
   isSelectUnit,
@@ -59,10 +59,10 @@ const PlaceSelector = ({
     if (selectedPlace?._id == place._id) {
       return "brown";
     }
-    const placeInfo = placeVoteInfo.find((pv) => pv.place._id == place._id);
+    const placeInfos = placeInfo.find((pv) => pv.placeName._id == place._id);
     if (
-      placeInfo.vote >= MAX_USER_PER_PLACE ||
-      placeInfo.status !== "pending"
+      placeInfos.voteCnt >= MAX_USER_PER_PLACE ||
+      placeInfos.status !== "pending"
     ) {
       return "red.400";
     }
@@ -93,18 +93,18 @@ const PlaceSelector = ({
   };
 
   const handlePlaceIconClick = (place: IPlace, isUnit: boolean) => {
-    const vote = placeVoteInfo.find((pv) => pv.place._id == place._id);
+    const vote = placeInfo.find((pv) => pv.placeName._id == place._id);
 
-    if (selectPlaces.find((item) => item == vote.place)) {
-      const temp = selectPlaces.filter((item) => item !== vote.place);
+    if (selectPlaces.find((item) => item == vote.placeName)) {
+      const temp = selectPlaces.filter((item) => item !== vote.placeName);
       setSelectPlaces(temp);
       return;
     }
 
-    if (vote.vote < MAX_USER_PER_PLACE) {
-      if (isUnit) setSelectedPlace(vote.place);
+    if (vote.voteCnt < MAX_USER_PER_PLACE) {
+      if (isUnit) setSelectedPlace(vote.placeName);
       else {
-        setSelectPlaces((item) => [...item, vote.place]);
+        setSelectPlaces((item) => [...item, vote.placeName]);
       }
     } else {
       toast({
@@ -120,20 +120,22 @@ const PlaceSelector = ({
 
   return (
     <PlaceSelectorLayout>
-      {placeVoteInfo.map((placeVoteInfo, idx) => (
+      {placeInfo.map((placeVoteInfo, idx) => (
         <PlaceItem key={idx}>
           <PlaceIcon
-            onClick={() => handlePlaceIconClick(placeVoteInfo.place, isUnit)}
-            borderColor={placeIconBorderColor(placeVoteInfo.place)}
-            borderColor2={PlaceIconBorderColor2(placeVoteInfo.place)}
-            disabled={placeDisabled(placeVoteInfo.place)}
+            onClick={() =>
+              handlePlaceIconClick(placeVoteInfo.placeName, isUnit)
+            }
+            borderColor={placeIconBorderColor(placeVoteInfo.placeName)}
+            borderColor2={PlaceIconBorderColor2(placeVoteInfo.placeName)}
+            disabled={placeDisabled(placeVoteInfo.placeName)}
           >
             <img
-              src={placeVoteInfo.place.image}
-              alt={placeVoteInfo.place.fullname}
+              src={placeVoteInfo.placeName.image}
+              alt={placeVoteInfo.placeName.fullname}
             />
           </PlaceIcon>
-          <span>{placeVoteInfo.place.branch}</span>
+          <span>{placeVoteInfo.placeName.branch}</span>
         </PlaceItem>
       ))}
     </PlaceSelectorLayout>
