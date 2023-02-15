@@ -22,6 +22,7 @@ import {
   isShowNotCompletedState,
   studyDateState,
   isAttendingState,
+  isStudyOpenState,
 } from "../recoil/atoms";
 
 /* Icon */
@@ -68,6 +69,8 @@ import { isMember } from "../libs/utils/authUtils";
 import UserInfoForm from "../models/UserInfoForm";
 import VoteStudyModal from "../modals/StudyVoteModal";
 import StudyVoteModal from "../modals/StudyVoteModal";
+import CircleAlert from "../components/icon/CircleAlert";
+import axios from "axios";
 
 let dayjs = require("dayjs");
 
@@ -172,8 +175,10 @@ function About() {
   const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const setIsAttending = useSetRecoilState(isAttendingState);
+  const isAttending = useRecoilValue(isAttendingState);
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
   const today = getToday();
+  const setStudyOpen = useSetRecoilState(isStudyOpenState);
 
   useEffect(() => {
     setColorMode("light"); //라이트모드로 강제 설정(임시)
@@ -187,11 +192,8 @@ function About() {
     }
     vote?.participations.flatMap((participant) => {
       if (participant.status === "open") {
-        participant?.attendences.map((a) => {
-          if ((a.user as IUser).uid === session?.uid?.toString()) {
-            setIsAttending(true);
-          }
-        });
+        setStudyOpen(true);
+        return;
       }
     });
   }, [voteDate]);
@@ -209,6 +211,11 @@ function About() {
       });
     },
   });
+
+  axios.patch(
+    `/api/admin/vote/${now().format("YYYY-MM-DD")}/status/confirm`,
+    {}
+  );
 
   return (
     <>

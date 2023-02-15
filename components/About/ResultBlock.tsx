@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isShowVoteCancleState,
+  isUserAttendState,
   ShowOpenResultState,
   showVoterState,
   voteStatusState,
@@ -56,10 +57,10 @@ const ResultBlockNav = styled.nav`
 `;
 
 interface ICancelBtn {
-  status: string;
+  status: boolean;
 }
 const CancelBtn = styled.button<ICancelBtn>`
-  display: ${(props) => (props.status === "open" ? "inline-block" : "none")};
+  display: ${(props) => (props.status ? "inline-block" : "none")};
   background-color: #fc8181;
   color: #822727;
 `;
@@ -135,10 +136,10 @@ function ResultBlock({
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
   const setShowVoter = useSetRecoilState(showVoterState);
   const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
-  const voteStatus = useRecoilValue(voteStatusState);
+  const setIsUserAttend = useSetRecoilState(isUserAttendState);
   const countArr = [];
   let cnt = 0;
-  console.log(status);
+
   for (let i = 0; i < attendences.length; i++) {
     if (attendences[i].firstChoice) cnt++;
   }
@@ -147,20 +148,23 @@ function ResultBlock({
     else countArr.push("absence");
   }
 
-  const myAttendence = attendences.find(
-    (att) => (att.user as IUser).uid === session?.uid
-  );
-  console.log(voteStatus, ["Join", "Complete"].includes(voteStatus));
+  const myAttendence =
+    status === "open" &&
+    attendences.find((att) => (att.user as IUser).uid === session?.uid);
+
+  useEffect(() => {
+    setIsUserAttend(true);
+  }, [myAttendence]);
   return (
     <>
       <ResultBlockLayout>
         <ResultBlockHeader>
           <span>{place.fullname}</span>
           <ResultBlockNav>
-            {["Join", "Complete"].includes(voteStatus) && (
+            {myAttendence && (
               <CancelBtn
                 onClick={() => setIsShowVoteCancle(true)}
-                status={status}
+                status={Boolean(myAttendence)}
               >
                 Cancel
               </CancelBtn>
