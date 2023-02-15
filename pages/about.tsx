@@ -68,6 +68,7 @@ import { VOTE_END_HOUR } from "../constants/system";
 import UserInfoForm from "../models/UserInfoForm";
 import VoteStudyModal from "../modals/StudyVoteModal";
 import CircleAlert from "../components/icon/CircleAlert";
+import axios from "axios";
 
 let dayjs = require("dayjs");
 
@@ -195,11 +196,10 @@ function About() {
   const voteEndTime = dayjs(date).subtract(1, "day").add(VOTE_END_HOUR, "hour");
 
   if (now() > voteEndTime) {
-    vote?.participations?.map((participant) => {
-      if (participant.attendences.length >= 3) {
-        participant.status = "open";
-      } else participant.status = "dismissed";
-    });
+    axios.patch(
+      `/api/admin/vote/${now().format("YYYY-MM-DD")}/status/confirm`,
+      {}
+    );
   }
 
   return (
