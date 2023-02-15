@@ -1,15 +1,56 @@
 import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { atom, selector } from "recoil";
-import { strToDate } from "../libs/utils/dateUtils";
+import { getInterestingDate, strToDate } from "../libs/utils/dateUtils";
 import { gatherTest } from "../storage/gathers";
 import { noticeData } from "../storage/noticeData";
 
 /* About Page */
 
-export const dateState = atom<Dayjs>({
+//Vote
+export const voteDateState = atom<Dayjs>({
   key: "date",
-  default: null,
+  default: getInterestingDate(),
+});
+
+export const isAttendingState = atom({
+  key: "isAttending",
+  default: false,
+});
+
+export const studyDateState = atom<"passed" | "today" | "not passed">({
+  key: "studyDate",
+  default: "today",
+});
+export const isLateSelector = selector({
+  key: "isLate",
+  get: ({ get }) => {
+    const studyDate = get(studyDateState);
+    const isAttending = get(isAttendingState);
+    if (studyDate === "today" && !isAttending) {
+      return true;
+    }
+    return false;
+  },
+});
+
+export const selectPlacesState = atom<any>({
+  key: "selectPlaces",
+  default: [],
+});
+
+/* Modal */
+
+export const isShowUserInfoFormState = atom({
+  key: "isUserInfoForm",
+  default: false,
+});
+
+//Main Page
+
+export const isShowStudyVoteModalState = atom({
+  key: "isShowVoteStudyModal",
+  default: false,
 });
 
 export const showVoterState = atom<Number>({
@@ -17,13 +58,8 @@ export const showVoterState = atom<Number>({
   default: null,
 });
 
-export const showOpenResultState = atom<Number>({
+export const ShowOpenResultState = atom<Number>({
   key: "showOpenResult",
-  default: null,
-});
-
-export const attendingState = atom<Number>({
-  key: "attendingState",
   default: null,
 });
 
@@ -32,8 +68,12 @@ export const isShowVoteCancleState = atom<Boolean>({
   default: false,
 });
 
-export const isNotCompletedState = atom<Boolean>({
+export const isShowNotCompletedState = atom<Boolean>({
   key: "notCompleted",
+  default: false,
+});
+export const isCancelState = atom({
+  key: "isCancel",
   default: false,
 });
 
@@ -61,10 +101,6 @@ export enum Categories {
   "cancel" = "complete",
 }
 
-export const isDarkAtom = atom({
-  key: "isDark",
-  default: true,
-});
 export interface IgatherItem {
   date: string;
   text: string;
@@ -106,27 +142,6 @@ interface noticeState {
 export const gatherIdState = atom({
   key: "gatherId",
   default: "",
-});
-
-export const isCancelState = atom({
-  key: "isCancel",
-  default: false,
-});
-
-export const isShowUserInfoFormState = atom({
-  key: "isUserInfoForm",
-  default: false,
-});
-
-export const isShowStudyVoteModalState = atom({
-  key: "isShowVoteStudyModal",
-  default: false,
-});
-
-/* VoteModal */
-export const selectPlacesState = atom<any>({
-  key: "selectPlaces",
-  default: [],
 });
 
 export const tempState = atom({

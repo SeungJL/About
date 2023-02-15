@@ -5,9 +5,8 @@ import { useEffect } from "react";
 
 import { useSetRecoilState } from "recoil";
 import {
-  attendingState,
   isShowVoteCancleState,
-  showOpenResultState,
+  ShowOpenResultState,
   showVoterState,
 } from "../../recoil/atoms";
 
@@ -132,10 +131,9 @@ function ResultBlock({
 }: IResultBlock) {
   const { data: session } = useSession();
 
-  const setAttending = useSetRecoilState(attendingState);
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
   const setShowVoter = useSetRecoilState(showVoterState);
-  const setShowOpenResult = useSetRecoilState(showOpenResultState);
+  const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
 
   const countArr = [];
   for (let i = 0; i < attendences.length + absences.length; i++) {
@@ -143,15 +141,9 @@ function ResultBlock({
     else countArr.push("absence");
   }
 
-  let spaceName = "About";
-  if ((place as IPlace).brand === "카탈로그") spaceName = "Katalog";
-  if ((place as IPlace).brand === "아티제") spaceName = "Artisee";
-
   const myAttendence = attendences.find(
     (att) => (att.user as IUser).uid === session?.uid
   );
-
-  if (myAttendence) setAttending(index);
 
   return (
     <>

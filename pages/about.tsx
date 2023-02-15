@@ -14,14 +14,15 @@ import Cover from "../components/Cover";
 
 /*State*/
 import {
-  attendingState,
-  dateState,
-  isNotCompletedState,
   isShowUserInfoFormState,
   isShowVoteCancleState,
   isShowStudyVoteModalState,
-  showOpenResultState,
   showVoterState,
+  voteDateState,
+  ShowOpenResultState,
+  isShowNotCompletedState,
+  studyDateState,
+  isAttendingState,
 } from "../recoil/atoms";
 
 /* Icon */
@@ -48,8 +49,10 @@ import CancelModal from "../models/CancelModal";
 /* Interface */
 import { IParticipation } from "../models/vote";
 import {
+  convertToKr,
   getInterestingDate,
   getToday,
+  getYesterday,
   now,
   strToDate,
 } from "../libs/utils/dateUtils";
@@ -60,14 +63,15 @@ import VoterModal from "../models/VoterModal";
 /* Backend */
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
-import { User } from "../models/user";
+import { IUser, User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import { VOTE_END_HOUR } from "../constants/system";
 import UserInfoForm from "../models/UserInfoForm";
 import VoteStudyModal from "../modals/StudyVoteModal";
 import CircleAlert from "../components/icon/CircleAlert";
+import { ISession, IUseSession } from "../types/DateTitleMode";
 
 let dayjs = require("dayjs");
 
@@ -161,23 +165,42 @@ const Loading = styled.span`
 
 function About() {
   const toast = useToast();
-  const interestingDate = getInterestingDate();
-  const [date, setDate] = useRecoilState(dateState);
+  const { data: session } = useSession();
+  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
-  const showOpenResult = useRecoilValue(showOpenResultState);
+  const showOpenResult = useRecoilValue(ShowOpenResultState);
   const showVoter = useRecoilValue(showVoterState);
-  const isNotCompleted = useRecoilValue(isNotCompletedState);
+  const isNotCompleted = useRecoilValue(isShowNotCompletedState);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
-  const { colorMode, setColorMode } = useColorMode();
+  const { setColorMode } = useColorMode();
   const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
+  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
+  const [isAttending, setIsAttending] = useRecoilState(isAttendingState);
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
-
+  //라이트모드로 강제 설정(임시)
+  console.log(22, studyDate, isAttending);
   useEffect(() => {
-    setDate(interestingDate);
     setColorMode("light");
-  }, []);
+    if (voteDate < getInterestingDate()) {
+      setStudyDate("passed");
+    } else if (voteDate > getInterestingDate()) {
+      setStudyDate("not passed");
+    } else {
+      setStudyDate("today");
+    }
+    vote?.participations.flatMap((participant) => {
+      if (participant.status === "open") {
+        participant?.attendences.map((a) => {
+          if ((a.user as IUser).uid === session?.uid?.toString()) {
+            setIsAttending(true);
+          }
+        });
+      }
+    });
+  }, [voteDate]);
 
-  const { data: vote, isLoading } = useVoteQuery(date, {
+  //vote: voteDate에 대한 투표 정보
+  const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -190,17 +213,27 @@ function About() {
       });
     },
   });
+  /*const { data: session } = useSession();
+  let isCheck = false;
+  vote?.participations?.flatMap((participant) => {
+    if (participant.status === "open") {
+      participant.attendences.map((a) => {
+        if (a.arrived && (a.user as IUser).uid === session?.uid?.toString()) {
+          isCheck = true;
+        }
+      });
+    }
+  });*/
 
   //이후 알고리즘 수정 예정
-  const voteEndTime = dayjs(date).subtract(1, "day").add(VOTE_END_HOUR, "hour");
-
+  /*
   if (now() > voteEndTime) {
     vote?.participations?.map((participant) => {
       if (participant.attendences.length >= 3) {
         participant.status = "open";
       } else participant.status = "dismissed";
     });
-  }
+  }*/
 
   return (
     <>
@@ -211,7 +244,7 @@ function About() {
             <Link href="/notice">
               <div>
                 <FontAwesomeIcon icon={faBell} size="xl" />
-                <CircleAlert />
+                {/*<CircleAlert />*/}
               </div>
             </Link>
             <Title>About</Title>
@@ -228,13 +261,13 @@ function About() {
             </div>
             <div>
               <span>Today</span>
-              <span>{dayjs().format("MMM DD")}</span>
+              <span> {convertToKr(now(), "MMM DD")}</span>
             </div>
           </InfoSection>
-          <AnotherDaysNav date={date} />
+          <AnotherDaysNav />
         </UpScreen>
-        <VoteBtn />
-        <TodayDate>{dayjs(date).format("M월 D일")}</TodayDate>
+        <VoteBtn session={session} vote={vote} />
+        <TodayDate>{!isLoading && convertToKr(voteDate, "M월 D일")}</TodayDate>
         <DownScreen>
           <Swiper
             modules={[Navigation, Pagination, A11y]}
@@ -278,6 +311,9 @@ function About() {
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
       {isShowUserInfoForm && <UserInfoForm />}
+      {isShowStudyVote && (
+        <VoteStudyModal participations={vote?.participations} date={voteDate} />
+      )}
     </>
   );
 }

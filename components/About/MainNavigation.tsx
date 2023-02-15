@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useSetRecoilState } from "recoil";
-import { isNotCompletedState } from "../../recoil/atoms";
+import { isShowNotCompletedState } from "../../recoil/atoms";
 import Link from "next/link";
 
 const MainNavLayout = styled.nav`
@@ -79,7 +79,7 @@ const navigationItems = [
 ];
 
 function MainNavigation() {
-  const setIsNotCompleted = useSetRecoilState(isNotCompletedState);
+  const setIsNotCompleted = useSetRecoilState(isShowNotCompletedState);
 
   return (
     <MainNavLayout>

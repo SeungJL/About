@@ -4,11 +4,12 @@ import { useDisclosure, useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { CenterDiv } from "../../styles/LayoutStyles";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  attendingState,
-  dateState,
+  isAttendingState,
+  isLateSelector,
   isShowStudyVoteModalState,
+  voteDateState,
 } from "../../recoil/atoms";
 import VoteModal from "../voteModal";
 import {
@@ -17,10 +18,11 @@ import {
 } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
-import { getToday } from "../../libs/utils/dateUtils";
+import { convertToKr, getToday } from "../../libs/utils/dateUtils";
 import { IUser } from "../../models/user";
 import { useState } from "react";
 import VoteStudyModal from "../../modals/StudyVoteModal";
+import { ISession } from "../../types/DateTitleMode";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;
@@ -69,43 +71,22 @@ const VoteCircle = styled.button<IVoteCircle>`
   ${(props) => (props.state === "Closed" ? "disabled" : null)}
 `;
 
-function VoteBtn() {
-  const { data: session } = useSession();
+function VoteBtn({ session, vote }) {
   const toast = useToast();
   const queryClient = useQueryClient();
-  const date = useRecoilValue(dateState);
-  const today = getToday();
-  const [attended, setAttended] = useRecoilState(attendingState);
-  const dateFormat = dayjs(date).format("MDD");
-  const todayFormat = dayjs(today).format("MDD");
-  const [isLate, setIsLate] = useState(false);
-  const [isShowStudyVote, setIsShowStudyVote] = useRecoilState(
-    isShowStudyVoteModalState
-  );
-  const {
-    data: vote,
-    isLoading,
-    isFetching,
-  } = useVoteQuery(date, {
-    enabled: true,
-    onError: (err) => {
-      toast({
-        title: "불러오기 실패",
-        description: "투표 정보를 불러오지 못 했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
+  const voteDate = useRecoilValue(voteDateState);
+  const [isAttending, setIsAttending] = useRecoilState(isAttendingState);
+  const voteDateKr = convertToKr(voteDate, "MDD");
+  const todayKr = convertToKr(getToday(), "MDD");
+  const a = useRecoilValue(isLateSelector);
+  console.log(54, a);
+  const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
 
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
-    date,
+    voteDate,
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries([VOTE_GET, date]);
-        setAttended(null);
+        await queryClient.invalidateQueries([VOTE_GET, voteDate]);
       },
       onError: (err) => {
         toast({
@@ -126,29 +107,7 @@ function VoteBtn() {
     onClose: onVoteModalClose,
   } = useDisclosure();
 
-  let isCheck = false;
-  vote?.participations?.flatMap((participant) => {
-    if (participant.status === "open") {
-      participant.attendences.map((a) => {
-        if (a.arrived && (a.user as IUser).uid === session?.uid?.toString()) {
-          isCheck = true;
-        }
-      });
-    }
-  });
-
-  const isAttending = vote?.participations?.flatMap((participant) => {
-    if (participant.status === "open") {
-      return participant.attendences.map((a) => (a.user as IUser).uid);
-    }
-  });
-
-  const realAttend =
-    isAttending?.some((userId) => userId === session?.uid?.toString()) || false;
-
-  const CheckClosed = vote?.participations.every((p) => p.status !== "pending");
-
-  const { mutate: handleArrived } = useArrivedMutation(dayjs(today), {
+  const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
     },
@@ -165,12 +124,16 @@ function VoteBtn() {
   });
 
   const lateVote = () => {
-    if (attended !== null) {
+    if (false) {
       handleAbsent();
     } else {
-      setIsLate(true);
       onVoteModalOpen();
     }
+  };
+
+  const cancleVote = () => {
+    handleAbsent();
+    setIsAttending(false);
   };
 
   return (
@@ -178,50 +141,43 @@ function VoteBtn() {
       <OutlineCircle>
         <VoteCircle
           onClick={
-            dateFormat < todayFormat
+            voteDateKr < todayKr
               ? null
-              : isCheck
+              : true
               ? null
-              : dateFormat === todayFormat && realAttend
+              : voteDateKr === todayKr //&& realAttend
               ? () => handleArrived()
-              : dateFormat === todayFormat
+              : voteDateKr === todayKr
               ? () => lateVote()
-              : attended !== null
-              ? () => handleAbsent()
+              : isAttending
+              ? cancleVote
               : () => setIsShowStudyVote(true)
           }
           state={
-            dateFormat < todayFormat
+            voteDateKr < todayKr
               ? "Closed"
-              : dateFormat === todayFormat && realAttend
+              : voteDateKr === todayKr // && realAttend
               ? "Check"
-              : dateFormat === todayFormat
+              : voteDateKr === todayKr
               ? "Join ?"
-              : attended !== null
+              : isAttending
               ? "Voted"
               : "Vote"
           }
         >
-          {dateFormat < todayFormat
+          {voteDateKr < todayKr
             ? "Closed"
-            : isCheck
+            : true
             ? "출석완료"
-            : dateFormat === todayFormat && realAttend
+            : voteDateKr === todayKr //&& realAttend
             ? "Check"
-            : dateFormat === todayFormat
+            : voteDateKr === todayKr
             ? "Join ?"
-            : attended !== null
+            : isAttending
             ? "Voted"
             : "Vote"}
         </VoteCircle>
       </OutlineCircle>
-      {isShowStudyVote && (
-        <VoteStudyModal
-          participations={vote?.participations}
-          date={date}
-          isLate={isLate}
-        />
-      )}
     </>
   );
 }

@@ -1,11 +1,8 @@
 import styled from "styled-components";
-
 import { CenterDiv } from "../../styles/LayoutStyles";
-
+import { Dayjs } from "dayjs";
 import { useSetRecoilState } from "recoil";
-import { attendingState, dateState } from "../../recoil/atoms";
-
-import dayjs from "dayjs";
+import { voteDateState } from "../../recoil/atoms";
 
 const Container = styled.div`
   display: flex;
@@ -29,17 +26,13 @@ const TomorrowdayBtn = styled(CenterDiv)`
   right: calc(20% - 45px);
 `;
 
-function AnotherDaysNav({ date }) {
-  const setDateState = useSetRecoilState(dateState);
-  const setAttending = useSetRecoilState(attendingState);
-
+function AnotherDaysNav() {
+  const setVoteDate = useSetRecoilState(voteDateState);
   const moveYesterday = () => {
-    setDateState((day) => dayjs(day).subtract(1, "day"));
-    setAttending(null);
+    setVoteDate((date: Dayjs) => date.subtract(1, "day"));
   };
   const moveTomorrow = () => {
-    setDateState((day) => dayjs(day).add(1, "day"));
-    setAttending(null);
+    setVoteDate((date: Dayjs) => date.add(1, "day"));
   };
 
   return (

@@ -22,7 +22,11 @@ import {
 import { AttendDTO } from "../models/interface/vote";
 import { IPlace } from "../models/place";
 import { IParticipation } from "../models/vote";
-import { isShowStudyVoteModalState, selectPlacesState } from "../recoil/atoms";
+import {
+  isAttendingState,
+  isShowStudyVoteModalState,
+  selectPlacesState,
+} from "../recoil/atoms";
 
 const ModalLayout = styled.div`
   width: 340px;
@@ -104,7 +108,7 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
   const places = placeVoteInfo.map((pv) => pv.place);
   const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
   const [subPlaces, setSubPlaces] = useState([]);
-
+  const setIsAttending = useSetRecoilState(isAttendingState);
   const { mutate: patchAttend } = useAttendMutation(date, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -138,7 +142,7 @@ function StudyVoteModal({ participations, isLate, date }: IStudyVote) {
       dinner: attendInfo.dinner,
       afterDinner: attendInfo.afterDinner,
     } as AttendDTO;
-
+    setIsAttending(true);
     patchAttend(attendDTO);
   };
 
