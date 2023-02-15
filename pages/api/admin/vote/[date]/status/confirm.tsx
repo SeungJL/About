@@ -1,28 +1,28 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import dbConnect from "../../../../../../libs/dbConnect"
-import { confirm } from '../../../../../../services/voteService'
+import { NextApiRequest, NextApiResponse } from "next";
+import dbConnect from "../../../../../../libs/dbConnect";
+import { confirm } from "../../../../../../services/voteService";
 
-const SECRET = process.env.NEXTAUTH_SECRET
+const SECRET = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) {
-  const { method } = req
-  const secret = req.headers.secret
-  const dateStr = req.query.date as string
-  
-  await dbConnect()
+  const { method } = req;
+  const secret = req.headers.secret;
+  const dateStr = req.query.date as string;
 
-  switch(method) {
-    case 'PATCH':
-      if (secret !== SECRET) {
-        return res.status(403).end()
-      }
+  await dbConnect();
 
-      confirm(dateStr)
-      return res.status(204).end()
+  switch (method) {
+    case "PATCH":
+      // if (secret !== SECRET) {
+      //   return res.status(403).end();
+      // }
+
+      confirm(dateStr);
+      return res.status(204).end();
   }
 
-  return res.status(404).end()
+  return res.status(404).end();
 }

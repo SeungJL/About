@@ -139,8 +139,10 @@ function ResultBlock({
 
   const countArr = [];
   for (let i = 0; i < attendences.length + absences.length; i++) {
-    if (i < attendences.length) countArr.push("attend");
-    else countArr.push("absence");
+    if (attendences[i].firstChoice) {
+      if (i < attendences.length) countArr.push("attend");
+      else countArr.push("absence");
+    }
   }
 
   let spaceName = "About";
