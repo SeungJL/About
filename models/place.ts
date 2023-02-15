@@ -1,6 +1,6 @@
 import mongoose, { model, Schema, Document, Model } from "mongoose";
 
-export interface IPlace extends Document {
+export interface IPlace {
   status: string;
   fullname: string;
   brand?: string;

@@ -157,7 +157,7 @@ function ResultBlock({
     <>
       <ResultBlockLayout>
         <ResultBlockHeader>
-          <span>{spaceName}</span>
+          <span>{place.fullname}</span>
           <ResultBlockNav>
             {myAttendence /*&& !myAttendence?.arrived*/ && (
               <CancelBtn
@@ -185,7 +185,7 @@ function ResultBlock({
         <ResultChart>
           <div>
             <Image
-              src={`/icons/${spaceName}.jpg`}
+              src={place.image}
               alt="about"
               width={44}
               height={44}
