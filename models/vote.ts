@@ -37,7 +37,7 @@ export interface IAbsence {
 }
 
 export interface IParticipation {
-  place: string | IPlace;
+  place: IPlace;
   time?: Date;
   attendences: IAttendence[];
   absences: IAbsence[];
