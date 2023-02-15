@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PlaceSelector from "../components/voteModal/placeSelector";
-import { dateState } from "../recoil/atoms";
+import { voteDateState } from "../recoil/atoms";
 
 const LateVoteModalLayout = styled.div``;
 
@@ -14,7 +14,7 @@ const Footer = styled.footer``;
 const SpaceSelect = styled.div``;
 
 function LateVoteModal({ date, user }) {
-  const voteInfo = useRecoilValue(dateState);
+  const voteInfo = useRecoilValue(voteDateState);
 
   const [modalPage, setModalPage] = useState(0);
   return (

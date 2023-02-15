@@ -30,7 +30,7 @@ import TimeSelector from "./timeSelector";
 import Note from "./note";
 import Confirm from "./confirm";
 import { useRecoilValue } from "recoil";
-import { dateState } from "../../recoil/atoms";
+import { voteDateState } from "../../recoil/atoms";
 
 const VoteModal: FC<{
   isOpen: boolean;
@@ -79,12 +79,12 @@ const VoteModal: FC<{
       (participation.place as IPlace)._id == (attendInfo.place as IPlace)?._id
   );
 
-  const placeVoteInfo = participations.map((participant) => {
-    const place = participant.place as IPlace;
-    const vote = participant.attendences.length;
+  const placeInfo = participations.map((participant) => {
+    const placeName = participant.place as IPlace;
+    const voteCnt = participant.attendences.length;
     const status = participant.status;
 
-    return { place, vote, status };
+    return { placeName, voteCnt, status };
   });
 
   const onSubmit = () => {
@@ -116,7 +116,7 @@ const VoteModal: FC<{
   };
 
   const canAccessTimeTab = !!attendInfo.place;
-  const voteInfo = useRecoilValue(dateState);
+  const voteInfo = useRecoilValue(voteDateState);
   const voteDate = voteInfo.format("M월 DD일 스터디");
   return (
     <Modal
@@ -136,7 +136,7 @@ const VoteModal: FC<{
               <AccordionButton padding="0" />
               <AccordionPanel pb={4} padding="0">
                 <PlaceSelector
-                  placeVoteInfo={placeVoteInfo}
+                  placeInfo={placeInfo}
                   selectedPlace={attendInfo.place}
                   setSelectedPlace={(place) => {
                     setAttendInfo({ ...attendInfo, place });

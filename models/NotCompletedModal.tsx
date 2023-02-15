@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isNotCompletedState } from "../recoil/atoms";
+import { isShowNotCompletedState } from "../recoil/atoms";
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const ModalLayout = styled(BaseModal)`
@@ -31,7 +31,7 @@ const ModalLayout = styled(BaseModal)`
 `;
 
 function NotCompletedModal() {
-  const setIsNotCompletedState = useSetRecoilState(isNotCompletedState);
+  const setIsNotCompletedState = useSetRecoilState(isShowNotCompletedState);
   return (
     <>
       <ModalLayout>

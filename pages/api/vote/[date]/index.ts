@@ -37,7 +37,7 @@ export default async function handler(
         absences: [],
         invitations: [],
         status: "pending",
-      } as IParticipation;
+      } as any;
     });
 
     await Vote.create({

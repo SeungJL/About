@@ -7,7 +7,6 @@ import { CenterDiv } from "../../styles/LayoutStyles";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isAttendingState,
-  isLateSelector,
   isShowStudyVoteModalState,
   studyDateState,
   voteDateState,
