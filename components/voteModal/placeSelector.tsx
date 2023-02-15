@@ -37,7 +37,7 @@ const PlaceIcon = styled.button<{ borderColor: string; borderColor2: string }>`
   height: 60px;
   margin: 5px 0;
   border-radius: 25%;
-  border: 4px solid black;
+  border: 3px solid black;
   border-color: ${(props) =>
     props.borderColor === "brown" ? props.borderColor : props.borderColor2};
   overflow: hidden;
@@ -77,7 +77,7 @@ const PlaceSelector = ({
 
   const PlaceIconBorderColor2 = (place: IPlace) => {
     if (selectPlaces.find((item) => item == place)) {
-      return "blue";
+      return "orange";
     }
   };
 

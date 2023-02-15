@@ -39,10 +39,7 @@ const TimeSelector: FC<{
 
   return (
     <>
-      {participation?.attendences && (
-        <TimeBoard attendences={participation.attendences} />
-      )}
-      <Box key="start" margin="10px 0" pb="5px">
+      <Box key="start">
         <Box display="inline-block" width="40px">
           <Text>시작</Text>
         </Box>

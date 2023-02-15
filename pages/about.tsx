@@ -51,9 +51,10 @@ import {
   convertToKr,
   getInterestingDate,
   getToday,
+  now,
 } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import VoterModal from "../models/VoterModal";
 
 /* Backend */
@@ -169,19 +170,20 @@ function About() {
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   const { setColorMode } = useColorMode();
   const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
-  const setStudyDate = useSetRecoilState(studyDateState);
+  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const setIsAttending = useSetRecoilState(isAttendingState);
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
   const today = getToday();
 
   useEffect(() => {
     setColorMode("light"); //라이트모드로 강제 설정(임시)
-    if (voteDate < getInterestingDate()) {
+    const voteDateKr = convertToKr(voteDate, "DDHHMM");
+    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHHMM");
+    if (voteDateKr === InterestingDateKr) setStudyDate("today");
+    else if (voteDateKr < InterestingDateKr) {
       setStudyDate("passed");
-    } else if (voteDate > getInterestingDate()) {
+    } else if (voteDateKr > InterestingDateKr) {
       setStudyDate("not passed");
-    } else {
-      setStudyDate("today");
     }
     vote?.participations.flatMap((participant) => {
       if (participant.status === "open") {
@@ -194,7 +196,6 @@ function About() {
     });
   }, [voteDate]);
 
-  //vote: voteDate에 대한 투표 정보
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -279,7 +280,7 @@ function About() {
       {showVoter !== null && (
         <VoterModal {...vote?.participations[showVoter as any]} />
       )}
-      {showOpenResult && (
+      {showOpenResult !== null && (
         <OpenResultModal {...vote?.participations[showOpenResult as any]} />
       )}
       {isShowVoteCancel && <CancelModal />}

@@ -11,7 +11,7 @@ import {
   isShowStudyVoteModalState,
   studyDateState,
   voteDateState,
-  VoteStatusState,
+  voteStatusState,
 } from "../../recoil/atoms";
 import VoteModal from "../voteModal";
 import {
@@ -83,9 +83,9 @@ function VoteBtn() {
   const queryClient = useQueryClient();
   const voteDate = useRecoilValue(voteDateState);
   const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
-  const VoteStatus = useRecoilValue(VoteStatusState);
+  const voteStatus = useRecoilValue(voteStatusState);
   const setIsAttending = useSetRecoilState(isAttendingState);
-
+  console.log(44, voteDate, voteStatus);
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -128,15 +128,15 @@ function VoteBtn() {
       <OutlineCircle>
         <VoteCircle
           onClick={
-            VoteStatus === "Check"
+            voteStatus === "Check"
               ? () => handleArrived()
-              : ["join", "Vote"].includes(VoteStatus)
+              : ["Join", "Vote"].includes(voteStatus)
               ? () => setIsShowStudyVote(true)
               : onClickVoted
           }
-          state={VoteStatus}
+          state={voteStatus}
         >
-          {VoteStatus}
+          {voteStatus}
         </VoteCircle>
       </OutlineCircle>
     </>

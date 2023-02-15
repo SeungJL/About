@@ -3,11 +3,12 @@ import Image from "next/image";
 
 import { useEffect } from "react";
 
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isShowVoteCancleState,
   ShowOpenResultState,
   showVoterState,
+  voteStatusState,
 } from "../../recoil/atoms";
 
 import { IPlace } from "../../models/place";
@@ -134,9 +135,14 @@ function ResultBlock({
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
   const setShowVoter = useSetRecoilState(showVoterState);
   const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
-
+  const voteStatus = useRecoilValue(voteStatusState);
   const countArr = [];
-  for (let i = 0; i < attendences.length + absences.length; i++) {
+  let cnt = 0;
+  console.log(status);
+  for (let i = 0; i < attendences.length; i++) {
+    if (attendences[i].firstChoice) cnt++;
+  }
+  for (let i = 0; i < cnt + absences.length; i++) {
     if (i < attendences.length) countArr.push("attend");
     else countArr.push("absence");
   }
@@ -144,14 +150,14 @@ function ResultBlock({
   const myAttendence = attendences.find(
     (att) => (att.user as IUser).uid === session?.uid
   );
-
+  console.log(voteStatus, ["Join", "Complete"].includes(voteStatus));
   return (
     <>
       <ResultBlockLayout>
         <ResultBlockHeader>
           <span>{place.fullname}</span>
           <ResultBlockNav>
-            {myAttendence /*&& !myAttendence?.arrived*/ && (
+            {["Join", "Complete"].includes(voteStatus) && (
               <CancelBtn
                 onClick={() => setIsShowVoteCancle(true)}
                 status={status}

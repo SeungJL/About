@@ -39,8 +39,8 @@ export const isLateSelector = selector({
   },
 });
 
-export const VoteStatusState = selector<
-  "Closed" | "Check" | "Join" | "Vote" | "Voted"
+export const voteStatusState = selector<
+  "Closed" | "Check" | "Join" | "Vote" | "Voted" | "Complete"
 >({
   key: "voteStatus",
   get: ({ get }) => {
@@ -52,7 +52,11 @@ export const VoteStatusState = selector<
       return "Vote";
     }
     if (studyDate === "today") {
-      if (now() > now().hour(14)) {
+      if (now() > now().hour(23).minute(0)) {
+        if (isAttending) return "Check";
+        return "Join";
+      }
+      if (now() > now().hour(14).minute(0)) {
         if (isAttending) return "Voted";
         return "Vote";
       }

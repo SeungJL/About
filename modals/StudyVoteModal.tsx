@@ -31,8 +31,8 @@ import {
 } from "../recoil/atoms";
 
 const ModalLayout = styled.div`
-  width: 340px;
-  height: 440px;
+  width: 320px;
+  height: 220px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -47,7 +47,7 @@ const ModalLayout = styled.div`
 const ModalHeader = styled.header`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 const SpaceMap = styled.div`
   margin-bottom: 10px;
@@ -55,18 +55,36 @@ const SpaceMap = styled.div`
 const SpaceSelector = styled.div`
   margin-top: 10px;
 `;
-const SpacePage = styled.div``;
+const SpacePage = styled.div`
+  > span {
+    color: brown;
+  }
+`;
 
 const SecondPageNav = styled.nav`
   text-align: end;
+  margin-top: 10px;
   > button {
-    width: 70px;
+    width: 60px;
+    font-size: 0.8em;
     background-color: brown;
     color: white;
     margin-left: 10px;
     border-radius: 10px;
-    padding: 5px;
-    font-size: 0.9em;
+    padding: 3px;
+  }
+`;
+const LastPageNav = styled.nav`
+  margin-top: 30px;
+  text-align: end;
+  > button {
+    width: 60px;
+    font-size: 0.8em;
+    background-color: brown;
+    color: white;
+    margin-left: 10px;
+    border-radius: 10px;
+    padding: 3px;
   }
 `;
 
@@ -174,14 +192,6 @@ function StudyVoteModal({ participations }: IStudyVote) {
 
       {page === 0 ? (
         <SpacePage>
-          <SpaceMap>
-            <Map
-              selectedPlace={attendInfo.place}
-              places={places}
-              width="100%"
-              height="200px"
-            />
-          </SpaceMap>
           <span>1지망 선택</span>
           <SpaceSelector>
             <PlaceSelector
@@ -197,14 +207,6 @@ function StudyVoteModal({ participations }: IStudyVote) {
         </SpacePage>
       ) : page === 1 ? (
         <SpacePage>
-          <SpaceMap>
-            <Map
-              selectedPlace={attendInfo.place}
-              places={places}
-              width="100%"
-              height="200px"
-            />
-          </SpaceMap>
           <span>2지망 선택(여러개)</span>
           <SpaceSelector>
             <PlaceSelector
@@ -230,10 +232,10 @@ function StudyVoteModal({ participations }: IStudyVote) {
             end={attendInfo.end}
             setEnd={(end: Dayjs) => setAttendInfo({ ...attendInfo, end })}
           />
-          <SecondPageNav style={{ marginTop: "100px" }}>
+          <LastPageNav>
             <button onClick={movePageSeoncd}>뒤로가기</button>
             <button onClick={onSubmit}>제출</button>
-          </SecondPageNav>
+          </LastPageNav>
         </>
       )}
     </ModalLayout>
