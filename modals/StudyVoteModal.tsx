@@ -1,25 +1,16 @@
 import { useToast } from "@chakra-ui/react";
-import { faArrowLeft, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dayjs } from "dayjs";
-import Link from "next/link";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Map from "../components/map";
 import PlaceSelector from "../components/voteModal/placeSelector";
 import TimeSelector from "../components/voteModal/timeSelector";
-import { MAX_USER_PER_PLACE } from "../constants/system";
 import { useAttendMutation } from "../hooks/vote/mutations";
 import { VOTE_GET } from "../libs/queryKeys";
-import {
-  getToday,
-  getNextDate,
-  getTomorrow,
-  hourMinToDate,
-  convertToKr,
-} from "../libs/utils/dateUtils";
+import { hourMinToDate, convertToKr } from "../libs/utils/dateUtils";
 import { AttendDTO } from "../models/interface/vote";
 import { IPlace } from "../models/place";
 import { IParticipation } from "../models/vote";

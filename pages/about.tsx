@@ -1,17 +1,12 @@
-/* Basic */
 import Link from "next/link";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
-
-/* Component */
 import Seo from "../components/Seo";
 import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
 import MainNavigation from "../components/About/MainNavigation";
-
-/*State*/
 import {
   isShowUserInfoFormState,
   isShowVoteCancleState,
@@ -24,8 +19,6 @@ import {
   isAttendingState,
   isStudyOpenState,
 } from "../recoil/atoms";
-
-/* Icon */
 import {
   faAngleLeft,
   faAngleRight,
@@ -33,20 +26,14 @@ import {
   faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-/* Swiper */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-/* Modal */
 import OpenResultModal from "../modals/OpenResultModal";
 import NotCompletedModal from "../modals/NotCompletedModal";
 import CancelModal from "../modals/CancelModal";
-
-/* Interface */
 import { IParticipation } from "../models/vote";
 import {
   convertToKr,
@@ -57,23 +44,15 @@ import {
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import VoterModal from "../modals/VoterModal";
-
-/* Backend */
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
 import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
-import { IUser, User } from "../models/user";
+import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-
 import UserInfoForm from "../models/UserInfoForm";
-import VoteStudyModal from "../modals/StudyVoteModal";
 import StudyVoteModal from "../modals/StudyVoteModal";
-import CircleAlert from "../components/icon/CircleAlert";
 import axios from "axios";
-import UserInfoModal from "../components/userInfoModal";
-
-let dayjs = require("dayjs");
 
 const AboutLayout = styled.div`
   position: relative;
