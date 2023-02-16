@@ -172,12 +172,6 @@ function About() {
     } else if (voteDateKr > InterestingDateKr) {
       setStudyDate("not passed");
     }
-    vote?.participations.flatMap((participant) => {
-      if (participant.status === "open") {
-        setStudyOpen(true);
-        return;
-      }
-    });
   }, [voteDate]);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
@@ -192,6 +186,13 @@ function About() {
         position: "bottom",
       });
     },
+  });
+  vote?.participations.flatMap((participant) => {
+    if (participant.status === "open") {
+      console.log("wow");
+      setStudyOpen(true);
+      return;
+    }
   });
 
   return (
