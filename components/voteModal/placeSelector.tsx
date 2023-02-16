@@ -15,7 +15,6 @@ import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/system";
 import { IPlace } from "../../models/place";
 import { selectPlacesState } from "../../recoil/atoms";
-import Map from "../map";
 
 interface IPlaceSelecter {
   placeInfo: { placeName: IPlace; voteCnt: number; status: string }[];
