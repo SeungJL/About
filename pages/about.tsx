@@ -42,9 +42,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 /* Modal */
-import OpenResultModal from "../models/OpenResultModal";
-import NotCompletedModal from "../models/NotCompletedModal";
-import CancelModal from "../models/CancelModal";
+import OpenResultModal from "../modals/OpenResultModal";
+import NotCompletedModal from "../modals/NotCompletedModal";
+import CancelModal from "../modals/CancelModal";
 
 /* Interface */
 import { IParticipation } from "../models/vote";
@@ -56,7 +56,7 @@ import {
 } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import VoterModal from "../models/VoterModal";
+import VoterModal from "../modals/VoterModal";
 
 /* Backend */
 import { GetServerSideProps } from "next";
@@ -71,6 +71,7 @@ import VoteStudyModal from "../modals/StudyVoteModal";
 import StudyVoteModal from "../modals/StudyVoteModal";
 import CircleAlert from "../components/icon/CircleAlert";
 import axios from "axios";
+import UserInfoModal from "../components/userInfoModal";
 
 let dayjs = require("dayjs");
 

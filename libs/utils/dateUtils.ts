@@ -44,7 +44,9 @@ export const getInterestingDate = () => {
   if (current < today.hour(VOTE_START_HOUR)) return today;
   return today.add(1, "day");
 };
-//--//
+
+///////////////////////////////////////////////////////////////////////////////////
+
 export const strToDate = (dateStr: string) => {
   return dayjs(dateStr, "YYYY-MM-DD").tz(TZ_SEOUL).startOf("day");
 };
