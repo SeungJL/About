@@ -96,7 +96,12 @@ function Books() {
                 <BookItem>
                   <div>{info.ranking}</div>
                   <BookImage>
-                    <img src={info.bookImageURL} width="130px" height="60px" />
+                    <img
+                      alt={info.bookname}
+                      src={info.bookImageURL}
+                      width="130px"
+                      height="60px"
+                    />
                   </BookImage>
                   <BookTitle>{info.bookname}</BookTitle>
                   <br />

@@ -161,6 +161,10 @@ function About() {
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
 
   useEffect(() => {
+    axios.patch(
+      `/api/admin/vote/${now().format("YYYY-MM-DD")}/status/confirm`,
+      {}
+    );
     setColorMode("light"); //라이트모드로 강제 설정(임시)
     const voteDateKr = convertToKr(voteDate, "DDHHMM");
     const InterestingDateKr = convertToKr(getInterestingDate(), "DDHHMM");
@@ -176,7 +180,7 @@ function About() {
         return;
       }
     });
-  }, [voteDate]);
+  }, []);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -191,11 +195,6 @@ function About() {
       });
     },
   });
-
-  axios.patch(
-    `/api/admin/vote/${now().format("YYYY-MM-DD")}/status/confirm`,
-    {}
-  );
 
   return (
     <>
