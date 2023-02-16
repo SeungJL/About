@@ -159,15 +159,13 @@ function About() {
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
+  const isStudyOpen = useRecoilValue(isStudyOpenState);
 
   useEffect(() => {
-    axios.patch(
-      `/api/admin/vote/${now().format("YYYY-MM-DD")}/status/confirm`,
-      {}
-    );
     setColorMode("light"); //라이트모드로 강제 설정(임시)
-    const voteDateKr = convertToKr(voteDate, "DDHHMM");
-    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHHMM");
+    const voteDateKr = convertToKr(voteDate, "DDHH");
+    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");
+
     if (voteDateKr === InterestingDateKr) setStudyDate("today");
     else if (voteDateKr < InterestingDateKr) {
       setStudyDate("passed");
@@ -180,7 +178,7 @@ function About() {
         return;
       }
     });
-  }, []);
+  }, [voteDate]);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
