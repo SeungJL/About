@@ -163,12 +163,12 @@ function About() {
   const isStudyOpen = useRecoilValue(isStudyOpenState);
   const isUserAttend = useRecoilValue(isUserAttendState);
   const setIsUserAttend = useSetRecoilState(isUserAttendState);
-  console.log(4, getInterestingDate());
+  console.log("is", isAttending);
   useEffect(() => {
     setColorMode("light");
+    setIsAttending(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
     const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");
-
     if (voteDateKr === InterestingDateKr) setStudyDate("today");
     else if (voteDateKr < InterestingDateKr) {
       setStudyDate("passed");

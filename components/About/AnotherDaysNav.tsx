@@ -28,6 +28,7 @@ const TomorrowdayBtn = styled(CenterDiv)`
 
 function AnotherDaysNav() {
   const setVoteDate = useSetRecoilState(voteDateState);
+
   const moveYesterday = () => {
     setVoteDate((date: Dayjs) => date.subtract(1, "day"));
   };

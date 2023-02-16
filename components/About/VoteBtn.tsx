@@ -106,6 +106,7 @@ function VoteBtn() {
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries([VOTE_GET, voteDate]);
+        setIsAttending(false);
       },
       onError: (err) => {
         toast({
