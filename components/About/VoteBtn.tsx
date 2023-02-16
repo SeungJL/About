@@ -85,6 +85,7 @@ function VoteBtn() {
   const voteStatus = useRecoilValue(voteStatusState);
   const setIsAttending = useSetRecoilState(isAttendingState);
   console.log(44, voteDate, voteStatus);
+  console.log("today", getToday());
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -120,7 +121,6 @@ function VoteBtn() {
   );
   const onClickVoted = () => {
     handleAbsent();
-    setIsAttending(false);
   };
   return (
     <>

@@ -1,13 +1,15 @@
 import { Image } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
-
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import { IAttendence } from "../models/vote";
 import { showVoterState } from "../recoil/atoms";
 
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const Container = styled(BaseModal)`
   height: 200px;
+  overflow: visible;
   > div {
     height: 20%;
     display: flex;
@@ -24,14 +26,19 @@ const VoterSection = styled.section`
   gap: 5px;
 `;
 
-function VoterModal(voterList: any) {
-  const setShowVoter = useSetRecoilState(showVoterState);
+function VoterModal({
+  attendences,
+  setIsShowVoter,
+}: {
+  attendences: IAttendence[];
+  setIsShowVoter: React.Dispatch<SetStateAction<boolean>>;
+}) {
   return (
     <>
       <Container>
         <div>참여인원</div>
         <VoterSection>
-          {voterList?.attendences?.map(
+          {attendences?.map(
             (who: any) =>
               who.firstChoice && (
                 <div key={who.user._id}>
@@ -50,7 +57,7 @@ function VoterModal(voterList: any) {
           )}
         </VoterSection>
       </Container>
-      <FullScreen onClick={() => setShowVoter(null)} />
+      <FullScreen onClick={() => setIsShowVoter(false)} />
     </>
   );
 }

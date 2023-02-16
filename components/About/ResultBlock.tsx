@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isShowVoteCancleState,
   isUserAttendState,
@@ -17,6 +17,7 @@ import { IUser } from "../../models/user";
 import { IParticipation } from "../../models/vote";
 
 import { useSession } from "next-auth/react";
+import VoterModal from "../../modals/VoterModal";
 
 const ResultBlockLayout = styled.div`
   display: flex;
@@ -71,13 +72,12 @@ const VoterBtn = styled.button`
 `;
 
 interface IResultStatus {
-  status: string;
+  open: boolean;
 }
 
 const ResultStatus = styled.button<IResultStatus>`
-  background: ${(props) => (props.status === "open" ? "#68D391" : "#d3d3d3")};
-  color: ${(props) =>
-    props.status === "open" ? "rgb(34,84,61)" : "rgb(0,0,0,0.7)"};
+  background: ${(props) => (props.open ? "#68D391" : "#d3d3d3")};
+  color: ${(props) => (props.open ? "rgb(34,84,61)" : "rgb(0,0,0,0.7)")};
 `;
 
 const ResultChart = styled.div`
@@ -136,7 +136,9 @@ function ResultBlock({
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
   const setShowVoter = useSetRecoilState(showVoterState);
   const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
-  const setIsUserAttend = useSetRecoilState(isUserAttendState);
+  const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
+  const open = status === "open" ? true : false;
+  const [isShowVoter, setIsShowVoter] = useState(false);
   const countArr = [];
   let cnt = 0;
 
@@ -148,39 +150,26 @@ function ResultBlock({
     else countArr.push("absence");
   }
 
-  const myAttendence =
-    status === "open" &&
-    attendences.find((att) => (att.user as IUser).uid === session?.uid);
-
-  useEffect(() => {
-    setIsUserAttend(true);
-  }, [myAttendence]);
   return (
     <>
       <ResultBlockLayout>
         <ResultBlockHeader>
           <span>{place.fullname}</span>
           <ResultBlockNav>
-            {myAttendence && (
+            {isUserAttend && open && (
               <CancelBtn
                 onClick={() => setIsShowVoteCancle(true)}
-                status={Boolean(myAttendence)}
+                status={Boolean(isUserAttend)}
               >
                 Cancel
               </CancelBtn>
             )}
-            <VoterBtn onClick={() => setShowVoter(index)}>Voter</VoterBtn>
+            <VoterBtn onClick={() => setIsShowVoter(true)}>Voter</VoterBtn>
             <ResultStatus
-              status={status}
-              onClick={
-                status === "open" ? () => setShowOpenResult(index) : null
-              }
+              open={open}
+              onClick={open ? () => setShowOpenResult(index) : null}
             >
-              {status === "open"
-                ? "Open"
-                : status === "dismissed"
-                ? "Closed"
-                : "Voting..."}
+              {open ? "Open" : status === "dismissed" ? "Closed" : "Voting..."}
             </ResultStatus>
           </ResultBlockNav>
         </ResultBlockHeader>
@@ -201,6 +190,9 @@ function ResultBlock({
           </ChartView>
         </ResultChart>
       </ResultBlockLayout>
+      {isShowVoter && (
+        <VoterModal attendences={attendences} setIsShowVoter={setIsShowVoter} />
+      )}
     </>
   );
 }

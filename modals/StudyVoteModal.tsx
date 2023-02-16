@@ -123,6 +123,7 @@ function StudyVoteModal({ participations }: IStudyVote) {
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
+      setIsAttending(true);
     },
     onError: (err) => {},
   });
@@ -153,7 +154,7 @@ function StudyVoteModal({ participations }: IStudyVote) {
       dinner: attendInfo.dinner,
       afterDinner: attendInfo.afterDinner,
     } as AttendDTO;
-    setIsAttending(true);
+
     patchAttend(attendDTO);
   };
 

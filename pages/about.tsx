@@ -18,6 +18,7 @@ import {
   studyDateState,
   isAttendingState,
   isStudyOpenState,
+  isUserAttendState,
 } from "../recoil/atoms";
 import {
   faAngleLeft,
@@ -43,12 +44,12 @@ import {
 } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import VoterModal from "../modals/VoterModal";
+
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
 import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
-import { User } from "../models/user";
+import { IUser, User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import UserInfoForm from "../models/UserInfoForm";
 import StudyVoteModal from "../modals/StudyVoteModal";
@@ -160,9 +161,11 @@ function About() {
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
   const isStudyOpen = useRecoilValue(isStudyOpenState);
-
+  const isUserAttend = useRecoilValue(isUserAttendState);
+  const setIsUserAttend = useSetRecoilState(isUserAttendState);
+  console.log(4, getInterestingDate());
   useEffect(() => {
-    setColorMode("light"); //라이트모드로 강제 설정(임시)
+    setColorMode("light");
     const voteDateKr = convertToKr(voteDate, "DDHH");
     const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");
 
@@ -188,11 +191,16 @@ function About() {
     },
   });
   vote?.participations.flatMap((participant) => {
-    if (participant.status === "open") {
-      console.log("wow");
-      setStudyOpen(true);
-      return;
+    const studyStatus = participant.status === "open" ? true : false;
+    if (
+      participant.attendences.find(
+        (att) => (att.user as IUser).uid === session?.uid
+      )
+    ) {
+      setIsAttending(true);
+      studyStatus && setIsUserAttend(true);
     }
+    studyStatus && setStudyOpen(true);
   });
 
   return (
@@ -262,9 +270,7 @@ function About() {
           </RightArrow>
         </DownScreen>
       </AboutLayout>
-      {showVoter !== null && (
-        <VoterModal {...vote?.participations[showVoter as any]} />
-      )}
+
       {showOpenResult !== null && (
         <OpenResultModal {...vote?.participations[showOpenResult as any]} />
       )}
