@@ -3,12 +3,13 @@ import Image from "next/image";
 
 import { useEffect } from "react";
 
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  attendingState,
   isShowVoteCancleState,
-  showOpenResultState,
+  isUserAttendState,
+  ShowOpenResultState,
   showVoterState,
+  voteStatusState,
 } from "../../recoil/atoms";
 
 import { IPlace } from "../../models/place";
@@ -56,10 +57,10 @@ const ResultBlockNav = styled.nav`
 `;
 
 interface ICancelBtn {
-  status: string;
+  status: boolean;
 }
 const CancelBtn = styled.button<ICancelBtn>`
-  display: ${(props) => (props.status === "open" ? "inline-block" : "none")};
+  display: ${(props) => (props.status ? "inline-block" : "none")};
   background-color: #fc8181;
   color: #822727;
 `;
@@ -132,37 +133,38 @@ function ResultBlock({
 }: IResultBlock) {
   const { data: session } = useSession();
 
-  const setAttending = useSetRecoilState(attendingState);
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
   const setShowVoter = useSetRecoilState(showVoterState);
-  const setShowOpenResult = useSetRecoilState(showOpenResultState);
-
+  const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
+  const setIsUserAttend = useSetRecoilState(isUserAttendState);
   const countArr = [];
-  for (let i = 0; i < attendences.length + absences.length; i++) {
+  let cnt = 0;
+
+  for (let i = 0; i < attendences.length; i++) {
+    if (attendences[i].firstChoice) cnt++;
+  }
+  for (let i = 0; i < cnt + absences.length; i++) {
     if (i < attendences.length) countArr.push("attend");
     else countArr.push("absence");
   }
 
-  let spaceName = "About";
-  if ((place as IPlace).brand === "카탈로그") spaceName = "Katalog";
-  if ((place as IPlace).brand === "아티제") spaceName = "Artisee";
+  const myAttendence =
+    status === "open" &&
+    attendences.find((att) => (att.user as IUser).uid === session?.uid);
 
-  const myAttendence = attendences.find(
-    (att) => (att.user as IUser).uid === session?.uid
-  );
-
-  if (myAttendence) setAttending(index);
-
+  useEffect(() => {
+    setIsUserAttend(true);
+  }, [myAttendence]);
   return (
     <>
       <ResultBlockLayout>
         <ResultBlockHeader>
-          <span>{spaceName}</span>
+          <span>{place.fullname}</span>
           <ResultBlockNav>
-            {myAttendence /*&& !myAttendence?.arrived*/ && (
+            {myAttendence && (
               <CancelBtn
                 onClick={() => setIsShowVoteCancle(true)}
-                status={status}
+                status={Boolean(myAttendence)}
               >
                 Cancel
               </CancelBtn>
@@ -185,7 +187,7 @@ function ResultBlock({
         <ResultChart>
           <div>
             <Image
-              src={`/icons/${spaceName}.jpg`}
+              src={place.image}
               alt="about"
               width={44}
               height={44}

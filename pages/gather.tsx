@@ -1,80 +1,33 @@
-import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { gatherIdState, gatherSelector, isWriteState } from "../recoil/atoms";
-import { AnimatePresence, motion } from "framer-motion";
-import CreateGather from "../components/Gather/CreateGather";
-import SelectGather from "../components/Gather/SelectGather";
-import PrintGather from "../components/Gather/PrintGather";
-import JoinGather from "../components/Gather/JoinGather";
-import Seo from "../components/Seo";
+import { GatherVoteModal } from "../modals/GatherVoteModal";
+import { gatherJoinState } from "../recoil/atoms";
 
-const ScreenBox = styled.div``;
-
-const GatherHeader = styled.header`
-  margin: 10px 0;
+const GatherLayout = styled.div`
+  padding: 25px;
+  > ul {
+    > li {
+      height: 30px;
+      margin-bottom: 10px;
+      border: 1px solid brown;
+    }
+  }
 `;
 
-const Overlay = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  left: -3px;
-`;
-const overlay = {
-  hidden: { backgroundColor: "rgba(0, 0, 0, 0)" },
-  visible: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
-  exit: { backgroundColor: "rgba(0, 0, 0, 0)" },
-};
 function Gather() {
-  const gathers = useRecoilValue(gatherSelector);
-  const isWrite = useRecoilValue(isWriteState);
-  const [id, setId] = useRecoilState(gatherIdState);
-
+  const [isShowGather, setIsShowGather] = useRecoilState(gatherJoinState);
   return (
     <>
-      <Seo title="Gather" />
-      <ScreenBox>
-        <div>23</div>
-
-        <GatherHeader>
-          {isWrite ? (
-            <>
-              <CreateGather />
-              <br />
-              <SelectGather />
-            </>
-          ) : (
-            <>
-              <SelectGather />
-
-              <CreateGather />
-            </>
-          )}
-        </GatherHeader>
-        <ul className="fa-ul">
-          {gathers.map((gather) => {
-            return <PrintGather key={String(gather.id)} {...gather} />;
-          })}
+      <GatherLayout>
+        <ul>
+          <li onClick={() => setIsShowGather(true)}>first gather</li>
+          <li>second gather</li>
+          <li>third gather</li>
+          <li>fourth gather</li>
+          <li>fifth gather</li>
         </ul>
-      </ScreenBox>
-      <AnimatePresence>
-        {id !== "" ? (
-          <Overlay
-            variants={overlay}
-            onClick={() => setId("")}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <JoinGather id={id} />
-          </Overlay>
-        ) : null}
-      </AnimatePresence>
+      </GatherLayout>
+      {isShowGather && <GatherVoteModal />}
     </>
   );
 }

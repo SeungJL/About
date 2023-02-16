@@ -3,14 +3,14 @@ import { useMemo } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { dateToDayjs, splitDate } from "../libs/utils/dateUtils";
-import { showOpenResultState } from "../recoil/atoms";
-import { IUser } from "./user";
+import { ShowOpenResultState } from "../recoil/atoms";
+import { IUser } from "../models/user";
 import { timeRange } from "../libs/utils/timeUtils";
 import { START_HOUR } from "../constants/system";
 import ProfileImage from "../components/profileImage";
 import { CheckIcon } from "@chakra-ui/icons";
 import { time } from "console";
-import { IAttendence } from "./vote";
+import { IAttendence } from "../models/vote";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -176,7 +176,7 @@ const ArrowBtn = styled.div`
 `;
 
 const OpenResultModal = ({ attendences }: any) => {
-  const setShowOpenResult = useSetRecoilState(showOpenResultState);
+  const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
   const [isLeftPage, setIsLeftPage] = useState(true);
   return (
     <>

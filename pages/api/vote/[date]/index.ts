@@ -37,7 +37,7 @@ export default async function handler(
         absences: [],
         invitations: [],
         status: "pending",
-      } as IParticipation;
+      } as any;
     });
 
     await Vote.create({
@@ -73,6 +73,7 @@ export default async function handler(
       }
       const {
         place,
+        subPlace,
         start,
         end,
         anonymity,
@@ -99,7 +100,18 @@ export default async function handler(
         if (placeId === place) {
           return {
             ...participation,
-            attendences: [...participation.attendences, attendence],
+            attendences: [
+              ...participation.attendences,
+              { ...attendence, firstChoice: true },
+            ],
+          };
+        } else if (subPlace.includes(placeId)) {
+          return {
+            ...participation,
+            attendences: [
+              ...participation.attendences,
+              { ...attendence, firstChoice: false },
+            ],
           };
         }
         return participation;

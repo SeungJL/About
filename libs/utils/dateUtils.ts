@@ -1,7 +1,12 @@
 import dayjs, { Dayjs } from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import { RESULT_CLOSE_TIME, RESULT_OPEN_TIME } from "../../constants/system";
+import {
+  RESULT_CLOSE_TIME,
+  RESULT_OPEN_TIME,
+  VOTE_END_HOUR,
+  VOTE_START_HOUR,
+} from "../../constants/system";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -23,12 +28,24 @@ export const now = () => dayjs().tz(TZ_SEOUL);
 export const getToday = () => {
   return now().startOf("day");
 };
+export const getTomorrow = () => {
+  return getToday().add(1, "day");
+};
+export const getYesterday = () => {
+  return getToday().subtract(1, "day");
+};
+export const convertToKr = (date: Dayjs, format: string) => {
+  return date.format(format);
+};
 
 export const getInterestingDate = () => {
   const today = getToday();
-  if (now() < today.hour(14)) return today;
+  const current = now();
+  if (current < today.hour(VOTE_START_HOUR)) return today;
   return today.add(1, "day");
 };
+
+///////////////////////////////////////////////////////////////////////////////////
 
 export const strToDate = (dateStr: string) => {
   return dayjs(dateStr, "YYYY-MM-DD").tz(TZ_SEOUL).startOf("day");
@@ -48,9 +65,6 @@ export const getPreviousDate = (raw: string | Date) =>
   toDate(raw).add(-1, "day");
 
 export const dateToDayjs = (date: Date) => dayjs(date).tz(TZ_SEOUL);
-
-export const convertToKr = (date: Dayjs) =>
-  `${date.format("YYYY년 MM월 DD일")}(${dayEnToKr[date.format("ddd")]})`;
 
 export const canShowResult = () => {
   const now = dayjs().tz(TZ_SEOUL);

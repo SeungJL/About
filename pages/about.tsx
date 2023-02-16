@@ -1,29 +1,24 @@
-/* Basic */
 import Link from "next/link";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
-
-/* Component */
 import Seo from "../components/Seo";
 import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
 import MainNavigation from "../components/About/MainNavigation";
-import Cover from "../components/Cover";
-
-/*State*/
 import {
-  attendingState,
-  dateState,
-  isNotCompletedState,
   isShowUserInfoFormState,
   isShowVoteCancleState,
-  showOpenResultState,
+  isShowStudyVoteModalState,
   showVoterState,
+  voteDateState,
+  ShowOpenResultState,
+  isShowNotCompletedState,
+  studyDateState,
+  isAttendingState,
+  isStudyOpenState,
 } from "../recoil/atoms";
-
-/* Icon */
 import {
   faAngleLeft,
   faAngleRight,
@@ -31,42 +26,33 @@ import {
   faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-/* Swiper */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-/* Modal */
-import OpenResultModal from "../models/OpenResultModal";
-import NotCompletedModal from "../models/NotCompletedModal";
-import CancelModal from "../models/CancelModal";
-
-/* Interface */
+import OpenResultModal from "../modals/OpenResultModal";
+import NotCompletedModal from "../modals/NotCompletedModal";
+import CancelModal from "../modals/CancelModal";
 import { IParticipation } from "../models/vote";
 import {
+  convertToKr,
   getInterestingDate,
   getToday,
   now,
-  strToDate,
 } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import VoterModal from "../models/VoterModal";
-
-/* Backend */
+import VoterModal from "../modals/VoterModal";
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-import { VOTE_END_HOUR } from "../constants/system";
 import UserInfoForm from "../models/UserInfoForm";
-
-let dayjs = require("dayjs");
+import StudyVoteModal from "../modals/StudyVoteModal";
+import axios from "axios";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -92,6 +78,8 @@ const TopNav = styled.nav`
   justify-content: space-between;
   > div {
     width: 20px;
+    height: 20px;
+    position: relative;
   }
 `;
 const Title = styled.span`
@@ -156,22 +144,41 @@ const Loading = styled.span`
 
 function About() {
   const toast = useToast();
-  const interestingDate = getInterestingDate();
-  const [date, setDate] = useRecoilState(dateState);
+  const { data: session } = useSession();
+  const voteDate = useRecoilValue(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
-  const showOpenResult = useRecoilValue(showOpenResultState);
+  const showOpenResult = useRecoilValue(ShowOpenResultState);
   const showVoter = useRecoilValue(showVoterState);
-  const isNotCompleted = useRecoilValue(isNotCompletedState);
+  const isNotCompleted = useRecoilValue(isShowNotCompletedState);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
-  const { colorMode, setColorMode } = useColorMode();
+  const { setColorMode } = useColorMode();
   const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
+  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
+  const setIsAttending = useSetRecoilState(isAttendingState);
+  const isAttending = useRecoilValue(isAttendingState);
+  const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
+  const today = getToday();
+  const setStudyOpen = useSetRecoilState(isStudyOpenState);
 
   useEffect(() => {
-    setDate(interestingDate);
-    setColorMode("light");
-  }, []);
+    setColorMode("light"); //라이트모드로 강제 설정(임시)
+    const voteDateKr = convertToKr(voteDate, "DDHHMM");
+    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHHMM");
+    if (voteDateKr === InterestingDateKr) setStudyDate("today");
+    else if (voteDateKr < InterestingDateKr) {
+      setStudyDate("passed");
+    } else if (voteDateKr > InterestingDateKr) {
+      setStudyDate("not passed");
+    }
+    vote?.participations.flatMap((participant) => {
+      if (participant.status === "open") {
+        setStudyOpen(true);
+        return;
+      }
+    });
+  }, [voteDate]);
 
-  const { data: vote, isLoading } = useVoteQuery(date, {
+  const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -185,16 +192,10 @@ function About() {
     },
   });
 
-  //이후 알고리즘 수정 예정
-  const voteEndTime = dayjs(date).subtract(1, "day").add(VOTE_END_HOUR, "hour");
-
-  if (now() > voteEndTime) {
-    vote?.participations?.map((participant) => {
-      if (participant.attendences.length >= 3) {
-        participant.status = "open";
-      } else participant.status = "dismissed";
-    });
-  }
+  axios.patch(
+    `/api/admin/vote/${now().format("YYYY-MM-DD")}/status/confirm`,
+    {}
+  );
 
   return (
     <>
@@ -205,6 +206,7 @@ function About() {
             <Link href="/notice">
               <div>
                 <FontAwesomeIcon icon={faBell} size="xl" />
+                {/*<CircleAlert />*/}
               </div>
             </Link>
             <Title>About</Title>
@@ -221,13 +223,13 @@ function About() {
             </div>
             <div>
               <span>Today</span>
-              <span>{dayjs().format("MMM DD")}</span>
+              <span> {convertToKr(today, "MMM DD")}</span>
             </div>
           </InfoSection>
-          <AnotherDaysNav date={date} />
+          <AnotherDaysNav />
         </UpScreen>
         <VoteBtn />
-        <TodayDate>{dayjs(date).format("M월 D일")}</TodayDate>
+        <TodayDate>{!isLoading && convertToKr(voteDate, "M월 D일")}</TodayDate>
         <DownScreen>
           <Swiper
             modules={[Navigation, Pagination, A11y]}
@@ -265,12 +267,15 @@ function About() {
       {showVoter !== null && (
         <VoterModal {...vote?.participations[showVoter as any]} />
       )}
-      {showOpenResult && (
+      {showOpenResult !== null && (
         <OpenResultModal {...vote?.participations[showOpenResult as any]} />
       )}
       {isShowVoteCancel && <CancelModal />}
       {isNotCompleted && <NotCompletedModal />}
       {isShowUserInfoForm && <UserInfoForm />}
+      {isShowStudyVote && (
+        <StudyVoteModal participations={vote?.participations} />
+      )}
     </>
   );
 }

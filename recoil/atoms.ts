@@ -1,15 +1,78 @@
 import { Dayjs } from "dayjs";
-import { useRouter } from "next/router";
 import { atom, selector } from "recoil";
-import { strToDate } from "../libs/utils/dateUtils";
-import { gatherTest } from "../storage/gathers";
+import { getInterestingDate, now } from "../libs/utils/dateUtils";
 import { noticeData } from "../storage/noticeData";
 
-/* About Page */
+/* Vote */
 
-export const dateState = atom<Dayjs>({
+export const voteDateState = atom<Dayjs>({
   key: "date",
-  default: null,
+  default: getInterestingDate(),
+});
+
+export const studyDateState = atom<"passed" | "today" | "not passed">({
+  key: "studyDate",
+  default: "today",
+});
+
+export const isAttendingState = atom({
+  key: "isAttending",
+  default: false,
+});
+
+export const isStudyOpenState = atom({
+  key: "studyOpen",
+  default: false,
+});
+
+export const isUserAttendState = atom({
+  key: "userAttend",
+  default: false,
+});
+
+export const voteStatusState = selector<
+  "Closed" | "Check" | "Join" | "Vote" | "Voted" | "Complete"
+>({
+  key: "voteStatus",
+  get: ({ get }) => {
+    const studyDate = get(studyDateState);
+    const isAttending = get(isAttendingState);
+    const isUserAttend = get(isUserAttendState);
+    const isStudyOpen = get(isStudyOpenState);
+    if (studyDate === "passed") return "Closed";
+    if (studyDate === "not passed") {
+      if (isAttending) return "Voted";
+      return "Vote";
+    }
+    if (studyDate === "today") {
+      if (now() > now().hour(14).minute(0)) {
+        if (isAttending) return "Voted";
+        return "Vote";
+      }
+      if (!isStudyOpen) return "Closed";
+      if (isUserAttend) {
+        if (isAttending) return "Check";
+        return "Join";
+      }
+    }
+  },
+});
+
+export const selectPlacesState = atom<any>({
+  key: "selectPlaces",
+  default: [],
+});
+
+/* Modal-Show */
+
+export const isShowUserInfoFormState = atom({
+  key: "isUserInfoForm",
+  default: false,
+});
+
+export const isShowStudyVoteModalState = atom({
+  key: "isShowVoteStudyModal",
+  default: false,
 });
 
 export const showVoterState = atom<Number>({
@@ -17,13 +80,8 @@ export const showVoterState = atom<Number>({
   default: null,
 });
 
-export const showOpenResultState = atom<Number>({
+export const ShowOpenResultState = atom<Number>({
   key: "showOpenResult",
-  default: null,
-});
-
-export const attendingState = atom<Number>({
-  key: "attendingState",
   default: null,
 });
 
@@ -32,8 +90,14 @@ export const isShowVoteCancleState = atom<Boolean>({
   default: false,
 });
 
-export const isNotCompletedState = atom<Boolean>({
+export const isShowNotCompletedState = atom<Boolean>({
   key: "notCompleted",
+  default: false,
+});
+
+/*  */
+export const isCancelState = atom({
+  key: "isCancel",
   default: false,
 });
 
@@ -55,45 +119,6 @@ export const noticeSelector = selector({
   },
 });
 
-export enum Categories {
-  "plan" = "plan",
-  "complete" = "complete",
-  "cancel" = "complete",
-}
-
-export const isDarkAtom = atom({
-  key: "isDark",
-  default: true,
-});
-export interface IgatherItem {
-  date: string;
-  text: string;
-  id: number;
-  category: Categories;
-  join?: string;
-  keys?: any;
-}
-export interface IGatherDate {}
-
-export const gatherState = atom<IgatherItem[]>({
-  key: "gatherItem",
-  default: gatherTest,
-});
-
-export const categoryState = atom<Categories>({
-  key: "category",
-  default: Categories.plan,
-});
-
-export const gatherSelector = selector({
-  key: "gatherSelector",
-  get: ({ get }) => {
-    const gathers = get(gatherState);
-    const category = get(categoryState);
-    return gathers.filter((gather) => gather.category === category);
-  },
-});
-
 export const isWriteState = atom({
   key: "isWrite",
   default: false,
@@ -108,12 +133,23 @@ export const gatherIdState = atom({
   default: "",
 });
 
-export const isCancelState = atom({
-  key: "isCancel",
-  default: false,
+export const tempState = atom({
+  key: "temp",
+  default: 0,
 });
 
-export const isShowUserInfoFormState = atom({
-  key: "isUserInfoForm",
+export const change = selector({
+  key: "change",
+  get: ({ get }) => {
+    const B = get(tempState);
+    return B / 10;
+  },
+  set: ({ set }, newValue) => {
+    set(tempState, newValue);
+  },
+});
+
+export const gatherJoinState = atom({
+  key: "gatherJoin",
   default: false,
 });
