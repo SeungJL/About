@@ -1,9 +1,10 @@
 import { Image } from "@chakra-ui/react";
-import { useSetRecoilState } from "recoil";
-import { Dispatch, SetStateAction } from "react";
+import * as ReactDOM from "react-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { Dispatch, SetStateAction, useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IAttendence } from "../models/vote";
-import { showVoterState } from "../recoil/atoms";
+import { modalContextState, showVoterState } from "../recoil/atoms";
 
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
@@ -26,39 +27,33 @@ const VoterSection = styled.section`
   gap: 5px;
 `;
 
-function VoterModal({
-  attendences,
-  setIsShowVoter,
-}: {
-  attendences: IAttendence[];
-  setIsShowVoter: React.Dispatch<SetStateAction<boolean>>;
-}) {
+function VoterModal() {
+  const modalContext = useRecoilValue(modalContextState);
+  const attendences = modalContext?.Voter?.attendences;
+
   return (
-    <>
-      <Container>
-        <div>참여인원</div>
-        <VoterSection>
-          {attendences?.map(
-            (who: any) =>
-              who.firstChoice && (
-                <div key={who.user._id}>
-                  <Image
-                    width={12}
-                    height={12}
-                    alt={who.user.name}
-                    src={who.user.thumbnailImage}
-                    style={{
-                      borderRadius: "30%",
-                    }}
-                  />
-                  <span>{who.user.name}</span>
-                </div>
-              )
-          )}
-        </VoterSection>
-      </Container>
-      <FullScreen onClick={() => setIsShowVoter(false)} />
-    </>
+    <Container>
+      <div>참여인원</div>
+      <VoterSection>
+        {attendences?.map(
+          (who: any) =>
+            who.firstChoice && (
+              <div key={who.user._id}>
+                <Image
+                  width={12}
+                  height={12}
+                  alt={who.user.name}
+                  src={who.user.thumbnailImage}
+                  style={{
+                    borderRadius: "30%",
+                  }}
+                />
+                <span>{who.user.name}</span>
+              </div>
+            )
+        )}
+      </VoterSection>
+    </Container>
   );
 }
 export default VoterModal;

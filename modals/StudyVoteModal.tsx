@@ -17,6 +17,7 @@ import { IParticipation } from "../models/vote";
 import {
   isAttendingState,
   isShowStudyVoteModalState,
+  modalContextState,
   selectPlacesState,
   voteDateState,
 } from "../recoil/atoms";
@@ -83,12 +84,14 @@ interface IStudyVote {
   participations: IParticipation[];
 }
 
-function StudyVoteModal({ participations }: IStudyVote) {
+function StudyVoteModal() {
   const [page, setPage] = useState(0);
   const voteDate = useRecoilValue(voteDateState);
   const toast = useToast();
   const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
   const queryClient = useQueryClient();
+  const modalContext = useRecoilValue(modalContextState);
+  const participations = modalContext?.StudyVote.participations;
   const [attendInfo, setAttendInfo] = useState<{
     place: IPlace;
     start: Dayjs;

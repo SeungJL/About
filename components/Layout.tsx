@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Router from "next/router";
+import Modals from "./Modals";
 export default function Layout({ children }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -22,7 +23,8 @@ export default function Layout({ children }) {
   }, []);
   return (
     <>
-      <div>{children}</div>
+      <div id="root-modal">{children}</div>
+      <Modals />
     </>
   );
 }
