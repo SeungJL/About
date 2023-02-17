@@ -207,7 +207,7 @@ function About() {
     }
     studyStatus && setStudyOpen(true);
   });
-  console.log(vote?.participations);
+
   return (
     <>
       <Seo title="About" />

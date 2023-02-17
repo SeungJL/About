@@ -1,11 +1,12 @@
 import { useToast } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useDismissMutation } from "../hooks/vote/mutations";
 import { VOTE_GET } from "../libs/queryKeys";
-import { strToDate } from "../libs/utils/dateUtils";
+import { getToday, strToDate } from "../libs/utils/dateUtils";
 import { isAttendingState, isShowVoteCancleState } from "../recoil/atoms";
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
@@ -41,13 +42,12 @@ const Footer = styled.footer`
 `;
 
 function CancelModal() {
-  const router = useRouter();
-  const today = strToDate(router.query.date as string);
+  const today = getToday();
   const queryClient = useQueryClient();
   const toast = useToast();
   const setIsShowCancle = useSetRecoilState(isShowVoteCancleState);
   const setIsAttending = useSetRecoilState(isAttendingState);
-  console.log(today);
+
   const { mutate: handleDismiss, isLoading: dismissLoading } =
     useDismissMutation(today, {
       onSuccess: (data) => {
