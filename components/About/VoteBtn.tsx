@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isAttendingState,
   isShowStudyVoteModalState,
+  modalContextState,
   studyDateState,
   voteDateState,
   voteStatusState,
@@ -29,6 +30,7 @@ import { IUser } from "../../models/user";
 import { useState } from "react";
 import VoteStudyModal from "../../modals/StudyVoteModal";
 import { ISession } from "../../types/DateTitleMode";
+import { IParticipation, IVote } from "../../models/vote";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;
@@ -77,15 +79,19 @@ const VoteCircle = styled.button<IVoteCircle>`
   ${(props) => (props.state === "Closed" ? "disabled" : null)}
 `;
 
-function VoteBtn() {
+interface IVoteBtn {
+  participations: IParticipation[];
+}
+
+function VoteBtn({ participations }: IVoteBtn) {
   const toast = useToast();
   const queryClient = useQueryClient();
   const voteDate = useRecoilValue(voteDateState);
   const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
   const voteStatus = useRecoilValue(voteStatusState);
   const setIsAttending = useSetRecoilState(isAttendingState);
-  console.log(44, voteDate, voteStatus);
-  console.log("today", getToday());
+  const setModalContext = useSetRecoilState(modalContextState);
+
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -101,6 +107,7 @@ function VoteBtn() {
       });
     },
   });
+
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     voteDate,
     {
@@ -123,6 +130,20 @@ function VoteBtn() {
   const onClickVoted = () => {
     handleAbsent();
   };
+  const onClickVote = () => {
+    () => setIsShowStudyVote(true);
+    setIsShowStudyVote(true);
+    setModalContext((old) =>
+      Object.assign(
+        {
+          StudyVote: {
+            participations: participations,
+          },
+        },
+        old
+      )
+    );
+  };
   return (
     <>
       <OutlineCircle>
@@ -131,7 +152,7 @@ function VoteBtn() {
             voteStatus === "Check"
               ? () => handleArrived()
               : ["Join", "Vote"].includes(voteStatus)
-              ? () => setIsShowStudyVote(true)
+              ? onClickVote
               : onClickVoted
           }
           state={voteStatus}

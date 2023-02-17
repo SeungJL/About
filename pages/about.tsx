@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import Seo from "../components/Seo";
 import VoteBtn from "../components/About/VoteBtn";
@@ -56,6 +56,8 @@ import StudyVoteModal from "../modals/StudyVoteModal";
 import axios from "axios";
 import dayjs from "dayjs";
 import { VOTE_END_HOUR } from "../constants/system";
+import Modals from "../components/Modals";
+import { createContext } from "vm";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -150,22 +152,13 @@ function About() {
   const { data: session } = useSession();
   const voteDate = useRecoilValue(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
-  const showOpenResult = useRecoilValue(ShowOpenResultState);
-  const showVoter = useRecoilValue(showVoterState);
-  const isNotCompleted = useRecoilValue(isShowNotCompletedState);
-  const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
+
   const { setColorMode } = useColorMode();
-  const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
-  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
+  const setStudyDate = useSetRecoilState(studyDateState);
   const setIsAttending = useSetRecoilState(isAttendingState);
-  const isAttending = useRecoilValue(isAttendingState);
-  const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
-  const isStudyOpen = useRecoilValue(isStudyOpenState);
-  const isUserAttend = useRecoilValue(isUserAttendState);
   const setIsUserAttend = useSetRecoilState(isUserAttendState);
-  console.log("is", isAttending);
 
   useEffect(() => {
     const voteEndTime = dayjs(getInterestingDate())
@@ -214,7 +207,7 @@ function About() {
     }
     studyStatus && setStudyOpen(true);
   });
-
+  console.log(vote?.participations);
   return (
     <>
       <Seo title="About" />
@@ -246,7 +239,7 @@ function About() {
           </InfoSection>
           <AnotherDaysNav />
         </UpScreen>
-        <VoteBtn />
+        <VoteBtn participations={vote?.participations} />
         <TodayDate>{!isLoading && convertToKr(voteDate, "M월 D일")}</TodayDate>
         <DownScreen>
           <Swiper
@@ -282,16 +275,6 @@ function About() {
           </RightArrow>
         </DownScreen>
       </AboutLayout>
-
-      {showOpenResult !== null && (
-        <OpenResultModal {...vote?.participations[showOpenResult as any]} />
-      )}
-      {isShowVoteCancel && <CancelModal />}
-      {isNotCompleted && <NotCompletedModal />}
-      {isShowUserInfoForm && <UserInfoForm />}
-      {isShowStudyVote && (
-        <StudyVoteModal participations={vote?.participations} />
-      )}
     </>
   );
 }
