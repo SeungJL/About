@@ -139,6 +139,5 @@ export const confirm = async (dateStr: string) => {
         });
       }
     });
-    vote?.save();
   }
 };
