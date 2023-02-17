@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs";
 import { atom, selector } from "recoil";
 import { getInterestingDate, now } from "../libs/utils/dateUtils";
+import { IAttendence, IParticipation } from "../models/vote";
 import { noticeData } from "../storage/noticeData";
 
 /* Vote */
@@ -27,6 +28,14 @@ export const isStudyOpenState = atom({
 
 export const isUserAttendState = atom({
   key: "userAttend",
+  default: false,
+});
+export const isShowVoterState = atom({
+  key: "isShowVoter",
+  default: false,
+});
+export const isShowOpenResultState = atom({
+  key: "isShowOpenResult",
   default: false,
 });
 
@@ -64,6 +73,21 @@ export const selectPlacesState = atom<any>({
 });
 
 /* Modal-Show */
+interface IModalContext {
+  OpenResult?: {
+    attendences: IAttendence[];
+  };
+  Voter?: {
+    attendences: IAttendence[];
+  };
+  StudyVote?: {
+    participations: IParticipation[];
+  };
+}
+export const modalContextState = atom<IModalContext>({
+  key: "modalContext",
+  default: {},
+});
 
 export const isShowUserInfoFormState = atom({
   key: "isUserInfoForm",

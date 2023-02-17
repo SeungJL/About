@@ -5,8 +5,11 @@ import { useState, useEffect } from "react";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  isShowOpenResultState,
   isShowVoteCancleState,
+  isShowVoterState,
   isUserAttendState,
+  modalContextState,
   ShowOpenResultState,
   showVoterState,
   voteStatusState,
@@ -18,6 +21,7 @@ import { IParticipation } from "../../models/vote";
 
 import { useSession } from "next-auth/react";
 import VoterModal from "../../modals/VoterModal";
+import ModalPortal from "../../libs/utils/ModalPortal";
 
 const ResultBlockLayout = styled.div`
   display: flex;
@@ -138,8 +142,13 @@ function ResultBlock({
   const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
   const open = status === "open" ? true : false;
-  const [isShowVoter, setIsShowVoter] = useState(false);
+
   const countArr = [];
+  const [votalModalOpened, setVotalModalOpened] = useState(false);
+  const setModalContext = useSetRecoilState(modalContextState);
+  const modalContext = useRecoilValue(modalContextState);
+  const setIsShowVoter = useSetRecoilState(isShowVoterState);
+  const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   let cnt = 0;
 
   for (let i = 0; i < attendences.length; i++) {
@@ -149,6 +158,32 @@ function ResultBlock({
     if (i < attendences.length) countArr.push("attend");
     else countArr.push("absence");
   }
+  const onClickOpen = () => {
+    setIsShowOpenResult(true);
+    setModalContext((old) =>
+      Object.assign(
+        {
+          OpenResult: {
+            attendences: attendences,
+          },
+        },
+        old
+      )
+    );
+  };
+  const onClickVoter = () => {
+    setIsShowVoter(true);
+    setModalContext((old) =>
+      Object.assign(
+        {
+          Voter: {
+            attendences: attendences,
+          },
+        },
+        old
+      )
+    );
+  };
 
   return (
     <>
@@ -164,11 +199,8 @@ function ResultBlock({
                 Cancel
               </CancelBtn>
             )}
-            <VoterBtn onClick={() => setIsShowVoter(true)}>Voter</VoterBtn>
-            <ResultStatus
-              open={open}
-              onClick={open ? () => setShowOpenResult(index) : null}
-            >
+            <VoterBtn onClick={onClickVoter}>Voter</VoterBtn>
+            <ResultStatus open={open} onClick={open ? onClickOpen : null}>
               {open ? "Open" : status === "dismissed" ? "Closed" : "Voting..."}
             </ResultStatus>
           </ResultBlockNav>
@@ -190,9 +222,6 @@ function ResultBlock({
           </ChartView>
         </ResultChart>
       </ResultBlockLayout>
-      {isShowVoter && (
-        <VoterModal attendences={attendences} setIsShowVoter={setIsShowVoter} />
-      )}
     </>
   );
 }

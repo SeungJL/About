@@ -1,9 +1,13 @@
 import dayjs from "dayjs";
 import { useMemo } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { dateToDayjs, splitDate } from "../libs/utils/dateUtils";
-import { ShowOpenResultState } from "../recoil/atoms";
+import {
+  modalContextState,
+  ShowOpenResultState,
+  isShowOpenResultState,
+} from "../recoil/atoms";
 import { IUser } from "../models/user";
 import { timeRange } from "../libs/utils/timeUtils";
 import { START_HOUR } from "../constants/system";
@@ -175,15 +179,18 @@ const ArrowBtn = styled.div`
   color: var(--main-color);
 `;
 
-const OpenResultModal = ({ attendences }: any) => {
-  const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
+const OpenResultModal = () => {
+  const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
+  const modalContext = useRecoilValue(modalContextState);
+  const attendences = modalContext?.OpenResult?.attendences;
+
   const [isLeftPage, setIsLeftPage] = useState(true);
   return (
     <>
       <ModalLayout>
         <Header>
           <span>Open</span>
-          <div onClick={() => setShowOpenResult(null)}>
+          <div onClick={() => setIsShowOpenResult(false)}>
             <FontAwesomeIcon icon={faX} />
           </div>
         </Header>
@@ -221,7 +228,7 @@ const OpenResultModal = ({ attendences }: any) => {
         </ArrowBtn>
       </ModalLayout>
 
-      <FullScreen onClick={() => setShowOpenResult(null)} />
+      <FullScreen onClick={() => setIsShowOpenResult(false)} />
     </>
   );
 };
