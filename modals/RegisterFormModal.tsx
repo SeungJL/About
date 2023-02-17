@@ -1,18 +1,25 @@
 import dayjs from "dayjs";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { now } from "../libs/utils/dateUtils";
-import { BaseModal } from "../styles/LayoutStyles";
+import { BaseModal, FullScreen } from "../styles/LayoutStyles";
+import { PrivacyPolicy } from "../storage/PrivacyPolicy";
+import { isShowPrivacyPolicyState } from "../recoil/atoms";
+import { useSetRecoilState } from "recoil";
+import { useRegisterMutation } from "../hooks/registerForm";
+import { IUser } from "../models/user";
 
 const ModalLayout = styled(BaseModal)`
-  width: 240px;
-  height: 270px;
+  width: 320px;
+  height: 340px;
+  padding: 22px;
 `;
 
 const Header = styled.header`
-  height: 28px;
-  font-size: 1.2em;
-  margin-bottom: 10px;
+  height: 40px;
+  font-size: 1.4em;
+  font-family: "NanumEx";
+  margin-bottom: 14px;
 `;
 const Footer = styled.footer`
   height: 28px;
@@ -27,7 +34,9 @@ const Footer = styled.footer`
 
 const UserForm = styled.form`
   display: flex;
+  height: 100%;
   flex-direction: column;
+  justify-content: space-around;
 `;
 
 const ErrorMessage = styled.div`
@@ -42,7 +51,7 @@ const InputItem = styled.div`
   margin: 5px 0;
 
   > span {
-    font-size: 0.9em;
+    font-size: 1.2em;
     width: 33%;
   }
   > input {
@@ -52,27 +61,45 @@ const InputItem = styled.div`
 `;
 const SubmitBtn = styled.div`
   display: flex;
-
-  > input {
-    margin-right: 18px;
+  height: 10%;
+  align-items: flex-end;
+  justify-content: space-between;
+  > div:first-child {
+    display: flex;
   }
-  > button {
-    margin-right: 3px;
-    background-color: brown;
-    color: white;
-    width: 50px;
-    border-radius: 15px;
+`;
+const Agree = styled.div`
+  display: flex;
+
+  > span {
+    margin: 0 7px;
+    font-size: 1.1em;
+    font-family: "NanumEx";
+  }
+  > input {
   }
 `;
 
-interface IUserInfoForm {
-  joinDate: string;
+const Button = styled.button`
+  margin-right: 3px;
+  background-color: brown;
+  color: white;
+  width: 56px;
+  height: 25px;
+
+  padding: 2px;
+  border-radius: 15px;
+`;
+
+export interface IUserInfoForm {
+  registerDate: string;
   name: string;
   mbti?: string;
   birth: string;
+  agree: any;
 }
 
-function UserInfoForm() {
+function RegisterFormModal() {
   const {
     register,
     handleSubmit,
@@ -80,25 +107,36 @@ function UserInfoForm() {
     formState: { errors },
   } = useForm<IUserInfoForm>({
     defaultValues: {
-      joinDate: `${now().format("YYYY-MM-DD")}`,
+      registerDate: `${now().format("YYYY-MM-DD")}`,
       name: "",
       mbti: "",
       birth: "",
+      agree: "",
     },
   });
-  const onValid = (data: any) => {
-    console.log(10, data);
-  };
 
+  const onValid = (data: IUserInfoForm) => {
+    const userInfo = {
+      name: data.name,
+      registerDate: data.registerDate,
+      role: "user",
+      isActive: "true",
+      birth: data.birth,
+      mbti: data.mbti,
+    };
+
+    // useRegisterMutation -> useInfo
+  };
+  const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
   return (
     <>
       <ModalLayout>
-        <Header>사용자 정보</Header>
+        <Header>회원가입</Header>
         <UserForm onSubmit={handleSubmit(onValid)}>
           <InputItem>
             <span>가입일: </span>
             <input
-              {...register("joinDate", {
+              {...register("registerDate", {
                 required: "필수입력",
                 pattern: {
                   value: /^\d{4}-\d{2}-\d{2}$/,
@@ -108,7 +146,7 @@ function UserInfoForm() {
               placeholder="YYYY-MM-DD"
             />
           </InputItem>
-          <ErrorMessage>{errors?.joinDate?.message}</ErrorMessage>
+          <ErrorMessage>{errors?.registerDate?.message}</ErrorMessage>
           <InputItem>
             <span>이름: </span>
             <input
@@ -146,15 +184,25 @@ function UserInfoForm() {
           </InputItem>
           <ErrorMessage>{errors?.mbti?.message}</ErrorMessage>
           <SubmitBtn>
-            <button>약관</button>
-            <span>동의</span>
-            <input type="checkbox" />
-            <button>취소</button>
-            <button>제출</button>
+            <div>
+              <Button onClick={() => setisShowPrivacy(true)}>약관</Button>
+              <Agree>
+                <span>동의</span>
+                <input
+                  type="checkbox"
+                  {...register("agree", { required: "필수체크" })}
+                />
+              </Agree>
+            </div>
+            <div>
+              <Button>취소</Button>
+              <Button>제출</Button>
+            </div>
           </SubmitBtn>
         </UserForm>
       </ModalLayout>
+      <FullScreen />
     </>
   );
 }
-export default UserInfoForm;
+export default RegisterFormModal;

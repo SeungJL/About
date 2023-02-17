@@ -26,6 +26,7 @@ const ModalLayout = styled.div`
   width: 320px;
   height: 220px;
   position: absolute;
+  border-radius: 10px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -41,9 +42,7 @@ const ModalHeader = styled.header`
   justify-content: space-between;
   margin-bottom: 15px;
 `;
-const SpaceMap = styled.div`
-  margin-bottom: 10px;
-`;
+
 const SpaceSelector = styled.div`
   margin-top: 10px;
 `;
@@ -67,7 +66,7 @@ const SecondPageNav = styled.nav`
   }
 `;
 const LastPageNav = styled.nav`
-  margin-top: 30px;
+  margin-top: 37px;
   text-align: end;
   > button {
     width: 60px;

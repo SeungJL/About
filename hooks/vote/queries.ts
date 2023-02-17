@@ -38,3 +38,9 @@ export const usePlaceQuery = (
     },
     options
   );
+
+export function fetchFamousBooks() {
+  return fetch("/api/book", {
+    method: "get",
+  }).then((response) => response.json());
+}

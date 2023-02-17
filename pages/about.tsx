@@ -51,7 +51,7 @@ import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { IUser, User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-import UserInfoForm from "../models/UserInfoForm";
+import UserInfoForm from "../modals/RegisterFormModal";
 import StudyVoteModal from "../modals/StudyVoteModal";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -152,7 +152,6 @@ function About() {
   const { data: session } = useSession();
   const voteDate = useRecoilValue(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
-
   const { setColorMode } = useColorMode();
   const setStudyDate = useSetRecoilState(studyDateState);
   const setIsAttending = useSetRecoilState(isAttendingState);
@@ -164,6 +163,7 @@ function About() {
     const voteEndTime = dayjs(getInterestingDate())
       .subtract(1, "day")
       .add(VOTE_END_HOUR, "hour");
+
     if (now() > voteEndTime) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
@@ -195,6 +195,7 @@ function About() {
       });
     },
   });
+  console.log(vote);
   vote?.participations.flatMap((participant) => {
     const studyStatus = participant.status === "open" ? true : false;
     if (

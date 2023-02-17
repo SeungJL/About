@@ -41,7 +41,7 @@ export const convertToKr = (date: Dayjs, format: string) => {
 export const getInterestingDate = () => {
   const today = getToday();
   const current = now();
-  console.log("tt", today, current, today.hour(VOTE_START_HOUR));
+
   if (current < today.hour(VOTE_START_HOUR)) return today;
   return today.add(1, "day");
 };

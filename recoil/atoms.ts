@@ -4,6 +4,11 @@ import { getInterestingDate, now } from "../libs/utils/dateUtils";
 import { IAttendence, IParticipation } from "../models/vote";
 import { noticeData } from "../storage/noticeData";
 
+export const isShowPrivacyPolicyState = atom({
+  key: "privacyPolicy",
+  default: false,
+});
+
 /* Vote */
 
 export const voteDateState = atom<Dayjs>({

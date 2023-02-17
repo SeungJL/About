@@ -69,7 +69,6 @@ const UserInfo: NextPage<{
         setUser(data);
       },
       onError: (error: AxiosError) => {
-        console.error(error);
         toast({
           title: "업데이트 실패",
           description: "프로필 사진을 업데이트하려면 재로그인이 필요해요.",

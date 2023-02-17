@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { fetchFamousBooks } from "../../api/api";
+import { fetchFamousBooks } from "../../hooks/vote/queries";
 import Header from "../../components/Header";
 import Seo from "../../components/Seo";
 
