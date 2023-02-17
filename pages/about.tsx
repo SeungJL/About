@@ -54,6 +54,8 @@ import { isMember } from "../libs/utils/authUtils";
 import UserInfoForm from "../models/UserInfoForm";
 import StudyVoteModal from "../modals/StudyVoteModal";
 import axios from "axios";
+import dayjs from "dayjs";
+import { VOTE_END_HOUR } from "../constants/system";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -164,6 +166,16 @@ function About() {
   const isUserAttend = useRecoilValue(isUserAttendState);
   const setIsUserAttend = useSetRecoilState(isUserAttendState);
   console.log("is", isAttending);
+
+  useEffect(() => {
+    const voteEndTime = dayjs(getInterestingDate())
+      .subtract(1, "day")
+      .add(VOTE_END_HOUR, "hour");
+    if (now() > voteEndTime) {
+      const targetDate = now().add(1, "day").format("YYYY-MM-DD");
+      axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
+    }
+  });
   useEffect(() => {
     setColorMode("light");
     setIsAttending(false);
