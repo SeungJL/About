@@ -8,6 +8,10 @@ export const isShowPrivacyPolicyState = atom({
   key: "privacyPolicy",
   default: false,
 });
+export const isShowRegisterFormState = atom({
+  key: "RegisterForm",
+  default: true,
+});
 
 /* Vote */
 
@@ -35,6 +39,10 @@ export const isUserAttendState = atom({
   key: "userAttend",
   default: false,
 });
+export const isAttendCheckState = atom({
+  key: "attendCheck",
+  default: false,
+});
 export const isShowVoterState = atom({
   key: "isShowVoter",
   default: false,
@@ -45,7 +53,7 @@ export const isShowOpenResultState = atom({
 });
 
 export const voteStatusState = selector<
-  "Closed" | "Check" | "Join" | "Vote" | "Voted" | "Complete"
+  "Closed" | "Check" | "Join" | "Vote" | "Voted" | "Completed"
 >({
   key: "voteStatus",
   get: ({ get }) => {
@@ -53,6 +61,8 @@ export const voteStatusState = selector<
     const isAttending = get(isAttendingState);
     const isUserAttend = get(isUserAttendState);
     const isStudyOpen = get(isStudyOpenState);
+    const isAttendCheck = get(isAttendCheckState);
+    if (isAttendCheck) return "Completed";
     if (studyDate === "passed") return "Closed";
     if (studyDate === "not passed") {
       if (isAttending) return "Voted";
@@ -92,11 +102,6 @@ interface IModalContext {
 export const modalContextState = atom<IModalContext>({
   key: "modalContext",
   default: {},
-});
-
-export const isShowUserInfoFormState = atom({
-  key: "isUserInfoForm",
-  default: false,
 });
 
 export const isShowStudyVoteModalState = atom({

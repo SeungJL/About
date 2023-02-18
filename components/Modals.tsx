@@ -7,8 +7,8 @@ import {
   isShowNotCompletedState,
   isShowOpenResultState,
   isShowPrivacyPolicyState,
+  isShowRegisterFormState,
   isShowStudyVoteModalState,
-  isShowUserInfoFormState,
   isShowVoteCancleState,
   isShowVoterState,
 } from "../recoil/atoms";
@@ -22,10 +22,9 @@ import { useSession } from "next-auth/react";
 
 function Modals() {
   const { data: session } = useSession();
-  console.log(1, session);
   const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
   const isShowNotCompleted = useRecoilValue(isShowNotCompletedState);
-  const isShowUserInfoForm = useRecoilValue(isShowUserInfoFormState);
+  const isShowRegisterForm = useRecoilValue(isShowRegisterFormState);
   const [isShowVoter, setIsShowVoter] = useRecoilState(isShowVoterState);
   const isShowOpenResult = useRecoilValue(isShowOpenResultState);
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
@@ -38,7 +37,7 @@ function Modals() {
       {isShowPrivacyPolicy && <PrivacyPolicy />}
       {isShowVoteCancel && <CancelModal />}
       {isShowNotCompleted && <NotCompletedModal />}
-      {isShowUserInfoForm && <UserInfoForm />}
+
       {isShowOpenResult && <OpenResultModal />}
       {isShowStudyVote && <StudyVoteModal />}
       {isShowVoter && (
@@ -46,7 +45,7 @@ function Modals() {
           <VoterModal />
         </ModalPortal>
       )}
-      {!isMember && <RegisterFormModal />}
+      {!isShowRegisterForm && <RegisterFormModal />}
     </>
   );
 }

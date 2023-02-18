@@ -8,7 +8,6 @@ import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
 import MainNavigation from "../components/About/MainNavigation";
 import {
-  isShowUserInfoFormState,
   isShowVoteCancleState,
   isShowStudyVoteModalState,
   showVoterState,
@@ -24,6 +23,7 @@ import {
   faAngleLeft,
   faAngleRight,
   faBell,
+  faSpinner,
   faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,6 +59,7 @@ import { VOTE_END_HOUR } from "../constants/system";
 import Modals from "../components/Modals";
 import { createContext } from "vm";
 
+import { Audio, Bars } from "react-loader-spinner";
 const AboutLayout = styled.div`
   position: relative;
 `;
@@ -159,28 +160,10 @@ function About() {
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
   const setIsUserAttend = useSetRecoilState(isUserAttendState);
 
-  useEffect(() => {
-    const voteEndTime = dayjs(getInterestingDate())
-      .subtract(1, "day")
-      .add(VOTE_END_HOUR, "hour");
-
-    if (now() > voteEndTime) {
-      const targetDate = now().add(1, "day").format("YYYY-MM-DD");
-      axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
-    }
-  });
-  useEffect(() => {
-    setColorMode("light");
-    setIsAttending(false);
-    const voteDateKr = convertToKr(voteDate, "DDHH");
-    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");
-    if (voteDateKr === InterestingDateKr) setStudyDate("today");
-    else if (voteDateKr < InterestingDateKr) {
-      setStudyDate("passed");
-    } else if (voteDateKr > InterestingDateKr) {
-      setStudyDate("not passed");
-    }
-  }, [voteDate]);
+  const A = useRecoilValue(isStudyOpenState);
+  const B = useRecoilValue(isUserAttendState);
+  const C = useRecoilValue(studyDateState);
+  const D = useRecoilValue(isAttendingState);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -195,20 +178,57 @@ function About() {
       });
     },
   });
-  console.log(vote);
-  vote?.participations.flatMap((participant) => {
-    const studyStatus = participant.status === "open" ? true : false;
-    if (
-      participant.attendences.find(
-        (att) => (att.user as IUser).uid === session?.uid
-      )
-    ) {
-      setIsAttending(true);
-      studyStatus && setIsUserAttend(true);
+
+  useEffect(() => {
+    setColorMode("light");
+    const voteEndTime = dayjs(getInterestingDate())
+      .subtract(1, "day")
+      .add(VOTE_END_HOUR, "hour");
+
+    if (now() > voteEndTime) {
+      const targetDate = now().add(1, "day").format("YYYY-MM-DD");
+      axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
-    studyStatus && setStudyOpen(true);
+    console.log("MMM");
+  }, []);
+  useEffect(() => {
+    vote?.participations.flatMap((participant) => {
+      const studyStatus = participant.status === "open" ? true : false;
+      if (
+        participant.attendences.find(
+          (att) => (att.user as IUser).uid === session?.uid
+        )
+      ) {
+        setIsAttending(true);
+        studyStatus && setIsUserAttend(true);
+      }
+      studyStatus && setStudyOpen(true);
+    });
   });
 
+  useEffect(() => {
+    console.log("Wow");
+
+    setIsAttending(false);
+    const voteDateKr = convertToKr(voteDate, "DDHH");
+    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");
+    if (voteDateKr === InterestingDateKr) setStudyDate("today");
+    else if (voteDateKr < InterestingDateKr) {
+      setStudyDate("passed");
+    } else if (voteDateKr > InterestingDateKr) {
+      setStudyDate("not passed");
+    }
+  }, [voteDate]);
+  console.log(
+    "study open:",
+    A,
+    "userAttend:",
+    B,
+    "studyDate:",
+    C,
+    "isAttending:",
+    D
+  );
   return (
     <>
       <Seo title="About" />
@@ -240,7 +260,10 @@ function About() {
           </InfoSection>
           <AnotherDaysNav />
         </UpScreen>
-        <VoteBtn participations={vote?.participations} />
+        <VoteBtn
+          participations={vote?.participations}
+          mainLoading={isLoading}
+        />
         <TodayDate>{!isLoading && convertToKr(voteDate, "M월 D일")}</TodayDate>
         <DownScreen>
           <Swiper

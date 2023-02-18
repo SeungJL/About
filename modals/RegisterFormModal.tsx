@@ -4,7 +4,10 @@ import styled from "styled-components";
 import { now } from "../libs/utils/dateUtils";
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 import { PrivacyPolicy } from "../storage/PrivacyPolicy";
-import { isShowPrivacyPolicyState } from "../recoil/atoms";
+import {
+  isShowPrivacyPolicyState,
+  isShowRegisterFormState,
+} from "../recoil/atoms";
 import { useSetRecoilState } from "recoil";
 import { useRegisterMutation } from "../hooks/registerForm";
 import { IUser } from "../models/user";
@@ -114,7 +117,7 @@ function RegisterFormModal() {
       agree: "",
     },
   });
-
+  const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
   const onValid = (data: IUserInfoForm) => {
     const userInfo = {
       name: data.name,
@@ -195,8 +198,8 @@ function RegisterFormModal() {
               </Agree>
             </div>
             <div>
-              <Button>취소</Button>
-              <Button>제출</Button>
+              <Button onClick={() => setIsShowRegisterForm(false)}>취소</Button>
+              <Button onClick={() => setIsShowRegisterForm(false)}>제출</Button>
             </div>
           </SubmitBtn>
         </UserForm>

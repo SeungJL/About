@@ -31,6 +31,7 @@ import { useState } from "react";
 import VoteStudyModal from "../../modals/StudyVoteModal";
 import { ISession } from "../../types/DateTitleMode";
 import { IParticipation, IVote } from "../../models/vote";
+import { Puff } from "react-loader-spinner";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;
@@ -55,7 +56,7 @@ const VoteCircle = styled.button<IVoteCircle>`
   background: ${(props) =>
     props.state === "Closed"
       ? "linear-gradient(45deg,#F1F2F6,#C9C6C6)"
-      : props.state === "Check"
+      : props.state === "Check" || props.state === "Completed"
       ? "linear-gradient(45deg,#FFDD00,#FBB034)"
       : props.state === "Join ?"
       ? "linear-gradient(45deg,RGB(108, 66, 28),rgb(78, 42, 11))"
@@ -65,7 +66,7 @@ const VoteCircle = styled.button<IVoteCircle>`
   color: ${(props) =>
     props.state === "Closed"
       ? "rgb(0,0,0,0.7)"
-      : props.state === "Check"
+      : props.state === "Check" || props.state === "Completed"
       ? "black"
       : props.state === "Join ?"
       ? "white"
@@ -81,9 +82,10 @@ const VoteCircle = styled.button<IVoteCircle>`
 
 interface IVoteBtn {
   participations: IParticipation[];
+  mainLoading: boolean;
 }
 
-function VoteBtn({ participations }: IVoteBtn) {
+function VoteBtn({ participations, mainLoading }: IVoteBtn) {
   const toast = useToast();
   const queryClient = useQueryClient();
   const voteDate = useRecoilValue(voteDateState);
@@ -151,13 +153,15 @@ function VoteBtn({ participations }: IVoteBtn) {
           onClick={
             voteStatus === "Check"
               ? () => handleArrived()
+              : voteStatus === "Completed"
+              ? null
               : ["Join", "Vote"].includes(voteStatus)
               ? onClickVote
               : onClickVoted
           }
           state={voteStatus}
         >
-          {voteStatus}
+          {mainLoading ? "" : voteStatus}
         </VoteCircle>
       </OutlineCircle>
     </>
