@@ -189,7 +189,6 @@ function About() {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
-    console.log("MMM");
   }, []);
   useEffect(() => {
     vote?.participations.flatMap((participant) => {
@@ -207,8 +206,6 @@ function About() {
   });
 
   useEffect(() => {
-    console.log("Wow");
-
     setIsAttending(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
     const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");

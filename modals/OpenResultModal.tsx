@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useMemo } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { dateToDayjs, splitDate } from "../libs/utils/dateUtils";
 import {
@@ -181,16 +181,20 @@ const ArrowBtn = styled.div`
 
 const OpenResultModal = () => {
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
-  const modalContext = useRecoilValue(modalContextState);
+  const [modalContext, setModalContext] = useRecoilState(modalContextState);
   const attendences = modalContext?.OpenResult?.attendences;
-
+  console.log(modalContext);
   const [isLeftPage, setIsLeftPage] = useState(true);
+  const closeModal = () => {
+    setIsShowOpenResult(false);
+    setModalContext({});
+  };
   return (
     <>
       <ModalLayout>
         <Header>
           <span>Open</span>
-          <div onClick={() => setIsShowOpenResult(false)}>
+          <div onClick={closeModal}>
             <FontAwesomeIcon icon={faX} />
           </div>
         </Header>
@@ -228,7 +232,7 @@ const OpenResultModal = () => {
         </ArrowBtn>
       </ModalLayout>
 
-      <FullScreen onClick={() => setIsShowOpenResult(false)} />
+      <FullScreen onClick={closeModal} />
     </>
   );
 };

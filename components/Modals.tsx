@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useContext } from "react";
 import CancelModal from "../modals/CancelModal";
 import NotCompletedModal from "../modals/NotCompletedModal";
@@ -11,6 +11,7 @@ import {
   isShowStudyVoteModalState,
   isShowVoteCancleState,
   isShowVoterState,
+  modalContextState,
 } from "../recoil/atoms";
 import OpenResultModal from "../modals/OpenResultModal";
 import ModalPortal from "../libs/utils/ModalPortal";
@@ -29,6 +30,7 @@ function Modals() {
   const isShowOpenResult = useRecoilValue(isShowOpenResultState);
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
   const isShowPrivacyPolicy = useRecoilValue(isShowPrivacyPolicyState);
+  const setModalContext = useSetRecoilState(modalContextState);
 
   const isMember = false;
 
@@ -41,7 +43,10 @@ function Modals() {
       {isShowOpenResult && <OpenResultModal />}
       {isShowStudyVote && <StudyVoteModal />}
       {isShowVoter && (
-        <ModalPortal closePortal={setIsShowVoter}>
+        <ModalPortal
+          closePortal={setIsShowVoter}
+          setModalContext={setModalContext}
+        >
           <VoterModal />
         </ModalPortal>
       )}
