@@ -173,15 +173,12 @@ function ResultBlock({
   };
   const onClickVoter = () => {
     setIsShowVoter(true);
-    setModalContext((old) =>
-      Object.assign(
-        {
-          Voter: {
-            attendences: attendences,
-          },
+    setModalContext(
+      Object.assign({
+        Voter: {
+          attendences: attendences,
         },
-        old
-      )
+      })
     );
   };
 
