@@ -150,6 +150,7 @@ function ResultBlock({
   const setIsShowVoter = useSetRecoilState(isShowVoterState);
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   let cnt = 0;
+  console.log("sta", status);
 
   for (let i = 0; i < attendences.length; i++) {
     if (attendences[i].firstChoice) cnt++;
