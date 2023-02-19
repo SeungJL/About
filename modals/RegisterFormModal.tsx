@@ -11,6 +11,7 @@ import {
 import { useSetRecoilState } from "recoil";
 import { useRegisterMutation } from "../hooks/registerForm";
 import { IUser } from "../models/user";
+import { useState } from "react";
 
 const ModalLayout = styled(BaseModal)`
   width: 320px;
@@ -62,6 +63,29 @@ const InputItem = styled.div`
     background-color: rgb(0, 0, 0, 0.1);
   }
 `;
+
+const InputGenders = styled.div`
+  height: 20px;
+  display: flex;
+  margin: 5px 0;
+
+  > span {
+    font-size: 1.2em;
+    width: 33%;
+  }
+`;
+const GenderBtnNav = styled.nav`
+  width: 67%;
+  display: flex;
+`;
+const GenderBtn = styled.div<{ selected: boolean }>`
+  width: 80px;
+  margin-right: 3px;
+  background-color: ${(props) => (props.selected ? "#ffc72c" : "lightGray")};
+  border-radius: 10px;
+  text-align: center;
+`;
+
 const SubmitBtn = styled.div`
   display: flex;
   height: 10%;
@@ -100,9 +124,11 @@ export interface IUserInfoForm {
   mbti?: string;
   birth: string;
   agree: any;
+  gender?: string;
 }
 
 function RegisterFormModal() {
+  const [isMan, setIsMan] = useState(true);
   const {
     register,
     handleSubmit,
@@ -118,6 +144,7 @@ function RegisterFormModal() {
     },
   });
   const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
+
   const onValid = (data: IUserInfoForm) => {
     const userInfo = {
       name: data.name,
@@ -126,6 +153,7 @@ function RegisterFormModal() {
       isActive: "true",
       birth: data.birth,
       mbti: data.mbti,
+      gender: isMan ? "남성" : "여성",
     };
 
     // useRegisterMutation -> useInfo
@@ -167,6 +195,18 @@ function RegisterFormModal() {
             />
           </InputItem>
           <ErrorMessage>{errors?.name?.message}</ErrorMessage>
+          <InputGenders>
+            <span>성별: </span>
+            <GenderBtnNav>
+              <GenderBtn selected={isMan} onClick={() => setIsMan(true)}>
+                남성
+              </GenderBtn>
+              <GenderBtn selected={!isMan} onClick={() => setIsMan(false)}>
+                여성
+              </GenderBtn>
+            </GenderBtnNav>
+          </InputGenders>
+          <ErrorMessage></ErrorMessage>
           <InputItem>
             <span>생년월일: </span>
             <input

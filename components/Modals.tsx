@@ -32,8 +32,6 @@ function Modals() {
   const isShowPrivacyPolicy = useRecoilValue(isShowPrivacyPolicyState);
   const setModalContext = useSetRecoilState(modalContextState);
 
-  const isMember = false;
-
   return (
     <>
       {isShowPrivacyPolicy && <PrivacyPolicy />}
