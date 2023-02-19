@@ -9,6 +9,7 @@ import {
   isShowPrivacyPolicyState,
   isShowRegisterFormState,
   isShowStudyVoteModalState,
+  isShowUserInfoSmState,
   isShowVoteCancleState,
   isShowVoterState,
   modalContextState,
@@ -20,6 +21,8 @@ import StudyVoteModal from "../modals/StudyVoteModal";
 import RegisterFormModal from "../modals/RegisterFormModal";
 import { PrivacyPolicy } from "../storage/PrivacyPolicy";
 import { useSession } from "next-auth/react";
+import UserInfoSm from "../modals/UserInfoSm";
+import { FullScreen } from "../styles/LayoutStyles";
 
 function Modals() {
   const { data: session } = useSession();
@@ -30,6 +33,7 @@ function Modals() {
   const isShowOpenResult = useRecoilValue(isShowOpenResultState);
   const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
   const isShowPrivacyPolicy = useRecoilValue(isShowPrivacyPolicyState);
+  const isShowUserInfoSm = useRecoilValue(isShowUserInfoSmState);
   const setModalContext = useSetRecoilState(modalContextState);
 
   return (
@@ -49,6 +53,7 @@ function Modals() {
         </ModalPortal>
       )}
       {!isShowRegisterForm && <RegisterFormModal />}
+      {isShowUserInfoSm && <UserInfoSm />}
     </>
   );
 }

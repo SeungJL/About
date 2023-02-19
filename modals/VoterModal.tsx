@@ -10,6 +10,7 @@ import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
+import ProfileImg from "../libs/utils/ProfileImg";
 
 const Container = styled(BaseModal)`
   height: 200px;
@@ -43,7 +44,7 @@ function VoterModal() {
   const modalContext = useRecoilValue(modalContextState);
   const attendences = modalContext?.Voter?.attendences;
   const [isSliderFirst, setSilderFirst] = useState(true);
-  console.log(attendences[0]);
+
   return (
     <Container>
       <Header>
@@ -60,19 +61,11 @@ function VoterModal() {
       {isSliderFirst ? (
         <VoterSection>
           {attendences?.map(
-            (who: any) =>
-              who.firstChoice && (
-                <div key={who.user._id}>
-                  <Image
-                    width={12}
-                    height={12}
-                    alt={who.user.name}
-                    src={who.user.thumbnailImage}
-                    style={{
-                      borderRadius: "30%",
-                    }}
-                  />
-                  <span>{who.user.name}</span>
+            (user: any) =>
+              user.firstChoice && (
+                <div key={user.user._id}>
+                  <ProfileImg user={user.user} />
+                  <span>{user.user.name}</span>
                 </div>
               )
           )}
@@ -80,19 +73,12 @@ function VoterModal() {
       ) : (
         <VoterSection>
           {attendences?.map(
-            (who: any) =>
-              !who.firstChoice && (
-                <div key={who.user._id}>
-                  <Image
-                    width={12}
-                    height={12}
-                    alt={who.user.name}
-                    src={who.user.thumbnailImage}
-                    style={{
-                      borderRadius: "30%",
-                    }}
-                  />
-                  <span>{who.user.name}</span>
+            (user: any) =>
+              !user.firstChoice && (
+                <div key={user.user._id}>
+                  <ProfileImg user={user} />
+
+                  <span>{user.user.name}</span>
                 </div>
               )
           )}
