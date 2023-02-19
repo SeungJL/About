@@ -1,18 +1,9 @@
-import {
-  Container,
-  Divider,
-  Text,
-  Heading,
-  HStack,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Select, useDisclosure } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { useMemo, useState } from "react";
-import ProfileImage from "../../components/profileImage";
-import UserAdminModal from "../../components/userAdminModal";
-import { isPreviliged, role } from "../../libs/utils/authUtils";
-import { convertToKr, getToday } from "../../libs/utils/dateUtils";
+import { isPreviliged } from "../../libs/utils/authUtils";
+import { getToday } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 import { IUser, User } from "../../models/user";
 
@@ -35,93 +26,58 @@ const AdminUser: NextPage<{
     return [start, end];
   }, []);
 
-  return (
-    <>
-      <Container>
-        <Container marginBottom="20px">
-          <Heading as="h1">권한별</Heading>
-          <Divider />
-          {Object.values(role).map((r) => (
-            <>
-              <Heading as="h2" size="lg">
-                {r.display}
-              </Heading>
-              <HStack flexWrap="nowrap" overflowX="auto" paddingBottom="10px">
-                {users
-                  .filter((user) => user.role === r.value)
-                  .map((user) => (
-                    <ProfileImage
-                      key={user.uid}
-                      flex="0 0 auto"
-                      width="60px"
-                      src={user.thumbnailImage}
-                      alt={user.name}
-                      onClick={() => {
-                        setActiveUserId(user.uid);
-                        onUserAdminModalOpen();
-                      }}
-                    />
-                  ))}
-              </HStack>
-            </>
-          ))}
-        </Container>
-        <Heading as="h1">참여별(2주)</Heading>
+  const gridItemGen = (text) => {
+    return (
+      <GridItem
+        w="100%"
+        h="7"
+        backgroundColor="blackAlpha.300"
+        borderRadius="5px"
+      >
+        {text}
+      </GridItem>
+    );
+  };
 
-        <Divider />
-        {[0, 1, 2, 3, 4].map((attendCnt) => (
-          <>
-            <Heading as="h2" size="lg">
-              {attendCnt}회
-            </Heading>
-            <HStack flexWrap="nowrap" overflowX="auto" paddingBottom="10px">
-              {users
-                .filter((user) => user.statistic.openCnt2Week === attendCnt)
-                .map((user) => (
-                  <ProfileImage
-                    key={user.uid}
-                    flex="0 0 auto"
-                    width="60px"
-                    src={user.thumbnailImage}
-                    alt={user.name}
-                    onClick={() => {
-                      setActiveUserId(user.uid);
-                      onUserAdminModalOpen();
-                    }}
-                  />
-                ))}
-            </HStack>
-          </>
-        ))}
-        <Heading as="h2" size="lg">
-          5회 이상
-        </Heading>
-        <HStack flexWrap="nowrap" overflowX="auto" paddingBottom="10px">
-          {users
-            .filter((user) => user.statistic.openCnt2Week > 4)
-            .map((user) => (
-              <ProfileImage
-                key={user.uid}
-                flex="0 0 auto"
-                width="60px"
-                src={user.thumbnailImage}
-                alt={user.name}
-                onClick={() => {
-                  setActiveUserId(user.uid);
-                  onUserAdminModalOpen();
-                }}
-              />
-            ))}
-        </HStack>
-      </Container>
-      {isUserAdminModalOpen && (
-        <UserAdminModal
-          isOpen={isUserAdminModalOpen}
-          onClose={onUserAdminModalClose}
-          userId={activeUserId}
-        />
-      )}
-    </>
+  const onUserRoleChange = (e, user) => {
+    console.log(e.target.value);
+  };
+
+  return (
+    <Flex flexDirection="column">
+      <Grid
+        templateColumns="repeat(5, 1fr)"
+        gap={6}
+        mb="5px"
+        textAlign="center"
+      >
+        {gridItemGen("이름")}
+        {gridItemGen("권한")}
+        {gridItemGen("1주 참여")}
+        {gridItemGen("2주 참여")}
+        {gridItemGen("4주 참여")}
+      </Grid>
+      {users.map((user) => (
+        <Grid templateColumns="repeat(5, 1fr)" gap={6} key={user.uid} mb="5px">
+          {gridItemGen(user.name)}
+          {gridItemGen(
+            <Select
+              border="none"
+              h="100%"
+              onChange={(e) => onUserRoleChange(e, user)}
+            >
+              <option value="member">member</option>
+              <option value="previliged" selected={user.role === "previliged"}>
+                previliged
+              </option>
+            </Select>
+          )}
+          {gridItemGen(user.statistic.voteCnt1Week)}
+          {gridItemGen(user.statistic.voteCnt2Week)}
+          {gridItemGen(user.statistic.voteCnt4Week)}
+        </Grid>
+      ))}
+    </Flex>
   );
 };
 
