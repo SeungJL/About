@@ -81,7 +81,7 @@ function VoterModal() {
         <VoterSection>
           {attendences?.map(
             (who: any) =>
-              who.firstChoice && (
+              !who.firstChoice && (
                 <div key={who.user._id}>
                   <Image
                     width={12}
