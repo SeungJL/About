@@ -149,7 +149,7 @@ export const noticeState = atom<noticeState[]>({
   key: "notices",
   default: noticeData,
 });
-export const noticeCategory = atom({
+export const noticeCategoryState = atom({
   key: "noticeCategory",
   default: "notice",
 });
@@ -157,7 +157,7 @@ export const noticeSelector = selector({
   key: "noticeSelector",
   get: ({ get }) => {
     const notices = get(noticeState);
-    const category = get(noticeCategory);
+    const category = get(noticeCategoryState);
     return notices.filter((notice) => notice.category === category);
   },
 });

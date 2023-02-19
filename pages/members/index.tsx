@@ -1,4 +1,10 @@
-import { fa0, faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  fa0,
+  faArrowLeft,
+  faBell,
+  faFilter,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -7,30 +13,37 @@ import styled from "styled-components";
 import CategoryFilter from "../../components/Members/CategoryFilter";
 
 import UserBlock from "../../components/Members/UserBlock";
+import { animate, motion } from "framer-motion";
+import { transition } from "@chakra-ui/react";
+import Link from "next/link";
 
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  > * {
-    border: 1px solid black;
-  }
 `;
 
 const Header = styled.header`
+  padding: 0 15px;
   height: 45px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  > span {
+    font-size: 1.4em;
+    text-align: center;
+  }
 `;
 
 const Navigation = styled.nav`
-  margin-bottom: 5vh;
+  margin-bottom: 3vh;
 `;
 const NavigationHeader = styled.header`
   color: rgb(0, 0, 0, 0.7);
   height: 45px;
   display: flex;
   justify-content: space-between;
-
   padding: 12px;
-  background-color: pink;
+  background-color: rgb(0, 0, 0, 0.2);
 `;
 
 const Filter = styled.div`
@@ -49,8 +62,8 @@ const Search = styled.div`
   }
 `;
 
-const FilterNav = styled.nav`
-  background-color: green;
+const FilterNav = styled(motion.nav)`
+  background-color: rgb(0, 0, 0, 0.1);
 `;
 
 const TitleHeader = styled.header`
@@ -63,18 +76,22 @@ const TitleHeader = styled.header`
 `;
 
 const UserRankBtn = styled.button`
-  background-color: pink;
   width: 40px;
   height: 30px;
-  border-radius: 10px;
 `;
 
 const MembersMain = styled.main`
-  padding: 20px;
+  padding: 10px;
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(auto-fit, 65px);
-  grid-auto-rows: 60px;
+  grid-template-columns: repeat(auto-fit, 80px);
+  grid-auto-rows: 80px;
+`;
+
+const SearchInput = styled(motion.input)`
+  width: 100px;
+  transform-origin: right center;
+  margin-right: 8px;
 `;
 
 export interface ICategory {
@@ -86,8 +103,10 @@ function Members() {
   const router = useRouter();
   const [isNavOpend, setIsNavOpened] = useState(false);
   const [category, setCategory] = useState<ICategory>({ name: "" });
-  const onUserBlockClicked = () => {
-    router.push(`/`);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const onUserBlockClicked = (user) => {
+    router.push(`/members/${user.id}`);
   };
 
   const onFilterClicked = () => {
@@ -95,7 +114,12 @@ function Members() {
   };
   return (
     <Layout>
-      <Header></Header>
+      <Header>
+        <Link href={`/about`}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Link>
+        <span>Members</span>
+      </Header>
       <Navigation>
         <NavigationHeader>
           <Filter onClick={onFilterClicked}>
@@ -103,26 +127,42 @@ function Members() {
             <span>filter</span>
           </Filter>
           <Search>
-            <span>search</span>
-            <FontAwesomeIcon icon={faSearch} />
+            <SearchInput
+              placeholder="Search"
+              animate={{ scaleX: isSearchOpen ? 1 : 0 }}
+              transition={{ type: "linear" }}
+            />
+
+            <div onClick={() => setIsSearchOpen((isOpen) => !isOpen)}>
+              <FontAwesomeIcon icon={faSearch} />
+            </div>
           </Search>
         </NavigationHeader>
-        {isNavOpend && (
-          <FilterNav>
-            <CategoryFilter category={category} setCategory={setCategory} />
-          </FilterNav>
-        )}
+
+        <FilterNav
+          animate={{
+            scaleY: isNavOpend ? 1 : 0,
+            y: isNavOpend ? 0 : -40,
+            height: isNavOpend ? 80 : 0,
+          }}
+          transition={{ type: "linear" }}
+        >
+          <CategoryFilter category={category} setCategory={setCategory} />
+        </FilterNav>
       </Navigation>
       <TitleHeader>
         <span>스터디원 리스트</span>
-        <UserRankBtn>Rank</UserRankBtn>
+        <UserRankBtn>
+          <FontAwesomeIcon icon={faBell} />
+        </UserRankBtn>
       </TitleHeader>
+
       <MembersMain>
         {userList.map((user, idx) => (
           <UserBlock
             key={idx}
             userInfo={user}
-            onUserBlockClicke={onUserBlockClicked}
+            onUserBlockClicked={() => onUserBlockClicked(user.id)}
           />
         ))}
       </MembersMain>

@@ -60,6 +60,7 @@ import Modals from "../components/Modals";
 import { createContext } from "vm";
 
 import { Audio, Bars } from "react-loader-spinner";
+import CircleAlert from "../components/icon/CircleAlert";
 const AboutLayout = styled.div`
   position: relative;
 `;
@@ -184,9 +185,8 @@ function About() {
     const voteEndTime = dayjs(getInterestingDate())
       .subtract(1, "day")
       .add(VOTE_END_HOUR, "hour");
-    console.log(14, now(), voteEndTime);
+
     if (now() > voteEndTime) {
-      console.log(41414);
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
@@ -205,7 +205,7 @@ function About() {
       studyStatus && setStudyOpen(true);
     });
   });
-  console.log(vote);
+
   useEffect(() => {
     setIsAttending(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
@@ -236,7 +236,7 @@ function About() {
             <Link href="/notice">
               <div>
                 <FontAwesomeIcon icon={faBell} size="xl" />
-                {/*<CircleAlert />*/}
+                <CircleAlert right="-20" bottom="20" />
               </div>
             </Link>
             <Title>About</Title>

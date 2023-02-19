@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSetRecoilState } from "recoil";
 import { isShowNotCompletedState } from "../../recoil/atoms";
 import Link from "next/link";
+import CircleAlert from "../icon/CircleAlert";
 
 const MainNavLayout = styled.nav`
   height: 54vh;
@@ -38,6 +39,7 @@ const NavigationItem = styled.div`
 `;
 const IconBox = styled.div`
   background-color: RGB(137, 86, 40, 0.25);
+  position: relative;
   width: 63%;
   height: 82%;
   border-radius: 12%;
@@ -57,7 +59,7 @@ const navigationItems = [
   {
     icon: <FontAwesomeIcon icon={faUsers} size="2xl" />,
     name: "members",
-    use: false,
+    use: true,
   },
 
   {
@@ -89,7 +91,10 @@ function MainNavigation() {
             <>
               <Link href={item.name}>
                 <div>
-                  <IconBox>{item.icon}</IconBox>
+                  <IconBox>
+                    {item.icon}
+                    <CircleAlert right={-5} bottom={67} color="brown" />
+                  </IconBox>
                 </div>
               </Link>
               <div>{item.name}</div>
