@@ -60,6 +60,7 @@ import Modals from "../components/Modals";
 import { createContext } from "vm";
 
 import { Audio, Bars } from "react-loader-spinner";
+import CircleAlert from "../components/icon/CircleAlert";
 const AboutLayout = styled.div`
   position: relative;
 `;
@@ -201,7 +202,7 @@ function About() {
       studyStatus && setStudyOpen(true);
     });
   });
-
+  console.log(vote);
   useEffect(() => {
     setIsAttending(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
@@ -214,7 +215,7 @@ function About() {
     }
   }, [voteDate]);
   console.log(
-    "study open:",
+    "studyOpen:",
     A,
     "userAttend:",
     B,
@@ -232,7 +233,7 @@ function About() {
             <Link href="/notice">
               <div>
                 <FontAwesomeIcon icon={faBell} size="xl" />
-                {/*<CircleAlert />*/}
+                <CircleAlert right="-20" bottom="20" />
               </div>
             </Link>
             <Title>About</Title>
@@ -245,7 +246,7 @@ function About() {
           <InfoSection>
             <div>
               <span>Members</span>
-              <span>72</span>
+              <span>91</span>
             </div>
             <div>
               <span>Today</span>

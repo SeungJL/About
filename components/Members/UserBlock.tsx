@@ -1,6 +1,8 @@
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
-const UserBlockLayout = styled.div`
+const UserBlockLayout = styled(motion.div)`
   background-color: lightgray;
   margin: 1px;
   display: grid;
@@ -13,17 +15,23 @@ const UserBlockLayout = styled.div`
     align-items: center;
   }
   > div:first-child {
-    background-color: brown;
+    background: var(--main-color);
+    color: black;
   }
   > div:last-child {
   }
 `;
+const CategoryContent = styled.div`
+  border-bottom: 1px solid rgb(0, 0, 0, 0.8);
+  font-size: 0.9em;
+`;
 
-export default function UserBlock({ userInfo, onUserBlockClicke }) {
+export default function UserBlock({ userInfo, onUserBlockClicked }) {
   return (
-    <UserBlockLayout>
+    <UserBlockLayout layoutId={userInfo.id + ""} onClick={onUserBlockClicked}>
       <div>회장</div>
-      <div>이승주 25</div>
+      <CategoryContent>2022-10-24</CategoryContent>
+      <div>이승주</div>
     </UserBlockLayout>
   );
 }

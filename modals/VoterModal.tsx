@@ -76,8 +76,7 @@ function VoterModal() {
             (user: any) =>
               !user.firstChoice && (
                 <div key={user.user._id}>
-                  <ProfileImg user={user} />
-
+                  <ProfileImg user={user.user} />
                   <span>{user.user.name}</span>
                 </div>
               )

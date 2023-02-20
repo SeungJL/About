@@ -150,7 +150,10 @@ function ResultBlock({
   const setIsShowVoter = useSetRecoilState(isShowVoterState);
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   let cnt = 0;
-
+  let SpaceName = place.fullname;
+  if (SpaceName === "에이바우트커피 아주대점") {
+    SpaceName = "에이바우트커피";
+  }
   for (let i = 0; i < attendences.length; i++) {
     if (attendences[i].firstChoice) cnt++;
   }
@@ -187,7 +190,7 @@ function ResultBlock({
     <>
       <ResultBlockLayout>
         <ResultBlockHeader>
-          <span>{place.fullname}</span>
+          <span>{SpaceName}</span>
           <ResultBlockNav>
             {isUserAttend && open && (
               <CancelBtn

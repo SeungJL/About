@@ -35,10 +35,10 @@ const UserRelNav = styled.nav`
   align-items: center;
   > button {
     width: 70px;
-    height: 25px;
+    height: 22px;
     border: 1px solid rgb(0, 0, 0, 0.7);
     border-radius: 10px;
-    margin-top: 10px;
+    margin-top: 11px;
   }
 `;
 

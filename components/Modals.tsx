@@ -52,7 +52,7 @@ function Modals() {
           <VoterModal />
         </ModalPortal>
       )}
-      {!isShowRegisterForm && <RegisterFormModal />}
+      {isShowRegisterForm && <RegisterFormModal />}
       {isShowUserInfoSm && <UserInfoSm />}
     </>
   );
