@@ -146,6 +146,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
       )
     );
   };
+  console.log("V", voteStatus);
   return (
     <>
       <OutlineCircle>
@@ -157,7 +158,9 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
               ? null
               : ["Join", "Vote"].includes(voteStatus)
               ? onClickVote
-              : onClickVoted
+              : voteStatus === "Voted"
+              ? onClickVoted
+              : null
           }
           state={voteStatus}
         >

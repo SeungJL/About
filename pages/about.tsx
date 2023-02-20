@@ -185,7 +185,7 @@ function About() {
     const voteEndTime = dayjs(getInterestingDate())
       .subtract(1, "day")
       .add(VOTE_END_HOUR, "hour");
-
+    console.log("Vote", voteEndTime, now());
     if (now() > voteEndTime) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
@@ -205,7 +205,7 @@ function About() {
       studyStatus && setStudyOpen(true);
     });
   });
-
+  console.log(vote);
   useEffect(() => {
     setIsAttending(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");

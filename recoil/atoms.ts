@@ -64,7 +64,13 @@ export const voteStatusState = selector<
     const isStudyOpen = get(isStudyOpenState);
     const isAttendCheck = get(isAttendCheckState);
     if (isAttendCheck) return "Completed";
-    if (studyDate === "passed") return "Closed";
+    if (studyDate === "passed") {
+      if (isUserAttend && now() < now().hour(18)) {
+        if (isAttending) return "Check";
+        return "Join";
+      }
+      return "Closed";
+    }
     if (studyDate === "not passed") {
       if (isAttending) return "Voted";
       return "Vote";
@@ -151,7 +157,7 @@ export const noticeState = atom<noticeState[]>({
 });
 export const noticeCategoryState = atom({
   key: "noticeCategory",
-  default: "notice",
+  default: "rule",
 });
 export const noticeSelector = selector({
   key: "noticeSelector",
