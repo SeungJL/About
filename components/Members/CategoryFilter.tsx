@@ -70,6 +70,7 @@ const ItemBox = ({
 const categoryArr = [
   { name: "가입일", isSortUp: null },
   { name: "참여율", isSortUp: null },
+  { name: "나이", isSortUp: null },
   { name: "성별", isSortUp: null },
   { name: "역할", isSortUp: null },
   { name: "뱃지", isSortUp: null },

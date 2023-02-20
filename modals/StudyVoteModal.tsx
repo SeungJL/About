@@ -15,7 +15,7 @@ import { AttendDTO } from "../models/interface/vote";
 import { IPlace } from "../models/place";
 import { IParticipation } from "../models/vote";
 import {
-  isAttendingState,
+  isVotingState,
   isShowStudyVoteModalState,
   modalContextState,
   selectPlacesState,
@@ -121,11 +121,11 @@ function StudyVoteModal() {
   const places = placeInfo.map((pv) => pv.placeName);
   const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
   const [subPlaces, setSubPlaces] = useState([]);
-  const setIsAttending = useSetRecoilState(isAttendingState);
+  const setisVoting = useSetRecoilState(isVotingState);
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      setIsAttending(true);
+      setisVoting(true);
     },
     onError: (err) => {},
   });

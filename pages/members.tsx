@@ -17,6 +17,7 @@ import { animate, motion } from "framer-motion";
 import { transition } from "@chakra-ui/react";
 import Link from "next/link";
 import { useSetRecoilState } from "recoil";
+import { useEffect } from "react";
 import { isShowMemberInfoState } from "../recoil/membersAtoms";
 
 const Layout = styled.div`
@@ -104,12 +105,26 @@ export interface ICategory {
 function Members() {
   const router = useRouter();
   const [isNavOpend, setIsNavOpened] = useState(false);
-  const [category, setCategory] = useState<ICategory>({ name: "" });
+  const [category, setCategory] = useState<ICategory>({ name: "가입일" });
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+  const [userList, setUserList] = useState(userArr);
   const onFilterClicked = () => {
     setIsNavOpened((isOpen) => !isOpen);
   };
+
+  const sortedKeys = Object.keys(userList[0]);
+
+  const Cat = "age";
+
+  useEffect(() => {
+    const sortedCategory = userList.sort((a, b) => {
+      if (a[Cat] > b[Cat]) return 1;
+      else if (a[Cat] < b[Cat]) return -1;
+      else return 0;
+    });
+    setUserList(sortedCategory);
+  }, [category]);
+
   return (
     <Layout>
       <Header>
@@ -157,7 +172,7 @@ function Members() {
 
       <MembersMain>
         {userList.map((user, idx) => (
-          <UserBlock key={idx} userInfo={user} />
+          <UserBlock key={idx} userInfo={user} category={category} />
         ))}
       </MembersMain>
     </Layout>
@@ -165,13 +180,29 @@ function Members() {
 }
 export default Members;
 
-const userList = [
+const userArr = [
   {
     name: "이승주",
     id: "1",
     age: 27,
     mbti: "ENTP",
+    가입일: "1021-02-03",
+    role: "회장",
+  },
+  {
+    name: "이승주",
+    id: "1",
+    age: 23,
+    mbti: "ENTP",
     가입일: "2021-02-08",
+    role: "회장",
+  },
+  {
+    name: "이승주",
+    id: "1",
+    age: 25,
+    mbti: "ENTP",
+    가입일: "2021-02-09",
     role: "회장",
   },
   {
@@ -185,7 +216,7 @@ const userList = [
   {
     name: "이승주",
     id: "1",
-    age: 27,
+    age: 22,
     mbti: "ENTP",
     가입일: "2021-02-08",
     role: "회장",
@@ -193,23 +224,7 @@ const userList = [
   {
     name: "이승주",
     id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
+    age: 30,
     mbti: "ENTP",
     가입일: "2021-02-08",
     role: "회장",

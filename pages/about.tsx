@@ -15,7 +15,7 @@ import {
   ShowOpenResultState,
   isShowNotCompletedState,
   studyDateState,
-  isAttendingState,
+  isVotingState,
   isStudyOpenState,
   isUserAttendState,
 } from "../recoil/atoms";
@@ -55,12 +55,14 @@ import UserInfoForm from "../modals/RegisterFormModal";
 import StudyVoteModal from "../modals/StudyVoteModal";
 import axios from "axios";
 import dayjs from "dayjs";
-import { VOTE_END_HOUR } from "../constants/system";
+import { VOTE_END_HOUR, VOTE_START_HOUR } from "../constants/system";
 import Modals from "../components/Modals";
 import { createContext } from "vm";
 
 import { Audio, Bars } from "react-loader-spinner";
 import CircleAlert from "../components/icon/CircleAlert";
+import { getDefaultVoteDate } from "../libs/utils/voteUtils";
+
 const AboutLayout = styled.div`
   position: relative;
 `;
@@ -152,19 +154,19 @@ const Loading = styled.span`
 function About() {
   const toast = useToast();
   const { data: session } = useSession();
-  const voteDate = useRecoilValue(voteDateState);
+  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
   const { setColorMode } = useColorMode();
   const setStudyDate = useSetRecoilState(studyDateState);
-  const setIsAttending = useSetRecoilState(isAttendingState);
+  const setisVoting = useSetRecoilState(isVotingState);
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
-  const setIsUserAttend = useSetRecoilState(isUserAttendState);
-
+  const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
+  const defaultVoteDate = getDefaultVoteDate(isUserAttend);
   const A = useRecoilValue(isStudyOpenState);
   const B = useRecoilValue(isUserAttendState);
   const C = useRecoilValue(studyDateState);
-  const D = useRecoilValue(isAttendingState);
+  const D = useRecoilValue(isVotingState);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -182,7 +184,7 @@ function About() {
 
   useEffect(() => {
     setColorMode("light");
-
+    setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
@@ -196,21 +198,23 @@ function About() {
           (att) => (att.user as IUser).uid === session?.uid
         )
       ) {
-        setIsAttending(true);
+        setisVoting(true);
         studyStatus && setIsUserAttend(true);
       }
       studyStatus && setStudyOpen(true);
     });
   });
-  console.log(vote);
+
   useEffect(() => {
-    setIsAttending(false);
+    setisVoting(false);
+    setIsUserAttend(false);
+    setStudyOpen(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
-    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");
-    if (voteDateKr === InterestingDateKr) setStudyDate("today");
-    else if (voteDateKr < InterestingDateKr) {
+    const defaultVoteDateKr = convertToKr(defaultVoteDate, "DDHH");
+    if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
+    else if (voteDateKr < defaultVoteDateKr) {
       setStudyDate("passed");
-    } else if (voteDateKr > InterestingDateKr) {
+    } else if (voteDateKr > defaultVoteDateKr) {
       setStudyDate("not passed");
     }
   }, [voteDate]);
@@ -221,7 +225,7 @@ function About() {
     B,
     "studyDate:",
     C,
-    "isAttending:",
+    "isVoting:",
     D
   );
   return (

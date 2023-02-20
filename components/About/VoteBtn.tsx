@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { CenterDiv } from "../../styles/LayoutStyles";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  isAttendingState,
+  isVotingState,
   isShowStudyVoteModalState,
   modalContextState,
   studyDateState,
@@ -91,7 +91,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
   const voteDate = useRecoilValue(voteDateState);
   const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
   const voteStatus = useRecoilValue(voteStatusState);
-  const setIsAttending = useSetRecoilState(isAttendingState);
+  const setisVoting = useSetRecoilState(isVotingState);
   const setModalContext = useSetRecoilState(modalContextState);
 
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
@@ -115,7 +115,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries([VOTE_GET, voteDate]);
-        setIsAttending(false);
+        setisVoting(false);
       },
       onError: (err) => {
         toast({

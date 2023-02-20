@@ -9,8 +9,9 @@ import { isShowMemberInfoState } from "../../recoil/membersAtoms";
 const UserBlockLayout = styled(motion.div)`
   background-color: lightgray;
   margin: 1px;
-  display: grid;
-  grid-template-rows: 1fr 4fr;
+  display: flex;
+  flex-direction: column;
+
   border-radius: 10px;
   overflow: hidden;
   > div {
@@ -19,20 +20,25 @@ const UserBlockLayout = styled(motion.div)`
     align-items: center;
   }
   > div:first-child {
-    background: var(--main-color);
-    color: black;
+    background: #68d391;
+    color: rgb(34, 84, 61);
+    height: 25%;
   }
   > div:last-child {
+    height: 25%;
   }
 `;
 const CategoryContent = styled.div`
+  flex: 1;
   border-bottom: 1px solid rgb(0, 0, 0, 0.8);
   font-size: 0.9em;
 `;
 
-export default function UserBlock({ userInfo }: any) {
+export default function UserBlock({ userInfo, category }: any) {
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const setModalContext = useSetRecoilState(modalContextState);
+  const categoryName = category.name;
+  console.log("WW", userInfo[categoryName]);
 
   const onUserBlockClicked = () => {
     setIsShowMemberInfo(true);
@@ -51,7 +57,7 @@ export default function UserBlock({ userInfo }: any) {
   return (
     <UserBlockLayout layoutId={userInfo.id} onClick={onUserBlockClicked}>
       <div>회장</div>
-      <CategoryContent>2022-10-24</CategoryContent>
+      <CategoryContent>{userInfo[categoryName]}</CategoryContent>
       <div>이승주</div>
     </UserBlockLayout>
   );

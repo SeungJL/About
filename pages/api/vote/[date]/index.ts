@@ -56,7 +56,7 @@ export default async function handler(
     vote = await findOneVote(date);
   }
 
-  const isAttending = vote.participations
+  const isVoting = vote.participations
     .flatMap((participation) =>
       participation.attendences.map(
         (attendence) => (attendence.user as IUser)._id
@@ -68,7 +68,7 @@ export default async function handler(
     case "GET":
       return res.status(200).json(vote);
     case "POST":
-      if (isAttending) {
+      if (isVoting) {
         return res.status(204).end();
       }
       const {
@@ -120,7 +120,7 @@ export default async function handler(
 
       return res.status(204).end();
     case "DELETE":
-      if (!isAttending) {
+      if (!isVoting) {
         return res.status(204).end();
       }
       vote.participations = vote.participations.map((participation) => ({
