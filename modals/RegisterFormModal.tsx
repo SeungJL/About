@@ -16,6 +16,7 @@ import { Mutation } from "react-query";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRegisterMutation } from "../hooks/vote/mutations";
+import { useRouter } from "next/router";
 
 const ModalLayout = styled(BaseModal)`
   width: 320px;
@@ -107,8 +108,6 @@ const Agree = styled.div`
     font-size: 1.1em;
     font-family: "NanumEx";
   }
-  > input {
-  }
 `;
 
 const Button = styled.button`
@@ -118,6 +117,18 @@ const Button = styled.button`
   width: 56px;
   height: 25px;
 
+  padding: 2px;
+  border-radius: 15px;
+`;
+
+const CancelBtn = styled.div`
+  display: inline-block;
+  text-align: center;
+  margin-right: 3px;
+  background-color: brown;
+  color: white;
+  width: 56px;
+  height: 25px;
   padding: 2px;
   border-radius: 15px;
 `;
@@ -137,6 +148,7 @@ export interface IUserRegister extends IRegisterForm {
 }
 
 function RegisterFormModal() {
+  const router = useRouter();
   const [isMan, setIsMan] = useState(true);
   const {
     register,
@@ -159,7 +171,7 @@ function RegisterFormModal() {
   const { mutate: handleRegister, isLoading: isRegisterLoading } =
     useRegisterMutation(uid as string, {
       onSuccess: async () => {
-        console.log("success");
+        setIsShowRegisterForm(false);
       },
       onError: (err) => {
         Toast({
@@ -187,6 +199,11 @@ function RegisterFormModal() {
     handleRegister(userInfo);
   };
   const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
+
+  const onCancelBtnClicked = () => {
+    setIsShowRegisterForm(false);
+    router.push(`/fail`);
+  };
   return (
     <>
       <ModalLayout>
@@ -266,8 +283,8 @@ function RegisterFormModal() {
               </Agree>
             </div>
             <div>
-              <Button onClick={() => setIsShowRegisterForm(false)}>취소</Button>
-              <Button onClick={() => setIsShowRegisterForm(false)}>제출</Button>
+              <CancelBtn onClick={onCancelBtnClicked}>취소</CancelBtn>
+              <Button>제출</Button>
             </div>
           </SubmitBtn>
         </UserForm>
