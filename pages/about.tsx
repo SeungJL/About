@@ -181,11 +181,8 @@ function About() {
 
   useEffect(() => {
     setColorMode("light");
-    const voteEndTime = dayjs(getInterestingDate())
-      .subtract(1, "day")
-      .add(VOTE_END_HOUR, "hour");
 
-    if (now() > voteEndTime) {
+    if (now().hour() >= VOTE_END_HOUR) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
