@@ -21,11 +21,12 @@ export default async function handler(
     res.status(401).end();
     return;
   }
-
+  console.log(1);
   await dbConnect();
 
   switch (method) {
     case "POST":
+      await User.updateMany({}, { $set: { status: "active" } });
       const registerForm = req.body;
       await User.updateOne({ uid: token.uid }, { $set: registerForm });
     case "PATCH":
