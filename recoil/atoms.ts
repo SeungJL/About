@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs";
 import { atom, selector } from "recoil";
 import { getInterestingDate, now } from "../libs/utils/dateUtils";
+import { IUser } from "../models/user";
 import { IAttendence, IParticipation } from "../models/vote";
 import { noticeData } from "../storage/noticeData";
 
@@ -98,6 +99,9 @@ interface IModalContext {
   StudyVote?: {
     participations: IParticipation[];
   };
+  ProfileImg?: {
+    user: IUser;
+  };
 }
 export const modalContextState = atom<IModalContext>({
   key: "modalContext",
@@ -126,6 +130,11 @@ export const isShowVoteCancleState = atom<Boolean>({
 
 export const isShowNotCompletedState = atom<Boolean>({
   key: "notCompleted",
+  default: false,
+});
+
+export const isShowUserInfoSmState = atom({
+  key: "isShowUserInfoSm",
   default: false,
 });
 
