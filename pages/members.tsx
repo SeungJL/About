@@ -10,12 +10,14 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import CategoryFilter from "../../components/Members/CategoryFilter";
+import CategoryFilter from "../components/Members/CategoryFilter";
 
-import UserBlock from "../../components/Members/UserBlock";
+import UserBlock from "../components/Members/UserBlock";
 import { animate, motion } from "framer-motion";
 import { transition } from "@chakra-ui/react";
 import Link from "next/link";
+import { useSetRecoilState } from "recoil";
+import { isShowMemberInfoState } from "../recoil/membersAtoms";
 
 const Layout = styled.div`
   display: flex;
@@ -105,10 +107,6 @@ function Members() {
   const [category, setCategory] = useState<ICategory>({ name: "" });
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const onUserBlockClicked = (user) => {
-    router.push(`/members/${user.id}`);
-  };
-
   const onFilterClicked = () => {
     setIsNavOpened((isOpen) => !isOpen);
   };
@@ -159,11 +157,7 @@ function Members() {
 
       <MembersMain>
         {userList.map((user, idx) => (
-          <UserBlock
-            key={idx}
-            userInfo={user}
-            onUserBlockClicked={() => onUserBlockClicked(user.id)}
-          />
+          <UserBlock key={idx} userInfo={user} />
         ))}
       </MembersMain>
     </Layout>

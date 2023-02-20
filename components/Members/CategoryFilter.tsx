@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
-import { ICategory } from "../../pages/members";
+import { ICategory } from "../../pages/members/members";
 
 const Layout = styled.div`
   padding: 15px;

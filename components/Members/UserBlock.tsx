@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { IUser } from "../../models/user";
+import { modalContextState } from "../../recoil/atoms";
+import { isShowMemberInfoState } from "../../recoil/membersAtoms";
 
 const UserBlockLayout = styled(motion.div)`
   background-color: lightgray;
@@ -26,9 +30,26 @@ const CategoryContent = styled.div`
   font-size: 0.9em;
 `;
 
-export default function UserBlock({ userInfo, onUserBlockClicked }) {
+export default function UserBlock({ userInfo }: any) {
+  const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
+  const setModalContext = useSetRecoilState(modalContextState);
+
+  const onUserBlockClicked = () => {
+    setIsShowMemberInfo(true);
+    setModalContext((old) =>
+      Object.assign(
+        {
+          MembersInfoBg: {
+            userInfo: userInfo,
+          },
+        },
+        old
+      )
+    );
+  };
+
   return (
-    <UserBlockLayout layoutId={userInfo.id + ""} onClick={onUserBlockClicked}>
+    <UserBlockLayout layoutId={userInfo.id} onClick={onUserBlockClicked}>
       <div>회장</div>
       <CategoryContent>2022-10-24</CategoryContent>
       <div>이승주</div>

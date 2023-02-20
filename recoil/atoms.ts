@@ -108,6 +108,9 @@ interface IModalContext {
   ProfileImg?: {
     user: IUser;
   };
+  MembersInfoBg?: {
+    userInfo: any;
+  };
 }
 export const modalContextState = atom<IModalContext>({
   key: "modalContext",
