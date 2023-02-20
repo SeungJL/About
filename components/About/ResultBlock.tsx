@@ -178,14 +178,11 @@ function ResultBlock({
     setIsShowVoter(true);
 
     setModalContext((old) =>
-      Object.assign(
-        {
-          Voter: {
-            attendences: attendences,
-          },
+      Object.assign({
+        Voter: {
+          attendences: attendences,
         },
-        old
-      )
+      })
     );
   };
 
