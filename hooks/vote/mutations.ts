@@ -77,12 +77,11 @@ export const useArrivedMutation = (
   }, options);
 
 export const useRegisterMutation = (
-  userId: string,
   options?: Omit<
     UseMutationOptions<any, AxiosError, IUserRegister>,
     "mutationKey" | "mutationFn"
   >
 ) =>
   useMutation<any, AxiosError, IUserRegister>(async (userRegister) => {
-    await axios.post(`/api/user/profile/${userId}`, userRegister);
+    await axios.post(`/api/user/profile`, userRegister);
   }, options);
