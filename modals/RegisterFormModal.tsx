@@ -169,7 +169,7 @@ function RegisterFormModal() {
   const uid = session?.uid;
 
   const { mutate: handleRegister, isLoading: isRegisterLoading } =
-    useRegisterMutation(uid as string, {
+    useRegisterMutation({
       onSuccess: async () => {
         setIsShowRegisterForm(false);
       },

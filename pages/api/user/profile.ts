@@ -26,9 +26,7 @@ export default async function handler(
 
   switch (method) {
     case "POST":
-      await User.updateMany({}, { $set: { status: "inactive" } });
       const registerForm = req.body;
-      console.log(registerForm);
       await User.updateOne({ uid: token.uid }, { $set: registerForm });
     case "PATCH":
       const profile = await getProfile(
