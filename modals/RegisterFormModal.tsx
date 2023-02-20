@@ -189,7 +189,7 @@ function RegisterFormModal() {
     const userInfo: IUserRegister = {
       name: data.name,
       registerDate: data.registerDate,
-      role: "user",
+      role: "member",
       isActive: true,
       birth: data.birth,
       mbti: data.mbti,
@@ -273,7 +273,9 @@ function RegisterFormModal() {
           <ErrorMessage>{errors?.mbti?.message}</ErrorMessage>
           <SubmitBtn>
             <div>
-              <Button onClick={() => setisShowPrivacy(true)}>약관</Button>
+              <Button type="button" onClick={() => setisShowPrivacy(true)}>
+                약관
+              </Button>
               <Agree>
                 <span>동의</span>
                 <input
@@ -284,7 +286,7 @@ function RegisterFormModal() {
             </div>
             <div>
               <CancelBtn onClick={onCancelBtnClicked}>취소</CancelBtn>
-              <Button>제출</Button>
+              <Button type="submit">제출</Button>
             </div>
           </SubmitBtn>
         </UserForm>
