@@ -9,9 +9,13 @@ import {
   isShowRegisterFormState,
 } from "../recoil/atoms";
 import { useSetRecoilState } from "recoil";
-import { useRegisterMutation } from "../hooks/registerForm";
+
 import { IUser } from "../models/user";
 import { useState } from "react";
+import { Mutation } from "react-query";
+import { Toast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import { useRegisterMutation } from "../hooks/vote/mutations";
 
 const ModalLayout = styled(BaseModal)`
   width: 320px;
@@ -118,13 +122,18 @@ const Button = styled.button`
   border-radius: 15px;
 `;
 
-export interface IUserInfoForm {
+export interface IRegisterForm {
   registerDate: string;
   name: string;
   mbti?: string;
   birth: string;
-  agree: any;
+  agree?: any;
   gender?: string;
+}
+export interface IUserRegister extends IRegisterForm {
+  role: string;
+  isActive: boolean;
+  gender: string;
 }
 
 function RegisterFormModal() {
@@ -134,7 +143,7 @@ function RegisterFormModal() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<IUserInfoForm>({
+  } = useForm<IRegisterForm>({
     defaultValues: {
       registerDate: `${now().format("YYYY-MM-DD")}`,
       name: "",
@@ -144,19 +153,38 @@ function RegisterFormModal() {
     },
   });
   const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
+  const { data: session } = useSession();
+  const uid = session?.uid;
 
-  const onValid = (data: IUserInfoForm) => {
-    const userInfo = {
+  const { mutate: handleRegister, isLoading: isRegisterLoading } =
+    useRegisterMutation(uid as string, {
+      onSuccess: async () => {
+        console.log("success");
+      },
+      onError: (err) => {
+        Toast({
+          title: "오류",
+          description: "참여 취소 신청 중 문제가 발생했어요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      },
+    });
+
+  const onValid = (data: IRegisterForm) => {
+    const userInfo: IUserRegister = {
       name: data.name,
       registerDate: data.registerDate,
       role: "user",
-      isActive: "true",
+      isActive: true,
       birth: data.birth,
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
     };
 
-    // useRegisterMutation -> useInfo
+    handleRegister(userInfo);
   };
   const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
   return (
