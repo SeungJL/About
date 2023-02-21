@@ -4,7 +4,6 @@ import { getSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import { isMember } from "../libs/utils/authUtils";
 import { getInterestingDate } from "../libs/utils/dateUtils";
-import { isShowRegisterFormState } from "../recoil/atoms";
 
 const Root: NextPage = () => <div />;
 

@@ -2,12 +2,12 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Box, HStack, Tag, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { FC, useMemo } from "react";
-import { START_HOUR } from "../constants/system";
-import { dateToDayjs, splitDate } from "../libs/utils/dateUtils";
-import { timeRange } from "../libs/utils/timeUtils";
-import { IUser } from "../models/user";
-import { IAttendence } from "../models/vote";
-import ProfileImage from "./profileImage";
+import { START_HOUR } from "../../constants/system";
+import { dateToDayjs, splitDate } from "../../libs/utils/dateUtils";
+import { timeRange } from "../../libs/utils/timeUtils";
+import { IUser } from "../../models/user";
+import { IAttendence } from "../../models/vote";
+import ProfileImage from "../existing/profileImage";
 
 const TimeRangeBar: FC<{
   attendence: IAttendence;

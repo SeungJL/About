@@ -1,37 +1,24 @@
 import styled from "styled-components";
 import { useQueryClient } from "react-query";
-import { useDisclosure, useToast } from "@chakra-ui/react";
-import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
+import { useToast } from "@chakra-ui/react";
 import { CenterDiv } from "../../styles/LayoutStyles";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  isVotingState,
-  isShowStudyVoteModalState,
-  modalContextState,
-  studyDateState,
-  voteDateState,
-  voteStatusState,
-} from "../../recoil/atoms";
-import VoteModal from "../voteModal";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useAbsentMutation,
   useArrivedMutation,
 } from "../../hooks/vote/mutations";
-import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
+import { getToday } from "../../libs/utils/dateUtils";
+import { IParticipation } from "../../models/vote";
 import {
-  convertToKr,
-  getInterestingDate,
-  getToday,
-  now,
-} from "../../libs/utils/dateUtils";
-import { IUser } from "../../models/user";
-import { useState } from "react";
-import VoteStudyModal from "../../modals/StudyVoteModal";
-import { ISession } from "../../types/DateTitleMode";
-import { IParticipation, IVote } from "../../models/vote";
-import { Puff } from "react-loader-spinner";
+  isShowStudyVoteModalState,
+  modalContextState,
+} from "../../recoil/modalAtoms";
+import {
+  isVotingState,
+  voteDateState,
+  voteStatusState,
+} from "../../recoil/voteAtoms";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;
@@ -146,7 +133,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
       )
     );
   };
-  console.log("V", voteStatus);
+
   return (
     <>
       <OutlineCircle>

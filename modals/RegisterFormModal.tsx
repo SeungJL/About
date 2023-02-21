@@ -4,10 +4,7 @@ import styled from "styled-components";
 import { now } from "../libs/utils/dateUtils";
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 import { PrivacyPolicy } from "../storage/PrivacyPolicy";
-import {
-  isShowPrivacyPolicyState,
-  isShowRegisterFormState,
-} from "../recoil/atoms";
+
 import { useSetRecoilState } from "recoil";
 
 import { IUser } from "../models/user";
@@ -17,6 +14,10 @@ import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRegisterMutation } from "../hooks/vote/mutations";
 import { useRouter } from "next/router";
+import {
+  isShowPrivacyPolicyState,
+  isShowRegisterFormState,
+} from "../recoil/voteAtoms";
 
 const ModalLayout = styled(BaseModal)`
   width: 320px;

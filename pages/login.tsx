@@ -28,7 +28,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import Logo from "../components/icon/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
-import { isShowRegisterFormState } from "../recoil/atoms";
 
 const Login: NextPage<{
   providers: Record<
@@ -43,9 +42,7 @@ const Login: NextPage<{
 
   const forceSignOut = (router.query.force_signout as string) === "true";
   const redirectFrom = router.query.from as string;
-  const [isShowRegisterForm, setIsShowRegisterForm] = useRecoilState(
-    isShowRegisterFormState
-  );
+
   useEffect(() => {
     if (forceSignOut) onOpen();
   }, []);

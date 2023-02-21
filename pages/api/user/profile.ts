@@ -21,7 +21,7 @@ export default async function handler(
     res.status(401).end();
     return;
   }
-  console.log(1);
+
   await dbConnect();
 
   switch (method) {

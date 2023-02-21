@@ -1,7 +1,9 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import UserBadge from "../components/icon/UserBadge";
-import { isShowUserInfoSmState, modalContextState } from "../recoil/atoms";
+import { birthToAge } from "../libs/utils/membersUtil";
+import { isShowUserInfoSmState, modalContextState } from "../recoil/modalAtoms";
+
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const UserInfoSmLayout = styled(BaseModal)`
@@ -99,24 +101,24 @@ export default function UserInfoSm() {
           </UserImage>
           <UserInfo>
             <UserName>
-              <span>{user.name}</span>
+              <span>.</span>
               <UserBadge role="일반회원" />
             </UserName>
             <UserProfile>
               <div>
                 <div>
                   <FontSm>나이: </FontSm>
-                  <span>27</span>
+                  <span>.</span>
                 </div>
                 <div>
                   <FontSm>성별: </FontSm>
-                  <span>남</span>
+                  <span>.</span>
                 </div>
               </div>
               <div>
                 <div>
                   <FontSm>MBTI: </FontSm>
-                  <span>ENTP</span>
+                  <span>.</span>
                 </div>
               </div>
             </UserProfile>

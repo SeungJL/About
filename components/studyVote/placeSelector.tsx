@@ -14,7 +14,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/system";
 import { IPlace } from "../../models/place";
-import { selectPlacesState } from "../../recoil/atoms";
+import { selectPlacesState } from "../../recoil/voteAtoms";
 
 interface IPlaceSelecter {
   placeInfo: { placeName: IPlace; voteCnt: number; status: string }[];

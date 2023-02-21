@@ -1,8 +1,9 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { noticeCategoryState, noticeSelector } from "../../recoil/atoms";
+
 import Accordion from "./Accordion";
 import * as dayjs from "dayjs";
+import { noticeCategoryState, noticeSelector } from "../../recoil/noticeAtoms";
 
 const TextContainer = styled.div`
   height: 80vh;

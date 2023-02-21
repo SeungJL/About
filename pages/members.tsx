@@ -16,9 +16,9 @@ import UserBlock from "../components/Members/UserBlock";
 import { animate, motion } from "framer-motion";
 import { transition } from "@chakra-ui/react";
 import Link from "next/link";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useEffect } from "react";
-import { isShowMemberInfoState } from "../recoil/membersAtoms";
+import { categoryState, isShowMemberInfoState } from "../recoil/membersAtoms";
 import { sortUserList } from "../libs/utils/membersUtil";
 import { IUser, User } from "../models/user";
 import { GetServerSideProps } from "next";
@@ -103,26 +103,28 @@ const SearchInput = styled(motion.input)`
 
 export interface ICategory {
   name: string;
-  isSortUp?: boolean;
+  status?: string;
 }
 
 function Members({ membersListAll }: { membersListAll: IUser[] }) {
   const membersList = membersListAll.filter((info) => info.isActive !== false);
-  const router = useRouter();
+
   const [isNavOpend, setIsNavOpened] = useState(false);
-  const [category, setCategory] = useState<ICategory>({ name: "가입일" });
+  const [category, setCategory] = useRecoilState(categoryState);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [userList, setUserList] = useState<IUser[]>(membersList);
+  const [userList, setUserList] = useState<IUser[]>([]);
+
   const { data: session } = useSession();
-  console.log(membersListAll, membersList);
+
   const onFilterClicked = () => {
     setIsNavOpened((isOpen) => !isOpen);
   };
 
   useEffect(() => {
+    setUserList(membersList);
     setUserList((old) => sortUserList(old, category));
   }, [category]);
-
+  console.log("userList", userList);
   return (
     <Layout>
       <Header>
@@ -158,7 +160,7 @@ function Members({ membersListAll }: { membersListAll: IUser[] }) {
           }}
           transition={{ type: "linear" }}
         >
-          <CategoryFilter category={category} setCategory={setCategory} />
+          <CategoryFilter />
         </FilterNav>
       </Navigation>
       <TitleHeader>
@@ -169,8 +171,8 @@ function Members({ membersListAll }: { membersListAll: IUser[] }) {
       </TitleHeader>
 
       <MembersMain>
-        {userList.map((user, idx) => (
-          <UserBlock key={idx} userInfo={user} category={category} />
+        {userList?.map((user, idx) => (
+          <UserBlock key={idx} userInfo={user} />
         ))}
       </MembersMain>
     </Layout>
@@ -180,7 +182,7 @@ export default Members;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
-  console.log("S", session);
+
   if (!session) {
     return {
       redirect: {
@@ -194,7 +196,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await dbConnect();
 
   const user = await User.find();
-  console.log("23441", typeof user);
+
   const membersListAll = JSON.parse(safeJsonStringify(user));
+
   return { props: { membersListAll } };
 };

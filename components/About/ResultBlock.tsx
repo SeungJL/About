@@ -1,27 +1,18 @@
 import styled from "styled-components";
 import Image from "next/image";
-
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { IParticipation } from "../../models/vote";
+import { useSession } from "next-auth/react";
+import {
+  isShowVoteCancleState,
+  modalContextState,
+} from "../../recoil/modalAtoms";
 import {
   isShowOpenResultState,
-  isShowVoteCancleState,
   isShowVoterState,
   isUserAttendState,
-  modalContextState,
-  ShowOpenResultState,
-  showVoterState,
-  voteStatusState,
-} from "../../recoil/atoms";
-
-import { IPlace } from "../../models/place";
-import { IUser } from "../../models/user";
-import { IParticipation } from "../../models/vote";
-
-import { useSession } from "next-auth/react";
-import VoterModal from "../../modals/VoterModal";
-import ModalPortal from "../../libs/utils/ModalPortal";
+} from "../../recoil/voteAtoms";
 
 const ResultBlockLayout = styled.div`
   display: flex;
@@ -138,15 +129,14 @@ function ResultBlock({
   const { data: session } = useSession();
 
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
-  const setShowVoter = useSetRecoilState(showVoterState);
-  const setShowOpenResult = useSetRecoilState(ShowOpenResultState);
+
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
   const open = status === "open" ? true : false;
 
   const countArr = [];
   const [votalModalOpened, setVotalModalOpened] = useState(false);
   const setModalContext = useSetRecoilState(modalContextState);
-  const modalContext = useRecoilValue(modalContextState);
+
   const setIsShowVoter = useSetRecoilState(isShowVoterState);
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   let cnt = 0;

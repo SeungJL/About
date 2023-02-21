@@ -3,8 +3,10 @@ import { useSession } from "next-auth/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import UserBadge from "../../components/icon/UserBadge";
-import { modalContextState } from "../../recoil/atoms";
+import { getServerSideProps } from "../../pages";
+
 import { isShowMemberInfoState } from "../../recoil/membersAtoms";
+import { modalContextState } from "../../recoil/modalAtoms";
 import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
 
 const MemberInfoBgModalLayout = styled.div`
@@ -142,7 +144,7 @@ export default function MemberInfoBgModal() {
   const modalContext = useRecoilValue(modalContextState);
   const userInfo = modalContext.MembersInfoBg.userInfo;
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
-  console.log(userInfo);
+
   const { data: session } = useSession();
   console.log(session);
   return (

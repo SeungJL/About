@@ -3,17 +3,7 @@ import { useContext } from "react";
 import CancelModal from "../modals/CancelModal";
 import NotCompletedModal from "../modals/NotCompletedModal";
 import UserInfoForm from "../modals/RegisterFormModal";
-import {
-  isShowNotCompletedState,
-  isShowOpenResultState,
-  isShowPrivacyPolicyState,
-  isShowRegisterFormState,
-  isShowStudyVoteModalState,
-  isShowUserInfoSmState,
-  isShowVoteCancleState,
-  isShowVoterState,
-  modalContextState,
-} from "../recoil/atoms";
+
 import OpenResultModal from "../modals/OpenResultModal";
 import ModalPortal from "../libs/utils/ModalPortal";
 import VoterModal from "../modals/VoterModal";
@@ -26,6 +16,19 @@ import { FullScreen } from "../styles/LayoutStyles";
 import { isShowMemberInfoState } from "../recoil/membersAtoms";
 import MemberInfoModal from "../modals/members/MemberInfoBgModal";
 import MemberInfoBgModal from "../modals/members/MemberInfoBgModal";
+import {
+  isShowNotCompletedState,
+  isShowStudyVoteModalState,
+  isShowUserInfoSmState,
+  isShowVoteCancleState,
+  modalContextState,
+} from "../recoil/modalAtoms";
+import {
+  isShowOpenResultState,
+  isShowPrivacyPolicyState,
+  isShowRegisterFormState,
+  isShowVoterState,
+} from "../recoil/voteAtoms";
 
 function Modals() {
   const { data: session } = useSession();

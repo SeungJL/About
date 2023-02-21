@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { noticeCategoryState, noticeState } from "../../recoil/atoms";
+import { noticeCategoryState, noticeState } from "../../recoil/noticeAtoms";
 
 const Input = styled.input`
   width: 90%;

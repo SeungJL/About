@@ -1,11 +1,16 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { birthToAge, nameToKr } from "../../libs/utils/membersUtil";
+import { IUserBlock } from "../../models/members";
 import { IUser } from "../../models/user";
-import { modalContextState } from "../../recoil/atoms";
-import { isShowMemberInfoState } from "../../recoil/membersAtoms";
+import {
+  categoryState,
+  isShowMemberInfoState,
+} from "../../recoil/membersAtoms";
+import { modalContextState } from "../../recoil/modalAtoms";
 
 const UserBlockLayout = styled(motion.div)`
   background-color: lightgray;
@@ -35,20 +40,11 @@ const CategoryContent = styled.div`
   font-size: 0.9em;
 `;
 
-export default function UserBlock({ userInfo, category }: any) {
+export default function UserBlock({ userInfo }: IUserBlock) {
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const setModalContext = useSetRecoilState(modalContextState);
   const [content, setContent] = useState("");
-  const categoryName =
-    category.name === "가입일"
-      ? "registerDate"
-      : category.name === "나이"
-      ? "birth"
-      : category.name === "성별"
-      ? "gender"
-      : category.name === "MBTI"
-      ? "mbti"
-      : "";
+  const category = useRecoilValue(categoryState);
 
   const onUserBlockClicked = () => {
     setIsShowMemberInfo(true);
@@ -64,11 +60,11 @@ export default function UserBlock({ userInfo, category }: any) {
     );
   };
   useEffect(() => {
-    const categoryContent = userInfo[categoryName];
-    if (categoryName === "birth") {
-      const birthYear = categoryContent.slice(0, 2);
-      if (birthYear < 50) setContent(String(24 - birthYear));
-      else setContent(String(124 - birthYear));
+    const name = category.name;
+    let categoryContent = userInfo[name];
+    console.log(56, categoryContent);
+    if (name === "birth") {
+      setContent(birthToAge(categoryContent));
     } else {
       setContent(categoryContent);
     }

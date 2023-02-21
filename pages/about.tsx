@@ -1,30 +1,17 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import Seo from "../components/Seo";
 import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
 import MainNavigation from "../components/About/MainNavigation";
-import {
-  isShowVoteCancleState,
-  isShowStudyVoteModalState,
-  showVoterState,
-  voteDateState,
-  ShowOpenResultState,
-  isShowNotCompletedState,
-  studyDateState,
-  isVotingState,
-  isStudyOpenState,
-  isUserAttendState,
-  isShowRegisterFormState,
-} from "../recoil/atoms";
+import safeJsonStringify from "safe-json-stringify";
 import {
   faAngleLeft,
   faAngleRight,
   faBell,
-  faSpinner,
   faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,36 +20,28 @@ import { Navigation, Pagination, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import OpenResultModal from "../modals/OpenResultModal";
-import NotCompletedModal from "../modals/NotCompletedModal";
-import CancelModal from "../modals/CancelModal";
 import { IParticipation } from "../models/vote";
-import {
-  convertToKr,
-  getInterestingDate,
-  getToday,
-  now,
-} from "../libs/utils/dateUtils";
+import { convertToKr, getToday, now } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
 import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { IUser, User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-import UserInfoForm from "../modals/RegisterFormModal";
-import StudyVoteModal from "../modals/StudyVoteModal";
 import axios from "axios";
-import dayjs from "dayjs";
-import { VOTE_END_HOUR, VOTE_START_HOUR } from "../constants/system";
-import Modals from "../components/Modals";
-import { createContext } from "vm";
-
-import { Audio, Bars } from "react-loader-spinner";
+import { VOTE_END_HOUR } from "../constants/system";
 import CircleAlert from "../components/icon/CircleAlert";
 import { getDefaultVoteDate } from "../libs/utils/voteUtils";
+import {
+  isShowRegisterFormState,
+  isStudyOpenState,
+  isUserAttendState,
+  isVotingState,
+  studyDateState,
+  voteDateState,
+} from "../recoil/voteAtoms";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -152,7 +131,7 @@ const Loading = styled.span`
   font-size: 18px;
 `;
 
-function About() {
+function About({ user }) {
   const toast = useToast();
   const { data: session } = useSession();
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
@@ -164,10 +143,7 @@ function About() {
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
   const defaultVoteDate = getDefaultVoteDate(isUserAttend);
-  const A = useRecoilValue(isStudyOpenState);
-  const B = useRecoilValue(isUserAttendState);
-  const C = useRecoilValue(studyDateState);
-  const D = useRecoilValue(isVotingState);
+
   const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -182,9 +158,9 @@ function About() {
       });
     },
   });
-  console.log(5, session);
+
   useEffect(() => {
-    if (session?.role === "") {
+    if (user?.isActive === false) {
       setIsShowRegisterForm(true);
     }
     setColorMode("light");
@@ -222,16 +198,7 @@ function About() {
       setStudyDate("not passed");
     }
   }, [voteDate]);
-  console.log(
-    "studyOpen:",
-    A,
-    "userAttend:",
-    B,
-    "studyDate:",
-    C,
-    "isVoting:",
-    D
-  );
+
   return (
     <>
       <Seo title="About" />
@@ -323,8 +290,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   await dbConnect();
 
-  const user = await User.findOne({ uid: session.uid });
-
+  const userData = await User.findOne({ uid: session.uid });
+  const user = JSON.parse(safeJsonStringify(userData));
   if (!isMember(user?.role)) {
     if (session.role !== user?.role) {
       context.res.setHeader("Set-Cookie", "next-auth.session-token=deleted");
@@ -344,5 +311,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   }
-  return { props: {} };
+  return { props: { user } };
 };

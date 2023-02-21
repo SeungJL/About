@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isShowNotCompletedState } from "../recoil/atoms";
+import { isShowNotCompletedState } from "../recoil/modalAtoms";
+
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const ModalLayout = styled(BaseModal)`

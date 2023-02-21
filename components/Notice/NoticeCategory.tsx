@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { noticeCategoryState } from "../../recoil/atoms";
+import { noticeCategoryState } from "../../recoil/noticeAtoms";
 
 const CategoryHeader = styled.span`
   > span:first-child {

@@ -1,18 +1,17 @@
 import styled from "styled-components";
-
 import {
   faBookOpen,
   faCalendarCheck,
-  faUser,
+  faClipboard,
+  faCommentDots,
   faUsers,
   faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { useSetRecoilState } from "recoil";
-import { isShowNotCompletedState } from "../../recoil/atoms";
 import Link from "next/link";
 import CircleAlert from "../icon/CircleAlert";
+import { isShowNotCompletedState } from "../../recoil/modalAtoms";
 
 const MainNavLayout = styled.nav`
   height: 54vh;
@@ -52,44 +51,51 @@ const IconBox = styled.div`
 
 const navigationItems = [
   {
-    icon: <FontAwesomeIcon icon={faCalendarCheck} size="2xl" />,
-    name: "gather",
-    use: false,
-  },
-  {
     icon: <FontAwesomeIcon icon={faUsers} size="2xl" />,
-    name: "members",
+    name: "스터디원",
     use: true,
   },
 
   {
     icon: <FontAwesomeIcon icon={faBookOpen} size="2xl" />,
-    name: "book",
+    name: "도서",
     use: true,
   },
-  { icon: <FontAwesomeIcon icon={faUtensils} size="2xl" />, name: "food" },
+
   {
-    icon: <FontAwesomeIcon icon={faUser} size="2xl" />,
-    name: "soon1",
+    icon: <FontAwesomeIcon icon={faCalendarCheck} size="2xl" />,
+    name: "모임",
     use: false,
   },
   {
-    icon: <FontAwesomeIcon icon={faUser} size="2xl" />,
-    name: "soon2",
+    icon: <FontAwesomeIcon icon={faClipboard} size="2xl" />,
+    name: "기록",
     use: false,
   },
+  {
+    icon: <FontAwesomeIcon icon={faCommentDots} size="2xl" />,
+    name: "소통",
+    use: false,
+  },
+  { icon: <FontAwesomeIcon icon={faUtensils} size="2xl" />, name: "맛집" },
 ];
 
 function MainNavigation() {
   const setIsNotCompleted = useSetRecoilState(isShowNotCompletedState);
-
+  const nameToLink = (name) => {
+    if (name === "스터디원") return "members";
+    if (name === "도서") return "book";
+    if (name === "모임") return "gather";
+    if (name === "기록") return "record";
+    if (name === "소통") return "";
+  };
   return (
     <MainNavLayout>
       {navigationItems.map((item) => (
         <NavigationItem key={item.name}>
           {item.use === true ? (
             <>
-              <Link href={item.name}>
+              <Link href={nameToLink(item.name)}>
                 <div>
                   <IconBox>
                     {item.icon}

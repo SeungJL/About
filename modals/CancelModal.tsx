@@ -7,7 +7,9 @@ import styled from "styled-components";
 import { useDismissMutation } from "../hooks/vote/mutations";
 import { VOTE_GET } from "../libs/queryKeys";
 import { getToday, strToDate } from "../libs/utils/dateUtils";
-import { isVotingState, isShowVoteCancleState } from "../recoil/atoms";
+import { isShowVoteCancleState } from "../recoil/modalAtoms";
+import { isVotingState } from "../recoil/voteAtoms";
+
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const CancelModalLayout = styled(BaseModal)`

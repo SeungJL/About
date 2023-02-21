@@ -14,7 +14,6 @@ const CircleAlertLayout = styled.div<{
 `;
 
 function CircleAlert({ right, bottom, color = "#ffc72c" }) {
-  console.log(typeof right, bottom);
   return (
     <CircleAlertLayout right={right} bottom={bottom}>
       <FontAwesomeIcon icon={faCircleCheck} size="sm" color={color} />
