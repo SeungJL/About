@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { noticeCategory } from "../../recoil/atoms";
+import { noticeCategoryState } from "../../recoil/noticeAtoms";
 
 const CategoryHeader = styled.span`
   > span:first-child {
@@ -29,9 +29,15 @@ const NoticeBtn = styled.span<INoticeBtn>`
 `;
 
 function NoticeCategory() {
-  const [Category, setCategory] = useRecoilState(noticeCategory);
+  const [Category, setCategory] = useRecoilState(noticeCategoryState);
   return (
     <CategoryHeader>
+      <NoticeBtn
+        state={Category === "rule" && true}
+        onClick={() => setCategory("rule")}
+      >
+        스터디 규칙
+      </NoticeBtn>
       <NoticeBtn
         state={Category === "notice" && true}
         onClick={() => setCategory("notice")}

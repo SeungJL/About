@@ -59,7 +59,7 @@ function Books() {
   const data: any = useQuery<any>("famousBooks", fetchFamousBooks);
 
   const booksObj: any = data.data?.response;
-
+  const isLoading = data.isLoading;
   const books: IBooks[] = (booksObj as any)?.docs.slice(0, 30);
 
   return (
@@ -75,40 +75,42 @@ function Books() {
           </HeaderInfo>
         </BooksHeader>
         <Main>
-          {books?.map((book: any) => {
-            let info = book.doc;
-            return (
-              <Link
-                href={{
-                  pathname: `/book/${info.isbn13}`,
-                  query: {
-                    authors: info.authors,
-                    bookImageURL: info.bookImageURL,
-                    name: info.bookname,
-                    genre: info.class_nm,
-                    publish: info.publication_year,
-                    rank: info.ranking,
-                  },
-                }}
-                key={info.isbn13}
-                as={`/book/${info.isbn13}`}
-              >
-                <BookItem>
-                  <div>{info.ranking}</div>
-                  <BookImage>
-                    <img
-                      alt={info.bookname}
-                      src={info.bookImageURL}
-                      width="130px"
-                      height="60px"
-                    />
-                  </BookImage>
-                  <BookTitle>{info.bookname}</BookTitle>
-                  <br />
-                </BookItem>
-              </Link>
-            );
-          })}
+          {isLoading
+            ? "Loading..."
+            : books?.map((book: any) => {
+                let info = book.doc;
+                return (
+                  <Link
+                    href={{
+                      pathname: `/book/${info.isbn13}`,
+                      query: {
+                        authors: info.authors,
+                        bookImageURL: info.bookImageURL,
+                        name: info.bookname,
+                        genre: info.class_nm,
+                        publish: info.publication_year,
+                        rank: info.ranking,
+                      },
+                    }}
+                    key={info.isbn13}
+                    as={`/book/${info.isbn13}`}
+                  >
+                    <BookItem>
+                      <div>{info.ranking}</div>
+                      <BookImage>
+                        <img
+                          alt={info.bookname}
+                          src={info.bookImageURL}
+                          width="130px"
+                          height="60px"
+                        />
+                      </BookImage>
+                      <BookTitle>{info.bookname}</BookTitle>
+                      <br />
+                    </BookItem>
+                  </Link>
+                );
+              })}
         </Main>
       </BooksLayout>
     </>

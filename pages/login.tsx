@@ -25,6 +25,7 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import Logo from "../components/icon/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 
@@ -51,7 +52,7 @@ const Login: NextPage<{
 
     await signIn(kakaoProvider.id);
 
-    setLoading(false);
+    await setLoading(false);
   };
 
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
@@ -99,9 +100,9 @@ const Login: NextPage<{
           }`}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={ogTitle} />
-        <meta property="og:description" content={ogDesc} />
-        <meta property="og:image" content={ogImage} />
+        <meta property="og:title" content="About" />
+        <meta property="og:description" content="About" />
+        <meta property="og:image" content="/og.png" />
       </Head>
       <VStack height="92vh" justifyContent="center">
         <VStack marginBottom="20px">

@@ -7,7 +7,9 @@ import styled from "styled-components";
 import { useDismissMutation } from "../hooks/vote/mutations";
 import { VOTE_GET } from "../libs/queryKeys";
 import { getToday, strToDate } from "../libs/utils/dateUtils";
-import { isAttendingState, isShowVoteCancleState } from "../recoil/atoms";
+import { isShowVoteCancleState } from "../recoil/modalAtoms";
+import { isVotingState } from "../recoil/voteAtoms";
+
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 const CancelModalLayout = styled(BaseModal)`
@@ -46,13 +48,13 @@ function CancelModal() {
   const queryClient = useQueryClient();
   const toast = useToast();
   const setIsShowCancle = useSetRecoilState(isShowVoteCancleState);
-  const setIsAttending = useSetRecoilState(isAttendingState);
+  const setisVoting = useSetRecoilState(isVotingState);
 
   const { mutate: handleDismiss, isLoading: dismissLoading } =
     useDismissMutation(today, {
       onSuccess: (data) => {
         queryClient.invalidateQueries(VOTE_GET);
-        setIsAttending(false);
+        setisVoting(false);
       },
       onError: (err) => {
         toast({

@@ -3,17 +3,7 @@ import { useContext } from "react";
 import CancelModal from "../modals/CancelModal";
 import NotCompletedModal from "../modals/NotCompletedModal";
 import UserInfoForm from "../modals/RegisterFormModal";
-import {
-  isShowNotCompletedState,
-  isShowOpenResultState,
-  isShowPrivacyPolicyState,
-  isShowRegisterFormState,
-  isShowStudyVoteModalState,
-  isShowUserInfoSmState,
-  isShowVoteCancleState,
-  isShowVoterState,
-  modalContextState,
-} from "../recoil/atoms";
+
 import OpenResultModal from "../modals/OpenResultModal";
 import ModalPortal from "../libs/utils/ModalPortal";
 import VoterModal from "../modals/VoterModal";
@@ -23,37 +13,52 @@ import { PrivacyPolicy } from "../storage/PrivacyPolicy";
 import { useSession } from "next-auth/react";
 import UserInfoSm from "../modals/UserInfoSm";
 import { FullScreen } from "../styles/LayoutStyles";
+import { isShowMemberInfoState } from "../recoil/membersAtoms";
+import MemberInfoModal from "../modals/members/MemberInfoBgModal";
+import MemberInfoBgModal from "../modals/members/MemberInfoBgModal";
+import {
+  isShowNotCompletedState,
+  isShowStudyVoteModalState,
+  isShowUserInfoSmState,
+  isShowVoteCancleState,
+  modalContextState,
+} from "../recoil/modalAtoms";
+import {
+  isShowOpenResultState,
+  isShowPrivacyPolicyState,
+  isShowRegisterFormState,
+  isShowVoterState,
+} from "../recoil/voteAtoms";
 
 function Modals() {
   const { data: session } = useSession();
-  const isShowVoteCancel = useRecoilValue(isShowVoteCancleState);
-  const isShowNotCompleted = useRecoilValue(isShowNotCompletedState);
-  const isShowRegisterForm = useRecoilValue(isShowRegisterFormState);
-  const [isShowVoter, setIsShowVoter] = useRecoilState(isShowVoterState);
-  const isShowOpenResult = useRecoilValue(isShowOpenResultState);
-  const isShowStudyVote = useRecoilValue(isShowStudyVoteModalState);
-  const isShowPrivacyPolicy = useRecoilValue(isShowPrivacyPolicyState);
-  const isShowUserInfoSm = useRecoilValue(isShowUserInfoSmState);
+  const voteCancel = useRecoilValue(isShowVoteCancleState);
+  const notCompleted = useRecoilValue(isShowNotCompletedState);
+  const registerForm = useRecoilValue(isShowRegisterFormState);
+  const [voter, setVoter] = useRecoilState(isShowVoterState);
+  const openResult = useRecoilValue(isShowOpenResultState);
+  const studyVote = useRecoilValue(isShowStudyVoteModalState);
+  const privacyPolicy = useRecoilValue(isShowPrivacyPolicyState);
+  const userInfoSm = useRecoilValue(isShowUserInfoSmState);
   const setModalContext = useSetRecoilState(modalContextState);
-
+  /*member*/
+  const memberInfo = useRecoilValue(isShowMemberInfoState);
   return (
     <>
-      {isShowPrivacyPolicy && <PrivacyPolicy />}
-      {isShowVoteCancel && <CancelModal />}
-      {isShowNotCompleted && <NotCompletedModal />}
+      {privacyPolicy && <PrivacyPolicy />}
+      {voteCancel && <CancelModal />}
+      {notCompleted && <NotCompletedModal />}
 
-      {isShowOpenResult && <OpenResultModal />}
-      {isShowStudyVote && <StudyVoteModal />}
-      {isShowVoter && (
-        <ModalPortal
-          closePortal={setIsShowVoter}
-          setModalContext={setModalContext}
-        >
+      {openResult && <OpenResultModal />}
+      {studyVote && <StudyVoteModal />}
+      {voter && (
+        <ModalPortal closePortal={setVoter} setModalContext={setModalContext}>
           <VoterModal />
         </ModalPortal>
       )}
-      {!isShowRegisterForm && <RegisterFormModal />}
-      {isShowUserInfoSm && <UserInfoSm />}
+      {registerForm && <RegisterFormModal />}
+      {userInfoSm && <UserInfoSm />}
+      {memberInfo && <MemberInfoBgModal />}
     </>
   );
 }

@@ -4,14 +4,20 @@ import styled from "styled-components";
 import { now } from "../libs/utils/dateUtils";
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 import { PrivacyPolicy } from "../storage/PrivacyPolicy";
+
+import { useSetRecoilState } from "recoil";
+
+import { IUser } from "../models/user";
+import { useState } from "react";
+import { Mutation } from "react-query";
+import { Toast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import { useRegisterMutation } from "../hooks/vote/mutations";
+import { useRouter } from "next/router";
 import {
   isShowPrivacyPolicyState,
   isShowRegisterFormState,
-} from "../recoil/atoms";
-import { useSetRecoilState } from "recoil";
-import { useRegisterMutation } from "../hooks/registerForm";
-import { IUser } from "../models/user";
-import { useState } from "react";
+} from "../recoil/voteAtoms";
 
 const ModalLayout = styled(BaseModal)`
   width: 320px;
@@ -103,8 +109,6 @@ const Agree = styled.div`
     font-size: 1.1em;
     font-family: "NanumEx";
   }
-  > input {
-  }
 `;
 
 const Button = styled.button`
@@ -118,23 +122,41 @@ const Button = styled.button`
   border-radius: 15px;
 `;
 
-export interface IUserInfoForm {
+const CancelBtn = styled.div`
+  display: inline-block;
+  text-align: center;
+  margin-right: 3px;
+  background-color: brown;
+  color: white;
+  width: 56px;
+  height: 25px;
+  padding: 2px;
+  border-radius: 15px;
+`;
+
+export interface IRegisterForm {
   registerDate: string;
   name: string;
   mbti?: string;
   birth: string;
-  agree: any;
+  agree?: any;
   gender?: string;
+}
+export interface IUserRegister extends IRegisterForm {
+  role: string;
+  isActive: boolean;
+  gender: string;
 }
 
 function RegisterFormModal() {
+  const router = useRouter();
   const [isMan, setIsMan] = useState(true);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<IUserInfoForm>({
+  } = useForm<IRegisterForm>({
     defaultValues: {
       registerDate: `${now().format("YYYY-MM-DD")}`,
       name: "",
@@ -144,21 +166,47 @@ function RegisterFormModal() {
     },
   });
   const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
+  const { data: session } = useSession();
+  const uid = session?.uid;
 
-  const onValid = (data: IUserInfoForm) => {
-    const userInfo = {
+  const { mutate: handleRegister, isLoading: isRegisterLoading } =
+    useRegisterMutation({
+      onSuccess: async () => {
+        setIsShowRegisterForm(false);
+      },
+      onError: (err) => {
+        Toast({
+          title: "오류",
+          description: "참여 취소 신청 중 문제가 발생했어요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      },
+    });
+
+  const onValid = (data: IRegisterForm) => {
+    const userInfo: IUserRegister = {
       name: data.name,
       registerDate: data.registerDate,
-      role: "user",
-      isActive: "true",
+      role: "member",
+      isActive: true,
       birth: data.birth,
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
     };
 
-    // useRegisterMutation -> useInfo
+    handleRegister(userInfo);
+
+    setIsShowRegisterForm(false);
   };
   const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
+
+  const onCancelBtnClicked = () => {
+    setIsShowRegisterForm(false);
+    router.push(`/fail`);
+  };
   return (
     <>
       <ModalLayout>
@@ -228,7 +276,9 @@ function RegisterFormModal() {
           <ErrorMessage>{errors?.mbti?.message}</ErrorMessage>
           <SubmitBtn>
             <div>
-              <Button onClick={() => setisShowPrivacy(true)}>약관</Button>
+              <Button type="button" onClick={() => setisShowPrivacy(true)}>
+                약관
+              </Button>
               <Agree>
                 <span>동의</span>
                 <input
@@ -238,8 +288,8 @@ function RegisterFormModal() {
               </Agree>
             </div>
             <div>
-              <Button onClick={() => setIsShowRegisterForm(false)}>취소</Button>
-              <Button onClick={() => setIsShowRegisterForm(false)}>제출</Button>
+              <CancelBtn onClick={onCancelBtnClicked}>취소</CancelBtn>
+              <Button type="submit">제출</Button>
             </div>
           </SubmitBtn>
         </UserForm>

@@ -3,7 +3,6 @@ import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 import { HOURS, MINUTES } from "../../libs/utils/timeUtils";
 import { IParticipation } from "../../models/vote";
-import TimeBoard from "../timeBoard";
 
 const TimeSelector: FC<{
   participation: IParticipation;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { CenterDiv } from "../../styles/LayoutStyles";
 import { Dayjs } from "dayjs";
 import { useSetRecoilState } from "recoil";
-import { voteDateState } from "../../recoil/atoms";
+import { voteDateState } from "../../recoil/voteAtoms";
 
 const Container = styled.div`
   display: flex;

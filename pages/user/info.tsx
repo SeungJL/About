@@ -27,8 +27,7 @@ import { getSession, signOut } from "next-auth/react";
 import NextLink from "next/link";
 import { useMemo, useState } from "react";
 import { useMutation } from "react-query";
-import ProfileImage from "../../components/profileImage";
-import SummaryAttendenceInfo from "../../components/summaryAttendenceInfo";
+import ProfileImage from "../../components/existing/profileImage";
 import {
   isMember,
   isPreviliged,
@@ -42,12 +41,14 @@ import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo";
 import { IUser, User } from "../../models/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 const UserInfo: NextPage<{
   user: string;
   attendences: string;
 }> = ({ user: userParam, attendences: attendencesParam }) => {
   const toast = useToast();
+  const router = useRouter();
   const [user, setUser] = useState(JSON.parse(userParam) as IUser);
   const attendences = useMemo(
     () => JSON.parse(attendencesParam) as IAttendence[],
@@ -144,7 +145,7 @@ const UserInfo: NextPage<{
         </HStack>
       </HStack>
       <Divider />
-      <SummaryAttendenceInfo attendences={attendences} />
+
       <Divider marginBottom="10px" />
       {isPreviliged(user.role) && (
         <>

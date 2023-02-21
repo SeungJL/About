@@ -4,13 +4,13 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Dispatch, SetStateAction, useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IAttendence } from "../models/vote";
-import { modalContextState, showVoterState } from "../recoil/atoms";
 
 import { BaseModal, FullScreen } from "../styles/LayoutStyles";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
-import ProfileImg from "../libs/utils/ProfileImg";
+import ProfileImg from "../components/ProfileImg";
+import { modalContextState } from "../recoil/modalAtoms";
 
 const Container = styled(BaseModal)`
   height: 200px;
@@ -76,8 +76,7 @@ function VoterModal() {
             (user: any) =>
               !user.firstChoice && (
                 <div key={user.user._id}>
-                  <ProfileImg user={user} />
-
+                  <ProfileImg user={user.user} />
                   <span>{user.user.name}</span>
                 </div>
               )

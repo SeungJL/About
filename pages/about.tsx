@@ -1,29 +1,17 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import Seo from "../components/Seo";
 import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
 import MainNavigation from "../components/About/MainNavigation";
-import {
-  isShowVoteCancleState,
-  isShowStudyVoteModalState,
-  showVoterState,
-  voteDateState,
-  ShowOpenResultState,
-  isShowNotCompletedState,
-  studyDateState,
-  isAttendingState,
-  isStudyOpenState,
-  isUserAttendState,
-} from "../recoil/atoms";
+import safeJsonStringify from "safe-json-stringify";
 import {
   faAngleLeft,
   faAngleRight,
   faBell,
-  faSpinner,
   faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,34 +20,29 @@ import { Navigation, Pagination, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import OpenResultModal from "../modals/OpenResultModal";
-import NotCompletedModal from "../modals/NotCompletedModal";
-import CancelModal from "../modals/CancelModal";
 import { IParticipation } from "../models/vote";
-import {
-  convertToKr,
-  getInterestingDate,
-  getToday,
-  now,
-} from "../libs/utils/dateUtils";
+import { convertToKr, getToday, now } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
 import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../libs/dbConnect";
 import { IUser, User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
-import UserInfoForm from "../modals/RegisterFormModal";
-import StudyVoteModal from "../modals/StudyVoteModal";
 import axios from "axios";
-import dayjs from "dayjs";
 import { VOTE_END_HOUR } from "../constants/system";
-import Modals from "../components/Modals";
-import { createContext } from "vm";
+import CircleAlert from "../components/icon/CircleAlert";
+import { getDefaultVoteDate } from "../libs/utils/voteUtils";
+import {
+  isShowRegisterFormState,
+  isStudyOpenState,
+  isUserAttendState,
+  isVotingState,
+  studyDateState,
+  voteDateState,
+} from "../recoil/voteAtoms";
 
-import { Audio, Bars } from "react-loader-spinner";
 const AboutLayout = styled.div`
   position: relative;
 `;
@@ -148,23 +131,20 @@ const Loading = styled.span`
   font-size: 18px;
 `;
 
-function About() {
+function About({ user }) {
   const toast = useToast();
   const { data: session } = useSession();
-  const voteDate = useRecoilValue(voteDateState);
+  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
   const { setColorMode } = useColorMode();
   const setStudyDate = useSetRecoilState(studyDateState);
-  const setIsAttending = useSetRecoilState(isAttendingState);
+  const setisVoting = useSetRecoilState(isVotingState);
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
-  const setIsUserAttend = useSetRecoilState(isUserAttendState);
+  const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
+  const defaultVoteDate = getDefaultVoteDate(isUserAttend);
 
-  const A = useRecoilValue(isStudyOpenState);
-  const B = useRecoilValue(isUserAttendState);
-  const C = useRecoilValue(studyDateState);
-  const D = useRecoilValue(isAttendingState);
-
+  const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -180,8 +160,11 @@ function About() {
   });
 
   useEffect(() => {
+    if (user?.isActive === false) {
+      setIsShowRegisterForm(true);
+    }
     setColorMode("light");
-
+    setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
@@ -195,7 +178,7 @@ function About() {
           (att) => (att.user as IUser).uid === session?.uid
         )
       ) {
-        setIsAttending(true);
+        setisVoting(true);
         studyStatus && setIsUserAttend(true);
       }
       studyStatus && setStudyOpen(true);
@@ -203,26 +186,19 @@ function About() {
   });
 
   useEffect(() => {
-    setIsAttending(false);
+    setisVoting(false);
+    setIsUserAttend(false);
+    setStudyOpen(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
-    const InterestingDateKr = convertToKr(getInterestingDate(), "DDHH");
-    if (voteDateKr === InterestingDateKr) setStudyDate("today");
-    else if (voteDateKr < InterestingDateKr) {
+    const defaultVoteDateKr = convertToKr(defaultVoteDate, "DDHH");
+    if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
+    else if (voteDateKr < defaultVoteDateKr) {
       setStudyDate("passed");
-    } else if (voteDateKr > InterestingDateKr) {
+    } else if (voteDateKr > defaultVoteDateKr) {
       setStudyDate("not passed");
     }
   }, [voteDate]);
-  console.log(
-    "study open:",
-    A,
-    "userAttend:",
-    B,
-    "studyDate:",
-    C,
-    "isAttending:",
-    D
-  );
+
   return (
     <>
       <Seo title="About" />
@@ -232,7 +208,7 @@ function About() {
             <Link href="/notice">
               <div>
                 <FontAwesomeIcon icon={faBell} size="xl" />
-                {/*<CircleAlert />*/}
+                <CircleAlert right="-20" bottom="20" />
               </div>
             </Link>
             <Title>About</Title>
@@ -245,7 +221,7 @@ function About() {
           <InfoSection>
             <div>
               <span>Members</span>
-              <span>72</span>
+              <span>91</span>
             </div>
             <div>
               <span>Today</span>
@@ -314,8 +290,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   await dbConnect();
 
-  const user = await User.findOne({ uid: session.uid });
-
+  const userData = await User.findOne({ uid: session.uid });
+  const user = JSON.parse(safeJsonStringify(userData));
   if (!isMember(user?.role)) {
     if (session.role !== user?.role) {
       context.res.setHeader("Set-Cookie", "next-auth.session-token=deleted");
@@ -335,5 +311,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   }
-  return { props: {} };
+  return { props: { user } };
 };

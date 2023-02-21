@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
+import { IRegisterForm, IUserRegister } from "../../modals/RegisterFormModal";
 import { AttendDTO } from "../../models/interface/vote";
 
 export const useAttendMutation = (
@@ -73,4 +74,14 @@ export const useArrivedMutation = (
 ) =>
   useMutation<void, AxiosError, void>(async () => {
     await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-DD")}/arrived`);
+  }, options);
+
+export const useRegisterMutation = (
+  options?: Omit<
+    UseMutationOptions<any, AxiosError, IUserRegister>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<any, AxiosError, IUserRegister>(async (userRegister) => {
+    await axios.post(`/api/user/profile`, userRegister);
   }, options);

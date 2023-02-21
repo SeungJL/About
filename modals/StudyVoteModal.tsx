@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import PlaceSelector from "../components/voteModal/placeSelector";
-import TimeSelector from "../components/voteModal/timeSelector";
+import PlaceSelector from "../components/studyVote/placeSelector";
+import TimeSelector from "../components/studyVote/timeSelector";
 import { useAttendMutation } from "../hooks/vote/mutations";
 import { VOTE_GET } from "../libs/queryKeys";
 import { hourMinToDate, convertToKr } from "../libs/utils/dateUtils";
@@ -15,12 +15,14 @@ import { AttendDTO } from "../models/interface/vote";
 import { IPlace } from "../models/place";
 import { IParticipation } from "../models/vote";
 import {
-  isAttendingState,
   isShowStudyVoteModalState,
   modalContextState,
+} from "../recoil/modalAtoms";
+import {
+  isVotingState,
   selectPlacesState,
   voteDateState,
-} from "../recoil/atoms";
+} from "../recoil/voteAtoms";
 
 const ModalLayout = styled.div`
   width: 320px;
@@ -121,11 +123,11 @@ function StudyVoteModal() {
   const places = placeInfo.map((pv) => pv.placeName);
   const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
   const [subPlaces, setSubPlaces] = useState([]);
-  const setIsAttending = useSetRecoilState(isAttendingState);
+  const setisVoting = useSetRecoilState(isVotingState);
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      setIsAttending(true);
+      setisVoting(true);
     },
     onError: (err) => {},
   });

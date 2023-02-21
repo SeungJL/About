@@ -3,18 +3,12 @@ import { useMemo } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { dateToDayjs, splitDate } from "../libs/utils/dateUtils";
-import {
-  modalContextState,
-  ShowOpenResultState,
-  isShowOpenResultState,
-} from "../recoil/atoms";
+
 import { IUser } from "../models/user";
 import { timeRange } from "../libs/utils/timeUtils";
 import { START_HOUR } from "../constants/system";
-import ProfileImage from "../components/profileImage";
-import { CheckIcon } from "@chakra-ui/icons";
-import { time } from "console";
-import { IAttendence } from "../models/vote";
+import ProfileImage from "../components/existing/profileImage";
+
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,6 +16,8 @@ import {
   faArrowRight,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
+import { isShowOpenResultState } from "../recoil/voteAtoms";
+import { modalContextState } from "../recoil/modalAtoms";
 const FullScreen = styled.div`
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
@@ -183,7 +179,7 @@ const OpenResultModal = () => {
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   const [modalContext, setModalContext] = useRecoilState(modalContextState);
   const attendences = modalContext?.OpenResult?.attendences;
-  console.log(modalContext);
+
   const [isLeftPage, setIsLeftPage] = useState(true);
   const closeModal = () => {
     setIsShowOpenResult(false);

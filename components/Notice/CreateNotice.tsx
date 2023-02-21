@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { noticeCategory, noticeState } from "../../recoil/atoms";
+import { noticeCategoryState, noticeState } from "../../recoil/noticeAtoms";
 
 const Input = styled.input`
   width: 90%;
@@ -12,7 +12,7 @@ const Form = styled.form``;
 
 function CreateNotice() {
   const setNotices = useSetRecoilState(noticeState);
-  const category = useRecoilValue(noticeCategory);
+  const category = useRecoilValue(noticeCategoryState);
   const { register, handleSubmit, setValue } = useForm();
   const onValid = ({ noticeState }: any) => {
     setNotices((oldNotice) => [...oldNotice, { text: noticeState, category }]);
