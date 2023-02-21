@@ -15,7 +15,7 @@ export interface IModalContext {
   ProfileImg?: {
     user: IUser;
   };
-  MembersInfoBg?: {
+  MemberInfoBg?: {
     userInfo: any;
   };
 }

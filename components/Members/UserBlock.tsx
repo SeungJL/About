@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { birthToAge, nameToKr } from "../../libs/utils/membersUtil";
 import { IUserBlock } from "../../models/members";
@@ -25,15 +25,20 @@ const UserBlockLayout = styled(motion.div)`
     justify-content: center;
     align-items: center;
   }
-  > div:first-child {
-    background: #68d391;
-    color: rgb(34, 84, 61);
-    height: 25%;
-  }
+
   > div:last-child {
     height: 25%;
   }
 `;
+
+const Badge = styled.div<{ role: string }>`
+  background: ${(props) => (props.role === "관리자" ? "#ffc72c" : "#68d391")};
+  color: ${(props) =>
+    props.role === "관리자" ? "#2c3e50" : "rgb(34, 84, 61)"};
+
+  height: 25%;
+`;
+
 const CategoryContent = styled.div`
   flex: 1;
   border-bottom: 1px solid rgb(0, 0, 0, 0.8);
@@ -44,20 +49,21 @@ export default function UserBlock({ userInfo }: IUserBlock) {
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const setModalContext = useSetRecoilState(modalContextState);
   const [content, setContent] = useState("");
-  const category = useRecoilValue(categoryState);
-
+  const [category, setCategory] = useRecoilState(categoryState);
+  console.log(11, userInfo);
   const onUserBlockClicked = () => {
-    setIsShowMemberInfo(true);
     setModalContext((old) =>
       Object.assign(
         {
-          MembersInfoBg: {
+          MemberInfoBg: {
             userInfo: userInfo,
           },
         },
         old
       )
     );
+    setIsShowMemberInfo(true);
+    setCategory((old) => old);
   };
   useEffect(() => {
     const name = category.name;
@@ -70,11 +76,12 @@ export default function UserBlock({ userInfo }: IUserBlock) {
     }
   });
 
-  const position = userInfo.role === "member" ? "일반회원" : "관리자";
-
+  let position = userInfo.role === "member" ? "일반회원" : "관리자";
+  if (userInfo.name === "이승주" || userInfo.name === "채민관")
+    position = "관리자";
   return (
     <UserBlockLayout layoutId={userInfo.id} onClick={onUserBlockClicked}>
-      <div>{position}</div>
+      <Badge role={position}>{position}</Badge>
       <CategoryContent>{content}</CategoryContent>
       <div>{userInfo.name}</div>
     </UserBlockLayout>

@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import UserBadge from "../../components/icon/UserBadge";
+import { birthToAge } from "../../libs/utils/membersUtil";
 import { getServerSideProps } from "../../pages";
 
 import { isShowMemberInfoState } from "../../recoil/membersAtoms";
@@ -141,36 +142,40 @@ const Detail = styled.div`
 `;
 
 export default function MemberInfoBgModal() {
-  const modalContext = useRecoilValue(modalContextState);
-  const userInfo = modalContext.MembersInfoBg.userInfo;
-  const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
+  const [modalContext, setModalContext] = useRecoilState(modalContextState);
 
+  const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
+  const user = modalContext.MemberInfoBg.userInfo;
   const { data: session } = useSession();
-  console.log(session);
+  console.log(user);
+  const onScreenClicked = () => {
+    setModalContext({});
+    setIsShowMemberInfo(false);
+  };
   return (
     <>
       <MemberInfoBgModalLayout>
         <UpPart>
           <UserImage>
-            <img src={session.user.image} />
+            <img src={user.thumbnailImage} />
           </UserImage>
           <UserInfo>
             <UserName>
-              <span>이승주</span>
+              <span>{user.name}</span>
               <UserBadge role="일반회원" />
             </UserName>
             <UserProfile>
               <div>
                 <FontSm>나이: </FontSm>
-                <span>27</span>
+                <span>{birthToAge(user.birth)}</span>
                 <FontSm>성별: </FontSm>
-                <span>남</span>
+                <span>{user.gender.slice(0, 1)}</span>
                 <FontSm>MBTI: </FontSm>
-                <span>ENTP</span>
+                <span>{user.mbti}</span>
               </div>
               <div>
                 <FontSm>가입일: </FontSm>
-                <span>2022-02-04</span>
+                <span>{user.registerDate}</span>
               </div>
             </UserProfile>
           </UserInfo>
@@ -179,15 +184,15 @@ export default function MemberInfoBgModal() {
           <UserAttendSection>
             <div>
               <span>참여횟수(1주)</span>
-              <span>1</span>
+              <span>0</span>
             </div>
             <div>
               <span>참여횟수(한달)</span>
-              <span>4</span>
+              <span>0</span>
             </div>
             <div>
               <span>점수</span>
-              <span>+2</span>
+              <span>0</span>
             </div>
           </UserAttendSection>
           <UserCommentBox>
@@ -205,7 +210,7 @@ export default function MemberInfoBgModal() {
           <Detail>Coming Soon</Detail>
         </DownPart>
       </MemberInfoBgModalLayout>
-      <FullScreen onClick={() => setIsShowMemberInfo(false)} />
+      <FullScreen onClick={onScreenClicked} />
     </>
   );
 }
