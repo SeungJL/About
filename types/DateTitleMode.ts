@@ -9,6 +9,7 @@ export interface ISession {
   expires: string;
   role?: string;
   uid?: string;
+  isActive: boolean;
   user: {
     image: string;
     name: string;

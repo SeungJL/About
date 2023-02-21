@@ -1,12 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { isMember } from "../../../libs/utils/authUtils";
-import { getToday, getInterestingDate } from "../../../libs/utils/dateUtils";
 import dbConnect from "../../../libs/dbConnect";
 import { getProfile } from "../../../libs/utils/oauthUtils";
-import { Attendence } from "../../../models/attendence";
 import { IUser, User } from "../../../models/user";
-import { UserAttendenceInfo } from "../../../models/userAttendenceInfo";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -21,14 +17,16 @@ export default async function handler(
     res.status(401).end();
     return;
   }
-  console.log(1);
+
   await dbConnect();
 
   switch (method) {
     case "POST":
-      await User.updateMany({}, { $set: { status: "active" } });
       const registerForm = req.body;
       await User.updateOne({ uid: token.uid }, { $set: registerForm });
+      const undatedUser = await User.findOne({ uid: token.uid });
+      res.status(200).json(undatedUser);
+      break;
     case "PATCH":
       const profile = await getProfile(
         token.accessToken as string,
