@@ -52,7 +52,7 @@ const IconBox = styled.div`
 const navigationItems = [
   {
     icon: <FontAwesomeIcon icon={faUsers} size="2xl" />,
-    name: "스터디원",
+    name: "Members",
     use: true,
   },
 
@@ -83,7 +83,7 @@ const navigationItems = [
 function MainNavigation() {
   const setIsNotCompleted = useSetRecoilState(isShowNotCompletedState);
   const nameToLink = (name) => {
-    if (name === "스터디원") return "members";
+    if (name === "Members") return "members";
     if (name === "도서") return "book";
     if (name === "모임") return "gather";
     if (name === "기록") return "record";
