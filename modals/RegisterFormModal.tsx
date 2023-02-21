@@ -197,6 +197,8 @@ function RegisterFormModal() {
     };
 
     handleRegister(userInfo);
+
+    setIsShowRegisterForm(false);
   };
   const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
 

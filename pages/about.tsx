@@ -18,6 +18,7 @@ import {
   isVotingState,
   isStudyOpenState,
   isUserAttendState,
+  isShowRegisterFormState,
 } from "../recoil/atoms";
 import {
   faAngleLeft,
@@ -167,7 +168,7 @@ function About() {
   const B = useRecoilValue(isUserAttendState);
   const C = useRecoilValue(studyDateState);
   const D = useRecoilValue(isVotingState);
-
+  const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -181,8 +182,11 @@ function About() {
       });
     },
   });
-
+  console.log(5, session);
   useEffect(() => {
+    if (session?.role === "") {
+      setIsShowRegisterForm(true);
+    }
     setColorMode("light");
     setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {

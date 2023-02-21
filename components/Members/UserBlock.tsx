@@ -37,8 +37,7 @@ const CategoryContent = styled.div`
 export default function UserBlock({ userInfo, category }: any) {
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const setModalContext = useSetRecoilState(modalContextState);
-  const categoryName = category.name;
-  console.log("WW", userInfo[categoryName]);
+  const categoryName = category.name === "가입일" ? "registerDate" : "";
 
   const onUserBlockClicked = () => {
     setIsShowMemberInfo(true);
@@ -53,12 +52,12 @@ export default function UserBlock({ userInfo, category }: any) {
       )
     );
   };
-
+  const position = userInfo.role === "member" ? "일반회원" : "관리자";
   return (
     <UserBlockLayout layoutId={userInfo.id} onClick={onUserBlockClicked}>
-      <div>회장</div>
+      <div>{position}</div>
       <CategoryContent>{userInfo[categoryName]}</CategoryContent>
-      <div>이승주</div>
+      <div>{userInfo.name}</div>
     </UserBlockLayout>
   );
 }

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import Router from "next/router";
 import Modals from "./Modals";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import { isShowRegisterFormState } from "../recoil/atoms";
+import { GetServerSideProps } from "next";
+import dbConnect from "../libs/dbConnect";
+import { User } from "../models/user";
 export default function Layout({ children }) {
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();

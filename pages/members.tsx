@@ -6,7 +6,7 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
@@ -19,7 +19,11 @@ import Link from "next/link";
 import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import { isShowMemberInfoState } from "../recoil/membersAtoms";
-
+import { sortUserList } from "../libs/utils/membersUtil";
+import { IUser, User } from "../models/user";
+import { GetServerSideProps } from "next";
+import dbConnect from "../libs/dbConnect";
+import safeJsonStringify from "safe-json-stringify";
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
@@ -102,27 +106,21 @@ export interface ICategory {
   isSortUp?: boolean;
 }
 
-function Members() {
+function Members({ membersListAll }: { membersListAll: IUser[] }) {
+  const membersList = membersListAll.filter((info) => info.isActive !== false);
   const router = useRouter();
   const [isNavOpend, setIsNavOpened] = useState(false);
   const [category, setCategory] = useState<ICategory>({ name: "가입일" });
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [userList, setUserList] = useState(userArr);
+  const [userList, setUserList] = useState<IUser[]>(membersList);
+  const { data: session } = useSession();
+  console.log(membersListAll, membersList);
   const onFilterClicked = () => {
     setIsNavOpened((isOpen) => !isOpen);
   };
 
-  const sortedKeys = Object.keys(userList[0]);
-
-  const Cat = "age";
-
   useEffect(() => {
-    const sortedCategory = userList.sort((a, b) => {
-      if (a[Cat] > b[Cat]) return 1;
-      else if (a[Cat] < b[Cat]) return -1;
-      else return 0;
-    });
-    setUserList(sortedCategory);
+    setUserList((old) => sortUserList(old, category));
   }, [category]);
 
   return (
@@ -180,413 +178,23 @@ function Members() {
 }
 export default Members;
 
-const userArr = [
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "1021-02-03",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 23,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 25,
-    mbti: "ENTP",
-    가입일: "2021-02-09",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 22,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 30,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-  {
-    name: "이승주",
-    id: "1",
-    age: 27,
-    mbti: "ENTP",
-    가입일: "2021-02-08",
-    role: "회장",
-  },
-];
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
+
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
+
+  await dbConnect();
+
+  const user = await User.find();
+  console.log("23441", typeof user);
+  const membersListAll = JSON.parse(safeJsonStringify(user));
+  return { props: { membersListAll } };
+};
