@@ -42,6 +42,8 @@ import {
   studyDateState,
   voteDateState,
 } from "../recoil/voteAtoms";
+import { useActiveQuery } from "../hooks/user/queries";
+import { useActiveMutation } from "../hooks/user/mutations";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -170,6 +172,7 @@ function About({ user }) {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
+
   useEffect(() => {
     vote?.participations.flatMap((participant) => {
       const studyStatus = participant.status === "open" ? true : false;
