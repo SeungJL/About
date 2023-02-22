@@ -35,3 +35,8 @@ export const isShowUserInfoSmState = atom({
   key: "isShowUserInfoSm",
   default: false,
 });
+
+export const isAttendCheckModalState = atom({
+  key: "isAttendCheckModal",
+  default: false,
+});

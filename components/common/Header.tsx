@@ -16,6 +16,9 @@ const HeaderLayout = styled.div`
 
   padding: 10px 15px;
 `;
+const Title = styled.span`
+  font-size: 1.2em;
+`;
 const BackBtn = styled.div`
   width: 15%;
 `;
@@ -28,7 +31,7 @@ const ConvenienceBtns = styled.div`
   }
 `;
 
-function Header() {
+function Header({ title }) {
   return (
     <HeaderLayout>
       <BackBtn>
@@ -36,7 +39,7 @@ function Header() {
           <FontAwesomeIcon icon={faArrowLeft} size="xl" />
         </Link>
       </BackBtn>
-
+      <Title>{title}</Title>
       <ConvenienceBtns>
         <span>
           <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" />

@@ -6,23 +6,23 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import PlaceSelector from "../components/studyVote/placeSelector";
-import TimeSelector from "../components/studyVote/timeSelector";
-import { useAttendMutation } from "../hooks/vote/mutations";
-import { VOTE_GET } from "../libs/queryKeys";
-import { hourMinToDate, convertToKr } from "../libs/utils/dateUtils";
-import { AttendDTO } from "../models/interface/vote";
-import { IPlace } from "../models/place";
-import { IParticipation } from "../models/vote";
+import PlaceSelector from "../../components/studyVote/placeSelector";
+import TimeSelector from "../../components/studyVote/timeSelector";
+import { useAttendMutation } from "../../hooks/vote/mutations";
+import { VOTE_GET } from "../../libs/queryKeys";
+import { hourMinToDate, convertToKr } from "../../libs/utils/dateUtils";
+import { AttendDTO } from "../../models/interface/vote";
+import { IPlace } from "../../models/place";
+import { IParticipation } from "../../models/vote";
 import {
   isShowStudyVoteModalState,
   modalContextState,
-} from "../recoil/modalAtoms";
+} from "../../recoil/modalAtoms";
 import {
   isVotingState,
   selectPlacesState,
   voteDateState,
-} from "../recoil/voteAtoms";
+} from "../../recoil/voteAtoms";
 
 const ModalLayout = styled.div`
   width: 320px;

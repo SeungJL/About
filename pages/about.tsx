@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
-import Seo from "../components/Seo";
+import Seo from "../components/common/Seo";
 import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
@@ -42,6 +42,7 @@ import {
   studyDateState,
   voteDateState,
 } from "../recoil/voteAtoms";
+import Cover from "../components/common/Cover";
 
 const AboutLayout = styled.div`
   position: relative;

@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { fetchFamousBooks } from "../../hooks/vote/queries";
-import Header from "../../components/Header";
-import Seo from "../../components/Seo";
+import Header from "../../components/common/Header";
+import Seo from "../../components/common/Seo";
 
 interface IBooks {
   bookImageURL: string;
