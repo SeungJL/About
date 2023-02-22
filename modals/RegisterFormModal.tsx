@@ -174,7 +174,6 @@ function RegisterFormModal() {
       onSuccess: async (data: IUser) => {
         session.user.name = data.name;
         session.role = data.role;
-        session.save;
         setIsShowRegisterForm(false);
       },
       onError: (err) => {
