@@ -142,9 +142,7 @@ export default function MemberInfoBgModal() {
   const modalContext = useRecoilValue(modalContextState);
   const userInfo = modalContext.MembersInfoBg.userInfo;
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
-  console.log(userInfo);
   const { data: session } = useSession();
-  console.log(session);
   return (
     <>
       <MemberInfoBgModalLayout>

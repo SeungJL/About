@@ -89,7 +89,7 @@ export default function UserInfoSm() {
   const modalContext = useRecoilValue(modalContextState);
   const setIsShowUserInfoSm = useSetRecoilState(isShowUserInfoSmState);
   const user = modalContext.ProfileImg.user;
-  console.log(user);
+
   return (
     <>
       <UserInfoSmLayout>

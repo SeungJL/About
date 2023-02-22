@@ -183,7 +183,6 @@ const OpenResultModal = () => {
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   const [modalContext, setModalContext] = useRecoilState(modalContextState);
   const attendences = modalContext?.OpenResult?.attendences;
-  console.log(modalContext);
   const [isLeftPage, setIsLeftPage] = useState(true);
   const closeModal = () => {
     setIsShowOpenResult(false);

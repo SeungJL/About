@@ -166,6 +166,7 @@ function About() {
   const C = useRecoilValue(studyDateState);
   const D = useRecoilValue(isAttendingState);
 
+  console.log(session);
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -202,7 +203,6 @@ function About() {
       studyStatus && setStudyOpen(true);
     });
   });
-  console.log(vote);
   useEffect(() => {
     setIsAttending(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
@@ -214,16 +214,6 @@ function About() {
       setStudyDate("not passed");
     }
   }, [voteDate]);
-  console.log(
-    "studyOpen:",
-    A,
-    "userAttend:",
-    B,
-    "studyDate:",
-    C,
-    "isAttending:",
-    D
-  );
   return (
     <>
       <Seo title="About" />

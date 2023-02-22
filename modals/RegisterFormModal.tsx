@@ -188,7 +188,6 @@ function RegisterFormModal() {
       },
     });
 
-  console.log(4321, session);
   const onValid = (data: IRegisterForm) => {
     const userInfo: IUserRegister = {
       name: data.name,

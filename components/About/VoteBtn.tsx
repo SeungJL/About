@@ -146,7 +146,6 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
       )
     );
   };
-  console.log("V", voteStatus);
   return (
     <>
       <OutlineCircle>
