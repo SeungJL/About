@@ -133,7 +133,6 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
       )
     );
   };
-
   return (
     <>
       <OutlineCircle>

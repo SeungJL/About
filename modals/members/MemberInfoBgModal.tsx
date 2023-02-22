@@ -147,11 +147,11 @@ export default function MemberInfoBgModal() {
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const user = modalContext.MemberInfoBg.userInfo;
   const { data: session } = useSession();
-  console.log(user);
   const onScreenClicked = () => {
     setModalContext({});
     setIsShowMemberInfo(false);
   };
+
   return (
     <>
       <MemberInfoBgModalLayout>

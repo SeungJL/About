@@ -1,11 +1,11 @@
-import NextAuth from 'next-auth'
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import KakaoProvider from 'next-auth/providers/kakao'
-import clientPromise from '../../../libs/mongodb';
-import { User } from '../../../models/user';
-import dbConnect from '../../../libs/dbConnect';
-import { getProfile, refreshAccessToken } from '../../../libs/utils/oauthUtils';
-import { Account } from '../../../models/account';
+import NextAuth from "next-auth";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import KakaoProvider from "next-auth/providers/kakao";
+import clientPromise from "../../../libs/mongodb";
+import { User } from "../../../models/user";
+import dbConnect from "../../../libs/dbConnect";
+import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
+import { Account } from "../../../models/account";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -17,7 +17,7 @@ export default NextAuth({
         id: profile.id.toString(),
         uid: profile.id.toString(),
         name: profile.properties.nickname,
-        role: 'member',
+        role: "member",
         thumbnailImage: profile.properties.thumbnail_image,
         profileImage: profile.properties.profile_image,
         statistic: {
@@ -28,57 +28,62 @@ export default NextAuth({
           openCnt2Week: 0,
           voteCnt1Week: 0,
           openCnt1Week: 0,
-        }
+        },
       }),
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 3 * 24 * 60 * 60, // 3 days
   },
   pages: {
-    signIn: '/login',
+    signIn: "/login",
   },
   callbacks: {
     async signIn({ user, account }) {
-      const accessToken = account.access_token
+      const accessToken = account.access_token;
 
       if (!accessToken) {
-        return false
+        return false;
       }
 
-      const kakaoProfile = await getProfile(accessToken, user.uid as string)
+      const kakaoProfile = await getProfile(accessToken, user.uid as string);
 
       if (!kakaoProfile) {
-        return false
+        return false;
       }
 
-      await dbConnect()
+      await dbConnect();
 
-      await User.updateOne({uid: user.uid}, {$set: kakaoProfile})
+      await User.updateOne({ uid: user.uid }, { $set: kakaoProfile });
 
-      return true
+      return true;
     },
     async session({ session, token }) {
-        session.uid = token.uid.toString()
-        session.user.name = token.name
-        session.role = token.role
-        session.error = token.error
+      session.uid = token.uid.toString();
+      session.user.name = token.name;
+      session.role = token.role;
+      session.error = token.error;
+      session.isActive = token.isActive;
 
-        return session;
+      return session;
     },
     async jwt({ token, account, profile, user }) {
       if (account && user) {
-        const client = await clientPromise
-        await Account.updateOne({ providerAccountId: account.providerAccountId }, {$set: {
-          access_token: account.access_token,
-          refresh_token: account.refresh_token,
-          expires_at: account.expires_at,
-          refresh_token_expires_in: account.refresh_token_expires_in,
-        }})
-
+        const client = await clientPromise;
+        await Account.updateOne(
+          { providerAccountId: account.providerAccountId },
+          {
+            $set: {
+              access_token: account.access_token,
+              refresh_token: account.refresh_token,
+              expires_at: account.expires_at,
+              refresh_token_expires_in: account.refresh_token_expires_in,
+            },
+          }
+        );
         return {
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
@@ -88,13 +93,14 @@ export default NextAuth({
           name: (profile as any)?.properties?.nickname,
           picture: (profile as any)?.properties?.profile_image,
           role: user.role,
-        }
+          isActive: user.isActive,
+        };
       }
       if (Date.now() < (token.accessTokenExpires as number) * 1000) {
-        return token
+        return token;
       }
 
-      return refreshAccessToken(token)
+      return refreshAccessToken(token);
     },
-  }
-})
+  },
+});
