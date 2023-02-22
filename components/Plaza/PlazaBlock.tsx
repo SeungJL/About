@@ -5,32 +5,33 @@ import { IPlazaBlock, IPlazaData } from "../../models/plaza";
 import { plazaCategoryState } from "../../recoil/plazaAtoms";
 
 export default function PlazaBlock({ data }: IPlazaBlock) {
-  const category = data.content;
-  const title = data.title;
-  const writer = data.writer;
-  const content = data.content;
-  const voteList = data?.voteList;
+  const id = data.id;
   return (
     <Layout>
       <Header>
-        <Title>제목: {title}</Title>
-        <Writer>작성자: {writer}</Writer>
+        <Title>제목: {data.title}</Title>
+        <Writer>작성자: {data.writer}</Writer>
       </Header>
-      <Content>{content}</Content>
+      <Content>{data.content}</Content>
       <Main>
-        {category !== "voteContents" ? (
-          <form>
-            {voteList?.map((item, idx) => (
-              <InputItem key={idx}>
-                <VoteInput item={item} />
-                <label htmlFor={item}>{item}</label>
-                <br />
-              </InputItem>
-            ))}{" "}
-            <button>제출</button>
-          </form>
+        {data.category === "voteContents" ? (
+          <>
+            <form id={id}>
+              {data.voteList?.map((item, idx) => (
+                <InputItem key={idx}>
+                  <VoteInput item={item} name={id} />
+                  <label htmlFor={item}>{item}</label>
+                  <br />
+                </InputItem>
+              ))}{" "}
+            </form>
+            <VoteFooter>
+              <span>마감일:{data.deadline} </span>
+              <button form={id}>제출</button>
+            </VoteFooter>
+          </>
         ) : (
-          <>3</>
+          <>{data.suggestContent}</>
         )}
       </Main>
     </Layout>
@@ -42,6 +43,7 @@ const Layout = styled.div`
   border-radius: 20px;
   margin-bottom: 30px;
   padding: 15px;
+  padding-bottom: 8px;
   display: flex;
   flex-direction: column;
 `;
@@ -73,11 +75,28 @@ const Main = styled.main`
 `;
 
 const InputItem = styled.div``;
-
 const VoteInput = styled.input.attrs<{ item: string }>((props) => ({
   type: "radio",
   id: props.item,
   value: props.item,
-}))`
+}))<{ item: string }>`
   background: lightyellow;
+`;
+
+const VoteFooter = styled.footer`
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+  > span {
+    display: inline-block;
+    align-self: flex-end;
+    margin-right: 15px;
+    padding-bottom: 3px;
+    font-size: 0.8em;
+  }
+  > button {
+    width: 60px;
+    background-color: pink;
+    border-radius: 10px;
+  }
 `;

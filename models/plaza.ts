@@ -3,7 +3,8 @@ export interface IPlazaData {
   writer: string;
   deadline?: string;
   title: string;
-  content: string;
+  content?: string;
+  suggestContent?: string;
   voteList?: string[];
   id: string;
 }
