@@ -171,7 +171,10 @@ function RegisterFormModal() {
 
   const { mutate: handleRegister, isLoading: isRegisterLoading } =
     useRegisterMutation({
-      onSuccess: async () => {
+      onSuccess: async (data: IUser) => {
+        session.user.name = data.name;
+        session.role = data.role;
+        session.save;
         setIsShowRegisterForm(false);
       },
       onError: (err) => {
@@ -205,7 +208,6 @@ function RegisterFormModal() {
 
   const onCancelBtnClicked = () => {
     setIsShowRegisterForm(false);
-    router.push(`/fail`);
   };
   return (
     <>

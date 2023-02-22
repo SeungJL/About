@@ -83,5 +83,6 @@ export const useRegisterMutation = (
   >
 ) =>
   useMutation<any, AxiosError, IUserRegister>(async (userRegister) => {
-    await axios.post(`/api/user/profile`, userRegister);
+    const res = await axios.post(`/api/user/profile`, userRegister);
+    return res.data;
   }, options);
