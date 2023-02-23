@@ -24,7 +24,7 @@ function Notice() {
   return (
     <NoticeLayout>
       <Seo title="Notice" />
-      <Header />
+      <Header title="공지사항" />
       <MainContent>
         <NoticeCategory />
         <NoticeContents />

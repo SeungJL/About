@@ -126,7 +126,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
   const onCheckClicked = () => {
     setIsAttendCheckModal(true);
   };
-
+  console.log(voteStatus);
   return (
     <>
       <OutlineCircle>
@@ -142,7 +142,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
               ? onClickVoted
               : null
           }
-          state={voteStatus}
+          state={mainLoading ? "" : voteStatus}
         >
           {mainLoading ? "" : voteStatus}
         </VoteCircle>

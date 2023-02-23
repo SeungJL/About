@@ -25,17 +25,23 @@ export const VoteListInputItem = ({ addVoteListItem }) => {
   };
   return (
     <div>
-      <span>{voteListIdx}.&nbsp;&nbsp;</span>
-      <ListInput
-        ref={voteListInput}
-        name="inputList"
-        value={value}
-        onChange={onChange}
-      />
-      <br />{" "}
-      <AddIcon onClick={onAddBtnClicked}>
-        <FontAwesomeIcon icon={faAdd} />
-      </AddIcon>
+      {voteListIdx < 5 ? (
+        <>
+          <span>{voteListIdx}.&nbsp;&nbsp;</span>
+          <ListInput
+            ref={voteListInput}
+            name="inputList"
+            value={value}
+            onChange={onChange}
+          />
+          <br />{" "}
+          <AddIcon onClick={onAddBtnClicked}>
+            <FontAwesomeIcon icon={faAdd} />
+          </AddIcon>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
