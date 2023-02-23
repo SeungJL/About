@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../libs/utils/ModalPortal";
-import CreatePlazaContentModal from "../../modals/CreatePlazaContentModal";
+import CreatePlazaContentModal from "../../modals/userCreate/CreatePlaza/CreatePlazaContentModal";
 import { plazaCategoryState } from "../../recoil/plazaAtoms";
 
 export default function PlazaHeader() {

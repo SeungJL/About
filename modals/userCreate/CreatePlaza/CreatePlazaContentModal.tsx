@@ -1,13 +1,17 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
-import { BaseModal } from "../styles/LayoutStyles";
+import { BaseModal } from "../../../styles/LayoutStyles";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { render } from "react-dom";
+import React from "react";
+import { VoteListInputItem } from "./VoteListInputItem";
 
 export default function CreatePlazaContentModal({ setIsShowModal }) {
   const [isVoteCategory, setIsVoteCategory] = useState(true);
+  const [voteListArr, setVoteListArr] = useState([]);
+
   const {
     register,
     handleSubmit,
@@ -15,9 +19,6 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
     formState: { errors },
   } = useForm();
 
-  const voteListInput = useRef();
-
-  const addVoteListItem = () => {};
   return (
     <Layout>
       <Category>
@@ -57,8 +58,13 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
           <ContentInput />
         </div>
         {isVoteCategory && (
-          <VoteList ref={voteListInput}>
-            <ListItem addVoteListItem={addVoteListItem} />
+          <VoteList>
+            {voteListArr.map((item, idx) => (
+              <div key={idx}>
+                {item.voteListIdx}.&nbsp;&nbsp;{item.value}
+              </div>
+            ))}
+            <VoteListInputItem addVoteListItem={setVoteListArr} />
           </VoteList>
         )}
       </Form>
@@ -66,19 +72,6 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
     </Layout>
   );
 }
-
-const ListItem = ({ addVoteListItem }) => {
-  return (
-    <div>
-      <span>1. </span>
-      <ListInput />
-      <br />
-      <AddIcon onClick={() => addVoteListItem()}>
-        <FontAwesomeIcon icon={faAdd} />
-      </AddIcon>
-    </div>
-  );
-};
 
 const Layout = styled(BaseModal)`
   width: 350px;
@@ -123,6 +116,9 @@ const Form = styled.form`
       flex: 1;
     }
   }
+  > div:last-child {
+    display: block;
+  }
 `;
 
 const TitleInput = styled.input``;
@@ -136,9 +132,3 @@ const DeadlineInput = styled.input``;
 const VoteList = styled.div`
   flex: 1;
 `;
-
-const ListInput = styled.input`
-  background-color: gray;
-`;
-
-const AddIcon = styled.button``;
