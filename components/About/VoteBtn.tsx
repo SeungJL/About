@@ -44,7 +44,9 @@ const VoteCircle = styled.button<IVoteCircle>`
   width: 82%;
   height: 82%;
   background: ${(props) =>
-    props.state === "Closed"
+    props.state === ""
+      ? "linear-gradient(45deg,RGB(108, 66, 28),rgb(78, 42, 11))"
+      : props.state === "Closed"
       ? "linear-gradient(45deg,#F1F2F6,#C9C6C6)"
       : props.state === "Check" || props.state === "Completed"
       ? "linear-gradient(45deg,#FFDD00,#FBB034)"
@@ -54,7 +56,9 @@ const VoteCircle = styled.button<IVoteCircle>`
       ? "linear-gradient(45deg,#FFD700,#FEBE10)"
       : "linear-gradient(45deg,RGB(143, 80, 23),RGB(83, 46, 13))"};
   color: ${(props) =>
-    props.state === "Closed"
+    props.state === ""
+      ? "white"
+      : props.state === "Closed"
       ? "rgb(0,0,0,0.7)"
       : props.state === "Check" || props.state === "Completed"
       ? "black"
