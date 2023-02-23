@@ -1,25 +1,51 @@
-import { useSetRecoilState } from "recoil";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import ModalPortal from "../../libs/utils/ModalPortal";
+import CreatePlazaContentModal from "../../modals/CreatePlazaContentModal";
 import { plazaCategoryState } from "../../recoil/plazaAtoms";
 
 export default function PlazaHeader() {
-  const setPlazaCategory = useSetRecoilState(plazaCategoryState);
+  const [plazaCategory, setPlazaCategory] = useRecoilState(plazaCategoryState);
+  const [isShowModal, setIsShowModal] = useState(false);
+  useState(false);
   return (
-    <Layout>
-      <Category>
-        <button onClick={() => setPlazaCategory("all")}>전체</button>
-        <button onClick={() => setPlazaCategory("voteContents")}>
-          커뮤니티
-        </button>
-        <button onClick={() => setPlazaCategory("suggestionContents")}>
-          건의사항
-        </button>
-      </Category>
-      <BtnNav>
-        <button>글</button>
-        <button>건의</button>
-      </BtnNav>
-    </Layout>
+    <>
+      <Layout>
+        <Category>
+          <Button
+            onClick={() => setPlazaCategory("all")}
+            isSelected={Boolean(plazaCategory === "all")}
+          >
+            전체
+          </Button>
+          <Button
+            onClick={() => setPlazaCategory("voteContents")}
+            isSelected={Boolean(plazaCategory === "voteContents")}
+          >
+            커뮤니티
+          </Button>
+          <Button
+            onClick={() => setPlazaCategory("suggestionContents")}
+            isSelected={Boolean(plazaCategory === "suggestionContents")}
+          >
+            건의사항
+          </Button>
+        </Category>
+        <BtnNav>
+          <button onClick={() => setIsShowModal(true)}>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </button>
+        </BtnNav>
+      </Layout>
+      {isShowModal && (
+        <ModalPortal closePortal={setIsShowModal}>
+          <CreatePlazaContentModal setIsShowModal={setIsShowModal} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 
@@ -29,7 +55,6 @@ const Layout = styled.div`
   align-items: center;
   height: 50px;
   padding: 0 15px;
-  background-color: lightpink;
 `;
 const Category = styled.div`
   border-radius: 10px;
@@ -38,15 +63,10 @@ const Category = styled.div`
   > button {
     width: 60px;
     height: 30px;
-    background-color: lightgray;
   }
 `;
 
-const BtnNav = styled.nav`
-  border-radius: 10px;
-  overflow: hidden;
-  > button {
-    width: 40px;
-    background-color: lightgray;
-  }
+const BtnNav = styled.nav``;
+const Button = styled.button<{ isSelected: boolean }>`
+  background-color: ${(props) => (props.isSelected ? "brown" : "lightGray")};
 `;
