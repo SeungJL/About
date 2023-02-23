@@ -35,3 +35,13 @@ export const isShowUserInfoSmState = atom({
   key: "isShowUserInfoSm",
   default: false,
 });
+
+export const isAttendCheckModalState = atom({
+  key: "isAttendCheckModal",
+  default: false,
+});
+
+export const isCreatePlazaContentModalState = atom({
+  key: "isCreatePlazaContentModal",
+  default: false,
+});

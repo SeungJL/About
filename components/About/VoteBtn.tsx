@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useQueryClient } from "react-query";
 import { useToast } from "@chakra-ui/react";
 import { CenterDiv } from "../../styles/LayoutStyles";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useAbsentMutation,
   useArrivedMutation,
@@ -11,6 +11,7 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
 import { IParticipation } from "../../models/vote";
 import {
+  isAttendCheckModalState,
   isShowStudyVoteModalState,
   modalContextState,
 } from "../../recoil/modalAtoms";
@@ -19,6 +20,8 @@ import {
   voteDateState,
   voteStatusState,
 } from "../../recoil/voteAtoms";
+import ModalPortal from "../../libs/utils/ModalPortal";
+import AttendCheckModal from "../../modals/study/AttendCheckModal";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;
@@ -80,22 +83,9 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
   const voteStatus = useRecoilValue(voteStatusState);
   const setisVoting = useSetRecoilState(isVotingState);
   const setModalContext = useSetRecoilState(modalContextState);
-
-  const { mutate: handleArrived } = useArrivedMutation(getToday(), {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries(VOTE_GET);
-    },
-    onError: (err) => {
-      toast({
-        title: "오류",
-        description: "출석체크 중 문제가 발생했어요. 다시 시도해보세요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
+  const [isAttendCheckModal, setIsAttendCheckModal] = useRecoilState(
+    isAttendCheckModalState
+  );
 
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     voteDate,
@@ -133,14 +123,17 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
       )
     );
   };
-
+  const onCheckClicked = () => {
+    setIsAttendCheckModal(true);
+  };
+  console.log(voteStatus);
   return (
     <>
       <OutlineCircle>
         <VoteCircle
           onClick={
             voteStatus === "Check"
-              ? () => handleArrived()
+              ? onCheckClicked
               : voteStatus === "Completed"
               ? null
               : ["Join", "Vote"].includes(voteStatus)
@@ -149,11 +142,16 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
               ? onClickVoted
               : null
           }
-          state={voteStatus}
+          state={mainLoading ? "" : voteStatus}
         >
           {mainLoading ? "" : voteStatus}
         </VoteCircle>
       </OutlineCircle>
+      {isAttendCheckModal && (
+        <ModalPortal closePortal={setIsAttendCheckModal}>
+          <AttendCheckModal />
+        </ModalPortal>
+      )}
     </>
   );
 }

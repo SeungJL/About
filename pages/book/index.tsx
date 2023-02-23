@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { fetchFamousBooks } from "../../hooks/vote/queries";
-import Header from "../../components/Header";
-import Seo from "../../components/Seo";
+
+import Seo from "../../components/common/Seo";
+import Header from "../../components/common/Header";
 
 interface IBooks {
   bookImageURL: string;
@@ -64,7 +65,7 @@ function Books() {
 
   return (
     <>
-      <Header />
+      <Header title="Book" />
       <Seo title="Books" />
       <BooksLayout>
         <BooksHeader>

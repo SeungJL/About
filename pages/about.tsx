@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
-import Seo from "../components/Seo";
+import Seo from "../components/common/Seo";
 import VoteBtn from "../components/About/VoteBtn";
 import ResultBlock from "../components/About/ResultBlock";
 import AnotherDaysNav from "../components/About/AnotherDaysNav";
@@ -42,6 +42,8 @@ import {
   studyDateState,
   voteDateState,
 } from "../recoil/voteAtoms";
+import { useActiveQuery } from "../hooks/user/queries";
+import { useActiveMutation } from "../hooks/user/mutations";
 
 const AboutLayout = styled.div`
   position: relative;
@@ -170,6 +172,7 @@ function About({ user }) {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
+
   useEffect(() => {
     vote?.participations.flatMap((participant) => {
       const studyStatus = participant.status === "open" ? true : false;

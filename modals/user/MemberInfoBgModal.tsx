@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { CommentBox } from "../../components/common/CommentBox";
 import UserBadge from "../../components/icon/UserBadge";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { getServerSideProps } from "../../pages";
@@ -147,11 +148,11 @@ export default function MemberInfoBgModal() {
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const user = modalContext.MemberInfoBg.userInfo;
   const { data: session } = useSession();
-  console.log(user);
   const onScreenClicked = () => {
     setModalContext({});
     setIsShowMemberInfo(false);
   };
+
   return (
     <>
       <MemberInfoBgModalLayout>
@@ -195,13 +196,11 @@ export default function MemberInfoBgModal() {
               <span>0</span>
             </div>
           </UserAttendSection>
-          <UserCommentBox>
-            <UserComment>
-              <span>Comment</span>
-              <br />
-              <span>안녕하세요~ 잘 부탁드립니다 !</span>
-            </UserComment>
-          </UserCommentBox>
+          <CommentBox>
+            <span>Comment</span>
+            <br />
+            <span>안녕하세요~ 잘 부탁드립니다 !</span>
+          </CommentBox>
           <UserRelNav>
             <button>Chart</button>
             <button>기록</button>
