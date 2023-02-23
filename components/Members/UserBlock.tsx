@@ -50,7 +50,7 @@ export default function UserBlock({ userInfo }: IUserBlock) {
   const setModalContext = useSetRecoilState(modalContextState);
   const [content, setContent] = useState("");
   const [category, setCategory] = useRecoilState(categoryState);
-  console.log(11, userInfo);
+
   const onUserBlockClicked = () => {
     setModalContext((old) =>
       Object.assign(
@@ -68,9 +68,10 @@ export default function UserBlock({ userInfo }: IUserBlock) {
   useEffect(() => {
     const name = category.name;
     let categoryContent = userInfo[name];
-    console.log(56, categoryContent);
     if (name === "birth") {
       setContent(birthToAge(categoryContent));
+    } else if (name === "mbti") {
+      setContent(categoryContent.toUpperCase());
     } else {
       setContent(categoryContent);
     }
