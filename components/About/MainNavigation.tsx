@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSetRecoilState } from "recoil";
 import Link from "next/link";
-import CircleAlert from "../icon/CircleAlert";
+import CircleAlert from "../block/CircleAlert";
 import { isShowNotCompletedState } from "../../recoil/modalAtoms";
 
 const MainNavLayout = styled.nav`

@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { CommentBox } from "../../components/common/CommentBox";
-import UserBadge from "../../components/icon/UserBadge";
+import UserBadge from "../../components/block/UserBadge";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { getServerSideProps } from "../../pages";
 
@@ -14,7 +14,7 @@ import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
 const MemberInfoBgModalLayout = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   width: 300px;
   height: 380px;
   top: 50%;
@@ -144,7 +144,6 @@ const Detail = styled.div`
 
 export default function MemberInfoBgModal() {
   const [modalContext, setModalContext] = useRecoilState(modalContextState);
-
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const user = modalContext.MemberInfoBg.userInfo;
   const { data: session } = useSession();
@@ -163,7 +162,7 @@ export default function MemberInfoBgModal() {
           <UserInfo>
             <UserName>
               <span>{user.name}</span>
-              <UserBadge role="일반회원" />
+              <UserBadge role={user.role} />
             </UserName>
             <UserProfile>
               <div>
@@ -172,7 +171,7 @@ export default function MemberInfoBgModal() {
                 <FontSm>성별: </FontSm>
                 <span>{user.gender.slice(0, 1)}</span>
                 <FontSm>MBTI: </FontSm>
-                <span>{user.mbti}</span>
+                <span>{user.mbti.toUpperCase()}</span>
               </div>
               <div>
                 <FontSm>가입일: </FontSm>

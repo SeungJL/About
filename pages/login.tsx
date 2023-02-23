@@ -26,7 +26,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import Logo from "../components/icon/logo";
+import Logo from "../components/block/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 
 const Login: NextPage<{

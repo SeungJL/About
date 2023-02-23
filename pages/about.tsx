@@ -32,7 +32,7 @@ import { IUser, User } from "../models/user";
 import { isMember } from "../libs/utils/authUtils";
 import axios from "axios";
 import { VOTE_END_HOUR } from "../constants/system";
-import CircleAlert from "../components/icon/CircleAlert";
+import CircleAlert from "../components/block/CircleAlert";
 import { getDefaultVoteDate } from "../libs/utils/voteUtils";
 import {
   isShowRegisterFormState,

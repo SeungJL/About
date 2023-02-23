@@ -23,7 +23,6 @@ export default async function handler(
   switch (method) {
     case "GET":
       const targetUser = await User.findOne({ uid: token.uid });
-
       res.status(200).json(targetUser);
       break;
     case "POST":

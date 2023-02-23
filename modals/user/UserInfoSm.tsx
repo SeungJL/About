@@ -1,13 +1,15 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import UserBadge from "../../components/icon/UserBadge";
-import { birthToAge } from "../../libs/utils/membersUtil";
+import UserBadge from "../../components/block/UserBadge";
 import {
   isShowUserInfoSmState,
   modalContextState,
 } from "../../recoil/modalAtoms";
+import { useActiveQuery } from "../../hooks/user/queries";
 
 import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
+import { birthToAge } from "../../libs/utils/membersUtil";
+import { useSession } from "next-auth/react";
 
 const UserInfoSmLayout = styled(BaseModal)`
   height: 200px;
@@ -94,7 +96,9 @@ export default function UserInfoSm() {
   const modalContext = useRecoilValue(modalContextState);
   const setIsShowUserInfoSm = useSetRecoilState(isShowUserInfoSmState);
   const user = modalContext.ProfileImg.user;
-
+  const { data: session } = useSession();
+  console.log(session);
+  console.log(2, user);
   return (
     <>
       <UserInfoSmLayout>
@@ -105,23 +109,23 @@ export default function UserInfoSm() {
           <UserInfo>
             <UserName>
               <span>{user.name}</span>
-              <UserBadge role="일반회원" />
+              <UserBadge role={user.role} />
             </UserName>
             <UserProfile>
               <div>
                 <div>
                   <FontSm>나이: </FontSm>
-                  <span>.</span>
+                  <span>{birthToAge(user.birth)}</span>
                 </div>
                 <div>
                   <FontSm>성별: </FontSm>
-                  <span>.</span>
+                  <span>{user.gender}</span>
                 </div>
               </div>
               <div>
                 <div>
                   <FontSm>MBTI: </FontSm>
-                  <span>.</span>
+                  <span>{user.mbti.toUpperCase()}</span>
                 </div>
               </div>
             </UserProfile>
