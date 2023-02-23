@@ -1,19 +1,25 @@
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faCheck,
+  faDeleteLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-export const VoteListInputItem = ({ addVoteListItem }) => {
+export const VoteListInputItem = ({ voteListArr, setVoteListArr }) => {
   const voteListInput = useRef();
   const list = voteListInput.current;
   const [value, setValue] = useState("");
-  const [voteListIdx, setVoteListIdx] = useState(1);
+  console.log(voteListArr);
+  let voteListIdx = 0;
+  if (voteListArr.length !== 0)
+    voteListIdx = voteListArr[voteListArr.length - 1].voteListIdx;
 
   if (list) {
   }
   const onAddBtnClicked = () => {
-    addVoteListItem((old) => [...old, { voteListIdx, value }]);
-    setVoteListIdx((idx) => idx + 1);
+    setVoteListArr((old) => [...old, { voteListIdx: voteListIdx + 1, value }]);
     setValue("");
   };
 
@@ -23,24 +29,22 @@ export const VoteListInputItem = ({ addVoteListItem }) => {
     } = event;
     setValue(value);
   };
+
   return (
     <div>
-      {voteListIdx < 5 ? (
+      {voteListIdx < 4 && (
         <>
-          <span>{voteListIdx}.&nbsp;&nbsp;</span>
+          <span>{voteListIdx + 1}.&nbsp;&nbsp;</span>
           <ListInput
             ref={voteListInput}
             name="inputList"
             value={value}
             onChange={onChange}
           />
-          <br />{" "}
           <AddIcon onClick={onAddBtnClicked}>
-            <FontAwesomeIcon icon={faAdd} />
+            <FontAwesomeIcon icon={faCheck} />
           </AddIcon>
         </>
-      ) : (
-        ""
       )}
     </div>
   );
@@ -54,10 +58,10 @@ const ListInput = styled.input.attrs<{
   placeholder: "입력하세요",
   placeholderTextColor: "black",
 }))<{ name: string; value: string }>`
-  background-color: gray;
+  background-color: lightGray;
   color: white;
   ::placeholder {
-    color: black;
+    color: rgb(0, 0, 0, 0.7);
   }
 `;
 

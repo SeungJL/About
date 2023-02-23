@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BaseModal } from "../../../styles/LayoutStyles";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import { render } from "react-dom";
 import React from "react";
 import { VoteListInputItem } from "./VoteListInputItem";
@@ -11,14 +11,25 @@ import { VoteListInputItem } from "./VoteListInputItem";
 export default function CreatePlazaContentModal({ setIsShowModal }) {
   const [isVoteCategory, setIsVoteCategory] = useState(true);
   const [voteListArr, setVoteListArr] = useState([]);
-
+  const [isPublic, setIsPublic] = useState(true);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-
+  const onDeleteBtnClicked = (idx) => {
+    console.log(22, voteListArr);
+    const NewArr = voteListArr?.map((item) => {
+      const voteListIdx = item.voteListIdx;
+      let newIdx = idx;
+      if (voteListIdx > idx) newIdx = voteListIdx - 1;
+      else newIdx = voteListIdx;
+      return { voteListIdx: newIdx, value: item.value };
+    });
+    NewArr.splice(idx - 1, 1);
+    setVoteListArr(NewArr);
+  };
   return (
     <Layout>
       <Category>
@@ -35,22 +46,41 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
           건의
         </Button>
       </Category>
-      <Form>
+      <Form id="createPlazaForm">
         <div>
           <>
             <span>제목: </span>
-            <TitleInput />
+            <TitleInput {...register("title", { required: true })} />
           </>
         </div>
         <div>
           <span>작성자: </span>
-          <button type="button">실명</button>
-          <button type="button">익명</button>
+          <IsPublicBtn
+            isPublic={Boolean(isPublic)}
+            onClick={() => setIsPublic(true)}
+          >
+            실명
+          </IsPublicBtn>
+          <IsPublicBtn
+            isPublic={!Boolean(isPublic)}
+            onClick={() => setIsPublic(false)}
+          >
+            익명
+          </IsPublicBtn>
         </div>
         {isVoteCategory && (
           <div>
             <span>마감일: </span>
-            <DeadlineInput />
+            <DeadlineInput
+              {...register("deadline", {
+                required: "필수입력",
+                pattern: {
+                  value: /^\d{4}-\d{2}-\d{2}$/,
+                  message: "YYYY-MM-DD 형식으로 작성해주세요",
+                },
+              })}
+              placeholder="YYYY-MM-DD"
+            />
           </div>
         )}
         <div>
@@ -61,10 +91,18 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
           <VoteList>
             {voteListArr.map((item, idx) => (
               <div key={idx}>
-                {item.voteListIdx}.&nbsp;&nbsp;{item.value}
+                <span>
+                  {item.voteListIdx}.&nbsp;&nbsp;{item.value}
+                </span>
+                <DeleteIcon onClick={() => onDeleteBtnClicked(idx + 1)}>
+                  <FontAwesomeIcon icon={faDeleteLeft} />
+                </DeleteIcon>
               </div>
             ))}
-            <VoteListInputItem addVoteListItem={setVoteListArr} />
+            <VoteListInputItem
+              voteListArr={voteListArr}
+              setVoteListArr={setVoteListArr}
+            />
           </VoteList>
         )}
       </Form>
@@ -73,9 +111,21 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
   );
 }
 
+const IsPublicBtn = styled.button.attrs((props) => ({
+  type: "button",
+}))<{ isPublic: boolean }>`
+  width: 50px;
+  background-color: ${(props) => (props.isPublic ? "brown" : "lightGray")};
+`;
+
+const DeleteIcon = styled.button.attrs((props) => ({
+  type: "button",
+}))``;
+
 const Layout = styled(BaseModal)`
   width: 350px;
   height: 400px;
+
   > button:last-child {
     width: 60px;
     height: 25px;
@@ -106,6 +156,7 @@ const Form = styled.form`
   > div {
     flex-basis: 30px;
     display: flex;
+    margin-bottom: 3px;
     > span {
       display: inline-block;
       width: 60px;
@@ -123,8 +174,10 @@ const Form = styled.form`
 
 const TitleInput = styled.input``;
 
-const ContentInput = styled.input`
+const ContentInput = styled.textarea.attrs((props) => ({}))`
+  width: 81%;
   height: 100px;
+  background: lightgray;
 `;
 
 const DeadlineInput = styled.input``;
