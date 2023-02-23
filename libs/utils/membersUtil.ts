@@ -69,7 +69,7 @@ export const sortUserList: ISortUserList = (
       newUserList = old.sort(function (a, b) {
         first = Number(birthToAge(a[name]));
         second = Number(birthToAge(b[name]));
-        console.log(first, second);
+
         if (first > second) return 1;
         if (first < second) return -1;
         return 0;
@@ -80,7 +80,7 @@ export const sortUserList: ISortUserList = (
       newUserList = old.sort(function (a, b) {
         first = Number(birthToAge(a[name]));
         second = Number(birthToAge(b[name]));
-        console.log(1, first, second);
+
         if (first > second) return -1;
         if (first < second) return 1;
         return 0;

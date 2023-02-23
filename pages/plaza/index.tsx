@@ -11,7 +11,6 @@ import { plazaCategoryState, plazaDataSelector } from "../../recoil/plazaAtoms";
 import PlazaHeader from "../../components/Plaza/PlazaHeader";
 
 function Plaza() {
-  const [plazaCategory, setPlazaCategory] = useRecoilState(plazaCategoryState);
   const plazaData = useRecoilValue(plazaDataSelector);
   return (
     <>

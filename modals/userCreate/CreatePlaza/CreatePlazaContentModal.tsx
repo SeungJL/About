@@ -7,11 +7,14 @@ import { faAdd, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import { render } from "react-dom";
 import React from "react";
 import { VoteListInputItem } from "./VoteListInputItem";
+import { useSession } from "next-auth/react";
 
 export default function CreatePlazaContentModal({ setIsShowModal }) {
   const [isVoteCategory, setIsVoteCategory] = useState(true);
   const [voteListArr, setVoteListArr] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
+  const { data: session } = useSession();
+
   const {
     register,
     handleSubmit,
@@ -19,7 +22,6 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
     formState: { errors },
   } = useForm();
   const onDeleteBtnClicked = (idx) => {
-    console.log(22, voteListArr);
     const NewArr = voteListArr?.map((item) => {
       const voteListIdx = item.voteListIdx;
       let newIdx = idx;
@@ -29,6 +31,21 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
     });
     NewArr.splice(idx - 1, 1);
     setVoteListArr(NewArr);
+  };
+  const onValid = (data) => {
+    const userInfo = {
+      id: String(Math.random() * 10000),
+      category: isVoteCategory ? "voteContents" : "suggestionContents",
+      title: data.title,
+      writer: isPublic ? session.user.name : "",
+      deadline: isVoteCategory ? data.deadline : "",
+      content: data.content,
+      voteList: isVoteCategory ? voteListArr : [],
+    };
+
+    //mutation
+
+    setIsShowModal(false);
   };
   return (
     <Layout>
@@ -46,7 +63,7 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
           건의
         </Button>
       </Category>
-      <Form id="createPlazaForm">
+      <Form id="createPlaza" onSubmit={handleSubmit(onValid)}>
         <div>
           <>
             <span>제목: </span>
@@ -75,17 +92,17 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
               {...register("deadline", {
                 required: "필수입력",
                 pattern: {
-                  value: /^\d{4}-\d{2}-\d{2}$/,
-                  message: "YYYY-MM-DD 형식으로 작성해주세요",
+                  value: /^\d{2}-\d{2}$/,
+                  message: "MM-DD 형식으로 작성해주세요",
                 },
               })}
-              placeholder="YYYY-MM-DD"
+              placeholder="MM-DD"
             />
           </div>
         )}
         <div>
           <span>내용: </span>
-          <ContentInput />
+          <Content {...register("content")} />
         </div>
         {isVoteCategory && (
           <VoteList>
@@ -106,7 +123,7 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
           </VoteList>
         )}
       </Form>
-      <button>제출</button>
+      <button form="createPlaza">제출</button>
     </Layout>
   );
 }
@@ -174,7 +191,7 @@ const Form = styled.form`
 
 const TitleInput = styled.input``;
 
-const ContentInput = styled.textarea.attrs((props) => ({}))`
+const Content = styled.textarea.attrs((props) => ({}))`
   width: 81%;
   height: 100px;
   background: lightgray;
