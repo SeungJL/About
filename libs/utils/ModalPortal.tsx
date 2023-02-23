@@ -2,13 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FullScreen } from "../../styles/LayoutStyles";
 
-const ModalPortal = ({ children, closePortal, setModalContext }) => {
+const ModalPortal = ({ children, closePortal }) => {
   const ref = useRef<Element | null>();
   const [mounted, setMounted] = useState(false);
 
   const closeModal = () => {
     closePortal(false);
-    setModalContext({});
   };
 
   useEffect(() => {

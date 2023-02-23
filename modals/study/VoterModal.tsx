@@ -3,14 +3,14 @@ import * as ReactDOM from "react-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Dispatch, SetStateAction, useRef, useEffect, useState } from "react";
 import styled from "styled-components";
-import { IAttendence } from "../models/vote";
+import { IAttendence } from "../../models/vote";
 
-import { BaseModal, FullScreen } from "../styles/LayoutStyles";
+import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
-import ProfileImg from "../components/ProfileImg";
-import { modalContextState } from "../recoil/modalAtoms";
+import ProfileImg from "../../components/common/ProfileImg";
+import { modalContextState } from "../../recoil/modalAtoms";
 
 const Container = styled(BaseModal)`
   height: 200px;
