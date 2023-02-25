@@ -95,7 +95,7 @@ function About({ user }) {
       const studyStatus = participant.status === "open" ? true : false;
       if (
         participant.attendences.find(
-          (att) => (att.user as IUser).uid === session?.uid
+          (att) => (att.user as IUser)?.uid === session?.uid
         )
       ) {
         setisVoting(true);
