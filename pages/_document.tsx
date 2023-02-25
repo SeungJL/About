@@ -40,7 +40,6 @@ export default class MyDocument extends Document {
             content="width=device-width, initial-scale=1.0"
           ></meta>
           <meta charSet="utf-8"></meta>
-
           <link
             href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap"
             rel="stylesheet"

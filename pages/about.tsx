@@ -141,7 +141,7 @@ function About({ user }) {
               )}
             </Link>
             <Title>About</Title>
-            <Link href="/user/info">
+            <Link href="/user">
               <div>
                 <FontAwesomeIcon icon={faUserGear} size="xl" />
               </div>
