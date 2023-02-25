@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import UserBadge from "../../components/block/UserBadge";
 import {
@@ -92,13 +92,7 @@ const UserComment = styled.div`
   font-size: 0.9em;
 `;
 
-export default function UserInfoSm() {
-  const modalContext = useRecoilValue(modalContextState);
-  const setIsShowUserInfoSm = useSetRecoilState(isShowUserInfoSmState);
-  const user = modalContext.ProfileImg.user;
-  const { data: session } = useSession();
-  console.log(session);
-  console.log(2, user);
+export default function UserInfoSm({ user }) {
   return (
     <>
       <UserInfoSmLayout>
@@ -145,7 +139,6 @@ export default function UserInfoSm() {
           </UserRelNav>
         </DownPart>
       </UserInfoSmLayout>
-      <FullScreen onClick={() => setIsShowUserInfoSm(false)} />
     </>
   );
 }

@@ -41,6 +41,7 @@ function Modals() {
   const privacyPolicy = useRecoilValue(isShowPrivacyPolicyState);
   const userInfoSm = useRecoilValue(isShowUserInfoSmState);
   const setModalContext = useSetRecoilState(modalContextState);
+
   /*member*/
   const memberInfo = useRecoilValue(isShowMemberInfoState);
   return (
@@ -57,7 +58,7 @@ function Modals() {
         </ModalPortal>
       )}
       {registerForm && <RegisterFormModal />}
-      {userInfoSm && <UserInfoSm />}
+
       {memberInfo && <MemberInfoBgModal />}
     </>
   );

@@ -1,5 +1,7 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import ModalPortal from "../../libs/utils/ModalPortal";
 import UserInfoSm from "../../modals/user/UserInfoSm";
 import { IUser } from "../../models/user";
 import {
@@ -14,28 +16,18 @@ const ProfileImgLayout = styled.div`
 `;
 
 export default function ProfileImg({ user }: { user: IUser }) {
-  const setIsShowUserInfoSm = useSetRecoilState(isShowUserInfoSmState);
-  const setModalContext = useSetRecoilState(modalContextState);
-  console.log(53, user);
-  const onProfileImgClicked = () => {
-    setIsShowUserInfoSm(true);
+  const [isShowModal, setIsShowModal] = useState(false);
 
-    setModalContext((old) =>
-      Object.assign(
-        {
-          ProfileImg: {
-            user: user,
-          },
-        },
-        old
-      )
-    );
-  };
   return (
     <>
-      <ProfileImgLayout onClick={onProfileImgClicked}>
+      <ProfileImgLayout onClick={() => setIsShowModal(true)}>
         <img src={user?.thumbnailImage} alt={user?.name} />
       </ProfileImgLayout>
+      {isShowModal && (
+        <ModalPortal closePortal={setIsShowModal}>
+          <UserInfoSm user={user} />
+        </ModalPortal>
+      )}
     </>
   );
 }

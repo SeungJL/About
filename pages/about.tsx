@@ -89,7 +89,6 @@ function About({ user }) {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-  console.log(session);
 
   useEffect(() => {
     vote?.participations.flatMap((participant) => {

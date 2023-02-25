@@ -6,7 +6,6 @@ import UserBadge from "../block/UserBadge";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
-  console.log(user);
 
   return (
     <>
