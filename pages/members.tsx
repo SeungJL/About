@@ -108,7 +108,7 @@ export interface ICategory {
 
 function Members({ membersListAll }: { membersListAll: IUser[] }) {
   const membersList = membersListAll.filter((info) => info.isActive !== false);
-  console.log(25);
+
   const [isNavOpend, setIsNavOpened] = useState(false);
   const [category, setCategory] = useRecoilState(categoryState);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -124,7 +124,7 @@ function Members({ membersListAll }: { membersListAll: IUser[] }) {
     setUserList(membersList);
     setUserList((old) => sortUserList(old, category));
   }, [category]);
-  console.log("userList", userList);
+
   return (
     <Layout>
       <Header>

@@ -59,7 +59,6 @@ export default async function handler(
   const isVoting = vote.participations
     .flatMap((participation) =>
       participation.attendences.map((attendence) => {
-        console.log(attendence.user as IUser);
         return (attendence.user as IUser)?.uid;
       })
     )
