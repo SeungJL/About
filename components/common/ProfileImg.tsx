@@ -34,7 +34,7 @@ export default function ProfileImg({ user }: { user: IUser }) {
   return (
     <>
       <ProfileImgLayout onClick={onProfileImgClicked}>
-        <img src={user.thumbnailImage} alt={user.name} />
+        <img src={user?.thumbnailImage} alt={user?.name} />
       </ProfileImgLayout>
     </>
   );
