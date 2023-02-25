@@ -142,9 +142,13 @@ function About({ user }) {
             </Link>
             <Title>About</Title>
             <Link href="/user">
-              <div>
-                <FontAwesomeIcon icon={faUserGear} size="xl" />
-              </div>
+              {isLoading ? (
+                ""
+              ) : (
+                <div>
+                  <FontAwesomeIcon icon={faUserGear} size="xl" />
+                </div>
+              )}
             </Link>
           </TopNav>
           <InfoSection>
@@ -185,9 +189,7 @@ function About({ user }) {
                 </MainContents>
               )}
             </SwiperSlide>
-            <SwiperSlide>
-              <MainNavigation />
-            </SwiperSlide>
+            <SwiperSlide>{isLoading ? "" : <MainNavigation />}</SwiperSlide>
             <br />
           </Swiper>
           <LeftArrow isSliderFirst={isSliderFirst}>
