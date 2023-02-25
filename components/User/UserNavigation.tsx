@@ -10,9 +10,7 @@ export default function UserNavigation() {
     <>
       <Layout>
         <ButtonNav>
-          <Button onClick={() => setIsShowProfileModal(true)}>
-            프로필 수정
-          </Button>
+          <Button>프로필 수정</Button>
           <Button>참여 기록</Button>
           <Button>받은 요청</Button>
           <Button>기타 설정</Button>

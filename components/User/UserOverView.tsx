@@ -12,7 +12,7 @@ export default function UserOverView() {
     <>
       <Layout>
         <UserImg>
-          <img src={user?.profileImage} />
+          <img src={user?.profileImage} width="80px" alt="userimg" />
         </UserImg>
         <UserNameBlock>
           <UserName>{user?.name}</UserName>
@@ -38,7 +38,6 @@ const Layout = styled.div`
 `;
 
 const UserImg = styled.div`
-  width: 80px;
   border-radius: 30%;
   overflow: hidden;
 `;
