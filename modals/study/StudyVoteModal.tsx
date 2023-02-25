@@ -120,7 +120,6 @@ function StudyVoteModal() {
     return { placeName, voteCnt, status };
   });
 
-  const places = placeInfo.map((pv) => pv.placeName);
   const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
   const [subPlaces, setSubPlaces] = useState([]);
   const setisVoting = useSetRecoilState(isVotingState);

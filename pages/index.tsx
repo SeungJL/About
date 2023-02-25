@@ -5,7 +5,10 @@ import { useSetRecoilState } from "recoil";
 import { isMember } from "../libs/utils/authUtils";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 
-const Root: NextPage = () => <div />;
+function Main() {
+  console.log("WOWMA");
+  return null;
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
@@ -38,4 +41,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default Root;
+export default Main;

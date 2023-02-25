@@ -1,23 +1,23 @@
 import dayjs from "dayjs";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { now } from "../libs/utils/dateUtils";
-import { BaseModal, FullScreen } from "../styles/LayoutStyles";
-import { PrivacyPolicy } from "../storage/PrivacyPolicy";
+import { now } from "../../libs/utils/dateUtils";
+import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
+import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
 
 import { useSetRecoilState } from "recoil";
 
-import { IUser } from "../models/user";
+import { IUser } from "../../models/user";
 import { useState } from "react";
 import { Mutation } from "react-query";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { useRegisterMutation } from "../hooks/vote/mutations";
+import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useRouter } from "next/router";
 import {
   isShowPrivacyPolicyState,
   isShowRegisterFormState,
-} from "../recoil/voteAtoms";
+} from "../../recoil/voteAtoms";
 
 const ModalLayout = styled(BaseModal)`
   width: 320px;

@@ -25,7 +25,8 @@ const UserBadgeLayout = styled.div<{ role: string }>`
   }};
   padding: 1px;
   text-align: center;
-  width: 55px;
-  height: 22px;
+  width: 50px;
+  height: 18px;
+  font-size: 0.8em;
   border-radius: 8px;
 `;

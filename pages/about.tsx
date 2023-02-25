@@ -22,7 +22,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { IParticipation } from "../models/vote";
 import { convertToKr, getToday, now } from "../libs/utils/dateUtils";
-import { useColorMode, useToast } from "@chakra-ui/react";
+import { color, useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
@@ -45,108 +45,21 @@ import {
 import { useActiveQuery } from "../hooks/user/queries";
 import { useActiveMutation } from "../hooks/user/mutations";
 
-const AboutLayout = styled.div`
-  position: relative;
-`;
-const UpScreen = styled.div`
-  height: 34vh;
-  background: var(--main-bg-color);
-  color: white;
-  padding: 25px;
-  padding-bottom: 0px;
-  display: grid;
-  grid-template-rows: 2.2fr 1.2fr 1.2fr;
-  text-align: center;
-  border-bottom-left-radius: 2vh;
-  border-bottom-right-radius: 2vh;
-  > div,
-  section,
-  nav {
-    display: flex;
-  }
-`;
-const TopNav = styled.nav`
-  justify-content: space-between;
-  > div {
-    width: 20px;
-    height: 20px;
-    position: relative;
-  }
-`;
-const Title = styled.span`
-  height: 88%;
-  font-size: 3.5em;
-  align-self: flex-end;
-  font-family: "Nanum";
-`;
-const InfoSection = styled.section`
-  padding: 0 13px;
-  justify-content: space-between;
-  font-size: 0.7em;
-  line-height: 1.75;
-  > div {
-    width: 32%;
-    background-color: rgb(255, 255, 255, 0.05);
-    border-radius: 2.2vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    > span:last-child {
-      font-size: 1.3em;
-    }
-  }
-`;
-const TodayDate = styled.time`
-  position: absolute;
-  top: 37%;
-  left: 6%;
-  font-size: 1.2em;
-  font-family: "NanumEx";
-  color: var(--font-black);
-`;
-const DownScreen = styled.div`
-  margin: 0 25px;
-  margin-top: 60px;
-  position: relative;
-`;
-const MainContents = styled.main`
-  display: flex;
-  flex-direction: column;
-`;
-const LeftArrow = styled.aside<{ isSliderFirst: boolean }>`
-  position: absolute;
-  display: ${(props) => (props.isSliderFirst ? "none" : "block")};
-  color: var(--main-color);
-  top: 38%;
-  left: -18px;
-`;
-const RightArrow = styled.aside<{ isSliderFirst: boolean }>`
-  position: absolute;
-  top: 38%;
-  right: -18px;
-  display: ${(props) => (!props.isSliderFirst ? "none" : "block")};
-  color: var(--main-color);
-`;
-
-const Loading = styled.span`
-  font-size: 18px;
-`;
-
 function About({ user }) {
   const toast = useToast();
   const { data: session } = useSession();
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
-  const { setColorMode } = useColorMode();
+  const { colorMode, setColorMode } = useColorMode();
   const setStudyDate = useSetRecoilState(studyDateState);
   const setisVoting = useSetRecoilState(isVotingState);
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
-  const defaultVoteDate = getDefaultVoteDate(isUserAttend);
 
-  const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
+  const [isShowRegisterForm, setIsShowRegisterForm] = useRecoilState(
+    isShowRegisterFormState
+  );
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -160,18 +73,22 @@ function About({ user }) {
       });
     },
   });
+  useEffect(() => {
+    setColorMode("light");
+  }, [setColorMode]);
 
   useEffect(() => {
-    if (user?.isActive === false) {
-      setIsShowRegisterForm(true);
-    }
-    setColorMode("light");
+    if (user?.isActive === false) setIsShowRegisterForm(true);
+  }, [setIsShowRegisterForm, user?.isActive]);
+
+  useEffect(() => {
+    const defaultVoteDate = getDefaultVoteDate(isUserAttend);
     setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
-  }, []);
+  }, [isUserAttend, setVoteDate]);
 
   useEffect(() => {
     vote?.participations.flatMap((participant) => {
@@ -189,18 +106,23 @@ function About({ user }) {
   });
 
   useEffect(() => {
+    const defaultVoteDate = getDefaultVoteDate(isUserAttend);
     setisVoting(false);
     setIsUserAttend(false);
     setStudyOpen(false);
     const voteDateKr = convertToKr(voteDate, "DDHH");
     const defaultVoteDateKr = convertToKr(defaultVoteDate, "DDHH");
     if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
-    else if (voteDateKr < defaultVoteDateKr) {
-      setStudyDate("passed");
-    } else if (voteDateKr > defaultVoteDateKr) {
-      setStudyDate("not passed");
-    }
-  }, [voteDate]);
+    else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
+    else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
+  }, [
+    isUserAttend,
+    setIsUserAttend,
+    setStudyDate,
+    setStudyOpen,
+    setisVoting,
+    voteDate,
+  ]);
 
   return (
     <>
@@ -209,10 +131,14 @@ function About({ user }) {
         <UpScreen>
           <TopNav>
             <Link href="/notice">
-              <div>
-                <FontAwesomeIcon icon={faBell} size="xl" />
-                <CircleAlert right="-20" bottom="20" />
-              </div>
+              {isLoading ? (
+                ""
+              ) : (
+                <div>
+                  <FontAwesomeIcon icon={faBell} size="xl" />
+                  <CircleAlert right="-20" bottom="20" />{" "}
+                </div>
+              )}
             </Link>
             <Title>About</Title>
             <Link href="/user/info">
@@ -316,3 +242,91 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   return { props: { user } };
 };
+
+const AboutLayout = styled.div`
+  position: relative;
+`;
+const UpScreen = styled.div`
+  height: 34vh;
+  background: var(--main-bg-color);
+  color: white;
+  padding: 25px;
+  padding-bottom: 0px;
+  display: grid;
+  grid-template-rows: 2.2fr 1.2fr 1.2fr;
+  text-align: center;
+  border-bottom-left-radius: 2vh;
+  border-bottom-right-radius: 2vh;
+  > div,
+  section,
+  nav {
+    display: flex;
+  }
+`;
+const TopNav = styled.nav`
+  justify-content: space-between;
+  > div {
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+`;
+const Title = styled.span`
+  height: 88%;
+  font-size: 3.5em;
+  align-self: flex-end;
+  font-family: "Nanum";
+`;
+const InfoSection = styled.section`
+  padding: 0 13px;
+  justify-content: space-between;
+  font-size: 0.7em;
+  line-height: 1.75;
+  > div {
+    width: 32%;
+    background-color: rgb(255, 255, 255, 0.05);
+    border-radius: 2.2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    > span:last-child {
+      font-size: 1.3em;
+    }
+  }
+`;
+const TodayDate = styled.time`
+  position: absolute;
+  top: 37%;
+  left: 6%;
+  font-size: 1.2em;
+  font-family: "NanumEx";
+  color: var(--font-black);
+`;
+const DownScreen = styled.div`
+  margin: 0 25px;
+  margin-top: 60px;
+  position: relative;
+`;
+const MainContents = styled.main`
+  display: flex;
+  flex-direction: column;
+`;
+const LeftArrow = styled.aside<{ isSliderFirst: boolean }>`
+  position: absolute;
+  display: ${(props) => (props.isSliderFirst ? "none" : "block")};
+  color: var(--main-color);
+  top: 38%;
+  left: -18px;
+`;
+const RightArrow = styled.aside<{ isSliderFirst: boolean }>`
+  position: absolute;
+  top: 38%;
+  right: -18px;
+  display: ${(props) => (!props.isSliderFirst ? "none" : "block")};
+  color: var(--main-color);
+`;
+
+const Loading = styled.span`
+  font-size: 18px;
+`;

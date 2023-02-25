@@ -2,13 +2,13 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useContext } from "react";
 import CancelModal from "../modals/study/CancelModal";
 import NotCompletedModal from "../modals/NotCompletedModal";
-import UserInfoForm from "../modals/RegisterFormModal";
+import UserInfoForm from "../modals/user/RegisterFormModal";
 
 import OpenResultModal from "../modals/study/OpenResultModal";
 import ModalPortal from "../libs/utils/ModalPortal";
 import VoterModal from "../modals/study/VoterModal";
 import StudyVoteModal from "../modals/study/StudyVoteModal";
-import RegisterFormModal from "../modals/RegisterFormModal";
+import RegisterFormModal from "../modals/user/RegisterFormModal";
 import { PrivacyPolicy } from "../storage/PrivacyPolicy";
 import { useSession } from "next-auth/react";
 import UserInfoSm from "../modals/user/UserInfoSm";

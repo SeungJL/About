@@ -7,6 +7,6 @@ export const isShowMemberInfoState = atom({
 });
 
 export const categoryState = atom<ICategory>({
-  key: "category",
+  key: "membersCategory",
   default: { name: "registerDate", status: "" },
 });
