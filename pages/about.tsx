@@ -79,7 +79,7 @@ function About({ user }) {
 
   useEffect(() => {
     if (user?.isActive === false) setIsShowRegisterForm(true);
-  }, [setIsShowRegisterForm, user?.isActive]);
+  }, []);
 
   useEffect(() => {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
@@ -88,14 +88,15 @@ function About({ user }) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
-  }, [isUserAttend, setVoteDate]);
+  }, []);
+  console.log(session);
 
   useEffect(() => {
     vote?.participations.flatMap((participant) => {
       const studyStatus = participant.status === "open" ? true : false;
       if (
         participant.attendences.find(
-          (att) => (att.user as IUser).uid === session?.uid
+          (att) => (att.user as IUser)?.uid === session?.uid
         )
       ) {
         setisVoting(true);
@@ -115,14 +116,7 @@ function About({ user }) {
     if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
-  }, [
-    isUserAttend,
-    setIsUserAttend,
-    setStudyDate,
-    setStudyOpen,
-    setisVoting,
-    voteDate,
-  ]);
+  }, [voteDate]);
 
   return (
     <>

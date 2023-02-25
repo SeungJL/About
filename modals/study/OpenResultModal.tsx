@@ -98,12 +98,12 @@ const TimeRangeBar = ({ attendence }: any) => {
   }, [attendence]);
   const user = attendence.user as IUser;
 
-  const userName = (user.name as any).substr(0, 3);
+  const userName = (user?.name as any)?.substr(0, 3);
 
   return (
     <TimeRangeItem>
       <UserInfo>
-        <ProfileImage src={user.thumbnailImage} alt={user.name} />
+        <ProfileImage src={user?.thumbnailImage} alt={user?.name} />
         <span>{userName}</span>
       </UserInfo>
       <TimeRange>

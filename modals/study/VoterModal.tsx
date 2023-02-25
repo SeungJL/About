@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
 import ProfileImg from "../../components/common/ProfileImg";
 import { modalContextState } from "../../recoil/modalAtoms";
+import { useSession } from "next-auth/react";
 
 const Container = styled(BaseModal)`
   height: 200px;
@@ -44,7 +45,8 @@ function VoterModal() {
   const modalContext = useRecoilValue(modalContextState);
   const attendences = modalContext?.Voter?.attendences;
   const [isSliderFirst, setSilderFirst] = useState(true);
-
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <Container>
       <Header>
@@ -63,9 +65,9 @@ function VoterModal() {
           {attendences?.map(
             (user: any) =>
               user.firstChoice && (
-                <div key={user.user._id}>
-                  <ProfileImg user={user.user} />
-                  <span>{user.user.name}</span>
+                <div key={user?.user?._id}>
+                  <ProfileImg user={user?.user} />
+                  <span>{user?.user?.name}</span>
                 </div>
               )
           )}
@@ -75,9 +77,9 @@ function VoterModal() {
           {attendences?.map(
             (user: any) =>
               !user.firstChoice && (
-                <div key={user.user._id}>
-                  <ProfileImg user={user.user} />
-                  <span>{user.user.name}</span>
+                <div key={user?.user?._id}>
+                  <ProfileImg user={user?.user} />
+                  <span>{user?.user?.name}</span>
                 </div>
               )
           )}
