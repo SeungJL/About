@@ -86,37 +86,7 @@ function About({ user }) {
     if (user?.isActive === false) setIsShowRegisterForm(true);
   }, []);
 
-  const { data: vote2, isLoading: gSW } = useParticipationRateQuery(2, {
-    enabled: true,
-    onError: (err) => {
-      toast({
-        title: "불러오기 실패",
-        description: "투표 정보를 불러오지 못 했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
-
-  const { data: vote3, isLoading: sgSW } = useVoteRateQuery(2, {
-    enabled: true,
-    onError: (err) => {
-      toast({
-        title: "불러오기 실패",
-        description: "투표 정보를 불러오지 못 했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
-
   useEffect(() => {
-    console.log(11, vote2);
-    console.log(22, vote3);
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
     setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {

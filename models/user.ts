@@ -73,7 +73,7 @@ const UserStatisticShema: Schema<IUserStatistic> = new Schema(
 export interface IUser extends Document {
   uid: string;
   registerDate: string;
-  isActive: boolean;
+  isActive?: boolean;
   birth: string;
   mbti: string;
   gender: string;
@@ -81,7 +81,7 @@ export interface IUser extends Document {
   name: string;
   thumbnailImage: string;
   profileImage: string;
-  role: string;
+  role?: string;
   statistic: IUserStatistic;
 }
 
