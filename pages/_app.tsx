@@ -9,6 +9,7 @@ import { RecoilRoot } from "recoil";
 import "nprogress/nprogress.css";
 import "../styles/variable.css";
 import Layout from "../components/Layout";
+import Head from "next/head";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 
@@ -28,6 +29,12 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+      </Head>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <RecoilRoot>
