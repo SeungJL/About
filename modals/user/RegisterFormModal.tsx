@@ -143,8 +143,8 @@ export interface IRegisterForm {
   gender?: string;
 }
 export interface IUserRegister extends IRegisterForm {
-  role: string;
-  isActive: boolean;
+  role?: string;
+  isActive?: boolean;
   gender: string;
 }
 
