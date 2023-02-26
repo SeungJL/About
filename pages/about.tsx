@@ -74,8 +74,7 @@ function About({ user }) {
       });
     },
   });
-  console.log("voteDate :", voteDate);
-  console.log("vote", vote);
+
   useEffect(() => {
     setColorMode("light");
   }, [setColorMode]);
@@ -86,17 +85,14 @@ function About({ user }) {
 
   useEffect(() => {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
-    console.log("default", defaultVoteDate);
     setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-  console.log("is", isVoting);
-  console.log(vote);
+
   useEffect(() => {
-    console.log("vote", vote);
     vote?.participations.flatMap((participant) => {
       const studyStatus = participant.status === "open" ? true : false;
       if (
@@ -105,7 +101,7 @@ function About({ user }) {
         )
       ) {
         setisVoting(true);
-        console.log(53);
+
         studyStatus && setIsUserAttend(true);
       }
       studyStatus && setStudyOpen(true);
@@ -124,7 +120,7 @@ function About({ user }) {
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
   const B = useRecoilValue(AAState);
-  console.log("B", B);
+  console.log(session);
   return (
     <>
       <Seo title="About" />

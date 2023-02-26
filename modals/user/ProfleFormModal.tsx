@@ -29,8 +29,8 @@ export interface IRegisterForm {
   gender?: string;
 }
 export interface IUserRegister extends IRegisterForm {
-  role: string;
-  isActive: boolean;
+  role?: string;
+  isActive?: boolean;
   gender: string;
 }
 
@@ -46,7 +46,6 @@ function ProfileFormModal({ setIsShowProfileModal }) {
     useRegisterMutation({
       onSuccess: async (data: IUser) => {
         session.user.name = data.name;
-        session.role = data.role;
         setIsShowRegisterForm(false);
       },
       onError: (err) => {
@@ -65,8 +64,6 @@ function ProfileFormModal({ setIsShowProfileModal }) {
     const userInfo: IUserRegister = {
       name: data.name,
       registerDate: data.registerDate,
-      role: "member",
-      isActive: true,
       birth: data.birth,
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
