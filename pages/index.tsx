@@ -1,12 +1,18 @@
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import { useSetRecoilState } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { isMember } from "../libs/utils/authUtils";
 import { getInterestingDate } from "../libs/utils/dateUtils";
+import { AAState } from "../recoil/voteAtoms";
 
 function Main() {
   console.log("WOWMA");
+  const B = useSetRecoilState(AAState);
+  useEffect(() => {
+    B(true);
+  }, []);
   return null;
 }
 

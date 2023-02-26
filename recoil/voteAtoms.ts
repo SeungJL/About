@@ -43,6 +43,10 @@ export const isShowOpenResultState = atom({
   key: "isShowOpenResult",
   default: false,
 });
+export const AAState = atom({
+  key: "AA",
+  default: false,
+});
 
 /*
  today = defaultVoteDate

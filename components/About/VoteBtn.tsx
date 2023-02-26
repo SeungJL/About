@@ -90,13 +90,14 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
   const [isAttendCheckModal, setIsAttendCheckModal] = useRecoilState(
     isAttendCheckModalState
   );
-
+  console.log("55", voteDate);
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     voteDate,
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries([VOTE_GET, voteDate]);
         setisVoting(false);
+        console.log(4211);
       },
       onError: (err) => {
         toast({
@@ -112,6 +113,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
   );
   const onClickVoted = () => {
     handleAbsent();
+    console.log(23);
   };
   const onClickVote = () => {
     () => setIsShowStudyVote(true);

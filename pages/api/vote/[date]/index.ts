@@ -59,10 +59,10 @@ export default async function handler(
   const isVoting = vote.participations
     .flatMap((participation) =>
       participation.attendences.map((attendence) => {
-        return (attendence.user as IUser)?.uid;
+        return (attendence.user as IUser)?._id;
       })
     )
-    .find((userId) => userId?.toString() === token.id);
+    .find((ObjId) => String(ObjId) === token.id);
 
   switch (method) {
     case "GET":
@@ -125,10 +125,11 @@ export default async function handler(
       }
       vote.participations = vote.participations.map((participation) => ({
         ...participation,
-        attendences: participation.attendences.filter(
-          (attendence) => (attendence.user as IUser)._id.toString() !== token.id
-        ),
+        attendences: participation.attendences.filter((attendence) => {
+          return (attendence.user as IUser)?._id.toString() !== token.id;
+        }),
       }));
+      await console.log(24, vote);
       await vote.save();
 
       return res.status(204).end();
