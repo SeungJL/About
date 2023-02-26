@@ -42,7 +42,11 @@ import {
   studyDateState,
   voteDateState,
 } from "../recoil/voteAtoms";
-import { useActiveQuery } from "../hooks/user/queries";
+import {
+  useActiveQuery,
+  useParticipationRateQuery,
+  useVoteRateQuery,
+} from "../hooks/user/queries";
 import { useActiveMutation } from "../hooks/user/mutations";
 
 function About({ user }) {
@@ -80,6 +84,33 @@ function About({ user }) {
   useEffect(() => {
     if (user?.isActive === false) setIsShowRegisterForm(true);
   }, []);
+  const { data: vote2, isLoading: gSW } = useParticipationRateQuery({
+    enabled: true,
+    onError: (err) => {
+      toast({
+        title: "불러오기 실패",
+        description: "투표 정보를 불러오지 못 했어요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
+
+  const { data: vote3, isLoading: sgSW } = useVoteRateQuery({
+    enabled: true,
+    onError: (err) => {
+      toast({
+        title: "불러오기 실패",
+        description: "투표 정보를 불러오지 못 했어요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
 
   useEffect(() => {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
