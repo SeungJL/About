@@ -58,9 +58,9 @@ export default async function handler(
 
   const isVoting = vote.participations
     .flatMap((participation) =>
-      participation.attendences.map((attendence) => {
-        return (attendence.user as IUser)?.uid;
-      })
+      participation.attendences.map(
+        (attendence) => (attendence.user as IUser)?._id
+      )
     )
     .find((userId) => userId?.toString() === token.id);
 
