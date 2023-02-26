@@ -78,8 +78,6 @@ function About({ user }) {
       });
     },
   });
-  console.log("voteDate :", voteDate);
-  console.log("vote", vote);
   useEffect(() => {
     setColorMode("light");
   }, [setColorMode]);
@@ -87,7 +85,8 @@ function About({ user }) {
   useEffect(() => {
     if (user?.isActive === false) setIsShowRegisterForm(true);
   }, []);
-  const { data: vote2, isLoading: gSW } = useParticipationRateQuery({
+
+  const { data: vote2, isLoading: gSW } = useParticipationRateQuery(2, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -101,7 +100,7 @@ function About({ user }) {
     },
   });
 
-  const { data: vote3, isLoading: sgSW } = useVoteRateQuery({
+  const { data: vote3, isLoading: sgSW } = useVoteRateQuery(2, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -116,18 +115,16 @@ function About({ user }) {
   });
 
   useEffect(() => {
+    console.log(11, vote2);
+    console.log(22, vote3);
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
-    console.log("default", defaultVoteDate);
     setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-  console.log("is", isVoting);
-  console.log(vote);
   useEffect(() => {
-    console.log("vote", vote);
     vote?.participations.flatMap((participant) => {
       const studyStatus = participant.status === "open" ? true : false;
       if (
@@ -136,7 +133,6 @@ function About({ user }) {
         )
       ) {
         setisVoting(true);
-        console.log(53);
         studyStatus && setIsUserAttend(true);
       }
       studyStatus && setStudyOpen(true);
@@ -155,7 +151,6 @@ function About({ user }) {
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
   const B = useRecoilValue(AAState);
-  console.log("B", B);
   return (
     <>
       <Seo title="About" />

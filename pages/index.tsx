@@ -8,7 +8,6 @@ import { getInterestingDate } from "../libs/utils/dateUtils";
 import { AAState } from "../recoil/voteAtoms";
 
 function Main() {
-  console.log("WOWMA");
   const B = useSetRecoilState(AAState);
   useEffect(() => {
     B(true);

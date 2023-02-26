@@ -11,7 +11,6 @@ export const VoteListInputItem = ({ voteListArr, setVoteListArr }) => {
   const voteListInput = useRef();
   const list = voteListInput.current;
   const [value, setValue] = useState("");
-  console.log(voteListArr);
   let voteListIdx = 0;
   if (voteListArr.length !== 0)
     voteListIdx = voteListArr[voteListArr.length - 1].voteListIdx;

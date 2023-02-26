@@ -129,7 +129,6 @@ export default async function handler(
           return (attendence.user as IUser)?._id.toString() !== token.id;
         }),
       }));
-      await console.log(24, vote);
       await vote.save();
 
       return res.status(204).end();

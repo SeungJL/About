@@ -1,14 +1,16 @@
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import dbConnect from "../../../libs/dbConnect";
-import { User } from "../../../models/user";
-import { Vote } from "../../../models/vote";
+import dbConnect from "../../../../libs/dbConnect";
+import { now } from "../../../../libs/utils/dateUtils";
+import { User } from "../../../../models/user";
+import { Vote } from "../../../../models/vote";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { method } = req;
+  const week = req.query.week;
 
   await dbConnect();
 
@@ -19,13 +21,18 @@ export default async function handler(
         return { ...accumulator, [user.name]: 0 };
       }, {});
 
+      const today = now().format("YYYY-MM-DD");
+      const targetDay = now()
+        .subtract(parseInt(week), "week")
+        .format("YYYY-MM-DD");
+
       const forParticipation = await Vote.collection
         .aggregate([
           {
             $match: {
               date: {
-                $gte: dayjs("2023-02-23").toDate(),
-                $lt: dayjs("2023-02-26").toDate(),
+                $gte: dayjs(targetDay).toDate(),
+                $lt: dayjs(today).toDate(),
               },
             },
           },
@@ -63,6 +70,6 @@ export default async function handler(
           return acc;
         }, {});
 
-      console.log(3, { ...attendForm, ...participationCnt });
+      res.status(200).json({ ...attendForm, ...participationCnt });
   }
 }
