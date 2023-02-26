@@ -23,7 +23,7 @@ import "swiper/css/pagination";
 import { IParticipation } from "../models/vote";
 import { convertToKr, getToday, now } from "../libs/utils/dateUtils";
 import { color, useColorMode, useToast } from "@chakra-ui/react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
 import { getSession, useSession } from "next-auth/react";
@@ -35,6 +35,7 @@ import { VOTE_END_HOUR } from "../constants/system";
 import CircleAlert from "../components/block/CircleAlert";
 import { getDefaultVoteDate } from "../libs/utils/voteUtils";
 import {
+  AAState,
   isShowRegisterFormState,
   isStudyOpenState,
   isUserAttendState,
@@ -56,7 +57,7 @@ function About({ user }) {
   const [isSliderFirst, setSilderFirst] = useState(true);
   const { colorMode, setColorMode } = useColorMode();
   const setStudyDate = useSetRecoilState(studyDateState);
-  const setisVoting = useSetRecoilState(isVotingState);
+  const [isVoting, setisVoting] = useRecoilState(isVotingState);
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
@@ -77,6 +78,8 @@ function About({ user }) {
       });
     },
   });
+  console.log("voteDate :", voteDate);
+  console.log("vote", vote);
   useEffect(() => {
     setColorMode("light");
   }, [setColorMode]);
@@ -114,14 +117,17 @@ function About({ user }) {
 
   useEffect(() => {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
+    console.log("default", defaultVoteDate);
     setVoteDate(defaultVoteDate);
     if (now().hour() >= VOTE_END_HOUR) {
       const targetDate = now().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-
+  console.log("is", isVoting);
+  console.log(vote);
   useEffect(() => {
+    console.log("vote", vote);
     vote?.participations.flatMap((participant) => {
       const studyStatus = participant.status === "open" ? true : false;
       if (
@@ -130,6 +136,7 @@ function About({ user }) {
         )
       ) {
         setisVoting(true);
+        console.log(53);
         studyStatus && setIsUserAttend(true);
       }
       studyStatus && setStudyOpen(true);
@@ -147,7 +154,8 @@ function About({ user }) {
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
-
+  const B = useRecoilValue(AAState);
+  console.log("B", B);
   return (
     <>
       <Seo title="About" />
