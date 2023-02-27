@@ -23,23 +23,32 @@ export const useActiveQuery = (
   );
 
 export const useParticipationRateQuery = (
+  week: number,
   options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
 ) =>
   useQuery<any, AxiosError, any>(
     USER_FINDPARTICIPATION,
     async () => {
-      const res = await axios.get(`/api/user/participationrate`);
+      const res = await axios.get<any>(`/api/user/participationrate/${week}`, {
+        data: week,
+      });
+      return res.data;
     },
     options
   );
 
 export const useVoteRateQuery = (
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  week: number,
+  options?: Omit<
+    UseQueryOptions<any, AxiosError, number>,
+    "queryKey" | "queryFn"
+  >
 ) =>
-  useQuery<any, AxiosError, any>(
+  useQuery<any, AxiosError, number>(
     USER_FINDVOTE,
     async () => {
-      const res = await axios.get(`/api/user/voterate`);
+      const res = await axios.get<any>(`/api/user/voterate/${week}`);
+      return res.data;
     },
     options
   );

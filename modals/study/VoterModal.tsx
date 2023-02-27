@@ -46,7 +46,6 @@ function VoterModal() {
   const attendences = modalContext?.Voter?.attendences;
   const [isSliderFirst, setSilderFirst] = useState(true);
   const { data: session } = useSession();
-  console.log(session);
   return (
     <Container>
       <Header>

@@ -78,7 +78,6 @@ function About({ user }) {
       });
     },
   });
-
   useEffect(() => {
     setColorMode("light");
   }, [setColorMode]);
@@ -86,33 +85,6 @@ function About({ user }) {
   useEffect(() => {
     if (user?.isActive === false) setIsShowRegisterForm(true);
   }, []);
-  const { data: vote2, isLoading: gSW } = useParticipationRateQuery({
-    enabled: true,
-    onError: (err) => {
-      toast({
-        title: "불러오기 실패",
-        description: "투표 정보를 불러오지 못 했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
-
-  const { data: vote3, isLoading: sgSW } = useVoteRateQuery({
-    enabled: true,
-    onError: (err) => {
-      toast({
-        title: "불러오기 실패",
-        description: "투표 정보를 불러오지 못 했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
 
   useEffect(() => {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
@@ -122,7 +94,6 @@ function About({ user }) {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-
   useEffect(() => {
     vote?.participations.flatMap((participant) => {
       const studyStatus = participant.status === "open" ? true : false;
@@ -132,7 +103,6 @@ function About({ user }) {
         )
       ) {
         setisVoting(true);
-
         studyStatus && setIsUserAttend(true);
       }
       studyStatus && setStudyOpen(true);
@@ -151,7 +121,6 @@ function About({ user }) {
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
   const B = useRecoilValue(AAState);
-  console.log(session);
   return (
     <>
       <Seo title="About" />
