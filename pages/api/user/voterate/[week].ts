@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   const { method } = req;
-  const week = req.query.week;
+  const week = req.query.week.toString();
 
   await dbConnect();
 
