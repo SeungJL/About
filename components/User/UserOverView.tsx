@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import styled from "styled-components";
 
 import { useActiveQuery } from "../../hooks/user/queries";
@@ -6,7 +6,6 @@ import UserBadge from "../block/UserBadge";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
-
   return (
     <>
       <Layout>
@@ -19,7 +18,7 @@ export default function UserOverView() {
         </UserNameBlock>
 
         <LogoutBlock>
-          <button>로그아웃</button>
+          <button onClick={() => signOut()}>로그아웃</button>
         </LogoutBlock>
       </Layout>
       <Hr />
