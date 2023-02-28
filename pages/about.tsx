@@ -119,8 +119,7 @@ function About({ user }) {
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
-  const B = useRecoilValue(AAState);
-  console.log(session);
+
   return (
     <>
       <Seo title="About" />

@@ -9,7 +9,6 @@ import { useActiveQuery } from "../../hooks/user/queries";
 
 import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
 import { birthToAge } from "../../libs/utils/membersUtil";
-import { useSession } from "next-auth/react";
 
 const UserInfoSmLayout = styled(BaseModal)`
   height: 200px;
@@ -19,6 +18,7 @@ const UserInfoSmLayout = styled(BaseModal)`
 `;
 
 const UpPart = styled.div`
+  height: 50%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -29,6 +29,7 @@ const UserImage = styled.div`
   width: 40%;
   border-radius: 20px;
   overflow: hidden;
+  position: relative;
 `;
 const UserInfo = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ const UserRelNav = styled.nav`
 const UserName = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 `;
 const UserProfile = styled.div`
   display: flex;
@@ -100,6 +101,7 @@ export default function UserInfoSm({ user }) {
           <UserImage>
             <img src={user.thumbnailImage} alt={user.name} />
           </UserImage>
+
           <UserInfo>
             <UserName>
               <span>{user.name}</span>
@@ -120,6 +122,12 @@ export default function UserInfoSm({ user }) {
                 <div>
                   <FontSm>MBTI: </FontSm>
                   <span>{user.mbti.toUpperCase()}</span>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <FontSm>이번달 참여: </FontSm>
+                  <span>2회</span>
                 </div>
               </div>
             </UserProfile>
