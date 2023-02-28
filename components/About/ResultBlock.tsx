@@ -191,7 +191,7 @@ function ResultBlock({
                 Cancel
               </CancelBtn>
             )}
-            <VoterBtn onClick={onClickOpen}>Voter</VoterBtn>
+            <VoterBtn onClick={onClickOpen}>투표현황</VoterBtn>
             <ResultStatus open={open}>
               {open ? "Open" : status === "dismissed" ? "Closed" : "투표중"}
             </ResultStatus>
