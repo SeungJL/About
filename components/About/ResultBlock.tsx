@@ -13,6 +13,7 @@ import {
   isShowVoterState,
   isUserAttendState,
 } from "../../recoil/voteAtoms";
+import OpenResultModal from "../../modals/study/OpenResultModal";
 
 const ResultBlockLayout = styled.div`
   display: flex;
@@ -190,7 +191,8 @@ function ResultBlock({
                 Cancel
               </CancelBtn>
             )}
-            <ResultStatus open={open} onClick={onClickOpen}>
+            <VoterBtn onClick={onClickOpen}>Voter</VoterBtn>
+            <ResultStatus open={open}>
               {open ? "Open" : status === "dismissed" ? "Closed" : "투표중"}
             </ResultStatus>
           </ResultBlockNav>
