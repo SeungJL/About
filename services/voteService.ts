@@ -25,7 +25,11 @@ export const confirm = async (dateStr: string) => {
     vote?.participations?.map((participation) => {
       let firstChoiceNum = 0;
       participation.attendences.map((attendance) => {
-        if (attendance.firstChoice) firstChoiceNum++;
+        if (attendance.firstChoice) {
+          const startTime = attendance.time.start;
+          const endTime = attendance.time.end;
+          firstChoiceNum++;
+        }
       });
 
       if (firstChoiceNum >= 3) {

@@ -44,12 +44,6 @@ function NoticeCategory() {
       >
         공지사항
       </NoticeBtn>
-      <NoticeBtn
-        state={Category === "release" && true}
-        onClick={() => setCategory("release")}
-      >
-        릴리즈노트
-      </NoticeBtn>
     </CategoryHeader>
   );
 }

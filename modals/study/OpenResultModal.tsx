@@ -18,6 +18,126 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { isShowOpenResultState } from "../../recoil/voteAtoms";
 import { modalContextState } from "../../recoil/modalAtoms";
+
+const TimeRangeBar = ({ attendence }: any) => {
+  const start = dayjs(attendence.time.start);
+  const end = dayjs(attendence.time.end);
+  const [startHour, startMin] = splitDate(start);
+  const [endHour, endMin] = splitDate(end);
+  const startIdx = startHour + startMin / 60;
+  const endIdx = endHour + endMin / 60;
+
+  const arrivedIdx = useMemo(() => {
+    if (!attendence.arrived) return null;
+    const [arrivedHour, arrivedMin] = splitDate(
+      dateToDayjs(attendence.arrived)
+    );
+    return arrivedHour + arrivedMin / 60;
+  }, [attendence]);
+  const user = attendence.user as IUser;
+
+  const userName = (user?.name as any)?.substr(0, 3);
+  return (
+    <TimeRangeItem>
+      <UserInfo>
+        <ProfileImage src={user?.thumbnailImage} alt={user?.name} />
+        <span>{userName}</span>
+      </UserInfo>
+      <TimeRange>
+        {timeRange.map((idx) => (
+          <TimeBox
+            key={idx}
+            index={idx % 1 === 0 ? "solid" : "none"}
+            start={startIdx}
+            end={endIdx}
+            idx={idx}
+          >
+            {idx % 1 === 0 && <span>{idx}</span>}
+          </TimeBox>
+        ))}
+      </TimeRange>
+      {attendence.arrived && <ArrivedTime left={arrivedIdx - START_HOUR} />}
+    </TimeRangeItem>
+  );
+};
+const ButtonNav = styled.nav``;
+const Button = styled.button<{ first: boolean }>`
+  width: 25px;
+  height: 25px;
+  background-color: ${(props) => (props.first ? "#ffc72c" : "lightgray")};
+  color: ${(props) => (props.first ? "#2c3e50" : "rgb(34, 84, 61)")};
+`;
+
+const OpenResultModal = () => {
+  const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
+  const [modalContext, setModalContext] = useRecoilState(modalContextState);
+  const attendences = modalContext?.OpenResult?.attendences;
+  const [isLeftPage, setIsLeftPage] = useState(true);
+
+  const closeModal = () => {
+    setIsShowOpenResult(false);
+    setModalContext({});
+  };
+  return (
+    <>
+      <ModalLayout>
+        <Header>
+          <span>투표현황</span>
+          <div>
+            <ButtonNav>
+              <Button first={isLeftPage} onClick={() => setIsLeftPage(true)}>
+                1
+              </Button>
+              <Button first={!isLeftPage} onClick={() => setIsLeftPage(false)}>
+                2
+              </Button>
+            </ButtonNav>
+            <div onClick={closeModal}>
+              <FontAwesomeIcon icon={faX} />
+            </div>
+          </div>
+        </Header>
+        {isLeftPage ? (
+          <TimeRangeSection>
+            {attendences.map(
+              (attendence, idx) =>
+                idx < 4 && <TimeRangeBar key={idx} attendence={attendence} />
+            )}
+          </TimeRangeSection>
+        ) : (
+          <TimeRangeSection>
+            {attendences.map(
+              (attendence, idx) =>
+                idx >= 4 && <TimeRangeBar key={idx} attendence={attendence} />
+            )}
+          </TimeRangeSection>
+        )}
+
+        <br />
+        <ArrowBtn>
+          {isLeftPage ? (
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              size="lg"
+              onClick={() => setIsLeftPage(false)}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size="lg"
+              onClick={() => setIsLeftPage(true)}
+            />
+          )}
+        </ArrowBtn>
+      </ModalLayout>
+
+      <FullScreen onClick={closeModal} />
+    </>
+  );
+};
+
+export default OpenResultModal;
+
 const FullScreen = styled.div`
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
@@ -81,62 +201,6 @@ const ArrivedTime = styled.div<IArrived>`
   background-color: var(--main-color);
 `;
 
-const TimeRangeBar = ({ attendence }: any) => {
-  const start = dayjs(attendence.time.start);
-  const end = dayjs(attendence.time.end);
-  const [startHour, startMin] = splitDate(start);
-  const [endHour, endMin] = splitDate(end);
-  const startIdx = startHour + startMin / 60;
-  const endIdx = endHour + endMin / 60;
-
-  const arrivedIdx = useMemo(() => {
-    if (!attendence.arrived) return null;
-    const [arrivedHour, arrivedMin] = splitDate(
-      dateToDayjs(attendence.arrived)
-    );
-    return arrivedHour + arrivedMin / 60;
-  }, [attendence]);
-  const user = attendence.user as IUser;
-
-  const userName = (user?.name as any)?.substr(0, 3);
-
-  return (
-    <TimeRangeItem>
-      <UserInfo>
-        <ProfileImage src={user?.thumbnailImage} alt={user?.name} />
-        <span>{userName}</span>
-      </UserInfo>
-      <TimeRange>
-        {timeRange.map((idx) => (
-          <TimeBox
-            key={idx}
-            index={idx % 1 === 0 ? "solid" : "none"}
-            start={startIdx}
-            end={endIdx}
-            idx={idx}
-          >
-            {idx % 1 === 0 && <span>{idx}</span>}
-          </TimeBox>
-        ))}
-      </TimeRange>
-      {attendence.arrived && <ArrivedTime left={arrivedIdx - START_HOUR} />}
-    </TimeRangeItem>
-  );
-};
-
-const ModalLayout = styled.div`
-  background-color: white;
-  border: 2px solid rgb(0, 0, 0, 0.4);
-  position: absolute;
-  width: 330px;
-  height: 330px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  border-radius: 10px;
-`;
-
 const TimeRangeSection = styled.div`
   flex-wrap: nowrap;
   padding-top: 5px;
@@ -158,11 +222,10 @@ const Header = styled.header`
     height: 30px;
   }
   > div {
-    font-size: 14px;
-    height: 23px;
-    padding: 2px;
-    border-radius: 5px;
-    margin-left: 15px;
+    display: flex;
+    > div {
+      margin-left: 25px;
+    }
   }
 `;
 
@@ -175,61 +238,15 @@ const ArrowBtn = styled.div`
   color: var(--main-color);
 `;
 
-const OpenResultModal = () => {
-  const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
-  const [modalContext, setModalContext] = useRecoilState(modalContextState);
-  const attendences = modalContext?.OpenResult?.attendences;
-  const [isLeftPage, setIsLeftPage] = useState(true);
-  const closeModal = () => {
-    setIsShowOpenResult(false);
-    setModalContext({});
-  };
-  return (
-    <>
-      <ModalLayout>
-        <Header>
-          <span>Open</span>
-          <div onClick={closeModal}>
-            <FontAwesomeIcon icon={faX} />
-          </div>
-        </Header>
-        {isLeftPage ? (
-          <TimeRangeSection>
-            {attendences.map(
-              (attendence, idx) =>
-                idx < 4 && <TimeRangeBar key={idx} attendence={attendence} />
-            )}
-          </TimeRangeSection>
-        ) : (
-          <TimeRangeSection>
-            {attendences.map(
-              (attendence, idx) =>
-                idx >= 4 && <TimeRangeBar key={idx} attendence={attendence} />
-            )}
-          </TimeRangeSection>
-        )}
-
-        <br />
-        <ArrowBtn>
-          {isLeftPage ? (
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              size="lg"
-              onClick={() => setIsLeftPage(false)}
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faArrowLeft}
-              size="lg"
-              onClick={() => setIsLeftPage(true)}
-            />
-          )}
-        </ArrowBtn>
-      </ModalLayout>
-
-      <FullScreen onClick={closeModal} />
-    </>
-  );
-};
-
-export default OpenResultModal;
+const ModalLayout = styled.div`
+  background-color: white;
+  border: 2px solid rgb(0, 0, 0, 0.4);
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border-radius: 10px;
+`;

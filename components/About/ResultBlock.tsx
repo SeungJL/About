@@ -190,9 +190,8 @@ function ResultBlock({
                 Cancel
               </CancelBtn>
             )}
-            <VoterBtn onClick={onClickVoter}>Voter</VoterBtn>
-            <ResultStatus open={open} onClick={open ? onClickOpen : null}>
-              {open ? "Open" : status === "dismissed" ? "Closed" : "Voting..."}
+            <ResultStatus open={open} onClick={onClickOpen}>
+              {open ? "Open" : status === "dismissed" ? "Closed" : "투표중"}
             </ResultStatus>
           </ResultBlockNav>
         </ResultBlockHeader>
