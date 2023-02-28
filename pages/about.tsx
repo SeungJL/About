@@ -56,7 +56,7 @@ function About({ user }) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [isSliderFirst, setSilderFirst] = useState(true);
   const { colorMode, setColorMode } = useColorMode();
-  const setStudyDate = useSetRecoilState(studyDateState);
+  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const [isVoting, setisVoting] = useRecoilState(isVotingState);
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
@@ -114,13 +114,13 @@ function About({ user }) {
     setisVoting(false);
     setIsUserAttend(false);
     setStudyOpen(false);
-    const voteDateKr = convertToKr(voteDate, "DDHH");
-    const defaultVoteDateKr = convertToKr(defaultVoteDate, "DDHH");
+    const voteDateKr = convertToKr(voteDate, "MMDDHH");
+    const defaultVoteDateKr = convertToKr(defaultVoteDate, "MMDDHH");
     if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
-  const B = useRecoilValue(AAState);
+
   return (
     <>
       <Seo title="About" />
