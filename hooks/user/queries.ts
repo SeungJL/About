@@ -1,8 +1,9 @@
 import axios, { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQueries, useQuery, UseQueryOptions } from "react-query";
 import {
   USER_FINDPARTICIPATION,
   USER_FINDVOTE,
+  USER_FINDVOTES,
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
 import { IUser } from "../../models/user";
@@ -45,10 +46,28 @@ export const useVoteRateQuery = (
   >
 ) =>
   useQuery<any, AxiosError, number>(
-    USER_FINDVOTE,
+    [USER_FINDVOTE, week],
     async () => {
       const res = await axios.get<any>(`/api/user/voterate/${week}`);
       return res.data;
     },
     options
+  );
+
+export const useVoteRateQueries = (
+  countArr: number[],
+  options?: Omit<UseQueryOptions<void, AxiosError, any>, "queryKey" | "queryFn">
+) =>
+  useQueries<any>(
+    countArr.map((count) => {
+      return {
+        queryKey: [USER_FINDVOTES, count],
+        queryFn: async () => {
+          const res = await axios.get<number, AxiosError, number>(
+            `/api/user/voterate/${count}`
+          );
+          return (res as any).data;
+        },
+      };
+    })
   );

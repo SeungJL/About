@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { isShowOpenResultState } from "../../recoil/voteAtoms";
 import { modalContextState } from "../../recoil/modalAtoms";
+import ProfileImg from "../../components/common/ProfileImg";
 
 const TimeRangeBar = ({ attendence }: any) => {
   const start = dayjs(attendence.time.start);
@@ -40,7 +41,7 @@ const TimeRangeBar = ({ attendence }: any) => {
   return (
     <TimeRangeItem>
       <UserInfo>
-        <ProfileImage src={user?.thumbnailImage} alt={user?.name} />
+        <ProfileImg user={user} />
         <span>{userName}</span>
       </UserInfo>
       <TimeRange>
@@ -243,7 +244,7 @@ const ModalLayout = styled.div`
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: absolute;
   width: 330px;
-  height: 330px;
+  height: 350px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

@@ -25,7 +25,7 @@ export default function ProfileImg({ user }: { user: IUser }) {
       </ProfileImgLayout>
       {isShowModal && (
         <ModalPortal closePortal={setIsShowModal}>
-          <UserInfoSm user={user} />
+          <UserInfoSm user={user} setIsShowModal={setIsShowModal} />
         </ModalPortal>
       )}
     </>

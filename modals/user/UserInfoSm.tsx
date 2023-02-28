@@ -5,16 +5,21 @@ import {
   isShowUserInfoSmState,
   modalContextState,
 } from "../../recoil/modalAtoms";
-import { useActiveQuery } from "../../hooks/user/queries";
+import { useActiveQuery, useVoteRateQuery } from "../../hooks/user/queries";
 
 import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
 import { birthToAge } from "../../libs/utils/membersUtil";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
 
 const UserInfoSmLayout = styled(BaseModal)`
   height: 200px;
+  width: 250px;
   overflow: visible;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  z-index: 200;
 `;
 
 const UpPart = styled.div`
@@ -93,7 +98,11 @@ const UserComment = styled.div`
   font-size: 0.9em;
 `;
 
-export default function UserInfoSm({ user }) {
+export default function UserInfoSm({ user, setIsShowModal }) {
+  const { data: monthVoteRateAll } = useVoteRateQuery(4);
+  const myMonthVote = monthVoteRateAll[user.name];
+  console.log(myMonthVote);
+  console.log(monthVoteRateAll);
   return (
     <>
       <UserInfoSmLayout>
@@ -106,6 +115,10 @@ export default function UserInfoSm({ user }) {
             <UserName>
               <span>{user.name}</span>
               <UserBadge role={user.role} />
+              <FontAwesomeIcon
+                icon={faX}
+                onClick={() => setIsShowModal(false)}
+              />
             </UserName>
             <UserProfile>
               <div>
@@ -126,8 +139,8 @@ export default function UserInfoSm({ user }) {
               </div>
               <div>
                 <div>
-                  <FontSm>이번달 참여: </FontSm>
-                  <span>2회</span>
+                  <FontSm>최근 참여(한 달): </FontSm>
+                  <span>{myMonthVote} 회</span>
                 </div>
               </div>
             </UserProfile>
