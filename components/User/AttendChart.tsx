@@ -13,7 +13,7 @@ export default function AttendChart() {
       return item.data[name];
     }
   });
-  console.log(myVoteRateArr);
+
   const myAttendArr = [myVoteRateArr[0]];
   for (let i = 1; i < 2; i++) {
     myAttendArr.push(myVoteRateArr[i] - myVoteRateArr[i - 1]);

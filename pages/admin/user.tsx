@@ -39,9 +39,7 @@ const AdminUser: NextPage<{
     );
   };
 
-  const onUserRoleChange = (e, user) => {
-    console.log(e.target.value);
-  };
+  const onUserRoleChange = (e, user) => {};
 
   return (
     <Flex flexDirection="column">

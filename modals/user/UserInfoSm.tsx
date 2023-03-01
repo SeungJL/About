@@ -101,8 +101,7 @@ const UserComment = styled.div`
 export default function UserInfoSm({ user, setIsShowModal }) {
   const { data: monthVoteRateAll, isLoading } = useVoteRateQuery(4);
   const myMonthVote = !isLoading && monthVoteRateAll[user.name];
-  console.log(myMonthVote);
-  console.log(monthVoteRateAll);
+
   return (
     <>
       <UserInfoSmLayout>
