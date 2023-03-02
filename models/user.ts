@@ -77,7 +77,6 @@ export interface IUser extends Document {
   birth: string;
   mbti: string;
   gender: string;
-  status: string;
   name: string;
   thumbnailImage: string;
   profileImage: string;
@@ -89,11 +88,6 @@ export const UserSchema: Schema<IUser> = new Schema({
   uid: {
     type: String,
     required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-    default: "active",
   },
   name: {
     type: String,
