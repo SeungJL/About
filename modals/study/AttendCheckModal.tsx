@@ -32,7 +32,7 @@ export default function AttendCheckModal() {
     setIsAttendCheckModal(false);
   };
   const onCheckClicked = () => {
-    //handleArrived();
+    handleArrived();
     setIsAttendCheckModal(false);
   };
   return (
