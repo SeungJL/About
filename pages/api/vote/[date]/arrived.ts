@@ -12,7 +12,7 @@ export default async function handler(
 ) {
   const { method } = req;
   const dateStr = req.query.date as string;
-  const dayjsDate = strToDate(dateStr);
+  const dayjsDate = strToDate(dateStr).add(1, "day");
   const date = dayjsDate.toDate();
 
   const token = await getToken({ req, secret });
