@@ -25,7 +25,7 @@ export default async function handler(
 
   switch (method) {
     case "PATCH":
-      const currentTime = now();
+      const currentTime = now().add(9, "hour");
 
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {

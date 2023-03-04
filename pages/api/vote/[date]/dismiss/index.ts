@@ -12,7 +12,7 @@ export default async function handler(
 ) {
   const { method } = req;
   const dateStr = req.query.date as string;
-  const date = strToDate(dateStr).add(1, "day").toDate();
+  const date = strToDate(dateStr).toDate();
 
   const token = await getToken({ req, secret });
   const _id = token.id;
@@ -27,10 +27,11 @@ export default async function handler(
     .find((att) => att.user == _id);
 
   // 확정하지 않은 경우 불참 처리가 아니라 참여취소처리해야함
-  if (!targetAtt || !targetAtt.confirmed) {
-    return res.status(400).end();
-  }
-
+  // if (!targetAtt || !targetAtt.confirmed) {
+  //   console.log(34);
+  //   return res.status(400).end();
+  // }
+  console.log(22);
   switch (method) {
     case "PATCH":
       vote.participations.forEach((participation) => {

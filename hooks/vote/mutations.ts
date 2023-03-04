@@ -76,7 +76,7 @@ export const useArrivedMutation = (
   >
 ) =>
   useMutation<void, AxiosError, void>(async () => {
-    await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-DD")}/arrived`);
+    await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-02")}/arrived`);
   }, options);
 
 export const useRegisterMutation = (
