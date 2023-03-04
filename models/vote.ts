@@ -23,6 +23,7 @@ export interface IAttendence {
   created: Date;
   arrived?: Date;
   firstChoice: boolean;
+  memo: string;
 }
 
 export interface IInvitation {
@@ -125,6 +126,7 @@ const AttendenceSchema: Schema<IAttendence> = new Schema(
       type: Schema.Types.Boolean,
       default: true,
     },
+    memo: String,
   },
   { _id: false, timestamps: true, strict: false }
 );

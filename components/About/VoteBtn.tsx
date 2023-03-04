@@ -141,7 +141,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
               : voteStatus === "Completed"
               ? null
               : ["Join", "Vote"].includes(voteStatus)
-              ? onClickVote
+              ? onCheckClicked
               : voteStatus === "Voted"
               ? onClickVoted
               : null
