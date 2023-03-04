@@ -3,6 +3,7 @@ import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
 import { IPlace } from "../../models/place";
+import { IUser } from "../../models/user";
 import { IVote } from "../../models/vote";
 
 export const useVoteQuery = (
@@ -48,11 +49,11 @@ export function fetchFamousBooks() {
 export const useArrivedQuery = (
   currentDate: Dayjs,
   options?: Omit<
-    UseQueryOptions<void, AxiosError, void>,
+    UseQueryOptions<{ user: IUser; memo: string }, AxiosError, void>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useQuery<void, AxiosError, void>(
+  useQuery<{ user: IUser; memo: string }, AxiosError, void>(
     ARRIVE_FINDMEMO,
     async () => {
       const res = await axios.get(
