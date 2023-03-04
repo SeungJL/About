@@ -8,7 +8,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IVote>
+  res: NextApiResponse
 ) {
   const { method, body: memo } = req;
   const dateStr = req.query.date as string;
@@ -24,19 +24,26 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      vote = await Vote.findOne({ date });
+      const arriveInfo = [];
+
+      vote = await (
+        await Vote.findOne({ date })
+      ).populate(["participations.attendences.user"]);
       if (!vote) return res.status(404).end();
       vote.participations.forEach((participation) => {
         if (participation.status === "open") {
           participation.attendences.forEach((att) => {
             if (att.arrived) {
-              console.log(att.user);
-              console.log(att.memo);
+              arriveInfo.push({
+                user: att.user,
+                memo: att.memo,
+              });
             }
           });
         }
       });
-      break;
+      return res.status(200).json(arriveInfo);
+
     case "PATCH":
       vote = await Vote.findOne({ date });
       if (!vote) return res.status(404).end();

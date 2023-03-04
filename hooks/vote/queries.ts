@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
-import { PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
+import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
 import { IPlace } from "../../models/place";
 import { IVote } from "../../models/vote";
 
@@ -44,3 +44,21 @@ export function fetchFamousBooks() {
     method: "get",
   }).then((response) => response.json());
 }
+
+export const useArrivedQuery = (
+  currentDate: Dayjs,
+  options?: Omit<
+    UseQueryOptions<void, AxiosError, void>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useQuery<void, AxiosError, void>(
+    ARRIVE_FINDMEMO,
+    async () => {
+      const res = await axios.get(
+        `/api/vote/${currentDate.format("YYYY-MM-DD")}/arrived`
+      );
+      return res.data;
+    },
+    options
+  );
