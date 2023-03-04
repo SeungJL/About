@@ -8,7 +8,7 @@ export default function CheckUserModal() {
   const { data: session } = useSession();
   const user = session.user;
   console.log(user);
-  console.log(useArrivedQuery(getToday().subtract(4, "day")).data);
+  console.log(useArrivedQuery(getToday()).data);
   const messageBox = [
     {
       memo: "2층 칸막이 두번째 자리에 앉아있어요! 연두색 후드!",

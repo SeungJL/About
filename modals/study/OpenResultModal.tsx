@@ -74,11 +74,19 @@ const OpenResultModal = () => {
   const [modalContext, setModalContext] = useRecoilState(modalContextState);
   const attendences = modalContext?.OpenResult?.attendences;
   const [isLeftPage, setIsLeftPage] = useState(true);
-
+  const firstArr = [];
+  const secondArr = [];
   const closeModal = () => {
     setIsShowOpenResult(false);
     setModalContext({});
   };
+
+  console.log("a", attendences[0].firstChoice);
+  attendences.forEach((att) => {
+    if (att.firstChoice) firstArr.push(att);
+    else secondArr.push(att);
+  });
+  console.log(firstArr, secondArr);
   return (
     <>
       <ModalLayout>
@@ -100,17 +108,15 @@ const OpenResultModal = () => {
         </Header>
         {isLeftPage ? (
           <TimeRangeSection>
-            {attendences.map(
-              (attendence, idx) =>
-                idx < 4 && <TimeRangeBar key={idx} attendence={attendence} />
-            )}
+            {firstArr.map((attendence, idx) => (
+              <TimeRangeBar key={idx} attendence={attendence} />
+            ))}
           </TimeRangeSection>
         ) : (
           <TimeRangeSection>
-            {attendences.map(
-              (attendence, idx) =>
-                idx >= 4 && <TimeRangeBar key={idx} attendence={attendence} />
-            )}
+            {secondArr.map((attendence, idx) => (
+              <TimeRangeBar key={idx} attendence={attendence} />
+            ))}
           </TimeRangeSection>
         )}
 
@@ -244,7 +250,7 @@ const ModalLayout = styled.div`
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: absolute;
   width: 330px;
-  height: 350px;
+  height: 420px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
