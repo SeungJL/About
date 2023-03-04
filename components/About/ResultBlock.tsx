@@ -14,6 +14,9 @@ import {
   isUserAttendState,
 } from "../../recoil/voteAtoms";
 import OpenResultModal from "../../modals/study/OpenResultModal";
+import CheckUserModal from "../../modals/study/CheckUserModal";
+import AttendCheckModal from "../../modals/study/AttendCheckModal";
+import ModalPortal from "../../libs/utils/ModalPortal";
 
 const ResultBlockLayout = styled.div`
   display: flex;
@@ -116,6 +119,12 @@ const Box = styled.div<IBox>`
   margin-right: 1px;
 `;
 
+const Button = styled.button`
+  display: inline-block;
+  background-color: lightskyblue;
+  color: black;
+`;
+
 interface IResultBlock extends IParticipation {
   index: Number;
 }
@@ -137,7 +146,7 @@ function ResultBlock({
   const countArr = [];
   const [votalModalOpened, setVotalModalOpened] = useState(false);
   const setModalContext = useSetRecoilState(modalContextState);
-
+  const [isCheckStudy, setIsCheckStudy] = useState(false);
   const setIsShowVoter = useSetRecoilState(isShowVoterState);
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   let cnt = 0;
@@ -183,13 +192,16 @@ function ResultBlock({
         <ResultBlockHeader>
           <span>{SpaceName}</span>
           <ResultBlockNav>
+            <Button onClick={() => setIsCheckStudy(true)}>참여현황</Button>
             {isUserAttend && open && (
-              <CancelBtn
-                onClick={() => setIsShowVoteCancle(true)}
-                status={Boolean(isUserAttend)}
-              >
-                Cancel
-              </CancelBtn>
+              <>
+                <CancelBtn
+                  onClick={() => setIsShowVoteCancle(true)}
+                  status={Boolean(isUserAttend)}
+                >
+                  Cancel
+                </CancelBtn>
+              </>
             )}
             <VoterBtn onClick={onClickOpen}>투표현황</VoterBtn>
             <ResultStatus open={open}>
@@ -214,6 +226,11 @@ function ResultBlock({
           </ChartView>
         </ResultChart>
       </ResultBlockLayout>
+      {isCheckStudy && (
+        <ModalPortal closePortal={setIsCheckStudy}>
+          <CheckUserModal />
+        </ModalPortal>
+      )}
     </>
   );
 }

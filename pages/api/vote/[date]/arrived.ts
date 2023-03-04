@@ -8,15 +8,11 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<IVote>
 ) {
-  const {
-    method,
-    body: { memo },
-  } = req;
+  const { method } = req;
   const dateStr = req.query.date as string;
-  const dayjsDate = strToDate(dateStr);
-  // .add(1, "day");
+  const dayjsDate = strToDate(dateStr).add(1, "day");
   const date = dayjsDate.toDate();
 
   const token = await getToken({ req, secret });
@@ -24,34 +20,12 @@ export default async function handler(
 
   await dbConnect();
 
-  let vote;
+  const vote = await Vote.findOne({ date });
+  if (!vote) return res.status(404).end();
 
   switch (method) {
-    case "GET":
-      const arriveInfo = [];
-
-      vote = await (
-        await Vote.findOne({ date })
-      ).populate(["participations.attendences.user"]);
-      if (!vote) return res.status(404).end();
-      vote.participations.forEach((participation) => {
-        if (participation.status === "open") {
-          participation.attendences.forEach((att) => {
-            if (att.arrived) {
-              arriveInfo.push({
-                user: att.user,
-                memo: att.memo,
-              });
-            }
-          });
-        }
-      });
-      return res.status(200).json(arriveInfo);
-
     case "PATCH":
-      const currentTime = now().add(9, "hour");
-      vote = await Vote.findOne({ date });
-      if (!vote) return res.status(404).end();
+      const currentTime = now();
 
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
@@ -63,7 +37,6 @@ export default async function handler(
 
             if (startable <= currentTime && currentTime <= endable) {
               att.arrived = currentTime.toDate();
-              att.memo = memo;
             } else {
               return res.status(400).end();
             }

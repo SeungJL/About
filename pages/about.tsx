@@ -78,6 +78,7 @@ function About({ user }) {
       });
     },
   });
+  console.log(2, vote);
   useEffect(() => {
     setColorMode("light");
   }, [setColorMode]);
