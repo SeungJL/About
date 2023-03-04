@@ -1,4 +1,5 @@
 import { useToast } from "@chakra-ui/react";
+import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -10,6 +11,7 @@ import { isAttendCheckModalState } from "../../recoil/modalAtoms";
 import { BaseModal } from "../../styles/LayoutStyles";
 
 export default function AttendCheckModal() {
+  const [memo, setMemo] = useState("");
   const queryClient = useQueryClient();
   const toast = useToast();
   const setIsAttendCheckModal = useSetRecoilState(isAttendCheckModalState);
@@ -32,7 +34,7 @@ export default function AttendCheckModal() {
     setIsAttendCheckModal(false);
   };
   const onCheckClicked = () => {
-    handleArrived();
+    handleArrived(memo);
     setIsAttendCheckModal(false);
   };
   return (
@@ -46,7 +48,10 @@ export default function AttendCheckModal() {
         </div>
         <CommentBox>
           <form id="AttendCheckForm">
-            <Input placeholder="comment" />
+            <Input
+              placeholder="comment"
+              onChange={(e) => setMemo(e.target.value)}
+            />
           </form>
         </CommentBox>
       </MainContent>

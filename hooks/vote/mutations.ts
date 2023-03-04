@@ -71,12 +71,14 @@ export const useDismissMutation = (
 export const useArrivedMutation = (
   currentDate: Dayjs,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, void>,
+    UseMutationOptions<void, AxiosError, string>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, void>(async () => {
-    await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-02")}/arrived`);
+  useMutation<void, AxiosError, string>(async (memo: string) => {
+    await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-DD")}/arrived`, {
+      memo,
+    });
   }, options);
 
 export const useRegisterMutation = (
