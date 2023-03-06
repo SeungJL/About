@@ -192,9 +192,9 @@ function ResultBlock({
         <ResultBlockHeader>
           <span>{SpaceName}</span>
           <ResultBlockNav>
-            <Button onClick={() => setIsCheckStudy(true)}>참여현황</Button>
             {isUserAttend && open && (
               <>
+                <Button onClick={() => setIsCheckStudy(true)}>참여현황</Button>
                 <CancelBtn
                   onClick={() => setIsShowVoteCancle(true)}
                   status={Boolean(isUserAttend)}

@@ -245,6 +245,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const AboutLayout = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 const UpScreen = styled.div`
   height: 34vh;
@@ -295,17 +297,19 @@ const InfoSection = styled.section`
     }
   }
 `;
-const TodayDate = styled.time`
-  position: absolute;
-  top: 37%;
-  left: 6%;
+const TodayDate = styled.div`
   font-size: 1.2em;
   font-family: "NanumEx";
+  display: flex;
+  align-items: center;
   color: var(--font-black);
+  height: 55px;
+  margin-top: 5px;
+  padding: 0 25px;
 `;
 const DownScreen = styled.div`
   margin: 0 25px;
-  margin-top: 60px;
+
   position: relative;
 `;
 const MainContents = styled.main`
