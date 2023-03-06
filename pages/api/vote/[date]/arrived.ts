@@ -40,6 +40,7 @@ export default async function handler(
               arriveInfo.push({
                 user: att.user,
                 memo: att.memo,
+                arrived: att.arrived,
               });
             }
           });

@@ -81,12 +81,11 @@ const OpenResultModal = () => {
     setModalContext({});
   };
 
-  console.log("a", attendences[0].firstChoice);
   attendences.forEach((att) => {
-    if (att.firstChoice) firstArr.push(att);
+    if (att?.firstChoice) firstArr.push(att);
     else secondArr.push(att);
   });
-  console.log(firstArr, secondArr);
+
   return (
     <>
       <ModalLayout>
