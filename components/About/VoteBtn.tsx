@@ -135,7 +135,17 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
     <>
       <OutlineCircle>
         <VoteCircle
-          onClick={onCheckClicked}
+          onClick={
+            voteStatus === "Check"
+              ? onCheckClicked
+              : voteStatus === "Completed"
+              ? null
+              : ["Join", "Vote"].includes(voteStatus)
+              ? onClickVote
+              : voteStatus === "Voted"
+              ? onClickVoted
+              : null
+          }
           state={mainLoading ? "" : voteStatus}
         >
           {mainLoading ? "" : voteStatus}

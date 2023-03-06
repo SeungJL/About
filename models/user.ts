@@ -70,6 +70,11 @@ const UserStatisticShema: Schema<IUserStatistic> = new Schema(
   { _id: false }
 );
 
+export interface IUserBasic {
+  name: string;
+  image: string;
+}
+
 export interface IUser extends Document {
   uid: string;
   registerDate: string;

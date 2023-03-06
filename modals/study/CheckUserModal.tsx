@@ -9,6 +9,7 @@ export default function CheckUserModal() {
   const user = session.user;
   console.log(user);
   console.log(useArrivedQuery(getToday()).data);
+  const userList = useArrivedQuery(getToday()).data;
   const messageBox = [
     {
       memo: "2층 칸막이 두번째 자리에 앉아있어요! 연두색 후드!",
@@ -20,7 +21,13 @@ export default function CheckUserModal() {
     },
   ];
 
-  return <ModalLayout></ModalLayout>;
+  return (
+    <ModalLayout>
+      {(userList as any).map((user, idx) => (
+        <UserAttendInfo key={idx} user={user} />
+      ))}
+    </ModalLayout>
+  );
 }
 
 const ModalLayout = styled.div`
@@ -35,3 +42,13 @@ const ModalLayout = styled.div`
   z-index: 2;
   border-radius: 10px;
 `;
+const Profile = styled.div``;
+const ArrivedTime = styled.span``;
+
+const finishTime = styled.span``;
+
+const Comment = styled.div``;
+
+const UserAttendInfo = ({ user }) => {
+  return <>23</>;
+};
