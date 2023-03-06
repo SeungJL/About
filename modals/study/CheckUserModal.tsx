@@ -14,8 +14,6 @@ export default function CheckUserModal() {
 
   const userList = useArrivedQuery(getToday())?.data;
 
-  console.log(userList);
-
   return (
     <ModalLayout>
       {(userList as any)?.map((user, idx) => (

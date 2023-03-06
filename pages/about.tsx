@@ -121,7 +121,7 @@ function About({ user }) {
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
-  console.log(3, vote);
+
   return (
     <>
       <Seo title="About" />

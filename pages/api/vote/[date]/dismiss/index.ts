@@ -31,7 +31,7 @@ export default async function handler(
   //   console.log(34);
   //   return res.status(400).end();
   // }
-  console.log(22);
+
   switch (method) {
     case "PATCH":
       vote.participations.forEach((participation) => {
