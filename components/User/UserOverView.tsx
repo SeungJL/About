@@ -43,9 +43,8 @@ export default function UserOverView() {
     <>
       <Layout>
         <UserImg>
-          <img
+          <Img
             src={user?.profileImage}
-            width="80px"
             alt="userimg"
             style={{ borderRadius: "18px" }}
           />
@@ -109,6 +108,11 @@ const UserNameBlock = styled.div`
 const UserName = styled.div`
   font-size: 1.4em;
   margin-bottom: 5px;
+`;
+
+const Img = styled.img`
+  height: 110px;
+  object-fit: contain;
 `;
 
 const LogoutBlock = styled.div`

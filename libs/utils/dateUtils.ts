@@ -46,6 +46,12 @@ export const getInterestingDate = () => {
   return today.add(1, "day");
 };
 
+export const getMonth = () => now().month();
+
+export const numToMonth = (day: number) => {
+  return dayjs().month(day);
+};
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 export const strToDate = (dateStr: string) => {

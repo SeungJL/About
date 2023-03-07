@@ -22,8 +22,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { IParticipation } from "../models/vote";
 import { convertToKr, getToday, now } from "../libs/utils/dateUtils";
-import { color, useColorMode, useToast } from "@chakra-ui/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useColorMode, useToast } from "@chakra-ui/react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import { useVoteQuery } from "../hooks/vote/queries";
 import { getSession, useSession } from "next-auth/react";
@@ -35,7 +35,6 @@ import { VOTE_END_HOUR } from "../constants/system";
 import CircleAlert from "../components/block/CircleAlert";
 import { getDefaultVoteDate } from "../libs/utils/voteUtils";
 import {
-  AAState,
   isShowRegisterFormState,
   isStudyOpenState,
   isUserAttendState,
@@ -43,14 +42,8 @@ import {
   studyDateState,
   voteDateState,
 } from "../recoil/voteAtoms";
-import {
-  useActiveQuery,
-  useParticipationRateQuery,
-  useVoteRateQuery,
-} from "../hooks/user/queries";
-import { useActiveMutation } from "../hooks/user/mutations";
+
 import UserInfoCheck from "../components/About/UserInfoCheck";
-import AboutFooter from "../components/About/AboutFooter";
 
 function About({ user }) {
   const toast = useToast();
@@ -63,7 +56,6 @@ function About({ user }) {
   const today = getToday();
   const setStudyOpen = useSetRecoilState(isStudyOpenState);
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
-
   const [isShowRegisterForm, setIsShowRegisterForm] = useRecoilState(
     isShowRegisterFormState
   );

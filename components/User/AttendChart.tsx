@@ -1,38 +1,64 @@
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
-import { useVoteRateQueries, useVoteRateQuery } from "../../hooks/user/queries";
-import { useState } from "react";
+import {
+  useAttendRateQueries,
+  useParticipationRateQuery,
+  useVoteRateQueries,
+  useVoteRateQuery,
+} from "../../hooks/user/queries";
+import { useEffect, useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import {
+  getMonth,
+  getToday,
+  now,
+  numToMonth,
+} from "../../libs/utils/dateUtils";
+
+export interface IMonthStartToEnd {
+  startDay: Dayjs;
+  endDay: Dayjs;
+}
 
 export default function AttendChart() {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
-
   const name = session?.user.name;
+  const monthList: IMonthStartToEnd[] = [];
 
-  const voteRateArr = useVoteRateQueries([1, 2]);
+  for (let i = 0; i <= Number(getMonth()); i++) {
+    const changeMonthDate = (month: number, num: number) =>
+      dayjs().month(i).date(num);
+    monthList.push({
+      startDay: changeMonthDate(i, 1),
+      endDay: changeMonthDate(i, numToMonth(i).daysInMonth()),
+    });
+  }
 
-  let isLoading = true;
-  const myVoteRateArr = voteRateArr?.map((item) => {
+  const voteCountTotal = useVoteRateQueries(monthList);
+  const attendCountTotal = useAttendRateQueries(monthList);
+  console.log(attendCountTotal);
+
+  const myVoteCountTotal = voteCountTotal?.map((item) => {
     if (item.isSuccess) {
-      isLoading = item.isLoading;
       return item.data[name];
     }
   });
-
-  const myAttendArr = isLoading ? [] : [myVoteRateArr[0]];
-  for (let i = 1; i < 2; i++) {
-    !isLoading && myAttendArr.push(myVoteRateArr[i] - myVoteRateArr[i - 1]);
-  }
-
-  const average = [2, 3];
+  const myAttendCountTotal = attendCountTotal?.map((item) => {
+    if (item.isSuccess) {
+      return item.data[name];
+    }
+  });
+  myVoteCountTotal.push(null);
+  myAttendCountTotal.push(null);
 
   return (
     <div>
       <ApexCharts
         type="line"
         series={[
-          { name: "내 참여율", data: myAttendArr },
-          { name: "평균 참여율", data: average },
+          { name: "스터디 투표", data: myVoteCountTotal },
+          { name: "스터디 참여", data: myAttendCountTotal },
         ]}
         options={{
           chart: {
@@ -53,7 +79,7 @@ export default function AttendChart() {
             },
           },
           xaxis: {
-            categories: ["1월", "2월", "3월"],
+            categories: ["1월", "2월", "3월", "4월"],
           },
         }}
       />

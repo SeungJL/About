@@ -249,7 +249,7 @@ const ModalLayout = styled.div`
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: absolute;
   width: 330px;
-  height: 420px;
+  height: 500px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

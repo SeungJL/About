@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useQueries, useQuery, UseQueryOptions } from "react-query";
+import { IMonthStartToEnd } from "../../components/User/AttendChart";
 import {
   USER_FINDPARTICIPATION,
   USER_FINDVOTE,
@@ -47,11 +48,11 @@ export const useVoteRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   options?: Omit<
-    UseQueryOptions<any, AxiosError, number>,
+    UseQueryOptions<number, AxiosError, number>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<any, AxiosError, number>(
+  useQuery<number, AxiosError, number>(
     [USER_FINDVOTE],
     async () => {
       const res = await axios.get(`/api/user/voterate`, {
@@ -64,18 +65,46 @@ export const useVoteRateQuery = (
     },
     options
   );
-
-export const useVoteRateQueries = (
-  countArr: number[],
+export const useAttendRateQueries = (
+  monthList: IMonthStartToEnd[],
   options?: Omit<UseQueryOptions<void, AxiosError, any>, "queryKey" | "queryFn">
 ) =>
-  useQueries<any>(
-    countArr.map((count) => {
+  useQueries(
+    monthList.map((month, idx) => {
       return {
-        queryKey: [USER_FINDVOTES, count],
+        queryKey: [USER_FINDPARTICIPATION, idx],
         queryFn: async () => {
           const res = await axios.get<number, AxiosError, number>(
-            `/api/user/voterate/${count}`
+            `/api/user/participationrate`,
+            {
+              params: {
+                startDay: month.startDay.format("YYYY-MM-DD"),
+                endDay: month.endDay.format("YYYY-MM-DD"),
+              },
+            }
+          );
+          return (res as any).data;
+        },
+      };
+    })
+  );
+export const useVoteRateQueries = (
+  monthList: IMonthStartToEnd[],
+  options?: Omit<UseQueryOptions<void, AxiosError, any>, "queryKey" | "queryFn">
+) =>
+  useQueries(
+    monthList.map((month, idx) => {
+      return {
+        queryKey: [USER_FINDVOTES, idx],
+        queryFn: async () => {
+          const res = await axios.get<number, AxiosError, number>(
+            `/api/user/voterate`,
+            {
+              params: {
+                startDay: month.startDay.format("YYYY-MM-DD"),
+                endDay: month.endDay.format("YYYY-MM-DD"),
+              },
+            }
           );
           return (res as any).data;
         },
