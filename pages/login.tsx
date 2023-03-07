@@ -26,6 +26,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
+import AboutFooter from "../components/About/AboutFooter";
+import UserInfoCheck from "../components/About/UserInfoCheck";
 import Logo from "../components/block/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 
@@ -109,7 +111,6 @@ const Login: NextPage<{
           <Logo imgSize="xl" boxSize="250px" />
           <Heading textAlign="center">VOTE HELPER</Heading>
         </VStack>
-
         <Box key={kakaoProvider.id}>
           <Button
             width="230px"
@@ -144,6 +145,7 @@ const Login: NextPage<{
             </HStack>
           </Button>
         </Box>
+
         <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
@@ -172,6 +174,7 @@ const Login: NextPage<{
           </AlertDialogOverlay>
         </AlertDialog>
       </VStack>
+      <AboutFooter />
     </>
   );
 };

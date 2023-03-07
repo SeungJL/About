@@ -12,7 +12,7 @@ import {
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
-const Terms: NextPage = () => {
+const Terms = ({ closeModal }) => {
   const router = useRouter();
 
   return (

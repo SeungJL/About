@@ -21,8 +21,12 @@ import { isShowPrivacyPolicyState } from "../recoil/voteAtoms";
 
 import { FullScreen } from "../styles/LayoutStyles";
 
-export const PrivacyPolicy = () => {
+export const PrivacyPolicy = ({ closeModal }) => {
   const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
+  const xClicked = () => {
+    setisShowPrivacy(false);
+    closeModal(true);
+  };
   return (
     <>
       <Container
@@ -55,7 +59,7 @@ export const PrivacyPolicy = () => {
           >
             Vote Helper 개인정보 취급방침
           </Heading>
-          <span onClick={() => setisShowPrivacy(false)}>
+          <span onClick={xClicked}>
             <FontAwesomeIcon icon={faXmark} size="xl" />
           </span>
         </Flex>

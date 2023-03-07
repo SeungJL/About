@@ -50,6 +50,7 @@ import {
 } from "../hooks/user/queries";
 import { useActiveMutation } from "../hooks/user/mutations";
 import UserInfoCheck from "../components/About/UserInfoCheck";
+import AboutFooter from "../components/About/AboutFooter";
 
 function About({ user }) {
   const toast = useToast();
