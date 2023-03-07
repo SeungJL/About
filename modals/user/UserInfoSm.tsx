@@ -11,6 +11,7 @@ import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
+import { now } from "../../libs/utils/dateUtils";
 
 const UserInfoSmLayout = styled(BaseModal)`
   height: 200px;
@@ -99,7 +100,7 @@ const UserComment = styled.div`
 `;
 
 export default function UserInfoSm({ user, setIsShowModal }) {
-  const { data: monthVoteRateAll, isLoading } = useVoteRateQuery(4);
+  const { data: monthVoteRateAll, isLoading } = useVoteRateQuery(now(), now());
   const myMonthVote = !isLoading && monthVoteRateAll[user.name];
 
   return (

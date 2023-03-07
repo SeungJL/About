@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { Dayjs } from "dayjs";
 import { useQueries, useQuery, UseQueryOptions } from "react-query";
 import {
   USER_FINDPARTICIPATION,
@@ -24,14 +25,18 @@ export const useActiveQuery = (
   );
 
 export const useParticipationRateQuery = (
-  week: number,
+  startDay: Dayjs,
+  endDay: Dayjs,
   options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
 ) =>
   useQuery<any, AxiosError, any>(
     USER_FINDPARTICIPATION,
     async () => {
-      const res = await axios.get<any>(`/api/user/participationrate/${week}`, {
-        data: week,
+      const res = await axios.get<any>(`/api/user/participationrate`, {
+        params: {
+          startDay: startDay.format("YYYY-MM-DD"),
+          endDay: endDay.format("YYYY-MM-DD"),
+        },
       });
       return res.data;
     },
@@ -39,16 +44,22 @@ export const useParticipationRateQuery = (
   );
 
 export const useVoteRateQuery = (
-  week: number,
+  startDay: Dayjs,
+  endDay: Dayjs,
   options?: Omit<
     UseQueryOptions<any, AxiosError, number>,
     "queryKey" | "queryFn"
   >
 ) =>
   useQuery<any, AxiosError, number>(
-    [USER_FINDVOTE, week],
+    [USER_FINDVOTE],
     async () => {
-      const res = await axios.get<any>(`/api/user/voterate/${week}`);
+      const res = await axios.get(`/api/user/voterate`, {
+        params: {
+          startDay: startDay.format("YYYY-MM-DD"),
+          endDay: endDay.format("YYYY-MM-DD"),
+        },
+      });
       return res.data;
     },
     options
