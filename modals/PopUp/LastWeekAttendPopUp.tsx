@@ -7,13 +7,14 @@ import {
   useParticipationRateQuery,
   useVoteRateQuery,
 } from "../../hooks/user/queries";
+import { now } from "../../libs/utils/dateUtils";
 import { BaseModal } from "../../styles/LayoutStyles";
 
 export default function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();
   const name = session?.user.name;
-  const voteRate = useVoteRateQuery(1);
-  const participationRate = useParticipationRateQuery(1);
+  const voteRate = useVoteRateQuery(now(), now());
+  const participationRate = useParticipationRateQuery(now(), now());
   const isLoading = participationRate.isLoading || voteRate.isLoading;
 
   const noticeMessage = isLoading

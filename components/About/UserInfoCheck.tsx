@@ -1,7 +1,6 @@
 import React from "react";
 import { getToday } from "../../libs/utils/dateUtils";
 import { useEffect, useState } from "react";
-import { useVoteRateQuery } from "../../hooks/user/queries";
 import ModalPortal from "../../libs/utils/ModalPortal";
 import LastWeekAttendPopUp from "../../modals/PopUp/LastWeekAttendPopUp";
 

@@ -55,7 +55,7 @@ export default async function handler(
 
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
-          if (att.user.toString() === _id.toString()) {
+          if (att.user.toString() === _id.toString() && att.firstChoice) {
             const { start, end } = att.time;
 
             const startable = dateToDayjs(start).subtract(2, "hour");
