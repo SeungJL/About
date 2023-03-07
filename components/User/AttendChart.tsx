@@ -1,25 +1,31 @@
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { useVoteRateQueries, useVoteRateQuery } from "../../hooks/user/queries";
+import { useState } from "react";
 
 export default function AttendChart() {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
+
   const name = session?.user.name;
 
   const voteRateArr = useVoteRateQueries([1, 2]);
+
+  let isLoading = true;
   const myVoteRateArr = voteRateArr?.map((item) => {
     if (item.isSuccess) {
+      isLoading = item.isLoading;
       return item.data[name];
     }
   });
 
-  const myAttendArr = [myVoteRateArr[0]];
+  const myAttendArr = isLoading ? [] : [myVoteRateArr[0]];
   for (let i = 1; i < 2; i++) {
-    myAttendArr.push(myVoteRateArr[i] - myVoteRateArr[i - 1]);
+    !isLoading && myAttendArr.push(myVoteRateArr[i] - myVoteRateArr[i - 1]);
   }
 
   const average = [2, 3];
+
   return (
     <div>
       <ApexCharts

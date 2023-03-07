@@ -49,6 +49,7 @@ import {
   useVoteRateQuery,
 } from "../hooks/user/queries";
 import { useActiveMutation } from "../hooks/user/mutations";
+import UserInfoCheck from "../components/About/UserInfoCheck";
 
 function About({ user }) {
   const toast = useToast();
@@ -125,6 +126,7 @@ function About({ user }) {
   return (
     <>
       <Seo title="About" />
+      <UserInfoCheck />
       <AboutLayout>
         <UpScreen>
           <TopNav>

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useVoteRateQueries } from "../hooks/user/queries";
 
 function Record() {
   const [isLog, setIsLog] = useState(true);
+
   return (
     <Layout>
       <AttendLog>
