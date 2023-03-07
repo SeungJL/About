@@ -58,7 +58,6 @@ function Modals() {
         </ModalPortal>
       )}
       {registerForm && <RegisterFormModal />}
-
       {memberInfo && <MemberInfoBgModal />}
     </>
   );
