@@ -46,7 +46,7 @@ function Modals() {
   const memberInfo = useRecoilValue(isShowMemberInfoState);
   return (
     <>
-      {privacyPolicy && <PrivacyPolicy />}
+      {privacyPolicy && <PrivacyPolicy closeModal={null} />}
       {voteCancel && <CancelModal />}
       {notCompleted && <NotCompletedModal />}
 
