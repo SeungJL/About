@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
+    domains: [
+      "localhost",
+      "user-images.githubusercontent.com",
+      "play-lh.googleusercontent.com",
+      "*",
     ],
   },
   reactStrictMode: true,

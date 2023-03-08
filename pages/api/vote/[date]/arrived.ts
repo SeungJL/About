@@ -15,7 +15,7 @@ export default async function handler(
     body: { memo },
   } = req;
   const dateStr = req.query.date as string;
-  const dayjsDate = strToDate(dateStr).add(1, "day");
+  const dayjsDate = strToDate(dateStr);
   const date = dayjsDate.toDate();
 
   const token = await getToken({ req, secret });
@@ -24,7 +24,7 @@ export default async function handler(
   await dbConnect();
 
   let vote;
-
+  console.log(date);
   switch (method) {
     case "GET":
       const arriveInfo = [];
@@ -33,6 +33,7 @@ export default async function handler(
         await Vote.findOne({ date })
       ).populate(["participations.attendences.user"]);
       if (!vote) return res.status(404).end();
+
       vote.participations.forEach((participation) => {
         if (participation.status === "open") {
           participation.attendences.forEach((att) => {
@@ -58,8 +59,8 @@ export default async function handler(
           if (att.user.toString() === _id.toString() && att.firstChoice) {
             const { start, end } = att.time;
 
-            const startable = dateToDayjs(start).subtract(2, "hour");
-            const endable = dateToDayjs(end);
+            const startable = dateToDayjs(start).add(9, "hour");
+            const endable = dateToDayjs(end).add(9, "hour");
 
             if (startable <= currentTime && currentTime <= endable) {
               att.arrived = currentTime.toDate();

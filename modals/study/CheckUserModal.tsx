@@ -12,18 +12,21 @@ export default function CheckUserModal() {
   const { data: session } = useSession();
   const user = session.user;
 
-  const userList = useArrivedQuery(getToday())?.data;
+  const userLists = useArrivedQuery(getToday());
+  const userList = userLists.isSuccess && userLists.data;
 
   return (
     <ModalLayout>
-      {(userList as any)?.map((user, idx) => (
-        <UserAttendInfo
-          key={idx}
-          user={user.user}
-          memo={user.memo}
-          arrived={user.arrived}
-        />
-      ))}
+      {userLists.isSuccess
+        ? (userList as any)?.map((user, idx) => (
+            <UserAttendInfo
+              key={idx}
+              user={user.user}
+              memo={user.memo}
+              arrived={user.arrived}
+            />
+          ))
+        : null}
     </ModalLayout>
   );
 }

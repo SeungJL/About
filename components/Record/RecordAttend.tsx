@@ -32,7 +32,7 @@ export default function RecordAttend() {
       setWarningList(warning);
     }
   }, [month]);
-  attendData.isSuccess && console.log(GoodList, warningList);
+
   const convertedMonth = month + 1;
   return (
     <Layout>

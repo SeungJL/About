@@ -103,11 +103,12 @@ function About({ user }) {
       studyStatus && setStudyOpen(true);
     });
   });
-
+  if (now().hour() > 16 && now().hour() < 22) {
+    setIsUserAttend(false);
+  }
   useEffect(() => {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
     setisVoting(false);
-    setIsUserAttend(false);
     setStudyOpen(false);
     const voteDateKr = convertToKr(voteDate, "MMDDHH");
     const defaultVoteDateKr = convertToKr(defaultVoteDate, "MMDDHH");

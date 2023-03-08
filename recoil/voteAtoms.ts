@@ -104,8 +104,10 @@ export const voteStatusState = selector<
         return "Vote";
       }
     }
-    if (studyDate === "passed") return "Closed";
-    else {
+    if (studyDate === "passed") {
+      if (isUserAttend) return "Check";
+      return "Closed";
+    } else {
       if (isVoting) return "Voted";
       else return "Vote";
     }
