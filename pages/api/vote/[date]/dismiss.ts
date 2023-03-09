@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import dbConnect from "../../../../../libs/dbConnect";
-import { strToDate } from "../../../../../libs/utils/dateUtils";
-import { IAbsence, IVote, Vote } from "../../../../../models/vote";
+import dbConnect from "../../../../libs/dbConnect";
+import { strToDate } from "../../../../libs/utils/dateUtils";
+import { IAbsence, IVote, Vote } from "../../../../models/vote";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
