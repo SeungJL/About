@@ -114,7 +114,7 @@ export const confirm = async (dateStr: string) => {
         });
       }
     });
-
+    vote?.save();
     //1지망 투표도 실패하고, 참여 확정된 1지망으로의 2지망 변경도 실패한 경우(예를 들어 그 날 1지망만으로 스터디가 열린곳이 없으면 모두 failure에 들어가 있을 것임)
     vote?.participations?.map((participation) => {
       if (participation.status === "dismissed") {
@@ -152,4 +152,5 @@ export const confirm = async (dateStr: string) => {
       }
     });
   }
+  vote?.save();
 };
