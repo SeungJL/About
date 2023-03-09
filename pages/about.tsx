@@ -44,6 +44,7 @@ import {
 } from "../recoil/voteAtoms";
 
 import UserInfoCheck from "../components/About/UserInfoCheck";
+import AboutFooter from "../components/About/AboutFooter";
 
 function About({ user }) {
   const toast = useToast();
@@ -194,6 +195,7 @@ function About({ user }) {
           </RightArrow>
         </DownScreen>
       </AboutLayout>
+      <AboutFooter />
     </>
   );
 }

@@ -3,9 +3,11 @@ import { useState } from "react";
 
 import ProfileFormModal from "../../modals/user/ProfleFormModal";
 import ModalPortal from "../../libs/utils/ModalPortal";
+import SuggestModal from "../../modals/SuggestModal";
 
 export default function UserNavigation() {
   const [isShowProfileModal, setIsShowProfileModal] = useState(false);
+  const [isShowSuggest, setIsShowSuggest] = useState(false);
   return (
     <>
       <Layout>
@@ -13,7 +15,7 @@ export default function UserNavigation() {
           <Button onClick={() => setIsShowProfileModal(true)}>
             프로필 수정
           </Button>
-          <Button>참여 기록</Button>
+          <Button onClick={() => setIsShowSuggest(true)}>건의하기</Button>
           <Button>받은 요청</Button>
           <Button>기타 설정</Button>
         </ButtonNav>
@@ -21,6 +23,11 @@ export default function UserNavigation() {
       {isShowProfileModal && (
         <ModalPortal closePortal={setIsShowProfileModal}>
           <ProfileFormModal setIsShowProfileModal={setIsShowProfileModal} />
+        </ModalPortal>
+      )}
+      {isShowSuggest && (
+        <ModalPortal closePortal={setIsShowSuggest}>
+          <SuggestModal setIsShowSuggest={setIsShowSuggest} />
         </ModalPortal>
       )}
     </>

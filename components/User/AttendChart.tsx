@@ -37,7 +37,8 @@ export default function AttendChart() {
 
   const voteCountTotal = useVoteRateQueries(monthList);
   const attendCountTotal = useAttendRateQueries(monthList);
-  console.log(attendCountTotal);
+
+  const isLoading = voteCountTotal.some((result) => result.isLoading);
 
   const myVoteCountTotal = voteCountTotal?.map((item) => {
     if (item.isSuccess) {
@@ -57,8 +58,8 @@ export default function AttendChart() {
       <ApexCharts
         type="line"
         series={[
-          { name: "스터디 투표", data: myVoteCountTotal },
-          { name: "스터디 참여", data: myAttendCountTotal },
+          { name: "스터디 투표", data: isLoading ? [] : myVoteCountTotal },
+          { name: "스터디 참여", data: isLoading ? [] : myAttendCountTotal },
         ]}
         options={{
           chart: {
