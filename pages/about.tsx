@@ -21,7 +21,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { IParticipation } from "../models/vote";
-import { convertToKr, getToday, now } from "../libs/utils/dateUtils";
+import { getToday, now, getDefaultVoteDate } from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
@@ -33,7 +33,7 @@ import { isMember } from "../libs/utils/authUtils";
 import axios from "axios";
 import { VOTE_END_HOUR } from "../constants/system";
 import CircleAlert from "../components/block/CircleAlert";
-import { getDefaultVoteDate } from "../libs/utils/voteUtils";
+
 import {
   isShowRegisterFormState,
   isStudyOpenState,
@@ -45,6 +45,7 @@ import {
 
 import UserInfoCheck from "../components/About/UserInfoCheck";
 import AboutFooter from "../components/About/AboutFooter";
+import dayjs from "dayjs";
 
 function About({ user }) {
   const toast = useToast();
@@ -111,8 +112,8 @@ function About({ user }) {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
     setisVoting(false);
     setStudyOpen(false);
-    const voteDateKr = convertToKr(voteDate, "MMDDHH");
-    const defaultVoteDateKr = convertToKr(defaultVoteDate, "MMDDHH");
+    const voteDateKr = voteDate.format("MMDDHH");
+    const defaultVoteDateKr = defaultVoteDate.format("MMDDHH");
     if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
@@ -153,7 +154,7 @@ function About({ user }) {
             </div>
             <div>
               <span>Today</span>
-              <span> {convertToKr(today, "MMM DD")}</span>
+              <span> {today.format("MMM DD")}</span>
             </div>
           </InfoSection>
           <AnotherDaysNav />
@@ -162,7 +163,7 @@ function About({ user }) {
           participations={vote?.participations}
           mainLoading={isLoading}
         />
-        <TodayDate>{!isLoading && convertToKr(voteDate, "M월 D일")}</TodayDate>
+        <TodayDate>{!isLoading && voteDate.format("M월 D일")}</TodayDate>
         <DownScreen>
           <Swiper
             modules={[Navigation, Pagination, A11y]}

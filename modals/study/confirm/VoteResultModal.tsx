@@ -2,12 +2,12 @@ import dayjs from "dayjs";
 import { useMemo } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { dateToDayjs, splitDate } from "../../libs/utils/dateUtils";
+import { dateToDayjs, splitDate } from "../../../libs/utils/dateUtils";
 
-import { IUser } from "../../models/user";
-import { timeRange } from "../../libs/utils/timeUtils";
-import { START_HOUR } from "../../constants/system";
-import ProfileImage from "../../components/existing/profileImage";
+import { IUser } from "../../../models/user";
+
+import { END_HOUR, START_HOUR } from "../../../constants/system";
+import ProfileImage from "../../../components/existing/profileImage";
 
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,10 +16,16 @@ import {
   faArrowRight,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import { isShowOpenResultState } from "../../recoil/voteAtoms";
-import { modalContextState } from "../../recoil/modalAtoms";
-import ProfileImg from "../../components/common/ProfileImg";
+import { isShowOpenResultState } from "../../../recoil/voteAtoms";
+import { modalContextState } from "../../../recoil/modalAtoms";
+import ProfileImg from "../../../components/common/ProfileImg";
+const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+const MINUTES = ["00", "30"];
 
+const timeRange: number[] = [];
+for (let i = START_HOUR; i < END_HOUR; i += 1 / 2) {
+  timeRange.push(i);
+}
 const TimeRangeBar = ({ attendence }: any) => {
   const start = dayjs(attendence.time.start);
   const end = dayjs(attendence.time.end);
@@ -69,7 +75,7 @@ const Button = styled.button<{ first: boolean }>`
   color: ${(props) => (props.first ? "#2c3e50" : "rgb(34, 84, 61)")};
 `;
 
-const OpenResultModal = () => {
+export const VoteResultModal = () => {
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
   const [modalContext, setModalContext] = useRecoilState(modalContextState);
   const attendences = modalContext?.OpenResult?.attendences;
@@ -141,8 +147,6 @@ const OpenResultModal = () => {
     </>
   );
 };
-
-export default OpenResultModal;
 
 const FullScreen = styled.div`
   position: fixed;

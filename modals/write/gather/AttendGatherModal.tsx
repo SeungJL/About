@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { gatherJoinState } from "../recoil/gatherAtoms";
+import { gatherJoinState } from "../../../recoil/gatherAtoms";
 
 const GatherVoteLayout = styled.div`
   width: 350px;

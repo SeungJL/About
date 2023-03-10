@@ -20,8 +20,8 @@ import {
   voteDateState,
   voteStatusState,
 } from "../../recoil/voteAtoms";
-import ModalPortal from "../../libs/utils/ModalPortal";
-import AttendCheckModal from "../../modals/study/AttendCheckModal";
+import ModalPortal from "../ModalPortal";
+import AttendCheckModal from "../../modals/study/vote/CheckVoteModal";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;

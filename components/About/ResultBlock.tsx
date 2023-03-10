@@ -13,10 +13,10 @@ import {
   isShowVoterState,
   isUserAttendState,
 } from "../../recoil/voteAtoms";
-import OpenResultModal from "../../modals/study/OpenResultModal";
-import CheckUserModal from "../../modals/study/CheckUserModal";
-import AttendCheckModal from "../../modals/study/AttendCheckModal";
-import ModalPortal from "../../libs/utils/ModalPortal";
+
+import CheckUserModal from "../../modals/study/confirm/AttendingPeopleModal";
+import AttendCheckModal from "../../modals/study/vote/CheckVoteModal";
+import ModalPortal from "../ModalPortal";
 
 const ResultBlockLayout = styled.div`
   display: flex;

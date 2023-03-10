@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import ProfileImg from "../../components/common/ProfileImg";
-import ProfileImage from "../../components/existing/profileImage";
-import { useArrivedQuery } from "../../hooks/vote/queries";
-import { getToday } from "../../libs/utils/dateUtils";
-import { IUser } from "../../models/user";
-import { BaseModal } from "../../styles/LayoutStyles";
+import ProfileImg from "../../../components/common/ProfileImg";
+import ProfileImage from "../../../components/existing/profileImage";
+import { useArrivedQuery } from "../../../hooks/vote/queries";
+import { getToday } from "../../../libs/utils/dateUtils";
+import { IUser } from "../../../models/user";
+import { BaseModal } from "../../../styles/LayoutStyles";
 
-export default function CheckUserModal() {
+export default function CheckAttendanceModal() {
   const { data: session } = useSession();
   const user = session.user;
 

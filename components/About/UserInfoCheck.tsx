@@ -1,8 +1,8 @@
 import React from "react";
 import { getToday } from "../../libs/utils/dateUtils";
 import { useEffect, useState } from "react";
-import ModalPortal from "../../libs/utils/ModalPortal";
-import LastWeekAttendPopUp from "../../modals/PopUp/LastWeekAttendPopUp";
+import ModalPortal from "../ModalPortal";
+import LastWeekAttendPopUp from "../../modals/pop-up/LastWeekAttendPopUp";
 
 export default function UserInfoCheck() {
   const today = getToday();

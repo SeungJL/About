@@ -4,13 +4,13 @@ import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { useDismissMutation } from "../../hooks/vote/mutations";
-import { VOTE_GET } from "../../libs/queryKeys";
-import { getToday, strToDate } from "../../libs/utils/dateUtils";
-import { isShowVoteCancleState } from "../../recoil/modalAtoms";
-import { isVotingState } from "../../recoil/voteAtoms";
+import { useDismissMutation } from "../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { getToday, strToDate } from "../../../libs/utils/dateUtils";
+import { isShowVoteCancleState } from "../../../recoil/modalAtoms";
+import { isVotingState } from "../../../recoil/voteAtoms";
 
-import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
+import { BaseModal, FullScreen } from "../../../styles/LayoutStyles";
 
 const CancelModalLayout = styled(BaseModal)`
   width: 240px;
@@ -43,7 +43,7 @@ const Footer = styled.footer`
   }
 `;
 
-function CancelModal() {
+export default function CancelVoteModal() {
   const today = getToday();
   const queryClient = useQueryClient();
   const toast = useToast();
@@ -89,4 +89,3 @@ function CancelModal() {
     </>
   );
 }
-export default CancelModal;

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import ProfileFormModal from "../../modals/user/ProfleFormModal";
-import ModalPortal from "../../libs/utils/ModalPortal";
-import SuggestModal from "../../modals/SuggestModal";
+import ProfileFormModal from "../../modals/user/ModifyUserInfoModal";
+import ModalPortal from "../ModalPortal";
+import SuggestModal from "../../modals/write/SuggestModal";
 
 export default function UserNavigation() {
   const [isShowProfileModal, setIsShowProfileModal] = useState(false);

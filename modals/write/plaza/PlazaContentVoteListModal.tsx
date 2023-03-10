@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-export const VoteListInputItem = ({ voteListArr, setVoteListArr }) => {
+export const PlazaContentVoteListModal = ({ voteListArr, setVoteListArr }) => {
   const voteListInput = useRef();
   const list = voteListInput.current;
   const [value, setValue] = useState("");

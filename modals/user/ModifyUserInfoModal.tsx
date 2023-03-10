@@ -34,7 +34,7 @@ export interface IUserRegister extends IRegisterForm {
   gender: string;
 }
 
-function ProfileFormModal({ setIsShowProfileModal }) {
+function ModifyUserInfoModal({ setIsShowProfileModal }) {
   const [isMan, setIsMan] = useState(true);
 
   const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
@@ -172,7 +172,7 @@ function ProfileFormModal({ setIsShowProfileModal }) {
     </>
   );
 }
-export default ProfileFormModal;
+export default ModifyUserInfoModal;
 
 const ModalLayout = styled(BaseModal)`
   width: 320px;

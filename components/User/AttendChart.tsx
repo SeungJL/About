@@ -8,12 +8,7 @@ import {
 } from "../../hooks/user/queries";
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import {
-  getMonth,
-  getToday,
-  now,
-  numToMonth,
-} from "../../libs/utils/dateUtils";
+import { getMonth, getToday, now } from "../../libs/utils/dateUtils";
 
 export interface IMonthStartToEnd {
   startDay: Dayjs;
@@ -31,7 +26,7 @@ export default function AttendChart() {
       dayjs().month(i).date(num);
     monthList.push({
       startDay: changeMonthDate(i, 1),
-      endDay: changeMonthDate(i, numToMonth(i).daysInMonth()),
+      endDay: changeMonthDate(i, dayjs().month(i).daysInMonth()),
     });
   }
 

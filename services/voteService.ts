@@ -5,7 +5,7 @@ import {
   VOTE_START_HOUR,
 } from "../constants/system";
 import { dateToDayjs, getToday, now, strToDate } from "../libs/utils/dateUtils";
-import { openable, getOptimalTime2 } from "../libs/utils/timeUtils";
+
 import { IParticipation, Vote } from "../models/vote";
 
 export const findOneVote = (date: Date) =>

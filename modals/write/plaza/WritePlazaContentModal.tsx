@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import { render } from "react-dom";
 import React from "react";
-import { VoteListInputItem } from "./VoteListInputItem";
+import { PlazaContentVoteListModal } from "./PlazaContentVoteListModal";
 import { useSession } from "next-auth/react";
 
 export default function CreatePlazaContentModal({ setIsShowModal }) {
@@ -116,7 +116,7 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
                 </DeleteIcon>
               </div>
             ))}
-            <VoteListInputItem
+            <PlazaContentVoteListModal
               voteListArr={voteListArr}
               setVoteListArr={setVoteListArr}
             />

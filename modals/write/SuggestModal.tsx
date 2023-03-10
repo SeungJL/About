@@ -7,7 +7,7 @@ import { type } from "os";
 import { useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { BaseModal } from "../styles/LayoutStyles";
+import { BaseModal } from "../../styles/LayoutStyles";
 import { useSession } from "next-auth/react";
 import dayjs from "dayjs";
 

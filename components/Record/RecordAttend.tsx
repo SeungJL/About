@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParticipationRateQuery } from "../../hooks/user/queries";
-import { getMonth, now, numToMonth } from "../../libs/utils/dateUtils";
+import { getMonth, now } from "../../libs/utils/dateUtils";
 
 export default function RecordAttend() {
   const lastMonth = dayjs().subtract(1, "M").month();
@@ -15,7 +15,7 @@ export default function RecordAttend() {
 
   const attendData = useParticipationRateQuery(
     monthDayjs.date(1),
-    monthDayjs.date(numToMonth(month).daysInMonth())
+    monthDayjs.date(dayjs().month(month).daysInMonth())
   );
 
   useEffect(() => {

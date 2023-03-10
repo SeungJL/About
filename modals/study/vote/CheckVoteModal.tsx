@@ -3,14 +3,14 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { CommentBox } from "../../components/common/CommentBox";
-import { useArrivedMutation } from "../../hooks/vote/mutations";
-import { VOTE_GET } from "../../libs/queryKeys";
-import { getToday } from "../../libs/utils/dateUtils";
-import { isAttendCheckModalState } from "../../recoil/modalAtoms";
-import { BaseModal } from "../../styles/LayoutStyles";
+import { CommentBox } from "../../../components/common/CommentBox";
+import { useArrivedMutation } from "../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { getToday } from "../../../libs/utils/dateUtils";
+import { isAttendCheckModalState } from "../../../recoil/modalAtoms";
+import { BaseModal } from "../../../styles/LayoutStyles";
 
-export default function AttendCheckModal() {
+export default function CheckVoteModal() {
   const [memo, setMemo] = useState("");
   const queryClient = useQueryClient();
   const toast = useToast();

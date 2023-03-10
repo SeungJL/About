@@ -1,8 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../libs/utils/ModalPortal";
+import ModalPortal from "../ModalPortal";
 import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
-
 import Terms from "../../storage/terms";
 
 export default function AboutFooter() {

@@ -2,13 +2,19 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Box, HStack, Tag, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { FC, useMemo } from "react";
-import { START_HOUR } from "../../constants/system";
+import { END_HOUR, START_HOUR } from "../../constants/system";
 import { dateToDayjs, splitDate } from "../../libs/utils/dateUtils";
-import { timeRange } from "../../libs/utils/timeUtils";
+
 import { IUser } from "../../models/user";
 import { IAttendence } from "../../models/vote";
 import ProfileImage from "../existing/profileImage";
+const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+const MINUTES = ["00", "30"];
 
+const timeRange: number[] = [];
+for (let i = START_HOUR; i < END_HOUR; i += 1 / 2) {
+  timeRange.push(i);
+}
 const TimeRangeBar: FC<{
   attendence: IAttendence;
 }> = ({ attendence }) => {

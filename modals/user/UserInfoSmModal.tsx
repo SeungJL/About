@@ -99,7 +99,7 @@ const UserComment = styled.div`
   font-size: 0.9em;
 `;
 
-export default function UserInfoSm({ user, setIsShowModal }) {
+export default function UserInfoSmModal({ user, setIsShowModal }) {
   const { data: monthVoteRateAll, isLoading } = useVoteRateQuery(now(), now());
   const myMonthVote = !isLoading && monthVoteRateAll[user.name];
 
