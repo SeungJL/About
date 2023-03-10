@@ -12,7 +12,7 @@ import {
   isShowOpenResultState,
   isShowVoterState,
   isUserAttendState,
-} from "../../recoil/voteAtoms";
+} from "../../recoil/studyAtoms";
 
 import CheckUserModal from "../../modals/study/confirm/AttendingPeopleModal";
 import AttendCheckModal from "../../modals/study/vote/CheckVoteModal";

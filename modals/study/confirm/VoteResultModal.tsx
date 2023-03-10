@@ -16,7 +16,7 @@ import {
   faArrowRight,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import { isShowOpenResultState } from "../../../recoil/voteAtoms";
+import { isShowOpenResultState } from "../../../recoil/studyAtoms";
 import { modalContextState } from "../../../recoil/modalAtoms";
 import ProfileImg from "../../../components/common/ProfileImg";
 const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];

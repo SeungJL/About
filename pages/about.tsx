@@ -41,7 +41,7 @@ import {
   isVotingState,
   studyDateState,
   voteDateState,
-} from "../recoil/voteAtoms";
+} from "../recoil/studyAtoms";
 
 import UserInfoCheck from "../components/About/UserInfoCheck";
 import AboutFooter from "../components/About/AboutFooter";

@@ -8,7 +8,7 @@ import { useDismissMutation } from "../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday, strToDate } from "../../../libs/utils/dateUtils";
 import { isShowVoteCancleState } from "../../../recoil/modalAtoms";
-import { isVotingState } from "../../../recoil/voteAtoms";
+import { isVotingState } from "../../../recoil/studyAtoms";
 
 import { BaseModal, FullScreen } from "../../../styles/LayoutStyles";
 

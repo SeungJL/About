@@ -19,9 +19,11 @@ import {
   isVotingState,
   voteDateState,
   voteStatusState,
-} from "../../recoil/voteAtoms";
+} from "../../recoil/studyAtoms";
 import ModalPortal from "../ModalPortal";
 import AttendCheckModal from "../../modals/study/vote/CheckVoteModal";
+import VoteStudyModal from "../../modals/study/vote/voteStudy/VoteStudyModal";
+import { useState } from "react";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;
   justify-content: center;
@@ -86,6 +88,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
   const setIsShowStudyVote = useSetRecoilState(isShowStudyVoteModalState);
   const voteStatus = useRecoilValue(voteStatusState);
   const setisVoting = useSetRecoilState(isVotingState);
+  const [isShowModal, setIsShowModal] = useState(false);
   const setModalContext = useSetRecoilState(modalContextState);
   const [isAttendCheckModal, setIsAttendCheckModal] = useRecoilState(
     isAttendCheckModalState
@@ -154,6 +157,14 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
       {isAttendCheckModal && (
         <ModalPortal closePortal={setIsAttendCheckModal}>
           <AttendCheckModal />
+        </ModalPortal>
+      )}
+      {isShowModal && (
+        <ModalPortal closePortal={setIsShowModal}>
+          <VoteStudyModal
+            participations={participations}
+            setIsShowModal={setIsShowModal}
+          />
         </ModalPortal>
       )}
     </>

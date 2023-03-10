@@ -2,7 +2,7 @@ import { Box, Select, Text } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 
-import { IParticipation } from "../../models/vote";
+import { IParticipation } from "../../../../models/vote";
 
 const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 const MINUTES = ["00", "30"];

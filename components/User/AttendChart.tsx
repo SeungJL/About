@@ -31,6 +31,7 @@ export default function AttendChart() {
   }
 
   const voteCountTotal = useVoteRateQueries(monthList);
+
   const attendCountTotal = useAttendRateQueries(monthList);
 
   const isLoading = voteCountTotal.some((result) => result.isLoading);

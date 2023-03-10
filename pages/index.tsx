@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { isMember } from "../libs/utils/authUtils";
 import { getInterestingDate } from "../libs/utils/dateUtils";
-import { AAState } from "../recoil/voteAtoms";
+import { AAState } from "../recoil/studyAtoms";
 
 function Main() {
   const B = useSetRecoilState(AAState);

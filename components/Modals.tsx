@@ -6,7 +6,7 @@ import UserInfoForm from "../modals/user/RegisterFormModal";
 
 import ModalPortal from "./ModalPortal";
 import VoterModal from "../modals/study/confirm/StudyVoterModal";
-import StudyVoteModal from "../modals/study/vote/VoteStudyModal";
+import StudyVoteModal from "../modals/study/vote/voteStudy/VoteStudyModal";
 import RegisterFormModal from "../modals/user/RegisterFormModal";
 import { PrivacyPolicy } from "../storage/PrivacyPolicy";
 import { useSession } from "next-auth/react";
@@ -27,7 +27,7 @@ import {
   isShowPrivacyPolicyState,
   isShowRegisterFormState,
   isShowVoterState,
-} from "../recoil/voteAtoms";
+} from "../recoil/studyAtoms";
 import { VoteResultModal } from "../modals/study/confirm/VoteResultModal";
 
 function Modals() {

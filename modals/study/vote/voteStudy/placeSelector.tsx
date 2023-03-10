@@ -12,9 +12,9 @@ import {
 import { FC, MouseEvent, useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { MAX_USER_PER_PLACE } from "../../constants/system";
-import { IPlace } from "../../models/place";
-import { selectPlacesState } from "../../recoil/voteAtoms";
+import { MAX_USER_PER_PLACE } from "../../../../constants/system";
+import { IPlace } from "../../../../models/place";
+import { selectPlacesState } from "../../../../recoil/studyAtoms";
 
 interface IPlaceSelecter {
   placeInfo: { placeName: IPlace; voteCnt: number; status: string }[];

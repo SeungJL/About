@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import {
   isShowPrivacyPolicyState,
   isShowRegisterFormState,
-} from "../../recoil/voteAtoms";
+} from "../../recoil/studyAtoms";
 import { useActiveQuery } from "../../hooks/user/queries";
 
 export interface IRegisterForm {
