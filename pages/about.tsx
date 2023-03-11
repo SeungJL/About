@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
 import Seo from "../components/common/Seo";
-import VoteBtn from "../components/About/VoteBtn";
-import ResultBlock from "../components/About/ResultBlock";
-import AnotherDaysNav from "../components/About/AnotherDaysNav";
-import MainNavigation from "../components/About/MainNavigation";
+import VoteBtn from "../components/Pages/About/VoteBtn";
+import ResultBlock from "../components/Pages/About/ResultBlock";
+import AnotherDaysNav from "../components/Pages/About/AnotherDaysNav";
+import MainNavigation from "../components/Pages/About/MainNavigation";
 import safeJsonStringify from "safe-json-stringify";
 import {
   faAngleLeft,
@@ -21,7 +21,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { IParticipation } from "../models/vote";
-import { getToday, now, getDefaultVoteDate } from "../libs/utils/dateUtils";
+import {
+  getToday,
+  now,
+  getDefaultVoteDate,
+  hourMinToDate,
+} from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
@@ -43,8 +48,8 @@ import {
   voteDateState,
 } from "../recoil/studyAtoms";
 
-import UserInfoCheck from "../components/About/UserInfoCheck";
-import AboutFooter from "../components/About/AboutFooter";
+import UserInfoCheck from "../components/Pages/About/UserInfoCheck";
+import AboutFooter from "../components/Pages/About/AboutFooter";
 import dayjs from "dayjs";
 
 function About({ user }) {

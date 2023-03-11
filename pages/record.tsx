@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import RecordAttend from "../components/Record/RecordAttend";
-import RecordGather from "../components/Record/RecordGather";
-import RecordMoney from "../components/Record/RecordMoney";
-import RecordNotice from "../components/Record/RecordNotice";
+import RecordAttend from "../components/Pages/Record/RecordAttend";
+import RecordGather from "../components/Pages/Record/RecordGather";
+import RecordMoney from "../components/Pages/Record/RecordMoney";
+import RecordNotice from "../components/Pages/Record/RecordNotice";
 import { useVoteRateQueries } from "../hooks/user/queries";
 
 function Record() {

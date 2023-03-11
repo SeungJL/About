@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import CreateNotice from "../components/Notice/CreateNotice";
-import NoticeCategory from "../components/Notice/NoticeCategory";
-import NoticeContents from "../components/Notice/NoticeContents";
+import CreateNotice from "../components/Pages/Notice/CreateNotice";
+import NoticeCategory from "../components/Pages/Notice/NoticeCategory";
+import NoticeContents from "../components/Pages/Notice/NoticeContents";
 import Seo from "../components/common/Seo";
 import Header from "../components/common/Header";
 

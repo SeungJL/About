@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { nameToKr, setCategoryStatus } from "../../libs/utils/membersUtil";
-import { IItemBox } from "../../models/members";
-import { ICategory } from "../../pages/members";
-import { categoryState } from "../../recoil/membersAtoms";
+import { nameToKr, setCategoryStatus } from "../../../libs/utils/membersUtil";
+import { IItemBox } from "../../../models/members";
+import { ICategory } from "../../../pages/members";
+import { categoryState } from "../../../recoil/membersAtoms";
 import CategoryStatus from "./CategoryStatus";
 import { useEffect } from "react";
 

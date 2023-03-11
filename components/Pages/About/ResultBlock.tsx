@@ -2,21 +2,21 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { IParticipation } from "../../models/vote";
+import { IParticipation } from "../../../models/vote";
 import { useSession } from "next-auth/react";
 import {
   isShowVoteCancleState,
   modalContextState,
-} from "../../recoil/modalAtoms";
+} from "../../../recoil/modalAtoms";
 import {
   isShowOpenResultState,
   isShowVoterState,
   isUserAttendState,
-} from "../../recoil/studyAtoms";
+} from "../../../recoil/studyAtoms";
 
-import CheckUserModal from "../../modals/study/confirm/AttendingPeopleModal";
-import AttendCheckModal from "../../modals/study/vote/CheckVoteModal";
-import ModalPortal from "../ModalPortal";
+import CheckUserModal from "../../../modals/study/confirm/AttendingPeopleModal";
+import AttendCheckModal from "../../../modals/study/vote/CheckVoteModal";
+import ModalPortal from "../../ModalPortal";
 
 const ResultBlockLayout = styled.div`
   display: flex;

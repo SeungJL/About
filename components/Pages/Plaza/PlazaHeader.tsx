@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../ModalPortal";
-import CreatePlazaContentModal from "../../modals/write/plaza/WritePlazaContentModal";
-import { plazaCategoryState } from "../../recoil/plazaAtoms";
+import ModalPortal from "../../ModalPortal";
+import CreatePlazaContentModal from "../../../modals/write/plaza/WritePlazaContentModal";
+import { plazaCategoryState } from "../../../recoil/plazaAtoms";
 
 export default function PlazaHeader() {
   const [plazaCategory, setPlazaCategory] = useRecoilState(plazaCategoryState);

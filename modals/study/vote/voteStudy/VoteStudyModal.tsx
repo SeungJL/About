@@ -6,24 +6,21 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import PlaceSelector from "./placeSelector";
+import PlaceSelector, { IplaceInfo } from "./placeSelector";
 import TimeSelector from "./timeSelector";
 import { useAttendMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
 import { hourMinToDate } from "../../../../libs/utils/dateUtils";
-import { IVoteStudy } from "../../../../types/study";
+import { IVoteStudyInfo } from "../../../../types/study";
 import { IPlace } from "../../../../models/place";
 import { IParticipation } from "../../../../models/vote";
 import {
   isShowStudyVoteModalState,
   modalContextState,
 } from "../../../../recoil/modalAtoms";
-import {
-  isVotingState,
-  selectPlacesState,
-  voteDateState,
-} from "../../../../recoil/studyAtoms";
+import { isVotingState, voteDateState } from "../../../../recoil/studyAtoms";
 import ModalPortal from "../../../../components/ModalPortal";
+import { ITimeStartToEnd } from "../../../../types/utils";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -36,12 +33,8 @@ function VoteStudyModal({
   const voteDate = useRecoilValue(voteDateState);
   const toast = useToast();
   const queryClient = useQueryClient();
-  const [attendInfo, setAttendInfo] = useState({
-    place: null,
-    start: hourMinToDate(12, "00"),
-    end: hourMinToDate(18, "00"),
-  });
-  const placeInfo = participations.map((participant) => {
+
+  const placeInfoArr = participations.map((participant) => {
     const placeName = participant.place;
     const voteCnt = participant.attendences.length;
     const status = participant.status;
@@ -49,8 +42,13 @@ function VoteStudyModal({
     return { placeName, voteCnt, status };
   });
 
-  const [selectPlaces, setSelectPlaces] = useRecoilState(selectPlacesState);
-  const [subPlaces, setSubPlaces] = useState([]);
+  const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
+  const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
+  const [time, setTime] = useState<ITimeStartToEnd>({
+    start: { hour: 12, minutes: 0 },
+    end: { hour: 18, minutes: 0 },
+  });
+
   const setisVoting = useSetRecoilState(isVotingState);
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
@@ -58,9 +56,14 @@ function VoteStudyModal({
       setisVoting(true);
     },
   });
-
+  const [voteInfo, setvoteInfo] = useState<IVoteStudyInfo>({
+    place: null,
+    subPlace: null,
+    start: { hour: 12, minutes: 0 },
+    end: { hour: 18, minutes: 0 },
+  });
   const onSubmit = () => {
-    const { start, end } = attendInfo;
+    const { start, end } = voteInfo;
     setIsShowModal(false);
     if (start >= end) {
       toast({
@@ -74,30 +77,9 @@ function VoteStudyModal({
       return;
     }
 
-    const voteInfo: IVoteStudy = {
-      place: (attendInfo.place as IPlace)._id,
-      subPlace: subPlaces,
-      start: start.toDate(),
-      end: end.toDate(),
-    };
     patchAttend(voteInfo);
   };
 
-  const movePageSeoncd = () => {
-    setPage(1);
-    setSelectPlaces([]);
-  };
-  const onsubmitSpace = () => {
-    let selectedPlaces = Array.from(new Set(selectPlaces));
-    const subPlaceList = (selectedPlaces as any)?.map((place) => place?._id);
-    setSubPlaces(subPlaceList);
-    setPage(2);
-  };
-
-  const selectedParticipation = participations.find(
-    (participation) =>
-      (participation.place as IPlace)._id == (attendInfo.place as IPlace)?._id
-  );
   return (
     <>
       <ModalLayout>
@@ -112,12 +94,11 @@ function VoteStudyModal({
           <SpacePage>
             <span>1지망 선택</span>
             <PlaceSelector
-              placeInfo={placeInfo}
-              selectedPlace={attendInfo.place}
+              placeInfoArr={placeInfoArr}
               isSelectUnit={true}
               setSelectedPlace={(place) => {
-                setAttendInfo({ ...attendInfo, place });
-                movePageSeoncd();
+                setFirstPlace([...firstPlace, place]);
+                setPage(1);
               }}
             />
           </SpacePage>
@@ -125,32 +106,29 @@ function VoteStudyModal({
           <SpacePage>
             <span>2지망 선택(여러개)</span>
             <PlaceSelector
-              placeInfo={placeInfo}
-              selectedPlace={attendInfo.place}
+              placeInfoArr={placeInfoArr}
               isSelectUnit={false}
+              firstPlace={firstPlace}
+              secondPlaces={secondPlaces}
               setSelectedPlace={(place) => {
-                setAttendInfo({ ...attendInfo, place });
+                setSecondPlaces([...secondPlaces, place]);
               }}
             />
-
             <SecondPageNav>
               <button onClick={() => setPage(0)}>뒤로가기</button>
-              <button onClick={onsubmitSpace}>다음</button>
+              <button onClick={() => setPage(2)}>다음</button>
             </SecondPageNav>
           </SpacePage>
         ) : (
           <>
             <TimeSelector
-              participation={selectedParticipation}
-              start={attendInfo.start}
-              setStart={(start: Dayjs) =>
-                setAttendInfo({ ...attendInfo, start })
+              setTimes={({ start, end }: ITimeStartToEnd) =>
+                setTime({ ...time, start, end })
               }
-              end={attendInfo.end}
-              setEnd={(end: Dayjs) => setAttendInfo({ ...attendInfo, end })}
+              times={time}
             />
             <LastPageNav>
-              <button onClick={movePageSeoncd}>뒤로가기</button>
+              <button onClick={() => setPage(1)}>뒤로가기</button>
               <button onClick={onSubmit}>제출</button>
             </LastPageNav>
           </>

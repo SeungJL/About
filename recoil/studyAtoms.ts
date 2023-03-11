@@ -122,7 +122,3 @@ export const isShowRegisterFormState = atom({
   key: "RegisterForm",
   default: false,
 });
-export const selectPlacesState = atom<any>({
-  key: "selectPlaces",
-  default: [],
-});

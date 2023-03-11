@@ -26,8 +26,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import AboutFooter from "../components/About/AboutFooter";
-import UserInfoCheck from "../components/About/UserInfoCheck";
+import AboutFooter from "../components/Pages/About/AboutFooter";
+import UserInfoCheck from "../components/Pages/About/UserInfoCheck";
 import Logo from "../components/block/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 

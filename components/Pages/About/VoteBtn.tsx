@@ -1,28 +1,28 @@
 import styled from "styled-components";
 import { useQueryClient } from "react-query";
 import { useToast } from "@chakra-ui/react";
-import { CenterDiv } from "../../styles/LayoutStyles";
+import { CenterDiv } from "../../../styles/LayoutStyles";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useAbsentMutation,
   useArrivedMutation,
-} from "../../hooks/vote/mutations";
-import { VOTE_GET } from "../../libs/queryKeys";
-import { getToday } from "../../libs/utils/dateUtils";
-import { IParticipation } from "../../models/vote";
+} from "../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { getToday } from "../../../libs/utils/dateUtils";
+import { IParticipation } from "../../../models/vote";
 import {
   isAttendCheckModalState,
   isShowStudyVoteModalState,
   modalContextState,
-} from "../../recoil/modalAtoms";
+} from "../../../recoil/modalAtoms";
 import {
   isVotingState,
   voteDateState,
   voteStatusState,
-} from "../../recoil/studyAtoms";
-import ModalPortal from "../ModalPortal";
-import AttendCheckModal from "../../modals/study/vote/CheckVoteModal";
-import VoteStudyModal from "../../modals/study/vote/voteStudy/VoteStudyModal";
+} from "../../../recoil/studyAtoms";
+import ModalPortal from "../../ModalPortal";
+import AttendCheckModal from "../../../modals/study/vote/CheckVoteModal";
+import VoteStudyModal from "../../../modals/study/vote/voteStudy/VoteStudyModal";
 import { useState } from "react";
 const OutlineCircle = styled(CenterDiv)`
   display: flex;

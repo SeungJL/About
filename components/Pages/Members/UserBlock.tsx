@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { birthToAge, nameToKr } from "../../libs/utils/membersUtil";
-import { IUserBlock } from "../../models/members";
-import { IUser } from "../../models/user";
+import { birthToAge, nameToKr } from "../../../libs/utils/membersUtil";
+import { IUserBlock } from "../../../models/members";
+import { IUser } from "../../../models/user";
 import {
   categoryState,
   isShowMemberInfoState,
-} from "../../recoil/membersAtoms";
-import { modalContextState } from "../../recoil/modalAtoms";
+} from "../../../recoil/membersAtoms";
+import { modalContextState } from "../../../recoil/modalAtoms";
 
 const UserBlockLayout = styled(motion.div)`
   background-color: lightgray;

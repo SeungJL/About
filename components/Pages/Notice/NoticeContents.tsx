@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 import Accordion from "./Accordion";
 import * as dayjs from "dayjs";
-import { noticeCategoryState, noticeSelector } from "../../recoil/noticeAtoms";
+import {
+  noticeCategoryState,
+  noticeSelector,
+} from "../../../recoil/noticeAtoms";
 
 const TextContainer = styled.div`
   height: 80vh;

@@ -1,4 +1,5 @@
 import mongoose, { Document, Model, model, Schema } from "mongoose";
+import { IPlaceStatus } from "../types/study";
 import { IPlace } from "./place";
 import { IUser } from "./user";
 
@@ -43,7 +44,7 @@ export interface IParticipation {
   attendences: IAttendence[];
   absences: IAbsence[];
   invitations: IInvitation[];
-  status: "pending" | "waiting_confirm" | "open" | "dismissed";
+  status: IPlaceStatus;
   showVote?: boolean;
   desc: string;
   index: Number;

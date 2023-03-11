@@ -1,14 +1,14 @@
 import { signOut } from "next-auth/react";
 import styled from "styled-components";
 
-import { useActiveQuery } from "../../hooks/user/queries";
-import UserBadge from "../block/UserBadge";
+import { useActiveQuery } from "../../../hooks/user/queries";
+import UserBadge from "../../block/UserBadge";
 import { useSession } from "next-auth/react";
 import { Badge, Spinner, useToast } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
-import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo";
+import { kakaoProfileInfo } from "../../../models/interface/kakaoProfileInfo";
 import { RepeatIcon } from "@chakra-ui/icons";
-import { IUser } from "../../models/user";
+import { IUser } from "../../../models/user";
 import { useMutation } from "react-query";
 
 export default function UserOverView() {

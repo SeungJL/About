@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "../../components/common/Header";
-import UserNavigation from "../../components/User/UserNavigation";
-import UserOverView from "../../components/User/UserOverView";
+import UserNavigation from "../../components/Pages/User/UserNavigation";
+import UserOverView from "../../components/Pages/User/UserOverView";
 import {
   Text,
   Container,
@@ -19,7 +19,7 @@ import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 import { Attendence } from "../../models/attendence";
 import { User } from "../../models/user";
-import AttendChart from "../../components/User/AttendChart";
+import AttendChart from "../../components/Pages/User/AttendChart";
 
 function UserInfo() {
   return (
