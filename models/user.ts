@@ -87,6 +87,7 @@ export interface IUser extends Document {
   profileImage: string;
   role?: string;
   statistic: IUserStatistic;
+  score: number;
 }
 
 export const UserSchema: Schema<IUser> = new Schema({
@@ -130,6 +131,10 @@ export const UserSchema: Schema<IUser> = new Schema({
   },
   role: String,
   statistic: UserStatisticShema,
+  score: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export const User =
