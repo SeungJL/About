@@ -8,6 +8,7 @@ export interface IPlazaData {
   content?: string;
   suggestContent?: string;
   voteList?: string[];
+  id?: string;
 }
 
 export interface IPlazaBlock {
