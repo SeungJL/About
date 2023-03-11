@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 
 import { IParticipation } from "../../../../models/vote";
-import { IVoteStudyInfo } from "../../../../types/study";
+
 import { ITimeStartToEnd } from "../../../../types/utils";
 import { useState } from "react";
 
@@ -32,23 +32,24 @@ const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
       const value = Number(event.currentTarget.value);
       let hour = time.hour;
       let minutes = time.minutes;
+
       if (type === "start") {
         if (isHour) hour = value;
         else minutes = value;
         setTimes({ start: { hour, minutes }, end: null });
       } else {
-        if (isHour) time.hour = value;
-        else time.minutes = value;
+        if (isHour) hour = value;
+        else minutes = value;
         setTimes({ start: null, end: { hour, minutes } });
       }
     };
   return (
     <Box key={type}>
       <Box display="inline-block" width="40px">
-        <Text>시작</Text>
+        <Text>{type === "start" ? "시작" : "끝"}</Text>
       </Box>
       <Select
-        name={type}
+        name={type + "h"}
         defaultValue={time.hour}
         placeholder="시간"
         width="fit-content"
@@ -63,8 +64,8 @@ const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
       </Select>
       :
       <Select
-        name={type}
-        defaultValue={time.minutes}
+        name={type + "m"}
+        defaultValue={String(time.minutes).padStart(2, "0")}
         placeholder="분"
         width="fit-content"
         display="inline-block"

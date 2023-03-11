@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -11,7 +11,7 @@ import TimeSelector from "./timeSelector";
 import { useAttendMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
 import { hourMinToDate } from "../../../../libs/utils/dateUtils";
-import { IVoteStudyInfo } from "../../../../types/study";
+
 import { IPlace } from "../../../../models/place";
 import { IParticipation } from "../../../../models/vote";
 import {
@@ -34,7 +34,7 @@ function VoteStudyModal({
   const toast = useToast();
   const queryClient = useQueryClient();
 
-  const placeInfoArr = participations.map((participant) => {
+  const placeInfoArr = participations?.map((participant) => {
     const placeName = participant.place;
     const voteCnt = participant.attendences.length;
     const status = participant.status;
@@ -56,16 +56,19 @@ function VoteStudyModal({
       setisVoting(true);
     },
   });
-  const [voteInfo, setvoteInfo] = useState<IVoteStudyInfo>({
-    place: null,
-    subPlace: null,
-    start: { hour: 12, minutes: 0 },
-    end: { hour: 18, minutes: 0 },
-  });
+
   const onSubmit = () => {
-    const { start, end } = voteInfo;
+    const start = time.start;
+    const end = time.end;
+    const voteInfos = {
+      place: firstPlace[0].placeName,
+      subPlace: secondPlaces.map((place) => place.placeName),
+      start: dayjs().hour(start.hour).minute(start.minutes),
+      end: dayjs().hour(start.hour).minute(start.minutes),
+    };
+
     setIsShowModal(false);
-    if (start >= end) {
+    if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
         description: "시작시간은 끝시간 이전이여야 합니다",
@@ -77,7 +80,7 @@ function VoteStudyModal({
       return;
     }
 
-    patchAttend(voteInfo);
+    patchAttend(voteInfos);
   };
 
   return (
@@ -122,9 +125,11 @@ function VoteStudyModal({
         ) : (
           <>
             <TimeSelector
-              setTimes={({ start, end }: ITimeStartToEnd) =>
-                setTime({ ...time, start, end })
-              }
+              setTimes={({ start, end }: ITimeStartToEnd) => {
+                console.log(1, start, end);
+                if (start) setTime({ ...time, start });
+                if (end) setTime({ ...time, end });
+              }}
               times={time}
             />
             <LastPageNav>

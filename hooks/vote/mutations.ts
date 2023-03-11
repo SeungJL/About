@@ -5,19 +5,20 @@ import {
   IRegisterForm,
   IUserRegister,
 } from "../../modals/user/RegisterFormModal";
-import { AttendDTO } from "../../models/interface/vote";
+import { IPlace } from "../../models/place";
+import { IVoteStudyInfo } from "../../types/study";
 
 export const useAttendMutation = (
   currentDate: Dayjs,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, AttendDTO>,
+    UseMutationOptions<void, AxiosError, IVoteStudyInfo>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, AttendDTO>(async (attendDTO: AttendDTO) => {
+  useMutation<void, AxiosError, IVoteStudyInfo>(async (voteInfos) => {
     await axios.post(
       `/api/vote/${currentDate.format("YYYY-MM-DD")}`,
-      attendDTO
+      voteInfos
     );
   }, options);
 

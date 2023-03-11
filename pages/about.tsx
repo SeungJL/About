@@ -185,7 +185,7 @@ function About({ user }) {
                 <MainContents>
                   {vote &&
                     vote.participations.map((item: IParticipation, idx) => (
-                      <ResultBlock {...item} index={idx} key={idx} />
+                      <ResultBlock {...item} key={idx} />
                     ))}
                 </MainContents>
               )}

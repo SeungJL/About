@@ -43,9 +43,9 @@ const PlaceSelector = ({
   });
   return (
     <PlaceSelectorLayout>
-      {placeInfoArr.map((info, idx) => {
-        const isSelectedOne = firstPlace.some((place) => place === info);
-        const isSelectedTwo = secondPlaces.some((place) => place === info);
+      {placeInfoArr?.map((info, idx) => {
+        const isSelectedOne = firstPlace?.some((place) => place === info);
+        const isSelectedTwo = secondPlaces?.some((place) => place === info);
         const place = info.placeName;
         return (
           <PlaceItem key={idx}>
@@ -66,10 +66,9 @@ const PlaceSelector = ({
 
 export default PlaceSelector;
 
-export interface IplaceInfo {
+export interface IplaceInfo extends IPlaceStatus {
   placeName: IPlace;
   voteCnt: number;
-  status: IPlaceStatus;
 }
 interface IPlaceSelecter {
   placeInfoArr: IplaceInfo[];

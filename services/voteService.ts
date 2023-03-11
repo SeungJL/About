@@ -12,7 +12,6 @@ export const findOneVote = (date: Date) =>
   Vote.findOne({ date }).populate([
     "participations.place",
     "participations.attendences.user",
-    "participations.invitations.user",
     "participations.absences.user",
   ]);
 
@@ -32,20 +31,17 @@ export const confirm = async (dateStr: string) => {
           let overlapCnt = 0;
           participation.attendences.map((attendance) => {
             let isOverlap = false;
-            const oneHourToMs = 3600000;
+
             if (attendance.firstChoice) {
               const otherStart = attendance.time.start;
               const otherEnd = attendance.time.end;
               //내 스터디 시간이 다른 사람 시작시간 보다 빠른 경우, 내 스터디 종료 시간이 다른 사람 시작시간보다 1시간 이상 늦어야 겹친다고 판단
-              if (
-                myStart <= otherStart &&
-                myEnd.getTime() >= otherStart.getTime() + oneHourToMs
-              )
+              if (myStart <= otherStart && myEnd >= otherStart.add(1, "hour"))
                 isOverlap = true;
               //내 스터디 시간보다 다른 사람 시작시간이 빠른 경우, 다른 사람 종료 시간이 내 시작시간보다 1시간 이상 늦어야 겹친다고 판단
               else if (
                 myStart > otherStart &&
-                otherEnd.getTime() >= myStart.getTime() + oneHourToMs
+                otherEnd >= myStart.add(1, "hour")
               )
                 isOverlap = true;
 
@@ -91,14 +87,11 @@ export const confirm = async (dateStr: string) => {
                 const otherStart = attendance.time.start;
                 const otherEnd = attendance.time.end;
                 //참여 확정 인원과 비교
-                if (
-                  myStart <= otherStart &&
-                  myEnd.getTime() >= otherStart.getTime() + oneHourToMs
-                )
+                if (myStart <= otherStart && myEnd >= otherStart.add(1, "hour"))
                   isOverlap = true;
                 else if (
                   myStart > otherStart &&
-                  otherEnd.getTime() >= myStart.getTime() + oneHourToMs
+                  otherEnd >= myStart.add(1, "hour")
                 )
                   isOverlap = true;
 
@@ -125,18 +118,15 @@ export const confirm = async (dateStr: string) => {
             let overlapCnt = 0;
             participation.attendences.map((attendance) => {
               let isOverlap = false;
-              const oneHourToMs = 3600000;
+
               if (failure.has(attendance.user.toString())) {
                 const otherStart = attendance.time.start;
                 const otherEnd = attendance.time.end;
-                if (
-                  myStart <= otherStart &&
-                  myEnd.getTime() >= otherStart.getTime() + oneHourToMs
-                )
+                if (myStart <= otherStart && myEnd >= otherStart.add(1, "hour"))
                   isOverlap = true;
                 else if (
                   myStart > otherStart &&
-                  otherEnd.getTime() >= myStart.getTime() + oneHourToMs
+                  otherEnd >= myStart.add(1, "hour")
                 )
                   isOverlap = true;
 

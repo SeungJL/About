@@ -50,7 +50,6 @@ function Modals() {
       {voteCancel && <CancelModal />}
       {notCompleted && <NotCompletedModal />}
 
-      {studyVote && <StudyVoteModal />}
       {voter && (
         <ModalPortal closePortal={setVoter}>
           <VoterModal />

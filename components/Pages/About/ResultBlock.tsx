@@ -125,17 +125,7 @@ const Button = styled.button`
   color: black;
 `;
 
-interface IResultBlock extends IParticipation {
-  index: Number;
-}
-
-function ResultBlock({
-  place,
-  attendences,
-  absences,
-  index,
-  status,
-}: IResultBlock) {
+function ResultBlock({ place, attendences, absences, status }: IParticipation) {
   const { data: session } = useSession();
 
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);

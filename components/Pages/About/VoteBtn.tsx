@@ -117,8 +117,8 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
     handleAbsent();
   };
   const onClickVote = () => {
-    () => setIsShowStudyVote(true);
-    setIsShowStudyVote(true);
+    setIsShowModal(true);
+
     setModalContext((old) =>
       Object.assign(
         {
