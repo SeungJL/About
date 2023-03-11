@@ -1,21 +1,20 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useContext } from "react";
-import CancelModal from "../modals/study/CancelModal";
-import NotCompletedModal from "../modals/NotCompletedModal";
+import CancelModal from "../modals/study/vote/CancelVoteModal";
+import NotCompletedModal from "../modals/pop-up/NotCompletedModal";
 import UserInfoForm from "../modals/user/RegisterFormModal";
 
-import OpenResultModal from "../modals/study/OpenResultModal";
-import ModalPortal from "../libs/utils/ModalPortal";
-import VoterModal from "../modals/study/VoterModal";
-import StudyVoteModal from "../modals/study/StudyVoteModal";
+import ModalPortal from "./ModalPortal";
+import VoterModal from "../modals/study/confirm/StudyVoterModal";
+import StudyVoteModal from "../modals/study/vote/voteStudy/VoteStudyModal";
 import RegisterFormModal from "../modals/user/RegisterFormModal";
 import { PrivacyPolicy } from "../storage/PrivacyPolicy";
 import { useSession } from "next-auth/react";
-import UserInfoSm from "../modals/user/UserInfoSm";
+import UserInfoSm from "../modals/user/UserInfoSmModal";
 import { FullScreen } from "../styles/LayoutStyles";
 import { isShowMemberInfoState } from "../recoil/membersAtoms";
-import MemberInfoModal from "../modals/user/MemberInfoBgModal";
-import MemberInfoBgModal from "../modals/user/MemberInfoBgModal";
+import MemberInfoModal from "../modals/user/UserInfoBgModal";
+import MemberInfoBgModal from "../modals/user/UserInfoBgModal";
 import {
   isShowNotCompletedState,
   isShowStudyVoteModalState,
@@ -28,7 +27,8 @@ import {
   isShowPrivacyPolicyState,
   isShowRegisterFormState,
   isShowVoterState,
-} from "../recoil/voteAtoms";
+} from "../recoil/studyAtoms";
+import { VoteResultModal } from "../modals/study/confirm/VoteResultModal";
 
 function Modals() {
   const { data: session } = useSession();
@@ -50,13 +50,12 @@ function Modals() {
       {voteCancel && <CancelModal />}
       {notCompleted && <NotCompletedModal />}
 
-      {openResult && <OpenResultModal />}
-      {studyVote && <StudyVoteModal />}
       {voter && (
         <ModalPortal closePortal={setVoter}>
           <VoterModal />
         </ModalPortal>
       )}
+      {openResult && <VoteResultModal />}
       {registerForm && <RegisterFormModal />}
       {memberInfo && <MemberInfoBgModal />}
     </>

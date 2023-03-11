@@ -3,12 +3,12 @@ import {
   PlazaBtnNav,
   PlazaLayout,
   PlazaMainContent,
-} from "../../components/Plaza/plazaStyles";
+} from "../../components/Pages/Plaza/plazaStyles";
 import Seo from "../../components/common/Seo";
-import PlazaBlock from "../../components/Plaza/PlazaBlock";
+import PlazaBlock from "../../components/Pages/Plaza/PlazaBlock";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { plazaCategoryState, plazaDataSelector } from "../../recoil/plazaAtoms";
-import PlazaHeader from "../../components/Plaza/PlazaHeader";
+import PlazaHeader from "../../components/Pages/Plaza/PlazaHeader";
 
 function Plaza() {
   const plazaData = useRecoilValue(plazaDataSelector);

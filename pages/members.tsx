@@ -10,9 +10,9 @@ import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import CategoryFilter from "../components/Members/CategoryFilter";
+import CategoryFilter from "../components/Pages/Members/CategoryFilter";
 
-import UserBlock from "../components/Members/UserBlock";
+import UserBlock from "../components/Pages/Members/UserBlock";
 import { animate, motion } from "framer-motion";
 import { transition } from "@chakra-ui/react";
 import Link from "next/link";

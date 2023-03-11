@@ -24,7 +24,7 @@ export default async function handler(
   await dbConnect();
 
   let vote;
-  console.log(date);
+
   switch (method) {
     case "GET":
       const arriveInfo = [];

@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { useQueries, useQuery, UseQueryOptions } from "react-query";
-import { IMonthStartToEnd } from "../../components/User/AttendChart";
+import { IMonthStartToEnd } from "../../components/Pages/User/AttendChart";
 import {
   USER_FINDPARTICIPATION,
   USER_FINDVOTE,

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../libs/utils/ModalPortal";
-import UserInfoSm from "../../modals/user/UserInfoSm";
+import ModalPortal from "../ModalPortal";
+import UserInfoSm from "../../modals/user/UserInfoSmModal";
 import { IUser } from "../../models/user";
 import {
   isShowUserInfoSmState,

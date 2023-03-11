@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
 import Seo from "../components/common/Seo";
-import VoteBtn from "../components/About/VoteBtn";
-import ResultBlock from "../components/About/ResultBlock";
-import AnotherDaysNav from "../components/About/AnotherDaysNav";
-import MainNavigation from "../components/About/MainNavigation";
+import VoteBtn from "../components/Pages/About/VoteBtn";
+import ResultBlock from "../components/Pages/About/ResultBlock";
+import AnotherDaysNav from "../components/Pages/About/AnotherDaysNav";
+import MainNavigation from "../components/Pages/About/MainNavigation";
 import safeJsonStringify from "safe-json-stringify";
 import {
   faAngleLeft,
@@ -21,7 +21,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { IParticipation } from "../models/vote";
-import { convertToKr, getToday, now } from "../libs/utils/dateUtils";
+import {
+  getToday,
+  now,
+  getDefaultVoteDate,
+  hourMinToDate,
+} from "../libs/utils/dateUtils";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
@@ -33,7 +38,7 @@ import { isMember } from "../libs/utils/authUtils";
 import axios from "axios";
 import { VOTE_END_HOUR } from "../constants/system";
 import CircleAlert from "../components/block/CircleAlert";
-import { getDefaultVoteDate } from "../libs/utils/voteUtils";
+
 import {
   isShowRegisterFormState,
   isStudyOpenState,
@@ -41,9 +46,11 @@ import {
   isVotingState,
   studyDateState,
   voteDateState,
-} from "../recoil/voteAtoms";
+} from "../recoil/studyAtoms";
 
-import UserInfoCheck from "../components/About/UserInfoCheck";
+import UserInfoCheck from "../components/Pages/About/UserInfoCheck";
+import AboutFooter from "../components/Pages/About/AboutFooter";
+import dayjs from "dayjs";
 
 function About({ user }) {
   const toast = useToast();
@@ -110,8 +117,8 @@ function About({ user }) {
     const defaultVoteDate = getDefaultVoteDate(isUserAttend);
     setisVoting(false);
     setStudyOpen(false);
-    const voteDateKr = convertToKr(voteDate, "MMDDHH");
-    const defaultVoteDateKr = convertToKr(defaultVoteDate, "MMDDHH");
+    const voteDateKr = voteDate.format("MMDDHH");
+    const defaultVoteDateKr = defaultVoteDate.format("MMDDHH");
     if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
@@ -152,7 +159,7 @@ function About({ user }) {
             </div>
             <div>
               <span>Today</span>
-              <span> {convertToKr(today, "MMM DD")}</span>
+              <span> {today.format("MMM DD")}</span>
             </div>
           </InfoSection>
           <AnotherDaysNav />
@@ -161,7 +168,7 @@ function About({ user }) {
           participations={vote?.participations}
           mainLoading={isLoading}
         />
-        <TodayDate>{!isLoading && convertToKr(voteDate, "M월 D일")}</TodayDate>
+        <TodayDate>{!isLoading && voteDate.format("M월 D일")}</TodayDate>
         <DownScreen>
           <Swiper
             modules={[Navigation, Pagination, A11y]}
@@ -178,7 +185,7 @@ function About({ user }) {
                 <MainContents>
                   {vote &&
                     vote.participations.map((item: IParticipation, idx) => (
-                      <ResultBlock {...item} index={idx} key={idx} />
+                      <ResultBlock {...item} key={idx} />
                     ))}
                 </MainContents>
               )}
@@ -194,6 +201,7 @@ function About({ user }) {
           </RightArrow>
         </DownScreen>
       </AboutLayout>
+      <AboutFooter />
     </>
   );
 }

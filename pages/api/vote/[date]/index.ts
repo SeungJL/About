@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import { strToDate } from "../../../../libs/utils/dateUtils";
 import dbConnect from "../../../../libs/dbConnect";
-import { AttendDTO } from "../../../../models/interface/vote";
 import { IPlace, Place } from "../../../../models/place";
 import { IUser } from "../../../../models/user";
 import {
@@ -13,6 +12,9 @@ import {
   Vote,
 } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
+import { IplaceInfo } from "../../../../modals/study/vote/voteStudy/placeSelector";
+import { IVoteStudyInfo } from "../../../../types/study";
+import dayjs from "dayjs";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -71,33 +73,18 @@ export default async function handler(
       if (isVoting) {
         return res.status(204).end();
       }
-      const {
-        place,
-        subPlace,
-        start,
-        end,
-        anonymity,
-        confirmed,
-        lunch,
-        dinner,
-        afterDinner,
-      } = req.body as AttendDTO;
+
+      const { place, subPlace, start, end }: IVoteStudyInfo = req.body;
+
       const attendence = {
         time: { start, end },
         user: token.id,
-        confirmed,
-        anonymity,
-        note: {
-          lunch,
-          dinner,
-          afterDinner,
-          desc: "",
-        } as IParticipantNote,
       } as IAttendence;
-
       vote.participations = vote.participations.map((participation) => {
         const placeId = (participation.place as IPlace)._id.toString();
-        if (placeId === place) {
+        const subPlaceIdArr = subPlace.map((place) => place._id);
+
+        if (placeId === place._id) {
           return {
             ...participation,
             attendences: [
@@ -105,7 +92,7 @@ export default async function handler(
               { ...attendence, firstChoice: true },
             ],
           };
-        } else if (subPlace.includes(placeId)) {
+        } else if (subPlaceIdArr.includes(placeId)) {
           return {
             ...participation,
             attendences: [

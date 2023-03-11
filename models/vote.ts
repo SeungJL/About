@@ -1,10 +1,12 @@
 import mongoose, { Document, Model, model, Schema } from "mongoose";
+import { IPlaceStatus } from "../types/study";
 import { IPlace } from "./place";
 import { IUser } from "./user";
-
+import { ITimeStartToEnd } from "../types/utils";
+import { Dayjs } from "dayjs";
 export interface IParticipantTime {
-  start?: Date;
-  end?: Date;
+  start?: Dayjs;
+  end?: Dayjs;
 }
 
 export interface IParticipantNote {
@@ -18,11 +20,10 @@ export interface IAttendence {
   user: string | IUser;
   time: IParticipantTime;
   note: IParticipantNote;
-  confirmed: boolean;
-  anonymity: boolean;
   created: Date;
   arrived?: Date;
   firstChoice: boolean;
+  confirmed: boolean;
   memo: string;
 }
 
@@ -37,16 +38,12 @@ export interface IAbsence {
   message: string;
 }
 
-export interface IParticipation {
+export interface IParticipation extends IPlaceStatus, ITimeStartToEnd {
   place: IPlace;
-  time?: Date;
   attendences: IAttendence[];
   absences: IAbsence[];
-  invitations: IInvitation[];
-  status: "pending" | "waiting_confirm" | "open" | "dismissed";
+
   showVote?: boolean;
-  desc: string;
-  index: Number;
 }
 
 export interface IRegularMeeting {
@@ -113,15 +110,9 @@ const AttendenceSchema: Schema<IAttendence> = new Schema(
     },
     time: ParticipantTimeSchema,
     note: ParticipantNoteSchema,
-    confirmed: {
-      type: Schema.Types.Boolean,
-      default: false,
-    },
+
     arrived: Date,
-    anonymity: {
-      type: Schema.Types.Boolean,
-      default: false,
-    },
+
     firstChoice: {
       type: Schema.Types.Boolean,
       default: true,
@@ -166,10 +157,10 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Place",
     },
-    time: Date,
+    //time: Date,
     attendences: [AttendenceSchema],
     absences: [AbsenceSchema],
-    invitations: [InvitationSchema],
+
     status: {
       type: Schema.Types.String,
       enum: ["pending", "waiting_confirm", "open", "dismissed"],
@@ -178,10 +169,6 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
     showVote: {
       type: Schema.Types.Boolean,
       default: true,
-    },
-    desc: {
-      type: Schema.Types.String,
-      default: "",
     },
   },
   { _id: false }

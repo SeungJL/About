@@ -17,7 +17,7 @@ import { NextPage } from "next";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import { isShowPrivacyPolicyState } from "../recoil/voteAtoms";
+import { isShowPrivacyPolicyState } from "../recoil/studyAtoms";
 
 import { FullScreen } from "../styles/LayoutStyles";
 
