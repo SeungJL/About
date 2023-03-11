@@ -80,7 +80,6 @@ export default async function handler(
         time: { start, end },
         user: token.id,
       } as IAttendence;
-
       vote.participations = vote.participations.map((participation) => {
         const placeId = (participation.place as IPlace)._id.toString();
         const subPlaceIdArr = subPlace.map((place) => place._id);

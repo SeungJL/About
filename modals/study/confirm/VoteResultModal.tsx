@@ -29,6 +29,7 @@ for (let i = START_HOUR; i < END_HOUR; i += 1 / 2) {
 const TimeRangeBar = ({ attendence }: any) => {
   const start = dayjs(attendence.time.start);
   const end = dayjs(attendence.time.end);
+
   const [startHour, startMin] = splitDate(start);
   const [endHour, endMin] = splitDate(end);
   const startIdx = startHour + startMin / 60;

@@ -30,7 +30,6 @@ export default function SuggestModal({
       content: data.content,
       data: dayjs().format("YYYY-MM-DD"),
     };
-    console.log(suggestInfo);
   };
   return (
     <Layout>

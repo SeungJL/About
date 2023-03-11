@@ -60,11 +60,12 @@ function VoteStudyModal({
   const onSubmit = () => {
     const start = time.start;
     const end = time.end;
+
     const voteInfos = {
       place: firstPlace[0].placeName,
       subPlace: secondPlaces.map((place) => place.placeName),
-      start: dayjs().hour(start.hour).minute(start.minutes),
-      end: dayjs().hour(start.hour).minute(start.minutes),
+      start: voteDate.hour(start.hour).minute(start.minutes),
+      end: voteDate.hour(end.hour).minute(end.minutes),
     };
 
     setIsShowModal(false);
@@ -126,7 +127,6 @@ function VoteStudyModal({
           <>
             <TimeSelector
               setTimes={({ start, end }: ITimeStartToEnd) => {
-                console.log(1, start, end);
                 if (start) setTime({ ...time, start });
                 if (end) setTime({ ...time, end });
               }}
