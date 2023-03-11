@@ -8,6 +8,7 @@ import { render } from "react-dom";
 import React from "react";
 import { VoteListInputItem } from "./VoteListInputItem";
 import { useSession } from "next-auth/react";
+import { usePlazaMutation } from "../../../hooks/plaza/mutations";
 
 export default function CreatePlazaContentModal({ setIsShowModal }) {
   const [isVoteCategory, setIsVoteCategory] = useState(true);
@@ -32,9 +33,18 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
     NewArr.splice(idx - 1, 1);
     setVoteListArr(NewArr);
   };
-  const onValid = (data) => {
+
+  const { mutate: handlePlaza, isLoading: plazaLoading } = usePlazaMutation({
+    onSuccess: (data) => {
+      console.log(2, data);
+    },
+    onError: (err) => {
+      console.log(1, err);
+    },
+  });
+
+  const onValid = async (data) => {
     const userInfo = {
-      id: String(Math.random() * 10000),
       category: isVoteCategory ? "voteContents" : "suggestionContents",
       title: data.title,
       writer: isPublic ? session.user.name : "",
@@ -43,10 +53,9 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
       voteList: isVoteCategory ? voteListArr : [],
     };
 
-    //mutation
-
-    setIsShowModal(false);
+    await handlePlaza(userInfo);
   };
+
   return (
     <Layout>
       <Category>
