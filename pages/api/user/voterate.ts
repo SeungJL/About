@@ -72,6 +72,15 @@ export default async function handler(
           return acc;
         }, {});
 
-      res.status(200).json({ ...attendForm, ...voteCnt });
+      const voteForm = { ...attendForm, ...voteCnt };
+      const result = [];
+
+      for (let value in voteForm) {
+        const a = {};
+        a[value] = voteForm[value];
+        result.push(a);
+      }
+
+      res.status(200).json(result);
   }
 }

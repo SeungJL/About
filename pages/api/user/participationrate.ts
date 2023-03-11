@@ -68,6 +68,15 @@ export default async function handler(
           return acc;
         }, {});
 
-      res.status(200).json({ ...attendForm, ...participationCnt });
+      const participationForm = { ...attendForm, ...participationCnt };
+      const result = [];
+
+      for (let value in participationForm) {
+        const a = {};
+        a[value] = participationForm[value];
+        result.push(a);
+      }
+
+      res.status(200).json(result);
   }
 }
