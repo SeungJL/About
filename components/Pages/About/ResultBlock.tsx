@@ -15,8 +15,10 @@ import {
 } from "../../../recoil/studyAtoms";
 
 import CheckUserModal from "../../../modals/study/confirm/AttendingPeopleModal";
-import AttendCheckModal from "../../../modals/study/vote/CheckVoteModal";
+import AttendCheckModal from "../../../modals/study/vote/voteStudy/CheckVoteModal";
 import ModalPortal from "../../ModalPortal";
+import { Modal } from "@chakra-ui/react";
+import ChangeTimeModal from "../../../modals/study/vote/voteStudy/ChangeTimeModal";
 
 const ResultBlockLayout = styled.div`
   display: flex;
@@ -127,7 +129,7 @@ const Button = styled.button`
 
 function ResultBlock({ place, attendences, absences, status }: IParticipation) {
   const { data: session } = useSession();
-
+  console.log(attendences);
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
 
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
@@ -139,6 +141,7 @@ function ResultBlock({ place, attendences, absences, status }: IParticipation) {
   const [isCheckStudy, setIsCheckStudy] = useState(false);
   const setIsShowVoter = useSetRecoilState(isShowVoterState);
   const setIsShowOpenResult = useSetRecoilState(isShowOpenResultState);
+  const [isChangeTimeModal, setIsChangeTimeModal] = useState(false);
   let cnt = 0;
   let SpaceName = place.fullname;
   if (SpaceName === "에이바우트커피 아주대점") {
@@ -184,6 +187,9 @@ function ResultBlock({ place, attendences, absences, status }: IParticipation) {
           <ResultBlockNav>
             {isUserAttend && open && (
               <>
+                <TimeBtn onClick={() => setIsChangeTimeModal(true)}>
+                  시간변경
+                </TimeBtn>
                 <Button onClick={() => setIsCheckStudy(true)}>참여현황</Button>
                 <CancelBtn
                   onClick={() => setIsShowVoteCancle(true)}
@@ -221,7 +227,18 @@ function ResultBlock({ place, attendences, absences, status }: IParticipation) {
           <CheckUserModal />
         </ModalPortal>
       )}
+      {isChangeTimeModal && (
+        <ModalPortal closePortal={setIsChangeTimeModal}>
+          <ChangeTimeModal setIsChangeTimeModal={setIsChangeTimeModal} />
+        </ModalPortal>
+      )}
     </>
   );
 }
 export default ResultBlock;
+
+const TimeBtn = styled.button`
+  display: inline-block;
+  background-color: lightsalmon;
+  color: #822727;
+`;

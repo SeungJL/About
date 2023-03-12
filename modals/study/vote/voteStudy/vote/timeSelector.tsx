@@ -2,9 +2,9 @@ import { Box, Select, Text } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 
-import { IParticipation } from "../../../../models/vote";
+import { IParticipation } from "../../../../../models/vote";
 
-import { ITimeStartToEnd } from "../../../../types/utils";
+import { ITimeStartToEnd } from "../../../../../types/utils";
 import { useState } from "react";
 
 const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];

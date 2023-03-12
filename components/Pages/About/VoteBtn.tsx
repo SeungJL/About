@@ -21,7 +21,7 @@ import {
   voteStatusState,
 } from "../../../recoil/studyAtoms";
 import ModalPortal from "../../ModalPortal";
-import AttendCheckModal from "../../../modals/study/vote/CheckVoteModal";
+import AttendCheckModal from "../../../modals/study/vote/voteStudy/CheckVoteModal";
 import VoteStudyModal from "../../../modals/study/vote/voteStudy/VoteStudyModal";
 import { useState } from "react";
 const OutlineCircle = styled(CenterDiv)`

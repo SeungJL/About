@@ -12,7 +12,7 @@ import {
   Vote,
 } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
-import { IplaceInfo } from "../../../../modals/study/vote/voteStudy/placeSelector";
+import { IplaceInfo } from "../../../../modals/study/vote/voteStudy/vote/placeSelector";
 import { IVoteStudyInfo } from "../../../../types/study";
 import dayjs from "dayjs";
 
@@ -70,20 +70,34 @@ export default async function handler(
     case "GET":
       return res.status(200).json(vote);
     case "POST":
-      if (isVoting) {
-        return res.status(204).end();
-      }
+      // if (isVoting) {
+      //   return res.status(204).end();
+      // }
 
       const { place, subPlace, start, end }: IVoteStudyInfo = req.body;
 
+      let isOnlyTime = false;
+      if (!place) {
+        isOnlyTime = true;
+      }
       const attendence = {
-        time: { start, end },
+        time: { start: start, end: end },
         user: token.id,
       } as IAttendence;
       vote.participations = vote.participations.map((participation) => {
         const placeId = (participation.place as IPlace)._id.toString();
-        const subPlaceIdArr = subPlace.map((place) => place._id);
-
+        const subPlaceIdArr = subPlace?.map((place) => place._id);
+        if (isOnlyTime) {
+          return {
+            ...participation,
+            attendences: [
+              ...participation.attendences,
+              {
+                ...attendence,
+              },
+            ],
+          };
+        }
         if (placeId === place._id) {
           return {
             ...participation,
@@ -103,8 +117,8 @@ export default async function handler(
         }
         return participation;
       });
-      await vote.save();
 
+      await vote.save();
       return res.status(204).end();
     case "DELETE":
       if (!isVoting) {

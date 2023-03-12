@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useContext } from "react";
-import CancelModal from "../modals/study/vote/CancelVoteModal";
+import CancelModal from "../modals/study/vote/voteStudy/CancelVoteModal";
 import NotCompletedModal from "../modals/pop-up/NotCompletedModal";
 import UserInfoForm from "../modals/user/RegisterFormModal";
 
