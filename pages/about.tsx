@@ -50,7 +50,6 @@ import {
 
 import UserInfoCheck from "../components/Pages/About/UserInfoCheck";
 import AboutFooter from "../components/Pages/About/AboutFooter";
-import dayjs from "dayjs";
 
 function About({ user }) {
   const toast = useToast();
