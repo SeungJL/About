@@ -7,8 +7,12 @@ export interface IPlazaData {
   title: string;
   content?: string;
   suggestContent?: string;
-  voteList?: string[];
+  voteList?: IVoteList[];
   id?: string;
+}
+interface IVoteList {
+  voteListIdx: number;
+  value: string;
 }
 
 export interface IPlazaBlock {
@@ -35,7 +39,7 @@ export const PlazaSchema: Schema<IPlazaData> = new Schema({
     type: String,
   },
   voteList: {
-    type: [String],
+    // type: [{}],
   },
 });
 

@@ -19,7 +19,7 @@ export default function ChangeTimeModal({
   const voteDate = useRecoilValue(voteDateState);
   const toast = useToast();
   const { data: session } = useSession();
-  console.log(session);
+
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hour: 14, minutes: 0 },
     end: { hour: 18, minutes: 0 },

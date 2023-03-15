@@ -19,6 +19,7 @@ export default function AttendChart() {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
   const name = session?.user.name;
+
   const monthList: IMonthStartToEnd[] = [];
 
   for (let i = 0; i <= Number(getMonth()); i++) {
@@ -35,15 +36,18 @@ export default function AttendChart() {
   const attendCountTotal = useAttendRateQueries(monthList);
 
   const isLoading = voteCountTotal.some((result) => result.isLoading);
-
   const myVoteCountTotal = voteCountTotal?.map((item) => {
     if (item.isSuccess) {
-      return item.data[name];
+      const myDataArr = item.data.filter((data) => data[name] !== undefined);
+
+      return null;
     }
   });
   const myAttendCountTotal = attendCountTotal?.map((item) => {
     if (item.isSuccess) {
-      return item.data[name];
+      const myData = item.data.filter((data) => data[name] !== undefined);
+
+      return myData;
     }
   });
   myVoteCountTotal.push(null);

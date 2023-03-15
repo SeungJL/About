@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { BaseModal } from "../../styles/LayoutStyles";
 import { useSession } from "next-auth/react";
 import dayjs from "dayjs";
+import { usePlazaMutation } from "../../hooks/plaza/mutations";
 
 export default function SuggestModal({
   setIsShowSuggest,
@@ -23,13 +24,19 @@ export default function SuggestModal({
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { mutate: suggestForm } = usePlazaMutation();
+
   const onValid = (data) => {
     const suggestInfo = {
+      category: "suggestionContents",
       title: data.title,
       writer: isRealName ? session.user.name : "",
       content: data.content,
       data: dayjs().format("YYYY-MM-DD"),
     };
+
+    suggestForm(suggestInfo);
   };
   return (
     <Layout>
@@ -78,9 +85,7 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
 `;
-const TitleInput = styled.input`
-  background-color: lightskyblue;
-`;
+const TitleInput = styled.input``;
 const Writer = styled.div`
   display: inline-block;
 `;
@@ -91,7 +96,6 @@ const ContentInput = styled.textarea`
   display: block;
   width: 90%;
   height: 80px;
-  background-color: pink;
 `;
 
 const Footer = styled.footer`

@@ -96,20 +96,8 @@ function About({ user }) {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-  useEffect(() => {
-    vote?.participations.flatMap((participant) => {
-      const studyStatus = participant.status === "open" ? true : false;
-      if (
-        participant.attendences.find(
-          (att) => (att.user as IUser)?.uid === session?.uid
-        )
-      ) {
-        setisVoting(true);
-        studyStatus && setIsUserAttend(true);
-      }
-      studyStatus && setStudyOpen(true);
-    });
-  });
+
+  //현재 오류 발생
   if (now().hour() > 16 && now().hour() < 22) {
     setIsUserAttend(false);
   }
@@ -123,6 +111,21 @@ function About({ user }) {
     else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
     else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
   }, [voteDate]);
+
+  useEffect(() => {
+    vote?.participations.flatMap((participant) => {
+      const studyStatus = participant.status === "open" ? true : false;
+      if (
+        participant.attendences.find(
+          (att) => (att.user as IUser)?.uid === session?.uid
+        )
+      ) {
+        setisVoting(true);
+        studyStatus && setIsUserAttend(true);
+      }
+      studyStatus && setStudyOpen(true);
+    });
+  }, [voteDate, vote, isLoading]);
 
   return (
     <>

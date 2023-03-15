@@ -19,8 +19,8 @@ export default function PlazaBlock({ data }: IPlazaBlock) {
             <form id={id}>
               {data.voteList?.map((item, idx) => (
                 <InputItem key={idx}>
-                  <VoteInput item={item} name={id} />
-                  <label htmlFor={item}>{item}</label>
+                  <VoteInput item={item.value} name={id} />
+                  <label htmlFor={item.value}>{item.value}</label>
                   <br />
                 </InputItem>
               ))}{" "}

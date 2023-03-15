@@ -19,6 +19,7 @@ export default async function handler(
       try {
         const { suggestionForm } = req.body;
         await Plaza.create(suggestionForm);
+
         res.send(200);
       } catch (err) {
         console.log(err);

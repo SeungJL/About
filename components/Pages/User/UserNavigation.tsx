@@ -4,10 +4,13 @@ import { useState } from "react";
 import ProfileFormModal from "../../../modals/user/ModifyUserInfoModal";
 import ModalPortal from "../../ModalPortal";
 import SuggestModal from "../../../modals/write/SuggestModal";
+import { useSession } from "next-auth/react";
 
 export default function UserNavigation() {
   const [isShowProfileModal, setIsShowProfileModal] = useState(false);
   const [isShowSuggest, setIsShowSuggest] = useState(false);
+  const { data: session } = useSession();
+
   return (
     <>
       <Layout>
@@ -16,7 +19,7 @@ export default function UserNavigation() {
             프로필 수정
           </Button>
           <Button onClick={() => setIsShowSuggest(true)}>건의하기</Button>
-          <Button>받은 요청</Button>
+          {<Button>휴식 신청</Button>}
           <Button>기타 설정</Button>
         </ButtonNav>
       </Layout>

@@ -129,7 +129,7 @@ const Button = styled.button`
 
 function ResultBlock({ place, attendences, absences, status }: IParticipation) {
   const { data: session } = useSession();
-  console.log(attendences);
+
   const setIsShowVoteCancle = useSetRecoilState(isShowVoteCancleState);
 
   const [isUserAttend, setIsUserAttend] = useRecoilState(isUserAttendState);
