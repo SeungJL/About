@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
 import Seo from "../components/common/Seo";
-import VoteBtn from "../components/Pages/About/VoteBtn";
-import ResultBlock from "../components/Pages/About/ResultBlock";
-import AnotherDaysNav from "../components/Pages/About/AnotherDaysNav";
-import MainNavigation from "../components/Pages/About/MainNavigation";
+import VoteBtn from "../components/Pages/About2/VoteBtn";
+import ResultBlock from "../components/Pages/About2/ResultBlock";
+import AnotherDaysNav from "../components/Pages/About2/AnotherDaysNav";
+import MainNavigation from "../components/Pages/About2/MainNavigation";
 import safeJsonStringify from "safe-json-stringify";
 import {
   faAngleLeft,
@@ -48,11 +48,11 @@ import {
   voteDateState,
 } from "../recoil/studyAtoms";
 
-import UserInfoCheck from "../components/Pages/About/UserInfoCheck";
-import AboutFooter from "../components/Pages/About/AboutFooter";
+import UserInfoCheck from "../components/Pages/About2/UserInfoCheck";
+import AboutFooter from "../components/Pages/About2/AboutFooter";
 import dayjs from "dayjs";
 
-function About({ user }) {
+function About2({ user }) {
   const toast = useToast();
   const { data: session } = useSession();
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
@@ -209,7 +209,7 @@ function About({ user }) {
   );
 }
 
-export default About;
+export default About2;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });

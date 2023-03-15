@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Router from "next/router";
-import Modals from "./Modals";
+import Modals from "../Modals";
 import { getSession, useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 
 import { GetServerSideProps } from "next";
-import dbConnect from "../libs/dbConnect";
-import { User } from "../models/user";
+import dbConnect from "../../libs/dbConnect";
+import { User } from "../../models/user";
+import NavBottom from "./NavBottom";
 export default function Layout({ children }) {
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
@@ -32,6 +33,7 @@ export default function Layout({ children }) {
   return (
     <>
       <div id="root-modal">{children}</div>
+      <NavBottom />
       <Modals />
     </>
   );

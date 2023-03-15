@@ -1,29 +1,33 @@
 @font-face {
-  font-family: Nanum;
-  src: url("../public/fonts/NanumSquareRoundB.ttf");
+  font-family: PretendBold;
+  src: url("../public/fonts/Pretendard-Bold.otf");
 }
 @font-face {
-  font-family: NanumEx;
-  src: url("../public/fonts/NanumSquareRoundEB.ttf");
+  font-family: PretendLight;
+  src: url("../public/fonts/Pretendard-Light.otf");
 }
 @font-face {
-  font-family: NanumL;
-  src: url("../public/fonts/NanumSquareRoundL.ttf");
+  font-family: PretendMedium;
+  src: url("../public/fonts/Pretendard-Medium.otf");
 }
 @font-face {
-  font-family: NanumR;
-  src: url("../public/fonts/NanumSquareRoundR.ttf");
+  font-family: PretendSemiBold;
+  src: url("../public/fonts/Pretendard-SemiBold.otf");
 }
+@font-face {
+  font-family: Pretend;
+  src: url("../public/fonts/Pretendard-Regular.otf");
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Nanum", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+  font-family: "Pretend", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   font-size: 14px;
-  height: 100%;
-  width: 100%;
+  width: 375px;
 }
 
 a {
