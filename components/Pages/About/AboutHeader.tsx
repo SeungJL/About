@@ -1,5 +1,6 @@
 import { faArrowDown, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dispatch, SetStateAction } from "react";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import {
@@ -8,12 +9,17 @@ import {
   IconUser,
 } from "../../../public/icons/Icons";
 
-export default function AboutHeader() {
+interface IHeader {
+  setDayCnt: Dispatch<SetStateAction<number>>;
+}
+export default function AboutHeader({ setDayCnt }: IHeader) {
   return (
     <Layout>
       <Date>
         <span>{dayjs().format("YYYY년 M월")}</span>
-        <IconArrowBottom />
+        <div onClick={() => setDayCnt(35)}>
+          <IconArrowBottom />
+        </div>
       </Date>
       <Nav>
         <IconBellNotice />

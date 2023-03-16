@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IconCircle } from "../../../public/icons/IconOutline";
 
-function AboutCallender() {
-  const [dayCnt, setDayCnt] = useState(7);
+interface ICallender {
+  dayCnt: number;
+}
+
+function AboutCallender({ dayCnt }: ICallender) {
   const dayOfWeek = dayjs().day();
   const day = dayjs().date();
   const [dayArr, setDayArr] = useState<number[]>([]);
@@ -23,17 +26,20 @@ function AboutCallender() {
     <Layout>
       <DayOfWeek />
       <DayListNum>
-        {dayArr.map((d) => {
-          if (d === day)
-            return (
-              <div style={{ color: "white", position: "relative" }}>
+        {dayArr.map((d) => (
+          <DayItem key={d}>
+            {d === day ? (
+              <div>
                 <span>{d}</span>
                 <IconCircle />
               </div>
-            );
-          return <span key={d}>{d}</span>;
-        })}
+            ) : (
+              <span>{d}</span>
+            )}
+          </DayItem>
+        ))}
       </DayListNum>
+      <MarkLine></MarkLine>
     </Layout>
   );
 }
@@ -52,6 +58,7 @@ const DayOfWeek = () => (
 
 const Layout = styled.div`
   padding: 12px 20px;
+  border-bottom: 1px solid #e3e6eb;
 `;
 
 const DayList = styled.div`
@@ -69,6 +76,16 @@ const DayListNum = styled(DayList)`
   font-size: 15px;
   padding: 0;
 `;
-// Block //
+
+const DayItem = styled.div`
+  > div {
+    position: relative;
+    color: white;
+  }
+`;
+
+const MarkLine = styled.div`
+  height: 7px;
+`;
 
 export default AboutCallender;

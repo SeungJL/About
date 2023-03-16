@@ -6,8 +6,9 @@ const CircleLayout = styled.div`
   width: 30px;
   position: absolute;
   text-align: center;
-  padding-top: 4px;
-
+  right: -50%;
+  top: -10%;
+  z-index: -1;
   height: 30px;
   border-radius: 50%;
   background-color: #00c2b3;
