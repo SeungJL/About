@@ -66,150 +66,150 @@ function About2({ user }) {
   const [isShowRegisterForm, setIsShowRegisterForm] = useRecoilState(
     isShowRegisterFormState
   );
-  const { data: vote, isLoading } = useVoteQuery(voteDate, {
-    enabled: true,
-    onError: (err) => {
-      toast({
-        title: "불러오기 실패",
-        description: "투표 정보를 불러오지 못 했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
+  // const { data: vote, isLoading } = useVoteQuery(voteDate, {
+  //   enabled: true,
+  //   onError: (err) => {
+  //     toast({
+  //       title: "불러오기 실패",
+  //       description: "투표 정보를 불러오지 못 했어요.",
+  //       status: "error",
+  //       duration: 5000,
+  //       isClosable: true,
+  //       position: "bottom",
+  //     });
+  //   },
+  // });
 
   useEffect(() => {
     setColorMode("light");
   }, [setColorMode]);
 
-  useEffect(() => {
-    if (user?.isActive === false) setIsShowRegisterForm(true);
-  }, []);
+  // useEffect(() => {
+  //   if (user?.isActive === false) setIsShowRegisterForm(true);
+  // }, []);
 
-  useEffect(() => {
-    const defaultVoteDate = getDefaultVoteDate(isUserAttend);
-    setVoteDate(defaultVoteDate);
-    if (now().hour() >= VOTE_END_HOUR) {
-      const targetDate = now().add(1, "day").format("YYYY-MM-DD");
-      axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const defaultVoteDate = getDefaultVoteDate(isUserAttend);
+  //   setVoteDate(defaultVoteDate);
+  //   if (now().hour() >= VOTE_END_HOUR) {
+  //     const targetDate = now().add(1, "day").format("YYYY-MM-DD");
+  //     axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
+  //   }
+  // }, []);
 
   //현재 오류 발생
-  if (now().hour() > 16 && now().hour() < 22) {
-    setIsUserAttend(false);
-  }
-  useEffect(() => {
-    const defaultVoteDate = getDefaultVoteDate(isUserAttend);
-    setisVoting(false);
-    setStudyOpen(false);
-    const voteDateKr = voteDate.format("MMDDHH");
-    const defaultVoteDateKr = defaultVoteDate.format("MMDDHH");
-    if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
-    else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
-    else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
-  }, [voteDate]);
+  // if (now().hour() > 16 && now().hour() < 22) {
+  //   setIsUserAttend(false);
+  // }
+  // useEffect(() => {
+  //   const defaultVoteDate = getDefaultVoteDate(isUserAttend);
+  //   setisVoting(false);
+  //   setStudyOpen(false);
+  //   const voteDateKr = voteDate.format("MMDDHH");
+  //   const defaultVoteDateKr = defaultVoteDate.format("MMDDHH");
+  //   if (voteDateKr === defaultVoteDateKr) setStudyDate("default");
+  //   else if (voteDateKr < defaultVoteDateKr) setStudyDate("passed");
+  //   else if (voteDateKr > defaultVoteDateKr) setStudyDate("not passed");
+  // }, [voteDate]);
 
-  useEffect(() => {
-    vote?.participations.flatMap((participant) => {
-      const studyStatus = participant.status === "open" ? true : false;
-      if (
-        participant.attendences.find(
-          (att) => (att.user as IUser)?.uid === session?.uid
-        )
-      ) {
-        setisVoting(true);
-        studyStatus && setIsUserAttend(true);
-      }
-      studyStatus && setStudyOpen(true);
-    });
-  }, [voteDate, vote, isLoading]);
+  // useEffect(() => {
+  //   vote?.participations.flatMap((participant) => {
+  //     const studyStatus = participant.status === "open" ? true : false;
+  //     if (
+  //       participant.attendences.find(
+  //         (att) => (att.user as IUser)?.uid === session?.uid
+  //       )
+  //     ) {
+  //       setisVoting(true);
+  //       studyStatus && setIsUserAttend(true);
+  //     }
+  //     studyStatus && setStudyOpen(true);
+  //   });
+  // }, [voteDate, vote, isLoading]);
 
-  return (
-    <>
-      <Seo title="About" />
-      <UserInfoCheck />
-      <AboutLayout>
-        <UpScreen>
-          <TopNav>
-            <Link href="/notice">
-              {isLoading ? (
-                ""
-              ) : (
-                <div>
-                  <FontAwesomeIcon icon={faBell} size="xl" />
-                  <CircleAlert right="-20" bottom="20" />{" "}
-                </div>
-              )}
-            </Link>
-            <Title>About</Title>
-            <Link href="/user">
-              {isLoading ? (
-                ""
-              ) : (
-                <div>
-                  <FontAwesomeIcon icon={faUserGear} size="xl" />
-                </div>
-              )}
-            </Link>
-          </TopNav>
-          <InfoSection>
-            <div>
-              <span>Members</span>
-              <span>91</span>
-            </div>
-            <div>
-              <span>Today</span>
-              <span> {today.format("MMM DD")}</span>
-            </div>
-          </InfoSection>
-          <AnotherDaysNav />
-        </UpScreen>
-        <VoteBtn
-          participations={vote?.participations}
-          mainLoading={isLoading}
-        />
-        <TodayDate>{!isLoading && voteDate.format("M월 D일")}</TodayDate>
-        <DownScreen>
-          <Swiper
-            modules={[Navigation, Pagination, A11y]}
-            spaceBetween={50}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            onSlideChange={() => setSilderFirst((cur) => !cur)}
-          >
-            <SwiperSlide>
-              {isLoading ? (
-                <Loading>Loading . . .</Loading>
-              ) : (
-                <MainContents>
-                  {vote &&
-                    vote.participations.map((item: IParticipation, idx) => (
-                      <ResultBlock {...item} key={idx} />
-                    ))}
-                </MainContents>
-              )}
-            </SwiperSlide>
-            <SwiperSlide>{isLoading ? "" : <MainNavigation />}</SwiperSlide>
-            <br />
-          </Swiper>
-          <LeftArrow isSliderFirst={isSliderFirst}>
-            <FontAwesomeIcon icon={faAngleLeft} size="lg" />
-          </LeftArrow>
-          <RightArrow isSliderFirst={isSliderFirst}>
-            <FontAwesomeIcon icon={faAngleRight} size="lg" />
-          </RightArrow>
-        </DownScreen>
-      </AboutLayout>
-      <AboutFooter />
-    </>
-  );
-}
+//   return (
+//     <>
+//       <Seo title="About" />
+//       <UserInfoCheck />
+//       <AboutLayout>
+//         <UpScreen>
+//           <TopNav>
+//             <Link href="/notice">
+//               {isLoading ? (
+//                 ""
+//               ) : (
+//                 <div>
+//                   <FontAwesomeIcon icon={faBell} size="xl" />
+//                   <CircleAlert right="-20" bottom="20" />{" "}
+//                 </div>
+//               )}
+//             </Link>
+//             <Title>About</Title>
+//             <Link href="/user">
+//               {isLoading ? (
+//                 ""
+//               ) : (
+//                 <div>
+//                   <FontAwesomeIcon icon={faUserGear} size="xl" />
+//                 </div>
+//               )}
+//             </Link>
+//           </TopNav>
+//           <InfoSection>
+//             <div>
+//               <span>Members</span>
+//               <span>91</span>
+//             </div>
+//             <div>
+//               <span>Today</span>
+//               <span> {today.format("MMM DD")}</span>
+//             </div>
+//           </InfoSection>
+//           <AnotherDaysNav />
+//         </UpScreen>
+//         <VoteBtn
+//           participations={vote?.participations}
+//           mainLoading={isLoading}
+//         />
+//         <TodayDate>{!isLoading && voteDate.format("M월 D일")}</TodayDate>
+//         <DownScreen>
+//           <Swiper
+//             modules={[Navigation, Pagination, A11y]}
+//             spaceBetween={50}
+//             slidesPerView={1}
+//             navigation
+//             pagination={{ clickable: true }}
+//             onSlideChange={() => setSilderFirst((cur) => !cur)}
+//           >
+//             <SwiperSlide>
+//               {isLoading ? (
+//                 <Loading>Loading . . .</Loading>
+//               ) : (
+//                 <MainContents>
+//                   {vote &&
+//                     vote.participations.map((item: IParticipation, idx) => (
+//                       <ResultBlock {...item} key={idx} />
+//                     ))}
+//                 </MainContents>
+//               )}
+//             </SwiperSlide>
+//             <SwiperSlide>{isLoading ? "" : <MainNavigation />}</SwiperSlide>
+//             <br />
+//           </Swiper>
+//           <LeftArrow isSliderFirst={isSliderFirst}>
+//             <FontAwesomeIcon icon={faAngleLeft} size="lg" />
+//           </LeftArrow>
+//           <RightArrow isSliderFirst={isSliderFirst}>
+//             <FontAwesomeIcon icon={faAngleRight} size="lg" />
+//           </RightArrow>
+//         </DownScreen>
+//       </AboutLayout>
+//       <AboutFooter />
+//     </>
+//   );
+// }
 
-export default About2;
+// export default About2;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });

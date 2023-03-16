@@ -8,16 +8,6 @@ dayjs.extend(timezone);
 
 const TZ_SEOUL = "Asia/Seoul";
 
-const dayEnToKr = {
-  Sun: "일",
-  Mon: "월",
-  Tue: "화",
-  Wed: "수",
-  Thu: "목",
-  Fri: "금",
-  Sat: "토",
-};
-
 export const now = () => dayjs().tz(TZ_SEOUL);
 
 export const getToday = () => now().startOf("day");

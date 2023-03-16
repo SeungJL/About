@@ -2,52 +2,26 @@ import { Dayjs } from "dayjs";
 import { atom, selector } from "recoil";
 import { getInterestingDate, now } from "../libs/utils/dateUtils";
 
-export const isCancelState = atom({
-  key: "isCancel",
-  default: false,
-});
-
 export const voteDateState = atom<Dayjs>({
   key: "date",
   default: getInterestingDate(),
 });
-
-export const studyDateState = atom<"passed" | "default" | "not passed">({
-  key: "studyDate",
-  default: "default",
-});
-
 export const isVotingState = atom({
   key: "isVoting",
   default: false,
 });
-
+export const studyDateState = atom<"passed" | "default" | "not passed">({
+  key: "studyDate",
+  default: "default",
+});
 export const isStudyOpenState = atom({
   key: "studyOpen",
   default: false,
 });
-
 export const isUserAttendState = atom({
   key: "userAttend",
   default: false,
 });
-export const isAttendCheckState = atom({
-  key: "attendCheck",
-  default: false,
-});
-export const isShowVoterState = atom({
-  key: "isShowVoter",
-  default: false,
-});
-export const isShowOpenResultState = atom({
-  key: "isShowOpenResult",
-  default: false,
-});
-export const AAState = atom({
-  key: "AA",
-  default: false,
-});
-
 /*
  today = defaultVoteDate
  
@@ -112,6 +86,30 @@ export const voteStatusState = selector<
       else return "Vote";
     }
   },
+});
+
+//////////////////////////////////////////////
+
+export const isCancelState = atom({
+  key: "isCancel",
+  default: false,
+});
+
+export const isAttendCheckState = atom({
+  key: "attendCheck",
+  default: false,
+});
+export const isShowVoterState = atom({
+  key: "isShowVoter",
+  default: false,
+});
+export const isShowOpenResultState = atom({
+  key: "isShowOpenResult",
+  default: false,
+});
+export const AAState = atom({
+  key: "AA",
+  default: false,
 });
 
 export const isShowPrivacyPolicyState = atom({

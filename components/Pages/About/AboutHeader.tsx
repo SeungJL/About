@@ -5,21 +5,25 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import {
   IconArrowBottom,
+  IconArrowTop,
   IconBellNotice,
   IconUser,
 } from "../../../public/icons/Icons";
 
 interface IHeader {
+  dayCnt: number;
   setDayCnt: Dispatch<SetStateAction<number>>;
 }
-export default function AboutHeader({ setDayCnt }: IHeader) {
+export default function AboutHeader({ dayCnt, setDayCnt }: IHeader) {
   return (
     <Layout>
       <Date>
         <span>{dayjs().format("YYYY년 M월")}</span>
-        <div onClick={() => setDayCnt(35)}>
-          <IconArrowBottom />
-        </div>
+        {dayCnt === 7 && (
+          <div onClick={() => setDayCnt(35)}>
+            <IconArrowBottom />
+          </div>
+        )}
       </Date>
       <Nav>
         <IconBellNotice />

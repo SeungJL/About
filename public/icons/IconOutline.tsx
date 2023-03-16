@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
-export const IconCircle = () => <CircleLayout></CircleLayout>;
+export const IconCircle = ({ children }) => (
+  <CircleLayout>{children}</CircleLayout>
+);
 const CircleLayout = styled.div`
-  display: inline-block;
   width: 30px;
-  position: absolute;
   text-align: center;
-  right: -50%;
-  top: -10%;
-  z-index: -1;
   height: 30px;
   border-radius: 50%;
+  padding-top: 3px;
   background-color: #00c2b3;
 `;
