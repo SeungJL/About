@@ -29,6 +29,7 @@ export default NextAuth({
           voteCnt1Week: 0,
           openCnt1Week: 0,
         },
+        score: 0,
       }),
     }),
   ],
