@@ -1,4 +1,8 @@
-import { faArrowDown, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faBalanceScale,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction } from "react";
 import dayjs from "dayjs";
@@ -26,9 +30,9 @@ export default function AboutHeader({ dayCnt, setDayCnt }: IHeader) {
         )}
       </Date>
       <Nav>
-        <IconBellNotice />
+        <FontAwesomeIcon icon={faBalanceScale} size="lg" />
         <div />
-        <IconUser />
+        <IconBellNotice />
       </Nav>
     </Layout>
   );
@@ -56,6 +60,8 @@ const Date = styled.div`
 
 const Nav = styled.nav`
   display: flex;
+  align-items: center;
+  color: rgb(209, 214, 221);
   > div {
     margin: 3px;
   }

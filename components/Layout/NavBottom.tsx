@@ -10,33 +10,43 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 
 export default function NavBottom() {
+  const router = useRouter();
+  const url = router?.pathname;
+  console.log(router.pathname);
   return (
     <Layout>
-      <NavItem pageSelected={true}>
+      <NavItem
+        pageSelected={url === "/about"}
+        onClick={() => router.push(`/about`)}
+      >
         <FontAwesomeIcon icon={faHouse} size="xl" />
         <br />
         <span>홈</span>
       </NavItem>
-      <NavItem pageSelected={false}>
+      <NavItem pageSelected={url === "/study"}>
         <FontAwesomeIcon icon={faBook} size="xl" />
         <br />
         <span>스터디</span>
       </NavItem>
-      <NavItem pageSelected={false}>
+      <NavItem pageSelected={url === "/gather"}>
         <FontAwesomeIcon icon={faCalendarCheck} size="xl" />
         <br />
         <span>모임</span>
       </NavItem>
-      <NavItem pageSelected={false}>
+      <NavItem pageSelected={url === "/plaza"}>
         <FontAwesomeIcon icon={faClipboard} size="xl" />
         <br />
         <span>광장</span>
       </NavItem>
-      <NavItem pageSelected={false}>
+      <NavItem
+        pageSelected={url === "/user"}
+        onClick={() => router.push(`/user`)}
+      >
         <FontAwesomeIcon icon={faUser} size="xl" />
         <br />
         <span>마이페이지</span>

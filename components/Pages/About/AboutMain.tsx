@@ -24,6 +24,7 @@ import { GetServerSideProps } from "next";
 import dbConnect from "../../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
 import { isMember } from "../../../libs/utils/authUtils";
+import { AnimatePresence, motion } from "framer-motion";
 
 function AboutMain() {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
@@ -101,26 +102,75 @@ function AboutMain() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate, vote, isLoading]);
   console.log(spaceVoted);
+
+  const variants = {
+    enter: (direction: number) => {
+      return {
+        x: direction > 0 ? 1000 : -1000,
+        opacity: 0,
+      };
+    },
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => {
+      return {
+        zIndex: 0,
+        x: direction < 0 ? 1000 : -1000,
+        opacity: 0,
+      };
+    },
+  };
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+  };
+
   return (
-    <Layout>
-      <AboutMainHeader />
-      <Main>
-        {participations?.map((info, idx) => (
-          <Block key={idx}>
-            <AboutMainItem
-              studySpaceInfo={info}
-              voted={Boolean(
-                spaceVoted.find((space) => space === info.place._id)
-              )}
-            />
-          </Block>
-        ))}
-      </Main>
-    </Layout>
+    <AnimatePresence initial={false}>
+      <Layout
+        variants={variants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        transition={{
+          x: { type: "spring", stiffness: 300, damping: 30, duration: 1 },
+          opacity: { duration: 1 },
+        }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={1}
+        onDragEnd={(e, { offset, velocity }) => {
+          const swipe = swipePower(offset.x, velocity.x);
+
+          if (swipe < -swipeConfidenceThreshold) {
+            setVoteDate((old) => old.add(1, "day"));
+          } else if (swipe > swipeConfidenceThreshold) {
+            setVoteDate((old) => old.subtract(1, "day"));
+          }
+        }}
+      >
+        <AboutMainHeader />
+        <Main>
+          {participations?.map((info, idx) => (
+            <Block key={idx}>
+              <AboutMainItem
+                studySpaceInfo={info}
+                voted={Boolean(
+                  spaceVoted.find((space) => space === info.place._id)
+                )}
+              />
+            </Block>
+          ))}
+        </Main>
+      </Layout>
+    </AnimatePresence>
   );
 }
 
-const Layout = styled.div`
+const Layout = styled(motion.div)`
   padding: 24px 16px;
 `;
 

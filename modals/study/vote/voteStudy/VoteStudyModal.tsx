@@ -166,7 +166,7 @@ const ModalLayout = styled.div`
   transform: translate(-50%, -50%);
   border: 1px solid black;
   background-color: white;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   padding: 20px;

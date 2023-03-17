@@ -35,30 +35,53 @@ function AboutMainItem({
 
   return (
     <Layout layout status={statusFixed}>
-      <ImageContainer>
-        <div>
-          <Image
-            src={`${place?.image}`}
-            alt="about"
-            width={66}
-            height={66}
-            unoptimized={true}
-          />
-        </div>
-      </ImageContainer>
+      {statusFixed !== "myOpen" ? (
+        <ImageContainer>
+          <div>
+            <Image
+              src={`${place?.image}`}
+              alt="about"
+              width={66}
+              height={66}
+              unoptimized={true}
+            />
+          </div>
+        </ImageContainer>
+      ) : (
+        <Result>
+          <ResultInfo>
+            <span>
+              시작 시간: <span> 13시</span>
+            </span>
+            <br />
+            <span>
+              종료 시간: <span> 19시</span>
+            </span>
+          </ResultInfo>
+          <Check>
+            출석 여부: <span>미 출석</span>
+          </Check>
+        </Result>
+      )}
       <SpaceInfo>
         <Status>
-          <div>{place?.branch}</div>
+          <Branch>{place?.branch}</Branch>
+          {status !== "pending" && (
+            <StatusResult isOpen={Boolean(status === "open")}>
+              {status === "open" ? "Open" : "Closed"}
+            </StatusResult>
+          )}
         </Status>
         <Info>
           <span>{place?.brand}</span>
-          {voted && (
+          {voted && statusFixed === "pending" && (
             <div>
               <FontAwesomeIcon icon={faCheckCircle} />
               <span>신청완료</span>
             </div>
           )}
         </Info>
+
         <Participants>
           {attendences?.map((user, idx) => (
             <ProfileContainer key={idx} zIndex={idx}>
@@ -85,6 +108,8 @@ const Layout = styled(motion.div)<{ status: string }>`
   margin-bottom: 10px;
   flex-direction: ${(props) =>
     props.status === "myOpen" ? "row-reverse" : null};
+  border: ${(props) =>
+    props.status === "myOpen" ? "1px solid #00C2B3" : null};
 `;
 
 const ImageContainer = styled.div`
@@ -115,17 +140,61 @@ const SpaceInfo = styled.div`
 const Status = styled.div`
   text-align: center;
   margin-bottom: 5px;
+  display: flex;
   > div {
-    background-color: #ffeae5;
-    color: #fd7b5b;
     width: 48px;
     height: 14px;
     border-radius: 10px;
     font-weight: 700;
     font-size: 10px;
     padding: 0px;
+    margin-right: 5px;
   }
 `;
+const Branch = styled.div`
+  background-color: #ffeae5;
+  color: #fd7b5b;
+`;
+
+const StatusResult = styled.div<{ isOpen: boolean }>`
+  background-color: ${(props) => (props.isOpen ? "#68d3918e" : "#d3d3d3d8")};
+  color: ${(props) =>
+    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "rgb(0,0,0,0.7)"};
+`;
+
+const Result = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const ResultInfo = styled.div`
+  text-align: center;
+  width: 80px;
+  height: 36px;
+  border-radius: 10px;
+
+  background-color: #f0f2f5;
+  padding: 2px;
+  font-size: 11px;
+  color: #565b67;
+  > span {
+    > span {
+      font-weight: 600;
+    }
+  }
+`;
+
+const Check = styled.span`
+  align-self: flex-end;
+  margin-right: 6px;
+  font-size: 11px;
+  color: #565b67;
+  > span {
+    font-weight: 600;
+  }
+`;
+
 const Info = styled.div`
   display: flex;
   justify-content: space-between;

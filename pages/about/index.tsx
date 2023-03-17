@@ -8,7 +8,11 @@ import Seo from "../../components/common/Seo";
 import AboutCallender from "../../components/Pages/About/AboutCallender";
 import AboutHeader from "../../components/Pages/About/AboutHeader";
 import AboutMain from "../../components/Pages/About/AboutMain";
+import EventBanner from "../../components/Pages/About/EventBanner";
+import GroupStudySummary from "../../components/Pages/About/GroupStudy";
+import GroupStudy from "../../components/Pages/About/GroupStudy";
 import UserInfoCheck from "../../components/Pages/About2/UserInfoCheck";
+import AttendChart from "../../components/Pages/User/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
@@ -30,13 +34,21 @@ function About() {
         <AboutHeader dayCnt={dayCnt} setDayCnt={setDayCnt} />
         <AboutCallender dayCnt={dayCnt} setDayCnt={setDayCnt} />
         <AboutMain />
+        <HrDiv />
+        <GroupStudySummary />
+        <EventBanner />
+        <HrDiv />
+        <AttendChart />
       </Layout>
     </>
   );
 }
 
-const Layout = styled.div`
-  height: 200vh;
+const Layout = styled.div``;
+
+const HrDiv = styled.div`
+  height: 8px;
+  background-color: #f0f2f5;
 `;
 
 export default About;
