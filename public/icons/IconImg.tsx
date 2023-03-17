@@ -2,16 +2,16 @@ export const IconHOLLYS = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width="77"
-    height="77"
-    viewBox="0 0 77 77"
+    width="84"
+    height="84"
+    viewBox="0 0 84 84"
     fill="none"
   >
     <rect
       x="0.5"
       y="0.5"
-      width="76"
-      height="76"
+      width="84"
+      height="84"
       rx="17.5"
       fill="white"
       stroke="#F0F2F5"

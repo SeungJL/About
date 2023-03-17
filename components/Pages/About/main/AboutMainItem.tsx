@@ -1,8 +1,21 @@
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import { IconHOLLYS } from "../../../../public/icons/IconImg";
-import { IconUserTwo } from "../../../../public/icons/Icons";
+import { IconCheckCircle, IconUserTwo } from "../../../../public/icons/Icons";
+import ProfileImgSm from "../../../common/ProfileImgSm";
 
 function AboutMainItem() {
+  const { data: session } = useSession();
+  console.log(session);
+
+  const profileArr = [
+    session?.user.image,
+    session?.user.image,
+    session?.user.image,
+    session?.user.image,
+  ];
   return (
     <Layout>
       <ImageContainer>
@@ -15,13 +28,23 @@ function AboutMainItem() {
         <Info>
           <span>할리스</span>
           <div>
-            <IconUserTwo />
-            <span>
-              <span>6명</span> 참여중
-            </span>
+            <FontAwesomeIcon icon={faCheck} />
+            <span>오픈예정</span>
           </div>
         </Info>
-        <Participants></Participants>
+        <Participants>
+          {profileArr.map((img, idx) => (
+            <ProfileContainer key={idx} zIndex={idx}>
+              <ProfileImgSm imgSrc={img} />
+            </ProfileContainer>
+          ))}
+          <ParticipantStatus>
+            <IconUserTwo />
+            <span>
+              <span>4/6</span>
+            </span>
+          </ParticipantStatus>
+        </Participants>
       </SpaceInfo>
     </Layout>
   );
@@ -52,11 +75,11 @@ const Status = styled.div`
     background-color: #ffeae5;
     color: #fd7b5b;
     width: 48px;
-    height: 16px;
+    height: 14px;
     border-radius: 10px;
     font-weight: 700;
     font-size: 10px;
-    padding: 1px;
+    padding: 0px;
   }
 `;
 const Info = styled.div`
@@ -66,22 +89,44 @@ const Info = styled.div`
     color: #565b67;
     font-family: "PretendardSemiBold";
     font-weight: 600;
-    font-size: 15px;
+    font-size: 16px;
   }
   > div {
     display: flex;
     align-items: center;
+    color: #565b67;
+    font-size: 12px;
     > span {
-      font-weight: 400;
-      font-size: 12px;
-      margin-left: 2px;
-      color: #767d8a;
-      > span {
-        font-weight: 600;
-      }
+      margin-left: 3px;
     }
   }
 `;
-const Participants = styled.div``;
+const Participants = styled.div`
+  flex: 1;
+  display: flex;
+`;
+const ProfileContainer = styled.div<{ zIndex: number }>`
+  width: 22px;
+  display: flex;
+  align-items: end;
+  z-index: ${(props) => props.zIndex};
+  position: relative;
+`;
+
+const ParticipantStatus = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-left: 10px;
+  > span {
+    font-weight: 400;
+    font-size: 13px;
+    margin-left: 2px;
+    color: #767d8a;
+    > span {
+      font-weight: 600;
+    }
+  }
+`;
 
 export default AboutMainItem;
