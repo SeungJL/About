@@ -6,10 +6,25 @@ export const voteDateState = atom<Dayjs>({
   key: "date",
   default: getInterestingDate(),
 });
+
+export const studySpaceFixedState = atom({
+  key: "studySpaceFixed",
+  default: "",
+});
+////////////////////////////////////////////////
+export const studyChoiceState = atom<{
+  firstChoice: string;
+  secondChoices?: string[];
+}>({
+  key: "studyChoice",
+  default: { firstChoice: "", secondChoices: [] },
+});
+
 export const isVotingState = atom({
   key: "isVoting",
   default: false,
 });
+
 export const studyDateState = atom<"passed" | "default" | "not passed">({
   key: "studyDate",
   default: "default",

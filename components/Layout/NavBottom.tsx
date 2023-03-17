@@ -7,6 +7,7 @@ import {
   faClipboardCheck,
   faClipboardUser,
   faAngleDoubleRight,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
@@ -36,9 +37,9 @@ export default function NavBottom() {
         <span>광장</span>
       </NavItem>
       <NavItem pageSelected={false}>
-        <FontAwesomeIcon icon={faAngleDoubleRight} size="xl" />
+        <FontAwesomeIcon icon={faUser} size="xl" />
         <br />
-        <span>기타</span>
+        <span>마이페이지</span>
       </NavItem>
     </Layout>
   );
@@ -52,6 +53,7 @@ const Layout = styled.div`
   display: flex;
   align-items: center;
   border-top: 1px solid #e3e6eb;
+  background-color: white;
 `;
 
 const NavItem = styled.div<{ pageSelected: boolean }>`

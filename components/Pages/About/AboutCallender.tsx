@@ -82,8 +82,8 @@ const DayOfWeek = () => (
 );
 
 const Layout = styled(motion.div)`
-  padding-top: 12px;
-  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px solid #e3e6eb;
 `;
 

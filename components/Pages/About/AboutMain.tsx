@@ -6,7 +6,9 @@ import {
   isStudyOpenState,
   isUserAttendState,
   isVotingState,
+  studyChoiceState,
   studyDateState,
+  studySpaceFixedState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import AboutMainHeader from "./main/AboutMainHeader";
@@ -27,12 +29,10 @@ function AboutMain() {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const { data: session } = useSession();
   const toast = useToast();
-  const setIsVoting = useSetRecoilState(isVotingState);
-  const setStudyDate = useSetRecoilState(studyDateState);
-  const setStudyOpen = useSetRecoilState(isStudyOpenState);
-  const setIsUserAttend = useSetRecoilState(isUserAttendState);
-
-  const temp = ["A", "B", "C", "D"];
+  const [spaceVoted, setSpaceVoted] = useState<string[]>(["23"]);
+  console.log(spaceVoted);
+  const setStudyChoice = useSetRecoilState(studyChoiceState);
+  const setStudySpaceFixed = useSetRecoilState(studySpaceFixedState);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -47,47 +47,72 @@ function AboutMain() {
       });
     },
   });
+
+  const participations = vote?.participations;
+
   useEffect(() => {
     if (dayjs().hour() >= VOTE_END_HOUR) {
       const targetDate = dayjs().add(1, "day").format("YYYY-MM-DD");
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-  useEffect(() => {
-    setIsVoting(false);
-    setStudyOpen(false);
 
-    const voteDateKr = voteDate.format("MMDDHH");
-    const interesingDateKr = getInterestingDate().format("MMDDHH");
-    if (voteDateKr === interesingDateKr) setStudyDate("default");
-    else if (voteDateKr < interesingDateKr) setStudyDate("passed");
-    else if (voteDateKr > interesingDateKr) setStudyDate("not passed");
+  useEffect(() => {
+    setSpaceVoted([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 
   useEffect(() => {
-    vote?.participations.flatMap((participant) => {
-      const studyStatus = participant.status === "open" ? true : false;
+    participations?.map((space) => {
+      const spaceStatus = space.status === "open" ? true : false;
+      // space.attendences.map((att) => {
+      //   if ((att.user as IUser).uid === session?.uid) {
+      //     if (space.status === "open") {
+      //     }
+
+      //     const spaceId = space.place._id;
+      //     if (att.firstChoice) {
+      //       setSpaceVoted({
+      //         firstChoice: spaceId,
+      //         secondChoices: spaceVoted.secondChoices,
+      //       });
+      //     } else {
+      //       const secondArr = spaceVoted.secondChoices;
+      //       secondArr?.push(spaceId);
+      //       setSpaceVoted({
+      //         firstChoice: spaceVoted.firstChoice,
+      //         secondChoices: secondArr,
+      //       });
+      //     }
+      //   }
+      // });
+
       if (
-        participant.attendences.find(
+        space.attendences.find(
           (att) => (att.user as IUser)?.uid === session?.uid
         )
       ) {
-        setIsVoting(true);
-        studyStatus && setIsUserAttend(true);
+        setSpaceVoted((old) => [...old, space.place._id]);
+        // setIsVoting(true);
+        spaceStatus && setStudySpaceFixed(space.place._id);
       }
-      studyStatus && setStudyOpen(true);
+      // studyStatus && setStudyOpen(true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate, vote, isLoading]);
-
+  console.log(spaceVoted);
   return (
     <Layout>
       <AboutMainHeader />
       <Main>
-        {temp.map((info, idx) => (
+        {participations?.map((info, idx) => (
           <Block key={idx}>
-            <AboutMainItem />
+            <AboutMainItem
+              studySpaceInfo={info}
+              voted={Boolean(
+                spaceVoted.find((space) => space === info.place._id)
+              )}
+            />
           </Block>
         ))}
       </Main>
@@ -104,42 +129,3 @@ const Main = styled.main``;
 const Block = styled.div``;
 
 export default AboutMain;
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const session = await getSession({ req: context.req });
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: "/login",
-//       },
-//       props: {},
-//     };
-//   }
-
-//   await dbConnect();
-
-//   const userData = await User.findOne({ uid: session.uid });
-//   const user = JSON.parse(safeJsonStringify(userData));
-//   if (!isMember(user?.role)) {
-//     if (session.role !== user?.role) {
-//       context.res.setHeader("Set-Cookie", "next-auth.session-token=deleted");
-
-//       return {
-//         redirect: {
-//           permanent: false,
-//           destination: "/login?force_signout=true",
-//         },
-//       };
-//     } else {
-//       return {
-//         redirect: {
-//           permanent: false,
-//           destination: "/forbidden",
-//         },
-//       };
-//     }
-//   }
-//   return { props: {} };
-// };

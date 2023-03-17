@@ -21,19 +21,31 @@ import {
 import { isVotingState, voteDateState } from "../../../../recoil/studyAtoms";
 import ModalPortal from "../../../../components/ModalPortal";
 import { ITimeStartToEnd } from "../../../../types/utils";
+import { useVoteQuery } from "../../../../hooks/vote/queries";
 
 function VoteStudyModal({
   setIsShowModal,
-  participations,
 }: {
   setIsShowModal: Dispatch<SetStateAction<boolean>>;
-  participations: IParticipation[];
 }) {
   const [page, setPage] = useState(0);
   const voteDate = useRecoilValue(voteDateState);
   const toast = useToast();
   const queryClient = useQueryClient();
-
+  const { data: vote, isLoading } = useVoteQuery(voteDate, {
+    enabled: true,
+    onError: (err) => {
+      toast({
+        title: "불러오기 실패",
+        description: "투표 정보를 불러오지 못 했어요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
+  const participations = vote?.participations;
   const placeInfoArr = participations?.map((participant) => {
     const placeName = participant.place;
     const voteCnt = participant.attendences.length;
@@ -149,7 +161,7 @@ const ModalLayout = styled.div`
   height: 220px;
   position: absolute;
   border-radius: 10px;
-  top: 50%;
+  top: 335px;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid black;

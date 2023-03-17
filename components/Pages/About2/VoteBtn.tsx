@@ -161,10 +161,7 @@ function VoteBtn({ participations, mainLoading }: IVoteBtn) {
       )}
       {isShowModal && (
         <ModalPortal closePortal={setIsShowModal}>
-          <VoteStudyModal
-            participations={participations}
-            setIsShowModal={setIsShowModal}
-          />
+          <VoteStudyModal setIsShowModal={setIsShowModal} />
         </ModalPortal>
       )}
     </>

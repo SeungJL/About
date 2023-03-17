@@ -5,6 +5,7 @@ import {
   VOTE_START_HOUR,
 } from "../constants/system";
 import { dateToDayjs, getToday, now, strToDate } from "../libs/utils/dateUtils";
+import { Attendence } from "../models/attendence";
 
 import { IParticipation, Vote } from "../models/vote";
 
@@ -14,6 +15,8 @@ export const findOneVote = (date: Date) =>
     "participations.attendences.user",
     "participations.absences.user",
   ]);
+
+//투표 결과가 나온 이후에는 최종적으로 선택된 장소를 firstChoice true로 하고, 나머지는 false로 함.
 
 export const confirm = async (dateStr: string) => {
   const date = strToDate(dateStr).toDate();
@@ -53,6 +56,7 @@ export const confirm = async (dateStr: string) => {
             invalidAttendCnt++;
           } else {
             failure.add(attendance.user.toString()); //1지망으로 투표를 했지만 시간매칭 실패한 사람
+            attendance.firstChoice = false; // 1지망 false로 변경(결과가 나온뒤니까)
           }
         }
       });
@@ -61,28 +65,30 @@ export const confirm = async (dateStr: string) => {
         attendedUsersArr[index] = invalidAttendCnt; // 스터디 장소 참여 확정 인원 숫자
         participation.status = "open";
       } else {
+        vote.participations?.map((par) => {
+          par.attendences.map((att) => {
+            att.firstChoice = false;
+            failure.add(att.user.toString());
+          });
+        });
+        //1지망 false로 변경. 전원 매칭 실패로 failure에 추가
         participation.status = "dismissed";
       }
     });
     vote?.save();
 
-    vote?.participations?.map((participation) => {
-      if (participation.status === "dismissed") {
-        participation.attendences.map((attendance) => {
-          if (attendance.firstChoice) failure.add(attendance.user.toString());
-        });
-      }
-    });
+    //open된 장소에 본인이 2지망으로 투표한 경우 추가해주는 알고리즘
     vote?.participations?.map((participation) => {
       if (participation.status === "open") {
         participation.attendences.map((attendance) => {
+          // 해당 attendences는 투표했던 모든 인원일 것임
           if (failure.has(attendance.user.toString())) {
+            // 투표했던 인원중에 아직 선택되지 못한 인원들에도 포함되는 경우
             const myStart = attendance.time.start;
             const myEnd = attendance.time.end;
-            let overlapCnt = 0;
+            let overlapCnt = 0; //시간이 겹치는 유효 인원
             participation.attendences.map((attendance) => {
               let isOverlap = false;
-              const oneHourToMs = 3600000;
               if (attendance.firstChoice) {
                 const otherStart = attendance.time.start;
                 const otherEnd = attendance.time.end;
@@ -99,7 +105,7 @@ export const confirm = async (dateStr: string) => {
               }
             });
             if (overlapCnt >= 3) {
-              attendance.firstChoice = true;
+              attendance.firstChoice = true; // 확정 장소를 이 곳으로 변경
               failure.delete(attendance.user);
             }
           }
