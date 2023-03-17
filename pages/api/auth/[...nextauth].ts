@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import KakaoProvider from "next-auth/providers/kakao";
+import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../libs/mongodb";
 import { User } from "../../../models/user";
 import dbConnect from "../../../libs/dbConnect";
@@ -9,7 +10,48 @@ import { Account } from "../../../models/account";
 
 export default NextAuth({
   // Configure one or more authentication providers
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
+    CredentialsProvider({
+      id: "guest",
+      name: "guest",
+
+      // `credentials` is used to generate a form on the sign in page.
+      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
+      // e.g. domain, username, password, 2FA token, etc.
+      // You can pass any HTML attribute to the <input> tag through the object.
+      credentials: {},
+      async authorize(credentials, req) {
+        // Add logic here to look up the user from the credentials supplied
+        const profile = {
+          id: "0",
+          uid: "0",
+          name: "guest",
+          role: "member",
+          thumbnailImage: "",
+          profileImage: "",
+          statistic: {
+            attendences: [],
+            voteCnt4Week: 0,
+            openCnt4Week: 0,
+            voteCnt2Week: 0,
+            openCnt2Week: 0,
+            voteCnt1Week: 0,
+            openCnt1Week: 0,
+          },
+          score: 0,
+        };
+        if (profile) {
+          // Any object returned will be saved in `user` property of the JWT
+          return profile;
+        } else {
+          // If you return null then an error will be displayed advising the user to check their details.
+          return null;
+
+          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        }
+      },
+    }),
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID as string,
       clientSecret: process.env.KAKAO_CLIENT_SECRET as string,
@@ -44,7 +86,17 @@ export default NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      const accessToken = account.access_token;
+      if (account.provider === "guest") {
+        await dbConnect();
+        await User.updateOne(
+          { uid: user.uid },
+          { $set: user },
+          { upsert: true }
+        );
+        return true;
+      }
+
+      const accessToken: any = account.access_token;
 
       if (!accessToken) {
         return false;
@@ -63,15 +115,26 @@ export default NextAuth({
       return true;
     },
     async session({ session, token }) {
-      session.uid = token.uid.toString();
-      session.user.name = token.name;
-      session.role = token.role;
-      session.error = token.error;
-      session.isActive = token.isActive;
+      if (session.user.name === "guest") {
+        session.uid = "0";
+        session.user.name = "guest";
+        session.role = "member";
+        session.error = "";
+        session.isActive = true;
+      } else {
+        session.uid = token.uid.toString();
+        session.user.name = token.name;
+        session.role = token.role;
+        session.error = token.error;
+        session.isActive = token.isActive;
+      }
 
       return session;
     },
     async jwt({ token, account, profile, user }) {
+      if (account && account.provider === "guest") {
+        return token;
+      }
       if (account && user) {
         const client = await clientPromise;
         await Account.updateOne(
@@ -97,11 +160,15 @@ export default NextAuth({
           isActive: user.isActive,
         };
       }
-      if (Date.now() < (token.accessTokenExpires as number) * 1000) {
+
+      if (token.accessTokenExpires) {
+        if (Date.now() < (token.accessTokenExpires as number) * 1000) {
+          return token;
+        }
+        return refreshAccessToken(token);
+      } else {
         return token;
       }
-
-      return refreshAccessToken(token);
     },
   },
 });

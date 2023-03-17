@@ -57,6 +57,14 @@ const Login: NextPage<{
     await setLoading(false);
   };
 
+  const guestSignin = async () => {
+    setLoading(true);
+
+    await signIn("guest");
+
+    await setLoading(false);
+  };
+
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
 
   const ogTitle = useMemo(() => {
@@ -112,6 +120,7 @@ const Login: NextPage<{
           <Heading textAlign="center">VOTE HELPER</Heading>
         </VStack>
         <Box key={kakaoProvider.id}>
+          <Button onClick={() => guestSignin()}>hello</Button>
           <Button
             width="230px"
             height="60px"
