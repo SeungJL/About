@@ -67,7 +67,10 @@ export const useVoteRateQuery = (
   );
 export const useAttendRateQueries = (
   monthList: IMonthStartToEnd[],
-  options?: Omit<UseQueryOptions<void, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IRate[], AxiosError, IRate>,
+    "queryKey" | "queryFn"
+  >
 ) =>
   useQueries(
     monthList.map((month, idx) => {
@@ -90,7 +93,10 @@ export const useAttendRateQueries = (
   );
 export const useVoteRateQueries = (
   monthList: IMonthStartToEnd[],
-  options?: Omit<UseQueryOptions<void, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IRate[], AxiosError, IRate[]>,
+    "queryKey" | "queryFn"
+  >
 ) =>
   useQueries(
     monthList.map((month, idx) => {
@@ -111,3 +117,8 @@ export const useVoteRateQueries = (
       };
     })
   );
+
+export interface IRate {
+  name: string;
+  cnt: number;
+}

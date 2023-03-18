@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import {
+  IRate,
   useAttendRateQueries,
   useParticipationRateQuery,
   useVoteRateQueries,
@@ -32,24 +33,32 @@ export default function AttendChart() {
   }
 
   const voteCountTotal = useVoteRateQueries(monthList);
-
+  console.log(voteCountTotal);
   const attendCountTotal = useAttendRateQueries(monthList);
-  
+
   const isLoading = voteCountTotal.some((result) => result.isLoading);
   const myVoteCountTotal = voteCountTotal?.map((item) => {
     if (item.isSuccess) {
-      const myDataArr = item.data.filter((data) => data[name] !== undefined);
+      const myDataArr = (item.data as IRate[]).filter(
+        (data) => data.name === name
+      );
 
-      return null;
+      return myDataArr[0]?.cnt;
     }
   });
   const myAttendCountTotal = attendCountTotal?.map((item) => {
     if (item.isSuccess) {
-      const myData = item.data.filter((data) => data[name] !== undefined);
+      const myData = (item.data as IRate[]).filter(
+        (data) => data.name === name
+      );
 
-      return myData;
+      return myData[0]?.cnt;
     }
   });
+  if (!isLoading) {
+    myVoteCountTotal[0] = 0;
+    myAttendCountTotal[0] = 0;
+  }
   myVoteCountTotal.push(null);
   myAttendCountTotal.push(null);
 
