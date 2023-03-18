@@ -1,4 +1,4 @@
-import Header from "../../components/common/Header";
+import Header from "../../components/Pages/About/AboutHeader";
 import {
   PlazaBtnNav,
   PlazaLayout,

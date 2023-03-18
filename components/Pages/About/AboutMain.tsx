@@ -31,7 +31,7 @@ function AboutMain() {
   const { data: session } = useSession();
   const toast = useToast();
   const [spaceVoted, setSpaceVoted] = useState<string[]>(["23"]);
-
+  const setIsVoting = useSetRecoilState(isVotingState);
   const setStudyChoice = useSetRecoilState(studyChoiceState);
   const setStudySpaceFixed = useSetRecoilState(studySpaceFixedState);
 
@@ -94,7 +94,7 @@ function AboutMain() {
         )
       ) {
         setSpaceVoted((old) => [...old, space.place._id]);
-        // setIsVoting(true);
+        setIsVoting(true);
         spaceStatus && setStudySpaceFixed(space.place._id);
       }
       // studyStatus && setStudyOpen(true);

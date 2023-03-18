@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
-import { ModalXl } from "../../styles/LayoutStyles";
+import { ModalXXL } from "../../styles/LayoutStyles";
 
 function StudyRuleModal({
   setIsModal,
@@ -72,7 +72,7 @@ function StudyRuleModal({
   );
 }
 
-const Layout = styled(ModalXl)`
+const Layout = styled(ModalXXL)`
   padding-top: 14px;
   padding-bottom: 10px;
   display: flex;

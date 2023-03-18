@@ -33,7 +33,7 @@ export default function Layout({ children }) {
   return (
     <>
       <div id="root-modal">{children}</div>
-      <NavBottom />
+
       <Modals />
     </>
   );

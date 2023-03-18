@@ -14,24 +14,40 @@ export const FullScreen = styled.div`
   z-index: 1;
   top: 0;
 `;
+export const ModalSm = styled.div`
+  background-color: white;
+  border: 2px solid rgb(0, 0, 0, 0.4);
+  position: absolute;
+  width: 60%;
+  height: 300px;
+  top: 70px;
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%);
+
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+`;
 
 export const ModalLg = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: absolute;
-  width: 220px;
-  height: 160px;
-  top: 50%;
+  width: 80%;
+  height: 220px;
+  top: 220px;
   padding: 10px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+  transform: translate(-50%);
+  z-index: 10;
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 16px;
 `;
 
-export const ModalXl = styled.div`
+export const ModalXXL = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: absolute;
@@ -42,7 +58,7 @@ export const ModalXl = styled.div`
   left: 50%;
   transform: translate(-50%);
 
-  z-index: 2;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   border-radius: 16px;

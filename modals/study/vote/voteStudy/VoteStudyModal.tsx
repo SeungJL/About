@@ -8,7 +8,10 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import PlaceSelector, { IplaceInfo } from "./vote/placeSelector";
 import TimeSelector from "./vote/timeSelector";
-import { useAttendMutation } from "../../../../hooks/vote/mutations";
+import {
+  useAbsentMutation,
+  useAttendMutation,
+} from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
 import { hourMinToDate } from "../../../../libs/utils/dateUtils";
 
@@ -22,6 +25,7 @@ import { isVotingState, voteDateState } from "../../../../recoil/studyAtoms";
 import ModalPortal from "../../../../components/ModalPortal";
 import { ITimeStartToEnd } from "../../../../types/utils";
 import { useVoteQuery } from "../../../../hooks/vote/queries";
+import { ModalLg, ModalSm } from "../../../../styles/LayoutStyles";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -32,6 +36,8 @@ function VoteStudyModal({
   const voteDate = useRecoilValue(voteDateState);
   const toast = useToast();
   const queryClient = useQueryClient();
+
+  const [errorMessage, setErrorMessage] = useState("");
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -45,6 +51,24 @@ function VoteStudyModal({
       });
     },
   });
+  const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
+    voteDate,
+    {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries([VOTE_GET, voteDate]);
+      },
+      onError: (err) => {
+        toast({
+          title: "오류",
+          description: "참여 취소 신청 중 문제가 발생했어요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      },
+    }
+  );
   const participations = vote?.participations;
   const placeInfoArr = participations?.map((participant) => {
     const placeName = participant.place;
@@ -56,20 +80,27 @@ function VoteStudyModal({
 
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
+
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hour: 12, minutes: 0 },
     end: { hour: 18, minutes: 0 },
   });
 
-  const setisVoting = useSetRecoilState(isVotingState);
+  const firstSubmit = () => {
+    if (firstPlace.length === 0) {
+      setErrorMessage("장소를 선택해주세요!");
+      return;
+    }
+    setPage(1);
+  };
+
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      setisVoting(true);
     },
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const start = time.start;
     const end = time.end;
 
@@ -80,7 +111,6 @@ function VoteStudyModal({
       end: voteDate.hour(end.hour).minute(end.minutes),
     };
 
-    setIsShowModal(false);
     if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
@@ -92,112 +122,137 @@ function VoteStudyModal({
       });
       return;
     }
+    setIsShowModal(false);
 
-    patchAttend(voteInfos);
+    await handleAbsent();
+    await patchAttend(voteInfos);
   };
 
   return (
     <>
-      <ModalLayout>
-        <ModalHeader>
-          <span>{voteDate.format("M월 DD일 스터디")}</span>
+      <Layout>
+        <Header>
+          <span>{voteDate.format("M월 DD일 스터디 투표")}</span>
           <div onClick={() => setIsShowModal(false)}>
             <FontAwesomeIcon icon={faXmark} />
           </div>
-        </ModalHeader>
+        </Header>
 
         {page === 0 ? (
-          <SpacePage>
-            <span>1지망 선택</span>
-            <PlaceSelector
-              placeInfoArr={placeInfoArr}
-              isSelectUnit={true}
-              setSelectedPlace={(place) => {
-                setFirstPlace([...firstPlace, place]);
-                setPage(1);
-              }}
-            />
-          </SpacePage>
+          <>
+            <Main>
+              <span>1지망 선택</span>
+              <SpacePage>
+                <PlaceSelector
+                  placeInfoArr={placeInfoArr}
+                  isSelectUnit={true}
+                  firstPlace={firstPlace}
+                  setSelectedPlace={setFirstPlace}
+                />
+              </SpacePage>
+            </Main>
+            <PageNav>
+              <Error>{errorMessage}</Error>
+              <button onClick={firstSubmit}>다음</button>
+            </PageNav>
+          </>
         ) : page === 1 ? (
-          <SpacePage>
-            <span>2지망 선택(여러개)</span>
-            <PlaceSelector
-              placeInfoArr={placeInfoArr}
-              isSelectUnit={false}
-              firstPlace={firstPlace}
-              secondPlaces={secondPlaces}
-              setSelectedPlace={(place) => {
-                setSecondPlaces([...secondPlaces, place]);
-              }}
-            />
-            <SecondPageNav>
+          <>
+            <Main>
+              <span>2지망 선택</span>
+              <SpacePage>
+                <PlaceSelector
+                  placeInfoArr={placeInfoArr}
+                  isSelectUnit={false}
+                  firstPlace={firstPlace}
+                  secondPlaces={secondPlaces}
+                  setSelectedPlace={setSecondPlaces}
+                />
+              </SpacePage>
+            </Main>
+            <PageNav>
               <button onClick={() => setPage(0)}>뒤로가기</button>
               <button onClick={() => setPage(2)}>다음</button>
-            </SecondPageNav>
-          </SpacePage>
+            </PageNav>
+          </>
         ) : (
           <>
-            <TimeSelector
-              setTimes={({ start, end }: ITimeStartToEnd) => {
-                if (start) setTime({ ...time, start });
-                if (end) setTime({ ...time, end });
-              }}
-              times={time}
-            />
-            <LastPageNav>
+            <Time>
+              <TimeSelector
+                setTimes={({ start, end }: ITimeStartToEnd) => {
+                  if (start) setTime({ ...time, start });
+                  if (end) setTime({ ...time, end });
+                }}
+                times={time}
+              />
+            </Time>
+            <PageNav>
               <button onClick={() => setPage(1)}>뒤로가기</button>
               <button onClick={onSubmit}>제출</button>
-            </LastPageNav>
+            </PageNav>
           </>
         )}
-      </ModalLayout>
+      </Layout>
     </>
   );
 }
 export default VoteStudyModal;
 
-const ModalLayout = styled.div`
-  width: 320px;
-  height: 220px;
-  position: absolute;
-  border-radius: 10px;
-  top: 335px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid black;
-  background-color: white;
-  z-index: 10;
+const Layout = styled(ModalLg)`
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 16px;
+  padding-bottom: 12px;
 `;
-const ModalHeader = styled.header`
+const Header = styled.header`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
-`;
+  margin-bottom: 10px;
 
-const SpaceSelector = styled.div`
-  margin-top: 10px;
-`;
-const SpacePage = styled.div`
   > span {
-    color: brown;
+    font-size: 16px;
+    font-weight: 600;
+    color: #343943;
   }
 `;
 
-const SecondPageNav = styled.nav`
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+
+  > span {
+    display: inline-block;
+    color: #8b4513;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+`;
+
+const SpacePage = styled.div``;
+
+const PageNav = styled.nav`
+  margin-top: auto;
   text-align: end;
-  margin-top: 10px;
+
   > button {
     width: 60px;
     font-size: 0.8em;
-    background-color: brown;
-    color: white;
+    background-color: #8b4513;
+    color: #ffffff;
     margin-left: 10px;
     border-radius: 10px;
     padding: 3px;
   }
+`;
+
+const Error = styled.span`
+  font-size: 13px;
+  color: #ffa500;
+`;
+
+const Time = styled.div`
+  margin-top: 12px;
 `;
 const LastPageNav = styled.nav`
   margin-top: 37px;
@@ -212,3 +267,4 @@ const LastPageNav = styled.nav`
     padding: 3px;
   }
 `;
+const ModalLayout = styled(ModalSm)``;

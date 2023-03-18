@@ -10,9 +10,11 @@ import "nprogress/nprogress.css";
 import "../styles/variable.css";
 import Layout from "../components/Layout/Layout";
 import Head from "next/head";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
-
+config.autoAddCss = false;
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const queryClient = useMemo(
     () =>

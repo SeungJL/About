@@ -10,6 +10,7 @@ import { kakaoProfileInfo } from "../../../models/interface/kakaoProfileInfo";
 import { RepeatIcon } from "@chakra-ui/icons";
 import { IUser } from "../../../models/user";
 import { useMutation } from "react-query";
+import Image from "next/image";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
@@ -43,11 +44,15 @@ export default function UserOverView() {
     <>
       <Layout>
         <UserImg>
-          <Img
-            src={user?.profileImage}
-            alt="userimg"
-            style={{ borderRadius: "18px" }}
-          />
+          <Profile>
+            <Image
+              width={80}
+              height={80}
+              alt="profile"
+              src={`${user?.profileImage}`}
+              unoptimized={true}
+            />
+          </Profile>
           <Badge
             position="absolute"
             width="25px"
@@ -92,6 +97,13 @@ const Layout = styled.div`
   padding-bottom: 10px;
 `;
 
+const Profile = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 24%;
+  overflow: hidden;
+`;
+
 const UserImg = styled.div`
   border-radius: 30%;
   position: relative;
@@ -108,11 +120,6 @@ const UserNameBlock = styled.div`
 const UserName = styled.div`
   font-size: 1.4em;
   margin-bottom: 5px;
-`;
-
-const Img = styled.img`
-  height: 110px;
-  object-fit: contain;
 `;
 
 const LogoutBlock = styled.div`

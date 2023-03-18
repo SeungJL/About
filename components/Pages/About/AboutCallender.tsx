@@ -5,7 +5,7 @@ import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { IconCircle } from "../../../public/icons/IconOutline";
-import { IconArrowTop } from "../../../public/icons/Icons";
+import { IconArrowBottom, IconArrowTop } from "../../../public/icons/Icons";
 import { useRecoilState } from "recoil";
 import { voteDateState } from "../../../recoil/studyAtoms";
 
@@ -41,6 +41,16 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
   };
   return (
     <Layout layout transition={{ duration: 0.3 }}>
+      <Header>
+        <Date>
+          <span>{dayjs().format("YYYY년 M월")}</span>
+          {dayCnt === 7 && (
+            <div onClick={() => setDayCnt(35)}>
+              <IconArrowBottom />
+            </div>
+          )}
+        </Date>
+      </Header>
       <DayOfWeek />
       <CallenderDays isFlex={dayCnt === 7}>
         {dayArr.map((d, idx) => (
@@ -82,11 +92,28 @@ const DayOfWeek = () => (
 );
 
 const Layout = styled(motion.div)`
-  padding-top: 10px;
   padding-bottom: 8px;
   border-bottom: 1px solid #e3e6eb;
 `;
 
+const Header = styled.header`
+  height: 46px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 16px 8px 16px;
+`;
+const Date = styled.div`
+  display: flex;
+  align-items: center;
+  > span {
+    font-family: pretendSemiBold;
+    color: #343943;
+    font-size: 20px;
+    letter-spacing: -4%;
+    align-items: center;
+    margin-right: 8px;
+  }
+`;
 const CallenderDays = styled.div<{ isFlex: boolean }>`
   display: flex;
   color: #767d8a;

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { fetchFamousBooks } from "../../hooks/vote/queries";
 
 import Seo from "../../components/common/Seo";
-import Header from "../../components/common/Header";
+import Header from "../../components/Pages/About/AboutHeader";
 
 interface IBooks {
   bookImageURL: string;

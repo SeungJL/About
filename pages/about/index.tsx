@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
+import Header from "../../components/Pages/About/AboutHeader";
 import Seo from "../../components/common/Seo";
 import AboutCallender from "../../components/Pages/About/AboutCallender";
 import AboutHeader from "../../components/Pages/About/AboutHeader";
@@ -31,7 +32,7 @@ function About() {
       <Seo title="About" />
       <UserInfoCheck />
       <Layout>
-        <AboutHeader dayCnt={dayCnt} setDayCnt={setDayCnt} />
+        <Header />
         <AboutCallender dayCnt={dayCnt} setDayCnt={setDayCnt} />
         <AboutMain />
         <HrDiv />

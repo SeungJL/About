@@ -11,6 +11,10 @@ export const studySpaceFixedState = atom({
   key: "studySpaceFixed",
   default: "",
 });
+export const isVotingState = atom({
+  key: "isVoting",
+  default: false,
+});
 ////////////////////////////////////////////////
 export const studyChoiceState = atom<{
   firstChoice: string;
@@ -18,11 +22,6 @@ export const studyChoiceState = atom<{
 }>({
   key: "studyChoice",
   default: { firstChoice: "", secondChoices: [] },
-});
-
-export const isVotingState = atom({
-  key: "isVoting",
-  default: false,
 });
 
 export const studyDateState = atom<"passed" | "default" | "not passed">({
