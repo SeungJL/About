@@ -17,7 +17,7 @@ import styled from "styled-components";
 export default function NavBottom() {
   const router = useRouter();
   const url = router?.pathname;
-  console.log(router.pathname);
+
   return (
     <Layout>
       <NavItem
@@ -64,6 +64,7 @@ const Layout = styled.div`
   align-items: center;
   border-top: 1px solid #e3e6eb;
   background-color: white;
+  z-index: 10;
 `;
 
 const NavItem = styled.div<{ pageSelected: boolean }>`

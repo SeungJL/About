@@ -7,7 +7,7 @@ import { type } from "os";
 import { useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { BaseModal } from "../../styles/LayoutStyles";
+import { ModalLg } from "../../styles/LayoutStyles";
 import { useSession } from "next-auth/react";
 import dayjs from "dayjs";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
@@ -77,7 +77,7 @@ export default function SuggestModal({
   );
 }
 
-const Layout = styled(BaseModal)`
+const Layout = styled(ModalLg)`
   height: 200px;
 `;
 

@@ -3,9 +3,9 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isShowNotCompletedState } from "../../recoil/modalAtoms";
 
-import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
+import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
 
-const ModalLayout = styled(BaseModal)`
+const ModalLayout = styled(ModalLg)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

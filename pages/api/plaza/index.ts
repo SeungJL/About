@@ -22,7 +22,7 @@ export default async function handler(
 
         res.send(200);
       } catch (err) {
-        console.log(err);
+        
       }
       break;
   }

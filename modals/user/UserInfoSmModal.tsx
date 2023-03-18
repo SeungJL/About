@@ -7,13 +7,13 @@ import {
 } from "../../recoil/modalAtoms";
 import { useActiveQuery, useVoteRateQuery } from "../../hooks/user/queries";
 
-import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
+import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
 import { now } from "../../libs/utils/dateUtils";
 
-const UserInfoSmLayout = styled(BaseModal)`
+const UserInfoSmLayout = styled(ModalLg)`
   height: 200px;
   width: 250px;
   overflow: visible;

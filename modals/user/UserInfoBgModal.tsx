@@ -9,7 +9,7 @@ import { getServerSideProps } from "../../pages";
 
 import { isShowMemberInfoState } from "../../recoil/membersAtoms";
 import { modalContextState } from "../../recoil/modalAtoms";
-import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
+import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
 
 const MemberInfoBgModalLayout = styled.div`
   background-color: white;

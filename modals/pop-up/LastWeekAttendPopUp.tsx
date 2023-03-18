@@ -8,7 +8,7 @@ import {
   useVoteRateQuery,
 } from "../../hooks/user/queries";
 import { now } from "../../libs/utils/dateUtils";
-import { BaseModal } from "../../styles/LayoutStyles";
+import { ModalLg } from "../../styles/LayoutStyles";
 
 export default function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();
@@ -44,7 +44,7 @@ export default function LastWeekAttendPopUp({ closePopUp }) {
   );
 }
 
-const Layout = styled(BaseModal)`
+const Layout = styled(ModalLg)`
   display: flex;
   flex-direction: column;
 `;

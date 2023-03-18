@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IAttendence } from "../../../models/vote";
 
-import { BaseModal, FullScreen } from "../../../styles/LayoutStyles";
+import { ModalLg, FullScreen } from "../../../styles/LayoutStyles";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
@@ -13,7 +13,7 @@ import ProfileImg from "../../../components/common/ProfileImg";
 import { modalContextState } from "../../../recoil/modalAtoms";
 import { useSession } from "next-auth/react";
 
-const Container = styled(BaseModal)`
+const Container = styled(ModalLg)`
   height: 200px;
   overflow: visible;
 `;

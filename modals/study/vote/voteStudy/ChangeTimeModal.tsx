@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BaseModal } from "../../../../styles/LayoutStyles";
+import { ModalLg } from "../../../../styles/LayoutStyles";
 import { ITimeStartToEnd } from "../../../../types/utils";
 import TimeSelector from "./vote/timeSelector";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -65,7 +65,7 @@ export default function ChangeTimeModal({
   );
 }
 
-const Layout = styled(BaseModal)`
+const Layout = styled(ModalLg)`
   display: flex;
   flex-direction: column;
   > div {

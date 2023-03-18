@@ -31,7 +31,7 @@ function AboutMain() {
   const { data: session } = useSession();
   const toast = useToast();
   const [spaceVoted, setSpaceVoted] = useState<string[]>(["23"]);
-  console.log(spaceVoted);
+
   const setStudyChoice = useSetRecoilState(studyChoiceState);
   const setStudySpaceFixed = useSetRecoilState(studySpaceFixedState);
 
@@ -101,7 +101,6 @@ function AboutMain() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate, vote, isLoading]);
-  console.log(spaceVoted);
 
   const variants = {
     enter: (direction: number) => {

@@ -8,7 +8,7 @@ import { useArrivedMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
 import { getToday } from "../../../../libs/utils/dateUtils";
 import { isAttendCheckModalState } from "../../../../recoil/modalAtoms";
-import { BaseModal } from "../../../../styles/LayoutStyles";
+import { ModalLg } from "../../../../styles/LayoutStyles";
 
 export default function CheckVoteModal() {
   const [memo, setMemo] = useState("");
@@ -67,7 +67,7 @@ export default function CheckVoteModal() {
   );
 }
 
-const Layout = styled(BaseModal)`
+const Layout = styled(ModalLg)`
   width: 300px;
   height: 223px;
   padding: 15px;

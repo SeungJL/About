@@ -10,9 +10,9 @@ import { getToday, strToDate } from "../../../../libs/utils/dateUtils";
 import { isShowVoteCancleState } from "../../../../recoil/modalAtoms";
 import { isVotingState } from "../../../../recoil/studyAtoms";
 
-import { BaseModal, FullScreen } from "../../../../styles/LayoutStyles";
+import { ModalLg, FullScreen } from "../../../../styles/LayoutStyles";
 
-const CancelModalLayout = styled(BaseModal)`
+const CancelModalLayout = styled(ModalLg)`
   width: 240px;
   height: 180px;
   top: 50%;

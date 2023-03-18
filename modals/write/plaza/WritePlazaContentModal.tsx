@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
-import { BaseModal } from "../../../styles/LayoutStyles";
+import { ModalLg } from "../../../styles/LayoutStyles";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
@@ -148,7 +148,7 @@ const DeleteIcon = styled.button.attrs((props) => ({
   type: "button",
 }))``;
 
-const Layout = styled(BaseModal)`
+const Layout = styled(ModalLg)`
   width: 350px;
   height: 400px;
 

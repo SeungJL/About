@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { now } from "../../libs/utils/dateUtils";
-import { BaseModal, FullScreen } from "../../styles/LayoutStyles";
+import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
 import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
 
 import { useSetRecoilState } from "recoil";
@@ -19,7 +19,7 @@ import {
   isShowRegisterFormState,
 } from "../../recoil/studyAtoms";
 
-const ModalLayout = styled(BaseModal)`
+const ModalLayout = styled(ModalLg)`
   width: 320px;
   height: 340px;
   padding: 22px;

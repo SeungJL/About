@@ -85,7 +85,7 @@ function AboutMainItem({
         <Participants>
           {attendences?.map((user, idx) => (
             <ProfileContainer key={idx} zIndex={idx}>
-              <ProfileImgSm imgSrc={(user.user as IUser).profileImage} />
+              <ProfileImgSm imgSrc={(user?.user as IUser)?.profileImage} />
             </ProfileContainer>
           ))}
           <ParticipantStatus>
