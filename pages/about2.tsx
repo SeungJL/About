@@ -51,8 +51,6 @@ import {
 import UserInfoCheck from "../components/Pages/About2/UserInfoCheck";
 import AboutFooter from "../components/Pages/About2/AboutFooter";
 import dayjs from "dayjs";
-import UserInfoCheck from "../components/Pages/About/UserInfoCheck";
-import AboutFooter from "../components/Pages/About/AboutFooter";
 
 function About2({}) {
   const toast = useToast();
@@ -317,7 +315,6 @@ const TodayDate = styled.div`
 `;
 const DownScreen = styled.div`
   margin: 0 25px;
-
   position: relative;
 `;
 const MainContents = styled.main`
