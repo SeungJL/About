@@ -33,16 +33,16 @@ function NoticeCategory() {
   return (
     <CategoryHeader>
       <NoticeBtn
-        state={Category === "rule" && true}
-        onClick={() => setCategory("rule")}
+        state={Category === "notice" && true}
+        onClick={() => setCategory("notice")}
       >
-        스터디 규칙
+        공지사항
       </NoticeBtn>
       <NoticeBtn
         state={Category === "notice" && true}
         onClick={() => setCategory("notice")}
       >
-        공지사항
+        활동알림
       </NoticeBtn>
     </CategoryHeader>
   );

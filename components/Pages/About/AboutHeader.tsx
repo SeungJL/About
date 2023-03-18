@@ -4,7 +4,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import {
@@ -13,28 +13,46 @@ import {
   IconBellNotice,
   IconUser,
 } from "../../../public/icons/Icons";
+import ModalPortal from "../../ModalPortal";
+import StudyRuleModal from "../../../modals/info/StudyRuleModal";
+import { useRouter } from "next/router";
 
 interface IHeader {
   dayCnt: number;
   setDayCnt: Dispatch<SetStateAction<number>>;
 }
 export default function AboutHeader({ dayCnt, setDayCnt }: IHeader) {
+  const [isRuleModal, setIsRuleModal] = useState(false);
+  const router = useRouter();
   return (
-    <Layout>
-      <Date>
-        <span>{dayjs().format("YYYY년 M월")}</span>
-        {dayCnt === 7 && (
-          <div onClick={() => setDayCnt(35)}>
-            <IconArrowBottom />
+    <>
+      <Layout>
+        <Date>
+          <span>{dayjs().format("YYYY년 M월")}</span>
+          {dayCnt === 7 && (
+            <div onClick={() => setDayCnt(35)}>
+              <IconArrowBottom />
+            </div>
+          )}
+        </Date>
+        <Nav>
+          <FontAwesomeIcon
+            icon={faBalanceScale}
+            size="lg"
+            onClick={() => setIsRuleModal(true)}
+          />
+          <div />
+          <div onClick={() => router.push(`/notice`)}>
+            <IconBellNotice />
           </div>
-        )}
-      </Date>
-      <Nav>
-        <FontAwesomeIcon icon={faBalanceScale} size="lg" />
-        <div />
-        <IconBellNotice />
-      </Nav>
-    </Layout>
+        </Nav>
+      </Layout>
+      {isRuleModal && (
+        <ModalPortal closePortal={setIsRuleModal}>
+          <StudyRuleModal setIsModal={setIsRuleModal} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 
@@ -62,7 +80,7 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   color: rgb(209, 214, 221);
-  > div {
+  > div:first-child {
     margin: 3px;
   }
 `;
