@@ -72,13 +72,11 @@ export default async function handler(
           return acc;
         }, {});
 
-      const voteForm = { ...attendForm, ...voteCnt };
+      const voteRateForm = { ...attendForm, ...voteCnt };
       const result = [];
 
-      for (let value in voteForm) {
-        const a = {};
-        a[value] = voteForm[value];
-        result.push(a);
+      for (let value in voteRateForm) {
+        result.push({ name: value, cnt: voteRateForm[value] });
       }
 
       res.status(200).json(result);

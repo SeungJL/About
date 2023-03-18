@@ -315,7 +315,6 @@ const TodayDate = styled.div`
 `;
 const DownScreen = styled.div`
   margin: 0 25px;
-
   position: relative;
 `;
 const MainContents = styled.main`

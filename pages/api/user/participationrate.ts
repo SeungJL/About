@@ -1,9 +1,5 @@
-import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next/types";
 import dbConnect from "../../../libs/dbConnect";
-import { now } from "../../../libs/utils/dateUtils";
-import { User } from "../../../models/user";
-import { Vote } from "../../../models/vote";
 import { getParticipationRate } from "../../../services/rateService";
 
 export default async function handler(
@@ -20,13 +16,14 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      const participationRateForm = getParticipationRate(startDay, endDay);
+      const participationRateForm = await getParticipationRate(
+        startDay,
+        endDay
+      );
       const result = [];
 
       for (let value in participationRateForm) {
-        const a = {};
-        a[value] = participationRateForm[value];
-        result.push(a);
+        result.push({ name: value, cnt: participationRateForm[value] });
       }
 
       res.status(200).json(result);
