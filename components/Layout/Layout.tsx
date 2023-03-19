@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import dbConnect from "../../libs/dbConnect";
 import { User } from "../../models/user";
-import NavBottom from "./NavBottom";
+
 export default function Layout({ children }) {
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
