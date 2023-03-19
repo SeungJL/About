@@ -26,12 +26,6 @@ export default async function handler(
     .flatMap((p) => p.attendences)
     .find((att) => att.user == _id);
 
-  // 확정하지 않은 경우 불참 처리가 아니라 참여취소처리해야함
-  // if (!targetAtt || !targetAtt.confirmed) {
-  //   console.log(34);
-  //   return res.status(400).end();
-  // }
-
   switch (method) {
     case "PATCH":
       vote.participations.forEach((participation) => {

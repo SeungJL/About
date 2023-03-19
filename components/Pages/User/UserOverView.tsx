@@ -56,7 +56,7 @@ export default function UserOverView() {
 
   const onWrite = () => {
     const text = inputRef.current.value;
-    console.log(text);
+
     setValue(text);
   };
 

@@ -1,29 +1,74 @@
+import { useToast } from "@chakra-ui/react";
 import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useQueryClient } from "react-query";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { useAbsentMutation } from "../../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../../libs/queryKeys";
+import ChangeTimeModal from "../../../../modals/study/vote/voteStudy/ChangeTimeModal";
+import { isVotingState } from "../../../../recoil/studyAtoms";
+import ModalPortal from "../../../ModalPortal";
 
 function StudyNavigation() {
+  const router = useRouter();
+  const toast = useToast();
+  const voteDate = dayjs(router.query.date as string);
+  const queryClient = useQueryClient();
+  const [isChangeModal, setIsChangeModal] = useState(false);
+  const [isVoting, setIsVoting] = useRecoilState(isVotingState);
+  console.log(isVoting);
+  const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
+    voteDate,
+    {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries([VOTE_GET, voteDate]);
+        setIsVoting(false);
+      },
+      onError: (err) => {
+        toast({
+          title: "오류",
+          description: "참여 취소 신청 중 문제가 발생했어요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      },
+    }
+  );
+
   return (
-    <Layout>
-      <SubNav>
-        <Button>
-          <FontAwesomeIcon icon={faCircleXmark} size="xl" />
-          <span>투표 취소</span>
-        </Button>
-        <Button>
-          <FontAwesomeIcon icon={faClock} size="xl" />
-          <span>시간 변경</span>
-        </Button>
-        <Button>
-          <FontAwesomeIcon icon={faBan} size="xl" />
-          <span>당일 불참</span>
-        </Button>
-      </SubNav>
-      <MainButton>
-        <button>스터디 투표하기</button>
-      </MainButton>
-    </Layout>
+    <>
+      <Layout>
+        <SubNav>
+          <Button onClick={() => handleAbsent()}>
+            <FontAwesomeIcon icon={faCircleXmark} size="xl" />
+            <span>투표 취소</span>
+          </Button>
+          <Button onClick={() => setIsChangeModal(true)}>
+            <FontAwesomeIcon icon={faClock} size="xl" />
+            <span>시간 변경</span>
+          </Button>
+          <Button>
+            <FontAwesomeIcon icon={faBan} size="xl" />
+            <span>당일 불참</span>
+          </Button>
+        </SubNav>
+        <MainButton>
+          <button>스터디 투표하기</button>
+        </MainButton>
+      </Layout>
+      {isChangeModal && (
+        <ModalPortal closePortal={setIsChangeModal}>
+          <ChangeTimeModal setIsChangeTimeModal={setIsChangeModal} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 

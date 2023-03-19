@@ -35,16 +35,16 @@ const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
       const value = Number(event.currentTarget.value);
       let hour = time.hour;
       let minutes = time.minutes;
-      console.log(1);
+   
       if (type === "start") {
         if (isHour) hour = value;
         else minutes = value;
-        console.log(2, hour, minutes);
+       
         setTimes({ start: { hour, minutes }, end: null });
       } else {
         if (isHour) hour = value;
         else minutes = value;
-        console.log(3, hour, minutes);
+      
         setTimes({ start: null, end: { hour, minutes } });
       }
     };

@@ -11,7 +11,8 @@ import dayjs from "dayjs";
 import { SP } from "next/dist/shared/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/common/Header";
 import SpaceVoteOverView from "../../../components/Pages/About/studySpace/SpaceVoteOverview";
@@ -23,11 +24,14 @@ import StudySpaceOverView from "../../../components/Pages/About/studySpace/Study
 import StudyTimeTable from "../../../components/Pages/About/studySpace/StudyTimeTable";
 import CheckComment from "../../../components/Pages/About/studySpace/StudyTimeTable/CheckComment";
 import { useVoteQuery } from "../../../hooks/vote/queries";
+import { isTimeChangeState } from "../../../recoil/atoms";
 
-import { voteDateState } from "../../../recoil/studyAtoms";
+import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
 
 function StudySpace() {
   const router = useRouter();
+  const isVoting = useRecoilValue(isVotingState); //투표 취소를 누르자마자 업데이트 하기 위함
+  const [isTimeChange, setIsTimeChange] = useRecoilState(isTimeChangeState);
 
   const spaceID = router.query.studySpace;
   const toast = useToast();
@@ -48,7 +52,10 @@ function StudySpace() {
       });
     },
   });
-
+  console.log(23);
+  useEffect(() => {
+    setIsTimeChange(false);
+  }, [isTimeChange]);
   const spaceStudyInfo = vote?.participations.find(
     (props) => props.place._id === spaceID
   );

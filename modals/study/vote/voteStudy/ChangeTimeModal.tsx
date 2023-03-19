@@ -4,12 +4,13 @@ import { ITimeStartToEnd } from "../../../../types/utils";
 import TimeSelector from "./vote/timeSelector";
 import { useState, Dispatch, SetStateAction } from "react";
 import { voteDateState } from "../../../../recoil/studyAtoms";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useAttendMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
 import { QueryClient } from "react-query";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
+import { isTimeChangeState } from "../../../../recoil/atoms";
 
 export default function ChangeTimeModal({
   setIsChangeTimeModal,
@@ -17,6 +18,7 @@ export default function ChangeTimeModal({
   setIsChangeTimeModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const voteDate = useRecoilValue(voteDateState);
+  const setIsTimeChange = useSetRecoilState(isTimeChangeState);
   const toast = useToast();
   const { data: session } = useSession();
 
@@ -24,7 +26,11 @@ export default function ChangeTimeModal({
     start: { hour: 14, minutes: 0 },
     end: { hour: 18, minutes: 0 },
   });
-  const { mutate: patchAttend } = useAttendMutation(voteDate);
+  const { mutate: patchAttend } = useAttendMutation(voteDate, {
+    onSuccess: async () => {
+      setIsTimeChange(true);
+    },
+  });
 
   const onSubmit = () => {
     const start = time.start;

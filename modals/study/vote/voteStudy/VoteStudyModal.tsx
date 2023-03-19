@@ -180,14 +180,10 @@ function VoteStudyModal({
             <Time>
               <TimeSelector
                 setTimes={({ start, end }: ITimeStartToEnd) => {
-                  console.log(55, start, end);
                   if (start) {
-                    console.log("A");
-                    console.log(222, time);
                     setTime({ end: time.end, start });
                   }
                   if (end) {
-                    console.log("B");
                     setTime({ start: time.start, end });
                   }
                 }}

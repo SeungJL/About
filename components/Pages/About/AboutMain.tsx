@@ -30,9 +30,8 @@ function AboutMain() {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const { data: session } = useSession();
   const toast = useToast();
-  const [spaceVoted, setSpaceVoted] = useState<string[]>(["23"]);
+  const [spaceVoted, setSpaceVoted] = useState<string[]>([""]);
   const setIsVoting = useSetRecoilState(isVotingState);
-  const setStudyChoice = useSetRecoilState(studyChoiceState);
   const setStudySpaceFixed = useSetRecoilState(studySpaceFixedState);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
@@ -66,28 +65,6 @@ function AboutMain() {
   useEffect(() => {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
-      // space.attendences.map((att) => {
-      //   if ((att.user as IUser).uid === session?.uid) {
-      //     if (space.status === "open") {
-      //     }
-
-      //     const spaceId = space.place._id;
-      //     if (att.firstChoice) {
-      //       setSpaceVoted({
-      //         firstChoice: spaceId,
-      //         secondChoices: spaceVoted.secondChoices,
-      //       });
-      //     } else {
-      //       const secondArr = spaceVoted.secondChoices;
-      //       secondArr?.push(spaceId);
-      //       setSpaceVoted({
-      //         firstChoice: spaceVoted.firstChoice,
-      //         secondChoices: secondArr,
-      //       });
-      //     }
-      //   }
-      // });
-
       if (
         space.attendences.find(
           (att) => (att.user as IUser)?.uid === session?.uid
@@ -101,31 +78,6 @@ function AboutMain() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate, vote, isLoading]);
-
-  const variants = {
-    enter: (direction: number) => {
-      return {
-        x: direction > 0 ? 1000 : -1000,
-        opacity: 0,
-      };
-    },
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => {
-      return {
-        zIndex: 0,
-        x: direction < 0 ? 1000 : -1000,
-        opacity: 0,
-      };
-    },
-  };
-  const swipeConfidenceThreshold = 10000;
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-  };
 
   return (
     <AnimatePresence initial={false}>
@@ -168,6 +120,30 @@ function AboutMain() {
     </AnimatePresence>
   );
 }
+const variants = {
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+};
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
 
 const Layout = styled(motion.div)`
   padding: 24px 16px;
