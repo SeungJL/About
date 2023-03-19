@@ -15,11 +15,13 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/common/Header";
 import SpaceVoteOverView from "../../../components/Pages/About/studySpace/SpaceVoteOverview";
+import StudyNavigation from "../../../components/Pages/About/studySpace/StudyNavigation";
 
 import StudySpaceCover from "../../../components/Pages/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../components/Pages/About/studySpace/StudySpaceHeader";
 import StudySpaceOverView from "../../../components/Pages/About/studySpace/StudySpaceOverView";
 import StudyTimeTable from "../../../components/Pages/About/studySpace/StudyTimeTable";
+import CheckComment from "../../../components/Pages/About/studySpace/StudyTimeTable/CheckComment";
 import { useVoteQuery } from "../../../hooks/vote/queries";
 
 import { voteDateState } from "../../../recoil/studyAtoms";
@@ -50,7 +52,7 @@ function StudySpace() {
   const spaceStudyInfo = vote?.participations.find(
     (props) => props.place._id === spaceID
   );
-  console.log(spaceStudyInfo);
+
   const name = spaceStudyInfo?.place.brand;
   const firstAtts = spaceStudyInfo?.attendences.filter(
     (att) => att.firstChoice
@@ -60,11 +62,16 @@ function StudySpace() {
     <>
       <StudySpaceHeader title={!isLoading ? name : ""} />
       <Layout>
-        {!isLoading && <StudySpaceCover src={spaceStudyInfo?.place.image} />}
-        <StudySpaceOverView space={spaceStudyInfo?.place} />
-        <HrDiv />
-        <SpaceVoteOverView date={!isLoading && voteDate} />
-        <StudyTimeTable attendances={!isLoading && firstAtts} />
+        {!isLoading && (
+          <>
+            <StudySpaceCover src={spaceStudyInfo?.place.image} />
+            <StudySpaceOverView space={spaceStudyInfo?.place} />
+            <HrDiv />
+            <SpaceVoteOverView date={voteDate} />
+            <StudyTimeTable attendances={spaceStudyInfo?.attendences} />
+            <StudyNavigation />
+          </>
+        )}
       </Layout>
     </>
   );

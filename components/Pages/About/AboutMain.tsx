@@ -62,7 +62,7 @@ function AboutMain() {
     setSpaceVoted([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
-
+  console.log(vote);
   useEffect(() => {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;

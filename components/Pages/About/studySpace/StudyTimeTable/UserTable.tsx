@@ -28,8 +28,6 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
   useEffect(() => {
     setUserArr([]);
     attendances?.forEach((user) => {
-      if (!user.firstChoice) return;
-
       const start = dayjs(user?.time.start);
       const end = dayjs(user?.time.end);
       const endTime = end.hour() + end.minute() / 60;
@@ -41,6 +39,7 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
         end: end.format("HH:mm"),
         startGap: startTime - 10,
         gap,
+        isSecond: !user.firstChoice,
       };
       setUserArr((old) => [...old, temp]);
     });
@@ -51,8 +50,10 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
       {userArr?.map((user, idx) => (
         <UserBlock key={idx}>
           <UserIcon start={user.startGap} gap={user.gap} color={colorArr[idx]}>
-            <span> {user.name}</span>
-
+            <span>
+              {user.name}
+              <Sub>{user.isSecond && "(sub)"}</Sub>
+            </span>
             <div>
               {user.start}~{user.end}
             </div>
@@ -90,6 +91,7 @@ interface IUserTable {
   end: string;
   gap: number;
   startGap: number;
+  isSecond: boolean;
 }
 
 const Layout = styled.div`
@@ -97,6 +99,11 @@ const Layout = styled.div`
   position: absolute;
   height: 100%;
   margin-top: 32px;
+`;
+
+const Sub = styled.span`
+  margin-left: 2px;
+  color: var(--font-h1);
 `;
 
 export default UserTable;
