@@ -8,7 +8,7 @@ import { useMemo } from "react";
 import { RecoilRoot } from "recoil";
 import "nprogress/nprogress.css";
 import "../styles/variable.css";
-import Layout from "../components/Layout/Layout";
+import Layout from "../components/layout/Layout";
 import Head from "next/head";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";

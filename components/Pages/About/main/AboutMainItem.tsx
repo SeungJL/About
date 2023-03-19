@@ -109,7 +109,7 @@ const Layout = styled(motion.div)<{ status: string }>`
   flex-direction: ${(props) =>
     props.status === "myOpen" ? "row-reverse" : null};
   border: ${(props) =>
-    props.status === "myOpen" ? "1px solid #00C2B3" : null};
+    props.status === "myOpen" ? "1px solid var(--color-mint)" : null};
 `;
 
 const ImageContainer = styled.div`
@@ -152,8 +152,8 @@ const Status = styled.div`
   }
 `;
 const Branch = styled.div`
-  background-color: #ffeae5;
-  color: #fd7b5b;
+  background-color: var(--color-peach);
+  color: var(--color-orange3);
 `;
 
 const StatusResult = styled.div<{ isOpen: boolean }>`

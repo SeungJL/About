@@ -14,16 +14,20 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 import { Attendence } from "../../models/attendence";
 import { User } from "../../models/user";
-import AttendChart from "../../components/Pages/User/AttendChart";
+import AttendChart from "../../components/utils/AttendChart";
 import Header from "../../components/common/Header";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 function UserInfo() {
+  const router = useRouter();
+  const { data: session } = useSession();
+
   return (
     <Layout
       initial={{ x: "100%" }}
@@ -34,8 +38,44 @@ function UserInfo() {
       <Header title="마이페이지" />
       <UserLayout>
         <UserOverView />
-        <UserNavigation />
+        <UserScoresNav>
+          <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
+            <span>내 점수</span>
+            <span>+2점</span>
+          </button>
+          <button>
+            <span>수집한 배지</span>
+            <span>0개</span>
+          </button>
+        </UserScoresNav>
         <AttendChart />
+        <Navigation>
+          <div>
+            <BlockName>신청</BlockName>
+            <NavBlock>
+              <button>건의하기</button>
+              <button>휴식 신청</button>
+            </NavBlock>
+          </div>
+          <div>
+            <BlockName>정보 변경</BlockName>
+            <NavBlock>
+              <button>프로필 수정</button>
+              <button>친구 초대 설정</button>
+              <button>카카오 알림 설정</button>
+              <button>로그아웃</button>
+            </NavBlock>
+          </div>
+          <div>
+            <BlockName>기타</BlockName>
+            <NavBlock>
+              <button>서비스 이용 약관</button>
+              <button>개인정보 처리방침</button>
+              <button>회원 탈퇴</button>
+            </NavBlock>
+          </div>
+        </Navigation>
+        {/* <UserNavigation /> */}
       </UserLayout>
     </Layout>
   );
@@ -45,11 +85,69 @@ const Layout = styled(motion.div)``;
 
 const UserLayout = styled.div`
   margin-top: 8px;
-
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   overflow: visible;
 `;
+
+const UserScoresNav = styled.nav`
+  margin-top: 2px;
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  margin-bottom: 12px;
+  > button {
+    color: var(--font-h3);
+    width: 49%;
+    border: 1px solid var(--font-h4);
+    border-radius: 3px;
+    display: flex;
+
+    justify-content: space-around;
+    align-items: center;
+    font-size: 12px;
+    > span:last-child {
+      font-weight: 600;
+      color: var(--font-h1);
+    }
+  }
+`;
+
+const Navigation = styled.nav`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--font-h5);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 6px 0;
+`;
+
+const BlockName = styled.div`
+  padding-bottom: 3px;
+  background-color: var(--font-h6);
+  font-weight: 600;
+  font-size: 12px;
+  height: 24px;
+  display: flex;
+  align-items: end;
+  color: var(--font-h2);
+  padding-left: 6px;
+`;
+
+const NavBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: var(--font-h8);
+  padding-left: 6px;
+  > button {
+    text-align: start;
+    height: 42px;
+    font-size: 13px;
+    border-bottom: 1.5px solid var(--font-h6);
+  }
+`;
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
 

@@ -127,9 +127,9 @@ const PlaceIcon = styled.button<{
   border-radius: 25%;
   border: ${(props) =>
     props.firstSelected
-      ? "2px solid #8B4513"
+      ? "2px solid var(--color-brown)"
       : props.isSelected
       ? "2px solid #D2691E"
-      : "1px solid #343943"};
+      : "1px solid var(--font-h1)"};
   overflow: hidden;
 `;

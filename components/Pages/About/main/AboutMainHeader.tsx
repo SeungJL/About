@@ -46,7 +46,7 @@ const Header = styled.header`
   > div {
     display: flex;
     align-items: center;
-    color: #343943;
+    color: var(--font-h1);
     font-weight: 600;
     font-size: 18px;
   }

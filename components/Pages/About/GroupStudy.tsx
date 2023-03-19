@@ -24,7 +24,7 @@ const Header = styled.header`
   justify-content: space-between;
   margin-bottom: 20px;
   > span:first-child {
-    color: #343943;
+    color: var(--font-h1);
     font-family: "PretendSemiBold";
     font-size: 18px;
   }

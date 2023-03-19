@@ -23,10 +23,10 @@ const UserBadgeLayout = styled.div<{ role: string }>`
     if (State === "member") return "0.8em";
     if (State === "previliged") return "0.9em";
   }};
-  padding: 1px;
+
   text-align: center;
   width: 50px;
-  height: 18px;
+  height: 16px;
   font-size: 0.8em;
   border-radius: 8px;
 `;

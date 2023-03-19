@@ -107,7 +107,7 @@ const Date = styled.div`
   align-items: center;
   > span {
     font-family: pretendSemiBold;
-    color: #343943;
+    color: var(--font-h1);
     font-size: 20px;
     letter-spacing: -4%;
     align-items: center;

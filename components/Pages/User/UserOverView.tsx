@@ -11,9 +11,16 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import { IUser } from "../../../models/user";
 import { useMutation } from "react-query";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState, useRef } from "react";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
+  const [value, setValue] = useState("안녕하세요! 잘 부탁드립니다~!");
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const toast = useToast();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,
@@ -40,6 +47,23 @@ export default function UserOverView() {
       },
     }
   );
+
+  const handleWrite = () => {
+    const input = inputRef.current;
+    input.disabled = false;
+    input.focus();
+  };
+
+  const onWrite = () => {
+    const text = inputRef.current.value;
+    console.log(text);
+    setValue(text);
+  };
+
+  const handleSubmit = () => {
+    //작성된 Comment를 서버로 전달
+  };
+
   return (
     <>
       <Layout>
@@ -74,27 +98,43 @@ export default function UserOverView() {
             )}
           </Badge>
         </UserImg>
-        <UserNameBlock>
-          <UserName>{user?.name}</UserName>
-          <UserBadge role={user?.role} />
-        </UserNameBlock>
+        <UserInfo>
+          <UserProfile>
+            <UserName>{user?.name}</UserName>
+            <UserBadge role={user?.role} />
+          </UserProfile>
+          <Comment>
+            <span>Comment</span>
+            <div>
+              <Message
+                value={value}
+                disabled={true}
+                ref={inputRef}
+                type="text"
+                onBlur={handleSubmit}
+                onChange={onWrite}
+              />
+              <div onClick={handleWrite}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </div>
+            </div>
+          </Comment>
+        </UserInfo>
 
-        <LogoutBlock>
+        {/* <LogoutBlock>
           <button onClick={() => signOut()}>로그아웃</button>
-        </LogoutBlock>
+        </LogoutBlock> */}
       </Layout>
-      <Hr />
     </>
   );
 }
 
 const Layout = styled.div`
-  height: 14vh;
-  padding: 10px 20px;
+  height: 90px;
+  padding: 4px 0px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-bottom: 10px;
+  margin-bottom: 12px;
 `;
 
 const Profile = styled.div`
@@ -108,18 +148,56 @@ const UserImg = styled.div`
   border-radius: 30%;
   position: relative;
 `;
-const UserNameBlock = styled.div`
-  width: 60px;
-  margin-left: 3%;
-  margin-right: auto;
+const UserInfo = styled.div`
+  margin-left: 12px;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  flex: 1;
+  justify-content: space-between;
+  > div:first-child {
+    display: flex;
+  }
+`;
+
+const UserProfile = styled.div`
+  display: flex;
   align-items: center;
+  margin-bottom: 12px;
+  > div:last-child {
+    margin-bottom: 2px;
+  }
 `;
 
 const UserName = styled.div`
-  font-size: 1.4em;
-  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  margin-right: 10px;
+`;
+
+const Comment = styled.div`
+  padding: 2px 0 2px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  flex: 1;
+  border: 1px solid var(--font-h5);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  > div {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const Message = styled.input`
+  font-weight: 400;
+  color: var(--font-h2);
+  width: 90%;
+
+  font-size: 12px;
 `;
 
 const LogoutBlock = styled.div`
@@ -130,8 +208,4 @@ const LogoutBlock = styled.div`
     border-radius: 6px;
     border: 1px solid rgb(0, 0, 0, 0.5);
   }
-`;
-const Hr = styled.div`
-  width: 100vw;
-  border-bottom: 1px solid rgb(0, 0, 0, 0.3);
 `;

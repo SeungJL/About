@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { IconBellNotice } from "../../../public/icons/Icons";
 import ModalPortal from "../../ModalPortal";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";
-import Drawer from "../../common/Drawer";
+import Drawer from "../../layout/Drawer";
 import { Modal } from "@chakra-ui/react";
 
 export default function AboutHeader() {
@@ -70,7 +70,7 @@ const Layout = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
-  color: #343943;
+  color: var(--font-h1);
 `;
 
 const Nav = styled.nav`

@@ -92,7 +92,7 @@ const Title = styled.span`
   padding-left: 13px;
   font-size: 18px;
   font-weight: 600;
-  color: #343943;
+  color: var(--font-h1);
 `;
 const Page = styled.span`
   color: #767d8a;
@@ -105,7 +105,7 @@ const OverView = styled.div`
 `;
 
 const RuleTitle = styled.span`
-  color: #343943;
+  color: var(--font-h1);
   font-size: 15px;
 `;
 
@@ -120,7 +120,7 @@ const Content = styled.div`
 `;
 
 const Bold = styled.span`
-  color: #343943;
+  color: var(--font-h1);
   font-weight: 600;
 `;
 
@@ -132,7 +132,7 @@ const Footer = styled.footer`
   > button {
     margin-right: 12px;
     margin-bottom: 3px;
-    color: #343943;
+    color: var(--font-h1);
     font-size: 16px;
   }
 `;

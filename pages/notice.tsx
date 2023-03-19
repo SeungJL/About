@@ -59,13 +59,14 @@ const Button = styled.div<{ isSelected: boolean }>`
   width: 50%;
   text-align: center;
   font-weight: 600;
-  border-bottom: ${(props) => (props.isSelected ? "2px solid #343943" : null)};
-  color: ${(props) => (props.isSelected ? " #343943" : "#767d8a")};
+  border-bottom: ${(props) =>
+    props.isSelected ? "2px solid var(--font-h1)" : null};
+  color: ${(props) => (props.isSelected ? " var(--font-h1)" : "#767d8a")};
 `;
 
 const Main = styled.main`
   margin: 30px 16px 34px 16px;
-  color: #343943;
+  color: var(--font-h1);
   display: flex;
   flex-direction: column;
 `;

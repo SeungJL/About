@@ -212,7 +212,7 @@ const Header = styled.header`
   > span {
     font-size: 16px;
     font-weight: 600;
-    color: #343943;
+    color: var(--font-h1);
   }
 `;
 
@@ -222,7 +222,7 @@ const Main = styled.main`
 
   > span {
     display: inline-block;
-    color: #8b4513;
+    color: var(--color-brown);
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 8px;
@@ -238,7 +238,7 @@ const PageNav = styled.nav`
   > button {
     width: 60px;
     font-size: 0.8em;
-    background-color: #8b4513;
+    background-color: var(--color-brown);
     color: #ffffff;
     margin-left: 10px;
     border-radius: 10px;
@@ -248,7 +248,7 @@ const PageNav = styled.nav`
 
 const Error = styled.span`
   font-size: 13px;
-  color: #ffa500;
+  color: var(--color-orange);
 `;
 
 const Time = styled.div`

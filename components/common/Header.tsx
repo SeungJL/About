@@ -20,11 +20,11 @@ const Layout = styled.div`
   padding: 0 16px;
   display: flex;
   align-items: center;
-  color: #343943;
+  color: var(--font-h1);
 `;
 
 const Title = styled.span`
-  color: #343943;
+  color: var(--font-h1);
   font-size: 20px;
   font-weight: 600;
   margin-left: 16px;

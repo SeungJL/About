@@ -84,7 +84,7 @@ const UnitLayout = styled.div`
   > select {
     width: 56px;
     height: 28px;
-    border: 1px solid #343943;
+    border: 1px solid var(--font-h1);
     border-radius: 4px;
     padding-left: 6px;
     margin-right: 6px;
@@ -96,7 +96,7 @@ const Select = styled.select``;
 
 const Name = styled.span`
   font-size: 15px;
-  color: #343943;
+  color: var(--font-h1);
   display: inline-block;
   margin-right: 12px;
 `;

@@ -2,4 +2,19 @@
   --main-bg-color: linear-gradient(45deg, #a55c1b, #000000);
   --font-black: rgb(0, 0, 0, 0.8);
   --main-color: RGB(137, 86, 40);
+  --font-h1: #343943;
+  --font-h2: #565b67;
+  --font-h3: #767d8a;
+  --font-h4: #a0a4af;
+  --font-h5: #d1d6dd;
+  --font-h6: #e3e6eb;
+  --font-h7: #f0f2f5;
+  --font-h8: #f6f7f9;
+  --color-yellow: #f5deb3;
+  --color-brown: #8b4513;
+  --color-orange: #ffa500;
+  --color-orange2: #d2691e;
+  --color-orange3: #fd7b5b;
+  --color-mint: #00c2b3;
+  --color-peach: #ffeae5;
 }

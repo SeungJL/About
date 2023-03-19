@@ -6,10 +6,10 @@ import {
   useParticipationRateQuery,
   useVoteRateQueries,
   useVoteRateQuery,
-} from "../../../hooks/user/queries";
+} from "../../hooks/user/queries";
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { getMonth, getToday, now } from "../../../libs/utils/dateUtils";
+import { getMonth, getToday, now } from "../../libs/utils/dateUtils";
 
 export interface IMonthStartToEnd {
   startDay: Dayjs;
@@ -33,7 +33,7 @@ export default function AttendChart() {
   }
 
   const voteCountTotal = useVoteRateQueries(monthList);
-  console.log(voteCountTotal);
+
   const attendCountTotal = useAttendRateQueries(monthList);
 
   const isLoading = voteCountTotal.some((result) => result.isLoading);
@@ -72,8 +72,9 @@ export default function AttendChart() {
         ]}
         options={{
           chart: {
-            height: 500,
-            width: 500,
+            zoom: {
+              enabled: false,
+            },
           },
           stroke: {
             curve: "straight",
