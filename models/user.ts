@@ -88,6 +88,7 @@ export interface IUser extends Document {
   role?: string;
   statistic: IUserStatistic;
   score: number;
+  comment: string;
 }
 
 export const UserSchema: Schema<IUser> = new Schema({
@@ -134,6 +135,10 @@ export const UserSchema: Schema<IUser> = new Schema({
   score: {
     type: Number,
     default: 0,
+  },
+  comment: {
+    type: String,
+    default: "안녕하세요! 잘 부탁드립니다~!",
   },
 });
 

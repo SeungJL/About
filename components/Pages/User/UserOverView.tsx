@@ -61,7 +61,7 @@ export default function UserOverView() {
   };
 
   const handleSubmit = () => {
-    //작성된 Comment를 서버로 전달
+    axios.post("/api/user/comment", { comment: value });
   };
 
   return (
