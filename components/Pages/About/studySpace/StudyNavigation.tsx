@@ -10,6 +10,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { useAbsentMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
+import CancelVoteModal from "../../../../modals/study/vote/voteStudy/CancelVoteModal";
 import ChangeTimeModal from "../../../../modals/study/vote/voteStudy/ChangeTimeModal";
 import { isVotingState } from "../../../../recoil/studyAtoms";
 import ModalPortal from "../../../ModalPortal";
@@ -21,6 +22,7 @@ function StudyNavigation() {
   const queryClient = useQueryClient();
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [isVoting, setIsVoting] = useRecoilState(isVotingState);
+  const [isCancelModal, setIsCancelModal] = useState(false);
   console.log(isVoting);
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     voteDate,
@@ -41,7 +43,9 @@ function StudyNavigation() {
       },
     }
   );
-
+  const onAbsentToday = () => {
+    setIsCancelModal(true);
+  };
   return (
     <>
       <Layout>
@@ -54,7 +58,7 @@ function StudyNavigation() {
             <FontAwesomeIcon icon={faClock} size="xl" />
             <span>시간 변경</span>
           </Button>
-          <Button>
+          <Button onClick={onAbsentToday}>
             <FontAwesomeIcon icon={faBan} size="xl" />
             <span>당일 불참</span>
           </Button>
@@ -66,6 +70,11 @@ function StudyNavigation() {
       {isChangeModal && (
         <ModalPortal closePortal={setIsChangeModal}>
           <ChangeTimeModal setIsChangeTimeModal={setIsChangeModal} />
+        </ModalPortal>
+      )}
+      {isCancelModal && (
+        <ModalPortal closePortal={setIsCancelModal}>
+          <CancelVoteModal setIsModal={setIsCancelModal} />
         </ModalPortal>
       )}
     </>

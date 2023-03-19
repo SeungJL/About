@@ -10,40 +10,10 @@ import { getToday, strToDate } from "../../../../libs/utils/dateUtils";
 import { isShowVoteCancleState } from "../../../../recoil/modalAtoms";
 import { isVotingState } from "../../../../recoil/studyAtoms";
 
-import { ModalLg, FullScreen } from "../../../../styles/LayoutStyles";
+import { ModalLg, FullScreen, ModalSm } from "../../../../styles/LayoutStyles";
 
-const CancelModalLayout = styled(ModalLg)`
-  width: 240px;
-  height: 180px;
-  top: 50%;
-  justify-content: space-between;
-`;
-
-const Header = styled.header`
-  padding-bottom: 7px;
-  border-bottom: 1px solid var(--font-black);
-  height: 30px;
-`;
-const Content = styled.div``;
-const Footer = styled.footer`
-  height: 30px;
-  border-top: 1px solid var(--font-black);
-  padding-top: 7px;
-  text-align: end;
-  > button {
-    margin-right: 5px;
-    border: 1px solid black;
-    width: 50px;
-    height: 25px;
-    border-radius: 10px;
-    padding: 3px;
-
-    font-family: "-apple-system";
-    font-size: 12px;
-  }
-`;
-
-export default function CancelVoteModal() {
+export default function CancelVoteModal({ setIsModal }) {
+  console.log(43);
   const today = getToday();
   const queryClient = useQueryClient();
   const toast = useToast();
@@ -70,7 +40,7 @@ export default function CancelVoteModal() {
 
   const handleCancleBtn = () => {
     handleDismiss();
-    setIsShowCancle(false);
+    setIsModal(false);
   };
   return (
     <>
@@ -81,7 +51,7 @@ export default function CancelVoteModal() {
           경고를 받을 수 있어요.
         </Content>
         <Footer>
-          <button onClick={() => setIsShowCancle(false)}>취소</button>
+          <button onClick={() => setIsModal(false)}>취소</button>
           <button onClick={handleCancleBtn}>불참</button>
         </Footer>
       </CancelModalLayout>
@@ -89,3 +59,31 @@ export default function CancelVoteModal() {
     </>
   );
 }
+
+const CancelModalLayout = styled(ModalSm)`
+  justify-content: space-between;
+`;
+
+const Header = styled.header`
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--font-black);
+  height: 30px;
+`;
+const Content = styled.div``;
+const Footer = styled.footer`
+  height: 30px;
+  border-top: 1px solid var(--font-black);
+  padding-top: 7px;
+  text-align: end;
+  > button {
+    margin-right: 5px;
+    border: 1px solid black;
+    width: 50px;
+    height: 25px;
+    border-radius: 10px;
+    padding: 3px;
+
+    font-family: "-apple-system";
+    font-size: 12px;
+  }
+`;
