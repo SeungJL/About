@@ -7,27 +7,32 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { SP } from "next/dist/shared/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/common/Header";
-import SpaceVoteOverView from "../../components/Pages/About/studySpace/SpaceVoteOverview";
+import Header from "../../../components/common/Header";
+import SpaceVoteOverView from "../../../components/Pages/About/studySpace/SpaceVoteOverview";
 
-import StudySpaceCover from "../../components/Pages/About/studySpace/StudySpaceCover";
-import StudySpaceHeader from "../../components/Pages/About/studySpace/StudySpaceHeader";
-import StudySpaceOverView from "../../components/Pages/About/studySpace/StudySpaceOverView";
-import StudyTimeTable from "../../components/Pages/About/studySpace/StudyTimeTable";
-import { useVoteQuery } from "../../hooks/vote/queries";
+import StudySpaceCover from "../../../components/Pages/About/studySpace/StudySpaceCover";
+import StudySpaceHeader from "../../../components/Pages/About/studySpace/StudySpaceHeader";
+import StudySpaceOverView from "../../../components/Pages/About/studySpace/StudySpaceOverView";
+import StudyTimeTable from "../../../components/Pages/About/studySpace/StudyTimeTable";
+import { useVoteQuery } from "../../../hooks/vote/queries";
 
-import { voteDateState } from "../../recoil/studyAtoms";
+import { voteDateState } from "../../../recoil/studyAtoms";
 
 function StudySpace() {
   const router = useRouter();
+
   const spaceID = router.query.studySpace;
   const toast = useToast();
-  const voteDate = useRecoilValue(voteDateState);
+
+  const date = router.query.date;
+  const voteDate = dayjs(date as string);
+
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -47,6 +52,9 @@ function StudySpace() {
   );
   console.log(spaceStudyInfo);
   const name = spaceStudyInfo?.place.brand;
+  const firstAtts = spaceStudyInfo?.attendences.filter(
+    (att) => att.firstChoice
+  );
 
   return (
     <>
@@ -56,7 +64,7 @@ function StudySpace() {
         <StudySpaceOverView space={spaceStudyInfo?.place} />
         <HrDiv />
         <SpaceVoteOverView date={!isLoading && voteDate} />
-        <StudyTimeTable />
+        <StudyTimeTable attendances={!isLoading && firstAtts} />
       </Layout>
     </>
   );
