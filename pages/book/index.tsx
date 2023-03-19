@@ -65,7 +65,6 @@ function Books() {
 
   return (
     <>
-      <Header title="Book" />
       <Seo title="Books" />
       <BooksLayout>
         <BooksHeader>

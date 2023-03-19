@@ -21,9 +21,7 @@ export default async function handler(
         await Plaza.create(suggestionForm);
 
         res.send(200);
-      } catch (err) {
-        
-      }
+      } catch (err) {}
       break;
   }
 }

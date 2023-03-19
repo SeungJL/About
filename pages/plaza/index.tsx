@@ -15,7 +15,7 @@ function Plaza() {
   return (
     <>
       <Seo title="Plaza" />
-      <Header title="소통의 광장" />
+      {/* <Header title="소통의 광장" /> */}
       <PlazaLayout>
         <PlazaHeader />
         <PlazaMainContent>

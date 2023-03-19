@@ -124,9 +124,9 @@ export default NextAuth({
       } else {
         session.uid = token.uid.toString();
         session.user.name = token.name;
-        session.role = token.role;
+        session.role = token.role as string;
         session.error = token.error;
-        session.isActive = token.isActive;
+        session.isActive = token.isActive as boolean;
       }
 
       return session;
