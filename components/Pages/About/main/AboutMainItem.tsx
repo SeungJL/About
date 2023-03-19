@@ -10,7 +10,11 @@ import Image from "next/image";
 import { IUser } from "../../../../models/user";
 import { motion } from "framer-motion";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { studySpaceFixedState } from "../../../../recoil/studyAtoms";
+import {
+  studySpaceFixedState,
+  voteDateState,
+} from "../../../../recoil/studyAtoms";
+import { useRouter } from "next/router";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -23,7 +27,9 @@ function AboutMainItem({
   const attendences = studySpaceInfo?.attendences;
   const place = studySpaceInfo?.place;
   const status = studySpaceInfo?.status;
+  const router = useRouter();
   const studySpaceFixed = useRecoilValue(studySpaceFixedState);
+  const voteDate = useRecoilValue(voteDateState);
   const statusFixed =
     status === "pending"
       ? "pending"
@@ -34,7 +40,15 @@ function AboutMainItem({
       : "otherOpen";
 
   return (
-    <Layout layout status={statusFixed}>
+    <Layout
+      layout
+      status={statusFixed}
+      onClick={() =>
+        router.push(
+          `/about/${voteDate.format("YYYY-MM-DD")}/${studySpaceInfo.place._id}`
+        )
+      }
+    >
       {statusFixed !== "myOpen" ? (
         <ImageContainer>
           <div>

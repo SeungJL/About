@@ -70,7 +70,7 @@ const Layout = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
-  color: var(--font-h1);
+  color: var(--font-h2);
 `;
 
 const Nav = styled.nav`

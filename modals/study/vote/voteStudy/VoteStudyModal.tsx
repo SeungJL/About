@@ -124,7 +124,7 @@ function VoteStudyModal({
     }
     setIsShowModal(false);
 
-    await handleAbsent();
+    //await handleAbsent();
     await patchAttend(voteInfos);
   };
 
@@ -180,8 +180,16 @@ function VoteStudyModal({
             <Time>
               <TimeSelector
                 setTimes={({ start, end }: ITimeStartToEnd) => {
-                  if (start) setTime({ ...time, start });
-                  if (end) setTime({ ...time, end });
+                  console.log(55, start, end);
+                  if (start) {
+                    console.log("A");
+                    console.log(222, time);
+                    setTime({ end: time.end, start });
+                  }
+                  if (end) {
+                    console.log("B");
+                    setTime({ start: time.start, end });
+                  }
                 }}
                 times={time}
               />
