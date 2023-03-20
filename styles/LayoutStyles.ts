@@ -11,7 +11,7 @@ export const FullScreen = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 10;
   top: 0;
 `;
 export const ModalSm = styled.div`

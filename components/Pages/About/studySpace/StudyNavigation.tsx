@@ -12,10 +12,12 @@ import { useAbsentMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
 import CancelVoteModal from "../../../../modals/study/vote/voteStudy/CancelVoteModal";
 import ChangeTimeModal from "../../../../modals/study/vote/voteStudy/ChangeTimeModal";
+import VoteStudySpaceModal from "../../../../modals/study/vote/voteStudy/vote/VoteStudySpaceModal";
+import { IAttendence } from "../../../../models/vote";
 import { isVotingState } from "../../../../recoil/studyAtoms";
 import ModalPortal from "../../../ModalPortal";
 
-function StudyNavigation() {
+function StudyNavigation({ myVote }: { myVote: IAttendence }) {
   const router = useRouter();
   const toast = useToast();
   const voteDate = dayjs(router.query.date as string);
@@ -23,6 +25,7 @@ function StudyNavigation() {
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [isVoting, setIsVoting] = useRecoilState(isVotingState);
   const [isCancelModal, setIsCancelModal] = useState(false);
+  const [isVoteModal, setIsVoteModal] = useState(false);
   console.log(isVoting);
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     voteDate,
@@ -46,6 +49,7 @@ function StudyNavigation() {
   const onAbsentToday = () => {
     setIsCancelModal(true);
   };
+
   return (
     <>
       <Layout>
@@ -63,18 +67,26 @@ function StudyNavigation() {
             <span>당일 불참</span>
           </Button>
         </SubNav>
-        <MainButton>
+        <MainButton onClick={() => setIsVoteModal(true)}>
           <button>스터디 투표하기</button>
         </MainButton>
       </Layout>
       {isChangeModal && (
         <ModalPortal closePortal={setIsChangeModal}>
-          <ChangeTimeModal setIsChangeTimeModal={setIsChangeModal} />
+          <ChangeTimeModal
+            setIsChangeTimeModal={setIsChangeModal}
+            myVoteTime={myVote?.time}
+          />
         </ModalPortal>
       )}
       {isCancelModal && (
         <ModalPortal closePortal={setIsCancelModal}>
           <CancelVoteModal setIsModal={setIsCancelModal} />
+        </ModalPortal>
+      )}
+      {isVoteModal && (
+        <ModalPortal closePortal={setIsVoteModal}>
+          <VoteStudySpaceModal setIsModal={setIsVoteModal} voteDate={voteDate}/>
         </ModalPortal>
       )}
     </>

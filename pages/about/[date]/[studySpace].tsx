@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { SP } from "next/dist/shared/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -24,6 +25,7 @@ import StudySpaceOverView from "../../../components/Pages/About/studySpace/Study
 import StudyTimeTable from "../../../components/Pages/About/studySpace/StudyTimeTable";
 import CheckComment from "../../../components/Pages/About/studySpace/StudyTimeTable/CheckComment";
 import { useVoteQuery } from "../../../hooks/vote/queries";
+import { IUser } from "../../../models/user";
 import { isTimeChangeState } from "../../../recoil/atoms";
 
 import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
@@ -32,7 +34,7 @@ function StudySpace() {
   const router = useRouter();
   const isVoting = useRecoilValue(isVotingState); //투표 취소를 누르자마자 업데이트 하기 위함
   const [isTimeChange, setIsTimeChange] = useRecoilState(isTimeChangeState);
-
+  const { data: session } = useSession();
   const spaceID = router.query.studySpace;
   const toast = useToast();
 
@@ -59,11 +61,12 @@ function StudySpace() {
   const spaceStudyInfo = vote?.participations.find(
     (props) => props.place._id === spaceID
   );
-
-  const name = spaceStudyInfo?.place.brand;
-  const firstAtts = spaceStudyInfo?.attendences.filter(
-    (att) => att.firstChoice
+  console.log(spaceStudyInfo);
+  const myVote = spaceStudyInfo?.attendences.find(
+    (props) => (props.user as IUser).uid === session.uid
   );
+  console.log(2, myVote);
+  const name = spaceStudyInfo?.place.brand;
 
   return (
     <>
@@ -76,7 +79,7 @@ function StudySpace() {
             <HrDiv />
             <SpaceVoteOverView date={voteDate} />
             <StudyTimeTable attendances={spaceStudyInfo?.attendences} />
-            <StudyNavigation />
+            <StudyNavigation myVote={myVote} />
           </>
         )}
       </Layout>

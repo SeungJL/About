@@ -7,24 +7,37 @@ import { voteDateState } from "../../../../recoil/studyAtoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useAttendMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
-import { QueryClient } from "react-query";
+import { QueryClient, UseMutateFunction } from "react-query";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 import { isTimeChangeState } from "../../../../recoil/atoms";
+import { AxiosError } from "axios";
+import { IAttendence, IParticipantTime } from "../../../../models/vote";
+import dayjs from "dayjs";
+import { IParticipant } from "../../../../models/attendence";
 
 export default function ChangeTimeModal({
   setIsChangeTimeModal,
+  myVoteTime,
 }: {
   setIsChangeTimeModal: Dispatch<SetStateAction<boolean>>;
+  myVoteTime?: IParticipantTime;
 }) {
   const voteDate = useRecoilValue(voteDateState);
+
   const setIsTimeChange = useSetRecoilState(isTimeChangeState);
   const toast = useToast();
   const { data: session } = useSession();
 
+  const startTime = dayjs(myVoteTime.start);
+  const endTime = dayjs(myVoteTime.end);
+
   const [time, setTime] = useState<ITimeStartToEnd>({
-    start: { hour: 14, minutes: 0 },
-    end: { hour: 18, minutes: 0 },
+    start: {
+      hour: startTime.hour(),
+      minutes: startTime.minute(),
+    },
+    end: { hour: endTime.hour(), minutes: endTime.minute() },
   });
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: async () => {
@@ -50,6 +63,7 @@ export default function ChangeTimeModal({
       });
       return;
     }
+
     setIsChangeTimeModal(false);
     patchAttend(timeInfo);
   };
