@@ -54,18 +54,18 @@ function StudySpace() {
       });
     },
   });
-  console.log(23);
+
   useEffect(() => {
     setIsTimeChange(false);
   }, [isTimeChange]);
   const spaceStudyInfo = vote?.participations.find(
     (props) => props.place._id === spaceID
   );
-  console.log(spaceStudyInfo);
+
   const myVote = spaceStudyInfo?.attendences.find(
     (props) => (props.user as IUser).uid === session.uid
   );
-  console.log(2, myVote);
+
   const name = spaceStudyInfo?.place.brand;
 
   return (

@@ -26,9 +26,9 @@ function VoteStudySpaceModal({
     const tempStart = [];
     const tempEnd = [];
     for (let i = startHour; i <= startHour + 9; i++) {
-      tempStart.push({ hour: i, minutes: 0 });
+      tempStart.push({ hour: i, minutes: "00" });
       tempStart.push({ hour: i, minutes: 30 });
-      tempEnd.push({ hour: i + 2, minutes: 0 });
+      tempEnd.push({ hour: i + 2, minutes: "00" });
       tempEnd.push({ hour: i + 2, minutes: 30 });
     }
     setStartTimeArr(tempStart);

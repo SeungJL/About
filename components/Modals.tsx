@@ -47,7 +47,7 @@ function Modals() {
   return (
     <>
       {privacyPolicy && <PrivacyPolicy closeModal={null} />}
-      {voteCancel && <CancelModal />}
+
       {notCompleted && <NotCompletedModal />}
 
       {voter && (

@@ -68,7 +68,7 @@ function StudyNavigation({ myVote }: { myVote: IAttendence }) {
           </Button>
         </SubNav>
         <MainButton onClick={() => setIsVoteModal(true)}>
-          <button>스터디 투표하기</button>
+          <span>스터디 투표하기</span>
         </MainButton>
       </Layout>
       {isChangeModal && (
@@ -86,7 +86,10 @@ function StudyNavigation({ myVote }: { myVote: IAttendence }) {
       )}
       {isVoteModal && (
         <ModalPortal closePortal={setIsVoteModal}>
-          <VoteStudySpaceModal setIsModal={setIsVoteModal} voteDate={voteDate}/>
+          <VoteStudySpaceModal
+            setIsModal={setIsVoteModal}
+            voteDate={voteDate}
+          />
         </ModalPortal>
       )}
     </>
