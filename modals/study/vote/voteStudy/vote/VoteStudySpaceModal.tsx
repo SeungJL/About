@@ -4,6 +4,7 @@ import { Dayjs } from "dayjs";
 import "dayjs/locale/ko";
 import { isStranger } from "../../../../../libs/utils/authUtils";
 import { motion } from "framer-motion";
+import TimeRullet from "../../../../../components/utils/TimeRullet";
 
 const startHour = 10;
 const endHour = 22;
@@ -33,20 +34,6 @@ function VoteStudySpaceModal({
     setStartTimeArr(tempStart);
     setEndTimeArr(tempEnd);
   }, []);
-  console.log(startTimeArr, endTimeArr);
-  const handleSwipe = (event, info, isStart) => {
-    const { offset } = info;
-    if (Math.abs(offset.y) > 50) {
-      if (offset.y < 0) {
-        if (isStart) setStartIdx((startIdx + 1) % startTimeArr.length);
-        else setEndIdx((endIdx + 1) % endTimeArr.length);
-      } else {
-        if (isStart)
-          setStartIdx(startIdx === 0 ? startTimeArr.length - 1 : startIdx - 1);
-        else setEndIdx(endIdx === 0 ? endTimeArr.length - 1 : endIdx - 1);
-      }
-    }
-  };
 
   return (
     <Layout>
@@ -58,43 +45,11 @@ function VoteStudySpaceModal({
       <TimeChoiceLayout>
         <TimeChoiceBlock>
           <span>시작시간</span>
-          <TimeChoice
-            drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
-            onDragEnd={(event, info) => handleSwipe(event, info, true)}
-          >
-            {startTimeArr.map((item, idx) => (
-              <ChoiceBlock
-                key={idx}
-                animate={{
-                  y: `calc(-50% + ${100 * (startIdx - idx)}%)`,
-                  opacity: Math.abs(startIdx - idx) <= 3 ? 1 : 0,
-                }}
-              >
-                {item.hour}
-              </ChoiceBlock>
-            ))}
-          </TimeChoice>
+          <TimeRullet timeArr={startTimeArr} />
         </TimeChoiceBlock>
         <TimeChoiceBlock>
           <span>종료시간</span>
-          <TimeChoice
-            drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
-            onDragEnd={(event, info) => handleSwipe(event, info, false)}
-          >
-            {endTimeArr.map((item, idx) => (
-              <ChoiceBlock
-                key={idx}
-                animate={{
-                  y: `calc(-50% + ${100 * (endIdx - idx)}%)`,
-                  opacity: Math.abs(endIdx - idx) <= 1 ? 1 : 0,
-                }}
-              >
-                2
-              </ChoiceBlock>
-            ))}
-          </TimeChoice>
+          <TimeRullet timeArr={endTimeArr} />
         </TimeChoiceBlock>
       </TimeChoiceLayout>
       <VoteButton>스터디 투표하기</VoteButton>
@@ -151,32 +106,6 @@ const TimeChoiceBlock = styled.div`
     font-weight: 600;
     font-size: 13px;
   }
-`;
-
-const TimeChoice = styled(motion.div)`
-  margin-top: 8px;
-  width: 161px;
-  height: 187px;
-  border-radius: 13px;
-  background-color: var(--font-h8);
-  color: var(--font-h2);
-
-  background-color: pink;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const ChoiceBlock = styled(motion.div)`
-  height: 32px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  background-color: #fff;
-  border: 1px solid #000;
-  background-color: blue;
 `;
 
 const VoteButton = styled.button`
