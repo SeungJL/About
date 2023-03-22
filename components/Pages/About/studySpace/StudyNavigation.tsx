@@ -10,14 +10,21 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { useAbsentMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
-import CancelVoteModal from "../../../../modals/study/vote/voteStudy/CancelVoteModal";
+import AbsentVoteModal from "../../../../modals/study/confirm/AbsentVoteModal";
 import ChangeTimeModal from "../../../../modals/study/vote/voteStudy/ChangeTimeModal";
 import VoteStudySpaceModal from "../../../../modals/study/vote/voteStudy/vote/VoteStudySpaceModal";
+import { IPlace } from "../../../../models/place";
 import { IAttendence } from "../../../../models/vote";
 import { isVotingState } from "../../../../recoil/studyAtoms";
 import ModalPortal from "../../../ModalPortal";
 
-function StudyNavigation({ myVote }: { myVote: IAttendence }) {
+function StudyNavigation({
+  myVote,
+  place,
+}: {
+  myVote: IAttendence;
+  place: IPlace;
+}) {
   const router = useRouter();
   const toast = useToast();
   const voteDate = dayjs(router.query.date as string);
@@ -27,6 +34,7 @@ function StudyNavigation({ myVote }: { myVote: IAttendence }) {
   const [isCancelModal, setIsCancelModal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
   console.log(isVoting);
+
   const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
     voteDate,
     {
@@ -67,8 +75,12 @@ function StudyNavigation({ myVote }: { myVote: IAttendence }) {
             <span>당일 불참</span>
           </Button>
         </SubNav>
-        <MainButton onClick={() => setIsVoteModal(true)}>
-          <span>스터디 투표하기</span>
+        <MainButton
+          disabled={isVoting && true}
+          isVoting={isVoting}
+          onClick={() => setIsVoteModal(true)}
+        >
+          <span>{isVoting ? "투표 완료" : "스터디 투표하기"}</span>
         </MainButton>
       </Layout>
       {isChangeModal && (
@@ -81,14 +93,16 @@ function StudyNavigation({ myVote }: { myVote: IAttendence }) {
       )}
       {isCancelModal && (
         <ModalPortal closePortal={setIsCancelModal}>
-          <CancelVoteModal setIsModal={setIsCancelModal} />
+          <AbsentVoteModal setIsModal={setIsCancelModal} />
         </ModalPortal>
       )}
       {isVoteModal && (
         <ModalPortal closePortal={setIsVoteModal}>
           <VoteStudySpaceModal
+            isModal={isVoteModal}
             setIsModal={setIsVoteModal}
             voteDate={voteDate}
+            place={place}
           />
         </ModalPortal>
       )}
@@ -121,12 +135,13 @@ const Button = styled.button`
   }
 `;
 
-const MainButton = styled.button`
+const MainButton = styled.button<{ isVoting: boolean }>`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-mint);
+  background-color: ${(props) =>
+    props.isVoting ? "var(--font-h4)" : "var(--color-mint)"};
   color: white;
   height: 48px;
   border-radius: 13px;

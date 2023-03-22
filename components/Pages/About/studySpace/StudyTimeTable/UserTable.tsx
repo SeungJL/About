@@ -27,6 +27,7 @@ const colorArr = [
 
 function UserTable({ attendances }: { attendances: IAttendence[] }) {
   const isVoting = useRecoilValue(isVotingState);
+  console.log(22, isVoting);
   const [userArr, setUserArr] = useState<IUserTable[]>([]);
   useEffect(() => {
     setUserArr([]);
@@ -46,7 +47,7 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
       };
       setUserArr((old) => [...old, temp]);
     });
-    console.log(33);
+    console.log(33, userArr);
   }, [isVoting]);
 
   return (

@@ -5,17 +5,22 @@ import "dayjs/locale/ko";
 import { isStranger } from "../../../../../libs/utils/authUtils";
 import { motion } from "framer-motion";
 import TimeRullet from "../../../../../components/utils/TimeRullet";
+import { IPlace } from "../../../../../models/place";
 
 const startHour = 10;
 const endHour = 22;
 const minutesArr = ["00", "30"];
 
 function VoteStudySpaceModal({
+  isModal,
   setIsModal,
   voteDate,
+  place,
 }: {
+  isModal: boolean;
   setIsModal: Dispatch<SetStateAction<boolean>>;
   voteDate: Dayjs;
+  place: IPlace;
 }) {
   const [startTimeArr, setStartTimeArr] = useState([]);
   const [endTimeArr, setEndTimeArr] = useState([]);
@@ -36,7 +41,11 @@ function VoteStudySpaceModal({
   }, []);
 
   return (
-    <Layout>
+    <Layout
+      initial={{ y: "90vh" }}
+      animate={isModal ? { y: 0 } : { y: "100vh" }}
+      transition={{ duration: 0.5 }}
+    >
       <TopNav />
       <Header>
         <span>{voteDate.locale("ko").format("M월 DD일 ddd요일")}</span>
@@ -44,19 +53,18 @@ function VoteStudySpaceModal({
       </Header>
       <TimeChoiceLayout>
         <TimeChoiceBlock>
-          <span>시작시간</span>
-          <TimeRullet timeArr={startTimeArr} />
-        </TimeChoiceBlock>
-        <TimeChoiceBlock>
-          <span>종료시간</span>
-          <TimeRullet timeArr={endTimeArr} />
+          <TimeRullet
+            timeArr={startTimeArr}
+            voteDate={voteDate}
+            place={place}
+            setIsModal={setIsModal}
+          />
         </TimeChoiceBlock>
       </TimeChoiceLayout>
-      <VoteButton>스터디 투표하기</VoteButton>
     </Layout>
   );
 }
-const Layout = styled.div`
+const Layout = styled(motion.div)`
   position: fixed;
   bottom: 0;
   width: 375px;
@@ -97,10 +105,11 @@ const TimeChoiceLayout = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 20px;
 `;
 
 const TimeChoiceBlock = styled.div`
+  width: 100%;
+
   > span {
     color: var(--font-h3);
     font-weight: 600;

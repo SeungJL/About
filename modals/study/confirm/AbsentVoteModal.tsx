@@ -4,16 +4,21 @@ import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { useDismissMutation } from "../../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../../libs/queryKeys";
-import { getToday, strToDate } from "../../../../libs/utils/dateUtils";
-import { isShowVoteCancleState } from "../../../../recoil/modalAtoms";
-import { isVotingState } from "../../../../recoil/studyAtoms";
+import { useDismissMutation } from "../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { getToday, strToDate } from "../../../libs/utils/dateUtils";
+import { isShowVoteCancleState } from "../../../recoil/modalAtoms";
+import { isVotingState } from "../../../recoil/studyAtoms";
 
-import { ModalLg, FullScreen, ModalSm } from "../../../../styles/LayoutStyles";
+import {
+  ModalLg,
+  FullScreen,
+  ModalSm,
+  ModalFooterNav,
+  ModalHeaderTitle,
+} from "../../../styles/LayoutStyles";
 
-export default function CancelVoteModal({ setIsModal }) {
-  console.log(43);
+export default function AbsentVoteModal({ setIsModal }) {
   const today = getToday();
   const queryClient = useQueryClient();
   const toast = useToast();
@@ -44,46 +49,41 @@ export default function CancelVoteModal({ setIsModal }) {
   };
   return (
     <>
-      <CancelModalLayout>
-        <Header>경고</Header>
+      <Layout>
+        <ModalHeaderTitle>불참 경고</ModalHeaderTitle>
         <Content>
-          정말로 불참하실건가요? <br /> 재참여는 할 수 없으며 불참으로 기록되어
-          경고를 받을 수 있어요.
+          <span>정말로 불참하실건가요? </span>
+
+          <span>
+            스터디 시작 시간이 지났기 때문에 지금 취소하시면 <b>경고</b>를
+            받습니다.
+          </span>
         </Content>
         <Footer>
           <button onClick={() => setIsModal(false)}>취소</button>
           <button onClick={handleCancleBtn}>불참</button>
         </Footer>
-      </CancelModalLayout>
-      <FullScreen onClick={() => setIsShowCancle(false)} />
+      </Layout>
     </>
   );
 }
 
-const CancelModalLayout = styled(ModalSm)`
+const Layout = styled(ModalSm)`
   justify-content: space-between;
+  height: 200px;
+  color: var(--font-h2);
+  font-size: 13px;
 `;
 
-const Header = styled.header`
-  padding-bottom: 7px;
-  border-bottom: 1px solid var(--font-black);
-  height: 30px;
-`;
-const Content = styled.div``;
-const Footer = styled.footer`
-  height: 30px;
-  border-top: 1px solid var(--font-black);
-  padding-top: 7px;
-  text-align: end;
-  > button {
-    margin-right: 5px;
-    border: 1px solid black;
-    width: 50px;
-    height: 25px;
-    border-radius: 10px;
-    padding: 3px;
-
-    font-family: "-apple-system";
-    font-size: 12px;
+const Content = styled.div`
+  padding: 16px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  > span:first-child {
+    color: var(--font-h1);
+    font-weight: 600;
   }
 `;
+const Footer = styled(ModalFooterNav)``;

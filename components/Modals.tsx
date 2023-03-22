@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useContext } from "react";
-import CancelModal from "../modals/study/vote/voteStudy/CancelVoteModal";
+import CancelModal from "../modals/study/confirm/AbsentVoteModal";
 import NotCompletedModal from "../modals/pop-up/NotCompletedModal";
 import UserInfoForm from "../modals/user/RegisterFormModal";
 
@@ -29,6 +29,8 @@ import {
   isShowVoterState,
 } from "../recoil/studyAtoms";
 import { VoteResultModal } from "../modals/study/confirm/VoteResultModal";
+import { isVoteCompleteState } from "../recoil/atoms";
+import VoteSuccessModal from "./Pages/About/studySpace/VoteSuccessModal";
 
 function Modals() {
   const { data: session } = useSession();
@@ -41,7 +43,7 @@ function Modals() {
   const privacyPolicy = useRecoilValue(isShowPrivacyPolicyState);
   const userInfoSm = useRecoilValue(isShowUserInfoSmState);
   const setModalContext = useSetRecoilState(modalContextState);
-
+  const voteComplete = useRecoilValue(isVoteCompleteState);
   /*member*/
   const memberInfo = useRecoilValue(isShowMemberInfoState);
   return (
@@ -58,6 +60,7 @@ function Modals() {
       {openResult && <VoteResultModal />}
       {registerForm && <RegisterFormModal />}
       {memberInfo && <MemberInfoBgModal />}
+      {voteComplete && <VoteSuccessModal />}
     </>
   );
 }

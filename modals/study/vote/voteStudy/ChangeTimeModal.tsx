@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { ModalLg } from "../../../../styles/LayoutStyles";
+import {
+  ModalFooterNav,
+  ModalHeaderTitle,
+  ModalLg,
+} from "../../../../styles/LayoutStyles";
 import { ITimeStartToEnd } from "../../../../types/utils";
 import TimeSelector from "./vote/timeSelector";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -29,8 +33,8 @@ export default function ChangeTimeModal({
   const toast = useToast();
   const { data: session } = useSession();
 
-  const startTime = dayjs(myVoteTime.start);
-  const endTime = dayjs(myVoteTime.end);
+  const startTime = dayjs(myVoteTime?.start);
+  const endTime = dayjs(myVoteTime?.end);
 
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: {
@@ -69,7 +73,7 @@ export default function ChangeTimeModal({
   };
   return (
     <Layout>
-      <div>시간변경</div>
+      <ModalHeaderTitle>시간변경</ModalHeaderTitle>
       <TimeSelector
         setTimes={({ start, end }: ITimeStartToEnd) => {
           if (start) setTime({ ...time, start });
@@ -88,18 +92,15 @@ export default function ChangeTimeModal({
 const Layout = styled(ModalLg)`
   display: flex;
   flex-direction: column;
-  > div {
-    margin-bottom: 9px;
+  > header {
+    margin-bottom: 32px;
   }
 `;
 
-const BtnNav = styled.nav`
+const BtnNav = styled(ModalFooterNav)`
+  margin-top: auto;
   text-align: end;
-  > button {
-    margin-left: 2px;
-    margin-right: 3px;
-    background-color: lightpink;
-    width: 40px;
-    border-radius: 10px;
+  > button:last-child {
+    background-color: var(--color-brown);
   }
 `;

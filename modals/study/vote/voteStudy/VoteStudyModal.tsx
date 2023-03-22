@@ -258,17 +258,3 @@ const Error = styled.span`
 const Time = styled.div`
   margin-top: 12px;
 `;
-const LastPageNav = styled.nav`
-  margin-top: 37px;
-  text-align: end;
-  > button {
-    width: 60px;
-    font-size: 0.8em;
-    background-color: brown;
-    color: white;
-    margin-left: 10px;
-    border-radius: 10px;
-    padding: 3px;
-  }
-`;
-const ModalLayout = styled(ModalSm)``;

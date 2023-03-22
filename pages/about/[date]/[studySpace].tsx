@@ -54,23 +54,23 @@ function StudySpace() {
       });
     },
   });
-
+  console.log(333, vote);
   useEffect(() => {
     setIsTimeChange(false);
   }, [isTimeChange]);
   const spaceStudyInfo = vote?.participations.find(
     (props) => props.place._id === spaceID
   );
-
+  console.log(33, spaceStudyInfo);
   const myVote = spaceStudyInfo?.attendences.find(
     (props) => (props.user as IUser).uid === session.uid
   );
 
-  const name = spaceStudyInfo?.place.brand;
+  const place = spaceStudyInfo?.place;
 
   return (
     <>
-      <StudySpaceHeader title={!isLoading ? name : ""} />
+      <StudySpaceHeader title={!isLoading ? place?.brand : ""} />
       <Layout>
         {!isLoading && (
           <>
@@ -79,7 +79,7 @@ function StudySpace() {
             <HrDiv />
             <SpaceVoteOverView date={voteDate} />
             <StudyTimeTable attendances={spaceStudyInfo?.attendences} />
-            <StudyNavigation myVote={myVote} />
+            <StudyNavigation myVote={myVote} place={place} />
           </>
         )}
       </Layout>
