@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IUser } from "../../../../../models/user";
 import { IAttendence } from "../../../../../models/vote";
-import { isVotingState } from "../../../../../recoil/studyAtoms";
+import { isVotingState } from "../../../../../recoil/atoms";
 
 const colorArr = [
   "#FF8896",
@@ -27,7 +27,6 @@ const colorArr = [
 
 function UserTable({ attendances }: { attendances: IAttendence[] }) {
   const isVoting = useRecoilValue(isVotingState);
-  console.log(22, isVoting);
   const [userArr, setUserArr] = useState<IUserTable[]>([]);
   useEffect(() => {
     setUserArr([]);
@@ -47,7 +46,6 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
       };
       setUserArr((old) => [...old, temp]);
     });
-    console.log(33, userArr);
   }, [isVoting]);
 
   return (

@@ -7,8 +7,8 @@ import styled from "styled-components";
 import { useDismissMutation } from "../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday, strToDate } from "../../../libs/utils/dateUtils";
+import { isVotingState } from "../../../recoil/atoms";
 import { isShowVoteCancleState } from "../../../recoil/modalAtoms";
-import { isVotingState } from "../../../recoil/studyAtoms";
 
 import {
   ModalLg,

@@ -12,7 +12,7 @@ import {
   Vote,
 } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
-import { IplaceInfo } from "../../../../modals/study/vote/voteStudy/vote/placeSelector";
+import { IplaceInfo } from "../../../../components/utils/placeSelector";
 import { IVoteStudyInfo } from "../../../../types/study";
 import dayjs from "dayjs";
 

@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import { Form, Field, Formik, FormikHelpers } from "formik";
 import { FC, useRef, useState } from "react";
-import { IAttendence } from "../../../../../models/attendence";
+import { IAttendence } from "../../models/attendence";
 
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 const minutes = ["00", "10", "20", "30", "40", "50"];

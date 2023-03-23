@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Dayjs } from "dayjs";
 import "dayjs/locale/ko";
-import { isStranger } from "../../../../../libs/utils/authUtils";
+import { isStranger } from "../../../libs/utils/authUtils";
 import { motion } from "framer-motion";
-import TimeRullet from "../../../../../components/utils/TimeRullet";
-import { IPlace } from "../../../../../models/place";
+import TimeRullet from "../../../components/utils/TimeRullet";
+import { IPlace } from "../../../models/place";
 
 const startHour = 10;
 const endHour = 22;
@@ -89,7 +89,7 @@ const Header = styled.header`
   align-self: start;
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
   > span:first-child {
     font-weight: 600;
     font-size: 15px;

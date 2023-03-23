@@ -86,10 +86,7 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
   return (
     <>
       <Layout>
-        <Container
-          initial={{ background: "blue" }}
-          animate={{ background: "pink" }}
-        >
+        <Container>
           <StyledDatepicker
             controls={["time"]}
             select="range"
@@ -102,6 +99,7 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
             rangeEndLabel="종료시간"
             value={selectedRange}
             min="10"
+            max="22"
             onChange={onChange}
           />
         </Container>
@@ -113,8 +111,8 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
 
 const Layout = styled(motion.div)``;
 
-const Container = styled(motion.div)`
-  height: 224px;
+const Container = styled.div`
+  height: 232px;
   display: flex;
   align-items: center;
   width: 100%;
@@ -126,6 +124,7 @@ const Container = styled(motion.div)`
 
 const StyledDatepicker = styled(Datepicker)`
   width: 100%;
+  background-color: red;
   flex: 1;
   .mbsc-range-control-wrapper {
     > div {
@@ -156,20 +155,41 @@ const StyledDatepicker = styled(Datepicker)`
     > div:first-child {
       opacity: 1 !important;
       background-color: var(--font-h5);
+      background-color: blue;
     }
   }
   .mbsc-scroller-wheel-group {
+    padding: 0 !important;
     font-size: 20px;
     font-weight: 500;
+  }
 
-    > div {
-      color: var(--font-h4);
-      flex: 1;
-      .mbsc-selected {
-        color: var(--font-h1);
-        font-weight: 700;
-      }
+  .mbsc-scroller-wheel-wrapper {
+    color: var(--font-h4);
+    flex: 1;
+    height: 100%;
+
+    .mbsc-selected {
+      color: var(--font-h1);
+      font-weight: 700;
     }
+  }
+  .mbsc-scroller-wheel {
+    height: 200px !important;
+  }
+
+  .mbsc-scroller-wheel-cont {
+    background-color: var(--font-h6);
+    border-radius: 10px;
+    ::before {
+      border: none !important;
+    }
+    ::after {
+      border: none !important;
+    }
+  }
+  > div:last-child {
+    border-radius: 13px !important;
   }
 `;
 

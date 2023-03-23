@@ -12,7 +12,7 @@ import AboutMain from "../../components/Pages/About/AboutMain";
 import EventBanner from "../../components/Pages/About/EventBanner";
 import GroupStudySummary from "../../components/Pages/About/GroupStudy";
 import GroupStudy from "../../components/Pages/About/GroupStudy";
-import UserInfoCheck from "../../components/Pages/About2/UserInfoCheck";
+import UserInfoCheck from "../../components/UserInfoCheck";
 import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";

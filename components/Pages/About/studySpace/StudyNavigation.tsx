@@ -11,11 +11,12 @@ import styled from "styled-components";
 import { useAbsentMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
 import AbsentVoteModal from "../../../../modals/study/confirm/AbsentVoteModal";
-import ChangeTimeModal from "../../../../modals/study/vote/voteStudy/ChangeTimeModal";
-import VoteStudySpaceModal from "../../../../modals/study/vote/voteStudy/vote/VoteStudySpaceModal";
+import ChangeTimeModal from "../../../../modals/study/vote/ChangeTimeModal";
+import VoteStudySpaceModal from "../../../../modals/study/vote/VoteStudySpaceModal";
 import { IPlace } from "../../../../models/place";
 import { IAttendence } from "../../../../models/vote";
-import { isVotingState } from "../../../../recoil/studyAtoms";
+import { isVotingState } from "../../../../recoil/atoms";
+
 import ModalPortal from "../../../ModalPortal";
 
 function StudyNavigation({
@@ -25,35 +26,33 @@ function StudyNavigation({
   myVote: IAttendence;
   place: IPlace;
 }) {
-  const router = useRouter();
   const toast = useToast();
-  const voteDate = dayjs(router.query.date as string);
+  const router = useRouter();
   const queryClient = useQueryClient();
-  const [isChangeModal, setIsChangeModal] = useState(false);
+
+  const voteDate = dayjs(router.query.date as string);
   const [isVoting, setIsVoting] = useRecoilState(isVotingState);
+
+  const [isChangeModal, setIsChangeModal] = useState(false);
   const [isCancelModal, setIsCancelModal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
-  console.log(isVoting);
 
-  const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
-    voteDate,
-    {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries([VOTE_GET, voteDate]);
-        setIsVoting(false);
-      },
-      onError: (err) => {
-        toast({
-          title: "오류",
-          description: "참여 취소 신청 중 문제가 발생했어요.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      },
-    }
-  );
+  const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([VOTE_GET, voteDate]);
+      setIsVoting(false);
+    },
+    onError: (err) => {
+      toast({
+        title: "오류",
+        description: "참여 취소 신청 중 문제가 발생했어요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
   const onAbsentToday = () => {
     setIsCancelModal(true);
   };

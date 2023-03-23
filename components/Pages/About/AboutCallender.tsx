@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { IconCircle } from "../../../public/icons/IconOutline";
 import { IconArrowBottom, IconArrowTop } from "../../../public/icons/Icons";
 import { useRecoilState } from "recoil";
-import { voteDateState } from "../../../recoil/studyAtoms";
+import { voteDateState } from "../../../recoil/atoms";
 
 interface ICallender {
   dayCnt: number;

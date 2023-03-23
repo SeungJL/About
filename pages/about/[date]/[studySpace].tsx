@@ -26,20 +26,17 @@ import StudyTimeTable from "../../../components/Pages/About/studySpace/StudyTime
 import CheckComment from "../../../components/Pages/About/studySpace/StudyTimeTable/CheckComment";
 import { useVoteQuery } from "../../../hooks/vote/queries";
 import { IUser } from "../../../models/user";
-import { isTimeChangeState } from "../../../recoil/atoms";
-
-import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
+import { isTimeChangeState, isVotingState } from "../../../recoil/atoms";
 
 function StudySpace() {
+  const toast = useToast();
   const router = useRouter();
+  const { data: session } = useSession();
   const isVoting = useRecoilValue(isVotingState); //투표 취소를 누르자마자 업데이트 하기 위함
   const [isTimeChange, setIsTimeChange] = useRecoilState(isTimeChangeState);
-  const { data: session } = useSession();
-  const spaceID = router.query.studySpace;
-  const toast = useToast();
 
-  const date = router.query.date;
-  const voteDate = dayjs(date as string);
+  const spaceID = router.query.studySpace;
+  const voteDate = dayjs(router.query.date as string);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -54,14 +51,17 @@ function StudySpace() {
       });
     },
   });
-  console.log(333, vote);
+  const participations = vote?.participations;
+
   useEffect(() => {
     setIsTimeChange(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimeChange]);
-  const spaceStudyInfo = vote?.participations.find(
+
+  const spaceStudyInfo = participations.find(
     (props) => props.place._id === spaceID
   );
-  console.log(33, spaceStudyInfo);
+
   const myVote = spaceStudyInfo?.attendences.find(
     (props) => (props.user as IUser).uid === session.uid
   );
@@ -74,10 +74,13 @@ function StudySpace() {
       <Layout>
         {!isLoading && (
           <>
-            <StudySpaceCover src={spaceStudyInfo?.place.image} />
-            <StudySpaceOverView space={spaceStudyInfo?.place} />
+            <StudySpaceCover src={place.image} />
+            <StudySpaceOverView space={place} />
             <HrDiv />
-            <SpaceVoteOverView date={voteDate} />
+            <SpaceVoteOverView
+              date={voteDate}
+              voteCnt={participations && participations.length}
+            />
             <StudyTimeTable attendances={spaceStudyInfo?.attendences} />
             <StudyNavigation myVote={myVote} place={place} />
           </>

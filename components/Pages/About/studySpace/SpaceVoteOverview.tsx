@@ -1,8 +1,9 @@
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dayjs } from "dayjs";
 import styled from "styled-components";
 
-function SpaceVoteOverView({ date }) {
+function SpaceVoteOverView({ date, voteCnt }: ISpaceVoteOverView) {
   return (
     <Layout>
       <span>{date && date?.format("M월 DD일 참여 멤버")}</span>
@@ -10,7 +11,7 @@ function SpaceVoteOverView({ date }) {
       <span>
         <FontAwesomeIcon icon={faUserGroup} size="sm" />
         <span>
-          <b>5명</b>이 투표했어요
+          <b>{voteCnt}</b>이 투표했어요
         </span>
       </span>
     </Layout>
@@ -36,5 +37,10 @@ const Layout = styled.div`
     }
   }
 `;
+
+interface ISpaceVoteOverView {
+  date: Dayjs;
+  voteCnt: number;
+}
 
 export default SpaceVoteOverView;

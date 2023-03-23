@@ -2,19 +2,6 @@ import { Dayjs } from "dayjs";
 import { atom, selector } from "recoil";
 import { getInterestingDate, now } from "../libs/utils/dateUtils";
 
-export const voteDateState = atom<Dayjs>({
-  key: "date",
-  default: getInterestingDate(),
-});
-
-export const studySpaceFixedState = atom({
-  key: "studySpaceFixed",
-  default: "",
-});
-export const isVotingState = atom({
-  key: "isVoting",
-  default: false,
-});
 ////////////////////////////////////////////////
 export const studyChoiceState = atom<{
   firstChoice: string;
@@ -24,10 +11,6 @@ export const studyChoiceState = atom<{
   default: { firstChoice: "", secondChoices: [] },
 });
 
-export const studyDateState = atom<"passed" | "default" | "not passed">({
-  key: "studyDate",
-  default: "default",
-});
 export const isStudyOpenState = atom({
   key: "studyOpen",
   default: false,
@@ -52,55 +35,6 @@ export const isUserAttendState = atom({
       -> today=tomorrow
       -> 오후 11시 - 결과 발표
 */
-export const voteStatusState = selector<
-  "Closed" | "Check" | "Join" | "Vote" | "Voted" | "Completed"
->({
-  key: "voteStatus",
-  get: ({ get }) => {
-    const studyDate = get(studyDateState);
-    const isVoting = get(isVotingState);
-    const isUserAttend = get(isUserAttendState);
-    const isStudyOpen = get(isStudyOpenState);
-    const isAttendCheck = get(isAttendCheckState);
-    const attendedUserNextVoteTime = now().hour(18);
-    const voteEndTime = now().hour(23);
-    const voteStartTime = now().hour(14);
-    const current = now();
-
-    if (studyDate === "default") {
-      // 첫 화면에 보이고 있는 날짜
-      if (current > voteEndTime || current < voteStartTime) {
-        // 오후 11시 ~ 다음 날 오후 2시
-        if (!isStudyOpen) return "Closed";
-        if (isUserAttend) {
-          if (isAttendCheck) return "Completed";
-          return "Check";
-        } // 오후 11시 ~ 다음 날 오후 2시까지 참여자
-        return "Join"; // 오후 11시 ~ 다음 날 오후 2시까지 미참여자
-      }
-      if (!isUserAttend) {
-        if (isVoting) return "Voted";
-        return "Vote";
-      } // 오후 2시 이후 미참여자. 미참여자 끝.
-
-      if (current < attendedUserNextVoteTime) {
-        //오후 2시 ~ 오후 6시 참여자
-        return "Check";
-      } else {
-        //오후 6시 ~ 오후 12시
-        if (isVoting) return "Voted";
-        return "Vote";
-      }
-    }
-    if (studyDate === "passed") {
-      if (isUserAttend) return "Check";
-      return "Closed";
-    } else {
-      if (isVoting) return "Voted";
-      else return "Vote";
-    }
-  },
-});
 
 //////////////////////////////////////////////
 

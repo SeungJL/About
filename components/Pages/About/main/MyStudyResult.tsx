@@ -1,74 +1,22 @@
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import { IParticipation } from "../../../../models/vote";
-import { IconHOLLYS } from "../../../../public/icons/IconImg";
-import { IconUserTwo } from "../../../../public/icons/Icons";
-import ProfileImgSm from "../../../common/ProfileImgSm";
-import Image from "next/image";
-import { IUser } from "../../../../models/user";
-import { motion } from "framer-motion";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
-import { useRouter } from "next/router";
-import { mySpaceFixedState, voteDateState } from "../../../../recoil/atoms";
-
-function AboutMainItem({
-  studySpaceInfo,
-  voted,
-}: {
-  studySpaceInfo: IParticipation;
-  voted: boolean;
-}) {
-  const router = useRouter();
-  const voteDate = useRecoilValue(voteDateState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-
-  const attendences = studySpaceInfo?.attendences;
-  const place = studySpaceInfo?.place;
-  const status = studySpaceInfo?.status;
-
-  const statusFixed = place?._id === mySpaceFixed ? "myOpen" : status;
-
+function MyStudyResult({study}) {
   return (
-    <Layout
-      layout
-      status={statusFixed}
-      onClick={() =>
-        router.push(
-          `/about/${voteDate.format("YYYY-MM-DD")}/${studySpaceInfo.place._id}`
-        )
-      }
-    >
-      {statusFixed !== "myOpen" ? (
-        <ImageContainer>
-          <div>
-            <Image
-              src={`${place?.image}`}
-              alt="about"
-              width={66}
-              height={66}
-              unoptimized={true}
-            />
-          </div>
-        </ImageContainer>
-      ) : (
-        <Result>
-          <ResultInfo>
-            <span>
-              시작 시간: <span> 13시</span>
-            </span>
-            <br />
-            <span>
-              종료 시간: <span> 19시</span>
-            </span>
-          </ResultInfo>
-          <Check>
-            출석 여부: <span>미 출석</span>
-          </Check>
-        </Result>
-      )}
+    <Layout>
+      <Result>
+        <ResultInfo>
+          <span>
+            시작 시간: <span> 13시</span>
+          </span>
+          <br />
+          <span>
+            종료 시간: <span> 19시</span>
+          </span>
+        </ResultInfo>
+        <Check>
+          출석 여부: <span>미 출석</span>
+        </Check>
+      </Result>
       <SpaceInfo>
         <Status>
           <Branch>{place?.branch}</Branch>
@@ -248,4 +196,4 @@ const ParticipantStatus = styled.div`
   }
 `;
 
-export default AboutMainItem;
+export default MyStudyResult;

@@ -49,6 +49,4 @@ const SpaceDetail = styled.div`
   }
 `;
 
-const Map = styled.div``;
-
 export default StudySpaceOverView;

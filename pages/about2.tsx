@@ -48,7 +48,7 @@ import {
   voteDateState,
 } from "../recoil/studyAtoms";
 
-import UserInfoCheck from "../components/Pages/About2/UserInfoCheck";
+import UserInfoCheck from "../components/UserInfoCheck";
 import AboutFooter from "../components/Pages/About2/AboutFooter";
 import dayjs from "dayjs";
 

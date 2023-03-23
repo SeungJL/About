@@ -6,26 +6,29 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import PlaceSelector, { IplaceInfo } from "./vote/placeSelector";
-import TimeSelector from "./vote/timeSelector";
+import PlaceSelector, {
+  IplaceInfo,
+} from "../../../components/utils/placeSelector";
+import TimeSelector from "../../../components/utils/timeSelector";
 import {
   useAbsentMutation,
   useAttendMutation,
-} from "../../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../../libs/queryKeys";
-import { hourMinToDate } from "../../../../libs/utils/dateUtils";
+} from "../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { hourMinToDate } from "../../../libs/utils/dateUtils";
 
-import { IPlace } from "../../../../models/place";
-import { IParticipation } from "../../../../models/vote";
+import { IPlace } from "../../../models/place";
+import { IParticipation } from "../../../models/vote";
 import {
   isShowStudyVoteModalState,
   modalContextState,
-} from "../../../../recoil/modalAtoms";
-import { isVotingState, voteDateState } from "../../../../recoil/studyAtoms";
-import ModalPortal from "../../../../components/ModalPortal";
-import { ITimeStartToEnd } from "../../../../types/utils";
-import { useVoteQuery } from "../../../../hooks/vote/queries";
-import { ModalLg, ModalSm } from "../../../../styles/LayoutStyles";
+} from "../../../recoil/modalAtoms";
+
+import ModalPortal from "../../../components/ModalPortal";
+import { ITimeStartToEnd } from "../../../types/utils";
+import { useVoteQuery } from "../../../hooks/vote/queries";
+import { ModalLg, ModalSm } from "../../../styles/LayoutStyles";
+import { voteDateState } from "../../../recoil/atoms";
 
 function VoteStudyModal({
   setIsShowModal,

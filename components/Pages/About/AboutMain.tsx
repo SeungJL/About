@@ -5,11 +5,7 @@ import { useVoteQuery } from "../../../hooks/vote/queries";
 import {
   isStudyOpenState,
   isUserAttendState,
-  isVotingState,
   studyChoiceState,
-  studyDateState,
-  studySpaceFixedState,
-  voteDateState,
 } from "../../../recoil/studyAtoms";
 import AboutMainHeader from "./main/AboutMainHeader";
 import AboutMainItem from "./main/AboutMainItem";
@@ -25,14 +21,22 @@ import dbConnect from "../../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
 import { isMember } from "../../../libs/utils/authUtils";
 import { AnimatePresence, motion } from "framer-motion";
+import MyStudyResult from "./main/MyStudyResult";
+import {
+  isVotingState,
+  mySpaceFixedState,
+  voteDateState,
+} from "../../../recoil/atoms";
+import { IParticipation } from "../../../models/vote";
 
 function AboutMain() {
-  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const { data: session } = useSession();
   const toast = useToast();
-  const [spaceVoted, setSpaceVoted] = useState<string[]>([""]);
+  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const setIsVoting = useSetRecoilState(isVotingState);
-  const setStudySpaceFixed = useSetRecoilState(studySpaceFixedState);
+  const [mySpaceFixed, setmySpaceFixed] = useRecoilState(mySpaceFixedState);
+  const [spaceVoted, setSpaceVoted] = useState<string[]>([""]);
+  const [myStudySpace, setMyStudySpace] = useState<IParticipation>();
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -50,6 +54,7 @@ function AboutMain() {
 
   const participations = vote?.participations;
 
+  /**스터디 알고리즘 적용 */
   useEffect(() => {
     if (dayjs().hour() >= VOTE_END_HOUR) {
       const targetDate = dayjs().add(1, "day").format("YYYY-MM-DD");
@@ -57,11 +62,14 @@ function AboutMain() {
     }
   }, []);
 
+  /**날짜마다 달라지는 정보들 초기화 */
   useEffect(() => {
     setSpaceVoted([]);
+    setmySpaceFixed("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
-  console.log(vote);
+
+  /**날짜마다 새로운 정보 세팅 */
   useEffect(() => {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
@@ -72,13 +80,18 @@ function AboutMain() {
       ) {
         setSpaceVoted((old) => [...old, space.place._id]);
         setIsVoting(true);
-        spaceStatus && setStudySpaceFixed(space.place._id);
+        if (spaceStatus) {
+          setmySpaceFixed(space.place._id);
+          setMyStudySpace(space);
+        }
       }
-      // studyStatus && setStudyOpen(true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate, vote, isLoading]);
 
+  const otherStudySpaces = participations?.filter(
+    (space) => space !== myStudySpace
+  );
   return (
     <AnimatePresence initial={false}>
       <Layout
@@ -95,7 +108,6 @@ function AboutMain() {
         dragElastic={1}
         onDragEnd={(e, { offset, velocity }) => {
           const swipe = swipePower(offset.x, velocity.x);
-
           if (swipe < -swipeConfidenceThreshold) {
             setVoteDate((old) => old.add(1, "day"));
           } else if (swipe > swipeConfidenceThreshold) {
@@ -103,9 +115,16 @@ function AboutMain() {
           }
         }}
       >
+        {mySpaceFixed !== "" && (
+          <Result>
+            <span>내 스터디 결과</span>
+            <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
+            <HrDiv />
+          </Result>
+        )}
         <AboutMainHeader />
         <Main>
-          {participations?.map((info, idx) => (
+          {otherStudySpaces?.map((info, idx) => (
             <Block key={idx}>
               <AboutMainItem
                 studySpaceInfo={info}
@@ -120,6 +139,30 @@ function AboutMain() {
     </AnimatePresence>
   );
 }
+
+const Layout = styled(motion.div)`
+  padding: 12px 16px;
+`;
+
+const Main = styled.main``;
+
+const Block = styled.div``;
+
+const Result = styled.div`
+  > span {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--font-h1);
+    font-weight: 600;
+    font-size: 18px;
+  }
+  margin-bottom: 12px;
+`;
+const HrDiv = styled.div`
+  height: 8px;
+  background-color: #f0f2f5;
+`;
+
 const variants = {
   enter: (direction: number) => {
     return {
@@ -144,13 +187,5 @@ const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
-
-const Layout = styled(motion.div)`
-  padding: 24px 16px;
-`;
-
-const Main = styled.main``;
-
-const Block = styled.div``;
 
 export default AboutMain;

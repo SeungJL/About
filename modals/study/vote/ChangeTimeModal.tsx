@@ -3,22 +3,19 @@ import {
   ModalFooterNav,
   ModalHeaderTitle,
   ModalLg,
-} from "../../../../styles/LayoutStyles";
-import { ITimeStartToEnd } from "../../../../types/utils";
-import TimeSelector from "./vote/timeSelector";
+} from "../../../styles/LayoutStyles";
+import { ITimeStartToEnd } from "../../../types/utils";
+import TimeSelector from "../../../components/utils/timeSelector";
 import { useState, Dispatch, SetStateAction } from "react";
-import { voteDateState } from "../../../../recoil/studyAtoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useAttendMutation } from "../../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../../libs/queryKeys";
-import { QueryClient, UseMutateFunction } from "react-query";
+import { useAttendMutation } from "../../../hooks/vote/mutations";
+
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
-import { isTimeChangeState } from "../../../../recoil/atoms";
-import { AxiosError } from "axios";
-import { IAttendence, IParticipantTime } from "../../../../models/vote";
+import { isTimeChangeState, voteDateState } from "../../../recoil/atoms";
+
+import { IParticipantTime } from "../../../models/vote";
 import dayjs from "dayjs";
-import { IParticipant } from "../../../../models/attendence";
 
 export default function ChangeTimeModal({
   setIsChangeTimeModal,

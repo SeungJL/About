@@ -2,9 +2,9 @@ import { Box, Text } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 
-import { IParticipation } from "../../../../../models/vote";
+import { IParticipation } from "../../models/vote";
 
-import { ITimeStartToEnd } from "../../../../../types/utils";
+import { ITimeStartToEnd } from "../../types/utils";
 import { useState } from "react";
 import styled from "styled-components";
 

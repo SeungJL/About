@@ -4,9 +4,6 @@ import { IAttendence } from "../../../../../models/vote";
 import { IUser } from "../../../../../models/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-import dayjs from "dayjs";
 
 function CheckComment({ attendances }: { attendances: IAttendence[] }) {
   return (
