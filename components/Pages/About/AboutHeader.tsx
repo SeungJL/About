@@ -9,7 +9,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { IconBellNotice } from "../../../public/icons/Icons";
+import { IconAbout, IconBellNotice } from "../../../public/icons/Icons";
 import ModalPortal from "../../ModalPortal";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";
 import Drawer from "../../layout/Drawer";
@@ -22,8 +22,13 @@ export default function AboutHeader() {
   return (
     <>
       <Layout>
-        <div onClick={() => setIsDrawer(true)}>
-          <FontAwesomeIcon icon={faBars} size="lg" />
+        <div>
+          <div onClick={() => setIsDrawer(true)}>
+            <FontAwesomeIcon icon={faBars} size="lg" />
+          </div>
+          <div>
+            <IconAbout />
+          </div>
         </div>
         <Nav>
           <div>
@@ -71,6 +76,16 @@ const Layout = styled.header`
   align-items: center;
   padding: 0 16px;
   color: var(--font-h2);
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    > div:first-child {
+      margin-right: 12px;
+    }
+    > div:last-child {
+      padding-top: 14px;
+    }
+  }
 `;
 
 const Nav = styled.nav`
@@ -79,5 +94,6 @@ const Nav = styled.nav`
 
   > div {
     margin-left: 20px;
+    display: flex;
   }
 `;

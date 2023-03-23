@@ -71,9 +71,11 @@ function AboutMainItem({
       ) : (
         <Result>
           <ResultInfo>
-            오픈 시간: <b>12시 ~ 21시</b>
+            오픈: <b>12시 ~ 21시</b>
+            <Check>
+              상태: <b>{isCheck ? "출석 완료" : "미 출석"}</b>
+            </Check>
           </ResultInfo>
-          <Check>{isCheck ? "출석 완료" : "출석 체크 해주세요!"}</Check>
         </Result>
       )}
       <SpaceInfo>
@@ -122,7 +124,7 @@ const Layout = styled(motion.div)<{ status: string }>`
   flex-direction: ${(props) =>
     props.status === "myOpen" ? "row-reverse" : null};
   border: ${(props) =>
-    props.status === "myOpen" ? "1px solid var(--color-mint)" : null};
+    props.status === "myOpen" ? "1.5px solid var(--color-mint)" : null};
 `;
 
 const ImageContainer = styled.div`
@@ -166,37 +168,35 @@ const Status = styled.div`
 `;
 const Branch = styled.div`
   background-color: var(--color-peach);
-  color: var(--color-orange3);
+  color: var(--color-red);
 `;
 
 const StatusResult = styled.div<{ isOpen: boolean }>`
-  background-color: ${(props) => (props.isOpen ? "#68d3918e" : "#d3d3d3d8")};
+  background-color: ${(props) =>
+    props.isOpen ? "#68d3918e" : "var(--font-h6)"};
   color: ${(props) =>
-    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "rgb(0,0,0,0.7)"};
+    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h2)"};
 `;
 
 const Result = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 const ResultInfo = styled.div`
-  text-align: center;
-  width: 120px;
-  border-radius: 10px;
-
-  background-color: var(--color-orange3);
+  width: 90px;
   padding: 2px;
-  font-size: 11px;
-  color: var(--font-h1);
+  font-size: 10px;
+  color: var(--font-h);
+  padding-left: 7px;
+  background-color: var(--font-h7);
 `;
 
 const Check = styled.span`
+  display: inline-block;
+  margin-top: 3px;
   align-self: flex-end;
-  font-size: 12px;
-  color: var(--color-orange3);
-  font-weight: 600;
+  color: var(--font-h2);
 `;
 
 const Info = styled.div`

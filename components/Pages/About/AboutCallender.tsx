@@ -228,7 +228,6 @@ const DayOfWeek = () => (
 
 const Layout = styled(motion.div)`
   padding-bottom: 8px;
-  border-bottom: 1px solid #e3e6eb;
 `;
 
 const Header = styled.header`
@@ -237,43 +236,6 @@ const Header = styled.header`
   justify-content: space-between;
   padding: 0px 16px 8px 16px;
   width: 100%;
-`;
-
-const CallenderDays = styled.div<{ isFlex: boolean }>`
-  display: flex;
-  color: #767d8a;
-  margin: 0px 4px;
-  margin-bottom: 10px;
-  font-weight: 500;
-  font-size: 15px;
-  padding: 0;
-  display: ${(props) => (props.isFlex ? "flex" : "grid")};
-  justify-content: ${(props) => (props.isFlex ? "spaceBetween" : null)};
-  grid-template-columns: ${(props) => (props.isFlex ? null : "repeat(7,1fr)")};
-  grid-auto-rows: ${(props) => (props.isFlex ? null : "32px")};
-`;
-
-const DayItem = styled(motion.div)`
-  flex: 1;
-  display: flex;
-  > div {
-    margin: auto;
-    > div {
-      color: white;
-    }
-  }
-`;
-
-const BottomUp = styled.div`
-  margin-top: 8px;
-  height: 12px;
-  text-align: center;
-  position: relative;
-  background-color: #e3e6eb;
-  > svg {
-    position: absolute;
-    top: 30%;
-  }
 `;
 
 const DayLine = styled.div`
