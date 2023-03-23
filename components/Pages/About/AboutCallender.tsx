@@ -8,7 +8,34 @@ import { IconCircle } from "../../../public/icons/IconOutline";
 import { IconArrowBottom, IconArrowTop } from "../../../public/icons/Icons";
 import { useRecoilState } from "recoil";
 import { voteDateState } from "../../../recoil/atoms";
-
+import {
+  Datepicker,
+  CalendarPrev,
+  CalendarNav,
+  CalendarNext,
+  CalendarToday,
+  SegmentedGroup,
+  SegmentedItem,
+  setOptions,
+  localeNl,
+  localeKo,
+} from "@mobiscroll/react";
+import "@mobiscroll/react/dist/css/mobiscroll.min.css";
+import { useVoteQuery } from "../../../hooks/vote/queries";
+import {
+  IRate,
+  useAttendRateQueries,
+  useParticipationRateQuery,
+  useVoteRateQueries,
+  useVoteRateQuery,
+} from "../../../hooks/user/queries";
+import { useSession } from "next-auth/react";
+import { IMonthStartToEnd } from "../../utils/AttendChart";
+setOptions({
+  locale: localeNl,
+  theme: "ios",
+  themeVariant: "light",
+});
 interface ICallender {
   dayCnt: number;
   setDayCnt: Dispatch<SetStateAction<number>>;
@@ -16,68 +43,168 @@ interface ICallender {
 
 function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
   const dayOfWeek = dayjs().day();
-  const [dayArr, setDayArr] = useState<number[]>([]);
+  const { data: session } = useSession();
+  const [calendarType, setCalendarType] = useState<"week" | "month">("week");
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const day = voteDate.date();
+
+  const [monthList, setMonthList] = useState<IMonthStartToEnd[]>([]);
   useEffect(() => {
-    const tempArr: number[] = [];
-    const startDay = dayjs().date(1).day();
-
-    for (let i = 1; i <= dayCnt; i++) {
-      if (dayCnt === 7) tempArr.push(day - dayOfWeek + i - 1);
-      else {
-        if (i <= startDay) tempArr.push(null);
-        else if (i - startDay <= dayjs().daysInMonth())
-          tempArr.push(i - startDay);
-        else tempArr.push(null);
-      }
+    const temp = [];
+    for (let i = 1; i <= dayjs().month(voteDate.month()).daysInMonth(); i++) {
+      temp.push({
+        startDay: voteDate.date(i - 1),
+        endDay: voteDate.date(i),
+      });
     }
-    setDayArr(tempArr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dayCnt]);
+    setMonthList(temp);
+  }, [voteDate]);
 
-  const onClickDay = (date) => {
-    setVoteDate(voteDate.date(date));
+  const myMonthAttendQueries = useAttendRateQueries(monthList);
+  const isLoading = myMonthAttendQueries.some((result) => result.isLoading);
+  const myMonthAttend = myMonthAttendQueries?.map((item) => {
+    if (!item.isLoading) {
+      const myDataArr = (item.data as IRate[]).filter(
+        (data) => data.name === session?.user.name
+      );
+      return myDataArr[0]?.cnt !== 0 && true;
+    }
+  });
+  console.log(myMonthAttend);
+  const CalendarHeader = () => (
+    <Header>
+      <DateBasic>
+        <span>{dayjs().format("YYYY년 M월")}</span>
+        {calendarType === "week" ? (
+          <div onClick={() => setCalendarType("month")}>
+            <IconArrowBottom />
+          </div>
+        ) : (
+          <>
+            <div onClick={() => setCalendarType("week")}>
+              <IconArrowTop />
+            </div>{" "}
+            <Nav>
+              <CalendarPrev />
+              <CalendarNext />
+            </Nav>
+          </>
+        )}
+      </DateBasic>
+    </Header>
+  );
+
+  const onChange = (e) => {
+    setVoteDate(dayjs(e.value));
   };
   return (
-    <Layout layout transition={{ duration: 0.3 }}>
-      <Header>
-        <Date>
-          <span>{dayjs().format("YYYY년 M월")}</span>
-          {dayCnt === 7 && (
-            <div onClick={() => setDayCnt(35)}>
-              <IconArrowBottom />
-            </div>
-          )}
-        </Date>
-      </Header>
-      <DayOfWeek />
-      <CallenderDays isFlex={dayCnt === 7}>
-        {dayArr.map((d, idx) => (
-          <DayItem
-            layout
-            transition={{ duration: 0.3 }}
-            key={idx}
-            onClick={() => onClickDay(d)}
-          >
-            {d === day ? (
-              <div>
-                <IconCircle>{d}</IconCircle>
-              </div>
-            ) : (
-              <div>{d}</div>
-            )}
-          </DayItem>
-        ))}
-      </CallenderDays>
-      {dayCnt === 35 && (
-        <BottomUp onClick={() => setDayCnt(7)}>
-          <IconArrowTop />
-        </BottomUp>
-      )}
+    <Layout layout>
+      <StyledDatePicker
+        display="inline"
+        controls={["calendar"]}
+        calendarType={calendarType}
+        value={voteDate.toDate()}
+        calendarSize={1}
+        renderCalendarHeader={CalendarHeader}
+        locale={localeKo}
+        onChange={onChange}
+        marked={[
+          {
+            date: new Date(2023, 2, 2),
+            color: "#46c4f3",
+          },
+        ]}
+      />
     </Layout>
   );
 }
+const DateBasic = styled.div`
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  > span {
+    font-family: pretendSemiBold;
+    color: var(--font-h1);
+    font-size: 20px;
+    letter-spacing: -4%;
+    align-items: center;
+    margin-right: 8px;
+  }
+`;
+const Nav = styled.nav`
+  margin-left: auto;
+`;
+const StyledDatePicker = styled(Datepicker)`
+  .mbsc-ios.mbsc-selected .mbsc-calendar-cell-text {
+    background-color: var(--color-mint);
+    border-color: var(--color-mint);
+  }
+  .mbsc-ios.mbsc-calendar-button.mbsc-button {
+    color: var(--font-h2);
+  }
+`;
+// const [dayArr, setDayArr] = useState<number[]>([]);
+// const [voteDate, setVoteDate] = useRecoilState(voteDateState);
+// const day = voteDate.date();
+// useEffect(() => {
+//   const tempArr: number[] = [];
+//   const startDay = dayjs().date(1).day();
+
+//   for (let i = 1; i <= dayCnt; i++) {
+//     if (dayCnt === 7) tempArr.push(day - dayOfWeek + i - 1);
+//     else {
+//       if (i <= startDay) tempArr.push(null);
+//       else if (i - startDay <= dayjs().daysInMonth())
+//         tempArr.push(i - startDay);
+//       else tempArr.push(null);
+//     }
+//   }
+//   setDayArr(tempArr);
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [dayCnt]);
+
+// const onClickDay = (date) => {
+//   setVoteDate(voteDate.date(date));
+// };
+// return (
+//   <Layout layout transition={{ duration: 0.3 }}>
+//     <Header>
+//       <Date>
+//         <span>{dayjs().format("YYYY년 M월")}</span>
+//         {dayCnt === 7 && (
+//           <div onClick={() => setDayCnt(35)}>
+//             <IconArrowBottom />
+//           </div>
+//         )}
+//       </Date>
+//     </Header>
+//     <DayOfWeek />
+//     <CallenderDays isFlex={dayCnt === 7}>
+//       {dayArr.map((d, idx) => (
+//         <DayItem
+//           layout
+//           transition={{ duration: 0.3 }}
+//           key={idx}
+//           onClick={() => onClickDay(d)}
+//         >
+//           {d === day ? (
+//             <div>
+//               <IconCircle>{d}</IconCircle>
+//             </div>
+//           ) : (
+//             <div>{d}</div>
+//           )}
+//         </DayItem>
+//       ))}
+//     </CallenderDays>
+//     {dayCnt === 35 && (
+//       <BottomUp onClick={() => setDayCnt(7)}>
+//         <IconArrowTop />
+//       </BottomUp>
+//     )}
+//   </Layout>
+// );
 
 const DayOfWeek = () => (
   <DayLine>
@@ -101,19 +228,9 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 0px 16px 8px 16px;
+  width: 100%;
 `;
-const Date = styled.div`
-  display: flex;
-  align-items: center;
-  > span {
-    font-family: pretendSemiBold;
-    color: var(--font-h1);
-    font-size: 20px;
-    letter-spacing: -4%;
-    align-items: center;
-    margin-right: 8px;
-  }
-`;
+
 const CallenderDays = styled.div<{ isFlex: boolean }>`
   display: flex;
   color: #767d8a;

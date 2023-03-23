@@ -15,10 +15,10 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import { IPlace } from "../../models/place";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import { isVotingState } from "../../recoil/studyAtoms";
+
 import ModalPortal from "../ModalPortal";
 import VoteSuccessModal from "../Pages/About/studySpace/VoteSuccessModal";
-import { isVoteCompleteState } from "../../recoil/atoms";
+import { isVoteCompleteState, isVotingState } from "../../recoil/atoms";
 momentTimezone.moment = moment;
 const NUM_VISIBLE_ITEMS = 5;
 const ITEM_HEIGHT = 34;

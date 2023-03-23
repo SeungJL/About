@@ -47,12 +47,9 @@ export const useParticipationRateQuery = (
 export const useVoteRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  options?: Omit<
-    UseQueryOptions<number, AxiosError, number>,
-    "queryKey" | "queryFn"
-  >
+  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
 ) =>
-  useQuery<number, AxiosError, number>(
+  useQuery<any, AxiosError, any>(
     [USER_FINDVOTE],
     async () => {
       const res = await axios.get(`/api/user/voterate`, {

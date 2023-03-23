@@ -21,7 +21,7 @@ import dbConnect from "../../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
 import { isMember } from "../../../libs/utils/authUtils";
 import { AnimatePresence, motion } from "framer-motion";
-import MyStudyResult from "./main/MyStudyResult";
+
 import {
   isVotingState,
   mySpaceFixedState,
