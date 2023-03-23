@@ -98,6 +98,6 @@ const BtnNav = styled(ModalFooterNav)`
   margin-top: auto;
   text-align: end;
   > button:last-child {
-    background-color: var(--color-brown);
+    background-color: var(--color-red);
   }
 `;

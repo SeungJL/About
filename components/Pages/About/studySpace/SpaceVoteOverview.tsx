@@ -4,6 +4,7 @@ import { Dayjs } from "dayjs";
 import styled from "styled-components";
 
 function SpaceVoteOverView({ date, voteCnt }: ISpaceVoteOverView) {
+  console.log(voteCnt);
   return (
     <Layout>
       <span>{date && date?.format("M월 DD일 참여 멤버")}</span>
@@ -11,7 +12,7 @@ function SpaceVoteOverView({ date, voteCnt }: ISpaceVoteOverView) {
       <span>
         <FontAwesomeIcon icon={faUserGroup} size="sm" />
         <span>
-          <b>{voteCnt}</b>이 투표했어요
+          현재 <b> {voteCnt}명</b>이 투표했어요
         </span>
       </span>
     </Layout>

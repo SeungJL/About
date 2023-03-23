@@ -107,52 +107,54 @@ function AboutMain() {
   );
   return (
     <AnimatePresence initial={false}>
-      <Layout
-        variants={variants}
-        initial="enter"
-        animate="center"
-        exit="exit"
-        transition={{
-          x: { type: "spring", stiffness: 300, damping: 30, duration: 1 },
-          opacity: { duration: 1 },
-        }}
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={1}
-        onDragEnd={(e, { offset, velocity }) => {
-          const swipe = swipePower(offset.x, velocity.x);
-          if (swipe < -swipeConfidenceThreshold) {
-            setVoteDate((old) => old.add(1, "day"));
-          } else if (swipe > swipeConfidenceThreshold) {
-            setVoteDate((old) => old.subtract(1, "day"));
-          }
-        }}
-      >
-        {studyDate !== "not passed" && (
-          <Result>
-            <span>내 스터디 결과</span>
-            {mySpaceFixed !== "" ? (
-              <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
-            ) : (
-              <NoMyStudy />
-            )}
-            <HrDiv />
-          </Result>
-        )}
-        <AboutMainHeader />
-        <Main>
-          {otherStudySpaces?.map((info, idx) => (
-            <Block key={idx}>
-              <AboutMainItem
-                studySpaceInfo={info}
-                voted={Boolean(
-                  spaceVoted.find((space) => space === info.place._id)
-                )}
-              />
-            </Block>
-          ))}
-        </Main>
-      </Layout>
+      {!isLoading && (
+        <Layout
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30, duration: 1 },
+            opacity: { duration: 1 },
+          }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={1}
+          onDragEnd={(e, { offset, velocity }) => {
+            const swipe = swipePower(offset.x, velocity.x);
+            if (swipe < -swipeConfidenceThreshold) {
+              setVoteDate((old) => old.add(1, "day"));
+            } else if (swipe > swipeConfidenceThreshold) {
+              setVoteDate((old) => old.subtract(1, "day"));
+            }
+          }}
+        >
+          {studyDate !== "not passed" && (
+            <Result>
+              <span>내 스터디 결과</span>
+              {mySpaceFixed !== "" ? (
+                <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
+              ) : (
+                <NoMyStudy />
+              )}
+              <HrDiv />
+            </Result>
+          )}
+          <AboutMainHeader />
+          <Main>
+            {otherStudySpaces?.map((info, idx) => (
+              <Block key={idx}>
+                <AboutMainItem
+                  studySpaceInfo={info}
+                  voted={Boolean(
+                    spaceVoted.find((space) => space === info.place._id)
+                  )}
+                />
+              </Block>
+            ))}
+          </Main>
+        </Layout>
+      )}
     </AnimatePresence>
   );
 }

@@ -88,14 +88,18 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
       <DateBasic>
         <span>{dayjs().format("YYYY년 M월")}</span>
         {calendarType === "week" ? (
-          <div onClick={() => setCalendarType("month")}>
+          <ArrowIconWrapper onClick={() => setCalendarType("month")}>
             <IconArrowBottom />
-          </div>
+          </ArrowIconWrapper>
         ) : (
           <>
-            <div onClick={() => setCalendarType("week")}>
+            <ArrowIconWrapper onClick={() => setCalendarType("week")}>
               <IconArrowTop />
-            </div>{" "}
+            </ArrowIconWrapper>{" "}
+            <Tooltip>
+              <CircleIcon />
+              <span>스터디 참여</span>
+            </Tooltip>
             <Nav>
               <CalendarPrev />
               <CalendarNext />
@@ -236,6 +240,29 @@ const Header = styled.header`
   justify-content: space-between;
   padding: 0px 16px 8px 16px;
   width: 100%;
+`;
+const Tooltip = styled.div`
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+  > span {
+    margin-left: 6px;
+    color: var(--font-h3);
+    font-weight: 600;
+    font-size: 10px;
+  }
+`;
+const CircleIcon = styled.div`
+  background-color: var(--color-mint);
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+`;
+
+const ArrowIconWrapper = styled.div`
+  padding-bottom: 4px;
+  margin-left: 4px;
 `;
 
 const DayLine = styled.div`

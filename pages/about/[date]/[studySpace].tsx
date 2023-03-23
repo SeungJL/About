@@ -67,7 +67,7 @@ function StudySpace() {
   );
 
   const place = spaceStudyInfo?.place;
-
+  console.log(spaceStudyInfo);
   return (
     <>
       <StudySpaceHeader title={!isLoading ? place?.brand : ""} />
@@ -79,7 +79,7 @@ function StudySpace() {
             <HrDiv />
             <SpaceVoteOverView
               date={voteDate}
-              voteCnt={participations && participations.length}
+              voteCnt={spaceStudyInfo && spaceStudyInfo.attendences.length}
             />
             <StudyTimeTable attendances={spaceStudyInfo?.attendences} />
             <StudyNavigation myVote={myVote} place={place} />

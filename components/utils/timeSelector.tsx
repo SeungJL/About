@@ -16,10 +16,10 @@ const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
   // setTime({ start, end });
 
   return (
-    <>
+    <Layout>
       <TimeSelectorUnit type="start" time={times.start} setTimes={setTimes} />
       <TimeSelectorUnit type="end" time={times.end} setTimes={setTimes} />
-    </>
+    </Layout>
   );
 };
 
@@ -79,6 +79,8 @@ const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
     </UnitLayout>
   );
 };
+
+const Layout = styled.div``;
 const UnitLayout = styled.div`
   display: flex;
   margin-bottom: 12px;

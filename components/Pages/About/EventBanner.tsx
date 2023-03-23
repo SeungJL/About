@@ -1,23 +1,19 @@
+import Image from "next/image";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 function EventBanner() {
+  const router = useRouter();
   return (
-    <Layout>
-      <span>이벤트 배너</span>
+    <Layout onClick={() => router.push(`/event/1`)}>
+      <Image src="/event/event.png" width={360} height={90} alt="eventImg" />
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  height: 80px;
   display: flex;
-  align-items: center;
-  margin: 0 16px 16px 16px;
-  background-color: white;
-
-  > span {
-    font-size: 16px;
-  }
+  flex-direction: column;
 `;
 
 export default EventBanner;

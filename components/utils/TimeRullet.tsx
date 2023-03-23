@@ -156,17 +156,19 @@ const StyledDatepicker = styled(Datepicker)`
     color: var(--font-h3);
     font-size: 13px;
     font-weight: 600;
-    padding-top: 7px !important;
+    padding-top: 0px !important;
     margin-right: 1px;
-    height: 100%;
   }
 
   .active {
-    color: var(--font-h2);
+    color: var(--font-h2) !important;
   }
   .mbsc-range-control-value {
-    height: min-content;
     padding: 0 !important;
+    font-size: 12px !important;
+    padding-top: 4px !important;
+    margin-left: 5px;
+    color: var(--color-mint) !important;
   }
   .mbsc-scroller-wheel-group {
     padding: 0 !important;

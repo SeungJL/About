@@ -99,7 +99,7 @@ export const ModalFooterNav = styled.footer`
   }
   > button:last-child {
     color: white;
-    background-color: var(--color-orange3);
+    background-color: var(--color-red);
   }
 `;
 

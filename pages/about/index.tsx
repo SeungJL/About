@@ -36,8 +36,8 @@ function About() {
         <Header />
         <AboutCallender dayCnt={dayCnt} setDayCnt={setDayCnt} />
         <AboutMain />
-        <HrDiv />
-        <GroupStudySummary />
+
+        {/* <GroupStudySummary /> */}
         <EventBanner />
         <HrDiv />
         <AttendChart />
@@ -49,8 +49,8 @@ function About() {
 const Layout = styled.div``;
 
 const HrDiv = styled.div`
+  margin-top: 18px;
   height: 8px;
-  background-color: #f0f2f5;
 `;
 
 export default About;

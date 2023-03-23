@@ -80,7 +80,7 @@ export default function AttendChart() {
             curve: "straight",
           },
           title: {
-            text: "스터디 참여율",
+            text: "내 스터디 참여율",
             align: "left",
           },
           grid: {

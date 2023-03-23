@@ -116,6 +116,11 @@ const Layout = styled.div`
 const PlaceItem = styled.div`
   display: flex;
   flex-direction: column;
+  > span {
+    text-align: center;
+    font-size: 13px;
+    color: var(--font-h2);
+  }
 `;
 const PlaceIcon = styled.button<{
   isSelected: boolean;

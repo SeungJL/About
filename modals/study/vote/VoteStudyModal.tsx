@@ -193,10 +193,10 @@ function VoteStudyModal({
                 times={time}
               />
             </Time>
-            <PageNav>
+            <SubmitNav>
               <button onClick={() => setPage(1)}>뒤로가기</button>
               <button onClick={onSubmit}>제출</button>
-            </PageNav>
+            </SubmitNav>
           </>
         )}
       </Layout>
@@ -208,14 +208,13 @@ export default VoteStudyModal;
 const Layout = styled(ModalLg)`
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  padding-bottom: 12px;
+  padding: 12px;
 `;
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-
+  margin-bottom: 12px;
+  padding-right: 4px;
   > span {
     font-size: 16px;
     font-weight: 600;
@@ -229,7 +228,7 @@ const Main = styled.main`
 
   > span {
     display: inline-block;
-    color: var(--color-brown);
+    color: var(--color-red);
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 8px;
@@ -243,21 +242,40 @@ const PageNav = styled.nav`
   text-align: end;
 
   > button {
+    font-size: 13px;
+    color: var(--font-h1);
+    margin-left: 14px;
+    margin-right: 10px;
+    font-weight: 600;
+  }
+`;
+
+const SubmitNav = styled.nav`
+  margin-top: auto;
+  text-align: end;
+
+  > button {
     width: 60px;
-    font-size: 0.8em;
-    background-color: var(--color-brown);
-    color: #ffffff;
-    margin-left: 10px;
-    border-radius: 10px;
-    padding: 3px;
+    font-size: 13px;
+    color: var(--font-h1);
+    border-radius: 8px;
+    padding: 1px;
+    margin-left: 6px;
+    margin-right: 2px;
+  }
+  > button:last-child {
+    color: white;
+    background-color: var(--color-red);
   }
 `;
 
 const Error = styled.span`
   font-size: 13px;
-  color: var(--color-orange);
+  margin-right: 8px;
+  color: var(--color-red);
 `;
 
 const Time = styled.div`
   margin-top: 12px;
+  padding-top: 12px;
 `;
