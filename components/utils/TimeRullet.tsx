@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import { move } from "formik";
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
@@ -22,6 +22,7 @@ import { isVoteCompleteState, isVotingState } from "../../recoil/atoms";
 momentTimezone.moment = moment;
 const NUM_VISIBLE_ITEMS = 5;
 const ITEM_HEIGHT = 34;
+import { DateType } from "@mobiscroll/react/dist/src/core/util/datetime";
 
 interface ITimeRullet {
   timeArr: { hour: string; minutes: string }[];
@@ -31,7 +32,7 @@ interface ITimeRullet {
 }
 
 function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
-  const [selectedRange, setSelectedRange] = useState("10");
+  const [selectedRange, setSelectedRange] = useState(["12", "14"]);
   const queryClient = useQueryClient();
   const selector = document.querySelectorAll(".mbsc-range-control-value");
   const setIsVoting = useSetRecoilState(isVotingState);
@@ -44,6 +45,11 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
   }
 
   const onChange = (event: any) => {
+    const value: DateType[] = event.value;
+
+    if (value[0] && !value[1]) {
+      setSelectedRange([value[0] as string, value[0] as string]);
+    }
     setSelectedRange(event.value);
   };
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
@@ -124,46 +130,56 @@ const Container = styled.div`
 
 const StyledDatepicker = styled(Datepicker)`
   width: 100%;
-  background-color: red;
+
   flex: 1;
+
   .mbsc-range-control-wrapper {
-    > div {
-      width: 100% !important;
-      > label {
-        > span:last-child {
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center;
-          > div:first-child {
-            color: var(--font-h3);
-            font-weight: 600;
-            margin-right: 10px;
-          }
-          > div:last-child {
-            margin-bottom: 4px !important;
-            color: var(--color-mint);
-
-            font-weight: 600;
-          }
-        }
-      }
-    }
+    padding: 0 !important;
   }
-  .mbsc-scroller-wheel-group-cont {
-    background-color: var(--font-h7);
+  .mbsc-segmented {
+    margin: 0 !important;
+    font-weight: 600 !important;
+    width: 100% !important;
+  }
+  .mbsc-segmented-item {
+    height: 32px;
+  }
+  .mbsc-segmented-button {
+    display: flex !important;
+    align-items: center !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    height: 100%;
+  }
 
-    > div:first-child {
-      opacity: 1 !important;
-      background-color: var(--font-h5);
-      background-color: blue;
-    }
+  .mbsc-range-control-label {
+    color: var(--font-h3);
+    font-size: 13px;
+    font-weight: 600;
+    padding-top: 7px !important;
+    margin-right: 1px;
+    height: 100%;
+  }
+
+  .active {
+    color: var(--font-h2);
+  }
+  .mbsc-range-control-value {
+    height: min-content;
+    padding: 0 !important;
   }
   .mbsc-scroller-wheel-group {
     padding: 0 !important;
     font-size: 20px;
     font-weight: 500;
   }
-
+  .mbsc-scroller-wheel-group-cont {
+    background-color: var(--font-h7);
+  }
+  .mbsc-scroller-wheel-line {
+    opacity: 1 !important;
+    background-color: var(--font-h5);
+  }
   .mbsc-scroller-wheel-wrapper {
     color: var(--font-h4);
     flex: 1;
@@ -177,7 +193,8 @@ const StyledDatepicker = styled(Datepicker)`
   .mbsc-scroller-wheel {
     height: 200px !important;
   }
-
+  .mbsc-scroller-wheel-item {
+  }
   .mbsc-scroller-wheel-cont {
     background-color: var(--font-h6);
     border-radius: 10px;
@@ -187,6 +204,16 @@ const StyledDatepicker = styled(Datepicker)`
     ::after {
       border: none !important;
     }
+  }
+  .mbsc-scrollview-scroll {
+  }
+  .mbsc-scroller-wheel-cont {
+  }
+  .mbsc-scrollview-scroll {
+  }
+  .mbsc-scroller-wheel-item {
+    color: var(--font-h1) !important;
+    text-align: center !important;
   }
   > div:last-child {
     border-radius: 13px !important;

@@ -19,7 +19,7 @@ function AboutMainHeader() {
           <div>
             <span>카공 스터디</span>
             <Vote onClick={() => setIsShowModal(true)}>
-              {studyDate !== "not passed" && (
+              {studyDate !== "passed" && (
                 <FontAwesomeIcon icon={faCheckToSlot} />
               )}
               <span>

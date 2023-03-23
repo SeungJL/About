@@ -13,6 +13,10 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { useRouter } from "next/router";
 import { mySpaceFixedState, voteDateState } from "../../../../recoil/atoms";
+import { useArrivedQuery } from "../../../../hooks/vote/queries";
+import dayjs from "dayjs";
+import { VOTE_START_HOUR } from "../../../../constants/system";
+import { useState } from "react";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -22,6 +26,7 @@ function AboutMainItem({
   voted: boolean;
 }) {
   const router = useRouter();
+  const { data: session } = useSession();
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
@@ -31,6 +36,16 @@ function AboutMainItem({
 
   const statusFixed = place?._id === mySpaceFixed ? "myOpen" : status;
 
+  const studyDate =
+    dayjs().hour() < VOTE_START_HOUR ? voteDate : voteDate.subtract(1, "day");
+
+  const { data: attendCheck, isLoading } = useArrivedQuery(studyDate);
+
+  const [isCheck, setIsCheck] = useState(false);
+  if (!isLoading) {
+    if (attendCheck.some((att) => att.user.uid === session?.uid))
+      setIsCheck(true);
+  }
   return (
     <Layout
       layout
@@ -56,17 +71,9 @@ function AboutMainItem({
       ) : (
         <Result>
           <ResultInfo>
-            <span>
-              시작 시간: <span> 13시</span>
-            </span>
-            <br />
-            <span>
-              종료 시간: <span> 19시</span>
-            </span>
+            오픈 시간: <b>12시 ~ 21시</b>
           </ResultInfo>
-          <Check>
-            출석 여부: <span>미 출석</span>
-          </Check>
+          <Check>{isCheck ? "출석 완료" : "출석 체크 해주세요!"}</Check>
         </Result>
       )}
       <SpaceInfo>
@@ -110,7 +117,7 @@ const Layout = styled(motion.div)<{ status: string }>`
   height: 100px;
   background-color: white;
   display: flex;
-  padding: 10px 24px 10px 16px;
+  padding: 10px 12px 10px 12px;
   margin-bottom: 10px;
   flex-direction: ${(props) =>
     props.status === "myOpen" ? "row-reverse" : null};
@@ -176,29 +183,20 @@ const Result = styled.div`
 
 const ResultInfo = styled.div`
   text-align: center;
-  width: 80px;
-  height: 36px;
+  width: 120px;
   border-radius: 10px;
 
-  background-color: #f0f2f5;
+  background-color: var(--color-orange3);
   padding: 2px;
   font-size: 11px;
-  color: #565b67;
-  > span {
-    > span {
-      font-weight: 600;
-    }
-  }
+  color: var(--font-h1);
 `;
 
 const Check = styled.span`
   align-self: flex-end;
-  margin-right: 6px;
-  font-size: 11px;
-  color: #565b67;
-  > span {
-    font-weight: 600;
-  }
+  font-size: 12px;
+  color: var(--color-orange3);
+  font-weight: 600;
 `;
 
 const Info = styled.div`

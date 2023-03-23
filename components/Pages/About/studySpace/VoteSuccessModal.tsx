@@ -5,11 +5,13 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { isVoteCompleteState } from "../../../../recoil/atoms";
+import { useRouter } from "next/router";
 function VoteSuccessModal({}) {
   const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
-
+  const router = useRouter();
   const onClicked = () => {
     setIsCompleteModal(false);
+    router.push(`/about`);
   };
   return (
     <Layout>
@@ -68,9 +70,12 @@ const Content = styled.div`
 const Button = styled.button`
   width: 335px;
   position: absolute;
-  top: 733px;
+  top: 640px;
   border-radius: 13px;
+  color: white;
   padding: 14px 100px 14px 100px;
+  font-size: 15px;
+  font-weight: 700;
   gap: 10px;
   left: 50%;
   transform: translate(-50%, -50%);

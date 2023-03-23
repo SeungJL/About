@@ -89,7 +89,7 @@ const Header = styled.header`
   align-self: start;
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
+  margin-bottom: 18px;
   > span:first-child {
     font-weight: 600;
     font-size: 15px;

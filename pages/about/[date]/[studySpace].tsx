@@ -58,7 +58,7 @@ function StudySpace() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimeChange]);
 
-  const spaceStudyInfo = participations.find(
+  const spaceStudyInfo = participations?.find(
     (props) => props.place._id === spaceID
   );
 

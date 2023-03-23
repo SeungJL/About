@@ -48,6 +48,7 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
   const [monthList, setMonthList] = useState<IMonthStartToEnd[]>([]);
+
   useEffect(() => {
     const temp = [];
     for (let i = 1; i <= dayjs().month(voteDate.month()).daysInMonth(); i++) {
@@ -69,7 +70,19 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
       return myDataArr[0]?.cnt !== 0 && true;
     }
   });
-  console.log(myMonthAttend);
+
+  const markedArr = [];
+  if (!isLoading) {
+    for (let i = 0; i < myMonthAttend.length; i++) {
+      if (myMonthAttend[i]) {
+        markedArr.push({
+          date: new Date(voteDate.year(), voteDate.month(), i),
+          color: "var(--color-mint)",
+        });
+      }
+    }
+  }
+
   const CalendarHeader = () => (
     <Header>
       <DateBasic>
@@ -107,12 +120,7 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
         renderCalendarHeader={CalendarHeader}
         locale={localeKo}
         onChange={onChange}
-        marked={[
-          {
-            date: new Date(2023, 2, 2),
-            color: "#46c4f3",
-          },
-        ]}
+        marked={markedArr}
       />
     </Layout>
   );

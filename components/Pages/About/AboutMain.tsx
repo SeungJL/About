@@ -25,9 +25,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   isVotingState,
   mySpaceFixedState,
+  studyDateState,
   voteDateState,
 } from "../../../recoil/atoms";
 import { IParticipation } from "../../../models/vote";
+import NoMyStudy from "./main/NoMyStudy";
 
 function AboutMain() {
   const { data: session } = useSession();
@@ -37,7 +39,8 @@ function AboutMain() {
   const [mySpaceFixed, setmySpaceFixed] = useRecoilState(mySpaceFixedState);
   const [spaceVoted, setSpaceVoted] = useState<string[]>([""]);
   const [myStudySpace, setMyStudySpace] = useState<IParticipation>();
-
+  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
+  console.log(voteDate);
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -66,6 +69,16 @@ function AboutMain() {
   useEffect(() => {
     setSpaceVoted([]);
     setmySpaceFixed("");
+    if (voteDate < getInterestingDate()) {
+      setStudyDate("passed");
+    } else if (
+      voteDate.date() === getInterestingDate().date() &&
+      dayjs().hour() < 17
+    ) {
+      setStudyDate("today");
+    } else {
+      setStudyDate("not passed");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 
@@ -115,10 +128,14 @@ function AboutMain() {
           }
         }}
       >
-        {mySpaceFixed !== "" && (
+        {studyDate !== "not passed" && (
           <Result>
             <span>내 스터디 결과</span>
-            <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
+            {mySpaceFixed !== "" ? (
+              <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
+            ) : (
+              <NoMyStudy />
+            )}
             <HrDiv />
           </Result>
         )}
