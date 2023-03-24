@@ -17,7 +17,7 @@ export const FullScreen = styled.div`
 export const ModalXs = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   width: 60%;
   height: 200px;
   top: 50%;
@@ -25,7 +25,7 @@ export const ModalXs = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  z-index: 10;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -42,7 +42,7 @@ export const ModalSm = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  z-index: 10;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -51,14 +51,14 @@ export const ModalSm = styled.div`
 export const ModalLg = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   width: 80%;
   height: 220px;
-  top: 220px;
+  top: 50%;
   padding: 10px;
   left: 50%;
-  transform: translate(-50%);
-  z-index: 10;
+  transform: translate(-50%, -50%);
+  z-index: 20;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -66,14 +66,14 @@ export const ModalLg = styled.div`
 export const ModalXL = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   width: 80%;
   height: 360px;
-  top: 220px;
+  top: 50%;
   padding: 10px;
   left: 50%;
-  transform: translate(-50%);
-  z-index: 10;
+  transform: translate(-50%, -50%);
+  z-index: 20;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -85,12 +85,12 @@ export const ModalXXL = styled.div`
   position: absolute;
   width: 90%;
   height: 500px;
-  top: 70px;
+  top: 50%;
   padding: 10px;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
 
-  z-index: 10;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   border-radius: 16px;

@@ -19,6 +19,7 @@ import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
 import { studyDateState } from "../../recoil/atoms";
 import AboutFooter from "../../components/Pages/About/AboutFooter";
+import RegisterFormModal from "../../modals/user/RegisterFormModal";
 
 function About() {
   const [dayCnt, setDayCnt] = useState(7);
@@ -44,6 +45,7 @@ function About() {
         <AttendChart type="main" />
       </Layout>
       <AboutFooter />
+      {isShowRegisterForm && <RegisterFormModal />}
     </>
   );
 }

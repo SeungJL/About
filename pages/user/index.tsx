@@ -23,61 +23,89 @@ import AttendChart from "../../components/utils/AttendChart";
 import Header from "../../components/common/Header";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import ModalPortal from "../../components/ModalPortal";
+import SuggestModal from "../../modals/write/SuggestModal";
+import ModifyUserInfoModal from "../../modals/user/ModifyUserInfoModal";
 
 function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
+  const [modalOpen, setModalOpen] = useState("");
+  const [isModal, setIsModal] = useState(false);
+
+  const handleOutput = (isOpen) => {
+    if (!isOpen) {
+      setModalOpen("");
+    }
+  };
 
   return (
-    <Layout
-      initial={{ x: "100%" }}
-      animate={{ x: 0 }}
-      exit={{ x: "-100%" }}
-      transition={{ duration: 0.3 }}
-    >
-      <Header title="마이페이지" />
-      <UserLayout>
-        <UserOverView />
-        <UserScoresNav>
-          <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
-            <span>내 점수</span>
-            <span>+2점</span>
-          </button>
-          <button>
-            <span>수집한 배지</span>
-            <span>0개</span>
-          </button>
-        </UserScoresNav>
-        <AttendChart />
-        <Navigation>
-          <div>
-            <BlockName>신청</BlockName>
-            <NavBlock>
-              <button>건의하기</button>
-              <button>휴식 신청</button>
-            </NavBlock>
-          </div>
-          <div>
-            <BlockName>정보 변경</BlockName>
-            <NavBlock>
-              <button>프로필 수정</button>
-              <button>친구 초대 설정</button>
-              <button>카카오 알림 설정</button>
-              <button>로그아웃</button>
-            </NavBlock>
-          </div>
-          <div>
-            <BlockName>기타</BlockName>
-            <NavBlock>
-              <button>서비스 이용 약관</button>
-              <button>개인정보 처리방침</button>
-              <button>회원 탈퇴</button>
-            </NavBlock>
-          </div>
-        </Navigation>
-        {/* <UserNavigation /> */}
-      </UserLayout>
-    </Layout>
+    <>
+      <Layout
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={{ duration: 0.3 }}
+      >
+        <Header title="마이페이지" />
+        <UserLayout>
+          <UserOverView />
+          <UserScoresNav>
+            <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
+              <span>내 점수</span>
+              <span>+2점</span>
+            </button>
+            <button>
+              <span>수집한 배지</span>
+              <span>0개</span>
+            </button>
+          </UserScoresNav>
+          <AttendChart />
+          <Navigation>
+            <div>
+              <BlockName>신청</BlockName>
+              <NavBlock>
+                <button onClick={() => setModalOpen("suggest")}>
+                  건의하기
+                </button>
+                <button>휴식 신청</button>
+              </NavBlock>
+            </div>
+            <div>
+              <BlockName>정보 변경</BlockName>
+              <NavBlock>
+                <button onClick={() => setModalOpen("modify")}>
+                  프로필 수정
+                </button>
+                <button>친구 초대 설정</button>
+                <button>카카오 알림 설정</button>
+                <button>로그아웃</button>
+              </NavBlock>
+            </div>
+            <div>
+              <BlockName>기타</BlockName>
+              <NavBlock>
+                <button>서비스 이용 약관</button>
+                <button>개인정보 처리방침</button>
+                <button>회원 탈퇴</button>
+              </NavBlock>
+            </div>
+          </Navigation>
+          {/* <UserNavigation /> */}
+        </UserLayout>
+      </Layout>
+      {modalOpen === "suggest" && (
+        <ModalPortal closePortal={handleOutput}>
+          <SuggestModal setIsModal={handleOutput} />
+        </ModalPortal>
+      )}
+      {modalOpen === "modify" && (
+        <ModalPortal closePortal={handleOutput}>
+          <ModifyUserInfoModal setIsModal={handleOutput} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 

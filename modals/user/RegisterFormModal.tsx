@@ -19,121 +19,6 @@ import {
   isShowRegisterFormState,
 } from "../../recoil/studyAtoms";
 
-const ModalLayout = styled(ModalLg)`
-  width: 320px;
-  height: 340px;
-  padding: 22px;
-`;
-
-const Header = styled.header`
-  height: 40px;
-  font-size: 1.4em;
-  font-family: "NanumEx";
-  margin-bottom: 14px;
-`;
-const Footer = styled.footer`
-  height: 28px;
-
-  display: flex;
-  justify-content: end;
-  > button {
-    width: 40px;
-    border-radius: 10px;
-  }
-`;
-
-const UserForm = styled.form`
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
-const ErrorMessage = styled.div`
-  font-size: 0.8em;
-  height: 16px;
-  color: brown;
-`;
-
-const InputItem = styled.div`
-  height: 20px;
-  display: flex;
-  margin: 5px 0;
-
-  > span {
-    font-size: 1.2em;
-    width: 33%;
-  }
-  > input {
-    width: 67%;
-    background-color: rgb(0, 0, 0, 0.1);
-  }
-`;
-
-const InputGenders = styled.div`
-  height: 20px;
-  display: flex;
-  margin: 5px 0;
-
-  > span {
-    font-size: 1.2em;
-    width: 33%;
-  }
-`;
-const GenderBtnNav = styled.nav`
-  width: 67%;
-  display: flex;
-`;
-const GenderBtn = styled.div<{ selected: boolean }>`
-  width: 80px;
-  margin-right: 3px;
-  background-color: ${(props) => (props.selected ? "#ffc72c" : "lightGray")};
-  border-radius: 10px;
-  text-align: center;
-`;
-
-const SubmitBtn = styled.div`
-  display: flex;
-  height: 10%;
-  align-items: flex-end;
-  justify-content: space-between;
-  > div:first-child {
-    display: flex;
-  }
-`;
-const Agree = styled.div`
-  display: flex;
-
-  > span {
-    margin: 0 7px;
-    font-size: 1.1em;
-    font-family: "NanumEx";
-  }
-`;
-
-const Button = styled.button`
-  margin-right: 3px;
-  background-color: brown;
-  color: white;
-  width: 56px;
-  height: 25px;
-
-  padding: 2px;
-  border-radius: 15px;
-`;
-
-const CancelBtn = styled.div`
-  display: inline-block;
-  text-align: center;
-  margin-right: 3px;
-  background-color: brown;
-  color: white;
-  width: 56px;
-  height: 25px;
-  padding: 2px;
-  border-radius: 15px;
-`;
-
 export interface IRegisterForm {
   registerDate: string;
   name: string;
@@ -207,6 +92,7 @@ function RegisterFormModal() {
 
   const onCancelBtnClicked = () => {
     setIsShowRegisterForm(false);
+    router.push(`/fail`);
   };
   return (
     <>
@@ -289,8 +175,10 @@ function RegisterFormModal() {
               </Agree>
             </div>
             <div>
-              <CancelBtn onClick={onCancelBtnClicked}>취소</CancelBtn>
-              <Button type="submit">제출</Button>
+              <CancelBtn type="button" onClick={onCancelBtnClicked}>
+                취소
+              </CancelBtn>
+              <SubmitButton type="submit">제출</SubmitButton>
             </div>
           </SubmitBtn>
         </UserForm>
@@ -299,4 +187,119 @@ function RegisterFormModal() {
     </>
   );
 }
+
+const ModalLayout = styled(ModalLg)`
+  width: 320px;
+  height: 340px;
+  padding: 22px;
+`;
+
+const Header = styled.header`
+  height: 40px;
+  font-size: 18px;
+  margin-bottom: 14px;
+  font-weight: 600;
+`;
+
+const UserForm = styled.form`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+const ErrorMessage = styled.div`
+  font-size: 11px;
+  height: 16px;
+  color: var(--color-red);
+`;
+
+const InputItem = styled.div`
+  height: 20px;
+  display: flex;
+  margin: 5px 0;
+
+  > span {
+    font-size: 15px;
+    width: 33%;
+  }
+  > input {
+    width: 70%;
+    background-color: var(--font-h6);
+  }
+`;
+
+const InputGenders = styled.div`
+  height: 20px;
+  display: flex;
+  margin: 5px 0;
+
+  > span {
+    font-size: 15px;
+    width: 33%;
+  }
+`;
+const GenderBtnNav = styled.nav`
+  width: 67%;
+  display: flex;
+`;
+const GenderBtn = styled.div<{ selected: boolean }>`
+  width: 80px;
+  margin-right: 3px;
+  background-color: ${(props) =>
+    props.selected ? "var(--color-red)" : "var(--font-h5)"};
+  border-radius: 10px;
+  text-align: center;
+`;
+
+const SubmitBtn = styled.div`
+  display: flex;
+  height: 10%;
+  align-items: flex-end;
+  justify-content: space-between;
+  > div:first-child {
+    display: flex;
+  }
+`;
+const Agree = styled.div`
+  display: flex;
+
+  > span {
+    margin: 0 7px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+`;
+
+const Button = styled.button`
+  display: inline-block;
+  text-align: center;
+  margin-right: 12px;
+
+  border-radius: 15px;
+  font-size: 14px;
+  color: var(--font-h1);
+  font-weight: 600;
+`;
+
+const CancelBtn = styled.button`
+  display: inline-block;
+  text-align: center;
+  margin-right: 3px;
+  font-weight: 600;
+  font-size: 15px;
+  margin-right: 24px;
+  color: var(--color-red);
+`;
+
+const SubmitButton = styled.button`
+  margin-right: 3px;
+  background-color: var(--color-red);
+  color: white;
+  width: 56px;
+  height: 25px;
+
+  border-radius: 15px;
+`;
+
 export default RegisterFormModal;

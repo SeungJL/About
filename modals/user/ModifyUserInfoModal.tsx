@@ -34,7 +34,7 @@ export interface IUserRegister extends IRegisterForm {
   gender: string;
 }
 
-function ModifyUserInfoModal({ setIsShowProfileModal }) {
+function ModifyUserInfoModal({ setIsModal }) {
   const [isMan, setIsMan] = useState(true);
 
   const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
@@ -69,12 +69,11 @@ function ModifyUserInfoModal({ setIsShowProfileModal }) {
       gender: isMan ? "남성" : "여성",
     };
     handleRegister(userInfo);
-    setIsShowProfileModal(false);
+    setIsModal(false);
   };
-  const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
 
   const onCancelBtnClicked = () => {
-    setIsShowProfileModal(false);
+    setIsModal(false);
   };
   const {
     register,
@@ -157,15 +156,8 @@ function ModifyUserInfoModal({ setIsShowProfileModal }) {
           </InputItem>
           <ErrorMessage>{errors?.mbti?.message}</ErrorMessage>
           <SubmitBtn>
-            <div>
-              <Button type="button" onClick={() => setisShowPrivacy(true)}>
-                약관
-              </Button>
-            </div>
-            <div>
-              <CancelBtn onClick={onCancelBtnClicked}>취소</CancelBtn>
-              <Button type="submit">제출</Button>
-            </div>
+            <CancelBtn onClick={onCancelBtnClicked}>취소</CancelBtn>
+            <SubmitButton type="submit">제출</SubmitButton>
           </SubmitBtn>
         </UserForm>
       </ModalLayout>
@@ -182,19 +174,9 @@ const ModalLayout = styled(ModalLg)`
 
 const Header = styled.header`
   height: 40px;
-  font-size: 1.4em;
-  font-family: "NanumEx";
+  font-size: 18px;
   margin-bottom: 14px;
-`;
-const Footer = styled.footer`
-  height: 28px;
-
-  display: flex;
-  justify-content: end;
-  > button {
-    width: 40px;
-    border-radius: 10px;
-  }
+  font-weight: 600;
 `;
 
 const UserForm = styled.form`
@@ -205,9 +187,9 @@ const UserForm = styled.form`
 `;
 
 const ErrorMessage = styled.div`
-  font-size: 0.8em;
+  font-size: 11px;
   height: 16px;
-  color: brown;
+  color: var(--color-red);
 `;
 
 const InputItem = styled.div`
@@ -216,12 +198,12 @@ const InputItem = styled.div`
   margin: 5px 0;
 
   > span {
-    font-size: 1.2em;
+    font-size: 15px;
     width: 33%;
   }
   > input {
-    width: 67%;
-    background-color: rgb(0, 0, 0, 0.1);
+    width: 70%;
+    background-color: var(--font-h6);
   }
 `;
 
@@ -231,7 +213,7 @@ const InputGenders = styled.div`
   margin: 5px 0;
 
   > span {
-    font-size: 1.2em;
+    font-size: 15px;
     width: 33%;
   }
 `;
@@ -242,7 +224,8 @@ const GenderBtnNav = styled.nav`
 const GenderBtn = styled.div<{ selected: boolean }>`
   width: 80px;
   margin-right: 3px;
-  background-color: ${(props) => (props.selected ? "#ffc72c" : "lightGray")};
+  background-color: ${(props) =>
+    props.selected ? "var(--color-red)" : "var(--font-h5)"};
   border-radius: 10px;
   text-align: center;
 `;
@@ -251,29 +234,16 @@ const SubmitBtn = styled.div`
   display: flex;
   height: 10%;
   align-items: flex-end;
-  justify-content: space-between;
-  > div:first-child {
-    display: flex;
-  }
-`;
-const Agree = styled.div`
-  display: flex;
-
-  > span {
-    margin: 0 7px;
-    font-size: 1.1em;
-    font-family: "NanumEx";
-  }
+  justify-content: end;
 `;
 
-const Button = styled.button`
+const SubmitButton = styled.button`
   margin-right: 3px;
-  background-color: brown;
+  background-color: var(--color-red);
   color: white;
   width: 56px;
   height: 25px;
 
-  padding: 2px;
   border-radius: 15px;
 `;
 
@@ -281,10 +251,8 @@ const CancelBtn = styled.div`
   display: inline-block;
   text-align: center;
   margin-right: 3px;
-  background-color: brown;
-  color: white;
-  width: 56px;
-  height: 25px;
-  padding: 2px;
-  border-radius: 15px;
+  font-weight: 600;
+  font-size: 15px;
+  margin-right: 24px;
+  color: var(--color-red);
 `;
