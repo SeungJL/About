@@ -15,7 +15,7 @@ const Logo: FC<{
         "https://user-images.githubusercontent.com/48513798/200158031-24c3958e-fc68-4994-8666-6e43f69ba396.png";
   }
 
-  return <Image boxSize={boxSize} src={imageSrc} />;
+  return <Image boxSize="250" src={imageSrc} />;
 };
 
 export default Logo;

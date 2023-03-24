@@ -8,30 +8,35 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { SP } from "next/dist/shared/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/common/Header";
 import SpaceVoteOverView from "../../../components/Pages/About/studySpace/SpaceVoteOverview";
+import StudyNavigation from "../../../components/Pages/About/studySpace/StudyNavigation";
 
 import StudySpaceCover from "../../../components/Pages/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../components/Pages/About/studySpace/StudySpaceHeader";
 import StudySpaceOverView from "../../../components/Pages/About/studySpace/StudySpaceOverView";
 import StudyTimeTable from "../../../components/Pages/About/studySpace/StudyTimeTable";
+import CheckComment from "../../../components/Pages/About/studySpace/StudyTimeTable/CheckComment";
 import { useVoteQuery } from "../../../hooks/vote/queries";
-
-import { voteDateState } from "../../../recoil/studyAtoms";
+import { IUser } from "../../../models/user";
+import { isTimeChangeState, isVotingState } from "../../../recoil/atoms";
 
 function StudySpace() {
+  const toast = useToast();
   const router = useRouter();
+  const { data: session } = useSession();
+  const isVoting = useRecoilValue(isVotingState); //투표 취소를 누르자마자 업데이트 하기 위함
+  const [isTimeChange, setIsTimeChange] = useRecoilState(isTimeChangeState);
 
   const spaceID = router.query.studySpace;
-  const toast = useToast();
-
-  const date = router.query.date;
-  const voteDate = dayjs(date as string);
+  const voteDate = dayjs(router.query.date as string);
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -46,25 +51,40 @@ function StudySpace() {
       });
     },
   });
+  const participations = vote?.participations;
 
-  const spaceStudyInfo = vote?.participations.find(
+  useEffect(() => {
+    setIsTimeChange(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTimeChange]);
+
+  const spaceStudyInfo = participations?.find(
     (props) => props.place._id === spaceID
   );
-  console.log(spaceStudyInfo);
-  const name = spaceStudyInfo?.place.brand;
-  const firstAtts = spaceStudyInfo?.attendences.filter(
-    (att) => att.firstChoice
+
+  const myVote = spaceStudyInfo?.attendences.find(
+    (props) => (props.user as IUser).uid === session.uid
   );
+
+  const place = spaceStudyInfo?.place;
 
   return (
     <>
-      <StudySpaceHeader title={!isLoading ? name : ""} />
+      <StudySpaceHeader title={!isLoading ? place?.brand : ""} />
       <Layout>
-        {!isLoading && <StudySpaceCover src={spaceStudyInfo?.place.image} />}
-        <StudySpaceOverView space={spaceStudyInfo?.place} />
-        <HrDiv />
-        <SpaceVoteOverView date={!isLoading && voteDate} />
-        <StudyTimeTable attendances={!isLoading && firstAtts} />
+        {!isLoading && (
+          <>
+            <StudySpaceCover src={place.image} />
+            <StudySpaceOverView space={place} />
+            <HrDiv />
+            <SpaceVoteOverView
+              date={voteDate}
+              voteCnt={spaceStudyInfo && spaceStudyInfo.attendences.length}
+            />
+            <StudyTimeTable attendances={spaceStudyInfo?.attendences} />
+            <StudyNavigation myVote={myVote} place={place} />
+          </>
+        )}
       </Layout>
     </>
   );

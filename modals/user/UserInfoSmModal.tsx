@@ -100,13 +100,13 @@ const UserComment = styled.div`
 `;
 
 export default function UserInfoSmModal({ user, setIsShowModal }) {
-  const { data: monthVoteRateAll, isLoading } = useVoteRateQuery(now(), now());
-  const myMonthVote = !isLoading && monthVoteRateAll[user.name];
+  // const { data: monthVoteRateAll, isLoading } = useVoteRateQuery(now(), now());
+  // const myMonthVote = !isLoading && monthVoteRateAll[user.name];
 
   return (
     <>
       <UserInfoSmLayout>
-        <UpPart>
+        {/* <UpPart>
           <UserImage>
             <img src={user.thumbnailImage} alt={user.name} />
           </UserImage>
@@ -134,7 +134,7 @@ export default function UserInfoSmModal({ user, setIsShowModal }) {
               <div>
                 <div>
                   <FontSm>MBTI: </FontSm>
-                  <span>{user.mbti.toUpperCase()}</span>
+                  <span>{user?.mbti?.toUpperCase()}</span>
                 </div>
               </div>
               <div>
@@ -158,7 +158,7 @@ export default function UserInfoSmModal({ user, setIsShowModal }) {
             <button>친구 추가</button>
             <button>메세지</button>
           </UserRelNav>
-        </DownPart>
+        </DownPart> */}
       </UserInfoSmLayout>
     </>
   );

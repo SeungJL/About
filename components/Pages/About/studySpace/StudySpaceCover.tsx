@@ -1,13 +1,17 @@
 import Image from "next/image";
 import styled from "styled-components";
 
+const ImageList = [1, 2, 3, 4, 5];
+
 function StudySpaceCover({ src }) {
+  const randomNum = Math.floor(Math.random() * ImageList.length);
+
   return (
     <Layout>
       <Image
-        src={`/studySpace/book1.jpg`}
+        src={`/studyRandom/study${randomNum + 1}.jpg`}
         width={343}
-        height={152}
+        height={165}
         unoptimized={true}
         alt="studySpace"
       />
@@ -25,7 +29,7 @@ function StudySpaceCover({ src }) {
 }
 
 const Layout = styled.div`
-  height: 152px;
+  height: 165px;
   position: relative;
 `;
 
@@ -40,7 +44,8 @@ const SpaceIcon = styled.div`
   border: 1px solid var(--font-h5);
   overflow: hidden;
   bottom: -24px;
-  left: 16px;
+  left: 12px;
+  background-color: white;
 `;
 
 export default StudySpaceCover;

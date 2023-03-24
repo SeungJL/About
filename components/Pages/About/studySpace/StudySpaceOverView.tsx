@@ -21,7 +21,7 @@ function StudySpaceOverView({ space }: { space: IPlace }) {
 }
 
 const Layout = styled.div`
-  margin-top: 32px;
+  margin-top: 36px;
   padding-bottom: 24px;
   > span:first-child {
     font-weight: 600;
@@ -48,7 +48,5 @@ const SpaceDetail = styled.div`
     }
   }
 `;
-
-const Map = styled.div``;
 
 export default StudySpaceOverView;

@@ -1,17 +1,20 @@
 import styled from "styled-components";
 import { IAttendence } from "../../../../../models/vote";
+import CheckComment from "./CheckComment";
 import TimeTable from "./TimeTable";
 import UserTable from "./UserTable";
 
 function StudyTimeTable({ attendances }: { attendances: IAttendence[] }) {
-  console.log(attendances);
   const attendCnt = attendances?.length;
-  console.log(5, attendCnt);
+
   return (
-    <Layout cnt={attendCnt}>
-      <UserTable attendances={attendances} />
-      <TimeTable />
-    </Layout>
+    <>
+      <Layout cnt={attendCnt}>
+        <UserTable attendances={attendances} />
+        <TimeTable />
+      </Layout>
+      <CheckComment attendances={attendances} />
+    </>
   );
 }
 

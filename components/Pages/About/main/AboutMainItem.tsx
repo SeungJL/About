@@ -10,11 +10,13 @@ import Image from "next/image";
 import { IUser } from "../../../../models/user";
 import { motion } from "framer-motion";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  studySpaceFixedState,
-  voteDateState,
-} from "../../../../recoil/studyAtoms";
+
 import { useRouter } from "next/router";
+import { mySpaceFixedState, voteDateState } from "../../../../recoil/atoms";
+import { useArrivedQuery } from "../../../../hooks/vote/queries";
+import dayjs from "dayjs";
+import { VOTE_START_HOUR } from "../../../../constants/system";
+import { useState } from "react";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -23,22 +25,28 @@ function AboutMainItem({
   studySpaceInfo: IParticipation;
   voted: boolean;
 }) {
+  const router = useRouter();
   const { data: session } = useSession();
+  const voteDate = useRecoilValue(voteDateState);
+  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+
   const attendences = studySpaceInfo?.attendences;
   const place = studySpaceInfo?.place;
   const status = studySpaceInfo?.status;
-  const router = useRouter();
-  const studySpaceFixed = useRecoilValue(studySpaceFixedState);
-  const voteDate = useRecoilValue(voteDateState);
-  const statusFixed =
-    status === "pending"
-      ? "pending"
-      : status === "dismissed"
-      ? "dismissed"
-      : place._id === studySpaceFixed
-      ? "myOpen"
-      : "otherOpen";
+  const firstAttendance = attendences?.filter((att) => att.firstChoice);
 
+  const statusFixed = place?._id === mySpaceFixed ? "myOpen" : status;
+
+  const studyDate =
+    dayjs().hour() < VOTE_START_HOUR ? voteDate : voteDate.subtract(1, "day");
+
+  const { data: attendCheck, isLoading } = useArrivedQuery(studyDate);
+
+  const [isCheck, setIsCheck] = useState(false);
+  if (!isLoading) {
+    if (attendCheck.some((att) => att.user.uid === session?.uid))
+      setIsCheck(true);
+  }
   return (
     <Layout
       layout
@@ -64,17 +72,11 @@ function AboutMainItem({
       ) : (
         <Result>
           <ResultInfo>
-            <span>
-              시작 시간: <span> 13시</span>
-            </span>
-            <br />
-            <span>
-              종료 시간: <span> 19시</span>
-            </span>
+            오픈: <b>12시 ~ 21시</b>
+            <Check>
+              상태: <b>{isCheck ? "출석 완료" : "미 출석"}</b>
+            </Check>
           </ResultInfo>
-          <Check>
-            출석 여부: <span>미 출석</span>
-          </Check>
         </Result>
       )}
       <SpaceInfo>
@@ -97,7 +99,7 @@ function AboutMainItem({
         </Info>
 
         <Participants>
-          {attendences?.map((user, idx) => (
+          {firstAttendance?.map((user, idx) => (
             <ProfileContainer key={idx} zIndex={idx}>
               <ProfileImgSm imgSrc={(user?.user as IUser)?.profileImage} />
             </ProfileContainer>
@@ -105,7 +107,7 @@ function AboutMainItem({
           <ParticipantStatus>
             <IconUserTwo />
             <span>
-              <span>{attendences?.length}/6</span>
+              <span>{firstAttendance?.length}/6</span>
             </span>
           </ParticipantStatus>
         </Participants>
@@ -118,12 +120,12 @@ const Layout = styled(motion.div)<{ status: string }>`
   height: 100px;
   background-color: white;
   display: flex;
-  padding: 10px 24px 10px 16px;
+  padding: 10px 12px 10px 12px;
   margin-bottom: 10px;
   flex-direction: ${(props) =>
     props.status === "myOpen" ? "row-reverse" : null};
   border: ${(props) =>
-    props.status === "myOpen" ? "1px solid var(--color-mint)" : null};
+    props.status === "myOpen" ? "1.5px solid var(--color-mint)" : null};
 `;
 
 const ImageContainer = styled.div`
@@ -167,46 +169,35 @@ const Status = styled.div`
 `;
 const Branch = styled.div`
   background-color: var(--color-peach);
-  color: var(--color-orange3);
+  color: var(--color-red);
 `;
 
 const StatusResult = styled.div<{ isOpen: boolean }>`
-  background-color: ${(props) => (props.isOpen ? "#68d3918e" : "#d3d3d3d8")};
+  background-color: ${(props) =>
+    props.isOpen ? "#68d3918e" : "var(--font-h6)"};
   color: ${(props) =>
-    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "rgb(0,0,0,0.7)"};
+    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h2)"};
 `;
 
 const Result = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 const ResultInfo = styled.div`
-  text-align: center;
-  width: 80px;
-  height: 36px;
-  border-radius: 10px;
-
-  background-color: #f0f2f5;
+  width: 90px;
   padding: 2px;
-  font-size: 11px;
-  color: #565b67;
-  > span {
-    > span {
-      font-weight: 600;
-    }
-  }
+  font-size: 10px;
+  color: var(--font-h);
+  padding-left: 7px;
+  background-color: var(--font-h7);
 `;
 
 const Check = styled.span`
+  display: inline-block;
+  margin-top: 3px;
   align-self: flex-end;
-  margin-right: 6px;
-  font-size: 11px;
-  color: #565b67;
-  > span {
-    font-weight: 600;
-  }
+  color: var(--font-h2);
 `;
 
 const Info = styled.div`

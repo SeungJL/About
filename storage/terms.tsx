@@ -11,12 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import styled from "styled-components";
 
 const Terms = ({ closeModal }) => {
   const router = useRouter();
 
   return (
-    <>
+    <Layout>
       <Container>
         <Box
           margin="10px"
@@ -443,14 +444,18 @@ const Terms = ({ closeModal }) => {
         width="100%"
         height="8vh"
         zIndex="1000"
-        onClick={() => {
-          router.push("/vote");
-        }}
+        onClick={() => closeModal(false)}
       >
         홈으로 돌아가기
       </Button>
-    </>
+    </Layout>
   );
 };
+const Layout = styled.div`
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  top: 0;
+`;
 
 export default Terms;

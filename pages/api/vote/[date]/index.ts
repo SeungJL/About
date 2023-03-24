@@ -6,6 +6,7 @@ import { IPlace, Place } from "../../../../models/place";
 import { IUser } from "../../../../models/user";
 import { IAttendence, IVote, Vote } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
+import { IplaceInfo } from "../../../../components/utils/placeSelector";
 import { IVoteStudyInfo } from "../../../../types/study";
 
 const secret = process.env.NEXTAUTH_SECRET;

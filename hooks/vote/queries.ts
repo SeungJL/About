@@ -49,11 +49,19 @@ export function fetchFamousBooks() {
 export const useArrivedQuery = (
   currentDate: Dayjs,
   options?: Omit<
-    UseQueryOptions<{ user: IUser; memo: string }, AxiosError, void>,
+    UseQueryOptions<
+      { user: IUser; memo: string }[],
+      AxiosError,
+      { user: IUser; memo: string }[]
+    >,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useQuery<{ user: IUser; memo: string }, AxiosError, void>(
+  useQuery<
+    { user: IUser; memo: string }[],
+    AxiosError,
+    { user: IUser; memo: string }[]
+  >(
     ARRIVE_FINDMEMO,
     async () => {
       const res = await axios.get(

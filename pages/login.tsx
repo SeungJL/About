@@ -26,10 +26,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import AboutFooter from "../components/Pages/About2/AboutFooter";
-import UserInfoCheck from "../components/Pages/About2/UserInfoCheck";
+import AboutFooter from "../components/Pages/About/AboutFooter";
+import UserInfoCheck from "../components/UserInfoCheck";
 import Logo from "../components/block/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
+import styled from "styled-components";
+import { ModalXs } from "../styles/LayoutStyles";
+import ModalPortal from "../components/ModalPortal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
 
 const Login: NextPage<{
   providers: Record<
@@ -44,7 +49,7 @@ const Login: NextPage<{
 
   const forceSignOut = (router.query.force_signout as string) === "true";
   const redirectFrom = router.query.from as string;
-
+  const [isModal, setIsModal] = useState(false);
   useEffect(() => {
     if (forceSignOut) onOpen();
   }, []);
@@ -109,7 +114,9 @@ const Login: NextPage<{
       <VStack height="92vh" justifyContent="center">
         <VStack marginBottom="20px">
           <Logo imgSize="xl" boxSize="250px" />
-          <Heading textAlign="center">VOTE HELPER</Heading>
+          <Heading textAlign="center" fontSize="36px">
+            About
+          </Heading>
         </VStack>
         <Box key={kakaoProvider.id}>
           <Button
@@ -145,6 +152,13 @@ const Login: NextPage<{
             </HStack>
           </Button>
         </Box>
+        <Button
+          background="white"
+          fontSize="12px"
+          onClick={() => setIsModal(true)}
+        >
+          게스트 로그인
+        </Button>
 
         <AlertDialog
           isOpen={isOpen}
@@ -175,9 +189,60 @@ const Login: NextPage<{
         </AlertDialog>
       </VStack>
       <AboutFooter />
+      {isModal && (
+        <ModalPortal closePortal={setIsModal}>
+          <GuestModal setIsModal={setIsModal} />
+        </ModalPortal>
+      )}
     </>
   );
 };
+
+const GuestModal = ({ setIsModal }) => {
+  return (
+    <Modal>
+      <ModalHeader>
+        <Title>게스트 로그인</Title>
+        <FontAwesomeIcon icon={faX} onClick={() => setIsModal(false)} />
+      </ModalHeader>
+      <Content>
+        이 기능은 동아리 외부인을 위한 기능으로, 해당 동아리 소속의 인원은
+        카카오 로그인을 이용해주시기 바랍니다.
+      </Content>
+      <ModalNav>
+        <button onClick={() => setIsModal(false)}>뒤로</button>
+        <button onClick={() => signIn("guest")}>로그인</button>
+      </ModalNav>
+    </Modal>
+  );
+};
+
+const Modal = styled(ModalXs)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const Title = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+`;
+const ModalHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Content = styled.div`
+  font-size: 13px;
+`;
+const ModalNav = styled.nav`
+  text-align: end;
+  > button {
+    width: 60px;
+  }
+  > button:last-child {
+    color: var(--color-red);
+  }
+`;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders();

@@ -1,9 +1,11 @@
 import { background } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IUser } from "../../../../../models/user";
 import { IAttendence } from "../../../../../models/vote";
+import { isVotingState } from "../../../../../recoil/atoms";
 
 const colorArr = [
   "#FF8896",
@@ -24,12 +26,11 @@ const colorArr = [
 ];
 
 function UserTable({ attendances }: { attendances: IAttendence[] }) {
+  const isVoting = useRecoilValue(isVotingState);
   const [userArr, setUserArr] = useState<IUserTable[]>([]);
   useEffect(() => {
     setUserArr([]);
     attendances?.forEach((user) => {
-      if (!user.firstChoice) return;
-
       const start = dayjs(user?.time.start);
       const end = dayjs(user?.time.end);
       const endTime = end.hour() + end.minute() / 60;
@@ -41,18 +42,21 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
         end: end.format("HH:mm"),
         startGap: startTime - 10,
         gap,
+        isSecond: !user.firstChoice,
       };
       setUserArr((old) => [...old, temp]);
     });
-  }, []);
+  }, [isVoting]);
 
   return (
     <Layout>
       {userArr?.map((user, idx) => (
         <UserBlock key={idx}>
           <UserIcon start={user.startGap} gap={user.gap} color={colorArr[idx]}>
-            <span> {user.name}</span>
-
+            <span>
+              {user.name}
+              <Sub>{user.isSecond && "(sub)"}</Sub>
+            </span>
             <div>
               {user.start}~{user.end}
             </div>
@@ -90,6 +94,7 @@ interface IUserTable {
   end: string;
   gap: number;
   startGap: number;
+  isSecond: boolean;
 }
 
 const Layout = styled.div`
@@ -97,6 +102,11 @@ const Layout = styled.div`
   position: absolute;
   height: 100%;
   margin-top: 32px;
+`;
+
+const Sub = styled.span`
+  margin-left: 2px;
+  color: var(--font-h1);
 `;
 
 export default UserTable;

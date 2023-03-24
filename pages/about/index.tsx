@@ -12,11 +12,14 @@ import AboutMain from "../../components/Pages/About/AboutMain";
 import EventBanner from "../../components/Pages/About/EventBanner";
 import GroupStudySummary from "../../components/Pages/About/GroupStudy";
 import GroupStudy from "../../components/Pages/About/GroupStudy";
-import UserInfoCheck from "../../components/Pages/About2/UserInfoCheck";
+import UserInfoCheck from "../../components/UserInfoCheck";
 import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
+import { studyDateState } from "../../recoil/atoms";
+import AboutFooter from "../../components/Pages/About/AboutFooter";
+import RegisterFormModal from "../../modals/user/RegisterFormModal";
 
 function About() {
   const [dayCnt, setDayCnt] = useState(7);
@@ -35,12 +38,14 @@ function About() {
         <Header />
         <AboutCallender dayCnt={dayCnt} setDayCnt={setDayCnt} />
         <AboutMain />
-        <HrDiv />
-        <GroupStudySummary />
+
+        {/* <GroupStudySummary /> */}
         <EventBanner />
         <HrDiv />
-        <AttendChart />
+        <AttendChart type="main" />
       </Layout>
+      <AboutFooter />
+      {isShowRegisterForm && <RegisterFormModal />}
     </>
   );
 }
@@ -48,8 +53,8 @@ function About() {
 const Layout = styled.div``;
 
 const HrDiv = styled.div`
+  margin-top: 18px;
   height: 8px;
-  background-color: #f0f2f5;
 `;
 
 export default About;

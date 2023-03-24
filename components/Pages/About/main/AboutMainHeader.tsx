@@ -4,10 +4,14 @@ import styled from "styled-components";
 import { IconMapMark } from "../../../../public/icons/Icons";
 import { useState } from "react";
 import ModalPortal from "../../../ModalPortal";
-import VoteStudyModal from "../../../../modals/study/vote/voteStudy/VoteStudyModal";
+import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
+import { useRecoilValue } from "recoil";
+import { studyDateState } from "../../../../recoil/atoms";
+import SpaceLocalSelector from "../../../SpaceLocalSelector";
 
 function AboutMainHeader() {
   const [isShowModal, setIsShowModal] = useState(false);
+  const studyDate = useRecoilValue(studyDateState);
   return (
     <>
       <Layout>
@@ -15,17 +19,19 @@ function AboutMainHeader() {
           <div>
             <span>카공 스터디</span>
             <Vote onClick={() => setIsShowModal(true)}>
-              <FontAwesomeIcon icon={faCheckToSlot} />
-              <span>빠른투표</span>
+              {studyDate !== "passed" && (
+                <FontAwesomeIcon icon={faCheckToSlot} />
+              )}
+              <span>
+                {studyDate === "not passed"
+                  ? "빠른투표"
+                  : studyDate === "today"
+                  ? "당일 참여"
+                  : ""}
+              </span>
             </Vote>
           </div>
-          <Local>
-            <IconMapMark />
-            <select>
-              <option value="수원">수원</option>
-              <option value="강서">강서</option>
-            </select>
-          </Local>
+          {studyDate === "not passed" && <SpaceLocalSelector />}
         </Header>
       </Layout>
       {isShowModal && (
@@ -58,28 +64,6 @@ const Vote = styled.div`
     margin-left: 5px;
     font-size: 12px;
     font-weight: 400;
-  }
-`;
-
-const Local = styled.div`
-  display: flex;
-  align-items: center;
-  > select {
-    width: 50px;
-    color: #767d8a;
-    font-size: 14px;
-  }
-`;
-const BtnNav = styled.nav`
-  > button {
-    background-color: #e3e6eb;
-    font-family: "PretendSemiBold";
-    border-radius: 5px;
-    font-size: 13px;
-    padding: 3px;
-    margin-right: 10px;
-    width: 100px;
-    height: 30px;
   }
 `;
 

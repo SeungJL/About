@@ -36,10 +36,10 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
 
   const { mutate: handlePlaza, isLoading: plazaLoading } = usePlazaMutation({
     onSuccess: (data) => {
-      console.log(2, data);
+     
     },
     onError: (err) => {
-      console.log(1, err);
+    
     },
   });
 
