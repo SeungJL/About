@@ -37,7 +37,19 @@ export default function Layout({ children }) {
   }, [voteDate]);
   return (
     <>
-      {!loading && (
+      {loading ? (
+        <Loader>
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          />
+        </Loader>
+      ) : (
         <>
           <div id="root-modal">{children}</div>
           <Modals />
@@ -46,3 +58,10 @@ export default function Layout({ children }) {
     </>
   );
 }
+
+const Loader = styled.div`
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;

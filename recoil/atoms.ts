@@ -28,3 +28,8 @@ export const studyDateState = atom<"passed" | "today" | "not passed">({
   key: "studyDate",
   default: "today",
 });
+
+export const isMainLoadingState = atom({
+  key: "mainLoading",
+  default: true,
+});
