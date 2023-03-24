@@ -24,8 +24,11 @@ export default function UserInfoModal({
   user: IUser;
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { data: session } = useSession();
   const [navType, setNavType] = useState("chart");
+  const { data: comments } = useCommentQuery();
+
+  const comment = comments?.comments.find((att) => att._id === user._id);
+
   useCommentQuery();
   return (
     <>
@@ -60,7 +63,7 @@ export default function UserInfoModal({
             <Comment>
               <span>Comment</span>
 
-              <span>안녕하세요~ 잘 부탁드립니다 !</span>
+              <span>{comment.comment}</span>
             </Comment>
           </CommentWrapper>
           <UserRelNav>

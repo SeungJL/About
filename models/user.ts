@@ -3,6 +3,7 @@ import { IPlace } from "./place";
 
 export interface IUserComment {
   comment: string;
+  _id: string;
 }
 
 export interface IUserStatisticAttendence extends Document {

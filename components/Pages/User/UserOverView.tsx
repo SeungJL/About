@@ -8,7 +8,7 @@ import { Badge, Spinner, useToast } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
 import { kakaoProfileInfo } from "../../../models/interface/kakaoProfileInfo";
 import { RepeatIcon } from "@chakra-ui/icons";
-import { IUser } from "../../../models/user";
+import { IUser, IUserComment } from "../../../models/user";
 import { useMutation } from "react-query";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,16 +19,18 @@ import { useCommentMutation } from "../../../hooks/user/mutations";
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
   const [value, setValue] = useState("안녕하세요! 잘 부탁드립니다~!");
-
+  const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { mutate: onChangeComment } = useCommentMutation();
-  const { data: userComment, isLoading } = useCommentQuery();
-  !isLoading && console.log(44, userComment);
+  const { data: comments, isLoading } = useCommentQuery();
+
+  const userComment =
+    !isLoading && comments?.comments.find((att) => att?._id === user?._id);
 
   useEffect(() => {
-    // if (!isLoading) setValue(userComment);
-  }, [isLoading, userComment]);
+    if (!isLoading) setValue(userComment.comment);
+  }, [isLoading]);
   const toast = useToast();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,
@@ -69,7 +71,8 @@ export default function UserOverView() {
   };
 
   const handleSubmit = () => {
-    onChangeComment(value);
+    const temp: IUserComment = { comment: value, _id: userComment._id };
+    onChangeComment(temp);
   };
 
   return (

@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
+import { IUserComment } from "../../models/user";
 
 export const useActiveMutation = (
   options?: Omit<
@@ -13,10 +14,13 @@ export const useActiveMutation = (
 
 export const useCommentMutation = (
   options?: Omit<
-    UseMutationOptions<void, AxiosError, string>,
+    UseMutationOptions<void, AxiosError, IUserComment>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, string>(async (comment) => {
-    await axios.post("/api/user/comment", { comment });
+  useMutation<void, AxiosError, IUserComment>(async (comments) => {
+    await axios.post("/api/user/comment", {
+      comment: comments.comment,
+      _id: comments._id,
+    });
   }, options);
