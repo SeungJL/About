@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import KakaoProvider from "next-auth/providers/kakao";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -8,7 +8,7 @@ import dbConnect from "../../../libs/dbConnect";
 import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
 import { Account } from "../../../models/account";
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -171,4 +171,5 @@ export default NextAuth({
       }
     },
   },
-});
+};
+export default NextAuth(authOptions);
