@@ -25,7 +25,7 @@ export const PrivacyPolicy = ({ closeModal }) => {
   const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
   const xClicked = () => {
     setisShowPrivacy(false);
-    closeModal(true);
+    closeModal(false);
   };
   return (
     <>
@@ -36,7 +36,7 @@ export const PrivacyPolicy = ({ closeModal }) => {
         right="0"
         margin="0 auto"
         background="white"
-        zIndex="10"
+        zIndex="100"
         width="80%"
         height="80%"
         overflow="scroll"
@@ -332,7 +332,7 @@ export const PrivacyPolicy = ({ closeModal }) => {
           width="100%"
           height="8vh"
           zIndex="1000"
-          onClick={() => setisShowPrivacy(false)}
+          onClick={xClicked}
         >
           확인
         </Button>

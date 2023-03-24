@@ -18,6 +18,7 @@ import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
 import { studyDateState } from "../../recoil/atoms";
+import AboutFooter from "../../components/Pages/About/AboutFooter";
 
 function About() {
   const [dayCnt, setDayCnt] = useState(7);
@@ -40,8 +41,9 @@ function About() {
         {/* <GroupStudySummary /> */}
         <EventBanner />
         <HrDiv />
-        <AttendChart />
+        <AttendChart type="main" />
       </Layout>
+      <AboutFooter />
     </>
   );
 }

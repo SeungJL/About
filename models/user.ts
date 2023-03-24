@@ -1,8 +1,8 @@
 import mongoose, { model, Schema, Document, Model } from "mongoose";
 import { IPlace } from "./place";
 
-export interface IUserComment{
-  
+export interface IUserComment {
+  comment: string;
 }
 
 export interface IUserStatisticAttendence extends Document {

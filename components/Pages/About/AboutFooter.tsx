@@ -10,8 +10,8 @@ export default function AboutFooter() {
   return (
     <Layout>
       <div>
-        <span>상호: 어바웃 |</span>
-        <span>대표자: 이승주 |</span>
+        <span>상호: 어바웃 | </span>
+        <span>대표자: 이승주 | </span>
         <span>연락처: 010-6230-0206</span>
       </div>
       <div>
@@ -39,11 +39,11 @@ export default function AboutFooter() {
 }
 
 const Layout = styled.div`
-  border-top: 1px solid rgb(0, 0, 0, 0.2);
-  margin-top: 10vh;
-  color: rgb(0, 0, 0, 0.6);
+  border-top: 1px solid var(--font-h5);
+  margin-top: 30vh;
+  color: var(--font-h3);
   > div:last-child {
-    color: rgb(0, 0, 0, 0.9);
+    color: var(--font-h1);
     > span {
       margin-right: 10px;
     }

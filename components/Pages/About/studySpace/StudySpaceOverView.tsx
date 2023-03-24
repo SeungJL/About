@@ -21,7 +21,7 @@ function StudySpaceOverView({ space }: { space: IPlace }) {
 }
 
 const Layout = styled.div`
-  margin-top: 32px;
+  margin-top: 36px;
   padding-bottom: 24px;
   > span:first-child {
     font-weight: 600;

@@ -3,12 +3,13 @@ import dayjs, { Dayjs } from "dayjs";
 import { useQueries, useQuery, UseQueryOptions } from "react-query";
 import { IMonthStartToEnd } from "../../components/utils/AttendChart";
 import {
+  USER_COMMENT,
   USER_FINDPARTICIPATION,
   USER_FINDVOTE,
   USER_FINDVOTES,
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
-import { IUser } from "../../models/user";
+import { IUser, IUserComment } from "../../models/user";
 
 export const useActiveQuery = (
   options?: Omit<
@@ -113,6 +114,21 @@ export const useVoteRateQueries = (
         },
       };
     })
+  );
+
+export const useCommentQuery = (
+  options?: Omit<
+    UseQueryOptions<IUserComment, AxiosError, IUserComment>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IUserComment, AxiosError, IUserComment>(
+    USER_COMMENT,
+    async () => {
+      const res = await axios.get<IUserComment>(`/api/user/comment`);
+      return res.data;
+    },
+    options
   );
 
 export interface IRate {

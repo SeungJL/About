@@ -12,15 +12,11 @@ export const useActiveMutation = (
   }, options);
 
 export const useCommentMutation = (
-  currentDate: Dayjs,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, IVoteStudyInfo>,
+    UseMutationOptions<void, AxiosError, string>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, IVoteStudyInfo>(async (voteInfos) => {
-    await axios.post(
-      `/api/vote/${currentDate.format("YYYY-MM-DD")}`,
-      voteInfos
-    );
+  useMutation<void, AxiosError, string>(async (comment) => {
+    await axios.post("/api/user/comment", { comment });
   }, options);

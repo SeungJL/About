@@ -10,13 +10,14 @@ import {
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { getMonth, getToday, now } from "../../libs/utils/dateUtils";
+import styled from "styled-components";
 
 export interface IMonthStartToEnd {
   startDay: Dayjs;
   endDay: Dayjs;
 }
 
-export default function AttendChart() {
+export default function AttendChart({ type }: { type?: string }) {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
   const name = session?.user.name;
@@ -62,38 +63,88 @@ export default function AttendChart() {
   myVoteCountTotal.push(null);
   myAttendCountTotal.push(null);
 
+  const text = type === "modal" ? undefined : "내 스터디 참여";
+
   return (
     <div>
-      <ApexCharts
-        type="line"
-        series={[
-          { name: "스터디 투표", data: isLoading ? [] : myVoteCountTotal },
-          { name: "스터디 참여", data: isLoading ? [] : myAttendCountTotal },
-        ]}
-        options={{
-          chart: {
-            zoom: {
-              enabled: false,
+      {type === "main" ? (
+        <ApexCharts
+          type="line"
+          series={[
+            { name: "스터디 투표", data: isLoading ? [] : myVoteCountTotal },
+            { name: "스터디 참여", data: isLoading ? [] : myAttendCountTotal },
+          ]}
+          options={{
+            chart: {
+              zoom: {
+                enabled: false,
+              },
             },
-          },
-          stroke: {
-            curve: "straight",
-          },
-          title: {
-            text: "내 스터디 참여율",
-            align: "left",
-          },
-          grid: {
-            row: {
-              colors: ["#f3f3f3", "transparent"],
-              opacity: 0.5,
+
+            stroke: {
+              curve: "straight",
             },
-          },
-          xaxis: {
-            categories: ["1월", "2월", "3월", "4월"],
-          },
-        }}
-      />
+
+            title: {
+              text: text,
+              align: "left",
+            },
+            grid: {
+              row: {
+                colors: ["#f3f3f3", "transparent"],
+                opacity: 0.5,
+              },
+            },
+
+            xaxis: {
+              categories: ["1월", "2월", "3월", "4월"],
+            },
+          }}
+        />
+      ) : (
+        <ApexCharts
+          type="line"
+          series={[
+            { name: "스터디 투표", data: isLoading ? [] : myVoteCountTotal },
+            { name: "스터디 참여", data: isLoading ? [] : myAttendCountTotal },
+          ]}
+          options={{
+            chart: {
+              zoom: {
+                enabled: false,
+              },
+              toolbar: { show: false },
+            },
+
+            stroke: {
+              curve: "straight",
+            },
+
+            title: {
+              text: text,
+              align: "left",
+            },
+            grid: {
+              row: {
+                colors: ["#f3f3f3", "transparent"],
+                opacity: 0.5,
+              },
+            },
+
+            xaxis: {
+              categories: ["1월", "2월", "3월", "4월"],
+            },
+
+            legend: {
+              floating: true,
+              position: "bottom",
+              offsetY: -30,
+              horizontalAlign: "right",
+              fontSize: "10px",
+            },
+          }}
+        />
+      )}
     </div>
   );
 }

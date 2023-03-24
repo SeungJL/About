@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useAbsentMutation } from "../../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../../libs/queryKeys";
@@ -15,7 +15,7 @@ import ChangeTimeModal from "../../../../modals/study/vote/ChangeTimeModal";
 import VoteStudySpaceModal from "../../../../modals/study/vote/VoteStudySpaceModal";
 import { IPlace } from "../../../../models/place";
 import { IAttendence } from "../../../../models/vote";
-import { isVotingState } from "../../../../recoil/atoms";
+import { isVotingState, studyDateState } from "../../../../recoil/atoms";
 
 import ModalPortal from "../../../ModalPortal";
 
@@ -32,6 +32,7 @@ function StudyNavigation({
 
   const voteDate = dayjs(router.query.date as string);
   const [isVoting, setIsVoting] = useRecoilState(isVotingState);
+  const studyDate = useRecoilValue(studyDateState);
 
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [isCancelModal, setIsCancelModal] = useState(false);
@@ -59,29 +60,37 @@ function StudyNavigation({
 
   return (
     <>
-      <Layout>
-        <SubNav>
-          <Button onClick={() => handleAbsent()}>
-            <FontAwesomeIcon icon={faCircleXmark} size="xl" />
-            <span>투표 취소</span>
-          </Button>
-          <Button onClick={() => setIsChangeModal(true)}>
-            <FontAwesomeIcon icon={faClock} size="xl" />
-            <span>시간 변경</span>
-          </Button>
-          <Button onClick={onAbsentToday}>
-            <FontAwesomeIcon icon={faBan} size="xl" />
-            <span>당일 불참</span>
-          </Button>
-        </SubNav>
-        <MainButton
-          disabled={isVoting && true}
-          isVoting={isVoting}
-          onClick={() => setIsVoteModal(true)}
-        >
-          <span>{isVoting ? "투표 완료" : "스터디 투표하기"}</span>
-        </MainButton>
-      </Layout>
+      {studyDate === "passed" ? (
+        <Layout>
+          <MainButton disabled={true} isVoting={isVoting}>
+            <span>기간 만료</span>
+          </MainButton>
+        </Layout>
+      ) : (
+        <Layout>
+          <SubNav>
+            <Button onClick={() => handleAbsent()}>
+              <FontAwesomeIcon icon={faCircleXmark} size="xl" />
+              <span>투표 취소</span>
+            </Button>
+            <Button onClick={() => setIsChangeModal(true)}>
+              <FontAwesomeIcon icon={faClock} size="xl" />
+              <span>시간 변경</span>
+            </Button>
+            <Button onClick={onAbsentToday}>
+              <FontAwesomeIcon icon={faBan} size="xl" />
+              <span>당일 불참</span>
+            </Button>
+          </SubNav>
+          <MainButton
+            disabled={isVoting && true}
+            isVoting={isVoting}
+            onClick={() => setIsVoteModal(true)}
+          >
+            <span>{isVoting ? "투표 완료" : "스터디 투표하기"}</span>
+          </MainButton>
+        </Layout>
+      )}
       {isChangeModal && (
         <ModalPortal closePortal={setIsChangeModal}>
           <ChangeTimeModal

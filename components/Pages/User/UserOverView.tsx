@@ -1,7 +1,7 @@
 import { signOut } from "next-auth/react";
 import styled from "styled-components";
 
-import { useActiveQuery } from "../../../hooks/user/queries";
+import { useActiveQuery, useCommentQuery } from "../../../hooks/user/queries";
 import UserBadge from "../../block/UserBadge";
 import { useSession } from "next-auth/react";
 import { Badge, Spinner, useToast } from "@chakra-ui/react";
@@ -14,6 +14,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
+import { useCommentMutation } from "../../../hooks/user/mutations";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
@@ -21,7 +22,12 @@ export default function UserOverView() {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  
+  const { mutate: onChangeComment } = useCommentMutation();
+  const { data: userComment } = useCommentQuery();
+
+  useEffect(() => {
+    setValue(userComment?.comment);
+  }, [userComment]);
 
   const toast = useToast();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
@@ -63,7 +69,7 @@ export default function UserOverView() {
   };
 
   const handleSubmit = () => {
-    axios.post("/api/user/comment", { comment: value });
+    onChangeComment(value);
   };
 
   return (

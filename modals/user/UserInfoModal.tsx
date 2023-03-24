@@ -11,7 +11,10 @@ import { isShowMemberInfoState } from "../../recoil/membersAtoms";
 import { modalContextState } from "../../recoil/modalAtoms";
 import { ModalLg, FullScreen, ModalXL } from "../../styles/LayoutStyles";
 import { IUser } from "../../models/user";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
+import UserInfoChart from "./UserInfoModal/UserInfoChart";
+import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
 
 export default function UserInfoModal({
   user,
@@ -21,6 +24,7 @@ export default function UserInfoModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const { data: session } = useSession();
+  const [navType, setNavType] = useState("chart");
 
   return (
     <>
@@ -41,7 +45,7 @@ export default function UserInfoModal({
                 <FontSm>성별: </FontSm>
                 <span>{user.gender.slice(0, 1)}</span>
                 <FontSm>MBTI: </FontSm>
-                <span>{user.mbti.toUpperCase()}</span>
+                <span>{user.mbti ? user.mbti.toUpperCase() : "생략"}</span>
               </div>
               <div>
                 <FontSm>가입일: </FontSm>
@@ -51,17 +55,42 @@ export default function UserInfoModal({
           </UserInfo>
         </UpPart>
         <DownPart>
-          <CommentBox>
-            <span>Comment</span>
-            <br />
-            <span>안녕하세요~ 잘 부탁드립니다 !</span>
-          </CommentBox>
+          <CommentWrapper>
+            <Comment>
+              <span>Comment</span>
+
+              <span>안녕하세요~ 잘 부탁드립니다 !</span>
+            </Comment>
+          </CommentWrapper>
           <UserRelNav>
-            <button>Chart</button>
-            <button>기록</button>
-            <button>친구</button>
+            <Button
+              onClick={() => setNavType("chart")}
+              selected={navType === "chart"}
+            >
+              Chart
+            </Button>
+            <Button
+              onClick={() => setNavType("group")}
+              selected={navType === "group"}
+            >
+              소모임
+            </Button>
+            <Button
+              onClick={() => setNavType("badge")}
+              selected={navType === "badge"}
+            >
+              배지
+            </Button>
           </UserRelNav>
-          <Detail>Coming Soon</Detail>
+          <Detail>
+            {navType === "badge" ? (
+              <UserInfoBadge />
+            ) : navType === "chart" ? (
+              <UserInfoChart />
+            ) : (
+              <UserInfoGroup />
+            )}
+          </Detail>
         </DownPart>
       </Layout>
     </>
@@ -104,18 +133,20 @@ const UserRelNav = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  > button {
-    width: 70px;
-    height: 22px;
-    border: 1px solid rgb(0, 0, 0, 0.7);
-    border-radius: 10px;
-    margin-top: 11px;
-  }
+`;
+const Button = styled.button<{ selected: boolean }>`
+  width: 70px;
+  height: 22px;
+  border: 1px solid var(--font-h4);
+  border-radius: 10px;
+  margin-top: 11px;
+  background-color: ${(props) => (props.selected ? "var(--font-h6)" : "none")};
 `;
 
 const UserName = styled.div`
   display: flex;
   margin-bottom: 5px;
+  align-items: center;
   > span {
     margin-right: 7px;
   }
@@ -124,8 +155,8 @@ const UserProfile = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-bottom: 5px;
-  font-size: 0.9em;
+  padding-bottom: px;
+  font-size: 12px;
   height: 100%;
   > div {
     > span:nth-child(even) {
@@ -142,57 +173,36 @@ const DownPart = styled.div`
 
 const FontSm = styled.span`
   font-size: 0.95em;
-  color: rgb(0, 0, 0, 0.7);
+  color: var(--font-h3);
 `;
 
-const UserCommentBox = styled.div`
-  border: 1px solid rgb(0, 0, 0, 0.7);
-  padding: 2px;
-  height: 22%;
-`;
-
-const UserComment = styled.div`
-  > :first-child {
-    font-size: 0.8em;
-  }
-  border: 1px solid rgb(0, 0, 0, 0.7);
-  height: 100%;
-  padding: 5px;
-  font-size: 0.9em;
-`;
-const UserAttendSection = styled.div`
-  height: 50px;
-
-  display: flex;
-  text-align: center;
-  border: 1px solid rgb(0, 0, 0, 0.7);
-  margin-bottom: 5px;
-  > div:nth-child(2) {
-    border-left: 1px solid rgb(0, 0, 0, 0.7);
-    border-right: 1px solid rgb(0, 0, 0, 0.7);
-  }
-  > div {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    padding: 5px 0;
-
-    > span {
-      flex: 1;
-      font-size: 0.9em;
-      margin-bottom: 4px;
-    }
-    > span:last-child {
-      font-size: 0.85em;
-    }
-  }
-`;
 const Detail = styled.div`
   flex: 1;
-
   margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(0, 0, 0, 0.1);
+`;
+
+const CommentWrapper = styled.div`
+  border: 1px solid var(--font-h4);
+  padding: 2px;
+`;
+const Comment = styled.div`
+  border: 1px solid var(--font-h4);
+  padding: 0 5px;
+  display: flex;
+  flex-direction: column;
+  height: 45px;
+
+  > span:first-child {
+    padding-top: 3px;
+    font-size: 10px;
+    color: var(--font-h3);
+  }
+  > span:last-child {
+    padding-top: 3px;
+    font-size: 12px;
+    color: var(--font-h1);
+  }
 `;
