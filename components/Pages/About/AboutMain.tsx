@@ -154,7 +154,7 @@ function AboutMain() {
                 <AboutMainItem
                   studySpaceInfo={info}
                   voted={Boolean(
-                    spaceVoted.find((space) => space === info.place._id)
+                    spaceVoted.find((space) => space === info?.place?._id)
                   )}
                 />
               </Block>
@@ -168,6 +168,7 @@ function AboutMain() {
 
 const Layout = styled(motion.div)`
   padding: 12px 16px;
+  min-height: 486px;
 `;
 
 const Main = styled.main``;

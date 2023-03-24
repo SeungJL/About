@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { IconCircle } from "../../../public/icons/IconOutline";
 import { IconArrowBottom, IconArrowTop } from "../../../public/icons/Icons";
-import { useRecoilState } from "recoil";
-import { voteDateState } from "../../../recoil/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isMainLoadingState, voteDateState } from "../../../recoil/atoms";
 import {
   Datepicker,
   CalendarPrev,
@@ -70,6 +70,8 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
       return myDataArr[0]?.cnt !== 0 && true;
     }
   });
+
+  useEffect(() => {});
 
   const markedArr = [];
   if (!isLoading) {
@@ -218,20 +220,9 @@ const StyledDatePicker = styled(Datepicker)`
 //   </Layout>
 // );
 
-const DayOfWeek = () => (
-  <DayLine>
-    <span>일</span>
-    <span>월</span>
-    <span>화</span>
-    <span>수</span>
-    <span>목</span>
-    <span>금</span>
-    <span>토</span>
-  </DayLine>
-);
-
 const Layout = styled(motion.div)`
   padding-bottom: 8px;
+  min-height: 120px;
 `;
 
 const Header = styled.header`
