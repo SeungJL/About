@@ -10,3 +10,17 @@ export const useActiveMutation = (
   useMutation<void, AxiosError, boolean>(async (isActive) => {
     await axios.post(`/api/user/profile`, { isActive });
   }, options);
+
+export const useCommentMutation = (
+  currentDate: Dayjs,
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IVoteStudyInfo>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, IVoteStudyInfo>(async (voteInfos) => {
+    await axios.post(
+      `/api/vote/${currentDate.format("YYYY-MM-DD")}`,
+      voteInfos
+    );
+  }, options);

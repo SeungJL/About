@@ -9,19 +9,74 @@ import { getServerSideProps } from "../../pages";
 
 import { isShowMemberInfoState } from "../../recoil/membersAtoms";
 import { modalContextState } from "../../recoil/modalAtoms";
-import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
+import { ModalLg, FullScreen, ModalXL } from "../../styles/LayoutStyles";
+import { IUser } from "../../models/user";
+import { Dispatch, SetStateAction } from "react";
 
-const MemberInfoBgModalLayout = styled.div`
+export default function UserInfoModal({
+  user,
+  setIsModal,
+}: {
+  user: IUser;
+  setIsModal: Dispatch<SetStateAction<boolean>>;
+}) {
+  const { data: session } = useSession();
+
+  return (
+    <>
+      <Layout>
+        <UpPart>
+          <UserImage>
+            <img src={user.thumbnailImage} />
+          </UserImage>
+          <UserInfo>
+            <UserName>
+              <span>{user.name}</span>
+              <UserBadge role={user.role} />
+            </UserName>
+            <UserProfile>
+              <div>
+                <FontSm>나이: </FontSm>
+                <span>{birthToAge(user.birth)}</span>
+                <FontSm>성별: </FontSm>
+                <span>{user.gender.slice(0, 1)}</span>
+                <FontSm>MBTI: </FontSm>
+                <span>{user.mbti.toUpperCase()}</span>
+              </div>
+              <div>
+                <FontSm>가입일: </FontSm>
+                <span>{user.registerDate}</span>
+              </div>
+            </UserProfile>
+          </UserInfo>
+        </UpPart>
+        <DownPart>
+          <CommentBox>
+            <span>Comment</span>
+            <br />
+            <span>안녕하세요~ 잘 부탁드립니다 !</span>
+          </CommentBox>
+          <UserRelNav>
+            <button>Chart</button>
+            <button>기록</button>
+            <button>친구</button>
+          </UserRelNav>
+          <Detail>Coming Soon</Detail>
+        </DownPart>
+      </Layout>
+    </>
+  );
+}
+const Layout = styled(ModalXL)`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
-  width: 300px;
-  height: 380px;
+
   top: 50%;
   padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 100;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -141,74 +196,3 @@ const Detail = styled.div`
   align-items: center;
   background-color: rgb(0, 0, 0, 0.1);
 `;
-
-export default function MemberInfoBgModal() {
-  const [modalContext, setModalContext] = useRecoilState(modalContextState);
-  const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
-  const user = modalContext.MemberInfoBg.userInfo;
-  const { data: session } = useSession();
-  const onScreenClicked = () => {
-    setModalContext({});
-    setIsShowMemberInfo(false);
-  };
-
-  return (
-    <>
-      <MemberInfoBgModalLayout>
-        <UpPart>
-          <UserImage>
-            <img src={user.thumbnailImage} />
-          </UserImage>
-          <UserInfo>
-            <UserName>
-              <span>{user.name}</span>
-              <UserBadge role={user.role} />
-            </UserName>
-            <UserProfile>
-              <div>
-                <FontSm>나이: </FontSm>
-                <span>{birthToAge(user.birth)}</span>
-                <FontSm>성별: </FontSm>
-                <span>{user.gender.slice(0, 1)}</span>
-                <FontSm>MBTI: </FontSm>
-                <span>{user.mbti.toUpperCase()}</span>
-              </div>
-              <div>
-                <FontSm>가입일: </FontSm>
-                <span>{user.registerDate}</span>
-              </div>
-            </UserProfile>
-          </UserInfo>
-        </UpPart>
-        <DownPart>
-          <UserAttendSection>
-            <div>
-              <span>참여횟수(1주)</span>
-              <span>0</span>
-            </div>
-            <div>
-              <span>참여횟수(한달)</span>
-              <span>0</span>
-            </div>
-            <div>
-              <span>점수</span>
-              <span>0</span>
-            </div>
-          </UserAttendSection>
-          <CommentBox>
-            <span>Comment</span>
-            <br />
-            <span>안녕하세요~ 잘 부탁드립니다 !</span>
-          </CommentBox>
-          <UserRelNav>
-            <button>Chart</button>
-            <button>기록</button>
-            <button>친구</button>
-          </UserRelNav>
-          <Detail>Coming Soon</Detail>
-        </DownPart>
-      </MemberInfoBgModalLayout>
-      <FullScreen onClick={onScreenClicked} />
-    </>
-  );
-}

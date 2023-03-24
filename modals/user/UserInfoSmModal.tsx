@@ -102,7 +102,7 @@ const UserComment = styled.div`
 export default function UserInfoSmModal({ user, setIsShowModal }) {
   const { data: monthVoteRateAll, isLoading } = useVoteRateQuery(now(), now());
   const myMonthVote = !isLoading && monthVoteRateAll[user.name];
-
+  console.log(user);
   return (
     <>
       <UserInfoSmLayout>
@@ -134,7 +134,7 @@ export default function UserInfoSmModal({ user, setIsShowModal }) {
               <div>
                 <div>
                   <FontSm>MBTI: </FontSm>
-                  <span>{user.mbti.toUpperCase()}</span>
+                  <span>{user?.mbti?.toUpperCase()}</span>
                 </div>
               </div>
               <div>

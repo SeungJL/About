@@ -132,9 +132,9 @@ const PlaceIcon = styled.button<{
   border-radius: 25%;
   border: ${(props) =>
     props.firstSelected
-      ? "2px solid var(--color-brown)"
+      ? "2px solid var(--color-mintimage.pngimage.png)"
       : props.isSelected
-      ? "2px solid #D2691E"
+      ? "2px solid var(--color-red)"
       : "1px solid var(--font-h1)"};
   overflow: hidden;
 `;

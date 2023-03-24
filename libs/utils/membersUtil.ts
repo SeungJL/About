@@ -110,7 +110,7 @@ export const nameToKr = (name) => {
 };
 
 export const birthToAge = (birth: string) => {
-  const birthYear = Number(birth.slice(0, 2));
+  const birthYear = Number(birth?.slice(0, 2));
   if (birthYear < 50) return String(24 - birthYear);
   else return String(124 - birthYear);
 };

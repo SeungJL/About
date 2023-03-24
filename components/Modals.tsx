@@ -13,8 +13,8 @@ import { useSession } from "next-auth/react";
 import UserInfoSm from "../modals/user/UserInfoSmModal";
 import { FullScreen } from "../styles/LayoutStyles";
 import { isShowMemberInfoState } from "../recoil/membersAtoms";
-import MemberInfoModal from "../modals/user/UserInfoBgModal";
-import MemberInfoBgModal from "../modals/user/UserInfoBgModal";
+import MemberInfoModal from "../modals/user/UserInfoModal";
+import MemberInfoBgModal from "../modals/user/UserInfoModal";
 import {
   isShowNotCompletedState,
   isShowStudyVoteModalState,

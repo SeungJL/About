@@ -4,21 +4,14 @@ import { IAttendence } from "../../../../../models/vote";
 import { IUser } from "../../../../../models/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import UserImageIcon from "../../../../common/UserImageIcon";
 
 function CheckComment({ attendances }: { attendances: IAttendence[] }) {
   return (
     <Layout>
       {attendances.map((user, idx) => (
         <Block key={idx}>
-          <UserImg>
-            <Image
-              src={`${(user.user as IUser).profileImage}`}
-              width={45}
-              height={45}
-              alt="userProfile"
-              unoptimized={true}
-            />
-          </UserImg>
+          <UserImageIcon user={user.user as IUser} />
           <BlockInfo>
             <Info>
               <span>{(user.user as IUser).name}</span>
