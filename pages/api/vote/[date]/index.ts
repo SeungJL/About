@@ -130,7 +130,7 @@ export default async function handler(
       vote.participations = vote.participations.map((participation) => ({
         ...participation,
         attendences: participation.attendences.filter((attendence) => {
-          return (attendence.user as IUser)?._id.toString() !== token.id;
+          return (attendence.user as IUser)?.uid.toString() !== token.uid;
         }),
       }));
       await vote.save();
