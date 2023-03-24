@@ -15,7 +15,7 @@ export default async function handler(
   switch (method) {
     case "GET":
       try {
-        const { comment } = await User.findOne({ uid: session.uid }, "comment");
+        const { comment } = await User.findOne({}, "comment");
         res.status(200).json({ comment });
       } catch (err) {
         res.status(500).send(err);

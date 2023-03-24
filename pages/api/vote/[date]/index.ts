@@ -4,17 +4,10 @@ import { strToDate } from "../../../../libs/utils/dateUtils";
 import dbConnect from "../../../../libs/dbConnect";
 import { IPlace, Place } from "../../../../models/place";
 import { IUser } from "../../../../models/user";
-import {
-  IAttendence,
-  IParticipantNote,
-  IParticipation,
-  IVote,
-  Vote,
-} from "../../../../models/vote";
+import { IAttendence, IVote, Vote } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
 import { IplaceInfo } from "../../../../components/utils/placeSelector";
 import { IVoteStudyInfo } from "../../../../types/study";
-import dayjs from "dayjs";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -23,10 +16,10 @@ export default async function handler(
   res: NextApiResponse<IVote>
 ) {
   const { method } = req;
+  const { place, subPlace, start, end }: IVoteStudyInfo = req.body;
   const dateStr = req.query.date as string;
   const date = strToDate(dateStr).toDate();
   const token = await getToken({ req, secret });
-
   await dbConnect();
 
   let vote = await findOneVote(date);
@@ -74,8 +67,6 @@ export default async function handler(
       //   return res.status(204).end();
       // }
 
-      const { place, subPlace, start, end }: IVoteStudyInfo = req.body;
-
       let isOnlyTime = false;
       if (!place) {
         isOnlyTime = true;
@@ -120,6 +111,19 @@ export default async function handler(
 
       await vote.save();
       return res.status(204).end();
+    case "PATCH":
+      vote.participations.map((participation) => {
+        participation.attendences.map((attendance) => {
+          if ((attendance.user as IUser)?.uid === token.uid) {
+            attendance.time.start = start;
+            attendance.time.end = end;
+          }
+        });
+      });
+
+      await vote.save();
+      return res.status(204).end();
+      break;
     case "DELETE":
       if (!isVoting) {
         return res.status(204).end();
@@ -127,7 +131,7 @@ export default async function handler(
       vote.participations = vote.participations.map((participation) => ({
         ...participation,
         attendences: participation.attendences.filter((attendence) => {
-          return (attendence.user as IUser)?._id.toString() !== token.id;
+          return (attendence.user as IUser)?.uid.toString() !== token.uid;
         }),
       }));
       await vote.save();
