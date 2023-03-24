@@ -15,37 +15,32 @@ export default async function handler(
   const date = strToDate(dateStr).toDate();
 
   const token = await getToken({ req, secret });
-  const _id = token.id;
 
   await dbConnect();
 
   const vote = await Vote.findOne({ date });
   if (!vote) return res.status(404).end();
 
-  const targetAtt = vote.participations
-    .flatMap((p) => p.attendences)
-    .find((att) => att.user == _id);
-
   switch (method) {
     case "PATCH":
       vote.participations.forEach((participation) => {
         const isTargetParticipation = !!participation.attendences.find(
-          (att) => att.user == _id
+          (att) => att.user == token._id
         );
         if (isTargetParticipation) {
           participation.attendences = participation.attendences.filter(
-            (att) => att.user != _id
+            (att) => att.user != token._id
           );
           participation.absences = [
             ...participation.absences,
-            { user: _id, noShow: false, message: "" } as IAbsence,
+            { user: token._id, noShow: false, message: "" } as IAbsence,
           ];
         }
       });
 
       await vote.save();
       return res.status(204).end();
+    default:
+      return res.status(400).end();
   }
-
-  return res.status(400).end();
 }
