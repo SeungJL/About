@@ -9,7 +9,7 @@ import ModalPortal from "../ModalPortal";
 
 function UserImageIcon({ user }: { user: IUser }) {
   const [isUserModal, setIsUserModal] = useState(false);
-  console.log(user);
+
   return (
     <>
       <Layout onClick={() => setIsUserModal(true)}>

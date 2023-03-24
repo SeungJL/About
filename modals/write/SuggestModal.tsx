@@ -62,7 +62,7 @@ export default function SuggestModal({
         </div>
         <Date>
           <span>작성일:</span>
-          <TitleInput value={dayjs().format("YYYY-MM-DD")} />
+          <div>{dayjs().format("YYYY-MM-DD")}</div>
         </Date>
         <div>
           <span>작성자: </span>

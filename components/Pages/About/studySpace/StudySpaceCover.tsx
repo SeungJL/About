@@ -5,7 +5,7 @@ const ImageList = [1, 2, 3, 4, 5];
 
 function StudySpaceCover({ src }) {
   const randomNum = Math.floor(Math.random() * ImageList.length);
-  console.log(randomNum);
+
   return (
     <Layout>
       <Image
@@ -45,6 +45,7 @@ const SpaceIcon = styled.div`
   overflow: hidden;
   bottom: -24px;
   left: 12px;
+  background-color: white;
 `;
 
 export default StudySpaceCover;

@@ -41,6 +41,7 @@ function VoteStudyModal({
   const queryClient = useQueryClient();
 
   const [errorMessage, setErrorMessage] = useState("");
+
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -72,13 +73,19 @@ function VoteStudyModal({
       },
     }
   );
+  const placeInfoArr: IplaceInfo[] = [{}, {}, {}, {}];
   const participations = vote?.participations;
-  const placeInfoArr = participations?.map((participant) => {
+  participations?.forEach((participant) => {
     const placeName = participant.place;
     const voteCnt = participant.attendences.length;
     const status = participant.status;
-
-    return { placeName, voteCnt, status };
+    const temp = { placeName, voteCnt, status };
+    const brand = placeName.brand;
+    if (brand === "탐앤탐스") placeInfoArr[1] = temp;
+    else if (brand === "할리스") placeInfoArr[0] = temp;
+    else if (brand === "카탈로그") placeInfoArr[3] = temp;
+    else if (brand === "아티제") placeInfoArr[2] = temp;
+    // return { placeName, voteCnt, status };
   });
 
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
@@ -213,7 +220,7 @@ const Layout = styled(ModalLg)`
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   padding-right: 4px;
   > span {
     font-size: 16px;
@@ -242,7 +249,7 @@ const PageNav = styled.nav`
   text-align: end;
 
   > button {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--font-h1);
     margin-left: 14px;
     margin-right: 10px;
@@ -256,7 +263,7 @@ const SubmitNav = styled.nav`
 
   > button {
     width: 60px;
-    font-size: 13px;
+    font-size: 14px;
     color: var(--font-h1);
     border-radius: 8px;
     padding: 1px;
@@ -276,6 +283,6 @@ const Error = styled.span`
 `;
 
 const Time = styled.div`
-  margin-top: 12px;
+  margin-top: 16px;
   padding-top: 12px;
 `;

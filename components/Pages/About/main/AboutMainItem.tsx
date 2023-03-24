@@ -33,6 +33,7 @@ function AboutMainItem({
   const attendences = studySpaceInfo?.attendences;
   const place = studySpaceInfo?.place;
   const status = studySpaceInfo?.status;
+  const firstAttendance = attendences?.filter((att) => att.firstChoice);
 
   const statusFixed = place?._id === mySpaceFixed ? "myOpen" : status;
 
@@ -98,7 +99,7 @@ function AboutMainItem({
         </Info>
 
         <Participants>
-          {attendences?.map((user, idx) => (
+          {firstAttendance?.map((user, idx) => (
             <ProfileContainer key={idx} zIndex={idx}>
               <ProfileImgSm imgSrc={(user?.user as IUser)?.profileImage} />
             </ProfileContainer>
@@ -106,7 +107,7 @@ function AboutMainItem({
           <ParticipantStatus>
             <IconUserTwo />
             <span>
-              <span>{attendences?.length}/6</span>
+              <span>{firstAttendance?.length}/6</span>
             </span>
           </ParticipantStatus>
         </Participants>

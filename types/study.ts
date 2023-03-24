@@ -11,5 +11,5 @@ export interface IVoteStudyInfo {
 }
 
 export interface IPlaceStatus {
-  status: "pending" | "waiting_confirm" | "open" | "dismissed";
+  status?: "pending" | "waiting_confirm" | "open" | "dismissed";
 }

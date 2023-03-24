@@ -39,9 +39,9 @@ export interface IAbsence {
 }
 
 export interface IParticipation extends IPlaceStatus, ITimeStartToEnd {
-  place: IPlace;
-  attendences: IAttendence[];
-  absences: IAbsence[];
+  place?: IPlace;
+  attendences?: IAttendence[];
+  absences?: IAbsence[];
 
   showVote?: boolean;
 }

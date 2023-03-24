@@ -23,11 +23,11 @@ export default function UserOverView() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { mutate: onChangeComment } = useCommentMutation();
-  const { data: userComment } = useCommentQuery();
+  const { data: userComment, isLoading } = useCommentQuery();
 
   useEffect(() => {
-    setValue(userComment?.comment);
-  }, [userComment]);
+    if (!isLoading) setValue(userComment?.comment);
+  }, [isLoading, userComment]);
 
   const toast = useToast();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<

@@ -59,7 +59,7 @@ function Modals() {
       )}
       {openResult && <VoteResultModal />}
       {registerForm && <RegisterFormModal />}
-      {memberInfo && <MemberInfoBgModal />}
+
       {voteComplete && <VoteSuccessModal />}
     </>
   );

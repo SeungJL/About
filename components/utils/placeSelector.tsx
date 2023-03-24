@@ -70,7 +70,7 @@ const PlaceSelector = ({
           !isSelectUnit &&
           firstPlace.some((place) => place.placeName === info.placeName);
 
-        const place = info.placeName;
+        const place = info?.placeName;
         return (
           <PlaceItem key={idx}>
             <PlaceIcon
@@ -80,14 +80,14 @@ const PlaceSelector = ({
               firstSelected={isFirstSelected}
             >
               <Image
-                src={`${place.image}`}
+                src={`${place?.image}`}
                 alt="studySpace"
-                width={54}
-                height={54}
+                width={64}
+                height={64}
                 unoptimized={true}
               />
             </PlaceIcon>
-            <span>{place.branch}</span>
+            <span>{place?.branch}</span>
           </PlaceItem>
         );
       })}
@@ -98,8 +98,8 @@ const PlaceSelector = ({
 export default PlaceSelector;
 
 export interface IplaceInfo extends IPlaceStatus {
-  placeName: IPlace;
-  voteCnt: number;
+  placeName?: IPlace;
+  voteCnt?: number;
 }
 interface IPlaceSelecter {
   placeInfoArr: IplaceInfo[];
@@ -119,15 +119,15 @@ const PlaceItem = styled.div`
   > span {
     text-align: center;
     font-size: 13px;
-    color: var(--font-h2);
+    color: var(--font-h1);
   }
 `;
 const PlaceIcon = styled.button<{
   isSelected: boolean;
   firstSelected: boolean;
 }>`
-  width: 54px;
-  height: 54px;
+  width: 65px;
+  height: 65px;
   margin: 5px 0;
   border-radius: 25%;
   border: ${(props) =>
@@ -135,6 +135,9 @@ const PlaceIcon = styled.button<{
       ? "2px solid var(--color-mintimage.pngimage.png)"
       : props.isSelected
       ? "2px solid var(--color-red)"
-      : "1px solid var(--font-h1)"};
+      : "1px solid var(--font-h3)"};
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

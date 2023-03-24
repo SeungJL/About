@@ -83,7 +83,7 @@ const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
 const Layout = styled.div``;
 const UnitLayout = styled.div`
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   align-items: center;
 
   > select {

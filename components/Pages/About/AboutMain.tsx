@@ -40,7 +40,7 @@ function AboutMain() {
   const [spaceVoted, setSpaceVoted] = useState<string[]>([""]);
   const [myStudySpace, setMyStudySpace] = useState<IParticipation>();
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
-  console.log(voteDate);
+
   const { data: vote, isLoading } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
@@ -55,8 +55,15 @@ function AboutMain() {
     },
   });
 
-  const participations = vote?.participations;
-
+  const participations: IParticipation[] = [{}, {}, {}, {}];
+  vote?.participations.forEach((participant) => {
+    const brand = participant.place.brand;
+    if (brand === "탐앤탐스") participations[1] = participant;
+    else if (brand === "할리스") participations[0] = participant;
+    else if (brand === "카탈로그") participations[3] = participant;
+    else if (brand === "아티제") participations[2] = participant;
+    // return { placeName, voteCnt, status };
+  });
   /**스터디 알고리즘 적용 */
   useEffect(() => {
     if (dayjs().hour() >= VOTE_END_HOUR) {
@@ -87,7 +94,7 @@ function AboutMain() {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
       if (
-        space.attendences.find(
+        space?.attendences?.find(
           (att) => (att.user as IUser)?.uid === session?.uid
         )
       ) {

@@ -1,22 +1,12 @@
 import styled from "styled-components";
-import CreateNotice from "../components/Pages/Notice/CreateNotice";
-import NoticeCategory from "../components/Pages/Notice/NoticeCategory";
-import NoticeContents from "../components/Pages/Notice/NoticeContents";
-import Seo from "../components/common/Seo";
-import Header from "../components/common/Header";
+
+import Seo from "../../components/common/Seo";
+import Header from "../../components/common/Header";
 import { useState } from "react";
 import { motion } from "framer-motion";
-
-// const MainContent = styled.main`
-//   background: RGB(113, 85, 63, 0.9);
-//   display: flex;
-//   flex-direction: column;
-//   align-items: stretch;
-//   height: 93%;
-//   border-radius: 10px;
-
-//   padding: 15px 5px;
-// `;
+import { noticeData } from "../../storage/storage";
+import NoticeItem from "../../components/Pages/Notice/NoticeItem";
+import { Accordion } from "@chakra-ui/react";
 
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);
@@ -39,7 +29,12 @@ function Notice() {
           </Button>
         </Category>
         <Main>
-          <Content>도착한 알림이 없습니다.</Content>
+          {/* <Content>도착한 알림이 없습니다.</Content> */}
+          <Accordion allowToggle>
+            {noticeData.map((item) => (
+              <NoticeItem key={item.id} item={item} isNotice={isNotice} />
+            ))}
+          </Accordion>
         </Main>
       </Layout>
     </NoticeLayout>
@@ -59,16 +54,17 @@ const Button = styled.div<{ isSelected: boolean }>`
   width: 50%;
   text-align: center;
   font-weight: 600;
+  padding-bottom: 8px;
   border-bottom: ${(props) =>
     props.isSelected ? "2px solid var(--font-h1)" : null};
   color: ${(props) => (props.isSelected ? " var(--font-h1)" : "#767d8a")};
 `;
 
 const Main = styled.main`
-  margin: 30px 16px 34px 16px;
   color: var(--font-h1);
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 `;
 
 const Content = styled.div`

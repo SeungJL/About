@@ -67,7 +67,7 @@ function StudySpace() {
   );
 
   const place = spaceStudyInfo?.place;
-  console.log(spaceStudyInfo);
+
   return (
     <>
       <StudySpaceHeader title={!isLoading ? place?.brand : ""} />

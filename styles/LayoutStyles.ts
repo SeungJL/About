@@ -52,8 +52,8 @@ export const ModalLg = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
-  width: 80%;
-  height: 220px;
+  width: 90%;
+  height: 240px;
   top: 50%;
   padding: 10px;
   left: 50%;
@@ -67,7 +67,7 @@ export const ModalXL = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
-  width: 80%;
+  width: 90%;
   height: 360px;
   top: 50%;
   padding: 10px;
@@ -82,7 +82,7 @@ export const ModalXL = styled.div`
 export const ModalXXL = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   width: 90%;
   height: 500px;
   top: 50%;

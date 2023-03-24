@@ -167,7 +167,6 @@ function ModifyUserInfoModal({ setIsModal }) {
 export default ModifyUserInfoModal;
 
 const ModalLayout = styled(ModalLg)`
-  width: 320px;
   height: 340px;
   padding: 22px;
 `;
@@ -199,7 +198,7 @@ const InputItem = styled.div`
 
   > span {
     font-size: 15px;
-    width: 33%;
+    width: 28%;
   }
   > input {
     width: 70%;
@@ -214,7 +213,7 @@ const InputGenders = styled.div`
 
   > span {
     font-size: 15px;
-    width: 33%;
+    width: 28%;
   }
 `;
 const GenderBtnNav = styled.nav`
@@ -226,6 +225,7 @@ const GenderBtn = styled.div<{ selected: boolean }>`
   margin-right: 3px;
   background-color: ${(props) =>
     props.selected ? "var(--color-red)" : "var(--font-h5)"};
+  color: ${(props) => (props.selected ? "white" : "var(--font-h1)")};
   border-radius: 10px;
   text-align: center;
 `;
