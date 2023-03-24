@@ -24,11 +24,11 @@ export default function UserOverView() {
 
   const { mutate: onChangeComment } = useCommentMutation();
   const { data: userComment, isLoading } = useCommentQuery();
+  !isLoading && console.log(44, userComment);
 
   useEffect(() => {
-    if (!isLoading) setValue(userComment?.comment);
+    // if (!isLoading) setValue(userComment);
   }, [isLoading, userComment]);
-  console.log(userComment);
   const toast = useToast();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,

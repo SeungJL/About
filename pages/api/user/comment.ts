@@ -16,6 +16,7 @@ export default async function handler(
     case "GET":
       try {
         const { comment } = await User.findOne({}, "comment");
+        console.log(2323, comment);
         res.status(200).json({ comment });
       } catch (err) {
         res.status(500).send(err);

@@ -118,14 +118,14 @@ export const useVoteRateQueries = (
 
 export const useCommentQuery = (
   options?: Omit<
-    UseQueryOptions<IUserComment, AxiosError, IUserComment>,
+    UseQueryOptions<IUserComment[], AxiosError, IUserComment[]>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<IUserComment, AxiosError, IUserComment>(
+  useQuery<IUserComment[], AxiosError, IUserComment[]>(
     USER_COMMENT,
     async () => {
-      const res = await axios.get<IUserComment>(`/api/user/comment`);
+      const res = await axios.get<IUserComment[]>(`/api/user/comment`);
       return res.data;
     },
     options

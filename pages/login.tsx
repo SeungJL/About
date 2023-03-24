@@ -64,39 +64,6 @@ const Login: NextPage<{
 
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
 
-  const ogTitle = useMemo(() => {
-    switch (redirectFrom) {
-      case "/vote":
-        return "스터디 투표";
-      case "/vote/result":
-        return "투표 결과";
-      default:
-        return "";
-    }
-  }, [redirectFrom]);
-
-  const ogDesc = useMemo(() => {
-    switch (redirectFrom) {
-      case "/vote":
-        return "광교 카페 스터디 투표";
-      case "/vote/result":
-        return "스터디 참여투표 결과";
-      default:
-        return "";
-    }
-  }, [redirectFrom]);
-
-  const ogImage = useMemo(() => {
-    switch (redirectFrom) {
-      case "/vote":
-        return "/meta_tag_img_root.png";
-      case "/vote/result":
-        return "/res_meta_tag_img.png";
-      default:
-        return "";
-    }
-  }, [redirectFrom]);
-
   return (
     <>
       <Head>
@@ -109,7 +76,7 @@ const Login: NextPage<{
         <meta property="og:type" content="website" />
         <meta property="og:title" content="About" />
         <meta property="og:description" content="About" />
-        <meta property="og:image" content="/og.png" />
+        <meta property="og:image" content="/about.png" />
       </Head>
       <VStack height="92vh" justifyContent="center">
         <VStack marginBottom="20px">
