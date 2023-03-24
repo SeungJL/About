@@ -63,7 +63,7 @@ export default function UserInfoModal({
             <Comment>
               <span>Comment</span>
 
-              <span>{comment.comment}</span>
+              <span>{comment?.comment}</span>
             </Comment>
           </CommentWrapper>
           <UserRelNav>
