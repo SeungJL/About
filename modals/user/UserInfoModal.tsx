@@ -15,6 +15,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
 import UserInfoChart from "./UserInfoModal/UserInfoChart";
 import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
+import { useCommentQuery } from "../../hooks/user/queries";
 
 export default function UserInfoModal({
   user,
@@ -25,7 +26,7 @@ export default function UserInfoModal({
 }) {
   const { data: session } = useSession();
   const [navType, setNavType] = useState("chart");
-
+  useCommentQuery();
   return (
     <>
       <Layout>

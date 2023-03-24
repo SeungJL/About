@@ -68,7 +68,7 @@ export const ModalXL = styled.div`
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
   width: 90%;
-  height: 360px;
+  height: 380px;
   top: 50%;
   padding: 10px;
   left: 50%;
