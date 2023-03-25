@@ -77,10 +77,10 @@ function AboutMain() {
     setSpaceVoted([]);
     setmySpaceFixed("");
     setIsVoting(false);
-    if (voteDate < getInterestingDate()) {
+    if (voteDate < getInterestingDate().subtract(1, "day")) {
       setStudyDate("passed");
     } else if (
-      voteDate.date() === getInterestingDate().date() &&
+      voteDate.add(1, "day").date() === getInterestingDate().date() &&
       dayjs().hour() < 17
     ) {
       setStudyDate("today");
@@ -151,7 +151,7 @@ function AboutMain() {
               }
             }}
           >
-            {studyDate === "passed" && (
+            {studyDate !== "not passed" && (
               <Result>
                 <span>내 스터디 결과</span>
                 {mySpaceFixed !== "" ? (
