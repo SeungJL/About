@@ -113,6 +113,7 @@ function AboutMain() {
   const otherStudySpaces = participations?.filter(
     (space) => space !== myStudySpace
   );
+
   return (
     <AnimatePresence initial={false}>
       <Wrapper>
@@ -150,7 +151,7 @@ function AboutMain() {
               }
             }}
           >
-            {studyDate !== "not passed" && (
+            {studyDate === "passed" && (
               <Result>
                 <span>내 스터디 결과</span>
                 {mySpaceFixed !== "" ? (
