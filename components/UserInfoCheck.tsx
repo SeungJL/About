@@ -1,24 +1,37 @@
 import React from "react";
-import { getToday } from "../libs/utils/dateUtils";
 import { useEffect, useState } from "react";
 import ModalPortal from "./ModalPortal";
-import LastWeekAttendPopUp from "../modals/pop-up/LastWeekAttendPopUp";
+import RegisterFormModal from "../modals/user/RegisterFormModal";
+import { useSession } from "next-auth/react";
+import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";
 
-export default function UserInfoCheck() {
-  const [isShowAttendPopUp, setIsShowAttendPopUp] = useState(false);
-
-  const lastWeekAttendPopUp = "lastWeekAttendPopUp";
+export default function UserSetting() {
+  const { data: session } = useSession();
+  const [isAttendPopup, setIsAttendPopup] = useState(false);
+  const [isRegisterModal, setIsRegisterModal] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem(lastWeekAttendPopUp) !== "true") {
-      localStorage.setItem(lastWeekAttendPopUp, "true");
-    }
+    if (session?.isActive === false) setIsRegisterModal(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /**유저 팝업 */
+  useEffect(() => {
+    // if (localStorage.getItem(LAST_WEEK_ATTEND) !== "true") {
+    //   localStorage.setItem(LAST_WEEK_ATTEND, "true");
+    // }
+  }, []);
+
   return (
     <>
-      {isShowAttendPopUp && (
-        <ModalPortal closePortal={setIsShowAttendPopUp}>
-          <LastWeekAttendPopUp closePopUp={setIsShowAttendPopUp} />
+      {isAttendPopup && (
+        <ModalPortal closePortal={setIsAttendPopup}>
+          <WeekAttendPopup closePopUp={setIsAttendPopup} />
+        </ModalPortal>
+      )}
+      {isRegisterModal && (
+        <ModalPortal closePortal={setIsRegisterModal}>
+          <RegisterFormModal />
         </ModalPortal>
       )}
     </>
