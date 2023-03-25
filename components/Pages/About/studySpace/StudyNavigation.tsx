@@ -64,7 +64,7 @@ function StudyNavigation({
     <>
       {studyDate === "passed" ? (
         <Layout>
-          <MainButton disabled={true} isVoting={isVoting}>
+          <MainButton disabled={true} isVoting={false}>
             <span>기간 만료</span>
           </MainButton>
         </Layout>

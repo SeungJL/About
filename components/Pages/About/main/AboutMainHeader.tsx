@@ -64,6 +64,7 @@ const Vote = styled.div`
     margin-left: 5px;
     font-size: 12px;
     font-weight: 400;
+    min-width: 80px;
   }
 `;
 
