@@ -17,7 +17,7 @@ import { Modal } from "@chakra-ui/react";
 import { isatty } from "tty";
 import Drawer from "../../Layout/Drawer";
 import Image from "next/image";
-
+import { motion } from "framer-motion";
 export default function AboutHeader() {
   const [isRuleModal, setIsRuleModal] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
@@ -39,10 +39,15 @@ export default function AboutHeader() {
           <div onClick={() => setIsDrawer(true)}>
             <FontAwesomeIcon icon={faBars} size="lg" />
           </div>
-          <div style={{ paddingBottom: "3px", marginLeft: "4px" }}>
+          <motion.div
+            style={{ paddingBottom: "3px", marginLeft: "4px" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+          >
             {/* <IconAbout /> */}
             <Image src={`/aboutSm.png`} width={74} height={42} alt="aboutSm" />
-          </div>
+          </motion.div>
         </div>
         <Nav>
           <div>

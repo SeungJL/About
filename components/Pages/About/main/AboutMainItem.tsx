@@ -1,4 +1,9 @@
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faCheckCircle,
+  faO,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
@@ -17,6 +22,7 @@ import { useArrivedQuery } from "../../../../hooks/vote/queries";
 import dayjs from "dayjs";
 import { VOTE_START_HOUR } from "../../../../constants/system";
 import { useState } from "react";
+import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -70,14 +76,20 @@ function AboutMainItem({
           </div>
         </ImageContainer>
       ) : (
-        <Result>
-          <ResultInfo>
-            오픈: <b>12시 ~ 21시</b>
-            <Check>
-              상태: <b>{isCheck ? "출석 완료" : "미 출석"}</b>
-            </Check>
-          </ResultInfo>
-        </Result>
+        <Check>
+          <span>출석여부: </span>
+          <div>
+            {isCheck ? (
+              <FontAwesomeIcon icon={faO} size="lg" color="var(--color-red)" />
+            ) : (
+              <FontAwesomeIcon
+                icon={faXmark}
+                size="lg"
+                color="var(--color-red)"
+              />
+            )}
+          </div>
+        </Check>
       )}
       <SpaceInfo>
         <Status>
@@ -86,6 +98,12 @@ function AboutMainItem({
             <StatusResult isOpen={Boolean(status === "open")}>
               {status === "open" ? "Open" : "Closed"}
             </StatusResult>
+          )}
+          {statusFixed === "myOpen" && (
+            <Result>
+              <FontAwesomeIcon icon={faClock} size="sm" />
+              <ResultInfo>12시 ~ 21시</ResultInfo>
+            </Result>
           )}
         </Status>
         <Info>
@@ -157,19 +175,20 @@ const Status = styled.div`
   text-align: center;
   margin-bottom: 5px;
   display: flex;
-  > div {
-    width: 48px;
-    height: 14px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 10px;
-    padding: 0px;
-    margin-right: 5px;
-  }
+  align-items: center;
 `;
+
 const Branch = styled.div`
   background-color: var(--color-peach);
   color: var(--color-red);
+  display: inline-block;
+  width: 48px;
+  height: 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 10px;
+  padding: 0px;
+  margin-right: 5px;
 `;
 
 const StatusResult = styled.div<{ isOpen: boolean }>`
@@ -177,27 +196,41 @@ const StatusResult = styled.div<{ isOpen: boolean }>`
     props.isOpen ? "#68d3918e" : "var(--font-h6)"};
   color: ${(props) =>
     props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h2)"};
+  display: inline-block;
+  width: 48px;
+  height: 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 10px;
+  padding: 0px;
+  margin-right: 5px;
 `;
 
 const Result = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  margin-left: 4px;
 `;
 
 const ResultInfo = styled.div`
-  width: 90px;
-  padding: 2px;
-  font-size: 10px;
+  margin-left: 4px;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--font-h);
-  padding-left: 7px;
-  background-color: var(--font-h7);
 `;
 
-const Check = styled.span`
-  display: inline-block;
-  margin-top: 3px;
-  align-self: flex-end;
-  color: var(--font-h2);
+const Check = styled.div`
+  width: 68px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  > span {
+    display: inline-block;
+
+    font-size: 13px;
+
+    color: var(--font-h1);
+  }
 `;
 
 const Info = styled.div`
