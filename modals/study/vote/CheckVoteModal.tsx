@@ -73,7 +73,6 @@ const Layout = styled(ModalLg)`
   padding: 15px;
 `;
 const Title = styled.span`
-  font-family: "NanumEx";
   padding-bottom: 5px;
   margin-bottom: 5px;
 `;
