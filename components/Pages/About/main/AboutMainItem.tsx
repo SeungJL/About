@@ -139,7 +139,8 @@ const Layout = styled(motion.div)<{ status: string }>`
   height: 100px;
   background-color: white;
   display: flex;
-  padding: 10px 12px 10px 12px;
+  align-items: center;
+  padding: 6px 12px 6px 12px;
   margin-bottom: 10px;
   flex-direction: ${(props) =>
     props.status === "myOpen" ? "row-reverse" : null};
@@ -166,9 +167,11 @@ const ImageContainer = styled.div`
 `;
 
 const SpaceInfo = styled.div`
+  padding-top: 4px;
   margin-left: 12px;
   display: flex;
   flex-direction: column;
+  height: 100%;
   flex: 1;
 `;
 
@@ -183,12 +186,13 @@ const Branch = styled.div`
   background-color: var(--color-peach);
   color: var(--color-red);
   display: inline-block;
-  min-width: 48px;
-  height: 14px;
+  min-width: 54px;
+
+  height: 16px;
   border-radius: 10px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 10px;
-  padding: 0px;
+  padding: 1px;
   margin-right: 5px;
 `;
 
@@ -201,7 +205,7 @@ const StatusResult = styled.div<{ isOpen: boolean }>`
   min-width: 48px;
   height: 14px;
   border-radius: 10px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 10px;
   padding: 0px;
   margin-right: 5px;
@@ -237,9 +241,10 @@ const Check = styled.div`
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 2px;
   > span {
     color: #565b67;
-    font-family: "PretendardSemiBold";
+
     font-weight: 600;
     font-size: 16px;
   }

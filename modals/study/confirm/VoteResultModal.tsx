@@ -229,7 +229,7 @@ const Header = styled.header`
   padding-right: 12px;
   > span {
     font-size: 16px;
-    font-family: "NanumEx";
+
     height: 30px;
   }
   > div {

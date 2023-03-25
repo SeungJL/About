@@ -136,7 +136,7 @@ const DateBasic = styled.div`
   align-items: center;
 
   > span {
-    font-family: pretendSemiBold;
+    font-weight: 600;
     color: var(--font-h1);
     font-size: 20px;
     letter-spacing: -4%;
