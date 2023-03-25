@@ -71,7 +71,7 @@ function AboutMain() {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-  console.log(voteDate);
+
   /**날짜마다 달라지는 정보들 초기화 */
   useEffect(() => {
     setSpaceVoted([]);
@@ -113,7 +113,7 @@ function AboutMain() {
   const otherStudySpaces = participations?.filter(
     (space) => space !== myStudySpace
   );
-  console.log(studyDate);
+
   return (
     <AnimatePresence initial={false}>
       <Wrapper>

@@ -35,9 +35,6 @@ function About() {
     if (session?.isActive === false) setIsShowRegisterForm(true);
   }, [session?.isActive]);
 
-  useEffect(()=>{
-    
-  },[])
   return (
     <>
       <Seo title="About" />
