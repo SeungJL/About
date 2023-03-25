@@ -41,7 +41,7 @@ function About() {
       <UserInfoCheck />
       <Layout>
         <Header />
-        <AboutCallender dayCnt={dayCnt} setDayCnt={setDayCnt} />
+        <AboutCallender />
         <AboutMain />
 
         {/* <GroupStudySummary /> */}
