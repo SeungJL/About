@@ -21,7 +21,7 @@ import dbConnect from "../../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
 import { isMember } from "../../../libs/utils/authUtils";
 import { AnimatePresence, motion } from "framer-motion";
-
+import { Audio, ColorRing } from "react-loader-spinner";
 import {
   isVotingState,
   mySpaceFixedState,
@@ -114,63 +114,86 @@ function AboutMain() {
   );
   return (
     <AnimatePresence initial={false}>
-      {!isLoading && (
-        <Layout
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            x: { type: "spring", stiffness: 300, damping: 30, duration: 1 },
-            opacity: { duration: 1 },
-          }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
-            if (swipe < -swipeConfidenceThreshold) {
-              setVoteDate((old) => old.add(1, "day"));
-            } else if (swipe > swipeConfidenceThreshold) {
-              setVoteDate((old) => old.subtract(1, "day"));
-            }
-          }}
-        >
-          {studyDate !== "not passed" && (
-            <Result>
-              <span>내 스터디 결과</span>
-              {mySpaceFixed !== "" ? (
-                <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
-              ) : (
-                <NoMyStudy />
-              )}
-              <HrDiv />
-            </Result>
-          )}
-          <AboutMainHeader />
-          <Main>
-            {otherStudySpaces?.map((info, idx) => (
-              <Block key={idx}>
-                <AboutMainItem
-                  studySpaceInfo={info}
-                  voted={Boolean(
-                    spaceVoted.find((space) => space === info?.place?._id)
-                  )}
-                />
-              </Block>
-            ))}
-          </Main>
-        </Layout>
-      )}
+      <Wrapper>
+        {isLoading ? (
+          <Loader>
+            <ColorRing
+              visible={true}
+              height="40"
+              width="40"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#ff6b6b", "#fd7b5b", "#ffa500", "#ffeae5", "#00c2b3"]}
+            />
+          </Loader>
+        ) : (
+          <Layout
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30, duration: 1 },
+              opacity: { duration: 1 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+              if (swipe < -swipeConfidenceThreshold) {
+                setVoteDate((old) => old.add(1, "day"));
+              } else if (swipe > swipeConfidenceThreshold) {
+                setVoteDate((old) => old.subtract(1, "day"));
+              }
+            }}
+          >
+            {studyDate !== "not passed" && (
+              <Result>
+                <span>내 스터디 결과</span>
+                {mySpaceFixed !== "" ? (
+                  <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
+                ) : (
+                  <NoMyStudy />
+                )}
+                <HrDiv />
+              </Result>
+            )}
+            <AboutMainHeader />
+            <Main>
+              {otherStudySpaces?.map((info, idx) => (
+                <Block key={idx}>
+                  <AboutMainItem
+                    studySpaceInfo={info}
+                    voted={Boolean(
+                      spaceVoted.find((space) => space === info?.place?._id)
+                    )}
+                  />
+                </Block>
+              ))}
+            </Main>
+          </Layout>
+        )}
+      </Wrapper>
     </AnimatePresence>
   );
 }
+
+const Loader = styled.div`
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 const Layout = styled(motion.div)`
   padding: 12px 16px;
   min-height: 486px;
 `;
-
+const Wrapper = styled.div`
+  min-height: 486px;
+`;
 const Main = styled.main``;
 
 const Block = styled.div``;

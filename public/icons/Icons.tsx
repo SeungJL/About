@@ -130,7 +130,7 @@ export const IconAbout = () => (
     width="78"
     height="32"
     viewBox="0 0 44 18"
-    fill="none"
+    fill="#343943"
     xmlns="http://www.w3.org/2000/svg"
   >
     <circle cx="40.6493" cy="8.57217" r="1.35" fill="#00C2B3" />
@@ -148,7 +148,7 @@ export const IconAboutBig = () => (
     width="117"
     height="48"
     viewBox="0 0 44 18"
-    fill="none"
+    fill="#343943"
     xmlns="http://www.w3.org/2000/svg"
   >
     <circle cx="40.6493" cy="8.57217" r="1.35" fill="#00C2B3" />
@@ -166,7 +166,7 @@ export const IconAboutMax = () => (
     width="187"
     height="86"
     viewBox="0 0 44 18"
-    fill="none"
+    fill="#343943"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g clipPath="url(#clip0_212_3114)" filter="url(#filter0_d_212_3114)">

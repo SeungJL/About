@@ -12,9 +12,10 @@ import { useRouter } from "next/router";
 import { IconAbout, IconBellNotice } from "../../../public/icons/Icons";
 import ModalPortal from "../../ModalPortal";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";
-import Drawer from "../../layout/Drawer";
+
 import { Modal } from "@chakra-ui/react";
 import { isatty } from "tty";
+import Drawer from "../../Layout/Drawer";
 
 export default function AboutHeader() {
   const [isRuleModal, setIsRuleModal] = useState(false);

@@ -34,19 +34,19 @@ export default function Layout({ children }) {
       Router.events.off("routeChangeComplete", end);
       Router.events.off("routeChangeError", end);
     };
-  }, [voteDate]);
+  }, []);
   return (
     <>
       {loading ? (
         <Loader>
           <ColorRing
             visible={true}
-            height="80"
-            width="80"
+            height="40"
+            width="40"
             ariaLabel="blocks-loading"
             wrapperStyle={{}}
             wrapperClass="blocks-wrapper"
-            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+            colors={["#ff6b6b", "#fd7b5b", "#ffa500", "#ffeae5", "#00c2b3"]}
           />
         </Loader>
       ) : (
