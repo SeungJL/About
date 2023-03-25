@@ -76,7 +76,7 @@ const Login: NextPage<{
         <meta property="og:type" content="website" />
         <meta property="og:title" content="About" />
         {/* <meta property="og:description" content="About" /> */}
-        <meta property="og:image" content="/about.png" />
+        <meta property="og:image" content="/aboutOg.png" />
       </Head>
       <VStack height="92vh" justifyContent="center">
         <VStack marginBottom="20px">
