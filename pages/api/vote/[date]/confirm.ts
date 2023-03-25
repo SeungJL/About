@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../libs/dbConnect";
@@ -14,7 +13,6 @@ export default async function handler(
   const { method } = req;
   const dateStr = req.query.date as string;
   const date = strToDate(dateStr).toDate();
-  const { start, end } = req.body;
 
   const token = await getToken({ req, secret });
   const _id = token.id;
@@ -29,15 +27,14 @@ export default async function handler(
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
           if (att.user.toString() === _id.toString()) {
-            att.time.start = dayjs(start);
-            att.time.end = dayjs(end);
+            att.confirmed = true;
           }
         });
       });
 
       await vote.save();
       return res.status(204).end();
+    default:
+      return res.status(400).end();
   }
-
-  return res.status(400).end();
 }
