@@ -26,7 +26,7 @@ function AboutMainHeader() {
                 {studyDate === "not passed"
                   ? "빠른투표"
                   : studyDate === "today"
-                  ? "당일 참여"
+                  ? "당일참여"
                   : ""}
               </span>
             </Vote>

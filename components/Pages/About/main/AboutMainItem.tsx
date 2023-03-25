@@ -53,6 +53,7 @@ function AboutMainItem({
     if (attendCheck.some((att) => att.user.uid === session?.uid))
       setIsCheck(true);
   }
+
   return (
     <Layout
       layout
