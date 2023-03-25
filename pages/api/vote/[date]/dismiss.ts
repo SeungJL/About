@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../libs/dbConnect";
 import { strToDate } from "../../../../libs/utils/dateUtils";
+import { IUser } from "../../../../models/user";
 import { IAbsence, IVote, Vote } from "../../../../models/vote";
 
 const secret = process.env.NEXTAUTH_SECRET;
@@ -25,11 +26,11 @@ export default async function handler(
     case "PATCH":
       vote.participations.forEach((participation) => {
         const isTargetParticipation = !!participation.attendences.find(
-          (att) => att.user == token._id
+          (att) => (att.user as IUser)?.uid.toString() === token.uid
         );
         if (isTargetParticipation) {
           participation.attendences = participation.attendences.filter(
-            (att) => att.user != token._id
+            (att) => (att.user as IUser)?.uid.toString() !== token.uid
           );
           participation.absences = [
             ...participation.absences,
