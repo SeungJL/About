@@ -16,6 +16,7 @@ import StudyRuleModal from "../../../modals/info/StudyRuleModal";
 import { Modal } from "@chakra-ui/react";
 import { isatty } from "tty";
 import Drawer from "../../Layout/Drawer";
+import Image from "next/image";
 
 export default function AboutHeader() {
   const [isRuleModal, setIsRuleModal] = useState(false);
@@ -38,8 +39,9 @@ export default function AboutHeader() {
           <div onClick={() => setIsDrawer(true)}>
             <FontAwesomeIcon icon={faBars} size="lg" />
           </div>
-          <div>
-            <IconAbout />
+          <div style={{ paddingBottom: "3px", marginLeft: "4px" }}>
+            {/* <IconAbout /> */}
+            <Image src={`/aboutSm.png`} width={74} height={42} alt="aboutSm" />
           </div>
         </div>
         <Nav>

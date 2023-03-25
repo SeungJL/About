@@ -76,6 +76,7 @@ function AboutMain() {
   useEffect(() => {
     setSpaceVoted([]);
     setmySpaceFixed("");
+    setIsVoting(false);
     if (voteDate < getInterestingDate()) {
       setStudyDate("passed");
     } else if (

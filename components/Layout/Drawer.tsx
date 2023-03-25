@@ -42,6 +42,7 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
 } from "@chakra-ui/react";
+import Image from "next/image";
 function Drawer({
   isDrawer,
   setIsDrawer,
@@ -69,7 +70,7 @@ function Drawer({
     >
       <Title>
         <div onClick={() => setIsDrawer(false)}>
-          <IconAboutBig />
+          <Image src={`/aboutSm.png`} width={97} height={55} alt="aboutSm2" />
         </div>
         <div>
           <Popover>
@@ -174,20 +175,23 @@ const Layout = styled(motion.div)`
 `;
 
 const Title = styled.div`
-  padding-top: 16px;
-  padding-left: 6px;
+  padding-top: 8px;
+  padding-left: 14px;
   display: flex;
   justify-content: space-between;
+
+  > div:first-child {
+  }
   > div:last-child {
-    margin-top: 4px;
-    margin-right: 18px;
+    margin-top: 14px;
+    margin-right: 24px;
     color: var(--font-h3);
   }
 `;
 
 const Main = styled.main`
   padding: 16px;
-  padding-top: 10px;
+  padding-top: 8px;
 `;
 const NavItem = styled.div<{ pageSelected: boolean }>`
   color: ${(props) => (props.pageSelected ? "var(--font-h1)d1" : "#565b679f")};
