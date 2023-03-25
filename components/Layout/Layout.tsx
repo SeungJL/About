@@ -36,7 +36,7 @@ export default function Layout({ children }) {
     };
   }, []);
   return (
-    <>
+    <LayoutContainer>
       {loading ? (
         <Loader>
           <ColorRing
@@ -55,9 +55,11 @@ export default function Layout({ children }) {
           <Modals />
         </>
       )}
-    </>
+    </LayoutContainer>
   );
 }
+
+const LayoutContainer = styled.div``;
 
 const Loader = styled.div`
   position: fixed;
