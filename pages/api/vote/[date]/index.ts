@@ -63,9 +63,9 @@ export default async function handler(
     case "GET":
       return res.status(200).json(vote);
     case "POST":
-      // if (isVoting) {
-      //   return res.status(204).end();
-      // }
+      if (isVoting) {
+        return res.status(204).end();
+      }
 
       let isOnlyTime = false;
       if (!place) {
@@ -131,11 +131,13 @@ export default async function handler(
       vote.participations = vote.participations.map((participation) => ({
         ...participation,
         attendences: participation.attendences.filter((attendence) => {
-          return (attendence.user as IUser)?.uid.toString() !== token.uid;
+          return (
+            (attendence.user as IUser)?.uid.toString() !== token.uid.toString()
+          );
         }),
       }));
-      await vote.save();
 
+      await vote.save();
       return res.status(204).end();
   }
   return res.status(400).end();

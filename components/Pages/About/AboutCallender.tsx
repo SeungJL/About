@@ -71,8 +71,6 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
     }
   });
 
-  useEffect(() => {});
-
   const markedArr = [];
   if (!isLoading) {
     for (let i = 0; i < myMonthAttend.length; i++) {
@@ -88,7 +86,7 @@ function AboutCallender({ dayCnt, setDayCnt }: ICallender) {
   const CalendarHeader = () => (
     <Header>
       <DateBasic>
-        <span>{dayjs().format("YYYY년 M월")}</span>
+        <span>{voteDate.format("YYYY년 M월")}</span>
         {calendarType === "week" ? (
           <ArrowIconWrapper onClick={() => setCalendarType("month")}>
             <IconArrowBottom />

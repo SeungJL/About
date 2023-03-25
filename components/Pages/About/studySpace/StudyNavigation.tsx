@@ -42,6 +42,7 @@ function StudyNavigation({
     onSuccess: async () => {
       await queryClient.invalidateQueries([VOTE_GET, voteDate]);
       setIsVoting(false);
+
       router.push(`/about`);
     },
     onError: (err) => {
