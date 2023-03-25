@@ -67,28 +67,14 @@ export default async function handler(
         return res.status(204).end();
       }
 
-      let isOnlyTime = false;
-      if (!place) {
-        isOnlyTime = true;
-      }
       const attendence = {
         time: { start: start, end: end },
         user: token.id,
       } as IAttendence;
+
       vote.participations = vote.participations.map((participation) => {
         const placeId = (participation.place as IPlace)._id.toString();
         const subPlaceIdArr = subPlace?.map((place) => place._id);
-        if (isOnlyTime) {
-          return {
-            ...participation,
-            attendences: [
-              ...participation.attendences,
-              {
-                ...attendence,
-              },
-            ],
-          };
-        }
         if (placeId === place._id) {
           return {
             ...participation,
@@ -111,6 +97,7 @@ export default async function handler(
 
       await vote.save();
       return res.status(204).end();
+
     case "PATCH":
       vote.participations.map((participation) => {
         participation.attendences.map((attendance) => {
@@ -123,11 +110,12 @@ export default async function handler(
 
       await vote.save();
       return res.status(204).end();
-      break;
+
     case "DELETE":
       if (!isVoting) {
         return res.status(204).end();
       }
+
       vote.participations = vote.participations.map((participation) => ({
         ...participation,
         attendences: participation.attendences.filter((attendence) => {
@@ -139,6 +127,8 @@ export default async function handler(
 
       await vote.save();
       return res.status(204).end();
+
+    default:
+      return res.status(400).end();
   }
-  return res.status(400).end();
 }
