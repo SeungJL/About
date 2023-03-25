@@ -182,7 +182,7 @@ const Branch = styled.div`
   background-color: var(--color-peach);
   color: var(--color-red);
   display: inline-block;
-  width: 48px;
+  min-width: 48px;
   height: 14px;
   border-radius: 10px;
   font-weight: 700;
@@ -197,7 +197,7 @@ const StatusResult = styled.div<{ isOpen: boolean }>`
   color: ${(props) =>
     props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h2)"};
   display: inline-block;
-  width: 48px;
+  min-width: 48px;
   height: 14px;
   border-radius: 10px;
   font-weight: 700;
