@@ -7,5 +7,5 @@ export const RESULT_CLOSE_TIME = 14;
 export const START_HOUR = 10;
 export const END_HOUR = 22;
 
-export const VOTE_START_HOUR = 16;
+export const VOTE_START_HOUR = 14;
 export const VOTE_END_HOUR = 23;

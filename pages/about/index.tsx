@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import Header from "../../components/Pages/About/AboutHeader";
@@ -17,7 +17,11 @@ import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
-import { studyDateState } from "../../recoil/atoms";
+import {
+  mySpaceFixedState,
+  studyDateState,
+  voteDateState,
+} from "../../recoil/atoms";
 import AboutFooter from "../../components/Pages/About/AboutFooter";
 import RegisterFormModal from "../../modals/user/RegisterFormModal";
 
@@ -25,11 +29,15 @@ function About() {
   const [dayCnt, setDayCnt] = useState(7);
   const { data: session } = useSession();
   const [isShowRegisterForm, setIsShowRegisterForm] = useState(false);
-
+  const setVoteDate = useSetRecoilState(voteDateState);
+  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   useEffect(() => {
     if (session?.isActive === false) setIsShowRegisterForm(true);
   }, [session?.isActive]);
 
+  useEffect(()=>{
+    
+  },[])
   return (
     <>
       <Seo title="About" />
