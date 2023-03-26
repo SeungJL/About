@@ -64,7 +64,17 @@ export default async function handler(
       return res.status(200).json(vote);
     case "POST":
       if (isVoting) {
-        return res.status(204).end();
+        vote.participations = vote.participations.map((participation) => ({
+          ...participation,
+          attendences: participation.attendences.filter((attendence) => {
+            return (
+              (attendence.user as IUser)?.uid.toString() !==
+              token.uid.toString()
+            );
+          }),
+        }));
+
+        await vote.save();
       }
 
       const attendence = {
