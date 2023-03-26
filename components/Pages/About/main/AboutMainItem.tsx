@@ -35,8 +35,11 @@ function AboutMainItem({
 }) {
   const router = useRouter();
   const { data: session } = useSession();
+
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+
+  const [isCheck, setIsCheck] = useState(false);
 
   const attendences = studySpaceInfo?.attendences;
   const place = studySpaceInfo?.place;
@@ -48,16 +51,12 @@ function AboutMainItem({
   const studyDate =
     dayjs().hour() < VOTE_START_HOUR ? voteDate : voteDate.subtract(1, "day");
 
-  const { data: attendCheck, isLoading } = useArrivedQuery(studyDate);
-
-  const [isCheck, setIsCheck] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading) {
+  const { data: attendCheck } = useArrivedQuery(studyDate, {
+    onSuccess() {
       if (attendCheck.some((att) => att.user.uid === session?.uid))
         setIsCheck(true);
-    }
-  }, [isLoading]);
+    },
+  });
 
   return (
     <Layout

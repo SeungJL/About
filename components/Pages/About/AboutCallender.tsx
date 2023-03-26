@@ -43,6 +43,7 @@ function Calendar() {
 
   const [calendarType, setCalendarType] = useState<"week" | "month">("week");
   const [monthRange, setmonthRange] = useState<IDateStartToEnd[]>([]);
+  const [markedArr, setMarkedArr] = useState([]);
 
   useEffect(() => {
     const temp = [];
@@ -66,17 +67,21 @@ function Calendar() {
     }
   });
 
-  const markedArr = [];
-  if (!isLoading) {
-    for (let i = 0; i < myMonthAttend.length; i++) {
-      if (myMonthAttend[i]) {
-        markedArr.push({
-          date: new Date(voteDate.year(), voteDate.month(), i),
-          color: "var(--color-mint)",
-        });
+  useEffect(() => {
+    if (!isLoading) {
+      const temp = [];
+      for (let i = 0; i < myMonthAttend.length; i++) {
+        if (myMonthAttend[i]) {
+          temp.push({
+            date: new Date(voteDate.year(), voteDate.month(), i),
+            color: "var(--color-mint)",
+          });
+        }
       }
+      setMarkedArr(temp);
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, voteDate]);
 
   const CalendarHeader = () => (
     <Header>
