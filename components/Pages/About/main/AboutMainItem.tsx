@@ -21,7 +21,7 @@ import { mySpaceFixedState, voteDateState } from "../../../../recoil/atoms";
 import { useArrivedQuery } from "../../../../hooks/vote/queries";
 import dayjs from "dayjs";
 import { VOTE_START_HOUR } from "../../../../constants/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
 
 function AboutMainItem({
@@ -49,10 +49,13 @@ function AboutMainItem({
   const { data: attendCheck, isLoading } = useArrivedQuery(studyDate);
 
   const [isCheck, setIsCheck] = useState(false);
-  if (!isLoading) {
-    if (attendCheck.some((att) => att.user.uid === session?.uid))
-      setIsCheck(true);
-  }
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (attendCheck.some((att) => att.user.uid === session?.uid))
+        setIsCheck(true);
+    }
+  }, [isLoading]);
 
   return (
     <Layout
