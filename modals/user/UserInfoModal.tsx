@@ -35,7 +35,7 @@ export default function UserInfoModal({
       <Layout>
         <UpPart>
           <UserImage>
-            <img src={user.thumbnailImage} />
+            <img src={user.profileImage} />
           </UserImage>
           <UserInfo>
             <UserName>

@@ -182,9 +182,7 @@ const getNullableProfile = async (accessToken: string) => {
     });
     return {
       name: res.data.nickName as string,
-      thumbnailImage:
-        (res.data.thumbnailURL as string) ||
-        "https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png",
+      
       profileImage:
         (res.data.profileImageURL as string) ||
         "https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png",

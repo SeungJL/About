@@ -108,7 +108,7 @@ export default function UserInfoSmModal({ user, setIsShowModal }) {
       <UserInfoSmLayout>
         {/* <UpPart>
           <UserImage>
-            <img src={user.thumbnailImage} alt={user.name} />
+            <img src={user.profileImage} alt={user.name} />
           </UserImage>
 
           <UserInfo>

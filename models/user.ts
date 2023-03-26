@@ -88,7 +88,7 @@ export interface IUser extends Document {
   mbti: string;
   gender: string;
   name: string;
-  thumbnailImage: string;
+  
   profileImage: string;
   role?: string;
   statistic: IUserStatistic;
@@ -125,11 +125,7 @@ export const UserSchema: Schema<IUser> = new Schema({
     type: String,
     default: "",
   },
-  thumbnailImage: {
-    type: String,
-    default:
-      "https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png",
-  },
+  
   profileImage: {
     type: String,
     default:

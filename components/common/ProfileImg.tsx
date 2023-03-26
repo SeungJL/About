@@ -21,7 +21,7 @@ export default function ProfileImg({ user }: { user: IUser }) {
   return (
     <>
       <ProfileImgLayout onClick={() => setIsShowModal(true)}>
-        <img src={user?.thumbnailImage} alt={user?.name} />
+        <img src={user?.profileImage} alt={user?.name} />
       </ProfileImgLayout>
       {isShowModal && (
         <ModalPortal closePortal={setIsShowModal}>

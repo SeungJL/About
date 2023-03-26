@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
           uid: "0",
           name: "guest",
           role: "member",
-          thumbnailImage: "",
+        
           profileImage: "",
           statistic: {
             attendences: [],
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         uid: profile.id.toString(),
         name: profile.properties.nickname,
         role: "member",
-        thumbnailImage: profile.properties.thumbnail_image,
+     
         profileImage: profile.properties.profile_image,
         statistic: {
           attendences: [],
