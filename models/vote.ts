@@ -27,11 +27,6 @@ export interface IAttendence {
   memo: string;
 }
 
-export interface IInvitation {
-  user: string | IUser;
-  invitor: string | IUser;
-}
-
 export interface IAbsence {
   user: string | IUser;
   noShow: boolean;
@@ -133,20 +128,6 @@ const AbsenceSchema: Schema<IAbsence> = new Schema(
       default: false,
     },
     message: Schema.Types.String,
-  },
-  { _id: false, timestamps: true }
-);
-
-const InvitationSchema: Schema<IInvitation> = new Schema(
-  {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    invitor: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
   },
   { _id: false, timestamps: true }
 );
