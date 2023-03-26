@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
-import { IPlazaData } from "../../models/plaza";
+import { IPlazaData } from "../../types/plaza";
 
 export const usePlazaMutation = (
   options?: Omit<

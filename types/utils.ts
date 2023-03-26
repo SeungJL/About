@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export interface ITimeStartToEnd {
   start?: {
     hour?: number;
@@ -7,4 +9,9 @@ export interface ITimeStartToEnd {
     hour?: number;
     minutes?: number;
   };
+}
+
+export interface IParticipantTime {
+  start?: Dayjs;
+  end?: Dayjs;
 }

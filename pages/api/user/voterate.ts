@@ -2,8 +2,8 @@ import dayjs, { Dayjs } from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next/types";
 import dbConnect from "../../../libs/dbConnect";
 import { now } from "../../../libs/utils/dateUtils";
+import { Vote } from "../../../models/studyDetails";
 import { User } from "../../../models/user";
-import { Vote } from "../../../models/vote";
 
 export default async function handler(
   req: NextApiRequest,

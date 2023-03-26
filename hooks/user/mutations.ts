@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
-import { IUserComment } from "../../models/user";
+import { IUserComment } from "../../types/user";
 
 export const useActiveMutation = (
   options?: Omit<

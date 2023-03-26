@@ -5,10 +5,10 @@ import {
   isChangedCategoryName,
   nameToKr,
 } from "../../../libs/utils/membersUtil";
-import { IItemBox } from "../../../models/members";
+
 import { categoryState } from "../../../recoil/membersAtoms";
 
-export default function CategoryStatus({ name }: IItemBox) {
+export default function CategoryStatus({ name }: any) {
   const category = useRecoilValue(categoryState);
   const status = category.status;
   const isChanged = isChangedCategoryName(category.name, status);

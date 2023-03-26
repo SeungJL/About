@@ -35,12 +35,8 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
   };
 
   const { mutate: handlePlaza, isLoading: plazaLoading } = usePlazaMutation({
-    onSuccess: (data) => {
-     
-    },
-    onError: (err) => {
-    
-    },
+    onSuccess: (data) => {},
+    onError: (err) => {},
   });
 
   const onValid = async (data) => {

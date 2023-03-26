@@ -2,8 +2,6 @@ import { Box, Text } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 
-import { IParticipation } from "../../models/vote";
-
 import { ITimeStartToEnd } from "../../types/utils";
 import { useState } from "react";
 import styled from "styled-components";
@@ -13,8 +11,6 @@ const ENDHOURS = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 const MINUTES = ["00", "30"];
 
 const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
-  // setTime({ start, end });
-  console.log(2);
   return (
     <Layout>
       <TimeSelectorUnit type="start" time={times.start} setTimes={setTimes} />

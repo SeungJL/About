@@ -20,8 +20,9 @@ import {
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/system";
-import { IPlace } from "../../models/place";
-import { IPlaceStatus } from "../../types/study";
+
+import { IPlaceStatus } from "../../types/statistics";
+import { IPlace } from "../../types/studyDetails";
 
 const PlaceSelector = ({
   placeInfoArr,

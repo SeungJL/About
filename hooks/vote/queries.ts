@@ -2,9 +2,8 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
-import { IPlace } from "../../models/place";
-import { IUser } from "../../models/user";
-import { IVote } from "../../models/vote";
+import { IPlace, IVote } from "../../types/studyDetails";
+import { IUser } from "../../types/user";
 
 export const useVoteQuery = (
   date: Dayjs,

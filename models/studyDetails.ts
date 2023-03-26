@@ -1,65 +1,17 @@
-import mongoose, { Document, Model, model, Schema } from "mongoose";
-import { IPlaceStatus } from "../types/study";
-import { IPlace } from "./place";
-import { IUser } from "./user";
-import { ITimeStartToEnd } from "../types/utils";
-import { Dayjs } from "dayjs";
-export interface IParticipantTime {
-  start?: Dayjs;
-  end?: Dayjs;
-}
-
-export interface IParticipantNote {
-  desc: string;
-  lunch: "attend" | "absent" | "no_select";
-  dinner: "attend" | "absent" | "no_select";
-  afterDinner: "attend" | "absent" | "no_select";
-}
-
-export interface IAttendence {
-  user: string | IUser;
-  time: IParticipantTime;
-  note: IParticipantNote;
-  created: Date;
-  arrived?: Date;
-  firstChoice: boolean;
-  confirmed: boolean;
-  memo: string;
-}
-
-export interface IAbsence {
-  user: string | IUser;
-  noShow: boolean;
-  message: string;
-}
-
-export interface IParticipation extends IPlaceStatus, ITimeStartToEnd {
-  place?: IPlace;
-  attendences?: IAttendence[];
-  absences?: IAbsence[];
-
-  showVote?: boolean;
-}
-
-export interface IRegularMeeting {
-  enable: boolean;
-  place?: string;
-  time?: Date;
-  description?: string;
-}
-
-export interface IAgg {
-  voted: string[] | IUser[];
-  invited: string[] | IUser[];
-  cancelled: string[] | IUser[];
-}
-
-export interface IVote extends Document {
-  date: Date;
-  participations: IParticipation[];
-  regularMeeting: boolean;
-  agg: IAgg;
-}
+import mongoose, { model, Schema, Document, Model } from "mongoose";
+import {
+  IAbsence,
+  IAgg,
+  IAttendence,
+  IAttendence2,
+  IParticipant,
+  IParticipantNote,
+  IParticipation,
+  IPlace,
+  IRegularMeeting,
+  IVote,
+} from "../types/studyDetails";
+import { IParticipantTime } from "../types/utils";
 
 const ParticipantTimeSchema: Schema<IParticipantTime> = new Schema(
   {
@@ -138,7 +90,7 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Place",
     },
-    //time: Date,
+
     attendences: [AttendenceSchema],
     absences: [AbsenceSchema],
 
@@ -154,7 +106,71 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
   },
   { _id: false }
 );
+export const PlaceSchema: Schema<IPlace> = new Schema({
+  status: {
+    type: String,
+    enum: ["active", "inactive"],
+    default: "active",
+  },
+  fullname: {
+    type: String,
+    required: true,
+  },
+  brand: {
+    type: String,
+    required: true,
+  },
+  branch: String,
+  image: String,
+  color: String,
+  latitude: {
+    type: Number,
+    required: true,
+  },
+  longitude: {
+    type: Number,
+    required: true,
+  },
+  priority: Number,
+});
+const ParticipantSchema: Schema<IParticipant> = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    time: String,
+    place: {
+      type: Schema.Types.ObjectId,
+      ref: "Place",
+    },
+  },
+  { _id: false }
+);
 
+export const AttendenceSchema2: Schema<IAttendence2> = new Schema(
+  {
+    date: Date,
+    participants: [ParticipantSchema],
+    meetingTime: {
+      type: String,
+      default: "",
+    },
+    meetingPlace: {
+      type: Schema.Types.ObjectId,
+      ref: "Place",
+    },
+    process: {
+      type: String,
+      enum: ["pending", "dismiss", "open"],
+      default: "pending",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 const RegularMeetingSchema: Schema<IRegularMeeting> = new Schema(
   {
     enable: {
@@ -185,6 +201,13 @@ const VoteSchema: Schema<IVote> = new Schema({
   agg: AggSchema,
 });
 
+export const Attendence =
+  (mongoose.models.Attendence as Model<IAttendence, {}, {}, {}>) ||
+  model<IAttendence>("Attendence", AttendenceSchema);
 export const Vote =
   (mongoose.models.Vote as Model<IVote, {}, {}, {}>) ||
   model<IVote>("Vote", VoteSchema);
+
+export const Place =
+  (mongoose.models.Place as Model<IPlace, {}, {}, {}>) ||
+  model<IPlace>("Place", PlaceSchema);

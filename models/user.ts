@@ -1,100 +1,6 @@
 import mongoose, { model, Schema, Document, Model } from "mongoose";
-import { IPlace } from "./place";
-
-export interface IUserComment {
-  comment: string;
-  _id: string;
-}
-
-export interface IUserStatisticAttendence extends Document {
-  date: Date;
-  time: string;
-  place: string | IPlace;
-  process: string;
-  friends: string | IUser;
-}
-
-const UserStatisticAttendenceSchema: Schema<IUserStatisticAttendence> =
-  new Schema(
-    {
-      date: Date,
-      time: String,
-      place: {
-        type: Schema.Types.ObjectId,
-        ref: "Place",
-      },
-      process: String,
-      friends: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "User",
-        },
-      ],
-    },
-    { _id: false }
-  );
-
-export interface IUserStatistic extends Document {
-  attendences: IUserStatisticAttendence[];
-  voteCnt4Week: number;
-  openCnt4Week: number;
-  voteCnt2Week: number;
-  openCnt2Week: number;
-  voteCnt1Week: number;
-  openCnt1Week: number;
-}
-
-const UserStatisticShema: Schema<IUserStatistic> = new Schema(
-  {
-    attendences: [UserStatisticAttendenceSchema],
-    voteCnt4Week: {
-      type: Number,
-      default: 0,
-    },
-    openCnt4Week: {
-      type: Number,
-      default: 0,
-    },
-    voteCnt2Week: {
-      type: Number,
-      default: 0,
-    },
-    openCnt2Week: {
-      type: Number,
-      default: 0,
-    },
-    voteCnt1Week: {
-      type: Number,
-      default: 0,
-    },
-    openCnt1Week: {
-      type: Number,
-      default: 0,
-    },
-  },
-  { _id: false }
-);
-
-export interface IUserBasic {
-  name: string;
-  image: string;
-}
-
-export interface IUser extends Document {
-  uid: string;
-  registerDate: string;
-  isActive?: boolean;
-  birth: string;
-  mbti: string;
-  gender: string;
-  name: string;
-  
-  profileImage: string;
-  role?: string;
-  statistic: IUserStatistic;
-  score: number;
-  comment: string;
-}
+import { IAccount, IUser } from "../types/user";
+import { UserStatisticShema } from "./statistics";
 
 export const UserSchema: Schema<IUser> = new Schema({
   uid: {
@@ -125,7 +31,7 @@ export const UserSchema: Schema<IUser> = new Schema({
     type: String,
     default: "",
   },
-  
+
   profileImage: {
     type: String,
     default:
@@ -142,6 +48,46 @@ export const UserSchema: Schema<IUser> = new Schema({
     default: "안녕하세요! 잘 부탁드립니다~!",
   },
 });
+export const AccountSchema: Schema<IAccount> = new Schema({
+  provider: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  providerAccountId: {
+    type: String,
+    required: true,
+  },
+  access_token: {
+    type: String,
+    required: true,
+  },
+  token_type: {
+    type: String,
+    required: true,
+  },
+  refresh_token: {
+    type: String,
+    required: true,
+  },
+  expires_at: {
+    type: Number,
+    required: true,
+  },
+  scope: String,
+  refresh_token_expires_in: Number,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
+
+export const Account =
+  (mongoose.models.Account as Model<IAccount, {}, {}, {}>) ||
+  model<IAccount>("Account", AccountSchema);
 
 export const User =
   (mongoose.models.User as Model<IUser, {}, {}, {}>) ||

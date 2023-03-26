@@ -2,9 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../libs/dbConnect";
 import { strToDate } from "../../../../libs/utils/dateUtils";
-import { IUser } from "../../../../models/user";
-import { IAbsence, IVote, Vote } from "../../../../models/vote";
+
 import { findOneVote } from "../../../../services/voteService";
+import { IAbsence, IVote } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

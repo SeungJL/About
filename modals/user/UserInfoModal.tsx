@@ -10,12 +10,13 @@ import { getServerSideProps } from "../../pages";
 import { isShowMemberInfoState } from "../../recoil/membersAtoms";
 import { modalContextState } from "../../recoil/modalAtoms";
 import { ModalLg, FullScreen, ModalXL } from "../../styles/LayoutStyles";
-import { IUser } from "../../models/user";
+
 import { Dispatch, SetStateAction, useState } from "react";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
 import UserInfoChart from "./UserInfoModal/UserInfoChart";
 import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
 import { useCommentQuery } from "../../hooks/user/queries";
+import { IUser } from "../../types/user";
 
 export default function UserInfoModal({
   user,

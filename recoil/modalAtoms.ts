@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IModalContext } from "../models/modals";
+import { IModalContext } from "../types/interaction";
 
 export const modalContextState = atom<IModalContext>({
   key: "modalContext",

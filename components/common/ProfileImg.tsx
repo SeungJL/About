@@ -3,11 +3,12 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../ModalPortal";
 import UserInfoSm from "../../modals/user/UserInfoSmModal";
-import { IUser } from "../../models/user";
+
 import {
   isShowUserInfoSmState,
   modalContextState,
 } from "../../recoil/modalAtoms";
+import { IUser } from "../../types/user";
 
 const ProfileImgLayout = styled.div`
   width: 45px;

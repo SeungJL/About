@@ -9,7 +9,7 @@ import {
   USER_FINDVOTES,
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
-import { IUser, IUserComment } from "../../models/user";
+import { IUser, IUserComment } from "../../types/user";
 
 export const useActiveQuery = (
   options?: Omit<

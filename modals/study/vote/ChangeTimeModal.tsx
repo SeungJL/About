@@ -4,7 +4,7 @@ import {
   ModalHeaderTitle,
   ModalLg,
 } from "../../../styles/LayoutStyles";
-import { ITimeStartToEnd } from "../../../types/utils";
+import { IParticipantTime, ITimeStartToEnd } from "../../../types/utils";
 
 import { useState, Dispatch, SetStateAction } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -14,7 +14,6 @@ import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 import { isTimeChangeState, voteDateState } from "../../../recoil/atoms";
 
-import { IParticipantTime } from "../../../models/vote";
 import dayjs from "dayjs";
 import TimeSelector from "../../../components/utils/TimeSelector";
 

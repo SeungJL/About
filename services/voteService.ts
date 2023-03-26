@@ -6,9 +6,7 @@ import {
   VOTE_START_HOUR,
 } from "../constants/system";
 import { dateToDayjs, getToday, now, strToDate } from "../libs/utils/dateUtils";
-import { Attendence } from "../models/attendence";
-
-import { IParticipation, Vote } from "../models/vote";
+import { Vote } from "../models/studyDetails";
 
 export const findOneVote = (date: Date) =>
   Vote.findOne({ date }).populate([

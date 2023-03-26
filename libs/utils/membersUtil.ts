@@ -1,5 +1,5 @@
-import { IUser } from "../../models/user";
 import { ICategory } from "../../pages/members";
+import { IUser } from "../../types/user";
 
 interface ISortUserList {
   (old: IUser[], category: ICategory): IUser[];

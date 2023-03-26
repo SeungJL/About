@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import dbConnect from "../../../libs/dbConnect";
 import { User } from "../../../models/user";
+
 import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(

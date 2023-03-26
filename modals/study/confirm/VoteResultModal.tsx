@@ -4,8 +4,6 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { dateToDayjs, splitDate } from "../../../libs/utils/dateUtils";
 
-import { IUser } from "../../../models/user";
-
 import { END_HOUR, START_HOUR } from "../../../constants/system";
 import ProfileImage from "../../../components/existing/profileImage";
 
@@ -19,6 +17,7 @@ import {
 import { isShowOpenResultState } from "../../../recoil/studyAtoms";
 import { modalContextState } from "../../../recoil/modalAtoms";
 import ProfileImg from "../../../components/common/ProfileImg";
+import { IUser } from "../../../types/user";
 const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 const MINUTES = ["00", "30"];
 

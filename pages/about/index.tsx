@@ -10,10 +10,11 @@ import EventBanner from "../../components/Pages/About/EventBanner";
 import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
-import { User } from "../../models/user";
+
 import AboutFooter from "../../components/Pages/About/AboutFooter";
 import UserSetting from "../../components/UserSetting";
 import Calendar from "../../components/Pages/About/AboutCallender";
+import { User } from "../../models/user";
 
 function About() {
   return (

@@ -25,8 +25,9 @@ import StudySpaceOverView from "../../../components/Pages/About/studySpace/Study
 import StudyTimeTable from "../../../components/Pages/About/studySpace/StudyTimeTable";
 import CheckComment from "../../../components/Pages/About/studySpace/StudyTimeTable/CheckComment";
 import { useVoteQuery } from "../../../hooks/vote/queries";
-import { IUser } from "../../../models/user";
+
 import { isTimeChangeState, isVotingState } from "../../../recoil/atoms";
+import { IUser } from "../../../types/user";
 
 function StudySpace() {
   const toast = useToast();

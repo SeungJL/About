@@ -7,8 +7,6 @@ import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
 
 import { useSetRecoilState } from "recoil";
 
-import { IUser } from "../../models/user";
-import { useState } from "react";
 import { Mutation } from "react-query";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
@@ -18,6 +16,8 @@ import {
   isShowPrivacyPolicyState,
   isShowRegisterFormState,
 } from "../../recoil/studyAtoms";
+import { IUser } from "../../types/user";
+import { useState } from "react";
 
 export interface IRegisterForm {
   registerDate: string;

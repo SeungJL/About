@@ -3,10 +3,10 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import KakaoProvider from "next-auth/providers/kakao";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../libs/mongodb";
-import { User } from "../../../models/user";
+
 import dbConnect from "../../../libs/dbConnect";
 import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
-import { Account } from "../../../models/account";
+import { Account, User } from "../../../models/user";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
           uid: "0",
           name: "guest",
           role: "member",
-        
+
           profileImage: "",
           statistic: {
             attendences: [],
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         uid: profile.id.toString(),
         name: profile.properties.nickname,
         role: "member",
-     
+
         profileImage: profile.properties.profile_image,
         statistic: {
           attendences: [],

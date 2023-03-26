@@ -5,7 +5,8 @@ import { useMemo, useState } from "react";
 import { isPreviliged } from "../../libs/utils/authUtils";
 import { getToday } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
-import { IUser, User } from "../../models/user";
+import { IUser } from "../../types/user";
+import { User } from "../../models/user";
 
 const AdminUser: NextPage<{
   users: string;

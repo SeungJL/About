@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "../../../models/user";
+
 import { getParticipationRate } from "../../../services/rateService";
 
 export default async function handler(

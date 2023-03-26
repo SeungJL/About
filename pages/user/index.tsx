@@ -17,8 +17,7 @@ import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
-import { Attendence } from "../../models/attendence";
-import { User } from "../../models/user";
+
 import AttendChart from "../../components/utils/AttendChart";
 import Header from "../../components/common/Header";
 import { motion } from "framer-motion";
@@ -27,6 +26,8 @@ import { useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import SuggestModal from "../../modals/write/SuggestModal";
 import ModifyUserInfoModal from "../../modals/user/ModifyUserInfoModal";
+import { User } from "../../models/user";
+import { Attendence } from "../../models/studyDetails";
 
 function UserInfo() {
   const router = useRouter();

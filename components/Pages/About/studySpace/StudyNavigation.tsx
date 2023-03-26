@@ -13,9 +13,9 @@ import { VOTE_GET } from "../../../../libs/queryKeys";
 import AbsentVoteModal from "../../../../modals/study/confirm/AbsentVoteModal";
 import ChangeTimeModal from "../../../../modals/study/vote/ChangeTimeModal";
 import VoteStudySpaceModal from "../../../../modals/study/vote/VoteStudySpaceModal";
-import { IPlace } from "../../../../models/place";
-import { IAttendence } from "../../../../models/vote";
+
 import { isVotingState, studyDateState } from "../../../../recoil/atoms";
+import { IAttendence, IPlace } from "../../../../types/studyDetails";
 
 import ModalPortal from "../../../ModalPortal";
 

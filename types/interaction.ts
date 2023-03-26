@@ -1,6 +1,5 @@
-import { IAttendence } from "./attendence";
+import { IAttendence, IParticipation } from "./studyDetails";
 import { IUser } from "./user";
-import { IParticipation } from "./vote";
 
 export interface IModalContext {
   OpenResult?: {

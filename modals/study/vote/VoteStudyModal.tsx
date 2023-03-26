@@ -17,8 +17,6 @@ import {
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { hourMinToDate } from "../../../libs/utils/dateUtils";
 
-import { IPlace } from "../../../models/place";
-import { IParticipation } from "../../../models/vote";
 import {
   isShowStudyVoteModalState,
   modalContextState,

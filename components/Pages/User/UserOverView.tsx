@@ -6,15 +6,16 @@ import UserBadge from "../../block/UserBadge";
 import { useSession } from "next-auth/react";
 import { Badge, Spinner, useToast } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
-import { kakaoProfileInfo } from "../../../models/interface/kakaoProfileInfo";
+
 import { RepeatIcon } from "@chakra-ui/icons";
-import { IUser, IUserComment } from "../../../models/user";
+
 import { useMutation } from "react-query";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
 import { useCommentMutation } from "../../../hooks/user/mutations";
+import { IUser, IUserComment, kakaoProfileInfo } from "../../../types/user";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();

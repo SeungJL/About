@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { IPlazaData } from "../models/plaza";
+import { IPlazaData } from "../types/plaza";
 import { plazaData } from "../storage/plazaData";
 
 export const plazaCategoryState = atom({

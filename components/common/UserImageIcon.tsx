@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import UserInfoModal from "../../modals/user/UserInfoModal";
-import { IUser } from "../../models/user";
-import { IAttendence } from "../../models/vote";
+import { IUser } from "../../types/user";
+
 import ModalPortal from "../ModalPortal";
 
 function UserImageIcon({ user }: { user: IUser }) {

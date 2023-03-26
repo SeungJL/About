@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { JWT } from "next-auth/jwt";
-import { User } from "../../models/user";
+
 import dbConnect from "../dbConnect";
 import { Dayjs } from "dayjs";
-import { kakaoProfileInfo } from "../../models/interface/kakaoProfileInfo";
-import { Account } from "../../models/account";
+import { kakaoProfileInfo } from "../../types/user";
+import { Account, User } from "../../models/user";
 
 export const getRefreshedAccessToken = async (uid: string) => {
   const account = await Account.findOne({ providerAccountId: uid.toString() });
@@ -182,7 +182,7 @@ const getNullableProfile = async (accessToken: string) => {
     });
     return {
       name: res.data.nickName as string,
-      
+
       profileImage:
         (res.data.profileImageURL as string) ||
         "https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png",

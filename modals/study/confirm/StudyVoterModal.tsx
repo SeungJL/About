@@ -3,7 +3,6 @@ import * as ReactDOM from "react-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Dispatch, SetStateAction, useRef, useEffect, useState } from "react";
 import styled from "styled-components";
-import { IAttendence } from "../../../models/vote";
 
 import { ModalLg, FullScreen } from "../../../styles/LayoutStyles";
 

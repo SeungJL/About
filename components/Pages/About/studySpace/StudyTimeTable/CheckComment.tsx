@@ -1,10 +1,11 @@
 import Image from "next/image";
 import styled from "styled-components";
-import { IAttendence } from "../../../../../models/vote";
-import { IUser } from "../../../../../models/user";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import UserImageIcon from "../../../../common/UserImageIcon";
+import { IAttendence } from "../../../../../types/studyDetails";
+import { IUser } from "../../../../../types/user";
 
 function CheckComment({ attendances }: { attendances: IAttendence[] }) {
   return (

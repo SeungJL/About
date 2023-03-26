@@ -23,10 +23,12 @@ import {
   isShowMemberInfoState,
 } from "../../recoil/membersAtoms";
 import { sortUserList } from "../../libs/utils/membersUtil";
-import { IUser, User } from "../../models/user";
+
 import { GetServerSideProps } from "next";
 import dbConnect from "../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
+import { IUser } from "../../types/user";
+import { User } from "../../models/user";
 const Layout = styled.div`
   display: flex;
   flex-direction: column;

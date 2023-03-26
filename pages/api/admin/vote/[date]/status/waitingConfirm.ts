@@ -1,41 +1,41 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import dbConnect from "../../../../../../libs/dbConnect"
-import { strToDate } from "../../../../../../libs/utils/dateUtils"
-import { Vote } from "../../../../../../models/vote"
+import { NextApiRequest, NextApiResponse } from "next";
+import dbConnect from "../../../../../../libs/dbConnect";
+import { strToDate } from "../../../../../../libs/utils/dateUtils";
+import { Vote } from "../../../../../../models/studyDetails";
 
-const SECRET = process.env.NEXTAUTH_SECRET
+const SECRET = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) {
-  const { method } = req
-  const secret = req.headers.secret
-  const dateStr = req.query.date as string
-  
-  const date = strToDate(dateStr).toDate()
+  const { method } = req;
+  const secret = req.headers.secret;
+  const dateStr = req.query.date as string;
 
-  await dbConnect()
-  
-  switch(method) {
-    case 'PATCH':
+  const date = strToDate(dateStr).toDate();
+
+  await dbConnect();
+
+  switch (method) {
+    case "PATCH":
       if (secret !== SECRET) {
-        return res.status(403).end()
+        return res.status(403).end();
       }
-      
-      const vote = await Vote.findOne({ date })
+
+      const vote = await Vote.findOne({ date });
 
       vote.participations.forEach((participation) => {
         if (participation.attendences.length === 0) {
-          participation.status = 'dismissed'
+          participation.status = "dismissed";
         } else {
-          participation.status = 'waiting_confirm'
+          participation.status = "waiting_confirm";
         }
-      })
-    
-      await vote.save()
-      return res.status(204).end()
+      });
+
+      await vote.save();
+      return res.status(204).end();
   }
 
-  return res.status(404).end()
+  return res.status(404).end();
 }

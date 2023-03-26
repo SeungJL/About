@@ -6,7 +6,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { GetServerSideProps } from "next";
 import dbConnect from "../../libs/dbConnect";
-import { User } from "../../models/user";
 
 import { Audio, ColorRing } from "react-loader-spinner";
 import styled from "styled-components";

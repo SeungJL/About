@@ -2,12 +2,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import { strToDate } from "../../../../libs/utils/dateUtils";
 import dbConnect from "../../../../libs/dbConnect";
-import { IPlace, Place } from "../../../../models/place";
-import { IUser } from "../../../../models/user";
-import { IAttendence, IVote, Vote } from "../../../../models/vote";
+
 import { findOneVote } from "../../../../services/voteService";
 import { IplaceInfo } from "../../../../components/utils/placeSelector";
-import { IVoteStudyInfo } from "../../../../types/study";
+import { IVoteStudyInfo } from "../../../../types/statistics";
+import { IAttendence, IPlace, IVote } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
+import { Place, Vote } from "../../../../models/studyDetails";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

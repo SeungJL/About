@@ -1,23 +1,5 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-
-export interface IPlazaData {
-  category: string;
-  writer: string;
-  deadline?: string;
-  title: string;
-  content?: string;
-  suggestContent?: string;
-  voteList?: IVoteList[];
-  id?: string;
-}
-interface IVoteList {
-  voteListIdx: number;
-  value: string;
-}
-
-export interface IPlazaBlock {
-  data: IPlazaData;
-}
+import { IPlazaData } from "../types/plaza";
 
 export const PlazaSchema: Schema<IPlazaData> = new Schema({
   category: {
@@ -42,7 +24,6 @@ export const PlazaSchema: Schema<IPlazaData> = new Schema({
     // type: [{}],
   },
 });
-
 export const Plaza =
   (mongoose.models.Plaza as Model<IPlazaData, {}, {}, {}>) ||
   model<IPlazaData>("Plaza", PlazaSchema);

@@ -5,7 +5,7 @@ import "dayjs/locale/ko";
 import { isStranger } from "../../../libs/utils/authUtils";
 import { motion } from "framer-motion";
 import TimeRullet from "../../../components/utils/TimeRullet";
-import { IPlace } from "../../../models/place";
+import { IPlace } from "../../../types/studyDetails";
 
 const startHour = 10;
 const endHour = 22;

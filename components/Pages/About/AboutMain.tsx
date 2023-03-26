@@ -14,7 +14,7 @@ import dayjs from "dayjs";
 import { VOTE_END_HOUR } from "../../../constants/system";
 import axios from "axios";
 import { getInterestingDate } from "../../../libs/utils/dateUtils";
-import { IUser, User } from "../../../models/user";
+
 import { getSession, useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import dbConnect from "../../../libs/dbConnect";
@@ -28,8 +28,10 @@ import {
   studyDateState,
   voteDateState,
 } from "../../../recoil/atoms";
-import { IParticipation } from "../../../models/vote";
+
 import NoMyStudy from "./main/NoMyStudy";
+import { IParticipation } from "../../../types/studyDetails";
+import { IUser } from "../../../types/user";
 
 function AboutMain() {
   const { data: session } = useSession();

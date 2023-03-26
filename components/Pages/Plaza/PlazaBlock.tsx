@@ -1,7 +1,7 @@
 import { background } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { IPlazaBlock, IPlazaData } from "../../../models/plaza";
+import { IPlazaBlock, IPlazaData } from "../../../types/plaza";
 import { plazaCategoryState } from "../../../recoil/plazaAtoms";
 
 export default function PlazaBlock({ data }: IPlazaBlock) {

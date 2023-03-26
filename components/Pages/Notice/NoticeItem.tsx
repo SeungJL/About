@@ -1,7 +1,7 @@
 import { faChessKing } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { INoticeItem } from "../../../models/notice";
+
 import {
   Accordion,
   AccordionItem,
@@ -12,13 +12,7 @@ import {
   Text,
   Flex,
 } from "@chakra-ui/react";
-function NoticeItem({
-  item,
-  isNotice,
-}: {
-  item: INoticeItem;
-  isNotice: boolean;
-}) {
+function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
   return (
     <>
       {isNotice ? (

@@ -3,9 +3,10 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { IUser } from "../../../../../models/user";
-import { IAttendence } from "../../../../../models/vote";
+
 import { isVotingState } from "../../../../../recoil/atoms";
+import { IAttendence } from "../../../../../types/studyDetails";
+import { IUser } from "../../../../../types/user";
 
 const colorArr = [
   "#FF8896",

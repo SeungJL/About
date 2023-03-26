@@ -2,7 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../libs/dbConnect";
 import { getProfile } from "../../../libs/utils/oauthUtils";
-import { IUser, User } from "../../../models/user";
+import { User } from "../../../models/user";
+import { IUser } from "../../../types/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

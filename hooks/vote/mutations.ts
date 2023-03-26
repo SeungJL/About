@@ -5,8 +5,8 @@ import {
   IRegisterForm,
   IUserRegister,
 } from "../../modals/user/RegisterFormModal";
-import { IPlace } from "../../models/place";
-import { IVoteStudyInfo } from "../../types/study";
+
+import { IVoteStudyInfo } from "../../types/statistics";
 
 export const useAttendMutation = (
   currentDate: Dayjs,

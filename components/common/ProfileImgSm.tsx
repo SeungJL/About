@@ -2,7 +2,6 @@ import Image from "next/image";
 import styled from "styled-components";
 
 function ProfileImgSm({ imgSrc }: { imgSrc: string }) {
- 
   return (
     <Layout>
       <Image

@@ -7,12 +7,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import { IParticipation } from "../../../../models/vote";
+
 import { IconHOLLYS } from "../../../../public/icons/IconImg";
 import { IconUserTwo } from "../../../../public/icons/Icons";
 import ProfileImgSm from "../../../common/ProfileImgSm";
 import Image from "next/image";
-import { IUser } from "../../../../models/user";
+
 import { motion } from "framer-motion";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -23,6 +23,8 @@ import dayjs from "dayjs";
 import { VOTE_START_HOUR } from "../../../../constants/system";
 import { useEffect, useState } from "react";
 import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
+import { IParticipation } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
 
 function AboutMainItem({
   studySpaceInfo,

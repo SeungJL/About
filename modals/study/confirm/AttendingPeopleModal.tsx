@@ -5,8 +5,9 @@ import ProfileImg from "../../../components/common/ProfileImg";
 import ProfileImage from "../../../components/existing/profileImage";
 import { useArrivedQuery } from "../../../hooks/vote/queries";
 import { getToday } from "../../../libs/utils/dateUtils";
-import { IUser } from "../../../models/user";
+
 import { ModalLg } from "../../../styles/LayoutStyles";
+import { IUser } from "../../../types/user";
 
 export default function CheckAttendanceModal() {
   const { data: session } = useSession();

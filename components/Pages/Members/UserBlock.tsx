@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { birthToAge, nameToKr } from "../../../libs/utils/membersUtil";
-import { IUserBlock } from "../../../models/members";
-import { IUser } from "../../../models/user";
+
 import {
   categoryState,
   isShowMemberInfoState,
@@ -45,7 +44,7 @@ const CategoryContent = styled.div`
   font-size: 0.9em;
 `;
 
-export default function UserBlock({ userInfo }: IUserBlock) {
+export default function UserBlock({ userInfo }: any) {
   const setIsShowMemberInfo = useSetRecoilState(isShowMemberInfoState);
   const setModalContext = useSetRecoilState(modalContextState);
   const [content, setContent] = useState("");
