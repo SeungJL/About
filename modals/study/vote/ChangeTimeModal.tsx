@@ -5,7 +5,7 @@ import {
   ModalLg,
 } from "../../../styles/LayoutStyles";
 import { ITimeStartToEnd } from "../../../types/utils";
-import TimeSelector from "../../../components/utils/TimeSelector";
+
 import { useState, Dispatch, SetStateAction } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useAttendMutation } from "../../../hooks/vote/mutations";
@@ -16,6 +16,7 @@ import { isTimeChangeState, voteDateState } from "../../../recoil/atoms";
 
 import { IParticipantTime } from "../../../models/vote";
 import dayjs from "dayjs";
+import TimeSelector from "../../../components/utils/TimeSelector";
 
 export default function ChangeTimeModal({
   setIsChangeTimeModal,
