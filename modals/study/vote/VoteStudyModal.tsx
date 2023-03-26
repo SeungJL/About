@@ -9,7 +9,7 @@ import styled from "styled-components";
 import PlaceSelector, {
   IplaceInfo,
 } from "../../../components/utils/placeSelector";
-import TimeSelector from "../../../components/utils/TimeSelector";
+import TimeSelector from "../../../components/utils/TTimeSelector";
 import {
   useAbsentMutation,
   useAttendMutation,

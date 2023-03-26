@@ -16,7 +16,7 @@ import { isTimeChangeState, voteDateState } from "../../../recoil/atoms";
 
 import { IParticipantTime } from "../../../models/vote";
 import dayjs from "dayjs";
-import TimeSelector from "../../../components/utils/TimeSelector";
+import TimeSelector from "../../../components/utils/TTimeSelector";
 
 export default function ChangeTimeModal({
   setIsChangeTimeModal,
