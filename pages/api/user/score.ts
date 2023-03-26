@@ -61,6 +61,6 @@ export default async function handler(
         await user.save();
       });
 
-      break;
+      res.status(200).send({});
   }
 }

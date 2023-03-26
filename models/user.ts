@@ -6,6 +6,7 @@ export const UserSchema: Schema<IUser> = new Schema({
   uid: {
     type: String,
     required: true,
+    unique: false,
   },
   name: {
     type: String,
