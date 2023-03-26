@@ -132,7 +132,6 @@ function VoteStudyModal({
     }
     setIsShowModal(false);
 
-    // await handleAbsent();
     await patchAttend(voteInfos);
   };
 
