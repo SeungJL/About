@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import UserNavigation from "../../components/Pages/User/UserNavigation";
-import UserOverView from "../../components/Pages/User/UserOverView";
 import {
   Text,
   Container,
@@ -28,6 +26,7 @@ import SuggestModal from "../../modals/write/SuggestModal";
 import ModifyUserInfoModal from "../../modals/user/ModifyUserInfoModal";
 import { User } from "../../models/user";
 import { Attendence } from "../../models/studyDetails";
+import UserOverView from "../../pagesComponents/User/UserOverView";
 
 function UserInfo() {
   const router = useRouter();

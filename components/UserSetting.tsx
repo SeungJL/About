@@ -9,6 +9,7 @@ export default function UserSetting() {
   const { data: session } = useSession();
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isRegisterModal, setIsRegisterModal] = useState(false);
+ 
 
   useEffect(() => {
     if (session?.isActive === false) setIsRegisterModal(true);

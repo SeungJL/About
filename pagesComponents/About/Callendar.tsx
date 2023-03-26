@@ -2,9 +2,9 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { IconArrowBottom, IconArrowTop } from "../../../public/icons/Icons";
+
 import { useRecoilState } from "recoil";
-import { voteDateState } from "../../../recoil/atoms";
+
 import {
   Datepicker,
   CalendarPrev,
@@ -12,9 +12,12 @@ import {
   localeKo,
 } from "@mobiscroll/react";
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
-import { IRate, useAttendRateQueries } from "../../../hooks/user/queries";
+
 import { useSession } from "next-auth/react";
-import { IDateStartToEnd } from "../../../types/utils";
+import { IconArrowBottom, IconArrowTop } from "../../public/icons/Icons";
+import { IRate, useAttendRateQueries } from "../../hooks/user/queries";
+import { voteDateState } from "../../recoil/atoms";
+import { IDateStartToEnd } from "../../types/utils";
 
 function Calendar() {
   const { data: session } = useSession();
@@ -125,10 +128,16 @@ const Nav = styled.nav`
   margin-left: auto;
 `;
 const StyledDatePicker = styled(Datepicker)`
-  .mbsc-ios.mbsc-selected .mbsc-calendar-cell-text {
-    background-color: var(--color-mint);
+  .mbsc-selected .mbsc-calendar-cell-inner {
+    background: var(--color-mint) !important;
     border-color: var(--color-mint);
+
+    margin: auto;
   }
+  .mbsc-calendar-cell-inner .mbsc-calendar-day-inner {
+    background-color: black !important;
+  }
+
   .mbsc-ios.mbsc-calendar-button.mbsc-button {
     color: var(--font-h2);
   }

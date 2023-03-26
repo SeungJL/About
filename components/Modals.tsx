@@ -1,10 +1,10 @@
 import { useRecoilValue } from "recoil";
 import NotCompletedModal from "../modals/pop-up/NotCompletedModal";
+import VoteSuccessModal from "../pagesComponents/About/studySpace/VoteSuccessModal";
 import {
   isShowNotCompletedState,
   isVoteCompleteState,
 } from "../recoil/utilityAtoms";
-import VoteSuccessModal from "./Pages/About/studySpace/VoteSuccessModal";
 
 function Modals() {
   const notCompleted = useRecoilValue(isShowNotCompletedState);

@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParticipationRateQuery } from "../../../hooks/user/queries";
-import { getMonth, now } from "../../../libs/utils/dateUtils";
+import { useParticipationRateQuery } from "../../hooks/user/queries";
 
 export default function RecordAttend() {
   const lastMonth = dayjs().subtract(1, "M").month();

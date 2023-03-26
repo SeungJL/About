@@ -1,18 +1,11 @@
-import {
-  faArrowDown,
-  faArrowUp,
-  faUpDown,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { nameToKr, setCategoryStatus } from "../../../libs/utils/membersUtil";
 
-import { ICategory } from "../../../pages/members";
-import { categoryState } from "../../../recoil/membersAtoms";
 import CategoryStatus from "./CategoryStatus";
 import { useEffect } from "react";
+import { setCategoryStatus } from "../../libs/utils/membersUtil";
+import { categoryState } from "../../recoil/membersAtoms";
 
 const Layout = styled.div`
   padding: 15px;

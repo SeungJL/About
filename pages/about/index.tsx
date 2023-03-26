@@ -2,16 +2,13 @@ import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-import Header from "../../components/Pages/About/AboutHeader";
+
 import Seo from "../../components/common/Seo";
-import AboutMain from "../../components/Pages/About/AboutMain";
-import EventBanner from "../../components/Pages/About/EventBanner";
+
 import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
-import AboutFooter from "../../components/Pages/About/AboutFooter";
 import UserSetting from "../../components/UserSetting";
-import Calendar from "../../components/Pages/About/AboutCallender";
 import { User } from "../../models/user";
 import { useRecoilValue } from "recoil";
 import { voteDateState } from "../../recoil/atoms";
@@ -21,6 +18,12 @@ import { IParticipation } from "../../types/studyDetails";
 import { useEffect, useState } from "react";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { ColorRing } from "react-loader-spinner";
+
+import Calendar from "../../pagesComponents/About/Callendar";
+import AboutMain from "../../pagesComponents/About/AboutMain";
+import EventBanner from "../../pagesComponents/About/EventBanner";
+import AboutFooter from "../../pagesComponents/About/AboutFooter";
+import MainHeader from "../../pagesComponents/About/AboutHeader";
 
 function About() {
   const toast = useToast();
@@ -64,7 +67,7 @@ function About() {
       ) : (
         <>
           <Layout>
-            <Header />
+            <MainHeader />
             <Calendar />
             <AboutMain participations={participations} />
             <EventBanner />

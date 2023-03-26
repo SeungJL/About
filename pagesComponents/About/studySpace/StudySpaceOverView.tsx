@@ -1,7 +1,7 @@
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { IPlace } from "../../../../types/studyDetails";
+import { IPlace } from "../../../types/studyDetails";
 
 function StudySpaceOverView({ space }: { space: IPlace }) {
   return (

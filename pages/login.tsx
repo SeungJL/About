@@ -24,10 +24,8 @@ import {
 } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
-import AboutFooter from "../components/Pages/About/AboutFooter";
-import UserInfoCheck from "../components/UserSetting";
+import { useEffect, useRef, useState } from "react";
+
 import Logo from "../components/block/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 import styled from "styled-components";
@@ -155,7 +153,7 @@ const Login: NextPage<{
           </AlertDialogOverlay>
         </AlertDialog>
       </VStack>
-      <AboutFooter />
+
       {isModal && (
         <ModalPortal closePortal={setIsModal}>
           <GuestModal setIsModal={setIsModal} />

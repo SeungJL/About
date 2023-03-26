@@ -3,13 +3,12 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { birthToAge } from "../../../libs/utils/membersUtil";
-
+import { birthToAge } from "../../libs/utils/membersUtil";
 import {
   categoryState,
   isShowMemberInfoState,
-} from "../../../recoil/membersAtoms";
-import { modalContextState } from "../../../recoil/utilityAtoms";
+} from "../../recoil/membersAtoms";
+import { modalContextState } from "../../recoil/utilityAtoms";
 
 const UserBlockLayout = styled(motion.div)`
   background-color: lightgray;

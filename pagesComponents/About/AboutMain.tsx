@@ -4,20 +4,20 @@ import AboutMainHeader from "./main/AboutMainHeader";
 import AboutMainItem from "./main/AboutMainItem";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { VOTE_END_HOUR } from "../../../constants/system";
 import axios from "axios";
-import { getInterestingDate } from "../../../libs/utils/dateUtils";
 import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
+import NoMyStudy from "./main/NoMyStudy";
+import { IParticipation } from "../../types/studyDetails";
 import {
   isVotingState,
   mySpaceFixedState,
   studyDateState,
   voteDateState,
-} from "../../../recoil/atoms";
-import NoMyStudy from "./main/NoMyStudy";
-import { IParticipation } from "../../../types/studyDetails";
-import { IUser } from "../../../types/user";
+} from "../../recoil/atoms";
+import { IUser } from "../../types/user";
+import { getInterestingDate } from "../../libs/utils/dateUtils";
+import { VOTE_END_HOUR } from "../../constants/system";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();

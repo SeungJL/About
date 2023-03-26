@@ -3,13 +3,14 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import SpaceVoteOverView from "../../../components/Pages/About/studySpace/SpaceVoteOverview";
-import StudyNavigation from "../../../components/Pages/About/studySpace/StudyNavigation";
-import StudySpaceCover from "../../../components/Pages/About/studySpace/StudySpaceCover";
-import StudySpaceHeader from "../../../components/Pages/About/studySpace/StudySpaceHeader";
-import StudySpaceOverView from "../../../components/Pages/About/studySpace/StudySpaceOverView";
-import StudyTimeTable from "../../../components/Pages/About/studySpace/studyTimeTable";
+
 import { useVoteQuery } from "../../../hooks/vote/queries";
+import SpaceVoteOverView from "../../../pagesComponents/About/studySpace/SpaceVoteOverview";
+import StudyNavigation from "../../../pagesComponents/About/studySpace/StudyNavigation";
+import StudySpaceCover from "../../../pagesComponents/About/studySpace/StudySpaceCover";
+import StudySpaceHeader from "../../../pagesComponents/About/studySpace/StudySpaceHeader";
+import StudySpaceOverView from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
+import StudyTimeTable from "../../../pagesComponents/About/studySpace/studyTimeTable";
 import { IAttendence } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 

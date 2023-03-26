@@ -1,38 +1,13 @@
-import dayjs from "dayjs";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { now } from "../../libs/utils/dateUtils";
-import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
-import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
-
-import { useSetRecoilState } from "recoil";
-
+import { ModalLg } from "../../styles/LayoutStyles";
 import { useState } from "react";
-import { Mutation } from "react-query";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRegisterMutation } from "../../hooks/vote/mutations";
-import { useRouter } from "next/router";
-import {
-  isShowPrivacyPolicyState,
-  isShowRegisterFormState,
-} from "../../recoil/studyAtoms";
 import { useActiveQuery } from "../../hooks/user/queries";
 import { IUser } from "../../types/user";
-
-export interface IRegisterForm {
-  registerDate: string;
-  name: string;
-  mbti?: string;
-  birth: string;
-  agree?: any;
-  gender?: string;
-}
-export interface IUserRegister extends IRegisterForm {
-  role?: string;
-  isActive?: boolean;
-  gender: string;
-}
+import { IRegisterForm, IUserRegister } from "../../recoil/user";
 
 function ModifyUserInfoModal({ setIsModal }) {
   const [isMan, setIsMan] = useState(true);

@@ -1,29 +1,22 @@
-import { background } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-
-import { isVotingState } from "../../../../../recoil/atoms";
-import { IAttendence } from "../../../../../types/studyDetails";
-import { IUser } from "../../../../../types/user";
+import { isVotingState } from "../../../../recoil/atoms";
+import { IAttendence } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
 
 const colorArr = [
   "#FF8896",
   "#FEBC5A",
   "#71C3FF",
   "#9E7CFF",
+  "#FFC1CC",
   "#A6ABBF",
-  "#FF8896",
-  "#FEBC5A",
-  "#71C3FF",
-  "#9E7CFF",
-  "#A6ABBF",
-  "#FF8896",
-  "#FEBC5A",
-  "#71C3FF",
-  "#9E7CFF",
-  "#A6ABBF",
+  "#FFE4C4",
+  "#ADD8E6",
+  "#D7BCE8",
+  "#B0C4DE",
 ];
 
 function UserTable({ attendances }: { attendances: IAttendence[] }) {

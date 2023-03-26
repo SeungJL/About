@@ -1,6 +1,5 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
-  Box,
   Button,
   Container,
   Flex,
@@ -12,20 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { transform } from "framer-motion";
-import { NextPage } from "next";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
-import { isShowPrivacyPolicyState } from "../recoil/studyAtoms";
-
+import { Dispatch, SetStateAction } from "react";
 import { FullScreen } from "../styles/LayoutStyles";
 
-export const PrivacyPolicy = ({ closeModal }) => {
-  const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
+export const PrivacyPolicy = ({ setIsModal }:{setIsModal:Dispatch<SetStateAction<boolean>>}) => {
   const xClicked = () => {
-    setisShowPrivacy(false);
-    closeModal(false);
+    setIsModal(false);
   };
   return (
     <>

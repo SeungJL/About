@@ -1,8 +1,8 @@
 import { signOut } from "next-auth/react";
 import styled from "styled-components";
 
-import { useActiveQuery, useCommentQuery } from "../../../hooks/user/queries";
-import UserBadge from "../../block/UserBadge";
+import { useActiveQuery, useCommentQuery } from "../../hooks/user/queries";
+
 import { useSession } from "next-auth/react";
 import { Badge, Spinner, useToast } from "@chakra-ui/react";
 import axios, { AxiosError } from "axios";
@@ -14,8 +14,9 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
-import { useCommentMutation } from "../../../hooks/user/mutations";
-import { IUser, IUserComment, kakaoProfileInfo } from "../../../types/user";
+import { useCommentMutation } from "../../hooks/user/mutations";
+import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
+import UserBadge from "../../components/block/UserBadge";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();

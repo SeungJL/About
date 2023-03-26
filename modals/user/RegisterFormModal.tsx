@@ -1,37 +1,16 @@
-import dayjs from "dayjs";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { now } from "../../libs/utils/dateUtils";
 import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
-import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
-
-import { useSetRecoilState } from "recoil";
-
-import { Mutation } from "react-query";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useRouter } from "next/router";
-import {
-  isShowPrivacyPolicyState,
-  isShowRegisterFormState,
-} from "../../recoil/studyAtoms";
+
 import { IUser } from "../../types/user";
 import { Dispatch, SetStateAction, useState } from "react";
-
-export interface IRegisterForm {
-  registerDate: string;
-  name: string;
-  mbti?: string;
-  birth: string;
-  agree?: any;
-  gender?: string;
-}
-export interface IUserRegister extends IRegisterForm {
-  role?: string;
-  isActive?: boolean;
-  gender: string;
-}
+import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
+import { IRegisterForm, IUserRegister } from "../../recoil/user";
 
 function RegisterFormModal({
   setIsModal,
@@ -56,7 +35,6 @@ function RegisterFormModal({
   });
 
   const { data: session } = useSession();
-  const uid = session?.uid;
 
   const { mutate: handleRegister, isLoading: isRegisterLoading } =
     useRegisterMutation({
@@ -92,7 +70,8 @@ function RegisterFormModal({
 
     setIsModal(false);
   };
-  const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
+
+  const [isPrivacyModal, setIsPrivacyModal] = useState(false);
 
   const onCancelBtnClicked = () => {
     setIsModal(false);
@@ -167,7 +146,7 @@ function RegisterFormModal({
           <ErrorMessage>{errors?.mbti?.message}</ErrorMessage>
           <SubmitBtn>
             <div>
-              <Button type="button" onClick={() => setisShowPrivacy(true)}>
+              <Button type="button" onClick={() => setIsPrivacyModal(true)}>
                 약관
               </Button>
               <Agree>
@@ -188,6 +167,7 @@ function RegisterFormModal({
         </UserForm>
       </ModalLayout>
       <FullScreen />
+      {isPrivacyModal && <PrivacyPolicy setIsModal={setIsPrivacyModal} />}
     </>
   );
 }

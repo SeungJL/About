@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
-import { isVoteCompleteState } from "../../../../recoil/utilityAtoms";
+import { isVoteCompleteState } from "../../../recoil/utilityAtoms";
 
 function VoteSuccessModal({}) {
   const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);

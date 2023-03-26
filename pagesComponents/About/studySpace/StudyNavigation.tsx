@@ -8,16 +8,15 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useAbsentMutation } from "../../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../../libs/queryKeys";
-import AbsentVoteModal from "../../../../modals/study/confirm/AbsentVoteModal";
-import ChangeTimeModal from "../../../../modals/study/vote/ChangeTimeModal";
-import VoteStudySpaceModal from "../../../../modals/study/vote/VoteStudySpaceModal";
+import ModalPortal from "../../../components/ModalPortal";
+import { useAbsentMutation } from "../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../libs/queryKeys";
+import AbsentVoteModal from "../../../modals/study/confirm/AbsentVoteModal";
+import ChangeTimeModal from "../../../modals/study/vote/ChangeTimeModal";
+import VoteStudySpaceModal from "../../../modals/study/vote/VoteStudySpaceModal";
 
-import { isVotingState, studyDateState } from "../../../../recoil/atoms";
-import { IAttendence, IPlace } from "../../../../types/studyDetails";
-
-import ModalPortal from "../../../ModalPortal";
+import { isVotingState, studyDateState } from "../../../recoil/atoms";
+import { IAttendence, IPlace } from "../../../types/studyDetails";
 
 function StudyNavigation({
   myVote,

@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import ModalPortal from "../../ModalPortal";
-import StudyRuleModal from "../../../modals/info/StudyRuleModal";
-import Drawer from "../../Layout/Drawer";
+
 import Image from "next/image";
 import { motion } from "framer-motion";
+import ModalPortal from "../../components/ModalPortal";
+import StudyRuleModal from "../../modals/info/StudyRuleModal";
+import Drawer from "../../components/Layout/Drawer";
 
 export default function MainHeader() {
   const [isRuleModal, setIsRuleModal] = useState(false);

@@ -5,8 +5,9 @@ import Header from "../../components/common/Header";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { noticeData } from "../../storage/storage";
-import NoticeItem from "../../components/Pages/Notice/NoticeItem";
+
 import { Accordion } from "@chakra-ui/react";
+import NoticeItem from "../../pagesComponents/Notice/NoticeItem";
 
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);
