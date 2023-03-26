@@ -8,7 +8,6 @@ import { useDismissMutation } from "../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday, strToDate } from "../../../libs/utils/dateUtils";
 import { isVotingState } from "../../../recoil/atoms";
-import { isShowVoteCancleState } from "../../../recoil/modalAtoms";
 
 import {
   ModalLg,
@@ -22,7 +21,6 @@ export default function AbsentVoteModal({ setIsModal }) {
   const today = getToday();
   const queryClient = useQueryClient();
   const toast = useToast();
-  const setIsShowCancle = useSetRecoilState(isShowVoteCancleState);
   const setisVoting = useSetRecoilState(isVotingState);
 
   const { mutate: handleDismiss, isLoading: dismissLoading } =

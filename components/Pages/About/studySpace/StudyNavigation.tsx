@@ -41,11 +41,9 @@ function StudyNavigation({
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
       await queryClient.invalidateQueries([VOTE_GET, voteDate]);
-      setIsVoting(false);
-
       router.push(`/about`);
     },
-    onError: (err) => {
+    onError() {
       toast({
         title: "오류",
         description: "참여 취소 신청 중 문제가 발생했어요.",
@@ -56,6 +54,7 @@ function StudyNavigation({
       });
     },
   });
+
   const onAbsentToday = () => {
     setIsCancelModal(true);
   };

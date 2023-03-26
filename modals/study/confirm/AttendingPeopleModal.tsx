@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import ProfileImg from "../../../components/common/ProfileImg";
-import ProfileImage from "../../../components/existing/profileImage";
+
 import { useArrivedQuery } from "../../../hooks/vote/queries";
 import { getToday } from "../../../libs/utils/dateUtils";
 
@@ -11,7 +10,6 @@ import { IUser } from "../../../types/user";
 
 export default function CheckAttendanceModal() {
   const { data: session } = useSession();
-  const user = session.user;
 
   const userLists = useArrivedQuery(getToday());
   const userList = userLists.isSuccess && userLists.data;
@@ -60,10 +58,7 @@ const UserAttendInfo = ({ user, memo, arrived }: IAttendMessage) => {
 
   return (
     <UserAttendInfoLayout>
-      <Profile>
-        <ProfileImg user={user} />
-        {name}
-      </Profile>
+      <Profile>{name}</Profile>
       <AttendInfo>
         <Info>
           <span>출석: {attendTime}</span>

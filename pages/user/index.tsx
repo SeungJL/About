@@ -62,7 +62,7 @@ function UserInfo() {
               <span>0개</span>
             </button>
           </UserScoresNav>
-          <AttendChart />
+          <AttendChart type="main" />
           <Navigation>
             <div>
               <BlockName>신청</BlockName>

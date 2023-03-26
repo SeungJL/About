@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import { Dispatch, SetStateAction } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { isVoteCompleteState } from "../../../../recoil/atoms";
 import { useRouter } from "next/router";
+import { isVoteCompleteState } from "../../../../recoil/utilityAtoms";
+
 function VoteSuccessModal({}) {
   const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
   const router = useRouter();

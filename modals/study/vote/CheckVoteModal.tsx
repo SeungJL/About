@@ -1,20 +1,24 @@
 import { useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
-import { useRecoilState, useSetRecoilState } from "recoil";
+
 import styled from "styled-components";
-import { CommentBox } from "../../../components/common/CommentBox";
+import { CommentBox } from "../../../components/block/CommentBox";
 import { useArrivedMutation } from "../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday } from "../../../libs/utils/dateUtils";
-import { isAttendCheckModalState } from "../../../recoil/modalAtoms";
+
 import { ModalLg } from "../../../styles/LayoutStyles";
 
-export default function CheckVoteModal() {
+export default function CheckVoteModal({
+  setIsModal,
+}: {
+  setIsModal: Dispatch<SetStateAction<boolean>>;
+}) {
   const [memo, setMemo] = useState("");
   const queryClient = useQueryClient();
   const toast = useToast();
-  const setIsAttendCheckModal = useSetRecoilState(isAttendCheckModalState);
+
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -31,11 +35,11 @@ export default function CheckVoteModal() {
     },
   });
   const onCancelClicked = () => {
-    setIsAttendCheckModal(false);
+    setIsModal(false);
   };
   const onCheckClicked = () => {
     handleArrived(memo);
-    setIsAttendCheckModal(false);
+    setIsModal(false);
   };
   return (
     <Layout>

@@ -37,7 +37,6 @@ export interface IUserRegister extends IRegisterForm {
 function ModifyUserInfoModal({ setIsModal }) {
   const [isMan, setIsMan] = useState(true);
 
-  const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
   const { data: session } = useSession();
 
   const user = useActiveQuery().data;
@@ -46,7 +45,7 @@ function ModifyUserInfoModal({ setIsModal }) {
     useRegisterMutation({
       onSuccess: async (data: IUser) => {
         session.user.name = data.name;
-        setIsShowRegisterForm(false);
+        setIsModal(false);
       },
       onError: (err) => {
         Toast({

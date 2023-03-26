@@ -31,7 +31,7 @@ export default function UserSetting() {
       )}
       {isRegisterModal && (
         <ModalPortal closePortal={setIsRegisterModal}>
-          <RegisterFormModal />
+          <RegisterFormModal setIsModal={setIsRegisterModal} />
         </ModalPortal>
       )}
     </>

@@ -1,12 +1,5 @@
-import { useToast } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { useVoteQuery } from "../../../hooks/vote/queries";
-import {
-  isStudyOpenState,
-  isUserAttendState,
-  studyChoiceState,
-} from "../../../recoil/studyAtoms";
 import AboutMainHeader from "./main/AboutMainHeader";
 import AboutMainItem from "./main/AboutMainItem";
 import { useEffect, useState } from "react";
@@ -14,22 +7,14 @@ import dayjs from "dayjs";
 import { VOTE_END_HOUR } from "../../../constants/system";
 import axios from "axios";
 import { getInterestingDate } from "../../../libs/utils/dateUtils";
-
-import { getSession, useSession } from "next-auth/react";
-import { GetServerSideProps } from "next";
-import dbConnect from "../../../libs/dbConnect";
-import safeJsonStringify from "safe-json-stringify";
-import { isMember } from "../../../libs/utils/authUtils";
+import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Audio, ColorRing } from "react-loader-spinner";
 import {
-  isMainLoadingState,
   isVotingState,
   mySpaceFixedState,
   studyDateState,
   voteDateState,
 } from "../../../recoil/atoms";
-
 import NoMyStudy from "./main/NoMyStudy";
 import { IParticipation } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";

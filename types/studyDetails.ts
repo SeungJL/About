@@ -1,7 +1,7 @@
 import mongoose, { model, Schema, Document, Model } from "mongoose";
 import { IPlaceStatus } from "./statistics";
 import { IUser } from "./user";
-import { IParticipantTime, ITimeStartToEnd } from "./utils";
+import { ITimeStartToEnd, ITimeStartToEndHM } from "./utils";
 
 export interface IParticipant {
   user: string | IUser;
@@ -20,7 +20,7 @@ export interface IAttendence2 extends Document {
 
 export interface IAttendence {
   user: string | IUser;
-  time: IParticipantTime;
+  time: ITimeStartToEnd;
   note: IParticipantNote;
   created: Date;
   arrived?: Date;
@@ -48,7 +48,7 @@ export interface IAbsence {
   message: string;
 }
 
-export interface IParticipation extends IPlaceStatus, ITimeStartToEnd {
+export interface IParticipation extends IPlaceStatus, ITimeStartToEndHM {
   place?: IPlace;
   attendences?: IAttendence[];
   absences?: IAbsence[];

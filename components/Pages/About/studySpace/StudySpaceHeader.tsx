@@ -13,7 +13,6 @@ function StudySpaceHeader({ title }) {
     <Layout>
       <div onClick={() => router.push(`/about`)}>
         <FontAwesomeIcon icon={faChevronLeft} />
-
         <Title>{title}</Title>
       </div>
       <div>

@@ -1,41 +1,20 @@
-import { background, position } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { relative } from "path";
-import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { IconCircle } from "../../../public/icons/IconOutline";
 import { IconArrowBottom, IconArrowTop } from "../../../public/icons/Icons";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { isMainLoadingState, voteDateState } from "../../../recoil/atoms";
+import { useRecoilState } from "recoil";
+import { voteDateState } from "../../../recoil/atoms";
 import {
   Datepicker,
   CalendarPrev,
-  CalendarNav,
   CalendarNext,
-  CalendarToday,
-  SegmentedGroup,
-  SegmentedItem,
-  setOptions,
-  localeNl,
   localeKo,
 } from "@mobiscroll/react";
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
-import { useVoteQuery } from "../../../hooks/vote/queries";
-import {
-  IRate,
-  useAttendRateQueries,
-  useParticipationRateQuery,
-  useVoteRateQueries,
-  useVoteRateQuery,
-} from "../../../hooks/user/queries";
+import { IRate, useAttendRateQueries } from "../../../hooks/user/queries";
 import { useSession } from "next-auth/react";
-import { IDateStartToEnd } from "../../utils/AttendChart";
-setOptions({
-  locale: localeNl,
-  theme: "ios",
-  themeVariant: "light",
-});
+import { IDateStartToEnd } from "../../../types/utils";
 
 function Calendar() {
   const { data: session } = useSession();

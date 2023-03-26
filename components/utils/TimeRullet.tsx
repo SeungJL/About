@@ -18,12 +18,13 @@ import { useSetRecoilState } from "recoil";
 
 import ModalPortal from "../ModalPortal";
 import VoteSuccessModal from "../Pages/About/studySpace/VoteSuccessModal";
-import { isVoteCompleteState, isVotingState } from "../../recoil/atoms";
+import { isVotingState } from "../../recoil/atoms";
 momentTimezone.moment = moment;
 const NUM_VISIBLE_ITEMS = 5;
 const ITEM_HEIGHT = 34;
 import { DateType } from "@mobiscroll/react/dist/src/core/util/datetime";
 import { IPlace } from "../../types/studyDetails";
+import { isVoteCompleteState } from "../../recoil/utilityAtoms";
 
 interface ITimeRullet {
   timeArr: { hour: string; minutes: string }[];

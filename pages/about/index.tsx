@@ -4,19 +4,17 @@ import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import Header from "../../components/Pages/About/AboutHeader";
 import Seo from "../../components/common/Seo";
-
 import AboutMain from "../../components/Pages/About/AboutMain";
 import EventBanner from "../../components/Pages/About/EventBanner";
 import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
-
 import AboutFooter from "../../components/Pages/About/AboutFooter";
 import UserSetting from "../../components/UserSetting";
 import Calendar from "../../components/Pages/About/AboutCallender";
 import { User } from "../../models/user";
 import { useRecoilValue } from "recoil";
-import { isMainLoadingState, voteDateState } from "../../recoil/atoms";
+import { voteDateState } from "../../recoil/atoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { useToast } from "@chakra-ui/react";
 import { IParticipation } from "../../types/studyDetails";

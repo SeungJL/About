@@ -22,18 +22,3 @@ export const mySpaceFixedState = atom({
   default: "",
 });
 
-/////////////////////////////////////////////////////////
-export const isTimeChangeState = atom({
-  key: "isTimeChange",
-  default: false,
-});
-
-export const isVoteCompleteState = atom({
-  key: "isVoteComplete",
-  default: false,
-});
-
-export const isMainLoadingState = atom({
-  key: "mainLoading",
-  default: true,
-});

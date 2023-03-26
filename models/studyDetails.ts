@@ -11,9 +11,9 @@ import {
   IRegularMeeting,
   IVote,
 } from "../types/studyDetails";
-import { IParticipantTime } from "../types/utils";
+import { ITimeStartToEnd } from "../types/utils";
 
-const ParticipantTimeSchema: Schema<IParticipantTime> = new Schema(
+const ParticipantTimeSchema: Schema<ITimeStartToEnd> = new Schema(
   {
     start: {
       type: Date,

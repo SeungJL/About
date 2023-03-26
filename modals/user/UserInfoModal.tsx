@@ -1,15 +1,9 @@
-import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { CommentBox } from "../../components/common/CommentBox";
+
 import UserBadge from "../../components/block/UserBadge";
 import { birthToAge } from "../../libs/utils/membersUtil";
-import { getServerSideProps } from "../../pages";
 
-import { isShowMemberInfoState } from "../../recoil/membersAtoms";
-import { modalContextState } from "../../recoil/modalAtoms";
-import { ModalLg, FullScreen, ModalXL } from "../../styles/LayoutStyles";
+import { ModalXL } from "../../styles/LayoutStyles";
 
 import { Dispatch, SetStateAction, useState } from "react";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";

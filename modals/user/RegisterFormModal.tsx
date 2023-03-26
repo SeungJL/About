@@ -17,7 +17,7 @@ import {
   isShowRegisterFormState,
 } from "../../recoil/studyAtoms";
 import { IUser } from "../../types/user";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export interface IRegisterForm {
   registerDate: string;
@@ -33,7 +33,11 @@ export interface IUserRegister extends IRegisterForm {
   gender: string;
 }
 
-function RegisterFormModal() {
+function RegisterFormModal({
+  setIsModal,
+}: {
+  setIsModal: Dispatch<SetStateAction<boolean>>;
+}) {
   const router = useRouter();
   const [isMan, setIsMan] = useState(true);
   const {
@@ -50,7 +54,7 @@ function RegisterFormModal() {
       agree: "",
     },
   });
-  const setIsShowRegisterForm = useSetRecoilState(isShowRegisterFormState);
+
   const { data: session } = useSession();
   const uid = session?.uid;
 
@@ -59,7 +63,7 @@ function RegisterFormModal() {
       onSuccess: async (data: IUser) => {
         session.user.name = data.name;
         session.role = data.role;
-        setIsShowRegisterForm(false);
+        setIsModal(false);
       },
       onError: (err) => {
         Toast({
@@ -86,12 +90,12 @@ function RegisterFormModal() {
 
     handleRegister(userInfo);
 
-    setIsShowRegisterForm(false);
+    setIsModal(false);
   };
   const setisShowPrivacy = useSetRecoilState(isShowPrivacyPolicyState);
 
   const onCancelBtnClicked = () => {
-    setIsShowRegisterForm(false);
+    setIsModal(false);
     router.push(`/fail`);
   };
   return (

@@ -1,28 +1,19 @@
-import {
-  faCheck,
-  faCheckCircle,
-  faO,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faO, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-
-import { IconHOLLYS } from "../../../../public/icons/IconImg";
 import { IconUserTwo } from "../../../../public/icons/Icons";
 import ProfileImgSm from "../../../common/ProfileImgSm";
 import Image from "next/image";
-
 import { motion } from "framer-motion";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
+import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 import { mySpaceFixedState, voteDateState } from "../../../../recoil/atoms";
 import { useArrivedQuery } from "../../../../hooks/vote/queries";
 import dayjs from "dayjs";
 import { VOTE_START_HOUR } from "../../../../constants/system";
-import { useEffect, useState } from "react";
-import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 
@@ -35,26 +26,19 @@ function AboutMainItem({
 }) {
   const router = useRouter();
   const { data: session } = useSession();
-
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
-  const [isCheck, setIsCheck] = useState(false);
-
-  const attendences = studySpaceInfo?.attendences;
-  const place = studySpaceInfo?.place;
-  const status = studySpaceInfo?.status;
+  const { attendences, place, status } = studySpaceInfo || {};
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
-
   const statusFixed = place?._id === mySpaceFixed ? "myOpen" : status;
-
   const studyDate =
     dayjs().hour() < VOTE_START_HOUR ? voteDate : voteDate.subtract(1, "day");
 
-  const { data: attendCheck } = useArrivedQuery(studyDate, {
-    onSuccess() {
-      if (attendCheck.some((att) => att.user.uid === session?.uid))
-        setIsCheck(true);
+  const [isCheck, setIsCheck] = useState(false);
+  useArrivedQuery(studyDate, {
+    onSuccess(data) {
+      if (data.some((att) => att.user.uid === session?.uid)) setIsCheck(true);
     },
   });
 

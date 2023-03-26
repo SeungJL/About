@@ -4,7 +4,7 @@ import { IplaceInfo } from "../components/utils/placeSelector";
 import { IPlace } from "./studyDetails";
 import { IUser } from "./user";
 
-import { ITimeStartToEnd } from "./utils";
+import { ITimeStartToEndHM } from "./utils";
 
 export interface IVoteStudyInfo {
   place?: IPlace;

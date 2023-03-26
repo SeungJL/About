@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { GatherVoteModal } from "../../modals/write/gather/AttendGatherModal";
-import { gatherJoinState } from "../../recoil/gatherAtoms";
 
 const GatherLayout = styled.div`
   padding: 25px;
@@ -62,12 +61,10 @@ const varC = {
 };
 
 function Gather() {
-  const [isShowGather, setIsShowGather] = useRecoilState(gatherJoinState);
   return (
     <>
       <GatherLayout>
         <ul>
-          <li onClick={() => setIsShowGather(true)}>first gather</li>
           <li>second gather</li>
           <li>third gather</li>
           <li>fourth gather</li>
@@ -80,7 +77,6 @@ function Gather() {
         <Child variants={varC}></Child>
         <Child variants={varC}></Child>
       </Box>
-      {isShowGather && <GatherVoteModal />}
     </>
   );
 }

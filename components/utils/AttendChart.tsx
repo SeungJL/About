@@ -3,63 +3,52 @@ import { useSession } from "next-auth/react";
 import {
   IRate,
   useAttendRateQueries,
-  useParticipationRateQuery,
   useVoteRateQueries,
-  useVoteRateQuery,
 } from "../../hooks/user/queries";
-import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { getMonth, getToday, now } from "../../libs/utils/dateUtils";
-import styled from "styled-components";
+import { getMonth } from "../../libs/utils/dateUtils";
+import { IDateStartToEnd } from "../../types/utils";
+import { IUser } from "../../types/user";
 
-export interface IDateStartToEnd {
-  start: Dayjs;
-  end: Dayjs;
-}
-
-export default function AttendChart({ type }: { type?: string }) {
+export default function AttendChart({
+  type,
+  user,
+}: {
+  type?: string;
+  user?: IUser;
+}) {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
-  const name = session?.user.name;
 
+  const name = type === "main" ? session?.user.name : user?.name;
   const monthList: IDateStartToEnd[] = [];
 
   for (let i = 0; i <= Number(getMonth()); i++) {
     const changeMonthDate = (month: number, num: number) =>
-      dayjs().month(i).date(num);
+      dayjs().month(month).date(num);
     monthList.push({
       start: changeMonthDate(i, 1),
       end: changeMonthDate(i, dayjs().month(i).daysInMonth()),
     });
   }
 
-  const voteCountTotal = useVoteRateQueries(monthList);
-
   const attendCountTotal = useAttendRateQueries(monthList);
-
+  const voteCountTotal = useVoteRateQueries(monthList);
   const isLoading = voteCountTotal.some((result) => result.isLoading);
+
   const myVoteCountTotal = voteCountTotal?.map((item) => {
     if (item.isSuccess) {
-      const myDataArr = (item.data as IRate[]).filter(
-        (data) => data.name === name
-      );
-
+      const myDataArr = item.data.filter((data) => data.name === name);
       return myDataArr[0]?.cnt;
     }
   });
   const myAttendCountTotal = attendCountTotal?.map((item) => {
     if (item.isSuccess) {
-      const myData = (item.data as IRate[]).filter(
-        (data) => data.name === name
-      );
-
+      const myData = item.data.filter((data) => data.name === name);
       return myData[0]?.cnt;
     }
   });
-  if (!isLoading) {
-    myVoteCountTotal[0] = 0;
-    myAttendCountTotal[0] = 0;
-  }
+
   myVoteCountTotal.push(null);
   myAttendCountTotal.push(null);
 

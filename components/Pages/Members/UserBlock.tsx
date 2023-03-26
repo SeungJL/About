@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { birthToAge, nameToKr } from "../../../libs/utils/membersUtil";
+import { birthToAge } from "../../../libs/utils/membersUtil";
 
 import {
   categoryState,
   isShowMemberInfoState,
 } from "../../../recoil/membersAtoms";
-import { modalContextState } from "../../../recoil/modalAtoms";
+import { modalContextState } from "../../../recoil/utilityAtoms";
 
 const UserBlockLayout = styled(motion.div)`
   background-color: lightgray;
