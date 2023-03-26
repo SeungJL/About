@@ -14,7 +14,7 @@ const MINUTES = ["00", "30"];
 
 const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
   // setTime({ start, end });
-
+  console.log(2);
   return (
     <Layout>
       <TimeSelectorUnit type="start" time={times.start} setTimes={setTimes} />
