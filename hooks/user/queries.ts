@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { useQueries, useQuery, UseQueryOptions } from "react-query";
-import { IMonthStartToEnd } from "../../components/utils/AttendChart";
+import { IDateStartToEnd } from "../../components/utils/AttendChart";
 import {
   USER_COMMENT,
   USER_FINDPARTICIPATION,
@@ -64,7 +64,7 @@ export const useVoteRateQuery = (
     options
   );
 export const useAttendRateQueries = (
-  monthList: IMonthStartToEnd[],
+  monthList: IDateStartToEnd[],
   options?: Omit<
     UseQueryOptions<IRate[], AxiosError, IRate>,
     "queryKey" | "queryFn"
@@ -79,8 +79,8 @@ export const useAttendRateQueries = (
             `/api/user/participationrate`,
             {
               params: {
-                startDay: month.startDay.format("YYYY-MM-DD"),
-                endDay: month.endDay.format("YYYY-MM-DD"),
+                startDay: month.start.format("YYYY-MM-DD"),
+                endDay: month.end.format("YYYY-MM-DD"),
               },
             }
           );
@@ -90,7 +90,7 @@ export const useAttendRateQueries = (
     })
   );
 export const useVoteRateQueries = (
-  monthList: IMonthStartToEnd[],
+  monthList: IDateStartToEnd[],
   options?: Omit<
     UseQueryOptions<IRate[], AxiosError, IRate[]>,
     "queryKey" | "queryFn"
@@ -105,8 +105,8 @@ export const useVoteRateQueries = (
             `/api/user/voterate`,
             {
               params: {
-                startDay: month.startDay.format("YYYY-MM-DD"),
-                endDay: month.endDay.format("YYYY-MM-DD"),
+                startDay: month.start.format("YYYY-MM-DD"),
+                endDay: month.end.format("YYYY-MM-DD"),
               },
             }
           );

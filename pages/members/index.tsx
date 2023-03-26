@@ -10,19 +10,22 @@ import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import CategoryFilter from "../components/Pages/Members/CategoryFilter";
+import CategoryFilter from "../../components/Pages/Members/CategoryFilter";
 
-import UserBlock from "../components/Pages/Members/UserBlock";
+import UserBlock from "../../components/Pages/Members/UserBlock";
 import { animate, motion } from "framer-motion";
 import { transition } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useEffect } from "react";
-import { categoryState, isShowMemberInfoState } from "../recoil/membersAtoms";
-import { sortUserList } from "../libs/utils/membersUtil";
-import { IUser, User } from "../models/user";
+import {
+  categoryState,
+  isShowMemberInfoState,
+} from "../../recoil/membersAtoms";
+import { sortUserList } from "../../libs/utils/membersUtil";
+import { IUser, User } from "../../models/user";
 import { GetServerSideProps } from "next";
-import dbConnect from "../libs/dbConnect";
+import dbConnect from "../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
 const Layout = styled.div`
   display: flex;

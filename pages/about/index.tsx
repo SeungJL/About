@@ -1,56 +1,34 @@
 import { GetServerSideProps } from "next";
-import { getSession, useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { getSession } from "next-auth/react";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import Header from "../../components/Pages/About/AboutHeader";
 import Seo from "../../components/common/Seo";
-import AboutCallender from "../../components/Pages/About/AboutCallender";
-import AboutHeader from "../../components/Pages/About/AboutHeader";
+
 import AboutMain from "../../components/Pages/About/AboutMain";
 import EventBanner from "../../components/Pages/About/EventBanner";
-import GroupStudySummary from "../../components/Pages/About/GroupStudy";
-import GroupStudy from "../../components/Pages/About/GroupStudy";
-import UserInfoCheck from "../../components/UserInfoCheck";
 import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
-import {
-  mySpaceFixedState,
-  studyDateState,
-  voteDateState,
-} from "../../recoil/atoms";
 import AboutFooter from "../../components/Pages/About/AboutFooter";
-import RegisterFormModal from "../../modals/user/RegisterFormModal";
+import UserSetting from "../../components/UserSetting";
+import Calendar from "../../components/Pages/About/AboutCallender";
 
 function About() {
-  const [dayCnt, setDayCnt] = useState(7);
-  const { data: session } = useSession();
-  const [isShowRegisterForm, setIsShowRegisterForm] = useState(false);
-  const setVoteDate = useSetRecoilState(voteDateState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  useEffect(() => {
-    if (session?.isActive === false) setIsShowRegisterForm(true);
-  }, [session?.isActive]);
-
   return (
     <>
       <Seo title="About" />
-      <UserInfoCheck />
+      <UserSetting />
       <Layout>
         <Header />
-        <AboutCallender />
+        <Calendar />
         <AboutMain />
-
-        {/* <GroupStudySummary /> */}
         <EventBanner />
         <HrDiv />
         <AttendChart type="main" />
       </Layout>
       <AboutFooter />
-      {isShowRegisterForm && <RegisterFormModal />}
     </>
   );
 }

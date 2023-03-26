@@ -12,9 +12,9 @@ import dayjs, { Dayjs } from "dayjs";
 import { getMonth, getToday, now } from "../../libs/utils/dateUtils";
 import styled from "styled-components";
 
-export interface IMonthStartToEnd {
-  startDay: Dayjs;
-  endDay: Dayjs;
+export interface IDateStartToEnd {
+  start: Dayjs;
+  end: Dayjs;
 }
 
 export default function AttendChart({ type }: { type?: string }) {
@@ -22,14 +22,14 @@ export default function AttendChart({ type }: { type?: string }) {
   const { data: session } = useSession();
   const name = session?.user.name;
 
-  const monthList: IMonthStartToEnd[] = [];
+  const monthList: IDateStartToEnd[] = [];
 
   for (let i = 0; i <= Number(getMonth()); i++) {
     const changeMonthDate = (month: number, num: number) =>
       dayjs().month(i).date(num);
     monthList.push({
-      startDay: changeMonthDate(i, 1),
-      endDay: changeMonthDate(i, dayjs().month(i).daysInMonth()),
+      start: changeMonthDate(i, 1),
+      end: changeMonthDate(i, dayjs().month(i).daysInMonth()),
     });
   }
 

@@ -5,7 +5,7 @@ import {
   ModalLg,
 } from "../../../styles/LayoutStyles";
 import { ITimeStartToEnd } from "../../../types/utils";
-import TimeSelector from "../../../components/utils/timeSelector";
+import TimeSelector from "../../../components/utils/TimeSelector";
 import { useState, Dispatch, SetStateAction } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useAttendMutation } from "../../../hooks/vote/mutations";
