@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
-import { Vote } from "../models/studyDetails";
+
 import { User } from "../models/user";
+import { Vote } from "../models/vote";
 
 export const getParticipationRate = async (
   startDay: string,

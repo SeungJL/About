@@ -33,7 +33,7 @@ async function dbConnect() {
       return mongoose;
     });
 
-    require("../models/studyDetails");
+    require("../models/place");
   }
   cached.conn = await cached.promise;
   return cached.conn;

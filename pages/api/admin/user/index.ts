@@ -3,7 +3,7 @@ import { getToday } from "../../../../libs/utils/dateUtils";
 import dbConnect from "../../../../libs/dbConnect";
 import { IUserStatistic } from "../../../../types/statistics";
 import { User } from "../../../../models/user";
-import { Attendence } from "../../../../models/studyDetails";
+import { Attendence } from "../../../../models/attendence";
 
 const SECRET = process.env.NEXTAUTH_SECRET;
 

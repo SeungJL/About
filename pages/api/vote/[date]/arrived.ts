@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../libs/dbConnect";
 import { dateToDayjs, now, strToDate } from "../../../../libs/utils/dateUtils";
-import { Vote } from "../../../../models/studyDetails";
+import { Vote } from "../../../../models/vote";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

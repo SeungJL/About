@@ -25,8 +25,9 @@ import ModalPortal from "../../components/ModalPortal";
 import SuggestModal from "../../modals/write/SuggestModal";
 import ModifyUserInfoModal from "../../modals/user/ModifyUserInfoModal";
 import { User } from "../../models/user";
-import { Attendence } from "../../models/studyDetails";
+
 import UserOverView from "../../pagesComponents/User/UserOverView";
+import { Attendence } from "../../models/attendence";
 
 function UserInfo() {
   const router = useRouter();
