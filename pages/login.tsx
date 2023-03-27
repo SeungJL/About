@@ -73,7 +73,7 @@ const Login: NextPage<{
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="About" />
-        {/* <meta property="og:description" content="About" /> */}
+        <meta property="og:description" content="카공 및 친목 동아리" />
         <meta property="og:image" content="/aboutOg.png" />
       </Head>
       <VStack height="92vh" justifyContent="center">

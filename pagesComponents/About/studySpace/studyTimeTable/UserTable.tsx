@@ -40,6 +40,7 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
       };
       setUserArr((old) => [...old, temp]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVoting]);
 
   return (
@@ -47,10 +48,7 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
       {userArr?.map((user, idx) => (
         <UserBlock key={idx}>
           <UserIcon start={user.startGap} gap={user.gap} color={colorArr[idx]}>
-            <span>
-              {user.name}
-              <Sub>{user.isSecond && "(sub)"}</Sub>
-            </span>
+            <Name isSecond={user?.isSecond}>{user.name}</Name>
             <div>
               {user.start}~{user.end}
             </div>
@@ -91,6 +89,9 @@ interface IUserTable {
   isSecond: boolean;
 }
 
+const Name = styled.span<{ isSecond: boolean }>`
+  color: ${(props) => props.isSecond && "var(--font-h3)"};
+`;
 const Layout = styled.div`
   width: 100%;
   position: absolute;

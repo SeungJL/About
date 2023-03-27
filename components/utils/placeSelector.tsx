@@ -1,26 +1,8 @@
-import {
-  AspectRatio,
-  Container,
-  HStack,
-  Select,
-  VStack,
-  Text,
-  useToast,
-  Button,
-} from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import Image from "next/image";
-import {
-  Dispatch,
-  FC,
-  MouseEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/system";
-
 import { IPlaceStatus } from "../../types/statistics";
 import { IPlace } from "../../types/studyDetails";
 
@@ -133,10 +115,10 @@ const PlaceIcon = styled.button<{
   border-radius: 25%;
   border: ${(props) =>
     props.firstSelected
-      ? "2px solid var(--color-mintimage.pngimage.png)"
+      ? "2px solid var(--color-mint)"
       : props.isSelected
       ? "2px solid var(--color-red)"
-      : "1px solid var(--font-h3)"};
+      : "1px solid var(--font-h5)"};
   overflow: hidden;
   display: flex;
   justify-content: center;

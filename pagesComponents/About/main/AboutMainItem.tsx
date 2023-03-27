@@ -114,7 +114,8 @@ function AboutMainItem({
           <ParticipantStatus>
             <IconUserTwo />
             <span>
-              <span>{firstAttendance?.length}/6</span>
+              {firstAttendance?.length}
+              /6
             </span>
           </ParticipantStatus>
         </Participants>
@@ -139,7 +140,7 @@ const Layout = styled(motion.div)<{ status: string }>`
 const ImageContainer = styled.div`
   width: 77px;
   height: 77px;
-  border: 1px solid #f0f2f5;
+  border: 1px solid var(--font-h5);
 
   border-radius: 24%;
   display: flex;
@@ -268,9 +269,7 @@ const ParticipantStatus = styled.div`
     font-size: 13px;
     margin-left: 2px;
     color: #767d8a;
-    > span {
-      font-weight: 600;
-    }
+    font-weight: 600;
   }
 `;
 

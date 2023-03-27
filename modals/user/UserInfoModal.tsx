@@ -3,14 +3,16 @@ import styled from "styled-components";
 import UserBadge from "../../components/block/UserBadge";
 import { birthToAge } from "../../libs/utils/membersUtil";
 
-import { ModalXL } from "../../styles/LayoutStyles";
+import { ModalLg, ModalXL } from "../../styles/LayoutStyles";
 
 import { Dispatch, SetStateAction, useState } from "react";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
-import UserInfoChart from "./UserInfoModal/UserInfoChart";
+
 import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
 import { useCommentQuery } from "../../hooks/user/queries";
 import { IUser } from "../../types/user";
+import AttendChart from "../../components/utils/AttendChart";
+import Image from "next/image";
 
 export default function UserInfoModal({
   user,
@@ -30,7 +32,13 @@ export default function UserInfoModal({
       <Layout>
         <UpPart>
           <UserImage>
-            <img src={user.profileImage} />
+            <Image
+              src={`${user.profileImage}`}
+              alt="profileImage"
+              width={64}
+              height={64}
+              unoptimized={true}
+            />
           </UserImage>
           <UserInfo>
             <UserName>
@@ -85,7 +93,7 @@ export default function UserInfoModal({
             {navType === "badge" ? (
               <UserInfoBadge />
             ) : navType === "chart" ? (
-              <UserInfoChart />
+              <AttendChart type="modal" user={user} />
             ) : (
               <UserInfoGroup />
             )}
@@ -99,7 +107,6 @@ const Layout = styled(ModalXL)`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
-
   top: 50%;
   padding: 10px;
   left: 50%;
@@ -117,7 +124,6 @@ const UpPart = styled.div`
 const UserImage = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 25%;
   border-radius: 20px;
   overflow: hidden;
 `;
@@ -126,7 +132,7 @@ const UserInfo = styled.div`
   flex-direction: column;
   width: 70%;
   margin: 0 auto;
-  padding-left: 5px;
+  padding-left: 2px;
 `;
 const UserRelNav = styled.nav`
   display: flex;
