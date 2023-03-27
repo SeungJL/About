@@ -1,31 +1,38 @@
+import { background, position } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { relative } from "path";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
 import { useRecoilState } from "recoil";
-
-import {
-  Datepicker,
-  CalendarPrev,
-  CalendarNext,
-  localeKo,
-} from "@mobiscroll/react";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
-
-import { useSession } from "next-auth/react";
+import { mySpaceFixedState, voteDateState } from "../../recoil/atoms";
 import { IconArrowBottom, IconArrowTop } from "../../public/icons/Icons";
+import { IconCircle } from "../../public/icons/IconOutline";
 import { IRate, useAttendRateQueries } from "../../hooks/user/queries";
-import { voteDateState } from "../../recoil/atoms";
 import { IDateStartToEnd } from "../../types/utils";
+import { useSession } from "next-auth/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowDown,
+  faChevronDown,
+  faChevronUp,
+} from "@fortawesome/free-solid-svg-icons";
 
-function Calendar() {
+function AboutCallender() {
   const { data: session } = useSession();
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
   const [calendarType, setCalendarType] = useState<"week" | "month">("week");
+  const [calendarBox, setCalendarBox] = useState<
+    {
+      date: number;
+      isAttend: boolean;
+    }[]
+  >([]);
+  const [month, setMonth] = useState(dayjs().month());
+
   const [monthRange, setmonthRange] = useState<IDateStartToEnd[]>([]);
-  const [markedArr, setMarkedArr] = useState([]);
 
   useEffect(() => {
     const temp = [];
@@ -40,112 +47,122 @@ function Calendar() {
 
   const myMonthAttendQueries = useAttendRateQueries(monthRange);
   const isLoading = myMonthAttendQueries.some((result) => result.isLoading);
+
   const myMonthAttend = myMonthAttendQueries?.map((item) => {
     if (item.isSuccess) {
-      const myDataArr = (item.data as IRate[]).filter(
+      const myData = (item.data as IRate[]).filter(
         (data) => data.name === session?.user.name
-      );
-      return myDataArr[0]?.cnt !== 0 && true;
+      )[0];
+      return myData?.cnt !== 0 && true;
     }
   });
 
   useEffect(() => {
-    if (!isLoading) {
-      const temp = [];
-      for (let i = 0; i < myMonthAttend.length; i++) {
-        if (myMonthAttend[i]) {
-          temp.push({
-            date: new Date(voteDate.year(), voteDate.month(), i),
-            color: "var(--color-mint)",
-          });
+    const daysInMonth = dayjs().month(month).daysInMonth();
+    const startDayInMonth = dayjs().month(month).date(1).day();
+    const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
+    const date = voteDate.date();
+    const dayInWeek = voteDate.day();
+
+    const temp = [];
+    let isAttend = false;
+
+    if (calendarType === "week") {
+      const start = date - dayInWeek - 7;
+      for (let i = start; i < start + 7; i++) {
+        isAttend = myMonthAttend[i - 1] ? true : false;
+        temp.push({ date: i, isAttend });
+      }
+    }
+    if (calendarType === "month") {
+      for (let i = 1; i <= 7 * rowsInMonth; i++) {
+        if (i <= startDayInMonth) temp.push(null);
+        else if (i > daysInMonth + startDayInMonth) temp.push(null);
+        else {
+          isAttend = myMonthAttend[i - startDayInMonth - 1] ? true : false;
+          temp.push({ date: i - startDayInMonth, isAttend });
         }
       }
-      setMarkedArr(temp);
     }
+    setCalendarBox(temp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, voteDate]);
+  }, [calendarType, isLoading]);
 
-  const CalendarHeader = () => (
-    <Header>
-      <DateBasic>
-        <span>{voteDate.format("YYYY년 M월")}</span>
-        {calendarType === "week" ? (
-          <ArrowIconWrapper onClick={() => setCalendarType("month")}>
-            <IconArrowBottom />
-          </ArrowIconWrapper>
-        ) : (
-          <>
-            <ArrowIconWrapper onClick={() => setCalendarType("week")}>
-              <IconArrowTop />
-            </ArrowIconWrapper>{" "}
-            <Tooltip>
-              <CircleIcon />
-              <span>스터디 참여</span>
-            </Tooltip>
-            <Nav>
-              <CalendarPrev />
-              <CalendarNext />
-            </Nav>
-          </>
-        )}
-      </DateBasic>
-    </Header>
-  );
-
-  const onChange = (e) => {
-    setVoteDate(dayjs(e.value));
+  const onClickDate = (date) => {
+    setVoteDate(voteDate.date(date));
   };
+
+  const onClickPrev = () => {
+    setVoteDate((old) => old.subtract(1, "month").date(1));
+  };
+
+  const onClickNext = () => {
+    setVoteDate((old) => old.add(1, "month").date(1));
+  };
+
   return (
-    <Layout layout>
-      <StyledDatePicker
-        display="inline"
-        controls={["calendar"]}
-        calendarType={calendarType}
-        value={voteDate.toDate()}
-        calendarSize={1}
-        renderCalendarHeader={CalendarHeader}
-        locale={localeKo}
-        onChange={onChange}
-        marked={markedArr}
-      />
+    <Layout layout transition={{ duration: 0.3 }}>
+      <Header>
+        <Date>
+          <span>{dayjs().format("YYYY년 M월")}</span>
+          {calendarType === "week" ? (
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              size="sm"
+              onClick={() => setCalendarType("month")}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faChevronUp}
+              size="sm"
+              onClick={() => setCalendarType("week")}
+            />
+          )}
+        </Date>
+      </Header>
+      <DayOfWeek />
+      <CallenderDays isFlex={calendarType === "week"}>
+        {calendarBox.map((d, idx) => (
+          <DayItem
+            layout
+            transition={{ duration: 0.3 }}
+            key={idx}
+            onClick={() => onClickDate(d)}
+          >
+            {d?.isAttend ? (
+              <div>
+                <IconCircle>{d?.date}</IconCircle>
+              </div>
+            ) : (
+              <div>{d?.date}</div>
+            )}
+          </DayItem>
+        ))}
+      </CallenderDays>
+      {calendarType === "month" && (
+        <BottomUp onClick={() => setCalendarType("week")}>
+          <IconArrowTop />
+        </BottomUp>
+      )}
     </Layout>
   );
 }
-const DateBasic = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  > span {
-    font-weight: 600;
-    color: var(--font-h1);
-    font-size: 20px;
-    letter-spacing: -4%;
-    align-items: center;
-    margin-right: 8px;
-  }
-`;
-const Nav = styled.nav`
-  margin-left: auto;
-`;
-const StyledDatePicker = styled(Datepicker)`
-  .mbsc-selected .mbsc-calendar-cell-inner {
-    background: var(--color-mint) !important;
-    border-color: var(--color-mint);
 
-    margin: auto;
-  }
-  .mbsc-calendar-cell-inner .mbsc-calendar-day-inner {
-    background-color: black !important;
-  }
-
-  .mbsc-ios.mbsc-calendar-button.mbsc-button {
-    color: var(--font-h2);
-  }
-`;
+const DayOfWeek = () => (
+  <DayLine>
+    <span>일</span>
+    <span>월</span>
+    <span>화</span>
+    <span>수</span>
+    <span>목</span>
+    <span>금</span>
+    <span>토</span>
+  </DayLine>
+);
 
 const Layout = styled(motion.div)`
   padding-bottom: 8px;
-  min-height: 120px;
+  border-bottom: 1px solid #e3e6eb;
 `;
 
 const Header = styled.header`
@@ -153,30 +170,54 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 0px 16px 8px 16px;
-  width: 100%;
 `;
-const Tooltip = styled.div`
-  margin-left: 40px;
+const Date = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 3px;
   > span {
-    margin-left: 6px;
-    color: var(--font-h3);
-    font-weight: 600;
-    font-size: 10px;
+    font-family: pretendSemiBold;
+    color: var(--font-h1);
+    font-size: 20px;
+    letter-spacing: -4%;
+    align-items: center;
+    margin-right: 8px;
   }
 `;
-const CircleIcon = styled.div`
-  background-color: var(--color-mint);
-  border-radius: 50%;
-  width: 6px;
-  height: 6px;
+const CallenderDays = styled.div<{ isFlex: boolean }>`
+  display: flex;
+  color: #767d8a;
+  margin: 0px 4px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 0;
+  display: ${(props) => (props.isFlex ? "flex" : "grid")};
+  justify-content: ${(props) => (props.isFlex ? "spaceBetween" : null)};
+  grid-template-columns: ${(props) => (props.isFlex ? null : "repeat(7,1fr)")};
+  grid-auto-rows: ${(props) => (props.isFlex ? null : "32px")};
 `;
 
-const ArrowIconWrapper = styled.div`
-  padding-bottom: 4px;
-  margin-left: 4px;
+const DayItem = styled(motion.div)`
+  flex: 1;
+  display: flex;
+  > div {
+    margin: auto;
+    > div {
+      color: white;
+    }
+  }
+`;
+
+const BottomUp = styled.div`
+  margin-top: 8px;
+  height: 12px;
+  text-align: center;
+  position: relative;
+  background-color: #e3e6eb;
+  > svg {
+    position: absolute;
+    top: 30%;
+  }
 `;
 
 const DayLine = styled.div`
@@ -189,4 +230,4 @@ const DayLine = styled.div`
   margin-bottom: 7px;
 `;
 
-export default Calendar;
+export default AboutCallender;

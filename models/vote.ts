@@ -106,71 +106,7 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
   },
   { _id: false }
 );
-export const PlaceSchema: Schema<IPlace> = new Schema({
-  status: {
-    type: String,
-    enum: ["active", "inactive"],
-    default: "active",
-  },
-  fullname: {
-    type: String,
-    required: true,
-  },
-  brand: {
-    type: String,
-    required: true,
-  },
-  branch: String,
-  image: String,
-  color: String,
-  latitude: {
-    type: Number,
-    required: true,
-  },
-  longitude: {
-    type: Number,
-    required: true,
-  },
-  priority: Number,
-});
-const ParticipantSchema: Schema<IParticipant> = new Schema(
-  {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    time: String,
-    place: {
-      type: Schema.Types.ObjectId,
-      ref: "Place",
-    },
-  },
-  { _id: false }
-);
 
-export const AttendenceSchema2: Schema<IAttendence2> = new Schema(
-  {
-    date: Date,
-    participants: [ParticipantSchema],
-    meetingTime: {
-      type: String,
-      default: "",
-    },
-    meetingPlace: {
-      type: Schema.Types.ObjectId,
-      ref: "Place",
-    },
-    process: {
-      type: String,
-      enum: ["pending", "dismiss", "open"],
-      default: "pending",
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
 const RegularMeetingSchema: Schema<IRegularMeeting> = new Schema(
   {
     enable: {
@@ -201,13 +137,6 @@ const VoteSchema: Schema<IVote> = new Schema({
   agg: AggSchema,
 });
 
-export const Attendence =
-  (mongoose.models.Attendence as Model<IAttendence, {}, {}, {}>) ||
-  model<IAttendence>("Attendence", AttendenceSchema);
 export const Vote =
   (mongoose.models.Vote as Model<IVote, {}, {}, {}>) ||
   model<IVote>("Vote", VoteSchema);
-
-export const Place =
-  (mongoose.models.Place as Model<IPlace, {}, {}, {}>) ||
-  model<IPlace>("Place", PlaceSchema);
