@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import UserNavigation from "../../components/Pages/User/UserNavigation";
-import UserOverView from "../../components/Pages/User/UserOverView";
 import {
   Text,
   Container,
@@ -27,7 +25,9 @@ import ModalPortal from "../../components/ModalPortal";
 import SuggestModal from "../../modals/write/SuggestModal";
 import ModifyUserInfoModal from "../../modals/user/ModifyUserInfoModal";
 import { User } from "../../models/user";
-import { Attendence } from "../../models/studyDetails";
+
+import UserOverView from "../../pagesComponents/User/UserOverView";
+import { Attendence } from "../../models/attendence";
 
 function UserInfo() {
   const router = useRouter();
@@ -62,7 +62,7 @@ function UserInfo() {
               <span>0개</span>
             </button>
           </UserScoresNav>
-          <AttendChart />
+          <AttendChart type="main" />
           <Navigation>
             <div>
               <BlockName>신청</BlockName>

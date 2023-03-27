@@ -6,7 +6,8 @@ import clientPromise from "../../../libs/mongodb";
 
 import dbConnect from "../../../libs/dbConnect";
 import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
-import { Account, User } from "../../../models/user";
+import { User } from "../../../models/user";
+import { Account } from "../../../models/account";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers

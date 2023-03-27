@@ -10,9 +10,6 @@ import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import CategoryFilter from "../../components/Pages/Members/CategoryFilter";
-
-import UserBlock from "../../components/Pages/Members/UserBlock";
 import { animate, motion } from "framer-motion";
 import { transition } from "@chakra-ui/react";
 import Link from "next/link";
@@ -29,6 +26,8 @@ import dbConnect from "../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
 import { IUser } from "../../types/user";
 import { User } from "../../models/user";
+import UserBlock from "../../pagesComponents/Members/UserBlock";
+import CategoryFilter from "../../pagesComponents/Members/CategoryFilter";
 const Layout = styled.div`
   display: flex;
   flex-direction: column;

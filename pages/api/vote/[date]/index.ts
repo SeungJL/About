@@ -8,7 +8,8 @@ import { IplaceInfo } from "../../../../components/utils/placeSelector";
 import { IVoteStudyInfo } from "../../../../types/statistics";
 import { IAttendence, IPlace, IVote } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
-import { Place, Vote } from "../../../../models/studyDetails";
+import { Place } from "../../../../models/place";
+import { Vote } from "../../../../models/vote";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

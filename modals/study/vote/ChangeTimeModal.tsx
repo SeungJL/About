@@ -4,7 +4,7 @@ import {
   ModalHeaderTitle,
   ModalLg,
 } from "../../../styles/LayoutStyles";
-import { IParticipantTime, ITimeStartToEnd } from "../../../types/utils";
+import { ITimeStartToEnd, ITimeStartToEndHM } from "../../../types/utils";
 
 import { useState, Dispatch, SetStateAction } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -12,7 +12,7 @@ import { useAttendMutation } from "../../../hooks/vote/mutations";
 
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
-import { isTimeChangeState, voteDateState } from "../../../recoil/atoms";
+import { voteDateState } from "../../../recoil/atoms";
 
 import dayjs from "dayjs";
 import TimeSelector from "../../../components/utils/TimeSelector";
@@ -22,29 +22,24 @@ export default function ChangeTimeModal({
   myVoteTime,
 }: {
   setIsChangeTimeModal: Dispatch<SetStateAction<boolean>>;
-  myVoteTime?: IParticipantTime;
+  myVoteTime?: ITimeStartToEnd;
 }) {
   const voteDate = useRecoilValue(voteDateState);
 
-  const setIsTimeChange = useSetRecoilState(isTimeChangeState);
   const toast = useToast();
   const { data: session } = useSession();
 
   const startTime = dayjs(myVoteTime?.start);
   const endTime = dayjs(myVoteTime?.end);
 
-  const [time, setTime] = useState<ITimeStartToEnd>({
+  const [time, setTime] = useState<ITimeStartToEndHM>({
     start: {
       hour: startTime.hour(),
       minutes: startTime.minute(),
     },
     end: { hour: endTime.hour(), minutes: endTime.minute() },
   });
-  const { mutate: patchAttend } = useAttendMutation(voteDate, {
-    onSuccess: async () => {
-      setIsTimeChange(true);
-    },
-  });
+  const { mutate: patchAttend } = useAttendMutation(voteDate);
 
   const onSubmit = () => {
     const start = time.start;
@@ -72,7 +67,7 @@ export default function ChangeTimeModal({
     <Layout>
       <ModalHeaderTitle>시간변경</ModalHeaderTitle>
       <TimeSelector
-        setTimes={({ start, end }: ITimeStartToEnd) => {
+        setTimes={({ start, end }: ITimeStartToEndHM) => {
           if (start) setTime({ ...time, start });
           if (end) setTime({ ...time, end });
         }}

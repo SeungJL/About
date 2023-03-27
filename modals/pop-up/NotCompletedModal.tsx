@@ -1,9 +1,24 @@
 import Link from "next/link";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isShowNotCompletedState } from "../../recoil/modalAtoms";
+import { isShowNotCompletedState } from "../../recoil/utilityAtoms";
 
 import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
+
+function NotCompletedModal() {
+  const setIsNotCompletedState = useSetRecoilState(isShowNotCompletedState);
+  return (
+    <>
+      <ModalLayout>
+        개발이 완료되지 않은 기능입니다.
+        <br />
+        <span>조금만 더 기다려주세요!</span>
+        <div onClick={() => setIsNotCompletedState(false)}>닫기</div>
+      </ModalLayout>
+      <FullScreen onClick={() => setIsNotCompletedState(false)} />
+    </>
+  );
+}
 
 const ModalLayout = styled(ModalLg)`
   display: flex;
@@ -30,19 +45,4 @@ const ModalLayout = styled(ModalLg)`
     border-bottom-right-radius: 8px;
   }
 `;
-
-function NotCompletedModal() {
-  const setIsNotCompletedState = useSetRecoilState(isShowNotCompletedState);
-  return (
-    <>
-      <ModalLayout>
-        개발이 완료되지 않은 기능입니다.
-        <br />
-        <span>조금만 더 기다려주세요!</span>
-        <div onClick={() => setIsNotCompletedState(false)}>닫기</div>
-      </ModalLayout>
-      <FullScreen onClick={() => setIsNotCompletedState(false)} />
-    </>
-  );
-}
 export default NotCompletedModal;

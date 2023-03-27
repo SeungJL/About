@@ -17,13 +17,8 @@ import {
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { hourMinToDate } from "../../../libs/utils/dateUtils";
 
-import {
-  isShowStudyVoteModalState,
-  modalContextState,
-} from "../../../recoil/modalAtoms";
-
 import ModalPortal from "../../../components/ModalPortal";
-import { ITimeStartToEnd } from "../../../types/utils";
+import { ITimeStartToEndHM } from "../../../types/utils";
 import { useVoteQuery } from "../../../hooks/vote/queries";
 import { ModalLg, ModalSm } from "../../../styles/LayoutStyles";
 import { voteDateState } from "../../../recoil/atoms";
@@ -89,7 +84,7 @@ function VoteStudyModal({
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
 
-  const [time, setTime] = useState<ITimeStartToEnd>({
+  const [time, setTime] = useState<ITimeStartToEndHM>({
     start: { hour: 12, minutes: 0 },
     end: { hour: 18, minutes: 0 },
   });
@@ -186,7 +181,7 @@ function VoteStudyModal({
           <>
             <Time>
               <TimeSelector
-                setTimes={({ start, end }: ITimeStartToEnd) => {
+                setTimes={({ start, end }: ITimeStartToEndHM) => {
                   if (start) {
                     setTime({ end: time.end, start });
                   }

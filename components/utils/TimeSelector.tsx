@@ -2,7 +2,7 @@ import { Box, Text } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 
-import { ITimeStartToEnd } from "../../types/utils";
+import { ITimeStartToEndHM } from "../../types/utils";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -20,8 +20,8 @@ const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
 };
 
 interface ITimeSelector {
-  times: ITimeStartToEnd;
-  setTimes: ({ start, end }: ITimeStartToEnd) => void;
+  times: ITimeStartToEndHM;
+  setTimes: ({ start, end }: ITimeStartToEndHM) => void;
 }
 
 const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
@@ -110,7 +110,7 @@ interface ITimeSelectorUnit {
     minutes?: number;
   };
   type: string;
-  setTimes: ({ start, end }: ITimeStartToEnd) => void;
+  setTimes: ({ start, end }: ITimeStartToEndHM) => void;
 }
 
 export default TimeSelector;

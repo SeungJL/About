@@ -9,6 +9,7 @@ export default function UserSetting() {
   const { data: session } = useSession();
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isRegisterModal, setIsRegisterModal] = useState(false);
+ 
 
   useEffect(() => {
     if (session?.isActive === false) setIsRegisterModal(true);
@@ -31,7 +32,7 @@ export default function UserSetting() {
       )}
       {isRegisterModal && (
         <ModalPortal closePortal={setIsRegisterModal}>
-          <RegisterFormModal />
+          <RegisterFormModal setIsModal={setIsRegisterModal} />
         </ModalPortal>
       )}
     </>

@@ -1,6 +1,5 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { gatherJoinState } from "../../../recoil/gatherAtoms";
 
 const GatherVoteLayout = styled.div`
   width: 350px;
@@ -13,10 +12,5 @@ const GatherVoteLayout = styled.div`
 `;
 
 export const GatherVoteModal = () => {
-  const setIsShowGather = useSetRecoilState(gatherJoinState);
-  return (
-    <GatherVoteLayout>
-      <button onClick={() => setIsShowGather(false)}>닫기</button>
-    </GatherVoteLayout>
-  );
+  return <GatherVoteLayout></GatherVoteLayout>;
 };

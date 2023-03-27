@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../../libs/dbConnect";
 import { getProfile } from "../../../libs/utils/oauthUtils";
-import { Place } from "../../../models/studyDetails";
+import { Place } from "../../../models/place";
+
 import { IPlace } from "../../../types/studyDetails";
 
 export default async function handler(

@@ -1,11 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
-import {
-  IRegisterForm,
-  IUserRegister,
-} from "../../modals/user/RegisterFormModal";
-
+import { IUserRegister } from "../../recoil/user";
 import { IVoteStudyInfo } from "../../types/statistics";
 
 export const useAttendMutation = (

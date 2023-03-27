@@ -1,12 +1,9 @@
-import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { fetchFamousBooks } from "../../hooks/vote/queries";
 
 import Seo from "../../components/common/Seo";
-import Header from "../../components/Pages/About/AboutHeader";
 
 interface IBooks {
   bookImageURL: string;

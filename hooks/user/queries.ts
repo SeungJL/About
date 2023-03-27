@@ -1,7 +1,12 @@
 import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
-import { useQueries, useQuery, UseQueryOptions } from "react-query";
-import { IDateStartToEnd } from "../../components/utils/AttendChart";
+import {
+  useQueries,
+  useQuery,
+  UseQueryOptions,
+  UseQueryResult,
+} from "react-query";
+
 import {
   USER_COMMENT,
   USER_FINDPARTICIPATION,
@@ -10,6 +15,7 @@ import {
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
 import { IUser, IUserComment } from "../../types/user";
+import { IDateStartToEnd } from "../../types/utils";
 
 export const useActiveQuery = (
   options?: Omit<
@@ -66,7 +72,7 @@ export const useVoteRateQuery = (
 export const useAttendRateQueries = (
   monthList: IDateStartToEnd[],
   options?: Omit<
-    UseQueryOptions<IRate[], AxiosError, IRate>,
+    UseQueryOptions<IRate[], AxiosError, IRate[]>,
     "queryKey" | "queryFn"
   >
 ) =>
@@ -75,20 +81,19 @@ export const useAttendRateQueries = (
       return {
         queryKey: [USER_FINDPARTICIPATION, idx],
         queryFn: async () => {
-          const res = await axios.get<number, AxiosError, number>(
-            `/api/user/participationrate`,
-            {
-              params: {
-                startDay: month.start.format("YYYY-MM-DD"),
-                endDay: month.end.format("YYYY-MM-DD"),
-              },
-            }
-          );
-          return (res as any).data;
+          const res = await axios.get<IRate[]>(`/api/user/participationrate`, {
+            params: {
+              startDay: month.start.format("YYYY-MM-DD"),
+              endDay: month.end.format("YYYY-MM-DD"),
+            },
+          });
+          return res.data;
         },
+        ...options,
       };
     })
   );
+
 export const useVoteRateQueries = (
   monthList: IDateStartToEnd[],
   options?: Omit<
@@ -101,17 +106,15 @@ export const useVoteRateQueries = (
       return {
         queryKey: [USER_FINDVOTES, idx],
         queryFn: async () => {
-          const res = await axios.get<number, AxiosError, number>(
-            `/api/user/voterate`,
-            {
-              params: {
-                startDay: month.start.format("YYYY-MM-DD"),
-                endDay: month.end.format("YYYY-MM-DD"),
-              },
-            }
-          );
-          return (res as any).data;
+          const res = await axios.get<IRate[]>(`/api/user/voterate`, {
+            params: {
+              startDay: month.start.format("YYYY-MM-DD"),
+              endDay: month.end.format("YYYY-MM-DD"),
+            },
+          });
+          return res.data;
         },
+        ...options,
       };
     })
   );

@@ -1,14 +1,13 @@
-import Header from "../../components/Pages/About/AboutHeader";
-import {
-  PlazaBtnNav,
-  PlazaLayout,
-  PlazaMainContent,
-} from "../../components/Pages/Plaza/plazaStyles";
 import Seo from "../../components/common/Seo";
-import PlazaBlock from "../../components/Pages/Plaza/PlazaBlock";
+
 import { useRecoilState, useRecoilValue } from "recoil";
 import { plazaCategoryState, plazaDataSelector } from "../../recoil/plazaAtoms";
-import PlazaHeader from "../../components/Pages/Plaza/PlazaHeader";
+import {
+  PlazaLayout,
+  PlazaMainContent,
+} from "../../pagesComponents/Plaza/plazaStyles";
+import PlazaHeader from "../../pagesComponents/Plaza/PlazaHeader";
+import PlazaBlock from "../../pagesComponents/Plaza/PlazaBlock";
 
 function Plaza() {
   const plazaData = useRecoilValue(plazaDataSelector);
