@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PlaceSelector from "../../../components/utils/placeSelector";
-import { voteDateState } from "../../../recoil/atoms";
+import { voteDateState } from "../../../recoil/studyAtoms";
 
 const LateVoteModalLayout = styled.div``;
 

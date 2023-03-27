@@ -21,7 +21,7 @@ import ModalPortal from "../../../components/ModalPortal";
 import { ITimeStartToEndHM } from "../../../types/utils";
 import { useVoteQuery } from "../../../hooks/vote/queries";
 import { ModalLg, ModalSm } from "../../../styles/LayoutStyles";
-import { voteDateState } from "../../../recoil/atoms";
+import { voteDateState } from "../../../recoil/studyAtoms";
 
 function VoteStudyModal({
   setIsShowModal,

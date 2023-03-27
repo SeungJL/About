@@ -12,7 +12,7 @@ import { useAttendMutation } from "../../../hooks/vote/mutations";
 
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
-import { voteDateState } from "../../../recoil/atoms";
+import { voteDateState } from "../../../recoil/studyAtoms";
 
 import dayjs from "dayjs";
 import TimeSelector from "../../../components/utils/TimeSelector";

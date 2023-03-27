@@ -9,7 +9,7 @@ import dbConnect from "../../libs/dbConnect";
 
 import { Audio, ColorRing } from "react-loader-spinner";
 import styled from "styled-components";
-import { voteDateState } from "../../recoil/atoms";
+import { voteDateState } from "../../recoil/studyAtoms";
 
 export default function Layout({ children }) {
   const [loading, setLoading] = useState(false);

@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { isVotingState } from "../../../../recoil/atoms";
+import { isVotingState } from "../../../../recoil/studyAtoms";
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 

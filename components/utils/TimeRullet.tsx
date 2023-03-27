@@ -13,7 +13,7 @@ import { Dayjs } from "dayjs";
 import { useQueryClient } from "react-query";
 import { VOTE_GET } from "../../libs/queryKeys";
 import { useSetRecoilState } from "recoil";
-import { isVotingState } from "../../recoil/atoms";
+import { isVotingState } from "../../recoil/studyAtoms";
 momentTimezone.moment = moment;
 import { DateType } from "@mobiscroll/react/dist/src/core/util/datetime";
 import { IPlace } from "../../types/studyDetails";
