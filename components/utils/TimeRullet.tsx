@@ -18,6 +18,7 @@ momentTimezone.moment = moment;
 import { DateType } from "@mobiscroll/react/dist/src/core/util/datetime";
 import { IPlace } from "../../types/studyDetails";
 import { isVoteCompleteState } from "../../recoil/utilityAtoms";
+import { start } from "repl";
 
 interface ITimeRullet {
   timeArr: { hour: string; minutes: string }[];
@@ -41,12 +42,15 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
 
   const onChange = (event: any) => {
     const value: DateType[] = event.value;
+    const startTime = new Date(value[0] as string);
 
-    if (value[0] && !value[1]) {
+    if (selectedRange[0].toString() === startTime.toString()) {
+      setSelectedRange([value[0] as string, value[1] as string]);
+    } else {
       setSelectedRange([value[0] as string, value[0] as string]);
     }
-    setSelectedRange(event.value);
   };
+
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       setIsModal(false);
@@ -70,6 +74,7 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
       end: voteDate.hour(endHour).minute(endMin),
       subPlace: [],
     };
+    console.log(info);
     if (startHour * 60 + startMin >= endHour * 60 + endMin) {
       toast({
         title: "잘못된 입력",
@@ -84,6 +89,7 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
 
     await patchAttend(info);
   };
+
   return (
     <>
       <Layout>
@@ -99,9 +105,10 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
             rangeStartLabel="시작시간"
             rangeEndLabel="종료시간"
             value={selectedRange}
-            min="10"
-            max="22"
+            defaultValue="12:00"
             onChange={onChange}
+            min="10:00"
+            max="23:00"
           />
         </Container>
         <VoteButton onClick={onSubmit}>스터디 투표하기</VoteButton>
