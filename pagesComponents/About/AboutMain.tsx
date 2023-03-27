@@ -55,9 +55,11 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   }, [voteDate]);
 
   /**날짜마다 새로운 정보 세팅 */
+
   useEffect(() => {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
+
       if (
         space?.attendences?.find(
           (att) => (att.user as IUser)?.uid === session?.uid
@@ -65,6 +67,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
       ) {
         setSpaceVoted((old) => [...old, space.place._id]);
         setIsVoting(true);
+
         if (spaceStatus) {
           setmySpaceFixed(space.place._id);
           setMyStudySpace(space);
@@ -72,8 +75,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate]);
-
+  }, [voteDate, participations]);
   const otherStudySpaces = participations?.filter(
     (space) => space !== myStudySpace
   );
