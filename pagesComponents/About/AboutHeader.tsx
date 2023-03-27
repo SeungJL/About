@@ -32,11 +32,7 @@ export default function MainHeader() {
           <DrawerWrapper onClick={() => setIsDrawer(true)}>
             <FontAwesomeIcon icon={faBars} size="lg" />
           </DrawerWrapper>
-          <LogoWrapper
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
-          >
+          <LogoWrapper>
             {/* <IconAbout /> SVG로 했을 때 모바일에서 안 보이는 문제 발생*/}
             <Image src={`/aboutSm.png`} width={74} height={42} alt="aboutSm" />
           </LogoWrapper>

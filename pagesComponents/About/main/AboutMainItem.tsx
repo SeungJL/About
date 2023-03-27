@@ -7,7 +7,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
-import { mySpaceFixedState, voteDateState } from "../../../recoil/atoms";
+import { mySpaceFixedState, voteDateState } from "../../../recoil/studyAtoms";
 import { useArrivedQuery } from "../../../hooks/vote/queries";
 import dayjs from "dayjs";
 import { VOTE_START_HOUR } from "../../../constants/system";

@@ -14,7 +14,7 @@ import {
   mySpaceFixedState,
   studyDateState,
   voteDateState,
-} from "../../recoil/atoms";
+} from "../../recoil/studyAtoms";
 import { IUser } from "../../types/user";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTE_END_HOUR } from "../../constants/system";

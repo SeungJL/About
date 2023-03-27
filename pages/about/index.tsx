@@ -10,8 +10,8 @@ import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import UserSetting from "../../components/UserSetting";
 import { User } from "../../models/user";
-import { useRecoilValue } from "recoil";
-import { voteDateState } from "../../recoil/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { voteDateState } from "../../recoil/studyAtoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { useToast } from "@chakra-ui/react";
 import { IParticipation } from "../../types/studyDetails";
@@ -24,6 +24,7 @@ import AboutMain from "../../pagesComponents/About/AboutMain";
 import EventBanner from "../../pagesComponents/About/EventBanner";
 import AboutFooter from "../../pagesComponents/About/AboutFooter";
 import MainHeader from "../../pagesComponents/About/AboutHeader";
+import { isMainLoadingState } from "../../recoil/utilityAtoms";
 
 function About() {
   const toast = useToast();

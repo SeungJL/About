@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import VoteStudyModal from "../../../modals/study/vote/VoteStudyModal";
 import { useRecoilValue } from "recoil";
-import { studyDateState } from "../../../recoil/atoms";
+import { studyDateState } from "../../../recoil/studyAtoms";
 import SpaceLocalSelector from "../../../components/SpaceLocalSelector";
 import ModalPortal from "../../../components/ModalPortal";
 

@@ -15,7 +15,7 @@ import AbsentVoteModal from "../../../modals/study/confirm/AbsentVoteModal";
 import ChangeTimeModal from "../../../modals/study/vote/ChangeTimeModal";
 import VoteStudySpaceModal from "../../../modals/study/vote/VoteStudySpaceModal";
 
-import { isVotingState, studyDateState } from "../../../recoil/atoms";
+import { isVotingState, studyDateState } from "../../../recoil/studyAtoms";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
 
 function StudyNavigation({

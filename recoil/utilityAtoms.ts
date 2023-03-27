@@ -13,3 +13,8 @@ export const isVoteCompleteState = atom({
   key: "isVoteComplete",
   default: false,
 });
+
+export const isMainLoadingState = atom({
+  key: "isMainLoading",
+  default: true,
+});

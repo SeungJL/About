@@ -5,19 +5,16 @@ import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { isMember } from "../libs/utils/authUtils";
 import { getInterestingDate } from "../libs/utils/dateUtils";
-import { AAState } from "../recoil/studyAtoms";
+import { voteDateState } from "../recoil/studyAtoms";
 
-function Main() {
-  const B = useSetRecoilState(AAState);
-  useEffect(() => {
-    B(true);
-  }, []);
-  return null;
+function Index() {
+  return;
 }
+
+export default Index;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
-  const isActive = true;
 
   if (session) {
     if (!isMember(session.role as string)) {
@@ -28,7 +25,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       };
     }
-
+    const timeout = 2000;
+    await new Promise((resolve) => setTimeout(resolve, timeout));
     return {
       redirect: {
         permanent: false,
@@ -45,5 +43,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {},
   };
 };
-
-export default Main;

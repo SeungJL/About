@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 import { useRecoilState } from "recoil";
-import { mySpaceFixedState, voteDateState } from "../../recoil/atoms";
+import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { IconArrowBottom, IconArrowTop } from "../../public/icons/Icons";
 import { IconCircle } from "../../public/icons/IconOutline";
 import { IRate, useAttendRateQueries } from "../../hooks/user/queries";
@@ -18,6 +18,7 @@ import {
   faChevronDown,
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
+import ca from "@mobiscroll/react/dist/src/i18n/ca";
 
 function AboutCallender() {
   const { data: session } = useSession();
@@ -33,7 +34,6 @@ function AboutCallender() {
   const [month, setMonth] = useState(dayjs().month());
 
   const [monthRange, setmonthRange] = useState<IDateStartToEnd[]>([]);
-
   useEffect(() => {
     const temp = [];
     for (let i = 1; i <= dayjs().month(voteDate.month()).daysInMonth(); i++) {
@@ -46,20 +46,22 @@ function AboutCallender() {
   }, [voteDate]);
 
   const myMonthAttendQueries = useAttendRateQueries(monthRange);
-  const isLoading = myMonthAttendQueries.some((result) => result.isLoading);
+  let isLoading = true;
 
-  const myMonthAttend = myMonthAttendQueries?.map((item) => {
-    if (item.isSuccess) {
+  const myMonthAttend = myMonthAttendQueries?.map((item, idx) => {
+    if (!item.isLoading) {
       const myData = (item.data as IRate[]).filter(
         (data) => data.name === session?.user.name
       )[0];
+
+      if (idx === myMonthAttendQueries.length - 1) isLoading = false;
       return myData?.cnt !== 0 && true;
     }
   });
 
   useEffect(() => {
-    const daysInMonth = dayjs().month(month).daysInMonth();
-    const startDayInMonth = dayjs().month(month).date(1).day();
+    const daysInMonth = voteDate.month(month).daysInMonth();
+    const startDayInMonth = voteDate.month(month).date(1).day();
     const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
     const date = voteDate.date();
     const dayInWeek = voteDate.day();
@@ -68,9 +70,9 @@ function AboutCallender() {
     let isAttend = false;
 
     if (calendarType === "week") {
-      const start = date - dayInWeek - 7;
+      const start = date - dayInWeek;
       for (let i = start; i < start + 7; i++) {
-        isAttend = myMonthAttend[i - 1] ? true : false;
+        isAttend = myMonthAttend[i] ? true : false;
         temp.push({ date: i, isAttend });
       }
     }
@@ -86,10 +88,10 @@ function AboutCallender() {
     }
     setCalendarBox(temp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calendarType, isLoading]);
+  }, [calendarType, isLoading, voteDate]);
 
-  const onClickDate = (date) => {
-    setVoteDate(voteDate.date(date));
+  const onClickDate = (d) => {
+    setVoteDate(voteDate.date(d.date));
   };
 
   const onClickPrev = () => {
@@ -129,21 +131,16 @@ function AboutCallender() {
             key={idx}
             onClick={() => onClickDate(d)}
           >
-            {d?.isAttend ? (
-              <div>
-                <IconCircle>{d?.date}</IconCircle>
-              </div>
+            {d?.date === voteDate?.date() ? (
+              <IconCircle>{d?.date}</IconCircle>
             ) : (
               <div>{d?.date}</div>
             )}
+
+            {d?.isAttend && <AttendCircle />}
           </DayItem>
         ))}
       </CallenderDays>
-      {calendarType === "month" && (
-        <BottomUp onClick={() => setCalendarType("week")}>
-          <IconArrowTop />
-        </BottomUp>
-      )}
     </Layout>
   );
 }
@@ -161,7 +158,6 @@ const DayOfWeek = () => (
 );
 
 const Layout = styled(motion.div)`
-  padding-bottom: 8px;
   border-bottom: 1px solid #e3e6eb;
 `;
 
@@ -187,37 +183,32 @@ const CallenderDays = styled.div<{ isFlex: boolean }>`
   display: flex;
   color: #767d8a;
   margin: 0px 4px;
-  margin-bottom: 10px;
+  margin: 4px;
   font-weight: 500;
   font-size: 15px;
   padding: 0;
   display: ${(props) => (props.isFlex ? "flex" : "grid")};
   justify-content: ${(props) => (props.isFlex ? "spaceBetween" : null)};
   grid-template-columns: ${(props) => (props.isFlex ? null : "repeat(7,1fr)")};
-  grid-auto-rows: ${(props) => (props.isFlex ? null : "32px")};
+  grid-auto-rows: ${(props) => (props.isFlex ? null : "40px")};
 `;
 
 const DayItem = styled(motion.div)`
   flex: 1;
   display: flex;
+  flex-direction: column;
+  height: 48px;
+
   > div {
-    margin: auto;
-    > div {
-      color: white;
-    }
+    margin: 4px auto 0px auto;
   }
 `;
 
-const BottomUp = styled.div`
-  margin-top: 8px;
-  height: 12px;
-  text-align: center;
-  position: relative;
-  background-color: #e3e6eb;
-  > svg {
-    position: absolute;
-    top: 30%;
-  }
+const AttendCircle = styled.div`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-mint);
 `;
 
 const DayLine = styled.div`

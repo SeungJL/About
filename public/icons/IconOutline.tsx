@@ -9,5 +9,6 @@ const CircleLayout = styled.div`
   height: 30px;
   border-radius: 50%;
   padding-top: 3px;
+  color: white;
   background-color: var(--color-mint);
 `;
