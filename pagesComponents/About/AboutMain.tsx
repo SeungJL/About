@@ -18,6 +18,7 @@ import {
 import { IUser } from "../../types/user";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTE_END_HOUR } from "../../constants/system";
+import ResultHeader from "./main/ResultHeader";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
@@ -43,11 +44,19 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     setSpaceVoted([]);
     setmySpaceFixed("");
     setIsVoting(false);
-    if (voteDate < getInterestingDate().subtract(1, "day"))
+    const voteDateNum = voteDate.date();
+    const defaultDate = getInterestingDate().date();
+
+    if (
+      dayjs().hour() > 14
+        ? voteDateNum < getInterestingDate().subtract(1, "day").date()
+        : voteDateNum < defaultDate
+    )
       setStudyDate("passed");
     else if (
-      voteDate.add(1, "day").date() === getInterestingDate().date() &&
-      dayjs().hour() < 17
+      dayjs().hour() >= 14
+        ? voteDate.add(1, "day") <= getInterestingDate()
+        : voteDateNum === defaultDate
     )
       setStudyDate("today");
     else setStudyDate("not passed");
@@ -105,7 +114,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
       >
         {studyDate !== "not passed" && (
           <Result>
-            <span>내 스터디 결과</span>
+            <ResultHeader mySpaceFixed={mySpaceFixed} studyDate={studyDate} />
             {mySpaceFixed !== "" ? (
               <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
             ) : (

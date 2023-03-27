@@ -15,24 +15,16 @@ function AboutMainHeader() {
   return (
     <>
       <Layout>
-        <Header>
-          <div>
-            <span>카공 스터디</span>
-            <Vote onClick={() => setIsShowModal(true)}>
-              {studyDate !== "passed" && (
-                <FontAwesomeIcon icon={faCheckToSlot} />
-              )}
-              <span>
-                {studyDate === "not passed"
-                  ? "빠른투표"
-                  : studyDate === "today"
-                  ? "당일참여"
-                  : ""}
-              </span>
-            </Vote>
-          </div>
-          {studyDate === "not passed" && <SpaceLocalSelector />}
-        </Header>
+        <div>
+          <span>카공 스터디</span>
+          <Vote onClick={() => setIsShowModal(true)}>
+            {studyDate === "not passed" && (
+              <FontAwesomeIcon icon={faCheckToSlot} />
+            )}
+            <span>{studyDate === "not passed" ? "빠른투표" : ""}</span>
+          </Vote>
+        </div>
+        {studyDate === "not passed" && <SpaceLocalSelector />}
       </Layout>
       {isShowModal && (
         <ModalPortal closePortal={setIsShowModal}>
@@ -45,8 +37,6 @@ function AboutMainHeader() {
 
 const Layout = styled.div`
   height: 46px;
-`;
-const Header = styled.header`
   display: flex;
   justify-content: space-between;
   > div {
@@ -57,11 +47,12 @@ const Header = styled.header`
     font-size: 18px;
   }
 `;
+
 const Vote = styled.div`
   margin-left: 15px;
   display: flex;
   > span {
-    margin-left: 5px;
+    margin-left: 4px;
     font-size: 12px;
     font-weight: 400;
     min-width: 80px;

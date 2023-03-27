@@ -37,7 +37,7 @@ export const ModalSm = styled.div`
   position: absolute;
   width: 60%;
   height: 200px;
-  top: 45%;
+  top: 50%;
   padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -54,7 +54,7 @@ export const ModalLg = styled.div`
   position: fixed;
   width: 90%;
   height: 240px;
-  top: 45%;
+  top: 50%;
   padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -67,9 +67,9 @@ export const ModalXL = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
-  width: 90%;
-  height: 380px;
-  top: 45%;
+  width: 320px;
+  height: 360px;
+  top: 50%;
   padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -85,7 +85,7 @@ export const ModalXXL = styled.div`
   position: fixed;
   width: 90%;
   height: 500px;
-  top: 45%;
+  top: 50%;
   padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);

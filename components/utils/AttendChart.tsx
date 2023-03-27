@@ -56,7 +56,7 @@ export default function AttendChart({
 
   return (
     <div>
-      {type === "main" ? (
+      {type === "main" && !isLoading ? (
         <ApexCharts
           type="line"
           series={[
@@ -90,7 +90,7 @@ export default function AttendChart({
             },
           }}
         />
-      ) : (
+      ) : type === "modal" && !isLoading ? (
         <ApexCharts
           type="line"
           series={[
@@ -133,7 +133,7 @@ export default function AttendChart({
             },
           }}
         />
-      )}
+      ) : null}
     </div>
   );
 }
