@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 
@@ -75,6 +75,7 @@ function About() {
             <HrDiv />
             <AttendChart type="main" />
           </Layout>
+          <button onClick={() => signOut()}>임시 로그아웃</button>
           <AboutFooter />
         </>
       )}
