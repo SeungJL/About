@@ -1,4 +1,4 @@
-import { faChessKing } from "@fortawesome/free-regular-svg-icons";
+import { faChessKing, faChessPawn } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
@@ -20,7 +20,7 @@ function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
           <AccordionButton height="60px">
             <Box as="span" flex="1" textAlign="left" display="flex">
               <Flex width="48px" align="center">
-                <IconKing />
+                {item.category === "main" ? <IconKing /> : <IconPawn />}
               </Flex>
               <Flex direction="column" flex="1">
                 <Text color="var(--font-h1)">{item.title}</Text>
@@ -44,18 +44,24 @@ function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
 }
 
 const IconKing = () => (
-  <IconLayout>
+  <IconLayout name="king">
     <FontAwesomeIcon icon={faChessKing} size="lg" color="white" />
   </IconLayout>
 );
-const IconLayout = styled.div`
+const IconPawn = () => (
+  <IconLayout name="pawn">
+    <FontAwesomeIcon icon={faChessPawn} size="lg" color="white" />
+  </IconLayout>
+);
+const IconLayout = styled.div<{ name: string }>`
   width: 32px;
   height: 32px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-red);
+  background-color: ${(props) =>
+    props.name === "king" ? "var(--color-red)" : "var(--color-orange)"};
 `;
 
 const Active = styled.div`

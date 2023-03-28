@@ -4,7 +4,7 @@ import Seo from "../../components/common/Seo";
 import Header from "../../components/common/Header";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { noticeData } from "../../storage/storage";
+import { noticeData } from "../../storage/notice";
 
 import { Accordion } from "@chakra-ui/react";
 import NoticeItem from "../../pagesComponents/Notice/NoticeItem";

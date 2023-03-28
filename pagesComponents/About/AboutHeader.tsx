@@ -14,16 +14,16 @@ import Drawer from "../../components/Layout/Drawer";
 export default function MainHeader() {
   const [isRuleModal, setIsRuleModal] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
-  const [isAlert, setIsAlert] = useState(true);
+  const [isAlert, setIsAlert] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("notice")) setIsAlert(false);
+    if (localStorage.getItem("notice2") === null) setIsAlert(true);
   }, []);
 
   const onClickedNotice = () => {
     router.push(`/notice`);
-    if (isAlert) localStorage.setItem("notice", "read");
+    if (isAlert) localStorage.setItem("notice2", "read");
   };
   return (
     <>
