@@ -28,12 +28,12 @@ import { User } from "../../models/user";
 
 import UserOverView from "../../pagesComponents/User/UserOverView";
 import { Attendence } from "../../models/attendence";
+import ApplyRestModal from "../../modals/user/ApplyRestModal";
 
 function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
-  const [isModal, setIsModal] = useState(false);
 
   const handleOutput = (isOpen) => {
     if (!isOpen) {
@@ -70,7 +70,7 @@ function UserInfo() {
                 <button onClick={() => setModalOpen("suggest")}>
                   건의하기
                 </button>
-                <button>휴식 신청</button>
+                <button onClick={() => setModalOpen("rest")}>휴식 신청</button>
               </NavBlock>
             </div>
             <div>
@@ -104,6 +104,11 @@ function UserInfo() {
       {modalOpen === "modify" && (
         <ModalPortal closePortal={handleOutput}>
           <ModifyUserInfoModal setIsModal={handleOutput} />
+        </ModalPortal>
+      )}
+      {modalOpen === "rest" && (
+        <ModalPortal closePortal={handleOutput}>
+          <ApplyRestModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
     </>

@@ -38,7 +38,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-
+  console.log(participations);
   /**날짜마다 달라지는 정보들 초기화 */
   useEffect(() => {
     setSpaceVoted([]);

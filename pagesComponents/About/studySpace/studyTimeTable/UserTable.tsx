@@ -48,10 +48,10 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
       {userArr?.map((user, idx) => (
         <UserBlock key={idx}>
           <UserIcon start={user.startGap} gap={user.gap} color={colorArr[idx]}>
-            <Name isSecond={user?.isSecond}>{user.name}</Name>
-            <div>
+            <Name>{user.name}</Name>
+            <Time isSecond={user?.isSecond}>
               {user.start}~{user.end}
-            </div>
+            </Time>
           </UserIcon>
         </UserBlock>
       ))}
@@ -73,6 +73,8 @@ const UserIcon = styled.div<{ start: number; gap: number; color: string }>`
   border-radius: 8px;
   padding: 3px;
   padding-left: 6px;
+  display: flex;
+  flex-direction: column;
   font-size: 11px;
   color: white;
   > div:last-child {
@@ -89,9 +91,7 @@ interface IUserTable {
   isSecond: boolean;
 }
 
-const Name = styled.span<{ isSecond: boolean }>`
-  color: ${(props) => props.isSecond && "var(--font-h3)"};
-`;
+const Name = styled.span``;
 const Layout = styled.div`
   width: 100%;
   position: absolute;
@@ -102,6 +102,10 @@ const Layout = styled.div`
 const Sub = styled.span`
   margin-left: 2px;
   color: var(--font-h1);
+`;
+
+const Time = styled.span<{ isSecond: boolean }>`
+  color: ${(props) => props.isSecond && "var(--font-h3)"};
 `;
 
 export default UserTable;

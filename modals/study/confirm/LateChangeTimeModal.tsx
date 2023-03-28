@@ -17,7 +17,7 @@ import {
   ModalHeaderTitle,
 } from "../../../styles/LayoutStyles";
 
-export default function AbsentVoteModal({ setIsModal }) {
+export default function LateChangeTimeModal({ setIsModal }) {
   const today = getToday();
   const queryClient = useQueryClient();
   const toast = useToast();

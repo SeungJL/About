@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { ModalLg } from "../../styles/LayoutStyles";
+import { ModalLg, ModalXL } from "../../styles/LayoutStyles";
 import { useState } from "react";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
@@ -140,9 +140,10 @@ function ModifyUserInfoModal({ setIsModal }) {
 }
 export default ModifyUserInfoModal;
 
-const ModalLayout = styled(ModalLg)`
-  height: 340px;
-  padding: 22px;
+const ModalLayout = styled(ModalXL)`
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Header = styled.header`
