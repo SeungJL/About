@@ -12,7 +12,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 
@@ -81,7 +81,7 @@ function UserInfo() {
                 </button>
                 <button>친구 초대 설정</button>
                 <button>카카오 알림 설정</button>
-                <button>로그아웃</button>
+                <button onClick={() => signOut()}>로그아웃</button>
               </NavBlock>
             </div>
             <div>

@@ -171,12 +171,13 @@ const GuestModal = ({ setIsModal }) => {
         <FontAwesomeIcon icon={faX} onClick={() => setIsModal(false)} />
       </ModalHeader>
       <Content>
-        이 기능은 동아리 외부인을 위한 기능으로, 해당 동아리 소속의 인원은
-        카카오 로그인을 이용해주시기 바랍니다.
+        {/* 이 기능은 동아리 외부인을 위한 기능으로, 해당 동아리 소속의 인원은
+        카카오 로그인을 이용해주시기 바랍니다. */}
+        임시적으로 기능을 비활성화 했습니다. -3/28
       </Content>
       <ModalNav>
         <button onClick={() => setIsModal(false)}>뒤로</button>
-        <button onClick={() => signIn("guest")}>로그인</button>
+        {/* <button onClick={() => signIn("guest")}>로그인</button> */}
       </ModalNav>
     </Modal>
   );
