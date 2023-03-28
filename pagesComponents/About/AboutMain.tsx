@@ -46,9 +46,8 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     setIsVoting(false);
     const voteDateNum = voteDate.date();
     const defaultDate = getInterestingDate().date();
-
     if (
-      dayjs().hour() > 14
+      dayjs().hour() >= 14
         ? voteDateNum < getInterestingDate().subtract(1, "day").date()
         : voteDateNum < defaultDate
     )
@@ -64,7 +63,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   }, [voteDate]);
 
   /**날짜마다 새로운 정보 세팅 */
-
+  console.log(studyDate);
   useEffect(() => {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
