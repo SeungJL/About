@@ -61,7 +61,7 @@ function AboutCallender() {
       return myData?.cnt !== 0 && true;
     }
   });
-  console.log(voteDate);
+
   useEffect(() => {
     const daysInMonth = voteDate.month(month).daysInMonth();
     const startDayInMonth = voteDate.month(month).date(1).day();

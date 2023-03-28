@@ -74,7 +74,7 @@ function TimeRullet({ timeArr, voteDate, place, setIsModal }: ITimeRullet) {
       end: voteDate.hour(endHour).minute(endMin),
       subPlace: [],
     };
-    console.log(info);
+  
     if (startHour * 60 + startMin >= endHour * 60 + endMin) {
       toast({
         title: "잘못된 입력",

@@ -25,14 +25,17 @@ import {
   mySpaceFixedState,
   studyDateState,
 } from "../../../recoil/studyAtoms";
+import { IPlaceStatus, IPlaceStatusType } from "../../../types/statistics";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
 
 function StudyNavigation({
   myVote,
   place,
+  status,
 }: {
   myVote: IAttendence;
   place: IPlace;
+  status: IPlaceStatusType;
 }) {
   const toast = useToast();
   const router = useRouter();
@@ -47,7 +50,7 @@ function StudyNavigation({
   const [isCancelModal, setIsCancelModal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
-
+  console.log(myVote, place);
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
       await queryClient.invalidateQueries([VOTE_GET, voteDate]);
@@ -71,10 +74,14 @@ function StudyNavigation({
 
   return (
     <>
-      {studyDate === "passed" ? (
+      {studyDate === "passed" || status === "dismissed" ? (
         <Layout>
-          <MainButton disabled={true} isVoting={false}>
-            <span>기간 만료</span>
+          <MainButton disabled={true} func={false}>
+            <span>
+              {studyDate !== "passed"
+                ? "기간 만료"
+                : "스터디가 열리지 않았어요!"}
+            </span>
           </MainButton>
         </Layout>
       ) : studyDate === "today" ? (
@@ -94,9 +101,13 @@ function StudyNavigation({
             </Button>
           </SubNav>
           <MainButton
-            disabled={!myVote?.firstChoice}
-            isVoting={!myVote?.firstChoice}
-            onClick={() => setIsChangeModal(true)}
+            disabled={Boolean(myVote?.arrived)}
+            func={!myVote?.arrived}
+            onClick={
+              myVote?.firstChoice
+                ? () => setIsCheckModal(true)
+                : () => setIsVoteModal(true)
+            }
           >
             <span>
               {myVote?.arrived
@@ -125,7 +136,7 @@ function StudyNavigation({
           </SubNav>
           <MainButton
             disabled={isVoting && true}
-            isVoting={isVoting}
+            func={!isVoting}
             onClick={() => setIsVoteModal(true)}
           >
             <span>{isVoting ? "투표 완료" : "스터디 투표하기"}</span>
@@ -189,17 +200,17 @@ const Button = styled.button`
   }
 `;
 
-const MainButton = styled.button<{ isVoting?: boolean }>`
+const MainButton = styled.button<{ func?: boolean }>`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: ${(props) =>
-    props.isVoting ? "var(--font-h4)" : "var(--color-mint)"};
+    props.func ? "var(--color-mint)" : "var(--font-h4)"};
   color: white;
   height: 48px;
   border-radius: 13px;
-  padding: 14px 100px 14px 100px;
+  padding: 14px 2px 14px 2px;
   font-weight: 700;
   font-size: 15px;
 `;
