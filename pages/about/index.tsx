@@ -20,11 +20,10 @@ import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { ColorRing } from "react-loader-spinner";
 
 import Calendar from "../../pagesComponents/About/Callendar";
-import AboutMain from "../../pagesComponents/About/AboutMain";
+import AboutMain from "../../pagesComponents/About/mainStudy/AboutMain";
 import EventBanner from "../../pagesComponents/About/EventBanner";
 import AboutFooter from "../../pagesComponents/About/AboutFooter";
 import MainHeader from "../../pagesComponents/About/AboutHeader";
-import { isMainLoadingState } from "../../recoil/utilityAtoms";
 
 function About() {
   const toast = useToast();
