@@ -148,7 +148,7 @@ const Form = styled.form`
 `;
 const Title = styled.span``;
 const TitleInput = styled.input`
-  flex: 1;
+  width: 100%;
   background-color: var(--font-h7);
 `;
 const Date = styled.div``;

@@ -34,8 +34,8 @@ export default function AttendChart({
 
   const attendCountTotal = useAttendRateQueries(monthList);
   const voteCountTotal = useVoteRateQueries(monthList);
-  const isLoading = voteCountTotal.some((result) => result.isLoading);
 
+  const isLoading = voteCountTotal.some((result) => result.isLoading);
   const myVoteCountTotal = voteCountTotal?.map((item) => {
     if (item.isSuccess) {
       const myDataArr = item.data.filter((data) => data.name === name);

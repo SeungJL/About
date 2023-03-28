@@ -16,9 +16,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
   faChevronDown,
+  faChevronLeft,
+  faChevronRight,
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import ca from "@mobiscroll/react/dist/src/i18n/ca";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 
 function AboutCallender() {
   const { data: session } = useSession();
@@ -58,7 +61,7 @@ function AboutCallender() {
       return myData?.cnt !== 0 && true;
     }
   });
-
+  console.log(voteDate);
   useEffect(() => {
     const daysInMonth = voteDate.month(month).daysInMonth();
     const startDayInMonth = voteDate.month(month).date(1).day();
@@ -72,8 +75,10 @@ function AboutCallender() {
     if (calendarType === "week") {
       const start = date - dayInWeek;
       for (let i = start; i < start + 7; i++) {
-        isAttend = myMonthAttend[i] ? true : false;
-        temp.push({ date: i, isAttend });
+        const validDate = i >= 1 && i <= daysInMonth ? i : null;
+        isAttend = validDate && myMonthAttend[i] ? true : false;
+
+        temp.push({ date: validDate, isAttend });
       }
     }
     if (calendarType === "month") {
@@ -106,7 +111,7 @@ function AboutCallender() {
     <Layout layout transition={{ duration: 0.3 }}>
       <Header>
         <Date>
-          <span>{dayjs().format("YYYY년 M월")}</span>
+          <span>{voteDate.format("YYYY년 M월")}</span>
           {calendarType === "week" ? (
             <FontAwesomeIcon
               icon={faChevronDown}
@@ -121,6 +126,18 @@ function AboutCallender() {
             />
           )}
         </Date>
+        {calendarType === "month" && (
+          <>
+            <IconToolTip>
+              <AttendCircle />
+              <span>내 스터디 참여</span>
+            </IconToolTip>
+            <MonthNav>
+              <FontAwesomeIcon icon={faChevronLeft} onClick={onClickPrev} />
+              <FontAwesomeIcon icon={faChevronRight} onClick={onClickNext} />
+            </MonthNav>
+          </>
+        )}
       </Header>
       <DayOfWeek />
       <CallenderDays isFlex={calendarType === "week"}>
@@ -166,17 +183,18 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 0px 16px 8px 16px;
+  align-items: center;
 `;
 const Date = styled.div`
   display: flex;
   align-items: center;
   > span {
-    font-family: pretendSemiBold;
+    font-weight: 600;
     color: var(--font-h1);
     font-size: 20px;
-    letter-spacing: -4%;
+
     align-items: center;
-    margin-right: 8px;
+    margin-right: 12px;
   }
 `;
 const CallenderDays = styled.div<{ isFlex: boolean }>`
@@ -202,6 +220,24 @@ const DayItem = styled(motion.div)`
   > div {
     margin: 4px auto 0px auto;
   }
+`;
+
+const IconToolTip = styled.div`
+  display: flex;
+  align-items: center;
+  > span {
+    margin-left: 6px;
+    font-size: 10px;
+    color: var(--font-h3);
+  }
+`;
+
+const MonthNav = styled.nav`
+  width: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 8px;
+  color: var(--font-h2);
 `;
 
 const AttendCircle = styled.div`

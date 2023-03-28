@@ -218,12 +218,13 @@ const Check = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
+  align-self: end;
   > span {
     display: inline-block;
 
     font-size: 13px;
 
-    color: var(--font-h1);
+    color: var(--font-h2);
   }
 `;
 

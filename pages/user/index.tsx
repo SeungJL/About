@@ -55,11 +55,11 @@ function UserInfo() {
           <UserScoresNav>
             <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
               <span>내 점수</span>
-              <span>+2점</span>
+              <span>0 점</span>
             </button>
             <button>
               <span>수집한 배지</span>
-              <span>0개</span>
+              <span>0 개</span>
             </button>
           </UserScoresNav>
           <AttendChart type="main" />
