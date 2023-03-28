@@ -63,7 +63,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   }, [voteDate]);
 
   /**날짜마다 새로운 정보 세팅 */
-  console.log(studyDate);
+
   useEffect(() => {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;

@@ -36,6 +36,7 @@ function About() {
     onSuccess(data) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
+      console.log(temp);
     },
     onError() {
       toast({
