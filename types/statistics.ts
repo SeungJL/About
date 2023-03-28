@@ -13,6 +13,12 @@ export interface IVoteStudyInfo {
   end: Dayjs;
 }
 
+export type IPlaceStatusType =
+  | "pending"
+  | "waiting_confirm"
+  | "open"
+  | "dismissed";
+
 export interface IPlaceStatus {
   status?: "pending" | "waiting_confirm" | "open" | "dismissed";
 }

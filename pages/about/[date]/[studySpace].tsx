@@ -11,6 +11,7 @@ import StudySpaceCover from "../../../pagesComponents/About/studySpace/StudySpac
 import StudySpaceHeader from "../../../pagesComponents/About/studySpace/StudySpaceHeader";
 import StudySpaceOverView from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
 import StudyTimeTable from "../../../pagesComponents/About/studySpace/studyTimeTable";
+import { IPlaceStatus } from "../../../types/statistics";
 import { IAttendence } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 
@@ -35,8 +36,8 @@ function StudySpace() {
       });
     },
   });
-
-  const { place, attendences } =
+  console.log(24, vote?.participations);
+  const { place, attendences, status } =
     vote?.participations?.find((props) => props.place._id === spaceID) || {};
 
   const myVote =
@@ -54,7 +55,11 @@ function StudySpace() {
             <HrDiv />
             <SpaceVoteOverView date={voteDate} voteCnt={attendences.length} />
             <StudyTimeTable attendances={attendences} />
-            <StudyNavigation myVote={myVote as IAttendence} place={place} />
+            <StudyNavigation
+              myVote={myVote as IAttendence}
+              place={place}
+              status={status}
+            />
           </>
         )}
       </Layout>
