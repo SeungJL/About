@@ -8,16 +8,16 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
 import NoMyStudy from "./NoMyStudy";
-import { IParticipation } from "../../../types/studyDetails";
+import { IParticipation } from "../../../../types/studyDetails";
 import {
   isVotingState,
   mySpaceFixedState,
   studyDateState,
   voteDateState,
-} from "../../../recoil/studyAtoms";
-import { IUser } from "../../../types/user";
-import { getInterestingDate } from "../../../libs/utils/dateUtils";
-import { VOTE_END_HOUR } from "../../../constants/system";
+} from "../../../../recoil/studyAtoms";
+import { IUser } from "../../../../types/user";
+import { getInterestingDate } from "../../../../libs/utils/dateUtils";
+import { VOTE_END_HOUR } from "../../../../constants/system";
 import ResultHeader from "./ResultHeader";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {

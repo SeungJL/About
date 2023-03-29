@@ -1,20 +1,4 @@
 @font-face {
-  font-family: PretendBold;
-  src: url("../public/fonts/Pretendard-Bold.otf");
-}
-@font-face {
-  font-family: PretendLight;
-  src: url("../public/fonts/Pretendard-Light.otf");
-}
-@font-face {
-  font-family: PretendMedium;
-  src: url("../public/fonts/Pretendard-Medium.otf");
-}
-@font-face {
-  font-family: PretendSemiBold;
-  src: url("../public/fonts/Pretendard-SemiBold.otf");
-}
-@font-face {
   font-family: Pretend;
   src: url("../public/fonts/Pretendard-Regular.otf");
 }

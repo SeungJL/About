@@ -2,11 +2,11 @@ import { faCheckToSlot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { useState } from "react";
-import VoteStudyModal from "../../../modals/study/vote/VoteStudyModal";
+import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
 import { useRecoilValue } from "recoil";
-import { studyDateState } from "../../../recoil/studyAtoms";
-import SpaceLocalSelector from "../../../components/SpaceLocalSelector";
-import ModalPortal from "../../../components/ModalPortal";
+import { studyDateState } from "../../../../recoil/studyAtoms";
+import SpaceLocalSelector from "../../../../components/SpaceLocalSelector";
+import ModalPortal from "../../../../components/ModalPortal";
 
 function AboutMainHeader() {
   const studyDate = useRecoilValue(studyDateState);
