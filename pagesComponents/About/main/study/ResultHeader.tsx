@@ -5,9 +5,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/ModalPortal";
-import CheckVoteModal from "../../../modals/study/vote/CheckVoteModal";
-import VoteStudyModal from "../../../modals/study/vote/VoteStudyModal";
+import ModalPortal from "../../../../components/ModalPortal";
+import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
+import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
 
 function ResultHeader({
   mySpaceFixed,

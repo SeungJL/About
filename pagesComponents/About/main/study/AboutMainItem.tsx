@@ -2,20 +2,23 @@ import { faCheckCircle, faO, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import { IconUserTwo } from "../../../public/icons/Icons";
+import { IconUserTwo } from "../../../../public/icons/Icons";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
-import { mySpaceFixedState, voteDateState } from "../../../recoil/studyAtoms";
-import { useArrivedQuery } from "../../../hooks/vote/queries";
+import {
+  mySpaceFixedState,
+  voteDateState,
+} from "../../../../recoil/studyAtoms";
+import { useArrivedQuery } from "../../../../hooks/vote/queries";
 import dayjs from "dayjs";
-import { VOTE_START_HOUR } from "../../../constants/system";
+import { VOTE_START_HOUR } from "../../../../constants/system";
 import { useState } from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { IParticipation } from "../../../types/studyDetails";
-import { IUser } from "../../../types/user";
-import ProfileImgSm from "../../../components/common/ProfileImgSm";
+import { IParticipation } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
+import ProfileImgSm from "../../../../components/common/ProfileImgSm";
 
 function AboutMainItem({
   studySpaceInfo,

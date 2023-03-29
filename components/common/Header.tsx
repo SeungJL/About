@@ -25,7 +25,7 @@ const Layout = styled.div`
 
 const Title = styled.span`
   color: var(--font-h1);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   margin-left: 16px;
 `;

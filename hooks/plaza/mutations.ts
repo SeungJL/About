@@ -8,6 +8,6 @@ export const usePlazaMutation = (
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, IPlazaData>(async (suggestionForm) => {
-    await axios.post(`/api/plaza`, { suggestionForm });
+  useMutation<void, AxiosError, IPlazaData>(async (plaza) => {
+    await axios.post(`/api/plaza`, { plaza });
   }, options);

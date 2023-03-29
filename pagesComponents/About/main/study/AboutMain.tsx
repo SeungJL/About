@@ -1,24 +1,24 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import AboutMainHeader from "./main/AboutMainHeader";
-import AboutMainItem from "./main/AboutMainItem";
+import AboutMainHeader from "./AboutMainHeader";
+import AboutMainItem from "./AboutMainItem";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
-import NoMyStudy from "./main/NoMyStudy";
-import { IParticipation } from "../../types/studyDetails";
+import NoMyStudy from "./NoMyStudy";
+import { IParticipation } from "../../../../types/studyDetails";
 import {
   isVotingState,
   mySpaceFixedState,
   studyDateState,
   voteDateState,
-} from "../../recoil/studyAtoms";
-import { IUser } from "../../types/user";
-import { getInterestingDate } from "../../libs/utils/dateUtils";
-import { VOTE_END_HOUR } from "../../constants/system";
-import ResultHeader from "./main/ResultHeader";
+} from "../../../../recoil/studyAtoms";
+import { IUser } from "../../../../types/user";
+import { getInterestingDate } from "../../../../libs/utils/dateUtils";
+import { VOTE_END_HOUR } from "../../../../constants/system";
+import ResultHeader from "./ResultHeader";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
@@ -38,7 +38,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
       axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
     }
   }, []);
-  console.log(participations);
+
   /**날짜마다 달라지는 정보들 초기화 */
   useEffect(() => {
     setSpaceVoted([]);
@@ -46,14 +46,17 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     setIsVoting(false);
     const voteDateNum = voteDate.date();
     const defaultDate = getInterestingDate().date();
+    console.log(voteDateNum, defaultDate);
     if (
-      dayjs().hour() >= 14
+      dayjs().hour() >= 14 && dayjs().hour() < 23
         ? voteDateNum < getInterestingDate().subtract(1, "day").date()
         : voteDateNum < defaultDate
-    )
+    ) {
       setStudyDate("passed");
-    else if (
-      dayjs().hour() >= 14
+    } else if (
+      dayjs().hour() >= 23
+        ? voteDateNum <= defaultDate
+        : dayjs().hour() >= 14
         ? voteDate.add(1, "day") <= getInterestingDate()
         : voteDateNum === defaultDate
     )

@@ -1,14 +1,16 @@
+import { Dayjs } from "dayjs";
 import mongoose, { model, Model, Schema } from "mongoose";
 
 export interface IPlazaData {
   category: string;
-  writer: string;
-  deadline?: string;
   title: string;
-  content?: string;
-  suggestContent?: string;
+  content: string;
   voteList?: IVoteList[];
   id?: string;
+  writer: string;
+  date?: string;
+  deadline?: any;
+  suggestContent?: any;
 }
 interface IVoteList {
   voteListIdx: number;
@@ -18,3 +20,5 @@ interface IVoteList {
 export interface IPlazaBlock {
   data: IPlazaData;
 }
+
+export type category = "전체" | "일상" | "고민" | "정보" | "같이해요";

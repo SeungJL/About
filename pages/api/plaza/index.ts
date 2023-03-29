@@ -17,8 +17,9 @@ export default async function handler(
       break;
     case "POST":
       try {
-        const { suggestionForm } = req.body;
-        await Plaza.create(suggestionForm);
+        const { plaza } = req.body;
+
+        await Plaza.create(plaza);
 
         res.send(200);
       } catch (err) {}

@@ -19,12 +19,13 @@ import { useEffect, useState } from "react";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { ColorRing } from "react-loader-spinner";
 
-import Calendar from "../../pagesComponents/About/Callendar";
-import AboutMain from "../../pagesComponents/About/AboutMain";
-import EventBanner from "../../pagesComponents/About/EventBanner";
-import AboutFooter from "../../pagesComponents/About/AboutFooter";
-import MainHeader from "../../pagesComponents/About/AboutHeader";
-import { isMainLoadingState } from "../../recoil/utilityAtoms";
+import AboutMain from "../../pagesComponents/About/main/study/AboutMain";
+
+import AboutFooter from "../../pagesComponents/About/main/Footer";
+import EventBanner from "../../pagesComponents/About/main/EventBanner";
+import Header from "../../pagesComponents/About/main/Header";
+import Calendar from "../../pagesComponents/About/main/Calendar";
+import Ranking from "../../pagesComponents/About/main/Ranking";
 
 function About() {
   const toast = useToast();
@@ -68,11 +69,12 @@ function About() {
       ) : (
         <>
           <Layout>
-            <MainHeader />
+            <Header />
             <Calendar />
             <AboutMain participations={participations} />
             <EventBanner />
             <HrDiv />
+            <Ranking />
             <AttendChart type="main" />
           </Layout>
           <AboutFooter />

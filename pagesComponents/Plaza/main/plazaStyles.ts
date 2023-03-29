@@ -10,6 +10,3 @@ export const PlazaBtnNav = styled.nav`
     background-color: lightgray;
   }
 `;
-export const PlazaMainContent = styled.main`
-  padding: 15px 20px;
-`;
