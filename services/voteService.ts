@@ -12,10 +12,10 @@ export const findOneVote = (date: Date) =>
 type voteTimeArr = { start: Dayjs | Date; end: Dayjs | Date }[];
 
 const checkTimeOverlap = (timeArr: voteTimeArr) => {
-  timeArr.sort((a, b) => (a.start.toString() > b.start.toString() ? 1 : -1));
-  let startTime = timeArr[0].start;
   timeArr.sort((a, b) => (a.end.toString() > b.end.toString() ? -1 : 1));
   let endTime = timeArr[0].end;
+  timeArr.sort((a, b) => (a.start.toString() > b.start.toString() ? 1 : -1));
+  let startTime = timeArr[0].start;
 
   const arr = [];
   while (startTime <= endTime) {
@@ -32,7 +32,7 @@ const checkTimeOverlap = (timeArr: voteTimeArr) => {
       if (arr[i] >= 3) overlapCnt++;
       else overlapCnt = 0;
 
-      if (overlapCnt >= 3) return true;
+      if (overlapCnt >= 3) return timeArr[1];
     }
 
     startTime = dayjs(startTime).add(30, "minutes").toDate();
@@ -66,8 +66,12 @@ export const confirm = async (dateStr: string) => {
         }
       });
 
-      if (timeObj.length && checkTimeOverlap(timeObj)) {
+      let result;
+      if (timeObj.length) result = checkTimeOverlap(timeObj);
+      if (result) {
         participation.status = "open";
+        participation.startTime = result.start;
+        participation.endTime = result.end;
       } else {
         participation.status = "dismissed";
       }
@@ -123,8 +127,12 @@ export const confirm = async (dateStr: string) => {
           }
         });
 
-        if (timeObj.length && checkTimeOverlap(timeObj)) {
+        let result;
+        if (timeObj.length) result = checkTimeOverlap(timeObj);
+        if (timeObj.length && result) {
           participation.status = "open";
+          participation.startTime = result.start as Date;
+          participation.endTime = result.end as Date;
           participation.attendences.forEach(
             (attendance) => (attendance.firstChoice = true)
           );

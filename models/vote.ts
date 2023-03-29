@@ -93,6 +93,8 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
 
     attendences: [AttendenceSchema],
     absences: [AbsenceSchema],
+    startTime: Date,
+    endTime: Date,
 
     status: {
       type: Schema.Types.String,
