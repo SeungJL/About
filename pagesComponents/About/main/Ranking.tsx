@@ -4,16 +4,19 @@ function Ranking() {
   return (
     <Layout>
       <Header>
-        <span>스터디 랭킹</span>
+        <span>랭킹</span>
       </Header>
-      <Quote>집 밖으로 나오셔야죠</Quote>
+
       <Main>
-        <Rank>
-          <div>이번 달 참여</div>
-          <div>내 랭킹</div>
-          <div>내 랭킹</div>
-          <div>전체 인원</div>
-        </Rank>
+        <div>
+          <Profile></Profile>
+          <Rank>
+            <div>이번 달 참여</div>
+            <div>내 랭킹</div>
+            <div>내 점수</div>
+            <div>전체 인원</div>
+          </Rank>
+        </div>
         <Chart></Chart>
       </Main>
     </Layout>
@@ -23,13 +26,18 @@ function Ranking() {
 const Layout = styled.div`
   background-color: skyblue;
   height: 280px;
+  margin-bottom: 30px;
 `;
 
 const Header = styled.header``;
 
-const Quote = styled.div``;
+const Profile = styled.div``;
 
-const Main = styled.main``;
+const Main = styled.main`
+  display: flex;
+  background-color: pink;
+  height: 100%;
+`;
 const Rank = styled.div``;
 
 const Chart = styled.div``;

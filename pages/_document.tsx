@@ -1,8 +1,16 @@
-import Document, { DocumentContext, DocumentInitialProps } from "next/document";
-import { Html, Head, Main, NextScript } from "next/document";
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from "next/document";
+
+import Script from "next/script";
 
 import { ServerStyleSheet } from "styled-components";
-
+const NAVER_APP_ID = process.env.NAVER_APP_ID;
 export default class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext
@@ -40,11 +48,11 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap"
             rel="stylesheet"
           />
-          <body>
-            <Main />
-            <NextScript />
-          </body>
         </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
       </Html>
     );
   }

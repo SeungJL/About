@@ -10,7 +10,8 @@ import dbConnect from "../../libs/dbConnect";
 import { Audio, ColorRing } from "react-loader-spinner";
 import styled from "styled-components";
 import { voteDateState } from "../../recoil/studyAtoms";
-
+import Script from "next/script";
+const NAVER_APP_ID = process.env.NAVER_APP_ID;
 export default function Layout({ children }) {
   const [loading, setLoading] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
@@ -52,6 +53,10 @@ export default function Layout({ children }) {
         <>
           <div id="root-modal">{children}</div>
           <Modals />
+          <Script
+            strategy="beforeInteractive"
+            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=kyi1yirf4s`}
+          ></Script>
         </>
       )}
     </LayoutContainer>

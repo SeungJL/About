@@ -49,10 +49,6 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           </RecoilRoot>
         </QueryClientProvider>
       </SessionProvider>
-      <Script
-        strategy="beforeInteractive"
-        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`}
-      ></Script>
     </>
   );
 }
