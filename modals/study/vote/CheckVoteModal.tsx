@@ -1,24 +1,34 @@
 import { useToast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import { useQueryClient } from "react-query";
+import { useRecoilValue } from "recoil";
 
 import styled from "styled-components";
 import { CommentBox } from "../../../components/block/CommentBox";
 import { useArrivedMutation } from "../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday } from "../../../libs/utils/dateUtils";
+import { mySpaceFixedState } from "../../../recoil/studyAtoms";
 
-import { ModalLg } from "../../../styles/LayoutStyles";
+import { ModalFooterNav, ModalLg } from "../../../styles/LayoutStyles";
+import { IPlace } from "../../../types/studyDetails";
+
+const LOCATE_GAP = 0.00008;
 
 export default function CheckVoteModal({
   setIsModal,
+  myPlace,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
+  myPlace: IPlace;
 }) {
   const [memo, setMemo] = useState("");
+  const [isChecking, setIsChecking] = useState(false);
   const queryClient = useQueryClient();
   const toast = useToast();
-
+  const { data: session } = useSession();
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -38,52 +48,105 @@ export default function CheckVoteModal({
     setIsModal(false);
   };
   const onCheckClicked = () => {
-    handleArrived(memo);
-    setIsModal(false);
+    setIsChecking(true);
+    checkArrived();
   };
+
+  const checkArrived = () => {
+    console.log(5555);
+    navigator.geolocation.getCurrentPosition((data) => {
+      const coords = data.coords;
+      if (
+        (coords.latitude > myPlace.latitude - LOCATE_GAP ||
+          coords.latitude < myPlace.latitude + LOCATE_GAP) &&
+        (coords.longitude > myPlace.longitude - LOCATE_GAP ||
+          coords.longitude < myPlace.longitude + LOCATE_GAP)
+      ) {
+        handleArrived(memo);
+        setTimeout(() => {
+          setIsChecking(false);
+          setIsModal(false);
+        }, 2000);
+      } else {
+        toast({
+          title: "오류",
+          description: "현재 스터디 장소에 있지 않은 것으로 확인돼요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+    });
+  };
+
   return (
-    <Layout>
-      <Title>출석체크</Title>
-      <hr />
-      <MainContent>
-        <div>
-          도착하셨나요? <br />
-          자리나 인상착의를 간단하게 남겨주세요!
-        </div>
-        <CommentBox>
-          <form id="AttendCheckForm">
-            <Input
-              placeholder="comment"
-              onChange={(e) => setMemo(e.target.value)}
-            />
-          </form>
-        </CommentBox>
-      </MainContent>
-      <Footer>
-        <button type="button" onClick={onCancelClicked}>
-          취소
-        </button>
-        <button type="submit" form="AttendCheckForm" onClick={onCheckClicked}>
-          출석
-        </button>
-      </Footer>
-    </Layout>
+    <Container>
+      <Layout>
+        <Title>출석체크</Title>
+
+        <MainContent>
+          <div>
+            도착하셨나요? <br />
+            자리나 인상착의를 간단하게 남겨주세요!
+          </div>
+          <CommentBox>
+            <form id="AttendCheckForm">
+              <Input
+                placeholder="comment"
+                onChange={(e) => setMemo(e.target.value)}
+              />
+            </form>
+          </CommentBox>
+        </MainContent>
+        <BtnNav>
+          <button type="button" onClick={onCancelClicked}>
+            취소
+          </button>
+          <button type="button" form="AttendCheckForm" onClick={onCheckClicked}>
+            출석
+          </button>
+        </BtnNav>
+      </Layout>
+      {isChecking && (
+        <Loading>
+          <RotatingLines
+            strokeColor="grey"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="96"
+            visible={true}
+          />
+          <div />
+          <span>{session?.user.name}님의 현재 위치를 확인중입니다</span>
+        </Loading>
+      )}
+    </Container>
   );
 }
 
+const Container = styled.div`
+  position: relative;
+`;
+
 const Layout = styled(ModalLg)`
-  width: 300px;
-  height: 223px;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
 `;
 const Title = styled.span`
-  padding-bottom: 5px;
-  margin-bottom: 5px;
+  padding-bottom: 12px;
+  margin-bottom: 6px;
+  color: var(--font-h1);
+  font-weight: 600;
+  font-size: 16px;
+
+  border-bottom: 1px solid var(--font-h5);
 `;
 const MainContent = styled.main`
   margin-top: 10px;
-  color: var(--font-black);
-  font-size: 0.9em;
+  font-size: 13px;
+  color: var(--font-h1);
   > div {
     margin-bottom: 12px;
   }
@@ -92,16 +155,32 @@ const Input = styled.input`
   height: 50px;
   width: 250px;
 `;
-const Footer = styled.footer`
-  display: flex;
-  justify-content: end;
-  margin-top: 0px;
-  > button {
-    background-color: lightgray;
-    margin-left: 10px;
-    width: 50px;
-    border-radius: 10px;
+
+const BtnNav = styled(ModalFooterNav)`
+  margin-top: auto;
+  text-align: end;
+  > button:last-child {
+    background-color: var(--color-red);
   }
 `;
 
-export { Layout, Title, MainContent, Input };
+const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  width: 250px;
+  height: 250px;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  > div {
+    height: 10px;
+  }
+`;
