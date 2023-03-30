@@ -4,10 +4,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
+import { useVoteQuery } from "../../../../hooks/vote/queries";
 import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
+import { voteDateState } from "../../../../recoil/studyAtoms";
 
 function ResultHeader({
   mySpaceFixed,
@@ -18,6 +21,13 @@ function ResultHeader({
 }) {
   const [isAttendModal, setIsAttendModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
+  const voteDate = useRecoilValue(voteDateState);
+  const { data } = useVoteQuery(voteDate);
+  console.log(data.participations);
+  const myPlace = data?.participations.find(
+    (par) => par.place._id === mySpaceFixed
+  )?.place;
+  console.log(myPlace);
   return (
     <>
       <Layout>
@@ -41,7 +51,7 @@ function ResultHeader({
       )}
       {isCheckModal && (
         <ModalPortal closePortal={setIsCheckModal}>
-          <CheckVoteModal setIsModal={setIsCheckModal} />
+          <CheckVoteModal setIsModal={setIsCheckModal} myPlace={myPlace} />
         </ModalPortal>
       )}
     </>

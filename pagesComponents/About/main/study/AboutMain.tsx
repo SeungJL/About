@@ -46,7 +46,6 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     setIsVoting(false);
     const voteDateNum = voteDate.date();
     const defaultDate = getInterestingDate().date();
-    console.log(voteDateNum, defaultDate);
     if (
       dayjs().hour() >= 14 && dayjs().hour() < 23
         ? voteDateNum < getInterestingDate().subtract(1, "day").date()
