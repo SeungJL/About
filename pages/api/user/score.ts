@@ -1,14 +1,28 @@
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getToken } from "next-auth/jwt";
+import dbConnect from "../../../libs/dbConnect";
 import { User } from "../../../models/user";
 
 import { getParticipationRate } from "../../../services/rateService";
+
+const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { method } = req;
+  const { score } = req.body;
+
+  const token = await getToken({ req, secret });
+
+  if (!token || !token.uid || !token.accessToken) {
+    res.status(401).end();
+    return;
+  }
+
+  await dbConnect();
 
   switch (method) {
     case "GET":
@@ -30,6 +44,14 @@ export default async function handler(
 
       res.status(200).send(userScore);
       break;
+
+    case "POST":
+      console.log(23);
+      const user = await User.findOne({ uid: token.uid });
+      user.score = user.score + score;
+      await user.save();
+      break;
+
     case "PATCH":
       const users = await User.find({ isActive: true });
 
