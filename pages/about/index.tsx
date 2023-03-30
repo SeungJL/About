@@ -76,7 +76,7 @@ function About() {
             <AboutMain participations={participations} />
             <EventBanner />
             <HrDiv />
-            <Ranking />
+            {/* <Ranking /> */}
             <AttendChart type="main" />
           </Layout>
           <AboutFooter />

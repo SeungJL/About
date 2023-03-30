@@ -22,10 +22,10 @@ function StudySpaceOverView({ space }: { space: IPlace }) {
         <SpaceDetail>
           <Location>
             위치: <span>{location?.location}</span>
-            <div onClick={onClickMap}>
+            {/* <div onClick={onClickMap}>
               <FontAwesomeIcon icon={faLocationDot} size="sm" />
               <span>지도</span>
-            </div>
+            </div> */}
           </Location>
 
           <Time>
