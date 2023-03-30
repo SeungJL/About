@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/ModalPortal";
-import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
-import Terms from "../../storage/terms";
+import ModalPortal from "../../../components/ModalPortal";
+import { PrivacyPolicy } from "../../../storage/PrivacyPolicy";
+import Terms from "../../../storage/terms";
 
 export default function AboutFooter() {
   const [isShowTerm, setIsShowTerm] = useState(false);

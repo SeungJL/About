@@ -6,11 +6,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 import { useRecoilState } from "recoil";
-import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
-import { IconArrowBottom, IconArrowTop } from "../../public/icons/Icons";
-import { IconCircle } from "../../public/icons/IconOutline";
-import { IRate, useAttendRateQueries } from "../../hooks/user/queries";
-import { IDateStartToEnd } from "../../types/utils";
+
 import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,8 +18,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ca from "@mobiscroll/react/dist/src/i18n/ca";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { voteDateState } from "../../../recoil/studyAtoms";
+import { IDateStartToEnd } from "../../../types/utils";
+import { IconCircle } from "../../../public/icons/IconOutline";
+import { IRate, useAttendRateQueries } from "../../../hooks/user/queries";
 
-function AboutCallender() {
+function Calendar() {
   const { data: session } = useSession();
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
@@ -257,4 +257,4 @@ const DayLine = styled.div`
   margin-bottom: 7px;
 `;
 
-export default AboutCallender;
+export default Calendar;

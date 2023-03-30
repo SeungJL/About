@@ -7,11 +7,11 @@ import { useRouter } from "next/router";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import ModalPortal from "../../components/ModalPortal";
-import StudyRuleModal from "../../modals/info/StudyRuleModal";
-import Drawer from "../../components/Layout/Drawer";
+import StudyRuleModal from "../../../modals/info/StudyRuleModal";
+import ModalPortal from "../../../components/ModalPortal";
+import Drawer from "../../../components/Layout/Drawer";
 
-export default function MainHeader() {
+export default function Header() {
   const [isRuleModal, setIsRuleModal] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
   const [isAlert, setIsAlert] = useState(false);

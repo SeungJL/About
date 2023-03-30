@@ -108,7 +108,7 @@ function Drawer({
         </NavLevelItem>
         <NavLevelItem
           pageSelected={url === "/plaza"}
-          // onClick={() => handleClick("plaza")}
+          onClick={() => handleClick("plaza")}
         >
           <FontAwesomeIcon icon={faPeopleRoof} size="xl" />
 

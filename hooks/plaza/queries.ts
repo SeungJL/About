@@ -5,14 +5,14 @@ import { IPlazaData } from "../../types/plaza";
 
 export const usePlazaQuery = (
   options?: Omit<
-    UseQueryOptions<IPlazaData, AxiosError, null>,
+    UseQueryOptions<IPlazaData[], AxiosError, IPlazaData[]>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<IPlazaData, AxiosError, null>(
+  useQuery<IPlazaData[], AxiosError, IPlazaData[]>(
     PLAZA_FINDALL,
     async () => {
-      const res = await axios.get<IPlazaData>(`/api/plaza`);
+      const res = await axios.get<IPlazaData[]>(`/api/plaza`);
       return res.data;
     },
     options

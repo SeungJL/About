@@ -43,7 +43,7 @@ export default function SuggestModal({
       title: data.title,
       writer: isRealName ? session.user.name : "",
       content: data.content,
-      data: dayjs().format("YYYY-MM-DD"),
+      date: dayjs().format("YYYY-MM-DD"),
     };
 
     suggestForm(suggestInfo);

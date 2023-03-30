@@ -113,7 +113,9 @@ export default async function handler(
     case "PATCH":
       vote.participations.map((participation) => {
         participation.attendences.map((attendance) => {
-          if ((attendance.user as IUser)?.uid === token.uid) {
+          if (
+            (attendance.user as IUser)?.uid.toString() === token.uid.toString()
+          ) {
             attendance.time.start = start;
             attendance.time.end = end;
           }

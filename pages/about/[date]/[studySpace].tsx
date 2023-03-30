@@ -36,7 +36,7 @@ function StudySpace() {
       });
     },
   });
-  console.log(24, vote?.participations);
+
   const { place, attendences, status } =
     vote?.participations?.find((props) => props.place._id === spaceID) || {};
 

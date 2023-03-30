@@ -52,7 +52,8 @@ export interface IParticipation extends IPlaceStatus, ITimeStartToEndHM {
   place?: IPlace;
   attendences?: IAttendence[];
   absences?: IAbsence[];
-
+  startTime?: Date;
+  endTime?: Date;
   showVote?: boolean;
 }
 export interface IVote extends Document {

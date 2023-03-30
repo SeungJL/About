@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
-import { ModalLg } from "../../../styles/LayoutStyles";
+import { ModalLg, ModalXL } from "../../../styles/LayoutStyles";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +10,7 @@ import { PlazaContentVoteListModal } from "./PlazaContentVoteListModal";
 import { useSession } from "next-auth/react";
 import { usePlazaMutation } from "../../../hooks/plaza/mutations";
 
-export default function CreatePlazaContentModal({ setIsShowModal }) {
+export default function PlazaWriteModal({ setIsModal }) {
   const [isVoteCategory, setIsVoteCategory] = useState(true);
   const [voteListArr, setVoteListArr] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
@@ -22,6 +22,7 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
     watch,
     formState: { errors },
   } = useForm();
+
   const onDeleteBtnClicked = (idx) => {
     const NewArr = voteListArr?.map((item) => {
       const voteListIdx = item.voteListIdx;
@@ -49,7 +50,7 @@ export default function CreatePlazaContentModal({ setIsShowModal }) {
       voteList: isVoteCategory ? voteListArr : [],
     };
 
-    await handlePlaza(userInfo);
+    // await handlePlaza(userInfo);
   };
 
   return (
@@ -144,10 +145,7 @@ const DeleteIcon = styled.button.attrs((props) => ({
   type: "button",
 }))``;
 
-const Layout = styled(ModalLg)`
-  width: 350px;
-  height: 400px;
-
+const Layout = styled(ModalXL)`
   > button:last-child {
     width: 60px;
     height: 25px;
