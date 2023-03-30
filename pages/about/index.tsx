@@ -26,6 +26,7 @@ import EventBanner from "../../pagesComponents/About/main/EventBanner";
 import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import Ranking from "../../pagesComponents/About/main/Ranking";
+import axios from "axios";
 
 function About() {
   const toast = useToast();
