@@ -11,8 +11,8 @@ function StudySpaceOverView({ space }: { space: IPlace }) {
 
   const onClickMap = () => {
     setIsModal(true);
-    console.log(22);
   };
+
   return (
     <>
       <Layout>
@@ -22,10 +22,10 @@ function StudySpaceOverView({ space }: { space: IPlace }) {
         <SpaceDetail>
           <Location>
             위치: <span>{location?.location}</span>
-            {/* <div onClick={onClickMap}>
+            <div onClick={onClickMap}>
               <FontAwesomeIcon icon={faLocationDot} size="sm" />
               <span>지도</span>
-            </div> */}
+            </div>
           </Location>
 
           <Time>
@@ -34,11 +34,10 @@ function StudySpaceOverView({ space }: { space: IPlace }) {
         </SpaceDetail>
       </Layout>
       {isModal && (
-        <div>
-          <span>안녕하세요</span>
-          <Map />
-          22444
-        </div>
+        <MapWrapper>
+          <MapBtn onClick={() => setIsModal(false)}>X</MapBtn>
+          <Map lat={space?.latitude} lon={space?.longitude} />
+        </MapWrapper>
       )}
     </>
   );
@@ -72,6 +71,7 @@ const SpaceDetail = styled.div`
   }
 `;
 const Location = styled.span`
+  display: flex;
   > span {
     color: var(--font-h1);
     margin-right: 12px;
@@ -87,6 +87,23 @@ const Time = styled.span`
     color: var(--font-h1);
   }
 `;
+
+const MapWrapper = styled.div`
+  position: relative;
+`;
+
+const MapBtn = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--font-h7);
+  width: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  height: 40px;
+  z-index: 100;
+`;
+
 export default StudySpaceOverView;
 
 const locationArr = [

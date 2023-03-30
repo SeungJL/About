@@ -1,19 +1,15 @@
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 
-const Map = ({
-  lat = 37.2845789,
-  lang = 127.0443293,
-}: {
-  lat?: number;
-  lang?: number;
-}) => {
+const Map = ({ lat, lon }: { lat?: number; lon?: number }) => {
   const mapRef = useRef();
+
+  const [myLat, setMyLat] = useState(null);
+  const [myLon, setMyLon] = useState(null);
+
   useEffect(() => {
-    const location = new naver.maps.LatLng(lat, lang);
+    const location = new naver.maps.LatLng(lat, lon);
     const option = {
-      center: new naver.maps.LatLng(lat, lang),
+      center: new naver.maps.LatLng(lat, lon),
       scaleControl: false,
       mapDataControl: false,
       zoom: 14,
@@ -22,19 +18,52 @@ const Map = ({
     const map = new naver.maps.Map(container, option);
 
     const markers = new naver.maps.Marker({
-      position: new naver.maps.LatLng(lat, lang),
+      position: new naver.maps.LatLng(lat, lon),
       map,
       icon: {
         url: "/locationDot.svg",
-        size: new naver.maps.Size(100, 100),
-        scaledSize: new naver.maps.Size(34, 36),
+        size: new naver.maps.Size(40, 40),
+        scaledSize: new naver.maps.Size(40, 40),
+        anchor: new naver.maps.Point(15, 30),
       },
     });
+    const additionalMarker =
+      myLat !== null &&
+      myLon !== null &&
+      new naver.maps.Marker({
+        position: new naver.maps.LatLng(myLat, myLon),
+        map,
+        icon: {
+          url: "/markerMine.svg",
+          size: new naver.maps.Size(40, 40),
+          scaledSize: new naver.maps.Size(40, 40),
+          anchor: new naver.maps.Point(15, 30),
+        },
+      });
     markers.setMap(map);
-  }, [lat, lang]);
+    additionalMarker && additionalMarker.setMap(map);
+  }, [lat, lon, myLat, myLon]);
+
+  useEffect(() => {
+    const onSuccess = (position) => {
+      const { latitude, longitude } = position.coords;
+      setMyLat(latitude);
+      setMyLon(longitude);
+    };
+
+    const onError = (error) => {
+      console.error(error);
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
   return (
-    <div id="map" ref={mapRef} style={{ width: "400px", height: "400px" }} />
+    <div id="map" ref={mapRef} style={{ width: "100%", height: "360px" }} />
   );
 };
 

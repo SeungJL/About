@@ -98,7 +98,7 @@ export const ModalXXL = styled.div`
 
 export const ModalFooterNav = styled.footer`
   height: 30px;
-  border-top: 1px solid var(--font-h5);
+
   padding-top: 7px;
   text-align: end;
   > button {
