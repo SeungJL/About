@@ -1,36 +1,41 @@
-import { Box, ChakraProps, position } from "@chakra-ui/react";
-import axios, { AxiosError } from "axios";
-import { FC, useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef, useState } from "react";
 
-const Map = () => {
+const Map = ({
+  lat = 37.2845789,
+  lang = 127.0443293,
+}: {
+  lat?: number;
+  lang?: number;
+}) => {
+  const mapRef = useRef();
   useEffect(() => {
-    const lat = 37.2845789;
-    const lng = 127.0443293;
-
-    const mapOptions = {
-      center: new naver.maps.LatLng(lat, lng),
+    const location = new naver.maps.LatLng(lat, lang);
+    const option = {
+      center: new naver.maps.LatLng(lat, lang),
+      scaleControl: false,
+      mapDataControl: false,
       zoom: 14,
     };
     const container = document.getElementById("map");
-    const map = new naver.maps.Map(container, mapOptions);
+    const map = new naver.maps.Map(container, option);
 
-    // const markers = places.map((place) => {
-    //   new naver.maps.Marker({
-    //     position: new naver.maps.LatLng(place.latitude, place.longitude),
-    //     map: map,
-    //     icon:
-    //       place._id === selectedPlace?._id
-    //         ? {
-    //             url: "/marker_highlight.png",
-    //             size: new naver.maps.Size(44, 46),
-    //             scaledSize: new naver.maps.Size(44, 46),
-    //           }
-    //         : undefined,
-    //   });
-  }, []);
+    const markers = new naver.maps.Marker({
+      position: new naver.maps.LatLng(lat, lang),
+      map,
+      icon: {
+        url: "/locationDot.svg",
+        size: new naver.maps.Size(100, 100),
+        scaledSize: new naver.maps.Size(34, 36),
+      },
+    });
+    markers.setMap(map);
+  }, [lat, lang]);
 
-  return <Box id="map"  />;
+  return (
+    <div id="map" ref={mapRef} style={{ width: "400px", height: "400px" }} />
+  );
 };
 
 export default Map;

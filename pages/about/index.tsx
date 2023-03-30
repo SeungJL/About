@@ -54,7 +54,7 @@ function About() {
   return (
     <>
       <Seo title="About" />
-      <Map />
+
       <UserSetting />
       {isLoading ? (
         <Loader>
