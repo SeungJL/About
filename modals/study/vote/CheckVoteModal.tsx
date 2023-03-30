@@ -22,7 +22,7 @@ export default function CheckVoteModal({
   myPlace,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-  myPlace: IPlace;
+  myPlace?: IPlace;
 }) {
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
