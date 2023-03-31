@@ -85,7 +85,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const otherStudySpaces = participations?.filter(
     (space) => space !== mySpaceFixed
   );
-  console.log(studyDate);
+
   return (
     <AnimatePresence initial={false}>
       <Layout

@@ -31,8 +31,7 @@ export const useWaringScoreMutation = (
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<any, AxiosError, any>(async (cnt) => {
-    console.log(34);
+  useMutation<void, AxiosError, number>(async (cnt) => {
     await axios.post("/api/user/score", {
       score: cnt,
     });
