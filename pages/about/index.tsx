@@ -27,6 +27,8 @@ import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import Ranking from "../../pagesComponents/About/main/Ranking";
 import Map from "../../components/utils/map";
+import { useWaringScoreMutation } from "../../hooks/user/mutations";
+import { useWarningScoreQuery } from "../../hooks/user/queries";
 
 function About() {
   const toast = useToast();
@@ -38,7 +40,6 @@ function About() {
     onSuccess(data) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
-     
     },
     onError() {
       toast({

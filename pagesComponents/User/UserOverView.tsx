@@ -90,26 +90,6 @@ export default function UserOverView() {
               unoptimized={true}
             />
           </Profile>
-          <Badge
-            position="absolute"
-            width="25px"
-            height="25px"
-            bottom="-8px"
-            borderRadius="100%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            right="-7px"
-            cursor="pointer"
-            onClick={() => onUpdateProfile()}
-            zIndex="5"
-          >
-            {isFetchingProfile ? (
-              <Spinner size="sm" />
-            ) : (
-              <RepeatIcon fontSize="lg" rotate="" />
-            )}
-          </Badge>
         </UserImg>
         <UserInfo>
           <UserProfile>

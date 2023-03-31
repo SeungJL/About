@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import NoMyStudy from "./NoMyStudy";
 import { IParticipation } from "../../../../types/studyDetails";
 import {
+  attendCheckState,
   isVotingState,
   mySpaceFixedState,
   studyDateState,
@@ -29,7 +30,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const [isVoting, setIsVoting] = useRecoilState(isVotingState);
   const [mySpaceFixed, setMySpaceFixed] = useRecoilState(mySpaceFixedState);
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
-
+  const setIsCheck = useSetRecoilState(attendCheckState);
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
@@ -45,6 +46,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     setMyVoteList([]);
     setMySpaceFixed(null);
     setIsVoting(false);
+    setIsCheck(false);
 
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
@@ -83,7 +85,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const otherStudySpaces = participations?.filter(
     (space) => space !== mySpaceFixed
   );
-
+  console.log(studyDate);
   return (
     <AnimatePresence initial={false}>
       <Layout

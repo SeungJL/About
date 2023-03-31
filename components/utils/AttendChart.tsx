@@ -10,6 +10,21 @@ import { getMonth } from "../../libs/utils/dateUtils";
 import { IDateStartToEnd } from "../../types/utils";
 import { IUser } from "../../types/user";
 
+const MONTH_LIST = [
+  "1월",
+  "2월",
+  "3월",
+  "4월",
+  "5월",
+  "6월",
+  "7월",
+  "8월",
+  "9월",
+  "10월",
+  "11월",
+  "12월",
+];
+
 export default function AttendChart({
   type,
   user,
@@ -23,13 +38,18 @@ export default function AttendChart({
   const name = type === "main" ? session?.user.name : user?.name;
   const monthList: IDateStartToEnd[] = [];
 
-  for (let i = 0; i <= Number(getMonth()); i++) {
+  for (let i = Number(getMonth()) - 3; i <= Number(getMonth()); i++) {
     const changeMonthDate = (month: number, num: number) =>
       dayjs().month(month).date(num);
     monthList.push({
       start: changeMonthDate(i, 1),
       end: changeMonthDate(i, dayjs().month(i).daysInMonth()),
     });
+  }
+
+  const monthXaxis = [];
+  for (let i = Number(getMonth()) - 3; i <= Number(getMonth()) + 1; i++) {
+    monthXaxis.push(MONTH_LIST[i]);
   }
 
   const attendCountTotal = useAttendRateQueries(monthList);
@@ -53,7 +73,7 @@ export default function AttendChart({
   myAttendCountTotal.push(null);
 
   const text = type === "modal" ? undefined : "내 스터디 참여";
-
+  !isLoading && console.log(myVoteCountTotal);
   return (
     <div>
       {type === "main" && !isLoading ? (
@@ -86,7 +106,7 @@ export default function AttendChart({
             },
 
             xaxis: {
-              categories: ["1월", "2월", "3월", "4월"],
+              categories: monthXaxis,
             },
           }}
         />
@@ -121,7 +141,7 @@ export default function AttendChart({
             },
 
             xaxis: {
-              categories: ["1월", "2월", "3월", "4월"],
+              categories: monthXaxis,
             },
 
             legend: {
