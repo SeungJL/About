@@ -81,7 +81,6 @@ function About() {
             {/* <Ranking /> */}
             <AttendChart type="main" />
           </Layout>
-          <button onClick={() => signOut()}>임시 로그아웃</button>
           <AboutFooter />
         </>
       )}
