@@ -63,11 +63,12 @@ const Check = styled.div`
   color: var(--color-orange2);
 `;
 const Info = styled.div`
-  width: 64%;
+  width: 80%;
 
   flex-direction: column;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  padding: 8px 0;
   > span {
     font-weight: 600;
     font-size: 13px;

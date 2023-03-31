@@ -118,7 +118,7 @@ function AboutMainItem({
             <IconUserTwo />
             <span>
               {firstAttendance?.length}
-              /6
+              /8
             </span>
           </ParticipantStatus>
         </Participants>
