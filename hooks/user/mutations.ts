@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { IUserComment } from "../../types/user";
 
@@ -22,5 +22,17 @@ export const useCommentMutation = (
     await axios.post("/api/user/comment", {
       comment: comments.comment,
       _id: comments._id,
+    });
+  }, options);
+
+export const useWaringScoreMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, number>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, number>(async (cnt) => {
+    await axios.post("/api/user/score", {
+      score: cnt,
     });
   }, options);

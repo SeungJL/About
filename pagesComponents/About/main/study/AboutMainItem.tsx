@@ -38,7 +38,9 @@ function AboutMainItem({
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
   const studyDate =
-    dayjs().hour() < VOTE_START_HOUR ? voteDate : voteDate.subtract(1, "day");
+    dayjs().hour() < VOTE_START_HOUR || dayjs().hour() >= 23
+      ? voteDate
+      : voteDate.subtract(1, "day");
 
   useArrivedQuery(studyDate, {
     onSuccess(data) {
@@ -133,7 +135,7 @@ const Layout = styled.div<{ status: boolean }>`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  padding: ${(props) => (props.status ? "6px 12px 6px 0px" : "6px 12px")};
+  padding: ${(props) => (props.status ? "6px 12px 6px 0px" : "6px 0px")};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
   border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
 `;

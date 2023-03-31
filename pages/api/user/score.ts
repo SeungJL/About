@@ -46,10 +46,10 @@ export default async function handler(
       break;
 
     case "POST":
-      console.log(23);
       const user = await User.findOne({ uid: token.uid });
       user.score = user.score + score;
       await user.save();
+      res.status(200).send({});
       break;
 
     case "PATCH":

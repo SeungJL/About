@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import {
   useQueries,
@@ -129,6 +129,21 @@ export const useCommentQuery = (
     USER_COMMENT,
     async () => {
       const res = await axios.get<IComment>(`/api/user/comment`);
+      return res.data;
+    },
+    options
+  );
+
+export const useWarningScoreQuery = (
+  options?: Omit<
+    UseQueryOptions<number, AxiosError, number>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<number, AxiosError, number>(
+    "warningScore",
+    async () => {
+      const res = await axios.get<number>("/api/user/score");
       return res.data;
     },
     options
