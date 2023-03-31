@@ -6,7 +6,7 @@ function Ranking() {
       <Header>
         <span>랭킹</span>
       </Header>
-
+      <UserCollection></UserCollection>
       <Main>
         <div>
           <Profile></Profile>
@@ -24,12 +24,18 @@ function Ranking() {
 }
 
 const Layout = styled.div`
-  background-color: skyblue;
+  padding: 16px;
   height: 280px;
   margin-bottom: 30px;
 `;
 
-const Header = styled.header``;
+const UserCollection = styled.div`
+  height: 40px;
+`;
+
+const Header = styled.header`
+  font-size: 18px;
+`;
 
 const Profile = styled.div``;
 
