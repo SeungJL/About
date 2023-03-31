@@ -10,11 +10,9 @@ import { getToday, strToDate } from "../../../libs/utils/dateUtils";
 import { isVotingState } from "../../../recoil/studyAtoms";
 
 import {
-  ModalLg,
-  FullScreen,
-  ModalSm,
   ModalFooterNav,
   ModalHeaderTitle,
+  ModalXs,
 } from "../../../styles/LayoutStyles";
 
 export default function AbsentVoteModal({ setIsModal }) {
@@ -66,7 +64,7 @@ export default function AbsentVoteModal({ setIsModal }) {
   );
 }
 
-const Layout = styled(ModalSm)`
+const Layout = styled(ModalXs)`
   justify-content: space-between;
   height: 200px;
   color: var(--font-h2);

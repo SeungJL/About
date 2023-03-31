@@ -48,8 +48,7 @@ function AboutMainItem({
 
   return (
     <Layout
-      layout
-      status={Boolean(statusFixed === "myOpen")}
+      status={statusFixed === "myOpen"}
       onClick={() =>
         router.push(
           `/about/${voteDate.format("YYYY-MM-DD")}/${studySpaceInfo.place._id}`
@@ -128,7 +127,7 @@ function AboutMainItem({
   );
 }
 
-const Layout = styled(motion.div)<{ status: boolean }>`
+const Layout = styled.div<{ status: boolean }>`
   height: 100px;
   background-color: white;
   display: flex;
