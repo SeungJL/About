@@ -69,7 +69,7 @@ function AboutMainItem({
         </ImageContainer>
       ) : (
         <Check>
-          <span>출석여부: </span>
+          <span>출석: </span>
           <div>
             {isCheck ? (
               <FontAwesomeIcon icon={faO} size="lg" color="var(--color-red)" />

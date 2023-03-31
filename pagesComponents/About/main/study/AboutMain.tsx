@@ -44,11 +44,11 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     setSpaceVoted([]);
     setmySpaceFixed("");
     setIsVoting(false);
-    const voteDateNum = voteDate.date();
-    const defaultDate = getInterestingDate().date();
+    const voteDateNum = +voteDate.format("MDD");
+    const defaultDate = +getInterestingDate().format("MDD");
     if (
       dayjs().hour() >= 14 && dayjs().hour() < 23
-        ? voteDateNum < getInterestingDate().subtract(1, "day").date()
+        ? voteDateNum < +getInterestingDate().subtract(1, "day").format("MDD")
         : voteDateNum < defaultDate
     ) {
       setStudyDate("passed");
@@ -56,14 +56,14 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
       dayjs().hour() >= 23
         ? voteDateNum <= defaultDate
         : dayjs().hour() >= 14
-        ? voteDate.add(1, "day") <= getInterestingDate()
+        ? +voteDate.add(1, "day").format("MDD") <= defaultDate
         : voteDateNum === defaultDate
     )
       setStudyDate("today");
     else setStudyDate("not passed");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
-
+  console.log(22, studyDate);
   /**날짜마다 새로운 정보 세팅 */
 
   useEffect(() => {
