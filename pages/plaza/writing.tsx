@@ -40,7 +40,7 @@ function WritingPlaza() {
       writer: session?.user.name,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    console.log(52, writingData);
+
     handlePlaza(writingData);
   };
   return (

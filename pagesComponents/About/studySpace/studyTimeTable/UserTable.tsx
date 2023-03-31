@@ -13,7 +13,6 @@ const colorArr = [
   "#9E7CFF",
   "#FFC1CC",
   "#A6ABBF",
-  "#FFE4C4",
   "#ADD8E6",
   "#D7BCE8",
   "#B0C4DE",

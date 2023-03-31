@@ -51,11 +51,11 @@ export default function CheckVoteModal({
     setIsChecking(true);
     checkArrived();
   };
-  console.log(55, myPlace);
+
   const checkArrived = () => {
     navigator.geolocation.getCurrentPosition((data) => {
       const coords = data?.coords;
-      console.log(44, myPlace, coords);
+
       if (
         (coords.latitude > myPlace?.latitude - LOCATE_GAP ||
           coords.latitude < myPlace?.latitude + LOCATE_GAP) &&

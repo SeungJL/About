@@ -11,28 +11,29 @@ import { useVoteQuery } from "../../../../hooks/vote/queries";
 import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
 import { voteDateState } from "../../../../recoil/studyAtoms";
+import { IParticipation } from "../../../../types/studyDetails";
 
 function ResultHeader({
   mySpaceFixed,
   studyDate,
 }: {
-  mySpaceFixed: string;
+  mySpaceFixed: IParticipation;
   studyDate: string;
 }) {
   const [isAttendModal, setIsAttendModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const { data } = useVoteQuery(voteDate);
-  console.log(data.participations);
+
   const myPlace = data?.participations.find(
-    (par) => par.place._id === mySpaceFixed
+    (par) => par === mySpaceFixed
   )?.place;
-  console.log(myPlace);
+
   return (
     <>
       <Layout>
         <span>내 스터디 결과</span>
-        {studyDate === "today" && mySpaceFixed === "" ? (
+        {studyDate === "today" && mySpaceFixed === null ? (
           <Button onClick={() => setIsAttendModal(true)}>
             <FontAwesomeIcon icon={faCheckToSlot} size="xl" />
             <span>당일참여</span>
