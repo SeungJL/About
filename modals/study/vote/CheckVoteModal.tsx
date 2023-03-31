@@ -51,16 +51,16 @@ export default function CheckVoteModal({
     setIsChecking(true);
     checkArrived();
   };
-
+  console.log(55, myPlace);
   const checkArrived = () => {
-    console.log(5555);
     navigator.geolocation.getCurrentPosition((data) => {
-      const coords = data.coords;
+      const coords = data?.coords;
+      console.log(44, myPlace, coords);
       if (
-        (coords.latitude > myPlace.latitude - LOCATE_GAP ||
-          coords.latitude < myPlace.latitude + LOCATE_GAP) &&
-        (coords.longitude > myPlace.longitude - LOCATE_GAP ||
-          coords.longitude < myPlace.longitude + LOCATE_GAP)
+        (coords.latitude > myPlace?.latitude - LOCATE_GAP ||
+          coords.latitude < myPlace?.latitude + LOCATE_GAP) &&
+        (coords.longitude > myPlace?.longitude - LOCATE_GAP ||
+          coords.longitude < myPlace?.longitude + LOCATE_GAP)
       ) {
         handleArrived(memo);
         setTimeout(() => {
@@ -153,7 +153,7 @@ const MainContent = styled.main`
 `;
 const Input = styled.input`
   height: 50px;
-  width: 250px;
+  width: 100%;
 `;
 
 const BtnNav = styled(ModalFooterNav)`
