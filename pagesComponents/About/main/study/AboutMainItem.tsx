@@ -5,16 +5,17 @@ import styled from "styled-components";
 import { IconUserTwo } from "../../../../public/icons/Icons";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 import {
+  attendCheckState,
   mySpaceFixedState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 import { useArrivedQuery } from "../../../../hooks/vote/queries";
 import dayjs from "dayjs";
 import { VOTE_START_HOUR } from "../../../../constants/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
@@ -31,14 +32,14 @@ function AboutMainItem({
   const { data: session } = useSession();
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const [isCheck, setIsCheck] = useRecoilState(attendCheckState);
 
   const { attendences, place, status } = studySpaceInfo || {};
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
-  const statusFixed = place?._id === mySpaceFixed ? "myOpen" : status;
+  const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
   const studyDate =
     dayjs().hour() < VOTE_START_HOUR ? voteDate : voteDate.subtract(1, "day");
 
-  const [isCheck, setIsCheck] = useState(false);
   useArrivedQuery(studyDate, {
     onSuccess(data) {
       if (data.some((att) => att.user.uid === session?.uid)) setIsCheck(true);
@@ -48,7 +49,7 @@ function AboutMainItem({
   return (
     <Layout
       layout
-      status={statusFixed}
+      status={Boolean(statusFixed === "myOpen")}
       onClick={() =>
         router.push(
           `/about/${voteDate.format("YYYY-MM-DD")}/${studySpaceInfo.place._id}`
@@ -69,7 +70,7 @@ function AboutMainItem({
         </ImageContainer>
       ) : (
         <Check>
-          <span>출석: </span>
+          <span>출석:</span>
           <div>
             {isCheck ? (
               <FontAwesomeIcon icon={faO} size="lg" color="var(--color-red)" />
@@ -94,7 +95,7 @@ function AboutMainItem({
           {statusFixed === "myOpen" && (
             <Result>
               <FontAwesomeIcon icon={faClock} size="sm" />
-              <ResultInfo>12시 ~ 21시</ResultInfo>
+              <ResultInfo>12시</ResultInfo>
             </Result>
           )}
         </Status>
@@ -117,7 +118,7 @@ function AboutMainItem({
           <ParticipantStatus>
             <IconUserTwo />
             <span>
-              {firstAttendance?.length}
+              <b>{firstAttendance?.length}</b>
               /8
             </span>
           </ParticipantStatus>
@@ -127,17 +128,15 @@ function AboutMainItem({
   );
 }
 
-const Layout = styled(motion.div)<{ status: string }>`
+const Layout = styled(motion.div)<{ status: boolean }>`
   height: 100px;
   background-color: white;
   display: flex;
   align-items: center;
-  padding: 6px 12px 6px 12px;
   margin-bottom: 10px;
-  flex-direction: ${(props) =>
-    props.status === "myOpen" ? "row-reverse" : null};
-  border: ${(props) =>
-    props.status === "myOpen" ? "1.5px solid var(--color-mint)" : null};
+  padding: ${(props) => (props.status ? "6px 12px 6px 0px" : "6px 12px")};
+  flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
+  border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
 `;
 
 const ImageContainer = styled.div`
@@ -217,16 +216,14 @@ const ResultInfo = styled.div`
 `;
 
 const Check = styled.div`
-  width: 68px;
+  width: 54px;
   display: flex;
   justify-content: space-between;
   align-items: end;
   align-self: end;
   > span {
     display: inline-block;
-
     font-size: 13px;
-
     color: var(--font-h2);
   }
 `;
@@ -272,7 +269,7 @@ const ParticipantStatus = styled.div`
     font-weight: 400;
     font-size: 13px;
     margin-left: 2px;
-    color: #767d8a;
+    color: var(--font-h3);
     font-weight: 600;
   }
 `;

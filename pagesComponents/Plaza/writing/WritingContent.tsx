@@ -9,7 +9,6 @@ function WritingContent({
   register: UseFormRegister<FieldValues>;
   isVote: boolean;
 }) {
-  console.log(isVote);
   return (
     <>
       <Layout
