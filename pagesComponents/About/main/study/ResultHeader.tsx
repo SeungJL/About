@@ -4,7 +4,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
 import { useVoteQuery } from "../../../../hooks/vote/queries";
@@ -12,6 +12,7 @@ import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 import { IParticipation } from "../../../../types/studyDetails";
+import { attendCheckState } from "../../../../recoil/studyAtoms";
 
 function ResultHeader({
   mySpaceFixed,
@@ -22,6 +23,7 @@ function ResultHeader({
 }) {
   const [isAttendModal, setIsAttendModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
+  const isCheck = useRecoilValue(attendCheckState);
   const voteDate = useRecoilValue(voteDateState);
   const { data } = useVoteQuery(voteDate);
 
@@ -38,7 +40,7 @@ function ResultHeader({
             <FontAwesomeIcon icon={faCheckToSlot} size="xl" />
             <span>당일참여</span>
           </Button>
-        ) : studyDate === "today" ? (
+        ) : studyDate === "today" && !isCheck ? (
           <Button onClick={() => setIsCheckModal(true)}>
             <FontAwesomeIcon icon={faSquareCheck} size="xl" />
             <span>출석체크</span>

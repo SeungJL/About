@@ -16,9 +16,10 @@ function CheckComment({ attendances }: { attendances: IAttendence[] }) {
               <span>{(user.user as IUser).name}</span>
               <div>{user.memo}</div>
             </Info>
-            {user.memo && (
+            {user.arrived && (
               <Check>
                 <FontAwesomeIcon icon={faCircleCheck} size="xl" />
+                <span></span>
               </Check>
             )}
           </BlockInfo>
@@ -59,6 +60,7 @@ const Check = styled.div`
   width: 40px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   color: var(--color-orange2);
 `;

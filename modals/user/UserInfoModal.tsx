@@ -3,7 +3,7 @@ import styled from "styled-components";
 import UserBadge from "../../components/block/UserBadge";
 import { birthToAge } from "../../libs/utils/membersUtil";
 
-import { ModalLg, ModalXL } from "../../styles/LayoutStyles";
+import { ModalLg, ModalSm, ModalXL } from "../../styles/LayoutStyles";
 
 import { Dispatch, SetStateAction, useState } from "react";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
@@ -93,7 +93,9 @@ export default function UserInfoModal({
             {navType === "badge" ? (
               <UserInfoBadge />
             ) : navType === "chart" ? (
-              <AttendChart type="modal" user={user} />
+              <ChartWrapper>
+                <AttendChart type="modal" user={user} />
+              </ChartWrapper>
             ) : (
               <UserInfoGroup />
             )}
@@ -103,7 +105,7 @@ export default function UserInfoModal({
     </>
   );
 }
-const Layout = styled(ModalXL)`
+const Layout = styled(ModalSm)`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
@@ -138,19 +140,20 @@ const UserRelNav = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 12px;
 `;
 const Button = styled.button<{ selected: boolean }>`
   width: 70px;
-  height: 22px;
+  height: 20px;
   border: 1px solid var(--font-h4);
   border-radius: 10px;
-  margin-top: 11px;
+  font-size: 11px;
   background-color: ${(props) => (props.selected ? "var(--font-h6)" : "none")};
 `;
 
 const UserName = styled.div`
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   align-items: center;
   > span {
     margin-right: 7px;
@@ -167,6 +170,10 @@ const UserProfile = styled.div`
     > span:nth-child(even) {
       margin-right: 10px;
     }
+  }
+  > div:first-child {
+    display: flex;
+    justify-content: space-between;
   }
 `;
 
@@ -185,8 +192,15 @@ const Detail = styled.div`
   flex: 1;
   margin-top: 10px;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
+`;
+
+const ChartWrapper = styled.div`
+  position: absolute;
+  top: -20px;
+  left: -10px;
 `;
 
 const CommentWrapper = styled.div`
@@ -198,7 +212,7 @@ const Comment = styled.div`
   padding: 0 5px;
   display: flex;
   flex-direction: column;
-  height: 45px;
+  height: 44px;
 
   > span:first-child {
     padding-top: 3px;

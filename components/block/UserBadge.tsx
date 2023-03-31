@@ -18,15 +18,10 @@ const UserBadgeLayout = styled.div<{ role: string }>`
     if (State === "member") return "rgb(34,84,61)";
     if (State === "previliged") return "#2c3e50";
   }};
-  font-size: ${(props) => {
-    const State = props.role;
-    if (State === "member") return "0.8em";
-    if (State === "previliged") return "0.9em";
-  }};
 
   text-align: center;
-  width: 50px;
-  height: 16px;
-  font-size: 0.8em;
+
+  font-size: 10px;
   border-radius: 8px;
+  padding: 0px 4px;
 `;

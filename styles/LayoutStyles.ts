@@ -35,8 +35,8 @@ export const ModalSm = styled.div`
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: absolute;
-  width: 60%;
-  height: 200px;
+  width: 290px;
+  height: 328px;
   top: 50%;
   padding: 10px;
   left: 50%;
