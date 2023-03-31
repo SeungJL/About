@@ -20,7 +20,7 @@ import { hourMinToDate } from "../../../libs/utils/dateUtils";
 import ModalPortal from "../../../components/ModalPortal";
 import { ITimeStartToEndHM } from "../../../types/utils";
 import { useVoteQuery } from "../../../hooks/vote/queries";
-import { ModalLg, ModalSm } from "../../../styles/LayoutStyles";
+import { ModalLg } from "../../../styles/LayoutStyles";
 import { voteDateState } from "../../../recoil/studyAtoms";
 
 function VoteStudyModal({
