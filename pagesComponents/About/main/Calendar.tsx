@@ -72,6 +72,7 @@ function Calendar() {
     const temp = [];
     let isAttend = false;
 
+    console.log(222, calendarType, startDayInMonth);
     if (calendarType === "week") {
       const start = date - dayInWeek;
       for (let i = start; i < start + 7; i++) {
@@ -101,10 +102,12 @@ function Calendar() {
 
   const onClickPrev = () => {
     setVoteDate((old) => old.subtract(1, "month").date(1));
+    setMonth(month - 1);
   };
 
   const onClickNext = () => {
     setVoteDate((old) => old.add(1, "month").date(1));
+    setMonth(month + 1);
   };
 
   return (

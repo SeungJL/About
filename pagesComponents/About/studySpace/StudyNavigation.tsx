@@ -50,7 +50,7 @@ function StudyNavigation({
   const [isCancelModal, setIsCancelModal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
-  console.log(myVote, place);
+
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
       await queryClient.invalidateQueries([VOTE_GET, voteDate]);
@@ -140,7 +140,7 @@ function StudyNavigation({
             onClick={() => setIsVoteModal(true)}
           >
             <span>{isVoting ? "투표 완료" : "스터디 투표하기"}</span>
-          </MainButton>
+        </MainButton>
         </Layout>
       )}
       {isChangeModal && (
@@ -168,7 +168,7 @@ function StudyNavigation({
       )}
       {isCheckModal && (
         <ModalPortal closePortal={setIsCheckModal}>
-          <CheckVoteModal setIsModal={setIsCheckModal} />
+          <CheckVoteModal setIsModal={setIsCheckModal} myPlace={place} />
         </ModalPortal>
       )}
     </>
