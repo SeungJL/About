@@ -72,7 +72,6 @@ function Calendar() {
     const temp = [];
     let isAttend = false;
 
-    console.log(222, calendarType, startDayInMonth);
     if (calendarType === "week") {
       const start = date - dayInWeek;
       for (let i = start; i < start + 7; i++) {

@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
-import { IPlace, IVote } from "../../types/studyDetails";
+import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
 
 export const useVoteQuery = (
@@ -70,3 +70,14 @@ export const useArrivedQuery = (
     },
     options
   );
+
+export const useStudyStartQuery = (
+  date: Dayjs,
+  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+) =>
+  useQuery("studyStart", async () => {
+    const res = await axios.get<any>(
+      `/api/vote/${date.format("YYYY-MM-DD")}/start`
+    );
+    return res.data;
+  });

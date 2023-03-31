@@ -72,6 +72,10 @@ function StudyNavigation({
     setIsCancelModal(true);
   };
 
+  const onCancelCliked = () => {
+    handleAbsent();
+  };
+
   return (
     <>
       {studyDate === "passed" || status === "dismissed" ? (
@@ -87,7 +91,7 @@ function StudyNavigation({
       ) : studyDate === "today" ? (
         <Layout>
           <SubNav>
-            <Button onClick={() => handleAbsent()}>
+            <Button onClick={onCancelCliked}>
               <FontAwesomeIcon icon={faCircleXmark} size="xl" />
               <span>투표 취소</span>
             </Button>
@@ -140,7 +144,7 @@ function StudyNavigation({
             onClick={() => setIsVoteModal(true)}
           >
             <span>{isVoting ? "투표 완료" : "스터디 투표하기"}</span>
-        </MainButton>
+          </MainButton>
         </Layout>
       )}
       {isChangeModal && (

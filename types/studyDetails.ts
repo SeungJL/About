@@ -82,3 +82,8 @@ export interface IAgg {
   invited: string[] | IUser[];
   cancelled: string[] | IUser[];
 }
+
+export interface IStudyStart {
+  place_id: string;
+  startTime: any;
+}

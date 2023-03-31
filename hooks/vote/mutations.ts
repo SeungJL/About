@@ -30,17 +30,14 @@ export const useAbsentMutation = (
   }, options);
 
 export const useChangeTimeMutation = (
-  currentDate: Dayjs,
+  date: Dayjs,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, { start: Date; end: Date }>,
+    UseMutationOptions<void, AxiosError, { start: Dayjs; end: Dayjs }>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, { start: Date; end: Date }>(async (time) => {
-    await axios.patch(
-      `/api/vote/${currentDate.format("YYYY-MM-DD")}/time`,
-      time
-    );
+  useMutation<void, AxiosError, { start: Dayjs; end: Dayjs }>(async (time) => {
+    await axios.patch(`/api/vote/${date.format("YYYY-MM-DD")}`, time);
   }, options);
 
 export const useConfirmMutation = (
@@ -88,3 +85,17 @@ export const useRegisterMutation = (
     const res = await axios.post(`/api/user/profile`, userRegister);
     return res.data;
   }, options);
+
+export const useDecideSpaceMutation = (
+  date: Dayjs,
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, void>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useMutation("decideSpace", async () => {
+    const res = await axios.patch<void>(
+      `/api/admin/vote/${date.format("YYYY-MM-DD")}/status/confirm`
+    );
+    return res.data;
+  });

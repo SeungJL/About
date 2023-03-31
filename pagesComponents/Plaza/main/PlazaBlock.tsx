@@ -17,7 +17,6 @@ export default function PlazaBlock({
   const onSubmit = (event: ChangeEvent<HTMLInputElement>) => {
     const formData = new FormData(event.target.form);
     const selectedValue = formData.get("vote");
-    console.log(selectedValue);
 
     const requestOptions = {
       method: "POST",

@@ -2,7 +2,7 @@ import { IParticipation } from "../../types/studyDetails";
 
 export const arrangeSpace = (participations: IParticipation[]) => {
   const temp = [];
-  console.log(participations);
+
   participations.forEach((participant) => {
     const brand = participant.place.brand;
     if (brand === "탐앤탐스") temp[1] = participant;

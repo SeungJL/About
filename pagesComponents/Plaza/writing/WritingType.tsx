@@ -16,7 +16,7 @@ function WritingType({
 }) {
   const onChange = (e: any) => {
     const value = e.target.value;
-    console.log(value);
+
     if (value === "vote") setIsVote(true);
     else setIsVote(false);
   };

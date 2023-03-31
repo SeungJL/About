@@ -19,31 +19,47 @@ import { IUser } from "../../../../types/user";
 import { getInterestingDate } from "../../../../libs/utils/dateUtils";
 import { VOTE_END_HOUR } from "../../../../constants/system";
 import ResultHeader from "./ResultHeader";
+import { useStudyStartQuery } from "../../../../hooks/vote/queries";
+import { useDecideSpaceMutation } from "../../../../hooks/vote/mutations";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const setIsVoting = useSetRecoilState(isVotingState);
-  const [mySpaceFixed, setmySpaceFixed] = useRecoilState(mySpaceFixedState);
+  const [isVoting, setIsVoting] = useRecoilState(isVotingState);
+  const [mySpaceFixed, setMySpaceFixed] = useRecoilState(mySpaceFixedState);
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
 
-  const [spaceVoted, setSpaceVoted] = useState<string[]>([""]);
-  const [myStudySpace, setMyStudySpace] = useState<IParticipation>();
+  const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
+  const { mutateAsync: decideSpace } = useDecideSpaceMutation(
+    voteDate.add(1, "day")
+  );
   /**스터디 알고리즘 적용 */
   useEffect(() => {
-    if (dayjs().hour() >= VOTE_END_HOUR) {
-      const targetDate = dayjs().add(1, "day").format("YYYY-MM-DD");
-      axios.patch(`/api/admin/vote/${targetDate}/status/confirm`);
-    }
-  }, []);
+    if (dayjs().hour() >= VOTE_END_HOUR) decideSpace();
+  }, [decideSpace]);
 
   /**날짜마다 달라지는 정보들 초기화 */
   useEffect(() => {
-    setSpaceVoted([]);
-    setmySpaceFixed("");
+    setMyVoteList([]);
+    setMySpaceFixed(null);
     setIsVoting(false);
+
+    participations?.map((space) => {
+      const spaceStatus = space.status === "open" ? true : false;
+      if (
+        space?.attendences?.find(
+          (att) => (att.user as IUser)?.uid === session?.uid
+        )
+      ) {
+        setMyVoteList((old) => [...old, space.place._id]);
+        setIsVoting(true);
+
+        if (spaceStatus) setMySpaceFixed(space);
+      }
+    });
+
     const voteDateNum = +voteDate.format("MDD");
     const defaultDate = +getInterestingDate().format("MDD");
     if (
@@ -62,32 +78,10 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
       setStudyDate("today");
     else setStudyDate("not passed");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate]);
-  console.log(22, studyDate);
-  /**날짜마다 새로운 정보 세팅 */
+  }, [voteDate, participations, isVoting]);
 
-  useEffect(() => {
-    participations?.map((space) => {
-      const spaceStatus = space.status === "open" ? true : false;
-
-      if (
-        space?.attendences?.find(
-          (att) => (att.user as IUser)?.uid === session?.uid
-        )
-      ) {
-        setSpaceVoted((old) => [...old, space.place._id]);
-        setIsVoting(true);
-
-        if (spaceStatus) {
-          setmySpaceFixed(space.place._id);
-          setMyStudySpace(space);
-        }
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate, participations]);
   const otherStudySpaces = participations?.filter(
-    (space) => space !== myStudySpace
+    (space) => space !== mySpaceFixed
   );
 
   return (
@@ -116,8 +110,8 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
         {studyDate !== "not passed" && (
           <Result>
             <ResultHeader mySpaceFixed={mySpaceFixed} studyDate={studyDate} />
-            {mySpaceFixed !== "" ? (
-              <AboutMainItem studySpaceInfo={myStudySpace} voted={true} />
+            {mySpaceFixed !== null ? (
+              <AboutMainItem studySpaceInfo={mySpaceFixed} voted={true} />
             ) : (
               <NoMyStudy />
             )}
@@ -131,7 +125,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
               <AboutMainItem
                 studySpaceInfo={info}
                 voted={Boolean(
-                  spaceVoted.find((space) => space === info?.place?._id)
+                  myVoteList.find((space) => space === info?.place?._id)
                 )}
               />
             </Block>
