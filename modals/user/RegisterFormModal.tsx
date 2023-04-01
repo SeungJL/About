@@ -158,9 +158,6 @@ function RegisterFormModal({
               </Agree>
             </div>
             <div>
-              <CancelBtn type="button" onClick={onCancelBtnClicked}>
-                취소
-              </CancelBtn>
               <SubmitButton type="submit">제출</SubmitButton>
             </div>
           </SubmitBtn>

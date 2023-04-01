@@ -82,7 +82,7 @@ function StudyNavigation({
         <Layout>
           <MainButton disabled={true} func={false}>
             <span>
-              {studyDate !== "passed"
+              {studyDate === "passed"
                 ? "기간 만료"
                 : "스터디가 열리지 않았어요!"}
             </span>

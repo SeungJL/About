@@ -4,27 +4,38 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import UserImageIcon from "../../../../components/common/UserImageIcon";
+import { Badge } from "@chakra-ui/react";
 
 function CheckComment({ attendances }: { attendances: IAttendence[] }) {
   return (
     <Layout>
-      {attendances.map((user, idx) => (
-        <Block key={idx}>
-          <UserImageIcon user={user.user as IUser} />
-          <BlockInfo>
-            <Info>
-              <span>{(user.user as IUser).name}</span>
-              <div>{user.memo}</div>
-            </Info>
-            {user.arrived && (
-              <Check>
-                <FontAwesomeIcon icon={faCircleCheck} size="xl" />
-                <span></span>
-              </Check>
-            )}
-          </BlockInfo>
-        </Block>
-      ))}
+      {attendances.map((user, idx) => {
+        const arrivedTime = new Date(user.arrived);
+        arrivedTime.setHours(arrivedTime.getHours() - 9);
+        const arrivedHM = arrivedTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+
+        return (
+          <Block key={idx}>
+            <UserImageIcon user={user.user as IUser} />
+            <BlockInfo>
+              <Info>
+                <span>{(user.user as IUser).name}</span>
+                <div>{user.memo}</div>
+              </Info>
+              {user.arrived && (
+                <Check>
+                  <FontAwesomeIcon icon={faCircleCheck} size="xl" />
+                  <span>{arrivedHM}</span>
+                </Check>
+              )}
+            </BlockInfo>
+          </Block>
+        );
+      })}
     </Layout>
   );
 }
@@ -39,44 +50,43 @@ const Block = styled.div`
   display: flex;
   align-items: center;
 `;
-const UserImg = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 45px;
-  height: 45px;
-  border-radius: 17px;
-  overflow: hidden;
-  margin-right: 8px;
-`;
+
 const BlockInfo = styled.div`
   height: 100%;
-
   display: flex;
   flex: 1;
+  margin-left: 12px;
 `;
 
 const Check = styled.div`
+  margin-left: auto;
   width: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   flex-direction: column;
   align-items: center;
-  color: var(--color-orange2);
+  color: var(--color-red);
+  > span {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--font-h4);
+  }
 `;
 const Info = styled.div`
   width: 80%;
 
   flex-direction: column;
   display: flex;
-  justify-content: space-around;
-  padding: 8px 0;
+  justify-content: center;
+  padding: 4px 0;
   > span {
     font-weight: 600;
-    font-size: 13px;
+    font-size: 15px;
   }
   > div {
-    font-size: 11px;
+    font-size: 13px;
+    margin-top: 2px;
     color: var(--font-h3);
     overflow: hidden;
   }

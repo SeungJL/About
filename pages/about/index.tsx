@@ -80,7 +80,7 @@ function About({ UserList }: { UserList: IUser[] }) {
             <AboutMain participations={participations} />
             <EventBanner />
             <HrDiv />
-            <Ranking />
+            {/* <Ranking /> */}
             <AttendChart type="main" />
           </Layout>
           <AboutFooter />

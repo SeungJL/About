@@ -15,8 +15,8 @@ function UserImageIcon({ user }: { user: IUser }) {
       <Layout onClick={() => setIsUserModal(true)}>
         <Image
           src={`${user.profileImage}`}
-          width={45}
-          height={45}
+          width={50}
+          height={50}
           alt="userProfile"
           unoptimized={true}
         />
@@ -34,11 +34,9 @@ const Layout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 45px;
+  object-fit: cover;
   border-radius: 17px;
   overflow: hidden;
-  margin-right: 8px;
 `;
 
 export default UserImageIcon;

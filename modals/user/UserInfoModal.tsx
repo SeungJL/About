@@ -25,7 +25,7 @@ export default function UserInfoModal({
   const { data: comments } = useCommentQuery();
 
   const comment = comments?.comments.find((att) => att._id === user._id);
-
+  console.log(user);
   useCommentQuery();
   return (
     <>
@@ -35,8 +35,8 @@ export default function UserInfoModal({
             <Image
               src={`${user.profileImage}`}
               alt="profileImage"
-              width={64}
-              height={64}
+              width={72}
+              height={72}
               unoptimized={true}
             />
           </UserImage>
@@ -47,16 +47,24 @@ export default function UserInfoModal({
             </UserName>
             <UserProfile>
               <div>
-                <FontSm>나이: </FontSm>
-                <span>{birthToAge(user.birth)}</span>
-                <FontSm>성별: </FontSm>
-                <span>{user.gender.slice(0, 1)}</span>
-                <FontSm>MBTI: </FontSm>
-                <span>{user.mbti ? user.mbti.toUpperCase() : "생략"}</span>
+                <div>
+                  <DetailInfo>나이: </DetailInfo>
+                  <DetailValue>{birthToAge(user.birth)}</DetailValue>
+                </div>
+                <div>
+                  <DetailInfo>성별: </DetailInfo>
+                  <DetailValue>{user.gender.slice(0, 1)}</DetailValue>
+                </div>
+                <div>
+                  <DetailInfo>MBTI: </DetailInfo>
+                  <DetailValue>
+                    {user.mbti ? user.mbti.toUpperCase() : "생략"}
+                  </DetailValue>
+                </div>
               </div>
               <div>
-                <FontSm>가입일: </FontSm>
-                <span>{user.registerDate}</span>
+                <DetailInfo>가입일: </DetailInfo>
+                <DetailValue>{user.registerDate}</DetailValue>
               </div>
             </UserProfile>
           </UserInfo>
@@ -114,7 +122,7 @@ const Layout = styled(ModalSm)`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  border-radius: 10px;
+  border-radius: 17px;
   display: flex;
   flex-direction: column;
 `;
@@ -124,17 +132,17 @@ const UpPart = styled.div`
   margin-bottom: 10px;
 `;
 const UserImage = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-radius: 20px;
+  width: 72px;
+  height: 72px;
+  border-radius: 17px;
   overflow: hidden;
 `;
 const UserInfo = styled.div`
+  padding-top: 2px;
   display: flex;
   flex-direction: column;
-  width: 70%;
-  margin: 0 auto;
-  padding-left: 2px;
+  flex: 1;
+  margin-left: 12px;
 `;
 const UserRelNav = styled.nav`
   display: flex;
@@ -153,27 +161,25 @@ const Button = styled.button<{ selected: boolean }>`
 
 const UserName = styled.div`
   display: flex;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   align-items: center;
-  > span {
+  > span:first-child {
     margin-right: 7px;
+    font-size: 17px;
+    font-weight: 600;
   }
 `;
 const UserProfile = styled.div`
   display: flex;
+  padding-right: 4px;
   flex-direction: column;
   justify-content: space-around;
-  padding-bottom: px;
-  font-size: 12px;
+  font-size: 1px;
   height: 100%;
-  > div {
-    > span:nth-child(even) {
-      margin-right: 10px;
-    }
-  }
   > div:first-child {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -183,9 +189,13 @@ const DownPart = styled.div`
   flex-direction: column;
 `;
 
-const FontSm = styled.span`
-  font-size: 0.95em;
+const DetailInfo = styled.span`
+  font-size: 12px;
   color: var(--font-h3);
+`;
+
+const DetailValue = styled.span`
+  font-size: 12px;
 `;
 
 const Detail = styled.div`

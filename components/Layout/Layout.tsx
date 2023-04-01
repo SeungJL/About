@@ -63,7 +63,9 @@ export default function Layout({ children }) {
   );
 }
 
-const LayoutContainer = styled.div``;
+const LayoutContainer = styled.div`
+  color: var(--font-h1);
+`;
 
 const Loader = styled.div`
   position: fixed;
