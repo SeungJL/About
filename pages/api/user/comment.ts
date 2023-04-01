@@ -27,11 +27,7 @@ export default async function handler(
       const { comment } = req.body;
 
       try {
-        await User.updateOne(
-          { uid: session.uid },
-          { $set: { comment } },
-          { strict: false }
-        );
+        await User.updateOne({ uid: session.uid }, { $set: { comment } });
 
         res.status(200).send(true);
       } catch (err) {
