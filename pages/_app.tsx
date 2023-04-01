@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Script from "next/script";
 import { useMemo } from "react";
@@ -13,9 +13,11 @@ import Head from "next/head";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Layout from "../components/Layout/Layout";
+import theme from "../theme";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 config.autoAddCss = false;
+
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const queryClient = useMemo(
     () =>
@@ -41,7 +43,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <RecoilRoot>
-            <ChakraProvider>
+            <ChakraProvider theme={theme}>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
