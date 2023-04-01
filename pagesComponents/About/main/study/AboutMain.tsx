@@ -34,7 +34,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
-    voteDate.add(1, "day")
+    dayjs().add(1, "day")
   );
   /**스터디 알고리즘 적용 */
   useEffect(() => {

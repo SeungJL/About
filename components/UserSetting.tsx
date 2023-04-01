@@ -4,14 +4,19 @@ import ModalPortal from "./ModalPortal";
 import RegisterFormModal from "../modals/user/RegisterFormModal";
 import { useSession } from "next-auth/react";
 import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";
+import { IUser } from "../types/user";
+import { useSetRecoilState } from "recoil";
+import { numOfUserState } from "../recoil/userAtoms";
 
-export default function UserSetting() {
+export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isRegisterModal, setIsRegisterModal] = useState(false);
- 
+  const setNumOfUser = useSetRecoilState(numOfUserState);
 
   useEffect(() => {
+    const NumOfUser = UserList?.filter((user) => user.isActive).length;
+    setNumOfUser(NumOfUser);
     if (session?.isActive === false) setIsRegisterModal(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

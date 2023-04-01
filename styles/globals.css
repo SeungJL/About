@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Pretend";
-  src: url("/public/fonts/Pretendard-Regular.otf");
+  src: url("/fonts/Pretendard-Regular.otf") format("opentype");
 }
 
 :root {
@@ -10,10 +10,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-
   font-family: "Pretend", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
   font-size: 14px;
   width: 375px;
   margin: 0 auto;

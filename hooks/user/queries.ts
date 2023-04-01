@@ -35,12 +35,15 @@ export const useActiveQuery = (
 export const useParticipationRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IRate[], AxiosError, IRate[]>,
+    "queryKey" | "queryFn"
+  >
 ) =>
-  useQuery<any, AxiosError, any>(
+  useQuery<IRate[], AxiosError, IRate[]>(
     USER_FINDPARTICIPATION,
     async () => {
-      const res = await axios.get<any>(`/api/user/participationrate`, {
+      const res = await axios.get<IRate[]>(`/api/user/participationrate`, {
         params: {
           startDay: startDay.format("YYYY-MM-DD"),
           endDay: endDay.format("YYYY-MM-DD"),
@@ -54,12 +57,15 @@ export const useParticipationRateQuery = (
 export const useVoteRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IRate[], AxiosError, IRate[]>,
+    "queryKey" | "queryFn"
+  >
 ) =>
-  useQuery<any, AxiosError, any>(
+  useQuery<IRate[], AxiosError, IRate[]>(
     [USER_FINDVOTE],
     async () => {
-      const res = await axios.get(`/api/user/voterate`, {
+      const res = await axios.get<IRate[]>(`/api/user/voterate`, {
         params: {
           startDay: startDay.format("YYYY-MM-DD"),
           endDay: endDay.format("YYYY-MM-DD"),
