@@ -75,7 +75,7 @@ function VoteStudyModal({
     const temp = { placeName, voteCnt, status };
     const brand = placeName.brand;
     if (brand === "탐앤탐스") placeInfoArr[1] = temp;
-    else if (brand === "할리스") placeInfoArr[0] = temp;
+    else if (brand === "커피빈") placeInfoArr[0] = temp;
     else if (brand === "카탈로그") placeInfoArr[3] = temp;
     else if (brand === "아티제") placeInfoArr[2] = temp;
     // return { placeName, voteCnt, status };
