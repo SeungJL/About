@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Pretend";
-  src: url("/public/fonts/Pretendard-Regular.otf");
+  src: url("/fonts/Pretendard-Regular.otf") format("opentype");
 }
 
 :root {

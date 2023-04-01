@@ -29,8 +29,9 @@ import Ranking from "../../pagesComponents/About/main/Ranking";
 import Map from "../../components/utils/map";
 import { useWaringScoreMutation } from "../../hooks/user/mutations";
 import { useWarningScoreQuery } from "../../hooks/user/queries";
+import { IUser } from "../../types/user";
 
-function About() {
+function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
   const voteDate = useRecoilValue(voteDateState);
   const [participations, setParticipations] = useState([]);
@@ -41,6 +42,7 @@ function About() {
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
     },
+
     onError() {
       toast({
         title: "불러오기 실패",
@@ -57,7 +59,7 @@ function About() {
     <>
       <Seo title="About" />
 
-      <UserSetting />
+      <UserSetting UserList={UserList} />
       {isLoading ? (
         <Loader>
           <ColorRing
@@ -120,6 +122,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const userData = await User.findOne({ uid: session.uid });
   const user = JSON.parse(safeJsonStringify(userData));
+
   if (!isMember(user?.role)) {
     if (session.role !== user?.role) {
       context.res.setHeader("Set-Cookie", "next-auth.session-token=deleted");
@@ -139,5 +142,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   }
-  return { props: {} };
+  const users = await User.find();
+  const UserList = JSON.parse(safeJsonStringify(users));
+  return { props: { UserList } };
 };
