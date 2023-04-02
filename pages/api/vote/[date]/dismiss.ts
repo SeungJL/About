@@ -22,7 +22,7 @@ export default async function handler(
   await dbConnect();
 
   const vote = await findOneVote(date);
-  if (!vote) return res.status(404).end();
+  if (!vote) return res.status(500).end();
 
   switch (method) {
     case "PATCH":

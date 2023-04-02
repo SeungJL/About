@@ -39,7 +39,7 @@ function Calendar() {
   const [monthRange, setmonthRange] = useState<IDateStartToEnd[]>([]);
   useEffect(() => {
     const temp = [];
-    for (let i = 1; i <= dayjs().month(voteDate.month()).daysInMonth(); i++) {
+    for (let i = 1; i <= voteDate.daysInMonth(); i++) {
       temp.push({
         start: voteDate.date(i - 1),
         end: voteDate.date(i),
@@ -48,23 +48,23 @@ function Calendar() {
     setmonthRange(temp);
   }, [voteDate]);
 
-  const myMonthAttendQueries = useAttendRateQueries(monthRange);
-  let isLoading = true;
+  // const myMonthAttendQueries = useAttendRateQueries(monthRange);
+  // let isLoading = true;
 
-  const myMonthAttend = myMonthAttendQueries?.map((item, idx) => {
-    if (!item.isLoading) {
-      const myData = (item.data as IRate[]).filter(
-        (data) => data.name === session?.user.name
-      )[0];
+  // const myMonthAttend = myMonthAttendQueries?.map((item, idx) => {
+  //   if (!item.isLoading) {
+  //     const myData = (item.data as IRate[]).filter(
+  //       (data) => data.name === session?.user.name
+  //     )[0];
 
-      if (idx === myMonthAttendQueries.length - 1) isLoading = false;
-      return myData?.cnt !== 0 && true;
-    }
-  });
+  //     if (idx === myMonthAttendQueries.length - 1) isLoading = false;
+  //     return myData?.cnt !== 0 && true;
+  //   }
+  // });
 
   useEffect(() => {
-    const daysInMonth = voteDate.month(month).daysInMonth();
-    const startDayInMonth = voteDate.month(month).date(1).day();
+    const daysInMonth = voteDate.daysInMonth();
+    const startDayInMonth = voteDate.date(1).day();
     const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
     const date = voteDate.date();
     const dayInWeek = voteDate.day();
@@ -76,9 +76,11 @@ function Calendar() {
       const start = date - dayInWeek;
       for (let i = start; i < start + 7; i++) {
         const validDate = i >= 1 && i <= daysInMonth ? i : null;
-        isAttend = validDate && myMonthAttend[i] ? true : false;
+        // isAttend = validDate && myMonthAttend[i] ? true : false;
 
-        temp.push({ date: validDate, isAttend });
+        temp.push({ date: validDate });
+
+        // temp.push({ date: validDate, isAttend });
       }
     }
     if (calendarType === "month") {
@@ -86,14 +88,16 @@ function Calendar() {
         if (i <= startDayInMonth) temp.push(null);
         else if (i > daysInMonth + startDayInMonth) temp.push(null);
         else {
-          isAttend = myMonthAttend[i - startDayInMonth - 1] ? true : false;
-          temp.push({ date: i - startDayInMonth, isAttend });
+          // isAttend = myMonthAttend[i - startDayInMonth - 1] ? true : false;
+          temp.push({ date: i - startDayInMonth });
+          // temp.push({ date: i - startDayInMonth, isAttend });
         }
       }
     }
     setCalendarBox(temp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calendarType, isLoading, voteDate]);
+  }, [calendarType, voteDate]);
+  //isLoading
 
   const onClickDate = (d) => {
     setVoteDate(voteDate.date(d.date));
@@ -130,10 +134,10 @@ function Calendar() {
         </Date>
         {calendarType === "month" && (
           <>
-            <IconToolTip>
+            {/* <IconToolTip>
               <AttendCircle />
               <span>내 스터디 참여</span>
-            </IconToolTip>
+            </IconToolTip> */}
             <MonthNav>
               <FontAwesomeIcon icon={faChevronLeft} onClick={onClickPrev} />
               <FontAwesomeIcon icon={faChevronRight} onClick={onClickNext} />

@@ -2,33 +2,25 @@ import { GetServerSideProps } from "next";
 import { getSession, signOut } from "next-auth/react";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-
 import Seo from "../../components/common/Seo";
-
 import AttendChart from "../../components/utils/AttendChart";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import UserSetting from "../../components/UserSetting";
 import { User } from "../../models/user";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { useToast } from "@chakra-ui/react";
 import { IParticipation } from "../../types/studyDetails";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { ColorRing } from "react-loader-spinner";
-
 import AboutMain from "../../pagesComponents/About/main/study/AboutMain";
-
 import AboutFooter from "../../pagesComponents/About/main/Footer";
 import EventBanner from "../../pagesComponents/About/main/EventBanner";
 import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
-import Ranking from "../../pagesComponents/About/main/Ranking";
-import Map from "../../components/utils/map";
-import { useWaringScoreMutation } from "../../hooks/user/mutations";
-import { useWarningScoreQuery } from "../../hooks/user/queries";
 import { IUser } from "../../types/user";
 
 function About({ UserList }: { UserList: IUser[] }) {
@@ -81,7 +73,6 @@ function About({ UserList }: { UserList: IUser[] }) {
             <EventBanner />
             <HrDiv />
             {/* <Ranking /> */}
-            <AttendChart type="main" />
           </Layout>
           <AboutFooter />
         </>

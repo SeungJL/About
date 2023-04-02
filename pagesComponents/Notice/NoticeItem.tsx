@@ -37,7 +37,7 @@ function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
           </AccordionPanel>
         </AccordionItem>
       ) : (
-        <Active>도착한 알림 메시지가 없습니다</Active>
+        <Active></Active>
       )}
     </>
   );
