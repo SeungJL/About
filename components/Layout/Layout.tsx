@@ -65,6 +65,7 @@ export default function Layout({ children }) {
 
 const LayoutContainer = styled.div`
   color: var(--font-h1);
+  background-color: var(--font-h8);
 `;
 
 const Loader = styled.div`

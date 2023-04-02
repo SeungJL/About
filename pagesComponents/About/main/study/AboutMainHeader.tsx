@@ -50,9 +50,10 @@ const Layout = styled.div`
 
 const Vote = styled.div`
   margin-left: 15px;
+
   display: flex;
   > span {
-    margin-left: 4px;
+    margin-left: 6px;
     font-size: 12px;
     font-weight: 400;
     min-width: 80px;

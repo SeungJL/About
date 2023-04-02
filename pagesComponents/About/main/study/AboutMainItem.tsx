@@ -120,7 +120,7 @@ function AboutMainItem({
             <IconUserTwo />
             <span>
               <b>{firstAttendance?.length}</b>
-              /8
+              /6
             </span>
           </ParticipantStatus>
         </Participants>
@@ -132,6 +132,7 @@ function AboutMainItem({
 const Layout = styled.div<{ status: boolean }>`
   height: 100px;
   background-color: white;
+  border-radius: 13px;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -145,7 +146,6 @@ const ImageContainer = styled.div`
   width: 77px;
   height: 77px;
   border: 1px solid var(--font-h5);
-
   border-radius: 24%;
   display: flex;
   justify-content: center;

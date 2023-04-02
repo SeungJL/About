@@ -16,7 +16,7 @@ const theme = extendTheme({
           bg: "var(--font-h7)",
         },
         filledTrack: {
-          bg: "linear-gradient(90deg, rgba(0,194,179,1) 0%, rgba(160,164,175,1) 100%);",
+          bg: "linear-gradient(90deg, rgba(160,164,175,1) -50%,  rgba(0,194,179,1)100%);",
         },
       },
     },

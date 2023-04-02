@@ -69,12 +69,11 @@ function About({ UserList }: { UserList: IUser[] }) {
         <>
           <Layout>
             <Header />
-            {/* <UserOverview /> */}
+            <UserOverview />
+            <HrDiv />
             <Calendar />
             <AboutMain participations={participations} />
             <EventBanner />
-            <HrDiv />
-            {/* <Ranking /> */}
           </Layout>
           <AboutFooter />
         </>
@@ -86,8 +85,8 @@ function About({ UserList }: { UserList: IUser[] }) {
 const Layout = styled.div``;
 
 const HrDiv = styled.div`
-  margin-top: 18px;
   height: 8px;
+  background-color: var(--font-h6);
 `;
 const Loader = styled.div`
   position: fixed;

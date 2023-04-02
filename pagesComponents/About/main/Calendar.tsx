@@ -181,6 +181,7 @@ const DayOfWeek = () => (
 );
 
 const Layout = styled(motion.div)`
+  margin-top: 8px;
   border-bottom: 1px solid #e3e6eb;
 `;
 
@@ -206,7 +207,6 @@ const Date = styled.div`
 const CallenderDays = styled.div<{ isFlex: boolean }>`
   display: flex;
   color: #767d8a;
-  margin: 0px 4px;
   margin: 4px;
   font-weight: 500;
   font-size: 15px;
@@ -221,7 +221,7 @@ const DayItem = styled(motion.div)`
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 48px;
+  height: 36px;
 
   > div {
     margin: 4px auto 0px auto;
