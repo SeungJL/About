@@ -1,16 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
 import dbConnect from "../../../libs/dbConnect";
 import { User } from "../../../models/user";
-
-import { authOptions } from "../auth/[...nextauth]";
+import { getToken } from "next-auth/jwt";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const secret = process.env.NEXTAUTH_SECRET;
+
   const { method } = req;
-  const session = await getServerSession({ req, res }, authOptions);
+  const token = await getToken({ req, secret });
   await dbConnect();
 
   switch (method) {
@@ -27,7 +27,7 @@ export default async function handler(
       const { comment } = req.body;
 
       try {
-        await User.updateOne({ uid: session.uid }, { $set: { comment } });
+        await User.updateOne({ uid: token.uid }, { $set: { comment } });
 
         res.status(200).send(true);
       } catch (err) {

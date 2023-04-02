@@ -16,7 +16,7 @@ export default async function handler(
 
   switch (method) {
     case "DELETE":
-      const day = dayjs(dateStr.toString()).add(3, "days").toDate();
+      const day = dayjs(dateStr.toString()).add(2, "days").toDate();
       await Vote.deleteMany({ date: { $gte: day } });
       return res.status(204).end();
   }

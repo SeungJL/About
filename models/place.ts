@@ -1,5 +1,5 @@
 import { IPlace } from "../types/studyDetails";
-import mongoose, { model, Schema, Document, Model } from "mongoose";
+import mongoose, { model, Schema, Model } from "mongoose";
 
 export const PlaceSchema: Schema<IPlace> = new Schema({
   status: {
@@ -17,7 +17,6 @@ export const PlaceSchema: Schema<IPlace> = new Schema({
   },
   branch: String,
   image: String,
-  color: String,
   latitude: {
     type: Number,
     required: true,

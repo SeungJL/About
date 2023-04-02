@@ -1,14 +1,8 @@
-import mongoose, { model, Schema, Document, Model } from "mongoose";
+import mongoose, { model, Schema, Model } from "mongoose";
 import {
   IAbsence,
-  IAgg,
   IAttendence,
-  IAttendence2,
-  IParticipant,
-  IParticipantNote,
   IParticipation,
-  IPlace,
-  IRegularMeeting,
   IVote,
 } from "../types/studyDetails";
 import { ITimeStartToEnd } from "../types/utils";
@@ -27,28 +21,6 @@ const ParticipantTimeSchema: Schema<ITimeStartToEnd> = new Schema(
   { _id: false }
 );
 
-const ParticipantNoteSchema: Schema<IParticipantNote> = new Schema(
-  {
-    desc: Schema.Types.String,
-    lunch: {
-      type: Schema.Types.String,
-      enum: ["attend", "absent", "no_select"],
-      default: "no_select",
-    },
-    dinner: {
-      type: Schema.Types.String,
-      enum: ["attend", "absent", "no_select"],
-      default: "no_select",
-    },
-    afterDinner: {
-      type: Schema.Types.String,
-      enum: ["attend", "absent", "no_select"],
-      default: "no_select",
-    },
-  },
-  { _id: false }
-);
-
 const AttendenceSchema: Schema<IAttendence> = new Schema(
   {
     user: {
@@ -56,7 +28,6 @@ const AttendenceSchema: Schema<IAttendence> = new Schema(
       ref: "User",
     },
     time: ParticipantTimeSchema,
-    note: ParticipantNoteSchema,
 
     arrived: Date,
 
@@ -101,33 +72,6 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
       enum: ["pending", "waiting_confirm", "open", "dismissed"],
       default: "pending",
     },
-    showVote: {
-      type: Schema.Types.Boolean,
-      default: true,
-    },
-  },
-  { _id: false }
-);
-
-const RegularMeetingSchema: Schema<IRegularMeeting> = new Schema(
-  {
-    enable: {
-      type: Schema.Types.Boolean,
-      default: false,
-    },
-    place: Schema.Types.String,
-    time: Date,
-    description: Schema.Types.String,
-  },
-  { _id: false }
-);
-
-const AggSchema: Schema<IAgg> = new Schema(
-  {
-    voted: {
-      type: [Schema.Types.String],
-      default: [],
-    },
   },
   { _id: false }
 );
@@ -135,8 +79,6 @@ const AggSchema: Schema<IAgg> = new Schema(
 const VoteSchema: Schema<IVote> = new Schema({
   date: Date,
   participations: [ParticipationSchema],
-  regularMeeting: RegularMeetingSchema,
-  agg: AggSchema,
 });
 
 export const Vote =

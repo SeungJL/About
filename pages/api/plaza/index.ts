@@ -22,7 +22,9 @@ export default async function handler(
         await Plaza.create(plaza);
 
         res.send(200);
-      } catch (err) {}
+      } catch (err) {
+        res.status(500).send({});
+      }
       break;
   }
 }
