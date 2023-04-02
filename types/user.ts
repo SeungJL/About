@@ -1,5 +1,4 @@
-import mongoose, { model, Schema, Document, Model } from "mongoose";
-import { IUserStatistic } from "./statistics";
+import { Document } from "mongoose";
 
 export interface kakaoProfileInfo {
   name: string;
@@ -23,7 +22,6 @@ export interface IUser extends Document {
 
   profileImage: string;
   role?: string;
-  statistic: IUserStatistic;
   score: number;
   comment: string;
 }

@@ -42,14 +42,6 @@ export default async function handler(
     await Vote.create({
       date,
       participations: participants,
-      regularMeeting: {
-        enable: false,
-      },
-      agg: {
-        invited: [],
-        cancelled: [],
-        voted: [],
-      },
     });
 
     vote = await findOneVote(date);
