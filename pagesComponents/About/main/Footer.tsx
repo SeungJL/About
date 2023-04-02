@@ -29,7 +29,7 @@ export default function AboutFooter() {
         <span onClick={() => setIsShowPolicy(true)}>개인정보처리방침</span>
       </div>
       {isShowTerm && (
-        <ModalPortal closePortal={setIsShowTerm}>
+        <ModalPortal setIsModal={setIsShowTerm}>
           <Terms closeModal={setIsShowTerm} />
         </ModalPortal>
       )}

@@ -22,6 +22,7 @@ import EventBanner from "../../pagesComponents/About/main/EventBanner";
 import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import { IUser } from "../../types/user";
+import UserOverview from "../../pagesComponents/About/main/UserOverview";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
@@ -68,6 +69,7 @@ function About({ UserList }: { UserList: IUser[] }) {
         <>
           <Layout>
             <Header />
+            {/* <UserOverview /> */}
             <Calendar />
             <AboutMain participations={participations} />
             <EventBanner />

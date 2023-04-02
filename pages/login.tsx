@@ -155,7 +155,7 @@ const Login: NextPage<{
       </VStack>
 
       {isModal && (
-        <ModalPortal closePortal={setIsModal}>
+        <ModalPortal setIsModal={setIsModal}>
           <GuestModal setIsModal={setIsModal} />
         </ModalPortal>
       )}

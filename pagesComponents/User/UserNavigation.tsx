@@ -25,12 +25,12 @@ export default function UserNavigation() {
         </ButtonNav>
       </Layout>
       {isShowProfileModal && (
-        <ModalPortal closePortal={setIsShowProfileModal}>
+        <ModalPortal setIsModal={setIsShowProfileModal}>
           <ProfileFormModal setIsModal={setIsShowProfileModal} />
         </ModalPortal>
       )}
       {isShowSuggest && (
-        <ModalPortal closePortal={setIsShowSuggest}>
+        <ModalPortal setIsModal={setIsShowSuggest}>
           <SuggestModal setIsModal={setIsShowSuggest} />
         </ModalPortal>
       )}

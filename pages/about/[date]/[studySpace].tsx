@@ -62,7 +62,7 @@ function StudySpace() {
             />
           </>
         )}
-      </Layout>
+      </Layout>s
     </>
   );
 }

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import UserBadge from "../../components/block/UserBadge";
 import { birthToAge } from "../../libs/utils/membersUtil";
 
 import { ModalLg, ModalSm, ModalXL } from "../../styles/LayoutStyles";
@@ -13,6 +12,7 @@ import { useCommentQuery } from "../../hooks/user/queries";
 import { IUser } from "../../types/user";
 import AttendChart from "../../components/utils/AttendChart";
 import Image from "next/image";
+import RoleBadge from "../../components/block/UserBadge";
 
 export default function UserInfoModal({
   user,
@@ -25,7 +25,7 @@ export default function UserInfoModal({
   const { data: comments } = useCommentQuery();
 
   const comment = comments?.comments.find((att) => att._id === user._id);
-  console.log(user);
+
   useCommentQuery();
   return (
     <>
@@ -43,7 +43,7 @@ export default function UserInfoModal({
           <UserInfo>
             <UserName>
               <span>{user.name}</span>
-              <UserBadge role={user.role} />
+              <RoleBadge role={user.role} />
             </UserName>
             <UserProfile>
               <div>

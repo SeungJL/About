@@ -67,12 +67,12 @@ export default function Header() {
       </Layout>
       <>
         {isRuleModal && (
-          <ModalPortal closePortal={setIsRuleModal}>
+          <ModalPortal setIsModal={setIsRuleModal}>
             <StudyRuleModal setIsModal={setIsRuleModal} />
           </ModalPortal>
         )}
         {isDrawer && (
-          <ModalPortal closePortal={setIsDrawer}>
+          <ModalPortal setIsModal={setIsDrawer}>
             <Drawer isDrawer={isDrawer} setIsDrawer={setIsDrawer} />
           </ModalPortal>
         )}

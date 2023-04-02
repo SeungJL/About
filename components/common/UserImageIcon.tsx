@@ -22,7 +22,7 @@ function UserImageIcon({ user }: { user: IUser }) {
         />
       </Layout>
       {isUserModal && (
-        <ModalPortal closePortal={setIsUserModal}>
+        <ModalPortal setIsModal={setIsUserModal}>
           <UserInfoModal user={user} setIsModal={setIsUserModal} />
         </ModalPortal>
       )}

@@ -148,7 +148,7 @@ function StudyNavigation({
         </Layout>
       )}
       {isChangeModal && (
-        <ModalPortal closePortal={setIsChangeModal}>
+        <ModalPortal setIsModal={setIsChangeModal}>
           <ChangeTimeModal
             setIsChangeTimeModal={setIsChangeModal}
             myVoteTime={myVote?.time}
@@ -156,12 +156,12 @@ function StudyNavigation({
         </ModalPortal>
       )}
       {isCancelModal && (
-        <ModalPortal closePortal={setIsCancelModal}>
+        <ModalPortal setIsModal={setIsCancelModal}>
           <AbsentVoteModal setIsModal={setIsCancelModal} />
         </ModalPortal>
       )}
       {isVoteModal && (
-        <ModalPortal closePortal={setIsVoteModal}>
+        <ModalPortal setIsModal={setIsVoteModal}>
           <VoteStudySpaceModal
             isModal={isVoteModal}
             setIsModal={setIsVoteModal}
@@ -171,7 +171,7 @@ function StudyNavigation({
         </ModalPortal>
       )}
       {isCheckModal && (
-        <ModalPortal closePortal={setIsCheckModal}>
+        <ModalPortal setIsModal={setIsCheckModal}>
           <CheckVoteModal setIsModal={setIsCheckModal} myPlace={place} />
         </ModalPortal>
       )}

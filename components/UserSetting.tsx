@@ -37,12 +37,12 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   return (
     <>
       {isAttendPopup && (
-        <ModalPortal closePortal={setIsAttendPopup}>
+        <ModalPortal setIsModal={setIsAttendPopup}>
           <WeekAttendPopup closePopUp={setIsAttendPopup} />
         </ModalPortal>
       )}
       {isRegisterModal && (
-        <ModalPortal closePortal={setIsRegisterModal}>
+        <ModalPortal setIsModal={setIsRegisterModal}>
           <RegisterFormModal setIsModal={setIsRegisterModal} />
         </ModalPortal>
       )}

@@ -48,12 +48,12 @@ function ResultHeader({
         ) : null}
       </Layout>
       {isAttendModal && (
-        <ModalPortal closePortal={setIsAttendModal}>
+        <ModalPortal setIsModal={setIsAttendModal}>
           <VoteStudyModal setIsShowModal={setIsAttendModal} />
         </ModalPortal>
       )}
       {isCheckModal && (
-        <ModalPortal closePortal={setIsCheckModal}>
+        <ModalPortal setIsModal={setIsCheckModal}>
           <CheckVoteModal setIsModal={setIsCheckModal} myPlace={myPlace} />
         </ModalPortal>
       )}

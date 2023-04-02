@@ -27,7 +27,7 @@ function AboutMainHeader() {
         {studyDate === "not passed" && <SpaceLocalSelector />}
       </Layout>
       {isShowModal && (
-        <ModalPortal closePortal={setIsShowModal}>
+        <ModalPortal setIsModal={setIsShowModal}>
           <VoteStudyModal setIsShowModal={setIsShowModal} />
         </ModalPortal>
       )}

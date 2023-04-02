@@ -16,7 +16,7 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
 import { useCommentMutation } from "../../hooks/user/mutations";
 import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
-import UserBadge from "../../components/block/UserBadge";
+import RoleBadge from "../../components/block/UserBadge";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
@@ -94,7 +94,7 @@ export default function UserOverView() {
         <UserInfo>
           <UserProfile>
             <UserName>{user?.name}</UserName>
-            <UserBadge role={user?.role} />
+            <RoleBadge role={user?.role} />
           </UserProfile>
           <Comment>
             <span>Comment</span>

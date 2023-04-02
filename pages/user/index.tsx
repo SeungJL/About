@@ -97,17 +97,17 @@ function UserInfo() {
         </UserLayout>
       </Layout>
       {modalOpen === "suggest" && (
-        <ModalPortal closePortal={handleOutput}>
+        <ModalPortal setIsModal={handleOutput}>
           <SuggestModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "modify" && (
-        <ModalPortal closePortal={handleOutput}>
+        <ModalPortal setIsModal={handleOutput}>
           <ModifyUserInfoModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "rest" && (
-        <ModalPortal closePortal={handleOutput}>
+        <ModalPortal setIsModal={handleOutput}>
           <ApplyRestModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
