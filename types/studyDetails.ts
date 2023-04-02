@@ -1,4 +1,4 @@
-import mongoose, { model, Schema, Document, Model } from "mongoose";
+import { Document } from "mongoose";
 import { IPlaceStatus } from "./statistics";
 import { IUser } from "./user";
 import { ITimeStartToEnd, ITimeStartToEndHM } from "./utils";
@@ -21,7 +21,6 @@ export interface IAttendence2 extends Document {
 export interface IAttendence {
   user: string | IUser;
   time: ITimeStartToEnd;
-  note: IParticipantNote;
   created: Date;
   arrived?: Date;
   firstChoice: boolean;
@@ -35,7 +34,6 @@ export interface IPlace {
   brand?: string;
   branch?: string;
   image?: string;
-  color?: string;
   latitude: number;
   longitude: number;
   priority?: number;
@@ -54,33 +52,10 @@ export interface IParticipation extends IPlaceStatus, ITimeStartToEndHM {
   absences?: IAbsence[];
   startTime?: Date;
   endTime?: Date;
-  showVote?: boolean;
 }
 export interface IVote extends Document {
   date: Date;
   participations: IParticipation[];
-  regularMeeting: boolean;
-  agg: IAgg;
-}
-
-export interface IParticipantNote {
-  desc: string;
-  lunch: "attend" | "absent" | "no_select";
-  dinner: "attend" | "absent" | "no_select";
-  afterDinner: "attend" | "absent" | "no_select";
-}
-
-export interface IRegularMeeting {
-  enable: boolean;
-  place?: string;
-  time?: Date;
-  description?: string;
-}
-
-export interface IAgg {
-  voted: string[] | IUser[];
-  invited: string[] | IUser[];
-  cancelled: string[] | IUser[];
 }
 
 export interface IStudyStart {

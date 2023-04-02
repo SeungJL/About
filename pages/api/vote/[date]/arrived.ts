@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../libs/dbConnect";
 import { dateToDayjs, now, strToDate } from "../../../../libs/utils/dateUtils";
-import { Vote } from "../../../../models/vote";
+import { findOneVote } from "../../../../services/voteService";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -23,16 +23,12 @@ export default async function handler(
 
   await dbConnect();
 
-  let vote;
+  const vote = await findOneVote(date);
+  if (!vote) return res.status(404).end();
 
   switch (method) {
     case "GET":
       const arriveInfo = [];
-
-      vote = await (
-        await Vote.findOne({ date })
-      ).populate(["participations.attendences.user"]);
-      if (!vote) return res.status(404).end();
 
       vote.participations.forEach((participation) => {
         if (participation.status === "open") {
@@ -51,16 +47,14 @@ export default async function handler(
 
     case "PATCH":
       const currentTime = now().add(9, "hour");
-      vote = await Vote.findOne({ date });
-      if (!vote) return res.status(404).end();
 
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
           if (att.user.toString() === _id.toString() && att.firstChoice) {
             const { start, end } = att.time;
 
-            const startable = dateToDayjs(start).add(9, "hour");
-            const endable = dateToDayjs(end).add(9, "hour");
+            const startable = dateToDayjs(start.toDate()).add(9, "hour");
+            const endable = dateToDayjs(end.toDate()).add(9, "hour");
 
             if (startable <= currentTime && currentTime <= endable) {
               att.arrived = currentTime.toDate();

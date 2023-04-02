@@ -15,7 +15,6 @@ function Ranking() {
   const { data } = useVoteRateQuery(dayjs().date(1), dayjs());
   const myCnt = data?.find((item) => item.name === session?.user.name).cnt;
 
-
   return (
     <Layout>
       <Header>
