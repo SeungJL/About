@@ -13,8 +13,8 @@ function Ranking() {
   const { data: session } = useSession();
   const numOfUser = useRecoilValue(numOfUserState);
   const { data } = useVoteRateQuery(dayjs().date(1), dayjs());
+  const myCnt = data?.find((item) => item.name === session?.user.name).cnt;
 
-  // const myCnt = data?.find((item) => item.name === session?.user.name).cnt;
   return (
     <Layout>
       <Header>
@@ -33,7 +33,7 @@ function Ranking() {
           </Item>
           <Item>
             <span>이번 달 참여</span>
-            <span>회</span>
+            <span>{myCnt} 회</span>
           </Item>
           <Item>
             <span>전체 인원</span>
