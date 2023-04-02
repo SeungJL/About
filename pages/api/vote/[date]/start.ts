@@ -7,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const dateStr = req.query.date as string;
+  const dateStr = req.query.date.toString();
   const dayjsDate = strToDate(dateStr);
   const date = dayjsDate.toDate();
 
@@ -19,7 +19,7 @@ export default async function handler(
     case "GET":
       const result = [];
       vote.participations.map((participation) => {
-        if (participation.status === "open") {
+        if (participation.status === "open" && participation.startTime) {
           const openInfo = {
             place_id: participation.place._id,
             startTime: participation.startTime,
@@ -29,5 +29,7 @@ export default async function handler(
       });
       res.status(200).json(result);
       break;
+    default:
+      res.status(500).send({});
   }
 }

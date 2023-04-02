@@ -4,7 +4,6 @@ import { strToDate } from "../../../../libs/utils/dateUtils";
 import dbConnect from "../../../../libs/dbConnect";
 
 import { findOneVote } from "../../../../services/voteService";
-import { IplaceInfo } from "../../../../components/utils/placeSelector";
 import { IVoteStudyInfo } from "../../../../types/statistics";
 import { IAttendence, IPlace, IVote } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
@@ -19,9 +18,12 @@ export default async function handler(
 ) {
   const { method } = req;
   const { place, subPlace, start, end }: IVoteStudyInfo = req.body;
-  const dateStr = req.query.date as string;
+
+  const dateStr = req.query.date.toString();
   const date = strToDate(dateStr).toDate();
+
   const token = await getToken({ req, secret });
+
   await dbConnect();
 
   let vote = await findOneVote(date);
@@ -79,7 +81,7 @@ export default async function handler(
         await vote.save();
       }
 
-      const attendence = {
+      const attendance = {
         time: { start: start, end: end },
         user: token.id,
       } as IAttendence;
@@ -92,7 +94,7 @@ export default async function handler(
             ...participation,
             attendences: [
               ...participation.attendences,
-              { ...attendence, firstChoice: true },
+              { ...attendance, firstChoice: true },
             ],
           };
         } else if (subPlaceIdArr.includes(placeId)) {
@@ -100,7 +102,7 @@ export default async function handler(
             ...participation,
             attendences: [
               ...participation.attendences,
-              { ...attendence, firstChoice: false },
+              { ...attendance, firstChoice: false },
             ],
           };
         }
@@ -111,19 +113,24 @@ export default async function handler(
       return res.status(204).end();
 
     case "PATCH":
-      vote.participations.map((participation) => {
-        participation.attendences.map((attendance) => {
-          if (
-            (attendance.user as IUser)?.uid.toString() === token.uid.toString()
-          ) {
-            attendance.time.start = start;
-            attendance.time.end = end;
-          }
+      if (start && end) {
+        vote.participations.map((participation) => {
+          participation.attendences.map((attendance) => {
+            if (
+              (attendance.user as IUser)?.uid.toString() ===
+              token.uid.toString()
+            ) {
+              attendance.time.start = start;
+              attendance.time.end = end;
+            }
+          });
         });
-      });
 
-      await vote.save();
-      return res.status(204).end();
+        await vote.save();
+        return res.status(204).end();
+      } else {
+        return res.status(500).end();
+      }
 
     case "DELETE":
       if (!isVoting) {
@@ -143,6 +150,6 @@ export default async function handler(
       return res.status(204).end();
 
     default:
-      return res.status(400).end();
+      return res.status(500).end();
   }
 }
