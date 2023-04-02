@@ -141,9 +141,9 @@ function StudyNavigation({
           <MainButton
             disabled={isVoting && true}
             func={!isVoting}
-            onClick={() => setIsVoteModal(true)}
+            // onClick={() => setIsVoteModal(true)}
           >
-            <span>{isVoting ? "투표 완료" : "스터디 투표하기"}</span>
+            <span>{isVoting ? "투표 완료" : "임시 비 활성화"}</span>
           </MainButton>
         </Layout>
       )}
