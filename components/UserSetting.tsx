@@ -7,9 +7,12 @@ import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";
 import { IUser } from "../types/user";
 import { useSetRecoilState } from "recoil";
 import { numOfUserState } from "../recoil/userAtoms";
+import { NOTICE_ALERT } from "../constants/localStorage";
+import { isNoticeAlertState } from "../recoil/utilityAtoms";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
+  const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isRegisterModal, setIsRegisterModal] = useState(false);
   const setNumOfUser = useSetRecoilState(numOfUserState);
@@ -23,6 +26,9 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
 
   /**유저 팝업 */
   useEffect(() => {
+    if (!localStorage.getItem(NOTICE_ALERT)) {
+      setIsNoticeAlert(true);
+    }
     // if (localStorage.getItem(LAST_WEEK_ATTEND) !== "true") {
     //   localStorage.setItem(LAST_WEEK_ATTEND, "true");
     // }

@@ -73,7 +73,6 @@ function About({ UserList }: { UserList: IUser[] }) {
             <EventBanner />
             <HrDiv />
             {/* <Ranking /> */}
-            <AttendChart type="main" />
           </Layout>
           <AboutFooter />
         </>

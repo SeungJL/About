@@ -10,20 +10,22 @@ import { motion } from "framer-motion";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";
 import ModalPortal from "../../../components/ModalPortal";
 import Drawer from "../../../components/Layout/Drawer";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isNoticeAlertState } from "../../../recoil/utilityAtoms";
+import { NOTICE_ALERT } from "../../../constants/localStorage";
 
 export default function Header() {
+  const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   const [isRuleModal, setIsRuleModal] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
-  const [isAlert, setIsAlert] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    if (localStorage.getItem("notice2") === null) setIsAlert(true);
-  }, []);
 
   const onClickedNotice = () => {
     router.push(`/notice`);
-    if (isAlert) localStorage.setItem("notice2", "read");
+    if (isNoticeAlert) {
+      localStorage.setItem(NOTICE_ALERT, "read");
+      setIsNoticeAlert(false);
+    }
   };
   return (
     <>
@@ -52,7 +54,7 @@ export default function Header() {
               size="xl"
               onClick={onClickedNotice}
             />
-            {isAlert && <IconAlert />}
+            {isNoticeAlert && <IconAlert />}
           </IconWrapper>
           <IconWrapper>
             <FontAwesomeIcon
