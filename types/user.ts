@@ -19,7 +19,7 @@ export interface IUser extends Document {
   mbti: string;
   gender: string;
   name: string;
-
+  point: number;
   profileImage: string;
   role?: string;
   score: number;
