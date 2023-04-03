@@ -19,14 +19,20 @@ function AboutMainHeader() {
         <div>
           <span>카공 스터디</span>
 
-          {studyDate === "not passed" ? "빠른투표" : ""}
-
-          <Vote onClick={() => setIsShowModal(true)}>
-            {studyDate === "not passed" && (
-              <FontAwesomeIcon icon={faCheckToSlot} />
-            )}
-            <span>{studyDate === "not passed" ? "빠른투표" : ""}</span>
-          </Vote>
+          {studyDate === "not passed" ? (
+            <Button
+              leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
+              onClick={() => setIsShowModal(true)}
+              background="mint"
+              color="white"
+              height="24px"
+              width="80px"
+              fontSize="14px"
+              marginLeft="12px"
+            >
+              투표하기
+            </Button>
+          ) : null}
         </div>
         {studyDate === "not passed" && <SpaceLocalSelector />}
       </Layout>
@@ -48,7 +54,7 @@ const Layout = styled.div`
     align-items: center;
     color: var(--font-h1);
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
   }
 `;
 

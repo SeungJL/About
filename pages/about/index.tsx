@@ -68,7 +68,6 @@ function About({ UserList }: { UserList: IUser[] }) {
       ) : (
         <>
           <Layout>
-          
             <Header />
             <UserOverview />
             <HrDiv />
