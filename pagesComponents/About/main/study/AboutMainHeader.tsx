@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 import SpaceLocalSelector from "../../../../components/SpaceLocalSelector";
 import ModalPortal from "../../../../components/ModalPortal";
+import { Button } from "@chakra-ui/react";
 
 function AboutMainHeader() {
   const studyDate = useRecoilValue(studyDateState);
@@ -17,6 +18,9 @@ function AboutMainHeader() {
       <Layout>
         <div>
           <span>카공 스터디</span>
+
+          {studyDate === "not passed" ? "빠른투표" : ""}
+
           <Vote onClick={() => setIsShowModal(true)}>
             {studyDate === "not passed" && (
               <FontAwesomeIcon icon={faCheckToSlot} />

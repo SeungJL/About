@@ -12,3 +12,20 @@ export const arrangeSpace = (participations: IParticipation[]) => {
   });
   return temp;
 };
+
+export const arrangeMainSpace = (participations: IParticipation[]) => {
+  const compare = (a: IParticipation, b: IParticipation) => {
+    const cntA = a.attendences.length;
+    const cntB = b.attendences.length;
+
+    if (cntA > cntB) {
+      return -1;
+    }
+    if (cntA < cntB) {
+      return 1;
+    }
+    return 0;
+  };
+
+  return participations.sort(compare);
+};

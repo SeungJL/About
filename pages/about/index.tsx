@@ -11,7 +11,7 @@ import { User } from "../../models/user";
 import { useRecoilValue } from "recoil";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
-import { useToast } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { IParticipation } from "../../types/studyDetails";
 import { useState } from "react";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
@@ -68,6 +68,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       ) : (
         <>
           <Layout>
+          
             <Header />
             <UserOverview />
             <HrDiv />

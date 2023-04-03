@@ -22,6 +22,8 @@ import { VOTE_END_HOUR } from "../../../../constants/system";
 import ResultHeader from "./ResultHeader";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { useDecideSpaceMutation } from "../../../../hooks/vote/mutations";
+import { arrangeMainSpace } from "../../../../libs/utils/studyUtils";
+import { Button } from "@chakra-ui/react";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
@@ -32,6 +34,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const setIsCheck = useSetRecoilState(attendCheckState);
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
+  const [voterCnt, setVoteCnt] = useState(0);
 
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
     dayjs().add(1, "day")
@@ -42,14 +45,16 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   }, [decideSpace]);
 
   /**날짜마다 달라지는 정보들 초기화 */
+
   useEffect(() => {
     setMyVoteList([]);
     setMySpaceFixed(null);
     setIsVoting(false);
     setIsCheck(false);
-
+    let tempCnt = 0;
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
+      space?.attendences.forEach((att) => att.firstChoice && tempCnt++);
       if (
         space?.attendences?.find(
           (att) => (att.user as IUser)?.uid === session?.uid
@@ -61,6 +66,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
         if (spaceStatus) setMySpaceFixed(space);
       }
     });
+    setVoteCnt(tempCnt);
 
     const voteDateNum = +voteDate.format("MDD");
     const defaultDate = +getInterestingDate().format("MDD");
@@ -82,8 +88,8 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate, participations, isVoting]);
 
-  const otherStudySpaces = participations?.filter(
-    (space) => space !== mySpaceFixed
+  const otherStudySpaces = arrangeMainSpace(
+    participations?.filter((space) => space !== mySpaceFixed)
   );
 
   return (
@@ -121,6 +127,9 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
           </Result>
         )}
         <AboutMainHeader />
+        <VoterCnt>
+          현재 <b>{voterCnt}명</b>의 멤버가 스터디에 투표중이에요!
+        </VoterCnt>
         <Main>
           {otherStudySpaces?.map((info, idx) => (
             <Block key={idx}>
@@ -147,6 +156,12 @@ const Layout = styled(motion.div)`
 const Main = styled.main``;
 
 const Block = styled.div``;
+
+const VoterCnt = styled.div`
+  color: var(--font-h3);
+  font-size: 15px;
+  margin-bottom: 12px;
+`;
 
 const Result = styled.div`
   > span {
