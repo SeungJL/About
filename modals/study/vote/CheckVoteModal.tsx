@@ -8,9 +8,10 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { CommentBox } from "../../../components/block/CommentBox";
 import { useArrivedMutation } from "../../../hooks/vote/mutations";
+import { useVoteQuery } from "../../../hooks/vote/queries";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday } from "../../../libs/utils/dateUtils";
-import { mySpaceFixedState } from "../../../recoil/studyAtoms";
+import { mySpaceFixedState, voteDateState } from "../../../recoil/studyAtoms";
 
 import { ModalFooterNav, ModalLg } from "../../../styles/LayoutStyles";
 import { IPlace } from "../../../types/studyDetails";
@@ -19,15 +20,21 @@ const LOCATE_GAP = 0.00008;
 
 export default function CheckVoteModal({
   setIsModal,
-  myPlace,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-  myPlace?: IPlace;
 }) {
+  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
   const queryClient = useQueryClient();
   const toast = useToast();
+  const voteDate = useRecoilValue(voteDateState);
+
+  const { data } = useVoteQuery(voteDate);
+  const myPlace = data?.participations.find(
+    (par) => par === mySpaceFixed
+  )?.place;
+
   const { data: session } = useSession();
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {

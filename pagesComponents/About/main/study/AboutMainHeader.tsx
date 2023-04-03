@@ -1,44 +1,86 @@
-import { faCheckToSlot } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckToSlot,
+  faSquareCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { useState } from "react";
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
 import { useRecoilValue } from "recoil";
-import { studyDateState } from "../../../../recoil/studyAtoms";
+import {
+  attendCheckState,
+  mySpaceFixedState,
+  studyDateState,
+} from "../../../../recoil/studyAtoms";
 import SpaceLocalSelector from "../../../../components/SpaceLocalSelector";
 import ModalPortal from "../../../../components/ModalPortal";
 import { Button } from "@chakra-ui/react";
+import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
 
 function AboutMainHeader() {
   const studyDate = useRecoilValue(studyDateState);
+  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [isShowModal, setIsShowModal] = useState(false);
-
+  const [isAttendModal, setIsAttendModal] = useState(false);
+  const [isCheckModal, setIsCheckModal] = useState(false);
+  const isCheck = useRecoilValue(attendCheckState);
   return (
     <>
       <Layout>
         <div>
-          <span>카공 스터디</span>
-
+          <span>
+            {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
+          </span>
           {studyDate === "not passed" ? (
             <Button
               leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
               onClick={() => setIsShowModal(true)}
               background="mint"
               color="white"
-              height="24px"
-              width="80px"
-              fontSize="14px"
+              size="xs"
+              fontSize="12px"
               marginLeft="12px"
             >
               투표하기
             </Button>
-          ) : null}
+          ) : studyDate === "today" && mySpaceFixed === null ? (
+            <Button
+              leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
+              onClick={() => setIsAttendModal(true)}
+              background="mint"
+              color="white"
+              size="xs"
+              fontSize="12px"
+              marginLeft="12px"
+            >
+              당일참여
+            </Button>
+          ) : (
+            <Button
+              leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
+              onClick={() => setIsCheckModal(true)}
+              background="mint"
+              color="white"
+              size="xs"
+              fontSize="12px"
+              marginLeft="12px"
+            >
+              출석체크
+            </Button>
+          )}
         </div>
+
         {studyDate === "not passed" && <SpaceLocalSelector />}
       </Layout>
-      {isShowModal && (
+      {(isShowModal || isAttendModal) && (
         <ModalPortal setIsModal={setIsShowModal}>
           <VoteStudyModal setIsShowModal={setIsShowModal} />
+        </ModalPortal>
+      )}
+
+      {isCheckModal && (
+        <ModalPortal setIsModal={setIsCheckModal}>
+          <CheckVoteModal setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
     </>
@@ -46,27 +88,16 @@ function AboutMainHeader() {
 }
 
 const Layout = styled.div`
-  height: 46px;
+  margin: 0px 14px 12px 14px;
   display: flex;
   justify-content: space-between;
   > div {
+    margin-top: 16px;
     display: flex;
     align-items: center;
     color: var(--font-h1);
     font-weight: 600;
-    font-size: 20px;
-  }
-`;
-
-const Vote = styled.div`
-  margin-left: 15px;
-
-  display: flex;
-  > span {
-    margin-left: 6px;
-    font-size: 12px;
-    font-weight: 400;
-    min-width: 80px;
+    font-size: 18px;
   }
 `;
 

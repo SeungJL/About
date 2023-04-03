@@ -85,7 +85,60 @@ export default function BadgeInfoModal({
           </Footer>
         </>
       ) : (
-        <></>
+        <>
+          <Header>
+            <span>점수 관련</span>
+            <div style={{ fontSize: "13px" }}>
+              동아리 점수는 다양한 방식으로 얻을 수 있습니다!
+            </div>
+          </Header>
+          <RuleMain>
+            <RuleHeader>
+              <span>내용</span>
+              <span>점수</span>
+            </RuleHeader>
+            <RuleItem>
+              <span>스터디 투표</span>
+              <span>+ 5점</span>
+            </RuleItem>
+            <RuleItem>
+              <span>스터디 참여</span>
+              <span>+ 5점</span>
+            </RuleItem>
+            <RuleItem>
+              <span>번개 참여</span>
+              <span>+ 5점</span>
+            </RuleItem>
+            <RuleItem>
+              <span>번개 개최</span>
+              <span>+ 5점</span>
+            </RuleItem>{" "}
+            <RuleItem>
+              <span>건의</span>
+              <span>+ 2점</span>
+            </RuleItem>
+            <RuleItem>
+              <span>추가 예정</span>
+              <span>+ ?</span>
+            </RuleItem>{" "}
+            <br />
+            <RuleItem style={{ borderTop: "1px solid var(--font-h6)" }}>
+              <span>스터디 지각</span>
+              <span>- 2점</span>
+            </RuleItem>{" "}
+            <RuleItem>
+              <span>당일 불참</span>
+              <span>- 10점</span>
+            </RuleItem>
+            <RuleItem>
+              <span>한 달 참여 미달</span>
+              <span>- 10점</span>
+            </RuleItem>
+          </RuleMain>{" "}
+          <Footer onClick={() => setIsModal(false)}>
+            <button>확인했어요!</button>
+          </Footer>
+        </>
       )}
     </Layout>
   );
@@ -107,7 +160,7 @@ const Header = styled.header`
   width: 100%;
   padding-bottom: 16px;
   > span:first-child {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
   }
   > div {
@@ -152,5 +205,42 @@ const Footer = styled.footer`
     background-color: var(--color-red);
     color: white;
     border-radius: 10px;
+  }
+`;
+
+const RuleItem = styled.div`
+  width: 100%;
+  padding: 0 18px 0 14px;
+  display: flex;
+  border-bottom: 1px solid var(--font-h6);
+  > span {
+    display: inline-block;
+    font-size: 13px;
+    flex: 1;
+    text-align: center;
+    padding: 4px 0;
+  }
+`;
+
+const RuleMain = styled.main`
+  height: 100%;
+  width: 100%;
+`;
+
+const RuleHeader = styled.header`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--font-h7);
+
+  align-items: center;
+  padding: 0 16px;
+
+  border-bottom: 1px solid var(--font-h5);
+  font-size: 14px;
+  font-weight: 600;
+  > div {
+    width: 60%;
+    text-align: center;
   }
 `;

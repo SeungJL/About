@@ -57,34 +57,18 @@ function AboutMainItem({
         )
       }
     >
-      {statusFixed !== "myOpen" ? (
-        <ImageContainer>
-          <div>
-            <Image
-              src={`${place?.image}`}
-              alt="about"
-              width={66}
-              height={66}
-              unoptimized={true}
-            />
-          </div>
-        </ImageContainer>
-      ) : (
-        <Check>
-          <span>출석:</span>
-          <div>
-            {isCheck ? (
-              <FontAwesomeIcon icon={faO} size="lg" color="var(--color-red)" />
-            ) : (
-              <FontAwesomeIcon
-                icon={faXmark}
-                size="lg"
-                color="var(--color-red)"
-              />
-            )}
-          </div>
-        </Check>
-      )}
+      <ImageContainer>
+        <div>
+          <Image
+            src={`${place?.image}`}
+            alt="about"
+            width={66}
+            height={66}
+            unoptimized={true}
+          />
+        </div>
+      </ImageContainer>
+
       <SpaceInfo>
         <Status>
           <Branch>{place?.branch}</Branch>
@@ -135,8 +119,8 @@ const Layout = styled.div<{ status: boolean }>`
   border-radius: 13px;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  padding: ${(props) => (props.status ? "6px 12px 6px 0px" : "6px 0px")};
+  margin-bottom: 12px;
+  padding: ${(props) => (props.status ? "6px 12px 6px 0px" : "6px 12px")};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
   border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
   font-family: "Pretend";
@@ -160,7 +144,6 @@ const ImageContainer = styled.div`
 `;
 
 const SpaceInfo = styled.div`
-  padding-top: 4px;
   margin-left: 12px;
   display: flex;
   flex-direction: column;
@@ -169,8 +152,9 @@ const SpaceInfo = styled.div`
 `;
 
 const Status = styled.div`
+  margin: 4px 0;
   text-align: center;
-  margin-bottom: 5px;
+
   display: flex;
   align-items: center;
 `;
@@ -179,29 +163,28 @@ const Branch = styled.div`
   background-color: var(--color-peach);
   color: var(--color-red);
   display: inline-block;
-  min-width: 54px;
-
   height: 16px;
   border-radius: 10px;
   font-weight: 600;
   font-size: 10px;
-  padding: 1px;
-  margin-right: 5px;
+  padding: 1px 6px;
 `;
 
 const StatusResult = styled.div<{ isOpen: boolean }>`
   background-color: ${(props) =>
     props.isOpen ? "#68d3918e" : "var(--font-h6)"};
   color: ${(props) =>
-    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h2)"};
+    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h3)"};
   display: inline-block;
-  min-width: 48px;
-  height: 14px;
+
+  height: 16px;
   border-radius: 10px;
   font-weight: 600;
   font-size: 10px;
-  padding: 0px;
-  margin-right: 5px;
+  padding: 1px 8px;
+  padding: ${(props) => (props.isOpen ? "1px 8px" : "1px 6px")};
+  margin-left: 5px;
+  margin-right: 4px;
 `;
 
 const Result = styled.div`

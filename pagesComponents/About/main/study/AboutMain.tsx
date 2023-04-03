@@ -19,7 +19,6 @@ import {
 import { IUser } from "../../../../types/user";
 import { getInterestingDate } from "../../../../libs/utils/dateUtils";
 import { VOTE_END_HOUR } from "../../../../constants/system";
-import ResultHeader from "./ResultHeader";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { useDecideSpaceMutation } from "../../../../hooks/vote/mutations";
 import { arrangeMainSpace } from "../../../../libs/utils/studyUtils";
@@ -116,20 +115,23 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
         }}
       >
         {studyDate !== "not passed" && (
-          <Result>
-            <ResultHeader mySpaceFixed={mySpaceFixed} studyDate={studyDate} />
-            {mySpaceFixed !== null ? (
-              <AboutMainItem studySpaceInfo={mySpaceFixed} voted={true} />
-            ) : (
-              <NoMyStudy />
-            )}
+          <>
+            <Result>
+              {mySpaceFixed !== null ? (
+                <AboutMainItem studySpaceInfo={mySpaceFixed} voted={true} />
+              ) : (
+                <NoMyStudy />
+              )}
+            </Result>
             <HrDiv />
-          </Result>
+          </>
         )}
-        <AboutMainHeader />
-        <VoterCnt>
-          현재 <b>{voterCnt}명</b>의 멤버가 스터디에 투표중이에요!
-        </VoterCnt>
+        {studyDate === "not passed" && (
+          <VoterCnt>
+            현재 <b>{voterCnt}명</b>의 멤버가 스터디에 투표중이에요!
+          </VoterCnt>
+        )}
+
         <Main>
           {otherStudySpaces?.map((info, idx) => (
             <Block key={idx}>
@@ -149,33 +151,37 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
 }
 
 const Layout = styled(motion.div)`
-  padding: 12px 16px;
   min-height: 486px;
 `;
 
-const Main = styled.main``;
+const Main = styled.main`
+  margin: 0 14px;
+`;
 
 const Block = styled.div``;
 
 const VoterCnt = styled.div`
+  margin: 0 14px;
   color: var(--font-h3);
-  font-size: 15px;
-  margin-bottom: 12px;
+  font-size: 14px;
+  margin-bottom: 16px;
 `;
 
 const Result = styled.div`
+  margin: 0 14px;
+  margin-bottom: 16px;
+
   > span {
     display: inline-block;
-    margin-bottom: 12px;
     color: var(--font-h1);
     font-weight: 600;
     font-size: 18px;
   }
-  margin-bottom: 12px;
 `;
 const HrDiv = styled.div`
-  height: 8px;
-  background-color: #f0f2f5;
+  height: 1px;
+  background-color: var(--font-h5);
+  margin-bottom: 12px;
 `;
 
 const variants = {

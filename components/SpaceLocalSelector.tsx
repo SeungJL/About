@@ -16,6 +16,7 @@ function SpaceLocalSelector() {
 const Layout = styled.div`
   display: flex;
   align-items: center;
+
   > select {
     width: 50px;
     color: #767d8a;

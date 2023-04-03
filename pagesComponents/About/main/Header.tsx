@@ -82,11 +82,11 @@ export default function Header() {
 }
 
 const Layout = styled.header`
-  height: 46px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 14px;
   color: var(--font-h2);
   > div:first-child {
     display: flex;

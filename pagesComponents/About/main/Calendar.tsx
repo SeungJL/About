@@ -114,7 +114,7 @@ function Calendar() {
   };
 
   return (
-    <Layout layout transition={{ duration: 0.3 }}>
+    <Layout>
       <Header>
         <Date>
           <span>{voteDate.format("YYYY년 M월")}</span>
@@ -138,19 +138,37 @@ function Calendar() {
               <AttendCircle />
               <span>내 스터디 참여</span>
             </IconToolTip> */}
-            <MonthNav>
-              <FontAwesomeIcon icon={faChevronLeft} onClick={onClickPrev} />
-              <FontAwesomeIcon icon={faChevronRight} onClick={onClickNext} />
+            <MonthNav
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <FontAwesomeIcon
+                icon={faChevronLeft}
+                onClick={onClickPrev}
+                size="sm"
+              />
+              <FontAwesomeIcon
+                icon={faChevronRight}
+                onClick={onClickNext}
+                size="sm"
+              />
             </MonthNav>
           </>
         )}
       </Header>
       <DayOfWeek />
-      <CallenderDays isFlex={calendarType === "week"}>
+      <CallenderDays
+        isFlex={calendarType === "week"}
+        initial={{ opacity: 0 }}
+        animate={{ height: calendarType === "week" ? 40 : 235, opacity: 1 }}
+        transition={{ duration: 0.3, opacity: { delay: 0.3 } }}
+      >
         {calendarBox.map((d, idx) => (
           <DayItem
-            layout
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
             key={idx}
             onClick={() => onClickDate(d)}
           >
@@ -181,34 +199,30 @@ const DayOfWeek = () => (
 );
 
 const Layout = styled(motion.div)`
-  margin-top: 8px;
+  margin-top: 16px;
   border-bottom: 1px solid #e3e6eb;
 `;
 
 const Header = styled.header`
-  height: 46px;
   display: flex;
   justify-content: space-between;
-  padding: 0px 16px 8px 16px;
+  padding: 0px 14px 8px 14px;
   align-items: center;
 `;
 const Date = styled.div`
   display: flex;
   align-items: center;
   > span {
-    font-weight: 600;
     color: var(--font-h1);
-    font-size: 20px;
-
+    font-size: 16px;
     align-items: center;
-    margin-right: 12px;
+    margin-right: 10px;
   }
 `;
-const CallenderDays = styled.div<{ isFlex: boolean }>`
+const CallenderDays = styled(motion.div)<{ isFlex: boolean }>`
   display: flex;
   color: #767d8a;
   margin: 4px;
-  font-weight: 500;
   font-size: 15px;
   padding: 0;
   display: ${(props) => (props.isFlex ? "flex" : "grid")};
@@ -228,17 +242,7 @@ const DayItem = styled(motion.div)`
   }
 `;
 
-const IconToolTip = styled.div`
-  display: flex;
-  align-items: center;
-  > span {
-    margin-left: 6px;
-    font-size: 10px;
-    color: var(--font-h3);
-  }
-`;
-
-const MonthNav = styled.nav`
+const MonthNav = styled(motion.nav)`
   width: 40px;
   display: flex;
   justify-content: space-between;
@@ -254,7 +258,7 @@ const AttendCircle = styled.div`
 `;
 
 const DayLine = styled.div`
-  margin: 0 22px;
+  margin: 8px 22px;
   display: flex;
   justify-content: space-between;
   color: #a0a4af;

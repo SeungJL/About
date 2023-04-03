@@ -67,17 +67,19 @@ function UserOverview() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0 14px;
   padding-bottom: 6px;
+  border-bottom-left-radius: 17px;
 `;
 
 const Header = styled.header`
-  padding: 12px 16px;
+  padding: 12px 0px;
   font-size: 18px;
 `;
 
 const ProgressWrapper = styled.div`
   margin-bottom: 12px;
-  padding: 0px 16px;
+
   position: relative;
 `;
 
@@ -85,7 +87,7 @@ const IconWrapper = styled.div`
   color: var(--font-h3);
   font-size: 11px;
   position: absolute;
-  right: 10px;
+  right: 0%;
   bottom: -20px;
   > span:first-child {
     margin-right: 4px;
