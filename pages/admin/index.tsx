@@ -10,14 +10,18 @@ export default function Admin() {
     axios.get("/api/admin/user").then(({ data }) => setUsers(data));
   }, []);
 
-  const updateProfile = (profile) => {};
+  const updateProfile = (profile) => {
+    axios.post("/api/admin/user", { profile });
+  };
 
   const onRoleChanged = (role: string, profile: IUser) => {
     const newProfile = { ...profile, role };
+    updateProfile(newProfile);
   };
   const onActiveChanged = (active: string, profile: IUser) => {
     const isActive = JSON.parse(active);
     const newProfile = { ...profile, isActive };
+    updateProfile(newProfile);
   };
   const onScoreChanged = (score, profile) => {
     if (isNaN(score)) {
@@ -26,6 +30,7 @@ export default function Admin() {
     } else {
       //숫자인경우
       const newProfile = { ...profile, score };
+      updateProfile(newProfile);
     }
   };
 
