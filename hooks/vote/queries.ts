@@ -73,11 +73,18 @@ export const useArrivedQuery = (
 
 export const useStudyStartQuery = (
   date: Dayjs,
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IStudyStart[], AxiosError, IStudyStart[]>,
+    "queryKey" | "queryFn"
+  >
 ) =>
-  useQuery("studyStart", async () => {
-    const res = await axios.get<any>(
-      `/api/vote/${date.format("YYYY-MM-DD")}/start`
-    );
-    return res.data;
-  });
+  useQuery(
+    "studyStart",
+    async () => {
+      const res = await axios.get<IStudyStart[]>(
+        `/api/vote/${date.format("YYYY-MM-DD")}/start`
+      );
+      return res.data;
+    },
+    options
+  );

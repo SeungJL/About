@@ -15,10 +15,11 @@ import {
 
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
-import { voteDateState } from "../../../recoil/studyAtoms";
+import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
 
 import dayjs from "dayjs";
 import TimeSelector from "../../../components/utils/TimeSelector";
+import { useScoreMutation } from "../../../hooks/user/mutations";
 
 export default function ChangeTimeModal({
   setIsChangeTimeModal,
@@ -28,6 +29,8 @@ export default function ChangeTimeModal({
   myVoteTime?: ITimeStartToEnd;
 }) {
   const voteDate = useRecoilValue(voteDateState);
+  const studyStartTime = useRecoilValue(studyStartTimeState);
+  const { mutate: getScores } = useScoreMutation();
 
   const toast = useToast();
   const { data: session } = useSession();
@@ -44,6 +47,7 @@ export default function ChangeTimeModal({
   });
   const { mutate: patchAttend } = useChangeTimeMutation(voteDate, {
     onSuccess() {
+      if (dayjs() > studyStartTime) getScores(-5);
       window.location.reload();
     },
     onError(err) {
@@ -82,6 +86,11 @@ export default function ChangeTimeModal({
         }}
         times={time}
       />
+      {dayjs() > studyStartTime && (
+        <WaringMsg>
+          스터디 시작 시간 이후의 시간 변경은 -5점을 받습니다.
+        </WaringMsg>
+      )}
       <BtnNav>
         <button onClick={() => setIsChangeTimeModal(false)}>취소</button>
         <button onClick={onSubmit}>변경</button>
@@ -104,4 +113,10 @@ const BtnNav = styled(ModalFooterNav)`
   > button:last-child {
     background-color: var(--color-red);
   }
+`;
+
+const WaringMsg = styled.span`
+  font-size: 12px;
+  margin-top: 6px;
+  color: var(--color-red);
 `;

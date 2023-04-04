@@ -22,6 +22,7 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
 } from "@chakra-ui/react";
+import { useScoreMutation } from "../../hooks/user/mutations";
 export default function SuggestModal({
   setIsModal,
 }: {
@@ -36,6 +37,7 @@ export default function SuggestModal({
   } = useForm();
 
   const { mutate: suggestForm } = usePlazaMutation();
+  const { mutate: getScores } = useScoreMutation();
 
   const onValid = (data) => {
     const suggestInfo = {
@@ -45,7 +47,7 @@ export default function SuggestModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-
+    getScores(2);
     suggestForm(suggestInfo);
     setIsModal(false);
   };

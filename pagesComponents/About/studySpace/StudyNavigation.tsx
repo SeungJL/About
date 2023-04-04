@@ -9,6 +9,7 @@ import { useQueryClient } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
+import { useScoreMutation } from "../../../hooks/user/mutations";
 import {
   useAbsentMutation,
   useArrivedMutation,
@@ -51,9 +52,12 @@ function StudyNavigation({
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
 
+  const { mutate: getScore } = useScoreMutation();
+
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
       await queryClient.invalidateQueries([VOTE_GET, voteDate]);
+      isVoting && getScore(-5);
       router.push(`/about`);
     },
     onError() {
@@ -73,7 +77,18 @@ function StudyNavigation({
   };
 
   const onCancelCliked = () => {
-    handleAbsent();
+    if (mySpaceFixed) {
+      toast({
+        title: "오류",
+        description: "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    } else {
+      handleAbsent();
+    }
   };
 
   return (
@@ -140,10 +155,10 @@ function StudyNavigation({
           </SubNav>
           <MainButton
             disabled={isVoting && true}
-            func={!isVoting}
+            func={false}
             // onClick={() => setIsVoteModal(true)}
           >
-            <span>{isVoting ? "투표 완료" : "임시 비 활성화"}</span>
+            <span>{isVoting ? "투표 완료" : "임시 비활성화"}</span>
           </MainButton>
         </Layout>
       )}

@@ -5,15 +5,19 @@ import styled from "styled-components";
 import { IconUserTwo } from "../../../../public/icons/Icons";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 import {
   attendCheckState,
   mySpaceFixedState,
+  studyStartTimeState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-import { useArrivedQuery } from "../../../../hooks/vote/queries";
-import dayjs from "dayjs";
+import {
+  useArrivedQuery,
+  useStudyStartQuery,
+} from "../../../../hooks/vote/queries";
+import dayjs, { Dayjs } from "dayjs";
 import { VOTE_START_HOUR } from "../../../../constants/system";
 import { useEffect, useState } from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
@@ -33,7 +37,7 @@ function AboutMainItem({
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [isCheck, setIsCheck] = useRecoilState(attendCheckState);
-
+  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
   const { attendences, place, status } = studySpaceInfo || {};
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
@@ -41,6 +45,16 @@ function AboutMainItem({
     dayjs().hour() < VOTE_START_HOUR || dayjs().hour() >= 23
       ? voteDate
       : voteDate.subtract(1, "day");
+  const { data: studyStart, isLoading } = useStudyStartQuery(voteDate, {
+    onSuccess: (data) => {
+      setStudyStartTime(dayjs(data[0]?.startTime));
+    },
+  });
+
+  const studyStartTime =
+    !isLoading && studyStart[0]
+      ? dayjs(studyStart[0]?.startTime).format("HH:mm")
+      : "12:00";
 
   useArrivedQuery(studyDate, {
     onSuccess(data) {
@@ -80,7 +94,7 @@ function AboutMainItem({
           {statusFixed === "myOpen" && (
             <Result>
               <FontAwesomeIcon icon={faClock} size="sm" />
-              <ResultInfo>12시</ResultInfo>
+              <ResultInfo>{studyStartTime}</ResultInfo>
             </Result>
           )}
         </Status>
@@ -103,7 +117,13 @@ function AboutMainItem({
           <ParticipantStatus>
             <IconUserTwo />
             <span>
-              <b>{firstAttendance?.length}</b>
+              <b
+                style={{
+                  color: firstAttendance.length > 6 ? "var(--color-red)" : null,
+                }}
+              >
+                {firstAttendance?.length}
+              </b>
               /6
             </span>
           </ParticipantStatus>

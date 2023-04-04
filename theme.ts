@@ -3,7 +3,7 @@ import { extendTheme } from "@chakra-ui/react";
 const theme = extendTheme({
   colors: {
     mint: "#00c2b3",
-    red: "#ff6b6b",
+    redMy: "#ff6b6b",
   },
   fonts: {
     body: `"Pretend",-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,

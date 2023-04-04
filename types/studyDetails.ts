@@ -60,5 +60,5 @@ export interface IVote extends Document {
 
 export interface IStudyStart {
   place_id: string;
-  startTime: any;
+  startTime: string;
 }

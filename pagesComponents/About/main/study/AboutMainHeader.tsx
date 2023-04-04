@@ -11,11 +11,14 @@ import {
   attendCheckState,
   mySpaceFixedState,
   studyDateState,
+  voteDateState,
 } from "../../../../recoil/studyAtoms";
 import SpaceLocalSelector from "../../../../components/SpaceLocalSelector";
 import ModalPortal from "../../../../components/ModalPortal";
 import { Button } from "@chakra-ui/react";
 import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
+import { useStudyStartQuery } from "../../../../hooks/vote/queries";
+import dayjs from "dayjs";
 
 function AboutMainHeader() {
   const studyDate = useRecoilValue(studyDateState);
@@ -24,6 +27,8 @@ function AboutMainHeader() {
   const [isAttendModal, setIsAttendModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
   const isCheck = useRecoilValue(attendCheckState);
+  const voteDate = useRecoilValue(voteDateState);
+
   return (
     <>
       <Layout>

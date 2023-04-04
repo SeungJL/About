@@ -1,4 +1,4 @@
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { atom } from "recoil";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 import { IParticipation } from "../types/studyDetails";
@@ -30,4 +30,9 @@ export const attendCheckState = atom<boolean>({
 
 export const refetchVoteState = atom({
   key: "refetchVote",
+});
+
+export const studyStartTimeState = atom({
+  key: "studyStartTime",
+  default: null,
 });

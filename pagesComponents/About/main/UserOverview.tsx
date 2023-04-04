@@ -77,7 +77,7 @@ function UserOverview() {
             </div>
             <div>
               <span style={{ color: scoreInfo.nextBadge.color }}>
-                {myPoint + scoreInfo.scoreGap}점
+                {scoreInfo.nextPoint}점
               </span>
               <Badge
                 fontSize={12}
