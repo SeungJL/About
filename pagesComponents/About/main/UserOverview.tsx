@@ -54,7 +54,7 @@ function UserOverview() {
   );
   const myMonthCnt = monthCnt?.find(
     (user) => user.name === session?.user.name
-  ).cnt;
+  )?.cnt;
   const myPoint = data?.point;
 
   return (
