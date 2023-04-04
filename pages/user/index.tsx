@@ -30,11 +30,15 @@ import UserOverView from "../../pagesComponents/User/UserOverView";
 import { Attendence } from "../../models/attendence";
 import ApplyRestModal from "../../modals/user/ApplyRestModal";
 import { useScoreQuery } from "../../hooks/user/queries";
+import { useRecoilValue } from "recoil";
+import { userBadgeState } from "../../recoil/userAtoms";
 
 function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
+ 
+ 
 
   const handleOutput = (isOpen) => {
     if (!isOpen) {

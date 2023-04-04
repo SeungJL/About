@@ -8,11 +8,13 @@ import { Dispatch, SetStateAction, useState } from "react";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
 
 import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
-import { useCommentQuery } from "../../hooks/user/queries";
-import { IUser } from "../../types/user";
+import { useCommentQuery, useScoreAllQuery } from "../../hooks/user/queries";
+import { IUser, USER_BADGES } from "../../types/user";
 import AttendChart from "../../components/utils/AttendChart";
 import Image from "next/image";
 import RoleBadge from "../../components/block/UserBadge";
+import { userBadgeScore } from "../../libs/utils/userUtils";
+import { Badge } from "@chakra-ui/react";
 
 export default function UserInfoModal({
   user,
@@ -26,7 +28,12 @@ export default function UserInfoModal({
 
   const comment = comments?.comments.find((att) => att._id === user._id);
 
-  useCommentQuery();
+  const { data } = useScoreAllQuery();
+
+  const userScore = data?.find((user) => user._id === user._id).point;
+  const { badge } = userBadgeScore(userScore);
+  console.log(badge);
+
   return (
     <>
       <Layout>
@@ -43,7 +50,9 @@ export default function UserInfoModal({
           <UserInfo>
             <UserName>
               <span>{user.name}</span>
-              <RoleBadge role={user.role} />
+              <Badge fontSize={12} colorScheme={USER_BADGES[badge]}>
+                {badge}
+              </Badge>
             </UserName>
             <UserProfile>
               <div>

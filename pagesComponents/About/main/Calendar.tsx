@@ -218,7 +218,7 @@ const Date = styled.div`
   font-weight: 600;
   > span {
     color: var(--color-mint);
-    font-size: 12px;
+    font-size: 13px;
     align-items: center;
     margin-right: 8px;
   }
@@ -229,7 +229,7 @@ const CallenderDays = styled(motion.div)<{ col: string }>`
   margin: 0px 4px 0px 4px;
   font-size: 14px;
 
-  height: 36px !important;
+  height: 36px;
   padding: 0;
   display: ${(props) => (props.col === "true" ? "flex" : "grid")};
   justify-content: ${(props) => (props.col === "true" ? "spaceBetween" : null)};

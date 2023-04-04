@@ -8,5 +8,5 @@ export const numOfUserState = atom({
 
 export const userBadgeState = atom<IUserBadge>({
   key: "userBadge",
-  default: { badge: "아메리카노", color: "" },
+  default: { badge: "아메리카노", color: "gray" },
 });

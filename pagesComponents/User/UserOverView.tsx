@@ -17,6 +17,8 @@ import { useEffect, useState, useRef } from "react";
 import { useCommentMutation } from "../../hooks/user/mutations";
 import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
 import RoleBadge from "../../components/block/UserBadge";
+import { userBadgeState } from "../../recoil/userAtoms";
+import { useRecoilValue } from "recoil";
 
 export default function UserOverView() {
   const { data: user } = useActiveQuery();
@@ -26,7 +28,7 @@ export default function UserOverView() {
 
   const { mutate: onChangeComment } = useCommentMutation();
   const { data: comments, isLoading } = useCommentQuery();
-
+  const userBadge = useRecoilValue(userBadgeState);
   const userComment =
     !isLoading && comments?.comments.find((att) => att?._id === user?._id);
 
@@ -94,7 +96,9 @@ export default function UserOverView() {
         <UserInfo>
           <UserProfile>
             <UserName>{user?.name}</UserName>
-            <RoleBadge role={user?.role} />
+            <Badge fontSize={12} colorScheme={userBadge?.color}>
+              {userBadge?.badge}
+            </Badge>
           </UserProfile>
           <Comment>
             <span>Comment</span>
@@ -165,7 +169,7 @@ const UserProfile = styled.div`
 const UserName = styled.div`
   font-weight: 600;
   font-size: 18px;
-  margin-right: 10px;
+  margin-right: 8px;
 `;
 
 const Comment = styled.div`
