@@ -25,8 +25,10 @@ import { IUser } from "../../types/user";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
 import AboutMainHeader from "../../pagesComponents/About/main/study/AboutMainHeader";
 import { useParticipationRateQuery } from "../../hooks/user/queries";
+import axios from "axios";
 
 function About({ UserList }: { UserList: IUser[] }) {
+  axios.get("/api/user/point/all");
   const toast = useToast();
   const voteDate = useRecoilValue(voteDateState);
   const [participations, setParticipations] = useState([]);
