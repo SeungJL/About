@@ -54,15 +54,16 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
       space?.attendences.forEach((att) => att.firstChoice && tempCnt++);
-      if (
-        space?.attendences?.find(
-          (att) => (att.user as IUser)?.uid === session?.uid
-        )
-      ) {
+      const participant = space?.attendences?.find(
+        (att) => (att.user as IUser)?.uid === session?.uid
+      );
+      if (participant) {
         setMyVoteList((old) => [...old, space.place._id]);
         setIsVoting(true);
-
-        if (spaceStatus) setMySpaceFixed(space);
+        if (spaceStatus) {
+          setMySpaceFixed(space);
+        }
+        if (participant.arrived) setIsCheck(true);
       }
     });
     setVoteCnt(tempCnt);

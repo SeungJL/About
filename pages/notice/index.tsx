@@ -11,6 +11,13 @@ import NoticeItem from "../../pagesComponents/Notice/NoticeItem";
 
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);
+
+  noticeData.sort((a, b) => {
+    if (Number(a.id) > Number(b.id)) return -1;
+    if (Number(a.id) < Number(b.id)) return 1;
+    return 0;
+  });
+
   return (
     <NoticeLayout
       initial={{ x: "100%" }}

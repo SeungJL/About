@@ -1,4 +1,5 @@
 import { useToast } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
@@ -40,7 +41,7 @@ export default function CheckVoteModal({
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
-      !isChecking && getScore(5);
+      !isChecking && voteDate > dayjs().subtract(1, "day") && getScore(5);
     },
     onError: (err) => {
       toast({

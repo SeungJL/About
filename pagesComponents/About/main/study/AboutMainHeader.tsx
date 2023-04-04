@@ -1,4 +1,5 @@
 import {
+  faCheck,
   faCheckToSlot,
   faSquareCheck,
 } from "@fortawesome/free-solid-svg-icons";
@@ -28,7 +29,7 @@ function AboutMainHeader() {
   const [isCheckModal, setIsCheckModal] = useState(false);
   const isCheck = useRecoilValue(attendCheckState);
   const voteDate = useRecoilValue(voteDateState);
-
+  console.log(isCheck);
   return (
     <>
       <Layout>
@@ -48,6 +49,10 @@ function AboutMainHeader() {
             >
               투표하기
             </Button>
+          ) : isCheck ? (
+            <Check>
+              <FontAwesomeIcon icon={faCheck} size="lg" />
+            </Check>
           ) : studyDate === "today" && mySpaceFixed === null ? (
             <Button
               leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
@@ -104,6 +109,11 @@ const Layout = styled.div`
     font-weight: 600;
     font-size: 18px;
   }
+`;
+
+const Check = styled.span`
+  color: var(--color-red);
+  margin-left: 12px;
 `;
 
 export default AboutMainHeader;

@@ -14,6 +14,7 @@ function EventBanner() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 16px;
 `;
 
 export default EventBanner;

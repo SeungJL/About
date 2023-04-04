@@ -76,6 +76,7 @@ export default function ChangeTimeModal({
     setIsChangeTimeModal(false);
     patchAttend(timeInfo);
   };
+
   return (
     <Layout>
       <ModalHeaderTitle>시간변경</ModalHeaderTitle>
@@ -86,7 +87,7 @@ export default function ChangeTimeModal({
         }}
         times={time}
       />
-      {dayjs() > studyStartTime && (
+      {studyStartTime && dayjs() > studyStartTime && (
         <WaringMsg>
           스터디 시작 시간 이후의 시간 변경은 -5점을 받습니다.
         </WaringMsg>
