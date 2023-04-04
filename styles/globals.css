@@ -2,6 +2,10 @@
   font-family: "Pretend";
   src: url("/fonts/Pretendard-Regular.otf") format("opentype");
 }
+@font-face {
+  font-family: "PretendExtra";
+  src: url("/fonts/Pretendard-ExtraBold.otf") format("opentype");
+}
 
 :root {
   --chakra-fonts-body: unset;

@@ -4,11 +4,11 @@ export const IconCircle = ({ children }) => (
   <CircleLayout>{children}</CircleLayout>
 );
 const CircleLayout = styled.div`
-  width: 28px;
+  width: 25px;
   text-align: center;
-  height: 28px;
+  height: 25px;
   border-radius: 50%;
-  padding-top: 3px;
+  padding-top: 2px;
   color: white;
-  background-color: var(--font-h4);
+  background-color: var(--color-mint);
 `;

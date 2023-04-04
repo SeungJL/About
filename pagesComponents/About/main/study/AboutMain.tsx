@@ -35,7 +35,6 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const setIsCheck = useSetRecoilState(attendCheckState);
   const setStudyStartTime = useSetRecoilState(studyStartTimeState);
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
-  const [voterCnt, setVoteCnt] = useState(0);
 
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
     dayjs().add(1, "day")
@@ -68,7 +67,6 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
         if (participant.arrived) setIsCheck(true);
       }
     });
-    setVoteCnt(tempCnt);
 
     const voteDateNum = +voteDate.format("MDD");
     const defaultDate = +getInterestingDate().format("MDD");
@@ -118,24 +116,6 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
           }
         }}
       >
-        {studyDate !== "not passed" && (
-          <>
-            <Result>
-              {mySpaceFixed !== null ? (
-                <AboutMainItem studySpaceInfo={mySpaceFixed} voted={true} />
-              ) : (
-                <NoMyStudy />
-              )}
-            </Result>
-            <HrDiv />
-          </>
-        )}
-        {studyDate === "not passed" && (
-          <VoterCnt>
-            현재 <b>{voterCnt}명</b>의 멤버가 스터디에 투표중이에요!
-          </VoterCnt>
-        )}
-
         <Main>
           {otherStudySpaces?.map((info, idx) => (
             <Block key={idx}>
@@ -155,7 +135,8 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
 }
 
 const Layout = styled(motion.div)`
-  min-height: 486px;
+  min-height: 452px;
+  margin-top: 12px;
 `;
 
 const Main = styled.main`
@@ -163,30 +144,6 @@ const Main = styled.main`
 `;
 
 const Block = styled.div``;
-
-const VoterCnt = styled.div`
-  margin: 0 14px;
-  color: var(--font-h3);
-  font-size: 14px;
-  margin-bottom: 16px;
-`;
-
-const Result = styled.div`
-  margin: 0 14px;
-  margin-bottom: 16px;
-
-  > span {
-    display: inline-block;
-    color: var(--font-h1);
-    font-weight: 600;
-    font-size: 18px;
-  }
-`;
-const HrDiv = styled.div`
-  height: 1px;
-  background-color: var(--font-h5);
-  margin-bottom: 12px;
-`;
 
 const variants = {
   enter: (direction: number) => {

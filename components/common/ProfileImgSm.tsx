@@ -6,8 +6,8 @@ function ProfileImgSm({ imgSrc }: { imgSrc: string }) {
     <Layout>
       <Image
         src={`${imgSrc}`}
-        width={27}
-        height={27}
+        width={26}
+        height={26}
         alt="ProfileImgSm"
         unoptimized={true}
       />
@@ -16,12 +16,13 @@ function ProfileImgSm({ imgSrc }: { imgSrc: string }) {
 }
 
 const Layout = styled.div`
-  border-radius: 12px;
-  width: 27px;
-  height: 27px;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
   overflow: hidden;
   display: inline-block;
   position: absolute;
+  bottom: 0px;
 `;
 
 export default ProfileImgSm;

@@ -21,66 +21,50 @@ import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import dayjs from "dayjs";
 
-function AboutMainHeader() {
+function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
-  const isCheck = useRecoilValue(attendCheckState);
+
   const voteDate = useRecoilValue(voteDateState);
-  console.log(isCheck);
+
   return (
     <>
       <Layout>
         <div>
-          <span>
-            {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
-          </span>
           {studyDate === "not passed" ? (
             <Button
               leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
               onClick={() => setIsShowModal(true)}
               background="mint"
               color="white"
-              size="xs"
-              fontSize="12px"
+              size="md"
               marginLeft="12px"
             >
               투표하기
             </Button>
-          ) : isCheck ? (
-            <Check>
-              <FontAwesomeIcon icon={faCheck} size="lg" />
-            </Check>
-          ) : studyDate === "today" && mySpaceFixed === null ? (
-            <Button
-              leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
-              onClick={() => setIsAttendModal(true)}
-              background="mint"
-              color="white"
-              size="xs"
-              fontSize="12px"
-              marginLeft="12px"
-            >
-              당일참여
-            </Button>
           ) : (
-            <Button
-              leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
-              onClick={() => setIsCheckModal(true)}
-              background="mint"
-              color="white"
-              size="xs"
-              fontSize="12px"
-              marginLeft="12px"
-            >
-              출석체크
-            </Button>
+            !mySpaceFixed && (
+              <Button
+                leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
+                onClick={() => setIsAttendModal(true)}
+                background="mint"
+                color="white"
+                size="md"
+                marginLeft="12px"
+              >
+                당일참여
+              </Button>
+            )
           )}
         </div>
-
-        {studyDate === "not passed" && <SpaceLocalSelector />}
+        {studyDate === "not passed" && (
+          <VoterCnt>
+            현재 <b>{voteCnt}명</b>의 멤버가 스터디에 투표중이에요!
+          </VoterCnt>
+        )}
       </Layout>
       {isShowModal && (
         <ModalPortal setIsModal={setIsShowModal}>
@@ -89,13 +73,7 @@ function AboutMainHeader() {
       )}
       {isAttendModal && (
         <ModalPortal setIsModal={setIsAttendModal}>
-          <VoteStudyModal setIsShowModal={setIsAttendModal} />
-        </ModalPortal>
-      )}
-
-      {isCheckModal && (
-        <ModalPortal setIsModal={setIsCheckModal}>
-          <CheckVoteModal setIsModal={setIsCheckModal} />
+          <VoteStudyModal setIsShowModal={setIsShowModal} />
         </ModalPortal>
       )}
     </>
@@ -103,22 +81,15 @@ function AboutMainHeader() {
 }
 
 const Layout = styled.div`
-  margin: 0px 14px 12px 14px;
+  margin-top: 16px;
   display: flex;
-  justify-content: space-between;
-  > div {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    color: var(--font-h1);
-    font-weight: 600;
-    font-size: 18px;
-  }
+  flex-direction: column;
 `;
 
-const Check = styled.span`
-  color: var(--color-red);
+const VoterCnt = styled.div`
+  color: var(--font-h3);
+  font-size: 14px;
   margin-left: 12px;
+  margin-top: 12px;
 `;
-
 export default AboutMainHeader;

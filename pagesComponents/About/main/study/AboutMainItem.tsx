@@ -96,33 +96,35 @@ function AboutMainItem({
         </Status>
         <Info>
           <span>{place?.brand}</span>
-          {voted && statusFixed === "pending" && (
-            <div>
-              <FontAwesomeIcon icon={faCheckCircle} />
-              <span>신청완료</span>
-            </div>
-          )}
         </Info>
 
-        <Participants>
-          {firstAttendance?.map((user, idx) => (
-            <ProfileContainer key={idx} zIndex={idx}>
-              <ProfileImgSm imgSrc={(user?.user as IUser)?.profileImage} />
-            </ProfileContainer>
-          ))}
-          <ParticipantStatus>
-            <IconUserTwo />
-            <span>
-              <b
-                style={{
-                  color: firstAttendance.length > 6 ? "var(--color-red)" : null,
-                }}
-              >
-                {firstAttendance?.length}
-              </b>
-              /6
-            </span>
-          </ParticipantStatus>
+        <Participants status={statusFixed === "myOpen"}>
+          <div>
+            {voted && statusFixed === "pending" && (
+              <VoteComplete>신청완료</VoteComplete>
+            )}
+          </div>
+          <div>
+            {firstAttendance?.map((user, idx) => (
+              <ProfileContainer key={idx} zIndex={idx}>
+                <ProfileImgSm imgSrc={(user?.user as IUser)?.profileImage} />
+              </ProfileContainer>
+            ))}
+            <ParticipantStatus>
+              <IconUserTwo />
+              <span>
+                <b
+                  style={{
+                    color:
+                      firstAttendance.length > 6 ? "var(--color-red)" : null,
+                  }}
+                >
+                  {firstAttendance?.length}
+                </b>
+                /6
+              </span>
+            </ParticipantStatus>
+          </div>
         </Participants>
       </SpaceInfo>
     </Layout>
@@ -132,11 +134,11 @@ function AboutMainItem({
 const Layout = styled.div<{ status: boolean }>`
   height: 100px;
   background-color: white;
-  border-radius: 13px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-  padding: ${(props) => (props.status ? "6px 12px 6px 0px" : "6px 12px")};
+  padding: ${(props) => (props.status ? "12px" : "12px")};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
   border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
   font-family: "Pretend";
@@ -146,7 +148,7 @@ const ImageContainer = styled.div`
   width: 77px;
   height: 77px;
   border: 1px solid var(--font-h5);
-  border-radius: 24%;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,23 +169,26 @@ const SpaceInfo = styled.div`
   flex: 1;
 `;
 
-const Status = styled.div`
-  margin: 4px 0;
-  text-align: center;
+const VoteComplete = styled.span`
+  display: flex;
+  height: 100%;
+  align-items: end;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-mint);
+`;
 
+const Status = styled.div`
+  text-align: center;
   display: flex;
   align-items: center;
 `;
 
 const Branch = styled.div`
-  background-color: var(--color-peach);
-  color: var(--color-red);
   display: inline-block;
-  height: 16px;
-  border-radius: 10px;
   font-weight: 600;
-  font-size: 10px;
-  padding: 1px 6px;
+  font-size: 16px;
+  font-family: "PretendExtra";
 `;
 
 const StatusResult = styled.div<{ isOpen: boolean }>`
@@ -192,14 +197,14 @@ const StatusResult = styled.div<{ isOpen: boolean }>`
   color: ${(props) =>
     props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h3)"};
   display: inline-block;
-
+  align-items: center;
   height: 16px;
   border-radius: 10px;
   font-weight: 600;
   font-size: 10px;
   padding: 1px 8px;
   padding: ${(props) => (props.isOpen ? "1px 8px" : "1px 6px")};
-  margin-left: 5px;
+  margin-left: 6px;
   margin-right: 4px;
 `;
 
@@ -232,12 +237,9 @@ const Check = styled.div`
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 2px;
   > span {
-    color: #565b67;
-
-    font-weight: 600;
-    font-size: 16px;
+    color: var(--font-h3);
+    font-size: 12px;
   }
   > div {
     display: flex;
@@ -249,14 +251,20 @@ const Info = styled.div`
     }
   }
 `;
-const Participants = styled.div`
+const Participants = styled.div<{ status: boolean }>`
   flex: 1;
   display: flex;
+  justify-content: space-between;
+  flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
+  > div:last-child {
+    display: flex;
+    padding-top: 4px;
+    align-items: end;
+  }
 `;
 const ProfileContainer = styled.div<{ zIndex: number }>`
-  width: 22px;
+  width: 24px;
   display: flex;
-  align-items: end;
   z-index: ${(props) => props.zIndex};
   position: relative;
 `;
@@ -264,14 +272,13 @@ const ProfileContainer = styled.div<{ zIndex: number }>`
 const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 8px;
-  margin-left: 11px;
+  margin-left: 8px;
+  margin-bottom: 4px;
+
   > span {
     font-weight: 400;
-    font-size: 13px;
-    margin-left: 2px;
+    font-size: 12px;
     color: var(--font-h3);
-    font-weight: 600;
   }
 `;
 

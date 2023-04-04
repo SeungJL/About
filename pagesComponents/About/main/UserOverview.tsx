@@ -21,6 +21,7 @@ import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { IUserBadge, UserBadge, USER_BADGES } from "../../../types/user";
 import { userBadgeState } from "../../../recoil/userAtoms";
+import dayjs from "dayjs";
 
 function UserOverview() {
   const { data: session } = useSession();
@@ -68,16 +69,12 @@ function UserOverview() {
     <>
       <Layout>
         <Header>
-          <b>{session?.user.name}</b>님의 활동 현황이에요 !
+          <span>{session?.user.name}</span>님의 활동 현황이에요!
         </Header>
         <ProgressWrapper>
           <Grade>
             <div>
-              <Badge
-                fontSize="12"
-                marginRight="6px"
-                colorScheme={userBadge.color}
-              >
+              <Badge marginRight="6px" colorScheme={userBadge.color}>
                 {userBadge.badge}
               </Badge>
               <span style={{ color: userBadge.color }}>{myPoint}점</span>
@@ -86,12 +83,7 @@ function UserOverview() {
               <span style={{ color: scoreInfo.nextBadge.color }}>
                 {scoreInfo.nextPoint}점
               </span>
-              <Badge
-                fontSize={12}
-                variant="subtle"
-                colorScheme={scoreInfo.nextBadge.color}
-                marginLeft="6px"
-              >
+              <Badge colorScheme={scoreInfo.nextBadge.color} marginLeft="6px">
                 {scoreInfo.nextBadge.badge}
               </Badge>
             </div>
@@ -108,7 +100,7 @@ function UserOverview() {
         </ProgressWrapper>
         <Info>
           <Item>
-            <span>이번 달 참여</span>
+            <span>{dayjs().month() + 1}월 참여 횟수</span>
             <span>{myMonthCnt}회</span>
           </Item>
           <HrCol />
@@ -142,7 +134,13 @@ const Layout = styled.div`
 
 const Header = styled.header`
   padding: 12px 0px;
-  font-size: 18px;
+  font-size: 16px;
+  color: var(--font-h3);
+  > span {
+    color: var(--font-h1);
+    font-size: 18px;
+    font-weight: 600;
+  }
 `;
 
 const ProgressWrapper = styled.div`
@@ -153,7 +151,7 @@ const ProgressWrapper = styled.div`
 
 const IconWrapper = styled.div`
   color: var(--font-h3);
-  font-size: 11px;
+  font-size: 10px;
   position: absolute;
   right: 0%;
   bottom: -20px;
@@ -169,8 +167,7 @@ const Grade = styled.div`
   align-items: center;
   > div {
     > span {
-      font-size: 12px;
-      color: var(--font-h2);
+      font-size: 10px;
     }
   }
 `;
@@ -185,16 +182,17 @@ const Info = styled.div`
 `;
 
 const Item = styled.div`
-  font-size: 13px;
+  font-size: 12px;
   padding: 2px 0;
   flex: 1;
+  color: var(--font-h3);
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
 
   > span:last-child {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--font-h2);
   }

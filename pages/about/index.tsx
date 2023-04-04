@@ -24,11 +24,12 @@ import Calendar from "../../pagesComponents/About/main/Calendar";
 import { IUser } from "../../types/user";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
 import AboutMainHeader from "../../pagesComponents/About/main/study/AboutMainHeader";
+import AboutTitle from "../../pagesComponents/About/main/study/AboutTitle";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
   const voteDate = useRecoilValue(voteDateState);
-  const [participations, setParticipations] = useState([]);
+  const [participations, setParticipations] = useState<IParticipation[]>([]);
 
   const { isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -48,6 +49,13 @@ function About({ UserList }: { UserList: IUser[] }) {
       });
     },
   });
+
+  let voteCnt = 0;
+  participations.forEach((par) =>
+    par.attendences.forEach((att) => {
+      att.firstChoice && voteCnt++;
+    })
+  );
 
   return (
     <>
@@ -72,8 +80,9 @@ function About({ UserList }: { UserList: IUser[] }) {
             <Header />
             <UserOverview />
             <HrDiv />
+            <AboutTitle />
             <Calendar />
-            <AboutMainHeader />
+            <AboutMainHeader voteCnt={voteCnt} />
             <AboutMain participations={participations} />
             <EventBanner />
             <AttendChart type="main" />
@@ -87,8 +96,13 @@ function About({ UserList }: { UserList: IUser[] }) {
 
 const Layout = styled.div``;
 
+const Title = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+`;
+
 const HrDiv = styled.div`
-  height: 8px;
+  height: 4px;
   background-color: var(--font-h6);
 `;
 const Loader = styled.div`

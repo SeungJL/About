@@ -121,14 +121,16 @@ function Calendar() {
           {calendarType === "week" ? (
             <FontAwesomeIcon
               icon={faChevronDown}
-              size="sm"
+              size="xs"
               onClick={() => setCalendarType("month")}
+              color="var(--color-mint)"
             />
           ) : (
             <FontAwesomeIcon
               icon={faChevronUp}
-              size="sm"
+              size="xs"
               onClick={() => setCalendarType("week")}
+              color="var(--color-mint)"
             />
           )}
         </Date>
@@ -157,6 +159,7 @@ function Calendar() {
           </>
         )}
       </Header>
+      <div style={{ borderTop: "1px solid var(--font-h6)" }} />
       <DayOfWeek />
       <CallenderDays
         col={calendarType === "week" ? "true" : "false"}
@@ -199,7 +202,7 @@ const DayOfWeek = () => (
 );
 
 const Layout = styled(motion.div)`
-  margin-top: 16px;
+  margin-top: 0px;
   border-bottom: 1px solid #e3e6eb;
 `;
 
@@ -212,32 +215,35 @@ const Header = styled.header`
 const Date = styled.div`
   display: flex;
   align-items: center;
+  font-weight: 600;
   > span {
-    color: var(--font-h1);
-    font-size: 16px;
+    color: var(--color-mint);
+    font-size: 12px;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 8px;
   }
 `;
 const CallenderDays = styled(motion.div)<{ col: string }>`
   display: flex;
-  color: #767d8a;
-  margin: 4px;
-  font-size: 15px;
-  min-height: 40px;
+  color: var(--font-h2);
+  margin: 0px 4px 0px 4px;
+  font-size: 14px;
+
+  height: 36px !important;
   padding: 0;
   display: ${(props) => (props.col === "true" ? "flex" : "grid")};
   justify-content: ${(props) => (props.col === "true" ? "spaceBetween" : null)};
   grid-template-columns: ${(props) =>
     props.col === "true" ? null : "repeat(7,1fr)"};
-  grid-auto-rows: ${(props) => (props.col = "true" ? null : "40px")};
+  grid-auto-rows: ${(props) => (props.col = "true" ? null : "36px")};
 `;
 
 const DayItem = styled(motion.div)`
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 36px;
+  height: 32px;
+  align-items: center;
 
   > div {
     margin: 4px auto 0px auto;
@@ -261,10 +267,11 @@ const AttendCircle = styled.div`
 
 const DayLine = styled.div`
   margin: 8px 22px;
+
   display: flex;
   justify-content: space-between;
   color: #a0a4af;
-  font-size: 13px;
+  font-size: 12px;
   padding: 0 2px;
   margin-bottom: 7px;
 `;
