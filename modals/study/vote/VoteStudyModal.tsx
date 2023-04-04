@@ -21,7 +21,7 @@ import ModalPortal from "../../../components/ModalPortal";
 import { ITimeStartToEndHM } from "../../../types/utils";
 import { useVoteQuery } from "../../../hooks/vote/queries";
 import { ModalLg } from "../../../styles/LayoutStyles";
-import { voteDateState } from "../../../recoil/studyAtoms";
+import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
 import { useScoreMutation } from "../../../hooks/user/mutations";
 
 function VoteStudyModal({
@@ -31,6 +31,7 @@ function VoteStudyModal({
 }) {
   const [page, setPage] = useState(0);
   const voteDate = useRecoilValue(voteDateState);
+  const isVoting = useRecoilValue(isVotingState);
 
   const toast = useToast();
   const queryClient = useQueryClient();
@@ -87,7 +88,7 @@ function VoteStudyModal({
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      getScore(5);
+      !isVoting && getScore(5);
       window.location.reload();
     },
   });

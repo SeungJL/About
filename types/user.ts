@@ -57,9 +57,18 @@ export interface IUserRegister extends IRegisterForm {
   isActive?: boolean;
   gender: string;
 }
+export const USER_BADGES = {
+  아메리카노: "",
+  라떼: "orange",
+  마키아토: "green",
+  에스프레소: "purple",
+  모카: "yellow",
+  콜드브루: "twitter",
+  아인슈페너: "teal",
+};
 
-export type IUserBadge =
-  | ""
+export type UserBadge =
+  | null
   | "아메리카노"
   | "라떼"
   | "마키아토"
@@ -67,3 +76,9 @@ export type IUserBadge =
   | "모카"
   | "콜드브루"
   | "아인슈페너";
+
+export type UserBadgeColor = typeof USER_BADGES[UserBadge];
+export interface IUserBadge {
+  badge: UserBadge;
+  color: UserBadgeColor;
+}

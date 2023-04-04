@@ -40,7 +40,7 @@ export default function CheckVoteModal({
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
-      getScore(5);
+      !isChecking && getScore(5);
     },
     onError: (err) => {
       toast({

@@ -73,7 +73,7 @@ export default function AttendChart({
   myAttendCountTotal.push(null);
 
   const text = type === "modal" ? undefined : "내 스터디 참여";
-  !isLoading && console.log(myVoteCountTotal);
+
   return (
     <div>
       {type === "main" && !isLoading ? (

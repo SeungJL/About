@@ -18,16 +18,35 @@ import {
 import { userBadgeScore } from "../../../libs/utils/userUtils";
 import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { IUserBadge } from "../../../types/user";
+import { IUserBadge, UserBadge, USER_BADGES } from "../../../types/user";
 import { userBadgeState } from "../../../recoil/userAtoms";
 
 function UserOverview() {
-  const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
-  const [value, setValue] = useState(0);
+  const { data: session } = useSession();
   const [isModal, setIsModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
+  const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
+  const [scoreInfo, setScoreInfo] = useState({
+    value: 0,
+    nextBadge: { badge: null, color: "" },
+    scoreGap: 30,
+    nextPoint: 30,
+  });
 
-  const { data: session } = useSession();
+  const { data } = useScoreQuery({
+    onSuccess(data) {
+      const { badge, badgePoint, nextBadge, gap, nextPoint } = userBadgeScore(
+        data.point
+      );
+      setUserBadge({ badge, color: USER_BADGES[badge] });
+      setScoreInfo({
+        value: badgePoint,
+        nextBadge: { badge: nextBadge, color: USER_BADGES[nextBadge] },
+        scoreGap: gap,
+        nextPoint,
+      });
+    },
+  });
 
   const { data: monthCnt } = useParticipationRateQuery(
     voteDate.date(1),
@@ -36,17 +55,6 @@ function UserOverview() {
   const myMonthCnt = monthCnt?.find(
     (user) => user.name === session?.user.name
   ).cnt;
-
-  const { data } = useScoreQuery({
-    onSuccess(data) {
-      const { badge, badgePoint } = userBadgeScore(data.point);
-      setUserBadge(badge);
-      setValue(badgePoint);
-    },
-  });
-
-  const { mutate } = useScoreMutation();
-
   const myPoint = data?.point;
 
   return (
@@ -58,16 +66,34 @@ function UserOverview() {
         <ProgressWrapper>
           <Grade>
             <div>
-              <Badge fontSize="12" marginRight="8px">
-                아메리카노
+              <Badge
+                fontSize="12"
+                marginRight="6px"
+                colorScheme={userBadge.color}
+              >
+                {userBadge.badge}
               </Badge>
-              <span>{value}점</span>
+              <span style={{ color: userBadge.color }}>{myPoint}점</span>
             </div>
-            <Badge fontSize={12} variant="subtle" colorScheme="orange">
-              라떼
-            </Badge>
+            <div>
+              <span style={{ color: scoreInfo.nextBadge.color }}>
+                {myPoint + scoreInfo.scoreGap}점
+              </span>
+              <Badge
+                fontSize={12}
+                variant="subtle"
+                colorScheme={scoreInfo.nextBadge.color}
+                marginLeft="6px"
+              >
+                {scoreInfo.nextBadge.badge}
+              </Badge>
+            </div>
           </Grade>
-          <Progress value={value} size="xs" color="var(--font-h4)" />
+          <Progress
+            value={(scoreInfo.value / scoreInfo.scoreGap) * 100}
+            size="xs"
+            color="var(--font-h4)"
+          />
           <IconWrapper onClick={() => setIsModal(true)}>
             <span>등급</span>
             <FontAwesomeIcon icon={faQuestionCircle} />
@@ -86,7 +112,7 @@ function UserOverview() {
           <HrCol />
           <Item>
             <span>랭킹</span>
-            <span>상위 100%</span>
+            <span>상위 50%</span>
           </Item>
         </Info>
       </Layout>
@@ -135,7 +161,7 @@ const Grade = styled.div`
   margin-bottom: 6px;
   align-items: center;
   > div {
-    > span:nth-child(2) {
+    > span {
       font-size: 12px;
       color: var(--font-h2);
     }

@@ -30,7 +30,7 @@ export default function BadgeInfoModal({
                 아메리카노
               </Badge>
             </div>
-            <Info>동아리 활동을 시작하는 뉴비</Info>
+            <Info>0점 ~ 29점</Info>
           </Item>
           <Item>
             <div>
@@ -38,7 +38,7 @@ export default function BadgeInfoModal({
                 라떼
               </Badge>
             </div>
-            <Info>대충 어떻게 돌아가는지 이해함</Info>
+            <Info>30점 ~ 69점 </Info>
           </Item>
           <Item>
             <div>
@@ -46,7 +46,7 @@ export default function BadgeInfoModal({
                 마키아토
               </Badge>
             </div>
-            <Info>열심 멤버</Info>
+            <Info>70점 ~ 119점</Info>
           </Item>
           <Item>
             <div>
@@ -54,7 +54,7 @@ export default function BadgeInfoModal({
                 에스프레소
               </Badge>
             </div>
-            <Info>열할 멤버</Info>
+            <Info>120점 ~ 179점</Info>
           </Item>
           <Item>
             <div>
@@ -62,7 +62,7 @@ export default function BadgeInfoModal({
                 모카
               </Badge>
             </div>
-            <Info>공부뿐만 아니라 친목까지</Info>
+            <Info>180점 ~ 249점</Info>
           </Item>
           <Item>
             <div>
@@ -70,7 +70,7 @@ export default function BadgeInfoModal({
                 콜드브루
               </Badge>
             </div>
-            <Info>거의 다 아는 얼굴</Info>
+            <Info>250점 ~ 329점</Info>
           </Item>
           <Item>
             <div>
@@ -78,7 +78,7 @@ export default function BadgeInfoModal({
                 아인슈페너
               </Badge>
             </div>
-            <Info>고인물</Info>
+            <Info>330점 +</Info>
           </Item>
           <Footer onClick={() => setIsFirst(false)}>
             <button>다음 페이지</button>
