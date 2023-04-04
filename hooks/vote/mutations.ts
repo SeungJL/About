@@ -1,8 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
-import { IUserRegister } from "../../recoil/user";
+
 import { IVoteStudyInfo } from "../../types/statistics";
+import { IUserRegister } from "../../types/user";
 
 export const useAttendMutation = (
   currentDate: Dayjs,

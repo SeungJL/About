@@ -159,7 +159,7 @@ function Calendar() {
       </Header>
       <DayOfWeek />
       <CallenderDays
-        isFlex={calendarType === "week"}
+        col={calendarType === "week" ? "true" : "false"}
         initial={{ opacity: 0 }}
         animate={{ height: calendarType === "week" ? 40 : 235, opacity: 1 }}
         transition={{ duration: 0.3, opacity: { delay: 0.3 } }}
@@ -219,16 +219,17 @@ const Date = styled.div`
     margin-right: 10px;
   }
 `;
-const CallenderDays = styled(motion.div)<{ isFlex: boolean }>`
+const CallenderDays = styled(motion.div)<{ col: string }>`
   display: flex;
   color: #767d8a;
   margin: 4px;
   font-size: 15px;
   padding: 0;
-  display: ${(props) => (props.isFlex ? "flex" : "grid")};
-  justify-content: ${(props) => (props.isFlex ? "spaceBetween" : null)};
-  grid-template-columns: ${(props) => (props.isFlex ? null : "repeat(7,1fr)")};
-  grid-auto-rows: ${(props) => (props.isFlex ? null : "40px")};
+  display: ${(props) => (props.col === "true" ? "flex" : "grid")};
+  justify-content: ${(props) => (props.col === "true" ? "spaceBetween" : null)};
+  grid-template-columns: ${(props) =>
+    props.col === "true" ? null : "repeat(7,1fr)"};
+  grid-auto-rows: ${(props) => (props.col = "true" ? null : "40px")};
 `;
 
 const DayItem = styled(motion.div)`

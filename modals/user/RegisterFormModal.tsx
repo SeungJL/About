@@ -7,10 +7,9 @@ import { useSession } from "next-auth/react";
 import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useRouter } from "next/router";
 
-import { IUser } from "../../types/user";
+import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
 import { Dispatch, SetStateAction, useState } from "react";
 import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
-import { IRegisterForm, IUserRegister } from "../../recoil/user";
 
 function RegisterFormModal({
   setIsModal,

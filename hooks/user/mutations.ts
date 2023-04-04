@@ -36,3 +36,15 @@ export const useWaringScoreMutation = (
       score: cnt,
     });
   }, options);
+
+export const useScoreMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, number>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, number>(async (cnt) => {
+    await axios.post("/api/user/point", {
+      point: cnt,
+    });
+  }, options);

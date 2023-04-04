@@ -172,7 +172,7 @@ function StudyNavigation({
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
-          <CheckVoteModal setIsModal={setIsCheckModal} myPlace={place} />
+          <CheckVoteModal setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
     </>

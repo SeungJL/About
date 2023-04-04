@@ -6,8 +6,7 @@ import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useActiveQuery } from "../../hooks/user/queries";
-import { IUser } from "../../types/user";
-import { IRegisterForm, IUserRegister } from "../../recoil/user";
+import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
 
 function ModifyUserInfoModal({ setIsModal }) {
   const [isMan, setIsMan] = useState(true);

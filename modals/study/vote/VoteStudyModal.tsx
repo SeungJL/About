@@ -22,6 +22,7 @@ import { ITimeStartToEndHM } from "../../../types/utils";
 import { useVoteQuery } from "../../../hooks/vote/queries";
 import { ModalLg } from "../../../styles/LayoutStyles";
 import { voteDateState } from "../../../recoil/studyAtoms";
+import { useScoreMutation } from "../../../hooks/user/mutations";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -30,6 +31,7 @@ function VoteStudyModal({
 }) {
   const [page, setPage] = useState(0);
   const voteDate = useRecoilValue(voteDateState);
+
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -48,24 +50,9 @@ function VoteStudyModal({
       });
     },
   });
-  const { mutate: handleAbsent, isLoading: absentLoading } = useAbsentMutation(
-    voteDate,
-    {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries([VOTE_GET, voteDate]);
-      },
-      onError: (err) => {
-        toast({
-          title: "오류",
-          description: "참여 취소 신청 중 문제가 발생했어요.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      },
-    }
-  );
+
+  const { mutate: getScore } = useScoreMutation();
+
   const placeInfoArr: IplaceInfo[] = [{}, {}, {}, {}];
   const participations = vote?.participations;
   participations?.forEach((participant) => {
@@ -100,6 +87,8 @@ function VoteStudyModal({
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
+      getScore(5);
+      window.location.reload();
     },
   });
 

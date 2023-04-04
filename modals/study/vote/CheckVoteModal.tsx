@@ -3,10 +3,11 @@ import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
 import { CommentBox } from "../../../components/block/CommentBox";
+import { useScoreMutation } from "../../../hooks/user/mutations";
 import { useArrivedMutation } from "../../../hooks/vote/mutations";
 import { useVoteQuery } from "../../../hooks/vote/queries";
 import { VOTE_GET } from "../../../libs/queryKeys";
@@ -34,11 +35,12 @@ export default function CheckVoteModal({
   const myPlace = data?.participations.find(
     (par) => par === mySpaceFixed
   )?.place;
-
+  const { mutate: getScore } = useScoreMutation();
   const { data: session } = useSession();
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
+      getScore(5);
     },
     onError: (err) => {
       toast({

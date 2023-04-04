@@ -38,7 +38,7 @@ export default function AttendChart({
   const name = type === "main" ? session?.user.name : user?.name;
   const monthList: IDateStartToEnd[] = [];
 
-  for (let i = Number(getMonth()) - 3; i <= Number(getMonth()); i++) {
+  for (let i = Number(getMonth()) - 2; i <= Number(getMonth()); i++) {
     const changeMonthDate = (month: number, num: number) =>
       dayjs().month(month).date(num);
     monthList.push({
@@ -48,7 +48,7 @@ export default function AttendChart({
   }
 
   const monthXaxis = [];
-  for (let i = Number(getMonth()) - 3; i <= Number(getMonth()) + 1; i++) {
+  for (let i = Number(getMonth()) - 2; i <= Number(getMonth()) + 1; i++) {
     monthXaxis.push(MONTH_LIST[i]);
   }
 

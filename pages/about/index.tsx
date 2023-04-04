@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { getSession, signOut } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import Seo from "../../components/common/Seo";
@@ -24,6 +24,7 @@ import Calendar from "../../pagesComponents/About/main/Calendar";
 import { IUser } from "../../types/user";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
 import AboutMainHeader from "../../pagesComponents/About/main/study/AboutMainHeader";
+import { useParticipationRateQuery } from "../../hooks/user/queries";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
@@ -76,6 +77,7 @@ function About({ UserList }: { UserList: IUser[] }) {
             <AboutMainHeader />
             <AboutMain participations={participations} />
             <EventBanner />
+            <AttendChart type="main" />
           </Layout>
           <AboutFooter />
         </>
