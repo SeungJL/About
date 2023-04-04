@@ -29,6 +29,7 @@ import { User } from "../../models/user";
 import UserOverView from "../../pagesComponents/User/UserOverView";
 import { Attendence } from "../../models/attendence";
 import ApplyRestModal from "../../modals/user/ApplyRestModal";
+import { useScoreQuery } from "../../hooks/user/queries";
 
 function UserInfo() {
   const router = useRouter();
@@ -40,6 +41,7 @@ function UserInfo() {
       setModalOpen("");
     }
   };
+  const { data } = useScoreQuery();
 
   return (
     <>
@@ -55,7 +57,7 @@ function UserInfo() {
           <UserScoresNav>
             <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
               <span>내 점수</span>
-              <span>0 점</span>
+              <span>{data?.point} 점</span>
             </button>
             <button>
               <span>수집한 배지</span>

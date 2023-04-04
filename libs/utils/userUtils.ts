@@ -1,4 +1,4 @@
-import { IUserBadge, UserBadge } from "../../types/user";
+import { IScore, IScoreAll, IUserBadge, UserBadge } from "../../types/user";
 
 export const userBadgeScore = (score) => {
   let badge: UserBadge = "아메리카노";
@@ -47,4 +47,19 @@ export const userBadgeScore = (score) => {
   }
 
   return { badge, badgePoint, nextBadge, gap, nextPoint };
+};
+
+export const myScoreRank = (scoreArr: IScoreAll[], myScore: number) => {
+  let highCnt = 0;
+  const total = scoreArr.length;
+  scoreArr.forEach((user) => {
+    if (user.point >= myScore) highCnt++;
+  });
+  const rate = (highCnt / total) * 100;
+  if (rate < 1) return 1;
+  if (rate < 5) return 5;
+  if (rate < 10) return 10;
+  else {
+    return Math.ceil(rate / 10) * 10;
+  }
 };

@@ -37,7 +37,8 @@ function AboutMainItem({
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [isCheck, setIsCheck] = useRecoilState(attendCheckState);
-  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
+  const [studyStartTime, setStudyStartTime] =
+    useRecoilState(studyStartTimeState);
   const { attendences, place, status } = studySpaceInfo || {};
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
@@ -47,14 +48,9 @@ function AboutMainItem({
       : voteDate.subtract(1, "day");
   const { data: studyStart, isLoading } = useStudyStartQuery(voteDate, {
     onSuccess: (data) => {
-      setStudyStartTime(dayjs(data[0]?.startTime));
+      data?.length && setStudyStartTime(dayjs(data[0].startTime));
     },
   });
-
-  const studyStartTime =
-    !isLoading && studyStart[0]
-      ? dayjs(studyStart[0]?.startTime).format("HH:mm")
-      : "12:00";
 
   useArrivedQuery(studyDate, {
     onSuccess(data) {
@@ -94,7 +90,7 @@ function AboutMainItem({
           {statusFixed === "myOpen" && (
             <Result>
               <FontAwesomeIcon icon={faClock} size="sm" />
-              <ResultInfo>{studyStartTime}</ResultInfo>
+              <ResultInfo>{studyStartTime?.format("HH:mm")}</ResultInfo>
             </Result>
           )}
         </Status>

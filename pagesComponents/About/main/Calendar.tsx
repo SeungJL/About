@@ -224,6 +224,7 @@ const CallenderDays = styled(motion.div)<{ col: string }>`
   color: #767d8a;
   margin: 4px;
   font-size: 15px;
+  min-height: 40px;
   padding: 0;
   display: ${(props) => (props.col === "true" ? "flex" : "grid")};
   justify-content: ${(props) => (props.col === "true" ? "spaceBetween" : null)};

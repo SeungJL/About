@@ -14,7 +14,7 @@ import {
   USER_FINDVOTES,
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
-import { IScore, IUser, IUserComment } from "../../types/user";
+import { IScore, IScoreAll, IUser, IUserComment } from "../../types/user";
 import { IDateStartToEnd } from "../../types/utils";
 
 export const useActiveQuery = (
@@ -162,9 +162,25 @@ export const useScoreQuery = (
   >
 ) =>
   useQuery<IScore, AxiosError, IScore>(
-    "Score",
+    "score",
     async () => {
       const res = await axios.get<IScore>("/api/user/point");
+      return res.data;
+    },
+    options
+  );
+
+export const useScoreAllQuery = (
+  options?: Omit<
+    UseQueryOptions<IScoreAll[], AxiosError, IScoreAll[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IScoreAll[], AxiosError, IScoreAll[]>(
+    "scoreAll",
+    async () => {
+      const res = await axios.get<IScoreAll[]>("/api/user/point/all");
+
       return res.data;
     },
     options

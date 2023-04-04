@@ -32,7 +32,7 @@ export const refetchVoteState = atom({
   key: "refetchVote",
 });
 
-export const studyStartTimeState = atom({
+export const studyStartTimeState = atom<Dayjs>({
   key: "studyStartTime",
   default: null,
 });

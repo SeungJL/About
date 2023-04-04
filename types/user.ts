@@ -44,6 +44,10 @@ export interface IScore {
   point: number;
 }
 
+export interface IScoreAll extends IScore {
+  name: string;
+}
+
 export interface IRegisterForm {
   registerDate: string;
   name: string;
@@ -58,7 +62,7 @@ export interface IUserRegister extends IRegisterForm {
   gender: string;
 }
 export const USER_BADGES = {
-  아메리카노: "",
+  아메리카노: "gray",
   라떼: "orange",
   마키아토: "green",
   에스프레소: "purple",

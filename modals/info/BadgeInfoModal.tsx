@@ -1,5 +1,6 @@
 import { Badge, useTheme } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalXXL } from "../../styles/LayoutStyles";
@@ -12,7 +13,7 @@ export default function BadgeInfoModal({
   const theme = useTheme();
   const [isFirst, setIsFirst] = useState(true);
   return (
-    <Layout>
+    <Layout layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       {isFirst ? (
         <>
           <Header>
@@ -144,12 +145,12 @@ export default function BadgeInfoModal({
   );
 }
 
-const Layout = styled(ModalXXL)`
+const Layout = styled(motion(ModalXXL))`
+  padding: 12px 0 16px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0 16px 0;
 `;
 
 const Header = styled.header`

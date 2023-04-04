@@ -1,4 +1,4 @@
-import { Badge, Icon, Progress, useTheme } from "@chakra-ui/react";
+import { Badge, Button, Icon, Progress, useTheme } from "@chakra-ui/react";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import {
   faCircleQuestion,
@@ -13,9 +13,10 @@ import ModalPortal from "../../../components/ModalPortal";
 import { useScoreMutation } from "../../../hooks/user/mutations";
 import {
   useParticipationRateQuery,
+  useScoreAllQuery,
   useScoreQuery,
 } from "../../../hooks/user/queries";
-import { userBadgeScore } from "../../../libs/utils/userUtils";
+import { myScoreRank, userBadgeScore } from "../../../libs/utils/userUtils";
 import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { IUserBadge, UserBadge, USER_BADGES } from "../../../types/user";
@@ -26,6 +27,7 @@ function UserOverview() {
   const [isModal, setIsModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
+  const [myRank, setMyRank] = useState(100);
   const [scoreInfo, setScoreInfo] = useState({
     value: 0,
     nextBadge: { badge: null, color: "" },
@@ -45,6 +47,11 @@ function UserOverview() {
         scoreGap: gap,
         nextPoint,
       });
+    },
+  });
+  useScoreAllQuery({
+    onSuccess(data) {
+      setMyRank(myScoreRank(data, myPoint));
     },
   });
 
@@ -112,7 +119,7 @@ function UserOverview() {
           <HrCol />
           <Item>
             <span>랭킹</span>
-            <span>상위 50%</span>
+            <span>상위 {myRank}%</span>
           </Item>
         </Info>
       </Layout>

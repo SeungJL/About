@@ -23,6 +23,7 @@ import { useVoteQuery } from "../../../hooks/vote/queries";
 import { ModalLg } from "../../../styles/LayoutStyles";
 import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
 import { useScoreMutation } from "../../../hooks/user/mutations";
+import { motion } from "framer-motion";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -122,7 +123,7 @@ function VoteStudyModal({
 
   return (
     <>
-      <Layout>
+      <Layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <Header>
           <span>{voteDate.format("M월 DD일 스터디 투표")}</span>
           <div onClick={() => setIsShowModal(false)}>
@@ -194,7 +195,7 @@ function VoteStudyModal({
 }
 export default VoteStudyModal;
 
-const Layout = styled(ModalLg)`
+const Layout = styled(motion(ModalLg))`
   display: flex;
   flex-direction: column;
   padding: 12px;

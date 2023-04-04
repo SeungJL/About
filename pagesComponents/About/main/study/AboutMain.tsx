@@ -14,6 +14,7 @@ import {
   isVotingState,
   mySpaceFixedState,
   studyDateState,
+  studyStartTimeState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 import { IUser } from "../../../../types/user";
@@ -32,6 +33,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const [mySpaceFixed, setMySpaceFixed] = useRecoilState(mySpaceFixedState);
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const setIsCheck = useSetRecoilState(attendCheckState);
+  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
   const [voterCnt, setVoteCnt] = useState(0);
 
@@ -95,13 +97,14 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   return (
     <AnimatePresence initial={false}>
       <Layout
+        key={voteDate.format("MMDDdd")}
         variants={variants}
         initial="enter"
         animate="center"
         exit="exit"
         transition={{
-          x: { type: "spring", stiffness: 300, damping: 30, duration: 1 },
-          opacity: { duration: 1 },
+          x: { type: "spring", stiffness: 300, damping: 30, duration: 0.5 },
+          opacity: { duration: 0.5 },
         }}
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
