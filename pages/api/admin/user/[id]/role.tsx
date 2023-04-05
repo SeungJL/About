@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../../libs/dbConnect";
+import { isPreviliged } from "../../../../../libs/utils/authUtils";
 import { User } from "../../../../../models/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
@@ -14,10 +15,10 @@ export default async function handler(
   const role = req.body.role as string;
   const token = await getToken({ req, secret });
 
-  // if (!token || !isPreviliged(token.role as string)) {
-  //   res.status(401).end()
-  //   return
-  // }
+  if (!token || !isPreviliged(token.role as string)) {
+    res.status(401).end();
+    return;
+  }
 
   await dbConnect();
 
