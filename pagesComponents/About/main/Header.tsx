@@ -1,24 +1,27 @@
+import styled from "styled-components";
+import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
 import { faBalanceScale, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useRouter } from "next/router";
 
-import Image from "next/image";
-import { motion } from "framer-motion";
-import StudyRuleModal from "../../../modals/info/StudyRuleModal";
 import ModalPortal from "../../../components/ModalPortal";
+import StudyRuleModal from "../../../modals/info/StudyRuleModal";
 import Drawer from "../../../components/Layout/Drawer";
-import { useRecoilState, useRecoilValue } from "recoil";
+
+import { useRecoilState } from "recoil";
 import { isNoticeAlertState } from "../../../recoil/utilityAtoms";
+
 import { NOTICE_ALERT } from "../../../constants/localStorage";
 
 export default function Header() {
-  const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
-  const [isRuleModal, setIsRuleModal] = useState(false);
-  const [isDrawer, setIsDrawer] = useState(false);
   const router = useRouter();
+
+  const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
+  const [isRule, setIsRule] = useState(false);
+  const [isDrawer, setIsDrawer] = useState(false);
 
   const onClickedNotice = () => {
     router.push(`/notice`);
@@ -27,6 +30,7 @@ export default function Header() {
       setIsNoticeAlert(false);
     }
   };
+
   return (
     <>
       <Layout>
@@ -44,10 +48,9 @@ export default function Header() {
             <FontAwesomeIcon
               icon={faBalanceScale}
               size="lg"
-              onClick={() => setIsRuleModal(true)}
+              onClick={() => setIsRule(true)}
             />
           </IconWrapper>
-
           <IconWrapper>
             <FontAwesomeIcon
               icon={faBell}
@@ -66,9 +69,9 @@ export default function Header() {
         </Nav>
       </Layout>
       <>
-        {isRuleModal && (
-          <ModalPortal setIsModal={setIsRuleModal}>
-            <StudyRuleModal setIsModal={setIsRuleModal} />
+        {isRule && (
+          <ModalPortal setIsModal={setIsRule}>
+            <StudyRuleModal setIsModal={setIsRule} />
           </ModalPortal>
         )}
         {isDrawer && (
@@ -115,12 +118,12 @@ const Nav = styled.nav`
 
 const IconWrapper = styled.div`
   margin-left: 20px;
-  display: flex;
 `;
 
 const IconAlert = styled.div`
   position: absolute;
   right: 0;
+  top: 0;
   width: 7px;
   height: 7px;
   border-radius: 50%;

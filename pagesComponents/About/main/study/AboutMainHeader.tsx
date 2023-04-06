@@ -1,34 +1,23 @@
-import {
-  faCheck,
-  faCheckToSlot,
-  faSquareCheck,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { useState } from "react";
+import { faCheckToSlot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@chakra-ui/react";
+
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
+import ModalPortal from "../../../../components/ModalPortal";
+
 import { useRecoilValue } from "recoil";
 import {
-  attendCheckState,
   mySpaceFixedState,
   studyDateState,
-  voteDateState,
 } from "../../../../recoil/studyAtoms";
-import SpaceLocalSelector from "../../../../components/SpaceLocalSelector";
-import ModalPortal from "../../../../components/ModalPortal";
-import { Button } from "@chakra-ui/react";
-import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
-import { useStudyStartQuery } from "../../../../hooks/vote/queries";
-import dayjs from "dayjs";
 
 function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
-  const [isCheckModal, setIsCheckModal] = useState(false);
-
-  const voteDate = useRecoilValue(voteDateState);
 
   return (
     <>

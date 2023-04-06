@@ -1,10 +1,6 @@
 import Head from "next/head";
 
-interface ISeo {
-  title: string;
-}
-
-export default function Seo({ title }: ISeo) {
+export default function Seo({ title }: { title: string }) {
   return (
     <Head>
       <title>{title}</title>

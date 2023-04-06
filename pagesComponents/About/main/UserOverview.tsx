@@ -1,27 +1,25 @@
-import { Badge, Button, Icon, Progress, useTheme } from "@chakra-ui/react";
-import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
-import {
-  faCircleQuestion,
-  faQuestion,
-} from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import styled from "styled-components";
+import { useState } from "react";
+import { Badge, Progress } from "@chakra-ui/react";
+import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+
 import ModalPortal from "../../../components/ModalPortal";
-import { useScoreMutation } from "../../../hooks/user/mutations";
+import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
+
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   useParticipationRateQuery,
   useScoreAllQuery,
   useScoreQuery,
 } from "../../../hooks/user/queries";
-import { myScoreRank, userBadgeScore } from "../../../libs/utils/userUtils";
-import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { IUserBadge, UserBadge, USER_BADGES } from "../../../types/user";
 import { userBadgeState } from "../../../recoil/userAtoms";
-import dayjs from "dayjs";
+import { myScoreRank, userBadgeScore } from "../../../libs/utils/userUtils";
+
+import { USER_BADGES } from "../../../types/user";
 
 function UserOverview() {
   const { data: session } = useSession();
@@ -50,6 +48,9 @@ function UserOverview() {
       });
     },
   });
+
+  const myPoint = data?.point;
+
   useScoreAllQuery({
     onSuccess(data) {
       setMyRank(myScoreRank(data, myPoint));
@@ -63,7 +64,6 @@ function UserOverview() {
   const myMonthCnt = monthCnt?.find(
     (user) => user.name === session?.user.name
   )?.cnt;
-  const myPoint = data?.point;
 
   return (
     <>
@@ -149,17 +149,6 @@ const ProgressWrapper = styled.div`
   position: relative;
 `;
 
-const IconWrapper = styled.div`
-  color: var(--font-h3);
-  font-size: 10px;
-  position: absolute;
-  right: 0%;
-  bottom: -20px;
-  > span:first-child {
-    margin-right: 4px;
-  }
-`;
-
 const Grade = styled.div`
   display: flex;
   justify-content: space-between;
@@ -169,6 +158,17 @@ const Grade = styled.div`
     > span {
       font-size: 10px;
     }
+  }
+`;
+
+const IconWrapper = styled.div`
+  color: var(--font-h3);
+  font-size: 10px;
+  position: absolute;
+  right: 0%;
+  bottom: -20px;
+  > span:first-child {
+    margin-right: 4px;
   }
 `;
 

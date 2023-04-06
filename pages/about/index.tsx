@@ -1,33 +1,38 @@
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { GetServerSideProps } from "next";
-import { getSession, signOut, useSession } from "next-auth/react";
-import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-import Seo from "../../components/common/Seo";
-import AttendChart from "../../components/utils/AttendChart";
+import { getSession, useSession } from "next-auth/react";
+import safeJsonStringify from "safe-json-stringify";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
-import UserSetting from "../../components/UserSetting";
 import { User } from "../../models/user";
-import { useRecoilValue } from "recoil";
-import { voteDateState } from "../../recoil/studyAtoms";
-import { useVoteQuery } from "../../hooks/vote/queries";
-import { Button, useToast } from "@chakra-ui/react";
-import { IParticipation } from "../../types/studyDetails";
-import { useState } from "react";
-import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { ColorRing } from "react-loader-spinner";
+import { useToast } from "@chakra-ui/react";
+
+import Seo from "../../components/common/Seo";
 import AboutMain from "../../pagesComponents/About/main/study/AboutMain";
 import AboutFooter from "../../pagesComponents/About/main/Footer";
 import EventBanner from "../../pagesComponents/About/main/EventBanner";
 import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
-import { IUser } from "../../types/user";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
 import AboutMainHeader from "../../pagesComponents/About/main/study/AboutMainHeader";
 import AboutTitle from "../../pagesComponents/About/main/study/AboutTitle";
+import AttendChart from "../../components/utils/AttendChart";
+import UserSetting from "../../components/UserSetting";
+
+import { useVoteQuery } from "../../hooks/vote/queries";
+import { voteDateState } from "../../recoil/studyAtoms";
+import { arrangeSpace } from "../../libs/utils/studyUtils";
+
+import { IParticipation } from "../../types/studyDetails";
+import { IUser } from "../../types/user";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
+  const { data: session } = useSession();
+  console.log(session);
   const voteDate = useRecoilValue(voteDateState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);
 
@@ -37,7 +42,6 @@ function About({ UserList }: { UserList: IUser[] }) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
     },
-
     onError() {
       toast({
         title: "불러오기 실패",
@@ -50,17 +54,18 @@ function About({ UserList }: { UserList: IUser[] }) {
     },
   });
 
-  let voteCnt = 0;
-  participations.forEach((par) =>
-    par.attendences.forEach((att) => {
-      att.firstChoice && voteCnt++;
-    })
-  );
+  const voteCnt = participations.reduce((acc, par) => {
+    return (
+      acc +
+      par.attendences.reduce((a, b) => {
+        return a + (b.firstChoice ? 1 : 0);
+      }, 0)
+    );
+  }, 0);
 
   return (
     <>
       <Seo title="About" />
-
       <UserSetting UserList={UserList} />
       {isLoading ? (
         <Loader>
@@ -96,15 +101,11 @@ function About({ UserList }: { UserList: IUser[] }) {
 
 const Layout = styled.div``;
 
-const Title = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-`;
-
 const HrDiv = styled.div`
   height: 4px;
   background-color: var(--font-h6);
 `;
+
 const Loader = styled.div`
   position: fixed;
   top: 40%;
