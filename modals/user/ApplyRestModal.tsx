@@ -30,7 +30,7 @@ function ApplyRestModal({
   });
   const onValid = (data: IApplyRest) => {
     const info = {
-      id: session?.uid,
+      uid: session?.uid,
       type: data.type,
       startDate: data.startDate,
       endDate: data.endDate,

@@ -1,29 +1,27 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import AboutMainHeader from "./AboutMainHeader";
-import AboutMainItem from "./AboutMainItem";
 import { useEffect, useState } from "react";
-import dayjs from "dayjs";
-import axios from "axios";
-import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
-import NoMyStudy from "./NoMyStudy";
-import { IParticipation } from "../../../../types/studyDetails";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+
+import AboutMainItem from "./AboutMainItem";
+
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   attendCheckState,
   isVotingState,
   mySpaceFixedState,
   studyDateState,
-  studyStartTimeState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-import { IUser } from "../../../../types/user";
-import { getInterestingDate } from "../../../../libs/utils/dateUtils";
-import { VOTE_END_HOUR } from "../../../../constants/system";
-import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { useDecideSpaceMutation } from "../../../../hooks/vote/mutations";
+
+import { getInterestingDate } from "../../../../libs/utils/dateUtils";
 import { arrangeMainSpace } from "../../../../libs/utils/studyUtils";
-import { Button } from "@chakra-ui/react";
+
+import { VOTE_END_HOUR } from "../../../../constants/system";
+import { IParticipation } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
@@ -31,30 +29,30 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [isVoting, setIsVoting] = useRecoilState(isVotingState);
   const [mySpaceFixed, setMySpaceFixed] = useRecoilState(mySpaceFixedState);
-  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
+  const setStudyDate = useSetRecoilState(studyDateState);
   const setIsCheck = useSetRecoilState(attendCheckState);
-  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
+
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
     dayjs().add(1, "day")
   );
+
   /**스터디 알고리즘 적용 */
   useEffect(() => {
     if (dayjs().hour() >= VOTE_END_HOUR) decideSpace();
   }, [decideSpace]);
 
-  /**날짜마다 달라지는 정보들 초기화 */
-
+  /**날짜마다 달라지는 정보들*/
   useEffect(() => {
     setMyVoteList([]);
     setMySpaceFixed(null);
     setIsVoting(false);
     setIsCheck(false);
-    let tempCnt = 0;
+
     participations?.map((space) => {
       const spaceStatus = space.status === "open" ? true : false;
-      space?.attendences.forEach((att) => att.firstChoice && tempCnt++);
+      space?.attendences.forEach((att) => att.firstChoice);
       const participant = space?.attendences?.find(
         (att) => (att.user as IUser)?.uid === session?.uid
       );

@@ -1,32 +1,24 @@
-import { background, position } from "@chakra-ui/react";
-import dayjs from "dayjs";
-import { relative } from "path";
-import { useEffect, useState, Dispatch, SetStateAction } from "react";
-import { motion } from "framer-motion";
 import styled from "styled-components";
-
-import { useRecoilState } from "recoil";
-
+import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowDown,
   faChevronDown,
   faChevronLeft,
   faChevronRight,
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import ca from "@mobiscroll/react/dist/src/i18n/ca";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
+
+import { IconCircle } from "../../../public/icons/IconOutline";
+
+import { useRecoilState } from "recoil";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { IDateStartToEnd } from "../../../types/utils";
-import { IconCircle } from "../../../public/icons/IconOutline";
-import { IRate, useAttendRateQueries } from "../../../hooks/user/queries";
 
 function Calendar() {
-  const { data: session } = useSession();
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-
   const [calendarType, setCalendarType] = useState<"week" | "month">("week");
   const [calendarBox, setCalendarBox] = useState<
     {
@@ -36,32 +28,6 @@ function Calendar() {
   >([]);
   const [month, setMonth] = useState(dayjs().month());
 
-  const [monthRange, setmonthRange] = useState<IDateStartToEnd[]>([]);
-  useEffect(() => {
-    const temp = [];
-    for (let i = 1; i <= voteDate.daysInMonth(); i++) {
-      temp.push({
-        start: voteDate.date(i - 1),
-        end: voteDate.date(i),
-      });
-    }
-    setmonthRange(temp);
-  }, [voteDate]);
-
-  // const myMonthAttendQueries = useAttendRateQueries(monthRange);
-  // let isLoading = true;
-
-  // const myMonthAttend = myMonthAttendQueries?.map((item, idx) => {
-  //   if (!item.isLoading) {
-  //     const myData = (item.data as IRate[]).filter(
-  //       (data) => data.name === session?.user.name
-  //     )[0];
-
-  //     if (idx === myMonthAttendQueries.length - 1) isLoading = false;
-  //     return myData?.cnt !== 0 && true;
-  //   }
-  // });
-
   useEffect(() => {
     const daysInMonth = voteDate.daysInMonth();
     const startDayInMonth = voteDate.date(1).day();
@@ -70,17 +36,13 @@ function Calendar() {
     const dayInWeek = voteDate.day();
 
     const temp = [];
-    let isAttend = false;
 
     if (calendarType === "week") {
       const start = date - dayInWeek;
       for (let i = start; i < start + 7; i++) {
         const validDate = i >= 1 && i <= daysInMonth ? i : null;
-        // isAttend = validDate && myMonthAttend[i] ? true : false;
 
         temp.push({ date: validDate });
-
-        // temp.push({ date: validDate, isAttend });
       }
     }
     if (calendarType === "month") {
@@ -88,29 +50,21 @@ function Calendar() {
         if (i <= startDayInMonth) temp.push(null);
         else if (i > daysInMonth + startDayInMonth) temp.push(null);
         else {
-          // isAttend = myMonthAttend[i - startDayInMonth - 1] ? true : false;
           temp.push({ date: i - startDayInMonth });
-          // temp.push({ date: i - startDayInMonth, isAttend });
         }
       }
     }
     setCalendarBox(temp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarType, voteDate]);
-  //isLoading
 
-  const onClickDate = (d) => {
+  const onClickDate = (d: { date: number; isAttend: boolean }) => {
     setVoteDate(voteDate.date(d.date));
   };
 
-  const onClickPrev = () => {
-    setVoteDate((old) => old.subtract(1, "month").date(1));
-    setMonth(month - 1);
-  };
-
-  const onClickNext = () => {
-    setVoteDate((old) => old.add(1, "month").date(1));
-    setMonth(month + 1);
+  const onClickMove = (cnt: number) => {
+    setVoteDate((old) => old.add(cnt, "month").date(cnt));
+    setMonth(month + cnt);
   };
 
   return (
@@ -136,10 +90,6 @@ function Calendar() {
         </Date>
         {calendarType === "month" && (
           <>
-            {/* <IconToolTip>
-              <AttendCircle />
-              <span>내 스터디 참여</span>
-            </IconToolTip> */}
             <MonthNav
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -147,12 +97,12 @@ function Calendar() {
             >
               <FontAwesomeIcon
                 icon={faChevronLeft}
-                onClick={onClickPrev}
+                onClick={() => onClickMove(-1)}
                 size="sm"
               />
               <FontAwesomeIcon
                 icon={faChevronRight}
-                onClick={onClickNext}
+                onClick={() => onClickMove(1)}
                 size="sm"
               />
             </MonthNav>
@@ -216,6 +166,7 @@ const Date = styled.div`
   display: flex;
   align-items: center;
   font-weight: 600;
+  width: 100%;
   > span {
     color: var(--color-mint);
     font-size: 13px;
@@ -224,7 +175,6 @@ const Date = styled.div`
   }
 `;
 const CallenderDays = styled(motion.div)<{ col: string }>`
-  display: flex;
   color: var(--font-h2);
   margin: 0px 4px 0px 4px;
   font-size: 14px;

@@ -24,9 +24,9 @@ function AboutTitle() {
     <>
       <Layout>
         <Title>
-          <span style={{ fontSize: studyDate !== "not passed" && "16px" }}>
+          <TitleName isNotPassed={studyDate !== "not passed"}>
             {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
-          </span>
+          </TitleName>
           {isCheck ? (
             <Check>
               <FontAwesomeIcon icon={faCheck} size="lg" />
@@ -72,15 +72,21 @@ const Layout = styled.div`
   padding: 16px 14px;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
   font-size: 18px;
   font-family: "PretendExtra";
   font-weight: 600;
 `;
+
+const TitleName = styled.span<{ isNotPassed: boolean }>`
+  font-size: ${(props) => (props.isNotPassed ? "16px" : null)};
+`;
+
 const Check = styled.span`
   color: var(--color-red);
   margin-left: 12px;
 `;
+
 const Result = styled.div`
   margin: 16px 0;
 
@@ -91,6 +97,7 @@ const Result = styled.div`
     font-size: 18px;
   }
 `;
+
 const HrDiv = styled.div`
   height: 1px;
   background-color: var(--font-h5);
