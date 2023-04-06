@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { GetServerSideProps } from "next";
 import styled from "styled-components";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import safeJsonStringify from "safe-json-stringify";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
@@ -31,7 +31,8 @@ import { IUser } from "../../types/user";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
-
+  const { data: session } = useSession();
+  console.log(session);
   const voteDate = useRecoilValue(voteDateState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);
 
