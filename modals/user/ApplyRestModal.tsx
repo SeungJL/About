@@ -14,6 +14,7 @@ function ApplyRestModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const { data: session } = useSession();
+
   const {
     register,
     handleSubmit,
@@ -27,8 +28,14 @@ function ApplyRestModal({
       content: "",
     },
   });
-  const onValid = (data) => {
-    console.log(data);
+  const onValid = (data: IApplyRest) => {
+    const info = {
+      id: session?.uid,
+      type: data.type,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      content: data.content,
+    };
   };
   const option = watch("type"); // 옵션 입력값 감시
 
