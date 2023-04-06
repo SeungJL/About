@@ -20,6 +20,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   useEffect(() => {
     const NumOfUser = UserList?.filter((user) => user.isActive).length;
     setNumOfUser(NumOfUser);
+
     if (session?.isActive === false) setIsRegisterModal(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

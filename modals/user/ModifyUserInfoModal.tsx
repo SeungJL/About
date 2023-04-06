@@ -41,6 +41,7 @@ function ModifyUserInfoModal({ setIsModal }) {
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
     };
+
     handleRegister(userInfo);
     setIsModal(false);
   };
@@ -61,6 +62,7 @@ function ModifyUserInfoModal({ setIsModal }) {
       agree: "",
     },
   });
+
   return (
     <>
       <ModalLayout>

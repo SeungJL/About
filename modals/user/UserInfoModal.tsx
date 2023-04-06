@@ -32,7 +32,7 @@ export default function UserInfoModal({
 
   const userScore = data?.find((user) => user._id === user._id).point;
   const { badge } = userBadgeScore(userScore);
-  console.log(badge);
+  console.log(user);
 
   return (
     <>
