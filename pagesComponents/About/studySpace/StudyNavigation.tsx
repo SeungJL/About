@@ -1,32 +1,30 @@
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useToast } from "@chakra-ui/react";
 import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useQueryClient } from "react-query";
-import { useRecoilState, useRecoilValue } from "recoil";
-import styled from "styled-components";
+
 import ModalPortal from "../../../components/ModalPortal";
-import { useScoreMutation } from "../../../hooks/user/mutations";
-import {
-  useAbsentMutation,
-  useArrivedMutation,
-} from "../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../libs/queryKeys";
 import AbsentVoteModal from "../../../modals/study/confirm/AbsentVoteModal";
-import CheckAttendanceModal from "../../../modals/study/confirm/AttendingPeopleModal";
 import ChangeTimeModal from "../../../modals/study/vote/ChangeTimeModal";
-import CheckVoteModal from "../../../modals/study/vote/CheckVoteModal";
+import CheckVoteModal from "../../../modals/study/vote/AttendCheckModal";
 import VoteStudySpaceModal from "../../../modals/study/vote/VoteStudySpaceModal";
 
+import { useQueryClient } from "react-query";
+import { useScoreMutation } from "../../../hooks/user/mutations";
+import { useAbsentMutation } from "../../../hooks/vote/mutations";
+import { useRecoilValue } from "recoil";
 import {
   isVotingState,
   mySpaceFixedState,
   studyDateState,
 } from "../../../recoil/studyAtoms";
-import { IPlaceStatus, IPlaceStatusType } from "../../../types/statistics";
+
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
 
 function StudyNavigation({
@@ -43,7 +41,7 @@ function StudyNavigation({
   const queryClient = useQueryClient();
 
   const voteDate = dayjs(router.query.date as string);
-  const [isVoting, setIsVoting] = useRecoilState(isVotingState);
+  const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 

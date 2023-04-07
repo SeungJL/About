@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import AttendChart from "../../../components/utils/AttendChart";
 
 function UserInfoBadge() {
   return (

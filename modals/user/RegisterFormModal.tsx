@@ -1,27 +1,31 @@
-import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { now } from "../../libs/utils/dateUtils";
-import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
+import { useForm } from "react-hook-form";
 import { Toast } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
-import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { Dispatch, SetStateAction, useState } from "react";
+
+import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
+import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
+
+import { useRegisterMutation } from "../../hooks/vote/mutations";
+import { now } from "../../libs/utils/dateUtils";
 
 import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
-import { Dispatch, SetStateAction, useState } from "react";
-import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
 
 function RegisterFormModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const router = useRouter();
+  const { data: session } = useSession();
+
   const [isMan, setIsMan] = useState(true);
+  const [isPrivacyModal, setIsPrivacyModal] = useState(false);
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IRegisterForm>({
     defaultValues: {
@@ -33,26 +37,23 @@ function RegisterFormModal({
     },
   });
 
-  const { data: session } = useSession();
-
-  const { mutate: handleRegister, isLoading: isRegisterLoading } =
-    useRegisterMutation({
-      onSuccess: async (data: IUser) => {
-        session.user.name = data.name;
-        session.role = data.role;
-        setIsModal(false);
-      },
-      onError: (err) => {
-        Toast({
-          title: "오류",
-          description: "참여 취소 신청 중 문제가 발생했어요.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      },
-    });
+  const { mutate: handleRegister } = useRegisterMutation({
+    onSuccess: async (data: IUser) => {
+      session.user.name = data.name;
+      session.role = data.role;
+      setIsModal(false);
+    },
+    onError: (err) => {
+      Toast({
+        title: "오류",
+        description: "참여 취소 신청 중 문제가 발생했어요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
 
   const onValid = (data: IRegisterForm) => {
     const userInfo: IUserRegister = {
@@ -66,16 +67,9 @@ function RegisterFormModal({
     };
 
     handleRegister(userInfo);
-
     setIsModal(false);
   };
 
-  const [isPrivacyModal, setIsPrivacyModal] = useState(false);
-
-  const onCancelBtnClicked = () => {
-    setIsModal(false);
-    router.push(`/fail`);
-  };
   return (
     <>
       <ModalLayout>

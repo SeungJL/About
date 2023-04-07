@@ -1,27 +1,27 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useRouter } from "next/router";
-import { useQueryClient } from "react-query";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import {
-  useScoreMutation,
-  useWaringScoreMutation,
-} from "../../../hooks/user/mutations";
-import { useDismissMutation } from "../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../libs/queryKeys";
-import { getToday, strToDate } from "../../../libs/utils/dateUtils";
-import {
-  isVotingState,
-  mySpaceFixedState,
-  studyStartTimeState,
-} from "../../../recoil/studyAtoms";
+import { useQueryClient } from "react-query";
 
 import {
   ModalFooterNav,
   ModalHeaderTitle,
   ModalXs,
 } from "../../../styles/LayoutStyles";
+
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  isVotingState,
+  mySpaceFixedState,
+  studyStartTimeState,
+} from "../../../recoil/studyAtoms";
+import {
+  useScoreMutation,
+  useWaringScoreMutation,
+} from "../../../hooks/user/mutations";
+import { useDismissMutation } from "../../../hooks/vote/mutations";
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { getToday } from "../../../libs/utils/dateUtils";
 
 export default function AbsentVoteModal({ setIsModal }) {
   const today = getToday();
@@ -68,6 +68,7 @@ export default function AbsentVoteModal({ setIsModal }) {
     }
     setIsModal(false);
   };
+
   return (
     <>
       <Layout>

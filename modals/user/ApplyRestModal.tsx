@@ -1,13 +1,16 @@
+import styled from "styled-components";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction } from "react";
-import styled from "styled-components";
-import { ModalXL } from "../../styles/LayoutStyles";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
+
+import { ModalXL } from "../../styles/LayoutStyles";
+
 import { IApplyRest } from "../../types/userAction";
+
 function ApplyRestModal({
   setIsModal,
 }: {

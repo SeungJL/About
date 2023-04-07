@@ -20,7 +20,7 @@ import { IPlace } from "../../../types/studyDetails";
 
 const LOCATE_GAP = 0.00008;
 
-export default function CheckVoteModal({
+export default function AttendCheckModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;

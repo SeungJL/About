@@ -1,10 +1,10 @@
 import Image from "next/image";
 import styled from "styled-components";
 
-const ImageList = [1, 2, 3, 4, 5];
+const IMAGE_LIST = [1, 2, 3, 4, 5];
 
 function StudySpaceCover({ src }) {
-  const randomNum = Math.floor(Math.random() * ImageList.length);
+  const randomNum = Math.floor(Math.random() * IMAGE_LIST.length);
 
   return (
     <Layout>

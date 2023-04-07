@@ -1,29 +1,21 @@
-import { faCheckCircle, faO, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import { IconUserTwo } from "../../../../public/icons/Icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
+import { IconUserTwo } from "../../../../public/icons/Icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+
+import ProfileImgSm from "../../../../components/common/ProfileImgSm";
+
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
-  attendCheckState,
   mySpaceFixedState,
   studyStartTimeState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-import {
-  useArrivedQuery,
-  useStudyStartQuery,
-} from "../../../../hooks/vote/queries";
-import dayjs, { Dayjs } from "dayjs";
-import { VOTE_START_HOUR } from "../../../../constants/system";
-import { useEffect, useState } from "react";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
+
 import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
-import ProfileImgSm from "../../../../components/common/ProfileImgSm";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -33,30 +25,15 @@ function AboutMainItem({
   voted: boolean;
 }) {
   const router = useRouter();
-  const { data: session } = useSession();
+
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  const [isCheck, setIsCheck] = useRecoilState(attendCheckState);
   const [studyStartTime, setStudyStartTime] =
     useRecoilState(studyStartTimeState);
-  const { attendences, place, status } = studySpaceInfo || {};
-  const firstAttendance = attendences?.filter((att) => att.firstChoice);
-  const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
-  const studyDate =
-    dayjs().hour() < VOTE_START_HOUR || dayjs().hour() >= 23
-      ? voteDate
-      : voteDate.subtract(1, "day");
-  const { data: studyStart, isLoading } = useStudyStartQuery(voteDate, {
-    onSuccess: (data) => {
-      data?.length && setStudyStartTime(dayjs(data[0].startTime));
-    },
-  });
 
-  useArrivedQuery(studyDate, {
-    onSuccess(data) {
-      if (data.some((att) => att.user.uid === session?.uid)) setIsCheck(true);
-    },
-  });
+  const { attendences, place, status } = studySpaceInfo || {};
+  const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
+  const firstAttendance = attendences?.filter((att) => att.firstChoice);
 
   return (
     <Layout

@@ -1,25 +1,21 @@
 import styled from "styled-components";
+import { useState, Dispatch, SetStateAction } from "react";
+import { useToast } from "@chakra-ui/react";
+import dayjs from "dayjs";
+
 import {
   ModalFooterNav,
   ModalHeaderTitle,
   ModalLg,
 } from "../../../styles/LayoutStyles";
-import { ITimeStartToEnd, ITimeStartToEndHM } from "../../../types/utils";
-
-import { useState, Dispatch, SetStateAction } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  useAttendMutation,
-  useChangeTimeMutation,
-} from "../../../hooks/vote/mutations";
-
-import { useSession } from "next-auth/react";
-import { useToast } from "@chakra-ui/react";
-import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
-
-import dayjs from "dayjs";
 import TimeSelector from "../../../components/utils/TimeSelector";
+
+import { useRecoilValue } from "recoil";
+import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
+import { useChangeTimeMutation } from "../../../hooks/vote/mutations";
 import { useScoreMutation } from "../../../hooks/user/mutations";
+
+import { ITimeStartToEnd, ITimeStartToEndHM } from "../../../types/utils";
 
 export default function ChangeTimeModal({
   setIsChangeTimeModal,
@@ -28,12 +24,12 @@ export default function ChangeTimeModal({
   setIsChangeTimeModal: Dispatch<SetStateAction<boolean>>;
   myVoteTime?: ITimeStartToEnd;
 }) {
+  const toast = useToast();
+
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
-  const { mutate: getScores } = useScoreMutation();
 
-  const toast = useToast();
-  const { data: session } = useSession();
+  const { mutate: getScores } = useScoreMutation();
 
   const startTime = dayjs(myVoteTime?.start);
   const endTime = dayjs(myVoteTime?.end);

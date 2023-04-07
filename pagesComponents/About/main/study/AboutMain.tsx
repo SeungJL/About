@@ -19,7 +19,7 @@ import { useDecideSpaceMutation } from "../../../../hooks/vote/mutations";
 import { getInterestingDate } from "../../../../libs/utils/dateUtils";
 import { arrangeMainSpace } from "../../../../libs/utils/studyUtils";
 
-import { VOTE_END_HOUR } from "../../../../constants/system";
+import { VOTE_END_HOUR } from "../../../../constants/study";
 import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 

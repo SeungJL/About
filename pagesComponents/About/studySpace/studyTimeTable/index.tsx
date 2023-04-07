@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { IAttendence } from "../../../../types/studyDetails";
 
 import CheckComment from "./CheckComment";
 import TimeTable from "./TimeTable";
 import UserTable from "./UserTable";
+
+import { IAttendence } from "../../../../types/studyDetails";
 
 function StudyTimeTable({ attendances }: { attendances: IAttendence[] }) {
   const attendCnt = attendances?.length;

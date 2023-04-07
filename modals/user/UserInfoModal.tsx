@@ -1,20 +1,18 @@
 import styled from "styled-components";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Badge } from "@chakra-ui/react";
+import Image from "next/image";
 
+import { ModalSm } from "../../styles/LayoutStyles";
+import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
+import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
+import AttendChart from "../../components/utils/AttendChart";
+
+import { useCommentQuery, useScoreAllQuery } from "../../hooks/user/queries";
+import { userBadgeScore } from "../../libs/utils/userUtils";
 import { birthToAge } from "../../libs/utils/membersUtil";
 
-import { ModalLg, ModalSm, ModalXL } from "../../styles/LayoutStyles";
-
-import { Dispatch, SetStateAction, useState } from "react";
-import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
-
-import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
-import { useCommentQuery, useScoreAllQuery } from "../../hooks/user/queries";
 import { IUser, USER_BADGES } from "../../types/user";
-import AttendChart from "../../components/utils/AttendChart";
-import Image from "next/image";
-import RoleBadge from "../../components/block/UserBadge";
-import { userBadgeScore } from "../../libs/utils/userUtils";
-import { Badge } from "@chakra-ui/react";
 
 export default function UserInfoModal({
   user,
@@ -29,8 +27,8 @@ export default function UserInfoModal({
   const comment = comments?.comments.find((att) => att._id === user._id);
 
   const { data } = useScoreAllQuery();
-
   const userScore = data?.find((user) => user._id === user._id).point;
+
   const { badge } = userBadgeScore(userScore);
 
   return (

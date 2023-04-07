@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import React from "react";
 import styled from "styled-components";
+
+import { ModalLg } from "../../styles/LayoutStyles";
+
 import {
   useParticipationRateQuery,
   useVoteRateQuery,
 } from "../../hooks/user/queries";
 import { now } from "../../libs/utils/dateUtils";
-import { ModalLg } from "../../styles/LayoutStyles";
 
 export default function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();

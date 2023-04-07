@@ -1,28 +1,28 @@
+import styled from "styled-components";
 import {
   faCircleExclamation,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { type } from "os";
 import { useState, Dispatch, SetStateAction } from "react";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { ModalLg, ModalXL } from "../../styles/LayoutStyles";
 import { useSession } from "next-auth/react";
 import dayjs from "dayjs";
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
 } from "@chakra-ui/react";
+
+import { ModalXL } from "../../styles/LayoutStyles";
+
+import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import { useScoreMutation } from "../../hooks/user/mutations";
+
 export default function SuggestModal({
   setIsModal,
 }: {
@@ -51,6 +51,7 @@ export default function SuggestModal({
     suggestForm(suggestInfo);
     setIsModal(false);
   };
+
   return (
     <Layout>
       <Header>
