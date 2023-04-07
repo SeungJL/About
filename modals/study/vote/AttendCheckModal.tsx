@@ -97,7 +97,6 @@ export default function AttendCheckModal({
     <Container>
       <Layout>
         <Title>출석체크</Title>
-
         <MainContent>
           <div>
             도착하셨나요? <br />
