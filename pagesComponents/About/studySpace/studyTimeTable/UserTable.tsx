@@ -1,26 +1,18 @@
+import styled from "styled-components";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+
 import { isVotingState } from "../../../../recoil/studyAtoms";
+
+import { VOTE_TABLE_COLOR } from "../../../../constants/design";
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
-
-const colorArr = [
-  "#FF8896",
-  "#FEBC5A",
-  "#71C3FF",
-  "#9E7CFF",
-  "#FFC1CC",
-  "#A6ABBF",
-  "#ADD8E6",
-  "#D7BCE8",
-  "#B0C4DE",
-];
 
 function UserTable({ attendances }: { attendances: IAttendence[] }) {
   const isVoting = useRecoilValue(isVotingState);
   const [userArr, setUserArr] = useState<IUserTable[]>([]);
+
   useEffect(() => {
     setUserArr([]);
     attendances?.forEach((user) => {
@@ -46,7 +38,11 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
     <Layout>
       {userArr?.map((user, idx) => (
         <UserBlock key={idx}>
-          <UserIcon start={user.startGap} gap={user.gap} color={colorArr[idx]}>
+          <UserIcon
+            start={user.startGap}
+            gap={user.gap}
+            color={VOTE_TABLE_COLOR[idx]}
+          >
             <Name>{user.name}</Name>
             <Time isSecond={user?.isSecond}>
               {user.start}~{user.end}
@@ -81,6 +77,18 @@ const UserIcon = styled.div<{ start: number; gap: number; color: string }>`
   }
 `;
 
+const Name = styled.span``;
+
+const Layout = styled.div`
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  margin-top: 32px;
+`;
+
+const Time = styled.span<{ isSecond: boolean }>`
+  color: ${(props) => props.isSecond && "var(--font-h3)"};
+`;
 interface IUserTable {
   name: string;
   start: string;
@@ -89,22 +97,5 @@ interface IUserTable {
   startGap: number;
   isSecond: boolean;
 }
-
-const Name = styled.span``;
-const Layout = styled.div`
-  width: 100%;
-  position: absolute;
-  height: 100%;
-  margin-top: 32px;
-`;
-
-const Sub = styled.span`
-  margin-left: 2px;
-  color: var(--font-h1);
-`;
-
-const Time = styled.span<{ isSecond: boolean }>`
-  color: ${(props) => props.isSecond && "var(--font-h3)"};
-`;
 
 export default UserTable;

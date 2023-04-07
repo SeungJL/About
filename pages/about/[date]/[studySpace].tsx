@@ -1,17 +1,18 @@
-import { useToast } from "@chakra-ui/react";
+import styled from "styled-components";
 import dayjs from "dayjs";
+import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import styled from "styled-components";
 
-import { useVoteQuery } from "../../../hooks/vote/queries";
 import SpaceVoteOverView from "../../../pagesComponents/About/studySpace/SpaceVoteOverview";
 import StudyNavigation from "../../../pagesComponents/About/studySpace/StudyNavigation";
 import StudySpaceCover from "../../../pagesComponents/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../pagesComponents/About/studySpace/StudySpaceHeader";
 import StudySpaceOverView from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
 import StudyTimeTable from "../../../pagesComponents/About/studySpace/studyTimeTable";
-import { IPlaceStatus } from "../../../types/statistics";
+
+import { useVoteQuery } from "../../../hooks/vote/queries";
+
 import { IAttendence } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 
@@ -62,7 +63,8 @@ function StudySpace() {
             />
           </>
         )}
-      </Layout>s
+      </Layout>
+      s
     </>
   );
 }

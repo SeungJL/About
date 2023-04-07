@@ -1,7 +1,7 @@
-import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dayjs } from "dayjs";
 import styled from "styled-components";
+import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
 function SpaceVoteOverView({ date, voteCnt }: ISpaceVoteOverView) {
   return (

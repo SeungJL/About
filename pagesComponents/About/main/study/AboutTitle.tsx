@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
-import CheckVoteModal from "../../../../modals/study/vote/CheckVoteModal";
+import CheckVoteModal from "../../../../modals/study/vote/AttendCheckModal";
 import {
   attendCheckState,
   mySpaceFixedState,
@@ -19,7 +19,7 @@ function AboutTitle() {
   const [isCheckModal, setIsCheckModal] = useState(false);
   const isCheck = useRecoilValue(attendCheckState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  console.log(isCheck);
+
   return (
     <>
       <Layout>

@@ -1,10 +1,10 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import {
   faArrowUpFromBracket,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
 
@@ -12,7 +12,7 @@ function StudySpaceHeader({ title }) {
   const router = useRouter();
   const toast = useToast();
 
-  function copyToClipboard(text) {
+  const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(
       () => {
         toast({
@@ -29,7 +29,7 @@ function StudySpaceHeader({ title }) {
         console.error("Failed to copy text:", error);
       }
     );
-  }
+  };
   const shareUrl = `${router.asPath}`;
 
   useEffect(() => {

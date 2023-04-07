@@ -1,4 +1,3 @@
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 const GatherVoteLayout = styled.div`

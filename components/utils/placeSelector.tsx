@@ -2,8 +2,13 @@ import { useToast } from "@chakra-ui/react";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
-import { MAX_USER_PER_PLACE } from "../../constants/system";
-import { IPlaceStatus } from "../../types/statistics";
+import { MAX_USER_PER_PLACE } from "../../constants/study";
+
+import {
+  IplaceInfo,
+  IPlaceSelecter,
+  IPlaceStatus,
+} from "../../types/statistics";
 import { IPlace } from "../../types/studyDetails";
 
 const PlaceSelector = ({
@@ -79,18 +84,6 @@ const PlaceSelector = ({
 };
 
 export default PlaceSelector;
-
-export interface IplaceInfo extends IPlaceStatus {
-  placeName?: IPlace;
-  voteCnt?: number;
-}
-interface IPlaceSelecter {
-  placeInfoArr: IplaceInfo[];
-  firstPlace: IplaceInfo[];
-  setSelectedPlace: Dispatch<SetStateAction<IplaceInfo[]>>;
-  secondPlaces?: IplaceInfo[];
-  isSelectUnit: boolean;
-}
 
 const Layout = styled.div`
   display: flex;

@@ -1,13 +1,14 @@
 import dynamic from "next/dynamic";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useMemo } from "react";
+
 import {
-  IRate,
   useAttendRateQueries,
   useVoteRateQueries,
 } from "../../hooks/user/queries";
-import dayjs, { Dayjs } from "dayjs";
 import { getMonth } from "../../libs/utils/dateUtils";
-import { IDateStartToEnd } from "../../types/utils";
+
 import { IUser } from "../../types/user";
 
 const MONTH_LIST = [
@@ -24,6 +25,20 @@ const MONTH_LIST = [
   "11월",
   "12월",
 ];
+const MONTH_RANGE = [
+  {
+    start: dayjs().subtract(2, "month").startOf("month"),
+    end: dayjs().subtract(2, "month").endOf("month"),
+  },
+  {
+    start: dayjs().subtract(1, "month").startOf("month"),
+    end: dayjs().subtract(1, "month").endOf("month"),
+  },
+  {
+    start: dayjs().startOf("month"),
+    end: dayjs().endOf("month"),
+  },
+];
 
 export default function AttendChart({
   type,
@@ -36,41 +51,30 @@ export default function AttendChart({
   const { data: session } = useSession();
 
   const name = type === "main" ? session?.user.name : user?.name;
-  const monthList: IDateStartToEnd[] = [];
-
-  for (let i = Number(getMonth()) - 2; i <= Number(getMonth()); i++) {
-    const changeMonthDate = (month: number, num: number) =>
-      dayjs().month(month).date(num);
-    monthList.push({
-      start: changeMonthDate(i, 1),
-      end: changeMonthDate(i, dayjs().month(i).daysInMonth()),
-    });
-  }
 
   const monthXaxis = [];
   for (let i = Number(getMonth()) - 2; i <= Number(getMonth()) + 1; i++) {
     monthXaxis.push(MONTH_LIST[i]);
   }
 
-  const attendCountTotal = useAttendRateQueries(monthList);
-  const voteCountTotal = useVoteRateQueries(monthList);
+  const attendCountTotal = useAttendRateQueries(MONTH_RANGE);
+  const voteCountTotal = useVoteRateQueries(MONTH_RANGE);
+
+  const getDataArray = (name, queryResult) =>
+    queryResult
+      ?.map((item) => {
+        if (item.isSuccess) {
+          const myDataArr = item.data.filter((data) => data.name === name);
+          return myDataArr[0]?.cnt;
+        }
+        return null;
+      })
+      .concat(null);
 
   const isLoading = voteCountTotal.some((result) => result.isLoading);
-  const myVoteCountTotal = voteCountTotal?.map((item) => {
-    if (item.isSuccess) {
-      const myDataArr = item.data.filter((data) => data.name === name);
-      return myDataArr[0]?.cnt;
-    }
-  });
-  const myAttendCountTotal = attendCountTotal?.map((item) => {
-    if (item.isSuccess) {
-      const myData = item.data.filter((data) => data.name === name);
-      return myData[0]?.cnt;
-    }
-  });
 
-  myVoteCountTotal.push(null);
-  myAttendCountTotal.push(null);
+  const myVoteCountTotal = getDataArray(name, voteCountTotal);
+  const myAttendCountTotal = getDataArray(name, attendCountTotal);
 
   const text = type === "modal" ? undefined : "내 스터디 참여";
 

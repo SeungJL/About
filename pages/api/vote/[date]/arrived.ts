@@ -1,8 +1,10 @@
+import { Dayjs } from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../libs/dbConnect";
 import { dateToDayjs, now, strToDate } from "../../../../libs/utils/dateUtils";
 import { findOneVote } from "../../../../services/voteService";
+import { IUser } from "../../../../types/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -14,6 +16,7 @@ export default async function handler(
     method,
     body: { memo },
   } = req;
+  const dayjs = require("dayjs");
   const dateStr = req.query.date as string;
   const dayjsDate = strToDate(dateStr);
   const date = dayjsDate.toDate();
@@ -50,12 +53,13 @@ export default async function handler(
 
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
-          if (att.user.toString() === _id.toString() && att.firstChoice) {
+          if (
+            (att.user as IUser)._id.toString() === _id.toString() &&
+            att.firstChoice
+          ) {
             const { start, end } = att.time;
-
-            const startable = dateToDayjs(start.toDate()).add(9, "hour");
-            const endable = dateToDayjs(end.toDate()).add(9, "hour");
-
+            const startable = dayjs(start).add(9, "hour");
+            const endable = dayjs(end).add(9, "hour");
             if (startable <= currentTime && currentTime <= endable) {
               att.arrived = currentTime.toDate();
               att.memo = memo;

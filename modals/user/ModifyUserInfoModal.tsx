@@ -1,17 +1,20 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { ModalLg, ModalXL } from "../../styles/LayoutStyles";
 import { useState } from "react";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { ModalXL } from "../../styles/LayoutStyles";
+
 import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useActiveQuery } from "../../hooks/user/queries";
+
 import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
 
 function ModifyUserInfoModal({ setIsModal }) {
-  const [isMan, setIsMan] = useState(true);
-
   const { data: session } = useSession();
+  
+  const [isMan, setIsMan] = useState(true);
 
   const user = useActiveQuery().data;
 

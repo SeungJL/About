@@ -1,13 +1,14 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { ModalLg, ModalXL } from "../../../styles/LayoutStyles";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
-import { render } from "react-dom";
+import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import { PlazaContentVoteListModal } from "./PlazaContentVoteListModal";
 import { useSession } from "next-auth/react";
+
+import { ModalXL } from "../../../styles/LayoutStyles";
+import { PlazaContentVoteListModal } from "./PlazaContentVoteListModal";
+
 import { usePlazaMutation } from "../../../hooks/plaza/mutations";
 
 export default function PlazaWriteModal({ setIsModal }) {

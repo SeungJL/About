@@ -1,29 +1,25 @@
+import styled from "styled-components";
 import { useToast } from "@chakra-ui/react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs, { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import styled from "styled-components";
-import PlaceSelector, {
-  IplaceInfo,
-} from "../../../components/utils/placeSelector";
-import TimeSelector from "../../../components/utils/TimeSelector";
-import {
-  useAbsentMutation,
-  useAttendMutation,
-} from "../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../libs/queryKeys";
-import { hourMinToDate } from "../../../libs/utils/dateUtils";
-
-import ModalPortal from "../../../components/ModalPortal";
-import { ITimeStartToEndHM } from "../../../types/utils";
-import { useVoteQuery } from "../../../hooks/vote/queries";
-import { ModalLg } from "../../../styles/LayoutStyles";
-import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
-import { useScoreMutation } from "../../../hooks/user/mutations";
 import { motion } from "framer-motion";
+
+import { ModalLg } from "../../../styles/LayoutStyles";
+
+import { useRecoilValue } from "recoil";
+import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
+import { useVoteQuery } from "../../../hooks/vote/queries";
+import { useAttendMutation } from "../../../hooks/vote/mutations";
+import { useScoreMutation } from "../../../hooks/user/mutations";
+
+import PlaceSelector from "../../../components/utils/placeSelector";
+import TimeSelector from "../../../components/utils/TimeSelector";
+
+import { VOTE_GET } from "../../../libs/queryKeys";
+import { IplaceInfo } from "../../../types/statistics";
+import { ITimeStartToEndHM } from "../../../types/utils";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -39,7 +35,7 @@ function VoteStudyModal({
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { data: vote, isLoading } = useVoteQuery(voteDate, {
+  const { data: vote } = useVoteQuery(voteDate, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -58,16 +54,16 @@ function VoteStudyModal({
   const placeInfoArr: IplaceInfo[] = [{}, {}, {}, {}];
   const participations = vote?.participations;
   participations?.forEach((participant) => {
-    const placeName = participant.place;
-    const voteCnt = participant.attendences.length;
-    const status = participant.status;
-    const temp = { placeName, voteCnt, status };
-    const brand = placeName.brand;
+    const temp = {
+      placeName: participant.place,
+      voteCnt: participant.attendences.length,
+      status: participant.status,
+    };
+    const brand = participant.place.brand;
     if (brand === "탐앤탐스") placeInfoArr[1] = temp;
     else if (brand === "커피빈") placeInfoArr[0] = temp;
     else if (brand === "카탈로그") placeInfoArr[3] = temp;
     else if (brand === "아티제") placeInfoArr[2] = temp;
-    // return { placeName, voteCnt, status };
   });
 
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);

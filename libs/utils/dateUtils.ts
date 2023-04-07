@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import { VOTE_START_HOUR } from "../../constants/system";
+import { VOTE_START_HOUR } from "../../constants/study";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

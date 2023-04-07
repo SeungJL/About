@@ -1,6 +1,7 @@
+import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
-import styled from "styled-components";
+
 import { ModalXXL } from "../../styles/LayoutStyles";
 
 function StudyRuleModal({
@@ -9,6 +10,7 @@ function StudyRuleModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const [isTip, setIsTip] = useState(true);
+
   return (
     <Layout>
       <Wrapper layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

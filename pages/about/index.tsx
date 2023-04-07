@@ -31,8 +31,7 @@ import { IUser } from "../../types/user";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
-  const { data: session } = useSession();
-  console.log(session);
+
   const voteDate = useRecoilValue(voteDateState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);
 

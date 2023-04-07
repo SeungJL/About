@@ -1,15 +1,13 @@
 import styled from "styled-components";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Dayjs } from "dayjs";
 import "dayjs/locale/ko";
-import { isStranger } from "../../../libs/utils/authUtils";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import TimeRullet from "../../../components/utils/TimeRullet";
-import { IPlace } from "../../../types/studyDetails";
 
-const startHour = 10;
-const endHour = 22;
-const minutesArr = ["00", "30"];
+import TimeRullet from "../../../components/utils/TimeRullet";
+
+import { START_HOUR } from "../../../constants/study";
+import { IPlace } from "../../../types/studyDetails";
+import { Dayjs } from "dayjs";
 
 function VoteStudySpaceModal({
   isModal,
@@ -23,21 +21,17 @@ function VoteStudySpaceModal({
   place: IPlace;
 }) {
   const [startTimeArr, setStartTimeArr] = useState([]);
-  const [endTimeArr, setEndTimeArr] = useState([]);
-  const [startIdx, setStartIdx] = useState(4);
-  const [endIdx, setEndIdx] = useState(4);
 
   useEffect(() => {
     const tempStart = [];
     const tempEnd = [];
-    for (let i = startHour; i <= startHour + 9; i++) {
+    for (let i = START_HOUR; i <= START_HOUR + 9; i++) {
       tempStart.push({ hour: i, minutes: "00" });
       tempStart.push({ hour: i, minutes: 30 });
       tempEnd.push({ hour: i + 2, minutes: "00" });
       tempEnd.push({ hour: i + 2, minutes: 30 });
     }
     setStartTimeArr(tempStart);
-    setEndTimeArr(tempEnd);
   }, []);
 
   return (

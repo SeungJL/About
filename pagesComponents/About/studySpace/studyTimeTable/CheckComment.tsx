@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+
+import UserImageIcon from "../../../../components/common/UserImageIcon";
+
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
-import UserImageIcon from "../../../../components/common/UserImageIcon";
-import { Badge } from "@chakra-ui/react";
 
 function CheckComment({ attendances }: { attendances: IAttendence[] }) {
   return (

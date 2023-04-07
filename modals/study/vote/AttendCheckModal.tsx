@@ -20,7 +20,7 @@ import { IPlace } from "../../../types/studyDetails";
 
 const LOCATE_GAP = 0.00008;
 
-export default function CheckVoteModal({
+export default function AttendCheckModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
@@ -38,10 +38,13 @@ export default function CheckVoteModal({
   )?.place;
   const { mutate: getScore } = useScoreMutation();
   const { data: session } = useSession();
+  if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
+    console.log(11);
+  }
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
-      !isChecking && voteDate > dayjs().subtract(1, "day") && getScore(5);
+      if (!isChecking && voteDate > dayjs().subtract(1, "day")) getScore(5);
     },
     onError: (err) => {
       toast({

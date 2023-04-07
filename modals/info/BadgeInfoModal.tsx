@@ -1,8 +1,8 @@
+import styled from "styled-components";
 import { Badge, useTheme } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
-import styled from "styled-components";
+
 import { ModalXXL } from "../../styles/LayoutStyles";
 
 export default function BadgeInfoModal({
@@ -10,8 +10,8 @@ export default function BadgeInfoModal({
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const theme = useTheme();
   const [isFirst, setIsFirst] = useState(true);
+
   return (
     <Layout layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       {isFirst ? (

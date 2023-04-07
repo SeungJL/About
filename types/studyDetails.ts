@@ -62,3 +62,9 @@ export interface IStudyStart {
   place_id: string;
   startTime: string;
 }
+
+export interface IAttendMessage {
+  user: IUser;
+  memo: string;
+  arrived: string;
+}
