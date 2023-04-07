@@ -80,5 +80,8 @@ const VoterCnt = styled.div`
   font-size: 14px;
   margin-left: 12px;
   margin-top: 12px;
+  > b {
+    color: var(--font-h1);
+  }
 `;
 export default AboutMainHeader;

@@ -70,10 +70,11 @@ export default function AttendCheckModal({
       const coords = data?.coords;
 
       if (
-        (coords.latitude > myPlace?.latitude - LOCATE_GAP ||
-          coords.latitude < myPlace?.latitude + LOCATE_GAP) &&
-        (coords.longitude > myPlace?.longitude - LOCATE_GAP ||
-          coords.longitude < myPlace?.longitude + LOCATE_GAP)
+        // (coords.latitude > myPlace?.latitude - LOCATE_GAP ||
+        //   coords.latitude < myPlace?.latitude + LOCATE_GAP) &&
+        // (coords.longitude > myPlace?.longitude - LOCATE_GAP ||
+        //   coords.longitude < myPlace?.longitude + LOCATE_GAP)
+        true
       ) {
         handleArrived(memo);
         setTimeout(() => {
@@ -97,7 +98,6 @@ export default function AttendCheckModal({
     <Container>
       <Layout>
         <Title>출석체크</Title>
-
         <MainContent>
           <div>
             도착하셨나요? <br />
