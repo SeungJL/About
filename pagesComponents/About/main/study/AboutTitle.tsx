@@ -19,7 +19,7 @@ function AboutTitle() {
   const [isCheckModal, setIsCheckModal] = useState(false);
   const isCheck = useRecoilValue(attendCheckState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  console.log(isCheck);
+
   return (
     <>
       <Layout>

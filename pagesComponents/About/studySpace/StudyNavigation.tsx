@@ -10,7 +10,6 @@ import { useState } from "react";
 import ModalPortal from "../../../components/ModalPortal";
 import AbsentVoteModal from "../../../modals/study/confirm/AbsentVoteModal";
 import ChangeTimeModal from "../../../modals/study/vote/ChangeTimeModal";
-import CheckVoteModal from "../../../modals/study/vote/AttendCheckModal";
 import VoteStudySpaceModal from "../../../modals/study/vote/VoteStudySpaceModal";
 
 import { useQueryClient } from "react-query";
@@ -26,6 +25,7 @@ import {
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
+import AttendCheckModal from "../../../modals/study/vote/AttendCheckModal";
 
 function StudyNavigation({
   myVote,
@@ -185,7 +185,7 @@ function StudyNavigation({
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
-          <CheckVoteModal setIsModal={setIsCheckModal} />
+          <AttendCheckModal setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
     </>

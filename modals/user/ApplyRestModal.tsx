@@ -46,7 +46,7 @@ function ApplyRestModal({
     const startDate = watch("startDate");
 
     if (option === "일반휴식" && startDate) {
-      console.log(44);
+      
       const maxDate = new Date(startDate);
       maxDate.setMonth(maxDate.getMonth() + 2);
 
