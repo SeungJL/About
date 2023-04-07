@@ -64,7 +64,6 @@ function StudySpace() {
           </>
         )}
       </Layout>
-      s
     </>
   );
 }

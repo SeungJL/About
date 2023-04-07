@@ -153,10 +153,10 @@ function StudyNavigation({
           </SubNav>
           <MainButton
             disabled={isVoting && true}
-            func={false}
-            // onClick={() => setIsVoteModal(true)}
+            func={!isVoting}
+            onClick={() => setIsVoteModal(true)}
           >
-            <span>{isVoting ? "투표 완료" : "임시 비활성화"}</span>
+            <span>{isVoting ? "투표 완료" : "스터디 투표"}</span>
           </MainButton>
         </Layout>
       )}

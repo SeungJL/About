@@ -20,6 +20,7 @@ import TimeSelector from "../../../components/utils/TimeSelector";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { IplaceInfo } from "../../../types/statistics";
 import { ITimeStartToEndHM } from "../../../types/utils";
+import { IVoteInfo } from "../../../types/studyDetails";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -94,7 +95,7 @@ function VoteStudyModal({
     const start = time.start;
     const end = time.end;
 
-    const voteInfos = {
+    const voteInfos: IVoteInfo = {
       place: firstPlace[0].placeName,
       subPlace: secondPlaces.map((place) => place.placeName),
       start: voteDate.hour(start.hour).minute(start.minutes),
@@ -104,7 +105,7 @@ function VoteStudyModal({
     if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
-        description: "시작시간은 끝시간 이전이여야 합니다",
+        description: "시작 시간은 종료 시간 이전이어야 합니다",
         status: "error",
         duration: 3000,
         isClosable: true,

@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { Document } from "mongoose";
 import { IPlaceStatus } from "./statistics";
 import { IUser } from "./user";
@@ -67,4 +68,11 @@ export interface IAttendMessage {
   user: IUser;
   memo: string;
   arrived: string;
+}
+
+export interface IVoteInfo {
+  place: IPlace;
+  subPlace: IPlace[];
+  start: Dayjs;
+  end: Dayjs;
 }
