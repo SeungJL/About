@@ -2,7 +2,6 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
@@ -15,7 +14,6 @@ import { IconCircle } from "../../../public/icons/IconOutline";
 
 import { useRecoilState } from "recoil";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { IDateStartToEnd } from "../../../types/utils";
 
 function Calendar() {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
