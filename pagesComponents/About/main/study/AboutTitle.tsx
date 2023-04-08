@@ -74,8 +74,8 @@ const Layout = styled.div`
 
 const Title = styled.div`
   font-size: 18px;
-  font-family: "PretendExtra";
-  font-weight: 600;
+
+  font-weight: 800;
 `;
 
 const TitleName = styled.span<{ isNotPassed: boolean }>`

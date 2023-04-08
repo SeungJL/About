@@ -6,7 +6,7 @@ const theme = extendTheme({
     redMy: "#ff6b6b",
   },
   fonts: {
-    body: `"Pretend",-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    body: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
   components: {
