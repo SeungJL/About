@@ -13,7 +13,7 @@ import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
 
 function ModifyUserInfoModal({ setIsModal }) {
   const { data: session } = useSession();
-  
+
   const [isMan, setIsMan] = useState(true);
 
   const user = useActiveQuery().data;
@@ -71,6 +71,25 @@ function ModifyUserInfoModal({ setIsModal }) {
       <ModalLayout>
         <Header>유저 정보</Header>
         <UserForm onSubmit={handleSubmit(onValid)}>
+          {" "}
+          <InputItem>
+            <span>이름: </span>
+            {/* <input
+              {...register("name", {
+                required: "필수입력",
+                maxLength: {
+                  value: 3,
+                  message: "세글자로 입력해주세요",
+                },
+                minLength: {
+                  value: 3,
+                  message: "세글자로 입력해주세요",
+                },
+              })}
+            /> */}
+            <span>{session?.user.name}</span>
+          </InputItem>
+          <ErrorMessage></ErrorMessage>
           <InputItem>
             <span>가입일: </span>
             <input
@@ -84,24 +103,7 @@ function ModifyUserInfoModal({ setIsModal }) {
               placeholder="YYYY-MM-DD"
             />
           </InputItem>
-          <ErrorMessage>{errors?.registerDate?.message}</ErrorMessage>
-          <InputItem>
-            <span>이름: </span>
-            <input
-              {...register("name", {
-                required: "필수입력",
-                maxLength: {
-                  value: 3,
-                  message: "세글자로 입력해주세요",
-                },
-                minLength: {
-                  value: 3,
-                  message: "세글자로 입력해주세요",
-                },
-              })}
-            />
-          </InputItem>
-          <ErrorMessage>{errors?.name?.message}</ErrorMessage>
+          <ErrorMessage>{errors?.registerDate?.message}</ErrorMessage>\
           <InputGenders>
             <span>성별: </span>
             <GenderBtnNav>

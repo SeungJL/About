@@ -163,9 +163,8 @@ const Status = styled.div`
 
 const Branch = styled.div`
   display: inline-block;
-  font-weight: 600;
+  font-weight: 800;
   font-size: 16px;
-  font-family: "PretendExtra";
 `;
 
 const StatusResult = styled.div<{ isOpen: boolean }>`

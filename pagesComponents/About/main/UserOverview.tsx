@@ -156,7 +156,7 @@ const Grade = styled.div`
   align-items: center;
   > div {
     > span {
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 `;

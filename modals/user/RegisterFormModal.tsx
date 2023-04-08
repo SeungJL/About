@@ -39,8 +39,6 @@ function RegisterFormModal({
 
   const { mutate: handleRegister } = useRegisterMutation({
     onSuccess: async (data: IUser) => {
-      session.user.name = data.name;
-      session.role = data.role;
       setIsModal(false);
     },
     onError: (err) => {
@@ -76,6 +74,25 @@ function RegisterFormModal({
         <Header>회원가입</Header>
         <UserForm onSubmit={handleSubmit(onValid)}>
           <InputItem>
+            <span>이름: </span>
+            {/* <input
+              {...register("name", {
+                required: "필수입력",
+                maxLength: {
+                  value: 3,
+                  message: "세글자로 입력해주세요",
+                },
+                minLength: {
+                  value: 3,
+                  message: "세글자로 입력해주세요",
+                },
+              })}
+            /> */}
+            <span>{session?.user.name}</span>
+          </InputItem>
+          <ErrorMessage></ErrorMessage>
+          {/* <ErrorMessage>{errors?.name?.message}</ErrorMessage> */}
+          <InputItem>
             <span>가입일: </span>
             <input
               {...register("registerDate", {
@@ -89,23 +106,6 @@ function RegisterFormModal({
             />
           </InputItem>
           <ErrorMessage>{errors?.registerDate?.message}</ErrorMessage>
-          <InputItem>
-            <span>이름: </span>
-            <input
-              {...register("name", {
-                required: "필수입력",
-                maxLength: {
-                  value: 3,
-                  message: "세글자로 입력해주세요",
-                },
-                minLength: {
-                  value: 3,
-                  message: "세글자로 입력해주세요",
-                },
-              })}
-            />
-          </InputItem>
-          <ErrorMessage>{errors?.name?.message}</ErrorMessage>
           <InputGenders>
             <span>성별: </span>
             <GenderBtnNav>

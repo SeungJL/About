@@ -86,3 +86,9 @@ export interface IUserBadge {
   badge: UserBadge;
   color: UserBadgeColor;
 }
+
+export interface IWarningAll {
+  name?: string;
+  score: number;
+  _id: string;
+}

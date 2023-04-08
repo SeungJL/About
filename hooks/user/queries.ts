@@ -14,7 +14,13 @@ import {
   USER_FINDVOTES,
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
-import { IScore, IScoreAll, IUser, IUserComment } from "../../types/user";
+import {
+  IScore,
+  IScoreAll,
+  IUser,
+  IUserComment,
+  IWarningAll,
+} from "../../types/user";
 import { IDateStartToEnd } from "../../types/utils";
 
 export const useActiveQuery = (
@@ -142,14 +148,14 @@ export const useCommentQuery = (
 
 export const useWarningScoreQuery = (
   options?: Omit<
-    UseQueryOptions<number, AxiosError, number>,
+    UseQueryOptions<IWarningAll[], AxiosError, IWarningAll[]>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<number, AxiosError, number>(
+  useQuery<IWarningAll[], AxiosError, IWarningAll[]>(
     "warningScore",
     async () => {
-      const res = await axios.get<number>("/api/user/score");
+      const res = await axios.get<IWarningAll[]>("/api/user/score");
       return res.data;
     },
     options

@@ -24,15 +24,12 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
     if (session?.isActive === null || session?.isActive === false)
       setIsRegisterModal(true);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setIsNoticeAlert]);
 
   return (
     <>
