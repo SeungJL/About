@@ -149,7 +149,7 @@ function VoteStudySpaceModal({
               setSelectSpace={setSecondPlace}
             />
           </SpaceWrapper>
-          <Comment>즐거운 카공 스터디, 같이 하실거죠?</Comment>
+          <Comment>Study with us</Comment>
           <MainButton onClick={onSubmit}>
             <span>투표 완료</span>
           </MainButton>
