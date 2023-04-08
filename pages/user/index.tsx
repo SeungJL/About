@@ -37,8 +37,6 @@ function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
- 
- 
 
   const handleOutput = (isOpen) => {
     if (!isOpen) {
@@ -61,7 +59,7 @@ function UserInfo() {
           <UserScoresNav>
             <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
               <span>내 점수</span>
-              <span>{data?.point} 점</span>
+              <span>{data ? data?.point : 0} 점</span>
             </button>
             <button>
               <span>수집한 배지</span>

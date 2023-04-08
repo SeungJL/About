@@ -1,4 +1,5 @@
-import { Portal } from "@chakra-ui/react";
+import { Portal, useToast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
@@ -8,11 +9,28 @@ import { IUser } from "../../types/user";
 import ModalPortal from "../ModalPortal";
 
 function UserImageIcon({ user }: { user: IUser }) {
+  const toast = useToast();
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const [isUserModal, setIsUserModal] = useState(false);
 
+  const onClickImg = () => {
+    if (isGuest) {
+      toast({
+        title: "버튼 동작 실패",
+        description: "개인 정보 보호를 위해 게스트에게는 허용되지 않습니다.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    setIsUserModal(true);
+  };
   return (
     <>
-      <Layout onClick={() => setIsUserModal(true)}>
+      <Layout onClick={onClickImg}>
         <Image
           src={`${user.profileImage}`}
           width={50}

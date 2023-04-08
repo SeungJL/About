@@ -23,6 +23,8 @@ import { USER_BADGES } from "../../../types/user";
 
 function UserOverview() {
   const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
+
   const [isModal, setIsModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
@@ -35,6 +37,7 @@ function UserOverview() {
   });
 
   const { data } = useScoreQuery({
+    enabled: !isGuest,
     onSuccess(data) {
       const { badge, badgePoint, nextBadge, gap, nextPoint } = userBadgeScore(
         data.point
@@ -52,6 +55,7 @@ function UserOverview() {
   const myPoint = data?.point;
 
   useScoreAllQuery({
+    enabled: !isGuest,
     onSuccess(data) {
       setMyRank(myScoreRank(data, myPoint));
     },
@@ -71,49 +75,94 @@ function UserOverview() {
         <Header>
           <span>{session?.user.name}</span>님의 활동 현황이에요!
         </Header>
-        <ProgressWrapper>
-          <Grade>
-            <div>
-              <Badge marginRight="6px" colorScheme={userBadge.color}>
-                {userBadge.badge}
-              </Badge>
-              <span style={{ color: userBadge.color }}>{myPoint}점</span>
-            </div>
-            <div>
-              <span style={{ color: scoreInfo.nextBadge.color }}>
-                {scoreInfo.nextPoint}점
-              </span>
-              <Badge colorScheme={scoreInfo.nextBadge.color} marginLeft="6px">
-                {scoreInfo.nextBadge.badge}
-              </Badge>
-            </div>
-          </Grade>
-          <Progress
-            value={(scoreInfo.value / scoreInfo.scoreGap) * 100}
-            size="xs"
-            color="var(--font-h4)"
-          />
-          <IconWrapper onClick={() => setIsModal(true)}>
-            <span>등급</span>
-            <FontAwesomeIcon icon={faQuestionCircle} />
-          </IconWrapper>
-        </ProgressWrapper>
-        <Info>
-          <Item>
-            <span>{dayjs().month() + 1}월 참여 횟수</span>
-            <span>{myMonthCnt}회</span>
-          </Item>
-          <HrCol />
-          <Item>
-            <span>내 점수</span>
-            <span>{myPoint}점</span>
-          </Item>
-          <HrCol />
-          <Item>
-            <span>랭킹</span>
-            <span>상위 {myRank}%</span>
-          </Item>
-        </Info>
+        {!isGuest ? (
+          <>
+            <ProgressWrapper>
+              <Grade>
+                <div>
+                  <Badge marginRight="6px" colorScheme={userBadge.color}>
+                    {userBadge.badge}
+                  </Badge>
+                  <span style={{ color: userBadge.color }}>{myPoint}점</span>
+                </div>
+                <div>
+                  <span style={{ color: scoreInfo.nextBadge.color }}>
+                    {scoreInfo.nextPoint}점
+                  </span>
+                  <Badge
+                    colorScheme={scoreInfo.nextBadge.color}
+                    marginLeft="6px"
+                  >
+                    {scoreInfo.nextBadge.badge}
+                  </Badge>
+                </div>
+              </Grade>
+              <Progress
+                value={(scoreInfo.value / scoreInfo.scoreGap) * 100}
+                size="xs"
+                color="var(--font-h4)"
+              />
+              <IconWrapper onClick={() => setIsModal(true)}>
+                <span>등급</span>
+                <FontAwesomeIcon icon={faQuestionCircle} />
+              </IconWrapper>
+            </ProgressWrapper>
+            <Info>
+              <Item>
+                <span>{dayjs().month() + 1}월 참여 횟수</span>
+                <span>{myMonthCnt}회</span>
+              </Item>
+              <HrCol />
+              <Item>
+                <span>내 점수</span>
+                <span>{myPoint}점</span>
+              </Item>
+              <HrCol />
+              <Item>
+                <span>랭킹</span>
+                <span>상위 {myRank}%</span>
+              </Item>
+            </Info>
+          </>
+        ) : (
+          <>
+            <ProgressWrapper>
+              <Grade>
+                <div>
+                  <Badge marginRight="6px">아메리카노</Badge>
+                  <span>0 점</span>
+                </div>
+                <div>
+                  <span style={{ color: "var(--color-orange)" }}>30점</span>
+                  <Badge colorScheme="orange" marginLeft="6px">
+                    라떼
+                  </Badge>
+                </div>
+              </Grade>
+              <Progress value={0} size="xs" color="var(--font-h4)" />
+              <IconWrapper onClick={() => setIsModal(true)}>
+                <span>등급</span>
+                <FontAwesomeIcon icon={faQuestionCircle} />
+              </IconWrapper>
+            </ProgressWrapper>
+            <Info>
+              <Item>
+                <span>{dayjs().month() + 1}월 참여 횟수</span>
+                <span>0회</span>
+              </Item>
+              <HrCol />
+              <Item>
+                <span>내 점수</span>
+                <span>0점</span>
+              </Item>
+              <HrCol />
+              <Item>
+                <span>랭킹</span>
+                <span>상위 100%</span>
+              </Item>
+            </Info>
+          </>
+        )}
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>

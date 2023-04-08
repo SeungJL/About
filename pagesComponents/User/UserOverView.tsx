@@ -28,13 +28,14 @@ export default function UserOverView() {
 
   const { mutate: onChangeComment } = useCommentMutation();
   const { data: comments, isLoading } = useCommentQuery();
+
   const userBadge = useRecoilValue(userBadgeState);
   const userComment =
     !isLoading && comments?.comments.find((att) => att?._id === user?._id);
 
   useEffect(() => {
-    if (!isLoading) setValue(userComment.comment);
-  }, [isLoading]);
+    if (!isLoading) setValue(userComment?.comment);
+  }, [isLoading, userComment?.comment]);
   const toast = useToast();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,
@@ -43,7 +44,6 @@ export default function UserOverView() {
     "updateProfile",
     async () => {
       const res = await axios.patch("/api/user/profile");
-
       return res.data;
     },
     {
