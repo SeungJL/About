@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import { VOTE_HOUR_ARR } from "../../../../constants/study";
+import { STUDY_TIME_TABLE } from "../../../../constants/study";
 
 function TimeTable() {
   return (
     <Layout>
-      {VOTE_HOUR_ARR.map((hour) => (
+      {STUDY_TIME_TABLE.map((hour) => (
         <TimeBlock key={hour} hour={hour} />
       ))}
     </Layout>

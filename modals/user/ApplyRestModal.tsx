@@ -7,7 +7,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
-import { ModalXL } from "../../styles/LayoutStyles";
+import { ModalXL } from "../../styles/layout/modal";
 
 import { IApplyRest } from "../../types/userAction";
 
@@ -46,7 +46,6 @@ function ApplyRestModal({
     const startDate = watch("startDate");
 
     if (option === "일반휴식" && startDate) {
-      
       const maxDate = new Date(startDate);
       maxDate.setMonth(maxDate.getMonth() + 2);
 

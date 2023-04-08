@@ -5,9 +5,11 @@ import dayjs from "dayjs";
 
 import {
   ModalFooterNav,
-  ModalHeaderTitle,
-  ModalLg,
-} from "../../../styles/LayoutStyles";
+  ModalHeaderLine,
+  ModalMd,
+  ModalMain,
+  ModalXs,
+} from "../../../styles/layout/modal";
 import TimeSelector from "../../../components/utils/TimeSelector";
 
 import { useRecoilValue } from "recoil";
@@ -75,41 +77,37 @@ export default function ChangeTimeModal({
 
   return (
     <Layout>
-      <ModalHeaderTitle>시간변경</ModalHeaderTitle>
-      <TimeSelector
-        setTimes={({ start, end }: ITimeStartToEndHM) => {
-          if (start) setTime({ ...time, start });
-          if (end) setTime({ ...time, end });
-        }}
-        times={time}
-      />
-      {studyStartTime && dayjs() > studyStartTime && (
-        <WaringMsg>
-          스터디 시작 시간 이후의 시간 변경은 -5점을 받습니다.
-        </WaringMsg>
-      )}
-      <BtnNav>
+      <ModalHeaderLine>시간변경</ModalHeaderLine>
+      <ModalMain>
+        <Wrapper>
+          <TimeSelector
+            setTimes={({ start, end }: ITimeStartToEndHM) => {
+              if (start) setTime({ ...time, start });
+              if (end) setTime({ ...time, end });
+            }}
+            times={time}
+          />
+          {studyStartTime && dayjs() > studyStartTime && (
+            <WaringMsg>
+              스터디 시작 시간 이후의 시간 변경은 -5점을 받습니다.
+            </WaringMsg>
+          )}
+        </Wrapper>
+      </ModalMain>
+      <ModalFooterNav>
         <button onClick={() => setIsChangeTimeModal(false)}>취소</button>
         <button onClick={onSubmit}>변경</button>
-      </BtnNav>
+      </ModalFooterNav>
     </Layout>
   );
 }
 
-const Layout = styled(ModalLg)`
-  display: flex;
-  flex-direction: column;
-  > header {
-    margin-bottom: 32px;
-  }
-`;
+const Layout = styled(ModalXs)``;
 
-const BtnNav = styled(ModalFooterNav)`
-  margin-top: auto;
-  text-align: end;
-  > button:last-child {
-    background-color: var(--color-red);
-  }
+const Wrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
 `;
 
 const WaringMsg = styled.span`

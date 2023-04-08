@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Badge } from "@chakra-ui/react";
 import Image from "next/image";
 
-import { ModalSm } from "../../styles/LayoutStyles";
+import { ModalSm } from "../../styles/layout/modal";
 import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
 import AttendChart from "../../components/utils/AttendChart";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Toast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { ModalXL } from "../../styles/LayoutStyles";
+import { ModalXL } from "../../styles/layout/modal";
 
 import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useActiveQuery } from "../../hooks/user/queries";

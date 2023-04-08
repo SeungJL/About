@@ -6,7 +6,7 @@ import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useSession } from "next-auth/react";
 
-import { ModalXL } from "../../../styles/LayoutStyles";
+import { ModalXL } from "../../../styles/layout/modal";
 import { PlazaContentVoteListModal } from "./PlazaContentVoteListModal";
 
 import { usePlazaMutation } from "../../../hooks/plaza/mutations";

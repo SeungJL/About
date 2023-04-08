@@ -29,7 +29,7 @@ import { useEffect, useRef, useState } from "react";
 import Logo from "../components/block/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 import styled from "styled-components";
-import { ModalXs } from "../styles/LayoutStyles";
+import { ModalXs } from "../styles/layout/modal";
 import ModalPortal from "../components/ModalPortal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
@@ -166,10 +166,10 @@ const Login: NextPage<{
 const GuestModal = ({ setIsModal }) => {
   return (
     <Modal>
-      <ModalHeader>
+      <ModalHeaderLine>
         <Title>게스트 로그인</Title>
         <FontAwesomeIcon icon={faX} onClick={() => setIsModal(false)} />
-      </ModalHeader>
+      </ModalHeaderLine>
       <Content>
         이 기능은 동아리 외부인을 위한 기능으로, 해당 동아리 소속의 인원은
         카카오 로그인을 이용해주시기 바랍니다.
@@ -191,7 +191,7 @@ const Title = styled.div`
   font-size: 15px;
   font-weight: 600;
 `;
-const ModalHeader = styled.header`
+const ModalHeaderLine = styled.header`
   display: flex;
   justify-content: space-between;
 `;

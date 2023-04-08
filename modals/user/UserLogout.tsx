@@ -1,7 +1,7 @@
 import { signOut } from "next-auth/react";
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
-import { ModalXs } from "../../styles/LayoutStyles";
+import { ModalXs } from "../../styles/layout/modal";
 
 export default function UserLogout({
   setIsModal,

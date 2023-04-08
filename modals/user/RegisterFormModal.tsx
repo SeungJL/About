@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
+import { ModalMd, FullScreen } from "../../styles/layout/modal";
 import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
 
 import { useRegisterMutation } from "../../hooks/vote/mutations";
@@ -162,7 +162,7 @@ function RegisterFormModal({
   );
 }
 
-const ModalLayout = styled(ModalLg)`
+const ModalLayout = styled(ModalMd)`
   width: 320px;
   height: 340px;
   padding: 22px;

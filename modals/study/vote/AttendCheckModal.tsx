@@ -15,7 +15,7 @@ import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday } from "../../../libs/utils/dateUtils";
 import { mySpaceFixedState, voteDateState } from "../../../recoil/studyAtoms";
 
-import { ModalFooterNav, ModalLg } from "../../../styles/LayoutStyles";
+import { ModalFooterNav, ModalMd } from "../../../styles/layout/modal";
 import { IPlace } from "../../../types/studyDetails";
 
 const LOCATE_GAP = 0.00008;
@@ -142,7 +142,7 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Layout = styled(ModalLg)`
+const Layout = styled(ModalMd)`
   padding: 15px;
   display: flex;
   flex-direction: column;

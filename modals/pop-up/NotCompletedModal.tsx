@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isShowNotCompletedState } from "../../recoil/utilityAtoms";
 
-import { ModalLg, FullScreen } from "../../styles/LayoutStyles";
+import { ModalMd, FullScreen } from "../../styles/layout/modal";
 
 function NotCompletedModal() {
   const setIsNotCompletedState = useSetRecoilState(isShowNotCompletedState);
@@ -20,7 +20,7 @@ function NotCompletedModal() {
   );
 }
 
-const ModalLayout = styled(ModalLg)`
+const ModalLayout = styled(ModalMd)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

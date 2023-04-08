@@ -18,7 +18,7 @@ import {
   PopoverCloseButton,
 } from "@chakra-ui/react";
 
-import { ModalXL } from "../../styles/LayoutStyles";
+import { ModalXL } from "../../styles/layout/modal";
 
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import { useScoreMutation } from "../../hooks/user/mutations";

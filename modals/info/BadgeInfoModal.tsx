@@ -3,7 +3,7 @@ import { Badge, useTheme } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { ModalXXL } from "../../styles/LayoutStyles";
+import { ModalXXL } from "../../styles/layout/modal";
 
 export default function BadgeInfoModal({
   setIsModal,
