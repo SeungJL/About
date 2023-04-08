@@ -15,13 +15,20 @@ import { useRecoilState } from "recoil";
 import { isNoticeAlertState } from "../../../recoil/utilityAtoms";
 
 import { NOTICE_ALERT } from "../../../constants/localStorage";
+import { useSession } from "next-auth/react";
+import { useToast } from "@chakra-ui/react";
+import UserLogout from "../../../modals/user/UserLogout";
 
 export default function Header() {
   const router = useRouter();
+  const toast = useToast();
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
 
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   const [isRule, setIsRule] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
+  const [isLogout, setIsLogout] = useState(false);
 
   const onClickedNotice = () => {
     router.push(`/notice`);
@@ -31,6 +38,13 @@ export default function Header() {
     }
   };
 
+  const onClickUser = () => {
+    if (isGuest) {
+      setIsLogout(true);
+      return;
+    }
+    router.push(`/user`);
+  };
   return (
     <>
       <Layout>
@@ -60,11 +74,7 @@ export default function Header() {
             {isNoticeAlert && <IconAlert />}
           </IconWrapper>
           <IconWrapper>
-            <FontAwesomeIcon
-              icon={faUser}
-              size="xl"
-              onClick={() => router.push(`/user`)}
-            />
+            <FontAwesomeIcon icon={faUser} size="xl" onClick={onClickUser} />
           </IconWrapper>
         </Nav>
       </Layout>
@@ -77,6 +87,11 @@ export default function Header() {
         {isDrawer && (
           <ModalPortal setIsModal={setIsDrawer}>
             <Drawer isDrawer={isDrawer} setIsDrawer={setIsDrawer} />
+          </ModalPortal>
+        )}
+        {isLogout && (
+          <ModalPortal setIsModal={setIsLogout}>
+            <UserLogout setIsModal={setIsLogout} />
           </ModalPortal>
         )}
       </>

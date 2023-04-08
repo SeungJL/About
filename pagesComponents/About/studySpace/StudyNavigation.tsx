@@ -26,6 +26,7 @@ import { VOTE_GET } from "../../../libs/queryKeys";
 import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
 import AttendCheckModal from "../../../modals/study/vote/AttendCheckModal";
+import { useSession } from "next-auth/react";
 
 function StudyNavigation({
   myVote,
@@ -36,6 +37,9 @@ function StudyNavigation({
   place: IPlace;
   status: IPlaceStatusType;
 }) {
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
+
   const toast = useToast();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -70,22 +74,40 @@ function StudyNavigation({
     },
   });
 
-  const onAbsentToday = () => {
-    setIsCancelModal(true);
-  };
-
-  const onCancelCliked = () => {
-    if (mySpaceFixed) {
+  const onBtnClicked = (type = "string") => {
+    if (isGuest) {
       toast({
-        title: "오류",
-        description: "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!",
+        title: "버튼 동작 실패",
+        description: "게스트에게는 허용되지 않는 기능입니다.",
         status: "error",
         duration: 5000,
         isClosable: true,
         position: "bottom",
       });
-    } else {
-      handleAbsent();
+      return;
+    }
+    if (type === "cancel") {
+      if (mySpaceFixed) {
+        toast({
+          title: "오류",
+          description: "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      } else {
+        handleAbsent();
+      }
+    }
+    if (type === "change") {
+      setIsChangeModal(true);
+    }
+    if (type === "absent") {
+      setIsCancelModal(true);
+    }
+    if (type === "main") {
+      myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
     }
   };
 
@@ -104,15 +126,15 @@ function StudyNavigation({
       ) : studyDate === "today" ? (
         <Layout>
           <SubNav>
-            <Button onClick={onCancelCliked}>
+            <Button onClick={() => onBtnClicked("cancel")}>
               <FontAwesomeIcon icon={faCircleXmark} size="xl" />
               <span>투표 취소</span>
             </Button>
-            <Button onClick={() => setIsChangeModal(true)}>
+            <Button onClick={() => onBtnClicked("change")}>
               <FontAwesomeIcon icon={faClock} size="xl" />
               <span>시간 변경</span>
             </Button>
-            <Button onClick={onAbsentToday}>
+            <Button onClick={() => onBtnClicked("absent")}>
               <FontAwesomeIcon icon={faBan} size="xl" />
               <span>당일 불참</span>
             </Button>
@@ -120,11 +142,9 @@ function StudyNavigation({
           <MainButton
             disabled={Boolean(myVote?.arrived)}
             func={!myVote?.arrived}
-            onClick={
-              myVote?.firstChoice
-                ? () => setIsCheckModal(true)
-                : () => setIsVoteModal(true)
-            }
+            onClick={() => {
+              onBtnClicked("main");
+            }}
           >
             <span>
               {myVote?.arrived
@@ -146,7 +166,7 @@ function StudyNavigation({
               <FontAwesomeIcon icon={faClock} size="xl" />
               <span>시간 변경</span>
             </Button>
-            <Button onClick={onAbsentToday}>
+            <Button onClick={() => onBtnClicked("absent")}>
               <FontAwesomeIcon icon={faBan} size="xl" />
               <span>당일 불참</span>
             </Button>
