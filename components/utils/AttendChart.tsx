@@ -9,6 +9,7 @@ import { getMonth } from "../../libs/utils/dateUtils";
 
 import { IUser } from "../../types/user";
 import { CHART_MONTH_RANGE } from "../../constants/range";
+import { useEffect, useState } from "react";
 
 const MONTH_LIST = [
   "1월",
@@ -36,14 +37,19 @@ export default function AttendChart({
   const { data: session } = useSession();
 
   const name = type === "main" ? session?.user.name : user?.name;
+  const text = type === "modal" ? undefined : "내 스터디 참여";
 
   const monthXaxis = [];
-  for (let i = Number(getMonth()) - 2; i <= Number(getMonth()) + 1; i++) {
+  for (let i = Number(getMonth()) - 2; i <= Number(getMonth()) + 1; i++)
     monthXaxis.push(MONTH_LIST[i]);
-  }
+
+  const [voteAverageArr, setVoteAverageArr] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const attendCountTotal = useAttendRateQueries(CHART_MONTH_RANGE);
   const voteCountTotal = useVoteRateQueries(CHART_MONTH_RANGE);
+
+  const isVoteLoading = voteCountTotal.some((result) => result.isLoading);
 
   const getDataArray = (name, queryResult) =>
     queryResult
@@ -56,22 +62,31 @@ export default function AttendChart({
       })
       .concat(null);
 
-  const isLoading = voteCountTotal.some((result) => result.isLoading);
-
-  const voteAverageArr = voteCountTotal?.map((month) => {
-    let userCnt = 0;
-    return Math.round(
-      month?.data?.reduce((acc, cur) => {
-        if (cur.cnt !== 0) userCnt++;
-        return acc + cur.cnt;
-      }, 0) /
-        (userCnt + 5)
-    );
-  });
+  useEffect(() => {
+    const newVoteAverageArr = voteCountTotal?.map((month) => {
+      let userCnt = 0;
+      return Math.round(
+        month?.data?.reduce((acc, cur) => {
+          if (cur.cnt !== 0) userCnt++;
+          return acc + cur.cnt;
+        }, 0) /
+          (userCnt + 5)
+      );
+    });
+    setVoteAverageArr(newVoteAverageArr);
+    if (newVoteAverageArr && myAttendCountTotal) setIsLoading(false);
+    else setIsLoading(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVoteLoading]);
 
   const myAttendCountTotal = getDataArray(name, attendCountTotal);
 
-  const text = type === "modal" ? undefined : "내 스터디 참여";
+  let yMax = 5;
+  if (myAttendCountTotal) {
+    myAttendCountTotal.forEach((cnt) => {
+      if (cnt > 5) yMax = 10;
+    });
+  }
 
   return (
     <div>
@@ -109,7 +124,7 @@ export default function AttendChart({
             },
             yaxis: {
               min: 0,
-              max: 5,
+              max: yMax,
               forceNiceScale: true,
             },
           }}
@@ -149,7 +164,7 @@ export default function AttendChart({
             },
             yaxis: {
               min: 0,
-              max: 5,
+              max: yMax,
               forceNiceScale: true,
             },
 
