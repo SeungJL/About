@@ -79,7 +79,7 @@ export default function AttendChart({
         <ApexCharts
           type="line"
           series={[
-            { name: "스터디 투표", data: isLoading ? [] : voteAverageArr },
+            { name: "평균 참여율", data: isLoading ? [] : voteAverageArr },
             { name: "스터디 참여", data: isLoading ? [] : myAttendCountTotal },
           ]}
           options={{
@@ -106,6 +106,11 @@ export default function AttendChart({
 
             xaxis: {
               categories: monthXaxis,
+            },
+            yaxis: {
+              min: 0,
+              max: 5,
+              forceNiceScale: true,
             },
           }}
         />
