@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import ProfileFormModal from "../../modals/user/ModifyUserInfoModal";
+import ProfileFormModal from "../../modals/user/ProfileModifyModal";
 
-import SuggestModal from "../../modals/write/SuggestModal";
+import SuggestModal from "../../modals/user/SuggestModal";
 import { useSession } from "next-auth/react";
 import ModalPortal from "../../components/ModalPortal";
 

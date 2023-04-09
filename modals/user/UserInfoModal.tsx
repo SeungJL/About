@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Badge } from "@chakra-ui/react";
 import Image from "next/image";
 
-import { ModalSm } from "../../styles/layout/modal";
+import { ModalLgLight } from "../../styles/layout/modal";
 import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
 import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
 import AttendChart from "../../components/utils/AttendChart";
@@ -119,28 +119,17 @@ export default function UserInfoModal({
     </>
   );
 }
-const Layout = styled(ModalSm)`
-  background-color: white;
-  border: 2px solid rgb(0, 0, 0, 0.4);
-  position: fixed;
-  top: 50%;
-  padding: 10px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-  border-radius: 17px;
-  display: flex;
-  flex-direction: column;
-`;
+const Layout = styled(ModalLgLight)``;
+
 const UpPart = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 `;
 const UserImage = styled.div`
   width: 72px;
   height: 72px;
-  border-radius: 17px;
+  border-radius: 16px;
   overflow: hidden;
 `;
 const UserInfo = styled.div`
@@ -154,7 +143,7 @@ const UserRelNav = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 10px;
 `;
 const Button = styled.button<{ selected: boolean }>`
   width: 70px;

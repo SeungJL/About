@@ -6,7 +6,7 @@ import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useSession } from "next-auth/react";
 
-import { ModalXL } from "../../../styles/layout/modal";
+import { ModalLg } from "../../../styles/layout/modal";
 import { PlazaContentVoteListModal } from "./PlazaContentVoteListModal";
 
 import { usePlazaMutation } from "../../../hooks/plaza/mutations";
@@ -146,7 +146,7 @@ const DeleteIcon = styled.button.attrs((props) => ({
   type: "button",
 }))``;
 
-const Layout = styled(ModalXL)`
+const Layout = styled(ModalLg)`
   > button:last-child {
     width: 60px;
     height: 25px;

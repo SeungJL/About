@@ -25,7 +25,7 @@ import { VOTE_GET } from "../../../libs/queryKeys";
 import { IplaceInfo } from "../../../types/statistics";
 import { ITimeStartToEndHM } from "../../../types/utils";
 import { IVoteInfo } from "../../../types/studyDetails";
-import { ModalHeader } from "../../../components/Layout/Component";
+import { ModalHeaderX } from "../../../components/Layout/Component";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -126,7 +126,7 @@ function VoteStudyModal({
   return (
     <>
       <Layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <ModalHeader
+        <ModalHeaderX
           title={voteDate.format("M월 DD일 스터디 투표")}
           setIsModal={setIsShowModal}
         />
@@ -224,20 +224,20 @@ const PageNav = styled.nav`
   margin-top: auto;
   text-align: end;
 
-  > button {
+  /* > button {
     font-size: 14px;
     color: var(--font-h1);
     margin-left: 14px;
     margin-right: 10px;
     font-weight: 600;
-  }
+  } */
 `;
 
 const SubmitNav = styled.nav`
   margin-top: auto;
   text-align: end;
 
-  > button {
+  /* > button {
     width: 60px;
     font-size: 14px;
     color: var(--font-h1);
@@ -249,7 +249,7 @@ const SubmitNav = styled.nav`
   > button:last-child {
     color: white;
     background-color: var(--color-red);
-  }
+  } */
 `;
 
 const Error = styled.span`

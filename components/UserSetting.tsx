@@ -11,6 +11,7 @@ import { numOfUserState } from "../recoil/userAtoms";
 
 import { NOTICE_ALERT } from "../constants/localStorage";
 import { IUser } from "../types/user";
+import { useActiveQuery } from "../hooks/user/queries";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
@@ -20,10 +21,14 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const [isRegisterModal, setIsRegisterModal] = useState(false);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
 
+  const user = useActiveQuery().data;
+
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
-    if (session?.isActive === null || session?.isActive === false)
-      setIsRegisterModal(true);
+    if (!user?.registerDate) setIsRegisterModal(true);
+    else {
+      setIsRegisterModal(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 

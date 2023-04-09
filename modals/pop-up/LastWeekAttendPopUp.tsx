@@ -7,7 +7,7 @@ import styled from "styled-components";
 import {
   ModalHeaderLine,
   ModalMd,
-  ModalSm,
+  ModalLgLight,
   ModalXs,
 } from "../../styles/layout/modal";
 

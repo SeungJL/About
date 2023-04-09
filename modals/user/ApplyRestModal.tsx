@@ -7,9 +7,10 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
-import { ModalXL } from "../../styles/layout/modal";
+import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { IApplyRest } from "../../types/userAction";
+import { ModalHeaderXLine } from "../../components/Layout/Component";
 
 function ApplyRestModal({
   setIsModal,
@@ -55,89 +56,66 @@ function ApplyRestModal({
   };
   return (
     <Layout>
-      <Header>
-        <span>휴식신청</span>
-        <FontAwesomeIcon icon={faXmark} onClick={() => setIsModal(false)} />
-      </Header>
+      <ModalHeaderXLine title="휴식신청" setIsModal={setIsModal} />
+      <ModalMain>
+        <Form onSubmit={handleSubmit(onValid)} id="rest">
+          <Item>
+            <span>이름:</span>
+            <span>{session?.user.name}</span>
+          </Item>
+          <Item>
+            <span>타입:</span>
+            <TypeSelect {...register("type")}>
+              <option value="일반휴식">일반 휴식</option>
+              <option value="특별휴식">특별 휴식</option>
+            </TypeSelect>
+          </Item>
+          <Item>
+            <span>기간:</span>
+            <DateInput type="date" {...register("startDate")} />
+            <DateInput
+              type="date"
+              {...register("endDate", {
+                max: {
+                  value: maxEndDate(),
+                  message: "2개월 이내로 선택하세요",
+                },
+              })}
+            />
+          </Item>
 
-      <Form onSubmit={handleSubmit(onValid)}>
-        <InputItem>
-          <span>이름:</span>
-          <span>{session?.user.name}</span>
-        </InputItem>
-        <InputItem>
-          <span>타입:</span>
-          <select {...register("type")}>
-            <option value="일반휴식">일반 휴식</option>
-            <option value="특별휴식">특별 휴식</option>
-          </select>
-        </InputItem>
-        <InputItem>
-          <span>휴식 기간</span>
-          <DateInput type="date" {...register("startDate")} />
-          <DateInput
-            type="date"
-            {...register("endDate", {
-              max: { value: maxEndDate(), message: "2개월 이내로 선택하세요" },
-            })}
-          />
-        </InputItem>
-        <ErrorMessage>{errors?.endDate?.message}</ErrorMessage>
-        <Content>
-          <span>사유</span>
-          <textarea {...register("content")}></textarea>
-        </Content>
-
-        <Footer>
-          <button type="button" onClick={() => setIsModal(false)}>
-            취소
-          </button>
-          <button type="submit">제출</button>
-        </Footer>
-      </Form>
+          <Item>
+            <Reason>사유:</Reason>
+            <Textarea {...register("content")}></Textarea>
+          </Item>
+        </Form>
+      </ModalMain>
+      <ModalFooterNav>
+        {/* <button type="button" onClick={() => setIsModal(false)}>
+          취소
+        </button>
+        <button type="submit" form="rest">
+          제출
+        </button> */}
+        <NoUse>비활성화 중입니다. 관리자에게 연락주세요!</NoUse>
+      </ModalFooterNav>
     </Layout>
   );
 }
 
-const Layout = styled(ModalXL)`
-  padding: 12px 16px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--font-h5);
-  padding-bottom: 6px;
-  > span {
-    font-size: 16px;
-    font-weight: 600;
-  }
-`;
+const Layout = styled(ModalLg)``;
 
 const Form = styled.form`
   display: flex;
   height: 100%;
   flex-direction: column;
-  margin-top: 6px;
-`;
-const InputItem = styled.div`
-  height: 20px;
-  display: flex;
-  margin: 5px 0;
-
-  > span:first-child {
-    font-size: 14px;
-    width: 20%;
-  }
-  > select {
-    background-color: var(--font-h7);
+  > div:last-child {
+    flex: 1;
   }
 `;
 
 const DateInput = styled.input`
-  width: 35%;
+  width: 30%;
   background-color: var(--font-h7);
   margin-right: 12px;
 `;
@@ -146,47 +124,43 @@ const ErrorMessage = styled.div`
   height: 16px;
   color: var(--color-red);
 `;
-const Content = styled.div`
-  flex: 1;
+
+const TypeSelect = styled.select`
+  background-color: var(--font-h7);
+`;
+
+const Item = styled.div`
   display: flex;
-  margin-top: 8px;
+  min-height: 28px;
+  margin-bottom: 12px;
+  align-items: center;
+
   > span {
-    width: 20%;
+    display: inline-block;
+    min-width: 20%;
+    font-weight: 600;
+    color: var(--font-h2);
   }
-  > textarea {
-    width: 80%;
+  > input {
     height: 90%;
-    background-color: var(--font-h7);
+    flex: 1;
   }
 `;
 
-const Message = styled.div``;
+const Reason = styled.span`
+  margin-bottom: auto;
+`;
 
-const Footer = styled.footer`
-  display: flex;
+const Textarea = styled.textarea`
+  margin-top: 5px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--font-h7);
+`;
 
-  align-items: flex-end;
-  justify-content: end;
-  text-align: end;
-  > button:first-child {
-    margin-right: 3px;
-    background-color: var(--color-red);
-    color: white;
-    width: 56px;
-    height: 25px;
-
-    border-radius: 15px;
-  }
-  > button:last-child {
-    display: inline-block;
-    text-align: center;
-    margin-left: 12px;
-    margin-right: 4px;
-    font-weight: 600;
-    font-size: 15px;
-
-    color: var(--color-red);
-  }
+const NoUse = styled.span`
+  font-weight: 600;
 `;
 
 export default ApplyRestModal;

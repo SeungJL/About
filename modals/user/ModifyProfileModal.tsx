@@ -1,70 +1,46 @@
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
+import { useState } from "react";
 import { Toast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { Dispatch, SetStateAction, useState } from "react";
 
-import {
-  ModalMd,
-  ModalMain,
-  FullScreen,
-  ModalLg,
-  ModalHeaderLine,
-} from "../../styles/layout/modal";
-import { PrivacyPolicy } from "../../storage/PrivacyPolicy";
+import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { useRegisterMutation } from "../../hooks/vote/mutations";
-import { now } from "../../libs/utils/dateUtils";
+import { useActiveQuery } from "../../hooks/user/queries";
 
 import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
+import { ModalHeaderXLine } from "../../components/Layout/Component";
 
-function RegisterFormModal({
-  setIsModal,
-}: {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+function ProfileModifyModal({ setIsModal }) {
   const { data: session } = useSession();
 
   const [isMan, setIsMan] = useState(true);
-  const [isPrivacyModal, setIsPrivacyModal] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IRegisterForm>({
-    defaultValues: {
-      registerDate: `${now().format("YYYY-MM-DD")}`,
-      name: "",
-      mbti: "",
-      birth: "",
-      agree: "",
-    },
-  });
-
-  const { mutate: handleRegister } = useRegisterMutation({
-    onSuccess: async (data: IUser) => {
-      setIsModal(false);
-    },
-    onError: (err) => {
-      Toast({
-        title: "오류",
-        description: "참여 취소 신청 중 문제가 발생했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    },
-  });
+  const user = useActiveQuery().data;
+  console.log(user);
+  const { mutate: handleRegister, isLoading: isRegisterLoading } =
+    useRegisterMutation({
+      onSuccess: async (data: IUser) => {
+        session.user.name = data.name;
+        setIsModal(false);
+      },
+      onError: (err) => {
+        Toast({
+          title: "오류",
+          description: "참여 취소 신청 중 문제가 발생했어요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      },
+    });
 
   const onValid = (data: IRegisterForm) => {
     const userInfo: IUserRegister = {
-      name: session?.user.name,
+      name: data.name,
       registerDate: data.registerDate,
-      role: "member",
-      isActive: true,
       birth: data.birth,
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
@@ -74,12 +50,29 @@ function RegisterFormModal({
     setIsModal(false);
   };
 
+  const onCancelBtnClicked = () => {
+    setIsModal(false);
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IRegisterForm>({
+    defaultValues: {
+      registerDate: user.registerDate,
+      name: user.name,
+      mbti: user.mbti,
+      birth: user.birth,
+      agree: "",
+    },
+  });
+
   return (
     <>
       <Layout>
-        <ModalHeaderLine>회원가입</ModalHeaderLine>
+        <ModalHeaderXLine title="프로필 수정" setIsModal={setIsModal} />
         <ModalMain>
-          <Form onSubmit={handleSubmit(onValid)} id="register">
+          <Form onSubmit={handleSubmit(onValid)} id="modifyProfile">
             <Item>
               <span>이름: </span>
               <span>{session?.user.name}</span>
@@ -132,29 +125,17 @@ function RegisterFormModal({
             <ErrorMessage>{errors?.mbti?.message}</ErrorMessage>
           </Form>
         </ModalMain>
-        <Footer>
-          <div>
-            <Button type="button" onClick={() => setIsPrivacyModal(true)}>
-              약관
-            </Button>
-            <Agree>
-              <span>동의</span>
-              <input
-                type="checkbox"
-                {...register("agree", { required: "필수체크" })}
-              />
-            </Agree>
-          </div>
-          <SubmitButton type="submit" form="register">
+        <ModalFooterNav>
+          <button onClick={onCancelBtnClicked}>취소</button>
+          <button type="submit" form="modifyProfile">
             제출
-          </SubmitButton>
-        </Footer>
+          </button>
+        </ModalFooterNav>
       </Layout>
-      <FullScreen />
-      {isPrivacyModal && <PrivacyPolicy setIsModal={setIsPrivacyModal} />}
     </>
   );
 }
+export default ProfileModifyModal;
 
 const Layout = styled(ModalLg)``;
 
@@ -166,7 +147,6 @@ const Form = styled.form`
     flex: 1;
   }
 `;
-
 const Item = styled.div`
   display: flex;
   min-height: 28px;
@@ -198,50 +178,11 @@ const Gender = styled.nav`
     margin-right: 12px;
   }
 `;
-const GenderBtn = styled.div<{ isSelected: boolean }>`
+const GenderBtn = styled.button<{ isSelected: boolean }>`
   font-size: 12px;
   width: 36px;
-  text-align: center;
   height: 18px;
   background-color: ${(props) =>
     props.isSelected ? "var(--color-red)" : "var(--font-h6)"};
   color: ${(props) => (props.isSelected ? "white" : "var(--font-h1)")};
 `;
-
-const Footer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  > div:first-child {
-    display: flex;
-    align-items: center;
-  }
-`;
-const Agree = styled.div`
-  display: flex;
-  align-items: center;
-  > span {
-    margin: 0 7px;
-    font-size: 13px;
-    font-weight: 600;
-  }
-`;
-
-const Button = styled.button`
-  margin-right: 8px;
-  border-radius: 14px;
-  font-size: 12px;
-  color: var(--font-h2);
-  font-weight: 600;
-  background-color: var(--font-h6);
-  padding: 1px 8px;
-  margin-top: 1px;
-`;
-
-const SubmitButton = styled.button`
-  color: var(--color-red);
-  margin-right: 3px;
-  font-weight: 600;
-`;
-
-export default RegisterFormModal;

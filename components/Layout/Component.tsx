@@ -8,18 +8,42 @@ interface IModalHeader {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export const ModalHeader = ({ title, setIsModal }: IModalHeader) => (
-  <ModalHeaderLayout>
+export const ModalHeaderX = ({ title, setIsModal }: IModalHeader) => (
+  <ModalHeaderXLayout>
     <span>{title}</span>
     <div onClick={() => setIsModal(false)}>
       <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
     </div>
-  </ModalHeaderLayout>
+  </ModalHeaderXLayout>
 );
 
-const ModalHeaderLayout = styled.div`
+const ModalHeaderXLayout = styled.div`
   display: flex;
   justify-content: space-between;
+  > span {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--font-h1);
+  }
+  > div {
+    margin-right: 2px;
+  }
+`;
+
+export const ModalHeaderXLine = ({ title, setIsModal }: IModalHeader) => (
+  <ModalHeaderXLineLayout>
+    <span>{title}</span>
+    <div onClick={() => setIsModal(false)}>
+      <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
+    </div>
+  </ModalHeaderXLineLayout>
+);
+const ModalHeaderXLineLayout = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  padding-bottom: 12px;
+  border-bottom: var(--border-headline);
   > span {
     font-size: 16px;
     font-weight: 600;

@@ -14,37 +14,20 @@ export const FullScreen = styled.div`
   z-index: 10;
   top: 0;
 `;
-
-export const ModalSm = styled.div`
-  background-color: white;
-  border: 2px solid rgb(0, 0, 0, 0.4);
-  position: fixed;
-  width: 280px;
-  height: 328px;
-  top: 50%;
-  padding: 10px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  border-radius: 16px;
-`;
 export const ModalXs = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px;
   background-color: white;
-  width: 80%;
-  height: 240px;
+  width: var(--width-80);
+  height: var(--height-sm);
   border-radius: 10px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
+  box-shadow: var(--box-shadow);
 `;
 
 export const ModalMd = styled.div`
@@ -52,45 +35,62 @@ export const ModalMd = styled.div`
   flex-direction: column;
   padding: 16px;
   background-color: white;
-  width: 90%;
-  height: 240px;
+  width: var(--width-90);
+  height: var(--height-sm);
   border-radius: 10px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
+  box-shadow: var(--box-shadow);
 `;
-export const ModalXL = styled.div`
+
+export const ModalLgLight = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
   background-color: white;
-  border: 2px solid rgb(0, 0, 0, 0.4);
+  width: var(--width-80);
+  height: var(--height-md);
+  border-radius: 10px;
   position: fixed;
-  width: 344px;
-  height: 360px;
   top: 50%;
-  padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
+  box-shadow: var(--box-shadow);
+`;
+export const ModalLg = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
+  padding: 16px;
+  background-color: white;
+  width: var(--width-90);
+  height: var(--height-md);
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  box-shadow: var(--box-shadow);
 `;
 
 export const ModalXXL = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
-  width: 90%;
+  width: var(--width-90);
   height: 500px;
   top: 50%;
-  padding: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
 
   z-index: 20;
-  display: flex;
-  flex-direction: column;
   border-radius: 16px;
 `;
 
