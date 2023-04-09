@@ -43,13 +43,14 @@ export default function AttendChart({
   for (let i = Number(getMonth()) - 2; i <= Number(getMonth()) + 1; i++)
     monthXaxis.push(MONTH_LIST[i]);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [voteAverageArr, setVoteAverageArr] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [myAttendCountTotal, setMyAttendCountTotal] = useState([]);
   const attendCountTotal = useAttendRateQueries(CHART_MONTH_RANGE);
   const voteCountTotal = useVoteRateQueries(CHART_MONTH_RANGE);
 
   const isVoteLoading = voteCountTotal.some((result) => result.isLoading);
+  const isAttendLoading = attendCountTotal.some((result) => result.isLoading);
 
   const getDataArray = (name, queryResult) =>
     queryResult
@@ -63,23 +64,28 @@ export default function AttendChart({
       .concat(null);
 
   useEffect(() => {
-    const newVoteAverageArr = voteCountTotal?.map((month) => {
-      let userCnt = 0;
-      return Math.round(
-        month?.data?.reduce((acc, cur) => {
-          if (cur.cnt !== 0) userCnt++;
-          return acc + cur.cnt;
-        }, 0) /
-          (userCnt + 5)
-      );
-    });
-    setVoteAverageArr(newVoteAverageArr);
-    if (newVoteAverageArr && myAttendCountTotal) setIsLoading(false);
+    let tempLoading = true;
+    if (!isVoteLoading) {
+      const newVoteAverageArr = voteCountTotal?.map((month) => {
+        let userCnt = 0;
+        return Math.round(
+          month?.data?.reduce((acc, cur) => {
+            if (cur.cnt !== 0) userCnt++;
+            return acc + cur.cnt;
+          }, 0) /
+            (userCnt + 5)
+        );
+      });
+      setVoteAverageArr(newVoteAverageArr);
+      tempLoading = false;
+    } else tempLoading = true;
+    if (!isAttendLoading) {
+      setMyAttendCountTotal(getDataArray(name, attendCountTotal));
+    } else tempLoading = true;
+    if (!tempLoading) setIsLoading(false);
     else setIsLoading(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVoteLoading]);
-
-  const myAttendCountTotal = getDataArray(name, attendCountTotal);
+  }, [isVoteLoading, isAttendLoading]);
 
   let yMax = 5;
   if (myAttendCountTotal) {
@@ -87,7 +93,7 @@ export default function AttendChart({
       if (cnt > 5) yMax = 10;
     });
   }
-
+  console.log(isLoading);
   return (
     <div>
       {type === "main" && !isLoading ? (
