@@ -97,7 +97,7 @@ export const confirm = async (dateStr: string) => {
             failure.has(attendance.user.toString())
           ) {
             attendance.firstChoice = true;
-            failure.delete(attendance.user);
+            failure.delete(attendance.user.toString());
           }
         });
       }
