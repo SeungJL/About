@@ -29,8 +29,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
     else {
       setIsRegisterModal(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  }, [session, user?.registerDate]);
 
   useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
