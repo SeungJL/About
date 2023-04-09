@@ -5,11 +5,11 @@ import React from "react";
 import styled from "styled-components";
 
 import {
-  ModalHeaderTitle,
-  ModalLg,
-  ModalSm,
+  ModalHeaderLine,
+  ModalMd,
+  ModalLgLight,
   ModalXs,
-} from "../../styles/LayoutStyles";
+} from "../../styles/layout/modal";
 
 import {
   useParticipationRateQuery,

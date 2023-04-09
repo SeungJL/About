@@ -6,7 +6,11 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { motion } from "framer-motion";
 
-import { ModalLg } from "../../../styles/LayoutStyles";
+import {
+  ModalFooterNav,
+  ModalMain,
+  ModalMd,
+} from "../../../styles/layout/modal";
 
 import { useRecoilValue } from "recoil";
 import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
@@ -21,6 +25,7 @@ import { VOTE_GET } from "../../../libs/queryKeys";
 import { IplaceInfo } from "../../../types/statistics";
 import { ITimeStartToEndHM } from "../../../types/utils";
 import { IVoteInfo } from "../../../types/studyDetails";
+import { ModalHeaderX } from "../../../components/Layout/Component";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -121,69 +126,64 @@ function VoteStudyModal({
   return (
     <>
       <Layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <Header>
-          <span>{voteDate.format("M월 DD일 스터디 투표")}</span>
-          <div onClick={() => setIsShowModal(false)}>
-            <FontAwesomeIcon icon={faXmark} />
-          </div>
-        </Header>
-
+        <ModalHeaderX
+          title={voteDate.format("M월 DD일 스터디 투표")}
+          setIsModal={setIsShowModal}
+        />
         {page === 0 ? (
           <>
-            <Main>
-              <span>1지망 선택</span>
-              <SpacePage>
-                <PlaceSelector
-                  placeInfoArr={placeInfoArr}
-                  isSelectUnit={true}
-                  firstPlace={firstPlace}
-                  setSelectedPlace={setFirstPlace}
-                />
-              </SpacePage>
-            </Main>
-            <PageNav>
+            <ModalMain>
+              <Subtitle>1지망 선택</Subtitle>
+              <PlaceSelector
+                placeInfoArr={placeInfoArr}
+                isSelectUnit={true}
+                firstPlace={firstPlace}
+                setSelectedPlace={setFirstPlace}
+              />
+            </ModalMain>
+            <ModalFooterNav>
               <Error>{errorMessage}</Error>
               <button onClick={firstSubmit}>다음</button>
-            </PageNav>
+            </ModalFooterNav>
           </>
         ) : page === 1 ? (
           <>
-            <Main>
-              <span>2지망 선택</span>
-              <SpacePage>
-                <PlaceSelector
-                  placeInfoArr={placeInfoArr}
-                  isSelectUnit={false}
-                  firstPlace={firstPlace}
-                  secondPlaces={secondPlaces}
-                  setSelectedPlace={setSecondPlaces}
-                />
-              </SpacePage>
-            </Main>
-            <PageNav>
+            <ModalMain>
+              <Subtitle>2지망 선택</Subtitle>
+              <PlaceSelector
+                placeInfoArr={placeInfoArr}
+                isSelectUnit={false}
+                firstPlace={firstPlace}
+                secondPlaces={secondPlaces}
+                setSelectedPlace={setSecondPlaces}
+              />
+            </ModalMain>
+            <ModalFooterNav>
               <button onClick={() => setPage(0)}>뒤로가기</button>
               <button onClick={() => setPage(2)}>다음</button>
-            </PageNav>
+            </ModalFooterNav>
           </>
         ) : (
           <>
-            <Time>
-              <TimeSelector
-                setTimes={({ start, end }: ITimeStartToEndHM) => {
-                  if (start) {
-                    setTime({ end: time.end, start });
-                  }
-                  if (end) {
-                    setTime({ start: time.start, end });
-                  }
-                }}
-                times={time}
-              />
-            </Time>
-            <SubmitNav>
+            <ModalMain>
+              <TimeWrapper>
+                <TimeSelector
+                  setTimes={({ start, end }: ITimeStartToEndHM) => {
+                    if (start) {
+                      setTime({ end: time.end, start });
+                    }
+                    if (end) {
+                      setTime({ start: time.start, end });
+                    }
+                  }}
+                  times={time}
+                />
+              </TimeWrapper>
+            </ModalMain>
+            <ModalFooterNav>
               <button onClick={() => setPage(1)}>뒤로가기</button>
               <button onClick={onSubmit}>제출</button>
-            </SubmitNav>
+            </ModalFooterNav>
           </>
         )}
       </Layout>
@@ -192,27 +192,19 @@ function VoteStudyModal({
 }
 export default VoteStudyModal;
 
-const Layout = styled(motion(ModalLg))`
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-`;
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  padding-right: 4px;
-  > span {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--font-h1);
-  }
+const Layout = styled(motion(ModalMd))``;
+
+const Subtitle = styled.div`
+  color: var(--font-h2);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+  margin-bottom: 8px;
 `;
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-
   > span {
     display: inline-block;
     color: var(--color-red);
@@ -222,26 +214,30 @@ const Main = styled.main`
   }
 `;
 
-const SpacePage = styled.div``;
+const TimeWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
 
 const PageNav = styled.nav`
   margin-top: auto;
   text-align: end;
 
-  > button {
+  /* > button {
     font-size: 14px;
     color: var(--font-h1);
     margin-left: 14px;
     margin-right: 10px;
     font-weight: 600;
-  }
+  } */
 `;
 
 const SubmitNav = styled.nav`
   margin-top: auto;
   text-align: end;
 
-  > button {
+  /* > button {
     width: 60px;
     font-size: 14px;
     color: var(--font-h1);
@@ -253,12 +249,12 @@ const SubmitNav = styled.nav`
   > button:last-child {
     color: white;
     background-color: var(--color-red);
-  }
+  } */
 `;
 
 const Error = styled.span`
   font-size: 13px;
-  margin-right: 8px;
+  margin-right: 16px;
   color: var(--color-red);
 `;
 

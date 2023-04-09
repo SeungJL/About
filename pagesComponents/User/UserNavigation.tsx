@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import ProfileFormModal from "../../modals/user/ModifyUserInfoModal";
-
-import SuggestModal from "../../modals/write/SuggestModal";
+import SuggestModal from "../../modals/user/SuggestModal";
 import { useSession } from "next-auth/react";
 import ModalPortal from "../../components/ModalPortal";
+import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
 
 export default function UserNavigation() {
   const [isShowProfileModal, setIsShowProfileModal] = useState(false);
@@ -26,7 +25,7 @@ export default function UserNavigation() {
       </Layout>
       {isShowProfileModal && (
         <ModalPortal setIsModal={setIsShowProfileModal}>
-          <ProfileFormModal setIsModal={setIsShowProfileModal} />
+          <ProfileModifyModal setIsModal={setIsShowProfileModal} />
         </ModalPortal>
       )}
       {isShowSuggest && (

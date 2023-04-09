@@ -30,6 +30,7 @@ const ItemBox = ({ name }: any) => {
   useEffect(() => {
     if (name !== category.name) setIsSelected(false);
     else setIsSelected(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
   const onCategoryClicked = () => {
     const status = name === category.name ? category.status : "";

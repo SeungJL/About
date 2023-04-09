@@ -34,10 +34,9 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
         position: "bottom",
       });
       return;
-    } 
-      if (type === "vote") setIsShowModal(true);
-      if ((type = "attend")) setIsAttendModal(true);
-    
+    }
+    if (type === "vote") setIsShowModal(true);
+    if (type === "attend") setIsAttendModal(true);
   };
   return (
     <>

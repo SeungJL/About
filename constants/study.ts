@@ -10,9 +10,12 @@ export const END_HOUR = 22;
 export const VOTE_START_HOUR = 14;
 export const VOTE_END_HOUR = 23;
 
-export const VOTE_HOUR_ARR = [
+export const STUDY_TIME_TABLE = [
   10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
 ];
+
+export const TIME_SELECTOR_START = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+export const TIME_SELECTOR_END = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
 export const STUDY_SPACE_INFO = [
   {

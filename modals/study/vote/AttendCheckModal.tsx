@@ -15,7 +15,13 @@ import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday } from "../../../libs/utils/dateUtils";
 import { mySpaceFixedState, voteDateState } from "../../../recoil/studyAtoms";
 
-import { ModalFooterNav, ModalLg } from "../../../styles/LayoutStyles";
+import {
+  ModalFooterNav,
+  ModalHeaderLine,
+  ModalMain,
+  ModalMd,
+  ModalSubtitle,
+} from "../../../styles/layout/modal";
 import { IPlace } from "../../../types/studyDetails";
 
 const LOCATE_GAP = 0.00008;
@@ -97,29 +103,29 @@ export default function AttendCheckModal({
   return (
     <Container>
       <Layout>
-        <Title>출석체크</Title>
-        <MainContent>
-          <div>
+        <ModalHeaderLine>출석체크</ModalHeaderLine>
+        <ModalMain>
+          <Content>
             도착하셨나요? <br />
             자리나 인상착의를 간단하게 남겨주세요!
-          </div>
+          </Content>
           <CommentBox>
             <form id="AttendCheckForm">
               <Input
-                placeholder="comment"
+                placeholder="여기에 작성해주세요!"
                 onChange={(e) => setMemo(e.target.value)}
               />
             </form>
           </CommentBox>
-        </MainContent>
-        <BtnNav>
+        </ModalMain>
+        <ModalFooterNav>
           <button type="button" onClick={onCancelClicked}>
             취소
           </button>
           <button type="button" form="AttendCheckForm" onClick={onCheckClicked}>
             출석
           </button>
-        </BtnNav>
+        </ModalFooterNav>
       </Layout>
       {isChecking && (
         <Loading>
@@ -142,39 +148,19 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Layout = styled(ModalLg)`
+const Layout = styled(ModalMd)`
   padding: 15px;
   display: flex;
   flex-direction: column;
 `;
-const Title = styled.span`
-  padding-bottom: 12px;
-  margin-bottom: 6px;
-  color: var(--font-h1);
-  font-weight: 600;
-  font-size: 16px;
 
-  border-bottom: 1px solid var(--font-h5);
+const Content = styled.div`
+  margin-bottom: 12px;
 `;
-const MainContent = styled.main`
-  margin-top: 10px;
-  font-size: 13px;
-  color: var(--font-h1);
-  > div {
-    margin-bottom: 12px;
-  }
-`;
+
 const Input = styled.input`
   height: 50px;
   width: 100%;
-`;
-
-const BtnNav = styled(ModalFooterNav)`
-  margin-top: auto;
-  text-align: end;
-  > button:last-child {
-    background-color: var(--color-red);
-  }
 `;
 
 const Loading = styled.div`

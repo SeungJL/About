@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { ModalXXL } from "../../styles/LayoutStyles";
+import { ModalXXL } from "../../styles/layout/modal";
 
 function StudyRuleModal({
   setIsModal,

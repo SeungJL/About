@@ -94,7 +94,7 @@ const PlaceItem = styled.div`
   flex-direction: column;
   > span {
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--font-h1);
   }
 `;
@@ -108,9 +108,9 @@ const PlaceIcon = styled.button<{
   border-radius: 25%;
   border: ${(props) =>
     props.firstSelected
-      ? "2px solid var(--color-mint)"
-      : props.isSelected
       ? "2px solid var(--color-red)"
+      : props.isSelected
+      ? "2px solid var(--color-mint)"
       : "1px solid var(--font-h5)"};
   overflow: hidden;
   display: flex;

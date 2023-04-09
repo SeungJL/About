@@ -22,8 +22,8 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
-import SuggestModal from "../../modals/write/SuggestModal";
-import ModifyUserInfoModal from "../../modals/user/ModifyUserInfoModal";
+import SuggestModal from "../../modals/user/SuggestModal";
+
 import { User } from "../../models/user";
 
 import UserOverView from "../../pagesComponents/User/UserOverView";
@@ -32,6 +32,7 @@ import ApplyRestModal from "../../modals/user/ApplyRestModal";
 import { useScoreQuery } from "../../hooks/user/queries";
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
+import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
 
 function UserInfo() {
   const router = useRouter();
@@ -107,7 +108,7 @@ function UserInfo() {
       )}
       {modalOpen === "modify" && (
         <ModalPortal setIsModal={handleOutput}>
-          <ModifyUserInfoModal setIsModal={handleOutput} />
+          <ProfileModifyModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "rest" && (

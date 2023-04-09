@@ -1,13 +1,9 @@
-import { Box, Text } from "@chakra-ui/react";
-import { Dayjs } from "dayjs";
-import { ChangeEvent, FC } from "react";
-
-import { ITimeStartToEndHM } from "../../types/utils";
-import { useState } from "react";
 import styled from "styled-components";
+import { ChangeEvent } from "react";
 
-const StartHOURS = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-const ENDHOURS = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+import { TIME_SELECTOR_END, TIME_SELECTOR_START } from "../../constants/study";
+import { ITimeStartToEndHM } from "../../types/utils";
+
 const MINUTES = ["00", "30"];
 
 const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
@@ -25,7 +21,7 @@ interface ITimeSelector {
 }
 
 const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
-  const hoursArr = type === "start" ? StartHOURS : ENDHOURS;
+  const hoursArr = type === "start" ? TIME_SELECTOR_START : TIME_SELECTOR_END;
   const onChangeTime =
     (isHour: boolean) => (event: ChangeEvent<HTMLSelectElement>) => {
       const value = Number(event.currentTarget.value);
@@ -93,11 +89,15 @@ const UnitLayout = styled.div`
   }
 `;
 
-const Select = styled.select``;
+const Select = styled.select`
+  font-weight: 600;
+  color: var(--font-h1);
+`;
 
 const Name = styled.span`
-  font-size: 15px;
-  color: var(--font-h1);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font-h2);
   display: inline-block;
   margin-right: 12px;
 `;
