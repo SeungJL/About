@@ -25,7 +25,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
 
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
-    if (!user?.registerDate) setIsRegisterModal(true);
+    if (session?.user.name && !user?.registerDate) setIsRegisterModal(true);
     else {
       setIsRegisterModal(false);
     }
