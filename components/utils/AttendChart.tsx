@@ -9,6 +9,7 @@ import { getMonth } from "../../libs/utils/dateUtils";
 
 import { IUser } from "../../types/user";
 import { CHART_MONTH_RANGE } from "../../constants/range";
+import { useState } from "react";
 
 const MONTH_LIST = [
   "1월",
@@ -35,6 +36,8 @@ export default function AttendChart({
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
 
+  const [yMax, setyMax] = useState(5);
+
   const name = type === "main" ? session?.user.name : user?.name;
 
   const monthXaxis = [];
@@ -45,16 +48,21 @@ export default function AttendChart({
   const attendCountTotal = useAttendRateQueries(CHART_MONTH_RANGE);
   const voteCountTotal = useVoteRateQueries(CHART_MONTH_RANGE);
 
-  const getDataArray = (name, queryResult) =>
-    queryResult
+  const getDataArray = (name, queryResult) => {
+    let maxCnt = 0;
+    return queryResult
       ?.map((item) => {
         if (item.isSuccess) {
           const myDataArr = item.data.filter((data) => data.name === name);
-          return myDataArr[0]?.cnt;
+          const cnt = myDataArr[0]?.cnt;
+          if (cnt > 5) setyMax(10);
+          if (cnt > 10) setyMax(15);
+          return cnt;
         }
         return null;
       })
       .concat(null);
+  };
 
   const isLoading = voteCountTotal.some((result) => result.isLoading);
 
@@ -69,13 +77,13 @@ export default function AttendChart({
     );
   });
 
-  const myAttendCountTotal = getDataArray(name, attendCountTotal);
+  const myAttendCountTotal = !isLoading && getDataArray(name, attendCountTotal);
 
   const text = type === "modal" ? undefined : "내 스터디 참여";
 
   return (
     <div>
-      {type === "main" && !isLoading ? (
+      {type === "main" && myAttendCountTotal ? (
         <ApexCharts
           type="line"
           series={[
@@ -109,12 +117,12 @@ export default function AttendChart({
             },
             yaxis: {
               min: 0,
-              max: 5,
+              max: yMax,
               forceNiceScale: true,
             },
           }}
         />
-      ) : type === "modal" && !isLoading ? (
+      ) : type === "modal" && myAttendCountTotal ? (
         <ApexCharts
           type="line"
           series={[
@@ -149,7 +157,7 @@ export default function AttendChart({
             },
             yaxis: {
               min: 0,
-              max: 5,
+              max: yMax,
               forceNiceScale: true,
             },
 
