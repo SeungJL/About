@@ -10,6 +10,7 @@ import { getMonth } from "../../libs/utils/dateUtils";
 import { IUser } from "../../types/user";
 import { CHART_MONTH_RANGE } from "../../constants/range";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const MONTH_LIST = [
   "1월",
@@ -64,6 +65,9 @@ export default function AttendChart({
       .concat(null);
 
   useEffect(() => {
+    if (isVoteLoading || isAttendLoading) {
+      return;
+    }
     let tempLoading = true;
     if (!isVoteLoading) {
       const newVoteAverageArr = voteCountTotal?.map((month) => {
@@ -90,51 +94,53 @@ export default function AttendChart({
   let yMax = 5;
   if (myAttendCountTotal) {
     myAttendCountTotal.forEach((cnt) => {
-      if (cnt > 5) yMax = 10;
+      if (cnt > 5) yMax = 9;
     });
   }
-  console.log(isLoading);
+
   return (
     <div>
       {type === "main" && !isLoading ? (
-        <ApexCharts
-          type="line"
-          series={[
-            { name: "평균 참여율", data: isLoading ? [] : voteAverageArr },
-            { name: "스터디 참여", data: isLoading ? [] : myAttendCountTotal },
-          ]}
-          options={{
-            chart: {
-              zoom: {
-                enabled: false,
+        <MainWrapper>
+          <ApexCharts
+            type="line"
+            series={[
+              { name: "평균 참여율", data: voteAverageArr },
+              { name: "스터디 참여", data: myAttendCountTotal },
+            ]}
+            options={{
+              chart: {
+                zoom: {
+                  enabled: false,
+                },
               },
-            },
 
-            stroke: {
-              curve: "straight",
-            },
-
-            title: {
-              text: text,
-              align: "left",
-            },
-            grid: {
-              row: {
-                colors: ["#f3f3f3", "transparent"],
-                opacity: 0.5,
+              stroke: {
+                curve: "straight",
               },
-            },
 
-            xaxis: {
-              categories: monthXaxis,
-            },
-            yaxis: {
-              min: 0,
-              max: yMax,
-              forceNiceScale: true,
-            },
-          }}
-        />
+              title: {
+                text: text,
+                align: "left",
+              },
+              grid: {
+                row: {
+                  colors: ["#f3f3f3", "transparent"],
+                  opacity: 0.5,
+                },
+              },
+
+              xaxis: {
+                categories: monthXaxis,
+              },
+              yaxis: {
+                min: 0,
+                max: yMax,
+                forceNiceScale: true,
+              },
+            }}
+          />
+        </MainWrapper>
       ) : type === "modal" && !isLoading ? (
         <ApexCharts
           type="line"
@@ -187,3 +193,7 @@ export default function AttendChart({
     </div>
   );
 }
+
+const MainWrapper = styled.div`
+  min-height: 213px;
+`;

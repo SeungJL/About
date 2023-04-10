@@ -89,7 +89,6 @@ const Info = styled.div`
     font-size: 13px;
     margin-top: 2px;
     color: var(--font-h3);
-    overflow: hidden;
   }
 `;
 
