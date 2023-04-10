@@ -72,32 +72,31 @@ export default function AttendCheckModal({
   };
 
   const checkArrived = () => {
-    navigator.geolocation.getCurrentPosition((data) => {
-      const coords = data?.coords;
+    // navigator.geolocation.getCurrentPosition((data) => {
+    //   const coords = data?.coords;
 
-      if (
-        // (coords.latitude > myPlace?.latitude - LOCATE_GAP ||
-        //   coords.latitude < myPlace?.latitude + LOCATE_GAP) &&
-        // (coords.longitude > myPlace?.longitude - LOCATE_GAP ||
-        //   coords.longitude < myPlace?.longitude + LOCATE_GAP)
-        true
-      ) {
-        handleArrived(memo);
-        setTimeout(() => {
-          setIsChecking(false);
-          setIsModal(false);
-        }, 2000);
-      } else {
-        toast({
-          title: "오류",
-          description: "현재 스터디 장소에 있지 않은 것으로 확인돼요.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      }
-    });
+    if (
+      // (coords.latitude > myPlace?.latitude - LOCATE_GAP ||
+      //   coords.latitude < myPlace?.latitude + LOCATE_GAP) &&
+      // (coords.longitude > myPlace?.longitude - LOCATE_GAP ||
+      //   coords.longitude < myPlace?.longitude + LOCATE_GAP)
+      true
+    ) {
+      handleArrived(memo);
+      setTimeout(() => {
+        setIsChecking(false);
+        setIsModal(false);
+      }, 2000);
+    } else {
+      toast({
+        title: "오류",
+        description: "현재 스터디 장소에 있지 않은 것으로 확인돼요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
   };
 
   return (
