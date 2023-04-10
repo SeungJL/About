@@ -22,11 +22,11 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const [isAttendPopup, setIsAttendPopup] = useState(false);
 
   const user = useActiveQuery().data;
-
+  console.log(user);
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
-    console.log(user);
-    if (user && !user?.registerDate) setIsRegisterModal(true);
+
+    if (user && !user?.isActive) setIsRegisterModal(true);
     else {
       setIsRegisterModal(false);
     }

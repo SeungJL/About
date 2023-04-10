@@ -178,7 +178,7 @@ export const useScoreQuery = (
 
 export const useScoreAllQuery = (
   options?: Omit<
-    UseQueryOptions<IScoreAll[], AxiosError, IScoreAll[]>,
+    UseQueryOptions<any, AxiosError, IScoreAll[]>,
     "queryKey" | "queryFn"
   >
 ) =>
@@ -191,6 +191,7 @@ export const useScoreAllQuery = (
     },
     options
   );
+
 
 export interface IRate {
   name: string;
