@@ -11,7 +11,7 @@ import { numOfUserState } from "../recoil/userAtoms";
 
 import { NOTICE_ALERT } from "../constants/localStorage";
 import { IUser } from "../types/user";
-import { useActiveQuery } from "../hooks/user/queries";
+import { useActiveQuery, useIsActiveQuery } from "../hooks/user/queries";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
@@ -22,15 +22,18 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const [isAttendPopup, setIsAttendPopup] = useState(false);
 
   const user = useActiveQuery().data;
-  console.log(user);
+  const { data } = useIsActiveQuery();
+
+  const isActive = data?.isActive[0].isActive;
+
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
 
-    if (user && !user?.isActive) setIsRegisterModal(true);
+    if (isActive !== undefined && !isActive) setIsRegisterModal(true);
     else {
       setIsRegisterModal(false);
     }
-  }, [session, user?.registerDate]);
+  }, [session, user?.registerDate, isActive]);
 
   useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);

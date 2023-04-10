@@ -192,6 +192,21 @@ export const useScoreAllQuery = (
     options
   );
 
+export const useIsActiveQuery = (
+  options?: Omit<
+    UseQueryOptions<IIsActive, AxiosError, IIsActive>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IIsActive, AxiosError, IIsActive>(
+    "isActive",
+    async () => {
+      const res = await axios.get<IIsActive>("/api/user/active");
+
+      return res.data;
+    },
+    options
+  );
 
 export interface IRate {
   name: string;
@@ -199,4 +214,8 @@ export interface IRate {
 }
 interface IComment {
   comments: IUserComment[];
+}
+
+interface IIsActive {
+  isActive: { isActive: boolean; _id: string }[];
 }
