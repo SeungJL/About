@@ -23,7 +23,7 @@ export default async function handler(
       const result = [];
 
       for (let value in participationRateForm) {
-        result.push({ name: value, cnt: participationRateForm[value] });
+        result.push({ uid: value, cnt: participationRateForm[value] });
       }
 
       res.status(200).json(result);
