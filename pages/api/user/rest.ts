@@ -16,7 +16,9 @@ export default async function handler(
   switch (method) {
     case "POST":
       {
-        const { type, startDate, endDate, content } = req.body;
+        const { info } = req.body;
+        await User.updateOne({ uid: token.uid }, { $set: { rest: info } });
+        res.status(200).send({});
         try {
         } catch (err) {
           res.status(500).send(err);
