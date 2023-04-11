@@ -35,7 +35,7 @@ function AboutMainItem({
   const { attendences, place, status } = studySpaceInfo || {};
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
-
+  console.log(1, firstAttendance);
   return (
     <Layout
       status={statusFixed === "myOpen"}
@@ -83,11 +83,21 @@ function AboutMainItem({
             )}
           </div>
           <div>
-            {firstAttendance?.map((user, idx) => (
-              <ProfileContainer key={idx} zIndex={idx}>
-                <ProfileImgSm imgSrc={(user?.user as IUser)?.profileImage} />
-              </ProfileContainer>
-            ))}
+            {statusFixed === "pending"
+              ? firstAttendance?.map((user, idx) => (
+                  <ProfileContainer key={idx} zIndex={idx}>
+                    <ProfileImgSm
+                      imgSrc={(user?.user as IUser)?.profileImage}
+                    />
+                  </ProfileContainer>
+                ))
+              : firstAttendance?.map((user, idx) => (
+                  <ProfileContainer key={idx} zIndex={idx}>
+                    <ProfileImgSm
+                      imgSrc={(user?.user as IUser)?.profileImage}
+                    />
+                  </ProfileContainer>
+                ))}
             <ParticipantStatus>
               <IconUserTwo />
               <span>
@@ -98,7 +108,7 @@ function AboutMainItem({
                 >
                   {attendences?.length}
                 </b>
-                /8
+                /6
               </span>
             </ParticipantStatus>
           </div>
@@ -257,5 +267,7 @@ const ParticipantStatus = styled.div`
     color: var(--font-h3);
   }
 `;
+
+const NumberCircle = styled.div``;
 
 export default AboutMainItem;
