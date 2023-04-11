@@ -93,13 +93,12 @@ function AboutMainItem({
               <span>
                 <b
                   style={{
-                    color:
-                      firstAttendance.length > 6 ? "var(--color-red)" : null,
+                    color: "var(--font-h2)",
                   }}
                 >
-                  {firstAttendance?.length}
+                  {attendences?.length}
                 </b>
-                /6
+                /8
               </span>
             </ParticipantStatus>
           </div>
