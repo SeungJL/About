@@ -1,6 +1,7 @@
 import axios, { Axios, AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { IUserComment, IWarningScore } from "../../types/user";
+import { IApplyRest } from "../../types/userAction";
 
 export const useActiveMutation = (
   options?: Omit<
@@ -46,5 +47,17 @@ export const useScoreMutation = (
   useMutation<void, AxiosError, number>(async (cnt) => {
     await axios.post("/api/user/point", {
       point: cnt,
+    });
+  }, options);
+
+export const useApplyRestMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IApplyRest>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, IApplyRest>(async (info) => {
+    await axios.post("/api/user/rest", {
+      info,
     });
   }, options);

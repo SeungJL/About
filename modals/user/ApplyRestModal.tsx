@@ -11,6 +11,7 @@ import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { IApplyRest } from "../../types/userAction";
 import { ModalHeaderXLine } from "../../components/Layout/Component";
+import { useApplyRestMutation } from "../../hooks/user/mutations";
 
 function ApplyRestModal({
   setIsModal,
@@ -18,6 +19,7 @@ function ApplyRestModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const { data: session } = useSession();
+  const { mutate: applyRest } = useApplyRestMutation();
 
   const {
     register,
@@ -34,12 +36,12 @@ function ApplyRestModal({
   });
   const onValid = (data: IApplyRest) => {
     const info = {
-      uid: session?.uid,
       type: data.type,
       startDate: data.startDate,
       endDate: data.endDate,
       content: data.content,
     };
+    applyRest(info);
   };
   const option = watch("type"); // 옵션 입력값 감시
 
@@ -91,13 +93,12 @@ function ApplyRestModal({
         </Form>
       </ModalMain>
       <ModalFooterNav>
-        {/* <button type="button" onClick={() => setIsModal(false)}>
+        <button type="button" onClick={() => setIsModal(false)}>
           취소
         </button>
         <button type="submit" form="rest">
           제출
-        </button> */}
-        <NoUse>비활성화 중입니다. 관리자에게 연락주세요!</NoUse>
+        </button>
       </ModalFooterNav>
     </Layout>
   );
