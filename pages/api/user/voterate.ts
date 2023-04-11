@@ -1,7 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next/types";
 import dbConnect from "../../../libs/dbConnect";
-import { now } from "../../../libs/utils/dateUtils";
 
 import { User } from "../../../models/user";
 import { Vote } from "../../../models/vote";
@@ -22,7 +21,7 @@ export default async function handler(
     case "GET":
       const allUser = await User.find({ isActive: true });
       const attendForm = allUser.reduce((accumulator, user) => {
-        return { ...accumulator, [user.name]: 0 };
+        return { ...accumulator, [user.uid.toString()]: 0 };
       }, {});
 
       const forVote = await Vote.collection
@@ -63,7 +62,7 @@ export default async function handler(
         .flatMap((participation) => participation.attendences)
         .filter((attendence) => attendence.firstChoice === true)
         .flatMap((attendance) => attendance.user)
-        .map((user) => user.name)
+        .map((user) => user.uid.toString())
         .reduce((acc, val) => {
           if (val in acc) {
             acc[val]++;
