@@ -11,6 +11,13 @@ export interface IUserComment {
   _id: string;
 }
 
+export interface restType {
+  type: string;
+  startDate: Date;
+  endDate: Date;
+  content: string;
+}
+
 export interface IUser extends Document {
   uid: string;
   registerDate: string;
@@ -24,6 +31,7 @@ export interface IUser extends Document {
   role?: string;
   score: number;
   comment: string;
+  rest: restType;
 }
 
 export interface IAccount extends Document {
