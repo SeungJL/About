@@ -76,7 +76,7 @@ export default async function handler(
       const result = [];
 
       for (let value in voteRateForm) {
-        result.push({ name: value, cnt: voteRateForm[value] });
+        result.push({ uid: value, cnt: voteRateForm[value] });
       }
 
       res.status(200).json(result);
