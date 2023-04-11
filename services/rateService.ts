@@ -9,7 +9,7 @@ export const getParticipationRate = async (
 ) => {
   const allUser = await User.find({ isActive: true });
   const attendForm = allUser.reduce((accumulator, user) => {
-    return { ...accumulator, [user.name]: 0 };
+    return { ...accumulator, [user.uid.toString()]: 0 };
   }, {});
 
   const forParticipation = await Vote.collection
@@ -46,7 +46,7 @@ export const getParticipationRate = async (
     .filter((vote) => vote.status === "open")
     .flatMap((vote) => vote.attendences)
     .flatMap((attendence) => attendence.user)
-    .map((user) => user.name)
+    .map((user) => user.uid.toString())
     .reduce((acc, val) => {
       if (val in acc) {
         acc[val]++;
