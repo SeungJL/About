@@ -18,7 +18,7 @@ function ProfileModifyModal({ setIsModal }) {
   const [isMan, setIsMan] = useState(true);
 
   const user = useActiveQuery().data;
-  console.log(user);
+
   const { mutate: handleRegister, isLoading: isRegisterLoading } =
     useRegisterMutation({
       onSuccess: async (data: IUser) => {

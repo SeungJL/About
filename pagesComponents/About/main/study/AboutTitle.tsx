@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
+import LocalSelector from "../../../../components/SpaceLocalSelector";
 import CheckVoteModal from "../../../../modals/study/vote/AttendCheckModal";
 import {
   attendCheckState,
@@ -26,6 +27,7 @@ function AboutTitle() {
         <Title>
           <TitleName isNotPassed={studyDate !== "not passed"}>
             {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
+            <LocalSelector />
           </TitleName>
           {isCheck ? (
             <Check>
@@ -80,6 +82,9 @@ const Title = styled.div`
 
 const TitleName = styled.span<{ isNotPassed: boolean }>`
   font-size: ${(props) => (props.isNotPassed ? "16px" : null)};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Check = styled.span`

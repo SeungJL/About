@@ -44,9 +44,7 @@ export default function AttendCheckModal({
   )?.place;
   const { mutate: getScore } = useScoreMutation();
   const { data: session } = useSession();
-  if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
-    console.log(11);
-  }
+
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);

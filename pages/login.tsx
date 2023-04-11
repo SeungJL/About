@@ -50,6 +50,7 @@ const Login: NextPage<{
   const [isModal, setIsModal] = useState(false);
   useEffect(() => {
     if (forceSignOut) onOpen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const customSignin = async (kakaoProvider: ClientSafeProvider) => {

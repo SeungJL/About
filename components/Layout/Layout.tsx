@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import { useEffect, useState } from "react";
 import Router from "next/router";
 import Modals from "../Modals";

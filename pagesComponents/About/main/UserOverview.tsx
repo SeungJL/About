@@ -24,7 +24,7 @@ import { USER_BADGES } from "../../../types/user";
 function UserOverview() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  console.log(session);
+
   const [isModal, setIsModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
@@ -65,9 +65,8 @@ function UserOverview() {
     voteDate.date(1),
     voteDate.date(voteDate.daysInMonth())
   );
-  const myMonthCnt = monthCnt?.find(
-    (user) => user.name === session?.user.name
-  )?.cnt;
+
+  const myMonthCnt = monthCnt?.find((user) => user.uid === session?.uid)?.cnt;
 
   return (
     <>

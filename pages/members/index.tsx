@@ -127,6 +127,7 @@ function Members({ membersListAll }: { membersListAll: IUser[] }) {
   useEffect(() => {
     setUserList(membersList);
     setUserList((old) => sortUserList(old, category));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   return (

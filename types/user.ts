@@ -50,7 +50,7 @@ export interface IScoreAll extends IScore {
 
 export interface IRegisterForm {
   registerDate: string;
-  location: string;
+  location?: string;
   name: string;
   mbti?: string;
   birth: string;
@@ -92,4 +92,9 @@ export interface IWarningAll {
   name?: string;
   score: number;
   _id: string;
+}
+
+export interface IWarningScore {
+  score: number;
+  message?: string;
 }

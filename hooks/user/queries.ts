@@ -14,6 +14,7 @@ import {
   USER_FINDVOTES,
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
+import { IVoteRate } from "../../types/studyRecord";
 import {
   IScore,
   IScoreAll,
@@ -42,14 +43,14 @@ export const useParticipationRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   options?: Omit<
-    UseQueryOptions<IRate[], AxiosError, IRate[]>,
+    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<IRate[], AxiosError, IRate[]>(
+  useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
     USER_FINDPARTICIPATION,
     async () => {
-      const res = await axios.get<IRate[]>(`/api/user/participationrate`, {
+      const res = await axios.get<IVoteRate[]>(`/api/user/participationrate`, {
         params: {
           startDay: startDay.format("YYYY-MM-DD"),
           endDay: endDay.format("YYYY-MM-DD"),
@@ -64,14 +65,14 @@ export const useVoteRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   options?: Omit<
-    UseQueryOptions<IRate[], AxiosError, IRate[]>,
+    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<IRate[], AxiosError, IRate[]>(
+  useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
     [USER_FINDVOTE],
     async () => {
-      const res = await axios.get<IRate[]>(`/api/user/voterate`, {
+      const res = await axios.get<IVoteRate[]>(`/api/user/voterate`, {
         params: {
           startDay: startDay.format("YYYY-MM-DD"),
           endDay: endDay.format("YYYY-MM-DD"),
@@ -84,7 +85,7 @@ export const useVoteRateQuery = (
 export const useAttendRateQueries = (
   monthList: IDateStartToEnd[],
   options?: Omit<
-    UseQueryOptions<IRate[], AxiosError, IRate[]>,
+    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
     "queryKey" | "queryFn"
   >
 ) =>
@@ -93,12 +94,15 @@ export const useAttendRateQueries = (
       return {
         queryKey: [USER_FINDPARTICIPATION, idx],
         queryFn: async () => {
-          const res = await axios.get<IRate[]>(`/api/user/participationrate`, {
-            params: {
-              startDay: month.start.format("YYYY-MM-DD"),
-              endDay: month.end.format("YYYY-MM-DD"),
-            },
-          });
+          const res = await axios.get<IVoteRate[]>(
+            `/api/user/participationrate`,
+            {
+              params: {
+                startDay: month.start.format("YYYY-MM-DD"),
+                endDay: month.end.format("YYYY-MM-DD"),
+              },
+            }
+          );
           return res.data;
         },
         ...options,
@@ -109,7 +113,7 @@ export const useAttendRateQueries = (
 export const useVoteRateQueries = (
   monthList: IDateStartToEnd[],
   options?: Omit<
-    UseQueryOptions<IRate[], AxiosError, IRate[]>,
+    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
     "queryKey" | "queryFn"
   >
 ) =>
@@ -118,7 +122,7 @@ export const useVoteRateQueries = (
       return {
         queryKey: [USER_FINDVOTES, idx],
         queryFn: async () => {
-          const res = await axios.get<IRate[]>(`/api/user/voterate`, {
+          const res = await axios.get<IVoteRate[]>(`/api/user/voterate`, {
             params: {
               startDay: month.start.format("YYYY-MM-DD"),
               endDay: month.end.format("YYYY-MM-DD"),
@@ -208,10 +212,10 @@ export const useIsActiveQuery = (
     options
   );
 
-export interface IRate {
-  name: string;
-  cnt: number;
-}
+// export interface IRate {
+//   name: string;
+//   cnt: number;
+// }
 interface IComment {
   comments: IUserComment[];
 }

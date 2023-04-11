@@ -35,14 +35,12 @@ export default function LastWeekAttendPopUp({ closePopUp }) {
   const { data: warningScore } = useWarningScoreQuery();
   const { data: scores } = useScoreQuery();
 
-  console.log(warningScore);
-  const voteCnt = voteRate?.find((who) => who.name === session?.user.name)?.cnt;
-  const parCnt = parRate?.find((who) => who.name === session?.user.name)?.cnt;
+  const voteCnt = voteRate?.find((who) => who.uid === session?.uid)?.cnt;
+  const parCnt = parRate?.find((who) => who.uid === session?.uid)?.cnt;
   const score = scores?.point;
   const WarningCnt = warningScore?.find(
     (who) => who.name === session?.user.name
   )?.score;
-  console.log(voteCnt, parCnt, WarningCnt);
 
   const message =
     voteCnt === 0

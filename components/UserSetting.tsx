@@ -33,6 +33,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
     else {
       setIsRegisterModal(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, user?.registerDate, isActive]);
 
   useEffect(() => {
