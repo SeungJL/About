@@ -8,6 +8,7 @@ import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 
 function CheckComment({ attendances }: { attendances: IAttendence[] }) {
+  console.log(attendances);
   return (
     <Layout>
       {attendances.map((user, idx) => {

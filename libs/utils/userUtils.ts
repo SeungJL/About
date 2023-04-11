@@ -11,11 +11,11 @@ export const userBadgeScore = (score) => {
   else if (score < 70) {
     (badge = "라떼"),
       (badgePoint = score - 30),
-      (nextBadge = "마키아토"),
+      (nextBadge = "마키아또"),
       (nextPoint = 70);
     gap = 40;
   } else if (score < 120) {
-    (badge = "마키아토"),
+    (badge = "마키아또"),
       (badgePoint = score - 70),
       (nextBadge = "에스프레소"),
       (nextPoint = 120);
