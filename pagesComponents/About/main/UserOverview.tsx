@@ -24,11 +24,11 @@ import { USER_BADGES } from "../../../types/user";
 function UserOverview() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-
+  console.log(session);
   const [isModal, setIsModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
-  const [myRank, setMyRank] = useState(100);
+  const [myRank, setMyRank] = useState(0);
   const [scoreInfo, setScoreInfo] = useState({
     value: 0,
     nextBadge: { badge: null, color: "" },
@@ -103,7 +103,6 @@ function UserOverview() {
                 color="var(--font-h4)"
               />
               <IconWrapper onClick={() => setIsModal(true)}>
-                <span>등급</span>
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </IconWrapper>
             </ProgressWrapper>
@@ -120,7 +119,7 @@ function UserOverview() {
               <HrCol />
               <Item>
                 <span>랭킹</span>
-                <span>상위 {myRank}%</span>
+                {myRank !== 0 && <span> 상위 {myRank}%</span>}
               </Item>
             </Info>
           </>
@@ -212,13 +211,10 @@ const Grade = styled.div`
 
 const IconWrapper = styled.div`
   color: var(--font-h3);
-  font-size: 10px;
+  font-size: 14px;
   position: absolute;
   right: 0%;
   bottom: -20px;
-  > span:first-child {
-    margin-right: 4px;
-  }
 `;
 
 const Info = styled.div`

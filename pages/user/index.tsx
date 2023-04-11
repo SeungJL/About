@@ -97,6 +97,9 @@ function UserInfo() {
                 <button>회원 탈퇴</button>
               </NavBlock>
             </div>
+            <div>
+              <BlockName />
+            </div>
           </Navigation>
           {/* <UserNavigation /> */}
         </UserLayout>
@@ -159,7 +162,7 @@ const Navigation = styled.nav`
   border: 1px solid var(--font-h5);
   border-radius: 6px;
   overflow: hidden;
-  padding: 6px 0;
+  padding: 0px 0;
 `;
 
 const BlockName = styled.div`
