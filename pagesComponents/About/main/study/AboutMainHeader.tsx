@@ -96,7 +96,7 @@ const Layout = styled.div`
 
 const VoterCnt = styled.div`
   color: var(--font-h3);
-  font-size: 14px;
+  font-size: 15px;
   margin-left: 12px;
   margin-top: 12px;
   > b {
