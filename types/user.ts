@@ -50,6 +50,7 @@ export interface IScoreAll extends IScore {
 
 export interface IRegisterForm {
   registerDate: string;
+  location: string;
   name: string;
   mbti?: string;
   birth: string;
@@ -64,7 +65,7 @@ export interface IUserRegister extends IRegisterForm {
 export const USER_BADGES = {
   아메리카노: "gray",
   라떼: "orange",
-  마키아토: "green",
+  마키아또: "green",
   에스프레소: "purple",
   모카: "yellow",
   콜드브루: "twitter",
@@ -75,7 +76,7 @@ export type UserBadge =
   | null
   | "아메리카노"
   | "라떼"
-  | "마키아토"
+  | "마키아또"
   | "에스프레소"
   | "모카"
   | "콜드브루"

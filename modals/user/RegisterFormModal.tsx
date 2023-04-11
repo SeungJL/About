@@ -68,6 +68,7 @@ function RegisterFormModal({
       birth: data.birth,
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
+      location: "",
     };
 
     handleRegister(userInfo);
@@ -84,7 +85,21 @@ function RegisterFormModal({
               <span>이름: </span>
               <span>{session?.user.name}</span>
             </Item>
-            <ErrorMessage></ErrorMessage>
+            <ErrorMessage></ErrorMessage>{" "}
+            <Item>
+              <span>지역: </span>
+              <Select
+                {...register("location", {
+                  required: true,
+                  validate: (value) => value === "수원" || value === "양천구",
+                })}
+              >
+                <option value="">지역 선택</option>
+                <option value="수원">수원</option>
+                <option value="양천구">양천구</option>
+              </Select>
+            </Item>
+            <ErrorMessage>{errors?.registerDate?.message}</ErrorMessage>
             <Item>
               <span>가입일: </span>
               <input
@@ -186,8 +201,12 @@ const Item = styled.div`
 
 const ErrorMessage = styled.div`
   font-size: 11px;
-  height: 12px;
+  height: 11px;
   color: var(--color-red);
+`;
+
+const Select = styled.select`
+  background-color: var(--font-h7);
 `;
 
 const Gender = styled.nav`
