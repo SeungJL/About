@@ -13,7 +13,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { method } = req;
-  const { score } = req.body;
+  const { score, message } = req.body;
 
   const token = await getToken({ req, secret });
 
