@@ -84,7 +84,7 @@ function AboutMainItem({
           </div>
           <div>
             {statusFixed === "pending"
-              ? firstAttendance?.map((user, idx) => (
+              ? attendences?.map((user, idx) => (
                   <ProfileContainer key={idx} zIndex={idx}>
                     <ProfileImgSm
                       imgSrc={(user?.user as IUser)?.profileImage}
@@ -106,9 +106,11 @@ function AboutMainItem({
                     color: "var(--font-h2)",
                   }}
                 >
-                  {attendences?.length}
+                  {statusFixed === "pending"
+                    ? attendences.length
+                    : firstAttendance?.length}
                 </b>
-                /6
+                /8
               </span>
             </ParticipantStatus>
           </div>
