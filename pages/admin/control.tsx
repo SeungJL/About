@@ -1,5 +1,9 @@
 import { Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import { isPreviliged } from "../../libs/utils/authUtils";
+import { User } from "../../models/user";
 
 export default function Admin() {
   const secretKey = process.env.NEXTAUTH_SECRET;
@@ -38,3 +42,28 @@ export default function Admin() {
     </Flex>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
+
+  const user = await User.findOne({ uid: session.uid });
+  if (!user.role) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/about",
+      },
+    };
+  }
+  if (user && !isPreviliged(user.role as string)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/forbidden",
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
