@@ -13,6 +13,7 @@ import { userBadgeScore } from "../../libs/utils/userUtils";
 import { birthToAge } from "../../libs/utils/membersUtil";
 
 import { IUser, USER_BADGES } from "../../types/user";
+import { motion } from "framer-motion";
 
 export default function UserInfoModal({
   user,
@@ -107,7 +108,11 @@ export default function UserInfoModal({
             {navType === "badge" ? (
               <UserInfoBadge />
             ) : navType === "chart" ? (
-              <ChartWrapper>
+              <ChartWrapper
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 0.5 }}
+              >
                 <AttendChart type="modal" user={user} />
               </ChartWrapper>
             ) : (
@@ -202,7 +207,7 @@ const Detail = styled.div`
   align-items: center;
 `;
 
-const ChartWrapper = styled.div`
+const ChartWrapper = styled(motion.div)`
   position: absolute;
   top: -20px;
   left: -10px;

@@ -10,11 +10,11 @@ export default function BadgeInfoModal({
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const [isFirst, setIsFirst] = useState(true);
+  const [page, setPage] = useState(0);
 
   return (
     <Layout layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      {isFirst ? (
+      {page === 0 ? (
         <>
           <Header>
             <span>멤버 배지</span>
@@ -43,27 +43,11 @@ export default function BadgeInfoModal({
           </Item>
           <Item>
             <div>
-              <Badge fontSize={12} variant="subtle" colorScheme="green">
-                마키아토
+              <Badge colorScheme="green" fontSize={12}>
+                마키아또
               </Badge>
             </div>
             <Info>70점 ~ 119점</Info>
-          </Item>
-          <Item>
-            <div>
-              <Badge fontSize={12} variant="subtle" colorScheme="purple">
-                에스프레소
-              </Badge>
-            </div>
-            <Info>120점 ~ 179점</Info>
-          </Item>
-          <Item>
-            <div>
-              <Badge fontSize={12} variant="subtle" colorScheme="yellow">
-                모카
-              </Badge>
-            </div>
-            <Info>180점 ~ 249점</Info>
           </Item>
           <Item>
             <div>
@@ -71,7 +55,7 @@ export default function BadgeInfoModal({
                 콜드브루
               </Badge>
             </div>
-            <Info>250점 ~ 329점</Info>
+            <Info>120점 ~ 179점</Info>
           </Item>
           <Item>
             <div>
@@ -79,9 +63,44 @@ export default function BadgeInfoModal({
                 아인슈페너
               </Badge>
             </div>
+            <Info>180점 ~ 249점</Info>
+          </Item>
+          <Item>
+            <div>
+              <Badge fontSize={12} variant="subtle" colorScheme="yellow">
+                모카
+              </Badge>
+            </div>
+            <Info>250점 ~ 329점</Info>
+          </Item>
+          <Item>
+            <div>
+              <Badge fontSize={12} variant="subtle" colorScheme="purple">
+                에스프레소
+              </Badge>
+            </div>
             <Info>330점 +</Info>
           </Item>
-          <Footer onClick={() => setIsFirst(false)}>
+          <Footer onClick={() => setPage(1)}>
+            <button>다음 페이지</button>
+          </Footer>
+        </>
+      ) : page === 1 ? (
+        <>
+          <Header>
+            <span>유니크 배지</span>
+            <div>특정한 기간 또는 이벤트를 통해 얻을 수 있습니다.</div>
+          </Header>
+
+          <Item>
+            <div>
+              <Badge fontSize={12} variant="badgePink">
+                딸기스무디
+              </Badge>
+            </div>
+            <Info>이벤트 흭득 예정</Info>
+          </Item>
+          <Footer onClick={() => setPage(2)}>
             <button>다음 페이지</button>
           </Footer>
         </>

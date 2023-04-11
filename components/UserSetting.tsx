@@ -25,7 +25,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data } = useIsActiveQuery();
 
   const isActive = data?.isActive[0].isActive;
-
+ 
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
 

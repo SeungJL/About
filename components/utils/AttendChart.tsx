@@ -52,9 +52,10 @@ export default function AttendChart({
 
   const isVoteLoading = voteCountTotal.some((result) => result.isLoading);
   const isAttendLoading = attendCountTotal.some((result) => result.isLoading);
+  const [whyLoading, setWhyLoading] = useState(false);
 
-  const getDataArray = (name, queryResult) =>
-    queryResult
+  const getDataArray = (name, queryResult) => {
+    return queryResult
       ?.map((item) => {
         if (item.isSuccess) {
           const myDataArr = item.data.filter((data) => data.name === name);
@@ -63,6 +64,13 @@ export default function AttendChart({
         return null;
       })
       .concat(null);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setWhyLoading(true);
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     if (isVoteLoading || isAttendLoading) {
@@ -100,7 +108,7 @@ export default function AttendChart({
 
   return (
     <div>
-      {type === "main" && !isLoading ? (
+      {type === "main" && !isLoading && whyLoading ? (
         <MainWrapper>
           <ApexCharts
             type="line"
@@ -141,7 +149,7 @@ export default function AttendChart({
             }}
           />
         </MainWrapper>
-      ) : type === "modal" && !isLoading ? (
+      ) : type === "modal" && !isLoading && whyLoading ? (
         <ApexCharts
           type="line"
           series={[
