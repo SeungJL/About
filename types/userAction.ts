@@ -3,5 +3,4 @@ export interface IApplyRest {
   startDate: string;
   endDate: string;
   content: string;
-  uid?: string;
 }

@@ -13,7 +13,7 @@ function Ranking() {
   const { data: session } = useSession();
   const numOfUser = useRecoilValue(numOfUserState);
   const { data } = useVoteRateQuery(dayjs().date(1), dayjs());
-  const myCnt = data?.find((item) => item.name === session?.user.name).cnt;
+  const myCnt = data?.find((item) => item.uid === session?.uid).cnt;
 
   return (
     <Layout>

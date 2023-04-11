@@ -12,6 +12,7 @@ import {
   isVotingState,
   mySpaceFixedState,
   studyDateState,
+  studyStartTimeState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 import { useDecideSpaceMutation } from "../../../../hooks/vote/mutations";
@@ -22,6 +23,7 @@ import { arrangeMainSpace } from "../../../../libs/utils/studyUtils";
 import { VOTE_END_HOUR } from "../../../../constants/study";
 import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
+import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
@@ -31,9 +33,11 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const [mySpaceFixed, setMySpaceFixed] = useRecoilState(mySpaceFixedState);
   const setStudyDate = useSetRecoilState(studyDateState);
   const setIsCheck = useSetRecoilState(attendCheckState);
+  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
 
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
+  const { data } = useStudyStartQuery(voteDate);
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
     dayjs().add(1, "day")
   );
@@ -42,6 +46,10 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   useEffect(() => {
     if (dayjs().hour() >= VOTE_END_HOUR) decideSpace();
   }, [decideSpace]);
+
+  useEffect(() => {
+    if (data) setStudyStartTime(dayjs(data[0]?.startTime));
+  }, [data, setStudyStartTime]);
 
   /**날짜마다 달라지는 정보들*/
   useEffect(() => {

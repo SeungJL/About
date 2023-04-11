@@ -1,11 +1,17 @@
 import mongoose, { model, Schema, Model } from "mongoose";
-import { IUser } from "../types/user";
+import { IUser, restType } from "../types/user";
+
+export const restSchema: Schema<restType> = new Schema({
+  type: Schema.Types.String,
+  startDate: Schema.Types.Date,
+  endDate: Schema.Types.Date,
+  content: Schema.Types.String,
+});
 
 export const UserSchema: Schema<IUser> = new Schema({
   uid: {
     type: String,
     required: true,
-    unique: false,
   },
   name: {
     type: String,
@@ -50,6 +56,7 @@ export const UserSchema: Schema<IUser> = new Schema({
     type: String,
     default: "안녕하세요! 잘 부탁드립니다~!",
   },
+  rest: restSchema,
 });
 
 export const User =

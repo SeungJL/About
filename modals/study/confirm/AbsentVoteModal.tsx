@@ -19,7 +19,7 @@ import {
 } from "../../../recoil/studyAtoms";
 import {
   useScoreMutation,
-  useWaringScoreMutation,
+  useWarningScoreMutation,
 } from "../../../hooks/user/mutations";
 import { useDismissMutation } from "../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../libs/queryKeys";
@@ -34,13 +34,13 @@ export default function AbsentVoteModal({ setIsModal }) {
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const { mutate: getScore } = useScoreMutation();
-  const { mutate: getWaring } = useWaringScoreMutation();
+  const { mutate: getWaring } = useWarningScoreMutation();
 
   const { mutate: handleDismiss, isLoading: dismissLoading } =
     useDismissMutation(today, {
       onSuccess: (data) => {
         queryClient.invalidateQueries(VOTE_GET);
-        getWaring(1);
+        getWaring({ score: 1, message: "스터디 당일 불참" });
         if (dayjs() > studyStartTime) getScore(-10);
         setisVoting(false);
       },

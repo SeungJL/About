@@ -16,6 +16,7 @@ import {
 
 import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
+import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -67,7 +68,7 @@ function AboutMainItem({
           {statusFixed === "myOpen" && (
             <Result>
               <FontAwesomeIcon icon={faClock} size="sm" />
-              <ResultInfo>{studyStartTime?.format("HH:mm")}</ResultInfo>
+              <ResultInfo>{studyStartTime?.format("HH:mm")} ~</ResultInfo>
             </Result>
           )}
         </Status>

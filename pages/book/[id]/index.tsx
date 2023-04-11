@@ -58,7 +58,7 @@ function Book() {
         </BookHeader>
         <BookInfos>
           <BookImg>
-            <img alt="bookImage" src={bookImageURL as string} />
+            {/* <img alt="bookImage" src={bookImageURL as string} /> */}
           </BookImg>
           <Info>
             <span>순위: {rank}</span>
