@@ -1,12 +1,25 @@
+import { ChangeEvent, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { IconMapMark } from "../public/icons/Icons";
+import { locationState } from "../recoil/systemAtoms";
+import { Location } from "../types/system";
 
 function LocalSelector() {
+  const [value, setValue] = useState<Location>();
+  const [location, setLocation] = useRecoilState(locationState);
+  useEffect(() => {
+    setValue(location);
+  }, [location]);
+
+  const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setLocation(event.currentTarget.value as Location);
+  };
   return (
     <Layout>
-      <select>
+      <select value={value} onChange={onChange}>
         <option value="수원">수원</option>
-        <option value="양천구">양천구</option>
+        <option value="양천">양천구</option>
       </select>
     </Layout>
   );

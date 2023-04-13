@@ -96,7 +96,7 @@ function RegisterFormModal({
               >
                 <option value="">지역 선택</option>
                 <option value="수원">수원</option>
-                <option value="양천구">양천구</option>
+                <option value="양천">양천구/당산</option>
               </Select>
             </Item>
             <ErrorMessage>{errors?.registerDate?.message}</ErrorMessage>

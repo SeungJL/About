@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { atom } from "recoil";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 import { IParticipation } from "../types/studyDetails";
+import { Location } from "../types/system";
 
 export const voteDateState = atom<Dayjs>({
   key: "date",
