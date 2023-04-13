@@ -44,7 +44,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
 
   /**스터디 알고리즘 적용 */
   useEffect(() => {
-    if (dayjs().hour() >= VOTE_END_HOUR) decideSpace();
+    if (dayjs().hour() >= 0) decideSpace();
   }, [decideSpace]);
 
   useEffect(() => {
