@@ -64,7 +64,6 @@ export default function AttendChart({
     return queryResult
       ?.map((item) => {
         if (item.isSuccess) {
-          console.log(3, item);
           const myDataArr = item.data.filter((data) => data.uid === uid);
           return myDataArr[0]?.cnt;
         }
@@ -98,7 +97,7 @@ export default function AttendChart({
       setVoteAverageArr(newVoteAverageArr);
       tempLoading = false;
     } else tempLoading = true;
-    if (!isAttendLoading) {
+    if (!isAttendLoading && Uid) {
       setMyAttendCountTotal(getDataArray(Uid, attendCountTotal));
     } else tempLoading = true;
     if (!tempLoading) setIsLoading(false);
