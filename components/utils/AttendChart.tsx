@@ -97,8 +97,8 @@ export default function AttendChart({
       setVoteAverageArr(newVoteAverageArr);
       tempLoading = false;
     } else tempLoading = true;
-    if (!isAttendLoading && Uid) {
-      setMyAttendCountTotal(getDataArray(Uid, attendCountTotal));
+    if (!isAttendLoading) {
+      setMyAttendCountTotal(getDataArray(Uid as string, attendCountTotal));
     } else tempLoading = true;
     if (!tempLoading) setIsLoading(false);
     else setIsLoading(true);
