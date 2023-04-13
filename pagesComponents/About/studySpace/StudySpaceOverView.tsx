@@ -7,7 +7,6 @@ import { STUDY_SPACE_INFO } from "../../../constants/study";
 import { IPlace } from "../../../types/studyDetails";
 
 function StudySpaceOverView({ space }: { space: IPlace }) {
-  console.log(space);
   const location = STUDY_SPACE_INFO?.find((info) => info.id === space._id);
   const [isModal, setIsModal] = useState(false);
 

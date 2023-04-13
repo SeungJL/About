@@ -6,11 +6,15 @@ import UserImageIcon from "../../../../components/common/UserImageIcon";
 
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
+import { useRecoilValue } from "recoil";
+import { studyDateState } from "../../../../recoil/studyAtoms";
 
 function CheckComment({ attendances }: { attendances: IAttendence[] }) {
+  const studyDate = useRecoilValue(studyDateState);
   return (
     <Layout>
       {attendances.map((user, idx) => {
+        if (studyDate !== "not passed" && !user?.firstChoice) return null;
         const arrivedTime = new Date(user.arrived);
         arrivedTime.setHours(arrivedTime.getHours() - 9);
         const arrivedHM = arrivedTime.toLocaleTimeString([], {

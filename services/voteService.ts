@@ -21,7 +21,7 @@ const checkTimeOverlap = (timeArr: voteTimeArr) => {
   while (startTime <= endTime) {
     arr.push(0);
     timeArr.forEach((time) => {
-      if (time.start <= startTime && startTime <= endTime) {
+      if (time.start <= startTime && startTime <= time.end) {
         arr[arr.length - 1]++;
       }
     });
@@ -42,7 +42,7 @@ const checkTimeOverlap = (timeArr: voteTimeArr) => {
 };
 
 export const confirm = async (dateStr: string) => {
-  const date = strToDate(dateStr).toDate();
+  const date = strToDate(dateStr).subtract(1, "day").toDate();
   const vote = await Vote.findOne({ date });
   const failure = new Set();
 
@@ -69,6 +69,8 @@ export const confirm = async (dateStr: string) => {
       let result;
       if (timeObj.length) result = checkTimeOverlap(timeObj);
       if (result) {
+        console.log(timeObj);
+        console.log("success");
         participation.status = "open";
         participation.startTime = result.start;
         participation.endTime = result.end;
