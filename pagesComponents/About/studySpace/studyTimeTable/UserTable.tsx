@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
-import { isVotingState } from "../../../../recoil/studyAtoms";
+import { isVotingState, studyDateState } from "../../../../recoil/studyAtoms";
 
 import { VOTE_TABLE_COLOR } from "../../../../constants/design";
 import { IAttendence } from "../../../../types/studyDetails";
@@ -11,6 +11,8 @@ import { IUser } from "../../../../types/user";
 
 function UserTable({ attendances }: { attendances: IAttendence[] }) {
   const isVoting = useRecoilValue(isVotingState);
+  const studyDate = useRecoilValue(studyDateState);
+  console.log(2, studyDate);
   const [userArr, setUserArr] = useState<IUserTable[]>([]);
 
   useEffect(() => {
@@ -29,7 +31,8 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
         gap,
         isSecond: !user.firstChoice,
       };
-      setUserArr((old) => [...old, temp]);
+      if (studyDate === "not passed") setUserArr((old) => [...old, temp]);
+      else if (user.firstChoice) setUserArr((old) => [...old, temp]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVoting]);
