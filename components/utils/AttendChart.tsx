@@ -11,6 +11,9 @@ import { IUser } from "../../types/user";
 import { CHART_MONTH_RANGE } from "../../constants/range";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { IVoteRate } from "../../types/studyRecord";
+import { UseQueryResult } from "react-query";
+import { AxiosError } from "axios";
 
 const MONTH_LIST = [
   "1월",
@@ -37,7 +40,7 @@ export default function AttendChart({
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
 
-  const name = type === "main" ? session?.user.name : user?.name;
+  const Uid = type === "main" ? session?.uid : user?.uid;
   const text = type === "modal" ? undefined : "내 스터디 참여";
 
   const monthXaxis = [];
@@ -54,11 +57,15 @@ export default function AttendChart({
   const isAttendLoading = attendCountTotal.some((result) => result.isLoading);
   const [whyLoading, setWhyLoading] = useState(false);
 
-  const getDataArray = (name, queryResult) => {
+  const getDataArray = (
+    uid: string,
+    queryResult: UseQueryResult<IVoteRate[], AxiosError<unknown, any>>[]
+  ) => {
     return queryResult
       ?.map((item) => {
         if (item.isSuccess) {
-          const myDataArr = item.data.filter((data) => data.name === name);
+          console.log(3, item);
+          const myDataArr = item.data.filter((data) => data.uid === uid);
           return myDataArr[0]?.cnt;
         }
         return null;
@@ -92,7 +99,7 @@ export default function AttendChart({
       tempLoading = false;
     } else tempLoading = true;
     if (!isAttendLoading) {
-      setMyAttendCountTotal(getDataArray(name, attendCountTotal));
+      setMyAttendCountTotal(getDataArray(Uid, attendCountTotal));
     } else tempLoading = true;
     if (!tempLoading) setIsLoading(false);
     else setIsLoading(true);

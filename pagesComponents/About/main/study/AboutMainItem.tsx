@@ -35,7 +35,7 @@ function AboutMainItem({
   const { attendences, place, status } = studySpaceInfo || {};
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
-  console.log(1, firstAttendance);
+
   return (
     <Layout
       status={statusFixed === "myOpen"}

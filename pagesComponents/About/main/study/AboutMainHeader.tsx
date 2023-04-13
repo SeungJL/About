@@ -7,17 +7,19 @@ import { Button, useToast } from "@chakra-ui/react";
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
 import ModalPortal from "../../../../components/ModalPortal";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   mySpaceFixedState,
   studyDateState,
 } from "../../../../recoil/studyAtoms";
 import { useSession } from "next-auth/react";
+import { locationState } from "../../../../recoil/systemAtoms";
 
 function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
   const { data: session } = useSession();
   const toast = useToast();
   const isGuest = session?.user.name === "guest";
+
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [isShowModal, setIsShowModal] = useState(false);

@@ -5,17 +5,19 @@ import ModalPortal from "./ModalPortal";
 import RegisterFormModal from "../modals/user/RegisterFormModal";
 import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";
 
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { isNoticeAlertState } from "../recoil/utilityAtoms";
 import { numOfUserState } from "../recoil/userAtoms";
 
 import { NOTICE_ALERT } from "../constants/localStorage";
 import { IUser } from "../types/user";
 import { useActiveQuery, useIsActiveQuery } from "../hooks/user/queries";
+import { locationState } from "../recoil/systemAtoms";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
 
+  const [location, setLocation] = useRecoilState(locationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
   const setNumOfUser = useSetRecoilState(numOfUserState);
   const [isRegisterModal, setIsRegisterModal] = useState(false);
@@ -25,6 +27,11 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data } = useIsActiveQuery();
 
   const isActive = data?.isActive[0]?.isActive;
+
+  useEffect(() => {
+    setLocation("수원");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);

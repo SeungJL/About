@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { GetServerSideProps } from "next";
 import styled from "styled-components";
 import { getSession, useSession } from "next-auth/react";
@@ -28,12 +28,15 @@ import { arrangeSpace } from "../../libs/utils/studyUtils";
 
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
+import { Location } from "../../types/system";
+import { locationState } from "../../recoil/systemAtoms";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
 
   const voteDate = useRecoilValue(voteDateState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);
+  const location = useRecoilValue(locationState);
 
   const { isLoading } = useVoteQuery(voteDate, {
     enabled: true,
@@ -86,8 +89,17 @@ function About({ UserList }: { UserList: IUser[] }) {
             <HrDiv />
             <AboutTitle />
             <Calendar />
-            <AboutMainHeader voteCnt={voteCnt} />
-            <AboutMain participations={participations} />
+            {location === "수원" ? (
+              <>
+                <AboutMainHeader voteCnt={voteCnt} />
+                <AboutMain participations={participations} />
+              </>
+            ) : (
+              <>
+                <AboutMainHeader voteCnt={voteCnt} />
+                <AboutMain participations={participations} />
+              </>
+            )}
             <EventBanner />
             <AttendChart type="main" />
           </Layout>
