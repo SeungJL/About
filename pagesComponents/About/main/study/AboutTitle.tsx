@@ -24,30 +24,30 @@ function AboutTitle() {
   return (
     <>
       <Layout>
-        <Title>
-          <TitleName isNotPassed={studyDate !== "not passed"}>
-            {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
-            <LocalSelector />
-          </TitleName>
-          {isCheck ? (
-            <Check>
-              <FontAwesomeIcon icon={faCheck} size="lg" />
-            </Check>
-          ) : (
-            mySpaceFixed && (
-              <Button
-                leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
-                onClick={() => setIsCheckModal(true)}
-                background="mint"
-                color="white"
-                size="sm"
-                marginLeft="12px"
-              >
-                출석체크
-              </Button>
-            )
-          )}
-        </Title>
+        <Header>
+          <div>
+            <TitleName isNotPassed={studyDate !== "not passed"}>
+              {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
+              {!isCheck ? null : mySpaceFixed ? (
+                <Check>
+                  <FontAwesomeIcon icon={faCheck} size="lg" />
+                </Check>
+              ) : (
+                <Button
+                  leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
+                  onClick={() => setIsCheckModal(true)}
+                  background="mint"
+                  color="white"
+                  size="sm"
+                  marginLeft="12px"
+                >
+                  출석체크
+                </Button>
+              )}
+            </TitleName>
+          </div>
+          {studyDate === "not passed" && <LocalSelector />}
+        </Header>
         {studyDate !== "not passed" && (
           <>
             <Result>
@@ -74,16 +74,18 @@ const Layout = styled.div`
   padding: 16px 14px;
 `;
 
-const Title = styled.div`
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
   font-size: 18px;
 
   font-weight: 800;
 `;
 
-const TitleName = styled.span<{ isNotPassed: boolean }>`
+const TitleName = styled.div<{ isNotPassed: boolean }>`
   font-size: ${(props) => (props.isNotPassed ? "16px" : null)};
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
 `;
 
