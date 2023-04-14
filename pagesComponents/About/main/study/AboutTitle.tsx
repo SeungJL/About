@@ -28,7 +28,7 @@ function AboutTitle() {
           <div>
             <TitleName isNotPassed={studyDate !== "not passed"}>
               {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
-              {!mySpaceFixed ? null : !isCheck ? (
+              {!mySpaceFixed ? null : isCheck ? (
                 <Check>
                   <FontAwesomeIcon icon={faCheck} size="lg" />
                 </Check>
