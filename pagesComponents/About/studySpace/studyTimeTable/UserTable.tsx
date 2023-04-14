@@ -9,10 +9,12 @@ import { VOTE_TABLE_COLOR } from "../../../../constants/design";
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 
+const BLOCK_WIDTH = 25;
+
 function UserTable({ attendances }: { attendances: IAttendence[] }) {
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
-  console.log(2, studyDate);
+
   const [userArr, setUserArr] = useState<IUserTable[]>([]);
 
   useEffect(() => {
@@ -62,11 +64,12 @@ const UserBlock = styled.div`
 `;
 
 const UserIcon = styled.div<{ start: number; gap: number; color: string }>`
-  width: ${(props) => props.gap * 25}px;
+  width: ${(props) => props.gap * BLOCK_WIDTH}px;
+  min-width: ${BLOCK_WIDTH * 3}px;
   height: 37px;
   background-color: ${(props) => props.color};
   position: relative;
-  margin-left: ${(props) => props.start * 25}px;
+  margin-left: ${(props) => props.start * BLOCK_WIDTH}px;
   z-index: 10;
   border-radius: 8px;
   padding: 3px;

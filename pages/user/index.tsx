@@ -29,7 +29,7 @@ import { User } from "../../models/user";
 import UserOverView from "../../pagesComponents/User/UserOverView";
 import { Attendence } from "../../models/attendence";
 import ApplyRestModal from "../../modals/user/ApplyRestModal";
-import { useScoreQuery } from "../../hooks/user/queries";
+import { useScoreQuery, useWarningScoreQuery } from "../../hooks/user/queries";
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
 import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
@@ -38,13 +38,17 @@ function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
-
+  console.log(2, session);
   const handleOutput = (isOpen) => {
     if (!isOpen) {
       setModalOpen("");
     }
   };
   const { data } = useScoreQuery();
+  const { data: warningArr } = useWarningScoreQuery();
+  const myWarning = warningArr?.find(
+    (who) => who.name === session?.user.name
+  ).score;
 
   return (
     <>
@@ -62,9 +66,9 @@ function UserInfo() {
               <span>내 점수</span>
               <span>{data ? data?.point : 0} 점</span>
             </button>
-            <button>
-              <span>수집한 배지</span>
-              <span>0 개</span>
+            <button onClick={() => router.push(`/user/${session.uid}/warning`)}>
+              <span>받은 경고</span>
+              <span>{myWarning} 개</span>
             </button>
           </UserScoresNav>
           <AttendChart type="main" />

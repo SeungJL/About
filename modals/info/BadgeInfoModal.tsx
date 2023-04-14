@@ -100,6 +100,15 @@ export default function BadgeInfoModal({
             </div>
             <Info>이벤트 흭득 예정</Info>
           </Item>
+          <Item>
+            <div>
+              <Badge fontSize={12} colorScheme="facebook">
+                라벤더
+              </Badge>
+            </div>
+            <Info>이벤트 흭득 예정</Info>
+          </Item>
+
           <Footer onClick={() => setPage(2)}>
             <button>다음 페이지</button>
           </Footer>

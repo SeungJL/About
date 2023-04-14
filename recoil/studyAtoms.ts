@@ -6,7 +6,7 @@ import { Location } from "../types/system";
 
 export const voteDateState = atom<Dayjs>({
   key: "date",
-  default: getInterestingDate(),
+  default: null,
 });
 
 export const isVotingState = atom({

@@ -48,7 +48,8 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   }, [decideSpace]);
 
   useEffect(() => {
-    if (data) setStudyStartTime(dayjs(data[0]?.startTime));
+    if (data && data[0]?.startTime)
+      setStudyStartTime(dayjs(data[0]?.startTime));
   }, [data, setStudyStartTime]);
 
   /**날짜마다 달라지는 정보들*/
