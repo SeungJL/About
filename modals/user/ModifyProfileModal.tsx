@@ -95,10 +95,18 @@ function ProfileModifyModal({ setIsModal }) {
             <Item>
               <span>성별: </span>
               <Gender>
-                <GenderBtn isSelected={isMan} onClick={() => setIsMan(true)}>
+                <GenderBtn
+                  type="button"
+                  isSelected={isMan}
+                  onClick={() => setIsMan(true)}
+                >
                   남성
                 </GenderBtn>
-                <GenderBtn isSelected={!isMan} onClick={() => setIsMan(false)}>
+                <GenderBtn
+                  type="button"
+                  isSelected={!isMan}
+                  onClick={() => setIsMan(false)}
+                >
                   여성
                 </GenderBtn>
               </Gender>

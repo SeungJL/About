@@ -117,10 +117,18 @@ function RegisterFormModal({
             <Item>
               <span>성별: </span>
               <Gender>
-                <GenderBtn isSelected={isMan} onClick={() => setIsMan(true)}>
+                <GenderBtn
+                  type="button"
+                  isSelected={isMan}
+                  onClick={() => setIsMan(true)}
+                >
                   남성
                 </GenderBtn>
-                <GenderBtn isSelected={!isMan} onClick={() => setIsMan(false)}>
+                <GenderBtn
+                  type="button"
+                  isSelected={!isMan}
+                  onClick={() => setIsMan(false)}
+                >
                   여성
                 </GenderBtn>
               </Gender>
@@ -217,7 +225,7 @@ const Gender = styled.nav`
     margin-right: 12px;
   }
 `;
-const GenderBtn = styled.div<{ isSelected: boolean }>`
+const GenderBtn = styled.button<{ isSelected: boolean }>`
   font-size: 12px;
   width: 36px;
   text-align: center;
