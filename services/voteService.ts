@@ -42,7 +42,7 @@ const checkTimeOverlap = (timeArr: voteTimeArr) => {
 };
 
 export const confirm = async (dateStr: string) => {
-  const date = strToDate(dateStr).subtract(1, "day").toDate();
+  const date = strToDate(dateStr).toDate();
   const vote = await Vote.findOne({ date });
   const failure = new Set();
 
