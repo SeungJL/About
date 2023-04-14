@@ -51,8 +51,8 @@ function AboutMainItem({
           <Image
             src={`${place?.image}`}
             alt="about"
-            width={66}
-            height={66}
+            width={70}
+            height={70}
             unoptimized={true}
           />
         </div>
@@ -148,9 +148,9 @@ const ImageContainer = styled.div`
   align-items: center;
 
   > div {
-    width: 66px;
-    height: 66px;
-    border-radius: 24%;
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
     overflow: hidden;
   }
 `;

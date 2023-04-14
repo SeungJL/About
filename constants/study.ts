@@ -10,7 +10,7 @@ export const END_HOUR = 22;
 export const VOTE_START_HOUR = 14;
 export const VOTE_END_HOUR = 23;
 
-export const VOTER_DATE_END=18;
+export const VOTER_DATE_END = 18;
 
 export const STUDY_TIME_TABLE = [
   10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -36,9 +36,9 @@ export const STUDY_SPACE_INFO = [
     time: "09:00 - 22:30",
   },
   {
-    id: "623aa265cc9df6f2ceb8cb99",
-    location: "경기 수원시 팔달구 권광로 195",
-    time: "08:00 - 22:00",
+    id: "64395f1e8d1edf4e056e993d",
+    location: "경기 수원시 팔달구 인계로 166번길 48-15",
+    time: "09:00 - 24:00",
   },
   //위카페
   {
