@@ -17,6 +17,7 @@ import {
 import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
+import { Badge } from "@chakra-ui/react";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -60,11 +61,15 @@ function AboutMainItem({
       <SpaceInfo>
         <Status>
           <Branch>{place?.branch}</Branch>
-          {status !== "pending" && (
-            <StatusResult isOpen={Boolean(status === "open")}>
-              {status === "open" ? "Open" : "Closed"}
-            </StatusResult>
-          )}
+          {status !== "pending" && status === "open" ? (
+            <Badge colorScheme="green" ml="8px">
+              Open
+            </Badge>
+          ) : status !== "pending" && status === "dismissed" ? (
+            <Badge colorScheme="blackAlpha" ml="8px">
+              Closed
+            </Badge>
+          ) : null}
           {statusFixed === "myOpen" && (
             <Result>
               <FontAwesomeIcon icon={faClock} size="sm" />
@@ -199,7 +204,7 @@ const StatusResult = styled.div<{ isOpen: boolean }>`
 const Result = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 4px;
+  margin-left: 8px;
 `;
 
 const ResultInfo = styled.div`
