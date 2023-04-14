@@ -8,7 +8,7 @@ export const START_HOUR = 10;
 export const END_HOUR = 22;
 
 export const VOTE_START_HOUR = 14;
-export const VOTE_END_HOUR = 23;
+export const VOTE_END_HOUR = 22;
 
 export const VOTER_DATE_END = 18;
 
