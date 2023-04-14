@@ -58,7 +58,7 @@ export default async function handler(
             att.firstChoice
           ) {
             const { start, end } = att.time;
-            const startable = dayjs(start).add(9, "hour");
+            const startable = dayjs(start).add(8, "hour");
             const endable = dayjs(end).add(9, "hour");
             if (startable <= currentTime && currentTime <= endable) {
               att.arrived = currentTime.toDate();
