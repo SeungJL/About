@@ -75,7 +75,7 @@ export default function AttendChart({
   useEffect(() => {
     setTimeout(() => {
       setWhyLoading(true);
-    }, 1000);
+    }, 1500);
   }, []);
 
   useEffect(() => {
