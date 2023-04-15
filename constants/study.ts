@@ -36,9 +36,9 @@ export const STUDY_SPACE_INFO = [
     time: "09:00 - 22:30",
   },
   {
-    id: "623aa265cc9df6f2ceb8cb99",
-    location: "경기 수원시 팔달구 권광로 195",
-    time: "08:00 - 22:00",
+    id: "64395f1e8d1edf4e056e993d",
+    location: "경기 수원시 팔달구 인계로 166번길 48-15",
+    time: "09:00 - 24:00",
   },
   //위카페
   {

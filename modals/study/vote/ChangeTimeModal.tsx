@@ -57,8 +57,8 @@ export default function ChangeTimeModal({
     const start = time.start;
     const end = time.end;
     const timeInfo = {
-      start: dayjs(voteDate.hour(start.hour).minute(start.minutes)),
-      end: dayjs(voteDate.hour(end.hour).minute(end.minutes)),
+      start: dayjs(voteDate?.hour(start.hour).minute(start.minutes)),
+      end: dayjs(voteDate?.hour(end.hour).minute(end.minutes)),
     };
     if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
       toast({

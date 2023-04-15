@@ -4,9 +4,10 @@ export const arrangeSpace = (participations: IParticipation[]) => {
   const temp = [];
 
   participations.forEach((participant) => {
+    console.log(participant);
     const brand = participant.place.brand;
     if (brand === "탐앤탐스") temp[1] = participant;
-    else if (brand === "커피빈") temp[0] = participant;
+    else if (brand === "투썸플레이스") temp[0] = participant;
     else if (brand === "카탈로그") temp[3] = participant;
     else if (brand === "아티제") temp[2] = participant;
   });

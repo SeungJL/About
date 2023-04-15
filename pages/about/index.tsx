@@ -67,7 +67,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       });
     },
   });
-
+  console.log(participations);
   const { isLoading: isLoading2 } = useVoteQuery(
     getInterestingDate().subtract(1, "day"),
     {
