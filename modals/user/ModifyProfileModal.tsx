@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { useRegisterMutation } from "../../hooks/vote/mutations";
-import { useActiveQuery } from "../../hooks/user/queries";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 
 import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
 import { ModalHeaderXLine } from "../../components/Layout/Component";
@@ -17,7 +17,7 @@ function ProfileModifyModal({ setIsModal }) {
 
   const [isMan, setIsMan] = useState(true);
 
-  const user = useActiveQuery().data;
+  const user = useUserInfoQuery().data;
 
   const { mutate: handleRegister, isLoading: isRegisterLoading } =
     useRegisterMutation({

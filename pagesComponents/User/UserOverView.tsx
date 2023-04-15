@@ -1,7 +1,7 @@
 import { signOut } from "next-auth/react";
 import styled from "styled-components";
 
-import { useActiveQuery, useCommentQuery } from "../../hooks/user/queries";
+import { useUserInfoQuery, useCommentQuery } from "../../hooks/user/queries";
 
 import { useSession } from "next-auth/react";
 import { Badge, Spinner, useToast } from "@chakra-ui/react";
@@ -21,7 +21,7 @@ import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
 
 export default function UserOverView() {
-  const { data: user } = useActiveQuery();
+  const { data: user } = useUserInfoQuery();
   const [value, setValue] = useState("안녕하세요! 잘 부탁드립니다~!");
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);

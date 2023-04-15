@@ -11,7 +11,7 @@ import { numOfUserState } from "../recoil/userAtoms";
 
 import { NOTICE_ALERT } from "../constants/localStorage";
 import { IUser } from "../types/user";
-import { useActiveQuery, useIsActiveQuery } from "../hooks/user/queries";
+import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
 import { locationState } from "../recoil/systemAtoms";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
@@ -23,10 +23,10 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const [isRegisterModal, setIsRegisterModal] = useState(false);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
 
-  const { data: userData, isLoading } = useActiveQuery();
+  const { data: userData, isLoading } = useUserInfoQuery();
   const { data } = useIsActiveQuery();
 
-  const isActive = data?.isActive[0]?.isActive;
+  const isActive = data?.isActive;
 
   useEffect(() => {
     if (!isLoading) setLocation(userData?.location);

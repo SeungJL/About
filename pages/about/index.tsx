@@ -93,7 +93,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       },
     }
   );
-
+  console.log(participations);
   const voteCnt = participations.reduce((acc, par) => {
     return (
       acc +
@@ -102,7 +102,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       }, 0)
     );
   }, 0);
-  console.log(participations);
+
   return (
     <>
       <Seo title="About" />

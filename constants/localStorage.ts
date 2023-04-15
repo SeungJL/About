@@ -1,1 +1,1 @@
-export const NOTICE_ALERT = "noticeAlert";
+export const NOTICE_ALERT = "noticeAlert2";

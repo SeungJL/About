@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-export const CenterDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const FullScreen = styled.div`
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);

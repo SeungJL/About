@@ -24,7 +24,7 @@ import {
 } from "../../types/user";
 import { IDateStartToEnd } from "../../types/utils";
 
-export const useActiveQuery = (
+export const useUserInfoQuery = (
   options?: Omit<
     UseQueryOptions<IUser, AxiosError, IUser>,
     "queryKey" | "queryFn"
@@ -221,5 +221,6 @@ interface IComment {
 }
 
 interface IIsActive {
-  isActive: { isActive: boolean; _id: string }[];
+  isActive: boolean;
+  _id: string;
 }

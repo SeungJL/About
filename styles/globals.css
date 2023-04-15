@@ -1,12 +1,3 @@
-@font-face {
-  font-family: "Pretend";
-  src: url("/fonts/Pretendard-Regular.otf") format("opentype");
-}
-@font-face {
-  font-family: "PretendExtra";
-  src: url("/fonts/Pretendard-ExtraBold.otf") format("opentype");
-}
-
 :root {
   --chakra-fonts-body: unset;
 }
@@ -14,8 +5,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, "Pretend", BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 14px;
   width: 375px;
   margin: 0 auto;
