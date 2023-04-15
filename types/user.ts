@@ -32,6 +32,7 @@ export interface IUser extends Document {
   score: number;
   comment: string;
   rest: restType;
+  location: string;
 }
 
 export interface IAccount extends Document {

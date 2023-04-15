@@ -27,6 +27,9 @@ export default function Admin() {
       });
     }
   };
+
+  const myCommand = () => {};
+
   return (
     <Flex flexDir="column">
       <Button onClick={onResetScore} m="5px 0" disabled>
@@ -37,6 +40,9 @@ export default function Admin() {
       </Button>
       <Button onClick={onDeleteVote} m="5px 0">
         현재날짜 + 3일 이후 투표 모두 삭제
+      </Button>
+      <Button onClick={myCommand} m="5px 0">
+        커맨드
       </Button>
       <Button></Button>
     </Flex>

@@ -39,6 +39,7 @@ export interface IPlace {
   longitude: number;
   priority?: number;
   _id: string;
+  location: string;
 }
 
 export interface IAbsence {
