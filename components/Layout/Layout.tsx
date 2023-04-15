@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { useEffect, useState } from "react";
 import Router from "next/router";
@@ -54,9 +55,10 @@ export default function Layout({ children }) {
         <>
           <div id="root-modal">{children}</div>
           <Modals />
+
           <Script
             strategy="beforeInteractive"
-            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=kyi1yirf4s`}
+            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_APP_ID}`}
           ></Script>
         </>
       )}
