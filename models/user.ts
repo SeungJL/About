@@ -57,6 +57,11 @@ export const UserSchema: Schema<IUser> = new Schema({
     default: "안녕하세요! 잘 부탁드립니다~!",
   },
   rest: restSchema,
+  location: {
+    type: String,
+    enum: ["수원", "양천"],
+    default: "수원",
+  },
 });
 
 export const User =

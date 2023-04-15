@@ -26,6 +26,11 @@ export const PlaceSchema: Schema<IPlace> = new Schema({
     required: true,
   },
   priority: Number,
+  location: {
+    type: String,
+    enum: ["수원", "양천"],
+    default: "수원",
+  },
 });
 
 export const Place =
