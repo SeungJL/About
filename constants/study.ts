@@ -19,6 +19,11 @@ export const STUDY_TIME_TABLE = [
 export const TIME_SELECTOR_START = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 export const TIME_SELECTOR_END = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
+export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
+export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
+export const SUWAN_카탈로그 = "62e5d6e0e098c232c05c3d3f";
+export const SUWAN_아티제 = "63625f1d958585371af0248b";
+
 export const STUDY_SPACE_INFO = [
   {
     id: "62e5d6e0e098c232c05c3d3f",

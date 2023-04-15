@@ -26,6 +26,12 @@ import { IplaceInfo } from "../../../types/statistics";
 import { ITimeStartToEndHM } from "../../../types/utils";
 import { IVoteInfo } from "../../../types/studyDetails";
 import { ModalHeaderX } from "../../../components/Layout/Component";
+import {
+  SUWAN_아티제,
+  SUWAN_카탈로그,
+  SUWAN_탐앤탐스,
+  SUWAN_투썸,
+} from "../../../constants/study";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -65,13 +71,14 @@ function VoteStudyModal({
       voteCnt: participant.attendences.length,
       status: participant.status,
     };
-    const brand = participant.place.brand;
-    if (brand === "탐앤탐스") placeInfoArr[1] = temp;
-    else if (brand === "커피빈") placeInfoArr[0] = temp;
-    else if (brand === "카탈로그") placeInfoArr[3] = temp;
-    else if (brand === "아티제") placeInfoArr[2] = temp;
-  });
 
+    const ID = participant.place._id;
+    if (ID === SUWAN_탐앤탐스) placeInfoArr[1] = temp;
+    else if (ID === SUWAN_투썸) placeInfoArr[0] = temp;
+    else if (ID === SUWAN_카탈로그) placeInfoArr[3] = temp;
+    else if (ID === SUWAN_아티제) placeInfoArr[2] = temp;
+  });
+  console.log(24, participations);
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
 
