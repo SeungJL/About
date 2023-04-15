@@ -23,15 +23,15 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const [isRegisterModal, setIsRegisterModal] = useState(false);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
 
-  const user = useActiveQuery().data;
+  const { data: userData, isLoading } = useActiveQuery();
   const { data } = useIsActiveQuery();
 
   const isActive = data?.isActive[0]?.isActive;
 
   useEffect(() => {
-    setLocation("수원");
+    if (!isLoading) setLocation(userData?.location);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
@@ -41,7 +41,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
       setIsRegisterModal(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session, user?.registerDate, isActive]);
+  }, [session, isActive]);
 
   useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);

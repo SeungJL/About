@@ -1,4 +1,5 @@
 import { Document } from "mongoose";
+import { Location } from "./system";
 
 export interface kakaoProfileInfo {
   name: string;
@@ -32,7 +33,7 @@ export interface IUser extends Document {
   score: number;
   comment: string;
   rest: restType;
-  location: string;
+  location: Location;
 }
 
 export interface IAccount extends Document {

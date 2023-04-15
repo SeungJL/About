@@ -38,7 +38,7 @@ function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
-  console.log(2, session);
+ 
   const handleOutput = (isOpen) => {
     if (!isOpen) {
       setModalOpen("");

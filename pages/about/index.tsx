@@ -67,7 +67,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       });
     },
   });
-  console.log(participations);
+
   const { isLoading: isLoading2 } = useVoteQuery(
     getInterestingDate().subtract(1, "day"),
     {
@@ -102,7 +102,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       }, 0)
     );
   }, 0);
-
+  console.log(participations);
   return (
     <>
       <Seo title="About" />

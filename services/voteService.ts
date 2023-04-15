@@ -69,8 +69,6 @@ export const confirm = async (dateStr: string) => {
       let result;
       if (timeObj.length) result = checkTimeOverlap(timeObj);
       if (result) {
-        console.log(timeObj);
-        console.log("success");
         participation.status = "open";
         participation.startTime = result.start;
         participation.endTime = result.end;
