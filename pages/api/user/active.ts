@@ -16,7 +16,7 @@ export default async function handler(
   switch (method) {
     case "GET":
       try {
-        const isActive = await User.find({ uid: token.uid }, "isActive");
+        const isActive = await User.findOne({ uid: token.uid }, "isActive");
         res.status(200).json({ isActive });
       } catch (err) {
         res.status(500).send(err);
