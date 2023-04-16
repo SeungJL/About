@@ -58,6 +58,7 @@ export default async function handler(
   switch (method) {
     case "GET":
       const { location } = req.query;
+      if (!location) location = "수원";
       const filteredVote = vote;
 
       filteredVote.participations = filteredVote.participations.filter(
