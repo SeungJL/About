@@ -35,6 +35,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { IconKakao } from "../public/icons/Icons";
+import { ColorRing } from "react-loader-spinner";
+import { motion } from "framer-motion";
 
 const Login: NextPage<{
   providers: Record<
@@ -46,6 +48,7 @@ const Login: NextPage<{
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
+  const [ImgLoading, setImgLoading] = useState(true);
 
   const forceSignOut = (router.query.force_signout as string) === "true";
   const redirectFrom = router.query.from as string;
@@ -81,43 +84,64 @@ const Login: NextPage<{
       </Head>
       <Layout>
         <Wrapper>
-          <Image
-            alt="aboutPoster"
-            width={350}
-            height={190}
-            src={`/About2.png`}
-          />
-          <MainWrapper key={kakaoProvider.id}>
-            <Button
-              width="270px"
-              height="40px"
-              backgroundColor="#FEE500"
-              borderRadius="6px"
-              isLoading={loading}
-              onClick={() => customSignin(kakaoProvider)}
-              mb="8px"
-              display="flex"
-              justifyContent="space-between"
-              border="1px solid #FEE500"
-            >
-              <IconKakao />
-              <span>카카오 로그인</span>
-              <div />
-            </Button>
-            <Button
-              width="270px"
-              height="40px"
-              background="var(--font-h7)"
-              onClick={() => setIsModal(true)}
-              border="1px solid var(--font-h5)"
-              mb="8px"
-            >
-              게스트 로그인
-            </Button>
-            <Message>
-              동아리원이 아니신 분은 게스트 로그인을 이용해주세요
-            </Message>
-          </MainWrapper>
+          <ImageWrapper
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5 }}
+          >
+            <Image
+              alt="aboutPoster"
+              width={350}
+              height={190}
+              src={`/About2.png`}
+              onLoad={() => setImgLoading(false)}
+            />
+          </ImageWrapper>
+          {ImgLoading ? (
+            <Loader>
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={["#ff6b6b", "#fd7b5b", "#ffa500", "#ffeae5", "#00c2b3"]}
+              />
+            </Loader>
+          ) : (
+            <MainWrapper key={kakaoProvider.id}>
+              <Button
+                width="270px"
+                height="40px"
+                backgroundColor="#FEE500"
+                borderRadius="6px"
+                isLoading={loading}
+                onClick={() => customSignin(kakaoProvider)}
+                mb="8px"
+                display="flex"
+                justifyContent="space-between"
+                border="1px solid #FEE500"
+              >
+                <IconKakao />
+                <span>카카오 로그인</span>
+                <div />
+              </Button>
+              <Button
+                width="270px"
+                height="40px"
+                background="var(--font-h7)"
+                onClick={() => setIsModal(true)}
+                border="1px solid var(--font-h5)"
+                mb="8px"
+              >
+                게스트 로그인
+              </Button>
+              <Message>
+                동아리원이 아니신 분은 게스트 로그인을 이용해주세요
+              </Message>
+            </MainWrapper>
+          )}
           <AlertDialog
             isOpen={isOpen}
             leastDestructiveRef={cancelRef}
@@ -184,6 +208,8 @@ const Layout = styled.div`
   align-items: center;
 `;
 
+const ImageWrapper = styled(motion.div)``;
+
 const Wrapper = styled.div`
   width: 100%;
   height: 400px;
@@ -193,8 +219,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-const ImageWrapper = styled.div``;
 
 const MainWrapper = styled.div`
   margin-top: 40px;
@@ -234,6 +258,12 @@ const Message = styled.span`
   font-size: 10px;
   text-align: center;
   color: var(--color-red);
+`;
+const Loader = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
