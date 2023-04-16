@@ -57,7 +57,15 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      return res.status(200).json(vote);
+      // const { location } = req.query;
+      const location = "수원";
+      const filteredVote = vote;
+
+      filteredVote.participations = filteredVote.participations.filter(
+        (part) => part.place.location === location
+      );
+
+      return res.status(200).json(filteredVote);
     case "POST":
       if (isVoting) {
         vote.participations = vote.participations.map((participation) => ({
