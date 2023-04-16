@@ -12,23 +12,20 @@ import { useToast } from "@chakra-ui/react";
 
 import Seo from "../../components/common/Seo";
 import AboutMain from "../../pagesComponents/About/main/study/AboutMain";
-import AboutFooter from "../../pagesComponents/About/main/Footer";
 import EventBanner from "../../pagesComponents/About/main/EventBanner";
 import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
 import AboutMainHeader from "../../pagesComponents/About/main/study/AboutMainHeader";
 import AboutTitle from "../../pagesComponents/About/main/study/AboutTitle";
-import AttendChart from "../../components/utils/AttendChart";
 import UserSetting from "../../components/UserSetting";
 
 import { useVoteQuery } from "../../hooks/vote/queries";
-import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
+import { voteDateState } from "../../recoil/studyAtoms";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
-import { Location } from "../../types/system";
 import { locationState } from "../../recoil/systemAtoms";
 import dayjs from "dayjs";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
@@ -75,13 +72,15 @@ function About({ UserList }: { UserList: IUser[] }) {
       enabled:
         !voteDate && current >= VOTE_START_HOUR && current <= VOTER_DATE_END,
       onSuccess(data) {
-        data?.participations.some(
-          (study) =>
+        if (!voteDate)
+          data?.participations.some((study) =>
             study.attendences.find(
               (who) =>
                 (who.firstChoice && (who.user as IUser)).uid === session?.uid
-            ) && setVoteDate(dayjs())
-        );
+            )
+              ? setVoteDate(dayjs())
+              : setVoteDate(getInterestingDate())
+          );
       },
       onError() {
         toast({

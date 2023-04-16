@@ -17,6 +17,8 @@ import { locationState } from "../recoil/systemAtoms";
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
 
+  const isGuest = session?.user.name === "guest";
+
   const [location, setLocation] = useRecoilState(locationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
   const setNumOfUser = useSetRecoilState(numOfUserState);
@@ -30,13 +32,14 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
 
   useEffect(() => {
     if (!isLoading) setLocation(userData?.location);
+    if (isGuest) setLocation("수원");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
-
-    if (isActive !== undefined && !isActive) setIsRegisterModal(true);
+    if (!isGuest && isActive !== undefined && !isActive)
+      setIsRegisterModal(true);
     else {
       setIsRegisterModal(false);
     }

@@ -139,7 +139,6 @@ function UserOverview() {
               </Grade>
               <Progress value={0} size="xs" color="var(--font-h4)" />
               <IconWrapper onClick={() => setIsModal(true)}>
-                <span>등급</span>
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </IconWrapper>
             </ProgressWrapper>
