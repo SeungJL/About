@@ -8,12 +8,16 @@ import { Location } from "../types/system";
 function LocalSelector() {
   const [value, setValue] = useState<Location>();
   const [location, setLocation] = useRecoilState(locationState);
+
   useEffect(() => {
     setValue(location);
-  }, [location]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setLocation(event.currentTarget.value as Location);
+    const locationValue = event.currentTarget.value as Location;
+    setLocation(locationValue);
+    setValue(locationValue);
   };
   return (
     <Layout>
@@ -31,10 +35,9 @@ const Layout = styled.div`
 
   > select {
     width: 60px;
-    color: var(--font-h3);
+    color: var(--font-h2);
     background-color: var(--font-h8);
     font-size: 12px;
-
     font-weight: 600;
   }
 `;

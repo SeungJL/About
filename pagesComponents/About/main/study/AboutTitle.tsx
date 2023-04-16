@@ -46,7 +46,7 @@ function AboutTitle() {
               )}
             </TitleName>
           </div>
-          {studyDate === "not passed" && <LocalSelector />}
+          <LocalSelector />
         </Header>
         {studyDate !== "not passed" && (
           <>
@@ -72,6 +72,7 @@ function AboutTitle() {
 
 const Layout = styled.div`
   padding: 16px 14px;
+  padding-right: 8px;
 `;
 
 const Header = styled.header`

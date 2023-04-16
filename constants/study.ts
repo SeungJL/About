@@ -23,46 +23,60 @@ export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
 export const SUWAN_카탈로그 = "62e5d6e0e098c232c05c3d3f";
 export const SUWAN_아티제 = "63625f1d958585371af0248b";
+export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
+export const YANG_할리스 = "6437ea69ab537b843c6143ad";
+export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
+export const YANG_스타벅스 = "6437ebccab537b843c6143af";
+
+export const SPACE_LOCATION = [
+  { key: SUWAN_투썸, value: "수원" },
+  { key: SUWAN_탐앤탐스, value: "수원" },
+  { key: SUWAN_카탈로그, value: "수원" },
+  { key: SUWAN_아티제, value: "수원" },
+  { key: YANG_위카페, value: "양천" },
+  { key: YANG_파스쿠찌, value: "양천" },
+  { key: YANG_스타벅스, value: "양천" },
+  { key: YANG_할리스, value: "양천" },
+];
 
 export const STUDY_SPACE_INFO = [
   {
-    id: "62e5d6e0e098c232c05c3d3f",
+    id: SUWAN_카탈로그,
     location: "경기 수원시 팔달구 아주로 47번길 13",
     time: "12:00 - 22:00",
   },
   {
-    id: "640c271121863deff358f459",
+    id: SUWAN_탐앤탐스,
     location: "경기 수원시 팔달구 매산로 1",
     time: "08:00 - 24:00",
   },
   {
-    id: "63625f1d958585371af0248b",
+    id: SUWAN_아티제,
     location: "경기 수원시 영통구 센트럴타운로 85",
     time: "09:00 - 22:30",
   },
   {
-    id: "64395f1e8d1edf4e056e993d",
+    id: SUWAN_투썸,
     location: "경기 수원시 팔달구 인계로 166번길 48-15",
     time: "09:00 - 24:00",
   },
-  //위카페
   {
-    id: null,
+    id: YANG_위카페,
     location: "서울특별시 강서구 등촌동 648-5 1층",
     time: "08:00 ~ 21:00",
   },
   {
-    id: null,
+    id: YANG_할리스,
     location: "서울특별시 영등포구 당산제2동 당산로 219",
     time: "08:00 ~ 01:00",
   },
   {
-    id: null,
+    id: YANG_파스쿠찌,
     location: "서울특별시 강서구 화곡동 897-14",
     time: "08:00 ~ 00:00",
   },
   {
-    id: null,
+    id: YANG_스타벅스,
     location: "서울특별시 양천구 신목로 354",
     time: "07:00 ~ 23:00",
   },

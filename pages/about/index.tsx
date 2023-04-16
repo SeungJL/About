@@ -45,12 +45,12 @@ function About({ UserList }: { UserList: IUser[] }) {
   const current = dayjs().hour();
 
   useEffect(() => {
-    if (current < VOTE_START_HOUR || current > VOTER_DATE_END)
+    if ((!voteDate && current < VOTE_START_HOUR) || current > VOTER_DATE_END)
       setVoteDate(getInterestingDate());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { isLoading } = useVoteQuery(voteDate, {
+  const { isLoading } = useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
@@ -70,8 +70,10 @@ function About({ UserList }: { UserList: IUser[] }) {
 
   const { isLoading: isLoading2 } = useVoteQuery(
     getInterestingDate().subtract(1, "day"),
+    location,
     {
-      enabled: current >= VOTE_START_HOUR && current <= VOTER_DATE_END,
+      enabled:
+        !voteDate && current >= VOTE_START_HOUR && current <= VOTER_DATE_END,
       onSuccess(data) {
         data?.participations.some(
           (study) =>
@@ -93,7 +95,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       },
     }
   );
-  console.log(participations);
+
   const voteCnt = participations.reduce((acc, par) => {
     return (
       acc +

@@ -20,6 +20,7 @@ import { useScoreMutation } from "../../../hooks/user/mutations";
 
 import PlaceSelector from "../../../components/utils/placeSelector";
 import TimeSelector from "../../../components/utils/TimeSelector";
+import { arrangeSpace } from "../../../libs/utils/studyUtils";
 
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { IplaceInfo } from "../../../types/statistics";
@@ -32,6 +33,7 @@ import {
   SUWAN_탐앤탐스,
   SUWAN_투썸,
 } from "../../../constants/study";
+import { locationState } from "../../../recoil/systemAtoms";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -39,6 +41,7 @@ function VoteStudyModal({
   setIsShowModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const [page, setPage] = useState(0);
+  const location = useRecoilValue(locationState);
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
 
@@ -47,7 +50,7 @@ function VoteStudyModal({
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { data: vote } = useVoteQuery(voteDate, {
+  const { data: vote } = useVoteQuery(voteDate, location, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -63,22 +66,16 @@ function VoteStudyModal({
 
   const { mutate: getScore } = useScoreMutation();
 
-  const placeInfoArr: IplaceInfo[] = [{}, {}, {}, {}];
-  const participations = vote?.participations;
-  participations?.forEach((participant) => {
-    const temp = {
+  const participations = arrangeSpace(vote?.participations);
+
+  const placeInfoArr: IplaceInfo[] = participations?.map((participant) => {
+    return {
       placeName: participant.place,
       voteCnt: participant.attendences.length,
       status: participant.status,
     };
-
-    const ID = participant.place._id;
-    if (ID === SUWAN_탐앤탐스) placeInfoArr[1] = temp;
-    else if (ID === SUWAN_투썸) placeInfoArr[0] = temp;
-    else if (ID === SUWAN_카탈로그) placeInfoArr[3] = temp;
-    else if (ID === SUWAN_아티제) placeInfoArr[2] = temp;
   });
-  console.log(24, participations);
+
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
 

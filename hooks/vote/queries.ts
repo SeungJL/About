@@ -7,22 +7,23 @@ import { IUser } from "../../types/user";
 
 export const useVoteQuery = (
   date: Dayjs,
+  location?: string, // 새로운 location 변수
   options?: Omit<
-    UseQueryOptions<IVote, AxiosError, IVote, [string, Dayjs]>,
+    UseQueryOptions<IVote, AxiosError, IVote, [string, Dayjs, any]>,
     "queryKey" | "queryFn"
   >
-) =>
-  useQuery<IVote, AxiosError, IVote, [string, Dayjs]>(
-    [VOTE_GET, date],
-
+) => {
+  return useQuery<IVote, AxiosError, IVote, [string, Dayjs, any]>(
+    [VOTE_GET, date, location], // location 변수를 포함하는 배열
     async () => {
       const res = await axios.get<IVote>(
-        `/api/vote/${date.format("YYYY-MM-DD")}`
+        `/api/vote/${date.format("YYYY-MM-DD")}?location=${location}` // location 변수를 API 요청 URL에 추가
       );
       return res.data;
     },
     options
   );
+};
 
 export const usePlaceQuery = (
   options?: Omit<
