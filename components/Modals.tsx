@@ -10,11 +10,6 @@ function Modals() {
   const notCompleted = useRecoilValue(isShowNotCompletedState);
   const voteComplete = useRecoilValue(isVoteCompleteState);
 
-  return (
-    <>
-      {notCompleted && <NotCompletedModal />}
-      {voteComplete && <VoteSuccessModal />}
-    </>
-  );
+  return <>{voteComplete && <VoteSuccessModal />}</>;
 }
 export default Modals;

@@ -57,7 +57,6 @@ function AboutTitle() {
                 <NoMyStudy />
               )}
             </Result>
-            <HrDiv />
           </>
         )}
       </Layout>{" "}

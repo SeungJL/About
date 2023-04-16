@@ -63,3 +63,36 @@ export const myScoreRank = (scoreArr: IScoreAll[], myScore: number) => {
     return Math.ceil(rate / 10) * 10;
   }
 };
+
+export const SortUserScore = (
+  scoreArr: IScoreAll[],
+  myScore: number,
+
+) => {
+  const compare = (a: IScore, b: IScore) => {
+    if (a.point > b.point) return -1;
+    else if (a.point < b.point) return 1;
+    return 0;
+  };
+  scoreArr.sort(compare);
+  const myRank = scoreArr.findIndex((who) => who._id) + 1;
+
+  if (myRank <= 100) return { scoreArr, myRank, isRank: true };
+
+  let highCnt = 0;
+  const total = scoreArr.length;
+
+  scoreArr.forEach((user) => {
+    if (user.point >= myScore) highCnt++;
+  });
+
+  let percent;
+  const rate = (highCnt / total) * 100;
+  if (rate < 1) percent = 1;
+  if (rate < 5) percent = 5;
+  if (rate < 10) percent = 10;
+  else {
+    percent = Math.ceil(rate / 10) * 10;
+  }
+  return { scoreArr, percent, isRank: false };
+};

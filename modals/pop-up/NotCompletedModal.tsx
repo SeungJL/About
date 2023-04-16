@@ -5,7 +5,7 @@ import { isShowNotCompletedState } from "../../recoil/utilityAtoms";
 
 import { ModalMd, FullScreen } from "../../styles/layout/modal";
 
-function NotCompletedModal() {
+function NotCompletedModal({ setIsModal }) {
   const setIsNotCompletedState = useSetRecoilState(isShowNotCompletedState);
   return (
     <>
@@ -13,9 +13,8 @@ function NotCompletedModal() {
         개발이 완료되지 않은 기능입니다.
         <br />
         <span>조금만 더 기다려주세요!</span>
-        <div onClick={() => setIsNotCompletedState(false)}>닫기</div>
+        <div onClick={() => setIsModal(false)}>닫기</div>
       </ModalLayout>
-      <FullScreen onClick={() => setIsNotCompletedState(false)} />
     </>
   );
 }
@@ -25,22 +24,20 @@ const ModalLayout = styled(ModalMd)`
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  width: 280px;
+  width: var(--width-80);
   height: 160px;
-  font-size: 16px;
+  font-size: 14px;
   padding: 0;
   padding-top: 25px;
-  > span {
-    font-size: 14px;
-    color: rgb(0, 0, 0, 0.6);
-  }
+  font-weight: 600;
+
   > div {
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--main-color);
-    color: white;
+    background-color: var(--font-h5);
+    font-weight: 600;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }

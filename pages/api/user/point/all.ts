@@ -14,12 +14,13 @@ export default async function handler(
 ) {
   const { method } = req;
 
-  const token = await getToken({ req, secret });
+  //게스트 작업중인데 해당 코드 일단 없어도 되는 거 같아서 주석 처리 해 놓을게요!
+  // const token = await getToken({ req, secret });
 
-  if (!token || !token.uid || !token.accessToken) {
-    res.status(401).end();
-    return;
-  }
+  // if (!token || !token.uid || !token.accessToken) {
+  //   res.status(401).end();
+  //   return;
+  // }
 
   await dbConnect();
 

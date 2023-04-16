@@ -20,11 +20,15 @@ import { userBadgeState } from "../../../recoil/userAtoms";
 import { myScoreRank, userBadgeScore } from "../../../libs/utils/userUtils";
 
 import { USER_BADGES } from "../../../types/user";
+import { useRouter } from "next/router";
+import NotCompletedModal from "../../../modals/pop-up/NotCompletedModal";
 
 function UserOverview() {
   const { data: session } = useSession();
+  const router = useRouter();
   const isGuest = session?.user.name === "guest";
 
+  const [isNotComplete, setIsNotComplete] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
@@ -83,6 +87,9 @@ function UserOverview() {
                     {userBadge.badge}
                   </Badge>
                   <span style={{ color: userBadge.color }}>{myPoint}점</span>
+                  <IconWrapper onClick={() => setIsModal(true)}>
+                    <FontAwesomeIcon icon={faQuestionCircle} />
+                  </IconWrapper>
                 </div>
                 <div>
                   <span style={{ color: scoreInfo.nextBadge.color }}>
@@ -101,23 +108,21 @@ function UserOverview() {
                 size="xs"
                 color="var(--font-h4)"
               />
-              <IconWrapper onClick={() => setIsModal(true)}>
-                <FontAwesomeIcon icon={faQuestionCircle} />
-              </IconWrapper>
             </ProgressWrapper>
             <Info>
-              <Item>
-                <span>{dayjs().month() + 1}월 참여 횟수</span>
+              <Item onClick={() => setIsNotComplete(true)}>
+                <span>{dayjs().month() + 1}월 참여</span>
+
                 <span>{myMonthCnt}회</span>
               </Item>
-              <HrCol />
-              <Item>
+
+              <Item onClick={() => setIsNotComplete(true)}>
                 <span>내 점수</span>
                 <span>{myPoint}점</span>
               </Item>
-              <HrCol />
-              <Item>
-                <span>랭킹</span>
+
+              <Item onClick={() => router.push(`/ranking`)}>
+                <span>랭킹 </span>
                 {myRank !== 0 && <span> 상위 {myRank}%</span>}
               </Item>
             </Info>
@@ -129,6 +134,9 @@ function UserOverview() {
                 <div>
                   <Badge marginRight="6px">아메리카노</Badge>
                   <span>0 점</span>
+                  <IconWrapper onClick={() => setIsModal(true)}>
+                    <FontAwesomeIcon icon={faQuestionCircle} />
+                  </IconWrapper>
                 </div>
                 <div>
                   <span style={{ color: "var(--color-orange)" }}>30점</span>
@@ -138,24 +146,22 @@ function UserOverview() {
                 </div>
               </Grade>
               <Progress value={0} size="xs" color="var(--font-h4)" />
-              <IconWrapper onClick={() => setIsModal(true)}>
-                <FontAwesomeIcon icon={faQuestionCircle} />
-              </IconWrapper>
             </ProgressWrapper>
             <Info>
-              <Item>
-                <span>{dayjs().month() + 1}월 참여 횟수</span>
-                <span>0회</span>
+              <Item onClick={() => setIsNotComplete(true)}>
+                <span>{dayjs().month() + 1}월 참여</span>
+
+                <span>0 회</span>
               </Item>
-              <HrCol />
-              <Item>
+
+              <Item onClick={() => setIsNotComplete(true)}>
                 <span>내 점수</span>
-                <span>0점</span>
+                <span>0 점</span>
               </Item>
-              <HrCol />
-              <Item>
-                <span>랭킹</span>
-                <span>상위 100%</span>
+
+              <Item onClick={() => router.push(`/ranking`)}>
+                <span>랭킹 </span>
+                <span>미집계</span>
               </Item>
             </Info>
           </>
@@ -166,6 +172,11 @@ function UserOverview() {
           <BadgeInfoModal setIsModal={setIsModal} />
         </ModalPortal>
       )}
+      {isNotComplete && (
+        <ModalPortal setIsModal={setIsNotComplete}>
+          <NotCompletedModal setIsModal={setIsNotComplete} />
+        </ModalPortal>
+      )}
     </>
   );
 }
@@ -174,7 +185,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 14px;
-  padding-bottom: 6px;
+
   border-bottom-left-radius: 17px;
 `;
 
@@ -190,9 +201,8 @@ const Header = styled.header`
 `;
 
 const ProgressWrapper = styled.div`
+  margin-top: px;
   margin-bottom: 12px;
-
-  position: relative;
 `;
 
 const Grade = styled.div`
@@ -201,6 +211,8 @@ const Grade = styled.div`
   margin-bottom: 6px;
   align-items: center;
   > div {
+    display: flex;
+    align-items: center;
     > span {
       font-size: 12px;
     }
@@ -208,35 +220,33 @@ const Grade = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  color: var(--font-h3);
+  color: var(--font-h2);
   font-size: 14px;
-  position: absolute;
-  right: 0%;
-  bottom: -20px;
+  margin-left: 6px;
 `;
 
 const Info = styled.div`
   display: flex;
-  height: 54px;
-  margin-top: 6px;
-  > div:last-child {
-    border: none;
-  }
+  height: 64px;
+  margin-top: 8px;
+  justify-content: space-between;
+  margin-bottom: 12px;
 `;
 
 const Item = styled.div`
-  font-size: 12px;
-  padding: 2px 0;
-  flex: 1;
-  color: var(--font-h3);
+  border-radius: 8px;
+  font-size: 11px;
+  padding: 4px 0;
+  width: 108px;
+  color: var(--font-h2);
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
-
+  background-color: var(--font-h7);
   > span:last-child {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--font-h2);
   }
 `;

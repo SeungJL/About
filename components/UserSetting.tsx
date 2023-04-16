@@ -17,7 +17,7 @@ import { locationState } from "../recoil/systemAtoms";
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
 
-  const isGuest = session?.user.name === "guest";
+  const isGuest = session && session?.user.name === "guest";
 
   const [location, setLocation] = useRecoilState(locationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
@@ -25,8 +25,17 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const [isRegisterModal, setIsRegisterModal] = useState(false);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
 
-  const { data: userData, isLoading } = useUserInfoQuery();
-  const { data } = useIsActiveQuery();
+  const { data: userData, isLoading } = useUserInfoQuery({
+    enabled: isGuest === false,
+    onError(error) {
+      console.error(error);
+    },
+  });
+  const { data } = useIsActiveQuery({
+    onError(error) {
+      console.error(error);
+    },
+  });
 
   const isActive = data?.isActive;
 
@@ -34,11 +43,11 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
     if (!isLoading) setLocation(userData?.location);
     if (isGuest) setLocation("수원");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, isGuest]);
 
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
-    if (!isGuest && isActive !== undefined && !isActive)
+    if (isGuest === false && isActive !== undefined && !isActive)
       setIsRegisterModal(true);
     else {
       setIsRegisterModal(false);

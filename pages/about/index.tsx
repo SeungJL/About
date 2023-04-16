@@ -51,6 +51,7 @@ function About({ UserList }: { UserList: IUser[] }) {
     enabled: voteDate !== null,
     onSuccess(data) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
+
       setParticipations(temp);
     },
     onError() {
