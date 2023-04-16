@@ -3,17 +3,18 @@ import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
+import { Location } from "../../types/system";
 import { IUser } from "../../types/user";
 
 export const useVoteQuery = (
   date: Dayjs,
-  location?: string, // 새로운 location 변수
+  location: Location, // 새로운 location 변수
   options?: Omit<
-    UseQueryOptions<IVote, AxiosError, IVote, [string, Dayjs, any]>,
+    UseQueryOptions<IVote, AxiosError, IVote, [string, Dayjs, Location]>,
     "queryKey" | "queryFn"
   >
 ) => {
-  return useQuery<IVote, AxiosError, IVote, [string, Dayjs, any]>(
+  return useQuery<IVote, AxiosError, IVote, [string, Dayjs, Location]>(
     [VOTE_GET, date, location], // location 변수를 포함하는 배열
     async () => {
       const res = await axios.get<IVote>(

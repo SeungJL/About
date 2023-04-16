@@ -16,6 +16,7 @@ import { useVoteQuery } from "../../../hooks/vote/queries";
 import { IAttendence } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 import { SPACE_LOCATION } from "../../../constants/study";
+import { Location } from "../../../types/system";
 
 function StudySpace() {
   const toast = useToast();
@@ -25,7 +26,9 @@ function StudySpace() {
   const spaceID = router.query.studySpace;
   const voteDate = dayjs(router.query.date as string);
 
-  const location = SPACE_LOCATION?.find((space) => space.key === spaceID).value;
+  const location = SPACE_LOCATION?.find(
+    (space) => space.key === spaceID
+  )?.value;
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, location, {
     enabled: true,

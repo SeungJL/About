@@ -1,3 +1,5 @@
+import { Location } from "../types/system";
+
 export const MAX_USER_PER_PLACE = 8;
 export const MIN_USER_FOR_STUDY = 3;
 
@@ -28,7 +30,7 @@ export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
 export const YANG_스타벅스 = "6437ebccab537b843c6143af";
 
-export const SPACE_LOCATION = [
+export const SPACE_LOCATION: { key: string; value: Location }[] = [
   { key: SUWAN_투썸, value: "수원" },
   { key: SUWAN_탐앤탐스, value: "수원" },
   { key: SUWAN_카탈로그, value: "수원" },

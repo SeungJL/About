@@ -18,6 +18,7 @@ import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { Badge } from "@chakra-ui/react";
+import { LogoAdjustmentImage } from "../../../../libs/utils/designUtils";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -47,15 +48,7 @@ function AboutMainItem({
       }
     >
       <ImageContainer>
-        <div>
-          <Image
-            src={`${place?.image}`}
-            alt="about"
-            width={70}
-            height={70}
-            unoptimized={true}
-          />
-        </div>
+        <LogoAdjustmentImage place={place} />
       </ImageContainer>
 
       <SpaceInfo>
@@ -132,7 +125,7 @@ const Layout = styled.div<{ status: boolean }>`
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-  padding: ${(props) => (props.status ? "12px" : "12px")};
+  padding: ${(props) => (props.status ? "12px 12px 12px 0px" : "12px")};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
   border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
   font-family: "Pretend";
@@ -146,13 +139,7 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  > div {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    overflow: hidden;
-  }
+  overflow: hidden;
 `;
 
 const SpaceInfo = styled.div`

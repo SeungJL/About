@@ -141,7 +141,6 @@ function About({ UserList }: { UserList: IUser[] }) {
               </>
             )}
             <EventBanner />
-            <AttendChart type="main" />
           </Layout>
           {/* <AboutFooter />*/}
         </>

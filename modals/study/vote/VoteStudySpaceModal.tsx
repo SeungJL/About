@@ -19,6 +19,7 @@ import { VOTE_GET } from "../../../libs/queryKeys";
 import { IPlace, IVoteInfo } from "../../../types/studyDetails";
 import { ITimeStartToEnd } from "../../../types/utils";
 import { useToast } from "@chakra-ui/react";
+import { locationState } from "../../../recoil/systemAtoms";
 
 interface IVoteStudySpaceModal {
   isModal: boolean;
@@ -35,6 +36,7 @@ function VoteStudySpaceModal({
 }: IVoteStudySpaceModal) {
   const queryClient = useQueryClient();
   const toast = useToast();
+  const location = useRecoilValue(locationState);
 
   const isVoting = useRecoilValue(isVotingState);
   const [isFirst, setIsFirst] = useState(true);
@@ -44,7 +46,7 @@ function VoteStudySpaceModal({
     end: null,
   });
 
-  const { data } = useVoteQuery(voteDate);
+  const { data } = useVoteQuery(voteDate, location);
   const { mutate: getScore } = useScoreMutation();
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
