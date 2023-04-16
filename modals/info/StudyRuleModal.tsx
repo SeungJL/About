@@ -49,7 +49,13 @@ function StudyRuleModal({
                   <Li>
                     스터디는 알고리즘을 통해 <b>오후 10시</b>에 결과 확정
                   </Li>
-                  <Li>내 스터디 결과가 확정된 경우에만 출석하면 됨</Li>
+
+                  <li>
+                    <b> 3명 이상의 인원이 1시간 이상 참여시간이 겹치는 경우</b>
+                    에만 스터디가 열려요! 투표했다가 다른 사람들이 투표를 안하면
+                    어떡하지? 라는 걱정없이 먼저 투표해주셔도 좋습니다!
+                  </li>
+                  <Li>내 스터디 결과가 확정된 경우에만 출석하면 됩니다</Li>
                   <Li>
                     <b>시작 시간 이전까지는</b> 참여 시간을 변경해도 경고 없음
                   </Li>
@@ -183,6 +189,7 @@ const Content = styled.div`
 
 const B = styled.b`
   margin-left: 3px;
+  color: var(--font-h1);
 `;
 
 const Footer = styled.footer`
@@ -198,6 +205,9 @@ const Footer = styled.footer`
 `;
 const Li = styled.li`
   line-height: 2;
+  > b {
+    color: var(--font-h1);
+  }
 `;
 
 export default StudyRuleModal;
