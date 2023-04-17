@@ -26,7 +26,9 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      const userPoint = await User.find({}, "name + point");
+      const userPoint = await User.find({}, "uid + point");
+
+      console.log(userPoint);
 
       res.status(200).send(userPoint);
       break;
