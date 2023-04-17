@@ -84,7 +84,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     ) {
       setStudyDate("passed");
     } else if (
-      dayjs().hour() >= 23
+      dayjs().hour() >= VOTE_END_HOUR
         ? voteDateNum <= defaultDate
         : dayjs().hour() >= 14
         ? +voteDate.add(1, "day").format("MDD") <= defaultDate
