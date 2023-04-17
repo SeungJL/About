@@ -50,12 +50,12 @@ export interface IAccount extends Document {
 }
 
 export interface IScore {
-  _id: string;
   point: number;
+  _id?: string;
 }
 
 export interface IScoreAll extends IScore {
-  name: string;
+  uid: string;
 }
 
 export interface IRegisterForm {

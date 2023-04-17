@@ -36,11 +36,13 @@ function Ranking() {
   const { data } = useScoreQuery({
     enabled: isGuest === false,
   });
+  console.log(2, data);
   const myPoint = data?.point | 0;
 
   useScoreAllQuery({
     enabled: true,
     onSuccess(data) {
+      console.log(data);
       const { scoreArr, myRank, percent, isRank } = SortUserScore(
         data,
         myPoint
@@ -124,8 +126,8 @@ function Ranking() {
               return (
                 <Item key={idx}>
                   <span>{idx + 1}위</span>
-                  <RankingMine isMine={who.name === session?.user.name}>
-                    {who?.name}
+                  <RankingMine isMine={who.uid === session?.uid}>
+                    {who?.uid}
                   </RankingMine>
                   <Badge marginRight="6px" colorScheme={USER_BADGES[badge]}>
                     {badge}
