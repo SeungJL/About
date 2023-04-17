@@ -230,7 +230,7 @@ const Info = styled.div`
   height: 64px;
   margin-top: 8px;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 `;
 
 const Item = styled.div`
