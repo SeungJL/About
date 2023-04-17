@@ -124,7 +124,9 @@ function Ranking() {
               return (
                 <Item key={idx}>
                   <span>{idx + 1}위</span>
-                  <span>{who?.name}</span>
+                  <RankingMine isMine={who.name === session?.user.name}>
+                    {who?.name}
+                  </RankingMine>
                   <Badge marginRight="6px" colorScheme={USER_BADGES[badge]}>
                     {badge}
                   </Badge>
@@ -252,12 +254,16 @@ const Item = styled.div`
     margin-right: 12px;
     font-weight: 600;
   }
-  > span:nth-child(2) {
-    margin-right: 3px;
-  }
+
   > span:last-child {
     margin-left: auto;
   }
+`;
+
+const RankingMine = styled.span<{ isMine: boolean }>`
+  margin-right: 3px;
+  color: ${(props) => (props.isMine ? "var(--color-mint)" : null)};
+  font-weight: ${(props) => (props.isMine ? "600" : null)};
 `;
 
 const RankProfile = styled.div`

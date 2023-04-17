@@ -41,7 +41,6 @@ function ProfileModifyModal({ setIsModal }) {
     });
 
   const onValid = (data: IRegisterForm) => {
-    console.log(data);
     const userInfo: IUserRegister = {
       name: data.name,
       registerDate: data.registerDate,
