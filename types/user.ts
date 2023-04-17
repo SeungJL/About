@@ -56,6 +56,7 @@ export interface IScore {
 
 export interface IScoreAll extends IScore {
   uid: string;
+  name: string;
 }
 
 export interface IRegisterForm {
