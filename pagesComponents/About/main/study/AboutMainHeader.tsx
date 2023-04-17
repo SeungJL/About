@@ -25,6 +25,7 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
 
+
   const onClickBtn = (type: string) => {
     if (isGuest) {
       toast({
@@ -56,7 +57,7 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
               투표하기
             </Button>
           ) : (
-            !mySpaceFixed && (
+            !mySpaceFixed &&studyDate==="today"&& (
               <Button
                 leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
                 onClick={() => onClickBtn("attend")}

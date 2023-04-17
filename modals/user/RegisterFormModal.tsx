@@ -68,7 +68,7 @@ function RegisterFormModal({
       birth: data.birth,
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
-      location: "",
+      location: data.location,
     };
 
     handleRegister(userInfo);
@@ -85,13 +85,13 @@ function RegisterFormModal({
               <span>이름: </span>
               <span>{session?.user.name}</span>
             </Item>
-            <ErrorMessage></ErrorMessage>{" "}
+            <ErrorMessage></ErrorMessage>
             <Item>
               <span>지역: </span>
               <Select
                 {...register("location", {
                   required: true,
-                  validate: (value) => value === "수원" || value === "양천구",
+                  validate: (value) => value === "수원" || value === "양천",
                 })}
               >
                 <option value="">지역 선택</option>

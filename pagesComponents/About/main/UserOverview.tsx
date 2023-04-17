@@ -161,7 +161,7 @@ function UserOverview() {
 
               <Item onClick={() => router.push(`/ranking`)}>
                 <span>랭킹 </span>
-                <span>미집계</span>
+                <span>--</span>
               </Item>
             </Info>
           </>

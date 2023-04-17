@@ -124,7 +124,7 @@ const Login: NextPage<{
                 border="1px solid #FEE500"
               >
                 <IconKakao />
-                <span>카카오 로그인</span>
+                <span style={{ marginRight: "16px" }}>카카오 로그인</span>
                 <div />
               </Button>
               <Button
@@ -189,8 +189,9 @@ const GuestModal = ({ setIsModal }) => {
         <FontAwesomeIcon icon={faX} onClick={() => setIsModal(false)} />
       </ModalHeaderLine>
       <Content>
-        이 기능은 동아리 외부인을 위한 기능으로, 해당 동아리 소속의 인원은
-        카카오 로그인을 이용해주시기 바랍니다.
+        이 기능은 동아리 외부인을 위한 기능으로, 완성되지 않은 기능들이
+        있습니다.{" "}
+        <b>해당 동아리 소속의 인원은 카카오 로그인을 이용해주시기 바랍니다.</b>
       </Content>
       <ModalNav>
         <button onClick={() => setIsModal(false)}>뒤로</button>

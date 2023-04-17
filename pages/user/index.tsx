@@ -38,7 +38,7 @@ function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
- 
+
   const handleOutput = (isOpen) => {
     if (!isOpen) {
       setModalOpen("");
@@ -88,8 +88,7 @@ function UserInfo() {
                 <button onClick={() => setModalOpen("modify")}>
                   프로필 수정
                 </button>
-                <button>친구 초대 설정</button>
-                <button>카카오 알림 설정</button>
+
                 <button onClick={() => signOut()}>로그아웃</button>
               </NavBlock>
             </div>

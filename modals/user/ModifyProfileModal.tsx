@@ -11,10 +11,13 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 
 import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
 import { ModalHeaderXLine } from "../../components/Layout/Component";
+import { useRecoilValue } from "recoil";
+import { locationState } from "../../recoil/systemAtoms";
 
 function ProfileModifyModal({ setIsModal }) {
   const { data: session } = useSession();
 
+  const location = useRecoilValue(locationState);
   const [isMan, setIsMan] = useState(true);
 
   const user = useUserInfoQuery().data;
@@ -38,12 +41,14 @@ function ProfileModifyModal({ setIsModal }) {
     });
 
   const onValid = (data: IRegisterForm) => {
+    console.log(data);
     const userInfo: IUserRegister = {
       name: data.name,
       registerDate: data.registerDate,
       birth: data.birth,
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
+      location: data.location,
     };
 
     handleRegister(userInfo);
@@ -76,6 +81,20 @@ function ProfileModifyModal({ setIsModal }) {
             <Item>
               <span>이름: </span>
               <span>{session?.user.name}</span>
+            </Item>
+            <ErrorMessage></ErrorMessage>
+            <Item>
+              <span>지역: </span>
+              <Select
+                {...register("location", {
+                  required: true,
+                  validate: (value) => value === "수원" || value === "양천",
+                })}
+                defaultValue={location}
+              >
+                <option value="수원">수원</option>
+                <option value="양천">양천구/당산</option>
+              </Select>
             </Item>
             <ErrorMessage></ErrorMessage>
             <Item>
@@ -171,10 +190,12 @@ const Item = styled.div`
     background-color: var(--font-h7);
   }
 `;
-
+const Select = styled.select`
+  background-color: var(--font-h7);
+`;
 const ErrorMessage = styled.div`
   font-size: 11px;
-  height: 12px;
+  height: 11px;
   color: var(--color-red);
 `;
 
