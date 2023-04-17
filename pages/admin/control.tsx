@@ -3,6 +3,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { isPreviliged } from "../../libs/utils/authUtils";
+import { now } from "../../libs/utils/dateUtils";
 import { User } from "../../models/user";
 
 export default function Admin() {
@@ -28,7 +29,9 @@ export default function Admin() {
     }
   };
 
-  const myCommand = () => {};
+  const myCommand = () => {
+    axios.get(`/api/vote/${now()}/arrived`);
+  };
 
   return (
     <Flex flexDir="column">
