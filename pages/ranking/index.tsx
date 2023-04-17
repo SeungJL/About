@@ -127,7 +127,7 @@ function Ranking() {
                 <Item key={idx}>
                   <span>{idx + 1}위</span>
                   <RankingMine isMine={who.uid === session?.uid}>
-                    {who?.uid}
+                    {who?.name}
                   </RankingMine>
                   <Badge marginRight="6px" colorScheme={USER_BADGES[badge]}>
                     {badge}
