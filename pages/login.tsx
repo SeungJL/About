@@ -80,7 +80,7 @@ const Login: NextPage<{
         <meta property="og:type" content="website" />
         <meta property="og:title" content="About" />
         <meta property="og:description" content="카공 및 친목 동아리" />
-        <meta property="og:image" content="/AboutOG.png" />
+        <meta property="og:image" content="/ogImage.png" />
       </Head>
       <Layout>
         <Wrapper>
