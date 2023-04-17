@@ -28,8 +28,6 @@ export default async function handler(
     case "GET":
       const userPoint = await User.find({}, "uid + point");
 
-      console.log(userPoint);
-
       res.status(200).send(userPoint);
       break;
   }

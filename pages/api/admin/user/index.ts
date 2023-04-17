@@ -19,6 +19,10 @@ export default async function handler(
     res.status(401).end();
     return;
   }
+  if (!token) {
+    res.status(401).end();
+    return;
+  }
 
   switch (method) {
     case "GET": {
