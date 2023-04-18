@@ -19,7 +19,7 @@ import { IPlace, IVoteInfo } from "../../../types/studyDetails";
 import { ITimeStartToEnd } from "../../../types/utils";
 import { useToast } from "@chakra-ui/react";
 import { locationState } from "../../../recoil/systemAtoms";
-import SpaceSelector from "../../../components/utils/SpaceSelector";
+import SpaceSelector from "../../../components/utils/spaceSelector";
 
 interface IVoteStudySpaceModal {
   isModal: boolean;

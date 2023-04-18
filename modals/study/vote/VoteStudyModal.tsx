@@ -36,8 +36,8 @@ import { locationState } from "../../../recoil/systemAtoms";
 import ModalPortal from "../../../components/common/ModalPortal";
 import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
 
-import PlaceSelector from "../../../components/utils/PlaceSelector";
 import { ModalHeaderX } from "../../../components/Layout/Component";
+import PlaceSelector from "../../../components/utils/placeSelector";
 
 function VoteStudyModal({
   setIsShowModal,
