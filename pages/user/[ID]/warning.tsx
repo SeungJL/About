@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import Header from "../../../components/common/Header";
+import Header from "../../../components/Layout/Header";
 
 function Warning() {
   return (

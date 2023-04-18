@@ -18,7 +18,6 @@ import { useVoteQuery } from "../../../hooks/vote/queries";
 import { useAttendMutation } from "../../../hooks/vote/mutations";
 import { useScoreMutation } from "../../../hooks/user/mutations";
 
-import PlaceSelector from "../../../components/utils/placeSelector";
 import TimeSelector from "../../../components/utils/TimeSelector";
 import { arrangeSpace } from "../../../libs/utils/studyUtils";
 
@@ -26,7 +25,7 @@ import { VOTE_GET } from "../../../libs/queryKeys";
 import { IplaceInfo } from "../../../types/statistics";
 import { ITimeStartToEndHM } from "../../../types/utils";
 import { IVoteInfo } from "../../../types/studyDetails";
-import { ModalHeaderX } from "../../../components/Layout/Component";
+
 import {
   SUWAN_아티제,
   SUWAN_카탈로그,
@@ -34,6 +33,11 @@ import {
   SUWAN_투썸,
 } from "../../../constants/study";
 import { locationState } from "../../../recoil/systemAtoms";
+import ModalPortal from "../../../components/common/ModalPortal";
+import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
+
+import PlaceSelector from "../../../components/utils/PlaceSelector";
+import { ModalHeaderX } from "../../../components/Layout/Component";
 
 function VoteStudyModal({
   setIsShowModal,
@@ -78,6 +82,7 @@ function VoteStudyModal({
 
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
+  const [isComplete, setIsComplete] = useState(false);
 
   const [time, setTime] = useState<ITimeStartToEndHM>({
     start: { hour: 12, minutes: 0 },
@@ -96,7 +101,7 @@ function VoteStudyModal({
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
       !isVoting && getScore(5);
-      window.location.reload();
+      setIsComplete(true);
     },
   });
 

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, useToast } from "@chakra-ui/react";
 
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
-import ModalPortal from "../../../../components/ModalPortal";
+import ModalPortal from "../../../../components/common/ModalPortal";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
@@ -24,7 +24,6 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
-
 
   const onClickBtn = (type: string) => {
     if (isGuest) {
@@ -57,7 +56,8 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
               투표하기
             </Button>
           ) : (
-            !mySpaceFixed &&studyDate==="today"&& (
+            !mySpaceFixed &&
+            studyDate === "today" && (
               <Button
                 leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
                 onClick={() => onClickBtn("attend")}

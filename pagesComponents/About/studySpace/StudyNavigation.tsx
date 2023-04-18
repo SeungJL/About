@@ -7,7 +7,7 @@ import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import ModalPortal from "../../../components/ModalPortal";
+import ModalPortal from "../../../components/common/ModalPortal";
 import AbsentVoteModal from "../../../modals/study/confirm/AbsentVoteModal";
 import ChangeTimeModal from "../../../modals/study/vote/ChangeTimeModal";
 import VoteStudySpaceModal from "../../../modals/study/vote/VoteStudySpaceModal";
@@ -27,6 +27,7 @@ import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
 import AttendCheckModal from "../../../modals/study/vote/AttendCheckModal";
 import { useSession } from "next-auth/react";
+import VoteSuccessModal from "./VoteSuccessModal";
 
 function StudyNavigation({
   myVote,
@@ -53,6 +54,7 @@ function StudyNavigation({
   const [isCancelModal, setIsCancelModal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
+  const [isVoteComplete, setIsVoteComplete] = useState(false);
 
   const { mutate: getScore } = useScoreMutation();
 
@@ -200,12 +202,18 @@ function StudyNavigation({
             setIsModal={setIsVoteModal}
             voteDate={voteDate}
             place={place}
+            setIsVoteComplete={setIsVoteComplete}
           />
         </ModalPortal>
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
           <AttendCheckModal setIsModal={setIsCheckModal} />
+        </ModalPortal>
+      )}
+      {isVoteComplete && (
+        <ModalPortal setIsModal={setIsVoteComplete}>
+          <VoteSuccessModal />
         </ModalPortal>
       )}
     </>

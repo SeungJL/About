@@ -7,7 +7,8 @@ import { useQueryClient } from "react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
-import { CommentBox } from "../../../components/block/CommentBox";
+import CommentBox from "../../../components/common/CommentBox";
+
 import { useScoreMutation } from "../../../hooks/user/mutations";
 import { useArrivedMutation } from "../../../hooks/vote/mutations";
 import { useVoteQuery } from "../../../hooks/vote/queries";
@@ -27,7 +28,7 @@ import { IPlace } from "../../../types/studyDetails";
 
 const LOCATE_GAP = 0.00008;
 
-export default function AttendCheckModal({
+function AttendCheckModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
@@ -182,3 +183,5 @@ const Loading = styled.div`
     height: 10px;
   }
 `;
+
+export default AttendCheckModal;

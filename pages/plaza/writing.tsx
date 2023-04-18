@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ColorRing } from "react-loader-spinner";
 import styled from "styled-components";
-import Header from "../../components/common/Header";
+import Header from "../../components/Layout/Header";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import { usePlazaQuery } from "../../hooks/plaza/queries";
 import VoteList from "../../pagesComponents/Plaza/writing/VoteList";

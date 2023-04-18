@@ -7,11 +7,11 @@ import React from "react";
 import { useSession } from "next-auth/react";
 
 import { ModalLg } from "../../../styles/layout/modal";
-import { PlazaContentVoteListModal } from "./PlazaContentVoteListModal";
 
 import { usePlazaMutation } from "../../../hooks/plaza/mutations";
+import PlazaContentVoteListModal from "./PlazaContentVoteListModal";
 
-export default function PlazaWriteModal({ setIsModal }) {
+function PlazaWriteModal({ setIsModal }) {
   const [isVoteCategory, setIsVoteCategory] = useState(true);
   const [voteListArr, setVoteListArr] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
@@ -206,3 +206,5 @@ const DeadlineInput = styled.input``;
 const VoteList = styled.div`
   flex: 1;
 `;
+
+export default PlazaWriteModal;

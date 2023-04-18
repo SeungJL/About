@@ -1,4 +1,4 @@
-import { Portal, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
@@ -6,7 +6,7 @@ import styled from "styled-components";
 import UserInfoModal from "../../modals/user/UserInfoModal";
 import { IUser } from "../../types/user";
 
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "./ModalPortal";
 
 function UserImageIcon({ user }: { user: IUser }) {
   const toast = useToast();

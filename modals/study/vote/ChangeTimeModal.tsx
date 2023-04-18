@@ -19,7 +19,7 @@ import { useScoreMutation } from "../../../hooks/user/mutations";
 
 import { ITimeStartToEnd, ITimeStartToEndHM } from "../../../types/utils";
 
-export default function ChangeTimeModal({
+function ChangeTimeModal({
   setIsChangeTimeModal,
   myVoteTime,
 }: {
@@ -115,3 +115,5 @@ const WaringMsg = styled.span`
   margin-top: 6px;
   color: var(--color-red);
 `;
+
+export default ChangeTimeModal;

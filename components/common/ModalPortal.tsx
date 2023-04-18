@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { FullScreen } from "../styles/layout/modal";
+import { FullScreen } from "../../styles/layout/modal";
 
-const ModalPortal = ({ children, setIsModal }) => {
+function ModalPortal({ children, setIsModal }) {
   const ref = useRef<Element | null>();
   const [mounted, setMounted] = useState(false);
 
@@ -29,5 +29,6 @@ const ModalPortal = ({ children, setIsModal }) => {
     );
   }
   return null;
-};
+}
+
 export default ModalPortal;

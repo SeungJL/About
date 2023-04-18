@@ -10,9 +10,10 @@ import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
 import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
-import { ModalHeaderXLine } from "../../components/Layout/Component";
+
 import { useRecoilValue } from "recoil";
 import { locationState } from "../../recoil/systemAtoms";
+import { ModalHeaderXLine } from "../../components/Layout/Component";
 
 function ProfileModifyModal({ setIsModal }) {
   const { data: session } = useSession();

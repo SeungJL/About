@@ -2,7 +2,6 @@ import { faCheck, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { PlazaContentVoteListModal } from "../../../modals/write/plaza/PlazaContentVoteListModal";
 
 function VoteList({ setVoteList }) {
   const [voteListArr, setVoteListArr] = useState([]);

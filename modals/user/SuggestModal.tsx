@@ -21,7 +21,7 @@ import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import { useScoreMutation } from "../../hooks/user/mutations";
 import { ModalHeaderXLine } from "../../components/Layout/Component";
 
-export default function SuggestModal({
+function SuggestModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
@@ -179,3 +179,5 @@ const ContentInput = styled.textarea`
   height: 100%;
   background-color: var(--font-h7);
 `;
+
+export default SuggestModal;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const Map = ({ lat, lon }: { lat?: number; lon?: number }) => {
+function Map({ lat, lon }: { lat?: number; lon?: number }) {
   const mapRef = useRef();
 
   const [myLat, setMyLat] = useState(null);
@@ -65,6 +65,6 @@ const Map = ({ lat, lon }: { lat?: number; lon?: number }) => {
   return (
     <div id="map" ref={mapRef} style={{ width: "100%", height: "360px" }} />
   );
-};
+}
 
 export default Map;

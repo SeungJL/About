@@ -25,7 +25,7 @@ import { useDismissMutation } from "../../../hooks/vote/mutations";
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { getToday } from "../../../libs/utils/dateUtils";
 
-export default function AbsentVoteModal({ setIsModal }) {
+function AbsentVoteModal({ setIsModal }) {
   const toast = useToast();
   const queryClient = useQueryClient();
   const today = getToday();
@@ -99,3 +99,5 @@ export default function AbsentVoteModal({ setIsModal }) {
 }
 
 const Layout = styled(ModalXs)``;
+
+export default AbsentVoteModal;

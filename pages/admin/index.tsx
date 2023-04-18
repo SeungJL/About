@@ -1,5 +1,6 @@
 import { Box, Flex, Input, Select, Text } from "@chakra-ui/react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { IUser } from "../../types/user";
 

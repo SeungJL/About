@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import SuggestModal from "../../modals/user/SuggestModal";
 import { useSession } from "next-auth/react";
-import ModalPortal from "../../components/ModalPortal";
+import ModalPortal from "../../components/common/ModalPortal";
 import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
 
 export default function UserNavigation() {

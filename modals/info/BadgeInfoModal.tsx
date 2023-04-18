@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 import { ModalXXL } from "../../styles/layout/modal";
 
-export default function BadgeInfoModal({
+function BadgeInfoModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
@@ -273,3 +273,5 @@ const RuleHeader = styled.header`
     text-align: center;
   }
 `;
+
+export default BadgeInfoModal;

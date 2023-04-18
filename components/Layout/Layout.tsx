@@ -2,22 +2,16 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { useEffect, useState } from "react";
 import Router from "next/router";
-import Modals from "../Modals";
-import { getSession, useSession } from "next-auth/react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { GetServerSideProps } from "next";
-import dbConnect from "../../libs/dbConnect";
+import { useRecoilValue } from "recoil";
 
-import { Audio, ColorRing } from "react-loader-spinner";
+import { ColorRing } from "react-loader-spinner";
 import styled from "styled-components";
-import { voteDateState } from "../../recoil/studyAtoms";
 import Script from "next/script";
 const NAVER_APP_ID = process.env.NAVER_APP_ID;
-export default function Layout({ children }) {
+
+function Layout({ children }) {
   const [loading, setLoading] = useState(false);
-  const voteDate = useRecoilValue(voteDateState);
-  const { data: session } = useSession();
 
   useEffect(() => {
     const start = () => {
@@ -54,7 +48,6 @@ export default function Layout({ children }) {
       ) : (
         <>
           <div id="root-modal">{children}</div>
-          <Modals />
 
           <Script
             strategy="beforeInteractive"
@@ -77,3 +70,5 @@ const Loader = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
+export default Layout;

@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { ModalXs } from "../../styles/layout/modal";
 
-export default function UserLogout({
+function UserLogout({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
@@ -58,3 +58,5 @@ const Footer = styled.footer`
     font-weight: 600;
   }
 `;
+
+export default UserLogout;

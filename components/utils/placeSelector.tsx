@@ -1,23 +1,17 @@
 import { useToast } from "@chakra-ui/react";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/study";
 
-import {
-  IplaceInfo,
-  IPlaceSelecter,
-  IPlaceStatus,
-} from "../../types/statistics";
-import { IPlace } from "../../types/studyDetails";
+import { IplaceInfo, IPlaceSelecter } from "../../types/statistics";
 
-const PlaceSelector = ({
+function PlaceSelector({
   placeInfoArr,
   firstPlace,
   secondPlaces,
   setSelectedPlace,
   isSelectUnit,
-}: IPlaceSelecter) => {
+}: IPlaceSelecter) {
   const choicedSpaces = isSelectUnit ? firstPlace : secondPlaces;
   const handlePlaceIconClicked = (place: IplaceInfo) => {
     const isExist = choicedSpaces.some(
@@ -81,9 +75,7 @@ const PlaceSelector = ({
       })}
     </Layout>
   );
-};
-
-export default PlaceSelector;
+}
 
 const Layout = styled.div`
   display: flex;
@@ -117,3 +109,4 @@ const PlaceIcon = styled.button<{
   justify-content: center;
   align-items: center;
 `;
+export default PlaceSelector;

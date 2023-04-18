@@ -20,7 +20,7 @@ interface ITimeSelector {
   setTimes: ({ start, end }: ITimeStartToEndHM) => void;
 }
 
-const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
+function TimeSelectorUnit({ type, time, setTimes }: ITimeSelectorUnit) {
   const hoursArr = type === "start" ? TIME_SELECTOR_START : TIME_SELECTOR_END;
   const onChangeTime =
     (isHour: boolean) => (event: ChangeEvent<HTMLSelectElement>) => {
@@ -70,7 +70,7 @@ const TimeSelectorUnit = ({ type, time, setTimes }: ITimeSelectorUnit) => {
       </Select>
     </UnitLayout>
   );
-};
+}
 
 const Layout = styled.div``;
 const UnitLayout = styled.div`

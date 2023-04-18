@@ -6,7 +6,6 @@ import { Dayjs } from "dayjs";
 import { useQueryClient } from "react-query";
 
 import TimeRullet from "../../../components/utils/TimeRullet";
-import SpaceSelector from "../../../components/utils/spaceSelector";
 
 import { useRecoilValue } from "recoil";
 import { isVotingState } from "../../../recoil/studyAtoms";
@@ -20,12 +19,14 @@ import { IPlace, IVoteInfo } from "../../../types/studyDetails";
 import { ITimeStartToEnd } from "../../../types/utils";
 import { useToast } from "@chakra-ui/react";
 import { locationState } from "../../../recoil/systemAtoms";
+import SpaceSelector from "../../../components/utils/SpaceSelector";
 
 interface IVoteStudySpaceModal {
   isModal: boolean;
   setIsModal: Dispatch<SetStateAction<boolean>>;
   voteDate: Dayjs;
   place: IPlace;
+  setIsVoteComplete: Dispatch<SetStateAction<boolean>>;
 }
 
 function VoteStudySpaceModal({
@@ -33,6 +34,7 @@ function VoteStudySpaceModal({
   setIsModal,
   voteDate,
   place,
+  setIsVoteComplete,
 }: IVoteStudySpaceModal) {
   const queryClient = useQueryClient();
   const toast = useToast();
@@ -52,7 +54,7 @@ function VoteStudySpaceModal({
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
       !isVoting && getScore(5);
-      window.location.reload();
+      setIsVoteComplete(true);
     },
   });
 

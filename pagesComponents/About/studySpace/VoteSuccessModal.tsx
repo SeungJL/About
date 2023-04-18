@@ -30,7 +30,7 @@ const Layout = styled.div`
   height: 100vh;
   top: 0;
   z-index: 2000;
-  position: absolute;
+  position: fixed;
   background-color: white;
 `;
 

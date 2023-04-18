@@ -15,7 +15,7 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 import { IUser, USER_BADGES } from "../../types/user";
 import { motion } from "framer-motion";
 
-export default function UserInfoModal({
+function UserInfoModal({
   user,
   setIsModal,
 }: {
@@ -235,3 +235,4 @@ const Comment = styled.div`
     color: var(--font-h1);
   }
 `;
+export default UserInfoModal;

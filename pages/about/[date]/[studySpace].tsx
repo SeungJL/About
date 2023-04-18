@@ -17,6 +17,9 @@ import { IAttendence } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 import { SPACE_LOCATION } from "../../../constants/study";
 import { Location } from "../../../types/system";
+import { useState } from "react";
+import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
+import ModalPortal from "../../../components/common/ModalPortal";
 
 function StudySpace() {
   const toast = useToast();

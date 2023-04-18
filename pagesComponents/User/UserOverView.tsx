@@ -16,7 +16,7 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
 import { useCommentMutation } from "../../hooks/user/mutations";
 import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
-import RoleBadge from "../../components/block/UserBadge";
+
 import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
 

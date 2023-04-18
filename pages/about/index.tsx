@@ -10,7 +10,7 @@ import { User } from "../../models/user";
 import { ColorRing } from "react-loader-spinner";
 import { useToast } from "@chakra-ui/react";
 
-import Seo from "../../components/common/Seo";
+import Seo from "../../components/Layout/Seo";
 import AboutMain from "../../pagesComponents/About/main/study/AboutMain";
 import EventBanner from "../../pagesComponents/About/main/EventBanner";
 import Header from "../../pagesComponents/About/main/Header";
@@ -18,7 +18,7 @@ import Calendar from "../../pagesComponents/About/main/Calendar";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
 import AboutMainHeader from "../../pagesComponents/About/main/study/AboutMainHeader";
 import AboutTitle from "../../pagesComponents/About/main/study/AboutTitle";
-import UserSetting from "../../components/UserSetting";
+import UserSetting from "../../pagesComponents/UserSetting";
 
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { voteDateState } from "../../recoil/studyAtoms";

@@ -4,12 +4,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import styled from "styled-components";
 
-import {
-  ModalHeaderLine,
-  ModalMd,
-  ModalLgLight,
-  ModalXs,
-} from "../../styles/layout/modal";
+import { ModalXs } from "../../styles/layout/modal";
 
 import {
   useParticipationRateQuery,
@@ -21,7 +16,7 @@ import {
 import { now } from "../../libs/utils/dateUtils";
 import dayjs from "dayjs";
 
-export default function LastWeekAttendPopUp({ closePopUp }) {
+function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();
   const name = session?.user.name;
   const { data: voteRate } = useVoteRateQuery(
@@ -122,3 +117,4 @@ const Footer = styled.footer`
     margin-right: 6px;
   }
 `;
+export default LastWeekAttendPopUp;

@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import ModalPortal from "./ModalPortal";
+import ModalPortal from "../components/common/ModalPortal";
 
 import RegisterFormModal from "../modals/user/RegisterFormModal";
 import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";

@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { IconMapMark } from "../public/icons/Icons";
-import { locationState } from "../recoil/systemAtoms";
-import { Location } from "../types/system";
+import { IconMapMark } from "../../public/icons/Icons";
+import { locationState } from "../../recoil/systemAtoms";
+import { Location } from "../../types/system";
 
 function LocalSelector() {
   const [value, setValue] = useState<Location>();

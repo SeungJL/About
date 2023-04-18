@@ -4,45 +4,28 @@ import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import {
-  faBook,
   faHouse,
-  faUsers,
   faCalendarCheck,
   faClipboard,
-  faClipboardCheck,
-  faClipboardUser,
-  faAngleDoubleRight,
-  faUser,
-  faX,
   faUsersViewfinder,
   faPeopleRoof,
-  faBurger,
-  faUtensilSpoon,
   faUtensils,
-  faPeopleCarryBox,
-  faBuildingColumns,
-  faGraduationCap,
-  faLayerGroup,
-  faUserGroup,
   faSchool,
   faBookOpen,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { useState } from "react";
-import { IconAbout, IconAboutBig } from "../../public/icons/Icons";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
 } from "@chakra-ui/react";
 import Image from "next/image";
+
 function Drawer({
   isDrawer,
   setIsDrawer,

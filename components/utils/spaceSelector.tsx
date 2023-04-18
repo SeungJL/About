@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { IPlace } from "../../types/studyDetails";
 
-export default function SpaceSelector({
+function SpaceSelector({
   spaceArr,
   selectSpace,
   setSelectSpace,
@@ -71,3 +71,5 @@ interface ISpaceSelector {
   selectSpace?: IPlace[];
   setSelectSpace?: Dispatch<SetStateAction<IPlace[]>>;
 }
+
+export default SpaceSelector;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import Seo from "../../components/common/Seo";
-import Header from "../../components/common/Header";
+import Seo from "../../components/Layout/Seo";
+import Header from "../../components/Layout/Header";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { noticeData } from "../../storage/notice";

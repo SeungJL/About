@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import Header from "../../components/common/Header";
+import Header from "../../components/Layout/Header";
 
 function EventPage() {
   return (

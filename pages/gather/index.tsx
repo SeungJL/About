@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { GatherVoteModal } from "../../modals/write/gather/AttendGatherModal";
 
 const GatherLayout = styled.div`
   padding: 25px;

@@ -26,11 +26,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
-import Logo from "../components/block/logo";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 import styled from "styled-components";
 import { ModalXs } from "../styles/layout/modal";
-import ModalPortal from "../components/ModalPortal";
+import ModalPortal from "../components/common/ModalPortal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";

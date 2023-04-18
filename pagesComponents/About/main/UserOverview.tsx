@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Badge, Progress } from "@chakra-ui/react";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 
-import ModalPortal from "../../../components/ModalPortal";
+import ModalPortal from "../../../components/common/ModalPortal";
 import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
 
 import { useRecoilState, useRecoilValue } from "recoil";

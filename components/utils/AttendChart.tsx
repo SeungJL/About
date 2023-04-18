@@ -8,35 +8,14 @@ import {
 import { getMonth } from "../../libs/utils/dateUtils";
 
 import { IUser } from "../../types/user";
-import { CHART_MONTH_RANGE } from "../../constants/range";
+import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IVoteRate } from "../../types/studyRecord";
 import { UseQueryResult } from "react-query";
 import { AxiosError } from "axios";
 
-const MONTH_LIST = [
-  "1월",
-  "2월",
-  "3월",
-  "4월",
-  "5월",
-  "6월",
-  "7월",
-  "8월",
-  "9월",
-  "10월",
-  "11월",
-  "12월",
-];
-
-export default function AttendChart({
-  type,
-  user,
-}: {
-  type?: string;
-  user?: IUser;
-}) {
+function AttendChart({ type, user }: { type?: string; user?: IUser }) {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
 
@@ -211,3 +190,5 @@ export default function AttendChart({
 const MainWrapper = styled.div`
   min-height: 213px;
 `;
+
+export default AttendChart;

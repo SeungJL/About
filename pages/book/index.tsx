@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { fetchFamousBooks } from "../../hooks/vote/queries";
 
-import Seo from "../../components/common/Seo";
+import Seo from "../../components/Layout/Seo";
 
 interface IBooks {
   bookImageURL: string;

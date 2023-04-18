@@ -16,7 +16,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/common/Header";
+import Header from "../../components/Layout/Header";
 import { useScoreAllQuery, useScoreQuery } from "../../hooks/user/queries";
 import {
   myScoreRank,

@@ -10,8 +10,9 @@ import { useForm } from "react-hook-form";
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { IApplyRest } from "../../types/userAction";
-import { ModalHeaderXLine } from "../../components/Layout/Component";
+
 import { useApplyRestMutation } from "../../hooks/user/mutations";
+import { ModalHeaderXLine } from "../../components/Layout/Component";
 
 function ApplyRestModal({
   setIsModal,
