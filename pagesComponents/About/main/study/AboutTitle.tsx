@@ -71,7 +71,6 @@ function AboutTitle() {
 
 const Layout = styled.div`
   padding: 16px 14px;
-  padding-right: 8px;
 `;
 
 const Header = styled.header`
