@@ -221,6 +221,8 @@ interface IComment {
 }
 
 interface IIsActive {
-  isActive: boolean;
-  _id: string;
+  isActive: {
+    isActive: boolean;
+    _id: string;
+  };
 }

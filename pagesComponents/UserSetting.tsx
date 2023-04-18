@@ -13,6 +13,7 @@ import { NOTICE_ALERT } from "../constants/localStorage";
 import { IUser } from "../types/user";
 import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
 import { locationState } from "../recoil/systemAtoms";
+import { usePlazaQuery } from "../hooks/plaza/queries";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
@@ -31,29 +32,30 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
       console.error(error);
     },
   });
-  const { data } = useIsActiveQuery({
+  const { data, isLoading: isActiveLoading } = useIsActiveQuery({
     onError(error) {
       console.error(error);
     },
   });
-
-  const isActive = data?.isActive;
+  const isActive = data?.isActive.isActive;
 
   useEffect(() => {
-    if (!isLoading) setLocation(userData?.location);
-    if (isGuest) setLocation("수원");
+    if (!location) {
+      if (!isLoading) setLocation(userData?.location);
+      if (isGuest) setLocation("수원");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, isGuest]);
+  }, [isLoading, isGuest, location]);
 
   useEffect(() => {
     setNumOfUser(UserList?.filter((user) => user.isActive).length);
+
     if (isGuest === false && isActive !== undefined && !isActive)
       setIsRegisterModal(true);
-    else {
-      setIsRegisterModal(false);
-    }
+    else setIsRegisterModal(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session, isActive]);
+  }, [session, isActive, isActiveLoading]);
 
   useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);

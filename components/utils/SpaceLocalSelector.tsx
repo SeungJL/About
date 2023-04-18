@@ -9,6 +9,7 @@ function LocalSelector() {
   const [value, setValue] = useState<Location>();
   const [location, setLocation] = useRecoilState(locationState);
 
+  console.log(location);
   useEffect(() => {
     setValue(location);
     // eslint-disable-next-line react-hooks/exhaustive-deps

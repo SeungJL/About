@@ -19,7 +19,9 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
 
   useEffect(() => {
     setUserArr([]);
+
     attendances?.forEach((user) => {
+      if (!user?.time) return;
       const start = dayjs(user?.time.start);
       const end = dayjs(user?.time.end);
       const endTime = end.hour() + end.minute() / 60;
