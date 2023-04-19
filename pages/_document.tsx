@@ -10,7 +10,7 @@ import Document, {
 import Script from "next/script";
 
 import { ServerStyleSheet } from "styled-components";
-const NAVER_APP_ID = process.env.NAVER_APP_ID;
+
 export default class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext

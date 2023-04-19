@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import { ColorRing } from "react-loader-spinner";
 import styled from "styled-components";
 import Script from "next/script";
-const NAVER_APP_ID = process.env.NAVER_APP_ID;
+const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 
 function Layout({ children }) {
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,7 @@ function Layout({ children }) {
 
           <Script
             strategy="beforeInteractive"
-            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_APP_ID}`}
+            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`}
           ></Script>
         </>
       )}
