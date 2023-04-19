@@ -30,6 +30,7 @@ import { locationState } from "../../recoil/systemAtoms";
 import dayjs from "dayjs";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
+import { useScoreAllQuery } from "../../hooks/user/queries";
 
 function About({ UserList }: { UserList: IUser[] }) {
   const toast = useToast();
@@ -104,6 +105,8 @@ function About({ UserList }: { UserList: IUser[] }) {
       }, 0)
     );
   }, 0);
+
+  const { data } = useScoreAllQuery();
 
   return (
     <>
