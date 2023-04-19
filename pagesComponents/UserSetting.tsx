@@ -39,7 +39,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
       console.error(error);
     },
   });
-  const isActive = data?.isActive.isActive;
+  const isActive = data?.isActive?.isActive;
 
   useEffect(() => {
     if (!location) {

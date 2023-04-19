@@ -70,7 +70,7 @@ function Ranking() {
             ) : (
               <span>상위 {myRank?.percent}%</span>
             )}
-            <span>전체: {userScoreList?.length}</span>
+            <span>전체: {userScoreList?.length}명</span>
           </Myrank>
           <Profile isGuest={isGuest}>
             {!isGuest && (

@@ -55,6 +55,7 @@ export const ModalLgLight = styled.div`
   z-index: 20;
   box-shadow: var(--box-shadow);
 `;
+
 export const ModalLg = styled.div`
   display: flex;
   flex-direction: column;

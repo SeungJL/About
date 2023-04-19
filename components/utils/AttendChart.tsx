@@ -87,7 +87,9 @@ function AttendChart({ type, user }: { type?: string; user?: IUser }) {
   let yMax = 5;
   if (myAttendCountTotal) {
     myAttendCountTotal.forEach((cnt) => {
-      if (cnt > 5) yMax = 9;
+      if (cnt > 15) yMax = 15;
+      else if (cnt > 10) yMax = 12;
+      else if (cnt > 5) yMax = 9;
     });
   }
 
