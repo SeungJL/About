@@ -31,8 +31,6 @@ export default async function handler(
         "-_id name + uid + point + location"
       );
 
-      console.log(userPoint);
-
       res.status(200).send(userPoint);
       break;
   }
