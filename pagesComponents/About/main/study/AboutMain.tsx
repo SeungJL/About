@@ -98,7 +98,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const otherStudySpaces = arrangeMainSpace(
     participations?.filter((space) => space !== mySpaceFixed)
   );
-  console.log(participations);
+
   return (
     <AnimatePresence initial={false}>
       <Layout

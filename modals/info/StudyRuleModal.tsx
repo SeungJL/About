@@ -2,7 +2,13 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { ModalXXL } from "../../styles/layout/modal";
+import {
+  ModalFooterNav,
+  ModalHeaderCenter,
+  ModalMain,
+  ModalXXL,
+} from "../../styles/layout/modal";
+import { ModalFooter } from "@chakra-ui/react";
 
 function StudyRuleModal({
   setIsModal,
@@ -14,21 +20,20 @@ function StudyRuleModal({
   return (
     <Layout>
       <Wrapper layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <Header>
-          <Title>About</Title>
+        <ModalHeaderCenter>
+          <Title>동아리 규칙</Title>
+          <div>대학생들의 카공 및 친목 동아리 About</div>
+        </ModalHeaderCenter>
+        <Nav>
+          <Button isSelected={isTip} onClick={() => setIsTip(true)}>
+            스터디 규칙
+          </Button>
+          <Button isSelected={!isTip} onClick={() => setIsTip(false)}>
+            이용 꿀 Tip
+          </Button>
+        </Nav>
 
-          <OverView>대학생들의 카공 및 친목 동아리 About !</OverView>
-          <Nav>
-            <Button isSelected={isTip} onClick={() => setIsTip(true)}>
-              스터디 규칙
-            </Button>
-            <Button isSelected={!isTip} onClick={() => setIsTip(false)}>
-              이용 꿀 Tip
-            </Button>
-          </Nav>
-        </Header>
-
-        <Main>
+        <ModalMain>
           {!isTip ? (
             <>
               <RuleTitle>기능</RuleTitle>
@@ -114,17 +119,16 @@ function StudyRuleModal({
               </Content>
             </>
           )}
-        </Main>
-        <Footer>
+        </ModalMain>
+        <ModalFooterNav>
           <button onClick={() => setIsModal(false)}>확인</button>
-        </Footer>
+        </ModalFooterNav>
       </Wrapper>
     </Layout>
   );
 }
 
 const Layout = styled(ModalXXL)`
-  padding: 8px 16px 8px 16px;
   display: flex;
   flex-direction: column;
 
@@ -136,27 +140,22 @@ const Wrapper = styled(motion.div)`
   flex-direction: column;
 `;
 const Header = styled.header`
-  padding-bottom: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
+
 const Title = styled.span`
   font-size: 24px;
   font-weight: 600;
   color: var(--font-h1);
-  margin-bottom: 4px;
-`;
-
-const OverView = styled.div`
-  color: var(--font-h2);
-  font-size: 12px;
+  margin-bottom: 8px;
 `;
 
 const Nav = styled.nav`
   width: 100%;
   display: flex;
-  margin-top: 20px;
+  margin-top: 8px;
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`

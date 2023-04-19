@@ -9,11 +9,12 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { isNoticeAlertState } from "../recoil/utilityAtoms";
 import { numOfUserState } from "../recoil/userAtoms";
 
-import { NOTICE_ALERT } from "../constants/localStorage";
+import { NOTICE_ALERT, USER_GUIDE } from "../constants/localStorage";
 import { IUser } from "../types/user";
 import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
 import { locationState } from "../recoil/systemAtoms";
 import { usePlazaQuery } from "../hooks/plaza/queries";
+import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const { data: session } = useSession();
@@ -25,6 +26,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   const setNumOfUser = useSetRecoilState(numOfUserState);
   const [isRegisterModal, setIsRegisterModal] = useState(false);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
+  const [isUserGuide, setIsUserGuide] = useState(false);
 
   const { data: userData, isLoading } = useUserInfoQuery({
     enabled: isGuest === false,
@@ -53,12 +55,12 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
     if (isGuest === false && isActive !== undefined && !isActive)
       setIsRegisterModal(true);
     else setIsRegisterModal(false);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, isActive, isActiveLoading]);
 
   useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
+    if (!localStorage.getItem(USER_GUIDE)) setIsUserGuide(true);
   }, [setIsNoticeAlert]);
 
   return (
@@ -71,6 +73,11 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
       {isRegisterModal && (
         <ModalPortal setIsModal={setIsRegisterModal}>
           <RegisterFormModal setIsModal={setIsRegisterModal} />
+        </ModalPortal>
+      )}
+      {isUserGuide && (
+        <ModalPortal setIsModal={setIsUserGuide}>
+          <UserGuidePopUp setIsModal={setIsUserGuide} />
         </ModalPortal>
       )}
     </>

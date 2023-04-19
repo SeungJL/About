@@ -74,7 +74,7 @@ export const ModalLg = styled.div`
 export const ModalXXL = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 16px;
   background-color: white;
   border: 2px solid rgb(0, 0, 0, 0.4);
   position: fixed;
@@ -127,5 +127,21 @@ export const ModalFooterNav = styled.footer`
     color: var(--color-red);
     margin-right: 3px;
     font-weight: 600;
+  }
+`;
+
+export const ModalHeaderCenter = styled.header`
+  text-align: center;
+  padding-bottom: 12px;
+  > span:first-child {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--font-h1);
+    padding-bottom: 4px;
+  }
+  > div {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--font-h2);
   }
 `;

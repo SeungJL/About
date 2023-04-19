@@ -3,7 +3,7 @@ import { Badge, useTheme } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { ModalXXL } from "../../styles/layout/modal";
+import { ModalHeaderCenter, ModalXXL } from "../../styles/layout/modal";
 
 function BadgeInfoModal({
   setIsModal,
@@ -16,15 +16,13 @@ function BadgeInfoModal({
     <Layout layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       {page === 0 ? (
         <>
-          <Header>
+          <ModalHeaderCenter>
             <span>멤버 배지</span>
             <div>
-              멤버 등급은 기본적으로는 7가지로 나뉩니다. <br />
-              흭득한 배지는 원하는 종류로 선택해서 사용할 수 있습니다.
-              <br />
-              간혹 7가지 종류에 없는 유니크한 배지도 흭득할 수 있습니다.
+              멤버 등급은 기본적으로 7가지로 나뉩니다. <br />
+              흭득한 배지는 선택해서 사용할 수 있습니다.
             </div>
-          </Header>
+          </ModalHeaderCenter>
           <Item>
             <div>
               <Badge fontSize={12} variant="subtle">
@@ -87,10 +85,10 @@ function BadgeInfoModal({
         </>
       ) : page === 1 ? (
         <>
-          <Header>
+          <ModalHeaderCenter>
             <span>유니크 배지</span>
             <div>특정한 기간 또는 이벤트를 통해 얻을 수 있습니다.</div>
-          </Header>
+          </ModalHeaderCenter>
 
           <Item>
             <div>
