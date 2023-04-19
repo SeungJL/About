@@ -33,15 +33,23 @@ function AbsentVoteModal({ setIsModal }) {
   const setisVoting = useSetRecoilState(isVotingState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  const { mutate: getScore } = useScoreMutation();
-  const { mutate: getWaring } = useWarningScoreMutation();
-
+  const { mutate: getScore } = useScoreMutation({
+    onError(error) {
+      console.log(2, error);
+    },
+  });
+  const { mutate: getWaring } = useWarningScoreMutation({
+    onError(error) {
+      console.log(1, error);
+    },
+  });
+  console.log(today);
   const { mutate: handleDismiss, isLoading: dismissLoading } =
     useDismissMutation(today, {
       onSuccess: (data) => {
         queryClient.invalidateQueries(VOTE_GET);
         getWaring({ score: 1, message: "스터디 당일 불참" });
-        if (dayjs() > studyStartTime) getScore(-10);
+        // if (dayjs() > studyStartTime) getScore(-10);
         setisVoting(false);
       },
       onError: (err) => {
@@ -57,6 +65,7 @@ function AbsentVoteModal({ setIsModal }) {
     });
 
   const handleCancleBtn = () => {
+    console.log(2, mySpaceFixed);
     if (mySpaceFixed) {
       handleDismiss();
     } else {

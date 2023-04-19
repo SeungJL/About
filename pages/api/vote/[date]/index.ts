@@ -113,6 +113,7 @@ export default async function handler(
       return res.status(204).end();
 
     case "PATCH":
+      console.log(2);
       if (start && end) {
         vote.participations.map((participation) => {
           participation.attendences.map((attendance) => {

@@ -90,3 +90,11 @@ export const useStudyStartQuery = (
     },
     options
   );
+
+// export const useArrivedDataQuery = () =>
+//   useQuery("arrivedData", async () => {
+//     const res = await axios.get<IStudyStart[]>(
+//       `/api/vote/${date.format("YYYY-MM-DD")}/start`
+//     );
+//     return res.data;
+//   });

@@ -15,8 +15,8 @@ export default async function handler(
 ) {
   const { method } = req;
   const dateStr = req.query.date as string;
-  const date = strToDate(dateStr).add(1, "day").toDate();
-
+  const date = strToDate(dateStr).toDate();
+  console.log(55, date);
   const token = await getToken({ req, secret });
 
   await dbConnect();
@@ -27,10 +27,12 @@ export default async function handler(
   switch (method) {
     case "PATCH":
       vote.participations.forEach((participation) => {
+        console.log(participation.attendences[0], token.uid);
         const isTargetParticipation = !!participation.attendences.find(
           (att) => (att.user as IUser)?.uid.toString() === token.uid.toString()
         );
         if (isTargetParticipation) {
+          console.log(2);
           participation.attendences = participation.attendences.filter(
             (att) =>
               (att.user as IUser)?.uid.toString() !== token.uid.toString()

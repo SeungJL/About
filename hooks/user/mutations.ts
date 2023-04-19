@@ -33,9 +33,7 @@ export const useWarningScoreMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IWarningScore>(async (data) => {
-    await axios.post("/api/user/score", {
-      data,
-    });
+    await axios.post("/api/user/score", data);
   }, options);
 
 export const useScoreMutation = (

@@ -43,23 +43,26 @@ function ChangeTimeModal({
     },
     end: { hour: endTime.hour(), minutes: endTime.minute() },
   });
+
   const { mutate: patchAttend } = useChangeTimeMutation(voteDate, {
     onSuccess() {
       if (dayjs() > studyStartTime) getScores(-5);
       window.location.reload();
     },
     onError(err) {
-      console.log(err);
+      console.error(err);
     },
   });
 
   const onSubmit = () => {
+    console.log(time);
     const start = time.start;
     const end = time.end;
     const timeInfo = {
       start: dayjs(voteDate?.hour(start.hour).minute(start.minutes)),
       end: dayjs(voteDate?.hour(end.hour).minute(end.minutes)),
     };
+    console.log(timeInfo);
     if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
