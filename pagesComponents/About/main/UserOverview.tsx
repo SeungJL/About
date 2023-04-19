@@ -17,9 +17,13 @@ import {
 } from "../../../hooks/user/queries";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { userBadgeState } from "../../../recoil/userAtoms";
-import { myScoreRank, userBadgeScore } from "../../../libs/utils/userUtils";
+import {
+  myScoreRank,
+  SortUserScore,
+  userBadgeScore,
+} from "../../../libs/utils/userUtils";
 
-import { USER_BADGES } from "../../../types/user";
+import { IRankScore, USER_BADGES } from "../../../types/user";
 import { useRouter } from "next/router";
 import NotCompletedModal from "../../../modals/pop-up/NotCompletedModal";
 
@@ -32,7 +36,7 @@ function UserOverview() {
   const [isModal, setIsModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
-  const [myRank, setMyRank] = useState(0);
+  const [myRank, setMyRank] = useState<IRankScore>();
   const [scoreInfo, setScoreInfo] = useState({
     value: 0,
     nextBadge: { badge: null, color: "" },
@@ -61,7 +65,10 @@ function UserOverview() {
   useScoreAllQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      setMyRank(myScoreRank(data, myPoint));
+      const arrangedData = SortUserScore(data, myPoint);
+      if (arrangedData.isRank)
+        setMyRank({ myRank: arrangedData.myRank, isRank: true });
+      else setMyRank({ percent: arrangedData.percent, isRank: false });
     },
   });
 
@@ -123,7 +130,11 @@ function UserOverview() {
 
               <Item onClick={() => router.push(`/ranking`)}>
                 <span>랭킹 </span>
-                {myRank !== 0 && <span> 상위 {myRank}%</span>}
+                {myRank === undefined ? null : myRank?.isRank ? (
+                  <span> {myRank?.myRank}위</span>
+                ) : (
+                  <span>상위 {myRank?.percent}%</span>
+                )}
               </Item>
             </Info>
           </>

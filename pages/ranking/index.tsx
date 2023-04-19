@@ -36,7 +36,7 @@ function Ranking() {
   const { data } = useScoreQuery({
     enabled: isGuest === false,
   });
-  console.log(2, data);
+
   const myPoint = data?.point | 0;
 
   useScoreAllQuery({

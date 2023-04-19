@@ -109,3 +109,10 @@ export interface IWarningScore {
   score: number;
   message?: string;
 }
+
+export interface IRankScore {
+  isRank: boolean;
+  myRank?: number;
+  percent?: boolean;
+  scoreArr?: IScoreAll[];
+}
