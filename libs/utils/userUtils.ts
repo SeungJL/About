@@ -82,7 +82,7 @@ export const SortUserScore = (
 ): IRankScore => {
   scoreArr.sort(compare);
 
-  const myRank = scoreArr.findIndex((who) => who.point === myScore - 100) + 1;
+  const myRank = scoreArr.findIndex((who) => who.point === myScore) + 1;
 
   if (myRank <= 100) return { scoreArr, myRank, isRank: true };
 
