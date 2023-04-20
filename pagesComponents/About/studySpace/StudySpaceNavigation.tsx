@@ -77,6 +77,7 @@ function StudySpaceNavigation({
   });
 
   const onBtnClicked = (type = "string") => {
+    console.log(4);
     if (isGuest) {
       toast({
         title: "버튼 동작 실패",
@@ -109,6 +110,7 @@ function StudySpaceNavigation({
       setIsCancelModal(true);
     }
     if (type === "main") {
+      console.log(10);
       myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
     }
   };
@@ -160,11 +162,11 @@ function StudySpaceNavigation({
       ) : (
         <Layout>
           <SubNav>
-            <Button onClick={() => handleAbsent()}>
+            <Button onClick={() => onBtnClicked("cancel")}>
               <FontAwesomeIcon icon={faCircleXmark} size="xl" />
               <span>투표 취소</span>
             </Button>
-            <Button onClick={() => setIsChangeModal(true)}>
+            <Button onClick={() => onBtnClicked("change")}>
               <FontAwesomeIcon icon={faClock} size="xl" />
               <span>시간 변경</span>
             </Button>
@@ -176,7 +178,7 @@ function StudySpaceNavigation({
           <MainButton
             disabled={isVoting && true}
             func={!isVoting}
-            onClick={() => setIsVoteModal(true)}
+            onClick={() => onBtnClicked("main")}
           >
             <span>{isVoting ? "투표 완료" : "스터디 투표"}</span>
           </MainButton>
