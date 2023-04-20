@@ -26,13 +26,13 @@ import SuggestModal from "../../modals/user/SuggestModal";
 
 import { User } from "../../models/user";
 
-import UserOverView from "../../pagesComponents/User/UserOverView";
 import { Attendence } from "../../models/attendence";
 import ApplyRestModal from "../../modals/user/ApplyRestModal";
 import { useScoreQuery, useWarningScoreQuery } from "../../hooks/user/queries";
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
 import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
+import UserOverview from "../../pagesComponents/User/UserOverView";
 
 function UserInfo() {
   const router = useRouter();
@@ -60,7 +60,7 @@ function UserInfo() {
       >
         <Header title="마이페이지" />
         <UserLayout>
-          <UserOverView />
+          <UserOverview />
           <UserScoresNav>
             <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
               <span>내 점수</span>

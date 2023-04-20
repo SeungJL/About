@@ -10,12 +10,12 @@ import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalPortal from "../../components/ModalPortal";
-import PlazaWriteModal from "../../modals/write/plaza/PlazaWriteModal";
+import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
-import { usePlazaQuery } from "../../hooks/plaza/queries";
+import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 
 function Plaza() {
-  const { data } = usePlazaQuery();
+  const { data } = usePlazaDataQuery();
   const [category, setCategory] = useState<category>("전체");
   const filterData =
     category === "전체"

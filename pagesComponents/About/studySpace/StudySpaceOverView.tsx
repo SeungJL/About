@@ -2,12 +2,12 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import Map from "../../../components/utils/map";
+import SpaceMap from "../../../components/utils/SpaceMap";
 
 import { STUDY_SPACE_INFO } from "../../../constants/study";
 import { IPlace } from "../../../types/studyDetails";
 
-function StudySpaceOverView({ space }: { space: IPlace }) {
+function StudySpaceOverview({ space }: { space: IPlace }) {
   const location = STUDY_SPACE_INFO?.find((info) => info.id === space._id);
   const [isModal, setIsModal] = useState(false);
 
@@ -38,7 +38,7 @@ function StudySpaceOverView({ space }: { space: IPlace }) {
       {isModal && (
         <MapWrapper>
           <MapBtn onClick={() => setIsModal(false)}>X</MapBtn>
-          <Map lat={space?.latitude} lon={space?.longitude} />
+          <SpaceMap lat={space?.latitude} lon={space?.longitude} />
         </MapWrapper>
       )}
     </>
@@ -105,4 +105,4 @@ const MapBtn = styled.button`
   z-index: 100;
 `;
 
-export default StudySpaceOverView;
+export default StudySpaceOverview;

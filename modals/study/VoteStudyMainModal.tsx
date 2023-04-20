@@ -6,40 +6,36 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { motion } from "framer-motion";
 
-import {
-  ModalFooterNav,
-  ModalMain,
-  ModalMd,
-} from "../../../styles/layout/modal";
+import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 
 import { useRecoilValue } from "recoil";
-import { isVotingState, voteDateState } from "../../../recoil/studyAtoms";
-import { useVoteQuery } from "../../../hooks/vote/queries";
-import { useAttendMutation } from "../../../hooks/vote/mutations";
-import { useScoreMutation } from "../../../hooks/user/mutations";
+import { isVotingState, voteDateState } from "../../recoil/studyAtoms";
+import { useVoteQuery } from "../../hooks/vote/queries";
+import { useAttendMutation } from "../../hooks/vote/mutations";
+import { useScoreMutation } from "../../hooks/user/mutations";
 
-import TimeSelector from "../../../components/utils/TimeSelector";
-import { arrangeSpace } from "../../../libs/utils/studyUtils";
+import TimeSelector from "../../components/utils/TimeSelector";
+import { arrangeSpace } from "../../libs/utils/studyUtils";
 
-import { VOTE_GET } from "../../../libs/queryKeys";
-import { IplaceInfo } from "../../../types/statistics";
-import { ITimeStartToEndHM } from "../../../types/utils";
-import { IVoteInfo } from "../../../types/studyDetails";
+import { VOTE_GET } from "../../libs/queryKeys";
+import { IplaceInfo } from "../../types/statistics";
+import { ITimeStartToEndHM } from "../../types/utils";
+import { IVoteInfo } from "../../types/studyDetails";
 
 import {
   SUWAN_아티제,
   SUWAN_카탈로그,
   SUWAN_탐앤탐스,
   SUWAN_투썸,
-} from "../../../constants/study";
-import { locationState } from "../../../recoil/systemAtoms";
-import ModalPortal from "../../../components/ModalPortal";
-import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
+} from "../../constants/study";
+import { locationState } from "../../recoil/systemAtoms";
+import ModalPortal from "../../components/ModalPortal";
+import VoteSuccessModal from "../../pagesComponents/About/studySpace/VoteSuccessModal";
 
-import { ModalHeaderX } from "../../../components/ui/Modal";
-import PlaceSelector from "../../../components/utils/placeSelector";
+import { ModalHeaderX } from "../../components/ui/Modal";
+import PlaceSelector from "../../components/utils/PlaceSelector";
 
-function VoteStudyModal({
+function VoteStudyMainModal({
   setIsShowModal,
 }: {
   setIsShowModal: Dispatch<SetStateAction<boolean>>;
@@ -199,7 +195,7 @@ function VoteStudyModal({
     </>
   );
 }
-export default VoteStudyModal;
+export default VoteStudyMainModal;
 
 const Layout = styled(motion(ModalMd))``;
 

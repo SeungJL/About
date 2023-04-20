@@ -4,12 +4,11 @@ import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import SpaceVoteOverView from "../../../pagesComponents/About/studySpace/SpaceVoteOverview";
-import StudyNavigation from "../../../pagesComponents/About/studySpace/StudyNavigation";
+import StudySpaceNavigation from "../../../pagesComponents/About/studySpace/StudySpaceNavigation";
 import StudySpaceCover from "../../../pagesComponents/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../pagesComponents/About/studySpace/StudySpaceHeader";
-import StudySpaceOverView from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
-import StudyTimeTable from "../../../pagesComponents/About/studySpace/studyTimeTable";
+import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverview";
+import StudyTimeTable from "../../../pagesComponents/About/studySpace/StudySpaceTable";
 
 import { useVoteQuery } from "../../../hooks/vote/queries";
 
@@ -20,6 +19,7 @@ import { Location } from "../../../types/system";
 import { useState } from "react";
 import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
 import ModalPortal from "../../../components/ModalPortal";
+import StudySpaceVoteOverview from "../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
 
 function StudySpace() {
   const toast = useToast();
@@ -61,11 +61,14 @@ function StudySpace() {
         {!isLoading && (
           <>
             <StudySpaceCover src={place.image} />
-            <StudySpaceOverView space={place} />
+            <StudySpaceOverview space={place} />
             <HrDiv />
-            <SpaceVoteOverView date={voteDate} voteCnt={attendences.length} />
+            <StudySpaceVoteOverview
+              date={voteDate}
+              voteCnt={attendences.length}
+            />
             <StudyTimeTable attendances={attendences} />
-            <StudyNavigation
+            <StudySpaceNavigation
               myVote={myVote as IAttendence}
               place={place}
               status={status}

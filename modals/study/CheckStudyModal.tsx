@@ -7,16 +7,16 @@ import { useQueryClient } from "react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
-import CommentBox from "../../../components/common/CommentBox";
-import { InputSm } from "../../../components/ui/Input";
+import CommentBox from "../../components/common/CommentBox";
+import { InputSm } from "../../components/ui/Input";
 
-import { useScoreMutation } from "../../../hooks/user/mutations";
-import { useArrivedMutation } from "../../../hooks/vote/mutations";
-import { useVoteQuery } from "../../../hooks/vote/queries";
-import { VOTE_GET } from "../../../libs/queryKeys";
-import { getToday } from "../../../libs/utils/dateUtils";
-import { mySpaceFixedState, voteDateState } from "../../../recoil/studyAtoms";
-import { locationState } from "../../../recoil/systemAtoms";
+import { useScoreMutation } from "../../hooks/user/mutations";
+import { useArrivedMutation } from "../../hooks/vote/mutations";
+import { useVoteQuery } from "../../hooks/vote/queries";
+import { VOTE_GET } from "../../libs/queryKeys";
+import { getToday } from "../../libs/utils/dateUtils";
+import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
+import { locationState } from "../../recoil/systemAtoms";
 
 import {
   ModalFooterNav,
@@ -24,12 +24,12 @@ import {
   ModalMain,
   ModalMd,
   ModalSubtitle,
-} from "../../../styles/layout/modal";
-import { IPlace } from "../../../types/studyDetails";
+} from "../../styles/layout/modal";
+import { IPlace } from "../../types/studyDetails";
 
 const LOCATE_GAP = 0.00008;
 
-function AttendCheckModal({
+function CheckStudyModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
@@ -183,4 +183,4 @@ const Loading = styled.div`
   }
 `;
 
-export default AttendCheckModal;
+export default CheckStudyModal;

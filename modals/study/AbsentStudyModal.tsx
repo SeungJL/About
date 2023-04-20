@@ -10,23 +10,23 @@ import {
   ModalSubtitle,
   ModalXs,
   ModalMd,
-} from "../../../styles/layout/modal";
+} from "../../styles/layout/modal";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isVotingState,
   mySpaceFixedState,
   studyStartTimeState,
-} from "../../../recoil/studyAtoms";
+} from "../../recoil/studyAtoms";
 import {
   useScoreMutation,
   useWarningScoreMutation,
-} from "../../../hooks/user/mutations";
-import { useDismissMutation } from "../../../hooks/vote/mutations";
-import { VOTE_GET } from "../../../libs/queryKeys";
-import { getToday } from "../../../libs/utils/dateUtils";
+} from "../../hooks/user/mutations";
+import { useDismissMutation } from "../../hooks/vote/mutations";
+import { VOTE_GET } from "../../libs/queryKeys";
+import { getToday } from "../../libs/utils/dateUtils";
 
-function AbsentVoteModal({ setIsModal }) {
+function AbsentStudyModal({ setIsModal }) {
   const toast = useToast();
   const queryClient = useQueryClient();
   const today = getToday();
@@ -109,4 +109,4 @@ function AbsentVoteModal({ setIsModal }) {
 
 const Layout = styled(ModalMd)``;
 
-export default AbsentVoteModal;
+export default AbsentStudyModal;

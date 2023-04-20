@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { IconUserTwo } from "../../../../public/icons/Icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import ProfileImgSm from "../../../../components/common/ProfileImgSm";
+import ProfileIconSm from "../../../../components/common/Profile/ProfileIconSm";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -18,7 +18,7 @@ import { IParticipation } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { Badge } from "@chakra-ui/react";
-import { LogoAdjustmentImage } from "../../../../libs/utils/designUtils";
+import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
 
 function AboutMainItem({
   studySpaceInfo,
@@ -84,14 +84,14 @@ function AboutMainItem({
             {statusFixed === "pending"
               ? attendences?.map((user, idx) => (
                   <ProfileContainer key={idx} zIndex={idx}>
-                    <ProfileImgSm
+                    <ProfileIconSm
                       imgSrc={(user?.user as IUser)?.profileImage}
                     />
                   </ProfileContainer>
                 ))
               : firstAttendance?.map((user, idx) => (
                   <ProfileContainer key={idx} zIndex={idx}>
-                    <ProfileImgSm
+                    <ProfileIconSm
                       imgSrc={(user?.user as IUser)?.profileImage}
                     />
                   </ProfileContainer>

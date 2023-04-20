@@ -13,7 +13,7 @@ import { NOTICE_ALERT, USER_GUIDE } from "../constants/localStorage";
 import { IUser } from "../types/user";
 import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
 import { locationState } from "../recoil/systemAtoms";
-import { usePlazaQuery } from "../hooks/plaza/queries";
+import { usePlazaDataQuery } from "../hooks/plaza/queries";
 import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
 
 export default function UserSetting({ UserList }: { UserList: IUser[] }) {

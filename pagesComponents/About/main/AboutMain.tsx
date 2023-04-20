@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 
-import AboutMainItem from "./AboutMainItem";
+import AboutMainItem from "./AboutMain/AboutMainItem";
 
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
@@ -14,16 +14,16 @@ import {
   studyDateState,
   studyStartTimeState,
   voteDateState,
-} from "../../../../recoil/studyAtoms";
-import { useDecideSpaceMutation } from "../../../../hooks/vote/mutations";
+} from "../../../recoil/studyAtoms";
+import { useDecideSpaceMutation } from "../../../hooks/vote/mutations";
 
-import { getInterestingDate } from "../../../../libs/utils/dateUtils";
-import { arrangeMainSpace } from "../../../../libs/utils/studyUtils";
+import { getInterestingDate } from "../../../libs/utils/dateUtils";
+import { arrangeMainSpace } from "../../../libs/utils/studyUtils";
 
-import { VOTE_END_HOUR } from "../../../../constants/study";
-import { IParticipation } from "../../../../types/studyDetails";
-import { IUser } from "../../../../types/user";
-import { useStudyStartQuery } from "../../../../hooks/vote/queries";
+import { VOTE_END_HOUR } from "../../../constants/study";
+import { IParticipation } from "../../../types/studyDetails";
+import { IUser } from "../../../types/user";
+import { useStudyStartQuery } from "../../../hooks/vote/queries";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();

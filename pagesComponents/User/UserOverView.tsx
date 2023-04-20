@@ -20,7 +20,7 @@ import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
 import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
 
-export default function UserOverView() {
+export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
   const [value, setValue] = useState("안녕하세요! 잘 부탁드립니다~!");
   const { data: session } = useSession();

@@ -9,21 +9,21 @@ import {
   ModalMd,
   ModalMain,
   ModalXs,
-} from "../../../styles/layout/modal";
-import TimeSelector from "../../../components/utils/TimeSelector";
+} from "../../styles/layout/modal";
+import TimeSelector from "../../components/utils/TimeSelector";
 
 import { useRecoilValue } from "recoil";
-import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
-import { useChangeTimeMutation } from "../../../hooks/vote/mutations";
-import { useScoreMutation } from "../../../hooks/user/mutations";
+import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
+import { useChangeTimeMutation } from "../../hooks/vote/mutations";
+import { useScoreMutation } from "../../hooks/user/mutations";
 
-import { ITimeStartToEnd, ITimeStartToEndHM } from "../../../types/utils";
+import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
 
-function ChangeTimeModal({
-  setIsChangeTimeModal,
+function ChangeStudyTimeModal({
+  setIsChangeStudyTimeModal,
   myVoteTime,
 }: {
-  setIsChangeTimeModal: Dispatch<SetStateAction<boolean>>;
+  setIsChangeStudyTimeModal: Dispatch<SetStateAction<boolean>>;
   myVoteTime?: ITimeStartToEnd;
 }) {
   const toast = useToast();
@@ -55,14 +55,13 @@ function ChangeTimeModal({
   });
 
   const onSubmit = () => {
-  
     const start = time.start;
     const end = time.end;
     const timeInfo = {
       start: dayjs(voteDate?.hour(start.hour).minute(start.minutes)),
       end: dayjs(voteDate?.hour(end.hour).minute(end.minutes)),
     };
-   
+
     if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
@@ -74,7 +73,7 @@ function ChangeTimeModal({
       });
       return;
     }
-    setIsChangeTimeModal(false);
+    setIsChangeStudyTimeModal(false);
     patchAttend(timeInfo);
   };
 
@@ -98,7 +97,7 @@ function ChangeTimeModal({
         </Wrapper>
       </ModalMain>
       <ModalFooterNav>
-        <button onClick={() => setIsChangeTimeModal(false)}>취소</button>
+        <button onClick={() => setIsChangeStudyTimeModal(false)}>취소</button>
         <button onClick={onSubmit}>변경</button>
       </ModalFooterNav>
     </Layout>
@@ -119,4 +118,4 @@ const WaringMsg = styled.span`
   color: var(--color-red);
 `;
 
-export default ChangeTimeModal;
+export default ChangeStudyTimeModal;

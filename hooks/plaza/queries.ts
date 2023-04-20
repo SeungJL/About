@@ -3,7 +3,7 @@ import { useQuery, UseQueryOptions } from "react-query";
 import { PLAZA_FINDALL } from "../../libs/queryKeys";
 import { IPlazaData } from "../../types/plaza";
 
-export const usePlazaQuery = (
+export const usePlazaDataQuery = (
   options?: Omit<
     UseQueryOptions<IPlazaData[], AxiosError, IPlazaData[]>,
     "queryKey" | "queryFn"

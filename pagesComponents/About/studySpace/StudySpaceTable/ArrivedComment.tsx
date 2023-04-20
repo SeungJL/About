@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
-import UserImageIcon from "../../../../components/common/UserImageIcon";
+import ProfileIconMd from "../../../../components/common/Profile/ProfileIconMd";
 
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { useRecoilValue } from "recoil";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 
-function CheckComment({ attendances }: { attendances: IAttendence[] }) {
+function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const studyDate = useRecoilValue(studyDateState);
   return (
     <Layout>
@@ -25,7 +25,7 @@ function CheckComment({ attendances }: { attendances: IAttendence[] }) {
 
         return (
           <Block key={idx}>
-            <UserImageIcon user={user.user as IUser} />
+            <ProfileIconMd user={user.user as IUser} />
             <BlockInfo>
               <Info>
                 <span>{(user.user as IUser).name}</span>
@@ -96,4 +96,4 @@ const Info = styled.div`
   }
 `;
 
-export default CheckComment;
+export default ArrivedComment;

@@ -4,7 +4,7 @@ import { faCheckToSlot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, useToast } from "@chakra-ui/react";
 
-import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
+import VoteStudyMainModal from "../../../../modals/study/VoteStudyMainModal";
 import ModalPortal from "../../../../components/ModalPortal";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -79,12 +79,12 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
       </Layout>
       {isShowModal && (
         <ModalPortal setIsModal={setIsShowModal}>
-          <VoteStudyModal setIsShowModal={setIsShowModal} />
+          <VoteStudyMainModal setIsShowModal={setIsShowModal} />
         </ModalPortal>
       )}
       {isAttendModal && (
         <ModalPortal setIsModal={setIsAttendModal}>
-          <VoteStudyModal setIsShowModal={setIsShowModal} />
+          <VoteStudyMainModal setIsShowModal={setIsShowModal} />
         </ModalPortal>
       )}
     </>

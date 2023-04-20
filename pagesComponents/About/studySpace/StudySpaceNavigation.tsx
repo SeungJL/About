@@ -8,9 +8,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 import ModalPortal from "../../../components/ModalPortal";
-import AbsentVoteModal from "../../../modals/study/confirm/AbsentVoteModal";
-import ChangeTimeModal from "../../../modals/study/vote/ChangeTimeModal";
-import VoteStudySpaceModal from "../../../modals/study/vote/VoteStudySpaceModal";
+import AbsentStudyModal from "../../../modals/study/AbsentStudyModal";
+import ChangeStudyTimeModal from "../../../modals/study/ChangeStudyTimeModal";
+import VoteStudySubModal from "../../../modals/study/VoteStudySubModal";
 
 import { useQueryClient } from "react-query";
 import { useScoreMutation } from "../../../hooks/user/mutations";
@@ -25,11 +25,11 @@ import {
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
-import AttendCheckModal from "../../../modals/study/vote/AttendCheckModal";
+import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { useSession } from "next-auth/react";
 import VoteSuccessModal from "./VoteSuccessModal";
 
-function StudyNavigation({
+function StudySpaceNavigation({
   myVote,
   place,
   status,
@@ -184,20 +184,20 @@ function StudyNavigation({
       )}
       {isChangeModal && (
         <ModalPortal setIsModal={setIsChangeModal}>
-          <ChangeTimeModal
-            setIsChangeTimeModal={setIsChangeModal}
+          <ChangeStudyTimeModal
+            setIsChangeStudyTimeModal={setIsChangeModal}
             myVoteTime={myVote?.time}
           />
         </ModalPortal>
       )}
       {isCancelModal && (
         <ModalPortal setIsModal={setIsCancelModal}>
-          <AbsentVoteModal setIsModal={setIsCancelModal} />
+          <AbsentStudyModal setIsModal={setIsCancelModal} />
         </ModalPortal>
       )}
       {isVoteModal && (
         <ModalPortal setIsModal={setIsVoteModal}>
-          <VoteStudySpaceModal
+          <VoteStudySubModal
             isModal={isVoteModal}
             setIsModal={setIsVoteModal}
             voteDate={voteDate}
@@ -208,7 +208,7 @@ function StudyNavigation({
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
-          <AttendCheckModal setIsModal={setIsCheckModal} />
+          <CheckStudyModal setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
       {isVoteComplete && (
@@ -260,4 +260,4 @@ const MainButton = styled.button<{ func?: boolean }>`
   font-size: 15px;
 `;
 
-export default StudyNavigation;
+export default StudySpaceNavigation;

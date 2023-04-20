@@ -17,7 +17,7 @@ import { isNoticeAlertState } from "../../../recoil/utilityAtoms";
 import { NOTICE_ALERT } from "../../../constants/localStorage";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
-import UserLogout from "../../../modals/user/UserLogout";
+import UserLogoutModal from "../../../modals/user/UserLogoutModal";
 
 export default function Header() {
   const router = useRouter();
@@ -91,7 +91,7 @@ export default function Header() {
         )}
         {isLogout && (
           <ModalPortal setIsModal={setIsLogout}>
-            <UserLogout setIsModal={setIsLogout} />
+            <UserLogoutModal setIsModal={setIsLogout} />
           </ModalPortal>
         )}
       </>

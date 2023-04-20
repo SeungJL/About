@@ -5,23 +5,23 @@ import { motion } from "framer-motion";
 import { Dayjs } from "dayjs";
 import { useQueryClient } from "react-query";
 
-import TimeRullet from "../../../components/utils/TimeRullet";
+import TimeRullet from "../../components/utils/TimeRullet";
 
 import { useRecoilValue } from "recoil";
-import { isVotingState } from "../../../recoil/studyAtoms";
-import { useVoteQuery } from "../../../hooks/vote/queries";
-import { useScoreMutation } from "../../../hooks/user/mutations";
-import { useAttendMutation } from "../../../hooks/vote/mutations";
+import { isVotingState } from "../../recoil/studyAtoms";
+import { useVoteQuery } from "../../hooks/vote/queries";
+import { useScoreMutation } from "../../hooks/user/mutations";
+import { useAttendMutation } from "../../hooks/vote/mutations";
 
-import { START_HOUR } from "../../../constants/study";
-import { VOTE_GET } from "../../../libs/queryKeys";
-import { IPlace, IVoteInfo } from "../../../types/studyDetails";
-import { ITimeStartToEnd } from "../../../types/utils";
+import { START_HOUR } from "../../constants/study";
+import { VOTE_GET } from "../../libs/queryKeys";
+import { IPlace, IVoteInfo } from "../../types/studyDetails";
+import { ITimeStartToEnd } from "../../types/utils";
 import { useToast } from "@chakra-ui/react";
-import { locationState } from "../../../recoil/systemAtoms";
-import SpaceSelector from "../../../components/utils/spaceSelector";
+import { locationState } from "../../recoil/systemAtoms";
+import SpaceSelector from "../../components/utils/SpaceSelector";
 
-interface IVoteStudySpaceModal {
+interface IVoteStudySubModal {
   isModal: boolean;
   setIsModal: Dispatch<SetStateAction<boolean>>;
   voteDate: Dayjs;
@@ -29,13 +29,13 @@ interface IVoteStudySpaceModal {
   setIsVoteComplete: Dispatch<SetStateAction<boolean>>;
 }
 
-function VoteStudySpaceModal({
+function VoteStudySubModal({
   isModal,
   setIsModal,
   voteDate,
   place,
   setIsVoteComplete,
-}: IVoteStudySpaceModal) {
+}: IVoteStudySubModal) {
   const queryClient = useQueryClient();
   const toast = useToast();
   const location = useRecoilValue(locationState);
@@ -245,4 +245,4 @@ const Comment = styled.div`
   font-weight: 600;
   color: var(--font-h2);
 `;
-export default VoteStudySpaceModal;
+export default VoteStudySubModal;

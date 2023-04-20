@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-function Map({ lat, lon }: { lat?: number; lon?: number }) {
+function SpaceMap({ lat, lon }: { lat?: number; lon?: number }) {
   const mapRef = useRef();
 
   const [myLat, setMyLat] = useState(null);
   const [myLon, setMyLon] = useState(null);
-
+  console.log(lat, lon);
   useEffect(() => {
     const location = new naver.maps.LatLng(lat, lon);
     const option = {
@@ -21,7 +21,7 @@ function Map({ lat, lon }: { lat?: number; lon?: number }) {
       position: new naver.maps.LatLng(lat, lon),
       map,
       icon: {
-        url: "/locationDot.svg",
+        url: "/map/locationDot.svg",
         size: new naver.maps.Size(40, 40),
         scaledSize: new naver.maps.Size(40, 40),
         anchor: new naver.maps.Point(15, 30),
@@ -34,7 +34,7 @@ function Map({ lat, lon }: { lat?: number; lon?: number }) {
         position: new naver.maps.LatLng(myLat, myLon),
         map,
         icon: {
-          url: "/markerMine.svg",
+          url: "/map/markerMine.svg",
           size: new naver.maps.Size(40, 40),
           scaledSize: new naver.maps.Size(40, 40),
           anchor: new naver.maps.Point(15, 30),
@@ -67,4 +67,4 @@ function Map({ lat, lon }: { lat?: number; lon?: number }) {
   );
 }
 
-export default Map;
+export default SpaceMap;

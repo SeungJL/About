@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
-import LocalSelector from "../../../../components/utils/SpaceLocalSelector";
-import CheckVoteModal from "../../../../modals/study/vote/AttendCheckModal";
+import LocalSelector from "../../../../components/utils/LocalSelector";
+import CheckVoteModal from "../../../../modals/study/CheckStudyModal";
 import {
   attendCheckState,
   mySpaceFixedState,

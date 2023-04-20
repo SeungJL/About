@@ -3,12 +3,12 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
-import UserInfoModal from "../../modals/user/UserInfoModal";
-import { IUser } from "../../types/user";
+import UserInfoModal from "../../../modals/user/UserInfoModal";
+import { IUser } from "../../../types/user";
 
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../../ModalPortal";
 
-function UserImageIcon({ user }: { user: IUser }) {
+function ProfileIconMd({ user }: { user: IUser }) {
   const toast = useToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -57,4 +57,4 @@ const Layout = styled.div`
   overflow: hidden;
 `;
 
-export default UserImageIcon;
+export default ProfileIconMd;

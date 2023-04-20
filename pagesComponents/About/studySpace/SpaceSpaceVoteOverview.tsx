@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 import styled from "styled-components";
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
-function SpaceVoteOverView({ date, voteCnt }: ISpaceVoteOverView) {
+function StudySpaceVoteOverview({ date, voteCnt }: IStudySpaceVoteOverview) {
   return (
     <Layout>
       <span>{date && date?.format("M월 DD일 참여 멤버")}</span>
@@ -38,9 +38,9 @@ const Layout = styled.div`
   }
 `;
 
-interface ISpaceVoteOverView {
+interface IStudySpaceVoteOverview {
   date: Dayjs;
   voteCnt: number;
 }
 
-export default SpaceVoteOverView;
+export default StudySpaceVoteOverview;

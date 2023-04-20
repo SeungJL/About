@@ -59,7 +59,7 @@ function Ranking() {
     >
       <Header title="About 랭킹" />
       <Layout>
-        <OverView>
+        <Overview>
           <Myrank>
             {myRank?.isRank ? (
               <span>
@@ -96,7 +96,7 @@ function Ranking() {
               점수: &nbsp; <span>{myPoint}점</span>
             </span>
           </Score>
-        </OverView>
+        </Overview>
 
         <MainWrapper>
           <RankingSection>
@@ -149,7 +149,7 @@ const Layout = styled.div`
   height: 100vh;
 `;
 
-const OverView = styled.div`
+const Overview = styled.div`
   height: 25vh;
   display: flex;
   justify-content: space-around;

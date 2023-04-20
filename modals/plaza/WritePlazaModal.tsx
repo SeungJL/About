@@ -6,12 +6,12 @@ import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useSession } from "next-auth/react";
 
-import { ModalLg } from "../../../styles/layout/modal";
+import { ModalLg } from "../../styles/layout/modal";
 
-import { usePlazaMutation } from "../../../hooks/plaza/mutations";
-import PlazaContentVoteListModal from "./PlazaContentVoteListModal";
+import { usePlazaMutation } from "../../hooks/plaza/mutations";
+import PlazaVoteList from "./WritePlaza/PlazaVoteList";
 
-function PlazaWriteModal({ setIsModal }) {
+function WritePlazaModal({ setIsModal }) {
   const [isVoteCategory, setIsVoteCategory] = useState(true);
   const [voteListArr, setVoteListArr] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
@@ -123,7 +123,7 @@ function PlazaWriteModal({ setIsModal }) {
                 </DeleteIcon>
               </div>
             ))}
-            <PlazaContentVoteListModal
+            <PlazaVoteList
               voteListArr={voteListArr}
               setVoteListArr={setVoteListArr}
             />
@@ -207,4 +207,4 @@ const VoteList = styled.div`
   flex: 1;
 `;
 
-export default PlazaWriteModal;
+export default WritePlazaModal;

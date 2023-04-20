@@ -3,7 +3,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 
-function PlazaContentVoteListModal({ voteListArr, setVoteListArr }) {
+function PlazaVoteList({ voteListArr, setVoteListArr }) {
   const voteListInput = useRef();
   const list = voteListInput.current;
   const [value, setValue] = useState("");
@@ -64,4 +64,4 @@ const AddIcon = styled.button.attrs((props) => ({
   type: "button",
 }))``;
 
-export default PlazaContentVoteListModal;
+export default PlazaVoteList;

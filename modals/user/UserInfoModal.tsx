@@ -4,8 +4,8 @@ import { Badge } from "@chakra-ui/react";
 import Image from "next/image";
 
 import { ModalLgLight } from "../../styles/layout/modal";
-import UserInfoGroup from "./UserInfoModal/UserInfoGroup";
-import UserInfoBadge from "./UserInfoModal/UserInfoBadge";
+import UserInfoGroup from "./UserInfo/UserInfoGroup";
+import UserInfoBadge from "./UserInfo/UserInfoBadge";
 import AttendChart from "../../components/utils/AttendChart";
 
 import { useCommentQuery, useScoreAllQuery } from "../../hooks/user/queries";

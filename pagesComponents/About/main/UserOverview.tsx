@@ -25,7 +25,7 @@ import {
 
 import { IRankScore, USER_BADGES } from "../../../types/user";
 import { useRouter } from "next/router";
-import NotCompletedModal from "../../../modals/pop-up/NotCompletedModal";
+import NotCompletedModal from "../../../modals/system/NotCompletedModal";
 
 function UserOverview() {
   const { data: session } = useSession();

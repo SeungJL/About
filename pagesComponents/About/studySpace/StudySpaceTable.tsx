@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-import CheckComment from "./CheckComment";
-import TimeTable from "./TimeTable";
-import UserTable from "./UserTable";
+import ArrivedComment from "./StudySpaceTable/ArrivedComment";
+import TimeTable from "./StudySpaceTable/TimeTable";
+import UserTable from "./StudySpaceTable/UserTable";
 
-import { IAttendence } from "../../../../types/studyDetails";
+import { IAttendence } from "../../../types/studyDetails";
 
 function StudyTimeTable({ attendances }: { attendances: IAttendence[] }) {
   const attendCnt = attendances?.length;
@@ -15,7 +15,7 @@ function StudyTimeTable({ attendances }: { attendances: IAttendence[] }) {
         <UserTable attendances={attendances} />
         <TimeTable />
       </Layout>
-      <CheckComment attendances={attendances} />
+      <ArrivedComment attendances={attendances} />
     </>
   );
 }
