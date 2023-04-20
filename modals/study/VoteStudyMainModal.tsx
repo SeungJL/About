@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useToast } from "@chakra-ui/react";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { motion } from "framer-motion";
@@ -22,15 +21,7 @@ import { IplaceInfo } from "../../types/statistics";
 import { ITimeStartToEndHM } from "../../types/utils";
 import { IVoteInfo } from "../../types/studyDetails";
 
-import {
-  SUWAN_아티제,
-  SUWAN_카탈로그,
-  SUWAN_탐앤탐스,
-  SUWAN_투썸,
-} from "../../constants/study";
 import { locationState } from "../../recoil/systemAtoms";
-import ModalPortal from "../../components/ModalPortal";
-import VoteSuccessModal from "../../pagesComponents/About/studySpace/VoteSuccessModal";
 
 import { ModalHeaderX } from "../../components/ui/Modal";
 import PlaceSelector from "../../components/utils/PlaceSelector";
