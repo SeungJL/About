@@ -14,6 +14,7 @@ import { useAttendMutation } from "../../hooks/vote/mutations";
 import { useScoreMutation } from "../../hooks/user/mutations";
 
 import TimeSelector from "../../components/utils/TimeSelector";
+import PlaceSelector from "../../components/utils/PlaceSelector";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 
 import { VOTE_GET } from "../../libs/queryKeys";
@@ -24,7 +25,6 @@ import { IVoteInfo } from "../../types/studyDetails";
 import { locationState } from "../../recoil/systemAtoms";
 
 import { ModalHeaderX } from "../../components/ui/Modal";
-import PlaceSelector from "../../components/utils/PlaceSelector";
 
 function VoteStudyMainModal({
   setIsShowModal,
