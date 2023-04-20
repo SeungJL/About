@@ -1,30 +1,26 @@
 import styled from "styled-components";
 import { useToast } from "@chakra-ui/react";
-
 import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { motion } from "framer-motion";
+import { useRecoilValue } from "recoil";
 
 import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
+import TimeSelector from "../../components/utils/TimeSelector";
+import PlaceSelector from "../../components/utils/PlaceSelector";
+import { ModalHeaderX } from "../../components/ui/Modal";
 
-import { useRecoilValue } from "recoil";
-import { isVotingState, voteDateState } from "../../recoil/studyAtoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { useAttendMutation } from "../../hooks/vote/mutations";
 import { useScoreMutation } from "../../hooks/user/mutations";
-
-import TimeSelector from "../../components/utils/TimeSelector";
-import PlaceSelector from "../../components/utils/PlaceSelector";
+import { isVotingState, voteDateState } from "../../recoil/studyAtoms";
+import { locationState } from "../../recoil/systemAtoms";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
-
 import { VOTE_GET } from "../../libs/queryKeys";
+
 import { IplaceInfo } from "../../types/statistics";
 import { ITimeStartToEndHM } from "../../types/utils";
 import { IVoteInfo } from "../../types/studyDetails";
-
-import { locationState } from "../../recoil/systemAtoms";
-
-import { ModalHeaderX } from "../../components/ui/Modal";
 
 function VoteStudyMainModal({
   setIsShowModal,
