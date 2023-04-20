@@ -12,7 +12,6 @@ function PlaceSelector({
   setSelectedPlace,
   isSelectUnit,
 }: IPlaceSelecter) {
-  console.log(1);
   const choicedSpaces = isSelectUnit ? firstPlace : secondPlaces;
   const handlePlaceIconClicked = (place: IplaceInfo) => {
     const isExist = choicedSpaces.some(
