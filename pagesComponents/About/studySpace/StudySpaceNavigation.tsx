@@ -92,7 +92,7 @@ function StudySpaceNavigation({
     if (type === "cancel") {
       if (mySpaceFixed) {
         toast({
-          title: "오류",
+          title: "취소 불가능",
           description: "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!",
           status: "error",
           duration: 5000,
@@ -107,6 +107,18 @@ function StudySpaceNavigation({
       setIsChangeModal(true);
     }
     if (type === "absent") {
+      if (studyDate === "not passed") {
+        toast({
+          title: "오류",
+          description:
+            "스터디 확정 이전까지는 취소 또는 변경 버튼을 이용해주세요!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        return;
+      }
       setIsCancelModal(true);
     }
     if (type === "main") {
