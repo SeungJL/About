@@ -54,7 +54,7 @@ function AttendChart({ type, user }: { type?: string; user?: IUser }) {
   useEffect(() => {
     setTimeout(() => {
       setWhyLoading(true);
-    }, 1500);
+    }, 1000);
   }, []);
 
   useEffect(() => {

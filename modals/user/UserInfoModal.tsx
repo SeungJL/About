@@ -28,7 +28,8 @@ function UserInfoModal({
   const comment = comments?.comments.find((att) => att._id === user._id);
 
   const { data } = useScoreAllQuery();
-  const userScore = data?.find((who) => who._id === user._id).point;
+
+  const userScore = data?.find((who) => who.uid === user.uid).point;
 
   const { badge } = userBadgeScore(userScore);
 
