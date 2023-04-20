@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 
 import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 import TimeSelector from "../../components/utils/TimeSelector";
-import PlaceSelector from "../../components/utils/PlaceSelector";
+
 import { ModalHeaderX } from "../../components/ui/Modal";
 
 import { useVoteQuery } from "../../hooks/vote/queries";
@@ -21,6 +21,7 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import { IplaceInfo } from "../../types/statistics";
 import { ITimeStartToEndHM } from "../../types/utils";
 import { IVoteInfo } from "../../types/studyDetails";
+import PlaceSelector from "../../components/utils/PlaceSelector";
 
 function VoteStudyMainModal({
   setIsShowModal,
