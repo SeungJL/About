@@ -17,11 +17,11 @@ import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 
 import AttendChart from "../../components/utils/AttendChart";
-import Header from "../../components/Layout/Header";
+import Header from "../../components/layouts/Header";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import ModalPortal from "../../components/common/ModalPortal";
+import ModalPortal from "../../components/ModalPortal";
 import SuggestModal from "../../modals/user/SuggestModal";
 
 import { User } from "../../models/user";

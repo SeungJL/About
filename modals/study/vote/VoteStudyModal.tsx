@@ -33,10 +33,10 @@ import {
   SUWAN_투썸,
 } from "../../../constants/study";
 import { locationState } from "../../../recoil/systemAtoms";
-import ModalPortal from "../../../components/common/ModalPortal";
+import ModalPortal from "../../../components/ModalPortal";
 import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
 
-import { ModalHeaderX } from "../../../components/Layout/Modal";
+import { ModalHeaderX } from "../../../components/ui/Modal";
 import PlaceSelector from "../../../components/utils/placeSelector";
 
 function VoteStudyModal({

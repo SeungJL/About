@@ -19,7 +19,7 @@ import { ModalFooterNav, ModalMain, ModalLg } from "../../styles/layout/modal";
 
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import { useScoreMutation } from "../../hooks/user/mutations";
-import { ModalHeaderXLine } from "../../components/Layout/Modal";
+import { ModalHeaderXLine } from "../../components/ui/Modal";
 
 function SuggestModal({
   setIsModal,

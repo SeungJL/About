@@ -10,7 +10,7 @@ import { User } from "../../models/user";
 import { ColorRing } from "react-loader-spinner";
 import { useToast } from "@chakra-ui/react";
 
-import Seo from "../../components/Layout/Seo";
+import Seo from "../../components/Seo";
 import AboutMain from "../../pagesComponents/About/main/study/AboutMain";
 import EventBanner from "../../pagesComponents/About/main/EventBanner";
 import Header from "../../pagesComponents/About/main/Header";

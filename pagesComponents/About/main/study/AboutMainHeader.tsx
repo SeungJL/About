@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, useToast } from "@chakra-ui/react";
 
 import VoteStudyModal from "../../../../modals/study/vote/VoteStudyModal";
-import ModalPortal from "../../../../components/common/ModalPortal";
+import ModalPortal from "../../../../components/ModalPortal";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {

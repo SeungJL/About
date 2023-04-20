@@ -7,7 +7,7 @@ import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import ModalPortal from "../../../components/common/ModalPortal";
+import ModalPortal from "../../../components/ModalPortal";
 import AbsentVoteModal from "../../../modals/study/confirm/AbsentVoteModal";
 import ChangeTimeModal from "../../../modals/study/vote/ChangeTimeModal";
 import VoteStudySpaceModal from "../../../modals/study/vote/VoteStudySpaceModal";

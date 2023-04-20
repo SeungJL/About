@@ -44,10 +44,6 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <meta charSet="utf-8"></meta>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap"
-            rel="stylesheet"
-          />
         </Head>
         <body>
           <Main />

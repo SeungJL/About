@@ -6,7 +6,7 @@ import styled from "styled-components";
 import UserInfoModal from "../../modals/user/UserInfoModal";
 import { IUser } from "../../types/user";
 
-import ModalPortal from "./ModalPortal";
+import ModalPortal from "../ModalPortal";
 
 function UserImageIcon({ user }: { user: IUser }) {
   const toast = useToast();

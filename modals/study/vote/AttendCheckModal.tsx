@@ -8,7 +8,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
 import CommentBox from "../../../components/common/CommentBox";
-import { InputSm } from "../../../components/Layout/Input";
+import { InputSm } from "../../../components/ui/Input";
 
 import { useScoreMutation } from "../../../hooks/user/mutations";
 import { useArrivedMutation } from "../../../hooks/vote/mutations";

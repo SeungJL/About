@@ -12,7 +12,7 @@ import "../styles/variable.css";
 import Head from "next/head";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import Layout from "../components/Layout/Layout";
+import Layout from "../components/Layout";
 import theme from "../theme";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;

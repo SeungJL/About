@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { FullScreen } from "../../styles/layout/modal";
+import { FullScreen } from "../styles/layout/modal";
 
 function ModalPortal({ children, setIsModal }) {
   const ref = useRef<Element | null>();

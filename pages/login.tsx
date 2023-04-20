@@ -29,7 +29,7 @@ import { useEffect, useRef, useState } from "react";
 import { getInterestingDate } from "../libs/utils/dateUtils";
 import styled from "styled-components";
 import { ModalXs } from "../styles/layout/modal";
-import ModalPortal from "../components/common/ModalPortal";
+import ModalPortal from "../components/ModalPortal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";

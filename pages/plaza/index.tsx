@@ -1,6 +1,6 @@
-import Seo from "../../components/Layout/Seo";
+import Seo from "../../components/Seo";
 
-import Header from "../../components/Layout/Header";
+import Header from "../../components/layouts/Header";
 import Category from "../../pagesComponents/Plaza/main/Category";
 import { useState } from "react";
 import { category } from "../../types/plaza";
@@ -9,7 +9,7 @@ import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ModalPortal from "../../components/common/ModalPortal";
+import ModalPortal from "../../components/ModalPortal";
 import PlazaWriteModal from "../../modals/write/plaza/PlazaWriteModal";
 import { useRouter } from "next/router";
 import { usePlazaQuery } from "../../hooks/plaza/queries";
