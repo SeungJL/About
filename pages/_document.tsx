@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta charSet="utf-8"></meta>
+          <meta charSet="utf-8" key="charset" />
         </Head>
         <body>
           <Main />

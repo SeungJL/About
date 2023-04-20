@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import StudySpaceNavigation from "../../../pagesComponents/About/studySpace/StudySpaceNavigation";
 import StudySpaceCover from "../../../pagesComponents/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../pagesComponents/About/studySpace/StudySpaceHeader";
-import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverview";
+
 import StudyTimeTable from "../../../pagesComponents/About/studySpace/StudySpaceTable";
 
 import { useVoteQuery } from "../../../hooks/vote/queries";
@@ -20,6 +20,7 @@ import { useState } from "react";
 import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
 import ModalPortal from "../../../components/ModalPortal";
 import StudySpaceVoteOverview from "../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
+import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
 
 function StudySpace() {
   const toast = useToast();
