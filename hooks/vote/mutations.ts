@@ -38,7 +38,6 @@ export const useChangeTimeMutation = (
   >
 ) =>
   useMutation<void, AxiosError, { start: Dayjs; end: Dayjs }>(async (time) => {
-    console.log(45, date, time);
     await axios.patch(`/api/vote/${date.format("YYYY-MM-DD")}`, time);
   }, options);
 

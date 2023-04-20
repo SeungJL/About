@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
   const allowedId = ["2259633694", "2283035576", "2255707346"];
 
   if (!allowedId.includes(session.uid?.toString())) {
-    console.log("hello");
+  
     return NextResponse.redirect(new URL("/about", req.url));
   }
 }

@@ -112,7 +112,7 @@ function StudyNavigation({
       myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
     }
   };
-  console.log(isCancelModal);
+
   return (
     <>
       {studyDate === "passed" || status === "dismissed" ? (

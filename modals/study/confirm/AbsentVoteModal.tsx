@@ -35,15 +35,15 @@ function AbsentVoteModal({ setIsModal }) {
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const { mutate: getScore } = useScoreMutation({
     onError(error) {
-      console.log(2, error);
+      console.error(error);
     },
   });
   const { mutate: getWaring } = useWarningScoreMutation({
     onError(error) {
-      console.log(1, error);
+      console.error(error);
     },
   });
-  console.log(today);
+
   const { mutate: handleDismiss, isLoading: dismissLoading } =
     useDismissMutation(today, {
       onSuccess: (data) => {
@@ -65,7 +65,7 @@ function AbsentVoteModal({ setIsModal }) {
     });
 
   const handleCancleBtn = () => {
-    console.log(2, mySpaceFixed);
+
     if (mySpaceFixed) {
       handleDismiss();
     } else {

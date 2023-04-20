@@ -16,7 +16,7 @@ export default async function handler(
   const { method } = req;
   const dateStr = req.query.date as string;
   const date = strToDate(dateStr).toDate();
-  console.log(55, date);
+ 
   const token = await getToken({ req, secret });
 
   await dbConnect();
@@ -32,7 +32,7 @@ export default async function handler(
           (att) => (att.user as IUser)?.uid.toString() === token.uid.toString()
         );
         if (isTargetParticipation) {
-          console.log(2);
+     
           participation.attendences = participation.attendences.filter(
             (att) =>
               (att.user as IUser)?.uid.toString() !== token.uid.toString()

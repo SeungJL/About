@@ -48,7 +48,7 @@ export default async function handler(
         }
       });
 
-      console.log(arriveInfo);
+      
       return res.status(200).json(arriveInfo);
     case "PATCH":
       const currentTime = now().add(9, "hour");

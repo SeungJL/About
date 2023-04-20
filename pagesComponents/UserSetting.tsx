@@ -44,7 +44,7 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   useEffect(() => {
     if (!location) {
       if (!isLoading) setLocation(userData?.location);
-      if (isGuest) setLocation("수원");
+      if (isGuest) setLocation("양천");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isGuest, location]);
