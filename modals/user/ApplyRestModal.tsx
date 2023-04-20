@@ -12,7 +12,7 @@ import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 import { IApplyRest } from "../../types/userAction";
 
 import { useApplyRestMutation } from "../../hooks/user/mutations";
-import { ModalHeaderXLine } from "../../components/Layout/Component";
+import { ModalHeaderXLine } from "../../components/Layout/Modal";
 
 function ApplyRestModal({
   setIsModal,

@@ -8,6 +8,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
 import CommentBox from "../../../components/common/CommentBox";
+import { InputSm } from "../../../components/Layout/Input";
 
 import { useScoreMutation } from "../../../hooks/user/mutations";
 import { useArrivedMutation } from "../../../hooks/vote/mutations";
@@ -109,15 +110,14 @@ function AttendCheckModal({
             도착하셨나요? <br />
             자리나 인상착의를 간단하게 남겨주세요!
           </Content>
-          <CommentBox>
-            <form id="AttendCheckForm">
-              <Input
-                placeholder="여기에 작성해주세요!"
-                onChange={(e) => setMemo(e.target.value)}
-              />
-            </form>
-          </CommentBox>
+          <Form id="AttendCheckForm">
+            <InputSm
+              placeholder="여기에 작성해주세요!"
+              onChange={(e) => setMemo(e.target.value)}
+            />
+          </Form>
         </ModalMain>
+
         <ModalFooterNav>
           <button type="button" onClick={onCancelClicked}>
             취소
@@ -158,9 +158,8 @@ const Content = styled.div`
   margin-bottom: 12px;
 `;
 
-const Input = styled.input`
-  height: 50px;
-  width: 100%;
+const Form = styled.form`
+  height: 100%;
 `;
 
 const Loading = styled.div`

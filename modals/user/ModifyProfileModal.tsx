@@ -13,7 +13,7 @@ import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
 
 import { useRecoilValue } from "recoil";
 import { locationState } from "../../recoil/systemAtoms";
-import { ModalHeaderXLine } from "../../components/Layout/Component";
+import { ModalHeaderXLine } from "../../components/Layout/Modal";
 
 function ProfileModifyModal({ setIsModal }) {
   const { data: session } = useSession();

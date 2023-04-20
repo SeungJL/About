@@ -9,6 +9,7 @@ import {
   ModalMain,
   ModalSubtitle,
   ModalXs,
+  ModalMd,
 } from "../../../styles/layout/modal";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -65,7 +66,6 @@ function AbsentVoteModal({ setIsModal }) {
     });
 
   const handleCancleBtn = () => {
-
     if (mySpaceFixed) {
       handleDismiss();
     } else {
@@ -107,6 +107,6 @@ function AbsentVoteModal({ setIsModal }) {
   );
 }
 
-const Layout = styled(ModalXs)``;
+const Layout = styled(ModalMd)``;
 
 export default AbsentVoteModal;
