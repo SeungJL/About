@@ -29,8 +29,8 @@ export default function Admin() {
     }
   };
 
-  const myCommand = () => {
-    axios.get(`/api/vote/${now()}/arrived`);
+  const myCommand = async () => {
+    await axios.get(`/api/vote/${now().add(1, "day")}/absence`);
   };
 
   return (
