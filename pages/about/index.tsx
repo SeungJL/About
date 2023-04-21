@@ -20,7 +20,7 @@ import AboutMainHeader from "../../pagesComponents/About/main/AboutMain/AboutMai
 import AboutTitle from "../../pagesComponents/About/main/AboutMain/AboutMainTitle";
 import UserSetting from "../../pagesComponents/UserSetting";
 
-import { useVoteQuery } from "../../hooks/vote/queries";
+import { useArrivedDataQuery, useVoteQuery } from "../../hooks/vote/queries";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 
@@ -39,20 +39,31 @@ function About({ UserList }: { UserList: IUser[] }) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);
   const location = useRecoilValue(locationState);
+  const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 
   const current = dayjs().hour();
 
   useEffect(() => {
-    if ((!voteDate && current < VOTE_START_HOUR) || current > VOTER_DATE_END)
-      setVoteDate(getInterestingDate());
+    if (voteDate === null) {
+      if (current >= VOTE_START_HOUR && current < VOTER_DATE_END)
+        setIsDefaultPrev(true);
+      else setVoteDate(getInterestingDate());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useArrivedDataQuery(getInterestingDate().subtract(1, "day"), {
+    enabled: isDefaultPrev,
+    onSuccess(data) {
+      if (isDefaultPrev && data.find((who) => who.uid === session?.uid))
+        setVoteDate(getInterestingDate().subtract(1, "day"));
+    },
+  });
 
   const { isLoading } = useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
-
       setParticipations(temp);
     },
     onError() {
@@ -67,36 +78,6 @@ function About({ UserList }: { UserList: IUser[] }) {
     },
   });
 
-  const { isLoading: isLoading2 } = useVoteQuery(
-    getInterestingDate().subtract(1, "day"),
-    location,
-    {
-      enabled:
-        !voteDate && current >= VOTE_START_HOUR && current <= VOTER_DATE_END,
-      onSuccess(data) {
-        if (!voteDate)
-          data?.participations.some((study) =>
-            study.attendences.find(
-              (who) =>
-                (who.firstChoice && (who.user as IUser)).uid === session?.uid
-            )
-              ? setVoteDate(dayjs())
-              : setVoteDate(getInterestingDate())
-          );
-      },
-      onError() {
-        toast({
-          title: "불러오기 실패",
-          description: "투표 정보를 불러오지 못 했어요.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      },
-    }
-  );
-
   const voteCnt = participations.reduce((acc, par) => {
     return (
       acc +
@@ -106,13 +87,11 @@ function About({ UserList }: { UserList: IUser[] }) {
     );
   }, 0);
 
-  const { data } = useScoreAllQuery();
-
   return (
     <>
       <Seo title="About" />
       <UserSetting UserList={UserList} />
-      {!voteDate || isLoading || isLoading2 ? (
+      {!voteDate || isLoading ? (
         <Loader>
           <ColorRing
             visible={true}

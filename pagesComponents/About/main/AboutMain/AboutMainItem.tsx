@@ -19,6 +19,9 @@ import { IUser } from "../../../../types/user";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { Badge } from "@chakra-ui/react";
 import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
+import { MAX_USER_PER_PLACE } from "../../../../constants/study";
+
+const VOTER_SHOW_MAX = 6;
 
 function AboutMainItem({
   studySpaceInfo,
@@ -37,6 +40,16 @@ function AboutMainItem({
   const { attendences, place, status } = studySpaceInfo || {};
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
+
+  const voterCnt = attendences.length;
+  const voteStatus =
+    status === "pending"
+      ? voted
+        ? "GOOD"
+        : voterCnt === MAX_USER_PER_PLACE
+        ? "FULL"
+        : null
+      : null;
 
   return (
     <Layout
@@ -76,19 +89,22 @@ function AboutMainItem({
 
         <Participants status={statusFixed === "myOpen"}>
           <div>
-            {voted && statusFixed === "pending" && (
-              <VoteComplete>신청완료</VoteComplete>
+            {statusFixed === "pending" && (
+              <VoteComplete status={voteStatus}>{voteStatus}</VoteComplete>
             )}
           </div>
           <div>
             {statusFixed === "pending"
-              ? attendences?.map((user, idx) => (
-                  <ProfileContainer key={idx} zIndex={idx}>
-                    <ProfileIconSm
-                      imgSrc={(user?.user as IUser)?.profileImage}
-                    />
-                  </ProfileContainer>
-                ))
+              ? attendences?.map(
+                  (user, idx) =>
+                    idx < VOTER_SHOW_MAX && (
+                      <ProfileContainer key={idx} zIndex={idx}>
+                        <ProfileIconSm
+                          imgSrc={(user?.user as IUser)?.profileImage}
+                        />
+                      </ProfileContainer>
+                    )
+                )
               : firstAttendance?.map((user, idx) => (
                   <ProfileContainer key={idx} zIndex={idx}>
                     <ProfileIconSm
@@ -150,13 +166,14 @@ const SpaceInfo = styled.div`
   flex: 1;
 `;
 
-const VoteComplete = styled.span`
+const VoteComplete = styled.span<{ status: "GOOD" | "FULL" }>`
   display: flex;
   height: 100%;
   align-items: end;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-mint);
+  color: ${(props) =>
+    props.status === "GOOD" ? "var(--color-mint)" : "var(--color-red)"};
 `;
 
 const Status = styled.div`

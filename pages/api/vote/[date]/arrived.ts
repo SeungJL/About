@@ -38,7 +38,7 @@ export default async function handler(
           participation.attendences.forEach((att) => {
             if (att.arrived) {
               arriveInfo.push({
-                participarion: participation.place.fullname,
+                spaceId: participation.place._id,
                 uid: (att.user as IUser)?.uid,
                 memo: att.memo,
                 arrived: att.arrived,
@@ -48,7 +48,6 @@ export default async function handler(
         }
       });
 
-      
       return res.status(200).json(arriveInfo);
     case "PATCH":
       const currentTime = now().add(9, "hour");
