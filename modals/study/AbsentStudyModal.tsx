@@ -25,6 +25,8 @@ import {
 import { useDismissMutation } from "../../hooks/vote/mutations";
 import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
+import { useState } from "react";
+import { InputSm } from "../../components/ui/Input";
 
 function AbsentStudyModal({ setIsModal }) {
   const toast = useToast();
@@ -34,6 +36,8 @@ function AbsentStudyModal({ setIsModal }) {
   const setisVoting = useSetRecoilState(isVotingState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const [isFirst, setIsFirst] = useState(true);
+
   const { mutate: getScore } = useScoreMutation({
     onError(error) {
       console.error(error);
@@ -50,7 +54,7 @@ function AbsentStudyModal({ setIsModal }) {
       onSuccess: (data) => {
         queryClient.invalidateQueries(VOTE_GET);
         getWaring({ score: 1, message: "스터디 당일 불참" });
-        // if (dayjs() > studyStartTime) getScore(-10);
+        if (dayjs() > studyStartTime) getScore(-10);
         setisVoting(false);
       },
       onError: (err) => {
@@ -85,22 +89,35 @@ function AbsentStudyModal({ setIsModal }) {
     <>
       <Layout>
         <ModalHeaderLine>불참 경고</ModalHeaderLine>
-        <ModalMain>
-          <ModalSubtitle>정말로 불참하실건가요? </ModalSubtitle>
-          {dayjs() > studyStartTime ? (
-            <div>
-              스터디 시작 시간이 지났기 때문에 <b>경고 1회</b>와 <b>-10점</b>이
-              부여됩니다. 참여 시간을 변경해 보는 것은 어떨까요?
-            </div>
-          ) : (
-            <div>
-              <b>경고 1회</b>가 부여됩니다.
-            </div>
-          )}
-        </ModalMain>
+        {isFirst ? (
+          <ModalMain>
+            <ModalSubtitle>정말로 불참하실건가요? </ModalSubtitle>
+            {dayjs() > studyStartTime ? (
+              <div>
+                스터디 시작 시간이 이미 지났기 때문에 <b>경고 1회</b>와{" "}
+                <b>-10점</b>이 부여됩니다. 참여 시간을 변경해 보는 것은
+                어떨까요?
+              </div>
+            ) : (
+              <div>
+                <b>경고 1회</b>가 부여됩니다.
+              </div>
+            )}
+          </ModalMain>
+        ) : (
+          <ModalMain>
+            <Subtitle>
+              <div>불참이 인정되는 사유가 있다면 적어주세요! </div>
+
+              <span>※ 해당하지 않는다면 적지 말아주세요</span>
+            </Subtitle>
+            <InputSm />
+          </ModalMain>
+        )}
         <ModalFooterNav>
           <button onClick={() => setIsModal(false)}>취소</button>
-          <button onClick={handleCancleBtn}>불참</button>
+          {/* <button onClick={handleCancleBtn}>불참</button> */}
+          <button onClick={() => setIsFirst(false)}>불참</button>
         </ModalFooterNav>
       </Layout>
     </>
@@ -108,5 +125,16 @@ function AbsentStudyModal({ setIsModal }) {
 }
 
 const Layout = styled(ModalMd)``;
+
+const Subtitle = styled.div`
+  margin-bottom: 12px;
+  > div {
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  > span:last-child {
+    font-size: 12px;
+  }
+`;
 
 export default AbsentStudyModal;

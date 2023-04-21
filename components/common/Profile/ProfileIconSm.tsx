@@ -1,28 +1,87 @@
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import styled from "styled-components";
 
-function ProfileIconSm({ imgSrc }: { imgSrc: string }) {
+function ProfileIconSm({
+  imgSrc,
+  isOverlap,
+}: {
+  imgSrc: string;
+  isOverlap?: boolean;
+}) {
   return (
     <Layout>
-      <Image
-        src={`${imgSrc}`}
-        width={26}
-        height={26}
-        alt="ProfileIconSm"
-        unoptimized={true}
-      />
+      <Wrapper>
+        {!isOverlap ? (
+          <Image
+            src={`${imgSrc}`}
+            width={26}
+            height={26}
+            alt="ProfileIconSm"
+            unoptimized={true}
+          />
+        ) : (
+          <OverlapWrapper>
+            <Image
+              src={`${imgSrc}`}
+              width={26}
+              height={26}
+              alt="ProfileIconSm"
+              unoptimized={true}
+            />
+            <IconWrapper>
+              <FontAwesomeIcon icon={faEllipsis} size="lg" color="white" />
+            </IconWrapper>
+          </OverlapWrapper>
+        )}
+      </Wrapper>
     </Layout>
   );
 }
 
 const Layout = styled.div`
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  background-color: white;
   border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  overflow: hidden;
   display: inline-block;
   position: absolute;
   bottom: 0px;
+  z-index: 1000;
+`;
+
+const Wrapper = styled.div`
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-left: -1px;
+
+  margin-top: -1px;
+`;
+
+const OverlapWrapper = styled.div`
+  position: relative;
+  z-index: 5000;
+
+  width: 100%;
+  height: 100%;
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); // 어두운 색상
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7; // 투명도
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export default ProfileIconSm;

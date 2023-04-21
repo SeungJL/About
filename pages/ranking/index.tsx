@@ -177,6 +177,7 @@ const Myrank = styled.div`
 `;
 
 const Profile = styled.div<{ isGuest: boolean }>`
+  margin-top: 16px;
   text-align: center;
   > span {
     font-size: ${(props) => (props.isGuest ? "18px" : "12px")};

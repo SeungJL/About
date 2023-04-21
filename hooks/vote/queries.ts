@@ -3,6 +3,7 @@ import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
+import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
 import { IUser } from "../../types/user";
 
@@ -91,10 +92,27 @@ export const useStudyStartQuery = (
     options
   );
 
-// export const useArrivedDataQuery = () =>
-//   useQuery("arrivedData", async () => {
-//     const res = await axios.get<IStudyStart[]>(
-//       `/api/vote/${date.format("YYYY-MM-DD")}/start`
-//     );
-//     return res.data;
-//   });
+export const useArrivedDataQuery = (
+  date?: Dayjs,
+  options?: Omit<
+    UseQueryOptions<IArrivedData[], AxiosError, IArrivedData[]>,
+    "queryKey" | "queryFn"
+  >
+) => {
+  const defaultOptions: UseQueryOptions<any, AxiosError, any> = {
+    enabled: !!date, // date가 truthy한 경우에만 실행
+    // 기본값 설정 (로딩 중인 경우에 대한 UI 표시 등)
+  };
+  return useQuery(
+    ["arrivedData"],
+    async () => {
+      if (!date) return;
+      const res = await axios.get<IArrivedData[]>(
+        `/api/vote/${date.format("YYYY-MM-DD")}/arrived`
+      );
+
+      return res.data;
+    },
+    { ...options, ...defaultOptions }
+  );
+};
