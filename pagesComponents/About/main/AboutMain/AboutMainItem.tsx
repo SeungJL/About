@@ -42,7 +42,7 @@ function AboutMainItem({
   const firstAttendance = attendences?.filter((att) => att.firstChoice);
 
   const voterCnt = attendences.length;
-  const voteStatus =
+  const voteStatus: "GOOD" | "FULL" =
     status === "pending"
       ? voted
         ? "GOOD"
@@ -101,6 +101,7 @@ function AboutMainItem({
                       <ProfileContainer key={idx} zIndex={idx}>
                         <ProfileIconSm
                           imgSrc={(user?.user as IUser)?.profileImage}
+                          isOverlap={idx === VOTER_SHOW_MAX - 1}
                         />
                       </ProfileContainer>
                     )
@@ -188,23 +189,6 @@ const Branch = styled.div`
   font-size: 16px;
 `;
 
-const StatusResult = styled.div<{ isOpen: boolean }>`
-  background-color: ${(props) =>
-    props.isOpen ? "#68d3918e" : "var(--font-h6)"};
-  color: ${(props) =>
-    props.isOpen ? "rgba(34, 84, 61, 0.76)" : "var(--font-h3)"};
-  display: inline-block;
-  align-items: center;
-  height: 16px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 10px;
-  padding: 1px 8px;
-  padding: ${(props) => (props.isOpen ? "1px 8px" : "1px 6px")};
-  margin-left: 6px;
-  margin-right: 4px;
-`;
-
 const Result = styled.div`
   display: flex;
   align-items: center;
@@ -216,19 +200,6 @@ const ResultInfo = styled.div`
   font-size: 11px;
   font-weight: 600;
   color: var(--font-h);
-`;
-
-const Check = styled.div`
-  width: 54px;
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  align-self: end;
-  > span {
-    display: inline-block;
-    font-size: 13px;
-    color: var(--font-h2);
-  }
 `;
 
 const Info = styled.div`
@@ -260,7 +231,7 @@ const Participants = styled.div<{ status: boolean }>`
   }
 `;
 const ProfileContainer = styled.div<{ zIndex: number }>`
-  width: 24px;
+  width: 23px;
   display: flex;
   z-index: ${(props) => props.zIndex};
   position: relative;
@@ -269,7 +240,7 @@ const ProfileContainer = styled.div<{ zIndex: number }>`
 const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: 10px;
   margin-bottom: 4px;
 
   > span {
@@ -278,7 +249,5 @@ const ParticipantStatus = styled.div`
     color: var(--font-h3);
   }
 `;
-
-const NumberCircle = styled.div``;
 
 export default AboutMainItem;
