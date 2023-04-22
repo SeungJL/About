@@ -77,7 +77,6 @@ function StudySpaceNavigation({
   });
 
   const onBtnClicked = (type = "string") => {
-    console.log(4);
     if (isGuest) {
       toast({
         title: "버튼 동작 실패",
@@ -122,7 +121,6 @@ function StudySpaceNavigation({
       setIsCancelModal(true);
     }
     if (type === "main") {
-      console.log(10);
       myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
     }
   };

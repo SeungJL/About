@@ -6,6 +6,7 @@ import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
 import { IUser } from "../../types/user";
+import { IAbsentInfo } from "../../types/userAction";
 
 export const useVoteQuery = (
   date: Dayjs,
@@ -116,3 +117,21 @@ export const useArrivedDataQuery = (
     { ...options, ...defaultOptions }
   );
 };
+
+export const useAbsentDataQuery = (
+  date: Dayjs,
+  options?: Omit<
+    UseQueryOptions<IAbsentInfo[], AxiosError, IAbsentInfo[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery(
+    "absentData",
+    async () => {
+      const res = await axios.get<IAbsentInfo[]>(
+        `/api/vote/${date.format("YYYY-MM-DD")}/absence`
+      );
+      return res.data;
+    },
+    options
+  );

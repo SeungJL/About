@@ -4,6 +4,7 @@ import { useMutation, UseMutationOptions } from "react-query";
 
 import { IVoteStudyInfo } from "../../types/statistics";
 import { IUserRegister } from "../../types/user";
+import { IAbsentInfo } from "../../types/userAction";
 
 export const useAttendMutation = (
   currentDate: Dayjs,
@@ -100,3 +101,22 @@ export const useDecideSpaceMutation = (
     );
     return res.data;
   });
+
+export const useAbsentStudyMutation = (
+  date: Dayjs,
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IAbsentInfo>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useMutation(
+    "absentStudy",
+    async (absentInfo) => {
+      const res = await axios.post(
+        `/api/vote/${date.format("YYYY-MM-DD")}/absence`,
+        absentInfo
+      );
+      return res.data;
+    },
+    options
+  );

@@ -4,3 +4,8 @@ export interface IApplyRest {
   endDate: string;
   content: string;
 }
+
+export interface IAbsentInfo {
+  message?: string;
+  uid?: string;
+}

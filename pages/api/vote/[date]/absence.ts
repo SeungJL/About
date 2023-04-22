@@ -42,7 +42,7 @@ export default async function handler(
     case "POST":
       {
         const { message } = req.body;
-
+       
         await vote?.participations.map((participation) => {
           participation.attendences.map((attendence) => {
             if (

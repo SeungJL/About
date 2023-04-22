@@ -1,16 +1,25 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-regular-svg-icons";
 
 import ProfileIconMd from "../../../../components/common/Profile/ProfileIconMd";
 
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { useRecoilValue } from "recoil";
-import { studyDateState } from "../../../../recoil/studyAtoms";
+import { studyDateState, voteDateState } from "../../../../recoil/studyAtoms";
+import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
+import { useToast } from "@chakra-ui/react";
 
 function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
+  const toast = useToast();
   const studyDate = useRecoilValue(studyDateState);
+  const voteDate = useRecoilValue(voteDateState);
+  const { data: absentData } = useAbsentDataQuery(voteDate);
+
   return (
     <Layout>
       {attendances.map((user, idx) => {
@@ -31,12 +40,19 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                 <span>{(user.user as IUser).name}</span>
                 <div>{user.memo}</div>
               </Info>
-              {user.arrived && (
-                <Check>
+              {user.arrived ? (
+                <Check isCheck={true}>
                   <FontAwesomeIcon icon={faCircleCheck} size="xl" />
                   <span>{arrivedHM}</span>
                 </Check>
-              )}
+              ) : absentData?.find(
+                  (who) => who.uid === (user?.user as IUser)?.uid
+                ) ? (
+                <Check isCheck={false}>
+                  <FontAwesomeIcon icon={faCircleXmark} size="xl" />
+                  <span>불참</span>
+                </Check>
+              ) : null}
             </BlockInfo>
           </Block>
         );
@@ -63,14 +79,15 @@ const BlockInfo = styled.div`
   margin-left: 12px;
 `;
 
-const Check = styled.div`
+const Check = styled.div<{ isCheck: boolean }>`
   margin-left: auto;
   width: 40px;
   display: flex;
   justify-content: end;
   flex-direction: column;
   align-items: center;
-  color: var(--color-red);
+  color: ${(props) =>
+    props.isCheck ? "var(--color-mint)" : "var(--color-red)"};
   > span {
     display: inline-block;
     margin-top: 4px;
