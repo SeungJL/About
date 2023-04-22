@@ -117,17 +117,20 @@ function UserOverview() {
               />
             </ProgressWrapper>
             <Info>
-              <Item onClick={() => router.push(`/record`)}>
+              {/* <Item onClick={() => router.push(`/record`)}>
+                <span>{dayjs().month() + 1}월 참여</span>
+
+                <span>{myMonthCnt}회</span>
+              </Item> */}{" "}
+              <Item onClick={() => setIsNotComplete(true)}>
                 <span>{dayjs().month() + 1}월 참여</span>
 
                 <span>{myMonthCnt}회</span>
               </Item>
-
               <Item onClick={() => setIsNotComplete(true)}>
                 <span>내 점수</span>
                 <span>{myPoint}점</span>
               </Item>
-
               <Item onClick={() => router.push(`/ranking`)}>
                 <span>랭킹 </span>
                 {myRank === undefined ? null : myRank?.isRank ? (
