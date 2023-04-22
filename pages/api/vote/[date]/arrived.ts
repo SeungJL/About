@@ -34,18 +34,21 @@ export default async function handler(
       const arriveInfo = [];
 
       vote.participations.forEach((participation) => {
+        const arriveForm = {};
+        arriveForm[participation.place.fullname] = [];
         if (participation.status === "open") {
           participation.attendences.forEach((att) => {
             if (att.arrived) {
-              arriveInfo.push({
+              arriveForm[participation.place.fullname].push({
+                location: participation.place.fullname,
                 spaceId: participation.place._id,
                 uid: (att.user as IUser)?.uid,
-                memo: att.memo,
                 arrived: att.arrived,
               });
             }
           });
         }
+        arriveInfo.push(arriveForm);
       });
 
       return res.status(200).json(arriveInfo);
