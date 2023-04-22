@@ -32,7 +32,7 @@ import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
 import { useScoreAllQuery } from "../../hooks/user/queries";
 
-function About({ UserList }: { UserList: IUser[] }) {
+function About() {
   const toast = useToast();
   const { data: session } = useSession();
 
@@ -40,6 +40,7 @@ function About({ UserList }: { UserList: IUser[] }) {
   const [participations, setParticipations] = useState<IParticipation[]>([]);
   const location = useRecoilValue(locationState);
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const current = dayjs().hour();
 
@@ -47,7 +48,10 @@ function About({ UserList }: { UserList: IUser[] }) {
     if (voteDate === null) {
       if (current >= VOTE_START_HOUR && current < VOTER_DATE_END)
         setIsDefaultPrev(true);
-      else setVoteDate(getInterestingDate());
+      else {
+        setVoteDate(getInterestingDate());
+        console.log(1, voteDate);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -55,16 +59,19 @@ function About({ UserList }: { UserList: IUser[] }) {
   useArrivedDataQuery(getInterestingDate().subtract(1, "day"), {
     enabled: isDefaultPrev,
     onSuccess(data) {
-      if (isDefaultPrev && data.find((who) => who.uid === session?.uid))
+      if (isDefaultPrev && data.find((who) => who.uid === session?.uid)) {
         setVoteDate(getInterestingDate().subtract(1, "day"));
+        console.log(3);
+      }
     },
   });
 
-  const { isLoading } = useVoteQuery(voteDate, location, {
+  useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
+      setIsLoading(false);
     },
     onError() {
       toast({
@@ -90,7 +97,7 @@ function About({ UserList }: { UserList: IUser[] }) {
   return (
     <>
       <Seo title="About" />
-      <UserSetting UserList={UserList} />
+      <UserSetting />
       {!voteDate || isLoading ? (
         <Loader>
           <ColorRing
@@ -184,7 +191,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   }
-  const users = await User.find();
-  const UserList = JSON.parse(safeJsonStringify(users));
-  return { props: { UserList } };
+
+  return { props: {} };
 };

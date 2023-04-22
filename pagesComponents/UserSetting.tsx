@@ -16,7 +16,7 @@ import { locationState } from "../recoil/systemAtoms";
 import { usePlazaDataQuery } from "../hooks/plaza/queries";
 import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
 
-export default function UserSetting({ UserList }: { UserList: IUser[] }) {
+export default function UserSetting() {
   const { data: session } = useSession();
 
   const isGuest = session && session?.user.name === "guest";
@@ -50,8 +50,6 @@ export default function UserSetting({ UserList }: { UserList: IUser[] }) {
   }, [isLoading, isGuest, location]);
 
   useEffect(() => {
-    setNumOfUser(UserList?.filter((user) => user.isActive).length);
-
     if (isGuest === false && isActive !== undefined && !isActive)
       setIsRegisterModal(true);
     else setIsRegisterModal(false);
