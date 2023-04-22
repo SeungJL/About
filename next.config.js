@@ -20,9 +20,7 @@ const nextConfig = {
     ],
   },
   reactStrictMode: true,
-  experimental: {
-    largePageDataBytes: 300 * 1000,
-  },
+
   compiler: {
     styledComponents: true,
   },
