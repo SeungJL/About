@@ -8,6 +8,7 @@ import dbConnect from "../../../libs/dbConnect";
 import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
 import { User } from "../../../models/user";
 import { Account } from "../../../models/account";
+import { IRole } from "../../../types/user";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -125,7 +126,7 @@ export const authOptions: NextAuthOptions = {
       } else {
         session.uid = token.uid.toString();
         session.user.name = token.name;
-        session.role = token.role as string;
+        session.role = token.role as IRole;
         session.error = token.error;
         session.isActive = token.isActive as boolean;
       }
