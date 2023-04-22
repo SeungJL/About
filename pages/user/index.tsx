@@ -39,6 +39,8 @@ function UserInfo() {
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
 
+  const isAdmin = session?.role === "previliged";
+
   const handleOutput = (isOpen) => {
     if (!isOpen) {
       setModalOpen("");
@@ -73,6 +75,16 @@ function UserInfo() {
           </UserScoresNav>
           <AttendChart type="main" />
           <Navigation>
+            {isAdmin && (
+              <div>
+                <BlockName>관리자</BlockName>
+                <NavBlock>
+                  <button onClick={() => router.push(`/admin`)}>
+                    관리자 페이지
+                  </button>
+                </NavBlock>
+              </div>
+            )}
             <div>
               <BlockName>신청</BlockName>
               <NavBlock>

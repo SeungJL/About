@@ -117,7 +117,7 @@ function UserOverview() {
               />
             </ProgressWrapper>
             <Info>
-              <Item onClick={() => setIsNotComplete(true)}>
+              <Item onClick={() => router.push(`/record`)}>
                 <span>{dayjs().month() + 1}월 참여</span>
 
                 <span>{myMonthCnt}회</span>

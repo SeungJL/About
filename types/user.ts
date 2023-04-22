@@ -68,8 +68,10 @@ export interface IRegisterForm {
   agree?: any;
   gender?: string;
 }
+
+export type IRole = "previliged" | "member";
 export interface IUserRegister extends IRegisterForm {
-  role?: "member" | "previliged";
+  role?: IRole;
   isActive?: boolean;
   gender: string;
 }

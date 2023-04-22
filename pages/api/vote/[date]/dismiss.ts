@@ -27,7 +27,6 @@ export default async function handler(
   switch (method) {
     case "PATCH":
       vote.participations.forEach((participation) => {
-        console.log(participation.attendences[0], token.uid);
         const isTargetParticipation = !!participation.attendences.find(
           (att) => (att.user as IUser)?.uid.toString() === token.uid.toString()
         );

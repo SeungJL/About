@@ -86,7 +86,7 @@ function About({ UserList }: { UserList: IUser[] }) {
       }, 0)
     );
   }, 0);
-  console.log(participations);
+
   return (
     <>
       <Seo title="About" />
