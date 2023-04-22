@@ -45,7 +45,8 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                   <FontAwesomeIcon icon={faCircleCheck} size="xl" />
                   <span>{arrivedHM}</span>
                 </Check>
-              ) : absentData?.find(
+              ) : studyDate !== "not passed" &&
+                absentData?.find(
                   (who) => who.uid === (user?.user as IUser)?.uid
                 ) ? (
                 <Check isCheck={false}>
