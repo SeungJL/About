@@ -19,7 +19,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const studyDate = useRecoilValue(studyDateState);
   const voteDate = useRecoilValue(voteDateState);
   const { data: absentData } = useAbsentDataQuery(voteDate);
-
+  console.log(absentData);
   return (
     <Layout>
       {attendances.map((user, idx) => {
