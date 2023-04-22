@@ -25,4 +25,5 @@
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   --border-headline: 1px solid var(--font-h3);
   --border-radius: 6px;
+  --padding-main: 14px;
 }

@@ -99,24 +99,19 @@ export const useArrivedDataQuery = (
     UseQueryOptions<IArrivedData[], AxiosError, IArrivedData[]>,
     "queryKey" | "queryFn"
   >
-) => {
-  const defaultOptions: UseQueryOptions<any, AxiosError, any> = {
-    enabled: !!date, // date가 truthy한 경우에만 실행
-    // 기본값 설정 (로딩 중인 경우에 대한 UI 표시 등)
-  };
-  return useQuery(
-    ["arrivedData"],
+) =>
+  useQuery(
+    "arrivedData",
     async () => {
       if (!date) return;
       const res = await axios.get<IArrivedData[]>(
         `/api/vote/${date.format("YYYY-MM-DD")}/arrived`
       );
-
+      console.log(4, res);
       return res.data;
     },
-    { ...options, ...defaultOptions }
+    options
   );
-};
 
 export const useAbsentDataQuery = (
   date: Dayjs,
