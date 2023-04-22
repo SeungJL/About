@@ -89,12 +89,10 @@ function ChangeStudyTimeModal({
             }}
             times={time}
           />
-          {studyStartTime && dayjs() > studyStartTime && (
-            <WaringMsg>
-              스터디 시작 시간 이후의 시간 변경은 -5점을 받습니다.
-            </WaringMsg>
-          )}
         </Wrapper>
+        {studyStartTime && dayjs() > studyStartTime && (
+          <WaringMsg>스터디 시작 이후의 시간 변경은 -5점을 받습니다.</WaringMsg>
+        )}
       </ModalMain>
       <ModalFooterNav>
         <button onClick={() => setIsChangeStudyTimeModal(false)}>취소</button>
@@ -114,7 +112,7 @@ const Wrapper = styled.div`
 
 const WaringMsg = styled.span`
   font-size: 12px;
-  margin-top: 6px;
+
   color: var(--color-red);
 `;
 
