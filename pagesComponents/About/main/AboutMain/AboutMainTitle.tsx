@@ -23,6 +23,7 @@ function AboutTitle() {
   const isCheck = useRecoilValue(attendCheckState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
+
   return (
     <>
       <Layout>
