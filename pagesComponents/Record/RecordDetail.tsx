@@ -1,40 +1,33 @@
 import styled from "styled-components";
+import { IArrivedData } from "../../types/studyRecord";
+import { Dispatch, SetStateAction } from "react";
+import { SPACE_LOCATION, SPACE_NAME } from "../../constants/study";
 
-function RecordDetail() {
-  const temp = [
-    {
-      date: "1일 토요일",
-      data: [
-        { name: "카탈로그", arrivedInfo: ["승주", "희오"] },
-        { name: "탐앤탐스", arrivedInfo: ["승주", "희오"] },
-      ],
-    },
-    {
-      date: "2일 일요일",
-      data: [
-        { name: "카탈로그", arrivedInfo: ["승주", "희오"] },
-        { name: "탐앤탐스", arrivedInfo: ["승주", "희오"] },
-      ],
-    },
-  ];
+function RecordDetail({
+  totalData,
+  setMyRecentAttend,
+}: {
+  totalData: IArrivedData[];
+  setMyRecentAttend: Dispatch<SetStateAction<string>>;
+}) {
   return (
     <Layout>
-      {temp?.map((item, idx) => (
+      {[...totalData]?.reverse().map((item, idx) => (
         <Block key={idx}>
           <Date>{item.date}</Date>
           <SpaceWrapper>
-            {item.data.map((space, idx2) => (
+            {item.arrivedInfoList.map((space, idx2) => (
               <div key={idx2}>
                 <SpaceHeader>
-                  <span>{space.name}</span>
+                  <span> {SPACE_NAME[space.placeId]}</span>
                   <span>
-                    참여자수: <span>6명</span>
+                    참여자수: <span>{space.arrivedInfo.length}명</span>
                   </span>
                 </SpaceHeader>
                 <MemberWrapper>
                   <span>참여인원: </span>
                   {space.arrivedInfo.map((who, idx3) => (
-                    <Member key={idx3}>{who}</Member>
+                    <Member key={idx3}>{who.uid}</Member>
                   ))}
                 </MemberWrapper>
               </div>

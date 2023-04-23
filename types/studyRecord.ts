@@ -11,6 +11,6 @@ export interface IArrivedInfoList {
   arrivedInfo: IArrivedInfo[];
 }
 export interface IArrivedData {
-  date: string;
+  date: string | number;
   arrivedInfoList: IArrivedInfoList[];
 }

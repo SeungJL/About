@@ -2,9 +2,23 @@ import { Button } from "@chakra-ui/react";
 import styled from "styled-components";
 import { useState } from "react";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
+import { useParticipationRateQuery } from "../../hooks/user/queries";
+import { IVoteRate } from "../../types/studyRecord";
+import dayjs from "dayjs";
 
-function RecordOverview() {
+function RecordOverview({
+  totalOpen,
+  totalAttendance,
+  myRecentAttend,
+  myMonthCnt,
+}: {
+  totalOpen: number;
+  totalAttendance: number;
+  myRecentAttend: string;
+  myMonthCnt: number;
+}) {
   const [isNotCompleted, setIsNotCompleted] = useState(false);
+
   return (
     <>
       <Layout>
@@ -12,21 +26,23 @@ function RecordOverview() {
           <MyRecordItem>
             <div>
               <span>스터디 오픈</span>
-              <span>2회</span>
+              <span>{totalOpen}회</span>
             </div>
             <div>
               <span>참여한 인원</span>
-              <span>182명</span>
+              <span>{totalAttendance}명</span>
             </div>
           </MyRecordItem>
           <MyRecordItem>
             <div>
               <span>내 참여 횟수</span>
-              <span style={{ color: "var(--color-mint)" }}>4회</span>
+              <span style={{ color: "var(--color-mint)" }}>{myMonthCnt}회</span>
             </div>
             <div>
               <span>내 최근 참여</span>
-              <span style={{ color: "var(--color-mint)" }}>4월 16일</span>
+              <span style={{ color: "var(--color-mint)" }}>
+                {dayjs(myRecentAttend).format("M월 DD일")}
+              </span>
             </div>
           </MyRecordItem>
         </MyRecord>
@@ -49,6 +65,12 @@ const Layout = styled.div`
 const MyRecord = styled.div`
   display: flex;
   height: 100%;
+  > div:first-child {
+    width: 125px;
+  }
+  > div:last-child {
+    width: 140px;
+  }
 `;
 
 const MyRecordItem = styled.div`
@@ -56,7 +78,6 @@ const MyRecordItem = styled.div`
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
-  width: 140px;
 
   margin-bottom: 6px;
 

@@ -30,16 +30,27 @@ export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
 export const YANG_스타벅스 = "6437ebccab537b843c6143af";
 
-export const SPACE_LOCATION: { key: string; value: Location }[] = [
-  { key: SUWAN_투썸, value: "수원" },
-  { key: SUWAN_탐앤탐스, value: "수원" },
-  { key: SUWAN_카탈로그, value: "수원" },
-  { key: SUWAN_아티제, value: "수원" },
-  { key: YANG_위카페, value: "양천" },
-  { key: YANG_파스쿠찌, value: "양천" },
-  { key: YANG_스타벅스, value: "양천" },
-  { key: YANG_할리스, value: "양천" },
-];
+export const SPACE_NAME = {
+  "64395f1e8d1edf4e056e993d": "투썸플레이스",
+  "640c271121863deff358f459": "탐앤탐스",
+  "62e5d6e0e098c232c05c3d3f": "카탈로그",
+  "63625f1d958585371af0248b": "아티제",
+  "6437e9d7ab537b843c6143ac": "위카페",
+  "6437ea69ab537b843c6143ad": "할리스",
+  "6437eb3fab537b843c6143ae": "파스쿠찌",
+  "6437ebccab537b843c6143af": "스타벅스",
+};
+
+export const SPACE_LOCATION = {
+  [SUWAN_아티제]: "수원",
+  [SUWAN_카탈로그]: "수원",
+  [SUWAN_탐앤탐스]: "수원",
+  [SUWAN_투썸]: "수원",
+  [YANG_스타벅스]: "양천",
+  [YANG_위카페]: "양천",
+  [YANG_파스쿠찌]: "양천",
+  [YANG_할리스]: "양천",
+};
 
 export const STUDY_SPACE_INFO = [
   {

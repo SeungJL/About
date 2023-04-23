@@ -29,10 +29,7 @@ function StudySpace() {
 
   const spaceID = router.query.studySpace;
   const voteDate = dayjs(router.query.date as string);
-
-  const location = SPACE_LOCATION?.find(
-    (space) => space.key === spaceID
-  )?.value;
+  const location = SPACE_LOCATION[spaceID as string];
 
   const { data: vote, isLoading } = useVoteQuery(voteDate, location, {
     enabled: true,
@@ -47,7 +44,6 @@ function StudySpace() {
       });
     },
   });
-
   const { place, attendences, status } =
     vote?.participations?.find((props) => props.place._id === spaceID) || {};
 

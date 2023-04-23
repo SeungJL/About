@@ -13,18 +13,21 @@ import { useRecoilValue } from "recoil";
 import { studyDateState, voteDateState } from "../../../../recoil/studyAtoms";
 import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
 import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/dist/client/router";
+import dayjs from "dayjs";
 
 function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
-  const toast = useToast();
+  const router = useRouter();
+
+  const voteDate = dayjs(router.query.date as string);
   const studyDate = useRecoilValue(studyDateState);
-  const voteDate = useRecoilValue(voteDateState);
   const { data: absentData } = useAbsentDataQuery(voteDate);
 
   return (
     <Layout>
-      {attendances.map((user, idx) => {
+      {attendances?.map((user, idx) => {
         if (studyDate !== "not passed" && !user?.firstChoice) return null;
-        const arrivedTime = user.arrived
+        const arrivedTime = user?.arrived
           ? new Date(user.arrived)
           : new Date(2023, 1, 1, 21, 0, 0);
 

@@ -1,8 +1,10 @@
 import dayjs, { Dayjs } from "dayjs";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import { useParticipationRateQuery } from "../../hooks/user/queries";
 import { useArrivedDataQuery } from "../../hooks/vote/queries";
 import RecordCalendar from "../../pagesComponents/Record/RecordCalendar";
 import RecordDetail from "../../pagesComponents/Record/RecordDetail";
@@ -15,6 +17,7 @@ import { voteDateState } from "../../recoil/studyAtoms";
 import { Location } from "../../types/system";
 
 function Record() {
+  const { data: session } = useSession();
   const [month, setMonth] = useState(dayjs().month());
   const [isCalendar, setIsCalendar] = useState(true);
   const [category, setCategory] = useState<Location>("all");
@@ -22,27 +25,61 @@ function Record() {
   const [endDay, setEndDay] = useState<Dayjs>(
     dayjs().date(dayjs().daysInMonth())
   );
+  const [myRecentAttend, setMyRecentAttend] = useState<string>();
+
+  const [totalOpen, setTotalOpen] = useState<number>();
+  const [totalAttendance, setTotalAttendance] = useState<number>();
+
   useEffect(() => {
     setStartDay(dayjs().month(month).date(1));
     setEndDay(dayjs().month(month).date(dayjs().daysInMonth()));
   }, [month]);
 
-  console.log(startDay, endDay);
   const { data: totalData } = useArrivedDataQuery(startDay, endDay, {});
 
+  const { data: myAttend } = useParticipationRateQuery(startDay, endDay);
+
+  const myMonthCnt = myAttend?.find((user) => user.uid === session?.uid)?.cnt;
   console.log(totalData);
+
+  useEffect(() => {
+    let myRecentDate = null;
+    let open = 0;
+    let num = 0;
+    totalData?.forEach((data) => {
+      const arrivedInfoList = data?.arrivedInfoList;
+      open += arrivedInfoList.length;
+
+      arrivedInfoList.some((info) => {
+        const arrivedInfo = info?.arrivedInfo;
+        num += arrivedInfo.length;
+        return arrivedInfo.some((who) => who.uid === session?.uid);
+      }) && (myRecentDate = data.date);
+    });
+    setTotalOpen(open);
+    setTotalAttendance(num);
+    setMyRecentAttend(myRecentDate);
+  }, [session?.uid, totalData]);
 
   return (
     <>
       <Header title="기록" />
       <Layout>
         <RecordMonthNav month={month} setMonth={setMonth} />
-        <RecordOverview />
+        <RecordOverview
+        totalOpen={totalOpen}
+        totalAttendance={totalAttendance}
+          myRecentAttend={myRecentAttend}
+          myMonthCnt={myMonthCnt}
+        />
         <RecordLineBar category={category} setCategory={setCategory} />
         {isCalendar ? (
           <RecordCalendar month={month} totalData={totalData} />
         ) : (
-          <RecordDetail />
+          <RecordDetail
+            totalData={totalData}
+            setMyRecentAttend={setMyRecentAttend}
+          />
         )}
         <RecordNavigation
           isCalendar={isCalendar}

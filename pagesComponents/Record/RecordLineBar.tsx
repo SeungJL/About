@@ -60,7 +60,8 @@ function RecordLineBar({
             <PopoverHeader fontSize="11px">랭킹 페이지</PopoverHeader>
             <PopoverBody fontSize="11px">
               해당 페이지는 현재 베타로 출시한 기능입니다. 디자인이나 기능이
-              아직 완성되지 않은 점 감안해주세요!
+              아직 완성되지 않은 점 감안해주세요! 지역 별 필터도 아직 기능하지
+              않습니다.
             </PopoverBody>
           </PopoverContent>
         </Popover>
