@@ -9,7 +9,6 @@ function LocalSelector() {
   const [value, setValue] = useState<Location>();
   const [location, setLocation] = useRecoilState(locationState);
 
- 
   useEffect(() => {
     setValue(location);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,6 +24,7 @@ function LocalSelector() {
       <select value={value} onChange={onChange}>
         <option value="수원">수원</option>
         <option value="양천">양천구</option>
+        <option value="안양">안양</option>
       </select>
     </Layout>
   );

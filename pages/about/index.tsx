@@ -41,7 +41,6 @@ function About() {
   const location = useRecoilValue(locationState);
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const current = dayjs().hour();
 
@@ -49,20 +48,20 @@ function About() {
     if (voteDate === null) {
       if (current >= VOTE_START_HOUR && current < VOTER_DATE_END)
         setIsDefaultPrev(true);
-      else {
-        setVoteDate(getInterestingDate());
-      }
+      else setVoteDate(getInterestingDate());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useArrivedDataQuery(getInterestingDate().subtract(1, "day"), {
+  useVoteQuery(dayjs(), location, {
     enabled: isDefaultPrev,
     onSuccess(data) {
       if (isDefaultPrev) {
-        if (data.find((who) => who.uid === session?.uid)) {
-          setVoteDate(getInterestingDate().subtract(1, "day"));
-        } else setVoteDate(getInterestingDate());
+        data?.participations.some((space) =>
+          space?.attendences?.some(
+            (who) => who.firstChoice && (who.user as IUser).uid === session?.uid
+          )
+        ) && setVoteDate(dayjs());
       }
     },
   });
@@ -86,15 +85,12 @@ function About() {
     },
   });
 
-  const voteCnt = participations.reduce((acc, par) => {
-    return (
-      acc +
-      par.attendences.reduce((a, b) => {
-        return a + (b.firstChoice ? 1 : 0);
-      }, 0)
-    );
-  }, 0);
-  console.log(voteDate);
+  const voteCnt = participations.reduce(
+    (acc, par) =>
+      acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
+    0
+  );
+
   return (
     <>
       <Seo title="About" />

@@ -12,6 +12,7 @@ import RecordNavigation from "../../pagesComponents/Record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/Record/RecordOverview";
 import RecordTotal from "../../pagesComponents/Record/RecordTotal";
 import { voteDateState } from "../../recoil/studyAtoms";
+import { Location } from "../../types/system";
 
 function Record() {
   const voteDate = useRecoilValue(voteDateState);
@@ -19,6 +20,7 @@ function Record() {
 
   const [month, setMonth] = useState(dayjs().month());
   const [isCalendar, setIsCalendar] = useState(true);
+  const [category, setCategory] = useState<Location>("all");
 
   const data = [{ date: dayjs().date(4), arrivedInfo: [] }];
 
@@ -28,7 +30,7 @@ function Record() {
       <Layout>
         <RecordMonthNav month={month} setMonth={setMonth} />
         <RecordOverview />
-        <RecordLineBar />
+        <RecordLineBar category={category} setCategory={setCategory} />
         {isCalendar ? <RecordCalendar month={month} /> : <RecordDetail />}
         <RecordNavigation
           isCalendar={isCalendar}
