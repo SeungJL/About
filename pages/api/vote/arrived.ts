@@ -27,7 +27,7 @@ export default async function handler(
         endDay: string;
       };
 
-      const result = await Vote.collection
+      const userArrivedInfo = await Vote.collection
         .aggregate([
           {
             $match: {
@@ -40,10 +40,84 @@ export default async function handler(
           {
             $unwind: "$participations",
           },
+          {
+            $unwind: "$participations.attendences",
+          },
+          {
+            $lookup: {
+              from: "places",
+              localField: "participations.place",
+              foreignField: "_id",
+              as: "place",
+            },
+          },
+          {
+            $project: {
+              date: "$date",
+              attendence: "$participations.attendences",
+              place: "$place",
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "attendence.user",
+              foreignField: "_id",
+              as: "attendence.user",
+            },
+          },
+          {
+            $unwind: "$place",
+          },
+          {
+            $unwind: "$attendence.user",
+          },
+          {
+            $project: {
+              date: "$date",
+              uid: "$attendence.user.uid",
+              placeId: "$place._id",
+              location: "$place.location",
+              arrived: "$attendence.arrived",
+            },
+          },
         ])
         .toArray();
 
-      console.log(result);
+      // console.log(userArrivedInfo);
+
+      const results = userArrivedInfo.reduce((acc, obj) => {
+        const date = dayjs(obj.date).format("YYYY-MM-DD").toString();
+        const placeId = obj.placeId;
+        const uid = obj.uid;
+
+        const idx = acc.findIndex((el) => el.date === date);
+        if (idx === -1) {
+          acc.push({ date, arrivedInfoList: [] });
+        } else {
+          acc[idx].arrivedInfoList.push({ placeId, uid });
+        }
+
+        return acc;
+      }, []);
+
+      results.forEach((result) => {
+        result.arrivedInfoList = result.arrivedInfoList.reduce((acc, obj) => {
+          const placeId = obj.placeId.toString();
+          const uid = obj.uid;
+          const idx = acc.findIndex((el) => el.placeId === placeId);
+
+          if (idx === -1) {
+            acc.push({ placeId, arrivedInfo: [] });
+          } else {
+            acc[idx].arrivedInfo.push({ uid });
+          }
+
+          return acc;
+        }, []);
+      });
+
+      return res.status(200).json(results);
   }
 
   return res.status(400).end();
