@@ -27,7 +27,7 @@ export default async function handler(
         endDay: string;
       };
 
-      const userArrivedInfo = await Vote.collection
+      let userArrivedInfo = await Vote.collection
         .aggregate([
           {
             $match: {
@@ -56,6 +56,7 @@ export default async function handler(
               date: "$date",
               attendence: "$participations.attendences",
               place: "$place",
+              status: "$participations.status",
             },
           },
           {
@@ -79,12 +80,15 @@ export default async function handler(
               placeId: "$place._id",
               location: "$place.location",
               arrived: "$attendence.arrived",
+              status: "$status",
             },
           },
         ])
         .toArray();
 
-      // console.log(userArrivedInfo);
+      userArrivedInfo = userArrivedInfo.filter(
+        (info) => info.status === "open" && info.arrived
+      );
 
       const results = userArrivedInfo.reduce((acc, obj) => {
         const date = dayjs(obj.date).format("YYYY-MM-DD").toString();
@@ -93,7 +97,7 @@ export default async function handler(
 
         const idx = acc.findIndex((el) => el.date === date);
         if (idx === -1) {
-          acc.push({ date, arrivedInfoList: [] });
+          acc.push({ date, arrivedInfoList: [{ placeId, uid }] });
         } else {
           acc[idx].arrivedInfoList.push({ placeId, uid });
         }
@@ -108,7 +112,7 @@ export default async function handler(
           const idx = acc.findIndex((el) => el.placeId === placeId);
 
           if (idx === -1) {
-            acc.push({ placeId, arrivedInfo: [] });
+            acc.push({ placeId, arrivedInfo: [{ uid }] });
           } else {
             acc[idx].arrivedInfo.push({ uid });
           }
