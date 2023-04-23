@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { faCheck, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -12,6 +13,7 @@ import {
   mySpaceFixedState,
   studyDateState,
 } from "../../../../recoil/studyAtoms";
+import { isMainLoadingState } from "../../../../recoil/systemAtoms";
 import AboutMainItem from "./AboutMainItem";
 import NoMyStudy from "./NoMyStudy";
 
@@ -20,7 +22,7 @@ function AboutTitle() {
   const [isCheckModal, setIsCheckModal] = useState(false);
   const isCheck = useRecoilValue(attendCheckState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-
+  const isMainLoading = useRecoilValue(isMainLoadingState);
   return (
     <>
       <Layout>
@@ -51,15 +53,19 @@ function AboutTitle() {
         {studyDate !== "not passed" && (
           <>
             <Result>
-              {mySpaceFixed !== null ? (
-                <AboutMainItem studySpaceInfo={mySpaceFixed} voted={true} />
+              {isMainLoading ? null : mySpaceFixed !== null ? (
+                <Wrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <AboutMainItem studySpaceInfo={mySpaceFixed} voted={true} />
+                </Wrapper>
               ) : (
-                <NoMyStudy />
+                <Wrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <NoMyStudy />
+                </Wrapper>
               )}
             </Result>
           </>
         )}
-      </Layout>{" "}
+      </Layout>
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
           <CheckVoteModal setIsModal={setIsCheckModal} />
@@ -95,6 +101,7 @@ const Check = styled.span`
 
 const Result = styled.div`
   margin: 16px 0;
+  min-height: 100px;
 
   > span {
     display: inline-block;
@@ -103,6 +110,8 @@ const Result = styled.div`
     font-size: 18px;
   }
 `;
+
+const Wrapper = styled(motion.div)``;
 
 const HrDiv = styled.div`
   height: 1px;

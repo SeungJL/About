@@ -26,7 +26,7 @@ import { arrangeSpace } from "../../libs/utils/studyUtils";
 
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
-import { locationState } from "../../recoil/systemAtoms";
+import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
 import dayjs from "dayjs";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
@@ -41,6 +41,7 @@ function About() {
   const location = useRecoilValue(locationState);
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const current = dayjs().hour();
 
@@ -50,7 +51,6 @@ function About() {
         setIsDefaultPrev(true);
       else {
         setVoteDate(getInterestingDate());
-        console.log(1, voteDate);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,7 +61,6 @@ function About() {
     onSuccess(data) {
       if (isDefaultPrev && data.find((who) => who.uid === session?.uid)) {
         setVoteDate(getInterestingDate().subtract(1, "day"));
-        console.log(3);
       }
     },
   });
@@ -116,8 +115,10 @@ function About() {
             <Header />
             <UserOverview />
             <HrDiv />
+
             <AboutTitle />
             <Calendar />
+
             {location === "수원" ? (
               <>
                 <AboutMainHeader voteCnt={voteCnt} />

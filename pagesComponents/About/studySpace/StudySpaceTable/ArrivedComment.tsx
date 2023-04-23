@@ -19,7 +19,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const studyDate = useRecoilValue(studyDateState);
   const voteDate = useRecoilValue(voteDateState);
   const { data: absentData } = useAbsentDataQuery(voteDate);
-  
+
   return (
     <Layout>
       {attendances.map((user, idx) => {
@@ -29,7 +29,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
           : new Date(2023, 1, 1, 21, 0, 0);
 
         //임의로 체크로 해놨음. 나중에 방지 대책 필요.
-        console.log(arrivedTime);
+
         arrivedTime.setHours(arrivedTime.getHours() - 9);
         const arrivedHM = arrivedTime.toLocaleTimeString([], {
           hour: "2-digit",

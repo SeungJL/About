@@ -14,11 +14,6 @@ export const isVoteCompleteState = atom({
   default: false,
 });
 
-export const isMainLoadingState = atom({
-  key: "isMainLoading",
-  default: true,
-});
-
 export const isNoticeAlertState = atom({
   key: "isNoticeAlert",
   default: false,

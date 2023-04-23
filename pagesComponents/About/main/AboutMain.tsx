@@ -24,6 +24,7 @@ import { VOTE_END_HOUR } from "../../../constants/study";
 import { IParticipation } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 import { useStudyStartQuery } from "../../../hooks/vote/queries";
+import { isMainLoadingState } from "../../../recoil/systemAtoms";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
@@ -34,6 +35,8 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   const setStudyDate = useSetRecoilState(studyDateState);
   const setIsCheck = useSetRecoilState(attendCheckState);
   const setStudyStartTime = useSetRecoilState(studyStartTimeState);
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
@@ -92,12 +95,17 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     )
       setStudyDate("today");
     else setStudyDate("not passed");
+    setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate, participations, isVoting]);
 
   const otherStudySpaces = arrangeMainSpace(
     participations?.filter((space) => space !== mySpaceFixed)
   );
+  useEffect(() => {
+    if (!isLoading) setIsMainLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   return (
     <AnimatePresence initial={false}>
