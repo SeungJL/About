@@ -31,13 +31,14 @@ export default function Admin() {
   };
 
   const myCommand = async () => {
-    // await axios.get(`/api/vote/arrived`, {
-    //   params: {
-    //     startDay: dayjs().subtract(7, "days").format("YYYY-MM-DD"),
-    //     endDay: dayjs().format("YYYY-MM-DD"),
-    //   },
-    // });
-    await axios.post(`/api/vote/${now()}/absence`, { message: "hello" });
+    await axios
+      .get(`/api/vote/arrived`, {
+        params: {
+          startDay: dayjs().subtract(7, "days").format("YYYY-MM-DD"),
+          endDay: dayjs().format("YYYY-MM-DD"),
+        },
+      })
+      .then((data) => console.log(data));
   };
 
   return (
