@@ -1,5 +1,6 @@
 import { Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
+import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { isPreviliged } from "../../libs/utils/authUtils";
@@ -30,7 +31,13 @@ export default function Admin() {
   };
 
   const myCommand = async () => {
-    await axios.get(`/api/vote/${now().add(1, "day")}/absence`);
+    // await axios.get(`/api/vote/arrived`, {
+    //   params: {
+    //     startDay: dayjs().subtract(7, "days").format("YYYY-MM-DD"),
+    //     endDay: dayjs().format("YYYY-MM-DD"),
+    //   },
+    // });
+    await axios.post(`/api/vote/${now()}/absence`, { message: "hello" });
   };
 
   return (
