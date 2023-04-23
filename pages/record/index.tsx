@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
@@ -15,13 +15,22 @@ import { voteDateState } from "../../recoil/studyAtoms";
 import { Location } from "../../types/system";
 
 function Record() {
-  const voteDate = useRecoilValue(voteDateState);
-  // const A = useArrivedDataQuery(dayjs().subtract(2, "day"));
-
   const [month, setMonth] = useState(dayjs().month());
   const [isCalendar, setIsCalendar] = useState(true);
   const [category, setCategory] = useState<Location>("all");
+  const [startDay, setStartDay] = useState<Dayjs>(dayjs().date(1));
+  const [endDay, setEndDay] = useState<Dayjs>(
+    dayjs().date(dayjs().daysInMonth())
+  );
+  useEffect(() => {
+    setStartDay(dayjs().month(month).date(1));
+    setEndDay(dayjs().month(month).date(dayjs().daysInMonth()));
+  }, [month]);
 
+  console.log(startDay, endDay);
+  const { data: totalData } = useArrivedDataQuery(startDay, endDay, {});
+
+  console.log(totalData);
   const data = [{ date: dayjs().date(4), arrivedInfo: [] }];
 
   return (
