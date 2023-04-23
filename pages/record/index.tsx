@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { useArrivedDataQuery } from "../../hooks/vote/queries";
 import RecordCalendar from "../../pagesComponents/Record/RecordCalendar";
+import RecordDetail from "../../pagesComponents/Record/RecordDetail";
 import RecordLineBar from "../../pagesComponents/Record/RecordLineBar";
 import RecordMonthNav from "../../pagesComponents/Record/RecordMonthNav";
 import RecordNavigation from "../../pagesComponents/Record/RecordNavigation";
@@ -17,6 +18,7 @@ function Record() {
   // const A = useArrivedDataQuery(dayjs().subtract(2, "day"));
 
   const [month, setMonth] = useState(dayjs().month());
+  const [isCalendar, setIsCalendar] = useState(true);
 
   const data = [{ date: dayjs().date(4), arrivedInfo: [] }];
 
@@ -26,11 +28,12 @@ function Record() {
       <Layout>
         <RecordMonthNav month={month} setMonth={setMonth} />
         <RecordOverview />
-
         <RecordLineBar />
-
-        <RecordCalendar month={month} />
-        <RecordNavigation />
+        {isCalendar ? <RecordCalendar month={month} /> : <RecordDetail />}
+        <RecordNavigation
+          isCalendar={isCalendar}
+          setIsCalendar={setIsCalendar}
+        />
       </Layout>
     </>
   );
@@ -40,7 +43,6 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-top: 8px;
 `;
 
 const TotalOpen = styled.div`

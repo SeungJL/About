@@ -28,13 +28,12 @@ function RecordMonthNav({
 }
 
 const Layout = styled.div`
-  margin-top: 16px;
-
+  margin-top: 12px;
   font-size: 20px;
   font-weight: 700;
-  padding: 0 12px;
+  padding: 0 14px;
   > span {
-    margin: 0 4px;
+    margin: 0 6px;
   }
 `;
 

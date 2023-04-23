@@ -12,12 +12,12 @@ function RecordOverview() {
           </div>
           <div>
             <span>참여한 인원</span>
-            <span>9명</span>
+            <span>182명</span>
           </div>
         </MyRecordItem>
         <MyRecordItem>
           <div>
-            <span>나의 카운트</span>
+            <span>내 참여 횟수</span>
             <span style={{ color: "var(--color-mint)" }}>4회</span>
           </div>
           <div>
@@ -36,14 +36,11 @@ const Layout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   height: 80px;
 `;
 const MyRecord = styled.div`
   display: flex;
-  width: 70%;
   height: 100%;
-  justify-content: space-between;
 `;
 
 const MyRecordItem = styled.div`
@@ -51,16 +48,20 @@ const MyRecordItem = styled.div`
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
-
-  align-items: center;
+  width: 120px;
   margin-bottom: 6px;
+
+  margin-right: 8px;
   > div {
     > span:first-child {
       margin-right: 6px;
+      color: var(--font-h3);
+      font-size: 13px;
     }
     > span:last-child {
-      font-weight: 600;
-      font-size: 16px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--font-h2);
     }
   }
 `;

@@ -118,7 +118,6 @@ function About() {
 
             <AboutTitle />
             <Calendar />
-
             {location === "수원" ? (
               <>
                 <AboutMainHeader voteCnt={voteCnt} />
