@@ -3,9 +3,14 @@ export interface IVoteRate {
   cnt: number;
 }
 
-export interface IArrivedData {
-  spaceId: string;
-  arrived: Date;
-  memo: string;
+export interface IArrivedInfo {
   uid: string;
+}
+export interface IArrivedInfoList {
+  placeId: string;
+  arrivedInfo: IArrivedInfo[];
+}
+export interface IArrivedData {
+  date: string;
+  arrivedInfoList: IArrivedInfoList[];
 }

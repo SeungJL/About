@@ -3,29 +3,48 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../constants/design";
 import { IconCircle } from "../../public/icons/IconOutline";
+import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
+import { useState, useEffect } from "react";
 
-function RecordCalendar({ month }: { month: number }) {
+function RecordCalendar({
+  month,
+  totalData,
+}: {
+  month: number;
+  totalData: IArrivedData[];
+}) {
   const dayjsMonth = dayjs().month(month);
   const daysInMonth = dayjsMonth.daysInMonth();
   const startDayInMonth = dayjsMonth.date(1).day();
   const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
+  const [monthData, setMonthData] = useState([]);
+  useEffect(() => {
+    const temp = [];
+    for (let i = 1; i <= 7 * rowsInMonth; i++) {
+      if (i <= startDayInMonth) temp.push(null);
+      else if (i > daysInMonth + startDayInMonth) temp.push(null);
+      else {
+        const dateNum = i - startDayInMonth;
 
-  const temp = [];
-  for (let i = 1; i <= 7 * rowsInMonth; i++) {
-    if (i <= startDayInMonth) temp.push(null);
-    else if (i > daysInMonth + startDayInMonth) temp.push(null);
-    else {
-      temp.push({ date: i - startDayInMonth });
+        const dateInfo =
+          dateNum - 1 >= 0 &&
+          dateNum - 1 < totalData?.length - 1 &&
+          dayjs(totalData[dateNum - 1].date).date();
+        console.log(44, dateInfo);
+        const date = 0;
+
+        temp.push({ dateNum });
+      }
     }
-  }
+  }, []);
 
   return (
     <Layout>
       <DayOfWeek />
 
       <CallenderDays>
-        {temp.map((d, idx) => (
+        {monthData.map((d, idx) => (
           <DayItem key={idx}>
             {d?.date === dayjsMonth?.date() ? (
               <Today>{d?.date}</Today>

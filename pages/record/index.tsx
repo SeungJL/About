@@ -31,7 +31,6 @@ function Record() {
   const { data: totalData } = useArrivedDataQuery(startDay, endDay, {});
 
   console.log(totalData);
-  const data = [{ date: dayjs().date(4), arrivedInfo: [] }];
 
   return (
     <>
@@ -40,7 +39,11 @@ function Record() {
         <RecordMonthNav month={month} setMonth={setMonth} />
         <RecordOverview />
         <RecordLineBar category={category} setCategory={setCategory} />
-        {isCalendar ? <RecordCalendar month={month} /> : <RecordDetail />}
+        {isCalendar ? (
+          <RecordCalendar month={month} totalData={totalData} />
+        ) : (
+          <RecordDetail />
+        )}
         <RecordNavigation
           isCalendar={isCalendar}
           setIsCalendar={setIsCalendar}

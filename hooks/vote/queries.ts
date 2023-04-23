@@ -96,12 +96,15 @@ export const useStudyStartQuery = (
 export const useArrivedDataQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IArrivedData[], AxiosError, IArrivedData[]>,
+    "queryKey" | "queryFn"
+  >
 ) =>
   useQuery(
     ["arrivedData", startDay, endDay],
     async () => {
-      const res = await axios.get<any>(`/api/vote/arrived`, {
+      const res = await axios.get<IArrivedData[]>(`/api/vote/arrived`, {
         params: {
           startDay: startDay.format("YYYY-MM-DD"),
           endDay: endDay.format("YYYY-MM-DD"),
