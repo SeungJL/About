@@ -26,23 +26,25 @@ export default async function handler(
   if (!vote) return res.status(404).end();
 
   switch (method) {
-    case "GET": {
-      const result = [];
+    case "GET":
+      {
+        const result = [];
 
-      vote?.participations.map((participation) => {
-        participation.absences.map((absence) => {
-          result.push({
-            uid: (absence.user as IUser)?.uid,
-            message: absence.message,
+        vote?.participations.map((participation) => {
+          participation.absences.map((absence) => {
+            result.push({
+              uid: (absence.user as IUser)?.uid,
+              message: absence.message,
+            });
           });
         });
-      });
-      res.status(200).json(result);
-    }
+        return res.status(200).json(result);
+      }
+      break;
     case "POST":
       {
         const { message } = req.body;
-       
+
         await vote?.participations.map((participation) => {
           participation.attendences.map((attendence) => {
             if (
@@ -50,20 +52,29 @@ export default async function handler(
                 token.uid.toString() &&
               attendence.firstChoice
             ) {
-              participation.absences = [
-                ...participation.absences,
-                {
-                  user: token.id as string,
-                  noShow: true,
-                  message,
-                },
-              ];
+              if (
+                !participation.absences.some(
+                  (absence) =>
+                    (absence.user as IUser)?.uid.toString() ===
+                    token.uid.toString()
+                )
+              )
+                participation.absences = [
+                  ...participation.absences,
+                  {
+                    user: token.id as string,
+                    noShow: true,
+                    message,
+                  },
+                ];
             }
           });
         });
       }
       await vote?.save();
       return res.status(204).end();
+
+      break;
     default:
       return res.status(400).end();
   }
