@@ -107,7 +107,7 @@ export const useArrivedDataQuery = (
       const res = await axios.get<IArrivedData[]>(
         `/api/vote/${date.format("YYYY-MM-DD")}/arrived`
       );
-      console.log(4, res);
+
       return res.data;
     },
     options

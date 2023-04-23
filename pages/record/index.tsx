@@ -14,9 +14,11 @@ import { voteDateState } from "../../recoil/studyAtoms";
 
 function Record() {
   const voteDate = useRecoilValue(voteDateState);
-  const A = useArrivedDataQuery(dayjs().subtract(2, "day"));
+  // const A = useArrivedDataQuery(dayjs().subtract(2, "day"));
 
   const [month, setMonth] = useState(dayjs().month());
+
+  const data = [{ date: dayjs().date(4), arrivedInfo: [] }];
 
   return (
     <>
@@ -56,3 +58,45 @@ const HrDiv = styled.div`
 `;
 
 export default Record;
+
+// data = [
+//   {date:"2023-04-01", totalInfo:[
+//     {
+//      location:"수원", arrivedInfoList:[
+//        {spaceId:"6402c323e2414d15",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"6262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"5862c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"4562c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//       ]
+//     },
+//     {
+//       location:"양천", arrivedInfoList:[
+//        {spaceId:"6102c323e2414d15",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"4462c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"2262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"5162c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//       ]
+//     },
+//    ]
+//   },
+//    {date:"2023-04-02", totalInfo:[
+//     {
+//      location:"수원", arrivedInfoList:[
+//        {spaceId:"6262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"6402c323e2414d15",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"6262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"6262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//       ]
+//     },
+//     {
+//       location:"양천", arrivedInfoList:[
+//        {spaceId:"6402c323e2414d15",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"6262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"6262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//        {spaceId:"6262c323e2414d45",arrivedInfo:[{uid:"22243514"},{uid:"2152552535"},{uid:"252353525"} ]},
+//       ]
+//     },
+//    ]
+//   },
+//  ...
+// ]

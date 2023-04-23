@@ -95,7 +95,7 @@ export const useDecideSpaceMutation = (
     "queryKey" | "queryFn"
   >
 ) =>
-  useMutation("decideSpace", async () => {
+  useMutation(async () => {
     const res = await axios.patch<void>(
       `/api/admin/vote/${date.format("YYYY-MM-DD")}/status/confirm`
     );
@@ -109,14 +109,10 @@ export const useAbsentStudyMutation = (
     "queryKey" | "queryFn"
   >
 ) =>
-  useMutation(
-    "absentStudy",
-    async (absentInfo) => {
-      const res = await axios.post(
-        `/api/vote/${date.format("YYYY-MM-DD")}/absence`,
-        absentInfo
-      );
-      return res.data;
-    },
-    options
-  );
+  useMutation(async (absentInfo) => {
+    const res = await axios.post(
+      `/api/vote/${date.format("YYYY-MM-DD")}/absence`,
+      absentInfo
+    );
+    return res.data;
+  }, options);
