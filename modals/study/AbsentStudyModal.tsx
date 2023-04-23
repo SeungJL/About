@@ -101,7 +101,6 @@ function AbsentStudyModal({ setIsModal }) {
 
   const onClickTooltop = () => {
     setIsTooltip((old) => !old);
-   
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
