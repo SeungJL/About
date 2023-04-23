@@ -59,8 +59,10 @@ function About() {
   useArrivedDataQuery(getInterestingDate().subtract(1, "day"), {
     enabled: isDefaultPrev,
     onSuccess(data) {
-      if (isDefaultPrev && data.find((who) => who.uid === session?.uid)) {
-        setVoteDate(getInterestingDate().subtract(1, "day"));
+      if (isDefaultPrev) {
+        if (data.find((who) => who.uid === session?.uid)) {
+          setVoteDate(getInterestingDate().subtract(1, "day"));
+        } else setVoteDate(getInterestingDate());
       }
     },
   });
@@ -92,7 +94,7 @@ function About() {
       }, 0)
     );
   }, 0);
-
+  console.log(voteDate);
   return (
     <>
       <Seo title="About" />
