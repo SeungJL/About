@@ -53,7 +53,7 @@ function About() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useVoteQuery(dayjs(), location, {
+  useVoteQuery(getInterestingDate().subtract(1, "day"), location, {
     enabled: isDefaultPrev,
     onSuccess(data) {
       if (isDefaultPrev) {
