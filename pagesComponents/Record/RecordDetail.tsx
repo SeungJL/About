@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IArrivedData } from "../../types/studyRecord";
 import { Dispatch, SetStateAction } from "react";
 import { SPACE_LOCATION, SPACE_NAME } from "../../constants/study";
+import dayjs from "dayjs";
 
 function RecordDetail({
   totalData,
@@ -14,7 +15,7 @@ function RecordDetail({
     <Layout>
       {[...totalData]?.reverse().map((item, idx) => (
         <Block key={idx}>
-          <Date>{item.date}</Date>
+          <Date>{dayjs(item.date).add(1, "day").format("YYYY-MM-DD")}</Date>
           <SpaceWrapper>
             {item.arrivedInfoList.map((space, idx2) => (
               <div key={idx2}>
@@ -43,6 +44,7 @@ const Layout = styled.div`
   margin-top: 16px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `;
 
 const Block = styled.div``;

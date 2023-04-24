@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import { MainLoading } from "../../components/ui/Loading";
 import { useParticipationRateQuery } from "../../hooks/user/queries";
 import { useArrivedDataQuery } from "../../hooks/vote/queries";
 import RecordCalendar from "../../pagesComponents/Record/RecordCalendar";
@@ -35,12 +36,11 @@ function Record() {
     setEndDay(dayjs().month(month).date(dayjs().daysInMonth()));
   }, [month]);
 
-  const { data: totalData } = useArrivedDataQuery(startDay, endDay, {});
+  const { data: totalData, isLoading } = useArrivedDataQuery(startDay, endDay);
 
   const { data: myAttend } = useParticipationRateQuery(startDay, endDay);
 
   const myMonthCnt = myAttend?.find((user) => user.uid === session?.uid)?.cnt;
-  console.log(totalData);
 
   useEffect(() => {
     let myRecentDate = null;
@@ -63,29 +63,33 @@ function Record() {
 
   return (
     <>
-      <Header title="기록" />
-      <Layout>
-        <RecordMonthNav month={month} setMonth={setMonth} />
-        <RecordOverview
-          totalOpen={totalOpen}
-          totalAttendance={totalAttendance}
-          myRecentAttend={myRecentAttend}
-          myMonthCnt={myMonthCnt}
-        />
-        <RecordLineBar category={category} setCategory={setCategory} />
-        {isCalendar ? (
-          <RecordCalendar month={month} totalData={totalData} />
-        ) : (
-          <RecordDetail
-            totalData={totalData}
-            setMyRecentAttend={setMyRecentAttend}
+      <Header title="스터디 기록" />
+      {isLoading ? (
+        <MainLoading />
+      ) : (
+        <Layout>
+          <RecordMonthNav month={month} setMonth={setMonth} />
+          <RecordOverview
+            totalOpen={totalOpen}
+            totalAttendance={totalAttendance}
+            myRecentAttend={myRecentAttend}
+            myMonthCnt={myMonthCnt}
           />
-        )}
-        <RecordNavigation
-          isCalendar={isCalendar}
-          setIsCalendar={setIsCalendar}
-        />
-      </Layout>
+          <RecordLineBar category={category} setCategory={setCategory} />
+          {isCalendar ? (
+            <RecordCalendar month={month} totalData={totalData} />
+          ) : (
+            <RecordDetail
+              totalData={totalData}
+              setMyRecentAttend={setMyRecentAttend}
+            />
+          )}
+          <RecordNavigation
+            isCalendar={isCalendar}
+            setIsCalendar={setIsCalendar}
+          />
+        </Layout>
+      )}
     </>
   );
 }
