@@ -33,7 +33,7 @@ function RecordCalendar({
 
     totalData?.forEach((element) => {
       const infoDate = dayjs(element.date).date();
-      temp[startDayInMonth - 1 + infoDate].arrivedInfoList =
+      temp[startDayInMonth + infoDate].arrivedInfoList =
         element.arrivedInfoList;
     });
     setMonthData(temp);

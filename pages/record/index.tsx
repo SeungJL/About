@@ -67,8 +67,8 @@ function Record() {
       <Layout>
         <RecordMonthNav month={month} setMonth={setMonth} />
         <RecordOverview
-        totalOpen={totalOpen}
-        totalAttendance={totalAttendance}
+          totalOpen={totalOpen}
+          totalAttendance={totalAttendance}
           myRecentAttend={myRecentAttend}
           myMonthCnt={myMonthCnt}
         />
