@@ -5,6 +5,7 @@ import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { useParticipationRateQuery } from "../../hooks/user/queries";
 import { IVoteRate } from "../../types/studyRecord";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 
 function RecordOverview({
   totalOpen,
@@ -17,6 +18,8 @@ function RecordOverview({
   myRecentAttend: string;
   myMonthCnt: number;
 }) {
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const [isNotCompleted, setIsNotCompleted] = useState(false);
 
   return (
@@ -41,7 +44,9 @@ function RecordOverview({
             <div>
               <span>내 최근 참여</span>
               <span style={{ color: "var(--color-mint)" }}>
-                {dayjs(myRecentAttend).format("M월 DD일")}
+                {!isGuest
+                  ? dayjs(myRecentAttend).format("M월 DD일")
+                  : "기록 없음"}
               </span>
             </div>
           </MyRecordItem>
