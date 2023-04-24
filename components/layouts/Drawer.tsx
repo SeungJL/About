@@ -13,6 +13,10 @@ import {
   faSchool,
   faBookOpen,
   faExclamationCircle,
+  faIdCard,
+  faClipboardCheck,
+  faNewspaper,
+  faRankingStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -81,63 +85,23 @@ function Drawer({
 
           <span>홈</span>
         </NavHome>
-        <NavLevelItem
-          pageSelected={url === "/groupStudy"}
-          // onClick={() => handleClick("groupStudy")}
-        >
-          <FontAwesomeIcon icon={faSchool} size="xl" />
-
-          <span>스터디</span>
-        </NavLevelItem>
-        <NavLevelItem
-          pageSelected={url === "/plaza"}
-          // onClick={() => handleClick("plaza")}
-        >
-          <FontAwesomeIcon icon={faPeopleRoof} size="xl" />
-
-          <span>광장</span>
-        </NavLevelItem>
         <NavItem
-          pageSelected={url === "/gather"}
-          // onClick={() => handleClick("gather")}
+          pageSelected={url === "/record"}
+          onClick={() => handleClick("record")}
         >
           <FontAwesomeIcon icon={faCalendarCheck} size="xl" />
 
-          <span>모임</span>
-        </NavItem>
-        <NavItem
-          pageSelected={url === "/gather"}
-          // onClick={() => handleClick("gather")}
-        >
-          <FontAwesomeIcon icon={faUtensils} size="xl" />
-
-          <span>맛집</span>
+          <span>스터디 기록</span>
         </NavItem>
         <NavLevelItem
-          pageSelected={url === "/book"}
-          // onClick={() => handleClick("book")}
+          pageSelected={url === "/ranking"}
+          onClick={() => handleClick("ranking")}
           style={{ marginLeft: "1px" }}
         >
-          <FontAwesomeIcon icon={faBookOpen} size="xl" />
+          <FontAwesomeIcon icon={faRankingStar} size="xl" />
 
-          <span style={{ marginLeft: "14px" }}>책</span>
+          <span>랭킹</span>
         </NavLevelItem>
-        <NavLevelItem
-          pageSelected={url === "/gallery"}
-          // onClick={() => handleClick("gallery")}
-        >
-          <FontAwesomeIcon icon={faUsersViewfinder} size="xl" />
-          <span>갤러리</span>
-        </NavLevelItem>
-        <NavItem
-          pageSelected={url === "/plaza"}
-          // onClick={() => handleClick("plaza")}
-          style={{ marginLeft: "1px" }}
-        >
-          <FontAwesomeIcon icon={faClipboard} size="xl" />
-
-          <span>기록</span>
-        </NavItem>
       </Main>
     </Layout>
   );
@@ -174,12 +138,12 @@ const Title = styled.div`
 
 const Main = styled.main`
   padding: 16px;
-  padding-top: 8px;
+  padding-top: 12px;
 `;
 const NavItem = styled.div<{ pageSelected: boolean }>`
-  color: ${(props) => (props.pageSelected ? "var(--font-h1)d1" : "#565b679f")};
+  color: var(--font-h2);
   padding-left: 3px;
-  margin-bottom: 30px;
+  margin-bottom: 36px;
   > span {
     margin-left: 14px;
     font-size: 15px;
@@ -188,7 +152,7 @@ const NavItem = styled.div<{ pageSelected: boolean }>`
 const NavHome = styled.div<{ pageSelected: boolean }>`
   color: ${(props) => (props.pageSelected ? "var(--font-h1)" : "#565b679f")};
   padding-left: 1px;
-  margin-bottom: 30px;
+  margin-bottom: 36px;
   > span {
     margin-left: 11px;
     font-size: 15px;
@@ -196,9 +160,9 @@ const NavHome = styled.div<{ pageSelected: boolean }>`
 `;
 
 const NavLevelItem = styled.div<{ pageSelected: boolean }>`
-  color: ${(props) => (props.pageSelected ? "var(--font-h1)" : "#565b679f")};
+  color: var(--font-h2);
 
-  margin-bottom: 30px;
+  margin-bottom: 36px;
   > span {
     margin-left: 8px;
     font-size: 15px;

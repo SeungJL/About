@@ -159,7 +159,7 @@ function UserOverview() {
             </ProgressWrapper>
             <Info>
               <Item onClick={() => router.push(`/record`)}>
-                <span>{dayjs().month() + 1}월 참여</span>
+                <span>{dayjs().month() + 1}월 참여 기록</span>
 
                 <span>0 회</span>
               </Item>
