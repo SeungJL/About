@@ -35,6 +35,7 @@ import { useScoreAllQuery } from "../../hooks/user/queries";
 function About() {
   const toast = useToast();
   const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);
@@ -45,13 +46,17 @@ function About() {
   const current = dayjs().hour();
 
   useEffect(() => {
+    if (isGuest) {
+      setVoteDate(dayjs());
+      return;
+    }
     if (voteDate === null) {
       if (current >= VOTE_START_HOUR && current < VOTER_DATE_END)
         setIsDefaultPrev(true);
       else setVoteDate(getInterestingDate());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isGuest]);
 
   useVoteQuery(getInterestingDate().subtract(1, "day"), location, {
     enabled: isDefaultPrev,
