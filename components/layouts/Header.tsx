@@ -3,11 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-function Header({ title }) {
+function Header({ title, url }: { title: string; url?: string }) {
   const router = useRouter();
+
   return (
     <Layout>
-      <div onClick={() => router.push(`/about`)}>
+      <div
+        onClick={
+          url === undefined
+            ? () => router.push(`/about`)
+            : () => router.push(url)
+        }
+      >
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
       </div>
       <Title>{title}</Title>

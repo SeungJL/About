@@ -29,7 +29,7 @@ export interface IUser extends Document {
   name: string;
   point: number;
   profileImage: string;
-  role?: string;
+  role?: IRole;
   score: number;
   comment: string;
   rest: restType;
