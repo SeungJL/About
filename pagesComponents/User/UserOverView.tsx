@@ -12,13 +12,15 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import { useMutation } from "react-query";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
 import { useCommentMutation } from "../../hooks/user/mutations";
 import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
 
 import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
+import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
+import ModalPortal from "../../components/ModalPortal";
 
 export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
@@ -33,10 +35,13 @@ export default function UserOverview() {
   const userComment =
     !isLoading && comments?.comments.find((att) => att?._id === user?._id);
 
+  const [isProfileModal, setIsProfileModal] = useState(false);
+
   useEffect(() => {
     if (!isLoading) setValue(userComment?.comment);
   }, [isLoading, userComment?.comment]);
   const toast = useToast();
+
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,
     AxiosError
@@ -70,7 +75,6 @@ export default function UserOverview() {
 
   const onWrite = () => {
     const text = inputRef.current.value;
-
     setValue(text);
   };
 
@@ -92,6 +96,9 @@ export default function UserOverview() {
               unoptimized={true}
             />
           </Profile>
+          <IconWrapper onClick={() => setIsProfileModal(true)}>
+            <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
+          </IconWrapper>
         </UserImg>
         <UserInfo>
           <UserProfile>
@@ -117,11 +124,12 @@ export default function UserOverview() {
             </div>
           </Comment>
         </UserInfo>
-
-        {/* <LogoutBlock>
-          <button onClick={() => signOut()}>로그아웃</button>
-        </LogoutBlock> */}
       </Layout>
+      {isProfileModal && (
+        <ModalPortal setIsModal={setIsProfileModal}>
+          <ChangeProfileImageModal />
+        </ModalPortal>
+      )}
     </>
   );
 }
@@ -164,6 +172,20 @@ const UserProfile = styled.div`
   > div:last-child {
     margin-bottom: 2px;
   }
+`;
+
+const IconWrapper = styled.div`
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  background-color: white;
+  border: 1px solid var(--font-h4);
+  border-radius: 50%;
 `;
 
 const UserName = styled.div`
