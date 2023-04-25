@@ -17,6 +17,7 @@ import {
   faClipboardCheck,
   faNewspaper,
   faRankingStar,
+  faStore,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -101,6 +102,15 @@ function Drawer({
           <FontAwesomeIcon icon={faRankingStar} size="xl" />
 
           <span>랭킹</span>
+        </NavLevelItem>
+        <NavLevelItem
+          pageSelected={url === "/store"}
+          onClick={() => handleClick("store")}
+          style={{ marginLeft: "3px" }}
+        >
+          <FontAwesomeIcon icon={faStore} size="xl" />
+
+          <span>스토어</span>
         </NavLevelItem>
       </Main>
     </Layout>
