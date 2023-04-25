@@ -11,6 +11,7 @@ function RecordDetail({
   totalData: IArrivedData[];
   setMyRecentAttend: Dispatch<SetStateAction<string>>;
 }) {
+  console.log(totalData);
   return (
     <Layout>
       {[...totalData]?.reverse().map((item, idx) => (
@@ -28,7 +29,7 @@ function RecordDetail({
                 <MemberWrapper>
                   <span>참여인원: </span>
                   {space.arrivedInfo.map((who, idx3) => (
-                    <Member key={idx3}>{who.uid}</Member>
+                    <Member key={idx3}>{who.name}</Member>
                   ))}
                 </MemberWrapper>
               </div>

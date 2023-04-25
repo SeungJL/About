@@ -5,6 +5,7 @@ export interface IVoteRate {
 
 export interface IArrivedInfo {
   uid: string;
+  name: string;
 }
 export interface IArrivedInfoList {
   placeId: string;
