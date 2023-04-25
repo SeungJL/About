@@ -5,23 +5,10 @@ import { getSession, signOut, useSession } from "next-auth/react";
 import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
 
-import AttendChart from "../../components/utils/AttendChart";
 import Header from "../../components/layouts/Header";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import ModalPortal from "../../components/ModalPortal";
-import SuggestModal from "../../modals/user/SuggestModal";
-
 import { User } from "../../models/user";
-
 import { Attendence } from "../../models/attendence";
-import ApplyRestModal from "../../modals/user/ApplyRestModal";
-import { useScoreQuery, useWarningScoreQuery } from "../../hooks/user/queries";
-import { useRecoilValue } from "recoil";
-import { userBadgeState } from "../../recoil/userAtoms";
-import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
-import UserOverview from "../../pagesComponents/User/UserOverView";
 
 function Admin() {
   const router = useRouter();

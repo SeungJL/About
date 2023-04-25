@@ -1,35 +1,79 @@
 import { useForm } from "react-hook-form";
+import { DefaultValue } from "recoil";
 import styled from "styled-components";
+import Header from "../../components/layouts/Header";
 import { LogoAdjustmentImage } from "../../components/ui/DesignAdjustment";
 import { usePlaceQuery, useVoteQuery } from "../../hooks/vote/queries";
 
 function StudySpaceControl() {
   const { data } = usePlaceQuery();
-  const { register, handleSubmit } = useForm();
-  console.log(data);
+  const { register, handleSubmit, watch } = useForm({});
+
+  const onValid = (data) => {
+    
+  };
   return (
-    <Layout>
-      {data?.map((place, idx) => (
-        <Form key={idx} id={`space${idx}`}>
-          <ImageContainer>
-            <LogoAdjustmentImage place={place} />
-          </ImageContainer>
-          <SpaceInfo>
-            <Status>
-              <Branch defaultValue={place?.branch} />
+    <>
+      <Header title="스터디 장소 정보" url="/admin" />
+      <Layout>
+        {data?.map((place, idx) => (
+          <Form key={idx} id={`place${idx}`} onSubmit={handleSubmit(onValid)}>
+            <div>
+              <ImageContainer>
+                <LogoAdjustmentImage place={place} />
+              </ImageContainer>
+              <SpaceInfo>
+                <Status>
+                  <Branch
+                    defaultValue={place?.branch}
+                    {...register(`branch-${idx}`)}
+                  />
 
-              <input defaultValue={place?.latitude} />
+                  <input
+                    defaultValue={place?.latitude}
+                    {...register(`latitude-${idx}`)}
+                  />
 
-              <input defaultValue={place?.longitude} />
-            </Status>
-            <Status>
-              <Info defaultValue={place?.brand} />
-              <input defaultValue={place?.location} />
-            </Status>
-          </SpaceInfo>
-        </Form>
-      ))}
-    </Layout>
+                  <input
+                    defaultValue={place?.longitude}
+                    {...register(`longitude-${idx}`)}
+                  />
+                </Status>
+                <Status>
+                  <Info
+                    defaultValue={place?.brand}
+                    {...register(`brand-${idx}`)}
+                  />
+                  <input
+                    defaultValue={place?.location}
+                    {...register(`location-${idx}`)}
+                  />
+                  <input
+                    defaultValue={place?.status}
+                    {...register(`status-${idx}`)}
+                  />
+                </Status>
+              </SpaceInfo>
+            </div>
+            <input defaultValue={place?.image} {...register(`image-${idx}`)} />
+            <button
+              form={`place${idx}`}
+              style={{
+                background: "var(--color-red)",
+                width: "60px",
+                alignSelf: "center",
+                marginTop: "10px",
+                color: "white",
+                borderRadius: "9px",
+              }}
+              type="submit"
+            >
+              변경
+            </button>
+          </Form>
+        ))}
+      </Layout>
+    </>
   );
 }
 
@@ -40,13 +84,16 @@ const Layout = styled.div`
 `;
 
 const Form = styled.form`
-  height: 100px;
+  height: 150px;
   background-color: white;
   border-radius: 8px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 12px;
   padding: 12px;
+  > div {
+    display: flex;
+  }
 `;
 
 const ImageContainer = styled.div`
