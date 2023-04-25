@@ -27,13 +27,6 @@ function Admin() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const handleOutput = (isOpen) => {};
-  const { data } = useScoreQuery();
-  const { data: warningArr } = useWarningScoreQuery();
-  const myWarning = warningArr?.find(
-    (who) => who.name === session?.user.name
-  ).score;
-
   return (
     <>
       <Layout>
@@ -53,7 +46,7 @@ function Admin() {
               <BlockName>유저 정보</BlockName>
               <NavBlock>
                 <button onClick={() => router.push(`/admin/userControl`)}>
-                  유저 정보 관리
+                  유저 정보 관리 O
                 </button>
                 <button>유저 상태 확인</button>
               </NavBlock>
@@ -61,7 +54,9 @@ function Admin() {
             <div>
               <BlockName>스터디 관리</BlockName>
               <NavBlock>
-                <button>스터디 장소 정보</button>
+                <button onClick={() => router.push(`/admin/studySpaceControl`)}>
+                  스터디 장소 정보
+                </button>
                 <button>스터디 결과 변경</button>
               </NavBlock>
             </div>

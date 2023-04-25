@@ -145,7 +145,6 @@ const Layout = styled.div<{ status: boolean }>`
   padding: ${(props) => (props.status ? "12px 12px 12px 0px" : "12px")};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
   border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
-  font-family: "Pretend";
 `;
 
 const ImageContainer = styled.div`

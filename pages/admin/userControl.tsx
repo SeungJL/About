@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import Header from "../../components/layouts/Header";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
 import { IUser } from "../../types/user";
 
@@ -33,7 +34,6 @@ export default function Admin() {
   const [value, setValue] = useState<string>("");
 
   useEffect(() => {
-    console.log(value.length);
     if (!value.length) setMembers(filtered);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -49,28 +49,31 @@ export default function Admin() {
   };
 
   return (
-    <Layout>
-      <Section>
-        <Header>관리자</Header>
-        {admins.map((user, idx) => (
-          <UserSection key={idx} user={user} />
-        ))}
-      </Section>
-      <Section>
-        <Header>멤버</Header>
-        <Search>
-          <SearchInput
-            placeholder="유저 검색"
-            value={value}
-            onChange={onChange}
-          />
-          <button onClick={onClickBtn}>검색</button>
-        </Search>
-        {members.map((user, idx) => (
-          <UserSection key={idx} user={user} />
-        ))}
-      </Section>
-    </Layout>
+    <>
+      <Header title="유저 관리" url="/admin" />
+      <Layout>
+        <Section>
+          <SectionHeader>관리자</SectionHeader>
+          {admins.map((user, idx) => (
+            <UserSection key={idx} user={user} />
+          ))}
+        </Section>
+        <Section>
+          <SectionHeader>멤버</SectionHeader>
+          <Search>
+            <SearchInput
+              placeholder="유저 검색"
+              value={value}
+              onChange={onChange}
+            />
+            <button onClick={onClickBtn}>검색</button>
+          </Search>
+          {members.map((user, idx) => (
+            <UserSection key={idx} user={user} />
+          ))}
+        </Section>
+      </Layout>
+    </>
   );
 }
 
@@ -91,7 +94,7 @@ const Layout = styled.div`
   padding: 14px 0;
 `;
 
-const Header = styled.header`
+const SectionHeader = styled.header`
   height: 32px;
   display: flex;
   align-items: center;
