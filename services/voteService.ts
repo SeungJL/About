@@ -68,6 +68,7 @@ export const confirm = async (dateStr: string) => {
 
       let result;
       if (timeObj.length) result = checkTimeOverlap(timeObj);
+
       if (result) {
         participation.status = "open";
         participation.startTime = result.start;
@@ -76,7 +77,6 @@ export const confirm = async (dateStr: string) => {
         participation.status = "dismissed";
       }
     });
-    await vote?.save();
 
     //매칭 실패한 사람들 전부 failure에 추가
     vote?.participations?.map((participation) => {
@@ -86,8 +86,6 @@ export const confirm = async (dateStr: string) => {
         });
       }
     });
-    await vote?.save();
-
     //open장소에 failure에 있는 사람이 2지망 투표 했으면 1지망으로 바꿔줌
     vote?.participations?.map((participation) => {
       if (participation.status === "open") {
@@ -102,10 +100,9 @@ export const confirm = async (dateStr: string) => {
         });
       }
     });
-    await vote?.save();
 
     //실패한 장소에서 2지망 투표한 사람들끼리 오픈할 수 있는지 확인
-    vote?.participations?.map((participation) => {
+    vote?.participations?.map(async (participation) => {
       if (participation.status === "dismissed") {
         participation.attendences = participation.attendences.filter(
           (attendance) => failure.has(attendance.user.toString())
@@ -133,9 +130,10 @@ export const confirm = async (dateStr: string) => {
           participation.status = "open";
           participation.startTime = result.start as Date;
           participation.endTime = result.end as Date;
-          participation.attendences.forEach(
-            (attendance) => (attendance.firstChoice = true)
-          );
+          participation.attendences.forEach((attendance) => {
+            attendance.firstChoice = true;
+            failure.delete(attendance.user.toString());
+          });
         }
       }
     });

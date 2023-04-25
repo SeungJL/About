@@ -76,6 +76,7 @@ export default async function handler(
           {
             $project: {
               date: "$date",
+              name: "$attendence.user.name",
               uid: "$attendence.user.uid",
               placeId: "$place._id",
               location: "$place.location",
@@ -94,12 +95,13 @@ export default async function handler(
         const date = dayjs(obj.date).format("YYYY-MM-DD").toString();
         const placeId = obj.placeId;
         const uid = obj.uid;
+        const name = obj.name;
 
         const idx = acc.findIndex((el) => el.date === date);
         if (idx === -1) {
-          acc.push({ date, arrivedInfoList: [{ placeId, uid }] });
+          acc.push({ date, arrivedInfoList: [{ placeId, uid, name }] });
         } else {
-          acc[idx].arrivedInfoList.push({ placeId, uid });
+          acc[idx].arrivedInfoList.push({ placeId, uid, name });
         }
 
         return acc;
@@ -109,12 +111,13 @@ export default async function handler(
         result.arrivedInfoList = result.arrivedInfoList.reduce((acc, obj) => {
           const placeId = obj.placeId.toString();
           const uid = obj.uid;
+          const name = obj.name;
           const idx = acc.findIndex((el) => el.placeId === placeId);
 
           if (idx === -1) {
-            acc.push({ placeId, arrivedInfo: [{ uid }] });
+            acc.push({ placeId, arrivedInfo: [{ uid, name }] });
           } else {
-            acc[idx].arrivedInfo.push({ uid });
+            acc[idx].arrivedInfo.push({ uid, name });
           }
 
           return acc;
