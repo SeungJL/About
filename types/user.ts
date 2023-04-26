@@ -101,7 +101,7 @@ export type UserBadge =
   | "콜드브루"
   | "아인슈페너";
 
-export type UserBadgeColor = (typeof USER_BADGES)[UserBadge];
+export type UserBadgeColor = typeof USER_BADGES[UserBadge];
 export interface IUserBadge {
   badge: UserBadge;
   color: UserBadgeColor;
@@ -123,4 +123,9 @@ export interface IRankScore {
   myRank?: number;
   percent?: boolean;
   scoreArr?: IScoreAll[];
+}
+
+export interface IAvatar {
+  type: number;
+  bg: number;
 }

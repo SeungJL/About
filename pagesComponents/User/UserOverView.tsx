@@ -127,7 +127,7 @@ export default function UserOverview() {
       </Layout>
       {isProfileModal && (
         <ModalPortal setIsModal={setIsProfileModal}>
-          <ChangeProfileImageModal />
+          <ChangeProfileImageModal setIsModal={setIsProfileModal} />
         </ModalPortal>
       )}
     </>

@@ -16,6 +16,7 @@ import {
 } from "../../libs/queryKeys";
 import { IVoteRate } from "../../types/studyRecord";
 import {
+  IAvatar,
   IScore,
   IScoreAll,
   IUser,
@@ -206,6 +207,22 @@ export const useIsActiveQuery = (
     "isActive",
     async () => {
       const res = await axios.get<IIsActive>("/api/user/active");
+
+      return res.data;
+    },
+    options
+  );
+
+export const useAvatarQuery = (
+  options?: Omit<
+    UseQueryOptions<IAvatar, AxiosError, IAvatar>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IAvatar, AxiosError, IAvatar>(
+    "avatar",
+    async () => {
+      const res = await axios.get<IAvatar>("/api/user/avatar");
 
       return res.data;
     },
