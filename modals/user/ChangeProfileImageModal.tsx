@@ -80,6 +80,14 @@ function ChangeProfileImageModal({
     mutate(info);
   };
 
+  const onClickKakao = () => {
+    const info = {
+      type: null,
+      bg: null,
+    };
+    mutate(info);
+  };
+
   return (
     <>
       {isFirstPage ? (
@@ -88,7 +96,7 @@ function ChangeProfileImageModal({
           <Main>
             <Choice>
               <div onClick={() => setIsFirstPage(false)}>캐릭터 선택</div>
-              <div>카카오 프로필 업데이트</div>
+              <div onClick={onClickKakao}>카카오 프로필로 변경 / 업데이트</div>
             </Choice>
             <Footer>
               <button>취소</button>
@@ -160,7 +168,7 @@ const Choice = styled.div`
   justify-content: space-around;
   font-size: 14px;
   font-weight: 600;
-  padding: 20px 0;
+  padding: 16px 0;
   > div {
     border: 1px solid var(--font-h5);
     padding: 12px;
