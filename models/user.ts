@@ -1,11 +1,22 @@
 import mongoose, { model, Schema, Model } from "mongoose";
-import { IUser, restType } from "../types/user";
+import { avatarType, IUser, restType } from "../types/user";
 
 export const restSchema: Schema<restType> = new Schema({
   type: Schema.Types.String,
   startDate: Schema.Types.Date,
   endDate: Schema.Types.Date,
   content: Schema.Types.String,
+});
+
+export const avatarSchema: Schema<avatarType> = new Schema({
+  type: {
+    type: Schema.Types.Number,
+    default: 1,
+  },
+  bg: {
+    type: Schema.Types.Number,
+    default: 1,
+  },
 });
 
 export const UserSchema: Schema<IUser> = new Schema({
@@ -62,6 +73,7 @@ export const UserSchema: Schema<IUser> = new Schema({
     enum: ["수원", "양천"],
     default: "수원",
   },
+  avatar: avatarSchema,
 });
 
 export const User =

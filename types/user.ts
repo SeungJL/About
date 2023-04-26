@@ -19,6 +19,11 @@ export interface restType {
   content: string;
 }
 
+export interface avatarType {
+  type: number;
+  bg: number;
+}
+
 export interface IUser extends Document {
   uid: string;
   registerDate: string;
@@ -34,6 +39,7 @@ export interface IUser extends Document {
   comment: string;
   rest: restType;
   location: Location;
+  avatar: avatarType;
 }
 
 export interface IAccount extends Document {
@@ -95,7 +101,7 @@ export type UserBadge =
   | "콜드브루"
   | "아인슈페너";
 
-export type UserBadgeColor = typeof USER_BADGES[UserBadge];
+export type UserBadgeColor = (typeof USER_BADGES)[UserBadge];
 export interface IUserBadge {
   badge: UserBadge;
   color: UserBadgeColor;
