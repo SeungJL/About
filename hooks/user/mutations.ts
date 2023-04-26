@@ -1,6 +1,6 @@
 import axios, { Axios, AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
-import { IUserComment, IWarningScore } from "../../types/user";
+import { IAvatar, IUserComment, IWarningScore } from "../../types/user";
 import { IApplyRest } from "../../types/userAction";
 
 export const useActiveMutation = (
@@ -58,4 +58,14 @@ export const useApplyRestMutation = (
     await axios.post("/api/user/rest", {
       info,
     });
+  }, options);
+
+export const useAvatarMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IAvatar>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, IAvatar>(async (info) => {
+    await axios.post("/api/user/avatar", info);
   }, options);

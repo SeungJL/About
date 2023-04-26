@@ -33,6 +33,9 @@ import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
 import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
 import UserOverview from "../../pagesComponents/User/UserOverView";
+import { useMutation } from "react-query";
+import { IUser, kakaoProfileInfo } from "../../types/user";
+import axios, { AxiosError } from "axios";
 
 function UserInfo() {
   const router = useRouter();

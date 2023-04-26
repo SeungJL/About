@@ -70,7 +70,6 @@ function About() {
       }
     },
   });
-
   useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
@@ -95,7 +94,7 @@ function About() {
       acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
     0
   );
-
+  console.log(participations);
   return (
     <>
       <Seo title="About" />

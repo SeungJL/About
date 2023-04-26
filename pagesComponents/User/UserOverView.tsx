@@ -12,20 +12,23 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import { useMutation } from "react-query";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
 import { useCommentMutation } from "../../hooks/user/mutations";
 import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
 
 import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
+import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
+import ModalPortal from "../../components/ModalPortal";
+import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
 
 export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
   const [value, setValue] = useState("안녕하세요! 잘 부탁드립니다~!");
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
-
+  console.log(334, user);
   const { mutate: onChangeComment } = useCommentMutation();
   const { data: comments, isLoading } = useCommentQuery();
 
@@ -33,34 +36,13 @@ export default function UserOverview() {
   const userComment =
     !isLoading && comments?.comments.find((att) => att?._id === user?._id);
 
+  const [isProfileModal, setIsProfileModal] = useState(false);
+
   useEffect(() => {
     if (!isLoading) setValue(userComment?.comment);
   }, [isLoading, userComment?.comment]);
   const toast = useToast();
-  const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
-    kakaoProfileInfo,
-    AxiosError
-  >(
-    "updateProfile",
-    async () => {
-      const res = await axios.patch("/api/user/profile");
-      return res.data;
-    },
-    {
-      onSuccess: (data: IUser) => {},
-      onError: (error: AxiosError) => {
-        console.error(error);
-        toast({
-          title: "업데이트 실패",
-          description: "프로필 사진을 업데이트하려면 재로그인이 필요해요.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      },
-    }
-  );
+
 
   const handleWrite = () => {
     const input = inputRef.current;
@@ -70,7 +52,6 @@ export default function UserOverview() {
 
   const onWrite = () => {
     const text = inputRef.current.value;
-
     setValue(text);
   };
 
@@ -83,15 +64,10 @@ export default function UserOverview() {
     <>
       <Layout>
         <UserImg>
-          <Profile>
-            <Image
-              width={80}
-              height={80}
-              alt="profile"
-              src={`${user?.profileImage}`}
-              unoptimized={true}
-            />
-          </Profile>
+          <ProfileIconLg user={user} />
+          <IconWrapper onClick={() => setIsProfileModal(true)}>
+            <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
+          </IconWrapper>
         </UserImg>
         <UserInfo>
           <UserProfile>
@@ -117,11 +93,12 @@ export default function UserOverview() {
             </div>
           </Comment>
         </UserInfo>
-
-        {/* <LogoutBlock>
-          <button onClick={() => signOut()}>로그아웃</button>
-        </LogoutBlock> */}
       </Layout>
+      {isProfileModal && (
+        <ModalPortal setIsModal={setIsProfileModal}>
+          <ChangeProfileImageModal setIsModal={setIsProfileModal} />
+        </ModalPortal>
+      )}
     </>
   );
 }
@@ -164,6 +141,20 @@ const UserProfile = styled.div`
   > div:last-child {
     margin-bottom: 2px;
   }
+`;
+
+const IconWrapper = styled.div`
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  background-color: white;
+  border: 1px solid var(--font-h4);
+  border-radius: 50%;
 `;
 
 const UserName = styled.div`

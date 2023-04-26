@@ -1,74 +1,81 @@
-import { Badge } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
-export default function Test() {
-  const circleVariants = {
-    animate: {
-      scale: [1, 1.5, 1],
-      transition: {
-        duration: 2,
-        delay: 4,
-        ease: "easeInOut",
-        loop: Infinity,
-      },
-    },
-  };
-
-  const inCircleVariants = {
-    animate: {
-      scale: [1, 1.4, 1],
-      transition: {
-        duration: 2,
-        ease: "easeInOut",
-        loop: Infinity,
-      },
-    },
-  };
-  return (
-    <Layout>
-      <OutCircle>
-        <motion.div
-          style={{
-            backgroundColor: "HSLA(176, 100%, 38%, 1)",
-            borderRadius: "50%",
-            width: 30,
-            height: 30,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          variants={circleVariants}
-          animate="animate"
-        >
-          <InCircle variants={inCircleVariants} animate="animate" />
-        </motion.div>
-      </OutCircle>
-    </Layout>
-  );
-}
-
-const Layout = styled.div`
-  text-align: center;
-  margin-top: 120px;
-  margin-left: 150px;
-  > span {
-    margin-bottom: 30px;
-  }
-`;
-
-const OutCircle = styled.div`
-  width: 60px;
-  height: 60px;
-
+const Wrapper = styled(motion.div)`
+  height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 
-const InCircle = styled(motion.div)`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: white;
+const Box = styled(motion.div)`
+  width: 400px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 40px;
+  position: absolute;
+  top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
+
+const box = {
+  entry: (isBack: boolean) => ({
+    x: isBack ? -500 : 500,
+    opacity: 0,
+    scale: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+    },
+  },
+  exit: (isBack: boolean) => ({
+    x: isBack ? 500 : -500,
+    opacity: 0,
+    scale: 0,
+    transition: { duration: 0.3 },
+  }),
+};
+
+function App() {
+  const [visible, setVisible] = useState(1);
+  const [back, setBack] = useState(false);
+  const nextPlease = () => {
+    setBack(false);
+    setVisible((prev) => (prev === 10 ? 10 : prev + 1));
+  };
+  const prevPlease = () => {
+    setBack(true);
+    setVisible((prev) => (prev === 1 ? 1 : prev - 1));
+  };
+  return (
+    <Wrapper>
+      <AnimatePresence>
+        <Box
+          custom={back}
+          variants={box}
+          initial="entry"
+          animate="center"
+          exit="exit"
+          key={visible}
+        >
+          {visible}
+        </Box>
+      </AnimatePresence>
+      <button> next</button>
+      <button> next</button>
+    </Wrapper>
+  );
+}
+
+export default App;

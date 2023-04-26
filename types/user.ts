@@ -19,6 +19,11 @@ export interface restType {
   content: string;
 }
 
+export interface avatarType {
+  type: number;
+  bg: number;
+}
+
 export interface IUser extends Document {
   uid: string;
   registerDate: string;
@@ -34,6 +39,7 @@ export interface IUser extends Document {
   comment: string;
   rest: restType;
   location: Location;
+  avatar: avatarType;
 }
 
 export interface IAccount extends Document {
@@ -117,4 +123,9 @@ export interface IRankScore {
   myRank?: number;
   percent?: boolean;
   scoreArr?: IScoreAll[];
+}
+
+export interface IAvatar {
+  type: number;
+  bg: number;
 }

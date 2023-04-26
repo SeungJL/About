@@ -100,7 +100,7 @@ function AboutMainItem({
                     idx < VOTER_SHOW_MAX && (
                       <ProfileContainer key={idx} zIndex={idx}>
                         <ProfileIconSm
-                          imgSrc={(user?.user as IUser)?.profileImage}
+                          user={user?.user as IUser}
                           isOverlap={idx === VOTER_SHOW_MAX - 1}
                         />
                       </ProfileContainer>
@@ -108,9 +108,7 @@ function AboutMainItem({
                 )
               : firstAttendance?.map((user, idx) => (
                   <ProfileContainer key={idx} zIndex={idx}>
-                    <ProfileIconSm
-                      imgSrc={(user?.user as IUser)?.profileImage}
-                    />
+                    <ProfileIconSm user={user?.user as IUser} />
                   </ProfileContainer>
                 ))}
             <ParticipantStatus>
