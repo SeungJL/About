@@ -21,13 +21,14 @@ import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
 import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
 import ModalPortal from "../../components/ModalPortal";
+import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
 
 export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
   const [value, setValue] = useState("안녕하세요! 잘 부탁드립니다~!");
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
-
+  console.log(334, user);
   const { mutate: onChangeComment } = useCommentMutation();
   const { data: comments, isLoading } = useCommentQuery();
 
@@ -42,30 +43,6 @@ export default function UserOverview() {
   }, [isLoading, userComment?.comment]);
   const toast = useToast();
 
-  const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
-    kakaoProfileInfo,
-    AxiosError
-  >(
-    "updateProfile",
-    async () => {
-      const res = await axios.patch("/api/user/profile");
-      return res.data;
-    },
-    {
-      onSuccess: (data: IUser) => {},
-      onError: (error: AxiosError) => {
-        console.error(error);
-        toast({
-          title: "업데이트 실패",
-          description: "프로필 사진을 업데이트하려면 재로그인이 필요해요.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      },
-    }
-  );
 
   const handleWrite = () => {
     const input = inputRef.current;
@@ -87,15 +64,7 @@ export default function UserOverview() {
     <>
       <Layout>
         <UserImg>
-          <Profile>
-            <Image
-              width={80}
-              height={80}
-              alt="profile"
-              src={`${user?.profileImage}`}
-              unoptimized={true}
-            />
-          </Profile>
+          <ProfileIconLg user={user} />
           <IconWrapper onClick={() => setIsProfileModal(true)}>
             <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
           </IconWrapper>

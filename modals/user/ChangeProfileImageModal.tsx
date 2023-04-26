@@ -1,35 +1,64 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios, { AxiosError } from "axios";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useMutation } from "react-query";
 import styled from "styled-components";
 import {
   AVATAR_COLOR,
-  PROFILE_ICON,
+  AVATAR_COST,
+  AVATAR_ICON,
   VOTE_TABLE_COLOR,
 } from "../../constants/design";
 import { useAvatarMutation } from "../../hooks/user/mutations";
-import { useAvatarQuery } from "../../hooks/user/queries";
+import { useAvatarQuery, useScoreQuery } from "../../hooks/user/queries";
 import { ModalHeaderLine, ModalLg, ModalXs } from "../../styles/layout/modal";
+import { IUser, kakaoProfileInfo } from "../../types/user";
 
 function ChangeProfileImageModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
+  const toast = useToast();
   const [isFirstPage, setIsFirstPage] = useState(true);
   const [iconIdx, setIconIdx] = useState(0);
   const [back, setBack] = useState(false);
   const [BG, setBG] = useState(0);
+  const { data: score } = useScoreQuery();
 
-  const { data } = useAvatarQuery();
   const { mutate } = useAvatarMutation();
-  console.log(2, data);
+  const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
+    kakaoProfileInfo,
+    AxiosError
+  >(
+    "updateProfile",
+    async () => {
+      const res = await axios.patch("/api/user/profile");
+      return res.data;
+    },
+    {
+      onSuccess: (data: IUser) => {},
+      onError: (error: AxiosError) => {
+        console.error(error);
+        toast({
+          title: "업데이트 실패",
+          description: "프로필 사진을 업데이트하려면 재로그인이 필요해요.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      },
+    }
+  );
+
   const onClickPrev = () => {
     if (iconIdx > 0) {
       setBack(true);
@@ -38,14 +67,14 @@ function ChangeProfileImageModal({
   };
 
   const onClickNext = () => {
-    if (iconIdx < PROFILE_ICON.length) {
+    if (iconIdx < AVATAR_ICON.length) {
       setBack(false);
       setIconIdx(iconIdx + 1);
     }
   };
   useEffect(() => {
     if (iconIdx === 0) setBack(false);
-    if (iconIdx === PROFILE_ICON.length - 1) {
+    if (iconIdx === AVATAR_ICON.length - 1) {
       setBack(true);
     }
   }, [iconIdx]);
@@ -73,11 +102,25 @@ function ChangeProfileImageModal({
   };
 
   const onSubmit = () => {
+    if (AVATAR_COST[iconIdx] > score?.point) {
+      toast({
+        title: "아이콘 변경 실패",
+        description: "프로필 변경을 위한 포인트가 부족해요!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
     const info = {
       type: iconIdx,
       bg: BG,
     };
+
     mutate(info);
+    setIsModal(false);
+    location.reload();
   };
 
   const onClickKakao = () => {
@@ -86,6 +129,9 @@ function ChangeProfileImageModal({
       bg: null,
     };
     mutate(info);
+    onUpdateProfile();
+    setIsModal(false);
+    location.reload();
   };
 
   return (
@@ -98,10 +144,6 @@ function ChangeProfileImageModal({
               <div onClick={() => setIsFirstPage(false)}>캐릭터 선택</div>
               <div onClick={onClickKakao}>카카오 프로필로 변경 / 업데이트</div>
             </Choice>
-            <Footer>
-              <button>취소</button>
-              <button>변경</button>
-            </Footer>
           </Main>
         </Layout>
       ) : (
@@ -125,15 +167,15 @@ function ChangeProfileImageModal({
                     width={80}
                     height={80}
                     unoptimized={true}
-                    src={PROFILE_ICON[iconIdx]}
+                    src={AVATAR_ICON[iconIdx]}
                     alt="avatar"
                   />
                 </Icon>
-                <IconPoint>30 point</IconPoint>
+                <IconPoint>{AVATAR_COST[iconIdx]} point</IconPoint>
               </IconWrapper>
             </AnimatePresence>
             <ArrowIcon style={{ right: "0px" }} onClick={onClickNext}>
-              {iconIdx !== PROFILE_ICON.length - 1 && (
+              {iconIdx !== AVATAR_ICON.length - 1 && (
                 <FontAwesomeIcon icon={faChevronRight} />
               )}
             </ArrowIcon>

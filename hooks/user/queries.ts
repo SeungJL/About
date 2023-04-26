@@ -223,7 +223,6 @@ export const useAvatarQuery = (
     "avatar",
     async () => {
       const res = await axios.get<IAvatar>("/api/user/avatar");
-
       return res.data;
     },
     options

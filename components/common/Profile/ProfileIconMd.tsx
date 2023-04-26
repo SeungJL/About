@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../constants/design";
 import UserInfoModal from "../../../modals/user/UserInfoModal";
 import { IUser } from "../../../types/user";
 
@@ -13,7 +14,8 @@ function ProfileIconMd({ user }: { user: IUser }) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const [isUserModal, setIsUserModal] = useState(false);
-
+  const avatarType = user?.avatar?.type;
+  const avatarBg = user?.avatar?.bg;
   const onClickImg = () => {
     if (isGuest) {
       toast({
@@ -28,13 +30,23 @@ function ProfileIconMd({ user }: { user: IUser }) {
     }
     setIsUserModal(true);
   };
+  const isAvatar =
+    avatarType !== null &&
+    avatarType !== undefined &&
+    avatarBg !== null &&
+    avatarBg !== undefined;
   return (
     <>
-      <Layout onClick={onClickImg}>
+      <Layout
+        onClick={onClickImg}
+        style={{ background: avatarBg !== null && AVATAR_COLOR[avatarBg] }}
+      >
         <Image
-          src={`${user.profileImage}`}
-          width={50}
-          height={50}
+          src={
+            isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
+          }
+          width={isAvatar ? 40 : 50}
+          height={isAvatar ? 40 : 50}
           alt="userProfile"
           unoptimized={true}
         />
@@ -53,8 +65,10 @@ const Layout = styled.div`
   justify-content: center;
   align-items: center;
   object-fit: cover;
-  border-radius: 17px;
+  border-radius: 28%;
   overflow: hidden;
+  width: 50px;
+  height: 50px;
 `;
 
 export default ProfileIconMd;

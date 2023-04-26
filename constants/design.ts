@@ -10,7 +10,7 @@ export const VOTE_TABLE_COLOR = [
   "#B0C4DE",
 ];
 
-export const PROFILE_ICON = [
+export const AVATAR_ICON = [
   "https://user-images.githubusercontent.com/84257439/234467999-49cb38fe-5afb-42ca-a7e2-95ca4a173dd8.png",
   "https://user-images.githubusercontent.com/84257439/234468068-6d415890-7671-42c6-bc87-f95c5e0722c3.png",
   "https://user-images.githubusercontent.com/84257439/234468028-63055375-bdc6-4ddb-a4ae-ab72d13497a8.png",
@@ -29,3 +29,5 @@ export const AVATAR_COLOR = [
   "#D7BCE8",
   "#B0C4DE",
 ];
+
+export const AVATAR_COST = [30, 50, 80, 100];

@@ -2,31 +2,47 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import styled from "styled-components";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../constants/design";
+import { IUser } from "../../../types/user";
 
 function ProfileIconSm({
-  imgSrc,
+  user,
   isOverlap,
 }: {
-  imgSrc: string;
+  user: IUser;
   isOverlap?: boolean;
 }) {
+  const avatarType = user?.avatar?.type;
+  const avatarBg = user?.avatar?.bg;
+
+  const isAvatar =
+    avatarType !== null &&
+    avatarType !== undefined &&
+    avatarBg !== null &&
+    avatarBg !== undefined;
   return (
     <Layout>
-      <Wrapper>
+      <Wrapper style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
         {!isOverlap ? (
           <Image
-            src={`${imgSrc}`}
-            width={26}
-            height={26}
+            src={
+              isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
+            }
+            width={isAvatar ? 21 : 26}
+            height={isAvatar ? 21 : 26}
             alt="ProfileIconSm"
             unoptimized={true}
           />
         ) : (
           <OverlapWrapper>
             <Image
-              src={`${imgSrc}`}
-              width={26}
-              height={26}
+              src={
+                isAvatar
+                  ? `${AVATAR_ICON[avatarType]}`
+                  : `${user?.profileImage}`
+              }
+              width={isAvatar ? 21 : 26}
+              height={isAvatar ? 21 : 26}
               alt="ProfileIconSm"
               unoptimized={true}
             />
@@ -58,7 +74,9 @@ const Wrapper = styled.div`
   overflow: hidden;
   border-radius: 50%;
   margin-left: -1px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: -1px;
 `;
 

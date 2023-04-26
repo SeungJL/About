@@ -17,6 +17,7 @@ export default async function handler(
     case "GET":
       try {
         const avatar = await User.findOne({ uid: token.uid }, "avatar");
+
         res.status(200).json(avatar);
       } catch (err) {
         res.status(500).send(err);
@@ -24,10 +25,6 @@ export default async function handler(
       break;
     case "POST":
       let { type, bg } = req.body;
-      if (!type) type = 1;
-      if (!bg) bg = 1;
-
-      console.log(type, bg);
 
       try {
         await User.updateOne(
@@ -41,7 +38,7 @@ export default async function handler(
             },
           }
         );
-
+        ``;
         res.status(200).send({});
       } catch (err) {
         console.error(err);
