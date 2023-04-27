@@ -62,11 +62,16 @@ function About() {
     enabled: isDefaultPrev,
     onSuccess(data) {
       if (isDefaultPrev) {
-        data?.participations.some((space) =>
-          space?.attendences?.some(
-            (who) => who.firstChoice && (who.user as IUser).uid === session?.uid
+        if (
+          data?.participations.some((space) =>
+            space?.attendences?.some(
+              (who) =>
+                who.firstChoice && (who.user as IUser).uid === session?.uid
+            )
           )
-        ) && setVoteDate(dayjs());
+        )
+          setVoteDate(dayjs());
+        else setVoteDate(getInterestingDate());
       }
     },
   });
