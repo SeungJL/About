@@ -4,7 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
-import { faBalanceScale, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBalanceScale,
+  faBars,
+  faCakeCandles,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 
 import ModalPortal from "../../../components/ModalPortal";
@@ -29,6 +33,7 @@ export default function Header() {
   const [isRule, setIsRule] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
+  const [isBirth, setIsBirth] = useState(false);
 
   const onClickedNotice = () => {
     router.push(`/notice`);

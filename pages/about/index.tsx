@@ -66,7 +66,9 @@ function About() {
           data?.participations.some((space) =>
             space?.attendences?.some(
               (who) =>
-                who.firstChoice && (who.user as IUser).uid === session?.uid
+                who.firstChoice &&
+                (who.user as IUser).uid === session?.uid &&
+                !who?.arrived
             )
           )
         )

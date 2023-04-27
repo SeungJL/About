@@ -142,7 +142,7 @@ function BadgeInfoModal({
             </RuleItem>{" "}
             <RuleItem>
               <span>건의</span>
-              <span>+ 2점</span>
+              <span>+ 5점</span>
             </RuleItem>
             <RuleItem>
               <span>추가 예정</span>

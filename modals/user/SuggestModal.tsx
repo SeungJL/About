@@ -45,7 +45,7 @@ function SuggestModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    getScores(2);
+    getScores(5);
     suggestForm(suggestInfo);
     setIsModal(false);
   };
@@ -108,7 +108,9 @@ function SuggestModal({
         </Form>
       </ModalMain>
       <ModalFooterNav>
-        <button type="button">취소</button>
+        <button type="button" onClick={() => setIsModal(false)}>
+          취소
+        </button>
         <button form="suggest" type="submit">
           제출
         </button>

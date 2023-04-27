@@ -9,12 +9,13 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { isNoticeAlertState } from "../recoil/utilityAtoms";
 import { numOfUserState } from "../recoil/userAtoms";
 
-import { NOTICE_ALERT, USER_GUIDE } from "../constants/localStorage";
+import { NOTICE_ALERT, POP_UP, USER_GUIDE } from "../constants/localStorage";
 import { IUser } from "../types/user";
 import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
 import { locationState } from "../recoil/systemAtoms";
 import { usePlazaDataQuery } from "../hooks/plaza/queries";
 import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
+import SuggestPopUp from "../modals/pop-up/SuggestPopUp";
 
 export default function UserSetting() {
   const { data: session } = useSession();
@@ -27,6 +28,7 @@ export default function UserSetting() {
   const [isRegisterModal, setIsRegisterModal] = useState(false);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isUserGuide, setIsUserGuide] = useState(false);
+  const [isSuggest, setIsSuggest] = useState(false);
 
   const { data: userData, isLoading } = useUserInfoQuery({
     enabled: isGuest === false,
@@ -57,6 +59,13 @@ export default function UserSetting() {
   }, [session, isActive, isActiveLoading]);
 
   useEffect(() => {
+    if (!localStorage.getItem(POP_UP)) {
+      setIsSuggest(true);
+      localStorage.setItem(POP_UP, "read");
+    }
+  }, []);
+
+  useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
     if (!localStorage.getItem(USER_GUIDE)) setIsUserGuide(true);
   }, [setIsNoticeAlert]);
@@ -76,6 +85,11 @@ export default function UserSetting() {
       {isUserGuide && (
         <ModalPortal setIsModal={setIsUserGuide}>
           <UserGuidePopUp setIsModal={setIsUserGuide} />
+        </ModalPortal>
+      )}
+      {isSuggest && (
+        <ModalPortal setIsModal={setIsSuggest}>
+          <SuggestPopUp setIsModal={setIsSuggest} />
         </ModalPortal>
       )}
     </>

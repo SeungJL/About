@@ -20,9 +20,10 @@ function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();
   const name = session?.user.name;
   const { data: voteRate } = useVoteRateQuery(
-    dayjs().subtract(7, "day"),
-    dayjs()
+    dayjs().subtract(8, "day"),
+    dayjs().subtract(1, "day")
   );
+  console.log(voteRate);
   const { data: parRate } = useParticipationRateQuery(
     dayjs().subtract(7, "day"),
     dayjs()

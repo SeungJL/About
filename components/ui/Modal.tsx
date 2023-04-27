@@ -41,7 +41,6 @@ export const ModalHeaderXLine = ({ title, setIsModal }: IModalHeader) => (
 const ModalHeaderXLineLayout = styled.div`
   display: flex;
   justify-content: space-between;
-
   padding-bottom: 12px;
   border-bottom: var(--border-headline);
   > span {

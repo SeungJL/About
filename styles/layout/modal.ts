@@ -27,7 +27,7 @@ export const ModalXs = styled.div`
 export const ModalMd = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 12px 16px;
   background-color: white;
   width: var(--width-90);
   height: var(--height-sm);
@@ -94,7 +94,7 @@ export const ModalHeaderLine = styled.header`
   font-weight: 600;
   font-size: 16px;
   border-bottom: 1px solid var(--font-h5);
-  padding-bottom: 14px;
+  padding-bottom: 12px;
 `;
 
 export const ModalMain = styled.main`
