@@ -42,9 +42,11 @@ function Admin() {
               <BlockName>스터디 관리</BlockName>
               <NavBlock>
                 <button onClick={() => router.push(`/admin/studySpaceControl`)}>
-                  스터디 장소 정보
+                  스터디 장소 정보 O
                 </button>
-                <button>스터디 결과 변경</button>
+                <button onClick={() => router.push(`/admin/studyControl`)}>
+                  스터디 상태 변경
+                </button>
               </NavBlock>
             </div>
             <div>
