@@ -1,23 +1,144 @@
+import { Button } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DefaultValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { LogoAdjustmentImage } from "../../components/ui/DesignAdjustment";
 import { usePlaceQuery, useVoteQuery } from "../../hooks/vote/queries";
+import { IPlace, ISpaceControl } from "../../types/studyDetails";
+import { Location } from "../../types/system";
 
 function StudySpaceControl() {
   const { data } = usePlaceQuery();
-  const { register, handleSubmit, watch } = useForm({});
+  const { register, handleSubmit } = useForm({});
 
-  const onValid = (data) => {
-    
+  const [addRequestForm, setAddRequestForm] = useState({
+    branch: "",
+    latitude: "",
+    longitude: "",
+    brand: "",
+    location: "",
+    status: "",
+    image: "",
+  });
+
+  const onAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAddRequestForm({ ...addRequestForm, [name]: value });
   };
+  const onAddSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Form data:", addRequestForm);
+  };
+
+  const [btnIdx, setBtnIdx] = useState<number>();
+
+  const onValid = (data: ISpaceControl) => {
+    const spaceData: ISpaceControl = {
+      branch: data?.branch[btnIdx],
+      brand: data?.brand[btnIdx],
+      latitude: data?.latitude[btnIdx],
+      longitude: data?.longitude[btnIdx],
+      location: data?.location[btnIdx] as Location,
+      status: data?.status[btnIdx],
+      image: data?.image[btnIdx],
+    };
+    console.log(spaceData);
+  };
+
   return (
     <>
       <Header title="스터디 장소 정보" url="/admin" />
+
       <Layout>
+        <SpaceAddRequest>
+          <AddForm onSubmit={onAddSubmit}>
+            <span>장소 추가</span>
+            <div>
+              <span>branch:</span>
+              <input
+                type="text"
+                name="branch"
+                value={addRequestForm.branch}
+                onChange={onAddInputChange}
+              />
+            </div>
+            <div>
+              <span>latitude:</span>
+              <input
+                type="text"
+                name="latitude"
+                value={addRequestForm.latitude}
+                onChange={onAddInputChange}
+              />
+            </div>
+            <div>
+              <span>longitude:</span>
+              <input
+                type="text"
+                name="longitude"
+                value={addRequestForm.longitude}
+                onChange={onAddInputChange}
+              />
+            </div>
+            <div>
+              <span>brand:</span>
+              <input
+                type="text"
+                name="brand"
+                value={addRequestForm.brand}
+                onChange={onAddInputChange}
+              />
+            </div>
+            <div>
+              <span>location:</span>
+              <input
+                type="text"
+                name="location"
+                value={addRequestForm.location}
+                onChange={onAddInputChange}
+              />
+            </div>
+            <div>
+              <span>status:</span>
+              <input
+                type="text"
+                name="status"
+                value={addRequestForm.status}
+                onChange={onAddInputChange}
+              />
+            </div>
+            <div>
+              <span>image:</span>
+              <input
+                type="text"
+                name="image"
+                value={addRequestForm.image}
+                onChange={onAddInputChange}
+              />
+            </div>
+            <Button
+              type="submit"
+              style={{
+                marginTop: "4px",
+                backgroundColor: "var(--color-red)",
+                color: "white",
+                width: "60px",
+                height: "28px",
+              }}
+            >
+              추가
+            </Button>
+          </AddForm>
+        </SpaceAddRequest>
         {data?.map((place, idx) => (
-          <Form key={idx} id={`place${idx}`} onSubmit={handleSubmit(onValid)}>
+          <Form
+            key={idx}
+            id={`place${idx}`}
+            data-idx={idx}
+            onSubmit={handleSubmit(onValid)}
+          >
             <div>
               <ImageContainer>
                 <LogoAdjustmentImage place={place} />
@@ -26,36 +147,36 @@ function StudySpaceControl() {
                 <Status>
                   <Branch
                     defaultValue={place?.branch}
-                    {...register(`branch-${idx}`)}
+                    {...register(`branch[${idx}]`)}
                   />
 
                   <input
                     defaultValue={place?.latitude}
-                    {...register(`latitude-${idx}`)}
+                    {...register(`latitude[${idx}]`)}
                   />
 
                   <input
                     defaultValue={place?.longitude}
-                    {...register(`longitude-${idx}`)}
+                    {...register(`longitude[${idx}]`)}
                   />
                 </Status>
                 <Status>
                   <Info
                     defaultValue={place?.brand}
-                    {...register(`brand-${idx}`)}
+                    {...register(`brand[${idx}]`)}
                   />
                   <input
                     defaultValue={place?.location}
-                    {...register(`location-${idx}`)}
+                    {...register(`location[${idx}]`)}
                   />
                   <input
                     defaultValue={place?.status}
-                    {...register(`status-${idx}`)}
+                    {...register(`status[${idx}]`)}
                   />
                 </Status>
               </SpaceInfo>
             </div>
-            <input defaultValue={place?.image} {...register(`image-${idx}`)} />
+            <input defaultValue={place?.image} {...register(`image[${idx}]`)} />
             <button
               form={`place${idx}`}
               style={{
@@ -67,6 +188,7 @@ function StudySpaceControl() {
                 borderRadius: "9px",
               }}
               type="submit"
+              onClick={() => setBtnIdx(idx)}
             >
               변경
             </button>
@@ -83,6 +205,8 @@ const Layout = styled.div`
   flex-direction: column;
 `;
 
+const SpaceAddRequest = styled.div``;
+
 const Form = styled.form`
   height: 150px;
   background-color: white;
@@ -93,6 +217,31 @@ const Form = styled.form`
   padding: 12px;
   > div {
     display: flex;
+  }
+`;
+
+const AddForm = styled.form`
+  height: 280px;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  padding: 12px;
+  > span {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  > div {
+    margin-top: 6px;
+    margin-bottom: 2px;
+    > span {
+      display: inline-block;
+      width: 80px;
+    }
+    input {
+      background-color: var(--font-h7);
+    }
   }
 `;
 

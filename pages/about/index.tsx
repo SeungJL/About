@@ -131,7 +131,7 @@ function About() {
                 <AboutMain participations={participations} />
               </>
             )}
-            <EventBanner />
+            {/* <EventBanner /> */}
           </Layout>
           {/* <AboutFooter />*/}
         </>

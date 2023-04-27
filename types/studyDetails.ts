@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs";
 import { Document } from "mongoose";
 import { IPlaceStatus } from "./statistics";
+import { Location } from "./system";
 import { IUser } from "./user";
 import { ITimeStartToEnd, ITimeStartToEndHM } from "./utils";
 
@@ -76,4 +77,14 @@ export interface IVoteInfo {
   subPlace: IPlace[];
   start: Dayjs;
   end: Dayjs;
+}
+
+export interface ISpaceControl {
+  branch?: string;
+  latitude?: number;
+  longitude?: number;
+  brand?: string;
+  location?: Location;
+  status?: string;
+  image?: string;
 }
