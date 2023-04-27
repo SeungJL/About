@@ -47,7 +47,9 @@ function About() {
 
   useEffect(() => {
     if (isGuest) {
-      setVoteDate(dayjs());
+      if (dayjs().hour() >= 20) {
+        setVoteDate(getInterestingDate());
+      } else setVoteDate(dayjs());
       return;
     }
     if (voteDate === null) {
