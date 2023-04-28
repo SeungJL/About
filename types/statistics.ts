@@ -16,8 +16,10 @@ export type IPlaceStatusType =
   | "open"
   | "dismissed";
 
+export type Status = "pending" | "waiting_confirm" | "open" | "dismissed";
+
 export interface IPlaceStatus {
-  status?: "pending" | "waiting_confirm" | "open" | "dismissed";
+  status?: Status;
 }
 export interface IplaceInfo extends IPlaceStatus {
   placeName?: IPlace;

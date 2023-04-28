@@ -63,7 +63,7 @@ function About() {
   useVoteQuery(getInterestingDate().subtract(1, "day"), location, {
     enabled: isDefaultPrev,
     onSuccess(data) {
-      if (isDefaultPrev) {
+      if (isDefaultPrev && voteDate === null) {
         if (
           data?.participations.some((space) =>
             space?.attendences?.some(
