@@ -106,11 +106,17 @@ function AboutMainItem({
                       </ProfileContainer>
                     )
                 )
-              : firstAttendance?.map((user, idx) => (
-                  <ProfileContainer key={idx} zIndex={idx}>
-                    <ProfileIconSm user={user?.user as IUser} />
-                  </ProfileContainer>
-                ))}
+              : firstAttendance?.map(
+                  (user, idx) =>
+                    idx < VOTER_SHOW_MAX + 2 && (
+                      <ProfileContainer key={idx} zIndex={idx}>
+                        <ProfileIconSm
+                          user={user?.user as IUser}
+                          isOverlap={idx === VOTER_SHOW_MAX + 1}
+                        />
+                      </ProfileContainer>
+                    )
+                )}
             <ParticipantStatus>
               <IconUserTwo />
               <span>
@@ -123,7 +129,7 @@ function AboutMainItem({
                     ? attendences.length
                     : firstAttendance?.length}
                 </b>
-                /8
+                {statusFixed === "pending" ? "/8" : "/10"}
               </span>
             </ParticipantStatus>
           </div>

@@ -110,8 +110,15 @@ function UserInfo() {
             <div>
               <BlockName>기타</BlockName>
               <NavBlock>
-                <button>서비스 이용 약관</button>
-                <button>개인정보 처리방침</button>
+                <button onClick={() => router.push(`user/info/policy`)}>
+                  서비스 이용 약관
+                </button>
+                <button onClick={() => router.push(`user/info/privacy`)}>
+                  개인정보 처리방침
+                </button>
+                <button onClick={() => router.push(`user/info/avatar`)}>
+                  아바타 아이콘 저작권
+                </button>
                 <button>회원 탈퇴</button>
               </NavBlock>
             </div>
