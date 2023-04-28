@@ -45,7 +45,7 @@ function Admin() {
                   스터디 장소 정보 O
                 </button>
                 <button onClick={() => router.push(`/admin/studyControl`)}>
-                  스터디 상태 변경
+                  스터디 상태 변경 O
                 </button>
               </NavBlock>
             </div>

@@ -23,7 +23,7 @@ function Plaza() {
       : data?.filter((item) => item.category === category);
 
   const reversedData = filterData?.slice().reverse();
-
+  console.log(reversedData);
   return (
     <>
       <Layout>
