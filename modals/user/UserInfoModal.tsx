@@ -14,6 +14,7 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 
 import { IUser, USER_BADGES } from "../../types/user";
 import { motion } from "framer-motion";
+import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
 
 function UserInfoModal({
   user,
@@ -37,15 +38,8 @@ function UserInfoModal({
     <>
       <Layout>
         <UpPart>
-          <UserImage>
-            <Image
-              src={`${user.profileImage}`}
-              alt="profileImage"
-              width={72}
-              height={72}
-              unoptimized={true}
-            />
-          </UserImage>
+          <ProfileIconLg user={user} isSmall={true} />
+
           <UserInfo>
             <UserName>
               <span>{user.name}</span>
@@ -66,7 +60,7 @@ function UserInfoModal({
                 <div>
                   <DetailInfo>MBTI: </DetailInfo>
                   <DetailValue>
-                    {user.mbti ? user.mbti.toUpperCase() : "생략"}
+                    {user.mbti ? user.mbti.toUpperCase() : "----"}
                   </DetailValue>
                 </div>
               </div>
@@ -81,7 +75,6 @@ function UserInfoModal({
           <CommentWrapper>
             <Comment>
               <span>Comment</span>
-
               <span>{comment?.comment}</span>
             </Comment>
           </CommentWrapper>
@@ -139,11 +132,10 @@ const UserImage = styled.div`
   overflow: hidden;
 `;
 const UserInfo = styled.div`
-  padding-top: 2px;
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-left: 12px;
+  margin-left: 10px;
 `;
 const UserRelNav = styled.nav`
   display: flex;
@@ -162,20 +154,18 @@ const Button = styled.button<{ selected: boolean }>`
 
 const UserName = styled.div`
   display: flex;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   align-items: center;
   > span:first-child {
-    margin-right: 7px;
-    font-size: 17px;
+    margin-right: 8px;
+    font-size: 16px;
     font-weight: 600;
   }
 `;
 const UserProfile = styled.div`
   display: flex;
-  padding-right: 4px;
   flex-direction: column;
   justify-content: space-around;
-  font-size: 1px;
   height: 100%;
   > div:first-child {
     display: flex;
@@ -191,12 +181,14 @@ const DownPart = styled.div`
 `;
 
 const DetailInfo = styled.span`
-  font-size: 12px;
-  color: var(--font-h3);
+  font-size: 13px;
+  color: var(--font-h2);
 `;
 
 const DetailValue = styled.span`
-  font-size: 12px;
+  font-size: 13px;
+  color: var(--font-h1);
+  font-weight: 600;
 `;
 
 const Detail = styled.div`

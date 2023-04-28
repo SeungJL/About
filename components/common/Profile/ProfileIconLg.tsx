@@ -9,7 +9,7 @@ import { IUser } from "../../../types/user";
 
 import ModalPortal from "../../ModalPortal";
 
-function ProfileIconLg({ user }: { user: IUser }) {
+function ProfileIconLg({ user, isSmall }: { user: IUser; isSmall?: boolean }) {
   const toast = useToast();
   const { data: session } = useSession();
 
@@ -21,15 +21,20 @@ function ProfileIconLg({ user }: { user: IUser }) {
     avatarType !== undefined &&
     avatarBg !== null &&
     avatarBg !== undefined;
+
+  console.log(isSmall);
   return (
     <>
-      <Layout style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
+      <Layout
+        isSmall={isSmall}
+        style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}
+      >
         <Image
           src={
             isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
           }
-          width={isAvatar ? 64 : 80}
-          height={isAvatar ? 64 : 80}
+          width={isSmall && isAvatar ? 58 : isSmall ? 72 : isAvatar ? 64 : 80}
+          height={isSmall && isAvatar ? 58 : isSmall ? 72 : isAvatar ? 64 : 80}
           alt="userProfileLg"
           unoptimized={true}
         />
@@ -38,9 +43,9 @@ function ProfileIconLg({ user }: { user: IUser }) {
   );
 }
 
-const Layout = styled.div`
-  width: 80px;
-  height: 80px;
+const Layout = styled.div<{ isSmall?: boolean }>`
+  width: ${(props) => (props.isSmall ? "72px" : "80px")};
+  height: ${(props) => (props.isSmall ? "72px" : "80px")};
   border-radius: 24%;
   overflow: hidden;
   display: flex;
