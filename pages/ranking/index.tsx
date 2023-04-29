@@ -28,7 +28,7 @@ import { IScoreAll, USER_BADGES } from "../../types/user";
 
 function Ranking() {
   const { data: session } = useSession();
-
+  console.log(session);
   const isGuest = session && session?.user.name === "guest";
   const [userScoreList, setUserScoreList] = useState<IScoreAll[]>([]);
   const userBadge = useRecoilValue(userBadgeState);
@@ -126,7 +126,7 @@ function Ranking() {
                 <Item key={idx}>
                   <span>{idx + 1}위</span>
                   <RankingMine isMine={who.uid === session?.uid}>
-                    {who?.name}
+                    {who?.name !== "무성" ? who?.name : "비공개"}
                   </RankingMine>
                   <Badge marginRight="6px" colorScheme={USER_BADGES[badge]}>
                     {badge}
