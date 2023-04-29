@@ -44,7 +44,7 @@ function RecordOverview({
             <div>
               <span>내 최근 참여</span>
               <span style={{ color: "var(--color-mint)" }}>
-                {!isGuest
+                {!isGuest && myRecentAttend
                   ? dayjs(myRecentAttend).format("M월 DD일")
                   : "기록 없음"}
               </span>

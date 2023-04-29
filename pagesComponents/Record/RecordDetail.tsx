@@ -27,7 +27,6 @@ function RecordDetail({
                   </span>
                 </SpaceHeader>
                 <MemberWrapper>
-                  <span>참여인원: </span>
                   {space.arrivedInfo.map((who, idx3) => (
                     <Member key={idx3}>{who.name}</Member>
                   ))}
@@ -66,29 +65,30 @@ const SpaceWrapper = styled.div`
 
 const SpaceHeader = styled.header`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   color: var(--font-h2);
-  font-size: 13px;
+  font-size: 14px;
   > span:first-child {
     font-weight: 600;
-    margin-right: 16px;
+    margin-right: 12px;
   }
   > span:last-child {
-    font-size: 11px;
+    font-size: 12px;
     > span {
-      color: var(--font-h1);
       font-weight: 600;
     }
   }
 `;
 
 const MemberWrapper = styled.div`
-  display: flex;
+  padding: 8px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, auto));
 
-  height: 36px;
   align-items: center;
   margin-bottom: 12px;
   border-bottom: 1px solid var(--font-h6);
+  line-height: 2;
   > span {
     color: var(--font-h3);
     margin-right: 8px;

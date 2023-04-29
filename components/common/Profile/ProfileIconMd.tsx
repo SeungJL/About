@@ -9,7 +9,13 @@ import { IUser } from "../../../types/user";
 
 import ModalPortal from "../../ModalPortal";
 
-function ProfileIconMd({ user }: { user: IUser }) {
+function ProfileIconMd({
+  user,
+  isCircle,
+}: {
+  user: IUser;
+  isCircle?: boolean;
+}) {
   const toast = useToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -39,7 +45,10 @@ function ProfileIconMd({ user }: { user: IUser }) {
     <>
       <Layout
         onClick={onClickImg}
-        style={{ background: avatarBg !== null && AVATAR_COLOR[avatarBg] }}
+        style={{
+          background: avatarBg !== null && AVATAR_COLOR[avatarBg],
+          borderRadius: isCircle ? "50%" : "28%",
+        }}
       >
         <Image
           src={
@@ -65,7 +74,7 @@ const Layout = styled.div`
   justify-content: center;
   align-items: center;
   object-fit: cover;
-  border-radius: 28%;
+
   overflow: hidden;
   width: 50px;
   height: 50px;

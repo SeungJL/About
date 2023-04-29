@@ -21,7 +21,6 @@ function ModalPortal({ children, setIsModal }) {
   if (ref.current && mounted) {
     return createPortal(
       <div className="modal-container">
-        ``
         <FullScreen onClick={closeModal} />
         {children}
       </div>,
