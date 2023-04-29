@@ -49,6 +49,7 @@ function ProfileModifyModal({ setIsModal }) {
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
       location: data.location,
+      interest: data?.interest,
     };
 
     handleRegister(userInfo);
@@ -69,6 +70,7 @@ function ProfileModifyModal({ setIsModal }) {
       mbti: user.mbti,
       birth: user.birth,
       agree: "",
+      interest: user?.interest,
     },
   });
 
@@ -146,6 +148,34 @@ function ProfileModifyModal({ setIsModal }) {
             </Item>
             <ErrorMessage>{errors?.birth?.message}</ErrorMessage>
             <Item>
+              <span>관심분야: </span>
+              <input
+                {...register("interest", {
+                  required: "필수입력",
+                  pattern: {
+                    value: /^\d{6}$/,
+                    message: "주민번호 앞자리",
+                  },
+                })}
+                placeholder="학교 공부"
+              />
+            </Item>
+            <ErrorMessage>{errors?.interest?.message}</ErrorMessage>
+            <Item>
+              <span> </span>
+              <input
+                {...register("interest", {
+                  required: "필수입력",
+                  pattern: {
+                    value: /^\d{6}$/,
+                    message: "주민번호 앞자리",
+                  },
+                })}
+                placeholder="토익"
+              />
+            </Item>
+            <ErrorMessage>{errors?.interest?.message}</ErrorMessage>
+            <Item>
               <span>MBTI(선택): </span>
               <input {...register("mbti")} placeholder="Ex) ENFP" />
             </Item>
@@ -164,7 +194,9 @@ function ProfileModifyModal({ setIsModal }) {
 }
 export default ProfileModifyModal;
 
-const Layout = styled(ModalLg)``;
+const Layout = styled(ModalLg)`
+  height: var(--height-lg);
+`;
 
 const Form = styled.form`
   display: flex;
@@ -185,6 +217,7 @@ const Item = styled.div`
     color: var(--font-h2);
   }
   > input {
+    padding-left: 4px;
     height: 90%;
     flex: 1;
     background-color: var(--font-h7);

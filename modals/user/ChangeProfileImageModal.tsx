@@ -10,14 +10,10 @@ import Image from "next/image";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useMutation } from "react-query";
 import styled from "styled-components";
-import {
-  AVATAR_COLOR,
-  AVATAR_COST,
-  AVATAR_ICON,
-  VOTE_TABLE_COLOR,
-} from "../../constants/design";
+
 import { useAvatarMutation } from "../../hooks/user/mutations";
 import { useAvatarQuery, useScoreQuery } from "../../hooks/user/queries";
+import { AVATAR_COLOR, AVATAR_COST, AVATAR_ICON } from "../../storage/Avatar";
 import { ModalHeaderLine, ModalLg, ModalXs } from "../../styles/layout/modal";
 import { IUser, kakaoProfileInfo } from "../../types/user";
 
