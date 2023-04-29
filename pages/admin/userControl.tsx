@@ -21,10 +21,12 @@ export default function Admin() {
     onSuccess(data) {
       const tempAdmins = [];
       const tempMembers = [];
+      console.log(2, data);
       data.forEach((user) => {
         if (user.role === "previliged") tempAdmins.push(user);
         if (user.role === "member") tempMembers.push(user);
       });
+      console.log(3, tempMembers);
       setAdmins(tempAdmins);
       setMembers(tempMembers);
       setFiltered(tempMembers);
@@ -151,7 +153,7 @@ const UserSection = ({ user }: { user: IUser }) => {
     <SectionItem>
       <Item>{user.name}</Item>
       <Select
-        defaultValue={user.role}
+        value={user.role}
         onChange={(e) => onRoleChanged(e.target.value, user)}
       >
         <option value="member">M</option>
@@ -159,20 +161,20 @@ const UserSection = ({ user }: { user: IUser }) => {
       </Select>
       <Select
         onChange={(e) => onActiveChanged(e.target.value, user)}
-        defaultValue={user.isActive.toString()}
+        value={user.isActive.toString()}
       >
         <option value="true">T</option>
         <option value="false">F</option>
       </Select>
 
       <Input
-        onBlur={(e) => onScoreChanged(e.target.value, user)}
-        defaultValue={user.score}
+        onChange={(e) => onScoreChanged(e.target.value, user)}
+        value={user.score}
       />
 
       <Input
-        onBlur={(e) => onPointChanged(e.target.value, user)}
-        defaultValue={user.point}
+        onChange={(e) => onPointChanged(e.target.value, user)}
+        value={user.point}
         style={{ borderRight: "none" }}
       />
     </SectionItem>

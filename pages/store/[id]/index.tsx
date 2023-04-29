@@ -4,8 +4,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
+import ModalPortal from "../../../components/ModalPortal";
+import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
 import StoreNavigation from "../../../pagesComponents/store/item/StoreNavigation";
 import { STORE_GIFT } from "../../../storage/Store";
+import { IStoreGift } from "../../../types/store";
 
 function StoreItem() {
   const router = useRouter();
@@ -13,7 +16,8 @@ function StoreItem() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const info = STORE_GIFT[itemId];
+  const [isModal, setIsModal] = useState(false);
+  const info: IStoreGift = STORE_GIFT[itemId];
 
   return (
     <>
@@ -25,25 +29,58 @@ function StoreItem() {
             height={200}
             alt="storeGiftDetail"
             unoptimized={true}
-            src={`${info.image}`}
+            src={`${info?.image}`}
             onLoad={() => setIsLoading(false)}
           />
         </ImageWrapper>
         <Overview>
-          <span>{info.name}</span>
-          <span>{info.brand}</span>
+          <span>{info?.name}</span>
+          <span>{info?.brand}</span>
         </Overview>
         {/* <Date>05.01 ~ 05.14</Date> */}
-        <Price>{info.point} point</Price>
+        <Price>{info?.point} point</Price>
         <Nav>
-          <span>현재 참여 인원은 7명 입니다.</span>
+          <span>
+            현재 참여 인원은 <b>7명</b> 입니다.
+          </span>
           <div>
             <Button size="lg">참여현황</Button>
-            <Button size="lg">응모하기</Button>
+            <Button size="lg" onClick={() => setIsModal(true)}>
+              응모하기
+            </Button>
           </div>
         </Nav>
-        <Detail>5</Detail>
+        <Detail>
+          <DetailItem>
+            <span>추첨인원</span>
+            <span>4명</span>
+          </DetailItem>
+          <DetailItem>
+            <span>응모기간</span>
+            <span>5.8(월) ~ 5.21(일)</span>
+          </DetailItem>
+          <DetailItem>
+            <span>당첨자 발표일</span>
+            <span>5.22(월)</span>
+          </DetailItem>
+          <DetailItem>
+            <span>안내 사항</span>
+            <div>
+              <span>중복 응모는 가능하나, 중복 당첨은 되지 않습니다.</span>
+              <span>
+                간혹 추첨 인원이 증가할 수 있습니다. <br />
+                (감소되지는 않습니다)
+              </span>
+              <span></span>
+            </div>
+          </DetailItem>
+        </Detail>
       </Layout>
+      {isModal && (
+        <ModalPortal setIsModal={setIsModal}>
+          <ApplyGiftModal setIsModal={setIsModal} info={info} />
+        </ModalPortal>
+      )}
     </>
   );
 }
@@ -74,8 +111,6 @@ const Overview = styled.div`
   }
 `;
 
-const Date = styled.div``;
-
 const Price = styled.div`
   display: flex;
   flex-direction: column;
@@ -86,12 +121,12 @@ const Price = styled.div`
 `;
 
 const Nav = styled.nav`
-  margin-top: 16px;
+  margin-top: 24px;
   display: flex;
-  font-weight: 600;
+
   flex-direction: column;
   > div {
-    margin-top: 8px;
+    margin-top: 12px;
     display: flex;
     > button:first-child {
       color: var(--color-mint);
@@ -104,6 +139,29 @@ const Nav = styled.nav`
   }
 `;
 
-const Detail = styled.div``;
+const Detail = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+`;
+
+const DetailItem = styled.div`
+  display: flex;
+  font-size: 13px;
+  color: var(--font-h2);
+  margin-bottom: 4px;
+  > span:first-child {
+    color: var(--font-h1);
+
+    display: inline-block;
+    font-weight: 600;
+    width: 100px;
+  }
+  > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 export default StoreItem;

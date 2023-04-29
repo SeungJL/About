@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -17,7 +18,11 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import { useScoreAllQuery, useScoreQuery } from "../../hooks/user/queries";
+import {
+  useScoreAllQuery,
+  useScoreQuery,
+  useVoteRateQuery,
+} from "../../hooks/user/queries";
 import {
   myScoreRank,
   SortUserScore,
