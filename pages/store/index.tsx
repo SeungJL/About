@@ -24,16 +24,16 @@ function Store() {
               height={ITEM_WIDTH}
               alt="storeGift"
               unoptimized={true}
-              src={item}
+              src={item.image}
               onLoad={() => setIsLoading(false)}
               onClick={() => router.push(`/store/${idx}`)}
             />
             <Info>
-              <Name>스타벅스 커피</Name>
+              <Name>{item.name}</Name>
               <Voter>응모 현황: ?</Voter>
               <Date>2023.05~</Date>
             </Info>
-            <Point>20 point</Point>
+            <Point>{item.point} point</Point>
           </Item>
         ))}
       </Layout>
