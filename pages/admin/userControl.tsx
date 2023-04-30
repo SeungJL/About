@@ -1,9 +1,10 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import { useUpdateProfileMutation } from "../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
 import { IUser } from "../../types/user";
 
@@ -115,12 +116,23 @@ const Section = styled.section`
 `;
 
 const UserSection = ({ user }: { user: IUser }) => {
-  const updateProfile = (profile) => {
-    axios.post("/api/admin/user", { profile });
-  };
+  const toast = useToast();
+  const { mutate: updateProfile } = useUpdateProfileMutation({
+    onSuccess() {
+      toast({
+        title: "변경 완료",
+        // description: "개인 정보 보호를 위해 게스트에게는 허용되지 않습니다.",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
 
   const onRoleChanged = (role: string, profile: IUser) => {
     const newProfile = { ...profile, role };
+    console.log(newProfile);
     updateProfile(newProfile);
   };
   const onActiveChanged = (active: string, profile: IUser) => {
@@ -149,11 +161,23 @@ const UserSection = ({ user }: { user: IUser }) => {
     }
   };
 
+  const scoreRef = useRef(null);
+  const pointRef = useRef(null);
+
+  useEffect(() => {
+    if (pointRef.current) {
+      pointRef.current.value = user.point;
+    }
+    if (scoreRef.current) {
+      scoreRef.current.value = user.score;
+    }
+  }, [user.point, user.score]);
+
   return (
     <SectionItem>
       <Item>{user.name}</Item>
       <Select
-        value={user.role}
+        defaultValue={user.role}
         onChange={(e) => onRoleChanged(e.target.value, user)}
       >
         <option value="member">M</option>
@@ -161,20 +185,22 @@ const UserSection = ({ user }: { user: IUser }) => {
       </Select>
       <Select
         onChange={(e) => onActiveChanged(e.target.value, user)}
-        value={user.isActive.toString()}
+        defaultValue={user.isActive.toString()}
       >
         <option value="true">T</option>
         <option value="false">F</option>
       </Select>
 
       <Input
-        onChange={(e) => onScoreChanged(e.target.value, user)}
-        value={user.score}
+        ref={scoreRef}
+        onBlur={(e) => onScoreChanged(e.target.value, user)}
+        defaultValue={user.score}
       />
 
       <Input
-        onChange={(e) => onPointChanged(e.target.value, user)}
-        value={user.point}
+        ref={pointRef}
+        onBlur={(e) => onPointChanged(e.target.value, user)}
+        defaultValue={user.point}
         style={{ borderRight: "none" }}
       />
     </SectionItem>

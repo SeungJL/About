@@ -2,7 +2,7 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge, Progress } from "@chakra-ui/react";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 
@@ -26,6 +26,7 @@ import {
 import { IRankScore, USER_BADGES } from "../../../types/user";
 import { useRouter } from "next/router";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
+import { useScoreMutation } from "../../../hooks/user/mutations";
 
 function UserOverview() {
   const { data: session } = useSession();
@@ -71,9 +72,15 @@ function UserOverview() {
       else setMyRank({ percent: arrangedData.percent, isRank: false });
     },
   });
+  const { mutate } = useScoreMutation();
+
+  useEffect(() => {
+    if (myPoint < 0) mutate(-myPoint);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myPoint]);
 
   const { data: monthCnt } = useParticipationRateQuery(
-    voteDate.date(1),
+    voteDate.date(0),
     voteDate.date(voteDate.daysInMonth())
   );
 
