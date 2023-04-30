@@ -28,7 +28,7 @@ export default function UserOverview() {
   const [value, setValue] = useState(null);
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
-  console.log(334, user);
+
   const { mutate: onChangeComment } = useCommentMutation();
   const { data: comments, isLoading } = useCommentQuery();
 

@@ -23,7 +23,7 @@ function LastWeekAttendPopUp({ closePopUp }) {
     dayjs().subtract(8, "day"),
     dayjs().subtract(1, "day")
   );
-  console.log(voteRate);
+  
   const { data: parRate } = useParticipationRateQuery(
     dayjs().subtract(7, "day"),
     dayjs()

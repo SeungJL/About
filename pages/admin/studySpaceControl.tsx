@@ -44,7 +44,7 @@ function StudySpaceControl() {
       status: data?.status[btnIdx],
       image: data?.image[btnIdx],
     };
-    console.log(spaceData);
+   
   };
 
   return (
