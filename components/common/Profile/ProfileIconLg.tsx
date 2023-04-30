@@ -3,8 +3,9 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
-import { AVATAR_COLOR, AVATAR_ICON } from "../../../constants/design";
+
 import UserInfoModal from "../../../modals/user/UserInfoModal";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 import { IUser } from "../../../types/user";
 
 import ModalPortal from "../../ModalPortal";
@@ -22,7 +23,6 @@ function ProfileIconLg({ user, isSmall }: { user: IUser; isSmall?: boolean }) {
     avatarBg !== null &&
     avatarBg !== undefined;
 
-  console.log(isSmall);
   return (
     <>
       <Layout

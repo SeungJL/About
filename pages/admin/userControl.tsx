@@ -1,9 +1,10 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import { useUpdateProfileMutation } from "../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
 import { IUser } from "../../types/user";
 
@@ -21,10 +22,12 @@ export default function Admin() {
     onSuccess(data) {
       const tempAdmins = [];
       const tempMembers = [];
+      console.log(2, data);
       data.forEach((user) => {
         if (user.role === "previliged") tempAdmins.push(user);
         if (user.role === "member") tempMembers.push(user);
       });
+      console.log(3, tempMembers);
       setAdmins(tempAdmins);
       setMembers(tempMembers);
       setFiltered(tempMembers);
@@ -113,12 +116,23 @@ const Section = styled.section`
 `;
 
 const UserSection = ({ user }: { user: IUser }) => {
-  const updateProfile = (profile) => {
-    axios.post("/api/admin/user", { profile });
-  };
+  const toast = useToast();
+  const { mutate: updateProfile } = useUpdateProfileMutation({
+    onSuccess() {
+      toast({
+        title: "변경 완료",
+        // description: "개인 정보 보호를 위해 게스트에게는 허용되지 않습니다.",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+  });
 
   const onRoleChanged = (role: string, profile: IUser) => {
     const newProfile = { ...profile, role };
+    console.log(newProfile);
     updateProfile(newProfile);
   };
   const onActiveChanged = (active: string, profile: IUser) => {
@@ -147,6 +161,18 @@ const UserSection = ({ user }: { user: IUser }) => {
     }
   };
 
+  const scoreRef = useRef(null);
+  const pointRef = useRef(null);
+
+  useEffect(() => {
+    if (pointRef.current) {
+      pointRef.current.value = user.point;
+    }
+    if (scoreRef.current) {
+      scoreRef.current.value = user.score;
+    }
+  }, [user.point, user.score]);
+
   return (
     <SectionItem>
       <Item>{user.name}</Item>
@@ -166,11 +192,13 @@ const UserSection = ({ user }: { user: IUser }) => {
       </Select>
 
       <Input
+        ref={scoreRef}
         onBlur={(e) => onScoreChanged(e.target.value, user)}
         defaultValue={user.score}
       />
 
       <Input
+        ref={pointRef}
         onBlur={(e) => onPointChanged(e.target.value, user)}
         defaultValue={user.point}
         style={{ borderRight: "none" }}

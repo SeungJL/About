@@ -40,6 +40,7 @@ export interface IUser extends Document {
   rest: restType;
   location: Location;
   avatar: avatarType;
+  interest?: string[];
 }
 
 export interface IAccount extends Document {
@@ -73,6 +74,7 @@ export interface IRegisterForm {
   birth: string;
   agree?: any;
   gender?: string;
+  interest?: string[];
 }
 
 export type IRole = "previliged" | "member";
