@@ -85,7 +85,7 @@ function UserOverview() {
   );
 
   const myMonthCnt = monthCnt?.find((user) => user.uid === session?.uid)?.cnt;
-
+  console.log(myMonthCnt);
   return (
     <>
       <Layout>
