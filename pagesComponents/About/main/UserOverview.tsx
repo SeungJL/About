@@ -79,6 +79,7 @@ function UserOverview() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myPoint]);
 
+  console.log(voteDate, voteDate.date(0));
   const { data: monthCnt } = useParticipationRateQuery(
     voteDate.date(0),
     voteDate.date(voteDate.daysInMonth())
