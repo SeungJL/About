@@ -25,7 +25,7 @@ import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
 
 export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
-  const [value, setValue] = useState("안녕하세요! 잘 부탁드립니다~!");
+  const [value, setValue] = useState(null);
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
   console.log(334, user);
@@ -42,7 +42,6 @@ export default function UserOverview() {
     if (!isLoading) setValue(userComment?.comment);
   }, [isLoading, userComment?.comment]);
   const toast = useToast();
-
 
   const handleWrite = () => {
     const input = inputRef.current;

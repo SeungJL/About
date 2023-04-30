@@ -72,50 +72,42 @@ function StudyRuleModal({
             </>
           ) : (
             <>
-              <RuleTitle>경고</RuleTitle>
+              <RuleTitle>스터디 벌금</RuleTitle>
               <Content>
-                <ol>
+                <ul>
                   <li>
-                    한 달에 2번 미만 참여 &rarr;<B> 횟수 당 1점</B>
+                    1시간 이상 지각 <B> -300원</B>
                   </li>
                   <li>
-                    스터디 지각 &rarr; <B> 0.5점</B>
+                    스터디 당일 불참 <B>-600원</B>
                   </li>
                   <li>
-                    당일 불참(스터디, 번개) &rarr; <B> 1점</B>
+                    스터디 당일 잠수 <B> -1000원</B>
                   </li>
-                  <li>상황에 따라 운영진의 판단하에 경고를 받을 수 있음</li>
-                </ol>
+                  <li>
+                    한 달에 2번 미만 참여 <B> -1000원 </B>(회 당)
+                  </li>
+                  <li>가입한 달에는 참여 정산 벌금 x</li>
+                  <li>보유중인 보증금은 회원탈퇴시 자동 환급</li>
+                </ul>
               </Content>
-              <RuleTitle>삭감</RuleTitle>
+              <RuleTitle>휴식 관련</RuleTitle>
               <Content>
-                <ol>
-                  <li>
-                    한 달에 3번 이상 참여 &rarr; <B>2회 당 1점</B>
-                  </li>
-                  <li>
-                    오프라인 모임 개최 &rarr;<B>1점</B>
-                  </li>
-                  <li>
-                    오프라인 모임 참여 &rarr;<B>0.5점</B>
-                  </li>
-                </ol>
+                <ul>
+                  <li>일반 휴식(6개월 기준): 최대 2달</li>
+                  <li>장기 휴식: 별도 연락</li>
+                  <li>언급한 다음 달 부터 휴식처리</li>
+                </ul>
               </Content>
 
-              <RuleTitle>휴식</RuleTitle>
+              <RuleTitle>추가 규칙</RuleTitle>
               <Content>
-                <ol>
-                  <li>일반 휴식(6개월 기준): 최대 2 달</li>
-                  <li>장기 휴식: 별도 연락</li>
-                </ol>
-              </Content>
-              <RuleTitle>벌금</RuleTitle>
-              <Content>
-                <ol>
+                <ul>
                   <li>
-                    <B>3점</B> 누적 시 <B> 벌금 3000원</B>
+                    다른 사람에게 피해를 주거나 불쾌감을 주는 행위는 강제 추방될
+                    수 있음 (마이페이지 &rarr; 불편 사항 신고)
                   </li>
-                </ol>
+                </ul>
               </Content>
             </>
           )}
@@ -184,6 +176,9 @@ const Content = styled.div`
   padding-left: 16px;
   margin-top: 3px;
   margin-bottom: 8px;
+  > ul {
+    line-height: 1.8;
+  }
 `;
 
 const B = styled.b`
