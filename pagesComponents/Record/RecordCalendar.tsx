@@ -125,8 +125,8 @@ const Circle = styled.div<{ location: Location }>`
   align-items: center;
   border: ${(props) =>
     props.location === "수원" ? `2px solid ${수원}` : `2px solid ${양천}`};
-  width: 21px;
-  height: 21px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
 `;
 
