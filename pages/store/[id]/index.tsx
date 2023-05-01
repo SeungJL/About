@@ -23,7 +23,7 @@ function StoreItem() {
   const localizedFormat = require("dayjs/plugin/localizedFormat");
   dayjs.extend(localizedFormat);
   dayjs.locale("ko");
-  console.log(1);
+  console.log(1234);
   const date = info?.date;
   return (
     <>
