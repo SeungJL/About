@@ -11,7 +11,7 @@ export const AVATAR_COLOR = [
   "#71C3FF",
 ];
 
-export const AVATAR_COST = [30, 50, 80, 100];
+export const AVATAR_COST = [30, 50, 100, 150];
 
 export const AVATAR_ICON = [
   "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png",
