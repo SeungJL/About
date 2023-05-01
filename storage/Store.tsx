@@ -1,17 +1,18 @@
 import dayjs from "dayjs";
+import { IStoreGift } from "../types/store";
 
 require("dayjs/locale/ko");
 const localizedFormat = require("dayjs/plugin/localizedFormat");
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
-export const STORE_GIFT = [
+export const STORE_GIFT: IStoreGift[] = [
   {
     image:
       "https://user-images.githubusercontent.com/84257439/235392475-04a4cdc4-74b5-45a2-8553-d7320e361390.png",
     name: "허쉬 초콜릿드링크",
     brand: "허쉬",
     point: 10,
-    win: 4,
+    winner: 4,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
   },
   {
@@ -20,7 +21,7 @@ export const STORE_GIFT = [
     name: "아메리카노",
     brand: "스타벅스",
     point: 30,
-    win: 4,
+    winner: 4,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
   },
 
@@ -30,7 +31,7 @@ export const STORE_GIFT = [
     name: "초코 브라우니",
     brand: "설빙",
     point: 50,
-    win: 2,
+    winner: 2,
     date: { startDay: dayjs("2023-05-18"), endDay: dayjs("2023-05-31") },
   },
   {
@@ -39,7 +40,7 @@ export const STORE_GIFT = [
     name: "황금올리브 치킨 세트",
     brand: "BBQ",
     point: 100,
-    win: 1,
+    winner: 1,
     date: { startDay: dayjs("2023-06-01"), endDay: dayjs("2023-06-14") },
   },
 ];

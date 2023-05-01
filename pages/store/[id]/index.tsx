@@ -61,7 +61,7 @@ function StoreItem() {
         <Detail>
           <DetailItem>
             <span>추첨인원</span>
-            <span>{info.win}명</span>
+            <span>{info?.winner}명</span>
           </DetailItem>
           <DetailItem>
             <span>응모기간</span>

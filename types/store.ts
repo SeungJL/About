@@ -5,6 +5,6 @@ export interface IStoreGift {
   name: string;
   brand: string;
   point: number;
-  win: number;
+  winner: number;
   date: { startDay: Dayjs; endDay: Dayjs };
 }
