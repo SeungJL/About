@@ -6,13 +6,15 @@ import { FullScreen } from "../../styles/layout/modal";
 import { MainLoading } from "../../components/ui/Loading";
 import { STORE_GIFT } from "../../storage/Store";
 import { useRouter } from "next/router";
+import dayjs from "dayjs";
 
-const ITEM_WIDTH = 100;
+const ITEM_WIDTH = 120;
 
 function Store() {
   const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
+
   return (
     <>
       <Header title="스토어" />
@@ -30,8 +32,10 @@ function Store() {
             />
             <Info>
               <Name>{item.name}</Name>
-              <Voter>응모 현황: ?</Voter>
-              <Date>2023.05~</Date>
+              <Date>
+                {item.date.startDay.format("M.DD")} -
+                {item.date.endDay.format("M.DD")}
+              </Date>
             </Info>
             <Point>{item.point} point</Point>
           </Item>
@@ -57,11 +61,11 @@ const Layout = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   padding: 14px;
-  gap: 8px;
+  gap: 14px;
 `;
 
 const Item = styled.div`
-  height: 210px;
+  height: 212px;
   background-color: var(--font-h7);
   display: flex;
   flex-direction: column;
@@ -73,11 +77,16 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
   align-items: center;
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Name = styled.span`
-  margin-top: 6px;
   font-weight: 600;
 `;
 
@@ -87,7 +96,7 @@ const Voter = styled.span`
 `;
 
 const Date = styled.span`
-  font-size: 12px;
+  font-size: 13px;
   color: var(--font-h2);
 `;
 

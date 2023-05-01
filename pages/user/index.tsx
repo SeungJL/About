@@ -36,6 +36,8 @@ import UserOverview from "../../pagesComponents/User/UserOverView";
 import { useMutation } from "react-query";
 import { IUser, kakaoProfileInfo } from "../../types/user";
 import axios, { AxiosError } from "axios";
+import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
+import ChargeDepositModal from "../../modals/user/ChargeDepositModal";
 
 function UserInfo() {
   const router = useRouter();
@@ -76,7 +78,7 @@ function UserInfo() {
               <span>{myWarning} 개</span>
             </button>
           </UserScoresNav>
-          <AttendChart type="main" />
+          {/* <AttendChart type="main" /> */}
           <Navigation>
             {isAdmin && (
               <div>
@@ -94,6 +96,9 @@ function UserInfo() {
                 <button onClick={() => setModalOpen("suggest")}>
                   건의하기
                 </button>
+                <button onClick={() => setModalOpen("declaration")}>
+                  불편 사항 신고
+                </button>
                 <button onClick={() => setModalOpen("rest")}>휴식 신청</button>
               </NavBlock>
             </div>
@@ -103,7 +108,9 @@ function UserInfo() {
                 <button onClick={() => setModalOpen("modify")}>
                   프로필 수정
                 </button>
-
+                <button onClick={() => setModalOpen("deposit")}>
+                  보증금 충전
+                </button>
                 <button onClick={() => signOut()}>로그아웃</button>
               </NavBlock>
             </div>
@@ -142,6 +149,16 @@ function UserInfo() {
       {modalOpen === "rest" && (
         <ModalPortal setIsModal={handleOutput}>
           <ApplyRestModal setIsModal={handleOutput} />
+        </ModalPortal>
+      )}
+      {modalOpen === "declaration" && (
+        <ModalPortal setIsModal={handleOutput}>
+          <DeclarationFormModal setIsModal={handleOutput} />
+        </ModalPortal>
+      )}
+      {modalOpen === "deposit" && (
+        <ModalPortal setIsModal={handleOutput}>
+          <ChargeDepositModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
     </>
@@ -187,7 +204,7 @@ const Navigation = styled.nav`
   border: 1px solid var(--font-h5);
   border-radius: 6px;
   overflow: hidden;
-  padding: 0px 0;
+  margin-top: 18px;
 `;
 
 const BlockName = styled.div`

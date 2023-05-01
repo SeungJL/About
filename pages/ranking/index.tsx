@@ -33,7 +33,7 @@ import { IScoreAll, USER_BADGES } from "../../types/user";
 
 function Ranking() {
   const { data: session } = useSession();
-  console.log(session);
+
   const isGuest = session && session?.user.name === "guest";
   const [userScoreList, setUserScoreList] = useState<IScoreAll[]>([]);
   const userBadge = useRecoilValue(userBadgeState);

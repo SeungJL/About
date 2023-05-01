@@ -11,7 +11,7 @@ function RecordDetail({
   totalData: IArrivedData[];
   setMyRecentAttend: Dispatch<SetStateAction<string>>;
 }) {
-  console.log(totalData);
+
   return (
     <Layout>
       {[...totalData]?.reverse().map((item, idx) => (

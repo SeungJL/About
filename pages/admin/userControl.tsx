@@ -22,12 +22,12 @@ export default function Admin() {
     onSuccess(data) {
       const tempAdmins = [];
       const tempMembers = [];
-      console.log(2, data);
+    
       data.forEach((user) => {
         if (user.role === "previliged") tempAdmins.push(user);
         if (user.role === "member") tempMembers.push(user);
       });
-      console.log(3, tempMembers);
+    
       setAdmins(tempAdmins);
       setMembers(tempMembers);
       setFiltered(tempMembers);
@@ -132,7 +132,7 @@ const UserSection = ({ user }: { user: IUser }) => {
 
   const onRoleChanged = (role: string, profile: IUser) => {
     const newProfile = { ...profile, role };
-    console.log(newProfile);
+  
     updateProfile(newProfile);
   };
   const onActiveChanged = (active: string, profile: IUser) => {
