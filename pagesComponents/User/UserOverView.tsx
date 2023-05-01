@@ -25,7 +25,7 @@ import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
 
 export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("");
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
 

@@ -27,7 +27,7 @@ function ProfileIconLg({ user, isSmall }: { user: IUser; isSmall?: boolean }) {
     <>
       <Layout
         isSmall={isSmall}
-        style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}
+        style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
       >
         <Image
           src={
