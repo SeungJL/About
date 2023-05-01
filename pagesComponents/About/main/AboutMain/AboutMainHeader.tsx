@@ -40,6 +40,7 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
     if (type === "vote") setIsShowModal(true);
     if (type === "attend") setIsAttendModal(true);
   };
+
   return (
     <>
       <Layout>
@@ -84,7 +85,7 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
       )}
       {isAttendModal && (
         <ModalPortal setIsModal={setIsAttendModal}>
-          <VoteStudyMainModal setIsShowModal={setIsShowModal} />
+          <VoteStudyMainModal setIsShowModal={setIsAttendModal} />
         </ModalPortal>
       )}
     </>
