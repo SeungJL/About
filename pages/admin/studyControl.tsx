@@ -39,7 +39,7 @@ function StudyControl() {
   const [date, setDate] = useState(dayjs());
   const { data: SUWAN } = useVoteQuery(date, "수원");
   const { data: YANG } = useVoteQuery(date, "양천");
-  console.log(SUWAN);
+  
 
   const handleStatus = (type: Status) => {
     console.log(type);

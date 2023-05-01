@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { ChangeEvent } from "react";
 
-import { TIME_SELECTOR_END, TIME_SELECTOR_START } from "../../constants/study";
-import { ITimeStartToEndHM } from "../../types/utils";
-
-const MINUTES = ["00", "30"];
+import {
+  TIME_SELECTOR_END,
+  TIME_SELECTOR_MINUTES,
+  TIME_SELECTOR_START,
+} from "../../constants/study";
+import { ITimeSelector, ITimeStartToEndHM } from "../../types/utils";
 
 const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
   return (
@@ -14,11 +16,6 @@ const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
     </Layout>
   );
 };
-
-interface ITimeSelector {
-  times: ITimeStartToEndHM;
-  setTimes: ({ start, end }: ITimeStartToEndHM) => void;
-}
 
 function TimeSelectorUnit({ type, time, setTimes }: ITimeSelectorUnit) {
   const hoursArr = type === "start" ? TIME_SELECTOR_START : TIME_SELECTOR_END;
@@ -62,7 +59,7 @@ function TimeSelectorUnit({ type, time, setTimes }: ITimeSelectorUnit) {
         placeholder="분"
         onChange={onChangeTime(false)}
       >
-        {MINUTES.map((m) => (
+        {TIME_SELECTOR_MINUTES.map((m) => (
           <Option key={m} value={m}>
             {m}
           </Option>
@@ -72,7 +69,12 @@ function TimeSelectorUnit({ type, time, setTimes }: ITimeSelectorUnit) {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 const UnitLayout = styled.div`
   display: flex;
   margin-bottom: 16px;

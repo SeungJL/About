@@ -20,13 +20,14 @@ export const STUDY_TIME_TABLE = [
 
 export const TIME_SELECTOR_START = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 export const TIME_SELECTOR_END = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+export const TIME_SELECTOR_MINUTES = ["00", "30"];
 
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
 export const SUWAN_카탈로그 = "62e5d6e0e098c232c05c3d3f";
 export const SUWAN_아티제 = "63625f1d958585371af0248b";
-export const SUWAN_할리스 = "1";
-export const SUWAN_커피빈 = "2";
+export const SUWAN_할리스 = "644f6ffe9edb56992ccda5e9";
+export const SUWAN_커피빈 = "644f70529edb56992ccda5eb";
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
@@ -37,8 +38,8 @@ export const SPACE_NAME = {
   "640c271121863deff358f459": "탐앤탐스",
   "62e5d6e0e098c232c05c3d3f": "카탈로그",
   "63625f1d958585371af0248b": "아티제",
-  "1": "할리스",
-  "2": "커피빈",
+  "644f70529edb56992ccda5eb": "할리스",
+  "644f6ffe9edb56992ccda5e9": "커피빈",
   "6437e9d7ab537b843c6143ac": "위카페",
   "6437ea69ab537b843c6143ad": "할리스",
   "6437eb3fab537b843c6143ae": "파스쿠찌",
