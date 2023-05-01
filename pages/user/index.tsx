@@ -55,7 +55,7 @@ function UserInfo() {
   const { data: warningArr } = useWarningScoreQuery();
   const myWarning = warningArr?.find(
     (who) => who.name === session?.user.name
-  ).score;
+  )?.score;
 
   return (
     <>

@@ -20,6 +20,7 @@ import { ITimeStartToEnd } from "../../types/utils";
 import { useToast } from "@chakra-ui/react";
 import { locationState } from "../../recoil/systemAtoms";
 import SpaceSelector from "../../components/utils/SpaceSelector";
+import SpaceSelectorLg from "../../components/utils/SpaceSelectorLg";
 
 interface IVoteStudySubModal {
   isModal: boolean;
@@ -147,13 +148,21 @@ function VoteStudySubModal({
             <span>추가 2지망 장소를 선택해주세요</span>
           </Header>
           <SpaceWrapper>
-            <SpaceSelector
-              spaceArr={otherPlaceArr}
-              selectSpace={secondPlace}
-              setSelectSpace={setSecondPlace}
-            />
+            {location === "수원" ? (
+              <SpaceSelectorLg
+                spaceArr={otherPlaceArr}
+                selectSpace={secondPlace}
+                setSelectSpace={setSecondPlace}
+              />
+            ) : (
+              <SpaceSelector
+                spaceArr={otherPlaceArr}
+                selectSpace={secondPlace}
+                setSelectSpace={setSecondPlace}
+              />
+            )}
           </SpaceWrapper>
-          <Comment>Study with us</Comment>
+          {location !== "수원" && <Comment>Study with us</Comment>}
           <MainButton onClick={onSubmit}>
             <span>투표 완료</span>
           </MainButton>
@@ -234,6 +243,7 @@ const MainButton = styled.button<{ func?: boolean }>`
 
 const SpaceWrapper = styled.div`
   display: flex;
+  flex: 1;
   margin-top: 16px;
   width: 100%;
 `;

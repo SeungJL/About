@@ -129,7 +129,7 @@ function VoteStudyMainModal({
     <>
       <Layout isBig={isBig} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <ModalHeaderX
-          title={voteDate.format("M월 DD일 스터디 투표")}
+          title={voteDate.format("M월 D일 스터디 투표")}
           setIsModal={setIsShowModal}
         />
         {page === 0 ? (

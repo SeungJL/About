@@ -2,20 +2,20 @@ export const AVATAR_COLOR = [
   "#E3E6EB",
   "#FF8896",
   "#FEBC5A",
-  "#71C3FF",
   "#9E7CFF",
   "#FFC1CC",
-  "#A6ABBF",
-  "#ADD8E6",
-  "#D7BCE8",
-  "#B0C4DE",
+  " #C3F1E9",
+  "#45B6AA",
+  "#FFD8E6",
+  "#FF6666",
+  "#71C3FF",
 ];
 
 export const AVATAR_COST = [30, 50, 80, 100];
 
 export const AVATAR_ICON = [
-  "https://user-images.githubusercontent.com/84257439/234467999-49cb38fe-5afb-42ca-a7e2-95ca4a173dd8.png",
-  "https://user-images.githubusercontent.com/84257439/234468068-6d415890-7671-42c6-bc87-f95c5e0722c3.png",
-  "https://user-images.githubusercontent.com/84257439/234468028-63055375-bdc6-4ddb-a4ae-ab72d13497a8.png",
-  "https://user-images.githubusercontent.com/84257439/234468077-7dfcba5a-b577-49de-9233-02d3b662f3c5.png",
+  "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png",
+  "https://user-images.githubusercontent.com/84257439/235454307-84ae13fb-99ce-478b-82a6-22c5a69e87ff.png",
+  "https://user-images.githubusercontent.com/84257439/235454304-3b3df7be-07a2-4b14-a6fa-410bc0de6249.png",
+  "https://user-images.githubusercontent.com/84257439/235454310-9189dc8d-c102-4fb6-9fc5-f2045dbb3a31.png",
 ];
