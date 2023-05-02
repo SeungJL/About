@@ -157,7 +157,7 @@ function ProfileModifyModal({ setIsModal }) {
                     message: "주민번호 앞자리",
                   },
                 })}
-                placeholder="학교 공부"
+                placeholder="Ex) 학교 공부"
               />
             </Item>
             <ErrorMessage>{errors?.interest?.message}</ErrorMessage>
@@ -171,7 +171,7 @@ function ProfileModifyModal({ setIsModal }) {
                     message: "주민번호 앞자리",
                   },
                 })}
-                placeholder="토익"
+                placeholder="Ex) 토익"
               />
             </Item>
             <ErrorMessage>{errors?.interest?.message}</ErrorMessage>

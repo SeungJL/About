@@ -165,11 +165,11 @@ function UserInfo() {
           <ChargeDepositModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
-      {/* {modalOpen === "promotion" && (
+      {modalOpen === "promotion" && (
         <ModalPortal setIsModal={handleOutput}>
           <ApplyPromotionRewardModal setIsModal={handleOutput} />
         </ModalPortal>
-      )} */}
+      )}
     </>
   );
 }

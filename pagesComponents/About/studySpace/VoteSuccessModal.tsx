@@ -18,7 +18,7 @@ function VoteSuccessModal({}) {
       <Content>
         <span>투표를 완료했어요</span>
 
-        <span>스터디 결과는 오후 11시에 확인할 수 있어요 !</span>
+        <span>스터디 결과는 오후 10시에 확인할 수 있어요 !</span>
       </Content>
       <Button onClick={onClicked}>홈으로</Button>
     </Layout>
@@ -26,9 +26,11 @@ function VoteSuccessModal({}) {
 }
 
 const Layout = styled.div`
-  width: 100vw;
+  width: 375px;
   height: 100vh;
+  left: 50%;
   top: 0;
+  transform: translate(-50%, 0);
   z-index: 2000;
   position: fixed;
   background-color: white;
