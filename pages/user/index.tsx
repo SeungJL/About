@@ -38,6 +38,7 @@ import { IUser, kakaoProfileInfo } from "../../types/user";
 import axios, { AxiosError } from "axios";
 import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
 import ChargeDepositModal from "../../modals/user/ChargeDepositModal";
+import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
 
 function UserInfo() {
   const router = useRouter();
@@ -98,6 +99,9 @@ function UserInfo() {
                 </button>
                 <button onClick={() => setModalOpen("declaration")}>
                   불편 사항 신고
+                </button>
+                <button onClick={() => setModalOpen("promotion")}>
+                  홍보 리워드 신청
                 </button>
                 <button onClick={() => setModalOpen("rest")}>휴식 신청</button>
               </NavBlock>
@@ -161,6 +165,11 @@ function UserInfo() {
           <ChargeDepositModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
+      {/* {modalOpen === "promotion" && (
+        <ModalPortal setIsModal={handleOutput}>
+          <ApplyPromotionRewardModal setIsModal={handleOutput} />
+        </ModalPortal>
+      )} */}
     </>
   );
 }
