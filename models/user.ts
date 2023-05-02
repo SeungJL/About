@@ -74,6 +74,10 @@ export const UserSchema: Schema<IUser> = new Schema({
     default: "수원",
   },
   avatar: avatarSchema,
+  deposit: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export const User =

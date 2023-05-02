@@ -41,6 +41,7 @@ export interface IUser extends Document {
   location: Location;
   avatar: avatarType;
   interest?: string[];
+  deposit: number;
 }
 
 export interface IAccount extends Document {
@@ -103,7 +104,7 @@ export type UserBadge =
   | "콜드브루"
   | "아인슈페너";
 
-export type UserBadgeColor = typeof USER_BADGES[UserBadge];
+export type UserBadgeColor = (typeof USER_BADGES)[UserBadge];
 export interface IUserBadge {
   badge: UserBadge;
   color: UserBadgeColor;
