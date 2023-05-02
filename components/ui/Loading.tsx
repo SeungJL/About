@@ -1,5 +1,5 @@
 import { Spinner } from "@chakra-ui/react";
-import { ColorRing } from "react-loader-spinner";
+
 import styled from "styled-components";
 
 export const MainLoading = () => (

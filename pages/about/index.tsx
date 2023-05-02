@@ -7,7 +7,7 @@ import safeJsonStringify from "safe-json-stringify";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
-import { ColorRing } from "react-loader-spinner";
+
 import { Spinner, useToast } from "@chakra-ui/react";
 
 import Seo from "../../components/Seo";
@@ -145,13 +145,6 @@ const Layout = styled.div``;
 const HrDiv = styled.div`
   height: 4px;
   background-color: var(--font-h6);
-`;
-
-const Loader = styled.div`
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export default About;
