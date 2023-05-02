@@ -98,7 +98,7 @@ function UserInfo() {
                   건의하기
                 </button>
                 <button onClick={() => setModalOpen("declaration")}>
-                  불편 사항 신고
+                  불편사항 신고
                 </button>
                 <button onClick={() => setModalOpen("promotion")}>
                   홍보 리워드 신청
