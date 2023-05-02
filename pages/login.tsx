@@ -34,8 +34,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { IconKakao } from "../public/icons/Icons";
-import { ColorRing } from "react-loader-spinner";
+
 import { motion } from "framer-motion";
+import { MainLoading } from "../components/ui/Loading";
 
 const Login: NextPage<{
   providers: Record<
@@ -97,17 +98,9 @@ const Login: NextPage<{
             />
           </ImageWrapper>
           {ImgLoading ? (
-            <Loader>
-              <ColorRing
-                visible={true}
-                height="40"
-                width="40"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-                colors={["#ff6b6b", "#fd7b5b", "#ffa500", "#ffeae5", "#00c2b3"]}
-              />
-            </Loader>
+           
+              <MainLoading />
+           
           ) : (
             <MainWrapper key={kakaoProvider.id}>
               <Button
@@ -259,12 +252,7 @@ const Message = styled.span`
   text-align: center;
   color: var(--color-red);
 `;
-const Loader = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders();

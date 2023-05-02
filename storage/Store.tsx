@@ -8,7 +8,7 @@ dayjs.locale("ko");
 export const STORE_GIFT: IStoreGift[] = [
   {
     image:
-      "https://user-images.githubusercontent.com/84257439/235392475-04a4cdc4-74b5-45a2-8553-d7320e361390.png",
+      "https://user-images.githubusercontent.com/84257439/235454464-078f3854-4667-42ce-a228-5a30d9c7974c.png",
     name: "허쉬 초콜릿드링크",
     brand: "허쉬",
     point: 10,
@@ -17,7 +17,7 @@ export const STORE_GIFT: IStoreGift[] = [
   },
   {
     image:
-      "https://user-images.githubusercontent.com/84257439/235392214-cb0998c6-394f-4bc1-803c-a5aee6fc323a.png",
+      "https://user-images.githubusercontent.com/84257439/235454461-dbbe68dd-4c36-458b-9f38-296f9ae5dfe2.png",
     name: "아메리카노",
     brand: "스타벅스",
     point: 30,
@@ -27,7 +27,7 @@ export const STORE_GIFT: IStoreGift[] = [
 
   {
     image:
-      "https://user-images.githubusercontent.com/84257439/235392590-2353cf44-e686-4231-8673-5de2f863be2e.png",
+      "https://user-images.githubusercontent.com/84257439/235454456-490f1cfb-41aa-4579-b993-fb8dc53d7db1.png",
     name: "초코 브라우니",
     brand: "설빙",
     point: 50,
@@ -36,7 +36,7 @@ export const STORE_GIFT: IStoreGift[] = [
   },
   {
     image:
-      "https://user-images.githubusercontent.com/84257439/235392609-baee753e-5f33-4498-8c5d-52e080116bf6.png",
+      "https://user-images.githubusercontent.com/84257439/235454460-07e32553-3be0-41f2-8e3e-801c2ecdf059.png",
     name: "황금올리브 치킨 세트",
     brand: "BBQ",
     point: 100,

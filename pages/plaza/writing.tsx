@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ColorRing } from "react-loader-spinner";
+
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";

@@ -22,6 +22,7 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
 
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const location = useRecoilValue(locationState);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
 
@@ -80,12 +81,18 @@ function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
       </Layout>
       {isShowModal && (
         <ModalPortal setIsModal={setIsShowModal}>
-          <VoteStudyMainModal setIsShowModal={setIsShowModal} />
+          <VoteStudyMainModal
+            setIsShowModal={setIsShowModal}
+            isBig={location === "수원"}
+          />
         </ModalPortal>
       )}
       {isAttendModal && (
         <ModalPortal setIsModal={setIsAttendModal}>
-          <VoteStudyMainModal setIsShowModal={setIsAttendModal} />
+          <VoteStudyMainModal
+            setIsShowModal={setIsAttendModal}
+            isBig={location === "수원"}
+          />
         </ModalPortal>
       )}
     </>

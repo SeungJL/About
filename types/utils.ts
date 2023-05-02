@@ -19,3 +19,8 @@ export interface ITimeStartToEnd {
   start?: Dayjs;
   end?: Dayjs;
 }
+
+export interface ITimeSelector {
+  times: ITimeStartToEndHM;
+  setTimes: ({ start, end }: ITimeStartToEndHM) => void;
+}

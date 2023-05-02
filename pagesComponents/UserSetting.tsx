@@ -9,7 +9,12 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { isNoticeAlertState } from "../recoil/utilityAtoms";
 import { numOfUserState } from "../recoil/userAtoms";
 
-import { NOTICE_ALERT, POP_UP, USER_GUIDE } from "../constants/localStorage";
+import {
+  ATTEND_POP_UP,
+  NOTICE_ALERT,
+  POP_UP,
+  USER_GUIDE,
+} from "../constants/localStorage";
 import { IUser } from "../types/user";
 import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
 import { locationState } from "../recoil/systemAtoms";
@@ -62,6 +67,11 @@ export default function UserSetting() {
     if (!localStorage.getItem(POP_UP)) {
       setIsSuggest(true);
       localStorage.setItem(POP_UP, "read");
+      return;
+    }
+    if (localStorage.getItem(POP_UP) && !localStorage.getItem(ATTEND_POP_UP)) {
+      setIsAttendPopup(true);
+      localStorage.setItem(ATTEND_POP_UP, "read");
     }
   }, []);
 

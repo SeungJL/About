@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import styled from "styled-components";
 
-import { ModalXs } from "../../styles/layout/modal";
+import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
 
 import {
   useParticipationRateQuery,
@@ -15,6 +15,8 @@ import {
 } from "../../hooks/user/queries";
 import { now } from "../../libs/utils/dateUtils";
 import dayjs from "dayjs";
+import { ModalHeaderXLine } from "../../components/ui/Modal";
+import Image from "next/image";
 
 function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();
@@ -23,10 +25,10 @@ function LastWeekAttendPopUp({ closePopUp }) {
     dayjs().subtract(8, "day"),
     dayjs().subtract(1, "day")
   );
-  
+
   const { data: parRate } = useParticipationRateQuery(
-    dayjs().subtract(7, "day"),
-    dayjs()
+    dayjs().subtract(8, "day"),
+    dayjs().subtract(0, "day")
   );
   const { data: warningScore } = useWarningScoreQuery();
   const { data: scores } = useScoreQuery();
@@ -39,34 +41,48 @@ function LastWeekAttendPopUp({ closePopUp }) {
   )?.score;
 
   const message =
-    voteCnt === 0
-      ? "이번 주는 열심히 참여해봐요~!"
-      : "이번 주도 알차게 보내봐요~!";
+    voteCnt === 0 ? "이번 주는 열심히 참여해봐요~!" : "이번 주도 파이팅~!";
   return (
     <Layout>
-      <Header>
-        <span>{name}님의 지난주 기록</span>
-        <FontAwesomeIcon icon={faX} onClick={() => closePopUp(true)} />
-      </Header>
-      <Main>
-        <span>
-          스터디 투표:
-          <span> {voteCnt}</span> 회
-        </span>
-        <span>
-          스터디 참여:<span> {parCnt}</span> 회
-        </span>
-        <span>
-          내 점수:<span>{score}</span> 점
-        </span>
-        <span>
-          내 경고:<span> {WarningCnt}</span> 회
-        </span>
+      <ModalHeaderXLine
+        title={`${name}님의 지난주 기록`}
+        setIsModal={closePopUp}
+      />
+      <ModalMain>
+        <Main>
+          <div>
+            <Item>
+              <span>스터디 투표</span>
+              {voteCnt} 회
+            </Item>
+            <Item>
+              <span>스터디 참여 </span>
+              {parCnt} 회
+            </Item>
+
+            <Item>
+              <span>받은 경고</span>
+              {WarningCnt} 회
+            </Item>
+          </div>
+          <ImageWrapper>
+            <div>
+              <Image
+                width={72}
+                height={72}
+                src={`${session?.user.image}`}
+                unoptimized={true}
+                alt="UserImage"
+              />
+            </div>
+          </ImageWrapper>
+        </Main>
         <Message>{message}</Message>
-      </Main>
-      <Footer>
+      </ModalMain>
+
+      <ModalFooterNav>
         <button onClick={() => closePopUp(false)}>확인</button>
-      </Footer>
+      </ModalFooterNav>
     </Layout>
   );
 }
@@ -75,38 +91,48 @@ const Layout = styled(ModalXs)`
   display: flex;
   flex-direction: column;
 `;
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  border-bottom: 1px solid var(--font-h4);
-  padding-bottom: 6px;
-  font-size: 13px;
-  font-weight: 600;
-`;
+
 const Main = styled.main`
+  width: 100%;
+  flex: 0.8;
+  display: flex;
+  > div:first-child {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+`;
+
+const ImageWrapper = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  > div:last-child {
-    text-align: center;
+  justify-content: center;
+  align-items: center;
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
   }
+`;
+
+const Item = styled.div`
   > span {
+    display: inline-block;
+    width: 90px;
+    font-weight: 600;
     font-size: 13px;
-    > span {
-      margin-left: 6px;
-      font-weight: 600;
-    }
   }
 `;
 
 const Message = styled.div`
-  font-size: 13px;
+  margin-top: auto;
+  text-align: center;
+  font-size: 14px;
   font-weight: 600;
   color: var(--font-h2);
-  border-top: 1px solid var(--font-h4);
-  padding-top: 6px;
 `;
 
 const Footer = styled.footer`

@@ -55,7 +55,7 @@ function UserInfo() {
   const { data: warningArr } = useWarningScoreQuery();
   const myWarning = warningArr?.find(
     (who) => who.name === session?.user.name
-  ).score;
+  )?.score;
 
   return (
     <>
@@ -70,12 +70,12 @@ function UserInfo() {
           <UserOverview />
           <UserScoresNav>
             <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
-              <span>내 점수</span>
-              <span>{data ? data?.point : 0} 점</span>
+              <span>보유 포인트</span>
+              <span>{data ? data?.point : 0} point</span>
             </button>
             <button onClick={() => router.push(`/user/${session.uid}/warning`)}>
-              <span>받은 경고</span>
-              <span>{myWarning} 개</span>
+              <span>보유 보증금</span>
+              <span>2000 원</span>
             </button>
           </UserScoresNav>
           {/* <AttendChart type="main" /> */}

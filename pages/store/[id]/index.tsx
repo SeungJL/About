@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Collapse, useDisclosure } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -23,6 +23,8 @@ function StoreItem() {
   const localizedFormat = require("dayjs/plugin/localizedFormat");
   dayjs.extend(localizedFormat);
   dayjs.locale("ko");
+
+  const { isOpen, onToggle } = useDisclosure();
 
   const date = info?.date;
   return (
@@ -50,7 +52,7 @@ function StoreItem() {
             현재 참여 인원은 <b>0명</b> 입니다.
           </span>
           <div>
-            <Button size="lg" width="50%">
+            <Button size="lg" width="50%" onClick={onToggle}>
               참여현황
             </Button>
             <Button size="lg" width="50%" onClick={() => setIsModal(true)}>
@@ -58,6 +60,19 @@ function StoreItem() {
             </Button>
           </div>
         </Nav>
+        <Collapse in={isOpen} animateOpacity>
+          <Box
+            fontSize="13px"
+            p="10px"
+            mt="4"
+            bg="gray.100"
+            rounded="md"
+            shadow="md"
+            color="var(--font-h3)"
+          >
+            참여 인원 없음
+          </Box>
+        </Collapse>
         <Detail>
           <DetailItem>
             <span>추첨인원</span>

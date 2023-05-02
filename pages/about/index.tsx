@@ -7,8 +7,8 @@ import safeJsonStringify from "safe-json-stringify";
 import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
-import { ColorRing } from "react-loader-spinner";
-import { useToast } from "@chakra-ui/react";
+
+import { Spinner, useToast } from "@chakra-ui/react";
 
 import Seo from "../../components/Seo";
 import AboutMain from "../../pagesComponents/About/main/AboutMain";
@@ -31,6 +31,7 @@ import dayjs from "dayjs";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
 import { useScoreAllQuery } from "../../hooks/user/queries";
+import { MainLoading } from "../../components/ui/Loading";
 
 function About() {
   const toast = useToast();
@@ -103,23 +104,13 @@ function About() {
       acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
     0
   );
- 
+
   return (
     <>
       <Seo title="About" />
       <UserSetting />
       {!voteDate || isLoading ? (
-        <Loader>
-          <ColorRing
-            visible={true}
-            height="40"
-            width="40"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={["#ff6b6b", "#fd7b5b", "#ffa500", "#ffeae5", "#00c2b3"]}
-          />
-        </Loader>
+        <MainLoading />
       ) : (
         <>
           <Layout>
@@ -154,13 +145,6 @@ const Layout = styled.div``;
 const HrDiv = styled.div`
   height: 4px;
   background-color: var(--font-h6);
-`;
-
-const Loader = styled.div`
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export default About;
