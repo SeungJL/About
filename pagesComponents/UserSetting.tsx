@@ -64,6 +64,7 @@ export default function UserSetting() {
   }, [session, isActive, isActiveLoading]);
 
   useEffect(() => {
+    if (isGuest) return;
     if (!localStorage.getItem(POP_UP)) {
       setIsSuggest(true);
       localStorage.setItem(POP_UP, "read");
