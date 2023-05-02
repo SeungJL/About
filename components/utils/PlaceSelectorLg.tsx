@@ -53,7 +53,7 @@ function PlaceSelectorLg({
           firstPlace.some((place) => place.placeName === info.placeName);
 
         const place = info?.placeName;
-        console.log(info);
+
         return (
           <PlaceItem
             key={idx}
@@ -80,7 +80,7 @@ function PlaceSelectorLg({
 }
 
 const Layout = styled.div`
-  margin-top: 8px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
