@@ -53,6 +53,7 @@ function PlaceSelectorLg({
           firstPlace.some((place) => place.placeName === info.placeName);
 
         const place = info?.placeName;
+        console.log(info);
         return (
           <PlaceItem
             key={idx}
@@ -82,16 +83,20 @@ const Layout = styled.div`
   margin-top: 8px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 14px;
 `;
 const PlaceItem = styled.button<{
   isSelected: boolean;
   firstSelected: boolean;
 }>`
+  box-shadow: ${(props) =>
+    props.isSelected || props.firstSelected
+      ? "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1)" // 추천하는 box shadow 스타일입니다.
+      : "none"};
   display: flex;
   align-items: center;
   border: 1px solid var(--font-h4);
-  padding: 0 4px;
+  padding: 0 6px;
   border: ${(props) =>
     props.firstSelected
       ? "2px solid var(--color-red)"
@@ -108,7 +113,7 @@ const PlaceItem = styled.button<{
 `;
 const PlaceIcon = styled.div`
   margin: 5px 0;
-  margin-right: 12px;
+  margin-right: 14px;
   border-radius: 25%;
   overflow: hidden;
   display: flex;
