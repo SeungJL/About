@@ -78,7 +78,7 @@ function UserInfo() {
             </button>
             <button onClick={() => router.push(`/user/${session.uid}/warning`)}>
               <span>보유 보증금</span>
-              {/* <span>{myDeposit ? myDeposit?.deposit : 3000} 원</span> */}
+              <span>{myDeposit ? myDeposit?.deposit : 3000} 원</span>
             </button>
           </UserScoresNav>
           {/* <AttendChart type="main" /> */}
