@@ -12,7 +12,8 @@ import { useMutation } from "react-query";
 import styled from "styled-components";
 
 import { useAvatarMutation } from "../../hooks/user/mutations";
-import { useAvatarQuery, useScoreQuery } from "../../hooks/user/queries";
+import { usePointQuery } from "../../hooks/user/pointSystem/queries";
+import { useAvatarQuery } from "../../hooks/user/queries";
 import { AVATAR_COLOR, AVATAR_COST, AVATAR_ICON } from "../../storage/Avatar";
 import { ModalHeaderLine, ModalLg, ModalXs } from "../../styles/layout/modal";
 import { IUser, kakaoProfileInfo } from "../../types/user";
@@ -27,7 +28,7 @@ function ChangeProfileImageModal({
   const [iconIdx, setIconIdx] = useState(0);
   const [back, setBack] = useState(false);
   const [BG, setBG] = useState(0);
-  const { data: score } = useScoreQuery();
+  const { data: score } = usePointQuery();
 
   const { mutate } = useAvatarMutation();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<

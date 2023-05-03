@@ -9,8 +9,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import CommentBox from "../../components/common/CommentBox";
 import { InputSm } from "../../components/ui/Input";
+import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 
-import { useScoreMutation } from "../../hooks/user/mutations";
 import { useArrivedMutation } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
@@ -46,7 +46,7 @@ function CheckStudyModal({
   const myPlace = data?.participations.find(
     (par) => par === mySpaceFixed
   )?.place;
-  const { mutate: getScore } = useScoreMutation();
+  const { mutate: getScore } = usePointMutation();
   const { data: session } = useSession();
 
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {

@@ -28,7 +28,7 @@ import { User } from "../../models/user";
 
 import { Attendence } from "../../models/attendence";
 import ApplyRestModal from "../../modals/user/ApplyRestModal";
-import { useScoreQuery, useWarningScoreQuery } from "../../hooks/user/queries";
+
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
 import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
@@ -39,6 +39,10 @@ import axios, { AxiosError } from "axios";
 import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
 import ChargeDepositModal from "../../modals/user/ChargeDepositModal";
 import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
+import {
+  usePointQuery,
+  useScoreAllQuery,
+} from "../../hooks/user/pointSystem/queries";
 
 function UserInfo() {
   const router = useRouter();
@@ -52,8 +56,8 @@ function UserInfo() {
       setModalOpen("");
     }
   };
-  const { data } = useScoreQuery();
-  const { data: warningArr } = useWarningScoreQuery();
+  const { data } = usePointQuery();
+  const { data: warningArr } = useScoreAllQuery();
   const myWarning = warningArr?.find(
     (who) => who.name === session?.user.name
   )?.score;

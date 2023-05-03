@@ -13,7 +13,7 @@ import ChangeStudyTimeModal from "../../../modals/study/ChangeStudyTimeModal";
 import VoteStudySubModal from "../../../modals/study/VoteStudySubModal";
 
 import { useQueryClient } from "react-query";
-import { useScoreMutation } from "../../../hooks/user/mutations";
+
 import { useAbsentMutation } from "../../../hooks/vote/mutations";
 import { useRecoilValue } from "recoil";
 import {
@@ -28,6 +28,7 @@ import { IAttendence, IPlace } from "../../../types/studyDetails";
 import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { useSession } from "next-auth/react";
 import VoteSuccessModal from "./VoteSuccessModal";
+import { usePointMutation } from "../../../hooks/user/pointSystem/mutation";
 
 function StudySpaceNavigation({
   myVote,
@@ -56,7 +57,7 @@ function StudySpaceNavigation({
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isVoteComplete, setIsVoteComplete] = useState(false);
 
-  const { mutate: getScore } = useScoreMutation();
+  const { mutate: getScore } = usePointMutation();
 
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {

@@ -4,7 +4,7 @@ import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import CountNum from "../../components/utils/CountNum";
-import { useScoreQuery } from "../../hooks/user/queries";
+
 import {
   ModalHeaderLine,
   ModalLg,

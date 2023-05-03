@@ -8,15 +8,16 @@ import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
 
 import {
   useParticipationRateQuery,
-  useScoreAllQuery,
-  useScoreQuery,
   useVoteRateQuery,
-  useWarningScoreQuery,
 } from "../../hooks/user/queries";
 import { now } from "../../libs/utils/dateUtils";
 import dayjs from "dayjs";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import Image from "next/image";
+import {
+  usePointQuery,
+  useScoreAllQuery,
+} from "../../hooks/user/pointSystem/queries";
 
 function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();
@@ -30,8 +31,8 @@ function LastWeekAttendPopUp({ closePopUp }) {
     dayjs().subtract(8, "day"),
     dayjs().subtract(0, "day")
   );
-  const { data: warningScore } = useWarningScoreQuery();
-  const { data: scores } = useScoreQuery();
+  const { data: warningScore } = useScoreAllQuery();
+  const { data: scores } = usePointQuery();
 
   const voteCnt = voteRate?.find((who) => who.uid === session?.uid)?.cnt;
   const parCnt = parRate?.find((who) => who.uid === session?.uid)?.cnt;

@@ -1,6 +1,6 @@
 import axios, { Axios, AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
-import { IAvatar, IUserComment, IWarningScore } from "../../types/user";
+import { IAvatar, IUserComment } from "../../types/user";
 import { IApplyRest } from "../../types/userAction";
 
 export const useActiveMutation = (
@@ -23,40 +23,6 @@ export const useCommentMutation = (
     await axios.post("/api/user/comment", {
       comment: comments.comment,
       _id: comments._id,
-    });
-  }, options);
-
-export const useWarningScoreMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, IWarningScore>,
-    "mutationKey" | "mutationFn"
-  >
-) =>
-  useMutation<void, AxiosError, IWarningScore>(async (data) => {
-    await axios.post("/api/user/score", data);
-  }, options);
-
-export const useScoreMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, number>,
-    "mutationKey" | "mutationFn"
-  >
-) =>
-  useMutation<void, AxiosError, number>(async (cnt) => {
-    await axios.post("/api/user/point", {
-      point: cnt,
-    });
-  }, options);
-
-export const useDepositMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, number>,
-    "mutationKey" | "mutationFn"
-  >
-) =>
-  useMutation<void, AxiosError, number>(async (cnt) => {
-    await axios.post("/api/user/deposit", {
-      point: cnt,
     });
   }, options);
 

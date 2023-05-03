@@ -8,13 +8,14 @@ import UserInfoGroup from "./UserInfo/UserInfoGroup";
 import UserInfoBadge from "./UserInfo/UserInfoBadge";
 import AttendChart from "../../components/utils/AttendChart";
 
-import { useCommentQuery, useScoreAllQuery } from "../../hooks/user/queries";
+import { useCommentQuery } from "../../hooks/user/queries";
 import { userBadgeScore } from "../../libs/utils/userUtils";
 import { birthToAge } from "../../libs/utils/membersUtil";
 
 import { IUser, USER_BADGES } from "../../types/user";
 import { motion } from "framer-motion";
 import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
+import { usePointAllQuery } from "../../hooks/user/pointSystem/queries";
 
 function UserInfoModal({
   user,
@@ -28,7 +29,7 @@ function UserInfoModal({
 
   const comment = comments?.comments.find((att) => att._id === user._id);
 
-  const { data } = useScoreAllQuery();
+  const { data } = usePointAllQuery();
 
   const userScore = data?.find((who) => who.uid === user.uid).point;
 

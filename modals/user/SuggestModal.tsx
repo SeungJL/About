@@ -18,8 +18,9 @@ import {
 import { ModalFooterNav, ModalMain, ModalLg } from "../../styles/layout/modal";
 
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
-import { useScoreMutation } from "../../hooks/user/mutations";
+
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 
 function SuggestModal({
   setIsModal,
@@ -35,7 +36,7 @@ function SuggestModal({
   } = useForm();
 
   const { mutate: suggestForm } = usePlazaMutation();
-  const { mutate: getScores } = useScoreMutation();
+  const { mutate: getScores } = usePointMutation();
 
   const onValid = (data) => {
     const suggestInfo = {

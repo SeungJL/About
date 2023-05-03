@@ -18,10 +18,7 @@ import {
   mySpaceFixedState,
   studyStartTimeState,
 } from "../../recoil/studyAtoms";
-import {
-  useScoreMutation,
-  useWarningScoreMutation,
-} from "../../hooks/user/mutations";
+
 import {
   useAbsentMutation,
   useAbsentStudyMutation,
@@ -38,6 +35,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { SearchIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../hooks/user/pointSystem/mutation";
 
 function AbsentStudyModal({ setIsModal }) {
   const toast = useToast();
@@ -51,12 +52,12 @@ function AbsentStudyModal({ setIsModal }) {
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
 
-  const { mutate: getScore } = useScoreMutation({
+  const { mutate: getScore } = usePointMutation({
     onError(error) {
       console.error(error);
     },
   });
-  const { mutate: getWaring } = useWarningScoreMutation({
+  const { mutate: getWaring } = useScoreMutation({
     onError(error) {
       console.error(error);
     },
@@ -66,7 +67,7 @@ function AbsentStudyModal({ setIsModal }) {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
       if (value !== "") {
-        getWaring({ score: 1, message: "스터디 당일 불참" });
+        getWaring({ score: 1 });
         if (dayjs() > studyStartTime) getScore(-10);
       }
       setisVoting(false);

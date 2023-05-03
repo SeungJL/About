@@ -17,7 +17,7 @@ import { ModalHeaderX } from "../../components/ui/Modal";
 
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { useAttendMutation } from "../../hooks/vote/mutations";
-import { useScoreMutation } from "../../hooks/user/mutations";
+
 import { isVotingState, voteDateState } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/systemAtoms";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
@@ -29,6 +29,7 @@ import { IVoteInfo } from "../../types/studyDetails";
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import TimeSelectorLg from "../../components/utils/TimeSelectorLg";
+import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 
 function VoteStudyMainModal({
   setIsShowModal,
@@ -61,7 +62,7 @@ function VoteStudyMainModal({
     },
   });
 
-  const { mutate: getScore } = useScoreMutation();
+  const { mutate: getScore } = usePointMutation();
 
   const participations = arrangeSpace(vote?.participations);
 

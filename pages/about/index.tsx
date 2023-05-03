@@ -8,11 +8,11 @@ import dbConnect from "../../libs/dbConnect";
 import { isMember } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
 
-import { Spinner, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 import Seo from "../../components/Seo";
 import AboutMain from "../../pagesComponents/About/main/AboutMain";
-import EventBanner from "../../pagesComponents/About/main/EventBanner";
+
 import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
@@ -20,17 +20,17 @@ import AboutMainHeader from "../../pagesComponents/About/main/AboutMain/AboutMai
 import AboutTitle from "../../pagesComponents/About/main/AboutMain/AboutMainTitle";
 import UserSetting from "../../pagesComponents/UserSetting";
 
-import { useArrivedDataQuery, useVoteQuery } from "../../hooks/vote/queries";
+import { useVoteQuery } from "../../hooks/vote/queries";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
-import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
+import { locationState } from "../../recoil/systemAtoms";
 import dayjs from "dayjs";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
-import { useScoreAllQuery } from "../../hooks/user/queries";
+
 import { MainLoading } from "../../components/ui/Loading";
 
 function About() {
@@ -113,6 +113,7 @@ function About() {
         <>
           <Layout>
             <Header />
+
             <UserOverview />
             <HrDiv />
 

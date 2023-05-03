@@ -15,14 +15,7 @@ import {
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
 import { IVoteRate } from "../../types/studyRecord";
-import {
-  IAvatar,
-  IScore,
-  IScoreAll,
-  IUser,
-  IUserComment,
-  IWarningAll,
-} from "../../types/user";
+import { IAvatar, IUser, IUserComment } from "../../types/user";
 import { IDateStartToEnd } from "../../types/utils";
 
 export const useUserInfoQuery = (
@@ -146,52 +139,6 @@ export const useCommentQuery = (
     USER_COMMENT,
     async () => {
       const res = await axios.get<IComment>(`/api/user/comment`);
-      return res.data;
-    },
-    options
-  );
-
-export const useWarningScoreQuery = (
-  options?: Omit<
-    UseQueryOptions<IWarningAll[], AxiosError, IWarningAll[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IWarningAll[], AxiosError, IWarningAll[]>(
-    "warningScore",
-    async () => {
-      const res = await axios.get<IWarningAll[]>("/api/user/score");
-      return res.data;
-    },
-    options
-  );
-
-export const useScoreQuery = (
-  options?: Omit<
-    UseQueryOptions<IScore, AxiosError, IScore>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IScore, AxiosError, IScore>(
-    "score",
-    async () => {
-      const res = await axios.get<IScore>("/api/user/point");
-      return res.data;
-    },
-    options
-  );
-
-export const useScoreAllQuery = (
-  options?: Omit<
-    UseQueryOptions<any, AxiosError, IScoreAll[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IScoreAll[], AxiosError, IScoreAll[]>(
-    "scoreAll",
-    async () => {
-      const res = await axios.get<IScoreAll[]>("/api/user/point/all");
-
       return res.data;
     },
     options

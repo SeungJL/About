@@ -10,7 +10,7 @@ import TimeRullet from "../../components/utils/TimeRullet";
 import { useRecoilValue } from "recoil";
 import { isVotingState } from "../../recoil/studyAtoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
-import { useScoreMutation } from "../../hooks/user/mutations";
+
 import { useAttendMutation } from "../../hooks/vote/mutations";
 
 import { START_HOUR } from "../../constants/study";
@@ -21,6 +21,7 @@ import { useToast } from "@chakra-ui/react";
 import { locationState } from "../../recoil/systemAtoms";
 import SpaceSelector from "../../components/utils/SpaceSelector";
 import SpaceSelectorLg from "../../components/utils/SpaceSelectorLg";
+import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 
 interface IVoteStudySubModal {
   isModal: boolean;
@@ -50,7 +51,7 @@ function VoteStudySubModal({
   });
 
   const { data } = useVoteQuery(voteDate, location);
-  const { mutate: getScore } = useScoreMutation();
+  const { mutate: getScore } = usePointMutation();
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);

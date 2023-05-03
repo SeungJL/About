@@ -19,32 +19,33 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import {
-  useScoreAllQuery,
-  useScoreQuery,
-  useVoteRateQuery,
-} from "../../hooks/user/queries";
+  usePointAllQuery,
+  usePointQuery,
+} from "../../hooks/user/pointSystem/queries";
+import { useVoteRateQuery } from "../../hooks/user/queries";
 import {
   myScoreRank,
   SortUserScore,
   userBadgeScore,
 } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
-import { IScoreAll, USER_BADGES } from "../../types/user";
+import { USER_BADGES } from "../../types/user";
+import { IPointAll } from "../../types/user/scoreSystem";
 
 function Ranking() {
   const { data: session } = useSession();
 
   const isGuest = session && session?.user.name === "guest";
-  const [userScoreList, setUserScoreList] = useState<IScoreAll[]>([]);
+  const [userScoreList, setUserScoreList] = useState<IPointAll[]>([]);
   const userBadge = useRecoilValue(userBadgeState);
   const [myRank, setMyRank] = useState<{ isRank; myRank; percent }>();
-  const { data } = useScoreQuery({
+  const { data } = usePointQuery({
     enabled: isGuest === false,
   });
 
   const myPoint = data?.point | 0;
 
-  useScoreAllQuery({
+  usePointAllQuery({
     enabled: true,
     onSuccess(data) {
       const { scoreArr, myRank, percent, isRank } = SortUserScore(

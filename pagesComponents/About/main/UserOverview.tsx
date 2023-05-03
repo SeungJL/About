@@ -10,11 +10,7 @@ import ModalPortal from "../../../components/ModalPortal";
 import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
 
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  useParticipationRateQuery,
-  useScoreAllQuery,
-  useScoreQuery,
-} from "../../../hooks/user/queries";
+import { useParticipationRateQuery } from "../../../hooks/user/queries";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { userBadgeState } from "../../../recoil/userAtoms";
 import {
@@ -26,7 +22,12 @@ import {
 import { IRankScore, USER_BADGES } from "../../../types/user";
 import { useRouter } from "next/router";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
-import { useScoreMutation } from "../../../hooks/user/mutations";
+
+import {
+  usePointAllQuery,
+  usePointQuery,
+} from "../../../hooks/user/pointSystem/queries";
+import { usePointMutation } from "../../../hooks/user/pointSystem/mutation";
 
 function UserOverview() {
   const { data: session } = useSession();
@@ -45,7 +46,7 @@ function UserOverview() {
     nextPoint: 30,
   });
 
-  const { data } = useScoreQuery({
+  const { data } = usePointQuery({
     enabled: !isGuest,
     onSuccess(data) {
       const { badge, badgePoint, nextBadge, gap, nextPoint } = userBadgeScore(
@@ -63,7 +64,7 @@ function UserOverview() {
 
   const myPoint = data?.point;
 
-  useScoreAllQuery({
+  usePointAllQuery({
     enabled: !isGuest,
     onSuccess(data) {
       const arrangedData = SortUserScore(data, myPoint);
@@ -72,14 +73,13 @@ function UserOverview() {
       else setMyRank({ percent: arrangedData.percent, isRank: false });
     },
   });
-  const { mutate } = useScoreMutation();
+  const { mutate } = usePointMutation();
 
   useEffect(() => {
     if (myPoint < 0) mutate(-myPoint);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myPoint]);
 
-  
   const { data: monthCnt } = useParticipationRateQuery(
     voteDate.date(0),
     voteDate.date(voteDate.daysInMonth())

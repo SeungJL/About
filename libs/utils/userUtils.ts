@@ -1,10 +1,5 @@
-import {
-  IRankScore,
-  IScore,
-  IScoreAll,
-  IUserBadge,
-  UserBadge,
-} from "../../types/user";
+import { IRankScore, IUserBadge, UserBadge } from "../../types/user";
+import { IPoint, IPointAll } from "../../types/user/scoreSystem";
 
 export const userBadgeScore = (score) => {
   let badge: UserBadge = "아메리카노";
@@ -55,13 +50,13 @@ export const userBadgeScore = (score) => {
   return { badge, badgePoint, nextBadge, gap, nextPoint };
 };
 
-const compare = (a: IScore, b: IScore) => {
+const compare = (a: IPoint, b: IPoint) => {
   if (a.point > b.point) return -1;
   else if (a.point < b.point) return 1;
   return 0;
 };
 
-export const myScoreRank = (scoreArr: IScoreAll[], myScore: number) => {
+export const myScoreRank = (scoreArr: IPointAll[], myScore: number) => {
   let highCnt = 0;
   const total = scoreArr.length;
   scoreArr.forEach((user) => {
@@ -77,7 +72,7 @@ export const myScoreRank = (scoreArr: IScoreAll[], myScore: number) => {
 };
 
 export const SortUserScore = (
-  scoreArr: IScoreAll[],
+  scoreArr: IPointAll[],
   myScore: number
 ): IRankScore => {
   scoreArr.sort(compare);

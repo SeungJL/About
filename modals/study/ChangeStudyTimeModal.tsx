@@ -15,9 +15,9 @@ import TimeSelector from "../../components/utils/TimeSelector";
 import { useRecoilValue } from "recoil";
 import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
 import { useChangeTimeMutation } from "../../hooks/vote/mutations";
-import { useScoreMutation } from "../../hooks/user/mutations";
 
 import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
+import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 
 function ChangeStudyTimeModal({
   setIsChangeStudyTimeModal,
@@ -31,7 +31,7 @@ function ChangeStudyTimeModal({
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
 
-  const { mutate: getScores } = useScoreMutation();
+  const { mutate: getScores } = usePointMutation();
 
   const startTime = dayjs(myVoteTime?.start);
   const endTime = dayjs(myVoteTime?.end);

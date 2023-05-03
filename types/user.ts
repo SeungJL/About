@@ -1,5 +1,6 @@
 import { Document } from "mongoose";
 import { Location } from "./system";
+import { IPointAll } from "./user/scoreSystem";
 
 export interface kakaoProfileInfo {
   name: string;
@@ -57,16 +58,6 @@ export interface IAccount extends Document {
   userId: IUser | string;
 }
 
-export interface IScore {
-  point: number;
-  _id?: string;
-}
-
-export interface IScoreAll extends IScore {
-  uid: string;
-  name: string;
-}
-
 export interface IRegisterForm {
   registerDate: string;
   location?: string;
@@ -104,28 +95,17 @@ export type UserBadge =
   | "콜드브루"
   | "아인슈페너";
 
-export type UserBadgeColor = (typeof USER_BADGES)[UserBadge];
+export type UserBadgeColor = typeof USER_BADGES[UserBadge];
 export interface IUserBadge {
   badge: UserBadge;
   color: UserBadgeColor;
-}
-
-export interface IWarningAll {
-  name?: string;
-  score: number;
-  _id: string;
-}
-
-export interface IWarningScore {
-  score: number;
-  message?: string;
 }
 
 export interface IRankScore {
   isRank: boolean;
   myRank?: number;
   percent?: boolean;
-  scoreArr?: IScoreAll[];
+  scoreArr?: IPointAll[];
 }
 
 export interface IAvatar {
