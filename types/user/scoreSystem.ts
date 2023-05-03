@@ -18,3 +18,7 @@ export interface IPointAll extends IPoint {
   uid: string;
   name: string;
 }
+
+export interface IDeposit {
+  deposit: number;
+}

@@ -1,6 +1,11 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import { IPoint, IPointAll, IScore } from "../../../types/user/scoreSystem";
+import {
+  IDeposit,
+  IPoint,
+  IPointAll,
+  IScore,
+} from "../../../types/user/scoreSystem";
 
 export const useScoreQuery = (
   options?: Omit<
@@ -49,7 +54,7 @@ export const usePointQuery = (
 
 export const usePointAllQuery = (
   options?: Omit<
-    UseQueryOptions<any, AxiosError, IPointAll[]>,
+    UseQueryOptions<IPointAll[], AxiosError, IPointAll[]>,
     "queryKey" | "queryFn"
   >
 ) =>
@@ -64,12 +69,15 @@ export const usePointAllQuery = (
   );
 
 export const useDepositQuery = (
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IDeposit, AxiosError, IDeposit>,
+    "queryKey" | "queryFn"
+  >
 ) =>
-  useQuery<any, AxiosError, any>(
+  useQuery<IDeposit, AxiosError, IDeposit>(
     "deposit",
     async () => {
-      const res = await axios.get<IPoint>("/api/user/deposit");
+      const res = await axios.get<IDeposit>("/api/user/deposit");
       return res.data;
     },
     options

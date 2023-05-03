@@ -9,7 +9,10 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import CommentBox from "../../components/common/CommentBox";
 import { InputSm } from "../../components/ui/Input";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../hooks/user/pointSystem/mutation";
 
 import { useArrivedMutation } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
@@ -46,13 +49,17 @@ function CheckStudyModal({
   const myPlace = data?.participations.find(
     (par) => par === mySpaceFixed
   )?.place;
-  const { mutate: getScore } = usePointMutation();
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getScore } = useScoreMutation();
   const { data: session } = useSession();
 
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
-      if (!isChecking && voteDate > dayjs().subtract(1, "day")) getScore(5);
+      if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
+        getScore(5);
+        getPoint(5);
+      }
     },
     onError: (err) => {
       toast({

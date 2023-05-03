@@ -5,12 +5,7 @@ import { useQueryClient } from "react-query";
 import { motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 
-import {
-  ModalFooterNav,
-  ModalMain,
-  ModalMd,
-  ModalSubtitle,
-} from "../../styles/layout/modal";
+import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 import TimeSelector from "../../components/utils/TimeSelector";
 
 import { ModalHeaderX } from "../../components/ui/Modal";
@@ -18,7 +13,11 @@ import { ModalHeaderX } from "../../components/ui/Modal";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { useAttendMutation } from "../../hooks/vote/mutations";
 
-import { isVotingState, voteDateState } from "../../recoil/studyAtoms";
+import {
+  isVotingState,
+  studyDateState,
+  voteDateState,
+} from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/systemAtoms";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { VOTE_GET } from "../../libs/queryKeys";
@@ -29,7 +28,10 @@ import { IVoteInfo } from "../../types/studyDetails";
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import TimeSelectorLg from "../../components/utils/TimeSelectorLg";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../hooks/user/pointSystem/mutation";
 
 function VoteStudyMainModal({
   setIsShowModal,
@@ -42,6 +44,7 @@ function VoteStudyMainModal({
   const location = useRecoilValue(locationState);
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
+  const studyDate = useRecoilValue(studyDateState);
 
   const toast = useToast();
   const queryClient = useQueryClient();
@@ -62,7 +65,8 @@ function VoteStudyMainModal({
     },
   });
 
-  const { mutate: getScore } = usePointMutation();
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getScore } = useScoreMutation();
 
   const participations = arrangeSpace(vote?.participations);
 
@@ -94,7 +98,16 @@ function VoteStudyMainModal({
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      !isVoting && getScore(5);
+      if (!isVoting) {
+        if (studyDate === "today") {
+          getScore(2);
+          getPoint(2);
+        }
+        if (studyDate === "not passed") {
+          getScore(5);
+          getPoint(5);
+        }
+      }
       setIsComplete(true);
     },
   });
@@ -249,16 +262,6 @@ const TimeWrapper = styled.div`
     display: inline-block;
     margin-bottom: 8px;
   }
-`;
-
-const StudyMessage = styled.div`
-  font-size: 18px;
-  color: var(--font-h2);
-  font-weight: 600;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Error = styled.span`

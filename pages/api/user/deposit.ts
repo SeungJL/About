@@ -27,7 +27,7 @@ export default async function handler(
     case "GET":
       const deposit = await User.findOne({ uid: token.uid }, "-_id deposit");
 
-      res.status(200).json({ deposit });
+      res.status(200).json(deposit);
       break;
 
     case "POST": {

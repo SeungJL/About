@@ -8,7 +8,7 @@ import { useQueryClient } from "react-query";
 import TimeRullet from "../../components/utils/TimeRullet";
 
 import { useRecoilValue } from "recoil";
-import { isVotingState } from "../../recoil/studyAtoms";
+import { isVotingState, studyDateState } from "../../recoil/studyAtoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
 
 import { useAttendMutation } from "../../hooks/vote/mutations";
@@ -21,7 +21,10 @@ import { useToast } from "@chakra-ui/react";
 import { locationState } from "../../recoil/systemAtoms";
 import SpaceSelector from "../../components/utils/SpaceSelector";
 import SpaceSelectorLg from "../../components/utils/SpaceSelectorLg";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../hooks/user/pointSystem/mutation";
 
 interface IVoteStudySubModal {
   isModal: boolean;
@@ -41,6 +44,7 @@ function VoteStudySubModal({
   const queryClient = useQueryClient();
   const toast = useToast();
   const location = useRecoilValue(locationState);
+  const studyDate = useRecoilValue(studyDateState);
 
   const isVoting = useRecoilValue(isVotingState);
   const [isFirst, setIsFirst] = useState(true);
@@ -51,11 +55,21 @@ function VoteStudySubModal({
   });
 
   const { data } = useVoteQuery(voteDate, location);
-  const { mutate: getScore } = usePointMutation();
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getScore } = useScoreMutation();
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      !isVoting && getScore(5);
+      if (!isVoting) {
+        if (studyDate === "today") {
+          getScore(2);
+          getPoint(2);
+        }
+        if (studyDate === "not passed") {
+          getScore(5);
+          getPoint(5);
+        }
+      }
       setIsVoteComplete(true);
     },
   });

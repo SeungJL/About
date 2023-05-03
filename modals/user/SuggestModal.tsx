@@ -20,7 +20,10 @@ import { ModalFooterNav, ModalMain, ModalLg } from "../../styles/layout/modal";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
 
 import { ModalHeaderXLine } from "../../components/ui/Modal";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../hooks/user/pointSystem/mutation";
 
 function SuggestModal({
   setIsModal,
@@ -36,7 +39,8 @@ function SuggestModal({
   } = useForm();
 
   const { mutate: suggestForm } = usePlazaMutation();
-  const { mutate: getScores } = usePointMutation();
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getScores } = useScoreMutation();
 
   const onValid = (data) => {
     const suggestInfo = {
@@ -46,7 +50,8 @@ function SuggestModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    getScores(5);
+    getScores(3);
+    getPoint(3);
     suggestForm(suggestInfo);
     setIsModal(false);
   };

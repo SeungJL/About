@@ -10,17 +10,22 @@ import {
 } from "../../styles/layout/modal";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { Button } from "@chakra-ui/react";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../hooks/user/pointSystem/mutation";
 
 function ApplyPromotionRewardModal({
   setIsModal,
 }: {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
-  const { mutate } = usePointMutation();
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getScore } = useScoreMutation();
 
   const onComplete = () => {
-    mutate(5);
+    getPoint(10);
+    getScore(10);
     setIsModal(false);
   };
 

@@ -40,6 +40,7 @@ import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
 import ChargeDepositModal from "../../modals/user/ChargeDepositModal";
 import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
 import {
+  useDepositQuery,
   usePointQuery,
   useScoreAllQuery,
 } from "../../hooks/user/pointSystem/queries";
@@ -56,12 +57,9 @@ function UserInfo() {
       setModalOpen("");
     }
   };
-  const { data } = usePointQuery();
-  const { data: warningArr } = useScoreAllQuery();
-  const myWarning = warningArr?.find(
-    (who) => who.name === session?.user.name
-  )?.score;
-
+  const { data: myPoint } = usePointQuery();
+  const { data: myDeposit } = useDepositQuery();
+  console.log(myDeposit);
   return (
     <>
       <Layout
@@ -76,11 +74,11 @@ function UserInfo() {
           <UserScoresNav>
             <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
               <span>보유 포인트</span>
-              <span>{data ? data?.point : 0} point</span>
+              <span>{myPoint ? myPoint?.point : 0} point</span>
             </button>
             <button onClick={() => router.push(`/user/${session.uid}/warning`)}>
               <span>보유 보증금</span>
-              <span>2000 원</span>
+              {/* <span>{myDeposit ? myDeposit?.deposit : 3000} 원</span> */}
             </button>
           </UserScoresNav>
           {/* <AttendChart type="main" /> */}
@@ -123,8 +121,11 @@ function UserInfo() {
               </NavBlock>
             </div>
             <div>
-              <BlockName>기타</BlockName>
+              <BlockName>안내</BlockName>
               <NavBlock>
+                <button onClick={() => router.push(`user/info/scoreSystem`)}>
+                  자주 묻는 질문
+                </button>
                 <button onClick={() => router.push(`user/info/policy`)}>
                   서비스 이용 약관
                 </button>
