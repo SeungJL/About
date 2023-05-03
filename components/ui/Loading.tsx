@@ -6,10 +6,10 @@ export const MainLoading = () => (
   <MainLoadingLayout>
     <Spinner
       thickness="4px"
-      speed="0.87s"
+      speed="0.65s"
       emptyColor="gray.200"
       color="var(--color-mint)"
-      size="lg"
+      size="xl"
     />
   </MainLoadingLayout>
 );
