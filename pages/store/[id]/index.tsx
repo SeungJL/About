@@ -1,4 +1,5 @@
 import { Box, Button, Collapse, useDisclosure } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -27,6 +28,7 @@ function StoreItem() {
   const { isOpen, onToggle } = useDisclosure();
 
   const date = info?.date;
+
   return (
     <>
       <Header title="기프티콘 추첨" url="/store" />

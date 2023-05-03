@@ -48,6 +48,18 @@ export const useScoreMutation = (
     });
   }, options);
 
+export const useDepositMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, number>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, number>(async (cnt) => {
+    await axios.post("/api/user/deposit", {
+      point: cnt,
+    });
+  }, options);
+
 export const useApplyRestMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, IApplyRest>,

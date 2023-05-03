@@ -1,4 +1,5 @@
 import { Button, useToast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
@@ -21,6 +22,8 @@ function ApplyGiftModal({
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
   info: IStoreGift;
 }) {
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const toast = useToast();
   const myPoint = 70;
   const [value, setValue] = useState(1);
@@ -28,6 +31,16 @@ function ApplyGiftModal({
   const totalCost = info.point * value;
 
   const onApply = () => {
+    if (isGuest) {
+      toast({
+        title: "실패",
+        description: "게스트는 사용할 수 없는 기능입니다.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
     if (myPoint < totalCost) {
       toast({
         title: "실패",
@@ -39,6 +52,8 @@ function ApplyGiftModal({
       });
       return;
     }
+    const info = { name: session.user.name, uid: session.uid, cnt: value };
+
     toast({
       title: "성공",
       description: "응모에 성공했어요. 당첨 발표일을 기다려주세요 !",
