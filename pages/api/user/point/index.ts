@@ -1,10 +1,10 @@
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import dbConnect from "../../../libs/dbConnect";
-import { User } from "../../../models/user";
+import dbConnect from "../../../../libs/dbConnect";
+import { User } from "../../../../models/user";
 
-import { getParticipationRate } from "../../../services/rateService";
+import { getParticipationRate } from "../../../../services/rateService";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -26,7 +26,7 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      const userPoint = await User.findOne({ uid: token.uid }, "point");
+      const userPoint = await User.findOne({ uid: token.uid }, "-_id + point");
       res.status(200).send(userPoint);
       break;
 
