@@ -31,9 +31,9 @@ export default function Admin() {
   };
 
   const myCommand = async () => {
-    // await axios.get(`https://localhost:3001/vote/2023-04-28/arrived`).then((data) => console.log(data));
-    // await axios.post("/api/user/deposit", { deposit: 3 });
-    await axios.get("/api/user/deposit").then((data) => console.log(data));
+    await axios
+      .get("http://localhost:3000/api/user/score/all")
+      .then((data) => console.log(data));
   };
 
   return (
