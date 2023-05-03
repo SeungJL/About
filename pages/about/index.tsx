@@ -107,7 +107,7 @@ function About() {
     <>
       <Seo title="About" />
       <UserSetting />
-      {!voteDate || !isLoading ? (
+      {!voteDate || isLoading ? (
         <MainLoading />
       ) : (
         <>
