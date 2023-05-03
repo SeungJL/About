@@ -76,7 +76,7 @@ export const UserSchema: Schema<IUser> = new Schema({
   avatar: avatarSchema,
   deposit: {
     type: Number,
-    default: 0,
+    default: 2000,
   },
 });
 
