@@ -101,14 +101,14 @@ function VoteStudyMainModal({
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
       if (!isVoting) {
-        if (studyDate === "today") {
-          getScore(2);
-          getPoint(2);
-        }
-        if (studyDate === "not passed") {
-          getScore(5);
-          getPoint(5);
-        }
+        // if (studyDate === "today") {
+        //   getScore(2);
+        //   getPoint(2);
+        // }
+        // if (studyDate === "not passed") {
+        //   getScore(5);
+        //   getPoint(5);
+        // }
       }
       setIsComplete(true);
     },

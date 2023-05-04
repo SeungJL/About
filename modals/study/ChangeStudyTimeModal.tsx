@@ -46,7 +46,7 @@ function ChangeStudyTimeModal({
 
   const { mutate: patchAttend } = useChangeTimeMutation(voteDate, {
     onSuccess() {
-      if (dayjs() > studyStartTime) getScores(-5);
+      // if (dayjs() > studyStartTime) getScores({ score: 5 });
       window.location.reload();
     },
     onError(err) {

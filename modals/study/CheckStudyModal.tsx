@@ -10,6 +10,7 @@ import styled from "styled-components";
 import CommentBox from "../../components/common/CommentBox";
 import { InputSm } from "../../components/ui/Input";
 import {
+  useDepositMutation,
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
@@ -44,21 +45,22 @@ function CheckStudyModal({
   const queryClient = useQueryClient();
   const toast = useToast();
   const voteDate = useRecoilValue(voteDateState);
-
+  console.log(23, mySpaceFixed);
   const { data } = useVoteQuery(voteDate, location);
   const myPlace = data?.participations.find(
     (par) => par === mySpaceFixed
   )?.place;
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
+  const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
-
+  console.log(mySpaceFixed, dayjs());
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
       if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
-        getScore(5);
-        getPoint(5);
+        getScore({ value: 5, text: "스터디 출석" });
+        getPoint({ value: 5, text: "스터디 출석" });
       }
     },
     onError: (err) => {

@@ -24,8 +24,8 @@ function ApplyPromotionRewardModal({
   const { mutate: getScore } = useScoreMutation();
 
   const onComplete = () => {
-    getPoint(10);
-    getScore(10);
+    // getPoint(10);
+    // getScore(10);
     setIsModal(false);
   };
 

@@ -36,6 +36,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
 import {
+  useDepositMutation,
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
@@ -52,23 +53,17 @@ function AbsentStudyModal({ setIsModal }) {
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
 
-  const { mutate: getScore } = usePointMutation({
-    onError(error) {
-      console.error(error);
-    },
-  });
-  const { mutate: getWaring } = useScoreMutation({
-    onError(error) {
-      console.error(error);
-    },
-  });
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getDeposit } = useDepositMutation();
 
   const { mutate: absentStudy } = useAbsentStudyMutation(today, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
       if (value !== "") {
-        getWaring({ score: 1 });
-        if (dayjs() > studyStartTime) getScore(-10);
+        getDeposit({ value: -600, text: "당일 불참" });
+        if (dayjs() > studyStartTime) {
+          getPoint({ value: -10, text: "당일 불참" });
+        }
       }
       setisVoting(false);
     },

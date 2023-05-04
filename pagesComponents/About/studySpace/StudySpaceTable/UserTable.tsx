@@ -24,8 +24,10 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
       if (!user?.time) return;
       const start = dayjs(user?.time.start);
       const end = dayjs(user?.time.end);
+
       const endTime = end.hour() + end.minute() / 60;
       const startTime = start.hour() + start.minute() / 60;
+
       const gap = endTime - startTime;
       const temp = {
         name: (user?.user as IUser).name,

@@ -76,7 +76,7 @@ function UserOverview() {
   const { mutate } = usePointMutation();
 
   useEffect(() => {
-    if (myPoint < 0) mutate(-myPoint);
+    // if (myPoint < 0) mutate(-myPoint);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myPoint]);
 

@@ -50,8 +50,8 @@ function SuggestModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    getScores(3);
-    getPoint(3);
+    // getScores(3);
+    // getPoint(3);
     suggestForm(suggestInfo);
     setIsModal(false);
   };

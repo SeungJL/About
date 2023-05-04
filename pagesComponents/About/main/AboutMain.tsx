@@ -65,23 +65,23 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     const setInitialInfo = async (participations: IParticipation[]) => {
       await Promise.all(
         participations?.map((space) => {
-          const spaceStatus = space.status === "open" ? true : false;
-          space?.attendences.forEach((att) => att.firstChoice);
-          const participant = space?.attendences?.find(
-            (att) => (att.user as IUser)?.uid === session?.uid
-          );
-          if (participant) {
-            setMyVoteList((old) => [...old, space.place._id]);
-            setIsVoting(true);
-            if (spaceStatus) {
-              setMySpaceFixed(space);
+          let isVote = false;
+          space?.attendences?.forEach((who) => {
+            if ((who.user as IUser)?.uid === session?.uid) {
+              if (space.status === "open") {
+                setMySpaceFixed(space);
+                if (who?.arrived) setIsCheck(true);
+              }
+              setIsVoting(true);
+              isVote = true;
             }
-            if (participant.arrived) setIsCheck(true);
-          }
+          });
+          if (isVote) setMyVoteList((old) => [...old, space.place._id]);
         })
       );
       setIsMainLoading(false);
     };
+
     setInitialInfo(participations);
     const voteDateNum = +voteDate.format("MDD");
     const defaultDate = +getInterestingDate().format("MDD");

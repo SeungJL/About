@@ -67,7 +67,7 @@ function StudySpaceNavigation({
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
       await queryClient.invalidateQueries([VOTE_GET, voteDate]);
-      isVoting && getScore(-5);
+      // isVoting && getScore(-5);
       router.push(`/about`);
     },
     onError() {

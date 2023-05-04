@@ -71,16 +71,16 @@ function VoteStudySubModal({
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      if (!isVoting) {
-        if (studyDate === "today") {
-          getScore(2);
-          getPoint(2);
-        }
-        if (studyDate === "not passed") {
-          getScore(5);
-          getPoint(5);
-        }
-      }
+      // if (!isVoting) {
+      //   if (studyDate === "today") {
+      //     getScore(2);
+      //     getPoint(2);
+      //   }
+      //   if (studyDate === "not passed") {
+      //     getScore(5);
+      //     getPoint(5);
+      //   }
+      // }
       setIsVoteComplete(true);
     },
   });

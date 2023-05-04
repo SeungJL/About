@@ -22,3 +22,9 @@ export interface IPointAll extends IPoint {
 export interface IDeposit {
   deposit: number;
 }
+
+export interface IPointSystem {
+  value: number;
+  text?: string;
+}
+
