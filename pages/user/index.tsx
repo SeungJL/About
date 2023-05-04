@@ -10,6 +10,8 @@ import {
   TabPanels,
   Tabs,
   Image,
+  useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { getSession, signOut, useSession } from "next-auth/react";
@@ -20,7 +22,7 @@ import AttendChart from "../../components/utils/AttendChart";
 import Header from "../../components/layouts/Header";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import SuggestModal from "../../modals/user/SuggestModal";
 
@@ -44,7 +46,15 @@ import {
   usePointQuery,
   useScoreAllQuery,
 } from "../../hooks/user/pointSystem/queries";
-
+import SecedeModal from "../../modals/user/SecedeModal";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from "@chakra-ui/react";
 function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -59,7 +69,9 @@ function UserInfo() {
   };
   const { data: myPoint } = usePointQuery();
   const { data: myDeposit } = useDepositQuery();
-  console.log(myDeposit);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
   return (
     <>
       <Layout
@@ -117,7 +129,7 @@ function UserInfo() {
                 <button onClick={() => setModalOpen("deposit")}>
                   보증금 충전
                 </button>
-                <button onClick={() => signOut()}>로그아웃</button>
+                <button onClick={onOpen}>로그아웃</button>
               </NavBlock>
             </div>
             <div>
@@ -135,7 +147,9 @@ function UserInfo() {
                 <button onClick={() => router.push(`user/info/avatar`)}>
                   아바타 아이콘 저작권
                 </button>
-                <button>회원 탈퇴</button>
+                <button onClick={() => setModalOpen("secede")}>
+                  회원 탈퇴
+                </button>
               </NavBlock>
             </div>
             <div>
@@ -175,6 +189,40 @@ function UserInfo() {
           <ApplyPromotionRewardModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
+      {modalOpen === "secede" && (
+        <ModalPortal setIsModal={handleOutput}>
+          <SecedeModal setIsModal={handleOutput} />
+        </ModalPortal>
+      )}
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent margin="auto 14px">
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              로그아웃
+            </AlertDialogHeader>
+
+            <AlertDialogBody>Bye Bye</AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                취소
+              </Button>
+              <Button
+                color="white"
+                backgroundColor="var(--color-mint)"
+                onClick={() => signOut()}
+                ml={3}
+              >
+                로그아웃
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   );
 }

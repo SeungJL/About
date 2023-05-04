@@ -1,15 +1,16 @@
 import { Spinner } from "@chakra-ui/react";
+import { Blocks, RotatingLines } from "react-loader-spinner";
 
 import styled from "styled-components";
 
 export const MainLoading = () => (
   <MainLoadingLayout>
-    <Spinner
-      thickness="4px"
-      speed="0.65s"
-      emptyColor="gray.200"
-      color="var(--color-mint)"
-      size="xl"
+    <RotatingLines
+      strokeColor="grey"
+      strokeWidth="5"
+      animationDuration="0.75"
+      width="50"
+      visible={true}
     />
   </MainLoadingLayout>
 );
