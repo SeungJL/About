@@ -29,15 +29,18 @@ import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { useSession } from "next-auth/react";
 import VoteSuccessModal from "./VoteSuccessModal";
 import { usePointMutation } from "../../../hooks/user/pointSystem/mutation";
+import { MAX_USER_PER_PLACE } from "../../../constants/study";
 
 function StudySpaceNavigation({
   myVote,
   place,
   status,
+  voterCnt,
 }: {
   myVote: IAttendence;
   place: IPlace;
   status: IPlaceStatusType;
+  voterCnt: number;
 }) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -56,6 +59,8 @@ function StudySpaceNavigation({
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isVoteComplete, setIsVoteComplete] = useState(false);
+
+  const isMax = voterCnt >= MAX_USER_PER_PLACE;
 
   const { mutate: getScore } = usePointMutation();
 
@@ -187,11 +192,17 @@ function StudySpaceNavigation({
             </Button>
           </SubNav>
           <MainButton
-            disabled={isVoting && true}
-            func={!isVoting}
+            disabled={(isVoting || isMax) && true}
+            func={!isVoting && !isMax}
             onClick={() => onBtnClicked("main")}
           >
-            <span>{isVoting ? "투표 완료" : "스터디 투표"}</span>
+            <span>
+              {isVoting
+                ? "투표 완료"
+                : isMax
+                ? "정원 마감 (2지망 투표로만 가능)"
+                : "스터디 투표"}
+            </span>
           </MainButton>
         </Layout>
       )}

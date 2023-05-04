@@ -69,6 +69,7 @@ function StudySpace() {
               myVote={myVote as IAttendence}
               place={place}
               status={status}
+              voterCnt={attendences?.length}
             />
           </>
         )}

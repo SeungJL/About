@@ -54,17 +54,22 @@ function About() {
       return;
     }
     if (voteDate === null) {
-      if (current >= VOTE_START_HOUR && current < VOTER_DATE_END)
+      if (current >= VOTE_START_HOUR && current < VOTER_DATE_END) {
         setIsDefaultPrev(true);
-      else setVoteDate(getInterestingDate());
+        console.log(88);
+      } else setVoteDate(getInterestingDate());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest]);
 
   useVoteQuery(getInterestingDate().subtract(1, "day"), location, {
-    enabled: isDefaultPrev,
+    enabled: isDefaultPrev && voteDate === null,
     onSuccess(data) {
-      if (isDefaultPrev && voteDate === null) {
+      if (
+        isDefaultPrev &&
+        voteDate === null &&
+        data?.participations.length !== 0
+      ) {
         if (
           data?.participations.some((space) =>
             space?.attendences?.some(

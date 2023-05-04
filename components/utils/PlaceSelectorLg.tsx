@@ -12,6 +12,8 @@ function PlaceSelectorLg({
   setSelectedPlace,
   isSelectUnit,
 }: IPlaceSelecter) {
+  console.log(45, placeInfoArr);
+  const toast = useToast();
   const choicedSpaces = isSelectUnit ? firstPlace : secondPlaces;
   const handlePlaceIconClicked = (place: IplaceInfo) => {
     const isExist = choicedSpaces.some(
@@ -25,22 +27,22 @@ function PlaceSelectorLg({
         return New;
       });
     } else {
-      if (place.voteCnt >= MAX_USER_PER_PLACE) {
-        maxToast();
+      if (isSelectUnit && place.voteCnt >= MAX_USER_PER_PLACE) {
+        toast({
+          title: "정원초과",
+          description: `해당 장소는 정원이 모두 차서 2지망으로만 투표가 가능해요! 다른 장소로 선택해주세요!`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom",
+        });
         return;
       }
       if (isSelectUnit) setSelectedPlace([place]);
       else setSelectedPlace((old) => [...old, place]);
     }
   };
-  const maxToast = useToast({
-    title: "정원초과",
-    description: `장소당 최대 ${MAX_USER_PER_PLACE}명까지 신청할 수 있어요.`,
-    status: "error",
-    duration: 3000,
-    isClosable: true,
-    position: "bottom",
-  });
+
   return (
     <Layout>
       {placeInfoArr?.map((info, idx) => {
@@ -61,6 +63,8 @@ function PlaceSelectorLg({
             disabled={isFirstSelected}
             firstSelected={isFirstSelected}
             onClick={() => handlePlaceIconClicked(info)}
+            isMax={info?.voteCnt >= MAX_USER_PER_PLACE}
+            isFirst={isSelectUnit}
           >
             <PlaceIcon>
               <Image
@@ -88,10 +92,15 @@ const Layout = styled.div`
 const PlaceItem = styled.button<{
   isSelected: boolean;
   firstSelected: boolean;
+  isMax: boolean;
+  isFirst: boolean;
 }>`
+  background-color: ${(props) =>
+    props.isMax && props.isFirst ? "var(--font-h5)" : "white"};
+
   box-shadow: ${(props) =>
     props.isSelected || props.firstSelected
-      ? "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1)" // 추천하는 box shadow 스타일입니다.
+      ? "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1)"
       : "none"};
   display: flex;
   align-items: center;

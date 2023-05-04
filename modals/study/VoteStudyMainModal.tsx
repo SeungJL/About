@@ -40,14 +40,14 @@ function VoteStudyMainModal({
   setIsShowModal: Dispatch<SetStateAction<boolean>>;
   isBig?: boolean;
 }) {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
   const [page, setPage] = useState(0);
   const location = useRecoilValue(locationState);
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
-
-  const toast = useToast();
-  const queryClient = useQueryClient();
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -64,6 +64,8 @@ function VoteStudyMainModal({
       });
     },
   });
+
+  console.log(vote);
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();

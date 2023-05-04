@@ -54,7 +54,18 @@ function VoteStudySubModal({
     end: null,
   });
 
-  const { data } = useVoteQuery(voteDate, location);
+  const [otherPlaceArr, setOtherPlaceArr] = useState<IPlace[]>();
+
+  useVoteQuery(voteDate, location, {
+    onSuccess(data) {
+      setOtherPlaceArr(
+        data?.participations
+          .filter((par) => par.place != place)
+          .map((par) => par.place)
+      );
+    },
+  });
+
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
@@ -73,10 +84,6 @@ function VoteStudySubModal({
       setIsVoteComplete(true);
     },
   });
-
-  const otherPlaceArr = data?.participations
-    .filter((par) => par.place != place)
-    .map((par) => par.place);
 
   const startTimeArr = [];
   const endTimeArr = [];

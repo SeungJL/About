@@ -46,7 +46,7 @@ function AboutMainItem({
     status === "pending"
       ? voted
         ? "GOOD"
-        : voterCnt === MAX_USER_PER_PLACE
+        : voterCnt >= MAX_USER_PER_PLACE
         ? "FULL"
         : null
       : null;
@@ -117,19 +117,21 @@ function AboutMainItem({
                       </ProfileContainer>
                     )
                 )}
+
             <ParticipantStatus>
               <IconUserTwo />
               <span>
-                <b
-                  style={{
-                    color: "var(--font-h2)",
-                  }}
+                <VoterImpact
+                  isOverMax={
+                    statusFixed === "pending" &&
+                    attendences?.length >= MAX_USER_PER_PLACE
+                  }
                 >
                   {statusFixed === "pending"
                     ? attendences.length
                     : firstAttendance?.length}
-                </b>
-                {statusFixed === "pending" ? "/8" : "/10"}
+                </VoterImpact>
+                /8
               </span>
             </ParticipantStatus>
           </div>
@@ -251,6 +253,11 @@ const ParticipantStatus = styled.div`
     font-size: 12px;
     color: var(--font-h3);
   }
+`;
+
+const VoterImpact = styled.b<{ isOverMax: boolean }>`
+  color: ${(props) =>
+    props.isOverMax ? "var(--color-red)" : "var(--font-h2)"};
 `;
 
 export default AboutMainItem;
