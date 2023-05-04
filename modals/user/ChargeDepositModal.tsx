@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { ModalMain, ModalMd } from "../../styles/layout/modal";
 
 function ChargeDepositModal({
@@ -34,18 +35,34 @@ function ChargeDepositModal({
     );
   };
 
-  const onComplete = () => {
-    toast({
-      title: "입금 완료",
-      description: "정상적으로 처리되었습니다.",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-      position: "bottom",
+  const { mutate: getDeposit } = useDepositMutation({
+    onSuccess() {
+      toast({
+        title: "입금 완료",
+        description: "정상적으로 처리되었습니다.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+        variant: "left-accent",
+      });
+      setIsModal(false);
+    },
+    onError() {
+      toast({
+        title: "입금 실패",
+        description: "관리자에게 문의해주세요.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+        variant: "left-accent",
+      });
+    },
+  });
 
-      variant: "left-accent",
-    });
-    setIsModal(false);
+  const onComplete = () => {
+    getDeposit({ value: 0, text: "보증금 충전" });
   };
 
   return (
@@ -69,7 +86,12 @@ function ChargeDepositModal({
             </MainItem>
           </ModalMain>
           <Footer>
-            <Button width="100%" onClick={() => setIsFirst(false)}>
+            <Button
+              width="100%"
+              background="var(--color-mint)"
+              color="white"
+              onClick={() => setIsFirst(false)}
+            >
               충전하기
             </Button>
           </Footer>
@@ -105,6 +127,7 @@ function ChargeDepositModal({
               onClick={onComplete}
               background="var(--color-mint)"
               color="white"
+              _hover={{ background: "var(--color-mint)" }}
             >
               입금완료
             </Button>

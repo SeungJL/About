@@ -46,7 +46,7 @@ function DeclarationFormModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    // getScores(5);
+
     DeclarationForm(DeclarationInfo);
     setIsModal(false);
   };

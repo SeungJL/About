@@ -1,5 +1,6 @@
 import { Button, useToast } from "@chakra-ui/react";
 import {
+  faArrowUp,
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
@@ -168,7 +169,7 @@ function ChangeProfileImageModal({
                     alt="avatar"
                   />
                 </Icon>
-                <IconPoint>{AVATAR_COST[iconIdx]} point</IconPoint>
+                <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
               </IconWrapper>
             </AnimatePresence>
             <ArrowIcon style={{ right: "0px" }} onClick={onClickNext}>

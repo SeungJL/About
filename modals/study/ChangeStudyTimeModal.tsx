@@ -31,7 +31,7 @@ function ChangeStudyTimeModal({
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
 
-  const { mutate: getScores } = usePointMutation();
+  const { mutate: getPoint } = usePointMutation();
 
   const startTime = dayjs(myVoteTime?.start);
   const endTime = dayjs(myVoteTime?.end);
@@ -43,10 +43,16 @@ function ChangeStudyTimeModal({
     },
     end: { hour: endTime.hour(), minutes: endTime.minute() },
   });
-
+  console.log(time.start);
   const { mutate: patchAttend } = useChangeTimeMutation(voteDate, {
     onSuccess() {
-      // if (dayjs() > studyStartTime) getScores({ score: 5 });
+      if (
+        dayjs().hour() * 60 + dayjs().minute() >=
+        time.start.hour * 60 + time.start.minutes
+      )
+        getPoint({ value: -5, text: "늦은 시간 변경" });
+      else if (dayjs() > studyStartTime)
+        getPoint({ value: -2, text: "늦은 시간 변경" });
       window.location.reload();
     },
     onError(err) {

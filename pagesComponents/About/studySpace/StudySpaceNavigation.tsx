@@ -28,7 +28,10 @@ import { IAttendence, IPlace } from "../../../types/studyDetails";
 import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { useSession } from "next-auth/react";
 import VoteSuccessModal from "./VoteSuccessModal";
-import { usePointMutation } from "../../../hooks/user/pointSystem/mutation";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../../hooks/user/pointSystem/mutation";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
 
 function StudySpaceNavigation({
@@ -62,7 +65,8 @@ function StudySpaceNavigation({
 
   const isMax = voterCnt >= MAX_USER_PER_PLACE;
 
-  const { mutate: getScore } = usePointMutation();
+  const { mutate: getScore } = useScoreMutation();
+  const { mutate: getPoint } = usePointMutation();
 
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
@@ -105,6 +109,8 @@ function StudySpaceNavigation({
           position: "bottom",
         });
       } else {
+        getScore({ value: -5, text: "투표 취소" });
+        getPoint({ value: -5, text: "투표 취소" });
         handleAbsent();
       }
     }

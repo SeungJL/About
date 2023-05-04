@@ -9,7 +9,7 @@ import {
   ModalXXL,
 } from "../../styles/layout/modal";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import {
   usePointMutation,
   useScoreMutation,
@@ -20,12 +20,23 @@ function ApplyPromotionRewardModal({
 }: {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const toast = useToast();
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
 
   const onComplete = () => {
-    // getPoint(10);
-    // getScore(10);
+    getPoint({ value: 10, text: "홍보 리워드" });
+    getScore({ value: 10, text: "홍보 리워드" });
+    toast({
+      title: "정산 완료",
+      description: "정상적으로 처리되었습니다.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "bottom",
+      variant: "left-accent",
+    });
+
     setIsModal(false);
   };
 

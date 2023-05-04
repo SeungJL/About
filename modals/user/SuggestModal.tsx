@@ -40,7 +40,7 @@ function SuggestModal({
 
   const { mutate: suggestForm } = usePlazaMutation();
   const { mutate: getPoint } = usePointMutation();
-  const { mutate: getScores } = useScoreMutation();
+  const { mutate: getScore } = useScoreMutation();
 
   const onValid = (data) => {
     const suggestInfo = {
@@ -50,8 +50,9 @@ function SuggestModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    // getScores(3);
-    // getPoint(3);
+    getScore({ value: 3, text: "건의사항 제출" });
+    getPoint({ value: 3, text: "건의사항 제출" });
+
     suggestForm(suggestInfo);
     setIsModal(false);
   };

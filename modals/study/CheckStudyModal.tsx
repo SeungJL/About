@@ -30,6 +30,7 @@ import {
   ModalSubtitle,
 } from "../../styles/layout/modal";
 import { IPlace } from "../../types/studyDetails";
+import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;
 
@@ -54,11 +55,28 @@ function CheckStudyModal({
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
-  console.log(mySpaceFixed, dayjs());
+  console.log(
+    33,
+    dayjs(
+      mySpaceFixed?.attendences?.find(
+        (who) => (who?.user as IUser).uid === session?.uid
+      ).time.start
+    )
+  );
+
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
       queryClient.invalidateQueries(VOTE_GET);
-      if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
+
+      if (
+        dayjs(
+          mySpaceFixed?.attendences?.find(
+            (who) => (who?.user as IUser).uid === session?.uid
+          ).time.start
+        ).add(1, "hour") < dayjs()
+      ) {
+        getDeposit({ value: -300, text: "스터디 지각" });
+      } else if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
         getScore({ value: 5, text: "스터디 출석" });
         getPoint({ value: 5, text: "스터디 출석" });
       }
