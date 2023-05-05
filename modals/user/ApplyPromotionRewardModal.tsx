@@ -14,6 +14,9 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
+import { usePlazaMutation } from "../../hooks/plaza/mutations";
+import { useSession } from "next-auth/react";
+import dayjs from "dayjs";
 
 function ApplyPromotionRewardModal({
   setIsModal,
@@ -21,8 +24,10 @@ function ApplyPromotionRewardModal({
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const toast = useToast();
+  const { data: session } = useSession();
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
+  const { mutate: suggestForm } = usePlazaMutation();
 
   const onComplete = () => {
     getPoint({ value: 10, text: "홍보 리워드" });
@@ -36,7 +41,13 @@ function ApplyPromotionRewardModal({
       position: "bottom",
       variant: "left-accent",
     });
-
+    suggestForm({
+      category: "suggestionContents",
+      title: "홍보",
+      writer: session.user.name,
+      content: "",
+      date: dayjs().format("YYYY-MM-DD"),
+    });
     setIsModal(false);
   };
 
@@ -45,7 +56,7 @@ function ApplyPromotionRewardModal({
       <ModalHeaderXLine title="리워드 신청" setIsModal={setIsModal} />
       <ModalMain>
         <Overview>
-          에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 5 point와 추첨을
+          에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 10 point와 추첨을
           통해 기프티콘을 받을 수 있습니다. 도와주시는 모든 분들 정말
           감사합니다!
         </Overview>
