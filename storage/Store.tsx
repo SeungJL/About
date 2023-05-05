@@ -12,6 +12,15 @@ export const STORE_GIFT: IStoreGift[] = [
     name: "허쉬 초콜릿드링크",
     brand: "허쉬",
     point: 10,
+    winner: 6,
+    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
+  },
+  {
+    image:
+      "https://user-images.githubusercontent.com/84257439/236386764-66c02335-b91a-468d-9255-40bddecadbd3.png",
+    name: "싱글레귤러 아이스크림",
+    brand: "베스킨라빈스",
+    point: 20,
     winner: 4,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
   },
@@ -32,7 +41,16 @@ export const STORE_GIFT: IStoreGift[] = [
     brand: "설빙",
     point: 50,
     winner: 2,
-    date: { startDay: dayjs("2023-05-18"), endDay: dayjs("2023-05-31") },
+    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-20") },
+  },
+  {
+    image:
+      "https://user-images.githubusercontent.com/84257439/236386468-bdc54ad1-1a42-4bf6-958e-189077172a72.png",
+    name: "기프트카드 10000원권",
+    brand: "올리브영",
+    point: 70,
+    winner: 2,
+    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-20") },
   },
   {
     image:
@@ -41,6 +59,6 @@ export const STORE_GIFT: IStoreGift[] = [
     brand: "BBQ",
     point: 100,
     winner: 1,
-    date: { startDay: dayjs("2023-06-01"), endDay: dayjs("2023-06-14") },
+    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-06-04") },
   },
 ];
