@@ -4,6 +4,7 @@ import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import CountNum from "../../components/utils/CountNum";
+import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 
 import {
   ModalHeaderLine,
@@ -25,7 +26,7 @@ function ApplyGiftModal({
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const toast = useToast();
-  const myPoint = 70;
+  const { data: myPoint } = usePointQuery();
   const [value, setValue] = useState(1);
 
   const totalCost = info.point * value;
@@ -41,7 +42,7 @@ function ApplyGiftModal({
         position: "bottom",
       });
     }
-    if (myPoint < totalCost) {
+    if (myPoint.point < totalCost) {
       toast({
         title: "실패",
         description: "보유하고 있는 포인트가 부족해요",
@@ -75,11 +76,11 @@ function ApplyGiftModal({
         <Price>
           <span>
             <b>보유 포인트</b>&nbsp;
-            <span>{myPoint} point</span>
+            <span>{myPoint?.point} point</span>
           </span>
           <span>
             <b>필요 포인트</b>&nbsp;
-            <PricePoint overMax={totalCost > myPoint}>
+            <PricePoint overMax={totalCost > myPoint?.point}>
               {totalCost} point
             </PricePoint>
           </span>
@@ -91,11 +92,12 @@ function ApplyGiftModal({
       <Footer>
         <Button
           width="100%"
-          backgroundColor="var(--color-mint)"
-          color="white"
+          // backgroundColor="var(--color-mint)"
+          // color="white"
+          colorScheme="blackAlpha"
           onClick={onApply}
         >
-          응모하기
+          응모 기간이 아닙니다.
         </Button>
       </Footer>
     </Layout>
