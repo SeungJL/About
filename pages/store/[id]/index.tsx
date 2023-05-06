@@ -35,18 +35,10 @@ function StoreItem() {
 
   console.log(applicantInfo);
 
-  const test = [
-    { name: "이승주", cnt: 8 },
-    { name: "이승주", cnt: 8 },
-    { name: "이승주", cnt: 8 },
-    { name: "이승주", cnt: 8 },
-    { name: "이승주", cnt: 8 },
-    { name: "이승주", cnt: 8 },
-    { name: "이승주", cnt: 8 },
-    { name: "이승주", cnt: 8 },
-  ];
-
-  const totalApply = test?.reduce((acc, cur) => acc + cur.cnt, 0);
+  const totalApply = applicantInfo?.users.reduce(
+    (acc, cur) => acc + cur.cnt,
+    0
+  );
   return (
     <>
       <Header title="기프티콘 추첨" url="/store" />
@@ -94,7 +86,7 @@ function StoreItem() {
               "참여 인원 없음"
             ) : (
               <Applicant>
-                {test.map((who, idx) => (
+                {applicantInfo?.users.map((who, idx) => (
                   <ApplicantBlock key={idx}>
                     <span>{who.name}</span>
                     <div>

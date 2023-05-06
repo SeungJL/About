@@ -1,4 +1,5 @@
 import { Button, useToast } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -36,7 +37,12 @@ function ApplyGiftModal({
   const { mutate: getPoint } = usePointMutation();
 
   const totalCost = giftInfo.point * value;
-  console.log(totalCost);
+
+  const date = giftInfo?.date;
+  console.log(date);
+
+  const isOpen = dayjs() >= date?.startDay && dayjs() <= date?.endDay;
+
   const onApply = () => {
     if (isGuest) {
       toast({
@@ -72,6 +78,7 @@ function ApplyGiftModal({
     });
     setIsModal(false);
   };
+
   return (
     <Layout>
       <ModalHeaderXLine title="응모" setIsModal={setIsModal} />
@@ -98,13 +105,12 @@ function ApplyGiftModal({
       </ModalMain>
       <Footer>
         <Button
+          disabled={!isOpen}
           width="100%"
-          // backgroundColor="var(--color-mint)"
-          // color="white"
           colorScheme="blackAlpha"
           onClick={onApply}
         >
-          응모 기간이 아닙니다.
+          {isOpen ? "응모하기" : "응모 기간이 아닙니다."}
         </Button>
       </Footer>
     </Layout>
