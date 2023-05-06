@@ -30,7 +30,6 @@ function StudySpace() {
   const spaceID = router.query.studySpace;
   const voteDate = dayjs(router.query.date as string);
   const location = SPACE_LOCATION[spaceID as string];
-
   const { data: vote, isLoading } = useVoteQuery(voteDate, location, {
     enabled: true,
     onError: (err) => {
@@ -57,7 +56,7 @@ function StudySpace() {
       <Layout>
         {!isLoading && (
           <>
-            <StudySpaceCover src={place.image} />
+            {/* <StudySpaceCover src={place?.image} /> */}
             <StudySpaceOverview space={place} />
             <HrDiv />
             <StudySpaceVoteOverview

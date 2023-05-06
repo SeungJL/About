@@ -44,7 +44,7 @@ function ApplyRestModal({
     };
     applyRest(info);
   };
-  const option = watch("type"); // 옵션 입력값 감시
+  const option = watch("type");
 
   const maxEndDate = () => {
     const startDate = watch("startDate");
@@ -53,7 +53,7 @@ function ApplyRestModal({
       const maxDate = new Date(startDate);
       maxDate.setMonth(maxDate.getMonth() + 2);
 
-      return maxDate.toISOString().split("T")[0]; // DateInput에 넣을 문자열 형식으로 변환
+      return maxDate.toISOString().split("T")[0];
     }
     return undefined;
   };
