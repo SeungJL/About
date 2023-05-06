@@ -149,30 +149,12 @@ function ProfileModifyModal({ setIsModal }) {
             <ErrorMessage>{errors?.birth?.message}</ErrorMessage>
             <Item>
               <span>관심분야: </span>
-              <input
-                {...register("interest", {
-                  required: "필수입력",
-                  pattern: {
-                    value: /^\d{6}$/,
-                    message: "주민번호 앞자리",
-                  },
-                })}
-                placeholder="Ex) 학교 공부"
-              />
+              <input placeholder="Ex) 학교 공부" />
             </Item>
             <ErrorMessage>{errors?.interest?.message}</ErrorMessage>
             <Item>
               <span> </span>
-              <input
-                {...register("interest", {
-                  required: "필수입력",
-                  pattern: {
-                    value: /^\d{6}$/,
-                    message: "주민번호 앞자리",
-                  },
-                })}
-                placeholder="Ex) 토익"
-              />
+              <input placeholder="Ex) 토익" />
             </Item>
             <ErrorMessage>{errors?.interest?.message}</ErrorMessage>
             <Item>

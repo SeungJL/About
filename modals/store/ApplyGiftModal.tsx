@@ -6,6 +6,7 @@ import { ModalHeaderXLine } from "../../components/ui/Modal";
 import CountNum from "../../components/utils/CountNum";
 import { useStoreMutation } from "../../hooks/store/mutation";
 import { useStoreQuery } from "../../hooks/store/queries";
+import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 
 import {
@@ -20,10 +21,10 @@ import { IStoreGift } from "../../types/store";
 
 function ApplyGiftModal({
   setIsModal,
-  info,
+  giftInfo,
 }: {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-  info: IStoreGift;
+  giftInfo: IStoreGift;
 }) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -32,11 +33,10 @@ function ApplyGiftModal({
   const [value, setValue] = useState(1);
 
   const { mutate } = useStoreMutation();
+  const { mutate: getPoint } = usePointMutation();
 
-  const { data } = useStoreQuery();
-
-  const totalCost = info.point * value;
-  console.log(data);
+  const totalCost = giftInfo.point * value;
+  console.log(totalCost);
   const onApply = () => {
     if (isGuest) {
       toast({
@@ -60,7 +60,8 @@ function ApplyGiftModal({
       return;
     }
     const info = { name: session.user.name, uid: session.uid, cnt: value };
-    mutate({ name: session?.user.name, uid: session?.uid, cnt: 1 });
+    mutate(info);
+    getPoint({ value: -totalCost, text: `${giftInfo?.name}응모` });
     toast({
       title: "성공",
       description: "응모에 성공했어요. 당첨 발표일을 기다려주세요 !",
@@ -77,7 +78,7 @@ function ApplyGiftModal({
       <ModalMain>
         <Title>
           <b>상품</b>
-          <span>스타벅스 아메리카노</span>
+          <span>{giftInfo?.name}</span>
         </Title>
         <Price>
           <span>
