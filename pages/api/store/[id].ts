@@ -1,0 +1,24 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { GiftModel } from "../../../models/gift";
+import dbConnect from "../../../libs/dbConnect";
+import { BadRequestError } from "../../../libs/custom-error";
+
+export default async function getGift(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  await dbConnect();
+
+  if (req.method === "GET") {
+    const { id } = req.query;
+    console.log("id", id);
+    const giftUsers = await GiftModel.find({ giftid: id }).select(
+      "-_id -createdAt -updatedAt -__v"
+    );
+    if (!giftUsers) {
+      throw new BadRequestError("정보에 해당하는 유저가 존재하지 않습니다.");
+    }
+    console.log(giftUsers);
+    res.status(200).json({ users: giftUsers });
+  }
+}

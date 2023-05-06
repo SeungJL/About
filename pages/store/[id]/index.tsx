@@ -31,7 +31,7 @@ function StoreItem() {
   const { isOpen, onToggle } = useDisclosure();
 
   const date = info?.date;
-  const { data: applicantInfo } = useStoreQuery();
+  const { data: applicantInfo } = useStoreQuery(info?.giftid);
 
   console.log(applicantInfo);
 

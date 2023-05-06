@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3000
+@urlPath = api
+
+###
+POST {{baseUrl}}/{{urlPath}}/store
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "uid": "2755113452",
+  "name": "QWE",
+  "cnt": 7,
+  "giftid": 2
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/store
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/store/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true

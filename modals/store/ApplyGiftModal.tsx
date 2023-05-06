@@ -32,14 +32,13 @@ function ApplyGiftModal({
   const toast = useToast();
   const { data: myPoint } = usePointQuery();
   const [value, setValue] = useState(1);
-
+  console.log(session);
   const { mutate } = useStoreMutation();
   const { mutate: getPoint } = usePointMutation();
 
   const totalCost = giftInfo.point * value;
 
   const date = giftInfo?.date;
-  console.log(date);
 
   const isOpen = dayjs() >= date?.startDay && dayjs() <= date?.endDay;
 
@@ -65,7 +64,12 @@ function ApplyGiftModal({
       });
       return;
     }
-    const info = { name: session.user.name, uid: session.uid, cnt: value };
+    const info = {
+      name: session.user.name,
+      uid: session.uid,
+      cnt: value,
+      giftid: giftInfo?.giftid,
+    };
     mutate(info);
     getPoint({ value: -totalCost, text: `${giftInfo?.name}응모` });
     toast({
@@ -105,7 +109,7 @@ function ApplyGiftModal({
       </ModalMain>
       <Footer>
         <Button
-          disabled={!isOpen}
+          // disabled={!isOpen}
           width="100%"
           colorScheme="blackAlpha"
           onClick={onApply}
