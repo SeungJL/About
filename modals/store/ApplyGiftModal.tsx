@@ -1,9 +1,11 @@
 import { Button, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import CountNum from "../../components/utils/CountNum";
+import { useStoreMutation } from "../../hooks/store/mutation";
+import { useStoreQuery } from "../../hooks/store/queries";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 
 import {
@@ -29,8 +31,12 @@ function ApplyGiftModal({
   const { data: myPoint } = usePointQuery();
   const [value, setValue] = useState(1);
 
-  const totalCost = info.point * value;
+  const { mutate } = useStoreMutation();
 
+  const { data } = useStoreQuery();
+
+  const totalCost = info.point * value;
+  console.log(data);
   const onApply = () => {
     if (isGuest) {
       toast({
@@ -54,7 +60,7 @@ function ApplyGiftModal({
       return;
     }
     const info = { name: session.user.name, uid: session.uid, cnt: value };
-
+    mutate({ name: session?.user.name, uid: session?.uid, cnt: 1 });
     toast({
       title: "성공",
       description: "응모에 성공했어요. 당첨 발표일을 기다려주세요 !",

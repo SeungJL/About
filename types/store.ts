@@ -8,3 +8,9 @@ export interface IStoreGift {
   winner: number;
   date: { startDay: Dayjs; endDay: Dayjs };
 }
+
+export interface IStoreApplicant {
+  uid: string;
+  name: string;
+  cnt: number;
+}
