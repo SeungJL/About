@@ -1,4 +1,6 @@
 import { Box, Button, Collapse, useDisclosure } from "@chakra-ui/react";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,6 +8,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
+import { useStoreQuery } from "../../../hooks/store/queries";
 import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
 import StoreNavigation from "../../../pagesComponents/store/item/StoreNavigation";
 import { STORE_GIFT } from "../../../storage/Store";
@@ -28,7 +31,22 @@ function StoreItem() {
   const { isOpen, onToggle } = useDisclosure();
 
   const date = info?.date;
+  const { data: applicantInfo } = useStoreQuery();
 
+  console.log(applicantInfo);
+
+  const test = [
+    { name: "이승주", cnt: 8 },
+    { name: "이승주", cnt: 8 },
+    { name: "이승주", cnt: 8 },
+    { name: "이승주", cnt: 8 },
+    { name: "이승주", cnt: 8 },
+    { name: "이승주", cnt: 8 },
+    { name: "이승주", cnt: 8 },
+    { name: "이승주", cnt: 8 },
+  ];
+
+  const totalApply = test?.reduce((acc, cur) => acc + cur.cnt, 0);
   return (
     <>
       <Header title="기프티콘 추첨" url="/store" />
@@ -47,11 +65,11 @@ function StoreItem() {
           <span>{info?.name}</span>
           <span>{info?.brand}</span>
         </Overview>
-        {/* <Date>05.01 ~ 05.14</Date> */}
+
         <Price>{info?.point} point</Price>
         <Nav>
           <span>
-            현재 참여 인원은 <b>0명</b> 입니다.
+            현재 응모 숫자는 <b>{totalApply}회</b> 입니다.
           </span>
           <div>
             <Button size="lg" width="50%" onClick={onToggle}>
@@ -70,9 +88,23 @@ function StoreItem() {
             bg="gray.100"
             rounded="md"
             shadow="md"
-            color="var(--font-h3)"
+            color="var(--font-h2)"
           >
-            참여 인원 없음
+            {applicantInfo?.users.length === 0 ? (
+              "참여 인원 없음"
+            ) : (
+              <Applicant>
+                {test.map((who, idx) => (
+                  <ApplicantBlock key={idx}>
+                    <span>{who.name}</span>
+                    <div>
+                      <FontAwesomeIcon icon={faX} size="2xs" />
+                    </div>
+                    <span>{who.cnt} 회</span>
+                  </ApplicantBlock>
+                ))}
+              </Applicant>
+            )}
           </Box>
         </Collapse>
         <Detail>
@@ -86,7 +118,6 @@ function StoreItem() {
               {date?.startDay.format("M.D")}({date?.startDay.format("ddd")})
               &nbsp;~&nbsp;
               {date?.endDay.format("M.D")}({date?.endDay.format("ddd")})
-              {/* 5.8(월) ~ 5.21(일) */}
             </span>
           </DetailItem>
           <DetailItem>
@@ -110,7 +141,7 @@ function StoreItem() {
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <ApplyGiftModal setIsModal={setIsModal} info={info} />
+          <ApplyGiftModal setIsModal={setIsModal} giftInfo={info} />
         </ModalPortal>
       )}
     </>
@@ -151,13 +182,32 @@ const Price = styled.div`
   color: var(--color-mint);
 `;
 
+const Applicant = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+`;
+
+const ApplicantBlock = styled.div`
+  display: flex;
+  align-items: center;
+  height: 24px;
+
+  > div {
+    margin: 0 6px;
+  }
+  > span:last-child {
+  }
+`;
+
 const Nav = styled.nav`
   margin-top: 24px;
   display: flex;
 
   flex-direction: column;
+  color: var(--font-h2);
   > div {
-    margin-top: 12px;
+    margin-top: 14px;
     display: flex;
     > button:first-child {
       color: var(--color-mint);
