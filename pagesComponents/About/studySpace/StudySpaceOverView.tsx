@@ -19,7 +19,7 @@ function StudySpaceOverview({ space }: { space: IPlace }) {
     <>
       <Layout>
         <span>
-          {space?.brand} {space?.branch}점
+          {space?.brand} {space?.branch}
         </span>
         <SpaceDetail>
           <Location>
