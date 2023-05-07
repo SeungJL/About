@@ -6,8 +6,18 @@ const giftSchema: Schema = new Schema(
     uid: { type: String, ref: "User" },
     name: { type: String, ref: "User" },
     cnt: { type: Number, default: 0 },
+    giftId: { type: Number },
   },
-  { timestamps: true }
+  {
+    toJSON: {
+      transform(_doc, ret) {
+        delete ret.createdAt;
+        delete ret.upadtedAt;
+        delete ret.__v;
+        return ret;
+      },
+    },
+  }
 );
 
 export const GiftModel =

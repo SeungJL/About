@@ -21,7 +21,7 @@ import { Badge } from "@chakra-ui/react";
 import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
 import { MAX_USER_PER_PLACE } from "../../../../constants/study";
 
-const VOTER_SHOW_MAX = 6;
+const VOTER_SHOW_MAX = 7;
 
 function AboutMainItem({
   studySpaceInfo,

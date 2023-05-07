@@ -41,9 +41,7 @@ function Store() {
           </Item>
         ))}
       </Layout>
-      <div style={{ marginTop: "40px", textAlign: "center", fontSize: "20px" }}>
-        Coming Soon
-      </div>
+
       {isLoading && (
         <>
           <Load>

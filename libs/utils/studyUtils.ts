@@ -1,10 +1,10 @@
 import {
   SUWAN_아티제,
   SUWAN_카탈로그,
+  SUWAN_칸나,
   SUWAN_커피빈,
   SUWAN_탐앤탐스,
   SUWAN_투썸,
-  SUWAN_할리스,
   YANG_스타벅스,
   YANG_위카페,
   YANG_파스쿠찌,
@@ -15,6 +15,7 @@ import { Location } from "../../types/system";
 
 export const arrangeSpace = (participations: IParticipation[]) => {
   const temp = [];
+  console.log(participations);
   participations.forEach((participant) => {
     const ID = participant.place._id;
     //수원
@@ -23,13 +24,14 @@ export const arrangeSpace = (participations: IParticipation[]) => {
     else if (ID === SUWAN_카탈로그) temp[2] = participant;
     else if (ID === SUWAN_아티제) temp[0] = participant;
     else if (ID === SUWAN_커피빈) temp[1] = participant;
-    else if (ID === SUWAN_할리스) temp[5] = participant;
+    else if (ID === SUWAN_칸나) temp[5] = participant;
     //양천
     if (ID === YANG_위카페) temp[0] = participant;
     else if (ID === YANG_스타벅스) temp[1] = participant;
     else if (ID === YANG_파스쿠찌) temp[2] = participant;
     else if (ID === YANG_할리스) temp[3] = participant;
   });
+  console.log(44, temp);
   return temp;
 };
 

@@ -56,7 +56,6 @@ function About() {
     if (voteDate === null) {
       if (current >= VOTE_START_HOUR && current < VOTER_DATE_END) {
         setIsDefaultPrev(true);
-        console.log(88);
       } else setVoteDate(getInterestingDate());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,6 +85,7 @@ function About() {
   useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
+      console.log(data);
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);

@@ -5,7 +5,7 @@ const IMAGE_LIST = [1, 2, 3, 4, 5];
 
 function StudySpaceCover({ src }) {
   const randomNum = Math.floor(Math.random() * IMAGE_LIST.length);
-
+  console.log(src);
   return (
     <Layout>
       <Image

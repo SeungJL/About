@@ -26,14 +26,16 @@ export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
 export const SUWAN_카탈로그 = "62e5d6e0e098c232c05c3d3f";
 export const SUWAN_아티제 = "63625f1d958585371af0248b";
-export const SUWAN_할리스 = "644f6ffe9edb56992ccda5e9";
-export const SUWAN_커피빈 = "644f70529edb56992ccda5eb";
-export const SUWAN_칸나 = "";
+
+export const SUWAN_커피빈 = "644f6ffe9edb56992ccda5e9";
+export const SUWAN_칸나 = "644f70529edb56992ccda5eb";
 
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
 export const YANG_스타벅스 = "6437ebccab537b843c6143af";
+
+export const Anyang_커피인더스트리 = "";
 
 export const SPACE_NAME = {
   //수원
@@ -41,9 +43,8 @@ export const SPACE_NAME = {
   "640c271121863deff358f459": "탐앤탐스",
   "62e5d6e0e098c232c05c3d3f": "카탈로그",
   "63625f1d958585371af0248b": "아티제",
-  "644f70529edb56992ccda5eb": "할리스",
   "644f6ffe9edb56992ccda5e9": "커피빈",
-  "": "칸나",
+  "644f70529edb56992ccda5eb": "칸나",
 
   //양천
   "6437e9d7ab537b843c6143ac": "위카페",
@@ -57,7 +58,7 @@ export const SPACE_LOCATION = {
   [SUWAN_카탈로그]: "수원",
   [SUWAN_탐앤탐스]: "수원",
   [SUWAN_투썸]: "수원",
-  [SUWAN_할리스]: "수원",
+  [SUWAN_칸나]: "수원",
   [SUWAN_커피빈]: "수원",
   [SUWAN_칸나]: "수원",
   [YANG_스타벅스]: "양천",
@@ -88,11 +89,7 @@ export const STUDY_SPACE_INFO = [
     location: "경기 수원시 팔달구 인계로 166번길 48-15",
     time: "09:00 - 24:00",
   },
-  {
-    id: SUWAN_할리스,
-    location: "경기 수원시 영통구 덕영대로 1556번길 16",
-    time: "08:00 - 22:00",
-  },
+
   {
     id: SUWAN_커피빈,
     location: "경기 수원시 장안구 경수대로 989",
@@ -125,4 +122,6 @@ export const STUDY_SPACE_INFO = [
     location: "서울특별시 양천구 신목로 354",
     time: "07:00 ~ 23:00",
   },
+
+  //안양
 ];

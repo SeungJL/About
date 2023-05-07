@@ -2,7 +2,7 @@ import { background } from "@chakra-ui/react";
 import { ChangeEvent } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ICategory } from "../../../pages/members";
+import { ICategory } from "../../../pages/members/[type]";
 import { category, IPlazaData } from "../../../types/plaza";
 
 export default function PlazaBlock({

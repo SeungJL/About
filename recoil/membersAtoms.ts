@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { ICategory } from "../pages/members";
+import { ICategory } from "../pages/members/[type]";
 
 export const isShowMemberInfoState = atom({
   key: "isShowMemberInfo",
