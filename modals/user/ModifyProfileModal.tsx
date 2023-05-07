@@ -49,7 +49,7 @@ function ProfileModifyModal({ setIsModal }) {
       mbti: data.mbti,
       gender: isMan ? "남성" : "여성",
       location: data.location,
-      interest: data?.interest,
+      interests: data?.interests,
     };
 
     handleRegister(userInfo);
@@ -70,7 +70,7 @@ function ProfileModifyModal({ setIsModal }) {
       mbti: user.mbti,
       birth: user.birth,
       agree: "",
-      interest: user?.interest,
+      // interests: user?.interests,
     },
   });
 
@@ -151,12 +151,12 @@ function ProfileModifyModal({ setIsModal }) {
               <span>관심분야: </span>
               <input placeholder="Ex) 학교 공부" />
             </Item>
-            <ErrorMessage>{errors?.interest?.message}</ErrorMessage>
+            <ErrorMessage>{errors?.interests?.message}</ErrorMessage>
             <Item>
               <span> </span>
               <input placeholder="Ex) 토익" />
             </Item>
-            <ErrorMessage>{errors?.interest?.message}</ErrorMessage>
+            <ErrorMessage>{errors?.interests?.message}</ErrorMessage>
             <Item>
               <span>MBTI(선택): </span>
               <input {...register("mbti")} placeholder="Ex) ENFP" />

@@ -58,15 +58,21 @@ export interface IAccount extends Document {
   userId: IUser | string;
 }
 
+export interface IMajor {
+  department: string;
+  detail: string;
+}
+
 export interface IRegisterForm {
   registerDate?: string;
-  location?: string;
+  location?: Location;
   name?: string;
   mbti?: string;
   birth?: string;
   agree?: any;
   gender?: "남성" | "여성";
-  interest?: string[];
+  interests?: string[];
+  majors?: IMajor[];
 }
 
 export type IRole = "previliged" | "member";

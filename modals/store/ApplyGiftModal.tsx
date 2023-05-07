@@ -1,23 +1,17 @@
 import { Button, useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import CountNum from "../../components/utils/CountNum";
 import { useStoreMutation } from "../../hooks/store/mutation";
-import { useStoreQuery } from "../../hooks/store/queries";
+
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 
-import {
-  ModalHeaderLine,
-  ModalLg,
-  ModalMain,
-  ModalMd,
-  ModalSubtitle,
-  ModalXs,
-} from "../../styles/layout/modal";
+import { ModalMain, ModalXs } from "../../styles/layout/modal";
 import { IStoreGift } from "../../types/store";
 
 function ApplyGiftModal({
@@ -27,12 +21,13 @@ function ApplyGiftModal({
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
   giftInfo: IStoreGift;
 }) {
+  const router = useRouter();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const toast = useToast();
   const { data: myPoint } = usePointQuery();
   const [value, setValue] = useState(1);
-  console.log(session);
+
   const { mutate } = useStoreMutation();
   const { mutate: getPoint } = usePointMutation();
 
@@ -80,6 +75,10 @@ function ApplyGiftModal({
       isClosable: true,
       position: "bottom",
     });
+    setTimeout(() => {
+      router.push(`/store`);
+    }, 600);
+
     setIsModal(false);
   };
 
@@ -111,7 +110,8 @@ function ApplyGiftModal({
         <Button
           disabled={!isOpen}
           width="100%"
-          colorScheme="blackAlpha"
+          colorScheme={!isOpen && "blackAlpha"}
+          backgroundColor={isOpen && "var(--color-mint)"}
           onClick={onApply}
         >
           {isOpen ? "응모하기" : "응모 기간이 아닙니다."}

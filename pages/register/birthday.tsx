@@ -18,18 +18,20 @@ import dayjs from "dayjs";
 function Birthday() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-  console.log(registerForm);
+
   const [errorMessage, setErrorMessage] = useState("");
 
-  const initialDate = new Date(2001, 0, 1);
+  const initialDate = new Date(2000, 0, 1);
 
-  const [startDate, setStartDate] = useState(initialDate);
+  const [startDate, setStartDate] = useState(
+    registerForm?.birth || initialDate
+  );
   const onClickNext = () => {
     setRegisterForm((old) => ({
       ...old,
       birth: dayjs(startDate).format("YYYY-MM-DD"),
     }));
-    router.push(`/register/birthday`);
+    router.push(`/register/location`);
   };
 
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
@@ -45,7 +47,7 @@ function Birthday() {
         </RegisterOverview>
         <DateContainer>
           <DateStr>{myBirth}</DateStr>
-          <Button size="md">
+          <Button size="md" as="div">
             <StyledDatePicker
               locale={ko}
               selected={startDate}
@@ -54,21 +56,13 @@ function Birthday() {
               showMonthYearPicker
             />
           </Button>
-          <Button size="md" mt="10px">
+          <Button size="md" mt="10px" as="div">
             <StyledDatePicker
               locale={ko}
               selected={startDate}
               onChange={(date) => setStartDate(date)}
               dateFormat="날짜 선택"
-              renderCustomHeader={({
-                date,
-                changeYear,
-                changeMonth,
-                decreaseMonth,
-                increaseMonth,
-                prevMonthButtonDisabled,
-                nextMonthButtonDisabled,
-              }) => (
+              renderCustomHeader={({ date }) => (
                 <div
                   style={{
                     margin: 10,
@@ -76,7 +70,7 @@ function Birthday() {
                     justifyContent: "center",
                   }}
                 >
-                  <span>{dayjs(date).format("YYYY년 M월 D일")}</span>
+                  <span>{dayjs(date)?.format("YYYY년 M월 D일")}</span>
                 </div>
               )}
             />
