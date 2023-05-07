@@ -58,22 +58,27 @@ export interface IAccount extends Document {
   userId: IUser | string;
 }
 
+export interface IMajor {
+  department: string;
+  detail: string;
+}
+
 export interface IRegisterForm {
-  registerDate: string;
-  location?: string;
-  name: string;
+  registerDate?: string;
+  location?: Location;
+  name?: string;
   mbti?: string;
-  birth: string;
+  birth?: string;
   agree?: any;
-  gender?: string;
-  interest?: string[];
+  gender?: "남성" | "여성";
+  interests?: string[];
+  majors?: IMajor[];
 }
 
 export type IRole = "previliged" | "member";
 export interface IUserRegister extends IRegisterForm {
   role?: IRole;
   isActive?: boolean;
-  gender: string;
 }
 export const USER_BADGES = {
   아메리카노: "gray",

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
@@ -12,7 +12,7 @@ import { useStoreQuery } from "../../../hooks/store/queries";
 import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
 import StoreNavigation from "../../../pagesComponents/store/item/StoreNavigation";
 import { STORE_GIFT } from "../../../storage/Store";
-import { IStoreGift } from "../../../types/store";
+import { IStoreApplicant, IStoreGift } from "../../../types/store";
 
 function StoreItem() {
   const router = useRouter();
@@ -21,7 +21,10 @@ function StoreItem() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [isModal, setIsModal] = useState(false);
+  const [applyData, setApplyData] = useState<IStoreApplicant[]>([]);
+
   const info: IStoreGift = STORE_GIFT[itemId];
+
   const dayjs = require("dayjs");
   require("dayjs/locale/ko");
   const localizedFormat = require("dayjs/plugin/localizedFormat");
@@ -31,14 +34,17 @@ function StoreItem() {
   const { isOpen, onToggle } = useDisclosure();
 
   const date = info?.date;
-  const { data: applicantInfo } = useStoreQuery(info?.giftId);
 
-  console.log(applicantInfo);
+  useStoreQuery(info?.giftId, {
+    enabled: info !== undefined,
+    onSuccess(data) {
+      const temp = data?.users.filter((who) => who.cnt > 0);
+      setApplyData(temp);
+    },
+  });
 
-  const totalApply = applicantInfo?.users.reduce(
-    (acc, cur) => acc + cur.cnt,
-    0
-  );
+  const totalApply = applyData?.reduce((acc, cur) => acc + cur.cnt, 0);
+
   return (
     <>
       <Header title="기프티콘 추첨" url="/store" />
@@ -82,11 +88,11 @@ function StoreItem() {
             shadow="md"
             color="var(--font-h2)"
           >
-            {applicantInfo?.users.length === 0 ? (
+            {applyData?.length === 0 ? (
               "참여 인원 없음"
             ) : (
               <Applicant>
-                {applicantInfo?.users.map((who, idx) => (
+                {applyData?.map((who, idx) => (
                   <ApplicantBlock key={idx}>
                     <span>{who.name}</span>
                     <div>

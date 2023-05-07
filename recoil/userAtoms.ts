@@ -1,5 +1,10 @@
 import { atom } from "recoil";
-import { IUserBadge } from "../types/user";
+import { IRegisterForm, IUserBadge } from "../types/user";
+
+export const registerFormState = atom<IRegisterForm>({
+  key: "registerForm",
+  default: null,
+});
 
 export const numOfUserState = atom({
   key: "numOfUser",
