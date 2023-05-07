@@ -6,7 +6,7 @@ const giftSchema: Schema = new Schema(
     uid: { type: String, ref: "User" },
     name: { type: String, ref: "User" },
     cnt: { type: Number, default: 0 },
-    giftid: { type: Number },
+    giftId: { type: Number },
   },
   {
     toJSON: {

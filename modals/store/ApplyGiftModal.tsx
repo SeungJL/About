@@ -68,7 +68,7 @@ function ApplyGiftModal({
       name: session.user.name,
       uid: session.uid,
       cnt: value,
-      giftid: giftInfo?.giftid,
+      giftId: giftInfo?.giftId,
     };
     mutate(info);
     getPoint({ value: -totalCost, text: `${giftInfo?.name}응모` });
@@ -109,7 +109,7 @@ function ApplyGiftModal({
       </ModalMain>
       <Footer>
         <Button
-          // disabled={!isOpen}
+          disabled={!isOpen}
           width="100%"
           colorScheme="blackAlpha"
           onClick={onApply}

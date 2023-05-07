@@ -8,10 +8,10 @@ Accept: application/json
 withCredentials: true
 
 {
-  "uid": "2755113452",
-  "name": "QWE",
-  "cnt": 7,
-  "giftid": 2
+  "uid": "2755113451",
+  "name": "ASDFG",
+  "cnt": 3,
+  "giftId": 3
 }
 
 ###
@@ -21,7 +21,7 @@ Accept: application/json
 withCredentials: true
 
 ###
-GET {{baseUrl}}/{{urlPath}}/store/1
+GET {{baseUrl}}/{{urlPath}}/store/3
 Content-Type: application/json
 Accept: application/json
 withCredentials: true

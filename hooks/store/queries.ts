@@ -2,14 +2,14 @@ import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
 
 export const useStoreQuery = (
-  giftid?: string,
+  giftId?: number,
   options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
 ) =>
   useQuery<any, AxiosError, any>(
     "storeGift",
     async () => {
-      console.log(giftid);
-      const res = await axios.get<any>(`/api/store/${giftid}`);
+      console.log(giftId);
+      const res = await axios.get<any>(`/api/store/${giftId}`);
       return res.data;
     },
     options

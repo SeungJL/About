@@ -14,7 +14,7 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 10,
     winner: 6,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
-    giftid: "1",
+    giftId: 1,
   },
   {
     image:
@@ -24,7 +24,7 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 20,
     winner: 4,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
-    giftid: "2",
+    giftId: 2,
   },
   {
     image:
@@ -34,7 +34,7 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 30,
     winner: 4,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
-    giftid: "3",
+    giftId: 3,
   },
 
   {
@@ -45,7 +45,7 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 50,
     winner: 2,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-20") },
-    giftid: "4",
+    giftId: 4,
   },
   {
     image:
@@ -55,7 +55,7 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 70,
     winner: 2,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-20") },
-    giftid: "5",
+    giftId: 5,
   },
   {
     image:
@@ -65,6 +65,6 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 100,
     winner: 1,
     date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-06-04") },
-    giftid: "6",
+    giftId: 6,
   },
 ];
