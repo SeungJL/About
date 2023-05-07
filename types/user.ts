@@ -59,13 +59,13 @@ export interface IAccount extends Document {
 }
 
 export interface IRegisterForm {
-  registerDate: string;
+  registerDate?: string;
   location?: string;
-  name: string;
+  name?: string;
   mbti?: string;
-  birth: string;
+  birth?: string;
   agree?: any;
-  gender?: string;
+  gender?: "남성" | "여성";
   interest?: string[];
 }
 
@@ -73,7 +73,6 @@ export type IRole = "previliged" | "member";
 export interface IUserRegister extends IRegisterForm {
   role?: IRole;
   isActive?: boolean;
-  gender: string;
 }
 export const USER_BADGES = {
   아메리카노: "gray",
