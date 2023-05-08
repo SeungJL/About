@@ -38,7 +38,7 @@ function StoreItem() {
   useStoreQuery(info?.giftId, {
     enabled: info !== undefined,
     onSuccess(data) {
-      const temp = data?.users.filter((who) => who.cnt > 0);
+      const temp = data?.users.filter((who) => who.cnt > 0 && who?.uid !== "7");
       setApplyData(temp);
     },
   });

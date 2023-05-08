@@ -12,7 +12,7 @@ function PlaceSelectorLg({
   setSelectedPlace,
   isSelectUnit,
 }: IPlaceSelecter) {
-  console.log(45, placeInfoArr);
+ 
   const toast = useToast();
   const choicedSpaces = isSelectUnit ? firstPlace : secondPlaces;
   const handlePlaceIconClicked = (place: IplaceInfo) => {

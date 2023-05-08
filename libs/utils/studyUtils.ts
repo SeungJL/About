@@ -15,7 +15,7 @@ import { Location } from "../../types/system";
 
 export const arrangeSpace = (participations: IParticipation[]) => {
   const temp = [];
-  console.log(participations);
+ 
   participations.forEach((participant) => {
     const ID = participant.place._id;
     //수원
@@ -31,7 +31,7 @@ export const arrangeSpace = (participations: IParticipation[]) => {
     else if (ID === YANG_파스쿠찌) temp[2] = participant;
     else if (ID === YANG_할리스) temp[3] = participant;
   });
-  console.log(44, temp);
+  
   return temp;
 };
 

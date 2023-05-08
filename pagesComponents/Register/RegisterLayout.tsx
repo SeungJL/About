@@ -14,7 +14,7 @@ function RegisterLayout({
   const { register, handleSubmit } = useForm();
 
   const onValid = (data) => {
-    console.log(data);
+    
   };
   return (
     <Layout onSubmit={handleSubmit(onValid)}>

@@ -46,7 +46,7 @@ function CheckStudyModal({
   const queryClient = useQueryClient();
   const toast = useToast();
   const voteDate = useRecoilValue(voteDateState);
-  console.log(23, mySpaceFixed);
+ 
   const { data } = useVoteQuery(voteDate, location);
   const myPlace = data?.participations.find(
     (par) => par === mySpaceFixed
@@ -55,14 +55,8 @@ function CheckStudyModal({
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
-  console.log(
-    33,
-    dayjs(
-      mySpaceFixed?.attendences?.find(
-        (who) => (who?.user as IUser).uid === session?.uid
-      ).time.start
-    )
-  );
+  
+ 
 
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {

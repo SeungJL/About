@@ -65,7 +65,7 @@ function VoteStudyMainModal({
     },
   });
 
-  console.log(vote);
+ 
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
