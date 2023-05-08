@@ -16,11 +16,12 @@ export default async function handler(
 
   const token = await getToken({ req, secret });
 
-  if (!token || !token.uid || !token.accessToken) {
-    res.status(401).end();
-    return;
-  }
+  // if (!token || !token.uid || !token.accessToken) {
+  //   res.status(401).end();
+  //   return;
+  // }
 
+  //게스트 로그인도 확인이 가능한 부분이라서 주석처리 해두겠습니다.
   await dbConnect();
 
   switch (method) {
