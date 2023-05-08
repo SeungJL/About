@@ -7,39 +7,73 @@ import { MainLoading } from "../../components/ui/Loading";
 import { STORE_GIFT } from "../../storage/Store";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
+import { useScoreAllQuery } from "../../hooks/user/pointSystem/queries";
+import { useStoreAllQuery } from "../../hooks/store/queries";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 const ITEM_WIDTH = 120;
 
 function Store() {
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [applyNum, setApplyNum] = useState([]);
   const router = useRouter();
+
+  const { isLoading } = useStoreAllQuery({
+    onSuccess(data) {
+      const temp = new Array(6).fill(0);
+      data?.users.forEach((who) => {
+        const giftIdx = Number(who?.giftId);
+        if (giftIdx > 6 || who?.uid === "7" || who?.cnt < 1) return;
+        temp[giftIdx - 1]++;
+        setApplyNum(temp);
+      });
+    },
+  });
 
   return (
     <>
-      <Header title="스토어" />
+      <Header title="포인트 추첨" />
       <Layout>
-        {STORE_GIFT?.map((item, idx) => (
-          <Item key={idx}>
-            <Image
-              width={ITEM_WIDTH}
-              height={ITEM_WIDTH}
-              alt="storeGift"
-              unoptimized={true}
-              src={item.image}
-              onLoad={() => setIsLoading(false)}
-              onClick={() => router.push(`/store/${idx}`)}
-            />
-            <Info>
-              <Name>{item.name}</Name>
-              <Date>
-                {item.date.startDay.format("M.DD")} -
-                {item.date.endDay.format("M.DD")}
-              </Date>
-            </Info>
-            <Point>{item.point} point</Point>
-          </Item>
-        ))}
+        {STORE_GIFT?.map((item, idx) => {
+          const winTemp = [];
+          for (let i = 0; i < item?.winner; i++) winTemp.push(i);
+          return (
+            <Item key={idx}>
+              <Status>
+                <div>
+                  {winTemp?.map((win) => (
+                    <div key={win} style={{ marginLeft: "auto" }}>
+                      <FontAwesomeIcon
+                        icon={faTrophy}
+                        color="var(--color-mint)"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <span>{applyNum[idx]}</span>
+                  <span>/{item?.max}</span>
+                </div>
+              </Status>
+              <Image
+                width={ITEM_WIDTH}
+                height={ITEM_WIDTH}
+                alt="storeGift"
+                unoptimized={true}
+                src={item.image}
+                onClick={() => router.push(`/store/${idx}`)}
+              />
+              <Info>
+                <Name>{item.name}</Name>
+                <Date>
+                  {item.date.startDay.format("M.DD")} -
+                  {item.date.endDay.format("M.DD")}
+                </Date>
+              </Info>
+              <Point>{item.point} point</Point>
+            </Item>
+          );
+        })}
       </Layout>
 
       {isLoading && (
@@ -53,6 +87,42 @@ function Store() {
     </>
   );
 }
+
+const Status = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 8px;
+  top: 6px;
+  font-size: 13px;
+  > span:first-child {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    > div {
+      padding-left: 3px;
+    }
+  }
+  > div:last-child {
+    margin-top: 2px;
+    align-self: flex-end;
+    color: var(--font-h3);
+  }
+`;
+
+const Circle = styled.div`
+  padding: 2px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  font-weight: 600;
+
+  border: 1.5px solid var(--font-h1);
+  border-radius: 50%;
+`;
 
 const Layout = styled.div`
   display: grid;
@@ -68,6 +138,8 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  border-radius: var(--border-radius);
 `;
 
 const Info = styled.div`
@@ -86,11 +158,6 @@ const Info = styled.div`
 
 const Name = styled.span`
   font-weight: 600;
-`;
-
-const Voter = styled.span`
-  font-size: 12px;
-  color: var(--font-h2);
 `;
 
 const Date = styled.span`

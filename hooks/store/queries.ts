@@ -22,3 +22,19 @@ export const useStoreQuery = (
 
     options
   );
+
+export const useStoreAllQuery = (
+  options?: Omit<
+    UseQueryOptions<IStoreQuery, AxiosError, IStoreQuery>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IStoreQuery, AxiosError, IStoreQuery>(
+    "storeGiftAll",
+    async () => {
+      const res = await axios.get<IStoreQuery>(`/api/store`);
+      return res.data;
+    },
+
+    options
+  );

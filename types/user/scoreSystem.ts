@@ -1,7 +1,7 @@
 export interface IScore {
   name?: string;
   score: number;
-  _id?: string;
+  uid?: string;
 }
 
 export interface IWarningScore {
@@ -27,4 +27,3 @@ export interface IPointSystem {
   value: number;
   text?: string;
 }
-

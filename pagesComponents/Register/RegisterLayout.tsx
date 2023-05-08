@@ -13,9 +13,7 @@ function RegisterLayout({
 }) {
   const { register, handleSubmit } = useForm();
 
-  const onValid = (data) => {
-    
-  };
+  const onValid = (data) => {};
   return (
     <Layout onSubmit={handleSubmit(onValid)}>
       {children}

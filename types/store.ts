@@ -8,6 +8,7 @@ export interface IStoreGift {
   winner: number;
   date: { startDay: Dayjs; endDay: Dayjs };
   giftId?: number;
+  max?:number
 }
 
 export interface IStoreApplicant {

@@ -21,6 +21,8 @@ import Header from "../../components/layouts/Header";
 import {
   usePointAllQuery,
   usePointQuery,
+  useScoreAllQuery,
+  useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
 import { useVoteRateQuery } from "../../hooks/user/queries";
 import {
@@ -30,22 +32,22 @@ import {
 } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
 import { USER_BADGES } from "../../types/user";
-import { IPointAll } from "../../types/user/scoreSystem";
+import { IPointAll, IScore } from "../../types/user/scoreSystem";
 
 function Ranking() {
   const { data: session } = useSession();
 
   const isGuest = session && session?.user.name === "guest";
-  const [userScoreList, setUserScoreList] = useState<IPointAll[]>([]);
+  const [userScoreList, setUserScoreList] = useState<IScore[]>([]);
   const userBadge = useRecoilValue(userBadgeState);
   const [myRank, setMyRank] = useState<{ isRank; myRank; percent }>();
-  const { data } = usePointQuery({
+  const { data } = useScoreQuery({
     enabled: isGuest === false,
   });
 
-  const myPoint = data?.point | 0;
+  const myPoint = data?.score | 0;
 
-  usePointAllQuery({
+  useScoreAllQuery({
     enabled: true,
     onSuccess(data) {
       const { scoreArr, myRank, percent, isRank } = SortUserScore(
@@ -126,8 +128,8 @@ function Ranking() {
               <FilterBtn>필터</FilterBtn>
             </SectionHeader>
             {userScoreList?.map((who, idx) => {
-              const point = who?.point;
-              const { badge } = userBadgeScore(point);
+              const score = who?.score;
+              const { badge } = userBadgeScore(score);
               return (
                 <Item key={idx}>
                   <span>{idx + 1}위</span>
@@ -137,7 +139,7 @@ function Ranking() {
                   <Badge marginRight="6px" colorScheme={USER_BADGES[badge]}>
                     {badge}
                   </Badge>
-                  <span>{point} 점</span>
+                  <span>{score} 점</span>
                 </Item>
               );
             })}

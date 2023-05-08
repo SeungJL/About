@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 import { Location } from "./system";
-import { IPointAll } from "./user/scoreSystem";
+import { IPointAll, IScore } from "./user/scoreSystem";
 
 export interface kakaoProfileInfo {
   name: string;
@@ -71,8 +71,15 @@ export interface IRegisterForm {
   birth?: string;
   agree?: any;
   gender?: "남성" | "여성";
-  interests?: string[];
+  interests?: IInterests;
   majors?: IMajor[];
+  message?: string;
+  phoneNumber?: string;
+}
+
+export interface IInterests {
+  first: string;
+  second?: string;
 }
 
 export type IRole = "previliged" | "member";
@@ -110,7 +117,7 @@ export interface IRankScore {
   isRank: boolean;
   myRank?: number;
   percent?: boolean;
-  scoreArr?: IPointAll[];
+  scoreArr?: IScore[];
 }
 
 export interface IAvatar {
