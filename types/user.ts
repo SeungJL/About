@@ -71,8 +71,15 @@ export interface IRegisterForm {
   birth?: string;
   agree?: any;
   gender?: "남성" | "여성";
-  interests?: string[];
+  interests?: IInterests;
   majors?: IMajor[];
+  message?: string;
+  phoneNumber?: string;
+}
+
+export interface IInterests {
+  first: string;
+  second?: string;
 }
 
 export type IRole = "previliged" | "member";

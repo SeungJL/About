@@ -10,7 +10,7 @@ import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Location } from "../../types/system";
-import { MAJOR_DATA } from "../../storage/interestData";
+import { MAJOR_DATA } from "../../storage/ProfileData";
 import { IMajor } from "../../types/user";
 import { useToast } from "@chakra-ui/react";
 

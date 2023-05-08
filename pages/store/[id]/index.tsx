@@ -46,7 +46,7 @@ function StoreItem() {
 
   return (
     <>
-      <Header title="기프티콘 추첨" url="/store" />
+      <Header title="상세 정보" url="/store" />
       {isLoading ? (
         <MainLoading />
       ) : (
@@ -110,6 +110,10 @@ function StoreItem() {
             <DetailItem>
               <span>추첨인원</span>
               <span>{info?.winner}명</span>
+            </DetailItem>
+            <DetailItem>
+              <span>응모 가능 인원</span>
+              <span>{info?.max}명</span>
             </DetailItem>
             <DetailItem>
               <span>응모기간</span>
