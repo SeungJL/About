@@ -6,7 +6,7 @@ import styled from "styled-components";
 export const MainLoading = () => (
   <MainLoadingLayout>
     <RotatingLines
-      strokeColor="grey"
+      strokeColor="var(--color-mint)"
       strokeWidth="5"
       animationDuration="0.75"
       width="50"
