@@ -108,11 +108,11 @@ function AboutMainItem({
                 )
               : firstAttendance?.map(
                   (user, idx) =>
-                    idx < VOTER_SHOW_MAX + 2 && (
+                    idx < VOTER_SHOW_MAX + 1 && (
                       <ProfileContainer key={idx} zIndex={idx}>
                         <ProfileIconSm
                           user={user?.user as IUser}
-                          isOverlap={idx === VOTER_SHOW_MAX + 1}
+                          isOverlap={idx === VOTER_SHOW_MAX}
                         />
                       </ProfileContainer>
                     )

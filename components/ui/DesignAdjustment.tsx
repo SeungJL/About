@@ -9,6 +9,10 @@ export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
     W = 85;
     H = 85;
   }
+  if (place.location === "안양") {
+    W = 100;
+    H = 100;
+  }
   return (
     <>
       <Image

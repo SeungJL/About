@@ -21,6 +21,11 @@ function ProfileIconSm({
     avatarType !== undefined &&
     avatarBg !== null &&
     avatarBg !== undefined;
+
+  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src =
+      "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
+  };
   return (
     <Layout>
       <Wrapper style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
@@ -33,6 +38,7 @@ function ProfileIconSm({
             height={isAvatar ? 21 : 26}
             alt="ProfileIconSm"
             unoptimized={true}
+            onError={onError}
           />
         ) : (
           <OverlapWrapper>
@@ -46,6 +52,7 @@ function ProfileIconSm({
               height={isAvatar ? 21 : 26}
               alt="ProfileIconSm"
               unoptimized={true}
+              onError={onError}
             />
             <IconWrapper>
               <FontAwesomeIcon icon={faEllipsis} size="lg" color="white" />
