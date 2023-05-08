@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
+import { MainLoading } from "../../../components/ui/Loading";
 import { useStoreQuery } from "../../../hooks/store/queries";
 import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
 import StoreNavigation from "../../../pagesComponents/store/item/StoreNavigation";
@@ -17,8 +18,6 @@ import { IStoreApplicant, IStoreGift } from "../../../types/store";
 function StoreItem() {
   const router = useRouter();
   const itemId = Number(router.query?.id);
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const [isModal, setIsModal] = useState(false);
   const [applyData, setApplyData] = useState<IStoreApplicant[]>([]);
@@ -35,7 +34,7 @@ function StoreItem() {
 
   const date = info?.date;
 
-  useStoreQuery(info?.giftId, {
+  const { isLoading } = useStoreQuery(info?.giftId, {
     enabled: info !== undefined,
     onSuccess(data) {
       const temp = data?.users.filter((who) => who.cnt > 0 && who?.uid !== "7");
@@ -48,95 +47,98 @@ function StoreItem() {
   return (
     <>
       <Header title="기프티콘 추첨" url="/store" />
-      <Layout>
-        <ImageWrapper>
-          <Image
-            width={200}
-            height={200}
-            alt="storeGiftDetail"
-            unoptimized={true}
-            src={`${info?.image}`}
-            onLoad={() => setIsLoading(false)}
-          />
-        </ImageWrapper>
-        <Overview>
-          <span>{info?.name}</span>
-          <span>{info?.brand}</span>
-        </Overview>
+      {isLoading ? (
+        <MainLoading />
+      ) : (
+        <Layout>
+          <ImageWrapper>
+            <Image
+              width={200}
+              height={200}
+              alt="storeGiftDetail"
+              unoptimized={true}
+              src={`${info?.image}`}
+            />
+          </ImageWrapper>
+          <Overview>
+            <span>{info?.name}</span>
+            <span>{info?.brand}</span>
+          </Overview>
 
-        <Price>{info?.point} point</Price>
-        <Nav>
-          <span>
-            현재 응모 숫자는 <b>{totalApply}회</b> 입니다.
-          </span>
-          <div>
-            <Button size="lg" width="50%" onClick={onToggle}>
-              참여현황
-            </Button>
-            <Button size="lg" width="50%" onClick={() => setIsModal(true)}>
-              응모하기
-            </Button>
-          </div>
-        </Nav>
-        <Collapse in={isOpen} animateOpacity>
-          <Box
-            fontSize="13px"
-            p="10px"
-            mt="4"
-            bg="gray.100"
-            rounded="md"
-            shadow="md"
-            color="var(--font-h2)"
-          >
-            {applyData?.length === 0 ? (
-              "참여 인원 없음"
-            ) : (
-              <Applicant>
-                {applyData?.map((who, idx) => (
-                  <ApplicantBlock key={idx}>
-                    <span>{who.name}</span>
-                    <div>
-                      <FontAwesomeIcon icon={faX} size="2xs" />
-                    </div>
-                    <span>{who.cnt} 회</span>
-                  </ApplicantBlock>
-                ))}
-              </Applicant>
-            )}
-          </Box>
-        </Collapse>
-        <Detail>
-          <DetailItem>
-            <span>추첨인원</span>
-            <span>{info?.winner}명</span>
-          </DetailItem>
-          <DetailItem>
-            <span>응모기간</span>
+          <Price>{info?.point} point</Price>
+          <Nav>
             <span>
-              {date?.startDay.format("M.D")}({date?.startDay.format("ddd")})
-              &nbsp;~&nbsp;
-              {date?.endDay.format("M.D")}({date?.endDay.format("ddd")})
+              현재 응모 숫자는 <b>{totalApply}회</b> 입니다.
             </span>
-          </DetailItem>
-          <DetailItem>
-            <span>당첨자 발표일</span>
-            <span>
-              {date?.endDay.add(1, "day").format("M.D")}(
-              {date?.endDay.add(1, "day").format("ddd")})
-            </span>
-          </DetailItem>
-          <DetailItem>
-            <span>안내사항</span>
             <div>
-              <span>당첨자는 중복되지 않습니다.</span>
-              <span>
-                당첨자가 연락이 안되는 경우, 예비 당첨자로 순번이 넘어갑니다.
-              </span>
-              <span></span>
+              <Button size="lg" width="50%" onClick={onToggle}>
+                참여현황
+              </Button>
+              <Button size="lg" width="50%" onClick={() => setIsModal(true)}>
+                응모하기
+              </Button>
             </div>
-          </DetailItem>
-        </Detail>
-      </Layout>
+          </Nav>
+          <Collapse in={isOpen} animateOpacity>
+            <Box
+              fontSize="13px"
+              p="10px"
+              mt="4"
+              bg="gray.100"
+              rounded="md"
+              shadow="md"
+              color="var(--font-h2)"
+            >
+              {applyData?.length === 0 ? (
+                "참여 인원 없음"
+              ) : (
+                <Applicant>
+                  {applyData?.map((who, idx) => (
+                    <ApplicantBlock key={idx}>
+                      <span>{who.name}</span>
+                      <div>
+                        <FontAwesomeIcon icon={faX} size="2xs" />
+                      </div>
+                      <span>{who.cnt} 회</span>
+                    </ApplicantBlock>
+                  ))}
+                </Applicant>
+              )}
+            </Box>
+          </Collapse>
+          <Detail>
+            <DetailItem>
+              <span>추첨인원</span>
+              <span>{info?.winner}명</span>
+            </DetailItem>
+            <DetailItem>
+              <span>응모기간</span>
+              <span>
+                {date?.startDay.format("M.D")}({date?.startDay.format("ddd")})
+                &nbsp;~&nbsp;
+                {date?.endDay.format("M.D")}({date?.endDay.format("ddd")})
+              </span>
+            </DetailItem>
+            <DetailItem>
+              <span>당첨자 발표일</span>
+              <span>
+                {date?.endDay.add(1, "day").format("M.D")}(
+                {date?.endDay.add(1, "day").format("ddd")})
+              </span>
+            </DetailItem>
+            <DetailItem>
+              <span>안내사항</span>
+              <div>
+                <span>당첨자는 중복되지 않습니다.</span>
+                <span>
+                  당첨자가 연락이 안되는 경우, 예비 당첨자로 순번이 넘어갑니다.
+                </span>
+                <span></span>
+              </div>
+            </DetailItem>
+          </Detail>
+        </Layout>
+      )}
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
           <ApplyGiftModal setIsModal={setIsModal} giftInfo={info} />
