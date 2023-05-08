@@ -43,7 +43,7 @@ function ChangeStudyTimeModal({
     },
     end: { hour: endTime.hour(), minutes: endTime.minute() },
   });
-  console.log(time.start);
+  
   const { mutate: patchAttend } = useChangeTimeMutation(voteDate, {
     onSuccess() {
       if (

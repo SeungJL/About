@@ -15,7 +15,7 @@ function Name() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   const [errorMessage, setErrorMessage] = useState("");
-  console.log(registerForm);
+
   const [value, setValue] = useState(registerForm?.name || "");
 
   const onClickNext = () => {

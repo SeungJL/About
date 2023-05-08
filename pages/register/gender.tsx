@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 function Gender() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-  console.log(registerForm);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<"남성" | "여성">(registerForm?.gender);
 

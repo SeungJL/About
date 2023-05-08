@@ -30,7 +30,7 @@ export default async function handler(
         { uid: token.uid },
         "-_id + name + score"
       );
-      console.log(userScore);
+     
       res.status(200).send(userScore);
       break;
 
