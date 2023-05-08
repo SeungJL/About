@@ -1,4 +1,8 @@
 import {
+  ANYANG_숨맑은집,
+  ANYANG_인뎃커피,
+  ANYANG_커피인더스트리,
+  ANYANG_파스쿠찌,
   SUWAN_아티제,
   SUWAN_카탈로그,
   SUWAN_칸나,
@@ -15,7 +19,7 @@ import { Location } from "../../types/system";
 
 export const arrangeSpace = (participations: IParticipation[]) => {
   const temp = [];
- 
+
   participations.forEach((participant) => {
     const ID = participant.place._id;
     //수원
@@ -30,8 +34,13 @@ export const arrangeSpace = (participations: IParticipation[]) => {
     else if (ID === YANG_스타벅스) temp[1] = participant;
     else if (ID === YANG_파스쿠찌) temp[2] = participant;
     else if (ID === YANG_할리스) temp[3] = participant;
+    //안양
+    if (ID === ANYANG_숨맑은집) temp[0] = participant;
+    else if (ID === ANYANG_인뎃커피) temp[1] = participant;
+    else if (ID === ANYANG_파스쿠찌) temp[2] = participant;
+    else if (ID === ANYANG_커피인더스트리) temp[3] = participant;
   });
-  
+
   return temp;
 };
 

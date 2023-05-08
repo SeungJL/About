@@ -22,7 +22,10 @@ function ProfileIconLg({ user, isSmall }: { user: IUser; isSmall?: boolean }) {
     avatarType !== undefined &&
     avatarBg !== null &&
     avatarBg !== undefined;
-
+  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src =
+      "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
+  };
   return (
     <>
       <Layout
@@ -37,6 +40,7 @@ function ProfileIconLg({ user, isSmall }: { user: IUser; isSmall?: boolean }) {
           height={isSmall && isAvatar ? 58 : isSmall ? 72 : isAvatar ? 64 : 80}
           alt="userProfileLg"
           unoptimized={true}
+          onError={onError}
         />
       </Layout>
     </>

@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import styled from "styled-components";
 
 import UserInfoModal from "../../../modals/user/UserInfoModal";
@@ -37,6 +37,11 @@ function ProfileIconMd({
     }
     setIsUserModal(true);
   };
+
+  const onError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src =
+      "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
+  };
   const isAvatar =
     avatarType !== null &&
     avatarType !== undefined &&
@@ -59,6 +64,7 @@ function ProfileIconMd({
           height={isAvatar ? 40 : 50}
           alt="userProfile"
           unoptimized={true}
+          onError={onError}
         />
       </Layout>
       {isUserModal && (

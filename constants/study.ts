@@ -22,20 +22,25 @@ export const TIME_SELECTOR_START = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 export const TIME_SELECTOR_END = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 export const TIME_SELECTOR_MINUTES = ["00", "30"];
 
+//수원
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
 export const SUWAN_카탈로그 = "62e5d6e0e098c232c05c3d3f";
 export const SUWAN_아티제 = "63625f1d958585371af0248b";
-
 export const SUWAN_커피빈 = "644f6ffe9edb56992ccda5e9";
 export const SUWAN_칸나 = "644f70529edb56992ccda5eb";
 
+//양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
 export const YANG_스타벅스 = "6437ebccab537b843c6143af";
 
-export const Anyang_커피인더스트리 = "";
+//안양
+export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
+export const ANYANG_숨맑은집 = "6456ede120352b2d87582955";
+export const ANYANG_파스쿠찌 = "6456eed520352b2d87582957";
+export const ANYANG_인뎃커피 = "6456ef8120352b2d8758295b";
 
 export const SPACE_NAME = {
   //수원
@@ -51,9 +56,16 @@ export const SPACE_NAME = {
   "6437ea69ab537b843c6143ad": "할리스",
   "6437eb3fab537b843c6143ae": "파스쿠찌",
   "6437ebccab537b843c6143af": "스타벅스",
+
+  //안양
+  "6456ef2820352b2d87582959": "커피인더스트리",
+  "6456ede120352b2d87582955": "숨맑은집",
+  "6456eed520352b2d87582957": "파스쿠찌",
+  "6456ef8120352b2d8758295b": "인뎃커피",
 };
 
 export const SPACE_LOCATION = {
+  //수원
   [SUWAN_아티제]: "수원",
   [SUWAN_카탈로그]: "수원",
   [SUWAN_탐앤탐스]: "수원",
@@ -61,10 +73,16 @@ export const SPACE_LOCATION = {
   [SUWAN_칸나]: "수원",
   [SUWAN_커피빈]: "수원",
   [SUWAN_칸나]: "수원",
+  //양천
   [YANG_스타벅스]: "양천",
   [YANG_위카페]: "양천",
   [YANG_파스쿠찌]: "양천",
   [YANG_할리스]: "양천",
+  //안양
+  [ANYANG_숨맑은집]: "안양",
+  [ANYANG_인뎃커피]: "안양",
+  [ANYANG_커피인더스트리]: "안양",
+  [ANYANG_파스쿠찌]: "파스쿠찌",
 };
 
 export const STUDY_SPACE_INFO = [
@@ -124,4 +142,24 @@ export const STUDY_SPACE_INFO = [
   },
 
   //안양
+  {
+    id: ANYANG_파스쿠찌,
+    location: "경기 안양시 만안구 안양로304번길 12",
+    time: "09:30 ~ 23:00",
+  },
+  {
+    id: ANYANG_숨맑은집,
+    location: "경기 안양시 동안구 평촌대로223번길 44",
+    time: "09:00 ~ 24:00",
+  },
+  {
+    id: ANYANG_인뎃커피,
+    location: "경기 안양시 동안구 흥안대로 530",
+    time: "09:00 ~ 24:00",
+  },
+  {
+    id: ANYANG_커피인더스트리,
+    location: "경기 군포시 군포로 731",
+    time: "09:00 ~ 24:00",
+  },
 ];
