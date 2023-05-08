@@ -1,66 +1,66 @@
 import { IRankScore, IUserBadge, UserBadge } from "../../types/user";
-import { IPoint, IPointAll } from "../../types/user/scoreSystem";
+import { IScore } from "../../types/user/scoreSystem";
 
 export const userBadgeScore = (score) => {
   let badge: UserBadge = "아메리카노";
   let nextBadge: UserBadge = "라떼";
-  let badgePoint = 0;
+  let badgeScore = 0;
   let gap = 30;
-  let nextPoint = 30;
+  let nextScore = 30;
 
-  if (score < 30) badgePoint = score;
+  if (score < 30) badgeScore = score;
   else if (score < 70) {
     (badge = "라떼"),
-      (badgePoint = score - 30),
+      (badgeScore = score - 30),
       (nextBadge = "마키아또"),
-      (nextPoint = 70);
+      (nextScore = 70);
     gap = 40;
   } else if (score < 120) {
     (badge = "마키아또"),
-      (badgePoint = score - 70),
+      (badgeScore = score - 70),
       (nextBadge = "콜드브루"),
-      (nextPoint = 120);
+      (nextScore = 120);
     gap = 50;
   } else if (score < 180) {
     (badge = "콜드브루"),
-      (badgePoint = score - 120),
+      (badgeScore = score - 120),
       (nextBadge = "아인슈페너"),
-      (nextPoint = 180);
+      (nextScore = 180);
     gap = 60;
   } else if (score < 250) {
     (badge = "아인슈페너"),
-      (badgePoint = score - 180),
+      (badgeScore = score - 180),
       (nextBadge = "모카"),
-      (nextPoint = 250);
+      (nextScore = 250);
     gap = 70;
   } else if (score < 330) {
     (badge = "모카"),
-      (badgePoint = score - 250),
+      (badgeScore = score - 250),
       (nextBadge = "에스프레소"),
-      (nextPoint = 330);
+      (nextScore = 330);
     gap = 80;
   } else if (score > 330) {
     (badge = "에스프레소"),
-      (badgePoint = score - 330),
+      (badgeScore = score - 330),
       (nextBadge = "에스프레소"),
-      (nextPoint = 70);
+      (nextScore = 70);
     gap = 100;
   }
 
-  return { badge, badgePoint, nextBadge, gap, nextPoint };
+  return { badge, badgeScore, nextBadge, gap, nextScore };
 };
 
-const compare = (a: IPoint, b: IPoint) => {
-  if (a.point > b.point) return -1;
-  else if (a.point < b.point) return 1;
+const compare = (a: IScore, b: IScore) => {
+  if (a.score > b.score) return -1;
+  else if (a.score < b.score) return 1;
   return 0;
 };
 
-export const myScoreRank = (scoreArr: IPointAll[], myScore: number) => {
+export const myScoreRank = (scoreArr: IScore[], myScore: number) => {
   let highCnt = 0;
   const total = scoreArr.length;
   scoreArr.forEach((user) => {
-    if (user.point >= myScore) highCnt++;
+    if (user.score >= myScore) highCnt++;
   });
   const rate = (highCnt / total) * 100;
   if (rate < 1) return 1;
@@ -72,12 +72,12 @@ export const myScoreRank = (scoreArr: IPointAll[], myScore: number) => {
 };
 
 export const SortUserScore = (
-  scoreArr: IPointAll[],
+  scoreArr: IScore[],
   myScore: number
 ): IRankScore => {
   scoreArr.sort(compare);
 
-  const myRank = scoreArr.findIndex((who) => who.point === myScore) + 1;
+  const myRank = scoreArr.findIndex((who) => who.score === myScore) + 1;
 
   if (myRank <= 100) return { scoreArr, myRank, isRank: true };
 
@@ -85,7 +85,7 @@ export const SortUserScore = (
   const total = scoreArr.length;
 
   scoreArr.forEach((user) => {
-    if (user.point >= myScore) highCnt++;
+    if (user.score >= myScore) highCnt++;
   });
 
   let percent;

@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 import { Location } from "./system";
-import { IPointAll } from "./user/scoreSystem";
+import { IPointAll, IScore } from "./user/scoreSystem";
 
 export interface kakaoProfileInfo {
   name: string;
@@ -110,7 +110,7 @@ export interface IRankScore {
   isRank: boolean;
   myRank?: number;
   percent?: boolean;
-  scoreArr?: IPointAll[];
+  scoreArr?: IScore[];
 }
 
 export interface IAvatar {

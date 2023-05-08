@@ -26,6 +26,7 @@ import NotCompletedModal from "../../../modals/system/NotCompletedModal";
 import {
   usePointAllQuery,
   usePointQuery,
+  useScoreAllQuery,
   useScoreQuery,
 } from "../../../hooks/user/pointSystem/queries";
 import { usePointMutation } from "../../../hooks/user/pointSystem/mutation";
@@ -44,28 +45,28 @@ function UserOverview() {
     value: 0,
     nextBadge: { badge: null, color: "" },
     scoreGap: 30,
-    nextPoint: 30,
+    nextScore: 30,
   });
 
   const { data } = useScoreQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      const { badge, badgePoint, nextBadge, gap, nextPoint } = userBadgeScore(
+      const { badge, badgeScore, nextBadge, gap, nextScore } = userBadgeScore(
         data.score
       );
       setUserBadge({ badge, color: USER_BADGES[badge] });
       setScoreInfo({
-        value: badgePoint,
+        value: badgeScore,
         nextBadge: { badge: nextBadge, color: USER_BADGES[nextBadge] },
         scoreGap: gap,
-        nextPoint,
+        nextScore,
       });
     },
   });
 
   const myPoint = data?.score;
 
-  usePointAllQuery({
+  useScoreAllQuery({
     enabled: !isGuest,
     onSuccess(data) {
       const arrangedData = SortUserScore(data, myPoint);
@@ -109,7 +110,7 @@ function UserOverview() {
                 </div>
                 <div>
                   <span style={{ color: scoreInfo.nextBadge.color }}>
-                    {scoreInfo.nextPoint}점
+                    {scoreInfo.nextScore}점
                   </span>
                   <Badge
                     colorScheme={scoreInfo.nextBadge.color}
