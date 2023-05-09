@@ -60,7 +60,7 @@ function Interest() {
 
   return (
     <>
-      <ProgressLayout value={49} />
+      <ProgressLayout value={55} />
       <Header title="회원가입" url="/register/location" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

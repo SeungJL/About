@@ -43,10 +43,10 @@ function Interest() {
     }));
     router.push(`/register/message`);
   };
-
+ 
   return (
     <>
-      <ProgressLayout value={64} />
+      <ProgressLayout value={66} />
       <Header title="회원가입" url="/register/major" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

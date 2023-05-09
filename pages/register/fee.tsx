@@ -24,21 +24,12 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 function Fee() {
-  const router = useRouter();
   const toast = useToast();
+  const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [value, setValue] = useState("");
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target?.value);
-  };
-
-  const [index, setIndex] = useState(null);
-
-  const InputIdx = MESSAGE_DATA?.length;
   const copyAccount = (text) => {
     navigator.clipboard.writeText(text).then(
       () => {
@@ -58,20 +49,13 @@ function Fee() {
     );
   };
   const onClickNext = () => {
-    if (index === null) setErrorMessage("문장을 선택해 주세요.");
-    let message = "";
-    if (index === InputIdx) message = value;
-    else message = MESSAGE_DATA[index];
-
-    setRegisterForm((old) => ({ ...old, message }));
-
-    router.push(`/register/fee`);
+    router.push(`/register/success`);
   };
 
   return (
     <>
-      <ProgressLayout value={64} />
-      <Header title="회원가입" url="/register/interest" />
+      <ProgressLayout value={100} />
+      <Header title="회원가입" url="/register/phone" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>회비 납부</span>
@@ -234,7 +218,7 @@ const Account = styled.div`
 const Message = styled.div`
   font-size: 13px;
 
-  color: var(--font-h3);
+  color: var(--font-h2);
   margin-bottom: 64px;
 `;
 

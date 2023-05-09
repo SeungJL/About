@@ -40,10 +40,10 @@ function Message() {
 
     router.push(`/register/phone`);
   };
-
+  
   return (
     <>
-      <ProgressLayout value={64} />
+      <ProgressLayout value={77} />
       <Header title="회원가입" url="/register/interest" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

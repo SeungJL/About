@@ -9,52 +9,43 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Location } from "../../types/system";
+import { MBTI } from "../../storage/ProfileData";
 
-function Location() {
+function Mbti() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [location, setLocation] = useState<Location>(registerForm?.location);
+  const [gender, setGender] = useState<"남성" | "여성">(registerForm?.gender);
 
   const onClickNext = () => {
-    if (location === null) {
-      setErrorMessage("지역을 선택해 주세요.");
+    if (gender === null) {
+      setErrorMessage("성별을 선택해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, location }));
-    router.push(`/register/major`);
+    setRegisterForm((old) => ({ ...old, gender }));
+    router.push(`/register/birthday`);
   };
 
   return (
     <>
-      <ProgressLayout value={44} />
-      <Header title="회원가입" url="/register/gender" />
+      <ProgressLayout value={22} />
+      <Header title="회원가입" url="/register/name" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
-          <span>지역을 입력해 주세요</span>
-          <span>스터디에 참여 할 지역으로 선택해 주세요.</span>
+          <span>성별을 입력해 주세요</span>
+          <span></span>
         </RegisterOverview>
         <ButtonNav>
-          <Button
-            isSelected={location === "수원"}
-            onClick={() => setLocation("수원")}
-          >
-            수원
-          </Button>
-          <Button
-            isSelected={location === "양천"}
-            onClick={() => setLocation("양천")}
-          >
-            양천 / 당산
-          </Button>
-          <Button
-            isSelected={location === "안양"}
-            onClick={() => setLocation("안양")}
-          >
-            안양
-          </Button>
+          {MBTI?.map((item, idx) => (
+            <Button
+              key={idx}
+              isSelected={gender === "남성"}
+              onClick={() => setGender("남성")}
+            >
+              {item}
+            </Button>
+          ))}
         </ButtonNav>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
@@ -62,13 +53,10 @@ function Location() {
   );
 }
 
-const Layout = styled.div``;
-
 const ButtonNav = styled.nav`
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
@@ -84,4 +72,4 @@ const Button = styled.button<{ isSelected: boolean }>`
       : "1.5px solid var(--font-h5)"};
 `;
 
-export default Location;
+export default Mbti;

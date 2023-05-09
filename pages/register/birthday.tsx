@@ -38,7 +38,7 @@ function Birthday() {
 
   return (
     <>
-      <ProgressLayout value={42} />
+      <ProgressLayout value={33} />
       <Header title="회원가입" url="/register/gender" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

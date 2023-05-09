@@ -27,8 +27,8 @@ function Name() {
       setErrorMessage("한글로만 입력해 주세요.");
       return;
     }
-    setRegisterForm({ name: value });
-    router.push(`/register/gender`);
+    setRegisterForm((old) => ({ ...old, name: value }));
+    router.push(`/register/mbti`);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +38,7 @@ function Name() {
 
   return (
     <>
-      <ProgressLayout value={14} />
+      <ProgressLayout value={11} />
       <Header title="회원가입" url="/login" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -55,8 +55,6 @@ function Name() {
     </>
   );
 }
-
-const Layout = styled.div``;
 
 const NameInput = styled.input`
   margin-top: 40px;

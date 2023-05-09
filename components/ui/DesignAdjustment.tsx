@@ -13,6 +13,7 @@ export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
     W = 100;
     H = 100;
   }
+  
   return (
     <>
       <Image

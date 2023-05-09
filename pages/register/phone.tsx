@@ -29,7 +29,7 @@ function Phone() {
       setErrorMessage("핸드폰 번호를 확인해 주세요.");
       return;
     }
-    setRegisterForm({ phoneNumber: value });
+    setRegisterForm((old) => ({ ...old, phoneNumber: value }));
     router.push(`/register/fee`);
   };
 
@@ -39,7 +39,7 @@ function Phone() {
 
   return (
     <>
-      <ProgressLayout value={80} />
+      <ProgressLayout value={88} />
       <Header title="회원가입" url="/register/message" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
