@@ -16,14 +16,15 @@ function Mbti() {
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [gender, setGender] = useState<"남성" | "여성">(registerForm?.gender);
+
+  const [mbti, setMbti] = useState(registerForm?.mbti);
 
   const onClickNext = () => {
-    if (gender === null) {
-      setErrorMessage("성별을 선택해 주세요.");
+    if (mbti === "") {
+      setErrorMessage("항목을 선택해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, gender }));
+    setRegisterForm((old) => ({ ...old, mbti }));
     router.push(`/register/birthday`);
   };
 
@@ -40,8 +41,8 @@ function Mbti() {
           {MBTI?.map((item, idx) => (
             <Button
               key={idx}
-              isSelected={gender === "남성"}
-              onClick={() => setGender("남성")}
+              isSelected={mbti === item}
+              onClick={() => setMbti(item)}
             >
               {item}
             </Button>
@@ -57,6 +58,7 @@ const ButtonNav = styled.nav`
   margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
@@ -64,7 +66,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   border-radius: var(--border-radius);
   flex: 0.49;
   height: 48px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: ${(props) => props.isSelected && "600"};
   border: ${(props) =>
     props.isSelected

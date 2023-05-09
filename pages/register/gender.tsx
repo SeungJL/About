@@ -23,7 +23,7 @@ function Gender() {
       return;
     }
     setRegisterForm((old) => ({ ...old, gender }));
-    router.push(`/register/birthday`);
+    router.push(`/register/mbti`);
   };
 
   return (
@@ -66,7 +66,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   border-radius: var(--border-radius);
   flex: 0.49;
   height: 48px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: ${(props) => props.isSelected && "600"};
   border: ${(props) =>
     props.isSelected

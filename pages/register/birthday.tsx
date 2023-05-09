@@ -23,9 +23,23 @@ function Birthday() {
 
   const initialDate = new Date(2000, 0, 1);
 
-  const [startDate, setStartDate] = useState(
-    registerForm?.birth || initialDate
-  );
+  const defaultBirth =
+    registerForm && Number(registerForm?.birth?.slice(0, 2)) < 50
+      ? "20" + registerForm?.birth
+      : registerForm
+      ? "19" + registerForm?.birth
+      : null;
+
+  const defaultBirthDate =
+    defaultBirth &&
+    new Date(
+      +defaultBirth?.slice(0, 4),
+      +defaultBirth?.slice(4, 6) - 1,
+      +defaultBirth?.slice(6)
+    );
+  console.log(33, defaultBirthDate);
+
+  const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
   const onClickNext = () => {
     setRegisterForm((old) => ({
       ...old,

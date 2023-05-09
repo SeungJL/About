@@ -31,7 +31,7 @@ export interface IUser extends Document {
   isActive?: boolean;
   birth: string;
   mbti: string;
-  gender: string;
+  gender: "남성" | "여성";
   name: string;
   point: number;
   profileImage: string;

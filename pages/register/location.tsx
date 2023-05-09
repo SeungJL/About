@@ -76,7 +76,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   border-radius: var(--border-radius);
   flex: 0.49;
   height: 48px;
-  font-size: 13px;
+
   font-weight: ${(props) => props.isSelected && "600"};
   border: ${(props) =>
     props.isSelected
