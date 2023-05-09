@@ -15,6 +15,7 @@ export const MBTI = [
   "ESFJ",
   "ENFJ",
   "ENTJ",
+  "생략",
 ];
 
 export const MAJOR_DATA = [

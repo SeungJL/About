@@ -9,13 +9,14 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { Gender } from "../../types/user";
 
 function Gender() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [gender, setGender] = useState<"남성" | "여성">(registerForm?.gender);
+  const [gender, setGender] = useState<Gender>(registerForm?.gender);
 
   const onClickNext = () => {
     if (gender === null) {
@@ -23,7 +24,7 @@ function Gender() {
       return;
     }
     setRegisterForm((old) => ({ ...old, gender }));
-    router.push(`/register/birthday`);
+    router.push(`/register/mbti`);
   };
 
   return (
@@ -66,7 +67,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   border-radius: var(--border-radius);
   flex: 0.49;
   height: 48px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: ${(props) => props.isSelected && "600"};
   border: ${(props) =>
     props.isSelected

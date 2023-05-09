@@ -10,6 +10,7 @@ import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { checkIsKorean } from "../../libs/utils/validUtils";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 
 function Name() {
   const router = useRouter();
@@ -18,6 +19,13 @@ function Name() {
 
   const [value, setValue] = useState(registerForm?.name || "");
 
+  useUserInfoQuery({
+    onSuccess(data) {
+      setRegisterForm(data);
+      setValue(data?.name || "");
+    },
+  });
+  console.log(44, registerForm);
   const onClickNext = () => {
     if (value.length < 2 || value.length > 3) {
       setErrorMessage("2자 이상 입력해 주세요.");
@@ -28,7 +36,7 @@ function Name() {
       return;
     }
     setRegisterForm((old) => ({ ...old, name: value }));
-    router.push(`/register/mbti`);
+    router.push(`/register/gender`);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {

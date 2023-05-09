@@ -18,6 +18,7 @@ import { useRegisterMutation } from "../../hooks/vote/mutations";
 import { now } from "../../libs/utils/dateUtils";
 
 import { IRegisterForm, IUser, IUserRegister } from "../../types/user";
+import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 
 function RegisterFormModal({
   setIsModal,
@@ -29,6 +30,7 @@ function RegisterFormModal({
   const [isMan, setIsMan] = useState(true);
   const [isPrivacyModal, setIsPrivacyModal] = useState(false);
 
+  const { mutate: getDeposit } = useDepositMutation();
   const {
     register,
     handleSubmit,
@@ -72,6 +74,7 @@ function RegisterFormModal({
     };
 
     handleRegister(userInfo);
+    getDeposit({ value: 3000, text: "가입 보증금 충전" });
     setIsModal(false);
   };
 

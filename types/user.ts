@@ -31,7 +31,7 @@ export interface IUser extends Document {
   isActive?: boolean;
   birth: string;
   mbti: string;
-  gender: string;
+  gender: Gender;
   name: string;
   point: number;
   profileImage: string;
@@ -62,7 +62,7 @@ export interface IMajor {
   department: string;
   detail: string;
 }
-
+export type Gender = "남성" | "여성" | "";
 export interface IRegisterForm {
   registerDate?: string;
   location?: Location;
@@ -70,11 +70,12 @@ export interface IRegisterForm {
   mbti?: string;
   birth?: string;
   agree?: any;
-  gender?: "남성" | "여성";
+  gender?: Gender;
   interests?: IInterests;
   majors?: IMajor[];
   message?: string;
   phoneNumber?: string;
+  profileImg?: string;
 }
 
 export interface IInterests {
