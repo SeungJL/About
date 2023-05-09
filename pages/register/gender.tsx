@@ -9,13 +9,14 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { Gender } from "../../types/user";
 
 function Gender() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [gender, setGender] = useState<"남성" | "여성">(registerForm?.gender);
+  const [gender, setGender] = useState<Gender>(registerForm?.gender);
 
   const onClickNext = () => {
     if (gender === null) {
