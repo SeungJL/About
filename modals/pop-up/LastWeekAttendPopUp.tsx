@@ -60,11 +60,6 @@ function LastWeekAttendPopUp({ closePopUp }) {
               <span>스터디 참여 </span>
               {parCnt} 회
             </Item>
-
-            <Item>
-              <span>받은 경고</span>
-              {WarningCnt} 회
-            </Item>
           </div>
           <ImageWrapper>
             <div>

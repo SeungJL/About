@@ -74,7 +74,7 @@ export default function UserSetting() {
       setIsAttendPopup(true);
       localStorage.setItem(ATTEND_POP_UP, "read");
     }
-  }, []);
+  }, [isGuest]);
 
   useEffect(() => {
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
