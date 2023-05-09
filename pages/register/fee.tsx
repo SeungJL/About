@@ -75,12 +75,9 @@ function Fee() {
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>회비 납부</span>
-          <span>이제 마지막이에요!</span>
-        </RegisterOverview>
-        <Overview>
-          <span>가입비와 스터디 보증금이 있습니다.</span>
           <span>보증금은 회원 탈퇴시 환급해드려요!</span>
-        </Overview>
+        </RegisterOverview>
+
         <Cost>
           <div>
             <span>가입비</span>
@@ -109,7 +106,13 @@ function Fee() {
           </div>
         </Account>
         <Message>입금 후에 완료 버튼을 눌러주세요 !</Message>
-        <Accordion marginBottom="40px">
+        <Accordion
+          allowToggle
+          marginTop="40px"
+          marginBottom="48px"
+          fontSize="13px"
+          color="var(--font-h2)"
+        >
           <AccordionItem>
             <h2>
               <AccordionButton>
@@ -125,7 +128,7 @@ function Fee() {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4}>
+            <AccordionPanel pt={4} pb={4}>
               <Content>
                 <ul>
                   <li>
@@ -145,23 +148,7 @@ function Fee() {
               </Content>
             </AccordionPanel>
           </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Flex
-                  alignItems="center"
-                  as="span"
-                  flex="1"
-                  textAlign="left"
-                  height="28px"
-                >
-                  Q. 보증금은 어떻게 환급받나요?
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}></AccordionPanel>
-          </AccordionItem>
+
           <AccordionItem>
             <h2>
               <AccordionButton>
@@ -177,7 +164,7 @@ function Fee() {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4}>
+            <AccordionPanel pt={4} pb={4}>
               동아리 내에서는 다양한 이벤트와 컨텐츠를 항시 진행하고 있습니다.
               동아리원 분들은 직접 이벤트에 침여할 수도 있고, 스터디에 참여하면
               적립 받는 포인트를 사용해서 추첨 컨텐츠에 응모할 수도 있습니다.
@@ -204,49 +191,35 @@ const B = styled.b`
   color: var(--font-h1);
 `;
 
-const Overview = styled.div`
-  color: var(--font-h2);
-  display: flex;
-  flex-direction: column;
-  margin-top: 32px;
-  margin-bottom: 14px;
-  line-height: 1.8;
-  > span:first-child {
-    font-size: 15px;
-    font-weight: 600;
-  }
-  > span:last-child {
-    font-size: 13px;
-    color: var(--font-h3);
-  }
-`;
-
 const Cost = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: var(--font-h6);
+  background-color: var(--font-h7);
   border-radius: var(--border-radius);
-  width: 150px;
-  height: 120px;
+  border: 1.5px solid var(--font-h6);
+  width: 160px;
+  height: 140px;
   justify-content: space-around;
+  margin: 40px 0;
+
   > div {
+    padding: 8px 14px;
     display: flex;
     justify-content: space-between;
-    padding: 4px 8px;
+
     > span:last-child {
       font-weight: 600;
     }
   }
   > div:last-child {
-    padding-top: 8px;
-    border-top: 1px solid var(--font-h4);
+    padding-top: 14px;
+    border-top: 1px solid var(--font-h5);
   }
 `;
 
 const Account = styled.div`
-  margin: 40px 0;
   margin-bottom: 14px;
-  font-size: 15px;
+
   display: flex;
 
   > span:first-child {
@@ -261,8 +234,8 @@ const Account = styled.div`
 const Message = styled.div`
   font-size: 13px;
 
-  color: var(--font-h2);
-  margin-bottom: 40px;
+  color: var(--font-h3);
+  margin-bottom: 64px;
 `;
 
 const PhoneNumber = styled.div``;
