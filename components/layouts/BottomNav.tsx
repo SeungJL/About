@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import styled from "styled-components";
 
-function BottomNav({ onClick }: { onClick: () => void }) {
+function BottomNav({ onClick, text }: { onClick: () => void; text?: string }) {
   return (
     <Layout>
       <Button
@@ -13,7 +13,7 @@ function BottomNav({ onClick }: { onClick: () => void }) {
         fontSize="15px"
         onClick={onClick}
       >
-        다음
+        {text ? text : "다음"}
       </Button>
     </Layout>
   );

@@ -43,7 +43,7 @@ function Name() {
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>이름을 입력해주세요</span>
-          <span>실명으로 작성해주세요 !</span>
+          <span>실명으로 작성해주세요!</span>
         </RegisterOverview>
         <NameInput
           value={value}

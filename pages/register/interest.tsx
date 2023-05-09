@@ -21,10 +21,10 @@ function Interest() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [firstValue, setFirstValue] = useState(
-    registerForm?.interests.first || ""
+    registerForm?.interests?.first || ""
   );
   const [secondValue, setSecondValue] = useState(
-    registerForm?.interests.second || ""
+    registerForm?.interests?.second || ""
   );
 
   const onChange = (event: ChangeEvent<HTMLInputElement>, isFirst) => {
