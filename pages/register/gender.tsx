@@ -28,7 +28,7 @@ function Gender() {
 
   return (
     <>
-      <ProgressLayout value={28} />
+      <ProgressLayout value={22} />
       <Header title="회원가입" url="/register/name" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -54,8 +54,6 @@ function Gender() {
     </>
   );
 }
-
-const Layout = styled.div``;
 
 const ButtonNav = styled.nav`
   margin-top: 40px;

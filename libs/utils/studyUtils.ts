@@ -9,10 +9,10 @@ import {
   SUWAN_커피빈,
   SUWAN_탐앤탐스,
   SUWAN_투썸,
-  YANG_스타벅스,
   YANG_위카페,
   YANG_파스쿠찌,
   YANG_할리스,
+  YANG_할리스2,
 } from "../../constants/study";
 import { IParticipation } from "../../types/studyDetails";
 import { Location } from "../../types/system";
@@ -31,7 +31,7 @@ export const arrangeSpace = (participations: IParticipation[]) => {
     else if (ID === SUWAN_칸나) temp[5] = participant;
     //양천
     if (ID === YANG_위카페) temp[0] = participant;
-    else if (ID === YANG_스타벅스) temp[1] = participant;
+    else if (ID === YANG_할리스2) temp[1] = participant;
     else if (ID === YANG_파스쿠찌) temp[2] = participant;
     else if (ID === YANG_할리스) temp[3] = participant;
     //안양

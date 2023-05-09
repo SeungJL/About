@@ -10,17 +10,27 @@ import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { checkIsKorean } from "../../libs/utils/validUtils";
+import { useToast } from "@chakra-ui/react";
 
 function Phone() {
   const router = useRouter();
+
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   const [errorMessage, setErrorMessage] = useState("");
 
   const [value, setValue] = useState(registerForm?.phoneNumber || "");
 
   const onClickNext = () => {
-    setRegisterForm({ phoneNumber: value });
-    router.push(`/register/finish`);
+    if (value === "") {
+      setErrorMessage("핸드폰 번호를 입력해 주세요.");
+      return;
+    }
+    if (value.length < 11) {
+      setErrorMessage("핸드폰 번호를 확인해 주세요.");
+      return;
+    }
+    setRegisterForm((old) => ({ ...old, phoneNumber: value }));
+    router.push(`/register/fee`);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,8 +39,8 @@ function Phone() {
 
   return (
     <>
-      <ProgressLayout value={80} />
-      <Header title="회원가입" url="/message" />
+      <ProgressLayout value={88} />
+      <Header title="회원가입" url="/register/message" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>핸드폰 번호를 작성해 주세요</span>

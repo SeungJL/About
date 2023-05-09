@@ -19,7 +19,7 @@ import { IUser } from "../../../../types/user";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { Badge } from "@chakra-ui/react";
 import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
-import { MAX_USER_PER_PLACE } from "../../../../constants/study";
+import { MAX_USER_PER_PLACE, YANG_할리스 } from "../../../../constants/study";
 
 const VOTER_SHOW_MAX = 7;
 
@@ -60,7 +60,7 @@ function AboutMainItem({
         )
       }
     >
-      <ImageContainer>
+      <ImageContainer isDark={place?._id === YANG_할리스}>
         <LogoAdjustmentImage place={place} />
       </ImageContainer>
 
@@ -153,7 +153,7 @@ const Layout = styled.div<{ status: boolean }>`
   border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ isDark?: boolean }>`
   width: 77px;
   height: 77px;
   border: 1px solid var(--font-h5);
@@ -162,6 +162,7 @@ const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-color: ${(props) => props.isDark && "var(--font-h7)"};
 `;
 
 const SpaceInfo = styled.div`

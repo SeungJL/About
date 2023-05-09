@@ -34,7 +34,7 @@ export const SUWAN_칸나 = "644f70529edb56992ccda5eb";
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
-export const YANG_스타벅스 = "6437ebccab537b843c6143af";
+export const YANG_할리스2 = "6456f0b320352b2d8758295c";
 
 //안양
 export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
@@ -55,7 +55,7 @@ export const SPACE_NAME = {
   "6437e9d7ab537b843c6143ac": "위카페",
   "6437ea69ab537b843c6143ad": "할리스",
   "6437eb3fab537b843c6143ae": "파스쿠찌",
-  "6437ebccab537b843c6143af": "스타벅스",
+  "6456f0b320352b2d8758295c": "할리스2",
 
   //안양
   "6456ef2820352b2d87582959": "커피인더스트리",
@@ -74,7 +74,7 @@ export const SPACE_LOCATION = {
   [SUWAN_커피빈]: "수원",
   [SUWAN_칸나]: "수원",
   //양천
-  [YANG_스타벅스]: "양천",
+  [YANG_할리스2]: "양천",
   [YANG_위카페]: "양천",
   [YANG_파스쿠찌]: "양천",
   [YANG_할리스]: "양천",
@@ -136,9 +136,9 @@ export const STUDY_SPACE_INFO = [
     time: "08:00 ~ 00:00",
   },
   {
-    id: YANG_스타벅스,
-    location: "서울특별시 양천구 신목로 354",
-    time: "07:00 ~ 23:00",
+    id: YANG_할리스2,
+    location: "서울 양천구 오목로 344",
+    time: "08:00 ~ 23:00",
   },
 
   //안양

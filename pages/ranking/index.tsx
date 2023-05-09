@@ -50,7 +50,7 @@ function Ranking() {
   useScoreAllQuery({
     enabled: true,
     onSuccess(data) {
-      console.log(data);
+      ;
       const { scoreArr, myRank, percent, isRank } = SortUserScore(
         data,
         myPoint

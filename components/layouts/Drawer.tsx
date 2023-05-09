@@ -110,7 +110,7 @@ function Drawer({
         >
           <FontAwesomeIcon icon={faStore} size="xl" />
 
-          <span>스토어</span>
+          <span>포인트 추첨</span>
         </NavLevelItem>
       </Main>
     </Layout>
