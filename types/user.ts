@@ -75,6 +75,7 @@ export interface IRegisterForm {
   majors?: IMajor[];
   message?: string;
   phoneNumber?: string;
+  profileImg?: string;
 }
 
 export interface IInterests {

@@ -23,7 +23,9 @@ function Admin() {
             <div>
               <BlockName>유저 응답</BlockName>
               <NavBlock>
-                <button>가입 신청 확인</button>
+                <button onClick={() => router.push(`/admin/checkRegister`)}>
+                  가입 신청 확인
+                </button>
                 <button>건의사항 확인</button>
                 <button>휴식신청 확인</button>
                 <button>당일불참 확인</button>
