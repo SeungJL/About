@@ -126,7 +126,7 @@ export const ModalFooterNav = styled.footer`
     margin-right: 16px;
   }
   > button:last-child {
-    color: var(--color-red);
+    color: var(--color-mint);
     margin-right: 3px;
     font-weight: 600;
   }

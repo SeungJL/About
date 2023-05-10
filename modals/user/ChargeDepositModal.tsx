@@ -105,7 +105,7 @@ function ChargeDepositModal({
                 972-006967-01-011 기업 이승주
                 <span
                   style={{ marginLeft: "8px" }}
-                  onClick={() => copyAccount("972-006967-01-011 기업 이승주")}
+                  onClick={() => copyAccount("1002-364-221277 우리은행 이승주(어바웃)")}
                 >
                   <FontAwesomeIcon icon={faCopy} />
                 </span>
