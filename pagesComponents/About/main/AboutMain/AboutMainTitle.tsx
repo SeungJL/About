@@ -17,7 +17,7 @@ import { isMainLoadingState } from "../../../../recoil/systemAtoms";
 import AboutMainItem from "./AboutMainItem";
 import NoMyStudy from "./NoMyStudy";
 
-function AboutTitle() {
+function AboutUpperBar() {
   const studyDate = useRecoilValue(studyDateState);
   const [isCheckModal, setIsCheckModal] = useState(false);
   const isCheck = useRecoilValue(attendCheckState);
@@ -119,4 +119,4 @@ const HrDiv = styled.div`
   background-color: var(--font-h5);
   margin-bottom: 12px;
 `;
-export default AboutTitle;
+export default AboutUpperBar;

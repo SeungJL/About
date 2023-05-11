@@ -16,8 +16,8 @@ import AboutMain from "../../pagesComponents/About/main/AboutMain";
 import Header from "../../pagesComponents/About/main/Header";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
-import AboutMainHeader from "../../pagesComponents/About/main/AboutMain/AboutMainHeader";
-import AboutTitle from "../../pagesComponents/About/main/AboutMain/AboutMainTitle";
+import AboutVoteNav from "../../pagesComponents/About/main/AboutMain/AboutVoteNav";
+
 import UserSetting from "../../pagesComponents/UserSetting";
 
 import { useVoteQuery } from "../../hooks/vote/queries";
@@ -32,6 +32,7 @@ import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
 
 import { MainLoading } from "../../components/ui/Loading";
+import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutMainTitle";
 
 function About() {
   const toast = useToast();
@@ -122,16 +123,16 @@ function About() {
             <UserOverview />
             <HrDiv />
 
-            <AboutTitle />
+            <AboutUpperBar />
             <Calendar />
             {location === "수원" ? (
               <>
-                <AboutMainHeader voteCnt={voteCnt} />
+                <AboutVoteNav voteCnt={voteCnt} />
                 <AboutMain participations={participations} />
               </>
             ) : (
               <>
-                <AboutMainHeader voteCnt={voteCnt} />
+                <AboutVoteNav voteCnt={voteCnt} />
                 <AboutMain participations={participations} />
               </>
             )}
@@ -165,8 +166,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {},
     };
   }
-  
-
 
   await dbConnect();
 

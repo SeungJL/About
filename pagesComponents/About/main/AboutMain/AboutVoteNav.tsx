@@ -15,7 +15,7 @@ import {
 import { useSession } from "next-auth/react";
 import { locationState } from "../../../../recoil/systemAtoms";
 
-function AboutMainHeader({ voteCnt }: { voteCnt: number }) {
+function AboutVoteNav({ voteCnt }: { voteCnt: number }) {
   const { data: session } = useSession();
   const toast = useToast();
   const isGuest = session?.user.name === "guest";
@@ -114,4 +114,4 @@ const VoterCnt = styled.div`
     color: var(--font-h1);
   }
 `;
-export default AboutMainHeader;
+export default AboutVoteNav;
