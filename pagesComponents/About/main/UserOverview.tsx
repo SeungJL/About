@@ -63,7 +63,7 @@ function UserOverview() {
       });
     },
   });
-
+  console.log(userBadge);
   const myPoint = data?.score;
 
   useScoreAllQuery({
