@@ -79,7 +79,7 @@ export const AdminUserItem = ({ user }: { user: IUser }) => {
         size="sm"
         // onClick={() => onClick()}
       >
-        신청보기
+        상세내용
       </Button>
 
       {/* <Select
