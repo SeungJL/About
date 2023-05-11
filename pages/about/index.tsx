@@ -13,7 +13,7 @@ import { useToast } from "@chakra-ui/react";
 import Seo from "../../components/Seo";
 import AboutMain from "../../pagesComponents/About/main/AboutMain";
 
-import Header from "../../pagesComponents/About/main/Header";
+import Header from "../../pagesComponents/About/main/AboutHeader";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import UserOverview from "../../pagesComponents/About/main/UserOverview";
 import AboutVoteNav from "../../pagesComponents/About/main/AboutMain/AboutVoteNav";
@@ -32,7 +32,7 @@ import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
 
 import { MainLoading } from "../../components/ui/Loading";
-import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutMainTitle";
+import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpperBar";
 
 function About() {
   const toast = useToast();

@@ -25,7 +25,7 @@ import { useToast } from "@chakra-ui/react";
 import UserLogoutModal from "../../../modals/user/UserLogoutModal";
 import PromotionModal from "../../../modals/mainHeader/PromotionModal";
 
-export default function Header() {
+export default function AboutHeader() {
   const router = useRouter();
   const toast = useToast();
   const { data: session } = useSession();
