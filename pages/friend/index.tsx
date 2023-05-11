@@ -2,6 +2,7 @@ import { faBalanceScale } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import FriendRecommend from "../../pagesComponents/friend/FriendRecommend";
 import MyProfile from "../../pagesComponents/friend/MyProfile";
 
 function Friend() {
@@ -12,6 +13,7 @@ function Friend() {
       </Header>
       <Layout>
         <MyProfile />
+        <FriendRecommend />
       </Layout>
     </>
   );

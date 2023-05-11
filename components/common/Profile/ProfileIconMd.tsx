@@ -13,9 +13,11 @@ import ModalPortal from "../../ModalPortal";
 function ProfileIconMd({
   user,
   isCircle,
+  disabled,
 }: {
   user: IUser;
   isCircle?: boolean;
+  disabled?: boolean;
 }) {
   const toast = useToast();
   const { data: session } = useSession();
@@ -24,6 +26,7 @@ function ProfileIconMd({
   const avatarType = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
   const onClickImg = () => {
+    if (disabled) return;
     if (isGuest) {
       toast({
         title: "버튼 동작 실패",
