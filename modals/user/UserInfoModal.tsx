@@ -15,7 +15,10 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 import { IUser, USER_BADGES } from "../../types/user";
 import { motion } from "framer-motion";
 import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
-import { usePointAllQuery } from "../../hooks/user/pointSystem/queries";
+import {
+  usePointAllQuery,
+  useScoreAllQuery,
+} from "../../hooks/user/pointSystem/queries";
 
 function UserInfoModal({
   user,
@@ -29,9 +32,9 @@ function UserInfoModal({
 
   const comment = comments?.comments.find((att) => att._id === user._id);
 
-  const { data } = usePointAllQuery();
+  const { data } = useScoreAllQuery();
 
-  const userScore = data?.find((who) => who.uid === user.uid).point;
+  const userScore = data?.find((who) => who.name === user.name)?.score;
 
   const { badge } = userBadgeScore(userScore);
 
