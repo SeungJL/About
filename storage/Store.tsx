@@ -14,7 +14,7 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 10,
     winner: 3,
     max: 20,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
+    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-21") },
     giftId: 1,
   },
   {
@@ -25,7 +25,7 @@ export const STORE_GIFT: IStoreGift[] = [
     point: 20,
     winner: 2,
     max: 15,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-14") },
+    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-21") },
     giftId: 2,
   },
   {

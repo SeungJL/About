@@ -10,13 +10,16 @@ import dayjs from "dayjs";
 import { useScoreAllQuery } from "../../hooks/user/pointSystem/queries";
 import { useStoreAllQuery } from "../../hooks/store/queries";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faBalanceScale, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import ModalPortal from "../../components/ModalPortal";
+import StoreRuleModal from "../../modals/store/StoreRuleModal";
 
 const ITEM_WIDTH = 120;
 
 function Store() {
   const [applyNum, setApplyNum] = useState([]);
   const router = useRouter();
+  const [isModal, setIsModal] = useState(false);
 
   const { isLoading } = useStoreAllQuery({
     onSuccess(data) {
@@ -32,7 +35,13 @@ function Store() {
 
   return (
     <>
-      <Header title="포인트 추첨" />
+      <Header title="포인트 추첨">
+        <FontAwesomeIcon
+          icon={faBalanceScale}
+          size="lg"
+          onClick={() => setIsModal(true)}
+        />
+      </Header>
       <Layout>
         {STORE_GIFT?.map((item, idx) => {
           const winTemp = [];
@@ -83,6 +92,11 @@ function Store() {
           </Load>
           <FullScreen />
         </>
+      )}
+      {isModal && (
+        <ModalPortal setIsModal={setIsModal}>
+          <StoreRuleModal setIsModal={setIsModal} />
+        </ModalPortal>
       )}
     </>
   );

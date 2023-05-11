@@ -123,13 +123,7 @@ function StoreItem() {
                 {date?.endDay.format("M.D")}({date?.endDay.format("ddd")})
               </span>
             </DetailItem>
-            <DetailItem>
-              <span>당첨자 발표일</span>
-              <span>
-                {date?.endDay.add(1, "day").format("M.D")}(
-                {date?.endDay.add(1, "day").format("ddd")})
-              </span>
-            </DetailItem>
+
             <DetailItem>
               <span>안내사항</span>
               <div>

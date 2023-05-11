@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
+import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ACCOUNT, ACCOUNT_SHORT } from "../../constants/private";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { ModalMain, ModalMd } from "../../styles/layout/modal";
 
@@ -102,13 +104,8 @@ function ChargeDepositModal({
             <MainItem>
               <span style={{ width: "80px" }}>입금 계좌</span>
               <div>
-                972-006967-01-011 기업 이승주
-                <span
-                  style={{ marginLeft: "8px" }}
-                  onClick={() => copyAccount("972-006967-01-011 기업 이승주")}
-                >
-                  <FontAwesomeIcon icon={faCopy} />
-                </span>
+                <span> {ACCOUNT_SHORT}</span>
+                <CopyBtn text={ACCOUNT_SHORT} />
               </div>
             </MainItem>
             <MainItem>
@@ -123,7 +120,14 @@ function ChargeDepositModal({
           </ModalMain>
           <Footer>
             <Button
-              width="100%"
+              width="50%"
+              onClick={() => setIsModal(false)}
+              background="var(--color-mint)"
+            >
+              취소
+            </Button>
+            <Button
+              width="50%"
               onClick={onComplete}
               background="var(--color-mint)"
               color="white"
@@ -149,6 +153,11 @@ const MainItem = styled.div`
     width: 100px;
     font-weight: 600;
     color: var(--font-h1);
+  }
+  > div {
+    span:first-child {
+      margin-right: 8px;
+    }
   }
 `;
 

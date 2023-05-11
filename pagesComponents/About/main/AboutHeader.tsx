@@ -8,6 +8,7 @@ import {
   faBalanceScale,
   faBars,
   faCakeCandles,
+  faGift,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 
@@ -22,8 +23,9 @@ import { NOTICE_ALERT } from "../../../constants/localStorage";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 import UserLogoutModal from "../../../modals/user/UserLogoutModal";
+import PromotionModal from "../../../modals/mainHeader/PromotionModal";
 
-export default function Header() {
+export default function AboutHeader() {
   const router = useRouter();
   const toast = useToast();
   const { data: session } = useSession();
@@ -33,7 +35,7 @@ export default function Header() {
   const [isRule, setIsRule] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
-  const [isBirth, setIsBirth] = useState(false);
+  const [isPromotion, setIsPromotion] = useState(false);
 
   const onClickedNotice = () => {
     router.push(`/notice`);
@@ -63,6 +65,13 @@ export default function Header() {
           </LogoWrapper>
         </div>
         <Nav>
+          <IconWrapper>
+            <FontAwesomeIcon
+              icon={faGift}
+              size="lg"
+              onClick={() => setIsPromotion(true)}
+            />
+          </IconWrapper>
           <IconWrapper>
             <FontAwesomeIcon
               icon={faBalanceScale}
@@ -97,6 +106,11 @@ export default function Header() {
         {isLogout && (
           <ModalPortal setIsModal={setIsLogout}>
             <UserLogoutModal setIsModal={setIsLogout} />
+          </ModalPortal>
+        )}
+        {isPromotion && (
+          <ModalPortal setIsModal={setIsPromotion}>
+            <PromotionModal setIsModal={setIsPromotion} />
           </ModalPortal>
         )}
       </>

@@ -3,13 +3,27 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import Image from "next/image";
+import { useState } from "react";
+import ModalPortal from "../../components/ModalPortal";
+import CheckRegisterModal from "../../modals/admin/CheckRegisterModal";
+import { IRegisterForm } from "../../types/user";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 function CheckRegister() {
   const { data: session } = useSession();
 
   const temp = [1, 2, 3];
+  const [isModal, setIsModal] = useState(false);
+  const [applicant, setApplicant] = useState<IRegisterForm>();
+  const { data } = useUserInfoQuery();
+
+  const onClick = (who?: IRegisterForm) => {
+    setApplicant(data);
+    setIsModal(true);
+  };
+
   return (
     <>
-      <Header title="가입 신청 확인" />
+      <Header title="가입 신청 확인" url="admin" />
       <Layout>
         <LocationFilter>
           <Select width="80px">
@@ -42,6 +56,7 @@ function CheckRegister() {
                 color="white"
                 backgroundColor="var(--color-mint)"
                 size="sm"
+                onClick={() => onClick()}
               >
                 신청보기
               </Button>
@@ -49,6 +64,11 @@ function CheckRegister() {
           ))}
         </Main>
       </Layout>
+      {isModal && (
+        <ModalPortal setIsModal={setIsModal}>
+          <CheckRegisterModal setIsModal={setIsModal} applicant={applicant} />
+        </ModalPortal>
+      )}
     </>
   );
 }

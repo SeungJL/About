@@ -3,7 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-function Header({ title, url }: { title: string; url?: string }) {
+function Header({
+  title,
+  url,
+  children,
+}: {
+  title: string;
+  url?: string;
+  children?: React.ReactNode;
+}) {
   const router = useRouter();
 
   return (
@@ -18,6 +26,7 @@ function Header({ title, url }: { title: string; url?: string }) {
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
       </div>
       <Title>{title}</Title>
+      <Nav>{children}</Nav>
     </Layout>
   );
 }
@@ -35,6 +44,10 @@ const Title = styled.span`
   font-size: 17px;
   font-weight: 600;
   margin-left: 16px;
+`;
+
+const Nav = styled.nav`
+  margin-left: auto;
 `;
 
 export default Header;
