@@ -1,10 +1,13 @@
 import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 import { SyntheticEvent, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import UserInfoModal from "../../../modals/user/UserInfoModal";
+import { userDataState } from "../../../recoil/interactionAtoms";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 import { IUser } from "../../../types/user";
 
@@ -20,7 +23,9 @@ function ProfileIconMd({
   disabled?: boolean;
 }) {
   const toast = useToast();
+  const router = useRouter();
   const { data: session } = useSession();
+  const setUserData = useSetRecoilState(userDataState);
   const isGuest = session?.user.name === "guest";
   const [isUserModal, setIsUserModal] = useState(false);
   const avatarType = user?.avatar?.type;
@@ -38,7 +43,9 @@ function ProfileIconMd({
       });
       return;
     }
-    setIsUserModal(true);
+    setUserData(user);
+    router.push(`/profile/${user.uid}`);
+    // setIsUserModal(true);
   };
 
   const onError = (e: SyntheticEvent<HTMLImageElement, Event>) => {

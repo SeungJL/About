@@ -6,8 +6,25 @@ import { AVATAR_COLOR, AVATAR_ICON } from "../../storage/Avatar";
 import { Badge, Button } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
-function MyProfile() {
-  const { data: info } = useUserInfoQuery();
+import { IAttendence } from "../../types/studyDetails";
+import { IUser, USER_BADGES } from "../../types/user";
+import { userBadgeScore } from "../../libs/utils/userUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
+import DetailInfo from "./DetailInfo";
+
+function ProfileOverview({ user }: { user?: IUser }) {
+  const { data: session } = useSession();
+
+  const [info, setInfo] = useState<IUser>(user);
+  useUserInfoQuery({
+    enabled: !user,
+    onSuccess(data) {
+      setInfo(data);
+    },
+  });
+
   const avatarType = info?.avatar?.type;
   const avatarBg = info?.avatar?.bg;
 
@@ -17,7 +34,7 @@ function MyProfile() {
     avatarBg !== null &&
     avatarBg !== undefined;
 
-  const userBadge = useRecoilValue(userBadgeState);
+  const userBadge = userBadgeScore(info?.score);
 
   return (
     <Layout>
@@ -38,15 +55,21 @@ function MyProfile() {
         <ProfileInfo>
           <div>
             <span>{info?.name}</span>
-            <Badge fontSize={12} colorScheme={userBadge?.color}>
+            <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
               {userBadge?.badge}
             </Badge>
           </div>
           <span>활동중</span>
         </ProfileInfo>
-        <Button size="sm" border="1px solid var(--font-h6)">
-          내 프로필 카드
-        </Button>
+        {user?.uid === session?.uid ? (
+          <Button size="sm" border="1px solid var(--font-h6)">
+            내 프로필 카드
+          </Button>
+        ) : (
+          <HeartWrapper>
+            <FontAwesomeIcon icon={faHeart} size="xl" />
+          </HeartWrapper>
+        )}
       </Profile>
       <RelationBar>
         <RelationItem>
@@ -62,10 +85,13 @@ function MyProfile() {
           <span>칭찬</span>
         </RelationItem>
       </RelationBar>
-
-      <Friend>
-        <span>내 친구</span>
-      </Friend>
+      {!user ? (
+        <Friend>
+          <span>내 친구</span>
+        </Friend>
+      ) : (
+        <DetailInfo user={user} />
+      )}
     </Layout>
   );
 }
@@ -139,6 +165,10 @@ const RelationItem = styled.div`
   }
 `;
 
+const HeartWrapper = styled.div`
+  margin-right: 14px;
+`;
+
 const Friend = styled.div`
   height: 120px;
   background-color: var(--font-h7);
@@ -150,4 +180,4 @@ const Friend = styled.div`
   }
 `;
 
-export default MyProfile;
+export default ProfileOverview;

@@ -1,21 +1,27 @@
-import { faBalanceScale } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAddressBook,
+  faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import FriendRecommend from "../../pagesComponents/friend/FriendRecommend";
 import ProfileOverview from "../../pagesComponents/friend/MyProfile";
 import { userDataState } from "../../recoil/interactionAtoms";
 
-function Friend() {
+function ProfilePage() {
+  const router = useRouter();
+  const userData = useRecoilValue(userDataState);
+
+  console.log(userData);
   return (
     <>
-      <Header title="친구">
-        <FontAwesomeIcon icon={faBalanceScale} size="lg" />
+      <Header title="">
+        <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
       </Header>
       <Layout>
-        <ProfileOverview />
-        <FriendRecommend />
+        <ProfileOverview user={userData} />
       </Layout>
     </>
   );
@@ -23,4 +29,4 @@ function Friend() {
 
 const Layout = styled.div``;
 
-export default Friend;
+export default ProfilePage;
