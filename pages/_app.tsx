@@ -14,11 +14,17 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Layout from "../components/Layout";
 import theme from "../theme";
+import axios from "axios";
+import { getToken } from "next-auth/jwt";
+import { useToken } from "../hooks/token/useToken";
 
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const token = useToken();
+  axios.defaults.headers.common["Authorization"] = token;
+
   const queryClient = useMemo(
     () =>
       new QueryClient({
