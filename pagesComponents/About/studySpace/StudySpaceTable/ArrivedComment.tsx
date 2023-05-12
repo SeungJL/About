@@ -15,6 +15,11 @@ import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import dayjs from "dayjs";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useArrivedMutation } from "../../../../hooks/vote/mutations";
+import { useState } from "react";
+import ModalPortal from "../../../../components/ModalPortal";
+import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
 
 function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const router = useRouter();
@@ -23,50 +28,75 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const studyDate = useRecoilValue(studyDateState);
   const { data: absentData } = useAbsentDataQuery(voteDate);
 
+  const [isChangeModal, setIsChangeModal] = useState(false);
+  const [user, setUser] = useState<IAttendence>();
+
+  const onClickWriteBtn = (user: IAttendence) => {
+    setUser(user);
+    setIsChangeModal(true);
+  };
+
   return (
-    <Layout>
-      {attendances?.map((user, idx) => {
-        if (studyDate !== "not passed" && !user?.firstChoice) return null;
-        const arrivedTime = user?.arrived
-          ? new Date(user.arrived)
-          : new Date(2023, 1, 1, 21, 0, 0);
+    <>
+      <Layout>
+        {attendances?.map((user, idx) => {
+          if (studyDate !== "not passed" && !user?.firstChoice) return null;
+          const arrivedTime = user?.arrived
+            ? new Date(user.arrived)
+            : new Date(2023, 1, 1, 21, 0, 0);
 
-        //임의로 체크로 해놨음. 나중에 방지 대책 필요.
+          //임의로 체크로 해놨음. 나중에 방지 대책 필요.
 
-        arrivedTime.setHours(arrivedTime.getHours() - 9);
-        const arrivedHM = arrivedTime.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        });
+          arrivedTime.setHours(arrivedTime.getHours() - 9);
+          const arrivedHM = arrivedTime.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          });
 
-        return (
-          <Block key={idx}>
-            <ProfileIconMd user={user.user as IUser} />
-            <BlockInfo>
-              <Info>
-                <span>{(user.user as IUser).name}</span>
-                <div>{user.memo}</div>
-              </Info>
-              {user.arrived || studyDate === "passed" ? (
-                <Check isCheck={true}>
-                  <FontAwesomeIcon icon={faCircleCheck} size="xl" />
-                  <span>{arrivedHM}</span>
-                </Check>
-              ) : studyDate !== "not passed" &&
-                absentData?.find(
-                  (who) => who.uid === (user?.user as IUser)?.uid
-                ) ? (
-                <Check isCheck={false}>
-                  <FontAwesomeIcon icon={faCircleXmark} size="xl" />
-                  <span>불참</span>
-                </Check>
-              ) : null}
-            </BlockInfo>
-          </Block>
-        );
-      })}
-    </Layout>
+          return (
+            <Block key={idx}>
+              <ProfileIconMd user={user.user as IUser} />
+              <BlockInfo>
+                <Info>
+                  <span>{(user.user as IUser).name}</span>
+                  {user?.memo && (
+                    <div>
+                      {user.memo}
+                      &nbsp;
+                      <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        color="var(--font-h1)"
+                        onClick={() => onClickWriteBtn(user)}
+                      />
+                    </div>
+                  )}
+                </Info>
+                {user.arrived || studyDate === "passed" ? (
+                  <Check isCheck={true}>
+                    <FontAwesomeIcon icon={faCircleCheck} size="xl" />
+                    <span>{arrivedHM}</span>
+                  </Check>
+                ) : studyDate !== "not passed" &&
+                  absentData?.find(
+                    (who) => who.uid === (user?.user as IUser)?.uid
+                  ) ? (
+                  <Check isCheck={false}>
+                    <FontAwesomeIcon icon={faCircleXmark} size="xl" />
+                    <span>불참</span>
+                  </Check>
+                ) : null}
+              </BlockInfo>
+            </Block>
+          );
+        })}
+      </Layout>
+      {isChangeModal && (
+        <ModalPortal setIsModal={setIsChangeModal}>
+          <ChangeArrivedMemoModal user={user} setIsModal={setIsChangeModal} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 const Layout = styled.div`

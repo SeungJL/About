@@ -9,7 +9,7 @@ function Friend() {
   return (
     <>
       <Header title="친구">
-        <FontAwesomeIcon icon={faBalanceScale} />
+        <FontAwesomeIcon icon={faBalanceScale} size="lg" />
       </Header>
       <Layout>
         <MyProfile />

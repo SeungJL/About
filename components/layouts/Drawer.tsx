@@ -18,6 +18,7 @@ import {
   faNewspaper,
   faRankingStar,
   faStore,
+  faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -117,9 +118,9 @@ function Drawer({
           onClick={() => handleClick("friend")}
           style={{ marginLeft: "3px" }}
         >
-          <FontAwesomeIcon icon={faStore} size="xl" />
+          <FontAwesomeIcon icon={faUserGroup} size="xl" />
 
-          <span>포인트 추첨</span>
+          <span>친구</span>
         </NavLevelItem>
       </Main>
     </Layout>

@@ -25,7 +25,7 @@ function Name() {
       setValue(data?.name || "");
     },
   });
-  console.log(44, registerForm);
+orm);
   const onClickNext = () => {
     if (value.length < 2 || value.length > 3) {
       setErrorMessage("2자 이상 입력해 주세요.");

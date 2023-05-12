@@ -37,7 +37,7 @@ function Birthday() {
       +defaultBirth?.slice(4, 6) - 1,
       +defaultBirth?.slice(6)
     );
-  console.log(33, defaultBirthDate);
+
 
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
   const onClickNext = () => {

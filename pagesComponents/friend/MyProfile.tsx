@@ -18,7 +18,7 @@ function MyProfile() {
     avatarBg !== undefined;
 
   const userBadge = useRecoilValue(userBadgeState);
-  console.log(info);
+
   return (
     <Layout>
       <Profile>

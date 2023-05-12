@@ -54,7 +54,7 @@ export default async function handler(
       return res.status(200).json(arriveInfo);
     case "PATCH":
       const currentTime = now().add(9, "hour");
-
+   
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
           if (

@@ -25,11 +25,11 @@ function FriendRecommend() {
           <span>{FRIEND_RECOMMEND_CATEGORY[0]}</span>
         </Button>
         <Button onClick={() => onClickBtn(1)}>
-          <FontAwesomeIcon icon={faPaw} color="#FEBC5A" />
+          <FontAwesomeIcon icon={faPaw} color="#71C3FF" />
           <span>{FRIEND_RECOMMEND_CATEGORY[1]}</span>
         </Button>
         <Button onClick={() => onClickBtn(2)}>
-          <FontAwesomeIcon icon={faCat} color="#71C3FF" />
+          <FontAwesomeIcon icon={faCakeCandles} color="#FEBC5A" />
           <span>{FRIEND_RECOMMEND_CATEGORY[2]}</span>
         </Button>
         <Button onClick={() => onClickBtn(3)}>
@@ -41,7 +41,7 @@ function FriendRecommend() {
           <span>{FRIEND_RECOMMEND_CATEGORY[4]}</span>
         </Button>
         <Button onClick={() => onClickBtn(5)}>
-          <FontAwesomeIcon icon={faCakeCandles} />
+          <FontAwesomeIcon icon={faCat} />
           <span>{FRIEND_RECOMMEND_CATEGORY[5]}</span>
         </Button>
       </Nav>

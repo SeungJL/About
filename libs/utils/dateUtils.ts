@@ -69,3 +69,6 @@ export const getDefaultVoteDate = (isUserAttend: boolean) => {
 
   return today.add(1, "day");
 };
+
+export const birthToDayjs = (birth: string) =>
+  dayjs(birth.slice(2, 4) + "-" + birth.slice(4, 6));
