@@ -15,8 +15,6 @@ export default async function handler(
   switch (method) {
     case "GET":
       const jwt = await getToken({ req, secret, raw: true });
-
-      console.log(jwt);
       res.status(200).json(jwt);
       break;
   }
