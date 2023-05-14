@@ -1,8 +1,5 @@
 # About Mobile Web Service
 
-
-<img src="https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png" width="360px" height="360px">
-
 ## 웹 서비스 주소
 
 - About 프로젝트는 데스크탑이 아닌 모바일 웹을 메인으로 하는 서비스이다.
