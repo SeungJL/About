@@ -30,7 +30,7 @@ export const PromotionComponent = () => (
     <br />
     미리 궁금하실 분들을 위해 웹 사이트 링크를 걸어두겠습니다. 합격 발표
     이전까지는 반드시 게스트 로그인으로 접속해서 확인해주시기 바랍니다.
-    https://votehelper.herokuapp.com <br />
+    studyabout.club <br />
     <br />
     ☕️가입비☕️ <br />
     <br /> 1000원의 가입비가 있습니다. 이벤트와 서버 운용에 사용됩니다. <br />
