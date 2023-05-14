@@ -23,7 +23,7 @@ config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const token = useToken();
-  axios.defaults.headers.common["Authorization"] = token;
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const queryClient = useMemo(
     () =>

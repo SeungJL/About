@@ -20,7 +20,7 @@ export const useVoteQuery = (
     [VOTE_GET, date, location], // location 변수를 포함하는 배열
     async () => {
       const res = await axios.get<IVote>(
-        `http://localhost:3001/vote/${date.format(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format(
           "YYYY-MM-DD"
         )}?location=${location}` // location 변수를 API 요청 URL에 추가
       );

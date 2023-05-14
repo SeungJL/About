@@ -8,5 +8,5 @@ export const useUpdateProfileMutation = (
   >
 ) =>
   useMutation<void, AxiosError, any>(async (profile) => {
-    await axios.post(`/api/admin/user`, {profile});
+    await axios.post(`${process.env.SERVER_URI}/admin/user`, { profile });
   }, options);
