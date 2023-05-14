@@ -5,7 +5,7 @@
 ## 사용 기술
 
 {여기에 프로젝트에서 사용한 주요 기술에 대해 작성해주세요.}
-
+<img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white">
 ## 기능
 
 {여기에 프로젝트에서 구현한 기능에 대해 작성해주세요.}
