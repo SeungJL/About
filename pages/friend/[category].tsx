@@ -29,6 +29,8 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 import dayjs from "dayjs";
 import { birthToDayjs } from "../../libs/utils/dateUtils";
 import ProfileIconCircle from "../../components/common/Profile/ProfileIconCircle";
+import { userDataState } from "../../recoil/interactionAtoms";
+import { useSetRecoilState } from "recoil";
 
 function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();
@@ -37,6 +39,8 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
   const { data, isLoading } = useUserInfoQuery();
+
+  const setUserData = useSetRecoilState(userDataState);
 
   useEffect(() => {
     if (!isLoading) {
@@ -60,7 +64,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
         setFilterMember(
           membersListAll?.filter((who) => {
             const birthDayjs = birthToDayjs(who.birth);
-        
+
             return (
               birthDayjs.month() === dayjs().month() &&
               who?.location === data?.location
@@ -71,61 +75,46 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
+  const onClickProfile = (user: IUser) => {
+    setUserData(user);
+    router.push(`/profile/${user.uid}`);
+  };
+
   return (
     <>
       <Header title={FRIEND_RECOMMEND_CATEGORY[idx]} url="/friend" />
       <Layout>
         {filterMember?.map((who) => (
-          <Card
-            key={who?.id}
-            border="2px solid var(--font-h6)"
-            borderRadius="var(--border-radius)"
-            padding="6px"
-          >
-            <CardHeader>
-              <Flex>
-                <Flex flex="1" gap="4" alignItems="center">
-                  <ProfileIconCircle user={who} />
-                  <Box fontWeight="600">{who?.name}</Box>
-                </Flex>
-                <IconButton
-                  variant="ghost"
-                  colorScheme="gray"
-                  aria-label="See menu"
-                  icon={<FontAwesomeIcon icon={faHeart} size="lg" />}
-                />
-              </Flex>
-            </CardHeader>
+          <Item key={who?.id} onClick={() => onClickProfile(who)}>
+            <ProfileHeader>
+              <ProfileIconCircle user={who} />
+              <span>{who?.name}</span>
+            </ProfileHeader>
 
-            <Flex
-              direction="column"
-              mt="12px"
-              fontSize="13px"
-              color="var(--font-h2)"
-              lineHeight="2"
-            >
-              <span>
+            <Info>
+              <Detail>
+                <span>나이</span>
                 <span>{birthToAge(who?.birth)}</span>
                 {idx === 2 && (
                   <Birthday>
                     / {birthToDayjs(who?.birth).format("M월 D일")}
                   </Birthday>
                 )}
-              </span>
-              <span>
+              </Detail>
+              <Detail>
+                <span>성별</span>
                 <span>{who?.gender.slice(0, 1)}</span>
-              </span>
-              <span>
-                <span>{who?.mbti}</span>
-              </span>
-              <span>
-                전공: <span>컴퓨터/통신</span>
-              </span>
-              <span>
-                관심사: <span>1. 코딩 2. 독서</span>
-              </span>
-            </Flex>
-          </Card>
+              </Detail>
+              <Detail>
+                <span>MBTI</span>
+                <span>{who?.mbti || "생략"}</span>
+              </Detail>
+              <Detail>
+                <span>전공</span>
+                <span>컴퓨터/통신</span>
+              </Detail>
+            </Info>
+          </Item>
         ))}
       </Layout>
     </>
@@ -139,10 +128,49 @@ const Layout = styled.div`
   gap: 8px;
 `;
 
+const Item = styled.div`
+  border: 1.5px solid var(--font-h6);
+  border-radius: var(--border-radius);
+  padding: 6px;
+`;
+
+const ProfileHeader = styled.div`
+  display: flex;
+  align-items: center;
+  > span {
+    font-weight: 600;
+    margin-left: 14px;
+    font-size: 15px;
+  }
+`;
+
+const Info = styled.div`
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  line-height: 2.2;
+  padding-left: 4px;
+`;
+
+const Detail = styled.div`
+  display: flex;
+  align-items: center;
+  > span:first-child {
+    display: inline-block;
+    width: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--font-h3);
+  }
+  > span:last-child {
+    color: var(--font-h1);
+    font-size: 14px;
+  }
+`;
+
 const Birthday = styled.span`
   margin-left: 4px;
   font-weight: 600;
-
   color: var(--font-h1);
 `;
 

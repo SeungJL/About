@@ -4,13 +4,8 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 import { IUser } from "../../types/user";
 
 function DetailInfo({ user }: { user: IUser }) {
-  console.log(user);
   return (
     <Layout>
-      <CommentBox>
-        <span>Comment</span>
-        <Comment>{user?.comment}</Comment>
-      </CommentBox>
       <Profile>
         <ProfileItem>
           <span>나이</span>
@@ -50,29 +45,9 @@ const Layout = styled.div`
   flex-direction: column;
 `;
 
-const CommentBox = styled.div`
-  padding: 4px 8px;
-  font-weight: 600;
-  flex: 1;
-  border: 1.5px solid var(--font-h5);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  line-height: 1.8;
-  > span:first-child {
-    font-size: 12px;
-  }
-`;
-
-const Comment = styled.span`
-  font-weight: 400;
-  color: var(--font-h2);
-  font-size: 13px;
-`;
-
 const Profile = styled.div`
   padding: 0 6px;
-  margin-top: 14px;
+  margin-bottom: 8px;
   display: flex;
   flex-direction: column;
   line-height: 2.4;

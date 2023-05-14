@@ -71,17 +71,20 @@ function ProfileOverview({ user }: { user?: IUser }) {
           </HeartWrapper>
         )}
       </Profile>
+
+      <Comment>{user?.comment}</Comment>
+
       <RelationBar>
         <RelationItem>
-          <span>3</span>
+          <span>0</span>
           <span>친구</span>
         </RelationItem>
         <RelationItem>
-          <span>2</span>
+          <span>0</span>
           <span>좋아요</span>
         </RelationItem>
         <RelationItem>
-          <span>2</span>
+          <span>0</span>
           <span>칭찬</span>
         </RelationItem>
       </RelationBar>
@@ -169,6 +172,12 @@ const HeartWrapper = styled.div`
   margin-right: 14px;
 `;
 
+const Comment = styled.span`
+  margin-left: 2px;
+  margin-top: 14px;
+  color: var(--font-h1);
+  font-size: 12px;
+`;
 const Friend = styled.div`
   height: 120px;
   background-color: var(--font-h7);

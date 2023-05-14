@@ -85,12 +85,16 @@ function AttendChart({ type, user }: { type?: string; user?: IUser }) {
   }, [isVoteLoading, isAttendLoading]);
 
   let yMax = 5;
+
   if (myAttendCountTotal) {
+    let max = 0;
     myAttendCountTotal.forEach((cnt) => {
-      if (cnt > 15) yMax = 15;
-      else if (cnt > 10) yMax = 12;
-      else if (cnt > 5) yMax = 9;
+      if (cnt > max) max = cnt;
     });
+    if (max > 15) yMax = 18;
+    else if (max > 12) yMax = 15;
+    else if (max > 10) yMax = 12;
+    else if (max > 5) yMax = 9;
   }
 
   return (

@@ -42,8 +42,8 @@ function ProfileIconCircle({
           src={
             isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
           }
-          width={isAvatar ? 34 : 42}
-          height={isAvatar ? 34 : 42}
+          width={isAvatar ? 38 : 48}
+          height={isAvatar ? 38 : 48}
           alt="userProfileLg"
           unoptimized={true}
           onError={onError}
@@ -54,8 +54,8 @@ function ProfileIconCircle({
 }
 
 const Layout = styled.div<{ isSmall?: boolean }>`
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;

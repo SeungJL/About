@@ -20,9 +20,11 @@ import { useArrivedMutation } from "../../../../hooks/vote/mutations";
 import { useState } from "react";
 import ModalPortal from "../../../../components/ModalPortal";
 import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
+import { useSession } from "next-auth/react";
 
 function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const voteDate = dayjs(router.query.date as string);
   const studyDate = useRecoilValue(studyDateState);
@@ -60,7 +62,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
               <BlockInfo>
                 <Info>
                   <span>{(user.user as IUser).name}</span>
-                  {user?.memo && (
+                  {user?.memo && (user?.user as IUser).uid === session?.uid && (
                     <div>
                       {user.memo}
                       &nbsp;
