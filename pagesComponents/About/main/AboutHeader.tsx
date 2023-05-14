@@ -79,7 +79,7 @@ export default function AboutHeader() {
               onClick={() => setIsRule(true)}
             />
           </IconWrapper>
-          <IconWrapper>
+          <IconWrapper style={{ position: "relative" }}>
             <FontAwesomeIcon
               icon={faBell}
               size="xl"
