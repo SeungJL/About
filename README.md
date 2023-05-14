@@ -1,6 +1,7 @@
 # About Mobile Web Service
 
-[![동아리 로고.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3014ab8a-4d7e-455a-a02a-8a36b0c7cd14/%EB%8F%99%EC%95%84%EB%A6%AC_%EB%A1%9C%EA%B3%A0.png)](https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png)
+
+<img src="https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png" width="300px" height="300px">
 
 ## 웹 서비스 주소
 
