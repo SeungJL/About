@@ -113,7 +113,7 @@ function Drawer({
 
           <span>포인트 추첨</span>
         </NavLevelItem>
-        <NavLevelItem
+        {/* <NavLevelItem
           pageSelected={url === "/friend"}
           onClick={() => handleClick("friend")}
           style={{ marginLeft: "3px" }}
@@ -121,7 +121,7 @@ function Drawer({
           <FontAwesomeIcon icon={faUserGroup} size="xl" />
 
           <span>친구</span>
-        </NavLevelItem>
+        </NavLevelItem>  */}
       </Main>
     </Layout>
   );

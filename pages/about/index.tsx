@@ -36,7 +36,7 @@ import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpper
 
 function About() {
   const toast = useToast();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const isGuest = session?.user.name === "guest";
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
@@ -86,7 +86,6 @@ function About() {
   useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
-   
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);

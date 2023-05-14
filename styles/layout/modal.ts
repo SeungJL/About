@@ -117,6 +117,7 @@ export const ModalSubtitle = styled.div`
 export const ModalFooterNav = styled.footer`
   display: flex;
   justify-content: flex-end;
+  margin-top: auto;
   > button {
     font-size: 14px;
     cursor: pointer;

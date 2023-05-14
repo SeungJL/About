@@ -79,8 +79,14 @@ const Login: NextPage<{
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="About" />
+        <meta property="og:url" content="https://studyabout.herokuapp.com/" />
         <meta property="og:description" content="카공 및 친목 동아리" />
         <meta property="og:image" content="/ogImage.png" />
+        <meta property="og:locale" content="ko_KR" />
+        <meta
+          property="og:site_name"
+          content="https://studyabout.herokuapp.com"
+        />
       </Head>
       <Layout>
         <Wrapper>
@@ -98,9 +104,7 @@ const Login: NextPage<{
             />
           </ImageWrapper>
           {ImgLoading ? (
-           
-              <MainLoading />
-           
+            <MainLoading />
           ) : (
             <MainWrapper key={kakaoProvider.id}>
               <Button
@@ -252,7 +256,6 @@ const Message = styled.span`
   text-align: center;
   color: var(--color-red);
 `;
-
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders();

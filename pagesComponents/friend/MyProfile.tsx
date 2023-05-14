@@ -18,6 +18,7 @@ function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();
 
   const [info, setInfo] = useState<IUser>(user);
+
   useUserInfoQuery({
     enabled: !user,
     onSuccess(data) {
@@ -42,15 +43,19 @@ function ProfileOverview({ user }: { user?: IUser }) {
         <ImageWrapper
           style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
         >
-          <Image
-            src={
-              isAvatar ? `${AVATAR_ICON[avatarType]}` : `${info?.profileImage}`
-            }
-            width={isAvatar ? 56 : 70}
-            height={isAvatar ? 56 : 70}
-            alt="userProfileLg"
-            unoptimized={true}
-          />
+          {info && (
+            <Image
+              src={
+                isAvatar
+                  ? `${AVATAR_ICON[avatarType]}`
+                  : `${info?.profileImage}`
+              }
+              width={isAvatar ? 56 : 70}
+              height={isAvatar ? 56 : 70}
+              alt="userProfileLg"
+              unoptimized={true}
+            />
+          )}
         </ImageWrapper>
         <ProfileInfo>
           <div>

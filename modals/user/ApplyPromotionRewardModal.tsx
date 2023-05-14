@@ -32,8 +32,8 @@ function ApplyPromotionRewardModal({
   const { mutate: suggestForm } = usePlazaMutation();
 
   const onComplete = () => {
-    getPoint({ value: 10, text: "홍보 리워드" });
-    getScore({ value: 10, text: "홍보 리워드" });
+    getPoint({ value: 15, text: "홍보 리워드" });
+    getScore({ value: 15, text: "홍보 리워드" });
     toast({
       title: "정산 완료",
       description: "정상적으로 처리되었습니다.",
@@ -58,7 +58,7 @@ function ApplyPromotionRewardModal({
       <ModalHeaderXLine title="리워드 신청" setIsModal={setIsModal} />
       <ModalMain>
         <Overview>
-          에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 10 point와 추첨을
+          에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 15 point와 추첨을
           통해 기프티콘을 받을 수 있습니다. 도와주시는 모든 분들 정말
           감사합니다!
         </Overview>

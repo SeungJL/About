@@ -1,82 +1,77 @@
-import { motion } from "framer-motion";
-import { useRecoilState } from "recoil";
+import Seo from "../../components/Seo";
+
+import Header from "../../components/layouts/Header";
+import Category from "../../pagesComponents/Plaza/main/Category";
+import { useState } from "react";
+import { category } from "../../types/plaza";
+import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
+import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 import styled from "styled-components";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ModalPortal from "../../components/ModalPortal";
+import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
+import { useRouter } from "next/router";
+import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 
-const GatherLayout = styled.div`
-  padding: 25px;
-  > ul {
-    > li {
-      height: 30px;
-      margin-bottom: 10px;
-      border: 1px solid brown;
-    }
-  }
-`;
+function Plaza() {
+  const { data } = usePlazaDataQuery();
+  const [category, setCategory] = useState<category>("전체");
+  const filterData =
+    category === "전체"
+      ? data
+      : data?.filter((item) => item.category === category);
 
-const Box = styled(motion.div)`
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  place-items: center;
-`;
+  const reversedData = filterData?.slice().reverse();
 
-const Child = styled(motion.div)`
-  width: 40%;
-  height: 40%;
-  background-color: pink;
-`;
-
-const varB = {
-  start: {
-    scale: 0,
-    opacity: 0,
-  },
-  end: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 3,
-      bounce: 0.8,
-      delayChildren: 3,
-      staggerChildren: 0.5,
-    },
-  },
-};
-
-const varC = {
-  start: {
-    opacity: 0,
-    y: 20,
-  },
-  end: {
-    scale: 1,
-    y: 0,
-    opacity: 1,
-    background: "blue",
-    rotate: 180,
-  },
-};
-
-function Gather() {
   return (
     <>
-      <GatherLayout>
-        <ul>
-          <li>second gather</li>
-          <li>third gather</li>
-          <li>fourth gather</li>
-          <li>fifth gather</li>
-        </ul>
-      </GatherLayout>
-      <Box variants={varB} initial="start" animate="end">
-        <Child variants={varC}></Child>
-        <Child variants={varC}></Child>
-        <Child variants={varC}></Child>
-        <Child variants={varC}></Child>
-      </Box>
+      <Layout>
+        <Seo title="Plaza" />
+        <Header title="소통의 광장" />
+        <PlazaLayout>
+          <Category category={category} setCategory={setCategory} />
+          <PlazaMainContent>
+            {reversedData?.map((data, idx) => (
+              <PlazaBlock key={idx} data={data} category={category} />
+            ))}
+          </PlazaMainContent>
+        </PlazaLayout>
+        <Navigation>
+          <IconPencil />
+        </Navigation>
+      </Layout>
     </>
   );
 }
-export default Gather;
+
+const IconPencil = () => {
+  const router = useRouter();
+  return (
+    <IconLayout onClick={() => router.push(`/plaza/writing`)}>
+      <FontAwesomeIcon icon={faPencil} color="white" size="lg" />
+    </IconLayout>
+  );
+};
+
+const Layout = styled.div`
+  position: relative;
+`;
+
+const Navigation = styled.nav`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+`;
+
+const IconLayout = styled.div`
+  background-color: var(--color-red);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const PlazaMainContent = styled.main``;
+export default Plaza;
