@@ -62,7 +62,7 @@ function ApplyPromotionRewardModal({
           통해 기프티콘을 받을 수 있습니다. 도와주시는 모든 분들 정말
           감사합니다!
         </Overview>
-
+        <Title>제목: 카공 및 친목 동아리 About</Title>
         <PromotionComponent />
         <CopyBtnBig text={PROMOTION_TEXT} />
         <Message>
@@ -91,11 +91,13 @@ function ApplyPromotionRewardModal({
 const Layout = styled(ModalXXL)``;
 
 const Overview = styled.div`
-  margin-bottom: 20px;
   font-weight: 600;
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+  margin-top: 12px;
+  margin-bottom: 12px;
+`;
 
 const Text = styled.p`
   padding: 8px 4px;
