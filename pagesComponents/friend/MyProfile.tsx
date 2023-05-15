@@ -80,26 +80,24 @@ function ProfileOverview({ user }: { user?: IUser }) {
       <Comment>{user?.comment}</Comment>
 
       <RelationBar>
-        <RelationItem>
-          <span>0</span>
-          <span>친구</span>
-        </RelationItem>
-        <RelationItem>
-          <span>0</span>
-          <span>좋아요</span>
-        </RelationItem>
-        <RelationItem>
-          <span>0</span>
-          <span>칭찬</span>
-        </RelationItem>
+        <div>
+          <RelationItem>
+            <span>친구</span>
+            <span>0</span>
+          </RelationItem>
+          <RelationItem>
+            <span>좋아요</span>
+            <span>0</span>
+          </RelationItem>
+          <RelationItem>
+            <span>활동</span>
+            <span>0</span>
+          </RelationItem>
+        </div>
+        <Button backgroundColor="var(--color-mint)" color="white" size="sm">
+          친구신청
+        </Button>
       </RelationBar>
-      {!user ? (
-        <Friend>
-          <span>내 친구</span>
-        </Friend>
-      ) : (
-        <DetailInfo user={user} />
-      )}
     </Layout>
   );
 }
@@ -151,25 +149,26 @@ const ProfileInfo = styled.div`
 const RelationBar = styled.div`
   display: flex;
   margin-top: 20px;
-  display: flex;
-  height: 64px;
-
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  > div:first-child {
+    display: flex;
+  }
 `;
 
 const RelationItem = styled.div`
-  flex: 1;
+  width: max-content;
+  padding: 0 8px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  line-height: 1.8;
+  line-height: 2;
   > span:first-child {
-    font-weight: 700;
-    font-size: 16px;
+    font-size: 10px;
   }
   > span:last-child {
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 600;
   }
 `;
 
@@ -182,16 +181,6 @@ const Comment = styled.span`
   margin-top: 14px;
   color: var(--font-h1);
   font-size: 12px;
-`;
-const Friend = styled.div`
-  height: 120px;
-  background-color: var(--font-h7);
-  padding: 4px 8px;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--font-h6);
-  > span:first-child {
-    color: var(--font-h3);
-  }
 `;
 
 export default ProfileOverview;
