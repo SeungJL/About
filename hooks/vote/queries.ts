@@ -39,14 +39,16 @@ export const usePlaceQuery = (
   useQuery<IPlace[], AxiosError, IPlace[]>(
     PLACE_FINDALL,
     async () => {
-      const res = await axios.get<IPlace[]>(`/api/place`);
+      const res = await axios.get<IPlace[]>(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/place`
+      );
       return res.data;
     },
     options
   );
 
 export function fetchFamousBooks() {
-  return fetch("/api/book", {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/book`, {
     method: "get",
   }).then((response) => response.json());
 }
@@ -70,7 +72,9 @@ export const useArrivedQuery = (
     ARRIVE_FINDMEMO,
     async () => {
       const res = await axios.get(
-        `/api/vote/${currentDate.format("YYYY-MM-DD")}/arrived`
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${currentDate.format(
+          "YYYY-MM-DD"
+        )}/arrived`
       );
       return res.data;
     },
@@ -88,7 +92,9 @@ export const useStudyStartQuery = (
     "studyStart",
     async () => {
       const res = await axios.get<IStudyStart[]>(
-        `/api/vote/${date.format("YYYY-MM-DD")}/start`
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format(
+          "YYYY-MM-DD"
+        )}/start`
       );
       return res.data;
     },
@@ -106,12 +112,15 @@ export const useArrivedDataQuery = (
   useQuery(
     ["arrivedData", startDay, endDay],
     async () => {
-      const res = await axios.get<IArrivedData[]>(`/api/vote/arrived`, {
-        params: {
-          startDay: startDay.format("YYYY-MM-DD"),
-          endDay: endDay.format("YYYY-MM-DD"),
-        },
-      });
+      const res = await axios.get<IArrivedData[]>(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/arrived`,
+        {
+          params: {
+            startDay: startDay.format("YYYY-MM-DD"),
+            endDay: endDay.format("YYYY-MM-DD"),
+          },
+        }
+      );
 
       return res.data;
     },
@@ -129,7 +138,9 @@ export const useAbsentDataQuery = (
     "absentData",
     async () => {
       const res = await axios.get<IAbsentInfo[]>(
-        `/api/vote/${date.format("YYYY-MM-DD")}/absence`
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format(
+          "YYYY-MM-DD"
+        )}/absence`
       );
       return res.data;
     },

@@ -15,7 +15,9 @@ export const useAttendMutation = (
 ) =>
   useMutation<void, AxiosError, IVoteStudyInfo>(async (voteInfos) => {
     await axios.post(
-      `/api/vote/${currentDate.format("YYYY-MM-DD")}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${currentDate.format(
+        "YYYY-MM-DD"
+      )}`,
       voteInfos
     );
   }, options);
@@ -28,7 +30,11 @@ export const useAbsentMutation = (
   >
 ) =>
   useMutation<void, AxiosError, void>(async () => {
-    await axios.delete(`/api/vote/${currentDate.format("YYYY-MM-DD")}`);
+    await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${currentDate.format(
+        "YYYY-MM-DD"
+      )}`
+    );
   }, options);
 
 export const useChangeTimeMutation = (
@@ -39,7 +45,10 @@ export const useChangeTimeMutation = (
   >
 ) =>
   useMutation<void, AxiosError, { start: Dayjs; end: Dayjs }>(async (time) => {
-    await axios.patch(`/api/vote/${date.format("YYYY-MM-DD")}`, time);
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format("YYYY-MM-DD")}`,
+      time
+    );
   }, options);
 
 export const useConfirmMutation = (
@@ -50,7 +59,11 @@ export const useConfirmMutation = (
   >
 ) =>
   useMutation<void, AxiosError, void>(async () => {
-    await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-DD")}/confirm`);
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${currentDate.format(
+        "YYYY-MM-DD"
+      )}/confirm`
+    );
   }, options);
 
 export const useDismissMutation = (
@@ -61,7 +74,11 @@ export const useDismissMutation = (
   >
 ) =>
   useMutation<void, AxiosError, void>(async () => {
-    await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-DD")}/dismiss`);
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${currentDate.format(
+        "YYYY-MM-DD"
+      )}/dismiss`
+    );
   }, options);
 
 export const useArrivedMutation = (
@@ -72,9 +89,14 @@ export const useArrivedMutation = (
   >
 ) =>
   useMutation<void, AxiosError, string>(async (memo: string) => {
-    await axios.patch(`/api/vote/${currentDate.format("YYYY-MM-DD")}/arrived`, {
-      memo,
-    });
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${currentDate.format(
+        "YYYY-MM-DD"
+      )}/arrived`,
+      {
+        memo,
+      }
+    );
   }, options);
 
 export const useRegisterMutation = (
@@ -84,7 +106,10 @@ export const useRegisterMutation = (
   >
 ) =>
   useMutation<any, AxiosError, IUserRegister>(async (userRegister) => {
-    const res = await axios.post(`/api/user/profile`, userRegister);
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/user/profile`,
+      userRegister
+    );
     return res.data;
   }, options);
 
@@ -97,7 +122,9 @@ export const useDecideSpaceMutation = (
 ) =>
   useMutation(async () => {
     const res = await axios.patch<void>(
-      `/api/admin/vote/${date.format("YYYY-MM-DD")}/status/confirm`
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/admin/vote/${date.format(
+        "YYYY-MM-DD"
+      )}/status/confirm`
     );
     return res.data;
   });
@@ -111,7 +138,9 @@ export const useAbsentStudyMutation = (
 ) =>
   useMutation(async (absentInfo) => {
     const res = await axios.post(
-      `/api/vote/${date.format("YYYY-MM-DD")}/absence`,
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format(
+        "YYYY-MM-DD"
+      )}/absence`,
       absentInfo
     );
     return res.data;

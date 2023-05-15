@@ -8,5 +8,5 @@ export const useStoreMutation = (
   >
 ) =>
   useMutation<void, AxiosError, any>(async (info) => {
-    await axios.post("/api/store", info);
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/store`, info);
   }, options);

@@ -11,7 +11,9 @@ export const useAdminUsersControlQuery = (
   useQuery<IUser[], AxiosError, IUser[]>(
     "adminUserControl",
     async () => {
-      const res = await axios.get<IUser[]>(`/api/admin/user`);
+      const res = await axios.get<IUser[]>(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/admin/user`
+      );
       return res.data;
     },
     options
