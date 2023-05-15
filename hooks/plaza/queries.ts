@@ -12,7 +12,9 @@ export const usePlazaDataQuery = (
   useQuery<IPlazaData[], AxiosError, IPlazaData[]>(
     PLAZA_FINDALL,
     async () => {
-      const res = await axios.get<IPlazaData[]>(`/api/plaza`);
+      const res = await axios.get<IPlazaData[]>(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/plaza`
+      );
       return res.data;
     },
     options

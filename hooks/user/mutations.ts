@@ -10,7 +10,9 @@ export const useActiveMutation = (
   >
 ) =>
   useMutation<void, AxiosError, boolean>(async (isActive) => {
-    await axios.post(`/api/user/profile`, { isActive });
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/profile`, {
+      isActive,
+    });
   }, options);
 
 export const useCommentMutation = (
@@ -20,7 +22,7 @@ export const useCommentMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IUserComment>(async (comments) => {
-    await axios.post("/api/user/comment", {
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/comment`, {
       comment: comments.comment,
       _id: comments._id,
     });
@@ -33,7 +35,7 @@ export const useApplyRestMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IApplyRest>(async (info) => {
-    await axios.post("/api/user/rest", {
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/rest`, {
       info,
     });
   }, options);
@@ -45,5 +47,5 @@ export const useAvatarMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAvatar>(async (info) => {
-    await axios.post("/api/user/avatar", info);
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/avatar`, info);
   }, options);
