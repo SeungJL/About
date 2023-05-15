@@ -25,13 +25,13 @@ function DetailInfo({ user }: { user: IUser }) {
         </ProfileItem>
         <ProfileItem>
           <span>전공</span>
-          <span>컴퓨터/통신</span>
+          <span>미작성</span>
         </ProfileItem>
         <ProfileItem>
           <span>관심사</span>
           <div>
-            <span>1. 코딩</span>
-            <span>2. 독서</span>
+            <span>미작성</span>
+            <span> </span>
           </div>
         </ProfileItem>
       </Profile>
@@ -43,6 +43,7 @@ function DetailInfo({ user }: { user: IUser }) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 14px;
 `;
 
 const Profile = styled.div`
