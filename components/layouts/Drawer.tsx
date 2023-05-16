@@ -31,6 +31,7 @@ import {
   PopoverCloseButton,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 
 function Drawer({
   isDrawer,
@@ -113,7 +114,7 @@ function Drawer({
 
           <span>포인트 추첨</span>
         </NavLevelItem>
-        {/* <NavLevelItem
+        <NavLevelItem
           pageSelected={url === "/friend"}
           onClick={() => handleClick("friend")}
           style={{ marginLeft: "3px" }}
@@ -121,7 +122,16 @@ function Drawer({
           <FontAwesomeIcon icon={faUserGroup} size="xl" />
 
           <span>친구</span>
-        </NavLevelItem>  */}
+        </NavLevelItem>
+        <NavLevelItem
+          pageSelected={url === "/friend"}
+          onClick={() => handleClick("friend")}
+          style={{ marginLeft: "4px" }}
+        >
+          <FontAwesomeIcon icon={faPlaystation} size="xl" />
+
+          <span style={{ marginLeft: "10px" }}>모임</span>
+        </NavLevelItem>
       </Main>
     </Layout>
   );
