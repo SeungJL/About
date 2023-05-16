@@ -5,7 +5,7 @@ import Category from "../../pagesComponents/Plaza/main/Category";
 import { useState } from "react";
 import { category } from "../../types/plaza";
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
-import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
+import PlazaBlock from "../../pagesComponents/Plaza/main/GatherBlock";
 import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -114,7 +114,7 @@ function Drawer({
 
           <span>포인트 추첨</span>
         </NavLevelItem>
-        <NavLevelItem
+        {/* <NavLevelItem
           pageSelected={url === "/friend"}
           onClick={() => handleClick("friend")}
           style={{ marginLeft: "3px" }}
@@ -124,14 +124,14 @@ function Drawer({
           <span>친구</span>
         </NavLevelItem>
         <NavLevelItem
-          pageSelected={url === "/friend"}
-          onClick={() => handleClick("friend")}
+          pageSelected={url === "/gather"}
+          onClick={() => handleClick("gather")}
           style={{ marginLeft: "4px" }}
         >
           <FontAwesomeIcon icon={faPlaystation} size="xl" />
 
           <span style={{ marginLeft: "10px" }}>모임</span>
-        </NavLevelItem>
+        </NavLevelItem> */}
       </Main>
     </Layout>
   );

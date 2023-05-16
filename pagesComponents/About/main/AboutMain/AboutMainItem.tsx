@@ -112,7 +112,7 @@ function AboutMainItem({
                       <ProfileContainer key={idx} zIndex={idx}>
                         <ProfileIconSm
                           user={user?.user as IUser}
-                          isOverlap={idx === VOTER_SHOW_MAX}
+                          isOverlap={idx === VOTER_SHOW_MAX + 1}
                         />
                       </ProfileContainer>
                     )
