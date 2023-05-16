@@ -5,7 +5,7 @@ import Category from "../../pagesComponents/Plaza/main/Category";
 import { useState } from "react";
 import { category } from "../../types/plaza";
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
-import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
+import PlazaBlock from "../../pagesComponents/gather/main/GatherBlock";
 import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,7 @@ import ModalPortal from "../../components/ModalPortal";
 import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
+import GatherBlock from "../../pagesComponents/gather/main/GatherBlock";
 
 function Plaza() {
   const { data } = usePlazaDataQuery();
@@ -33,7 +34,7 @@ function Plaza() {
           <Category category={category} setCategory={setCategory} />
           <PlazaMainContent>
             {reversedData?.map((data, idx) => (
-              <PlazaBlock key={idx} data={data} category={category} />
+              <GatherBlock key={idx} data={data} category={category} />
             ))}
           </PlazaMainContent>
         </PlazaLayout>
@@ -48,7 +49,7 @@ function Plaza() {
 const IconPencil = () => {
   const router = useRouter();
   return (
-    <IconLayout onClick={() => router.push(`/plaza/writing`)}>
+    <IconLayout onClick={() => router.push(`/gather/wrting/category`)}>
       <FontAwesomeIcon icon={faPencil} color="white" size="lg" />
     </IconLayout>
   );

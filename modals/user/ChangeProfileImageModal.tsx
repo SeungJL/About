@@ -13,7 +13,10 @@ import { useMutation } from "react-query";
 import styled from "styled-components";
 
 import { useAvatarMutation } from "../../hooks/user/mutations";
-import { usePointQuery } from "../../hooks/user/pointSystem/queries";
+import {
+  usePointQuery,
+  useScoreQuery,
+} from "../../hooks/user/pointSystem/queries";
 import { useAvatarQuery } from "../../hooks/user/queries";
 import { AVATAR_COLOR, AVATAR_COST, AVATAR_ICON } from "../../storage/Avatar";
 import { ModalHeaderLine, ModalLg, ModalXs } from "../../styles/layout/modal";
@@ -29,7 +32,7 @@ function ChangeProfileImageModal({
   const [iconIdx, setIconIdx] = useState(0);
   const [back, setBack] = useState(false);
   const [BG, setBG] = useState(0);
-  const { data: score } = usePointQuery();
+  const { data: score } = useScoreQuery();
 
   const { mutate } = useAvatarMutation();
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
@@ -100,10 +103,10 @@ function ChangeProfileImageModal({
   };
 
   const onSubmit = () => {
-    if (AVATAR_COST[iconIdx] > score?.point) {
+    if (AVATAR_COST[iconIdx] > score?.score) {
       toast({
         title: "아이콘 변경 실패",
-        description: "프로필 변경을 위한 포인트가 부족해요!",
+        description: "프로필 변경을 위한 점수가 부족해요!",
         status: "error",
         duration: 5000,
         isClosable: true,

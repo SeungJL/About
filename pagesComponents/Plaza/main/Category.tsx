@@ -70,7 +70,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   color: ${(props) => (props.isSelected ? "white" : "var(--font-h2)")};
   font-size: 13px;
   background-color: ${(props) =>
-    props.isSelected ? "var(--color-red)" : null};
+    props.isSelected ? "var(--color-mint)" : null};
 `;
 
 export default Category;
