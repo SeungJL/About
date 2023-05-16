@@ -5,7 +5,7 @@ import Category from "../../pagesComponents/Plaza/main/Category";
 import { useState } from "react";
 import { category } from "../../types/plaza";
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
-import PlazaBlock from "../../pagesComponents/Plaza/main/GatherBlock";
+import PlazaBlock from "../../pagesComponents/gather/main/GatherBlock";
 import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ import ModalPortal from "../../components/ModalPortal";
 import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
-import GatherBlock from "../../pagesComponents/Plaza/main/GatherBlock";
+import GatherBlock from "../../pagesComponents/gather/main/GatherBlock";
 
 function Plaza() {
   const { data } = usePlazaDataQuery();
@@ -49,7 +49,7 @@ function Plaza() {
 const IconPencil = () => {
   const router = useRouter();
   return (
-    <IconLayout onClick={() => router.push(`/plaza/writing`)}>
+    <IconLayout onClick={() => router.push(`/gather/wrting/category`)}>
       <FontAwesomeIcon icon={faPencil} color="white" size="lg" />
     </IconLayout>
   );
