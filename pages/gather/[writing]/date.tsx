@@ -20,7 +20,7 @@ function WritingDate() {
   const [date, setDate] = useState(new Date());
   const onClickNext = () => {
     // setTitleContent((old) => ({ ...old, category: selectCategory }));
-    router.push(`/gather/writing/content`);
+    router.push(`/gather/writing/condition`);
   };
   const minTime = new Date();
   minTime.setHours(9);

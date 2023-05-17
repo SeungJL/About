@@ -14,14 +14,15 @@ import ProfileIconSm from "../../../components/common/Profile/ProfileIconSm";
 import ProfileIconSmOne from "../../../components/common/Profile/ProfileIconSmOne";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { ICategory } from "../../../pages/members/[type]";
-import { category, IPlazaData } from "../../../types/plaza";
+import { GatherCategory } from "../../../types/gather";
+import { IPlazaData } from "../../../types/plaza";
 
 function GatherBlock({
   data,
   category,
 }: {
   data: IPlazaData;
-  category: category;
+  category: GatherCategory;
 }) {
   const { data: user } = useUserInfoQuery();
 

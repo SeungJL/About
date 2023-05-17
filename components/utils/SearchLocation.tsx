@@ -12,7 +12,6 @@ function SearchLocation() {
   const handleSearch = async () => {
     const apiUrl = "https://dapi.kakao.com/v2/local/search/keyword.json";
     const apiKey = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
-    console.log(apiKey);
 
     try {
       const response = await axios.get(apiUrl, {
@@ -26,6 +25,10 @@ function SearchLocation() {
     }
   };
 
+  const onClickItem = (name: string) => {
+    setQuery(name);
+    setResults([]);
+  };
   return (
     <Layout>
       <div>
@@ -42,11 +45,16 @@ function SearchLocation() {
           검색
         </Button>
       </div>
-      <SearchContent>
+      <SearchContent isContent={results.length !== 0}>
         {results.length > 0 && (
           <ul>
             {results.map((result) => (
-              <li key={result.id}>{result.place_name}</li>
+              <Item
+                key={result.id}
+                onClick={() => onClickItem(result.place_name)}
+              >
+                {result.place_name}
+              </Item>
             ))}
           </ul>
         )}
@@ -56,9 +64,10 @@ function SearchLocation() {
 }
 const Input = styled.input`
   height: 100%;
+  width: 100%;
   margin-left: 4px;
-
   background-color: inherit;
+
   padding: 8px 1px;
   padding-left: 5px;
   ::placeholder {
@@ -79,11 +88,14 @@ const Wrapper = styled.div`
   margin-right: 8px;
 `;
 
-const SearchContent = styled.div`
+const SearchContent = styled.div<{ isContent: boolean }>`
   margin-top: 12px;
-  height: 200px;
+  height: 220px;
   padding-left: 12px;
   overflow: auto;
+  border: ${(props) => (props.isContent ? "1px solid var(--font-h5)" : null)};
+  border-radius: var(--border-radius);
+  padding: 6px 8px;
 `;
 
 const Layout = styled.div`
@@ -94,6 +106,11 @@ const Layout = styled.div`
   > div:first-child {
     display: flex;
   }
+`;
+
+const Item = styled.div`
+  color: var(--font-h2);
+  padding: 5px 0;
 `;
 
 export default SearchLocation;

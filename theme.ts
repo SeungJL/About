@@ -7,11 +7,13 @@ const badgePink = css({
 });
 const theme = extendTheme({
   colors: {
-    mint: "#00c2b3",
     redMy: "#ff6b6b",
     my: {
       bg: "#FEE7E7",
       color: "#FF69B4",
+    },
+    mint: {
+      500: "#00c2b3",
     },
   },
   fonts: {
@@ -24,6 +26,7 @@ const theme = extendTheme({
         badgePink,
       },
     },
+
     Progress: {
       baseStyle: {
         track: {
