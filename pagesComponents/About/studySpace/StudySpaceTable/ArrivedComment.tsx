@@ -62,19 +62,21 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
               <BlockInfo>
                 <Info>
                   <span>{(user.user as IUser).name}</span>
-                  {user?.memo && (user?.user as IUser).uid === session?.uid && (
-                    <div>
-                      {user.memo}
-                      &nbsp;
-                      <FontAwesomeIcon
-                        icon={faPenToSquare}
-                        color="var(--font-h1)"
-                        onClick={() => onClickWriteBtn(user)}
-                      />
-                    </div>
-                  )}
+                  <div>
+                    {user.memo}
+                    {(user?.user as IUser).uid === session?.uid && (
+                      <span>
+                        &nbsp;
+                        <FontAwesomeIcon
+                          icon={faPenToSquare}
+                          color="var(--font-h1)"
+                          onClick={() => onClickWriteBtn(user)}
+                        />
+                      </span>
+                    )}
+                  </div>
                 </Info>
-                {user.arrived || studyDate === "passed" ? (
+                {user.arrived && studyDate === "passed" ? (
                   <Check isCheck={true}>
                     <FontAwesomeIcon icon={faCircleCheck} size="xl" />
                     <span>{arrivedHM}</span>
@@ -87,7 +89,12 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
                     <span>불참</span>
                   </Check>
-                ) : null}
+                ) : (
+                  <Check isCheck={true}>
+                    <FontAwesomeIcon icon={faCircleCheck} size="xl" />
+                    <span>{arrivedHM}</span>
+                  </Check>
+                )}
               </BlockInfo>
             </Block>
           );
