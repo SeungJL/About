@@ -6,12 +6,14 @@ import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
 import FriendRuleModal from "../../modals/friend/FriendRuleModal";
+import ProfileCard from "../../modals/friend/ProfileCard";
 import FriendRecommend from "../../pagesComponents/friend/FriendRecommend";
-import ProfileOverview from "../../pagesComponents/friend/MyProfile";
+import ProfileOverview from "../../pagesComponents/friend/ProfileOverview";
 import { userDataState } from "../../recoil/interactionAtoms";
 
 function Friend() {
   const [isRuleModal, setIsRuleModal] = useState(false);
+
   return (
     <>
       <Header title="친구">

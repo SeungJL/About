@@ -24,7 +24,7 @@ import { fa0 } from "@fortawesome/free-solid-svg-icons";
 import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/card";
 import ProfileIconMd from "../../components/common/Profile/ProfileIconMd";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import ProfileIconSm from "../../components/common/Profile/ProfileIconSm";
+
 import { birthToAge } from "../../libs/utils/membersUtil";
 import dayjs from "dayjs";
 import { birthToDayjs } from "../../libs/utils/dateUtils";

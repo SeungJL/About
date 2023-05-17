@@ -6,7 +6,7 @@ import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 
 import { IUser } from "../../../types/user";
 
-function ProfileIconSmOne({ user }: { user: IUser }) {
+function ProfileIconXsOne({ user }: { user: IUser }) {
   const avatarType = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
 
@@ -27,7 +27,7 @@ function ProfileIconSmOne({ user }: { user: IUser }) {
         src={isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`}
         width={isAvatar ? 18 : 20}
         height={isAvatar ? 18 : 20}
-        alt="ProfileIconSmOne"
+        alt="ProfileIconXsOne"
         unoptimized={true}
         onError={onError}
       />
@@ -45,4 +45,4 @@ const Layout = styled.div`
   align-items: center;
 `;
 
-export default ProfileIconSmOne;
+export default ProfileIconXsOne;

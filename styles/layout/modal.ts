@@ -72,6 +72,22 @@ export const ModalLg = styled.div`
   z-index: 19;
   box-shadow: var(--box-shadow);
 `;
+export const ModalXL = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  background-color: white;
+  /* border: 2px solid rgb(0, 0, 0, 0.4); */
+  position: fixed;
+  width: var(--width-90);
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 20;
+  border-radius: 16px;
+`;
 
 export const ModalXXL = styled.div`
   display: flex;

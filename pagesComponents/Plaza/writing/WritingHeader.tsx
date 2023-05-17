@@ -35,7 +35,7 @@ const Title = styled.span`
 const Complete = styled.button`
   padding: 4px 12px;
   border-radius: 20px;
-  background-color: var(--color-red);
+  background-color: var(--color-mint);
   color: white;
   font-size: 12px;
   font-weight: 600;
