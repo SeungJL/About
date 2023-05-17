@@ -10,8 +10,8 @@ import { ChangeEvent } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIconMd from "../../../components/common/Profile/ProfileIconMd";
-import ProfileIconSm from "../../../components/common/Profile/ProfileIconSm";
-import ProfileIconSmOne from "../../../components/common/Profile/ProfileIconSmOne";
+import ProfileIconXsOne from "../../../components/common/Profile/ProfileIconXsOne";
+
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { ICategory } from "../../../pages/members/[type]";
 import { GatherCategory } from "../../../types/gather";
@@ -45,7 +45,7 @@ function GatherBlock({
       </Detail>
       <Participant>
         <Writer>
-          <ProfileIconSmOne user={user} />
+          <ProfileIconXsOne user={user} />
           <span>승주</span>
         </Writer>
         <Voter>

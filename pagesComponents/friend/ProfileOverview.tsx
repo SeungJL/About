@@ -13,12 +13,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 import DetailInfo from "./DetailInfo";
+import ModalPortal from "../../components/ModalPortal";
+import ProfileCard from "../../modals/friend/ProfileCard";
 
 function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();
 
   const [info, setInfo] = useState<IUser>(user);
-
+  const [isProfileCard, setIsProfileCard] = useState(false);
   useUserInfoQuery({
     enabled: !user,
     onSuccess(data) {
@@ -38,67 +40,80 @@ function ProfileOverview({ user }: { user?: IUser }) {
   const userBadge = userBadgeScore(info?.score);
 
   return (
-    <Layout>
-      <Profile>
-        <ImageWrapper
-          style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
-        >
-          {info && (
-            <Image
-              src={
-                isAvatar
-                  ? `${AVATAR_ICON[avatarType]}`
-                  : `${info?.profileImage}`
-              }
-              width={isAvatar ? 56 : 70}
-              height={isAvatar ? 56 : 70}
-              alt="userProfileLg"
-              unoptimized={true}
-            />
+    <>
+      <Layout>
+        <Profile>
+          <ImageWrapper
+            style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
+          >
+            {info && (
+              <Image
+                src={
+                  isAvatar
+                    ? `${AVATAR_ICON[avatarType]}`
+                    : `${info?.profileImage}`
+                }
+                width={isAvatar ? 56 : 70}
+                height={isAvatar ? 56 : 70}
+                alt="userProfileLg"
+                unoptimized={true}
+              />
+            )}
+          </ImageWrapper>
+          <ProfileInfo>
+            <div>
+              <span>{info?.name}</span>
+              <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
+                {userBadge?.badge}
+              </Badge>
+            </div>
+            <span>활동중</span>
+          </ProfileInfo>
+          {user && user?.uid !== session?.uid && (
+            <HeartWrapper>
+              <FontAwesomeIcon icon={faHeart} size="xl" />
+            </HeartWrapper>
           )}
-        </ImageWrapper>
-        <ProfileInfo>
+        </Profile>
+
+        <Comment>{user?.comment}</Comment>
+
+        <RelationBar>
           <div>
-            <span>{info?.name}</span>
-            <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
-              {userBadge?.badge}
-            </Badge>
+            <RelationItem>
+              <span>친구</span>
+              <span>0</span>
+            </RelationItem>
+            <RelationItem>
+              <span>좋아요</span>
+              <span>0</span>
+            </RelationItem>
+            <RelationItem>
+              <span>활동</span>
+              <span>0</span>
+            </RelationItem>
           </div>
-          <span>활동중</span>
-        </ProfileInfo>
-        {user?.uid === session?.uid ? (
-          <Button size="sm" border="1px solid var(--font-h6)">
-            내 프로필 카드
-          </Button>
-        ) : (
-          <HeartWrapper>
-            <FontAwesomeIcon icon={faHeart} size="xl" />
-          </HeartWrapper>
-        )}
-      </Profile>
-
-      <Comment>{user?.comment}</Comment>
-
-      <RelationBar>
-        <div>
-          <RelationItem>
-            <span>친구</span>
-            <span>0</span>
-          </RelationItem>
-          <RelationItem>
-            <span>좋아요</span>
-            <span>0</span>
-          </RelationItem>
-          <RelationItem>
-            <span>활동</span>
-            <span>0</span>
-          </RelationItem>
-        </div>
-        <Button backgroundColor="var(--color-mint)" color="white" size="sm">
-          친구신청
-        </Button>
-      </RelationBar>
-    </Layout>
+          {user && user?.uid !== session?.uid ? (
+            <Button backgroundColor="var(--color-mint)" color="white" size="sm">
+              친구신청
+            </Button>
+          ) : (
+            <Button
+              onClick={() => setIsProfileCard(true)}
+              size="sm"
+              border="1px solid var(--font-h6)"
+            >
+              내 프로필 카드
+            </Button>
+          )}
+        </RelationBar>
+      </Layout>
+      {isProfileCard && (
+        <ModalPortal setIsModal={setIsProfileCard}>
+          <ProfileCard setIsModal={setIsProfileCard} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 

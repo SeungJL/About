@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { IconUserTwo } from "../../../../public/icons/Icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import ProfileIconSm from "../../../../components/common/Profile/ProfileIconSm";
+import ProfileIconXs from "../../../../components/common/Profile/ProfileIconXs";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -99,7 +99,7 @@ function AboutMainItem({
                   (user, idx) =>
                     idx < VOTER_SHOW_MAX && (
                       <ProfileContainer key={idx} zIndex={idx}>
-                        <ProfileIconSm
+                        <ProfileIconXs
                           user={user?.user as IUser}
                           isOverlap={idx === VOTER_SHOW_MAX - 1}
                         />
@@ -110,7 +110,7 @@ function AboutMainItem({
                   (user, idx) =>
                     idx < VOTER_SHOW_MAX + 1 && (
                       <ProfileContainer key={idx} zIndex={idx}>
-                        <ProfileIconSm
+                        <ProfileIconXs
                           user={user?.user as IUser}
                           isOverlap={idx === VOTER_SHOW_MAX + 1}
                         />

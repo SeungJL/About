@@ -68,7 +68,7 @@ const Navigation = styled.nav`
 `;
 
 const IconLayout = styled.div`
-  background-color: var(--color-red);
+  background-color: var(--color-mint);
   width: 54px;
   height: 54px;
   border-radius: 50%;

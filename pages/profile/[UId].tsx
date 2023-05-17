@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import DetailInfo from "../../pagesComponents/friend/DetailInfo";
-import ProfileOverview from "../../pagesComponents/friend/MyProfile";
+import ProfileOverview from "../../pagesComponents/friend/ProfileOverview";
 import { userDataState } from "../../recoil/interactionAtoms";
 
 function ProfilePage() {
