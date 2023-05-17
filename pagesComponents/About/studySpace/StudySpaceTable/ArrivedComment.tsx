@@ -76,7 +76,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                     )}
                   </div>
                 </Info>
-                {user.arrived || studyDate === "passed" ? (
+                {user.arrived && studyDate === "passed" ? (
                   <Check isCheck={true}>
                     <FontAwesomeIcon icon={faCircleCheck} size="xl" />
                     <span>{arrivedHM}</span>
@@ -89,7 +89,12 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
                     <span>불참</span>
                   </Check>
-                ) : null}
+                ) : (
+                  <Check isCheck={true}>
+                    <FontAwesomeIcon icon={faCircleCheck} size="xl" />
+                    <span>{arrivedHM}</span>
+                  </Check>
+                )}
               </BlockInfo>
             </Block>
           );

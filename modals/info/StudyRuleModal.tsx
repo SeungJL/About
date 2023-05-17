@@ -62,29 +62,34 @@ function StudyRuleModal({
               <Content>
                 <ul>
                   <li>
-                    1시간 이상 지각 <B> -300원</B>
+                    1시간 이상 지각 <B> -200원</B>
                   </li>
                   <li>
-                    스터디 당일 불참 <B>-600원</B>
+                    스터디 당일 불참 <B>-500원</B> / 잠수 <B>-1000원</B>
+                  </li>
+                </ul>
+              </Content>
+              <RuleTitle>월간 참여 정산</RuleTitle>
+              <Content>
+                <ul>
+                  <li>
+                    한 달에 <b>최소 1회</b> 참여 (투표만 해도 <b>0.5회</b>
+                    &nbsp;인정)
                   </li>
                   <li>
-                    스터디 당일 잠수 <B> -1000원</B>
+                    <b>0.5회</b> 기준 벌금 <B>-1000원</B>
                   </li>
-                  <li>
-                    한 달에 2번 미만 참여 <B> -700원 </B>(회 당)
-                  </li>
+
                   <li>가입한 달에는 참여 정산 벌금 x</li>
+                </ul>
+              </Content>
+              <RuleTitle>기타</RuleTitle>
+              <Content>
+                <ul>
+                  <li>마이페이지에서 휴식 신청 가능</li>
                   <li>보유중인 보증금은 회원탈퇴시 자동 환급</li>
                 </ul>
               </Content>
-              <RuleTitle>휴식 관련</RuleTitle>
-              <Content>
-                <ul>
-                  <li>일반 휴식(6개월 기준): 최대 2달</li>
-                  <li>장기 휴식: 별도 연락</li>
-                </ul>
-              </Content>
-
               <RuleTitle>★ 중요 ★</RuleTitle>
               <Content>
                 <ul>
