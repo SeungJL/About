@@ -22,28 +22,16 @@ function Category({
             전체
           </Button>
           <Button
-            isSelected={category === "일상"}
-            onClick={() => setCategory("일상")}
+            isSelected={category === "모집중"}
+            onClick={() => setCategory("모집중")}
           >
-            일상
+            모집중
           </Button>
           <Button
-            isSelected={category === "고민"}
-            onClick={() => setCategory("고민")}
+            isSelected={category === "완료"}
+            onClick={() => setCategory("완료")}
           >
-            고민
-          </Button>
-          <Button
-            isSelected={category === "정보"}
-            onClick={() => setCategory("정보")}
-          >
-            정보
-          </Button>
-          <Button
-            isSelected={category === "같이해요"}
-            onClick={() => setCategory("같이해요")}
-          >
-            같이해요
+            완료
           </Button>
         </Nav>
       </Layout>
@@ -70,7 +58,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   color: ${(props) => (props.isSelected ? "white" : "var(--font-h2)")};
   font-size: 13px;
   background-color: ${(props) =>
-    props.isSelected ? "var(--color-red)" : null};
+    props.isSelected ? "var(--color-mint)" : null};
 `;
 
 export default Category;

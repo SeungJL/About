@@ -10,16 +10,20 @@ import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
 import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
-import { GatherCategory, IGatherContent } from "../../../types/gather";
+import {
+  GatherCategory,
+  GatherType,
+  IGatherContent,
+} from "../../../types/gather";
 
 function WritingCategory() {
   const router = useRouter();
   const toast = useToast();
   const setGatherContent = useSetRecoilState(gatherContentState);
-  const [selectCategory, setSelectCategory] = useState<GatherCategory>();
+  const [selectType, setSelectType] = useState<GatherType>();
 
   const onClickNext = () => {
-    if (!selectCategory) {
+    if (!selectType) {
       toast({
         title: "진행 불가",
         description: `주제를 선택해 주세요!`,
@@ -30,7 +34,7 @@ function WritingCategory() {
       });
       return;
     }
-    setGatherContent((old) => ({ ...old, category: selectCategory }));
+    setGatherContent((old) => ({ ...old, category: selectType }));
     router.push(`/gather/writing/content`);
   };
 
@@ -46,8 +50,8 @@ function WritingCategory() {
           {GATHER_CATEGORY?.map((item, idx) => (
             <Item
               key={idx}
-              isSelected={item === selectCategory}
-              onClick={() => setSelectCategory(item)}
+              isSelected={item === selectType}
+              onClick={() => setSelectType(item)}
             >
               <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
               <Info>

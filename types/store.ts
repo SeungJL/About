@@ -6,9 +6,9 @@ export interface IStoreGift {
   brand: string;
   point: number;
   winner: number;
-  date: { startDay: Dayjs; endDay: Dayjs };
+
   giftId?: number;
-  max?:number
+  max?: number;
 }
 
 export interface IStoreApplicant {

@@ -1,11 +1,11 @@
 import Seo from "../../components/Seo";
 
 import Header from "../../components/layouts/Header";
-import Category from "../../pagesComponents/Plaza/main/Category";
+
 import { useState } from "react";
-import { category } from "../../types/plaza";
+
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
-import PlazaBlock from "../../pagesComponents/gather/main/GatherBlock";
+
 import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,10 +14,12 @@ import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 import GatherBlock from "../../pagesComponents/gather/main/GatherBlock";
+import Category from "../../pagesComponents/gather/main/Category";
+import { GatherCategory } from "../../types/gather";
 
-function Plaza() {
+function Gather() {
   const { data } = usePlazaDataQuery();
-  const [category, setCategory] = useState<category>("전체");
+  const [category, setCategory] = useState<GatherCategory>("전체");
   const filterData =
     category === "전체"
       ? data
@@ -28,8 +30,8 @@ function Plaza() {
   return (
     <>
       <Layout>
-        <Seo title="Plaza" />
-        <Header title="소통의 광장" />
+        <Seo title="Gather" />
+        <Header title="모임" />
         <PlazaLayout>
           <Category category={category} setCategory={setCategory} />
           <PlazaMainContent>
@@ -75,4 +77,4 @@ const IconLayout = styled.div`
   justify-content: center;
 `;
 const PlazaMainContent = styled.main``;
-export default Plaza;
+export default Gather;

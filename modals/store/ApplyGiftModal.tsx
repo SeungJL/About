@@ -33,10 +33,6 @@ function ApplyGiftModal({
 
   const totalCost = giftInfo.point * value;
 
-  const date = giftInfo?.date;
-
-  const isOpen = dayjs() >= date?.startDay && dayjs() <= date?.endDay;
-
   const onApply = () => {
     if (isGuest) {
       toast({
@@ -108,13 +104,11 @@ function ApplyGiftModal({
       </ModalMain>
       <Footer>
         <Button
-          disabled={!isOpen}
           width="100%"
-          colorScheme={!isOpen && "blackAlpha"}
-          backgroundColor={isOpen && "var(--color-mint)"}
+          backgroundColor={"var(--color-mint)"}
           onClick={onApply}
         >
-          {isOpen ? "응모하기" : "응모 기간이 아닙니다."}
+          응모하기
         </Button>
       </Footer>
     </Layout>

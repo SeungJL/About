@@ -64,21 +64,18 @@ function Store() {
                   <span>/{item?.max}</span>
                 </div>
               </Status>
-              <Image
-                width={ITEM_WIDTH}
-                height={ITEM_WIDTH}
-                alt="storeGift"
-                unoptimized={true}
-                src={item.image}
-                onClick={() => router.push(`/store/${idx}`)}
-              />
-              <Info>
-                <Name>{item.name}</Name>
-                <Date>
-                  {item.date.startDay.format("M.DD")} -
-                  {item.date.endDay.format("M.DD")}
-                </Date>
-              </Info>
+              <ImageWrapper>
+                <Image
+                  width={ITEM_WIDTH}
+                  height={ITEM_WIDTH}
+                  alt="storeGift"
+                  unoptimized={true}
+                  src={item.image}
+                  onClick={() => router.push(`/store/${idx}`)}
+                />
+              </ImageWrapper>
+              <Name>{item.name}</Name>
+
               <Point>{item.point} point</Point>
             </Item>
           );
@@ -106,8 +103,8 @@ const Status = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  right: 8px;
-  top: 6px;
+  right: 12px;
+  top: 9px;
   font-size: 13px;
   > span:first-child {
     font-size: 14px;
@@ -125,6 +122,10 @@ const Status = styled.div`
     align-self: flex-end;
     color: var(--font-h3);
   }
+`;
+
+const ImageWrapper = styled.div`
+  margin-top: 8px;
 `;
 
 const Circle = styled.div`
@@ -147,7 +148,7 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-  height: 212px;
+  height: 196px;
   background-color: var(--font-h7);
   display: flex;
   flex-direction: column;
@@ -163,11 +164,6 @@ const Info = styled.div`
   justify-content: space-around;
 
   align-items: center;
-  > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 `;
 
 const Name = styled.span`

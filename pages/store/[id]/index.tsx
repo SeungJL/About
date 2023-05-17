@@ -32,8 +32,6 @@ function StoreItem() {
 
   const { isOpen, onToggle } = useDisclosure();
 
-  const date = info?.date;
-
   const { isLoading } = useStoreQuery(info?.giftId, {
     enabled: info !== undefined,
     onSuccess(data) {
@@ -114,14 +112,6 @@ function StoreItem() {
             <DetailItem>
               <span>응모 가능 인원</span>
               <span>{info?.max}명</span>
-            </DetailItem>
-            <DetailItem>
-              <span>응모기간</span>
-              <span>
-                {date?.startDay.format("M.D")}({date?.startDay.format("ddd")})
-                &nbsp;~&nbsp;
-                {date?.endDay.format("M.D")}({date?.endDay.format("ddd")})
-              </span>
             </DetailItem>
 
             <DetailItem>
