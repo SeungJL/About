@@ -89,12 +89,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
                     <span>불참</span>
                   </Check>
-                ) : (
-                  <Check isCheck={true}>
-                    <FontAwesomeIcon icon={faCircleCheck} size="xl" />
-                    <span>{arrivedHM}</span>
-                  </Check>
-                )}
+                ) : null}
               </BlockInfo>
             </Block>
           );
