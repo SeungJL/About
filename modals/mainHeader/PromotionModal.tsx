@@ -39,6 +39,7 @@ function PromotionModal({
               src="https://user-images.githubusercontent.com/84257439/235454460-07e32553-3be0-41f2-8e3e-801c2ecdf059.png"
             />
           </ImageWraaper>
+          <WinDate>당첨자 발표: 5월 31일</WinDate>
         </ModalMain>
         <Footer>
           <Button>안할래 :(</Button>
@@ -65,6 +66,10 @@ const ImageWraaper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const WinDate = styled.span`
+  font-size: 12px;
 `;
 
 const Footer = styled.footer`

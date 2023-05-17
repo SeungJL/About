@@ -13,8 +13,8 @@ export const STORE_GIFT: IStoreGift[] = [
     brand: "허쉬",
     point: 10,
     winner: 3,
-    max: 20,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-21") },
+    max: 10,
+
     giftId: 1,
   },
   {
@@ -24,8 +24,8 @@ export const STORE_GIFT: IStoreGift[] = [
     brand: "베스킨라빈스",
     point: 20,
     winner: 2,
-    max: 15,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-21") },
+    max: 10,
+
     giftId: 2,
   },
   {
@@ -35,8 +35,8 @@ export const STORE_GIFT: IStoreGift[] = [
     brand: "스타벅스",
     point: 30,
     winner: 2,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-21") },
-    max: 15,
+
+    max: 10,
     giftId: 3,
   },
 
@@ -46,10 +46,10 @@ export const STORE_GIFT: IStoreGift[] = [
     name: "초코 브라우니",
     brand: "설빙",
     point: 60,
-    winner: 2,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-31") },
+    winner: 1,
+
     giftId: 4,
-    max: 20,
+    max: 10,
   },
   {
     image:
@@ -57,10 +57,10 @@ export const STORE_GIFT: IStoreGift[] = [
     name: "기프트카드 10000원권",
     brand: "올리브영",
     point: 70,
-    winner: 2,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-05-31") },
+    winner: 1,
+
     giftId: 5,
-    max: 15,
+    max: 7,
   },
   {
     image:
@@ -69,7 +69,7 @@ export const STORE_GIFT: IStoreGift[] = [
     brand: "BBQ",
     point: 100,
     winner: 1,
-    date: { startDay: dayjs("2023-05-08"), endDay: dayjs("2023-06-07") },
+
     giftId: 6,
     max: 10,
   },
