@@ -8,11 +8,12 @@ const badgePink = css({
 const theme = extendTheme({
   colors: {
     redMy: "#ff6b6b",
+    mint: "#00c2b3",
     my: {
       bg: "#FEE7E7",
       color: "#FF69B4",
     },
-    mint: {
+    mintTheme: {
       500: "#00c2b3",
     },
   },
