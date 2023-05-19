@@ -71,11 +71,13 @@ function About() {
         data?.participations.length !== 0
       ) {
         if (
-          data?.participations.some((space) =>
-            space?.attendences?.some(
-              (who) =>
-                who.firstChoice && (who.user as IUser).uid === session?.uid
-            )
+          data?.participations.some(
+            (space) =>
+              space?.status === "open" &&
+              space?.attendences?.some(
+                (who) =>
+                  who.firstChoice && (who.user as IUser).uid === session?.uid
+              )
           )
         )
           setVoteDate(dayjs());
