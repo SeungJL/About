@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 import { isVoteCompleteState } from "../../../recoil/utilityAtoms";
+import { ModalFooterNav } from "../../../styles/layout/modal";
 
 function VoteSuccessModal({}) {
   const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
@@ -17,16 +18,16 @@ function VoteSuccessModal({}) {
       </Icon>
       <Content>
         <span>투표를 완료했어요</span>
-
         <span>스터디 결과는 오후 10시에 확인할 수 있어요 !</span>
       </Content>
+
       <Button onClick={onClicked}>홈으로</Button>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  width: 375px;
+  width: 100vw;
   height: 100vh;
   left: 50%;
   top: 0;
@@ -34,27 +35,22 @@ const Layout = styled.div`
   z-index: 2000;
   position: fixed;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Icon = styled.div`
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: 34%;
   color: var(--color-mint);
 `;
 
 const Content = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 36.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 65px;
+
   > span:first-child {
     color: var(--font-h1);
     font-weight: 600;
@@ -63,21 +59,19 @@ const Content = styled.div`
   > span:last-child {
     font-size: 17px;
     color: var(--font-h3);
-    font-weight: 500;
   }
 `;
 const Button = styled.button`
   width: 335px;
-  position: absolute;
-  bottom: 0px;
-  border-radius: 13px;
+  margin-top: auto;
+  margin-bottom: 16px;
+
+  border-radius: var(--border-radius);
   color: white;
   padding: 14px 100px 14px 100px;
   font-size: 15px;
   font-weight: 700;
-  gap: 10px;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
   background-color: var(--color-mint);
 `;
 
