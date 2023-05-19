@@ -2,7 +2,7 @@ import { Icon, useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
@@ -20,8 +20,8 @@ import {
 function WritingCategory() {
   const router = useRouter();
   const toast = useToast();
-  const setGatherContent = useSetRecoilState(gatherContentState);
-  const [selectType, setSelectType] = useState<GatherType>();
+  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [selectType, setSelectType] = useState<GatherType>(gatherContent?.type);
 
   const onClickNext = () => {
     if (!selectType) {

@@ -8,6 +8,7 @@ import {
   RangeSliderTrack,
   Slide,
   Switch,
+  useToast,
 } from "@chakra-ui/react";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -16,12 +17,14 @@ import {
   faMinusCircle,
   faPlus,
   faPlusCircle,
+  faSatellite,
   faUserGroup,
   faUsers,
+  faUserSecret,
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
@@ -38,18 +41,65 @@ import {
   PopoverCloseButton,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { gatherContentState } from "../../../recoil/contentsAtoms";
+import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
+import { randomPassword } from "../../../libs/utils/validUtils";
 
 const AGE_BAR = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 
-function WritingContent() {
-  const [maxValue, setMaxValue] = useState(4);
-  const [minValue, setMinValue] = useState(4);
-  const [genderCondition, setGenderCondition] = useState(false);
-  const [ageCondition, setAgeCondition] = useState(false);
+function WritingCondition() {
+  const toast = useToast();
+  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [maxValue, setMaxValue] = useState(gatherContent?.memberCnt?.max || 4);
+  const [minValue, setMinValue] = useState(gatherContent?.memberCnt?.min || 4);
+  const [genderCondition, setGenderCondition] = useState(
+    gatherContent?.genderCondition || false
+  );
+  const [ageCondition, setAgeCondition] = useState(
+    gatherContent?.age ? true : false
+  );
+  const [isPreMember, setIsPreMember] = useState(
+    gatherContent?.preCnt ? true : false
+  );
+  const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
 
-  const onClickNext = () => {};
+  const [age, setAge] = useState(gatherContent?.age || [20, 29]);
 
-  const onClickAge = () => {};
+  const onClickNext = () => {
+    if (minValue < 1 || maxValue < 1 || minValue > maxValue) {
+      toast({
+        title: "진행 불가",
+        description: `인원을 확인해 주세요.`,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
+    }
+
+    setGatherContent((old) => ({
+      ...old,
+      age,
+      preCnt,
+      memberCnt: { min: minValue, max: maxValue },
+      genderCondition: genderCondition,
+      password,
+    }));
+
+    console.log(gatherContent);
+  };
+
+  const onChangeAge = (value) => {
+    setAge(value);
+  };
+
+  const [password, setPassword] = useState(gatherContent?.password);
+
+  useEffect(() => {
+    if (isPreMember) setPassword(randomPassword());
+  }, [isPreMember]);
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
@@ -117,7 +167,7 @@ function WritingContent() {
               </Popover>
             </div>
             <Switch
-              colorScheme="mint"
+              colorScheme="mintTheme"
               isChecked={genderCondition}
               onChange={(e) => setGenderCondition(e.target.checked)}
             />
@@ -130,7 +180,7 @@ function WritingContent() {
               </div>
 
               <Switch
-                colorScheme="mint"
+                colorScheme="mintTheme"
                 isChecked={ageCondition}
                 onChange={(e) => setAgeCondition(e.target.checked)}
               />
@@ -141,12 +191,13 @@ function WritingContent() {
                 animate={{ opacity: 1, y: 0 }}
               >
                 <RangeSlider
-                  defaultValue={[21, 25]}
+                  value={age}
                   min={20}
                   max={29}
                   step={1}
                   width="97%"
                   alignSelf="center"
+                  onChange={onChangeAge}
                 >
                   <RangeSliderTrack bg="var(--font-h5)">
                     <RangeSliderFilledTrack bg="var(--color-mint)" />
@@ -162,7 +213,64 @@ function WritingContent() {
               </SelectAge>
             )}
           </SlideItem>
+          <SlideItem layout>
+            <div>
+              <div>
+                <FontAwesomeIcon icon={faUserSecret} />
+                <span>사전 섭외</span>
+              </div>
+
+              <Switch
+                colorScheme="mintTheme"
+                isChecked={isPreMember}
+                onChange={(e) => setIsPreMember(e.target.checked)}
+              />
+            </div>
+            {isPreMember && (
+              <PreMemberContainer>
+                <PreMember>
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faMinus}
+                      onClick={() => setPreCnt((old) => old - 1)}
+                    />
+                    <span>{preCnt}명</span>
+                    <FontAwesomeIcon
+                      icon={faPlus}
+                      onClick={() => setPreCnt((old) => old + 1)}
+                    />
+                  </div>
+                  <Popover>
+                    <PopoverTrigger>
+                      <FontAwesomeIcon
+                        icon={faExclamationCircle}
+                        color="var(--font-h3)"
+                        size="sm"
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverHeader fontSize="11px">사전 섭외</PopoverHeader>
+                      <PopoverBody fontSize="11px">
+                        사전에 섭외한 인원수를 선택해주세요. 오른쪽의 암호키를
+                        반드시 복사하고, 친구분에게 알려주세요!
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                </PreMember>
+                <div>
+                  <span>암호키</span>
+                  <Button size="sm" disabled colorScheme="blackAlpha" mr="8px">
+                    {password}
+                  </Button>
+                  <CopyBtn text={password} />
+                </div>
+              </PreMemberContainer>
+            )}
+          </SlideItem>
         </Container>
+
         <BottomNav onClick={() => onClickNext()} text="완료" />
       </RegisterLayout>
     </Layout>
@@ -176,6 +284,7 @@ const MemberCnt = styled.div`
 `;
 
 const SelectAge = styled(motion.div)`
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
 `;
@@ -188,6 +297,32 @@ const AgeText = styled.div`
 const Age = styled.span``;
 
 const GenderNav = styled.div``;
+
+const PreMemberContainer = styled.div`
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  > div:last-child {
+    display: flex;
+    align-items: center;
+    > span {
+      color: var(--font-h4);
+      margin-right: 8px;
+    }
+  }
+`;
+const PreMember = styled.div`
+  display: flex;
+
+  align-items: center;
+  > div {
+    margin-right: 8px;
+    > span {
+      margin: 0 8px;
+    }
+  }
+`;
 
 const Layout = styled(motion.div)``;
 
@@ -211,6 +346,7 @@ const Item = styled.div`
 
 const SlideItem = styled(motion.div)`
   padding: 16px 0;
+  border-bottom: 1px solid var(--font-h5);
   > div {
     display: flex;
     justify-content: space-between;
@@ -222,4 +358,4 @@ const SlideItem = styled(motion.div)`
   }
 `;
 
-export default WritingContent;
+export default WritingCondition;

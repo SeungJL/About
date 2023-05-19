@@ -2,10 +2,14 @@ import { Button } from "@chakra-ui/react";
 import { faLocation, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-function SearchLocation() {
+function SearchLocation({
+  setLocation,
+}: {
+  setLocation?: React.Dispatch<SetStateAction<string>>;
+}) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
@@ -18,7 +22,7 @@ function SearchLocation() {
         headers: { Authorization: `KakaoAK ${apiKey}` },
         params: { query },
       });
-      console.log(response);
+
       setResults(response.data.documents);
     } catch (error) {
       console.error("주소 검색에 실패했습니다.", error);
@@ -29,6 +33,13 @@ function SearchLocation() {
     setQuery(name);
     setResults([]);
   };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value);
+    setLocation&&setLocation(value);
+  };
+
   return (
     <Layout>
       <div>
@@ -38,7 +49,7 @@ function SearchLocation() {
             type="text"
             placeholder="장소를 입력해 주세요."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={onChange}
           />
         </Wrapper>
         <Button size="sm" onClick={handleSearch}>

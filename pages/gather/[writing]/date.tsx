@@ -15,14 +15,35 @@ import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import SearchLocation from "../../../components/utils/SearchLocation";
 import Header from "../../../components/layouts/Header";
 import { motion } from "framer-motion";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { gatherContentState } from "../../../recoil/contentsAtoms";
 
 function WritingDate() {
   const router = useRouter();
   const toast = useToast();
-  const [date, setDate] = useState(new Date());
-  const [detail, setDetail] = useState("");
+  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [date, setDate] = useState(
+    gatherContent?.date ? gatherContent?.date.toDate() : new Date()
+  );
+  const [detail, setDetail] = useState(gatherContent?.location?.sub);
+  const [location, setLocation] = useState(gatherContent?.location?.main);
   const onClickNext = () => {
-    // setTitleContent((old) => ({ ...old, category: selectCategory }));
+    if (!location) {
+      toast({
+        title: "진행 불가",
+        description: `장소를 선택해 주세요!`,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
+    }
+    setGatherContent((old) => ({
+      ...old,
+      location: { main: location, sub: detail },
+      date: dayjs(date),
+    }));
     router.push(`/gather/writing/condition`);
   };
   const minTime = new Date();
@@ -72,7 +93,7 @@ function WritingDate() {
           />
         </Container>
         <Location>
-          <SearchLocation />
+          <SearchLocation setLocation={setLocation} />
           <LocationDetailInput
             placeholder="상세 주소"
             value={detail}

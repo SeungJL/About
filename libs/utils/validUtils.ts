@@ -9,3 +9,15 @@ export const checkIsKorean = (str: string) => {
   }
   return true;
 };
+
+export const randomPassword = () => {
+  let newPassword = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (let i = 0; i < 4; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    newPassword += characters[randomIndex];
+  }
+  return newPassword;
+};
