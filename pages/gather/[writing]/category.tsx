@@ -1,4 +1,5 @@
 import { Icon, useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -39,7 +40,7 @@ function WritingCategory() {
   };
 
   return (
-    <Layout>
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressLayout value={25} />
       <Header title="" url="/gather" />
       <RegisterLayout>
@@ -67,7 +68,7 @@ function WritingCategory() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)``;
 
 const ItemContainer = styled.div`
   margin-top: 20px;

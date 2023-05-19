@@ -13,6 +13,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import SearchLocation from "../../../components/utils/SearchLocation";
+import Header from "../../../components/layouts/Header";
+import { motion } from "framer-motion";
 
 function WritingDate() {
   const router = useRouter();
@@ -36,8 +38,9 @@ function WritingDate() {
   };
 
   return (
-    <Layout>
-      <ProgressLayout value={50} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={75} />
+      <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 장소를 선택해 주세요.</span>
@@ -123,7 +126,7 @@ const StyledDatePicker = styled(DatePicker)`
   }
 `;
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)``;
 
 const LocationDetailInput = styled.input`
   width: 100%;
