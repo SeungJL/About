@@ -40,7 +40,7 @@ function WritingCategory() {
 
   return (
     <Layout>
-      <ProgressLayout value={11} />
+      <ProgressLayout value={25} />
       <Header title="" url="/gather" />
       <RegisterLayout>
         <RegisterOverview>

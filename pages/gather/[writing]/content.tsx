@@ -30,7 +30,7 @@ function WritingContent() {
   };
   return (
     <Layout>
-      <ProgressLayout value={11} />
+      <ProgressLayout value={50} />
       <RegisterLayout>
         <RegisterOverview>
           <span>내용을 입력해 주세요.</span>

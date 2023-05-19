@@ -18,6 +18,7 @@ function WritingDate() {
   const router = useRouter();
   const toast = useToast();
   const [date, setDate] = useState(new Date());
+  const [detail, setDetail] = useState("");
   const onClickNext = () => {
     // setTitleContent((old) => ({ ...old, category: selectCategory }));
     router.push(`/gather/writing/condition`);
@@ -30,9 +31,13 @@ function WritingDate() {
   maxTime.setHours(23);
   maxTime.setMinutes(30);
 
+  const detailOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDetail(e.target.value);
+  };
+
   return (
     <Layout>
-      <ProgressLayout value={11} />
+      <ProgressLayout value={50} />
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 장소를 선택해 주세요.</span>
@@ -65,6 +70,11 @@ function WritingDate() {
         </Container>
         <Location>
           <SearchLocation />
+          <LocationDetailInput
+            placeholder="상세 주소"
+            value={detail}
+            onChange={detailOnchange}
+          />
         </Location>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
@@ -114,6 +124,16 @@ const StyledDatePicker = styled(DatePicker)`
 `;
 
 const Layout = styled.div``;
+
+const LocationDetailInput = styled.input`
+  width: 100%;
+  background-color: inherit;
+  border-bottom: 1.5px solid var(--font-h5);
+  padding: 6px 4px;
+  outline: none;
+  font-size: 13px;
+  color: var(--font-h2);
+`;
 
 const Location = styled.div`
   margin-top: 12px;
