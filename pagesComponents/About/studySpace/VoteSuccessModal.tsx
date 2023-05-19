@@ -3,6 +3,8 @@ import { useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 import { isVoteCompleteState } from "../../../recoil/utilityAtoms";
 import { ModalFooterNav } from "../../../styles/layout/modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 function VoteSuccessModal({}) {
   const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
@@ -14,7 +16,7 @@ function VoteSuccessModal({}) {
   return (
     <Layout>
       <Icon>
-        <IconCheckMint />
+        <FontAwesomeIcon icon={faCheckCircle} size="5x" />
       </Icon>
       <Content>
         <span>투표를 완료했어요</span>
@@ -46,7 +48,7 @@ const Icon = styled.div`
 `;
 
 const Content = styled.div`
-  margin-top: 8px;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
