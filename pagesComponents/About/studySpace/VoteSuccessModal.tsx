@@ -69,7 +69,7 @@ const Content = styled.div`
 const Button = styled.button`
   width: 335px;
   position: absolute;
-  top: 640px;
+  bottom: 0px;
   border-radius: 13px;
   color: white;
   padding: 14px 100px 14px 100px;

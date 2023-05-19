@@ -50,11 +50,11 @@ function WritingContent() {
   const onClickNext = () => {};
 
   const onClickAge = () => {};
-  console.log(ageCondition);
+
   return (
-    <Layout>
-      <ProgressLayout value={11} />
-      <Header title="" url="/gather" />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={100} />
+      <Header title="" url="/gather/writing/date" />
       <RegisterLayout>
         <RegisterOverview>
           <span>조건을 선택해 주세요.</span>
@@ -189,7 +189,7 @@ const Age = styled.span``;
 
 const GenderNav = styled.div``;
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)``;
 
 const Container = styled.div`
   font-size: 14px;

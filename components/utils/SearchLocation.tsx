@@ -90,7 +90,7 @@ const Wrapper = styled.div`
 
 const SearchContent = styled.div<{ isContent: boolean }>`
   margin-top: 12px;
-  height: 220px;
+  height: ${(props) => (props.isContent ? "220px" : null)};
   padding-left: 12px;
   overflow: auto;
   border: ${(props) => (props.isContent ? "1px solid var(--font-h5)" : null)};

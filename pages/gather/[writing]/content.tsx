@@ -6,6 +6,8 @@ import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import Header from "../../../components/layouts/Header";
 function WritingContent() {
   const router = useRouter();
   const toast = useToast();
@@ -29,8 +31,9 @@ function WritingContent() {
     router.push(`/gather/writing/date`);
   };
   return (
-    <Layout>
-      <ProgressLayout value={11} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={50} />
+      <Header title="" url="/gather/writing/category" />
       <RegisterLayout>
         <RegisterOverview>
           <span>내용을 입력해 주세요.</span>
@@ -47,7 +50,7 @@ function WritingContent() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)``;
 
 const Container = styled.div``;
 
