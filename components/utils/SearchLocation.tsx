@@ -16,7 +16,7 @@ function SearchLocation({
   const handleSearch = async () => {
     const apiUrl = "https://dapi.kakao.com/v2/local/search/keyword.json";
     const apiKey = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
-    console.log(apiKey);
+
     try {
       const response = await axios.get(apiUrl, {
         headers: { Authorization: `KakaoAK ${apiKey}` },

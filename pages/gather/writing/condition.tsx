@@ -48,12 +48,14 @@ import { randomPassword } from "../../../libs/utils/validUtils";
 import ModalPortal from "../../../components/ModalPortal";
 import SuccessModal from "../../../components/layouts/SuccessModal";
 import dayjs, { Dayjs } from "dayjs";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 
 const AGE_BAR = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 
 function WritingCondition() {
   const toast = useToast();
   const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+
   const [maxValue, setMaxValue] = useState(gatherContent?.memberCnt?.max || 4);
   const [minValue, setMinValue] = useState(gatherContent?.memberCnt?.min || 4);
   const [genderCondition, setGenderCondition] = useState(
@@ -70,6 +72,8 @@ function WritingCondition() {
   const [age, setAge] = useState(gatherContent?.age || [20, 29]);
 
   const [isSuccessModal, setIsSuccessModal] = useState(false);
+
+  const { data } = useUserInfoQuery();
 
   const id = 2;
 
@@ -95,6 +99,7 @@ function WritingCondition() {
       password,
       createdDate: dayjs(),
       id,
+      user: data,
     }));
 
     console.log(gatherContent);
