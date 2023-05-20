@@ -1,3 +1,5 @@
+import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
@@ -24,15 +26,13 @@ function KakaoShareBtn() {
       !window.Kakao.isInitialized()
     ) {
       window.Kakao.init(kakaoAppKey);
-      console.log(34, window.Kakao.Link);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [kakaoAppKey]);
+  }, []);
 
   useEffect(() => {
     if (window.Kakao) {
       const options = {
-        container: "#kakao-share-button", // 카카오 버튼을 담을 컨테이너의 ID
+        container: "#kakao-share-button",
         objectType: "feed",
         content: {
           title: "카카오톡 공유하기",
@@ -44,50 +44,16 @@ function KakaoShareBtn() {
             webUrl: "https://developers.kakao.com",
           },
         },
-        itemContent: {
-          profileText: "Kakao",
-          profileImageUrl:
-            "https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
-          titleImageUrl:
-            "https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
-          titleImageText: "Cheese cake",
-          titleImageCategory: "Cake",
-          items: [
-            {
-              item: "Cake1",
-              itemOp: "1000원",
-            },
-            {
-              item: "Cake2",
-              itemOp: "2000원",
-            },
-            {
-              item: "Cake3",
-              itemOp: "3000원",
-            },
-            {
-              item: "Cake4",
-              itemOp: "4000원",
-            },
-            {
-              item: "Cake5",
-              itemOp: "5000원",
-            },
-          ],
-          sum: "Total",
-          sumOp: "15000원",
-        },
-        social: {
-          likeCount: 10,
-          commentCount: 20,
-          sharedCount: 30,
-        },
       };
       window.Kakao.Link.createDefaultButton(options);
     }
   }, []);
 
-  return <Layout id="kakao-share-button">23</Layout>;
+  return (
+    <Layout id="kakao-share-button">
+      <FontAwesomeIcon icon={faArrowUpFromBracket} />
+    </Layout>
+  );
 }
 
 const Layout = styled.div``;

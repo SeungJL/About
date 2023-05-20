@@ -34,7 +34,6 @@ function Gather() {
         <Seo title="Gather" />
         <Header title="모임" />
         <PlazaLayout>
-          <KakaoShare />
           <Category category={category} setCategory={setCategory} />
           <PlazaMainContent>
             {reversedData?.map((data, idx) => (
