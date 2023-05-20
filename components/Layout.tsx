@@ -43,6 +43,7 @@ function Layout({ children }) {
             strategy="beforeInteractive"
             src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`}
           ></Script>
+          <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
         </>
       )}
     </LayoutContainer>
@@ -53,7 +54,5 @@ const LayoutContainer = styled.div`
   color: var(--font-h1);
   background-color: var(--font-h8);
 `;
-
-
 
 export default Layout;

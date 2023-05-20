@@ -63,7 +63,7 @@ function UserOverview() {
       });
     },
   });
- 
+
   const myPoint = data?.score;
 
   useScoreAllQuery({
@@ -108,17 +108,19 @@ function UserOverview() {
                     <FontAwesomeIcon icon={faQuestionCircle} />
                   </IconWrapper>
                 </div>
-                <div>
-                  <span style={{ color: scoreInfo.nextBadge.color }}>
-                    {scoreInfo.nextScore}점
-                  </span>
-                  <Badge
-                    colorScheme={scoreInfo.nextBadge.color}
-                    marginLeft="6px"
-                  >
-                    {scoreInfo.nextBadge.badge}
-                  </Badge>
-                </div>
+                {userBadge?.badge !== "에스프레소" && (
+                  <div>
+                    <span style={{ color: scoreInfo.nextBadge.color }}>
+                      {scoreInfo.nextScore}점
+                    </span>
+                    <Badge
+                      colorScheme={scoreInfo.nextBadge.color}
+                      marginLeft="6px"
+                    >
+                      {scoreInfo.nextBadge.badge}
+                    </Badge>
+                  </div>
+                )}
               </Grade>
               <Progress
                 value={(scoreInfo.value / scoreInfo.scoreGap) * 100}

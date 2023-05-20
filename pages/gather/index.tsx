@@ -16,6 +16,7 @@ import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 import GatherBlock from "../../pagesComponents/gather/main/GatherBlock";
 import Category from "../../pagesComponents/gather/main/Category";
 import { GatherCategory } from "../../types/gather";
+import KakaoShare from "../../components/utils/KakaoShare";
 
 function Gather() {
   const { data } = usePlazaDataQuery();
@@ -33,6 +34,7 @@ function Gather() {
         <Seo title="Gather" />
         <Header title="모임" />
         <PlazaLayout>
+          <KakaoShare />
           <Category category={category} setCategory={setCategory} />
           <PlazaMainContent>
             {reversedData?.map((data, idx) => (
@@ -51,7 +53,7 @@ function Gather() {
 const IconPencil = () => {
   const router = useRouter();
   return (
-    <IconLayout onClick={() => router.push(`/gather/wrting/category`)}>
+    <IconLayout onClick={() => router.push(`/gather/writing/category`)}>
       <FontAwesomeIcon icon={faPencil} color="white" size="lg" />
     </IconLayout>
   );

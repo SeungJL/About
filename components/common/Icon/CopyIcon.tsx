@@ -22,7 +22,13 @@ export const CopyBtn = ({ text }: { text: string }) => {
       }
     );
 
-  return <FontAwesomeIcon icon={faCopy} onClick={() => copy(text)} />;
+  return (
+    <FontAwesomeIcon
+      icon={faCopy}
+      onClick={() => copy(text)}
+      color="var(--font-h1)"
+    />
+  );
 };
 
 export const CopyBtnBig = ({ text }: { text: string }) => {
