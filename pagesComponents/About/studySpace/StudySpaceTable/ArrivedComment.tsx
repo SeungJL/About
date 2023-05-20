@@ -57,7 +57,12 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
           });
 
           return (
-            <Block key={idx}>
+            <Block
+              key={idx}
+              onClick={() =>
+                router.push(`/profile/${(user?.user as IUser).uid}`)
+              }
+            >
               <ProfileIconMd user={user.user as IUser} />
               <BlockInfo>
                 <Info>

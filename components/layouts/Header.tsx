@@ -48,6 +48,12 @@ const Title = styled.span`
 
 const Nav = styled.nav`
   margin-left: auto;
+  display: flex;
+  align-items: center;
+
+  > div {
+    margin-left: 20px;
+  }
 `;
 
 export default Header;

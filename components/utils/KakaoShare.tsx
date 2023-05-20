@@ -51,7 +51,7 @@ function KakaoShareBtn() {
 
   return (
     <Layout id="kakao-share-button">
-      <FontAwesomeIcon icon={faArrowUpFromBracket} />
+      <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
     </Layout>
   );
 }

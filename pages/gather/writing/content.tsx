@@ -15,8 +15,8 @@ function WritingContent() {
   const router = useRouter();
   const toast = useToast();
   const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
-  const [title, setTitle] = useState(gatherContent?.title);
-  const [content, setContent] = useState(gatherContent?.content);
+  const [title, setTitle] = useState(gatherContent?.title || "");
+  const [content, setContent] = useState(gatherContent?.content || "");
 
   const onClickNext = () => {
     if (!title || !content) {
