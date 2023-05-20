@@ -173,7 +173,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   width: 36px;
   height: 18px;
   background-color: ${(props) =>
-    props.isSelected ? "var(--color-red)" : "var(--font-h6)"};
+    props.isSelected ? "var(--color-mint)" : "var(--font-h6)"};
   color: ${(props) => (props.isSelected ? "white" : "var(--font-h1)")};
 `;
 

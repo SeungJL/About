@@ -23,9 +23,13 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
+import { ACCOUNT, ACCOUNT_SHORT } from "../../constants/private";
+import { useSession } from "next-auth/react";
 function Fee() {
   const toast = useToast();
   const router = useRouter();
+  const { data: session } = useSession();
+
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -80,10 +84,10 @@ function Fee() {
         <Account>
           <span style={{ width: "80px" }}>입금 계좌</span>
           <div>
-            972-006967-01-011 기업 이승주
+            {ACCOUNT_SHORT}
             <span
               style={{ marginLeft: "8px" }}
-              onClick={() => copyAccount("972-006967-01-011 기업 이승주")}
+              onClick={() => copyAccount(ACCOUNT)}
             >
               <FontAwesomeIcon icon={faCopy} />
             </span>
@@ -107,6 +111,27 @@ function Fee() {
                   textAlign="left"
                   height="28px"
                 >
+                  Q. 입금 후에 어떻게 하나요?
+                </Flex>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pt={4} pb={4}>
+              신청을 완료하시면 관리자가 확인하는대로 가입 승인과 단톡방 초대를
+              해 드립니다. 빠르면 당일이 될 수도 있고, 늦어지면 최대 3~4일까지
+              소요될 수 있습니다.
+            </AccordionPanel>
+          </AccordionItem>
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Flex
+                  alignItems="center"
+                  as="span"
+                  flex="1"
+                  textAlign="left"
+                  height="28px"
+                >
                   Q. 스터디 벌금이 궁금해요!
                 </Flex>
                 <AccordionIcon />
@@ -116,20 +141,28 @@ function Fee() {
               <Content>
                 <ul>
                   <li>
-                    1시간 이상 지각 <B> -300원</B>
+                    1시간 이상 지각 <B> -200원</B>
                   </li>
                   <li>
-                    스터디 당일 불참 <B>-600원</B>
+                    스터디 당일 불참 <B>-500원</B>
                   </li>
                   <li>
                     스터디 당일 잠수 <B> -1000원</B>
                   </li>
                   <li>
-                    한 달에 2번 미만 참여 <B> -700원 </B>(회 당)
+                    한 달에 1번 미만 참여 <B> -1000원 </B>
                   </li>
                   <li>가입한 달에는 참여 정산 벌금 x</li>
                 </ul>
               </Content>
+              <span
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "600",
+                }}
+              >
+                보증금은 언제든 환급받을 수 있습니다.
+              </span>
             </AccordionPanel>
           </AccordionItem>
 
@@ -157,7 +190,7 @@ function Fee() {
           </AccordionItem>
         </Accordion>
       </RegisterLayout>
-      <BottomNav onClick={onClickNext} text="신청완료" />
+      <BottomNav onClick={onClickNext} text="입금완료" />
     </>
   );
 }

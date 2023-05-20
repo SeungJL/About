@@ -123,7 +123,7 @@ function UserInfo() {
             <div>
               <BlockName>정보 변경</BlockName>
               <NavBlock>
-                <button onClick={() => setModalOpen("modify")}>
+                <button onClick={() => router.push(`/register/name`)}>
                   프로필 수정
                 </button>
                 <button onClick={() => setModalOpen("deposit")}>

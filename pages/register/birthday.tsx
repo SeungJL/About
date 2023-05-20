@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import ko from "date-fns/locale/ko";
 import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { motion } from "framer-motion";
 
 function Birthday() {
   const router = useRouter();
@@ -22,11 +23,11 @@ function Birthday() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const initialDate = new Date(2000, 0, 1);
-
+  console.log(registerForm);
   const defaultBirth =
-    registerForm && Number(registerForm?.birth?.slice(0, 2)) < 50
+    registerForm?.birth && Number(registerForm?.birth?.slice(0, 2)) < 50
       ? "20" + registerForm?.birth
-      : registerForm
+      : registerForm?.birth
       ? "19" + registerForm?.birth
       : null;
 
@@ -38,8 +39,8 @@ function Birthday() {
       +defaultBirth?.slice(6)
     );
 
-
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
+  console.log(startDate, initialDate, defaultBirth);
   const onClickNext = () => {
     setRegisterForm((old) => ({
       ...old,
@@ -51,8 +52,8 @@ function Birthday() {
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
 
   return (
-    <>
-      <ProgressLayout value={33} />
+    <Layout>
+      <ProgressLayout value={40} />
       <Header title="회원가입" url="/register/gender" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -90,9 +91,9 @@ function Birthday() {
             />
           </Button>
         </DateContainer>
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </>
+      <BottomNav onClick={() => onClickNext()} />
+    </Layout>
   );
 }
 
@@ -107,7 +108,9 @@ const StyledDatePicker = styled(DatePicker)`
   color: var(--font-h2);
 `;
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const DateStr = styled.div`
   font-size: 22px;

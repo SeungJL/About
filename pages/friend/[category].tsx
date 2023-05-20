@@ -85,7 +85,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
       <Header title={FRIEND_RECOMMEND_CATEGORY[idx]} url="/friend" />
       <Layout>
         {filterMember?.map((who) => (
-          <Item key={who?.id} onClick={() => onClickProfile(who)}>
+          <Item key={who?.uid} onClick={() => onClickProfile(who)}>
             <ProfileHeader>
               <ProfileIconCircle user={who} />
               <span>{who?.name}</span>

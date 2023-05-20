@@ -10,6 +10,7 @@ import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Gender } from "../../types/user";
+import { motion } from "framer-motion";
 
 function Gender() {
   const router = useRouter();
@@ -28,8 +29,8 @@ function Gender() {
   };
 
   return (
-    <>
-      <ProgressLayout value={22} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={20} />
       <Header title="회원가입" url="/register/name" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -50,11 +51,15 @@ function Gender() {
             여성
           </Button>
         </ButtonNav>
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </>
+      <BottomNav onClick={() => onClickNext()} />
+    </Layout>
   );
 }
+
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const ButtonNav = styled.nav`
   margin-top: 40px;
