@@ -6,16 +6,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ProfileIconMd from "../../../components/common/Profile/ProfileIconMd";
-import ProfileIconXsOne from "../../../components/common/Profile/ProfileIconXsOne";
+import ProfileIconMd from "../../components/common/Profile/ProfileIconMd";
+import ProfileIconXsOne from "../../components/common/Profile/ProfileIconXsOne";
 
-import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { ICategory } from "../../../pages/members/[type]";
-import { GatherCategory } from "../../../types/gather";
-import { IPlazaData } from "../../../types/plaza";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import { ICategory } from "../../pages/members/[type]";
+import { GatherCategory } from "../../types/gather";
+import { IPlazaData } from "../../types/plaza";
 
 function GatherBlock({
   data,
@@ -24,19 +25,22 @@ function GatherBlock({
   data: IPlazaData;
   category: GatherCategory;
 }) {
+  const router = useRouter();
   const { data: user } = useUserInfoQuery();
-
+  const onClickBlock = () => {
+    router.push(`/gather/23`);
+  };
   return (
-    <Layout>
+    <Layout onClick={() => onClickBlock()}>
       <Header>
-        <Status>모집중</Status>·<Category>모임</Category>·
-        <Location>아주대</Location>
+        <Status>모집중</Status>·<Category>보드게임</Category>·
+        <Location>수원</Location>
       </Header>
       <Title>저녁 산책</Title>
       <Detail>
         <Condition>
           <FontAwesomeIcon icon={faUserCheck} color="var(--font-h4)" />
-          <span>20대</span>
+          <span>20~29세</span>
         </Condition>
         <Date>
           <FontAwesomeIcon icon={faCalendarDay} color="var(--font-h4)" />

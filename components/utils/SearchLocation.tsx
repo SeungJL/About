@@ -6,11 +6,13 @@ import { useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
 function SearchLocation({
+  location,
   setLocation,
 }: {
+  location?: string;
   setLocation?: React.Dispatch<SetStateAction<string>>;
 }) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(location || "");
   const [results, setResults] = useState([]);
 
   const handleSearch = async () => {

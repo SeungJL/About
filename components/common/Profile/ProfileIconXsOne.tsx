@@ -22,16 +22,22 @@ function ProfileIconXsOne({ user }: { user: IUser }) {
   };
 
   return (
-    <Layout style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
-      <Image
-        src={isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`}
-        width={isAvatar ? 18 : 20}
-        height={isAvatar ? 18 : 20}
-        alt="ProfileIconXsOne"
-        unoptimized={true}
-        onError={onError}
-      />
-    </Layout>
+    <>
+      {user && (
+        <Layout style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
+          <Image
+            src={
+              isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
+            }
+            width={isAvatar ? 18 : 20}
+            height={isAvatar ? 18 : 20}
+            alt="ProfileIconXsOne"
+            unoptimized={true}
+            onError={onError}
+          />
+        </Layout>
+      )}
+    </>
   );
 }
 
