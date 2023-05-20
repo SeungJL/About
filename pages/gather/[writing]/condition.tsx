@@ -45,6 +45,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import { randomPassword } from "../../../libs/utils/validUtils";
+import ModalPortal from "../../../components/ModalPortal";
+import SuccessModal from "../../../components/layouts/SuccessModal";
 
 const AGE_BAR = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 
@@ -66,7 +68,9 @@ function WritingCondition() {
 
   const [age, setAge] = useState(gatherContent?.age || [20, 29]);
 
-  const onClickNext = () => {
+  const [isSuccessModal, setIsSuccessModal] = useState(false);
+
+  const onClickNext = async () => {
     if (minValue < 1 || maxValue < 1 || minValue > maxValue) {
       toast({
         title: "진행 불가",
@@ -89,8 +93,9 @@ function WritingCondition() {
     }));
 
     console.log(gatherContent);
-  };
 
+    setIsSuccessModal(true);
+  };
   const onChangeAge = (value) => {
     setAge(value);
   };
@@ -102,178 +107,203 @@ function WritingCondition() {
   }, [isPreMember]);
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={100} />
-      <Header title="" url="/gather/writing/date" />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>조건을 선택해 주세요.</span>
-        </RegisterOverview>
-        <Container>
-          <Item>
-            <div>
-              <FontAwesomeIcon icon={faUserGroup} />
-              <span>최대 인원</span>
-            </div>
-            <MemberCnt>
-              <FontAwesomeIcon
-                icon={faMinus}
-                onClick={() => setMaxValue((old) => old - 1)}
-              />
-              <span>{maxValue}명</span>
-              <FontAwesomeIcon
-                icon={faPlus}
-                onClick={() => setMaxValue((old) => old + 1)}
-              />
-            </MemberCnt>
-          </Item>
-          <Item>
-            <div>
-              <FontAwesomeIcon icon={faUserGroup} />
-              <span>최소 인원</span>
-            </div>
-            <MemberCnt>
-              <FontAwesomeIcon
-                icon={faMinus}
-                onClick={() => setMinValue((old) => old - 1)}
-              />
-              <span>{minValue}명</span>
-              <FontAwesomeIcon
-                icon={faPlus}
-                onClick={() => setMinValue((old) => old + 1)}
-              />
-            </MemberCnt>
-          </Item>
-          <Item>
-            <div>
-              <FontAwesomeIcon icon={faVenusMars} />
-              <span style={{ marginRight: "8px" }}>성별 고려</span>
-              <Popover>
-                <PopoverTrigger>
-                  <FontAwesomeIcon
-                    icon={faExclamationCircle}
-                    color="var(--font-h3)"
-                    size="sm"
-                  />
-                </PopoverTrigger>
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverHeader fontSize="11px">네비게이션 기능</PopoverHeader>
-                  <PopoverBody fontSize="11px">
-                    성별 비율을 최대 2대1까지 제한합니다.
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
-            </div>
-            <Switch
-              colorScheme="mintTheme"
-              isChecked={genderCondition}
-              onChange={(e) => setGenderCondition(e.target.checked)}
-            />
-          </Item>
-          <SlideItem layout>
-            <div>
+    <>
+      <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+        <ProgressLayout value={100} />
+        <Header title="" url="/gather/writing/date" />
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>조건을 선택해 주세요.</span>
+          </RegisterOverview>
+          <Container>
+            <Item>
               <div>
-                <FontAwesomeIcon icon={faUser} />
-                <span>나이</span>
+                <FontAwesomeIcon icon={faUserGroup} />
+                <span>최대 인원</span>
               </div>
-
+              <MemberCnt>
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  onClick={() => setMaxValue((old) => old - 1)}
+                />
+                <span>{maxValue}명</span>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  onClick={() => setMaxValue((old) => old + 1)}
+                />
+              </MemberCnt>
+            </Item>
+            <Item>
+              <div>
+                <FontAwesomeIcon icon={faUserGroup} />
+                <span>최소 인원</span>
+              </div>
+              <MemberCnt>
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  onClick={() => setMinValue((old) => old - 1)}
+                />
+                <span>{minValue}명</span>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  onClick={() => setMinValue((old) => old + 1)}
+                />
+              </MemberCnt>
+            </Item>
+            <Item>
+              <div>
+                <FontAwesomeIcon icon={faVenusMars} />
+                <span style={{ marginRight: "8px" }}>성별 고려</span>
+                <Popover>
+                  <PopoverTrigger>
+                    <FontAwesomeIcon
+                      icon={faExclamationCircle}
+                      color="var(--font-h3)"
+                      size="sm"
+                    />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverHeader fontSize="11px">
+                      네비게이션 기능
+                    </PopoverHeader>
+                    <PopoverBody fontSize="11px">
+                      성별 비율을 최대 2대1까지 제한합니다.
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+              </div>
               <Switch
                 colorScheme="mintTheme"
-                isChecked={ageCondition}
-                onChange={(e) => setAgeCondition(e.target.checked)}
+                isChecked={genderCondition}
+                onChange={(e) => setGenderCondition(e.target.checked)}
               />
-            </div>
-            {ageCondition && (
-              <SelectAge
-                initial={{ opacity: 0, y: -30 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <RangeSlider
-                  value={age}
-                  min={20}
-                  max={29}
-                  step={1}
-                  width="97%"
-                  alignSelf="center"
-                  onChange={onChangeAge}
-                >
-                  <RangeSliderTrack bg="var(--font-h5)">
-                    <RangeSliderFilledTrack bg="var(--color-mint)" />
-                  </RangeSliderTrack>
-                  <RangeSliderThumb boxSize={6} index={0} />
-                  <RangeSliderThumb boxSize={6} index={1} />
-                </RangeSlider>
-                <AgeText>
-                  {AGE_BAR?.map((num) => (
-                    <Age key={num}>{num}</Age>
-                  ))}
-                </AgeText>
-              </SelectAge>
-            )}
-          </SlideItem>
-          <SlideItem layout>
-            <div>
+            </Item>
+            <SlideItem layout>
               <div>
-                <FontAwesomeIcon icon={faUserSecret} />
-                <span>사전 섭외</span>
-              </div>
-
-              <Switch
-                colorScheme="mintTheme"
-                isChecked={isPreMember}
-                onChange={(e) => setIsPreMember(e.target.checked)}
-              />
-            </div>
-            {isPreMember && (
-              <PreMemberContainer>
-                <PreMember>
-                  <div>
-                    <FontAwesomeIcon
-                      icon={faMinus}
-                      onClick={() => setPreCnt((old) => old - 1)}
-                    />
-                    <span>{preCnt}명</span>
-                    <FontAwesomeIcon
-                      icon={faPlus}
-                      onClick={() => setPreCnt((old) => old + 1)}
-                    />
-                  </div>
-                  <Popover>
-                    <PopoverTrigger>
-                      <FontAwesomeIcon
-                        icon={faExclamationCircle}
-                        color="var(--font-h3)"
-                        size="sm"
-                      />
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverHeader fontSize="11px">사전 섭외</PopoverHeader>
-                      <PopoverBody fontSize="11px">
-                        사전에 섭외한 인원수를 선택해주세요. 오른쪽의 암호키를
-                        반드시 복사하고, 친구분에게 알려주세요!
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
-                </PreMember>
                 <div>
-                  <span>암호키</span>
-                  <Button size="sm" disabled colorScheme="blackAlpha" mr="8px">
-                    {password}
-                  </Button>
-                  <CopyBtn text={password} />
+                  <FontAwesomeIcon icon={faUser} />
+                  <span>나이</span>
                 </div>
-              </PreMemberContainer>
-            )}
-          </SlideItem>
-        </Container>
 
-        <BottomNav onClick={() => onClickNext()} text="완료" />
-      </RegisterLayout>
-    </Layout>
+                <Switch
+                  colorScheme="mintTheme"
+                  isChecked={ageCondition}
+                  onChange={(e) => setAgeCondition(e.target.checked)}
+                />
+              </div>
+              {ageCondition && (
+                <SelectAge
+                  initial={{ opacity: 0, y: -30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <RangeSlider
+                    value={age}
+                    min={20}
+                    max={29}
+                    step={1}
+                    width="97%"
+                    alignSelf="center"
+                    onChange={onChangeAge}
+                  >
+                    <RangeSliderTrack bg="var(--font-h5)">
+                      <RangeSliderFilledTrack bg="var(--color-mint)" />
+                    </RangeSliderTrack>
+                    <RangeSliderThumb boxSize={6} index={0} />
+                    <RangeSliderThumb boxSize={6} index={1} />
+                  </RangeSlider>
+                  <AgeText>
+                    {AGE_BAR?.map((num) => (
+                      <Age key={num}>{num}</Age>
+                    ))}
+                  </AgeText>
+                </SelectAge>
+              )}
+            </SlideItem>
+            <SlideItem layout>
+              <div>
+                <div>
+                  <FontAwesomeIcon icon={faUserSecret} />
+                  <span>사전 섭외</span>
+                </div>
+
+                <Switch
+                  colorScheme="mintTheme"
+                  isChecked={isPreMember}
+                  onChange={(e) => setIsPreMember(e.target.checked)}
+                />
+              </div>
+              {isPreMember && (
+                <PreMemberContainer>
+                  <PreMember>
+                    <div>
+                      <FontAwesomeIcon
+                        icon={faMinus}
+                        onClick={() => setPreCnt((old) => old - 1)}
+                      />
+                      <span>{preCnt}명</span>
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        onClick={() => setPreCnt((old) => old + 1)}
+                      />
+                    </div>
+                    <Popover>
+                      <PopoverTrigger>
+                        <FontAwesomeIcon
+                          icon={faExclamationCircle}
+                          color="var(--font-h3)"
+                          size="sm"
+                        />
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <PopoverHeader fontSize="11px">사전 섭외</PopoverHeader>
+                        <PopoverBody fontSize="11px">
+                          사전에 섭외한 인원수를 선택해주세요. 오른쪽의 암호키를
+                          반드시 복사하고, 친구분에게 알려주세요!
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
+                  </PreMember>
+                  <div>
+                    <span>암호키</span>
+                    <Button
+                      size="sm"
+                      disabled
+                      colorScheme="blackAlpha"
+                      mr="8px"
+                    >
+                      {password}
+                    </Button>
+                    <CopyBtn text={password} />
+                  </div>
+                </PreMemberContainer>
+              )}
+            </SlideItem>
+          </Container>
+          <BottomNav onClick={() => onClickNext()} text="완료" />
+        </RegisterLayout>
+      </Layout>
+      {isSuccessModal && (
+        <ModalPortal setIsModal={setIsSuccessModal}>
+          <SuccessModal url="/gather">
+            <>
+              <span>모임 열기 완료</span>
+              <div>
+                아래 링크를 복사해서 카톡방에 올려주세요!
+                <br />
+                <div>
+                  <span>studyabout.club/gather/2</span>
+                  <CopyBtn text="c" />
+                </div>
+              </div>
+            </>
+          </SuccessModal>
+        </ModalPortal>
+      )}
+    </>
   );
 }
 
@@ -356,6 +386,11 @@ const SlideItem = styled(motion.div)`
       }
     }
   }
+`;
+
+const SuccessMesagge = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export default WritingCondition;
