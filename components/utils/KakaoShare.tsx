@@ -15,7 +15,7 @@ interface Kakao {
 interface Window {
   Kakao: Kakao;
 }
-const kakaoAppKey = "05926725a12017416a7d5059eb8e3af4";
+const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 console.log(kakaoAppKey);
 
 function KakaoShareBtn() {
