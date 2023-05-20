@@ -64,16 +64,17 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                   <span>{(user.user as IUser).name}</span>
                   <div>
                     {user.memo}
-                    {(user?.user as IUser).uid === session?.uid && (
-                      <span>
-                        &nbsp;
-                        <FontAwesomeIcon
-                          icon={faPenToSquare}
-                          color="var(--font-h1)"
-                          onClick={() => onClickWriteBtn(user)}
-                        />
-                      </span>
-                    )}
+                    {user.memo &&
+                      (user?.user as IUser).uid === session?.uid && (
+                        <span>
+                          &nbsp;
+                          <FontAwesomeIcon
+                            icon={faPenToSquare}
+                            color="var(--font-h1)"
+                            onClick={() => onClickWriteBtn(user)}
+                          />
+                        </span>
+                      )}
                   </div>
                 </Info>
                 {user.arrived || studyDate === "passed" ? (

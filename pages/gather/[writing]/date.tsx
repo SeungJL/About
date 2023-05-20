@@ -13,13 +13,37 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import SearchLocation from "../../../components/utils/SearchLocation";
+import Header from "../../../components/layouts/Header";
+import { motion } from "framer-motion";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { gatherContentState } from "../../../recoil/contentsAtoms";
 
 function WritingDate() {
   const router = useRouter();
   const toast = useToast();
-  const [date, setDate] = useState(new Date());
+  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [date, setDate] = useState(
+    gatherContent?.date ? gatherContent?.date.toDate() : new Date()
+  );
+  const [detail, setDetail] = useState(gatherContent?.location?.sub);
+  const [location, setLocation] = useState(gatherContent?.location?.main);
   const onClickNext = () => {
-    // setTitleContent((old) => ({ ...old, category: selectCategory }));
+    if (!location) {
+      toast({
+        title: "진행 불가",
+        description: `장소를 선택해 주세요!`,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
+    }
+    setGatherContent((old) => ({
+      ...old,
+      location: { main: location, sub: detail },
+      date: dayjs(date),
+    }));
     router.push(`/gather/writing/condition`);
   };
   const minTime = new Date();
@@ -30,9 +54,14 @@ function WritingDate() {
   maxTime.setHours(23);
   maxTime.setMinutes(30);
 
+  const detailOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDetail(e.target.value);
+  };
+
   return (
-    <Layout>
-      <ProgressLayout value={11} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={75} />
+      <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 장소를 선택해 주세요.</span>
@@ -64,7 +93,12 @@ function WritingDate() {
           />
         </Container>
         <Location>
-          <SearchLocation />
+          <SearchLocation setLocation={setLocation} />
+          <LocationDetailInput
+            placeholder="상세 주소"
+            value={detail}
+            onChange={detailOnchange}
+          />
         </Location>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
@@ -113,7 +147,17 @@ const StyledDatePicker = styled(DatePicker)`
   }
 `;
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)``;
+
+const LocationDetailInput = styled.input`
+  width: 100%;
+  background-color: inherit;
+  border-bottom: 1.5px solid var(--font-h5);
+  padding: 6px 4px;
+  outline: none;
+  font-size: 13px;
+  color: var(--font-h2);
+`;
 
 const Location = styled.div`
   margin-top: 12px;

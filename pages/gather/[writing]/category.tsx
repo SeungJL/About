@@ -1,7 +1,8 @@
 import { Icon, useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
@@ -19,8 +20,8 @@ import {
 function WritingCategory() {
   const router = useRouter();
   const toast = useToast();
-  const setGatherContent = useSetRecoilState(gatherContentState);
-  const [selectType, setSelectType] = useState<GatherType>();
+  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [selectType, setSelectType] = useState<GatherType>(gatherContent?.type);
 
   const onClickNext = () => {
     if (!selectType) {
@@ -39,8 +40,8 @@ function WritingCategory() {
   };
 
   return (
-    <Layout>
-      <ProgressLayout value={11} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={25} />
       <Header title="" url="/gather" />
       <RegisterLayout>
         <RegisterOverview>
@@ -67,7 +68,7 @@ function WritingCategory() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)``;
 
 const ItemContainer = styled.div`
   margin-top: 20px;

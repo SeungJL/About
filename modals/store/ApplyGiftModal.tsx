@@ -61,6 +61,7 @@ function ApplyGiftModal({
       cnt: value,
       giftId: giftInfo?.giftId,
     };
+
     mutate(info);
     getPoint({ value: -totalCost, text: `${giftInfo?.name}응모` });
     toast({
