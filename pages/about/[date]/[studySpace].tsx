@@ -14,13 +14,16 @@ import { useVoteQuery } from "../../../hooks/vote/queries";
 
 import { IAttendence } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
-import { SPACE_LOCATION } from "../../../constants/study";
+import { SPACE_LOCATION, VOTE_END_HOUR } from "../../../constants/study";
 import { Location } from "../../../types/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
 import ModalPortal from "../../../components/ModalPortal";
 import StudySpaceVoteOverview from "../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
+import { useRecoilState } from "recoil";
+import { studyDateState } from "../../../recoil/studyAtoms";
+import { getInterestingDate } from "../../../libs/utils/dateUtils";
 
 function StudySpace() {
   const toast = useToast();
@@ -30,6 +33,7 @@ function StudySpace() {
   const spaceID = router.query.studySpace;
   const voteDate = dayjs(router.query.date as string);
   const location = SPACE_LOCATION[spaceID as string];
+  const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const { data: vote, isLoading } = useVoteQuery(voteDate, location, {
     enabled: true,
     onError: (err) => {
@@ -43,8 +47,31 @@ function StudySpace() {
       });
     },
   });
+  console.log(vote);
+
   const { place, attendences, status } =
     vote?.participations?.find((props) => props.place._id === spaceID) || {};
+
+  useEffect(() => {
+    const voteDateNum = +voteDate.format("MDD");
+    const defaultDate = +getInterestingDate().format("MDD");
+    if (
+      dayjs().hour() >= 14 && dayjs().hour() < 23
+        ? voteDateNum < +getInterestingDate().subtract(1, "day").format("MDD")
+        : voteDateNum < defaultDate
+    ) {
+      setStudyDate("passed");
+    } else if (
+      dayjs().hour() >= VOTE_END_HOUR
+        ? voteDateNum <= defaultDate
+        : dayjs().hour() >= 14
+        ? +voteDate.add(1, "day").format("MDD") <= defaultDate
+        : voteDateNum === defaultDate
+    )
+      setStudyDate("today");
+    else setStudyDate("not passed");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [voteDate]);
 
   const myVote =
     attendences?.find((props) => (props.user as IUser).uid === session?.uid) ||
