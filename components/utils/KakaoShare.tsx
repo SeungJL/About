@@ -94,7 +94,7 @@ function KakaoShareBtn({
                   webUrl: url,
                 },
               },
-              address: " location",
+              address: location,
               // addressTitle: "카카오 본사",
               buttons: [
                 {
