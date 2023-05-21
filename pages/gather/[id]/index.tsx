@@ -32,8 +32,12 @@ function GatherDetail() {
   const onClickBtn = () => {};
   return (
     <>
-      <Header title="">
-        <KakaoShareBtn />
+      <Header title="" url="/gather">
+        <KakaoShareBtn
+          title="보드게임 번개"
+          subtitle="5월 21일(일)"
+          type="gather"
+        />
         <div>
           <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
         </div>

@@ -65,17 +65,17 @@ export interface IMajor {
 export type Gender = "남성" | "여성" | "";
 export interface IRegisterForm {
   registerDate?: string;
-  location?: Location;
-  name?: string;
+  location: Location;
+  name: string;
   mbti?: string;
-  birth?: string;
+  birth: string;
   agree?: any;
-  gender?: Gender;
-  interests?: IInterests;
-  majors?: IMajor[];
-  message?: string;
-  phoneNumber?: string;
-  profileImg?: string;
+  gender: Gender;
+  interests: IInterests;
+  majors: IMajor[];
+  message: string;
+  phoneNumber: string;
+  profileImg: string;
 }
 
 export interface IInterests {
