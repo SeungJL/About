@@ -29,13 +29,14 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 import dayjs from "dayjs";
 import { birthToDayjs } from "../../libs/utils/dateUtils";
 import ProfileIconCircle from "../../components/common/Profile/ProfileIconCircle";
-import { userDataState } from "../../recoil/interactionAtoms";
+import { beforePageState, userDataState } from "../../recoil/interactionAtoms";
 import { useSetRecoilState } from "recoil";
 
 function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();
   const idx = Number(router.query?.category);
 
+  const setBeforePage = useSetRecoilState(beforePageState);
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
   const { data, isLoading } = useUserInfoQuery();
@@ -77,6 +78,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
 
   const onClickProfile = (user: IUser) => {
     setUserData(user);
+    setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
 

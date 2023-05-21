@@ -23,13 +23,21 @@ import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
 import { GatherCategoryIcons } from "../../../storage/Gather";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import ModalPortal from "../../../components/ModalPortal";
+import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
 
 function GatherDetail() {
   const router = useRouter();
+
   const data = useRecoilValue(gatherContentState);
+  const [isParticipationModal, setIsParticipationModal] = useState(false);
+
   const { data: user } = useUserInfoQuery();
 
-  const onClickBtn = () => {};
+  const onClickBtn = () => {
+    setIsParticipationModal(true);
+  };
   return (
     <>
       <Header title="" url="/gather">
@@ -130,6 +138,11 @@ function GatherDetail() {
           참여하기
         </Button>
       </ButtonNav>
+      {isParticipationModal && (
+        <ModalPortal setIsModal={setIsParticipationModal}>
+          <ApplyParticipationModal setIsModal={setIsParticipationModal} />
+        </ModalPortal>
+      )}
     </>
   );
 }

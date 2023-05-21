@@ -5,7 +5,7 @@ import Header from "../../../components/layouts/Header";
 function ScoreSystem() {
   return (
     <>
-      <Header title="점수 시스템" />
+      <Header title="자주 묻는 질문" url="/user" />
       <Layout>
         <div>
           <Title>

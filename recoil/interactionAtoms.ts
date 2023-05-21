@@ -5,3 +5,8 @@ export const userDataState = atom<IUser>({
   key: "userData",
   default: null,
 });
+
+export const beforePageState = atom({
+  key: "beforePage",
+  default: "",
+});

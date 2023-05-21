@@ -7,10 +7,12 @@ function Header({
   title,
   url,
   children,
+  before,
 }: {
   title: string;
   url?: string;
   children?: React.ReactNode;
+  before?: string;
 }) {
   const router = useRouter();
 
