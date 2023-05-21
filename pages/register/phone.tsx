@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { checkIsKorean } from "../../libs/utils/validUtils";
 import { useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 function Phone() {
   const router = useRouter();
@@ -38,7 +39,7 @@ function Phone() {
   };
 
   return (
-    <>
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressLayout value={88} />
       <Header title="회원가입" url="/register/message" />
       <RegisterLayout errorMessage={errorMessage}>
@@ -53,11 +54,13 @@ function Phone() {
         />
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </>
+    </Layout>
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const NameInput = styled.input`
   margin-top: 40px;

@@ -38,7 +38,7 @@ function WritingCategory() {
     setGatherContent((old) => ({ ...old, category: selectType }));
     router.push(`/gather/writing/content`);
   };
-  console.log(gatherContent);
+
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressLayout value={25} />

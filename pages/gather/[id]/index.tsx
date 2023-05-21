@@ -32,8 +32,13 @@ function GatherDetail() {
   const onClickBtn = () => {};
   return (
     <>
-      <Header title="">
-        <KakaoShareBtn />
+      <Header title="" url="/gather">
+        <KakaoShareBtn
+          title="보드게임 번개"
+          subtitle="5월 21일(일)"
+          type="gather"
+          url=""
+        />
         <div>
           <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
         </div>
@@ -211,13 +216,16 @@ const Age = styled.div`
   }
 `;
 
-const Content = styled.div`
-  margin-top: 20px;
+const Content = styled.p`
+  border-top: 1px solid var(--font-h6);
+  border-bottom: 1px solid var(--font-h6);
+  margin-top: 16px;
+  padding-top: 14px;
+  min-height: 100px;
 `;
 
 const MemberMin = styled.div`
   margin-top: 8px;
-
   > span {
     margin-left: 6px;
   }
@@ -227,7 +235,7 @@ const Participant = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin-top: 32px;
+  margin-top: 20px;
   > span:first-child {
     margin-right: auto;
     font-weight: 700;

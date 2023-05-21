@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { checkIsKorean } from "../../libs/utils/validUtils";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import { motion } from "framer-motion";
 
 function Name() {
   const router = useRouter();
@@ -45,8 +46,8 @@ function Name() {
   };
 
   return (
-    <>
-      <ProgressLayout value={11} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={10} />
       <Header title="회원가입" url="/login" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -58,11 +59,15 @@ function Name() {
           onChange={onChange}
           placeholder="이름을 입력해주세요."
         />
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </>
+      <BottomNav onClick={() => onClickNext()} />
+    </Layout>
   );
 }
+
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const NameInput = styled.input`
   margin-top: 40px;

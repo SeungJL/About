@@ -34,21 +34,23 @@ function ProfileIconCircle({
   };
   return (
     <>
-      <Layout
-        isSmall={isSmall}
-        style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
-      >
-        <Image
-          src={
-            isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
-          }
-          width={isAvatar ? 38 : 48}
-          height={isAvatar ? 38 : 48}
-          alt="userProfileLg"
-          unoptimized={true}
-          onError={onError}
-        />
-      </Layout>
+      {user && (
+        <Layout
+          isSmall={isSmall}
+          style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
+        >
+          <Image
+            src={
+              isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
+            }
+            width={isAvatar ? 38 : 48}
+            height={isAvatar ? 38 : 48}
+            alt="userProfileLg"
+            unoptimized={true}
+            onError={onError}
+          />
+        </Layout>
+      )}
     </>
   );
 }

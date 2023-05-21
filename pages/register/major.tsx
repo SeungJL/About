@@ -13,6 +13,7 @@ import { Location } from "../../types/system";
 import { MAJOR_DATA } from "../../storage/ProfileData";
 import { IMajor } from "../../types/user";
 import { useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 function Interest() {
   const router = useRouter();
@@ -59,8 +60,8 @@ function Interest() {
   };
 
   return (
-    <>
-      <ProgressLayout value={55} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={60} />
       <Header title="회원가입" url="/register/location" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -88,9 +89,13 @@ function Interest() {
         ))}
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </>
+    </Layout>
   );
 }
+
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const Section = styled.section`
   margin-bottom: 20px;

@@ -10,6 +10,7 @@ import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Location } from "../../types/system";
+import { motion } from "framer-motion";
 
 function Location() {
   const router = useRouter();
@@ -28,8 +29,8 @@ function Location() {
   };
 
   return (
-    <>
-      <ProgressLayout value={44} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={50} />
       <Header title="회원가입" url="/register/gender" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -56,13 +57,15 @@ function Location() {
             안양
           </Button>
         </ButtonNav>
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </>
+      <BottomNav onClick={() => onClickNext()} />
+    </Layout>
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const ButtonNav = styled.nav`
   margin-top: 40px;

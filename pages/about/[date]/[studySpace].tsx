@@ -52,11 +52,11 @@ function StudySpace() {
 
   return (
     <>
-      <StudySpaceHeader title={place?.brand} />
+      <StudySpaceHeader title={place?.brand} place={place} />
       <Layout>
         {!isLoading && (
           <>
-            {/* <StudySpaceCover src={place?.image} /> */}
+            <StudySpaceCover src={place?.image} />
             <StudySpaceOverview space={place} />
             <HrDiv />
             <StudySpaceVoteOverview

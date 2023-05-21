@@ -115,9 +115,10 @@ function VoteStudySubModal({
         isClosable: true,
         position: "bottom",
       });
-    } else {
-      setIsFirst(false);
+      return;
     }
+    if (studyDate === "not passed") setIsFirst(false);
+    else onSubmit();
   };
   return (
     <>
@@ -153,7 +154,7 @@ function VoteStudySubModal({
             </TimeWrapper>
           </TimeChoiceLayout>{" "}
           <MainButton onClick={onNextClicked}>
-            <span>선택</span>
+            <span>{studyDate === "not passed" ? "선택" : "완료"}</span>
           </MainButton>
         </Layout>
       ) : (

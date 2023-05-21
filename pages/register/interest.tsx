@@ -13,6 +13,7 @@ import { Location } from "../../types/system";
 
 import { INTEREST_DATA } from "../../storage/ProfileData";
 import { IInterests } from "../../types/user";
+import { motion } from "framer-motion";
 
 function Interest() {
   const router = useRouter();
@@ -43,10 +44,10 @@ function Interest() {
     }));
     router.push(`/register/message`);
   };
- 
+
   return (
-    <>
-      <ProgressLayout value={66} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={70} />
       <Header title="회원가입" url="/register/major" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -83,9 +84,13 @@ function Interest() {
         </Container>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} />
-    </>
+    </Layout>
   );
 }
+
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;

@@ -50,7 +50,7 @@ function VoteStudyMainModal({
   const studyDate = useRecoilValue(studyDateState);
 
   const [errorMessage, setErrorMessage] = useState("");
-
+  console.log(studyDate);
   const { data: vote } = useVoteQuery(voteDate, location, {
     enabled: true,
     onError: (err) => {
@@ -64,8 +64,6 @@ function VoteStudyMainModal({
       });
     },
   });
-
- 
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
@@ -94,7 +92,8 @@ function VoteStudyMainModal({
       setErrorMessage("장소를 선택해주세요!");
       return;
     }
-    setPage(1);
+    if (studyDate === "today") setPage(2);
+    else setPage(1);
   };
 
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
