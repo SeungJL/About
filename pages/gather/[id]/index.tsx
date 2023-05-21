@@ -37,6 +37,7 @@ function GatherDetail() {
           title="보드게임 번개"
           subtitle="5월 21일(일)"
           type="gather"
+          url=""
         />
         <div>
           <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
