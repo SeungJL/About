@@ -112,7 +112,7 @@ function AboutMainItem({
                       <ProfileContainer key={idx} zIndex={idx}>
                         <ProfileIconXs
                           user={user?.user as IUser}
-                          isOverlap={idx === VOTER_SHOW_MAX + 1}
+                          isOverlap={idx === VOTER_SHOW_MAX}
                         />
                       </ProfileContainer>
                     )
@@ -131,7 +131,7 @@ function AboutMainItem({
                     ? attendences.length
                     : firstAttendance?.length}
                 </VoterImpact>
-                /8
+                /{statusFixed === "pending" ? "8" : "10"}
               </span>
             </ParticipantStatus>
           </div>

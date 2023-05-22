@@ -19,6 +19,7 @@ import {
   faRankingStar,
   faStore,
   faUserGroup,
+  faImage,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -116,6 +117,14 @@ function Drawer({
           <FontAwesomeIcon icon={faPlaystation} size="xl" />
 
           <span style={{ marginLeft: "10px" }}>모임</span>
+        </NavLevelItem> */}{" "}
+        {/* <NavLevelItem
+          pageSelected={url === "/review"}
+          onClick={() => handleClick("review")}
+          style={{ marginLeft: "3px" }}
+        >
+          <FontAwesomeIcon icon={faImage} size="xl" />
+          <span>모임 후기</span>
         </NavLevelItem> */}
       </Main>
     </Layout>
