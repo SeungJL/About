@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { getSession, useSession } from "next-auth/react";
 import safeJsonStringify from "safe-json-stringify";
 import dbConnect from "../../libs/dbConnect";
-import { isMember } from "../../libs/utils/authUtils";
+import { isMember, makeCryptoKey } from "../../libs/utils/authUtils";
 import { User } from "../../models/user";
 
 import { useToast } from "@chakra-ui/react";
