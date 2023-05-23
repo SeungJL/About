@@ -25,9 +25,9 @@ function ProfileIconSm({ user }: { user: IUser }) {
     <Layout style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
       <Image
         src={isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`}
-        width={isAvatar ? 32 : 40}
-        height={isAvatar ? 32 : 40}
-        alt="ProfileIconXsOne"
+        width={isAvatar ? 26 : 32}
+        height={isAvatar ? 26 : 32}
+        alt="ProfileIconXs"
         unoptimized={true}
         onError={onError}
       />
@@ -36,8 +36,8 @@ function ProfileIconSm({ user }: { user: IUser }) {
 }
 
 const Layout = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   background-color: white;
   border-radius: 50%;
   display: flex;

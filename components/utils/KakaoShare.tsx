@@ -109,6 +109,7 @@ function KakaoShareBtn({
           : null;
       window.Kakao.Link.createDefaultButton(options);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

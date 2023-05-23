@@ -6,7 +6,7 @@ import { locationState } from "../../recoil/systemAtoms";
 import { Location } from "../../types/system";
 
 function LocalSelector() {
-  const [value, setValue] = useState<Location>();
+  const [value, setValue] = useState<Location>("수원");
   const [location, setLocation] = useRecoilState(locationState);
 
   useEffect(() => {

@@ -9,16 +9,16 @@ import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import DetailInfo from "../../pagesComponents/friend/DetailInfo";
 import ProfileOverview from "../../pagesComponents/friend/ProfileOverview";
-import { userDataState } from "../../recoil/interactionAtoms";
+import { beforePageState, userDataState } from "../../recoil/interactionAtoms";
 
 function ProfilePage() {
   const router = useRouter();
   const userData = useRecoilValue(userDataState);
+  const beforePage = useRecoilValue(beforePageState);
 
-  console.log(userData);
   return (
     <Container>
-      <Header title="">
+      <Header title="" url={beforePage}>
         <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
       </Header>
       <Layout>

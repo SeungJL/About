@@ -10,8 +10,8 @@ import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ProfileIconMd from "../../components/common/Profile/ProfileIconMd";
-import ProfileIconXsOne from "../../components/common/Profile/ProfileIconXsOne";
+import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
+import ProfileIconXs from "../../components/common/Profile/ProfileIconXsOverwrap";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ICategory } from "../../pages/members/[type]";
@@ -49,7 +49,7 @@ function GatherBlock({
       </Detail>
       <Participant>
         <Writer>
-          <ProfileIconXsOne user={user} />
+          <ProfileIconXs user={user} />
           <span>승주</span>
         </Writer>
         <Voter>

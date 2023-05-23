@@ -5,7 +5,7 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
 
-import ProfileIconMd from "../../../../components/common/Profile/ProfileIconMd";
+import ProfileIconLg from "../../../../components/common/Profile/ProfileIconXl";
 
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
@@ -63,7 +63,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                 router.push(`/profile/${(user?.user as IUser).uid}`)
               }
             >
-              <ProfileIconMd user={user.user as IUser} />
+              <ProfileIconLg user={user.user as IUser} />
               <BlockInfo>
                 <Info>
                   <span>{(user.user as IUser).name}</span>
