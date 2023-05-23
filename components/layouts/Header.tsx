@@ -19,11 +19,7 @@ function Header({
   return (
     <Layout>
       <div
-        onClick={
-          url === undefined
-            ? () => router.push(`/about`)
-            : () => router.push(url)
-        }
+        onClick={!url ? () => router.push(`/about`) : () => router.push(url)}
       >
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
       </div>

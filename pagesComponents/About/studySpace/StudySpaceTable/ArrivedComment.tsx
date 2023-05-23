@@ -7,7 +7,7 @@ import {
 
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { studyDateState, voteDateState } from "../../../../recoil/studyAtoms";
 import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
 import { useToast } from "@chakra-ui/react";
@@ -21,6 +21,7 @@ import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoMo
 import { useSession } from "next-auth/react";
 import ProfileIconMd from "../../../../components/common/Profile/ProfileIconMd";
 import ProfileIconLg from "../../../../components/common/Profile/ProfileIconLg";
+import { beforePageState } from "../../../../recoil/interactionAtoms";
 
 function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const router = useRouter();
@@ -28,6 +29,8 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
 
   const voteDate = dayjs(router.query.date as string);
   const studyDate = useRecoilValue(studyDateState);
+  const setBeforePage = useSetRecoilState(beforePageState);
+
   const { data: absentData } = useAbsentDataQuery(voteDate);
 
   const [isChangeModal, setIsChangeModal] = useState(false);
@@ -36,6 +39,11 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const onClickWriteBtn = (user: IAttendence) => {
     setUser(user);
     setIsChangeModal(true);
+  };
+
+  const onClickUser = (uid: string) => {
+    router.push(`/profile/${uid}}`);
+    setBeforePage(router?.asPath);
   };
 
   return (
@@ -59,9 +67,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
           return (
             <Block
               key={idx}
-              onClick={() =>
-                router.push(`/profile/${(user?.user as IUser).uid}`)
-              }
+              onClick={() => onClickUser((user?.user as IUser).uid)}
             >
               <ProfileIconLg user={user.user as IUser} />
               <BlockInfo>

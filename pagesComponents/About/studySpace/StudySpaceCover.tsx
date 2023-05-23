@@ -1,10 +1,15 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const IMAGE_LIST = [1, 2, 3, 4, 5];
 
 function StudySpaceCover({ src }) {
-  const randomNum = Math.floor(Math.random() * IMAGE_LIST.length);
+  const [randomNum, setRandomNum] = useState<number>();
+
+  useEffect(() => {
+    setRandomNum(Math.floor(Math.random() * IMAGE_LIST.length));
+  }, [src]);
 
   return (
     <Layout>
