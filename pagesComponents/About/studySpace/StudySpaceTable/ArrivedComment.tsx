@@ -5,8 +5,6 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
 
-import ProfileIconLg from "../../../../components/common/Profile/ProfileIconXl";
-
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { useRecoilValue } from "recoil";
@@ -21,6 +19,8 @@ import { useState } from "react";
 import ModalPortal from "../../../../components/ModalPortal";
 import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
 import { useSession } from "next-auth/react";
+import ProfileIconMd from "../../../../components/common/Profile/ProfileIconMd";
+import ProfileIconLg from "../../../../components/common/Profile/ProfileIconLg";
 
 function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const router = useRouter();
