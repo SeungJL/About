@@ -22,7 +22,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fa0 } from "@fortawesome/free-solid-svg-icons";
 import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/card";
-import ProfileIconMd from "../../components/common/Profile/ProfileIconMd";
+import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { birthToAge } from "../../libs/utils/membersUtil";

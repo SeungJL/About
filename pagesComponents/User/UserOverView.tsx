@@ -21,7 +21,7 @@ import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
 import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
 import ModalPortal from "../../components/ModalPortal";
-import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
+import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
 
 export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
@@ -63,7 +63,7 @@ export default function UserOverview() {
     <>
       <Layout>
         <UserImg>
-          <ProfileIconLg user={user} />
+          <ProfileIconXl user={user} />
           <IconWrapper onClick={() => setIsProfileModal(true)}>
             <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
           </IconWrapper>

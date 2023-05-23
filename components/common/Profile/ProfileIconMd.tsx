@@ -1,100 +1,48 @@
-import { useToast } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/dist/client/router";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { SyntheticEvent, useState } from "react";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-
-import UserInfoModal from "../../../modals/user/UserInfoModal";
-import { userDataState } from "../../../recoil/interactionAtoms";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
+
 import { IUser } from "../../../types/user";
 
-import ModalPortal from "../../ModalPortal";
-
-function ProfileIconMd({
-  user,
-  isCircle,
-  disabled,
-}: {
-  user: IUser;
-  isCircle?: boolean;
-  disabled?: boolean;
-}) {
-  const toast = useToast();
-  const router = useRouter();
-  const { data: session } = useSession();
-  const setUserData = useSetRecoilState(userDataState);
-  const isGuest = session?.user.name === "guest";
-  const [isUserModal, setIsUserModal] = useState(false);
+function ProfileIconMd({ user }: { user: IUser }) {
   const avatarType = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
-  const onClickImg = () => {
-    if (disabled) return;
-    if (isGuest) {
-      toast({
-        title: "버튼 동작 실패",
-        description: "개인 정보 보호를 위해 게스트에게는 허용되지 않습니다.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      return;
-    }
-    setUserData(user);
-    router.push(`/profile/${user.uid}`);
-    // setIsUserModal(true);
-  };
 
-  const onError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src =
-      "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
-  };
   const isAvatar =
     avatarType !== null &&
     avatarType !== undefined &&
     avatarBg !== null &&
     avatarBg !== undefined;
+
+  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src =
+      "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
+  };
+
   return (
-    <>
-      <Layout
-        onClick={onClickImg}
-        style={{
-          background: avatarBg !== null && AVATAR_COLOR[avatarBg],
-          borderRadius: isCircle ? "50%" : "28%",
-        }}
-      >
-        <Image
-          src={
-            isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
-          }
-          width={isAvatar ? 40 : 50}
-          height={isAvatar ? 40 : 50}
-          alt="userProfile"
-          unoptimized={true}
-          onError={onError}
-        />
-      </Layout>
-      {isUserModal && (
-        <ModalPortal setIsModal={setIsUserModal}>
-          <UserInfoModal user={user} setIsModal={setIsUserModal} />
-        </ModalPortal>
-      )}
-    </>
+    <Layout style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
+      <Image
+        src={isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`}
+        width={isAvatar ? 32 : 40}
+        height={isAvatar ? 32 : 40}
+        alt="ProfileIconXs"
+        unoptimized={true}
+        onError={onError}
+      />
+    </Layout>
   );
 }
 
 const Layout = styled.div`
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  object-fit: cover;
-
-  overflow: hidden;
-  width: 50px;
-  height: 50px;
 `;
 
 export default ProfileIconMd;

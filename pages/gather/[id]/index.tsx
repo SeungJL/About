@@ -15,8 +15,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ProfileIconMd from "../../../components/common/Profile/ProfileIconMd";
-import ProfileIconSm from "../../../components/common/Profile/ProfileIconSm";
+import ProfileIconLg from "../../../components/common/Profile/ProfileIconXl";
+import ProfileIconMd from "../../../components/common/Profile/ProfileIconLg";
 import Header from "../../../components/layouts/Header";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -57,7 +57,7 @@ function GatherDetail() {
           <Category>보드게임</Category>
         </Badge>
         <Profile>
-          <ProfileIconSm user={user} />
+          <ProfileIconMd user={user} />
           <div>
             <span>{user?.name}</span>
             <span>2일 전</span>
@@ -102,21 +102,21 @@ function GatherDetail() {
           </span>
           <div>
             <MemberItem onClick={() => router.push(`/profile/${user.uid}`)}>
-              <ProfileIconSm user={user} />
+              <ProfileIconMd user={user} />
               <div>
                 <span>{user?.name}</span>
                 <span>안녕하세요. 잘 부탁드립니다 !</span>
               </div>
             </MemberItem>
             <MemberItem>
-              <ProfileIconSm user={user} />
+              <ProfileIconMd user={user} />
               <div>
                 <span>{user?.name}</span>
                 <span>안녕하세요. 잘 부탁드립니다 !</span>
               </div>
             </MemberItem>
             <MemberItem>
-              <ProfileIconSm user={user} />
+              <ProfileIconMd user={user} />
               <div>
                 <span>{user?.name}</span>
                 <span>안녕하세요. 잘 부탁드립니다 !</span>
