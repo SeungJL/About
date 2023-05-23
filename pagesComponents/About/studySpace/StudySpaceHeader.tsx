@@ -15,8 +15,10 @@ const IMAGE_LIST = [1, 2, 3, 4, 5];
 function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
   const router = useRouter();
 
+
   const url = WEB_URL + router?.asPath;
   const location = STUDY_SPACE_INFO?.find((info) => info?.id === place?._id);
+
   const randomNum = Math.floor(Math.random() * IMAGE_LIST.length);
 
   return (
@@ -26,14 +28,16 @@ function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
         <Title>{title}</Title>
       </div>
       <div className="shareBtn">
-        <KakaoShareBtn
-          type="study"
-          title="같이 스터디 해요~!"
-          subtitle={place?.fullname}
-          location={location?.location}
-          img={`/studyRandom/study${randomNum + 1}.jpg`}
-          url={url}
-        />
+        {location && (
+          <KakaoShareBtn
+            type="study"
+            title="같이 스터디 해요~!"
+            subtitle={place?.fullname}
+            location={location?.location}
+            img={`/studyRandom/study${randomNum + 1}.jpg`}
+            url={url}
+          />
+        )}
       </div>
     </Layout>
   );
