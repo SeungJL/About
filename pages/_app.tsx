@@ -15,7 +15,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import Layout from "../components/Layout";
 import theme from "../theme";
 
-const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {

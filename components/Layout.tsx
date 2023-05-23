@@ -42,7 +42,7 @@ function Layout({ children }) {
           <Script
             strategy="beforeInteractive"
             src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
-          ></Script>
+          />
           <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
         </>
       )}

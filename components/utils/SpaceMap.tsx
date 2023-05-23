@@ -5,7 +5,7 @@ function SpaceMap({ lat, lon }: { lat?: number; lon?: number }) {
 
   const [myLat, setMyLat] = useState(null);
   const [myLon, setMyLon] = useState(null);
-  
+
   useEffect(() => {
     const location = new naver.maps.LatLng(lat, lon);
     const option = {
