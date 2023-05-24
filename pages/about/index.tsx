@@ -33,6 +33,7 @@ import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
 
 import { MainLoading } from "../../components/ui/Loading";
 import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpperBar";
+import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
 
 function About() {
   const toast = useToast();
@@ -131,6 +132,8 @@ function About() {
                 <AboutVoteNav voteCnt={voteCnt} />
                 <AboutMain participations={participations} />
               </>
+            ) : location === "안양" ? (
+              <ReadyToOpen />
             ) : (
               <>
                 <AboutVoteNav voteCnt={voteCnt} />

@@ -46,7 +46,7 @@ function Birthday() {
       ...old,
       birth: dayjs(startDate).format("YYYY-MM-DD"),
     }));
-    router.push(`/register/location`);
+    router.push(`/register/major`);
   };
 
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
