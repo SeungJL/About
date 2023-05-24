@@ -3,9 +3,9 @@ import { setSeconds } from "date-fns";
 import { useSession } from "next-auth/react";
 import { SetStateAction } from "react";
 import styled from "styled-components";
-import ProfileIconMd from "../../components/common/Profile/ProfileIconMd";
-import ProfileIconSm from "../../components/common/Profile/ProfileIconSm";
-import ProfileIconXsOne from "../../components/common/Profile/ProfileIconXsOne";
+import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
+import ProfileIconMd from "../../components/common/Profile/ProfileIconLg";
+import ProfileIconXs from "../../components/common/Profile/ProfileIconXsOverwrap";
 
 import { ModalHeaderX } from "../../components/ui/Modal";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -63,7 +63,7 @@ function ProfileCard({
             </ProfileItem>
           </Profile>
           <FriendTitle>친구</FriendTitle>
-          <FriendList>{/* <ProfileIconSm user={user} /> */}</FriendList>
+          <FriendList>{/* <ProfileIconMd user={user} /> */}</FriendList>
         </ModalMain>
         <Footer>
           <Button width="50%">프로필 변경</Button>

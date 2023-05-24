@@ -7,21 +7,19 @@ function Header({
   title,
   url,
   children,
+  before,
 }: {
   title: string;
   url?: string;
   children?: React.ReactNode;
+  before?: string;
 }) {
   const router = useRouter();
 
   return (
     <Layout>
       <div
-        onClick={
-          url === undefined
-            ? () => router.push(`/about`)
-            : () => router.push(url)
-        }
+        onClick={!url ? () => router.push(`/about`) : () => router.push(url)}
       >
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
       </div>
@@ -48,6 +46,12 @@ const Title = styled.span`
 
 const Nav = styled.nav`
   margin-left: auto;
+  display: flex;
+  align-items: center;
+
+  > div {
+    margin-left: 20px;
+  }
 `;
 
 export default Header;

@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 import { IconUserTwo } from "../../../../public/icons/Icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import ProfileIconXs from "../../../../components/common/Profile/ProfileIconXs";
-
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   mySpaceFixedState,
@@ -20,6 +18,7 @@ import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { Badge } from "@chakra-ui/react";
 import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
 import { MAX_USER_PER_PLACE, YANG_할리스 } from "../../../../constants/study";
+import ProfileIconXsOverwrap from "../../../../components/common/Profile/ProfileIconXsOverwrap";
 
 const VOTER_SHOW_MAX = 7;
 
@@ -99,7 +98,7 @@ function AboutMainItem({
                   (user, idx) =>
                     idx < VOTER_SHOW_MAX && (
                       <ProfileContainer key={idx} zIndex={idx}>
-                        <ProfileIconXs
+                        <ProfileIconXsOverwrap
                           user={user?.user as IUser}
                           isOverlap={idx === VOTER_SHOW_MAX - 1}
                         />
@@ -110,9 +109,9 @@ function AboutMainItem({
                   (user, idx) =>
                     idx < VOTER_SHOW_MAX + 1 && (
                       <ProfileContainer key={idx} zIndex={idx}>
-                        <ProfileIconXs
+                        <ProfileIconXsOverwrap
                           user={user?.user as IUser}
-                          isOverlap={idx === VOTER_SHOW_MAX + 1}
+                          isOverlap={idx === VOTER_SHOW_MAX}
                         />
                       </ProfileContainer>
                     )
@@ -131,7 +130,7 @@ function AboutMainItem({
                     ? attendences.length
                     : firstAttendance?.length}
                 </VoterImpact>
-                /8
+                /{statusFixed === "pending" ? "8" : "10"}
               </span>
             </ParticipantStatus>
           </div>

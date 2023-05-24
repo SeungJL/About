@@ -13,12 +13,14 @@ import ModalPortal from "../../components/ModalPortal";
 import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
-import GatherBlock from "../../pagesComponents/gather/main/GatherBlock";
-import Category from "../../pagesComponents/gather/main/Category";
+import GatherBlock from "../../pagesComponents/gather/GatherBlock";
+import Category from "../../pagesComponents/gather/Category";
 import { GatherCategory } from "../../types/gather";
+import KakaoShare from "../../components/utils/KakaoShare";
 
 function Gather() {
-  const { data } = usePlazaDataQuery();
+  const router = useRouter();
+  const { data, isLoading } = usePlazaDataQuery();
   const [category, setCategory] = useState<GatherCategory>("전체");
   const filterData =
     category === "전체"
@@ -29,21 +31,23 @@ function Gather() {
 
   return (
     <>
-      <Layout>
-        <Seo title="Gather" />
-        <Header title="모임" />
-        <PlazaLayout>
-          <Category category={category} setCategory={setCategory} />
-          <PlazaMainContent>
-            {reversedData?.map((data, idx) => (
-              <GatherBlock key={idx} data={data} category={category} />
-            ))}
-          </PlazaMainContent>
-        </PlazaLayout>
-        <Navigation>
-          <IconPencil />
-        </Navigation>
-      </Layout>
+      {!isLoading && (
+        <Layout>
+          <Seo title="Gather" />
+          <Header title="모임" />
+          <PlazaLayout>
+            <Category category={category} setCategory={setCategory} />
+            <PlazaMainContent>
+              {reversedData?.map((data, idx) => (
+                <GatherBlock key={idx} data={data} category={category} />
+              ))}
+            </PlazaMainContent>
+          </PlazaLayout>
+          <Navigation>
+            <IconPencil />
+          </Navigation>
+        </Layout>
+      )}
     </>
   );
 }
@@ -51,7 +55,7 @@ function Gather() {
 const IconPencil = () => {
   const router = useRouter();
   return (
-    <IconLayout onClick={() => router.push(`/gather/wrting/category`)}>
+    <IconLayout onClick={() => router.push(`/gather/writing/category`)}>
       <FontAwesomeIcon icon={faPencil} color="white" size="lg" />
     </IconLayout>
   );

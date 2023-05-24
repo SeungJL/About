@@ -22,6 +22,8 @@ export const TIME_SELECTOR_START = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 export const TIME_SELECTOR_END = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 export const TIME_SELECTOR_MINUTES = ["00", "30"];
 
+export const StudyLocation: Location[] = ["수원", "양천", "안양"];
+
 //수원
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";

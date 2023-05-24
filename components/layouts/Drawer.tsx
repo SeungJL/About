@@ -19,6 +19,7 @@ import {
   faRankingStar,
   faStore,
   faUserGroup,
+  faImage,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -62,22 +63,7 @@ function Drawer({
         <div onClick={() => setIsDrawer(false)}>
           <Image src={`/aboutSm.png`} width={97} height={55} alt="aboutSm2" />
         </div>
-        <div>
-          <Popover>
-            <PopoverTrigger>
-              <FontAwesomeIcon icon={faExclamationCircle} />
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader fontSize="11px">네비게이션 기능</PopoverHeader>
-              <PopoverBody fontSize="11px">
-                현재 Home을 제외한 네비게이션은 모두 막아놨습니다. 이후에 추가할
-                수 있도록 하겠습니다.
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
-        </div>
+        <div></div>
       </Title>
       <Main>
         <NavHome
@@ -131,6 +117,14 @@ function Drawer({
           <FontAwesomeIcon icon={faPlaystation} size="xl" />
 
           <span style={{ marginLeft: "10px" }}>모임</span>
+        </NavLevelItem> */}{" "}
+        {/* <NavLevelItem
+          pageSelected={url === "/review"}
+          onClick={() => handleClick("review")}
+          style={{ marginLeft: "3px" }}
+        >
+          <FontAwesomeIcon icon={faImage} size="xl" />
+          <span>모임 후기</span>
         </NavLevelItem> */}
       </Main>
     </Layout>

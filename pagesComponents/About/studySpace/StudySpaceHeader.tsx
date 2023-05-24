@@ -7,43 +7,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import styled from "styled-components";
-
-function StudySpaceHeader({ title }) {
+import KakaoShareBtn from "../../../components/utils/KakaoShare";
+import { IPlace } from "../../../types/studyDetails";
+import { SPACE_LOCATION, STUDY_SPACE_INFO } from "../../../constants/study";
+import { WEB_URL } from "../../../constants/system";
+const IMAGE_LIST = [1, 2, 3, 4, 5];
+function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
   const router = useRouter();
-  const toast = useToast();
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast({
-          title: "복사 완료",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "bottom",
 
-          variant: "left-accent",
-        });
-      },
-      (error) => {
-        console.error("Failed to copy text:", error);
-      }
-    );
-  };
-  const shareUrl = `${router.asPath}`;
+  const url = WEB_URL + router?.asPath;
+  const location = STUDY_SPACE_INFO?.find((info) => info?.id === place?._id);
 
-  useEffect(() => {
-    const shareBtn = document.querySelector(".shareBtn");
-    const handleClick = () => {
-      copyToClipboard(shareUrl);
-    };
-    shareBtn?.removeEventListener("click", handleClick);
-    shareBtn?.addEventListener("click", handleClick);
-    return () => {
-      shareBtn?.removeEventListener("click", handleClick);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shareUrl]);
+  const randomNum = Math.floor(Math.random() * IMAGE_LIST.length);
 
   return (
     <Layout>
@@ -52,7 +28,16 @@ function StudySpaceHeader({ title }) {
         <Title>{title}</Title>
       </div>
       <div className="shareBtn">
-        <FontAwesomeIcon icon={faArrowUpFromBracket} />
+        {location && (
+          <KakaoShareBtn
+            type="study"
+            title="같이 스터디 해요~!"
+            subtitle={place?.fullname}
+            location={location?.location}
+            img={`/studyRandom/study${randomNum + 1}.jpg`}
+            url={url}
+          />
+        )}
       </div>
     </Layout>
   );

@@ -93,7 +93,7 @@ function WritingDate() {
           />
         </Container>
         <Location>
-          <SearchLocation setLocation={setLocation} />
+          <SearchLocation location={location} setLocation={setLocation} />
           <LocationDetailInput
             placeholder="상세 주소"
             value={detail}

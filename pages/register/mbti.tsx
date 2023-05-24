@@ -10,6 +10,7 @@ import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { MBTI } from "../../storage/ProfileData";
+import { motion } from "framer-motion";
 
 function Mbti() {
   const router = useRouter();
@@ -29,8 +30,8 @@ function Mbti() {
   };
 
   return (
-    <>
-      <ProgressLayout value={22} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={30} />
       <Header title="회원가입" url="/register/name" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -48,11 +49,15 @@ function Mbti() {
             </Button>
           ))}
         </ButtonNav>
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </>
+      <BottomNav onClick={() => onClickNext()} />
+    </Layout>
   );
 }
+
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const ButtonNav = styled.nav`
   margin-top: 40px;

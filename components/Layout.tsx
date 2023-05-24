@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Script from "next/script";
 import { MainLoading } from "./ui/Loading";
-const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
+const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
 function Layout({ children }) {
   const [loading, setLoading] = useState(false);
@@ -41,8 +41,9 @@ function Layout({ children }) {
 
           <Script
             strategy="beforeInteractive"
-            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`}
+            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
           ></Script>
+          <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
         </>
       )}
     </LayoutContainer>
@@ -53,7 +54,5 @@ const LayoutContainer = styled.div`
   color: var(--font-h1);
   background-color: var(--font-h8);
 `;
-
-
 
 export default Layout;

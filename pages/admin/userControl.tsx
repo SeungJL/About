@@ -14,10 +14,6 @@ export default function Admin() {
   const [members, setMembers] = useState<IUser[]>([]);
   const [filtered, setFiltered] = useState<IUser[]>([]);
 
-  useEffect(() => {
-    axios.get("/api/admin/user").then(({ data }) => setUsers(data));
-  }, []);
-
   useAdminUsersControlQuery({
     onSuccess(data) {
       const tempAdmins = [];

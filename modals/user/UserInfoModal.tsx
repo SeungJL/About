@@ -14,7 +14,7 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 
 import { IUser, USER_BADGES } from "../../types/user";
 import { motion } from "framer-motion";
-import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
+import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
 import {
   usePointAllQuery,
   useScoreAllQuery,
@@ -42,7 +42,7 @@ function UserInfoModal({
     <>
       <Layout>
         <UpPart>
-          <ProfileIconLg user={user} isSmall={true} />
+          <ProfileIconXl user={user} isSmall={true} />
 
           <UserInfo>
             <UserName>

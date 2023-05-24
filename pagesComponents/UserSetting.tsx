@@ -12,7 +12,6 @@ import { numOfUserState } from "../recoil/userAtoms";
 import {
   ATTEND_POP_UP,
   NOTICE_ALERT,
-  POP_UP,
   USER_GUIDE,
 } from "../constants/localStorage";
 import { IUser } from "../types/user";
@@ -65,12 +64,15 @@ export default function UserSetting() {
 
   useEffect(() => {
     if (isGuest) return;
-    if (!localStorage.getItem(POP_UP)) {
+    if (!localStorage.getItem(ATTEND_POP_UP)) {
       setIsSuggest(true);
-      localStorage.setItem(POP_UP, "read");
+      localStorage.setItem(ATTEND_POP_UP, "read");
       return;
     }
-    if (localStorage.getItem(POP_UP) && !localStorage.getItem(ATTEND_POP_UP)) {
+    if (
+      localStorage.getItem(ATTEND_POP_UP) &&
+      !localStorage.getItem(ATTEND_POP_UP)
+    ) {
       setIsAttendPopup(true);
       localStorage.setItem(ATTEND_POP_UP, "read");
     }

@@ -18,7 +18,7 @@ import axios from "axios";
 import { getToken } from "next-auth/jwt";
 import { useToken } from "../hooks/token/useToken";
 
-const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
+const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {

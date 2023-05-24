@@ -27,7 +27,7 @@ function ProfileIconSm({ user }: { user: IUser }) {
         src={isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`}
         width={isAvatar ? 26 : 32}
         height={isAvatar ? 26 : 32}
-        alt="ProfileIconXsOne"
+        alt="ProfileIconXs"
         unoptimized={true}
         onError={onError}
       />

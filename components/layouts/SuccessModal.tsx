@@ -16,7 +16,7 @@ function SuccessModal({
   const router = useRouter();
   const onClicked = () => {
     setIsCompleteModal(false);
-    router.push(url||`/about`);
+    router.push(url || `/about`);
   };
 
   return (
@@ -66,7 +66,7 @@ const Content = styled.div`
     text-align: center;
     font-size: 17px;
     color: var(--font-h3);
-    color: var(--font-h2);
+
     > div {
     }
   }

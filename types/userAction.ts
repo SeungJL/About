@@ -1,3 +1,5 @@
+import { IAvatar } from "./user";
+
 export interface IApplyRest {
   type: string;
   startDate: string;

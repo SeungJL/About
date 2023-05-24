@@ -13,9 +13,12 @@ import { Location } from "../../types/system";
 
 import { INTEREST_DATA, MESSAGE_DATA } from "../../storage/ProfileData";
 import { IInterests } from "../../types/user";
+import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 function Message() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -38,12 +41,16 @@ function Message() {
 
     setRegisterForm((old) => ({ ...old, message }));
 
+    if (session?.isActive) {
+      router.push(`/about`);
+      return;
+    }
     router.push(`/register/phone`);
   };
-  
+
   return (
-    <>
-      <ProgressLayout value={77} />
+    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <ProgressLayout value={80} />
       <Header title="회원가입" url="/register/interest" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -69,10 +76,18 @@ function Message() {
           value={value}
         />
       </RegisterLayout>
-      <BottomNav onClick={onClickNext} />
-    </>
+      <BottomNav
+        onClick={onClickNext}
+        text={session?.isActive ? "완료" : null}
+      />
+    </Layout>
   );
 }
+
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
+
 const Container = styled.div`
   margin-top: 40px;
   display: flex;

@@ -47,12 +47,15 @@ import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import { randomPassword } from "../../../libs/utils/validUtils";
 import ModalPortal from "../../../components/ModalPortal";
 import SuccessModal from "../../../components/layouts/SuccessModal";
+import dayjs, { Dayjs } from "dayjs";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 
 const AGE_BAR = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 
 function WritingCondition() {
   const toast = useToast();
   const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+
   const [maxValue, setMaxValue] = useState(gatherContent?.memberCnt?.max || 4);
   const [minValue, setMinValue] = useState(gatherContent?.memberCnt?.min || 4);
   const [genderCondition, setGenderCondition] = useState(
@@ -69,6 +72,10 @@ function WritingCondition() {
   const [age, setAge] = useState(gatherContent?.age || [20, 29]);
 
   const [isSuccessModal, setIsSuccessModal] = useState(false);
+
+  const { data } = useUserInfoQuery();
+
+  const id = 2;
 
   const onClickNext = async () => {
     if (minValue < 1 || maxValue < 1 || minValue > maxValue) {
@@ -90,6 +97,9 @@ function WritingCondition() {
       memberCnt: { min: minValue, max: maxValue },
       genderCondition: genderCondition,
       password,
+      createdDate: dayjs(),
+      id,
+      user: data,
     }));
 
     console.log(gatherContent);
@@ -119,23 +129,6 @@ function WritingCondition() {
             <Item>
               <div>
                 <FontAwesomeIcon icon={faUserGroup} />
-                <span>최대 인원</span>
-              </div>
-              <MemberCnt>
-                <FontAwesomeIcon
-                  icon={faMinus}
-                  onClick={() => setMaxValue((old) => old - 1)}
-                />
-                <span>{maxValue}명</span>
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  onClick={() => setMaxValue((old) => old + 1)}
-                />
-              </MemberCnt>
-            </Item>
-            <Item>
-              <div>
-                <FontAwesomeIcon icon={faUserGroup} />
                 <span>최소 인원</span>
               </div>
               <MemberCnt>
@@ -147,6 +140,23 @@ function WritingCondition() {
                 <FontAwesomeIcon
                   icon={faPlus}
                   onClick={() => setMinValue((old) => old + 1)}
+                />
+              </MemberCnt>
+            </Item>
+            <Item>
+              <div>
+                <FontAwesomeIcon icon={faUserGroup} />
+                <span>최대 인원</span>
+              </div>
+              <MemberCnt>
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  onClick={() => setMaxValue((old) => old - 1)}
+                />
+                <span>{maxValue}명</span>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  onClick={() => setMaxValue((old) => old + 1)}
                 />
               </MemberCnt>
             </Item>
@@ -290,12 +300,12 @@ function WritingCondition() {
         <ModalPortal setIsModal={setIsSuccessModal}>
           <SuccessModal url="/gather">
             <>
-              <span>모임 열기 완료</span>
+              <span>모임 개최 성공</span>
               <div>
                 아래 링크를 복사해서 카톡방에 올려주세요!
                 <br />
-                <div>
-                  <span>studyabout.club/gather/2</span>
+                <div style={{ marginTop: "6px" }}>
+                  <GatherLink>studyabout.club/gather/{id}</GatherLink>
                   <CopyBtn text="c" />
                 </div>
               </div>
@@ -306,6 +316,10 @@ function WritingCondition() {
     </>
   );
 }
+
+const GatherLink = styled.span`
+  margin-right: 12px;
+`;
 
 const MemberCnt = styled.div`
   > span {
