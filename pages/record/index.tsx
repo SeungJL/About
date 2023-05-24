@@ -52,8 +52,8 @@ function Record() {
 
   useEffect(() => {
     if (category !== "all")
-      setTotalData((old) =>
-        old?.map((item) => {
+      setTotalData(
+        arrivedData.map((item) => {
           return {
             ...item,
             arrivedInfoList: item.arrivedInfoList.filter(
