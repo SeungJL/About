@@ -31,6 +31,7 @@
     "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.22.2.tgz",
     "@next-auth/mongodb-adapter": "^1.0.3",
     "@next/bundle-analyzer": "^13.3.1",
+    "@tanstack/react-query-devtools": "^4.29.7",
     "@types/crypto-js": "^4.1.1",
     "@types/navermaps": "^3.0.16",
     "@types/next-auth": "^3.15.0",

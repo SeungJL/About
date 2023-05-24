@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Script from "next/script";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { RecoilRoot } from "recoil";
 import "nprogress/nprogress.css";
 import "../styles/variable.css";
@@ -17,14 +17,19 @@ import theme from "../theme";
 import axios from "axios";
 import { getToken } from "next-auth/jwt";
 import { useToken } from "../hooks/token/useToken";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const token = useToken();
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+  }, [token]);
   const queryClient = useMemo(
     () =>
       new QueryClient({
@@ -46,8 +51,8 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           content="width=device-width, initial-scale=1.0"
         ></meta>
       </Head>
-      <SessionProvider session={session}>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider session={session}>
           <RecoilRoot>
             <ChakraProvider theme={theme}>
               <Layout>
@@ -55,8 +60,8 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
               </Layout>
             </ChakraProvider>
           </RecoilRoot>
-        </QueryClientProvider>
-      </SessionProvider>
+        </SessionProvider>
+      </QueryClientProvider>
     </>
   );
 }

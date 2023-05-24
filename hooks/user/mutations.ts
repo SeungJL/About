@@ -1,7 +1,49 @@
 import axios, { Axios, AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
-import { IAvatar, IUserComment } from "../../types/user";
+import { IAvatar, IUserComment, IUserRegister } from "../../types/user";
 import { IApplyRest } from "../../types/userAction";
+
+export const useRegisterMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IUserRegister>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, IUserRegister>(async (userRegister) => {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/register`,
+      userRegister
+    );
+    return res.data;
+  }, options);
+
+export const useApproveMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, any>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, any>(async (uid) => {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/register/approval`,
+      uid
+    );
+    return res.data;
+  }, options);
+
+export const useDeleteRegisterMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, any>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, any>(async (uid) => {
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/register/approval`,
+      uid
+    );
+    return res.data;
+  }, options);
 
 export const useActiveMutation = (
   options?: Omit<

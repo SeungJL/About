@@ -28,6 +28,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { StudyLocation } from "../../constants/study";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 
 function Location() {
   const router = useRouter();
@@ -35,7 +36,13 @@ function Location() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
-
+  useUserInfoQuery({
+    onSuccess(data) {
+      console.log(data);
+      // setRegisterForm(data);
+      // setLocation(data?.location);
+    },
+  });
   const onClickNext = () => {
     if (location === null) {
       setErrorMessage("지역을 선택해 주세요.");
@@ -47,8 +54,8 @@ function Location() {
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={50} />
-      <Header title="회원가입" url="/register/gender" />
+      <ProgressLayout value={10} />
+      <Header title="회원가입" url="/login" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>지역을 선택해 주세요</span>

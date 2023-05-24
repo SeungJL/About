@@ -20,13 +20,6 @@ function Name() {
 
   const [value, setValue] = useState(registerForm?.name || "");
 
-  useUserInfoQuery({
-    onSuccess(data) {
-      setRegisterForm(data);
-      setValue(data?.name || "");
-    },
-  });
-
   const onClickNext = () => {
     if (value.length < 2 || value.length > 3) {
       setErrorMessage("2자 이상 입력해 주세요.");
@@ -47,8 +40,8 @@ function Name() {
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={10} />
-      <Header title="회원가입" url="/login" />
+      <ProgressLayout value={20} />
+      <Header title="회원가입" url="location" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>이름을 입력해주세요</span>

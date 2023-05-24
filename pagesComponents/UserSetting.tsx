@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ModalPortal from "../components/ModalPortal";
 
-import RegisterFormModal from "../modals/user/RegisterFormModal";
 import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";
 
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -90,11 +89,7 @@ export default function UserSetting() {
           <WeekAttendPopup closePopUp={setIsAttendPopup} />
         </ModalPortal>
       )}
-      {isRegisterModal && (
-        <ModalPortal setIsModal={setIsRegisterModal}>
-          <RegisterFormModal setIsModal={setIsRegisterModal} />
-        </ModalPortal>
-      )}
+
       {isUserGuide && (
         <ModalPortal setIsModal={setIsUserGuide}>
           <UserGuidePopUp setIsModal={setIsUserGuide} />

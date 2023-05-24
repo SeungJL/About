@@ -16,7 +16,12 @@ import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 
 function Plaza() {
-  const { data } = usePlazaDataQuery();
+  const { data } = usePlazaDataQuery({
+    onSuccess(test) {
+      console.log(test);
+    },
+  });
+  console.log(data);
   const [category, setCategory] = useState<category>("전체");
   const filterData =
     category === "전체"

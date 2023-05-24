@@ -48,7 +48,7 @@ function Interest() {
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressLayout value={70} />
-      <Header title="회원가입" url="/register/major" />
+      <Header title="회원가입" url="major" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>관심 분야를 선택해 주세요</span>

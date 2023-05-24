@@ -33,7 +33,7 @@ import ApplyRestModal from "../../modals/user/ApplyRestModal";
 
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
-import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
+
 import UserOverview from "../../pagesComponents/User/UserOverView";
 import { useMutation } from "react-query";
 import { IUser, kakaoProfileInfo } from "../../types/user";
@@ -164,11 +164,7 @@ function UserInfo() {
           <SuggestModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
-      {modalOpen === "modify" && (
-        <ModalPortal setIsModal={handleOutput}>
-          <ProfileModifyModal setIsModal={handleOutput} />
-        </ModalPortal>
-      )}
+     
       {modalOpen === "rest" && (
         <ModalPortal setIsModal={handleOutput}>
           <ApplyRestModal setIsModal={handleOutput} />

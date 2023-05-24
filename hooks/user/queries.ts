@@ -15,8 +15,25 @@ import {
   USER_FINFACTIVE,
 } from "../../libs/queryKeys";
 import { IVoteRate } from "../../types/studyRecord";
-import { IAvatar, IUser, IUserComment } from "../../types/user";
+import { IAvatar, IRegisterForm, IUser, IUserComment } from "../../types/user";
 import { IDateStartToEnd } from "../../types/utils";
+
+export const useRegisterQuery = (
+  options?: Omit<
+    UseQueryOptions<IRegisterForm, AxiosError, IRegisterForm>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IRegisterForm, AxiosError, IRegisterForm>(
+    "register",
+    async () => {
+      const res = await axios.get<IRegisterForm>(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/register`
+      );
+      return res.data;
+    },
+    options
+  );
 
 export const useUserInfoQuery = (
   options?: Omit<

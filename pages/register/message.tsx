@@ -41,10 +41,10 @@ function Message() {
 
     setRegisterForm((old) => ({ ...old, message }));
 
-    if (session?.isActive) {
-      router.push(`/about`);
-      return;
-    }
+    // if (session?.isActive) {
+    //   router.push(`/about`);
+    //   return;
+    // }
     router.push(`/register/phone`);
   };
 

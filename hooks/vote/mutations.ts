@@ -99,20 +99,6 @@ export const useArrivedMutation = (
     );
   }, options);
 
-export const useRegisterMutation = (
-  options?: Omit<
-    UseMutationOptions<any, AxiosError, IUserRegister>,
-    "mutationKey" | "mutationFn"
-  >
-) =>
-  useMutation<any, AxiosError, IUserRegister>(async (userRegister) => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_URI}/user/profile`,
-      userRegister
-    );
-    return res.data;
-  }, options);
-
 export const useDecideSpaceMutation = (
   date: Dayjs,
   options?: Omit<

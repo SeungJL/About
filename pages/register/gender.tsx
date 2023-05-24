@@ -18,20 +18,20 @@ function Gender() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<Gender>(registerForm?.gender);
-
+  console.log(gender);
   const onClickNext = () => {
-    if (gender === null) {
+    if (!gender) {
       setErrorMessage("성별을 선택해 주세요.");
       return;
     }
     setRegisterForm((old) => ({ ...old, gender }));
-    router.push(`/register/mbti`);
+    router.push(`birthday`);
   };
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={20} />
-      <Header title="회원가입" url="/register/name" />
+      <ProgressLayout value={30} />
+      <Header title="회원가입" url="name" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>성별을 입력해 주세요</span>

@@ -15,7 +15,7 @@ import { INTEREST_DATA, MESSAGE_DATA } from "../../storage/ProfileData";
 import { IInterests } from "../../types/user";
 import { Box, Flex, useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight, faCopy } from "@fortawesome/free-solid-svg-icons";
 import {
   Accordion,
   AccordionItem,
@@ -25,6 +25,13 @@ import {
 } from "@chakra-ui/react";
 import { ACCOUNT, ACCOUNT_SHORT } from "../../constants/private";
 import { useSession } from "next-auth/react";
+import {
+  useApproveMutation,
+  useDeleteRegisterMutation,
+  useRegisterMutation,
+} from "../../hooks/user/mutations";
+import { useRegisterQuery } from "../../hooks/user/queries";
+import RegisterCost from "../../pagesComponents/Register/fee/RegisterCost";
 function Fee() {
   const toast = useToast();
   const router = useRouter();
@@ -32,7 +39,45 @@ function Fee() {
 
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
 
+  const isReady = registerForm?.location === "안양";
+
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { mutate } = useRegisterMutation({
+    onSuccess() {
+      console.log("success");
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
+
+  useRegisterQuery({
+    onSuccess(data) {
+      console.log(114, data);
+    },
+  });
+
+  const { mutate: approve } = useApproveMutation({
+    onSuccess() {
+      console.log("success");
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
+  const { mutate: deleteR } = useDeleteRegisterMutation({
+    onSuccess() {
+      console.log("suc");
+    },
+  });
+
+  useEffect(() => {
+    approve({ uid: "2259633694" });
+  }, []);
+  useEffect(() => {
+    deleteR({ uid: "2259633694" });
+  }, []);
 
   const copyAccount = (text) => {
     navigator.clipboard.writeText(text).then(
@@ -53,7 +98,9 @@ function Fee() {
     );
   };
   const onClickNext = () => {
-    router.push(`/register/success`);
+    console.log(registerForm);
+    mutate(registerForm);
+    // router.push(`/register/success`);
   };
 
   return (
@@ -65,20 +112,24 @@ function Fee() {
           <span>회비 납부</span>
           <span>보증금은 회원 탈퇴시 환급해드려요!</span>
         </RegisterOverview>
-
         <Cost>
+          {isReady && (
+            <div>
+              <span>
+                오픈 준비중인 지역은 가입비 1000원만 납부하면 신청완료!
+              </span>
+              <br />
+              <span>오픈 할 때 입력하신 연락처로 개인 연락드려요!</span>
+            </div>
+          )}
           <div>
-            <span>가입비</span>
-            <span>+2000원</span>
-          </div>
-          <div>
-            <span>보증금</span>
-            <span>+ 3000원</span>
-          </div>
-
-          <div>
-            <span>총 금액</span>
-            <span>= 5000원</span>
+            <RegisterCost />
+            {isReady && (
+              <>
+                <FontAwesomeIcon icon={faAnglesRight} />
+                <RegisterCost />
+              </>
+            )}
           </div>
         </Cost>
         <Account>
@@ -101,6 +152,29 @@ function Fee() {
           fontSize="13px"
           color="var(--font-h2)"
         >
+          {isReady && (
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Flex
+                    alignItems="center"
+                    as="span"
+                    flex="1"
+                    textAlign="left"
+                    height="28px"
+                  >
+                    Q. 저희 지역 스터디는 언제 오픈하나요?
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pt={4} pb={4}>
+                신청 인원이 2~30명 정도 모이면 오픈합니다! 신청 현황은 첫
+                페이지에서 언제든 확인할 수 있고, 늦어도 준비 시작 날짜를
+                기준으로 2~3주면 오픈해요!
+              </AccordionPanel>
+            </AccordionItem>
+          )}
           <AccordionItem>
             <h2>
               <AccordionButton>
@@ -209,28 +283,16 @@ const B = styled.b`
 `;
 
 const Cost = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: var(--font-h7);
-  border-radius: var(--border-radius);
-  border: 1.5px solid var(--font-h6);
-  width: 160px;
-  height: 140px;
-  justify-content: space-around;
   margin: 40px 0;
-
-  > div {
-    padding: 8px 14px;
-    display: flex;
-    justify-content: space-between;
-
-    > span:last-child {
-      font-weight: 600;
-    }
+  > div:first-child {
+    color: var(--font-h2);
+    font-size: 13px;
+    margin-bottom: 12px;
   }
   > div:last-child {
-    padding-top: 14px;
-    border-top: 1px solid var(--font-h5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 `;
 

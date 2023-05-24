@@ -36,7 +36,7 @@ function Interest() {
       return;
     }
     setRegisterForm((old) => ({ ...old, majors }));
-    router.push(`/register/interest`);
+    router.push(`interest`);
   };
 
   const onClickBtn = (department: string, detail: string) => {
@@ -62,7 +62,7 @@ function Interest() {
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressLayout value={60} />
-      <Header title="회원가입" url="/register/location" />
+      <Header title="회원가입" url="mbti" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>전공을 선택해 주세요</span>

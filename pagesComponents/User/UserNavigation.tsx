@@ -4,7 +4,6 @@ import { useState } from "react";
 import SuggestModal from "../../modals/user/SuggestModal";
 import { useSession } from "next-auth/react";
 import ModalPortal from "../../components/ModalPortal";
-import ProfileModifyModal from "../../modals/user/ModifyProfileModal";
 
 export default function UserNavigation() {
   const [isShowProfileModal, setIsShowProfileModal] = useState(false);
@@ -23,11 +22,7 @@ export default function UserNavigation() {
           <Button>기타 설정</Button>
         </ButtonNav>
       </Layout>
-      {isShowProfileModal && (
-        <ModalPortal setIsModal={setIsShowProfileModal}>
-          <ProfileModifyModal setIsModal={setIsShowProfileModal} />
-        </ModalPortal>
-      )}
+
       {isShowSuggest && (
         <ModalPortal setIsModal={setIsShowSuggest}>
           <SuggestModal setIsModal={setIsShowSuggest} />

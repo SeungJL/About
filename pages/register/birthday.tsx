@@ -5,7 +5,7 @@ import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { DefaultValue, useRecoilState, useSetRecoilState } from "recoil";
 import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -38,15 +38,14 @@ function Birthday() {
       +defaultBirth?.slice(4, 6) - 1,
       +defaultBirth?.slice(6)
     );
-
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
   const onClickNext = () => {
     setRegisterForm((old) => ({
       ...old,
-      birth: dayjs(startDate).format("YYYY-MM-DD"),
+      birth: dayjs(startDate).format("YYMMDD"),
     }));
-    router.push(`/register/major`);
+    router.push(`mbti`);
   };
 
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
@@ -54,7 +53,7 @@ function Birthday() {
   return (
     <Layout>
       <ProgressLayout value={40} />
-      <Header title="회원가입" url="/register/gender" />
+      <Header title="회원가입" url="gender" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>생년월일을 입력해 주세요</span>

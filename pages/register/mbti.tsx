@@ -26,16 +26,16 @@ function Mbti() {
       return;
     }
     setRegisterForm((old) => ({ ...old, mbti }));
-    router.push(`/register/birthday`);
+    router.push(`major`);
   };
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={30} />
-      <Header title="회원가입" url="/register/name" />
+      <ProgressLayout value={50} />
+      <Header title="회원가입" url="birthday" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
-          <span>성별을 입력해 주세요</span>
+          <span>MBTI를 선택해 주세요</span>
           <span></span>
         </RegisterOverview>
         <ButtonNav>
