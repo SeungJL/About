@@ -47,9 +47,6 @@ function GatherDetail() {
           type="gather"
           url=""
         />
-        <div>
-          <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
-        </div>
       </Header>
       <Layout>
         <Badge p="4px 6px" my="4px" fontSize="12px" alignSelf="flex-start">
