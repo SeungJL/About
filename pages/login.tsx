@@ -67,7 +67,7 @@ const Login: NextPage<{
   };
 
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
-
+  console.log(kakaoProvider);
   return (
     <>
       <Head>
