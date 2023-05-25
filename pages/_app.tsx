@@ -23,12 +23,8 @@ config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const token = useToken();
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-  }, [token]);
   const queryClient = useMemo(
     () =>
       new QueryClient({
@@ -42,7 +38,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     []
   );
 
-  return (
+  return token ? (
     <>
       <Head>
         <meta
@@ -62,6 +58,8 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         </SessionProvider>
       </QueryClientProvider>
     </>
+  ) : (
+    <></>
   );
 }
 
