@@ -15,12 +15,16 @@ import RecordNavigation from "../../pagesComponents/Record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/Record/RecordOverview";
 import RecordTotal from "../../pagesComponents/Record/RecordTotal";
 import { voteDateState } from "../../recoil/studyAtoms";
+import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
+import { SPACE_LOCATION } from "../../constants/study";
 
 function Record() {
   const { data: session } = useSession();
   const [month, setMonth] = useState(dayjs().month());
   const [isCalendar, setIsCalendar] = useState(true);
+  const [totalData, setTotalData] = useState<IArrivedData[]>([]);
+
   const [category, setCategory] = useState<Location>("all");
   const [startDay, setStartDay] = useState<Dayjs>(dayjs().date(1));
   const [endDay, setEndDay] = useState<Dayjs>(
@@ -36,7 +40,30 @@ function Record() {
     setEndDay(dayjs().month(month).date(dayjs().daysInMonth()));
   }, [month]);
 
-  const { data: totalData, isLoading } = useArrivedDataQuery(startDay, endDay);
+  const { data: arrivedData, isLoading } = useArrivedDataQuery(
+    startDay,
+    endDay,
+    {
+      onSuccess(data) {
+        setTotalData(data);
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (category !== "all")
+      setTotalData(
+        arrivedData.map((item) => {
+          return {
+            ...item,
+            arrivedInfoList: item.arrivedInfoList.filter(
+              (place) => SPACE_LOCATION[place?.placeId] === category
+            ),
+          };
+        })
+      );
+    else setTotalData(arrivedData);
+  }, [arrivedData, category]);
 
   const { data: myAttend } = useParticipationRateQuery(startDay, endDay);
 
@@ -49,7 +76,6 @@ function Record() {
     totalData?.forEach((data) => {
       const arrivedInfoList = data?.arrivedInfoList;
       open += arrivedInfoList.length;
-
       arrivedInfoList.some((info) => {
         const arrivedInfo = info?.arrivedInfo;
         num += arrivedInfo.length;

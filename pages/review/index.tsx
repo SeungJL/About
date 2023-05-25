@@ -7,6 +7,7 @@ import ImageSlider from "../../components/utils/ImageSlider";
 import ReviewGatherConnection from "../../pagesComponents/Review/ReviewGatherConnection";
 import ReviewContent from "../../pagesComponents/Review/ReviewContent";
 import ReviewStatus from "../../pagesComponents/Review/ReviewStatus";
+import ReviewCategory from "../../pagesComponents/Review/ReviewCategory";
 
 function Review() {
   const [category, setCateogry] = useState();
@@ -15,7 +16,7 @@ function Review() {
     <>
       <Header title="모임 리뷰" />
       <Layout>
-        <Category category={category} setCategory={setCateogry} />
+        <ReviewCategory category={category} setCategory={setCateogry} />
         <Main>
           {A?.map((item) => (
             <Item key={item}>

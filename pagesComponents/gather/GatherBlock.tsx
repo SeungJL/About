@@ -11,7 +11,7 @@ import { ChangeEvent } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
-import ProfileIconXs from "../../components/common/Profile/ProfileIconXsOverwrap";
+import ProfileIconXs from "../../components/common/Profile/ProfileIconXs";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ICategory } from "../../pages/members/[type]";
@@ -127,7 +127,7 @@ const Writer = styled.div`
   display: flex;
   align-items: center;
   > span {
-    margin-left: 8px;
+    margin-left: 6px;
   }
 `;
 
