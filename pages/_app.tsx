@@ -19,7 +19,6 @@ import { getToken } from "next-auth/jwt";
 import { useToken } from "../hooks/token/useToken";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
