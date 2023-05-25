@@ -14,7 +14,7 @@ import { useVoteQuery } from "../../../hooks/vote/queries";
 
 import { IAttendence } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
-import { SPACE_LOCATION, VOTE_END_HOUR } from "../../../constants/study";
+import { VOTE_END_HOUR } from "../../../constants/study";
 import { Location } from "../../../types/system";
 import { useEffect, useState } from "react";
 import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
@@ -24,6 +24,7 @@ import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudyS
 import { useRecoilState } from "recoil";
 import { studyDateState } from "../../../recoil/studyAtoms";
 import { getInterestingDate } from "../../../libs/utils/dateUtils";
+import { SPACE_LOCATION } from "../../../storage/study";
 
 function StudySpace() {
   const toast = useToast();

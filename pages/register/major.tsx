@@ -77,7 +77,11 @@ function Interest() {
                 <Content
                   key={idx}
                   isSelected={Boolean(
-                    majors?.find((item) => item.detail === detail)
+                    majors?.find(
+                      (major) =>
+                        major.detail === detail &&
+                        major.department === item.department
+                    )
                   )}
                   onClick={() => onClickBtn(item.department, detail)}
                 >

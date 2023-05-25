@@ -15,9 +15,10 @@ import RecordNavigation from "../../pagesComponents/Record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/Record/RecordOverview";
 import RecordTotal from "../../pagesComponents/Record/RecordTotal";
 import { voteDateState } from "../../recoil/studyAtoms";
+import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
-import { SPACE_LOCATION } from "../../constants/study";
+
 
 function Record() {
   const { data: session } = useSession();

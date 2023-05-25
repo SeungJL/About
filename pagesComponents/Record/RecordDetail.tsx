@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { IArrivedData } from "../../types/studyRecord";
 import { Dispatch, SetStateAction } from "react";
-import { SPACE_LOCATION, SPACE_NAME } from "../../constants/study";
+
 import dayjs from "dayjs";
+import { SPACE_NAME } from "../../storage/study";
 
 function RecordDetail({
   totalData,
@@ -11,7 +12,6 @@ function RecordDetail({
   totalData: IArrivedData[];
   setMyRecentAttend: Dispatch<SetStateAction<string>>;
 }) {
-
   return (
     <Layout>
       {[...totalData]?.reverse().map((item, idx) => (

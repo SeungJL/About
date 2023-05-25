@@ -9,12 +9,12 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { IPlace } from "../../../types/studyDetails";
-import { SPACE_LOCATION, STUDY_SPACE_INFO } from "../../../constants/study";
+
 import { WEB_URL } from "../../../constants/system";
+import { STUDY_SPACE_INFO } from "../../../storage/study";
 const IMAGE_LIST = [1, 2, 3, 4, 5];
 function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
   const router = useRouter();
-
 
   const url = WEB_URL + router?.asPath;
   const location = STUDY_SPACE_INFO?.find((info) => info?.id === place?._id);

@@ -17,8 +17,9 @@ import { IUser } from "../../../../types/user";
 import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { Badge } from "@chakra-ui/react";
 import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
-import { MAX_USER_PER_PLACE, YANG_할리스 } from "../../../../constants/study";
+import { MAX_USER_PER_PLACE } from "../../../../constants/study";
 import ProfileIconXsOverwrap from "../../../../components/common/Profile/ProfileIconXsOverwrap";
+import { YANG_할리스 } from "../../../../storage/study";
 
 const VOTER_SHOW_MAX = 7;
 

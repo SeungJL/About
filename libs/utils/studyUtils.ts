@@ -13,7 +13,7 @@ import {
   YANG_파스쿠찌,
   YANG_할리스,
   YANG_할리스2,
-} from "../../constants/study";
+} from "../../storage/study";
 import { IParticipation } from "../../types/studyDetails";
 import { Location } from "../../types/system";
 

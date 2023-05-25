@@ -6,7 +6,7 @@ import { IconCircle } from "../../public/icons/IconOutline";
 import { IArrivedData, IArrivedInfoList } from "../../types/studyRecord";
 import { Location } from "../../types/system";
 import { useState, useEffect } from "react";
-import { SPACE_LOCATION } from "../../constants/study";
+import { SPACE_LOCATION } from "../../storage/study";
 
 const 수원 = VOTE_TABLE_COLOR[0];
 const 양천 = VOTE_TABLE_COLOR[3];

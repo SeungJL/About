@@ -24,11 +24,13 @@ function Birthday() {
 
   const initialDate = new Date(2000, 0, 1);
 
+  const birth = dayjs(registerForm?.birth).format("YYMMDD");
+
   const defaultBirth =
-    registerForm?.birth && Number(registerForm?.birth?.slice(0, 2)) < 50
-      ? "20" + registerForm?.birth
-      : registerForm?.birth
-      ? "19" + registerForm?.birth
+    birth && Number(birth?.slice(0, 2)) < 50
+      ? "20" + birth
+      : birth
+      ? "19" + birth
       : null;
 
   const defaultBirthDate =

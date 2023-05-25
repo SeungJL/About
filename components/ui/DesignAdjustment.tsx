@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { SUWAN_카탈로그, SUWAN_투썸 } from "../../constants/study";
+import { SUWAN_카탈로그 } from "../../storage/study";
+
 import { IPlace } from "../../types/studyDetails";
 
 export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
@@ -13,7 +14,7 @@ export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
     W = 100;
     H = 100;
   }
-  
+
   return (
     <>
       <Image
