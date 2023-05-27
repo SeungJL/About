@@ -14,6 +14,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import LocationTitle from "../../pagesComponents/Register/location/LocationTitle";
 import { StudyLocation } from "../../storage/study";
 import LocationMember from "../../pagesComponents/Register/location/LocationMember";
+import { MainLoading } from "../../components/ui/Loading";
 
 function Location() {
   const router = useRouter();
@@ -23,9 +24,8 @@ function Location() {
   const [location, setLocation] = useState<Location>(registerForm?.location);
 
   //유저 데이터가 있는 경우에만 초기 세팅
-  useUserInfoQuery({
+  const { isLoading } = useUserInfoQuery({
     onSuccess(data) {
-      console.log(data);
       setRegisterForm(data);
       setLocation(data?.location);
     },
@@ -41,33 +41,39 @@ function Location() {
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={10} />
-      <Header title="회원가입" url="/login" />
-      <RegisterLayout errorMessage={errorMessage}>
-        <RegisterOverview>
-          <span>지역을 선택해 주세요</span>
-          <span>오픈 또는 예약중인 지역만 선택할 수 있습니다.</span>
-        </RegisterOverview>
-        <ButtonNav>
-          {StudyLocation?.map((space) => (
-            <Button
-              isSelected={location === space}
-              onClick={() => setLocation(space)}
-              key={space}
-              disabled={space === "강남"}
-            >
-              <LocationTitle location={space} />
-              <LocationMember location={space} />
-              {space === "안양" && (
-                <Message>예약 인원 30명이 되면 열려요!</Message>
-              )}
-            </Button>
-          ))}
-        </ButtonNav>
-      </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
-    </Layout>
+    <>
+      {isLoading ? (
+        <MainLoading />
+      ) : (
+        <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+          <ProgressLayout value={10} />
+          <Header title="회원가입" url="/login" />
+          <RegisterLayout errorMessage={errorMessage}>
+            <RegisterOverview>
+              <span>지역을 선택해 주세요</span>
+              <span>오픈 또는 예약중인 지역만 선택할 수 있습니다.</span>
+            </RegisterOverview>
+            <ButtonNav>
+              {StudyLocation?.map((space) => (
+                <Button
+                  isSelected={location === space}
+                  onClick={() => setLocation(space)}
+                  key={space}
+                  disabled={space === "강남"}
+                >
+                  <LocationTitle location={space} />
+                  <LocationMember location={space} />
+                  {space === "안양" && (
+                    <Message>예약 인원 30명이 되면 열려요!</Message>
+                  )}
+                </Button>
+              ))}
+            </ButtonNav>
+          </RegisterLayout>
+          <BottomNav onClick={() => onClickNext()} />
+        </Layout>
+      )}
+    </>
   );
 }
 

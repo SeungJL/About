@@ -21,6 +21,7 @@ import {
   useApproveMutation,
   useRegisterMutation,
 } from "../../hooks/user/mutations";
+import { MainLoading } from "../../components/ui/Loading";
 
 function Message() {
   const router = useRouter();
@@ -34,7 +35,7 @@ function Message() {
     setValue(e.target?.value);
   };
 
-  const { mutate } = useRegisterMutation({
+  const { mutate, isLoading } = useRegisterMutation({
     onSuccess() {
       console.log("register success", registerForm);
     },
@@ -77,38 +78,44 @@ function Message() {
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={80} />
-      <Header title="회원가입" url="/register/interest" />
-      <RegisterLayout errorMessage={errorMessage}>
-        <RegisterOverview>
-          <span>자기 소개 문장을 입력해 주세요</span>
-          <span>나를 소개하는 문장을 선택하거나 직접 입력해 주세요.</span>
-        </RegisterOverview>
-        <Container>
-          {MESSAGE_DATA?.map((item, idx) => (
-            <Item
-              key={idx}
-              onClick={() => setIndex(idx)}
-              isSelected={idx === index}
-            >
-              {item}
-            </Item>
-          ))}
-        </Container>
-        <Input
-          onClick={() => setIndex(InputIdx)}
-          placeholder="직접 입력"
-          isSelected={index === InputIdx}
-          onChange={onChange}
-          value={value}
-        />
-      </RegisterLayout>
-      <BottomNav
-        onClick={onClickNext}
-        text={session?.isActive ? "완료" : null}
-      />
-    </Layout>
+    <>
+      {isLoading ? (
+        <MainLoading />
+      ) : (
+        <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+          <ProgressLayout value={80} />
+          <Header title="회원가입" url="/register/interest" />
+          <RegisterLayout errorMessage={errorMessage}>
+            <RegisterOverview>
+              <span>자기 소개 문장을 입력해 주세요</span>
+              <span>나를 소개하는 문장을 선택하거나 직접 입력해 주세요.</span>
+            </RegisterOverview>
+            <Container>
+              {MESSAGE_DATA?.map((item, idx) => (
+                <Item
+                  key={idx}
+                  onClick={() => setIndex(idx)}
+                  isSelected={idx === index}
+                >
+                  {item}
+                </Item>
+              ))}
+            </Container>
+            <Input
+              onClick={() => setIndex(InputIdx)}
+              placeholder="직접 입력"
+              isSelected={index === InputIdx}
+              onChange={onChange}
+              value={value}
+            />
+          </RegisterLayout>
+          <BottomNav
+            onClick={onClickNext}
+            text={session?.isActive ? "완료" : null}
+          />
+        </Layout>
+      )}
+    </>
   );
 }
 
