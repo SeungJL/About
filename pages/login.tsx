@@ -44,6 +44,7 @@ const Login: NextPage<{
     ClientSafeProvider
   >;
 }> = ({ providers }) => {
+  console.log(providers);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -197,6 +198,36 @@ const GuestModal = ({ setIsModal }) => {
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const providers = await getProviders();
+  const session = await getSession({ req: context.req });
+  const returnTo = context.query.from as string;
+  console.log(providers, session, returnTo);
+  console.log(2, context.req);
+  if (session) {
+    if (returnTo) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: returnTo,
+        },
+      };
+    }
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/about`,
+      },
+      props: {},
+    };
+  }
+
+  return {
+    props: { providers },
+  };
+};
+
+export default Login;
 const Layout = styled.div`
   width: 375px;
   height: 100vh;
@@ -256,33 +287,3 @@ const Message = styled.span`
   text-align: center;
   color: var(--color-red);
 `;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const providers = await getProviders();
-  const session = await getSession({ req: context.req });
-  const returnTo = context.query.from as string;
-
-  if (session) {
-    if (returnTo) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: returnTo,
-        },
-      };
-    }
-    return {
-      redirect: {
-        permanent: false,
-        destination: `/about`,
-      },
-      props: {},
-    };
-  }
-
-  return {
-    props: { providers },
-  };
-};
-
-export default Login;

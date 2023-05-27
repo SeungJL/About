@@ -38,7 +38,7 @@ function Fee() {
   const { data: session } = useSession();
 
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-  console.log(registerForm);
+
   const isReady = registerForm?.location === "안양";
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -52,14 +52,6 @@ function Fee() {
     },
   });
 
-  useRegisterQuery({
-    onSuccess(data) {
-      console.log(115, data);
-    },
-  });
-
-  const A = useUserInfoQuery();
-  // console.log("My", A?.data);
   const copyAccount = (text) => {
     navigator.clipboard.writeText(text).then(
       () => {
@@ -80,7 +72,7 @@ function Fee() {
   };
   const onClickNext = () => {
     mutate(registerForm);
-    // router.push(`/register/success`);
+    router.push(`/register/success`);
   };
 
   return (

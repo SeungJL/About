@@ -1,14 +1,11 @@
-import type { NextPage } from "next";
+import axios from "axios";
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
-import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { getSession, useSession } from "next-auth/react";
 import { isMember } from "../libs/utils/authUtils";
-import { getInterestingDate } from "../libs/utils/dateUtils";
-import { voteDateState } from "../recoil/studyAtoms";
+import { IUser } from "../types/user";
 
 function Index() {
-  return;
+  return null;
 }
 
 export default Index;
@@ -25,8 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       };
     }
-    const timeout = 2000;
-    await new Promise((resolve) => setTimeout(resolve, timeout));
+
     return {
       redirect: {
         permanent: false,
@@ -35,6 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {},
     };
   }
+  // 특정 페이지에서 로그인 페이지로 갔다면, 바로 그 페이지로 이동하게 함
   return {
     redirect: {
       permanent: false,

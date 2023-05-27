@@ -60,6 +60,8 @@ function UserInfo() {
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
 
+
+  
   const isAdmin = session?.role === "previliged";
 
   const handleOutput = (isOpen) => {

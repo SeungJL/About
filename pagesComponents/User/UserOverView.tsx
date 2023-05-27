@@ -25,6 +25,7 @@ import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
 
 export default function UserOverview() {
   const { data: user } = useUserInfoQuery();
+  console.log(user);
   const [value, setValue] = useState("");
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);

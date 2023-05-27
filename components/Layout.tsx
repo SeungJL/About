@@ -8,11 +8,26 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Script from "next/script";
 import { MainLoading } from "./ui/Loading";
+import { useUserInfoQuery } from "../hooks/user/queries";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/dist/client/router";
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
 function Layout({ children }) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  
+  const { data: session } = useSession();
+
+  const isAccessPermission =
+    session?.user.name !== "guest" || router.pathname !== "/login";
+
+  useUserInfoQuery({
+    enabled: isAccessPermission,
+    onError() {
+      if (!session) router.push("login");
+      else router.push("register/location");
+    },
+  });
 
   useEffect(() => {
     const start = () => {

@@ -12,41 +12,68 @@ import { useRouter } from "next/router";
 import { Location } from "../../types/system";
 
 import { INTEREST_DATA, MESSAGE_DATA } from "../../storage/ProfileData";
-import { IInterests } from "../../types/user";
+import { IInterests, IUser } from "../../types/user";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useUserInfoQuery } from "../../hooks/user/queries";
+import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
+import axios from "axios";
+import {
+  useApproveMutation,
+  useRegisterMutation,
+} from "../../hooks/user/mutations";
 
 function Message() {
   const router = useRouter();
   const { data: session } = useSession();
+
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-
   const [errorMessage, setErrorMessage] = useState("");
-
   const [value, setValue] = useState("");
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target?.value);
   };
-  const {data:userInfo} = useUserInfoQuery();
 
+  const { mutate } = useRegisterMutation({
+    onSuccess() {
+      console.log("register success", registerForm);
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
+  const { mutate: approve } = useApproveMutation({
+    onSuccess() {
+      console.log("success");
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
   const [index, setIndex] = useState(null);
 
   const InputIdx = MESSAGE_DATA?.length;
 
-  const onClickNext = () => {
-    if (index === null) setErrorMessage("문장을 선택해 주세요.");
+  const onClickNext = async () => {
+    if (index === null) {
+      setErrorMessage("문장을 선택해 주세요.");
+      return;
+    }
     let message = "";
     if (index === InputIdx) message = value;
     else message = MESSAGE_DATA[index];
 
     setRegisterForm((old) => ({ ...old, message }));
-    if (userInfo) {
+    try {
+      await axios.get<IUser>(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/profile`
+      );
+      await mutate(registerForm);
+      await approve({ uid: registerForm?.uid });
       router.push(`/about`);
-      return;
+    } catch (error) {
+      router.push(`/register/phone`);
     }
-    router.push(`/register/phone`);
   };
 
   return (

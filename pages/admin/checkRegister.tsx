@@ -16,7 +16,7 @@ function CheckRegister() {
   const [applicant, setApplicant] = useState<IRegisterForm>();
   const { data } = useUserInfoQuery();
   const { data: applyData } = useRegisterQuery();
-  console.log(applyData);
+
   const onClick = (who?: IRegisterForm) => {
     setApplicant(who);
     setIsModal(true);

@@ -18,6 +18,7 @@ import axios from "axios";
 import { getToken } from "next-auth/jwt";
 import { useToken } from "../hooks/token/useToken";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useUserInfoQuery } from "../hooks/user/queries";
 
 config.autoAddCss = false;
 
