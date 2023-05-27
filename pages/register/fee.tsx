@@ -30,7 +30,7 @@ import {
   useDeleteRegisterMutation,
   useRegisterMutation,
 } from "../../hooks/user/mutations";
-import { useRegisterQuery } from "../../hooks/user/queries";
+import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
 import RegisterCost from "../../pagesComponents/Register/fee/RegisterCost";
 function Fee() {
   const toast = useToast();
@@ -38,14 +38,14 @@ function Fee() {
   const { data: session } = useSession();
 
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-
+  console.log(registerForm);
   const isReady = registerForm?.location === "안양";
 
   const [errorMessage, setErrorMessage] = useState("");
 
   const { mutate } = useRegisterMutation({
     onSuccess() {
-      console.log("success");
+      console.log("register success", registerForm);
     },
     onError(error) {
       console.error(error);
@@ -54,7 +54,7 @@ function Fee() {
 
   useRegisterQuery({
     onSuccess(data) {
-      console.log(114, data);
+      console.log(115, data);
     },
   });
 
@@ -72,13 +72,14 @@ function Fee() {
     },
   });
 
-  useEffect(() => {
-    approve({ uid: "2259633694" });
-  }, []);
-  useEffect(() => {
-    deleteR({ uid: "2259633694" });
-  }, []);
-
+  // useEffect(() => {
+  //   approve({ uid: "2259633694" });
+  // }, []);
+  // useEffect(() => {
+  //   deleteR({ uid: "2259633694" });
+  // }, []);
+  const A = useUserInfoQuery();
+  // console.log("My", A?.data);
   const copyAccount = (text) => {
     navigator.clipboard.writeText(text).then(
       () => {
@@ -98,7 +99,6 @@ function Fee() {
     );
   };
   const onClickNext = () => {
-    console.log(registerForm);
     mutate(registerForm);
     // router.push(`/register/success`);
   };
@@ -114,10 +114,8 @@ function Fee() {
         </RegisterOverview>
         <Cost>
           {isReady && (
-            <div>
-              <span>
-                오픈 준비중인 지역은 가입비 1000원만 납부하면 신청완료!
-              </span>
+            <div style={{ marginBottom: "20px", color: "var(--font-h2)" }}>
+              <span>오픈준비중 지역은 가입비 1000원만 납부하면 신청완료!</span>
               <br />
               <span>오픈 할 때 입력하신 연락처로 개인 연락드려요!</span>
             </div>
@@ -127,7 +125,7 @@ function Fee() {
             {isReady && (
               <>
                 <FontAwesomeIcon icon={faAnglesRight} />
-                <RegisterCost />
+                <RegisterCost isSecond={true} />
               </>
             )}
           </div>
@@ -144,7 +142,11 @@ function Fee() {
             </span>
           </div>
         </Account>
-        <Message>입금 후에 완료 버튼을 눌러주세요 !</Message>
+        <Message>입금 후에 완료 버튼을 눌러주세요!</Message>
+        <Telephone>
+          <span> 연락받을 연락처:</span> {registerForm?.telephone}
+          <Message>연락처를 한번 더 확인해 주세요!</Message>
+        </Telephone>
         <Accordion
           allowToggle
           marginTop="40px"
@@ -192,8 +194,11 @@ function Fee() {
             </h2>
             <AccordionPanel pt={4} pb={4}>
               신청을 완료하시면 관리자가 확인하는대로 가입 승인과 단톡방 초대를
-              해 드립니다. 빠르면 당일이 될 수도 있고, 늦어지면 최대 3~4일까지
-              소요될 수 있습니다.
+              해 드립니다! 빠르면 당일이 될 수도 있고 늦어지면 최대 3~4일까지
+              소요될 수 있습니다. 모든 신청자분들께 연락을 꼭 드리니, 연락이
+              안오거나 불합격 하는 경우가 있지 않나 걱정하지 않으셔도 됩니다!
+              또한 마음이 바뀌어 참여를 안하게 되는 경우에도 가입 후 일주일
+              이내에는 가입비와 보증금 전액 환급해드립니다.
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
@@ -239,7 +244,6 @@ function Fee() {
               </span>
             </AccordionPanel>
           </AccordionItem>
-
           <AccordionItem>
             <h2>
               <AccordionButton>
@@ -260,6 +264,25 @@ function Fee() {
               동아리원 분들은 직접 이벤트에 침여할 수도 있고, 스터디에 참여하면
               적립 받는 포인트를 사용해서 추첨 컨텐츠에 응모할 수도 있습니다.
               모인 금액의 일부는 서비스 향상과 마케팅에도 사용됩니다.
+            </AccordionPanel>
+          </AccordionItem>{" "}
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box
+                  alignItems="center"
+                  as="span"
+                  flex="1"
+                  textAlign="left"
+                  height="28px"
+                >
+                  Q. 추가적으로 궁금한 내용이 있어요!
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pt={4} pb={4}>
+              https://open.kakao.com/o/sjDgVzmf
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
@@ -297,8 +320,7 @@ const Cost = styled.div`
 `;
 
 const Account = styled.div`
-  margin-bottom: 14px;
-
+  margin-bottom: 4px;
   display: flex;
 
   > span:first-child {
@@ -313,10 +335,18 @@ const Account = styled.div`
 const Message = styled.div`
   font-size: 13px;
 
-  color: var(--font-h2);
-  margin-bottom: 64px;
+  color: var(--font-h3);
+  margin-bottom: 40px;
 `;
 
-const PhoneNumber = styled.div``;
+const Telephone = styled.div`
+  > span:first-child {
+    font-size: 14px;
+    display: inline-block;
+    font-weight: 600;
+    color: var(--font-h1);
+    margin-bottom: 4px;
+  }
+`;
 
 export default Fee;

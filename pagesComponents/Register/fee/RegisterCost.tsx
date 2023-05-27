@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-function RegisterCost() {
+function RegisterCost({ isSecond }: { isSecond?: boolean }) {
   return (
     <Layout>
       <div>
         <span>가입비</span>
-        <span>+2000원</span>
+        <span>{isSecond ? "+1000원" : "+2000원"}</span>
       </div>
       <div>
         <span>보증금</span>
@@ -14,7 +14,7 @@ function RegisterCost() {
 
       <div>
         <span>총 금액</span>
-        <span>= 5000원</span>
+        <span>= {isSecond ? "+4000원" : "+5000원"}</span>
       </div>
     </Layout>
   );

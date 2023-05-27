@@ -58,7 +58,7 @@ export interface IAccount extends Document {
   userId: IUser | string;
 }
 
-export interface IMajor {
+export interface Imajors {
   department: string;
   detail: string;
 }
@@ -72,9 +72,9 @@ export interface IRegisterForm {
   agree?: any;
   gender?: Gender;
   interests?: IInterests;
-  majors?: IMajor[];
+  majors?: Imajors[];
   message?: string;
-  phoneNumber?: string;
+  telephone?: string;
   profileImg?: string;
 }
 // export interface IRegisterForm {
@@ -86,9 +86,9 @@ export interface IRegisterForm {
 //   agree?: any;
 //   gender: Gender;
 //   interests: IInterests;
-//   majors: IMajor[];
+//   majors: Imajors[];
 //   message: string;
-//   phoneNumber: string;
+//   telephone: string;
 //   profileImg: string;
 // }
 export interface IInterests {

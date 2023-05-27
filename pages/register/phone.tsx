@@ -19,7 +19,7 @@ function Phone() {
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [value, setValue] = useState(registerForm?.phoneNumber || "");
+  const [value, setValue] = useState(registerForm?.telephone || "");
 
   const onClickNext = () => {
     if (value === "") {
@@ -30,7 +30,7 @@ function Phone() {
       setErrorMessage("핸드폰 번호를 확인해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, phoneNumber: value }));
+    setRegisterForm((old) => ({ ...old, telephone: value }));
     router.push(`/register/fee`);
   };
 

@@ -10,8 +10,8 @@ import { registerFormState } from "../../recoil/userAtoms";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Location } from "../../types/system";
-import { MAJOR_DATA } from "../../storage/ProfileData";
-import { IMajor } from "../../types/user";
+import { majors_DATA } from "../../storage/ProfileData";
+import { Imajors } from "../../types/user";
 import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
@@ -19,9 +19,9 @@ function Interest() {
   const router = useRouter();
   const toast = useToast();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-
+  console.log(registerForm);
   const [errorMessage, setErrorMessage] = useState("");
-  const [majors, setMajors] = useState<IMajor[]>(registerForm?.majors || []);
+  const [majors, setmajors] = useState<Imajors[]>(registerForm?.majors || []);
 
   const onClickNext = () => {
     if (!majors.length) {
@@ -41,7 +41,7 @@ function Interest() {
 
   const onClickBtn = (department: string, detail: string) => {
     if (majors?.find((item) => item?.detail === detail)) {
-      setMajors((old) => old.filter((item) => item.detail !== detail));
+      setmajors((old) => old.filter((item) => item.detail !== detail));
       return;
     }
 
@@ -56,7 +56,7 @@ function Interest() {
       });
       return;
     }
-    setMajors((old) => [...old, { department, detail }]);
+    setmajors((old) => [...old, { department, detail }]);
   };
 
   return (
@@ -69,7 +69,7 @@ function Interest() {
           <span>다중 선택도 가능해요.</span>
         </RegisterOverview>
         <div style={{ height: "40px" }} />
-        {MAJOR_DATA?.map((item, idx) => (
+        {majors_DATA?.map((item, idx) => (
           <Section key={idx}>
             <SectionTitle>{item.department}</SectionTitle>
             <SectionContent>
@@ -78,9 +78,9 @@ function Interest() {
                   key={idx}
                   isSelected={Boolean(
                     majors?.find(
-                      (major) =>
-                        major.detail === detail &&
-                        major.department === item.department
+                      (majors) =>
+                        majors.detail === detail &&
+                        majors.department === item.department
                     )
                   )}
                   onClick={() => onClickBtn(item.department, detail)}

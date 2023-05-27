@@ -22,12 +22,12 @@ function Location() {
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
 
-  useUserInfoQuery({
-    onSuccess(data) {
-      setRegisterForm(data);
-      setLocation(data?.location);
-    },
-  });
+  // useUserInfoQuery({
+  //   onSuccess(data) {
+  //     setRegisterForm(data);
+  //     setLocation(data?.location);
+  //   },
+  // });
 
   const onClickNext = () => {
     if (location === null) {
