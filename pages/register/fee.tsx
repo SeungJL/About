@@ -58,26 +58,6 @@ function Fee() {
     },
   });
 
-  const { mutate: approve } = useApproveMutation({
-    onSuccess() {
-      console.log("success");
-    },
-    onError(err) {
-      console.error(err);
-    },
-  });
-  const { mutate: deleteR } = useDeleteRegisterMutation({
-    onSuccess() {
-      console.log("suc");
-    },
-  });
-
-  // useEffect(() => {
-  //   approve({ uid: "2259633694" });
-  // }, []);
-  // useEffect(() => {
-  //   deleteR({ uid: "2259633694" });
-  // }, []);
   const A = useUserInfoQuery();
   // console.log("My", A?.data);
   const copyAccount = (text) => {

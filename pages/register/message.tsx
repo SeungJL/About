@@ -15,6 +15,7 @@ import { INTEREST_DATA, MESSAGE_DATA } from "../../storage/ProfileData";
 import { IInterests } from "../../types/user";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 
 function Message() {
   const router = useRouter();
@@ -28,6 +29,7 @@ function Message() {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target?.value);
   };
+  const {data:userInfo} = useUserInfoQuery();
 
   const [index, setIndex] = useState(null);
 
@@ -40,11 +42,10 @@ function Message() {
     else message = MESSAGE_DATA[index];
 
     setRegisterForm((old) => ({ ...old, message }));
-
-    // if (session?.isActive) {
-    //   router.push(`/about`);
-    //   return;
-    // }
+    if (userInfo) {
+      router.push(`/about`);
+      return;
+    }
     router.push(`/register/phone`);
   };
 

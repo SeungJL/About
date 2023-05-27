@@ -12,6 +12,7 @@ const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
 function Layout({ children }) {
   const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     const start = () => {

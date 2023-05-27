@@ -20,14 +20,14 @@ import { IDateStartToEnd } from "../../types/utils";
 
 export const useRegisterQuery = (
   options?: Omit<
-    UseQueryOptions<IRegisterForm, AxiosError, IRegisterForm>,
+    UseQueryOptions<IRegisterForm[], AxiosError, IRegisterForm[]>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<IRegisterForm, AxiosError, IRegisterForm>(
+  useQuery<IRegisterForm[], AxiosError, IRegisterForm[]>(
     "register",
     async () => {
-      const res = await axios.get<IRegisterForm>(
+      const res = await axios.get<IRegisterForm[]>(
         `${process.env.NEXT_PUBLIC_SERVER_URI}/register`
       );
       return res.data;

@@ -22,12 +22,14 @@ function Location() {
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
 
-  // useUserInfoQuery({
-  //   onSuccess(data) {
-  //     setRegisterForm(data);
-  //     setLocation(data?.location);
-  //   },
-  // });
+  //유저 데이터가 있는 경우에만 초기 세팅
+  useUserInfoQuery({
+    onSuccess(data) {
+      console.log(data);
+      setRegisterForm(data);
+      setLocation(data?.location);
+    },
+  });
 
   const onClickNext = () => {
     if (location === null) {

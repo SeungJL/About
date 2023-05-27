@@ -63,7 +63,7 @@ export const UserSchema: Schema<IUser> = new Schema({
     type: Number,
     default: 0,
   },
-  comment: {
+  message: {
     type: String,
     default: "안녕하세요! 잘 부탁드립니다~!",
   },

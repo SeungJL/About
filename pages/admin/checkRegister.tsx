@@ -7,7 +7,7 @@ import { useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import CheckRegisterModal from "../../modals/admin/CheckRegisterModal";
 import { IRegisterForm } from "../../types/user";
-import { useUserInfoQuery } from "../../hooks/user/queries";
+import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
 function CheckRegister() {
   const { data: session } = useSession();
 
@@ -15,15 +15,16 @@ function CheckRegister() {
   const [isModal, setIsModal] = useState(false);
   const [applicant, setApplicant] = useState<IRegisterForm>();
   const { data } = useUserInfoQuery();
-
+  const { data: applyData } = useRegisterQuery();
+  console.log(applyData);
   const onClick = (who?: IRegisterForm) => {
-    setApplicant(data);
+    setApplicant(who);
     setIsModal(true);
   };
 
   return (
     <>
-      <Header title="가입 신청 확인" url="admin" />
+      <Header title="가입 신청 확인" url="/admin" />
       <Layout>
         <LocationFilter>
           <Select width="80px">
@@ -34,11 +35,11 @@ function CheckRegister() {
           </Select>
         </LocationFilter>
         <Main>
-          {temp?.map((who, idx) => (
+          {applyData?.map((who, idx) => (
             <Item key={idx}>
               <Profile>
                 <Image
-                  src={`${session?.user.image}`}
+                  src={`${who?.profileImage}`}
                   width={48}
                   height={48}
                   unoptimized={true}
@@ -47,16 +48,16 @@ function CheckRegister() {
               </Profile>
               <Summary>
                 <div>
-                  <span>{session?.user?.name}</span>
+                  <span>{who?.name}</span>
                   <span>2023년 5월 9일 신청</span>
                 </div>
-                <span>수원</span>
+                <span>{who?.location}</span>
               </Summary>
               <Button
                 color="white"
                 backgroundColor="var(--color-mint)"
                 size="sm"
-                onClick={() => onClick()}
+                onClick={() => onClick(who)}
               >
                 신청보기
               </Button>

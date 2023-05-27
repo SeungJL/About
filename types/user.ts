@@ -28,21 +28,22 @@ export interface avatarType {
 export interface IUser extends Document {
   uid: string;
   registerDate: string;
-  isActive?: boolean;
+  isActive: boolean;
   birth: string;
   mbti: string;
   gender: Gender;
   name: string;
   point: number;
   profileImage: string;
-  role?: IRole;
+  role: IRole;
   score: number;
-  comment: string;
+  message: string;
   rest: restType;
   location: Location;
   avatar: avatarType;
   interest?: string[];
   deposit: number;
+  majors: IMajor[];
 }
 
 export interface IAccount extends Document {
@@ -58,24 +59,25 @@ export interface IAccount extends Document {
   userId: IUser | string;
 }
 
-export interface Imajors {
+export interface IMajor {
   department: string;
   detail: string;
 }
 export type Gender = "남성" | "여성" | "";
 export interface IRegisterForm {
   registerDate?: string;
-  location?: Location;
-  name?: string;
+  location: Location;
+  name: string;
   mbti?: string;
   birth: string;
   agree?: any;
-  gender?: Gender;
+  gender: Gender;
   interests?: IInterests;
-  majors?: Imajors[];
-  message?: string;
+  majors: IMajor[];
+  message: string;
   telephone?: string;
-  profileImg?: string;
+  profileImage?: string;
+  uid?: string;
 }
 // export interface IRegisterForm {
 //   registerDate?: string;

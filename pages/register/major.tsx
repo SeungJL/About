@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Location } from "../../types/system";
 import { majors_DATA } from "../../storage/ProfileData";
-import { Imajors } from "../../types/user";
+import { IMajor } from "../../types/user";
 import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
@@ -21,7 +21,7 @@ function Interest() {
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   console.log(registerForm);
   const [errorMessage, setErrorMessage] = useState("");
-  const [majors, setmajors] = useState<Imajors[]>(registerForm?.majors || []);
+  const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
 
   const onClickNext = () => {
     if (!majors.length) {
