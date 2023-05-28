@@ -32,8 +32,9 @@ function CheckRegisterModal({
 
   const onClickAgree = () => {
     approve({ uid: applicant?.uid });
+    setIsModal(false);
   };
-
+  console.log(applicant);
   return (
     <Layout>
       <ModalHeaderX title={applicant?.name} setIsModal={setIsModal} />
@@ -56,7 +57,7 @@ function CheckRegisterModal({
         </Item>
         <Item>
           <b>전공 </b>
-          {/* {applicant?.majors[0]} */}
+          {applicant?.majors[0].detail}
         </Item>
         <Item>
           <b>관심사 </b>

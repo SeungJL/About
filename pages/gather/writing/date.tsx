@@ -147,7 +147,9 @@ const StyledDatePicker = styled(DatePicker)`
   }
 `;
 
-const Layout = styled(motion.div)``;
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const LocationDetailInput = styled.input`
   width: 100%;

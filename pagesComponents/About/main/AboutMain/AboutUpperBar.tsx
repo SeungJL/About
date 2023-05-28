@@ -78,6 +78,7 @@ function AboutUpperBar() {
 
 const Layout = styled.div`
   padding: 16px 14px;
+ 
 `;
 
 const Header = styled.header`

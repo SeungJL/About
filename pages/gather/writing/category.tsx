@@ -68,7 +68,9 @@ function WritingCategory() {
   );
 }
 
-const Layout = styled(motion.div)``;
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const ItemContainer = styled.div`
   margin-top: 20px;

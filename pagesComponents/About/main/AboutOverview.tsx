@@ -48,8 +48,10 @@ import {
   faUserGroup,
   faImage,
   faUsers,
+  faOtter,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
+import { VOTE_TABLE_COLOR } from "../../../constants/design";
 function AboutOverview() {
   const { data: session } = useSession();
   const router = useRouter();
@@ -57,35 +59,52 @@ function AboutOverview() {
   return (
     <>
       <Layout>
-        <TopPart>
-          <span>{session?.user.name}</span>님 만나서 반가워요!
-        </TopPart>
-        <Nav>
-          <Item>
-            <Button onClick={() => router.push("record")}>
-              <FontAwesomeIcon icon={faCalendarCheck} size="xl" />
-            </Button>
-            <span>기록</span>
-          </Item>
-          <Item>
-            <Button onClick={() => router.push("record")}>
-              <FontAwesomeIcon icon={faRankingStar} size="xl" />
-            </Button>{" "}
-            <span>활동 현황</span>
-          </Item>
-          <Item>
-            <Button onClick={() => router.push("friend")}>
-              <FontAwesomeIcon icon={faUsers} size="xl" />
-            </Button>{" "}
-            <span>친구</span>
-          </Item>
-          <Item>
-            <Button onClick={() => router.push("gather")}>
-              <FontAwesomeIcon icon={faPlaystation} size="xl" />
-            </Button>{" "}
-            <span>모임</span>
-          </Item>
-        </Nav>
+        <Item>
+          <Button onClick={() => router.push("record")}>
+            <FontAwesomeIcon
+              icon={faCalendarCheck}
+              size="xl"
+              color={VOTE_TABLE_COLOR[1]}
+            />
+          </Button>
+          <span>기록</span>
+        </Item>
+        <Item>
+          <Button onClick={() => router.push("record")}>
+            <FontAwesomeIcon
+              icon={faRankingStar}
+              size="xl"
+              color={VOTE_TABLE_COLOR[2]}
+            />
+          </Button>{" "}
+          <span>활동 현황</span>
+        </Item>
+        <Item>
+          <Button onClick={() => router.push("friend")}>
+            <FontAwesomeIcon
+              icon={faUsers}
+              size="xl"
+              color={VOTE_TABLE_COLOR[3]}
+            />
+          </Button>{" "}
+          <span>친구</span>
+        </Item>
+        <Item>
+          <Button onClick={() => router.push("gather")}>
+            <FontAwesomeIcon
+              icon={faOtter}
+              size="xl"
+              color={VOTE_TABLE_COLOR[0]}
+            />
+          </Button>{" "}
+          <span>모임</span>
+        </Item>
+        <Item>
+          <Button onClick={() => router.push("plaza")}>
+            <FontAwesomeIcon icon={faPlaystation} size="xl" />
+          </Button>{" "}
+          <span>광장</span>
+        </Item>
       </Layout>
     </>
   );
@@ -94,34 +113,27 @@ function AboutOverview() {
 const Layout = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column;
-  border-bottom-left-radius: 17px;
 
-  margin-bottom: 60px;
+  justify-content: space-between;
+  padding: 10px 14px;
+
+  border-bottom: 1px solid var(--font-h6);
 `;
 
 const TopPart = styled.div`
   background-color: var(--font-h6);
-  padding: 8px;
-  font-size: 16px;
-  color: var(--font-h3);
-  height: 100px;
-  > span {
-    color: var(--font-h1);
-    font-size: 18px;
-    font-weight: 600;
-  }
+  height: 60px;
 `;
 
 const Nav = styled.nav`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 347px;
   background-color: white;
   border-radius: var(--border-radius);
   position: absolute;
-  padding: 10px 0;
-  top: 50px;
+  padding: 14px 20px;
+  top: 10px;
   margin: 0 14px;
   align-items: center;
   box-shadow: var(--box-shadow);
@@ -140,8 +152,9 @@ const Item = styled.div`
 const Button = styled.button`
   width: 50px;
   height: 50px;
-  border-radius: var(--border-radius);
-  background-color: var(--font-h5);
+
+  border-radius: 20px;
+  background-color: var(--font-h7);
   margin-bottom: 4px;
 `;
 

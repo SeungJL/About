@@ -42,6 +42,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   };
 
   const onClickUser = (uid: string) => {
+    console.log(uid);
     router.push(`/profile/${uid}}`);
     setBeforePage(router?.asPath);
   };

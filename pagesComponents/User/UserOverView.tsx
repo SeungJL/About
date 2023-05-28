@@ -14,7 +14,11 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
-import { useCommentMutation } from "../../hooks/user/mutations";
+import {
+  useApproveMutation,
+  useCommentMutation,
+  useRegisterMutation,
+} from "../../hooks/user/mutations";
 import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
 
 import { userBadgeState } from "../../recoil/userAtoms";
@@ -24,24 +28,43 @@ import ModalPortal from "../../components/ModalPortal";
 import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
 
 export default function UserOverview() {
-  const { data: user } = useUserInfoQuery();
-  console.log(user);
   const [value, setValue] = useState("");
   const { data: session } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const { data: user } = useUserInfoQuery({
+    onSuccess(data) {
+      setValue(data?.comment);
+    },
+  });
+  console.log(user);
   const { mutate: onChangeComment } = useCommentMutation();
-  const { data: comments, isLoading } = useCommentQuery();
+  // const { data: comments, isLoading } = useCommentQuery();
 
+  const { mutate, isLoading } = useRegisterMutation({
+    onSuccess() {},
+    onError(error) {
+      console.error(error);
+    },
+  });
+  console.log(value);
+  const { mutate: approve } = useApproveMutation({
+    onSuccess() {
+      console.log("success");
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
   const userBadge = useRecoilValue(userBadgeState);
-  const userComment =
-    !isLoading && comments?.comments.find((att) => att?._id === user?._id);
+  // const userComment =
+  //   !isLoading && comments?.comments.find((att) => att?._id === user?._id);
 
   const [isProfileModal, setIsProfileModal] = useState(false);
 
-  useEffect(() => {
-    if (!isLoading) setValue(userComment?.comment);
-  }, [isLoading, userComment?.comment]);
+  // useEffect(() => {
+  //   if (!isLoading) setValue(userComment?.comment);
+  // }, [isLoading, userComment?.comment]);
   const toast = useToast();
 
   const handleWrite = () => {
@@ -55,9 +78,9 @@ export default function UserOverview() {
     setValue(text);
   };
 
-  const handleSubmit = () => {
-    const temp: IUserComment = { comment: value, _id: userComment._id };
-    onChangeComment(temp);
+  const handleSubmit = async () => {
+    await mutate({ ...user, comment: value });
+    await approve({ uid: user?.uid });
   };
 
   return (

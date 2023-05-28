@@ -48,9 +48,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
       if (idx === 0)
         setFilterMember(
           membersListAll?.filter(
-            (who) =>
-              +birthToAge(who?.birth) <= +birthToAge(data?.birth) + 1 &&
-              +birthToAge(who?.birth) >= +birthToAge(data?.birth) - 1
+            (who) => +birthToAge(who?.birth) === +birthToAge(data?.birth)
           )
         );
       if (idx === 1)
@@ -70,6 +68,13 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
               birthDayjs.month() === dayjs().month() &&
               who?.location === data?.location
             );
+          })
+        );
+      if (idx === 3)
+        setFilterMember(
+          membersListAll?.filter((who) => {
+            who?.majors &&
+              who?.majors[0]?.department === data?.majors[0]?.department;
           })
         );
     }
@@ -109,11 +114,11 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
               </Detail>
               <Detail>
                 <span>MBTI</span>
-                <span>{who?.mbti || "생략"}</span>
+                <span>{who?.mbti || "미작성"}</span>
               </Detail>
               <Detail>
                 <span>전공</span>
-                <span>컴퓨터/통신</span>
+                <span>{who?.majors ? who?.majors[0]?.detail : "미작성"}</span>
               </Detail>
             </Info>
           </Item>
@@ -160,13 +165,13 @@ const Detail = styled.div`
   > span:first-child {
     display: inline-block;
     width: 50px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--font-h3);
   }
   > span:last-child {
     color: var(--font-h1);
-    font-size: 14px;
+    font-size: 13px;
   }
 `;
 

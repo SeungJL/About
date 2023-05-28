@@ -71,7 +71,9 @@ function WritingContent() {
   );
 }
 
-const Layout = styled(motion.div)``;
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const Container = styled.div``;
 

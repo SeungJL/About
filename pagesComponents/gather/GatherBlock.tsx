@@ -22,7 +22,7 @@ function GatherBlock({
   data,
   category,
 }: {
-  data: IPlazaData;
+  data: any;
   category: GatherCategory;
 }) {
   const router = useRouter();

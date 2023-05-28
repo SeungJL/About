@@ -25,6 +25,7 @@ function ProfileCard({
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const { data: user } = useUserInfoQuery();
+  console.log(user);
   return (
     <>
       <Layout>
@@ -52,13 +53,13 @@ function ProfileCard({
 
             <ProfileItem>
               <span>전공</span>
-              <span>미작성</span>
+              <span>{user?.majors[0].detail}</span>
             </ProfileItem>
             <ProfileItem>
               <span>관심사</span>
               <div>
-                <span>미작성</span>
-                <span> </span>
+                <span>1. {user?.interests.first}</span>
+                <span>2. {user?.interests.second}</span>
               </div>
             </ProfileItem>
           </Profile>

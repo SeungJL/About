@@ -17,17 +17,19 @@ import GatherBlock from "../../pagesComponents/gather/GatherBlock";
 import Category from "../../pagesComponents/gather/Category";
 import { GatherCategory } from "../../types/gather";
 import KakaoShare from "../../components/utils/KakaoShare";
+import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
 
 function Gather() {
   const router = useRouter();
   const { data, isLoading } = usePlazaDataQuery();
   const [category, setCategory] = useState<GatherCategory>("전체");
+  const [isNotice, setIsNotice] = useState(true);
   const filterData =
     category === "전체"
       ? data
       : data?.filter((item) => item.category === category);
 
-  const reversedData = filterData?.slice().reverse();
+  const reversedData = [1];
 
   return (
     <>
@@ -47,6 +49,11 @@ function Gather() {
             <IconPencil />
           </Navigation>
         </Layout>
+      )}
+      {isNotice && (
+        <ModalPortal setIsModal={setIsNotice}>
+          <NotCompletedModal2 setIsModal={setIsNotice} />
+        </ModalPortal>
       )}
     </>
   );

@@ -301,14 +301,7 @@ function WritingCondition() {
           <SuccessModal url="/gather">
             <>
               <span>모임 개최 성공</span>
-              <div>
-                아래 링크를 복사해서 카톡방에 올려주세요!
-                <br />
-                <div style={{ marginTop: "6px" }}>
-                  <GatherLink>studyabout.club/gather/{id}</GatherLink>
-                  <CopyBtn text="c" />
-                </div>
-              </div>
+              <div>모임 게시글을 오픈 채팅방에 공유해 주세요!</div>
             </>
           </SuccessModal>
         </ModalPortal>
@@ -368,7 +361,9 @@ const PreMember = styled.div`
   }
 `;
 
-const Layout = styled(motion.div)``;
+const Layout = styled(motion.div)`
+  height: 100vh;
+`;
 
 const Container = styled.div`
   font-size: 14px;

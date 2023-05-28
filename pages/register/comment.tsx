@@ -29,7 +29,7 @@ function Message() {
   const { data: session } = useSession();
 
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
   const [errorMessage, setErrorMessage] = useState("");
   const [value, setValue] = useState(registerForm?.comment || "");
 
@@ -37,42 +37,32 @@ function Message() {
     setValue(e.target?.value);
   };
 
-  const { mutate, isLoading } = useRegisterMutation({
-    onSuccess() {
-      console.log("register success", registerForm);
-    },
-    onError(error) {
-      console.error(error);
-    },
-  });
-  const { mutate: approve } = useApproveMutation({
-    onSuccess() {
-      console.log("success");
-    },
-    onError(err) {
-      console.error(err);
-    },
-  });
+  const { mutate, isLoading } = useRegisterMutation();
+
+  const { mutate: approve } = useApproveMutation();
   const [index, setIndex] = useState(null);
 
   const InputIdx = MESSAGE_DATA?.length;
 
   console.log(42, isProfileEdit);
   const onClickNext = async () => {
-    if (value === "") {
+    if (index === null && value === "") {
       setErrorMessage("문장을 선택해 주세요.");
       return;
     }
-    let comment = "";
-    if (index === InputIdx) comment = value;
-    else comment = MESSAGE_DATA[index];
+    let tempComment = "";
+    if (index === InputIdx) tempComment = value;
+    else tempComment = MESSAGE_DATA[index];
 
-    setRegisterForm((old) => ({ ...old, comment }));
-    console.log(registerForm);
-    if (!isProfileEdit) {
-      await mutate(registerForm);
-      await approve({ uid: session?.uid });
-      router.push(`/about`);
+    await setRegisterForm((old) => ({ ...old, comment: tempComment }));
+
+    if (isProfileEdit) {
+      setIsProfileEdit(false);
+      await mutate({ ...registerForm, comment: tempComment });
+      await setTimeout(() => {
+        approve({ uid: session?.uid });
+      }, 1000);
+      await router.push(`/about`);
     } else {
       router.push(`/register/phone`);
     }

@@ -53,7 +53,6 @@ function Location() {
       });
 
       setLocation(data?.location);
-
       setIsProfileEdit(false);
     },
     onError(err) {
@@ -66,6 +65,7 @@ function Location() {
       setErrorMessage("지역을 선택해 주세요.");
       return;
     }
+    setIsProfileEdit(true);
     setRegisterForm((old) => ({ ...old, location }));
     router.push(`/register/name`);
   };

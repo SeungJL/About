@@ -105,20 +105,6 @@ function GatherDetail() {
                 <span>안녕하세요. 잘 부탁드립니다 !</span>
               </div>
             </MemberItem>
-            <MemberItem>
-              <ProfileIconMd user={user} />
-              <div>
-                <span>{user?.name}</span>
-                <span>안녕하세요. 잘 부탁드립니다 !</span>
-              </div>
-            </MemberItem>
-            <MemberItem>
-              <ProfileIconMd user={user} />
-              <div>
-                <span>{user?.name}</span>
-                <span>안녕하세요. 잘 부탁드립니다 !</span>
-              </div>
-            </MemberItem>
           </div>
         </Participant>
       </Layout>

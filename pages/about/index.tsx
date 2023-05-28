@@ -123,7 +123,7 @@ function About() {
           <Layout>
             <Header />
             <AboutOverview />
-            <HrDiv />
+            {/* <HrDiv /> */}
             <AboutUpperBar />
             <Calendar />
             {location === "수원" ? (

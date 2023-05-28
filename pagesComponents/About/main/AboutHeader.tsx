@@ -55,15 +55,16 @@ export default function AboutHeader() {
   return (
     <>
       <Layout>
-        <div>
+        <ABOUT>
           {/* <DrawerWrapper onClick={() => setIsDrawer(true)}>
             <FontAwesomeIcon icon={faBars} size="lg" />
           </DrawerWrapper> */}
-          <LogoWrapper>
-            {/* <IconAbout /> SVG로 했을 때 모바일에서 안 보이는 문제 발생*/}
+          {/* <LogoWrapper>
+         
             <Image src={`/aboutSm.png`} width={74} height={42} alt="aboutSm" />
-          </LogoWrapper>
-        </div>
+          </LogoWrapper> */}
+          ABOUT
+        </ABOUT>
         <Nav>
           <IconWrapper>
             <FontAwesomeIcon
@@ -117,6 +118,12 @@ export default function AboutHeader() {
     </>
   );
 }
+
+const ABOUT = styled.span`
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--font-h1);
+`;
 
 const Layout = styled.header`
   height: 50px;
