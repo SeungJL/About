@@ -24,7 +24,7 @@ function Location() {
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
   const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
-
+  console.log(isProfileEdit);
   useUserInfoQuery({
     enabled: isProfileEdit,
     onSuccess(data) {

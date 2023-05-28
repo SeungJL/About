@@ -57,6 +57,7 @@ function Message() {
 
   const InputIdx = MESSAGE_DATA?.length;
 
+  console.log(42, isProfileEdit);
   const onClickNext = async () => {
     if (value === "") {
       setErrorMessage("문장을 선택해 주세요.");
@@ -68,10 +69,10 @@ function Message() {
 
     setRegisterForm((old) => ({ ...old, comment }));
     console.log(registerForm);
-    if (isProfileEdit) {
+    if (!isProfileEdit) {
       await mutate(registerForm);
-      // await approve({ uid: session?.uid });
-      // router.push(`/about`);
+      await approve({ uid: session?.uid });
+      router.push(`/about`);
     } else {
       router.push(`/register/phone`);
     }

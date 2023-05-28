@@ -15,7 +15,7 @@ import AboutMain from "../../pagesComponents/About/main/AboutMain";
 
 import Header from "../../pagesComponents/About/main/AboutHeader";
 import Calendar from "../../pagesComponents/About/main/Calendar";
-import UserOverview from "../../pagesComponents/About/main/UserOverview";
+import UserOverview from "../../pagesComponents/About/main/AboutOverview";
 import AboutVoteNav from "../../pagesComponents/About/main/AboutMain/AboutVoteNav";
 
 import UserSetting from "../../pagesComponents/UserSetting";
@@ -34,6 +34,7 @@ import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
 import { MainLoading } from "../../components/ui/Loading";
 import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpperBar";
 import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
+import AboutOverview from "../../pagesComponents/About/main/AboutOverview";
 
 function About() {
   const toast = useToast();
@@ -121,10 +122,8 @@ function About() {
         <>
           <Layout>
             <Header />
-
-            <UserOverview />
+            <AboutOverview />
             <HrDiv />
-
             <AboutUpperBar />
             <Calendar />
             {location === "수원" ? (
