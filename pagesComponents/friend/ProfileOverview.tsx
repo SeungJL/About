@@ -15,11 +15,14 @@ import { useState } from "react";
 import DetailInfo from "./DetailInfo";
 import ModalPortal from "../../components/ModalPortal";
 import ProfileCard from "../../modals/friend/ProfileCard";
+import NotCompletedModal from "../../modals/system/NotCompletedModal";
 
 function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();
 
   const [info, setInfo] = useState<IUser>(user);
+  const [isFriend, setIsFriend] = useState(false);
+
   const [isProfileCard, setIsProfileCard] = useState(false);
   useUserInfoQuery({
     enabled: !user,
@@ -94,7 +97,12 @@ function ProfileOverview({ user }: { user?: IUser }) {
             </RelationItem>
           </div>
           {user && user?.uid !== session?.uid ? (
-            <Button backgroundColor="var(--color-mint)" color="white" size="sm">
+            <Button
+              backgroundColor="var(--color-mint)"
+              color="white"
+              size="sm"
+              onClick={() => setIsFriend(true)}
+            >
               친구신청
             </Button>
           ) : (
@@ -111,6 +119,11 @@ function ProfileOverview({ user }: { user?: IUser }) {
       {isProfileCard && (
         <ModalPortal setIsModal={setIsProfileCard}>
           <ProfileCard setIsModal={setIsProfileCard} />
+        </ModalPortal>
+      )}
+      {isFriend && (
+        <ModalPortal setIsModal={setIsFriend}>
+          <NotCompletedModal setIsModal={setIsFriend} />
         </ModalPortal>
       )}
     </>
@@ -173,13 +186,13 @@ const RelationBar = styled.div`
 
 const RelationItem = styled.div`
   width: max-content;
-  padding: 0 8px;
+  padding: 0 10px;
   text-align: center;
   display: flex;
   flex-direction: column;
   line-height: 2;
   > span:first-child {
-    font-size: 10px;
+    font-size: 11px;
   }
   > span:last-child {
     font-size: 11px;
@@ -196,6 +209,7 @@ const Comment = styled.span`
   margin-top: 14px;
   color: var(--font-h1);
   font-size: 12px;
+  font-weight: 600;
 `;
 
 export default ProfileOverview;

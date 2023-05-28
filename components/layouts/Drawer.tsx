@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import {
   faHouse,
@@ -33,6 +33,8 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
+import ModalPortal from "../ModalPortal";
+import NotCompletedModal from "../../modals/system/NotCompletedModal";
 
 function Drawer({
   isDrawer,
@@ -44,6 +46,8 @@ function Drawer({
   const router = useRouter();
   const url = router?.pathname;
 
+  const [isTemp, setIsTemp] = useState(false);
+
   const handleClick = (link) => {
     const src = `/${link}`;
     if (url === src) {
@@ -54,53 +58,55 @@ function Drawer({
   };
 
   return (
-    <Layout
-      initial={{ x: "-100%" }}
-      animate={{ x: isDrawer ? 0 : "-100%" }}
-      transition={{ duration: 0.3 }}
-    >
-      <Title>
-        <div onClick={() => setIsDrawer(false)}>
-          <Image src={`/aboutSm.png`} width={97} height={55} alt="aboutSm2" />
-        </div>
-        <div></div>
-      </Title>
-      <Main>
-        <NavHome
-          pageSelected={url === "/about"}
-          onClick={() => handleClick("about")}
-        >
-          <FontAwesomeIcon icon={faHouse} size="xl" />
+    <>
+      <Layout
+        initial={{ x: "-100%" }}
+        animate={{ x: isDrawer ? 0 : "-100%" }}
+        transition={{ duration: 0.3 }}
+      >
+        <Title>
+          <div onClick={() => setIsDrawer(false)}>
+            <Image src={`/aboutSm.png`} width={97} height={55} alt="aboutSm2" />
+          </div>
+          <div></div>
+        </Title>
+        <Main>
+          <NavHome
+            pageSelected={url === "/about"}
+            onClick={() => handleClick("about")}
+          >
+            <FontAwesomeIcon icon={faHouse} size="xl" />
 
-          <span>홈</span>
-        </NavHome>
-        <NavItem
-          pageSelected={url === "/record"}
-          onClick={() => handleClick("record")}
-        >
-          <FontAwesomeIcon icon={faCalendarCheck} size="xl" />
+            <span>홈</span>
+          </NavHome>
+          <NavItem
+            pageSelected={url === "/record"}
+            onClick={() => handleClick("record")}
+          >
+            <FontAwesomeIcon icon={faCalendarCheck} size="xl" />
 
-          <span>스터디 기록</span>
-        </NavItem>
-        <NavLevelItem
-          pageSelected={url === "/ranking"}
-          onClick={() => handleClick("ranking")}
-          style={{ marginLeft: "1px" }}
-        >
-          <FontAwesomeIcon icon={faRankingStar} size="xl" />
+            <span>스터디 기록</span>
+          </NavItem>
+          <NavLevelItem
+            pageSelected={url === "/ranking"}
+            onClick={() => handleClick("ranking")}
+            style={{ marginLeft: "1px" }}
+          >
+            <FontAwesomeIcon icon={faRankingStar} size="xl" />
 
-          <span>랭킹</span>
-        </NavLevelItem>
-        <NavLevelItem
-          pageSelected={url === "/store"}
-          onClick={() => handleClick("store")}
-          style={{ marginLeft: "3px" }}
-        >
-          <FontAwesomeIcon icon={faStore} size="xl" />
+            <span>랭킹</span>
+          </NavLevelItem>
+          <NavLevelItem
+            pageSelected={url === "/store"}
+            // onClick={() => handleClick("store")}
+            onClick={() => setIsTemp(false)}
+            style={{ marginLeft: "3px" }}
+          >
+            <FontAwesomeIcon icon={faStore} size="xl" />
 
-          <span>포인트 추첨</span>
-        </NavLevelItem>
-        {/* <NavLevelItem
+            <span>포인트 추첨</span>
+          </NavLevelItem>
+          {/* <NavLevelItem
           pageSelected={url === "/friend"}
           onClick={() => handleClick("friend")}
           style={{ marginLeft: "3px" }}
@@ -118,7 +124,7 @@ function Drawer({
 
           <span style={{ marginLeft: "10px" }}>모임</span>
         </NavLevelItem> */}{" "}
-        {/* <NavLevelItem
+          {/* <NavLevelItem
           pageSelected={url === "/review"}
           onClick={() => handleClick("review")}
           style={{ marginLeft: "3px" }}
@@ -126,8 +132,14 @@ function Drawer({
           <FontAwesomeIcon icon={faImage} size="xl" />
           <span>모임 후기</span>
         </NavLevelItem> */}
-      </Main>
-    </Layout>
+        </Main>
+      </Layout>
+      {isTemp && (
+        <ModalPortal setIsModal={setIsTemp}>
+          <NotCompletedModal setIsModal={setIsTemp} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 

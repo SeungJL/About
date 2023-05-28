@@ -25,13 +25,23 @@ function DetailInfo({ user }: { user: IUser }) {
         </ProfileItem>
         <ProfileItem>
           <span>전공</span>
-          <span>미작성</span>
+          {user?.majors[0]?.detail ? (
+            <span>{user?.majors[0]?.detail}</span>
+          ) : (
+            <span>미작성</span>
+          )}
         </ProfileItem>
         <ProfileItem>
           <span>관심사</span>
           <div>
-            <span>미작성</span>
-            <span> </span>
+            {user?.interests?.first ? (
+              <>
+                <span>1. {user?.interests.first}</span>
+                <span>2. {user?.interests.second}</span>
+              </>
+            ) : (
+              "미작성"
+            )}
           </div>
         </ProfileItem>
       </Profile>

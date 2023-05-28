@@ -24,9 +24,7 @@ function Birthday() {
 
   const initialDate = new Date(2000, 0, 1);
 
-  const birth = registerForm?.birth
-    ? dayjs(registerForm?.birth).format("YYMMDD")
-    : null;
+  const birth = registerForm?.birth;
 
   const defaultBirth =
     birth && Number(birth?.slice(0, 2)) < 50
@@ -42,7 +40,7 @@ function Birthday() {
       +defaultBirth?.slice(4, 6) - 1,
       +defaultBirth?.slice(6)
     );
-  console.log(defaultBirth);
+  console.log(birth, defaultBirth, defaultBirthDate);
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
   const onClickNext = () => {
