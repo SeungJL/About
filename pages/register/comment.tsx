@@ -67,11 +67,11 @@ function Message() {
     else comment = MESSAGE_DATA[index];
 
     setRegisterForm((old) => ({ ...old, comment }));
-
+    console.log(registerForm);
     if (isProfileEdit) {
       await mutate(registerForm);
       // await approve({ uid: session?.uid });
-      router.push(`/about`);
+      // router.push(`/about`);
     } else {
       router.push(`/register/phone`);
     }

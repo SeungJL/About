@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProgressLayout from "../../components/layouts/ProgressLayout";
 import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
@@ -23,8 +23,7 @@ function Location() {
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
-  const [isLoading, setIsLoading] = useState(true);
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
 
   useUserInfoQuery({
     enabled: isProfileEdit,
@@ -40,7 +39,7 @@ function Location() {
         comment,
         telephone,
       } = data;
-      console.log(data);
+
       setRegisterForm({
         location,
         name,
@@ -52,8 +51,10 @@ function Location() {
         comment,
         telephone,
       });
+
       setLocation(data?.location);
-      setIsLoading(false);
+
+      setIsProfileEdit(false);
     },
     onError(err) {
       console.error(err);
@@ -71,7 +72,7 @@ function Location() {
 
   return (
     <>
-      {isLoading ? (
+      {isProfileEdit ? (
         <MainLoading />
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
