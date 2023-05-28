@@ -32,16 +32,7 @@ export const authOptions: NextAuthOptions = {
           role: "member",
 
           profileImage: "",
-          statistic: {
-            attendences: [],
-            voteCnt4Week: 0,
-            openCnt4Week: 0,
-            voteCnt2Week: 0,
-            openCnt2Week: 0,
-            voteCnt1Week: 0,
-            openCnt1Week: 0,
-          },
-          score: 0,
+          isActive: true,
         };
         if (profile) {
           // Any object returned will be saved in `user` property of the JWT
@@ -64,15 +55,7 @@ export const authOptions: NextAuthOptions = {
         role: "member",
 
         profileImage: profile.properties.profile_image,
-        statistic: {
-          attendences: [],
-          voteCnt4Week: 0,
-          openCnt4Week: 0,
-          voteCnt2Week: 0,
-          openCnt2Week: 0,
-          voteCnt1Week: 0,
-          openCnt1Week: 0,
-        },
+        isActive: false,
         score: 0,
       }),
     }),
