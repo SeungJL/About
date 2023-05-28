@@ -5,7 +5,7 @@ import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { registerFormState } from "../../recoil/userAtoms";
 import { ChangeHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -22,14 +22,16 @@ import {
   useRegisterMutation,
 } from "../../hooks/user/mutations";
 import { MainLoading } from "../../components/ui/Loading";
+import { isProfileEditState } from "../../recoil/interactionAtoms";
 
 function Message() {
   const router = useRouter();
   const { data: session } = useSession();
 
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
+  const isProfileEdit = useRecoilValue(isProfileEditState);
   const [errorMessage, setErrorMessage] = useState("");
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(registerForm?.comment || "");
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target?.value);
@@ -56,23 +58,21 @@ function Message() {
   const InputIdx = MESSAGE_DATA?.length;
 
   const onClickNext = async () => {
-    if (index === null) {
+    if (value === "") {
       setErrorMessage("문장을 선택해 주세요.");
       return;
     }
-    let message = "";
-    if (index === InputIdx) message = value;
-    else message = MESSAGE_DATA[index];
+    let comment = "";
+    if (index === InputIdx) comment = value;
+    else comment = MESSAGE_DATA[index];
 
-    setRegisterForm((old) => ({ ...old, message }));
-    try {
-      await axios.get<IUser>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/profile`
-      );
+    setRegisterForm((old) => ({ ...old, comment }));
+
+    if (isProfileEdit) {
       await mutate(registerForm);
-      await approve({ uid: registerForm?.uid });
+      // await approve({ uid: session?.uid });
       router.push(`/about`);
-    } catch (error) {
+    } else {
       router.push(`/register/phone`);
     }
   };
@@ -104,7 +104,9 @@ function Message() {
             <Input
               onClick={() => setIndex(InputIdx)}
               placeholder="직접 입력"
-              isSelected={index === InputIdx}
+              isSelected={
+                index === InputIdx || (index === null && value !== "")
+              }
               onChange={onChange}
               value={value}
             />

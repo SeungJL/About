@@ -121,7 +121,7 @@ const Login: NextPage<{
                 border="1px solid #FEE500"
               >
                 <IconKakao />
-                <span style={{ marginRight: "16px" }}>카카오 로그인</span>
+                <span style={{ marginRight: "16px" }}>카카오로 회원가입</span>
                 <div />
               </Button>
               <Button

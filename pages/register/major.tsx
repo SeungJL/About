@@ -15,7 +15,7 @@ import { IMajor } from "../../types/user";
 import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-function Interest() {
+function Major() {
   const router = useRouter();
   const toast = useToast();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
@@ -36,7 +36,7 @@ function Interest() {
       return;
     }
     setRegisterForm((old) => ({ ...old, majors }));
-    router.push(`interest`);
+    router.push(`/register/interest`);
   };
 
   const onClickBtn = (department: string, detail: string) => {
@@ -127,4 +127,4 @@ const Content = styled.button<{ isSelected: boolean }>`
   color: ${(props) => props.isSelected && "white"};
 `;
 
-export default Interest;
+export default Major;

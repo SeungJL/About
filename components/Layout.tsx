@@ -17,15 +17,18 @@ function Layout({ children }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
-
+  console.log(router.pathname.slice(0, 9));
   const isAccessPermission =
-    session?.user.name !== "guest" || router.pathname !== "/login";
+    session?.user.name !== "guest" &&
+    router.pathname !== "/login" &&
+    router.pathname.slice(0, 9) !== "/register";
 
   useUserInfoQuery({
     enabled: isAccessPermission,
+
     onError() {
-      if (!session) router.push("login");
-      else router.push("register/location");
+      if (!session) router.push("/login");
+      else router.push("/register/location");
     },
   });
 

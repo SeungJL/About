@@ -5,7 +5,7 @@ import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { registerFormState } from "../../recoil/userAtoms";
 import { useRouter } from "next/router";
 import { Location } from "../../types/system";
@@ -15,6 +15,7 @@ import LocationTitle from "../../pagesComponents/Register/location/LocationTitle
 import { StudyLocation } from "../../storage/study";
 import LocationMember from "../../pagesComponents/Register/location/LocationMember";
 import { MainLoading } from "../../components/ui/Loading";
+import { isProfileEditState } from "../../recoil/interactionAtoms";
 
 function Location() {
   const router = useRouter();
@@ -22,12 +23,40 @@ function Location() {
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
+  const [isLoading, setIsLoading] = useState(true);
+  const isProfileEdit = useRecoilValue(isProfileEditState);
 
-  //유저 데이터가 있는 경우에만 초기 세팅
-  const { isLoading } = useUserInfoQuery({
+  useUserInfoQuery({
+    enabled: isProfileEdit,
     onSuccess(data) {
-      setRegisterForm(data);
+      const {
+        location,
+        name,
+        mbti,
+        birth,
+        gender,
+        interests,
+        majors,
+        comment,
+        telephone,
+      } = data;
+      console.log(data);
+      setRegisterForm({
+        location,
+        name,
+        mbti,
+        birth,
+        gender,
+        interests,
+        majors,
+        comment,
+        telephone,
+      });
       setLocation(data?.location);
+      setIsLoading(false);
+    },
+    onError(err) {
+      console.error(err);
     },
   });
 

@@ -31,7 +31,7 @@ import { User } from "../../models/user";
 import { Attendence } from "../../models/attendence";
 import ApplyRestModal from "../../modals/user/ApplyRestModal";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
 
 import UserOverview from "../../pagesComponents/User/UserOverView";
@@ -55,13 +55,12 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
 } from "@chakra-ui/react";
+import { isProfileEditState } from "../../recoil/interactionAtoms";
 function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState("");
-
-
-  
+  const setIsProfileEditState = useSetRecoilState(isProfileEditState);
   const isAdmin = session?.role === "previliged";
 
   const handleOutput = (isOpen) => {
@@ -74,6 +73,12 @@ function UserInfo() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
+
+  const onClickProfileEdit = () => {
+    setIsProfileEditState(true);
+    router.push(`/register/location`);
+  };
+
   return (
     <>
       <Layout
@@ -125,9 +130,7 @@ function UserInfo() {
             <div>
               <BlockName>정보 변경</BlockName>
               <NavBlock>
-                <button onClick={() => router.push(`/register/location`)}>
-                  프로필 수정
-                </button>
+                <button onClick={onClickProfileEdit}>프로필 수정</button>
                 <button onClick={() => setModalOpen("deposit")}>
                   보증금 충전
                 </button>
@@ -166,7 +169,7 @@ function UserInfo() {
           <SuggestModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
-     
+
       {modalOpen === "rest" && (
         <ModalPortal setIsModal={handleOutput}>
           <ApplyRestModal setIsModal={handleOutput} />

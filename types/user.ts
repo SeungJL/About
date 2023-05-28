@@ -37,13 +37,14 @@ export interface IUser extends Document {
   profileImage: string;
   role: IRole;
   score: number;
-  message: string;
+  comment: string;
   rest: restType;
   location: Location;
   avatar: avatarType;
-  interest?: string[];
+  interests?: IInterests;
   deposit: number;
   majors: IMajor[];
+  telephone: string;
 }
 
 export interface IAccount extends Document {
@@ -74,7 +75,7 @@ export interface IRegisterForm {
   gender: Gender;
   interests?: IInterests;
   majors: IMajor[];
-  message: string;
+  comment: string;
   telephone?: string;
   profileImage?: string;
   uid?: string;

@@ -10,3 +10,8 @@ export const beforePageState = atom({
   key: "beforePage",
   default: "",
 });
+
+export const isProfileEditState = atom({
+  key: "isProfileEdit",
+  default: false,
+});

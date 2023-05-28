@@ -42,7 +42,7 @@ function Interest() {
       ...old,
       interests: { first: firstValue, second: secondValue },
     }));
-    router.push(`/register/message`);
+    router.push(`/register/comment`);
   };
 
   return (

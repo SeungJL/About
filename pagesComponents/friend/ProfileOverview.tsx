@@ -76,7 +76,7 @@ function ProfileOverview({ user }: { user?: IUser }) {
           )}
         </Profile>
 
-        <Comment>{user?.message}</Comment>
+        <Comment>{user?.comment}</Comment>
 
         <RelationBar>
           <div>
