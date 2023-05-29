@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import styled from "styled-components";
 import { getSession, useSession } from "next-auth/react";
@@ -26,7 +26,7 @@ import { arrangeSpace } from "../../libs/utils/studyUtils";
 
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
-import { locationState } from "../../recoil/systemAtoms";
+import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
 import dayjs from "dayjs";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
@@ -47,6 +47,8 @@ function About() {
   const location = useRecoilValue(locationState);
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const current = dayjs().hour();
 
@@ -112,6 +114,11 @@ function About() {
       acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
     0
   );
+
+  useEffect(() => {
+    if (!isLoading) setIsMainLoading(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   return (
     <>

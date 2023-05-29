@@ -4,7 +4,7 @@ import ModalPortal from "../components/ModalPortal";
 
 import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";
 
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { isNoticeAlertState } from "../recoil/utilityAtoms";
 import { numOfUserState } from "../recoil/userAtoms";
 
@@ -16,7 +16,7 @@ import {
 } from "../constants/localStorage";
 import { IUser } from "../types/user";
 import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
-import { locationState } from "../recoil/systemAtoms";
+import { isMainLoadingState, locationState } from "../recoil/systemAtoms";
 import { usePlazaDataQuery } from "../hooks/plaza/queries";
 import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
 import SuggestPopUp from "../modals/pop-up/SuggestPopUp";
@@ -35,6 +35,8 @@ export default function UserSetting() {
   const [isUserGuide, setIsUserGuide] = useState(false);
   const [isSuggest, setIsSuggest] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
+
+  const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const { data: userData, isLoading } = useUserInfoQuery({
     enabled: isGuest === false,
@@ -84,26 +86,30 @@ export default function UserSetting() {
 
   return (
     <>
-      {isAttendPopup && (
-        <ModalPortal setIsModal={setIsAttendPopup}>
-          <WeekAttendPopup closePopUp={setIsAttendPopup} />
-        </ModalPortal>
-      )}
+      {!isMainLoading && (
+        <>
+          {isAttendPopup && (
+            <ModalPortal setIsModal={setIsAttendPopup}>
+              <WeekAttendPopup closePopUp={setIsAttendPopup} />
+            </ModalPortal>
+          )}
 
-      {isUserGuide && (
-        <ModalPortal setIsModal={setIsUserGuide}>
-          <UserGuidePopUp setIsModal={setIsUserGuide} />
-        </ModalPortal>
-      )}
-      {isSuggest && (
-        <ModalPortal setIsModal={setIsSuggest}>
-          <SuggestPopUp setIsModal={setIsSuggest} />
-        </ModalPortal>
-      )}
-      {isProfile && (
-        <ModalPortal setIsModal={setIsProfile}>
-          <ProfileModifyPopUp setIsModal={setIsProfile} />
-        </ModalPortal>
+          {isUserGuide && (
+            <ModalPortal setIsModal={setIsUserGuide}>
+              <UserGuidePopUp setIsModal={setIsUserGuide} />
+            </ModalPortal>
+          )}
+          {isSuggest && (
+            <ModalPortal setIsModal={setIsSuggest}>
+              <SuggestPopUp setIsModal={setIsSuggest} />
+            </ModalPortal>
+          )}
+          {isProfile && (
+            <ModalPortal setIsModal={setIsProfile}>
+              <ProfileModifyPopUp setIsModal={setIsProfile} />
+            </ModalPortal>
+          )}
+        </>
       )}
     </>
   );
