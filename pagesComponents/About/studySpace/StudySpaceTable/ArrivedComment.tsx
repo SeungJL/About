@@ -15,7 +15,7 @@ import { useRouter } from "next/dist/client/router";
 import dayjs from "dayjs";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useArrivedMutation } from "../../../../hooks/vote/mutations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalPortal from "../../../../components/ModalPortal";
 import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
 import { useSession } from "next-auth/react";
@@ -64,29 +64,25 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
             minute: "2-digit",
             hour12: false,
           });
-
+          const userI = user?.user as IUser;
           return (
-            <Block
-              key={idx}
-              onClick={() => onClickUser((user?.user as IUser).uid)}
-            >
-              <ProfileIconLg user={user.user as IUser} />
+            <Block key={idx} onClick={() => onClickUser(userI.uid)}>
+              <ProfileIconLg user={userI} />
               <BlockInfo>
                 <Info>
                   <span>{(user.user as IUser).name}</span>
                   <div>
                     {user.memo}
-                    {user.memo &&
-                      (user?.user as IUser).uid === session?.uid && (
-                        <span>
-                          &nbsp;
-                          <FontAwesomeIcon
-                            icon={faPenToSquare}
-                            color="var(--font-h1)"
-                            onClick={() => onClickWriteBtn(user)}
-                          />
-                        </span>
-                      )}
+                    {user.memo && userI.uid === session?.uid && (
+                      <span>
+                        &nbsp;
+                        <FontAwesomeIcon
+                          icon={faPenToSquare}
+                          color="var(--font-h1)"
+                          onClick={() => onClickWriteBtn(user)}
+                        />
+                      </span>
+                    )}
                   </div>
                 </Info>
                 {user.arrived || studyDate === "passed" ? (
@@ -95,9 +91,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                     <span>{arrivedHM}</span>
                   </Check>
                 ) : studyDate !== "not passed" &&
-                  absentData?.find(
-                    (who) => who.uid === (user?.user as IUser)?.uid
-                  ) ? (
+                  absentData?.find((who) => who.uid === userI?.uid) ? (
                   <Check isCheck={false}>
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
                     <span>불참</span>
