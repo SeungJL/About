@@ -47,6 +47,11 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
     setBeforePage(router?.asPath);
   };
 
+  const onClickEdit = (event) => {
+    event.stopPropagation();
+    onClickWriteBtn(user);
+  };
+
   return (
     <>
       <Layout>
@@ -79,7 +84,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
                         <FontAwesomeIcon
                           icon={faPenToSquare}
                           color="var(--font-h1)"
-                          onClick={() => onClickWriteBtn(user)}
+                          onClick={onClickEdit}
                         />
                       </span>
                     )}
