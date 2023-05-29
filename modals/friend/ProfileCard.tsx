@@ -18,14 +18,24 @@ import {
   ModalXL,
   ModalXXL,
 } from "../../styles/layout/modal";
-
+import { useSetRecoilState } from "recoil";
+import { isProfileEditState } from "../../recoil/interactionAtoms";
+import { useRouter } from "next/router";
 function ProfileCard({
   setIsModal,
 }: {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const router = useRouter();
   const { data: user } = useUserInfoQuery();
+  const setIsProfileEdit = useSetRecoilState(isProfileEditState);
   console.log(user);
+
+  const onClickModify = () => {
+    setIsProfileEdit(true);
+    router.push(`/register/location`);
+  };
+
   return (
     <>
       <Layout>
@@ -67,7 +77,9 @@ function ProfileCard({
           <FriendList>{/* <ProfileIconMd user={user} /> */}</FriendList>
         </ModalMain>
         <Footer>
-          <Button width="50%">프로필 변경</Button>
+          <Button width="50%" onClick={() => onClickModify()}>
+            프로필 변경
+          </Button>
           <Button
             onClick={() => setIsModal(false)}
             width="50%"

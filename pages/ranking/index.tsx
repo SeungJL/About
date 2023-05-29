@@ -50,7 +50,6 @@ function Ranking() {
   useScoreAllQuery({
     enabled: true,
     onSuccess(data) {
-      ;
       const { scoreArr, myRank, percent, isRank } = SortUserScore(
         data,
         myPoint
@@ -66,7 +65,7 @@ function Ranking() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <Header title="About 랭킹" />
+      <Header title="About 랭킹" url="/point" />
       <Layout>
         <Overview>
           <Myrank>

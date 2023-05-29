@@ -35,6 +35,7 @@ import { MainLoading } from "../../components/ui/Loading";
 import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpperBar";
 import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
 import AboutOverview from "../../pagesComponents/About/main/AboutOverview";
+import AboutNavigation from "../../pagesComponents/About/main/AboutOverview";
 
 function About() {
   const toast = useToast();
@@ -122,7 +123,7 @@ function About() {
         <>
           <Layout>
             <Header />
-            <AboutOverview />
+            <AboutNavigation />
             {/* <HrDiv /> */}
             <AboutUpperBar />
             <Calendar />

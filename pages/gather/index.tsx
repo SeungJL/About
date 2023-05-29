@@ -7,7 +7,7 @@ import { useState } from "react";
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
 
 import styled from "styled-components";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalPortal from "../../components/ModalPortal";
 import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
@@ -18,6 +18,7 @@ import Category from "../../pagesComponents/gather/Category";
 import { GatherCategory } from "../../types/gather";
 import KakaoShare from "../../components/utils/KakaoShare";
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
+import NotCompletedModal from "../../modals/system/NotCompletedModal";
 
 function Gather() {
   const router = useRouter();
@@ -31,12 +32,19 @@ function Gather() {
 
   const reversedData = [1];
 
+  const [a, setA] = useState(false);
+
   return (
     <>
       {!isLoading && (
         <Layout>
           <Seo title="Gather" />
-          <Header title="모임" />
+          <Header title="모임">
+            <Review onClick={() => setA(true)}>
+              <span>모임 후기</span>
+              <FontAwesomeIcon icon={faRightLong} />
+            </Review>
+          </Header>
           <PlazaLayout>
             <Category category={category} setCategory={setCategory} />
             <PlazaMainContent>
@@ -55,6 +63,11 @@ function Gather() {
           <NotCompletedModal2 setIsModal={setIsNotice} />
         </ModalPortal>
       )}
+      {a && (
+        <ModalPortal setIsModal={setA}>
+          <NotCompletedModal setIsModal={setA} />
+        </ModalPortal>
+      )}
     </>
   );
 }
@@ -67,6 +80,14 @@ const IconPencil = () => {
     </IconLayout>
   );
 };
+
+const Review = styled.span`
+  font-weight: 600;
+  font-size: 12px;
+  > span:first-child {
+    margin-right: 6px;
+  }
+`;
 
 const Layout = styled.div`
   position: relative;

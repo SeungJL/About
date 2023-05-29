@@ -6,11 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import {
   faBalanceScale,
-  faBars,
-  faCakeCandles,
+  faBell,
   faGift,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 
 import ModalPortal from "../../../components/ModalPortal";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";

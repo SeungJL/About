@@ -17,7 +17,7 @@ function DetailInfo({ user }: { user: IUser }) {
         </ProfileItem>
         <ProfileItem>
           <span>MBTI</span>
-          <span> {user?.mbti}</span>
+          {user?.mbti ? <span>{user?.mbti}</span> : <span>--</span>}
         </ProfileItem>
         <ProfileItem>
           <span>지역</span>
@@ -28,7 +28,7 @@ function DetailInfo({ user }: { user: IUser }) {
           {user?.majors ? (
             <span>{user?.majors[0]?.detail}</span>
           ) : (
-            <span>미작성</span>
+            <span>--</span>
           )}
         </ProfileItem>
         <ProfileItem>
@@ -40,7 +40,7 @@ function DetailInfo({ user }: { user: IUser }) {
                 <span>2. {user?.interests.second}</span>
               </>
             ) : (
-              "미작성"
+              <span>--</span>
             )}
           </div>
         </ProfileItem>

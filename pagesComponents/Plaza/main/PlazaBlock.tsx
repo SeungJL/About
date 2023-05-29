@@ -39,7 +39,7 @@ export default function PlazaBlock({
           <Title>{data.title}</Title>
           <div>
             <span>{data.writer}</span>
-            <span>2023-03-28</span>
+            <span>2023-05-29</span>
           </div>
         </Header>
         <Content>{data.content}</Content>

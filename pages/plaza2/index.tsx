@@ -14,7 +14,6 @@ import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
-import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
 
 function Plaza() {
   const { data } = usePlazaDataQuery({
@@ -30,31 +29,6 @@ function Plaza() {
       : data?.filter((item) => item.category === category);
 
   const reversedData = filterData?.slice().reverse();
-  const [isNotice, setIsNotice] = useState(true);
-  const temp = [
-    {
-      category: "전체",
-      title: "테스트",
-      content: "테스트용 게시글입니다.",
-      id: "34",
-      writer: "이승주",
-      date: "2023-05-29",
-    },
-    {
-      category: "일상",
-      title: "테스트",
-      content: "테스트용 게시글입니다.",
-      id: "35",
-      writer: "이승주",
-      date: "2023-05-30",
-      voteList: [
-        { voteListIdx: 0, value: "떡볶이" },
-        { voteListIdx: 1, value: "마라탕" },
-        { voteListIdx: 2, value: "연어" },
-        { voteListIdx: 3, value: "대창" },
-      ],
-    },
-  ];
 
   return (
     <>
@@ -64,7 +38,7 @@ function Plaza() {
         <PlazaLayout>
           <Category category={category} setCategory={setCategory} />
           <PlazaMainContent>
-            {temp.map((data, idx) => (
+            {reversedData?.map((data, idx) => (
               <PlazaBlock key={idx} data={data} category={category} />
             ))}
           </PlazaMainContent>
@@ -72,12 +46,7 @@ function Plaza() {
         <Navigation>
           <IconPencil />
         </Navigation>
-      </Layout>{" "}
-      {isNotice && (
-        <ModalPortal setIsModal={setIsNotice}>
-          <NotCompletedModal2 setIsModal={setIsNotice} />
-        </ModalPortal>
-      )}
+      </Layout>
     </>
   );
 }

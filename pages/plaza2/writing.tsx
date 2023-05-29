@@ -41,7 +41,7 @@ function WritingPlaza() {
       date: dayjs().format("YYYY-MM-DD"),
     };
 
-    // handlePlaza(writingData);
+    handlePlaza(writingData);
   };
   return (
     <>

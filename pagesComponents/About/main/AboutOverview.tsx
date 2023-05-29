@@ -52,7 +52,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import { VOTE_TABLE_COLOR } from "../../../constants/design";
-function AboutOverview() {
+function AboutNavigation() {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -70,14 +70,14 @@ function AboutOverview() {
           <span>기록</span>
         </Item>
         <Item>
-          <Button onClick={() => router.push("record")}>
+          <Button onClick={() => router.push("point")}>
             <FontAwesomeIcon
               icon={faRankingStar}
               size="xl"
               color={VOTE_TABLE_COLOR[2]}
             />
           </Button>{" "}
-          <span>활동 현황</span>
+          <span>포인트</span>
         </Item>
         <Item>
           <Button onClick={() => router.push("friend")}>
@@ -158,4 +158,4 @@ const Button = styled.button`
   margin-bottom: 4px;
 `;
 
-export default AboutOverview;
+export default AboutNavigation;
