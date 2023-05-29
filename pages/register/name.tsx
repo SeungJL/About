@@ -12,13 +12,15 @@ import { useRouter } from "next/router";
 import { checkIsKorean } from "../../libs/utils/validUtils";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 function Name() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [value, setValue] = useState(registerForm?.name || "");
+  const [value, setValue] = useState(registerForm?.name || session?.user.name);
 
   const onClickNext = () => {
     if (value.length < 2 || value.length > 3) {

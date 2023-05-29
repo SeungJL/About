@@ -44,7 +44,6 @@ const Login: NextPage<{
     ClientSafeProvider
   >;
 }> = ({ providers }) => {
-  console.log(providers);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -201,9 +200,11 @@ const GuestModal = ({ setIsModal }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders();
   const session = await getSession({ req: context.req });
+  console.log(session);
   const returnTo = context.query.from as string;
-  console.log(providers, session, returnTo);
-  console.log(2, context.req);
+  console.log(returnTo);
+
+  
   if (session) {
     if (returnTo) {
       return {

@@ -20,11 +20,14 @@ function Layout({ children }) {
 
   const isAccessPermission =
     session?.user.name !== "guest" &&
-    router.pathname !== "/login" &&
+    router.pathname.slice(0, 6) !== "/login" &&
     router.pathname.slice(0, 9) !== "/register";
-
+  console.log(router);
   useUserInfoQuery({
     enabled: isAccessPermission,
+    onSuccess(data) {
+      if (!data?.birth && isAccessPermission) router.push("/register/location");
+    },
     onError() {
       if (!session) router.push("/login");
       else router.push("/register/location");

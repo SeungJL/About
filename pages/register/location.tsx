@@ -24,10 +24,13 @@ function Location() {
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
   const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
+  const [isLoading, setIsLoading] = useState(true);
   console.log(isProfileEdit);
+
   useUserInfoQuery({
     enabled: isProfileEdit,
     onSuccess(data) {
+      console.log(5);
       const {
         location,
         name,
@@ -53,26 +56,31 @@ function Location() {
       });
 
       setLocation(data?.location);
-      setIsProfileEdit(false);
+      setIsLoading(false);
     },
     onError(err) {
       console.error(err);
+      setIsLoading(false);
     },
   });
+
+  useEffect(() => {
+    if (!isProfileEdit) setIsLoading(false);
+  }, [isProfileEdit]);
 
   const onClickNext = () => {
     if (location === null) {
       setErrorMessage("지역을 선택해 주세요.");
       return;
     }
-    setIsProfileEdit(true);
+
     setRegisterForm((old) => ({ ...old, location }));
     router.push(`/register/name`);
   };
 
   return (
     <>
-      {isProfileEdit ? (
+      {isLoading ? (
         <MainLoading />
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
