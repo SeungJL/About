@@ -7,7 +7,7 @@ import {
 
 import { IAttendence } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { studyDateState, voteDateState } from "../../../../recoil/studyAtoms";
 import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
 import { useToast } from "@chakra-ui/react";
@@ -21,7 +21,10 @@ import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoMo
 import { useSession } from "next-auth/react";
 import ProfileIconMd from "../../../../components/common/Profile/ProfileIconMd";
 import ProfileIconLg from "../../../../components/common/Profile/ProfileIconLg";
-import { beforePageState } from "../../../../recoil/interactionAtoms";
+import {
+  beforePageState,
+  userDataState,
+} from "../../../../recoil/interactionAtoms";
 
 function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const router = useRouter();
@@ -30,6 +33,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const voteDate = dayjs(router.query.date as string);
   const studyDate = useRecoilValue(studyDateState);
   const setBeforePage = useSetRecoilState(beforePageState);
+  const setUserData = useSetRecoilState(userDataState);
 
   const { data: absentData } = useAbsentDataQuery(voteDate);
 
@@ -41,9 +45,9 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
     setIsChangeModal(true);
   };
 
-  const onClickUser = (uid: string) => {
-    console.log(uid);
-    router.push(`/profile/${uid}}`);
+  const onClickUser = (user: IUser) => {
+    setUserData(user);
+    router.push(`/profile/${user.uid}}`);
     setBeforePage(router?.asPath);
   };
 
@@ -54,7 +58,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
 
   return (
     <>
-      <Layout>
+      <Layout key={router.asPath}>
         {attendances?.map((user, idx) => {
           if (studyDate !== "not passed" && !user?.firstChoice) return null;
           const arrivedTime = user?.arrived
@@ -71,7 +75,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
           });
           const userI = user?.user as IUser;
           return (
-            <Block key={idx} onClick={() => onClickUser(userI.uid)}>
+            <Block key={idx} onClick={() => onClickUser(userI)}>
               <ProfileIconLg user={userI} />
               <BlockInfo>
                 <Info>
