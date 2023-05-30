@@ -23,11 +23,12 @@ function Store() {
 
   const { isLoading } = useStoreAllQuery({
     onSuccess(data) {
+      console.log(data);
       const temp = new Array(6).fill(0);
       data?.users.forEach((who) => {
         const giftIdx = Number(who?.giftId);
         if (giftIdx > 6 || who?.uid === "7" || who?.cnt < 1) return;
-        temp[giftIdx - 1]++;
+        temp[giftIdx - 1] += who?.cnt;
         setApplyNum(temp);
       });
     },

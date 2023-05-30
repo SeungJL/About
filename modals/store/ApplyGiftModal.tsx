@@ -108,6 +108,7 @@ function ApplyGiftModal({
           width="100%"
           backgroundColor={"var(--color-mint)"}
           onClick={onApply}
+          color="white"
         >
           응모하기
         </Button>
