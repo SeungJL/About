@@ -11,7 +11,7 @@ import InspectionModal from "../../modals/system/InspectionModal";
 function PointPoint() {
   const router = useRouter();
   const ImageContainer = STORE_GIFT?.map((item) => item.image);
-  const [isModal, setIsModal] = useState(false);
+  // const [isModal, setIsModal] = useState(false);
   return (
     <>
       <Layout>
@@ -22,7 +22,7 @@ function PointPoint() {
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         </Button>
-        <Store onClick={() => setIsModal(true)}>
+        <Store onClick={() => router.push("/store")}>
           <Button>
             <div>포인트 스토어</div>
             <div>
@@ -32,11 +32,11 @@ function PointPoint() {
           <ImageSlider type="point" ImageContainer={ImageContainer} />
         </Store>
       </Layout>
-      {isModal && (
+      {/* {isModal && (
         <ModalPortal setIsModal={setIsModal}>
           <InspectionModal setIsModal={setIsModal} />
         </ModalPortal>
-      )}
+      )} */}
     </>
   );
 }
