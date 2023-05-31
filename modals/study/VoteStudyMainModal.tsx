@@ -110,6 +110,7 @@ function VoteStudyMainModal({
         }
       }
       setIsComplete(true);
+      document.location.reload();
     },
   });
 
