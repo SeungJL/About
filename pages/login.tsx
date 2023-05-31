@@ -79,7 +79,7 @@ const Login: NextPage<{
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="About" />
-        <meta property="og:url" content="https://studyabout.herokuapp.com/" />
+        <meta property="og:url" content="https://studyabout.herokuapp.com" />
         <meta property="og:description" content="카공 및 친목 동아리" />
         <meta property="og:image" content="/ogImage.png" />
         <meta property="og:locale" content="ko_KR" />
