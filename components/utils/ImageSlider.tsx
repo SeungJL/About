@@ -55,7 +55,7 @@ function ImageSlider({
               navigation
               pagination={true}
               modules={[Pagination]} // enable pagination
-              style={{ width: "100%", height: "100%", background: "pink" }}
+              style={{ width: "100%", height: "100%" }}
             >
               {ImageContainer?.map((image, index) => (
                 <SwiperSlide key={index}>
