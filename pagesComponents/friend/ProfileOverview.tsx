@@ -163,9 +163,11 @@ const ProfileInfo = styled.div`
   > div:first-child {
     display: flex;
     align-items: center;
+
     > span:first-child {
       font-size: 16px;
       font-weight: 600;
+      margin-right: 8px;
     }
   }
   > span:last-child {
