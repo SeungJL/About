@@ -29,7 +29,6 @@ function Location() {
   useUserInfoQuery({
     enabled: isProfileEdit,
     onSuccess(data) {
-   
       const {
         location,
         name,
@@ -84,7 +83,7 @@ function Location() {
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
           <ProgressLayout value={10} />
-          <Header title="회원가입" url="/login?from=back" />
+          <Header title="회원가입" url={isProfileEdit ? "/about" : "/login"} />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
               <span>지역을 선택해 주세요</span>

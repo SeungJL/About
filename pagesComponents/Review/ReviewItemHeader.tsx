@@ -8,15 +8,16 @@ import ProfileIconXsOverwrap from "../../components/common/Profile/ProfileIconXs
 import ProfileIconXs from "../../components/common/Profile/ProfileIconXsOverwrap";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
-function ReviewItemHeader() {
+function ReviewItemHeader({ temp }: { temp: any }) {
   const { data } = useUserInfoQuery();
+  console.log(data);
 
   return (
     <Layout>
       <Profile>
-        <ProfileIconSm user={data} />
+        <ProfileIconSm user={temp} />
         <div>
-          <span>{data?.name}</span>
+          <span>{temp?.name}</span>
           <span>5월 27일</span>
         </div>
       </Profile>

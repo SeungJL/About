@@ -10,10 +10,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import useCustomToast from "../../components/common/CustomToast";
 
 function FriendRecommend() {
   const router = useRouter();
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
+  const showGuestErrorToast = useCustomToast();
   const onClickBtn = (idx: number) => {
+    if (isGuest) {
+      showGuestErrorToast();
+      return;
+    }
+
     router.push(`/friend/${idx}`);
   };
   return (

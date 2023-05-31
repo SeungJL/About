@@ -1,9 +1,5 @@
 import {
-  VStack,
-  Heading,
-  Box,
   Button,
-  HStack,
   Text,
   useDisclosure,
   AlertDialogOverlay,
@@ -25,16 +21,13 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-
-import { getInterestingDate } from "../libs/utils/dateUtils";
 import styled from "styled-components";
 import { ModalXs } from "../styles/layout/modal";
 import ModalPortal from "../components/ModalPortal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX, faXRay } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { IconKakao } from "../public/icons/Icons";
-
 import { motion } from "framer-motion";
 import { MainLoading } from "../components/ui/Loading";
 
@@ -58,16 +51,41 @@ const Login: NextPage<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const customSignin = async (kakaoProvider: ClientSafeProvider) => {
+  const customSignin = async (
+    kakaoProvider: ClientSafeProvider,
+    type?: string
+  ) => {
+    const provider = type || kakaoProvider.id;
     setLoading(true);
-
-    await signIn(kakaoProvider.id);
+    await signIn(provider, { callbackUrl: `${window.location.origin}/about` });
 
     await setLoading(false);
   };
 
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
-
+  const GuestModal = ({ setIsModal }) => {
+    return (
+      <Modal>
+        <ModalHeaderLine>
+          <Title>게스트 로그인</Title>
+          <FontAwesomeIcon icon={faX} onClick={() => setIsModal(false)} />
+        </ModalHeaderLine>
+        <Content>
+          이 기능은 동아리 외부인을 위한 기능으로, 완성되지 않은 기능들이
+          있습니다.{" "}
+          <b>
+            해당 동아리 소속의 인원은 카카오 로그인을 이용해주시기 바랍니다.
+          </b>
+        </Content>
+        <ModalNav>
+          <button onClick={() => setIsModal(false)}>뒤로</button>
+          <button onClick={() => customSignin(kakaoProvider, "guest")}>
+            로그인
+          </button>
+        </ModalNav>
+      </Modal>
+    );
+  };
   return (
     <>
       <Layout>
@@ -159,49 +177,8 @@ const Login: NextPage<{
   );
 };
 
-const GuestModal = ({ setIsModal }) => {
-  return (
-    <Modal>
-      <ModalHeaderLine>
-        <Title>게스트 로그인</Title>
-        <FontAwesomeIcon icon={faX} onClick={() => setIsModal(false)} />
-      </ModalHeaderLine>
-      <Content>
-        이 기능은 동아리 외부인을 위한 기능으로, 완성되지 않은 기능들이
-        있습니다.{" "}
-        <b>해당 동아리 소속의 인원은 카카오 로그인을 이용해주시기 바랍니다.</b>
-      </Content>
-      <ModalNav>
-        <button onClick={() => setIsModal(false)}>뒤로</button>
-        <button onClick={() => signIn("guest")}>로그인</button>
-      </ModalNav>
-    </Modal>
-  );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const providers = await getProviders();
-  const session = await getSession({ req: context.req });
-
-  const returnTo = context.query.from as string;
-
-  if (session && returnTo !== "back") {
-    if (returnTo) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: returnTo,
-        },
-      };
-    }
-    return {
-      redirect: {
-        permanent: false,
-        destination: `/about`,
-      },
-      props: {},
-    };
-  }
 
   return {
     props: { providers },

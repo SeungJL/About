@@ -45,10 +45,10 @@ export default function AboutHeader() {
   };
 
   const onClickUser = () => {
-    if (isGuest) {
-      setIsLogout(true);
-      return;
-    }
+    // if (isGuest) {
+    //   setIsLogout(true);
+    //   return;
+    // }
     router.push(`/user`);
   };
   return (

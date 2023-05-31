@@ -56,27 +56,45 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
+import useCustomToast from "../../components/common/CustomToast";
 function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
+
   const [modalOpen, setModalOpen] = useState("");
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
+
   const isAdmin = session?.role === "previliged";
+  const isGuest = session?.user?.name === "guest";
+  const showGuestErrorToast = useCustomToast();
+  const { data: myPoint } = usePointQuery({ enabled: !isGuest });
+  const { data: myDeposit } = useDepositQuery({ enabled: !isGuest });
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const cancelRef = useRef();
 
   const handleOutput = (isOpen) => {
     if (!isOpen) {
       setModalOpen("");
     }
   };
-  const { data: myPoint } = usePointQuery();
-  const { data: myDeposit } = useDepositQuery();
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
 
   const onClickProfileEdit = () => {
+    if (isGuest) {
+      showGuestErrorToast();
+      return;
+    }
     setIsProfileEditState(true);
     router.push(`/register/location`);
+  };
+
+  const onClickItem = (type: string) => {
+    if (isGuest) {
+      showGuestErrorToast();
+      return;
+    }
+    setModalOpen(type);
   };
 
   return (
@@ -115,23 +133,21 @@ function UserInfo() {
             <div>
               <BlockName>신청</BlockName>
               <NavBlock>
-                <button onClick={() => setModalOpen("suggest")}>
-                  건의하기
-                </button>
-                <button onClick={() => setModalOpen("declaration")}>
+                <button onClick={() => onClickItem("suggest")}>건의하기</button>
+                <button onClick={() => onClickItem("declaration")}>
                   불편사항 신고
                 </button>
-                <button onClick={() => setModalOpen("promotion")}>
+                <button onClick={() => onClickItem("promotion")}>
                   홍보 리워드 신청
                 </button>
-                <button onClick={() => setModalOpen("rest")}>휴식 신청</button>
+                <button onClick={() => onClickItem("rest")}>휴식 신청</button>
               </NavBlock>
             </div>
             <div>
               <BlockName>정보 변경</BlockName>
               <NavBlock>
                 <button onClick={onClickProfileEdit}>프로필 수정</button>
-                <button onClick={() => setModalOpen("deposit")}>
+                <button onClick={() => onClickItem("deposit")}>
                   보증금 충전
                 </button>
                 <button onClick={onOpen}>로그아웃</button>
@@ -152,9 +168,7 @@ function UserInfo() {
                 <button onClick={() => router.push(`user/info/avatar`)}>
                   아바타 아이콘 저작권
                 </button>
-                <button onClick={() => setModalOpen("secede")}>
-                  회원 탈퇴
-                </button>
+                <button onClick={() => onClickItem("secede")}>회원 탈퇴</button>
               </NavBlock>
             </div>
             <div>

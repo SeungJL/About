@@ -17,10 +17,12 @@ function ProfileIconLg({
   user,
   isCircle,
   disabled,
+  size,
 }: {
   user: IUser;
   isCircle?: boolean;
   disabled?: boolean;
+  size?: number;
 }) {
   const toast = useToast();
   const router = useRouter();
@@ -52,6 +54,9 @@ function ProfileIconLg({
     e.currentTarget.src =
       "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
   };
+
+  const WIDTH = size || 50;
+
   const isAvatar =
     avatarType !== null &&
     avatarType !== undefined &&
@@ -65,13 +70,14 @@ function ProfileIconLg({
           background: avatarBg !== null && AVATAR_COLOR[avatarBg],
           borderRadius: isCircle ? "50%" : "28%",
         }}
+        size={size}
       >
         <Image
           src={
             isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
           }
-          width={isAvatar ? 40 : 50}
-          height={isAvatar ? 40 : 50}
+          width={isAvatar ? WIDTH * 0.8 : WIDTH}
+          height={isAvatar ? WIDTH * 0.8 : WIDTH}
           alt="userProfile"
           unoptimized={true}
           onError={onError}
@@ -86,15 +92,14 @@ function ProfileIconLg({
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.div<{ size?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
   object-fit: cover;
-
   overflow: hidden;
-  width: 50px;
-  height: 50px;
+  width: ${(props) => props.size || 50}px;
+  height: ${(props) => props.size || 50}px;
 `;
 
 export default ProfileIconLg;

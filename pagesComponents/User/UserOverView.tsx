@@ -26,19 +26,22 @@ import { useRecoilValue } from "recoil";
 import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
 import ModalPortal from "../../components/ModalPortal";
 import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
+import useCustomToast from "../../components/common/CustomToast";
 
 export default function UserOverview() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("안녕하세요! 잘 부탁드려요 ㅎㅎ");
   const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const inputRef = useRef<HTMLInputElement>(null);
+  const showGuestErrorToast = useCustomToast();
 
   const { data: user } = useUserInfoQuery({
     onSuccess(data) {
       setValue(data?.comment);
     },
   });
- 
-  const { mutate: onChangeComment } = useCommentMutation();
+
+  // const { mutate: onChangeComment } = useCommentMutation();
   // const { data: comments, isLoading } = useCommentQuery();
 
   const { mutate, isLoading } = useRegisterMutation({
@@ -49,9 +52,7 @@ export default function UserOverview() {
   });
 
   const { mutate: approve } = useApproveMutation({
-    onSuccess() {
-      
-    },
+    onSuccess() {},
     onError(err) {
       console.error(err);
     },
@@ -68,6 +69,10 @@ export default function UserOverview() {
   const toast = useToast();
 
   const handleWrite = () => {
+    if (isGuest) {
+      showGuestErrorToast();
+      return;
+    }
     const input = inputRef.current;
     input.disabled = false;
     input.focus();
@@ -94,7 +99,7 @@ export default function UserOverview() {
         </UserImg>
         <UserInfo>
           <UserProfile>
-            <UserName>{user?.name}</UserName>
+            <UserName>{isGuest ? "게스트" : user?.name}</UserName>
             <Badge fontSize={12} colorScheme={userBadge?.color}>
               {userBadge?.badge}
             </Badge>

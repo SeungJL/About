@@ -40,7 +40,7 @@ function GatherBlock({
       <Detail>
         <Condition>
           <FontAwesomeIcon icon={faUserCheck} color="var(--font-h4)" />
-          <span>20~29세</span>
+          <span>20~27세</span>
         </Condition>
         <Date>
           <FontAwesomeIcon icon={faCalendarDay} color="var(--font-h4)" />

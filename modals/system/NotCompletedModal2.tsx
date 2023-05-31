@@ -24,13 +24,12 @@ function NotCompletedModal2({
   return (
     <>
       <Layout>
-        <ModalHeaderXLine title="미구현 컨텐츠" setIsModal={setIsModal} />
+        <ModalHeaderXLine title="미완성 컨텐츠" setIsModal={setIsModal} />
         <ModalMain>
-          <ModalSubtitle>아직 서비스하지 않는 컨텐츠 입니다.</ModalSubtitle>
+          <ModalSubtitle>완전히 완성되지 않은 컨텐츠 입니다.</ModalSubtitle>
           <div>
-            아직 완전히 개발되지 않았으나, 이후에 나올 컨텐츠들을 미리 볼 수
-            있도록 공개로 설정을 해두었습니다. 이것저것 해보셔도 전혀
-            상관없습니다.
+            이후에 나올 컨텐츠들을 미리 볼 수 있도록 공개로 설정을 해두었습니다.
+            이것저것 해보셔도 상관없습니다!
           </div>
         </ModalMain>
         <ModalFooterNav>

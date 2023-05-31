@@ -90,11 +90,10 @@ function About() {
       }
     },
   });
-  console.log(voteDate);
+
   useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
-      console.log(data);
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);
@@ -181,29 +180,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   await dbConnect();
-
-  const userData = await User.findOne({ uid: session.uid });
-  const user = JSON.parse(safeJsonStringify(userData));
-
-  if (!isMember(user?.role)) {
-    if (session.role !== user?.role) {
-      context.res.setHeader("Set-Cookie", "next-auth.session-token=deleted");
-
-      return {
-        redirect: {
-          permanent: false,
-          destination: "/login?force_signout=true",
-        },
-      };
-    } else {
-      return {
-        redirect: {
-          permanent: false,
-          destination: "/forbidden",
-        },
-      };
-    }
-  }
 
   return { props: {} };
 };

@@ -1,5 +1,6 @@
 import { faHeart, faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AnyArray } from "mongoose";
 import { useState } from "react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../components/common/Profile/ProfileIconXsOverwrap";
@@ -9,11 +10,10 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IUser } from "../../types/user";
 const VOTER_SHOW_MAX = 7;
-function ReviewStatus() {
+function ReviewStatus({ temp }: { temp?: any }) {
   const data = useUserInfoQuery();
   const [isModal, setIsModal] = useState(false);
-
-  const test = [data];
+  console.log(temp);
   return (
     <>
       <Layout onClick={() => setIsModal(true)}>
@@ -26,14 +26,9 @@ function ReviewStatus() {
           <span>10</span>
         </Item>
         <Profile>
-          {test?.map((user, idx) => (
-            <ProfileContainer key={idx} zIndex={idx}>
-              {/* <ProfileIconXsOverwrap
-              user={user?.data as IUser}
-              isOverlap={idx === VOTER_SHOW_MAX}
-            /> */}
-            </ProfileContainer>
-          ))}
+          <ProfileContainer zIndex={0}>
+            <ProfileIconXsOverwrap user={temp} isOverlap={false} />
+          </ProfileContainer>
         </Profile>
       </Layout>
       {isModal && (

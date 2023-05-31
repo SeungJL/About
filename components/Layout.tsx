@@ -9,11 +9,12 @@ import styled from "styled-components";
 import Script from "next/script";
 import { MainLoading } from "./ui/Loading";
 import { useUserInfoQuery } from "../hooks/user/queries";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { useToken } from "../hooks/token/useToken";
 import axios from "axios";
+import { Button } from "@chakra-ui/react";
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
 config.autoAddCss = false;
@@ -24,6 +25,7 @@ function Layout({ children }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
 
   const isAccessPermission =
     session?.user.name !== "guest" &&
@@ -64,7 +66,24 @@ function Layout({ children }) {
       {loading ? (
         <MainLoading />
       ) : (
-        token && <div id="root-modal">{children}</div>
+        token && (
+          <>
+            <div id="root-modal">{children}</div>
+            {isGuest && (
+              <GuestNav>
+                <span>현재 게스트 로그인을 이용중입니다.</span>
+                <Button
+                  backgroundColor="var(--color-red)"
+                  color="white"
+                  size="sm"
+                  onClick={() => signOut()}
+                >
+                  로그아웃
+                </Button>
+              </GuestNav>
+            )}
+          </>
+        )
       )}
       <Script
         strategy="beforeInteractive"
@@ -78,6 +97,22 @@ function Layout({ children }) {
 const LayoutContainer = styled.div`
   color: var(--font-h1);
   background-color: var(--font-h8);
+`;
+
+const GuestNav = styled.nav`
+  position: fixed;
+  bottom: 0;
+
+  height: 70px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > span:first-child {
+    color: var(--color-red);
+    font-weight: 600;
+    margin-right: 8px;
+  }
 `;
 
 export default Layout;

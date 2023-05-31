@@ -6,7 +6,7 @@ import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 
 import { IUser } from "../../../types/user";
 
-function ProfileIconSm({ user }: { user: IUser }) {
+function ProfileIconSm({ user }: { user: IUser | any }) {
   const avatarType = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
 
@@ -42,6 +42,7 @@ const Layout = styled.div`
   border-radius: 50%;
   display: flex;
   justify-content: center;
+  overflow: hidden;
   align-items: center;
 `;
 

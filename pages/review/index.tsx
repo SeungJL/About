@@ -17,7 +17,12 @@ function Review() {
   const [category, setCateogry] = useState();
   const router = useRouter();
   const url = WEB_URL + router?.asPath;
-
+  const temp = {
+    name: "이승주",
+    profileImage:
+      "https://p.kakaocdn.net/th/talkp/wnRiSzjBU5/8bx7JYsl1lMDmJk4KjnJV0/xukg66_640x640_s.jpg",
+    avatar: { bg: 3, type: 2 },
+  };
   return (
     <>
       <Header title="모임 리뷰">
@@ -33,13 +38,13 @@ function Review() {
         <Main>
           {REVIEW_DATA?.map((item) => (
             <Item key={item.id}>
-              <ReviewItemHeader />
+              <ReviewItemHeader temp={temp} />
               <ImageWrapper>
                 <ImageSlider ImageContainer={item?.images} type="review" />
               </ImageWrapper>
               {/* <ReviewGatherConnection /> */}
               <ReviewContent text={item?.text} />
-              <ReviewStatus />
+              <ReviewStatus temp={temp} />
             </Item>
           ))}
         </Main>

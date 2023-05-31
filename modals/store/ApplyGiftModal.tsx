@@ -43,8 +43,9 @@ function ApplyGiftModal({
         isClosable: true,
         position: "bottom",
       });
+      return;
     }
-    if (myPoint.point < totalCost) {
+    if (myPoint?.point < totalCost) {
       toast({
         title: "실패",
         description: "보유하고 있는 포인트가 부족해요",

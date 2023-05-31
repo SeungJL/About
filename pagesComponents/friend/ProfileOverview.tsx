@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../storage/Avatar";
-import { Badge, Button } from "@chakra-ui/react";
+import { Badge, Button, useToast } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
 import { IAttendence } from "../../types/studyDetails";
@@ -16,9 +16,14 @@ import DetailInfo from "./DetailInfo";
 import ModalPortal from "../../components/ModalPortal";
 import ProfileCard from "../../modals/friend/ProfileCard";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
+import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
+import useCustomToast from "../../components/common/CustomToast";
 
 function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
+
+  const showGuestErrorToast = useCustomToast();
 
   const [info, setInfo] = useState<IUser>(user);
   const [isFriend, setIsFriend] = useState(false);
@@ -42,6 +47,14 @@ function ProfileOverview({ user }: { user?: IUser }) {
 
   const userBadge = userBadgeScore(info?.score);
 
+  const onClickCard = () => {
+    if (isGuest) {
+      showGuestErrorToast();
+      return;
+    }
+    setIsProfileCard(true);
+  };
+
   return (
     <>
       <Layout>
@@ -49,19 +62,7 @@ function ProfileOverview({ user }: { user?: IUser }) {
           <ImageWrapper
             style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
           >
-            {info && (
-              <Image
-                src={
-                  isAvatar
-                    ? `${AVATAR_ICON[avatarType]}`
-                    : `${info?.profileImage}`
-                }
-                width={isAvatar ? 56 : 70}
-                height={isAvatar ? 56 : 70}
-                alt="userProfileLg"
-                unoptimized={true}
-              />
-            )}
+            <ProfileIconLg user={info} size={70} />
           </ImageWrapper>
           <ProfileInfo>
             <div>
@@ -70,7 +71,7 @@ function ProfileOverview({ user }: { user?: IUser }) {
                 {userBadge?.badge}
               </Badge>
             </div>
-            <span>활동중</span>
+            <span>{!isGuest ? "활동중" : "게스트"}</span>
           </ProfileInfo>
           {user && user?.uid !== session?.uid && (
             <HeartWrapper>
@@ -107,7 +108,7 @@ function ProfileOverview({ user }: { user?: IUser }) {
             </Button>
           ) : (
             <Button
-              onClick={() => setIsProfileCard(true)}
+              onClick={onClickCard}
               size="sm"
               border="1px solid var(--font-h6)"
             >
@@ -165,7 +166,6 @@ const ProfileInfo = styled.div`
     > span:first-child {
       font-size: 16px;
       font-weight: 600;
-      margin-right: 6px;
     }
   }
   > span:last-child {
