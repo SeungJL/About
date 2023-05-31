@@ -70,24 +70,6 @@ const Login: NextPage<{
 
   return (
     <>
-      <Head>
-        <meta
-          property="og:url"
-          content={`${process.env.NEXTAUTH_URL}/login${
-            redirectFrom ? `?from=${redirectFrom}` : ""
-          }`}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="About" />
-        <meta property="og:url" content="https://studyabout.herokuapp.com" />
-        <meta property="og:description" content="카공 및 친목 동아리" />
-        <meta property="og:image" content="/ogImage.png" />
-        <meta property="og:locale" content="ko_KR" />
-        <meta
-          property="og:site_name"
-          content="https://studyabout.herokuapp.com"
-        />
-      </Head>
       <Layout>
         <Wrapper>
           <ImageWrapper
