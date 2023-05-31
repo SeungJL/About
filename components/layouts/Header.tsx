@@ -15,7 +15,7 @@ function Header({
   before?: string;
 }) {
   const router = useRouter();
-  console.log(url);
+
   return (
     <Layout>
       <div

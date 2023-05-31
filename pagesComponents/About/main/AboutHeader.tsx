@@ -20,7 +20,7 @@ import { isNoticeAlertState } from "../../../recoil/utilityAtoms";
 
 import { NOTICE_ALERT } from "../../../constants/localStorage";
 import { useSession } from "next-auth/react";
-import { useToast } from "@chakra-ui/react";
+import { background, useToast } from "@chakra-ui/react";
 import UserLogoutModal from "../../../modals/user/UserLogoutModal";
 import PromotionModal from "../../../modals/mainHeader/PromotionModal";
 
@@ -54,16 +54,8 @@ export default function AboutHeader() {
   return (
     <>
       <Layout>
-        <ABOUT>
-          {/* <DrawerWrapper onClick={() => setIsDrawer(true)}>
-            <FontAwesomeIcon icon={faBars} size="lg" />
-          </DrawerWrapper> */}
-          {/* <LogoWrapper>
-         
-            <Image src={`/aboutSm.png`} width={74} height={42} alt="aboutSm" />
-          </LogoWrapper> */}
-          ABOUT
-        </ABOUT>
+        <ABOUT>ABOUT</ABOUT>
+
         <Nav>
           <IconWrapper>
             <FontAwesomeIcon

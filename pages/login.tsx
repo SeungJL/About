@@ -67,7 +67,7 @@ const Login: NextPage<{
   };
 
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
-  console.log(kakaoProvider);
+
   return (
     <>
       <Head>
@@ -120,7 +120,7 @@ const Login: NextPage<{
                 border="1px solid #FEE500"
               >
                 <IconKakao />
-                <span style={{ marginRight: "16px" }}>카카오로 회원가입</span>
+                <span style={{ marginRight: "16px" }}>카카오로 로그인</span>
                 <div />
               </Button>
               <Button
@@ -134,7 +134,7 @@ const Login: NextPage<{
                 게스트 로그인
               </Button>
               <Message>
-                동아리원이 아니신 분은 게스트 로그인을 이용해주세요
+                활동 목적이 아니신 분은 게스트 로그인을 이용해주세요
               </Message>
             </MainWrapper>
           )}
@@ -200,12 +200,10 @@ const GuestModal = ({ setIsModal }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders();
   const session = await getSession({ req: context.req });
-  console.log(session);
-  const returnTo = context.query.from as string;
-  console.log(returnTo);
 
-  
-  if (session) {
+  const returnTo = context.query.from as string;
+
+  if (session && returnTo !== "back") {
     if (returnTo) {
       return {
         redirect: {

@@ -1,36 +1,47 @@
 import { faHeart, faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../components/common/Profile/ProfileIconXsOverwrap";
+import ModalPortal from "../../components/ModalPortal";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IUser } from "../../types/user";
 const VOTER_SHOW_MAX = 7;
 function ReviewStatus() {
   const data = useUserInfoQuery();
+  const [isModal, setIsModal] = useState(false);
 
-  const test = [data, data, data, data, data];
+  const test = [data];
   return (
-    <Layout>
-      <Item>
-        <FontAwesomeIcon icon={faHeart} size="xl" />
-        <span>10</span>
-      </Item>
-      <Item>
-        <FontAwesomeIcon icon={faMessage} size="xl" />
-        <span>10</span>
-      </Item>
-      <Profile>
-        {test?.map((user, idx) => (
-          <ProfileContainer key={idx} zIndex={idx}>
-            <ProfileIconXsOverwrap
+    <>
+      <Layout onClick={() => setIsModal(true)}>
+        <Item>
+          <FontAwesomeIcon icon={faHeart} size="xl" />
+          <span>100</span>
+        </Item>
+        <Item>
+          <FontAwesomeIcon icon={faMessage} size="xl" />
+          <span>10</span>
+        </Item>
+        <Profile>
+          {test?.map((user, idx) => (
+            <ProfileContainer key={idx} zIndex={idx}>
+              {/* <ProfileIconXsOverwrap
               user={user?.data as IUser}
               isOverlap={idx === VOTER_SHOW_MAX}
-            />
-          </ProfileContainer>
-        ))}
-      </Profile>
-    </Layout>
+            /> */}
+            </ProfileContainer>
+          ))}
+        </Profile>
+      </Layout>
+      {isModal && (
+        <ModalPortal setIsModal={setIsModal}>
+          <NotCompletedModal setIsModal={setIsModal} />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 

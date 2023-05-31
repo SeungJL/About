@@ -29,7 +29,7 @@ function StudySpaceControl() {
   };
   const onAddSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form data:", addRequestForm);
+    
   };
 
   const [btnIdx, setBtnIdx] = useState<number>();

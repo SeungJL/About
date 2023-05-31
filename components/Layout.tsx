@@ -11,9 +11,16 @@ import { MainLoading } from "./ui/Loading";
 import { useUserInfoQuery } from "../hooks/user/queries";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import { useToken } from "../hooks/token/useToken";
+import axios from "axios";
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
+config.autoAddCss = false;
+
 function Layout({ children }) {
+  const token = useToken();
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
@@ -22,9 +29,9 @@ function Layout({ children }) {
     session?.user.name !== "guest" &&
     router.pathname.slice(0, 6) !== "/login" &&
     router.pathname.slice(0, 9) !== "/register";
-  console.log(router);
+
   useUserInfoQuery({
-    enabled: isAccessPermission,
+    enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
       if (!data?.birth && isAccessPermission) router.push("/register/location");
     },
@@ -57,16 +64,13 @@ function Layout({ children }) {
       {loading ? (
         <MainLoading />
       ) : (
-        <>
-          <div id="root-modal">{children}</div>
-
-          <Script
-            strategy="beforeInteractive"
-            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
-          />
-          <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
-        </>
+        token && <div id="root-modal">{children}</div>
       )}
+      <Script
+        strategy="beforeInteractive"
+        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
+      />
+      <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
     </LayoutContainer>
   );
 }

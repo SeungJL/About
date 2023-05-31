@@ -18,7 +18,7 @@ function CheckRegisterModal({
 }) {
   const { mutate: approve } = useApproveMutation({
     onSuccess() {
-      console.log("success");
+    
     },
     onError(err) {
       console.error(err);
@@ -26,7 +26,7 @@ function CheckRegisterModal({
   });
   const { mutate: deleteR } = useDeleteRegisterMutation({
     onSuccess() {
-      console.log("suc");
+    
     },
   });
 
@@ -34,7 +34,7 @@ function CheckRegisterModal({
     approve({ uid: applicant?.uid });
     setIsModal(false);
   };
-  console.log(applicant);
+
   return (
     <Layout>
       <ModalHeaderX title={applicant?.name} setIsModal={setIsModal} />

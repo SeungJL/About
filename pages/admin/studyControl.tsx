@@ -42,11 +42,11 @@ function StudyControl() {
   
 
   const handleStatus = (type: Status) => {
-    console.log(type);
+    
   };
 
   const handleDeleteUser = (who: IAttendence) => {
-    console.log(who);
+   
   };
 
   return (

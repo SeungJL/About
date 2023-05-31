@@ -50,7 +50,7 @@ function VoteStudyMainModal({
   const studyDate = useRecoilValue(studyDateState);
 
   const [errorMessage, setErrorMessage] = useState("");
-  console.log(studyDate);
+
   const { data: vote } = useVoteQuery(voteDate, location, {
     enabled: true,
     onError: (err) => {

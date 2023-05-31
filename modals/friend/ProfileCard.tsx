@@ -29,7 +29,7 @@ function ProfileCard({
   const router = useRouter();
   const { data: user } = useUserInfoQuery();
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
-  console.log(user);
+ 
 
   const onClickModify = () => {
     setIsProfileEdit(true);

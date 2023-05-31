@@ -18,7 +18,7 @@ function Gender() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<Gender>(registerForm?.gender);
-  console.log(gender);
+  
   const onClickNext = () => {
     if (!gender) {
       setErrorMessage("성별을 선택해 주세요.");

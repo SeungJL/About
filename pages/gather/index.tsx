@@ -40,7 +40,7 @@ function Gather() {
         <Layout>
           <Seo title="Gather" />
           <Header title="모임">
-            <Review onClick={() => setA(true)}>
+            <Review onClick={() => router.push(`/review`)}>
               <span>모임 후기</span>
               <FontAwesomeIcon icon={faRightLong} />
             </Review>

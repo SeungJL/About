@@ -1,31 +1,23 @@
-import "../styles/globals.css";
+import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
+
+import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Script from "next/script";
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { RecoilRoot } from "recoil";
 import "nprogress/nprogress.css";
 import "../styles/variable.css";
 
 import Head from "next/head";
-import { config } from "@fortawesome/fontawesome-svg-core";
+
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Layout from "../components/Layout";
 import theme from "../theme";
 import axios from "axios";
-import { getToken } from "next-auth/jwt";
 import { useToken } from "../hooks/token/useToken";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useUserInfoQuery } from "../hooks/user/queries";
-
-config.autoAddCss = false;
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const token = useToken();
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
   const queryClient = useMemo(
     () =>
       new QueryClient({
@@ -39,7 +31,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     []
   );
 
-  return token ? (
+  return (
     <>
       <Head>
         <meta
@@ -51,16 +43,16 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <SessionProvider session={session}>
           <RecoilRoot>
             <ChakraProvider theme={theme}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              {
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              }
             </ChakraProvider>
           </RecoilRoot>
         </SessionProvider>
       </QueryClientProvider>
     </>
-  ) : (
-    <></>
   );
 }
 

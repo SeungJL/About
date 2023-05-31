@@ -44,7 +44,7 @@ function Message() {
 
   const InputIdx = MESSAGE_DATA?.length;
 
-  console.log(42, isProfileEdit);
+
   
   const onClickNext = async () => {
     if (index === null && value === "") {

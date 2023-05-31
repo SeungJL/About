@@ -45,7 +45,7 @@ function Fee() {
 
   const { mutate } = useRegisterMutation({
     onSuccess() {
-      console.log("register success", registerForm);
+      
     },
     onError(error) {
       console.error(error);

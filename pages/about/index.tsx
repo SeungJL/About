@@ -117,7 +117,7 @@ function About() {
 
   useEffect(() => {
     if (!isLoading) setIsMainLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   return (

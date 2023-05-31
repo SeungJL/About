@@ -37,7 +37,7 @@ export default function UserOverview() {
       setValue(data?.comment);
     },
   });
-  console.log(user);
+ 
   const { mutate: onChangeComment } = useCommentMutation();
   // const { data: comments, isLoading } = useCommentQuery();
 
@@ -47,10 +47,10 @@ export default function UserOverview() {
       console.error(error);
     },
   });
-  console.log(value);
+
   const { mutate: approve } = useApproveMutation({
     onSuccess() {
-      console.log("success");
+      
     },
     onError(err) {
       console.error(err);

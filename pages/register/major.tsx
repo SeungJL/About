@@ -19,7 +19,7 @@ function Major() {
   const router = useRouter();
   const toast = useToast();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-  console.log(registerForm);
+ 
   const [errorMessage, setErrorMessage] = useState("");
   const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
 

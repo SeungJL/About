@@ -102,7 +102,7 @@ function WritingCondition() {
       user: data,
     }));
 
-    console.log(gatherContent);
+
 
     setIsSuccessModal(true);
   };

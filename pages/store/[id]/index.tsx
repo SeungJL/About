@@ -35,7 +35,7 @@ function StoreItem() {
   const { isLoading } = useStoreQuery(info?.giftId, {
     enabled: info !== undefined,
     onSuccess(data) {
-      console.log(data);
+     
       const temp = data?.users.filter((who) => who.cnt > 0 && who?.uid !== "7");
       setApplyData(temp);
     },

@@ -8,22 +8,37 @@ import ReviewGatherConnection from "../../pagesComponents/Review/ReviewGatherCon
 import ReviewContent from "../../pagesComponents/Review/ReviewContent";
 import ReviewStatus from "../../pagesComponents/Review/ReviewStatus";
 import ReviewCategory from "../../pagesComponents/Review/ReviewCategory";
+import { REVIEW_DATA } from "../../storage/Review";
+import KakaoShareBtn from "../../components/utils/KakaoShare";
+import { useRouter } from "next/router";
+import { WEB_URL } from "../../constants/system";
 
 function Review() {
   const [category, setCateogry] = useState();
-  const A = [1, 2];
+  const router = useRouter();
+  const url = WEB_URL + router?.asPath;
+
   return (
     <>
-      <Header title="모임 리뷰" />
+      <Header title="모임 리뷰">
+        <KakaoShareBtn
+          title="모임 리뷰"
+          subtitle="5/26 파티룸"
+          url={url}
+          img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
+        />
+      </Header>
       <Layout>
         <ReviewCategory category={category} setCategory={setCateogry} />
         <Main>
-          {A?.map((item) => (
-            <Item key={item}>
+          {REVIEW_DATA?.map((item) => (
+            <Item key={item.id}>
               <ReviewItemHeader />
-              <ImageSlider />
-              <ReviewGatherConnection />
-              <ReviewContent />
+              <ImageWrapper>
+                <ImageSlider ImageContainer={item?.images} type="review" />
+              </ImageWrapper>
+              {/* <ReviewGatherConnection /> */}
+              <ReviewContent text={item?.text} />
               <ReviewStatus />
             </Item>
           ))}
@@ -39,6 +54,11 @@ const Main = styled.main`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+`;
+
+const ImageWrapper = styled.div`
+  width: 100vw;
+  height: 100vw;
 `;
 
 const Item = styled.div`

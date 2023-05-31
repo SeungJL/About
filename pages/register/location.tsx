@@ -25,12 +25,11 @@ function Location() {
   const [location, setLocation] = useState<Location>(registerForm?.location);
   const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(isProfileEdit);
 
   useUserInfoQuery({
     enabled: isProfileEdit,
     onSuccess(data) {
-      console.log(5);
+   
       const {
         location,
         name,
@@ -85,7 +84,7 @@ function Location() {
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
           <ProgressLayout value={10} />
-          <Header title="회원가입" url="/login" />
+          <Header title="회원가입" url="/login?from=back" />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
               <span>지역을 선택해 주세요</span>

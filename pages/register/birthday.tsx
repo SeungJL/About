@@ -19,7 +19,7 @@ import { motion } from "framer-motion";
 function Birthday() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
-  console.log(registerForm);
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const initialDate = new Date(2000, 0, 1);
@@ -40,7 +40,7 @@ function Birthday() {
       +defaultBirth?.slice(4, 6) - 1,
       +defaultBirth?.slice(6)
     );
-  console.log(birth, defaultBirth, defaultBirthDate);
+
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
   const onClickNext = () => {

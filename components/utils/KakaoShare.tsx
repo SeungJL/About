@@ -2,6 +2,7 @@ import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect } from "react";
 import styled from "styled-components";
+import { REVIEW_DATA } from "../../storage/Review";
 import { SQUARE_RANDOM_IMAGE } from "../../storage/SquareRandomImage";
 
 interface Kakao {
@@ -26,7 +27,7 @@ function KakaoShareBtn({
   location,
   url,
 }: {
-  type: string;
+  type?: string;
   title: string;
   subtitle: string;
   img?: string;
@@ -106,10 +107,22 @@ function KakaoShareBtn({
                 },
               ],
             }
-          : null;
+          : {
+              container: "#kakao-share-button",
+              objectType: "feed",
+              content: {
+                title,
+                description: subtitle,
+                imageUrl: REVIEW_DATA[0]?.images[0],
+                link: {
+                  mobileWebUrl: url,
+                  webUrl: url,
+                },
+              },
+            };
       window.Kakao.Link.createDefaultButton(options);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
