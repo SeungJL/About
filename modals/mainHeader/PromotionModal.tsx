@@ -42,7 +42,7 @@ function PromotionModal({
           <WinDate>당첨자 발표: 5월 31일</WinDate>
         </ModalMain>
         <Footer>
-          <Button>안할래 :(</Button>
+          <Button onClick={() => setIsModal(false)}>안할래 :(</Button>
           <Button
             backgroundColor="var(--color-mint)"
             color="white"
