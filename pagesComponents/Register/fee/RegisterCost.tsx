@@ -14,7 +14,7 @@ function RegisterCost({ isSecond }: { isSecond?: boolean }) {
 
       <div>
         <span>총 금액</span>
-        <span>= {isSecond ? "+4000원" : "+5000원"}</span>
+        <span>= {isSecond ? "4000원" : "5000원"}</span>
       </div>
     </Layout>
   );

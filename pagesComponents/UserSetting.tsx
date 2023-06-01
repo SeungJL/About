@@ -30,7 +30,6 @@ export default function UserSetting() {
   const [location, setLocation] = useRecoilState(locationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
   const setNumOfUser = useSetRecoilState(numOfUserState);
-  const [isRegisterModal, setIsRegisterModal] = useState(false);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isUserGuide, setIsUserGuide] = useState(false);
   const [isSuggest, setIsSuggest] = useState(false);
@@ -60,13 +59,6 @@ export default function UserSetting() {
   }, [isLoading, isGuest, location]);
 
   useEffect(() => {
-    if (isGuest === false && isActive !== undefined && !isActive)
-      setIsRegisterModal(true);
-    else setIsRegisterModal(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session, isActive, isActiveLoading]);
-
-  useEffect(() => {
     if (isGuest) return;
     if (!localStorage.getItem(ATTEND_POP_UP)) {
       setIsAttendPopup(true);
@@ -75,6 +67,9 @@ export default function UserSetting() {
     if (!localStorage.getItem(PROFILE_POP_UP) && !userData?.majors?.length) {
       setIsProfile(true);
       localStorage.setItem(PROFILE_POP_UP, "read");
+    }
+    if (!localStorage.getItem(NOTICE_ALERT)) {
+      setIsNoticeAlert(true);
     }
   }, [isGuest]);
 

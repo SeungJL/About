@@ -44,9 +44,7 @@ function Fee() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { mutate } = useRegisterMutation({
-    onSuccess() {
-      
-    },
+    onSuccess() {},
     onError(error) {
       console.error(error);
     },
@@ -103,7 +101,8 @@ function Fee() {
           </div>
         </Cost>
         <Account>
-          <span style={{ width: "80px" }}>입금 계좌</span>
+          운영진에게 연락을 받은 후 납부해야 할 금액입니다!
+          {/* <span style={{ width: "80px" }}>입금 계좌</span>
           <div>
             {ACCOUNT_SHORT}
             <span
@@ -112,9 +111,9 @@ function Fee() {
             >
               <FontAwesomeIcon icon={faCopy} />
             </span>
-          </div>
+          </div> */}
         </Account>
-        <Message>입금 후에 완료 버튼을 눌러주세요!</Message>
+        <Message>현재 페이지에서는 가입 신청만 진행됩니다.</Message>
         <Telephone>
           <span> 연락받을 연락처:</span> {registerForm?.telephone}
           <Message>연락처를 한번 더 확인해 주세요!</Message>
@@ -159,7 +158,7 @@ function Fee() {
                   textAlign="left"
                   height="28px"
                 >
-                  Q. 입금 후에 어떻게 하나요?
+                  Q. 신청 후에 어떻게 하나요?
                 </Flex>
                 <AccordionIcon />
               </AccordionButton>
@@ -259,7 +258,7 @@ function Fee() {
           </AccordionItem>
         </Accordion>
       </RegisterLayout>
-      <BottomNav onClick={onClickNext} text="입금완료" />
+      <BottomNav onClick={onClickNext} text="신청완료" />
     </>
   );
 }
@@ -293,15 +292,11 @@ const Cost = styled.div`
 
 const Account = styled.div`
   margin-bottom: 4px;
-  display: flex;
 
-  > span:first-child {
-    font-size: 14px;
-    display: inline-block;
-    width: 100px;
-    font-weight: 600;
-    color: var(--font-h1);
-  }
+  font-size: 14px;
+
+  font-weight: 600;
+  color: var(--font-h1);
 `;
 
 const Message = styled.div`
