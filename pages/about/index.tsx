@@ -34,7 +34,7 @@ import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
 import { MainLoading } from "../../components/ui/Loading";
 import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpperBar";
 import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
-import AboutOverview from "../../pagesComponents/About/main/AboutOverview";
+
 import AboutNavigation from "../../pagesComponents/About/main/AboutOverview";
 
 function About() {
@@ -54,7 +54,7 @@ function About() {
 
   useEffect(() => {
     if (isGuest) {
-      if (dayjs().hour() >= 20) {
+      if (dayjs().hour() >= 18) {
         setVoteDate(getInterestingDate());
       } else setVoteDate(dayjs());
       return;
