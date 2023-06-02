@@ -11,6 +11,7 @@ import ModalPortal from "../../../components/ModalPortal";
 import { MainLoading } from "../../../components/ui/Loading";
 import { useStoreQuery } from "../../../hooks/store/queries";
 import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
+import GiftWinnerModal from "../../../modals/store/GiftWinnerModal";
 import StoreNavigation from "../../../pagesComponents/store/item/StoreNavigation";
 import { STORE_GIFT } from "../../../storage/Store";
 import { IStoreApplicant, IStoreGift } from "../../../types/store";
@@ -19,6 +20,7 @@ function StoreItem() {
   const router = useRouter();
   const itemId = Number(router.query?.id);
 
+  const [isWinModal, setIsWinModal] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [applyData, setApplyData] = useState<IStoreApplicant[]>([]);
 
@@ -35,13 +37,14 @@ function StoreItem() {
   const { isLoading } = useStoreQuery(info?.giftId, {
     enabled: info !== undefined,
     onSuccess(data) {
-     
       const temp = data?.users.filter((who) => who.cnt > 0 && who?.uid !== "7");
       setApplyData(temp);
     },
   });
 
   const totalApply = applyData?.reduce((acc, cur) => acc + cur.cnt, 0);
+
+  const isCompleted = totalApply === info?.max;
 
   return (
     <>
@@ -58,6 +61,11 @@ function StoreItem() {
               unoptimized={true}
               src={`${info?.image}`}
             />
+            {isCompleted && (
+              <CompletedRapple>
+                <Circle>추첨 완료</Circle>
+              </CompletedRapple>
+            )}
           </ImageWrapper>
           <Overview>
             <span>{info?.name}</span>
@@ -73,9 +81,19 @@ function StoreItem() {
               <Button size="lg" width="50%" onClick={onToggle}>
                 참여현황
               </Button>
-              <Button size="lg" width="50%" onClick={() => setIsModal(true)}>
-                응모하기
-              </Button>
+              {isCompleted ? (
+                <Button
+                  size="lg"
+                  width="50%"
+                  onClick={() => setIsWinModal(true)}
+                >
+                  당첨자 확인
+                </Button>
+              ) : (
+                <Button size="lg" width="50%" onClick={() => setIsModal(true)}>
+                  응모하기
+                </Button>
+              )}
             </div>
           </Nav>
           <Collapse in={isOpen} animateOpacity>
@@ -133,10 +151,44 @@ function StoreItem() {
           <ApplyGiftModal setIsModal={setIsModal} giftInfo={info} />
         </ModalPortal>
       )}
+      {isWinModal && (
+        <ModalPortal setIsModal={setIsWinModal}>
+          <GiftWinnerModal
+            setIsModal={setIsWinModal}
+            applyData={applyData}
+            win={info.winner}
+          />
+        </ModalPortal>
+      )}
     </>
   );
 }
+const CompletedRapple = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0.8;
+`;
+const Circle = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border: 2px solid var(--font-h1);
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
 
+  font-weight: 800;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+`;
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
@@ -146,6 +198,7 @@ const Layout = styled.div`
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
   align-items: center;
 `;
 const Overview = styled.div`

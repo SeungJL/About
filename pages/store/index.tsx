@@ -23,7 +23,6 @@ function Store() {
 
   const { isLoading } = useStoreAllQuery({
     onSuccess(data) {
-     
       const temp = new Array(6).fill(0);
       data?.users.forEach((who) => {
         const giftIdx = Number(who?.giftId);
@@ -47,8 +46,9 @@ function Store() {
         {STORE_GIFT?.map((item, idx) => {
           const winTemp = [];
           for (let i = 0; i < item?.winner; i++) winTemp.push(i);
+
           return (
-            <Item key={idx}>
+            <Item key={idx} onClick={() => router.push(`/store/${idx}`)}>
               <Status>
                 <div>
                   {winTemp?.map((win) => (
@@ -72,12 +72,15 @@ function Store() {
                   alt="storeGift"
                   unoptimized={true}
                   src={item.image}
-                  onClick={() => router.push(`/store/${idx}`)}
-                />
+                />{" "}
+                {item?.max === applyNum[idx] && <Circle>추첨 완료</Circle>}
               </ImageWrapper>
               <Name>{item.name}</Name>
 
               <Point>{item.point} point</Point>
+              {item?.max === applyNum[idx] && (
+                <CompletedRapple></CompletedRapple>
+              )}
             </Item>
           );
         })}
@@ -99,6 +102,34 @@ function Store() {
     </>
   );
 }
+
+const CompletedRapple = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0.8;
+`;
+
+const Circle = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border: 2px solid var(--font-h1);
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 800;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+`;
 
 const Status = styled.div`
   position: absolute;
@@ -127,17 +158,7 @@ const Status = styled.div`
 
 const ImageWrapper = styled.div`
   margin-top: 8px;
-`;
-
-const Circle = styled.div`
-  padding: 2px;
-  width: 24px;
-  height: 24px;
-  text-align: center;
-  font-weight: 600;
-
-  border: 1.5px solid var(--font-h1);
-  border-radius: 50%;
+  position: relative;
 `;
 
 const Layout = styled.div`
@@ -158,22 +179,8 @@ const Item = styled.div`
   border-radius: var(--border-radius);
 `;
 
-const Info = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  align-items: center;
-`;
-
 const Name = styled.span`
   font-weight: 600;
-`;
-
-const Date = styled.span`
-  font-size: 13px;
-  color: var(--font-h2);
 `;
 
 const Point = styled.span`
