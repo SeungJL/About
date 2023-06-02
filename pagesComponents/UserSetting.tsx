@@ -34,11 +34,16 @@ export default function UserSetting() {
   const [isUserGuide, setIsUserGuide] = useState(false);
   const [isSuggest, setIsSuggest] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
+  const [myProfileNull, setMyProfileNull] = useState(false);
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const { data: userData, isLoading } = useUserInfoQuery({
     enabled: isGuest === false,
+    onSuccess(data) {
+      console.log(data);
+      if (!data?.majors?.length) setMyProfileNull(true);
+    },
     onError(error) {
       console.error(error);
     },
@@ -59,19 +64,22 @@ export default function UserSetting() {
   }, [isLoading, isGuest, location]);
 
   useEffect(() => {
-    if (isGuest) return;
-    if (!localStorage.getItem(ATTEND_POP_UP)) {
-      setIsAttendPopup(true);
-      localStorage.setItem(ATTEND_POP_UP, "read");
+    if (!isLoading) {
+      if (isGuest) return;
+      if (!localStorage.getItem(ATTEND_POP_UP)) {
+        setIsAttendPopup(true);
+        localStorage.setItem(ATTEND_POP_UP, "read");
+      }
+      if (!localStorage.getItem(PROFILE_POP_UP) && !userData?.majors?.length) {
+        console.log(userData?.majors, isLoading);
+        setIsProfile(true);
+        localStorage.setItem(PROFILE_POP_UP, "read");
+      }
+      if (!localStorage.getItem(NOTICE_ALERT)) {
+        setIsNoticeAlert(true);
+      }
     }
-    if (!localStorage.getItem(PROFILE_POP_UP) && !userData?.majors?.length) {
-      setIsProfile(true);
-      localStorage.setItem(PROFILE_POP_UP, "read");
-    }
-    if (!localStorage.getItem(NOTICE_ALERT)) {
-      setIsNoticeAlert(true);
-    }
-  }, [isGuest]);
+  }, [isGuest, isLoading]);
 
   // useEffect(() => {
   //   if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);

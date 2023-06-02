@@ -30,7 +30,7 @@ function GiftWinnerModal({
   win: number;
 }) {
   const { data: session } = useSession();
-  console.log(4, applyData);
+
   const [winner, setWinner] = useState([]);
 
   useEffect(() => {
@@ -78,19 +78,19 @@ const Message = styled.div`
   font-weight: 600;
   font-size: 15px;
   color: var(--font-h2);
-  margin-top: 6px;
-  margin-bottom: 24px;
+  margin-top: 12px;
+  margin-bottom: 30px;
 `;
 
 const Main = styled.main`
   display: flex;
   padding: 0 14px;
   align-items: center;
-  background-color: RGB(204, 239, 230);
+
   flex: 1;
   border-radius: var(--border-radius);
   justify-content: space-around;
-  border: 1px solid var(--color-mint);
+  border: 1.5px solid var(--color-mint);
 `;
 
 const Win = styled.div`
