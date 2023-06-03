@@ -60,12 +60,7 @@ function GiftWinnerModal({
         </Main>
       </ModalMain>
       <ModalFooterNav>
-        <button
-          style={{ color: "var(--font-h1)" }}
-          onClick={() => setIsModal(false)}
-        >
-          확인
-        </button>
+        <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
     </Layout>
   );
@@ -90,13 +85,14 @@ const Main = styled.main`
   flex: 1;
   border-radius: var(--border-radius);
   justify-content: space-around;
-  border: 1.5px solid var(--color-mint);
+  border: 1.5px solid var(--font-h4);
+  background-color: var(--font-h5);
 `;
 
 const Win = styled.div`
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-mint);
+  color: var(--font-h2);
 `;
 
 const Footer = styled.footer``;

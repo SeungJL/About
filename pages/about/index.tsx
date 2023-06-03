@@ -94,6 +94,7 @@ function About() {
   useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
+      console.log(data);
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);
