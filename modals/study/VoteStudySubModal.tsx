@@ -25,6 +25,8 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
+import { SPACE_LOCATION } from "../../storage/study";
+import { useRouter } from "next/dist/client/router";
 
 interface IVoteStudySubModal {
   isModal: boolean;
@@ -43,7 +45,9 @@ function VoteStudySubModal({
 }: IVoteStudySubModal) {
   const queryClient = useQueryClient();
   const toast = useToast();
-  const location = useRecoilValue(locationState);
+  const router = useRouter();
+  const spaceID = router.query.studySpace;
+  const location = SPACE_LOCATION[spaceID as string];
   const studyDate = useRecoilValue(studyDateState);
 
   const isVoting = useRecoilValue(isVotingState);
@@ -55,9 +59,10 @@ function VoteStudySubModal({
   });
 
   const [otherPlaceArr, setOtherPlaceArr] = useState<IPlace[]>();
-
+  console.log(voteDate, location);
   useVoteQuery(voteDate, location, {
     onSuccess(data) {
+      console.log(2);
       setOtherPlaceArr(
         data?.participations
           .filter((par) => par.place != place)
@@ -117,6 +122,7 @@ function VoteStudySubModal({
       });
       return;
     }
+
     if (studyDate === "not passed") setIsFirst(false);
     else onSubmit();
   };

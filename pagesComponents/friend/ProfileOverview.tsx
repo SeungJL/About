@@ -17,13 +17,13 @@ import ModalPortal from "../../components/ModalPortal";
 import ProfileCard from "../../modals/friend/ProfileCard";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
-import useCustomToast from "../../components/common/CustomToast";
+import { useFailToast } from "../../components/common/CustomToast";
 
 function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const showGuestErrorToast = useCustomToast();
+  const showGuestErrorToast = useFailToast();
 
   const [info, setInfo] = useState<IUser>(user);
   const [isFriend, setIsFriend] = useState(false);

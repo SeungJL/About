@@ -27,7 +27,6 @@ import { ACCOUNT, ACCOUNT_SHORT } from "../../constants/private";
 import { useSession } from "next-auth/react";
 import {
   useApproveMutation,
-  useDeleteRegisterMutation,
   useRegisterMutation,
 } from "../../hooks/user/mutations";
 import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";

@@ -55,7 +55,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
     event.stopPropagation();
     onClickWriteBtn(user);
   };
-
+  console.log(attendances);
   return (
     <>
       <Layout key={router.asPath}>

@@ -8,6 +8,7 @@ function SpaceSelector({
   selectSpace,
   setSelectSpace,
 }: ISpaceSelector) {
+  console.log(spaceArr);
   const onSpaceClicked = (space: IPlace) => {
     setSelectSpace((old) => {
       if (Array.isArray(old) && old.includes(space))

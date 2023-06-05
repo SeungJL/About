@@ -4,7 +4,8 @@ import { motion, useMotionValue } from "framer-motion";
 
 import { useRecoilValue } from "recoil";
 import { voteDateState } from "../../recoil/studyAtoms";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import { useRouter } from "next/dist/client/router";
 
 const ITEM_HEIGHT = 34;
 interface ITimeRullet {
@@ -13,7 +14,9 @@ interface ITimeRullet {
 }
 
 function TimeRullet({ timeArr, setTime }: ITimeRullet) {
-  const voteDate = useRecoilValue(voteDateState);
+  const router = useRouter();
+  const voteDate = dayjs(router.query.date as string);
+
   const [index, setIndex] = useState(2);
 
   useEffect(() => {
@@ -22,7 +25,7 @@ function TimeRullet({ timeArr, setTime }: ITimeRullet) {
       voteDate?.hour(Number(selectTime.hour)).minute(Number(selectTime.minutes))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, voteDate]);
+  }, [index]);
 
   const y = useMotionValue(0);
 

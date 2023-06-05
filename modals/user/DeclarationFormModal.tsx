@@ -21,6 +21,7 @@ import { usePlazaMutation } from "../../hooks/plaza/mutations";
 
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import { useCompleteToast } from "../../components/common/CustomToast";
 
 function DeclarationFormModal({
   setIsModal,
@@ -28,6 +29,7 @@ function DeclarationFormModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const [isRealName, setIsRealName] = useState(true);
+  const completeToast = useCompleteToast();
   const { data: session } = useSession();
   const {
     register,
@@ -35,7 +37,11 @@ function DeclarationFormModal({
     formState: { errors },
   } = useForm();
 
-  const { mutate: DeclarationForm } = usePlazaMutation();
+  const { mutate: DeclarationForm } = usePlazaMutation({
+    onSuccess() {
+      completeToast();
+    },
+  });
   const { mutate: getScores } = usePointMutation();
 
   const onValid = (data) => {

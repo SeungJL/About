@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import styled from "styled-components";
 
-export const useCustomToast = () => {
+export const useFailToast = () => {
   const toast = useToast();
 
   const showGuestRestrictionToast = () => {
@@ -17,13 +17,13 @@ export const useCustomToast = () => {
   return showGuestRestrictionToast;
 };
 
-export const useCompleteToast = (text: string) => {
+export const useCompleteToast = (text?: string) => {
   const toast = useToast();
 
   const showGuestRestrictionToast = () => {
     toast({
       title: "성공",
-      description: text,
+      description: text || "정상적으로 처리되었습니다.",
       status: "success",
       duration: 3000,
       isClosable: true,

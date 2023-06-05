@@ -24,6 +24,7 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
+import { useCompleteToast } from "../../components/common/CustomToast";
 
 function SuggestModal({
   setIsModal,
@@ -32,13 +33,18 @@ function SuggestModal({
 }) {
   const [isRealName, setIsRealName] = useState(true);
   const { data: session } = useSession();
+  const completeToast = useCompleteToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { mutate: suggestForm } = usePlazaMutation();
+  const { mutate: suggestForm } = usePlazaMutation({
+    onSuccess() {
+      completeToast();
+    },
+  });
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
 

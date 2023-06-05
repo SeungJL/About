@@ -43,11 +43,9 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <SessionProvider session={session}>
           <RecoilRoot>
             <ChakraProvider theme={theme}>
-              {
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              }
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </ChakraProvider>
           </RecoilRoot>
         </SessionProvider>

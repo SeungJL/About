@@ -31,9 +31,10 @@ function StudySpace() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const spaceID = router.query.studySpace;
   const voteDate = dayjs(router.query.date as string);
+  const spaceID = router.query.studySpace;
   const location = SPACE_LOCATION[spaceID as string];
+  
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const { data: vote, isLoading } = useVoteQuery(voteDate, location, {
     enabled: true,
@@ -48,7 +49,6 @@ function StudySpace() {
       });
     },
   });
-
 
   const { place, attendences, status } =
     vote?.participations?.find((props) => props.place._id === spaceID) || {};

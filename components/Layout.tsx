@@ -24,13 +24,15 @@ function Layout({ children }) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [isServer, setIsServer] = useState(false);
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
   const isAccessPermission =
     session?.user.name !== "guest" &&
     router.pathname.slice(0, 6) !== "/login" &&
-    router.pathname.slice(0, 9) !== "/register";
+    router.pathname.slice(0, 9) !== "/register" &&
+    router.asPath !== "/checkingServer";
 
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
@@ -39,7 +41,8 @@ function Layout({ children }) {
     },
     onError() {
       if (!session) router.push("/login");
-      else router.push("/register/location");
+      else router.push("/checkingServer");
+      // else router.push("/register/location");
     },
   });
 

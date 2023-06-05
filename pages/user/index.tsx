@@ -56,7 +56,8 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
-import useCustomToast from "../../components/common/CustomToast";
+import { useFailToast } from "../../components/common/CustomToast";
+
 function UserInfo() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -66,7 +67,7 @@ function UserInfo() {
 
   const isAdmin = session?.role === "previliged";
   const isGuest = session?.user?.name === "guest";
-  const showGuestErrorToast = useCustomToast();
+  const showGuestErrorToast = useFailToast();
   const { data: myPoint } = usePointQuery({ enabled: !isGuest });
   const { data: myDeposit } = useDepositQuery({ enabled: !isGuest });
 

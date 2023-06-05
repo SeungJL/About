@@ -26,14 +26,14 @@ import { useRecoilValue } from "recoil";
 import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
 import ModalPortal from "../../components/ModalPortal";
 import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
-import useCustomToast from "../../components/common/CustomToast";
+import { useFailToast } from "../../components/common/CustomToast";
 
 export default function UserOverview() {
   const [value, setValue] = useState("안녕하세요! 잘 부탁드려요 ㅎㅎ");
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const inputRef = useRef<HTMLInputElement>(null);
-  const showGuestErrorToast = useCustomToast();
+  const showGuestErrorToast = useFailToast();
 
   const { data: user } = useUserInfoQuery({
     onSuccess(data) {
