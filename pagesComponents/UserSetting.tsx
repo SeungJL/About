@@ -12,6 +12,8 @@ import {
   ATTEND_POP_UP,
   NOTICE_ALERT,
   PROFILE_POP_UP,
+  PROMOTION_POP_UP1,
+  PROMOTION_POP_UP2,
   USER_GUIDE,
 } from "../constants/localStorage";
 import { IUser } from "../types/user";
@@ -21,6 +23,8 @@ import { usePlazaDataQuery } from "../hooks/plaza/queries";
 import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
 import SuggestPopUp from "../modals/pop-up/SuggestPopUp";
 import ProfileModifyPopUp from "../modals/pop-up/ProfileModifyPopUp";
+import { Modal } from "@chakra-ui/react";
+import PromotionModal from "../modals/mainHeader/PromotionModal";
 
 export default function UserSetting() {
   const { data: session } = useSession();
@@ -35,6 +39,7 @@ export default function UserSetting() {
   const [isSuggest, setIsSuggest] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
   const [myProfileNull, setMyProfileNull] = useState(false);
+  const [isPromotion, setIsPromotion] = useState(false);
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
@@ -76,6 +81,14 @@ export default function UserSetting() {
       if (!localStorage.getItem(NOTICE_ALERT)) {
         setIsNoticeAlert(true);
       }
+      if (!localStorage.getItem(PROMOTION_POP_UP1)) {
+        setIsPromotion(true);
+        localStorage.setItem(PROMOTION_POP_UP1, "read");
+      }
+      if (!localStorage.getItem(PROMOTION_POP_UP2)) {
+        setIsPromotion(true);
+        localStorage.setItem(PROMOTION_POP_UP2, "read");
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest, isLoading, userData]);
@@ -109,6 +122,11 @@ export default function UserSetting() {
           {isProfile && (
             <ModalPortal setIsModal={setIsProfile}>
               <ProfileModifyPopUp setIsModal={setIsProfile} />
+            </ModalPortal>
+          )}
+          {isPromotion && (
+            <ModalPortal setIsModal={setIsPromotion}>
+              <PromotionModal setIsModal={setIsPromotion} />
             </ModalPortal>
           )}
         </>

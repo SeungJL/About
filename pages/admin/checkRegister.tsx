@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import CheckRegisterModal from "../../modals/admin/CheckRegisterModal";
 import { IRegisterForm } from "../../types/user";
@@ -15,13 +15,22 @@ function CheckRegister() {
   const [isModal, setIsModal] = useState(false);
   const [applicant, setApplicant] = useState<IRegisterForm>();
   const { data } = useUserInfoQuery();
-  const { data: applyData } = useRegisterQuery();
+  const [isRefetch, setIsRefetch] = useState(false);
+  const { data: applyData, refetch } = useRegisterQuery({
+    onSuccess() {
+      console.log(22);
+    },
+  });
 
   const onClick = (who?: IRegisterForm) => {
     setApplicant(who);
     setIsModal(true);
   };
 
+  useEffect(() => {
+    if (isRefetch) refetch();
+    setIsRefetch(false);
+  }, [isRefetch, refetch]);
   return (
     <>
       <Header title="가입 신청 확인" url="/admin" />
@@ -67,7 +76,11 @@ function CheckRegister() {
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <CheckRegisterModal setIsModal={setIsModal} applicant={applicant} />
+          <CheckRegisterModal
+            setIsModal={setIsModal}
+            applicant={applicant}
+            setIsRefetch={setIsRefetch}
+          />
         </ModalPortal>
       )}
     </>

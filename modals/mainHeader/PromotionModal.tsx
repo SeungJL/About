@@ -25,7 +25,7 @@ function PromotionModal({
   const { data } = usePlazaDataQuery();
 
   const applyCnt = data?.filter((item) => item.title === "홍보").length - 6;
-  console.log(applyCnt);
+
   return (
     <>
       <Layout>
@@ -57,7 +57,7 @@ function PromotionModal({
             <div>
               <span>현재 참여 수</span>
               <span>
-                {applyCnt}명<Temp>(중복 포함)</Temp>
+                {applyCnt || ""}명<Temp>(중복 포함)</Temp>
               </span>
             </div>
             <div>

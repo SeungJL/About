@@ -10,5 +10,6 @@ export const usePlazaMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IPlazaData>(async (plaza) => {
-    await axios.post(`${SERVER_URI}/plaza`, { plaza });
+    const res = await axios.post(`${SERVER_URI}/plaza`, { plaza });
+    return res.data;
   }, options);

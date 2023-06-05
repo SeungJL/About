@@ -25,8 +25,7 @@ export const useApproveMutation = (
     const res = await axios.post(`${SERVER_URI}/register/approval`, uid);
     return res.data;
   }, options);
-
-export const useDeleteRegisterMutation = (
+export const useDeleteMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, any>,
     "mutationKey" | "mutationFn"
