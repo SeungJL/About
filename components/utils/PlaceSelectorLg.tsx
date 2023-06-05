@@ -12,7 +12,6 @@ function PlaceSelectorLg({
   setSelectedPlace,
   isSelectUnit,
 }: IPlaceSelecter) {
- 
   const toast = useToast();
   const choicedSpaces = isSelectUnit ? firstPlace : secondPlaces;
   const handlePlaceIconClicked = (place: IplaceInfo) => {
@@ -84,10 +83,10 @@ function PlaceSelectorLg({
 }
 
 const Layout = styled.div`
-  margin-top: 20px;
+  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 12px;
 `;
 const PlaceItem = styled.button<{
   isSelected: boolean;

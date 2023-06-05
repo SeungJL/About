@@ -152,7 +152,7 @@ function VoteStudyMainModal({
         {page === 0 ? (
           <>
             <ModalMain>
-              <Subtitle>1지망 선택</Subtitle>
+              {location !== "수원" && <Subtitle>1지망 선택</Subtitle>}
 
               {isBig ? (
                 <PlaceSelectorLg
@@ -178,7 +178,7 @@ function VoteStudyMainModal({
         ) : page === 1 ? (
           <>
             <ModalMain>
-              <Subtitle>2지망 선택</Subtitle>
+              {location !== "수원" && <Subtitle>2지망 선택</Subtitle>}
               {isBig ? (
                 <PlaceSelectorLg
                   placeInfoArr={placeInfoArr}
