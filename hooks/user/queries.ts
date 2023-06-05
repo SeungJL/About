@@ -6,6 +6,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
+import { SERVER_URI } from "../../constants/system";
 
 import {
   USER_COMMENT,
@@ -27,9 +28,7 @@ export const useRegisterQuery = (
   useQuery<IRegisterForm[], AxiosError, IRegisterForm[]>(
     "register",
     async () => {
-      const res = await axios.get<IRegisterForm[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/register`
-      );
+      const res = await axios.get<IRegisterForm[]>(`${SERVER_URI}/register`);
       return res.data;
     },
     options
@@ -44,9 +43,7 @@ export const useUserInfoQuery = (
   useQuery<IUser, AxiosError, IUser>(
     USER_FINFACTIVE,
     async () => {
-      const res = await axios.get<IUser>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/profile`
-      );
+      const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
       return res.data;
     },
     options
@@ -64,7 +61,7 @@ export const useParticipationRateQuery = (
     USER_FINDPARTICIPATION,
     async () => {
       const res = await axios.get<IVoteRate[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/participationrate`,
+        `${SERVER_URI}/user/participationrate`,
         {
           params: {
             startDay: startDay.format("YYYY-MM-DD"),
@@ -88,15 +85,12 @@ export const useVoteRateQuery = (
   useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
     [USER_FINDVOTE],
     async () => {
-      const res = await axios.get<IVoteRate[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/voterate`,
-        {
-          params: {
-            startDay: startDay.format("YYYY-MM-DD"),
-            endDay: endDay.format("YYYY-MM-DD"),
-          },
-        }
-      );
+      const res = await axios.get<IVoteRate[]>(`${SERVER_URI}/user/voterate`, {
+        params: {
+          startDay: startDay.format("YYYY-MM-DD"),
+          endDay: endDay.format("YYYY-MM-DD"),
+        },
+      });
       return res.data;
     },
     options
@@ -114,7 +108,7 @@ export const useAttendRateQueries = (
         queryKey: [USER_FINDPARTICIPATION, idx],
         queryFn: async () => {
           const res = await axios.get<IVoteRate[]>(
-            `${process.env.NEXT_PUBLIC_SERVER_URI}/user/participationrate`,
+            `${SERVER_URI}/user/participationrate`,
             {
               params: {
                 startDay: month.start.format("YYYY-MM-DD"),
@@ -142,7 +136,7 @@ export const useVoteRateQueries = (
         queryKey: [USER_FINDVOTES, idx],
         queryFn: async () => {
           const res = await axios.get<IVoteRate[]>(
-            `${process.env.NEXT_PUBLIC_SERVER_URI}/user/voterate`,
+            `${SERVER_URI}/user/voterate`,
             {
               params: {
                 startDay: month.start.format("YYYY-MM-DD"),
@@ -166,9 +160,7 @@ export const useCommentQuery = (
   useQuery<IComment, AxiosError, IComment>(
     USER_COMMENT,
     async () => {
-      const res = await axios.get<IComment>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/comment`
-      );
+      const res = await axios.get<IComment>(`${SERVER_URI}/user/comment`);
       return res.data;
     },
     options
@@ -183,9 +175,7 @@ export const useIsActiveQuery = (
   useQuery<IIsActive, AxiosError, IIsActive>(
     "isActive",
     async () => {
-      const res = await axios.get<IIsActive>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/active`
-      );
+      const res = await axios.get<IIsActive>(`${SERVER_URI}/user/active`);
 
       return res.data;
     },
@@ -201,9 +191,7 @@ export const useAvatarQuery = (
   useQuery<IAvatar, AxiosError, IAvatar>(
     "avatar",
     async () => {
-      const res = await axios.get<IAvatar>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/user/avatar`
-      );
+      const res = await axios.get<IAvatar>(`${SERVER_URI}/user/avatar`);
       return res.data;
     },
     options

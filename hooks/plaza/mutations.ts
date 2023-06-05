@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
+import { SERVER_URI } from "../../constants/system";
 import { IPlazaData } from "../../types/plaza";
 
 export const usePlazaMutation = (
@@ -9,5 +10,5 @@ export const usePlazaMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IPlazaData>(async (plaza) => {
-    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/plaza`, { plaza });
+    await axios.post(`${SERVER_URI}/plaza`, { plaza });
   }, options);

@@ -105,12 +105,13 @@ function VoteStudyMainModal({
           getPoint({ value: 2, text: "당일 참여" });
         }
         if (studyDate === "not passed") {
+          console.log(20);
           getScore({ value: 5, text: "스터디 투표" });
           getPoint({ value: 5, text: "스터디 투표" });
         }
       }
       setIsComplete(true);
-      document.location.reload();
+      // document.location.reload();
     },
   });
 

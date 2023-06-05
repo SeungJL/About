@@ -3,6 +3,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
+import { SERVER_URI } from "../../constants/system";
 import { isPreviliged } from "../../libs/utils/authUtils";
 import { now } from "../../libs/utils/dateUtils";
 import { User } from "../../models/user";
@@ -22,7 +23,7 @@ export default function Admin() {
   };
   const onDeleteVote = () => {
     if (confirm("정말 초기화 하시겠습니까?")) {
-      axios.delete("/api/admin/vote", {
+      axios.delete(`${SERVER_URI}/admin/vote`, {
         headers: {
           secret: secretKey,
         },

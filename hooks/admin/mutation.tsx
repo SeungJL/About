@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
+import { SERVER_URI } from "../../constants/system";
 
 export const useUpdateProfileMutation = (
   options?: Omit<
@@ -8,7 +9,7 @@ export const useUpdateProfileMutation = (
   >
 ) =>
   useMutation<void, AxiosError, any>(async (profile) => {
-    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/admin/user`, {
+    await axios.post(`${SERVER_URI}/admin/user`, {
       profile,
     });
   }, options);

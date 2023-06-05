@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
+import { SERVER_URI } from "../../constants/system";
 import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
@@ -20,9 +21,7 @@ export const useVoteQuery = (
     [VOTE_GET, date, location], // location 변수를 포함하는 배열
     async () => {
       const res = await axios.get<IVote>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format(
-          "YYYY-MM-DD"
-        )}?location=${location}` // location 변수를 API 요청 URL에 추가
+        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}?location=${location}` // location 변수를 API 요청 URL에 추가
       );
       return res.data;
     },
@@ -39,16 +38,14 @@ export const usePlaceQuery = (
   useQuery<IPlace[], AxiosError, IPlace[]>(
     PLACE_FINDALL,
     async () => {
-      const res = await axios.get<IPlace[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/place`
-      );
+      const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
       return res.data;
     },
     options
   );
 
 export function fetchFamousBooks() {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/book`, {
+  return fetch(`${SERVER_URI}/book`, {
     method: "get",
   }).then((response) => response.json());
 }
@@ -72,9 +69,7 @@ export const useArrivedQuery = (
     ARRIVE_FINDMEMO,
     async () => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${currentDate.format(
-          "YYYY-MM-DD"
-        )}/arrived`
+        `${SERVER_URI}/vote/${currentDate.format("YYYY-MM-DD")}/arrived`
       );
       return res.data;
     },
@@ -92,9 +87,7 @@ export const useStudyStartQuery = (
     "studyStart",
     async () => {
       const res = await axios.get<IStudyStart[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format(
-          "YYYY-MM-DD"
-        )}/start`
+        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/start`
       );
       return res.data;
     },
@@ -113,7 +106,7 @@ export const useArrivedDataQuery = (
     ["arrivedData", startDay, endDay],
     async () => {
       const res = await axios.get<IArrivedData[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/arrived`,
+        `${SERVER_URI}/vote/arrived`,
         {
           params: {
             startDay: startDay.format("YYYY-MM-DD"),
@@ -138,9 +131,7 @@ export const useAbsentDataQuery = (
     "absentData",
     async () => {
       const res = await axios.get<IAbsentInfo[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/vote/${date.format(
-          "YYYY-MM-DD"
-        )}/absence`
+        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/absence`
       );
       return res.data;
     },

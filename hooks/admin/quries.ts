@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
+import { SERVER_URI } from "../../constants/system";
 import { IUser } from "../../types/user";
 
 export const useAdminUsersControlQuery = (
@@ -11,9 +12,7 @@ export const useAdminUsersControlQuery = (
   useQuery<IUser[], AxiosError, IUser[]>(
     "adminUserControl",
     async () => {
-      const res = await axios.get<IUser[]>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/admin/user`
-      );
+      const res = await axios.get<IUser[]>(`${SERVER_URI}/admin/user`);
       return res.data;
     },
     options

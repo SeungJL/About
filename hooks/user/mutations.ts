@@ -1,5 +1,6 @@
 import axios, { Axios, AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
+import { SERVER_URI } from "../../constants/system";
 import { IAvatar, IUserComment, IUserRegister } from "../../types/user";
 import { IApplyRest } from "../../types/userAction";
 
@@ -10,10 +11,7 @@ export const useRegisterMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IUserRegister>(async (userRegister) => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_URI}/register`,
-      userRegister
-    );
+    const res = await axios.post(`${SERVER_URI}/register`, userRegister);
     return res.data;
   }, options);
 
@@ -24,10 +22,7 @@ export const useApproveMutation = (
   >
 ) =>
   useMutation<void, AxiosError, any>(async (uid) => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_URI}/register/approval`,
-      uid
-    );
+    const res = await axios.post(`${SERVER_URI}/register/approval`, uid);
     return res.data;
   }, options);
 
@@ -38,10 +33,7 @@ export const useDeleteRegisterMutation = (
   >
 ) =>
   useMutation<void, AxiosError, any>(async (uid) => {
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_SERVER_URI}/register/approval`,
-      uid
-    );
+    const res = await axios.delete(`${SERVER_URI}/register/approval`, uid);
     return res.data;
   }, options);
 
@@ -52,7 +44,7 @@ export const useActiveMutation = (
   >
 ) =>
   useMutation<void, AxiosError, boolean>(async (isActive) => {
-    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/profile`, {
+    await axios.post(`${SERVER_URI}/user/profile`, {
       isActive,
     });
   }, options);
@@ -64,7 +56,7 @@ export const useCommentMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IUserComment>(async (comments) => {
-    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/comment`, {
+    await axios.post(`${SERVER_URI}/user/comment`, {
       comment: comments.comment,
       _id: comments._id,
     });
@@ -77,7 +69,7 @@ export const useApplyRestMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IApplyRest>(async (info) => {
-    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/rest`, {
+    await axios.post(`${SERVER_URI}/user/rest`, {
       info,
     });
   }, options);
@@ -89,5 +81,5 @@ export const useAvatarMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAvatar>(async (info) => {
-    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/user/avatar`, info);
+    await axios.post(`${SERVER_URI}/user/avatar`, info);
   }, options);

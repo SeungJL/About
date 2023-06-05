@@ -36,6 +36,7 @@ import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpper
 import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
 
 import AboutNavigation from "../../pagesComponents/About/main/AboutOverview";
+import { SERVER_URI } from "../../constants/system";
 
 function About() {
   const toast = useToast();

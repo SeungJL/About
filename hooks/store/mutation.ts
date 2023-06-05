@@ -8,7 +8,7 @@
 //   >
 // ) =>
 //   useMutation<void, AxiosError, any>(async (info) => {
-//     await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}/store`, info);
+//     await axios.post(`${SERVER_URI}/store`, info);
 //   }, options);
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";

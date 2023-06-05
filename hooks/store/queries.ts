@@ -17,7 +17,7 @@
 //     ["storeGift"],
 //     async () => {
 //       const res = await axios.get<IStoreQuery>(
-//         `${process.env.NEXT_PUBLIC_SERVER_URI}/store/${giftId}`
+//         `${SERVER_URI}/store/${giftId}`
 //       );
 //       return res.data;
 //     },
@@ -35,7 +35,7 @@
 //     "storeGiftAll",
 //     async () => {
 //       const res = await axios.get<IStoreQuery>(
-//         `${process.env.NEXT_PUBLIC_SERVER_URI}/store`
+//         `${SERVER_URI}/store`
 //       );
 //       return res.data;
 //     },

@@ -41,7 +41,6 @@ export default function UserSetting() {
   const { data: userData, isLoading } = useUserInfoQuery({
     enabled: isGuest === false,
     onSuccess(data) {
-      console.log(data);
       if (!data?.majors?.length) setMyProfileNull(true);
     },
     onError(error) {
@@ -70,8 +69,7 @@ export default function UserSetting() {
         setIsAttendPopup(true);
         localStorage.setItem(ATTEND_POP_UP, "read");
       }
-      if (!localStorage.getItem(PROFILE_POP_UP) && !userData?.majors?.length) {
-        console.log(userData?.majors, isLoading);
+      if (!localStorage.getItem(PROFILE_POP_UP) && myProfileNull) {
         setIsProfile(true);
         localStorage.setItem(PROFILE_POP_UP, "read");
       }
@@ -79,7 +77,8 @@ export default function UserSetting() {
         setIsNoticeAlert(true);
       }
     }
-  }, [isGuest, isLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isGuest, isLoading, userData]);
 
   // useEffect(() => {
   //   if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
