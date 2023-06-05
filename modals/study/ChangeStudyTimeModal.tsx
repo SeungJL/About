@@ -50,9 +50,9 @@ function ChangeStudyTimeModal({
         dayjs().hour() * 60 + dayjs().minute() >=
         time.start.hour * 60 + time.start.minutes
       )
-        getPoint({ value: -5, text: "늦은 시간 변경" });
+        getPoint({ value: -5, message: "늦은 시간 변경" });
       else if (dayjs() > studyStartTime)
-        getPoint({ value: -2, text: "늦은 시간 변경" });
+        getPoint({ value: -2, message: "늦은 시간 변경" });
       window.location.reload();
     },
     onError(err) {

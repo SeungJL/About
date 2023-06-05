@@ -5,12 +5,10 @@ import Image from "next/image";
 import { SyntheticEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-
 import UserInfoModal from "../../../modals/user/UserInfoModal";
 import { userDataState } from "../../../recoil/interactionAtoms";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 import { IUser } from "../../../types/user";
-
 import ModalPortal from "../../ModalPortal";
 
 function ProfileIconLg({

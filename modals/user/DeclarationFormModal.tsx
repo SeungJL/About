@@ -21,7 +21,7 @@ import { usePlazaMutation } from "../../hooks/plaza/mutations";
 
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
-import { useCompleteToast } from "../../components/common/CustomToast";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 
 function DeclarationFormModal({
   setIsModal,

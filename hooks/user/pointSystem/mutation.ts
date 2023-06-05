@@ -9,8 +9,8 @@ export const useScoreMutation = (
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, IPointSystem>(async ({ value, text }) => {
-    await axios.post(`${SERVER_URI}/user/score`, { score: value, text });
+  useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
+    await axios.post(`${SERVER_URI}/user/score`, { score: value, message });
   }, options);
 
 export const usePointMutation = (
@@ -19,8 +19,8 @@ export const usePointMutation = (
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, IPointSystem>(async ({ value, text }) => {
-    await axios.post(`${SERVER_URI}/user/point`, { point: value, text });
+  useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
+    await axios.post(`${SERVER_URI}/user/point`, { point: value, message });
   }, options);
 
 export const useDepositMutation = (
@@ -29,6 +29,6 @@ export const useDepositMutation = (
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, IPointSystem>(async ({ value, text }) => {
-    await axios.post(`${SERVER_URI}/user/deposit`, { deposit: value, text });
+  useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
+    await axios.post(`${SERVER_URI}/user/deposit`, { deposit: value, message });
   }, options);

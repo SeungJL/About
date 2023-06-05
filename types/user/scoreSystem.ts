@@ -25,5 +25,5 @@ export interface IDeposit {
 
 export interface IPointSystem {
   value: number;
-  text?: string;
+  message?: string;
 }

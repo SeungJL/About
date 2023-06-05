@@ -64,7 +64,7 @@ function ApplyGiftModal({
     };
 
     mutate(info);
-    getPoint({ value: -totalCost, text: `${giftInfo?.name}응모` });
+    getPoint({ value: -totalCost, message: `${giftInfo?.name}응모` });
     toast({
       title: "성공",
       description: "응모에 성공했어요. 당첨 발표일을 기다려주세요 !",

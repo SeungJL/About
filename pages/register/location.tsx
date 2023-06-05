@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import ProgressLayout from "../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
 import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
@@ -82,7 +82,7 @@ function Location() {
         <MainLoading />
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-          <ProgressLayout value={10} />
+          <ProgressStatus value={10} />
           <Header title="회원가입" url={isProfileEdit ? "/about" : "/login"} />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>

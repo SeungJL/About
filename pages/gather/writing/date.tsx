@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
-import ProgressLayout from "../../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { useState } from "react";
@@ -60,7 +60,7 @@ function WritingDate() {
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={75} />
+      <ProgressStatus value={75} />
       <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
         <RegisterOverview>

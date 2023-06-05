@@ -60,9 +60,9 @@ function AbsentStudyModal({ setIsModal }) {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
       if (value !== "") {
-        getDeposit({ value: -600, text: "당일 불참" });
+        getDeposit({ value: -600, message: "당일 불참" });
         if (dayjs() > studyStartTime) {
-          getPoint({ value: -10, text: "당일 불참" });
+          getPoint({ value: -10, message: "당일 불참" });
         }
       }
       setisVoting(false);

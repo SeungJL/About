@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ChangeEvent, useEffect, useState } from "react";
-import ProgressLayout from "../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
 import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
@@ -42,7 +42,7 @@ function Name() {
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={20} />
+      <ProgressStatus value={20} />
       <Header title="회원가입" url="location" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

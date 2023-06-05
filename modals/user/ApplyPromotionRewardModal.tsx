@@ -32,8 +32,8 @@ function ApplyPromotionRewardModal({
   const { mutate: suggestForm } = usePlazaMutation();
 
   const onComplete = () => {
-    getPoint({ value: 15, text: "홍보 리워드" });
-    getScore({ value: 15, text: "홍보 리워드" });
+    getPoint({ value: 15, message: "홍보 리워드" });
+    getScore({ value: 15, message: "홍보 리워드" });
     toast({
       title: "정산 완료",
       description: "정상적으로 처리되었습니다.",

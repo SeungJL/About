@@ -3,9 +3,6 @@ import { setSeconds } from "date-fns";
 import { useSession } from "next-auth/react";
 import { SetStateAction } from "react";
 import styled from "styled-components";
-import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
-import ProfileIconMd from "../../components/common/Profile/ProfileIconLg";
-import ProfileIconXs from "../../components/common/Profile/ProfileIconXsOverwrap";
 
 import { ModalHeaderX } from "../../components/ui/Modal";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -29,7 +26,6 @@ function ProfileCard({
   const router = useRouter();
   const { data: user } = useUserInfoQuery();
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
- 
 
   const onClickModify = () => {
     setIsProfileEdit(true);

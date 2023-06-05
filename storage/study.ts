@@ -9,6 +9,7 @@ export const SUWAN_카탈로그 = "62e5d6e0e098c232c05c3d3f";
 export const SUWAN_아티제 = "63625f1d958585371af0248b";
 export const SUWAN_커피빈 = "644f6ffe9edb56992ccda5e9";
 export const SUWAN_칸나 = "644f70529edb56992ccda5eb";
+export const SUWAN_이디야 = "6479f39e907daf3e8a5cda6e";
 //양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
@@ -28,6 +29,7 @@ export const SPACE_NAME = {
   "63625f1d958585371af0248b": "아티제",
   "644f6ffe9edb56992ccda5e9": "커피빈",
   "644f70529edb56992ccda5eb": "칸나",
+  "6479f39e907daf3e8a5cda6e": "이디야",
 
   //양천
   "6437e9d7ab537b843c6143ac": "위카페",
@@ -51,6 +53,7 @@ export const SPACE_LOCATION = {
   [SUWAN_칸나]: "수원",
   [SUWAN_커피빈]: "수원",
   [SUWAN_칸나]: "수원",
+  [SUWAN_이디야]: "수원",
   //양천
   [YANG_할리스2]: "양천",
   [YANG_위카페]: "양천",
@@ -95,6 +98,11 @@ export const STUDY_SPACE_INFO = [
     id: SUWAN_칸나,
     location: "경기 수원시 영통구 덕영대로 1693",
     time: "10:00 - 04:00",
+  },
+  {
+    id: SUWAN_이디야,
+    location: "경기 수원시 권선구 구운중로4번길 20",
+    time: "10:30 - 21:00",
   },
 
   //양천

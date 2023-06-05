@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 
-import { XAlertIcon } from "../components/common/AlertIcon";
+import { XAlertIcon } from "../components/common/Icon/AlertIcon";
 
 function NoMember({}) {
   const router = useRouter();

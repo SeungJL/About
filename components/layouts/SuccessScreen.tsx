@@ -5,7 +5,7 @@ import { isVoteCompleteState } from "../../recoil/utilityAtoms";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-function SuccessModal({
+function SuccessScreen({
   children,
   url,
 }: {
@@ -85,4 +85,4 @@ const Button = styled.button`
   background-color: var(--color-mint);
 `;
 
-export default SuccessModal;
+export default SuccessScreen;

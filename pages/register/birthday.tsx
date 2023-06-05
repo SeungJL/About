@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import ProgressLayout from "../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
 import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
@@ -55,7 +55,7 @@ function Birthday() {
 
   return (
     <Layout>
-      <ProgressLayout value={40} />
+      <ProgressStatus value={40} />
       <Header title="회원가입" url="gender" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

@@ -17,7 +17,7 @@ import {
   AlertDialogOverlay,
   AlertDialogCloseButton,
 } from "@chakra-ui/react";
-import { useCompleteToast } from "../../components/common/CustomToast";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 function CheckRegisterModal({
   setIsModal,
   applicant,

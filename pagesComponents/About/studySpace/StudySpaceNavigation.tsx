@@ -27,12 +27,13 @@ import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendence, IPlace } from "../../../types/studyDetails";
 import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { useSession } from "next-auth/react";
-import VoteSuccessModal from "./VoteSuccessModal";
+
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
+import VoteSuccessScreen from "./VoteSuccessModal";
 
 function StudySpaceNavigation({
   myVote,
@@ -109,8 +110,8 @@ function StudySpaceNavigation({
           position: "bottom",
         });
       } else {
-        getScore({ value: -5, text: "투표 취소" });
-        getPoint({ value: -5, text: "투표 취소" });
+        getScore({ value: -5, message: "투표 취소" });
+        getPoint({ value: -5, message: "투표 취소" });
         handleAbsent();
       }
     }
@@ -243,7 +244,7 @@ function StudySpaceNavigation({
       )}
       {isVoteComplete && (
         <ModalPortal setIsModal={setIsVoteComplete}>
-          <VoteSuccessModal />
+          <VoteSuccessScreen />
         </ModalPortal>
       )}
     </>

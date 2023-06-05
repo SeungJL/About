@@ -7,7 +7,7 @@ import { useQueryClient } from "react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
-import CommentBox from "../../components/common/CommentBox";
+
 import { InputSm } from "../../components/ui/Input";
 import {
   useDepositMutation,
@@ -67,10 +67,10 @@ function CheckStudyModal({
           ).time.start
         ).add(1, "hour") < dayjs()
       ) {
-        getDeposit({ value: -300, text: "스터디 지각" });
+        getDeposit({ value: -300, message: "스터디 지각" });
       } else if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
-        getScore({ value: 5, text: "스터디 출석" });
-        getPoint({ value: 5, text: "스터디 출석" });
+        getScore({ value: 5, message: "스터디 출석" });
+        getPoint({ value: 5, message: "스터디 출석" });
       }
     },
     onError: (err) => {

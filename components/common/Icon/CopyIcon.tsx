@@ -5,23 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const CopyBtn = ({ text }: { text: string }) => {
   const toast = useToast();
   const copy = (text) =>
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast({
-          title: "복사 완료",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "bottom",
-
-          variant: "left-accent",
-        });
-      },
-      (error) => {
-        console.error("Failed to copy text:", error);
-      }
-    );
-
+    navigator.clipboard.writeText(text).then(() => {
+      toast({
+        title: "복사 완료",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+        variant: "left-accent",
+      });
+    });
   return (
     <FontAwesomeIcon
       icon={faCopy}

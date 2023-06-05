@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Progress } from "@chakra-ui/react";
-function ProgressLayout({ value }: { value: number }) {
+function ProgressStatus({ value }: { value: number }) {
   return (
     <Layout>
       <Progress value={value} size="sm" />
@@ -10,4 +10,4 @@ function ProgressLayout({ value }: { value: number }) {
 
 const Layout = styled.div``;
 
-export default ProgressLayout;
+export default ProgressStatus;

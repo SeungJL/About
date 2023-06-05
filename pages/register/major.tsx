@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ChangeEvent, useEffect, useState } from "react";
-import ProgressLayout from "../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
 import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
@@ -19,7 +19,7 @@ function Major() {
   const router = useRouter();
   const toast = useToast();
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
- 
+
   const [errorMessage, setErrorMessage] = useState("");
   const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
 
@@ -61,7 +61,7 @@ function Major() {
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={60} />
+      <ProgressStatus value={60} />
       <Header title="회원가입" url="mbti" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

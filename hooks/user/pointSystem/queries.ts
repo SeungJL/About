@@ -83,3 +83,27 @@ export const useDepositQuery = (
     },
     options
   );
+
+export const useScoreLogQuery = (
+  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+) =>
+  useQuery(
+    "scoreLog",
+    async () => {
+      const res = await axios.get(`${SERVER_URI}/log/score`);
+      return res.data;
+    },
+    options
+  );
+
+export const usePointLogQuery = (
+  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+) =>
+  useQuery(
+    "pointLog",
+    async () => {
+      const res = await axios.get(`${SERVER_URI}/log/point`);
+      return res.data;
+    },
+    options
+  );

@@ -17,7 +17,8 @@ import ModalPortal from "../../components/ModalPortal";
 import ProfileCard from "../../modals/friend/ProfileCard";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
-import { useFailToast } from "../../components/common/CustomToast";
+import { useFailToast } from "../../hooks/ui/CustomToast";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
 function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();
@@ -53,11 +54,7 @@ function ProfileOverview({ user }: { user?: IUser }) {
     <>
       <Layout>
         <Profile>
-          <ImageWrapper
-            style={{ background: isAvatar ? AVATAR_COLOR[avatarBg] : null }}
-          >
-            <ProfileIconLg user={info} size={70} />
-          </ImageWrapper>
+          <ProfileIcon user={user} size="xl" />
           <ProfileInfo>
             <div>
               <span>{info?.name}</span>

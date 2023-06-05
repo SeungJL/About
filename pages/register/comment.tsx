@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ChangeEvent, EventHandler, useEffect, useState } from "react";
-import ProgressLayout from "../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
 import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
@@ -44,8 +44,6 @@ function Message() {
 
   const InputIdx = MESSAGE_DATA?.length;
 
-
-  
   const onClickNext = async () => {
     if (index === null && value === "") {
       setErrorMessage("문장을 선택해 주세요.");
@@ -75,7 +73,7 @@ function Message() {
         <MainLoading />
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-          <ProgressLayout value={80} />
+          <ProgressStatus value={80} />
           <Header title="회원가입" url="/register/interest" />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>

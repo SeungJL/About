@@ -17,7 +17,7 @@ import { IUser } from "../../../types/user";
 import { VOTE_END_HOUR } from "../../../constants/study";
 import { Location } from "../../../types/system";
 import { useEffect, useState } from "react";
-import VoteSuccessModal from "../../../pagesComponents/About/studySpace/VoteSuccessModal";
+
 import ModalPortal from "../../../components/ModalPortal";
 import StudySpaceVoteOverview from "../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
@@ -34,7 +34,7 @@ function StudySpace() {
   const voteDate = dayjs(router.query.date as string);
   const spaceID = router.query.studySpace;
   const location = SPACE_LOCATION[spaceID as string];
-  
+
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const { data: vote, isLoading } = useVoteQuery(voteDate, location, {
     enabled: true,

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
-import ProgressLayout from "../../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { useRouter } from "next/router";
@@ -45,7 +45,7 @@ function WritingContent() {
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={50} />
+      <ProgressStatus value={50} />
       <Header title="" url="/gather/writing/category" />
       <RegisterLayout>
         <RegisterOverview>

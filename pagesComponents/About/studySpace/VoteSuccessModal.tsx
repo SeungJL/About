@@ -6,7 +6,7 @@ import { ModalFooterNav } from "../../../styles/layout/modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-function VoteSuccessModal({}) {
+function VoteSuccessScreen({}) {
   const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
   const router = useRouter();
   const onClicked = () => {
@@ -77,7 +77,7 @@ const Button = styled.button`
   background-color: var(--color-mint);
 `;
 
-export default VoteSuccessModal;
+export default VoteSuccessScreen;
 
 const IconCheckMint = () => (
   <svg

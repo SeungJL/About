@@ -11,7 +11,7 @@ import styled from "styled-components";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { useFailToast } from "../../components/common/CustomToast";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 
 function FriendRecommend() {
   const router = useRouter();

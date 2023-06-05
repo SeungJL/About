@@ -28,7 +28,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
-import ProgressLayout from "../../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import {
@@ -46,7 +46,7 @@ import { gatherContentState } from "../../../recoil/contentsAtoms";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import { randomPassword } from "../../../libs/utils/validUtils";
 import ModalPortal from "../../../components/ModalPortal";
-import SuccessModal from "../../../components/layouts/SuccessModal";
+import SuccessScreen from "../../../components/layouts/SuccessScreen";
 import dayjs, { Dayjs } from "dayjs";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 
@@ -71,7 +71,7 @@ function WritingCondition() {
 
   const [age, setAge] = useState(gatherContent?.age || [20, 29]);
 
-  const [isSuccessModal, setIsSuccessModal] = useState(false);
+  const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
   const { data } = useUserInfoQuery();
 
@@ -102,9 +102,7 @@ function WritingCondition() {
       user: data,
     }));
 
-
-
-    setIsSuccessModal(true);
+    setIsSuccessScreen(true);
   };
   const onChangeAge = (value) => {
     setAge(value);
@@ -119,7 +117,7 @@ function WritingCondition() {
   return (
     <>
       <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-        <ProgressLayout value={100} />
+        <ProgressStatus value={100} />
         <Header title="" url="/gather/writing/date" />
         <RegisterLayout>
           <RegisterOverview>
@@ -296,14 +294,14 @@ function WritingCondition() {
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
       </Layout>
-      {isSuccessModal && (
-        <ModalPortal setIsModal={setIsSuccessModal}>
-          <SuccessModal url="/gather">
+      {isSuccessScreen && (
+        <ModalPortal setIsModal={setIsSuccessScreen}>
+          <SuccessScreen url="/gather">
             <>
               <span>모임 개최 성공</span>
               <div>모임 게시글을 오픈 채팅방에 공유해 주세요!</div>
             </>
-          </SuccessModal>
+          </SuccessScreen>
         </ModalPortal>
       )}
     </>

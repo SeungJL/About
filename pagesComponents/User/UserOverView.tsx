@@ -26,7 +26,8 @@ import { useRecoilValue } from "recoil";
 import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
 import ModalPortal from "../../components/ModalPortal";
 import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
-import { useFailToast } from "../../components/common/CustomToast";
+import { useFailToast } from "../../hooks/ui/CustomToast";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
 export default function UserOverview() {
   const [value, setValue] = useState("안녕하세요! 잘 부탁드려요 ㅎㅎ");
@@ -92,7 +93,7 @@ export default function UserOverview() {
     <>
       <Layout>
         <UserImg>
-          <ProfileIconXl user={user} />
+          <ProfileIcon user={user} size="xl" />
           <IconWrapper onClick={() => setIsProfileModal(true)}>
             <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
           </IconWrapper>
@@ -178,8 +179,8 @@ const IconWrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: -8px;
-  bottom: -8px;
+  right: -4px;
+  bottom: -4px;
   background-color: white;
   border: 1px solid var(--font-h4);
   border-radius: 50%;

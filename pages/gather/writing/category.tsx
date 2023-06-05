@@ -6,7 +6,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
-import ProgressLayout from "../../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
@@ -41,7 +41,7 @@ function WritingCategory() {
 
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
-      <ProgressLayout value={25} />
+      <ProgressStatus value={25} />
       <Header title="" url="/gather" />
       <RegisterLayout>
         <RegisterOverview>

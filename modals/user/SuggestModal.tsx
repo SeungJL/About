@@ -24,7 +24,7 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { useCompleteToast } from "../../components/common/CustomToast";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 
 function SuggestModal({
   setIsModal,
@@ -56,8 +56,8 @@ function SuggestModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    getScore({ value: 3, text: "건의사항 제출" });
-    getPoint({ value: 3, text: "건의사항 제출" });
+    getScore({ value: 3, message: "건의사항 제출" });
+    getPoint({ value: 3, message: "건의사항 제출" });
 
     suggestForm(suggestInfo);
     setIsModal(false);

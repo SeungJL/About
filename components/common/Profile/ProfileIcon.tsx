@@ -1,17 +1,19 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
+import { size } from "../../../types/ui";
 import { IUser } from "../../../types/user";
 
-function ProfileIconXs({ user }: { user: IUser }) {
+function ProfileIcon({ user, size }: { user: IUser; size?: size }) {
   const avatarType = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
+  const isAvatar = Boolean(avatarType && avatarBg);
 
-  const isAvatar =
-    avatarType !== null &&
-    avatarType !== undefined &&
-    avatarBg !== null &&
-    avatarBg !== undefined;
+  const sizeMatching = {
+    xl: 70,
+  };
+
+  const iconSize = sizeMatching[size];
 
   const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src =
@@ -21,14 +23,16 @@ function ProfileIconXs({ user }: { user: IUser }) {
   return (
     <>
       {user && (
-        <Layout style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
+        <Layout avatarBg={isAvatar && AVATAR_COLOR[avatarBg]} size={iconSize}>
           <Image
             src={
               isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
             }
-            width={isAvatar ? 18 : 20}
-            height={isAvatar ? 18 : 20}
-            alt="ProfileIconXs"
+            // width={isAvatar ? 32 : 40}
+            // height={isAvatar ? 32 : 40}
+            width={isAvatar ? 0.8 * iconSize : iconSize}
+            height={isAvatar ? 0.8 * iconSize : iconSize}
+            alt="ProfileIcon"
             unoptimized={true}
             onError={onError}
           />
@@ -38,14 +42,14 @@ function ProfileIconXs({ user }: { user: IUser }) {
   );
 }
 
-const Layout = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: white;
+const Layout = styled.div<{ avatarBg: string; size: size }>`
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
+  background-color: ${(props) => props.avatarBg || "white"};
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export default ProfileIconXs;
+export default ProfileIcon;

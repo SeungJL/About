@@ -64,7 +64,7 @@ function ChargeDepositModal({
   });
 
   const onComplete = () => {
-    getDeposit({ value: 3000, text: "보증금 충전" });
+    getDeposit({ value: 3000, message: "보증금 충전" });
   };
 
   return (

@@ -4,31 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import { useScoreQuery } from "../../hooks/user/pointSystem/queries";
+import {
+  useScoreLogQuery,
+  useScoreQuery,
+} from "../../hooks/user/pointSystem/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 function ScoreLog() {
-  const temp = [
-    { date: "2023-05-27", point: 10, content: "테스트" },
-    { date: "2023-05-29", point: 10, content: "테스트" },
-    { date: "2023-05-30", point: -5, content: "테스트" },
-  ];
   const { data } = useScoreQuery();
+
+  const { data: scoreLog } = useScoreLogQuery();
+  console.log(scoreLog);
 
   return (
     <>
       <Header title="점수 기록" url="/point" />
       <Layout>
-        {" "}
         <MyPoint>
           <span>내 점수</span>
           <FontAwesomeIcon icon={faArrowRight} />
           <span>{data?.score}점</span>
         </MyPoint>
         <Container>
-          {temp?.map((item, idx) => (
+          <LogHeader>
+            <Date>날짜</Date>
+            <Content>내용</Content>
+            <Point>점수</Point>
+          </LogHeader>
+          {scoreLog?.map((item, idx) => (
             <Item key={idx}>
-              <Date>{dayjs(item?.date).format("MM.DD")}</Date>
-              <Content>{item?.content}</Content>
+              <Date>{dayjs(item?.date).format("M.DD")}</Date>
+              <Content>{item?.message}</Content>
               <Point>
                 {item?.point > 0 && "+"}
                 {item?.point} 점
@@ -45,6 +50,17 @@ const Layout = styled.div`
   margin-top: 20px;
   padding: 0 14px;
   font-weight: 600;
+`;
+
+const LogHeader = styled.header`
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--font-h5);
+  > span {
+    text-align: center;
+  }
 `;
 
 const MyPoint = styled.div`

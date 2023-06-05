@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ChangeEvent, EventHandler, useEffect, useState } from "react";
-import ProgressLayout from "../../components/layouts/ProgressLayout";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
 import Header from "../../components/layouts/Header";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
@@ -74,7 +74,7 @@ function Fee() {
 
   return (
     <>
-      <ProgressLayout value={100} />
+      <ProgressStatus value={100} />
       <Header title="회원가입" url="/register/phone" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>

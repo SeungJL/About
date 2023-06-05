@@ -101,13 +101,13 @@ function VoteStudyMainModal({
       queryClient.invalidateQueries(VOTE_GET);
       if (!isVoting) {
         if (studyDate === "today") {
-          getScore({ value: 2, text: "당일 참여" });
-          getPoint({ value: 2, text: "당일 참여" });
+          getScore({ value: 2, message: "당일 참여" });
+          getPoint({ value: 2, message: "당일 참여" });
         }
         if (studyDate === "not passed") {
           console.log(20);
-          getScore({ value: 5, text: "스터디 투표" });
-          getPoint({ value: 5, text: "스터디 투표" });
+          getScore({ value: 5, message: "스터디 투표" });
+          getPoint({ value: 5, message: "스터디 투표" });
         }
       }
       setIsComplete(true);

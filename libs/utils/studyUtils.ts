@@ -4,6 +4,7 @@ import {
   ANYANG_커피인더스트리,
   ANYANG_파스쿠찌,
   SUWAN_아티제,
+  SUWAN_이디야,
   SUWAN_카탈로그,
   SUWAN_칸나,
   SUWAN_커피빈,
@@ -29,6 +30,7 @@ export const arrangeSpace = (participations: IParticipation[]) => {
     else if (ID === SUWAN_아티제) temp[0] = participant;
     else if (ID === SUWAN_커피빈) temp[1] = participant;
     else if (ID === SUWAN_칸나) temp[5] = participant;
+    else if (ID === SUWAN_이디야) temp[6] = participant;
     //양천
     if (ID === YANG_위카페) temp[0] = participant;
     else if (ID === YANG_할리스2) temp[1] = participant;

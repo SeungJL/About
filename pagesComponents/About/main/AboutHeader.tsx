@@ -8,7 +8,6 @@ import { faBalanceScale, faGift } from "@fortawesome/free-solid-svg-icons";
 
 import ModalPortal from "../../../components/ModalPortal";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";
-import Drawer from "../../../components/layouts/Drawer";
 
 import { useRecoilState } from "recoil";
 import { isNoticeAlertState } from "../../../recoil/utilityAtoms";
@@ -28,7 +27,7 @@ export default function AboutHeader() {
 
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   const [isRule, setIsRule] = useState(false);
-  const [isDrawer, setIsDrawer] = useState(false);
+
   const [isLogout, setIsLogout] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
 
@@ -87,11 +86,7 @@ export default function AboutHeader() {
             <StudyRuleModal setIsModal={setIsRule} />
           </ModalPortal>
         )}
-        {isDrawer && (
-          <ModalPortal setIsModal={setIsDrawer}>
-            <Drawer isDrawer={isDrawer} setIsDrawer={setIsDrawer} />
-          </ModalPortal>
-        )}
+
         {isLogout && (
           <ModalPortal setIsModal={setIsLogout}>
             <UserLogoutModal setIsModal={setIsLogout} />

@@ -56,7 +56,7 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
-import { useFailToast } from "../../components/common/CustomToast";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 
 function UserInfo() {
   const router = useRouter();

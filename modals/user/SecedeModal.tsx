@@ -1,7 +1,7 @@
 import { Button, useToast } from "@chakra-ui/react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
@@ -32,13 +32,14 @@ function SecedeModal({
     setValue(e.target.value);
   };
 
-  const onSecede = () => {
-    mutate({
+  const onSecede = async () => {
+    await mutate({
       category: "탈퇴",
       title: "탈퇴",
-      content: "",
+      content: value,
       writer: session?.user.name,
     });
+    await signOut();
   };
 
   return (
