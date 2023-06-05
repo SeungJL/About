@@ -35,6 +35,7 @@ import {
   faChevronRight,
   faCircleChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import next from "next";
 
 function PointScore() {
   const { data: session } = useSession();
@@ -59,6 +60,7 @@ function PointScore() {
       const { badge, badgeScore, nextBadge, gap, nextScore } = userBadgeScore(
         data.score
       );
+      console.log(2, badge, badgeScore, nextBadge, gap, nextScore);
       setUserBadge({ badge, color: USER_BADGES[badge] });
       setScoreInfo({
         value: badgeScore,
@@ -68,7 +70,7 @@ function PointScore() {
       });
     },
   });
-
+  console.log(scoreInfo);
   const myPoint = data?.score;
 
   useScoreAllQuery({
@@ -104,7 +106,9 @@ function PointScore() {
                 <Badge marginRight="6px" colorScheme={userBadge.color}>
                   {userBadge.badge}
                 </Badge>
-                <span style={{ color: userBadge.color }}>{myPoint}점</span>
+                <span style={{ color: userBadge.color }}>
+                  {myPoint || "0"}점
+                </span>
                 <IconWrapper onClick={() => setIsModal(true)}>
                   <FontAwesomeIcon icon={faQuestionCircle} />
                 </IconWrapper>
@@ -115,10 +119,10 @@ function PointScore() {
                     {scoreInfo.nextScore}점
                   </span>
                   <Badge
-                    colorScheme={scoreInfo.nextBadge.color}
+                    colorScheme={scoreInfo.nextBadge.color || "orange"}
                     marginLeft="6px"
                   >
-                    {scoreInfo.nextBadge.badge}
+                    {scoreInfo.nextBadge.badge || "라떼"}
                   </Badge>
                 </div>
               )}
@@ -133,14 +137,16 @@ function PointScore() {
             <Button onClick={() => router.push("/point/scorelog")}>
               <div>About 점수</div>
               <div>
-                <span>{myPoint}점</span>
+                <span>{myPoint || 0}점</span>
                 <FontAwesomeIcon icon={faChevronRight} size="xs" />
               </div>
             </Button>
             <Button onClick={() => router.push("/ranking")}>
               <div>About 랭킹</div>
               <div>
-                {myRank === undefined ? null : myRank?.isRank ? (
+                {myRank === undefined ? (
+                  <span>New</span>
+                ) : myRank?.isRank ? (
                   <span> {myRank?.myRank}위</span>
                 ) : (
                   <span>상위 {myRank?.percent}%</span>

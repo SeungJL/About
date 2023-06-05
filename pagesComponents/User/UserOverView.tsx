@@ -93,7 +93,7 @@ export default function UserOverview() {
     <>
       <Layout>
         <UserImg>
-          <ProfileIcon user={user} size="xl" />
+          <ProfileIcon user={user || session?.user} size="xl" />
           <IconWrapper onClick={() => setIsProfileModal(true)}>
             <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
           </IconWrapper>

@@ -54,10 +54,10 @@ function ProfileOverview({ user }: { user?: IUser }) {
     <>
       <Layout>
         <Profile>
-          <ProfileIcon user={user} size="xl" />
+          <ProfileIcon user={user || session?.user} size="xl" />
           <ProfileInfo>
             <div>
-              <span>{info?.name}</span>
+              <span>{info?.name || session?.user.name}</span>
               <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
                 {userBadge?.badge}
               </Badge>
@@ -147,14 +147,12 @@ const ImageWrapper = styled.div`
 const ProfileInfo = styled.div`
   margin-left: 12px;
   flex: 1;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   > div:first-child {
     display: flex;
     align-items: center;
-
     > span:first-child {
       font-size: 16px;
       font-weight: 600;

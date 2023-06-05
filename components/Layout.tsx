@@ -37,6 +37,7 @@ function Layout({ children }) {
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
+      console.log(data);
       if (!data?.birth && isAccessPermission) router.push("/register/location");
     },
     onError() {
