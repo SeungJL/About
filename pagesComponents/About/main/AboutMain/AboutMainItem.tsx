@@ -96,22 +96,22 @@ function AboutMainItem({
           <div>
             {statusFixed === "pending"
               ? attendences?.map(
-                  (user, idx) =>
+                  (att, idx) =>
                     idx < VOTER_SHOW_MAX && (
                       <ProfileContainer key={idx} zIndex={idx}>
                         <ProfileIconXsOverwrap
-                          user={user?.user as IUser}
+                          user={att.user}
                           isOverlap={idx === VOTER_SHOW_MAX - 1}
                         />
                       </ProfileContainer>
                     )
                 )
               : firstAttendance?.map(
-                  (user, idx) =>
+                  (att, idx) =>
                     idx < VOTER_SHOW_MAX + 1 && (
                       <ProfileContainer key={idx} zIndex={idx}>
                         <ProfileIconXsOverwrap
-                          user={user?.user as IUser}
+                          user={att.user}
                           isOverlap={idx === VOTER_SHOW_MAX}
                         />
                       </ProfileContainer>

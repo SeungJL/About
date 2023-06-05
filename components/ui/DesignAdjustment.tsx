@@ -6,6 +6,7 @@ import { IPlace } from "../../types/studyDetails";
 export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
   let W = 70;
   let H = 70;
+
   if (place._id === SUWAN_카탈로그) {
     W = 85;
     H = 85;

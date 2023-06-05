@@ -1,21 +1,17 @@
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import ProfileIconSm from "../../components/common/Profile/ProfileIconSm";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
-import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
-import ProfileIconXsOverwrap from "../../components/common/Profile/ProfileIconXs";
-import ProfileIconXs from "../../components/common/Profile/ProfileIconXsOverwrap";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
 function ReviewItemHeader({ temp }: { temp: any }) {
   const { data } = useUserInfoQuery();
-  console.log(data);
 
   return (
     <Layout>
       <Profile>
-        <ProfileIconSm user={temp} />
+        <ProfileIcon user={temp} size="sm" />
         <div>
           <span>{temp?.name}</span>
           <span>5월 27일</span>
@@ -36,6 +32,7 @@ const Layout = styled.div`
 
 const Profile = styled.div`
   display: flex;
+  align-items: center;
   > div:last-child {
     margin-left: 8px;
     display: flex;

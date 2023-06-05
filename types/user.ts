@@ -1,7 +1,16 @@
+import { Dayjs } from "dayjs";
 import { Document } from "mongoose";
 import { Location } from "./system";
 import { IPointAll, IScore } from "./user/scoreSystem";
 
+export interface IUserRequest {
+  category: "건의" | "신고" | "홍보" | "휴식" | "충전";
+  title?: string;
+  date: Dayjs;
+  writer: string;
+  content: string;
+  rest?: { type: "일반" | "특별"; start: Dayjs; end: Dayjs };
+}
 export interface kakaoProfileInfo {
   name: string;
 

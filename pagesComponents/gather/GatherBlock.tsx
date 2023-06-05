@@ -1,22 +1,14 @@
-import { background } from "@chakra-ui/react";
 import {
   faCalendarDay,
   faUserCheck,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { ChangeEvent } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
-import ProfileIconXs from "../../components/common/Profile/ProfileIconXs";
-
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { ICategory } from "../../pages/members/[type]";
 import { GatherCategory } from "../../types/gather";
-import { IPlazaData } from "../../types/plaza";
 
 function GatherBlock({
   data,
@@ -49,7 +41,7 @@ function GatherBlock({
       </Detail>
       <Participant>
         <Writer>
-          <ProfileIconXs user={user} />
+          <ProfileIcon user={user} size="xs" />
           <span>승주</span>
         </Writer>
         <Voter>

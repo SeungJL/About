@@ -6,7 +6,6 @@ export const InputSm = styled.input`
   background-color: var(--font-h6);
   border-radius: var(--border-radius);
   padding: 8px;
-
   &:focus {
     outline-color: var(--color-orange);
   }

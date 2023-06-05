@@ -14,7 +14,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import LocationTitle from "../../pagesComponents/Register/location/LocationTitle";
 import { StudyLocation } from "../../storage/study";
 import LocationMember from "../../pagesComponents/Register/location/LocationMember";
-import { MainLoading } from "../../components/ui/Loading";
+import { MainLoading } from "../../components/ui/MainLoading";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
 
 function Location() {

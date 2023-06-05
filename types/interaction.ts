@@ -1,12 +1,12 @@
-import { IAttendence, IParticipation } from "./studyDetails";
+import { IAttendance, IParticipation } from "./studyDetails";
 import { IUser } from "./user";
 
 export interface IModalContext {
   OpenResult?: {
-    attendences: IAttendence[];
+    attendences: IAttendance[];
   };
   Voter?: {
-    attendences: IAttendence[];
+    attendences: IAttendance[];
   };
   StudyVote?: {
     participations: IParticipation[];

@@ -3,22 +3,15 @@ import dayjs from "dayjs";
 import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
 import StudySpaceNavigation from "../../../pagesComponents/About/studySpace/StudySpaceNavigation";
 import StudySpaceCover from "../../../pagesComponents/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../pagesComponents/About/studySpace/StudySpaceHeader";
-
 import StudyTimeTable from "../../../pagesComponents/About/studySpace/StudySpaceTable";
-
 import { useVoteQuery } from "../../../hooks/vote/queries";
-
-import { IAttendence } from "../../../types/studyDetails";
+import { IAttendance } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 import { VOTE_END_HOUR } from "../../../constants/study";
-import { Location } from "../../../types/system";
-import { useEffect, useState } from "react";
-
-import ModalPortal from "../../../components/ModalPortal";
+import { useEffect } from "react";
 import StudySpaceVoteOverview from "../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
 import { useRecoilState } from "recoil";
@@ -89,11 +82,11 @@ function StudySpace() {
             <HrDiv />
             <StudySpaceVoteOverview
               date={voteDate}
-              voteCnt={attendences.length}
+              voteCnt={attendences?.length}
             />
             <StudyTimeTable attendances={attendences} />
             <StudySpaceNavigation
-              myVote={myVote as IAttendence}
+              myVote={myVote as IAttendance}
               place={place}
               status={status}
               voterCnt={attendences?.length}

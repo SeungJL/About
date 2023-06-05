@@ -1,7 +1,7 @@
 import mongoose, { model, Schema, Model } from "mongoose";
 import {
   IAbsence,
-  IAttendence,
+  IAttendance,
   IParticipation,
   IVote,
 } from "../types/studyDetails";
@@ -21,7 +21,7 @@ const ParticipantTimeSchema: Schema<ITimeStartToEnd> = new Schema(
   { _id: false }
 );
 
-const AttendenceSchema: Schema<IAttendence> = new Schema(
+const AttendenceSchema: Schema<IAttendance> = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,

@@ -5,7 +5,7 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
 
-import { IAttendence } from "../../../../types/studyDetails";
+import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { studyDateState, voteDateState } from "../../../../recoil/studyAtoms";
@@ -15,18 +15,18 @@ import { useRouter } from "next/dist/client/router";
 import dayjs from "dayjs";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useArrivedMutation } from "../../../../hooks/vote/mutations";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import ModalPortal from "../../../../components/ModalPortal";
 import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
 import { useSession } from "next-auth/react";
-import ProfileIconMd from "../../../../components/common/Profile/ProfileIconMd";
-import ProfileIconLg from "../../../../components/common/Profile/ProfileIconLg";
+
 import {
   beforePageState,
   userDataState,
 } from "../../../../recoil/interactionAtoms";
+import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
 
-function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
+function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -38,12 +38,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
   const { data: absentData } = useAbsentDataQuery(voteDate);
 
   const [isChangeModal, setIsChangeModal] = useState(false);
-  const [user, setUser] = useState<IAttendence>();
-
-  const onClickWriteBtn = (user: IAttendence) => {
-    setUser(user);
-    setIsChangeModal(true);
-  };
+  const [user, setUser] = useState<IAttendance>();
 
   const onClickUser = (user: IUser) => {
     setUserData(user);
@@ -51,18 +46,19 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
     setBeforePage(router?.asPath);
   };
 
-  const onClickEdit = (event) => {
+  const onClickEdit = (event: MouseEvent<SVGSVGElement>, att: IAttendance) => {
     event.stopPropagation();
-    onClickWriteBtn(user);
+    setUser(att);
+    setIsChangeModal(true);
   };
-  console.log(attendances);
+
   return (
     <>
       <Layout key={router.asPath}>
-        {attendances?.map((user, idx) => {
-          if (studyDate !== "not passed" && !user?.firstChoice) return null;
-          const arrivedTime = user?.arrived
-            ? new Date(user.arrived)
+        {attendances?.map((att, idx) => {
+          if (studyDate !== "not passed" && !att?.firstChoice) return null;
+          const arrivedTime = att?.arrived
+            ? new Date(att.arrived)
             : new Date(2023, 1, 1, 21, 0, 0);
 
           //임의로 체크로 해놨음. 나중에 방지 대책 필요.
@@ -73,34 +69,34 @@ function ArrivedComment({ attendances }: { attendances: IAttendence[] }) {
             minute: "2-digit",
             hour12: false,
           });
-          const userI = user?.user as IUser;
+          const user = att.user;
           return (
-            <Block key={idx} onClick={() => onClickUser(userI)}>
-              <ProfileIconLg user={userI} />
+            <Block key={idx} onClick={() => onClickUser(user)}>
+              <ProfileIcon user={user} size="md" />
               <BlockInfo>
                 <Info>
-                  <span>{(user.user as IUser).name}</span>
+                  <span>{user.name}</span>
                   <div>
-                    {user.memo}
-                    {user.memo && userI.uid === session?.uid && (
+                    {att.memo}
+                    {att.memo && user.uid === session?.uid && (
                       <span>
                         &nbsp;
                         <FontAwesomeIcon
                           icon={faPenToSquare}
                           color="var(--font-h1)"
-                          onClick={onClickEdit}
+                          onClick={(e) => onClickEdit(e, att)}
                         />
                       </span>
                     )}
                   </div>
                 </Info>
-                {user.arrived || studyDate === "passed" ? (
+                {att.arrived || studyDate === "passed" ? (
                   <Check isCheck={true}>
                     <FontAwesomeIcon icon={faCircleCheck} size="xl" />
                     <span>{arrivedHM}</span>
                   </Check>
                 ) : studyDate !== "not passed" &&
-                  absentData?.find((who) => who.uid === userI?.uid) ? (
+                  absentData?.find((who) => who.uid === user?.uid) ? (
                   <Check isCheck={false}>
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
                     <span>불참</span>

@@ -14,11 +14,12 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 
 import { IUser, USER_BADGES } from "../../types/user";
 import { motion } from "framer-motion";
-import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
+
 import {
   usePointAllQuery,
   useScoreAllQuery,
 } from "../../hooks/user/pointSystem/queries";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
 function UserInfoModal({
   user,
@@ -42,7 +43,7 @@ function UserInfoModal({
     <>
       <Layout>
         <UpPart>
-          <ProfileIconXl user={user} isSmall={true} />
+          <ProfileIcon user={user} size="xl" />
 
           <UserInfo>
             <UserName>

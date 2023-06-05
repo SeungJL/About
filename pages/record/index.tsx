@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import { MainLoading } from "../../components/ui/Loading";
+import { MainLoading } from "../../components/ui/MainLoading";
 import { useParticipationRateQuery } from "../../hooks/user/queries";
 import { useArrivedDataQuery } from "../../hooks/vote/queries";
 import RecordCalendar from "../../pagesComponents/Record/RecordCalendar";
@@ -18,7 +18,6 @@ import { voteDateState } from "../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
-
 
 function Record() {
   const { data: session } = useSession();

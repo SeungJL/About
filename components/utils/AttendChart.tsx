@@ -1,12 +1,10 @@
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
-
 import {
   useAttendRateQueries,
   useVoteRateQueries,
 } from "../../hooks/user/queries";
 import { getMonth } from "../../libs/utils/dateUtils";
-
 import { IUser } from "../../types/user";
 import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
 import { useEffect, useState } from "react";
@@ -18,10 +16,8 @@ import { AxiosError } from "axios";
 function AttendChart({ type, user }: { type?: string; user?: IUser }) {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
-
   const Uid = type === "main" ? session?.uid : user?.uid;
   const text = type === "modal" ? undefined : "내 스터디 참여";
-
   const monthXaxis = [];
   for (let i = Number(getMonth()) - 2; i <= Number(getMonth()) + 1; i++)
     monthXaxis.push(MONTH_LIST[i]);

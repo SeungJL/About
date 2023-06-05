@@ -5,7 +5,7 @@ import dbConnect from "../../../../libs/dbConnect";
 
 import { findOneVote } from "../../../../services/voteService";
 import { IVoteStudyInfo } from "../../../../types/statistics";
-import { IAttendence, IPlace, IVote } from "../../../../types/studyDetails";
+import { IAttendance, IPlace, IVote } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 import { Place } from "../../../../models/place";
 import { Vote } from "../../../../models/vote";
@@ -84,7 +84,7 @@ export default async function handler(
       const attendance = {
         time: { start: start, end: end },
         user: token.id,
-      } as IAttendence;
+      } as IAttendance;
 
       vote.participations = vote.participations.map((participation) => {
         const placeId = (participation.place as IPlace)._id.toString();

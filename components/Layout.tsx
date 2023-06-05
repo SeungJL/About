@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 
 import styled from "styled-components";
 import Script from "next/script";
-import { MainLoading } from "./ui/Loading";
+import { MainLoading } from "./ui/MainLoading";
 import { useUserInfoQuery } from "../hooks/user/queries";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";

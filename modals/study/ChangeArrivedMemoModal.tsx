@@ -18,20 +18,27 @@ import {
   ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
-import { IAttendence } from "../../types/studyDetails";
+import { IAttendance } from "../../types/studyDetails";
+
+import { useRouter } from "next/router";
 
 function ChangeArrivedMemoModal({
   setIsModal,
   user,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-  user: IAttendence;
+  user: IAttendance;
 }) {
+  const router = useRouter();
   const [memo, setMemo] = useState(user?.memo);
 
-  const voteDate = useRecoilValue(voteDateState);
+  const voteDate = dayjs(router.query.date as string);
 
-  const { mutate: changeMemo } = useArrivedMutation(dayjs(voteDate));
+  const { mutate: changeMemo } = useArrivedMutation(dayjs(voteDate), {
+    onSuccess() {
+      console.log("suc");
+    },
+  });
 
   const onCancelClicked = () => {
     setIsModal(false);
@@ -39,7 +46,6 @@ function ChangeArrivedMemoModal({
 
   const onChangeMemo = async () => {
     await changeMemo(memo);
-    document.location.reload();
     setIsModal(false);
   };
   return (

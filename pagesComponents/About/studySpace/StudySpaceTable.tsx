@@ -1,12 +1,10 @@
 import styled from "styled-components";
-
 import ArrivedComment from "./StudySpaceTable/ArrivedComment";
 import TimeTable from "./StudySpaceTable/TimeTable";
 import UserTable from "./StudySpaceTable/UserTable";
+import { IAttendance } from "../../../types/studyDetails";
 
-import { IAttendence } from "../../../types/studyDetails";
-
-function StudyTimeTable({ attendances }: { attendances: IAttendence[] }) {
+function StudyTimeTable({ attendances }: { attendances: IAttendance[] }) {
   const attendCnt = attendances?.length;
 
   return (

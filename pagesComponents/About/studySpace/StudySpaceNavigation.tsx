@@ -24,7 +24,7 @@ import {
 
 import { VOTE_GET } from "../../../libs/queryKeys";
 import { IPlaceStatusType } from "../../../types/statistics";
-import { IAttendence, IPlace } from "../../../types/studyDetails";
+import { IAttendance, IPlace } from "../../../types/studyDetails";
 import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { useSession } from "next-auth/react";
 
@@ -33,7 +33,7 @@ import {
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
-import VoteSuccessScreen from "./VoteSuccessModal";
+import VoteSuccessScreen from "./VoteSuccessScreen";
 
 function StudySpaceNavigation({
   myVote,
@@ -41,7 +41,7 @@ function StudySpaceNavigation({
   status,
   voterCnt,
 }: {
-  myVote: IAttendence;
+  myVote: IAttendance;
   place: IPlace;
   status: IPlaceStatusType;
   voterCnt: number;

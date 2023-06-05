@@ -1,18 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import {
-  faArrowUpFromBracket,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { IPlace } from "../../../types/studyDetails";
-
 import { WEB_URL } from "../../../constants/system";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
+
 const IMAGE_LIST = [1, 2, 3, 4, 5];
+
 function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
   const router = useRouter();
 

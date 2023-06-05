@@ -10,27 +10,12 @@ import dbConnect from "../../libs/dbConnect";
 import { User } from "../../models/user";
 import { useState, useEffect } from "react";
 import { IUser } from "../../types/user";
-import {
-  Flex,
-  Avatar,
-  Box,
-  Heading,
-  IconButton,
-  Text,
-  Button,
-} from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fa0 } from "@fortawesome/free-solid-svg-icons";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/card";
-import ProfileIconLg from "../../components/common/Profile/ProfileIconXl";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-
 import { birthToAge } from "../../libs/utils/membersUtil";
 import dayjs from "dayjs";
 import { birthToDayjs } from "../../libs/utils/dateUtils";
-import ProfileIconCircle from "../../components/common/Profile/ProfileIconCircle";
 import { beforePageState, userDataState } from "../../recoil/interactionAtoms";
 import { useSetRecoilState } from "recoil";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
 function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();
@@ -99,7 +84,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
         {filterMember?.map((who) => (
           <Item key={who?.uid} onClick={() => onClickProfile(who)}>
             <ProfileHeader>
-              <ProfileIconCircle user={who} />
+              <ProfileIcon user={who} size="md" />
               <span>{who?.name}</span>
             </ProfileHeader>
 

@@ -1,12 +1,8 @@
 import { Badge, Button } from "@chakra-ui/react";
 import {
-  faArrowDown,
-  faCalendar,
   faCalendarDays,
   faChevronDown,
   faDoorOpen,
-  faEllipsis,
-  faEllipsisVertical,
   faLocationDot,
   faUser,
   faVenusMars,
@@ -15,8 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ProfileIconLg from "../../../components/common/Profile/ProfileIconXl";
-import ProfileIconMd from "../../../components/common/Profile/ProfileIconLg";
+
 import Header from "../../../components/layouts/Header";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -26,6 +21,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import ModalPortal from "../../../components/ModalPortal";
 import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
+import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 
 function GatherDetail() {
   const router = useRouter();
@@ -54,7 +50,7 @@ function GatherDetail() {
           <Category>보드게임</Category>
         </Badge>
         <Profile>
-          <ProfileIconMd user={user} />
+          <ProfileIcon user={user} size="md" />
           <div>
             <span>{user?.name}</span>
             <span>2일 전</span>
@@ -99,7 +95,7 @@ function GatherDetail() {
           </span>
           <div>
             <MemberItem onClick={() => router.push(`/profile/${user.uid}`)}>
-              <ProfileIconMd user={user} />
+              <ProfileIcon user={user} size="md" />
               <div>
                 <span>{user?.name}</span>
                 <span>안녕하세요. 잘 부탁드립니다 !</span>

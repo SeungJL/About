@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Header from "../../components/layouts/Header";
 import {
   usePointAllQuery,
@@ -80,17 +81,7 @@ function Ranking() {
             <span>전체: {userScoreList?.length}명</span>
           </Myrank>
           <Profile isGuest={isGuest}>
-            {!isGuest && (
-              <ImageWrapper>
-                <Image
-                  width={72}
-                  height={72}
-                  alt="myProfile"
-                  src={`${session?.user.image}`}
-                  unoptimized={true}
-                />
-              </ImageWrapper>
-            )}
+            {!isGuest && <ProfileIcon user={session?.user} size="xl" />}
             <span>{session?.user.name}</span>
           </Profile>
           <Score>

@@ -32,22 +32,17 @@ import {
   PopoverAnchor,
 } from "@chakra-ui/react";
 import { IPlaceStatus, Status } from "../../types/statistics";
-import { IAttendence } from "../../types/studyDetails";
+import { IAttendance } from "../../types/studyDetails";
 const LOCATION = ["SUWAN", "YANG"];
 
 function StudyControl() {
   const [date, setDate] = useState(dayjs());
   const { data: SUWAN } = useVoteQuery(date, "수원");
   const { data: YANG } = useVoteQuery(date, "양천");
-  
 
-  const handleStatus = (type: Status) => {
-    
-  };
+  const handleStatus = (type: Status) => {};
 
-  const handleDeleteUser = (who: IAttendence) => {
-   
-  };
+  const handleDeleteUser = (who: IAttendance) => {};
 
   return (
     <>

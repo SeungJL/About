@@ -25,7 +25,7 @@ import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
 import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
 import ModalPortal from "../../components/ModalPortal";
-import ProfileIconXl from "../../components/common/Profile/ProfileIconXl";
+
 import { useFailToast } from "../../hooks/ui/CustomToast";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 

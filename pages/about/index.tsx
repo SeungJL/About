@@ -3,53 +3,39 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { GetServerSideProps } from "next";
 import styled from "styled-components";
 import { getSession, useSession } from "next-auth/react";
-import safeJsonStringify from "safe-json-stringify";
 import dbConnect from "../../libs/dbConnect";
-import { isMember, makeCryptoKey } from "../../libs/utils/authUtils";
-import { User } from "../../models/user";
-
 import { useToast } from "@chakra-ui/react";
-
 import Seo from "../../components/Seo";
 import AboutMain from "../../pagesComponents/About/main/AboutMain";
-
 import Header from "../../pagesComponents/About/main/AboutHeader";
 import Calendar from "../../pagesComponents/About/main/Calendar";
-import UserOverview from "../../pagesComponents/About/main/AboutOverview";
 import AboutVoteNav from "../../pagesComponents/About/main/AboutMain/AboutVoteNav";
-
 import UserSetting from "../../pagesComponents/UserSetting";
-
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
-
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
 import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
 import dayjs from "dayjs";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
-
-import { MainLoading } from "../../components/ui/Loading";
+import { MainLoading } from "../../components/ui/MainLoading";
 import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpperBar";
 import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
-
 import AboutNavigation from "../../pagesComponents/About/main/AboutOverview";
-import { SERVER_URI } from "../../constants/system";
 
 function About() {
   const toast = useToast();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);
   const location = useRecoilValue(locationState);
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const current = dayjs().hour();
 
@@ -134,7 +120,6 @@ function About() {
           <Layout>
             <Header />
             <AboutNavigation />
-            {/* <HrDiv /> */}
             <AboutUpperBar />
             <Calendar />
             {location === "수원" ? (
@@ -160,11 +145,6 @@ function About() {
 }
 
 const Layout = styled.div``;
-
-const HrDiv = styled.div`
-  height: 4px;
-  background-color: var(--font-h6);
-`;
 
 export default About;
 

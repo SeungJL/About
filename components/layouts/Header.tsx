@@ -1,4 +1,4 @@
-import { faArrowLeft, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -7,12 +7,10 @@ function Header({
   title,
   url,
   children,
-  before,
 }: {
   title: string;
   url?: string;
   children?: React.ReactNode;
-  before?: string;
 }) {
   const router = useRouter();
 
@@ -48,7 +46,6 @@ const Nav = styled.nav`
   margin-left: auto;
   display: flex;
   align-items: center;
-
   > div {
     margin-left: 20px;
   }

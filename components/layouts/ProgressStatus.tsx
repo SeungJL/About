@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Progress } from "@chakra-ui/react";
+
 function ProgressStatus({ value }: { value: number }) {
   return (
     <Layout>

@@ -12,8 +12,10 @@ function SuccessScreen({
   children?: React.ReactNode;
   url?: string;
 }) {
-  const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
   const router = useRouter();
+
+  const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
+
   const onClicked = () => {
     setIsCompleteModal(false);
     router.push(url || `/about`);
@@ -25,7 +27,6 @@ function SuccessScreen({
         <FontAwesomeIcon icon={faCheckCircle} size="5x" />
       </Icon>
       <Content>{children}</Content>
-
       <Button onClick={onClicked}>확인</Button>
     </Layout>
   );

@@ -6,7 +6,7 @@ import { AVATAR_COLOR, AVATAR_ICON } from "../../storage/Avatar";
 import { Badge, Button, useToast } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { userBadgeState } from "../../recoil/userAtoms";
-import { IAttendence } from "../../types/studyDetails";
+import { IAttendance } from "../../types/studyDetails";
 import { IUser, USER_BADGES } from "../../types/user";
 import { userBadgeScore } from "../../libs/utils/userUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +16,7 @@ import DetailInfo from "./DetailInfo";
 import ModalPortal from "../../components/ModalPortal";
 import ProfileCard from "../../modals/friend/ProfileCard";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import ProfileIconLg from "../../components/common/Profile/ProfileIconLg";
+
 import { useFailToast } from "../../hooks/ui/CustomToast";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 

@@ -3,7 +3,7 @@ import Header from "../../components/layouts/Header";
 import Image from "next/image";
 import { useState } from "react";
 import { FullScreen } from "../../styles/layout/modal";
-import { MainLoading } from "../../components/ui/Loading";
+import { MainLoading } from "../../components/ui/MainLoading";
 import { STORE_GIFT } from "../../storage/Store";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";

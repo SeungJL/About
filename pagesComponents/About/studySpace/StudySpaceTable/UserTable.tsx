@@ -6,12 +6,12 @@ import { useRecoilValue } from "recoil";
 import { isVotingState, studyDateState } from "../../../../recoil/studyAtoms";
 
 import { VOTE_TABLE_COLOR } from "../../../../constants/design";
-import { IAttendence } from "../../../../types/studyDetails";
+import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 
 const BLOCK_WIDTH = 25;
 
-function UserTable({ attendances }: { attendances: IAttendence[] }) {
+function UserTable({ attendances }: { attendances: IAttendance[] }) {
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
 
@@ -20,25 +20,25 @@ function UserTable({ attendances }: { attendances: IAttendence[] }) {
   useEffect(() => {
     setUserArr([]);
 
-    attendances?.forEach((user) => {
-      if (!user?.time) return;
-      const start = dayjs(user?.time.start);
-      const end = dayjs(user?.time.end);
+    attendances?.forEach((att) => {
+      if (!att?.time) return;
+      const start = dayjs(att?.time.start);
+      const end = dayjs(att?.time.end);
 
       const endTime = end.hour() + end.minute() / 60;
       const startTime = start.hour() + start.minute() / 60;
 
       const gap = endTime - startTime;
       const temp = {
-        name: (user?.user as IUser).name,
+        name: att.user.name,
         start: start.format("HH:mm"),
         end: end.format("HH:mm"),
         startGap: startTime - 10,
         gap,
-        isSecond: !user.firstChoice,
+        isSecond: !att.firstChoice,
       };
       if (studyDate === "not passed") setUserArr((old) => [...old, temp]);
-      else if (user.firstChoice) setUserArr((old) => [...old, temp]);
+      else if (att.firstChoice) setUserArr((old) => [...old, temp]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVoting]);

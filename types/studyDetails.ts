@@ -6,12 +6,12 @@ import { IUser } from "./user";
 import { ITimeStartToEnd, ITimeStartToEndHM } from "./utils";
 
 export interface IParticipant {
-  user: string | IUser;
+  user: IUser;
   time?: string;
-  place?: string | IPlace;
+  place?: IPlace;
 }
 
-export interface IAttendence2 extends Document {
+export interface IAttendance2 extends Document {
   date: Date;
   participants: IParticipant[];
   meetingTime: string;
@@ -20,8 +20,8 @@ export interface IAttendence2 extends Document {
   firstChoice?: boolean;
 }
 
-export interface IAttendence {
-  user: string | IUser;
+export interface IAttendance {
+  user: IUser;
   time: ITimeStartToEnd;
   created: Date;
   arrived?: Date;
@@ -51,7 +51,7 @@ export interface IAbsence {
 
 export interface IParticipation extends IPlaceStatus, ITimeStartToEndHM {
   place?: IPlace;
-  attendences?: IAttendence[];
+  attendences?: IAttendance[];
   absences?: IAbsence[];
   startTime?: Date;
   endTime?: Date;

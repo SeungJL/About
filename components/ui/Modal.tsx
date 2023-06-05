@@ -38,6 +38,7 @@ export const ModalHeaderXLine = ({ title, setIsModal }: IModalHeader) => (
     </div>
   </ModalHeaderXLineLayout>
 );
+
 const ModalHeaderXLineLayout = styled.div`
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,4 @@
-import { Spinner } from "@chakra-ui/react";
-import { Blocks, RotatingLines } from "react-loader-spinner";
-
+import { RotatingLines } from "react-loader-spinner";
 import styled from "styled-components";
 
 export const MainLoading = () => (

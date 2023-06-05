@@ -29,7 +29,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { IconKakao } from "../public/icons/Icons";
 import { motion } from "framer-motion";
-import { MainLoading } from "../components/ui/Loading";
+import { MainLoading } from "../components/ui/MainLoading";
 
 const Login: NextPage<{
   providers: Record<

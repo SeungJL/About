@@ -1,4 +1,4 @@
-import { IAttendence2, IParticipant } from "../types/studyDetails";
+import { IAttendance2, IParticipant } from "../types/studyDetails";
 import mongoose, { model, Schema, Document, Model } from "mongoose";
 
 const ParticipantSchema: Schema<IParticipant> = new Schema(
@@ -16,7 +16,7 @@ const ParticipantSchema: Schema<IParticipant> = new Schema(
   },
   { _id: false }
 );
-export const AttendenceSchema: Schema<IAttendence2> = new Schema(
+export const AttendenceSchema: Schema<IAttendance2> = new Schema(
   {
     date: Date,
     participants: [ParticipantSchema],
@@ -39,5 +39,5 @@ export const AttendenceSchema: Schema<IAttendence2> = new Schema(
   }
 );
 export const Attendence =
-  (mongoose.models.Attendence as Model<IAttendence2, {}, {}, {}>) ||
-  model<IAttendence2>("Attendence", AttendenceSchema);
+  (mongoose.models.Attendence as Model<IAttendance2, {}, {}, {}>) ||
+  model<IAttendance2>("Attendence", AttendenceSchema);

@@ -21,7 +21,7 @@ import {
   useApproveMutation,
   useRegisterMutation,
 } from "../../hooks/user/mutations";
-import { MainLoading } from "../../components/ui/Loading";
+import { MainLoading } from "../../components/ui/MainLoading";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
 
 function Message() {

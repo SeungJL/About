@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
-import { MainLoading } from "../../../components/ui/Loading";
+import { MainLoading } from "../../../components/ui/MainLoading";
 import { useStoreQuery } from "../../../hooks/store/queries";
 import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
 import GiftWinnerModal from "../../../modals/store/GiftWinnerModal";

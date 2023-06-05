@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
-import { MainLoading } from "../../components/ui/Loading";
+import { MainLoading } from "../../components/ui/MainLoading";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import FriendRuleModal from "../../modals/friend/FriendRuleModal";
 import ProfileCard from "../../modals/friend/ProfileCard";
