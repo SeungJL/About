@@ -17,11 +17,11 @@ import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 
 function Plaza() {
   const { data } = usePlazaDataQuery({
-    onSuccess(test) {
-   
-    },
+    onSuccess(test) {},
   });
- 
+
+  const promotion = data?.filter((item) => item.title === "홍보");
+
   const [category, setCategory] = useState<category>("전체");
   const filterData =
     category === "전체"

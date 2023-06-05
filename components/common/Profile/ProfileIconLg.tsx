@@ -64,25 +64,27 @@ function ProfileIconLg({
     avatarBg !== undefined;
   return (
     <>
-      <Layout
-        onClick={onClickImg}
-        style={{
-          background: avatarBg !== null && AVATAR_COLOR[avatarBg],
-          borderRadius: isCircle ? "50%" : "28%",
-        }}
-        size={size}
-      >
-        <Image
-          src={
-            isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
-          }
-          width={isAvatar ? WIDTH * 0.8 : WIDTH}
-          height={isAvatar ? WIDTH * 0.8 : WIDTH}
-          alt="userProfile"
-          unoptimized={true}
-          onError={onError}
-        />
-      </Layout>
+      {user !== undefined && (
+        <Layout
+          onClick={onClickImg}
+          style={{
+            background: avatarBg !== null && AVATAR_COLOR[avatarBg],
+            borderRadius: isCircle ? "50%" : "28%",
+          }}
+          size={size}
+        >
+          <Image
+            src={
+              isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
+            }
+            width={isAvatar ? WIDTH * 0.8 : WIDTH}
+            height={isAvatar ? WIDTH * 0.8 : WIDTH}
+            alt="userProfile"
+            unoptimized={true}
+            onError={onError}
+          />
+        </Layout>
+      )}
       {isUserModal && (
         <ModalPortal setIsModal={setIsUserModal}>
           <UserInfoModal user={user} setIsModal={setIsUserModal} />

@@ -70,17 +70,22 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
             );
           })
         );
-      if (idx === 3)
+      if (idx === 3) {
+        console.log(data?.majors[0]?.department);
+
         setFilterMember(
           membersListAll?.filter((who) => {
-            who?.majors &&
-              who?.majors[0]?.department === data?.majors[0]?.department;
+            return (
+              who?.majors &&
+              who?.majors[0]?.department === data?.majors[0]?.department
+            );
           })
         );
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
-
+  console.log(55, filterMember);
   const onClickProfile = (user: IUser) => {
     setUserData(user);
     setBeforePage(router?.asPath);

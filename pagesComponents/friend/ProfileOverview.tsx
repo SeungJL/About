@@ -29,12 +29,6 @@ function ProfileOverview({ user }: { user?: IUser }) {
   const [isFriend, setIsFriend] = useState(false);
 
   const [isProfileCard, setIsProfileCard] = useState(false);
-  useUserInfoQuery({
-    enabled: !user,
-    onSuccess(data) {
-      setInfo(data);
-    },
-  });
 
   const avatarType = info?.avatar?.type;
   const avatarBg = info?.avatar?.bg;

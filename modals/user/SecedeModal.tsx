@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import {
   ModalLg,
@@ -18,6 +19,28 @@ function SecedeModal({
 }: {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const { mutate } = usePlazaMutation({
+    onSuccess() {
+      console.log(55);
+    },
+  });
+  const { data: session } = useSession();
+
+  const [value, setValue] = useState();
+
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const onSecede = () => {
+    mutate({
+      category: "탈퇴",
+      title: "탈퇴",
+      content: "",
+      writer: session?.user.name,
+    });
+  };
+
   return (
     <Layout>
       <ModalHeaderXLine title="회원 탈퇴" setIsModal={setIsModal} />
@@ -29,14 +52,19 @@ function SecedeModal({
             확인하는대로 환급해 드리도록 하겠습니다. 단톡방은 직접 나가주시면
             됩니다 !
           </span>
-          <Textarea />
+          <Textarea value={value} onChange={onChange} />
           <Message>고생하셨어요 ~!</Message>
         </ModalMain>
         <Footer>
           <Button width="50%" onClick={() => setIsModal(false)}>
             취소
           </Button>
-          <Button width="50%" background="var(--color-mint)" color="white">
+          <Button
+            width="50%"
+            background="var(--color-mint)"
+            color="white"
+            onClick={onSecede}
+          >
             회원탈퇴
           </Button>
         </Footer>

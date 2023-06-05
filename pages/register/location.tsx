@@ -95,7 +95,6 @@ function Location() {
                   isSelected={location === space}
                   onClick={() => setLocation(space)}
                   key={space}
-                  disabled={space === "강남"}
                 >
                   <LocationTitle location={space} />
                   <LocationMember location={space} />
