@@ -25,6 +25,7 @@ import { IParticipation } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
 import { useStudyStartQuery } from "../../../hooks/vote/queries";
 import { isMainLoadingState } from "../../../recoil/systemAtoms";
+import { MainLoading } from "../../../components/ui/MainLoading";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();
@@ -102,55 +103,65 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     else setStudyDate("not passed");
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate, participations, isVoting]);
+  }, [participations, isVoting]);
 
   const otherStudySpaces = arrangeMainSpace(
     participations?.filter((space) => space !== mySpaceFixed)
   );
-  useEffect(() => {
-    if (!isLoading) setIsMainLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
 
+  useEffect(() => {
+    if (!isLoading) {
+      setIsMainLoading(false);
+      setIsLoading(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [voteDate]);
+  console.log(10, isLoading);
   return (
-    <AnimatePresence initial={false}>
-      <Layout
-        key={voteDate.format("MMDDdd")}
-        variants={variants}
-        initial="enter"
-        animate="center"
-        exit="exit"
-        transition={{
-          x: { type: "spring", stiffness: 300, damping: 30, duration: 0.5 },
-          opacity: { duration: 0.5 },
-        }}
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={1}
-        onDragEnd={(e, { offset, velocity }) => {
-          const swipe = swipePower(offset.x, velocity.x);
-          if (swipe < -swipeConfidenceThreshold) {
-            setVoteDate((old) => old.add(1, "day"));
-          } else if (swipe > swipeConfidenceThreshold) {
-            setVoteDate((old) => old.subtract(1, "day"));
-          }
-        }}
-      >
-        <Main>
-          {otherStudySpaces?.map((info, idx) => (
-            <Block key={idx}>
-              <AboutMainItem
-                studySpaceInfo={info}
-                voted={Boolean(
-                  myVoteList.find((space) => space === info?.place?._id)
-                )}
-              />
-            </Block>
-          ))}
-        </Main>
-      </Layout>
-      )
-    </AnimatePresence>
+    <>
+      {isLoading ? (
+        <MainLoading />
+      ) : (
+        <AnimatePresence initial={false}>
+          <Layout
+            key={voteDate.format("MMDDdd")}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30, duration: 0.5 },
+              opacity: { duration: 0.5 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+              if (swipe < -swipeConfidenceThreshold) {
+                setVoteDate((old) => old.add(1, "day"));
+              } else if (swipe > swipeConfidenceThreshold) {
+                setVoteDate((old) => old.subtract(1, "day"));
+              }
+            }}
+          >
+            <Main>
+              {otherStudySpaces?.map((info, idx) => (
+                <Block key={idx}>
+                  <AboutMainItem
+                    studySpaceInfo={info}
+                    voted={Boolean(
+                      myVoteList.find((space) => space === info?.place?._id)
+                    )}
+                  />
+                </Block>
+              ))}
+            </Main>
+          </Layout>
+          )
+        </AnimatePresence>
+      )}
+    </>
   );
 }
 

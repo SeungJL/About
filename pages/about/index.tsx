@@ -84,7 +84,7 @@ function About() {
   const { refetch } = useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
-   
+      console.log(1);
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);
@@ -117,7 +117,10 @@ function About() {
   }, [refetch, setUpdateStudy, updateStudy]);
 
   useEffect(() => {
-    if (!isLoading) setIsMainLoading(false);
+    if (!isLoading) {
+      setIsMainLoading(false);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
