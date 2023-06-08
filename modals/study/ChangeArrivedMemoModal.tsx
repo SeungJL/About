@@ -35,9 +35,7 @@ function ChangeArrivedMemoModal({
   const voteDate = dayjs(router.query.date as string);
 
   const { mutate: changeMemo } = useArrivedMutation(dayjs(voteDate), {
-    onSuccess() {
-      console.log("suc");
-    },
+ 
   });
 
   const onCancelClicked = () => {

@@ -60,7 +60,7 @@ function PointScore() {
       const { badge, badgeScore, nextBadge, gap, nextScore } = userBadgeScore(
         data.score
       );
-      console.log(2, badge, badgeScore, nextBadge, gap, nextScore);
+     
       setUserBadge({ badge, color: USER_BADGES[badge] });
       setScoreInfo({
         value: badgeScore,
@@ -70,7 +70,7 @@ function PointScore() {
       });
     },
   });
-  console.log(scoreInfo);
+
   const myPoint = data?.score;
 
   useScoreAllQuery({

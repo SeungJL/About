@@ -19,14 +19,10 @@ function SecedeModal({
 }: {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
-  const { mutate } = usePlazaMutation({
-    onSuccess() {
-      console.log(55);
-    },
-  });
+  const { mutate } = usePlazaMutation({});
   const { data: session } = useSession();
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
 
   const onChange = (e) => {
     setValue(e.target.value);

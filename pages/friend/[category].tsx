@@ -56,7 +56,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
           })
         );
       if (idx === 3) {
-        console.log(data?.majors[0]?.department);
+     
 
         setFilterMember(
           membersListAll?.filter((who) => {
@@ -70,7 +70,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
-  console.log(55, filterMember);
+
   const onClickProfile = (user: IUser) => {
     setUserData(user);
     setBeforePage(router?.asPath);

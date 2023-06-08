@@ -17,9 +17,7 @@ function CheckRegister() {
   const { data } = useUserInfoQuery();
   const [isRefetch, setIsRefetch] = useState(false);
   const { data: applyData, refetch } = useRegisterQuery({
-    onSuccess() {
-      console.log(22);
-    },
+  
   });
 
   const onClick = (who?: IRegisterForm) => {

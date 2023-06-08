@@ -213,7 +213,7 @@ const Message = styled.input`
   font-weight: 400;
   color: var(--font-h2);
   width: 90%;
-
+  background-color: inherit;
   font-size: 12px;
 `;
 

@@ -59,10 +59,9 @@ function VoteStudySubModal({
   });
 
   const [otherPlaceArr, setOtherPlaceArr] = useState<IPlace[]>();
-  console.log(voteDate, location);
+
   useVoteQuery(voteDate, location, {
     onSuccess(data) {
-      console.log(2);
       setOtherPlaceArr(
         data?.participations
           .filter((par) => par.place != place)

@@ -13,14 +13,21 @@ import { IApplyRest } from "../../types/userAction";
 
 import { useApplyRestMutation } from "../../hooks/user/mutations";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 
 function ApplyRestModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
+  const completeToast = useCompleteToast();
   const { data: session } = useSession();
-  const { mutate: applyRest } = useApplyRestMutation();
+  const { mutate: applyRest } = useApplyRestMutation({
+    onSuccess() {
+      completeToast();
+      setIsModal(false);
+    },
+  });
 
   const {
     register,

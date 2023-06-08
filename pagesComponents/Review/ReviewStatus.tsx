@@ -13,7 +13,7 @@ const VOTER_SHOW_MAX = 7;
 function ReviewStatus({ temp }: { temp?: any }) {
   const data = useUserInfoQuery();
   const [isModal, setIsModal] = useState(false);
-  console.log(temp);
+ 
   return (
     <>
       <Layout onClick={() => setIsModal(true)}>

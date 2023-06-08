@@ -9,11 +9,12 @@ import {
   useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+
 function ScoreLog() {
   const { data } = useScoreQuery();
-
   const { data: scoreLog } = useScoreLogQuery();
-  console.log(scoreLog);
+
+  const filterLog = scoreLog?.filter((item) => item?.meta?.value);
 
   return (
     <>
@@ -30,13 +31,13 @@ function ScoreLog() {
             <Content>내용</Content>
             <Point>점수</Point>
           </LogHeader>
-          {scoreLog?.map((item, idx) => (
+          {filterLog?.reverse().map((item, idx) => (
             <Item key={idx}>
-              <Date>{dayjs(item?.date).format("M.DD")}</Date>
+              <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
               <Content>{item?.message}</Content>
               <Point>
-                {item?.point > 0 && "+"}
-                {item?.point} 점
+                {item?.meta.value > 0 && "+"}
+                {item?.meta.value} 점
               </Point>
             </Item>
           ))}
@@ -58,8 +59,12 @@ const LogHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--font-h5);
+  font-size: 13px;
   > span {
     text-align: center;
+  }
+  > span:first-child {
+    color: var(--font-h1);
   }
 `;
 
@@ -88,21 +93,27 @@ const Container = styled.div`
 `;
 
 const Item = styled.div`
+  color: var(--font-h1);
   height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: 1px solid var(--font-h6);
+  font-size: 12px;
 `;
 
 const Date = styled.span`
   color: var(--font-h3);
   margin-right: 14px;
+  width: 54px;
+  text-align: center;
 `;
 
 const Content = styled.span`
   flex: 1;
 `;
 
-const Point = styled.span``;
+const Point = styled.span`
+  color: var(--font-h1);
+`;
 export default ScoreLog;

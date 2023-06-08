@@ -7,10 +7,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import InspectionModal from "../../modals/system/InspectionModal";
+import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 
 function PointPoint() {
   const router = useRouter();
   const ImageContainer = STORE_GIFT?.map((item) => item.image);
+  const { data } = usePointQuery();
   // const [isModal, setIsModal] = useState(false);
   return (
     <>
@@ -18,7 +20,7 @@ function PointPoint() {
         <Button onClick={() => router.push("/point/pointlog")}>
           <div>About 포인트</div>
           <div>
-            <span>423점</span>
+            <span>{data?.point}점</span>
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         </Button>

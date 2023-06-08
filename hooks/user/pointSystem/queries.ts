@@ -5,6 +5,7 @@ import {
   IDeposit,
   IPoint,
   IPointAll,
+  IPointLog,
   IScore,
 } from "../../../types/user/scoreSystem";
 
@@ -85,9 +86,12 @@ export const useDepositQuery = (
   );
 
 export const useScoreLogQuery = (
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    "queryKey" | "queryFn"
+  >
 ) =>
-  useQuery(
+  useQuery<IPointLog[], AxiosError, IPointLog[]>(
     "scoreLog",
     async () => {
       const res = await axios.get(`${SERVER_URI}/log/score`);
@@ -95,14 +99,46 @@ export const useScoreLogQuery = (
     },
     options
   );
-
 export const usePointLogQuery = (
-  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+  options?: Omit<
+    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    "queryKey" | "queryFn"
+  >
 ) =>
-  useQuery(
+  useQuery<IPointLog[], AxiosError, IPointLog[]>(
     "pointLog",
     async () => {
-      const res = await axios.get(`${SERVER_URI}/log/point`);
+      const res = await axios.get<IPointLog[]>(`${SERVER_URI}/log/point`);
+      return res.data;
+    },
+    options
+  );
+
+export const useScoreLogAllQuery = (
+  options?: Omit<
+    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IPointLog[], AxiosError, IPointLog[]>(
+    "scoreLogAll",
+    async () => {
+      const res = await axios.get(`${SERVER_URI}/log/score/all`);
+      return res.data;
+    },
+    options
+  );
+
+export const usePointLogAllQuery = (
+  options?: Omit<
+    UseQueryOptions<IPointLog, AxiosError, IPointLog>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery(
+    "pointLogAll",
+    async () => {
+      const res = await axios.get(`${SERVER_URI}/log/point/all`);
       return res.data;
     },
     options

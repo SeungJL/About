@@ -38,6 +38,9 @@ function Admin() {
                   유저 정보 관리 O
                 </button>
                 <button>유저 상태 확인</button>
+                <button onClick={() => router.push(`/admin/pointSystemLog`)}>
+                  포인트시스템 로그
+                </button>
               </NavBlock>
             </div>
             <div>

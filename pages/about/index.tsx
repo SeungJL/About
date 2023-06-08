@@ -24,6 +24,7 @@ import { MainLoading } from "../../components/ui/MainLoading";
 import AboutUpperBar from "../../pagesComponents/About/main/AboutMain/AboutUpperBar";
 import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
 import AboutNavigation from "../../pagesComponents/About/main/AboutOverview";
+import { updateStudyState } from "../../recoil/updateAtoms";
 
 function About() {
   const toast = useToast();
@@ -36,6 +37,8 @@ function About() {
   const location = useRecoilValue(locationState);
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [updateStudy, setUpdateStudy] = useRecoilState(updateStudyState);
 
   const current = dayjs().hour();
 
@@ -78,10 +81,10 @@ function About() {
     },
   });
 
-  useVoteQuery(voteDate, location, {
+  const { refetch } = useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
-      console.log(data);
+   
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);
@@ -103,6 +106,15 @@ function About() {
       acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
     0
   );
+
+  useEffect(() => {
+    if (updateStudy) {
+      setTimeout(() => {
+        refetch();
+      }, 1000);
+      // setUpdateStudy(false);
+    }
+  }, [refetch, setUpdateStudy, updateStudy]);
 
   useEffect(() => {
     if (!isLoading) setIsMainLoading(false);

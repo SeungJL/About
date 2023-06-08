@@ -3,7 +3,7 @@ import { useToast } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
 import { motion } from "framer-motion";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 import TimeSelector from "../../components/utils/TimeSelector";
@@ -32,6 +32,7 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
+import { updateStudyState } from "../../recoil/updateAtoms";
 
 function VoteStudyMainModal({
   setIsShowModal,
@@ -48,6 +49,8 @@ function VoteStudyMainModal({
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
+
+  const setUpdateStudy = useSetRecoilState(updateStudyState);
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -105,13 +108,13 @@ function VoteStudyMainModal({
           getPoint({ value: 2, message: "당일 참여" });
         }
         if (studyDate === "not passed") {
-          console.log(20);
           getScore({ value: 5, message: "스터디 투표" });
           getPoint({ value: 5, message: "스터디 투표" });
         }
       }
+    
+      setUpdateStudy(true);
       setIsComplete(true);
-      // document.location.reload();
     },
   });
 

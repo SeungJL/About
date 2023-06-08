@@ -27,3 +27,14 @@ export interface IPointSystem {
   value: number;
   message?: string;
 }
+
+export interface IPointLog {
+  message: string;
+  meta: {
+    type: "score" | "point";
+    uid: number;
+    value: number;
+    _id?: string;
+  };
+  timestamp: string;
+}
