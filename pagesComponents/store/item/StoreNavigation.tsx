@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 function StoreNavigation() {
-  return <Layout>
-    
-  </Layout>;
+  return <Layout></Layout>;
 }
 
 const Layout = styled.div`

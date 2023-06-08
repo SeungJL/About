@@ -1,15 +1,11 @@
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { useRecoilValue } from "recoil";
-
 import styled from "styled-components";
 
 import { InputSm } from "../../components/ui/Input";
 
 import { useArrivedMutation } from "../../hooks/vote/mutations";
-
-import { voteDateState } from "../../recoil/studyAtoms";
 
 import {
   ModalFooterNav,
@@ -34,9 +30,7 @@ function ChangeArrivedMemoModal({
 
   const voteDate = dayjs(router.query.date as string);
 
-  const { mutate: changeMemo } = useArrivedMutation(dayjs(voteDate), {
- 
-  });
+  const { mutate: changeMemo } = useArrivedMutation(dayjs(voteDate), {});
 
   const onCancelClicked = () => {
     setIsModal(false);

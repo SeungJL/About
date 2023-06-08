@@ -1,5 +1,3 @@
-import { Location } from "../types/system";
-
 export const MAX_USER_PER_PLACE = 8;
 export const MIN_USER_FOR_STUDY = 3;
 
@@ -21,4 +19,3 @@ export const STUDY_TIME_TABLE = [
 export const TIME_SELECTOR_START = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 export const TIME_SELECTOR_END = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 export const TIME_SELECTOR_MINUTES = ["00", "30"];
-

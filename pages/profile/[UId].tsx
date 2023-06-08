@@ -1,7 +1,4 @@
-import {
-  faAddressBook,
-  faEllipsisVertical,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";

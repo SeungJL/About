@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
-import CategoryStatus from "./CategoryStatus";
 import { useEffect } from "react";
 import { setCategoryStatus } from "../../libs/utils/membersUtil";
 import { categoryState } from "../../recoil/membersAtoms";
+import CategoryStatus from "./CategoryStatus";
 
 const Layout = styled.div`
   padding: 15px;

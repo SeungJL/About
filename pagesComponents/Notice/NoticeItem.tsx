@@ -7,14 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 import {
-  Accordion,
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Box,
-  Text,
   Flex,
+  Text,
 } from "@chakra-ui/react";
 
 function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {

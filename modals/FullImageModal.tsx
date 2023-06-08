@@ -1,17 +1,7 @@
-import { useToast } from "@chakra-ui/react";
 import Image from "next/image";
-import { SetStateAction, useState } from "react";
+import { SetStateAction } from "react";
 import styled from "styled-components";
 
-import { ModalHeaderXLine } from "../components/ui/Modal";
-import {
-  ModalFooterNav,
-  ModalHeaderLine,
-  ModalLg,
-  ModalMain,
-  ModalMd,
-  ModalSubtitle,
-} from "../styles/layout/modal";
 
 function FullImageModal({
   setIsModal,

@@ -1,4 +1,4 @@
-import mongoose, { model, Schema, Document, Model } from "mongoose";
+import mongoose, { model, Model, Schema } from "mongoose";
 import { IAccount } from "../types/user";
 
 export const AccountSchema: Schema<IAccount> = new Schema({

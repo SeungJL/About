@@ -1,6 +1,6 @@
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { IArrivedData } from "../../types/studyRecord";
-import { Dispatch, SetStateAction } from "react";
 
 import dayjs from "dayjs";
 import { SPACE_NAME } from "../../storage/study";

@@ -1,35 +1,28 @@
-import styled from "styled-components";
-import { ChangeEvent, EventHandler, useEffect, useState } from "react";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
-import Header from "../../components/layouts/Header";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { registerFormState } from "../../recoil/userAtoms";
-import { ChangeHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Location } from "../../types/system";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../components/layouts/BottomNav";
+import Header from "../../components/layouts/Header";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
+import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
+import { registerFormState } from "../../recoil/userAtoms";
 
-import { INTEREST_DATA, MESSAGE_DATA } from "../../storage/ProfileData";
-import { IInterests } from "../../types/user";
-import { Box, Flex, useToast } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight, faCopy } from "@fortawesome/free-solid-svg-icons";
 import {
   Accordion,
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Flex,
+  useToast,
 } from "@chakra-ui/react";
-import { ACCOUNT, ACCOUNT_SHORT } from "../../constants/private";
+import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import {
-  useApproveMutation,
-  useRegisterMutation,
-} from "../../hooks/user/mutations";
-import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
+import { useRegisterMutation } from "../../hooks/user/mutations";
 import RegisterCost from "../../pagesComponents/Register/fee/RegisterCost";
 function Fee() {
   const toast = useToast();

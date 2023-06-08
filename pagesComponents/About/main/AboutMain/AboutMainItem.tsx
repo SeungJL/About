@@ -1,9 +1,8 @@
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { IconUserTwo } from "../../../../public/icons/Icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import { IconUserTwo } from "../../../../public/icons/Icons";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -12,14 +11,12 @@ import {
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 
-import { IParticipation } from "../../../../types/studyDetails";
-import { IUser } from "../../../../types/user";
-import { useStudyStartQuery } from "../../../../hooks/vote/queries";
 import { Badge } from "@chakra-ui/react";
+import ProfileIconXsOverwrap from "../../../../components/common/Profile/ProfileIconXsOverwrap";
 import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
 import { MAX_USER_PER_PLACE } from "../../../../constants/study";
-import ProfileIconXsOverwrap from "../../../../components/common/Profile/ProfileIconXsOverwrap";
 import { YANG_할리스 } from "../../../../storage/study";
+import { IParticipation } from "../../../../types/studyDetails";
 
 const VOTER_SHOW_MAX = 7;
 

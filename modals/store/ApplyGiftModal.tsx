@@ -1,8 +1,7 @@
 import { Button, useToast } from "@chakra-ui/react";
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import CountNum from "../../components/utils/CountNum";

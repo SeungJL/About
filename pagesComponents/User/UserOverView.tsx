@@ -1,33 +1,25 @@
-import { signOut } from "next-auth/react";
 import styled from "styled-components";
 
-import { useUserInfoQuery, useCommentQuery } from "../../hooks/user/queries";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 
+import { Badge, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { Badge, Spinner, useToast } from "@chakra-ui/react";
-import axios, { AxiosError } from "axios";
 
-import { RepeatIcon } from "@chakra-ui/icons";
-
-import { useMutation } from "react-query";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef, useState } from "react";
 import {
   useApproveMutation,
-  useCommentMutation,
   useRegisterMutation,
 } from "../../hooks/user/mutations";
-import { IUser, IUserComment, kakaoProfileInfo } from "../../types/user";
 
-import { userBadgeState } from "../../recoil/userAtoms";
 import { useRecoilValue } from "recoil";
-import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
 import ModalPortal from "../../components/ModalPortal";
+import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
+import { userBadgeState } from "../../recoil/userAtoms";
 
-import { useFailToast } from "../../hooks/ui/CustomToast";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 
 export default function UserOverview() {
   const [value, setValue] = useState("안녕하세요! 잘 부탁드려요 ㅎㅎ");

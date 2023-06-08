@@ -5,8 +5,8 @@ import ModalPortal from "../components/ModalPortal";
 import WeekAttendPopup from "../modals/pop-up/LastWeekAttendPopUp";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { isNoticeAlertState } from "../recoil/utilityAtoms";
 import { numOfUserState } from "../recoil/userAtoms";
+import { isNoticeAlertState } from "../recoil/utilityAtoms";
 
 import {
   ATTEND_POP_UP,
@@ -14,17 +14,13 @@ import {
   PROFILE_POP_UP,
   PROMOTION_POP_UP1,
   PROMOTION_POP_UP2,
-  USER_GUIDE,
 } from "../constants/localStorage";
-import { IUser } from "../types/user";
-import { useUserInfoQuery, useIsActiveQuery } from "../hooks/user/queries";
-import { isMainLoadingState, locationState } from "../recoil/systemAtoms";
-import { usePlazaDataQuery } from "../hooks/plaza/queries";
-import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
-import SuggestPopUp from "../modals/pop-up/SuggestPopUp";
-import ProfileModifyPopUp from "../modals/pop-up/ProfileModifyPopUp";
-import { Modal } from "@chakra-ui/react";
+import { useIsActiveQuery, useUserInfoQuery } from "../hooks/user/queries";
 import PromotionModal from "../modals/mainHeader/PromotionModal";
+import ProfileModifyPopUp from "../modals/pop-up/ProfileModifyPopUp";
+import SuggestPopUp from "../modals/pop-up/SuggestPopUp";
+import UserGuidePopUp from "../modals/pop-up/UserGuidePopUp";
+import { isMainLoadingState, locationState } from "../recoil/systemAtoms";
 
 export default function UserSetting() {
   const { data: session } = useSession();

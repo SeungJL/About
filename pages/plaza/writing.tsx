@@ -2,13 +2,11 @@ import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
-import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 import VoteList from "../../pagesComponents/Plaza/writing/VoteList";
 import WritingCategory from "../../pagesComponents/Plaza/writing/WritingCategory";
 import WritingContent from "../../pagesComponents/Plaza/writing/WritingContent";

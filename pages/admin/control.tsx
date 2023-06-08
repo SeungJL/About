@@ -1,12 +1,6 @@
 import { Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
-import dayjs from "dayjs";
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 import { SERVER_URI } from "../../constants/system";
-import { isPreviliged } from "../../libs/utils/authUtils";
-import { now } from "../../libs/utils/dateUtils";
-import { User } from "../../models/user";
 
 export default function Admin() {
   const secretKey = process.env.NEXTAUTH_SECRET;

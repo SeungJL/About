@@ -1,12 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
 
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { useMemo } from "react";
-import { RecoilRoot } from "recoil";
 import "nprogress/nprogress.css";
+import { useMemo } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { RecoilRoot } from "recoil";
+import "../styles/globals.css";
 import "../styles/variable.css";
 
 import Head from "next/head";
@@ -14,8 +14,6 @@ import Head from "next/head";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Layout from "../components/Layout";
 import theme from "../theme";
-import axios from "axios";
-import { useToken } from "../hooks/token/useToken";
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const queryClient = useMemo(

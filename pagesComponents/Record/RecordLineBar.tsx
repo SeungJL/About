@@ -1,7 +1,4 @@
-import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../constants/design";
 import {
-  Badge,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -10,10 +7,12 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import { Location } from "../../types/system";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
+import { VOTE_TABLE_COLOR } from "../../constants/design";
+import { Location } from "../../types/system";
 
 function RecordLineBar({
   category,

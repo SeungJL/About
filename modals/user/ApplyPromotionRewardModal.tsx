@@ -1,24 +1,17 @@
-import styled from "styled-components";
-import { SetStateAction } from "react";
-import {
-  ModalLg,
-  ModalMain,
-  ModalMd,
-  ModalSubtitle,
-  ModalXs,
-  ModalXXL,
-} from "../../styles/layout/modal";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { Button, useToast } from "@chakra-ui/react";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { SetStateAction } from "react";
+import styled from "styled-components";
+import { CopyBtnBig } from "../../components/common/Icon/CopyIcon";
+import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
+import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
-import { useSession } from "next-auth/react";
-import dayjs from "dayjs";
-import { CopyBtnBig } from "../../components/common/Icon/CopyIcon";
-import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
+import { ModalMain, ModalXXL } from "../../styles/layout/modal";
 
 function ApplyPromotionRewardModal({
   setIsModal,

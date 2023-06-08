@@ -1,38 +1,38 @@
-import styled from "styled-components";
 import { useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
-import { motion } from "framer-motion";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
 
-import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 import TimeSelector from "../../components/utils/TimeSelector";
+import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 
 import { ModalHeaderX } from "../../components/ui/Modal";
 
-import { useVoteQuery } from "../../hooks/vote/queries";
 import { useAttendMutation } from "../../hooks/vote/mutations";
+import { useVoteQuery } from "../../hooks/vote/queries";
 
+import { VOTE_GET } from "../../libs/queryKeys";
+import { arrangeSpace } from "../../libs/utils/studyUtils";
 import {
   isVotingState,
   studyDateState,
-  voteDateState,
+  voteDateState
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/systemAtoms";
-import { arrangeSpace } from "../../libs/utils/studyUtils";
-import { VOTE_GET } from "../../libs/queryKeys";
 
-import { IplaceInfo } from "../../types/statistics";
-import { ITimeStartToEndHM } from "../../types/utils";
-import { IVoteInfo } from "../../types/studyDetails";
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import TimeSelectorLg from "../../components/utils/TimeSelectorLg";
 import {
   usePointMutation,
-  useScoreMutation,
+  useScoreMutation
 } from "../../hooks/user/pointSystem/mutation";
 import { updateStudyState } from "../../recoil/updateAtoms";
+import { IplaceInfo } from "../../types/statistics";
+import { IVoteInfo } from "../../types/studyDetails";
+import { ITimeStartToEndHM } from "../../types/utils";
 
 function VoteStudyMainModal({
   setIsShowModal,
@@ -112,7 +112,7 @@ function VoteStudyMainModal({
           getPoint({ value: 5, message: "스터디 투표" });
         }
       }
-    
+
       setUpdateStudy(true);
       setIsComplete(true);
     },

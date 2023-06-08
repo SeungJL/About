@@ -1,12 +1,16 @@
 import {
   Button,
-  FormControl,
-  FormLabel,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   RangeSlider,
   RangeSliderFilledTrack,
   RangeSliderThumb,
   RangeSliderTrack,
-  Slide,
   Switch,
   useToast,
 } from "@chakra-ui/react";
@@ -14,41 +18,28 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faExclamationCircle,
   faMinus,
-  faMinusCircle,
   faPlus,
-  faPlusCircle,
-  faSatellite,
   faUserGroup,
-  faUsers,
   faUserSecret,
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect } from "react";
+import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
 import ProgressStatus from "../../../components/layouts/ProgressStatus";
+import SuccessScreen from "../../../components/layouts/SuccessScreen";
+import ModalPortal from "../../../components/ModalPortal";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
+import { randomPassword } from "../../../libs/utils/validUtils";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
-import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
-import { randomPassword } from "../../../libs/utils/validUtils";
-import ModalPortal from "../../../components/ModalPortal";
-import SuccessScreen from "../../../components/layouts/SuccessScreen";
-import dayjs, { Dayjs } from "dayjs";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
 
 const AGE_BAR = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 

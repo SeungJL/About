@@ -1,7 +1,7 @@
 // middleware.ts
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -12,7 +12,6 @@ export async function middleware(req: NextRequest) {
   const allowedId = ["2259633694", "2283035576", "2255707346"];
 
   if (!allowedId.includes(session.uid?.toString())) {
-  
     return NextResponse.redirect(new URL("/about", req.url));
   }
 }

@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
+import { motion } from "framer-motion";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 function WritingContent({
   register,
   isVote,

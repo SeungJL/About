@@ -1,20 +1,18 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useEffect, useState } from "react";
 import Router from "next/router";
+import { useEffect, useState } from "react";
 
-import { useRecoilValue } from "recoil";
-
-import styled from "styled-components";
-import Script from "next/script";
-import { MainLoading } from "./ui/MainLoading";
-import { useUserInfoQuery } from "../hooks/user/queries";
+import { Button } from "@chakra-ui/react";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
-import { config } from "@fortawesome/fontawesome-svg-core";
+import Script from "next/script";
+import styled from "styled-components";
 import { useToken } from "../hooks/token/useToken";
-import axios from "axios";
-import { Button } from "@chakra-ui/react";
+import { useUserInfoQuery } from "../hooks/user/queries";
+import { MainLoading } from "./ui/MainLoading";
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
 config.autoAddCss = false;

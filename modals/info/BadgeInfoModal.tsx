@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Badge, useTheme } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
+import styled from "styled-components";
 
 import { ModalHeaderCenter, ModalXXL } from "../../styles/layout/modal";
 

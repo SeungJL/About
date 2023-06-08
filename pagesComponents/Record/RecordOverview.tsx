@@ -1,11 +1,9 @@
 import { Button } from "@chakra-ui/react";
-import styled from "styled-components";
-import { useState } from "react";
-import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import { useParticipationRateQuery } from "../../hooks/user/queries";
-import { IVoteRate } from "../../types/studyRecord";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import styled from "styled-components";
+import NotCompletedModal from "../../modals/system/NotCompletedModal";
 
 function RecordOverview({
   totalOpen,

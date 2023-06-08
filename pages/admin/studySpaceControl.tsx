@@ -1,12 +1,11 @@
 import { Button } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { DefaultValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { LogoAdjustmentImage } from "../../components/ui/DesignAdjustment";
-import { usePlaceQuery, useVoteQuery } from "../../hooks/vote/queries";
-import { IPlace, ISpaceControl } from "../../types/studyDetails";
+import { usePlaceQuery } from "../../hooks/vote/queries";
+import { ISpaceControl } from "../../types/studyDetails";
 import { Location } from "../../types/system";
 
 function StudySpaceControl() {

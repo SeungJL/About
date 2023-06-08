@@ -1,62 +1,44 @@
 import styled from "styled-components";
 
-import {
-  Text,
-  Container,
-  Box,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Image,
-  useDisclosure,
-  Button,
-} from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { getSession, signOut, useSession } from "next-auth/react";
-import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
 import dbConnect from "../../libs/dbConnect";
+import { getInterestingDate, getToday } from "../../libs/utils/dateUtils";
 
-import AttendChart from "../../components/utils/AttendChart";
-import Header from "../../components/layouts/Header";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
 import SuggestModal from "../../modals/user/SuggestModal";
 
 import { User } from "../../models/user";
 
-import { Attendence } from "../../models/attendence";
 import ApplyRestModal from "../../modals/user/ApplyRestModal";
+import { Attendence } from "../../models/attendence";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { userBadgeState } from "../../recoil/userAtoms";
+import { useSetRecoilState } from "recoil";
 
-import UserOverview from "../../pagesComponents/User/UserOverView";
-import { useMutation } from "react-query";
-import { IUser, kakaoProfileInfo } from "../../types/user";
-import axios, { AxiosError } from "axios";
-import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
-import ChargeDepositModal from "../../modals/user/ChargeDepositModal";
-import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
-import {
-  useDepositQuery,
-  usePointQuery,
-  useScoreAllQuery,
-} from "../../hooks/user/pointSystem/queries";
-import SecedeModal from "../../modals/user/SecedeModal";
 import {
   AlertDialog,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogContent,
   AlertDialogOverlay,
 } from "@chakra-ui/react";
-import { isProfileEditState } from "../../recoil/interactionAtoms";
 import { useFailToast } from "../../hooks/ui/CustomToast";
+import {
+  useDepositQuery,
+  usePointQuery,
+} from "../../hooks/user/pointSystem/queries";
+import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
+import ChargeDepositModal from "../../modals/user/ChargeDepositModal";
+import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
+import SecedeModal from "../../modals/user/SecedeModal";
+import UserOverview from "../../pagesComponents/User/UserOverView";
+import { isProfileEditState } from "../../recoil/interactionAtoms";
 
 function UserInfo() {
   const router = useRouter();

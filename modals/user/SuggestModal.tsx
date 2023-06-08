@@ -1,30 +1,30 @@
-import styled from "styled-components";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, Dispatch, SetStateAction } from "react";
-import { useForm } from "react-hook-form";
-import { useSession } from "next-auth/react";
-import dayjs from "dayjs";
 import {
   Popover,
-  PopoverTrigger,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
   PopoverContent,
   PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
+  PopoverTrigger,
 } from "@chakra-ui/react";
+import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
 
-import { ModalFooterNav, ModalMain, ModalLg } from "../../styles/layout/modal";
+import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
 
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
 
 function SuggestModal({
   setIsModal,

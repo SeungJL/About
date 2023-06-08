@@ -1,20 +1,19 @@
-import styled from "styled-components";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
-import Header from "../../components/layouts/Header";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import BottomNav from "../../components/layouts/BottomNav";
-import { DefaultValue, useRecoilState, useSetRecoilState } from "recoil";
-import { registerFormState } from "../../recoil/userAtoms";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import ko from "date-fns/locale/ko";
 import { Button } from "@chakra-ui/react";
+import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../components/layouts/BottomNav";
+import Header from "../../components/layouts/Header";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
+import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
+import { registerFormState } from "../../recoil/userAtoms";
 
 function Birthday() {
   const router = useRouter();

@@ -18,4 +18,3 @@ export const VOTE_TABLE_COLOR = [
   "#D7BCE8",
   "#B0C4DE",
 ];
-

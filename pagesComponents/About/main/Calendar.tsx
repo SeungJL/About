@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import dayjs from "dayjs";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
   faChevronLeft,
   faChevronRight,
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 import { IconCircle } from "../../../public/icons/IconOutline";
 

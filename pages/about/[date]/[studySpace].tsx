@@ -1,23 +1,23 @@
-import styled from "styled-components";
-import dayjs from "dayjs";
 import { useToast } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import StudySpaceNavigation from "../../../pagesComponents/About/studySpace/StudySpaceNavigation";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import { VOTE_END_HOUR } from "../../../constants/study";
+import { useVoteQuery } from "../../../hooks/vote/queries";
+import { getInterestingDate } from "../../../libs/utils/dateUtils";
+import StudySpaceVoteOverview from "../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceCover from "../../../pagesComponents/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../pagesComponents/About/studySpace/StudySpaceHeader";
+import StudySpaceNavigation from "../../../pagesComponents/About/studySpace/StudySpaceNavigation";
+import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
 import StudyTimeTable from "../../../pagesComponents/About/studySpace/StudySpaceTable";
-import { useVoteQuery } from "../../../hooks/vote/queries";
+import { studyDateState } from "../../../recoil/studyAtoms";
+import { SPACE_LOCATION } from "../../../storage/study";
 import { IAttendance } from "../../../types/studyDetails";
 import { IUser } from "../../../types/user";
-import { VOTE_END_HOUR } from "../../../constants/study";
-import { useEffect } from "react";
-import StudySpaceVoteOverview from "../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
-import StudySpaceOverview from "../../../pagesComponents/About/studySpace/StudySpaceOverView";
-import { useRecoilState } from "recoil";
-import { studyDateState } from "../../../recoil/studyAtoms";
-import { getInterestingDate } from "../../../libs/utils/dateUtils";
-import { SPACE_LOCATION } from "../../../storage/study";
 
 function StudySpace() {
   const toast = useToast();

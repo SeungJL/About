@@ -1,33 +1,28 @@
 import {
-  fa0,
   faArrowLeft,
   faBell,
   faFilter,
-  faSearch,
+  faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
 import { getSession, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import styled from "styled-components";
-import { animate, motion } from "framer-motion";
-import { transition } from "@chakra-ui/react";
 import Link from "next/link";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useEffect } from "react";
-import {
-  categoryState,
-  isShowMemberInfoState,
-} from "../../../recoil/membersAtoms";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
 import { sortUserList } from "../../../libs/utils/membersUtil";
+import {
+  categoryState
+} from "../../../recoil/membersAtoms";
 
 import { GetServerSideProps } from "next";
-import dbConnect from "../../../libs/dbConnect";
 import safeJsonStringify from "safe-json-stringify";
-import { IUser } from "../../../types/user";
+import dbConnect from "../../../libs/dbConnect";
 import { User } from "../../../models/user";
-import UserBlock from "../../../pagesComponents/Members/UserBlock";
 import CategoryFilter from "../../../pagesComponents/Members/CategoryFilter";
+import UserBlock from "../../../pagesComponents/Members/UserBlock";
+import { IUser } from "../../../types/user";
 const Layout = styled.div`
   display: flex;
   flex-direction: column;

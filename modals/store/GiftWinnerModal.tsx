@@ -1,24 +1,10 @@
-import { Button, ModalFooter, useToast } from "@chakra-ui/react";
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
-import CountNum from "../../components/utils/CountNum";
-import { useStoreMutation } from "../../hooks/store/mutation";
 
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
-import { usePointQuery } from "../../hooks/user/pointSystem/queries";
-
-import {
-  ModalFooterNav,
-  ModalLgLight,
-  ModalMain,
-  ModalMd,
-  ModalXs,
-} from "../../styles/layout/modal";
-import { IStoreApplicant, IStoreGift } from "../../types/store";
+import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
+import { IStoreApplicant } from "../../types/store";
 
 function GiftWinnerModal({
   setIsModal,

@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
+import styled from "styled-components";
 
 function PlazaVoteList({ voteListArr, setVoteListArr }) {
   const voteListInput = useRef();

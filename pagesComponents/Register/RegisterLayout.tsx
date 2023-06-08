@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { registerFormState } from "../../recoil/userAtoms";
 
 function RegisterLayout({
   children,

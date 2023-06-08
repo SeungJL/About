@@ -1,21 +1,21 @@
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import Header from "../../components/layouts/Header";
-import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
-import { useUserInfoQuery } from "../../hooks/user/queries";
+import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import safeJsonStringify from "safe-json-stringify";
-import dbConnect from "../../libs/dbConnect";
-import { User } from "../../models/user";
-import { useState, useEffect } from "react";
-import { IUser } from "../../types/user";
-import { birthToAge } from "../../libs/utils/membersUtil";
-import dayjs from "dayjs";
-import { birthToDayjs } from "../../libs/utils/dateUtils";
-import { beforePageState, userDataState } from "../../recoil/interactionAtoms";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import safeJsonStringify from "safe-json-stringify";
+import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
+import Header from "../../components/layouts/Header";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import dbConnect from "../../libs/dbConnect";
+import { birthToDayjs } from "../../libs/utils/dateUtils";
+import { birthToAge } from "../../libs/utils/membersUtil";
+import { User } from "../../models/user";
+import { beforePageState, userDataState } from "../../recoil/interactionAtoms";
+import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
+import { IUser } from "../../types/user";
 
 function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();
@@ -56,8 +56,6 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
           })
         );
       if (idx === 3) {
-     
-
         setFilterMember(
           membersListAll?.filter((who) => {
             return (

@@ -1,7 +1,6 @@
 import { Dayjs } from "dayjs";
-import { IPlace } from "./studyDetails";
 import { Dispatch, SetStateAction } from "react";
-import { IUser } from "./user";
+import { IPlace } from "./studyDetails";
 
 export interface IVoteStudyInfo {
   place?: IPlace;

@@ -1,5 +1,4 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useUpdateProfileMutation } from "../../hooks/admin/mutation";

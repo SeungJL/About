@@ -7,7 +7,6 @@ import Document, {
   NextScript,
 } from "next/document";
 
-import Script from "next/script";
 import { Fragment } from "react";
 
 import { ServerStyleSheet } from "styled-components";

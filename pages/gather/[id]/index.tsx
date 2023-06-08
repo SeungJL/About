@@ -8,20 +8,19 @@ import {
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
-import Header from "../../../components/layouts/Header";
-import KakaoShareBtn from "../../../components/utils/KakaoShare";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { gatherContentState } from "../../../recoil/contentsAtoms";
-import { GatherCategoryIcons } from "../../../storage/Gather";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import ModalPortal from "../../../components/ModalPortal";
-import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import Header from "../../../components/layouts/Header";
+import ModalPortal from "../../../components/ModalPortal";
+import KakaoShareBtn from "../../../components/utils/KakaoShare";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
+import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
+import { gatherContentState } from "../../../recoil/contentsAtoms";
+import { GatherCategoryIcons } from "../../../storage/Gather";
 
 function GatherDetail() {
   const router = useRouter();

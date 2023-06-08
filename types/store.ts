@@ -1,5 +1,3 @@
-import { Dayjs } from "dayjs";
-
 export interface IStoreGift {
   image: string;
   name: string;

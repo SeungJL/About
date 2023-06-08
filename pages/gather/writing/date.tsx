@@ -1,21 +1,21 @@
 import { useToast } from "@chakra-ui/react";
-import { useRouter } from "next/dist/client/router";
-import styled from "styled-components";
-import BottomNav from "../../../components/layouts/BottomNav";
-import ProgressStatus from "../../../components/layouts/ProgressStatus";
-import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
-import { useState } from "react";
-import DatePicker from "react-datepicker";
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
-import "react-datepicker/dist/react-datepicker.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
-import SearchLocation from "../../../components/utils/SearchLocation";
-import Header from "../../../components/layouts/Header";
 import { motion } from "framer-motion";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRouter } from "next/dist/client/router";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../../components/layouts/BottomNav";
+import Header from "../../../components/layouts/Header";
+import ProgressStatus from "../../../components/layouts/ProgressStatus";
+import SearchLocation from "../../../components/utils/SearchLocation";
+import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
+import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
 
 function WritingDate() {

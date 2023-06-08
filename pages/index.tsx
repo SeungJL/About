@@ -1,8 +1,6 @@
-import axios from "axios";
 import { GetServerSideProps } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { isMember } from "../libs/utils/authUtils";
-import { IUser } from "../types/user";
 
 function Index() {
   return null;

@@ -1,21 +1,21 @@
-import styled from "styled-components";
-import { useState, useEffect } from "react";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
-import Header from "../../components/layouts/Header";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { registerFormState } from "../../recoil/userAtoms";
-import { useRouter } from "next/router";
-import { Location } from "../../types/system";
 import { motion } from "framer-motion";
-import { useUserInfoQuery } from "../../hooks/user/queries";
-import LocationTitle from "../../pagesComponents/Register/location/LocationTitle";
-import { StudyLocation } from "../../storage/study";
-import LocationMember from "../../pagesComponents/Register/location/LocationMember";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../components/layouts/BottomNav";
+import Header from "../../components/layouts/Header";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
 import { MainLoading } from "../../components/ui/MainLoading";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import LocationMember from "../../pagesComponents/Register/location/LocationMember";
+import LocationTitle from "../../pagesComponents/Register/location/LocationTitle";
+import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
+import { registerFormState } from "../../recoil/userAtoms";
+import { StudyLocation } from "../../storage/study";
+import { Location } from "../../types/system";
 
 function Location() {
   const router = useRouter();

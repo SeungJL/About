@@ -1,13 +1,10 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import ImageSlider from "../../components/utils/ImageSlider";
-import { STORE_GIFT } from "../../storage/Store";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import ModalPortal from "../../components/ModalPortal";
-import InspectionModal from "../../modals/system/InspectionModal";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
+import { STORE_GIFT } from "../../storage/Store";
 
 function PointPoint() {
   const router = useRouter();

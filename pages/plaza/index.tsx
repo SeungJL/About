@@ -1,28 +1,25 @@
 import Seo from "../../components/Seo";
 
+import { useState } from "react";
 import Header from "../../components/layouts/Header";
 import Category from "../../pagesComponents/Plaza/main/Category";
-import { useState } from "react";
-import { category } from "../../types/plaza";
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
+import { category } from "../../types/plaza";
 
-import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ModalPortal from "../../components/ModalPortal";
-import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+import ModalPortal from "../../components/ModalPortal";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
-import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
+import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 
 function Plaza() {
   const { data } = usePlazaDataQuery({
-    onSuccess(test) {
-      
-    },
+    onSuccess(test) {},
   });
- 
+
   const [category, setCategory] = useState<category>("전체");
   const filterData =
     category === "전체"

@@ -1,21 +1,10 @@
-import styled from "styled-components";
-import {
-  ModalFooterNav,
-  ModalMain,
-  ModalSubtitle,
-  ModalXs,
-} from "../../styles/layout/modal";
-import { SetStateAction, useState } from "react";
-import { ModalHeaderX } from "../../components/ui/Modal";
-import {
-  Button,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-} from "@chakra-ui/react";
-import { PhoneIcon, UnlockIcon } from "@chakra-ui/icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@chakra-ui/react";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SetStateAction, useState } from "react";
+import styled from "styled-components";
+import { ModalHeaderX } from "../../components/ui/Modal";
+import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
 function SelectGatherPageModal({
   setIsModal,

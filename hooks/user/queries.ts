@@ -1,11 +1,6 @@
-import axios, { Axios, AxiosError } from "axios";
-import dayjs, { Dayjs } from "dayjs";
-import {
-  useQueries,
-  useQuery,
-  UseQueryOptions,
-  UseQueryResult,
-} from "react-query";
+import axios, { AxiosError } from "axios";
+import { Dayjs } from "dayjs";
+import { useQueries, useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 
 import {

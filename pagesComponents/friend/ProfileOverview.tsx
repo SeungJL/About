@@ -1,24 +1,17 @@
-import { useSession } from "next-auth/react";
-import styled from "styled-components";
-import Image from "next/image";
-import { useUserInfoQuery } from "../../hooks/user/queries";
-import { AVATAR_COLOR, AVATAR_ICON } from "../../storage/Avatar";
-import { Badge, Button, useToast } from "@chakra-ui/react";
-import { useRecoilValue } from "recoil";
-import { userBadgeState } from "../../recoil/userAtoms";
-import { IAttendance } from "../../types/studyDetails";
-import { IUser, USER_BADGES } from "../../types/user";
-import { userBadgeScore } from "../../libs/utils/userUtils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Badge, Button } from "@chakra-ui/react";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
-import DetailInfo from "./DetailInfo";
+import styled from "styled-components";
 import ModalPortal from "../../components/ModalPortal";
+import { userBadgeScore } from "../../libs/utils/userUtils";
 import ProfileCard from "../../modals/friend/ProfileCard";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
+import { IUser, USER_BADGES } from "../../types/user";
 
-import { useFailToast } from "../../hooks/ui/CustomToast";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 
 function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();

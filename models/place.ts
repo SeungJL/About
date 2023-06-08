@@ -1,5 +1,5 @@
+import mongoose, { model, Model, Schema } from "mongoose";
 import { IPlace } from "../types/studyDetails";
-import mongoose, { model, Schema, Model } from "mongoose";
 
 export const PlaceSchema: Schema<IPlace> = new Schema({
   status: {

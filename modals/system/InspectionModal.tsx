@@ -1,17 +1,12 @@
-import { useToast } from "@chakra-ui/react";
-import { SetStateAction, useState } from "react";
+import { SetStateAction } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/ModalPortal";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import {
   ModalFooterNav,
-  ModalHeaderLine,
-  ModalLg,
   ModalMain,
   ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
-import SuggestModal from "../user/SuggestModal";
 
 function InspectionModal({
   setIsModal,

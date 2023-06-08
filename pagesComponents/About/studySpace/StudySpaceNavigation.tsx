@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import { useToast } from "@chakra-ui/react";
 import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import styled from "styled-components";
 
 import ModalPortal from "../../../components/ModalPortal";
 import AbsentStudyModal from "../../../modals/study/AbsentStudyModal";
@@ -14,25 +14,25 @@ import VoteStudySubModal from "../../../modals/study/VoteStudySubModal";
 
 import { useQueryClient } from "react-query";
 
-import { useAbsentMutation } from "../../../hooks/vote/mutations";
 import { useRecoilValue } from "recoil";
+import { useAbsentMutation } from "../../../hooks/vote/mutations";
 import {
   isVotingState,
   mySpaceFixedState,
   studyDateState,
 } from "../../../recoil/studyAtoms";
 
+import { useSession } from "next-auth/react";
 import { VOTE_GET } from "../../../libs/queryKeys";
+import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendance, IPlace } from "../../../types/studyDetails";
-import CheckStudyModal from "../../../modals/study/CheckStudyModal";
-import { useSession } from "next-auth/react";
 
+import { MAX_USER_PER_PLACE } from "../../../constants/study";
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
-import { MAX_USER_PER_PLACE } from "../../../constants/study";
 import VoteSuccessScreen from "./VoteSuccessScreen";
 
 function StudySpaceNavigation({

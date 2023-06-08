@@ -1,12 +1,10 @@
 import dayjs from "dayjs";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../constants/design";
-import { IconCircle } from "../../public/icons/IconOutline";
-import { IArrivedData, IArrivedInfoList } from "../../types/studyRecord";
-import { Location } from "../../types/system";
-import { useState, useEffect } from "react";
 import { SPACE_LOCATION } from "../../storage/study";
+import { IArrivedData } from "../../types/studyRecord";
+import { Location } from "../../types/system";
 
 const 수원 = VOTE_TABLE_COLOR[0];
 const 양천 = VOTE_TABLE_COLOR[3];

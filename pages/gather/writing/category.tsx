@@ -1,8 +1,8 @@
-import { Icon, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
@@ -11,11 +11,7 @@ import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
 import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
-import {
-  GatherCategory,
-  GatherType,
-  IGatherContent,
-} from "../../../types/gather";
+import { GatherType } from "../../../types/gather";
 
 function WritingCategory() {
   const router = useRouter();

@@ -6,7 +6,6 @@ import { USER_GUIDE } from "../../constants/localStorage";
 import {
   ModalFooterNav,
   ModalHeaderCenter,
-  ModalHeaderLine,
   ModalMain,
   ModalXXL,
 } from "../../styles/layout/modal";

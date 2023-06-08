@@ -1,4 +1,4 @@
-import mongoose, { model, Schema, Model } from "mongoose";
+import mongoose, { model, Model, Schema } from "mongoose";
 import {
   IAbsence,
   IAttendance,

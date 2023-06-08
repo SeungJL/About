@@ -1,10 +1,9 @@
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import PointOverview from "../../pagesComponents/Point/PointScore";
-import { useRouter } from "next/router";
-import PointScore from "../../pagesComponents/Point/PointScore";
 import PointPoint from "../../pagesComponents/Point/PointPoint";
+import PointScore from "../../pagesComponents/Point/PointScore";
 
 function Point() {
   const router = useRouter();

@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useQueryClient } from "react-query";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import styled from "styled-components";
 
@@ -27,9 +27,7 @@ import {
   ModalHeaderLine,
   ModalMain,
   ModalMd,
-  ModalSubtitle,
 } from "../../styles/layout/modal";
-import { IPlace } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;

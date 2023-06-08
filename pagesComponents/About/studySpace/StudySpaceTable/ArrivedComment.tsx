@@ -1,30 +1,28 @@
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/dist/client/router";
+import { MouseEvent, useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import ModalPortal from "../../../../components/ModalPortal";
+import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
+import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
+import { studyDateState } from "../../../../recoil/studyAtoms";
 import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { studyDateState, voteDateState } from "../../../../recoil/studyAtoms";
-import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
-import { useToast } from "@chakra-ui/react";
-import { useRouter } from "next/dist/client/router";
-import dayjs from "dayjs";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useArrivedMutation } from "../../../../hooks/vote/mutations";
-import { MouseEvent, useEffect, useState } from "react";
-import ModalPortal from "../../../../components/ModalPortal";
-import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
-import { useSession } from "next-auth/react";
 
+import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
 import {
   beforePageState,
   userDataState,
 } from "../../../../recoil/interactionAtoms";
-import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
 
 function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
   const router = useRouter();

@@ -1,9 +1,6 @@
-import dayjs, { Dayjs } from "dayjs";
-import { atom } from "recoil";
-import { getInterestingDate } from "../libs/utils/dateUtils";
+import { Dayjs } from "dayjs";
+import { atom, RecoilEnv } from "recoil";
 import { IParticipation } from "../types/studyDetails";
-import { Location } from "../types/system";
-import { RecoilEnv } from "recoil";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const voteDateState = atom<Dayjs>({

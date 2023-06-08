@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import Seo from "../../components/Seo";
-import Header from "../../components/layouts/Header";
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import Header from "../../components/layouts/Header";
+import Seo from "../../components/Seo";
 import { noticeData } from "../../storage/notice";
 
 import { Accordion } from "@chakra-ui/react";

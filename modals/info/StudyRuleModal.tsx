@@ -1,14 +1,13 @@
-import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
+import styled from "styled-components";
 
 import {
   ModalFooterNav,
   ModalHeaderCenter,
   ModalMain,
-  ModalXXL,
+  ModalXXL
 } from "../../styles/layout/modal";
-import { ModalFooter } from "@chakra-ui/react";
 
 function StudyRuleModal({
   setIsModal,

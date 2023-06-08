@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
 import CryptoJS from "crypto-js";
+import { useQuery, UseQueryOptions } from "react-query";
 
 const NAVER_APP_ID = "yourAppId";
 const NAVER_APP_SECRET = "yourAppSecret";

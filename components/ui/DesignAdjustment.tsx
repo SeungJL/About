@@ -32,3 +32,23 @@ export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
     </>
   );
 };
+
+export const LogoSmAdjustmentImage = ({ place }: { place: IPlace }) => {
+  let W = 40;
+  let H = 40;
+  if (place?._id === SUWAN_이디야) {
+    W = 50;
+    H = 50;
+  }
+  return (
+    <>
+      <Image
+        src={`${place?.image}`}
+        alt="studyLogoSm"
+        width={W}
+        height={H}
+        unoptimized={true}
+      />
+    </>
+  );
+};

@@ -1,13 +1,12 @@
-import styled from "styled-components";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 
 import { isVotingState, studyDateState } from "../../../../recoil/studyAtoms";
 
 import { VOTE_TABLE_COLOR } from "../../../../constants/design";
 import { IAttendance } from "../../../../types/studyDetails";
-import { IUser } from "../../../../types/user";
 
 const BLOCK_WIDTH = 25;
 

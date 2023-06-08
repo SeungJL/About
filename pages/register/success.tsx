@@ -1,7 +1,5 @@
-import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
-import Admin from "../admin/control";
+import styled from "styled-components";
 
 function ApplySuccess({}) {
   const router = useRouter();

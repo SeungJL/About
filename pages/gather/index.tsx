@@ -6,19 +6,17 @@ import { useState } from "react";
 
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
 
-import styled from "styled-components";
 import { faPencil, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ModalPortal from "../../components/ModalPortal";
-import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+import ModalPortal from "../../components/ModalPortal";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
-import GatherBlock from "../../pagesComponents/gather/GatherBlock";
-import Category from "../../pagesComponents/gather/Category";
-import { GatherCategory } from "../../types/gather";
-import KakaoShare from "../../components/utils/KakaoShare";
-import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
+import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
+import Category from "../../pagesComponents/gather/Category";
+import GatherBlock from "../../pagesComponents/gather/GatherBlock";
+import { GatherCategory } from "../../types/gather";
 
 function Gather() {
   const router = useRouter();

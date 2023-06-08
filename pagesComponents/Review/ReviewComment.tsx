@@ -1,16 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-function ReviewComment(){
-
-  return(
-    <Layout>
-
-    </Layout>
-  );
+function ReviewComment() {
+  return <Layout></Layout>;
 }
 
-const Layout=styled.div``;
-
-
+const Layout = styled.div``;
 
 export default ReviewComment;

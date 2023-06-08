@@ -1,6 +1,6 @@
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { isChangedCategoryName, nameToKr } from "../../libs/utils/membersUtil";
 
 import { categoryState } from "../../recoil/membersAtoms";

@@ -1,28 +1,23 @@
-import styled from "styled-components";
-import { ChangeEvent, EventHandler, useEffect, useState } from "react";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
-import Header from "../../components/layouts/Header";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { registerFormState } from "../../recoil/userAtoms";
-import { ChangeHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Location } from "../../types/system";
+import { ChangeEvent, useState } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../components/layouts/BottomNav";
+import Header from "../../components/layouts/Header";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
+import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
+import { registerFormState } from "../../recoil/userAtoms";
 
-import { INTEREST_DATA, MESSAGE_DATA } from "../../storage/ProfileData";
-import { IInterests, IUser } from "../../types/user";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
-import axios from "axios";
+import { MainLoading } from "../../components/ui/MainLoading";
 import {
   useApproveMutation,
   useRegisterMutation,
 } from "../../hooks/user/mutations";
-import { MainLoading } from "../../components/ui/MainLoading";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
+import { MESSAGE_DATA } from "../../storage/ProfileData";
 
 function Message() {
   const router = useRouter();

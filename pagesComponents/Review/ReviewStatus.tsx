@@ -1,6 +1,5 @@
 import { faHeart, faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AnyArray } from "mongoose";
 import { useState } from "react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../components/common/Profile/ProfileIconXsOverwrap";
@@ -8,12 +7,11 @@ import ModalPortal from "../../components/ModalPortal";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import { IUser } from "../../types/user";
 const VOTER_SHOW_MAX = 7;
 function ReviewStatus({ temp }: { temp?: any }) {
   const data = useUserInfoQuery();
   const [isModal, setIsModal] = useState(false);
- 
+
   return (
     <>
       <Layout onClick={() => setIsModal(true)}>

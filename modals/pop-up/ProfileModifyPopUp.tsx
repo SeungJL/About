@@ -1,20 +1,16 @@
 import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { SetStateAction, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../components/ModalPortal";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { isProfileEditState } from "../../recoil/interactionAtoms";
 import {
   ModalFooterNav,
-  ModalHeaderLine,
-  ModalLg,
   ModalMain,
   ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
-import SuggestModal from "../user/SuggestModal";
-import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
-import { isProfileEditState } from "../../recoil/interactionAtoms";
 
 function ProfileModifyPopUp({
   setIsModal,

@@ -1,18 +1,16 @@
-import styled from "styled-components";
-import { ChangeEvent, useEffect, useState } from "react";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
-import Header from "../../components/layouts/Header";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState } from "recoil";
-import { registerFormState } from "../../recoil/userAtoms";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { checkIsKorean } from "../../libs/utils/validUtils";
-import { useUserInfoQuery } from "../../hooks/user/queries";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { ChangeEvent, useState } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../components/layouts/BottomNav";
+import Header from "../../components/layouts/Header";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
+import { checkIsKorean } from "../../libs/utils/validUtils";
+import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
+import { registerFormState } from "../../recoil/userAtoms";
 
 function Name() {
   const router = useRouter();

@@ -9,7 +9,6 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
-import { NextPage } from "next";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 

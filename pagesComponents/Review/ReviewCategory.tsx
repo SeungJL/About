@@ -1,7 +1,4 @@
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction, useState } from "react";
-import { useRecoilState } from "recoil";
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
 function ReviewCategory({

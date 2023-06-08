@@ -1,9 +1,9 @@
-import styled from "styled-components";
 import { useState } from "react";
+import styled from "styled-components";
 
-import SuggestModal from "../../modals/user/SuggestModal";
 import { useSession } from "next-auth/react";
 import ModalPortal from "../../components/ModalPortal";
+import SuggestModal from "../../modals/user/SuggestModal";
 
 export default function UserNavigation() {
   const [isShowProfileModal, setIsShowProfileModal] = useState(false);

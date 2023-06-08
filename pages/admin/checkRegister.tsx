@@ -1,13 +1,13 @@
 import { Button, Select } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import Image from "next/image";
-import { useState, useEffect } from "react";
 import ModalPortal from "../../components/ModalPortal";
+import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
 import CheckRegisterModal from "../../modals/admin/CheckRegisterModal";
 import { IRegisterForm } from "../../types/user";
-import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
 function CheckRegister() {
   const { data: session } = useSession();
 
@@ -16,9 +16,7 @@ function CheckRegister() {
   const [applicant, setApplicant] = useState<IRegisterForm>();
   const { data } = useUserInfoQuery();
   const [isRefetch, setIsRefetch] = useState(false);
-  const { data: applyData, refetch } = useRegisterQuery({
-  
-  });
+  const { data: applyData, refetch } = useRegisterQuery({});
 
   const onClick = (who?: IRegisterForm) => {
     setApplicant(who);

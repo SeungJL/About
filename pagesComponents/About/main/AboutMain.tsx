@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import dayjs from "dayjs";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 import AboutMainItem from "./AboutMain/AboutMainItem";
 
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { useDecideSpaceMutation } from "../../../hooks/vote/mutations";
 import {
   attendCheckState,
   isVotingState,
@@ -15,17 +16,16 @@ import {
   studyStartTimeState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
-import { useDecideSpaceMutation } from "../../../hooks/vote/mutations";
 
 import { getInterestingDate } from "../../../libs/utils/dateUtils";
 import { arrangeMainSpace } from "../../../libs/utils/studyUtils";
 
+import { MainLoading } from "../../../components/ui/MainLoading";
 import { VOTE_END_HOUR } from "../../../constants/study";
-import { IParticipation } from "../../../types/studyDetails";
-import { IUser } from "../../../types/user";
 import { useStudyStartQuery } from "../../../hooks/vote/queries";
 import { isMainLoadingState } from "../../../recoil/systemAtoms";
-import { MainLoading } from "../../../components/ui/MainLoading";
+import { IParticipation } from "../../../types/studyDetails";
+import { IUser } from "../../../types/user";
 
 function AboutMain({ participations }: { participations: IParticipation[] }) {
   const { data: session } = useSession();

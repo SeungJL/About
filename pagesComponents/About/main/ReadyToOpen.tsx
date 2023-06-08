@@ -1,4 +1,3 @@
-import { Heading } from "@chakra-ui/react";
 import styled from "styled-components";
 
 function ReadyToOpen() {

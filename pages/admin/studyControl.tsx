@@ -1,38 +1,35 @@
-import styled from "styled-components";
-import { useVoteQuery } from "../../hooks/vote/queries";
-import Header from "../../components/layouts/Header";
-import { useState } from "react";
-import dayjs from "dayjs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
+  Portal,
+} from "@chakra-ui/react";
 import {
   faChevronLeft,
   faChevronRight,
   faDeleteLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { IUser } from "../../types/user";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-  Button,
-  Portal,
-} from "@chakra-ui/react";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-} from "@chakra-ui/react";
-import { IPlaceStatus, Status } from "../../types/statistics";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
+import { useState } from "react";
+import styled from "styled-components";
+import Header from "../../components/layouts/Header";
+import { useVoteQuery } from "../../hooks/vote/queries";
+import { Status } from "../../types/statistics";
 import { IAttendance } from "../../types/studyDetails";
+import { IUser } from "../../types/user";
 const LOCATION = ["SUWAN", "YANG"];
 
 function StudyControl() {

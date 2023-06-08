@@ -1,23 +1,18 @@
-import { Button, useDisclosure } from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogBody, AlertDialogContent, AlertDialogFooter,
+  AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure
+} from "@chakra-ui/react";
 import { SetStateAction, useRef } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/ui/Modal";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
   useApproveMutation,
-  useDeleteMutation,
+  useDeleteMutation
 } from "../../hooks/user/mutations";
 import { ModalLg, ModalMain } from "../../styles/layout/modal";
 import { IRegisterForm } from "../../types/user";
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  AlertDialogCloseButton,
-} from "@chakra-ui/react";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
 function CheckRegisterModal({
   setIsModal,
   applicant,

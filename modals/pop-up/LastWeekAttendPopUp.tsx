@@ -1,23 +1,19 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import React from "react";
 import styled from "styled-components";
 
 import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
 
-import {
-  useParticipationRateQuery,
-  useVoteRateQuery,
-} from "../../hooks/user/queries";
-import { now } from "../../libs/utils/dateUtils";
 import dayjs from "dayjs";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
 import Image from "next/image";
+import { ModalHeaderXLine } from "../../components/ui/Modal";
 import {
   usePointQuery,
   useScoreAllQuery,
 } from "../../hooks/user/pointSystem/queries";
+import {
+  useParticipationRateQuery,
+  useVoteRateQuery,
+} from "../../hooks/user/queries";
 
 function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();

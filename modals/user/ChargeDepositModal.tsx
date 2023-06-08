@@ -1,12 +1,10 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
-import { ACCOUNT, ACCOUNT_SHORT } from "../../constants/private";
+import { ACCOUNT_SHORT } from "../../constants/private";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { ModalMain, ModalMd } from "../../styles/layout/modal";
 

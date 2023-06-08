@@ -4,7 +4,6 @@ import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 
 import { IVoteStudyInfo } from "../../types/statistics";
-import { IUserRegister } from "../../types/user";
 import { IAbsentInfo } from "../../types/userAction";
 
 export const useAttendMutation = (

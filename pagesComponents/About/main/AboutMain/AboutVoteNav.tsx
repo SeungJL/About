@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import { useState } from "react";
+import { Button, useToast } from "@chakra-ui/react";
 import { faCheckToSlot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, useToast } from "@chakra-ui/react";
+import { useState } from "react";
+import styled from "styled-components";
 
-import VoteStudyMainModal from "../../../../modals/study/VoteStudyMainModal";
 import ModalPortal from "../../../../components/ModalPortal";
+import VoteStudyMainModal from "../../../../modals/study/VoteStudyMainModal";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSession } from "next-auth/react";
+import { useRecoilValue } from "recoil";
 import {
   mySpaceFixedState,
   studyDateState,
 } from "../../../../recoil/studyAtoms";
-import { useSession } from "next-auth/react";
 import { locationState } from "../../../../recoil/systemAtoms";
 
 function AboutVoteNav({ voteCnt }: { voteCnt: number }) {

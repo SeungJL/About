@@ -1,32 +1,31 @@
-import styled from "styled-components";
-import "dayjs/locale/ko";
-import { Dispatch, SetStateAction, useState } from "react";
-import { motion } from "framer-motion";
 import { Dayjs } from "dayjs";
+import "dayjs/locale/ko";
+import { motion } from "framer-motion";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "react-query";
+import styled from "styled-components";
 
 import TimeRullet from "../../components/utils/TimeRullet";
 
 import { useRecoilValue } from "recoil";
-import { isVotingState, studyDateState } from "../../recoil/studyAtoms";
 import { useVoteQuery } from "../../hooks/vote/queries";
+import { isVotingState, studyDateState } from "../../recoil/studyAtoms";
 
 import { useAttendMutation } from "../../hooks/vote/mutations";
 
-import { START_HOUR } from "../../constants/study";
-import { VOTE_GET } from "../../libs/queryKeys";
-import { IPlace, IVoteInfo } from "../../types/studyDetails";
-import { ITimeStartToEnd } from "../../types/utils";
 import { useToast } from "@chakra-ui/react";
-import { locationState } from "../../recoil/systemAtoms";
+import { useRouter } from "next/dist/client/router";
 import SpaceSelector from "../../components/utils/SpaceSelector";
 import SpaceSelectorLg from "../../components/utils/SpaceSelectorLg";
+import { START_HOUR } from "../../constants/study";
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
+import { VOTE_GET } from "../../libs/queryKeys";
 import { SPACE_LOCATION } from "../../storage/study";
-import { useRouter } from "next/dist/client/router";
+import { IPlace, IVoteInfo } from "../../types/studyDetails";
+import { ITimeStartToEnd } from "../../types/utils";
 
 interface IVoteStudySubModal {
   isModal: boolean;

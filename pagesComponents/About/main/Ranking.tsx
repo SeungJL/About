@@ -1,12 +1,8 @@
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useVoteRateQuery } from "../../../hooks/user/queries";
-import dayjs from "dayjs";
-import { getSession, useSession } from "next-auth/react";
-import { GetServerSideProps } from "next";
-import dbConnect from "../../../libs/dbConnect";
-import safeJsonStringify from "safe-json-stringify";
-import { User } from "../../../models/user";
-import { useRecoilValue } from "recoil";
 import { numOfUserState } from "../../../recoil/userAtoms";
 
 function Ranking() {

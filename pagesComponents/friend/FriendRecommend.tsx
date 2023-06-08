@@ -7,11 +7,11 @@ import {
   faShrimp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
-import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import styled from "styled-components";
 import { useFailToast } from "../../hooks/ui/CustomToast";
+import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 
 function FriendRecommend() {
   const router = useRouter();

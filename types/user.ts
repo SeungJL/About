@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 import { Document } from "mongoose";
 import { Location } from "./system";
-import { IPointAll, IScore } from "./user/scoreSystem";
+import { IScore } from "./user/scoreSystem";
 
 export interface IUserRequest {
   category: "건의" | "신고" | "홍보" | "휴식" | "충전";

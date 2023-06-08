@@ -15,7 +15,7 @@ export const CHART_MONTH_RANGE = [
   },
 ];
 
-export const MONTH_LIST=[
+export const MONTH_LIST = [
   "1월",
   "2월",
   "3월",
@@ -28,4 +28,4 @@ export const MONTH_LIST=[
   "10월",
   "11월",
   "12월",
-]
+];

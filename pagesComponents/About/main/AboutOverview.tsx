@@ -1,56 +1,16 @@
-import styled from "styled-components";
-import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { Badge, Progress } from "@chakra-ui/react";
-import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+import styled from "styled-components";
 
-import ModalPortal from "../../../components/ModalPortal";
-import BadgeInfoModal from "../../../modals/info/BadgeInfoModal";
-
-import { useRecoilState, useRecoilValue } from "recoil";
-import { useParticipationRateQuery } from "../../../hooks/user/queries";
-import { voteDateState } from "../../../recoil/studyAtoms";
-import { userBadgeState } from "../../../recoil/userAtoms";
-import {
-  myScoreRank,
-  SortUserScore,
-  userBadgeScore,
-} from "../../../libs/utils/userUtils";
-
-import { IRankScore, USER_BADGES } from "../../../types/user";
 import { useRouter } from "next/router";
-import NotCompletedModal from "../../../modals/system/NotCompletedModal";
 
-import {
-  usePointAllQuery,
-  usePointQuery,
-  useScoreAllQuery,
-  useScoreQuery,
-} from "../../../hooks/user/pointSystem/queries";
-import { usePointMutation } from "../../../hooks/user/pointSystem/mutation";
-import {
-  faHouse,
-  faCalendarCheck,
-  faClipboard,
-  faUsersViewfinder,
-  faPeopleRoof,
-  faUtensils,
-  faSchool,
-  faBookOpen,
-  faExclamationCircle,
-  faIdCard,
-  faClipboardCheck,
-  faNewspaper,
-  faRankingStar,
-  faStore,
-  faUserGroup,
-  faImage,
-  faUsers,
-  faOtter,
-} from "@fortawesome/free-solid-svg-icons";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
+import {
+  faCalendarCheck,
+  faOtter,
+  faRankingStar,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 import { VOTE_TABLE_COLOR } from "../../../constants/design";
 function AboutNavigation() {
   const { data: session } = useSession();

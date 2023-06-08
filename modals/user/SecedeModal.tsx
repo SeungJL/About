@@ -1,18 +1,10 @@
-import { Button, useToast } from "@chakra-ui/react";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
-import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import {
-  ModalLg,
-  ModalMain,
-  ModalMd,
-  ModalSubtitle,
-} from "../../styles/layout/modal";
+import { ModalLg, ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 
 function SecedeModal({
   setIsModal,

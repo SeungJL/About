@@ -1,23 +1,18 @@
 import { Button, useToast } from "@chakra-ui/react";
 import {
-  faArrowUp,
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios, { AxiosError } from "axios";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import styled from "styled-components";
 
 import { useAvatarMutation } from "../../hooks/user/mutations";
-import {
-  usePointQuery,
-  useScoreQuery,
-} from "../../hooks/user/pointSystem/queries";
-import { useAvatarQuery } from "../../hooks/user/queries";
+import { useScoreQuery } from "../../hooks/user/pointSystem/queries";
 import { AVATAR_COLOR, AVATAR_COST, AVATAR_ICON } from "../../storage/Avatar";
 import { ModalHeaderLine, ModalLg, ModalXs } from "../../styles/layout/modal";
 import { IUser, kakaoProfileInfo } from "../../types/user";

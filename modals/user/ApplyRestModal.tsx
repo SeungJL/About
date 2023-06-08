@@ -1,19 +1,17 @@
-import styled from "styled-components";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
 
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { IApplyRest } from "../../types/userAction";
 
-import { useApplyRestMutation } from "../../hooks/user/mutations";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
+import { useApplyRestMutation } from "../../hooks/user/mutations";
 
 function ApplyRestModal({
   setIsModal,

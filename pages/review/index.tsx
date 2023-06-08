@@ -1,17 +1,15 @@
+import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import Category from "../../pagesComponents/gather/Category";
-import { useState } from "react";
-import ReviewItemHeader from "../../pagesComponents/Review/ReviewItemHeader";
 import ImageSlider from "../../components/utils/ImageSlider";
-import ReviewGatherConnection from "../../pagesComponents/Review/ReviewGatherConnection";
-import ReviewContent from "../../pagesComponents/Review/ReviewContent";
-import ReviewStatus from "../../pagesComponents/Review/ReviewStatus";
-import ReviewCategory from "../../pagesComponents/Review/ReviewCategory";
-import { REVIEW_DATA } from "../../storage/Review";
 import KakaoShareBtn from "../../components/utils/KakaoShare";
-import { useRouter } from "next/router";
 import { WEB_URL } from "../../constants/system";
+import ReviewCategory from "../../pagesComponents/Review/ReviewCategory";
+import ReviewContent from "../../pagesComponents/Review/ReviewContent";
+import ReviewItemHeader from "../../pagesComponents/Review/ReviewItemHeader";
+import ReviewStatus from "../../pagesComponents/Review/ReviewStatus";
+import { REVIEW_DATA } from "../../storage/Review";
 
 function Review() {
   const [category, setCateogry] = useState();

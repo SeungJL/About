@@ -12,9 +12,8 @@ import {
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NextLink from "next/link";
-import styled from "styled-components";
-import { FullScreen } from "../../../styles/layout/modal";
 import { useRouter } from "next/router";
+import styled from "styled-components";
 
 const Privacy = () => {
   const router = useRouter();

@@ -1,23 +1,14 @@
-import { Button, ModalFooter } from "@chakra-ui/react";
-import { setSeconds } from "date-fns";
-import { useSession } from "next-auth/react";
+import { Button } from "@chakra-ui/react";
 import { SetStateAction } from "react";
 import styled from "styled-components";
 
+import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import { ModalHeaderX } from "../../components/ui/Modal";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
-import {
-  ModalFooterNav,
-  ModalLg,
-  ModalMain,
-  ModalMd,
-  ModalXL,
-  ModalXXL,
-} from "../../styles/layout/modal";
-import { useSetRecoilState } from "recoil";
 import { isProfileEditState } from "../../recoil/interactionAtoms";
-import { useRouter } from "next/router";
+import { ModalMain, ModalXL } from "../../styles/layout/modal";
 function ProfileCard({
   setIsModal,
 }: {

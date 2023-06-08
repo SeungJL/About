@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isShowNotCompletedState } from "../../recoil/utilityAtoms";
 
-import { ModalMd, FullScreen } from "../../styles/layout/modal";
+import { ModalMd } from "../../styles/layout/modal";
 
 function NotCompletedModal({ setIsModal }) {
   const setIsNotCompletedState = useSetRecoilState(isShowNotCompletedState);

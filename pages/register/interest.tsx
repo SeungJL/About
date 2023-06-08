@@ -1,19 +1,16 @@
-import styled from "styled-components";
-import { ChangeEvent, useEffect, useState } from "react";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
-import Header from "../../components/layouts/Header";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import BottomNav from "../../components/layouts/BottomNav";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { registerFormState } from "../../recoil/userAtoms";
-import { ChangeHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Location } from "../../types/system";
+import { ChangeEvent, useState } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../components/layouts/BottomNav";
+import Header from "../../components/layouts/Header";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
+import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
+import { registerFormState } from "../../recoil/userAtoms";
 
-import { INTEREST_DATA } from "../../storage/ProfileData";
-import { IInterests } from "../../types/user";
 import { motion } from "framer-motion";
+import { INTEREST_DATA } from "../../storage/ProfileData";
 
 function Interest() {
   const router = useRouter();

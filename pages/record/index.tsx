@@ -1,7 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { MainLoading } from "../../components/ui/MainLoading";
@@ -13,8 +12,6 @@ import RecordLineBar from "../../pagesComponents/Record/RecordLineBar";
 import RecordMonthNav from "../../pagesComponents/Record/RecordMonthNav";
 import RecordNavigation from "../../pagesComponents/Record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/Record/RecordOverview";
-import RecordTotal from "../../pagesComponents/Record/RecordTotal";
-import { voteDateState } from "../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";

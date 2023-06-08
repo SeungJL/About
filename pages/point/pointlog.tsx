@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/react";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
@@ -6,11 +5,8 @@ import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import {
   usePointLogQuery,
-  usePointQuery,
-  useScoreLogQuery,
-  useScoreQuery,
+  usePointQuery
 } from "../../hooks/user/pointSystem/queries";
-import { useUserInfoQuery } from "../../hooks/user/queries";
 
 function PointLog() {
   const { data } = usePointQuery();

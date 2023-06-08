@@ -1,10 +1,9 @@
 import { Box, Button, Collapse, useDisclosure } from "@chakra-ui/react";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
@@ -12,7 +11,6 @@ import { MainLoading } from "../../../components/ui/MainLoading";
 import { useStoreQuery } from "../../../hooks/store/queries";
 import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
 import GiftWinnerModal from "../../../modals/store/GiftWinnerModal";
-import StoreNavigation from "../../../pagesComponents/store/item/StoreNavigation";
 import { STORE_GIFT } from "../../../storage/Store";
 import { IStoreApplicant, IStoreGift } from "../../../types/store";
 

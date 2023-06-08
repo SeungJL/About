@@ -10,30 +10,21 @@ import {
 } from "@chakra-ui/react";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Header from "../../components/layouts/Header";
 import {
-  usePointAllQuery,
-  usePointQuery,
   useScoreAllQuery,
   useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
-import { useVoteRateQuery } from "../../hooks/user/queries";
-import {
-  myScoreRank,
-  SortUserScore,
-  userBadgeScore,
-} from "../../libs/utils/userUtils";
+import { SortUserScore, userBadgeScore } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
 import { USER_BADGES } from "../../types/user";
-import { IPointAll, IScore } from "../../types/user/scoreSystem";
+import { IScore } from "../../types/user/scoreSystem";
 
 function Ranking() {
   const { data: session } = useSession();

@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
+import styled from "styled-components";
 
 import {
   ModalFooterNav,
@@ -8,7 +8,6 @@ import {
   ModalMain,
   ModalXXL,
 } from "../../styles/layout/modal";
-import { ModalFooter } from "@chakra-ui/react";
 
 function StoreRuleModal({
   setIsModal,

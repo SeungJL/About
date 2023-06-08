@@ -1,11 +1,11 @@
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
-import { IPlace } from "../../../types/studyDetails";
 import { WEB_URL } from "../../../constants/system";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
+import { IPlace } from "../../../types/studyDetails";
 
 const IMAGE_LIST = [1, 2, 3, 4, 5];
 

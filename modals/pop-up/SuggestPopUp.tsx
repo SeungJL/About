@@ -5,8 +5,6 @@ import ModalPortal from "../../components/ModalPortal";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import {
   ModalFooterNav,
-  ModalHeaderLine,
-  ModalLg,
   ModalMain,
   ModalMd,
   ModalSubtitle,

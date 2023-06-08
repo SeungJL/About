@@ -1,18 +1,16 @@
+import { faBalanceScale, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import Image from "next/image";
-import { useState } from "react";
-import { FullScreen } from "../../styles/layout/modal";
-import { MainLoading } from "../../components/ui/MainLoading";
-import { STORE_GIFT } from "../../storage/Store";
-import { useRouter } from "next/router";
-import dayjs from "dayjs";
-import { useScoreAllQuery } from "../../hooks/user/pointSystem/queries";
-import { useStoreAllQuery } from "../../hooks/store/queries";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBalanceScale, faTrophy } from "@fortawesome/free-solid-svg-icons";
 import ModalPortal from "../../components/ModalPortal";
+import { MainLoading } from "../../components/ui/MainLoading";
+import { useStoreAllQuery } from "../../hooks/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
+import { STORE_GIFT } from "../../storage/Store";
+import { FullScreen } from "../../styles/layout/modal";
 
 const ITEM_WIDTH = 120;
 

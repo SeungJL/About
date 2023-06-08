@@ -1,10 +1,9 @@
-import styled from "styled-components";
-import Image from "next/image";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { faBalanceScale, faGift } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
-import { faBalanceScale, faGift } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import styled from "styled-components";
 
 import ModalPortal from "../../../components/ModalPortal";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";
@@ -12,12 +11,12 @@ import StudyRuleModal from "../../../modals/info/StudyRuleModal";
 import { useRecoilState } from "recoil";
 import { isNoticeAlertState } from "../../../recoil/utilityAtoms";
 
-import { NOTICE_ALERT } from "../../../constants/localStorage";
-import { useSession } from "next-auth/react";
-import { background, useToast } from "@chakra-ui/react";
-import UserLogoutModal from "../../../modals/user/UserLogoutModal";
-import PromotionModal from "../../../modals/mainHeader/PromotionModal";
+import { useToast } from "@chakra-ui/react";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
+import { useSession } from "next-auth/react";
+import { NOTICE_ALERT } from "../../../constants/localStorage";
+import PromotionModal from "../../../modals/mainHeader/PromotionModal";
+import UserLogoutModal from "../../../modals/user/UserLogoutModal";
 
 export default function AboutHeader() {
   const router = useRouter();

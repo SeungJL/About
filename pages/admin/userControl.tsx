@@ -1,7 +1,5 @@
-import { Box, Flex, Text, useToast } from "@chakra-ui/react";
-import axios from "axios";
-import { useSession } from "next-auth/react";
-import { ChangeEvent, useEffect, useState, useRef } from "react";
+import { useToast } from "@chakra-ui/react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { useUpdateProfileMutation } from "../../hooks/admin/mutation";

@@ -1,9 +1,9 @@
 import { useToast } from "@chakra-ui/react";
-import Image from "next/image";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/study";
 
 import { IplaceInfo, IPlaceSelecter } from "../../types/statistics";
+import { LogoSmAdjustmentImage } from "../ui/DesignAdjustment";
 
 function PlaceSelectorLg({
   placeInfoArr,
@@ -66,13 +66,7 @@ function PlaceSelectorLg({
             isFirst={isSelectUnit}
           >
             <PlaceIcon>
-              <Image
-                src={`${place?.image}`}
-                alt="studySpace"
-                width={36}
-                height={36}
-                unoptimized={true}
-              />
+              <LogoSmAdjustmentImage place={place} />
             </PlaceIcon>
             <span>{place?.branch}</span>
           </PlaceItem>
@@ -127,5 +121,9 @@ const PlaceIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
 `;
 export default PlaceSelectorLg;

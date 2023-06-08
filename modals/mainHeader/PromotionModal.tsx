@@ -1,15 +1,8 @@
-import { Button, ModalFooter } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/ui/Modal";
-import {
-  ModalFooterNav,
-  ModalHeaderLine,
-  ModalLg,
-  ModalMain,
-  ModalMd,
-  ModalXL,
-} from "../../styles/layout/modal";
+import { ModalMain, ModalXL } from "../../styles/layout/modal";
 
 import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
 

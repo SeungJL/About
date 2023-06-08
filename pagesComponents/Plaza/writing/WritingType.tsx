@@ -1,9 +1,4 @@
-import {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
-  SyntheticEvent,
-} from "react";
+import { Dispatch, SetStateAction } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import styled from "styled-components";
 

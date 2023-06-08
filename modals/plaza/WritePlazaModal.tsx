@@ -1,10 +1,9 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
 
 import { ModalLg } from "../../styles/layout/modal";
 

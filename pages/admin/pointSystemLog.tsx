@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import {
-  usePointAllQuery,
   usePointLogAllQuery,
-  useScoreLogAllQuery,
+  useScoreLogAllQuery
 } from "../../hooks/user/pointSystem/queries";
 
 function PointSystemLog() {

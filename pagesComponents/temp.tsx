@@ -1,35 +1,29 @@
-import styled from "styled-components";
-import dayjs from "dayjs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { Badge, Progress } from "@chakra-ui/react";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 import ModalPortal from "../components/ModalPortal";
 import BadgeInfoModal from "../modals/info/BadgeInfoModal";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useParticipationRateQuery } from "../hooks/user/queries";
+import { SortUserScore, userBadgeScore } from "../libs/utils/userUtils";
 import { voteDateState } from "../recoil/studyAtoms";
 import { userBadgeState } from "../recoil/userAtoms";
-import {
-  myScoreRank,
-  SortUserScore,
-  userBadgeScore,
-} from "../libs/utils/userUtils";
 
-import { IRankScore, USER_BADGES } from "../types/user";
 import { useRouter } from "next/router";
 import NotCompletedModal from "../modals/system/NotCompletedModal";
+import { IRankScore, USER_BADGES } from "../types/user";
 
+import { usePointMutation } from "../hooks/user/pointSystem/mutation";
 import {
-  usePointAllQuery,
-  usePointQuery,
   useScoreAllQuery,
   useScoreQuery,
 } from "../hooks/user/pointSystem/queries";
-import { usePointMutation } from "../hooks/user/pointSystem/mutation";
 
 function UserOverview() {
   const { data: session } = useSession();
