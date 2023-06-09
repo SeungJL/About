@@ -99,6 +99,21 @@ export const useScoreLogQuery = (
     },
     options
   );
+export const useDepositLogQuery = (
+  options?: Omit<
+    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IPointLog[], AxiosError, IPointLog[]>(
+    "depositLog",
+    async () => {
+      const res = await axios.get<IPointLog[]>(`${SERVER_URI}/log/deposit`);
+      return res.data;
+    },
+    options
+  );
+
 export const usePointLogQuery = (
   options?: Omit<
     UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,

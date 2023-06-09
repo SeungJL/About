@@ -22,7 +22,7 @@ import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { useFailToast } from "../../hooks/ui/CustomToast";
 
 export default function UserOverview() {
-  const [value, setValue] = useState("안녕하세요! 잘 부탁드려요 ㅎㅎ");
+  const [value, setValue] = useState("");
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const inputRef = useRef<HTMLInputElement>(null);
@@ -101,7 +101,7 @@ export default function UserOverview() {
             <span>Comment</span>
             <div>
               <Message
-                value={value}
+                value={!isGuest ? value : "안녕하세요! 잘 부탁드려요~ ㅎㅎ"}
                 disabled={true}
                 ref={inputRef}
                 type="text"

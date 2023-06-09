@@ -3,44 +3,49 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import { MainLoading } from "../../components/ui/MainLoading";
 import {
   useScoreLogQuery,
-  useScoreQuery
+  useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
 
 function ScoreLog() {
   const { data } = useScoreQuery();
-  const { data: scoreLog } = useScoreLogQuery();
+  const { data: scoreLog, isLoading } = useScoreLogQuery();
 
   const filterLog = scoreLog?.filter((item) => item?.meta?.value);
 
   return (
     <>
       <Header title="점수 기록" url="/point" />
-      <Layout>
-        <MyPoint>
-          <span>내 점수</span>
-          <FontAwesomeIcon icon={faArrowRight} />
-          <span>{data?.score}점</span>
-        </MyPoint>
-        <Container>
-          <LogHeader>
-            <Date>날짜</Date>
-            <Content>내용</Content>
-            <Point>점수</Point>
-          </LogHeader>
-          {filterLog?.reverse().map((item, idx) => (
-            <Item key={idx}>
-              <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-              <Content>{item?.message}</Content>
-              <Point>
-                {item?.meta.value > 0 && "+"}
-                {item?.meta.value} 점
-              </Point>
-            </Item>
-          ))}
-        </Container>
-      </Layout>
+      {isLoading ? (
+        <MainLoading />
+      ) : (
+        <Layout>
+          <MyPoint>
+            <span>내 점수</span>
+            <FontAwesomeIcon icon={faArrowRight} />
+            <span>{data?.score}점</span>
+          </MyPoint>
+          <Container>
+            <LogHeader>
+              <Date>날짜</Date>
+              <Content>내용</Content>
+              <Point>점수</Point>
+            </LogHeader>
+            {filterLog?.reverse().map((item, idx) => (
+              <Item key={idx}>
+                <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
+                <Content>{item?.message}</Content>
+                <Point>
+                  {item?.meta.value > 0 && "+"}
+                  {item?.meta.value} 점
+                </Point>
+              </Item>
+            ))}
+          </Container>
+        </Layout>
+      )}
     </>
   );
 }
@@ -68,17 +73,17 @@ const LogHeader = styled.header`
 
 const MyPoint = styled.div`
   padding: 0 8px;
-
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 160px;
   height: 40px;
-
+  font-size: 12px;
   border-radius: var(--border-radius);
   border: 1.5px solid var(--color-mint);
-  color: var(--color-mint);
+  color: var(--font-h3);
   > span:last-child {
+    color: var(--font-h1);
     font-size: 17px;
     font-weight: 600;
   }

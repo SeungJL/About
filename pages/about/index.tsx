@@ -84,7 +84,7 @@ function About() {
   const { refetch } = useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
-      console.log(1);
+    
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);

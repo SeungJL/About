@@ -35,10 +35,10 @@ function DetailInfo({ user }: { user: IUser }) {
           <span>관심사</span>
           <div>
             {user?.interests?.first ? (
-              <>
+              <Interests>
                 <span>1. {user?.interests.first}</span>
                 <span>2. {user?.interests.second}</span>
-              </>
+              </Interests>
             ) : (
               <span>--</span>
             )}
@@ -64,6 +64,16 @@ const Profile = styled.div`
   line-height: 2.4;
 `;
 
+const Interests = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: var(--font-h1);
+  font-weight: 600;
+  > span {
+    display: inline-block;
+  }
+`;
+
 const ProfileItem = styled.div`
   display: flex;
 
@@ -75,14 +85,6 @@ const ProfileItem = styled.div`
   > span:last-child {
     color: var(--font-h1);
     font-weight: 600;
-  }
-  > div {
-    color: var(--font-h1);
-    font-weight: 600;
-    > span {
-      display: inline-block;
-      width: 52px;
-    }
   }
 `;
 

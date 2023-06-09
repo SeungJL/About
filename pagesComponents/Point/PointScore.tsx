@@ -3,42 +3,38 @@ import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ModalPortal from "../../components/ModalPortal";
 import BadgeInfoModal from "../../modals/info/BadgeInfoModal";
 
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useParticipationRateQuery } from "../../hooks/user/queries";
-import {
-  SortUserScore,
-  userBadgeScore
-} from "../../libs/utils/userUtils";
-import { voteDateState } from "../../recoil/studyAtoms";
+import { SortUserScore, userBadgeScore } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
 
 import { useRouter } from "next/router";
-import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IRankScore, USER_BADGES } from "../../types/user";
 
-import {
-  faChevronRight
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import {
   useScoreAllQuery,
-  useScoreQuery
+  useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
 
-function PointScore() {
+function PointScore({
+  setIsLoading,
+}: {
+  setIsLoading: React.Dispatch<SetStateAction<boolean>>;
+}) {
   const { data: session } = useSession();
   const router = useRouter();
   const isGuest = session?.user.name === "guest";
 
-  const [isNotComplete, setIsNotComplete] = useState(false);
-  const [isModal, setIsModal] = useState(false);
-  const voteDate = useRecoilValue(voteDateState);
+  const [isBadgeInfoModal, setIsBadgeInfoModal] = useState(false);
+
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
   const [myRank, setMyRank] = useState<IRankScore>();
   const [scoreInfo, setScoreInfo] = useState({
@@ -54,7 +50,7 @@ function PointScore() {
       const { badge, badgeScore, nextBadge, gap, nextScore } = userBadgeScore(
         data.score
       );
-     
+
       setUserBadge({ badge, color: USER_BADGES[badge] });
       setScoreInfo({
         value: badgeScore,
@@ -74,6 +70,7 @@ function PointScore() {
       if (arrangedData.isRank)
         setMyRank({ myRank: arrangedData.myRank, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
+      setIsLoading(false);
     },
   });
   const { mutate } = usePointMutation();
@@ -103,7 +100,7 @@ function PointScore() {
                 <span style={{ color: userBadge.color }}>
                   {myPoint || "0"}점
                 </span>
-                <IconWrapper onClick={() => setIsModal(true)}>
+                <IconWrapper onClick={() => setIsBadgeInfoModal(true)}>
                   <FontAwesomeIcon icon={faQuestionCircle} />
                 </IconWrapper>
               </div>
@@ -151,14 +148,10 @@ function PointScore() {
           </Nav>
         </>
       </Layout>
-      {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <BadgeInfoModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
-      {isNotComplete && (
-        <ModalPortal setIsModal={setIsNotComplete}>
-          <NotCompletedModal setIsModal={setIsNotComplete} />
+
+      {isBadgeInfoModal && (
+        <ModalPortal setIsModal={setIsBadgeInfoModal}>
+          <BadgeInfoModal setIsModal={setIsBadgeInfoModal} />
         </ModalPortal>
       )}
     </>

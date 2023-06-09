@@ -1,24 +1,28 @@
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import { MainLoading } from "../../components/ui/MainLoading";
 import PointPoint from "../../pagesComponents/Point/PointPoint";
 import PointScore from "../../pagesComponents/Point/PointScore";
 
 function Point() {
-  const router = useRouter();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
       <Header title="" />
       <Layout>
-        <Intro>
-          <span>{session?.user.name}</span>님 만나서 반가워요!
-        </Intro>
-        <PointScore />
-        <PointPoint />
+        <Wrapper isLoading={!isGuest && isLoading}>
+          <Intro>
+            <span>{session?.user.name}</span>님 만나서 반가워요!
+          </Intro>
+          <PointScore setIsLoading={setIsLoading} />
+          <PointPoint />
+        </Wrapper>
+        {!isGuest && isLoading && <MainLoading />}
       </Layout>
     </>
   );
@@ -35,6 +39,10 @@ const Intro = styled.div`
     font-size: 18px;
     font-weight: 600;
   }
+`;
+
+const Wrapper = styled.div<{ isLoading: boolean }>`
+  visibility: ${(props) => (props.isLoading ? "hidden" : "visible")};
 `;
 
 export default Point;

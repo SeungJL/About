@@ -42,24 +42,6 @@ function Fee() {
     },
   });
 
-  const copyAccount = (text) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast({
-          title: "복사 완료",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top",
-
-          variant: "left-accent",
-        });
-      },
-      (error) => {
-        console.error("Failed to copy text:", error);
-      }
-    );
-  };
   const onClickNext = () => {
     mutate(registerForm);
     router.push(`/register/success`);

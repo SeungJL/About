@@ -17,7 +17,12 @@ function PromotionModal({
   const [isApplyModal, setIsApplyModal] = useState(false);
   const { data } = usePlazaDataQuery();
 
-  const applyCnt = data?.filter((item) => item.title === "홍보").length - 6;
+  const applyCnt = data?.filter(
+    (item) =>
+      item.title === "홍보" &&
+      item?.writer !== "이승주" &&
+      item?.writer !== "옌"
+  ).length;
 
   return (
     <>

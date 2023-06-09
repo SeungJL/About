@@ -116,7 +116,7 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
-  console.log(10, isLoading);
+
   return (
     <>
       {isLoading ? (

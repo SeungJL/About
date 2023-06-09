@@ -17,7 +17,7 @@ function PointPoint() {
         <Button onClick={() => router.push("/point/pointlog")}>
           <div>About 포인트</div>
           <div>
-            <span>{data?.point}점</span>
+            <span>{data?.point || "0"}점</span>
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         </Button>

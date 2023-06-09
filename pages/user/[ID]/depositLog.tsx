@@ -2,36 +2,36 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
-import { MainLoading } from "../../components/ui/MainLoading";
+import Header from "../../../components/layouts/Header";
+import { MainLoading } from "../../../components/ui/MainLoading";
 import {
-  usePointLogQuery,
-  usePointQuery,
-} from "../../hooks/user/pointSystem/queries";
+  useDepositLogQuery,
+  useDepositQuery,
+} from "../../../hooks/user/pointSystem/queries";
 
-function PointLog() {
-  const { data } = usePointQuery();
-  const { data: pointLog, isLoading } = usePointLogQuery();
+function ScoreLog() {
+  const { data } = useDepositQuery();
+  const { data: depositLog, isLoading } = useDepositLogQuery();
 
-  const filterLog = pointLog?.filter((item) => item?.meta?.value);
+  const filterLog = depositLog?.filter((item) => item?.meta?.value);
 
   return (
     <>
-      <Header title="점수 기록" url="/point" />
+      <Header title="보증금 기록" url="/point" />
       {isLoading ? (
         <MainLoading />
       ) : (
         <Layout>
           <MyPoint>
-            <span>내 점수</span>
+            <span>보증금</span>
             <FontAwesomeIcon icon={faArrowRight} />
-            <span>{data?.point} point</span>
+            <span>{data?.deposit}원</span>
           </MyPoint>
           <Container>
             <LogHeader>
               <Date>날짜</Date>
               <Content>내용</Content>
-              <Point>점수</Point>
+              <Point>금액</Point>
             </LogHeader>
             {filterLog?.reverse().map((item, idx) => (
               <Item key={idx}>
@@ -39,7 +39,7 @@ function PointLog() {
                 <Content>{item?.message}</Content>
                 <Point>
                   {item?.meta.value > 0 && "+"}
-                  {item?.meta.value} point
+                  {item?.meta.value} 원
                 </Point>
               </Item>
             ))}
@@ -73,17 +73,15 @@ const LogHeader = styled.header`
 
 const MyPoint = styled.div`
   padding: 0 8px;
-
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 160px;
   height: 40px;
-
+  font-size: 12px;
   border-radius: var(--border-radius);
   border: 1.5px solid var(--color-mint);
-  color: var(--font-h2);
-  font-size: 12px;
+  color: var(--font-h3);
   > span:last-child {
     color: var(--font-h1);
     font-size: 17px;
@@ -120,5 +118,8 @@ const Content = styled.span`
 
 const Point = styled.span`
   color: var(--font-h1);
+
+  text-align: center;
+  width: 50px;
 `;
-export default PointLog;
+export default ScoreLog;

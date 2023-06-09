@@ -31,7 +31,7 @@ export interface IPointSystem {
 export interface IPointLog {
   message: string;
   meta: {
-    type: "score" | "point";
+    type: "score" | "point" | "deposit";
     uid: number;
     value: number;
     _id?: string;
