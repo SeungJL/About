@@ -20,6 +20,7 @@ import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
 
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
   usePointMutation,
@@ -56,8 +57,8 @@ function SuggestModal({
       content: data.content,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    getScore({ value: 3, message: "건의사항 제출" });
-    getPoint({ value: 3, message: "건의사항 제출" });
+    getScore(POINT_SYSTEM_PLUS.suggest.score);
+    getPoint(POINT_SYSTEM_PLUS.suggest.point);
 
     suggestForm(suggestInfo);
     setIsModal(false);

@@ -9,6 +9,7 @@ import {
   IScore,
 } from "../../../types/user/scoreSystem";
 
+//score
 export const useScoreQuery = (
   options?: Omit<
     UseQueryOptions<IScore, AxiosError, IScore>,
@@ -19,6 +20,21 @@ export const useScoreQuery = (
     "score",
     async () => {
       const res = await axios.get<IScore>(`${SERVER_URI}/user/score`);
+      return res.data;
+    },
+    options
+  );
+
+export const useScoreLogQuery = (
+  options?: Omit<
+    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IPointLog[], AxiosError, IPointLog[]>(
+    "scoreLog",
+    async () => {
+      const res = await axios.get(`${SERVER_URI}/log/score`);
       return res.data;
     },
     options
@@ -38,7 +54,22 @@ export const useScoreAllQuery = (
     },
     options
   );
+export const useScoreLogAllQuery = (
+  options?: Omit<
+    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IPointLog[], AxiosError, IPointLog[]>(
+    "scoreLogAll",
+    async () => {
+      const res = await axios.get(`${SERVER_URI}/log/score/all`);
+      return res.data;
+    },
+    options
+  );
 
+//point
 export const usePointQuery = (
   options?: Omit<
     UseQueryOptions<IPoint, AxiosError, IPoint>,
@@ -49,6 +80,21 @@ export const usePointQuery = (
     "point",
     async () => {
       const res = await axios.get<IPoint>(`${SERVER_URI}/user/point`);
+      return res.data;
+    },
+    options
+  );
+
+export const usePointLogQuery = (
+  options?: Omit<
+    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IPointLog[], AxiosError, IPointLog[]>(
+    "pointLog",
+    async () => {
+      const res = await axios.get<IPointLog[]>(`${SERVER_URI}/log/point`);
       return res.data;
     },
     options
@@ -70,6 +116,22 @@ export const usePointAllQuery = (
     options
   );
 
+export const usePointLogAllQuery = (
+  options?: Omit<
+    UseQueryOptions<IPointLog, AxiosError, IPointLog>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery(
+    "pointLogAll",
+    async () => {
+      const res = await axios.get(`${SERVER_URI}/log/point/all`);
+      return res.data;
+    },
+    options
+  );
+
+//deposit
 export const useDepositQuery = (
   options?: Omit<
     UseQueryOptions<IDeposit, AxiosError, IDeposit>,
@@ -85,20 +147,6 @@ export const useDepositQuery = (
     options
   );
 
-export const useScoreLogQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IPointLog[], AxiosError, IPointLog[]>(
-    "scoreLog",
-    async () => {
-      const res = await axios.get(`${SERVER_URI}/log/score`);
-      return res.data;
-    },
-    options
-  );
 export const useDepositLogQuery = (
   options?: Omit<
     UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
@@ -114,46 +162,19 @@ export const useDepositLogQuery = (
     options
   );
 
-export const usePointLogQuery = (
+export const useDepositAllQuery = (
   options?: Omit<
-    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
+    UseQueryOptions<IPointAll[], AxiosError, IPointAll[]>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useQuery<IPointLog[], AxiosError, IPointLog[]>(
-    "pointLog",
+  useQuery<IPointAll[], AxiosError, IPointAll[]>(
+    "depositAll",
     async () => {
-      const res = await axios.get<IPointLog[]>(`${SERVER_URI}/log/point`);
-      return res.data;
-    },
-    options
-  );
+      const res = await axios.get<IPointAll[]>(
+        `${SERVER_URI}/user/deposit/all`
+      );
 
-export const useScoreLogAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IPointLog[], AxiosError, IPointLog[]>(
-    "scoreLogAll",
-    async () => {
-      const res = await axios.get(`${SERVER_URI}/log/score/all`);
-      return res.data;
-    },
-    options
-  );
-
-export const usePointLogAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog, AxiosError, IPointLog>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery(
-    "pointLogAll",
-    async () => {
-      const res = await axios.get(`${SERVER_URI}/log/point/all`);
       return res.data;
     },
     options

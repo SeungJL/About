@@ -5,6 +5,7 @@ import { SetStateAction } from "react";
 import styled from "styled-components";
 import { CopyBtnBig } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
 import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import {
@@ -25,8 +26,8 @@ function ApplyPromotionRewardModal({
   const { mutate: suggestForm } = usePlazaMutation();
 
   const onComplete = () => {
-    getPoint({ value: 15, message: "홍보 리워드" });
-    getScore({ value: 15, message: "홍보 리워드" });
+    getPoint(POINT_SYSTEM_PLUS.promotionReward.point);
+    getScore(POINT_SYSTEM_PLUS.promotionReward.score);
     toast({
       title: "정산 완료",
       description: "정상적으로 처리되었습니다.",

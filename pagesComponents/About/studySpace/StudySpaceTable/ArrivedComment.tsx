@@ -27,7 +27,7 @@ import {
 function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
   const router = useRouter();
   const { data: session } = useSession();
-
+  console.log(attendances);
   const voteDate = dayjs(router.query.date as string);
   const studyDate = useRecoilValue(studyDateState);
   const setBeforePage = useSetRecoilState(beforePageState);
@@ -68,6 +68,8 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
             hour12: false,
           });
           const user = att.user;
+
+          const isAbsent = absentData?.find((who) => who?.uid === user?.uid);
           return (
             <Block key={idx} onClick={() => onClickUser(user)}>
               <ProfileIcon user={user} size="md" />
@@ -75,7 +77,18 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
                 <Info>
                   <span>{user.name}</span>
                   <div>
-                    {att.memo}
+                    {!isAbsent ? (
+                      <Memo>{att.memo}</Memo>
+                    ) : (
+                      <>
+                        <FontAwesomeIcon
+                          icon={faCircleXmark}
+                          color="var(--color-red)"
+                        />
+                        &nbsp; -<Absent>{isAbsent?.message}</Absent>
+                      </>
+                    )}
+
                     {att.memo && user.uid === session?.uid && (
                       <span>
                         &nbsp;
@@ -88,15 +101,15 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
                     )}
                   </div>
                 </Info>
-                {att.arrived || studyDate === "passed" ? (
+                {att.arrived ? (
                   <Check isCheck={true}>
                     <FontAwesomeIcon icon={faCircleCheck} size="xl" />
                     <span>{arrivedHM}</span>
                   </Check>
-                ) : studyDate !== "not passed" &&
-                  absentData?.find((who) => who.uid === user?.uid) ? (
+                ) : studyDate !== "not passed" && isAbsent ? (
                   <Check isCheck={false}>
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
+
                     <span>불참</span>
                   </Check>
                 ) : null}
@@ -132,6 +145,13 @@ const BlockInfo = styled.div`
   margin-left: 12px;
 `;
 
+const Absent = styled.span`
+  font-size: 12px;
+  margin-left: 4px;
+`;
+
+const Memo = styled.span``;
+
 const Check = styled.div<{ isCheck: boolean }>`
   margin-left: auto;
   width: 40px;
@@ -163,6 +183,8 @@ const Info = styled.div`
     font-size: 13px;
     margin-top: 2px;
     color: var(--font-h3);
+    display: flex;
+    align-items: center;
   }
 `;
 

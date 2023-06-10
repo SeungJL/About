@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { useUpdateProfileMutation } from "../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
+import { useDepositAllQuery } from "../../hooks/user/pointSystem/queries";
 import { IUser } from "../../types/user";
 
 export default function Admin() {
@@ -25,6 +26,12 @@ export default function Admin() {
       setAdmins(tempAdmins);
       setMembers(tempMembers);
       setFiltered(tempMembers);
+    },
+  });
+
+  useDepositAllQuery({
+    onSuccess(data) {
+      console.log(1, data);
     },
   });
 

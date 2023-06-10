@@ -6,7 +6,7 @@ import {
   ModalFooterNav,
   ModalHeaderCenter,
   ModalMain,
-  ModalXXL
+  ModalXXL,
 } from "../../styles/layout/modal";
 
 function StudyRuleModal({
@@ -61,10 +61,11 @@ function StudyRuleModal({
               <Content>
                 <ul>
                   <li>
-                    1시간 이상 지각 <B> -200원</B>
+                    1시간 이상 지각 <B> -200</B>
                   </li>
                   <li>
-                    스터디 당일 불참 <B>-500원</B> / 잠수 <B>-1000원</B>
+                    스터디 당일 불참<B>-500</B> / 스터디 시작 이전
+                    <B>-300</B>
                   </li>
                 </ul>
               </Content>
@@ -76,7 +77,7 @@ function StudyRuleModal({
                     &nbsp;인정)
                   </li>
                   <li>
-                    <b>0.5회</b> 기준 벌금 <B>-1000원</B>
+                    <b>0.5회</b> 기준 벌금 <B>-1000</B>
                   </li>
 
                   <li>가입한 달에는 참여 정산 벌금 x</li>

@@ -6,27 +6,28 @@ import styled from "styled-components";
 import {
   ModalFooterNav,
   ModalHeaderLine,
-  ModalMain, ModalMd, ModalSubtitle
+  ModalMain,
+  ModalMd,
+  ModalSubtitle,
 } from "../../styles/layout/modal";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isVotingState,
   mySpaceFixedState,
-  studyStartTimeState
+  studyStartTimeState,
 } from "../../recoil/studyAtoms";
 
 import { SearchIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
 import { ChangeEvent, useState } from "react";
 import { InputSm } from "../../components/ui/Input";
+import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import {
   useDepositMutation,
-  usePointMutation
+  usePointMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import {
-  useAbsentStudyMutation
-} from "../../hooks/vote/mutations";
+import { useAbsentStudyMutation } from "../../hooks/vote/mutations";
 import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
 
@@ -48,11 +49,14 @@ function AbsentStudyModal({ setIsModal }) {
   const { mutate: absentStudy } = useAbsentStudyMutation(today, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
-      if (value !== "") {
-        getDeposit({ value: -600, message: "당일 불참" });
+      if (value === "") {
         if (dayjs() > studyStartTime) {
-          getPoint({ value: -10, message: "당일 불참" });
+          getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositLate);
+        } else {
+          getDeposit(POINT_SYSTEM_MINUS.absentStudy.deposit);
         }
+      } else {
+        getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositReason);
       }
       setisVoting(false);
     },

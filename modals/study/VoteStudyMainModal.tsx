@@ -18,16 +18,17 @@ import { arrangeSpace } from "../../libs/utils/studyUtils";
 import {
   isVotingState,
   studyDateState,
-  voteDateState
+  voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/systemAtoms";
 
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import TimeSelectorLg from "../../components/utils/TimeSelectorLg";
+import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import {
   usePointMutation,
-  useScoreMutation
+  useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { updateStudyState } from "../../recoil/updateAtoms";
 import { IplaceInfo } from "../../types/statistics";
@@ -104,15 +105,14 @@ function VoteStudyMainModal({
       queryClient.invalidateQueries(VOTE_GET);
       if (!isVoting) {
         if (studyDate === "today") {
-          getScore({ value: 2, message: "당일 참여" });
-          getPoint({ value: 2, message: "당일 참여" });
+          getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);
+          getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
         }
         if (studyDate === "not passed") {
-          getScore({ value: 5, message: "스터디 투표" });
-          getPoint({ value: 5, message: "스터디 투표" });
+          getScore(POINT_SYSTEM_PLUS.voteStudy.score);
+          getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
         }
       }
-
       setUpdateStudy(true);
       setIsComplete(true);
     },

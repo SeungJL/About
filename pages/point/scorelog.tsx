@@ -33,16 +33,19 @@ function ScoreLog() {
               <Content>내용</Content>
               <Point>점수</Point>
             </LogHeader>
-            {filterLog?.reverse().map((item, idx) => (
-              <Item key={idx}>
-                <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-                <Content>{item?.message}</Content>
-                <Point>
-                  {item?.meta.value > 0 && "+"}
-                  {item?.meta.value} 점
-                </Point>
-              </Item>
-            ))}
+            {filterLog?.reverse().map((item, idx) => {
+              const value = item?.meta.value;
+              return (
+                <Item key={idx}>
+                  <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
+                  <Content>{item?.message}</Content>
+                  <Point isMinus={value < 0}>
+                    {value > 0 && "+"}
+                    {value} 점
+                  </Point>
+                </Item>
+              );
+            })}
           </Container>
         </Layout>
       )}
@@ -116,7 +119,7 @@ const Content = styled.span`
   flex: 1;
 `;
 
-const Point = styled.span`
-  color: var(--font-h1);
+const Point = styled.span<{ isMinus?: boolean }>`
+  color: ${(props) => (props.isMinus ? "var(--color-red)" : "var(--font-h1)")};
 `;
 export default ScoreLog;

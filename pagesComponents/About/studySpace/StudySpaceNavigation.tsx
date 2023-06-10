@@ -24,15 +24,16 @@ import {
 
 import { useSession } from "next-auth/react";
 import { VOTE_GET } from "../../../libs/queryKeys";
-import CheckStudyModal from "../../../modals/study/CheckStudyModal";
 import { IPlaceStatusType } from "../../../types/statistics";
 import { IAttendance, IPlace } from "../../../types/studyDetails";
 
+import { POINT_SYSTEM_MINUS } from "../../../constants/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
+import AttendCheckModal from "../../../modals/study/AttendCheckModal";
 import VoteSuccessScreen from "./VoteSuccessScreen";
 
 function StudySpaceNavigation({
@@ -59,7 +60,7 @@ function StudySpaceNavigation({
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
   const [isChangeModal, setIsChangeModal] = useState(false);
-  const [isCancelModal, setIsCancelModal] = useState(false);
+  const [isAbsentmodal, setIsAbsentmodal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isVoteComplete, setIsVoteComplete] = useState(false);
@@ -72,7 +73,6 @@ function StudySpaceNavigation({
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
       await queryClient.invalidateQueries([VOTE_GET, voteDate]);
-      // isVoting && getScore(-5);
       router.push(`/about`);
     },
     onError() {
@@ -110,8 +110,8 @@ function StudySpaceNavigation({
           position: "bottom",
         });
       } else {
-        getScore({ value: -5, message: "투표 취소" });
-        getPoint({ value: -5, message: "투표 취소" });
+        getScore(POINT_SYSTEM_MINUS.cancelStudy.score);
+        getPoint(POINT_SYSTEM_MINUS.cancelStudy.point);
         handleAbsent();
       }
     }
@@ -131,7 +131,7 @@ function StudySpaceNavigation({
         });
         return;
       }
-      setIsCancelModal(true);
+      setIsAbsentmodal(true);
     }
     if (type === "main") {
       myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
@@ -221,9 +221,9 @@ function StudySpaceNavigation({
           />
         </ModalPortal>
       )}
-      {isCancelModal && (
-        <ModalPortal setIsModal={setIsCancelModal}>
-          <AbsentStudyModal setIsModal={setIsCancelModal} />
+      {isAbsentmodal && (
+        <ModalPortal setIsModal={setIsAbsentmodal}>
+          <AbsentStudyModal setIsModal={setIsAbsentmodal} />
         </ModalPortal>
       )}
       {isVoteModal && (
@@ -239,7 +239,7 @@ function StudySpaceNavigation({
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
-          <CheckStudyModal setIsModal={setIsCheckModal} />
+          <AttendCheckModal setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
       {isVoteComplete && (

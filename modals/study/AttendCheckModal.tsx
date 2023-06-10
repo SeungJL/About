@@ -10,6 +10,10 @@ import styled from "styled-components";
 
 import { InputSm } from "../../components/ui/Input";
 import {
+  POINT_SYSTEM_MINUS,
+  POINT_SYSTEM_PLUS,
+} from "../../constants/pointSystem";
+import {
   useDepositMutation,
   usePointMutation,
   useScoreMutation,
@@ -32,7 +36,7 @@ import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;
 
-function CheckStudyModal({
+function AttendCheckModal({
   setIsModal,
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
@@ -53,6 +57,8 @@ function CheckStudyModal({
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
+  // console.log(voteDate, dayjs());
+  // if (voteDate > dayjs().subtract(1, "day")) console.log(5);
 
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
@@ -65,10 +71,10 @@ function CheckStudyModal({
           ).time.start
         ).add(1, "hour") < dayjs()
       ) {
-        getDeposit({ value: -300, message: "스터디 지각" });
-      } else if (!isChecking && voteDate > dayjs().subtract(1, "day")) {
-        getScore({ value: 5, message: "스터디 출석" });
-        getPoint({ value: 5, message: "스터디 출석" });
+        getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
+      } else if (isChecking && voteDate > dayjs().subtract(1, "day")) {
+        getScore(POINT_SYSTEM_PLUS.attendCheck.score);
+        getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
       }
     },
     onError: (err) => {
@@ -85,9 +91,9 @@ function CheckStudyModal({
   const onCancelClicked = () => {
     setIsModal(false);
   };
-  const onCheckClicked = () => {
-    setIsChecking(true);
-    checkArrived();
+  const onCheckClicked = async () => {
+    await setIsChecking(true);
+    await checkArrived();
   };
 
   const checkArrived = () => {
@@ -102,6 +108,7 @@ function CheckStudyModal({
       true
     ) {
       handleArrived(memo);
+      console.log(22, isChecking);
       setTimeout(() => {
         setIsChecking(false);
         setIsModal(false);
@@ -200,4 +207,4 @@ const Loading = styled.div`
   }
 `;
 
-export default CheckStudyModal;
+export default AttendCheckModal;
