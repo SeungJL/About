@@ -14,8 +14,13 @@ import {
   studyDateState,
 } from "../../../../recoil/studyAtoms";
 import { locationState } from "../../../../recoil/systemAtoms";
+import { IParticipation } from "../../../../types/studyDetails";
 
-function AboutVoteNav({ voteCnt }: { voteCnt: number }) {
+function AboutVoteNav({
+  participations,
+}: {
+  participations: IParticipation[];
+}) {
   const { data: session } = useSession();
   const toast = useToast();
   const isGuest = session?.user.name === "guest";
@@ -25,6 +30,12 @@ function AboutVoteNav({ voteCnt }: { voteCnt: number }) {
   const location = useRecoilValue(locationState);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
+
+  const voteCnt = participations.reduce(
+    (acc, par) =>
+      acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
+    0
+  );
 
   const onClickBtn = (type: string) => {
     if (isGuest) {

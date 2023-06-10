@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -8,38 +7,25 @@ import AboutMainItem from "./AboutMain/AboutMainItem";
 
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useDecideSpaceMutation } from "../../../hooks/vote/mutations";
-import {
-  attendCheckState,
-  isVotingState,
-  mySpaceFixedState,
-  studyDateState,
-  studyStartTimeState,
-  voteDateState,
-} from "../../../recoil/studyAtoms";
-
-import { getInterestingDate } from "../../../libs/utils/dateUtils";
-import { arrangeMainSpace } from "../../../libs/utils/studyUtils";
+import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
 
 import { MainLoading } from "../../../components/ui/MainLoading";
 import { VOTE_END_HOUR } from "../../../constants/study";
 import { useStudyStartQuery } from "../../../hooks/vote/queries";
-import { isMainLoadingState } from "../../../recoil/systemAtoms";
 import { IParticipation } from "../../../types/studyDetails";
-import { IUser } from "../../../types/user";
 
-function AboutMain({ participations }: { participations: IParticipation[] }) {
-  const { data: session } = useSession();
-
+function AboutMain({
+  otherStudySpaces,
+  myVoteList,
+}: {
+  otherStudySpaces: IParticipation[];
+  myVoteList: any;
+}) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const [isVoting, setIsVoting] = useRecoilState(isVotingState);
-  const [mySpaceFixed, setMySpaceFixed] = useRecoilState(mySpaceFixedState);
-  const setStudyDate = useSetRecoilState(studyDateState);
-  const setIsCheck = useSetRecoilState(attendCheckState);
-  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
-  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const [myVoteList, setMyVoteList] = useState<string[]>([""]);
+  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const { data } = useStudyStartQuery(voteDate);
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
@@ -57,65 +43,6 @@ function AboutMain({ participations }: { participations: IParticipation[] }) {
   }, [data, setStudyStartTime]);
 
   /**날짜마다 달라지는 정보들*/
-  useEffect(() => {
-    setMyVoteList([]);
-    setMySpaceFixed(null);
-    setIsVoting(false);
-    setIsCheck(false);
-
-    const setInitialInfo = async (participations: IParticipation[]) => {
-      await Promise.all(
-        participations?.map((space) => {
-          let isVote = false;
-          space?.attendences?.forEach((who) => {
-            if ((who.user as IUser)?.uid === session?.uid) {
-              if (space.status === "open") {
-                setMySpaceFixed(space);
-                if (who?.arrived) setIsCheck(true);
-              }
-              setIsVoting(true);
-              isVote = true;
-            }
-          });
-          if (isVote) setMyVoteList((old) => [...old, space.place._id]);
-        })
-      );
-      setIsMainLoading(false);
-    };
-
-    setInitialInfo(participations);
-    const voteDateNum = +voteDate.format("MDD");
-    const defaultDate = +getInterestingDate().format("MDD");
-    if (
-      dayjs().hour() >= 14 && dayjs().hour() < 23
-        ? voteDateNum < +getInterestingDate().subtract(1, "day").format("MDD")
-        : voteDateNum < defaultDate
-    ) {
-      setStudyDate("passed");
-    } else if (
-      dayjs().hour() >= VOTE_END_HOUR
-        ? voteDateNum <= defaultDate
-        : dayjs().hour() >= 14
-        ? +voteDate.add(1, "day").format("MDD") <= defaultDate
-        : voteDateNum === defaultDate
-    )
-      setStudyDate("today");
-    else setStudyDate("not passed");
-    setIsLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [participations, isVoting]);
-
-  const otherStudySpaces = arrangeMainSpace(
-    participations?.filter((space) => space !== mySpaceFixed)
-  );
-
-  useEffect(() => {
-    if (!isLoading) {
-      setIsMainLoading(false);
-      setIsLoading(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate]);
 
   return (
     <>

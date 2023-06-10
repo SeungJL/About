@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Skeleton } from "@chakra-ui/react";
 import { faCheck, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
@@ -52,7 +52,11 @@ function AboutUpperBar() {
           <LocalSelector />
         </Header>
         {studyDate !== "not passed" && (
-          <>
+          <Skeleton
+            isLoaded={!isMainLoading}
+            startColor="RGB(227, 230, 235)"
+            endColor="rgb(246,247,249)"
+          >
             <Result>
               {isMainLoading ? null : mySpaceFixed !== null ? (
                 <Wrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -64,7 +68,7 @@ function AboutUpperBar() {
                 </Wrapper>
               )}
             </Result>
-          </>
+          </Skeleton>
         )}
       </Layout>
       {isCheckModal && (
@@ -77,7 +81,7 @@ function AboutUpperBar() {
 }
 
 const Layout = styled.div`
-  padding: 16px 14px;
+  margin: 14px 14px;
 `;
 
 const Header = styled.header`
