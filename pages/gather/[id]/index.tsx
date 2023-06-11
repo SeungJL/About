@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
+import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
@@ -20,6 +21,7 @@ import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
+import { gatherDataState } from "../../../recoil/interactionAtoms";
 import { GatherCategoryIcons } from "../../../storage/Gather";
 
 function GatherDetail() {
@@ -29,16 +31,21 @@ function GatherDetail() {
   const [isParticipationModal, setIsParticipationModal] = useState(false);
 
   const { data: user } = useUserInfoQuery();
-
+  const gatherData = useRecoilValue(gatherDataState);
+  console.log(gatherData);
   const onClickBtn = () => {
     setIsParticipationModal(true);
   };
+
+  const title = gatherData?.title;
+  const date = dayjs(gatherData?.date);
+
   return (
     <>
       <Header title="" url="/gather">
         <KakaoShareBtn
-          title="보드게임 번개"
-          subtitle="5월 21일(일)"
+          title={title}
+          subtitle={date.format("M월 DD일(d)")}
           type="gather"
           url=""
         />
@@ -46,7 +53,7 @@ function GatherDetail() {
       <Layout>
         <Badge p="4px 6px" my="4px" fontSize="12px" alignSelf="flex-start">
           {GatherCategoryIcons[0]}
-          <Category>보드게임</Category>
+          <Category>{gatherData?.type.title}</Category>
         </Badge>
         <Profile>
           <ProfileIcon user={user} size="md" />
@@ -57,14 +64,14 @@ function GatherDetail() {
         </Profile>
         <Title>
           <span>모집중</span>
-          <span>보드게임 하러 가실 분</span>
+          <span>{title}</span>
         </Title>
         <Location>
           <div>
             <IconWrapper>
               <FontAwesomeIcon icon={faLocationDot} color="var(--font-h3)" />
             </IconWrapper>
-            <span>아주대학교</span>
+            <span>{gatherData?.location.main}</span>
           </div>
           <FontAwesomeIcon icon={faChevronDown} size="2xs" />
         </Location>
@@ -72,22 +79,24 @@ function GatherDetail() {
           <IconWrapper>
             <FontAwesomeIcon icon={faCalendarDays} color="var(--font-h3)" />
           </IconWrapper>
-          <span>5.28(금) 오후 6:00</span>
+          <span>{date?.format("M.DD(d) 오후 h:mm")}</span>
         </Date>
         <Age>
           <IconWrapper>
             <FontAwesomeIcon icon={faUser} color="var(--font-h3)" />
           </IconWrapper>
-          <span>23~28세</span>
+          <span>
+            {gatherData?.age[0]}~{gatherData?.age[1]}세
+          </span>
           <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />
         </Age>
         <MemberMin>
           <IconWrapper>
             <FontAwesomeIcon icon={faDoorOpen} color="var(--font-h3)" />
           </IconWrapper>
-          <span>4명 이상 오픈</span>
+          <span>{gatherData?.memberCnt.min}명 이상 오픈</span>
         </MemberMin>
-        <Content>재미있는 보드게임 하실 분들을 모집해요~!</Content>
+        <Content>{gatherData?.content}</Content>
         <Participant>
           <span>
             참여중인 인원 <span>4</span>/6

@@ -4,52 +4,65 @@ import {
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { GatherCategory } from "../../types/gather";
+import { gatherDataState } from "../../recoil/interactionAtoms";
+import { GatherCategory, IGatherContent } from "../../types/gather";
 
 function GatherBlock({
   data,
   category,
 }: {
-  data: any;
+  data: IGatherContent;
   category: GatherCategory;
 }) {
   const router = useRouter();
   const { data: user } = useUserInfoQuery();
+  const setGatherData = useSetRecoilState(gatherDataState);
+
   const onClickBlock = () => {
-    router.push(`/gather/23`);
+    setGatherData(data);
+    router.push(`/gather/${data?.id}`);
   };
+
   return (
-    <Layout onClick={() => onClickBlock()}>
-      <Header>
-        <Status>모집중</Status>·<Category>보드게임</Category>·
-        <Location>수원</Location>
-      </Header>
-      <Title>저녁 산책</Title>
-      <Detail>
-        <Condition>
-          <FontAwesomeIcon icon={faUserCheck} color="var(--font-h4)" />
-          <span>20~27세</span>
-        </Condition>
-        <Date>
-          <FontAwesomeIcon icon={faCalendarDay} color="var(--font-h4)" />
-          <span>5월 24일</span>
-        </Date>
-      </Detail>
-      <Participant>
-        <Writer>
-          <ProfileIcon user={user} size="xs" />
-          <span>승주</span>
-        </Writer>
-        <Voter>
-          <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
-          <span>3/5명</span>
-        </Voter>
-      </Participant>
-    </Layout>
+    <>
+      {data && (
+        <Layout onClick={() => onClickBlock()}>
+          <Header>
+            <Status>모집중</Status>·<Category>{data?.type.title}</Category>·
+            <Location>{data.location.main}</Location>
+          </Header>
+          <Title>{data.type.subtitle}</Title>
+          <Detail>
+            <Condition>
+              <FontAwesomeIcon icon={faUserCheck} color="var(--font-h4)" />
+              <span>
+                {data.age[0]}~{data.age[1]}세
+              </span>
+            </Condition>
+            <Date>
+              <FontAwesomeIcon icon={faCalendarDay} color="var(--font-h4)" />
+              <span>{dayjs(data.date).format("M월 DD일")}</span>
+            </Date>
+          </Detail>
+          <Participant>
+            <Writer>
+              <ProfileIcon user={user} size="xs" />
+              <span>승주</span>
+            </Writer>
+            <Voter>
+              <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
+              <span>3/5명</span>
+            </Voter>
+          </Participant>
+        </Layout>
+      )}
+    </>
   );
 }
 

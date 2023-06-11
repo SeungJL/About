@@ -1,4 +1,3 @@
-import { Skeleton } from "@chakra-ui/react";
 import {
   faChevronDown,
   faChevronLeft,
@@ -28,33 +27,29 @@ function CalendarMonth({
   };
 
   return (
-    <Skeleton
-      w="max-content"
-      isLoaded={!isMainLoading}
-      ml="14px"
-      startColor="RGB(227, 230, 235)"
-      endColor="rgb(246,247,249)"
-    >
-      {voteDate && (
-        <Layout>
-          <span>{voteDate.format("YYYY년 M월")}</span>
-          {calendarType === "week" ? (
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              size="xs"
-              onClick={() => setCalendarType("month")}
-              color="var(--color-mint)"
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faChevronUp}
-              size="xs"
-              onClick={() => setCalendarType("week")}
-              color="var(--color-mint)"
-            />
-          )}
-        </Layout>
-      )}
+    <>
+      <Layout>
+        {voteDate && (
+          <>
+            <span>{voteDate.format("YYYY년 M월")}</span>
+            {calendarType === "week" ? (
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                size="xs"
+                onClick={() => setCalendarType("month")}
+                color="var(--color-mint)"
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faChevronUp}
+                size="xs"
+                onClick={() => setCalendarType("week")}
+                color="var(--color-mint)"
+              />
+            )}
+          </>
+        )}
+      </Layout>
       {calendarType === "month" && (
         <>
           <MonthNav
@@ -75,7 +70,7 @@ function CalendarMonth({
           </MonthNav>
         </>
       )}
-    </Skeleton>
+    </>
   );
 }
 
@@ -83,7 +78,7 @@ const Layout = styled.span`
   display: flex;
   align-items: center;
   font-weight: 600;
-
+  margin-left: 14px;
   > span {
     color: var(--color-mint);
     font-size: 13px;

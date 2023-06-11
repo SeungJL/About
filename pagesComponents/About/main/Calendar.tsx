@@ -1,4 +1,3 @@
-import { Skeleton } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -11,7 +10,7 @@ import CalendarMonth from "./Calendar/CalendarMonth";
 
 function Calendar() {
   const [calendarType, setCalendarType] = useState<"week" | "month">("week");
-  const isMainLoading = useRecoilValue(isMainLoadingState);
+
   const voteDate = useRecoilValue(voteDateState);
 
   return (
@@ -20,26 +19,27 @@ function Calendar() {
         calendarType={calendarType}
         setCalendarType={setCalendarType}
       />
-      <Skeleton
-        m="14px"
-        borderY="1px solid var(--font-h6)"
-        isLoaded={!isMainLoading}
-        startColor="RGB(227, 230, 235)"
-        endColor="rgb(246,247,249)"
-      >
+      <Wrapper>
         {voteDate && (
           <>
             <CalendarDay />
             <CalendarDate calendarType={calendarType} />
           </>
         )}
-      </Skeleton>
+      </Wrapper>
     </Layout>
   );
 }
 
 const Layout = styled.div`
   margin: 20px 0;
+`;
+
+const Wrapper = styled.div`
+  min-height: 70px;
+  margin: 14px;
+  border-top: 1px solid var(--font-h6);
+  border-bottom: 1px solid var(--font-h6);
 `;
 
 export default Calendar;

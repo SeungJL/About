@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { IGatherContent } from "../types/gather";
 import { IUser } from "../types/user";
 
 export const userDataState = atom<IUser>({
@@ -14,4 +15,9 @@ export const beforePageState = atom({
 export const isProfileEditState = atom({
   key: "isProfileEdit",
   default: false,
+});
+
+export const gatherDataState = atom<IGatherContent>({
+  key: "gatherData",
+  default: null,
 });

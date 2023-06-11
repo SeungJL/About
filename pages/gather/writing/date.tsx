@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ko from "date-fns/locale/ko";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { motion } from "framer-motion";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
@@ -23,7 +23,7 @@ function WritingDate() {
   const toast = useToast();
   const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
   const [date, setDate] = useState(
-    gatherContent?.date ? gatherContent?.date.toDate() : new Date()
+    gatherContent?.date ? (gatherContent?.date as Dayjs).toDate() : new Date()
   );
   const [detail, setDetail] = useState(gatherContent?.location?.sub);
   const [location, setLocation] = useState(gatherContent?.location?.main);

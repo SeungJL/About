@@ -9,8 +9,9 @@ export interface IGatherContent {
   title: string;
   content: string;
   location: { main: string; sub?: string };
-  date: Dayjs;
-  createdDate?: Dayjs;
+  date: Dayjs | string;
+  createdAt?: string;
+  updatedAt?: string;
   memberCnt: { min: number; max: number };
   age?: number[];
   preCnt?: number;
@@ -20,5 +21,3 @@ export interface IGatherContent {
   user: IUser;
   status?: "open" | "closed";
 }
-
-

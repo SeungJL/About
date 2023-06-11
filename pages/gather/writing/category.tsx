@@ -31,7 +31,7 @@ function WritingCategory() {
       });
       return;
     }
-    setGatherContent((old) => ({ ...old, category: selectType }));
+    setGatherContent((old) => ({ ...old, type: selectType }));
     router.push(`/gather/writing/content`);
   };
 

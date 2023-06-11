@@ -35,6 +35,8 @@ import Header from "../../../components/layouts/Header";
 import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import SuccessScreen from "../../../components/layouts/SuccessScreen";
 import ModalPortal from "../../../components/ModalPortal";
+import { useGatherContentMutation } from "../../../hooks/gather/mutations";
+import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { randomPassword } from "../../../libs/utils/validUtils";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
@@ -64,6 +66,13 @@ function WritingCondition() {
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
+  const { mutate } = useGatherContentMutation({
+    onSuccess() {
+      console.log("2,suc");
+    },
+  });
+  const { data: AA } = useGatherContentQuery();
+
   const { data } = useUserInfoQuery();
 
   const id = 2;
@@ -80,9 +89,8 @@ function WritingCondition() {
       });
       return;
     }
-
-    setGatherContent((old) => ({
-      ...old,
+    const gatherData = {
+      ...gatherContent,
       age,
       preCnt,
       memberCnt: { min: minValue, max: maxValue },
@@ -91,8 +99,11 @@ function WritingCondition() {
       createdDate: dayjs(),
       id,
       user: data,
-    }));
+    };
 
+    setGatherContent(gatherData);
+
+    mutate(gatherData);
     setIsSuccessScreen(true);
   };
   const onChangeAge = (value) => {

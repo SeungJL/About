@@ -10,10 +10,8 @@ import { faPencil, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import ModalPortal from "../../components/ModalPortal";
+import { useGatherContentQuery } from "../../hooks/gather/queries";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
-import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
 import Category from "../../pagesComponents/gather/Category";
 import GatherBlock from "../../pagesComponents/gather/GatherBlock";
 import { GatherCategory } from "../../types/gather";
@@ -28,7 +26,8 @@ function Gather() {
       ? data
       : data?.filter((item) => item.category === category);
 
-  const reversedData = [1];
+  const { data: gatherContentArr } = useGatherContentQuery();
+  console.log(gatherContentArr);
 
   const [a, setA] = useState(false);
 
@@ -46,7 +45,7 @@ function Gather() {
           <PlazaLayout>
             <Category category={category} setCategory={setCategory} />
             <PlazaMainContent>
-              {reversedData?.map((data, idx) => (
+              {gatherContentArr?.map((data, idx) => (
                 <GatherBlock key={idx} data={data} category={category} />
               ))}
             </PlazaMainContent>
@@ -55,16 +54,6 @@ function Gather() {
             <IconPencil />
           </Navigation>
         </Layout>
-      )}
-      {isNotice && (
-        <ModalPortal setIsModal={setIsNotice}>
-          <NotCompletedModal2 setIsModal={setIsNotice} />
-        </ModalPortal>
-      )}
-      {a && (
-        <ModalPortal setIsModal={setA}>
-          <NotCompletedModal setIsModal={setA} />
-        </ModalPortal>
       )}
     </>
   );
