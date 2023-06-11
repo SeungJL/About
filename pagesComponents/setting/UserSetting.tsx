@@ -1,13 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import ModalPortal from "../../components/ModalPortal";
-
-import WeekAttendPopup from "../../modals/pop-up/LastWeekAttendPopUp";
-
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { numOfUserState } from "../../recoil/userAtoms";
-import { isNoticeAlertState } from "../../recoil/utilityAtoms";
-
+import ModalPortal from "../../components/ModalPortal";
 import {
   ATTEND_POP_UP,
   NOTICE_ALERT,
@@ -15,12 +9,14 @@ import {
   PROMOTION_POP_UP1,
   PROMOTION_POP_UP2,
 } from "../../constants/localStorage";
-import { useIsActiveQuery, useUserInfoQuery } from "../../hooks/user/queries";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import PromotionModal from "../../modals/mainHeader/PromotionModal";
+import WeekAttendPopup from "../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
+import { isNoticeAlertState } from "../../recoil/utilityAtoms";
 
 export default function UserSetting() {
   const { data: session } = useSession();
@@ -29,7 +25,6 @@ export default function UserSetting() {
 
   const [location, setLocation] = useRecoilState(locationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
-  const setNumOfUser = useSetRecoilState(numOfUserState);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isUserGuide, setIsUserGuide] = useState(false);
   const [isSuggest, setIsSuggest] = useState(false);
@@ -48,12 +43,6 @@ export default function UserSetting() {
       console.error(error);
     },
   });
-  const { data, isLoading: isActiveLoading } = useIsActiveQuery({
-    onError(error) {
-      console.error(error);
-    },
-  });
-  const isActive = data?.isActive?.isActive;
 
   useEffect(() => {
     if (!location) {
@@ -64,28 +53,27 @@ export default function UserSetting() {
   }, [isLoading, isGuest, location]);
 
   useEffect(() => {
-    if (!isLoading) {
-      if (isGuest) return;
-      if (!localStorage.getItem(ATTEND_POP_UP)) {
-        setIsAttendPopup(true);
-        localStorage.setItem(ATTEND_POP_UP, "read");
-      }
-      if (!localStorage.getItem(PROFILE_POP_UP) && myProfileNull) {
-        setIsProfile(true);
-        localStorage.setItem(PROFILE_POP_UP, "read");
-      }
-      if (!localStorage.getItem(NOTICE_ALERT)) {
-        setIsNoticeAlert(true);
-      }
-      if (!localStorage.getItem(PROMOTION_POP_UP1)) {
-        setIsPromotion(true);
-        localStorage.setItem(PROMOTION_POP_UP1, "read");
-      }
-      if (!localStorage.getItem(PROMOTION_POP_UP2)) {
-        setIsPromotion(true);
-        localStorage.setItem(PROMOTION_POP_UP2, "read");
-      }
+    if (isGuest || isLoading) return;
+    if (!localStorage.getItem(ATTEND_POP_UP)) {
+      setIsAttendPopup(true);
+      localStorage.setItem(ATTEND_POP_UP, "read");
     }
+    if (!localStorage.getItem(PROFILE_POP_UP) && myProfileNull) {
+      setIsProfile(true);
+      localStorage.setItem(PROFILE_POP_UP, "read");
+    }
+    if (!localStorage.getItem(NOTICE_ALERT)) {
+      setIsNoticeAlert(true);
+    }
+    if (!localStorage.getItem(PROMOTION_POP_UP1)) {
+      setIsPromotion(true);
+      localStorage.setItem(PROMOTION_POP_UP1, "read");
+    }
+    if (!localStorage.getItem(PROMOTION_POP_UP2)) {
+      setIsPromotion(true);
+      localStorage.setItem(PROMOTION_POP_UP2, "read");
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest, isLoading, userData]);
 

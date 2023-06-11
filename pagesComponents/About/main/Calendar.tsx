@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { voteDateState } from "../../../recoil/studyAtoms";
 import { isMainLoadingState } from "../../../recoil/systemAtoms";
 
 import CalendarDate from "./Calendar/CalendarDate";
@@ -12,6 +13,7 @@ import CalendarMonth from "./Calendar/CalendarMonth";
 function Calendar() {
   const [calendarType, setCalendarType] = useState<"week" | "month">("week");
   const isMainLoading = useRecoilValue(isMainLoadingState);
+  const voteDate = useRecoilValue(voteDateState);
 
   return (
     <Layout>
@@ -26,8 +28,12 @@ function Calendar() {
         startColor="RGB(227, 230, 235)"
         endColor="rgb(246,247,249)"
       >
-        <CalendarDay />
-        <CalendarDate calendarType={calendarType} />
+        {voteDate && (
+          <>
+            <CalendarDay />
+            <CalendarDate calendarType={calendarType} />
+          </>
+        )}
       </Skeleton>
     </Layout>
   );

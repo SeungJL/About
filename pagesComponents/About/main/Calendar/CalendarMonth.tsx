@@ -35,24 +35,26 @@ function CalendarMonth({
       startColor="RGB(227, 230, 235)"
       endColor="rgb(246,247,249)"
     >
-      <Layout>
-        <span>{voteDate.format("YYYY년 M월")}</span>
-        {calendarType === "week" ? (
-          <FontAwesomeIcon
-            icon={faChevronDown}
-            size="xs"
-            onClick={() => setCalendarType("month")}
-            color="var(--color-mint)"
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faChevronUp}
-            size="xs"
-            onClick={() => setCalendarType("week")}
-            color="var(--color-mint)"
-          />
-        )}
-      </Layout>
+      {voteDate && (
+        <Layout>
+          <span>{voteDate.format("YYYY년 M월")}</span>
+          {calendarType === "week" ? (
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              size="xs"
+              onClick={() => setCalendarType("month")}
+              color="var(--color-mint)"
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faChevronUp}
+              size="xs"
+              onClick={() => setCalendarType("week")}
+              color="var(--color-mint)"
+            />
+          )}
+        </Layout>
+      )}
       {calendarType === "month" && (
         <>
           <MonthNav

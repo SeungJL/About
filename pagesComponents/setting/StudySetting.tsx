@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { VOTE_END_HOUR } from "../../constants/study";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import {
   attendCheckState,
@@ -14,27 +15,26 @@ import {
 import { isMainLoadingState } from "../../recoil/systemAtoms";
 import { IParticipation } from "../../types/studyDetails";
 
-import { VOTE_END_HOUR } from "../../constants/study";
-import { arrangeMainSpace } from "../../libs/utils/studyUtils";
-
 function StudySetting({
   participations,
-  setOtherStudySpaces,
+
   setMyVoteList,
 }: {
   participations: IParticipation[];
-  setOtherStudySpaces: React.Dispatch<SetStateAction<IParticipation[]>>;
+
   setMyVoteList: React.Dispatch<SetStateAction<string[]>>;
 }) {
   const { data: session } = useSession();
-  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
+  const voteDate = useRecoilValue(voteDateState);
+
   const [isVoting, setIsVoting] = useRecoilState(isVotingState);
   const [mySpaceFixed, setMySpaceFixed] = useRecoilState(mySpaceFixedState);
   const setStudyDate = useSetRecoilState(studyDateState);
   const setIsCheck = useSetRecoilState(attendCheckState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
-
   const [isLoading, setIsLoading] = useState(true);
+  console.log(43);
+
   useEffect(() => {
     setMyVoteList([]);
     setMySpaceFixed(null);
@@ -58,10 +58,13 @@ function StudySetting({
           if (isVote) setMyVoteList((old) => [...old, space.place._id]);
         })
       );
-      setIsMainLoading(false);
     };
-
     setInitialInfo(participations);
+    // setOtherStudySpaces(
+    //   arrangeMainSpace(
+    //     participations?.filter((space) => space !== mySpaceFixed)
+    //   )
+    // );
     const voteDateNum = +voteDate.format("MDD");
     const defaultDate = +getInterestingDate().format("MDD");
     if (
@@ -80,19 +83,17 @@ function StudySetting({
       setStudyDate("today");
     else setStudyDate("not passed");
     setIsLoading(false);
+    setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [participations, isVoting]);
+  }, []);
 
-  setOtherStudySpaces(
-    arrangeMainSpace(participations?.filter((space) => space !== mySpaceFixed))
-  );
-  useEffect(() => {
-    if (!isLoading) {
-      setIsMainLoading(false);
-      setIsLoading(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate]);
+  // useEffect(() => {
+  //   if (!isLoading) {
+  //     setIsMainLoading(false);
+  //     setIsLoading(true);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [voteDate]);
   return <Layout></Layout>;
 }
 

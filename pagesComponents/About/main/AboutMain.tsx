@@ -5,14 +5,19 @@ import styled from "styled-components";
 
 import AboutMainItem from "./AboutMain/AboutMainItem";
 
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useDecideSpaceMutation } from "../../../hooks/vote/mutations";
-import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
+import {
+  mySpaceFixedState,
+  studyStartTimeState,
+  voteDateState,
+} from "../../../recoil/studyAtoms";
 
-import { MainLoading } from "../../../components/ui/MainLoading";
 import { VOTE_END_HOUR } from "../../../constants/study";
 import { useStudyStartQuery } from "../../../hooks/vote/queries";
+import { isMainLoadingState } from "../../../recoil/systemAtoms";
 import { IParticipation } from "../../../types/studyDetails";
+import AboutMainSkeletonItem from "./AboutMain/AboutMainSkeletonItem";
 
 function AboutMain({
   otherStudySpaces,
@@ -24,6 +29,8 @@ function AboutMain({
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
   const setStudyStartTime = useSetRecoilState(studyStartTimeState);
+  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -46,10 +53,8 @@ function AboutMain({
 
   return (
     <>
-      {isLoading ? (
-        <MainLoading />
-      ) : (
-        <AnimatePresence initial={false}>
+      <AnimatePresence initial={false}>
+        {!isMainLoading ? (
           <Layout
             key={voteDate.format("MMDDdd")}
             variants={variants}
@@ -85,9 +90,18 @@ function AboutMain({
               ))}
             </Main>
           </Layout>
-          )
-        </AnimatePresence>
-      )}
+        ) : (
+          <Layout>
+            <Main>
+              {[1, 2, 3, 4]?.map((item) => (
+                <Block key={item}>
+                  <AboutMainSkeletonItem />
+                </Block>
+              ))}
+            </Main>
+          </Layout>
+        )}
+      </AnimatePresence>
     </>
   );
 }

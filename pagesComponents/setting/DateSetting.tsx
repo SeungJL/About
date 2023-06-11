@@ -23,7 +23,7 @@ function DateSetting({
   const toast = useToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-
+  console.log(5);
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
@@ -32,12 +32,13 @@ function DateSetting({
   const [isLoading, setIsLoading] = useState(true);
 
   const [updateStudy, setUpdateStudy] = useRecoilState(updateStudyState);
-  const [otherStudySpaces, setOtherStudySpaces] = useState([]);
 
   const current = dayjs().hour();
+
   const { refetch } = useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
+      console.log(1);
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
       setIsLoading(false);
@@ -56,6 +57,7 @@ function DateSetting({
 
   useEffect(() => {
     if (updateStudy) {
+      console.log(2);
       setTimeout(() => {
         refetch();
       }, 1000);
@@ -63,13 +65,7 @@ function DateSetting({
     }
   }, [refetch, setUpdateStudy, updateStudy]);
 
-  useEffect(() => {
-    if (!isLoading) {
-      setIsMainLoading(false);
-    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
   useEffect(() => {
     if (isGuest) {
       if (dayjs().hour() >= 18) {
