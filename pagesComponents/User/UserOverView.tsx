@@ -26,7 +26,7 @@ export default function UserOverview() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const inputRef = useRef<HTMLInputElement>(null);
-  const showGuestErrorToast = useFailToast();
+  const showGuestErrorToast = useFailToast({ type: "guest" });
 
   const { data: user } = useUserInfoQuery({
     onSuccess(data) {

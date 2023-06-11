@@ -17,7 +17,7 @@ function ProfileOverview({ user }: { user?: IUser }) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const showGuestErrorToast = useFailToast();
+  const showGuestErrorToast = useFailToast({ type: "guest" });
 
   const [info, setInfo] = useState<IUser>(user);
   const [isFriend, setIsFriend] = useState(false);

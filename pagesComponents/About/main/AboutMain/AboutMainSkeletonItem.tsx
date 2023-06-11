@@ -1,5 +1,4 @@
 import { Skeleton } from "@chakra-ui/react";
-import styled from "styled-components";
 
 function AboutMainSkeletonItem() {
   return (
@@ -13,15 +12,5 @@ function AboutMainSkeletonItem() {
     ></Skeleton>
   );
 }
-
-const Layout = styled.div`
-  height: 100px;
-  background-color: white;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  padding: 12px;
-`;
 
 export default AboutMainSkeletonItem;

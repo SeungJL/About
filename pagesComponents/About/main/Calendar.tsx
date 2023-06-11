@@ -1,5 +1,4 @@
 import { Skeleton } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -39,7 +38,7 @@ function Calendar() {
   );
 }
 
-const Layout = styled(motion.div)`
+const Layout = styled.div`
   margin: 20px 0;
 `;
 

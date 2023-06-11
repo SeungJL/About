@@ -27,7 +27,7 @@ import {
 function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(attendances);
+ 
   const voteDate = dayjs(router.query.date as string);
   const studyDate = useRecoilValue(studyDateState);
   const setBeforePage = useSetRecoilState(beforePageState);

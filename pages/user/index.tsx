@@ -49,7 +49,7 @@ function UserInfo() {
 
   const isAdmin = session?.role === "previliged";
   const isGuest = session?.user?.name === "guest";
-  const showGuestErrorToast = useFailToast();
+  const showGuestErrorToast = useFailToast({ type: "guest" });
   const { data: myPoint } = usePointQuery({ enabled: !isGuest });
   const { data: myDeposit } = useDepositQuery({ enabled: !isGuest });
 
@@ -79,7 +79,7 @@ function UserInfo() {
     }
     setModalOpen(type);
   };
-  console.log(myDeposit);
+ 
   return (
     <>
       <Layout

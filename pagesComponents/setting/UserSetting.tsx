@@ -45,15 +45,11 @@ export default function UserSetting() {
   });
 
   useEffect(() => {
-    if (!location) {
-      if (!isLoading) setLocation(userData?.location);
-      if (isGuest) setLocation("수원");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, isGuest, location]);
-
-  useEffect(() => {
     if (isGuest || isLoading) return;
+    if (!location) {
+      if (isGuest) setLocation("수원");
+      else setLocation(userData?.location);
+    }
     if (!localStorage.getItem(ATTEND_POP_UP)) {
       setIsAttendPopup(true);
       localStorage.setItem(ATTEND_POP_UP, "read");
@@ -73,9 +69,8 @@ export default function UserSetting() {
       setIsPromotion(true);
       localStorage.setItem(PROMOTION_POP_UP2, "read");
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGuest, isLoading, userData]);
+  }, [isGuest, isLoading, location, myProfileNull, userData]);
 
   // useEffect(() => {
   //   if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);

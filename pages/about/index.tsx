@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import Seo from "../../components/Seo";
@@ -18,20 +18,28 @@ import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
 import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
-import { locationState } from "../../recoil/systemAtoms";
+import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
 import { IParticipation } from "../../types/studyDetails";
 
 function About() {
-  const [participations, setParticipations] = useState<IParticipation[]>([]);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
-  const [myVoteList, setMyVoteList] = useState<string[]>([""]);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
+  const [participations, setParticipations] = useState<IParticipation[]>([]);
+  const [studySpaces, setStudySpaces] = useState<IParticipation[]>([]);
+  const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
-  const otherStudySpaces = arrangeMainSpace(
-    participations?.filter((space) => space !== mySpaceFixed)
-  );
-  console.log(otherStudySpaces);
+  useEffect(() => {
+    if (!participations?.length) return;
+    const arrangedSpace = arrangeMainSpace(
+      participations?.filter((space) => space !== mySpaceFixed)
+    );
+    setStudySpaces(arrangedSpace);
+    setIsMainLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mySpaceFixed, participations]);
+
   return (
     <>
       <Seo title="About" />
@@ -53,10 +61,7 @@ function About() {
         {location !== "안양" ? (
           <>
             <AboutVoteNav participations={participations} />
-            <AboutMain
-              otherStudySpaces={otherStudySpaces}
-              myVoteList={myVoteList}
-            />
+            <AboutMain otherStudySpaces={studySpaces} myVoteList={myVoteList} />
           </>
         ) : (
           <ReadyToOpen />

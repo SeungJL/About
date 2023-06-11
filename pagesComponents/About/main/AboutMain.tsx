@@ -50,21 +50,13 @@ function AboutMain({
   }, [data, setStudyStartTime]);
 
   /**날짜마다 달라지는 정보들*/
-
+ 
   return (
     <>
       <AnimatePresence initial={false}>
         {!isMainLoading ? (
           <Layout
             key={voteDate.format("MMDDdd")}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30, duration: 0.5 },
-              opacity: { duration: 0.5 },
-            }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}

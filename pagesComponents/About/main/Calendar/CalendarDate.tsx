@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -47,20 +46,9 @@ function CalendarDate({ calendarType }: { calendarType: "week" | "month" }) {
     setVoteDate(voteDate.date(d.date));
   };
   return (
-    <Layout
-      col={calendarType === "week" ? "true" : "false"}
-      initial={{ opacity: 0 }}
-      animate={{ height: calendarType === "week" ? 40 : 235, opacity: 1 }}
-      transition={{ duration: 0.3, opacity: { delay: 0.3 } }}
-    >
+    <Layout col={calendarType === "week" ? "true" : "false"}>
       {calendarBox.map((d, idx) => (
-        <DayItem
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          key={idx}
-          onClick={() => onClickDate(d)}
-        >
+        <DayItem key={idx} onClick={() => onClickDate(d)}>
           {d?.date === voteDate?.date() ? (
             <IconCircle>{d?.date}</IconCircle>
           ) : (
@@ -74,9 +62,8 @@ function CalendarDate({ calendarType }: { calendarType: "week" | "month" }) {
   );
 }
 
-const Layout = styled(motion.div)<{ col: string }>`
+const Layout = styled.div<{ col: string }>`
   color: var(--font-h2);
-
   font-size: 14px;
   margin-left: -9px;
   margin-right: -9px;
@@ -88,13 +75,12 @@ const Layout = styled(motion.div)<{ col: string }>`
     props.col === "true" ? null : "repeat(7,1fr)"};
   grid-auto-rows: ${(props) => (props.col = "true" ? null : "36px")};
 `;
-const DayItem = styled(motion.div)`
+const DayItem = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 32px;
   align-items: center;
-
   > div {
     margin: 4px auto 0px auto;
   }

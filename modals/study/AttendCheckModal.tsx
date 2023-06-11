@@ -57,8 +57,7 @@ function AttendCheckModal({
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
-  // console.log(voteDate, dayjs());
-  // if (voteDate > dayjs().subtract(1, "day")) console.log(5);
+  
 
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
@@ -108,7 +107,7 @@ function AttendCheckModal({
       true
     ) {
       handleArrived(memo);
-      console.log(22, isChecking);
+    
       setTimeout(() => {
         setIsChecking(false);
         setIsModal(false);

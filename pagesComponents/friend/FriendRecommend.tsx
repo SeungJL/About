@@ -17,7 +17,7 @@ function FriendRecommend() {
   const router = useRouter();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const showGuestErrorToast = useFailToast();
+  const showGuestErrorToast = useFailToast({type:"guest"});
   const onClickBtn = (idx: number) => {
     if (isGuest) {
       showGuestErrorToast();

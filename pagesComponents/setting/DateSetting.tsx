@@ -1,10 +1,9 @@
-import { useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
@@ -20,63 +19,56 @@ function DateSetting({
 }: {
   setParticipations: React.Dispatch<SetStateAction<IParticipation[]>>;
 }) {
-  const toast = useToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  console.log(5);
+  const failToast = useFailToast({ type: "loadStudy" });
+
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
-
   const location = useRecoilValue(locationState);
-  const [isDefaultPrev, setIsDefaultPrev] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
   const [updateStudy, setUpdateStudy] = useRecoilState(updateStudyState);
 
+  const [isDefaultPrev, setIsDefaultPrev] = useState(false);
+
   const current = dayjs().hour();
+
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
+
+  useEffect(() => {
+    setIsMainLoading(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [voteDate]);
 
   const { refetch } = useVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
-      console.log(1);
       const temp: IParticipation[] = arrangeSpace(data.participations);
       setParticipations(temp);
-      setIsLoading(false);
     },
     onError() {
-      toast({
-        title: "불러오기 실패",
-        description: "투표 정보를 불러오지 못 했어요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      failToast();
     },
   });
 
   useEffect(() => {
     if (updateStudy) {
-      console.log(2);
       setTimeout(() => {
         refetch();
+        setUpdateStudy(false);
       }, 1000);
-      // setUpdateStudy(false);
     }
   }, [refetch, setUpdateStudy, updateStudy]);
 
-
+  //최초 접속
   useEffect(() => {
     if (isGuest) {
-      if (dayjs().hour() >= 18) {
-        setVoteDate(getInterestingDate());
-      } else setVoteDate(dayjs());
+      if (dayjs().hour() >= 18) setVoteDate(getInterestingDate());
+      else setVoteDate(dayjs());
       return;
     }
     if (voteDate === null) {
-      if (current >= VOTE_START_HOUR && current < VOTER_DATE_END) {
+      if (current >= VOTE_START_HOUR && current < VOTER_DATE_END)
         setIsDefaultPrev(true);
-      } else setVoteDate(getInterestingDate());
+      else setVoteDate(getInterestingDate());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest]);
@@ -104,9 +96,7 @@ function DateSetting({
       }
     },
   });
-  return <Layout></Layout>;
+  return null;
 }
-
-const Layout = styled.div``;
 
 export default DateSetting;
