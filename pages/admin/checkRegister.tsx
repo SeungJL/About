@@ -1,4 +1,4 @@
-import { Button, Select } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -17,6 +17,9 @@ function CheckRegister() {
   const { data } = useUserInfoQuery();
   const [isRefetch, setIsRefetch] = useState(false);
   const { data: applyData, refetch } = useRegisterQuery({});
+  const [registerData, setRegisterData] = useState<IRegisterForm[]>([]);
+
+  const [category, setCategory] = useState("수원");
 
   const onClick = (who?: IRegisterForm) => {
     setApplicant(who);
@@ -27,20 +30,50 @@ function CheckRegister() {
     if (isRefetch) refetch();
     setIsRefetch(false);
   }, [isRefetch, refetch]);
+
+  useEffect(() => {
+    if (category === "준비") {
+      setRegisterData(
+        applyData?.filter(
+          (who) => who?.location === "안양" || who?.location === "강남"
+        )
+      );
+    } else
+      setRegisterData(applyData?.filter((who) => who?.location === category));
+  }, [applyData, category]);
+
   return (
     <>
       <Header title="가입 신청 확인" url="/admin" />
       <Layout>
         <LocationFilter>
-          <Select width="80px">
-            <option value="all">전체</option>
-            <option value="수원">수원</option>
-            <option value="양천">양천</option>
-            <option value="안양">안양</option>
-          </Select>
+          <Button
+            colorScheme={category === "수원" ? "mintTheme" : null}
+            onClick={() => setCategory("수원")}
+          >
+            수원
+          </Button>
+          <Button
+            colorScheme={category === "양천" ? "mintTheme" : null}
+            onClick={() => setCategory("양천")}
+          >
+            양천
+          </Button>
+          <Button
+            colorScheme={category === "준비" ? "mintTheme" : null}
+            onClick={() => setCategory("준비")}
+          >
+            준비지역
+          </Button>
+          <Button
+            colorScheme={category === "보류" ? "mintTheme" : null}
+            onClick={() => setCategory("보류")}
+          >
+            보류
+          </Button>
         </LocationFilter>
         <Main>
-          {applyData?.map((who, idx) => (
+          {registerData?.map((who, idx) => (
             <Item key={idx}>
               <Profile>
                 <Image
@@ -87,7 +120,10 @@ const Layout = styled.div`
   padding: 14px;
 `;
 
-const LocationFilter = styled.div``;
+const LocationFilter = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 
 const Main = styled.main`
   display: flex;

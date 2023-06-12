@@ -37,7 +37,9 @@ function DetailInfo({ user }: { user: IUser }) {
             {user?.interests?.first ? (
               <Interests>
                 <span>1. {user?.interests.first}</span>
-                <span>2. {user?.interests.second}</span>
+                <span>
+                  {user?.interests.second && "2."} {user?.interests.second}
+                </span>
               </Interests>
             ) : (
               <span>--</span>
