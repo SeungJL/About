@@ -21,12 +21,13 @@ function Review() {
       "https://p.kakaocdn.net/th/talkp/wnRiSzjBU5/8bx7JYsl1lMDmJk4KjnJV0/xukg66_640x640_s.jpg",
     avatar: { bg: 3, type: 2 },
   };
+  console.log(REVIEW_DATA);
   return (
     <>
       <Header title="모임 리뷰">
         <KakaoShareBtn
           title="모임 리뷰"
-          subtitle="5/26 파티룸"
+          subtitle="즐거운 모임 가득 ~!"
           url={url}
           img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
         />
@@ -34,17 +35,20 @@ function Review() {
       <Layout>
         <ReviewCategory category={category} setCategory={setCateogry} />
         <Main>
-          {REVIEW_DATA?.map((item) => (
-            <Item key={item.id}>
-              <ReviewItemHeader temp={temp} />
-              <ImageWrapper>
-                <ImageSlider ImageContainer={item?.images} type="review" />
-              </ImageWrapper>
-              {/* <ReviewGatherConnection /> */}
-              <ReviewContent text={item?.text} />
-              <ReviewStatus temp={temp} />
-            </Item>
-          ))}
+          {REVIEW_DATA?.slice()
+            .reverse()
+            ?.map((item) => (
+              <Item key={item.id}>
+                <ReviewItemHeader temp={temp} date={item?.date} />
+                <ImageWrapper>
+                  <ImageSlider ImageContainer={item?.images} type="review" />
+                </ImageWrapper>
+
+                {/* <ReviewGatherConnection /> */}
+                <ReviewContent text={item?.text} />
+                <ReviewStatus temp={temp} />
+              </Item>
+            ))}
         </Main>
       </Layout>
     </>

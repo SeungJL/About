@@ -1,7 +1,12 @@
 import {
   AlertDialog,
-  AlertDialogBody, AlertDialogContent, AlertDialogFooter,
-  AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { SetStateAction, useRef } from "react";
 import styled from "styled-components";
@@ -9,7 +14,7 @@ import { ModalHeaderX } from "../../components/ui/Modal";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
   useApproveMutation,
-  useDeleteMutation
+  useDeleteMutation,
 } from "../../hooks/user/mutations";
 import { ModalLg, ModalMain } from "../../styles/layout/modal";
 import { IRegisterForm } from "../../types/user";
@@ -22,7 +27,7 @@ function CheckRegisterModal({
   applicant: IRegisterForm;
   setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }) {
-  const onComplete = useCompleteToast("가입 거절 완료");
+  const onComplete = useCompleteToast({ type: "applyGather" });
   const { mutate: approve } = useApproveMutation({
     onSuccess() {},
     onError(err) {
@@ -71,7 +76,7 @@ function CheckRegisterModal({
           </Item>
           <Item>
             <b>전공 </b>
-            {applicant?.majors[0].detail}
+            {applicant?.majors[0]?.detail}
           </Item>
           <Item>
             <b>관심사 </b>

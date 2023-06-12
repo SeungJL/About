@@ -34,7 +34,7 @@ function SuggestModal({
 }) {
   const [isRealName, setIsRealName] = useState(true);
   const { data: session } = useSession();
-  const completeToast = useCompleteToast();
+  const completeToast = useCompleteToast({ type: "success" });
   const {
     register,
     handleSubmit,

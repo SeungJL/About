@@ -18,7 +18,7 @@ function ApplyRestModal({
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const completeToast = useCompleteToast();
+  const completeToast = useCompleteToast({ type: "apply" });
   const { data: session } = useSession();
   const { mutate: applyRest } = useApplyRestMutation({
     onSuccess() {

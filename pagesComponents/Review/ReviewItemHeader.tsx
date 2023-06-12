@@ -5,16 +5,16 @@ import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
-function ReviewItemHeader({ temp }: { temp: any }) {
+function ReviewItemHeader({ temp, date }: { temp: any; date: string }) {
   const { data } = useUserInfoQuery();
-
+  console.log(temp);
   return (
     <Layout>
       <Profile>
         <ProfileIcon user={temp} size="sm" />
         <div>
           <span>{temp?.name}</span>
-          <span>5월 27일</span>
+          <span>{date}</span>
         </div>
       </Profile>
       <FontAwesomeIcon icon={faEllipsis} size="lg" />

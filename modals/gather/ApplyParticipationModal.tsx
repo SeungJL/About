@@ -2,8 +2,13 @@ import { Button } from "@chakra-ui/react";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SetStateAction, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/ui/Modal";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import { birthToAge } from "../../libs/utils/membersUtil";
+import { gatherDataState } from "../../recoil/interactionAtoms";
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
 function ApplyParticipationModal({
@@ -11,12 +16,51 @@ function ApplyParticipationModal({
 }: {
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const failToast = useFailToast({ type: "applyGather" });
+  const failPreApplyToast = useFailToast({ type: "applyPreGather" });
+  const completeToast = useCompleteToast({ type: "applyGather" });
   const [isFirst, setIsFirst] = useState(true);
+  const { data } = useUserInfoQuery();
+  const gatherData = useRecoilValue(gatherDataState);
 
-  const onClickBtn = () => {};
+  const [password, setPassword] = useState("");
 
-  const onClickPrev = () => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const currentVoter = 3;
+
+  const onClickPre = () => {
     setIsFirst(false);
+  };
+
+  const onApply = (type: "normal" | "pre") => {
+    if (type === "pre") {
+      console.log(4);
+      if (password === gatherData?.password) {
+        console.log("onSuccess");
+      } else {
+        failPreApplyToast();
+      }
+      return;
+    }
+    const myOld = birthToAge(data.birth);
+    if (+myOld < gatherData.age[0] || +myOld > gatherData.age[1]) {
+      failToast();
+      return;
+    }
+    if (!data?.gender) {
+      console.log(23);
+      failToast();
+      return;
+    }
+    if (gatherData?.memberCnt.max - (gatherData?.preCnt || 0) <= currentVoter) {
+      console.log(44);
+      failToast();
+      return;
+    }
+    completeToast();
   };
 
   return (
@@ -30,18 +74,26 @@ function ApplyParticipationModal({
               <Button
                 color="white"
                 backgroundColor="var(--color-mint)"
-                marginBottom="12px"
+                marginBottom="16px"
+                size="lg"
+                onClick={() => onApply("normal")}
               >
                 일반 참여 신청
               </Button>
-              <Button onClick={onClickPrev}>사전 확정 인원</Button>
+              <Button onClick={onClickPre} size="lg">
+                사전 확정 인원
+              </Button>
             </Main>
           ) : (
             <Main>
               <CodeText>전달 받은 암호 네자리를 입력해 주세요.</CodeText>
               <div>
                 <FontAwesomeIcon icon={faUnlock} color="var(--font-h4)" />
-                <Input placeholder="암호 입력" />
+                <Input
+                  placeholder="암호 입력"
+                  value={password}
+                  onChange={onChange}
+                />
               </div>
             </Main>
           )}
@@ -55,6 +107,7 @@ function ApplyParticipationModal({
               color="white"
               backgroundColor="var(--color-mint)"
               width="50%"
+              onClick={() => onApply("pre")}
             >
               신청 완료
             </Button>

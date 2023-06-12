@@ -29,7 +29,7 @@ function DeclarationFormModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const [isRealName, setIsRealName] = useState(true);
-  const completeToast = useCompleteToast();
+  const completeToast = useCompleteToast({ type: "success" });
   const { data: session } = useSession();
   const {
     register,

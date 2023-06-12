@@ -8,10 +8,11 @@ import {
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import dayjs from "dayjs";
+import "dayjs/locale/ko"; // 로케일 플러그인 로드
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
@@ -21,16 +22,23 @@ import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
-import { gatherDataState } from "../../../recoil/interactionAtoms";
+import {
+  beforePageState,
+  gatherDataState,
+} from "../../../recoil/interactionAtoms";
 import { GatherCategoryIcons } from "../../../storage/Gather";
 
+dayjs.locale("ko"); // 한글로 로케일 설정
 function GatherDetail() {
   const router = useRouter();
 
   const data = useRecoilValue(gatherContentState);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
+  const setBeforePage = useSetRecoilState(beforePageState);
 
   const { data: user } = useUserInfoQuery();
+
+  const [isSubLocation, setIsSubLocation] = useState(false);
   const gatherData = useRecoilValue(gatherDataState);
   console.log(gatherData);
   const onClickBtn = () => {
@@ -39,6 +47,11 @@ function GatherDetail() {
 
   const title = gatherData?.title;
   const date = dayjs(gatherData?.date);
+
+  const onClickProfile = (uid?:string) => {
+    setBeforePage(router?.asPath);
+    router.push(`/profile/${user.uid}`);
+  };
 
   return (
     <>
@@ -66,7 +79,7 @@ function GatherDetail() {
           <span>모집중</span>
           <span>{title}</span>
         </Title>
-        <Location>
+        <LocationMain onClick={() => setIsSubLocation(true)}>
           <div>
             <IconWrapper>
               <FontAwesomeIcon icon={faLocationDot} color="var(--font-h3)" />
@@ -74,12 +87,13 @@ function GatherDetail() {
             <span>{gatherData?.location.main}</span>
           </div>
           <FontAwesomeIcon icon={faChevronDown} size="2xs" />
-        </Location>
+        </LocationMain>
+        {isSubLocation && <LocationSub>{gatherData?.location.sub}</LocationSub>}
         <Date>
           <IconWrapper>
             <FontAwesomeIcon icon={faCalendarDays} color="var(--font-h3)" />
           </IconWrapper>
-          <span>{date?.format("M.DD(d) 오후 h:mm")}</span>
+          <span>{date?.format("M.DD(ddd) 오후 h:mm")}</span>
         </Date>
         <Age>
           <IconWrapper>
@@ -102,7 +116,7 @@ function GatherDetail() {
             참여중인 인원 <span>4</span>/6
           </span>
           <div>
-            <MemberItem onClick={() => router.push(`/profile/${user.uid}`)}>
+            <MemberItem onClick={() => onClickProfile()}>
               <ProfileIcon user={user} size="md" />
               <div>
                 <span>{user?.name}</span>
@@ -183,6 +197,12 @@ const Title = styled.div`
 `;
 
 const Location = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const LocationMain = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: center;
@@ -195,6 +215,13 @@ const Location = styled.div`
       margin: 0 6px;
     }
   }
+`;
+
+const LocationSub = styled.div`
+  color: var(--font-h3);
+  font-size: 12px;
+  margin-top: 6px;
+  margin-left: 20px;
 `;
 
 const Date = styled.div`

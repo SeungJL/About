@@ -19,7 +19,6 @@ import { Location } from "../../types/system";
 
 function Location() {
   const router = useRouter();
-
   const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);

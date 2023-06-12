@@ -37,7 +37,7 @@ function GatherBlock({
             <Status>모집중</Status>·<Category>{data?.type.title}</Category>·
             <Location>{data.location.main}</Location>
           </Header>
-          <Title>{data.type.subtitle}</Title>
+          <Title>{data.title}</Title>
           <Detail>
             <Condition>
               <FontAwesomeIcon icon={faUserCheck} color="var(--font-h4)" />
@@ -57,7 +57,7 @@ function GatherBlock({
             </Writer>
             <Voter>
               <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
-              <span>3/5명</span>
+              <span>3/{data?.memberCnt.max}명</span>
             </Voter>
           </Participant>
         </Layout>
