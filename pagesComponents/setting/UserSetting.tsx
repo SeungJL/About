@@ -83,12 +83,6 @@ export default function UserSetting() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest, isLoading, location, myProfileNull, userData, session]);
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
-  //   if (!localStorage.getItem(USER_GUIDE)) setIsUserGuide(true);
-  //   if (!localStorage.getItem(PROFILE_POP_UP)) setIsProfile(true);
-  // }, []);
-
   return (
     <>
       {!isMainLoading && (
