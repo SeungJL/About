@@ -8,10 +8,11 @@ import {
   PROFILE_POP_UP,
   PROMOTION_POP_UP1,
   PROMOTION_POP_UP2,
+  USER_GUIDE,
 } from "../../constants/localStorage";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
 import PromotionModal from "../../modals/mainHeader/PromotionModal";
-import WeekAttendPopup from "../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
@@ -50,26 +51,34 @@ export default function UserSetting() {
     if (!location) {
       if (isGuest) setLocation("수원");
       else setLocation(userData?.location);
+      return;
     }
     if (isGuest) return;
-    if (!localStorage.getItem(ATTEND_POP_UP)) {
-      setIsAttendPopup(true);
-      localStorage.setItem(ATTEND_POP_UP, "read");
-    }
-    if (!localStorage.getItem(PROFILE_POP_UP) && myProfileNull) {
-      setIsProfile(true);
-      localStorage.setItem(PROFILE_POP_UP, "read");
-    }
-    if (!localStorage.getItem(NOTICE_ALERT)) {
+
+    let popupCnt = 0;
+
+    if (!ensureLocalStorage(NOTICE_ALERT)) {
       setIsNoticeAlert(true);
     }
-    if (!localStorage.getItem(PROMOTION_POP_UP1)) {
-      setIsPromotion(true);
-      localStorage.setItem(PROMOTION_POP_UP1, "read");
+    if (!ensureLocalStorage(PROFILE_POP_UP)) {
+      setIsProfile(true);
+      popupCnt++;
     }
-    if (!localStorage.getItem(PROMOTION_POP_UP2)) {
+
+    if (!ensureLocalStorage(USER_GUIDE)) {
+      setIsUserGuide(true);
+      popupCnt++;
+    }
+    if (popupCnt === 2) return;
+    if (!ensureLocalStorage(PROMOTION_POP_UP1, PROMOTION_POP_UP2)) {
       setIsPromotion(true);
-      localStorage.setItem(PROMOTION_POP_UP2, "read");
+      popupCnt++;
+    }
+
+    if (popupCnt === 2) return;
+
+    if (!ensureLocalStorage(ATTEND_POP_UP)) {
+      setIsAttendPopup(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest, isLoading, location, myProfileNull, userData, session]);
@@ -84,17 +93,11 @@ export default function UserSetting() {
     <>
       {!isMainLoading && (
         <>
-          {isAttendPopup && (
+          {/* {isAttendPopup && (
             <ModalPortal setIsModal={setIsAttendPopup}>
               <WeekAttendPopup closePopUp={setIsAttendPopup} />
             </ModalPortal>
-          )}
-
-          {isUserGuide && (
-            <ModalPortal setIsModal={setIsUserGuide}>
-              <UserGuidePopUp setIsModal={setIsUserGuide} />
-            </ModalPortal>
-          )}
+          )} */}
           {isSuggest && (
             <ModalPortal setIsModal={setIsSuggest}>
               <SuggestPopUp setIsModal={setIsSuggest} />
@@ -108,6 +111,11 @@ export default function UserSetting() {
           {isPromotion && (
             <ModalPortal setIsModal={setIsPromotion}>
               <PromotionModal setIsModal={setIsPromotion} />
+            </ModalPortal>
+          )}
+          {isUserGuide && (
+            <ModalPortal setIsModal={setIsUserGuide}>
+              <UserGuidePopUp setIsModal={setIsUserGuide} />
             </ModalPortal>
           )}
         </>

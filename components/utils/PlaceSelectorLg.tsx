@@ -14,6 +14,7 @@ function PlaceSelectorLg({
 }: IPlaceSelecter) {
   const toast = useToast();
   const choicedSpaces = isSelectUnit ? firstPlace : secondPlaces;
+
   const handlePlaceIconClicked = (place: IplaceInfo) => {
     const isExist = choicedSpaces.some(
       (space) => space.placeName === place.placeName
@@ -26,7 +27,7 @@ function PlaceSelectorLg({
         return New;
       });
     } else {
-      if (isSelectUnit && place.voteCnt >= MAX_USER_PER_PLACE) {
+      if (isSelectUnit && place.voteCnt >= MAX_USER_PER_PLACE - 1) {
         toast({
           title: "정원초과",
           description: `해당 장소는 정원이 모두 차서 2지망으로만 투표가 가능해요! 다른 장소로 선택해주세요!`,

@@ -7,10 +7,6 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import {
-  usePointQuery,
-  useScoreAllQuery,
-} from "../../hooks/user/pointSystem/queries";
-import {
   useParticipationRateQuery,
   useVoteRateQuery,
 } from "../../hooks/user/queries";
@@ -23,59 +19,57 @@ function LastWeekAttendPopUp({ closePopUp }) {
     dayjs().subtract(1, "day")
   );
 
-  const { data: parRate } = useParticipationRateQuery(
+  const { data: parRate, isLoading } = useParticipationRateQuery(
     dayjs().subtract(8, "day"),
     dayjs().subtract(0, "day")
   );
-  const { data: warningScore } = useScoreAllQuery();
-  const { data: scores } = usePointQuery();
 
   const voteCnt = voteRate?.find((who) => who.uid === session?.uid)?.cnt;
   const parCnt = parRate?.find((who) => who.uid === session?.uid)?.cnt;
-  const score = scores?.point;
-  const WarningCnt = warningScore?.find(
-    (who) => who.name === session?.user.name
-  )?.score;
 
   const message =
     voteCnt === 0 ? "이번 주는 열심히 참여해봐요~!" : "이번 주도 파이팅~!";
   return (
-    <Layout>
-      <ModalHeaderXLine
-        title={`${name}님의 지난주 기록`}
-        setIsModal={closePopUp}
-      />
-      <ModalMain>
-        <Main>
-          <div>
-            <Item>
-              <span>스터디 투표</span>
-              {voteCnt} 회
-            </Item>
-            <Item>
-              <span>스터디 참여 </span>
-              {parCnt} 회
-            </Item>
-          </div>
-          <ImageWrapper>
-            <div>
-              <Image
-                width={72}
-                height={72}
-                src={`${session?.user.image}`}
-                unoptimized={true}
-                alt="UserImage"
-              />
-            </div>
-          </ImageWrapper>
-        </Main>
-        <Message>{message}</Message>
-      </ModalMain>
+    <>
+      {!isLoading && (
+        <Layout>
+          <ModalHeaderXLine
+            title={`${name}님의 지난주 기록`}
+            setIsModal={closePopUp}
+          />
+          <ModalMain>
+            <Main>
+              <div>
+                <Item>
+                  <span>스터디 투표</span>
+                  {voteCnt} 회
+                </Item>
+                <Item>
+                  <span>스터디 참여 </span>
+                  {parCnt} 회
+                </Item>
+              </div>
+              <ImageWrapper>
+                <div>
+                  <Image
+                    width={72}
+                    height={72}
+                    src={`${session?.user.image}`}
+                    unoptimized={true}
+                    alt="UserImage"
+                  />
+                </div>
+              </ImageWrapper>
+            </Main>
+            <Message>{message}</Message>
+          </ModalMain>
 
-      <ModalFooterNav>
-        <button onClick={() => closePopUp(false)}>확인</button>
-      </ModalFooterNav>
-    </Layout>
+          <ModalFooterNav>
+            <button onClick={() => closePopUp(false)}>확인</button>
+          </ModalFooterNav>
+        </Layout>
+      )}
+    </>
   );
 }
 

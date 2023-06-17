@@ -67,7 +67,7 @@ function UserGuidePopUp({
             <span>참여 규칙</span>
           </Category>
           <Content>
-            <li>한 달에 최소 2회 이상 참여 필수 !</li>
+            <li>한 달에 최소 1회 이상 참여 필수 !</li>
             <li>스터디 모임도 하나의 약속입니다 ! 타인 배려 !</li>
             <li>스터디 시작시간 이전까지는 시간 변경 자유 !</li>
             <li>참여 시작시간에서 1시간 이상 늦으면 지각 !</li>
@@ -85,8 +85,8 @@ function UserGuidePopUp({
           </Category>
           <Content>
             <li>오류 및 이용 문의는 관리자에게 ! 금방 해결 됨 !</li>
-            <li>모든 건의사항 환영 ! 채택시 상품 지급 !</li>
-            <li>마이페이지에 여러가지 기능 확인하기 !</li>
+            <li>모든 건의사항 환영 !</li>
+            <li>다들 재밌는 활동 해봐요~!</li>
           </Content>
         </Item>
       </ModalMain>

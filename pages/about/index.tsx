@@ -1,11 +1,7 @@
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-
 import Seo from "../../components/Seo";
-import dbConnect from "../../libs/dbConnect";
 import { arrangeMainSpace } from "../../libs/utils/studyUtils";
 import AboutHeader from "../../pagesComponents/About/main/AboutHeader";
 import AboutMain from "../../pagesComponents/About/main/AboutMain";
@@ -66,7 +62,6 @@ function About() {
         ) : (
           <ReadyToOpen />
         )}
-        {/* <EventBanner /> */}
       </Layout>
       {/* <AboutFooter />*/}
     </>
@@ -77,21 +72,3 @@ const Setting = styled.div``;
 const Layout = styled.div``;
 
 export default About;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession({ req: context.req });
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-      props: {},
-    };
-  }
-
-  await dbConnect();
-
-  return { props: {} };
-};
