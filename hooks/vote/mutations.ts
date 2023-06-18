@@ -114,3 +114,18 @@ export const useAbsentStudyMutation = (
     );
     return res.data;
   }, options);
+
+export const useQuickVoteMutation = (
+  date: Dayjs,
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IAbsentInfo>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useMutation(async (data) => {
+    const res = await axios.post(
+      `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/quick`,
+      data
+    );
+    return res.data;
+  }, options);

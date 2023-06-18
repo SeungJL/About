@@ -6,6 +6,8 @@ export const POINT_SYSTEM_PLUS = {
   voteStudy: {
     score: { value: 5, message: "스터디 투표" },
     point: { value: 5, message: "스터디 투표" },
+    inviteScore: { value: 2, message: "친구 초대 보너스" },
+    invitePoint: { value: 2, message: "친구 초대 보너스" },
   },
   voteStudyDaily: {
     score: { value: 2, message: "당일 참여" },

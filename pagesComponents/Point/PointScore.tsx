@@ -1,4 +1,4 @@
-import { Badge, Progress } from "@chakra-ui/react";
+import { Badge, Progress, Skeleton } from "@chakra-ui/react";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
@@ -23,6 +23,7 @@ import {
   useScoreAllQuery,
   useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
+import { isPointLoadingState } from "../../recoil/loadingAtoms";
 
 function PointScore({
   setIsLoading,
@@ -32,6 +33,8 @@ function PointScore({
   const { data: session } = useSession();
   const router = useRouter();
   const isGuest = session?.user.name === "guest";
+  const [isPointLoading, setIsPointLoading] =
+    useRecoilState(isPointLoadingState);
 
   const [isBadgeInfoModal, setIsBadgeInfoModal] = useState(false);
 
@@ -70,7 +73,7 @@ function PointScore({
       if (arrangedData.isRank)
         setMyRank({ myRank: arrangedData.myRank, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
-      setIsLoading(false);
+      setIsPointLoading(false);
     },
   });
   const { mutate } = usePointMutation();
@@ -89,66 +92,73 @@ function PointScore({
 
   return (
     <>
-      <Layout>
-        <>
-          <ProgressWrapper>
-            <Grade>
-              <div>
-                <Badge marginRight="6px" colorScheme={userBadge.color}>
-                  {userBadge.badge}
-                </Badge>
-                <span style={{ color: userBadge.color }}>
-                  {myPoint || "0"}점
-                </span>
-                <IconWrapper onClick={() => setIsBadgeInfoModal(true)}>
-                  <FontAwesomeIcon icon={faQuestionCircle} />
-                </IconWrapper>
-              </div>
-              {userBadge?.badge !== "에스프레소" && (
+      <Skeleton
+        m="20px 14px"
+        borderRadius="8px"
+        startColor="RGB(227, 230, 235)"
+        endColor="rgb(246,247,249)"
+        isLoaded={!isPointLoading}
+      >
+        <Layout>
+          <>
+            <ProgressWrapper>
+              <Grade>
                 <div>
-                  <span style={{ color: scoreInfo.nextBadge.color }}>
-                    {scoreInfo.nextScore}점
-                  </span>
-                  <Badge
-                    colorScheme={scoreInfo.nextBadge.color || "orange"}
-                    marginLeft="6px"
-                  >
-                    {scoreInfo.nextBadge.badge || "라떼"}
+                  <Badge marginRight="6px" colorScheme={userBadge.color}>
+                    {userBadge.badge}
                   </Badge>
+                  <span style={{ color: userBadge.color }}>
+                    {myPoint || "0"}점
+                  </span>
+                  <IconWrapper onClick={() => setIsBadgeInfoModal(true)}>
+                    <FontAwesomeIcon icon={faQuestionCircle} />
+                  </IconWrapper>
                 </div>
-              )}
-            </Grade>
-            <Progress
-              value={(scoreInfo.value / scoreInfo.scoreGap) * 100}
-              size="xs"
-              color="var(--font-h4)"
-            />
-          </ProgressWrapper>
-          <Nav>
-            <Button onClick={() => router.push("/point/scorelog")}>
-              <div>About 점수</div>
-              <div>
-                <span>{myPoint || 0}점</span>
-                <FontAwesomeIcon icon={faChevronRight} size="xs" />
-              </div>
-            </Button>
-            <Button onClick={() => router.push("/ranking")}>
-              <div>About 랭킹</div>
-              <div>
-                {myRank === undefined ? (
-                  <span>New</span>
-                ) : myRank?.isRank ? (
-                  <span> {myRank?.myRank}위</span>
-                ) : (
-                  <span>상위 {myRank?.percent}%</span>
+                {userBadge?.badge !== "에스프레소" && (
+                  <div>
+                    <span style={{ color: scoreInfo.nextBadge.color }}>
+                      {scoreInfo.nextScore}점
+                    </span>
+                    <Badge
+                      colorScheme={scoreInfo.nextBadge.color || "orange"}
+                      marginLeft="6px"
+                    >
+                      {scoreInfo.nextBadge.badge || "라떼"}
+                    </Badge>
+                  </div>
                 )}
-                <FontAwesomeIcon icon={faChevronRight} size="xs" />
-              </div>
-            </Button>
-          </Nav>
-        </>
-      </Layout>
-
+              </Grade>
+              <Progress
+                value={(scoreInfo.value / scoreInfo.scoreGap) * 100}
+                size="xs"
+                color="var(--font-h4)"
+              />
+            </ProgressWrapper>
+            <Nav>
+              <Button onClick={() => router.push("/point/scorelog")}>
+                <div>About 점수</div>
+                <div>
+                  <span>{myPoint || 0}점</span>
+                  <FontAwesomeIcon icon={faChevronRight} size="xs" />
+                </div>
+              </Button>
+              <Button onClick={() => router.push("/ranking")}>
+                <div>About 랭킹</div>
+                <div>
+                  {myRank === undefined ? (
+                    <span>New</span>
+                  ) : myRank?.isRank ? (
+                    <span> {myRank?.myRank}위</span>
+                  ) : (
+                    <span>상위 {myRank?.percent}%</span>
+                  )}
+                  <FontAwesomeIcon icon={faChevronRight} size="xs" />
+                </div>
+              </Button>
+            </Nav>
+          </>
+        </Layout>
+      </Skeleton>
       {isBadgeInfoModal && (
         <ModalPortal setIsModal={setIsBadgeInfoModal}>
           <BadgeInfoModal setIsModal={setIsBadgeInfoModal} />
@@ -165,7 +175,6 @@ const Layout = styled.div`
   border-radius: var(--border-radius2);
   background-color: white;
   box-shadow: var(--box-shadow);
-  margin: 20px 14px;
 `;
 
 const Intro = styled.div`

@@ -23,7 +23,7 @@ function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
         <FontAwesomeIcon icon={faChevronLeft} />
         <Title>{title}</Title>
       </div>
-      <div className="shareBtn">
+      <div>
         {location && (
           <KakaoShareBtn
             type="study"

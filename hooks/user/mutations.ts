@@ -25,6 +25,7 @@ export const useApproveMutation = (
     const res = await axios.post(`${SERVER_URI}/register/approval`, uid);
     return res.data;
   }, options);
+
 export const useDeleteMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, any>,
@@ -32,8 +33,8 @@ export const useDeleteMutation = (
   >
 ) =>
   useMutation<void, AxiosError, any>(async (uid) => {
-    const res = await axios.delete(`${SERVER_URI}/register/approval`, uid);
-    return res.data;
+    await axios.delete(`${SERVER_URI}/register/approval`, uid);
+    console.log(11, uid);
   }, options);
 
 export const useActiveMutation = (
@@ -81,4 +82,9 @@ export const useAvatarMutation = (
 ) =>
   useMutation<void, AxiosError, IAvatar>(async (info) => {
     await axios.post(`${SERVER_URI}/user/avatar`, info);
+  }, options);
+
+export const useStudyPreferenceMutation = (options?: any) =>
+  useMutation<void, AxiosError, any>(async (data) => {
+    await axios.post(`${SERVER_URI}/user/preference`, data);
   }, options);

@@ -14,11 +14,16 @@ import { isVotingState, studyDateState } from "../../recoil/studyAtoms";
 import { useAttendMutation } from "../../hooks/vote/mutations";
 
 import { useToast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import SpaceSelector from "../../components/utils/SpaceSelector";
 import SpaceSelectorLg from "../../components/utils/SpaceSelectorLg";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { START_HOUR } from "../../constants/study";
+import {
+  useAdminPointMutation,
+  useAdminScoremMutation,
+} from "../../hooks/admin/mutation";
 import {
   usePointMutation,
   useScoreMutation,
@@ -43,6 +48,7 @@ function VoteStudySubModal({
   place,
   setIsVoteComplete,
 }: IVoteStudySubModal) {
+  const { data: session } = useSession();
   const queryClient = useQueryClient();
   const toast = useToast();
   const router = useRouter();
@@ -59,6 +65,8 @@ function VoteStudySubModal({
   });
 
   const [otherPlaceArr, setOtherPlaceArr] = useState<IPlace[]>();
+  const inviteUid = router.query?.uid;
+  console.log(inviteUid);
 
   useVoteQuery(voteDate, location, {
     onSuccess(data) {
@@ -72,6 +80,8 @@ function VoteStudySubModal({
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
+  const { mutate: getInviteScore } = useAdminScoremMutation(session?.uid);
+  const { mutate: getInvitePoint } = useAdminPointMutation(session?.uid);
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -82,6 +92,18 @@ function VoteStudySubModal({
       if (studyDate === "not passed") {
         getScore(POINT_SYSTEM_PLUS.voteStudy.score);
         getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
+      }
+      if (inviteUid) {
+        getScore(POINT_SYSTEM_PLUS.voteStudy.invitePoint);
+        getPoint(POINT_SYSTEM_PLUS.voteStudy.inviteScore);
+        getInviteScore({
+          value: POINT_SYSTEM_PLUS.voteStudy.inviteScore.value,
+          message: `${session?.user.name}님의 스터디 참여 보너스`,
+        });
+        getInvitePoint({
+          value: POINT_SYSTEM_PLUS.voteStudy.invitePoint.value,
+          message: `${session?.user.name}님의 스터디 참여 보너스`,
+        });
       }
       setIsVoteComplete(true);
     },

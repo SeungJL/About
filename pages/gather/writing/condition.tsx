@@ -67,8 +67,8 @@ function WritingCondition() {
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
   const { mutate } = useGatherContentMutation({
-    onSuccess() {
-      console.log("2,suc");
+    onSuccess(data) {
+      console.log("2,suc", data);
     },
   });
   const { data: AA } = useGatherContentQuery();
@@ -100,7 +100,7 @@ function WritingCondition() {
       id,
       user: data,
     };
-
+    console.log(gatherData);
     setGatherContent(gatherData);
 
     mutate(gatherData);

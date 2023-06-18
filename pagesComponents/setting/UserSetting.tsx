@@ -60,7 +60,7 @@ export default function UserSetting() {
     if (!ensureLocalStorage(NOTICE_ALERT)) {
       setIsNoticeAlert(true);
     }
-    if (!ensureLocalStorage(PROFILE_POP_UP)) {
+    if (!ensureLocalStorage(PROFILE_POP_UP) && myProfileNull) {
       setIsProfile(true);
       popupCnt++;
     }

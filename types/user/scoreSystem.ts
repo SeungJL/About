@@ -38,3 +38,8 @@ export interface IPointLog {
   };
   timestamp: string;
 }
+
+export interface IAdminPoint {
+  value: number;
+  message?: string;
+}

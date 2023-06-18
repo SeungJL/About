@@ -29,6 +29,7 @@ import { IAttendance, IPlace } from "../../../types/studyDetails";
 
 import { POINT_SYSTEM_MINUS } from "../../../constants/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
+import { useAdminPointMutation } from "../../../hooks/admin/mutation";
 import {
   usePointMutation,
   useScoreMutation,
@@ -52,6 +53,7 @@ function StudySpaceNavigation({
 
   const toast = useToast();
   const router = useRouter();
+  console.log(router);
   const queryClient = useQueryClient();
 
   const voteDate = dayjs(router.query.date as string);
@@ -69,6 +71,7 @@ function StudySpaceNavigation({
 
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();
+
 
   const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
     onSuccess: async () => {
