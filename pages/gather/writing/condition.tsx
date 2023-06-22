@@ -43,7 +43,7 @@ import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
 
-const AGE_BAR = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
+const AGE_BAR = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
 function WritingCondition() {
   const toast = useToast();
@@ -62,7 +62,7 @@ function WritingCondition() {
   );
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
 
-  const [age, setAge] = useState(gatherContent?.age || [20, 29]);
+  const [age, setAge] = useState(gatherContent?.age || [18, 28]);
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 

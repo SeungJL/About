@@ -13,3 +13,7 @@ export const PROMOTION_POP_UP1 =
 
 export const PROMOTION_POP_UP2 =
   dayjs().day(6).format("YYYYMMDD") + "promotion";
+
+export const GATHER_ALERT = "gatherAlert";
+
+export const POINT_ALERT = "pointAlert";

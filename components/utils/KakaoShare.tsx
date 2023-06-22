@@ -1,6 +1,6 @@
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { REVIEW_DATA } from "../../storage/Review";
 import { SQUARE_RANDOM_IMAGE } from "../../storage/SquareRandomImage";
@@ -14,9 +14,6 @@ interface Kakao {
   };
 }
 
-interface Window {
-  Kakao: Kakao;
-}
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 
 function KakaoShareBtn({
@@ -35,7 +32,7 @@ function KakaoShareBtn({
   url: string;
 }) {
   const random_num = Math.floor(Math.random() * 3);
-
+  console.log(url);
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -45,7 +42,7 @@ function KakaoShareBtn({
       window.Kakao.init(kakaoAppKey);
     }
   }, []);
-
+  console.log(location);
   useEffect(() => {
     if (window.Kakao) {
       const options =
@@ -59,25 +56,25 @@ function KakaoShareBtn({
                 imageUrl:
                   "https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png",
                 link: {
-                  mobileWebUrl: "https://developers.kakao.com",
-                  webUrl: "https://developers.kakao.com",
+                  mobileWebUrl: url,
+                  webUrl: url,
                 },
               },
-              address: "경기 수원시 영통구 아주로 46",
-              addressTitle: "카카오 본사",
+              address: location,
+              // addressTitle: "카카오 본사",
               buttons: [
                 {
                   title: "웹으로 이동",
                   link: {
-                    mobileWebUrl: "https://developers.kakao.com",
-                    webUrl: "https://developers.kakao.com",
+                    mobileWebUrl: url,
+                    webUrl: url,
                   },
                 },
                 {
                   title: "앱으로 이동",
                   link: {
-                    mobileWebUrl: "https://developers.kakao.com",
-                    webUrl: "https://developers.kakao.com",
+                    mobileWebUrl: url,
+                    webUrl: url,
                   },
                 },
               ],

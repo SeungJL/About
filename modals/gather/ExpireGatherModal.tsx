@@ -25,8 +25,10 @@ import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
 function ExpireGatherModal({
   setIsModal,
+  setIsRefetching,
 }: {
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
+  setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const failToast = useFailToast({ type: "applyGather" });
   const failPreApplyToast = useFailToast({ type: "applyPreGather" });
@@ -79,12 +81,15 @@ function ExpireGatherModal({
   const cancelRef = useRef();
 
   const onComplete = () => {
-    console.log(4);
     statusOpen({ gatherId });
+    setIsRefetching(true);
+    setIsModal(false);
   };
 
   const onCancel = () => {
     statusClose({ gatherId });
+    setIsRefetching(true);
+    setIsModal(false);
   };
 
   return (

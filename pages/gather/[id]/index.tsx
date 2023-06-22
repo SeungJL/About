@@ -20,6 +20,7 @@ import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
+import { WEB_URL } from "../../../constants/system";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
@@ -35,7 +36,6 @@ import { IUser } from "../../../types/user";
 dayjs.locale("ko"); // 한글로 로케일 설정
 function GatherDetail() {
   const router = useRouter();
-
   const gatherId = router.query.id;
 
   const [isParticipationModal, setIsParticipationModal] = useState(false);
@@ -64,8 +64,6 @@ function GatherDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gatherContentArr, gatherData, gatherId, isRefetching]);
 
-  const onClickFinish = () => [];
-
   const title = gatherData?.title;
   const date = dayjs(gatherData?.date);
   const myGather = gatherData?.user.uid === user?.uid;
@@ -88,16 +86,16 @@ function GatherDetail() {
   const isParticipant = gatherData?.participants.some(
     (who) => who?.uid === user?.uid
   );
-  console.log(isParticipant);
-  console.log(gatherData);
+  console.log(router);
   return (
     <>
       <Header title="" url="/gather">
         <KakaoShareBtn
           title={title}
-          subtitle={date.format("M월 DD일(d)")}
+          subtitle={date.format("M월 DD일(dd)")}
           type="gather"
-          url=""
+          url={WEB_URL + router.asPath}
+          location={gatherData?.location?.main}
         />
       </Header>
       <Layout>
@@ -198,7 +196,29 @@ function GatherDetail() {
         </Participant>
       </Layout>
       <ButtonNav>
-        {myGather ? (
+        {gatherData?.status === "open" ? (
+          <Button
+            width="100%"
+            height="100%"
+            borderRadius="100px"
+            colorScheme="blackAlpha"
+            fontSize="15px"
+            disabled
+          >
+            모임장은 단톡방을 만들어주세요!
+          </Button>
+        ) : gatherData?.status === "close" ? (
+          <Button
+            width="100%"
+            height="100%"
+            borderRadius="100px"
+            colorScheme="blackAlpha"
+            fontSize="15px"
+            disabled
+          >
+            취소된 모임입니다.
+          </Button>
+        ) : myGather ? (
           <Button
             width="100%"
             height="100%"
@@ -246,7 +266,10 @@ function GatherDetail() {
       )}
       {isExpirationModal && (
         <ModalPortal setIsModal={setIsExpirationModal}>
-          <ExpireGatherModal setIsModal={setIsExpirationModal} />
+          <ExpireGatherModal
+            setIsModal={setIsExpirationModal}
+            setIsRefetching={setIsRefetching}
+          />
         </ModalPortal>
       )}
     </>
