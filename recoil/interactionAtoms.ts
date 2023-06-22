@@ -21,3 +21,8 @@ export const gatherDataState = atom<IGatherContent>({
   key: "gatherData",
   default: null,
 });
+
+export const gatherIdCntState = atom<number>({
+  key: "gatherIdCnt",
+  default: null,
+});

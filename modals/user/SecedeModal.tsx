@@ -1,9 +1,11 @@
 import { Button } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { signOut, useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+
 import { ModalLg, ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 
 function SecedeModal({
@@ -11,7 +13,7 @@ function SecedeModal({
 }: {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
-  const { mutate } = usePlazaMutation({});
+  const { mutate } = useUserRequestMutation({});
   const { data: session } = useSession();
 
   const [value, setValue] = useState("");
@@ -26,6 +28,7 @@ function SecedeModal({
       title: "탈퇴",
       content: value,
       writer: session?.user.name,
+      date: dayjs(),
     });
     await signOut();
   };

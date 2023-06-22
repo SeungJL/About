@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef, useState } from "react";
+import { SetStateAction, useRef, useState } from "react";
 import {
   useApproveMutation,
   useRegisterMutation,
@@ -21,7 +21,11 @@ import { userBadgeState } from "../../recoil/userAtoms";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { useFailToast } from "../../hooks/ui/CustomToast";
 
-export default function UserOverview() {
+export default function UserOverview({
+  setIsLoading,
+}: {
+  setIsLoading: React.Dispatch<SetStateAction<boolean>>;
+}) {
   const [value, setValue] = useState("");
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -31,6 +35,7 @@ export default function UserOverview() {
   const { data: user } = useUserInfoQuery({
     onSuccess(data) {
       setValue(data?.comment);
+      setIsLoading(false);
     },
   });
 
@@ -83,7 +88,7 @@ export default function UserOverview() {
 
   return (
     <>
-      <Layout>
+      <Layout isVisible={Boolean(user)}>
         <UserImg>
           <ProfileIcon user={user || session?.user} size="xl" />
           <IconWrapper onClick={() => setIsProfileModal(true)}>
@@ -115,6 +120,7 @@ export default function UserOverview() {
           </Comment>
         </UserInfo>
       </Layout>
+
       {isProfileModal && (
         <ModalPortal setIsModal={setIsProfileModal}>
           <ChangeProfileImageModal setIsModal={setIsProfileModal} />
@@ -124,7 +130,9 @@ export default function UserOverview() {
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.div<{ isVisible: boolean }>`
+  visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
+
   height: 90px;
   padding: 4px 0px;
   display: flex;

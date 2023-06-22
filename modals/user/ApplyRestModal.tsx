@@ -12,6 +12,8 @@ import { IApplyRest } from "../../types/userAction";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { useApplyRestMutation } from "../../hooks/user/mutations";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+import { IUserRequest } from "../../types/user";
 
 function ApplyRestModal({
   setIsModal,
@@ -20,6 +22,8 @@ function ApplyRestModal({
 }) {
   const completeToast = useCompleteToast({ type: "apply" });
   const { data: session } = useSession();
+
+  const { mutate: requestRest } = useUserRequestMutation();
   const { mutate: applyRest } = useApplyRestMutation({
     onSuccess() {
       completeToast();
@@ -34,7 +38,7 @@ function ApplyRestModal({
     formState: { errors },
   } = useForm<IApplyRest>({
     defaultValues: {
-      type: "일반휴식",
+      type: "일반",
       startDate: "",
       endDate: "",
       content: "",
@@ -47,6 +51,20 @@ function ApplyRestModal({
       endDate: data.endDate,
       content: data.content,
     };
+    const requestData: IUserRequest = {
+      category: "휴식",
+      writer: session?.user.name,
+
+      content:
+        data.type +
+        " / " +
+        data.startDate +
+        " ~ " +
+        data.endDate +
+        " / " +
+        data.content,
+    };
+    requestRest(requestData);
     applyRest(info);
   };
   const option = watch("type");
@@ -54,8 +72,8 @@ function ApplyRestModal({
   const maxEndDate = () => {
     const startDate = watch("startDate");
 
-    if (option === "일반휴식" && startDate) {
-      const maxDate = new Date(startDate);
+    if (option === "일반" && startDate) {
+      const maxDate = new Date(startDate as string);
       maxDate.setMonth(maxDate.getMonth() + 2);
 
       return maxDate.toISOString().split("T")[0];
@@ -74,8 +92,8 @@ function ApplyRestModal({
           <Item>
             <span>타입:</span>
             <TypeSelect {...register("type")}>
-              <option value="일반휴식">일반 휴식</option>
-              <option value="특별휴식">특별 휴식</option>
+              <option value="일반">일반 휴식</option>
+              <option value="특별">특별 휴식</option>
             </TypeSelect>
           </Item>
           <Item>

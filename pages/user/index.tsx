@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import UserNavigation from "../../pagesComponents/User/UserNavigation";
@@ -6,6 +7,7 @@ import UserOverview from "../../pagesComponents/User/UserOverView";
 import UserScoreBar from "../../pagesComponents/User/UserScoreBar";
 
 function UserInfo() {
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <>
       <Layout
@@ -15,8 +17,9 @@ function UserInfo() {
         transition={{ duration: 0.3 }}
       >
         <Header title="마이페이지" />
-        <UserLayout>
-          <UserOverview />
+
+        <UserLayout isLoading={isLoading}>
+          <UserOverview setIsLoading={setIsLoading} />
           <UserScoreBar />
           <UserNavigation />
         </UserLayout>
@@ -27,7 +30,8 @@ function UserInfo() {
 
 const Layout = styled(motion.div)``;
 
-const UserLayout = styled.div`
+const UserLayout = styled.div<{ isLoading: boolean }>`
+  visibility: ${(props) => (props.isLoading ? "hidden" : "visible")};
   margin-top: 8px;
   padding: 0 16px;
   display: flex;

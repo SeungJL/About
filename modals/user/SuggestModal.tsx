@@ -17,8 +17,6 @@ import styled from "styled-components";
 
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
-
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
@@ -26,6 +24,8 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+import { IUserRequest } from "../../types/user";
 
 function SuggestModal({
   setIsModal,
@@ -41,7 +41,7 @@ function SuggestModal({
     formState: { errors },
   } = useForm();
 
-  const { mutate: suggestForm } = usePlazaMutation({
+  const { mutate: suggestForm } = useUserRequestMutation({
     onSuccess() {
       completeToast();
     },
@@ -50,12 +50,12 @@ function SuggestModal({
   const { mutate: getScore } = useScoreMutation();
 
   const onValid = (data) => {
-    const suggestInfo = {
-      category: "suggestionContents",
+    const suggestInfo: IUserRequest = {
+      category: "건의",
       title: data.title,
       writer: isRealName ? session.user.name : "",
       content: data.content,
-      date: dayjs().format("YYYY-MM-DD"),
+      date: dayjs(),
     };
     getScore(POINT_SYSTEM_PLUS.suggest.score);
     getPoint(POINT_SYSTEM_PLUS.suggest.point);

@@ -11,22 +11,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import ModalPortal from "../../components/ModalPortal";
-import { usePlazaDataQuery } from "../../hooks/plaza/queries";
+
+import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
 import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 
 function Plaza() {
-  const { data } = usePlazaDataQuery({
+  const { data } = useUserRequestQuery({
     onSuccess(test) {},
   });
 
   const [category, setCategory] = useState<category>("전체");
-  const filterData =
-    category === "전체"
-      ? data
-      : data?.filter((item) => item.category === category);
+  // const filterData =
+  //   category === "전체"
+  //     ? data
+  //     : data?.filter((item) => item.category === category);
 
-  const reversedData = filterData?.slice().reverse();
+  // const reversedData = filterData?.slice().reverse();
   const [isNotice, setIsNotice] = useState(true);
   const temp = [
     {

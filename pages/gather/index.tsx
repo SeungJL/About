@@ -9,31 +9,36 @@ import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
 import { faPencil, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { MainLoading } from "../../components/ui/MainLoading";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
-import { usePlazaDataQuery } from "../../hooks/plaza/queries";
+
+import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 import Category from "../../pagesComponents/gather/Category";
 import GatherBlock from "../../pagesComponents/gather/GatherBlock";
+import { gatherIdCntState } from "../../recoil/interactionAtoms";
 import { GatherCategory, IGatherContent } from "../../types/gather";
 
 function Gather() {
   const router = useRouter();
-  const { data, isLoading } = usePlazaDataQuery();
+  const { data, isLoading } = useUserRequestQuery();
   const [category, setCategory] = useState<GatherCategory>("전체");
   const [isNotice, setIsNotice] = useState(true);
-  const filterData =
-    category === "전체"
-      ? data
-      : data?.filter((item) => item.category === category);
+  const setGatherIdCnt = useSetRecoilState(gatherIdCntState);
+  // const filterData =
+  //   category === "전체"
+  //     ? data
+  //     : data?.filter((item) => item.category === category);
 
   const { data: gatherContentArr } = useGatherContentQuery();
   console.log(gatherContentArr);
-
   const [a, setA] = useState(false);
   console.log(category);
 
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
   useEffect(() => {
+    setGatherIdCnt(gatherContentArr?.length);
     if (category === "모집중")
       setGatherData(
         gatherContentArr?.filter((item) => item?.status === "pending")
@@ -43,10 +48,14 @@ function Gather() {
         gatherContentArr?.filter((item) => item.status !== "pending")
       );
     else setGatherData(gatherContentArr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, gatherContentArr]);
+
   return (
     <>
-      {!isLoading && (
+      {isLoading ? (
+        <MainLoading />
+      ) : (
         <Layout>
           <Seo title="Gather" />
           <Header title="모임">

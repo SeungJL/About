@@ -1,20 +1,17 @@
-import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
-import { usePlazaDataQuery } from "../../hooks/plaza/queries";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+
 import VoteList from "../../pagesComponents/Plaza/writing/VoteList";
 import WritingCategory from "../../pagesComponents/Plaza/writing/WritingCategory";
 import WritingContent from "../../pagesComponents/Plaza/writing/WritingContent";
 import WritingHeader from "../../pagesComponents/Plaza/writing/WritingHeader";
 import WritingType from "../../pagesComponents/Plaza/writing/WritingType";
-import { IPlazaData } from "../../types/plaza";
 
 function WritingPlaza() {
   const router = useRouter();
@@ -23,26 +20,26 @@ function WritingPlaza() {
 
   const [voteList, setVoteList] = useState([]);
   const { data: session } = useSession();
-  const { mutate: handlePlaza } = usePlazaMutation({
+  const { mutate: handlePlaza } = useUserRequestMutation({
     onSuccess() {
       router.push(`/plaza`);
     },
     onError: (err) => {},
   });
 
-  const onSubmit = (data: IPlazaData) => {
-    const writingData = {
-      category: data.category,
-      title: data.title,
-      content: data.content,
-      id: dayjs().format("hhmmss"),
-      voteList,
-      writer: session?.user.name,
-      date: dayjs().format("YYYY-MM-DD"),
-    };
+  // const onSubmit = (data: IPlazaData) => {
+  //   const writingData = {
+  //     category: data.category,
+  //     title: data.title,
+  //     content: data.content,
+  //     id: dayjs().format("hhmmss"),
+  //     voteList,
+  //     writer: session?.user.name,
+  //     date: dayjs(),
+  //   };
 
-    handlePlaza(writingData);
-  };
+  //   handlePlaza(writingData);
+  // };
   return (
     <>
       <Layout
@@ -51,7 +48,8 @@ function WritingPlaza() {
         exit={{ x: "-100%" }}
         transition={{ duration: 0.3 }}
       >
-        <LayoutForm onSubmit={handleSubmit(onSubmit)} id="plazaWrite">
+        {/* <LayoutForm onSubmit={handleSubmit(onSubmit)} id="plazaWrite"> */}
+        <LayoutForm id="plazaWrite">
           <WritingHeader />
           <WritingCategory register={register} />
           <WritingType setIsVote={setIsVote} register={register} />

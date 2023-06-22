@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 import { GetServerSideProps } from "next";
-import { getSession, signOut, useSession } from "next-auth/react";
-import { getToday, getInterestingDate } from "../../libs/utils/dateUtils";
+import { getSession, useSession } from "next-auth/react";
 import dbConnect from "../../libs/dbConnect";
+import { getInterestingDate, getToday } from "../../libs/utils/dateUtils";
 
-import Header from "../../components/layouts/Header";
 import { useRouter } from "next/router";
-import { User } from "../../models/user";
+import Header from "../../components/layouts/Header";
 import { Attendence } from "../../models/attendence";
+import { User } from "../../models/user";
 
 function Admin() {
   const router = useRouter();
@@ -26,8 +26,15 @@ function Admin() {
                 <button onClick={() => router.push(`/admin/checkRegister`)}>
                   가입 신청 확인
                 </button>
-                <button>건의사항 확인</button>
-                <button>휴식신청 확인</button>
+                <button onClick={() => router.push(`/admin/checkSuggest`)}>
+                  건의사항 확인
+                </button>
+                <button onClick={() => router.push(`/admin/checkRest`)}>
+                  휴식신청 확인
+                </button>
+                <button onClick={() => router.push(`/admin/checkPromotion`)}>
+                  홍보인원 확인
+                </button>
                 <button>당일불참 확인</button>
               </NavBlock>
             </div>

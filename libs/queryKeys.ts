@@ -7,3 +7,4 @@ export const USER_FINDVOTE = "user_findvote";
 export const USER_FINDVOTES = "user_findvotes";
 export const ARRIVE_FINDMEMO = "arrive_findmemo";
 export const PLAZA_FINDALL = "plaza_findall";
+export const USER_REQUEST = "user_request";

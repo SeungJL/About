@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
+import { MainLoading } from "../../../components/ui/MainLoading";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { WEB_URL } from "../../../constants/system";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
@@ -53,14 +54,16 @@ function GatherDetail() {
   };
 
   const { data: gatherContentArr, refetch } = useGatherContentQuery();
+
   useEffect(() => {
-    if (isRefetching) {
+    if (isRefetching || !gatherData) {
       setTimeout(() => {
         refetch();
       }, 1000);
-    }
-    if (!gatherData)
+
       setGatherData(gatherContentArr?.find((item) => item?.id === gatherId));
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gatherContentArr, gatherData, gatherId, isRefetching]);
 
@@ -86,176 +89,191 @@ function GatherDetail() {
   const isParticipant = gatherData?.participants.some(
     (who) => who?.uid === user?.uid
   );
-  console.log(router);
+
   return (
     <>
-      <Header title="" url="/gather">
-        <KakaoShareBtn
-          title={title}
-          subtitle={date.format("M월 DD일(dd)")}
-          type="gather"
-          url={WEB_URL + router.asPath}
-          location={gatherData?.location?.main}
-        />
-      </Header>
-      <Layout>
-        <Badge p="4px 6px" my="4px" fontSize="12px" alignSelf="flex-start">
-          {categoryIcon}
-          <Category>{gatherData?.type.title}</Category>
-        </Badge>
-        <Profile>
-          <ProfileIcon user={gatherData?.user} size="md" />
-          <div>
-            <span>{gatherData?.user?.name}</span>
-            {writingDate === 0 ? (
-              <span>오늘</span>
-            ) : (
-              <span>{writingDate}일 전</span>
-            )}
-          </div>
-        </Profile>
-        <Title status={gatherData?.status}>
-          <span>
-            {gatherData?.status === "pending"
-              ? "모집중"
-              : gatherData?.status === "open"
-              ? "오픈"
-              : gatherData?.status === "close"
-              ? "취소"
-              : null}
-          </span>
-          <span>{title}</span>
-        </Title>
-        <LocationMain onClick={() => setIsSubLocation(true)}>
-          <div>
-            <IconWrapper>
-              <FontAwesomeIcon icon={faLocationDot} color="var(--font-h3)" />
-            </IconWrapper>
-            <span>{gatherData?.location.main}</span>
-          </div>
-          <FontAwesomeIcon icon={faChevronDown} size="2xs" />
-        </LocationMain>
-        {isSubLocation && <LocationSub>{gatherData?.location.sub}</LocationSub>}
-        <Date>
-          <IconWrapper>
-            <FontAwesomeIcon icon={faCalendarDays} color="var(--font-h3)" />
-          </IconWrapper>
-          <span>{date?.format("M.DD(ddd) 오후 h:mm")}</span>
-        </Date>
-        <Age>
-          <IconWrapper>
-            <FontAwesomeIcon icon={faUser} color="var(--font-h3)" />
-          </IconWrapper>
-          <span>
-            {gatherData?.age[0]}~{gatherData?.age[1]}세
-          </span>
-          <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />
-        </Age>
-        <MemberMin>
-          <IconWrapper>
-            <FontAwesomeIcon icon={faDoorOpen} color="var(--font-h3)" />
-          </IconWrapper>
-          <span>{gatherData?.memberCnt.min}명 이상 오픈</span>
-        </MemberMin>
-        <Content>{gatherData?.content}</Content>
-        <Participant>
-          <span>
-            참여중인 인원 <span>{gatherData?.participants.length + 1}</span>/
-            {gatherData?.memberCnt?.max}
-          </span>
-          <div>
-            <MemberItem
-              key={gatherOrganizer?.uid}
-              onClick={() => onClickProfile(gatherOrganizer)}
-            >
-              <Organizer>
-                <ProfileIcon user={gatherOrganizer} size="md" />
-                <CrownWrapper>
-                  <FontAwesomeIcon
-                    icon={faCrown}
-                    color="var(--color-orange)"
-                    size="lg"
-                  />
-                </CrownWrapper>
-              </Organizer>
+      {!gatherData ? (
+        <MainLoading />
+      ) : (
+        <>
+          <Header title="" url="/gather">
+            <KakaoShareBtn
+              title={title}
+              subtitle={date.format("M월 DD일(dd)")}
+              type="gather"
+              url={WEB_URL + router.asPath}
+              location={gatherData?.location?.main}
+            />
+          </Header>
+
+          <Layout>
+            <Badge p="4px 6px" my="4px" fontSize="12px" alignSelf="flex-start">
+              {categoryIcon}
+              <Category>{gatherData?.type.title}</Category>
+            </Badge>
+            <Profile>
+              <ProfileIcon user={gatherData?.user} size="md" />
               <div>
-                <span>{gatherOrganizer?.name}</span>
-                <span>{gatherOrganizer?.comment}</span>
+                <span>{gatherData?.user?.name}</span>
+                {writingDate === 0 ? (
+                  <span>오늘</span>
+                ) : (
+                  <span>{writingDate}일 전</span>
+                )}
               </div>
-            </MemberItem>
-            {gatherData?.participants.map((who) => (
-              <MemberItem key={who?.uid} onClick={() => onClickProfile(who)}>
-                <ProfileIcon user={who} size="md" />
-                <div>
-                  <span>{who?.name}</span>
-                  <span>{who?.comment}</span>
-                </div>
-              </MemberItem>
-            ))}
-          </div>
-        </Participant>
-      </Layout>
-      <ButtonNav>
-        {gatherData?.status === "open" ? (
-          <Button
-            width="100%"
-            height="100%"
-            borderRadius="100px"
-            colorScheme="blackAlpha"
-            fontSize="15px"
-            disabled
-          >
-            모임장은 단톡방을 만들어주세요!
-          </Button>
-        ) : gatherData?.status === "close" ? (
-          <Button
-            width="100%"
-            height="100%"
-            borderRadius="100px"
-            colorScheme="blackAlpha"
-            fontSize="15px"
-            disabled
-          >
-            취소된 모임입니다.
-          </Button>
-        ) : myGather ? (
-          <Button
-            width="100%"
-            height="100%"
-            borderRadius="100px"
-            backgroundColor="var(--color-mint)"
-            color="white"
-            fontSize="15px"
-            onClick={() => setIsExpirationModal(true)}
-          >
-            모집종료
-          </Button>
-        ) : isParticipant ? (
-          <Button
-            width="100%"
-            height="100%"
-            borderRadius="100px"
-            backgroundColor="var(--color-mint)"
-            color="white"
-            fontSize="15px"
-            onClick={() => setIsExpirationModal(true)}
-          >
-            참여취소
-          </Button>
-        ) : (
-          <Button
-            width="100%"
-            height="100%"
-            borderRadius="100px"
-            backgroundColor="var(--color-mint)"
-            color="white"
-            fontSize="15px"
-            onClick={onClickParticipation}
-          >
-            참여하기
-          </Button>
-        )}
-      </ButtonNav>
+            </Profile>
+            <Title status={gatherData?.status}>
+              <span>
+                {gatherData?.status === "pending"
+                  ? "모집중"
+                  : gatherData?.status === "open"
+                  ? "오픈"
+                  : gatherData?.status === "close"
+                  ? "취소"
+                  : null}
+              </span>
+              <span>{title}</span>
+            </Title>
+            <LocationMain onClick={() => setIsSubLocation(true)}>
+              <div>
+                <IconWrapper>
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    color="var(--font-h3)"
+                  />
+                </IconWrapper>
+                <span>{gatherData?.location.main}</span>
+              </div>
+              <FontAwesomeIcon icon={faChevronDown} size="2xs" />
+            </LocationMain>
+            {isSubLocation && (
+              <LocationSub>{gatherData?.location.sub}</LocationSub>
+            )}
+            <Date>
+              <IconWrapper>
+                <FontAwesomeIcon icon={faCalendarDays} color="var(--font-h3)" />
+              </IconWrapper>
+              <span>{date?.format("M.DD(ddd) 오후 h:mm")}</span>
+            </Date>
+            <Age>
+              <IconWrapper>
+                <FontAwesomeIcon icon={faUser} color="var(--font-h3)" />
+              </IconWrapper>
+              <span>
+                {gatherData?.age[0]}~{gatherData?.age[1]}세
+              </span>
+              <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />
+            </Age>
+            <MemberMin>
+              <IconWrapper>
+                <FontAwesomeIcon icon={faDoorOpen} color="var(--font-h3)" />
+              </IconWrapper>
+              <span>{gatherData?.memberCnt.min}명 이상 오픈</span>
+            </MemberMin>
+            <Content>{gatherData?.content}</Content>
+            <Participant>
+              <span>
+                참여중인 인원 <span>{gatherData?.participants.length + 1}</span>
+                /{gatherData?.memberCnt?.max}
+              </span>
+              <div>
+                <MemberItem
+                  key={gatherOrganizer?.uid}
+                  onClick={() => onClickProfile(gatherOrganizer)}
+                >
+                  <Organizer>
+                    <ProfileIcon user={gatherOrganizer} size="md" />
+                    <CrownWrapper>
+                      <FontAwesomeIcon
+                        icon={faCrown}
+                        color="var(--color-orange)"
+                        size="lg"
+                      />
+                    </CrownWrapper>
+                  </Organizer>
+                  <div>
+                    <span>{gatherOrganizer?.name}</span>
+                    <span>{gatherOrganizer?.comment}</span>
+                  </div>
+                </MemberItem>
+                {gatherData?.participants.map((who) => (
+                  <MemberItem
+                    key={who?.uid}
+                    onClick={() => onClickProfile(who)}
+                  >
+                    <ProfileIcon user={who} size="md" />
+                    <div>
+                      <span>{who?.name}</span>
+                      <span>{who?.comment}</span>
+                    </div>
+                  </MemberItem>
+                ))}
+              </div>
+            </Participant>
+          </Layout>
+          <ButtonNav>
+            {gatherData?.status === "open" ? (
+              <Button
+                width="100%"
+                height="100%"
+                borderRadius="100px"
+                colorScheme="blackAlpha"
+                fontSize="15px"
+                disabled
+              >
+                모임장은 단톡방을 만들어주세요!
+              </Button>
+            ) : gatherData?.status === "close" ? (
+              <Button
+                width="100%"
+                height="100%"
+                borderRadius="100px"
+                colorScheme="blackAlpha"
+                fontSize="15px"
+                disabled
+              >
+                취소된 모임입니다.
+              </Button>
+            ) : myGather ? (
+              <Button
+                width="100%"
+                height="100%"
+                borderRadius="100px"
+                backgroundColor="var(--color-mint)"
+                color="white"
+                fontSize="15px"
+                onClick={() => setIsExpirationModal(true)}
+              >
+                모집종료
+              </Button>
+            ) : isParticipant ? (
+              <Button
+                width="100%"
+                height="100%"
+                borderRadius="100px"
+                backgroundColor="var(--color-mint)"
+                color="white"
+                fontSize="15px"
+                onClick={() => setIsExpirationModal(true)}
+              >
+                참여취소
+              </Button>
+            ) : (
+              <Button
+                width="100%"
+                height="100%"
+                borderRadius="100px"
+                backgroundColor="var(--color-mint)"
+                color="white"
+                fontSize="15px"
+                onClick={onClickParticipation}
+              >
+                참여하기
+              </Button>
+            )}
+          </ButtonNav>
+        </>
+      )}
       {isParticipationModal && (
         <ModalPortal setIsModal={setIsParticipationModal}>
           <ApplyParticipationModal

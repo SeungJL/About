@@ -4,11 +4,11 @@ import { Location } from "./system";
 import { IScore } from "./user/scoreSystem";
 
 export interface IUserRequest {
-  category: "건의" | "신고" | "홍보" | "휴식" | "충전";
+  category: "건의" | "신고" | "홍보" | "휴식" | "충전" | "탈퇴";
   title?: string;
-  date: Dayjs;
+  date?: Dayjs;
   writer: string;
-  content: string;
+  content?: string;
   rest?: { type: "일반" | "특별"; start: Dayjs; end: Dayjs };
 }
 export interface kakaoProfileInfo {

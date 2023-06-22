@@ -7,7 +7,7 @@ import { ModalMain, ModalXL } from "../../styles/layout/modal";
 import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
 
 import Image from "next/image";
-import { usePlazaDataQuery } from "../../hooks/plaza/queries";
+import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 
 function PromotionModal({
   setIsModal,
@@ -15,7 +15,7 @@ function PromotionModal({
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [isApplyModal, setIsApplyModal] = useState(false);
-  const { data } = usePlazaDataQuery();
+  const { data } = useUserRequestQuery();
 
   const applyCnt = data?.filter(
     (item) =>

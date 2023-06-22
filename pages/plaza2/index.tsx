@@ -1,34 +1,27 @@
 import Seo from "../../components/Seo";
 
 import Header from "../../components/layouts/Header";
-import Category from "../../pagesComponents/Plaza/main/Category";
-import { useState } from "react";
-import { category } from "../../types/plaza";
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
 
-import styled from "styled-components";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ModalPortal from "../../components/ModalPortal";
-import WritePlazaModal from "../../modals/plaza/WritePlazaModal";
 import { useRouter } from "next/router";
-import { usePlazaDataQuery } from "../../hooks/plaza/queries";
-import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
+import styled from "styled-components";
 
 function Plaza() {
-  const { data } = usePlazaDataQuery({
-    onSuccess(test) {},
-  });
+  // const { data } = useUserRequestQuery({
+  //   onSuccess(test) {},
+  // });
 
-  const promotion = data?.filter((item) => item.title === "홍보");
+  // const promotion = data?.filter((item) => item.title === "홍보");
 
-  const [category, setCategory] = useState<category>("전체");
-  const filterData =
-    category === "전체"
-      ? data
-      : data?.filter((item) => item.category === category);
+  // const [category, setCategory] = useState<category>("전체");
+  // const filterData =
+  //   category === "전체"
+  //     ? data
+  //     : data?.filter((item) => item.category === category);
 
-  const reversedData = filterData?.slice().reverse();
+  // const reversedData = filterData?.slice().reverse();
 
   return (
     <>
@@ -36,12 +29,12 @@ function Plaza() {
         <Seo title="Plaza" />
         <Header title="소통의 광장" />
         <PlazaLayout>
-          <Category category={category} setCategory={setCategory} />
+          {/* <Category category={category} setCategory={setCategory} />
           <PlazaMainContent>
             {reversedData?.map((data, idx) => (
               <PlazaBlock key={idx} data={data} category={category} />
             ))}
-          </PlazaMainContent>
+          </PlazaMainContent> */}
         </PlazaLayout>
         <Navigation>
           <IconPencil />

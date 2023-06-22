@@ -6,7 +6,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import styled from "styled-components";
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+
 import VoteList from "../../pagesComponents/Plaza/writing/VoteList";
 import WritingCategory from "../../pagesComponents/Plaza/writing/WritingCategory";
 import WritingContent from "../../pagesComponents/Plaza/writing/WritingContent";
@@ -21,7 +22,7 @@ function WritingPlaza() {
 
   const [voteList, setVoteList] = useState([]);
   const { data: session } = useSession();
-  const { mutate: handlePlaza } = usePlazaMutation({
+  const { mutate: handlePlaza } = useUserRequestMutation({
     onSuccess() {
       router.push(`/plaza`);
     },

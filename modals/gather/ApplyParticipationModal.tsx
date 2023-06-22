@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SetStateAction, useState } from "react";
@@ -25,6 +25,7 @@ function ApplyParticipationModal({
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
   const gatherData = useRecoilValue(gatherDataState);
+  const toast = useToast();
 
   const [password, setPassword] = useState("");
   const [isGenderCondition, setIsGenderCondition] = useState(false);
@@ -45,10 +46,12 @@ function ApplyParticipationModal({
     },
   });
 
+  const gatherId = gatherData?.id;
+
   const onApply = (type: "normal" | "pre") => {
     if (type === "pre") {
       if (password === gatherData?.password) {
-        mutate({ gatherId: gatherData?.id });
+        mutate({ gatherId });
       } else {
         failPreApplyToast();
       }
@@ -58,30 +61,70 @@ function ApplyParticipationModal({
     const myOld = birthToAge(data.birth);
 
     if (+myOld < gatherData.age[0] || +myOld > gatherData.age[1]) {
-      failToast();
+      toast({
+        title: "신청 불가",
+        description: "나이 조건이 맞지 않습니다",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
       return;
     }
 
     if (gatherData?.memberCnt.max - (gatherData?.preCnt || 0) <= currentVoter) {
-      failToast();
+      toast({
+        title: "신청 불가",
+        description: "모집 인원이 가득찼어요!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
       return;
     }
     if (gatherData?.genderCondition) {
-      console.log(2);
       const participants = gatherData?.participants;
       const manCnt = participants.filter((who) => who.gender === "남성").length;
       const womanCnt = participants.length - manCnt;
-      if (womanCnt !== 0 && manCnt >= womanCnt * 2 && data?.gender === "남성") {
-        failToast();
-        return;
+
+      if (data?.gender === "남성") {
+        if (
+          (womanCnt === 0 && manCnt >= 3) ||
+          (womanCnt === 1 && manCnt >= 4) ||
+          (womanCnt >= 2 && manCnt >= womanCnt * 2)
+        ) {
+          toast({
+            title: "신청 불가",
+            description: "현재 성별 조건이 맞지 않아 신청이 불가능합니다.",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "bottom",
+          });
+          return;
+        }
       }
-      if (manCnt !== 0 && womanCnt >= manCnt * 2 && data?.gender === "여성") {
-        failToast();
-        return;
+      if (data?.gender === "여성") {
+        if (
+          (manCnt === 0 && womanCnt >= 3) ||
+          (manCnt === 1 && womanCnt >= 4) ||
+          (manCnt >= 2 && womanCnt >= manCnt * 2)
+        ) {
+          toast({
+            title: "신청 불가",
+            description: "현재 성별 조건이 맞지 않아 신청이 불가능합니다.",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "bottom",
+          });
+          return;
+        }
       }
     }
 
-    mutate({ gatherId: gatherData?.id });
+    mutate({ gatherId });
     completeToast();
     setIsRefetching(true);
     setIsModal(false);

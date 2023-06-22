@@ -17,11 +17,11 @@ import styled from "styled-components";
 
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
-
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+import { IUserRequest } from "../../types/user";
 
 function DeclarationFormModal({
   setIsModal,
@@ -37,7 +37,7 @@ function DeclarationFormModal({
     formState: { errors },
   } = useForm();
 
-  const { mutate: DeclarationForm } = usePlazaMutation({
+  const { mutate: DeclarationForm } = useUserRequestMutation({
     onSuccess() {
       completeToast();
     },
@@ -45,12 +45,12 @@ function DeclarationFormModal({
   const { mutate: getScores } = usePointMutation();
 
   const onValid = (data) => {
-    const DeclarationInfo = {
-      category: "DeclarationionContents",
+    const DeclarationInfo: IUserRequest = {
+      category: "신고",
       title: data.title,
       writer: isRealName ? session.user.name : "",
       content: data.content,
-      date: dayjs().format("YYYY-MM-DD"),
+      date: dayjs(),
     };
 
     DeclarationForm(DeclarationInfo);

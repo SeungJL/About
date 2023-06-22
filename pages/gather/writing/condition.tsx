@@ -27,7 +27,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import BottomNav from "../../../components/layouts/BottomNav";
@@ -42,6 +42,7 @@ import { randomPassword } from "../../../libs/utils/validUtils";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
 import { gatherContentState } from "../../../recoil/contentsAtoms";
+import { gatherIdCntState } from "../../../recoil/interactionAtoms";
 
 const AGE_BAR = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
@@ -62,7 +63,7 @@ function WritingCondition() {
   );
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
 
-  const [age, setAge] = useState(gatherContent?.age || [18, 28]);
+  const [age, setAge] = useState(gatherContent?.age || [19, 28]);
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
@@ -74,8 +75,7 @@ function WritingCondition() {
   const { data: AA } = useGatherContentQuery();
 
   const { data } = useUserInfoQuery();
-
-  const id = 2;
+  const gatherIdCnt = useRecoilValue(gatherIdCntState);
 
   const onClickNext = async () => {
     if (minValue < 1 || maxValue < 1 || minValue > maxValue) {
@@ -98,8 +98,8 @@ function WritingCondition() {
       password,
       createdDate: dayjs(),
       user: data,
+      id: `${gatherIdCnt + 1}`,
     };
-    console.log(gatherData);
     setGatherContent(gatherData);
 
     mutate(gatherData);
@@ -193,7 +193,7 @@ function WritingCondition() {
               <div>
                 <div>
                   <FontAwesomeIcon icon={faUser} />
-                  <span>나이</span>
+                  <span>나이(만)</span>
                 </div>
 
                 <Switch
@@ -235,6 +235,7 @@ function WritingCondition() {
                 <div>
                   <FontAwesomeIcon icon={faUserSecret} />
                   <span>사전 섭외</span>
+                  <PreAlert>암호키를 복사해서 전달해주세요!</PreAlert>
                 </div>
 
                 <Switch
@@ -297,7 +298,7 @@ function WritingCondition() {
       </Layout>
       {isSuccessScreen && (
         <ModalPortal setIsModal={setIsSuccessScreen}>
-          <SuccessScreen url="/gather">
+          <SuccessScreen url={`/gather/${gatherContent?.id}`}>
             <>
               <span>모임 개최 성공</span>
               <div>모임 게시글을 오픈 채팅방에 공유해 주세요!</div>
@@ -309,6 +310,10 @@ function WritingCondition() {
   );
 }
 
+const PreAlert = styled.span`
+  font-size: 11px;
+  color: var(--font-h3);
+`;
 const GatherLink = styled.span`
   margin-right: 12px;
 `;

@@ -1,5 +1,4 @@
 import { Button, useToast } from "@chakra-ui/react";
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { SetStateAction } from "react";
 import styled from "styled-components";
@@ -7,11 +6,12 @@ import { CopyBtnBig } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
+
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { ModalMain, ModalXXL } from "../../styles/layout/modal";
 
 function ApplyPromotionRewardModal({
@@ -23,7 +23,7 @@ function ApplyPromotionRewardModal({
   const { data: session } = useSession();
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
-  const { mutate: suggestForm } = usePlazaMutation();
+  const { mutate: requestPromotion } = useUserRequestMutation();
 
   const onComplete = () => {
     getPoint(POINT_SYSTEM_PLUS.promotionReward.point);
@@ -37,13 +37,17 @@ function ApplyPromotionRewardModal({
       position: "bottom",
       variant: "left-accent",
     });
-    suggestForm({
-      category: "suggestionContents",
-      title: "홍보",
-      writer: session.user.name,
-      content: "",
-      date: dayjs().format("YYYY-MM-DD"),
+    requestPromotion({
+      category: "홍보",
+      writer: session?.user.name,
     });
+    // suggestForm({
+    //   category: "suggestionContents",
+    //   title: "홍보",
+    //   writer: session.user.name,
+    //   content: "",
+    //   date: dayjs().format("YYYY-MM-DD"),
+    // });
     setIsModal(false);
   };
 

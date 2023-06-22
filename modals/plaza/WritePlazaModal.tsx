@@ -7,7 +7,6 @@ import styled from "styled-components";
 
 import { ModalLg } from "../../styles/layout/modal";
 
-import { usePlazaMutation } from "../../hooks/plaza/mutations";
 import PlazaVoteList from "./WritePlaza/PlazaVoteList";
 
 function WritePlazaModal({ setIsModal }) {
@@ -35,10 +34,11 @@ function WritePlazaModal({ setIsModal }) {
     setVoteListArr(NewArr);
   };
 
-  const { mutate: handlePlaza, isLoading: plazaLoading } = usePlazaMutation({
-    onSuccess: (data) => {},
-    onError: (err) => {},
-  });
+  // const { mutate: handlePlaza, isLoading: plazaLoading } =
+  //   useUserRequestMutation({
+  //     onSuccess: (data) => {},
+  //     onError: (err) => {},
+  //   });
 
   const onValid = async (data) => {
     const userInfo = {
