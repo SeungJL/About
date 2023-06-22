@@ -67,7 +67,7 @@ export default function UserBlock({ userInfo }: any) {
     const name = category.name;
     let categoryContent = userInfo[name];
     if (name === "birth") {
-      setContent(birthToAge(categoryContent));
+      setContent(birthToAge(categoryContent) + "");
     } else if (name === "mbti") {
       setContent(categoryContent.toUpperCase());
     } else {
