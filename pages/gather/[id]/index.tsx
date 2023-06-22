@@ -284,6 +284,8 @@ const Layout = styled.div`
   padding: 0 14px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 100px;
+
   > div {
     display: flex;
     align-items: center;
@@ -406,6 +408,7 @@ const Participant = styled.div`
   flex-direction: column;
 
   margin-top: 20px;
+  margin-bottom: 20px;
   > span:first-child {
     margin-right: auto;
     font-weight: 700;
@@ -416,7 +419,6 @@ const Participant = styled.div`
   }
   > div {
     margin-top: 20px;
-    height: 200px;
     width: 100%;
     display: flex;
     flex-direction: column;

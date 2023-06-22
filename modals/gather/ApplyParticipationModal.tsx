@@ -52,6 +52,7 @@ function ApplyParticipationModal({
       } else {
         failPreApplyToast();
       }
+      setIsModal(false);
       return;
     }
     const myOld = birthToAge(data.birth);
