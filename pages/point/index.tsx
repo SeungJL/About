@@ -13,6 +13,7 @@ function Point() {
   return (
     <>
       <Header title="" />
+
       <Layout>
         <Intro>
           <span>{session?.user.name}</span>님 만나서 반가워요!

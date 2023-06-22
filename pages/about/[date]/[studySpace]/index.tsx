@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { VOTE_END_HOUR } from "../../../../constants/study";
 import { useVoteQuery } from "../../../../hooks/vote/queries";
@@ -14,7 +14,12 @@ import StudySpaceHeader from "../../../../pagesComponents/About/studySpace/Study
 import StudySpaceNavigation from "../../../../pagesComponents/About/studySpace/StudySpaceNavigation";
 import StudySpaceOverview from "../../../../pagesComponents/About/studySpace/StudySpaceOverView";
 import StudyTimeTable from "../../../../pagesComponents/About/studySpace/StudySpaceTable";
-import { studyDateState } from "../../../../recoil/studyAtoms";
+import {
+  isVotingState,
+  studyDateState,
+  voteDateState,
+} from "../../../../recoil/studyAtoms";
+import { updateStudySubState } from "../../../../recoil/updateAtoms";
 import { SPACE_LOCATION } from "../../../../storage/study";
 import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
@@ -25,11 +30,19 @@ function StudySpace() {
   const { data: session } = useSession();
 
   const voteDate = dayjs(router.query.date as string);
+  const setVoteDate = useSetRecoilState(voteDateState);
   const spaceID = router.query.studySpace;
   const location = SPACE_LOCATION[spaceID as string];
-  console.log(3);
+  const setIsVoting = useSetRecoilState(isVotingState);
+  const [updateStudySub, setUpdateStudySub] =
+    useRecoilState(updateStudySubState);
+
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
-  const { data: vote, isLoading } = useVoteQuery(voteDate, location, {
+  const {
+    data: vote,
+    isLoading,
+    refetch,
+  } = useVoteQuery(voteDate, location, {
     enabled: true,
     onError: (err) => {
       toast({
@@ -45,8 +58,22 @@ function StudySpace() {
 
   const { place, attendences, status } =
     vote?.participations?.find((props) => props.place._id === spaceID) || {};
+  console.log(2, attendences);
 
   useEffect(() => {
+    if (updateStudySub) {
+      refetch();
+      setUpdateStudySub(false);
+    }
+    if (attendences?.find((who) => who?.user.uid === session?.uid))
+      setIsVoting(true);
+    else setIsVoting(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [attendences, updateStudySub]);
+
+  useEffect(() => {
+    setVoteDate(voteDate);
     const voteDateNum = +voteDate.format("MDD");
     const defaultDate = +getInterestingDate().format("MDD");
     if (

@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import Router from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@chakra-ui/react";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -44,24 +43,24 @@ function Layout({ children }) {
     },
   });
 
-  useEffect(() => {
-    const start = () => {
-      setLoading(true);
-    };
-    const end = () => {
-      setLoading(false);
-    };
+  // useEffect(() => {
+  //   const start = () => {
+  //     setLoading(true);
+  //   };
+  //   const end = () => {
+  //     setLoading(false);
+  //   };
 
-    Router.events.on("routeChangeStart", start);
-    Router.events.on("routeChangeComplete", end);
-    Router.events.on("routeChangeError", end);
+  //   Router.events.on("routeChangeStart", start);
+  //   Router.events.on("routeChangeComplete", end);
+  //   Router.events.on("routeChangeError", end);
 
-    return () => {
-      Router.events.off("routeChangeStart", start);
-      Router.events.off("routeChangeComplete", end);
-      Router.events.off("routeChangeError", end);
-    };
-  }, []);
+  //   return () => {
+  //     Router.events.off("routeChangeStart", start);
+  //     Router.events.off("routeChangeComplete", end);
+  //     Router.events.off("routeChangeError", end);
+  //   };
+  // }, []);
   return (
     <LayoutContainer>
       {loading ? (

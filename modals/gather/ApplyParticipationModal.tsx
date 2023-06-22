@@ -5,6 +5,7 @@ import { SetStateAction, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/ui/Modal";
+import { useGatherParticipate } from "../../hooks/gather/mutations";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
@@ -13,8 +14,10 @@ import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
 function ApplyParticipationModal({
   setIsModal,
+  setIsRefetching,
 }: {
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
+  setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const failToast = useFailToast({ type: "applyGather" });
   const failPreApplyToast = useFailToast({ type: "applyPreGather" });
@@ -24,43 +27,63 @@ function ApplyParticipationModal({
   const gatherData = useRecoilValue(gatherDataState);
 
   const [password, setPassword] = useState("");
+  const [isGenderCondition, setIsGenderCondition] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const currentVoter = 3;
+  const currentVoter = gatherData?.participants.length;
 
   const onClickPre = () => {
     setIsFirst(false);
   };
 
+  const { mutate } = useGatherParticipate({
+    onSuccess() {
+      console.log("suc");
+    },
+  });
+
   const onApply = (type: "normal" | "pre") => {
     if (type === "pre") {
-      console.log(4);
       if (password === gatherData?.password) {
-        console.log("onSuccess");
+        mutate({ gatherId: gatherData?.id });
       } else {
         failPreApplyToast();
       }
       return;
     }
     const myOld = birthToAge(data.birth);
+
     if (+myOld < gatherData.age[0] || +myOld > gatherData.age[1]) {
       failToast();
       return;
     }
-    if (!data?.gender) {
-      console.log(23);
-      failToast();
-      return;
-    }
+
     if (gatherData?.memberCnt.max - (gatherData?.preCnt || 0) <= currentVoter) {
-      console.log(44);
       failToast();
       return;
     }
+    if (gatherData?.genderCondition) {
+      console.log(2);
+      const participants = gatherData?.participants;
+      const manCnt = participants.filter((who) => who.gender === "남성").length;
+      const womanCnt = participants.length - manCnt;
+      if (womanCnt !== 0 && manCnt >= womanCnt * 2 && data?.gender === "남성") {
+        failToast();
+        return;
+      }
+      if (manCnt !== 0 && womanCnt >= manCnt * 2 && data?.gender === "여성") {
+        failToast();
+        return;
+      }
+    }
+
+    mutate({ gatherId: gatherData?.id });
     completeToast();
+    setIsRefetching(true);
+    setIsModal(false);
   };
 
   return (

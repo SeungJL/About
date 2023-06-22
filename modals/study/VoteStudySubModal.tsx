@@ -63,6 +63,7 @@ function VoteStudySubModal({
     start: null,
     end: null,
   });
+  console.log(router);
 
   const [otherPlaceArr, setOtherPlaceArr] = useState<IPlace[]>();
   const inviteUid = router.query?.uid;
@@ -80,8 +81,15 @@ function VoteStudySubModal({
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
-  const { mutate: getInviteScore } = useAdminScoremMutation(session?.uid);
-  const { mutate: getInvitePoint } = useAdminPointMutation(session?.uid);
+  const { mutate: getInviteScore } = useAdminScoremMutation(
+    inviteUid as string,
+    {
+      onSuccess() {
+        console.log("suc");
+      },
+    }
+  );
+  const { mutate: getInvitePoint } = useAdminPointMutation(inviteUid as string);
   const { mutate: patchAttend } = useAttendMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
@@ -105,7 +113,7 @@ function VoteStudySubModal({
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
       }
-      setIsVoteComplete(true);
+      // setIsVoteComplete(true);
     },
   });
 

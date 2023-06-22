@@ -57,7 +57,6 @@ function AttendCheckModal({
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
-  
 
   const { mutate: handleArrived } = useArrivedMutation(getToday(), {
     onSuccess: (data) => {
@@ -107,7 +106,7 @@ function AttendCheckModal({
       true
     ) {
       handleArrived(memo);
-    
+
       setTimeout(() => {
         setIsChecking(false);
         setIsModal(false);

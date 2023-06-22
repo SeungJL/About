@@ -8,8 +8,8 @@ import styled from "styled-components";
 import { Location } from "../../../types/system";
 
 function LocationMember({ location }: { location: Location }) {
-  const memberCnt = location === "수원" ? 181 : 49;
-  const newCnt = location === "수원" ? 7 : 3;
+  const memberCnt = location === "수원" ? 181 : 53;
+  const newCnt = location === "수원" ? 5 : 3;
 
   return (
     <Layout>

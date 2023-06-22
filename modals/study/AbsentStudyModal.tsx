@@ -16,10 +16,12 @@ import {
   isVotingState,
   mySpaceFixedState,
   studyStartTimeState,
+  voteDateState,
 } from "../../recoil/studyAtoms";
 
 import { SearchIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { InputSm } from "../../components/ui/Input";
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
@@ -32,6 +34,7 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
 
 function AbsentStudyModal({ setIsModal }) {
+  const router = useRouter();
   const toast = useToast();
   const queryClient = useQueryClient();
   const today = getToday();
@@ -43,10 +46,11 @@ function AbsentStudyModal({ setIsModal }) {
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
 
+  const voteDate = useRecoilValue(voteDateState);
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getDeposit } = useDepositMutation();
 
-  const { mutate: absentStudy } = useAbsentStudyMutation(today, {
+  const { mutate: absentStudy } = useAbsentStudyMutation(voteDate, {
     onSuccess: () => {
       queryClient.invalidateQueries(VOTE_GET);
       if (value === "") {

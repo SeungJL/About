@@ -29,7 +29,14 @@ function ChangeProfileImageModal({
   const [BG, setBG] = useState(0);
   const { data: score } = useScoreQuery();
 
-  const { mutate } = useAvatarMutation();
+  const { mutate } = useAvatarMutation({
+    onSuccess() {
+      console.log("suc");
+    },
+    onError() {
+      console.error("err");
+    },
+  });
   const { isLoading: isFetchingProfile, mutate: onUpdateProfile } = useMutation<
     kakaoProfileInfo,
     AxiosError
@@ -113,10 +120,10 @@ function ChangeProfileImageModal({
       type: iconIdx,
       bg: BG,
     };
-
+    console.log(2);
     mutate(info);
-    setIsModal(false);
-    location.reload();
+    // setIsModal(false);
+    // location.reload();
   };
 
   const onClickKakao = () => {

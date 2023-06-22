@@ -34,7 +34,16 @@ function GatherBlock({
       {data && (
         <Layout onClick={() => onClickBlock()}>
           <Header>
-            <Status>모집중</Status>·<Category>{data?.type.title}</Category>·
+            <Status status={data?.status}>
+              {data?.status === "pending"
+                ? "모집중"
+                : data?.status === "open"
+                ? "오픈"
+                : data?.status === "close"
+                ? "취소"
+                : null}
+            </Status>
+            ·<Category>{data?.type.title}</Category>·
             <Location>{data.location.main}</Location>
           </Header>
           <Title>{data.title}</Title>
@@ -52,12 +61,14 @@ function GatherBlock({
           </Detail>
           <Participant>
             <Writer>
-              <ProfileIcon user={user} size="xs" />
-              <span>승주</span>
+              <ProfileIcon user={data?.user} size="xs" />
+              <span>{data?.user?.name}</span>
             </Writer>
             <Voter>
               <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
-              <span>3/{data?.memberCnt.max}명</span>
+              <span>
+                {data?.participants?.length + 1}/{data?.memberCnt.max}명
+              </span>
             </Voter>
           </Participant>
         </Layout>
@@ -83,9 +94,15 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const Status = styled.span`
-  color: var(--color-mint);
+const Status = styled.span<{ status: string }>`
+  color: ${(props) =>
+    props?.status === "pending"
+      ? " var(--color-mint)"
+      : props?.status === "open"
+      ? "var(--color-red)"
+      : "var(--font-h4)"};
   margin-right: 4px;
+  font-weight: 600;
 `;
 
 const Category = styled.span`

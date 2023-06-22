@@ -2,7 +2,7 @@ import Seo from "../../components/Seo";
 
 import Header from "../../components/layouts/Header";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
 
@@ -14,7 +14,7 @@ import { useGatherContentQuery } from "../../hooks/gather/queries";
 import { usePlazaDataQuery } from "../../hooks/plaza/queries";
 import Category from "../../pagesComponents/gather/Category";
 import GatherBlock from "../../pagesComponents/gather/GatherBlock";
-import { GatherCategory } from "../../types/gather";
+import { GatherCategory, IGatherContent } from "../../types/gather";
 
 function Gather() {
   const router = useRouter();
@@ -30,7 +30,20 @@ function Gather() {
   console.log(gatherContentArr);
 
   const [a, setA] = useState(false);
+  console.log(category);
 
+  const [gatherData, setGatherData] = useState<IGatherContent[]>();
+  useEffect(() => {
+    if (category === "모집중")
+      setGatherData(
+        gatherContentArr?.filter((item) => item?.status === "pending")
+      );
+    else if (category === "완료")
+      setGatherData(
+        gatherContentArr?.filter((item) => item.status !== "pending")
+      );
+    else setGatherData(gatherContentArr);
+  }, [category, gatherContentArr]);
   return (
     <>
       {!isLoading && (
@@ -45,9 +58,12 @@ function Gather() {
           <PlazaLayout>
             <Category category={category} setCategory={setCategory} />
             <PlazaMainContent>
-              {gatherContentArr?.map((data, idx) => (
-                <GatherBlock key={idx} data={data} category={category} />
-              ))}
+              {gatherData
+                ?.slice()
+                .reverse()
+                .map((data, idx) => (
+                  <GatherBlock key={idx} data={data} category={category} />
+                ))}
             </PlazaMainContent>
           </PlazaLayout>
           <Navigation>

@@ -97,7 +97,6 @@ function WritingCondition() {
       genderCondition: genderCondition,
       password,
       createdDate: dayjs(),
-      id,
       user: data,
     };
     console.log(gatherData);

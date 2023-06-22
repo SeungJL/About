@@ -81,6 +81,7 @@ export const useAvatarMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAvatar>(async (info) => {
+    console.log(info);
     await axios.post(`${SERVER_URI}/user/avatar`, info);
   }, options);
 

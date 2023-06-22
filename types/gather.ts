@@ -16,8 +16,9 @@ export interface IGatherContent {
   age?: number[];
   preCnt?: number;
   genderCondition: boolean;
+  participants: IUser[];
   password?: string;
-  id: number;
+  id: string;
   user: IUser;
-  status?: "open" | "closed";
+  status?: "open" | "close" | "end" | "pending";
 }

@@ -38,7 +38,7 @@ function AboutMain({
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
     dayjs().add(1, "day")
   );
-
+  console.log(otherStudySpaces);
   /**스터디 알고리즘 적용 */
   useEffect(() => {
     if (dayjs().hour() >= VOTE_END_HOUR) decideSpace();
@@ -50,7 +50,7 @@ function AboutMain({
   }, [data, setStudyStartTime]);
 
   /**날짜마다 달라지는 정보들*/
- 
+
   return (
     <>
       <AnimatePresence initial={false}>
@@ -71,14 +71,19 @@ function AboutMain({
           >
             <Main>
               {otherStudySpaces?.map((info, idx) => (
-                <Block key={idx}>
-                  <AboutMainItem
-                    studySpaceInfo={info}
-                    voted={Boolean(
-                      myVoteList.find((space) => space === info?.place?._id)
-                    )}
-                  />
-                </Block>
+                <>
+                  {info?.status === "pending" ||
+                  info?.attendences.filter((who) => who.firstChoice).length ? (
+                    <Block key={idx}>
+                      <AboutMainItem
+                        studySpaceInfo={info}
+                        voted={Boolean(
+                          myVoteList.find((space) => space === info?.place?._id)
+                        )}
+                      />
+                    </Block>
+                  ) : null}
+                </>
               ))}
             </Main>
           </Layout>

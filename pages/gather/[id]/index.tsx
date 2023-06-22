@@ -2,57 +2,94 @@ import { Badge, Button } from "@chakra-ui/react";
 import {
   faCalendarDays,
   faChevronDown,
+  faCrown,
   faDoorOpen,
   faLocationDot,
   faUser,
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
+import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
-import { gatherContentState } from "../../../recoil/contentsAtoms";
+import ExpireGatherModal from "../../../modals/gather/ExpireGatherModal";
 import {
   beforePageState,
   gatherDataState,
+  userDataState,
 } from "../../../recoil/interactionAtoms";
-import { GatherCategoryIcons } from "../../../storage/Gather";
+import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
+import { IUser } from "../../../types/user";
 
 dayjs.locale("ko"); // 한글로 로케일 설정
 function GatherDetail() {
   const router = useRouter();
 
-  const data = useRecoilValue(gatherContentState);
+  const gatherId = router.query.id;
+
   const [isParticipationModal, setIsParticipationModal] = useState(false);
+  const [isExpirationModal, setIsExpirationModal] = useState(false);
   const setBeforePage = useSetRecoilState(beforePageState);
 
   const { data: user } = useUserInfoQuery();
 
   const [isSubLocation, setIsSubLocation] = useState(false);
-  const gatherData = useRecoilValue(gatherDataState);
-  console.log(gatherData);
-  const onClickBtn = () => {
+  const [gatherData, setGatherData] = useRecoilState(gatherDataState);
+  const [isRefetching, setIsRefetching] = useState(false);
+
+  const onClickParticipation = () => {
     setIsParticipationModal(true);
   };
 
+  const { data: gatherContentArr, refetch } = useGatherContentQuery();
+  useEffect(() => {
+    if (isRefetching) {
+      setTimeout(() => {
+        refetch();
+      }, 1000);
+    }
+    if (!gatherData)
+      setGatherData(gatherContentArr?.find((item) => item?.id === gatherId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gatherContentArr, gatherData, gatherId, isRefetching]);
+
+  const onClickFinish = () => [];
+
   const title = gatherData?.title;
   const date = dayjs(gatherData?.date);
-
-  const onClickProfile = (uid?:string) => {
+  const myGather = gatherData?.user.uid === user?.uid;
+  const gatherOrganizer = gatherData?.user;
+  const setUserData = useSetRecoilState(userDataState);
+  const onClickProfile = (user: IUser) => {
+    setUserData(user);
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
 
+  const writingDate = dayjs(gatherData?.createdAt).date() - dayjs().date();
+
+  const categoryIcon =
+    GatherCategoryIcons[
+      GATHER_CATEGORY?.findIndex(
+        (item) => item?.title === gatherData?.type.title
+      )
+    ];
+  const isParticipant = gatherData?.participants.some(
+    (who) => who?.uid === user?.uid
+  );
+  console.log(isParticipant);
+  console.log(gatherData);
   return (
     <>
       <Header title="" url="/gather">
@@ -65,18 +102,30 @@ function GatherDetail() {
       </Header>
       <Layout>
         <Badge p="4px 6px" my="4px" fontSize="12px" alignSelf="flex-start">
-          {GatherCategoryIcons[0]}
+          {categoryIcon}
           <Category>{gatherData?.type.title}</Category>
         </Badge>
         <Profile>
-          <ProfileIcon user={user} size="md" />
+          <ProfileIcon user={gatherData?.user} size="md" />
           <div>
-            <span>{user?.name}</span>
-            <span>2일 전</span>
+            <span>{gatherData?.user?.name}</span>
+            {writingDate === 0 ? (
+              <span>오늘</span>
+            ) : (
+              <span>{writingDate}일 전</span>
+            )}
           </div>
         </Profile>
-        <Title>
-          <span>모집중</span>
+        <Title status={gatherData?.status}>
+          <span>
+            {gatherData?.status === "pending"
+              ? "모집중"
+              : gatherData?.status === "open"
+              ? "오픈"
+              : gatherData?.status === "close"
+              ? "취소"
+              : null}
+          </span>
           <span>{title}</span>
         </Title>
         <LocationMain onClick={() => setIsSubLocation(true)}>
@@ -113,35 +162,91 @@ function GatherDetail() {
         <Content>{gatherData?.content}</Content>
         <Participant>
           <span>
-            참여중인 인원 <span>4</span>/6
+            참여중인 인원 <span>{gatherData?.participants.length + 1}</span>/
+            {gatherData?.memberCnt?.max}
           </span>
           <div>
-            <MemberItem onClick={() => onClickProfile()}>
-              <ProfileIcon user={user} size="md" />
+            <MemberItem
+              key={gatherOrganizer?.uid}
+              onClick={() => onClickProfile(gatherOrganizer)}
+            >
+              <Organizer>
+                <ProfileIcon user={gatherOrganizer} size="md" />
+                <CrownWrapper>
+                  <FontAwesomeIcon
+                    icon={faCrown}
+                    color="var(--color-orange)"
+                    size="lg"
+                  />
+                </CrownWrapper>
+              </Organizer>
               <div>
-                <span>{user?.name}</span>
-                <span>안녕하세요. 잘 부탁드립니다 !</span>
+                <span>{gatherOrganizer?.name}</span>
+                <span>{gatherOrganizer?.comment}</span>
               </div>
             </MemberItem>
+            {gatherData?.participants.map((who) => (
+              <MemberItem key={who?.uid} onClick={() => onClickProfile(who)}>
+                <ProfileIcon user={who} size="md" />
+                <div>
+                  <span>{who?.name}</span>
+                  <span>{who?.comment}</span>
+                </div>
+              </MemberItem>
+            ))}
           </div>
         </Participant>
       </Layout>
       <ButtonNav>
-        <Button
-          width="100%"
-          height="100%"
-          borderRadius="100px"
-          backgroundColor="var(--color-mint)"
-          color="white"
-          fontSize="15px"
-          onClick={onClickBtn}
-        >
-          참여하기
-        </Button>
+        {myGather ? (
+          <Button
+            width="100%"
+            height="100%"
+            borderRadius="100px"
+            backgroundColor="var(--color-mint)"
+            color="white"
+            fontSize="15px"
+            onClick={() => setIsExpirationModal(true)}
+          >
+            모집종료
+          </Button>
+        ) : isParticipant ? (
+          <Button
+            width="100%"
+            height="100%"
+            borderRadius="100px"
+            backgroundColor="var(--color-mint)"
+            color="white"
+            fontSize="15px"
+            onClick={() => setIsExpirationModal(true)}
+          >
+            참여취소
+          </Button>
+        ) : (
+          <Button
+            width="100%"
+            height="100%"
+            borderRadius="100px"
+            backgroundColor="var(--color-mint)"
+            color="white"
+            fontSize="15px"
+            onClick={onClickParticipation}
+          >
+            참여하기
+          </Button>
+        )}
       </ButtonNav>
       {isParticipationModal && (
         <ModalPortal setIsModal={setIsParticipationModal}>
-          <ApplyParticipationModal setIsModal={setIsParticipationModal} />
+          <ApplyParticipationModal
+            setIsModal={setIsParticipationModal}
+            setIsRefetching={setIsRefetching}
+          />
+        </ModalPortal>
+      )}
+      {isExpirationModal && (
+        <ModalPortal setIsModal={setIsExpirationModal}>
+          <ExpireGatherModal setIsModal={setIsExpirationModal} />
         </ModalPortal>
       )}
     </>
@@ -160,6 +265,16 @@ const Layout = styled.div`
     display: flex;
     align-items: center;
   }
+`;
+
+const Organizer = styled.div`
+  position: relative;
+`;
+
+const CrownWrapper = styled.div`
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
 `;
 
 const Profile = styled.div`
@@ -185,13 +300,18 @@ const Category = styled.span`
   margin: 0 4px;
 `;
 
-const Title = styled.div`
+const Title = styled.div<{ status: string }>`
   color: var(--font-h1);
   margin-top: 8px;
   font-size: 16px;
   font-weight: 600;
   > span:first-child {
-    color: var(--color-mint);
+    color: ${(props) =>
+      props?.status === "pending"
+        ? " var(--color-mint)"
+        : props?.status === "open"
+        ? "var(--color-red)"
+        : "var(--font-h4)"};
     margin-right: 8px;
   }
 `;

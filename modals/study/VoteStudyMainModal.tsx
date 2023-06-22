@@ -121,14 +121,17 @@ function VoteStudyMainModal({
   const onSubmit = async () => {
     const start = time.start;
     const end = time.end;
-
-    const voteInfos: IVoteInfo = {
-      place: firstPlace[0].placeName,
-      subPlace: secondPlaces.map((place) => place.placeName),
-      start: voteDate.hour(start.hour).minute(start.minutes),
-      end: voteDate.hour(end.hour).minute(end.minutes),
-    };
-
+    if (!start || !end) {
+      toast({
+        title: "잘못된 입력",
+        description: "시작 시간과 종료 시간을 설정해 주세요.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
     if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
@@ -140,6 +143,14 @@ function VoteStudyMainModal({
       });
       return;
     }
+
+    const voteInfos: IVoteInfo = {
+      place: firstPlace[0].placeName,
+      subPlace: secondPlaces.map((place) => place.placeName),
+      start: voteDate.hour(start.hour).minute(start.minutes),
+      end: voteDate.hour(end.hour).minute(end.minutes),
+    };
+
     setIsShowModal(false);
 
     await patchAttend(voteInfos);

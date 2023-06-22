@@ -111,9 +111,17 @@ export const nameToKr = (name) => {
 };
 
 export const birthToAge = (birth: string) => {
-  const birthYear = Number(birth?.slice(0, 2));
-  if (birthYear < 50) return String(24 - birthYear);
-  else return String(124 - birthYear);
+  const yearSlice = birth?.slice(0, 2);
+  const birthYear = +yearSlice < 50 ? "20" + yearSlice : "19" + yearSlice;
+  const currentYear = dayjs().year();
+  const birthDate = dayjs(birth.slice(3, 4) + "-" + birth.slice(4)).year(
+    dayjs().year()
+  );
+
+  const age = currentYear - +birthYear;
+  console.log(5, birthDate, dayjs());
+  if (birthDate < dayjs()) return age;
+  else return age - 1;
 };
 
 export const isChangedCategoryName = (name, status) => {
