@@ -5,11 +5,18 @@ import { ITime } from "./utils";
 export type GatherCategory = "전체" | "모집중" | "완료";
 
 export type GatherType = { title: string; subtitle?: string };
+
+export type GatherStatus = "open" | "close" | "end" | "pending";
+
+export type GatherLocation = {
+  main: string;
+  sub?: string;
+};
 export interface IGatherContent {
   type: GatherType;
   title: string;
   content: string;
-  location: { main: string; sub?: string };
+  location: GatherLocation;
   date: Dayjs | string;
   createdAt?: string;
   updatedAt?: string;
@@ -23,5 +30,5 @@ export interface IGatherContent {
   password?: string;
   id: string;
   user: IUser;
-  status?: "open" | "close" | "end" | "pending";
+  status?: GatherStatus;
 }

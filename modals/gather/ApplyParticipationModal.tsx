@@ -72,7 +72,10 @@ function ApplyParticipationModal({
       return;
     }
 
-    if (gatherData?.memberCnt.max - (gatherData?.preCnt || 0) <= currentVoter) {
+    if (
+      gatherData.memberCnt.max !== 0 &&
+      gatherData?.memberCnt.max - (gatherData?.preCnt || 0) <= currentVoter
+    ) {
       toast({
         title: "신청 불가",
         description: "모집 인원이 가득찼어요!",
