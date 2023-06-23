@@ -4,13 +4,14 @@ import { SetStateAction, useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { VOTE_END_HOUR } from "../../constants/study";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
+import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
   attendCheckState,
   mySpaceFixedState,
   studyDateState,
   voteDateState,
 } from "../../recoil/studyAtoms";
-import { isMainLoadingState } from "../../recoil/systemAtoms";
+
 import { IParticipation } from "../../types/studyDetails";
 
 function StudySetting({

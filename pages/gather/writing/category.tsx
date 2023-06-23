@@ -9,14 +9,17 @@ import Header from "../../../components/layouts/Header";
 import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
-import { gatherContentState } from "../../../recoil/contentsAtoms";
+import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
+
 import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
 import { GatherType } from "../../../types/gather";
 
 function WritingCategory() {
   const router = useRouter();
   const toast = useToast();
-  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [gatherContent, setGatherContent] = useRecoilState(
+    sharedGatherDataState
+  );
   const [selectType, setSelectType] = useState<GatherType>(gatherContent?.type);
 
   const onClickNext = () => {

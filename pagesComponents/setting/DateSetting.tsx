@@ -7,10 +7,12 @@ import { useFailToast } from "../../hooks/ui/CustomToast";
 import { useVoteQuery } from "../../hooks/vote/queries";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
+import { isMainLoadingState } from "../../recoil/loadingAtoms";
+import { isRefetchingStudyState } from "../../recoil/refetchingAtoms";
 
 import { voteDateState } from "../../recoil/studyAtoms";
-import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
-import { updateStudyState } from "../../recoil/updateAtoms";
+
+import { userLocationState } from "../../recoil/userAtoms";
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
 
@@ -24,8 +26,8 @@ function DateSetting({
   const failToast = useFailToast({ type: "loadStudy" });
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const location = useRecoilValue(locationState);
-  const [updateStudy, setUpdateStudy] = useRecoilState(updateStudyState);
+  const location = useRecoilValue(userLocationState);
+  const [updateStudy, setUpdateStudy] = useRecoilState(isRefetchingStudyState);
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 

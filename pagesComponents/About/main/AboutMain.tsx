@@ -15,7 +15,8 @@ import {
 
 import { VOTE_END_HOUR } from "../../../constants/study";
 import { useStudyStartQuery } from "../../../hooks/vote/queries";
-import { isMainLoadingState } from "../../../recoil/systemAtoms";
+
+import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { IParticipation } from "../../../types/studyDetails";
 import AboutMainSkeletonItem from "./AboutMain/AboutMainSkeletonItem";
 

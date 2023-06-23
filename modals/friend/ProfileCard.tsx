@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 import { ModalHeaderX } from "../../components/ui/Modal";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
-import { isProfileEditState } from "../../recoil/interactionAtoms";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
 function ProfileCard({
   setIsModal,

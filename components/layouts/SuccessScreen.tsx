@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isVoteCompleteState } from "../../recoil/utilityAtoms";
+import { isVoteCompletedState } from "../../recoil/renderTriggerAtoms";
 
 function SuccessScreen({
   children,
@@ -14,7 +14,7 @@ function SuccessScreen({
 }) {
   const router = useRouter();
 
-  const setIsCompleteModal = useSetRecoilState(isVoteCompleteState);
+  const setIsCompleteModal = useSetRecoilState(isVoteCompletedState);
 
   const onClicked = () => {
     setIsCompleteModal(false);

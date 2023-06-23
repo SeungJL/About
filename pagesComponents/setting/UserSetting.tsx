@@ -16,15 +16,16 @@ import PromotionModal from "../../modals/mainHeader/PromotionModal";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
-import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
-import { isNoticeAlertState } from "../../recoil/utilityAtoms";
+import { isMainLoadingState } from "../../recoil/loadingAtoms";
+import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
+import { userLocationState } from "../../recoil/userAtoms";
 
 export default function UserSetting() {
   const { data: session } = useSession();
 
   const isGuest = session && session?.user.name === "guest";
 
-  const [location, setLocation] = useRecoilState(locationState);
+  const [location, setLocation] = useRecoilState(userLocationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isUserGuide, setIsUserGuide] = useState(false);

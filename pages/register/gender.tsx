@@ -8,12 +8,15 @@ import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import { registerFormState } from "../../recoil/userAtoms";
+import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+
 import { Gender } from "../../types/user";
 
 function Gender() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
+  const [registerForm, setRegisterForm] = useRecoilState(
+    sharedRegisterFormState
+  );
 
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<Gender>(registerForm?.gender);

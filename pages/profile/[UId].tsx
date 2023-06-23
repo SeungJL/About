@@ -6,12 +6,13 @@ import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import DetailInfo from "../../pagesComponents/friend/DetailInfo";
 import ProfileOverview from "../../pagesComponents/friend/ProfileOverview";
-import { beforePageState, userDataState } from "../../recoil/interactionAtoms";
+import { prevPageUrlState } from "../../recoil/previousAtoms";
+import { transferUserDataState } from "../../recoil/transferDataAtoms";
 
 function ProfilePage() {
   const router = useRouter();
-  const userData = useRecoilValue(userDataState);
-  const beforePage = useRecoilValue(beforePageState);
+  const userData = useRecoilValue(transferUserDataState);
+  const beforePage = useRecoilValue(prevPageUrlState);
 
   return (
     <Container>

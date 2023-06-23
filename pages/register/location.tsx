@@ -12,14 +12,17 @@ import LocationMember from "../../pagesComponents/Register/location/LocationMemb
 import LocationTitle from "../../pagesComponents/Register/location/LocationTitle";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/interactionAtoms";
-import { registerFormState } from "../../recoil/userAtoms";
+import { isProfileEditState } from "../../recoil/previousAtoms";
+import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+
 import { StudyLocation } from "../../storage/study";
 import { Location } from "../../types/system";
 
 function Location() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
+  const [registerForm, setRegisterForm] = useRecoilState(
+    sharedRegisterFormState
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
   const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);

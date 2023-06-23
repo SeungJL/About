@@ -1,10 +1,4 @@
 import dayjs from "dayjs";
-import { ICategory } from "../../pages/members/[type]";
-import { IUser } from "../../types/user";
-
-interface ISortUserList {
-  (old: IUser[], category: ICategory): IUser[];
-}
 
 export const setCategoryStatus = (name: string, status: string) => {
   const statusState = ["registerDate", "birth"].includes(name)
@@ -21,84 +15,6 @@ export const setCategoryStatus = (name: string, status: string) => {
     else status = "";
   }
   return { name, status };
-};
-
-export const sortUserList: ISortUserList = (
-  old: IUser[],
-  category: ICategory
-) => {
-  const name = category.name;
-  const status = category.status;
-  let newUserList = [];
-  let first;
-  let second;
-
-  if (name === "registerDate") {
-    if (status === "up" || status === "") {
-      newUserList = old?.sort(function (a, b) {
-        first = Number(
-          a[name].slice(0, 4) + a[name].slice(5, 7) + a[name].slice(8, 10)
-        );
-        second = Number(
-          b[name].slice(0, 4) + b[name].slice(5, 7) + b[name].slice(8, 10)
-        );
-
-        if (first > second) return 1;
-        if (first < second) return -1;
-        return 0;
-      });
-
-      return newUserList;
-    } else {
-      newUserList = old?.sort(function (a, b) {
-        first = Number(
-          a[name].slice(0, 4) + a[name].slice(5, 7) + a[name].slice(8, 10)
-        );
-        second = Number(
-          b[name].slice(0, 4) + b[name].slice(5, 7) + b[name].slice(8, 10)
-        );
-        if (first > second) return -1;
-        if (first < second) return 1;
-        return 0;
-      });
-
-      return newUserList;
-    }
-  }
-  if (name === "birth") {
-    if (status === "up" || status === "") {
-      newUserList = old.sort(function (a, b) {
-        first = Number(birthToAge(a[name]));
-        second = Number(birthToAge(b[name]));
-
-        if (first > second) return 1;
-        if (first < second) return -1;
-        return 0;
-      });
-
-      return newUserList;
-    } else {
-      newUserList = old.sort(function (a, b) {
-        first = Number(birthToAge(a[name]));
-        second = Number(birthToAge(b[name]));
-
-        if (first > second) return -1;
-        if (first < second) return 1;
-        return 0;
-      });
-
-      return newUserList;
-    }
-  }
-  if (name === "gender") {
-    if (status === "남") {
-      newUserList = old.filter((user) => user.gender === "남성");
-    } else {
-      newUserList = old.filter((user) => user.gender === "여성");
-    }
-    return newUserList;
-  }
-  return old;
 };
 
 export const nameToKr = (name) => {

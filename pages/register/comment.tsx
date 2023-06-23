@@ -7,7 +7,6 @@ import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import { registerFormState } from "../../recoil/userAtoms";
 
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -16,14 +15,17 @@ import {
   useApproveMutation,
   useRegisterMutation,
 } from "../../hooks/user/mutations";
-import { isProfileEditState } from "../../recoil/interactionAtoms";
+import { isProfileEditState } from "../../recoil/previousAtoms";
+import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 import { MESSAGE_DATA } from "../../storage/ProfileData";
 
 function Message() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
+  const [registerForm, setRegisterForm] = useRecoilState(
+    sharedRegisterFormState
+  );
   const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
   const [errorMessage, setErrorMessage] = useState("");
   const [value, setValue] = useState(registerForm?.comment || "");

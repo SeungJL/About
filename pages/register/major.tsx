@@ -9,14 +9,17 @@ import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import { registerFormState } from "../../recoil/userAtoms";
+import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+
 import { majors_DATA } from "../../storage/ProfileData";
 import { IMajor } from "../../types/user";
 
 function Major() {
   const router = useRouter();
   const toast = useToast();
-  const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
+  const [registerForm, setRegisterForm] = useRecoilState(
+    sharedRegisterFormState
+  );
 
   const [errorMessage, setErrorMessage] = useState("");
   const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);

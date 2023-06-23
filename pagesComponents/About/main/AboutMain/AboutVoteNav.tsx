@@ -13,7 +13,8 @@ import {
   mySpaceFixedState,
   studyDateState,
 } from "../../../../recoil/studyAtoms";
-import { locationState } from "../../../../recoil/systemAtoms";
+
+import { userLocationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/studyDetails";
 
 function AboutVoteNav({
@@ -27,7 +28,7 @@ function AboutVoteNav({
 
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  const location = useRecoilValue(locationState);
+  const location = useRecoilValue(userLocationState);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
 

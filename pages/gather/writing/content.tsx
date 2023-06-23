@@ -11,7 +11,8 @@ import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import { TIME_SELECTOR_UNIT } from "../../../constants/study";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
-import { gatherContentState } from "../../../recoil/contentsAtoms";
+import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
+
 import { ITime } from "../../../types/utils";
 
 interface IGather {
@@ -22,7 +23,9 @@ interface IGather {
 function WritingContent() {
   const router = useRouter();
   const toast = useToast();
-  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [gatherContent, setGatherContent] = useRecoilState(
+    sharedGatherDataState
+  );
   const [title, setTitle] = useState(gatherContent?.title || "");
   const [content, setContent] = useState(gatherContent?.content || "");
 

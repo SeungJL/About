@@ -1,10 +1,12 @@
 import { atom } from "recoil";
+import { Location } from "../types/system";
 import { IRegisterForm, IUserBadge } from "../types/user";
 
-export const registerFormState = atom<IRegisterForm>({
-  key: "registerForm",
+export const userLocationState = atom<Location>({
+  key: "userLocation",
   default: null,
 });
+
 
 export const numOfUserState = atom({
   key: "numOfUser",

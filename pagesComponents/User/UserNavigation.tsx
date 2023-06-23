@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../hooks/ui/CustomToast";
-import { isProfileEditState } from "../../recoil/interactionAtoms";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import {
   AlertDialog,
@@ -24,7 +24,7 @@ import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
 import SecedeModal from "../../modals/user/SecedeModal";
 import SettingStudySpace from "../../modals/user/SettingStudySpace";
 import SuggestModal from "../../modals/user/SuggestModal";
-import { locationState } from "../../recoil/systemAtoms";
+import { userLocationState } from "../../recoil/userAtoms";
 
 function UserNavigation() {
   const { data: session } = useSession();
@@ -33,7 +33,7 @@ function UserNavigation() {
   const failToast = useFailToast({ type: "guest" });
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
   const [modalOpen, setModalOpen] = useState("");
-  const location = useRecoilValue(locationState);
+  const location = useRecoilValue(userLocationState);
   const router = useRouter();
   const onClickProfileEdit = () => {
     if (isGuest) {

@@ -7,10 +7,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { SetStateAction } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../../recoil/studyAtoms";
-import { isMainLoadingState } from "../../../../recoil/systemAtoms";
 
 function CalendarMonth({
   calendarType,
@@ -20,7 +19,6 @@ function CalendarMonth({
   setCalendarType: React.Dispatch<SetStateAction<"week" | "month">>;
 }) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const onClickMove = (cnt: number) => {
     setVoteDate((old) => old.add(cnt, "month").date(cnt));

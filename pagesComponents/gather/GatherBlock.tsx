@@ -11,7 +11,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { gatherDataState } from "../../recoil/interactionAtoms";
+import { transferGatherDataState } from "../../recoil/transferDataAtoms";
 import { GatherCategory, IGatherContent } from "../../types/gather";
 
 function GatherBlock({
@@ -23,7 +23,7 @@ function GatherBlock({
 }) {
   const router = useRouter();
   const { data: user } = useUserInfoQuery();
-  const setGatherData = useSetRecoilState(gatherDataState);
+  const setGatherData = useSetRecoilState(transferGatherDataState);
 
   const onClickBlock = () => {
     setGatherData(data);

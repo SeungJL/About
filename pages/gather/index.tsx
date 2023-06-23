@@ -1,23 +1,17 @@
-import Seo from "../../components/Seo";
-
-import Header from "../../components/layouts/Header";
-
-import { useEffect, useState } from "react";
-
-import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
-
 import { faPencil, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Header from "../../components/layouts/Header";
+import Seo from "../../components/Seo";
 import { MainLoading } from "../../components/ui/MainLoading";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
-
 import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 import Category from "../../pagesComponents/gather/Category";
 import GatherBlock from "../../pagesComponents/gather/GatherBlock";
-import { gatherIdCntState } from "../../recoil/interactionAtoms";
+import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
+
 import { GatherCategory, IGatherContent } from "../../types/gather";
 
 function Gather() {
@@ -25,7 +19,7 @@ function Gather() {
   const { data, isLoading } = useUserRequestQuery();
   const [category, setCategory] = useState<GatherCategory>("전체");
   const [isNotice, setIsNotice] = useState(true);
-  const setGatherIdCnt = useSetRecoilState(gatherIdCntState);
+
   // const filterData =
   //   category === "전체"
   //     ? data
@@ -38,7 +32,6 @@ function Gather() {
 
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
   useEffect(() => {
-    setGatherIdCnt(gatherContentArr?.length);
     if (category === "모집중")
       setGatherData(
         gatherContentArr?.filter((item) => item?.status === "pending")

@@ -1,11 +1,11 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isShowNotCompletedState } from "../../recoil/utilityAtoms";
+import { isNotCompletedState } from "../../recoil/renderTriggerAtoms";
 
 import { ModalMd } from "../../styles/layout/modal";
 
 function NotCompletedModal({ setIsModal }) {
-  const setIsNotCompletedState = useSetRecoilState(isShowNotCompletedState);
+  const setIsNotCompletedState = useSetRecoilState(isNotCompletedState);
   return (
     <>
       <ModalLayout>

@@ -4,10 +4,8 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
-import {
-  beforePageState,
-  userDataState,
-} from "../../../recoil/interactionAtoms";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 import { IGatherContent } from "../../../types/gather";
 import { IUser } from "../../../types/user";
 
@@ -17,8 +15,8 @@ interface IGatherParticipation {
 
 function GatherParticipation({ data }: IGatherParticipation) {
   const router = useRouter();
-  const setUserData = useSetRecoilState(userDataState);
-  const setBeforePage = useSetRecoilState(beforePageState);
+  const setUserData = useSetRecoilState(transferUserDataState);
+  const setBeforePage = useSetRecoilState(prevPageUrlState);
   const organizer = data.user;
   const onClickProfile = (user: IUser) => {
     setUserData(user);

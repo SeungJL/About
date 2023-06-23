@@ -24,7 +24,7 @@ import { useVoteQuery } from "../../hooks/vote/queries";
 import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
-import { locationState } from "../../recoil/systemAtoms";
+import { userLocationState } from "../../recoil/userAtoms";
 
 import {
   ModalFooterNav,
@@ -42,7 +42,7 @@ function AttendCheckModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  const location = useRecoilValue(locationState);
+  const location = useRecoilValue(userLocationState);
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
   const queryClient = useQueryClient();

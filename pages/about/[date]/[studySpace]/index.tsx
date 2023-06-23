@@ -14,12 +14,13 @@ import StudySpaceHeader from "../../../../pagesComponents/About/studySpace/Study
 import StudySpaceNavigation from "../../../../pagesComponents/About/studySpace/StudySpaceNavigation";
 import StudySpaceOverview from "../../../../pagesComponents/About/studySpace/StudySpaceOverView";
 import StudyTimeTable from "../../../../pagesComponents/About/studySpace/StudySpaceTable";
+import { isRefetchingStudyDetailState } from "../../../../recoil/refetchingAtoms";
 import {
   isVotingState,
   studyDateState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-import { updateStudySubState } from "../../../../recoil/updateAtoms";
+
 import { SPACE_LOCATION } from "../../../../storage/study";
 import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
@@ -34,8 +35,9 @@ function StudySpace() {
   const spaceID = router.query.studySpace;
   const location = SPACE_LOCATION[spaceID as string];
   const setIsVoting = useSetRecoilState(isVotingState);
-  const [updateStudySub, setUpdateStudySub] =
-    useRecoilState(updateStudySubState);
+  const [updateStudySub, setUpdateStudySub] = useRecoilState(
+    isRefetchingStudyDetailState
+  );
 
   const [studyDate, setStudyDate] = useRecoilState(studyDateState);
   const {

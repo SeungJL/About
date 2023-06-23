@@ -7,7 +7,6 @@ import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import { registerFormState } from "../../recoil/userAtoms";
 
 import {
   Accordion,
@@ -24,12 +23,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRegisterMutation } from "../../hooks/user/mutations";
 import RegisterCost from "../../pagesComponents/Register/fee/RegisterCost";
+import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 function Fee() {
   const toast = useToast();
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
+  const [registerForm, setRegisterForm] = useRecoilState(
+    sharedRegisterFormState
+  );
 
   const isReady = registerForm?.location === "안양";
 

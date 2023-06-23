@@ -13,15 +13,6 @@ import { ModalHeaderX } from "../../components/ui/Modal";
 import { useAttendMutation } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";
 
-import { VOTE_GET } from "../../libs/queryKeys";
-import { arrangeSpace } from "../../libs/utils/studyUtils";
-import {
-  isVotingState,
-  studyDateState,
-  voteDateState,
-} from "../../recoil/studyAtoms";
-import { locationState } from "../../recoil/systemAtoms";
-
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import TimeSelectorLg from "../../components/utils/TimeSelectorLg";
@@ -30,7 +21,15 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { updateStudyState } from "../../recoil/updateAtoms";
+import { VOTE_GET } from "../../libs/queryKeys";
+import { arrangeSpace } from "../../libs/utils/studyUtils";
+import { isRefetchingStudyState } from "../../recoil/refetchingAtoms";
+import {
+  isVotingState,
+  studyDateState,
+  voteDateState,
+} from "../../recoil/studyAtoms";
+import { userLocationState } from "../../recoil/userAtoms";
 import { IplaceInfo } from "../../types/statistics";
 import { IVoteInfo } from "../../types/studyDetails";
 import { ITimeStartToEndHM } from "../../types/utils";
@@ -46,12 +45,12 @@ function VoteStudyMainModal({
   const queryClient = useQueryClient();
 
   const [page, setPage] = useState(0);
-  const location = useRecoilValue(locationState);
+  const location = useRecoilValue(userLocationState);
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
 
-  const setUpdateStudy = useSetRecoilState(updateStudyState);
+  const setUpdateStudy = useSetRecoilState(isRefetchingStudyState);
 
   const [errorMessage, setErrorMessage] = useState("");
 

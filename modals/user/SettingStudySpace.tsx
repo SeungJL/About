@@ -9,10 +9,9 @@ import { ModalHeaderX } from "../../components/ui/Modal";
 
 import { usePlaceQuery } from "../../hooks/vote/queries";
 
-import { locationState } from "../../recoil/systemAtoms";
-
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
+import { userLocationState } from "../../recoil/userAtoms";
 import { IplaceInfo } from "../../types/statistics";
 
 function SettingStudyModal({
@@ -23,7 +22,7 @@ function SettingStudyModal({
   isBig?: boolean;
 }) {
   const [page, setPage] = useState(0);
-  const location = useRecoilValue(locationState);
+  const location = useRecoilValue(userLocationState);
 
   const [errorMessage, setErrorMessage] = useState("");
 

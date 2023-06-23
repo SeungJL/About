@@ -19,19 +19,17 @@ import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 
 import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
-import {
-  beforePageState,
-  userDataState,
-} from "../../../../recoil/interactionAtoms";
+import { prevPageUrlState } from "../../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 
 function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
   const router = useRouter();
   const { data: session } = useSession();
- 
+
   const voteDate = dayjs(router.query.date as string);
   const studyDate = useRecoilValue(studyDateState);
-  const setBeforePage = useSetRecoilState(beforePageState);
-  const setUserData = useSetRecoilState(userDataState);
+  const setBeforePage = useSetRecoilState(prevPageUrlState);
+  const setUserData = useSetRecoilState(transferUserDataState);
 
   const { data: absentData } = useAbsentDataQuery(voteDate);
 

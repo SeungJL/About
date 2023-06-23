@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { isMainLoadingState } from "../../../recoil/systemAtoms";
-
 import CalendarDate from "./Calendar/CalendarDate";
 import CalendarDay from "./Calendar/CalendarDay";
 import CalendarMonth from "./Calendar/CalendarMonth";

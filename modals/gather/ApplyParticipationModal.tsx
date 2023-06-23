@@ -9,7 +9,8 @@ import { useGatherParticipate } from "../../hooks/gather/mutations";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
-import { gatherDataState } from "../../recoil/interactionAtoms";
+import { transferGatherDataState } from "../../recoil/transferDataAtoms";
+
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
 function ApplyParticipationModal({
@@ -24,7 +25,7 @@ function ApplyParticipationModal({
   const completeToast = useCompleteToast({ type: "applyGather" });
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
-  const gatherData = useRecoilValue(gatherDataState);
+  const gatherData = useRecoilValue(transferGatherDataState);
   const toast = useToast();
 
   const [password, setPassword] = useState("");

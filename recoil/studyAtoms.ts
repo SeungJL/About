@@ -28,10 +28,6 @@ export const attendCheckState = atom<boolean>({
   default: false,
 });
 
-export const refetchVoteState = atom({
-  key: "refetchVote",
-});
-
 export const studyStartTimeState = atom<Dayjs>({
   key: "studyStartTime",
   default: null,

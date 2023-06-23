@@ -13,13 +13,15 @@ import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
 import UserSetting from "../../pagesComponents/setting/UserSetting";
+import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
-import { isMainLoadingState, locationState } from "../../recoil/systemAtoms";
+import { userLocationState } from "../../recoil/userAtoms";
+
 import { IParticipation } from "../../types/studyDetails";
 
 function About() {
   const voteDate = useRecoilValue(voteDateState);
-  const location = useRecoilValue(locationState);
+  const location = useRecoilValue(userLocationState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
   const [participations, setParticipations] = useState<IParticipation[]>([]);

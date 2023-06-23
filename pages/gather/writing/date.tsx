@@ -16,12 +16,14 @@ import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import SearchLocation from "../../../components/utils/SearchLocation";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
-import { gatherContentState } from "../../../recoil/contentsAtoms";
+import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 
 function WritingDate() {
   const router = useRouter();
   const toast = useToast();
-  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [gatherContent, setGatherContent] = useRecoilState(
+    sharedGatherDataState
+  );
   const [date, setDate] = useState(
     gatherContent?.date ? (gatherContent?.date as Dayjs).toDate() : new Date()
   );

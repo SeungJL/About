@@ -13,7 +13,8 @@ import dbConnect from "../../libs/dbConnect";
 import { birthToDayjs } from "../../libs/utils/dateUtils";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { User } from "../../models/user";
-import { beforePageState, userDataState } from "../../recoil/interactionAtoms";
+import { prevPageUrlState } from "../../recoil/previousAtoms";
+import { transferUserDataState } from "../../recoil/transferDataAtoms";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 import { IUser } from "../../types/user";
 
@@ -21,12 +22,12 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();
   const idx = Number(router.query?.category);
 
-  const setBeforePage = useSetRecoilState(beforePageState);
+  const setBeforePage = useSetRecoilState(prevPageUrlState);
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
   const { data, isLoading } = useUserInfoQuery();
 
-  const setUserData = useSetRecoilState(userDataState);
+  const setUserData = useSetRecoilState(transferUserDataState);
 
   useEffect(() => {
     if (!isLoading) {

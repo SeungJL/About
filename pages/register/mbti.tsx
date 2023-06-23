@@ -8,12 +8,15 @@ import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
-import { registerFormState } from "../../recoil/userAtoms";
+import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+
 import { MBTI } from "../../storage/ProfileData";
 
 function Mbti() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(registerFormState);
+  const [registerForm, setRegisterForm] = useRecoilState(
+    sharedRegisterFormState
+  );
 
   const [errorMessage, setErrorMessage] = useState("");
 

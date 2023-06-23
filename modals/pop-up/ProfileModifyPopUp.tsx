@@ -4,7 +4,7 @@ import { SetStateAction, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/ui/Modal";
-import { isProfileEditState } from "../../recoil/interactionAtoms";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 import {
   ModalFooterNav,
   ModalMain,

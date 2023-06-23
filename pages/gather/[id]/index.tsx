@@ -15,12 +15,12 @@ import GatherHeader from "../../../pagesComponents/gather/detail/GatherHeader";
 import GatherOrganizer from "../../../pagesComponents/gather/detail/GatherOrganizer";
 import GatherParticipation from "../../../pagesComponents/gather/detail/GatherParticipation";
 import GatherTitle from "../../../pagesComponents/gather/detail/GatherTitle";
-import { gatherDataState } from "../../../recoil/interactionAtoms";
+import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 
 function GatherDetail() {
   const router = useRouter();
   const gatherId = router.query.id;
-  const [gatherData, setGatherData] = useRecoilState(gatherDataState);
+  const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
   const [isRefetching, setIsRefetching] = useState(false);
   const { data: gatherContentArr, refetch } = useGatherContentQuery();
 

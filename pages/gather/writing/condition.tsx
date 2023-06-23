@@ -27,7 +27,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import BottomNav from "../../../components/layouts/BottomNav";
@@ -36,19 +36,20 @@ import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import SuccessScreen from "../../../components/layouts/SuccessScreen";
 import ModalPortal from "../../../components/ModalPortal";
 import { useGatherContentMutation } from "../../../hooks/gather/mutations";
-import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { randomPassword } from "../../../libs/utils/validUtils";
 import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
-import { gatherContentState } from "../../../recoil/contentsAtoms";
-import { gatherIdCntState } from "../../../recoil/interactionAtoms";
+
+import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 
 const AGE_BAR = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
 function WritingCondition() {
   const toast = useToast();
-  const [gatherContent, setGatherContent] = useRecoilState(gatherContentState);
+  const [gatherContent, setGatherContent] = useRecoilState(
+    sharedGatherDataState
+  );
 
   const [maxValue, setMaxValue] = useState(gatherContent?.memberCnt?.max || 4);
   const [minValue, setMinValue] = useState(gatherContent?.memberCnt?.min || 4);
@@ -75,10 +76,8 @@ function WritingCondition() {
       console.log("2,suc", data);
     },
   });
-  const { data: AA } = useGatherContentQuery();
 
   const { data } = useUserInfoQuery();
-  const gatherIdCnt = useRecoilValue(gatherIdCntState);
 
   const onClickNext = async () => {
     if (minValue < 1 || maxValue < 1 || minValue > maxValue) {
@@ -101,7 +100,6 @@ function WritingCondition() {
       password,
       createdDate: dayjs(),
       user: data,
-      id: `${gatherIdCnt + 1}`,
     };
     setGatherContent(gatherData);
 

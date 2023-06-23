@@ -20,7 +20,8 @@ import {
 } from "../../hooks/gather/mutations";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { gatherDataState } from "../../recoil/interactionAtoms";
+import { transferGatherDataState } from "../../recoil/transferDataAtoms";
+
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
 function ExpireGatherModal({
@@ -35,7 +36,7 @@ function ExpireGatherModal({
   const completeToast = useCompleteToast({ type: "applyGather" });
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
-  const gatherData = useRecoilValue(gatherDataState);
+  const gatherData = useRecoilValue(transferGatherDataState);
 
   const gatherId = gatherData?.id;
   const { mutate: statusOpen } = useGatherStatusOpen({

@@ -8,12 +8,13 @@ import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
 import LocalSelector from "../../../../components/utils/LocalSelector";
 import CheckVoteModal from "../../../../modals/study/AttendCheckModal";
+import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import {
   attendCheckState,
   mySpaceFixedState,
   studyDateState,
 } from "../../../../recoil/studyAtoms";
-import { isMainLoadingState } from "../../../../recoil/systemAtoms";
+
 import AboutMainItem from "./AboutMainItem";
 import NoMyStudy from "./NoMyStudy";
 
