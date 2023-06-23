@@ -24,3 +24,9 @@ export interface ITimeSelector {
   times: ITimeStartToEndHM;
   setTimes: ({ start, end }: ITimeStartToEndHM) => void;
 }
+
+export interface ITime {
+  hour?: number;
+  minute?: number;
+}
+

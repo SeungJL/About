@@ -61,6 +61,9 @@ function WritingCondition() {
   const [isPreMember, setIsPreMember] = useState(
     gatherContent?.preCnt ? true : false
   );
+
+  const [isMaxCondition, setIsMaxCondition] = useState(true);
+
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
 
   const [age, setAge] = useState(gatherContent?.age || [19, 28]);
@@ -93,7 +96,7 @@ function WritingCondition() {
       ...gatherContent,
       age,
       preCnt,
-      memberCnt: { min: minValue, max: maxValue },
+      memberCnt: { min: minValue, max: isMaxCondition ? 0 : maxValue },
       genderCondition: genderCondition,
       password,
       createdDate: dayjs(),
@@ -148,15 +151,27 @@ function WritingCondition() {
                 <span>최대 인원</span>
               </div>
               <MemberCnt>
-                <FontAwesomeIcon
-                  icon={faMinus}
-                  onClick={() => setMaxValue((old) => old - 1)}
+                <Switch
+                  colorScheme="mintTheme"
+                  isChecked={isMaxCondition}
+                  onChange={(e) => setIsMaxCondition(e.target.checked)}
+                  mr="16px"
                 />
-                <span>{maxValue}명</span>
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  onClick={() => setMaxValue((old) => old + 1)}
-                />
+                {isMaxCondition ? (
+                  <MaxConditionText>제한없음</MaxConditionText>
+                ) : (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faMinus}
+                      onClick={() => setMaxValue((old) => old - 1)}
+                    />
+                    <span>{maxValue}명</span>
+                    <FontAwesomeIcon
+                      icon={faPlus}
+                      onClick={() => setMaxValue((old) => old + 1)}
+                    />
+                  </>
+                )}
               </MemberCnt>
             </Item>
             <Item>
@@ -210,7 +225,7 @@ function WritingCondition() {
                   <RangeSlider
                     value={age}
                     min={20}
-                    max={29}
+                    max={28}
                     step={1}
                     width="97%"
                     alignSelf="center"
@@ -298,7 +313,7 @@ function WritingCondition() {
       </Layout>
       {isSuccessScreen && (
         <ModalPortal setIsModal={setIsSuccessScreen}>
-          <SuccessScreen url={`/gather/${gatherContent?.id}`}>
+          <SuccessScreen url={`/gather`}>
             <>
               <span>모임 개최 성공</span>
               <div>모임 게시글을 오픈 채팅방에 공유해 주세요!</div>
@@ -319,6 +334,8 @@ const GatherLink = styled.span`
 `;
 
 const MemberCnt = styled.div`
+  display: flex;
+  align-items: center;
   > span {
     margin: 0 8px;
   }
@@ -328,6 +345,12 @@ const SelectAge = styled(motion.div)`
   margin-top: 12px;
   display: flex;
   flex-direction: column;
+`;
+
+const MaxConditionText = styled.span`
+  margin: 0 !important;
+  font-size: 13px;
+  color: var(--font-h2);
 `;
 
 const AgeText = styled.div`

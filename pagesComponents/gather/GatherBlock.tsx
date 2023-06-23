@@ -1,5 +1,6 @@
 import {
   faCalendarDay,
+  faInfinity,
   faUserCheck,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
@@ -66,9 +67,15 @@ function GatherBlock({
             </Writer>
             <Voter>
               <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
-              <span>
-                {data?.participants?.length + 1}/{data?.memberCnt.max}명
-              </span>
+              <span>{data?.participants?.length + 1} /</span>
+              {data?.memberCnt.max ? (
+                <span>{data?.memberCnt.max}</span>
+              ) : (
+                <>
+                  <span />
+                  <FontAwesomeIcon icon={faInfinity} color="var(--font-h2)" />
+                </>
+              )}
             </Voter>
           </Participant>
         </Layout>

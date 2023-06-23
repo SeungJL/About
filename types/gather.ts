@@ -1,5 +1,6 @@
 import { Dayjs } from "dayjs";
 import { IUser } from "./user";
+import { ITime } from "./utils";
 
 export type GatherCategory = "전체" | "모집중" | "완료";
 
@@ -13,6 +14,8 @@ export interface IGatherContent {
   createdAt?: string;
   updatedAt?: string;
   memberCnt: { min: number; max: number };
+  firstGather: { text: string; time: ITime };
+  secondGather?: { text: string; time: ITime };
   age?: number[];
   preCnt?: number;
   genderCondition: boolean;

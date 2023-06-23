@@ -4,6 +4,7 @@ import {
   faChevronDown,
   faCrown,
   faDoorOpen,
+  faInfinity,
   faLocationDot,
   faUser,
   faVenusMars,
@@ -173,9 +174,18 @@ function GatherDetail() {
             <Content>{gatherData?.content}</Content>
             <Participant>
               <span>
-                참여중인 인원 <span>{gatherData?.participants.length + 1}</span>
-                /{gatherData?.memberCnt?.max}
+                참여중인 인원 &nbsp;
+                <span>{gatherData?.participants.length + 1} /</span>
+                {gatherData?.memberCnt.max ? (
+                  <span>{gatherData?.memberCnt.max}</span>
+                ) : (
+                  <>
+                    <span style={{ marginLeft: "4px" }} />
+                    <FontAwesomeIcon icon={faInfinity} color="var(--font-h2)" />
+                  </>
+                )}
               </span>
+
               <div>
                 <MemberItem
                   key={gatherOrganizer?.uid}
