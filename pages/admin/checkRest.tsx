@@ -6,7 +6,7 @@ import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 function CheckRest() {
   const { data, isLoading } = useUserRequestQuery();
   const suggestData = data?.filter((item) => item.category === "휴식");
-  console.log(suggestData);
+ 
   return (
     <>
       <Header title="휴식신청 확인" url="/admin" />

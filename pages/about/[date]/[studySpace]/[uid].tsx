@@ -20,7 +20,7 @@ import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 
 function StudySpace2() {
-  console.log(5);
+
   const toast = useToast();
   const router = useRouter();
   const { data: session } = useSession();

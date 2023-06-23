@@ -17,7 +17,7 @@ import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
+import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
 import { userLocationState } from "../../recoil/userAtoms";
 
 export default function UserSetting() {

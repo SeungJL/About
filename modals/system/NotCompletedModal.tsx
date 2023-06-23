@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isNotCompletedState } from "../../recoil/renderTriggerAtoms";
+import { isNotCompletedState } from "../../recoil/renderTrigger2Atoms";
 
 import { ModalMd } from "../../styles/layout/modal";
 

@@ -35,7 +35,7 @@ export const birthToAge = (birth: string) => {
   );
 
   const age = currentYear - +birthYear;
-  console.log(5, birthDate, dayjs());
+
   if (birthDate < dayjs()) return age;
   else return age - 1;
 };

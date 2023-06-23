@@ -31,7 +31,7 @@ function ChangeProfileImageModal({
 
   const { mutate } = useAvatarMutation({
     onSuccess() {
-      console.log("suc");
+
     },
     onError() {
       console.error("err");
@@ -120,7 +120,7 @@ function ChangeProfileImageModal({
       type: iconIdx,
       bg: BG,
     };
-    console.log(2);
+  
     mutate(info);
     // setIsModal(false);
     // location.reload();

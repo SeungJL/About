@@ -28,15 +28,15 @@ function InviteStudyModal({
   place: IPlace;
 }) {
   const { data: session } = useSession();
-  console.log(session?.uid);
+ 
   const router = useRouter();
   const random_num = Math.floor(Math.random() * 3);
   const url = WEB_URL + router?.asPath + "/" + session?.uid;
-  console.log(3, url);
+
   const location = STUDY_SPACE_INFO?.find(
     (info) => info?.id === place?._id
   )?.location;
-  console.log(url, location);
+  
   useEffect(() => {
     if (
       typeof window !== "undefined" &&

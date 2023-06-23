@@ -36,7 +36,7 @@ function CheckRegisterModal({
   });
   const { mutate: deleteForm } = useDeleteMutation({
     onSuccess(data) {
-      console.log("success");
+   
     },
   });
 
@@ -50,7 +50,7 @@ function CheckRegisterModal({
 
   const onClickDelete = () => {
     // onClose();
-    console.log(4, applicant, applicant?.uid);
+   
     deleteForm({ uid: applicant?.uid });
     // setIsModal(false);
     // onComplete();

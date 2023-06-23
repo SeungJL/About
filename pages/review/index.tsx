@@ -21,7 +21,7 @@ function Review() {
       "https://p.kakaocdn.net/th/talkp/wnRiSzjBU5/8bx7JYsl1lMDmJk4KjnJV0/xukg66_640x640_s.jpg",
     avatar: { bg: 3, type: 2 },
   };
-  console.log(REVIEW_DATA);
+
   return (
     <>
       <Header title="모임 리뷰">

@@ -13,7 +13,7 @@ import { NOTICE_ALERT } from "../../../constants/localStorage";
 import StudyRuleModal from "../../../modals/info/StudyRuleModal";
 import PromotionModal from "../../../modals/mainHeader/PromotionModal";
 import UserLogoutModal from "../../../modals/user/UserLogoutModal";
-import { isNoticeAlertState } from "../../../recoil/renderTriggerAtoms";
+import { isNoticeAlertState } from "../../../recoil/renderTrigger2Atoms";
 
 export default function AboutHeader() {
   const router = useRouter();

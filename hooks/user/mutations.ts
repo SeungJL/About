@@ -34,7 +34,6 @@ export const useDeleteMutation = (
 ) =>
   useMutation<void, AxiosError, any>(async (uid) => {
     await axios.delete(`${SERVER_URI}/register/approval`, uid);
-    console.log(11, uid);
   }, options);
 
 export const useActiveMutation = (
@@ -81,7 +80,6 @@ export const useAvatarMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAvatar>(async (info) => {
-    console.log(info);
     await axios.post(`${SERVER_URI}/user/avatar`, info);
   }, options);
 

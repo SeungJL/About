@@ -43,7 +43,7 @@ function ApplyParticipationModal({
 
   const { mutate } = useGatherParticipate({
     onSuccess() {
-      console.log("suc");
+     
     },
   });
 

@@ -63,11 +63,11 @@ function VoteStudySubModal({
     start: null,
     end: null,
   });
-  console.log(router);
+ 
 
   const [otherPlaceArr, setOtherPlaceArr] = useState<IPlace[]>();
   const inviteUid = router.query?.uid;
-  console.log(inviteUid);
+
 
   useVoteQuery(voteDate, location, {
     onSuccess(data) {
@@ -85,7 +85,7 @@ function VoteStudySubModal({
     inviteUid as string,
     {
       onSuccess() {
-        console.log("suc");
+       
       },
     }
   );

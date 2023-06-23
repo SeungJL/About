@@ -60,7 +60,7 @@ function StudySpace() {
 
   const { place, attendences, status } =
     vote?.participations?.find((props) => props.place._id === spaceID) || {};
-  console.log(2, attendences);
+ 
 
   useEffect(() => {
     if (updateStudySub) {

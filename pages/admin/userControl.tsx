@@ -31,7 +31,7 @@ export default function Admin() {
 
   useDepositAllQuery({
     onSuccess(data) {
-      console.log(1, data);
+   
     },
   });
 

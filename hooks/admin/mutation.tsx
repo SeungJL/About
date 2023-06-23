@@ -23,7 +23,7 @@ export const useAdminPointMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAdminPoint>(async (data) => {
-    console.log(uid, data);
+  
     await axios.post(`${SERVER_URI}/admin/user/${uid}/point`, data);
   }, options);
 export const useAdminScoremMutation = (
@@ -34,7 +34,7 @@ export const useAdminScoremMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAdminPoint>(async (data) => {
-    console.log(uid, data);
+   
     await axios.post(`${SERVER_URI}/admin/user/${uid}/score`, data);
   }, options);
 
@@ -46,6 +46,6 @@ export const useAdminDepositMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAdminPoint>(async (data) => {
-    console.log(uid, data);
+ 
     await axios.post(`${SERVER_URI}/admin/user/${uid}/deposit`, data);
   }, options);

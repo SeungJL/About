@@ -41,7 +41,7 @@ function ExpireGatherModal({
   const gatherId = gatherData?.id;
   const { mutate: statusOpen } = useGatherStatusOpen({
     onSuccess() {
-      console.log("SUC");
+    
     },
   });
   const { mutate: statusClose } = useGatherStatusClose();
@@ -59,7 +59,7 @@ function ExpireGatherModal({
 
   const { mutate } = useGatherParticipate({
     onSuccess() {
-      console.log("suc");
+    
     },
   });
   const onApply = (type: "expire" | "cancel") => {

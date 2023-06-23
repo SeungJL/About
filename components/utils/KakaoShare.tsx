@@ -32,7 +32,7 @@ function KakaoShareBtn({
   url: string;
 }) {
   const random_num = Math.floor(Math.random() * 3);
-  console.log(url);
+
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -42,7 +42,7 @@ function KakaoShareBtn({
       window.Kakao.init(kakaoAppKey);
     }
   }, []);
-  console.log(location);
+
   useEffect(() => {
     if (window.Kakao) {
       const options =

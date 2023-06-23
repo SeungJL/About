@@ -26,9 +26,9 @@ function Gather() {
   //     : data?.filter((item) => item.category === category);
 
   const { data: gatherContentArr } = useGatherContentQuery();
-  console.log(gatherContentArr);
+
   const [a, setA] = useState(false);
-  console.log(category);
+ 
 
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
   useEffect(() => {

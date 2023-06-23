@@ -67,7 +67,7 @@ function StudySpaceNavigation({
   const [isVoteComplete, setIsVoteComplete] = useState(false);
 
   const isMax = voterCnt >= MAX_USER_PER_PLACE;
-  console.log(isVoting);
+
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();
 

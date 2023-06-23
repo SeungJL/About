@@ -73,7 +73,7 @@ function WritingCondition() {
 
   const { mutate } = useGatherContentMutation({
     onSuccess(data) {
-      console.log("2,suc", data);
+    
     },
   });
 

@@ -7,7 +7,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 
 function ReviewItemHeader({ temp, date }: { temp: any; date: string }) {
   const { data } = useUserInfoQuery();
-  console.log(temp);
+
   return (
     <Layout>
       <Profile>

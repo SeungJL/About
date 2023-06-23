@@ -39,7 +39,7 @@ function AboutMain({
   const { mutateAsync: decideSpace } = useDecideSpaceMutation(
     dayjs().add(1, "day")
   );
-  console.log(otherStudySpaces);
+
   /**스터디 알고리즘 적용 */
   useEffect(() => {
     if (dayjs().hour() >= VOTE_END_HOUR) decideSpace();
