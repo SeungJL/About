@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
-import LocalSelector from "../../../../components/utils/LocalSelector";
+import LocationSelector from "../../../../components/utils/LocationSelector";
 import CheckVoteModal from "../../../../modals/study/AttendCheckModal";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import {
@@ -50,7 +50,7 @@ function AboutUpperBar() {
               )}
             </TitleName>
           </div>
-          <LocalSelector />
+          <LocationSelector />
         </Header>
         {studyDate !== "not passed" && (
           <Skeleton

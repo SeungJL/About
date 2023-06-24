@@ -1,12 +1,14 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import { Location } from "../../types/system";
 
-function LocalSelector() {
+function LocationSelector() {
   const [value, setValue] = useState<Location>("수원");
   const [location, setLocation] = useRecoilState(userLocationState);
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   useEffect(() => {
     setValue(location);
@@ -17,6 +19,7 @@ function LocalSelector() {
     const locationValue = event.currentTarget.value as Location;
     setLocation(locationValue);
     setValue(locationValue);
+    setIsMainLoading(true);
   };
   return (
     <Layout>
@@ -39,4 +42,4 @@ const Layout = styled.div`
   }
 `;
 
-export default LocalSelector;
+export default LocationSelector;

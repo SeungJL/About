@@ -25,29 +25,27 @@ function CalendarMonth({
   };
 
   return (
-    <>
-      <Layout>
-        {voteDate && (
-          <>
-            <span>{voteDate.format("YYYY년 M월")}</span>
-            {calendarType === "week" ? (
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                size="xs"
-                onClick={() => setCalendarType("month")}
-                color="var(--color-mint)"
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faChevronUp}
-                size="xs"
-                onClick={() => setCalendarType("week")}
-                color="var(--color-mint)"
-              />
-            )}
-          </>
-        )}
-      </Layout>
+    <Layout>
+      {voteDate && (
+        <>
+          <span>{voteDate.format("YYYY년 M월")}</span>
+          {calendarType === "week" ? (
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              size="xs"
+              onClick={() => setCalendarType("month")}
+              color="var(--color-mint)"
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faChevronUp}
+              size="xs"
+              onClick={() => setCalendarType("week")}
+              color="var(--color-mint)"
+            />
+          )}
+        </>
+      )}
       {calendarType === "month" && (
         <>
           <MonthNav
@@ -68,7 +66,7 @@ function CalendarMonth({
           </MonthNav>
         </>
       )}
-    </>
+    </Layout>
   );
 }
 
@@ -85,10 +83,11 @@ const Layout = styled.span`
   }
 `;
 const MonthNav = styled(motion.nav)`
+  margin-left: auto;
   width: 40px;
   display: flex;
   justify-content: space-between;
-  margin-right: 8px;
+  margin-right: 24px;
   color: var(--font-h2);
 `;
 

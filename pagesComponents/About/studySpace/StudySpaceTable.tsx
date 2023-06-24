@@ -8,21 +8,21 @@ interface IStudyTimeTable {
   attendances: IAttendance[];
 }
 
-function StudyTimeTable({ attendances }: { attendances: IAttendance[] }) {
+function StudyTimeTable({ attendances }: IStudyTimeTable) {
   const attendCnt = attendances.length;
 
   return (
     <>
-      <Layout cnt={attendCnt}>
+      <Table cnt={attendCnt}>
         <UserTable attendances={attendances} />
         <TimeTable />
-      </Layout>
+      </Table>
       <ArrivedComment attendances={attendances} />
     </>
   );
 }
 
-const Layout = styled.div<{ cnt: number }>`
+const Table = styled.div<{ cnt: number }>`
   margin-top: 16px;
   margin-left: 16px;
   position: relative;

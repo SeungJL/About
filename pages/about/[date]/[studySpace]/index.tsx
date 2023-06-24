@@ -19,7 +19,7 @@ export interface IStudySpaceData {
 function StudySpace() {
   const [studySpaceData, setStudySpaceData] = useState<IStudySpaceData>();
   const place = studySpaceData?.place;
-  const attendences = studySpaceData?.attendences;
+  const attendances = studySpaceData?.attendences;
 
   return (
     <>
@@ -32,13 +32,13 @@ function StudySpace() {
             <StudySpaceOverview space={place} />
             <HrDiv />
             <StudySpaceVoteOverview
-              voteCnt={attendences.length}
+              voteCnt={attendances.length}
               place={place}
             />
-            <StudyTimeTable attendances={attendences} />
+            <StudyTimeTable attendances={attendances} />
             <StudySpaceNavigation
               studySpaceData={studySpaceData}
-              voteCnt={attendences.length}
+              voteCnt={attendances.length}
             />
           </Layout>
         </>

@@ -12,7 +12,7 @@ function CalendarDate({ calendarType }: { calendarType: "week" | "month" }) {
       isAttend: boolean;
     }[]
   >([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const daysInMonth = voteDate.daysInMonth();
     const startDayInMonth = voteDate.date(1).day();
@@ -40,25 +40,30 @@ function CalendarDate({ calendarType }: { calendarType: "week" | "month" }) {
       }
     }
     setCalendarBox(temp);
+    setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarType, voteDate]);
   const onClickDate = (d: { date: number; isAttend: boolean }) => {
     setVoteDate(voteDate.date(d.date));
   };
   return (
-    <Layout col={calendarType === "week" ? "true" : "false"}>
-      {calendarBox.map((d, idx) => (
-        <DayItem key={idx} onClick={() => onClickDate(d)}>
-          {d?.date === voteDate?.date() ? (
-            <IconCircle>{d?.date}</IconCircle>
-          ) : (
-            <div>{d?.date}</div>
-          )}
+    <>
+      {!isLoading && (
+        <Layout col={calendarType === "week" ? "true" : "false"}>
+          {calendarBox.map((d, idx) => (
+            <DayItem key={idx} onClick={() => onClickDate(d)}>
+              {d?.date === voteDate?.date() ? (
+                <IconCircle>{d?.date}</IconCircle>
+              ) : (
+                <div>{d?.date}</div>
+              )}
 
-          {d?.isAttend && <AttendCircle />}
-        </DayItem>
-      ))}
-    </Layout>
+              {d?.isAttend && <AttendCircle />}
+            </DayItem>
+          ))}
+        </Layout>
+      )}
+    </>
   );
 }
 
@@ -67,7 +72,7 @@ const Layout = styled.div<{ col: string }>`
   font-size: 14px;
   margin-left: -9px;
   margin-right: -9px;
-  height: 36px;
+
   padding: 0;
   display: ${(props) => (props.col === "true" ? "flex" : "grid")};
   justify-content: ${(props) => (props.col === "true" ? "spaceBetween" : null)};
