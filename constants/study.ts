@@ -16,6 +16,8 @@ export const STUDY_TIME_TABLE = [
   10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
 ];
 
+export const STUDY_RANDOM_IMGAGE_LENGTH=5;
+
 export const TIME_SELECTOR_START = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 export const TIME_SELECTOR_END = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 export const TIME_SELECTOR_UNIT = Array.from({ length: 25 }, (_, index) => {

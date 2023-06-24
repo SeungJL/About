@@ -24,8 +24,6 @@ import {
 
 import { useSession } from "next-auth/react";
 import { VOTE_GET } from "../../../libs/queryKeys";
-import { IPlaceStatusType } from "../../../types/statistics";
-import { IAttendance, IPlace } from "../../../types/studyDetails";
 
 import { POINT_SYSTEM_MINUS } from "../../../constants/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
@@ -34,25 +32,28 @@ import {
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
 import AttendCheckModal from "../../../modals/study/AttendCheckModal";
+import { IStudySpaceData } from "../../../pages/about/[date]/[studySpace]";
+import { IUser } from "../../../types/user";
 import VoteSuccessScreen from "./VoteSuccessScreen";
 
+interface IStudySpaceNavigation {
+  studySpaceData: IStudySpaceData;
+  voteCnt: number;
+}
+
 function StudySpaceNavigation({
-  myVote,
-  place,
-  status,
-  voterCnt,
-}: {
-  myVote: IAttendance;
-  place: IPlace;
-  status: IPlaceStatusType;
-  voterCnt: number;
-}) {
+  studySpaceData: { place, attendences, status },
+  voteCnt,
+}: IStudySpaceNavigation) {
+  const myVote = attendences?.find(
+    (props) => (props.user as IUser).uid === session?.uid
+  );
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
   const toast = useToast();
   const router = useRouter();
-  
+
   const queryClient = useQueryClient();
 
   const voteDate = dayjs(router.query.date as string);
@@ -66,7 +67,7 @@ function StudySpaceNavigation({
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isVoteComplete, setIsVoteComplete] = useState(false);
 
-  const isMax = voterCnt >= MAX_USER_PER_PLACE;
+  const isMax = voteCnt >= MAX_USER_PER_PLACE;
 
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();

@@ -3,7 +3,7 @@ import { useToast } from "@chakra-ui/react";
 export const useFailToast = ({ type, sub }: { type: string; sub?: string }) => {
   const toast = useToast();
 
-  const showGuestRestrictionToast = () => {
+  const showFailToast = () => {
     let text = "";
     if (type === "guest") text = "게스트는 사용할 수 없는 기능입니다.";
     if (type === "loadStudy") text = "스터디 정보를 불러오지 못 했어요.";
@@ -19,13 +19,13 @@ export const useFailToast = ({ type, sub }: { type: string; sub?: string }) => {
       position: "bottom",
     });
   };
-  return showGuestRestrictionToast;
+  return showFailToast;
 };
 
 export const useCompleteToast = ({ type }: { type?: string }) => {
   const toast = useToast();
 
-  const showGuestRestrictionToast = () => {
+  const showCompleteToast = () => {
     let text = "";
     if (type === "refuseRegister") text = "가입 거절";
     if (type === "apply") text = "신청 완료!";
@@ -39,5 +39,5 @@ export const useCompleteToast = ({ type }: { type?: string }) => {
       position: "bottom",
     });
   };
-  return showGuestRestrictionToast;
+  return showCompleteToast;
 };

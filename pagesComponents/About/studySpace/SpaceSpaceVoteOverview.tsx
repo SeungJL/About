@@ -1,28 +1,26 @@
 import { Button } from "@chakra-ui/react";
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
-import { WEB_URL } from "../../../constants/system";
 import InviteStudyModal from "../../../modals/study/InviteStudyModal";
 import { IPlace } from "../../../types/studyDetails";
-
-function StudySpaceVoteOverview({
-  date,
-  voteCnt,
-  place,
-}: IStudySpaceVoteOverview) {
+interface IStudySpaceVoteOverview {
+  voteCnt: number;
+  place: IPlace;
+}
+function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
   const [isModal, setIsModal] = useState(false);
   const router = useRouter();
+  const date = dayjs(router.query.date as string);
 
-  const url = WEB_URL + router?.asPath;
   return (
     <>
       <Layout>
-        <span>{date && date?.format("M월 DD일 참여 멤버")}</span>
+        <span>{date.format("M월 DD일 참여 멤버")}</span>
         <div />
         <Container>
           <FontAwesomeIcon icon={faUserGroup} size="sm" />
@@ -72,11 +70,5 @@ const Container = styled.div`
     margin-left: 5px;
   }
 `;
-
-interface IStudySpaceVoteOverview {
-  date: Dayjs;
-  voteCnt: number;
-  place: IPlace;
-}
 
 export default StudySpaceVoteOverview;

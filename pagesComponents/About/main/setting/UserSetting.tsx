@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import ModalPortal from "../../components/ModalPortal";
+import ModalPortal from "../../../../components/ModalPortal";
 import {
   ATTEND_POP_UP,
   NOTICE_ALERT,
@@ -9,16 +9,16 @@ import {
   PROMOTION_POP_UP1,
   PROMOTION_POP_UP2,
   USER_GUIDE,
-} from "../../constants/localStorage";
-import { useUserInfoQuery } from "../../hooks/user/queries";
-import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
-import PromotionModal from "../../modals/mainHeader/PromotionModal";
-import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
-import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
-import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
-import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
-import { userLocationState } from "../../recoil/userAtoms";
+} from "../../../../constants/localStorage";
+import { useUserInfoQuery } from "../../../../hooks/user/queries";
+import { ensureLocalStorage } from "../../../../libs/utils/localStorageUtils";
+import PromotionModal from "../../../../modals/mainHeader/PromotionModal";
+import ProfileModifyPopUp from "../../../../modals/pop-up/ProfileModifyPopUp";
+import SuggestPopUp from "../../../../modals/pop-up/SuggestPopUp";
+import UserGuidePopUp from "../../../../modals/pop-up/UserGuidePopUp";
+import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
+import { isNoticeAlertState } from "../../../../recoil/renderTrigger2Atoms";
+import { userLocationState } from "../../../../recoil/userAtoms";
 
 export default function UserSetting() {
   const { data: session } = useSession();

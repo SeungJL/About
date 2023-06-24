@@ -4,7 +4,7 @@ export const isRefetchingStudyState = atom({
   key: "isRefetchingStudy",
   default: false,
 });
-export const isRefetchingStudyDetailState = atom({
-  key: "isRefetchingStudyDetail",
+export const isRefetchingStudySpacelState = atom({
+  key: "isRefetchingStudySpace",
   default: false,
 });

@@ -2,19 +2,19 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
-import { useFailToast } from "../../hooks/ui/CustomToast";
-import { useVoteQuery } from "../../hooks/vote/queries";
-import { getInterestingDate } from "../../libs/utils/dateUtils";
-import { arrangeSpace } from "../../libs/utils/studyUtils";
-import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { isRefetchingStudyState } from "../../recoil/refetchingAtoms";
+import { VOTER_DATE_END, VOTE_START_HOUR } from "../../../../constants/study";
+import { useFailToast } from "../../../../hooks/ui/CustomToast";
+import { useVoteQuery } from "../../../../hooks/vote/queries";
+import { getInterestingDate } from "../../../../libs/utils/dateUtils";
+import { arrangeSpace } from "../../../../libs/utils/studyUtils";
+import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
+import { isRefetchingStudyState } from "../../../../recoil/refetchingAtoms";
 
-import { voteDateState } from "../../recoil/studyAtoms";
+import { voteDateState } from "../../../../recoil/studyAtoms";
 
-import { userLocationState } from "../../recoil/userAtoms";
-import { IParticipation } from "../../types/studyDetails";
-import { IUser } from "../../types/user";
+import { userLocationState } from "../../../../recoil/userAtoms";
+import { IParticipation } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
 
 function DateSetting({
   setParticipations,

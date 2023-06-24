@@ -2,17 +2,17 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { VOTE_END_HOUR } from "../../constants/study";
-import { getInterestingDate } from "../../libs/utils/dateUtils";
-import { isMainLoadingState } from "../../recoil/loadingAtoms";
+import { VOTE_END_HOUR } from "../../../../constants/study";
+import { getInterestingDate } from "../../../../libs/utils/dateUtils";
+import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import {
   attendCheckState,
   mySpaceFixedState,
   studyDateState,
   voteDateState,
-} from "../../recoil/studyAtoms";
+} from "../../../../recoil/studyAtoms";
 
-import { IParticipation } from "../../types/studyDetails";
+import { IParticipation } from "../../../../types/studyDetails";
 
 function StudySetting({
   participations,

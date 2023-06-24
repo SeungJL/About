@@ -1,11 +1,15 @@
 import styled from "styled-components";
+import { IAttendance } from "../../../types/studyDetails";
 import ArrivedComment from "./StudySpaceTable/ArrivedComment";
 import TimeTable from "./StudySpaceTable/TimeTable";
 import UserTable from "./StudySpaceTable/UserTable";
-import { IAttendance } from "../../../types/studyDetails";
+
+interface IStudyTimeTable {
+  attendances: IAttendance[];
+}
 
 function StudyTimeTable({ attendances }: { attendances: IAttendance[] }) {
-  const attendCnt = attendances?.length;
+  const attendCnt = attendances.length;
 
   return (
     <>

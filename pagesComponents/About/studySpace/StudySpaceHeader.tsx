@@ -3,19 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
+import { STUDY_RANDOM_IMGAGE_LENGTH } from "../../../constants/study";
 import { WEB_URL } from "../../../constants/system";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
 import { IPlace } from "../../../types/studyDetails";
 
-const IMAGE_LIST = [1, 2, 3, 4, 5];
+interface IStudySpaceHeader {
+  title: string;
+  place: IPlace;
+}
 
-function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
+function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
   const router = useRouter();
-
   const url = WEB_URL + router?.asPath;
-  const location = STUDY_SPACE_INFO?.find((info) => info?.id === place?._id);
-
-  const randomNum = Math.floor(Math.random() * IMAGE_LIST.length);
+  const location = STUDY_SPACE_INFO.find((info) => info?.id === place?._id);
+  const randomNum = Math.floor(Math.random() * STUDY_RANDOM_IMGAGE_LENGTH);
 
   return (
     <Layout>
@@ -28,8 +30,8 @@ function StudySpaceHeader({ title, place }: { title: string; place: IPlace }) {
           <KakaoShareBtn
             type="study"
             title="같이 스터디 해요~!"
-            subtitle={place?.fullname}
-            location={location?.location}
+            subtitle={place.fullname}
+            location={location.location}
             img={`/studyRandom/study${randomNum + 1}.jpg`}
             url={url}
           />
