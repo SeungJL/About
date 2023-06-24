@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import DetailInfo from "../../pagesComponents/friend/DetailInfo";
-import ProfileOverview from "../../pagesComponents/friend/ProfileOverview";
+import DetailInfo from "../../pagesComponents/Friend/DetailInfo";
+import FriendMyProfile from "../../pagesComponents/Friend/FriendProfile";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 import { transferUserDataState } from "../../recoil/transferDataAtoms";
 
@@ -20,7 +20,7 @@ function ProfilePage() {
         <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
       </Header>
       <Layout>
-        <ProfileOverview user={userData} />
+        <FriendMyProfile user={userData} />
         <HrDiv />
         {!userData ? (
           <Friend>

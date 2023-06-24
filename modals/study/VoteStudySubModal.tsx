@@ -63,11 +63,9 @@ function VoteStudySubModal({
     start: null,
     end: null,
   });
- 
 
   const [otherPlaceArr, setOtherPlaceArr] = useState<IPlace[]>();
   const inviteUid = router.query?.uid;
-
 
   useVoteQuery(voteDate, location, {
     onSuccess(data) {
@@ -84,9 +82,7 @@ function VoteStudySubModal({
   const { mutate: getInviteScore } = useAdminScoremMutation(
     inviteUid as string,
     {
-      onSuccess() {
-       
-      },
+      onSuccess() {},
     }
   );
   const { mutate: getInvitePoint } = useAdminPointMutation(inviteUid as string);

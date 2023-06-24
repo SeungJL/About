@@ -7,14 +7,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MainLoading } from "../../../components/ui/MainLoading";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
-import GatherBadge from "../../../pagesComponents/gather/detail/GatherBadge";
-import GatherBottomNav from "../../../pagesComponents/gather/detail/GatherBottomNav";
-import GatherComment from "../../../pagesComponents/gather/detail/GatherComment";
-import GatherDetailInfo from "../../../pagesComponents/gather/detail/GatherDetail";
-import GatherHeader from "../../../pagesComponents/gather/detail/GatherHeader";
-import GatherOrganizer from "../../../pagesComponents/gather/detail/GatherOrganizer";
-import GatherParticipation from "../../../pagesComponents/gather/detail/GatherParticipation";
-import GatherTitle from "../../../pagesComponents/gather/detail/GatherTitle";
+import GatherBadge from "../../../pagesComponents/Gather/detail/GatherBadge";
+import GatherBottomNav from "../../../pagesComponents/Gather/detail/GatherBottomNav";
+import GatherComment from "../../../pagesComponents/Gather/detail/GatherComment";
+import GatherDetailInfo from "../../../pagesComponents/Gather/detail/GatherDetail";
+import GatherHeader from "../../../pagesComponents/Gather/detail/GatherHeader";
+import GatherOrganizer from "../../../pagesComponents/Gather/detail/GatherOrganizer";
+import GatherParticipation from "../../../pagesComponents/Gather/detail/GatherParticipation";
+import GatherTitle from "../../../pagesComponents/Gather/detail/GatherTitle";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 
 function GatherDetail() {

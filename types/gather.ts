@@ -12,6 +12,11 @@ export type GatherLocation = {
   main: string;
   sub?: string;
 };
+
+export type GatherMemberCnt = {
+  min: number;
+  max: number;
+};
 export interface IGatherContent {
   type: GatherType;
   title: string;
@@ -20,7 +25,7 @@ export interface IGatherContent {
   date: Dayjs | string;
   createdAt?: string;
   updatedAt?: string;
-  memberCnt: { min: number; max: number };
+  memberCnt: GatherMemberCnt;
   firstGather: { text: string; time: ITime };
   secondGather?: { text: string; time: ITime };
   age?: number[];

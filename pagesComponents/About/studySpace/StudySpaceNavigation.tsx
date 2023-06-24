@@ -4,13 +4,7 @@ import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
-
-import ModalPortal from "../../../components/ModalPortal";
-import AbsentStudyModal from "../../../modals/study/AbsentStudyModal";
-import ChangeStudyTimeModal from "../../../modals/study/ChangeStudyTimeModal";
-import VoteStudySubModal from "../../../modals/study/VoteStudySubModal";
 
 import { useRecoilValue } from "recoil";
 import { useAbsentMutation } from "../../../hooks/vote/mutations";
@@ -22,6 +16,7 @@ import {
 
 import { useSession } from "next-auth/react";
 
+import { useState } from "react";
 import { POINT_SYSTEM_MINUS } from "../../../constants/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
@@ -29,15 +24,16 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
-import AttendCheckModal from "../../../modals/study/AttendCheckModal";
 import { IStudySpaceData } from "../../../pages/about/[date]/[studySpace]";
 import { IUser } from "../../../types/user";
-import VoteSuccessScreen from "./VoteSuccessScreen";
+import StudySpaceNavModal from "./StudySpaceNavModal";
 
 interface IStudySpaceNavigation {
   studySpaceData: IStudySpaceData;
   voteCnt: number;
 }
+
+export type ModalType = "change" | "absent" | "main" | "cancel";
 
 function StudySpaceNavigation({
   studySpaceData: { place, attendences, status },
@@ -59,11 +55,7 @@ function StudySpaceNavigation({
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
-  const [isChangeModal, setIsChangeModal] = useState(false);
-  const [isAbsentmodal, setIsAbsentmodal] = useState(false);
-  const [isVoteModal, setIsVoteModal] = useState(false);
-  const [isCheckModal, setIsCheckModal] = useState(false);
-  const [isVoteComplete, setIsVoteComplete] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();
@@ -95,12 +87,11 @@ function StudySpaceNavigation({
     });
   };
 
-  const onBtnClicked = (type = "string") => {
+  const onBtnClicked = (type: ModalType) => {
     if (isGuest) {
       failGuestToast();
       return;
     }
-
     if (type === "cancel") {
       if (mySpaceFixed) cancelFailToast();
       else {
@@ -108,14 +99,13 @@ function StudySpaceNavigation({
         getPoint(POINT_SYSTEM_MINUS.cancelStudy.point);
         handleAbsent();
       }
+      return;
     }
-    if (type === "change") setIsChangeModal(true);
-    if (type === "absent") {
-      if (studyDate === "not passed") absentFailToast();
-      else setIsAbsentmodal(true);
+    if (type === "absent" && studyDate === "not passed") {
+      absentFailToast();
+      return;
     }
-    if (type === "main")
-      myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
+    setModalType(type);
   };
 
   return (
@@ -171,40 +161,7 @@ function StudySpaceNavigation({
           )}
         </Layout>
       )}
-      {isChangeModal && (
-        <ModalPortal setIsModal={setIsChangeModal}>
-          <ChangeStudyTimeModal
-            setIsChangeStudyTimeModal={setIsChangeModal}
-            myVoteTime={myVote?.time}
-          />
-        </ModalPortal>
-      )}
-      {isAbsentmodal && (
-        <ModalPortal setIsModal={setIsAbsentmodal}>
-          <AbsentStudyModal setIsModal={setIsAbsentmodal} />
-        </ModalPortal>
-      )}
-      {isVoteModal && (
-        <ModalPortal setIsModal={setIsVoteModal}>
-          <VoteStudySubModal
-            isModal={isVoteModal}
-            setIsModal={setIsVoteModal}
-            voteDate={voteDate}
-            place={place}
-            setIsVoteComplete={setIsVoteComplete}
-          />
-        </ModalPortal>
-      )}
-      {isCheckModal && (
-        <ModalPortal setIsModal={setIsCheckModal}>
-          <AttendCheckModal setIsModal={setIsCheckModal} />
-        </ModalPortal>
-      )}
-      {isVoteComplete && (
-        <ModalPortal setIsModal={setIsVoteComplete}>
-          <VoteSuccessScreen />
-        </ModalPortal>
-      )}
+      <StudySpaceNavModal type={modalType} myVote={myVote} place={place} />
     </>
   );
 }

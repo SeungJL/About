@@ -60,7 +60,7 @@ function PromotionModal({
             </div>
             <div>
               <span>추첨 날짜</span>
-              <span>6월 31일</span>
+              <span>6월 30일</span>
             </div>
           </Detail>
         </ModalMain>
