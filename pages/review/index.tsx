@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import ImageSlider from "../../components/utils/ImageSlider";
@@ -9,6 +10,7 @@ import ReviewCategory from "../../pagesComponents/Review/ReviewCategory";
 import ReviewContent from "../../pagesComponents/Review/ReviewContent";
 import ReviewItemHeader from "../../pagesComponents/Review/ReviewItemHeader";
 import ReviewStatus from "../../pagesComponents/Review/ReviewStatus";
+import { reviewContentIdState } from "../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 
 function Review() {
@@ -21,6 +23,13 @@ function Review() {
       "https://p.kakaocdn.net/th/talkp/wnRiSzjBU5/8bx7JYsl1lMDmJk4KjnJV0/xukg66_640x640_s.jpg",
     avatar: { bg: 3, type: 2 },
   };
+
+  const reviewContentId = useRecoilValue(reviewContentIdState);
+
+  useEffect(() => {
+    if (reviewContentId)
+      document.getElementById(`review${reviewContentId}`)?.scrollIntoView();
+  }, [reviewContentId]);
 
   return (
     <>
@@ -38,7 +47,7 @@ function Review() {
           {REVIEW_DATA?.slice()
             .reverse()
             ?.map((item) => (
-              <Item key={item.id}>
+              <Item id={"review" + item.id} key={item.id}>
                 <ReviewItemHeader temp={temp} date={item?.date} />
                 <ImageWrapper>
                   <ImageSlider ImageContainer={item?.images} type="review" />

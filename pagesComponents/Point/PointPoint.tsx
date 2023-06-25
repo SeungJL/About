@@ -43,11 +43,6 @@ function PointPoint() {
           </Store>
         </Layout>
       </Skeleton>
-      {/* {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <InspectionModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )} */}
     </>
   );
 }

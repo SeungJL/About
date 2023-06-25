@@ -2,12 +2,12 @@ import { faInfinity, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
-import { GatherMemberCnt } from "../../../types/gather";
+import { GatherMemberCnt, GatherParticipants } from "../../../types/gather";
 import { IUser } from "../../../types/user";
 
 interface IGatherMember {
   organizer: IUser;
-  participants: IUser[];
+  participants: GatherParticipants[];
   memberCnt: GatherMemberCnt;
 }
 

@@ -35,8 +35,8 @@ const Layout = styled.nav`
   height: 48px;
   display: flex;
   align-items: center;
-  border: 1px solid var(--font-h6);
-  padding: 4px 18px;
+  border-bottom: 1px solid var(--font-h6);
+  padding: 4px 14px;
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`

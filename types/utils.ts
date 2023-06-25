@@ -30,3 +30,8 @@ export interface ITime {
   minute?: number;
 }
 
+export interface IImageSliderItem {
+  image: string;
+  title: string;
+  id: number;
+}

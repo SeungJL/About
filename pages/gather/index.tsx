@@ -5,6 +5,7 @@ import Seo from "../../components/Seo";
 import GatherCategoryBar from "../../pagesComponents/Gather/GatgerCategoryBar";
 import GatherHeader from "../../pagesComponents/Gather/GatherHeader";
 import GatherMain from "../../pagesComponents/Gather/GatherMain";
+import GatherReviewNav from "../../pagesComponents/Gather/GatherReviewNav";
 import { GatherCategory } from "../../types/gather";
 
 function Gather() {
@@ -15,6 +16,7 @@ function Gather() {
       <Seo title="모임" />
       <GatherHeader />
       <Layout>
+        <GatherReviewNav />
         <GatherCategoryBar category={category} setCategory={setCategory} />
         <GatherMain category={category} />
         <WritingIcon url="/gather/writing/category" />

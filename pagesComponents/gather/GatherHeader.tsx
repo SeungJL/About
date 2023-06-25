@@ -1,19 +1,10 @@
-import { faRightLong } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 
 function GatherHeader() {
   const router = useRouter();
-  return (
-    <Header title="모임">
-      <Review onClick={() => router.push(`/review`)}>
-        <span>모임 후기</span>
-        <FontAwesomeIcon icon={faRightLong} />
-      </Review>
-    </Header>
-  );
+  return <Header title="모임"></Header>;
 }
 
 const Review = styled.span`

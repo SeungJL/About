@@ -18,6 +18,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
   const setUserData = useSetRecoilState(transferUserDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const organizer = data.user;
+  const status = data?.status;
   const onClickProfile = (user: IUser) => {
     setUserData(user);
     setBeforePage(router?.asPath);
@@ -26,7 +27,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
   return (
     <Layout>
       <span>
-        참여중인 인원 &nbsp;
+        {status === "open" ? "확정 인원" : "참여중인 인원"} &nbsp;
         <span>{data?.participants.length + 1} /</span>
         {data?.memberCnt.max ? (
           <span>{data?.memberCnt.max}</span>

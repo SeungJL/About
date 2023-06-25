@@ -42,7 +42,9 @@ function GatherComments() {
             onChange={(e) => setValue(e.target.value)}
             placeholder="댓글 달기..."
           />
-          <SubmitBtn onClick={onSubmit}>등록</SubmitBtn>
+          <SubmitBtn focus={value !== ""} onClick={onSubmit}>
+            등록
+          </SubmitBtn>
         </MyCommnet>
       </Comment>
     </Layout>
@@ -93,10 +95,10 @@ const MyText = styled.textarea`
   }
 `;
 
-const SubmitBtn = styled.button`
+const SubmitBtn = styled.button<{ focus: boolean }>`
   margin-left: auto;
   font-size: 12px;
-  color: var(--font-h3);
+  color: ${(props) => (props.focus ? "var(--color-mint)" : "var(--font-h4)")};
 `;
 
 export default GatherComments;

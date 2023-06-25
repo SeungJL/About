@@ -8,6 +8,7 @@
   --font-h4: #a0a4af;
   --font-h5: #d1d6dd;
   --font-h6: #e3e6eb;
+  --font-h65: #eaecf0;
   --font-h7: #f0f2f5;
   --font-h8: #f6f7f9;
   --color-yellow: #f5deb3;
@@ -25,6 +26,7 @@
   --height-lg: 410px;
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   --border-headline: 1px solid var(--font-h3);
+  --border-hr-color: var(--font-h65);
   --border-radius: 6px;
   --border-radius2: 12px;
   --padding-main: 14px;
