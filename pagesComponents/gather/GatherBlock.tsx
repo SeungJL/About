@@ -18,7 +18,7 @@ function GatherBlock({ data }: IGatherBlock) {
 
   const onClickBlock = () => {
     setGatherData(data);
-    router.push(`/gather/${data?.id}`);
+    router.push(`/gather/${data.id}`);
   };
 
   return (

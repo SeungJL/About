@@ -5,13 +5,13 @@ import { SetStateAction, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/ui/Modal";
-import { useGatherParticipate } from "../../hooks/gather/mutations";
+import { useGatherParticipateMutation } from "../../hooks/gather/mutations";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { transferGatherDataState } from "../../recoil/transferDataAtoms";
 
-import { ModalMain, ModalXs } from "../../styles/layout/modal";
+import { ModalMain, ModalMd } from "../../styles/layout/modal";
 
 function ApplyParticipationModal({
   setIsModal,
@@ -24,6 +24,7 @@ function ApplyParticipationModal({
   const failPreApplyToast = useFailToast({ type: "applyPreGather" });
   const completeToast = useCompleteToast({ type: "applyGather" });
   const [isFirst, setIsFirst] = useState(true);
+  const [pageNum, setPageNum] = useState(0);
   const { data } = useUserInfoQuery();
   const gatherData = useRecoilValue(transferGatherDataState);
   const toast = useToast();
@@ -37,14 +38,8 @@ function ApplyParticipationModal({
 
   const currentVoter = gatherData?.participants.length;
 
-  const onClickPre = () => {
-    setIsFirst(false);
-  };
-
-  const { mutate } = useGatherParticipate({
-    onSuccess() {
-     
-    },
+  const { mutate } = useGatherParticipateMutation({
+    onSuccess() {},
   });
 
   const gatherId = gatherData?.id;
@@ -89,7 +84,9 @@ function ApplyParticipationModal({
     }
     if (gatherData?.genderCondition) {
       const participants = gatherData?.participants;
-      const manCnt = participants.filter((who) => who.gender === "남성").length;
+      const manCnt = participants.filter(
+        (who) => who.user.gender === "남성"
+      ).length;
       const womanCnt = participants.length - manCnt;
 
       if (data?.gender === "남성") {
@@ -128,6 +125,10 @@ function ApplyParticipationModal({
       }
     }
 
+    setPageNum(2);
+  };
+
+  const selectGatherTime = () => {
     mutate({ gatherId });
     completeToast();
     setIsRefetching(true);
@@ -140,22 +141,30 @@ function ApplyParticipationModal({
         <ModalHeaderX title="참여신청" setIsModal={setIsModal} />
 
         <ModalMain>
-          {isFirst ? (
-            <Main>
-              <Button
-                color="white"
-                backgroundColor="var(--color-mint)"
-                marginBottom="16px"
-                size="lg"
-                onClick={() => onApply("normal")}
-              >
-                일반 참여 신청
-              </Button>
-              <Button onClick={onClickPre} size="lg">
-                사전 확정 인원
-              </Button>
-            </Main>
-          ) : (
+          {pageNum === 0 ? (
+            <>
+              <Main>
+                <Button
+                  color="white"
+                  backgroundColor="var(--color-mint)"
+                  marginBottom="16px"
+                  height="48px"
+                  fontSize="17px"
+                  onClick={() => onApply("normal")}
+                >
+                  일반 참여 신청
+                </Button>
+                <Button
+                  onClick={() => setPageNum(1)}
+                  height="48px"
+                  fontSize="17px"
+                >
+                  사전 확정 인원
+                </Button>
+              </Main>
+              <Message>사전 확정 인원은 암호코드가 필요합니다.</Message>
+            </>
+          ) : pageNum === 1 ? (
             <Main>
               <CodeText>전달 받은 암호 네자리를 입력해 주세요.</CodeText>
               <div>
@@ -167,9 +176,33 @@ function ApplyParticipationModal({
                 />
               </div>
             </Main>
+          ) : (
+            <>
+              <Main>
+                <Button
+                  color="white"
+                  backgroundColor="var(--color-mint)"
+                  marginBottom="16px"
+                  height="48px"
+                  fontSize="17px"
+                  onClick={selectGatherTime}
+                  _hover={{ bg: "var(--color-mint)" }}
+                >
+                  1차 참여 신청
+                </Button>
+                <Button
+                  onClick={() => setPageNum(1)}
+                  height="48px"
+                  fontSize="17px"
+                >
+                  2차 참여 신청
+                </Button>
+              </Main>
+              <Message>늦참의 경우 일단 신청 후 댓글에 남겨주세요!</Message>
+            </>
           )}
         </ModalMain>
-        {!isFirst && (
+        {pageNum === 1 && (
           <Footer>
             <Button width="50%" onClick={() => setIsFirst(true)}>
               뒤로가기
@@ -180,7 +213,7 @@ function ApplyParticipationModal({
               width="50%"
               onClick={() => onApply("pre")}
             >
-              신청 완료
+              다음
             </Button>
           </Footer>
         )}
@@ -189,14 +222,14 @@ function ApplyParticipationModal({
   );
 }
 
-const Layout = styled(ModalXs)``;
+const Layout = styled(ModalMd)``;
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   height: 100%;
+  margin-top: 16px;
   > div:last-child {
     margin-top: 10px;
   }
@@ -212,5 +245,11 @@ const Input = styled.input`
 const Footer = styled.footer``;
 
 const CodeText = styled.span``;
+
+const Message = styled.span`
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--font-h3);
+`;
 
 export default ApplyParticipationModal;

@@ -8,12 +8,14 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { SetStateAction, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/ui/Modal";
 import {
-  useGatherParticipate,
+  useGatherDeleteMutation,
+  useGatherParticipateMutation,
   useGatherStatusClose,
   useGatherStatusEnd,
   useGatherStatusOpen,
@@ -31,24 +33,28 @@ function ExpireGatherModal({
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
   setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const router = useRouter();
   const failToast = useFailToast({ type: "applyGather" });
   const failPreApplyToast = useFailToast({ type: "applyPreGather" });
   const completeToast = useCompleteToast({ type: "applyGather" });
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
   const gatherData = useRecoilValue(transferGatherDataState);
-
+  console.log(gatherData);
+  const isNoMember = gatherData.participants.length === 0;
   const gatherId = gatherData?.id;
   const { mutate: statusOpen } = useGatherStatusOpen({
-    onSuccess() {
-    
-    },
+    onSuccess() {},
   });
   const { mutate: statusClose } = useGatherStatusClose();
   const { mutate: statusEnd } = useGatherStatusEnd();
 
   const [password, setPassword] = useState("");
-
+  const { mutate: gatherDelete } = useGatherDeleteMutation({
+    onSuccess() {
+      console.log("SUC");
+    },
+  });
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -57,10 +63,8 @@ function ExpireGatherModal({
     setIsFirst(false);
   };
 
-  const { mutate } = useGatherParticipate({
-    onSuccess() {
-    
-    },
+  const { mutate } = useGatherParticipateMutation({
+    onSuccess() {},
   });
   const onApply = (type: "expire" | "cancel") => {
     if (type === "expire") {
@@ -88,9 +92,11 @@ function ExpireGatherModal({
   };
 
   const onCancel = () => {
-    statusClose({ gatherId });
-    setIsRefetching(true);
-    setIsModal(false);
+    if (isNoMember) gatherDelete({ gatherId });
+    else statusClose({ gatherId });
+    setTimeout(() => {
+      router.push(`/gather`);
+    }, 1000);
   };
 
   return (
@@ -152,7 +158,11 @@ function ExpireGatherModal({
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              모집 취소를 하면 해당 모임이 완전 취소됩니다.
+              {isNoMember ? (
+                <span>참여자가 없어 게시글이 완전히 삭제됩니다.</span>
+              ) : (
+                <span>참여자가 있어 게시글이 취소 상태로 변경됩니다.</span>
+              )}
             </AlertDialogBody>
 
             <AlertDialogFooter>

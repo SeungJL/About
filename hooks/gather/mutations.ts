@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
+import { IGatherComment } from "../../pagesComponents/Gather/detail/GatherComment";
 import { IGatherContent } from "../../types/gather";
 
 export const useGatherContentMutation = (
@@ -14,15 +15,38 @@ export const useGatherContentMutation = (
     return res.data;
   }, options);
 
-export const useGatherParticipate = (
+export const useGatherDeleteMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, any>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (id) => {
-    const res = await axios.post(`${SERVER_URI}/gather/participate`, id);
+  useMutation<void, AxiosError, any>(async (gatherId) => {
+    console.log(gatherId);
+    await axios.delete(`${SERVER_URI}/gather`, { data: gatherId });
+  }, options);
+
+export const useGatherParticipateMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, any>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, any>(async (gatherId) => {
+    const res = await axios.post(`${SERVER_URI}/gather/participate`, gatherId);
     return res.data;
+  }, options);
+
+export const useGatherCancelMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, any>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, any>(async (gatherId) => {
+    await axios.delete(`${SERVER_URI}/gather/participate`, {
+      data: gatherId,
+    });
   }, options);
 
 export const useGatherStatusOpen = (
@@ -55,5 +79,18 @@ export const useGatherStatusEnd = (
 ) =>
   useMutation<void, AxiosError, any>(async (id) => {
     const res = await axios.patch(`${SERVER_URI}/gather/end`, id);
+    return res.data;
+  }, options);
+
+export const useGatherCommentMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IGatherComment>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, IGatherComment>(async (comment) => {
+    console.log(comment);
+    const res = await axios.post(`${SERVER_URI}/gather/comment`, comment);
+
     return res.data;
   }, options);

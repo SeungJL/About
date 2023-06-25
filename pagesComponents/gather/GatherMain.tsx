@@ -11,7 +11,11 @@ interface IGatherMain {
 }
 function GatherMain({ category }: IGatherMain) {
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
-  const { data: gatherContentArr, isLoading } = useGatherContentQuery();
+  const { data: gatherContentArr, isLoading } = useGatherContentQuery({
+    onSuccess() {
+      console.log("");
+    },
+  });
 
   useEffect(() => {
     if (category === "모집중")

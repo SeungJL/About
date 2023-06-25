@@ -24,7 +24,6 @@ import {
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -72,9 +71,7 @@ function WritingCondition() {
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
   const { mutate } = useGatherContentMutation({
-    onSuccess(data) {
-    
-    },
+    onSuccess(data) {},
   });
 
   const { data } = useUserInfoQuery();
@@ -98,11 +95,11 @@ function WritingCondition() {
       memberCnt: { min: minValue, max: isMaxCondition ? 0 : maxValue },
       genderCondition: genderCondition,
       password,
-      createdDate: dayjs(),
+
       user: data,
     };
     setGatherContent(gatherData);
-
+    console.log(gatherContent);
     mutate(gatherData);
     setIsSuccessScreen(true);
   };

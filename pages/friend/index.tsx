@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../components/ui/MainLoading";
 import FriendHeader from "../../pagesComponents/Friend/FriendHeader";
+
 import FriendProfile from "../../pagesComponents/Friend/FriendProfile";
 import FriendRecommend from "../../pagesComponents/Friend/FriendRecommend";
 function Friend() {

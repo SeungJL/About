@@ -1,8 +1,10 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/dist/client/router";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
+import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
 import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
 import ExpireGatherModal from "../../../modals/gather/ExpireGatherModal";
 import { IGatherContent } from "../../../types/gather";
@@ -13,16 +15,29 @@ interface IGatherBottomNav {
 }
 
 function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
+  const router = useRouter();
   const { data: session } = useSession();
   const myUid = session.uid;
   const myGather = data.user.uid === myUid;
-  const isParticipant = data?.participants.some((who) => who?.uid === myUid);
+  const isParticipant = data?.participants.some(
+    (who) => who?.user.uid === myUid
+  );
   const [isExpirationModal, setIsExpirationModal] = useState(false);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
+  const gatherId = router.query.id;
+  console.log(gatherId);
 
-  const onClickParticipation = () => {
-    setIsParticipationModal(true);
+  const { mutate: cancel } = useGatherCancelMutation();
+
+  const onClick = (type: string) => {
+    if (type === "cancel") {
+      cancel({ gatherId });
+      setIsRefetching(true);
+    }
+    if (type === "participate") setIsParticipationModal(true);
+    if (type === "expire") setIsExpirationModal(true);
   };
+
   return (
     <>
       <Layout>
@@ -56,7 +71,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
             backgroundColor="var(--color-mint)"
             color="white"
             fontSize="15px"
-            onClick={() => setIsExpirationModal(true)}
+            onClick={() => onClick("expire")}
           >
             모집종료
           </Button>
@@ -68,7 +83,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
             backgroundColor="var(--color-mint)"
             color="white"
             fontSize="15px"
-            onClick={() => setIsExpirationModal(true)}
+            onClick={() => onClick("cancel")}
           >
             참여취소
           </Button>
@@ -80,7 +95,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
             backgroundColor="var(--color-mint)"
             color="white"
             fontSize="15px"
-            onClick={onClickParticipation}
+            onClick={() => onClick("participate")}
           >
             참여하기
           </Button>

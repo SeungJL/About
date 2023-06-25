@@ -9,7 +9,8 @@ import { MainLoading } from "../../../components/ui/MainLoading";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import GatherBadge from "../../../pagesComponents/Gather/detail/GatherBadge";
 import GatherBottomNav from "../../../pagesComponents/Gather/detail/GatherBottomNav";
-import GatherComment from "../../../pagesComponents/Gather/detail/GatherComment";
+import GatherComments from "../../../pagesComponents/Gather/detail/GatherComment";
+import GatherContent from "../../../pagesComponents/Gather/detail/GatherContent";
 import GatherDetailInfo from "../../../pagesComponents/Gather/detail/GatherDetail";
 import GatherHeader from "../../../pagesComponents/Gather/detail/GatherHeader";
 import GatherOrganizer from "../../../pagesComponents/Gather/detail/GatherOrganizer";
@@ -22,17 +23,23 @@ function GatherDetail() {
   const gatherId = router.query.id;
   const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
   const [isRefetching, setIsRefetching] = useState(false);
-  const { data: gatherContentArr, refetch } = useGatherContentQuery();
+  const { data: gatherContentArr, refetch } = useGatherContentQuery({
+    onSuccess(data) {
+      setGatherData(data?.find((item) => item?.id === +gatherId));
+    },
+  });
+
+  console.log(gatherContentArr);
 
   useEffect(() => {
     if (isRefetching || !gatherData) {
       setTimeout(() => {
         refetch();
+        setIsRefetching(false);
       }, 1000);
-      setGatherData(gatherContentArr?.find((item) => item?.id === gatherId));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gatherContentArr, gatherData, gatherId, isRefetching]);
+  }, [gatherData, isRefetching]);
 
   return (
     <>
@@ -51,11 +58,15 @@ function GatherDetail() {
               createdAt={gatherData.createdAt}
               organizer={gatherData.user}
             />
+
             <GatherTitle title={gatherData.title} status={gatherData.status} />
             <GatherDetailInfo data={gatherData} />
-            <Content>{gatherData.content}</Content>
+            <GatherContent
+              content={gatherData.content}
+              gatherList={gatherData.gatherList}
+            />
             <GatherParticipation data={gatherData} />
-            <GatherComment />
+            <GatherComments />
             <GatherBottomNav
               data={gatherData}
               setIsRefetching={setIsRefetching}
@@ -72,14 +83,6 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 100px;
-`;
-
-const Content = styled.p`
-  border-top: 1px solid var(--font-h6);
-  border-bottom: 1px solid var(--font-h6);
-  margin-top: 16px;
-  padding-top: 14px;
-  min-height: 100px;
 `;
 
 export default GatherDetail;

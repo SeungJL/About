@@ -30,11 +30,11 @@ function WritingContent() {
   const [content, setContent] = useState(gatherContent?.content || "");
 
   const [firstGather, setFirstGather] = useState<IGather>({
-    text: "",
+    text: gatherContent?.gatherList?.[0]?.text || "",
     time: { hour: 14, minute: 0 },
   });
   const [secondGather, setSecondGather] = useState<IGather>({
-    text: "",
+    text: gatherContent?.gatherList?.[1]?.text || "",
     time: { hour: 18, minute: 0 },
   });
 
@@ -82,8 +82,13 @@ function WritingContent() {
       ...old,
       title,
       content,
-      firstGather,
-      secondGather: secondGather?.text && secondGather,
+      gatherList: [
+        { text: firstGather.text, time: firstGather.time },
+        secondGather?.text && {
+          text: secondGather.text,
+          time: secondGather.time,
+        },
+      ],
     }));
 
     router.push(`/gather/writing/date`);

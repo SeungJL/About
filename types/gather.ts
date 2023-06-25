@@ -17,6 +17,18 @@ export type GatherMemberCnt = {
   min: number;
   max: number;
 };
+
+export type ParticipationPhase = "all" | "first" | "second";
+
+export interface GatherListItem {
+  text: string;
+  time: ITime;
+}
+
+export interface GatherParticipants {
+  user: IUser;
+  phase: ParticipationPhase;
+}
 export interface IGatherContent {
   type: GatherType;
   title: string;
@@ -26,14 +38,19 @@ export interface IGatherContent {
   createdAt?: string;
   updatedAt?: string;
   memberCnt: GatherMemberCnt;
-  firstGather: { text: string; time: ITime };
-  secondGather?: { text: string; time: ITime };
+  gatherList: GatherListItem[];
   age?: number[];
   preCnt?: number;
   genderCondition: boolean;
-  participants: IUser[];
+  participants: GatherParticipants[];
   password?: string;
-  id: string;
+  id: number;
   user: IUser;
   status?: GatherStatus;
+}
+
+export interface IGatherComment {
+  user: IUser;
+  comment: string;
+  date?: string;
 }

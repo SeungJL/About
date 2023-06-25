@@ -59,11 +59,14 @@ function GatherParticipation({ data }: IGatherParticipation) {
           </div>
         </MemberItem>
         {data?.participants.map((who) => (
-          <MemberItem key={who?.uid} onClick={() => onClickProfile(who)}>
-            <ProfileIcon user={who} size="md" />
+          <MemberItem
+            key={who?.user.uid}
+            onClick={() => onClickProfile(who.user)}
+          >
+            <ProfileIcon user={who.user} size="md" />
             <div>
-              <span>{who?.name}</span>
-              <span>{who?.comment}</span>
+              <span>{who?.user.name}</span>
+              <span>{who?.user.comment}</span>
             </div>
           </MemberItem>
         ))}
