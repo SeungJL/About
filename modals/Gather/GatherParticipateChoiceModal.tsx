@@ -6,11 +6,13 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/layouts/Modals";
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
-function SelectGatherPageModal({
-  setIsModal,
-}: {
+interface IGatherParticipateChoiceModal {
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function GatherParticipateChoiceModal({
+  setIsModal,
+}: IGatherParticipateChoiceModal) {
   const [isFirst, setIsFirst] = useState(true);
 
   const onClickBtn = () => {};
@@ -89,4 +91,4 @@ const Footer = styled.footer``;
 
 const CodeText = styled.span``;
 
-export default SelectGatherPageModal;
+export default GatherParticipateChoiceModal;

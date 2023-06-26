@@ -13,13 +13,15 @@ import { transferGatherDataState } from "../../recoil/transferDataAtoms";
 
 import { ModalMain, ModalMd } from "../../styles/layout/modal";
 
-function ApplyParticipationModal({
-  setIsModal,
-  setIsRefetching,
-}: {
+interface IGatherParticipateModal {
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
   setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function GatherParticipateModal({
+  setIsModal,
+  setIsRefetching,
+}: IGatherParticipateModal) {
   const failToast = useFailToast();
   // const failToast = useFailToast({ type: "applyGather" });
 
@@ -250,4 +252,4 @@ const Message = styled.span`
   color: var(--font-h3);
 `;
 
-export default ApplyParticipationModal;
+export default GatherParticipateModal;

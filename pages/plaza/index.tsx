@@ -13,7 +13,7 @@ import styled from "styled-components";
 import ModalPortal from "../../components/ModalPortal";
 
 import { useUserRequestQuery } from "../../hooks/userRequest/queries";
-import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
+import NotCompletedModal2 from "../../modals/System/NotCompletedModal2";
 import PlazaBlock from "../../pagesComponents/Plaza/main/PlazaBlock";
 
 function Plaza() {

@@ -12,7 +12,7 @@ import {
 } from "../../constants/localStorage";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
-import PromotionModal from "../../modals/mainHeader/PromotionModal";
+import PromotionModal from "../../modals/AboutHeader/PromotionModal";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";

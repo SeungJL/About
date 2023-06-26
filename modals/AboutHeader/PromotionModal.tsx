@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/layouts/Modals";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
 
-import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
+import ApplyPromotionRewardModal from "../user/ApplyPromotionRewardModal";
 
 import Image from "next/image";
 import { useUserRequestQuery } from "../../hooks/userRequest/queries";

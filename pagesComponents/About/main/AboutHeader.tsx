@@ -9,8 +9,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { NOTICE_ALERT } from "../../../constants/localStorage";
-import StudyRuleModal from "../../../modals/info/StudyRuleModal";
-import PromotionModal from "../../../modals/mainHeader/PromotionModal";
+import PromotionModal from "../../../modals/AboutHeader/PromotionModal";
+import StudyRuleModal from "../../../modals/AboutHeader/StudyRuleModal";
 import UserLogoutModal from "../../../modals/user/UserLogoutModal";
 import { isNoticeAlertState } from "../../../recoil/renderTrigger2Atoms";
 

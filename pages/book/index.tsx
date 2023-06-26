@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { fetchFamousBooks } from "../../hooks/vote/queries";
 
 import Seo from "../../components/Seo";
+import { fetchFamousBooks } from "../../hooks/book/temp";
 
 interface IBooks {
   bookImageURL: string;

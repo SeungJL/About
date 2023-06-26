@@ -3,7 +3,7 @@ import { useState } from "react";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
-import GatherRuleModal from "../../modals/gather/GatherRuleModal";
+import GatherRuleModal from "../../modals/Gather/GatherRuleModal";
 
 function GatherHeader() {
   const router = useRouter();

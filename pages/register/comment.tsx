@@ -56,7 +56,7 @@ function Message() {
       setIsProfileEdit(false);
       await mutate({ ...registerForm, comment: tempComment });
       await setTimeout(() => {
-        approve({ uid: session?.uid });
+        approve(session?.uid);
       }, 1000);
       await router.push(`/about`);
     } else {

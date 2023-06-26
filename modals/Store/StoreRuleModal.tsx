@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 
 import {
@@ -9,52 +9,60 @@ import {
   ModalXXL,
 } from "../../styles/layout/modal";
 
-interface IGatherRuleModal {
+function StoreRuleModal({
+  setIsModal,
+}: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}
+}) {
+  const [isTip, setIsTip] = useState(true);
 
-function GatherRuleModal({ setIsModal }: IGatherRuleModal) {
   return (
     <Layout>
       <Wrapper layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <ModalHeaderCenter>
-          <Title>모임 게시판</Title>
+          <Title>포인트 추첨</Title>
           <div>
-            다양한 주제의 번개를 개설하거나 참여할 수 있어요! 재밌는 모임을 찾아
-            함께 떠나볼까요~!
+            동아리 활동을 통해 적립한 포인트로 추첨에 응모해보세요! 매번 다양한
+            상품들이 준비되어 있습니다!
           </div>
         </ModalHeaderCenter>
 
         <ModalMain>
-          <RuleTitle>ABOUT 모임 게시판은 어떤게 다르나요?</RuleTitle>
+          <RuleTitle>포인트는 어떻게 얻어요?</RuleTitle>
           <Content>
             <ul>
               <li>
-                누구나 모임을 개설할 수 있어요! 날짜와 장소, 주제를 선택해서
-                모임을 열어봐요!
-              </li>
-              <li>필요한 내용들을 형식화해서 쉽게 모임을 열 수 있어요!</li>
-              <li>
-                주제, 장소, 참여시간, 진행방식 등의 요소들을 한 눈에 볼 수
-                있어서 따로 고민하거나 설명하지 않아도 진행이 간단해요!
-              </li>
-              <li>
-                같은 동아리여도 초면인 사람들이 많아서 모임에 나가기가 고민될 수
-                있어요! 인원 수, 성별, 나이 등을 고려하여 참여자를 받을 수
-                있어서 새로운 만남에 대한 부담이 적어요!
+                스터디에 참여하거나, 이벤트, 건의, 홍보 등을 통해 포인트를
+                흭득할 수 있어요!
               </li>
             </ul>
           </Content>
-          <RuleTitle>모임 개설자 필독</RuleTitle>
+          <RuleTitle>응모는 어떤 걸 하는 게 좋나요?</RuleTitle>
           <Content>
             <ul>
-              <li>카카오톡 공유를 통해 모임글을 공지 톡방에 올려주세요!</li>
-              <li>모임이 확정되면 인원들과 단톡방을 만들어주세요!</li>
               <li>
-                모임 취소는 신청자가 없는 경우 완전히 삭제되고, 신청자가 있는
-                경우에는 취소 상태로 변경됩니다.
+                모든 상품의 기대 가성비는 거의 동일해요! 머리 아프게 고민하지
+                말고 원하시는 것으로 응모하시면 됩니다!
               </li>
-              <li>모임 진행시 간단한 인증 사진을 찍어주세요!</li>
+            </ul>
+          </Content>
+          <RuleTitle>상품 마다 인원수가 있는 건 뭔가요?</RuleTitle>
+          <Content>
+            <ul>
+              <li>
+                예측 가능한 당첨이 될 수 있도록 최대 응모 횟수와 당첨 숫자를
+                제한하고 있어요. 트로피의 숫자는 당첨 개수이고, 아래의 숫자는
+                현재 응모 인원과 최대 응모 가능 인원이에요!
+              </li>
+            </ul>
+          </Content>
+          <RuleTitle>결과 발표는 언제인가요?</RuleTitle>
+          <Content>
+            <ul>
+              <li>
+                응모 인원의 수가 모두 충족되면 결과가 발표돼요! 균일한 확률을
+                유지하기 위해 마감일을 따로 두지 않고 있어요.
+              </li>
             </ul>
           </Content>
         </ModalMain>
@@ -150,4 +158,4 @@ const Li = styled.li`
   }
 `;
 
-export default GatherRuleModal;
+export default StoreRuleModal;

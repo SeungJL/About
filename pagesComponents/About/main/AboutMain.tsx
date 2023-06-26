@@ -6,7 +6,7 @@ import styled from "styled-components";
 import AboutMainItem from "./AboutMain/AboutMainItem";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { useDecideSpaceMutation } from "../../../hooks/vote/mutations";
+import { useStudyResultDecideMutation } from "../../../hooks/study/mutations";
 import {
   mySpaceFixedState,
   studyStartTimeState,
@@ -14,7 +14,7 @@ import {
 } from "../../../recoil/studyAtoms";
 
 import { VOTE_END_HOUR } from "../../../constants/study";
-import { useStudyStartQuery } from "../../../hooks/vote/queries";
+import { useStudyStartTimeQuery } from "../../../hooks/study/queries";
 
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { IParticipation } from "../../../types/studyDetails";
@@ -35,8 +35,8 @@ function AboutMain({
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const { data } = useStudyStartQuery(voteDate);
-  const { mutateAsync: decideSpace } = useDecideSpaceMutation(
+  const { data } = useStudyStartTimeQuery(voteDate);
+  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day")
   );
 

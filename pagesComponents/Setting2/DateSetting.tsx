@@ -3,8 +3,8 @@ import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
+import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { useFailToast } from "../../hooks/ui/CustomToast";
-import { useVoteQuery } from "../../hooks/vote/queries";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
@@ -40,7 +40,7 @@ function DateSetting({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 
-  const { refetch } = useVoteQuery(voteDate, location, {
+  const { refetch } = useStudyVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
     onSuccess(data) {
       const temp: IParticipation[] = arrangeSpace(data.participations);
@@ -75,7 +75,7 @@ function DateSetting({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest]);
 
-  useVoteQuery(getInterestingDate().subtract(1, "day"), location, {
+  useStudyVoteQuery(getInterestingDate().subtract(1, "day"), location, {
     enabled: isDefaultPrev && voteDate === null,
     onSuccess(data) {
       if (

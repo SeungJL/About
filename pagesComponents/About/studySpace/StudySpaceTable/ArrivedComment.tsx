@@ -12,8 +12,8 @@ import { useRouter } from "next/dist/client/router";
 import { MouseEvent, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import ModalPortal from "../../../../components/ModalPortal";
-import { useAbsentDataQuery } from "../../../../hooks/vote/queries";
-import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
+import { useStudyAbsentQuery } from "../../../../hooks/study/queries";
+import ChangeArrivedMemoModal from "../../../../modals/Study/ChangeArrivedMemoModal";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
@@ -31,7 +31,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const setUserData = useSetRecoilState(transferUserDataState);
 
-  const { data: absentData } = useAbsentDataQuery(voteDate);
+  const { data: absentData } = useStudyAbsentQuery(voteDate);
 
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [user, setUser] = useState<IAttendance>();

@@ -9,11 +9,12 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
-function ProfileCard({
-  setIsModal,
-}: {
+
+interface IProfileCardModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function ProfileCardModal({ setIsModal }: IProfileCardModal) {
   const router = useRouter();
   const { data: user } = useUserInfoQuery();
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
@@ -91,7 +92,6 @@ const ProfileUpPart = styled.div`
   gap: 8px;
   > div {
     display: flex;
-
     > span:first-child {
       color: var(--font-h3);
       width: 64px;
@@ -112,7 +112,6 @@ const Profile = styled.div`
 
 const ProfileItem = styled.div`
   display: flex;
-
   > span:first-child {
     display: inline-block;
     width: 64px;
@@ -142,4 +141,4 @@ const FriendList = styled.div`
 
 const Layout = styled(ModalXL)``;
 
-export default ProfileCard;
+export default ProfileCardModal;

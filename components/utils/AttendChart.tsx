@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { UseQueryResult } from "react-query";
 import styled from "styled-components";
 import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
+import {} from "../../hooks/user/queries";
 import {
   useUserAttendRateQueries,
   useUserVoteRateQueries,
-} from "../../hooks/user/queries";
+} from "../../hooks/user/studyStatistics/queries";
 import { getMonth } from "../../libs/utils/dateUtils";
 import { IVoteRate } from "../../types/studyRecord";
 import { IUser } from "../../types/user";

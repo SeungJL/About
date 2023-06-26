@@ -7,10 +7,10 @@ import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ModalPortal from "../../components/ModalPortal";
-import BadgeInfoModal from "../../modals/info/BadgeInfoModal";
+import BadgeInfoModal from "../../modals/Store/BadgeInfoModal";
 
 import { useRecoilState } from "recoil";
-import { useUserParticipationRateQuery } from "../../hooks/user/queries";
+
 import { SortUserScore, userBadgeScore } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
 
@@ -23,6 +23,7 @@ import {
   useScoreAllQuery,
   useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
+import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
 import { isPointLoadingState } from "../../recoil/loadingAtoms";
 
 function PointScore({

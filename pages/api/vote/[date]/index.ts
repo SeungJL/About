@@ -1,14 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { strToDate } from "../../../../libs/utils/dateUtils";
 import dbConnect from "../../../../libs/dbConnect";
+import { strToDate } from "../../../../libs/utils/dateUtils";
 
-import { findOneVote } from "../../../../services/voteService";
-import { IVoteStudyInfo } from "../../../../types/statistics";
-import { IAttendance, IPlace, IVote } from "../../../../types/studyDetails";
-import { IUser } from "../../../../types/user";
 import { Place } from "../../../../models/place";
 import { Vote } from "../../../../models/vote";
+import { findOneVote } from "../../../../services/voteService";
+import { IStudyParticipate } from "../../../../types/study";
+
+import { IAttendance, IPlace, IVote } from "../../../../types/studyDetails";
+import { IUser } from "../../../../types/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -17,7 +18,7 @@ export default async function handler(
   res: NextApiResponse<IVote>
 ) {
   const { method } = req;
-  const { place, subPlace, start, end }: IVoteStudyInfo = req.body;
+  const { place, subPlace, start, end }: IStudyParticipate = req.body;
 
   const dateStr = req.query.date.toString();
   const date = strToDate(dateStr).toDate();

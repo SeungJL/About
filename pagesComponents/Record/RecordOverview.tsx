@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import NotCompletedModal from "../../modals/system/NotCompletedModal";
+import NotCompletedModal from "../../modals/System/NotCompletedModal";
 
 function RecordOverview({
   totalOpen,

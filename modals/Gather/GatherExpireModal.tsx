@@ -20,22 +20,21 @@ import {
   useGatherStatusEnd,
   useGatherStatusOpen,
 } from "../../hooks/gather/mutations";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { transferGatherDataState } from "../../recoil/transferDataAtoms";
-
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
-function ExpireGatherModal({
-  setIsModal,
-  setIsRefetching,
-}: {
+interface IGatherExpireModal {
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
   setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function GatherExpireModal({
+  setIsModal,
+  setIsRefetching,
+}: IGatherExpireModal) {
   const router = useRouter();
-  
- 
+
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
   const gatherData = useRecoilValue(transferGatherDataState);
@@ -203,4 +202,4 @@ const Footer = styled.footer``;
 
 const CodeText = styled.span``;
 
-export default ExpireGatherModal;
+export default GatherExpireModal;

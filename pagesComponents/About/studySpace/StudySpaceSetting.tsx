@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { VOTE_END_HOUR, VOTE_START_HOUR } from "../../../constants/study";
+import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
-import { useVoteQuery } from "../../../hooks/vote/queries";
 import { getInterestingDate } from "../../../libs/utils/dateUtils";
 import { IStudySpaceData } from "../../../pages/about/[date]/[studySpace]";
 import { isRefetchingStudySpacelState } from "../../../recoil/refetchingAtoms";
@@ -46,7 +46,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
     setIsVoting(!!isVoted);
   };
 
-  const { refetch } = useVoteQuery(voteDate, location, {
+  const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess: handleSuccess,
     onError() {
       failToast("loadStudy");

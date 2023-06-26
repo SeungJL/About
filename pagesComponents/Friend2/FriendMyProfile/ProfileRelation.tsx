@@ -5,8 +5,8 @@ import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import ProfileCard from "../../../modals/friend/ProfileCard";
-import NotCompletedModal from "../../../modals/system/NotCompletedModal";
+import ProfileCardModal from "../../../modals/Friend/ProfileCardModal";
+import NotCompletedModal from "../../../modals/System/NotCompletedModal";
 function ProfileRelation() {
   const failGuestToast = useFailToast();
   const { data: user } = useUserInfoQuery();
@@ -60,7 +60,7 @@ function ProfileRelation() {
       </Layout>{" "}
       {isProfileCard && (
         <ModalPortal setIsModal={setIsProfileCard}>
-          <ProfileCard setIsModal={setIsProfileCard} />
+          <ProfileCardModal setIsModal={setIsProfileCard} />
         </ModalPortal>
       )}
       {isFriend && (

@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { LogoAdjustmentImage } from "../../components/ui/DesignAdjustment";
-import { usePlaceQuery } from "../../hooks/vote/queries";
+import { useStudyPlaceQuery } from "../../hooks/study/queries";
 import { ISpaceControl } from "../../types/studyDetails";
 import { Location } from "../../types/system";
 
 function StudySpaceControl() {
-  const { data } = usePlaceQuery();
+  const { data } = useStudyPlaceQuery();
   const { register, handleSubmit } = useForm({});
 
   const [addRequestForm, setAddRequestForm] = useState({
@@ -28,7 +28,6 @@ function StudySpaceControl() {
   };
   const onAddSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
   };
 
   const [btnIdx, setBtnIdx] = useState<number>();
@@ -43,7 +42,6 @@ function StudySpaceControl() {
       status: data?.status[btnIdx],
       image: data?.image[btnIdx],
     };
-   
   };
 
   return (

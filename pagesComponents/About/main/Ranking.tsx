@@ -2,7 +2,8 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useUserVoteRateQuery } from "../../../hooks/user/queries";
+import { useUserVoteRateQuery } from "../../../hooks/user/studyStatistics/queries";
+
 import { numOfUserState } from "../../../recoil/userAtoms";
 
 function Ranking() {

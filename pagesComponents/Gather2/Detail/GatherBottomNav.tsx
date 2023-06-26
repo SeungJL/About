@@ -5,8 +5,8 @@ import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
-import ApplyParticipationModal from "../../../modals/gather/ApplyParticipationModal";
-import ExpireGatherModal from "../../../modals/gather/ExpireGatherModal";
+import GatherExpireModal from "../../../modals/Gather/GatherExpireModal";
+import GatherParticipateModal from "../../../modals/Gather/GatherParticipateModal";
 import { IGatherContent } from "../../../types/gather";
 
 interface IGatherBottomNav {
@@ -102,7 +102,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
       </Layout>{" "}
       {isParticipationModal && (
         <ModalPortal setIsModal={setIsParticipationModal}>
-          <ApplyParticipationModal
+          <GatherParticipateModal
             setIsModal={setIsParticipationModal}
             setIsRefetching={setIsRefetching}
           />
@@ -110,7 +110,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
       )}
       {isExpirationModal && (
         <ModalPortal setIsModal={setIsExpirationModal}>
-          <ExpireGatherModal
+          <GatherExpireModal
             setIsModal={setIsExpirationModal}
             setIsRefetching={setIsRefetching}
           />

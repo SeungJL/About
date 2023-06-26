@@ -2,23 +2,22 @@ import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { ARRIVE_FINDMEMO, PLACE_FINDALL, VOTE_GET } from "../../libs/queryKeys";
+import { VOTE_GET } from "../../libs/queryKeys";
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
-import { IUser } from "../../types/user";
 import { IAbsentInfo } from "../../types/userRequest";
 
-export const useVoteQuery = (
+export const useStudyVoteQuery = (
   date: Dayjs,
-  location: Location, // 새로운 location 변수
+  location: Location,
   options?: Omit<
-    UseQueryOptions<IVote, AxiosError, IVote, [string, Dayjs, Location]>,
+    UseQueryOptions<IVote, AxiosError, IVote>,
     "queryKey" | "queryFn"
   >
 ) => {
-  return useQuery<IVote, AxiosError, IVote, [string, Dayjs, Location]>(
-    [VOTE_GET, date, location], // location 변수를 포함하는 배열
+  return useQuery<IVote, AxiosError, IVote>(
+    [VOTE_GET, date, location],
     async () => {
       const res = await axios.get<IVote>(
         `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}?location=${location}` // location 변수를 API 요청 URL에 추가
@@ -29,14 +28,14 @@ export const useVoteQuery = (
   );
 };
 
-export const usePlaceQuery = (
+export const useStudyPlaceQuery = (
   options?: Omit<
     UseQueryOptions<IPlace[], AxiosError, IPlace[]>,
     "queryKey" | "queryFn"
   >
 ) =>
   useQuery<IPlace[], AxiosError, IPlace[]>(
-    PLACE_FINDALL,
+    "studyPlace",
     async () => {
       const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
       return res.data;
@@ -44,39 +43,7 @@ export const usePlaceQuery = (
     options
   );
 
-export function fetchFamousBooks() {
-  return fetch(`${SERVER_URI}/book`, {
-    method: "get",
-  }).then((response) => response.json());
-}
-
-export const useArrivedQuery = (
-  currentDate: Dayjs,
-  options?: Omit<
-    UseQueryOptions<
-      { user: IUser; memo: string }[],
-      AxiosError,
-      { user: IUser; memo: string }[]
-    >,
-    "mutationKey" | "mutationFn"
-  >
-) =>
-  useQuery<
-    { user: IUser; memo: string }[],
-    AxiosError,
-    { user: IUser; memo: string }[]
-  >(
-    ARRIVE_FINDMEMO,
-    async () => {
-      const res = await axios.get(
-        `${SERVER_URI}/vote/${currentDate.format("YYYY-MM-DD")}/arrived`
-      );
-      return res.data;
-    },
-    options
-  );
-
-export const useStudyStartQuery = (
+export const useStudyStartTimeQuery = (
   date: Dayjs,
   options?: Omit<
     UseQueryOptions<IStudyStart[], AxiosError, IStudyStart[]>,
@@ -84,7 +51,7 @@ export const useStudyStartQuery = (
   >
 ) =>
   useQuery(
-    "studyStart",
+    "studyStartTime",
     async () => {
       const res = await axios.get<IStudyStart[]>(
         `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/start`
@@ -94,7 +61,7 @@ export const useStudyStartQuery = (
     options
   );
 
-export const useArrivedDataQuery = (
+export const useStudyCheckRecordsQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   options?: Omit<
@@ -103,7 +70,7 @@ export const useArrivedDataQuery = (
   >
 ) =>
   useQuery(
-    ["arrivedData", startDay, endDay],
+    ["studyCheckRecords", startDay, endDay],
     async () => {
       const res = await axios.get<IArrivedData[]>(
         `${SERVER_URI}/vote/arrived`,
@@ -120,7 +87,7 @@ export const useArrivedDataQuery = (
     options
   );
 
-export const useAbsentDataQuery = (
+export const useStudyAbsentQuery = (
   date: Dayjs,
   options?: Omit<
     UseQueryOptions<IAbsentInfo[], AxiosError, IAbsentInfo[]>,
@@ -128,7 +95,7 @@ export const useAbsentDataQuery = (
   >
 ) =>
   useQuery(
-    "absentData",
+    "studyAbsent",
     async () => {
       const res = await axios.get<IAbsentInfo[]>(
         `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/absence`
@@ -137,3 +104,29 @@ export const useAbsentDataQuery = (
     },
     options
   );
+
+// export const useStudyArrivedQuery = (
+//   date: Dayjs,
+//   options?: Omit<
+//     UseQueryOptions<
+//       { user: IUser; memo: string }[],
+//       AxiosError,
+//       { user: IUser; memo: string }[]
+//     >,
+//     "mutationKey" | "mutationFn"
+//   >
+// ) =>
+//   useQuery<
+//     { user: IUser; memo: string }[],
+//     AxiosError,
+//     { user: IUser; memo: string }[]
+//   >(
+//     ARRIVE_FINDMEMO,
+//     async () => {
+//       const res = await axios.get(
+//         `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/arrived`
+//       );
+//       return res.data;
+//     },
+//     options
+//   );

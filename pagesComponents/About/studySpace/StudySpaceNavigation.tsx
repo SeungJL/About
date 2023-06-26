@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { useRecoilValue } from "recoil";
-import { useAbsentMutation } from "../../../hooks/vote/mutations";
+import { useStudyCancelMutation } from "../../../hooks/study/mutations";
 import {
   isVotingState,
   mySpaceFixedState,
@@ -60,7 +60,7 @@ function StudySpaceNavigation({
 
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();
-  const { mutate: handleAbsent } = useAbsentMutation(voteDate, {
+  const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
     onSuccess() {
       router.push(`/about`);
     },

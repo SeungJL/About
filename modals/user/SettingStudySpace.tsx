@@ -7,7 +7,7 @@ import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 
 import { ModalHeaderX } from "../../components/layouts/Modals";
 
-import { usePlaceQuery } from "../../hooks/vote/queries";
+import { useStudyPlaceQuery } from "../../hooks/study/queries";
 
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
@@ -26,7 +26,7 @@ function SettingStudyModal({
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { data } = usePlaceQuery();
+  const { data } = useStudyPlaceQuery();
 
   const placeInfoArr = data
     ?.map((place) => place?.location === location && { placeName: place })

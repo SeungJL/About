@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
-import { useUserParticipationRateQuery } from "../../hooks/user/queries";
-import { useArrivedDataQuery } from "../../hooks/vote/queries";
+import { useStudyCheckRecordsQuery } from "../../hooks/study/queries";
+import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
+
 import RecordCalendar from "../../pagesComponents/Record/RecordCalendar";
 import RecordDetail from "../../pagesComponents/Record/RecordDetail";
 import RecordLineBar from "../../pagesComponents/Record/RecordLineBar";
@@ -37,11 +38,12 @@ function Record() {
     setEndDay(dayjs().month(month).date(dayjs().daysInMonth()));
   }, [month]);
 
-  const { data: arrivedData, isLoading } = useArrivedDataQuery(
+  const { data: arrivedData, isLoading } = useStudyCheckRecordsQuery(
     startDay,
     endDay,
     {
       onSuccess(data) {
+        console.log(data);
         setTotalData(data);
       },
     }

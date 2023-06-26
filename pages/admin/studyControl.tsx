@@ -26,7 +26,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import { useVoteQuery } from "../../hooks/vote/queries";
+import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { Status } from "../../types/statistics";
 import { IAttendance } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
@@ -34,8 +34,8 @@ const LOCATION = ["SUWAN", "YANG"];
 
 function StudyControl() {
   const [date, setDate] = useState(dayjs());
-  const { data: SUWAN } = useVoteQuery(date, "수원");
-  const { data: YANG } = useVoteQuery(date, "양천");
+  const { data: SUWAN } = useStudyVoteQuery(date, "수원");
+  const { data: YANG } = useStudyVoteQuery(date, "양천");
 
   const handleStatus = (type: Status) => {};
 

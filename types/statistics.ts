@@ -2,12 +2,7 @@ import { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import { IPlace } from "./studyDetails";
 
-export interface IVoteStudyInfo {
-  place?: IPlace;
-  subPlace?: IPlace[];
-  start: Dayjs;
-  end: Dayjs;
-}
+
 
 export type IPlaceStatusType =
   | "pending"
