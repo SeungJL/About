@@ -54,7 +54,7 @@ export const useScoreAllQuery = (
     },
     options
   );
-  
+
 export const useScoreLogAllQuery = (
   options?: Omit<
     UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
@@ -175,7 +175,6 @@ export const useDepositAllQuery = (
       const res = await axios.get<IPointAll[]>(
         `${SERVER_URI}/user/deposit/all`
       );
-
       return res.data;
     },
     options

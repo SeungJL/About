@@ -35,7 +35,7 @@ export const useCompleteToast = () => {
       if (type === "apply") text = "신청 완료!";
       if (type === "success") text = "정상적으로 처리되었습니다.";
       toast({
-        title: "실패",
+        title: "성공",
         description: text,
         status: "error",
         duration: 3000,

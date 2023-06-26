@@ -6,8 +6,8 @@ import { UseQueryResult } from "react-query";
 import styled from "styled-components";
 import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
 import {
-  useAttendRateQueries,
-  useVoteRateQueries,
+  useUserAttendRateQueries,
+  useUserVoteRateQueries,
 } from "../../hooks/user/queries";
 import { getMonth } from "../../libs/utils/dateUtils";
 import { IVoteRate } from "../../types/studyRecord";
@@ -30,8 +30,8 @@ function AttendChart({ type, user }: IAttendChart) {
   const [isLoading, setIsLoading] = useState(true);
   const [voteAverageArr, setVoteAverageArr] = useState([]);
   const [myAttendCountTotal, setMyAttendCountTotal] = useState([]);
-  const attendCountTotal = useAttendRateQueries(CHART_MONTH_RANGE);
-  const voteCountTotal = useVoteRateQueries(CHART_MONTH_RANGE);
+  const attendCountTotal = useUserAttendRateQueries(CHART_MONTH_RANGE);
+  const voteCountTotal = useUserVoteRateQueries(CHART_MONTH_RANGE);
 
   const isVoteLoading = voteCountTotal.some((result) => result.isLoading);
   const isAttendLoading = attendCountTotal.some((result) => result.isLoading);

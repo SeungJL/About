@@ -11,32 +11,30 @@ export const useUserRegisterMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IUserRegister>(async (userRegister) => {
-    const res = await axios.post(`${SERVER_URI}/register`, userRegister);
-    return res.data;
+    await axios.post(`${SERVER_URI}/register`, userRegister);
   }, options);
 
 export const useUserApproveMutation = (
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, string>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (uid) => {
-    const res = await axios.post(`${SERVER_URI}/register/approval`, uid);
-    return res.data;
+  useMutation<void, AxiosError, string>(async (uid) => {
+    await axios.post(`${SERVER_URI}/register/approval`, { uid });
   }, options);
 
-export const useDeleteMutation = (
+export const useUserDeleteMutation = (
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, string>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (uid) => {
-    await axios.delete(`${SERVER_URI}/register/approval`, uid);
+  useMutation<void, AxiosError, string>(async (uid) => {
+    await axios.delete(`${SERVER_URI}/register/approval`, { data: { uid } });
   }, options);
 
-export const useActiveMutation = (
+export const useUserActiveMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, boolean>,
     "mutationKey" | "mutationFn"
@@ -48,7 +46,7 @@ export const useActiveMutation = (
     });
   }, options);
 
-export const useCommentMutation = (
+export const useUserCommentMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, IUserComment>,
     "mutationKey" | "mutationFn"
@@ -61,7 +59,7 @@ export const useCommentMutation = (
     });
   }, options);
 
-export const useApplyRestMutation = (
+export const useUserApplyRestMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, IApplyRest>,
     "mutationKey" | "mutationFn"
@@ -73,7 +71,7 @@ export const useApplyRestMutation = (
     });
   }, options);
 
-export const useAvatarMutation = (
+export const useUserAvatarMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, IAvatar>,
     "mutationKey" | "mutationFn"

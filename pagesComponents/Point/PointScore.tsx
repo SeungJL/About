@@ -10,7 +10,7 @@ import ModalPortal from "../../components/ModalPortal";
 import BadgeInfoModal from "../../modals/info/BadgeInfoModal";
 
 import { useRecoilState } from "recoil";
-import { useParticipationRateQuery } from "../../hooks/user/queries";
+import { useUserParticipationRateQuery } from "../../hooks/user/queries";
 import { SortUserScore, userBadgeScore } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
 
@@ -83,7 +83,7 @@ function PointScore({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myPoint]);
 
-  const { data: monthCnt } = useParticipationRateQuery(
+  const { data: monthCnt } = useUserParticipationRateQuery(
     dayjs().date(0),
     dayjs().date(dayjs()?.daysInMonth())
   );

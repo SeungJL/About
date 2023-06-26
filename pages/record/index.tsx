@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
-import { useParticipationRateQuery } from "../../hooks/user/queries";
+import { useUserParticipationRateQuery } from "../../hooks/user/queries";
 import { useArrivedDataQuery } from "../../hooks/vote/queries";
 import RecordCalendar from "../../pagesComponents/Record/RecordCalendar";
 import RecordDetail from "../../pagesComponents/Record/RecordDetail";
@@ -62,7 +62,7 @@ function Record() {
     else setTotalData(arrivedData);
   }, [arrivedData, category]);
 
-  const { data: myAttend } = useParticipationRateQuery(startDay, endDay);
+  const { data: myAttend } = useUserParticipationRateQuery(startDay, endDay);
 
   const myMonthCnt = myAttend?.find((user) => user.uid === session?.uid)?.cnt;
 

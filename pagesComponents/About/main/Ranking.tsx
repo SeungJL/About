@@ -2,13 +2,13 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useVoteRateQuery } from "../../../hooks/user/queries";
+import { useUserVoteRateQuery } from "../../../hooks/user/queries";
 import { numOfUserState } from "../../../recoil/userAtoms";
 
 function Ranking() {
   const { data: session } = useSession();
   const numOfUser = useRecoilValue(numOfUserState);
-  const { data } = useVoteRateQuery(dayjs().date(1), dayjs());
+  const { data } = useUserVoteRateQuery(dayjs().date(1), dayjs());
   const myCnt = data?.find((item) => item.uid === session?.uid).cnt;
 
   return (

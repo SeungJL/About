@@ -7,19 +7,19 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import {
-  useParticipationRateQuery,
-  useVoteRateQuery,
+  useUserParticipationRateQuery,
+  useUserVoteRateQuery,
 } from "../../hooks/user/queries";
 
 function LastWeekAttendPopUp({ closePopUp }) {
   const { data: session } = useSession();
   const name = session?.user.name;
-  const { data: voteRate } = useVoteRateQuery(
+  const { data: voteRate } = useUserVoteRateQuery(
     dayjs().subtract(8, "day"),
     dayjs().subtract(1, "day")
   );
 
-  const { data: parRate, isLoading } = useParticipationRateQuery(
+  const { data: parRate, isLoading } = useUserParticipationRateQuery(
     dayjs().subtract(8, "day"),
     dayjs().subtract(0, "day")
   );

@@ -11,9 +11,10 @@ import {
 import { SetStateAction, useRef } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/layouts/Modals";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
-  useDeleteMutation,
   useUserApproveMutation,
+  useUserDeleteMutation,
 } from "../../hooks/user/mutations";
 import { ModalLg, ModalMain } from "../../styles/layout/modal";
 import { IRegisterForm } from "../../types/user";
@@ -26,13 +27,14 @@ function CheckRegisterModal({
   applicant: IRegisterForm;
   setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }) {
+  const completeToast = useCompleteToast();
   const { mutate: approve } = useUserApproveMutation();
-  const { mutate: deleteForm } = useDeleteMutation({
+  const { mutate: deleteForm } = useUserDeleteMutation({
     onSuccess(data) {},
   });
 
   const onClickAgree = () => {
-    approve({ uid: applicant?.uid });
+    approve(applicant?.uid);
     setIsRefetch(true);
     setIsModal(false);
   };
@@ -40,12 +42,13 @@ function CheckRegisterModal({
   const cancelRef = useRef();
 
   const onClickDelete = () => {
-    // onClose();
+    onClose();
 
-    deleteForm({ uid: applicant?.uid });
-    // setIsModal(false);
-    // onComplete();
-    // setIsRefetch(true);
+    deleteForm(applicant?.uid);
+
+    setIsModal(false);
+    completeToast("success");
+    setIsRefetch(true);
   };
   return (
     <>

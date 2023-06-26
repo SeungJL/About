@@ -11,7 +11,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import styled from "styled-components";
 
-import { useAvatarMutation } from "../../hooks/user/mutations";
+import { useUserAvatarMutation } from "../../hooks/user/mutations";
 import { useScoreQuery } from "../../hooks/user/pointSystem/queries";
 import { AVATAR_COLOR, AVATAR_COST, AVATAR_ICON } from "../../storage/Avatar";
 import { ModalHeaderLine, ModalLg, ModalXs } from "../../styles/layout/modal";
@@ -29,10 +29,8 @@ function ChangeProfileImageModal({
   const [BG, setBG] = useState(0);
   const { data: score } = useScoreQuery();
 
-  const { mutate } = useAvatarMutation({
-    onSuccess() {
-
-    },
+  const { mutate } = useUserAvatarMutation({
+    onSuccess() {},
     onError() {
       console.error("err");
     },
@@ -120,7 +118,7 @@ function ChangeProfileImageModal({
       type: iconIdx,
       bg: BG,
     };
-  
+
     mutate(info);
     // setIsModal(false);
     // location.reload();

@@ -11,7 +11,7 @@ import { IApplyRest } from "../../types/userRequest";
 
 import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
-import { useApplyRestMutation } from "../../hooks/user/mutations";
+import { useUserApplyRestMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { IUserRequest } from "../../types/user";
 
@@ -24,7 +24,7 @@ function ApplyRestModal({
   const { data: session } = useSession();
 
   const { mutate: requestRest } = useUserRequestMutation();
-  const { mutate: applyRest } = useApplyRestMutation({
+  const { mutate: applyRest } = useUserApplyRestMutation({
     onSuccess() {
       completeToast("apply");
       setIsModal(false);

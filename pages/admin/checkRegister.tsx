@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
-import { useRegisterQuery, useUserInfoQuery } from "../../hooks/user/queries";
+import {
+  useRegisterFormsQuery,
+  useUserInfoQuery,
+} from "../../hooks/user/queries";
 import CheckRegisterModal from "../../modals/admin/CheckRegisterModal";
 import { IRegisterForm } from "../../types/user";
 function CheckRegister() {
@@ -16,7 +19,7 @@ function CheckRegister() {
   const [applicant, setApplicant] = useState<IRegisterForm>();
   const { data } = useUserInfoQuery();
   const [isRefetch, setIsRefetch] = useState(false);
-  const { data: applyData, refetch } = useRegisterQuery({});
+  const { data: applyData, refetch } = useRegisterFormsQuery({});
   const [registerData, setRegisterData] = useState<IRegisterForm[]>([]);
 
   const [category, setCategory] = useState("수원");

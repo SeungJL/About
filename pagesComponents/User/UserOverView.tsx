@@ -39,8 +39,8 @@ export default function UserOverview({
     },
   });
 
-  // const { mutate: onChangeComment } = useCommentMutation();
-  // const { data: comments, isLoading } = useCommentQuery();
+  // const { mutate: onChangeComment } = useUserCommentMutation();
+  // const { data: comments, isLoading } = useUserCommentQuery();
 
   const { mutate, isLoading } = useUserRegisterMutation({
     onSuccess() {},
@@ -83,7 +83,7 @@ export default function UserOverview({
 
   const handleSubmit = async () => {
     await mutate({ ...user, comment: value });
-    await approve({ uid: user?.uid });
+    await approve(user?.uid);
   };
 
   return (

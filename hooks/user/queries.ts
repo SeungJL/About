@@ -14,14 +14,14 @@ import { IVoteRate } from "../../types/studyRecord";
 import { IAvatar, IRegisterForm, IUser, IUserComment } from "../../types/user";
 import { IDateStartToEnd } from "../../types/utils";
 
-export const useRegisterQuery = (
+export const useRegisterFormsQuery = (
   options?: Omit<
     UseQueryOptions<IRegisterForm[], AxiosError, IRegisterForm[]>,
     "queryKey" | "queryFn"
   >
 ) =>
   useQuery<IRegisterForm[], AxiosError, IRegisterForm[]>(
-    "register",
+    "registerForms",
     async () => {
       const res = await axios.get<IRegisterForm[]>(`${SERVER_URI}/register`);
       return res.data;
@@ -44,7 +44,7 @@ export const useUserInfoQuery = (
     options
   );
 
-export const useParticipationRateQuery = (
+export const useUserParticipationRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   options?: Omit<
@@ -69,7 +69,7 @@ export const useParticipationRateQuery = (
     options
   );
 
-export const useVoteRateQuery = (
+export const useUserVoteRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   options?: Omit<
@@ -90,7 +90,7 @@ export const useVoteRateQuery = (
     },
     options
   );
-export const useAttendRateQueries = (
+export const useUserAttendRateQueries = (
   monthList: IDateStartToEnd[],
   options?: Omit<
     UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
@@ -118,7 +118,7 @@ export const useAttendRateQueries = (
     })
   );
 
-export const useVoteRateQueries = (
+export const useUserVoteRateQueries = (
   monthList: IDateStartToEnd[],
   options?: Omit<
     UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
@@ -146,7 +146,7 @@ export const useVoteRateQueries = (
     })
   );
 
-export const useCommentQuery = (
+export const useUserCommentQuery = (
   options?: Omit<
     UseQueryOptions<IComment, AxiosError, IComment>,
     "queryKey" | "queryFn"
@@ -161,7 +161,7 @@ export const useCommentQuery = (
     options
   );
 
-export const useIsActiveQuery = (
+export const useUserIsActiveQuery = (
   options?: Omit<
     UseQueryOptions<IIsActive, AxiosError, IIsActive>,
     "queryKey" | "queryFn"
@@ -177,7 +177,7 @@ export const useIsActiveQuery = (
     options
   );
 
-export const useAvatarQuery = (
+export const useUserAvatarQuery = (
   options?: Omit<
     UseQueryOptions<IAvatar, AxiosError, IAvatar>,
     "queryKey" | "queryFn"
