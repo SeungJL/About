@@ -35,7 +35,7 @@ function ExpireGatherModal({
 }) {
   const router = useRouter();
   
-  const completeToast = useCompleteToast({ type: "applyGather" });
+ 
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
   const gatherData = useRecoilValue(transferGatherDataState);

@@ -29,7 +29,7 @@ function DeclarationFormModal({
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const [isRealName, setIsRealName] = useState(true);
-  const completeToast = useCompleteToast({ type: "success" });
+  const completeToast = useCompleteToast();
   const { data: session } = useSession();
   const {
     register,
@@ -39,7 +39,7 @@ function DeclarationFormModal({
 
   const { mutate: DeclarationForm } = useUserRequestMutation({
     onSuccess() {
-      completeToast();
+      completeToast("success");
     },
   });
   const { mutate: getScores } = usePointMutation();

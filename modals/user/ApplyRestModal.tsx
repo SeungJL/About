@@ -20,13 +20,13 @@ function ApplyRestModal({
 }: {
   setIsModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const completeToast = useCompleteToast({ type: "apply" });
+  const completeToast = useCompleteToast();
   const { data: session } = useSession();
 
   const { mutate: requestRest } = useUserRequestMutation();
   const { mutate: applyRest } = useApplyRestMutation({
     onSuccess() {
-      completeToast();
+      completeToast("apply");
       setIsModal(false);
     },
   });

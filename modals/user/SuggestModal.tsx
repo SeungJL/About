@@ -34,7 +34,7 @@ function SuggestModal({
 }) {
   const [isRealName, setIsRealName] = useState(true);
   const { data: session } = useSession();
-  const completeToast = useCompleteToast({ type: "success" });
+  const completeToast = useCompleteToast();
   const {
     register,
     handleSubmit,
@@ -43,7 +43,7 @@ function SuggestModal({
 
   const { mutate: suggestForm } = useUserRequestMutation({
     onSuccess() {
-      completeToast();
+      completeToast("success");
     },
   });
   const { mutate: getPoint } = usePointMutation();

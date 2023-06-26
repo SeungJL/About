@@ -11,7 +11,6 @@ import {
 import { SetStateAction, useRef } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/layouts/Modals";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
   useDeleteMutation,
   useUserApproveMutation,
@@ -27,7 +26,6 @@ function CheckRegisterModal({
   applicant: IRegisterForm;
   setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }) {
-  const onComplete = useCompleteToast({ type: "applyGather" });
   const { mutate: approve } = useUserApproveMutation();
   const { mutate: deleteForm } = useDeleteMutation({
     onSuccess(data) {},

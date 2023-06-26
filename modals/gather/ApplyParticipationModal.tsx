@@ -23,7 +23,7 @@ function ApplyParticipationModal({
   const failToast = useFailToast();
   // const failToast = useFailToast({ type: "applyGather" });
 
-  const completeToast = useCompleteToast({ type: "applyGather" });
+  const completeToast = useCompleteToast();
   const [isFirst, setIsFirst] = useState(true);
   const [pageNum, setPageNum] = useState(0);
   const { data } = useUserInfoQuery();
@@ -128,7 +128,7 @@ function ApplyParticipationModal({
 
   const selectGatherTime = () => {
     participate();
-    completeToast();
+    completeToast("applyGather");
     setIsRefetching(true);
     setIsModal(false);
   };

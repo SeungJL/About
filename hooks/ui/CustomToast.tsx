@@ -26,22 +26,25 @@ export const useFailToast = () => {
   return showFailToast;
 };
 
-export const useCompleteToast = ({ type }: { type?: string }) => {
+export const useCompleteToast = () => {
   const toast = useToast();
+  const showCompleteToast = useCallback(
+    (type: string, sub?: string) => {
+      let text = "";
+      if (type === "refuseRegister") text = "가입 거절";
+      if (type === "apply") text = "신청 완료!";
+      if (type === "success") text = "정상적으로 처리되었습니다.";
+      toast({
+        title: "실패",
+        description: text,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+    [toast]
+  );
 
-  const showCompleteToast = () => {
-    let text = "";
-    if (type === "refuseRegister") text = "가입 거절";
-    if (type === "apply") text = "신청 완료!";
-    if (type === "success") text = "정상적으로 처리되었습니다.";
-    toast({
-      title: "성공",
-      description: text || "정상적으로 처리되었습니다.",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-      position: "bottom",
-    });
-  };
   return showCompleteToast;
 };
