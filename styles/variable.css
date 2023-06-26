@@ -26,7 +26,8 @@
   --height-lg: 410px;
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   --border-headline: 1px solid var(--font-h3);
-  --border-hr-color: var(--font-h65);
+  --border-color: var(--font-h65);
+  --border-main: 1.5px solid var(--border-color);
   --border-radius: 6px;
   --border-radius2: 12px;
   --padding-main: 14px;

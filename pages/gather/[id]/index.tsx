@@ -5,17 +5,17 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { MainLoading } from "../../../components/ui/MainLoading";
+import { MainLoading } from "../../../components/common/MainLoading";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
-import GatherBadge from "../../../pagesComponents/Gather/detail/GatherBadge";
-import GatherBottomNav from "../../../pagesComponents/Gather/detail/GatherBottomNav";
-import GatherComments from "../../../pagesComponents/Gather/detail/GatherComment";
-import GatherContent from "../../../pagesComponents/Gather/detail/GatherContent";
-import GatherDetailInfo from "../../../pagesComponents/Gather/detail/GatherDetail";
-import GatherHeader from "../../../pagesComponents/Gather/detail/GatherHeader";
-import GatherOrganizer from "../../../pagesComponents/Gather/detail/GatherOrganizer";
-import GatherParticipation from "../../../pagesComponents/Gather/detail/GatherParticipation";
-import GatherTitle from "../../../pagesComponents/Gather/detail/GatherTitle";
+import GatherBadge from "../../../pagesComponents/Gather/Detail/GatherBadge";
+import GatherBottomNav from "../../../pagesComponents/Gather/Detail/GatherBottomNav";
+import GatherComments from "../../../pagesComponents/Gather/Detail/GatherComment";
+import GatherContent from "../../../pagesComponents/Gather/Detail/GatherContent";
+import GatherDetailInfo from "../../../pagesComponents/Gather/Detail/GatherDetail";
+import GatherHeader from "../../../pagesComponents/Gather/Detail/GatherHeader";
+import GatherOrganizer from "../../../pagesComponents/Gather/Detail/GatherOrganizer";
+import GatherParticipation from "../../../pagesComponents/Gather/Detail/GatherParticipation";
+import GatherTitle from "../../../pagesComponents/Gather/Detail/GatherTitle";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 
 function GatherDetail() {
@@ -28,8 +28,6 @@ function GatherDetail() {
       setGatherData(data?.find((item) => item?.id === +gatherId));
     },
   });
-
-  console.log(gatherContentArr);
 
   useEffect(() => {
     if (isRefetching || !gatherData) {
@@ -66,7 +64,7 @@ function GatherDetail() {
               gatherList={gatherData.gatherList}
             />
             <GatherParticipation data={gatherData} />
-            <GatherComments />
+            <GatherComments comment={gatherData.comment} />
             <GatherBottomNav
               data={gatherData}
               setIsRefetching={setIsRefetching}

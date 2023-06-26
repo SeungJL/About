@@ -1,8 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FullScreen } from "../styles/layout/modal";
 
-function ModalPortal({ children, setIsModal }) {
+interface IModalPortal {
+  children: React.ReactNode;
+  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+}
+
+function ModalPortal({ children, setIsModal }: IModalPortal) {
   const ref = useRef<Element | null>();
   const [mounted, setMounted] = useState(false);
 

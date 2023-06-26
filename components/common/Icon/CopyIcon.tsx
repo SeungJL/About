@@ -1,11 +1,15 @@
 import { Button, useToast } from "@chakra-ui/react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
-export const CopyBtn = ({ text }: { text: string }) => {
-  const toast = useToast();
-  const copy = (text) =>
-    navigator.clipboard.writeText(text).then(() => {
+interface ICopyBtn {
+  text: string;
+}
+
+const handleClickCopy = (text: string, toast: Function) => {
+  navigator.clipboard.writeText(text).then(
+    () => {
       toast({
         title: "복사 완료",
         status: "success",
@@ -14,38 +18,40 @@ export const CopyBtn = ({ text }: { text: string }) => {
         position: "bottom",
         variant: "left-accent",
       });
-    });
+    },
+    (error) => {
+      console.error("Failed to copy text:", error);
+      toast({
+        title: "복사 실패",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+        variant: "left-accent",
+      });
+    }
+  );
+};
+
+const ClickableIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+`;
+
+export const CopyBtn = ({ text }: ICopyBtn) => {
+  const toast = useToast();
   return (
-    <FontAwesomeIcon
+    <ClickableIcon
       icon={faCopy}
-      onClick={() => copy(text)}
+      onClick={() => handleClickCopy(text, toast)}
       color="var(--font-h1)"
     />
   );
 };
 
-export const CopyBtnBig = ({ text }: { text: string }) => {
+export const CopyBtnBig = ({ text }: ICopyBtn) => {
   const toast = useToast();
-  const copy = (text) =>
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast({
-          title: "복사 완료",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "bottom",
-
-          variant: "left-accent",
-        });
-      },
-      (error) => {
-        console.error("Failed to copy text:", error);
-      }
-    );
-
   return (
-    <Button onClick={() => copy(text)} mt="auto">
+    <Button onClick={() => handleClickCopy(text, toast)} mt="auto">
       본문 내용 복사하기
     </Button>
   );

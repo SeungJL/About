@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../components/ui/MainLoading";
+import { MainLoading } from "../../components/common/MainLoading";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
 
 import { GatherCategory, IGatherContent } from "../../types/gather";

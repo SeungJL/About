@@ -1,13 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 
-function SpaceMap({ lat, lon }: { lat?: number; lon?: number }) {
+interface ISpaceMap {
+  lat?: number;
+  lon?: number;
+}
+
+function SpaceMap({ lat, lon }: ISpaceMap) {
   const mapRef = useRef();
 
   const [myLat, setMyLat] = useState(null);
   const [myLon, setMyLon] = useState(null);
 
   useEffect(() => {
-    const location = new naver.maps.LatLng(lat, lon);
     const option = {
       center: new naver.maps.LatLng(lat, lon),
       scaleControl: false,

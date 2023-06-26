@@ -3,29 +3,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-function Header({
-  title,
-  url,
-  children,
-}: {
+interface IHeader {
   title: string;
   url?: string;
   children?: React.ReactNode;
-}) {
+}
+
+const Header = ({ title, url, children }: IHeader) => {
   const router = useRouter();
+
+  const handleClick = () => {
+    if (url) router.push(url);
+    else router.back();
+  };
 
   return (
     <Layout>
-      <div
-        onClick={!url ? () => router.push(`/about`) : () => router.push(url)}
-      >
+      <div onClick={handleClick}>
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
       </div>
       <Title>{title}</Title>
       <Nav>{children}</Nav>
     </Layout>
   );
-}
+};
 
 const Layout = styled.div`
   height: 46px;

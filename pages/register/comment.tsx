@@ -10,7 +10,7 @@ import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
 
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { MainLoading } from "../../components/ui/MainLoading";
+import { MainLoading } from "../../components/common/MainLoading";
 import {
   useApproveMutation,
   useRegisterMutation,

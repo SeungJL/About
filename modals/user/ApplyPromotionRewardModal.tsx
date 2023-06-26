@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { SetStateAction } from "react";
 import styled from "styled-components";
 import { CopyBtnBig } from "../../components/common/Icon/CopyIcon";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
 

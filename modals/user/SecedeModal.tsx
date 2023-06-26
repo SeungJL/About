@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { signOut, useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 
 import { ModalLg, ModalMain, ModalSubtitle } from "../../styles/layout/modal";

@@ -7,7 +7,7 @@ import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
 import { IUser } from "../../types/user";
-import { IAbsentInfo } from "../../types/userAction";
+import { IAbsentInfo } from "../../types/userRequest";
 
 export const useVoteQuery = (
   date: Dayjs,

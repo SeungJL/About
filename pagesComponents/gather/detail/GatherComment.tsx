@@ -4,14 +4,19 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-export interface IGatherComment {
-  gatherId: string;
+import { IGatherComment } from "../../../types/gather";
+export interface IGatherCommentUnit {
+  gatherId: number;
   comment: string;
 }
 
-function GatherComments() {
+interface IGatherComments {
+  comment: IGatherComment;
+}
+
+function GatherComments({ comment }: IGatherComments) {
   const router = useRouter();
-  const gatherId = router.query.id as string;
+  const gatherId = +router.query.id;
   const { data: userInfo } = useUserInfoQuery();
   const [value, setValue] = useState("");
 
@@ -27,7 +32,7 @@ function GatherComments() {
     },
   });
   const onSubmit = () => {
-    const data: IGatherComment = { gatherId, comment: value };
+    const data: IGatherCommentUnit = { gatherId, comment: value };
     writeComment(data);
   };
   return (

@@ -7,7 +7,7 @@ import {
   IPointAll,
   IPointLog,
   IScore,
-} from "../../../types/user/scoreSystem";
+} from "../../../types/user/pointSystem";
 
 //score
 export const useScoreQuery = (

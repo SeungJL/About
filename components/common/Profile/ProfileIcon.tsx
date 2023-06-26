@@ -1,54 +1,44 @@
 import Image from "next/image";
 import styled from "styled-components";
+import { ICON_SIZE } from "../../../constants/design";
+import { DEFAULT_IMAGE_URL } from "../../../constants/exception";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 import { size } from "../../../types/ui";
 import { IUser } from "../../../types/user";
 import { ISessionUser } from "../../../types/user/session";
 
-function ProfileIcon({
-  user,
-  size,
-}: {
+interface IProfileIcon {
   user: IUser | ISessionUser;
   size?: size;
-}) {
+}
+
+function ProfileIcon({ user, size }: IProfileIcon) {
   const avatarType = (user as IUser)?.avatar?.type;
   const avatarBg = (user as IUser)?.avatar?.bg;
   const isAvatar = Boolean(avatarType && avatarBg);
+  const iconSize = ICON_SIZE[size];
 
-  const sizeMatching = {
-    xl: 70,
-    lg: 60,
-    md: 50,
-    sm: 40,
-    xs: 30,
+  const handeErrorImage = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    e.currentTarget.src = DEFAULT_IMAGE_URL;
   };
 
-  const iconSize = sizeMatching[size];
-
-  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src =
-      "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
-  };
+  const imageUrl = isAvatar
+    ? `${AVATAR_ICON[avatarType]}`
+    : `${(user as IUser)?.profileImage || (user as ISessionUser)?.image}`;
 
   return (
     <>
       {user && (
         <Layout avatarBg={isAvatar && AVATAR_COLOR[avatarBg]} size={iconSize}>
           <Image
-            src={
-              isAvatar
-                ? `${AVATAR_ICON[avatarType]}`
-                : `${
-                    (user as IUser)?.profileImage ||
-                    (user as ISessionUser)?.image
-                  }`
-            }
+            src={imageUrl}
             width={isAvatar ? 0.8 * iconSize : iconSize}
             height={isAvatar ? 0.8 * iconSize : iconSize}
             alt="ProfileIcon"
             unoptimized={true}
-            onError={onError}
+            onError={handeErrorImage}
           />
         </Layout>
       )}

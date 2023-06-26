@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/ui/Modal";
+import { ModalHeaderX } from "../../components/layouts/Modals";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
 
 import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";

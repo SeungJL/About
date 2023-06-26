@@ -1,17 +1,16 @@
 import { Button } from "@chakra-ui/react";
-import { faLocation, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useState, Dispatch, SetStateAction } from "react";
+import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 
-function SearchLocation({
-  location,
-  setLocation,
-}: {
+interface ISearchLocation {
   location?: string;
   setLocation?: React.Dispatch<SetStateAction<string>>;
-}) {
+}
+
+function SearchLocation({ location, setLocation }: ISearchLocation) {
   const [query, setQuery] = useState(location || "");
   const [results, setResults] = useState([]);
 

@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { IAdminPoint } from "../../types/user/scoreSystem";
+import { IAdminPoint } from "../../types/user/pointSystem";
 
 export const useUpdateProfileMutation = (
   options?: Omit<
@@ -23,7 +23,6 @@ export const useAdminPointMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAdminPoint>(async (data) => {
-  
     await axios.post(`${SERVER_URI}/admin/user/${uid}/point`, data);
   }, options);
 export const useAdminScoremMutation = (
@@ -34,7 +33,6 @@ export const useAdminScoremMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAdminPoint>(async (data) => {
-   
     await axios.post(`${SERVER_URI}/admin/user/${uid}/score`, data);
   }, options);
 
@@ -46,6 +44,5 @@ export const useAdminDepositMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IAdminPoint>(async (data) => {
- 
     await axios.post(`${SERVER_URI}/admin/user/${uid}/deposit`, data);
   }, options);

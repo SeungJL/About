@@ -5,13 +5,12 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isVoteCompletedState } from "../../recoil/renderTrigger2Atoms";
 
-function SuccessScreen({
-  children,
-  url,
-}: {
+interface ISuccessScreen {
   children?: React.ReactNode;
   url?: string;
-}) {
+}
+
+function SuccessScreen({ children, url }: ISuccessScreen) {
   const router = useRouter();
 
   const setIsCompleteModal = useSetRecoilState(isVoteCompletedState);
@@ -67,9 +66,6 @@ const Content = styled.div`
     text-align: center;
     font-size: 17px;
     color: var(--font-h3);
-
-    > div {
-    }
   }
 `;
 const Button = styled.button`

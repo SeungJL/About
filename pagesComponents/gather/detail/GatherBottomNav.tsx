@@ -24,8 +24,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
   );
   const [isExpirationModal, setIsExpirationModal] = useState(false);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
-  const gatherId = router.query.id;
-  console.log(gatherId);
+  const gatherId = +router.query.id;
 
   const { mutate: cancel } = useGatherCancelMutation();
 

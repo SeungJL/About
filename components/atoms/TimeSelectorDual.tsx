@@ -10,51 +10,58 @@ interface ITimeSelectorDual {
 }
 
 function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
-  const onChangeTime =
-    (isHour: boolean) => (event: ChangeEvent<HTMLSelectElement>) => {
-      const value = Number(event.currentTarget.value);
-      let hour = time.hour;
-      let minutes = time.minute;
-      if (isHour) setTime({ hour: value, minutes });
-      else setTime({ hour, minutes: value });
-    };
+  const changeHour = (event: ChangeEvent<HTMLSelectElement>) => {
+    const value = Number(event.currentTarget.value);
+    setTime({ hour: value, minutes: time.minute });
+  };
+
+  const changeMinute = (event: ChangeEvent<HTMLSelectElement>) => {
+    const value = Number(event.currentTarget.value);
+    setTime({ hour: time.hour, minutes: value });
+  };
   return (
     <Layout>
-      <Select
+      <SelectHour
         name="hour"
         value={time.hour}
         placeholder="시간"
-        onChange={onChangeTime(true)}
+        onChange={changeHour}
       >
         {timeArr.map((h) => (
           <Option key={h} value={h}>
             {h}
           </Option>
         ))}
-      </Select>
+      </SelectHour>
       :
-      <Select
+      <SelectMinute
         name="minute"
         defaultValue={String(time.minute).padStart(2, "0")}
         placeholder="분"
-        onChange={onChangeTime(false)}
+        onChange={changeMinute}
       >
         {TIME_SELECTOR_MINUTES.map((m) => (
           <Option key={m} value={m}>
             {m}
           </Option>
         ))}
-      </Select>
+      </SelectMinute>
     </Layout>
   );
 }
-const Select = styled.select`
+
+const SelectHour = styled.select`
   font-weight: 600;
   color: var(--font-h1);
 `;
+
+const SelectMinute = styled.select`
+  font-weight: 600;
+  color: var(--font-h1);
+`;
+
 const Layout = styled.div`
   display: flex;
-
   align-items: center;
 
   > select {
@@ -67,6 +74,7 @@ const Layout = styled.div`
     margin-left: 6px;
   }
 `;
+
 const Option = styled.option``;
 
 export default TimeSelectorDual;

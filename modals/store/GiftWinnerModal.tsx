@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 
 import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
 import { IStoreApplicant } from "../../types/store";

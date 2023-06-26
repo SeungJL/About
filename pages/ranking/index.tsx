@@ -24,7 +24,7 @@ import {
 import { SortUserScore, userBadgeScore } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
 import { USER_BADGES } from "../../types/user";
-import { IScore } from "../../types/user/scoreSystem";
+import { IScore } from "../../types/user/pointSystem";
 
 function Ranking() {
   const { data: session } = useSession();

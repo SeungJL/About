@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export const XAlertIcon = () => (
-  <XAleftIconLayout>
+  <XAlertIconLayout>
     <FontAwesomeIcon icon={faXmark} color="white" size="3x" />
-  </XAleftIconLayout>
+  </XAlertIconLayout>
 );
 
-const XAleftIconLayout = styled.div`
+const XAlertIconLayout = styled.div`
   width: 72px;
   height: 72px;
   border-radius: 50%;

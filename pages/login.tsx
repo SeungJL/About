@@ -1,35 +1,33 @@
 import {
-  Button,
-  Text,
-  useDisclosure,
-  AlertDialogOverlay,
   AlertDialog,
   AlertDialogBody,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { NextPage, GetServerSideProps } from "next";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
+import { GetServerSideProps, NextPage } from "next";
 import { BuiltInProviderType } from "next-auth/providers";
 import {
-  LiteralUnion,
   ClientSafeProvider,
-  signIn,
   getProviders,
-  getSession,
+  LiteralUnion,
+  signIn,
 } from "next-auth/react";
-import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { ModalXs } from "../styles/layout/modal";
+import { MainLoading } from "../components/common/MainLoading";
 import ModalPortal from "../components/ModalPortal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
 import { IconKakao } from "../public/icons/Icons";
-import { motion } from "framer-motion";
-import { MainLoading } from "../components/ui/MainLoading";
+import { ModalXs } from "../styles/layout/modal";
 
 const Login: NextPage<{
   providers: Record<

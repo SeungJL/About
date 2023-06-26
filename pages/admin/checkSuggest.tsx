@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
-import { MainLoading } from "../../components/ui/MainLoading";
 import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 
 function CheckSuggest() {

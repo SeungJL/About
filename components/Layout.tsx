@@ -11,12 +11,16 @@ import Script from "next/script";
 import styled from "styled-components";
 import { useToken } from "../hooks/token/useToken";
 import { useUserInfoQuery } from "../hooks/user/queries";
-import { MainLoading } from "./ui/MainLoading";
+import { MainLoading } from "./common/MainLoading";
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
 config.autoAddCss = false;
 
-function Layout({ children }) {
+interface ILayout {
+  children: React.ReactNode;
+}
+
+function Layout({ children }: ILayout) {
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const router = useRouter();

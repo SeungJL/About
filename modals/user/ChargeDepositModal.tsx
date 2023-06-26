@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { ACCOUNT_SHORT } from "../../constants/private";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { ModalMain, ModalMd } from "../../styles/layout/modal";

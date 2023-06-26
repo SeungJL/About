@@ -15,40 +15,45 @@ function TimeSelectorUnit({
   timeArr,
   disabled,
 }: ITimeSelectorUnit) {
-  const hourStr = time.hour + "";
-  const minuteStr = time.minute ? time.minute + "" : time.minute + "0";
+  const hourStr = String(time.hour);
+  const minuteStr = time.minute ? String(time.minute) : "0";
 
   const onChangeTime = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.currentTarget.value;
-    const hour = +value.slice(0, 2);
-    const minute = +value.slice(3);
+    // Value is expected to be in "HH:MM" format
+    const hour = Number(value.slice(0, 2));
+    const minute = Number(value.slice(3));
     setTime({ hour, minute });
   };
+
   return (
     <Layout>
       <Select
         name="hour"
-        value={hourStr + ":" + minuteStr}
+        value={`${hourStr}:${minuteStr}`}
         placeholder="시간"
         onChange={onChangeTime}
         disabled={disabled}
       >
-        {timeArr.map((t) => (
-          <Option key={t} value={t}>
-            {t}
+        {timeArr.map((timeValue) => (
+          <Option key={timeValue} value={timeValue}>
+            {timeValue}
           </Option>
         ))}
       </Select>
     </Layout>
   );
 }
+
 const Select = styled.select`
   font-weight: 600;
   color: var(--font-h1);
 `;
+
 const Layout = styled.div`
   display: flex;
   align-items: center;
+
   > select {
     color: var(--font-h2);
     width: 68px;
@@ -59,12 +64,14 @@ const Layout = styled.div`
     border: 1.5px solid var(--font-h5);
     border-radius: var(--border-radius);
     font-size: 12px;
+
     :focus {
       outline: none;
-      border: 1.5px solid var(--font-h2);
+      border: 1 5px solid var(--font-h2);
     }
   }
 `;
+
 const Option = styled.option``;
 
 export default TimeSelectorUnit;

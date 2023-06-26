@@ -1,19 +1,24 @@
-import dynamic from "next/dynamic";
+import { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import { UseQueryResult } from "react-query";
+import styled from "styled-components";
+import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
 import {
   useAttendRateQueries,
   useVoteRateQueries,
 } from "../../hooks/user/queries";
 import { getMonth } from "../../libs/utils/dateUtils";
-import { IUser } from "../../types/user";
-import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { IVoteRate } from "../../types/studyRecord";
-import { UseQueryResult } from "react-query";
-import { AxiosError } from "axios";
+import { IUser } from "../../types/user";
 
-function AttendChart({ type, user }: { type?: string; user?: IUser }) {
+interface IAttendChart {
+  type?: string;
+  user?: IUser;
+}
+
+function AttendChart({ type, user }: IAttendChart) {
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data: session } = useSession();
   const Uid = type === "main" ? session?.uid : user?.uid;

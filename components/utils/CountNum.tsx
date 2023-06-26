@@ -1,16 +1,14 @@
-import { Icon } from "@chakra-ui/react";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SetStateAction, useState } from "react";
+import { SetStateAction } from "react";
 import styled from "styled-components";
 
-function CountNum({
-  value,
-  setValue,
-}: {
+interface ICountNum {
   value: number;
   setValue: React.Dispatch<SetStateAction<number>>;
-}) {
+}
+
+function CountNum({ value, setValue }: ICountNum) {
   return (
     <Layout>
       <IconWrapper

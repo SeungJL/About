@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../../../components/ui/MainLoading";
+import { MainLoading } from "../../../../components/common/MainLoading";
 import StudySpaceVoteOverview from "../../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceCover from "../../../../pagesComponents/About/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../../pagesComponents/About/studySpace/StudySpaceHeader";

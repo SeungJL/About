@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { SetStateAction, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/ui/Modal";
+import { ModalHeaderX } from "../../components/layouts/Modals";
 import {
   useGatherDeleteMutation,
   useGatherParticipateMutation,

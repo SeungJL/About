@@ -1,5 +1,5 @@
-import { IRankScore, IUserBadge, UserBadge } from "../../types/user";
-import { IScore } from "../../types/user/scoreSystem";
+import { IRankScore, UserBadge } from "../../types/user";
+import { IScore } from "../../types/user/pointSystem";
 
 export const userBadgeScore = (score) => {
   let badge: UserBadge = "아메리카노";

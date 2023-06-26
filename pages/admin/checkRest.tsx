@@ -1,12 +1,12 @@
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
-import { MainLoading } from "../../components/ui/MainLoading";
 import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 
 function CheckRest() {
   const { data, isLoading } = useUserRequestQuery();
   const suggestData = data?.filter((item) => item.category === "휴식");
- 
+
   return (
     <>
       <Header title="휴식신청 확인" url="/admin" />

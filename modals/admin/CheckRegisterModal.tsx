@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { SetStateAction, useRef } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/ui/Modal";
+import { ModalHeaderX } from "../../components/layouts/Modals";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
   useApproveMutation,
@@ -35,9 +35,7 @@ function CheckRegisterModal({
     },
   });
   const { mutate: deleteForm } = useDeleteMutation({
-    onSuccess(data) {
-   
-    },
+    onSuccess(data) {},
   });
 
   const onClickAgree = () => {
@@ -50,7 +48,7 @@ function CheckRegisterModal({
 
   const onClickDelete = () => {
     // onClose();
-   
+
     deleteForm({ uid: applicant?.uid });
     // setIsModal(false);
     // onComplete();

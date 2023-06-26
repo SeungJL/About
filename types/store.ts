@@ -4,7 +4,6 @@ export interface IStoreGift {
   brand: string;
   point: number;
   winner: number;
-
   giftId?: number;
   max?: number;
 }

@@ -17,7 +17,6 @@ function UserInfo() {
         transition={{ duration: 0.3 }}
       >
         <Header title="마이페이지" />
-
         <UserLayout isLoading={isLoading}>
           <UserOverview setIsLoading={setIsLoading} />
           <UserScoreBar />

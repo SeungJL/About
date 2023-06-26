@@ -3,8 +3,6 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 import styled from "styled-components";
 
-import { InputSm } from "../../components/ui/Input";
-
 import { useArrivedMutation } from "../../hooks/vote/mutations";
 
 import {
@@ -17,6 +15,7 @@ import {
 import { IAttendance } from "../../types/studyDetails";
 
 import { useRouter } from "next/router";
+import { InputSm } from "../../styles/layout/input";
 
 function ChangeArrivedMemoModal({
   setIsModal,

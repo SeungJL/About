@@ -22,7 +22,9 @@ const Layout = styled.div`
   padding-left: 14px;
   display: flex;
   overflow-x: auto;
-  border-bottom: 8px solid var(--border-hr-color);
+
+  border-top: var(--border-main);
+  border-bottom: 8px solid var(--border-color);
 `;
 
 export default GatherReviewNav;

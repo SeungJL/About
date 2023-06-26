@@ -1,7 +1,11 @@
 import { Progress } from "@chakra-ui/react";
 import styled from "styled-components";
 
-function ProgressStatus({ value }: { value: number }) {
+interface IProgressStatus {
+  value: number;
+}
+
+function ProgressStatus({ value }: IProgressStatus) {
   return (
     <Layout>
       <Progress value={value} size="sm" />

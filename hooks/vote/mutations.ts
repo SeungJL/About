@@ -4,7 +4,7 @@ import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 
 import { IVoteStudyInfo } from "../../types/statistics";
-import { IAbsentInfo } from "../../types/userAction";
+import { IAbsentInfo } from "../../types/userRequest";
 
 export const useAttendMutation = (
   currentDate: Dayjs,

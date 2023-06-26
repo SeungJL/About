@@ -23,7 +23,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { InputSm } from "../../components/ui/Input";
+
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import {
   useDepositMutation,
@@ -32,6 +32,7 @@ import {
 import { useAbsentStudyMutation } from "../../hooks/vote/mutations";
 import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
+import { InputSm } from "../../styles/layout/input";
 
 function AbsentStudyModal({ setIsModal }) {
   const router = useRouter();

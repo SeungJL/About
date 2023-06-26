@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import {
   ModalFooterNav,
   ModalMain,

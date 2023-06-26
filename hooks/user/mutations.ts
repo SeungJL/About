@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { IAvatar, IUserComment, IUserRegister } from "../../types/user";
-import { IApplyRest } from "../../types/userAction";
+import { IApplyRest } from "../../types/userRequest";
 
 export const useRegisterMutation = (
   options?: Omit<

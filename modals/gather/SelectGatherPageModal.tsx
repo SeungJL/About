@@ -3,7 +3,7 @@ import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/ui/Modal";
+import { ModalHeaderX } from "../../components/layouts/Modals";
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
 
 function SelectGatherPageModal({

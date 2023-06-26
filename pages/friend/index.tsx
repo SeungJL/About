@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../components/ui/MainLoading";
+import { MainLoading } from "../../components/common/MainLoading";
 import FriendHeader from "../../pagesComponents/Friend/FriendHeader";
 
 import FriendProfile from "../../pagesComponents/Friend/FriendProfile";

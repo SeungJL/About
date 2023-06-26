@@ -2,58 +2,51 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import styled from "styled-components";
+import { DEFAULT_IMAGE_URL } from "../../../constants/exception";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 
 import { IUser } from "../../../types/user";
 
-function ProfileIconXsOverwrap({
-  user,
-  isOverlap,
-}: {
+interface IProfileIconXsOVerwrap {
   user: IUser;
   isOverlap?: boolean;
-}) {
+}
+
+function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
   const avatarType = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
+  const isAvatar = Boolean(avatarType && avatarBg);
 
-  const isAvatar =
-    avatarType !== null &&
-    avatarType !== undefined &&
-    avatarBg !== null &&
-    avatarBg !== undefined;
-
-  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src =
-      "https://user-images.githubusercontent.com/84257439/235454314-22c679dc-e8ff-4ef9-b403-456d752b8589.png";
+  const handleErrorImage = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    e.currentTarget.src = DEFAULT_IMAGE_URL;
   };
+  const imageUrl = isAvatar
+    ? `${AVATAR_ICON[avatarType]}`
+    : `${user?.profileImage}`;
 
   return (
     <Layout>
       <Wrapper style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
         {!isOverlap ? (
           <Image
-            src={
-              isAvatar ? `${AVATAR_ICON[avatarType]}` : `${user?.profileImage}`
-            }
+            src={imageUrl}
             width={isAvatar ? 21 : 26}
             height={isAvatar ? 21 : 26}
             alt="ProfileIconXsOverwrap"
             unoptimized={true}
-            onError={onError}
+            onError={handleErrorImage}
           />
         ) : (
           <OverlapWrapper>
             <Image
-              src={
-                isAvatar
-                  ? `${AVATAR_ICON[avatarType]}`
-                  : `${user?.profileImage}`
-              }
+              src={imageUrl}
               width={isAvatar ? 21 : 26}
               height={isAvatar ? 21 : 26}
               alt="ProfileIconXsOverwrap"
               unoptimized={true}
-              onError={onError}
+              onError={handleErrorImage}
             />
             <IconWrapper>
               <FontAwesomeIcon icon={faEllipsis} size="lg" color="white" />

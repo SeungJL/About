@@ -3,6 +3,12 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { IPlace } from "../../types/studyDetails";
 
+interface ISpaceSelectorLg {
+  spaceArr: IPlace[];
+  selectSpace?: IPlace[];
+  setSelectSpace?: Dispatch<SetStateAction<IPlace[]>>;
+}
+
 function SpaceSelectorLg({
   spaceArr,
   selectSpace,
@@ -68,11 +74,5 @@ const Space = styled.div<{ isSelected: boolean }>`
       ? "2px solid var(--color-mint)"
       : "1px solid var(--font-h4)"};
 `;
-
-interface ISpaceSelectorLg {
-  spaceArr: IPlace[];
-  selectSpace?: IPlace[];
-  setSelectSpace?: Dispatch<SetStateAction<IPlace[]>>;
-}
 
 export default SpaceSelectorLg;

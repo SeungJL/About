@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 
-import { ModalHeaderX } from "../../components/ui/Modal";
+import { ModalHeaderX } from "../../components/layouts/Modals";
 
 import { usePlaceQuery } from "../../hooks/vote/queries";
 

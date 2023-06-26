@@ -7,9 +7,9 @@ import styled from "styled-components";
 
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
-import { IApplyRest } from "../../types/userAction";
+import { IApplyRest } from "../../types/userRequest";
 
-import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { useApplyRestMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";

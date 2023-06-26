@@ -17,7 +17,7 @@ import styled from "styled-components";
 
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
-import { ModalHeaderXLine } from "../../components/ui/Modal";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";

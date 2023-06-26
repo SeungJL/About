@@ -8,7 +8,6 @@ import { useRecoilValue } from "recoil";
 
 import styled from "styled-components";
 
-import { InputSm } from "../../components/ui/Input";
 import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
@@ -25,6 +24,7 @@ import { VOTE_GET } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
+import { InputSm } from "../../styles/layout/input";
 
 import {
   ModalFooterNav,

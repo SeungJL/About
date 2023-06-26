@@ -5,16 +5,16 @@ import styled from "styled-components";
 import { REVIEW_DATA } from "../../storage/Review";
 import { SQUARE_RANDOM_IMAGE } from "../../storage/SquareRandomImage";
 
-interface Kakao {
-  init: (key: string) => void;
-  isInitialized: () => boolean;
-  Link: {
-    sendDefault: (params: object) => void;
-    createDefaultButton: (options: object) => void; // createDefaultButton 인터페이스 추가
-  };
-}
-
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
+
+interface IKakaoShareBtn {
+  type?: string;
+  title: string;
+  subtitle: string;
+  img?: string;
+  location?: string;
+  url: string;
+}
 
 function KakaoShareBtn({
   type,
@@ -23,14 +23,7 @@ function KakaoShareBtn({
   img,
   location,
   url,
-}: {
-  type?: string;
-  title: string;
-  subtitle: string;
-  img?: string;
-  location?: string;
-  url: string;
-}) {
+}: IKakaoShareBtn) {
   const random_num = Math.floor(Math.random() * 3);
 
   useEffect(() => {

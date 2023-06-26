@@ -2,7 +2,6 @@ import { useToast } from "@chakra-ui/react";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faBalanceScale, faGift } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -115,16 +114,6 @@ const Layout = styled.header`
     display: flex;
     align-items: center;
   }
-`;
-
-const DrawerWrapper = styled.div`
-  margin-right: 12px;
-`;
-
-const LogoWrapper = styled(motion.div)`
-  padding-top: 14px;
-  padding-bottom: 3px;
-  margin-left: 4px;
 `;
 
 const Nav = styled.nav`

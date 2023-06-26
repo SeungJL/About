@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../../constants/system";
-import { IPointSystem } from "../../../types/user/scoreSystem";
+import { IPointSystem } from "../../../types/user/pointSystem";
 
 export const useScoreMutation = (
   options?: Omit<

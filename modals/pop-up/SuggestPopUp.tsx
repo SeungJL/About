@@ -1,8 +1,8 @@
 import { useToast } from "@chakra-ui/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
+import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import ModalPortal from "../../components/ModalPortal";
-import { ModalHeaderXLine } from "../../components/ui/Modal";
 import {
   ModalFooterNav,
   ModalMain,

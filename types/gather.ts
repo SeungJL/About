@@ -47,6 +47,7 @@ export interface IGatherContent {
   id: number;
   user: IUser;
   status?: GatherStatus;
+  comment: IGatherComment;
 }
 
 export interface IGatherComment {

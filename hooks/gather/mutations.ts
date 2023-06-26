@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { IGatherComment } from "../../pagesComponents/Gather/detail/GatherComment";
+import { IGatherCommentUnit } from "../../pagesComponents/Gather/Detail/GatherComment";
 import { IGatherContent } from "../../types/gather";
 
 export const useGatherContentMutation = (
@@ -84,11 +84,11 @@ export const useGatherStatusEnd = (
 
 export const useGatherCommentMutation = (
   options?: Omit<
-    UseMutationOptions<void, AxiosError, IGatherComment>,
+    UseMutationOptions<void, AxiosError, IGatherCommentUnit>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, IGatherComment>(async (comment) => {
+  useMutation<void, AxiosError, IGatherCommentUnit>(async (comment) => {
     console.log(comment);
     const res = await axios.post(`${SERVER_URI}/gather/comment`, comment);
 

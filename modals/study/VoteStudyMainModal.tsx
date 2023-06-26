@@ -8,7 +8,7 @@ import styled from "styled-components";
 import TimeSelector from "../../components/utils/TimeSelector";
 import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 
-import { ModalHeaderX } from "../../components/ui/Modal";
+import { ModalHeaderX } from "../../components/layouts/Modals";
 
 import { useAttendMutation } from "../../hooks/vote/mutations";
 import { useVoteQuery } from "../../hooks/vote/queries";

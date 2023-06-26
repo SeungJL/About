@@ -3,12 +3,17 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { IPlace } from "../../types/studyDetails";
 
+interface ISpaceSelector {
+  spaceArr: IPlace[];
+  selectSpace?: IPlace[];
+  setSelectSpace?: Dispatch<SetStateAction<IPlace[]>>;
+}
+
 function SpaceSelector({
   spaceArr,
   selectSpace,
   setSelectSpace,
 }: ISpaceSelector) {
-
   const onSpaceClicked = (space: IPlace) => {
     setSelectSpace((old) => {
       if (Array.isArray(old) && old.includes(space))
@@ -66,11 +71,5 @@ const Space = styled.div<{ isSelected: boolean }>`
       ? "2px solid var(--color-mint)"
       : "1px solid var(--font-h4)"};
 `;
-
-interface ISpaceSelector {
-  spaceArr: IPlace[];
-  selectSpace?: IPlace[];
-  setSelectSpace?: Dispatch<SetStateAction<IPlace[]>>;
-}
 
 export default SpaceSelector;
