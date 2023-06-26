@@ -22,6 +22,7 @@ function ApplyGiftModal({
 }) {
   const router = useRouter();
   const { data: session } = useSession();
+  
   const isGuest = session?.user.name === "guest";
   const toast = useToast();
   const { data: myPoint } = usePointQuery();
