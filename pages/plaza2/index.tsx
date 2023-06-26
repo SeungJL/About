@@ -1,7 +1,7 @@
 import Seo from "../../components/Seo";
 
 import Header from "../../components/layouts/Header";
-import { PlazaLayout } from "../../pagesComponents/Plaza/main/plazaStyles";
+import { PlazaLayout } from "../../pagesComponents/plaza/main/plazaStyles";
 
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

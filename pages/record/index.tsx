@@ -7,12 +7,12 @@ import Header from "../../components/layouts/Header";
 import { useStudyCheckRecordsQuery } from "../../hooks/study/queries";
 import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
 
-import RecordCalendar from "../../pagesComponents/Record/RecordCalendar";
-import RecordDetail from "../../pagesComponents/Record/RecordDetail";
-import RecordLineBar from "../../pagesComponents/Record/RecordLineBar";
-import RecordMonthNav from "../../pagesComponents/Record/RecordMonthNav";
-import RecordNavigation from "../../pagesComponents/Record/RecordNavigation";
-import RecordOverview from "../../pagesComponents/Record/RecordOverview";
+import RecordCalendar from "../../pagesComponents/record/RecordCalendar";
+import RecordDetail from "../../pagesComponents/record/RecordDetail";
+import RecordLineBar from "../../pagesComponents/record/RecordLineBar";
+import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
+import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
+import RecordOverview from "../../pagesComponents/record/RecordOverview";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";

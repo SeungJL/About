@@ -9,8 +9,8 @@ import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
 import ProgressStatus from "../../../components/layouts/ProgressStatus";
 import { TIME_SELECTOR_UNIT } from "../../../constants/study";
-import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
+import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
+import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 
 import { ITime } from "../../../types/utils";

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../../../components/common/MainLoading";
-import StudySpaceVoteOverview from "../../../../pagesComponents/About/studySpace/SpaceSpaceVoteOverview";
-import StudySpaceCover from "../../../../pagesComponents/About/studySpace/StudySpaceCover";
-import StudySpaceHeader from "../../../../pagesComponents/About/studySpace/StudySpaceHeader";
-import StudySpaceNavigation from "../../../../pagesComponents/About/studySpace/StudySpaceNavigation";
-import StudySpaceOverview from "../../../../pagesComponents/About/studySpace/StudySpaceOverView";
-import StudySpaceSetting from "../../../../pagesComponents/About/studySpace/StudySpaceSetting";
-import StudyTimeTable from "../../../../pagesComponents/About/studySpace/StudySpaceTable";
+import StudySpaceVoteOverview from "../../../../pagesComponents/about/studySpace/SpaceSpaceVoteOverview";
+import StudySpaceCover from "../../../../pagesComponents/about/studySpace/StudySpaceCover";
+import StudySpaceHeader from "../../../../pagesComponents/about/studySpace/StudySpaceHeader";
+import StudySpaceNavigation from "../../../../pagesComponents/about/studySpace/StudySpaceNavigation";
+import StudySpaceOverview from "../../../../pagesComponents/about/studySpace/StudySpaceOverView";
+import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/StudySpaceSetting";
+import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
 import { IPlaceStatusType } from "../../../../types/statistics";
 import { IAttendance, IPlace } from "../../../../types/studyDetails";
 export interface IStudySpaceData {

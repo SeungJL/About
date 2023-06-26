@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import UserNavigation from "../../pagesComponents/User/UserNavigation";
-import UserOverview from "../../pagesComponents/User/UserOverView";
-import UserScoreBar from "../../pagesComponents/User/UserScoreBar";
+import UserNavigation from "../../pagesComponents/user/UserNavigation";
+import UserOverview from "../../pagesComponents/user/UserOverView";
+import UserScoreBar from "../../pagesComponents/user/UserScoreBar";
 
 function UserInfo() {
   const [isLoading, setIsLoading] = useState(true);

@@ -37,8 +37,8 @@ import ModalPortal from "../../../components/ModalPortal";
 import { useGatherContentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { randomPassword } from "../../../libs/utils/validUtils";
-import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
+import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
+import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 

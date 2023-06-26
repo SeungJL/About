@@ -6,10 +6,10 @@ import Header from "../../components/layouts/Header";
 import ImageSlider from "../../components/utils/ImageSlider";
 import KakaoShareBtn from "../../components/utils/KakaoShare";
 import { WEB_URL } from "../../constants/system";
-import ReviewCategory from "../../pagesComponents/Review/ReviewCategory";
-import ReviewContent from "../../pagesComponents/Review/ReviewContent";
-import ReviewItemHeader from "../../pagesComponents/Review/ReviewItemHeader";
-import ReviewStatus from "../../pagesComponents/Review/ReviewStatus";
+import ReviewCategory from "../../pagesComponents/review/ReviewCategory";
+import ReviewContent from "../../pagesComponents/review/ReviewContent";
+import ReviewItemHeader from "../../pagesComponents/review/ReviewItemHeader";
+import ReviewStatus from "../../pagesComponents/review/ReviewStatus";
 import { reviewContentIdState } from "../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 

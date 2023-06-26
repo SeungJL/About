@@ -8,10 +8,10 @@ import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import LocationMember from "../../pagesComponents/Register/location/LocationMember";
-import LocationTitle from "../../pagesComponents/Register/location/LocationTitle";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
+import LocationMember from "../../pagesComponents/register/location/LocationMember";
+import LocationTitle from "../../pagesComponents/register/location/LocationTitle";
+import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 

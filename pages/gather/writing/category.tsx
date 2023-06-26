@@ -7,10 +7,9 @@ import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
 import ProgressStatus from "../../../components/layouts/ProgressStatus";
-import RegisterLayout from "../../../pagesComponents/Register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/Register/RegisterOverview";
+import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
+import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
-
 import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
 import { GatherType } from "../../../types/gather";
 

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
-import FriendHeader from "../../pagesComponents/Friend2/FriendHeader";
+import FriendHeader from "../../pagesComponents/friend/FriendHeader";
 
-import FriendProfile from "../../pagesComponents/Friend2/FriendProfile";
-import FriendRecommend from "../../pagesComponents/Friend2/FriendRecommend";
+import FriendProfile from "../../pagesComponents/friend/FriendProfile";
+import FriendRecommend from "../../pagesComponents/friend/FriendRecommend";
 function Friend() {
   const [isLoading, setIsLoading] = useState(true);
   return (

@@ -8,11 +8,11 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 
-import VoteList from "../../pagesComponents/Plaza/writing/VoteList";
-import WritingCategory from "../../pagesComponents/Plaza/writing/WritingCategory";
-import WritingContent from "../../pagesComponents/Plaza/writing/WritingContent";
-import WritingHeader from "../../pagesComponents/Plaza/writing/WritingHeader";
-import WritingType from "../../pagesComponents/Plaza/writing/WritingType";
+import VoteList from "../../pagesComponents/plaza/writing/VoteList";
+import WritingCategory from "../../pagesComponents/plaza/writing/WritingCategory";
+import WritingContent from "../../pagesComponents/plaza/writing/WritingContent";
+import WritingHeader from "../../pagesComponents/plaza/writing/WritingHeader";
+import WritingType from "../../pagesComponents/plaza/writing/WritingType";
 import { IPlazaData } from "../../types/plaza";
 
 function WritingPlaza() {

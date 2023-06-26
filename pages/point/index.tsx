@@ -2,8 +2,8 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import PointPoint from "../../pagesComponents/Point/PointPoint";
-import PointScore from "../../pagesComponents/Point/PointScore";
+import PointPoint from "../../pagesComponents/point/PointPoint";
+import PointScore from "../../pagesComponents/point/PointScore";
 
 function Point() {
   const { data: session } = useSession();

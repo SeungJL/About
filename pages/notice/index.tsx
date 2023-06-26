@@ -1,13 +1,11 @@
-import styled from "styled-components";
-
+import { Accordion } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import Seo from "../../components/Seo";
+import NoticeItem from "../../pagesComponents/notice/NoticeItem";
 import { noticeData } from "../../storage/notice";
-
-import { Accordion } from "@chakra-ui/react";
-import NoticeItem from "../../pagesComponents/Notice/NoticeItem";
 
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);

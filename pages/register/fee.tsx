@@ -5,8 +5,8 @@ import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
-import RegisterLayout from "../../pagesComponents/Register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/Register/RegisterOverview";
+import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
 import {
   Accordion,
@@ -22,7 +22,7 @@ import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
-import RegisterCost from "../../pagesComponents/Register/fee/RegisterCost";
+import RegisterCost from "../../pagesComponents/register/fee/RegisterCost";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 function Fee() {
   const toast = useToast();
