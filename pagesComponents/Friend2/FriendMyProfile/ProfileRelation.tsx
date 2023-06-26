@@ -8,7 +8,7 @@ import { useUserInfoQuery } from "../../../hooks/user/queries";
 import ProfileCard from "../../../modals/friend/ProfileCard";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
 function ProfileRelation() {
-  const failGuestToast = useFailToast({ type: "guest" });
+  const failGuestToast = useFailToast();
   const { data: user } = useUserInfoQuery();
   const { data: session } = useSession();
   const [isFriend, setIsFriend] = useState(false);
@@ -16,7 +16,7 @@ function ProfileRelation() {
   const isGuest = session?.user.name === "guest";
   const onClickCard = () => {
     if (isGuest) {
-      failGuestToast();
+      failGuestToast("guest");
       return;
     }
     setIsProfileCard(true);

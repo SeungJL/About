@@ -20,7 +20,7 @@ import {
   useGatherStatusEnd,
   useGatherStatusOpen,
 } from "../../hooks/gather/mutations";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { transferGatherDataState } from "../../recoil/transferDataAtoms";
 
@@ -34,8 +34,7 @@ function ExpireGatherModal({
   setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const router = useRouter();
-  const failToast = useFailToast({ type: "applyGather" });
-  const failPreApplyToast = useFailToast({ type: "applyPreGather" });
+  
   const completeToast = useCompleteToast({ type: "applyGather" });
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
@@ -43,7 +42,7 @@ function ExpireGatherModal({
   console.log(gatherData);
   const isNoMember = gatherData.participants.length === 0;
   const gatherId = gatherData?.id;
-  const { mutate: statusOpen } = useGatherStatusOpen(gatherId,{
+  const { mutate: statusOpen } = useGatherStatusOpen(gatherId, {
     onSuccess() {},
   });
   const { mutate: statusClose } = useGatherStatusClose(gatherId);
@@ -63,7 +62,7 @@ function ExpireGatherModal({
     setIsFirst(false);
   };
 
-  const { mutate } = useGatherParticipateMutation(gatherId,{
+  const { mutate } = useGatherParticipateMutation(gatherId, {
     onSuccess() {},
   });
   const onApply = (type: "expire" | "cancel") => {

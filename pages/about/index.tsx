@@ -11,9 +11,9 @@ import AboutVoteNav from "../../pagesComponents/About/main/AboutMain/AboutVoteNa
 import AboutNavigation from "../../pagesComponents/About/main/AboutOverview";
 import Calendar from "../../pagesComponents/About/main/Calendar";
 import ReadyToOpen from "../../pagesComponents/About/main/ReadyToOpen";
-import DateSetting from "../../pagesComponents/Setting/DateSetting";
-import StudySetting from "../../pagesComponents/Setting/StudySetting";
-import UserSetting from "../../pagesComponents/Setting/UserSetting";
+import DateSetting from "../../pagesComponents/Setting2/DateSetting";
+import StudySetting from "../../pagesComponents/Setting2/StudySetting";
+import UserSetting from "../../pagesComponents/Setting2/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";

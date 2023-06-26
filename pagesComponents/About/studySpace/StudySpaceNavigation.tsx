@@ -41,7 +41,8 @@ function StudySpaceNavigation({
 }: IStudySpaceNavigation) {
   const router = useRouter();
   const toast = useToast();
-  const failGuestToast = useFailToast({ type: "guest" });
+  const failToast = useFailToast();
+
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const voteDate = dayjs(router.query.date as string);
@@ -89,7 +90,7 @@ function StudySpaceNavigation({
 
   const onBtnClicked = (type: ModalType) => {
     if (isGuest) {
-      failGuestToast();
+      failToast("guest");
       return;
     }
     if (type === "cancel") {

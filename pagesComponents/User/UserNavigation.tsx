@@ -30,14 +30,14 @@ function UserNavigation() {
   const { data: session } = useSession();
   const isGuest = session?.user?.name === "guest";
   const isAdmin = session?.role === "previliged";
-  const failToast = useFailToast({ type: "guest" });
+  const failToast = useFailToast();
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
   const [modalOpen, setModalOpen] = useState("");
   const location = useRecoilValue(userLocationState);
   const router = useRouter();
   const onClickProfileEdit = () => {
     if (isGuest) {
-      failToast();
+      failToast("guest");
       return;
     }
     setIsProfileEditState(true);
@@ -46,7 +46,7 @@ function UserNavigation() {
 
   const onClickItem = (type: string) => {
     if (isGuest) {
-      failToast();
+      failToast("guest");
       return;
     }
     setModalOpen(type);

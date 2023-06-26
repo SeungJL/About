@@ -16,7 +16,6 @@ export const useUserRegisterMutation = (
   }, options);
 
 export const useUserApproveMutation = (
-  uid: string,
   options?: Omit<
     UseMutationOptions<void, AxiosError, any>,
     "mutationKey" | "mutationFn"

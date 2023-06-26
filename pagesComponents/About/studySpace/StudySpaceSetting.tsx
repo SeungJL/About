@@ -22,7 +22,7 @@ interface IStudySpaceSetting {
 
 function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   const router = useRouter();
-  const failToast = useFailToast({ type: "loadStudy" });
+  const failToast = useFailToast();
   const { data: session } = useSession();
   const voteDate = dayjs(router.query.date as string);
   const spaceID = router.query.studySpace;
@@ -48,7 +48,9 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
 
   const { refetch } = useVoteQuery(voteDate, location, {
     onSuccess: handleSuccess,
-    onError: failToast,
+    onError() {
+      failToast("loadStudy");
+    },
   });
 
   useEffect(() => {

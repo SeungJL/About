@@ -20,8 +20,9 @@ function ApplyParticipationModal({
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
   setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
 }) {
-  const failToast = useFailToast({ type: "applyGather" });
-  const failPreApplyToast = useFailToast({ type: "applyPreGather" });
+  const failToast = useFailToast();
+  // const failToast = useFailToast({ type: "applyGather" });
+
   const completeToast = useCompleteToast({ type: "applyGather" });
   const [isFirst, setIsFirst] = useState(true);
   const [pageNum, setPageNum] = useState(0);
@@ -38,18 +39,15 @@ function ApplyParticipationModal({
 
   const currentVoter = gatherData?.participants.length;
 
-  const { mutate } = useGatherParticipateMutation({
-    onSuccess() {},
-  });
-
   const gatherId = gatherData?.id;
+  const { mutate: participate } = useGatherParticipateMutation(gatherId, {});
 
   const onApply = (type: "normal" | "pre") => {
     if (type === "pre") {
       if (password === gatherData?.password) {
-        mutate({ gatherId });
+        participate();
       } else {
-        failPreApplyToast();
+        failToast("applyPreGather");
       }
       setIsModal(false);
       return;
@@ -129,7 +127,7 @@ function ApplyParticipationModal({
   };
 
   const selectGatherTime = () => {
-    mutate({ gatherId });
+    participate();
     completeToast();
     setIsRefetching(true);
     setIsModal(false);

@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import DetailInfo from "../../pagesComponents/Friend/DetailInfo";
-import FriendMyProfile from "../../pagesComponents/Friend/FriendProfile";
+import DetailInfo from "../../pagesComponents/Friend2/DetailInfo";
+import FriendMyProfile from "../../pagesComponents/Friend2/FriendProfile";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 import { transferUserDataState } from "../../recoil/transferDataAtoms";
 

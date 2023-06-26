@@ -23,7 +23,7 @@ function DateSetting({
 }) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const failToast = useFailToast({ type: "loadStudy" });
+  const failToast = useFailToast();
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const location = useRecoilValue(userLocationState);
@@ -47,7 +47,7 @@ function DateSetting({
       setParticipations(temp);
     },
     onError() {
-      failToast();
+      failToast("loadStudy");
     },
   });
 

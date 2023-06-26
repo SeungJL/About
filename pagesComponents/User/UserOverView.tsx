@@ -30,7 +30,7 @@ export default function UserOverview({
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const inputRef = useRef<HTMLInputElement>(null);
-  const showGuestErrorToast = useFailToast({ type: "guest" });
+  const failToast = useFailToast();
 
   const { data: user } = useUserInfoQuery({
     onSuccess(data) {
@@ -68,7 +68,7 @@ export default function UserOverview({
 
   const handleWrite = () => {
     if (isGuest) {
-      showGuestErrorToast();
+      failToast("guest");
       return;
     }
     const input = inputRef.current;

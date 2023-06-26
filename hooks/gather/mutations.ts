@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { IGatherCommentUnit } from "../../pagesComponents/Gather/Detail/GatherComment";
+import { IGatherCommentUnit } from "../../pagesComponents/Gather2/Detail/GatherComment";
 import { IGatherContent } from "../../types/gather";
 
 export const useGatherContentMutation = (

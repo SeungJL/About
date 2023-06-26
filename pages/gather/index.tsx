@@ -3,10 +3,10 @@ import { useState } from "react";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
 import Seo from "../../components/Seo";
-import GatherCategoryBar from "../../pagesComponents/Gather/GatgerCategoryBar";
-import GatherHeader from "../../pagesComponents/Gather/GatherHeader";
-import GatherMain from "../../pagesComponents/Gather/GatherMain";
-import GatherReviewNav from "../../pagesComponents/Gather/GatherReviewNav";
+import GatherCategoryBar from "../../pagesComponents/Gather2/GatgerCategoryBar";
+import GatherHeader from "../../pagesComponents/Gather2/GatherHeader";
+import GatherMain from "../../pagesComponents/Gather2/GatherMain";
+import GatherReviewNav from "../../pagesComponents/Gather2/GatherReviewNav";
 import { GatherCategory } from "../../types/gather";
 
 function Gather() {
