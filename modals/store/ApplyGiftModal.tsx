@@ -57,7 +57,7 @@ function ApplyGiftModal({
     }
     const info: IStoreApplicant = {
       name: session.user.name,
-      uid: session?.uid,
+      uid: session && session?.uid,
       cnt: value,
       giftId: giftInfo?.giftId,
     };
