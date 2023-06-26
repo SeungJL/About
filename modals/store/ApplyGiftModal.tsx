@@ -11,7 +11,7 @@ import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
-import { IStoreGift } from "../../types/store";
+import { IStoreApplicant, IStoreGift } from "../../types/store";
 
 function ApplyGiftModal({
   setIsModal,
@@ -55,7 +55,7 @@ function ApplyGiftModal({
       });
       return;
     }
-    const info = {
+    const info: IStoreApplicant = {
       name: session.user.name,
       uid: session.uid,
       cnt: value,
