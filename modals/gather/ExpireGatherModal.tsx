@@ -43,14 +43,14 @@ function ExpireGatherModal({
   console.log(gatherData);
   const isNoMember = gatherData.participants.length === 0;
   const gatherId = gatherData?.id;
-  const { mutate: statusOpen } = useGatherStatusOpen({
+  const { mutate: statusOpen } = useGatherStatusOpen(gatherId,{
     onSuccess() {},
   });
-  const { mutate: statusClose } = useGatherStatusClose();
-  const { mutate: statusEnd } = useGatherStatusEnd();
+  const { mutate: statusClose } = useGatherStatusClose(gatherId);
+  const { mutate: statusEnd } = useGatherStatusEnd(gatherId);
 
   const [password, setPassword] = useState("");
-  const { mutate: gatherDelete } = useGatherDeleteMutation({
+  const { mutate: gatherDelete } = useGatherDeleteMutation(gatherId, {
     onSuccess() {
       console.log("SUC");
     },
@@ -63,7 +63,7 @@ function ExpireGatherModal({
     setIsFirst(false);
   };
 
-  const { mutate } = useGatherParticipateMutation({
+  const { mutate } = useGatherParticipateMutation(gatherId,{
     onSuccess() {},
   });
   const onApply = (type: "expire" | "cancel") => {
@@ -86,14 +86,14 @@ function ExpireGatherModal({
   const cancelRef = useRef();
 
   const onComplete = () => {
-    statusOpen({ gatherId });
+    statusOpen();
     setIsRefetching(true);
     setIsModal(false);
   };
 
   const onCancel = () => {
-    if (isNoMember) gatherDelete({ gatherId });
-    else statusClose({ gatherId });
+    if (isNoMember) gatherDelete();
+    else statusClose();
     setTimeout(() => {
       router.push(`/gather`);
     }, 1000);

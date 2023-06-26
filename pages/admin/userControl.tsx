@@ -30,9 +30,7 @@ export default function Admin() {
   });
 
   useDepositAllQuery({
-    onSuccess(data) {
-   
-    },
+    onSuccess(data) {},
   });
 
   const [value, setValue] = useState<string>("");

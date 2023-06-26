@@ -33,7 +33,7 @@ function GatherMain({ category }: IGatherMain) {
   return (
     <>
       {isLoading ? (
-        <MainLoading />
+        <MainLoading top={50} />
       ) : (
         <Layout>
           {gatherData

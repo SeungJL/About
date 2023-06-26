@@ -25,6 +25,7 @@ export const useAdminPointMutation = (
   useMutation<void, AxiosError, IAdminPoint>(async (data) => {
     await axios.post(`${SERVER_URI}/admin/user/${uid}/point`, data);
   }, options);
+  
 export const useAdminScoremMutation = (
   uid: string,
   options?: Omit<

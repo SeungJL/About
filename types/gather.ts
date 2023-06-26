@@ -20,6 +20,9 @@ export type GatherMemberCnt = {
 
 export type ParticipationPhase = "all" | "first" | "second";
 
+export interface GatherId {
+  gatherId: number;
+}
 export interface GatherListItem {
   text: string;
   time: ITime;

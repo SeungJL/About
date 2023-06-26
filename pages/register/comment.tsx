@@ -12,8 +12,8 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { MainLoading } from "../../components/common/MainLoading";
 import {
-  useApproveMutation,
-  useRegisterMutation,
+  useUserApproveMutation,
+  useUserRegisterMutation,
 } from "../../hooks/user/mutations";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
@@ -34,9 +34,9 @@ function Message() {
     setValue(e.target?.value);
   };
 
-  const { mutate, isLoading } = useRegisterMutation();
+  const { mutate, isLoading } = useUserRegisterMutation();
 
-  const { mutate: approve } = useApproveMutation();
+  const { mutate: approve } = useUserApproveMutation();
   const [index, setIndex] = useState(null);
 
   const InputIdx = MESSAGE_DATA?.length;

@@ -2,7 +2,7 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import styled from "styled-components";
-import { DEFAULT_IMAGE_URL } from "../../../constants/exception";
+import { DEFAULT_IMAGE_URL } from "../../../constants/default";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 
 import { IUser } from "../../../types/user";

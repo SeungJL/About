@@ -26,11 +26,11 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
   const [isParticipationModal, setIsParticipationModal] = useState(false);
   const gatherId = +router.query.id;
 
-  const { mutate: cancel } = useGatherCancelMutation();
+  const { mutate: cancel } = useGatherCancelMutation(gatherId);
 
   const onClick = (type: string) => {
     if (type === "cancel") {
-      cancel({ gatherId });
+      cancel();
       setIsRefetching(true);
     }
     if (type === "participate") setIsParticipationModal(true);

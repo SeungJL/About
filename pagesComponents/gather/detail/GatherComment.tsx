@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -15,6 +16,8 @@ interface IGatherComments {
 }
 
 function GatherComments({ comment }: IGatherComments) {
+  const { data: session } = useSession();
+  const isGuest = session?.user.name;
   const router = useRouter();
   const gatherId = +router.query.id;
   const { data: userInfo } = useUserInfoQuery();
@@ -39,18 +42,20 @@ function GatherComments({ comment }: IGatherComments) {
     <Layout>
       <span>할 얘기가 있다면 댓글을 남겨보세요</span>
       <Comment>
-        <MyCommnet>
-          <ProfileIcon user={userInfo && userInfo} size="xs" />
-          <MyText
-            ref={textareaRef}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder="댓글 달기..."
-          />
-          <SubmitBtn focus={value !== ""} onClick={onSubmit}>
-            등록
-          </SubmitBtn>
-        </MyCommnet>
+        {!isGuest && (
+          <MyCommnet>
+            <ProfileIcon user={userInfo && userInfo} size="xs" />
+            <MyText
+              ref={textareaRef}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="댓글 달기..."
+            />
+            <SubmitBtn focus={value !== ""} onClick={onSubmit}>
+              등록
+            </SubmitBtn>
+          </MyCommnet>
+        )}
       </Comment>
     </Layout>
   );

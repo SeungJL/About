@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Seo from "../../components/Seo";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 import { arrangeMainSpace } from "../../libs/utils/studyUtils";
 import AboutHeader from "../../pagesComponents/About/main/AboutHeader";
 import AboutMain from "../../pagesComponents/About/main/AboutMain";
@@ -26,7 +27,7 @@ function About() {
   const [participations, setParticipations] = useState<IParticipation[]>([]);
   const [studySpaces, setStudySpaces] = useState<IParticipation[]>([]);
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
-
+  const A = useFailToast();
   useEffect(() => {
     if (!participations?.length) return;
     const arrangedSpace = arrangeMainSpace(
@@ -36,7 +37,7 @@ function About() {
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySpaceFixed, participations]);
-
+  A("guest");
   return (
     <>
       <Seo title="About" />

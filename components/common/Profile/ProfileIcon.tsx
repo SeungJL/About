@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
+import { DEFAULT_IMAGE_URL } from "../../../constants/default";
 import { ICON_SIZE } from "../../../constants/design";
-import { DEFAULT_IMAGE_URL } from "../../../constants/exception";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 import { size } from "../../../types/ui";
 import { IUser } from "../../../types/user";

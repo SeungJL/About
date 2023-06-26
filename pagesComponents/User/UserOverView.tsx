@@ -9,8 +9,8 @@ import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SetStateAction, useRef, useState } from "react";
 import {
-  useApproveMutation,
-  useRegisterMutation,
+  useUserApproveMutation,
+  useUserRegisterMutation,
 } from "../../hooks/user/mutations";
 
 import { useRecoilValue } from "recoil";
@@ -42,14 +42,14 @@ export default function UserOverview({
   // const { mutate: onChangeComment } = useCommentMutation();
   // const { data: comments, isLoading } = useCommentQuery();
 
-  const { mutate, isLoading } = useRegisterMutation({
+  const { mutate, isLoading } = useUserRegisterMutation({
     onSuccess() {},
     onError(error) {
       console.error(error);
     },
   });
 
-  const { mutate: approve } = useApproveMutation({
+  const { mutate: approve } = useUserApproveMutation({
     onSuccess() {},
     onError(err) {
       console.error(err);

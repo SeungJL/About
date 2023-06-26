@@ -54,6 +54,7 @@ export const useScoreAllQuery = (
     },
     options
   );
+  
 export const useScoreLogAllQuery = (
   options?: Omit<
     UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,

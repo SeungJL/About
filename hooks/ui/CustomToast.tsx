@@ -1,24 +1,28 @@
 import { useToast } from "@chakra-ui/react";
+import { useCallback } from "react";
 
-export const useFailToast = ({ type, sub }: { type: string; sub?: string }) => {
+export const useFailToast = () => {
   const toast = useToast();
 
-  const showFailToast = () => {
-    let text = "";
-    if (type === "guest") text = "게스트는 사용할 수 없는 기능입니다.";
-    if (type === "loadStudy") text = "스터디 정보를 불러오지 못 했어요.";
-    if (type === "applyGather")
-      text = "모임 신청에 실패했어요. 신청 조건을 확인해 주세요!";
-    if (type === "applyPreGather") text = "암호가 일치하지 않습니다.";
-    toast({
-      title: "실패",
-      description: text,
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-      position: "bottom",
-    });
-  };
+  const showFailToast = useCallback(
+    (type: string, sub?: string) => {
+      let text = "";
+      if (type === "guest") text = "게스트는 사용할 수 없는 기능입니다.";
+      if (type === "loadStudy") text = "스터디 정보를 불러오지 못 했어요.";
+      if (type === "applyGather")
+        text = "모임 신청에 실패했어요. 신청 조건을 확인해 주세요!";
+      if (type === "applyPreGather") text = "암호가 일치하지 않습니다.";
+      toast({
+        title: "실패",
+        description: text,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
+    },
+    [toast]
+  );
   return showFailToast;
 };
 

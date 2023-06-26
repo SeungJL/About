@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MainLoading } from "../../../components/common/MainLoading";
@@ -20,6 +21,8 @@ import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 
 function GatherDetail() {
   const router = useRouter();
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const gatherId = router.query.id;
   const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
   const [isRefetching, setIsRefetching] = useState(false);
@@ -65,10 +68,12 @@ function GatherDetail() {
             />
             <GatherParticipation data={gatherData} />
             <GatherComments comment={gatherData.comment} />
-            <GatherBottomNav
-              data={gatherData}
-              setIsRefetching={setIsRefetching}
-            />
+            {!isGuest && (
+              <GatherBottomNav
+                data={gatherData}
+                setIsRefetching={setIsRefetching}
+              />
+            )}
           </Layout>
         </>
       )}

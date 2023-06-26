@@ -11,75 +11,77 @@ export const useGatherContentMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IGatherContent>(async (gather) => {
-    const res = await axios.post(`${SERVER_URI}/gather`, { gather });
-    return res.data;
+    await axios.post(`${SERVER_URI}/gather`, { gather });
   }, options);
 
 export const useGatherDeleteMutation = (
+  gatherId: number,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, void>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (gatherId) => {
-    console.log(gatherId);
-    await axios.delete(`${SERVER_URI}/gather`, { data: gatherId });
+  useMutation<void, AxiosError, void>(async () => {
+    await axios.delete(`${SERVER_URI}/gather`, { data: { gatherId } });
   }, options);
 
 export const useGatherParticipateMutation = (
+  gatherId: number,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, void>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (gatherId) => {
-    const res = await axios.post(`${SERVER_URI}/gather/participate`, gatherId);
-    return res.data;
+  useMutation<void, AxiosError, void>(async () => {
+    await axios.post(`${SERVER_URI}/gather/participate`, {
+      gatherId,
+    });
   }, options);
 
 export const useGatherCancelMutation = (
+  gatherId: number,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, void>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (gatherId) => {
+  useMutation<void, AxiosError, void>(async () => {
     await axios.delete(`${SERVER_URI}/gather/participate`, {
-      data: gatherId,
+      data: { gatherId },
     });
   }, options);
 
 export const useGatherStatusOpen = (
+  gatherId: number,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, void>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (id) => {
-    const res = await axios.patch(`${SERVER_URI}/gather/open`, id);
-    return res.data;
+  useMutation<void, AxiosError, void>(async () => {
+    await axios.patch(`${SERVER_URI}/gather/open`, { gatherId });
   }, options);
 
 export const useGatherStatusClose = (
+  gatherId: number,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, void>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (id) => {
-    const res = await axios.patch(`${SERVER_URI}/gather/close`, id);
-    return res.data;
+  useMutation<void, AxiosError, void>(async () => {
+    await axios.patch(`${SERVER_URI}/gather/close`, { gatherId });
   }, options);
 
 export const useGatherStatusEnd = (
+  gatherId: number,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
+    UseMutationOptions<void, AxiosError, void>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, any>(async (id) => {
-    const res = await axios.patch(`${SERVER_URI}/gather/end`, id);
-    return res.data;
+  useMutation<void, AxiosError, void>(async () => {
+    await axios.patch(`${SERVER_URI}/gather/end`, { gatherId });
   }, options);
 
 export const useGatherCommentMutation = (
@@ -89,8 +91,5 @@ export const useGatherCommentMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IGatherCommentUnit>(async (comment) => {
-    console.log(comment);
-    const res = await axios.post(`${SERVER_URI}/gather/comment`, comment);
-
-    return res.data;
+    await axios.post(`${SERVER_URI}/gather/comment`, comment);
   }, options);

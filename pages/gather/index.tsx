@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
@@ -9,6 +10,8 @@ import GatherReviewNav from "../../pagesComponents/Gather/GatherReviewNav";
 import { GatherCategory } from "../../types/gather";
 
 function Gather() {
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const [category, setCategory] = useState<GatherCategory>("전체");
 
   return (
@@ -19,7 +22,7 @@ function Gather() {
         <GatherReviewNav />
         <GatherCategoryBar category={category} setCategory={setCategory} />
         <GatherMain category={category} />
-        <WritingIcon url="/gather/writing/category" />
+        {!isGuest && <WritingIcon url="/gather/writing/category" />}
       </Layout>
     </>
   );

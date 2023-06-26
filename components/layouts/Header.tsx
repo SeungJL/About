@@ -2,6 +2,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { DEFAULT_BACK_URL } from "../../constants/default";
 
 interface IHeader {
   title: string;
@@ -14,7 +15,7 @@ const Header = ({ title, url, children }: IHeader) => {
 
   const handleClick = () => {
     if (url) router.push(url);
-    else router.back();
+    else router.push(DEFAULT_BACK_URL);
   };
 
   return (

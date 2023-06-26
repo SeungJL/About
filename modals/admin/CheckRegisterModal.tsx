@@ -11,10 +11,10 @@ import {
 import { SetStateAction, useRef } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/layouts/Modals";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import {
-  useApproveMutation,
   useDeleteMutation,
+  useUserApproveMutation,
 } from "../../hooks/user/mutations";
 import { ModalLg, ModalMain } from "../../styles/layout/modal";
 import { IRegisterForm } from "../../types/user";
@@ -27,8 +27,9 @@ function CheckRegisterModal({
   applicant: IRegisterForm;
   setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }) {
+ 
   const onComplete = useCompleteToast({ type: "applyGather" });
-  const { mutate: approve } = useApproveMutation({
+  const { mutate: approve } = useUserApproveMutation(applicant?.uid, {
     onSuccess() {},
     onError(err) {
       console.error(err);

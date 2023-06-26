@@ -21,7 +21,7 @@ import {
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import { useRegisterMutation } from "../../hooks/user/mutations";
+import { useUserRegisterMutation } from "../../hooks/user/mutations";
 import RegisterCost from "../../pagesComponents/Register/fee/RegisterCost";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 function Fee() {
@@ -37,7 +37,7 @@ function Fee() {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { mutate } = useRegisterMutation({
+  const { mutate } = useUserRegisterMutation({
     onSuccess() {},
     onError(error) {
       console.error(error);

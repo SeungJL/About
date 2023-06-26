@@ -4,7 +4,7 @@ import { SERVER_URI } from "../../constants/system";
 import { IAvatar, IUserComment, IUserRegister } from "../../types/user";
 import { IApplyRest } from "../../types/userRequest";
 
-export const useRegisterMutation = (
+export const useUserRegisterMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, IUserRegister>,
     "mutationKey" | "mutationFn"
@@ -15,7 +15,8 @@ export const useRegisterMutation = (
     return res.data;
   }, options);
 
-export const useApproveMutation = (
+export const useUserApproveMutation = (
+  uid: string,
   options?: Omit<
     UseMutationOptions<void, AxiosError, any>,
     "mutationKey" | "mutationFn"
