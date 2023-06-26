@@ -9,7 +9,7 @@ export interface IStoreGift {
 }
 
 export interface IStoreApplicant {
-  uid: string;
+  uid?: string;
   name: string;
   cnt: number;
   giftId?: number;
