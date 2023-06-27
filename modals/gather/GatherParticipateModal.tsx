@@ -48,7 +48,11 @@ function GatherParticipateModal({
   const currentVoter = gatherData?.participants.length;
 
   const gatherId = gatherData?.id;
-  const { mutate: participate } = useGatherParticipateMutation(gatherId, {});
+  const { mutate: participate } = useGatherParticipateMutation(gatherId, {
+    onError(err) {
+      console.error(err);
+    },
+  });
 
   const onApply = (type: "normal" | "pre") => {
     if (type === "pre") {

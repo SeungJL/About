@@ -31,7 +31,7 @@ function ImageSlider({ type, ImageContainer }: IImageSlider) {
   };
 
   const onClickReviewItem = (id: number) => {
-    console.log(3);
+  
     if (id) setReviewContentId(id);
     router.push("review");
   };

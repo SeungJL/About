@@ -9,7 +9,7 @@ interface IGatherOrganizer {
 }
 
 function GatherOrganizer({ createdAt, organizer }: IGatherOrganizer) {
-  const writingDate = dayjs(createdAt).date() - dayjs().date();
+  const writingDate = -dayjs(createdAt).date() + dayjs().date();
   return (
     <Layout>
       <ProfileIcon user={organizer} size="md" />

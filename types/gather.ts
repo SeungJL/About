@@ -50,11 +50,13 @@ export interface IGatherContent {
   id: number;
   user: IUser;
   status?: GatherStatus;
-  comment: IGatherComment;
+  comment: IGatherComment[];
 }
 
 export interface IGatherComment {
   user: IUser;
   comment: string;
-  date?: string;
+  creadtedAt?: string;
+  updatedAt?: string;
+  _id: string;
 }

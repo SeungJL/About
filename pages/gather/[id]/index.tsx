@@ -26,7 +26,7 @@ function GatherDetail() {
   const gatherId = router.query.id;
   const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
   const [isRefetching, setIsRefetching] = useState(false);
-  const { data: gatherContentArr, refetch } = useGatherContentQuery({
+  const { refetch } = useGatherContentQuery({
     onSuccess(data) {
       setGatherData(data?.find((item) => item?.id === +gatherId));
     },
@@ -67,7 +67,10 @@ function GatherDetail() {
               gatherList={gatherData.gatherList}
             />
             <GatherParticipation data={gatherData} />
-            <GatherComments comment={gatherData.comment} />
+            <GatherComments
+              comment={gatherData.comment}
+              setIsRefetching={setIsRefetching}
+            />
             {!isGuest && (
               <GatherBottomNav
                 data={gatherData}

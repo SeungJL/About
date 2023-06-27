@@ -7,7 +7,7 @@ interface IGatherContent {
 }
 
 function GatherContent({ content, gatherList }: IGatherContent) {
-  console.log(gatherList);
+
   return (
     <Layout>
       <Content>{content}</Content>

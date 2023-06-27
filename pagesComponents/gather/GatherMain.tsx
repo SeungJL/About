@@ -14,8 +14,11 @@ function GatherMain({ category }: IGatherMain) {
   const failToast = useFailToast();
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
   const { data: gatherContentArr, isLoading } = useGatherContentQuery({
-    onSuccess() {
-      console.log("");
+    onSuccess(data) {
+      console.log("SUC", data);
+    },
+    onError(err) {
+      console.error(err);
     },
   });
 

@@ -1,15 +1,19 @@
+import { Button } from "@chakra-ui/react";
 import {
   faCalendarDays,
   faChevronDown,
   faDoorOpen,
+  faKey,
   faLocationDot,
   faUser,
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
+import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import { IGatherContent } from "../../../types/gather";
 dayjs.locale("ko");
 
@@ -18,8 +22,11 @@ interface IGatherDetailInfo {
 }
 
 function GatherDetailInfo({
-  data: { location, date, age, memberCnt },
+  data: { location, date, age, memberCnt, user, password },
 }: IGatherDetailInfo) {
+  const { data: session } = useSession();
+  const isOrganizer = user?.uid === session?.uid;
+
   const [isSubLocation, setIsSubLocation] = useState(false);
 
   return (
@@ -53,6 +60,20 @@ function GatherDetailInfo({
         </IconWrapper>
         <span>{memberCnt.min}명 이상 오픈</span>
       </Item>
+      {isOrganizer && password && (
+        <Item>
+          <IconWrapper>
+            <FontAwesomeIcon icon={faKey} color="var(--font-h3)" />
+          </IconWrapper>
+          <span>암호키</span>
+          <Secret>
+            <Button size="xs" disabled colorScheme="blackAlpha" mr="8px">
+              {password}
+            </Button>
+            <CopyBtn text={password} />
+          </Secret>
+        </Item>
+      )}
     </Layout>
   );
 }
@@ -82,6 +103,10 @@ const LocationSub = styled.div`
   font-size: 12px;
   margin-top: 6px;
   margin-left: 20px;
+`;
+
+const Secret = styled.div`
+  font-size: 12px;
 `;
 
 export default GatherDetailInfo;

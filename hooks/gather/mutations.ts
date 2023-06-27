@@ -94,3 +94,33 @@ export const useGatherCommentMutation = (
   useMutation<void, AxiosError, IGatherCommentUnit>(async (comment) => {
     await axios.post(`${SERVER_URI}/gather/comment`, comment);
   }, options);
+
+export const useGatherCommentDeleteMutation = (
+  gatherId: number,
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, string>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, string>(async (commentId) => {
+    await axios.delete(`${SERVER_URI}/gather/comment`, {
+      data: { gatherId, commentId },
+    });
+  }, options);
+export const useGatherCommentEditMutation = (
+  gatherId: number,
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, [string, string]>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, [string, string]>(
+    async ([commentId, comment]) => {
+      await axios.patch(`${SERVER_URI}/gather/comment`, {
+        gatherId,
+        commentId,
+        comment,
+      });
+    },
+    options
+  );

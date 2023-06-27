@@ -1,10 +1,14 @@
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import ModalPortal from "../../../components/ModalPortal";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
+import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
 import { IGatherComment } from "../../../types/gather";
 export interface IGatherCommentUnit {
   gatherId: number;
@@ -12,16 +16,27 @@ export interface IGatherCommentUnit {
 }
 
 interface IGatherComments {
-  comment: IGatherComment;
+  comment: IGatherComment[];
+  setIsRefetching: React.Dispatch<SetStateAction<boolean>>;
 }
 
-function GatherComments({ comment }: IGatherComments) {
+interface IGatherCommentDelete {
+  gatherId: number;
+  commentId: string;
+}
+
+function GatherComments({ comment, setIsRefetching }: IGatherComments) {
   const { data: session } = useSession();
-  const isGuest = session?.user.name;
+  const isGuest = session?.user.name === "guest";
   const router = useRouter();
   const gatherId = +router.query.id;
   const { data: userInfo } = useUserInfoQuery();
   const [value, setValue] = useState("");
+
+  const [isEditModal, setIsEditModal] = useState(false);
+
+  const [commentText, setCommentText] = useState("");
+  const [commentId, setCommentId] = useState("");
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
@@ -29,35 +44,75 @@ function GatherComments({ comment }: IGatherComments) {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [value]);
-  const { mutate: writeComment } = useGatherCommentMutation({
-    onSuccess() {
-      console.log("SUC");
-    },
-  });
+  const { mutate: writeComment } = useGatherCommentMutation();
   const onSubmit = () => {
     const data: IGatherCommentUnit = { gatherId, comment: value };
     writeComment(data);
+    setValue("");
+    setIsRefetching(true);
   };
+
+
+  const onClickEdit = (commentId, text) => {
+    setCommentId(commentId);
+    setCommentText(text);
+    setIsEditModal(true);
+  };
+
   return (
-    <Layout>
-      <span>할 얘기가 있다면 댓글을 남겨보세요</span>
-      <Comment>
-        {!isGuest && (
-          <MyCommnet>
-            <ProfileIcon user={userInfo && userInfo} size="xs" />
-            <MyText
-              ref={textareaRef}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              placeholder="댓글 달기..."
-            />
-            <SubmitBtn focus={value !== ""} onClick={onSubmit}>
-              등록
-            </SubmitBtn>
-          </MyCommnet>
-        )}
-      </Comment>
-    </Layout>
+    <>
+      <Layout>
+        <span>할 얘기가 있다면 댓글을 남겨보세요</span>
+        <Comment>
+          {!isGuest && (
+            <MyCommnet>
+              <ProfileIcon user={userInfo && userInfo} size="xs" />
+              <MyText
+                ref={textareaRef}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="댓글 달기..."
+              />
+              <SubmitBtn focus={value !== ""} onClick={onSubmit}>
+                등록
+              </SubmitBtn>
+            </MyCommnet>
+          )}
+          <section>
+            {comment?.map((item) => (
+              <CommentBlock key={item._id}>
+                <div>
+                  <ProfileIcon user={item.user} size="xs" />
+                </div>
+                <CommentContent>
+                  <span>{item.user.name}</span>
+                  <p>
+                    {item.comment}
+                    {item.user.uid === session?.uid && (
+                      <IconWrapper
+                        onClick={() => onClickEdit(item._id, item.comment)}
+                      >
+                        <FontAwesomeIcon icon={faEllipsis} />
+                      </IconWrapper>
+                    )}
+                  </p>
+                </CommentContent>
+              </CommentBlock>
+            ))}
+          </section>
+        </Comment>
+      </Layout>
+      {isEditModal && (
+        <ModalPortal setIsModal={setIsEditModal}>
+          <GatherCommentEditModal
+            commentText={commentText}
+            commentId={commentId}
+            setIsRefetching={setIsRefetching}
+            setIsModal={setIsEditModal}
+          />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 
@@ -65,7 +120,6 @@ const Layout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
   margin-top: 20px;
   margin-bottom: 20px;
   > span:first-child {
@@ -78,19 +132,46 @@ const Layout = styled.div`
   }
 `;
 
+const IconWrapper = styled.span`
+  margin-left: 8px;
+`;
+
 const Comment = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   font-size: 13px;
 `;
 
 const MyCommnet = styled.div`
   display: flex;
+  min-height: 60px;
   align-items: center;
   padding-right: 12px;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 12px;
 `;
+
+const CommentBlock = styled.div`
+  display: flex;
+  align-items: center;
+  height: 60px;
+`;
+
+const CommentContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 68%;
+  justify-content: space-around;
+  margin-left: 12px;
+  font-size: 12px;
+  > span:first-child {
+    font-weight: 600;
+  }
+  > span:last-child {
+    color: var(--font-h2);
+  }
+`;
+
 const MyText = styled.textarea`
   margin-left: 12px;
   flex: 1;

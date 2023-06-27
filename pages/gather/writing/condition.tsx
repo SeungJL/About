@@ -99,7 +99,7 @@ function WritingCondition() {
       user: data,
     };
     setGatherContent(gatherData);
-    console.log(gatherContent);
+  
     mutate(gatherData);
     setIsSuccessScreen(true);
   };

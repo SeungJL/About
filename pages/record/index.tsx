@@ -43,7 +43,7 @@ function Record() {
     endDay,
     {
       onSuccess(data) {
-        console.log(data);
+       
         setTotalData(data);
       },
     }

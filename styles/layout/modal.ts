@@ -9,6 +9,24 @@ export const FullScreen = styled.div`
   top: 0;
   left: 0;
 `;
+
+export const Modal2Xs = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+  background-color: white;
+  width: var(--width-80);
+  height: 120px;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 16;
+  box-shadow: var(--box-shadow);
+  font-size: 12px;
+`;
+
 export const ModalXs = styled.div`
   display: flex;
   flex-direction: column;

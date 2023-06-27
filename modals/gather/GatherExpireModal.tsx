@@ -38,7 +38,7 @@ function GatherExpireModal({
   const [isFirst, setIsFirst] = useState(true);
   const { data } = useUserInfoQuery();
   const gatherData = useRecoilValue(transferGatherDataState);
-  console.log(gatherData);
+
   const isNoMember = gatherData.participants.length === 0;
   const gatherId = gatherData?.id;
   const { mutate: statusOpen } = useGatherStatusOpen(gatherId, {
@@ -48,11 +48,7 @@ function GatherExpireModal({
   const { mutate: statusEnd } = useGatherStatusEnd(gatherId);
 
   const [password, setPassword] = useState("");
-  const { mutate: gatherDelete } = useGatherDeleteMutation(gatherId, {
-    onSuccess() {
-      console.log("SUC");
-    },
-  });
+  const { mutate: gatherDelete } = useGatherDeleteMutation(gatherId);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };

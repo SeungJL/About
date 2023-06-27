@@ -15,7 +15,7 @@ function GatherTitle({ status, title }: IGatherTitle) {
           : status === "open"
           ? "오픈"
           : status === "close"
-          ? "취소"
+        ? "취소"
           : null}
       </span>
       <span>{title}</span>
