@@ -3,10 +3,10 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
-import AbsentStudyModal from "../../../../modals/study/AbsentStudyModal";
-import AttendCheckModal from "../../../../modals/study/AttendCheckModal";
-import ChangeStudyTimeModal from "../../../../modals/study/ChangeStudyTimeModal";
-import VoteStudySubModal from "../../../../modals/study/VoteStudySubModal";
+import AbsentStudyModal from "../../../../modals/study2/AbsentStudyModal";
+import AttendCheckModal from "../../../../modals/study2/AttendCheckModal";
+import ChangeStudyTimeModal from "../../../../modals/study2/ChangeStudyTimeModal";
+import VoteStudySubModal from "../../../../modals/study2/VoteStudySubModal";
 import { IAttendance, IPlace } from "../../../../types/studyDetails";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 

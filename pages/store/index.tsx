@@ -8,7 +8,7 @@ import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
 import { useStoreAllQuery } from "../../hooks/store/queries";
-import StoreRuleModal from "../../modals/store/StoreRuleModal";
+import StoreRuleModal from "../../modals/store2/StoreRuleModal";
 import { STORE_GIFT } from "../../storage/Store";
 import { FullScreen } from "../../styles/layout/modal";
 

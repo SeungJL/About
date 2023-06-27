@@ -6,7 +6,7 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
-import InviteStudyModal from "../../../modals/study/InviteStudyModal";
+import InviteStudyModal from "../../../modals/study2/InviteStudyModal";
 import { IPlace } from "../../../types/studyDetails";
 interface IStudySpaceVoteOverview {
   voteCnt: number;

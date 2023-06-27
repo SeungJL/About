@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
 import LocationSelector from "../../../../components/utils/LocationSelector";
-import CheckVoteModal from "../../../../modals/study/AttendCheckModal";
+import CheckVoteModal from "../../../../modals/study2/AttendCheckModal";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import {
   attendCheckState,
