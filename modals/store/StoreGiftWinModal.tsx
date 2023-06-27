@@ -6,15 +6,13 @@ import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
 import { IStoreApplicant } from "../../types/store";
 
-function GiftWinnerModal({
-  setIsModal,
-  applyData,
-  win,
-}: {
+interface IStoreGiftWinModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
   applyData: IStoreApplicant[];
   win: number;
-}) {
+}
+
+function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
   const { data: session } = useSession();
 
   const [winner, setWinner] = useState([]);
@@ -83,4 +81,4 @@ const Win = styled.div`
 
 const Footer = styled.footer``;
 
-export default GiftWinnerModal;
+export default StoreGiftWinModal;

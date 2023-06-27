@@ -9,8 +9,8 @@ import { MainLoading } from "../../../components/common/MainLoading";
 import Header from "../../../components/layouts/Header";
 import ModalPortal from "../../../components/ModalPortal";
 import { useStoreQuery } from "../../../hooks/store/queries";
-import ApplyGiftModal from "../../../modals/store/ApplyGiftModal";
-import GiftWinnerModal from "../../../modals/store/GiftWinnerModal";
+import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
+import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";
 import { STORE_GIFT } from "../../../storage/Store";
 import { IStoreApplicant, IStoreGift } from "../../../types/store";
 
@@ -146,12 +146,12 @@ function StoreItem() {
       )}
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <ApplyGiftModal setIsModal={setIsModal} giftInfo={info} />
+          <StoreApplyGiftModal setIsModal={setIsModal} giftInfo={info} />
         </ModalPortal>
       )}
       {isWinModal && (
         <ModalPortal setIsModal={setIsWinModal}>
-          <GiftWinnerModal
+          <StoreGiftWinModal
             setIsModal={setIsWinModal}
             applyData={applyData}
             win={info.winner}

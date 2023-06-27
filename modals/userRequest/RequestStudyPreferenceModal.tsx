@@ -14,13 +14,15 @@ import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import { userLocationState } from "../../recoil/userAtoms";
 import { IplaceInfo } from "../../types/statistics";
 
-function SettingStudyModal({
-  setIsModal,
-  isBig,
-}: {
+interface IRequestStudyPreferenceModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
   isBig?: boolean;
-}) {
+}
+
+function RequestStudyPreferenceModal({
+  setIsModal,
+  isBig,
+}: IRequestStudyPreferenceModal) {
   const [page, setPage] = useState(0);
   const location = useRecoilValue(userLocationState);
 
@@ -108,7 +110,7 @@ function SettingStudyModal({
     </>
   );
 }
-export default SettingStudyModal;
+export default RequestStudyPreferenceModal;
 
 const Layout = styled(motion(ModalMd))<{ isBig?: boolean }>`
   height: ${(props) => props.isBig && "var(--height-md)"};

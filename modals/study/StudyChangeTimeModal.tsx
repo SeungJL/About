@@ -18,13 +18,15 @@ import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
 
-function ChangeStudyTimeModal({
-  setIsChangeStudyTimeModal,
-  myVoteTime,
-}: {
-  setIsChangeStudyTimeModal: Dispatch<SetStateAction<boolean>>;
+interface IStudyChangeTimeModal {
+  setIsStudyChangeTimeModal: Dispatch<SetStateAction<boolean>>;
   myVoteTime?: ITimeStartToEnd;
-}) {
+}
+
+function StudyChangeTimeModal({
+  setIsStudyChangeTimeModal,
+  myVoteTime,
+}: IStudyChangeTimeModal) {
   const toast = useToast();
 
   const voteDate = useRecoilValue(voteDateState);
@@ -78,7 +80,7 @@ function ChangeStudyTimeModal({
       });
       return;
     }
-    setIsChangeStudyTimeModal(false);
+    setIsStudyChangeTimeModal(false);
     patchAttend(timeInfo);
   };
 
@@ -100,7 +102,7 @@ function ChangeStudyTimeModal({
         )}
       </ModalMain>
       <ModalFooterNav>
-        <button onClick={() => setIsChangeStudyTimeModal(false)}>취소</button>
+        <button onClick={() => setIsStudyChangeTimeModal(false)}>취소</button>
         <button onClick={onSubmit}>변경</button>
       </ModalFooterNav>
     </Layout>
@@ -121,4 +123,4 @@ const WaringMsg = styled.span`
   color: var(--color-red);
 `;
 
-export default ChangeStudyTimeModal;
+export default StudyChangeTimeModal;

@@ -18,50 +18,57 @@ import styled from "styled-components";
 import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
 
 import { ModalHeaderXLine } from "../../components/layouts/Modals";
+import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointMutation,
+  useScoreMutation,
+} from "../../hooks/user/pointSystem/mutation";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { IUserRequest } from "../../types/user";
 
-function DeclarationFormModal({
-  setIsModal,
-}: {
+interface IRequestSuggestModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function RequestSuggestModal({ setIsModal }: IRequestSuggestModal) {
   const [isRealName, setIsRealName] = useState(true);
-  const completeToast = useCompleteToast();
   const { data: session } = useSession();
+  const completeToast = useCompleteToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { mutate: DeclarationForm } = useUserRequestMutation({
+  const { mutate: suggestForm } = useUserRequestMutation({
     onSuccess() {
       completeToast("success");
     },
   });
-  const { mutate: getScores } = usePointMutation();
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getScore } = useScoreMutation();
 
   const onValid = (data) => {
-    const DeclarationInfo: IUserRequest = {
-      category: "신고",
+    const suggestInfo: IUserRequest = {
+      category: "건의",
       title: data.title,
       writer: isRealName ? session.user.name : "",
       content: data.content,
       date: dayjs(),
     };
+    getScore(POINT_SYSTEM_PLUS.suggest.score);
+    getPoint(POINT_SYSTEM_PLUS.suggest.point);
 
-    DeclarationForm(DeclarationInfo);
+    suggestForm(suggestInfo);
     setIsModal(false);
   };
 
   return (
     <Layout>
-      <ModalHeaderXLine title="불편사항 신고" setIsModal={setIsModal} />
+      <ModalHeaderXLine title="건의사항" setIsModal={setIsModal} />
       <ModalMain>
-        <Form onSubmit={handleSubmit(onValid)} id="Declaration">
+        <Form onSubmit={handleSubmit(onValid)} id="suggest">
           <Item>
             <span>제목: </span>
             <TitleInput {...register("title")} />
@@ -118,7 +125,7 @@ function DeclarationFormModal({
         <button type="button" onClick={() => setIsModal(false)}>
           취소
         </button>
-        <button form="Declaration" type="submit">
+        <button form="suggest" type="submit">
           제출
         </button>
       </ModalFooterNav>
@@ -189,4 +196,4 @@ const ContentInput = styled.textarea`
   background-color: var(--font-h7);
 `;
 
-export default DeclarationFormModal;
+export default RequestSuggestModal;

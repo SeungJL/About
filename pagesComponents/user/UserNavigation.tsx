@@ -17,13 +17,13 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
-import ApplyPromotionRewardModal from "../../modals/user/ApplyPromotionRewardModal";
-import ApplyRestModal from "../../modals/user/ApplyRestModal";
-import ChargeDepositModal from "../../modals/user/ChargeDepositModal";
-import DeclarationFormModal from "../../modals/user/DeclarationFormModal";
-import SecedeModal from "../../modals/user/SecedeModal";
-import SettingStudySpace from "../../modals/user/SettingStudySpace";
-import SuggestModal from "../../modals/user/SuggestModal";
+import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
+import RequestDeclarationModal from "../../modals/userRequest/RequestDeclarationModal";
+import RequestPromotionRewardModal from "../../modals/userRequest/RequestPromotionRewardModal";
+import RequestRestModal from "../../modals/userRequest/RequestRestModal";
+import RequestSecedeModal from "../../modals/userRequest/RequestSecedeModal";
+import SettingStudySpace from "../../modals/userRequest/RequestStudyPreferenceModal";
+import RequestSuggestModal from "../../modals/userRequest/RequestSuggestModal";
 import { userLocationState } from "../../recoil/userAtoms";
 
 function UserNavigation() {
@@ -121,33 +121,33 @@ function UserNavigation() {
       </Layout>
       {modalOpen === "suggest" && (
         <ModalPortal setIsModal={handleOutput}>
-          <SuggestModal setIsModal={handleOutput} />
+          <RequestSuggestModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
 
       {modalOpen === "rest" && (
         <ModalPortal setIsModal={handleOutput}>
-          <ApplyRestModal setIsModal={handleOutput} />
+          <RequestRestModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "declaration" && (
         <ModalPortal setIsModal={handleOutput}>
-          <DeclarationFormModal setIsModal={handleOutput} />
+          <RequestDeclarationModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "deposit" && (
         <ModalPortal setIsModal={handleOutput}>
-          <ChargeDepositModal setIsModal={handleOutput} />
+          <RequestChargeDepositModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "promotion" && (
         <ModalPortal setIsModal={handleOutput}>
-          <ApplyPromotionRewardModal setIsModal={handleOutput} />
+          <RequestPromotionRewardModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "secede" && (
         <ModalPortal setIsModal={handleOutput}>
-          <SecedeModal setIsModal={handleOutput} />
+          <RequestSecedeModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "spaceSetting" && (

@@ -4,16 +4,16 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/layouts/Modals";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
 
-import ApplyPromotionRewardModal from "../user/ApplyPromotionRewardModal";
+import RequestPromotionRewardModal from "../userRequest/RequestPromotionRewardModal";
 
 import Image from "next/image";
 import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 
-function PromotionModal({
-  setIsModal,
-}: {
+interface IPromotionModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function PromotionModal({ setIsModal }: IPromotionModal) {
   const [isApplyModal, setIsApplyModal] = useState(false);
   const { data } = useUserRequestQuery();
 
@@ -75,7 +75,7 @@ function PromotionModal({
           </Button>
         </Footer>
       </Layout>
-      {isApplyModal && <ApplyPromotionRewardModal setIsModal={setIsModal} />}
+      {isApplyModal && <RequestPromotionRewardModal setIsModal={setIsModal} />}
     </>
   );
 }
@@ -113,11 +113,6 @@ const Detail = styled.div`
     }
   }
 `;
-const WinDate = styled.span`
-  font-size: 12px;
-`;
-
-const Status = styled.div``;
 
 const Footer = styled.footer`
   display: flex;

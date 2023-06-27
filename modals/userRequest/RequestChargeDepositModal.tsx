@@ -8,11 +8,11 @@ import { ACCOUNT_SHORT } from "../../constants/private";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { ModalMain, ModalMd } from "../../styles/layout/modal";
 
-function ChargeDepositModal({
-  setIsModal,
-}: {
+interface IRequestChargeDepositModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function RequestChargeDepositModal({ setIsModal }: IRequestChargeDepositModal) {
   const [isFirst, setIsFirst] = useState(true);
   const toast = useToast();
   const { data: session } = useSession();
@@ -169,4 +169,4 @@ const Message = styled.div`
 
 const Footer = styled.footer``;
 
-export default ChargeDepositModal;
+export default RequestChargeDepositModal;

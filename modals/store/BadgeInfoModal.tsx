@@ -5,11 +5,11 @@ import styled from "styled-components";
 
 import { ModalHeaderCenter, ModalXXL } from "../../styles/layout/modal";
 
-function BadgeInfoModal({
-  setIsModal,
-}: {
+interface IBadgeInfoModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function BadgeInfoModal({ setIsModal }: IBadgeInfoModal) {
   const [page, setPage] = useState(0);
 
   return (

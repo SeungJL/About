@@ -34,13 +34,12 @@ import { IplaceInfo } from "../../types/statistics";
 import { IVoteInfo } from "../../types/studyDetails";
 import { ITimeStartToEndHM } from "../../types/utils";
 
-function VoteStudyMainModal({
-  setIsShowModal,
-  isBig,
-}: {
+interface IStudyVoteMainModal {
   setIsShowModal: Dispatch<SetStateAction<boolean>>;
   isBig?: boolean;
-}) {
+}
+
+function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -254,7 +253,7 @@ function VoteStudyMainModal({
     </>
   );
 }
-export default VoteStudyMainModal;
+export default StudyVoteMainModal;
 
 const Layout = styled(motion(ModalMd))<{ isBig?: boolean }>`
   height: ${(props) => props.isBig && "var(--height-md)"};

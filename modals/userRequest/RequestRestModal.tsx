@@ -15,11 +15,11 @@ import { useUserApplyRestMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { IUserRequest } from "../../types/user";
 
-function ApplyRestModal({
-  setIsModal,
-}: {
+interface IRequestRestModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function RequestRestModal({ setIsModal }: IRequestRestModal) {
   const completeToast = useCompleteToast();
   const { data: session } = useSession();
 
@@ -188,4 +188,4 @@ const NoUse = styled.span`
   font-weight: 600;
 `;
 
-export default ApplyRestModal;
+export default RequestRestModal;

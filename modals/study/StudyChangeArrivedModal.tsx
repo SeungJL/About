@@ -17,13 +17,15 @@ import { IAttendance } from "../../types/studyDetails";
 import { useRouter } from "next/router";
 import { InputSm } from "../../styles/layout/input";
 
-function ChangeArrivedMemoModal({
-  setIsModal,
-  user,
-}: {
+interface IStudyChangeArrivedModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
   user: IAttendance;
-}) {
+}
+
+function StudyChangeArrivedModal({
+  setIsModal,
+  user,
+}: IStudyChangeArrivedModal) {
   const router = useRouter();
   const [memo, setMemo] = useState(user?.memo);
 
@@ -106,4 +108,4 @@ const Loading = styled.div`
   }
 `;
 
-export default ChangeArrivedMemoModal;
+export default StudyChangeArrivedModal;

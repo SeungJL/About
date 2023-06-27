@@ -5,6 +5,7 @@ import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
 
 import dayjs from "dayjs";
 import Image from "next/image";
+import { SetStateAction } from "react";
 import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import {} from "../../hooks/user/queries";
 import {
@@ -12,7 +13,11 @@ import {
   useUserVoteRateQuery,
 } from "../../hooks/user/studyStatistics/queries";
 
-function LastWeekAttendPopUp({ closePopUp }) {
+interface ILastWeekAttendPopUp {
+  closePopUp: React.Dispatch<SetStateAction<boolean>>;
+}
+
+function LastWeekAttendPopUp({ closePopUp }: ILastWeekAttendPopUp) {
   const { data: session } = useSession();
   const name = session?.user.name;
   const { data: voteRate } = useUserVoteRateQuery(

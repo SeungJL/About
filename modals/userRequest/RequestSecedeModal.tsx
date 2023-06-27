@@ -8,11 +8,10 @@ import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 
 import { ModalLg, ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 
-function SecedeModal({
-  setIsModal,
-}: {
+interface IRequestSecedeModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+function RequestSecedeModal({ setIsModal }: IRequestSecedeModal) {
   const { mutate } = useUserRequestMutation({});
   const { data: session } = useSession();
 
@@ -87,4 +86,4 @@ const Footer = styled.footer`
   display: flex;
 `;
 
-export default SecedeModal;
+export default RequestSecedeModal;

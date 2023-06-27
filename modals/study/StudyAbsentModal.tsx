@@ -2,7 +2,6 @@ import { IconButton, useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
-
 import {
   ModalFooterNav,
   ModalHeaderLine,
@@ -21,8 +20,7 @@ import {
 
 import { SearchIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, SetStateAction, useState } from "react";
 
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
@@ -31,14 +29,15 @@ import {
   usePointMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { VOTE_GET } from "../../libs/queryKeys";
-import { getToday } from "../../libs/utils/dateUtils";
 import { InputSm } from "../../styles/layout/input";
 
-function AbsentStudyModal({ setIsModal }) {
-  const router = useRouter();
+interface IStoreAbsentModal {
+  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+}
+
+function StudyAbsentModal({ setIsModal }: IStoreAbsentModal) {
   const toast = useToast();
   const queryClient = useQueryClient();
-  const today = getToday();
 
   const setisVoting = useSetRecoilState(isVotingState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
@@ -233,4 +232,4 @@ const TooltipInfo = styled(motion.div)`
   }
 `;
 
-export default AbsentStudyModal;
+export default StudyAbsentModal;

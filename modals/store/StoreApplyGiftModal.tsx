@@ -13,16 +13,15 @@ import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 import { ModalMain, ModalXs } from "../../styles/layout/modal";
 import { IStoreApplicant, IStoreGift } from "../../types/store";
 
-function ApplyGiftModal({
-  setIsModal,
-  giftInfo,
-}: {
+interface IStoreApplyGiftModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
   giftInfo: IStoreGift;
-}) {
+}
+
+function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
   const router = useRouter();
   const { data: session } = useSession();
-  
+
   const isGuest = session?.user.name === "guest";
   const toast = useToast();
   const { data: myPoint } = usePointQuery();
@@ -161,4 +160,4 @@ const CountNav = styled.nav`
 
 const Footer = styled.footer``;
 
-export default ApplyGiftModal;
+export default StoreApplyGiftModal;

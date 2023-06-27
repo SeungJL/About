@@ -18,7 +18,7 @@ interface Kakao {
     createDefaultButton: (options: object) => void; // createDefaultButton 인터페이스 추가
   };
 }
-function InviteStudyModal({
+function StudyInviteModal({
   setIsModal,
 
   place,
@@ -28,7 +28,7 @@ function InviteStudyModal({
   place: IPlace;
 }) {
   const { data: session } = useSession();
- 
+
   const router = useRouter();
   const random_num = Math.floor(Math.random() * 3);
   const url = WEB_URL + router?.asPath + "/" + session?.uid;
@@ -36,7 +36,7 @@ function InviteStudyModal({
   const location = STUDY_SPACE_INFO?.find(
     (info) => info?.id === place?._id
   )?.location;
-  
+
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -120,4 +120,4 @@ const SubText = styled.span`
 
 const Footer = styled.footer``;
 
-export default InviteStudyModal;
+export default StudyInviteModal;

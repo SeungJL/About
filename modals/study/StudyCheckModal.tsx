@@ -36,11 +36,10 @@ import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;
 
-function AttendCheckModal({
-  setIsModal,
-}: {
+interface IStudyCheckModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const location = useRecoilValue(userLocationState);
   const [memo, setMemo] = useState("");
@@ -205,4 +204,4 @@ const Loading = styled.div`
   }
 `;
 
-export default AttendCheckModal;
+export default StudyCheckModal;

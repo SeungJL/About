@@ -8,11 +8,11 @@ import {
   ModalSubtitle,
 } from "../../styles/layout/modal";
 
-function InspectionModal({
-  setIsModal,
-}: {
+interface IServerInspectModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function ServerInspectModal({ setIsModal }: IServerInspectModal) {
   const onClickClosed = () => {
     setIsModal(false);
   };
@@ -37,4 +37,4 @@ function InspectionModal({
 
 const Layout = styled(ModalMd)``;
 
-export default InspectionModal;
+export default ServerInspectModal;

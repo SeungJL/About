@@ -1,10 +1,14 @@
+import { SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isNotCompletedState } from "../../recoil/renderTrigger2Atoms";
-
 import { ModalMd } from "../../styles/layout/modal";
 
-function NotCompletedModal({ setIsModal }) {
+interface INotCompletedModal {
+  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+}
+
+function NotCompletedModal({ setIsModal }: INotCompletedModal) {
   const setIsNotCompletedState = useSetRecoilState(isNotCompletedState);
   return (
     <>

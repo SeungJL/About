@@ -42,77 +42,12 @@ const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
 `;
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const Title = styled.span`
   font-size: 24px;
   font-weight: 600;
   color: var(--font-h1);
   margin-bottom: 8px;
-`;
-
-const Nav = styled.nav`
-  width: 100%;
-  display: flex;
-  margin-top: 8px;
-`;
-
-const Button = styled.button<{ isSelected: boolean }>`
-  flex: 1;
-  font-weight: 600;
-  font-size: 12px;
-  padding-bottom: 6px;
-  color: var(--font-h1);
-  border-bottom: ${(props) =>
-    props.isSelected ? "2px solid var(--font-h1)" : "1px solid var(--font-h6)"};
-`;
-
-const RuleTitle = styled.span`
-  color: var(--font-h1);
-  font-size: 12px;
-  font-weight: 600;
-  display: inline-block;
-  margin-bottom: 2px;
-`;
-
-const Main = styled.main`
-  margin-top: 8px;
-`;
-const Content = styled.div`
-  font-size: 11px;
-  padding-left: 16px;
-  margin-top: 3px;
-  margin-bottom: 8px;
-  > ul {
-    line-height: 1.8;
-  }
-`;
-
-const B = styled.b`
-  margin-left: 3px;
-  color: var(--font-h1);
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  justify-content: end;
-  align-items: end;
-  flex: 1;
-
-  > button {
-    color: var(--font-h1);
-    font-size: 16px;
-  }
-`;
-const Li = styled.li`
-  line-height: 2;
-  > b {
-    color: var(--font-h1);
-  }
 `;
 
 export default FriendRuleModal;

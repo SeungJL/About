@@ -15,7 +15,7 @@ import {
 
 import { useRecoilValue } from "recoil";
 import ModalPortal from "../../components/ModalPortal";
-import ChangeProfileImageModal from "../../modals/user/ChangeProfileImageModal";
+import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal";
 import { userBadgeState } from "../../recoil/userAtoms";
 
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
@@ -123,7 +123,7 @@ export default function UserOverview({
 
       {isProfileModal && (
         <ModalPortal setIsModal={setIsProfileModal}>
-          <ChangeProfileImageModal setIsModal={setIsProfileModal} />
+          <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />
         </ModalPortal>
       )}
     </>

@@ -13,7 +13,7 @@ import { MouseEvent, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import ModalPortal from "../../../../components/ModalPortal";
 import { useStudyAbsentQuery } from "../../../../hooks/study/queries";
-import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
+import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrivedModal";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
@@ -118,7 +118,7 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
       </Layout>
       {isChangeModal && (
         <ModalPortal setIsModal={setIsChangeModal}>
-          <ChangeArrivedMemoModal user={user} setIsModal={setIsChangeModal} />
+          <StudyChangeArrivedModal user={user} setIsModal={setIsChangeModal} />
         </ModalPortal>
       )}
     </>

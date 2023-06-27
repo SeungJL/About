@@ -33,7 +33,7 @@ import { SPACE_LOCATION } from "../../storage/study";
 import { IPlace, IVoteInfo } from "../../types/studyDetails";
 import { ITimeStartToEnd } from "../../types/utils";
 
-interface IVoteStudySubModal {
+interface IStudyVoteSubModal {
   isModal: boolean;
   setIsModal: Dispatch<SetStateAction<boolean>>;
   voteDate: Dayjs;
@@ -41,13 +41,13 @@ interface IVoteStudySubModal {
   setIsVoteComplete: Dispatch<SetStateAction<boolean>>;
 }
 
-function VoteStudySubModal({
+function StudyVoteSubModal({
   isModal,
   setIsModal,
   voteDate,
   place,
   setIsVoteComplete,
-}: IVoteStudySubModal) {
+}: IStudyVoteSubModal) {
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const toast = useToast();
@@ -307,4 +307,4 @@ const Comment = styled.div`
   font-weight: 600;
   color: var(--font-h2);
 `;
-export default VoteStudySubModal;
+export default StudyVoteSubModal;

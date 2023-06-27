@@ -6,7 +6,7 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
-import InviteStudyModal from "../../../modals/study/InviteStudyModal";
+import StudyInviteModal from "../../../modals/study/StudyInviteModal";
 import { IPlace } from "../../../types/studyDetails";
 interface IStudySpaceVoteOverview {
   voteCnt: number;
@@ -39,7 +39,7 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <InviteStudyModal setIsModal={setIsModal} place={place} />
+          <StudyInviteModal setIsModal={setIsModal} place={place} />
         </ModalPortal>
       )}
     </>

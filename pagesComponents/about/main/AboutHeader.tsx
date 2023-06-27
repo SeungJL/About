@@ -11,7 +11,7 @@ import ModalPortal from "../../../components/ModalPortal";
 import { NOTICE_ALERT } from "../../../constants/localStorage";
 import PromotionModal from "../../../modals/aboutHeader/PromotionModal";
 import StudyRuleModal from "../../../modals/aboutHeader/StudyRuleModal";
-import UserLogoutModal from "../../../modals/user/UserLogoutModal";
+
 import { isNoticeAlertState } from "../../../recoil/renderTrigger2Atoms";
 
 export default function AboutHeader() {
@@ -23,7 +23,6 @@ export default function AboutHeader() {
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   const [isRule, setIsRule] = useState(false);
 
-  const [isLogout, setIsLogout] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
 
   const onClickedNotice = () => {
@@ -35,10 +34,6 @@ export default function AboutHeader() {
   };
 
   const onClickUser = () => {
-    // if (isGuest) {
-    //   setIsLogout(true);
-    //   return;
-    // }
     router.push(`/user`);
   };
   return (
@@ -82,11 +77,6 @@ export default function AboutHeader() {
           </ModalPortal>
         )}
 
-        {isLogout && (
-          <ModalPortal setIsModal={setIsLogout}>
-            <UserLogoutModal setIsModal={setIsLogout} />
-          </ModalPortal>
-        )}
         {isPromotion && (
           <ModalPortal setIsModal={setIsPromotion}>
             <PromotionModal setIsModal={setIsPromotion} />

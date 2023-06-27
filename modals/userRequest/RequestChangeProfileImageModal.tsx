@@ -17,11 +17,12 @@ import { AVATAR_COLOR, AVATAR_COST, AVATAR_ICON } from "../../storage/Avatar";
 import { ModalHeaderLine, ModalLg, ModalXs } from "../../styles/layout/modal";
 import { IUser, kakaoProfileInfo } from "../../types/user";
 
-function ChangeProfileImageModal({
-  setIsModal,
-}: {
+interface IRequestChangeProfileImageModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+function RequestChangeProfileImageModal({
+  setIsModal,
+}: IRequestChangeProfileImageModal) {
   const toast = useToast();
   const [isFirstPage, setIsFirstPage] = useState(true);
   const [iconIdx, setIconIdx] = useState(0);
@@ -308,4 +309,4 @@ const Footer = styled.footer`
   }
 `;
 
-export default ChangeProfileImageModal;
+export default RequestChangeProfileImageModal;

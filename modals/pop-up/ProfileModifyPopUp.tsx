@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { SetStateAction, useState } from "react";
+import { SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/layouts/Modals";
@@ -12,14 +12,14 @@ import {
   ModalSubtitle,
 } from "../../styles/layout/modal";
 
-function ProfileModifyPopUp({
-  setIsModal,
-}: {
+interface IProfileModifyPopUp {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function ProfileModifyPopUp({ setIsModal }: IProfileModifyPopUp) {
   const router = useRouter();
   const toast = useToast();
-  const [isSuggest, setIsSuggest] = useState(false);
+
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
   const onClickClosed = () => {
     toast({

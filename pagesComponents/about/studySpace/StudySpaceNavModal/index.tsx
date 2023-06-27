@@ -3,10 +3,10 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
-import AbsentStudyModal from "../../../../modals/study/AbsentStudyModal";
-import AttendCheckModal from "../../../../modals/study/AttendCheckModal";
-import ChangeStudyTimeModal from "../../../../modals/study/ChangeStudyTimeModal";
-import VoteStudySubModal from "../../../../modals/study/VoteStudySubModal";
+import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
+import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal";
+import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
+import StudyVoteSubModal from "../../../../modals/study/StudyVoteSubModal";
 import { IAttendance, IPlace } from "../../../../types/studyDetails";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 
@@ -35,20 +35,20 @@ function StudySpaceNavModal({ type, myVote, place }: IStudySpaceNavModal) {
     <Layout>
       {isChangeModal && (
         <ModalPortal setIsModal={setIsChangeModal}>
-          <ChangeStudyTimeModal
-            setIsChangeStudyTimeModal={setIsChangeModal}
+          <StudyChangeTimeModal
+            setIsStudyChangeTimeModal={setIsChangeModal}
             myVoteTime={myVote?.time}
           />
         </ModalPortal>
       )}
       {isAbsentmodal && (
         <ModalPortal setIsModal={setIsAbsentmodal}>
-          <AbsentStudyModal setIsModal={setIsAbsentmodal} />
+          <StudyAbsentModal setIsModal={setIsAbsentmodal} />
         </ModalPortal>
       )}
       {isVoteModal && (
         <ModalPortal setIsModal={setIsVoteModal}>
-          <VoteStudySubModal
+          <StudyVoteSubModal
             isModal={isVoteModal}
             setIsModal={setIsVoteModal}
             voteDate={voteDate}
@@ -59,7 +59,7 @@ function StudySpaceNavModal({ type, myVote, place }: IStudySpaceNavModal) {
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
-          <AttendCheckModal setIsModal={setIsCheckModal} />
+          <StudyCheckModal setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
       {isVoteComplete && (

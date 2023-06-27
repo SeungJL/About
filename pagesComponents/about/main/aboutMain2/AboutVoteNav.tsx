@@ -5,7 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import ModalPortal from "../../../../components/ModalPortal";
-import VoteStudyMainModal from "../../../../modals/study/VoteStudyMainModal";
+import StudyVoteMainModal from "../../../../modals/study/StudyVoteMainModal";
 
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
@@ -93,7 +93,7 @@ function AboutVoteNav({
       </Layout>
       {isShowModal && (
         <ModalPortal setIsModal={setIsShowModal}>
-          <VoteStudyMainModal
+          <StudyVoteMainModal
             setIsShowModal={setIsShowModal}
             isBig={location === "수원"}
           />
@@ -101,7 +101,7 @@ function AboutVoteNav({
       )}
       {isAttendModal && (
         <ModalPortal setIsModal={setIsAttendModal}>
-          <VoteStudyMainModal
+          <StudyVoteMainModal
             setIsShowModal={setIsAttendModal}
             isBig={location === "수원"}
           />

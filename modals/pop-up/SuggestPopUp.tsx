@@ -9,13 +9,13 @@ import {
   ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
-import SuggestModal from "../user/SuggestModal";
+import RequestSuggestModal from "../userRequest/RequestSuggestModal";
 
-function SuggestPopUp({
-  setIsModal,
-}: {
+interface ISuggestPopUp {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function SuggestPopUp({ setIsModal }: ISuggestPopUp) {
   const toast = useToast();
   const [isSuggest, setIsSuggest] = useState(false);
   const onClickClosed = () => {
@@ -50,7 +50,7 @@ function SuggestPopUp({
       </Layout>
       {isSuggest && (
         <ModalPortal setIsModal={setIsSuggest}>
-          <SuggestModal setIsModal={setIsSuggest} />
+          <RequestSuggestModal setIsModal={setIsSuggest} />
         </ModalPortal>
       )}
     </>

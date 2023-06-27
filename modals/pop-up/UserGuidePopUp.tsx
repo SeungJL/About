@@ -10,11 +10,11 @@ import {
   ModalXXL,
 } from "../../styles/layout/modal";
 
-function UserGuidePopUp({
-  setIsModal,
-}: {
+interface IUserGuidePopUp {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function UserGuidePopUp({ setIsModal }: IUserGuidePopUp) {
   const onClick = () => {
     setIsModal(false);
     localStorage.setItem(USER_GUIDE, "read");

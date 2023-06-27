@@ -8,11 +8,11 @@ import {
   ModalSubtitle,
 } from "../../styles/layout/modal";
 
-function NotCompletedModal2({
-  setIsModal,
-}: {
+interface INotCompletedModal2 {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function NotCompletedModal2({ setIsModal }: INotCompletedModal2) {
   const onClickClosed = () => {
     setIsModal(false);
   };

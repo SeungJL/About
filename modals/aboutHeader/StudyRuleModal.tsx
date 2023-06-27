@@ -9,11 +9,11 @@ import {
   ModalXXL,
 } from "../../styles/layout/modal";
 
-function StudyRuleModal({
-  setIsModal,
-}: {
+interface IStudyRuleModal {
   setIsModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
   const [isTip, setIsTip] = useState(true);
 
   return (
@@ -122,11 +122,6 @@ const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
 `;
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const Title = styled.span`
   font-size: 24px;
@@ -159,9 +154,6 @@ const RuleTitle = styled.span`
   margin-bottom: 2px;
 `;
 
-const Main = styled.main`
-  margin-top: 8px;
-`;
 const Content = styled.div`
   font-size: 11px;
   padding-left: 16px;
@@ -175,24 +167,6 @@ const Content = styled.div`
 const B = styled.b`
   margin-left: 3px;
   color: var(--font-h1);
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  justify-content: end;
-  align-items: end;
-  flex: 1;
-
-  > button {
-    color: var(--font-h1);
-    font-size: 16px;
-  }
-`;
-const Li = styled.li`
-  line-height: 2;
-  > b {
-    color: var(--font-h1);
-  }
 `;
 
 export default StudyRuleModal;

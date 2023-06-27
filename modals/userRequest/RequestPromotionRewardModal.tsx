@@ -14,11 +14,13 @@ import {
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { ModalMain, ModalXXL } from "../../styles/layout/modal";
 
-function ApplyPromotionRewardModal({
-  setIsModal,
-}: {
+interface IRequestPromotionRewardModal {
   setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function RequestPromotionRewardModal({
+  setIsModal,
+}: IRequestPromotionRewardModal) {
   const toast = useToast();
   const { data: session } = useSession();
   const { mutate: getPoint } = usePointMutation();
@@ -117,4 +119,4 @@ const Footer = styled.footer`
   display: flex;
 `;
 
-export default ApplyPromotionRewardModal;
+export default RequestPromotionRewardModal;
