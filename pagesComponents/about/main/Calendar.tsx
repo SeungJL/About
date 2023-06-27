@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import CalendarDate from "./Calendar/CalendarDate";
-import CalendarDay from "./Calendar/CalendarDay";
-import CalendarMonth from "./Calendar/CalendarMonth";
+import CalendarDate from "./calendar2/CalendarDate";
+import CalendarDay from "./calendar2/CalendarDay";
+import CalendarMonth from "./calendar2/CalendarMonth";
 
 function Calendar() {
   const [calendarType, setCalendarType] = useState<"week" | "month">("week");
