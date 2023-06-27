@@ -1,266 +1,91 @@
-import {
-  Badge,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-} from "@chakra-ui/react";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Header from "../../components/layouts/Header";
 import {
   useScoreAllQuery,
   useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
-import { SortUserScore, userBadgeScore } from "../../libs/utils/userUtils";
-import { userBadgeState } from "../../recoil/userAtoms";
-import { USER_BADGES } from "../../types/user";
+import { SortUserScore } from "../../libs/utils/userUtils";
+import RankingCategory from "../../pagesComponents/ranking/RankingCategory";
+import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
+import RankingOverview from "../../pagesComponents/ranking/RankingOverview";
+import { isRankingLoadingState } from "../../recoil/loadingAtoms";
 import { IScore } from "../../types/user/pointSystem";
+
+export interface IMyRank {
+  score: number;
+  isRank: boolean;
+  rankNum?: number;
+  percent?: number;
+}
 
 function Ranking() {
   const { data: session } = useSession();
 
   const isGuest = session && session?.user.name === "guest";
+  const myUid = session?.uid;
+
+  const [isRankingLoading, setIsRankingLoading] = useRecoilState(
+    isRankingLoadingState
+  );
   const [userScoreList, setUserScoreList] = useState<IScore[]>([]);
-  const userBadge = useRecoilValue(userBadgeState);
-  const [myRank, setMyRank] = useState<{ isRank; myRank; percent }>();
+
+  const [myRank, setMyRank] = useState<IMyRank>();
   const { data } = useScoreQuery({
     enabled: isGuest === false,
   });
 
-  const myPoint = data?.score | 0;
+  const myScore = data?.score | 0;
 
   useScoreAllQuery({
     enabled: true,
     onSuccess(data) {
-      const { scoreArr, myRank, percent, isRank } = SortUserScore(
+      const { scoreArr, rankNum, percent, isRank } = SortUserScore(
         data,
-        myPoint
+        myScore
       );
       setUserScoreList(scoreArr);
-      setMyRank({ myRank, percent, isRank });
+      setMyRank({ rankNum, percent, isRank, score: myScore });
+      setIsRankingLoading(false);
     },
   });
+  useEffect(() => {
+    if (myUid)
+      setTimeout(() => {
+        const element = document.getElementById(`ranking${myUid}`);
+        element?.scrollIntoView({ behavior: "smooth" });
+      }, 800);
+  }, [myUid]);
 
   return (
-    <AnimateLayout
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
+    <>
       <Header title="About 랭킹" url="/point" />
       <Layout>
-        <Overview>
-          <Myrank>
-            {myRank?.isRank ? (
-              <span>
-                랭킹:
-                <span> {isGuest ? "--" : myRank?.myRank} 위</span>
-              </span>
-            ) : (
-              <span>상위 {myRank?.percent}%</span>
-            )}
-            <span>전체: {userScoreList?.length}명</span>
-          </Myrank>
-          <Profile isGuest={isGuest}>
-            {!isGuest && <ProfileIcon user={session?.user} size="xl" />}
-            <span>{session?.user.name}</span>
-          </Profile>
-          <Score>
-            <span>
-              등급: &nbsp;
-              <Badge colorScheme={userBadge.color} fontSize="13px" mb="6px">
-                {userBadge.badge}
-              </Badge>
-            </span>
-            <span>
-              점수: &nbsp; <span>{myPoint}점</span>
-            </span>
-          </Score>
-        </Overview>
-
-        <MainWrapper>
-          <RankingSection>
-            <SectionHeader>
-              <span>랭킹</span>
-              <span>이름</span>
-              <Popover>
-                <PopoverTrigger>
-                  <FontAwesomeIcon icon={faExclamationCircle} />
-                </PopoverTrigger>
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverHeader fontSize="11px">랭킹 페이지</PopoverHeader>
-                  <PopoverBody fontSize="11px">
-                    해당 페이지는 현재 베타로 출시한 기능입니다. 디자인이나
-                    기능이 아직 완성되지 않은 점 감안해주세요!
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
-              <FilterBtn>필터</FilterBtn>
-            </SectionHeader>
-            {userScoreList?.map((who, idx) => {
-              const score = who?.score;
-              const { badge } = userBadgeScore(score);
-              return (
-                <Item key={idx}>
-                  <span>{idx + 1}위</span>
-                  <RankingMine isMine={who.uid === session?.uid}>
-                    {who?.name !== "무성" ? who?.name : "비공개"}
-                  </RankingMine>
-                  <Badge marginRight="6px" colorScheme={USER_BADGES[badge]}>
-                    {badge}
-                  </Badge>
-                  <span>{score} 점</span>
-                </Item>
-              );
-            })}
-          </RankingSection>
-        </MainWrapper>
+        <RankingOverview myRank={myRank} length={userScoreList.length} />
+        <RankingSection>
+          <RankingCategory />
+          <RankingMembers memberList={userScoreList} />
+        </RankingSection>
       </Layout>
-      ;
-    </AnimateLayout>
+    </>
   );
 }
-
-const AnimateLayout = styled(motion.div)``;
 
 const Layout = styled.div`
   height: 100vh;
 `;
 
-const Overview = styled.div`
-  height: 25vh;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  background-color: var(--font-h6);
-`;
-
-const Myrank = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 120px;
-  > span:first-child {
-    display: inline-block;
-    margin-bottom: 6px;
-    > span {
-      font-size: 20px;
-      font-weight: 800;
-    }
-  }
-  > span:last-child {
-    font-size: 12px;
-  }
-`;
-
-const Profile = styled.div<{ isGuest: boolean }>`
-  margin-top: 16px;
-  text-align: center;
-  > span {
-    font-size: ${(props) => (props.isGuest ? "18px" : "12px")};
-    font-weight: 600;
-  }
-`;
-
-const Guest = styled.span``;
-
-const ImageWrapper = styled.div`
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 4px;
-`;
-
-const Score = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 20px;
-  width: 120px;
-
-  > span {
-    > span {
-      font-weight: 600;
-    }
-  }
-`;
-
-const RankingSection = styled.section`
+const RankingSection = styled.div`
   background-color: white;
   height: 100%;
   overflow-y: scroll;
   padding: 12px 16px;
   border-radius: 8px;
-`;
-
-const MainWrapper = styled.div`
-  background-color: var(--color-mint);
-  padding: 4px;
+  padding: 14px;
   height: calc(75vh - 46px);
-`;
-const SectionHeader = styled.header`
-  display: flex;
-  margin-bottom: 12px;
-  align-items: center;
-  > span {
-    font-weight: 600;
-    width: 60px;
-    text-align: center;
-  }
-  > span:first-child {
-    margin-right: 12px;
-  }
-`;
-
-const FilterBtn = styled.button`
-  margin-left: auto;
-  border: 1.5px solid var(--font-h5);
-  padding: 0 12px;
-  font-size: 12px;
-`;
-
-const Item = styled.div`
-  display: flex;
-  height: 48px;
-  align-items: center;
-  border-bottom: 1px solid var(--font-h5);
-
-  > span {
-    text-align: center;
-    width: 60px;
-  }
-  > span:first-child {
-    margin-right: 12px;
-    font-weight: 600;
-  }
-
-  > span:last-child {
-    margin-left: auto;
-  }
-`;
-
-const RankingMine = styled.span<{ isMine: boolean }>`
-  margin-right: 3px;
-  color: ${(props) => (props.isMine ? "var(--color-mint)" : null)};
-  font-weight: ${(props) => (props.isMine ? "600" : null)};
-`;
-
-const RankProfile = styled.div`
-  display: flex;
-  align-items: center;
+  border: 5px solid var(--color-mint);
 `;
 
 export default Ranking;

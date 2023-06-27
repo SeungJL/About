@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
-import { userBadgeScore } from "../../../libs/utils/userUtils";
+import { getUserBadgeScore } from "../../../libs/utils/userUtils";
 import { IUser, USER_BADGES } from "../../../types/user";
 
 interface IProfileOverview {
@@ -14,7 +14,7 @@ interface IProfileOverview {
 function ProfileOverview({ user }: IProfileOverview) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const userBadge = userBadgeScore(user?.score);
+  const userBadge = getUserBadgeScore(user?.score);
   return (
     <Layout>
       <Profile>

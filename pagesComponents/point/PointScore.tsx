@@ -11,7 +11,7 @@ import BadgeInfoModal from "../../modals/store/BadgeInfoModal";
 
 import { useRecoilState } from "recoil";
 
-import { SortUserScore, userBadgeScore } from "../../libs/utils/userUtils";
+import { getUserBadgeScore, SortUserScore } from "../../libs/utils/userUtils";
 import { userBadgeState } from "../../recoil/userAtoms";
 
 import { useRouter } from "next/router";
@@ -51,9 +51,8 @@ function PointScore({
   const { data } = useScoreQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      const { badge, badgeScore, nextBadge, gap, nextScore } = userBadgeScore(
-        data.score
-      );
+      const { badge, badgeScore, nextBadge, gap, nextScore } =
+        getUserBadgeScore(data.score);
 
       setUserBadge({ badge, color: USER_BADGES[badge] });
       setScoreInfo({
@@ -72,7 +71,7 @@ function PointScore({
     onSuccess(data) {
       const arrangedData = SortUserScore(data, myPoint);
       if (arrangedData.isRank)
-        setMyRank({ myRank: arrangedData.myRank, isRank: true });
+        setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
       setIsPointLoading(false);
     },
@@ -149,7 +148,7 @@ function PointScore({
                   {myRank === undefined ? (
                     <span>New</span>
                   ) : myRank?.isRank ? (
-                    <span> {myRank?.myRank}위</span>
+                    <span> {myRank?.rankNum}위</span>
                   ) : (
                     <span>상위 {myRank?.percent}%</span>
                   )}

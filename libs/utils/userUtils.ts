@@ -1,7 +1,7 @@
 import { IRankScore, UserBadge } from "../../types/user";
 import { IScore } from "../../types/user/pointSystem";
 
-export const userBadgeScore = (score) => {
+export const getUserBadgeScore = (score) => {
   let badge: UserBadge = "아메리카노";
   let nextBadge: UserBadge = "라떼";
   let badgeScore = 0;
@@ -77,9 +77,9 @@ export const SortUserScore = (
 ): IRankScore => {
   scoreArr.sort(compare);
 
-  const myRank = scoreArr.findIndex((who) => who.score === myScore) + 1;
+  const rankNum = scoreArr.findIndex((who) => who.score === myScore) + 1;
 
-  if (myRank <= 100) return { scoreArr, myRank, isRank: true };
+  if (rankNum <= 100) return { scoreArr, rankNum, isRank: true };
 
   let highCnt = 0;
   const total = scoreArr.length;

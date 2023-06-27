@@ -141,8 +141,8 @@ export interface IUserBadge {
 
 export interface IRankScore {
   isRank: boolean;
-  myRank?: number;
-  percent?: boolean;
+  rankNum?: number;
+  percent?: number;
   scoreArr?: IScore[];
 }
 

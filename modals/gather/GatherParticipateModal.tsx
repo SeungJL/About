@@ -12,10 +12,16 @@ import { birthToAge } from "../../libs/utils/membersUtil";
 import { transferGatherDataState } from "../../recoil/transferDataAtoms";
 
 import { ModalMain, ModalMd } from "../../styles/layout/modal";
+import { ParticipationPhase } from "../../types/gather";
 
 interface IGatherParticipateModal {
   setIsModal?: React.Dispatch<SetStateAction<boolean>>;
   setIsRefetching?: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IGatherParticipate {
+  gatherId: number;
+  phase: ParticipationPhase;
 }
 
 function GatherParticipateModal({
@@ -47,7 +53,7 @@ function GatherParticipateModal({
   const onApply = (type: "normal" | "pre") => {
     if (type === "pre") {
       if (password === gatherData?.password) {
-        participate();
+        participate("all");
       } else {
         failToast("applyPreGather");
       }
@@ -129,7 +135,7 @@ function GatherParticipateModal({
   };
 
   const selectGatherTime = () => {
-    participate();
+    participate("all");
     completeToast("applyGather");
     setIsRefetching(true);
     setIsModal(false);

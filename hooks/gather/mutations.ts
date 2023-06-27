@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherCommentUnit } from "../../pagesComponents/gather/detail/GatherComment";
-import { IGatherContent } from "../../types/gather";
+import { IGatherContent, ParticipationPhase } from "../../types/gather";
 
 export const useGatherContentMutation = (
   options?: Omit<
@@ -28,13 +28,14 @@ export const useGatherDeleteMutation = (
 export const useGatherParticipateMutation = (
   gatherId: number,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, void>,
+    UseMutationOptions<void, AxiosError, ParticipationPhase>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, void>(async () => {
+  useMutation<void, AxiosError, ParticipationPhase>(async (phase) => {
     await axios.post(`${SERVER_URI}/gather/participate`, {
       gatherId,
+      phase,
     });
   }, options);
 

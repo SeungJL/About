@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 
 import { GatherCategory, IGatherContent } from "../../types/gather";
 import GatherBlock from "./GatherBlock";
@@ -10,6 +11,7 @@ interface IGatherMain {
   category: GatherCategory;
 }
 function GatherMain({ category }: IGatherMain) {
+  const failToast = useFailToast();
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
   const { data: gatherContentArr, isLoading } = useGatherContentQuery({
     onSuccess() {
