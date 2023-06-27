@@ -13,7 +13,11 @@ interface IGatherMain {
 function GatherMain({ category }: IGatherMain) {
   const failToast = useFailToast();
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
-  const { data: gatherContentArr, isLoading } = useGatherContentQuery({
+  const {
+    data: gatherContentArr,
+    isLoading,
+    refetch,
+  } = useGatherContentQuery({
     onSuccess(data) {
       console.log("SUC", data);
     },
@@ -21,6 +25,10 @@ function GatherMain({ category }: IGatherMain) {
       console.error(err);
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     if (category === "모집중")

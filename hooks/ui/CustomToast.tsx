@@ -37,7 +37,7 @@ export const useCompleteToast = () => {
       toast({
         title: "성공",
         description: text,
-        status: "error",
+        status: "success",
         duration: 3000,
         isClosable: true,
         position: "bottom",

@@ -138,8 +138,8 @@ function GatherParticipateModal({
     setPageNum(2);
   };
 
-  const selectGatherTime = () => {
-    participate("all");
+  const selectGatherTime = (time: "first" | "second") => {
+    participate(time);
     completeToast("applyGather");
     setIsRefetching(true);
     setIsModal(false);
@@ -195,13 +195,13 @@ function GatherParticipateModal({
                   marginBottom="16px"
                   height="48px"
                   fontSize="17px"
-                  onClick={selectGatherTime}
+                  onClick={() => selectGatherTime("first")}
                   _hover={{ bg: "var(--color-mint)" }}
                 >
                   1차 참여 신청
                 </Button>
                 <Button
-                  onClick={() => setPageNum(1)}
+                  onClick={() => selectGatherTime("second")}
                   height="48px"
                   fontSize="17px"
                 >

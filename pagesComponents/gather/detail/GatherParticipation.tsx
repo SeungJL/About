@@ -1,4 +1,9 @@
-import { faCrown, faInfinity } from "@fortawesome/free-solid-svg-icons";
+import {
+  fa1,
+  fa2,
+  faCrown,
+  faInfinity,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
@@ -24,6 +29,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
+  console.log(data);
   return (
     <Layout>
       <span>
@@ -54,10 +60,10 @@ function GatherParticipation({ data }: IGatherParticipation) {
               />
             </CrownWrapper>
           </Organizer>
-          <div>
+          <UserOverview>
             <span>{organizer?.name}</span>
             <span>{organizer?.comment}</span>
-          </div>
+          </UserOverview>
         </MemberItem>
         {data?.participants.map((who) => (
           <MemberItem
@@ -65,10 +71,18 @@ function GatherParticipation({ data }: IGatherParticipation) {
             onClick={() => onClickProfile(who.user)}
           >
             <ProfileIcon user={who.user} size="md" />
-            <div>
+            <UserOverview>
               <span>{who?.user.name}</span>
               <span>{who?.user.comment}</span>
-            </div>
+            </UserOverview>
+            <ParticipateTime isFirst={who?.phase === "first"}>
+              {who?.phase === "first" ? (
+                <FontAwesomeIcon icon={fa1} />
+              ) : (
+                <FontAwesomeIcon icon={fa2} />
+              )}
+              <span>차</span>
+            </ParticipateTime>
           </MemberItem>
         ))}
       </div>
@@ -79,23 +93,34 @@ const MemberItem = styled.div`
   margin-bottom: 16px;
   display: flex;
   align-items: center;
-  > div:last-child {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.6;
-    margin-left: 8px;
-    > span:first-child {
-      font-size: 13px;
-      font-weight: 600;
-    }
-    > span:last-child {
-      font-size: 12px;
-      color: var(--font-h3);
-    }
+`;
+
+const UserOverview = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+  margin-left: 8px;
+  > span:first-child {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  > span:last-child {
+    font-size: 12px;
+    color: var(--font-h3);
   }
 `;
 const Organizer = styled.div`
   position: relative;
+`;
+
+const ParticipateTime = styled.div<{ isFirst: boolean }>`
+  margin-left: auto;
+  margin-right: 6px;
+  color: ${(props) =>
+    props.isFirst ? "var(--color-mint)" : "var(--color-orange)"};
+  > span:last-child {
+    margin-left: 2px;
+  }
 `;
 
 const CrownWrapper = styled.div`

@@ -77,7 +77,10 @@ function WritingCondition() {
   const { data } = useUserInfoQuery();
 
   const onClickNext = async () => {
-    if (minValue < 1 || maxValue < 1 || minValue > maxValue) {
+    if (
+      !isMaxCondition &&
+      (minValue < 1 || maxValue < 1 || minValue > maxValue)
+    ) {
       toast({
         title: "진행 불가",
         description: `인원을 확인해 주세요.`,
@@ -95,11 +98,10 @@ function WritingCondition() {
       memberCnt: { min: minValue, max: isMaxCondition ? 0 : maxValue },
       genderCondition: genderCondition,
       password,
-
       user: data,
     };
     setGatherContent(gatherData);
-  
+
     mutate(gatherData);
     setIsSuccessScreen(true);
   };
