@@ -9,7 +9,7 @@ import {
   useRegisterFormsQuery,
   useUserInfoQuery,
 } from "../../hooks/user/queries";
-import CheckRegisterModal from "../../modals/admin2/CheckRegisterModal";
+import CheckRegisterModal from "../../modals/admin/CheckRegisterModal";
 import { IRegisterForm } from "../../types/user";
 function CheckRegister() {
   const { data: session } = useSession();

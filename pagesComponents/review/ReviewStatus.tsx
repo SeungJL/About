@@ -6,7 +6,7 @@ import ProfileIconXsOverwrap from "../../components/common/Profile/ProfileIconXs
 import ModalPortal from "../../components/ModalPortal";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import NotCompletedModal from "../../modals/system2/NotCompletedModal";
+import NotCompletedModal from "../../modals/system/NotCompletedModal";
 const VOTER_SHOW_MAX = 7;
 function ReviewStatus({ temp }: { temp?: any }) {
   const data = useUserInfoQuery();

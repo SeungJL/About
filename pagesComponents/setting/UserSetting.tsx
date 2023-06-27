@@ -13,9 +13,9 @@ import {
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
 import PromotionModal from "../../modals/aboutHeader/PromotionModal";
-import ProfileModifyPopUp from "../../modals/pop-up2/ProfileModifyPopUp";
-import SuggestPopUp from "../../modals/pop-up2/SuggestPopUp";
-import UserGuidePopUp from "../../modals/pop-up2/UserGuidePopUp";
+import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
+import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
+import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
 import { userLocationState } from "../../recoil/userAtoms";

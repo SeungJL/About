@@ -13,7 +13,7 @@ import { MouseEvent, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import ModalPortal from "../../../../components/ModalPortal";
 import { useStudyAbsentQuery } from "../../../../hooks/study/queries";
-import ChangeArrivedMemoModal from "../../../../modals/study2/ChangeArrivedMemoModal";
+import ChangeArrivedMemoModal from "../../../../modals/study/ChangeArrivedMemoModal";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
-import FriendRuleModal from "../../modals/friend2/FriendRuleModal";
+import FriendRuleModal from "../../modals/friend/FriendRuleModal";
 
 function FriendHeader() {
   const [isRuleModal, setIsRuleModal] = useState(false);

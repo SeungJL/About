@@ -5,8 +5,8 @@ import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
-import GatherExpireModal from "../../../modals/gather2/GatherExpireModal";
-import GatherParticipateModal from "../../../modals/gather2/GatherParticipateModal";
+import GatherExpireModal from "../../../modals/gather/GatherExpireModal";
+import GatherParticipateModal from "../../../modals/gather/GatherParticipateModal";
 import { IGatherContent } from "../../../types/gather";
 
 interface IGatherBottomNav {

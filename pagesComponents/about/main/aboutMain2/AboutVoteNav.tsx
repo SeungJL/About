@@ -5,7 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import ModalPortal from "../../../../components/ModalPortal";
-import VoteStudyMainModal from "../../../../modals/study2/VoteStudyMainModal";
+import VoteStudyMainModal from "../../../../modals/study/VoteStudyMainModal";
 
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";

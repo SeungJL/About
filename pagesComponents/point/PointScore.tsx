@@ -7,7 +7,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ModalPortal from "../../components/ModalPortal";
-import BadgeInfoModal from "../../modals/store2/BadgeInfoModal";
+import BadgeInfoModal from "../../modals/store/BadgeInfoModal";
 
 import { useRecoilState } from "recoil";
 
