@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import AboutMainItem from "./AboutMain/AboutMainItem";
+import AboutMainItem from "./aboutMain/AboutMainItem";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useStudyResultDecideMutation } from "../../../hooks/study/mutations";
@@ -18,7 +18,7 @@ import { useStudyStartTimeQuery } from "../../../hooks/study/queries";
 
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { IParticipation } from "../../../types/studyDetails";
-import AboutMainSkeletonItem from "./AboutMain/AboutMainSkeletonItem";
+import AboutMainSkeletonItem from "./aboutMain/AboutMainSkeletonItem";
 
 function AboutMain({
   otherStudySpaces,
