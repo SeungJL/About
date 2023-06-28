@@ -16,11 +16,12 @@ function TimeSelectorUnit({
   disabled,
 }: ITimeSelectorUnit) {
   const hourStr = String(time.hour);
-  const minuteStr = time.minute ? String(time.minute) : "0";
+  const minuteStr = time.minute
+    ? String(time.minute)
+    : String(time.minute) + "0";
 
   const onChangeTime = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.currentTarget.value;
-    // Value is expected to be in "HH:MM" format
     const hour = Number(value.slice(0, 2));
     const minute = Number(value.slice(3));
     setTime({ hour, minute });
