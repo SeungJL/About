@@ -27,6 +27,7 @@ function WritingDate() {
   const [date, setDate] = useState(
     gatherContent?.date ? (gatherContent?.date as Dayjs).toDate() : new Date()
   );
+  console.log(date);
   const [detail, setDetail] = useState(gatherContent?.location?.sub);
   const [location, setLocation] = useState(gatherContent?.location?.main);
   const onClickNext = () => {
