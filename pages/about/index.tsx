@@ -1,13 +1,15 @@
+import type { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Seo from "../../components/Seo";
+import { SERVER_URI } from "../../constants/system";
 import { arrangeMainSpace } from "../../libs/utils/studyUtils";
 import AboutHeader from "../../pagesComponents/about/main/AboutHeader";
 import AboutMain from "../../pagesComponents/about/main/AboutMain";
-import AboutUpperBar from "../../pagesComponents/about/main/aboutMain2/AboutUpperBar";
-import AboutVoteNav from "../../pagesComponents/about/main/aboutMain2/AboutVoteNav";
-import AboutNavigation from "../../pagesComponents/about/main/AboutOverview";
+import AboutUpperBar from "../../pagesComponents/about/main/aboutMain/AboutUpperBar";
+import AboutVoteNav from "../../pagesComponents/about/main/aboutMain/AboutVoteNav";
+import AboutNavigation from "../../pagesComponents/about/main/AboutNavigation";
 import Calendar from "../../pagesComponents/about/main/Calendar";
 import ReadyToOpen from "../../pagesComponents/about/main/ReadyToOpen";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
@@ -16,13 +18,19 @@ import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
-import { IParticipation } from "../../types/studyDetails";
+import { IParticipation, IPlace } from "../../types/studyDetails";
 
-function About() {
+interface IAbout {
+  repo: IPlace[];
+}
+
+function About({ repo }: IAbout) {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
+
   const [participations, setParticipations] = useState<IParticipation[]>([]);
   const [studySpaces, setStudySpaces] = useState<IParticipation[]>([]);
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
@@ -58,7 +66,7 @@ function About() {
         {location !== "안양" ? (
           <>
             <AboutVoteNav participations={participations} />
-            <AboutMain otherStudySpaces={studySpaces} myVoteList={myVoteList} />
+            <AboutMain studySpaces={studySpaces} myVoteList={myVoteList} />
           </>
         ) : (
           <ReadyToOpen />
@@ -71,5 +79,12 @@ function About() {
 
 const Setting = styled.div``;
 const Layout = styled.div``;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch(`${SERVER_URI}/place`);
+  const repo = await res.json();
+
+  return { props: { repo } };
+};
 
 export default About;

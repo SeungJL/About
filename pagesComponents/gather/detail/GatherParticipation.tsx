@@ -29,7 +29,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
-  console.log(data);
+ 
   return (
     <Layout>
       <span>

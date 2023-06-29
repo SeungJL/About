@@ -3,10 +3,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { VOTE_END_HOUR, VOTE_START_HOUR } from "../../../constants/study";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
-import { getInterestingDate } from "../../../libs/utils/dateUtils";
+import { getStudyDate } from "../../../libs/studyDateSetting";
 import { IStudySpaceData } from "../../../pages/about/[date]/[studySpace]";
 import { isRefetchingStudySpacelState } from "../../../recoil/refetchingAtoms";
 import {
@@ -62,24 +61,9 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   }, [isRefetchingStudySpace]);
 
   useEffect(() => {
-    setVoteDate(voteDate);
-
-    const voteDateNum = +voteDate.format("MDD");
-    const defaultDate = +getInterestingDate().format("MDD");
-    const isPassed =
-      dayjs().hour() >= VOTE_START_HOUR && dayjs().hour() <= VOTE_END_HOUR
-        ? voteDateNum < +getInterestingDate().subtract(1, "day").format("MDD")
-        : voteDateNum < defaultDate;
-    const isToday =
-      dayjs().hour() >= VOTE_END_HOUR
-        ? voteDateNum <= defaultDate
-        : dayjs().hour() >= VOTE_START_HOUR
-        ? +voteDate.add(1, "day").format("MDD") <= defaultDate
-        : voteDateNum === defaultDate;
-
-    if (isPassed) setStudyDate("passed");
-    else if (isToday) setStudyDate("today");
-    else setStudyDate("not passed");
+    const studyDate = getStudyDate(voteDate);
+    setStudyDate(studyDate);
+    setVoteDate(voteDate); //global voteDate
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 

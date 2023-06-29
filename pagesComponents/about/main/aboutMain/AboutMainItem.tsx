@@ -80,9 +80,7 @@ function AboutMainItem({
             </Result>
           )}
         </Status>
-        <Info>
-          <span>{place?.brand}</span>
-        </Info>
+        <Info>{place?.brand}</Info>
 
         <Participants status={statusFixed === "myOpen"}>
           <div>
@@ -208,19 +206,9 @@ const ResultInfo = styled.div`
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
-  > span {
-    color: var(--font-h3);
-    font-size: 12px;
-  }
-  > div {
-    display: flex;
-    align-items: center;
-    color: #565b67;
-    font-size: 12px;
-    > span {
-      margin-left: 3px;
-    }
-  }
+
+  color: var(--font-h3);
+  font-size: 12px;
 `;
 const Participants = styled.div<{ status: boolean }>`
   flex: 1;
