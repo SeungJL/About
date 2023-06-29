@@ -18,9 +18,6 @@ function GatherMain({ category }: IGatherMain) {
     isLoading,
     refetch,
   } = useGatherContentQuery({
-    onSuccess(data) {
-      console.log("SUC", data);
-    },
     onError(err) {
       console.error(err);
     },

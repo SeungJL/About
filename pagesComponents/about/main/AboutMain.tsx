@@ -1,48 +1,39 @@
 import dayjs from "dayjs";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-
-import AboutMainItem from "./aboutMain2/AboutMainItem";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useStudyResultDecideMutation } from "../../../hooks/study/mutations";
-import {
-  mySpaceFixedState,
-  studyStartTimeState,
-  voteDateState,
-} from "../../../recoil/studyAtoms";
+import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
 
-import { VOTE_END_HOUR } from "../../../constants/study";
+import { STUDY_VOTE_END_HOUR } from "../../../constants/study";
 import { useStudyStartTimeQuery } from "../../../hooks/study/queries";
 
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
-import { IParticipation } from "../../../types/studyDetails";
-import AboutMainSkeletonItem from "./aboutMain2/AboutMainSkeletonItem";
+import { IParticipation, IPlace } from "../../../types/studyDetails";
+import AboutMainInitialItem from "./aboutMain/AboutMainInitialItem";
+import AboutMainItem from "./aboutMain/AboutMainItem";
 
-function AboutMain({
-  otherStudySpaces,
-  myVoteList,
-}: {
-  otherStudySpaces: IParticipation[];
-  myVoteList: any;
-}) {
+interface IAboutMain {
+  studySpaces: IPlace[] | IParticipation[];
+  myVoteList: string[];
+}
+
+function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-
   const setStudyStartTime = useSetRecoilState(studyStartTimeState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  const { data } = useStudyStartTimeQuery(voteDate);
+  const { data } = useStudyStartTimeQuery(voteDate, { enabled: !!voteDate });
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day")
   );
 
   /**스터디 알고리즘 적용 */
   useEffect(() => {
-    if (dayjs().hour() >= VOTE_END_HOUR) decideSpace();
+    if (dayjs().hour() >= STUDY_VOTE_END_HOUR) decideSpace();
   }, [decideSpace]);
 
   useEffect(() => {
@@ -71,11 +62,11 @@ function AboutMain({
             }}
           >
             <Main>
-              {otherStudySpaces?.map((info, idx) => (
-                <>
+              {studySpaces?.map((info, idx) => (
+                <div key={idx}>
                   {info?.status === "pending" ||
                   info?.attendences.filter((who) => who.firstChoice).length ? (
-                    <Block key={idx}>
+                    <Block>
                       <AboutMainItem
                         studySpaceInfo={info}
                         voted={Boolean(
@@ -84,7 +75,7 @@ function AboutMain({
                       />
                     </Block>
                   ) : null}
-                </>
+                </div>
               ))}
             </Main>
           </Layout>
@@ -93,7 +84,7 @@ function AboutMain({
             <Main>
               {[1, 2, 3, 4]?.map((item) => (
                 <Block key={item}>
-                  <AboutMainSkeletonItem />
+                  <AboutMainInitialItem />
                 </Block>
               ))}
             </Main>

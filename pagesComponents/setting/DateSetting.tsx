@@ -2,25 +2,26 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { VOTER_DATE_END, VOTE_START_HOUR } from "../../constants/study";
+import { STUDY_VOTE_START_HOUR, VOTER_DATE_END } from "../../constants/study";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { useFailToast } from "../../hooks/ui/CustomToast";
+import { getStudyDate } from "../../libs/studyDateSetting";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { isRefetchingStudyState } from "../../recoil/refetchingAtoms";
 
-import { voteDateState } from "../../recoil/studyAtoms";
+import { studyDateState, voteDateState } from "../../recoil/studyAtoms";
 
 import { userLocationState } from "../../recoil/userAtoms";
 import { IParticipation } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
 
-function DateSetting({
-  setParticipations,
-}: {
+interface IDateSetting {
   setParticipations: React.Dispatch<SetStateAction<IParticipation[]>>;
-}) {
+}
+
+function DateSetting({ setParticipations }: IDateSetting) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const failToast = useFailToast();
@@ -28,10 +29,13 @@ function DateSetting({
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const location = useRecoilValue(userLocationState);
   const [updateStudy, setUpdateStudy] = useRecoilState(isRefetchingStudyState);
+  const setStudyDate = useSetRecoilState(studyDateState);
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 
   const current = dayjs().hour();
+  const isVoteTime =
+    current >= STUDY_VOTE_START_HOUR && current < VOTER_DATE_END;
 
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
@@ -68,12 +72,18 @@ function DateSetting({
       return;
     }
     if (voteDate === null) {
-      if (current >= VOTE_START_HOUR && current < VOTER_DATE_END)
-        setIsDefaultPrev(true);
+      if (isVoteTime) setIsDefaultPrev(true);
       else setVoteDate(getInterestingDate());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest]);
+
+  useEffect(() => {
+    if (!voteDate) return;
+    const studyDate = getStudyDate(voteDate);
+    setStudyDate(studyDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [voteDate]);
 
   useStudyVoteQuery(getInterestingDate().subtract(1, "day"), location, {
     enabled: isDefaultPrev && voteDate === null,

@@ -31,9 +31,7 @@ function AboutNavigation() {
 
   const onClick = (type: string) => {
     if (type === "gather") localStorage.setItem(GATHER_ALERT, "read");
-
     if (type === "point") localStorage.setItem(POINT_ALERT, "read");
-
     router.push(type);
   };
 
@@ -86,7 +84,7 @@ function AboutNavigation() {
               size="xl"
               color={VOTE_TABLE_COLOR[0]}
             />{" "}
-            {isGatherAlert && (
+            {true && (
               <IconWrapper>
                 <FontAwesomeIcon
                   icon={faStar}

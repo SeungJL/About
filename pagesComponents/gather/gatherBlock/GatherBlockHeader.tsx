@@ -24,7 +24,7 @@ function GatherBlockHeader({
         return null;
     }
   };
-  console.log(locationMain);
+ 
   const openLocation = locationMain === "홍대" ? "양천구" : "수원";
   return (
     <Layout>

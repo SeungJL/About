@@ -13,6 +13,8 @@ function Skeleton({ children, isLoad }: ISkeleton) {
       startColor="RGB(227, 230, 235)"
       endColor="rgb(246,247,249)"
       isLoaded={isLoad}
+      height="100%"
+      width="100%"
     >
       {children}
     </ChakraSkeleton>

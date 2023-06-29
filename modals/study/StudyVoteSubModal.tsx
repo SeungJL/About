@@ -19,7 +19,8 @@ import { useRouter } from "next/dist/client/router";
 import SpaceSelector from "../../components/utils/SpaceSelector";
 import SpaceSelectorLg from "../../components/utils/SpaceSelectorLg";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
-import { START_HOUR } from "../../constants/study";
+
+import { STUDY_START_VOTETIME_HOUR } from "../../constants/study";
 import {
   useAdminPointMutation,
   useAdminScoremMutation,
@@ -115,10 +116,14 @@ function StudyVoteSubModal({
 
   const startTimeArr = [];
   const endTimeArr = [];
-  for (let i = START_HOUR; i <= START_HOUR + 10; i++) {
+  for (
+    let i = STUDY_START_VOTETIME_HOUR;
+    i <= STUDY_START_VOTETIME_HOUR + 10;
+    i++
+  ) {
     startTimeArr.push({ hour: i, minutes: "00" });
     endTimeArr.push({ hour: i + 2, minutes: "00" });
-    if (i !== START_HOUR + 10) {
+    if (i !== STUDY_START_VOTETIME_HOUR + 10) {
       startTimeArr.push({ hour: i, minutes: 30 });
       endTimeArr.push({ hour: i + 2, minutes: 30 });
     }

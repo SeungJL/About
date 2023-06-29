@@ -1,9 +1,7 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import { useRecoilValue } from "recoil";
-import { voteDateState } from "../../recoil/studyAtoms";
 import dayjs, { Dayjs } from "dayjs";
 import { useRouter } from "next/dist/client/router";
 
@@ -32,7 +30,9 @@ function TimeRullet({ timeArr, setTime }: ITimeRullet) {
   const handleDrag = () => {
     const Y = y.get();
     if (Y < -30) setIndex(3);
-    const Move = Math.floor(-(Y + 30) / ITEM_HEIGHT) + 3;
+    let Move = Math.floor(-(Y + 30) / ITEM_HEIGHT) + 3;
+    if (Move > 20) Move = 20;
+    if (Move < 0) Move = 0;
     setIndex(Move);
   };
 

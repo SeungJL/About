@@ -11,7 +11,7 @@ function LocationSelector() {
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   useEffect(() => {
-    setValue(location);
+    if (location) setValue(location);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

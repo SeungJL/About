@@ -15,14 +15,15 @@ import {
   YANG_할리스,
   YANG_할리스2,
 } from "../../storage/study";
-import { IParticipation } from "../../types/studyDetails";
-import { Location } from "../../types/system";
+import { IParticipation, IPlace } from "../../types/studyDetails";
 
-export const arrangeSpace = (participations: IParticipation[]) => {
+export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
   const temp = [];
 
   participations.forEach((participant) => {
-    const ID = participant.place._id;
+    const ID =
+      (participant as IParticipation)?.place?._id ||
+      (participant as IPlace)?._id;
     //수원
     if (ID === SUWAN_탐앤탐스) temp[3] = participant;
     else if (ID === SUWAN_투썸) temp[4] = participant;

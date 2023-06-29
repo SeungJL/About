@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import { VOTE_START_HOUR } from "../../constants/study";
+import { STUDY_VOTE_START_HOUR } from "../../constants/study";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -21,7 +21,7 @@ export const getMonth = () => getToday().month();
 export const getInterestingDate = () => {
   const today = getToday();
   const current = now();
-  if (current < today.hour(VOTE_START_HOUR)) return today;
+  if (current < today.hour(STUDY_VOTE_START_HOUR)) return today;
   return today.add(1, "day");
 };
 
@@ -59,7 +59,7 @@ export const hourMinToDate = (hour: number, min: string) =>
 export const getDefaultVoteDate = (isUserAttend: boolean) => {
   const current = now();
   const today = getToday();
-  const startHour = today.hour(VOTE_START_HOUR);
+  const startHour = today.hour(STUDY_VOTE_START_HOUR);
   if (isUserAttend && current < now().hour(18)) {
     return today;
   }
