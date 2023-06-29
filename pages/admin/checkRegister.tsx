@@ -44,7 +44,7 @@ function CheckRegister() {
     } else
       setRegisterData(applyData?.filter((who) => who?.location === category));
   }, [applyData, category]);
-
+  console.log(registerData);
   return (
     <>
       <Header title="가입 신청 확인" url="/admin" />
