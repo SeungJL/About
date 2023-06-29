@@ -24,9 +24,12 @@ function GatherBlockHeader({
         return null;
     }
   };
+  console.log(locationMain);
+  const openLocation = locationMain === "홍대" ? "양천구" : "수원";
   return (
     <Layout>
       <Status status={status}>{getStatusText(status)}</Status>·
+      <OpenLocation>{openLocation}</OpenLocation>·
       <Category>{typeTitle}</Category>·<Location>{locationMain}</Location>
     </Layout>
   );
@@ -37,6 +40,10 @@ const Layout = styled.header`
   color: var(--font-h3);
   display: flex;
   align-items: center;
+`;
+
+const OpenLocation = styled.span`
+  margin: 0 4px;
 `;
 
 const Status = styled.span<{ status: string }>`
