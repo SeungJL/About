@@ -83,16 +83,15 @@ function AboutNavigation() {
               icon={faOtter}
               size="xl"
               color={VOTE_TABLE_COLOR[0]}
-            />{" "}
-            {true && (
-              <IconWrapper>
-                <FontAwesomeIcon
-                  icon={faStar}
-                  color="var(--color-red)"
-                  size="sm"
-                />
-              </IconWrapper>
-            )}
+            />
+
+            <IconWrapper>
+              <FontAwesomeIcon
+                icon={faStar}
+                color="var(--color-red)"
+                size="sm"
+              />
+            </IconWrapper>
           </Button>{" "}
           <span>모임</span>
         </Item>
