@@ -84,7 +84,6 @@ function AboutNavigation() {
               size="xl"
               color={VOTE_TABLE_COLOR[0]}
             />
-
             <IconWrapper>
               <FontAwesomeIcon
                 icon={faStar}
