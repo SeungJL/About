@@ -22,7 +22,7 @@ function ProfilePage() {
       <Layout>
         <FriendMyProfile user={userData} />
         <HrDiv />
-        {!userData ? (
+        {false ? (
           <Friend>
             <span>내 친구</span>
           </Friend>
