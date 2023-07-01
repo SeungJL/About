@@ -1,21 +1,42 @@
+import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
 import ImageSlider from "../../components/utils/ImageSlider";
 import KakaoShareBtn from "../../components/utils/KakaoShare";
 import { WEB_URL } from "../../constants/system";
-import ReviewCategory from "../../pagesComponents/review/ReviewCategory";
+import { useGatherSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pagesComponents/review/ReviewContent";
+import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
 import ReviewItemHeader from "../../pagesComponents/review/ReviewItemHeader";
 import ReviewStatus from "../../pagesComponents/review/ReviewStatus";
 import { reviewContentIdState } from "../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
+import { GatherLocation, GatherType } from "../../types/gather";
+
+export interface IGatherSummary {
+  title: string;
+  type: GatherType;
+  location: GatherLocation;
+  date: Dayjs | string;
+  id: number;
+}
+
+interface IReview {
+  id: number;
+  date: string;
+  images: string[];
+  text: string;
+  title: string;
+  summary?: IGatherSummary;
+}
 
 function Review() {
-  const [category, setCateogry] = useState();
   const router = useRouter();
+  const [reviewData, setReviewData] = useState<IReview[]>();
   const url = WEB_URL + router?.asPath;
   const temp = {
     name: "이승주",
@@ -26,6 +47,18 @@ function Review() {
 
   const reviewContentId = useRecoilValue(reviewContentIdState);
 
+  useGatherSummaryQuery({
+    onSuccess(data) {
+      const updatedReviewData = REVIEW_DATA.slice()
+        .reverse()
+        .map((review) => {
+          const findItem = data.find((item) => item.id === review.id);
+          return { ...review, summary: findItem || null };
+        });
+      setReviewData(updatedReviewData);
+    },
+  });
+  console.log(reviewData);
   useEffect(() => {
     if (reviewContentId)
       document.getElementById(`review${reviewContentId}`)?.scrollIntoView();
@@ -42,23 +75,23 @@ function Review() {
         />
       </Header>
       <Layout>
-        <ReviewCategory category={category} setCategory={setCateogry} />
-        <Main>
-          {REVIEW_DATA?.slice()
-            .reverse()
-            ?.map((item) => (
+        {!reviewData ? (
+          <MainLoading />
+        ) : (
+          <Main>
+            {reviewData?.map((item) => (
               <Item id={"review" + item.id} key={item.id}>
-                <ReviewItemHeader temp={temp} date={item?.date} />
+                <ReviewItemHeader temp={temp} date={item.date} />
                 <ImageWrapper>
-                  <ImageSlider ImageContainer={item?.images} type="review" />
+                  <ImageSlider ImageContainer={item.images} type="review" />
                 </ImageWrapper>
-
-                {/* <ReviewGatherConnection /> */}
-                <ReviewContent text={item?.text} />
+                {item.summary && <ReviewGatherSummary summary={item.summary} />}
+                <ReviewContent text={item.text} />
                 <ReviewStatus temp={temp} />
               </Item>
             ))}
-        </Main>
+          </Main>
+        )}
       </Layout>
     </>
   );

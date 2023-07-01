@@ -21,7 +21,6 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
   const isGuest = session?.user.name === "guest";
 
   const isLoading = useRecoilValue(isRankingLoadingState);
-
   const [userBadge, setUserBadge] = useState<IUserBadge>();
 
   const { data: userInfo } = useUserInfoQuery({
@@ -34,38 +33,44 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
   return (
     <>
       <Layout>
-        <Skeleton isLoad={!isLoading}>
-          <Myrank>
-            {myRank?.isRank ? (
-              <span>
+        <Myrank>
+          {myRank?.isRank ? (
+            <span>
+              <Skeleton isLoad={!isLoading}>
                 랭킹:
-                <span> {isGuest ? "--" : myRank?.rankNum} 위</span>
-              </span>
-            ) : (
-              <span>상위 {myRank?.percent}%</span>
-            )}{" "}
-            <span>전체: {length}명</span>
-          </Myrank>
-        </Skeleton>
+                <RankNum> {isGuest ? "--" : myRank?.rankNum} 위</RankNum>
+              </Skeleton>
+            </span>
+          ) : (
+            <span>
+              <Skeleton isLoad={!isLoading}>상위 {myRank?.percent}%</Skeleton>
+            </span>
+          )}
+          <span>
+            <Skeleton isLoad={!isLoading}>전체: {length}명</Skeleton>
+          </span>
+        </Myrank>
         <Profile isGuest={isGuest}>
           <Skeleton isLoad={!isLoading}>
             {!isGuest && <ProfileIcon user={userInfo} size="xl" />}
             <span>{session?.user.name}</span>
           </Skeleton>
         </Profile>
-        <Skeleton isLoad={!isLoading}>
-          <Score>
-            <span>
+        <ScoreContainer>
+          <RankBadge>
+            <Skeleton isLoad={!isLoading}>
               등급: &nbsp;
               <Badge colorScheme={userBadge?.color} fontSize="13px" mb="6px">
                 {userBadge?.badge}
               </Badge>
-            </span>
-            <span>
+            </Skeleton>
+          </RankBadge>
+          <Score>
+            <Skeleton isLoad={!isLoading}>
               점수: &nbsp; <span>{userInfo?.score}점</span>
-            </span>
+            </Skeleton>
           </Score>
-        </Skeleton>
+        </ScoreContainer>
       </Layout>
     </>
   );
@@ -95,27 +100,32 @@ const Myrank = styled.div`
   > span:first-child {
     display: inline-block;
     margin-bottom: 6px;
-    > span {
-      font-size: 20px;
-      font-weight: 800;
-    }
   }
   > span:last-child {
     font-size: 12px;
   }
 `;
 
-const Score = styled.div`
+const RankNum = styled.span`
+  font-size: 20px;
+  font-weight: 800;
+`;
+
+const ScoreContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
   width: 120px;
+`;
 
-  > span {
-    > span {
-      font-weight: 600;
-    }
-  }
+const Score = styled.div`
+  margin-top: 2px;
+  width: max-content;
+`;
+
+const RankBadge = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export default RankingOverview;

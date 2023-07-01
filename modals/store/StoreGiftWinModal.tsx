@@ -70,7 +70,6 @@ const Main = styled.main`
   border-radius: var(--border-radius);
   justify-content: space-around;
   border: 1.5px solid var(--font-h4);
-  background-color: var(--font-h5);
 `;
 
 const Win = styled.div`
