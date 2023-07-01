@@ -13,3 +13,8 @@ export const isRankingLoadingState = atom({
   key: "isRankingloading",
   default: true,
 });
+
+export const isGatherLoadingState = atom({
+  key: "isGatherLoading",
+  default: true,
+});

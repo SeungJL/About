@@ -1,4 +1,3 @@
-import { Skeleton } from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
@@ -16,43 +15,35 @@ function PointPoint() {
   const { data } = usePointQuery();
   // const [isModal, setIsModal] = useState(false);
   return (
-    <>
-      <Skeleton
-        m="20px 14px"
-        borderRadius="8px"
-        startColor="RGB(227, 230, 235)"
-        endColor="rgb(246,247,249)"
-        isLoaded={!isPointLoading}
-      >
-        <Layout>
-          <Button onClick={() => router.push("/point/pointlog")}>
-            <div>About 포인트</div>
-            <div>
-              <span>{data?.point || "0"}점</span>
-              <FontAwesomeIcon icon={faChevronRight} />
-            </div>
-          </Button>
-          <Store onClick={() => router.push("/store")}>
-            <Button>
-              <div>포인트 스토어</div>
-              <div>
-                <FontAwesomeIcon icon={faChevronRight} />
-              </div>
-            </Button>
-            <ImageSlider type="point" ImageContainer={ImageContainer} />
-          </Store>
-        </Layout>
-      </Skeleton>
-    </>
+    <Layout>
+      <Button onClick={() => router.push("/point/pointlog")}>
+        <div>About 포인트</div>
+        <div>
+          <span>{data?.point || "0"}점</span>
+          <FontAwesomeIcon icon={faChevronRight} />
+        </div>
+      </Button>
+      <Store onClick={() => router.push("/store")}>
+        <Button>
+          <div>포인트 스토어</div>
+          <div>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </div>
+        </Button>
+        <ImageSlider type="point" ImageContainer={ImageContainer} />
+      </Store>
+    </Layout>
   );
 }
 
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   padding: 14px;
   border-radius: var(--border-radius2);
   background-color: white;
+
   box-shadow: var(--box-shadow);
 `;
 const Button = styled.button`

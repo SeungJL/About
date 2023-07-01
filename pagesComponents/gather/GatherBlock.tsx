@@ -48,7 +48,6 @@ export default GatherBlock;
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-
   border-bottom: 2px solid var(--font-h6);
   padding: 14px;
 `;
