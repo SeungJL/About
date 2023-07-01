@@ -72,7 +72,7 @@ export default function UserSetting() {
     }
     if (popupCnt === 2) return;
     if (!ensureLocalStorage(PROMOTION_POP_UP1, PROMOTION_POP_UP2)) {
-      setIsPromotion(true);
+      // setIsPromotion(true);
       popupCnt++;
     }
 
