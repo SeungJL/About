@@ -26,7 +26,7 @@ function ProfileRelation({ user }: IProfileRelation) {
     }
     setIsProfileCard(true);
   };
-  console.log(user?.uid, session.uid);
+
   return (
     <>
       <Layout>

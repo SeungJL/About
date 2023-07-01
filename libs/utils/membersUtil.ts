@@ -37,14 +37,8 @@ export const birthToAge = (birth: string) => {
   const age = currentYear - +birthYear;
 
   if (birthDate < dayjs()) {
-    {
-      console.log("afterBirth");
-      return age;
-    }
-  } else {
-    console.log("beforeBirth");
-    return age - 1;
-  }
+    return age;
+  } else return age - 1;
 };
 
 export const isChangedCategoryName = (name, status) => {

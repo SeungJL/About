@@ -58,7 +58,7 @@ function Review() {
       setReviewData(updatedReviewData);
     },
   });
-  console.log(reviewData);
+
   useEffect(() => {
     if (reviewContentId)
       document.getElementById(`review${reviewContentId}`)?.scrollIntoView();

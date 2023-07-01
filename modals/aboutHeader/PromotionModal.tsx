@@ -27,10 +27,10 @@ function PromotionModal({ setIsModal }: IPromotionModal) {
       item?.writer !== "이승주" &&
       item?.writer !== "옌"
   ).length;
-  console.log(isFirst);
+ 
 
   const currentMonth = dayjs().month();
-  console.log(currentMonth);
+
   return (
     <>
       <Layout>

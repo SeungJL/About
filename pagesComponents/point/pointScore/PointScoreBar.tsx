@@ -76,7 +76,7 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
           size="xs"
           color="var(--font-h4)"
         />
-      </Layout>{" "}
+      </Layout>
       {isBadgeInfoModal && (
         <ModalPortal setIsModal={setIsBadgeInfoModal}>
           <BadgeInfoModal setIsModal={setIsBadgeInfoModal} />
