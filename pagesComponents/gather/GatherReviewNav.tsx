@@ -3,11 +3,13 @@ import ImageSlider from "../../components/utils/ImageSlider";
 import { REVIEW_DATA } from "../../storage/Review";
 
 function GatherReviewNav() {
-  const ImageArr = REVIEW_DATA.map((item) => ({
-    image: item.images[0],
-    title: item.title,
-    id: item.id,
-  }));
+  const ImageArr = REVIEW_DATA.slice()
+    .reverse()
+    .map((item) => ({
+      image: item.images[0],
+      title: item.title,
+      id: item.id,
+    }));
 
   return (
     <Layout>

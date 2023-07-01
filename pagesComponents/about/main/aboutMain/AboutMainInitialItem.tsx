@@ -13,7 +13,7 @@ function AboutMainInitialItem() {
       <SpaceInfo>
         <Branch>
           <Skeleton>temp</Skeleton>
-          {studyDate !== "passed" && (
+          {studyDate !== "not passed" && (
             <BranchSub>
               <Skeleton>temp</Skeleton>
             </BranchSub>

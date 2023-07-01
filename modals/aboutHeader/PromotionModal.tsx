@@ -6,7 +6,9 @@ import { ModalMain, ModalXL } from "../../styles/layout/modal";
 
 import RequestPromotionRewardModal from "../userRequest/RequestPromotionRewardModal";
 
+import dayjs from "dayjs";
 import Image from "next/image";
+import Skeleton from "../../components/common/Skeleton";
 import { useUserRequestQuery } from "../../hooks/userRequest/queries";
 
 interface IPromotionModal {
@@ -15,7 +17,9 @@ interface IPromotionModal {
 
 function PromotionModal({ setIsModal }: IPromotionModal) {
   const [isApplyModal, setIsApplyModal] = useState(false);
-  const { data } = useUserRequestQuery();
+  const { data, isLoading } = useUserRequestQuery();
+
+  const [isFirst, setIsFirst] = useState(true);
 
   const applyCnt = data?.filter(
     (item) =>
@@ -23,7 +27,10 @@ function PromotionModal({ setIsModal }: IPromotionModal) {
       item?.writer !== "이승주" &&
       item?.writer !== "옌"
   ).length;
+  console.log(isFirst);
 
+  const currentMonth = dayjs().month();
+  console.log(currentMonth);
   return (
     <>
       <Layout>
@@ -43,36 +50,55 @@ function PromotionModal({ setIsModal }: IPromotionModal) {
               src="https://user-images.githubusercontent.com/84257439/235454460-07e32553-3be0-41f2-8e3e-801c2ecdf059.png"
             />
           </ImageWraaper>
-          <Detail>
-            <div>
-              <span>상품</span>
-              <span>BBQ 황금 올리브 치킨 세트</span>
-            </div>
-            <div>
-              <span>추첨 인원</span>
-              <b>3명</b>
-            </div>
-            <div>
-              <span>현재 참여 수</span>
-              <span>
-                {applyCnt || ""}명<Temp>(중복 포함)</Temp>
-              </span>
-            </div>
-            <div>
-              <span>추첨 날짜</span>
-              <span>7월 1일</span>
-            </div>
-          </Detail>
+          {isFirst ? (
+            <Detail>
+              <div>
+                <span>상품</span>
+                <span>BBQ 황금 올리브 치킨 세트</span>
+              </div>
+              <div>
+                <span>추첨 인원</span>
+                <b>2명</b>
+              </div>
+              <div>
+                <span>현재 참여 수</span>
+                <VoteNum>
+                  <Skeleton isLoad={!isLoading}>
+                    {applyCnt || ""}명<Temp>(중복 포함)</Temp>
+                  </Skeleton>
+                </VoteNum>
+              </div>
+              <div>
+                <span>추첨 날짜</span>
+                <span>{currentMonth + 2}월 1일</span>
+              </div>
+            </Detail>
+          ) : (
+            <LastWinner>
+              <span>{currentMonth + 1}월 당첨자</span>
+              <div>
+                <span>송재희(양천구)</span>
+                <span>이승수(수원)</span>
+                <span>김소영(양천구)</span>
+              </div>
+              <div />
+            </LastWinner>
+          )}
         </ModalMain>
         <Footer>
-          <Button onClick={() => setIsModal(false)}>다음에</Button>
-          <Button
-            backgroundColor="var(--color-mint)"
-            color="white"
-            onClick={() => setIsApplyModal(true)}
-          >
-            참여할래 !
-          </Button>
+          <LastWinnerBtn onClick={() => setIsFirst((old) => !old)}>
+            지난 당첨자 확인
+          </LastWinnerBtn>
+          <div>
+            <Button onClick={() => setIsModal(false)}>다음에</Button>
+            <Button
+              backgroundColor="var(--color-mint)"
+              color="white"
+              onClick={() => setIsApplyModal(true)}
+            >
+              참여할래 !
+            </Button>
+          </div>
         </Footer>
       </Layout>
       {isApplyModal && <RequestPromotionRewardModal setIsModal={setIsModal} />}
@@ -100,9 +126,11 @@ const Detail = styled.div`
   display: flex;
   flex-direction: column;
   line-height: 1.7;
+  height: 88px;
   color: var(--font-h2);
   > div {
     color: var(--font-h2);
+    display: flex;
     > span:first-child {
       font-size: 13px;
       display: inline-block;
@@ -114,21 +142,57 @@ const Detail = styled.div`
   }
 `;
 
+const VoteNum = styled.span``;
+
+const LastWinnerBtn = styled.button`
+  align-self: flex-end;
+  font-size: 13px;
+  color: var(--color-mint);
+`;
+
+const LastWinner = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--color-mint);
+  height: 88px;
+  border-radius: var(--border-radius);
+
+  > div {
+    font-weight: 600;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 13px;
+  }
+  > * {
+    flex: 1;
+  }
+  > span {
+    color: var(--font-h2);
+
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 10px;
+  }
+`;
+
 const Footer = styled.footer`
   display: flex;
-  justify-content: flex-end;
-
-  > button {
-    font-size: 14px;
-    cursor: pointer;
-    width: 90px;
-    padding: 0 14px;
-  }
-  > button:first-child {
-    margin-right: 6px;
-  }
-  > button:last-child {
-    font-weight: 600;
+  justify-content: space-between;
+  > div {
+    > button {
+      font-size: 14px;
+      cursor: pointer;
+      width: 90px;
+      padding: 0 14px;
+    }
+    > button:first-child {
+      margin-right: 6px;
+    }
+    > button:last-child {
+      font-weight: 600;
+    }
   }
 `;
 

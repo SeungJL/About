@@ -27,19 +27,11 @@ function RankingMembers({ memberList }: IRankingMembers) {
             const { badge } = getUserBadgeScore(score);
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
-                <Skeleton isLoad={!isLoading}>
-                  <Rank>{idx + 1}위</Rank>
-                </Skeleton>
-                <Skeleton isLoad={!isLoading}>
-                  <RankingMine isMine={who.uid === session?.uid}>
-                    {who?.name !== "무성" ? who?.name : "비공개"}
-                  </RankingMine>
-                </Skeleton>{" "}
-                <Skeleton isLoad={!isLoading}>
-                  <Badge marginRight="6px" colorScheme={USER_BADGES[badge]}>
-                    {badge}
-                  </Badge>
-                </Skeleton>
+                <Rank>{idx + 1}위</Rank>
+                <RankingMine isMine={who.uid === session?.uid}>
+                  {who?.name !== "무성" ? who?.name : "비공개"}
+                </RankingMine>
+                <Badge colorScheme={USER_BADGES[badge]}>{badge}</Badge>
                 <Box ml="auto" />
                 <span>{score} 점</span>
               </Item>
@@ -51,21 +43,21 @@ function RankingMembers({ memberList }: IRankingMembers) {
           {DEFAULT_ARRAY.map((item) => {
             return (
               <Item key={item}>
-                <Skeleton>
-                  <Rank>temp</Rank>
-                </Skeleton>
-                <Skeleton>
-                  <RankingMine>temp</RankingMine>
-                </Skeleton>
-                <Skeleton>
-                  <Badge marginRight="6px" width="50px">
-                    temp
-                  </Badge>
-                </Skeleton>
+                <Rank>
+                  <Skeleton>temp</Skeleton>
+                </Rank>
+
+                <RankingMine>
+                  <Skeleton>temp</Skeleton>
+                </RankingMine>
+
+                <InitialBadge>
+                  <Skeleton>temp</Skeleton>
+                </InitialBadge>
                 <Box ml="auto" />
-                <Skeleton>
-                  <Score>temp</Score>
-                </Skeleton>
+                <Score>
+                  <Skeleton>temp</Skeleton>
+                </Score>
               </Item>
             );
           })}
@@ -82,12 +74,9 @@ const Item = styled.div`
   height: 48px;
   align-items: center;
   border-bottom: 1px solid var(--font-h5);
-
-  > * {
-    > div {
-      text-align: center;
-      width: 60px;
-    }
+  > div {
+    text-align: center;
+    width: 60px;
   }
 `;
 
@@ -104,6 +93,10 @@ const RankingMine = styled.div<{ isMine?: boolean }>`
   margin-right: 8px;
   color: ${(props) => (props.isMine ? "var(--color-mint)" : null)};
   font-weight: ${(props) => (props.isMine ? "600" : null)};
+`;
+
+const InitialBadge = styled.div`
+  width: 59px;
 `;
 
 export default RankingMembers;
