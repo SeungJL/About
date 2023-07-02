@@ -57,7 +57,8 @@ function RecordOverview({ totalData, dateRange }: IRecordOverview) {
   };
 
   useEffect(() => {
-    if (userUid && totalData) processAttendanceData(userUid, totalData);
+    if (userUid && totalData)
+      processAttendanceData(userUid as string, totalData);
   }, [userUid, totalData]);
 
   const { data: myAttend } = useUserParticipationRateQuery(
