@@ -38,7 +38,8 @@ function RecordCalendar({ month, totalData }: IRecordCalendar) {
       }
     });
     setMonthData(temp);
-  }, [dayjsMonth, month, totalData]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [month, totalData]);
 
   return (
     <Layout>
