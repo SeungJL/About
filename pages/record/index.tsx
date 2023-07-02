@@ -32,7 +32,6 @@ function Record() {
     dateRange?.endDate,
     {
       onSuccess(data) {
-        console.log(data);
         setTotalData(data);
       },
     }

@@ -1,10 +1,13 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../constants/design";
+import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
+import RecordCalendarSkeleton from "./skeleton/RecordCalendarSkeleton";
 
 const 수원 = VOTE_TABLE_COLOR[0];
 const 양천 = VOTE_TABLE_COLOR[3];
@@ -16,6 +19,8 @@ interface IRecordCalendar {
 function RecordCalendar({ month, totalData }: IRecordCalendar) {
   const [monthData, setMonthData] = useState<IArrivedData[]>([]);
   const dayjsMonth = dayjs().month(month);
+
+  const isRecordLoading = useRecoilValue(isRecordLoadingState);
 
   useEffect(() => {
     const daysInMonth = dayjsMonth.daysInMonth();
@@ -38,40 +43,47 @@ function RecordCalendar({ month, totalData }: IRecordCalendar) {
       }
     });
     setMonthData(temp);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [month, totalData]);
 
+  console.log(monthData);
   return (
-    <Layout>
-      <DayOfWeek />
-      <CallenderDays>
-        {monthData.map((item, idx) => {
-          return (
-            <DayItem key={idx}>
-              {item?.date === dayjsMonth?.date() ? (
-                <Today>{item?.date}</Today>
-              ) : month === 3 && item?.date === 7 ? (
-                <Circle location="수원">{item?.date}</Circle>
-              ) : month === 3 && item?.date === 19 ? (
-                <Circle location="양천">{item?.date}</Circle>
-              ) : (
-                <div>{item?.date}</div>
-              )}
-              {item?.arrivedInfoList.length !== 0 && (
-                <>
-                  {item?.arrivedInfoList.some(
-                    (place) => SPACE_LOCATION[place.placeId] === "수원"
-                  ) && <Open location="수원">Open</Open>}
-                  {item?.arrivedInfoList.some(
-                    (place) => SPACE_LOCATION[place.placeId] === "양천"
-                  ) && <Open location="양천">Open</Open>}
-                </>
-              )}
-            </DayItem>
-          );
-        })}
-      </CallenderDays>
-    </Layout>
+    <>
+      {!isRecordLoading ? (
+        <Layout>
+          <DayOfWeek />
+          <CallenderDays>
+            {monthData.map((item, idx) => {
+              return (
+                <DayItem key={idx}>
+                  {item?.date === dayjsMonth?.date() ? (
+                    <Today>{item?.date}</Today>
+                  ) : month === 3 && item?.date === 7 ? (
+                    <OpenDate location="수원">{item?.date}</OpenDate>
+                  ) : month === 3 && item?.date === 19 ? (
+                    <OpenDate location="양천">{item?.date}</OpenDate>
+                  ) : (
+                    <div>{item?.date}</div>
+                  )}
+                  {item?.arrivedInfoList.length !== 0 && (
+                    <>
+                      {item?.arrivedInfoList.some(
+                        (place) => SPACE_LOCATION[place.placeId] === "수원"
+                      ) && <Open location="수원">Open</Open>}
+                      {item?.arrivedInfoList.some(
+                        (place) => SPACE_LOCATION[place.placeId] === "양천"
+                      ) && <Open location="양천">Open</Open>}
+                    </>
+                  )}
+                </DayItem>
+              );
+            })}
+          </CallenderDays>
+        </Layout>
+      ) : (
+        <RecordCalendarSkeleton />
+      )}
+    </>
   );
 }
 const DayOfWeek = () => (
@@ -85,6 +97,7 @@ const DayOfWeek = () => (
     <span>토</span>
   </DayLine>
 );
+
 const DayLine = styled.div`
   margin: 8px 22px;
   display: flex;
@@ -119,9 +132,10 @@ const Today = styled.div`
   color: var(--color-mint);
   font-weight: 600;
   font-size: 15px;
+  background-color: blue;
 `;
 
-const Circle = styled.div<{ location: Location }>`
+const OpenDate = styled.div<{ location: Location }>`
   display: flex;
   justify-content: center;
   align-items: center;
