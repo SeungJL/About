@@ -2,9 +2,9 @@ import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
+import { IStudyPreferences } from "../../modals/userRequest/RequestStudyPreferenceModal";
 import { IStudyParticipate } from "../../types/study";
 
-import { IAbsentInfo } from "../../types/userRequest";
 import { ITimeStartToEnd } from "../../types/utils";
 
 export const useStudyParticipateMutation = (
@@ -89,13 +89,34 @@ export const useStudyAbsentMutation = (
 export const useStudyQuickVoteMutation = (
   date: Dayjs,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, IAbsentInfo>,
+    UseMutationOptions<void, AxiosError, { start: Dayjs; end: Dayjs }>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useMutation(async (data) => {
-    await axios.post(
-      `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/quick`,
-      data
-    );
-  }, options);
+  useMutation<void, AxiosError, { start: Dayjs; end: Dayjs }>(
+    async ({ start, end }) => {
+      console.log(date, start, end);
+      const res = await axios.post(
+        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/quick`,
+        {
+          start,
+          end,
+        }
+      );
+      return res.data;
+    },
+    options
+  );
+
+export const useStudyPreferenceMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, IStudyPreferences>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useMutation<void, AxiosError, IStudyPreferences>(
+    async ({ place, subPlace }) => {
+      await axios.post(`${SERVER_URI}/user/preference`, { place, subPlace });
+    },
+    options
+  );

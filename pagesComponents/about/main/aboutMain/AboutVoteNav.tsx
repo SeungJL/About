@@ -1,5 +1,9 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { faCheckToSlot } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckToSlot,
+  faForwardFast,
+  faForwardStep,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
@@ -60,14 +64,14 @@ function AboutVoteNav({
         <div>
           {studyDate === "not passed" ? (
             <Button
-              leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
+              leftIcon={<FontAwesomeIcon icon={faForwardFast} />}
               onClick={() => onClickBtn("vote")}
               background="mint"
               color="white"
               size="md"
               marginLeft="12px"
             >
-              투표하기
+              빠른투표
             </Button>
           ) : (
             !mySpaceFixed &&
@@ -83,7 +87,16 @@ function AboutVoteNav({
                 당일참여
               </Button>
             )
-          )}
+          )}{" "}
+          <Button
+            leftIcon={<FontAwesomeIcon icon={faForwardStep} />}
+            onClick={() => onClickBtn("vote")}
+            size="md"
+            marginLeft="4px"
+            colorScheme="blackAlpha"
+          >
+            직접투표
+          </Button>
         </div>
         {studyDate === "not passed" && (
           <VoterCnt>
@@ -112,7 +125,6 @@ function AboutVoteNav({
 }
 
 const Layout = styled.div`
-  margin-top: 16px;
   display: flex;
   flex-direction: column;
 `;

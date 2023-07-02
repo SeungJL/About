@@ -81,7 +81,4 @@ export const useUserAvatarMutation = (
     await axios.post(`${SERVER_URI}/user/avatar`, info);
   }, options);
 
-export const useStudyPreferenceMutation = (options?: any) =>
-  useMutation<void, AxiosError, any>(async (data) => {
-    await axios.post(`${SERVER_URI}/user/preference`, data);
-  }, options);
+

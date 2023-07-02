@@ -105,6 +105,18 @@ export const useStudyAbsentQuery = (
     options
   );
 
+export const useStudyPreferenceQuery = (
+  options?: Omit<UseQueryOptions<any, AxiosError, any>, "queryKey" | "queryFn">
+) =>
+  useQuery(
+    "studyPreference",
+    async () => {
+      const res = await axios.get<any>(`${SERVER_URI}/user/preference`);
+      return res.data;
+    },
+    options
+  );
+
 // export const useStudyArrivedQuery = (
 //   date: Dayjs,
 //   options?: Omit<
