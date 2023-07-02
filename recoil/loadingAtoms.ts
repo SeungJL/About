@@ -18,3 +18,8 @@ export const isGatherLoadingState = atom({
   key: "isGatherLoading",
   default: true,
 });
+
+export const isRecordLoadingState = atom({
+  key: "isRecordLoading",
+  default: true,
+});
