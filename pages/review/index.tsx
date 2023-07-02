@@ -60,13 +60,20 @@ function Review() {
   });
 
   useEffect(() => {
-    if (reviewContentId)
-      document.getElementById(`review${reviewContentId}`)?.scrollIntoView();
-  }, [reviewContentId]);
+    if (reviewContentId) {
+      const element = document.getElementById(`review${reviewContentId}`);
+      if (element) {
+        window.scrollTo({
+          top: element.offsetTop,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [reviewContentId, reviewData]);
 
   return (
     <>
-      <Header title="모임 리뷰">
+      <Header title="모임 리뷰" url="gather">
         <KakaoShareBtn
           title="모임 리뷰"
           subtitle="즐거운 모임 가득 ~!"

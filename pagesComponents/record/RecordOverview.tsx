@@ -1,24 +1,65 @@
 import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
+import { IDateRange } from "../../pages/record";
+import { IArrivedData } from "../../types/studyRecord";
 
-function RecordOverview({
-  totalOpen,
-  totalAttendance,
-  myRecentAttend,
-  myMonthCnt,
-}: {
-  totalOpen: number;
-  totalAttendance: number;
-  myRecentAttend: string;
-  myMonthCnt: number;
-}) {
+interface IRecordOverview {
+  dateRange: IDateRange;
+  totalData: IArrivedData[];
+}
+
+function RecordOverview({ totalData, dateRange }: IRecordOverview) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
+  const userUid = session?.uid;
+
   const [isNotCompleted, setIsNotCompleted] = useState(false);
+  const [myRecentAttend, setMyRecentAttend] = useState<string>();
+  const [totalOpen, setTotalOpen] = useState<number>();
+  const [totalAttendance, setTotalAttendance] = useState<number>();
+
+  const processAttendanceData = (
+    userUid: string,
+    totalData: IArrivedData[]
+  ) => {
+    let myRecentDate = null;
+    let open = 0;
+    let num = 0;
+
+    totalData.forEach((data) => {
+      const arrivedInfoList = data.arrivedInfoList;
+      open += arrivedInfoList.length;
+      num += arrivedInfoList.reduce(
+        (sum, info) => sum + info.arrivedInfo.length,
+        0
+      );
+      if (
+        !myRecentDate &&
+        arrivedInfoList.some((info) =>
+          info.arrivedInfo.some((who) => who.uid === userUid)
+        )
+      )
+        myRecentDate = data.date;
+    });
+    setTotalOpen(open);
+    setTotalAttendance(num);
+    setMyRecentAttend(myRecentDate);
+  };
+
+  useEffect(() => {
+    if (userUid && totalData) processAttendanceData(userUid, totalData);
+  }, [userUid, totalData]);
+
+  const { data: myAttend } = useUserParticipationRateQuery(
+    dateRange?.startDate,
+    dateRange?.endDate
+  );
+  const myMonthCnt = myAttend?.find((user) => user.uid === userUid)?.cnt;
 
   return (
     <>

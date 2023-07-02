@@ -9,33 +9,37 @@ import { Location } from "../../types/system";
 const 수원 = VOTE_TABLE_COLOR[0];
 const 양천 = VOTE_TABLE_COLOR[3];
 
-function RecordCalendar({
-  month,
-  totalData,
-}: {
+interface IRecordCalendar {
   month: number;
   totalData: IArrivedData[];
-}) {
-  const dayjsMonth = dayjs().month(month);
-  const daysInMonth = dayjsMonth.daysInMonth();
-  const startDayInMonth = dayjsMonth.date(1).day();
-  const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
+}
+function RecordCalendar({ month, totalData }: IRecordCalendar) {
   const [monthData, setMonthData] = useState<IArrivedData[]>([]);
+  const dayjsMonth = dayjs().month(month);
+
   useEffect(() => {
-    const temp: IArrivedData[] = [];
-    for (let i = 1; i <= 7 * rowsInMonth; i++) {
-      if (i <= startDayInMonth) temp.push(null);
-      else if (i > daysInMonth + startDayInMonth) temp.push(null);
-      else temp.push({ date: i - startDayInMonth, arrivedInfoList: [] });
-    }
+    const daysInMonth = dayjsMonth.daysInMonth();
+    const startDayInMonth = dayjsMonth.date(1).day();
+    const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
+
+    const temp: IArrivedData[] = Array.from(
+      { length: 7 * rowsInMonth },
+      (_, i) =>
+        i < startDayInMonth || i >= startDayInMonth + daysInMonth
+          ? null
+          : { date: i - startDayInMonth + 1, arrivedInfoList: [] }
+    );
 
     totalData?.forEach((element) => {
       const infoDate = dayjs(element.date).date();
-      temp[startDayInMonth + infoDate].arrivedInfoList =
-        element.arrivedInfoList;
+      if (temp[startDayInMonth + infoDate - 1]) {
+        temp[startDayInMonth + infoDate - 1].arrivedInfoList =
+          element.arrivedInfoList;
+      }
     });
+
     setMonthData(temp);
-  }, [daysInMonth, rowsInMonth, startDayInMonth, totalData]);
+  }, [dayjsMonth, month, totalData]);
 
   return (
     <Layout>

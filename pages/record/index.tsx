@@ -1,120 +1,65 @@
 import dayjs, { Dayjs } from "dayjs";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
 import { useStudyCheckRecordsQuery } from "../../hooks/study/queries";
-import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
 
 import RecordCalendar from "../../pagesComponents/record/RecordCalendar";
 import RecordDetail from "../../pagesComponents/record/RecordDetail";
-import RecordLineBar from "../../pagesComponents/record/RecordLineBar";
+import RecordLocationCategory from "../../pagesComponents/record/RecordLocationCategory";
 import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
 import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/record/RecordOverview";
-import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/studyRecord";
-import { Location } from "../../types/system";
+
+export interface IDateRange {
+  startDate: Dayjs;
+  endDate: Dayjs;
+}
 
 function Record() {
-  const { data: session } = useSession();
   const [month, setMonth] = useState(dayjs().month());
   const [isCalendar, setIsCalendar] = useState(true);
   const [totalData, setTotalData] = useState<IArrivedData[]>([]);
 
-  const [category, setCategory] = useState<Location>("all");
-  const [startDay, setStartDay] = useState<Dayjs>(dayjs().date(1));
-  const [endDay, setEndDay] = useState<Dayjs>(
-    dayjs().date(dayjs().daysInMonth())
-  );
-  const [myRecentAttend, setMyRecentAttend] = useState<string>();
+  const [dateRange, setDateRange] = useState<IDateRange>({
+    startDate: dayjs().date(1),
+    endDate: dayjs().date(dayjs().daysInMonth()),
+  });
 
-  const [totalOpen, setTotalOpen] = useState<number>();
-  const [totalAttendance, setTotalAttendance] = useState<number>();
-
-  useEffect(() => {
-    setStartDay(dayjs().month(month).date(1));
-    setEndDay(dayjs().month(month).date(dayjs().daysInMonth()));
-  }, [month]);
-
-  const { data: arrivedData, isLoading } = useStudyCheckRecordsQuery(
-    startDay,
-    endDay,
+  const { data: arrivedData } = useStudyCheckRecordsQuery(
+    dateRange?.startDate,
+    dateRange?.endDate,
     {
       onSuccess(data) {
-       
         setTotalData(data);
       },
     }
   );
-
-  useEffect(() => {
-    if (category !== "all")
-      setTotalData(
-        arrivedData.map((item) => {
-          return {
-            ...item,
-            arrivedInfoList: item.arrivedInfoList.filter(
-              (place) => SPACE_LOCATION[place?.placeId] === category
-            ),
-          };
-        })
-      );
-    else setTotalData(arrivedData);
-  }, [arrivedData, category]);
-
-  const { data: myAttend } = useUserParticipationRateQuery(startDay, endDay);
-
-  const myMonthCnt = myAttend?.find((user) => user.uid === session?.uid)?.cnt;
-
-  useEffect(() => {
-    let myRecentDate = null;
-    let open = 0;
-    let num = 0;
-    totalData?.forEach((data) => {
-      const arrivedInfoList = data?.arrivedInfoList;
-      open += arrivedInfoList.length;
-      arrivedInfoList.some((info) => {
-        const arrivedInfo = info?.arrivedInfo;
-        num += arrivedInfo.length;
-        return arrivedInfo.some((who) => who.uid === session?.uid);
-      }) && (myRecentDate = data.date);
-    });
-    setTotalOpen(open);
-    setTotalAttendance(num);
-    setMyRecentAttend(myRecentDate);
-  }, [session?.uid, totalData]);
-
   return (
     <>
       <Header title="스터디 기록" />
-      {isLoading ? (
-        <MainLoading />
-      ) : (
-        <Layout>
-          <RecordMonthNav month={month} setMonth={setMonth} />
-          <RecordOverview
-            totalOpen={totalOpen}
-            totalAttendance={totalAttendance}
-            myRecentAttend={myRecentAttend}
-            myMonthCnt={myMonthCnt}
-          />
-          <RecordLineBar category={category} setCategory={setCategory} />
-          {isCalendar ? (
-            <RecordCalendar month={month} totalData={totalData} />
-          ) : (
-            <RecordDetail
-              totalData={totalData}
-              setMyRecentAttend={setMyRecentAttend}
-            />
-          )}
-          <RecordNavigation
-            isCalendar={isCalendar}
-            setIsCalendar={setIsCalendar}
-          />
-        </Layout>
-      )}
+      <Layout>
+        <RecordMonthNav
+          month={month}
+          setMonth={setMonth}
+          setDateRange={setDateRange}
+        />
+        <RecordOverview totalData={totalData} dateRange={dateRange} />
+        <RecordLocationCategory
+          setTotalData={setTotalData}
+          arrivedData={arrivedData}
+        />
+        {isCalendar ? (
+          <RecordCalendar month={month} totalData={totalData} />
+        ) : (
+          <RecordDetail totalData={totalData} />
+        )}
+        <RecordNavigation
+          isCalendar={isCalendar}
+          setIsCalendar={setIsCalendar}
+        />
+      </Layout>
     </>
   );
 }

@@ -9,23 +9,47 @@ import {
 } from "@chakra-ui/react";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../constants/design";
+import { SPACE_LOCATION } from "../../storage/study";
+import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
 
-function RecordLineBar({
-  category,
-  setCategory,
-}: {
-  category: Location;
-  setCategory: Dispatch<SetStateAction<Location>>;
-}) {
+interface IRecordLocationCategory {
+  setTotalData: React.Dispatch<SetStateAction<IArrivedData[]>>;
+  arrivedData: any;
+}
+
+function RecordLocationCategory({
+  setTotalData,
+  arrivedData,
+}: IRecordLocationCategory) {
+
+  const [category, setCategory] = useState<Location>("all");
+
   const onClickBadge = (value: Location) => {
     if (value === category) setCategory("all");
     else setCategory(value);
   };
+  
 
+  useEffect(() => {
+    if (category !== "all")
+      setTotalData(
+        arrivedData.map((item) => {
+          return {
+            ...item,
+            arrivedInfoList: item.arrivedInfoList.filter(
+              (place) => SPACE_LOCATION[place?.placeId] === category
+            ),
+          };
+        })
+      );
+    else setTotalData(arrivedData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [arrivedData, category]);
+  
   return (
     <Layout>
       <SpaceBadge>
@@ -114,4 +138,4 @@ const FilterBtn = styled.button`
   font-size: 12px;
 `;
 
-export default RecordLineBar;
+export default RecordLocationCategory;

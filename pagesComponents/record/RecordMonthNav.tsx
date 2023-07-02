@@ -1,15 +1,24 @@
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction } from "react";
+import dayjs from "dayjs";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import styled from "styled-components";
 
-function RecordMonthNav({
-  month,
-  setMonth,
-}: {
+interface IRecordMonthNav {
   month: number;
   setMonth: Dispatch<SetStateAction<number>>;
-}) {
+  setDateRange: any;
+}
+
+function RecordMonthNav({ month, setMonth, setDateRange }: IRecordMonthNav) {
+  useEffect(() => {
+    setDateRange({
+      startDate: dayjs().month(month).date(1),
+      endDate: dayjs().month(month).date(dayjs().daysInMonth()),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [month]);
+
   return (
     <Layout>
       <FontAwesomeIcon
@@ -36,7 +45,5 @@ const Layout = styled.div`
     margin: 0 6px;
   }
 `;
-
-const Button = styled.button``;
 
 export default RecordMonthNav;
