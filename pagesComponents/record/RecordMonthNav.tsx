@@ -2,7 +2,9 @@ import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 
 interface IRecordMonthNav {
   month: number;
@@ -11,7 +13,10 @@ interface IRecordMonthNav {
 }
 
 function RecordMonthNav({ month, setMonth, setDateRange }: IRecordMonthNav) {
+  const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
+
   useEffect(() => {
+    setIsRecordLoading(true);
     setDateRange({
       startDate: dayjs().month(month).date(1),
       endDate: dayjs().month(month).date(dayjs().daysInMonth()),

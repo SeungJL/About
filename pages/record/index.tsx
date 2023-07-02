@@ -10,6 +10,7 @@ import RecordLocationCategory from "../../pagesComponents/record/RecordLocationC
 import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
 import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/record/RecordOverview";
+import RecordSetting from "../../pagesComponents/record/RecordSetting";
 import { IArrivedData } from "../../types/studyRecord";
 
 export interface IDateRange {
@@ -20,8 +21,8 @@ export interface IDateRange {
 function Record() {
   const [month, setMonth] = useState(dayjs().month());
   const [isCalendar, setIsCalendar] = useState(true);
-  const [totalData, setTotalData] = useState<IArrivedData[]>([]);
-
+  const [openData, setOpenData] = useState<IArrivedData[]>();
+  const [monthData, setMonthData] = useState<IArrivedData[]>([]);
   const [dateRange, setDateRange] = useState<IDateRange>({
     startDate: dayjs().date(1),
     endDate: dayjs().date(dayjs().daysInMonth()),
@@ -32,28 +33,35 @@ function Record() {
     dateRange?.endDate,
     {
       onSuccess(data) {
-        setTotalData(data);
+        setOpenData(data);
       },
     }
   );
+
   return (
     <>
       <Header title="스터디 기록" />
+      <RecordSetting
+        openData={openData}
+        month={month}
+        setMonthData={setMonthData}
+        monthData={monthData}
+      />
       <Layout>
         <RecordMonthNav
           month={month}
           setMonth={setMonth}
           setDateRange={setDateRange}
         />
-        <RecordOverview totalData={totalData} dateRange={dateRange} />
+        <RecordOverview openData={openData} dateRange={dateRange} />
         <RecordLocationCategory
-          setTotalData={setTotalData}
+          setOpenData={setOpenData}
           arrivedData={arrivedData}
         />
         {isCalendar ? (
-          <RecordCalendar month={month} totalData={totalData} />
+          <RecordCalendar month={month} monthData={monthData} />
         ) : (
-          <RecordDetail totalData={totalData} />
+          <RecordDetail monthData={monthData} />
         )}
         <RecordNavigation
           isCalendar={isCalendar}

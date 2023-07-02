@@ -33,7 +33,7 @@ function Store() {
 
   return (
     <>
-      <Header title="포인트 추첨">
+      <Header title="포인트 추첨" url="point">
         <FontAwesomeIcon
           icon={faBalanceScale}
           size="lg"

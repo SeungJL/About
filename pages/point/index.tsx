@@ -10,7 +10,7 @@ import { isPointLoadingState } from "../../recoil/loadingAtoms";
 
 function Point() {
   const isPoingLoading = useRecoilValue(isPointLoadingState);
-
+  console.log(isPoingLoading);
   return (
     <>
       <Header title="" />

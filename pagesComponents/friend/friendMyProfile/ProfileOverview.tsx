@@ -16,26 +16,28 @@ function ProfileOverview({ user }: IProfileOverview) {
   const isGuest = session?.user.name === "guest";
   const userBadge = getUserBadgeScore(user?.score);
   return (
-    <Layout>
-      <Profile>
-        <ProfileIcon user={user || session?.user} size="xl" />
-        <ProfileInfo>
-          <div>
-            <span>{user?.name || session?.user.name}</span>
-            <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
-              {userBadge?.badge}
-            </Badge>
-          </div>
-          <span>{!isGuest ? "활동중" : "게스트"}</span>
-        </ProfileInfo>
-        {user && user?.uid !== session?.uid && (
-          <HeartWrapper>
-            <FontAwesomeIcon icon={faHeart} size="xl" />
-          </HeartWrapper>
-        )}
-      </Profile>
-      <Comment>{user?.comment}</Comment>
-    </Layout>
+    <>
+      <Layout>
+        <Profile>
+          <ProfileIcon user={user || session?.user} size="xl" />
+          <ProfileInfo>
+            <div>
+              <span>{user?.name || session?.user.name}</span>
+              <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
+                {userBadge?.badge}
+              </Badge>
+            </div>
+            <span>{!isGuest ? "활동중" : "게스트"}</span>
+          </ProfileInfo>
+          {user && user?.uid !== session?.uid && (
+            <HeartWrapper>
+              <FontAwesomeIcon icon={faHeart} size="xl" />
+            </HeartWrapper>
+          )}
+        </Profile>
+        <Comment>{user?.comment}</Comment>
+      </Layout>
+    </>
   );
 }
 

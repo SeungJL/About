@@ -1,9 +1,7 @@
-import type { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Seo from "../../components/Seo";
-import { SERVER_URI } from "../../constants/system";
 import { arrangeMainSpace } from "../../libs/utils/studyUtils";
 import AboutHeader from "../../pagesComponents/about/main/AboutHeader";
 import AboutMain from "../../pagesComponents/about/main/AboutMain";
@@ -24,7 +22,7 @@ interface IAbout {
   repo: IPlace[];
 }
 
-function About({ repo }: IAbout) {
+function About() {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
@@ -79,12 +77,5 @@ function About({ repo }: IAbout) {
 
 const Setting = styled.div``;
 const Layout = styled.div``;
-
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`${SERVER_URI}/place`);
-  const repo = await res.json();
-
-  return { props: { repo } };
-};
 
 export default About;

@@ -1,13 +1,34 @@
+import dayjs from "dayjs";
 import styled from "styled-components";
 import Skeleton from "../../../components/common/Skeleton";
-import { DEFAULT_LONG_ARRAY } from "../../../constants/default";
 
-function RecordCalendarSkeleton() {
+interface IRecordCalendarSkeleton {
+  month: number;
+}
+
+function RecordCalendarSkeleton({ month }) {
+  const blankDate = Array.from(
+    {
+      length: dayjs().month(month).date(1).day(),
+    },
+    (_, i) => i + 1
+  );
+
+  const totalDate = Array.from(
+    {
+      length: dayjs().month(month).daysInMonth(),
+    },
+    (_, i) => i + 1
+  );
+
   return (
     <Layout>
       <DayOfWeek />
       <CallenderDays>
-        {DEFAULT_LONG_ARRAY.map((item) => {
+        {blankDate?.map((item) => (
+          <DayItem key={item + "temp"}></DayItem>
+        ))}
+        {totalDate?.map((item) => {
           return (
             <DayItem key={item}>
               <Today>{item}</Today>

@@ -34,7 +34,8 @@ function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
   /**스터디 알고리즘 적용 */
   useEffect(() => {
     if (dayjs().hour() >= STUDY_VOTE_END_HOUR) decideSpace();
-  }, [decideSpace]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (data && data[0]?.startTime)

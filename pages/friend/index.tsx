@@ -1,26 +1,20 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
 import FriendHeader from "../../pagesComponents/friend/FriendHeader";
 
 import FriendProfile from "../../pagesComponents/friend/FriendProfile";
 import FriendRecommend from "../../pagesComponents/friend/FriendRecommend";
 function Friend() {
-  const [isLoading, setIsLoading] = useState(true);
   return (
     <>
       <FriendHeader />
-      <Layout isLoading={isLoading}>
-        <FriendProfile setIsLoading={setIsLoading} />
+      <Layout>
+        <FriendProfile />
         <FriendRecommend />
       </Layout>
-      {isLoading && <MainLoading />}
     </>
   );
 }
 
-const Layout = styled.div<{ isLoading: boolean }>`
-  visibility: ${(props) => (props.isLoading ? "hidden" : "visible")};
-`;
+const Layout = styled.div``;
 
 export default Friend;

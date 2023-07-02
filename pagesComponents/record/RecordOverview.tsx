@@ -13,10 +13,10 @@ import RecordOverviewSkeleton from "./skeleton/RecordOverviewSkeleton";
 
 interface IRecordOverview {
   dateRange: IDateRange;
-  totalData: IArrivedData[];
+  openData: IArrivedData[];
 }
 
-function RecordOverview({ totalData, dateRange }: IRecordOverview) {
+function RecordOverview({ openData, dateRange }: IRecordOverview) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const userUid = session?.uid;
@@ -27,16 +27,16 @@ function RecordOverview({ totalData, dateRange }: IRecordOverview) {
   const [totalAttendance, setTotalAttendance] = useState<number>();
 
   const isRecordLoading = useRecoilValue(isRecordLoadingState);
-
+ 
   const processAttendanceData = (
     userUid: string,
-    totalData: IArrivedData[]
+    openData: IArrivedData[]
   ) => {
     let myRecentDate = null;
     let open = 0;
     let num = 0;
 
-    totalData.forEach((data) => {
+    openData.forEach((data) => {
       const arrivedInfoList = data.arrivedInfoList;
       open += arrivedInfoList.length;
       num += arrivedInfoList.reduce(
@@ -57,8 +57,8 @@ function RecordOverview({ totalData, dateRange }: IRecordOverview) {
   };
 
   useEffect(() => {
-    if (userUid && totalData) processAttendanceData(userUid, totalData);
-  }, [userUid, totalData]);
+    if (userUid && openData) processAttendanceData(userUid, openData);
+  }, [userUid, openData]);
 
   const { data: myAttend } = useUserParticipationRateQuery(
     dateRange?.startDate,

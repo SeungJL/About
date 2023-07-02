@@ -17,26 +17,25 @@ import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
 
 interface IRecordLocationCategory {
-  setTotalData: React.Dispatch<SetStateAction<IArrivedData[]>>;
+  setOpenData: React.Dispatch<SetStateAction<IArrivedData[]>>;
   arrivedData: any;
 }
 
 function RecordLocationCategory({
-  setTotalData,
+  setOpenData,
   arrivedData,
 }: IRecordLocationCategory) {
-
   const [category, setCategory] = useState<Location>("all");
 
   const onClickBadge = (value: Location) => {
     if (value === category) setCategory("all");
     else setCategory(value);
   };
-  
 
   useEffect(() => {
+    if (!arrivedData) return;
     if (category !== "all")
-      setTotalData(
+      setOpenData(
         arrivedData.map((item) => {
           return {
             ...item,
@@ -46,10 +45,10 @@ function RecordLocationCategory({
           };
         })
       );
-    else setTotalData(arrivedData);
+    else setOpenData(arrivedData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrivedData, category]);
-  
+
   return (
     <Layout>
       <SpaceBadge>
