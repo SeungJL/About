@@ -37,7 +37,6 @@ function RecordCalendar({ month, totalData }: IRecordCalendar) {
           element.arrivedInfoList;
       }
     });
-
     setMonthData(temp);
   }, [dayjsMonth, month, totalData]);
 

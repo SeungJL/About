@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-function RecordNavigation({
-  isCalendar,
-  setIsCalendar,
-}: {
+interface IRecordNavigation {
   isCalendar: boolean;
   setIsCalendar: Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+function RecordNavigation({ isCalendar, setIsCalendar }: IRecordNavigation) {
   return (
     <Layout>
       <Button isSelected={isCalendar} onClick={() => setIsCalendar(true)}>

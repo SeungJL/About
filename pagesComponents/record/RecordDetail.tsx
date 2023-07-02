@@ -4,10 +4,15 @@ import { IArrivedData } from "../../types/studyRecord";
 import dayjs from "dayjs";
 import { SPACE_NAME } from "../../storage/study";
 
-function RecordDetail({ totalData }: { totalData: IArrivedData[] }) {
+interface IRecordDetail {
+  totalData: IArrivedData[];
+}
+
+function RecordDetail({ totalData }: IRecordDetail) {
+  const reversedData = [...totalData]?.reverse();
   return (
     <Layout>
-      {[...totalData]?.reverse().map((item, idx) => (
+      {reversedData?.map((item, idx) => (
         <Block key={idx}>
           <Date>{dayjs(item.date).add(1, "day").format("YYYY-MM-DD")}</Date>
           <SpaceWrapper>
