@@ -27,7 +27,7 @@ function FriendProfile({ user, setIsLoading }: IFriendProfile) {
     <>
       <Layout>
         <ProfileOverview user={userData} />
-        <ProfileRelation user={userData} />
+        <ProfileRelation />
       </Layout>
     </>
   );

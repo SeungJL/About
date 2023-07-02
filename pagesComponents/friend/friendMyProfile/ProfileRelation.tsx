@@ -4,17 +4,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import ProfileCardModal from "../../../modals/friend/ProfileCardModal";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
-import { IUser } from "../../../types/user";
-
-interface IProfileRelation {
-  user: IUser;
-}
-
-function ProfileRelation({ user }: IProfileRelation) {
+function ProfileRelation() {
   const failGuestToast = useFailToast();
-
+  const { data: user } = useUserInfoQuery();
   const { data: session } = useSession();
   const [isFriend, setIsFriend] = useState(false);
   const [isProfileCard, setIsProfileCard] = useState(false);
