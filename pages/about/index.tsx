@@ -1,9 +1,7 @@
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Seo from "../../components/Seo";
-import { useStudyQuickVoteMutation } from "../../hooks/study/mutations";
 import { arrangeMainSpace } from "../../libs/utils/studyUtils";
 import AboutHeader from "../../pagesComponents/about/main/AboutHeader";
 import AboutMain from "../../pagesComponents/about/main/AboutMain";
@@ -35,12 +33,6 @@ function About() {
   const [studySpaces, setStudySpaces] = useState<IParticipation[]>([]);
   const [myVoteList, setMyVoteList] = useState<string[]>([""]);
 
-  const { mutate } = useStudyQuickVoteMutation(dayjs().date(8), {
-    onSuccess(data) {
-      console.log(3, data);
-    },
-  });
-
   useEffect(() => {
     if (!participations?.length) return;
     const arrangedSpace = arrangeMainSpace(
@@ -50,9 +42,7 @@ function About() {
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySpaceFixed, participations]);
-  const onClick = () => {
-    mutate({ start: dayjs().hour(15), end: dayjs().hour(18) });
-  };
+
   return (
     <>
       <Seo title="About" />
@@ -67,7 +57,6 @@ function About() {
         )}
       </Setting>
       <Layout>
-        <button onClick={onClick}>3</button>
         <AboutHeader />
         <AboutNavigation />
         <AboutUpperBar />

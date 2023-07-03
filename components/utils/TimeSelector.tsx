@@ -4,7 +4,9 @@ import { ITimeSelector } from "../../types/utils";
 import TimeSelectorDual from "../atoms/TimeSelectorDual";
 
 const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
+
   const onChangeTimeStart = (startTime) => {
+   
     setTimes({ start: startTime, end: null });
   };
   const onChangeTimeEnd = (endTime) => {

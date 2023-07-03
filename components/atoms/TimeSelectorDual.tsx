@@ -5,25 +5,27 @@ import { ITime } from "../../types/utils";
 
 interface ITimeSelectorDual {
   time: ITime;
-  setTime: ({ hour, minutes }) => void;
+  setTime: ({ hours, minutes }) => void;
   timeArr: number[];
 }
 
 function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
+ 
   const changeHour = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = Number(event.currentTarget.value);
-    setTime({ hour: value, minutes: time.minute });
+
+    setTime({ hours: value, minutes: time.minutes });
   };
 
   const changeMinute = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = Number(event.currentTarget.value);
-    setTime({ hour: time.hour, minutes: value });
+    setTime({ hours: time.hours, minutes: value });
   };
   return (
     <Layout>
       <SelectHour
         name="hour"
-        value={time.hour}
+        value={time.hours}
         placeholder="시간"
         onChange={changeHour}
       >
@@ -36,7 +38,7 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
       :
       <SelectMinute
         name="minute"
-        defaultValue={String(time.minute).padStart(2, "0")}
+        defaultValue={String(time.minutes).padStart(2, "0")}
         placeholder="분"
         onChange={changeMinute}
       >

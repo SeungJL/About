@@ -39,17 +39,17 @@ function StudyChangeTimeModal({
 
   const [time, setTime] = useState<ITimeStartToEndHM>({
     start: {
-      hour: startTime.hour(),
+      hours: startTime.hour(),
       minutes: startTime.minute(),
     },
-    end: { hour: endTime.hour(), minutes: endTime.minute() },
+    end: { hours: endTime.hour(), minutes: endTime.minute() },
   });
 
   const { mutate: patchAttend } = useStudyTimeChangeMutation(voteDate, {
     onSuccess() {
       if (
         dayjs().hour() * 60 + dayjs().minute() >=
-        time.start.hour * 60 + time.start.minutes
+        time.start.hours * 60 + time.start.minutes
       )
         getPoint({ value: -5, message: "늦은 시간 변경" });
       else if (dayjs() > studyStartTime)
@@ -65,11 +65,11 @@ function StudyChangeTimeModal({
     const start = time.start;
     const end = time.end;
     const timeInfo = {
-      start: dayjs(voteDate?.hour(start.hour).minute(start.minutes)),
-      end: dayjs(voteDate?.hour(end.hour).minute(end.minutes)),
+      start: dayjs(voteDate?.hour(start.hours).minute(start.minutes)),
+      end: dayjs(voteDate?.hour(end.hours).minute(end.minutes)),
     };
 
-    if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
+    if (start.hours * 60 + start.minutes >= end.hours * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
         description: "시작시간은 끝시간 이전이여야 합니다",

@@ -31,11 +31,11 @@ function WritingContent() {
 
   const [firstGather, setFirstGather] = useState<IGather>({
     text: gatherContent?.gatherList?.[0]?.text || "",
-    time: { hour: 14, minute: 0 },
+    time: { hours: 14, minutes: 0 },
   });
   const [secondGather, setSecondGather] = useState<IGather>({
     text: gatherContent?.gatherList?.[1]?.text || "",
-    time: { hour: 18, minute: 0 },
+    time: { hours: 18, minutes: 0 },
   });
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {

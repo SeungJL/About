@@ -15,6 +15,7 @@ export const useStudyParticipateMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IStudyParticipate>(async (studyParticipate) => {
+
     await axios.post(
       `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}`,
       studyParticipate
@@ -95,7 +96,7 @@ export const useStudyQuickVoteMutation = (
 ) =>
   useMutation<void, AxiosError, { start: Dayjs; end: Dayjs }>(
     async ({ start, end }) => {
-      console.log(date, start, end);
+   
       const res = await axios.post(
         `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/quick`,
         {

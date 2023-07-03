@@ -7,7 +7,6 @@ interface IGatherContent {
 }
 
 function GatherContent({ content, gatherList }: IGatherContent) {
-
   return (
     <Layout>
       <Content>{content}</Content>
@@ -17,7 +16,7 @@ function GatherContent({ content, gatherList }: IGatherContent) {
             <span>{idx + 1}차</span>
             <span>{item.text}</span>
             <span>
-              {item.time.hour}:{item.time.minute || item.time.minute + "0"}
+              {item.time.hours}:{item.time.minutes || item.time.minutes + "0"}
             </span>
           </ListBlock>
         ))}

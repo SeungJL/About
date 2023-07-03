@@ -46,17 +46,13 @@ function RequestStudyPreferenceModal({
     },
   });
 
-  const { mutate: setStudyPreference } = useStudyPreferenceMutation({
-    onSuccess() {
-      console.log("suc");
-    },
-  });
+  const { mutate: setStudyPreference } = useStudyPreferenceMutation();
 
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
 
   const { data } = useStudyPreferenceQuery();
-  console.log(data);
+
 
   const firstSubmit = () => {
     if (firstPlace.length === 0) {
@@ -68,9 +64,9 @@ function RequestStudyPreferenceModal({
   const onSubmit = () => {
     const place = firstPlace[0].placeName._id;
     const subPlace = secondPlaces.map((item) => item.placeName._id);
-    console.log(place, subPlace);
+
     setStudyPreference({ place, subPlace });
-    console.log(firstPlace, secondPlaces);
+    setIsModal(false);
   };
 
   return (

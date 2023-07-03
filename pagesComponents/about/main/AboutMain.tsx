@@ -98,7 +98,7 @@ function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
 
 const Layout = styled(motion.div)`
   min-height: 452px;
-  margin-top: 12px;
+  margin-top: 16px;
 `;
 
 const Main = styled.main`
