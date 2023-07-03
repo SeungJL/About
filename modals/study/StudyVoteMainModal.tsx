@@ -231,6 +231,7 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
                 ) : (
                   <TimeSelector
                     setTimes={({ start, end }: ITimeStartToEndHM) => {
+                      console.log(start, end);
                       if (start) {
                         setTime({ end: time.end, start });
                       }

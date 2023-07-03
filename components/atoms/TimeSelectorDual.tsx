@@ -1,10 +1,9 @@
 import { ChangeEvent } from "react";
 import styled from "styled-components";
 import { TIME_SELECTOR_MINUTES } from "../../constants/study";
-import { ITime } from "../../types/utils";
 
 interface ITimeSelectorDual {
-  time: ITime;
+  time: { hour?: number; minutes?: number };
   setTime: ({ hour, minutes }) => void;
   timeArr: number[];
 }
@@ -12,7 +11,7 @@ interface ITimeSelectorDual {
 function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
   const changeHour = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = Number(event.currentTarget.value);
-    setTime({ hour: value, minutes: time.minute });
+    setTime({ hour: value, minutes: time.minutes });
   };
 
   const changeMinute = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -36,7 +35,7 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
       :
       <SelectMinute
         name="minute"
-        defaultValue={String(time.minute).padStart(2, "0")}
+        defaultValue={String(time.minutes).padStart(2, "0")}
         placeholder="분"
         onChange={changeMinute}
       >
