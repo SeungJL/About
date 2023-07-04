@@ -17,7 +17,7 @@ function LocationMember({ location }: { location: Location }) {
         <Member>
           <MemberCnt>
             <FontAwesomeIcon icon={faUserClock} size="xs" />
-            <span>14</span>
+            <span>24</span>
           </MemberCnt>
         </Member>
       ) : location === "강남" ? null : (
