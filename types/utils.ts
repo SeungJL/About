@@ -15,6 +15,7 @@ export interface ITimeStartToEnd {
 }
 
 export interface ITimeSelector {
+  type?: string;
   times: ITimeStartToEndHM;
   setTimes: ({ start, end }: ITimeStartToEndHM) => void;
 }

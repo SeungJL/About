@@ -1,6 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../hooks/ui/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
@@ -17,6 +17,10 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
+import {
+  useUserInfoQuery,
+  useUserLocationQuery,
+} from "../../hooks/user/queries";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
 import RequestDeclarationModal from "../../modals/userRequest/RequestDeclarationModal";
 import RequestPromotionRewardModal from "../../modals/userRequest/RequestPromotionRewardModal";
@@ -24,7 +28,6 @@ import RequestRestModal from "../../modals/userRequest/RequestRestModal";
 import RequestSecedeModal from "../../modals/userRequest/RequestSecedeModal";
 import SettingStudySpace from "../../modals/userRequest/RequestStudyPreferenceModal";
 import RequestSuggestModal from "../../modals/userRequest/RequestSuggestModal";
-import { userLocationState } from "../../recoil/userAtoms";
 
 function UserNavigation() {
   const { data: session } = useSession();
@@ -33,7 +36,9 @@ function UserNavigation() {
   const failToast = useFailToast();
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
   const [modalOpen, setModalOpen] = useState("");
-  const location = useRecoilValue(userLocationState);
+
+  const { data: location } = useUserLocationQuery();
+  const A = useUserInfoQuery;
   const router = useRouter();
   const onClickProfileEdit = () => {
     if (isGuest) {
@@ -58,7 +63,7 @@ function UserNavigation() {
       setModalOpen("");
     }
   };
-
+  console.log(location);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>

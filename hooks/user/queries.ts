@@ -3,6 +3,7 @@ import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 
 import { USER_COMMENT, USER_FINFACTIVE } from "../../libs/queryKeys";
+import { Location } from "../../types/system";
 import { IAvatar, IRegisterForm, IUser, IUserComment } from "../../types/user";
 
 export const useRegisterFormsQuery = (
@@ -27,13 +28,29 @@ export const useUserInfoQuery = (
   >
 ) =>
   useQuery<IUser, AxiosError, IUser>(
-    USER_FINFACTIVE,
+    [USER_FINFACTIVE, "userInfo"],
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
       return res.data;
     },
     options
   );
+
+export const useUserLocationQuery = (
+  options?: Omit<
+    UseQueryOptions<Location, AxiosError, Location>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<Location, AxiosError, Location>(
+    [USER_FINFACTIVE, "userLocation"],
+    async () => {
+      const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
+      return res.data.location;
+    },
+    options
+  );
+
 interface IComment {
   comments: IUserComment[];
 }

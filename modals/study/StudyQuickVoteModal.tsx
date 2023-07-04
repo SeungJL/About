@@ -65,20 +65,18 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
     <>
       {data && data?.studyPreference ? (
         <Layout>
-          <ModalHeaderX title="스터디 빠른 투표" setIsModal={setIsModal} />
+          <ModalHeaderX
+            title={`${voteDate?.format("M월 D일")} 스터디 투표`}
+            setIsModal={setIsModal}
+          />
           <ModalMain>
             <Container>
-              <Date>
-                <div>
-                  <b>날짜:</b> {voteDate?.format("M월 D일")}
-                </div>
-              </Date>
               <PlaceInfo>
                 <div>
-                  <b>1지망:</b> {data.studyPreference.place.branch}
+                  <b>1 지망:</b> {data.studyPreference.place.branch}
                 </div>
                 <div>
-                  <b>2지망:</b>
+                  <b>2 지망:</b>
                   <Subplaces>
                     {data?.studyPreference.subPlace?.map((item) => (
                       <span key={item._id}>{item.branch}</span>
@@ -146,14 +144,14 @@ const Subplaces = styled.div`
 const NoPreferenceLayout = styled(ModalMd)``;
 
 const Container = styled.div`
-  line-height: 2;
+  line-height: 2.5;
   font-size: 14px;
   margin-bottom: 8px;
   > div {
     > div {
       > b {
         display: inline-block;
-        width: 40px;
+        width: 44px;
         margin-right: 8px;
       }
     }

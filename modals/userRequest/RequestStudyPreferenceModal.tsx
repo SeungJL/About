@@ -15,6 +15,7 @@ import {
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { userLocationState } from "../../recoil/userAtoms";
 import { IplaceInfo } from "../../types/statistics";
 
@@ -32,6 +33,7 @@ function RequestStudyPreferenceModal({
   setIsModal,
   isBig,
 }: IRequestStudyPreferenceModal) {
+  const completeToast = useCompleteToast();
   const location = useRecoilValue(userLocationState);
   const [page, setPage] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
@@ -53,7 +55,6 @@ function RequestStudyPreferenceModal({
 
   const { data } = useStudyPreferenceQuery();
 
-
   const firstSubmit = () => {
     if (firstPlace.length === 0) {
       setErrorMessage("장소를 선택해주세요!");
@@ -65,7 +66,9 @@ function RequestStudyPreferenceModal({
     const place = firstPlace[0].placeName._id;
     const subPlace = secondPlaces.map((item) => item.placeName._id);
 
+    completeToast("success");
     setStudyPreference({ place, subPlace });
+
     setIsModal(false);
   };
 
