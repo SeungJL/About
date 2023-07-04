@@ -15,14 +15,14 @@ function CalendarDay() {
 }
 
 const Layout = styled.div`
-  margin: 8px 8px;
+  margin: 8px;
+  margin-top: 20px;
 
   display: flex;
   justify-content: space-between;
-  color: #a0a4af;
-  font-size: 12px;
+  color: var(--font-h3);
+  font-size: 13px;
   padding: 0 2px;
-  margin-bottom: 7px;
 `;
 
 export default CalendarDay;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../../../components/common/MainLoading";
 import StudySpaceVoteOverview from "../../../../pagesComponents/about/studySpace/SpaceSpaceVoteOverview";
@@ -15,12 +15,17 @@ export interface IStudySpaceData {
   attendences: IAttendance[];
   status: IPlaceStatusType;
 }
-
+const IMAGE_LIST = [1, 2, 3, 4, 5];
 function StudySpace2() {
   const [studySpaceData, setStudySpaceData] = useState<IStudySpaceData>();
   const place = studySpaceData?.place;
   const attendances = studySpaceData?.attendences;
+  const [randomNum, setRandomNum] = useState<number>();
 
+  useEffect(() => {
+    setRandomNum(Math.floor(Math.random() * IMAGE_LIST.length));
+  }, []);
+  const coverImageUrl = `/studyRandom/study${randomNum + 1}.jpg`;
   return (
     <>
       <StudySpaceSetting setStudySpaceData={setStudySpaceData} />
@@ -28,7 +33,10 @@ function StudySpace2() {
         <>
           <StudySpaceHeader title={place.brand} place={place} />
           <Layout>
-            <StudySpaceCover src={place.image} />
+            <StudySpaceCover
+              logoImageUrl={place.image}
+              coverImageUrl={coverImageUrl}
+            />
             <StudySpaceOverview space={place} />
             <HrDiv />
             <StudySpaceVoteOverview

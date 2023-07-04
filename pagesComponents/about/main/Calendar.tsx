@@ -31,13 +31,15 @@ function Calendar() {
 
 const Layout = styled.div`
   margin: 16px 0;
+  border-bottom: 1px solid var(--font-h6);
 `;
 
 const Wrapper = styled.div`
   min-height: 70px;
   margin: 14px;
-  border-top: 1px solid var(--font-h6);
-  border-bottom: 1px solid var(--font-h6);
+  margin-bottom: 0px;
+  /* border-top: 1px solid var(--font-h6);
+  border-bottom: 1px solid var(--font-h6); */
 `;
 
 export default Calendar;

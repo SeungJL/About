@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { SetStateAction, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -49,9 +48,10 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
       setIsRefetchingStudy(true);
     },
   });
+
   const onSubmit = () => {
-    const start = dayjs().hour(time.start.hours).minute(time.start.minutes);
-    const end = dayjs().hour(time.end.hours).minute(time.end.minutes);
+    const start = voteDate.hour(time.start.hours).minute(time.start.minutes);
+    const end = voteDate.hour(time.end.hours).minute(time.end.minutes);
 
     if (start > end) {
       failToast("studyVote", "beforeTime");
@@ -121,7 +121,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
       {isPreference && (
         <ModalPortal setIsModal={setIsPreference}>
           <RequestStudyPreferenceModal
-            setIsModal={setIsPreference}
+            setIsModal={setIsModal}
             isBig={location === "수원"}
           />
         </ModalPortal>

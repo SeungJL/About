@@ -68,11 +68,11 @@ function CalendarDate({ calendarType }: { calendarType: "week" | "month" }) {
 }
 
 const Layout = styled.div<{ col: string }>`
-  color: var(--font-h2);
-  font-size: 14px;
+  color: var(--font-h3);
+  font-size: 15px;
   margin-left: -9px;
   margin-right: -9px;
-
+  font-weight: 600;
   padding: 0;
   display: ${(props) => (props.col === "true" ? "flex" : "grid")};
   justify-content: ${(props) => (props.col === "true" ? "spaceBetween" : null)};

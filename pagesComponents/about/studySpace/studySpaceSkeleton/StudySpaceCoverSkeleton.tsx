@@ -1,12 +1,12 @@
 import Image from "next/image";
 import styled from "styled-components";
+import Skeleton from "../../../../components/common/Skeleton";
 
-interface IStudySpaceCover {
+interface IStudySpaceCoverSkeleton {
   coverImageUrl: string;
-  logoImageUrl: string;
 }
 
-function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
+function StudySpaceCoverSkeleton({ coverImageUrl }: IStudySpaceCoverSkeleton) {
   return (
     <Layout>
       <Image
@@ -17,14 +17,8 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
         alt="studySpace"
       />
       <SpaceIcon>
-        <Image
-          src={`${logoImageUrl}`}
-          width={70}
-          height={70}
-          unoptimized={true}
-          alt="spaceIcon"
-        />
-      </SpaceIcon>
+        <Skeleton>
+        temp</Skeleton></SpaceIcon>
     </Layout>
   );
 }
@@ -49,4 +43,4 @@ const SpaceIcon = styled.div`
   background-color: white;
 `;
 
-export default StudySpaceCover;
+export default StudySpaceCoverSkeleton;

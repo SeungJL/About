@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../../../components/common/MainLoading";
 import StudySpaceVoteOverview from "../../../../pagesComponents/about/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceCover from "../../../../pagesComponents/about/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../../pagesComponents/about/studySpace/StudySpaceHeader";
 import StudySpaceNavigation from "../../../../pagesComponents/about/studySpace/StudySpaceNavigation";
 import StudySpaceOverview from "../../../../pagesComponents/about/studySpace/StudySpaceOverView";
 import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/StudySpaceSetting";
+import StudySpaceSkeleton from "../../../../pagesComponents/about/studySpace/StudySpaceSkeleton";
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
 import { IPlaceStatusType } from "../../../../types/statistics";
 import { IAttendance, IPlace } from "../../../../types/studyDetails";
@@ -15,11 +15,19 @@ export interface IStudySpaceData {
   attendences: IAttendance[];
   status: IPlaceStatusType;
 }
-
+const IMAGE_LIST = [1, 2, 3, 4, 5];
 function StudySpace() {
   const [studySpaceData, setStudySpaceData] = useState<IStudySpaceData>();
   const place = studySpaceData?.place;
   const attendances = studySpaceData?.attendences;
+
+  const [randomNum, setRandomNum] = useState<number>();
+
+  useEffect(() => {
+    setRandomNum(Math.floor(Math.random() * IMAGE_LIST.length));
+  }, []);
+
+  const coverImageUrl = `/studyRandom/study${randomNum + 1}.jpg`;
 
   return (
     <>
@@ -28,7 +36,10 @@ function StudySpace() {
         <>
           <StudySpaceHeader title={place.brand} place={place} />
           <Layout>
-            <StudySpaceCover src={place.image} />
+            <StudySpaceCover
+              coverImageUrl={coverImageUrl}
+              logoImageUrl={place.image}
+            />
             <StudySpaceOverview space={place} />
             <HrDiv />
             <StudySpaceVoteOverview
@@ -43,7 +54,7 @@ function StudySpace() {
           </Layout>
         </>
       ) : (
-        <MainLoading />
+        <StudySpaceSkeleton coverImageUrl={coverImageUrl} />
       )}
     </>
   );

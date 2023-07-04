@@ -63,7 +63,7 @@ function UserNavigation() {
       setModalOpen("");
     }
   };
-  console.log(location);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>

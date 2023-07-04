@@ -1,10 +1,11 @@
-import { Button, Skeleton } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { faCheck, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import Skeleton from "../../../../components/common/Skeleton";
 import ModalPortal from "../../../../components/ModalPortal";
 import LocationSelector from "../../../../components/utils/LocationSelector";
 import CheckVoteModal from "../../../../modals/study/StudyCheckModal";
@@ -24,7 +25,8 @@ function AboutUpperBar() {
   const isCheck = useRecoilValue(attendCheckState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
-  
+
+
   return (
     <>
       <Layout>
@@ -32,32 +34,36 @@ function AboutUpperBar() {
           <div>
             <TitleName isNotPassed={studyDate !== "not passed"}>
               {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
-              {!mySpaceFixed ? null : isCheck ? (
-                <Check>
-                  <FontAwesomeIcon icon={faCheck} size="lg" />
-                </Check>
+              {isMainLoading && studyDate === "today" ? (
+                <ButtonSkeleton>
+                  <Skeleton>temp</Skeleton>
+                </ButtonSkeleton>
               ) : (
-                <Button
-                  leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
-                  onClick={() => setIsCheckModal(true)}
-                  background="mint"
-                  color="white"
-                  size="sm"
-                  marginLeft="12px"
-                >
-                  출석체크
-                </Button>
+                !isMainLoading &&
+                mySpaceFixed &&
+                (isCheck ? (
+                  <Check>
+                    <FontAwesomeIcon icon={faCheck} size="lg" />
+                  </Check>
+                ) : (
+                  <Button
+                    leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
+                    onClick={() => setIsCheckModal(true)}
+                    background="mint"
+                    color="white"
+                    size="sm"
+                    marginLeft="12px"
+                  >
+                    출석체크
+                  </Button>
+                ))
               )}
             </TitleName>
           </div>
           <LocationSelector />
         </Header>
         {studyDate !== "not passed" && (
-          <Skeleton
-            isLoaded={!isMainLoading}
-            startColor="RGB(227, 230, 235)"
-            endColor="rgb(246,247,249)"
-          >
+          <Skeleton isLoad={!isMainLoading}>
             <Result>
               {isMainLoading ? null : mySpaceFixed !== null ? (
                 <Wrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -83,6 +89,12 @@ function AboutUpperBar() {
 
 const Layout = styled.div`
   margin: 14px 14px;
+`;
+
+const ButtonSkeleton = styled.div`
+  margin-left: 12px;
+  width: 84px;
+  height: 28px;
 `;
 
 const Header = styled.header`

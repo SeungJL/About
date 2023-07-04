@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { IAttendance } from "../../../types/studyDetails";
-import ArrivedComment from "./StudySpaceTable/ArrivedComment";
-import TimeTable from "./StudySpaceTable/TimeTable";
-import UserTable from "./StudySpaceTable/UserTable";
+import ArrivedComment from "./studySpaceTable2/ArrivedComment";
+import TimeTable from "./studySpaceTable2/TimeTable";
+import UserTable from "./studySpaceTable2/UserTable";
 
 interface IStudyTimeTable {
   attendances: IAttendance[];

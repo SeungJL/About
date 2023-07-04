@@ -34,14 +34,14 @@ function CalendarMonth({
               icon={faChevronDown}
               size="xs"
               onClick={() => setCalendarType("month")}
-              color="var(--color-mint)"
+              color="var(--font-h2)"
             />
           ) : (
             <FontAwesomeIcon
               icon={faChevronUp}
               size="xs"
               onClick={() => setCalendarType("week")}
-              color="var(--color-mint)"
+              color="var(--font-h2)"
             />
           )}
         </>
@@ -74,10 +74,10 @@ const Layout = styled.span`
   display: flex;
   align-items: center;
   font-weight: 600;
-  margin-left: 14px;
+  margin-left: 16px;
   > span {
-    color: var(--color-mint);
-    font-size: 13px;
+    color: var(--font-h2);
+    font-size: 14px;
     align-items: center;
     margin-right: 8px;
   }

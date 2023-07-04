@@ -24,7 +24,7 @@ function Admin() {
               <BlockName>유저 응답</BlockName>
               <NavBlock>
                 <button onClick={() => router.push(`/admin/checkRegister`)}>
-                  가입 신청 확인
+                  가입신청 확인
                 </button>
                 <button onClick={() => router.push(`/admin/checkSuggest`)}>
                   건의사항 확인
@@ -34,6 +34,9 @@ function Admin() {
                 </button>
                 <button onClick={() => router.push(`/admin/checkPromotion`)}>
                   홍보인원 확인
+                </button>
+                <button onClick={() => router.push(`/admin/checkSecede`)}>
+                  탈퇴신청 확인{" "}
                 </button>
                 <button>당일불참 확인</button>
               </NavBlock>

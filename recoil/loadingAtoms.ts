@@ -23,3 +23,8 @@ export const isRecordLoadingState = atom({
   key: "isRecordLoading",
   default: true,
 });
+
+export const isStudyDetailLoadingState = atom({
+  key: "isStudyDetailLoading",
+  default: true,
+});

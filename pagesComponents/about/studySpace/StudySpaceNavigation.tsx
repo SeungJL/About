@@ -26,7 +26,7 @@ import {
 } from "../../../hooks/user/pointSystem/mutation";
 import { IStudySpaceData } from "../../../pages/about/[date]/[studySpace]";
 import { IUser } from "../../../types/user";
-import StudySpaceNavModal from "./StudySpaceNavModal";
+import StudySpaceNavModal from "./studySpaceNavModal2";
 
 interface IStudySpaceNavigation {
   studySpaceData: IStudySpaceData;
