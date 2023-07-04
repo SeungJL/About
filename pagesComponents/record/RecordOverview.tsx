@@ -27,11 +27,8 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
   const [totalAttendance, setTotalAttendance] = useState<number>();
 
   const isRecordLoading = useRecoilValue(isRecordLoadingState);
- 
-  const processAttendanceData = (
-    userUid: string,
-    openData: IArrivedData[]
-  ) => {
+
+  const processAttendanceData = (userUid: string, openData: IArrivedData[]) => {
     let myRecentDate = null;
     let open = 0;
     let num = 0;
@@ -57,7 +54,7 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
   };
 
   useEffect(() => {
-    if (userUid && openData) processAttendanceData(userUid, openData);
+    if (userUid && openData) processAttendanceData(userUid as string, openData);
   }, [userUid, openData]);
 
   const { data: myAttend } = useUserParticipationRateQuery(
