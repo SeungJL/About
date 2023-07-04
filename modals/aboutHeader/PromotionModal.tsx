@@ -27,7 +27,6 @@ function PromotionModal({ setIsModal }: IPromotionModal) {
       item?.writer !== "이승주" &&
       item?.writer !== "옌"
   ).length;
- 
 
   const currentMonth = dayjs().month();
 
@@ -64,7 +63,7 @@ function PromotionModal({ setIsModal }: IPromotionModal) {
                 <span>현재 참여 수</span>
                 <VoteNum>
                   <Skeleton isLoad={!isLoading}>
-                    {applyCnt || ""}명<Temp>(중복 포함)</Temp>
+                    {applyCnt - 29 || ""}명<Temp>(중복 포함)</Temp>
                   </Skeleton>
                 </VoteNum>
               </div>
