@@ -30,7 +30,7 @@ function Calendar() {
 }
 
 const Layout = styled.div`
-  margin: 20px 0;
+  margin: 16px 0;
 `;
 
 const Wrapper = styled.div`

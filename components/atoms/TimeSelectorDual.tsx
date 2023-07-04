@@ -1,28 +1,32 @@
+import { Select } from "@chakra-ui/react";
 import { ChangeEvent } from "react";
 import styled from "styled-components";
 import { TIME_SELECTOR_MINUTES } from "../../constants/study";
+import { ITime } from "../../types/utils";
 
 interface ITimeSelectorDual {
-  time: { hour?: number; minutes?: number };
-  setTime: ({ hour, minutes }) => void;
+  time: ITime;
+  setTime: ({ hours, minutes }) => void;
   timeArr: number[];
 }
 
 function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
   const changeHour = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = Number(event.currentTarget.value);
-    setTime({ hour: value, minutes: time.minutes });
+
+    setTime({ hours: value, minutes: time.minutes });
   };
 
   const changeMinute = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = Number(event.currentTarget.value);
-    setTime({ hour: time.hour, minutes: value });
+    setTime({ hours: time.hours, minutes: value });
   };
   return (
     <Layout>
-      <SelectHour
+      <Select
+        mr="6px"
         name="hour"
-        value={time.hour}
+        value={time.hours}
         placeholder="시간"
         onChange={changeHour}
       >
@@ -31,9 +35,10 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
             {h}
           </Option>
         ))}
-      </SelectHour>
+      </Select>
       :
-      <SelectMinute
+      <Select
+        ml="6px"
         name="minute"
         defaultValue={String(time.minutes).padStart(2, "0")}
         placeholder="분"
@@ -44,33 +49,16 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
             {m}
           </Option>
         ))}
-      </SelectMinute>
+      </Select>
     </Layout>
   );
 }
 
-const SelectHour = styled.select`
-  font-weight: 600;
-  color: var(--font-h1);
-`;
-
-const SelectMinute = styled.select`
-  font-weight: 600;
-  color: var(--font-h1);
-`;
-
 const Layout = styled.div`
   display: flex;
   align-items: center;
-
   > select {
-    width: 56px;
-    height: 28px;
-    border: 1px solid var(--font-h1);
-    border-radius: 4px;
-    padding-left: 6px;
-    margin-right: 6px;
-    margin-left: 6px;
+    margin: 0 6px;
   }
 `;
 

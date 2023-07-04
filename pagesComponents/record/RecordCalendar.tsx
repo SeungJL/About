@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../constants/design";
@@ -14,39 +13,12 @@ const 양천 = VOTE_TABLE_COLOR[3];
 
 interface IRecordCalendar {
   month: number;
-  totalData: IArrivedData[];
+  monthData: IArrivedData[];
 }
-function RecordCalendar({ month, totalData }: IRecordCalendar) {
-  const [monthData, setMonthData] = useState<IArrivedData[]>([]);
+function RecordCalendar({ month, monthData }: IRecordCalendar) {
   const dayjsMonth = dayjs().month(month);
-
   const isRecordLoading = useRecoilValue(isRecordLoadingState);
 
-  useEffect(() => {
-    const daysInMonth = dayjsMonth.daysInMonth();
-    const startDayInMonth = dayjsMonth.date(1).day();
-    const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
-
-    const temp: IArrivedData[] = Array.from(
-      { length: 7 * rowsInMonth },
-      (_, i) =>
-        i < startDayInMonth || i >= startDayInMonth + daysInMonth
-          ? null
-          : { date: i - startDayInMonth + 1, arrivedInfoList: [] }
-    );
-
-    totalData?.forEach((element) => {
-      const infoDate = dayjs(element.date).date();
-      if (temp[startDayInMonth + infoDate - 1]) {
-        temp[startDayInMonth + infoDate - 1].arrivedInfoList =
-          element.arrivedInfoList;
-      }
-    });
-    setMonthData(temp);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [month, totalData]);
-
-  console.log(monthData);
   return (
     <>
       {!isRecordLoading ? (
@@ -81,7 +53,7 @@ function RecordCalendar({ month, totalData }: IRecordCalendar) {
           </CallenderDays>
         </Layout>
       ) : (
-        <RecordCalendarSkeleton />
+        <RecordCalendarSkeleton month={month} />
       )}
     </>
   );
@@ -132,7 +104,6 @@ const Today = styled.div`
   color: var(--color-mint);
   font-weight: 600;
   font-size: 15px;
-  background-color: blue;
 `;
 
 const OpenDate = styled.div<{ location: Location }>`

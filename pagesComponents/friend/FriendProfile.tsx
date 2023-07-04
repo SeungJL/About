@@ -1,34 +1,41 @@
 import { useSession } from "next-auth/react";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { IUser } from "../../types/user";
 import ProfileOverview from "./friendMyProfile/ProfileOverview";
 import ProfileRelation from "./friendMyProfile/ProfileRelation";
+import FriendProfileSkeleton from "./skeleton/FriendProfileSkeleton";
 
 interface IFriendProfile {
   user?: IUser;
-  setIsLoading?: React.Dispatch<SetStateAction<boolean>>;
 }
 
-function FriendProfile({ user, setIsLoading }: IFriendProfile) {
+function FriendProfile({ user }: IFriendProfile) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const [userData, setUserData] = useState<IUser>(user);
+
+  const [isLoading, setIsLoading] = useState(true);
+
   useUserInfoQuery({
     enabled: !isGuest,
     onSuccess(data) {
       if (!userData) setUserData(data);
-      setIsLoading && setIsLoading(false);
+      setIsLoading(false);
     },
   });
 
   return (
     <>
-      <Layout>
-        <ProfileOverview user={userData} />
-        <ProfileRelation />
-      </Layout>
+      {!isLoading ? (
+        <Layout>
+          <ProfileOverview user={userData} />
+          <ProfileRelation />
+        </Layout>
+      ) : (
+        <FriendProfileSkeleton />
+      )}
     </>
   );
 }

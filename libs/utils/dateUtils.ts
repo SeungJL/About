@@ -8,6 +8,12 @@ dayjs.extend(timezone);
 
 const TZ_SEOUL = "Asia/Seoul";
 
+export const getCalendarDefaultDate = (month: number) => {
+  
+
+  return { default: 4, date: 30 };
+};
+
 export const now = () => dayjs().tz(TZ_SEOUL);
 
 export const getToday = () => now().startOf("day");

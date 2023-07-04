@@ -16,7 +16,7 @@ function PointPoint() {
   // const [isModal, setIsModal] = useState(false);
   return (
     <Layout>
-      <Button onClick={() => router.push("/point/pointlog")}>
+      <Button onClick={() => router.push("/point/pointLog")}>
         <div>About 포인트</div>
         <div>
           <span>{data?.point || "0"}점</span>

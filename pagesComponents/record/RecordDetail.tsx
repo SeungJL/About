@@ -5,11 +5,10 @@ import dayjs from "dayjs";
 import { SPACE_NAME } from "../../storage/study";
 
 interface IRecordDetail {
-  totalData: IArrivedData[];
+  monthData: IArrivedData[];
 }
-
-function RecordDetail({ totalData }: IRecordDetail) {
-  const reversedData = [...totalData]?.reverse();
+function RecordDetail({ monthData }: IRecordDetail) {
+  const reversedData = [...monthData]?.reverse();
   return (
     <Layout>
       {reversedData?.map((item, idx) => (

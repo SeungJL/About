@@ -13,13 +13,13 @@ function TimeSelectorLg({ times, setTimes }: ITimeSelector) {
   const startTime =
     times.start &&
     dayjs()
-      .hour(times?.start?.hour)
+      .hour(times?.start?.hours)
       .minute(times?.start?.minutes)
       .format("HH:mm");
 
   const endTime =
     times.end &&
-    dayjs().hour(times?.end?.hour).minute(times?.end?.minutes).format("HH:mm");
+    dayjs().hour(times?.end?.hours).minute(times?.end?.minutes).format("HH:mm");
   STUDY_TIME_TABLE.forEach((time) => {
     const timeHour = dayjs().hour(time);
     timeArr.push(timeHour.minute(0), timeHour.minute(30));
@@ -30,7 +30,7 @@ function TimeSelectorLg({ times, setTimes }: ITimeSelector) {
   const onClick = (time: Dayjs) => {
     if (isStart) {
       setTimes({
-        start: { hour: time.hour(), minutes: time.minute() },
+        start: { hours: time.hour(), minutes: time.minute() },
         end: null,
       });
       setIsStart(false);
@@ -64,11 +64,10 @@ function TimeSelectorLg({ times, setTimes }: ITimeSelector) {
       }
       setTimes({
         start: times.start,
-        end: { hour: time.hour(), minutes: time.minute() },
+        end: { hours: time.hour(), minutes: time.minute() },
       });
     }
   };
-
 
   return (
     <Layout>

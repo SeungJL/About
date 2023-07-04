@@ -28,13 +28,14 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
       if (arrangedData.isRank)
         setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
+
       setIsPointLoading(false);
     },
   });
 
   return (
     <Layout>
-      <Button onClick={() => router.push("/point/scorelog")}>
+      <Button onClick={() => router.push("/point/scoreLog")}>
         <div>About 점수</div>
         <div>
           <span>{myPoint || 0}점</span>

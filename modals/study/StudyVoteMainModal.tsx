@@ -17,6 +17,7 @@ import PlaceSelector from "../../components/utils/PlaceSelector";
 import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import TimeSelectorLg from "../../components/utils/TimeSelectorLg";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
   usePointMutation,
   useScoreMutation,
@@ -41,6 +42,7 @@ interface IStudyVoteMainModal {
 
 function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
   const toast = useToast();
+  const completeToast = useCompleteToast();
   const queryClient = useQueryClient();
 
   const [page, setPage] = useState(0);
@@ -82,11 +84,10 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
 
   const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
-  const [isComplete, setIsComplete] = useState(false);
 
   const [time, setTime] = useState<ITimeStartToEndHM>({
-    start: isBig ? null : { hour: 12, minutes: 0 },
-    end: isBig ? null : { hour: 18, minutes: 0 },
+    start: isBig ? null : { hours: 12, minutes: 0 },
+    end: isBig ? null : { hours: 18, minutes: 0 },
   });
 
   const firstSubmit = () => {
@@ -112,7 +113,7 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
         }
       }
       setUpdateStudy(true);
-      setIsComplete(true);
+      completeToast("studyVote");
     },
   });
 
@@ -130,7 +131,7 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
       });
       return;
     }
-    if (start.hour * 60 + start.minutes >= end.hour * 60 + end.minutes) {
+    if (start.hours * 60 + start.minutes >= end.hours * 60 + end.minutes) {
       toast({
         title: "잘못된 입력",
         description: "시작 시간은 종료 시간 이전이어야 합니다",
@@ -145,8 +146,8 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
     const voteInfos: IVoteInfo = {
       place: firstPlace[0].placeName,
       subPlace: secondPlaces.map((place) => place.placeName),
-      start: voteDate.hour(start.hour).minute(start.minutes),
-      end: voteDate.hour(end.hour).minute(end.minutes),
+      start: voteDate.hour(start.hours).minute(start.minutes),
+      end: voteDate.hour(end.hours).minute(end.minutes),
     };
 
     setIsShowModal(false);
@@ -231,7 +232,6 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
                 ) : (
                   <TimeSelector
                     setTimes={({ start, end }: ITimeStartToEndHM) => {
-                      console.log(start, end);
                       if (start) {
                         setTime({ end: time.end, start });
                       }

@@ -12,6 +12,10 @@ export const useFailToast = () => {
       if (type === "applyGather")
         text = "모임 신청에 실패했어요. 신청 조건을 확인해 주세요!";
       if (type === "applyPreGather") text = "암호가 일치하지 않습니다.";
+      if (type === "studyVote") {
+        if (sub === "beforeTime")
+          text = "시작 시간은 종료 시간 이전이어야 합니다.";
+      }
       toast({
         title: "실패",
         description: text,
@@ -34,6 +38,7 @@ export const useCompleteToast = () => {
       if (type === "refuseRegister") text = "가입 거절";
       if (type === "apply") text = "신청 완료!";
       if (type === "success") text = "정상적으로 처리되었습니다.";
+      if (type === "studyVote") text = "투표 완료!";
       toast({
         title: "성공",
         description: text,

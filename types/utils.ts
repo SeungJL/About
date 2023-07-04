@@ -1,14 +1,8 @@
 import { Dayjs } from "dayjs";
 
 export interface ITimeStartToEndHM {
-  start?: {
-    hour?: number;
-    minutes?: number;
-  };
-  end?: {
-    hour?: number;
-    minutes?: number;
-  };
+  start?: ITime;
+  end?: ITime;
 }
 export interface IDateStartToEnd {
   start: Dayjs;
@@ -21,13 +15,14 @@ export interface ITimeStartToEnd {
 }
 
 export interface ITimeSelector {
+  type?: string;
   times: ITimeStartToEndHM;
   setTimes: ({ start, end }: ITimeStartToEndHM) => void;
 }
 
 export interface ITime {
-  hour?: number;
-  minute?: number;
+  hours?: number;
+  minutes?: number;
 }
 
 export interface IImageSliderItem {

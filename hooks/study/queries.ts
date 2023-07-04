@@ -3,6 +3,7 @@ import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { VOTE_GET } from "../../libs/queryKeys";
+import { IStudyPreferencesQuery } from "../../modals/study/StudyQuickVoteModal";
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
@@ -99,6 +100,23 @@ export const useStudyAbsentQuery = (
     async () => {
       const res = await axios.get<IAbsentInfo[]>(
         `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/absence`
+      );
+      return res.data;
+    },
+    options
+  );
+
+export const useStudyPreferenceQuery = (
+  options?: Omit<
+    UseQueryOptions<IStudyPreferencesQuery, AxiosError, IStudyPreferencesQuery>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery(
+    "studyPreference",
+    async () => {
+      const res = await axios.get<IStudyPreferencesQuery>(
+        `${SERVER_URI}/user/preference`
       );
       return res.data;
     },

@@ -4,7 +4,7 @@ import { ITime } from "../../types/utils";
 
 interface ITimeSelectorUnit {
   time: ITime;
-  setTime: (time: { hour: number; minute: number }) => void;
+  setTime: (time: { hours: number; minutes: number }) => void;
   timeArr: string[];
   disabled?: boolean;
 }
@@ -15,16 +15,16 @@ function TimeSelectorUnit({
   timeArr,
   disabled,
 }: ITimeSelectorUnit) {
-  const hourStr = String(time.hour);
-  const minuteStr = time.minute
-    ? String(time.minute)
-    : String(time.minute) + "0";
+  const hourStr = String(time.hours);
+  const minuteStr = time.minutes
+    ? String(time.minutes)
+    : String(time.minutes) + "0";
 
   const onChangeTime = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.currentTarget.value;
-    const hour = Number(value.slice(0, 2));
-    const minute = Number(value.slice(3));
-    setTime({ hour, minute });
+    const hours = Number(value.slice(0, 2));
+    const minutes = Number(value.slice(3));
+    setTime({ hours, minutes });
   };
 
   return (
