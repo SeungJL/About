@@ -23,3 +23,22 @@ const MainLoadingLayout = styled.div<{ top?: number }>`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
+export const MainLoadingAbsolute = () => (
+  <MainLoadingAbsoluteLayout>
+    <RotatingLines
+      strokeColor="var(--color-mint)"
+      strokeWidth="5"
+      animationDuration="0.75"
+      width="50"
+      visible={true}
+    />
+  </MainLoadingAbsoluteLayout>
+);
+
+const MainLoadingAbsoluteLayout = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;

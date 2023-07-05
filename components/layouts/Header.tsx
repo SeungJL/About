@@ -31,7 +31,7 @@ const Header = ({ title, url, children }: IHeader) => {
 
 const Layout = styled.div`
   height: 46px;
-  padding: 0 16px;
+  padding: 0 var(--padding-main);
   display: flex;
   align-items: center;
   color: var(--font-h1);
@@ -41,7 +41,7 @@ const Title = styled.span`
   color: var(--font-h1);
   font-size: 17px;
   font-weight: 600;
-  margin-left: 16px;
+  margin-left: var(--margin-main);
 `;
 
 const Nav = styled.nav`
@@ -49,7 +49,7 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   > div {
-    margin-left: 20px;
+    margin-left: var(--margin-max);
   }
 `;
 

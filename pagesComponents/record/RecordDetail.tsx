@@ -2,18 +2,21 @@ import styled from "styled-components";
 import { IArrivedData } from "../../types/studyRecord";
 
 import dayjs from "dayjs";
+import { useRecoilValue } from "recoil";
+import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { SPACE_NAME } from "../../storage/study";
+import RecordDetailSkeleton from "./skeleton/RecordDetailSkeleton";
 
 interface IRecordDetail {
+  month: number;
   monthData: IArrivedData[];
 }
-function RecordDetail({ monthData }: IRecordDetail) {
-  console.log(34, monthData);
+function RecordDetail({ monthData, month }: IRecordDetail) {
+  const isRecordLoading = useRecoilValue(isRecordLoadingState);
   const reversedData = [...monthData]?.reverse();
-  console.log(reversedData);
   return (
     <>
-      {reversedData && (
+      {reversedData && !isRecordLoading ? (
         <Layout>
           {reversedData?.map((item, idx) => (
             <Block key={idx}>
@@ -21,6 +24,7 @@ function RecordDetail({ monthData }: IRecordDetail) {
                 <>
                   <Date>
                     {dayjs()
+                      .month(month)
                       .date(item?.date as number)
                       .add(1, "day")
                       .format("YYYY-MM-DD")}
@@ -47,13 +51,15 @@ function RecordDetail({ monthData }: IRecordDetail) {
             </Block>
           ))}
         </Layout>
+      ) : (
+        <RecordDetailSkeleton />
       )}
     </>
   );
 }
 
 const Layout = styled.div`
-  margin-top: 16px;
+  margin-top: var(--margin-main);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -61,7 +67,7 @@ const Layout = styled.div`
 
 const Block = styled.div``;
 const Date = styled.div`
-  padding: 4px 14px;
+  padding: var(--padding-min) var(--padding-main);
   font-weight: 600;
   font-size: 12px;
   color: var(--font-h3);
@@ -69,8 +75,7 @@ const Date = styled.div`
 `;
 
 const SpaceWrapper = styled.div`
-  padding: 14px;
-  padding-bottom: 6px;
+  padding: var(--padding-main);
   font-size: 12px;
   color: var(--font-h2);
 `;
@@ -82,7 +87,7 @@ const SpaceHeader = styled.header`
   font-size: 14px;
   > span:first-child {
     font-weight: 600;
-    margin-right: 12px;
+    margin-right: var(--margin-sub);
   }
   > span:last-child {
     font-size: 12px;
@@ -93,23 +98,15 @@ const SpaceHeader = styled.header`
 `;
 
 const MemberWrapper = styled.div`
-  padding: 8px 0;
+  padding: var(--padding-sub) 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20%, auto));
-
   align-items: center;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--font-h6);
   line-height: 2;
-  > span {
-    color: var(--font-h3);
-    margin-right: 8px;
-  }
 `;
 
 const Member = styled.div`
-  margin-right: 4px;
-
+  margin-right: var(--margin-min);
   color: var(--font-h1);
 `;
 

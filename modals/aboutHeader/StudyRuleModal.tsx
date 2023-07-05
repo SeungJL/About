@@ -20,7 +20,7 @@ function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
     <Layout>
       <Wrapper layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <ModalHeaderCenter>
-          <Title>동아리 규칙</Title>
+          <Title>동아리 가이드</Title>
           <div>대학생들의 카공 및 친목 동아리 About</div>
         </ModalHeaderCenter>
         <Nav>
@@ -28,75 +28,80 @@ function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
             스터디 규칙
           </Button>
           <Button isSelected={!isTip} onClick={() => setIsTip(false)}>
-            이용 꿀 Tip
+            이용 필독
           </Button>
         </Nav>
 
         <ModalMain>
           {!isTip ? (
-            <>
+            <SecondPage>
               <RuleTitle>Do you know ?</RuleTitle>
               <Content>
                 <ul>
                   <li>
-                    날짜 이동할 때 좌우 <b>스와이핑</b>으로 이동 가능
+                    스터디 미참여나 불참에 따른 <b>벌금</b>이 있지만, 아직
+                    테스트로 운영중이고 이후에 다시 보증금에 복구해드릴 거예요 !
                   </li>
                   <li>
-                    <b>마이페이지</b>에 생각보다 다양한 기능이 존재합니다
-                  </li>
-                  <li>내 스터디 결과가 확정된 경우에만 출석하면 됩니다</li>
-                  <li>
-                    <b>스터디 시작 시간 이전까지는</b> 참여 시간을 변경해도
-                    패널티가 없습니다
+                    날짜를 이동할 때 좌우 <b>스와이핑</b>으로 이동이 가능합니다.
                   </li>
                   <li>
-                    <b>당일 참여</b>를 통해 당일에도 참여 가능합니다
+                    각 컨텐츠 페이지에는 설명을 위한 <b>가이드</b>가 존재합니다.
+                  </li>
+                  <li>
+                    <b>마이페이지</b>에서 건의나 신고, 프로필 수정, 설정 등
+                    여러가지 기능을 이용할 수 있습니다.
+                  </li>
+                  <li>
+                    <b>건의나 오류</b>를 제출하면 추첨을 통해 상품을 지급합니다.
+                    (간단한 거든 뭐든 좋습니다!)
                   </li>
                 </ul>
               </Content>
-            </>
+            </SecondPage>
           ) : (
             <>
-              <RuleTitle>스터디 벌금</RuleTitle>
+              <RuleTitle>스터디 오픈</RuleTitle>
               <Content>
                 <ul>
                   <li>
-                    1시간 이상 지각 <B> -200</B>
+                    매일 <b>오후 11시</b>에 스터디 결과 발표 !
                   </li>
                   <li>
-                    스터디 당일 불참<B>-500</B> / 스터디 시작 이전
-                    <B>-300</B>
+                    <b>3명 이상</b>의 인원이 같은 시간에 참여하는 경우 Open !
+                  </li>
+                  <li>
+                    스터디가 열리지 않았다면 투표한 장소의 <b>Free 오픈</b>을
+                    통해 개인이 오픈할 수 있음 ! 자유롭게 출석 !
                   </li>
                 </ul>
               </Content>
-              <RuleTitle>월간 참여 정산</RuleTitle>
+              <RuleTitle>스터디 진행</RuleTitle>
               <Content>
                 <ul>
                   <li>
-                    한 달에 <b>최소 1회</b> 참여 (투표만 해도 <b>0.5회</b>
-                    &nbsp;인정)
+                    스터디에 참여하면 <b>출석체크</b>를 통해 자리나 인상착의
+                    기록
                   </li>
+                  <li>출석체크 기록을 통해 다른 인원을 확인할 수 있어요 !</li>
                   <li>
-                    <b>0.5회</b> 기준 벌금 <B>-1000</B>
+                    인사만 해도 <b>OK</b> 같이 공부를 해도 <b>OK</b> 같이 밥을
+                    먹어도 <b>OK</b>
                   </li>
-
-                  <li>가입한 달에는 참여 정산 벌금 x</li>
                 </ul>
               </Content>
               <RuleTitle>기타</RuleTitle>
               <Content>
                 <ul>
-                  <li>마이페이지에서 휴식 신청 가능</li>
-                  <li>보유중인 보증금은 회원탈퇴시 자동 환급</li>
-                </ul>
-              </Content>
-              <RuleTitle>★ 중요 ★</RuleTitle>
-              <Content>
-                <ul>
                   <li>
-                    다른 인원에게 피해를 끼치는 행위를 엄격하게 금지합니다. 이는
-                    사적인 연락도 포함입니다. 불편한 연락이나 상황이 있다면
-                    고민하지 말고 관리자에게 연락해주세요.
+                    <b>다양한 컨텐츠</b>가 준비되어 있어요! 잘 모르겠는 건
+                    아무나 붙잡고 물어보면 그 분도 모르니까 관리자한테 질문!
+                  </li>
+                  <li>
+                    <b>
+                      다른 인원에게 피해를 끼치는 행위를 엄격하게 금지합니다 !
+                      불편한 연락이나 상황이 있다면 관리자에게 연락해 주세요 !
+                    </b>
                   </li>
                 </ul>
               </Content>
@@ -114,8 +119,7 @@ function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
 const Layout = styled(ModalXXL)`
   display: flex;
   flex-direction: column;
-
-  color: #565b67;
+  color: var(--font-h2);
 `;
 const Wrapper = styled(motion.div)`
   height: 100%;
@@ -164,9 +168,44 @@ const Content = styled.div`
   }
 `;
 
-const B = styled.b`
-  margin-left: 3px;
-  color: var(--font-h1);
+const SecondPage = styled.div`
+  line-height: 2;
+  > div:last-child {
+    > ul {
+      > li {
+        margin-bottom: var(--margin-min);
+      }
+    }
+  }
 `;
 
 export default StudyRuleModal;
+
+{
+  /* <RuleTitle>스터디 벌금</RuleTitle>
+<Content>
+  <ul>
+    <li>
+      1시간 이상 지각 <B> -200</B>
+    </li>
+    <li>
+      스터디 당일 불참<B>-500</B> / 스터디 시작 이전
+      <B>-300</B>
+    </li>
+  </ul>
+</Content>
+<RuleTitle>월간 참여 정산</RuleTitle>
+<Content>
+  <ul>
+    <li>
+      한 달에 <b>최소 1회</b> 참여 (투표만 해도 <b>0.5회</b>
+      &nbsp;인정)
+    </li>
+    <li>
+      <b>0.5회</b> 기준 벌금 <B>-1000</B>
+    </li>
+
+    <li>가입한 달에는 참여 정산 벌금 x</li>
+  </ul>
+</Content> */
+}

@@ -111,7 +111,7 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
 }
 
 const Layout = styled.div`
-  padding: 12px 14px;
+  padding: var(--padding-sub) var(--padding-main);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -134,8 +134,6 @@ const MyRecordItem = styled.div`
   justify-content: space-around;
   height: 100%;
 
-  margin-bottom: 6px;
-
   > div {
     display: flex;
     align-items: center;
@@ -143,7 +141,7 @@ const MyRecordItem = styled.div`
 `;
 
 const ContentName = styled.span`
-  margin-right: 6px;
+  margin-right: var(--margin-min);
   color: var(--font-h3);
   font-size: 13px;
 `;

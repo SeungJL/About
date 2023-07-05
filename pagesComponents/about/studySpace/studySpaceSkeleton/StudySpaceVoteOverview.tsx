@@ -11,7 +11,7 @@ function StudySpaceVoteOverviewSkeleton() {
   return (
     <>
       <Layout>
-        <span>{date.format("M월 DD일 참여 멤버")}</span>
+        <span>{date.format("M월 D일 참여 멤버")}</span>
         <div />
         <Container>
           <FontAwesomeIcon icon={faUserGroup} size="sm" />
@@ -52,10 +52,13 @@ const Container = styled.div`
   color: var(--font-h2);
   > div {
     margin-left: var(--margin-min);
+    display: flex;
+    align-items: center;
     > span {
       margin-left: var(--margin-min);
       display: inline-block;
-      width: 20px;
+      height: 20px;
+      width: 8px;
     }
   }
 `;

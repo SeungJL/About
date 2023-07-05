@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { SetStateAction, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { IArrivedData } from "../../types/studyRecord";
 
@@ -18,7 +17,6 @@ function RecordSetting({
   setMonthData,
   monthData,
 }: IRecordSetting) {
-  
   const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
   const dayjsMonth = dayjs().month(month);
   useEffect(() => {
@@ -52,9 +50,7 @@ function RecordSetting({
     setIsRecordLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monthData]);
-  return <Layout></Layout>;
+  return null;
 }
-
-const Layout = styled.div``;
 
 export default RecordSetting;

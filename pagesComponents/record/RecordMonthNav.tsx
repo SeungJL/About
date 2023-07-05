@@ -42,12 +42,12 @@ function RecordMonthNav({ month, setMonth, setDateRange }: IRecordMonthNav) {
 }
 
 const Layout = styled.div`
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   font-size: 20px;
   font-weight: 700;
-  padding: 0 14px;
+  padding: 0 var(--padding-main);
   > span {
-    margin: 0 6px;
+    margin: 0 var(--margin-min);
   }
 `;
 

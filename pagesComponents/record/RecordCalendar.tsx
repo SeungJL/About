@@ -75,17 +75,17 @@ const DayLine = styled.div`
   display: flex;
   justify-content: space-between;
   color: var(--font-h3);
-
   font-size: 12px;
-  padding: 2px 2px;
-  padding-top: 12px;
-  margin-bottom: 7px;
+  padding: 2px;
+  padding-top: var(--padding-sub);
+  margin-bottom: var(--margin-sub);
 `;
 
 const Layout = styled.div``;
+
 const CallenderDays = styled.div`
   color: var(--font-h2);
-  margin: 0px 4px;
+  margin: 0px var(--margin-min);
   font-size: 14px;
   padding: 0;
   display: grid;
@@ -97,7 +97,6 @@ const DayItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 28px;
 `;
 
 const Today = styled.div`

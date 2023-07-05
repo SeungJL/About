@@ -1,5 +1,3 @@
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/Skeleton";
 
@@ -14,10 +12,6 @@ function StudySpaceOverviewSkeleton() {
           위치:
           <div>
             <Skeleton>temp</Skeleton>
-          </div>
-          <div>
-            <FontAwesomeIcon icon={faLocationDot} size="sm" />
-            <span>지도</span>
           </div>
         </Location>
         <Time>
@@ -60,19 +54,15 @@ const Location = styled.span`
   display: flex;
 
   > div:first-child {
-    width: 220px;
+    width: 240px;
     color: var(--font-h1);
-    margin-right: var(--margin-sub);
-  }
-  > div {
-    > span:last-child {
-      margin-left: var(--margin-min);
-    }
+    margin-left: var(--margin-min);
   }
 `;
 const Time = styled.span`
   display: flex;
   > div {
+    margin-left: var(--margin-min);
     width: 80px;
   }
 `;

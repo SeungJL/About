@@ -20,7 +20,7 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
   return (
     <>
       <Layout>
-        <span>{date.format("M월 DD일 참여 멤버")}</span>
+        <span>{date.format("M월 D일 참여 멤버")}</span>
         <div />
         <Container>
           <FontAwesomeIcon icon={faUserGroup} size="sm" />
@@ -47,7 +47,6 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
 }
 
 const Layout = styled.div`
-
   margin: 0 var(--margin-main);
   padding-top: var(--padding-max);
   display: flex;

@@ -78,7 +78,7 @@ export default function UserSetting() {
 
   return (
     <>
-      {!isMainLoading && (
+      {isMainLoading && (
         <>
           {/* {isAttendPopup && (
             <ModalPortal setIsModal={setIsAttendPopup}>
