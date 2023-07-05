@@ -131,7 +131,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   border: ${(props) =>
     props.isSelected
       ? "1.5px solid var(--font-h1)"

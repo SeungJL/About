@@ -135,7 +135,7 @@ const FriendList = styled.div`
   margin-top: 6px;
   height: 116px;
   border: 1px solid var(--font-h5);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   padding: 6px 8px;
 `;
 

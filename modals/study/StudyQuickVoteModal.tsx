@@ -11,7 +11,7 @@ import { voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import {
   ModalFooterNav,
-  ModalLg,
+  ModalLgLight,
   ModalMain,
   ModalMd,
   ModalSubtitle,
@@ -130,7 +130,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   );
 }
 
-const Layout = styled(ModalLg)`
+const Layout = styled(ModalLgLight)`
   height: 300px;
 `;
 

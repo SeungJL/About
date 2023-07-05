@@ -67,7 +67,7 @@ const Button = styled.button`
   margin-top: auto;
   margin-bottom: 16px;
 
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   color: white;
   padding: 14px 100px 14px 100px;
   font-size: 15px;

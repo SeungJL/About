@@ -43,7 +43,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   padding: 14px;
-  border-radius: var(--border-radius2);
+  border-radius: var(--border-radius-main);
   background-color: white;
   box-shadow: var(--box-shadow);
   height: 218px;
@@ -70,7 +70,7 @@ const Slider = styled.div`
     flex-shrink: 0;
     width: 80px !important;
     height: 80px;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-sub);
     margin-right: 21px;
   }
 `;

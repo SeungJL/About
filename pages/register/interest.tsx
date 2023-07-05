@@ -114,7 +114,7 @@ const Example = styled.div`
     padding: 4px 4px;
     background-color: var(--font-h7);
     border: 1px solid var(--font-h6);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-sub);
 
     display: flex;
     flex-wrap: wrap;
@@ -135,7 +135,7 @@ const Input = styled.input`
   padding: 12px 8px;
   border: 1px solid var(--font-h6);
   background-color: var(--font-h7);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   ::placeholder {
     color: var(--font-h4);
   }

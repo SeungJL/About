@@ -1,8 +1,6 @@
-import { useToast } from "@chakra-ui/react";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faBalanceScale, faGift } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -14,28 +12,27 @@ import StudyRuleModal from "../../../modals/aboutHeader/StudyRuleModal";
 
 import { isNoticeAlertState } from "../../../recoil/renderTrigger2Atoms";
 
-export default function AboutHeader() {
+function AboutHeader() {
   const router = useRouter();
-  const toast = useToast();
-  const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
 
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
-  const [isRule, setIsRule] = useState(false);
 
+  const [isRule, setIsRule] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
 
-  const onClickedNotice = () => {
-    router.push(`/notice`);
-    if (isNoticeAlert) {
-      localStorage.setItem(NOTICE_ALERT, "read");
-      setIsNoticeAlert(false);
+  const onClickIcon = (type: string) => {
+    if (type === "promotion") setIsPromotion(true);
+    if (type === "rule") setIsRule(true);
+    if (type === "notice") {
+      router.push(`/notice`);
+      if (isNoticeAlert) {
+        localStorage.setItem(NOTICE_ALERT, "read");
+        setIsNoticeAlert(false);
+      }
     }
+    if (type === "user") router.push(`/user`);
   };
 
-  const onClickUser = () => {
-    router.push(`/user`);
-  };
   return (
     <>
       <Layout>
@@ -46,7 +43,7 @@ export default function AboutHeader() {
             <FontAwesomeIcon
               icon={faGift}
               size="lg"
-              onClick={() => setIsPromotion(true)}
+              onClick={() => onClickIcon("promotion")}
             />
           </IconWrapper>
 
@@ -54,19 +51,23 @@ export default function AboutHeader() {
             <FontAwesomeIcon
               icon={faBalanceScale}
               size="lg"
-              onClick={() => setIsRule(true)}
+              onClick={() => onClickIcon("rule")}
             />
           </IconWrapper>
-          <IconWrapper style={{ position: "relative" }}>
+          <IconWrapper>
             <FontAwesomeIcon
               icon={faBell}
               size="xl"
-              onClick={onClickedNotice}
+              onClick={() => onClickIcon("notice")}
             />
             {isNoticeAlert && <IconAlert />}
           </IconWrapper>
           <IconWrapper>
-            <FontAwesomeIcon icon={faUser} size="xl" onClick={onClickUser} />
+            <FontAwesomeIcon
+              icon={faUser}
+              size="xl"
+              onClick={() => onClickIcon("user")}
+            />
           </IconWrapper>
         </Nav>
       </Layout>
@@ -76,7 +77,6 @@ export default function AboutHeader() {
             <StudyRuleModal setIsModal={setIsRule} />
           </ModalPortal>
         )}
-
         {isPromotion && (
           <ModalPortal setIsModal={setIsPromotion}>
             <PromotionModal setIsModal={setIsPromotion} />
@@ -98,7 +98,7 @@ const Layout = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 14px;
+  padding: var(--padding-main);
   color: var(--font-h2);
   > div:first-child {
     display: flex;
@@ -110,13 +110,13 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
 
-  > div:nth-child(2) {
+  > div:nth-child(3) {
     position: relative;
   }
 `;
 
 const IconWrapper = styled.div`
-  margin-left: 20px;
+  margin-left: var(--margin-max);
 `;
 
 const IconAlert = styled.div`
@@ -128,3 +128,5 @@ const IconAlert = styled.div`
   border-radius: 50%;
   background-color: var(--color-red);
 `;
+
+export default AboutHeader;

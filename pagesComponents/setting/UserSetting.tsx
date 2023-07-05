@@ -22,19 +22,18 @@ import { userLocationState } from "../../recoil/userAtoms";
 
 export default function UserSetting() {
   const { data: session } = useSession();
-
   const isGuest = session && session?.user.name === "guest";
 
   const [location, setLocation] = useRecoilState(userLocationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
+  const isMainLoading = useRecoilValue(isMainLoadingState);
+
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isUserGuide, setIsUserGuide] = useState(false);
   const [isSuggest, setIsSuggest] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
   const [myProfileNull, setMyProfileNull] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
-
-  const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const { data: userData, isLoading } = useUserInfoQuery({
     enabled: isGuest === false,
@@ -48,7 +47,6 @@ export default function UserSetting() {
 
   useEffect(() => {
     if (!session || isLoading) return;
-
     if (!location) {
       if (isGuest) setLocation("수원");
       else setLocation(userData?.location);
@@ -57,15 +55,11 @@ export default function UserSetting() {
     if (isGuest) return;
 
     let popupCnt = 0;
-
-    if (!ensureLocalStorage(NOTICE_ALERT)) {
-      setIsNoticeAlert(true);
-    }
+    if (!ensureLocalStorage(NOTICE_ALERT)) setIsNoticeAlert(true);
     if (!ensureLocalStorage(PROFILE_POP_UP) && myProfileNull) {
       setIsProfile(true);
       popupCnt++;
     }
-
     if (!ensureLocalStorage(USER_GUIDE)) {
       setIsUserGuide(true);
       popupCnt++;
@@ -75,9 +69,7 @@ export default function UserSetting() {
       // setIsPromotion(true);
       popupCnt++;
     }
-
     if (popupCnt === 2) return;
-
     if (!ensureLocalStorage(ATTEND_POP_UP)) {
       setIsAttendPopup(true);
     }

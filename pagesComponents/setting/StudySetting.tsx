@@ -1,12 +1,7 @@
 import { useSession } from "next-auth/react";
 import { SetStateAction, useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  attendCheckState,
-  mySpaceFixedState,
-  voteDateState,
-} from "../../recoil/studyAtoms";
-
+import { useSetRecoilState } from "recoil";
+import { attendCheckState, mySpaceFixedState } from "../../recoil/studyAtoms";
 import { IParticipation } from "../../types/studyDetails";
 
 interface IStudySetting {
@@ -16,7 +11,6 @@ interface IStudySetting {
 
 function StudySetting({ participations, setMyVoteList }: IStudySetting) {
   const { data: session } = useSession();
-  const voteDate = useRecoilValue(voteDateState);
 
   const setMySpaceFixed = useSetRecoilState(mySpaceFixedState);
   const setIsCheck = useSetRecoilState(attendCheckState);

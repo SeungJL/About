@@ -69,7 +69,7 @@ const NameInput = styled.input`
   border: 1.5px solid var(--font-h5);
   height: 40px;
   width: 100%;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   padding: 12px;
   ::placeholder {
     font-size: 12px;

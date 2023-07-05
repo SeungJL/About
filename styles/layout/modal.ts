@@ -62,7 +62,7 @@ export const ModalMd = styled.div`
 export const ModalLgLight = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  padding: 16px;
   background-color: white;
   width: var(--width-80);
   height: var(--height-md);

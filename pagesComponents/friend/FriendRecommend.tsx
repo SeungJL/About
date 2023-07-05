@@ -77,7 +77,7 @@ const Nav = styled.nav`
 `;
 
 const Button = styled.button`
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   border: 1.5px solid var(--font-h6);
   height: 60px;
   margin-top: 8px;

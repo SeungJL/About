@@ -25,7 +25,7 @@ const Layout = styled.div`
   flex-direction: column;
   background-color: var(--font-h7);
 
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   border: 1.5px solid var(--font-h6);
   width: 160px;
   height: 140px;

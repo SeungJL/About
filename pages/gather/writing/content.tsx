@@ -183,7 +183,7 @@ const TimeContent = styled.div`
 const TimeContentInput = styled.input`
   flex: 1;
   border: 1.5px solid var(--font-h5);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   height: 36px;
 
   padding: 8px 10px;
@@ -197,7 +197,7 @@ const TimeContentInput = styled.input`
 const Content = styled.textarea`
   margin-top: 40px;
   border: 1.5px solid var(--font-h5);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   height: 200px;
   width: 100%;
   padding: 8px 10px;

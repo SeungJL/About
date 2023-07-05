@@ -71,7 +71,7 @@ const ButtonNav = styled.nav`
 
 const Button = styled.button<{ isSelected: boolean }>`
   color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   flex: 0.49;
   height: 48px;
   font-size: 14px;

@@ -33,7 +33,7 @@ const Layout = styled.div`
   display: flex;
   overflow-x: auto;
 
-  border-top: var(--border-main);
+  border-top: var(--border-main-light);
   border-bottom: 8px solid var(--border-color);
 `;
 

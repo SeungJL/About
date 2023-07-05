@@ -107,7 +107,7 @@ const PlaceItem = styled.button<{
       ? "2px solid var(--color-mint)"
       : "1px solid var(--font-h4)"};
 
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   > span {
     text-align: center;
     font-size: 14px;

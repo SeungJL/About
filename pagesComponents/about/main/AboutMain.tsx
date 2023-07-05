@@ -23,15 +23,14 @@ interface IAboutMain {
 function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const setStudyStartTime = useSetRecoilState(studyStartTimeState);
-
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const { data } = useStudyStartTimeQuery(voteDate, { enabled: !!voteDate });
+
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day")
   );
 
-  /**스터디 알고리즘 적용 */
   useEffect(() => {
     if (dayjs().hour() >= STUDY_VOTE_END_HOUR) decideSpace();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,8 +40,6 @@ function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
     if (data && data[0]?.startTime)
       setStudyStartTime(dayjs(data[0]?.startTime));
   }, [data, setStudyStartTime]);
-
-  /**날짜마다 달라지는 정보들*/
 
   return (
     <>
@@ -98,11 +95,11 @@ function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
 
 const Layout = styled(motion.div)`
   min-height: 452px;
-  margin-top: 16px;
+  margin-top: var(--margin-main);
 `;
 
 const Main = styled.main`
-  margin: 0 14px;
+  padding: 0 var(--padding-main);
 `;
 
 const Block = styled.div``;

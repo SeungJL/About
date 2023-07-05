@@ -3,6 +3,7 @@ import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { VOTE_GET } from "../../libs/queryKeys";
+import { dayjsToStr } from "../../libs/typeConverter";
 import { IStudyPreferencesQuery } from "../../modals/study/StudyQuickVoteModal";
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
@@ -21,7 +22,7 @@ export const useStudyVoteQuery = (
     [VOTE_GET, date, location],
     async () => {
       const res = await axios.get<IVote>(
-        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}?location=${location}` // location 변수를 API 요청 URL에 추가
+        `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}` // location 변수를 API 요청 URL에 추가
       );
       return res.data;
     },
@@ -55,7 +56,7 @@ export const useStudyStartTimeQuery = (
     "studyStartTime",
     async () => {
       const res = await axios.get<IStudyStart[]>(
-        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/start`
+        `${SERVER_URI}/vote/${dayjsToStr(date)}/start`
       );
       return res.data;
     },
@@ -99,7 +100,7 @@ export const useStudyAbsentQuery = (
     "studyAbsent",
     async () => {
       const res = await axios.get<IAbsentInfo[]>(
-        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/absence`
+        `${SERVER_URI}/vote/${dayjsToStr(date)}/absence`
       );
       return res.data;
     },
@@ -142,7 +143,7 @@ export const useStudyPreferenceQuery = (
 //     ARRIVE_FINDMEMO,
 //     async () => {
 //       const res = await axios.get(
-//         `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/arrived`
+//         `${SERVER_URI}/vote/${dayjsToStr(date)}/arrived`
 //       );
 //       return res.data;
 //     },

@@ -155,7 +155,7 @@ const LastWinner = styled.div`
   justify-content: space-between;
   border: 1px solid var(--color-mint);
   height: 88px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
 
   > div {
     font-weight: 600;

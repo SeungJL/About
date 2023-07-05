@@ -63,7 +63,7 @@ const Layout = styled.div`
     margin-right: 6px;
     margin-left: 6px;
     border: 1.5px solid var(--font-h5);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-sub);
     font-size: 12px;
 
     :focus {

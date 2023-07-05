@@ -126,7 +126,7 @@ const Layout = styled.div`
 
 const Item = styled.div`
   border: 1.5px solid var(--font-h6);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   padding: 6px;
 `;
 

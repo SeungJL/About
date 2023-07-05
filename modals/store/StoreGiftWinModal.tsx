@@ -67,7 +67,7 @@ const Main = styled.main`
   align-items: center;
 
   flex: 1;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   justify-content: space-around;
   border: 1.5px solid var(--font-h4);
 `;

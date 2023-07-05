@@ -31,7 +31,6 @@ function ImageSlider({ type, ImageContainer }: IImageSlider) {
   };
 
   const onClickReviewItem = (id: number) => {
-  
     if (id) setReviewContentId(id);
     router.push("review");
   };
@@ -133,7 +132,7 @@ const PointItem = styled.div`
   position: absolute;
   width: 80px;
   height: 80px;
-  border-radius: var(--border-radius2);
+  border-radius: var(--border-radius-main);
 `;
 
 const GatherReviewNavItem = styled.div`
@@ -144,7 +143,7 @@ const GatherReviewNavItem = styled.div`
   align-items: center;
 
   > div {
-    border-radius: var(--border-radius2);
+    border-radius: var(--border-radius-main);
     width: 52px;
     height: 52px;
     overflow: hidden;

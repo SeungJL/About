@@ -81,7 +81,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   align-items: center;
   margin-bottom: 8px;
   height: 60px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   border: ${(props) =>
     props.isSelected
       ? "1.5px solid var(--color-mint)"

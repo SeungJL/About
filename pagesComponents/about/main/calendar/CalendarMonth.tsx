@@ -11,13 +11,12 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 
-function CalendarMonth({
-  calendarType,
-  setCalendarType,
-}: {
+interface ICalendarMonth {
   calendarType: "week" | "month";
   setCalendarType: React.Dispatch<SetStateAction<"week" | "month">>;
-}) {
+}
+
+function CalendarMonth({ calendarType, setCalendarType }: ICalendarMonth) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
   const onClickMove = (cnt: number) => {
@@ -74,7 +73,7 @@ const Layout = styled.span`
   display: flex;
   align-items: center;
   font-weight: 600;
-  margin-left: 16px;
+
   > span {
     color: var(--font-h2);
     font-size: 14px;
@@ -87,7 +86,7 @@ const MonthNav = styled(motion.nav)`
   width: 40px;
   display: flex;
   justify-content: space-between;
-  margin-right: 24px;
+  margin-right: var(--margin-sub);
   color: var(--font-h2);
 `;
 

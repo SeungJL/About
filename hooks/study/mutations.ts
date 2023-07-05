@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
+import { dayjsToStr } from "../../libs/typeConverter";
 import { IStudyPreferences } from "../../modals/userRequest/RequestStudyPreferenceModal";
 import { IStudyParticipate } from "../../types/study";
 
@@ -15,9 +16,8 @@ export const useStudyParticipateMutation = (
   >
 ) =>
   useMutation<void, AxiosError, IStudyParticipate>(async (studyParticipate) => {
-
     await axios.post(
-      `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}`,
+      `${SERVER_URI}/vote/${dayjsToStr(date)}`,
       studyParticipate
     );
   }, options);
@@ -30,7 +30,7 @@ export const useStudyCancelMutation = (
   >
 ) =>
   useMutation<void, AxiosError, void>(async () => {
-    await axios.delete(`${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}`);
+    await axios.delete(`${SERVER_URI}/vote/${dayjsToStr(date)}`);
   }, options);
 
 export const useStudyTimeChangeMutation = (
@@ -41,7 +41,7 @@ export const useStudyTimeChangeMutation = (
   >
 ) =>
   useMutation<void, AxiosError, ITimeStartToEnd>(async (time) => {
-    await axios.patch(`${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}`, time);
+    await axios.patch(`${SERVER_URI}/vote/${dayjsToStr(date)}`, time);
   }, options);
 
 export const useStudyArrivedMutation = (
@@ -52,12 +52,9 @@ export const useStudyArrivedMutation = (
   >
 ) =>
   useMutation<void, AxiosError, string>(async (memo) => {
-    await axios.patch(
-      `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/arrived`,
-      {
-        memo,
-      }
-    );
+    await axios.patch(`${SERVER_URI}/vote/${dayjsToStr(date)}/arrived`, {
+      memo,
+    });
   }, options);
 
 export const useStudyResultDecideMutation = (
@@ -69,7 +66,7 @@ export const useStudyResultDecideMutation = (
 ) =>
   useMutation(async () => {
     await axios.patch<void>(
-      `${SERVER_URI}/admin/vote/${date.format("YYYY-MM-DD")}/status/confirm`
+      `${SERVER_URI}/admin/vote/${dayjsToStr(date)}/status/confirm`
     );
   }, options);
 
@@ -81,10 +78,9 @@ export const useStudyAbsentMutation = (
   >
 ) =>
   useMutation(async (message) => {
-    await axios.post(
-      `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/absence`,
-      { message }
-    );
+    await axios.post(`${SERVER_URI}/vote/${dayjsToStr(date)}/absence`, {
+      message,
+    });
   }, options);
 
 export const useStudyQuickVoteMutation = (
@@ -96,9 +92,8 @@ export const useStudyQuickVoteMutation = (
 ) =>
   useMutation<void, AxiosError, { start: Dayjs; end: Dayjs }>(
     async ({ start, end }) => {
-   
       const res = await axios.post(
-        `${SERVER_URI}/vote/${date.format("YYYY-MM-DD")}/quick`,
+        `${SERVER_URI}/vote/${dayjsToStr(date)}/quick`,
         {
           start,
           end,
@@ -121,3 +116,16 @@ export const useStudyPreferenceMutation = (
     },
     options
   );
+
+export const useStudyOpenFreeMutation = (
+  date: Dayjs,
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, string>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useMutation<void, AxiosError, string>(async (placeId) => {
+    await axios.patch(`${SERVER_URI}/vote/${dayjsToStr(date)}/free`, {
+      placeId,
+    });
+  }, options);

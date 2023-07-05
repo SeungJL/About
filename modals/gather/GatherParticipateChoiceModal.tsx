@@ -84,7 +84,7 @@ const Input = styled.input`
   margin-left: 8px;
   background-color: var(--font-h7);
   padding: 4px 8px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
 `;
 
 const Footer = styled.footer``;

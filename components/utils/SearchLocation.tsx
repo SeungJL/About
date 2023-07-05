@@ -106,7 +106,7 @@ const SearchContent = styled.div<{ isContent: boolean }>`
   padding-left: 12px;
   overflow: auto;
   border: ${(props) => (props.isContent ? "1px solid var(--font-h5)" : null)};
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   padding: 6px 8px;
 `;
 

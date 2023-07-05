@@ -1,6 +1,10 @@
 import Head from "next/head";
 
-function Seo({ title }: { title: string }) {
+interface ISeo {
+  title: string;
+}
+
+function Seo({ title }: ISeo) {
   return (
     <Head>
       <title>{title}</title>

@@ -21,11 +21,11 @@ import NoMyStudy from "./NoMyStudy";
 
 function AboutUpperBar() {
   const studyDate = useRecoilValue(studyDateState);
-  const [isCheckModal, setIsCheckModal] = useState(false);
   const isCheck = useRecoilValue(attendCheckState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
+  const [isCheckModal, setIsCheckModal] = useState(false);
 
   return (
     <>
@@ -88,7 +88,7 @@ function AboutUpperBar() {
 }
 
 const Layout = styled.div`
-  margin: 14px 14px;
+  padding: var(--padding-main);
 `;
 
 const ButtonSkeleton = styled.div`
@@ -120,7 +120,6 @@ const Check = styled.span`
 const Result = styled.div`
   margin: 16px 0;
   min-height: 100px;
-
   > span {
     display: inline-block;
     color: var(--font-h1);
@@ -131,9 +130,4 @@ const Result = styled.div`
 
 const Wrapper = styled(motion.div)``;
 
-const HrDiv = styled.div`
-  height: 1px;
-  background-color: var(--font-h5);
-  margin-bottom: 12px;
-`;
 export default AboutUpperBar;

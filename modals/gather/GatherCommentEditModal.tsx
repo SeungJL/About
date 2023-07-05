@@ -71,8 +71,8 @@ const Input = styled.input`
   margin-top: 8px;
   padding: 8px;
   width: 100%;
-  border: var(--border-main);
-  border-radius: var(--border-radius);
+  border: var(--border-main-light);
+  border-radius: var(--border-radius-sub);
   font-size: 12px;
   :focus {
     outline: none;

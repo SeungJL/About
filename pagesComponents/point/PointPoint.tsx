@@ -41,7 +41,7 @@ const Layout = styled.div`
   flex-direction: column;
   margin-top: 20px;
   padding: 14px;
-  border-radius: var(--border-radius2);
+  border-radius: var(--border-radius-main);
   background-color: white;
 
   box-shadow: var(--box-shadow);

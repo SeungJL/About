@@ -7,7 +7,10 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { useRecoilValue } from "recoil";
-import { useStudyCancelMutation } from "../../../hooks/study/mutations";
+import {
+  useStudyCancelMutation,
+  useStudyOpenFreeMutation,
+} from "../../../hooks/study/mutations";
 import {
   isVotingState,
   mySpaceFixedState,
@@ -42,10 +45,13 @@ function StudySpaceNavigation({
   const router = useRouter();
   const toast = useToast();
   const failToast = useFailToast();
-
+  console.log(status);
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
+
   const voteDate = dayjs(router.query.date as string);
+
+  const placeId = router.query.studySpace;
 
   const isMax = voteCnt >= MAX_USER_PER_PLACE;
   const myVote = attendences?.find(
@@ -63,6 +69,12 @@ function StudySpaceNavigation({
   const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
     onSuccess() {
       router.push(`/about`);
+    },
+  });
+
+  const { mutate: openFree } = useStudyOpenFreeMutation(voteDate, {
+    onSuccess(data) {
+      console.log(33, data);
     },
   });
 
@@ -109,9 +121,20 @@ function StudySpaceNavigation({
     setModalType(type);
   };
 
+  const handleFreeOpen = () => {
+    openFree(placeId as string);
+  };
+
+  console.log(myVote);
   return (
     <>
-      {studyDate === "passed" || status === "dismissed" ? (
+      {myVote && status === "dismissed" ? (
+        <Layout>
+          <MainButton func={true} onClick={handleFreeOpen}>
+            Free 오픈 요청
+          </MainButton>
+        </Layout>
+      ) : studyDate === "passed" || status === "dismissed" ? (
         <Layout>
           <MainButton disabled={true} func={false}>
             {studyDate === "passed" ? "기간 만료" : "스터디가 열리지 않았어요!"}

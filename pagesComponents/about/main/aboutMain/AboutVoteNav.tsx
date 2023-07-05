@@ -1,21 +1,18 @@
 import { Button, useToast } from "@chakra-ui/react";
 import { faCheckToSlot, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import styled from "styled-components";
-
-import ModalPortal from "../../../../components/ModalPortal";
-import StudyVoteMainModal from "../../../../modals/study/StudyVoteMainModal";
-
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import ModalPortal from "../../../../components/ModalPortal";
+import { useStudyPreferenceQuery } from "../../../../hooks/study/queries";
+import StudyQuickVoteModal from "../../../../modals/study/StudyQuickVoteModal";
+import StudyVoteMainModal from "../../../../modals/study/StudyVoteMainModal";
 import {
   mySpaceFixedState,
   studyDateState,
 } from "../../../../recoil/studyAtoms";
-
-import { useStudyPreferenceQuery } from "../../../../hooks/study/queries";
-import StudyQuickVoteModal from "../../../../modals/study/StudyQuickVoteModal";
 import { userLocationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/studyDetails";
 
@@ -31,9 +28,12 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const location = useRecoilValue(userLocationState);
+
   const [isShowModal, setIsShowModal] = useState(false);
   const [isAttendModal, setIsAttendModal] = useState(false);
   const [isQuickVoteModal, setIsQuickVoteModal] = useState(false);
+
+  const { data: studyPreference } = useStudyPreferenceQuery();
 
   const voteCnt = participations.reduce(
     (acc, par) =>
@@ -57,14 +57,14 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
     if (type === "attend") setIsAttendModal(true);
     if (type === "quick") setIsQuickVoteModal(true);
   };
-  const { data: studyPreference } = useStudyPreferenceQuery();
+
   return (
     <>
       {studyDate === "not passed" && (
         <Layout>
           <div>
             {studyDate === "not passed" ? (
-              <div style={{ display: "flex", padding: "0 14px" }}>
+              <Navigation>
                 <Button
                   leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
                   onClick={() => onClickBtn("quick")}
@@ -85,7 +85,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
                 >
                   직접 투표
                 </Button>
-              </div>
+              </Navigation>
             ) : (
               !mySpaceFixed &&
               studyDate === "today" && (
@@ -95,7 +95,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
                   background="mint"
                   color="white"
                   size="md"
-                  marginLeft="12px"
+                  marginLeft="var(--margin-sub)"
                 >
                   당일참여
                 </Button>
@@ -141,16 +141,20 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px 0px;
+  margin: var(--padding-main);
 `;
 
 const VoterCnt = styled.div`
   color: var(--font-h3);
   font-size: 15px;
-  margin-left: 12px;
-  margin-top: 20px;
+  margin-left: 2px;
+  margin-top: var(--margin-max);
   > b {
     color: var(--font-h1);
   }
+`;
+
+const Navigation = styled.div`
+  display: flex;
 `;
 export default AboutVoteNav;

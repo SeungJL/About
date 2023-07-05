@@ -121,7 +121,7 @@ const Container = styled.div`
 const Item = styled.div<{ isSelected: boolean }>`
   width: 100%;
 
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,7 +141,7 @@ const Input = styled.input<{ isSelected: boolean }>`
     props.isSelected
       ? "1.5px solid var(--font-h1)"
       : "1.5px solid var(--font-h6)"};
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   display: flex;
   justify-content: center;
   text-align: center;

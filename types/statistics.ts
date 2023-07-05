@@ -1,8 +1,5 @@
-import { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import { IPlace } from "./studyDetails";
-
-
 
 export type IPlaceStatusType =
   | "pending"
@@ -10,7 +7,12 @@ export type IPlaceStatusType =
   | "open"
   | "dismissed";
 
-export type Status = "pending" | "waiting_confirm" | "open" | "dismissed";
+export type Status =
+  | "pending"
+  | "waiting_confirm"
+  | "open"
+  | "dismissed"
+  | "free";
 
 export interface IPlaceStatus {
   status?: Status;

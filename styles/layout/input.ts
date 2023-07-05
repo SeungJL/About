@@ -4,7 +4,7 @@ export const InputSm = styled.input`
   height: 100%;
   width: 100%;
   background-color: var(--font-h6);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   padding: 8px;
   &:focus {
     outline-color: var(--color-orange);

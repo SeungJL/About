@@ -1,136 +1,53 @@
-import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { IconUserTwo } from "../../../../public/icons/Icons";
-
-import { useRecoilState, useRecoilValue } from "recoil";
+import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
+import { dayjsToStr } from "../../../../libs/typeConverter";
 import {
   mySpaceFixedState,
-  studyStartTimeState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-
-import { Badge } from "@chakra-ui/react";
-import ProfileIconXsOverwrap from "../../../../components/common/Profile/ProfileIconXsOverwrap";
-import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
-import { MAX_USER_PER_PLACE } from "../../../../constants/study";
 import { YANG_할리스 } from "../../../../storage/study";
 import { IParticipation } from "../../../../types/studyDetails";
+import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
+import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
 
-const VOTER_SHOW_MAX = 7;
-
-function AboutMainItem({
-  studySpaceInfo,
-  voted,
-}: {
+interface IAboutMainItem {
   studySpaceInfo: IParticipation;
   voted: boolean;
-}) {
+}
+
+function AboutMainItem({ studySpaceInfo, voted }: IAboutMainItem) {
   const router = useRouter();
 
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  const [studyStartTime, setStudyStartTime] =
-    useRecoilState(studyStartTimeState);
 
   const { attendences, place, status } = studySpaceInfo || {};
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
-  const firstAttendance = attendences?.filter((att) => att.firstChoice);
 
-  const voterCnt = attendences.length;
-  const voteStatus: "GOOD" | "FULL" =
-    status === "pending"
-      ? voted
-        ? "GOOD"
-        : voterCnt >= MAX_USER_PER_PLACE
-        ? "FULL"
-        : null
-      : null;
+  const onClickItem = () => {
+    router.push(`/about/${dayjsToStr(voteDate)}/${studySpaceInfo.place._id}`);
+  };
 
   return (
-    <Layout
-      status={statusFixed === "myOpen"}
-      onClick={() =>
-        router.push(
-          `/about/${voteDate.format("YYYY-MM-DD")}/${studySpaceInfo.place._id}`
-        )
-      }
-    >
+    <Layout status={statusFixed === "myOpen"} onClick={onClickItem}>
       <ImageContainer isDark={place?._id === YANG_할리스}>
         <LogoAdjustmentImage place={place} />
       </ImageContainer>
-
       <SpaceInfo>
-        <Status>
-          <Branch>{place?.branch}</Branch>
-          {status !== "pending" && status === "open" ? (
-            <Badge colorScheme="green" ml="8px">
-              Open
-            </Badge>
-          ) : status !== "pending" && status === "dismissed" ? (
-            <Badge colorScheme="blackAlpha" ml="8px">
-              Closed
-            </Badge>
-          ) : null}
-          {statusFixed === "myOpen" && (
-            <Result>
-              <FontAwesomeIcon icon={faClock} size="sm" />
-              <ResultInfo>{studyStartTime?.format("HH:mm")} ~</ResultInfo>
-            </Result>
-          )}
-        </Status>
+        <AboutMainItemStatus
+          branch={place?.branch}
+          status={status}
+          statusFixed={statusFixed}
+        />
         <Info>{place?.brand}</Info>
-
-        <Participants status={statusFixed === "myOpen"}>
-          <div>
-            {statusFixed === "pending" && (
-              <VoteComplete status={voteStatus}>{voteStatus}</VoteComplete>
-            )}
-          </div>
-          <div>
-            {statusFixed === "pending"
-              ? attendences?.map(
-                  (att, idx) =>
-                    idx < VOTER_SHOW_MAX && (
-                      <ProfileContainer key={idx} zIndex={idx}>
-                        <ProfileIconXsOverwrap
-                          user={att.user}
-                          isOverlap={idx === VOTER_SHOW_MAX - 1}
-                        />
-                      </ProfileContainer>
-                    )
-                )
-              : firstAttendance?.map(
-                  (att, idx) =>
-                    idx < VOTER_SHOW_MAX + 1 && (
-                      <ProfileContainer key={idx} zIndex={idx}>
-                        <ProfileIconXsOverwrap
-                          user={att.user}
-                          isOverlap={idx === VOTER_SHOW_MAX}
-                        />
-                      </ProfileContainer>
-                    )
-                )}
-
-            <ParticipantStatus>
-              <IconUserTwo />
-              <span>
-                <VoterImpact
-                  isOverMax={
-                    statusFixed === "pending" &&
-                    attendences?.length >= MAX_USER_PER_PLACE
-                  }
-                >
-                  {statusFixed === "pending"
-                    ? attendences.length
-                    : firstAttendance?.length}
-                </VoterImpact>
-                /{statusFixed === "pending" ? "8" : "10"}
-              </span>
-            </ParticipantStatus>
-          </div>
-        </Participants>
+        <AboutMainItemParticipants
+          attendances={attendences}
+          statusFixed={statusFixed}
+          voted={voted}
+          status={status}
+        />
       </SpaceInfo>
     </Layout>
   );
@@ -139,20 +56,21 @@ function AboutMainItem({
 const Layout = styled.div<{ status: boolean }>`
   height: 100px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: var(--border-radius-main);
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
-  padding: ${(props) => (props.status ? "12px 12px 12px 0px" : "12px")};
+  margin-bottom: var(--margin-sub);
+  padding: var(--padding-sub);
+  padding-left: ${(props) => props.status && "0px"};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
-  border: ${(props) => (props.status ? "1.5px solid var(--color-mint)" : null)};
+  border: ${(props) => props.status && "var(--border-mint)"};
 `;
 
 const ImageContainer = styled.div<{ isDark?: boolean }>`
   width: 77px;
   height: 77px;
-  border: 1px solid var(--font-h5);
-  border-radius: 8px;
+  border: var(--border-sub);
+  border-radius: var(--border-radius-main);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -161,46 +79,11 @@ const ImageContainer = styled.div<{ isDark?: boolean }>`
 `;
 
 const SpaceInfo = styled.div`
-  margin-left: 12px;
+  margin-left: var(--margin-sub);
   display: flex;
   flex-direction: column;
   height: 100%;
   flex: 1;
-`;
-
-const VoteComplete = styled.span<{ status: "GOOD" | "FULL" }>`
-  display: flex;
-  height: 100%;
-  align-items: end;
-  font-size: 14px;
-  font-weight: 600;
-  color: ${(props) =>
-    props.status === "GOOD" ? "var(--color-mint)" : "var(--color-red)"};
-`;
-
-const Status = styled.div`
-  text-align: center;
-  display: flex;
-  align-items: center;
-`;
-
-const Branch = styled.div`
-  display: inline-block;
-  font-weight: 800;
-  font-size: 16px;
-`;
-
-const Result = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
-`;
-
-const ResultInfo = styled.div`
-  margin-left: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--font-h);
 `;
 
 const Info = styled.div`
@@ -209,41 +92,6 @@ const Info = styled.div`
 
   color: var(--font-h3);
   font-size: 12px;
-`;
-const Participants = styled.div<{ status: boolean }>`
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
-  > div:last-child {
-    display: flex;
-    padding-top: 4px;
-    align-items: end;
-  }
-`;
-const ProfileContainer = styled.div<{ zIndex: number }>`
-  width: 23px;
-  display: flex;
-  z-index: ${(props) => props.zIndex};
-  position: relative;
-`;
-
-const ParticipantStatus = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  margin-bottom: 4px;
-
-  > span {
-    font-weight: 400;
-    font-size: 12px;
-    color: var(--font-h3);
-  }
-`;
-
-const VoterImpact = styled.b<{ isOverMax: boolean }>`
-  color: ${(props) =>
-    props.isOverMax ? "var(--color-red)" : "var(--font-h2)"};
 `;
 
 export default AboutMainItem;

@@ -70,7 +70,7 @@ const Textarea = styled.textarea`
   flex: 1;
   margin-top: 14px;
   background-color: var(--font-h6);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   padding: 4px;
 `;
 

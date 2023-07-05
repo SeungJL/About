@@ -44,7 +44,7 @@ const GatherReviewNavIcon = styled.div`
   align-items: center;
 
   > div {
-    border-radius: var(--border-radius2);
+    border-radius: var(--border-radius-main);
     width: 52px;
     height: 52px;
     overflow: hidden;
@@ -66,7 +66,7 @@ const GatherReviewNavItem = styled.div`
   align-items: center;
 
   > div {
-    border-radius: var(--border-radius2);
+    border-radius: var(--border-radius-main);
     width: 52px;
     height: 52px;
     overflow: hidden;

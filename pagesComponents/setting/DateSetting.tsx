@@ -30,19 +30,13 @@ function DateSetting({ setParticipations }: IDateSetting) {
   const location = useRecoilValue(userLocationState);
   const [updateStudy, setUpdateStudy] = useRecoilState(isRefetchingStudyState);
   const setStudyDate = useSetRecoilState(studyDateState);
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 
   const current = dayjs().hour();
   const isVoteTime =
     current >= STUDY_VOTE_START_HOUR && current < VOTER_DATE_END;
-
-  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
-
-  useEffect(() => {
-    setIsMainLoading(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate]);
 
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     enabled: voteDate !== null,
@@ -54,36 +48,6 @@ function DateSetting({ setParticipations }: IDateSetting) {
       failToast("loadStudy");
     },
   });
-
-  useEffect(() => {
-    if (updateStudy) {
-      setTimeout(() => {
-        refetch();
-        setUpdateStudy(false);
-      }, 1000);
-    }
-  }, [refetch, setUpdateStudy, updateStudy]);
-
-  //최초 접속
-  useEffect(() => {
-    if (isGuest) {
-      if (dayjs().hour() >= 18) setVoteDate(getInterestingDate());
-      else setVoteDate(dayjs());
-      return;
-    }
-    if (voteDate === null) {
-      if (isVoteTime) setIsDefaultPrev(true);
-      else setVoteDate(getInterestingDate());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGuest]);
-
-  useEffect(() => {
-    if (!voteDate) return;
-    const studyDate = getStudyDate(voteDate);
-    setStudyDate(studyDate);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate]);
 
   useStudyVoteQuery(getInterestingDate().subtract(1, "day"), location, {
     enabled: isDefaultPrev && voteDate === null,
@@ -108,6 +72,45 @@ function DateSetting({ setParticipations }: IDateSetting) {
       }
     },
   });
+
+  //로딩
+  useEffect(() => {
+    setIsMainLoading(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [voteDate]);
+
+  //업데이트
+  useEffect(() => {
+    if (updateStudy) {
+      setTimeout(() => {
+        refetch();
+        setUpdateStudy(false);
+      }, 1000);
+    }
+  }, [refetch, setUpdateStudy, updateStudy]);
+
+  //최초 접속
+  useEffect(() => {
+    if (isGuest) {
+      if (dayjs().hour() >= 18) setVoteDate(getInterestingDate());
+      else setVoteDate(dayjs());
+      return;
+    }
+    if (voteDate === null) {
+      if (isVoteTime) setIsDefaultPrev(true);
+      else setVoteDate(getInterestingDate());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isGuest]);
+
+  //날짜
+  useEffect(() => {
+    if (!voteDate) return;
+    const studyDate = getStudyDate(voteDate);
+    setStudyDate(studyDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [voteDate]);
+
   return null;
 }
 

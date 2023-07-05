@@ -174,7 +174,7 @@ const Item = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
 `;
 
 const Name = styled.span`

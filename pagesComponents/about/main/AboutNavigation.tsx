@@ -114,11 +114,9 @@ const IconWrapper = styled.div`
 const Layout = styled.div`
   position: relative;
   display: flex;
-
   justify-content: space-between;
-  padding: 10px 14px;
-
-  border-bottom: 1px solid var(--font-h6);
+  padding: var(--padding-sub) var(--padding-main);
+  border-bottom: var(--border-sub);
 `;
 
 const Item = styled.div`
@@ -134,10 +132,9 @@ const Item = styled.div`
 const Button = styled.button`
   width: 50px;
   height: 50px;
-
   border-radius: 20px;
   background-color: var(--font-h7);
-  margin-bottom: 4px;
+  margin-bottom: var(--margin-min);
   position: relative;
 `;
 

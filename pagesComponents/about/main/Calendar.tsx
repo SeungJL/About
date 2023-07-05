@@ -7,9 +7,8 @@ import CalendarDay from "./calendar/CalendarDay";
 import CalendarMonth from "./calendar/CalendarMonth";
 
 function Calendar() {
-  const [calendarType, setCalendarType] = useState<"week" | "month">("week");
-
   const voteDate = useRecoilValue(voteDateState);
+  const [calendarType, setCalendarType] = useState<"week" | "month">("week");
 
   return (
     <Layout>
@@ -30,16 +29,12 @@ function Calendar() {
 }
 
 const Layout = styled.div`
-  margin: 16px 0;
   border-bottom: 1px solid var(--font-h6);
+  padding: 0 var(--padding-main);
 `;
 
 const Wrapper = styled.div`
   min-height: 70px;
-  margin: 14px;
-  margin-bottom: 0px;
-  /* border-top: 1px solid var(--font-h6);
-  border-bottom: 1px solid var(--font-h6); */
 `;
 
 export default Calendar;

@@ -43,7 +43,7 @@ const Friend = styled.div`
   height: 120px;
   background-color: var(--font-h7);
   padding: 4px 8px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   border: 1px solid var(--font-h6);
   > span:first-child {
     color: var(--font-h3);

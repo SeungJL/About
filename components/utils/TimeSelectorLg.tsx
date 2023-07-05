@@ -94,7 +94,7 @@ const Layout = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border: 2px solid var(--font-h5);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   padding: 4px 0;
   overflow-y: auto;
 `;

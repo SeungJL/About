@@ -22,7 +22,6 @@ function About() {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const [participations, setParticipations] = useState<IParticipation[]>([]);

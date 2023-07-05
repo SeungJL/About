@@ -16,7 +16,7 @@ function CalendarDay() {
 
 const Layout = styled.div`
   margin: 8px;
-  margin-top: 20px;
+  margin-top: var(--margin-max);
 
   display: flex;
   justify-content: space-between;

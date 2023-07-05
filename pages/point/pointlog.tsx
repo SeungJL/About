@@ -83,7 +83,7 @@ const MyPoint = styled.div`
   width: 160px;
   height: 40px;
 
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sub);
   border: 1.5px solid var(--color-mint);
   color: var(--font-h2);
   font-size: 12px;
