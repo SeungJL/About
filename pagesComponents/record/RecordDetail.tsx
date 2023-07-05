@@ -8,32 +8,47 @@ interface IRecordDetail {
   monthData: IArrivedData[];
 }
 function RecordDetail({ monthData }: IRecordDetail) {
+  console.log(34, monthData);
   const reversedData = [...monthData]?.reverse();
+  console.log(reversedData);
   return (
-    <Layout>
-      {reversedData?.map((item, idx) => (
-        <Block key={idx}>
-          <Date>{dayjs(item.date).add(1, "day").format("YYYY-MM-DD")}</Date>
-          <SpaceWrapper>
-            {item.arrivedInfoList.map((space, idx2) => (
-              <div key={idx2}>
-                <SpaceHeader>
-                  <span> {SPACE_NAME[space.placeId]}</span>
-                  <span>
-                    참여자수: <span>{space.arrivedInfo.length}명</span>
-                  </span>
-                </SpaceHeader>
-                <MemberWrapper>
-                  {space.arrivedInfo.map((who, idx3) => (
-                    <Member key={idx3}>{who.name}</Member>
-                  ))}
-                </MemberWrapper>
-              </div>
-            ))}
-          </SpaceWrapper>
-        </Block>
-      ))}
-    </Layout>
+    <>
+      {reversedData && (
+        <Layout>
+          {reversedData?.map((item, idx) => (
+            <Block key={idx}>
+              {item !== null && item?.arrivedInfoList.length !== 0 && (
+                <>
+                  <Date>
+                    {dayjs()
+                      .date(item?.date as number)
+                      .add(1, "day")
+                      .format("YYYY-MM-DD")}
+                  </Date>
+                  <SpaceWrapper>
+                    {item.arrivedInfoList.map((space, idx2) => (
+                      <div key={idx2}>
+                        <SpaceHeader>
+                          <span> {SPACE_NAME[space.placeId]}</span>
+                          <span>
+                            참여자수: <span>{space.arrivedInfo.length}명</span>
+                          </span>
+                        </SpaceHeader>
+                        <MemberWrapper>
+                          {space.arrivedInfo.map((who, idx3) => (
+                            <Member key={idx3}>{who.name}</Member>
+                          ))}
+                        </MemberWrapper>
+                      </div>
+                    ))}
+                  </SpaceWrapper>
+                </>
+              )}
+            </Block>
+          ))}
+        </Layout>
+      )}
+    </>
   );
 }
 

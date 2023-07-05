@@ -30,7 +30,10 @@ function CheckRegister() {
   };
 
   useEffect(() => {
-    if (isRefetch) refetch();
+    if (isRefetch)
+      setTimeout(() => {
+        refetch();
+      }, 1000);
     setIsRefetch(false);
   }, [isRefetch, refetch]);
 
@@ -44,7 +47,7 @@ function CheckRegister() {
     } else
       setRegisterData(applyData?.filter((who) => who?.location === category));
   }, [applyData, category]);
- 
+
   return (
     <>
       <Header title="가입 신청 확인" url="/admin" />

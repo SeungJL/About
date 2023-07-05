@@ -39,7 +39,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
 
   const [isPreference, setIsPreference] = useState(false);
   const [time, setTime] = useState<ITimeStartToEndHM>({
-    start: { hours: 12, minutes: 0 },
+    start: { hours: 14, minutes: 0 },
     end: { hours: 18, minutes: 0 },
   });
   const { mutate } = useStudyQuickVoteMutation(voteDate, {

@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { SetStateAction, useRef } from "react";
 import styled from "styled-components";
+import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderX } from "../../components/layouts/Modals";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import {
@@ -82,6 +83,9 @@ function CheckRegisterModal({
           <Item>
             <b>연락처 </b>
             {applicant?.telephone}
+            <IconWrapper>
+              <CopyBtn text={applicant?.telephone} />
+            </IconWrapper>
           </Item>
         </ModalMain>
         <Footer>
@@ -120,6 +124,10 @@ function CheckRegisterModal({
 }
 
 const Layout = styled(ModalLg)``;
+
+const IconWrapper = styled.span`
+  margin-left: 8px;
+`;
 
 const Item = styled.div`
   font-size: 14px;

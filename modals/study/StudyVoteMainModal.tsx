@@ -86,7 +86,7 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
   const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
 
   const [time, setTime] = useState<ITimeStartToEndHM>({
-    start: isBig ? null : { hours: 12, minutes: 0 },
+    start: isBig ? null : { hours: 14, minutes: 0 },
     end: isBig ? null : { hours: 18, minutes: 0 },
   });
 

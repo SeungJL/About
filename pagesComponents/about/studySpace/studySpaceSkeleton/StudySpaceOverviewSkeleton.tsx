@@ -34,9 +34,11 @@ function StudySpaceOverviewSkeleton() {
 const Layout = styled.div`
   margin-top: 36px;
   padding-bottom: 18px;
-  > span:first-child {
+  > div:first-child {
+    display: inline-block;
     font-weight: 600;
     font-size: 18px;
+    height: 25px;
   }
   > div:first-child {
     width: 200px;
