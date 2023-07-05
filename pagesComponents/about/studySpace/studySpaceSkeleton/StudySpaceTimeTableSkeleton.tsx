@@ -7,18 +7,16 @@ function StudyTimeTableSkeleton() {
       <Table>
         <TimeTable />
       </Table>
-      <ArrivedComment />
     </>
   );
 }
 
 const Table = styled.div`
-  margin-top: 16px;
-  margin-left: 16px;
+  margin: 0 var(--margin-main);
+  margin-top: var(--margin-main);
+  padding-left: var(--padding-sub);
   position: relative;
   height: 195px;
 `;
-
-const ArrivedComment = styled.div``;
 
 export default StudyTimeTableSkeleton;

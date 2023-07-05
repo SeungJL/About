@@ -6,7 +6,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
 import { getStudyDate } from "../../../libs/studyDateSetting";
-import { IStudySpaceData } from "../../../pages/about/[date]/[studySpace]";
+import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
 import { isRefetchingStudySpacelState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
@@ -24,7 +24,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   const failToast = useFailToast();
   const { data: session } = useSession();
   const voteDate = dayjs(router.query.date as string);
-  const spaceID = router.query.studySpace;
+  const spaceID = router.query.placeId;
   const location = SPACE_LOCATION[spaceID as string];
 
   const setIsVoting = useSetRecoilState(isVotingState);

@@ -30,6 +30,7 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
 }
 
 const Layout = styled.div`
+  margin: 0 var(--margin-main);
   height: 165px;
   position: relative;
 `;

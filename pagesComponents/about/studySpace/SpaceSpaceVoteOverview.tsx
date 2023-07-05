@@ -47,7 +47,9 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
 }
 
 const Layout = styled.div`
-  padding-top: 24px;
+
+  margin: 0 var(--margin-main);
+  padding-top: var(--padding-max);
   display: flex;
   flex-direction: column;
   > span:first-child {
@@ -60,14 +62,12 @@ const Layout = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: var(--margin-min) 0;
   display: flex;
   align-items: center;
-  margin-left: 3px;
   color: var(--font-h2);
   > span {
-    margin-left: 5px;
+    margin-left: var(--margin-min);
   }
 `;
 

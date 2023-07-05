@@ -22,12 +22,12 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { POINT_SYSTEM_MINUS } from "../../../constants/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
-import { useFailToast } from "../../../hooks/ui/CustomToast";
+import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
-import { IStudySpaceData } from "../../../pages/about/[date]/[studySpace]";
+import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
 import { IUser } from "../../../types/user";
 import StudySpaceNavModal from "./studySpaceNavModal2";
 
@@ -45,24 +45,23 @@ function StudySpaceNavigation({
   const router = useRouter();
   const toast = useToast();
   const failToast = useFailToast();
-  console.log(status);
+  const completeToast = useCompleteToast();
+
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-
   const voteDate = dayjs(router.query.date as string);
-
-  const placeId = router.query.studySpace;
-
-  const isMax = voteCnt >= MAX_USER_PER_PLACE;
-  const myVote = attendences?.find(
-    (props) => (props.user as IUser).uid === session?.uid
-  );
+  const placeId = router.query.placeId;
 
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
   const [modalType, setModalType] = useState("");
+
+  const isMax = voteCnt >= MAX_USER_PER_PLACE;
+  const myVote = attendences?.find(
+    (props) => (props.user as IUser).uid === session?.uid
+  );
 
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();
@@ -73,32 +72,16 @@ function StudySpaceNavigation({
   });
 
   const { mutate: openFree } = useStudyOpenFreeMutation(voteDate, {
-    onSuccess(data) {
-      console.log(33, data);
+    onSuccess() {
+      completeToast("free", "스터디가 Free로 오픈되었습니다.");
     },
   });
 
   const cancelFailToast = () => {
-    toast({
-      title: "취소 불가능",
-      description: "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-      position: "bottom",
-    });
+    failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
   };
 
-  const absentFailToast = () => {
-    toast({
-      title: "오류",
-      description: "스터디 확정 이전까지는 취소 또는 변경 버튼을 이용해주세요!",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-      position: "bottom",
-    });
-  };
+  const absentFailToast = () => {};
 
   const onBtnClicked = (type: ModalType) => {
     if (isGuest) {
@@ -125,7 +108,6 @@ function StudySpaceNavigation({
     openFree(placeId as string);
   };
 
-  console.log(myVote);
   return (
     <>
       {myVote && status === "dismissed" ? (
@@ -191,14 +173,15 @@ function StudySpaceNavigation({
 }
 
 const Layout = styled.div`
-  padding: 12px 0;
-  margin-top: 16px;
-  border-radius: 13px;
+  margin: 0 var(--margin-main);
+  margin-top: var(--margin-main);
+  padding: var(--padding-sub) 0;
+  border-radius: var(--border-radius-main);
 `;
 
 const SubNav = styled.nav`
   display: flex;
-  margin-bottom: 24px;
+  margin-bottom: var(--margin-max);
   justify-content: space-around;
 `;
 
@@ -225,7 +208,7 @@ const MainButton = styled.button<{ func?: boolean }>`
   color: white;
   height: 48px;
   border-radius: 13px;
-  padding: 14px 2px 14px 2px;
+  padding: var(--padding-sub) 2px;
   font-weight: 700;
   font-size: 15px;
 `;

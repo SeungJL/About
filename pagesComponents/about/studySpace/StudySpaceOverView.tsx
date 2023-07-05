@@ -46,14 +46,12 @@ function StudySpaceOverview({ space }: IStudySpaceOverview) {
 }
 
 const Layout = styled.div`
+  margin: 0 var(--margin-main);
   margin-top: 36px;
-  padding-bottom: 18px;
+  padding-bottom: var(--padding-main);
   > span:first-child {
     font-weight: 600;
     font-size: 18px;
-  }
-  > div:first-child {
-    margin-left: 20px;
   }
 `;
 
@@ -61,12 +59,12 @@ const SpaceDetail = styled.div`
   color: var(--font-h2);
   font-size: 12px;
   font-weight: 600;
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   display: flex;
   flex-direction: column;
   > span {
     > span {
-      margin-left: 4px;
+      margin-left: var(--margin-min);
     }
   }
 `;
@@ -74,18 +72,16 @@ const Location = styled.span`
   display: flex;
   > span {
     color: var(--font-h1);
-    margin-right: 12px;
+    margin-right: var(--margin-sub);
   }
   > div {
     > span:last-child {
-      margin-left: 2px;
+      margin-left: var(--margin-min);
     }
   }
 `;
 const Time = styled.span`
-  > span {
-    color: var(--font-h1);
-  }
+  color: var(--font-h1);
 `;
 
 const MapWrapper = styled.div`

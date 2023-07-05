@@ -53,7 +53,7 @@ function StudyVoteSubModal({
   const queryClient = useQueryClient();
   const toast = useToast();
   const router = useRouter();
-  const spaceID = router.query.studySpace;
+  const spaceID = router.query.placeId;
   const location = SPACE_LOCATION[spaceID as string];
   const studyDate = useRecoilValue(studyDateState);
 

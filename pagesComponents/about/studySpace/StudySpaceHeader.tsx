@@ -42,20 +42,20 @@ function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
 }
 
 const Layout = styled.div`
-  height: 46px;
-  padding: 0 16px;
+  height: var(--header-height);
+  padding: 0 var(--padding-main);
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: var(--font-h2);
-  padding-right: 20px;
+  padding-right: var(--padding-max);
 `;
 
 const Title = styled.span`
   color: var(--font-h1);
   font-size: 17px;
   font-weight: 600;
-  margin-left: 16px;
+  margin-left: var(--margin-main);
 `;
 
 export default StudySpaceHeader;

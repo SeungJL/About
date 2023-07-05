@@ -60,13 +60,11 @@ function StudySpace() {
   );
 }
 
-const Layout = styled.div`
-  padding: 0 16px;
-`;
+const Layout = styled.div``;
 
 const HrDiv = styled.div`
-  height: 8px;
-  background-color: var(--font-h7);
+  height: 1px;
+  background-color: var(--border-color);
 `;
 
 export default StudySpace;

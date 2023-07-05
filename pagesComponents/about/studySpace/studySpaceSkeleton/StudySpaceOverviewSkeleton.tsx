@@ -32,16 +32,14 @@ function StudySpaceOverviewSkeleton() {
 }
 
 const Layout = styled.div`
+  margin: 0 var(--margin-main);
   margin-top: 36px;
-  padding-bottom: 18px;
+  padding-bottom: var(--padding-main);
   > div:first-child {
     display: inline-block;
     font-weight: 600;
     font-size: 18px;
     height: 25px;
-  }
-  > div:first-child {
-    width: 200px;
   }
 `;
 
@@ -49,12 +47,12 @@ const SpaceDetail = styled.div`
   color: var(--font-h2);
   font-size: 12px;
   font-weight: 600;
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   display: flex;
   flex-direction: column;
   > span {
     > span {
-      margin-left: 4px;
+      margin-left: var(--margin-min);
     }
   }
 `;
@@ -62,22 +60,19 @@ const Location = styled.span`
   display: flex;
 
   > div:first-child {
-    margin-left: 6px;
     width: 220px;
     color: var(--font-h1);
-    margin-right: 12px;
+    margin-right: var(--margin-sub);
   }
   > div {
     > span:last-child {
-      margin-left: 2px;
+      margin-left: var(--margin-min);
     }
   }
 `;
 const Time = styled.span`
-  margin-top: 1px;
   display: flex;
   > div {
-    margin-left: 6px;
     width: 80px;
   }
 `;

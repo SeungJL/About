@@ -78,8 +78,8 @@ export const useStudyCheckRecordsQuery = (
         `${SERVER_URI}/vote/arrived`,
         {
           params: {
-            startDay: startDay.format("YYYY-MM-DD"),
-            endDay: endDay.format("YYYY-MM-DD"),
+            startDay: dayjsToStr(startDay),
+            endDay: dayjsToStr(endDay),
           },
         }
       );

@@ -42,8 +42,11 @@
   --padding-max: 20px;
   --padding-main: 16px;
   --padding-sub: 12px;
+  --padding-min: 4px;
   --margin-max: 20px;
   --margin-main: 16px;
   --margin-sub: 12px;
-  --margin-min: 6px;
+  --margin-min: 4px;
+
+  --header-height: 46px;
 }

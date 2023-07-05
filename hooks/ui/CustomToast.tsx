@@ -7,6 +7,7 @@ export const useFailToast = () => {
   const showFailToast = useCallback(
     (type: string, sub?: string) => {
       let text = "";
+      if (type === "free") text = sub;
       if (type === "guest") text = "게스트는 사용할 수 없는 기능입니다.";
       if (type === "loadStudy") text = "스터디 정보를 불러오지 못 했어요.";
       if (type === "applyGather")
@@ -35,10 +36,12 @@ export const useCompleteToast = () => {
   const showCompleteToast = useCallback(
     (type: string, sub?: string) => {
       let text = "";
+      if (type === "free") text = sub;
       if (type === "refuseRegister") text = "가입 거절";
       if (type === "apply") text = "신청 완료!";
       if (type === "success") text = "정상적으로 처리되었습니다.";
       if (type === "studyVote") text = "투표 완료!";
+
       toast({
         title: "성공",
         description: text,

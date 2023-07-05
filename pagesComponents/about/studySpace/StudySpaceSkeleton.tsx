@@ -27,12 +27,10 @@ function StudySpaceSkeleton({ coverImageUrl }: IStudySpaceSkeleton) {
 
 const Layout = styled.div``;
 
-const Wrapper = styled.div`
-  padding: 0 16px;
-`;
+const Wrapper = styled.div``;
 const HrDiv = styled.div`
-  height: 8px;
-  background-color: var(--font-h7);
+  height: 1px;
+  background-color: var(--border-color);
 `;
 
 export default StudySpaceSkeleton;

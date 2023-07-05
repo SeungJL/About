@@ -2,39 +2,41 @@ import {
   faCircleCheck,
   faCircleXmark,
 } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
-
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { MouseEvent, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
+import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
 import ModalPortal from "../../../../components/ModalPortal";
 import { useStudyAbsentQuery } from "../../../../hooks/study/queries";
 import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrivedModal";
+import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { studyDateState } from "../../../../recoil/studyAtoms";
+import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 import { IAttendance } from "../../../../types/studyDetails";
 import { IUser } from "../../../../types/user";
 
-import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
-import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
+interface IArrivedComment {
+  attendances: IAttendance[];
+}
 
-function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
+function ArrivedComment({ attendances }: IArrivedComment) {
   const router = useRouter();
   const { data: session } = useSession();
-
   const voteDate = dayjs(router.query.date as string);
+
   const studyDate = useRecoilValue(studyDateState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const setUserData = useSetRecoilState(transferUserDataState);
 
-  const { data: absentData } = useStudyAbsentQuery(voteDate);
-
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [user, setUser] = useState<IAttendance>();
+
+  const { data: absentData } = useStudyAbsentQuery(voteDate);
 
   const onClickUser = (user: IUser) => {
     setUserData(user);
@@ -56,9 +58,6 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
           const arrivedTime = att?.arrived
             ? new Date(att.arrived)
             : new Date(2023, 1, 1, 21, 0, 0);
-
-          //임의로 체크로 해놨음. 나중에 방지 대책 필요.
-
           arrivedTime.setHours(arrivedTime.getHours() - 9);
           const arrivedHM = arrivedTime.toLocaleTimeString([], {
             hour: "2-digit",
@@ -76,7 +75,18 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
                   <span>{user.name}</span>
                   <div>
                     {!isAbsent ? (
-                      <Memo>{att.memo}</Memo>
+                      <Memo>
+                        {att.memo}
+                        {att.memo && user.uid === session?.uid && (
+                          <EditIconWrapper>
+                            <FontAwesomeIcon
+                              icon={faPenToSquare}
+                              color="var(--font-h1)"
+                              onClick={(e) => onClickEdit(e, att)}
+                            />
+                          </EditIconWrapper>
+                        )}
+                      </Memo>
                     ) : (
                       <>
                         <FontAwesomeIcon
@@ -85,17 +95,6 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
                         />
                         &nbsp; -<Absent>{isAbsent?.message}</Absent>
                       </>
-                    )}
-
-                    {att.memo && user.uid === session?.uid && (
-                      <span>
-                        &nbsp;
-                        <FontAwesomeIcon
-                          icon={faPenToSquare}
-                          color="var(--font-h1)"
-                          onClick={(e) => onClickEdit(e, att)}
-                        />
-                      </span>
                     )}
                   </div>
                 </Info>
@@ -107,7 +106,6 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
                 ) : studyDate !== "not passed" && isAbsent ? (
                   <Check isCheck={false}>
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
-
                     <span>불참</span>
                   </Check>
                 ) : null}
@@ -125,13 +123,14 @@ function ArrivedComment({ attendances }: { attendances: IAttendance[] }) {
   );
 }
 const Layout = styled.div`
-  margin-top: 30px;
+  margin: 0 var(--margin-main);
+  margin-top: var(--margin-max);
   display: flex;
   flex-direction: column;
 `;
 const Block = styled.div`
   height: 60px;
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
   display: flex;
   align-items: center;
 `;
@@ -140,12 +139,12 @@ const BlockInfo = styled.div`
   height: 100%;
   display: flex;
   flex: 1;
-  margin-left: 12px;
+  margin-left: var(--margin-sub);
 `;
 
 const Absent = styled.span`
   font-size: 12px;
-  margin-left: 4px;
+  margin-left: var(--margin-min);
 `;
 
 const Memo = styled.span``;
@@ -161,7 +160,7 @@ const Check = styled.div<{ isCheck: boolean }>`
     props.isCheck ? "var(--color-mint)" : "var(--color-red)"};
   > span {
     display: inline-block;
-    margin-top: 4px;
+    margin-top: var(--margin-min);
     font-size: 11px;
     color: var(--font-h4);
   }
@@ -172,18 +171,22 @@ const Info = styled.div`
   flex-direction: column;
   display: flex;
   justify-content: center;
-  padding: 4px 0;
+  padding: var(--padding-min) 0;
   > span {
     font-weight: 600;
     font-size: 15px;
   }
   > div {
     font-size: 13px;
-    margin-top: 2px;
+    margin-top: var(--margin-min);
     color: var(--font-h3);
     display: flex;
     align-items: center;
   }
+`;
+
+const EditIconWrapper = styled.span`
+  margin-left: var(--margin-min);
 `;
 
 export default ArrivedComment;

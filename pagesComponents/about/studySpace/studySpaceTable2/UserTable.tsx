@@ -8,17 +8,29 @@ import { isVotingState, studyDateState } from "../../../../recoil/studyAtoms";
 import { VOTE_TABLE_COLOR } from "../../../../constants/design";
 import { IAttendance } from "../../../../types/studyDetails";
 
-const BLOCK_WIDTH = 25;
+const BLOCK_WIDTH = 26.386;
 
-function UserTable({ attendances }: { attendances: IAttendance[] }) {
+interface IUserItemArr {
+  name: string;
+  start: string;
+  end: string;
+  gap: number;
+  startGap: number;
+  isSecond: boolean;
+}
+
+interface IUserTable {
+  attendances: IAttendance[];
+}
+
+function UserTable({ attendances }: IUserTable) {
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
 
-  const [userArr, setUserArr] = useState<IUserTable[]>([]);
-
+  const [userArr, setUserArr] = useState<IUserItemArr[]>([]);
+  console.log(userArr);
   useEffect(() => {
     setUserArr([]);
-
     attendances?.forEach((att) => {
       if (!att?.time) return;
       const start = dayjs(att?.time.start);
@@ -63,20 +75,18 @@ function UserTable({ attendances }: { attendances: IAttendance[] }) {
 }
 
 const UserBlock = styled.div`
-  margin-bottom: 4px;
+  margin-bottom: var(--margin-min);
 `;
 
 const UserIcon = styled.div<{ start: number; gap: number; color: string }>`
-  width: ${(props) => props.gap * BLOCK_WIDTH}px;
   min-width: ${BLOCK_WIDTH * 3}px;
-  height: 37px;
+  width: ${(props) => props.gap * BLOCK_WIDTH}px;
+  margin-left: ${(props) => props.start * BLOCK_WIDTH}px;
   background-color: ${(props) => props.color};
   position: relative;
-  margin-left: ${(props) => props.start * BLOCK_WIDTH}px;
   z-index: 10;
-  border-radius: 8px;
-  padding: 3px;
-  padding-left: 6px;
+  border-radius: var(--border-radius-main);
+  padding: var(--padding-min) calc(var(--padding-min) * 2);
   display: flex;
   flex-direction: column;
   font-size: 11px;
@@ -98,13 +108,5 @@ const Layout = styled.div`
 const Time = styled.span<{ isSecond: boolean }>`
   color: ${(props) => props.isSecond && "var(--font-h3)"};
 `;
-interface IUserTable {
-  name: string;
-  start: string;
-  end: string;
-  gap: number;
-  startGap: number;
-  isSecond: boolean;
-}
 
 export default UserTable;
