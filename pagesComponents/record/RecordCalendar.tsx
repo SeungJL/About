@@ -10,6 +10,7 @@ import RecordCalendarSkeleton from "./skeleton/RecordCalendarSkeleton";
 
 const 수원 = VOTE_TABLE_COLOR[0];
 const 양천 = VOTE_TABLE_COLOR[3];
+const 안양 = VOTE_TABLE_COLOR[2];
 
 interface IRecordCalendar {
   month: number;
@@ -18,7 +19,7 @@ interface IRecordCalendar {
 function RecordCalendar({ month, monthData }: IRecordCalendar) {
   const dayjsMonth = dayjs().month(month);
   const isRecordLoading = useRecoilValue(isRecordLoadingState);
-  console.log(monthData);
+
   return (
     <>
       {!isRecordLoading ? (
@@ -34,6 +35,8 @@ function RecordCalendar({ month, monthData }: IRecordCalendar) {
                     <OpenDate location="수원">{item?.date}</OpenDate>
                   ) : month === 3 && item?.date === 19 ? (
                     <OpenDate location="양천">{item?.date}</OpenDate>
+                  ) : month === 6 && item?.date === 9 ? (
+                    <OpenDate location="안양">{item?.date}</OpenDate>
                   ) : (
                     <div>{item?.date}</div>
                   )}
@@ -110,7 +113,11 @@ const OpenDate = styled.div<{ location: Location }>`
   justify-content: center;
   align-items: center;
   border: ${(props) =>
-    props.location === "수원" ? `2px solid ${수원}` : `2px solid ${양천}`};
+    props.location === "수원"
+      ? `2px solid ${수원}`
+      : props.location === "양천"
+      ? `2px solid ${양천}`
+      : `2px solid ${안양}`};
   width: 24px;
   height: 24px;
   border-radius: 50%;

@@ -1,11 +1,15 @@
 import { useToast } from "@chakra-ui/react";
-import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarDays,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ko from "date-fns/locale/ko";
 import dayjs, { Dayjs } from "dayjs";
 import { motion } from "framer-motion";
 import { useRouter } from "next/dist/client/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
@@ -24,9 +28,19 @@ function WritingDate() {
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherDataState
   );
-  const [date, setDate] = useState(
-    gatherContent?.date ? (gatherContent?.date as Dayjs).toDate() : new Date()
-  );
+
+  const [date, setDate] = useState<Date>();
+
+  useEffect(() => {
+    const currentDate = new Date();
+    currentDate.setHours(14);
+    currentDate.setMinutes(0);
+    setDate(
+      gatherContent?.date
+        ? (gatherContent?.date as Dayjs).toDate()
+        : currentDate
+    );
+  }, []);
 
   const [detail, setDetail] = useState(gatherContent?.location?.sub);
   const [location, setLocation] = useState(gatherContent?.location?.main);
@@ -82,16 +96,21 @@ function WritingDate() {
             dateFormat="M월 d일 p"
             minTime={minTime}
             maxTime={maxTime}
-            renderCustomHeader={({ date }) => (
-              <div
-                style={{
-                  margin: 10,
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <span>{dayjs(date)?.format("M월 D일")}</span>
-              </div>
+            renderCustomHeader={({
+              date,
+
+              decreaseMonth,
+              increaseMonth,
+            }) => (
+              <CalendarCustomHeader>
+                <button onClick={decreaseMonth}>
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                <span>{dayjs(date)?.format("M월 D일")}</span>{" "}
+                <button onClick={increaseMonth}>
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </CalendarCustomHeader>
             )}
           />
         </Container>
@@ -108,6 +127,13 @@ function WritingDate() {
     </Layout>
   );
 }
+
+const CalendarCustomHeader = styled.div`
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--padding-min);
+`;
 
 const Container = styled.div`
   display: flex;

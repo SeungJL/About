@@ -24,8 +24,9 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
   const [userBadge, setUserBadge] = useState<IUserBadge>();
 
   const { data: userInfo } = useUserInfoQuery({
+    enabled: !isGuest,
     onSuccess(data) {
-      const { badge } = getUserBadgeScore(data.score);
+      const { badge } = getUserBadgeScore(data?.score);
       setUserBadge({ badge, color: USER_BADGES[badge] });
     },
   });

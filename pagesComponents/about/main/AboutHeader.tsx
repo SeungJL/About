@@ -16,12 +16,11 @@ function AboutHeader() {
   const [isRule, setIsRule] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
   const isNoticeAlert = useRecoilValue(isNoticeAlertState);
-  console.log(isNoticeAlert);
+
   const onClickIcon = (type: string) => {
     if (type === "promotion") setIsPromotion(true);
     if (type === "rule") setIsRule(true);
-
-    router.push(type);
+    if (type === "notice" || type === "user") router.push(type);
   };
 
   return (

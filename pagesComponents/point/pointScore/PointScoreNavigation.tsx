@@ -2,8 +2,8 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { SortUserScore } from "../../../libs/utils/userUtils";
@@ -19,7 +19,8 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
   const router = useRouter();
   const isGuest = session?.user.name === "guest";
   const [myRank, setMyRank] = useState<IRankScore>();
-  const setIsPointLoading = useSetRecoilState(isPointLoadingState);
+  const [isPointLoading, setIsPointLoading] =
+    useRecoilState(isPointLoadingState);
 
   useScoreAllQuery({
     enabled: !isGuest,
@@ -28,34 +29,41 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
       if (arrangedData.isRank)
         setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
-
-      setIsPointLoading(false);
     },
   });
 
+  useEffect(() => {
+    if (myRank || isGuest) setIsPointLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myRank]);
+
   return (
-    <Layout>
-      <Button onClick={() => router.push("/point/scoreLog")}>
-        <div>About 점수</div>
-        <div>
-          <span>{myPoint || 0}점</span>
-          <FontAwesomeIcon icon={faChevronRight} size="xs" />
-        </div>
-      </Button>
-      <Button onClick={() => router.push("/ranking")}>
-        <div>About 랭킹</div>
-        <div>
-          {myRank === undefined ? (
-            <span>New</span>
-          ) : myRank?.isRank ? (
-            <span> {myRank?.rankNum}위</span>
-          ) : (
-            <span>상위 {myRank?.percent}%</span>
+    <>
+      <Layout>
+        <Button onClick={() => router.push("/point/scoreLog")}>
+          <div>About 점수</div>
+          <div>
+            <span>{myPoint || 0}점</span>
+            <FontAwesomeIcon icon={faChevronRight} size="xs" />
+          </div>
+        </Button>
+        <Button onClick={() => router.push("/ranking")}>
+          <div>About 랭킹</div>
+          {(myRank || isGuest) && (
+            <div>
+              {isGuest ? (
+                <span>New</span>
+              ) : myRank?.isRank ? (
+                <span> {myRank?.rankNum}위</span>
+              ) : (
+                <span>상위 {myRank?.percent}%</span>
+              )}
+              <FontAwesomeIcon icon={faChevronRight} size="xs" />
+            </div>
           )}
-          <FontAwesomeIcon icon={faChevronRight} size="xs" />
-        </div>
-      </Button>
-    </Layout>
+        </Button>
+      </Layout>
+    </>
   );
 }
 

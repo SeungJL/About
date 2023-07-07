@@ -1,36 +1,25 @@
-import {
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-} from "@chakra-ui/react";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Switch } from "@chakra-ui/react";
+import { SetStateAction } from "react";
 import styled from "styled-components";
 
-function RankingCategory() {
+interface IRankingCategory {
+  isFilter: boolean;
+  setIsFilter: React.Dispatch<SetStateAction<boolean>>;
+}
+
+function RankingCategory({ isFilter, setIsFilter }: IRankingCategory) {
   return (
     <Layout>
       <span>랭킹</span>
       <span>이름</span>
-      <Popover>
-        <PopoverTrigger>
-          <FontAwesomeIcon icon={faExclamationCircle} />
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader fontSize="11px">랭킹 페이지</PopoverHeader>
-          <PopoverBody fontSize="11px">
-            해당 페이지는 현재 베타로 출시한 기능입니다. 디자인이나 기능이 아직
-            완성되지 않은 점 감안해주세요!
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-      <FilterBtn>필터</FilterBtn>
+      <SwitchWrapper>
+        <span>우리 지역</span>
+        <Switch
+          isChecked={isFilter}
+          colorScheme="mintTheme"
+          onChange={(e) => setIsFilter(e.target.checked)}
+        />
+      </SwitchWrapper>
     </Layout>
   );
 }
@@ -48,10 +37,13 @@ const Layout = styled.div`
     margin-right: 12px;
   }
 `;
-const FilterBtn = styled.button`
+const SwitchWrapper = styled.div`
   margin-left: auto;
-  border: 1.5px solid var(--font-h5);
-  padding: 0 12px;
-  font-size: 12px;
+
+  > span:first-child {
+    font-size: 11px;
+    margin-right: var(--margin-md);
+    color: var(--font-h3);
+  }
 `;
 export default RankingCategory;

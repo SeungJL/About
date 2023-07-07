@@ -56,7 +56,7 @@ function About() {
         <AboutNavigation />
         <AboutUpperBar />
         <Calendar />
-        {location !== "안양" ? (
+        {location !== "강남" ? (
           <>
             <AboutVoteNav participations={participations} />
             <AboutMain studySpaces={studySpaces} myVoteList={myVoteList} />

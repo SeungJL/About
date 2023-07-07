@@ -27,6 +27,8 @@ function Ranking() {
   const isGuest = session && session?.user.name === "guest";
   const myUid = session?.uid;
 
+  const [isFilter, setIsFilter] = useState(true);
+
   const [isRankingLoading, setIsRankingLoading] = useRecoilState(
     isRankingLoadingState
   );
@@ -59,13 +61,15 @@ function Ranking() {
       }, 800);
   }, [myUid]);
 
+  useEffect(() => {}, [isFilter]);
+
   return (
     <>
       <Header title="About 랭킹" url="/point" />
       <Layout>
         <RankingOverview myRank={myRank} length={userScoreList.length} />
         <RankingSection>
-          <RankingCategory />
+          <RankingCategory isFilter={isFilter} setIsFilter={setIsFilter} />
           <RankingMembers memberList={userScoreList} />
         </RankingSection>
       </Layout>

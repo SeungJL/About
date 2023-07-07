@@ -63,7 +63,7 @@ function RequestPromotionRewardModal({
           감사합니다!
         </Overview>
         <Title>제목: 카공 및 친목 동아리 About</Title>
-        <PromotionComponent />
+      <PromotionComponent />
         <CopyBtnBig text={PROMOTION_TEXT} />
         <Message>
           게시완료 눌러주시면 자동으로 적립됩니다!

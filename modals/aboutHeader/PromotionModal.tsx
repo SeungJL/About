@@ -69,7 +69,7 @@ function PromotionModal({ setIsModal }: IPromotionModal) {
               </div>
               <div>
                 <span>추첨 날짜</span>
-                <span>{currentMonth + 2}월 1일</span>
+                <span>{currentMonth + 2}월 7일</span>
               </div>
             </Detail>
           ) : (
