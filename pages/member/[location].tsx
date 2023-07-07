@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import safeJsonStringify from "safe-json-stringify";
@@ -14,6 +15,8 @@ import MemberSectionTitle from "../../pagesComponents/member/MemberSectionTitle"
 import MemberSkeleton from "../../pagesComponents/member/MemberSkeleton";
 import { IUser } from "../../types/user";
 function Member({ membersAll }) {
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const router = useRouter();
   const location = router.query.location;
 
@@ -48,7 +51,7 @@ function Member({ membersAll }) {
     setRestingMembers(restingArr);
     setIsLoading(false);
   }, [members]);
-  console.log(humanMembers);
+
   return (
     <>
       <MemberHeader />
@@ -58,34 +61,38 @@ function Member({ membersAll }) {
           activeMemberCnt={memberMembers?.length}
         />
         <HrDiv />
-        <MemberMyProfile />
-        <HrDiv />
-        <MembersContainer>
-          <MemberTitle>멤버 소개</MemberTitle>
-          <Section>
-            <MemberSectionTitle
-              category="활동 멤버"
-              subTitle="정식 활동 멤버입니다"
-            />
-            <MemberSectionList users={memberMembers} />
-          </Section>
-          <Section>
-            <MemberSectionTitle
-              category="수습 멤버"
-              subTitle="열심히 활동해봐요~!"
-            />
-            <MemberSectionList users={humanMembers} />
-          </Section>
-          <Section>
-            <MemberSectionTitle
-              category="휴식 멤버"
-              subTitle="휴식중인 멤버입니다"
-            />
-            <MemberSectionList users={restingMembers} />
-          </Section>
-        </MembersContainer>
-        <HrDiv />
-        <MemberRecommend />
+        {!isGuest && (
+          <>
+            <MemberMyProfile />
+            <HrDiv />
+            <MembersContainer>
+              <MemberTitle>멤버 소개</MemberTitle>
+              <Section>
+                <MemberSectionTitle
+                  category="활동 멤버"
+                  subTitle="정식 활동 멤버입니다"
+                />
+                <MemberSectionList users={memberMembers} />
+              </Section>
+              <Section>
+                <MemberSectionTitle
+                  category="수습 멤버"
+                  subTitle="열심히 활동해봐요~!"
+                />
+                <MemberSectionList users={humanMembers} />
+              </Section>
+              <Section>
+                <MemberSectionTitle
+                  category="휴식 멤버"
+                  subTitle="휴식중인 멤버입니다"
+                />
+                <MemberSectionList users={restingMembers} />
+              </Section>
+            </MembersContainer>
+            <HrDiv />
+            <MemberRecommend />
+          </>
+        )}
       </Layout>
 
       {isLoading && <MemberSkeleton />}

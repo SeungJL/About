@@ -88,9 +88,9 @@ export default function UserOverview({
 
   return (
     <>
-      <Layout isVisible={Boolean(user)}>
+      <Layout>
         <UserImg>
-          <ProfileIcon user={user || session?.user} size="xl" />
+          <ProfileIcon user={user || "guest"} size="xl" />
           <IconWrapper onClick={() => setIsProfileModal(true)}>
             <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
           </IconWrapper>
@@ -130,9 +130,7 @@ export default function UserOverview({
   );
 }
 
-const Layout = styled.div<{ isVisible: boolean }>`
-  visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
-
+const Layout = styled.div`
   height: 90px;
   padding: 4px 0px;
   display: flex;

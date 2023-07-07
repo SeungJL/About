@@ -52,7 +52,7 @@ function ImageSlider({ type, ImageContainer }: IImageSlider) {
   return (
     <>
       {ImageContainer && (
-        <Layout>
+        <Layout isHeight={type === "review"}>
           {type === "point" ? (
             <Swiper
               navigation
@@ -80,7 +80,7 @@ function ImageSlider({ type, ImageContainer }: IImageSlider) {
               navigation
               pagination={true}
               modules={[Pagination]} // enable pagination
-              style={{ width: "100%", height: "100%" }}
+              style={{ width: "100%", height: "100%", background: "pink" }}
             >
               {ImageContainer?.map((image, index) => (
                 <SwiperSlide key={index}>
@@ -157,10 +157,10 @@ function ImageSlider({ type, ImageContainer }: IImageSlider) {
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.div<{ isHeight: boolean }>`
   text-align: center;
   width: 100%;
-  height: auto;
+  height: ${(props) => (props.isHeight ? "100%" : "auto")};
 `;
 
 const PointItem = styled.div`

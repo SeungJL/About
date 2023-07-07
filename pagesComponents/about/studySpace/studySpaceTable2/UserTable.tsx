@@ -28,7 +28,7 @@ function UserTable({ attendances }: IUserTable) {
   const studyDate = useRecoilValue(studyDateState);
 
   const [userArr, setUserArr] = useState<IUserItemArr[]>([]);
-  console.log(userArr);
+ 
   useEffect(() => {
     setUserArr([]);
     attendances?.forEach((att) => {

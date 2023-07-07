@@ -19,7 +19,7 @@ function ProfileInfo({ user }: IProfileInfo) {
     <>
       <Layout>
         <Profile>
-          <ProfileIcon user={user || session?.user} size="xl" />
+          <ProfileIcon user={user || "guest"} size="xl" />
           <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>

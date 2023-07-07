@@ -5,17 +5,16 @@ import { ICON_SIZE } from "../../../constants/design";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 import { size } from "../../../types/ui";
 import { IUser } from "../../../types/user";
-import { ISessionUser } from "../../../types/user/session";
 
 interface IProfileIcon {
-  user: IUser | ISessionUser;
+  user: IUser | "guest";
   size?: size;
 }
 
 function ProfileIcon({ user, size }: IProfileIcon) {
   const avatarType = (user as IUser)?.avatar?.type;
   const avatarBg = (user as IUser)?.avatar?.bg;
-  const isAvatar = Boolean(avatarType && avatarBg);
+  const isAvatar = Boolean(avatarType && avatarBg) || user === "guest";
   const iconSize = ICON_SIZE[size];
 
   const handeErrorImage = (
@@ -26,12 +25,19 @@ function ProfileIcon({ user, size }: IProfileIcon) {
 
   const imageUrl = isAvatar
     ? `${AVATAR_ICON[avatarType]}`
-    : `${(user as IUser)?.profileImage || (user as ISessionUser)?.image}`;
+    : `${(user as IUser)?.profileImage}`;
 
   return (
     <>
       {user && (
-        <Layout avatarBg={isAvatar && AVATAR_COLOR[avatarBg]} size={iconSize}>
+        <Layout
+          avatarBg={
+            user === "guest"
+              ? AVATAR_COLOR[0]
+              : isAvatar && AVATAR_COLOR[avatarBg]
+          }
+          size={iconSize}
+        >
           <Image
             src={imageUrl}
             width={isAvatar ? 0.8 * iconSize : iconSize}

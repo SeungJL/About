@@ -53,7 +53,7 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
         </Myrank>
         <Profile isGuest={isGuest}>
           <Skeleton isLoad={!isLoading}>
-            {!isGuest && <ProfileIcon user={userInfo} size="xl" />}
+            <ProfileIcon user={userInfo || "guest"} size="xl" />
             <span>{session?.user.name}</span>
           </Skeleton>
         </Profile>
@@ -68,7 +68,7 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
           </RankBadge>
           <Score>
             <Skeleton isLoad={!isLoading}>
-              점수: &nbsp; <span>{userInfo?.score}점</span>
+              점수: &nbsp; <span>{userInfo?.score || 0}점</span>
             </Skeleton>
           </Score>
         </ScoreContainer>

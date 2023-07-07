@@ -20,11 +20,12 @@ function Notice() {
   });
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   useEffect(() => {
-    console.log(12);
+   
     if (isNoticeAlert) {
       localStorage.setItem(NOTICE_ALERT, "read");
       setIsNoticeAlert(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

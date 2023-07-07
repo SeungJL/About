@@ -40,6 +40,7 @@ function WritingDate() {
         ? (gatherContent?.date as Dayjs).toDate()
         : currentDate
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [detail, setDetail] = useState(gatherContent?.location?.sub);

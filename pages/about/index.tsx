@@ -37,7 +37,7 @@ function About() {
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySpaceFixed, participations]);
-  console.log(participations);
+
   return (
     <>
       <Seo title="About" />

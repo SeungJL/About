@@ -25,7 +25,7 @@ function ScoreLog() {
           <MyPoint>
             <span>내 점수</span>
             <FontAwesomeIcon icon={faArrowRight} />
-            <span>{data?.score}점</span>
+            <span>{data?.score || 0}점</span>
           </MyPoint>
           <Container>
             <LogHeader>

@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import { isMember } from "../libs/utils/authUtils";
 
 function Index() {
   return null;
@@ -12,15 +11,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
 
   if (session) {
-    if (!isMember(session.role as string)) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: "/forbidden",
-        },
-      };
-    }
-
     return {
       redirect: {
         permanent: false,

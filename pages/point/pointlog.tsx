@@ -25,7 +25,7 @@ function PointLog() {
           <MyPoint>
             <span>내 점수</span>
             <FontAwesomeIcon icon={faArrowRight} />
-            <span>{data?.point} point</span>
+            <span>{data?.point || 0} point</span>
           </MyPoint>
           <Container>
             <LogHeader>
