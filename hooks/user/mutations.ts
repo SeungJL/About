@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { IAvatar, IUserComment, IUserRegister } from "../../types/user";
+import { IAvatar, IUserComment, IUserRegister, Role } from "../../types/user";
 import { IApplyRest } from "../../types/userRequest";
 
 export const useUserRegisterMutation = (
@@ -81,4 +81,12 @@ export const useUserAvatarMutation = (
     await axios.post(`${SERVER_URI}/user/avatar`, info);
   }, options);
 
-
+export const useUserRoleMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, Role>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, Role>(async (role) => {
+    await axios.patch(`${SERVER_URI}/user/role`, { role });
+  }, options);

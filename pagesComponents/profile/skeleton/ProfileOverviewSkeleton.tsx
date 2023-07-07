@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Skeleton from "../../../components/common/Skeleton";
 
-function FriendProfileSkeleton() {
+function ProfileOverviewSkeleton() {
   return (
     <Layout>
       <Top>
@@ -152,4 +152,4 @@ const Comment = styled.div`
   width: 160px;
 `;
 
-export default FriendProfileSkeleton;
+export default ProfileOverviewSkeleton;

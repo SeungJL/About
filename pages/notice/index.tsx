@@ -1,10 +1,13 @@
 import { Accordion } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import Seo from "../../components/Seo";
+import { NOTICE_ALERT } from "../../constants/localStorage";
 import NoticeItem from "../../pagesComponents/notice/NoticeItem";
+import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
 import { noticeData } from "../../storage/notice";
 
 function Notice() {
@@ -15,6 +18,14 @@ function Notice() {
     if (Number(a.id) < Number(b.id)) return 1;
     return 0;
   });
+  const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
+  useEffect(() => {
+    console.log(12);
+    if (isNoticeAlert) {
+      localStorage.setItem(NOTICE_ALERT, "read");
+      setIsNoticeAlert(false);
+    }
+  }, []);
 
   return (
     <NoticeLayout

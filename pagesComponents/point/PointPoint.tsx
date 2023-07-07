@@ -30,7 +30,9 @@ function PointPoint() {
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         </Button>
-        <ImageSlider type="point" ImageContainer={ImageContainer} />
+        <Wrapper>
+          <ImageSlider type="point" ImageContainer={ImageContainer} />
+        </Wrapper>
       </Store>
     </Layout>
   );
@@ -39,8 +41,8 @@ function PointPoint() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  padding: 14px;
+  margin-top: var(--margin-max);
+  padding: var(--padding-main);
   border-radius: var(--border-radius-main);
   background-color: white;
 
@@ -51,7 +53,7 @@ const Button = styled.button`
   font-weight: 700;
   display: flex;
   justify-content: space-between;
-  padding: 12px 8px;
+  padding: var(--padding-sub) var(--padding-md);
   > div:first-child {
     font-size: 14px;
   }
@@ -62,6 +64,10 @@ const Button = styled.button`
       margin-right: 6px;
     }
   }
+`;
+
+const Wrapper = styled.div`
+  margin-top: var(--margin-sub);
 `;
 
 const Store = styled.div``;

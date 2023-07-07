@@ -20,6 +20,7 @@ function Gather() {
       <GatherHeader />
       <Layout>
         <GatherReviewNav />
+        <HrDiv />
         <GatherCategoryBar category={category} setCategory={setCategory} />
         <GatherMain category={category} />
         {!isGuest && <WritingIcon url="/gather/writing/category" />}
@@ -30,6 +31,11 @@ function Gather() {
 
 const Layout = styled.div`
   position: relative;
+`;
+
+const HrDiv = styled.div`
+  height: 8px;
+  background-color: var(--border-color-light);
 `;
 
 export default Gather;

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -10,6 +11,7 @@ import {
   PROMOTION_POP_UP2,
   USER_GUIDE,
 } from "../../constants/localStorage";
+import { useUserRoleMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
 import PromotionModal from "../../modals/aboutHeader/PromotionModal";
@@ -45,6 +47,14 @@ export default function UserSetting() {
     },
   });
 
+  const { mutate: setRole } = useUserRoleMutation();
+  useEffect(() => {
+    const rest = userData?.rest;
+    if (!rest) return;
+    if (dayjs() < dayjs(rest?.endDate)) setRole("resting");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
+
   useEffect(() => {
     if (!session || isLoading) return;
     if (!location) {
@@ -55,7 +65,7 @@ export default function UserSetting() {
     if (isGuest) return;
 
     let popupCnt = 0;
-    if (!ensureLocalStorage(NOTICE_ALERT)) setIsNoticeAlert(true);
+    if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
     if (!ensureLocalStorage(PROFILE_POP_UP) && myProfileNull) {
       setIsProfile(true);
       popupCnt++;

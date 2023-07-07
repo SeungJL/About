@@ -1,14 +1,14 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import KakaoProvider from "next-auth/providers/kakao";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import KakaoProvider from "next-auth/providers/kakao";
 import clientPromise from "../../../libs/mongodb";
 
 import dbConnect from "../../../libs/dbConnect";
 import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
-import { User } from "../../../models/user";
 import { Account } from "../../../models/account";
-import { IRole } from "../../../types/user";
+import { User } from "../../../models/user";
+import { Role } from "../../../types/user";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -109,7 +109,7 @@ export const authOptions: NextAuthOptions = {
       } else {
         session.uid = token.uid.toString();
         session.user.name = token.name;
-        session.role = token.role as IRole;
+        session.role = token.role as Role;
         session.error = token.error;
         session.isActive = token.isActive as boolean;
       }

@@ -3,34 +3,25 @@ import { faBalanceScale, faGift } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
-import { NOTICE_ALERT } from "../../../constants/localStorage";
 import PromotionModal from "../../../modals/aboutHeader/PromotionModal";
 import StudyRuleModal from "../../../modals/aboutHeader/StudyRuleModal";
-
 import { isNoticeAlertState } from "../../../recoil/renderTrigger2Atoms";
 
 function AboutHeader() {
   const router = useRouter();
 
-  const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
-
   const [isRule, setIsRule] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
-
+  const isNoticeAlert = useRecoilValue(isNoticeAlertState);
+  console.log(isNoticeAlert);
   const onClickIcon = (type: string) => {
     if (type === "promotion") setIsPromotion(true);
     if (type === "rule") setIsRule(true);
-    if (type === "notice") {
-      router.push(`/notice`);
-      if (isNoticeAlert) {
-        localStorage.setItem(NOTICE_ALERT, "read");
-        setIsNoticeAlert(false);
-      }
-    }
-    if (type === "user") router.push(`/user`);
+
+    router.push(type);
   };
 
   return (

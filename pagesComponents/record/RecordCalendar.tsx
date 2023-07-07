@@ -18,7 +18,7 @@ interface IRecordCalendar {
 function RecordCalendar({ month, monthData }: IRecordCalendar) {
   const dayjsMonth = dayjs().month(month);
   const isRecordLoading = useRecoilValue(isRecordLoadingState);
-
+  console.log(monthData);
   return (
     <>
       {!isRecordLoading ? (

@@ -8,10 +8,10 @@ import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import { getUserBadgeScore } from "../../../libs/utils/userUtils";
 import { IUser, USER_BADGES } from "../../../types/user";
 
-interface IProfileOverview {
+interface IProfileInfo {
   user: IUser;
 }
-function ProfileOverview({ user }: IProfileOverview) {
+function ProfileInfo({ user }: IProfileInfo) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const userBadge = getUserBadgeScore(user?.score);
@@ -20,7 +20,7 @@ function ProfileOverview({ user }: IProfileOverview) {
       <Layout>
         <Profile>
           <ProfileIcon user={user || session?.user} size="xl" />
-          <ProfileInfo>
+          <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>
               <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
@@ -28,7 +28,7 @@ function ProfileOverview({ user }: IProfileOverview) {
               </Badge>
             </div>
             <span>{!isGuest ? "활동중" : "게스트"}</span>
-          </ProfileInfo>
+          </ProfileName>
           {user && user?.uid !== session?.uid && (
             <HeartWrapper>
               <FontAwesomeIcon icon={faHeart} size="xl" />
@@ -48,7 +48,7 @@ const Profile = styled.div`
   align-items: center;
 `;
 
-const ProfileInfo = styled.div`
+const ProfileName = styled.div`
   margin-left: 12px;
   flex: 1;
   display: flex;
@@ -80,4 +80,4 @@ const Comment = styled.div`
   font-weight: 600;
 `;
 
-export default ProfileOverview;
+export default ProfileInfo;

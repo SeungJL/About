@@ -28,3 +28,8 @@ export const isStudyDetailLoadingState = atom({
   key: "isStudyDetailLoading",
   default: true,
 });
+
+export const isMemberLoadingState = atom({
+  key: "isMemberLoading",
+  default: true,
+});

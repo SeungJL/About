@@ -44,7 +44,7 @@ export interface IUser extends Document {
   name: string;
   point: number;
   profileImage: string;
-  role: IRole;
+  role: Role;
   score: number;
   comment: string;
   rest: restType;
@@ -108,9 +108,8 @@ export interface IInterests {
   second?: string;
 }
 
-export type IRole = "previliged" | "member";
 export interface IUserRegister extends IRegisterForm {
-  role?: IRole;
+  role?: Role;
   isActive?: boolean;
 }
 export const USER_BADGES = {
@@ -149,4 +148,20 @@ export interface IRankScore {
 export interface IAvatar {
   type: number;
   bg: number;
+}
+
+export type Role =
+  | "noMember"
+  | "waiting"
+  | "human"
+  | "member"
+  | "manager"
+  | "previliged"
+  | "resting";
+
+export interface IUserProfileSummary {
+  avatar: IAvatar;
+  uid: string;
+  name: string;
+  profileImage: string;
 }

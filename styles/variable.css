@@ -28,12 +28,12 @@
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
   --border-headline: 1px solid var(--font-h3);
-  --border-color: var(--font-h65);
+  --border-color-light: var(--font-h65);
 
   --border-main: 1.5px solid var(--font-h5);
-  --border-main-light: 1.5px solid var(--border-color);
+  --border-main-light: 1.5px solid var(--border-color-light);
   --border-sub: 1px solid var(--font-h5);
-  --border-sub-light: 1px solid var(--border-color);
+  --border-sub-light: 1px solid var(--border-color-light);
 
   --border-mint: 1.5px solid var(--color-mint);
   --border-radius-sub: 6px;
@@ -42,10 +42,13 @@
   --padding-max: 20px;
   --padding-main: 16px;
   --padding-sub: 12px;
+  --padding-md: 8px;
   --padding-min: 4px;
+
   --margin-max: 20px;
   --margin-main: 16px;
   --margin-sub: 12px;
+  --margin-md: 8px;
   --margin-min: 4px;
 
   --header-height: 46px;

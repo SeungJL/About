@@ -13,7 +13,7 @@ import styled from "styled-components";
 import { useFailToast } from "../../hooks/ui/CustomToast";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 
-function FriendRecommend() {
+function MemberRecommend() {
   const router = useRouter();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -23,7 +23,6 @@ function FriendRecommend() {
       failToast("guest");
       return;
     }
-
     router.push(`/friend/${idx}`);
   };
   return (
@@ -60,15 +59,16 @@ function FriendRecommend() {
 }
 
 const Layout = styled.div`
-  padding: 0 14px;
-  margin-top: 14px;
+  padding-top: var(--padding-sub);
+  padding-bottom: var(--padding-main);
+  margin: 0 var(--margin-main);
 `;
 
 const Title = styled.span`
   font-weight: 600;
   font-size: 16px;
   display: inline-block;
-  margin-bottom: 2px;
+  margin-bottom: var(--margin-sub);
 `;
 
 const Nav = styled.nav`
@@ -89,4 +89,4 @@ const Button = styled.button`
   }
 `;
 
-export default FriendRecommend;
+export default MemberRecommend;

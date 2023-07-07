@@ -6,17 +6,17 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import Header from "../../components/layouts/Header";
-import { useUserInfoQuery } from "../../hooks/user/queries";
-import dbConnect from "../../libs/dbConnect";
-import { birthToDayjs } from "../../libs/utils/dateUtils";
-import { birthToAge } from "../../libs/utils/membersUtil";
-import { User } from "../../models/user";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
-import { transferUserDataState } from "../../recoil/transferDataAtoms";
-import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
-import { IUser } from "../../types/user";
+import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import Header from "../../../components/layouts/Header";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
+import dbConnect from "../../../libs/dbConnect";
+import { birthToDayjs } from "../../../libs/utils/dateUtils";
+import { birthToAge } from "../../../libs/utils/membersUtil";
+import { User } from "../../../models/user";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../recoil/transferDataAtoms";
+import { FRIEND_RECOMMEND_CATEGORY } from "../../../storage/friend";
+import { IUser } from "../../../types/user";
 
 function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();

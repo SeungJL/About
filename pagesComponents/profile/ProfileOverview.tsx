@@ -3,15 +3,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { IUser } from "../../types/user";
-import ProfileOverview from "./friendMyProfile/ProfileOverview";
-import ProfileRelation from "./friendMyProfile/ProfileRelation";
-import FriendProfileSkeleton from "./skeleton/FriendProfileSkeleton";
+import ProfileInfo from "./profileOverview/ProfileInfo";
 
-interface IFriendProfile {
+import ProfileRelation from "./profileOverview/ProfileRelation";
+import ProfileOverviewSkeleton from "./skeleton/ProfileOverviewSkeleton";
+
+interface IProfileOverview {
   user?: IUser;
 }
 
-function FriendProfile({ user }: IFriendProfile) {
+function ProfileOverview({ user }: IProfileOverview) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const [userData, setUserData] = useState<IUser>(user);
@@ -30,11 +31,11 @@ function FriendProfile({ user }: IFriendProfile) {
     <>
       {!isLoading ? (
         <Layout>
-          <ProfileOverview user={userData} />
+          <ProfileInfo user={userData} />
           <ProfileRelation />
         </Layout>
       ) : (
-        <FriendProfileSkeleton />
+        <ProfileOverviewSkeleton />
       )}
     </>
   );
@@ -46,4 +47,4 @@ const Layout = styled.div`
   flex-direction: column;
 `;
 
-export default FriendProfile;
+export default ProfileOverview;

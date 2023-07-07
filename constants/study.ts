@@ -26,3 +26,8 @@ export const TIME_SELECTOR_UNIT = Array.from({ length: 25 }, (_, index) => {
 }).slice(0, -1);
 
 export const TIME_SELECTOR_MINUTES = ["00", "30"];
+
+export const LOCATION_OPEN_DATE = {
+  수원: "2023-04-07",
+  양천: "2023-04-19",
+};

@@ -64,7 +64,7 @@ const Layout = styled.div``;
 
 const HrDiv = styled.div`
   height: 1px;
-  background-color: var(--border-color);
+  background-color: var(--border-color-light);
 `;
 
 export default StudySpace;

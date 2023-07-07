@@ -1,9 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
-import styled from "styled-components";
-
-import { useRouter } from "next/router";
-
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import {
   faCalendarCheck,
@@ -12,26 +6,37 @@ import {
   faStar,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../../constants/design";
 import { GATHER_ALERT, POINT_ALERT } from "../../../constants/localStorage";
+import { userLocationState } from "../../../recoil/userAtoms";
 function AboutNavigation() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const router = useRouter();
+  const location = useRecoilValue(userLocationState);
 
   const [isGatherAlert, setIsGatherAlert] = useState(false);
   const [isPointAlert, setIsPointAlert] = useState(false);
 
   useEffect(() => {
     if (isGuest) return;
-    if (!localStorage.getItem(POINT_ALERT)) setIsPointAlert(true);
+    // if (!localStorage.getItem(POINT_ALERT)) setIsPointAlert(true);
     if (!localStorage.getItem(GATHER_ALERT)) setIsGatherAlert(true);
   }, [isGuest]);
 
   const onClick = (type: string) => {
     if (type === "gather") localStorage.setItem(GATHER_ALERT, "read");
     if (type === "point") localStorage.setItem(POINT_ALERT, "read");
+    if (type === "member") {
+      router.push(`/member/${location}`);
+      return;
+    }
     router.push(type);
   };
 
@@ -44,7 +49,7 @@ function AboutNavigation() {
               icon={faCalendarCheck}
               size="xl"
               color={VOTE_TABLE_COLOR[1]}
-            />{" "}
+            />
           </Button>
           <span>기록</span>
         </Item>
@@ -64,18 +69,25 @@ function AboutNavigation() {
                 />
               </IconWrapper>
             )}
-          </Button>{" "}
+          </Button>
           <span>포인트</span>
         </Item>
         <Item>
-          <Button onClick={() => router.push("friend")}>
+          <Button onClick={() => onClick("member")}>
             <FontAwesomeIcon
               icon={faUsers}
               size="xl"
               color={VOTE_TABLE_COLOR[3]}
             />
-          </Button>{" "}
-          <span>친구</span>
+            <IconWrapper>
+              <FontAwesomeIcon
+                icon={faStar}
+                color="var(--color-red)"
+                size="sm"
+              />
+            </IconWrapper>
+          </Button>
+          <span>멤버</span>
         </Item>
         <Item>
           <Button onClick={() => onClick("gather")}>
@@ -91,13 +103,13 @@ function AboutNavigation() {
                 size="sm"
               />
             </IconWrapper>
-          </Button>{" "}
+          </Button>
           <span>모임</span>
         </Item>
         <Item>
           <Button onClick={() => router.push("plaza")}>
             <FontAwesomeIcon icon={faPlaystation} size="xl" />
-          </Button>{" "}
+          </Button>
           <span>광장</span>
         </Item>
       </Layout>
