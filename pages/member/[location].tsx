@@ -46,6 +46,7 @@ function Member({ membersAll }) {
       if (who.role === "human") humanArr.push(who);
       if (who.role === "resting") restingArr.push(who);
     });
+
     setMemberMembers(memberArr);
     setHumanMembers(humanArr);
     setRestingMembers(restingArr);

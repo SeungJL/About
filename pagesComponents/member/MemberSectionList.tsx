@@ -7,6 +7,7 @@ interface IMemberMember {
 }
 
 function MemberSectionList({ users }: IMemberMember) {
+
   return (
     <Layout>
       <ImageSlider type="member" ImageContainer={users} />

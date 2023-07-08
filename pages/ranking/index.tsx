@@ -7,6 +7,7 @@ import {
   useScoreAllQuery,
   useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
+import { useUserLocationQuery } from "../../hooks/user/queries";
 import { SortUserScore } from "../../libs/utils/userUtils";
 import RankingCategory from "../../pagesComponents/ranking/RankingCategory";
 import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
@@ -27,7 +28,11 @@ function Ranking() {
   const isGuest = session && session?.user.name === "guest";
   const myUid = session?.uid;
 
+  const { data: location } = useUserLocationQuery();
+  console.log(location);
+
   const [isFilter, setIsFilter] = useState(true);
+  const [userArr, setUserArr] = useState<IScore[]>();
 
   const [isRankingLoading, setIsRankingLoading] = useRecoilState(
     isRankingLoadingState
@@ -48,6 +53,7 @@ function Ranking() {
         data,
         myScore
       );
+      setUserArr(scoreArr);
       setUserScoreList(scoreArr);
       setMyRank({ rankNum, percent, isRank, score: myScore });
       setIsRankingLoading(false);
@@ -61,7 +67,14 @@ function Ranking() {
       }, 800);
   }, [myUid]);
 
-  useEffect(() => {}, [isFilter]);
+  useEffect(() => {
+    if (isFilter) {
+      const filterData = userArr.filter((who) => who?.location === location);
+      setUserScoreList(filterData);
+    } else {
+      setUserScoreList(userArr);
+    }
+  }, [isFilter, location, userArr]);
 
   return (
     <>

@@ -15,6 +15,20 @@ function ProfileInfo({ user }: IProfileInfo) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const userBadge = getUserBadgeScore(user?.score);
+
+  const status =
+    user?.role === "human"
+      ? "수습멤버"
+      : user?.role === "manager"
+      ? "운영진"
+      : user?.role === "member"
+      ? "동아리원"
+      : user?.role === "previliged"
+      ? "관리자"
+      : user?.role === "resting"
+      ? "휴식멤버"
+      : "외부인";
+
   return (
     <>
       <Layout>
@@ -27,7 +41,7 @@ function ProfileInfo({ user }: IProfileInfo) {
                 {userBadge?.badge}
               </Badge>
             </div>
-            <span>{!isGuest ? "활동중" : "게스트"}</span>
+            <span>{!isGuest ? status : "게스트"}</span>
           </ProfileName>
           {user && user?.uid !== session?.uid && (
             <HeartWrapper>

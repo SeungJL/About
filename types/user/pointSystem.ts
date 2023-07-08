@@ -1,7 +1,10 @@
+import { Location } from "../system";
+
 export interface IScore {
   name?: string;
   score: number;
   uid?: string;
+  location?: Location;
 }
 
 export interface IWarningScore {
