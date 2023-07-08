@@ -69,7 +69,7 @@ function Ranking() {
 
   useEffect(() => {
     if (isFilter) {
-      const filterData = userArr.filter((who) => who?.location === location);
+      const filterData = userArr?.filter((who) => who?.location === location);
       setUserScoreList(filterData);
     } else {
       setUserScoreList(userArr);
@@ -80,7 +80,7 @@ function Ranking() {
     <>
       <Header title="About 랭킹" url="/point" />
       <Layout>
-        <RankingOverview myRank={myRank} length={userScoreList.length} />
+        <RankingOverview myRank={myRank} length={userScoreList?.length} />
         <RankingSection>
           <RankingCategory isFilter={isFilter} setIsFilter={setIsFilter} />
           <RankingMembers memberList={userScoreList} />
