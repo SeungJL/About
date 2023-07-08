@@ -1,5 +1,3 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 interface IMemberSectionTitle {
@@ -14,10 +12,10 @@ function MemberSectionTitle({ category, subTitle }: IMemberSectionTitle) {
         <span>{category}</span>
         <span>{subTitle}</span>
       </TitleWrapper>
-      <Button>
+      {/* <Button>
         <span>더보기</span>
         <FontAwesomeIcon icon={faChevronRight} />
-      </Button>
+      </Button> */}
     </Layout>
   );
 }
