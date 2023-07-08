@@ -37,6 +37,7 @@ function Member({ membersAll }) {
     let humanArr = [];
     let restingArr = [];
     members?.forEach((who) => {
+      if (who?.name === "guest") return;
       if (
         who.role === "member" ||
         who.role === "previliged" ||
@@ -46,7 +47,6 @@ function Member({ membersAll }) {
       if (who.role === "human") humanArr.push(who);
       if (who.role === "resting") restingArr.push(who);
     });
-
     setMemberMembers(memberArr);
     setHumanMembers(humanArr);
     setRestingMembers(restingArr);
