@@ -12,28 +12,24 @@ const TimeSelector = ({ times, setTimes, type }: ITimeSelector) => {
   };
   return (
     <>
-      {type === "study" ? (
-        <Layout></Layout>
-      ) : (
-        <Layout>
-          <Container>
-            <Name>시작 시간: </Name>
-            <TimeSelectorDual
-              time={times.start}
-              setTime={onChangeTimeStart}
-              timeArr={TIME_SELECTOR_START}
-            />
-          </Container>
-          <Container>
-            <Name>종료 시간: </Name>
-            <TimeSelectorDual
-              time={times.end}
-              setTime={onChangeTimeEnd}
-              timeArr={TIME_SELECTOR_END}
-            />
-          </Container>
-        </Layout>
-      )}
+      <Layout>
+        <Container>
+          <Name>시작 시간: </Name>
+          <TimeSelectorDual
+            time={times.start}
+            setTime={onChangeTimeStart}
+            timeArr={TIME_SELECTOR_START}
+          />
+        </Container>
+        <Container>
+          <Name>종료 시간: </Name>
+          <TimeSelectorDual
+            time={times.end}
+            setTime={onChangeTimeEnd}
+            timeArr={TIME_SELECTOR_END}
+          />
+        </Container>
+      </Layout>
     </>
   );
 };
@@ -47,10 +43,9 @@ const Layout = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   > div:first-child {
-    margin-bottom: 12px;
+    margin-bottom: var(--margin-sub);
   }
 `;
 
@@ -59,7 +54,7 @@ const Name = styled.span`
   font-weight: 600;
   color: var(--font-h2);
   display: inline-block;
-  margin-right: 12px;
+  margin-right: var(--margin-sub);
 `;
 
 export default TimeSelector;

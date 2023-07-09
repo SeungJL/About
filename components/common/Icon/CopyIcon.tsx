@@ -7,9 +7,9 @@ interface ICopyBtn {
   text: string;
 }
 
-const handleClickCopy = (text: string, toast: Function) => {
+const handleClickCopy = async (text: string, toast: Function) => {
   try {
-    navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(text);
     toast({
       title: "복사 완료",
       status: "success",

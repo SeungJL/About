@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import { SetStateAction, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -97,9 +98,9 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
               times={time}
             />
           </ModalMain>
-          <ModalFooterNav>
-            <button onClick={onSubmit}>제출</button>
-          </ModalFooterNav>
+          <Button colorScheme="mintTheme" onClick={onSubmit}>
+            제출
+          </Button>
         </Layout>
       ) : (
         data && (
@@ -144,9 +145,9 @@ const Subplaces = styled.div`
 const NoPreferenceLayout = styled(ModalMd)``;
 
 const Container = styled.div`
-  line-height: 2.5;
+  line-height: 2;
   font-size: 14px;
-  margin-bottom: 8px;
+
   > div {
     > div {
       > b {
@@ -157,8 +158,6 @@ const Container = styled.div`
     }
   }
 `;
-
-const Date = styled.div``;
 
 const PlaceInfo = styled.div`
   display: flex;

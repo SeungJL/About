@@ -24,7 +24,7 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
   return (
     <Layout>
       <Select
-        mr="6px"
+        mr="var(--margin-md)"
         name="hour"
         value={time.hours}
         placeholder="시간"
@@ -38,7 +38,7 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
       </Select>
       :
       <Select
-        ml="6px"
+        ml="var(--margin-md)"
         name="minute"
         defaultValue={String(time.minutes).padStart(2, "0")}
         placeholder="분"
@@ -57,9 +57,6 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
 const Layout = styled.div`
   display: flex;
   align-items: center;
-  > select {
-    margin: 0 6px;
-  }
 `;
 
 const Option = styled.option``;
