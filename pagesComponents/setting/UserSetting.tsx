@@ -11,6 +11,7 @@ import {
   PROMOTION_POP_UP2,
   USER_GUIDE,
 } from "../../constants/localStorage";
+import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserRoleMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
@@ -47,13 +48,17 @@ export default function UserSetting() {
     },
   });
 
+  const { data: arrivedCntTotal } = useStudyArrivedCntQuery();
   const { mutate: setRole } = useUserRoleMutation();
+
   useEffect(() => {
+    if (userData?.role === "human" && arrivedCntTotal)
+      if (arrivedCntTotal[session?.uid] >= 2) setRole("member");
     const rest = userData?.rest;
     if (!rest) return;
     if (dayjs() < dayjs(rest?.endDate)) setRole("resting");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData]);
+  }, [userData, arrivedCntTotal]);
 
   useEffect(() => {
     if (!session || isLoading) return;

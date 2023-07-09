@@ -15,6 +15,7 @@ import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 
 function MemberRecommend() {
   const router = useRouter();
+  const locationUrl = router.query.location;
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const failToast = useFailToast();
@@ -23,7 +24,7 @@ function MemberRecommend() {
       failToast("guest");
       return;
     }
-    router.push(`/friend/${idx}`);
+    router.push(`/member/${locationUrl}/${idx}`);
   };
   return (
     <Layout>

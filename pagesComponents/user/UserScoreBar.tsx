@@ -12,9 +12,9 @@ function UserScoreBar() {
   const isGuest = session?.user?.name === "guest";
   const { data: myPoint } = usePointQuery({ enabled: !isGuest });
   const { data: myDeposit } = useDepositQuery({ enabled: !isGuest });
+
   return (
     <Layout>
-
       <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
         <span>보유 포인트</span>
         <span>{myPoint ? myPoint?.point : 0} point</span>

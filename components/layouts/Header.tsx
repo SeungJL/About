@@ -12,9 +12,9 @@ interface IHeader {
 
 const Header = ({ title, url, children }: IHeader) => {
   const router = useRouter();
-
+  console.log(url);
   const handleClick = () => {
-    if (url) router.push(url);
+    if (url) router.push(`/${url}`);
     else router.push(DEFAULT_BACK_URL);
   };
 

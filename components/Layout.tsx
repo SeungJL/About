@@ -101,6 +101,7 @@ function Layout({ children }: ILayout) {
 const LayoutContainer = styled.div`
   color: var(--font-h1);
   background-color: var(--font-h8);
+  min-height: 645px;
 `;
 
 const GuestNav = styled.nav`

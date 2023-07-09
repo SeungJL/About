@@ -27,6 +27,7 @@ export const nameToKr = (name) => {
 };
 
 export const birthToAge = (birth: string) => {
+  if (!birth) return;
   const yearSlice = birth?.slice(0, 2);
   const birthYear = +yearSlice < 50 ? "20" + yearSlice : "19" + yearSlice;
   const currentYear = dayjs().year();

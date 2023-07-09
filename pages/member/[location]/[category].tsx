@@ -22,11 +22,13 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();
   const idx = Number(router.query?.category);
 
+  const locationUrl = router?.query?.location;
+
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
   const { data, isLoading } = useUserInfoQuery();
-
+  console.log(locationUrl);
   const setUserData = useSetRecoilState(transferUserDataState);
 
   useEffect(() => {
@@ -78,7 +80,10 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
 
   return (
     <>
-      <Header title={FRIEND_RECOMMEND_CATEGORY[idx]} url="/friend" />
+      <Header
+        title={FRIEND_RECOMMEND_CATEGORY[idx]}
+        url={`member/${locationUrl}`}
+      />
       <Layout>
         {filterMember?.map((who) => (
           <Item key={who?.uid} onClick={() => onClickProfile(who)}>

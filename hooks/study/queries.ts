@@ -5,6 +5,7 @@ import { SERVER_URI } from "../../constants/system";
 import { VOTE_GET } from "../../libs/queryKeys";
 import { dayjsToStr } from "../../libs/typeConverter";
 import { IStudyPreferencesQuery } from "../../modals/study/StudyQuickVoteModal";
+import { IArrivedTotal } from "../../pagesComponents/setting/UserSetting";
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
@@ -118,6 +119,25 @@ export const useStudyPreferenceQuery = (
     async () => {
       const res = await axios.get<IStudyPreferencesQuery>(
         `${SERVER_URI}/user/preference`
+      );
+      return res.data;
+    },
+    options
+  );
+interface IArrivedTotal {
+  [key: number]: number;
+}
+export const useStudyArrivedCntQuery = (
+  options?: Omit<
+    UseQueryOptions<IArrivedTotal, AxiosError, IArrivedTotal>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery(
+    "arriveCnt",
+    async () => {
+      const res = await axios.get<IArrivedTotal>(
+        `${SERVER_URI}/vote/arriveCnt`
       );
       return res.data;
     },

@@ -8,29 +8,27 @@ interface ICopyBtn {
 }
 
 const handleClickCopy = (text: string, toast: Function) => {
-  navigator.clipboard.writeText(text).then(
-    () => {
-      toast({
-        title: "복사 완료",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-        variant: "left-accent",
-      });
-    },
-    (error) => {
-      console.error("Failed to copy text:", error);
-      toast({
-        title: "복사 실패",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-        variant: "left-accent",
-      });
-    }
-  );
+  try {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "복사 완료",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "bottom",
+      variant: "left-accent",
+    });
+  } catch (error) {
+    console.error("Failed to copy text:", error);
+    toast({
+      title: "복사 실패",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+      position: "bottom",
+      variant: "left-accent",
+    });
+  }
 };
 
 const ClickableIcon = styled(FontAwesomeIcon)`
