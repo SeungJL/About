@@ -19,7 +19,8 @@ function RecordDetailOverview({ children }: IRecordDetailOverview) {
       {children}
       <Container>
         <Title>{isFirst ? `${dayjs().month() + 1}월 참여` : "전체 참여"}</Title>
-        <Value>{isFirst ? 22 : myArrivedCnt[session?.uid]}</Value>
+        <Value>{isFirst ? 22 : myArrivedCnt[session?.uid as string]}</Value>
+        <ChangeBtn>전환</ChangeBtn>
       </Container>
     </Layout>
   );
@@ -28,14 +29,18 @@ function RecordDetailOverview({ children }: IRecordDetailOverview) {
 const Layout = styled.div`
   height: 160px;
   background-color: var(--color-mint);
+  color: white;
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Title = styled.span``;
 
 const Value = styled.span``;
 
-const changeBtn = styled.button``;
+const ChangeBtn = styled.button``;
 
 export default RecordDetailOverview;
