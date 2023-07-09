@@ -10,6 +10,7 @@ function RecordDetailHeader() {
     <Layout>
       <div onClick={() => router.back()}>
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
+        <Title>내 스터디 분석</Title>
       </div>
     </Layout>
   );
@@ -24,4 +25,9 @@ const Layout = styled.div`
   background-color: var(--color-mint);
 `;
 
+const Title = styled.span`
+  font-size: 17px;
+  font-weight: 600;
+  margin-left: var(--margin-main);
+`;
 export default RecordDetailHeader;

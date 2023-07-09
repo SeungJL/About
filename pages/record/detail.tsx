@@ -9,19 +9,12 @@ function Detail() {
       <RecordDetailHeader />
       <Layout>
         <RecordDetailOverview />
-
         <RecordDetailSummary />
         <RecordDetailGraph />
       </Layout>
     </>
   );
 }
-
-const HeaderWrapper = styled.div`
-  > div {
-    color: white !important;
-  }
-`;
 
 const Layout = styled.div``;
 

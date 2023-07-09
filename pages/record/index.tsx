@@ -33,6 +33,7 @@ function Record() {
     dateRange?.endDate,
     {
       onSuccess(data) {
+        console.log(3, data);
         setOpenData(data);
       },
     }
