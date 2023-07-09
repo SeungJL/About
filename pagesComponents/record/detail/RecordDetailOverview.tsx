@@ -1,5 +1,7 @@
+import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
+import { useStudyCheckRecordsQuery } from "../../../hooks/study/queries";
 interface IRecordDetailOverview {
   children: React.ReactNode;
 }
@@ -7,11 +9,15 @@ interface IRecordDetailOverview {
 function RecordDetailOverview({ children }: IRecordDetailOverview) {
   const [isFirst, setIsFirst] = useState();
 
+//   const {data}=useStudyCheckRecordsQuery();
   return (
     <Layout>
       {children}
       <Container>
-        <Title></Title>
+        <Title>{isFirst ? `${dayjs().month() + 1}월 참여` : "전체 참여"}</Title>
+        <Value>
+
+        </Value>
       </Container>
     </Layout>
   );
