@@ -125,7 +125,7 @@ export const useStudyPreferenceQuery = (
     options
   );
 interface IArrivedTotal {
-  [key: number]: number;
+  [key: string]: number;
 }
 export const useStudyArrivedCntQuery = (
   options?: Omit<

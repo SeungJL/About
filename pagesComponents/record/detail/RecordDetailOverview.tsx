@@ -1,16 +1,15 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-function RecordDetailOverview(){
-
-  return(
-    <Layout>
-
-    </Layout>
-  );
+interface IRecordDetailOverview {
+  children: React.ReactNode;
 }
 
-const Layout=styled.div``;
+function RecordDetailOverview({ children }: IRecordDetailOverview) {
+  return <Layout>{children}</Layout>;
+}
 
-
+const Layout = styled.div`
+  height: 160px;
+`;
 
 export default RecordDetailOverview;
