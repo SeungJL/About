@@ -24,8 +24,10 @@ function GatherBlockHeader({
         return null;
     }
   };
- 
-  const openLocation = locationMain === "홍대" ? "양천구" : "수원";
+
+  const openLocation =
+    locationMain === "홍대" || locationMain === "가평" ? "양천구" : "수원";
+  console.log(openLocation);
   return (
     <Layout>
       <Status status={status}>{getStatusText(status)}</Status>·

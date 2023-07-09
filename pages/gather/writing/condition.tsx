@@ -71,7 +71,9 @@ function WritingCondition() {
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
   const { mutate } = useGatherContentMutation({
-    onSuccess(data) {},
+    onSuccess(data) {
+      console.log("Suc");
+    },
   });
 
   const { data } = useUserInfoQuery();
