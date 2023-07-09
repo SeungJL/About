@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -10,7 +11,6 @@ import { IDateRange } from "../../pages/record";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { IArrivedData } from "../../types/studyRecord";
 import RecordOverviewSkeleton from "./skeleton/RecordOverviewSkeleton";
-
 interface IRecordOverview {
   dateRange: IDateRange;
   openData: IArrivedData[];
@@ -18,6 +18,7 @@ interface IRecordOverview {
 
 function RecordOverview({ openData, dateRange }: IRecordOverview) {
   const { data: session } = useSession();
+  const router = useRouter();
   const isGuest = session?.user.name === "guest";
   const userUid = session?.uid;
 
@@ -97,7 +98,7 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
           </MyRecord>
           <Button
             color="var(--font-h2)"
-            onClick={() => setIsNotCompleted(true)}
+            onClick={() => router.push(`/record/detail`)}
           >
             분석
           </Button>

@@ -2,7 +2,8 @@ import { Button, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { SetStateAction } from "react";
 import styled from "styled-components";
-import { CopyBtnBig } from "../../components/common/Icon/CopyIcon";
+import { CopyBtn } from "../../components/common/Icon/CopyIcon";
+
 import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
@@ -63,8 +64,8 @@ function RequestPromotionRewardModal({
           감사합니다!
         </Overview>
         <Title>제목: 카공 및 친목 동아리 About</Title>
-      <PromotionComponent />
-        <CopyBtnBig text={PROMOTION_TEXT} />
+        <PromotionComponent />
+        <CopyBtn size="lg" text={PROMOTION_TEXT} />
         <Message>
           게시완료 눌러주시면 자동으로 적립됩니다!
           <br />

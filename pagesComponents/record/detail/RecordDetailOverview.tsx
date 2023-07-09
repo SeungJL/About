@@ -3,26 +3,29 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useStudyArrivedCntQuery } from "../../../hooks/study/queries";
-interface IRecordDetailOverview {
-  children: React.ReactNode;
-}
+interface IRecordDetailOverview {}
 
-function RecordDetailOverview({ children }: IRecordDetailOverview) {
+function RecordDetailOverview({}: IRecordDetailOverview) {
   const { data: session } = useSession();
 
   const [isFirst, setIsFirst] = useState();
 
   //   const {data}=useStudyCheckRecordsQuery();
-  const { data: myArrivedCnt } = useStudyArrivedCntQuery();
+  const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery();
   return (
-    <Layout>
-      {children}
-      <Container>
-        <Title>{isFirst ? `${dayjs().month() + 1}월 참여` : "전체 참여"}</Title>
-        <Value>{isFirst ? 22 : myArrivedCnt[session?.uid as string]}</Value>
-        <ChangeBtn>전환</ChangeBtn>
-      </Container>
-    </Layout>
+    <>
+      {!isLoading && (
+        <Layout>
+          <Container>
+            <Title>
+              {isFirst ? `${dayjs().month() + 1}월 참여` : "전체 참여"}
+            </Title>
+            <Value>{isFirst ? 22 : myArrivedCnt[session?.uid as string]}</Value>
+            <ChangeBtn>전환</ChangeBtn>
+          </Container>
+        </Layout>
+      )}
+    </>
   );
 }
 
