@@ -2,13 +2,14 @@ import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 import { majors_DATA } from "../../storage/ProfileData";
@@ -23,6 +24,7 @@ function Major() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
+  const isProfileEdit = useRecoilValue(isProfileEditState);
 
   const onClickNext = () => {
     if (!majors.length) {
@@ -63,7 +65,10 @@ function Major() {
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressStatus value={60} />
-      <Header title="회원가입" url="mbti" />
+      <Header
+        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+        url="/register/mbti"
+      />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>전공을 선택해 주세요</span>

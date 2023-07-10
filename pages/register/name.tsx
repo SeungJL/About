@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
@@ -10,6 +10,7 @@ import ProgressStatus from "../../components/layouts/ProgressStatus";
 import { checkIsKorean } from "../../libs/utils/validUtils";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 function Name() {
@@ -21,6 +22,8 @@ function Name() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [value, setValue] = useState(registerForm?.name || session?.user.name);
+
+  const isProfileEdit = useRecoilValue(isProfileEditState);
 
   const onClickNext = () => {
     if (value.length < 2 || value.length > 3) {
@@ -43,7 +46,10 @@ function Name() {
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressStatus value={20} />
-      <Header title="회원가입" url="location" />
+      <Header
+        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+        url="register/location"
+      />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>이름을 입력해주세요</span>

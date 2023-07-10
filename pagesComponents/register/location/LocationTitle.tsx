@@ -5,11 +5,11 @@ import { Location } from "../../../types/system";
 function LocationTitle({ location }: { location: Location }) {
   return (
     <Layout>
-      {location === "강남" ? (
+      {false ? (
         <Badge variant="outline" fontSize="10px" mb="4px">
           준비중
         </Badge>
-      ) : location === "안양" ? (
+      ) : location === "강남" ? (
         <Badge colorScheme="yellow" variant="outline" fontSize="10px" mb="4px">
           예약중
         </Badge>

@@ -7,11 +7,11 @@ import styled from "styled-components";
 import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
 import {} from "../../hooks/user/queries";
 import {
+  IUserAttendRateQueries,
   useUserAttendRateQueries,
   useUserVoteRateQueries,
 } from "../../hooks/user/studyStatistics/queries";
 import { getMonth } from "../../libs/utils/dateUtils";
-import { IVoteRate } from "../../types/studyRecord";
 import { IUser } from "../../types/user";
 
 interface IAttendChart {
@@ -31,7 +31,7 @@ function AttendChart({ type, user }: IAttendChart) {
   const [isLoading, setIsLoading] = useState(true);
   const [voteAverageArr, setVoteAverageArr] = useState([]);
   const [myAttendCountTotal, setMyAttendCountTotal] = useState([]);
-  const attendCountTotal = useUserAttendRateQueries(CHART_MONTH_RANGE);
+  const attendCountTotal = useUserAttendRateQueries(CHART_MONTH_RANGE, "chart");
   const voteCountTotal = useUserVoteRateQueries(CHART_MONTH_RANGE);
 
   const isVoteLoading = voteCountTotal.some((result) => result.isLoading);
@@ -40,12 +40,15 @@ function AttendChart({ type, user }: IAttendChart) {
 
   const getDataArray = (
     uid: string,
-    queryResult: UseQueryResult<IVoteRate[], AxiosError<unknown, any>>[]
+    queryResult: UseQueryResult<
+      IUserAttendRateQueries,
+      AxiosError<unknown, any>
+    >[]
   ) => {
     return queryResult
       ?.map((item) => {
         if (item.isSuccess) {
-          const myDataArr = item.data.filter((data) => data.uid === uid);
+          const myDataArr = item.data.data.filter((data) => data.uid === uid);
           return myDataArr[0]?.cnt;
         }
         return null;
@@ -113,6 +116,9 @@ function AttendChart({ type, user }: IAttendChart) {
               chart: {
                 zoom: {
                   enabled: false,
+                },
+                toolbar: {
+                  show: false,
                 },
               },
 

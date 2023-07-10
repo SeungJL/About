@@ -71,7 +71,10 @@ function Message() {
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
           <ProgressStatus value={80} />
-          <Header title="회원가입" url="/register/interest" />
+          <Header
+            title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+            url="/register/interest"
+          />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
               <span>자기 소개 문장을 입력해 주세요</span>

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
@@ -9,6 +9,7 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
 import { motion } from "framer-motion";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 import { INTEREST_DATA } from "../../storage/ProfileData";
 
@@ -26,6 +27,8 @@ function Interest() {
   const [secondValue, setSecondValue] = useState(
     registerForm?.interests?.second || ""
   );
+
+  const isProfileEdit = useRecoilValue(isProfileEditState);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>, isFirst) => {
     const value = event?.target.value;
@@ -47,7 +50,10 @@ function Interest() {
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressStatus value={70} />
-      <Header title="회원가입" url="major" />
+      <Header
+        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+        url="/register/major"
+      />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>관심 분야를 선택해 주세요</span>

@@ -9,8 +9,6 @@ dayjs.extend(timezone);
 const TZ_SEOUL = "Asia/Seoul";
 
 export const getCalendarDefaultDate = (month: number) => {
-  
-
   return { default: 4, date: 30 };
 };
 
@@ -78,3 +76,9 @@ export const getDefaultVoteDate = (isUserAttend: boolean) => {
 
 export const birthToDayjs = (birth: string) =>
   dayjs(birth.slice(2, 4) + "-" + birth.slice(4, 6));
+
+export const getWeekNumber = (date: Dayjs) => {
+  const startDay = date.startOf("month").day();
+  const currentDate = date.date();
+  return Math.ceil((currentDate - startDay) / 7) + 2;
+};

@@ -6,13 +6,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 function Birthday() {
@@ -41,7 +42,7 @@ function Birthday() {
       +defaultBirth?.slice(4, 6) - 1,
       +defaultBirth?.slice(6)
     );
-
+  const isProfileEdit = useRecoilValue(isProfileEditState);
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
   const onClickNext = () => {
@@ -57,11 +58,14 @@ function Birthday() {
   return (
     <Layout>
       <ProgressStatus value={40} />
-      <Header title="회원가입" url="gender" />
+      <Header
+        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+        url="/register/gender"
+      />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>생년월일을 입력해 주세요</span>
-          <span>20대 인원만 가입할 수 있습니다!</span>
+          <span>만 19세 ~ 만 26세의 인원만 가입할 수 있습니다!</span>
         </RegisterOverview>
         <DateContainer>
           <DateStr>{myBirth}</DateStr>

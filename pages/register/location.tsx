@@ -8,6 +8,7 @@ import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import LocationBlockProfileEdit from "../../pagesComponents/register/location/LocationBlockProfileEdit";
 import LocationMember from "../../pagesComponents/register/location/LocationMember";
 import LocationTitle from "../../pagesComponents/register/location/LocationTitle";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
@@ -85,11 +86,18 @@ function Location() {
       ) : (
         <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
           <ProgressStatus value={10} />
-          <Header title="회원가입" url={isProfileEdit ? "/about" : "/login"} />
+          <Header
+            title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+            url={isProfileEdit ? "/about" : "/login"}
+          />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
               <span>지역을 선택해 주세요</span>
-              <span>오픈 또는 예약중인 지역만 선택할 수 있습니다.</span>
+              {isProfileEdit ? (
+                <span>오픈 또는 예약중인 지역만 선택할 수 있습니다.</span>
+              ) : (
+                <span>다른 지역으로의 변경은 운영진에게 문의해주세요!</span>
+              )}
             </RegisterOverview>
             <ButtonNav>
               {StudyLocation?.map((space) => (
@@ -97,11 +105,18 @@ function Location() {
                   isSelected={location === space}
                   onClick={() => setLocation(space)}
                   key={space}
+                  disabled={isProfileEdit}
                 >
-                  <LocationTitle location={space} />
-                  <LocationMember location={space} />
-                  {space === "안양" && (
-                    <Message>예약 인원 30명이 되면 열려요!</Message>
+                  {!isProfileEdit ? (
+                    <>
+                      <LocationTitle location={space} />
+                      <LocationMember location={space} />
+                      {space === "강남" && (
+                        <Message>예약 인원 30명이 되면 열려요!</Message>
+                      )}
+                    </>
+                  ) : (
+                    <LocationBlockProfileEdit location={space} />
                   )}
                 </Button>
               ))}
@@ -131,6 +146,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  height: 64px;
   border-radius: var(--border-radius-sub);
   border: ${(props) =>
     props.isSelected

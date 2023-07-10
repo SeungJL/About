@@ -33,3 +33,8 @@ export const isMemberLoadingState = atom({
   key: "isMemberLoading",
   default: true,
 });
+
+export const isRecordDetailLoadingState = atom({
+  key: "isRecordDetailLoadingState",
+  default: true,
+});

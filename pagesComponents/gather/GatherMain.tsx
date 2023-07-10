@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";  
 import styled from "styled-components";
 import { DEFAULT_ARRAY } from "../../constants/default";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
@@ -14,6 +14,7 @@ interface IGatherMain {
 }
 function GatherMain({ category }: IGatherMain) {
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
+  console.log(gatherData);
   const [isGatherLoading, setIsGatherLoading] =
     useRecoilState(isGatherLoadingState);
 

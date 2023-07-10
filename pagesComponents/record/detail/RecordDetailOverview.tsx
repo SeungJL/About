@@ -24,7 +24,14 @@ function RecordDetailOverview({}: IRecordDetailOverview) {
     dateRange?.endDate
   );
 
-  console.log(data);
+  const { data: currentMonthAttend } = useUserParticipationRateQuery(
+    dayjs().date(1),
+    dayjs()
+  );
+
+  const myMonthAttend = currentMonthAttend?.find(
+    (who) => who?.uid === session?.uid
+  );
 
   const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery();
   return (
@@ -35,7 +42,10 @@ function RecordDetailOverview({}: IRecordDetailOverview) {
             {isFirst ? `${dayjs().month() + 1}월 참여` : "전체 참여"}
           </Title>
           <Value>
-            {isFirst ? 22 : myArrivedCnt[session?.uid as string]}회 참여
+            {isFirst
+              ? myMonthAttend?.cnt
+              : myArrivedCnt[session?.uid as string]}
+            회 참여
           </Value>
           <ChangeBtn onClick={() => setIsFirst((old) => !old)}>
             <span>전환</span>

@@ -8,19 +8,19 @@ import styled from "styled-components";
 import { Location } from "../../../types/system";
 
 function LocationMember({ location }: { location: Location }) {
-  const memberCnt = location === "수원" ? 181 : 53;
-  const newCnt = location === "수원" ? 5 : 3;
+  const memberCnt = location === "수원" ? 181 : location === "양천" ? 53 : 21;
+  const newCnt = location === "수원" ? 5 : 2;
 
   return (
     <Layout>
-      {location === "안양" ? (
+      {location === "강남" ? (
         <Member>
           <MemberCnt>
             <FontAwesomeIcon icon={faUserClock} size="xs" />
-            <span>24</span>
+            <span>9</span>
           </MemberCnt>
         </Member>
-      ) : location === "강남" ? null : (
+      ) : false ? null : (
         <Member>
           <MemberCnt>
             <FontAwesomeIcon icon={faUsers} size="xs" />

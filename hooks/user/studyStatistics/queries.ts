@@ -57,17 +57,25 @@ export const useUserVoteRateQuery = (
     },
     options
   );
+
+export interface IUserAttendRateQueries {
+  idx: number;
+  data: IVoteRate[];
+}
+
 export const useUserAttendRateQueries = (
   monthList: IDateStartToEnd[],
+  type?: string,
   options?: Omit<
-    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
+    UseQueryOptions<IUserAttendRateQueries, AxiosError, IUserAttendRateQueries>,
     "queryKey" | "queryFn"
   >
 ) =>
   useQueries(
     monthList.map((month, idx) => {
+     
       return {
-        queryKey: [USER_FINDPARTICIPATION, idx],
+        queryKey: [USER_FINDPARTICIPATION, type, idx],
         queryFn: async () => {
           const res = await axios.get<IVoteRate[]>(
             `${SERVER_URI}/user/participationrate`,
@@ -78,7 +86,7 @@ export const useUserAttendRateQueries = (
               },
             }
           );
-          return res.data;
+          return { idx, data: res.data };
         },
         ...options,
       };

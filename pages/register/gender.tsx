@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 import { Gender } from "../../types/user";
@@ -17,7 +18,7 @@ function Gender() {
   const [registerForm, setRegisterForm] = useRecoilState(
     sharedRegisterFormState
   );
-
+  const isProfileEdit = useRecoilValue(isProfileEditState);
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<Gender>(registerForm?.gender);
 
@@ -33,7 +34,10 @@ function Gender() {
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressStatus value={30} />
-      <Header title="회원가입" url="name" />
+      <Header
+        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+        url="/register/name"
+      />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>성별을 입력해 주세요</span>
