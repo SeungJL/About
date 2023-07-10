@@ -18,8 +18,8 @@ import {
 import { useRef, useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import {
-  useUserInfoQuery,
   useUserLocationQuery,
+  useUserRoleQuery,
 } from "../../hooks/user/queries";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
 import RequestDeclarationModal from "../../modals/userRequest/RequestDeclarationModal";
@@ -32,13 +32,16 @@ import RequestSuggestModal from "../../modals/userRequest/RequestSuggestModal";
 function UserNavigation() {
   const { data: session } = useSession();
   const isGuest = session?.user?.name === "guest";
-  const isAdmin = session?.role === "previliged";
+
   const failToast = useFailToast();
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
   const [modalOpen, setModalOpen] = useState("");
 
   const { data: location } = useUserLocationQuery();
-  const A = useUserInfoQuery;
+
+  const { data: role } = useUserRoleQuery();
+  const isAdmin = session?.role === "previliged";
+
   const router = useRouter();
   const onClickProfileEdit = () => {
     if (isGuest) {
@@ -68,7 +71,7 @@ function UserNavigation() {
   return (
     <>
       <Layout>
-        {isAdmin && (
+        {role === "previliged" && (
           <div>
             <BlockName>관리자</BlockName>
             <NavBlock>

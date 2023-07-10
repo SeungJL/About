@@ -48,7 +48,6 @@ function ProfileCardModal({ setIsModal }: IProfileCardModal) {
                 <span> {user?.location}</span>
               </div>
             </ProfileUpPart>
-
             <ProfileItem>
               <span>전공</span>
               <span>{user?.majors[0].detail}</span>

@@ -53,11 +53,11 @@ function GatherParticipateModal({
       console.error(err);
     },
   });
-
+  console.log(gatherData?.password);
   const onApply = (type: "normal" | "pre") => {
     if (type === "pre") {
       if (password === gatherData?.password) {
-        participate("all");
+        setPageNum(2);
       } else {
         failToast("applyPreGather");
       }
@@ -65,6 +65,9 @@ function GatherParticipateModal({
       return;
     }
     const myOld = birthToAge(data.birth);
+
+    if (gatherData?.user?.location !== data?.location)
+      failToast("free", "참여할 수 없는 지역입니다.");
 
     if (+myOld < gatherData.age[0] || +myOld > gatherData.age[1]) {
       toast({

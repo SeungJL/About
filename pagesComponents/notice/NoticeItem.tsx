@@ -15,6 +15,8 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import { faChessQueen } from "@fortawesome/free-solid-svg-icons";
+import { VOTE_TABLE_COLOR } from "../../constants/design";
 
 function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
   return (
@@ -28,8 +30,10 @@ function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
                   <IconKing />
                 ) : item.category === "sub" ? (
                   <IconPawn />
-                ) : (
+                ) : item.category === "event" ? (
                   <IconRook />
+                ) : (
+                  <IconQueen />
                 )}
               </Flex>
               <Flex direction="column" flex="1">
@@ -69,6 +73,13 @@ const IconRook = () => (
     <FontAwesomeIcon icon={faChessRook} size="lg" color="white" />
   </IconLayout>
 );
+
+const IconQueen = () => (
+  <IconLayout name="queen">
+    <FontAwesomeIcon icon={faChessQueen} size="lg" color="white" />
+  </IconLayout>
+);
+
 const IconLayout = styled.div<{ name: string }>`
   width: 32px;
   height: 32px;
@@ -80,7 +91,9 @@ const IconLayout = styled.div<{ name: string }>`
     props.name === "king"
       ? "var(--color-red)"
       : props.name === "pawn"
-      ? "var(--color-orange)"
+      ? VOTE_TABLE_COLOR[2]
+      : props.name === "queen"
+      ? VOTE_TABLE_COLOR[3]
       : "var(--color-mint)"};
 `;
 

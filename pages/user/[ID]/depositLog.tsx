@@ -18,7 +18,7 @@ function ScoreLog() {
 
   return (
     <>
-      <Header title="보증금 기록" url="/point" />
+      <Header title="보증금 기록" url="/user" />
       {isLoading ? (
         <MainLoading />
       ) : (

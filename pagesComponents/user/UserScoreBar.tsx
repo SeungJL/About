@@ -15,7 +15,7 @@ function UserScoreBar() {
 
   return (
     <Layout>
-      <button onClick={() => router.push(`/user/${session.uid}/scores`)}>
+      <button>
         <span>보유 포인트</span>
         <span>{myPoint ? myPoint?.point : 0} point</span>
       </button>

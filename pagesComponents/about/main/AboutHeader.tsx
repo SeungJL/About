@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
-import PromotionModal from "../../../modals/aboutHeader/PromotionModal";
-import StudyRuleModal from "../../../modals/aboutHeader/StudyRuleModal";
+import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
+import StudyRuleModal from "../../../modals/aboutHeader/studyRuleModal/StudyRuleModal";
 import { isNoticeAlertState } from "../../../recoil/renderTrigger2Atoms";
 
 function AboutHeader() {

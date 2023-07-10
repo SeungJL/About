@@ -19,13 +19,14 @@ import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChan
 import { userBadgeState } from "../../recoil/userAtoms";
 
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import { useFailToast } from "../../hooks/ui/CustomToast";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 
-export default function UserOverview({
-  setIsLoading,
-}: {
+interface IUserOverview {
   setIsLoading: React.Dispatch<SetStateAction<boolean>>;
-}) {
+}
+
+export default function UserOverview({ setIsLoading }: IUserOverview) {
+  const completeToast = useCompleteToast();
   const [value, setValue] = useState("");
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -42,7 +43,7 @@ export default function UserOverview({
   // const { mutate: onChangeComment } = useUserCommentMutation();
   // const { data: comments, isLoading } = useUserCommentQuery();
 
-  const { mutate, isLoading } = useUserRegisterMutation({
+  const { mutate } = useUserRegisterMutation({
     onSuccess() {},
     onError(error) {
       console.error(error);
@@ -84,6 +85,7 @@ export default function UserOverview({
   const handleSubmit = async () => {
     await mutate({ ...user, comment: value });
     await approve(user?.uid);
+    completeToast("success");
   };
 
   return (

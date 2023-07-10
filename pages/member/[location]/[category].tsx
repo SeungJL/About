@@ -82,7 +82,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
     <>
       <Header
         title={FRIEND_RECOMMEND_CATEGORY[idx]}
-        url={`member/${locationUrl}`}
+        url={`/member/${locationUrl}`}
       />
       <Layout>
         {filterMember?.map((who) => (

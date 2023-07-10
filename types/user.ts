@@ -3,8 +3,15 @@ import { Document } from "mongoose";
 import { Location } from "./system";
 import { IScore } from "./user/pointSystem";
 
+export type UserRequestCategory =
+  | "건의"
+  | "신고"
+  | "홍보"
+  | "휴식"
+  | "충전"
+  | "탈퇴";
 export interface IUserRequest {
-  category: "건의" | "신고" | "홍보" | "휴식" | "충전" | "탈퇴";
+  category: UserRequestCategory;
   title?: string;
   date?: Dayjs;
   writer: string;

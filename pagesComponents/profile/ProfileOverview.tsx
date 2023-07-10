@@ -32,7 +32,7 @@ function ProfileOverview({ user }: IProfileOverview) {
       {!isLoading ? (
         <Layout>
           <ProfileInfo user={userData} />
-          <ProfileRelation />
+          <ProfileRelation user={user} />
         </Layout>
       ) : (
         <ProfileOverviewSkeleton />

@@ -8,7 +8,7 @@ import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
 import { getUserBadgeScore } from "../../../libs/utils/userUtils";
-import BadgeInfoModal from "../../../modals/store/BadgeInfoModal";
+import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
 import { userBadgeState } from "../../../recoil/userAtoms";
 import { USER_BADGES } from "../../../types/user";
 

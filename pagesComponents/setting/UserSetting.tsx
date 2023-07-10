@@ -15,7 +15,7 @@ import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserRoleMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
-import PromotionModal from "../../modals/aboutHeader/PromotionModal";
+import PromotionModal from "../../modals/aboutHeader/promotionModal/PromotionModal";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
@@ -52,9 +52,8 @@ export default function UserSetting() {
   const { mutate: setRole } = useUserRoleMutation();
 
   useEffect(() => {
-    if (userData?.role !== "human" && arrivedCntTotal) {
+    if (userData?.role !== "human" && arrivedCntTotal)
       if (arrivedCntTotal[session?.uid as string] >= 2) setRole("member");
-    }
     const rest = userData?.rest;
     if (!rest) return;
     if (dayjs() < dayjs(rest?.endDate)) setRole("resting");

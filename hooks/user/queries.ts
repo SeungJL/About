@@ -4,7 +4,13 @@ import { SERVER_URI } from "../../constants/system";
 
 import { USER_COMMENT, USER_FINFACTIVE } from "../../libs/queryKeys";
 import { Location } from "../../types/system";
-import { IAvatar, IRegisterForm, IUser, IUserComment } from "../../types/user";
+import {
+  IAvatar,
+  IRegisterForm,
+  IUser,
+  IUserComment,
+  Role,
+} from "../../types/user";
 
 export const useRegisterFormsQuery = (
   options?: Omit<
@@ -32,6 +38,20 @@ export const useUserInfoQuery = (
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
       return res.data;
+    },
+    options
+  );
+export const useUserRoleQuery = (
+  options?: Omit<
+    UseQueryOptions<Role, AxiosError, Role>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<Role, AxiosError, Role>(
+    [USER_FINFACTIVE, "userRole"],
+    async () => {
+      const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
+      return res.data.role;
     },
     options
   );
