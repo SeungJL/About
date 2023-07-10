@@ -48,6 +48,9 @@ function RecordCalendar({ month, monthData }: IRecordCalendar) {
                       {item?.arrivedInfoList.some(
                         (place) => SPACE_LOCATION[place.placeId] === "양천"
                       ) && <Open location="양천">Open</Open>}
+                      {item?.arrivedInfoList.some(
+                        (place) => SPACE_LOCATION[place.placeId] === "안양"
+                      ) && <Open location="안양">Open</Open>}
                     </>
                   )}
                 </DayItem>
@@ -125,7 +128,8 @@ const OpenDate = styled.div<{ location: Location }>`
 
 const Open = styled.div<{ location: Location }>`
   font-size: 10px;
-  color: ${(props) => (props.location === "수원" ? 수원 : 양천)};
+  color: ${(props) =>
+    props.location === "수원" ? 수원 : props.location === "양천" ? 양천 : 안양};
 `;
 
 export default RecordCalendar;
