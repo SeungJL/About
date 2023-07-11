@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/layouts/Modals";
+import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import {
   ModalFooterNav,

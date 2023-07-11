@@ -20,25 +20,25 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid var(--color-mint);
+  border: var(--border-mint);
   height: 88px;
-  border-radius: var(--border-radius-sub);
-
-  > div {
-    font-weight: 600;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 13px;
-  }
+  border-radius: var(--border-radius-main);
+  padding: var(--padding-md);
   > * {
     flex: 1;
   }
+  > div {
+    margin-top: var(--margin-sub);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+  }
+
   > span {
     color: var(--font-h2);
-    font-size: 12px;
-    margin-top: 4px;
-    margin-left: 10px;
+    font-size: 11px;
   }
 `;
 

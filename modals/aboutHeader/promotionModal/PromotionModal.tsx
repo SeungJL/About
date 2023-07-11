@@ -1,40 +1,35 @@
 import Image from "next/image";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/layouts/Modals";
+import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
+import { ModalXL } from "../../../components/common/modal/Modals";
 import { CHICKEN_IMAGE } from "../../../constants/imageUrl";
-
-import { ModalMain, ModalXL } from "../../../styles/layout/modal";
+import { ModalMain } from "../../../styles/layout/modal";
+import { IModal } from "../../../types/common";
 import PromotionModalDetail from "./PromotionModalDetail";
 import PromotionModalFooter from "./PromotionModalFooter";
 import PromotionModalLastWinner from "./PromotionModalLastWinner";
 import PromotionModalOverview from "./PromotionModalOverview";
 
-interface IPromotionModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function PromotionModal({ setIsModal }: IPromotionModal) {
+function PromotionModal({ setIsModal }: IModal) {
   const [isFirst, setIsFirst] = useState(true);
 
   return (
     <>
-      <Layout>
+      <ModalXL>
         <ModalHeaderX title="홍보 이벤트" setIsModal={setIsModal} />
         <ModalMain>
           <PromotionModalOverview />
           <ImageWraaper>
-            <Image width={120} height={120} alt="chicken" src={CHICKEN_IMAGE} />
+            <Image width={100} height={100} alt="chicken" src={CHICKEN_IMAGE} />
           </ImageWraaper>
           {isFirst ? <PromotionModalDetail /> : <PromotionModalLastWinner />}
         </ModalMain>
         <PromotionModalFooter setIsFirst={setIsFirst} setIsModal={setIsModal} />
-      </Layout>
+      </ModalXL>
     </>
   );
 }
-
-const Layout = styled(ModalXL)``;
 
 const ImageWraaper = styled.div`
   flex: 1;

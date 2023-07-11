@@ -1,11 +1,10 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import { IModal } from "../../../types/common";
 
-interface IModalHeader {
+interface IModalHeader extends IModal {
   title: string;
-  setIsModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ModalHeaderX = ({ title, setIsModal }: IModalHeader) => (
@@ -24,9 +23,6 @@ const ModalHeaderXLayout = styled.div`
     font-size: 16px;
     font-weight: 600;
     color: var(--font-h1);
-  }
-  > div {
-    margin-right: 2px;
   }
 `;
 

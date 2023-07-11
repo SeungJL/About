@@ -134,7 +134,7 @@ export const ModalHeaderLine = styled.header`
 `;
 
 export const ModalMain = styled.main`
-  margin: 16px 0;
+  margin: var(--margin-main) 0;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -170,15 +170,14 @@ export const ModalFooterNav = styled.footer`
 
 export const ModalHeaderCenter = styled.header`
   text-align: center;
-  padding-bottom: 12px;
+  padding-bottom: var(--padding-main);
   > span:first-child {
     font-size: 18px;
     font-weight: 600;
     color: var(--font-h1);
-    padding-bottom: 4px;
   }
   > div {
-    margin-top: 12px;
+    margin-top: var(--margin-sub);
     font-size: 13px;
     color: var(--font-h2);
   }

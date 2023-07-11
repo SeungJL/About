@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import { ModalHeaderX } from "../../components/layouts/Modals";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { isProfileEditState } from "../../recoil/previousAtoms";

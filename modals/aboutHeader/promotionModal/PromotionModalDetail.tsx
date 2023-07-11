@@ -17,7 +17,7 @@ function PromotionModalDetail() {
       </div>
       <div>
         <span>추첨 인원</span>
-        <b>2명</b>
+        <span>2명</span>
       </div>
       <div>
         <span>현재 참여 수</span>
@@ -38,19 +38,13 @@ function PromotionModalDetail() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.7;
-  height: 88px;
-  color: var(--font-h2);
+  line-height: var(--line-height);
   > div {
-    color: var(--font-h2);
     display: flex;
     > span:first-child {
-      font-size: 13px;
       display: inline-block;
       width: 88px;
-    }
-    > span:last-child {
-      font-size: 13px;
+      font-weight: 600;
     }
   }
 `;

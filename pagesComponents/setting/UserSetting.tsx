@@ -59,6 +59,7 @@ export default function UserSetting() {
     const rest = userData?.rest;
     if (!rest) return;
     if (dayjs() < dayjs(rest?.endDate)) setRole("resting");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, arrivedCntTotal, session?.uid]);
 
   useEffect(() => {

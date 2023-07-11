@@ -6,7 +6,7 @@ import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { SetStateAction } from "react";
-import { ModalHeaderXLine } from "../../components/layouts/Modals";
+import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
 import {} from "../../hooks/user/queries";
 import {
   useUserParticipationRateQuery,

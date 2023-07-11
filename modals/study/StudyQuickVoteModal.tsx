@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { SetStateAction, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/layouts/Modals";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import ModalPortal from "../../components/ModalPortal";
 import TimeSelector from "../../components/utils/TimeSelector";
 import { useStudyQuickVoteMutation } from "../../hooks/study/mutations";

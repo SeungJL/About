@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/layouts/Modals";
+import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLg } from "../../../styles/layout/modal";
 import { IRegisterForm } from "../../../types/user";
 import CheckRegisterModalDetail from "./CheckRegisterModalDetail";

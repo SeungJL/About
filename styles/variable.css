@@ -36,6 +36,7 @@
   --border-sub-light: 1px solid var(--border-color-light);
 
   --border-mint: 1.5px solid var(--color-mint);
+
   --border-radius-sub: 6px;
   --border-radius-main: 12px;
 
@@ -52,4 +53,5 @@
   --margin-min: 4px;
 
   --header-height: 46px;
+  --line-height: 1.8;
 }

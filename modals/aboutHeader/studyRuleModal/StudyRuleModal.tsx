@@ -1,16 +1,17 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
+import { ModalXXL } from "../../../components/common/modal/Modals";
 import {
   ModalFooterNav,
   ModalHeaderCenter,
   ModalMain,
-  ModalXXL,
 } from "../../../styles/layout/modal";
 import {
   StudyRuleModalContentFirstOne,
   StudyRuleModalContentFirstThree,
   StudyRuleModalContentFirstTwo,
-  StudyRuleModalContentSecond,
+  StudyRuleModalContentSecondFee,
+  StudyRuleModalContentSecondTip,
 } from "./StudyRuleModalContents";
 
 interface IStudyRuleModal {
@@ -21,7 +22,7 @@ function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
   const [isTip, setIsTip] = useState(true);
 
   return (
-    <Layout>
+    <ModalXXL>
       <ModalHeaderCenter>
         <Title>동아리 가이드</Title>
         <div>대학생들의 카공 및 친목 동아리 About</div>
@@ -36,60 +37,58 @@ function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
       </Nav>
       <ModalMain>
         {!isTip ? (
-          <SecondPage>
-            <RuleTitle>Do you know ?</RuleTitle>
-            <StudyRuleModalContentSecond />
-          </SecondPage>
+          <>
+            <Item>
+              <RuleTitle>이용 Tip</RuleTitle>
+              <StudyRuleModalContentSecondFee />
+            </Item>
+            <Item>
+              <RuleTitle>이용 Tip</RuleTitle>
+              <StudyRuleModalContentSecondTip />
+            </Item>
+          </>
         ) : (
           <>
-            <Section>
+            <Item>
               <RuleTitle>스터디 오픈</RuleTitle>
               <StudyRuleModalContentFirstOne />
-            </Section>
-            <Section>
+            </Item>
+            <Item>
               <RuleTitle>스터디 진행</RuleTitle>
               <StudyRuleModalContentFirstTwo />
-            </Section>
-            <Section>
+            </Item>
+            <Item>
               <RuleTitle>기타</RuleTitle>
               <StudyRuleModalContentFirstThree />
-            </Section>
+            </Item>
           </>
         )}
       </ModalMain>
       <ModalFooterNav>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
-    </Layout>
+    </ModalXXL>
   );
 }
 
-const Section = styled.section``;
-
-const Layout = styled(ModalXXL)`
-  display: flex;
-  flex-direction: column;
-  color: var(--font-h2);
-`;
+const Item = styled.div``;
 
 const Title = styled.span`
   font-size: 24px;
   font-weight: 600;
   color: var(--font-h1);
-  margin-bottom: 8px;
 `;
 
 const Nav = styled.nav`
   width: 100%;
   display: flex;
-  margin-top: 8px;
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
   flex: 1;
   font-weight: 600;
   font-size: 12px;
-  padding-bottom: 6px;
+  padding-bottom: var(--padding-md);
   color: var(--font-h1);
   border-bottom: ${(props) =>
     props.isSelected ? "2px solid var(--font-h1)" : "1px solid var(--font-h6)"};
@@ -100,7 +99,7 @@ const RuleTitle = styled.span`
   font-size: 12px;
   font-weight: 600;
   display: inline-block;
-  margin-bottom: 2px;
+  margin-bottom: var(--margin-min);
 `;
 
 const SecondPage = styled.div`

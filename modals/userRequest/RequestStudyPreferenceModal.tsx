@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
 
-import { ModalHeaderX } from "../../components/layouts/Modals";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 
 import {
   useStudyPlaceQuery,

@@ -1,9 +1,9 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/layouts/Modals";
+import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
 import CountNum from "../../components/utils/CountNum";
 import { useStoreMutation } from "../../hooks/store/mutation";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
