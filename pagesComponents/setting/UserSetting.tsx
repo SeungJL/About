@@ -51,14 +51,17 @@ export default function UserSetting() {
   const { data: arrivedCntTotal } = useStudyArrivedCntQuery();
   const { mutate: setRole } = useUserRoleMutation();
 
+  console.log(arrivedCntTotal[2769380662]);
+
   useEffect(() => {
-    if (userData?.role !== "human" && arrivedCntTotal)
+    if (userData?.role !== "human" && arrivedCntTotal) {
+      console.log(userData?.role, arrivedCntTotal[session?.uid as string]);
       if (arrivedCntTotal[session?.uid as string] >= 2) setRole("member");
+    }
     const rest = userData?.rest;
     if (!rest) return;
     if (dayjs() < dayjs(rest?.endDate)) setRole("resting");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, arrivedCntTotal]);
+  }, [userData, arrivedCntTotal, session?.uid, setRole]);
 
   useEffect(() => {
     if (!session || isLoading) return;
