@@ -9,7 +9,7 @@ import {
   PROFILE_POP_UP,
   PROMOTION_POP_UP1,
   PROMOTION_POP_UP2,
-  USER_GUIDE,
+  USER_GUIDE
 } from "../../constants/localStorage";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserRoleMutation } from "../../hooks/user/mutations";
@@ -52,6 +52,7 @@ export default function UserSetting() {
   const { mutate: setRole } = useUserRoleMutation();
 
   useEffect(() => {
+    if (!session) return;
     if (userData?.role !== "human" && arrivedCntTotal) {
       if (arrivedCntTotal[session?.uid as string] >= 2) setRole("member");
     }
