@@ -9,7 +9,7 @@ import {
   PROFILE_POP_UP,
   PROMOTION_POP_UP1,
   PROMOTION_POP_UP2,
-  USER_GUIDE
+  USER_GUIDE,
 } from "../../constants/localStorage";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserRoleMutation } from "../../hooks/user/mutations";
@@ -59,7 +59,7 @@ export default function UserSetting() {
     const rest = userData?.rest;
     if (!rest) return;
     if (dayjs() < dayjs(rest?.endDate)) setRole("resting");
-  }, [userData, arrivedCntTotal, session?.uid, setRole]);
+  }, [userData, arrivedCntTotal, session?.uid]);
 
   useEffect(() => {
     if (!session || isLoading) return;
