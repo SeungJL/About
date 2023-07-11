@@ -53,7 +53,7 @@ export default function UserSetting() {
 
   useEffect(() => {
     if (!session) return;
-    if (userData?.role !== "human" && arrivedCntTotal) {
+    if (userData?.role === "human" && arrivedCntTotal) {
       if (arrivedCntTotal[session?.uid as string] >= 2) setRole("member");
     }
     const rest = userData?.rest;
