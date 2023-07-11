@@ -17,7 +17,7 @@ export interface IGatherCommentUnit {
 
 interface IGatherComments {
   comment: IGatherComment[];
-  setIsRefetching: React.Dispatch<SetStateAction<boolean>>;
+  setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }
 
 interface IGatherCommentDelete {
@@ -25,7 +25,7 @@ interface IGatherCommentDelete {
   commentId: string;
 }
 
-function GatherComments({ comment, setIsRefetching }: IGatherComments) {
+function GatherComments({ comment, setIsRefetch }: IGatherComments) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const router = useRouter();
@@ -49,9 +49,8 @@ function GatherComments({ comment, setIsRefetching }: IGatherComments) {
     const data: IGatherCommentUnit = { gatherId, comment: value };
     writeComment(data);
     setValue("");
-    setIsRefetching(true);
+    setIsRefetch(true);
   };
-
 
   const onClickEdit = (commentId, text) => {
     setCommentId(commentId);
@@ -107,7 +106,7 @@ function GatherComments({ comment, setIsRefetching }: IGatherComments) {
           <GatherCommentEditModal
             commentText={commentText}
             commentId={commentId}
-            setIsRefetching={setIsRefetching}
+            setIsRefetch={setIsRefetch}
             setIsModal={setIsEditModal}
           />
         </ModalPortal>

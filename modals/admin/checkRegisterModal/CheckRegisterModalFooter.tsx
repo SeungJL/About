@@ -8,17 +8,16 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { SetStateAction, useRef } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
 import { useCompleteToast } from "../../../hooks/ui/CustomToast";
 import {
   useUserApproveMutation,
   useUserDeleteMutation,
 } from "../../../hooks/user/mutations";
+import { IModal, IRefetch } from "../../../types/common";
 
-interface ICheckRegisterModalFooter {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-  setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
+interface ICheckRegisterModalFooter extends IModal, IRefetch {
   uid: string;
 }
 
@@ -33,7 +32,7 @@ function CheckRegisterModalFooter({
 
   const { mutate: approve } = useUserApproveMutation();
   const { mutate: deleteForm } = useUserDeleteMutation();
-  
+
   const onClickAgree = () => {
     approve(uid);
     setIsRefetch(true);

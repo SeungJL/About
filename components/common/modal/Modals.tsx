@@ -1,28 +1,15 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { size } from "../../../types/ui";
+import { Size } from "../../../types/ui";
 
 interface IModalLayout {
   children: React.ReactNode;
+  size: Size;
 }
 
-export const ModalXXL = ({ children }: IModalLayout) => (
+export const ModalLayout = ({ children, size }: IModalLayout) => (
   <Layout
-    size="xxl"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{
-      duration: 0.5,
-      ease: "easeInOut",
-    }}
-  >
-    {children}
-  </Layout>
-);
-export const ModalXL = ({ children }: IModalLayout) => (
-  <Layout
-    size="xl"
+    size={size}
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
@@ -36,11 +23,12 @@ export const ModalXL = ({ children }: IModalLayout) => (
 );
 
 const SIZE_HEIGHT_MAP = {
-  xxl: "500px",
-  xl: "400px",
+  xl: "500px",
+  lg: "400px",
+  md: "240px",
 };
 
-const Layout = styled(motion.div)<{ size: size }>`
+const Layout = styled(motion.div)<{ size: Size }>`
   width: var(--width-90);
   height: ${(props) => SIZE_HEIGHT_MAP[props.size]};
   padding: var(--padding-main);

@@ -5,16 +5,16 @@ import { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
-import GatherExpireModal from "../../../modals/gather/GatherExpireModal";
-import GatherParticipateModal from "../../../modals/gather/GatherParticipateModal";
+import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
+import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
 import { IGatherContent } from "../../../types/gather";
 
 interface IGatherBottomNav {
   data: IGatherContent;
-  setIsRefetching: React.Dispatch<SetStateAction<boolean>>;
+  setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }
 
-function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
+function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
   const router = useRouter();
   const { data: session } = useSession();
   const myUid = session.uid;
@@ -31,7 +31,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
   const onClick = (type: string) => {
     if (type === "cancel") {
       cancel();
-      setIsRefetching(true);
+      setIsRefetch(true);
     }
     if (type === "participate") setIsParticipationModal(true);
     if (type === "expire") setIsExpirationModal(true);
@@ -104,7 +104,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
         <ModalPortal setIsModal={setIsParticipationModal}>
           <GatherParticipateModal
             setIsModal={setIsParticipationModal}
-            setIsRefetching={setIsRefetching}
+            setIsRefetch={setIsRefetch}
           />
         </ModalPortal>
       )}
@@ -112,7 +112,7 @@ function GatherBottomNav({ data, setIsRefetching }: IGatherBottomNav) {
         <ModalPortal setIsModal={setIsExpirationModal}>
           <GatherExpireModal
             setIsModal={setIsExpirationModal}
-            setIsRefetching={setIsRefetching}
+            setIsRefetch={setIsRefetch}
           />
         </ModalPortal>
       )}

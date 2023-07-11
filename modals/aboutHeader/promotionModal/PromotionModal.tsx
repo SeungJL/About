@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
-import { ModalXL } from "../../../components/common/modal/Modals";
+import { ModalLayout } from "../../../components/common/modal/Modals";
 import { CHICKEN_IMAGE } from "../../../constants/imageUrl";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/common";
@@ -16,7 +16,7 @@ function PromotionModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalXL>
+      <ModalLayout size="lg">
         <ModalHeaderX title="홍보 이벤트" setIsModal={setIsModal} />
         <ModalMain>
           <PromotionModalOverview />
@@ -26,7 +26,7 @@ function PromotionModal({ setIsModal }: IModal) {
           {isFirst ? <PromotionModalDetail /> : <PromotionModalLastWinner />}
         </ModalMain>
         <PromotionModalFooter setIsFirst={setIsFirst} setIsModal={setIsModal} />
-      </ModalXL>
+      </ModalLayout>
     </>
   );
 }

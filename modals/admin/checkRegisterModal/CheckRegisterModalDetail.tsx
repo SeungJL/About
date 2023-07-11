@@ -47,14 +47,14 @@ function CheckRegisterModalDetail({ applicant }: ICheckRegisterModalDetail) {
 
 const Item = styled.div`
   font-size: 14px;
-  margin-bottom: 8px;
+  margin-bottom: var(--margin-md);
   > b {
     display: inline-block;
     width: 64px;
   }
 `;
 const IconWrapper = styled.span`
-  margin-left: 8px;
+  margin-left: var(--margin-md);
 `;
 
 export default CheckRegisterModalDetail;

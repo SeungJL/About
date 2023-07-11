@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { DEFAULT_IMAGE_URL } from "../../../constants/default";
 import { ICON_SIZE } from "../../../constants/design";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
-import { size } from "../../../types/ui";
+import { Size } from "../../../types/ui";
+
 import { IUser } from "../../../types/user";
 
 interface IProfileIcon {
   user: IUser | "guest";
-  size?: size;
+  size?: Size;
 }
 
 function ProfileIcon({ user, size }: IProfileIcon) {

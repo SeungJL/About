@@ -25,7 +25,7 @@ function GatherDetail() {
   const isGuest = session?.user.name === "guest";
   const gatherId = router.query.id;
   const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
-  const [isRefetching, setIsRefetching] = useState(false);
+  const [isRefetch, setIsRefetch] = useState(false);
   const { refetch } = useGatherContentQuery({
     onSuccess(data) {
       setGatherData(data?.find((item) => item?.id === +gatherId));
@@ -33,14 +33,14 @@ function GatherDetail() {
   });
 
   useEffect(() => {
-    if (isRefetching || !gatherData) {
+    if (isRefetch || !gatherData) {
       setTimeout(() => {
         refetch();
-        setIsRefetching(false);
+        setIsRefetch(false);
       }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gatherData, isRefetching]);
+  }, [gatherData, isRefetch]);
 
   return (
     <>
@@ -69,13 +69,10 @@ function GatherDetail() {
             <GatherParticipation data={gatherData} />
             <GatherComments
               comment={gatherData.comment}
-              setIsRefetching={setIsRefetching}
+              setIsRefetch={setIsRefetch}
             />
             {!isGuest && (
-              <GatherBottomNav
-                data={gatherData}
-                setIsRefetching={setIsRefetching}
-              />
+              <GatherBottomNav data={gatherData} setIsRefetch={setIsRefetch} />
             )}
           </Layout>
         </>

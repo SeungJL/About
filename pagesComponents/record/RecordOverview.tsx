@@ -5,7 +5,10 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
+import {
+  useUserParticipationRateAllQuery,
+  useUserParticipationRateQuery,
+} from "../../hooks/user/studyStatistics/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IDateRange } from "../../pages/record";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
@@ -62,6 +65,11 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
     dateRange?.startDate,
     dateRange?.endDate
   );
+  const { data: myAttend2 } = useUserParticipationRateAllQuery(
+    dateRange?.startDate,
+    dateRange?.endDate
+  );
+  console.log(4, myAttend, myAttend2);
   const myMonthCnt = myAttend?.find((user) => user.uid === userUid)?.cnt;
 
   return (

@@ -1,44 +1,46 @@
 import { useRouter } from "next/router";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import {
   useGatherCommentDeleteMutation,
   useGatherCommentEditMutation,
 } from "../../hooks/gather/mutations";
 import { Modal2Xs } from "../../styles/layout/modal";
+import { IModal, IRefetch } from "../../types/common";
 
-interface IGatherCommentEditModal {
+interface IGatherCommentEditModal extends IModal, IRefetch {
   commentText: string;
   commentId: string;
-  setIsRefetching: React.Dispatch<SetStateAction<boolean>>;
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
 function GatherCommentEditModal({
   commentText,
   setIsModal,
   commentId,
-  setIsRefetching,
+  setIsRefetch,
 }: IGatherCommentEditModal) {
   const router = useRouter();
   const gatherId = +router.query.id;
 
   const [isFirst, setIsFirst] = useState(true);
-
   const [value, setValue] = useState(commentText);
 
   const { mutate: deleteComment } = useGatherCommentDeleteMutation(gatherId);
   const { mutate: editComment } = useGatherCommentEditMutation(gatherId);
 
-  const onDelete = () => {
-    deleteComment(commentId);
-    setIsRefetching(true);
+  const onComplete = () => {
+    setIsRefetch(true);
     setIsModal(false);
   };
+
+  const onDelete = () => {
+    deleteComment(commentId);
+    onComplete();
+  };
+
   const onEdit = () => {
     editComment([commentId, value]);
-    setIsRefetching(true);
-    setIsModal(false);
+    onComplete();
   };
 
   return (
@@ -68,8 +70,8 @@ const Layout = styled(Modal2Xs)`
 `;
 
 const Input = styled.input`
-  margin-top: 8px;
-  padding: 8px;
+  margin-top: var(--margin-md);
+  padding: var(--padding-md);
   width: 100%;
   border: var(--border-main-light);
   border-radius: var(--border-radius-sub);
@@ -88,11 +90,11 @@ const Footer = styled.footer`
   font-size: 13px;
   > button:first-child {
     color: var(--font-h2);
-    margin-right: 16px;
+    margin-right: var(--margin-main);
   }
   > button:last-child {
     color: var(--color-mint);
-    margin-right: 3px;
+    margin-right: var(--margin-min);
     font-weight: 600;
   }
 `;

@@ -1,11 +1,13 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { ModalXXL } from "../../../components/common/modal/Modals";
+import { ModalLayout } from "../../../components/common/modal/Modals";
+
 import {
   ModalFooterNav,
   ModalHeaderCenter,
   ModalMain,
 } from "../../../styles/layout/modal";
+import { IModal } from "../../../types/common";
 import {
   StudyRuleModalContentFirstOne,
   StudyRuleModalContentFirstThree,
@@ -14,15 +16,11 @@ import {
   StudyRuleModalContentSecondTip,
 } from "./StudyRuleModalContents";
 
-interface IStudyRuleModal {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}
-
-function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
+function StudyRuleModal({ setIsModal }: IModal) {
   const [isTip, setIsTip] = useState(true);
 
   return (
-    <ModalXXL>
+    <ModalLayout size="xl">
       <ModalHeaderCenter>
         <Title>동아리 가이드</Title>
         <div>대학생들의 카공 및 친목 동아리 About</div>
@@ -67,7 +65,7 @@ function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
       <ModalFooterNav>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
-    </ModalXXL>
+    </ModalLayout>
   );
 }
 

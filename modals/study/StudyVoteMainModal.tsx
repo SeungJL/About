@@ -24,7 +24,7 @@ import {
 } from "../../hooks/user/pointSystem/mutation";
 import { VOTE_GET } from "../../libs/queryKeys";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
-import { isRefetchingStudyState } from "../../recoil/refetchingAtoms";
+import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
 import {
   isVotingState,
   studyDateState,
@@ -51,7 +51,7 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
 
-  const setUpdateStudy = useSetRecoilState(isRefetchingStudyState);
+  const setUpdateStudy = useSetRecoilState(isRefetchStudyState);
 
   const [errorMessage, setErrorMessage] = useState("");
 

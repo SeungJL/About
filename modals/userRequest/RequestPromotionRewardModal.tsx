@@ -65,7 +65,9 @@ function RequestPromotionRewardModal({
         </Overview>
         <Title>제목: 카공 및 친목 동아리 About</Title>
         <PromotionComponent />
-        <CopyBtn size="lg" text={PROMOTION_TEXT} />
+        <CopyWrapper>
+          <CopyBtn size="lg" text={PROMOTION_TEXT} />
+        </CopyWrapper>
         <Message>
           게시완료 눌러주시면 자동으로 적립됩니다!
           <br />
@@ -98,6 +100,10 @@ const Overview = styled.div`
 const Title = styled.div`
   margin-top: 12px;
   margin-bottom: 12px;
+`;
+
+const CopyWrapper = styled.div`
+  margin-top: auto;
 `;
 
 const Text = styled.p`

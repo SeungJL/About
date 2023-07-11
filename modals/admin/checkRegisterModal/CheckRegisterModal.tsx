@@ -1,15 +1,13 @@
-import { SetStateAction } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLg } from "../../../styles/layout/modal";
+import { IModal, IRefetch } from "../../../types/common";
 import { IRegisterForm } from "../../../types/user";
 import CheckRegisterModalDetail from "./CheckRegisterModalDetail";
 import CheckRegisterModalFooter from "./CheckRegisterModalFooter";
 
-interface ICheckRegisterModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+interface ICheckRegisterModal extends IModal, IRefetch {
   applicant: IRegisterForm;
-  setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }
 
 function CheckRegisterModal({
@@ -17,14 +15,15 @@ function CheckRegisterModal({
   applicant,
   setIsRefetch,
 }: ICheckRegisterModal) {
+  if (!applicant) return null;
   return (
     <Layout>
-      <ModalHeaderX title={applicant?.name} setIsModal={setIsModal} />
+      <ModalHeaderX title={applicant.name} setIsModal={setIsModal} />
       <CheckRegisterModalDetail applicant={applicant} />
       <CheckRegisterModalFooter
         setIsModal={setIsModal}
         setIsRefetch={setIsRefetch}
-        uid={applicant?.uid}
+        uid={applicant.uid}
       />
     </Layout>
   );

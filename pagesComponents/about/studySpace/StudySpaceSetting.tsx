@@ -7,7 +7,7 @@ import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
 import { getStudyDate } from "../../../libs/studyDateSetting";
 import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
-import { isRefetchingStudySpacelState } from "../../../recoil/refetchingAtoms";
+import { isRefetchStudySpacelState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
   studyDateState,
@@ -28,8 +28,8 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   const location = SPACE_LOCATION[spaceID as string];
 
   const setIsVoting = useSetRecoilState(isVotingState);
-  const [isRefetchingStudySpace, setIsRefetchingStudySpace] = useRecoilState(
-    isRefetchingStudySpacelState
+  const [isRefetchStudySpace, setIsRefetchStudySpace] = useRecoilState(
+    isRefetchStudySpacelState
   );
   const setVoteDate = useSetRecoilState(voteDateState);
   const setStudyDate = useSetRecoilState(studyDateState);
@@ -53,12 +53,12 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   });
 
   useEffect(() => {
-    if (isRefetchingStudySpace) {
+    if (isRefetchStudySpace) {
       refetch();
-      setIsRefetchingStudySpace(false);
+      setIsRefetchStudySpace(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefetchingStudySpace]);
+  }, [isRefetchStudySpace]);
 
   useEffect(() => {
     const studyDate = getStudyDate(voteDate);

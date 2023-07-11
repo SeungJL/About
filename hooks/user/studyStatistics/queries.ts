@@ -20,10 +20,34 @@ export const useUserParticipationRateQuery = (
   >
 ) =>
   useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
-    USER_FINDPARTICIPATION,
+    "userParticipationRate",
     async () => {
       const res = await axios.get<IVoteRate[]>(
         `${SERVER_URI}/user/participationrate`,
+        {
+          params: {
+            startDay: startDay.format("YYYY-MM-DD"),
+            endDay: endDay.format("YYYY-MM-DD"),
+          },
+        }
+      );
+      return res.data;
+    },
+    options
+  );
+export const useUserParticipationRateAllQuery = (
+  startDay: Dayjs,
+  endDay: Dayjs,
+  options?: Omit<
+    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
+    "userParticipationRateAll",
+    async () => {
+      const res = await axios.get<IVoteRate[]>(
+        `${SERVER_URI}/user/participationrate/all`,
         {
           params: {
             startDay: startDay.format("YYYY-MM-DD"),
@@ -73,7 +97,6 @@ export const useUserAttendRateQueries = (
 ) =>
   useQueries(
     monthList.map((month, idx) => {
-     
       return {
         queryKey: [USER_FINDPARTICIPATION, type, idx],
         queryFn: async () => {

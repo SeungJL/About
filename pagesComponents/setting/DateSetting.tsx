@@ -9,7 +9,7 @@ import { getStudyDate } from "../../libs/studyDateSetting";
 import { getInterestingDate } from "../../libs/utils/dateUtils";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { isRefetchingStudyState } from "../../recoil/refetchingAtoms";
+import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
 
 import { studyDateState, voteDateState } from "../../recoil/studyAtoms";
 
@@ -28,7 +28,7 @@ function DateSetting({ setParticipations }: IDateSetting) {
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const location = useRecoilValue(userLocationState);
-  const [updateStudy, setUpdateStudy] = useRecoilState(isRefetchingStudyState);
+  const [updateStudy, setUpdateStudy] = useRecoilState(isRefetchStudyState);
   const setStudyDate = useSetRecoilState(studyDateState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 

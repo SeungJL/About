@@ -7,7 +7,7 @@ import ModalPortal from "../../components/ModalPortal";
 import TimeSelector from "../../components/utils/TimeSelector";
 import { useStudyQuickVoteMutation } from "../../hooks/study/mutations";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
-import { isRefetchingStudyState } from "../../recoil/refetchingAtoms";
+import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import {
@@ -36,7 +36,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   const completeToast = useCompleteToast();
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
-  const setIsRefetchingStudy = useSetRecoilState(isRefetchingStudyState);
+  const setIsRefetchStudy = useSetRecoilState(isRefetchStudyState);
 
   const [isPreference, setIsPreference] = useState(false);
   const [time, setTime] = useState<ITimeStartToEndHM>({
@@ -46,7 +46,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   const { mutate } = useStudyQuickVoteMutation(voteDate, {
     onSuccess() {
       completeToast("studyVote");
-      setIsRefetchingStudy(true);
+      setIsRefetchStudy(true);
     },
   });
 

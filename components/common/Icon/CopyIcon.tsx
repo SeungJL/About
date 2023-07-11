@@ -52,22 +52,23 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
     };
   }, [text, toast]);
 
-  const ClickableIcon = styled(FontAwesomeIcon)`
-    cursor: pointer;
-  `;
+  if (size === "lg")
+    return (
+      <LayoutLg ref={btnRef}>
+        <Button width="100%">본문 내용 복사하기</Button>{" "}
+      </LayoutLg>
+    );
 
   return (
-    <Layout ref={btnRef} size={size}>
-      {size === "sm" ? (
-        <ClickableIcon icon={faCopy} color="var(--font-h1)" />
-      ) : size === "lg" ? (
-        <Button width="100%">본문 내용 복사하기</Button>
-      ) : null}
+    <Layout ref={btnRef}>
+      <ClickableIcon icon={faCopy} color="var(--font-h1)" />
     </Layout>
   );
 };
 
-const Layout = styled.div<{ size: string }>`
-  width: 100%;
-  margin-top: ${(props) => props.size === "lg" && "auto"};
+const ClickableIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
 `;
+const LayoutLg = styled.div``;
+
+const Layout = styled.span``;

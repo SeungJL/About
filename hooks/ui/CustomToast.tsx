@@ -5,9 +5,9 @@ export type FailToast =
   | "free"
   | "guest"
   | "loadStudy"
-  | "applyGather"
-  | "applyPreGather"
-  | "studyVote";
+  | "studyVote"
+  | "apply"
+  | "error";
 
 export const useFailToast = () => {
   const toast = useToast();
@@ -15,12 +15,13 @@ export const useFailToast = () => {
   const showFailToast = useCallback(
     (type: FailToast, sub?: string) => {
       let text = "";
+
       if (type === "free") text = sub;
+      if (type === "error")
+        text = "오류가 발생했습니다. 관리자에게 꼭!! 문의해주세요!";
       if (type === "guest") text = "게스트는 사용할 수 없는 기능입니다.";
       if (type === "loadStudy") text = "스터디 정보를 불러오지 못 했어요.";
-      if (type === "applyGather")
-        text = "모임 신청에 실패했어요. 신청 조건을 확인해 주세요!";
-      if (type === "applyPreGather") text = "암호가 일치하지 않습니다.";
+      if (type === "apply") text = "신청에 실패했어요. 조건을 확인해 주세요!";
       if (type === "studyVote") {
         if (sub === "beforeTime")
           text = "시작 시간은 종료 시간 이전이어야 합니다.";
