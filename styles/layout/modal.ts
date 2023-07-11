@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const FullScreen = styled.div`
@@ -107,7 +108,7 @@ export const ModalXL = styled.div`
   border-radius: 16px;
 `;
 
-export const ModalXXL = styled.div`
+export const ModalXXL = styled(motion.div)`
   display: flex;
   flex-direction: column;
   padding: 12px 16px;

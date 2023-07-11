@@ -51,11 +51,8 @@ export default function UserSetting() {
   const { data: arrivedCntTotal } = useStudyArrivedCntQuery();
   const { mutate: setRole } = useUserRoleMutation();
 
-  console.log(arrivedCntTotal[2769380662]);
-
   useEffect(() => {
     if (userData?.role !== "human" && arrivedCntTotal) {
-      console.log(userData?.role, arrivedCntTotal[session?.uid as string]);
       if (arrivedCntTotal[session?.uid as string] >= 2) setRole("member");
     }
     const rest = userData?.rest;

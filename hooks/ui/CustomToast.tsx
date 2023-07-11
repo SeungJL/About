@@ -1,11 +1,19 @@
 import { useToast } from "@chakra-ui/react";
 import { useCallback } from "react";
 
+export type FailToast =
+  | "free"
+  | "guest"
+  | "loadStudy"
+  | "applyGather"
+  | "applyPreGather"
+  | "studyVote";
+
 export const useFailToast = () => {
   const toast = useToast();
 
   const showFailToast = useCallback(
-    (type: string, sub?: string) => {
+    (type: FailToast, sub?: string) => {
       let text = "";
       if (type === "free") text = sub;
       if (type === "guest") text = "게스트는 사용할 수 없는 기능입니다.";
@@ -30,6 +38,8 @@ export const useFailToast = () => {
   );
   return showFailToast;
 };
+
+export type CompleteToast = "free" | "success" | "studyVote" | "apply";
 
 export const useCompleteToast = () => {
   const toast = useToast();

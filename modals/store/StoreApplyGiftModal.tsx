@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/layouts/Modals";
 import CountNum from "../../components/utils/CountNum";
 import { useStoreMutation } from "../../hooks/store/mutation";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
@@ -19,11 +20,12 @@ interface IStoreApplyGiftModal {
 }
 
 function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
+  const failToast = useFailToast();
+  const completeToast = useCompleteToast();
   const router = useRouter();
   const { data: session } = useSession();
 
   const isGuest = session?.user.name === "guest";
-  const toast = useToast();
   const { data: myPoint } = usePointQuery();
   const [value, setValue] = useState(1);
 
@@ -34,25 +36,11 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
 
   const onApply = () => {
     if (isGuest) {
-      toast({
-        title: "실패",
-        description: "게스트는 사용할 수 없는 기능입니다.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
+      failToast("guest");
       return;
     }
     if (myPoint?.point < totalCost) {
-      toast({
-        title: "실패",
-        description: "보유하고 있는 포인트가 부족해요",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
+      failToast("free", "보유중인 포인트가 부족해요!");
       return;
     }
     const info: IStoreApplicant = {
@@ -61,21 +49,12 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
       cnt: value,
       giftId: giftInfo?.giftId,
     };
-
     mutate(info);
     getPoint({ value: -totalCost, message: `${giftInfo?.name}응모` });
-    toast({
-      title: "성공",
-      description: "응모에 성공했어요. 당첨 발표일을 기다려주세요 !",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "bottom",
-    });
+    completeToast("free", "응모에 성공했어요! 당첨 발표일을 기다려주세요!");
     setTimeout(() => {
       router.push(`/store`);
     }, 600);
-
     setIsModal(false);
   };
 
