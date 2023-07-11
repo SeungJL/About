@@ -39,7 +39,7 @@ function StudyRuleModal({ setIsModal }: IStudyRuleModal) {
         {!isTip ? (
           <>
             <Item>
-              <RuleTitle>이용 Tip</RuleTitle>
+              <RuleTitle>스터디 벌금</RuleTitle>
               <StudyRuleModalContentSecondFee />
             </Item>
             <Item>
@@ -100,17 +100,6 @@ const RuleTitle = styled.span`
   font-weight: 600;
   display: inline-block;
   margin-bottom: var(--margin-min);
-`;
-
-const SecondPage = styled.div`
-  line-height: 2;
-  > div:last-child {
-    > ul {
-      > li {
-        margin-bottom: var(--margin-min);
-      }
-    }
-  }
 `;
 
 export default StudyRuleModal;
