@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import Skeleton from "../../../components/common/Skeleton";
+import Skeleton from "../../../components/common/skeleton/Skeleton";
 
 interface IRecordCalendarSkeleton {
   month: number;

@@ -1,7 +1,7 @@
 import { faRightLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import Skeleton from "../../../../components/common/Skeleton";
+import Skeleton from "../../../../components/common/skeleton/Skeleton";
 
 function RecordDetailOverviewSkeleton() {
   return (

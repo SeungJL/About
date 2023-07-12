@@ -1,5 +1,4 @@
 import { Skeleton as ChakraSkeleton } from "@chakra-ui/react";
-import styled from "styled-components";
 
 interface ISkeleton {
   children: React.ReactNode;
@@ -20,7 +19,5 @@ function Skeleton({ children, isLoad }: ISkeleton) {
     </ChakraSkeleton>
   );
 }
-
-const Layout = styled.div``;
 
 export default Skeleton;

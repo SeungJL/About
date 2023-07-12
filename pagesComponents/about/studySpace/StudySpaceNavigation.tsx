@@ -167,7 +167,12 @@ function StudySpaceNavigation({
           )}
         </Layout>
       )}
-      <StudySpaceNavModal type={modalType} myVote={myVote} place={place} />
+      <StudySpaceNavModal
+        type={modalType}
+        setType={setModalType}
+        myVote={myVote}
+        place={place}
+      />
     </>
   );
 }

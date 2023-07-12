@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Skeleton from "../../../components/common/Skeleton";
+import Skeleton from "../../../components/common/skeleton/Skeleton";
 
 function MemberMyProfileSkeleton() {
   return (

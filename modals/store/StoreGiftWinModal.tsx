@@ -1,20 +1,18 @@
-import { useSession } from "next-auth/react";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
 
-import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 import { IStoreApplicant } from "../../types/store";
 
-interface IStoreGiftWinModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+interface IStoreGiftWinModal extends IModal {
   applyData: IStoreApplicant[];
   win: number;
 }
 
 function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
-  const { data: session } = useSession();
-
   const [winner, setWinner] = useState([]);
 
   useEffect(() => {
@@ -22,7 +20,6 @@ function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
     applyData.forEach((who) => {
       for (let i = 0; i < who?.cnt; i++) data.push(who);
     });
-
     const temp = [];
     if (win >= 1) temp.push(data[2]);
     if (win >= 2) temp.push(data[6]);
@@ -30,27 +27,23 @@ function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
     setWinner(temp);
   }, [applyData, win]);
 
-  const isMyWin = winner?.some((who) => who?.uid === session?.uid);
-
   return (
-    <Layout>
+    <ModalLayout size="sm">
       <ModalHeaderXLine title="당첨자 발표" setIsModal={setIsModal} />
       <ModalMain>
         <Message>당첨을 축하합니다!</Message>
-        <Main>
-          {winner?.map((who, idx) => (
-            <Win key={idx}>{who?.name}</Win>
+        <Winner>
+          {winner.map((who, idx) => (
+            <Win key={idx}>{who.name}</Win>
           ))}
-        </Main>
+        </Winner>
       </ModalMain>
       <ModalFooterNav>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
-    </Layout>
+    </ModalLayout>
   );
 }
-
-const Layout = styled(ModalXs)``;
 
 const Message = styled.div`
   text-align: center;
@@ -61,15 +54,13 @@ const Message = styled.div`
   margin-bottom: 30px;
 `;
 
-const Main = styled.main`
+const Winner = styled.div`
   display: flex;
-  padding: 0 14px;
   align-items: center;
-
   flex: 1;
   border-radius: var(--border-radius-sub);
   justify-content: space-around;
-  border: 1.5px solid var(--font-h4);
+  border: var(--border-mint);
 `;
 
 const Win = styled.div`
@@ -77,7 +68,5 @@ const Win = styled.div`
   font-weight: 600;
   color: var(--font-h2);
 `;
-
-const Footer = styled.footer``;
 
 export default StoreGiftWinModal;

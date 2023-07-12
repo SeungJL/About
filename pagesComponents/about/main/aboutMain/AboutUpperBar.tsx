@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Skeleton from "../../../../components/common/Skeleton";
+import Skeleton from "../../../../components/common/skeleton/Skeleton";
 import ModalPortal from "../../../../components/ModalPortal";
 import LocationSelector from "../../../../components/utils/LocationSelector";
 import CheckVoteModal from "../../../../modals/study/StudyCheckModal";

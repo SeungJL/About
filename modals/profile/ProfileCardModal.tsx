@@ -1,5 +1,4 @@
 import { Button } from "@chakra-ui/react";
-import { SetStateAction } from "react";
 import styled from "styled-components";
 
 import { useRouter } from "next/router";
@@ -9,12 +8,9 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface IProfileCardModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function ProfileCardModal({ setIsModal }: IProfileCardModal) {
+function ProfileCardModal({ setIsModal }: IModal) {
   const router = useRouter();
   const { data: user } = useUserInfoQuery();
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);

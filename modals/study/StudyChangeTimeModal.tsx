@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 import TimeSelector from "../../components/utils/TimeSelector";
@@ -8,27 +8,26 @@ import {
   ModalFooterNav,
   ModalHeaderLine,
   ModalMain,
-  ModalXs,
 } from "../../styles/layout/modal";
 
 import { useRecoilValue } from "recoil";
 import { useStudyTimeChangeMutation } from "../../hooks/study/mutations";
 import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
 
+import { ModalLayout } from "../../components/common/modal/Modals";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import { IModal } from "../../types/common";
 import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
 
-interface IStudyChangeTimeModal {
-  setIsStudyChangeTimeModal: Dispatch<SetStateAction<boolean>>;
+interface IStudyChangeTimeModal extends IModal {
   myVoteTime?: ITimeStartToEnd;
 }
 
 function StudyChangeTimeModal({
-  setIsStudyChangeTimeModal,
+  setIsModal,
   myVoteTime,
 }: IStudyChangeTimeModal) {
   const toast = useToast();
-
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
 
@@ -80,12 +79,13 @@ function StudyChangeTimeModal({
       });
       return;
     }
-    setIsStudyChangeTimeModal(false);
+    console.log(timeInfo);
+    setIsModal(false);
     patchAttend(timeInfo);
   };
 
   return (
-    <Layout>
+    <ModalLayout size="md">
       <ModalHeaderLine>시간변경</ModalHeaderLine>
       <ModalMain>
         <Wrapper>
@@ -102,14 +102,12 @@ function StudyChangeTimeModal({
         )}
       </ModalMain>
       <ModalFooterNav>
-        <button onClick={() => setIsStudyChangeTimeModal(false)}>취소</button>
+        <button onClick={() => setIsModal(false)}>취소</button>
         <button onClick={onSubmit}>변경</button>
       </ModalFooterNav>
-    </Layout>
+    </ModalLayout>
   );
 }
-
-const Layout = styled(ModalXs)``;
 
 const Wrapper = styled.div`
   flex: 1;

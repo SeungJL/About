@@ -1,27 +1,23 @@
 import { faCheckDouble, faThumbTack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import { PopUpLayout } from "../../components/common/modal/Modals";
 import { USER_GUIDE } from "../../constants/localStorage";
 import {
   ModalFooterNav,
   ModalHeaderCenter,
   ModalMain,
-  ModalXXL,
 } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface IUserGuidePopUp {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}
-
-function UserGuidePopUp({ setIsModal }: IUserGuidePopUp) {
+function UserGuidePopUp({ setIsModal }: IModal) {
   const onClick = () => {
     setIsModal(false);
     localStorage.setItem(USER_GUIDE, "read");
   };
 
   return (
-    <Layout>
+    <PopUpLayout size="xl">
       <ModalHeaderCenter>
         <span>
           <FontAwesomeIcon
@@ -103,14 +99,12 @@ function UserGuidePopUp({ setIsModal }: IUserGuidePopUp) {
       <ModalFooterNav>
         <button onClick={onClick}>확인</button>
       </ModalFooterNav>
-    </Layout>
+    </PopUpLayout>
   );
 }
 
-const Layout = styled(ModalXXL)``;
-
 const Item = styled.div`
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
 `;
 
 const Category = styled.span`
@@ -122,9 +116,9 @@ const Category = styled.span`
 `;
 
 const Content = styled.ul`
-  margin-top: 4px;
-  margin-left: 24px;
-  line-height: 1.8;
+  margin-top: var(--margin-min);
+  margin-left: var(--margin-max);
+  line-height: var(--line-height);
 `;
 
 export default UserGuidePopUp;

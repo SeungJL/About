@@ -1,20 +1,17 @@
-import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Button } from "@chakra-ui/react";
+import { useState } from "react";
 import styled from "styled-components";
-
-import { ModalHeaderCenter, ModalXXL } from "../../../styles/layout/modal";
+import { ModalLayout } from "../../../components/common/modal/Modals";
+import { ModalHeaderCenter } from "../../../styles/layout/modal";
+import { IModal } from "../../../types/common";
 import BadgeInfoModalFirstInfo from "./BadgeInfoModalFirstInfo";
 import BadgeInfoModalSecondInfo from "./BadgeInfoModalSecondInfo";
 
-interface IBadgeInfoModal {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}
-
-function BadgeInfoModal({ setIsModal }: IBadgeInfoModal) {
+function BadgeInfoModal({ setIsModal }: IModal) {
   const [page, setPage] = useState(0);
 
   return (
-    <Layout layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <ModalLayout size="xl">
       {page === 0 ? (
         <>
           <ModalHeaderCenter>
@@ -26,7 +23,7 @@ function BadgeInfoModal({ setIsModal }: IBadgeInfoModal) {
           </ModalHeaderCenter>
           <BadgeInfoModalFirstInfo />
           <Footer onClick={() => setPage(1)}>
-            <button>다음 페이지</button>
+            <Button colorScheme="mintTheme">다음 페이지</Button>
           </Footer>
         </>
       ) : (
@@ -36,37 +33,20 @@ function BadgeInfoModal({ setIsModal }: IBadgeInfoModal) {
             <div>특정한 기간 또는 이벤트를 통해 얻을 수 있습니다.</div>
           </ModalHeaderCenter>
           <BadgeInfoModalSecondInfo />
-
           <Footer onClick={() => setIsModal(false)}>
-            <button>확인했어요!</button>
+            <Button colorScheme="mintTheme">확인했어요!</Button>
           </Footer>
         </>
       )}
-    </Layout>
+    </ModalLayout>
   );
 }
 
-const Layout = styled(motion(ModalXXL))`
-  padding: 12px 0 16px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const Footer = styled.footer`
-  margin-top: 16px;
+  margin-top: var(--margin-main);
   display: flex;
   align-items: center;
   justify-content: center;
-  > button {
-    width: 100px;
-    font-size: 16px;
-    height: 26px;
-    background-color: var(--color-red);
-    color: white;
-    border-radius: 10px;
-  }
 `;
 
 export default BadgeInfoModal;

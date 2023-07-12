@@ -29,7 +29,7 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { VOTE_GET } from "../../libs/queryKeys";
+import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IPlace, IVoteInfo } from "../../types/studyDetails";
 import { ITimeStartToEnd } from "../../types/utils";
@@ -89,7 +89,7 @@ function StudyVoteSubModal({
   const { mutate: getInvitePoint } = useAdminPointMutation(inviteUid as string);
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
-      queryClient.invalidateQueries(VOTE_GET);
+      queryClient.invalidateQueries(STUDY_VOTE_INFO);
       if (studyDate === "today") {
         getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);
         getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);

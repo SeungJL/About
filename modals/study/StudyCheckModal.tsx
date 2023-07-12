@@ -5,27 +5,23 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
-
 import styled from "styled-components";
-
 import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
 } from "../../constants/pointSystem";
+import { useStudyArrivedMutation } from "../../hooks/study/mutations";
+import { useStudyVoteQuery } from "../../hooks/study/queries";
 import {
   useDepositMutation,
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-
-import { useStudyArrivedMutation } from "../../hooks/study/mutations";
-import { useStudyVoteQuery } from "../../hooks/study/queries";
-import { VOTE_GET } from "../../libs/queryKeys";
+import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import { getToday } from "../../libs/utils/dateUtils";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import { InputSm } from "../../styles/layout/input";
-
 import {
   ModalFooterNav,
   ModalHeaderLine,
@@ -59,7 +55,7 @@ function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
 
   const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
     onSuccess: (data) => {
-      queryClient.invalidateQueries(VOTE_GET);
+      queryClient.invalidateQueries(STUDY_VOTE_INFO);
 
       if (
         dayjs(
@@ -74,6 +70,7 @@ function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
         getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
       }
     },
+
     onError: (err) => {
       toast({
         title: "오류",

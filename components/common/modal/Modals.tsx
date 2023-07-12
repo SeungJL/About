@@ -22,14 +22,24 @@ export const ModalLayout = ({ children, size }: IModalLayout) => (
   </Layout>
 );
 
+export const PopUpLayout = ({ children, size }: IModalLayout) => (
+  <Layout size={size}>{children}</Layout>
+);
+
+const SIZE_WIDTH_MAP = {
+  sm: "300px",
+  default: "340px",
+};
+
 const SIZE_HEIGHT_MAP = {
   xl: "500px",
   lg: "400px",
   md: "240px",
+  sm: "240px",
 };
 
 const Layout = styled(motion.div)<{ size: Size }>`
-  width: var(--width-90);
+  width: ${(props) => SIZE_WIDTH_MAP[props.size] || SIZE_WIDTH_MAP["default"]};
   height: ${(props) => SIZE_HEIGHT_MAP[props.size]};
   padding: var(--padding-main);
   background-color: white;

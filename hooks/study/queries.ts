@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { VOTE_GET } from "../../libs/queryKeys";
+import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import { dayjsToStr } from "../../libs/typeConverter";
 import { IStudyPreferencesQuery } from "../../modals/study/StudyQuickVoteModal";
 
@@ -20,7 +20,7 @@ export const useStudyVoteQuery = (
   >
 ) => {
   return useQuery<IVote, AxiosError, IVote>(
-    [VOTE_GET, date, location],
+    [STUDY_VOTE_INFO, date, location],
     async () => {
       const res = await axios.get<IVote>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}` // location 변수를 API 요청 URL에 추가

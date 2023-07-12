@@ -66,7 +66,6 @@ function BadgeInfoModalFirstInfo() {
 
 const Layout = styled.div`
   height: 100%;
-  padding: 12px 0 16px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -74,26 +73,22 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
+  padding: 0 var(--padding-md);
   width: 100%;
   display: flex;
   justify-content: space-around;
   height: 100%;
   align-items: center;
-  padding: 0 16px;
-
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: var(--border-sub);
 
   > div {
-    width: 40%;
+    flex: 1;
     text-align: center;
   }
 `;
 
-const Info = styled.span`
-  display: inline-block;
+const Info = styled.div`
   font-size: 12px;
-  width: 200px;
-  text-align: center;
 `;
 
 export default BadgeInfoModalFirstInfo;

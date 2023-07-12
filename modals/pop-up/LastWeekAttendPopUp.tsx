@@ -1,139 +1,123 @@
-import { useSession } from "next-auth/react";
-import styled from "styled-components";
-
-import { ModalFooterNav, ModalMain, ModalXs } from "../../styles/layout/modal";
-
 import dayjs from "dayjs";
-import Image from "next/image";
-import { SetStateAction } from "react";
+import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
-import {} from "../../hooks/user/queries";
-import {
-  useUserParticipationRateQuery,
-  useUserVoteRateQuery,
-} from "../../hooks/user/studyStatistics/queries";
+import { PopUpLayout } from "../../components/common/modal/Modals";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
+import Skeleton from "../../components/common/skeleton/Skeleton";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface ILastWeekAttendPopUp {
-  closePopUp: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function LastWeekAttendPopUp({ closePopUp }: ILastWeekAttendPopUp) {
-  const { data: session } = useSession();
-  const name = session?.user.name;
-  const { data: voteRate } = useUserVoteRateQuery(
-    dayjs().subtract(8, "day"),
-    dayjs().subtract(1, "day")
-  );
+function LastWeekAttendPopUp({ setIsModal }: IModal) {
+  const { data: userInfo } = useUserInfoQuery();
 
   const { data: parRate, isLoading } = useUserParticipationRateQuery(
-    dayjs().subtract(8, "day"),
-    dayjs().subtract(0, "day")
+    dayjs().day(1).subtract(1, "week"),
+    dayjs().day(0)
   );
 
-  const voteCnt = voteRate?.find((who) => who.uid === session?.uid)?.cnt;
-  const parCnt = parRate?.find((who) => who.uid === session?.uid)?.cnt;
+  const parCnt = parRate?.find((who) => who.uid === userInfo.uid)?.cnt;
 
-  const message =
-    voteCnt === 0 ? "이번 주는 열심히 참여해봐요~!" : "이번 주도 파이팅~!";
   return (
     <>
-      {!isLoading && (
-        <Layout>
-          <ModalHeaderXLine
-            title={`${name}님의 지난주 기록`}
-            setIsModal={closePopUp}
-          />
-          <ModalMain>
-            <Main>
-              <div>
-                <Item>
-                  <span>스터디 투표</span>
-                  {voteCnt} 회
-                </Item>
-                <Item>
-                  <span>스터디 참여 </span>
-                  {parCnt} 회
-                </Item>
-              </div>
-              <ImageWrapper>
-                <div>
-                  <Image
-                    width={72}
-                    height={72}
-                    src={`${session?.user.image}`}
-                    unoptimized={true}
-                    alt="UserImage"
-                  />
-                </div>
-              </ImageWrapper>
-            </Main>
-            <Message>{message}</Message>
-          </ModalMain>
-
-          <ModalFooterNav>
-            <button onClick={() => closePopUp(false)}>확인</button>
-          </ModalFooterNav>
-        </Layout>
-      )}
+      <PopUpLayout size="md">
+        <ModalHeaderXLine title="지난주 스터디 기록" setIsModal={setIsModal} />
+        <Container>
+          {!isLoading ? (
+            <Info>
+              <Item>
+                <span>구성</span>
+                수습 회원
+              </Item>
+              <Item>
+                <span>스터디 참여 </span>
+                {parCnt} 회
+              </Item>
+              <Item>
+                <span>받은 좋아요</span>0 개
+              </Item>
+              <Item>
+                <span>다음 참여 정산</span>
+                8월 1일
+              </Item>
+            </Info>
+          ) : (
+            <Info>
+              <Item>
+                <span>구성</span>
+                <SkeletonText>
+                  <Skeleton>temp</Skeleton>
+                </SkeletonText>
+              </Item>
+              <Item>
+                <span>스터디 참여 </span>
+                <SkeletonText>
+                  <Skeleton>temp</Skeleton>
+                </SkeletonText>
+              </Item>
+              <Item>
+                <span>받은 좋아요</span>{" "}
+                <SkeletonText>
+                  <Skeleton>temp</Skeleton>
+                </SkeletonText>
+              </Item>
+              <Item>
+                <span>다음 참여 정산</span>
+                <SkeletonText>
+                  <Skeleton>temp</Skeleton>
+                </SkeletonText>
+              </Item>
+            </Info>
+          )}
+          <ImageWrapper>
+            <ProfileIcon user={userInfo} size="lg" />
+            <span>{userInfo.name}</span>
+          </ImageWrapper>
+        </Container>
+        <ModalFooterNav>
+          <button onClick={() => setIsModal(false)}>확인</button>
+        </ModalFooterNav>
+      </PopUpLayout>
     </>
   );
 }
 
-const Layout = styled(ModalXs)`
+const Container = styled(ModalMain)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
-const Main = styled.main`
-  width: 100%;
-  flex: 0.8;
+const Info = styled.div`
   display: flex;
-  > div:first-child {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+const SkeletonText = styled.div`
+  width: 60px;
 `;
 
 const ImageWrapper = styled.div`
-  flex: 1;
+  margin-right: var(--margin-main);
+  margin-left: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    overflow: hidden;
+  > span {
+    display: inline-block;
+    margin-top: var(--margin-min);
   }
 `;
 
 const Item = styled.div`
+  display: flex;
   > span {
     display: inline-block;
-    width: 90px;
+    width: 100px;
     font-weight: 600;
-    font-size: 13px;
   }
 `;
 
-const Message = styled.div`
-  margin-top: auto;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--font-h2);
-`;
-
-const Footer = styled.footer`
-  width: 100%;
-
-  text-align: end;
-  > button {
-    color: var(--color-red);
-    margin-right: 6px;
-  }
-`;
 export default LastWeekAttendPopUp;

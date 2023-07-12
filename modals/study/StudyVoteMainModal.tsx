@@ -22,7 +22,7 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { VOTE_GET } from "../../libs/queryKeys";
+import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import { arrangeSpace } from "../../libs/utils/studyUtils";
 import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
 import {
@@ -101,7 +101,7 @@ function StudyVoteMainModal({ setIsShowModal, isBig }: IStudyVoteMainModal) {
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
-      queryClient.invalidateQueries(VOTE_GET);
+      queryClient.invalidateQueries(STUDY_VOTE_INFO);
       if (!isVoting) {
         if (studyDate === "today") {
           getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);

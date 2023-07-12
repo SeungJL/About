@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import Skeleton from "../../components/common/Skeleton";
+import Skeleton from "../../components/common/skeleton/Skeleton";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { getUserBadgeScore } from "../../libs/utils/userUtils";
 import { IMyRank } from "../../pages/ranking";

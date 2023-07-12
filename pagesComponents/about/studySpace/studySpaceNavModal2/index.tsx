@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
 import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
@@ -12,13 +12,20 @@ import VoteSuccessScreen from "../VoteSuccessScreen";
 
 interface IStudySpaceNavModal {
   type: string;
+  setType: React.Dispatch<SetStateAction<string>>;
   myVote: IAttendance;
   place: IPlace;
 }
 
-function StudySpaceNavModal({ type, myVote, place }: IStudySpaceNavModal) {
+function StudySpaceNavModal({
+  type,
+  setType,
+  myVote,
+  place,
+}: IStudySpaceNavModal) {
   const router = useRouter();
   const voteDate = dayjs(router.query.date as string);
+
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [isAbsentmodal, setIsAbsentmodal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
@@ -30,6 +37,8 @@ function StudySpaceNavModal({ type, myVote, place }: IStudySpaceNavModal) {
     if (type === "absent") setIsAbsentmodal(true);
     if (type === "main")
       myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
+    setType("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myVote?.firstChoice, type]);
   return (
     <Layout>

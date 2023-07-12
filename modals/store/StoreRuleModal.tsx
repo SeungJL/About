@@ -1,7 +1,6 @@
 import RuleModal, {
   IRuleModalContent,
 } from "../../components/common/modal/RuleModal";
-
 import { IModal } from "../../types/common";
 
 function StoreRuleModal({ setIsModal }: IModal) {

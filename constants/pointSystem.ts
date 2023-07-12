@@ -32,8 +32,8 @@ export const POINT_SYSTEM_MINUS = {
     point: { value: -5, message: "투표 취소" },
   },
   absentStudy: {
-    depositReason: { value: -200, message: "당일 불참(인정 사유)" },
-    deposit: { value: -300, message: "당일 불참(스터디 시작 이전)" },
+   
+    deposit: { value: -200, message: "당일 불참(스터디 시작 이전)" },
     depositLate: { value: -500, message: "당일 불참(스터디 시작 이후)" },
   },
 };

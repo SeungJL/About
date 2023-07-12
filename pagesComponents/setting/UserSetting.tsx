@@ -16,8 +16,9 @@ import { useUserRoleMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
 import PromotionModal from "../../modals/aboutHeader/promotionModal/PromotionModal";
+import LastWeekAttendPopUp from "../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
-import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
+
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
@@ -33,7 +34,7 @@ export default function UserSetting() {
 
   const [isAttendPopup, setIsAttendPopup] = useState(false);
   const [isUserGuide, setIsUserGuide] = useState(false);
-  const [isSuggest, setIsSuggest] = useState(false);
+
   const [isProfile, setIsProfile] = useState(false);
   const [myProfileNull, setMyProfileNull] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
@@ -73,7 +74,7 @@ export default function UserSetting() {
 
     let popupCnt = 0;
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
-    if (!ensureLocalStorage(PROFILE_POP_UP) && myProfileNull) {
+    if (myProfileNull && !ensureLocalStorage(PROFILE_POP_UP)) {
       setIsProfile(true);
       popupCnt++;
     }
@@ -83,7 +84,7 @@ export default function UserSetting() {
     }
     if (popupCnt === 2) return;
     if (!ensureLocalStorage(PROMOTION_POP_UP1, PROMOTION_POP_UP2)) {
-      // setIsPromotion(true);
+      setIsPromotion(true);
       popupCnt++;
     }
     if (popupCnt === 2) return;
@@ -97,16 +98,12 @@ export default function UserSetting() {
     <>
       {!isMainLoading && (
         <>
-          {/* {isAttendPopup && (
+          {isAttendPopup && (
             <ModalPortal setIsModal={setIsAttendPopup}>
-              <WeekAttendPopup closePopUp={setIsAttendPopup} />
-            </ModalPortal>
-          )} */}
-          {isSuggest && (
-            <ModalPortal setIsModal={setIsSuggest}>
-              <SuggestPopUp setIsModal={setIsSuggest} />
+              <LastWeekAttendPopUp setIsModal={setIsAttendPopup} />
             </ModalPortal>
           )}
+
           {isProfile && (
             <ModalPortal setIsModal={setIsProfile}>
               <ProfileModifyPopUp setIsModal={setIsProfile} />

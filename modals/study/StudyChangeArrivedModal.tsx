@@ -15,6 +15,7 @@ import {
 import { IAttendance } from "../../types/studyDetails";
 
 import { useRouter } from "next/router";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import { InputSm } from "../../styles/layout/input";
 
 interface IStudyChangeArrivedModal {
@@ -42,36 +43,32 @@ function StudyChangeArrivedModal({
     setIsModal(false);
   };
   return (
-    <Container>
-      <Layout>
-        <ModalHeaderLine>도착 메모</ModalHeaderLine>
-        <ModalMain>
-          <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
-          <Form id="changeMemo">
-            <InputSm
-              placeholder="여기에 작성해주세요!"
-              onChange={(e) => setMemo(e.target.value)}
-              value={memo}
-            />
-          </Form>
-        </ModalMain>
+    <ModalLayout size="md">
+      <ModalHeaderLine>도착 메모</ModalHeaderLine>
+      <ModalMain>
+        <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
+        <Form id="changeMemo">
+          <InputSm
+            placeholder="여기에 작성해주세요!"
+            onChange={(e) => setMemo(e.target.value)}
+            value={memo}
+          />
+        </Form>
+      </ModalMain>
 
-        <ModalFooterNav>
-          <button type="button" onClick={onCancelClicked}>
-            취소
-          </button>
-          <button type="button" form="changeMemo" onClick={onChangeMemo}>
-            변경
-          </button>
-        </ModalFooterNav>
-      </Layout>
-    </Container>
+      <ModalFooterNav>
+        <button type="button" onClick={onCancelClicked}>
+          취소
+        </button>
+        <button type="button" form="changeMemo" onClick={onChangeMemo}>
+          변경
+        </button>
+      </ModalFooterNav>
+    </ModalLayout>
   );
 }
 
-const Container = styled.div`
-  position: relative;
-`;
+const Container = styled.div``;
 
 const Layout = styled(ModalMd)`
   padding: 15px;

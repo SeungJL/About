@@ -1,35 +1,24 @@
-import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { PopUpLayout } from "../../components/common/modal/Modals";
+import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import {
   ModalFooterNav,
   ModalMain,
-  ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface IProfileModifyPopUp {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function ProfileModifyPopUp({ setIsModal }: IProfileModifyPopUp) {
+function ProfileModifyPopUp({ setIsModal }: IModal) {
+  const completeToast = useCompleteToast();
   const router = useRouter();
-  const toast = useToast();
 
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
+
   const onClickClosed = () => {
-    toast({
-      title: "기다릴게요",
-      description: "프로필은 마이페이지에서 언제든 수정할 수 있어요!",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "bottom",
-    });
+    completeToast("free", "프로필은 마이페이지에서 언제든 수정할 수 있어요!");
     setIsModal(false);
   };
 
@@ -37,9 +26,10 @@ function ProfileModifyPopUp({ setIsModal }: IProfileModifyPopUp) {
     setIsProfileEdit(true);
     router.push("/register/location");
   };
+
   return (
     <>
-      <Layout>
+      <PopUpLayout size="md">
         <ModalHeaderXLine title="프로필 수정" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>
@@ -54,11 +44,9 @@ function ProfileModifyPopUp({ setIsModal }: IProfileModifyPopUp) {
           <button onClick={onClickClosed}>닫기</button>
           <button onClick={onClickModify}>프로필 수정</button>
         </ModalFooterNav>
-      </Layout>
+      </PopUpLayout>
     </>
   );
 }
-
-const Layout = styled(ModalMd)``;
 
 export default ProfileModifyPopUp;

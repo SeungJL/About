@@ -1,35 +1,35 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
+import SkeletonItem from "../../components/common/skeleton/SkeletonItem";
 import CountNum from "../../components/utils/CountNum";
 import { useStoreMutation } from "../../hooks/store/mutation";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
-
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
-
-import { ModalMain, ModalXs } from "../../styles/layout/modal";
+import { ModalMain } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 import { IStoreApplicant, IStoreGift } from "../../types/store";
 
-interface IStoreApplyGiftModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+interface IStoreApplyGiftModal extends IModal {
   giftInfo: IStoreGift;
 }
 
 function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
-  const failToast = useFailToast();
-  const completeToast = useCompleteToast();
   const router = useRouter();
   const { data: session } = useSession();
-
+  const failToast = useFailToast();
+  const completeToast = useCompleteToast();
   const isGuest = session?.user.name === "guest";
-  const { data: myPoint } = usePointQuery();
+
   const [value, setValue] = useState(1);
 
-  const { mutate } = useStoreMutation();
+  const { data: myPoint, isLoading } = usePointQuery();
+  const { mutate: applyGift } = useStoreMutation();
   const { mutate: getPoint } = usePointMutation();
 
   const totalCost = giftInfo.point * value;
@@ -39,45 +39,62 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
       failToast("guest");
       return;
     }
-    if (myPoint?.point < totalCost) {
+    if (myPoint.point < totalCost) {
       failToast("free", "보유중인 포인트가 부족해요!");
       return;
     }
     const info: IStoreApplicant = {
       name: session.user.name,
-      uid: session && session?.uid,
+      uid: session.uid,
       cnt: value,
-      giftId: giftInfo?.giftId,
+      giftId: giftInfo.giftId,
     };
-    mutate(info);
-    getPoint({ value: -totalCost, message: `${giftInfo?.name}응모` });
+    applyGift(info);
+    getPoint({ value: -totalCost, message: `${giftInfo.name}응모` });
     completeToast("free", "응모에 성공했어요! 당첨 발표일을 기다려주세요!");
+    setIsModal(false);
     setTimeout(() => {
       router.push(`/store`);
     }, 600);
-    setIsModal(false);
   };
 
   return (
-    <Layout>
-      <ModalHeaderXLine title="응모" setIsModal={setIsModal} />
+    <ModalLayout size="sm">
+      <ModalHeaderXLine title="상품 응모" setIsModal={setIsModal} />
       <ModalMain>
-        <Title>
-          <b>상품</b>
-          <span>{giftInfo?.name}</span>
-        </Title>
-        <Price>
-          <span>
-            <b>보유 포인트</b>&nbsp;
-            <span>{myPoint?.point} point</span>
-          </span>
-          <span>
-            <b>필요 포인트</b>&nbsp;
-            <PricePoint overMax={totalCost > myPoint?.point}>
-              {totalCost} point
-            </PricePoint>
-          </span>
-        </Price>
+        {!isLoading ? (
+          <>
+            <Item>
+              <span>상품</span>
+              <span>{giftInfo?.name}</span>
+            </Item>
+            <Item>
+              <span>보유 포인트</span>
+              <span>{myPoint.point} point</span>
+            </Item>
+            <Item>
+              <span>필요 포인트</span>
+              <NeedPoint overMax={totalCost > myPoint.point}>
+                {totalCost} point
+              </NeedPoint>
+            </Item>
+          </>
+        ) : (
+          <>
+            <Item>
+              <span>상품</span>
+              <SkeletonItem w={100} />
+            </Item>
+            <Item>
+              <span>보유 포인트</span>
+              <SkeletonItem w={50} />
+            </Item>
+            <Item>
+              <span>필요 포인트</span>
+              <SkeletonItem w={50} />
+            </Item>
+          </>
+        )}
         <CountNav>
           <CountNum value={value} setValue={setValue} />
         </CountNav>
@@ -85,48 +102,28 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
       <Footer>
         <Button
           width="100%"
-          backgroundColor={"var(--color-mint)"}
+          backgroundColor="var(--color-mint)"
           onClick={onApply}
           color="white"
         >
           응모하기
         </Button>
       </Footer>
-    </Layout>
+    </ModalLayout>
   );
 }
 
-const Layout = styled(ModalXs)``;
-
-const Title = styled.div`
-  font-size: 13px;
-  margin-bottom: 2px;
-  > b {
-    color: var(--font-h1);
-    margin-right: 4px;
-  }
-  > span {
-    font-size: 14px;
-  }
-`;
-
-const Price = styled.div`
+const Item = styled.div`
   display: flex;
-  flex-direction: column;
-  > span {
+  margin-bottom: var(--margin-min);
+  > span:first-child {
     display: inline-block;
-    margin-bottom: 2px;
-
-    > span {
-      font-size: 14px;
-    }
-    > b {
-      color: var(--font-h1);
-      margin-right: 4px;
-    }
+    width: 80px;
+    font-weight: 600;
   }
 `;
-const PricePoint = styled.span<{ overMax: boolean }>`
+
+const NeedPoint = styled.span<{ overMax: boolean }>`
   color: ${(props) => props.overMax && "var(--color-red)"};
 `;
 
@@ -134,7 +131,6 @@ const CountNav = styled.nav`
   flex: 1;
   display: flex;
   align-items: center;
-  margin-top: 6px;
 `;
 
 const Footer = styled.footer``;

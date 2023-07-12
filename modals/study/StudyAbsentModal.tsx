@@ -1,125 +1,86 @@
-import { IconButton, useToast } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { IconButton } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { useQueryClient } from "react-query";
-import styled from "styled-components";
-import {
-  ModalFooterNav,
-  ModalHeaderLine,
-  ModalMain,
-  ModalMd,
-  ModalSubtitle,
-} from "../../styles/layout/modal";
-
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
+import { ModalLayout } from "../../components/common/modal/Modals";
+import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
+import { useStudyAbsentMutation } from "../../hooks/study/mutations";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
+import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import {
   isVotingState,
   mySpaceFixedState,
   studyStartTimeState,
   voteDateState,
 } from "../../recoil/studyAtoms";
-
-import { SearchIcon } from "@chakra-ui/icons";
-import { motion } from "framer-motion";
-import { ChangeEvent, SetStateAction, useState } from "react";
-
-import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
-import { useStudyAbsentMutation } from "../../hooks/study/mutations";
-import {
-  useDepositMutation,
-  usePointMutation,
-} from "../../hooks/user/pointSystem/mutation";
-import { VOTE_GET } from "../../libs/queryKeys";
 import { InputSm } from "../../styles/layout/input";
+import {
+  ModalFooterNav,
+  ModalHeaderLine,
+  ModalMain,
+} from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface IStoreAbsentModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function StudyAbsentModal({ setIsModal }: IStoreAbsentModal) {
-  const toast = useToast();
+function StudyAbsentModal({ setIsModal }: IModal) {
+  const failToast = useFailToast();
+  const completeToast = useCompleteToast();
   const queryClient = useQueryClient();
 
   const setisVoting = useSetRecoilState(isVotingState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  const [isFirst, setIsFirst] = useState(true);
+  const voteDate = useRecoilValue(voteDateState);
+
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
 
-  const voteDate = useRecoilValue(voteDateState);
-  const { mutate: getPoint } = usePointMutation();
   const { mutate: getDeposit } = useDepositMutation();
 
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
-      queryClient.invalidateQueries(VOTE_GET);
-      if (value === "") {
-        if (dayjs() > studyStartTime) {
-          getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositLate);
-        } else {
-          getDeposit(POINT_SYSTEM_MINUS.absentStudy.deposit);
-        }
-      } else {
-        getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositReason);
-      }
-      setisVoting(false);
+      queryClient.invalidateQueries(STUDY_VOTE_INFO);
+      if (dayjs() > studyStartTime)
+        getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositLate);
+      else getDeposit(POINT_SYSTEM_MINUS.absentStudy.deposit);
+      completeToast("success");
+      //불참 인정사유 전송
+      // setisVoting(false);
     },
     onError: (err) => {
-      toast({
-        title: "오류",
-        description: "불참처리 중 문제가 발생했어요. 다시 시도해보세요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      console.error(err);
+      failToast("error");
     },
   });
 
   const handleCancleBtn = () => {
-    if (mySpaceFixed) {
-      absentStudy(value);
-    } else {
-      toast({
-        title: "오류",
-        description: "오늘 스터디에 참여하지 않은 인원입니다",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    }
+    if (mySpaceFixed) absentStudy(value);
+    else failToast("free", "스터디에 참여하지 않은 인원입니다.");
     setIsModal(false);
-  };
-
-  const onClickTooltop = () => {
-    setIsTooltip((old) => !old);
-  };
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
   };
 
   return (
     <>
-      <Layout>
+      <ModalLayout size="md">
         <ModalHeaderLine>
           <Header>
             {!isTooltip ? <span>불참 경고</span> : <span>불참 인정 사유</span>}
-            <div onClick={onClickTooltop}>
+            <div onClick={() => setIsTooltip((old) => !old)}>
               <span>인정 사유</span>
               <IconWrapper
-                onClick={onClickTooltop}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <IconButton
                   color="white"
                   background="var(--color-mint)"
-                  aria-label="Search database"
+                  aria-label="iconLabel"
                   icon={<SearchIcon />}
                   size="xs"
-                  onClick={onClickTooltop}
                 />
               </IconWrapper>
             </div>
@@ -137,60 +98,43 @@ function StudyAbsentModal({ setIsModal }: IStoreAbsentModal) {
                     본인의 참여 시간이 다른 인원과 <b>1명 이하</b>로 겹치고,
                     <b> 1시간 이하</b>로 겹치는 경우
                   </li>
-                  <li>
-                    코로나 등의 <b>질병</b>에 걸린 경우
-                    <br />
-                    (단순 감기는 악용 방지를 위해 미 허용)
-                  </li>
                   <li>관리자에게 따로 연락해서 동의를 구한 경우</li>
                 </ol>
               </TooltipInfo>
             </ModalMain>
           </>
-        ) : isFirst ? (
-          <>
-            <ModalMain>
-              <ModalSubtitle>정말로 불참하실건가요? </ModalSubtitle>
-              {dayjs() > studyStartTime ? (
-                <div>
-                  스터디 시작 시간이 이미 지났기 때문에 <b>경고 1회</b>와{" "}
-                  <b>-10점</b>이 부여됩니다. 참여 시간을 변경해 보는 것은
-                  어떨까요?
-                </div>
-              ) : (
-                <div>
-                  <b>경고 1회</b>가 부여됩니다.
-                </div>
-              )}
-            </ModalMain>
-            <ModalFooterNav>
-              <button onClick={() => setIsModal(false)}>취소</button>
-              <button onClick={() => setIsFirst(false)}>다음</button>
-            </ModalFooterNav>
-          </>
         ) : (
           <>
             <ModalMain>
               <Subtitle>
-                <div>불참이 인정되는 사유가 있다면 적어주세요! </div>
-
-                <span>※ 해당하지 않는다면 적지 말아주세요</span>
+                {dayjs() < studyStartTime ? (
+                  <div>
+                    스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이
+                    부여됩니다. 참여 시간을 변경해 보는 것은 어떨까요?
+                  </div>
+                ) : (
+                  <div>
+                    스터디 시작 시간 이전으로 벌금 <b>200원</b>이 부여됩니다.
+                    참여 시간을 변경해 보는 건 어떨까요?
+                  </div>
+                )}
               </Subtitle>
-              <InputSm value={value} onChange={onChange} />
+              <InputSm
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="불참 사유"
+              />
             </ModalMain>
             <ModalFooterNav>
               <button onClick={() => setIsModal(false)}>취소</button>
-
               <button onClick={() => handleCancleBtn()}>불참</button>
             </ModalFooterNav>
           </>
         )}
-      </Layout>
+      </ModalLayout>
     </>
   );
 }
-
-const Layout = styled(ModalMd)``;
 
 const Header = styled.header`
   display: flex;
@@ -203,15 +147,15 @@ const Header = styled.header`
     display: flex;
     align-items: center;
     > span:first-child {
-      margin-right: 6px;
+      margin-right: var(--margin-md);
     }
   }
 `;
 
 const Subtitle = styled.div`
-  margin-bottom: 12px;
+  margin-bottom: auto;
   > div {
-    margin-bottom: 4px;
+    margin-bottom: var(--margin-min);
     font-weight: 600;
   }
   > span:last-child {
@@ -225,9 +169,9 @@ const TooltipInfo = styled(motion.div)`
   height: 100%;
   > ol {
     > li {
-      margin-left: 12px;
+      margin-left: var(--margin-main);
       font-size: 13px;
-      margin-bottom: 12px;
+      margin-bottom: var(--margin-sub);
     }
   }
 `;
