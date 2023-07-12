@@ -1,32 +1,23 @@
-import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
-import { ModalFooterNav, ModalMain, ModalMd } from "../../styles/layout/modal";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
+import { useStudyPlaceQuery } from "../../hooks/study/queries";
+import { IVotePlaces } from "../../types/studyDetails";
 
-import {
-  useStudyPlaceQuery,
-  useStudyPreferenceQuery,
-} from "../../hooks/study/queries";
-
+import { ModalLayout } from "../../components/common/modal/Modals";
 import PlaceSelector from "../../components/utils/PlaceSelector";
-import PlaceSelectorLg from "../../components/utils/PlaceSelectorLg";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { userLocationState } from "../../recoil/userAtoms";
-import { IplaceInfo } from "../../types/statistics";
+import { IModal } from "../../types/common";
+import { IPlace } from "../../types/studyDetails";
 
-interface IRequestStudyPreferenceModal {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-  isBig?: boolean;
-}
-
-export interface IStudyPreferences {
-  place: string;
-  subPlace?: string[];
+interface IRequestStudyPreferenceModal extends IModal {
+  isBig: boolean;
 }
 
 function RequestStudyPreferenceModal({
@@ -34,68 +25,58 @@ function RequestStudyPreferenceModal({
   isBig,
 }: IRequestStudyPreferenceModal) {
   const completeToast = useCompleteToast();
+
   const location = useRecoilValue(userLocationState);
+
   const [page, setPage] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
-  const [places, setPlaces] = useState<IplaceInfo[]>();
+  const [places, setPlaces] = useState<IPlace[]>();
+  const [votePlaces, setVotePlaces] = useState<IVotePlaces>({
+    place: undefined,
+    subPlace: [],
+  });
 
   useStudyPlaceQuery({
     onSuccess(data) {
-      const filterData = data
-        ?.map((place) => place?.location === location && { placeName: place })
-        .filter((item) => item);
+      const filterData = data?.filter((place) => place?.location === location);
       setPlaces(filterData);
     },
   });
 
-  const { mutate: setStudyPreference } = useStudyPreferenceMutation();
-
-  const [firstPlace, setFirstPlace] = useState<IplaceInfo[]>([]);
-  const [secondPlaces, setSecondPlaces] = useState<IplaceInfo[]>([]);
-
-  const { data } = useStudyPreferenceQuery();
+  const { mutate: setStudyPreference } = useStudyPreferenceMutation({
+    onSuccess() {
+      completeToast("success");
+    },
+  });
 
   const firstSubmit = () => {
-    if (firstPlace.length === 0) {
+    if (!votePlaces?.place) {
       setErrorMessage("장소를 선택해주세요!");
       return;
-    } else setPage(1);
+    }
+    setPage(1);
   };
 
   const onSubmit = () => {
-    const place = firstPlace[0].placeName._id;
-    const subPlace = secondPlaces.map((item) => item.placeName._id);
-
-    completeToast("success");
-    setStudyPreference({ place, subPlace });
-
+    setStudyPreference(votePlaces);
     setIsModal(false);
   };
 
   return (
     <>
-      <Layout isBig={isBig} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <ModalLayout size={isBig ? "xl" : "md"}>
         <ModalHeaderX title="스터디 선호 장소 설정" setIsModal={setIsModal} />
         {page === 0 ? (
           <>
             <ModalMain>
-              {location !== "수원" && <Subtitle>1지망 선택</Subtitle>}
-
-              {isBig ? (
-                <PlaceSelectorLg
-                  placeInfoArr={places}
-                  isSelectUnit={true}
-                  firstPlace={firstPlace}
-                  setSelectedPlace={setFirstPlace}
-                />
-              ) : (
-                <PlaceSelector
-                  placeInfoArr={places}
-                  isSelectUnit={true}
-                  firstPlace={firstPlace}
-                  setSelectedPlace={setFirstPlace}
-                />
-              )}
+              <Subtitle>1지망 선택</Subtitle>
+              <PlaceSelector
+                places={places}
+                votePlaces={votePlaces}
+                setVotePlaces={setVotePlaces}
+                isMain={true}
+                isBig={isBig}
+              />
             </ModalMain>
             <ModalFooterNav>
               <Error>{errorMessage}</Error>
@@ -105,24 +86,14 @@ function RequestStudyPreferenceModal({
         ) : (
           <>
             <ModalMain>
-              {location !== "수원" && <Subtitle>2지망 선택</Subtitle>}
-              {isBig ? (
-                <PlaceSelectorLg
-                  placeInfoArr={places}
-                  isSelectUnit={false}
-                  firstPlace={firstPlace}
-                  secondPlaces={secondPlaces}
-                  setSelectedPlace={setSecondPlaces}
-                />
-              ) : (
-                <PlaceSelector
-                  placeInfoArr={places}
-                  isSelectUnit={false}
-                  firstPlace={firstPlace}
-                  secondPlaces={secondPlaces}
-                  setSelectedPlace={setSecondPlaces}
-                />
-              )}
+              <Subtitle>2지망 선택</Subtitle>
+              <PlaceSelector
+                places={places}
+                votePlaces={votePlaces}
+                setVotePlaces={setVotePlaces}
+                isMain={false}
+                isBig={isBig}
+              />
             </ModalMain>
             <ModalFooterNav>
               <button onClick={() => setPage(0)}>뒤로가기</button>
@@ -130,38 +101,22 @@ function RequestStudyPreferenceModal({
             </ModalFooterNav>
           </>
         )}
-      </Layout>
+      </ModalLayout>
     </>
   );
 }
-export default RequestStudyPreferenceModal;
-
-const Layout = styled(motion(ModalMd))<{ isBig?: boolean }>`
-  height: ${(props) => props.isBig && "var(--height-md)"};
-`;
 
 const Subtitle = styled.div`
-  color: var(--font-h2);
+  color: var(--font-h3);
   font-size: 14px;
   font-weight: 600;
-  margin-top: 4px;
-  margin-bottom: 8px;
-`;
-
-const TimeWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  > span {
-    font-size: 14px;
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 8px;
-  }
+  margin-bottom: var(--margin-md);
 `;
 
 const Error = styled.span`
   font-size: 13px;
-  margin-right: 16px;
+  margin-right: var(--margin-right);
   color: var(--color-red);
 `;
+
+export default RequestStudyPreferenceModal;

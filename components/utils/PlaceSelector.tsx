@@ -1,112 +1,151 @@
-import { useToast } from "@chakra-ui/react";
-import Image from "next/image";
+import { SetStateAction } from "react";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/study";
+import { useFailToast } from "../../hooks/ui/CustomToast";
+import { IStudyVotePlaces } from "../../modals/study/studyVoteMainModal/StudyVoteMainModalPlace";
+import { IPlace, IVotePlaces } from "../../types/studyDetails";
+import { StudySpaceLogo } from "../ui/DesignAdjustment";
 
-import { IplaceInfo, IPlaceSelecter } from "../../types/statistics";
+interface IPlaceSelector {
+  places: IStudyVotePlaces[] | IPlace[];
+  votePlaces: IVotePlaces;
+  setVotePlaces: React.Dispatch<SetStateAction<IVotePlaces>>;
+  isMain: boolean;
+  isBig: boolean;
+}
+
+type Selected = "main" | "sub" | "none";
 
 function PlaceSelector({
-  placeInfoArr,
-  firstPlace,
-  secondPlaces,
-  setSelectedPlace,
-  isSelectUnit,
-}: IPlaceSelecter) {
-  const choicedSpaces = isSelectUnit ? firstPlace : secondPlaces;
-  const handlePlaceIconClicked = (place: IplaceInfo) => {
-    const isExist = choicedSpaces.some(
-      (space) => space.placeName === place.placeName
-    );
-
-    if (isExist) {
-      setSelectedPlace((old) => {
-        const temp = [...old];
-        const New = temp.filter((space) => space.placeName !== place.placeName);
-        return New;
-      });
-    } else {
-      if (place.voteCnt >= MAX_USER_PER_PLACE) {
-        maxToast();
-        return;
-      }
-      if (isSelectUnit) setSelectedPlace([place]);
-      else setSelectedPlace((old) => [...old, place]);
+  places,
+  votePlaces,
+  setVotePlaces,
+  isMain,
+  isBig,
+}: IPlaceSelector) {
+  const failToast = useFailToast();
+  const onClickItem = (place: IPlace, isMax?: boolean) => {
+    if (isMax) {
+      failToast(
+        "free",
+        "해당 장소는 인원이 모두 차서 2지망으로만 신청이 가능해요!"
+      );
+      return;
     }
+    if (isMain) {
+      setVotePlaces((old) => ({ ...old, place }));
+      return;
+    }
+    let subPlace = [...votePlaces.subPlace];
+    const findItem = subPlace.indexOf(place);
+    if (findItem === -1) subPlace = [...subPlace, place];
+    else subPlace.splice(findItem, 1);
+    setVotePlaces((old) => ({ ...old, subPlace }));
   };
-  const maxToast = useToast({
-    title: "정원초과",
-    description: `장소당 최대 ${MAX_USER_PER_PLACE}명까지 신청할 수 있어요.`,
-    status: "error",
-    duration: 3000,
-    isClosable: true,
-    position: "bottom",
-  });
+  console.log(places);
   return (
-    <Layout>
-      {placeInfoArr?.map((info, idx) => {
-        const isSelected = choicedSpaces?.some(
-          (place) => place.placeName === info.placeName
-        );
-
-        const isFirstSelected =
-          !isSelectUnit &&
-          firstPlace.some((place) => place.placeName === info.placeName);
-
-        const place = info?.placeName;
-        return (
-          <PlaceItem key={idx}>
-            <PlaceIcon
-              onClick={() => handlePlaceIconClicked(info)}
-              isSelected={isSelected}
-              disabled={isFirstSelected}
-              firstSelected={isFirstSelected}
-            >
-              <Image
-                src={`${place?.image}`}
-                alt="studySpace"
-                width={64}
-                height={64}
-                unoptimized={true}
-              />
-            </PlaceIcon>
-            <span>{place?.branch}</span>
-          </PlaceItem>
-        );
-      })}
-    </Layout>
+    <>
+      <Layout isBig={isBig}>
+        {places?.map((place) => {
+          const placeInfo = place?.place || place;
+          let selected: Selected = "none";
+          if (placeInfo === votePlaces.place) selected = "main";
+          if (votePlaces.subPlace.find((subPlace) => subPlace === placeInfo))
+            selected = "sub";
+          const isMax = isMain && place.voteCnt >= MAX_USER_PER_PLACE;
+          return (
+            <>
+              {isBig ? (
+                <Item
+                  selected={selected}
+                  key={placeInfo._id}
+                  onClick={() => onClickItem(placeInfo, isMax)}
+                  isMax={isMax}
+                >
+                  <PlaceIcon>
+                    <StudySpaceLogo place={placeInfo} isBig={false} />
+                  </PlaceIcon>
+                  <Name>{placeInfo.branch}</Name>
+                </Item>
+              ) : (
+                <FlexItem key={placeInfo._id}>
+                  <FlexPlaceIcon
+                    selected={selected}
+                    onClick={() => onClickItem(placeInfo)}
+                  >
+                    <StudySpaceLogo place={placeInfo} isBig={true} />
+                  </FlexPlaceIcon>
+                  <FlexName>{placeInfo.branch}</FlexName>
+                </FlexItem>
+              )}
+            </>
+          );
+        })}
+      </Layout>
+    </>
   );
 }
 
-const Layout = styled.div`
-  display: flex;
-  justify-content: space-between;
+const Layout = styled.div<{ isBig: boolean }>`
+  margin-top: var(--margin-min);
+  display: ${(props) => (props.isBig ? "grid" : "flex")};
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--margin-md);
 `;
-const PlaceItem = styled.div`
+
+const Item = styled.button<{ selected: Selected; isMax: boolean }>`
+  display: flex;
+  height: 54px;
+  align-items: center;
+  border: ${(props) =>
+    props.selected === "none"
+      ? "var(--border-main)"
+      : props.selected === "main"
+      ? "2px solid var(--color-mint)"
+      : "2px solid var(--color-orange)"};
+  padding: var(--padding-min);
+  border-radius: var(--border-radius-sub);
+  background-color: ${(props) => props.isMax && "var(--font-h7)"};
+`;
+
+const PlaceIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const Name = styled.span`
+  margin-left: var(--margin-md);
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+const FlexItem = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  > span {
-    text-align: center;
-    font-size: 12px;
-    color: var(--font-h1);
-  }
-`;
-const PlaceIcon = styled.button<{
-  isSelected: boolean;
-  firstSelected: boolean;
-}>`
-  width: 65px;
-  height: 65px;
-  margin: 5px 0;
-  border-radius: 25%;
-  border: ${(props) =>
-    props.firstSelected
-      ? "2px solid var(--color-red)"
-      : props.isSelected
-      ? "2px solid var(--color-mint)"
-      : "1px solid var(--font-h5)"};
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-around;
+  border-radius: var(--border-radius-main);
 `;
+
+const FlexPlaceIcon = styled.div<{ selected: Selected }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-main);
+  border: ${(props) =>
+    props.selected === "none"
+      ? "var(--border-main)"
+      : props.selected === "main"
+      ? "2px solid var(--color-mint)"
+      : "2px solid var(--color-orange)"};
+`;
+
+const FlexName = styled.span`
+  margin-top: var(--margin-min);
+  font-size: 12px;
+`;
+
 export default PlaceSelector;

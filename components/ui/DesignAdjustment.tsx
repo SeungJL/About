@@ -33,6 +33,29 @@ export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
   );
 };
 
+interface IStudySpaceLogo {
+  place: IPlace;
+  isBig: boolean;
+}
+export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
+  let W = 40;
+  let H = 40;
+  if (place._id === SUWAN_이디야) {
+    W = 50;
+    H = 50;
+  }
+  return (
+    <>
+      <Image
+        src={`${place.image}`}
+        alt="studyLogoSm"
+        width={isBig ? W * 1.6 : W}
+        height={isBig ? W * 1.6 : W}
+        unoptimized={true}
+      />
+    </>
+  );
+};
 export const LogoSmAdjustmentImage = ({ place }: { place: IPlace }) => {
   let W = 40;
   let H = 40;

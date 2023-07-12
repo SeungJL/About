@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
 import { useStudyPreferenceQuery } from "../../../../hooks/study/queries";
+import { useFailToast } from "../../../../hooks/ui/CustomToast";
 import StudyQuickVoteModal from "../../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import {
@@ -23,6 +24,7 @@ interface IAboutVoteNav {
 function AboutVoteNav({ participations }: IAboutVoteNav) {
   const { data: session } = useSession();
   const toast = useToast();
+  const failToast = useFailToast();
   const isGuest = session?.user.name === "guest";
 
   const studyDate = useRecoilValue(studyDateState);
@@ -43,14 +45,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
 
   const onClickBtn = (type: string) => {
     if (isGuest) {
-      toast({
-        title: "버튼 동작 실패",
-        description: "게스트에게는 허용되지 않는 기능입니다.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      failToast("guest");
       return;
     }
     if (type === "vote") setIsShowModal(true);
@@ -113,16 +108,18 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
       {isShowModal && (
         <ModalPortal setIsModal={setIsShowModal}>
           <StudyVoteMainModal
-            setIsShowModal={setIsShowModal}
+            setIsModal={setIsShowModal}
             isBig={location === "수원"}
+            participations={participations}
           />
         </ModalPortal>
       )}
       {isAttendModal && (
         <ModalPortal setIsModal={setIsAttendModal}>
           <StudyVoteMainModal
-            setIsShowModal={setIsAttendModal}
+            setIsModal={setIsAttendModal}
             isBig={location === "수원"}
+            participations={participations}
           />
         </ModalPortal>
       )}

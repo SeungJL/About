@@ -23,7 +23,7 @@ export const useStudyVoteQuery = (
     [STUDY_VOTE_INFO, date, location],
     async () => {
       const res = await axios.get<IVote>(
-        `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}` // location 변수를 API 요청 URL에 추가
+        `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}`
       );
       return res.data;
     },

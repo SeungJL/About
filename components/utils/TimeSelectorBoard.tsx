@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { STUDY_TIME_TABLE } from "../../constants/study";
 import { ITimeSelector } from "../../types/utils";
 
-function TimeSelectorLg({ times, setTimes }: ITimeSelector) {
+function TimeSelectorBoard({ times, setTimes }: ITimeSelector) {
   const toast = useToast();
   const [isStart, setIsStart] = useState(true);
 
@@ -89,7 +89,7 @@ function TimeSelectorLg({ times, setTimes }: ITimeSelector) {
   );
 }
 const Layout = styled.div`
-  height: 210px;
+  height: 260px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -120,4 +120,4 @@ const SelectCircle = styled.div<{ isStart: boolean }>`
   border-radius: 30px;
 `;
 
-export default TimeSelectorLg;
+export default TimeSelectorBoard;

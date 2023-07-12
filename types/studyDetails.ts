@@ -72,9 +72,11 @@ export interface IAttendMessage {
   arrived: string;
 }
 
-export interface IVoteInfo {
+export interface IVotePlaces {
   place: IPlace;
-  subPlace: IPlace[];
+  subPlace?: IPlace[];
+}
+export interface IVoteInfo extends IVotePlaces {
   start: Dayjs;
   end: Dayjs;
 }

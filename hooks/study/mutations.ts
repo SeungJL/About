@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
-import { useMutation, UseMutationOptions, useQuery } from "react-query";
+import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../libs/typeConverter";
-import { IStudyPreferences } from "../../modals/userRequest/RequestStudyPreferenceModal";
 import { IStudyParticipate } from "../../types/study";
+import { IVotePlaces } from "../../types/studyDetails";
 
 import { ITimeStartToEnd } from "../../types/utils";
 
@@ -106,16 +106,13 @@ export const useStudyQuickVoteMutation = (
 
 export const useStudyPreferenceMutation = (
   options?: Omit<
-    UseMutationOptions<void, AxiosError, IStudyPreferences>,
+    UseMutationOptions<void, AxiosError, IVotePlaces>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useMutation<void, AxiosError, IStudyPreferences>(
-    async ({ place, subPlace }) => {
-      await axios.post(`${SERVER_URI}/user/preference`, { place, subPlace });
-    },
-    options
-  );
+  useMutation<void, AxiosError, IVotePlaces>(async (votePlaces) => {
+    await axios.post(`${SERVER_URI}/user/preference`, votePlaces);
+  }, options);
 
 export const useStudyOpenFreeMutation = (
   date: Dayjs,
@@ -129,4 +126,3 @@ export const useStudyOpenFreeMutation = (
       placeId,
     });
   }, options);
-
