@@ -30,11 +30,20 @@ function CheckRegisterModalFooter({
   const cancelRef = useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { mutate: approve } = useUserApproveMutation();
-  const { mutate: deleteForm } = useUserDeleteMutation();
+  const { mutate: approve } = useUserApproveMutation({
+    onSuccess() {
+      console.log("suc");
+    },
+  });
+  const { mutate: deleteForm } = useUserDeleteMutation({
+    onSuccess() {
+      console.log(3);
+    },
+  });
 
   const onClickAgree = () => {
     approve(uid);
+    console.log(222);
     setIsRefetch(true);
     setIsModal(false);
   };

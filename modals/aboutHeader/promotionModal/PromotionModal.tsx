@@ -16,7 +16,7 @@ function PromotionModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout size="lg">
+      <ModalLayout size="xl">
         <ModalHeaderX title="홍보 이벤트" setIsModal={setIsModal} />
         <ModalMain>
           <PromotionModalOverview />

@@ -17,7 +17,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
   };
 
   return (
-    <PopUpLayout size="xl">
+    <PopUpLayout size="xxl">
       <ModalHeaderCenter>
         <span>
           <FontAwesomeIcon

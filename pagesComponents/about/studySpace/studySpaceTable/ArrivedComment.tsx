@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
@@ -36,7 +36,12 @@ function ArrivedComment({ attendances }: IArrivedComment) {
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [user, setUser] = useState<IAttendance>();
 
-  const { data: absentData } = useStudyAbsentQuery(voteDate);
+  const { data: absentData, refetch } = useStudyAbsentQuery(voteDate);
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [attendances]);
 
   const onClickUser = (user: IUser) => {
     setUserData(user);

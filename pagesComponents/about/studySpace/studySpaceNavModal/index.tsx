@@ -45,7 +45,7 @@ function StudySpaceNavModal({
       {isChangeModal && (
         <ModalPortal setIsModal={setIsChangeModal}>
           <StudyChangeTimeModal
-            setIsStudyChangeTimeModal={setIsChangeModal}
+            setIsModal={setIsChangeModal}
             myVoteTime={myVote?.time}
           />
         </ModalPortal>

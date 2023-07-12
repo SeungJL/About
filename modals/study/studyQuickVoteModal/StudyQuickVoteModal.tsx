@@ -1,28 +1,21 @@
 import { Button } from "@chakra-ui/react";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import ModalPortal from "../../components/ModalPortal";
-import TimeSelector from "../../components/utils/TimeSelector";
-import { useStudyQuickVoteMutation } from "../../hooks/study/mutations";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
-import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
-import { voteDateState } from "../../recoil/studyAtoms";
-import { userLocationState } from "../../recoil/userAtoms";
-import {
-  ModalFooterNav,
-  ModalLgLight,
-  ModalMain,
-  ModalMd,
-  ModalSubtitle,
-} from "../../styles/layout/modal";
-import { IStudyPlaces } from "../../types/study";
-import { ITimeStartToEndHM } from "../../types/utils";
-import RequestStudyPreferenceModal from "../userRequest/RequestStudyPreferenceModal";
+import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../../components/common/modal/Modals";
+import TimeSelector from "../../../components/utils/TimeSelector";
+import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
+import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
+import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
+import { voteDateState } from "../../../recoil/studyAtoms";
+import { ModalMain } from "../../../styles/layout/modal";
+import { IModal } from "../../../types/common";
+import { IStudyPlaces } from "../../../types/study";
+import { ITimeStartToEndHM } from "../../../types/utils";
+import StudyQuickVoteModalRegister from "./StudyQuickVoteModalRegister";
 
-interface IStudyQuickVoteModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+interface IStudyQuickVoteModal extends IModal {
   data: IStudyPreferencesQuery;
 }
 
@@ -35,14 +28,14 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const voteDate = useRecoilValue(voteDateState);
-  const location = useRecoilValue(userLocationState);
+
   const setIsRefetchStudy = useSetRecoilState(isRefetchStudyState);
 
-  const [isPreference, setIsPreference] = useState(false);
   const [time, setTime] = useState<ITimeStartToEndHM>({
     start: { hours: 14, minutes: 0 },
     end: { hours: 18, minutes: 0 },
   });
+
   const { mutate } = useStudyQuickVoteMutation(voteDate, {
     onSuccess() {
       completeToast("studyVote");
@@ -53,7 +46,6 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   const onSubmit = () => {
     const start = voteDate.hour(time.start.hours).minute(time.start.minutes);
     const end = voteDate.hour(time.end.hours).minute(time.end.minutes);
-
     if (start > end) {
       failToast("studyVote", "beforeTime");
       return;
@@ -65,7 +57,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   return (
     <>
       {data && data?.studyPreference ? (
-        <Layout>
+        <ModalLayout size="lg">
           <ModalHeaderX
             title={`${voteDate?.format("M월 D일")} 스터디 투표`}
             setIsModal={setIsModal}
@@ -88,12 +80,8 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
             </Container>
             <TimeSelector
               setTimes={({ start, end }: ITimeStartToEndHM) => {
-                if (start) {
-                  setTime({ end: time.end, start });
-                }
-                if (end) {
-                  setTime({ start: time.start, end });
-                }
+                if (start) setTime({ end: time.end, start });
+                if (end) setTime({ start: time.start, end });
               }}
               times={time}
             />
@@ -101,59 +89,30 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
           <Button colorScheme="mintTheme" onClick={onSubmit}>
             제출
           </Button>
-        </Layout>
+        </ModalLayout>
       ) : (
-        data && (
-          <NoPreferenceLayout>
-            <ModalHeaderX title="스터디 빠른 투표" setIsModal={setIsModal} />
-            <ModalMain>
-              <ModalSubtitle>
-                등록된 스터디 선호 장소가 없어요. 3초만 투자하시면 다음부터는
-                원터치로 원하는 장소에 투표할 수 있어요!
-              </ModalSubtitle>
-            </ModalMain>
-            <ModalFooterNav>
-              <button onClick={() => setIsModal(false)}>닫기</button>
-              <button onClick={() => setIsPreference(true)}>등록하기</button>
-            </ModalFooterNav>
-          </NoPreferenceLayout>
-        )
-      )}
-      {isPreference && (
-        <ModalPortal setIsModal={setIsPreference}>
-          <RequestStudyPreferenceModal
-            setIsModal={setIsModal}
-            isBig={location === "수원"}
-          />
-        </ModalPortal>
+        data && <StudyQuickVoteModalRegister setIsModal={setIsModal} />
       )}
     </>
   );
 }
 
-const Layout = styled(ModalLgLight)`
-  height: 300px;
-`;
-
 const Subplaces = styled.div`
   flex: 1;
   > span {
-    margin-right: 4px;
+    margin-right: var(--margin-min);
   }
 `;
-
-const NoPreferenceLayout = styled(ModalMd)``;
 
 const Container = styled.div`
   line-height: 2;
   font-size: 14px;
-
   > div {
     > div {
       > b {
         display: inline-block;
         width: 44px;
-        margin-right: 8px;
+        margin-right: var(--margin-md);
       }
     }
   }

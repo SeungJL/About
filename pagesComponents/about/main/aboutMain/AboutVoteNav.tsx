@@ -7,8 +7,8 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
 import { useStudyPreferenceQuery } from "../../../../hooks/study/queries";
-import StudyQuickVoteModal from "../../../../modals/study/StudyQuickVoteModal";
-import StudyVoteMainModal from "../../../../modals/study/StudyVoteMainModal";
+import StudyQuickVoteModal from "../../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
+import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import {
   mySpaceFixedState,
   studyDateState,

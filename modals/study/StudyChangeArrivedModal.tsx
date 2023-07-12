@@ -1,25 +1,23 @@
 import dayjs from "dayjs";
-import { Dispatch, SetStateAction, useState } from "react";
-
+import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-
+import { ModalLayout } from "../../components/common/modal/Modals";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
-
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
+import { voteDateState } from "../../recoil/studyAtoms";
+import { InputSm } from "../../styles/layout/input";
 import {
   ModalFooterNav,
   ModalHeaderLine,
   ModalMain,
-  ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 import { IAttendance } from "../../types/studyDetails";
 
-import { useRouter } from "next/router";
-import { ModalLayout } from "../../components/common/modal/Modals";
-import { InputSm } from "../../styles/layout/input";
-
-interface IStudyChangeArrivedModal {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
+interface IStudyChangeArrivedModal extends IModal {
   user: IAttendance;
 }
 
@@ -27,21 +25,30 @@ function StudyChangeArrivedModal({
   setIsModal,
   user,
 }: IStudyChangeArrivedModal) {
-  const router = useRouter();
+  const completeToast = useCompleteToast();
+  const failToast = useFailToast();
+
+  const voteDate = useRecoilValue(voteDateState);
+  const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
+
   const [memo, setMemo] = useState(user?.memo);
 
-  const voteDate = dayjs(router.query.date as string);
-
-  const { mutate: changeMemo } = useStudyArrivedMutation(dayjs(voteDate), {});
-
-  const onCancelClicked = () => {
-    setIsModal(false);
-  };
+  const { mutate: changeMemo } = useStudyArrivedMutation(dayjs(voteDate), {
+    onSuccess() {
+      completeToast("success");
+      setIsRefetch(true);
+    },
+    onError(err) {
+      console.error(err);
+      failToast("error");
+    },
+  });
 
   const onChangeMemo = async () => {
     await changeMemo(memo);
     setIsModal(false);
   };
+
   return (
     <ModalLayout size="md">
       <ModalHeaderLine>도착 메모</ModalHeaderLine>
@@ -55,9 +62,8 @@ function StudyChangeArrivedModal({
           />
         </Form>
       </ModalMain>
-
       <ModalFooterNav>
-        <button type="button" onClick={onCancelClicked}>
+        <button type="button" onClick={() => setIsModal(false)}>
           취소
         </button>
         <button type="button" form="changeMemo" onClick={onChangeMemo}>
@@ -68,41 +74,8 @@ function StudyChangeArrivedModal({
   );
 }
 
-const Container = styled.div``;
-
-const Layout = styled(ModalMd)`
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Content = styled.div`
-  margin-bottom: 12px;
-`;
-
 const Form = styled.form`
   height: 100%;
-`;
-
-const Loading = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-
-  border-radius: 50%;
-  font-size: 13px;
-  font-weight: 600;
-  width: 250px;
-  height: 250px;
-  top: 50%;
-  left: 50%;
-  z-index: 100;
-  transform: translate(-50%, -50%);
-  > div {
-    height: 10px;
-  }
 `;
 
 export default StudyChangeArrivedModal;

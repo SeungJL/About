@@ -26,7 +26,7 @@ function StudySetting({ participations, setMyVoteList }: IStudySetting) {
           let isVote = false;
           space?.attendences?.forEach((who) => {
             if (who.user?.uid === session?.uid) {
-              if (space.status === "open") {
+              if (space.status === "open" || space.status === "free") {
                 setMySpaceFixed(space);
                 if (who?.arrived) setIsCheck(true);
               }

@@ -4,7 +4,7 @@ import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import { dayjsToStr } from "../../libs/typeConverter";
-import { IStudyPreferencesQuery } from "../../modals/study/StudyQuickVoteModal";
+import { IStudyPreferencesQuery } from "../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
 
 import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";

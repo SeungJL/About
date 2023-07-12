@@ -10,10 +10,12 @@ import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
 import { isRefetchStudySpacelState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
+  mySpaceFixedState,
   studyDateState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
+import { IVote } from "../../../types/studyDetails";
 
 interface IStudySpaceSetting {
   setStudySpaceData: React.Dispatch<SetStateAction<IStudySpaceData>>;
@@ -33,21 +35,23 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   );
   const setVoteDate = useSetRecoilState(voteDateState);
   const setStudyDate = useSetRecoilState(studyDateState);
+  const setMySpaceFixed = useSetRecoilState(mySpaceFixedState);
 
-  const handleSuccess = (data) => {
-    const studySpace = data.participations.find(
+  const handleSuccess = (data: IVote) => {
+    const participation = data.participations.find(
       (props) => props.place._id === spaceID
     );
-    setStudySpaceData(studySpace);
-    const isVoted = studySpace.attendences.find(
-      (who) => who?.user.uid === session?.uid
-    );
+    const { place, attendences, status } = participation;
+
+    setStudySpaceData({ place, attendences, status });
+    const isVoted = attendences.find((who) => who?.user.uid === session?.uid);
+    if (["open", "free"].includes(status)) setMySpaceFixed(participation);
     setIsVoting(!!isVoted);
   };
 
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess: handleSuccess,
-    onError() {
+    onError(data) {
       failToast("loadStudy");
     },
   });

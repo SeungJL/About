@@ -144,9 +144,9 @@ export const ModalMain = styled.main`
 
 export const ModalSubtitle = styled.div`
   font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--font-h1);
-  font-size: 14px;
+  margin-bottom: var(--margin-main);
+  color: var(--font-h2);
+  font-size: 13px;
 `;
 
 export const ModalFooterNav = styled.footer`

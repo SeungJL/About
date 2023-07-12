@@ -20,7 +20,7 @@ function StudyRuleModal({ setIsModal }: IModal) {
   const [isTip, setIsTip] = useState(true);
 
   return (
-    <ModalLayout size="xl">
+    <ModalLayout size="xxl">
       <ModalHeaderCenter>
         <Title>동아리 가이드</Title>
         <div>대학생들의 카공 및 친목 동아리 About</div>

@@ -29,7 +29,7 @@ import {
 } from "../../../hooks/user/pointSystem/mutation";
 import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
 import { IUser } from "../../../types/user";
-import StudySpaceNavModal from "./studySpaceNavModal2";
+import StudySpaceNavModal from "./studySpaceNavModal";
 
 interface IStudySpaceNavigation {
   studySpaceData: IStudySpaceData;

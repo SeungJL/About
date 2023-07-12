@@ -3,7 +3,6 @@ import { IconButton } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useQueryClient } from "react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalLayout } from "../../components/common/modal/Modals";
@@ -11,9 +10,8 @@ import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
+import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
 import {
-  isVotingState,
   mySpaceFixedState,
   studyStartTimeState,
   voteDateState,
@@ -23,18 +21,18 @@ import {
   ModalFooterNav,
   ModalHeaderLine,
   ModalMain,
+  ModalSubtitle,
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/common";
 
 function StudyAbsentModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
-  const queryClient = useQueryClient();
 
-  const setisVoting = useSetRecoilState(isVotingState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const voteDate = useRecoilValue(voteDateState);
+  const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
 
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
@@ -43,13 +41,12 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
-      queryClient.invalidateQueries(STUDY_VOTE_INFO);
       if (dayjs() > studyStartTime)
         getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositLate);
       else getDeposit(POINT_SYSTEM_MINUS.absentStudy.deposit);
       completeToast("success");
+      setIsRefetch(true);
       //불참 인정사유 전송
-      // setisVoting(false);
     },
     onError: (err) => {
       console.error(err);
@@ -106,7 +103,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
         ) : (
           <>
             <ModalMain>
-              <Subtitle>
+              <ModalSubtitle>
                 {dayjs() < studyStartTime ? (
                   <div>
                     스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이
@@ -118,7 +115,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
                     참여 시간을 변경해 보는 건 어떨까요?
                   </div>
                 )}
-              </Subtitle>
+              </ModalSubtitle>
               <InputSm
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
@@ -149,17 +146,6 @@ const Header = styled.header`
     > span:first-child {
       margin-right: var(--margin-md);
     }
-  }
-`;
-
-const Subtitle = styled.div`
-  margin-bottom: auto;
-  > div {
-    margin-bottom: var(--margin-min);
-    font-weight: 600;
-  }
-  > span:last-child {
-    font-size: 12px;
   }
 `;
 

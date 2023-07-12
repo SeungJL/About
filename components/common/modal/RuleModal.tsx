@@ -34,7 +34,7 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
   );
 
   return (
-    <ModalLayout size="xl">
+    <ModalLayout size="xxl">
       <ModalHeaderCenter>
         <Title>{header.title}</Title>
         <div>{header.text}</div>

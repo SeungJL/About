@@ -1,9 +1,8 @@
 import { useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
@@ -12,15 +11,15 @@ import {
 } from "../../constants/pointSystem";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
+import { useFailToast } from "../../hooks/ui/CustomToast";
 import {
   useDepositMutation,
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
+import { useUserLocationQuery } from "../../hooks/user/queries";
 import { getToday } from "../../libs/utils/dateUtils";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
-import { userLocationState } from "../../recoil/userAtoms";
 import { InputSm } from "../../styles/layout/input";
 import {
   ModalFooterNav,
@@ -28,26 +27,24 @@ import {
   ModalMain,
   ModalMd,
 } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;
 
-interface IStudyCheckModal {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}
-function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
+function StudyCheckModal({ setIsModal }: IModal) {
+  const failToast = useFailToast();
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
-  const location = useRecoilValue(userLocationState);
+
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
-  const queryClient = useQueryClient();
+
   const toast = useToast();
   const voteDate = useRecoilValue(voteDateState);
 
+  const { data: location } = useUserLocationQuery();
   const { data } = useStudyVoteQuery(voteDate, location);
-  const myPlace = data?.participations.find(
-    (par) => par === mySpaceFixed
-  )?.place;
+
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getDeposit } = useDepositMutation();
@@ -55,8 +52,6 @@ function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
 
   const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
     onSuccess: (data) => {
-      queryClient.invalidateQueries(STUDY_VOTE_INFO);
-
       if (
         dayjs(
           mySpaceFixed?.attendences?.find(
@@ -72,19 +67,11 @@ function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
     },
 
     onError: (err) => {
-      toast({
-        title: "오류",
-        description: "출석체크 중 문제가 발생했어요. 다시 시도해보세요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      console.error(err);
+      failToast("error");
     },
   });
-  const onCancelClicked = () => {
-    setIsModal(false);
-  };
+
   const onCheckClicked = async () => {
     await setIsChecking(true);
     await checkArrived();
@@ -108,14 +95,7 @@ function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
         setIsModal(false);
       }, 2000);
     } else {
-      toast({
-        title: "오류",
-        description: "현재 스터디 장소에 있지 않은 것으로 확인돼요.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      failToast("free", "스터디 장소가 아닌 것으로 확인됩니다.");
     }
   };
 
@@ -137,7 +117,7 @@ function StudyCheckModal({ setIsModal }: IStudyCheckModal) {
         </ModalMain>
 
         <ModalFooterNav>
-          <button type="button" onClick={onCancelClicked}>
+          <button type="button" onClick={() => setIsModal(false)}>
             취소
           </button>
           <button type="button" form="AttendCheckForm" onClick={onCheckClicked}>
@@ -173,7 +153,7 @@ const Layout = styled(ModalMd)`
 `;
 
 const Content = styled.div`
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
 `;
 
 const Form = styled.form`
@@ -186,7 +166,6 @@ const Loading = styled.div`
   flex-direction: column;
   align-items: center;
   position: fixed;
-
   border-radius: 50%;
   font-size: 13px;
   font-weight: 600;

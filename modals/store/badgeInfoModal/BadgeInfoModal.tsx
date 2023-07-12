@@ -11,7 +11,7 @@ function BadgeInfoModal({ setIsModal }: IModal) {
   const [page, setPage] = useState(0);
 
   return (
-    <ModalLayout size="xl">
+    <ModalLayout size="xxl">
       {page === 0 ? (
         <>
           <ModalHeaderCenter>

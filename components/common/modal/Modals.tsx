@@ -32,8 +32,9 @@ const SIZE_WIDTH_MAP = {
 };
 
 const SIZE_HEIGHT_MAP = {
-  xl: "500px",
-  lg: "400px",
+  xxl: "500px",
+  xl: "400px",
+  lg: "300px",
   md: "240px",
   sm: "240px",
 };

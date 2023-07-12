@@ -5,7 +5,8 @@ export type IPlaceStatusType =
   | "pending"
   | "waiting_confirm"
   | "open"
-  | "dismissed";
+  | "dismissed"
+  | "free";
 
 export type Status =
   | "pending"

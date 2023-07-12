@@ -21,9 +21,10 @@ export const useUserApproveMutation = (
   >
 ) =>
   useMutation<void, AxiosError, string>(async (uid) => {
+    console.log({ uid });
     await axios.post(`${SERVER_URI}/register/approval`, { uid });
-  }, options);
-
+  }, options)
+;
 export const useUserDeleteMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, string>,

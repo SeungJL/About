@@ -1,32 +1,22 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import { WEB_URL } from "../../constants/system";
 import { SQUARE_RANDOM_IMAGE } from "../../storage/SquareRandomImage";
 import { STUDY_SPACE_INFO } from "../../storage/study";
-
-import { ModalHeaderLine, ModalMain, ModalXs } from "../../styles/layout/modal";
+import { ModalHeaderLine, ModalMain } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 import { IPlace } from "../../types/studyDetails";
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
-interface Kakao {
-  init: (key: string) => void;
-  isInitialized: () => boolean;
-  Link: {
-    sendDefault: (params: object) => void;
-    createDefaultButton: (options: object) => void; // createDefaultButton 인터페이스 추가
-  };
-}
-function StudyInviteModal({
-  setIsModal,
 
-  place,
-}: {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-
+interface IStudyInviteModal extends IModal {
   place: IPlace;
-}) {
+}
+
+function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -79,7 +69,7 @@ function StudyInviteModal({
   }, []);
 
   return (
-    <Layout>
+    <ModalLayout size="sm">
       <ModalHeaderLine>친구초대</ModalHeaderLine>
       <ModalMain>
         <MainText>
@@ -102,11 +92,9 @@ function StudyInviteModal({
           친구초대
         </Button>
       </Footer>
-    </Layout>
+    </ModalLayout>
   );
 }
-
-const Layout = styled(ModalXs)``;
 
 const MainText = styled.span`
   color: var(--font-h1);
@@ -114,7 +102,7 @@ const MainText = styled.span`
 `;
 
 const SubText = styled.span`
-  margin-top: 10px;
+  margin-top: var(--margin-sub);
   font-size: 12px;
 `;
 
