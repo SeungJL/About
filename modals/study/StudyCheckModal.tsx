@@ -1,16 +1,15 @@
-import { useToast } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
 } from "../../constants/pointSystem";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
-import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { useFailToast } from "../../hooks/ui/CustomToast";
 import {
   useDepositMutation,
@@ -25,7 +24,6 @@ import {
   ModalFooterNav,
   ModalHeaderLine,
   ModalMain,
-  ModalMd,
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/common";
 import { IUser } from "../../types/user";
@@ -39,11 +37,9 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
 
-  const toast = useToast();
   const voteDate = useRecoilValue(voteDateState);
 
   const { data: location } = useUserLocationQuery();
-  const { data } = useStudyVoteQuery(voteDate, location);
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
@@ -51,16 +47,17 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
 
   const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
-    onSuccess: (data) => {
+    onSuccess() {
       if (
         dayjs(
           mySpaceFixed?.attendences?.find(
             (who) => (who?.user as IUser).uid === session?.uid
           ).time.start
         ).add(1, "hour") < dayjs()
-      ) {
+      )
         getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
-      } else if (isChecking && voteDate > dayjs().subtract(1, "day")) {
+
+      if (isChecking && voteDate > dayjs().subtract(1, "day")) {
         getScore(POINT_SYSTEM_PLUS.attendCheck.score);
         getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
       }
@@ -100,8 +97,8 @@ function StudyCheckModal({ setIsModal }: IModal) {
   };
 
   return (
-    <Container>
-      <Layout>
+    <>
+      <ModalLayout size="md">
         <ModalHeaderLine>출석체크</ModalHeaderLine>
         <ModalMain>
           <Content>
@@ -124,7 +121,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
             출석
           </button>
         </ModalFooterNav>
-      </Layout>
+      </ModalLayout>
       {isChecking && (
         <Loading>
           <RotatingLines
@@ -138,19 +135,9 @@ function StudyCheckModal({ setIsModal }: IModal) {
           <span>{session?.user.name}님의 현재 위치를 확인중입니다</span>
         </Loading>
       )}
-    </Container>
+    </>
   );
 }
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const Layout = styled(ModalMd)`
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-`;
 
 const Content = styled.div`
   margin-bottom: var(--margin-sub);
