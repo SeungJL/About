@@ -6,7 +6,7 @@ import ModalPortal from "../../../../components/ModalPortal";
 import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
 import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal";
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
-import StudyVoteSubModal from "../../../../modals/study/StudyVoteSubModal";
+import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
 import { IAttendance, IPlace } from "../../../../types/studyDetails";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 
@@ -57,13 +57,7 @@ function StudySpaceNavModal({
       )}
       {isVoteModal && (
         <ModalPortal setIsModal={setIsVoteModal}>
-          <StudyVoteSubModal
-            isModal={isVoteModal}
-            setIsModal={setIsVoteModal}
-            voteDate={voteDate}
-            place={place}
-            setIsVoteComplete={setIsVoteComplete}
-          />
+          <StudyVoteSubModal setIsModal={setIsVoteModal} place={place} />
         </ModalPortal>
       )}
       {isCheckModal && (

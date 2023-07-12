@@ -25,14 +25,13 @@ export const POINT_SYSTEM_PLUS = {
 
 export const POINT_SYSTEM_MINUS = {
   attendCheck: {
-    deposit: { value: -300, message: "스터디 지각" },
+    deposit: { value: -100, message: "스터디 지각" },
   },
   cancelStudy: {
     score: { value: -5, message: "투표 취소" },
     point: { value: -5, message: "투표 취소" },
   },
   absentStudy: {
-   
     deposit: { value: -200, message: "당일 불참(스터디 시작 이전)" },
     depositLate: { value: -500, message: "당일 불참(스터디 시작 이후)" },
   },

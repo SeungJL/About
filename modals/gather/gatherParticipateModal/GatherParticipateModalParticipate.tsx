@@ -15,6 +15,9 @@ function GatherParticipateModalParticipate({
   const gatherId = +router.query.id;
 
   const { mutate: participate } = useGatherParticipateMutation(gatherId, {
+    onSuccess() {
+      completeToast("success");
+    },
     onError(err) {
       console.error(err);
       failToast("error");
@@ -23,7 +26,6 @@ function GatherParticipateModalParticipate({
 
   const selectGatherTime = (time: "first" | "second") => {
     participate(time);
-    completeToast("applyGather");
     setIsRefetch(true);
     setIsModal(false);
   };

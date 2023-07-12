@@ -45,10 +45,10 @@ export type CompleteToast = "free" | "success" | "studyVote" | "apply";
 export const useCompleteToast = () => {
   const toast = useToast();
   const showCompleteToast = useCallback(
-    (type: string, sub?: string) => {
+    (type: CompleteToast, sub?: string) => {
       let text = "";
       if (type === "free") text = sub;
-      if (type === "refuseRegister") text = "가입 거절";
+
       if (type === "apply") text = "신청 완료!";
       if (type === "success") text = "정상적으로 처리되었습니다.";
       if (type === "studyVote") text = "투표 완료!";
