@@ -28,7 +28,7 @@ function UserTable({ attendances }: IUserTable) {
   const studyDate = useRecoilValue(studyDateState);
 
   const [userArr, setUserArr] = useState<IUserItemArr[]>([]);
- 
+
   useEffect(() => {
     setUserArr([]);
     attendances?.forEach((att) => {
@@ -51,8 +51,7 @@ function UserTable({ attendances }: IUserTable) {
       if (studyDate === "not passed") setUserArr((old) => [...old, temp]);
       else if (att.firstChoice) setUserArr((old) => [...old, temp]);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVoting]);
+  }, [isVoting, attendances, studyDate]);
 
   return (
     <Layout>

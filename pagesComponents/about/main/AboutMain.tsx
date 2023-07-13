@@ -1,14 +1,8 @@
-import dayjs from "dayjs";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
 import styled from "styled-components";
 
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { useStudyResultDecideMutation } from "../../../hooks/study/mutations";
-import { studyStartTimeState, voteDateState } from "../../../recoil/studyAtoms";
-
-import { STUDY_VOTE_END_HOUR } from "../../../constants/study";
-import { useStudyStartTimeQuery } from "../../../hooks/study/queries";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { voteDateState } from "../../../recoil/studyAtoms";
 
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { IParticipation, IPlace } from "../../../types/studyDetails";
@@ -22,24 +16,8 @@ interface IAboutMain {
 
 function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
+
   const isMainLoading = useRecoilValue(isMainLoadingState);
-
-  const { data } = useStudyStartTimeQuery(voteDate, { enabled: !!voteDate });
-
-  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day")
-  );
-
-  useEffect(() => {
-    if (dayjs().hour() >= STUDY_VOTE_END_HOUR) decideSpace();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (data && data[0]?.startTime)
-      setStudyStartTime(dayjs(data[0]?.startTime));
-  }, [data, setStudyStartTime]);
 
   return (
     <>

@@ -10,3 +10,8 @@ export interface IStudyParticipate extends IStudyPlaces {
   start: Dayjs;
   end: Dayjs;
 }
+
+export interface IStudyStartTime {
+  placeId: string;
+  startTime: Dayjs;
+}

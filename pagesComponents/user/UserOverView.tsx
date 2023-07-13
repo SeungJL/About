@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SetStateAction, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import {
   useUserApproveMutation,
   useUserRegisterMutation,
@@ -15,11 +15,12 @@ import {
 
 import { useRecoilValue } from "recoil";
 import ModalPortal from "../../components/ModalPortal";
-import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal";
+import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { userBadgeState } from "../../recoil/userAtoms";
 
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 
 interface IUserOverview {
   setIsLoading: React.Dispatch<SetStateAction<boolean>>;
@@ -33,13 +34,20 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   const inputRef = useRef<HTMLInputElement>(null);
   const failToast = useFailToast();
 
-  const { data: user } = useUserInfoQuery({
+  const isRefetchUserInfo = useRecoilValue(isRefetchUserInfoState);
+
+  const { data: user, refetch } = useUserInfoQuery({
     onSuccess(data) {
       setValue(data?.comment);
       setIsLoading(false);
     },
   });
 
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRefetchUserInfo]);
+  console.log(user);
   // const { mutate: onChangeComment } = useUserCommentMutation();
   // const { data: comments, isLoading } = useUserCommentQuery();
 

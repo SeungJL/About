@@ -23,8 +23,7 @@ export const useUserApproveMutation = (
   useMutation<void, AxiosError, string>(async (uid) => {
     console.log({ uid });
     await axios.post(`${SERVER_URI}/register/approval`, { uid });
-  }, options)
-;
+  }, options);
 export const useUserDeleteMutation = (
   options?: Omit<
     UseMutationOptions<void, AxiosError, string>,
@@ -78,8 +77,8 @@ export const useUserAvatarMutation = (
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, IAvatar>(async (info) => {
-    await axios.post(`${SERVER_URI}/user/avatar`, info);
+  useMutation<void, AxiosError, IAvatar>(async (avatar) => {
+    await axios.post(`${SERVER_URI}/user/avatar`, avatar);
   }, options);
 
 export const useUserRoleMutation = (
@@ -90,4 +89,14 @@ export const useUserRoleMutation = (
 ) =>
   useMutation<void, AxiosError, Role>(async (role) => {
     await axios.patch(`${SERVER_URI}/user/role`, { role });
+  }, options);
+
+export const useUserUpdateProfileMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, void>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, void>(async () => {
+    await axios.patch("/api/user/profile");
   }, options);

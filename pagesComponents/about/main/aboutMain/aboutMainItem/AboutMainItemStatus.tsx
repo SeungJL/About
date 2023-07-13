@@ -5,22 +5,29 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { studyStartTimeState } from "../../../../../recoil/studyAtoms";
 import { Status } from "../../../../../types/statistics";
+import { IPlace } from "../../../../../types/studyDetails";
 
 interface IAboutMainItemStatus {
   status: string;
   statusFixed: Status | "myOpen";
-  branch: string;
+  place: IPlace;
 }
 
 function AboutMainItemStatus({
   statusFixed,
   status,
-  branch,
+  place,
 }: IAboutMainItemStatus) {
   const studyStartTime = useRecoilValue(studyStartTimeState);
+  console.log(studyStartTime);
+
+  const startTime = studyStartTime?.find(
+    (item) => item.placeId === place._id
+  )?.startTime;
+
   return (
     <Layout>
-      <Branch>{branch}</Branch>
+      <Branch>{place.branch}</Branch>
       {status !== "pending" && status === "open" ? (
         <Badge colorScheme="green" ml="8px">
           Open
@@ -34,10 +41,10 @@ function AboutMainItemStatus({
           Free
         </Badge>
       ) : null}
-      {statusFixed === "myOpen" && studyStartTime && (
+      {startTime && (
         <Result>
           <FontAwesomeIcon icon={faClock} size="sm" />
-          <ResultInfo>{studyStartTime?.format("HH:mm")} ~</ResultInfo>
+          <ResultInfo>{startTime?.format("HH:mm")} ~</ResultInfo>
         </Result>
       )}
     </Layout>

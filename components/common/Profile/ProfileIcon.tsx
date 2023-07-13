@@ -15,7 +15,8 @@ interface IProfileIcon {
 function ProfileIcon({ user, size }: IProfileIcon) {
   const avatarType = (user as IUser)?.avatar?.type;
   const avatarBg = (user as IUser)?.avatar?.bg;
-  const isAvatar = Boolean(avatarType && avatarBg) || user === "guest";
+  const isAvatar =
+    Boolean(avatarType !== null && avatarBg !== null) || user === "guest";
   const iconSize = ICON_SIZE[size];
 
   const handeErrorImage = (

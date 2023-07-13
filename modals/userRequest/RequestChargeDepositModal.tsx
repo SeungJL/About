@@ -1,73 +1,43 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import { ACCOUNT_SHORT } from "../../constants/private";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { ModalMain, ModalMd } from "../../styles/layout/modal";
+import { ModalMain } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface IRequestChargeDepositModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function RequestChargeDepositModal({ setIsModal }: IRequestChargeDepositModal) {
-  const [isFirst, setIsFirst] = useState(true);
-  const toast = useToast();
+function RequestChargeDepositModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
-  const copyAccount = (text) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast({
-          title: "복사 완료",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "bottom",
+  const completeToast = useCompleteToast();
+  const failToast = useFailToast();
 
-          variant: "left-accent",
-        });
-      },
-      (error) => {
-        console.error("Failed to copy text:", error);
-      }
-    );
-  };
+  const [isFirst, setIsFirst] = useState(true);
+
+
 
   const { mutate: getDeposit } = useDepositMutation({
     onSuccess() {
-      toast({
-        title: "입금 완료",
-        description: "정상적으로 처리되었습니다.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-        variant: "left-accent",
-      });
-      setIsModal(false);
+      completeToast("success");
     },
-    onError() {
-      toast({
-        title: "입금 실패",
-        description: "관리자에게 문의해주세요.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-        variant: "left-accent",
-      });
+    onError(err) {
+      console.error(err);
+      failToast("error");
     },
   });
 
   const onComplete = () => {
     getDeposit({ value: 3000, message: "보증금 충전" });
+    setIsModal(false);
   };
 
   return (
-    <Layout>
-      <ModalHeaderXLine title="보증금 충전" setIsModal={setIsModal} />
+    <ModalLayout size="md">
+      <ModalHeaderX title="보증금 충전" setIsModal={setIsModal} />
       {isFirst ? (
         <>
           <ModalMain>
@@ -85,16 +55,14 @@ function RequestChargeDepositModal({ setIsModal }: IRequestChargeDepositModal) {
               <span>= 4000원</span>
             </MainItem>
           </ModalMain>
-          <Footer>
-            <Button
-              width="100%"
-              background="var(--color-mint)"
-              color="white"
-              onClick={() => setIsFirst(false)}
-            >
-              충전하기
-            </Button>
-          </Footer>
+          <Button
+            width="100%"
+            background="var(--color-mint)"
+            color="white"
+            onClick={() => setIsFirst(false)}
+          >
+            충전하기
+          </Button>
         </>
       ) : (
         <>
@@ -136,11 +104,9 @@ function RequestChargeDepositModal({ setIsModal }: IRequestChargeDepositModal) {
           </Footer>
         </>
       )}
-    </Layout>
+    </ModalLayout>
   );
 }
-
-const Layout = styled(ModalMd)``;
 
 const MainItem = styled.div`
   margin: 4px 0;

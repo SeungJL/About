@@ -24,6 +24,9 @@ export const POINT_SYSTEM_PLUS = {
 };
 
 export const POINT_SYSTEM_MINUS = {
+  timeChange: {
+    deposit: { value: -100, message: "스터디 시작 이후 시간 변경" },
+  },
   attendCheck: {
     deposit: { value: -100, message: "스터디 지각" },
   },

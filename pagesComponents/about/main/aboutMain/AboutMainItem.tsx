@@ -37,7 +37,7 @@ function AboutMainItem({ studySpaceInfo, voted }: IAboutMainItem) {
       </ImageContainer>
       <SpaceInfo>
         <AboutMainItemStatus
-          branch={place?.branch}
+         place={place}
           status={status}
           statusFixed={statusFixed}
         />

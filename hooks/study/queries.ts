@@ -1,12 +1,13 @@
 import axios, { AxiosError } from "axios";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import { dayjsToStr } from "../../libs/typeConverter";
 import { IStudyPreferencesQuery } from "../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
+import { IStudyStartTime } from "../../types/study";
 
-import { IPlace, IStudyStart, IVote } from "../../types/studyDetails";
+import { IPlace, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
 import { IAbsentInfo } from "../../types/userRequest";
@@ -49,17 +50,21 @@ export const useStudyPlaceQuery = (
 export const useStudyStartTimeQuery = (
   date: Dayjs,
   options?: Omit<
-    UseQueryOptions<IStudyStart[], AxiosError, IStudyStart[]>,
+    UseQueryOptions<IStudyStartTime[], AxiosError, IStudyStartTime[]>,
     "queryKey" | "queryFn"
   >
 ) =>
   useQuery(
-    "studyStartTime",
+    ["studyStartTime", date],
     async () => {
-      const res = await axios.get<IStudyStart[]>(
+      const res = await axios.get<{ place_id: string; startTime: string }[]>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}/start`
       );
-      return res.data;
+      const data: IStudyStartTime[] = res.data.map((item) => ({
+        placeId: item.place_id,
+        startTime: dayjs(item.startTime),
+      }));
+      return data;
     },
     options
   );
