@@ -59,7 +59,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
   };
 
   return (
-    <ModalLayout size="sm">
+    <ModalLayout size="md">
       <ModalHeaderXLine title="상품 응모" setIsModal={setIsModal} />
       <ModalMain>
         {!isLoading ? (

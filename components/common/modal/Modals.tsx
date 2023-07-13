@@ -26,11 +26,6 @@ export const PopUpLayout = ({ children, size }: IModalLayout) => (
   <Layout size={size}>{children}</Layout>
 );
 
-const SIZE_WIDTH_MAP = {
-  sm: "300px",
-  default: "340px",
-};
-
 const SIZE_HEIGHT_MAP = {
   xxl: "500px",
   xl: "400px",
@@ -40,7 +35,7 @@ const SIZE_HEIGHT_MAP = {
 };
 
 const Layout = styled(motion.div)<{ size: Size }>`
-  width: ${(props) => SIZE_WIDTH_MAP[props.size] || SIZE_WIDTH_MAP["default"]};
+  width: 340px;
   height: ${(props) => SIZE_HEIGHT_MAP[props.size]};
   padding: var(--padding-main);
   background-color: white;

@@ -69,7 +69,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   }, []);
 
   return (
-    <ModalLayout size="sm">
+    <ModalLayout size="md">
       <ModalHeaderLine>친구초대</ModalHeaderLine>
       <ModalMain>
         <MainText>

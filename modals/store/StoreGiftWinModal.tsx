@@ -28,7 +28,7 @@ function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
   }, [applyData, win]);
 
   return (
-    <ModalLayout size="sm">
+    <ModalLayout size="md">
       <ModalHeaderXLine title="당첨자 발표" setIsModal={setIsModal} />
       <ModalMain>
         <Message>당첨을 축하합니다!</Message>

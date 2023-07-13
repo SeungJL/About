@@ -12,8 +12,12 @@ import {
 } from "../../styles/layout/modal";
 
 import { ModalLayout } from "../../components/common/modal/Modals";
+import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  useDepositMutation,
+  usePointMutation,
+} from "../../hooks/user/pointSystem/mutation";
 import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
 import { IModal } from "../../types/common";
 import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
@@ -37,6 +41,8 @@ function StudyChangeTimeModal({
 
   const { mutate: getPoint } = usePointMutation();
 
+  const { mutate: getDeposit } = useDepositMutation();
+
   const startTime = dayjs(myVoteTime.start);
   const endTime = dayjs(myVoteTime.end);
 
@@ -55,8 +61,9 @@ function StudyChangeTimeModal({
         time.start.hours * HOUR_TO_MINUTE + time.start.minutes
       )
         getPoint({ value: -5, message: "늦은 시간 변경" });
-      else if (dayjs() > studyStartTime)
-        getPoint({ value: -2, message: "늦은 시간 변경" });
+      else if (dayjs() > studyStartTime) {
+        getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
+      }
       setIsRefetch(true);
       completeToast("success");
     },

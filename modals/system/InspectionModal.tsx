@@ -1,24 +1,16 @@
-import { SetStateAction } from "react";
-import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import {
   ModalFooterNav,
   ModalMain,
-  ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface IServerInspectModal {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function ServerInspectModal({ setIsModal }: IServerInspectModal) {
-  const onClickClosed = () => {
-    setIsModal(false);
-  };
+function ServerInspectModal({ setIsModal }: IModal) {
   return (
     <>
-      <Layout>
+      <ModalLayout size="md">
         <ModalHeaderXLine title="점검중" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>임시적으로 비활성화 된 컨텐츠 입니다.</ModalSubtitle>
@@ -28,13 +20,11 @@ function ServerInspectModal({ setIsModal }: IServerInspectModal) {
           </div>
         </ModalMain>
         <ModalFooterNav>
-          <button onClick={onClickClosed}>확인</button>
+          <button onClick={() => setIsModal(false)}>확인</button>
         </ModalFooterNav>
-      </Layout>
+      </ModalLayout>
     </>
   );
 }
-
-const Layout = styled(ModalMd)``;
 
 export default ServerInspectModal;

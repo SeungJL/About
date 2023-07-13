@@ -1,24 +1,18 @@
-import { SetStateAction } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import {
   ModalFooterNav,
   ModalMain,
   ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
+import { IModal } from "../../types/common";
 
-interface INotCompletedModal2 {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function NotCompletedModal2({ setIsModal }: INotCompletedModal2) {
-  const onClickClosed = () => {
-    setIsModal(false);
-  };
+function NotCompletedModal2({ setIsModal }: IModal) {
   return (
     <>
-      <Layout>
+      <ModalLayout size="md">
         <ModalHeaderXLine title="미완성 컨텐츠" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>완전히 완성되지 않은 컨텐츠 입니다.</ModalSubtitle>
@@ -28,9 +22,9 @@ function NotCompletedModal2({ setIsModal }: INotCompletedModal2) {
           </div>
         </ModalMain>
         <ModalFooterNav>
-          <button onClick={onClickClosed}>확인</button>
+          <button onClick={() => setIsModal(false)}>확인</button>
         </ModalFooterNav>
-      </Layout>
+      </ModalLayout>
     </>
   );
 }
