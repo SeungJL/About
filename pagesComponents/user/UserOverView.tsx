@@ -58,12 +58,7 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
     },
   });
 
-  const { mutate: approve } = useUserApproveMutation({
-    onSuccess() {},
-    onError(err) {
-      console.error(err);
-    },
-  });
+  const { mutate: approve } = useUserApproveMutation();
   const userBadge = useRecoilValue(userBadgeState);
   // const userComment =
   //   !isLoading && comments?.comments.find((att) => att?._id === user?._id);

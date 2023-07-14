@@ -18,8 +18,14 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            refetchOnWindowFocus: false,
-            retry: 0,
+            onError: (err) => {
+              console.error(err);
+            },
+          },
+          mutations: {
+            onError: (err) => {
+              console.error(err);
+            },
           },
         },
       }),

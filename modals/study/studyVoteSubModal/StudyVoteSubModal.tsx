@@ -74,10 +74,6 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
         });
       }
     },
-    onError(err) {
-      console.error(err);
-      failToast("error");
-    },
   });
 
   const onSubmit = () => {

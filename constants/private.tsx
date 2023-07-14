@@ -6,11 +6,12 @@ export const ACCOUNT_SHORT = "1002-364-221277 우리은행 어바웃";
 export const PromotionComponent = () => <P>{PROMOTION_TEXT}</P>;
 
 const P = styled.pre`
-  padding: 8px 4px;
-  border-radius: 12px;
-  height: 160px;
+  padding: var(--padding-md);
+  border-radius: var(--border-radius-sub);
+  height: 169px;
   overflow-y: auto;
-  background-color: var(--font-h7);
+  font-size: 12px;
+  background-color: var(--input-bg);
 `;
 
 export const PROMOTION_TEXT = `안녕하세요! 저희는 카공 스터디로 시작했다가 어짜다보니 200명 이상 규모의 카공 및 친목 동아리가 되어버린 ABOUT입니다. 같이 카공하실 분도, 카공을 명분으로 놀러 가실 분도 모두들 환영합니다 😊

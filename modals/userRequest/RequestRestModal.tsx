@@ -1,33 +1,34 @@
 import { useSession } from "next-auth/react";
-import { Dispatch, SetStateAction } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-
-import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
-
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IApplyRest } from "../../types/userRequest";
 
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
+import { PopoverIcon } from "../../components/common/Icon/PopoverIcon";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserApplyRestMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+import { IModal } from "../../types/common";
 import { IUserRequest } from "../../types/user";
 
-interface IRequestRestModal {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}
-
-function RequestRestModal({ setIsModal }: IRequestRestModal) {
-  const completeToast = useCompleteToast();
+function RequestRestModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
+  const completeToast = useCompleteToast();
+  const failToast = useFailToast();
 
-  const { mutate: requestRest } = useUserRequestMutation();
+  const { mutate: sendRestRequest } = useUserRequestMutation();
+
   const { mutate: applyRest } = useUserApplyRestMutation({
     onSuccess() {
       completeToast("apply");
-      setIsModal(false);
+    },
+    onError(err) {
+      console.error(err);
+      failToast("error");
     },
   });
 
@@ -44,8 +45,9 @@ function RequestRestModal({ setIsModal }: IRequestRestModal) {
       content: "",
     },
   });
+  console.log(errors);
   const onValid = (data: IApplyRest) => {
-    const info = {
+    const restInfo = {
       type: data.type,
       startDate: data.startDate,
       endDate: data.endDate,
@@ -53,8 +55,7 @@ function RequestRestModal({ setIsModal }: IRequestRestModal) {
     };
     const requestData: IUserRequest = {
       category: "휴식",
-      writer: session?.user.name,
-
+      writer: session.user.name,
       content:
         data.type +
         " / " +
@@ -64,25 +65,28 @@ function RequestRestModal({ setIsModal }: IRequestRestModal) {
         " / " +
         data.content,
     };
-    requestRest(requestData);
-    applyRest(info);
+
+    sendRestRequest(requestData);
+    applyRest(restInfo);
+    setIsModal(false);
   };
+
   const option = watch("type");
+  const startDate = watch("startDate");
 
-  const maxEndDate = () => {
-    const startDate = watch("startDate");
-
-    if (option === "일반" && startDate) {
-      const maxDate = new Date(startDate as string);
-      maxDate.setMonth(maxDate.getMonth() + 2);
-
-      return maxDate.toISOString().split("T")[0];
-    }
-    return undefined;
+  const getEndDateRange = (type: "min" | "max") => {
+    if (option === "특별" || !startDate) return;
+    const start = new Date(startDate as string);
+    const min = start.toISOString().split("T")[0];
+    const max = start.setMonth(start.getMonth() + 1);
+    if (type === "min") return { value: min, message: "기간을 확인해주세요!" };
+    if (type === "max")
+      return { value: max, message: "일반 휴식은 최대 한달까지만 가능합니다." };
   };
+
   return (
-    <Layout>
-      <ModalHeaderXLine title="휴식신청" setIsModal={setIsModal} />
+    <ModalLayout size="xl">
+      <ModalHeaderX title="휴식신청" setIsModal={setIsModal} />
       <ModalMain>
         <Form onSubmit={handleSubmit(onValid)} id="rest">
           <Item>
@@ -95,26 +99,25 @@ function RequestRestModal({ setIsModal }: IRequestRestModal) {
               <option value="일반">일반 휴식</option>
               <option value="특별">특별 휴식</option>
             </TypeSelect>
+            <PopoverIcon title="일반 휴식 / 특별 휴식" text="test" />
           </Item>
-          <Item>
+          <DateItem>
             <span>기간:</span>
             <DateInput type="date" {...register("startDate")} />
             <DateInput
               type="date"
               {...register("endDate", {
-                max: {
-                  value: maxEndDate(),
-                  message: "2개월 이내로 선택하세요",
-                },
+                min: getEndDateRange("min"),
+                max: getEndDateRange("max"),
               })}
             />
-          </Item>
-
+          </DateItem>
           <Item>
             <Reason>사유:</Reason>
             <Textarea {...register("content")}></Textarea>
           </Item>
         </Form>
+        <ErrorMessage>{errors?.endDate?.message}</ErrorMessage>
       </ModalMain>
       <ModalFooterNav>
         <button type="button" onClick={() => setIsModal(false)}>
@@ -124,26 +127,52 @@ function RequestRestModal({ setIsModal }: IRequestRestModal) {
           제출
         </button>
       </ModalFooterNav>
-    </Layout>
+    </ModalLayout>
   );
 }
 
-const Layout = styled(ModalLg)``;
-
 const Form = styled.form`
   display: flex;
-  height: 100%;
+  flex: 1;
   flex-direction: column;
   > div:last-child {
     flex: 1;
   }
 `;
+const Item = styled.div`
+  display: flex;
+  margin-bottom: var(--margin-sub);
+  align-items: center;
+  > span:first-child {
+    width: var(--width-inline-title);
+    font-weight: 600;
+    color: var(--font-h2);
+  }
+  > input,
+  select {
+    padding: var(--padding-min);
+  }
+`;
+
+const TypeMessage = styled.span`
+  margin-left: var(--margin-sub);
+`;
+
+const DateItem = styled(Item)`
+  > input {
+    flex: 0.5;
+  }
+  > input:nth-child(2) {
+    margin-right: var(--margin-sub);
+  }
+`;
 
 const DateInput = styled.input`
-  width: 30%;
-  background-color: var(--font-h7);
-  margin-right: 12px;
+  padding: var(--padding-min);
+  background-color: var(--input-bg);
+  border-radius: var(--border-radius-sub);
 `;
+
 const ErrorMessage = styled.div`
   font-size: 11px;
   height: 16px;
@@ -151,25 +180,9 @@ const ErrorMessage = styled.div`
 `;
 
 const TypeSelect = styled.select`
-  background-color: var(--font-h7);
-`;
-
-const Item = styled.div`
-  display: flex;
-  min-height: 28px;
-  margin-bottom: 12px;
-  align-items: center;
-
-  > span {
-    display: inline-block;
-    min-width: 20%;
-    font-weight: 600;
-    color: var(--font-h2);
-  }
-  > input {
-    height: 90%;
-    flex: 1;
-  }
+  background-color: var(--input-bg);
+  border-radius: var(--border-radius-sub);
+  margin-right: var(--margin-sub);
 `;
 
 const Reason = styled.span`
@@ -177,15 +190,11 @@ const Reason = styled.span`
 `;
 
 const Textarea = styled.textarea`
-  margin-top: 5px;
-  display: block;
-  width: 100%;
+  padding: var(--padding-md);
+  flex: 1;
   height: 100%;
   background-color: var(--font-h7);
-`;
-
-const NoUse = styled.span`
-  font-weight: 600;
+  border-radius: var(--border-radius-sub);
 `;
 
 export default RequestRestModal;

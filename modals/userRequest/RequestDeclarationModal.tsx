@@ -11,41 +11,35 @@ import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
-import { ModalFooterNav, ModalLg, ModalMain } from "../../styles/layout/modal";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
+import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+import { IModal } from "../../types/common";
 import { IUserRequest } from "../../types/user";
 
-interface IRequestDeclarationModal {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}
-
-function RequestDeclarationModal({ setIsModal }: IRequestDeclarationModal) {
-  const [isRealName, setIsRealName] = useState(true);
-  const completeToast = useCompleteToast();
+function RequestDeclarationModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const failToast = useFailToast();
+  const completeToast = useCompleteToast();
 
-  const { mutate: DeclarationForm } = useUserRequestMutation({
+  const [isRealName, setIsRealName] = useState(true);
+  const { register, handleSubmit } = useForm();
+
+  const { mutate: sendDeclaration } = useUserRequestMutation({
     onSuccess() {
       completeToast("success");
     },
   });
-  const { mutate: getScores } = usePointMutation();
 
   const onValid = (data) => {
-    const DeclarationInfo: IUserRequest = {
+    const declarationInfo: IUserRequest = {
       category: "신고",
       title: data.title,
       writer: isRealName ? session.user.name : "",
@@ -53,15 +47,15 @@ function RequestDeclarationModal({ setIsModal }: IRequestDeclarationModal) {
       date: dayjs(),
     };
 
-    DeclarationForm(DeclarationInfo);
+    sendDeclaration(declarationInfo);
     setIsModal(false);
   };
 
   return (
-    <Layout>
-      <ModalHeaderXLine title="불편사항 신고" setIsModal={setIsModal} />
+    <ModalLayout size="xl">
+      <ModalHeaderX title="불편사항 신고" setIsModal={setIsModal} />
       <ModalMain>
-        <Form onSubmit={handleSubmit(onValid)} id="Declaration">
+        <Form onSubmit={handleSubmit(onValid)} id="declaration">
           <Item>
             <span>제목: </span>
             <TitleInput {...register("title")} />
@@ -118,15 +112,13 @@ function RequestDeclarationModal({ setIsModal }: IRequestDeclarationModal) {
         <button type="button" onClick={() => setIsModal(false)}>
           취소
         </button>
-        <button form="Declaration" type="submit">
+        <button form="declaration" type="submit">
           제출
         </button>
       </ModalFooterNav>
-    </Layout>
+    </ModalLayout>
   );
 }
-
-const Layout = styled(ModalLg)``;
 
 const Form = styled.form`
   display: flex;
@@ -140,13 +132,12 @@ const Form = styled.form`
 const Item = styled.div`
   display: flex;
   min-height: 28px;
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
   align-items: center;
   > span {
     display: inline-block;
     min-width: 20%;
     font-weight: 600;
-    color: var(--font-h2);
   }
   > input {
     height: 90%;
@@ -155,17 +146,18 @@ const Item = styled.div`
 `;
 
 const TitleInput = styled.input`
-  background-color: var(--font-h7);
+  background-color: var(--input-bg);
+  border-radius: var(--border-radius-sub);
 `;
 
 const Writer = styled.div`
   display: flex;
   align-items: center;
   > button:last-child {
-    margin-right: 12px;
+    margin-right: var(--margin-sub);
   }
   > div {
-    width: 10px;
+    width: 12px;
   }
 `;
 const Button = styled.button<{ isSelected: boolean }>`
@@ -182,11 +174,12 @@ const Content = styled.span`
 `;
 
 const ContentInput = styled.textarea`
-  margin-top: 5px;
+  margin-top: var(--margin-sub);
+  border-radius: var(--border-radius-sub);
   display: block;
   width: 100%;
   height: 100%;
-  background-color: var(--font-h7);
+  background-color: var(--input-bg);
 `;
 
 export default RequestDeclarationModal;

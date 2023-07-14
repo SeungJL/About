@@ -38,10 +38,6 @@ function StudyChangeArrivedModal({
       completeToast("success");
       setIsRefetch(true);
     },
-    onError(err) {
-      console.error(err);
-      failToast("error");
-    },
   });
 
   const onChangeMemo = async () => {

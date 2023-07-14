@@ -72,10 +72,6 @@ function StudyChangeTimeModal({
       setIsRefetch(true);
       completeToast("success");
     },
-    onError(err) {
-      console.error(err);
-      failToast("error");
-    },
   });
 
   const onSubmit = () => {
