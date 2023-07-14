@@ -1,6 +1,5 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
@@ -8,28 +7,44 @@ import { ModalLayout } from "../../components/common/modal/Modals";
 import SkeletonItem from "../../components/common/skeleton/SkeletonItem";
 import CountNum from "../../components/utils/CountNum";
 import { useStoreMutation } from "../../hooks/store/mutation";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/ui/CustomToast";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 import { ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { DispatchBoolean, IModal } from "../../types/common";
 import { IStoreApplicant, IStoreGift } from "../../types/store";
 
 interface IStoreApplyGiftModal extends IModal {
   giftInfo: IStoreGift;
+  setIsRefetch: DispatchBoolean;
 }
 
-function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
-  const router = useRouter();
+function StoreApplyGiftModal({
+  setIsModal,
+  giftInfo,
+  setIsRefetch,
+}: IStoreApplyGiftModal) {
   const { data: session } = useSession();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
   const isGuest = session?.user.name === "guest";
 
   const [value, setValue] = useState(1);
 
   const { data: myPoint, isLoading } = usePointQuery();
-  const { mutate: applyGift } = useStoreMutation();
+  const { mutate: applyGift } = useStoreMutation({
+    onSuccess() {
+      getPoint({ value: -totalCost, message: `${giftInfo.name}응모` });
+      setIsRefetch(true);
+      completeToast("free", "응모에 성공했어요! 당첨 발표일을 기다려주세요!");
+    },
+    onError: errorToast,
+  });
   const { mutate: getPoint } = usePointMutation();
 
   const totalCost = giftInfo.point * value;
@@ -50,12 +65,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
       giftId: giftInfo.giftId,
     };
     applyGift(info);
-    getPoint({ value: -totalCost, message: `${giftInfo.name}응모` });
-    completeToast("free", "응모에 성공했어요! 당첨 발표일을 기다려주세요!");
     setIsModal(false);
-    setTimeout(() => {
-      router.push(`/store`);
-    }, 600);
   };
 
   return (

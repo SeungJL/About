@@ -6,7 +6,11 @@ import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import TimeSelector from "../../../components/utils/TimeSelector";
 import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
-import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/ui/CustomToast";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
@@ -27,6 +31,7 @@ export interface IStudyPreferencesQuery {
 function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
   const voteDate = useRecoilValue(voteDateState);
 
   const setIsRefetchStudy = useSetRecoilState(isRefetchStudyState);
@@ -38,16 +43,17 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
 
   const { mutate } = useStudyQuickVoteMutation(voteDate, {
     onSuccess() {
-      completeToast("studyVote");
       setIsRefetchStudy(true);
+      completeToast("studyVote");
     },
+    onError: errorToast,
   });
 
   const onSubmit = () => {
     const start = voteDate.hour(time.start.hours).minute(time.start.minutes);
     const end = voteDate.hour(time.end.hours).minute(time.end.minutes);
     if (start > end) {
-      failToast("studyVote", "beforeTime");
+      failToast("time");
       return;
     }
     mutate({ start, end });
@@ -56,7 +62,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
 
   return (
     <>
-      {data && data?.studyPreference ? (
+      {data && data.studyPreference ? (
         <ModalLayout size="lg">
           <ModalHeaderX
             title={`${voteDate?.format("M월 D일")} 스터디 투표`}

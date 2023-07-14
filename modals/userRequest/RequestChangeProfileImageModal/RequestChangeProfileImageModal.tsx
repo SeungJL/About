@@ -4,7 +4,11 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
-import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/ui/CustomToast";
 import {
   useUserAvatarMutation,
   useUserUpdateProfileMutation,
@@ -16,6 +20,7 @@ import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageMod
 
 function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
+  const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
 
   const setIsRefetchUserInfo = useSetRecoilState(isRefetchUserInfoState);
@@ -29,10 +34,7 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
       completeToast("success");
       setIsRefetchUserInfo(true);
     },
-    onError(err) {
-      console.error(err);
-      failToast("error");
-    },
+    onError: errorToast,
   });
 
   const onClickKakao = () => {

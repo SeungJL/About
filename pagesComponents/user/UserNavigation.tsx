@@ -13,18 +13,17 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import {
   useUserLocationQuery,
-  useUserRoleQuery,
+  useUserRoleQuery
 } from "../../hooks/user/queries";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
-import RequestDeclarationModal from "../../modals/userRequest/RequestDeclarationModal";
 import RequestPromotionRewardModal from "../../modals/userRequest/RequestPromotionRewardModal";
-import RequestRestModal from "../../modals/userRequest/RequestRestModal";
+import RequestRestModal from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import RequestSecedeModal from "../../modals/userRequest/RequestSecedeModal";
 import SettingStudySpace from "../../modals/userRequest/RequestStudyPreferenceModal";
 import RequestSuggestModal from "../../modals/userRequest/RequestSuggestModal";
@@ -129,7 +128,7 @@ function UserNavigation() {
       </Layout>
       {modalOpen === "suggest" && (
         <ModalPortal setIsModal={handleOutput}>
-          <RequestSuggestModal setIsModal={handleOutput} />
+          <RequestSuggestModal type="suggest" setIsModal={handleOutput} />
         </ModalPortal>
       )}
 
@@ -140,7 +139,7 @@ function UserNavigation() {
       )}
       {modalOpen === "declaration" && (
         <ModalPortal setIsModal={handleOutput}>
-          <RequestDeclarationModal setIsModal={handleOutput} />
+          <RequestSuggestModal type="declare" setIsModal={handleOutput} />
         </ModalPortal>
       )}
       {modalOpen === "deposit" && (

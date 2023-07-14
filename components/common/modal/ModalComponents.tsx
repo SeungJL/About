@@ -34,7 +34,7 @@ interface IModalFooterTwo extends IModal {
 }
 
 export const ModalFooterTwo = ({
-  left = "다음에",
+  left = "닫기",
   right,
   setIsModal,
   onSubmit,
@@ -67,7 +67,7 @@ const ModalHeaderXLineLayout = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 12px;
-  border-bottom: var(--border-headline);
+  border-bottom: var(--border-main);
   > span {
     font-size: 16px;
     font-weight: 600;

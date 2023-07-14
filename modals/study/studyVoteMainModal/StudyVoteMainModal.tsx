@@ -4,7 +4,11 @@ import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
 import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
-import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/ui/CustomToast";
 import {
   usePointMutation,
   useScoreMutation,
@@ -30,6 +34,7 @@ function StudyVoteMainModal({
   participations,
 }: IStudyVoteMainModal) {
   const failToast = useFailToast();
+  const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
 
   const voteDate = useRecoilValue(voteDateState);
@@ -58,6 +63,7 @@ function StudyVoteMainModal({
       setUpdateStudy(true);
       completeToast("studyVote");
     },
+    onError: errorToast,
   });
 
   const onSubmit = async () => {

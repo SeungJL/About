@@ -101,32 +101,3 @@ const RuleTitle = styled.span`
 `;
 
 export default StudyRuleModal;
-
-{
-  /* <RuleTitle>스터디 벌금</RuleTitle>
-<Content>
-  <ul>
-    <li>
-      1시간 이상 지각 <B> -200</B>
-    </li>
-    <li>
-      스터디 당일 불참<B>-500</B> / 스터디 시작 이전
-      <B>-300</B>
-    </li>
-  </ul>
-</Content>
-<RuleTitle>월간 참여 정산</RuleTitle>
-<Content>
-  <ul>
-    <li>
-      한 달에 <b>최소 1회</b> 참여 (투표만 해도 <b>0.5회</b>
-      &nbsp;인정)
-    </li>
-    <li>
-      <b>0.5회</b> 기준 벌금 <B>-1000</B>
-    </li>
-
-    <li>가입한 달에는 참여 정산 벌금 x</li>
-  </ul>
-</Content> */
-}

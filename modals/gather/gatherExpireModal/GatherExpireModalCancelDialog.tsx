@@ -15,7 +15,11 @@ import {
   useGatherDeleteMutation,
   useGatherStatusClose,
 } from "../../../hooks/gather/mutations";
-import { useCompleteToast } from "../../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/ui/CustomToast";
 import { DispatchBoolean } from "../../../types/common";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
@@ -31,13 +35,17 @@ function GatherExpireModalCancelDialog({
   modal,
 }: IGatherExpireModalCancelDialog) {
   const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
+  const failToast = useFailToast();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   const gatherId = +router.query.id;
 
-  const onComplete = () => {
-    completeToast("success");
+  const onComplete = (type: "delete" | "close") => {
+    if (type === "delete") completeToast("free", "모임이 삭제되었습니다.");
+    if (type === "close") completeToast("free", "모임이 취소되었습니다.");
+
     setIsComplete(true);
     setTimeout(() => {
       router.push(`/gather`);
@@ -45,10 +53,12 @@ function GatherExpireModalCancelDialog({
   };
 
   const { mutate: gatherDelete } = useGatherDeleteMutation(gatherId, {
-    onSuccess: onComplete,
+    onSuccess: () => onComplete("delete"),
+    onError: errorToast,
   });
   const { mutate: statusClose } = useGatherStatusClose(gatherId, {
-    onSuccess: onComplete,
+    onSuccess: () => onComplete("close"),
+    onError: errorToast,
   });
 
   useEffect(() => {

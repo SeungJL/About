@@ -9,7 +9,8 @@ export type UserRequestCategory =
   | "홍보"
   | "휴식"
   | "충전"
-  | "탈퇴";
+  | "탈퇴"
+  | "불참";
 export interface IUserRequest {
   category: UserRequestCategory;
   title?: string;
@@ -61,6 +62,27 @@ export interface IUser extends Document {
   deposit: number;
   majors: IMajor[];
   telephone: string;
+}
+export interface IUserField extends Document {
+  uid?: string;
+  registerDate?: string;
+  isActive?: boolean;
+  birth?: string;
+  mbti?: string;
+  gender?: Gender;
+  name?: string;
+  point?: number;
+  profileImage?: string;
+  role?: Role;
+  score?: number;
+  comment?: string;
+  rest?: restType;
+  location?: Location;
+  avatar?: avatarType;
+  interests?: IInterests;
+  deposit?: number;
+  majors?: IMajor[];
+  telephone?: string;
 }
 
 export interface IAccount extends Document {

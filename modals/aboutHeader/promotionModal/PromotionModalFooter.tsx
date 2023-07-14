@@ -1,11 +1,12 @@
 import { Button } from "@chakra-ui/react";
 import { SetStateAction, useState } from "react";
 import styled from "styled-components";
+import { DispatchBoolean, IModal } from "../../../types/common";
 import RequestPromotionRewardModal from "../../userRequest/RequestPromotionRewardModal";
 
-interface IPromotionModalFooter {
-  setIsFirst: React.Dispatch<SetStateAction<boolean>>;
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
+interface IPromotionModalFooter extends IModal {
+  setIsFirst:DispatchBoolean
+ 
 }
 
 function PromotionModalFooter({

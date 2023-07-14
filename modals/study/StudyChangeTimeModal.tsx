@@ -14,7 +14,11 @@ import {
 import { useRouter } from "next/router";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/ui/CustomToast";
 import {
   useDepositMutation,
   usePointMutation,
@@ -25,6 +29,7 @@ import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
 
 interface IStudyChangeTimeModal extends IModal {
   myVoteTime: ITimeStartToEnd;
+  isFree: boolean;
 }
 
 const HOUR_TO_MINUTE = 60;
@@ -32,26 +37,23 @@ const HOUR_TO_MINUTE = 60;
 function StudyChangeTimeModal({
   setIsModal,
   myVoteTime,
+  isFree,
 }: IStudyChangeTimeModal) {
   const router = useRouter();
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
+  const errorToast = useErrorToast();
   const placeId = router.query.placeId;
-  console.log(placeId);
 
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
 
-  const { mutate: getPoint } = usePointMutation();
-
-  const { mutate: getDeposit } = useDepositMutation();
-
   const startTime = dayjs(myVoteTime.start);
   const endTime = dayjs(myVoteTime.end);
-  const myStudyStartTime = studyStartTime.find((item) => {
+  const myStudyStartTime = studyStartTime?.find((item) => {
     item.placeId === placeId;
-  }).startTime;
+  })?.startTime;
 
   const [time, setTime] = useState<ITimeStartToEndHM>({
     start: {
@@ -61,17 +63,20 @@ function StudyChangeTimeModal({
     end: { hours: endTime.hour(), minutes: endTime.minute() },
   });
 
+  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getDeposit } = useDepositMutation();
   const { mutate: patchAttend } = useStudyTimeChangeMutation(voteDate, {
     onSuccess() {
+      completeToast("success");
+      setIsRefetch(true);
+      if (isFree) return;
       if (dayjs() >= dayjs().hour(time.start.hours).minute(time.start.minutes))
         getPoint({ value: -5, message: "늦은 시간 변경" });
       else if (studyStartTime && dayjs() > myStudyStartTime) {
         getDeposit(POINT_SYSTEM_MINUS.timeChange.deposit);
       }
-
-      setIsRefetch(true);
-      completeToast("success");
     },
+    onError: errorToast,
   });
 
   const onSubmit = () => {
@@ -86,12 +91,11 @@ function StudyChangeTimeModal({
       start.hours * HOUR_TO_MINUTE + start.minutes >=
       end.hours * HOUR_TO_MINUTE + end.minutes
     ) {
-      failToast("free", "시작시간은 종료시간 이전이어야 합니다.");
+      failToast("time");
       return;
     }
-
-    setIsModal(false);
     patchAttend(timeInfo);
+    setIsModal(false);
   };
 
   return (

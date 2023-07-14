@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useGatherParticipateMutation } from "../../../hooks/gather/mutations";
-import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../../hooks/ui/CustomToast";
 import { IModal, IRefetch } from "../../../types/common";
 
 function GatherParticipateModalParticipate({
@@ -10,11 +10,17 @@ function GatherParticipateModalParticipate({
   setIsRefetch,
 }: IModal & IRefetch) {
   const completeToast = useCompleteToast();
-  const failToast = useFailToast();
+  const errorToast = useErrorToast();
+
   const router = useRouter();
   const gatherId = +router.query.id;
 
-  const { mutate: participate } = useGatherParticipateMutation(gatherId);
+  const { mutate: participate } = useGatherParticipateMutation(gatherId, {
+    onSuccess() {
+      completeToast("free", "모임 참여 완료!");
+    },
+    onError: errorToast,
+  });
 
   const selectGatherTime = (time: "first" | "second") => {
     participate(time);

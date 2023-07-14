@@ -10,7 +10,11 @@ import {
   POINT_SYSTEM_PLUS,
 } from "../../constants/pointSystem";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
-import { useFailToast } from "../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/ui/CustomToast";
 import {
   useDepositMutation,
   usePointMutation,
@@ -30,7 +34,13 @@ import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;
 
-function StudyCheckModal({ setIsModal }: IModal) {
+interface IStudyCheckModal extends IModal {
+  isFree: boolean;
+}
+
+function StudyCheckModal({ setIsModal, isFree }: IStudyCheckModal) {
+  const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
   const failToast = useFailToast();
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
@@ -48,6 +58,12 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
     onSuccess() {
+      completeToast("free", "출석 완료 !");
+      if (isChecking && voteDate > dayjs().subtract(1, "day")) {
+        getScore(POINT_SYSTEM_PLUS.attendCheck.score);
+        getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
+      }
+      if (isFree) return;
       if (
         dayjs(
           mySpaceFixed?.attendences?.find(
@@ -56,17 +72,9 @@ function StudyCheckModal({ setIsModal }: IModal) {
         ).add(1, "hour") < dayjs()
       )
         getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
-
-      if (isChecking && voteDate > dayjs().subtract(1, "day")) {
-        getScore(POINT_SYSTEM_PLUS.attendCheck.score);
-        getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
-      }
     },
 
-    onError: (err) => {
-      console.error(err);
-      failToast("error");
-    },
+    onError: errorToast,
   });
 
   const onCheckClicked = async () => {

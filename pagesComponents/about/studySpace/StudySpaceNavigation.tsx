@@ -1,4 +1,3 @@
-import { useToast } from "@chakra-ui/react";
 import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -43,7 +42,7 @@ function StudySpaceNavigation({
   voteCnt,
 }: IStudySpaceNavigation) {
   const router = useRouter();
-  const toast = useToast();
+
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
 
@@ -81,8 +80,6 @@ function StudySpaceNavigation({
     failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
   };
 
-  const absentFailToast = () => {};
-
   const onBtnClicked = (type: ModalType) => {
     if (isGuest) {
       failToast("guest");
@@ -97,8 +94,14 @@ function StudySpaceNavigation({
       }
       return;
     }
+    if (type === "change") {
+      if (!mySpaceFixed) {
+        failToast("free", "스터디에 투표하지 않은 인원입니다.");
+        return;
+      }
+    }
     if (type === "absent" && studyDate === "not passed") {
-      absentFailToast();
+      failToast("free", "스터디 시작 이후에만 사용이 가능합니다.");
       return;
     }
     setModalType(type);
@@ -172,6 +175,7 @@ function StudySpaceNavigation({
         setType={setModalType}
         myVote={myVote}
         place={place}
+        isFree={status === "free"}
       />
     </>
   );

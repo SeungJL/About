@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useFailToast } from "../../../hooks/ui/CustomToast";
+import { useFailToast, useTypeErrorToast } from "../../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { birthToAge } from "../../../libs/utils/membersUtil";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
@@ -15,9 +15,12 @@ function GatherParticipateModalApply({
   setPageNum,
 }: IGatherParticipateModalApply) {
   const failToast = useFailToast();
+  const userErrorToast = useTypeErrorToast();
   const gatherData = useRecoilValue(transferGatherDataState);
 
-  const { data: userInfo } = useUserInfoQuery();
+  const { data: userInfo } = useUserInfoQuery({
+    onError: (e) => userErrorToast(e, "user"),
+  });
 
   const onApply = () => {
     const myOld = birthToAge(userInfo.birth);

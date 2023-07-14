@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { useCompleteToast } from "../../../hooks/ui/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../../hooks/ui/CustomToast";
 import {
   useUserApproveMutation,
   useUserDeleteMutation,
@@ -27,23 +27,27 @@ function CheckRegisterModalFooter({
   uid,
 }: ICheckRegisterModalFooter) {
   const completeToast = useCompleteToast();
-  const cancelRef = useRef();
+  const errorToast = useErrorToast();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
 
   const { mutate: approve } = useUserApproveMutation({
     onSuccess() {
-      console.log("suc");
+      completeToast("free", "가입이 승인되었습니다.");
     },
+    onError: errorToast,
   });
+
   const { mutate: deleteForm } = useUserDeleteMutation({
     onSuccess() {
-      console.log(3);
+      completeToast("free", "가입이 거절되었습니다.");
     },
+    onError: errorToast,
   });
 
   const onClickAgree = () => {
     approve(uid);
-    console.log(222);
     setIsRefetch(true);
     setIsModal(false);
   };

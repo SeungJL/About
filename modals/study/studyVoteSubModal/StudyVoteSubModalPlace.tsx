@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PlaceSelectorSub from "../../../components/utils/PlaceSelectorSub";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
+import { useTypeErrorToast } from "../../../hooks/ui/CustomToast";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
 import { IPlace, IVoteInfo } from "../../../types/studyDetails";
@@ -13,6 +14,7 @@ interface IStudyVoteSubModalPlace {
 }
 
 function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
+  const errorToast = useTypeErrorToast();
   const router = useRouter();
   const placeId = router.query.placeId;
   const voteDate = useRecoilValue(voteDateState);
@@ -33,6 +35,7 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
           .map((par) => par.place)
       );
     },
+    onError: (e) => errorToast(e, "study"),
   });
 
   return (

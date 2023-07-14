@@ -9,6 +9,7 @@ function PromotionModalDetail() {
 
   const applyCnt = promotionData?.length;
   const currentMonth = dayjs().month();
+
   return (
     <Layout>
       <div>

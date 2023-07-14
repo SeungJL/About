@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-import { useRouter } from "next/dist/client/router";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/ModalPortal";
@@ -15,6 +13,7 @@ interface IStudySpaceNavModal {
   setType: React.Dispatch<SetStateAction<string>>;
   myVote: IAttendance;
   place: IPlace;
+  isFree: boolean;
 }
 
 function StudySpaceNavModal({
@@ -22,10 +21,8 @@ function StudySpaceNavModal({
   setType,
   myVote,
   place,
+  isFree,
 }: IStudySpaceNavModal) {
-  const router = useRouter();
-  const voteDate = dayjs(router.query.date as string);
-
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [isAbsentmodal, setIsAbsentmodal] = useState(false);
   const [isVoteModal, setIsVoteModal] = useState(false);
@@ -47,12 +44,13 @@ function StudySpaceNavModal({
           <StudyChangeTimeModal
             setIsModal={setIsChangeModal}
             myVoteTime={myVote?.time}
+            isFree={isFree}
           />
         </ModalPortal>
       )}
       {isAbsentmodal && (
         <ModalPortal setIsModal={setIsAbsentmodal}>
-          <StudyAbsentModal setIsModal={setIsAbsentmodal} />
+          <StudyAbsentModal setIsModal={setIsAbsentmodal} isFree={isFree} />
         </ModalPortal>
       )}
       {isVoteModal && (
@@ -62,7 +60,7 @@ function StudySpaceNavModal({
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
-          <StudyCheckModal setIsModal={setIsCheckModal} />
+          <StudyCheckModal isFree={isFree} setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
       {isVoteComplete && (

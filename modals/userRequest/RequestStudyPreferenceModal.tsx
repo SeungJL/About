@@ -38,7 +38,7 @@ function RequestStudyPreferenceModal({
 
   useStudyPlaceQuery({
     onSuccess(data) {
-      const filterData = data?.filter((place) => place?.location === location);
+      const filterData = data.filter((place) => place.location === location);
       setPlaces(filterData);
     },
   });

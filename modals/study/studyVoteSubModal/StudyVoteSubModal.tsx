@@ -16,7 +16,11 @@ import {
   useAdminPointMutation,
   useAdminScoremMutation,
 } from "../../../hooks/admin/mutation";
-import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/ui/CustomToast";
 import {
   usePointMutation,
   useScoreMutation,
@@ -35,6 +39,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
+  const errorToast = useErrorToast();
   const inviteUid = router.query?.uid;
 
   const studyDate = useRecoilValue(studyDateState);
@@ -52,7 +57,6 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
-      completeToast("studyVote");
       if (studyDate === "today") {
         getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);
         getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
@@ -73,7 +77,9 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
       }
+      completeToast("studyVote");
     },
+    onError: errorToast,
   });
 
   const onSubmit = () => {

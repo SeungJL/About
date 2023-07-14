@@ -2,14 +2,21 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { IconButton } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/ui/CustomToast";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
+import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
 import {
   mySpaceFixedState,
@@ -25,9 +32,17 @@ import {
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/common";
 
-function StudyAbsentModal({ setIsModal }: IModal) {
+interface IStudyAbsentModal extends IModal {
+  isFree: boolean;
+}
+
+function StudyAbsentModal({ setIsModal, isFree }: IStudyAbsentModal) {
+  const { data: session } = useSession();
+  const router = useRouter();
   const failToast = useFailToast();
+  const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
+  const placeId = router.query.placeId;
 
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
@@ -37,21 +52,28 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
 
-  const { mutate: getDeposit } = useDepositMutation();
+  const myStudyStartTime = studyStartTime?.find(
+    (item) => item.placeId === placeId
+  )?.startTime;
 
+  const { mutate: sendRequest } = useUserRequestMutation();
+  const { mutate: getDeposit } = useDepositMutation();
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
-      if (dayjs() > studyStartTime)
-        getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositLate);
-      else getDeposit(POINT_SYSTEM_MINUS.absentStudy.deposit);
       completeToast("success");
       setIsRefetch(true);
-      //불참 인정사유 전송
+      if (isFree) return;
+      if (dayjs() > myStudyStartTime)
+        getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositLate);
+      else getDeposit(POINT_SYSTEM_MINUS.absentStudy.deposit);
+      if (value !== "")
+        sendRequest({
+          writer: session.user.name,
+          category: "불참",
+          content: value,
+        });
     },
-    onError: (err) => {
-      console.error(err);
-      failToast("error");
-    },
+    onError: errorToast,
   });
 
   const handleCancleBtn = () => {
@@ -104,7 +126,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
           <>
             <ModalMain>
               <ModalSubtitle>
-                {dayjs() < studyStartTime ? (
+                {dayjs() < myStudyStartTime ? (
                   <div>
                     스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이
                     부여됩니다. 참여 시간을 변경해 보는 것은 어떨까요?

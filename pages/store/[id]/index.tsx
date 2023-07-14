@@ -3,7 +3,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/MainLoading";
 import Header from "../../../components/layouts/Header";
@@ -21,6 +21,7 @@ function StoreItem() {
   const [isWinModal, setIsWinModal] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [applyData, setApplyData] = useState<IStoreApplicant[]>([]);
+  const [isRefetch, setIsRefetch] = useState(false);
 
   const info: IStoreGift = STORE_GIFT[itemId];
 
@@ -32,13 +33,19 @@ function StoreItem() {
 
   const { isOpen, onToggle } = useDisclosure();
 
-  const { isLoading } = useStoreQuery(info?.giftId, {
+  const { isLoading, refetch } = useStoreQuery(info?.giftId, {
     enabled: info !== undefined,
     onSuccess(data) {
       const temp = data?.users.filter((who) => who.cnt > 0 && who?.uid !== "7");
       setApplyData(temp);
     },
   });
+
+  useEffect(() => {
+    console.log(isRefetch);
+    if (isRefetch) refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRefetch]);
 
   const totalApply = applyData?.reduce((acc, cur) => acc + cur.cnt, 0);
 
@@ -79,7 +86,7 @@ function StoreItem() {
               <Button size="lg" width="50%" onClick={onToggle}>
                 참여현황
               </Button>
-              {isCompleted ? (
+              {!isCompleted ? (
                 <Button
                   size="lg"
                   width="50%"
@@ -146,7 +153,11 @@ function StoreItem() {
       )}
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <StoreApplyGiftModal setIsModal={setIsModal} giftInfo={info} />
+          <StoreApplyGiftModal
+            setIsModal={setIsModal}
+            giftInfo={info}
+            setIsRefetch={setIsRefetch}
+          />
         </ModalPortal>
       )}
       {isWinModal && (
