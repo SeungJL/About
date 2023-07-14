@@ -32,11 +32,7 @@ import {
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/common";
 
-interface IStudyAbsentModal extends IModal {
-  isFree: boolean;
-}
-
-function StudyAbsentModal({ setIsModal, isFree }: IStudyAbsentModal) {
+function StudyAbsentModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
   const router = useRouter();
   const failToast = useFailToast();
@@ -49,12 +45,14 @@ function StudyAbsentModal({ setIsModal, isFree }: IStudyAbsentModal) {
   const voteDate = useRecoilValue(voteDateState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
 
+  
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
-
+  
   const myStudyStartTime = studyStartTime?.find(
     (item) => item.placeId === placeId
-  )?.startTime;
+    )?.startTime;
+    const isFree = mySpaceFixed.status === "free";
 
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();

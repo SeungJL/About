@@ -34,15 +34,12 @@ import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;
 
-interface IStudyCheckModal extends IModal {
-  isFree: boolean;
-}
-
-function StudyCheckModal({ setIsModal, isFree }: IStudyCheckModal) {
+function StudyCheckModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const failToast = useFailToast();
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const isFree = mySpaceFixed.status === "free";
 
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);

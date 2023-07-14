@@ -4,7 +4,11 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import TimeSelector from "../../components/utils/TimeSelector";
 import { useStudyTimeChangeMutation } from "../../hooks/study/mutations";
-import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
+import {
+  mySpaceFixedState,
+  studyStartTimeState,
+  voteDateState,
+} from "../../recoil/studyAtoms";
 import {
   ModalFooterNav,
   ModalHeaderLine,
@@ -29,7 +33,6 @@ import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
 
 interface IStudyChangeTimeModal extends IModal {
   myVoteTime: ITimeStartToEnd;
-  isFree: boolean;
 }
 
 const HOUR_TO_MINUTE = 60;
@@ -37,7 +40,6 @@ const HOUR_TO_MINUTE = 60;
 function StudyChangeTimeModal({
   setIsModal,
   myVoteTime,
-  isFree,
 }: IStudyChangeTimeModal) {
   const router = useRouter();
   const completeToast = useCompleteToast();
@@ -48,7 +50,9 @@ function StudyChangeTimeModal({
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
+  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
+  const isFree = mySpaceFixed?.status === "free";
   const startTime = dayjs(myVoteTime.start);
   const endTime = dayjs(myVoteTime.end);
   const myStudyStartTime = studyStartTime?.find((item) => {

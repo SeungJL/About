@@ -24,7 +24,6 @@ function AboutUpperBar() {
   const isCheck = useRecoilValue(attendCheckState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
-
   const [isCheckModal, setIsCheckModal] = useState(false);
 
   return (

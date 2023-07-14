@@ -13,7 +13,6 @@ interface IStudySpaceNavModal {
   setType: React.Dispatch<SetStateAction<string>>;
   myVote: IAttendance;
   place: IPlace;
-  isFree: boolean;
 }
 
 function StudySpaceNavModal({
@@ -21,7 +20,6 @@ function StudySpaceNavModal({
   setType,
   myVote,
   place,
-  isFree,
 }: IStudySpaceNavModal) {
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [isAbsentmodal, setIsAbsentmodal] = useState(false);
@@ -44,13 +42,12 @@ function StudySpaceNavModal({
           <StudyChangeTimeModal
             setIsModal={setIsChangeModal}
             myVoteTime={myVote?.time}
-            isFree={isFree}
           />
         </ModalPortal>
       )}
       {isAbsentmodal && (
         <ModalPortal setIsModal={setIsAbsentmodal}>
-          <StudyAbsentModal setIsModal={setIsAbsentmodal} isFree={isFree} />
+          <StudyAbsentModal setIsModal={setIsAbsentmodal} />
         </ModalPortal>
       )}
       {isVoteModal && (
@@ -60,7 +57,7 @@ function StudySpaceNavModal({
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsCheckModal}>
-          <StudyCheckModal isFree={isFree} setIsModal={setIsCheckModal} />
+          <StudyCheckModal setIsModal={setIsCheckModal} />
         </ModalPortal>
       )}
       {isVoteComplete && (

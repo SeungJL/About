@@ -175,7 +175,6 @@ function StudySpaceNavigation({
         setType={setModalType}
         myVote={myVote}
         place={place}
-        isFree={status === "free"}
       />
     </>
   );
