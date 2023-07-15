@@ -59,7 +59,7 @@ export default function UserSetting() {
   useStudyArrivedCntQuery({
     enabled: userInfo?.role === "human",
     onSuccess(data) {
-      if (data[session.uid] >= 2) setRole("member");
+      if (data[session.uid as string] >= 2) setRole("member");
     },
   });
 
