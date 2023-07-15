@@ -65,7 +65,7 @@ function UserNavigation() {
       setModalOpen("");
     }
   };
-  console.log(role);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>

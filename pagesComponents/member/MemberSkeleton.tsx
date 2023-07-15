@@ -6,7 +6,7 @@ import MemberOverviewSkeleton from "./memberSkeleton/MemberOverviewSkeleton";
 import MemberSectionListSkeleton from "./memberSkeleton/MemberSectionListSkeleton";
 
 function MemberSkeleton() {
-  console.log(2);
+
   return (
     <Layout>
       <MemberOverviewSkeleton />

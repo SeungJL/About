@@ -13,7 +13,7 @@ function ScoreLog() {
   const { data } = useDepositQuery();
   const { data: depositLog, isLoading } = useDepositLogQuery();
 
-  console.log(data, depositLog);
+  
   const filterLog = depositLog?.filter((item) => item?.meta?.value);
 
   return (

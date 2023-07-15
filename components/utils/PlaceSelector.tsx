@@ -42,7 +42,7 @@ function PlaceSelector({
     else subPlace.splice(findItem, 1);
     setVotePlaces((old) => ({ ...old, subPlace }));
   };
-  console.log(places);
+  c
   return (
     <>
       <Layout isBig={isBig}>

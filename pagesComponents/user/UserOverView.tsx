@@ -47,7 +47,6 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchUserInfo]);
-  console.log(user);
   // const { mutate: onChangeComment } = useUserCommentMutation();
   // const { data: comments, isLoading } = useUserCommentQuery();
 

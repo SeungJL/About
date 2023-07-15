@@ -15,7 +15,7 @@ interface IStoreGiftWinModal extends IModal {
 function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
   const [winner, setWinner] = useState([]);
   const router = useRouter();
-  console.log(router.query);
+ 
   useEffect(() => {
     const data = [];
     applyData.forEach((who) => {

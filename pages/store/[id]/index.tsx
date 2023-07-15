@@ -42,7 +42,7 @@ function StoreItem() {
   });
 
   useEffect(() => {
-    console.log(isRefetch);
+  
     if (isRefetch) refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetch]);

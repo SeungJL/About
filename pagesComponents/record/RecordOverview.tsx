@@ -69,7 +69,7 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
     dateRange?.startDate,
     dateRange?.endDate
   );
-  console.log(4, myAttend, myAttend2);
+ 
   const myMonthCnt = myAttend?.find((user) => user.uid === userUid)?.cnt;
 
   return (

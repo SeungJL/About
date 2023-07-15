@@ -60,7 +60,7 @@ function StudyVoteMainModal({
           getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
         }
       }
-      console.log(2);
+  
       setUpdateStudy(true);
       completeToast("studyVote");
     },

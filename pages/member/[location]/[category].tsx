@@ -28,7 +28,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
   const { data, isLoading } = useUserInfoQuery();
-  console.log(locationUrl);
+  
   const setUserData = useSetRecoilState(transferUserDataState);
 
   useEffect(() => {
