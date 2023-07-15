@@ -4,22 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { studyStartTimeState } from "../../../../../recoil/studyAtoms";
-import { Status } from "../../../../../types/statistics";
 import { IPlace } from "../../../../../types/studyDetails";
 
 interface IAboutMainItemStatus {
   status: string;
-  statusFixed: Status | "myOpen";
   place: IPlace;
 }
 
-function AboutMainItemStatus({
-  statusFixed,
-  status,
-  place,
-}: IAboutMainItemStatus) {
+function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
   const studyStartTime = useRecoilValue(studyStartTimeState);
-  console.log(studyStartTime);
 
   const startTime = studyStartTime?.find(
     (item) => item.placeId === place._id
@@ -29,15 +22,15 @@ function AboutMainItemStatus({
     <Layout>
       <Branch>{place.branch}</Branch>
       {status !== "pending" && status === "open" ? (
-        <Badge colorScheme="green" ml="8px">
+        <Badge colorScheme="green" ml="var(--margin-md)">
           Open
         </Badge>
       ) : status !== "pending" && status === "dismissed" ? (
-        <Badge colorScheme="blackAlpha" ml="8px">
+        <Badge colorScheme="blackAlpha" ml="var(--margin-md)">
           Closed
         </Badge>
       ) : status === "free" ? (
-        <Badge colorScheme="purple" ml="8px">
+        <Badge colorScheme="purple" ml="var(--margin-md)">
           Free
         </Badge>
       ) : null}
@@ -64,14 +57,14 @@ const Branch = styled.div`
 const Result = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: var(--margin-md);
 `;
 
 const ResultInfo = styled.div`
-  margin-left: 4px;
+  margin-left: var(--margin-min);
   font-size: 11px;
   font-weight: 600;
-  color: var(--font-h);
+  color: var(--font-h1);
 `;
 
 export default AboutMainItemStatus;

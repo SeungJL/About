@@ -21,7 +21,11 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { POINT_SYSTEM_MINUS } from "../../../constants/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
-import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/ui/CustomToast";
 import {
   usePointMutation,
   useScoreMutation,
@@ -45,6 +49,7 @@ function StudySpaceNavigation({
 
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
 
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -66,19 +71,18 @@ function StudySpaceNavigation({
   const { mutate: getPoint } = usePointMutation();
   const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
     onSuccess() {
+      completeToast("success");
       router.push(`/about`);
     },
+    onError: errorToast,
   });
 
   const { mutate: openFree } = useStudyOpenFreeMutation(voteDate, {
     onSuccess() {
       completeToast("free", "스터디가 Free로 오픈되었습니다.");
     },
+    onError: errorToast,
   });
-
-  const cancelFailToast = () => {
-    failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
-  };
 
   const onBtnClicked = (type: ModalType) => {
     if (isGuest) {
@@ -86,7 +90,8 @@ function StudySpaceNavigation({
       return;
     }
     if (type === "cancel") {
-      if (mySpaceFixed) cancelFailToast();
+      if (mySpaceFixed)
+        failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
       else {
         getScore(POINT_SYSTEM_MINUS.cancelStudy.score);
         getPoint(POINT_SYSTEM_MINUS.cancelStudy.point);

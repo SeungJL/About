@@ -15,8 +15,8 @@ interface IProfileOverview {
 function ProfileOverview({ user }: IProfileOverview) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const [userData, setUserData] = useState<IUser>(user);
 
+  const [userData, setUserData] = useState<IUser>(user);
   const [isLoading, setIsLoading] = useState(true);
 
   useUserInfoQuery({
@@ -42,7 +42,8 @@ function ProfileOverview({ user }: IProfileOverview) {
 }
 
 const Layout = styled.div`
-  padding: 14px;
+  margin: 0 var(--margin-main);
+  padding: var(--padding-sub) 0;
   display: flex;
   flex-direction: column;
 `;

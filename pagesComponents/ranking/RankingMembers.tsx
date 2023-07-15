@@ -46,11 +46,9 @@ function RankingMembers({ memberList }: IRankingMembers) {
                 <Rank>
                   <Skeleton>temp</Skeleton>
                 </Rank>
-
                 <RankingMine>
                   <Skeleton>temp</Skeleton>
                 </RankingMine>
-
                 <InitialBadge>
                   <Skeleton>temp</Skeleton>
                 </InitialBadge>
@@ -73,7 +71,7 @@ const Item = styled.div`
   display: flex;
   height: 48px;
   align-items: center;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: var(--border-main-light);
   > div {
     text-align: center;
     width: 60px;
@@ -81,7 +79,7 @@ const Item = styled.div`
 `;
 
 const Rank = styled.div`
-  margin-right: 12px;
+  margin-right: var(--margin-sub);
   font-weight: 600;
 `;
 
@@ -91,8 +89,8 @@ const Score = styled.div`
 
 const RankingMine = styled.div<{ isMine?: boolean }>`
   margin-right: 8px;
-  color: ${(props) => (props.isMine ? "var(--color-mint)" : null)};
-  font-weight: ${(props) => (props.isMine ? "600" : null)};
+  color: ${(props) => props.isMine && "var(--color-mint)"};
+  font-weight: ${(props) => props.isMine && "600"};
 `;
 
 const InitialBadge = styled.div`

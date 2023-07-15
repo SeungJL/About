@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ImageSlider from "../../components/utils/ImageSlider";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
-import GatherSkeletonImageSlider from "./GatherSkeletonImageSlider";
+import GatherImageSliderSkeleton from "./GatherImageSliderSkeleton";
 
 function GatherReviewNav() {
   const isGatherLoading = useRecoilValue(isGatherLoadingState);
@@ -20,7 +20,7 @@ function GatherReviewNav() {
       {!isGatherLoading ? (
         <ImageSlider type="gatherReviewNav" ImageContainer={ImageArr} />
       ) : (
-        <GatherSkeletonImageSlider />
+        <GatherImageSliderSkeleton />
       )}
     </Layout>
   );

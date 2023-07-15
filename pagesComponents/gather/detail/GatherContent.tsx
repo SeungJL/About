@@ -26,29 +26,28 @@ function GatherContent({ content, gatherList }: IGatherContent) {
 }
 
 const Layout = styled.div`
-  border-top: 1px solid var(--font-h6);
-  border-bottom: 1px solid var(--font-h6);
-  margin-top: 16px;
-  padding-top: 14px;
+  border-top: var(--border-main-light);
+  border-bottom: var(--border-main-light);
+  margin-top: var(--margin-main);
+  padding-top: var(--padding-main);
   min-height: 100px;
 `;
 const Content = styled.p``;
 
 const ListContainer = styled.div`
-  margin-top: 20px;
-  margin-bottom: 16px;
-  line-height: 1.8;
+  margin-top: var(--margin-max);
+  margin-bottom: var(--margin-main);
+  line-height: var(--line-height);
 `;
 
 const ListBlock = styled.div`
   > span:first-child {
     display: inline-block;
     width: 28px;
-
     font-weight: 600;
   }
   > span:last-child {
-    margin-left: 8px;
+    margin-left: var(--margin-md);
   }
 `;
 

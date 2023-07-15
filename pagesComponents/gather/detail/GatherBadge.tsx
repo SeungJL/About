@@ -12,16 +12,15 @@ function GatherBadge({ typeTitle }: IGatherBadge) {
       GATHER_CATEGORY?.findIndex((item) => item?.title === typeTitle)
     ];
   return (
-    <Badge p="4px 6px" my="4px" fontSize="12px" alignSelf="flex-start">
+    <Badge p="3px 6px" my="4px" fontSize="12px" alignSelf="flex-start">
       {categoryIcon}
       <Category>{typeTitle}</Category>
     </Badge>
   );
 }
 
-const Layout = styled.div``;
 const Category = styled.span`
-  margin: 0 4px;
+  margin: 0 var(--margin-min);
 `;
 
 export default GatherBadge;

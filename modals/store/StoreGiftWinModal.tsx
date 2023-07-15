@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 
+import { useRouter } from "next/router";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/common";
 import { IStoreApplicant } from "../../types/store";
-
 interface IStoreGiftWinModal extends IModal {
   applyData: IStoreApplicant[];
   win: number;
@@ -14,7 +14,8 @@ interface IStoreGiftWinModal extends IModal {
 
 function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
   const [winner, setWinner] = useState([]);
-
+  const router = useRouter();
+  console.log(router.query);
   useEffect(() => {
     const data = [];
     applyData.forEach((who) => {
@@ -27,15 +28,17 @@ function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
     setWinner(temp);
   }, [applyData, win]);
 
+  const tempA = ["김유리", "김영우", "김예나"];
+
   return (
     <ModalLayout size="md">
       <ModalHeaderXLine title="당첨자 발표" setIsModal={setIsModal} />
       <ModalMain>
         <Message>당첨을 축하합니다!</Message>
         <Winner>
-          {winner.map((who, idx) => (
-            <Win key={idx}>{who.name}</Win>
-          ))}
+          {(router?.query.id as string) === "0"
+            ? tempA.map((who, idx) => <Win key={idx}>{who}</Win>)
+            : winner.map((who, idx) => <Win key={idx}>{who.name}</Win>)}
         </Winner>
       </ModalMain>
       <ModalFooterNav>
@@ -50,7 +53,7 @@ const Message = styled.div`
   font-weight: 600;
   font-size: 15px;
   color: var(--font-h2);
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   margin-bottom: 30px;
 `;
 

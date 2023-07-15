@@ -12,10 +12,10 @@ import { isNoticeAlertState } from "../../../recoil/renderTrigger2Atoms";
 
 function AboutHeader() {
   const router = useRouter();
+  const isNoticeAlert = useRecoilValue(isNoticeAlertState);
 
   const [isRule, setIsRule] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
-  const isNoticeAlert = useRecoilValue(isNoticeAlertState);
 
   const onClickIcon = (type: string) => {
     if (type === "promotion") setIsPromotion(true);
@@ -27,7 +27,6 @@ function AboutHeader() {
     <>
       <Layout>
         <ABOUT>ABOUT</ABOUT>
-
         <Nav>
           <IconWrapper>
             <FontAwesomeIcon
@@ -36,7 +35,6 @@ function AboutHeader() {
               onClick={() => onClickIcon("promotion")}
             />
           </IconWrapper>
-
           <IconWrapper>
             <FontAwesomeIcon
               icon={faBalanceScale}
@@ -99,7 +97,6 @@ const Layout = styled.header`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-
   > div:nth-child(3) {
     position: relative;
   }

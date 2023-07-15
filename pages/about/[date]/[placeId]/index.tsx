@@ -18,10 +18,10 @@ export interface IStudySpaceData {
 const IMAGE_LIST = [1, 2, 3, 4, 5];
 function StudySpace() {
   const [studySpaceData, setStudySpaceData] = useState<IStudySpaceData>();
+  const [randomNum, setRandomNum] = useState<number>();
+
   const place = studySpaceData?.place;
   const attendances = studySpaceData?.attendences;
-
-  const [randomNum, setRandomNum] = useState<number>();
 
   useEffect(() => {
     setRandomNum(Math.floor(Math.random() * IMAGE_LIST.length));

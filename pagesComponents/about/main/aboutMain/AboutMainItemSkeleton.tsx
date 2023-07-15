@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Skeleton from "../../../../components/common/skeleton/Skeleton";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 
-function AboutMainInitialItem() {
+function AboutMainItemSkeleton() {
   const studyDate = useRecoilValue(studyDateState);
   return (
     <Layout>
@@ -78,4 +78,4 @@ const Participants = styled.div`
 
   height: 26px;
 `;
-export default AboutMainInitialItem;
+export default AboutMainItemSkeleton;

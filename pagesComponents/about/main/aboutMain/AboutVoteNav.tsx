@@ -1,4 +1,4 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { faCheckToSlot, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
@@ -10,10 +10,7 @@ import { useStudyPreferenceQuery } from "../../../../hooks/study/queries";
 import { useFailToast } from "../../../../hooks/ui/CustomToast";
 import StudyQuickVoteModal from "../../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
-import {
-  mySpaceFixedState,
-  studyDateState,
-} from "../../../../recoil/studyAtoms";
+import { studyDateState } from "../../../../recoil/studyAtoms";
 import { userLocationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/studyDetails";
 
@@ -23,16 +20,13 @@ interface IAboutVoteNav {
 
 function AboutVoteNav({ participations }: IAboutVoteNav) {
   const { data: session } = useSession();
-  const toast = useToast();
   const failToast = useFailToast();
   const isGuest = session?.user.name === "guest";
 
   const studyDate = useRecoilValue(studyDateState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
   const location = useRecoilValue(userLocationState);
 
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [isAttendModal, setIsAttendModal] = useState(false);
+  const [isVoteModal, setIsVoteModal] = useState(false);
   const [isQuickVoteModal, setIsQuickVoteModal] = useState(false);
 
   const { data: studyPreference } = useStudyPreferenceQuery();
@@ -43,14 +37,13 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
     0
   );
 
-  const onClickBtn = (type: string) => {
+  const onClickBtn = (type: "vote" | "quickVote") => {
     if (isGuest) {
       failToast("guest");
       return;
     }
-    if (type === "vote") setIsShowModal(true);
-    if (type === "attend") setIsAttendModal(true);
-    if (type === "quick") setIsQuickVoteModal(true);
+    if (type === "vote") setIsVoteModal(true);
+    if (type === "quickVote") setIsQuickVoteModal(true);
   };
 
   return (
@@ -58,66 +51,38 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
       {studyDate === "not passed" && (
         <Layout>
           <div>
-            {studyDate === "not passed" ? (
-              <Navigation>
-                <Button
-                  leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
-                  onClick={() => onClickBtn("quick")}
-                  background="mint"
-                  color="white"
-                  size="md"
-                  width="50%"
-                  mr="8px"
-                >
-                  빠른 투표
-                </Button>{" "}
-                <Button
-                  width="50%"
-                  leftIcon={<FontAwesomeIcon icon={faCrosshairs} />}
-                  onClick={() => onClickBtn("vote")}
-                  size="md"
-                  colorScheme="blackAlpha"
-                >
-                  직접 투표
-                </Button>
-              </Navigation>
-            ) : (
-              !mySpaceFixed &&
-              studyDate === "today" && (
-                <Button
-                  leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
-                  onClick={() => onClickBtn("attend")}
-                  background="mint"
-                  color="white"
-                  size="md"
-                  marginLeft="var(--margin-sub)"
-                >
-                  당일참여
-                </Button>
-              )
-            )}
+            <Navigation>
+              <Button
+                leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
+                onClick={() => onClickBtn("quickVote")}
+                background="mint"
+                color="white"
+                size="md"
+                width="50%"
+                mr="var(--margin-md)"
+              >
+                빠른 투표
+              </Button>{" "}
+              <Button
+                width="50%"
+                leftIcon={<FontAwesomeIcon icon={faCrosshairs} />}
+                onClick={() => onClickBtn("vote")}
+                size="md"
+                colorScheme="blackAlpha"
+              >
+                직접 투표
+              </Button>
+            </Navigation>
           </div>
-          {studyDate === "not passed" && (
-            <VoterCnt>
-              현재 <b>{voteCnt}명</b>의 멤버가 스터디에 투표중이에요!
-            </VoterCnt>
-          )}
+          <VoterCnt>
+            현재 <b>{voteCnt}명</b>의 멤버가 스터디에 투표중이에요!
+          </VoterCnt>
         </Layout>
       )}
-
-      {isShowModal && (
-        <ModalPortal setIsModal={setIsShowModal}>
+      {isVoteModal && (
+        <ModalPortal setIsModal={setIsVoteModal}>
           <StudyVoteMainModal
-            setIsModal={setIsShowModal}
-            isBig={location === "수원"}
-            participations={participations}
-          />
-        </ModalPortal>
-      )}
-      {isAttendModal && (
-        <ModalPortal setIsModal={setIsAttendModal}>
-          <StudyVoteMainModal
-            setIsModal={setIsAttendModal}
+            setIsModal={setIsVoteModal}
             isBig={location === "수원"}
             participations={participations}
           />
@@ -144,7 +109,7 @@ const Layout = styled.div`
 const VoterCnt = styled.div`
   color: var(--font-h3);
   font-size: 15px;
-  margin-left: 2px;
+  margin-left: var(--margin-min);
   margin-top: var(--margin-max);
   > b {
     color: var(--font-h1);

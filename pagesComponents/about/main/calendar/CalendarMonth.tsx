@@ -73,12 +73,11 @@ const Layout = styled.span`
   display: flex;
   align-items: center;
   font-weight: 600;
-
   > span {
     color: var(--font-h2);
     font-size: 14px;
     align-items: center;
-    margin-right: 8px;
+    margin-right: var(--margin-md);
   }
 `;
 const MonthNav = styled(motion.nav)`

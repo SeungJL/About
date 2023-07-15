@@ -41,9 +41,9 @@ const SpaceIcon = styled.div`
   justify-content: center;
   width: 70px;
   height: 70px;
-  border-radius: 18px;
+  border-radius: var(--border-radius-main);
   position: absolute;
-  border: 1px solid var(--font-h5);
+  border: var(--border-main-light);
   overflow: hidden;
   bottom: -24px;
   left: 12px;

@@ -27,9 +27,10 @@ function GatherOrganizer({ createdAt, organizer }: IGatherOrganizer) {
 
 const Layout = styled.div`
   display: flex;
-  margin: 8px 0;
+
+  margin: var(--margin-md) 0;
   > div:last-child {
-    margin-left: 11px;
+    margin-left: var(--margin-sub);
     display: flex;
     flex-direction: column;
     font-size: 12px;

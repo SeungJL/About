@@ -15,7 +15,7 @@ function GatherTitle({ status, title }: IGatherTitle) {
           : status === "open"
           ? "오픈"
           : status === "close"
-        ? "취소"
+          ? "취소"
           : null}
       </span>
       <span>{title}</span>
@@ -25,7 +25,7 @@ function GatherTitle({ status, title }: IGatherTitle) {
 
 const Layout = styled.div<{ status: GatherStatus }>`
   color: var(--font-h1);
-  margin-top: 8px;
+  margin-top: var(--margin-md);
   font-size: 16px;
   font-weight: 600;
   > span:first-child {
@@ -35,7 +35,7 @@ const Layout = styled.div<{ status: GatherStatus }>`
         : props?.status === "open"
         ? "var(--color-red)"
         : "var(--font-h4)"};
-    margin-right: 8px;
+    margin-right: var(--margin-md);
   }
 `;
 

@@ -43,12 +43,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* <meta
-            property="og:url"
-            content={`${process.env.NEXTAUTH_URL}/login${
-              redirectFrom ? `?from=${redirectFrom}` : ""
-            }`}
-          /> */}
           <meta property="og:type" content="website" />
           <meta property="og:title" content="About" />
           <meta property="og:url" content="https://studyabout.herokuapp.com" />
@@ -59,7 +53,6 @@ export default class MyDocument extends Document {
             property="og:site_name"
             content="https://studyabout.herokuapp.com"
           />
-
           <meta charSet="utf-8" key="charset" />
         </Head>
         <body>

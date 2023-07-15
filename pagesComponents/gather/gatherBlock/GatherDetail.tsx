@@ -33,12 +33,12 @@ const Layout = styled.div`
 `;
 const Condition = styled.div`
   > span {
-    margin-left: 8px;
+    margin-left: var(--margin-md);
   }
 `;
 const Date = styled.div`
   > span {
-    margin-left: 12px;
+    margin-left: var(--margin-sub);
   }
 `;
 export default GatherDetail;

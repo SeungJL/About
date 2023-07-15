@@ -1,36 +1,30 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";  
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { DEFAULT_ARRAY } from "../../constants/default";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
+import { useErrorToast } from "../../hooks/ui/CustomToast";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 
 import { GatherCategory, IGatherContent } from "../../types/gather";
 import GatherBlock from "./GatherBlock";
-import GatherSkeletonBlock from "./GatherInitialBlock";
+import GatherBlockSkeleton from "./GatherBlockSkeleton";
 
 interface IGatherMain {
   category: GatherCategory;
 }
 function GatherMain({ category }: IGatherMain) {
+  const errorToast = useErrorToast();
   const [gatherData, setGatherData] = useState<IGatherContent[]>();
-  console.log(gatherData);
   const [isGatherLoading, setIsGatherLoading] =
     useRecoilState(isGatherLoadingState);
 
-  const { data: gatherContentArr, refetch } = useGatherContentQuery({
+  const { data: gatherContentArr } = useGatherContentQuery({
     onSuccess() {
       setIsGatherLoading(false);
     },
-    onError(err) {
-      console.error(err);
-    },
+    onError: errorToast,
   });
-
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (category === "모집중")
@@ -59,7 +53,7 @@ function GatherMain({ category }: IGatherMain) {
       ) : (
         <Layout>
           {DEFAULT_ARRAY.map((item) => (
-            <GatherSkeletonBlock key={item} />
+            <GatherBlockSkeleton key={item} />
           ))}
         </Layout>
       )}

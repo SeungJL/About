@@ -1,14 +1,10 @@
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/skeleton/Skeleton";
 import { DEFAULT_ARRAY } from "../../constants/default";
-import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 
-function GatherSkeletonImageSlider() {
-  const isGahterLoading = useRecoilValue(isGatherLoadingState);
-
+function GatherImageSliderSkeleton() {
   return (
     <Layout>
       <GatherReviewNavIcon>
@@ -17,14 +13,13 @@ function GatherSkeletonImageSlider() {
         </div>
         <span>리뷰</span>
       </GatherReviewNavIcon>
-
       {DEFAULT_ARRAY.map((item) => (
         <GatherReviewNavItem key={item}>
           <div>
-            <Skeleton isLoad={!isGahterLoading}>temp</Skeleton>
+            <Skeleton>temp</Skeleton>
           </div>
           <span>
-            <Skeleton isLoad={!isGahterLoading}>temp</Skeleton>
+            <Skeleton>temp</Skeleton>
           </span>
         </GatherReviewNavItem>
       ))}
@@ -33,16 +28,17 @@ function GatherSkeletonImageSlider() {
 }
 
 const Layout = styled.div`
+  margin: 0 var(--margin-md);
+  margin-bottom: 15px;
   display: flex;
   overflow: hidden;
 `;
 const GatherReviewNavIcon = styled.div`
-  margin-right: 27px;
+  margin-right: 22px;
   display: flex;
   flex-direction: column;
   width: 68px;
   align-items: center;
-
   > div {
     border-radius: var(--border-radius-main);
     width: 52px;
@@ -59,7 +55,7 @@ const GatherReviewNavIcon = styled.div`
   }
 `;
 const GatherReviewNavItem = styled.div`
-  margin-right: 27px;
+  margin-right: 22px;
   display: flex;
   flex-direction: column;
   width: 68px;
@@ -83,4 +79,4 @@ const GatherReviewNavItem = styled.div`
   }
 `;
 
-export default GatherSkeletonImageSlider;
+export default GatherImageSliderSkeleton;

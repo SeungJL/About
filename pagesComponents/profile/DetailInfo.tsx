@@ -55,12 +55,12 @@ function DetailInfo({ user }: { user: IUser }) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 14px;
+  margin: 0 var(--margin-main);
+  padding: var(--padding-sub) 0;
 `;
 
 const Profile = styled.div`
-  padding: 0 6px;
-  margin-bottom: 8px;
+  padding: 0 var(--padding-min);
   display: flex;
   flex-direction: column;
   line-height: 2.4;

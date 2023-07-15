@@ -63,6 +63,8 @@ export interface IUser extends Document {
   majors: IMajor[];
   telephone: string;
 }
+
+export type UserField = "string" | Role | restType;
 export interface IUserField extends Document {
   uid?: string;
   registerDate?: string;

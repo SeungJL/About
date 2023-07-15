@@ -16,6 +16,7 @@ import { VOTE_TABLE_COLOR } from "../../../constants/design";
 import { GATHER_ALERT, POINT_ALERT } from "../../../constants/localStorage";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
 import { userLocationState } from "../../../recoil/userAtoms";
+
 function AboutNavigation() {
   const failToast = useFailToast();
   const { data: session } = useSession();
@@ -134,7 +135,7 @@ const Layout = styled.div`
   display: flex;
   justify-content: space-between;
   padding: var(--padding-sub) var(--padding-main);
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-main-light);
 `;
 
 const Item = styled.div`

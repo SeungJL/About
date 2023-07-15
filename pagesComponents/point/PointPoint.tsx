@@ -1,19 +1,17 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ImageSlider from "../../components/utils/ImageSlider";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
-import { isPointLoadingState } from "../../recoil/loadingAtoms";
 import { STORE_GIFT } from "../../storage/Store";
 
 function PointPoint() {
   const router = useRouter();
-  const isPointLoading = useRecoilValue(isPointLoadingState);
-  const ImageContainer = STORE_GIFT?.map((item) => item.image);
+
+  const ImageContainer = STORE_GIFT.map((item) => item.image);
   const { data } = usePointQuery();
-  // const [isModal, setIsModal] = useState(false);
+
   return (
     <Layout>
       <Button onClick={() => router.push("/point/pointLog")}>
@@ -45,7 +43,6 @@ const Layout = styled.div`
   padding: var(--padding-main);
   border-radius: var(--border-radius-main);
   background-color: white;
-
   box-shadow: var(--box-shadow);
 `;
 const Button = styled.button`
@@ -61,7 +58,7 @@ const Button = styled.button`
     display: flex;
     align-items: center;
     > span:first-child {
-      margin-right: 6px;
+      margin-right: var(--margin-md);
     }
   }
 `;

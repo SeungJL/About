@@ -14,7 +14,9 @@ export const isVotingState = atom({
   default: false,
 });
 
-export const studyDateState = atom<"passed" | "today" | "not passed">({
+export type StudyDate = "passed" | "today" | "not passed";
+
+export const studyDateState = atom<StudyDate>({
   key: "studyDate",
   default: "today",
 });

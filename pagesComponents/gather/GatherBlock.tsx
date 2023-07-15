@@ -48,12 +48,13 @@ export default GatherBlock;
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid var(--font-h6);
-  padding: 14px;
+  border-bottom: var(--border-main-light);
+  margin: 0 var(--margin-main);
+  padding: var(--padding-sub) 0;
 `;
 
 const Title = styled.div`
-  margin: 6px 0;
+  margin: var(--margin-min) 0;
   font-size: 15px;
   font-weight: 600;
 `;

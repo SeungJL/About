@@ -35,10 +35,8 @@ function UserTable({ attendances }: IUserTable) {
       if (!att?.time) return;
       const start = dayjs(att?.time.start);
       const end = dayjs(att?.time.end);
-
       const endTime = end.hour() + end.minute() / 60;
       const startTime = start.hour() + start.minute() / 60;
-
       const gap = endTime - startTime;
       const temp = {
         name: att.user.name,

@@ -95,15 +95,13 @@ function Member({ membersAll }) {
           </>
         )}
       </Layout>
-
       {isLoading && <MemberSkeleton />}
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   await dbConnect();
-
   const user = await User.find();
   const filterUser = user?.filter((who) => who?.isActive);
   const membersAll = JSON.parse(safeJsonStringify(filterUser));

@@ -5,69 +5,61 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { voteDateState } from "../../../recoil/studyAtoms";
 
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
-import { IParticipation, IPlace } from "../../../types/studyDetails";
-import AboutMainInitialItem from "./aboutMain/AboutMainInitialItem";
+import { IParticipation } from "../../../types/studyDetails";
 import AboutMainItem from "./aboutMain/AboutMainItem";
+import AboutMainItemSkeleton from "./aboutMain/AboutMainItemSkeleton";
 
 interface IAboutMain {
-  studySpaces: IPlace[] | IParticipation[];
-  myVoteList: string[];
+  participations: IParticipation[];
 }
 
-function AboutMain({ studySpaces, myVoteList }: IAboutMain) {
+function AboutMain({ participations }: IAboutMain) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   return (
-    <>
-      <AnimatePresence initial={false}>
-        {!isMainLoading ? (
-          <Layout
-            key={voteDate.format("MMDDdd")}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x);
-              if (swipe < -swipeConfidenceThreshold) {
-                setVoteDate((old) => old.add(1, "day"));
-              } else if (swipe > swipeConfidenceThreshold) {
-                setVoteDate((old) => old.subtract(1, "day"));
-              }
-            }}
-          >
-            <Main>
-              {studySpaces?.map((info, idx) => (
-                <div key={idx}>
-                  {info?.status === "pending" ||
-                  info?.attendences.filter((who) => who.firstChoice).length ? (
-                    <Block>
-                      <AboutMainItem
-                        studySpaceInfo={info}
-                        voted={Boolean(
-                          myVoteList.find((space) => space === info?.place?._id)
-                        )}
-                      />
-                    </Block>
-                  ) : null}
-                </div>
-              ))}
-            </Main>
-          </Layout>
-        ) : (
-          <Layout>
-            <Main>
-              {[1, 2, 3, 4]?.map((item) => (
-                <Block key={item}>
-                  <AboutMainInitialItem />
-                </Block>
-              ))}
-            </Main>
-          </Layout>
-        )}
-      </AnimatePresence>
-    </>
+    <AnimatePresence initial={false}>
+      {!isMainLoading ? (
+        <Layout
+          key={voteDate.format("MMDDdd")}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={1}
+          onDragEnd={(e, { offset, velocity }) => {
+            const swipe = swipePower(offset.x, velocity.x);
+            if (swipe < -swipeConfidenceThreshold) {
+              setVoteDate((old) => old.add(1, "day"));
+            } else if (swipe > swipeConfidenceThreshold) {
+              setVoteDate((old) => old.subtract(1, "day"));
+            }
+          }}
+        >
+          <Main>
+            {participations.map((participation, idx) => (
+              <div key={idx}>
+                {participation.status === "pending" ||
+                participation.attendences.filter((who) => who.firstChoice)
+                  .length ? (
+                  <Block>
+                    <AboutMainItem participation={participation} />
+                  </Block>
+                ) : null}
+              </div>
+            ))}
+          </Main>
+        </Layout>
+      ) : (
+        <Layout>
+          <Main>
+            {[1, 2, 3, 4]?.map((item) => (
+              <Block key={item}>
+                <AboutMainItemSkeleton />
+              </Block>
+            ))}
+          </Main>
+        </Layout>
+      )}
+    </AnimatePresence>
   );
 }
 

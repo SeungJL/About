@@ -27,7 +27,7 @@ function GatherBlockHeader({
 
   const openLocation =
     locationMain === "홍대" || locationMain === "가평" ? "양천구" : "수원";
-  console.log(openLocation);
+
   return (
     <Layout>
       <Status status={status}>{getStatusText(status)}</Status>·
@@ -45,7 +45,7 @@ const Layout = styled.header`
 `;
 
 const OpenLocation = styled.span`
-  margin: 0 4px;
+  margin: 0 var(--margin-min);
 `;
 
 const Status = styled.span<{ status: string }>`
@@ -55,16 +55,16 @@ const Status = styled.span<{ status: string }>`
       : props?.status === "open"
       ? "var(--color-red)"
       : "var(--font-h4)"};
-  margin-right: 4px;
+  margin-right: var(--margin-min);
   font-weight: 600;
 `;
 
 const Category = styled.span`
-  margin: 0 4px;
+  margin: 0 var(--margin-min);
 `;
 
 const Location = styled.span`
-  margin-left: 4px;
+  margin-left: var(--margin-min);
 `;
 
 export default GatherBlockHeader;

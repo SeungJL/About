@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../../components/common/Profile/ProfileIconXsOverwrap";
 import { MAX_USER_PER_PLACE } from "../../../../../constants/study";
@@ -9,25 +10,26 @@ interface IAboutMainItemParticipants {
   status: Status;
   statusFixed: "myOpen" | Status;
   attendances: IAttendance[];
-  voted: boolean;
 }
 const VOTER_SHOW_MAX = 7;
 function AboutMainItemParticipants({
   status,
   statusFixed,
   attendances,
-  voted,
 }: IAboutMainItemParticipants) {
+  const { data: session } = useSession();
+
+  const isMyVote = attendances.find((who) => who.user.uid === session?.uid);
   const voterCnt = attendances.length;
   const voteStatus: "GOOD" | "FULL" =
     status === "pending"
-      ? voted
+      ? isMyVote
         ? "GOOD"
         : voterCnt >= MAX_USER_PER_PLACE
         ? "FULL"
         : null
       : null;
-  const firstAttendance = attendances?.filter((att) => att.firstChoice);
+  const firstAttendance = attendances.filter((att) => att.firstChoice);
   return (
     <Layout status={statusFixed === "myOpen"}>
       <div>
@@ -37,7 +39,7 @@ function AboutMainItemParticipants({
       </div>
       <div>
         {statusFixed === "pending"
-          ? attendances?.map(
+          ? attendances.map(
               (att, idx) =>
                 idx < VOTER_SHOW_MAX && (
                   <ProfileContainer key={idx} zIndex={idx}>
@@ -48,7 +50,7 @@ function AboutMainItemParticipants({
                   </ProfileContainer>
                 )
             )
-          : firstAttendance?.map(
+          : firstAttendance.map(
               (att, idx) =>
                 idx < VOTER_SHOW_MAX + 1 && (
                   <ProfileContainer key={idx} zIndex={idx}>
@@ -65,12 +67,12 @@ function AboutMainItemParticipants({
             <VoterImpact
               isOverMax={
                 statusFixed === "pending" &&
-                attendances?.length >= MAX_USER_PER_PLACE
+                attendances.length >= MAX_USER_PER_PLACE
               }
             >
               {statusFixed === "pending"
                 ? attendances.length
-                : firstAttendance?.length}
+                : firstAttendance.length}
             </VoterImpact>
             /{statusFixed === "pending" ? "8" : "10"}
           </span>
@@ -84,10 +86,10 @@ const Layout = styled.div<{ status: boolean }>`
   flex: 1;
   display: flex;
   justify-content: space-between;
-  flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
+  flex-direction: ${(props) => props.status && "row-reverse"};
   > div:last-child {
     display: flex;
-    padding-top: 4px;
+    padding-top: var(--padding--min);
     align-items: end;
   }
 `;
@@ -110,9 +112,8 @@ const ProfileContainer = styled.div<{ zIndex: number }>`
 const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
-  margin-bottom: 4px;
-
+  margin-left: var(--margin-md);
+  margin-bottom: var(--margin-min);
   > span {
     font-weight: 400;
     font-size: 12px;

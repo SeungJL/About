@@ -32,7 +32,7 @@ function Point() {
 }
 
 const Layout = styled.div`
-  margin: 0 14px;
+  margin: 0 var(--margin-main);
 `;
 
 const Container = styled.div<{ isLoading: boolean }>`

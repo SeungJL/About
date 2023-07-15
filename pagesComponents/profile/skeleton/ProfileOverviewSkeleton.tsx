@@ -58,11 +58,13 @@ function ProfileOverviewSkeleton() {
 
 const Status = styled.span`
   margin-top: 2px;
-  width: 34px;
+  width: 48px;
+  height: 16px;
 `;
 
 const Layout = styled.div`
-  padding: 14px;
+  margin: 0 var(--margin-main);
+  padding: var(--padding-sub) 0;
   display: flex;
   flex-direction: column;
 `;
@@ -116,7 +118,7 @@ const Profile = styled.div`
 
 const Badge = styled.div`
   width: 64px;
-  height: 18px;
+  height: 20px;
 `;
 
 const ProfileInfo = styled.div`
@@ -129,6 +131,8 @@ const ProfileInfo = styled.div`
     display: flex;
     align-items: center;
     > span:first-child {
+      display: inline-block;
+      width: 48px;
       font-size: 16px;
       font-weight: 600;
       margin-right: 8px;
@@ -139,17 +143,14 @@ const ProfileInfo = styled.div`
     color: var(--font-h3);
   }
 `;
-const HeartWrapper = styled.div`
-  margin-right: 14px;
-`;
 
 const Comment = styled.div`
-  margin-left: 2px;
-  margin-top: 14px;
+  margin-left: var(--margin-min);
+  margin-top: var(--margin-sub);
   color: var(--font-h1);
   font-size: 12px;
   font-weight: 600;
-  width: 160px;
+  width: 140px;
 `;
 
 export default ProfileOverviewSkeleton;

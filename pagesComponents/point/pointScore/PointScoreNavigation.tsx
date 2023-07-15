@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
+import { useUserLocationQuery } from "../../../hooks/user/queries";
 import { SortUserScore } from "../../../libs/utils/userUtils";
 import { isPointLoadingState } from "../../../recoil/loadingAtoms";
 import { IRankScore } from "../../../types/user";
@@ -18,14 +19,18 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
   const { data: session } = useSession();
   const router = useRouter();
   const isGuest = session?.user.name === "guest";
+
+  const setIsPointLoading = useSetRecoilState(isPointLoadingState);
+
   const [myRank, setMyRank] = useState<IRankScore>();
-  const [isPointLoading, setIsPointLoading] =
-    useRecoilState(isPointLoadingState);
+
+  const { data: location } = useUserLocationQuery();
 
   useScoreAllQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      const arrangedData = SortUserScore(data, myPoint);
+      const temp = data.filter((who) => who.location === location);
+      const arrangedData = SortUserScore(temp, myPoint);
       if (arrangedData.isRank)
         setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
@@ -75,7 +80,7 @@ const Button = styled.button`
   font-weight: 700;
   display: flex;
   justify-content: space-between;
-  padding: 12px 8px;
+  padding: var(--padding-sub) var(--padding-md);
   > div:first-child {
     font-size: 14px;
   }
@@ -83,7 +88,7 @@ const Button = styled.button`
     display: flex;
     align-items: center;
     > span:first-child {
-      margin-right: 6px;
+      margin-right: var(--margin-md);
     }
   }
 `;

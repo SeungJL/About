@@ -35,7 +35,7 @@ function GatherMember({ organizer, participants, memberCnt }: IGatherMember) {
 }
 
 const Layout = styled.div`
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   font-size: 12px;
   display: flex;
   justify-content: space-between;
@@ -44,7 +44,7 @@ const Writer = styled.div`
   display: flex;
   align-items: center;
   > span {
-    margin-left: 6px;
+    margin-left: var(--margin-md);
   }
 `;
 
@@ -54,7 +54,7 @@ const Voter = styled.div`
   > span {
     color: var(--font-h2);
     font-weight: 600;
-    margin-left: 3px;
+    margin-left: var(--margin-min);
   }
 `;
 

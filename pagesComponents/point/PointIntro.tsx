@@ -12,8 +12,9 @@ function PointIntro() {
 }
 
 const Layout = styled.div`
-  padding: 8px 2px;
-  margin-bottom: 14px;
+  margin-top: var(--margin-md);
+  margin-bottom: var(--margin-max);
+  margin-left: var(--margin-min);
   font-size: 16px;
   color: var(--font-h3);
   > span {

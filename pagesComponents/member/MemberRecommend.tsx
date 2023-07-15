@@ -14,11 +14,12 @@ import { useFailToast } from "../../hooks/ui/CustomToast";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 
 function MemberRecommend() {
+  const failToast = useFailToast();
+  const { data: session } = useSession();
   const router = useRouter();
   const locationUrl = router.query.location;
-  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const failToast = useFailToast();
+
   const onClickBtn = (idx: number) => {
     if (isGuest) {
       failToast("guest");
@@ -26,6 +27,7 @@ function MemberRecommend() {
     }
     router.push(`/member/${locationUrl}/${idx}`);
   };
+
   return (
     <Layout>
       <Title>친구 추천</Title>
@@ -79,14 +81,14 @@ const Nav = styled.nav`
 
 const Button = styled.button`
   border-radius: var(--border-radius-sub);
-  border: 1.5px solid var(--font-h6);
+  border: var(--border-sub);
   height: 60px;
-  margin-top: 8px;
+  margin-top: var(--margin-md);
   font-size: 15px;
   text-align: start;
-  padding: 0 20px;
+  padding: 0 var(--padding-max);
   > span {
-    margin-left: 12px;
+    margin-left: var(--margin-sub);
   }
 `;
 

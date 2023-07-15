@@ -1,43 +1,35 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/skeleton/Skeleton";
-import { isGatherLoadingState } from "../../recoil/loadingAtoms";
-import { IGatherContent } from "../../types/gather";
 
-interface IGatherBlock {
-  data: IGatherContent;
-}
-
-function GatherSkeletonBlock() {
-  const isGatherLoading = useRecoilValue(isGatherLoadingState);
+function GatherBlockSkeleton() {
   return (
     <>
       <Layout>
         <GatherBlockHeader>
-          <Skeleton isLoad={!isGatherLoading}>temp</Skeleton>
+          <Skeleton>temp</Skeleton>
         </GatherBlockHeader>
         <Title>
-          <Skeleton isLoad={!isGatherLoading}>temp</Skeleton>
+          <Skeleton>temp</Skeleton>
         </Title>
         <GatherDetail>
           <span>
-            <Skeleton isLoad={!isGatherLoading}>temp</Skeleton>
+            <Skeleton>temp</Skeleton>
           </span>
           <span>
-            <Skeleton isLoad={!isGatherLoading}>temp</Skeleton>
+            <Skeleton>temp</Skeleton>
           </span>
         </GatherDetail>
         <GatherMember>
           <Writer>
             <ProfileIcon>
-              <Skeleton isLoad={!isGatherLoading}>temp</Skeleton>
+              <Skeleton>temp</Skeleton>
             </ProfileIcon>
             <span>
-              <Skeleton isLoad={!isGatherLoading}>temp</Skeleton>
+              <Skeleton>temp</Skeleton>
             </span>
           </Writer>
           <Voter>
-            <Skeleton isLoad={!isGatherLoading}>temp</Skeleton>
+            <Skeleton>temp</Skeleton>
           </Voter>
         </GatherMember>
       </Layout>
@@ -45,13 +37,14 @@ function GatherSkeletonBlock() {
   );
 }
 
-export default GatherSkeletonBlock;
+export default GatherBlockSkeleton;
 
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid var(--font-h6);
-  padding: 14px;
+  border-bottom: var(--border-main-light);
+  margin: 0 var(--margin-main);
+  padding: var(--padding-sub) 0;
 `;
 
 const GatherBlockHeader = styled.div`
@@ -65,27 +58,27 @@ const GatherDetail = styled.div`
   font-size: 12px;
   > span {
     width: 80px;
-    margin-bottom: 1px;
+    margin: var(--margin-min) 0;
   }
 `;
 
 const GatherMember = styled.div`
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   font-size: 12px;
   display: flex;
   justify-content: space-between;
 `;
 
 const Title = styled.div`
-  margin: 6px 0;
-  width: 130px;
+  margin: var(--margin-min) 0;
+  width: 100px;
   font-size: 15px;
 `;
 const Writer = styled.div`
   display: flex;
   align-items: center;
   > span {
-    margin-left: 6px;
+    margin-left: var(--margin-md);
   }
 `;
 

@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Skeleton from "../../components/common/skeleton/Skeleton";
+import { useTypeErrorToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { getUserBadgeScore } from "../../libs/utils/userUtils";
 import { IMyRank } from "../../pages/ranking";
@@ -17,6 +18,7 @@ interface IRankingOverview {
 }
 
 function RankingOverview({ myRank, length }: IRankingOverview) {
+  const typeErrorToast = useTypeErrorToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
@@ -29,24 +31,35 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
       const { badge } = getUserBadgeScore(data?.score);
       setUserBadge({ badge, color: USER_BADGES[badge] });
     },
+    onError: (e) => typeErrorToast(e, "user"),
   });
 
   return (
     <>
       <Layout>
         <Myrank>
-          {myRank?.isRank ? (
-            <span>
-              <Skeleton isLoad={!isLoading}>
-                랭킹:
-                <RankNum> {isGuest ? "--" : myRank?.rankNum} 위</RankNum>
-              </Skeleton>
-            </span>
-          ) : (
-            <span>
-              <Skeleton isLoad={!isLoading}>상위 {myRank?.percent}%</Skeleton>
-            </span>
-          )}
+          <div>
+            {myRank?.isRank ? (
+              <>
+                <span>랭킹:</span>
+                <span>
+                  <Skeleton isLoad={!isLoading}>
+                    <RankNum>
+                      {isGuest ? "--" : myRank?.rankNum} <span>위</span>
+                    </RankNum>
+                  </Skeleton>
+                </span>
+              </>
+            ) : (
+              <div>
+                <Skeleton isLoad={!isLoading}>
+                  <RankPercent>
+                    상위 <span>{myRank?.percent}%</span>
+                  </RankPercent>
+                </Skeleton>
+              </div>
+            )}
+          </div>
           <span>
             <Skeleton isLoad={!isLoading}>전체: {length}명</Skeleton>
           </span>
@@ -60,7 +73,7 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
         <ScoreContainer>
           <RankBadge>
             <Skeleton isLoad={!isLoading}>
-              등급: &nbsp;
+              <Name>등급:</Name>
               <Badge colorScheme={userBadge?.color} fontSize="13px" mb="6px">
                 {userBadge?.badge}
               </Badge>
@@ -68,7 +81,8 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
           </RankBadge>
           <Score>
             <Skeleton isLoad={!isLoading}>
-              점수: &nbsp; <span>{userInfo?.score || 0}점</span>
+              <Name>점수:</Name>
+              <span>{userInfo?.score || 0}점</span>
             </Skeleton>
           </Score>
         </ScoreContainer>
@@ -98,24 +112,51 @@ const Myrank = styled.div`
   flex-direction: column;
   align-items: center;
   width: 120px;
-  > span:first-child {
-    display: inline-block;
-    margin-bottom: 6px;
+
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--margin-min);
+    > span:first-child {
+      color: var(--font-h1);
+      padding-top: 2px;
+      font-weight: 600;
+      margin-right: var(--margin-min);
+    }
   }
   > span:last-child {
-    font-size: 12px;
+    color: var(--font-h3);
+    font-size: 13px;
   }
+`;
+
+const Name = styled.span`
+  margin-right: var(--margin-md);
+  color: var(--font-h1);
+  font-weight: 600;
 `;
 
 const RankNum = styled.span`
   font-size: 20px;
   font-weight: 800;
+  > span {
+    font-size: 18px;
+  }
+`;
+
+const RankPercent = styled.span`
+  font-size: 16px;
+  font-weight: 800;
+  > span {
+    font-size: 18px;
+  }
 `;
 
 const ScoreContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  align-items: flex-start;
+  margin-left: var(--margin-max);
   width: 120px;
 `;
 

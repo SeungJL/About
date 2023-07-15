@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { useFailToast } from "../../../hooks/ui/CustomToast";
+import { useTypeErrorToast } from "../../../hooks/ui/CustomToast";
 import { getStudyDate } from "../../../libs/studyDateSetting";
 import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
 import { isRefetchStudySpacelState } from "../../../recoil/refetchingAtoms";
@@ -23,8 +23,9 @@ interface IStudySpaceSetting {
 
 function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   const router = useRouter();
-  const failToast = useFailToast();
+  const typeErrorToast = useTypeErrorToast();
   const { data: session } = useSession();
+
   const voteDate = dayjs(router.query.date as string);
   const spaceID = router.query.placeId;
   const location = SPACE_LOCATION[spaceID as string];
@@ -42,7 +43,6 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
       (props) => props.place._id === spaceID
     );
     const { place, attendences, status } = participation;
-
     setStudySpaceData({ place, attendences, status });
     const isVoted = attendences.find((who) => who?.user.uid === session?.uid);
     if (["open", "free"].includes(status)) setMySpaceFixed(participation);
@@ -51,9 +51,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
 
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess: handleSuccess,
-    onError(data) {
-      failToast("loadStudy");
-    },
+    onError: (e) => typeErrorToast(e, "study"),
   });
 
   useEffect(() => {

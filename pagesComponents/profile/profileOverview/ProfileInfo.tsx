@@ -14,6 +14,7 @@ interface IProfileInfo {
 function ProfileInfo({ user }: IProfileInfo) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
+
   const userBadge = getUserBadgeScore(user?.score);
 
   const status =
@@ -63,7 +64,7 @@ const Profile = styled.div`
 `;
 
 const ProfileName = styled.div`
-  margin-left: 12px;
+  margin-left: var(--margin-sub);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -74,7 +75,7 @@ const ProfileName = styled.div`
     > span:first-child {
       font-size: 16px;
       font-weight: 600;
-      margin-right: 8px;
+      margin-right: var(--margin-md);
     }
   }
   > span:last-child {
@@ -83,12 +84,12 @@ const ProfileName = styled.div`
   }
 `;
 const HeartWrapper = styled.div`
-  margin-right: 14px;
+  margin-right: var(--margin-main);
 `;
 
 const Comment = styled.div`
-  margin-left: 2px;
-  margin-top: 14px;
+  margin-left: var(--margin-min);
+  margin-top: var(--margin-sub);
   color: var(--font-h1);
   font-size: 12px;
   font-weight: 600;

@@ -13,9 +13,10 @@ interface IStudySpaceVoteOverview {
   place: IPlace;
 }
 function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
-  const [isModal, setIsModal] = useState(false);
   const router = useRouter();
   const date = dayjs(router.query.date as string);
+
+  const [isModal, setIsModal] = useState(false);
 
   return (
     <>
@@ -29,7 +30,7 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
           </span>
           <Button
             size="xs"
-            ml="8px"
+            ml="var(--margin-min)"
             colorScheme="mintTheme"
             onClick={() => setIsModal(true)}
           >

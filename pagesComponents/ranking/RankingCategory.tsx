@@ -26,7 +26,7 @@ function RankingCategory({ isFilter, setIsFilter }: IRankingCategory) {
 
 const Layout = styled.div`
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
   align-items: center;
   > span {
     font-weight: 600;
@@ -34,7 +34,7 @@ const Layout = styled.div`
     text-align: center;
   }
   > span:first-child {
-    margin-right: 12px;
+    margin-right: var(--margin-sub);
   }
 `;
 const SwitchWrapper = styled.div`

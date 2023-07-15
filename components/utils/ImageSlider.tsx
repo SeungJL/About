@@ -178,7 +178,6 @@ const GatherReviewNavItem = styled.div`
   flex-direction: column;
   width: 68px;
   align-items: center;
-
   > div {
     border-radius: var(--border-radius-main);
     width: 52px;
@@ -188,7 +187,7 @@ const GatherReviewNavItem = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: var(--margin-md);
   }
   > span {
     font-size: 10px;

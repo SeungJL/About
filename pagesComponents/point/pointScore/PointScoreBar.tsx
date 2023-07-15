@@ -21,6 +21,7 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
   const isGuest = session?.user.name === "guest";
 
   const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
+
   const [isBadgeInfoModal, setIsBadgeInfoModal] = useState(false);
   const [scoreInfo, setScoreInfo] = useState({
     value: 0,
@@ -28,12 +29,12 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
     scoreGap: 30,
     nextScore: 30,
   });
+
   useScoreQuery({
     enabled: !isGuest,
     onSuccess(data) {
       const { badge, badgeScore, nextBadge, gap, nextScore } =
         getUserBadgeScore(data.score);
-
       setUserBadge({ badge, color: USER_BADGES[badge] });
       setScoreInfo({
         value: badgeScore,
@@ -49,7 +50,7 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
       <Layout>
         <Grade>
           <div>
-            <Badge marginRight="6px" colorScheme={userBadge.color}>
+            <Badge marginRight="var(--margin-md)" colorScheme={userBadge.color}>
               {userBadge.badge}
             </Badge>
             <span style={{ color: userBadge.color }}>{myPoint || "0"}점</span>
@@ -87,12 +88,12 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
 }
 
 const Layout = styled.div`
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
 `;
 const Grade = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
   align-items: center;
   > div {
     display: flex;
@@ -106,7 +107,7 @@ const Grade = styled.div`
 const IconWrapper = styled.div`
   color: var(--font-h2);
   font-size: 14px;
-  margin-left: 8px;
+  margin-left: var(--margin-md);
 `;
 
 export default PointScoreBar;

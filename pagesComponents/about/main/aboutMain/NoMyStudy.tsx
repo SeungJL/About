@@ -11,8 +11,7 @@ const Layout = styled.div`
   justify-content: center;
   width: 100%;
   align-items: center;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-main);
   font-size: 15px;
   color: var(--font-h1);
 `;

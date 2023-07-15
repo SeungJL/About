@@ -29,7 +29,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
- 
+
   return (
     <Layout>
       <span>
@@ -90,7 +90,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
   );
 }
 const MemberItem = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: var(--margin-main);
   display: flex;
   align-items: center;
 `;
@@ -98,8 +98,8 @@ const MemberItem = styled.div`
 const UserOverview = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.6;
-  margin-left: 8px;
+  line-height: var(--line-height);
+  margin-left: var(--margin-md);
   > span:first-child {
     font-size: 13px;
     font-weight: 600;
@@ -115,11 +115,11 @@ const Organizer = styled.div`
 
 const ParticipateTime = styled.div<{ isFirst: boolean }>`
   margin-left: auto;
-  margin-right: 6px;
+  margin-right: var(--margin-md);
   color: ${(props) =>
     props.isFirst ? "var(--color-mint)" : "var(--color-orange)"};
   > span:last-child {
-    margin-left: 2px;
+    margin-left: var(--margin-min);
   }
 `;
 
@@ -132,9 +132,7 @@ const Layout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: var(--margin-max) 0;
   > span:first-child {
     margin-right: auto;
     font-weight: 700;
@@ -144,7 +142,7 @@ const Layout = styled.div`
     }
   }
   > div {
-    margin-top: 20px;
+    margin-top: var(--margin-max);
     width: 100%;
     display: flex;
     flex-direction: column;

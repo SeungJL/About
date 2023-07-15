@@ -1,25 +1,21 @@
 import dayjs, { Dayjs } from "dayjs";
-import { STUDY_VOTE_END_HOUR, STUDY_VOTE_START_HOUR } from "../constants/study";
-import { getInterestingDate } from "./utils/dateUtils";
+import { STUDY_VOTE_END_HOUR } from "../constants/study";
+import { StudyDate } from "../recoil/studyAtoms";
 
-export const getStudyDate = (voteDate: Dayjs) => {
-  const currentHour = dayjs().hour();
-  const voteDateNum = +voteDate.format("MDD");
-  const defaultDate = +getInterestingDate().format("MDD");
-  const isVoteDatePassed =
-    currentHour >= STUDY_VOTE_START_HOUR && currentHour <= STUDY_VOTE_END_HOUR
-      ? voteDateNum < +getInterestingDate().subtract(1, "day").format("MDD")
-      : voteDateNum < defaultDate;
+type GetStudyDate = (voteDate: Dayjs) => StudyDate;
 
-  const isStudyDateToday =
-    (currentHour >= STUDY_VOTE_END_HOUR && voteDateNum <= defaultDate) ||
-    (currentHour >= STUDY_VOTE_START_HOUR &&
-      +voteDate.add(1, "day").format("MDD") <= defaultDate) ||
-    (currentHour < STUDY_VOTE_START_HOUR && voteDateNum === defaultDate);
+export const getStudyDate: GetStudyDate = (voteDate) => {
+  const currentDate = dayjs().date();
+  const currentHours = dayjs().hour();
+  const selectDate = voteDate.date();
 
-  return isVoteDatePassed
-    ? "passed"
-    : isStudyDateToday
-    ? "today"
-    : "not passed";
+  if (currentDate === selectDate - 1) {
+    if (currentHours >= STUDY_VOTE_END_HOUR) return "today";
+  }
+  if (currentDate === selectDate) {
+    if (currentHours < STUDY_VOTE_END_HOUR) return "today";
+    else return "passed";
+  }
+  if (selectDate < currentDate) return "passed";
+  if (currentDate < selectDate) return "not passed";
 };

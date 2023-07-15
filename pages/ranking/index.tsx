@@ -1,8 +1,9 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import { useErrorToast } from "../../hooks/ui/CustomToast";
 import {
   useScoreAllQuery,
   useScoreQuery,
@@ -23,42 +24,40 @@ export interface IMyRank {
 }
 
 function Ranking() {
+  const errorToast = useErrorToast();
   const { data: session } = useSession();
-
   const isGuest = session && session?.user.name === "guest";
   const myUid = session?.uid;
 
-  const { data: location } = useUserLocationQuery();
-  console.log(location);
+  const setIsRankingLoading = useSetRecoilState(isRankingLoadingState);
 
   const [isFilter, setIsFilter] = useState(true);
-  const [userArr, setUserArr] = useState<IScore[]>();
-
-  const [isRankingLoading, setIsRankingLoading] = useRecoilState(
-    isRankingLoadingState
-  );
   const [userScoreList, setUserScoreList] = useState<IScore[]>([]);
-
   const [myRank, setMyRank] = useState<IMyRank>();
+
+  const { data: location } = useUserLocationQuery();
   const { data } = useScoreQuery({
     enabled: isGuest === false,
   });
 
   const myScore = data?.score | 0;
 
-  useScoreAllQuery({
+  const { data: userScoreAll, isLoading } = useScoreAllQuery({
     enabled: true,
-    onSuccess(data) {
-      const { scoreArr, rankNum, percent, isRank } = SortUserScore(
-        data,
-        myScore
-      );
-      setUserArr(scoreArr);
-      setUserScoreList(scoreArr);
-      setMyRank({ rankNum, percent, isRank, score: myScore });
-      setIsRankingLoading(false);
-    },
+    onError: errorToast,
   });
+
+  useEffect(() => {
+    if (isLoading) return;
+    let temp = userScoreAll;
+    if (isFilter) temp = temp.filter((who) => who.location === location);
+    setUserScoreList(temp);
+    const { rankNum, percent, isRank } = SortUserScore(temp, myScore);
+    setMyRank({ rankNum, percent, isRank, score: myScore });
+    setIsRankingLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFilter, isLoading, location, myScore, userScoreAll, userScoreList]);
+
   useEffect(() => {
     if (myUid)
       setTimeout(() => {
@@ -66,15 +65,6 @@ function Ranking() {
         element?.scrollIntoView({ behavior: "smooth" });
       }, 800);
   }, [myUid]);
-
-  useEffect(() => {
-    if (isFilter) {
-      const filterData = userArr?.filter((who) => who?.location === location);
-      setUserScoreList(filterData);
-    } else {
-      setUserScoreList(userArr);
-    }
-  }, [isFilter, location, userArr]);
 
   return (
     <>
@@ -98,9 +88,8 @@ const RankingSection = styled.div`
   background-color: white;
   height: 100%;
   overflow-y: scroll;
-  padding: 12px 16px;
-  border-radius: 8px;
-  padding: 14px;
+  padding: var(--padding-main) var(--padding-sub);
+  border-radius: var(--border-radius-main);
   height: calc(75vh - 46px);
   border: 5px solid var(--color-mint);
 `;

@@ -20,11 +20,6 @@ interface IGatherComments {
   setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }
 
-interface IGatherCommentDelete {
-  gatherId: number;
-  commentId: string;
-}
-
 function GatherComments({ comment, setIsRefetch }: IGatherComments) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -119,8 +114,7 @@ const Layout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: var(--margin-max) 0;
   > span:first-child {
     margin-right: auto;
     font-weight: 700;
@@ -132,7 +126,7 @@ const Layout = styled.div`
 `;
 
 const IconWrapper = styled.span`
-  margin-left: 8px;
+  margin-left: var(--margin-md);
 `;
 
 const Comment = styled.div`
@@ -145,7 +139,7 @@ const MyCommnet = styled.div`
   display: flex;
   min-height: 60px;
   align-items: center;
-  padding-right: 12px;
+  padding-right: var(--padding-sub);
   width: 100%;
   margin-top: 12px;
 `;
@@ -161,7 +155,7 @@ const CommentContent = styled.div`
   flex-direction: column;
   height: 68%;
   justify-content: space-around;
-  margin-left: 12px;
+  margin-left: var(--margin-sub);
   font-size: 12px;
   > span:first-child {
     font-weight: 600;
@@ -172,7 +166,7 @@ const CommentContent = styled.div`
 `;
 
 const MyText = styled.textarea`
-  margin-left: 12px;
+  margin-left: var(--margin-sub);
   flex: 1;
   background-color: inherit;
   height: 21px;

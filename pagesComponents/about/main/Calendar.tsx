@@ -29,7 +29,7 @@ function Calendar() {
 }
 
 const Layout = styled.div`
-  border-bottom: 1px solid var(--font-h6);
+  border-bottom: var(--border-main-light);
   padding: 0 var(--padding-main);
 `;
 

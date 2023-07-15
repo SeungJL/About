@@ -13,14 +13,10 @@ import { noticeData } from "../../storage/notice";
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);
 
-  noticeData.sort((a, b) => {
-    if (Number(a.id) > Number(b.id)) return -1;
-    if (Number(a.id) < Number(b.id)) return 1;
-    return 0;
-  });
+  noticeData.sort((a, b) => Number(b.id) - Number(a.id));
+
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   useEffect(() => {
-   
     if (isNoticeAlert) {
       localStorage.setItem(NOTICE_ALERT, "read");
       setIsNoticeAlert(false);
@@ -47,7 +43,6 @@ function Notice() {
           </Button>
         </Category>
         <Main>
-          {/* <Content>도착한 알림이 없습니다.</Content> */}
           <Accordion allowToggle>
             {noticeData.map((item) => (
               <NoticeItem key={item.id} item={item} isNotice={isNotice} />
@@ -72,10 +67,10 @@ const Button = styled.div<{ isSelected: boolean }>`
   width: 50%;
   text-align: center;
   font-weight: 600;
-  padding-bottom: 8px;
-  border-bottom: ${(props) =>
-    props.isSelected ? "2px solid var(--font-h1)" : null};
-  color: ${(props) => (props.isSelected ? " var(--font-h1)" : "#767d8a")};
+  padding-bottom: var(--margin-md);
+  border-bottom: ${(props) => props.isSelected && "2px solid var(--font-h1)"};
+  color: ${(props) =>
+    props.isSelected ? " var(--font-h1)" : "var(--font-h3)"};
 `;
 
 const Main = styled.main`
@@ -83,10 +78,6 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-`;
-
-const Content = styled.div`
-  height: 80px;
 `;
 
 export default Notice;

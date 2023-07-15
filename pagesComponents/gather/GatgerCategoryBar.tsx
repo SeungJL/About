@@ -36,18 +36,18 @@ const Layout = styled.nav`
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--font-h6);
-  padding: 4px 14px;
+  margin: 0 var(--margin-main);
+  padding: 4px 0;
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
-  padding: 3px 10px;
-  border: 1.5px solid var(--font-h6);
-  border-radius: 12px;
-  margin-right: 12px;
+  padding: var(--padding-min) var(--padding-sub);
+  border: var(--border-sub);
+  border-radius: var(--border-radius-main);
+  margin-right: var(--margin-sub);
   color: ${(props) => (props.isSelected ? "white" : "var(--font-h2)")};
   font-size: 13px;
-  background-color: ${(props) =>
-    props.isSelected ? "var(--color-mint)" : null};
+  background-color: ${(props) => props.isSelected && "var(--color-mint)"};
 `;
 
 export default GatherCategoryBar;

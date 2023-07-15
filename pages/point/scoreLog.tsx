@@ -54,8 +54,8 @@ function ScoreLog() {
 }
 
 const Layout = styled.div`
-  margin-top: 20px;
-  padding: 0 14px;
+  margin: 0 var(--margin-main);
+  margin-top: var(--margin-max);
   font-weight: 600;
 `;
 
@@ -64,7 +64,7 @@ const LogHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: var(--border-sub);
   font-size: 13px;
   > span {
     text-align: center;
@@ -72,19 +72,22 @@ const LogHeader = styled.header`
   > span:first-child {
     color: var(--font-h1);
   }
+  > span:last-child {
+    padding-left: var(--padding-min);
+  }
 `;
 
 const MyPoint = styled.div`
-  padding: 0 8px;
+  padding: 0 var(--padding-md);
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 160px;
   height: 40px;
-  font-size: 12px;
   border-radius: var(--border-radius-sub);
-  border: 1.5px solid var(--color-mint);
-  color: var(--font-h3);
+  border: var(--border-mint);
+  color: var(--font-h2);
+  font-size: 12px;
   > span:last-child {
     color: var(--font-h1);
     font-size: 17px;
@@ -93,24 +96,23 @@ const MyPoint = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: var(--margin-max);
   display: flex;
   flex-direction: column;
 `;
-
 const Item = styled.div`
   color: var(--font-h1);
   height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--font-h6);
+  border-bottom: var(--border-sub);
   font-size: 12px;
 `;
 
 const Date = styled.span`
   color: var(--font-h3);
-  margin-right: 14px;
+  margin-right: var(--margin-main);
   width: 54px;
   text-align: center;
 `;
@@ -120,6 +122,8 @@ const Content = styled.span`
 `;
 
 const Point = styled.span<{ isMinus?: boolean }>`
+  width: 64px;
+  text-align: center;
   color: ${(props) => (props.isMinus ? "var(--color-red)" : "var(--font-h1)")};
 `;
 export default ScoreLog;

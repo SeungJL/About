@@ -11,6 +11,7 @@ interface IMemberOverview {
 function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
   const router = useRouter();
   const location = router.query.location;
+
   const { data } = useStudyPlaceQuery();
 
   const placeData = data?.filter((place) => place?.location === location);

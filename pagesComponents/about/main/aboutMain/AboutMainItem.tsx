@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { LogoAdjustmentImage } from "../../../../components/ui/DesignAdjustment";
+import { StudySpaceLogo } from "../../../../components/ui/DesignAdjustment";
 import { dayjsToStr } from "../../../../libs/typeConverter";
 import {
   mySpaceFixedState,
@@ -13,39 +13,33 @@ import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants
 import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
 
 interface IAboutMainItem {
-  studySpaceInfo: IParticipation;
-  voted: boolean;
+  participation: IParticipation;
 }
 
-function AboutMainItem({ studySpaceInfo, voted }: IAboutMainItem) {
+function AboutMainItem({ participation }: IAboutMainItem) {
   const router = useRouter();
 
   const voteDate = useRecoilValue(voteDateState);
   const mySpaceFixed = useRecoilValue(mySpaceFixedState);
 
-  const { attendences, place, status } = studySpaceInfo || {};
+  const { attendences, place, status } = participation || {};
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
 
   const onClickItem = () => {
-    router.push(`/about/${dayjsToStr(voteDate)}/${studySpaceInfo.place._id}`);
+    router.push(`/about/${dayjsToStr(voteDate)}/${participation.place._id}`);
   };
 
   return (
     <Layout status={statusFixed === "myOpen"} onClick={onClickItem}>
-      <ImageContainer isDark={place?._id === YANG_할리스}>
-        <LogoAdjustmentImage place={place} />
+      <ImageContainer isDark={place._id === YANG_할리스}>
+        <StudySpaceLogo place={place} isBig={true} />
       </ImageContainer>
       <SpaceInfo>
-        <AboutMainItemStatus
-         place={place}
-          status={status}
-          statusFixed={statusFixed}
-        />
-        <Info>{place?.brand}</Info>
+        <AboutMainItemStatus place={place} status={status} />
+        <Info>{place.brand}</Info>
         <AboutMainItemParticipants
           attendances={attendences}
           statusFixed={statusFixed}
-          voted={voted}
           status={status}
         />
       </SpaceInfo>

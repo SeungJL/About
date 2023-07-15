@@ -86,7 +86,7 @@ function StoreItem() {
               <Button size="lg" width="50%" onClick={onToggle}>
                 참여현황
               </Button>
-              {!isCompleted ? (
+              {isCompleted ? (
                 <Button
                   size="lg"
                   width="50%"

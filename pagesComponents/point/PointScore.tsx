@@ -18,7 +18,7 @@ function PointScore() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 14px;
+  padding: var(--padding-main);
   border-radius: var(--border-radius-main);
   background-color: white;
   box-shadow: var(--box-shadow);

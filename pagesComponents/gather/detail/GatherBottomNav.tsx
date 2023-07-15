@@ -1,17 +1,17 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
+import { IRefetch } from "../../../types/common";
 import { IGatherContent } from "../../../types/gather";
 
-interface IGatherBottomNav {
+interface IGatherBottomNav extends IRefetch {
   data: IGatherContent;
-  setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }
 
 function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
@@ -125,7 +125,7 @@ const Layout = styled.nav`
   height: 72px;
   position: fixed;
   bottom: 0;
-  padding: 14px;
+  padding: var(--padding-main);
   left: 0;
 `;
 

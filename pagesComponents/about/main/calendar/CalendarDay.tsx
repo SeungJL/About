@@ -15,9 +15,8 @@ function CalendarDay() {
 }
 
 const Layout = styled.div`
-  margin: 8px;
+  margin: var(--margin-md);
   margin-top: var(--margin-max);
-
   display: flex;
   justify-content: space-between;
   color: var(--font-h3);

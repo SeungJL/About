@@ -26,7 +26,6 @@ function GatherDetailInfo({
 }: IGatherDetailInfo) {
   const { data: session } = useSession();
   const isOrganizer = user?.uid === session?.uid;
-
   const [isSubLocation, setIsSubLocation] = useState(false);
 
   return (
@@ -81,15 +80,15 @@ function GatherDetailInfo({
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 6px;
+  margin-top: var(--margin-md);
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 8px;
+  margin-top: var(--margin-md);
   > span:nth-child(2) {
-    margin: 0 8px;
+    margin: 0 var(--margin-md);
   }
 `;
 
@@ -101,8 +100,8 @@ const IconWrapper = styled.div`
 const LocationSub = styled.div`
   color: var(--font-h3);
   font-size: 12px;
-  margin-top: 6px;
-  margin-left: 20px;
+  margin-top: var(--margin-min);
+  margin-left: var(--margin-max);
 `;
 
 const Secret = styled.div`

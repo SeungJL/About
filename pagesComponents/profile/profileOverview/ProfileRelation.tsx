@@ -54,15 +54,11 @@ function ProfileRelation({ user }: IProfileRelation) {
             친구신청
           </Button>
         ) : (
-          <Button
-            onClick={onClickCard}
-            size="sm"
-            border="1px solid var(--font-h6)"
-          >
+          <Button onClick={onClickCard} size="sm">
             내 프로필 카드
           </Button>
         )}
-      </Layout>{" "}
+      </Layout>
       {isProfileCard && (
         <ModalPortal setIsModal={setIsProfileCard}>
           <ProfileCardModal setIsModal={setIsProfileCard} />
@@ -79,7 +75,7 @@ function ProfileRelation({ user }: IProfileRelation) {
 
 const Layout = styled.div`
   display: flex;
-  margin-top: 20px;
+  margin-top: var(--margin-max);
   align-items: center;
   justify-content: space-between;
   > div:first-child {
@@ -89,7 +85,7 @@ const Layout = styled.div`
 
 const RelationItem = styled.div`
   width: max-content;
-  padding: 0 10px;
+  padding: 0 var(--padding-md);
   text-align: center;
   display: flex;
   flex-direction: column;
