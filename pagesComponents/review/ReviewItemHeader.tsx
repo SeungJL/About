@@ -3,11 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
-import { useUserInfoQuery } from "../../hooks/user/queries";
-
 function ReviewItemHeader({ temp, date }: { temp: any; date: string }) {
-  const { data } = useUserInfoQuery();
-
   return (
     <Layout>
       <Profile>
@@ -25,8 +21,8 @@ function ReviewItemHeader({ temp, date }: { temp: any; date: string }) {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 14px;
-  margin-bottom: 12px;
+  padding: 0 var(--padding-main);
+  margin-bottom: var(--margin-sub);
   align-items: center;
 `;
 
@@ -34,7 +30,7 @@ const Profile = styled.div`
   display: flex;
   align-items: center;
   > div:last-child {
-    margin-left: 8px;
+    margin-left: var(--margin-md);
     display: flex;
     flex-direction: column;
     > span:first-child {

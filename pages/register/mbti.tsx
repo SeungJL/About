@@ -10,7 +10,6 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-
 import { MBTI } from "../../storage/ProfileData";
 
 function Mbti() {
@@ -23,13 +22,14 @@ function Mbti() {
 
   const [mbti, setMbti] = useState(registerForm?.mbti);
   const isProfileEdit = useRecoilValue(isProfileEditState);
+
   const onClickNext = () => {
-    if (mbti === "") {
+    if (!mbti) {
       setErrorMessage("항목을 선택해 주세요.");
       return;
     }
     setRegisterForm((old) => ({ ...old, mbti }));
-    router.push(`major`);
+    router.push(`/register/major`);
   };
 
   return (
@@ -67,9 +67,10 @@ const Layout = styled(motion.div)`
 
 const ButtonNav = styled.nav`
   margin-top: 40px;
+  margin-bottom: var(--margin-md);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: var(--margin-md);
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
@@ -80,9 +81,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   font-size: 14px;
   font-weight: ${(props) => props.isSelected && "600"};
   border: ${(props) =>
-    props.isSelected
-      ? "1.5px solid var(--font-h1)"
-      : "1.5px solid var(--font-h5)"};
+    props.isSelected ? "1.5px solid var(--font-h1)" : "var(--border-main)"};
 `;
 
 export default Mbti;

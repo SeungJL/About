@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const ACCOUNT = "1002-364-221277 우리은행 이승주(어바웃)";
 export const ACCOUNT_SHORT = "1002-364-221277 우리은행 어바웃";
 
+export const REGISTER_AGE_MIN=12;
+
 export const PromotionComponent = () => <P>{PROMOTION_TEXT}</P>;
 
 const P = styled.pre`

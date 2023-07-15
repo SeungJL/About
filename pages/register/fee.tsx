@@ -1,13 +1,3 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import styled from "styled-components";
-import BottomNav from "../../components/layouts/BottomNav";
-import Header from "../../components/layouts/Header";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-
 import {
   Accordion,
   AccordionButton,
@@ -16,44 +6,45 @@ import {
   AccordionPanel,
   Box,
   Flex,
-  useToast,
 } from "@chakra-ui/react";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import BottomNav from "../../components/layouts/BottomNav";
+import Header from "../../components/layouts/Header";
+import ProgressStatus from "../../components/layouts/ProgressStatus";
+import { useErrorToast } from "../../hooks/ui/CustomToast";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
 import RegisterCost from "../../pagesComponents/register/fee/RegisterCost";
+import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
+import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 function Fee() {
-  const toast = useToast();
+  const errorToast = useErrorToast();
   const router = useRouter();
-  const { data: session } = useSession();
 
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const registerForm = useRecoilValue(sharedRegisterFormState);
+
+  const { mutate } = useUserRegisterMutation({
+    onSuccess() {
+      router.push(`/register/success`);
+    },
+    onError: errorToast,
+  });
 
   const isReady = registerForm?.location === "안양";
 
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const { mutate } = useUserRegisterMutation({
-    onSuccess() {},
-    onError(error) {
-      console.error(error);
-    },
-  });
-
   const onClickNext = () => {
     mutate(registerForm);
-    router.push(`/register/success`);
   };
 
   return (
     <>
       <ProgressStatus value={100} />
       <Header title="회원가입" url="/register/phone" />
-      <RegisterLayout errorMessage={errorMessage}>
+      <RegisterLayout>
         <RegisterOverview>
           <span>회비 납부</span>
           <span>보증금은 회원 탈퇴시 환급해드려요!</span>
@@ -76,19 +67,7 @@ function Fee() {
             )}
           </div>
         </Cost>
-        <Account>
-          운영진에게 연락을 받은 후 납부해야 할 금액입니다!
-          {/* <span style={{ width: "80px" }}>입금 계좌</span>
-          <div>
-            {ACCOUNT_SHORT}
-            <span
-              style={{ marginLeft: "8px" }}
-              onClick={() => copyAccount(ACCOUNT)}
-            >
-              <FontAwesomeIcon icon={faCopy} />
-            </span>
-          </div> */}
-        </Account>
+        <Account>운영진에게 연락을 받은 후 납부해야 할 금액입니다!</Account>
         <Message>현재 페이지에서는 가입 신청만 진행됩니다.</Message>
         <Telephone>
           <span> 연락받을 연락처:</span> {registerForm?.telephone}
@@ -167,10 +146,10 @@ function Fee() {
               <Content>
                 <ul>
                   <li>
-                    1시간 이상 지각 <B> -200원</B>
+                    1시간 이상 지각 <B> -100원</B>
                   </li>
                   <li>
-                    스터디 당일 불참 <B>-500원</B>
+                    스터디 당일 불참 <B>-200원</B>
                   </li>
                   <li>
                     스터디 당일 잠수 <B> -1000원</B>
@@ -240,24 +219,23 @@ function Fee() {
 }
 const Content = styled.div`
   font-size: 11px;
-  padding: 4px 0;
-  padding-left: 16px;
-
+  padding: var(--padding-min) 0;
+  margin-left: var(--margin-main);
   > ul {
-    line-height: 1.8;
+    line-height: var(--line-height);
   }
 `;
 const B = styled.b`
-  margin-left: 3px;
+  margin-left: var(--margin-min);
   color: var(--font-h1);
 `;
 
 const Cost = styled.div`
-  margin: 40px 0;
+  margin: var(--margin-max) 0;
   > div:first-child {
     color: var(--font-h2);
     font-size: 13px;
-    margin-bottom: 12px;
+    margin-bottom: var(--margin-sub);
   }
   > div:last-child {
     display: flex;
@@ -267,17 +245,14 @@ const Cost = styled.div`
 `;
 
 const Account = styled.div`
-  margin-bottom: 4px;
-
+  margin-bottom: var(--margin-min);
   font-size: 14px;
-
   font-weight: 600;
   color: var(--font-h1);
 `;
 
 const Message = styled.div`
   font-size: 13px;
-
   color: var(--font-h3);
   margin-bottom: 40px;
 `;
@@ -288,7 +263,7 @@ const Telephone = styled.div`
     display: inline-block;
     font-weight: 600;
     color: var(--font-h1);
-    margin-bottom: 4px;
+    margin-bottom: var(--margin-min);
   }
 `;
 

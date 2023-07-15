@@ -39,12 +39,12 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
 }
 
 const Layout = styled.div`
-  margin: 14px;
-  margin-bottom: 20px;
-  border: 1.5px solid var(--font-h5);
+  margin: var(--margin-main);
+  margin-bottom: var(--margin-max);
+  border: var(--border-main);
   border-radius: var(--border-radius-sub);
   display: flex;
-  padding: 8px;
+  padding: var(--padding-md);
   align-items: center;
   height: 60px;
 `;
@@ -55,7 +55,7 @@ const IconWrapper = styled.div`
   align-items: center;
   height: 44px;
   width: 44px;
-  margin-right: 6px;
+  margin-right: var(--margin-md);
 `;
 
 const Content = styled.div`
@@ -63,7 +63,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   > span:first-child {
     font-weight: 600;
     font-size: 13px;
@@ -76,13 +75,13 @@ const ContentDetail = styled.div`
   font-size: 12px;
   color: var(--font-h3);
   > span:first-child {
-    margin-right: 4px;
+    margin-right: var(--margin-min);
   }
   > span:nth-child(2) {
-    margin: 0 4px;
+    margin: 0 var(--margin-min);
   }
   > span:last-child {
-    margin-left: 4px;
+    margin-left: var(--margin-min);
   }
 `;
 

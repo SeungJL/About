@@ -11,6 +11,7 @@ import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
+import { birthToAge } from "../../libs/utils/membersUtil";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
@@ -46,10 +47,16 @@ function Birthday() {
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
   const onClickNext = () => {
-    setRegisterForm((old) => ({
-      ...old,
-      birth: dayjs(startDate).format("YYMMDD"),
-    }));
+    const age = birthToAge(dayjs(startDate).format("YYMMDD"));
+    if (age < 19 || age > 26) {
+      setErrorMessage("죄송합니다. 19 ~ 26세의 인원만 가입이 가능합니다.");
+      return;
+    }
+    if (dayjs(startDate))
+      setRegisterForm((old) => ({
+        ...old,
+        birth: dayjs(startDate).format("YYMMDD"),
+      }));
     router.push(`mbti`);
   };
 
@@ -121,11 +128,11 @@ const Layout = styled(motion.div)`
 
 const DateStr = styled.div`
   font-size: 22px;
-  margin-top: 32px;
-  margin-bottom: 32px;
+  margin: var(--margin-max) 0;
 `;
 
 const DateContainer = styled.div`
+  margin-bottom: var(--margin-main);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,7 +157,5 @@ const DateContainer = styled.div`
     padding-top: 4px;
   }
 `;
-
-const DateWrapper = styled.div``;
 
 export default Birthday;

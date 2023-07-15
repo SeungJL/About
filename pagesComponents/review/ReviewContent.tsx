@@ -24,17 +24,8 @@ function ReviewContent({ text }: { text: string }) {
 const Layout = styled.div``;
 
 const P = styled.p`
-  margin: 14px;
-  font-size: 13px;
-
-  > span {
-    font-size: 12px;
-    color: var(--font-h2);
-  }
-`;
-
-const Pre = styled.pre`
-  margin: 14px;
+  padding: 0 var(--padding-main);
+  margin-bottom: var(--margin-max);
   font-size: 13px;
 
   > span {

@@ -32,8 +32,8 @@ function StudySetting({ participations, setParticipations }: IStudySetting) {
     if (participations.length === 0 || participations[0].status !== "pending")
       return;
     if (dayjs().hour() >= STUDY_VOTE_END_HOUR) decideSpace();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participations]);
 
   return (
     <>

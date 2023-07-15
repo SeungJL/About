@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
@@ -16,8 +16,8 @@ function Phone() {
   const [registerForm, setRegisterForm] = useRecoilState(
     sharedRegisterFormState
   );
-  const [errorMessage, setErrorMessage] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [value, setValue] = useState(registerForm?.telephone || "");
 
   const onClickNext = () => {
@@ -33,14 +33,10 @@ function Phone() {
     router.push(`/register/fee`);
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
   return (
     <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
       <ProgressStatus value={88} />
-      <Header title="회원가입" url="/register/message" />
+      <Header title="회원가입" url="/register/comment" />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>핸드폰 번호를 작성해 주세요</span>
@@ -48,7 +44,7 @@ function Phone() {
         </RegisterOverview>
         <NameInput
           value={value}
-          onChange={onChange}
+          onChange={(e) => setValue(e.target.value)}
           placeholder="전화번호를 입력해 주세요."
         />
         <BottomNav onClick={() => onClickNext()} />
@@ -63,11 +59,11 @@ const Layout = styled(motion.div)`
 
 const NameInput = styled.input`
   margin-top: 40px;
-  border: 1.5px solid var(--font-h5);
+  border: var(--border-main);
   height: 40px;
   width: 100%;
   border-radius: var(--border-radius-sub);
-  padding: 12px;
+  padding: var(--padding-sub);
   ::placeholder {
     font-size: 12px;
     color: var(--font-h4);

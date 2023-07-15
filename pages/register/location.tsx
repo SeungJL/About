@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import BottomNav from "../../components/layouts/BottomNav";
@@ -15,18 +15,18 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-
 import { StudyLocation } from "../../storage/study";
 import { Location } from "../../types/system";
 
 function Location() {
   const router = useRouter();
+
   const [registerForm, setRegisterForm] = useRecoilState(
     sharedRegisterFormState
   );
+  const isProfileEdit = useRecoilValue(isProfileEditState);
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(registerForm?.location);
-  const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
   const [isLoading, setIsLoading] = useState(true);
 
   useUserInfoQuery({
@@ -43,7 +43,6 @@ function Location() {
         comment,
         telephone,
       } = data;
-
       setRegisterForm({
         location,
         name,
@@ -74,7 +73,6 @@ function Location() {
       setErrorMessage("지역을 선택해 주세요.");
       return;
     }
-
     setRegisterForm((old) => ({ ...old, location }));
     router.push(`/register/name`);
   };
@@ -134,14 +132,14 @@ const Layout = styled(motion.div)`
 `;
 
 const ButtonNav = styled.nav`
-  margin-top: 20px;
+  margin-top: var(--margin-max);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: var(--margin-sub);
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
-  padding: 8px 10px;
+  padding: var(--padding-sub);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -149,9 +147,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   height: 64px;
   border-radius: var(--border-radius-sub);
   border: ${(props) =>
-    props.isSelected
-      ? "1.5px solid var(--font-h1)"
-      : "1.5px solid var(--font-h5)"};
+    props.isSelected ? "1.5px solid var(--font-h1)" : "var(--border-main)"};
 `;
 
 const Message = styled.div`

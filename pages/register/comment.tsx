@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
@@ -27,17 +27,13 @@ function Message() {
     sharedRegisterFormState
   );
   const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [value, setValue] = useState(registerForm?.comment || "");
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target?.value);
-  };
+  const [index, setIndex] = useState(null);
 
   const { mutate, isLoading } = useUserRegisterMutation();
-
   const { mutate: approve } = useUserApproveMutation();
-  const [index, setIndex] = useState(null);
 
   const InputIdx = MESSAGE_DATA?.length;
 
@@ -47,9 +43,8 @@ function Message() {
       return;
     }
     let tempComment = "";
-    if (index === InputIdx) tempComment = value;
+    if (index === InputIdx || index === null) tempComment = value;
     else tempComment = MESSAGE_DATA[index];
-
     await setRegisterForm((old) => ({ ...old, comment: tempComment }));
 
     if (isProfileEdit) {
@@ -97,7 +92,7 @@ function Message() {
               isSelected={
                 index === InputIdx || (index === null && value !== "")
               }
-              onChange={onChange}
+              onChange={(e) => setValue(e.target?.value)}
               value={value}
             />
           </RegisterLayout>
@@ -123,13 +118,12 @@ const Container = styled.div`
 
 const Item = styled.div<{ isSelected: boolean }>`
   width: 100%;
-
   border-radius: var(--border-radius-sub);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 48px;
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
   color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
   border: ${(props) =>
     props.isSelected
@@ -151,7 +145,7 @@ const Input = styled.input<{ isSelected: boolean }>`
   background-color: inherit;
   align-items: center;
   height: 48px;
-  margin-bottom: 12px;
+  margin-bottom: var(--margin-sub);
 
   ::placeholder {
     color: var(--font-h4);

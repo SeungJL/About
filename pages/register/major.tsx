@@ -17,12 +17,13 @@ import { IMajor } from "../../types/user";
 
 function Major() {
   const router = useRouter();
+
   const toast = useToast();
+
   const [registerForm, setRegisterForm] = useRecoilState(
     sharedRegisterFormState
   );
 
-  const [errorMessage, setErrorMessage] = useState("");
   const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
   const isProfileEdit = useRecoilValue(isProfileEditState);
 
@@ -47,7 +48,6 @@ function Major() {
       setmajors((old) => old.filter((item) => item.detail !== detail));
       return;
     }
-
     if (majors.length >= 2) {
       toast({
         title: "선택 불가",
@@ -69,7 +69,7 @@ function Major() {
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/mbti"
       />
-      <RegisterLayout errorMessage={errorMessage}>
+      <RegisterLayout>
         <RegisterOverview>
           <span>전공을 선택해 주세요</span>
           <span>다중 선택도 가능해요.</span>
@@ -108,7 +108,7 @@ const Layout = styled(motion.div)`
 `;
 
 const Section = styled.section`
-  margin-bottom: 20px;
+  margin-bottom: var(--margin-main);
 `;
 
 const SectionTitle = styled.span`
@@ -117,18 +117,18 @@ const SectionTitle = styled.span`
 `;
 
 const SectionContent = styled.div`
-  margin-top: 8px;
+  margin-top: var(--margin-md);
   display: flex;
   flex-wrap: wrap;
 `;
 
 const Content = styled.button<{ isSelected: boolean }>`
-  padding: 4px 6px;
+  padding: var(--padding-min) var(--padding-md);
   font-size: 12px;
   border-radius: 100px;
-  border: 1px solid #ccc;
-  margin-right: 8px;
-  margin-bottom: 8px;
+  border: var(--border-sub);
+  margin-right: var(--margin-md);
+  margin-bottom: var(--margin-md);
   background-color: ${(props) => props.isSelected && "var(--color-mint)"};
   color: ${(props) => props.isSelected && "white"};
 `;

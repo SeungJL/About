@@ -59,7 +59,6 @@ function Interest() {
           <span>관심 분야를 선택해 주세요</span>
           <span>스터디에서 하고자 하는 관심 분야를 작성해 주세요.</span>
         </RegisterOverview>
-
         <Container>
           <Example>
             <span>예시</span>
@@ -69,7 +68,6 @@ function Interest() {
               ))}
             </div>
           </Example>
-
           <Item>
             <span>첫번째 관심사</span>
             <Input
@@ -100,34 +98,32 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   > div {
-    margin-bottom: 28px;
+    margin-bottom: var(--margin-max);
     > span {
       display: inline-block;
       color: var(--font-h1);
       font-weight: 600;
       font-size: 12px;
-      margin-bottom: 8px;
+      margin-bottom: var(--margin-md);
     }
   }
 `;
 
 const Example = styled.div`
-  margin-top: 14px;
-  margin-bottom: 28px;
+  margin-top: var(--margin-main);
 
   > div {
     color: var(--font-h3);
-    padding: 4px 4px;
+    padding: var(--padding-min);
     background-color: var(--font-h7);
     border: 1px solid var(--font-h6);
     border-radius: var(--border-radius-sub);
-
     display: flex;
     flex-wrap: wrap;
     > span {
       font-size: 12px;
       margin-right: 6px;
-      line-height: 1.7;
+      line-height: var(--line-height);
     }
   }
 `;
@@ -138,7 +134,7 @@ const Item = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 12px 8px;
+  padding: var(--padding-sub) var(--padding-md);
   border: 1px solid var(--font-h6);
   background-color: var(--font-h7);
   border-radius: var(--border-radius-sub);

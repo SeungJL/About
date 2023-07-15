@@ -16,14 +16,14 @@ import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 function Name() {
   const router = useRouter();
   const { data: session } = useSession();
+
+  const isProfileEdit = useRecoilValue(isProfileEditState);
   const [registerForm, setRegisterForm] = useRecoilState(
     sharedRegisterFormState
   );
+
   const [errorMessage, setErrorMessage] = useState("");
-
   const [value, setValue] = useState(registerForm?.name || session?.user.name);
-
-  const isProfileEdit = useRecoilValue(isProfileEditState);
 
   const onClickNext = () => {
     if (value.length < 2 || value.length > 3) {
@@ -48,7 +48,7 @@ function Name() {
       <ProgressStatus value={20} />
       <Header
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="register/location"
+        url="/register/location"
       />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -72,11 +72,11 @@ const Layout = styled(motion.div)`
 
 const NameInput = styled.input`
   margin-top: 40px;
-  border: 1.5px solid var(--font-h5);
+  border: var(--border-main);
   height: 40px;
   width: 100%;
   border-radius: var(--border-radius-sub);
-  padding: 12px;
+  padding: var(--padding-sub);
   ::placeholder {
     font-size: 12px;
     color: var(--font-h4);

@@ -107,7 +107,7 @@ function Review() {
 const Layout = styled.div``;
 
 const Main = styled.main`
-  margin-top: 20px;
+  margin-top: var(--margin-max);
   display: flex;
   flex-direction: column;
 `;

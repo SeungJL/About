@@ -19,6 +19,7 @@ function Gender() {
     sharedRegisterFormState
   );
   const isProfileEdit = useRecoilValue(isProfileEditState);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<Gender>(registerForm?.gender);
 
@@ -28,7 +29,7 @@ function Gender() {
       return;
     }
     setRegisterForm((old) => ({ ...old, gender }));
-    router.push(`birthday`);
+    router.push(`/register/birthday`);
   };
 
   return (
@@ -81,9 +82,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   font-size: 14px;
   font-weight: ${(props) => props.isSelected && "600"};
   border: ${(props) =>
-    props.isSelected
-      ? "1.5px solid var(--font-h1)"
-      : "1.5px solid var(--font-h5)"};
+    props.isSelected ? "1.5px solid var(--font-h1)" : "var(--border-main)"};
 `;
 
 export default Gender;

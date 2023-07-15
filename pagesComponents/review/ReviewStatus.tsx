@@ -40,15 +40,15 @@ function ReviewStatus({ temp }: { temp?: any }) {
 
 const Layout = styled.div`
   display: flex;
-  padding: 0 14px;
+  margin: 0 var(--margin-main);
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 12px;
+  margin-right: var(--margin-sub);
   > span {
-    margin-left: 5px;
+    margin-left: var(--margin-min);
     font-weight: 600;
     font-size: 15px;
   }
@@ -61,6 +61,7 @@ const Profile = styled.div`
 const ProfileContainer = styled.div<{ zIndex: number }>`
   width: 23px;
   display: flex;
+  align-items: center;
   z-index: ${(props) => props.zIndex};
   position: relative;
   padding-top: 28px;
