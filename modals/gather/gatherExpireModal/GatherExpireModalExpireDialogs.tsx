@@ -47,6 +47,7 @@ function GatherExpireModalExpireDialog({
 
   const onComplete = () => {
     statusOpen();
+    onClose();
     setIsComplete(true);
   };
 

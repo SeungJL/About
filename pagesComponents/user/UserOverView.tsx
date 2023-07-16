@@ -1,73 +1,74 @@
-import styled from "styled-components";
-
-import { useUserInfoQuery } from "../../hooks/user/queries";
-
-import { Badge, useToast } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
-
+import { Badge } from "@chakra-ui/react";
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
+import ModalPortal from "../../components/ModalPortal";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/ui/CustomToast";
 import {
   useUserApproveMutation,
   useUserRegisterMutation,
 } from "../../hooks/user/mutations";
-
-import { useRecoilValue } from "recoil";
-import ModalPortal from "../../components/ModalPortal";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import { getUserBadgeScore } from "../../libs/utils/userUtils";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
-import { userBadgeState } from "../../recoil/userAtoms";
-
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
+import { DispatchBoolean } from "../../types/common";
+import { IUserBadge, USER_BADGES } from "../../types/user";
 
 interface IUserOverview {
-  setIsLoading: React.Dispatch<SetStateAction<boolean>>;
+  setIsLoading: DispatchBoolean;
 }
 
 export default function UserOverview({ setIsLoading }: IUserOverview) {
   const completeToast = useCompleteToast();
-  const [value, setValue] = useState("");
+  const failToast = useFailToast();
+  const errorToast = useErrorToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const inputRef = useRef<HTMLInputElement>(null);
-  const failToast = useFailToast();
 
   const isRefetchUserInfo = useRecoilValue(isRefetchUserInfoState);
 
+  const [value, setValue] = useState("");
+  const [isProfileModal, setIsProfileModal] = useState(false);
+  const [badge, setBadge] = useState<IUserBadge>();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const { data: user, refetch } = useUserInfoQuery({
     onSuccess(data) {
-      setValue(data?.comment);
+      setValue(data.comment);
+      const badge = getUserBadgeScore(data.score).badge;
+      setBadge({
+        badge,
+        color: USER_BADGES[badge],
+      });
       setIsLoading(false);
     },
   });
 
   useEffect(() => {
-    refetch();
+    if (isRefetchUserInfo) refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchUserInfo]);
-  // const { mutate: onChangeComment } = useUserCommentMutation();
-  // const { data: comments, isLoading } = useUserCommentQuery();
 
   const { mutate } = useUserRegisterMutation({
-    onSuccess() {},
-    onError(error) {
-      console.error(error);
-    },
+    onError: errorToast,
   });
 
-  const { mutate: approve } = useUserApproveMutation();
-  const userBadge = useRecoilValue(userBadgeState);
-  // const userComment =
-  //   !isLoading && comments?.comments.find((att) => att?._id === user?._id);
-
-  const [isProfileModal, setIsProfileModal] = useState(false);
-
-  // useEffect(() => {
-  //   if (!isLoading) setValue(userComment?.comment);
-  // }, [isLoading, userComment?.comment]);
-  const toast = useToast();
+  const { mutate: approve } = useUserApproveMutation({
+    onSuccess() {
+      completeToast("change");
+    },
+    onError: errorToast,
+  });
 
   const handleWrite = () => {
     if (isGuest) {
@@ -87,7 +88,6 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   const handleSubmit = async () => {
     await mutate({ ...user, comment: value });
     await approve(user?.uid);
-    completeToast("success");
   };
 
   return (
@@ -102,8 +102,8 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
         <UserInfo>
           <UserProfile>
             <UserName>{isGuest ? "게스트" : user?.name}</UserName>
-            <Badge fontSize={12} colorScheme={userBadge?.color}>
-              {userBadge?.badge}
+            <Badge fontSize={12} colorScheme={badge?.color}>
+              {badge?.badge}
             </Badge>
           </UserProfile>
           <Comment>
@@ -124,7 +124,6 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
           </Comment>
         </UserInfo>
       </Layout>
-
       {isProfileModal && (
         <ModalPortal setIsModal={setIsProfileModal}>
           <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />
@@ -136,30 +135,21 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
 
 const Layout = styled.div`
   height: 90px;
-  padding: 4px 0px;
+  padding: var(--padding-md) 0px;
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
-`;
-
-const Profile = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 24%;
-  overflow: hidden;
+  margin-bottom: var(--margin-sub);
 `;
 
 const UserImg = styled.div`
-  border-radius: 30%;
   position: relative;
 `;
+
 const UserInfo = styled.div`
-  margin-left: 12px;
+  margin-left: var(--margin-sub);
   display: flex;
   flex-direction: column;
-  height: 100%;
   flex: 1;
-  justify-content: space-between;
   > div:first-child {
     display: flex;
   }
@@ -168,10 +158,7 @@ const UserInfo = styled.div`
 const UserProfile = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
-  > div:last-child {
-    margin-bottom: 2px;
-  }
+  margin-bottom: var(--margin-md);
 `;
 
 const IconWrapper = styled.div`
@@ -184,47 +171,35 @@ const IconWrapper = styled.div`
   right: -4px;
   bottom: -4px;
   background-color: white;
-  border: 1px solid var(--font-h4);
+  border: var(--border-main);
   border-radius: 50%;
 `;
 
 const UserName = styled.div`
   font-weight: 600;
   font-size: 18px;
-  margin-right: 8px;
+  margin-right: var(--margin-md);
 `;
 
 const Comment = styled.div`
-  padding: 2px 0 2px 6px;
+  padding: 2px var(--padding-md);
   font-size: 12px;
   font-weight: 600;
   flex: 1;
-  border: 1px solid var(--font-h5);
-  border-radius: 10px;
+  border: var(--border-sub);
+  border-radius: var(--border-radius-sub);
   display: flex;
   flex-direction: column;
   > div {
     flex: 1;
-
     display: flex;
     align-items: center;
   }
 `;
 
 const Message = styled.input`
-  font-weight: 400;
   color: var(--font-h2);
-  width: 90%;
   background-color: inherit;
   font-size: 12px;
-`;
-
-const LogoutBlock = styled.div`
-  width: 60px;
-  > button {
-    width: 65px;
-    height: 22px;
-    border-radius: 6px;
-    border: 1px solid rgb(0, 0, 0, 0.5);
-  }
+  margin-right: var(--margin-md);
 `;

@@ -62,6 +62,7 @@ export interface IUser extends Document {
   deposit: number;
   majors: IMajor[];
   telephone: string;
+  thumbnailImage: string;
 }
 
 export type UserField = "string" | Role | restType;

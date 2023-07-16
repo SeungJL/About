@@ -1,8 +1,8 @@
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { useState } from "react";
 import styled from "styled-components";
-import { DEFAULT_IMAGE_URL } from "../../../constants/default";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 
 import { IUser } from "../../../types/user";
@@ -17,36 +17,39 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
   const avatarBg = user?.avatar?.bg;
   const isAvatar = Boolean(avatarType >= 0 && avatarBg >= 0);
 
-  const handleErrorImage = (
-    e: React.SyntheticEvent<HTMLImageElement, Event>
-  ) => {
-    e.currentTarget.src = DEFAULT_IMAGE_URL;
-  };
+  const [isError, setIsError] = useState(false);
+
   const imageUrl = isAvatar
     ? `${AVATAR_ICON[avatarType]}`
     : `${user?.profileImage}`;
 
   return (
     <Layout>
-      <Wrapper style={{ background: isAvatar && AVATAR_COLOR[avatarBg] }}>
+      <Wrapper
+        style={{
+          background: isError
+            ? AVATAR_COLOR[4]
+            : isAvatar && AVATAR_COLOR[avatarBg],
+        }}
+      >
         {!isOverlap ? (
           <Image
-            src={imageUrl}
+            src={isError ? AVATAR_ICON[0] : imageUrl}
             width={isAvatar ? 21 : 26}
             height={isAvatar ? 21 : 26}
             alt="ProfileIconXsOverwrap"
             unoptimized={true}
-            onError={handleErrorImage}
+            onError={() => setIsError(true)}
           />
         ) : (
           <OverlapWrapper>
             <Image
-              src={imageUrl}
-              width={isAvatar ? 21 : 26}
-              height={isAvatar ? 21 : 26}
+              src={isError ? AVATAR_ICON[0] : imageUrl}
+              width={isError ? 21 : isAvatar ? 21 : 26}
+              height={isError ? 21 : isAvatar ? 21 : 26}
               alt="ProfileIconXsOverwrap"
               unoptimized={true}
-              onError={handleErrorImage}
+              onError={() => setIsError(true)}
             />
             <IconWrapper>
               <FontAwesomeIcon icon={faEllipsis} size="lg" color="white" />

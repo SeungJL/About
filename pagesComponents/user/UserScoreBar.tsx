@@ -1,25 +1,39 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
   useDepositQuery,
   usePointQuery,
 } from "../../hooks/user/pointSystem/queries";
+import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 function UserScoreBar() {
   const router = useRouter();
   const { data: session } = useSession();
   const isGuest = session?.user?.name === "guest";
+
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
   const { data: myPoint } = usePointQuery({ enabled: !isGuest });
   const { data: myDeposit } = useDepositQuery({ enabled: !isGuest });
 
+  const onClick = (type: "point" | "deposit") => {
+    if (type === "point") {
+      setPrevPageUrl("/user");
+      router.push("/point/pointLog");
+      return;
+    }
+    router.push(`/user/${session.uid}/depositLog`);
+  };
+
   return (
     <Layout>
-      <button>
+      <button onClick={() => onClick("point")}>
         <span>보유 포인트</span>
         <span>{myPoint ? myPoint?.point : 0} point</span>
       </button>
-      <button onClick={() => router.push(`/user/${session.uid}/depositLog`)}>
+      <button onClick={() => onClick("deposit")}>
         <span>보유 보증금</span>
         <span>{myDeposit ? myDeposit?.deposit : 0} 원</span>
       </button>
@@ -28,18 +42,16 @@ function UserScoreBar() {
 }
 
 const Layout = styled.div`
-  margin-top: 2px;
   display: flex;
   justify-content: space-between;
   height: 30px;
-  margin-bottom: 12px;
+
   > button {
     color: var(--font-h3);
     width: 49%;
-    border: 1px solid var(--font-h4);
-    border-radius: 3px;
+    border: var(--border-main);
+    border-radius: var(--border-radius-sub);
     display: flex;
-
     justify-content: space-around;
     align-items: center;
     font-size: 12px;

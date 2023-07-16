@@ -1,6 +1,6 @@
 import Image from "next/image";
+import { useState } from "react";
 import styled from "styled-components";
-import { DEFAULT_IMAGE_URL } from "../../../constants/default";
 import { ICON_SIZE } from "../../../constants/design";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
 import { Size } from "../../../types/ui";
@@ -20,11 +20,7 @@ function ProfileIcon({ user, size }: IProfileIcon) {
 
   const iconSize = ICON_SIZE[size];
 
-  const handeErrorImage = (
-    e: React.SyntheticEvent<HTMLImageElement, Event>
-  ) => {
-    e.currentTarget.src = DEFAULT_IMAGE_URL;
-  };
+  const [isError, setIsError] = useState(false);
 
   const imageUrl = isAvatar
     ? `${AVATAR_ICON[avatarType]}`
@@ -35,19 +31,19 @@ function ProfileIcon({ user, size }: IProfileIcon) {
       {user && (
         <Layout
           avatarBg={
-            user === "guest"
-              ? AVATAR_COLOR[0]
+            user === "guest" || isError
+              ? AVATAR_COLOR[4]
               : isAvatar && AVATAR_COLOR[avatarBg]
           }
           size={iconSize}
         >
           <Image
-            src={imageUrl}
-            width={isAvatar ? 0.8 * iconSize : iconSize}
-            height={isAvatar ? 0.8 * iconSize : iconSize}
+            src={isError ? AVATAR_ICON[0] : imageUrl}
+            width={isError || isAvatar ? 0.8 * iconSize : iconSize}
+            height={isError || isAvatar ? 0.8 * iconSize : iconSize}
             alt="ProfileIcon"
             unoptimized={true}
-            onError={handeErrorImage}
+            onError={() => setIsError(true)}
           />
         </Layout>
       )}

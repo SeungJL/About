@@ -43,7 +43,12 @@ export const useFailToast = () => {
   return showFailToast;
 };
 
-export type CompleteToast = "free" | "success" | "studyVote" | "apply";
+export type CompleteToast =
+  | "free"
+  | "success"
+  | "studyVote"
+  | "apply"
+  | "change";
 
 export const useCompleteToast = () => {
   const toast = useToast();
@@ -51,7 +56,7 @@ export const useCompleteToast = () => {
     (type: CompleteToast, sub?: string) => {
       let text = "";
       if (type === "free") text = sub;
-
+      if (type === "change") text = "변경되었습니다.";
       if (type === "apply") text = "신청 완료!";
       if (type === "success") text = "정상적으로 처리되었습니다.";
       if (type === "studyVote") text = "투표 완료!";

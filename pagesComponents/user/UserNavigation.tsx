@@ -13,13 +13,13 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import {
   useUserLocationQuery,
-  useUserRoleQuery
+  useUserRoleQuery,
 } from "../../hooks/user/queries";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
 import RequestPromotionRewardModal from "../../modals/userRequest/RequestPromotionRewardModal";
@@ -29,19 +29,21 @@ import SettingStudySpace from "../../modals/userRequest/RequestStudyPreferenceMo
 import RequestSuggestModal from "../../modals/userRequest/RequestSuggestModal";
 
 function UserNavigation() {
+  const router = useRouter();
+  const failToast = useFailToast();
   const { data: session } = useSession();
   const isGuest = session?.user?.name === "guest";
 
-  const failToast = useFailToast();
+  const cancelRef = useRef();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
+
   const [modalOpen, setModalOpen] = useState("");
 
   const { data: location } = useUserLocationQuery();
-
   const { data: role } = useUserRoleQuery();
-  const isAdmin = session?.role === "previliged";
 
-  const router = useRouter();
   const onClickProfileEdit = () => {
     if (isGuest) {
       failToast("guest");
@@ -58,7 +60,6 @@ function UserNavigation() {
     }
     setModalOpen(type);
   };
-  const cancelRef = useRef();
 
   const handleOutput = (isOpen) => {
     if (!isOpen) {
@@ -66,7 +67,6 @@ function UserNavigation() {
     }
   };
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Layout>
@@ -175,9 +175,7 @@ function UserNavigation() {
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               로그아웃
             </AlertDialogHeader>
-
             <AlertDialogBody>Bye Bye</AlertDialogBody>
-
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
                 취소
@@ -201,33 +199,30 @@ function UserNavigation() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--font-h5);
-  border-radius: 6px;
-  overflow: hidden;
-  margin-top: 18px;
+  border: var(--border-sub);
+  border-radius: var(--border-radius-sub);
+  margin: var(--margin-max) 0;
 `;
 const BlockName = styled.div`
-  padding-bottom: 3px;
+  padding: var(--padding-min) 0;
   background-color: var(--font-h6);
   font-weight: 600;
   font-size: 12px;
-  height: 24px;
   display: flex;
-  align-items: end;
   color: var(--font-h2);
-  padding-left: 6px;
+  padding-left: var(--padding-md);
 `;
 
 const NavBlock = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--font-h8);
-  padding-left: 6px;
   > button {
+    padding: var(--padding-sub) 0;
+    padding-left: var(--padding-md);
     text-align: start;
-    height: 42px;
     font-size: 13px;
-    border-bottom: 1.5px solid var(--font-h6);
+    border-bottom: var(--border-sub);
   }
 `;
 export default UserNavigation;

@@ -20,7 +20,7 @@ export const VOTE_TABLE_COLOR = [
 ];
 
 export const ICON_SIZE = {
-  xl: 70,
+  xl: 75,
   lg: 60,
   md: 50,
   sm: 40,

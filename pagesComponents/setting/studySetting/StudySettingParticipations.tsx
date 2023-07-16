@@ -9,12 +9,10 @@ import { userLocationState } from "../../../recoil/userAtoms";
 import { IParticipation } from "../../../types/studyDetails";
 
 interface IStudySettingParticipations {
-  participations: IParticipation[];
   setParticipations: React.Dispatch<SetStateAction<IParticipation[]>>;
 }
 
 function StudySettingParticipations({
-  participations,
   setParticipations,
 }: IStudySettingParticipations) {
   const typeErrorToast = useTypeErrorToast();
