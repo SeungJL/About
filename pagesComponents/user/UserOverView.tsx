@@ -117,9 +117,9 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
                 onBlur={handleSubmit}
                 onChange={onWrite}
               />
-              <div onClick={handleWrite}>
+              <span onClick={handleWrite}>
                 <FontAwesomeIcon icon={faPenToSquare} />
-              </div>
+              </span>
             </div>
           </Comment>
         </UserInfo>
@@ -146,7 +146,7 @@ const UserImg = styled.div`
 `;
 
 const UserInfo = styled.div`
-  margin-left: var(--margin-sub);
+  margin-left: var(--margin-main);
   display: flex;
   flex-direction: column;
   flex: 1;
