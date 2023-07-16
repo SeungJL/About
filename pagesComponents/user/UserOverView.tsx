@@ -162,8 +162,8 @@ const UserProfile = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
