@@ -15,7 +15,7 @@ interface IProfileIconXsOVerwrap {
 function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
   const avatarType = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
-  const isAvatar = Boolean(avatarType && avatarBg);
+  const isAvatar = Boolean(avatarType >= 0 && avatarBg >= 0);
 
   const handleErrorImage = (
     e: React.SyntheticEvent<HTMLImageElement, Event>
