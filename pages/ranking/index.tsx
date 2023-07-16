@@ -12,7 +12,7 @@ import { useUserLocationQuery } from "../../hooks/user/queries";
 import { SortUserScore } from "../../libs/utils/userUtils";
 import RankingCategory from "../../pagesComponents/ranking/RankingCategory";
 import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
-import RankingOverview from "../../pagesComponents/ranking/RankingOverview";
+import RankingOverView from "../../pagesComponents/ranking/RankingOverview";
 import { isRankingLoadingState } from "../../recoil/loadingAtoms";
 import { IScore } from "../../types/user/pointSystem";
 
@@ -26,7 +26,7 @@ export interface IMyRank {
 function Ranking() {
   const errorToast = useErrorToast();
   const { data: session } = useSession();
-  const isGuest = session && session?.user.name === "guest";
+  const isGuest = session?.user.name === "guest";
   const myUid = session?.uid;
 
   const setIsRankingLoading = useSetRecoilState(isRankingLoadingState);
@@ -43,20 +43,19 @@ function Ranking() {
   const myScore = data?.score | 0;
 
   const { data: userScoreAll, isLoading } = useScoreAllQuery({
-    enabled: true,
     onError: errorToast,
   });
 
   useEffect(() => {
     if (isLoading) return;
     let temp = userScoreAll;
-    if (isFilter) temp = temp.filter((who) => who.location === location);
+    if (isFilter) temp = [...temp].filter((who) => who.location === location);
     setUserScoreList(temp);
     const { rankNum, percent, isRank } = SortUserScore(temp, myScore);
     setMyRank({ rankNum, percent, isRank, score: myScore });
     setIsRankingLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFilter, isLoading, location, myScore, userScoreAll, userScoreList]);
+  }, [isFilter, isLoading, location, myScore, userScoreAll]);
 
   useEffect(() => {
     if (myUid)
@@ -70,7 +69,7 @@ function Ranking() {
     <>
       <Header title="About 랭킹" url="/point" />
       <Layout>
-        <RankingOverview myRank={myRank} length={userScoreList?.length} />
+        <RankingOverView myRank={myRank} length={userScoreList?.length} />
         <RankingSection>
           <RankingCategory isFilter={isFilter} setIsFilter={setIsFilter} />
           <RankingMembers memberList={userScoreList} />
