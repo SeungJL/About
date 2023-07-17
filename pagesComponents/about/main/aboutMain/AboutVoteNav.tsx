@@ -12,10 +12,10 @@ import StudyQuickVoteModal from "../../../../modals/study/studyQuickVoteModal/St
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 import { userLocationState } from "../../../../recoil/userAtoms";
-import { IParticipation } from "../../../../types/study/study";
+import { IStudy } from "../../../../types/study/study";
 
 interface IAboutVoteNav {
-  participations: IParticipation[];
+  participations: IStudy[];
 }
 
 function AboutVoteNav({ participations }: IAboutVoteNav) {

@@ -16,7 +16,7 @@ import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
-import { IParticipation } from "../../types/study/study";
+import { IStudy } from "../../types/study/study";
 
 function About() {
   const voteDate = useRecoilValue(voteDateState);
@@ -24,8 +24,8 @@ function About() {
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
-  const [participations, setParticipations] = useState<IParticipation[]>([]);
-  const [studySpaces, setStudySpaces] = useState<IParticipation[]>([]);
+  const [participations, setParticipations] = useState<IStudy[]>([]);
+  const [studySpaces, setStudySpaces] = useState<IStudy[]>([]);
 
   useEffect(() => {
     if (!participations?.length) return;

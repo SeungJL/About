@@ -1,10 +1,5 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import {
-  IAbsence,
-  IAttendance,
-  IParticipation,
-  IVote,
-} from "../types/study/study";
+import { IAbsence, IAttendance, IStudy, IVote } from "../types/study/study";
 import { IDayjsStartToEnd } from "../types/timeAndDate";
 
 const ParticipantTimeSchema: Schema<IDayjsStartToEnd> = new Schema(
@@ -55,7 +50,7 @@ const AbsenceSchema: Schema<IAbsence> = new Schema(
   { _id: false, timestamps: true }
 );
 
-const ParticipationSchema: Schema<IParticipation> = new Schema(
+const ParticipationSchema: Schema<IStudy> = new Schema(
   {
     place: {
       type: Schema.Types.ObjectId,

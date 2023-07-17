@@ -5,7 +5,7 @@ import SpaceSelector2 from "../../../components/utils/PlaceSelector";
 import { studyDateState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber } from "../../../types/reactTypes";
-import { IParticipation, IPlace } from "../../../types/study/study";
+import { IPlace, IStudy } from "../../../types/study/study";
 import {
   IStudyParticipate,
   IStudyPlaces,
@@ -16,7 +16,7 @@ interface IStudyVoteMainModalPlace {
   setPage: DispatchNumber;
   setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
   isBig: boolean;
-  participations?: IParticipation[];
+  participations?: IStudy[];
 }
 
 export interface IStudyVotePlaces {

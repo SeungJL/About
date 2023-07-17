@@ -2,10 +2,10 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { myStudyFixedState } from "../../../recoil/studyAtoms";
-import { IParticipation } from "../../../types/study/study";
+import { IStudy } from "../../../types/study/study";
 
 interface IStudySettingUser {
-  participations: IParticipation[];
+  participations: IStudy[];
 }
 
 function StudySettingUser({ participations }: IStudySettingUser) {
@@ -13,7 +13,7 @@ function StudySettingUser({ participations }: IStudySettingUser) {
 
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
-  const setInitialInfo = (participations: IParticipation[]) => {
+  const setInitialInfo = (participations: IStudy[]) => {
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
         if (

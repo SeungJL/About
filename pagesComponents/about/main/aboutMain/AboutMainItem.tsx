@@ -8,12 +8,12 @@ import {
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 import { YANG_할리스 } from "../../../../storage/study";
-import { IParticipation } from "../../../../types/study/study";
+import { IStudy } from "../../../../types/study/study";
 import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
 import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
 
 interface IAboutMainItem {
-  participation: IParticipation;
+  participation: IStudy;
 }
 
 function AboutMainItem({ participation }: IAboutMainItem) {

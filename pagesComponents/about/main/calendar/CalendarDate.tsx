@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { IconCircle } from "../../../../public/icons/IconOutline";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 
 interface ICalendarDate {
@@ -16,7 +15,6 @@ interface ICalendarBox {
 function CalendarDate({ calendarType }: ICalendarDate) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [calendarBox, setCalendarBox] = useState<ICalendarBox[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const daysInMonth = voteDate.daysInMonth();
@@ -40,7 +38,6 @@ function CalendarDate({ calendarType }: ICalendarDate) {
       }
     }
     setCalendarBox(temp);
-    setIsLoading(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarType, voteDate]);
@@ -48,6 +45,8 @@ function CalendarDate({ calendarType }: ICalendarDate) {
   const onClickDate = (d: { date: number; isAttend: boolean }) => {
     setVoteDate(voteDate.date(d.date));
   };
+
+  const IconCircle = ({ children }) => <CircleLayout>{children}</CircleLayout>;
 
   return (
     <Layout isSmall={calendarType === "week"}>
@@ -65,6 +64,16 @@ function CalendarDate({ calendarType }: ICalendarDate) {
     </Layout>
   );
 }
+
+const CircleLayout = styled.div`
+  width: 25px;
+  text-align: center;
+  height: 25px;
+  border-radius: 50%;
+  padding-top: 2px;
+  color: white;
+  background-color: var(--color-mint);
+`;
 
 const Layout = styled.div<{ isSmall: boolean }>`
   color: var(--font-h3);

@@ -58,7 +58,7 @@ const Login: NextPage<{
               alt="aboutPoster"
               width={350}
               height={190}
-              src={`/About2.png`}
+              src={`/LoginBg.png`}
               priority
             />
           </ImageWrapper>

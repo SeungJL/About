@@ -15,15 +15,14 @@ import {
   YANG_할리스,
   YANG_할리스2,
 } from "../../storage/study";
-import { IParticipation, IPlace } from "../../types/study/study";
+import { IPlace, IStudy } from "../../types/study/study";
 
-export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
+export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
   const temp = [];
 
   participations.forEach((participant) => {
     const ID =
-      (participant as IParticipation)?.place?._id ||
-      (participant as IPlace)?._id;
+      (participant as IStudy)?.place?._id || (participant as IPlace)?._id;
     //수원
     if (ID === SUWAN_탐앤탐스) temp[3] = participant;
     else if (ID === SUWAN_투썸) temp[4] = participant;
@@ -47,8 +46,8 @@ export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
   return temp;
 };
 
-export const arrangeMainSpace = (participations: IParticipation[]) => {
-  const compare = (a: IParticipation, b: IParticipation) => {
+export const arrangeMainSpace = (participations: IStudy[]) => {
+  const compare = (a: IStudy, b: IStudy) => {
     const cntA = a.attendences.length;
     const cntB = b.attendences.length;
 

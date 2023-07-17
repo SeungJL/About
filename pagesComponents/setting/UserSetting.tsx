@@ -22,7 +22,7 @@ import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
+import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import { IUser } from "../../types/user/user";
 

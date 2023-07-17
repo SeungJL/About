@@ -5,12 +5,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { voteDateState } from "../../../recoil/studyAtoms";
 
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
-import { IParticipation } from "../../../types/study/study";
+import { IStudy } from "../../../types/study/study";
 import AboutMainItem from "./aboutMain/AboutMainItem";
 import AboutMainItemSkeleton from "./aboutMain/AboutMainItemSkeleton";
 
 interface IAboutMain {
-  participations: IParticipation[];
+  participations: IStudy[];
 }
 
 function AboutMain({ participations }: IAboutMain) {

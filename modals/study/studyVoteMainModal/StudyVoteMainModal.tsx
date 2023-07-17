@@ -20,13 +20,13 @@ import {
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { IModal } from "../../../types/reactTypes";
-import { IParticipation } from "../../../types/study/study";
+import { IStudy } from "../../../types/study/study";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import StudyVoteMainModalPlace from "./StudyVoteMainModalPlace";
 import StudyVoteMainModalTime from "./StudyVoteMainModalTime";
 interface IStudyVoteMainModal extends IModal {
   isBig: boolean;
-  participations: IParticipation[];
+  participations: IStudy[];
 }
 
 function StudyVoteMainModal({

@@ -6,10 +6,10 @@ import { IUser } from "../user/user";
 
 export interface IVote extends Document {
   date: Date;
-  participations: IParticipation[];
+  participations: IStudy[];
 }
 
-export interface IParticipation extends ITimeStartToEnd {
+export interface IStudy extends ITimeStartToEnd {
   place: IPlace;
   attendences: IAttendance[];
   absences: IAbsence[];

@@ -1,10 +1,6 @@
 import { Dayjs } from "dayjs";
 import { atom } from "recoil";
-import {
-  IParticipation,
-  IStudyStartTime,
-  StudyDate,
-} from "../types/study/study";
+import { IStudy, IStudyStartTime, StudyDate } from "../types/study/study";
 
 export const voteDateState = atom<Dayjs>({
   key: "voteDate",
@@ -21,7 +17,7 @@ export const studyDateState = atom<StudyDate>({
   default: "today",
 });
 
-export const myStudyFixedState = atom<IParticipation>({
+export const myStudyFixedState = atom<IStudy>({
   key: "myStudyFixed",
   default: null,
 });

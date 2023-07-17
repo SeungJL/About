@@ -7,7 +7,7 @@ import Header from "../../components/layouts/Header";
 import Seo from "../../components/Seo";
 import { NOTICE_ALERT } from "../../constants/localStorage";
 import NoticeItem from "../../pagesComponents/notice/NoticeItem";
-import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
+import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
 import { noticeData } from "../../storage/notice";
 
 function Notice() {

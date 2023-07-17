@@ -5,13 +5,13 @@ import { STUDY_VOTE_END_HOUR } from "../../constants/study";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import { useStudyStartTimeQuery } from "../../hooks/study/queries";
 import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
-import { IParticipation } from "../../types/study/study";
+import { IStudy } from "../../types/study/study";
 import StudySettingParticipations from "./studySetting/StudySettingParticipations";
 import StudySettingUser from "./studySetting/StudySettingUser";
 
 interface IStudySetting {
-  participations: IParticipation[];
-  setParticipations: React.Dispatch<SetStateAction<IParticipation[]>>;
+  participations: IStudy[];
+  setParticipations: React.Dispatch<SetStateAction<IStudy[]>>;
 }
 
 function StudySetting({ participations, setParticipations }: IStudySetting) {
