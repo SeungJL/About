@@ -1,27 +1,18 @@
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../hooks/ui/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ModalPortal from "../../components/ModalPortal";
 import {
   useUserLocationQuery,
   useUserRoleQuery,
 } from "../../hooks/user/queries";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
+import RequestLogoutModal from "../../modals/userRequest/RequestLogoutModal";
 import RequestPromotionRewardModal from "../../modals/userRequest/RequestPromotionRewardModal";
 import RequestRestModal from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import RequestSecedeModal from "../../modals/userRequest/RequestSecedeModal";
@@ -34,12 +25,10 @@ function UserNavigation() {
   const { data: session } = useSession();
   const isGuest = session?.user?.name === "guest";
 
-  const cancelRef = useRef();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
 
   const [modalOpen, setModalOpen] = useState("");
+  const [isLogoutModal, setIsLogoutModal] = useState(false);
 
   const { data: location } = useUserLocationQuery();
   const { data: role } = useUserRoleQuery();
@@ -62,9 +51,7 @@ function UserNavigation() {
   };
 
   const handleOutput = (isOpen) => {
-    if (!isOpen) {
-      setModalOpen("");
-    }
+    if (!isOpen) setModalOpen("");
   };
 
   return (
@@ -101,7 +88,7 @@ function UserNavigation() {
               스터디 선호 장소 설정
             </button>
             <button onClick={() => onClickItem("deposit")}>보증금 충전</button>
-            <button onClick={onOpen}>로그아웃</button>
+            <button onClick={() => setIsLogoutModal(true)}>로그아웃</button>
           </NavBlock>
         </div>
         <div>
@@ -165,33 +152,10 @@ function UserNavigation() {
           />
         </ModalPortal>
       )}
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent margin="auto 14px">
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              로그아웃
-            </AlertDialogHeader>
-            <AlertDialogBody>Bye Bye</AlertDialogBody>
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                취소
-              </Button>
-              <Button
-                color="white"
-                backgroundColor="var(--color-mint)"
-                onClick={() => signOut()}
-                ml={3}
-              >
-                로그아웃
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+      <RequestLogoutModal
+        isModal={isLogoutModal}
+        setIsModal={setIsLogoutModal}
+      />
     </>
   );
 }

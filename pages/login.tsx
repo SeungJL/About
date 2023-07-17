@@ -1,16 +1,4 @@
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
-  Button,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { GetServerSideProps, NextPage } from "next";
 import { BuiltInProviderType } from "next-auth/providers";
@@ -22,12 +10,13 @@ import {
 } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../components/common/MainLoading";
 import ModalPortal from "../components/ModalPortal";
+import { useCompleteToast } from "../hooks/ui/CustomToast";
+import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
+import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";
-import { ModalXs } from "../styles/layout/modal";
 
 const Login: NextPage<{
   providers: Record<
@@ -35,55 +24,27 @@ const Login: NextPage<{
     ClientSafeProvider
   >;
 }> = ({ providers }) => {
-  const [loading, setLoading] = useState(false);
+  const completeToast = useCompleteToast();
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
-  const [ImgLoading, setImgLoading] = useState(true);
+  const status = router.query?.status;
 
-  const forceSignOut = (router.query.force_signout as string) === "true";
-  const redirectFrom = router.query.from as string;
+  const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
+
+  const [loading, setLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  useEffect(() => {
-    if (forceSignOut) onOpen();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  const customSignin = async (
-    kakaoProvider: ClientSafeProvider,
-    type?: string
-  ) => {
-    const provider = type || kakaoProvider.id;
+  useEffect(() => {
+    if (status === "logout") completeToast("free", "로그아웃 완료");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
+
+  const customSignin = async (type: "member" | "guest") => {
+    const provider = type === "member" ? kakaoProvider.id : "guest";
     setLoading(true);
     await signIn(provider, { callbackUrl: `${window.location.origin}/about` });
-
     await setLoading(false);
   };
 
-  const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
-  const GuestModal = ({ setIsModal }) => {
-    return (
-      <Modal>
-        <ModalHeaderLine>
-          <Title>게스트 로그인</Title>
-          <FontAwesomeIcon icon={faX} onClick={() => setIsModal(false)} />
-        </ModalHeaderLine>
-        <Content>
-          이 기능은 동아리 외부인을 위한 기능으로, 완성되지 않은 기능들이
-          있습니다.{" "}
-          <b>
-            해당 동아리 소속의 인원은 카카오 로그인을 이용해주시기 바랍니다.
-          </b>
-        </Content>
-        <ModalNav>
-          <button onClick={() => setIsModal(false)}>뒤로</button>
-          <button onClick={() => customSignin(kakaoProvider, "guest")}>
-            로그인
-          </button>
-        </ModalNav>
-      </Modal>
-    );
-  };
   return (
     <>
       <Layout>
@@ -98,77 +59,46 @@ const Login: NextPage<{
               width={350}
               height={190}
               src={`/About2.png`}
-              onLoad={() => setImgLoading(false)}
+              priority
             />
           </ImageWrapper>
-          {ImgLoading ? (
-            <MainLoading />
-          ) : (
-            <MainWrapper key={kakaoProvider.id}>
-              <Button
-                width="270px"
-                height="40px"
-                backgroundColor="#FEE500"
-                borderRadius="6px"
-                isLoading={loading}
-                onClick={() => customSignin(kakaoProvider)}
-                mb="8px"
-                display="flex"
-                justifyContent="space-between"
-                border="1px solid #FEE500"
-              >
-                <IconKakao />
-                <span style={{ marginRight: "16px" }}>카카오로 로그인</span>
-                <div />
-              </Button>
-              <Button
-                width="270px"
-                height="40px"
-                background="var(--font-h7)"
-                onClick={() => setIsModal(true)}
-                border="1px solid var(--font-h5)"
-                mb="8px"
-              >
-                게스트 로그인
-              </Button>
-              <Message>
-                활동 목적이 아니신 분은 게스트 로그인을 이용해주세요
-              </Message>
-            </MainWrapper>
-          )}
-          <AlertDialog
-            isOpen={isOpen}
-            leastDestructiveRef={cancelRef}
-            onClose={onClose}
-            isCentered
-            size="xs"
-          >
-            <AlertDialogOverlay>
-              <AlertDialogContent>
-                <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                  강제 로그아웃
-                </AlertDialogHeader>
-
-                <AlertDialogBody>
-                  <Text>
-                    관리자가 당신의 권한을 변경하여 강제 로그아웃되었습니다.
-                  </Text>
-                </AlertDialogBody>
-
-                <AlertDialogFooter>
-                  <Button colorScheme="red" onClick={onClose} width="100%">
-                    확인
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialogOverlay>
-          </AlertDialog>
+          <MainWrapper key={kakaoProvider.id}>
+            <Button
+              width="270px"
+              height="40px"
+              backgroundColor="#FEE500"
+              borderRadius="var(--border-radius-sub)"
+              isLoading={loading}
+              onClick={() => customSignin("member")}
+              mb="var(--margin-md)"
+              display="flex"
+              justifyContent="space-between"
+            >
+              <IconKakao />
+              <span style={{ marginRight: "16px" }}>카카오로 로그인</span>
+              <div />
+            </Button>
+            <Button
+              width="270px"
+              height="40px"
+              background="var(--font-h7)"
+              onClick={() => setIsModal(true)}
+              border="var(--border-sub)"
+              mb="var(--margin-md)"
+            >
+              게스트 로그인
+            </Button>
+            <Message>활동 및 가입신청은 카카오 로그인을 이용해주세요!</Message>
+          </MainWrapper>
+          <ForceLogoutDialog />
         </Wrapper>
       </Layout>
-
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <GuestModal setIsModal={setIsModal} />
+          <GuestLoginModal
+            setIsModal={setIsModal}
+            customSignin={customSignin}
+          />
         </ModalPortal>
       )}
     </>
@@ -177,13 +107,11 @@ const Login: NextPage<{
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const providers = await getProviders();
-
   return {
     props: { providers },
   };
 };
 
-export default Login;
 const Layout = styled.div`
   width: 375px;
   height: 100vh;
@@ -198,7 +126,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: 400px;
   margin-top: 100px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -210,36 +137,10 @@ const MainWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Modal = styled(ModalXs)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-const Title = styled.div`
-  font-size: 15px;
-  font-weight: 600;
-`;
-const ModalHeaderLine = styled.header`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Content = styled.div`
-  font-size: 13px;
-`;
-const ModalNav = styled.nav`
-  text-align: end;
-  > button {
-    width: 60px;
-  }
-  > button:last-child {
-    color: var(--color-red);
-    font-weight: 600;
-  }
-`;
-
 const Message = styled.span`
   font-size: 10px;
   text-align: center;
   color: var(--color-red);
 `;
+
+export default Login;

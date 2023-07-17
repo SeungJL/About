@@ -24,7 +24,7 @@ function UserScoreBar() {
       router.push("/point/pointLog");
       return;
     }
-    router.push(`/user/${session.uid}/depositLog`);
+    router.push(`/user/depositLog`);
   };
 
   return (

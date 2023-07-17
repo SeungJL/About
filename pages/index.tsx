@@ -4,7 +4,6 @@ import { getSession } from "next-auth/react";
 function Index() {
   return null;
 }
-
 export default Index;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -19,7 +18,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {},
     };
   }
-  // 특정 페이지에서 로그인 페이지로 갔다면, 바로 그 페이지로 이동하게 함
   return {
     redirect: {
       permanent: false,

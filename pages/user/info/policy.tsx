@@ -1,7 +1,5 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
-  Box,
-  Button,
   Container,
   Heading,
   Link,
@@ -10,31 +8,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import styled from "styled-components";
+import Header from "../../../components/layouts/Header";
+import PageLayout from "../../../components/layouts/PageLayout";
 
 const Policy = () => {
   const router = useRouter();
 
   return (
-    <Layout>
+    <PageLayout>
+      <Header title="About 이용약관" url="/user" />
       <Container>
-        <Box
-          margin="10px"
-          padding="15px"
-          borderRadius="10px"
-          bgGradient="linear(to-tl, #5CCA5C, #53B1A4, #509EE7)"
-        >
-          <Heading
-            as="h1"
-            fontSize="2xl"
-            color="white"
-            margin="0 auto"
-            width="fit-content"
-          >
-            Vote Helper 이용약관
-          </Heading>
-        </Box>
-
         <Heading as="h2" fontSize="2xl" marginTop="15px">
           제1장 총칙
         </Heading>
@@ -433,23 +416,8 @@ const Policy = () => {
           가지는 대한민국의 법원에 제기한다.
         </Text>
       </Container>
-
-      <Button
-        position="fixed"
-        bottom="0"
-        colorScheme="yellow"
-        borderRadius="0"
-        maxWidth="500px"
-        width="100%"
-        height="8vh"
-        zIndex="1000"
-        onClick={() => router.push(`/user`)}
-      >
-        돌아가기
-      </Button>
-    </Layout>
+    </PageLayout>
   );
 };
-const Layout = styled.div``;
 
 export default Policy;

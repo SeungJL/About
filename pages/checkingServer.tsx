@@ -32,7 +32,7 @@ function CheckingServer() {
 }
 
 const Layout = styled.div`
-  padding: 14px;
+  padding: var(--padding-main);
   position: fixed;
   top: 20%;
   left: 50%;
@@ -46,7 +46,7 @@ const Title = styled.div`
 `;
 
 const Nav = styled.nav`
-  margin-top: 20px;
+  margin-top: var(--margin-max);
   display: flex;
 `;
 

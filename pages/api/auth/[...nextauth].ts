@@ -53,7 +53,6 @@ export const authOptions: NextAuthOptions = {
         uid: profile.id.toString(),
         name: profile.properties.nickname,
         role: "member",
-
         profileImage: profile.properties.profile_image,
         isActive: false,
         score: 0,
