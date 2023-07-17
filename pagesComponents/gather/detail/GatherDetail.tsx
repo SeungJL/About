@@ -14,7 +14,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
-import { IGatherContent } from "../../../types/gather";
+import { IGatherContent } from "../../../types/page/gather";
 dayjs.locale("ko");
 
 interface IGatherDetailInfo {

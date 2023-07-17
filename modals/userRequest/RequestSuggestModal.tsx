@@ -14,15 +14,13 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
-
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IUserRequest } from "../../types/user";
+import { IUserRequest } from "../../types/user/userRequest";
 
 interface IRequestSuggestModal extends IModal {
   type: "suggest" | "declare";

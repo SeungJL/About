@@ -5,8 +5,7 @@ import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { LogoAdjustmentImage } from "../../components/ui/DesignAdjustment";
 import { useStudyPlaceQuery } from "../../hooks/study/queries";
-import { ISpaceControl } from "../../types/studyDetails";
-import { Location } from "../../types/system";
+import { ISpaceControl } from "../../types/page/admin";
 
 function StudySpaceControl() {
   const { data } = useStudyPlaceQuery();
@@ -33,15 +32,15 @@ function StudySpaceControl() {
   const [btnIdx, setBtnIdx] = useState<number>();
 
   const onValid = (data: ISpaceControl) => {
-    const spaceData: ISpaceControl = {
-      branch: data?.branch[btnIdx],
-      brand: data?.brand[btnIdx],
-      latitude: data?.latitude[btnIdx],
-      longitude: data?.longitude[btnIdx],
-      location: data?.location[btnIdx] as Location,
-      status: data?.status[btnIdx],
-      image: data?.image[btnIdx],
-    };
+    // const spaceData: ISpaceControl = {
+    //   branch: data?.branch[btnIdx],
+    //   brand: data?.brand[btnIdx],
+    //   latitude: data?.latitude[btnIdx],
+    //   longitude: data?.longitude[btnIdx],
+    //   location: data?.location[btnIdx] as Location,
+    //   status: data?.status[btnIdx],
+    //   image: data?.image[btnIdx],
+    // };
   };
 
   return (

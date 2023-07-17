@@ -11,7 +11,7 @@ import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
-import { Gender } from "../../types/user";
+import { Gender } from "../../types/user/user";
 
 function Gender() {
   const router = useRouter();

@@ -13,7 +13,7 @@ import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 import { majors_DATA } from "../../storage/ProfileData";
-import { IMajor } from "../../types/user";
+import { IMajor } from "../../types/user/user";
 
 function Major() {
   const router = useRouter();

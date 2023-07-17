@@ -5,8 +5,8 @@ import { ModalLayout } from "../../components/common/modal/Modals";
 
 import { useRouter } from "next/router";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
+import { IStoreApplicant } from "../../types/page/store";
 import { IModal } from "../../types/reactTypes";
-import { IStoreApplicant } from "../../types/store";
 interface IStoreGiftWinModal extends IModal {
   applyData: IStoreApplicant[];
   win: number;

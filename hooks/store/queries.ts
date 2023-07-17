@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import { IStoreApplicant } from "../../types/store";
+import { IStoreApplicant } from "../../types/page/store";
 
 interface IStoreQuery {
   users: IStoreApplicant[];

@@ -6,7 +6,7 @@ import KakaoShareBtn from "../../../components/utils/KakaoShare";
 import { STUDY_RANDOM_IMGAGE_LENGTH } from "../../../constants/study";
 import { WEB_URL } from "../../../constants/system";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
-import { IPlace } from "../../../types/studyDetails";
+import { IPlace } from "../../../types/study/study";
 
 interface IStudySpaceHeader {
   title: string;

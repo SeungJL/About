@@ -15,7 +15,7 @@ import {
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
-import { IVote } from "../../../types/studyDetails";
+import { IVote } from "../../../types/study/study";
 
 interface IStudySpaceSetting {
   setStudySpaceData: React.Dispatch<SetStateAction<IStudySpaceData>>;

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { transferGatherDataState } from "../../recoil/transferDataAtoms";
-import { IGatherContent } from "../../types/gather";
+import { IGatherContent } from "../../types/page/gather";
 import GatherBlockHeader from "./gatherBlock/GatherBlockHeader";
 import GatherDetail from "./gatherBlock/GatherDetail";
 import GatherMember from "./gatherBlock/GatherMember";

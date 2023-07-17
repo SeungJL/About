@@ -8,7 +8,7 @@ import dbConnect from "../../../libs/dbConnect";
 import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
 import { Account } from "../../../models/account";
 import { User } from "../../../models/user";
-import { Role } from "../../../types/user";
+import { Role } from "../../../types/user/user";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers

@@ -3,9 +3,9 @@ import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/skeleton/Skeleton";
+import { USER_BADGES } from "../../constants/convert";
 import { getUserBadgeScore } from "../../libs/utils/userUtils";
 import { isRankingLoadingState } from "../../recoil/loadingAtoms";
-import { USER_BADGES } from "../../types/user";
 import { IScore } from "../../types/user/pointSystem";
 
 interface IRankingMembers {

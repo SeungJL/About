@@ -15,7 +15,7 @@ import {
   ModalSubtitle,
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IAttendance } from "../../types/studyDetails";
+import { IAttendance } from "../../types/study/study";
 
 interface IStudyChangeArrivedModal extends IModal {
   user: IAttendance;

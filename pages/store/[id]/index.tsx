@@ -12,7 +12,7 @@ import { useStoreQuery } from "../../../hooks/store/queries";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
 import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";
 import { STORE_GIFT } from "../../../storage/Store";
-import { IStoreApplicant, IStoreGift } from "../../../types/store";
+import { IStoreApplicant, IStoreGift } from "../../../types/page/store";
 
 function StoreItem() {
   const router = useRouter();
@@ -42,7 +42,6 @@ function StoreItem() {
   });
 
   useEffect(() => {
-  
     if (isRefetch) refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetch]);

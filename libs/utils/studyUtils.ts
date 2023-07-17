@@ -15,7 +15,7 @@ import {
   YANG_할리스,
   YANG_할리스2,
 } from "../../storage/study";
-import { IParticipation, IPlace } from "../../types/studyDetails";
+import { IParticipation, IPlace } from "../../types/study/study";
 
 export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
   const temp = [];

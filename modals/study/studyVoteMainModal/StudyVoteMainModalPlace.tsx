@@ -5,17 +5,16 @@ import SpaceSelector2 from "../../../components/utils/PlaceSelector";
 import { studyDateState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber } from "../../../types/reactTypes";
+import { IParticipation, IPlace } from "../../../types/study/study";
 import {
-  IParticipation,
-  IPlace,
-  IVoteInfo,
-  IVotePlaces,
-} from "../../../types/studyDetails";
+  IStudyParticipate,
+  IStudyPlaces,
+} from "../../../types/study/studyUserAction";
 
 interface IStudyVoteMainModalPlace {
   page: number;
   setPage: DispatchNumber;
-  setVoteInfo: React.Dispatch<SetStateAction<IVoteInfo>>;
+  setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
   isBig: boolean;
   participations?: IParticipation[];
 }
@@ -35,7 +34,7 @@ function StudyVoteMainModalPlace({
   const studyDate = useRecoilValue(studyDateState);
 
   const [places, setPlaces] = useState<IStudyVotePlaces[]>();
-  const [votePlaces, setVotePlaces] = useState<IVotePlaces>({
+  const [votePlaces, setVotePlaces] = useState<IStudyPlaces>({
     place: undefined,
     subPlace: [],
   });

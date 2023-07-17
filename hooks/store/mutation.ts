@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
-import { IStoreApplicant } from "../../types/store";
+import { IStoreApplicant } from "../../types/page/store";
 
 export const useStoreMutation = (
   options?: Omit<

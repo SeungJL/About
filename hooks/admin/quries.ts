@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 
 export const useAdminUsersControlQuery = (
   options?: Omit<

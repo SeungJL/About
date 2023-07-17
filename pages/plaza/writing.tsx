@@ -13,7 +13,7 @@ import WritingCategory from "../../pagesComponents/plaza/writing/WritingCategory
 import WritingContent from "../../pagesComponents/plaza/writing/WritingContent";
 import WritingHeader from "../../pagesComponents/plaza/writing/WritingHeader";
 import WritingType from "../../pagesComponents/plaza/writing/WritingType";
-import { IPlazaData } from "../../types/plaza";
+import { IPlazaData } from "../../types/page/plaza";
 
 function WritingPlaza() {
   const router = useRouter();

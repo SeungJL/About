@@ -2,7 +2,10 @@ import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { USER_REQUEST } from "../../libs/queryKeys";
-import { IUserRequest, UserRequestCategory } from "../../types/user";
+import {
+  IUserRequest,
+  UserRequestCategory,
+} from "../../types/user/userRequest";
 
 export const useUserRequestQuery = (
   options?: Omit<

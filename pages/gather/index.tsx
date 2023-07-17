@@ -7,7 +7,7 @@ import GatherCategoryBar from "../../pagesComponents/gather/GatgerCategoryBar";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";
 import GatherReviewNav from "../../pagesComponents/gather/GatherReviewNav";
-import { GatherCategory } from "../../types/gather";
+import { GatherCategory } from "../../types/page/gather";
 
 function Gather() {
   const { data: session } = useSession();

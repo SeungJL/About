@@ -17,8 +17,8 @@ import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrived
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { studyDateState } from "../../../../recoil/studyAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
-import { IAttendance } from "../../../../types/studyDetails";
-import { IUser } from "../../../../types/user";
+import { IAttendance } from "../../../../types/study/study";
+import { IUser } from "../../../../types/user/user";
 
 interface IArrivedComment {
   attendances: IAttendance[];

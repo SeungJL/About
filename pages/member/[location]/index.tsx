@@ -13,7 +13,7 @@ import MemberRecommend from "../../../pagesComponents/member/MemberRecommend";
 import MemberSectionList from "../../../pagesComponents/member/MemberSectionList";
 import MemberSectionTitle from "../../../pagesComponents/member/MemberSectionTitle";
 import MemberSkeleton from "../../../pagesComponents/member/MemberSkeleton";
-import { IUser } from "../../../types/user";
+import { IUser } from "../../../types/user/user";
 function Member({ membersAll }) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";

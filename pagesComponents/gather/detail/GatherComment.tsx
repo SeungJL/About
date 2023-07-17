@@ -9,7 +9,7 @@ import ModalPortal from "../../../components/ModalPortal";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
-import { IGatherComment } from "../../../types/gather";
+import { IGatherComment } from "../../../types/page/gather";
 export interface IGatherCommentUnit {
   gatherId: number;
   comment: string;

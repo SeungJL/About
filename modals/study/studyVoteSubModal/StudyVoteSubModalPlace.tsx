@@ -7,10 +7,11 @@ import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { useTypeErrorToast } from "../../../hooks/ui/CustomToast";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
-import { IPlace, IVoteInfo } from "../../../types/studyDetails";
+import { IPlace } from "../../../types/study/study";
+import { IStudyParticipate } from "../../../types/study/studyUserAction";
 
 interface IStudyVoteSubModalPlace {
-  setVoteInfo: React.Dispatch<SetStateAction<IVoteInfo>>;
+  setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
 }
 
 function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {

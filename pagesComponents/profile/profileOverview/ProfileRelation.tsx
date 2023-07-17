@@ -6,7 +6,7 @@ import ModalPortal from "../../../components/ModalPortal";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
-import { IUser } from "../../../types/user";
+import { IUser } from "../../../types/user/user";
 
 interface IProfileRelation {
   user: IUser;

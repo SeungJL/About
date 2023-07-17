@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherCommentUnit } from "../../pagesComponents/gather/detail/GatherComment";
-import { IGatherContent, ParticipationPhase } from "../../types/gather";
+import { IGatherContent, ParticipationPhase } from "../../types/page/gather";
 
 export const useGatherContentMutation = (
   options?: Omit<

@@ -2,8 +2,12 @@ import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
-import { IAvatar, IUserComment, IUserRegister, Role } from "../../types/user";
-
+import {
+  IAvatar,
+  IUserComment,
+  IUserRegister,
+  Role,
+} from "../../types/user/user";
 
 export const useUserRegisterMutation = (
   options?: Omit<
@@ -22,7 +26,6 @@ export const useUserApproveMutation = (
   >
 ) =>
   useMutation<void, AxiosError, string>(async (uid) => {
-    
     await axios.post(`${SERVER_URI}/register/approval`, { uid });
   }, options);
 export const useUserDeleteMutation = (

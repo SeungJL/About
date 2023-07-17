@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { IPlace } from "./studyDetails";
+import { IPlace } from "./study";
 
 export interface IStudyPlaces {
   place: IPlace;
@@ -11,7 +11,3 @@ export interface IStudyParticipate extends IStudyPlaces {
   end: Dayjs;
 }
 
-export interface IStudyStartTime {
-  placeId: string;
-  startTime: Dayjs;
-}

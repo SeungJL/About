@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { IUserRequest } from "../../types/user";
+import { IUserRequest } from "../../types/user/userRequest";
 
 export const useUserRequestMutation = (
   options?: Omit<

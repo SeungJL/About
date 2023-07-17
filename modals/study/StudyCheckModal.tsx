@@ -30,7 +30,7 @@ import {
   ModalMain,
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 
 const LOCATE_GAP = 0.00008;
 

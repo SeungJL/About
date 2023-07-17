@@ -5,7 +5,7 @@ import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
 import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal";
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
 import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
-import { IAttendance, IPlace } from "../../../../types/studyDetails";
+import { IAttendance, IPlace } from "../../../../types/study/study";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 
 interface IStudySpaceNavModal {

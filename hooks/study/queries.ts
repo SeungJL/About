@@ -5,10 +5,8 @@ import { SERVER_URI } from "../../constants/system";
 import { STUDY_VOTE_INFO } from "../../libs/queryKeys";
 import { dayjsToStr } from "../../libs/typeConverter";
 import { IStudyPreferencesQuery } from "../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
-import { IStudyStartTime } from "../../types/study";
-
-import { IPlace, IVote } from "../../types/studyDetails";
-import { IArrivedData } from "../../types/studyRecord";
+import { IPlace, IStudyStartTime, IVote } from "../../types/study/study";
+import { IArrivedData } from "../../types/study/studyRecord";
 import { Location } from "../../types/system";
 
 export const useStudyVoteQuery = (

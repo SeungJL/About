@@ -6,7 +6,7 @@ import { useGatherContentQuery } from "../../hooks/gather/queries";
 import { useErrorToast } from "../../hooks/ui/CustomToast";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 
-import { GatherCategory, IGatherContent } from "../../types/gather";
+import { GatherCategory, IGatherContent } from "../../types/page/gather";
 import GatherBlock from "./GatherBlock";
 import GatherBlockSkeleton from "./GatherBlockSkeleton";
 

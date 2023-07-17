@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 import ProfileInfo from "./profileOverview/ProfileInfo";
 
 import ProfileRelation from "./profileOverview/ProfileRelation";

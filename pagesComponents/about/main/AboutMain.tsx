@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { voteDateState } from "../../../recoil/studyAtoms";
 
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
-import { IParticipation } from "../../../types/studyDetails";
+import { IParticipation } from "../../../types/study/study";
 import AboutMainItem from "./aboutMain/AboutMainItem";
 import AboutMainItemSkeleton from "./aboutMain/AboutMainItemSkeleton";
 

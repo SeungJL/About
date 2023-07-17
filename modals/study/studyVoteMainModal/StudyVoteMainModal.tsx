@@ -20,7 +20,8 @@ import {
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { IModal } from "../../../types/reactTypes";
-import { IParticipation, IVoteInfo } from "../../../types/studyDetails";
+import { IParticipation } from "../../../types/study/study";
+import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import StudyVoteMainModalPlace from "./StudyVoteMainModalPlace";
 import StudyVoteMainModalTime from "./StudyVoteMainModalTime";
 interface IStudyVoteMainModal extends IModal {
@@ -43,7 +44,7 @@ function StudyVoteMainModal({
   const setUpdateStudy = useSetRecoilState(isRefetchStudyState);
 
   const [page, setPage] = useState(0);
-  const [voteInfo, setVoteInfo] = useState<IVoteInfo>();
+  const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();

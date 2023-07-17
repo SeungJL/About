@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLg } from "../../../styles/layout/modal";
 import { IModal, IRefetch } from "../../../types/reactTypes";
-import { IRegisterForm } from "../../../types/user";
+import { IRegisterForm } from "../../../types/user/user";
 import CheckRegisterModalDetail from "./CheckRegisterModalDetail";
 import CheckRegisterModalFooter from "./CheckRegisterModalFooter";
 

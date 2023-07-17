@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GatherListItem } from "../../../types/gather";
+import { GatherListItem } from "../../../types/page/gather";
 
 interface IGatherContent {
   content: string;

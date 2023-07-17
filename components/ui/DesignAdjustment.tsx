@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { SUWAN_이디야, SUWAN_카탈로그 } from "../../storage/study";
 
-import { IPlace } from "../../types/studyDetails";
+import { IPlace } from "../../types/study/study";
 
 export const LogoAdjustmentImage = ({ place }: { place: IPlace }) => {
   let W = 70;

@@ -4,8 +4,8 @@ import dbConnect from "../../../../libs/dbConnect";
 import { strToDate } from "../../../../libs/utils/dateUtils";
 
 import { findOneVote } from "../../../../services/voteService";
-import { IAbsence, IVote } from "../../../../types/studyDetails";
-import { IUser } from "../../../../types/user";
+import { IAbsence, IVote } from "../../../../types/study/study";
+import { IUser } from "../../../../types/user/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -27,7 +27,6 @@ export default async function handler(
   switch (method) {
     case "PATCH":
       vote.participations.forEach((participation) => {
-      
         const isTargetParticipation = !!participation.attendences.find(
           (att) => (att.user as IUser)?.uid.toString() === token.uid.toString()
         );

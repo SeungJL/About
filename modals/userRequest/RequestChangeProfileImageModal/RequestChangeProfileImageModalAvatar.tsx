@@ -18,9 +18,9 @@ import {
   AVATAR_COLOR,
   AVATAR_COST,
   AVATAR_ICON,
-} from "../../../storage/Avatar";
+} from "../../../storage/avatar2";
 import { IModal } from "../../../types/reactTypes";
-import { IAvatar } from "../../../types/user";
+import { IAvatar } from "../../../types/user/user";
 
 interface IRequestChangeProfileImageModalAvatar extends IModal {
   setUserAvatar: UseMutateFunction<

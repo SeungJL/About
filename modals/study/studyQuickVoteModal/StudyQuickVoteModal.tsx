@@ -15,7 +15,7 @@ import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
-import { IStudyPlaces } from "../../../types/study";
+import { IStudyPlaces } from "../../../types/study/studyUserAction";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";
 import StudyQuickVoteModalRegister from "./StudyQuickVoteModalRegister";
 

@@ -6,10 +6,10 @@ import { strToDate } from "../../../../libs/utils/dateUtils";
 import { Place } from "../../../../models/place";
 import { Vote } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
-import { IStudyParticipate } from "../../../../types/study";
+import { IStudyParticipate } from "../../../../types/study/studyUserAction";
 
-import { IAttendance, IPlace, IVote } from "../../../../types/studyDetails";
-import { IUser } from "../../../../types/user";
+import { IAttendance, IPlace, IVote } from "../../../../types/study/study";
+import { IUser } from "../../../../types/user/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

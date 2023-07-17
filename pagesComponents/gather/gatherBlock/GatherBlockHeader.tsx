@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GatherStatus } from "../../../types/gather";
+import { GatherStatus } from "../../../types/page/gather";
 
 interface IGatherBlockHeader {
   status: GatherStatus;

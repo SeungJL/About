@@ -3,7 +3,7 @@ import { useQuery, UseQueryOptions } from "react-query";
 import { GATHER_CONTENT } from "../../constants/queryKey";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
-import { IGatherContent } from "../../types/gather";
+import { IGatherContent } from "../../types/page/gather";
 
 export const useGatherContentQuery = (
   options?: Omit<

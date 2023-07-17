@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import AttendChart from "../../components/utils/AttendChart";
 import { birthToAge } from "../../libs/utils/membersUtil";
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 
 function DetailInfo({ user }: { user: IUser }) {
   return (

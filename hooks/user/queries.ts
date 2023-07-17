@@ -9,10 +9,8 @@ import {
   IRegisterForm,
   IUser,
   IUserComment,
-  IUserField,
   Role,
-  UserField,
-} from "../../types/user";
+} from "../../types/user/user";
 
 export const useRegisterFormsQuery = (
   options?: Omit<
@@ -44,24 +42,6 @@ export const useUserInfoQuery = (
     options
   );
 
-export const useUserInfoFieldQuery = (
-  field: string,
-  options?: Omit<
-    UseQueryOptions<UserField, AxiosError, UserField>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<UserField, AxiosError, UserField>(
-    [USER_FINFACTIVE, "userInfoField"],
-    async () => {
-      const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
-      const data = res.data;
-      if (field === "rest") return data.rest;
-
-      // return res.data;
-    },
-    options
-  );
 export const useUserRoleQuery = (
   options?: Omit<
     UseQueryOptions<Role, AxiosError, Role>,

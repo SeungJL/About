@@ -8,7 +8,7 @@ import {
   USER_FINDVOTE,
   USER_FINDVOTES,
 } from "../../../libs/queryKeys";
-import { IVoteRate } from "../../../types/studyRecord";
+import { IVoteRate } from "../../../types/study/studyRecord";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 export const useUserParticipationRateQuery = (

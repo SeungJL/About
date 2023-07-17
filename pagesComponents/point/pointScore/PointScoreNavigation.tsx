@@ -9,7 +9,7 @@ import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { useUserLocationQuery } from "../../../hooks/user/queries";
 import { SortUserScore } from "../../../libs/utils/userUtils";
 import { isPointLoadingState } from "../../../recoil/loadingAtoms";
-import { IRankScore } from "../../../types/user";
+import { IRankScore } from "../../../types/page/ranking";
 
 interface IPointScoreNavigation {
   myPoint: number;

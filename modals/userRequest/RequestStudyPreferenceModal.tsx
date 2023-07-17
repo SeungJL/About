@@ -1,20 +1,17 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
-
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import { useStudyPlaceQuery } from "../../hooks/study/queries";
-import { IVotePlaces } from "../../types/studyDetails";
-
 import { ModalLayout } from "../../components/common/modal/Modals";
 import PlaceSelector from "../../components/utils/PlaceSelector";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
+import { useStudyPlaceQuery } from "../../hooks/study/queries";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { userLocationState } from "../../recoil/userAtoms";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IPlace } from "../../types/studyDetails";
+import { IPlace } from "../../types/study/study";
+import { IStudyPlaces } from "../../types/study/studyUserAction";
 
 interface IRequestStudyPreferenceModal extends IModal {
   isBig: boolean;
@@ -31,7 +28,7 @@ function RequestStudyPreferenceModal({
   const [page, setPage] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [places, setPlaces] = useState<IPlace[]>();
-  const [votePlaces, setVotePlaces] = useState<IVotePlaces>({
+  const [votePlaces, setVotePlaces] = useState<IStudyPlaces>({
     place: undefined,
     subPlace: [],
   });

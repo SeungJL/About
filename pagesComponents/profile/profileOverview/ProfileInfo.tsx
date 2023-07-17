@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import { USER_BADGES } from "../../../constants/convert";
 import { getUserBadgeScore } from "../../../libs/utils/userUtils";
-import { IUser, USER_BADGES } from "../../../types/user";
+import { IUser } from "../../../types/user/user";
 
 interface IProfileInfo {
   user: IUser;

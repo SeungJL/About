@@ -1,10 +1,9 @@
-import { Dayjs } from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../../libs/dbConnect";
-import { dateToDayjs, now, strToDate } from "../../../../libs/utils/dateUtils";
+import { now, strToDate } from "../../../../libs/utils/dateUtils";
 import { findOneVote } from "../../../../services/voteService";
-import { IUser } from "../../../../types/user";
+import { IUser } from "../../../../types/user/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -54,7 +53,7 @@ export default async function handler(
       return res.status(200).json(arriveInfo);
     case "PATCH":
       const currentTime = now().add(9, "hour");
-   
+
       vote.participations.forEach((participation) => {
         participation.attendences.forEach((att) => {
           if (

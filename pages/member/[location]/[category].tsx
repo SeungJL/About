@@ -16,7 +16,7 @@ import { User } from "../../../models/user";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../../storage/friend";
-import { IUser } from "../../../types/user";
+import { IUser } from "../../../types/user/user";
 
 function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const router = useRouter();
@@ -28,7 +28,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
   const { data, isLoading } = useUserInfoQuery();
-  
+
   const setUserData = useSetRecoilState(transferUserDataState);
 
   useEffect(() => {

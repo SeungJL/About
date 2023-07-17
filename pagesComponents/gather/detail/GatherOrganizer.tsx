@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
-import { IUser } from "../../../types/user";
+import { IUser } from "../../../types/user/user";
 
 interface IGatherOrganizer {
   createdAt: string;

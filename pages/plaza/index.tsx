@@ -4,7 +4,7 @@ import { useState } from "react";
 import Header from "../../components/layouts/Header";
 import Category from "../../pagesComponents/plaza/main/Category";
 import { PlazaLayout } from "../../pagesComponents/plaza/main/plazaStyles";
-import { category } from "../../types/plaza";
+import { category } from "../../types/page/plaza";
 
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

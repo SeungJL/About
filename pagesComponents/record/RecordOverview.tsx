@@ -12,7 +12,7 @@ import {
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IDateRange } from "../../pages/record";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
-import { IArrivedData } from "../../types/studyRecord";
+import { IArrivedData } from "../../types/study/studyRecord";
 import RecordOverviewSkeleton from "./skeleton/RecordOverviewSkeleton";
 interface IRecordOverview {
   dateRange: IDateRange;
@@ -69,7 +69,7 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
     dateRange?.startDate,
     dateRange?.endDate
   );
- 
+
   const myMonthCnt = myAttend?.find((user) => user.uid === userUid)?.cnt;
 
   return (

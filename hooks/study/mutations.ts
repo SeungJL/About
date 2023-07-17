@@ -3,9 +3,10 @@ import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../libs/typeConverter";
-import { IStudyParticipate } from "../../types/study";
-import { IVotePlaces } from "../../types/studyDetails";
-
+import {
+  IStudyParticipate,
+  IStudyPlaces,
+} from "../../types/study/studyUserAction";
 import { IDayjsStartToEnd } from "../../types/timeAndDate";
 
 export const useStudyParticipateMutation = (
@@ -106,11 +107,11 @@ export const useStudyQuickVoteMutation = (
 
 export const useStudyPreferenceMutation = (
   options?: Omit<
-    UseMutationOptions<void, AxiosError, IVotePlaces>,
+    UseMutationOptions<void, AxiosError, IStudyPlaces>,
     "queryKey" | "queryFn"
   >
 ) =>
-  useMutation<void, AxiosError, IVotePlaces>(async (votePlaces) => {
+  useMutation<void, AxiosError, IStudyPlaces>(async (votePlaces) => {
     await axios.post(`${SERVER_URI}/user/preference`, votePlaces);
   }, options);
 

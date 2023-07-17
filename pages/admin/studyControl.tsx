@@ -27,10 +27,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
-import { StudyStatus } from "../../types/statistics";
-
-import { IAttendance } from "../../types/studyDetails";
-import { IUser } from "../../types/user";
+import { IAttendance, StudyStatus } from "../../types/study/study";
+import { IUser } from "../../types/user/user";
 const LOCATION = ["SUWAN", "YANG"];
 
 function StudyControl() {

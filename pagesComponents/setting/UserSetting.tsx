@@ -24,7 +24,7 @@ import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { isNoticeAlertState } from "../../recoil/renderTrigger2Atoms";
 import { userLocationState } from "../../recoil/userAtoms";
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 
 export default function UserSetting() {
   const typeErrorToast = useTypeErrorToast();

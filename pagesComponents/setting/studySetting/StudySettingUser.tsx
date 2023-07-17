@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { mySpaceFixedState } from "../../../recoil/studyAtoms";
-import { IParticipation } from "../../../types/studyDetails";
+import { IParticipation } from "../../../types/study/study";
 
 interface IStudySettingUser {
   participations: IParticipation[];

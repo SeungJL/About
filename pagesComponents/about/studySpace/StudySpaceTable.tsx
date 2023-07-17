@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IAttendance } from "../../../types/studyDetails";
+import { IAttendance } from "../../../types/study/study";
 import ArrivedComment from "./studySpaceTable/ArrivedComment";
 import TimeTable from "./studySpaceTable/TimeTable";
 import UserTable from "./studySpaceTable/UserTable";

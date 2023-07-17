@@ -1,14 +1,14 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { avatarType, IUser, restType } from "../types/user";
+import { IAvatar, IRest, IUser } from "../types/user/user";
 
-export const restSchema: Schema<restType> = new Schema({
+export const restSchema: Schema<IRest> = new Schema({
   type: Schema.Types.String,
   startDate: Schema.Types.Date,
   endDate: Schema.Types.Date,
   content: Schema.Types.String,
 });
 
-export const avatarSchema: Schema<avatarType> = new Schema({
+export const avatarSchema: Schema<IAvatar> = new Schema({
   type: {
     type: Schema.Types.Number,
     default: 1,

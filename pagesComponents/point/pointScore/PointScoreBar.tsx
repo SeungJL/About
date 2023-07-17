@@ -6,11 +6,11 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
+import { USER_BADGES } from "../../../constants/convert";
 import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
 import { getUserBadgeScore } from "../../../libs/utils/userUtils";
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
 import { userBadgeState } from "../../../recoil/userAtoms";
-import { USER_BADGES } from "../../../types/user";
 
 interface IPointScoreBar {
   myPoint: number;

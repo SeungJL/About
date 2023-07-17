@@ -1,4 +1,4 @@
-import { Role } from "../types/user";
+import { Role } from "../types/user/user";
 
 export const getRole = (role: Role) => {
   if (role === "human") return "수습 멤버";
@@ -9,4 +9,3 @@ export const getRole = (role: Role) => {
   if (role === "resting") return "휴식 멤버";
   if (role === "waiting") return "대기 인원";
 };
-

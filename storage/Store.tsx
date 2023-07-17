@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { IStoreGift } from "../types/store";
+import { IStoreGift } from "../types/page/store";
 
 require("dayjs/locale/ko");
 const localizedFormat = require("dayjs/plugin/localizedFormat");

@@ -15,7 +15,7 @@ import ReviewItemHeader from "../../pagesComponents/review/ReviewItemHeader";
 import ReviewStatus from "../../pagesComponents/review/ReviewStatus";
 import { reviewContentIdState } from "../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
-import { GatherLocation, GatherType } from "../../types/gather";
+import { GatherLocation, GatherType } from "../../types/page/gather";
 
 export interface IGatherSummary {
   title: string;

@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
-import { ITime } from "./timeAndDate";
-import { IUser } from "./user";
+import { ITime } from "../timeAndDate";
+import { IUser } from "../user/user";
 
 export type GatherCategory = "전체" | "모집중" | "완료";
 
@@ -24,7 +24,6 @@ export interface GatherListItem {
   text: string;
   time: ITime;
 }
-
 export interface GatherParticipants {
   user: IUser;
   phase: ParticipationPhase;

@@ -1,36 +1,10 @@
 import { Location } from "../system";
 
-export interface IScore {
-  name?: string;
-  score: number;
-  uid?: string;
-  location?: Location;
-}
-
-export interface IWarningScore {
-  score: number;
-  message?: string;
-}
-
-export interface IPoint {
-  point: number;
-  _id?: string;
-}
-
-export interface IPointAll extends IPoint {
-  uid: string;
-  name: string;
-}
-
-export interface IDeposit {
-  deposit: number;
-}
-
+//common
 export interface IPointSystem {
   value: number;
   message?: string;
 }
-
 export interface IPointLog {
   message: string;
   meta: {
@@ -42,7 +16,26 @@ export interface IPointLog {
   timestamp: string;
 }
 
-export interface IAdminPoint {
-  value: number;
-  message?: string;
+//score
+export interface IScore {
+  name?: string;
+  score: number;
+  uid?: string;
+  location?: Location;
+}
+
+//point
+export interface IPoint {
+  point: number;
+  _id?: string;
+}
+
+export interface IPointAll extends IPoint {
+  uid: string;
+  name: string;
+}
+
+//deposit
+export interface IDeposit {
+  deposit: number;
 }

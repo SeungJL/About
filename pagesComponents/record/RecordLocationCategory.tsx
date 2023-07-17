@@ -2,7 +2,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../constants/design";
 import { SPACE_LOCATION } from "../../storage/study";
-import { IArrivedData } from "../../types/studyRecord";
+import { IArrivedData } from "../../types/study/studyRecord";
 import { Location } from "../../types/system";
 
 interface IRecordLocationCategory {

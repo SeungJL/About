@@ -15,8 +15,8 @@ import {
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 import { ModalMain } from "../../styles/layout/modal";
+import { IStoreApplicant, IStoreGift } from "../../types/page/store";
 import { DispatchBoolean, IModal } from "../../types/reactTypes";
-import { IStoreApplicant, IStoreGift } from "../../types/store";
 
 interface IStoreApplyGiftModal extends IModal {
   giftInfo: IStoreGift;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import SpaceMap from "../../../components/utils/SpaceMap";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
-import { IPlace } from "../../../types/studyDetails";
+import { IPlace } from "../../../types/study/study";
 
 interface IStudySpaceOverview {
   space: IPlace;

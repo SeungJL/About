@@ -12,7 +12,7 @@ import {
   useUserVoteRateQueries,
 } from "../../hooks/user/studyStatistics/queries";
 import { getMonth } from "../../libs/utils/dateUtils";
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 
 interface IAttendChart {
   type?: string;

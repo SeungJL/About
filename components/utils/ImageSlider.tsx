@@ -16,7 +16,7 @@ import {
 } from "../../recoil/previousAtoms";
 import { transferUserDataState } from "../../recoil/transferDataAtoms";
 
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 import ProfileIcon from "../common/Profile/ProfileIcon";
 
 SwiperCore.use([Navigation, Pagination]); // apply the Pagination module

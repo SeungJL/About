@@ -11,7 +11,7 @@ import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
 import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/record/RecordOverview";
 import RecordSetting from "../../pagesComponents/record/RecordSetting";
-import { IArrivedData } from "../../types/studyRecord";
+import { IArrivedData } from "../../types/study/studyRecord";
 
 export interface IDateRange {
   startDate: Dayjs;
@@ -33,7 +33,6 @@ function Record() {
     dateRange?.endDate,
     {
       onSuccess(data) {
-        
         setOpenData(data);
       },
     }

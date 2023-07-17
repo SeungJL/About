@@ -11,8 +11,8 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { IGatherContent } from "../../../types/gather";
-import { IUser } from "../../../types/user";
+import { IGatherContent } from "../../../types/page/gather";
+import { IUser } from "../../../types/user/user";
 
 interface IGatherParticipation {
   data: IGatherContent;

@@ -8,8 +8,11 @@ import StudySpaceOverview from "../../../../pagesComponents/about/studySpace/Stu
 import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/StudySpaceSetting";
 import StudySpaceSkeleton from "../../../../pagesComponents/about/studySpace/StudySpaceSkeleton";
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
-import { StudyStatus } from "../../../../types/statistics";
-import { IAttendance, IPlace } from "../../../../types/studyDetails";
+import {
+  IAttendance,
+  IPlace,
+  StudyStatus,
+} from "../../../../types/study/study";
 export interface IStudySpaceData {
   place: IPlace;
   attendences: IAttendance[];

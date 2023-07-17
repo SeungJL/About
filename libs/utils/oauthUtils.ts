@@ -1,11 +1,16 @@
 import axios, { AxiosError } from "axios";
 import { JWT } from "next-auth/jwt";
 
-import dbConnect from "../dbConnect";
 import { Dayjs } from "dayjs";
-import { kakaoProfileInfo } from "../../types/user";
-import { User } from "../../models/user";
 import { Account } from "../../models/account";
+import { User } from "../../models/user";
+
+import dbConnect from "../dbConnect";
+
+interface kakaoProfileInfo {
+  name: string;
+  profileImage: string;
+}
 
 export const getRefreshedAccessToken = async (uid: string) => {
   const account = await Account.findOne({ providerAccountId: uid.toString() });

@@ -1,17 +1,15 @@
+import { Dayjs } from "dayjs";
 import { useSession } from "next-auth/react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import styled from "styled-components";
-
 import { ModalHeaderXLine } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
 import { useUserApplyRestMutation } from "../../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../../hooks/userRequest/mutations";
-
-import { Dayjs } from "dayjs";
 import { IModal } from "../../../types/reactTypes";
-import { IUserRequest } from "../../../types/user";
+import { IUserRequest } from "../../../types/user/userRequest";
 import RequestRestModalInfo from "./RequestRestModalInfo";
 
 export interface IApplyRest {

@@ -4,11 +4,11 @@ import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import TimeRullet from "../../../components/utils/TimeRullet";
 import { STUDY_START_VOTETIME_HOUR } from "../../../constants/study";
-import { IVoteInfo } from "../../../types/studyDetails";
+import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteSubModalTime {
-  setVoteInfo: React.Dispatch<SetStateAction<IVoteInfo>>;
+  setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
 }
 
 function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {

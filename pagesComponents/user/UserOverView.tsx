@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import ModalPortal from "../../components/ModalPortal";
+import { USER_BADGES } from "../../constants/convert";
 import {
   useCompleteToast,
   useErrorToast,
@@ -21,7 +22,7 @@ import { getUserBadgeScore } from "../../libs/utils/userUtils";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { DispatchBoolean } from "../../types/reactTypes";
-import { IUserBadge, USER_BADGES } from "../../types/user";
+import { IUserBadge } from "../../types/user/user";
 
 interface IUserOverview {
   setIsLoading: DispatchBoolean;

@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IStoreApplicant } from "../types/store";
+import { IStoreApplicant } from "../types/page/store";
 
 const giftSchema: Schema = new Schema(
   {

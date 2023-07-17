@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/study";
 import { useFailToast } from "../../hooks/ui/CustomToast";
 import { IStudyVotePlaces } from "../../modals/study/studyVoteMainModal/StudyVoteMainModalPlace";
-import { IPlace, IVotePlaces } from "../../types/studyDetails";
+import { IPlace } from "../../types/study/study";
+import { IStudyPlaces } from "../../types/study/studyUserAction";
 import { StudySpaceLogo } from "../ui/DesignAdjustment";
 
 interface IPlaceSelector {
   places: IStudyVotePlaces[] | IPlace[];
-  votePlaces: IVotePlaces;
-  setVotePlaces: React.Dispatch<SetStateAction<IVotePlaces>>;
+  votePlaces: IStudyPlaces;
+  setVotePlaces: React.Dispatch<SetStateAction<IStudyPlaces>>;
   isMain: boolean;
   isBig: boolean;
 }
@@ -42,7 +43,7 @@ function PlaceSelector({
     else subPlace.splice(findItem, 1);
     setVotePlaces((old) => ({ ...old, subPlace }));
   };
-  
+
   return (
     <>
       <Layout isBig={isBig}>

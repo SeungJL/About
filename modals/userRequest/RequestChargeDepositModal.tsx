@@ -6,22 +6,27 @@ import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { ACCOUNT_SHORT } from "../../constants/private";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../hooks/ui/CustomToast";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IUserRequest } from "../../types/user";
+import { IUserRequest } from "../../types/user/userRequest";
 
 function RequestChargeDepositModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
   const completeToast = useCompleteToast();
-  const failToast = useFailToast();
+  const errorToast = useErrorToast();
 
   const [isFirst, setIsFirst] = useState(true);
 
   const { mutate: sendRequest } = useUserRequestMutation();
-  const { mutate: getDeposit } = useDepositMutation();
+  const { mutate: getDeposit } = useDepositMutation({
+    onSuccess() {
+      completeToast("success");
+    },
+    onError: errorToast,
+  });
 
   const onComplete = () => {
     const userRequestInfo: IUserRequest = {

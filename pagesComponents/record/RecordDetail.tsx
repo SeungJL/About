@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IArrivedData } from "../../types/studyRecord";
+import { IArrivedData } from "../../types/study/studyRecord";
 
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";

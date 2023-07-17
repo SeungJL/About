@@ -3,8 +3,7 @@ import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../../components/common/Profile/ProfileIconXsOverwrap";
 import { MAX_USER_PER_PLACE } from "../../../../../constants/study";
 import { IconUserTwo } from "../../../../../public/icons/Icons";
-import { StudyStatus } from "../../../../../types/statistics";
-import { IAttendance } from "../../../../../types/studyDetails";
+import { IAttendance, StudyStatus } from "../../../../../types/study/study";
 
 interface IAboutMainItemParticipants {
   status: StudyStatus;

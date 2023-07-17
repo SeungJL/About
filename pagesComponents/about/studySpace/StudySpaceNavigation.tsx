@@ -31,7 +31,7 @@ import {
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
 import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
-import { IUser } from "../../../types/user";
+import { IUser } from "../../../types/user/user";
 import StudySpaceNavModal from "./studySpaceNavModal";
 
 interface IStudySpaceNavigation {

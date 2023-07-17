@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { Size } from "../../../types/ui";
+import { Size } from "../../../types/system";
 
 interface IModalLayout {
   children: React.ReactNode;

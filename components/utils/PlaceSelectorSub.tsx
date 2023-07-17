@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
-import { IPlace } from "../../types/studyDetails";
+import { IPlace } from "../../types/study/study";
 import { StudySpaceLogo } from "../ui/DesignAdjustment";
 
 interface IPlaceSelectorSub {

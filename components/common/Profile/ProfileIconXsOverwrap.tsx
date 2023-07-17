@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
-import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar2";
 
-import { IUser } from "../../../types/user";
+import { IUser } from "../../../types/user/user";
 
 interface IProfileIconXsOVerwrap {
   user: IUser;
@@ -13,14 +13,14 @@ interface IProfileIconXsOVerwrap {
 }
 
 function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
-  const avatarType = user?.avatar?.type;
+  const IAvatar = user?.avatar?.type;
   const avatarBg = user?.avatar?.bg;
-  const isAvatar = Boolean(avatarType >= 0 && avatarBg >= 0);
+  const isAvatar = Boolean(IAvatar >= 0 && avatarBg >= 0);
 
   const [isError, setIsError] = useState(false);
 
   const imageUrl = isAvatar
-    ? `${AVATAR_ICON[avatarType]}`
+    ? `${AVATAR_ICON[IAvatar]}`
     : `${user?.profileImage}`;
 
   return (

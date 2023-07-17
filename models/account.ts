@@ -1,5 +1,18 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { IAccount } from "../types/user";
+import { IUser } from "../types/user/user";
+
+interface IAccount extends Document {
+  provider: string;
+  type: string;
+  providerAccountId: string;
+  access_token: string;
+  token_type: string;
+  refresh_token: string;
+  expires_at: number;
+  scope: string;
+  refresh_token_expires_in: number;
+  userId: IUser | string;
+}
 
 export const AccountSchema: Schema<IAccount> = new Schema({
   provider: {

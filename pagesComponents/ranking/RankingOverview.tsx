@@ -5,12 +5,13 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Skeleton from "../../components/common/skeleton/Skeleton";
+import { USER_BADGES } from "../../constants/convert";
 import { useTypeErrorToast } from "../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { getUserBadgeScore } from "../../libs/utils/userUtils";
 import { IMyRank } from "../../pages/ranking";
 import { isRankingLoadingState } from "../../recoil/loadingAtoms";
-import { IUserBadge, USER_BADGES } from "../../types/user";
+import { IUserBadge } from "../../types/user/user";
 
 interface IRankingOverview {
   myRank: IMyRank;

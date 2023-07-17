@@ -16,7 +16,7 @@ import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
-import { IParticipation } from "../../types/studyDetails";
+import { IParticipation } from "../../types/study/study";
 
 function About() {
   const voteDate = useRecoilValue(voteDateState);

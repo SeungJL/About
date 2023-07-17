@@ -2,10 +2,9 @@ import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import { ICON_SIZE } from "../../../constants/design";
-import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/Avatar";
-import { Size } from "../../../types/ui";
-
-import { IUser } from "../../../types/user";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar2";
+import { Size } from "../../../types/system";
+import { IUser } from "../../../types/user/user";
 
 interface IProfileIcon {
   user: IUser | "guest";
@@ -13,17 +12,16 @@ interface IProfileIcon {
 }
 
 function ProfileIcon({ user, size }: IProfileIcon) {
-  const avatarType = (user as IUser)?.avatar?.type;
+  const IAvatar = (user as IUser)?.avatar?.type;
   const avatarBg = (user as IUser)?.avatar?.bg;
-  const isAvatar =
-    Boolean(avatarType >= 0 && avatarBg >= 0) || user === "guest";
+  const isAvatar = Boolean(IAvatar >= 0 && avatarBg >= 0) || user === "guest";
 
   const iconSize = ICON_SIZE[size];
 
   const [isError, setIsError] = useState(false);
 
   const imageUrl = isAvatar
-    ? `${AVATAR_ICON[avatarType]}`
+    ? `${AVATAR_ICON[IAvatar]}`
     : `${(user as IUser)?.profileImage}`;
 
   return (

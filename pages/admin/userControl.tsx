@@ -5,7 +5,7 @@ import Header from "../../components/layouts/Header";
 import { useUpdateProfileMutation } from "../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
 import { useDepositAllQuery } from "../../hooks/user/pointSystem/queries";
-import { IUser } from "../../types/user";
+import { IUser } from "../../types/user/user";
 
 export default function Admin() {
   const [users, setUsers] = useState<IUser[]>([]);

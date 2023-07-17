@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { isPreviliged } from "../../../../../libs/utils/authUtils";
 import dbConnect from "../../../../../libs/dbConnect";
-import { IUser } from "../../../../../types/user";
 import { User } from "../../../../../models/user";
+import { IUser } from "../../../../../types/user/user";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

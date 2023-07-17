@@ -6,14 +6,14 @@ import TimeSelectorBoard from "../../../components/utils/TimeSelectorBoard";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber } from "../../../types/reactTypes";
-import { IVoteInfo } from "../../../types/studyDetails";
+import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteMainModalTime {
   onSubmit: () => void;
   isTimeBoard: boolean;
   setPage: DispatchNumber;
-  setVoteInfo: React.Dispatch<SetStateAction<IVoteInfo>>;
+  setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
 }
 
 function StudyVoteMainModalTime({

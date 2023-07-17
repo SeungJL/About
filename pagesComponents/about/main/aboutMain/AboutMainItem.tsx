@@ -8,7 +8,7 @@ import {
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 import { YANG_할리스 } from "../../../../storage/study";
-import { IParticipation } from "../../../../types/studyDetails";
+import { IParticipation } from "../../../../types/study/study";
 import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
 import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
 

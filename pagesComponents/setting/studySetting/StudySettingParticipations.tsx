@@ -6,7 +6,7 @@ import { arrangeSpace } from "../../../libs/utils/studyUtils";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { userLocationState } from "../../../recoil/userAtoms";
-import { IParticipation } from "../../../types/studyDetails";
+import { IParticipation } from "../../../types/study/study";
 
 interface IStudySettingParticipations {
   setParticipations: React.Dispatch<SetStateAction<IParticipation[]>>;

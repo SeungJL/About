@@ -5,7 +5,7 @@ import { STUDY_VOTE_END_HOUR } from "../../constants/study";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import { useStudyStartTimeQuery } from "../../hooks/study/queries";
 import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
-import { IParticipation } from "../../types/studyDetails";
+import { IParticipation } from "../../types/study/study";
 import StudySettingParticipations from "./studySetting/StudySettingParticipations";
 import StudySettingUser from "./studySetting/StudySettingUser";
 

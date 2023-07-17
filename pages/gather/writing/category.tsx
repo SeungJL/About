@@ -11,7 +11,7 @@ import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
-import { GatherType } from "../../../types/gather";
+import { GatherType } from "../../../types/page/gather";
 
 function WritingCategory() {
   const router = useRouter();

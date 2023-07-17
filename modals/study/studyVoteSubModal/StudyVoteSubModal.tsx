@@ -11,7 +11,6 @@ import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
-
 import {
   useAdminPointMutation,
   useAdminScoremMutation,
@@ -26,7 +25,8 @@ import {
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
 import { IModal } from "../../../types/reactTypes";
-import { IPlace, IVoteInfo } from "../../../types/studyDetails";
+import { IPlace } from "../../../types/study/study";
+import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
 import StudyVoteSubModalTime from "./StudyVoteSubModalTime";
 
@@ -46,7 +46,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   const voteDate = useRecoilValue(voteDateState);
 
   const [isFirst, setIsFirst] = useState(true);
-  const [voteInfo, setVoteInfo] = useState<IVoteInfo>();
+  const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
@@ -83,7 +83,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   });
 
   const onSubmit = () => {
-    const data: IVoteInfo = { ...voteInfo, place };
+    const data: IStudyParticipate = { ...voteInfo, place };
     patchAttend(data);
     setIsModal(false);
   };
