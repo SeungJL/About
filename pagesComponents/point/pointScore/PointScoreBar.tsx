@@ -3,14 +3,13 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
 import { USER_BADGES } from "../../../constants/convert";
 import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
 import { getUserBadgeScore } from "../../../libs/utils/userUtils";
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
-import { userBadgeState } from "../../../recoil/userAtoms";
+import { IUserBadge } from "../../../types/user/user";
 
 interface IPointScoreBar {
   myPoint: number;
@@ -20,7 +19,7 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const [userBadge, setUserBadge] = useRecoilState(userBadgeState);
+  const [userBadge, setUserBadge] = useState<IUserBadge>();
 
   const [isBadgeInfoModal, setIsBadgeInfoModal] = useState(false);
   const [scoreInfo, setScoreInfo] = useState({

@@ -53,3 +53,5 @@ export interface IStudyStartTime {
   placeId: string;
   startTime: Dayjs;
 }
+
+export type StudyDate = "passed" | "today" | "not passed";

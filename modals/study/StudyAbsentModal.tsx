@@ -19,7 +19,7 @@ import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
 import {
-  mySpaceFixedState,
+  myStudyFixedState,
   studyStartTimeState,
   voteDateState,
 } from "../../recoil/studyAtoms";
@@ -41,7 +41,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const placeId = router.query.placeId;
 
   const studyStartTime = useRecoilValue(studyStartTimeState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const voteDate = useRecoilValue(voteDateState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
 

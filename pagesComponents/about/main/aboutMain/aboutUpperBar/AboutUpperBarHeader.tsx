@@ -11,7 +11,7 @@ import LocationSelector from "../../../../../components/utils/LocationSelector";
 import StudyCheckModal from "../../../../../modals/study/StudyCheckModal";
 import { isMainLoadingState } from "../../../../../recoil/loadingAtoms";
 import {
-  mySpaceFixedState,
+  myStudyFixedState,
   studyDateState,
 } from "../../../../../recoil/studyAtoms";
 
@@ -19,7 +19,7 @@ function AboutUpperBarHeader() {
   const { data: session } = useSession();
 
   const studyDate = useRecoilValue(studyDateState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const [isModal, setIsModal] = useState(false);

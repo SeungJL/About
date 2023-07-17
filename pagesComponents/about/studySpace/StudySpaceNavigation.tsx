@@ -12,7 +12,7 @@ import {
 } from "../../../hooks/study/mutations";
 import {
   isVotingState,
-  mySpaceFixedState,
+  myStudyFixedState,
   studyDateState,
 } from "../../../recoil/studyAtoms";
 
@@ -58,7 +58,7 @@ function StudySpaceNavigation({
 
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const mySpaceFixed = useRecoilValue(myStudyFixedState);
 
   const [modalType, setModalType] = useState("");
 

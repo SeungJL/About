@@ -10,7 +10,7 @@ import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
 import { isRefetchStudySpacelState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
-  mySpaceFixedState,
+  myStudyFixedState,
   studyDateState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
@@ -36,7 +36,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   );
   const setVoteDate = useSetRecoilState(voteDateState);
   const setStudyDate = useSetRecoilState(studyDateState);
-  const setMySpaceFixed = useSetRecoilState(mySpaceFixedState);
+  const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
   const handleSuccess = (data: IVote) => {
     const participation = data.participations.find(

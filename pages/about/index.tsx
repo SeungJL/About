@@ -14,14 +14,14 @@ import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
 import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { mySpaceFixedState, voteDateState } from "../../recoil/studyAtoms";
+import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import { IParticipation } from "../../types/study/study";
 
 function About() {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const [participations, setParticipations] = useState<IParticipation[]>([]);

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { StudySpaceLogo } from "../../../../components/ui/DesignAdjustment";
 import { dayjsToStr } from "../../../../libs/typeConverter";
 import {
-  mySpaceFixedState,
+  myStudyFixedState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 import { YANG_할리스 } from "../../../../storage/study";
@@ -20,7 +20,7 @@ function AboutMainItem({ participation }: IAboutMainItem) {
   const router = useRouter();
 
   const voteDate = useRecoilValue(voteDateState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const mySpaceFixed = useRecoilValue(myStudyFixedState);
 
   const { attendences, place, status } = participation || {};
   const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;

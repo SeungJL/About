@@ -5,7 +5,7 @@ import styled from "styled-components";
 import TimeSelector from "../../components/utils/TimeSelector";
 import { useStudyTimeChangeMutation } from "../../hooks/study/mutations";
 import {
-  mySpaceFixedState,
+  myStudyFixedState,
   studyStartTimeState,
   voteDateState,
 } from "../../recoil/studyAtoms";
@@ -50,7 +50,7 @@ function StudyChangeTimeModal({
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const mySpaceFixed = useRecoilValue(myStudyFixedState);
 
   const isFree = mySpaceFixed?.status === "free";
   const startTime = dayjs(myVoteTime.start);

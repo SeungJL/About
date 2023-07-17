@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Skeleton from "../../../../../components/common/skeleton/Skeleton";
 import { isMainLoadingState } from "../../../../../recoil/loadingAtoms";
 import {
-  mySpaceFixedState,
+  myStudyFixedState,
   studyDateState,
 } from "../../../../../recoil/studyAtoms";
 import AboutMainItem from "../AboutMainItem";
@@ -12,7 +12,7 @@ import NoMyStudy from "../NoMyStudy";
 
 function AboutUpperBarResult() {
   const studyDate = useRecoilValue(studyDateState);
-  const mySpaceFixed = useRecoilValue(mySpaceFixedState);
+  const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
   return (
     <Layout>

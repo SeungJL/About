@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { mySpaceFixedState } from "../../../recoil/studyAtoms";
+import { myStudyFixedState } from "../../../recoil/studyAtoms";
 import { IParticipation } from "../../../types/study/study";
 
 interface IStudySettingUser {
@@ -11,7 +11,7 @@ interface IStudySettingUser {
 function StudySettingUser({ participations }: IStudySettingUser) {
   const { data: session } = useSession();
 
-  const setMySpaceFixed = useSetRecoilState(mySpaceFixedState);
+  const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
   const setInitialInfo = (participations: IParticipation[]) => {
     participations.forEach((participation) => {

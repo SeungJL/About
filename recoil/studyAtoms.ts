@@ -1,11 +1,13 @@
 import { Dayjs } from "dayjs";
-import { atom, RecoilEnv } from "recoil";
-import { IParticipation, IStudyStartTime } from "../types/study/study";
-
-RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+import { atom } from "recoil";
+import {
+  IParticipation,
+  IStudyStartTime,
+  StudyDate,
+} from "../types/study/study";
 
 export const voteDateState = atom<Dayjs>({
-  key: "date",
+  key: "voteDate",
   default: null,
 });
 
@@ -14,21 +16,14 @@ export const isVotingState = atom({
   default: false,
 });
 
-export type StudyDate = "passed" | "today" | "not passed";
-
 export const studyDateState = atom<StudyDate>({
   key: "studyDate",
   default: "today",
 });
 
-export const mySpaceFixedState = atom<IParticipation>({
-  key: "mySpaceFixed",
+export const myStudyFixedState = atom<IParticipation>({
+  key: "myStudyFixed",
   default: null,
-});
-
-export const attendCheckState = atom<boolean>({
-  key: "attendCheck",
-  default: false,
 });
 
 export const studyStartTimeState = atom<IStudyStartTime[]>({
