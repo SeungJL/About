@@ -29,7 +29,7 @@ import {
   ModalHeaderLine,
   ModalMain,
 } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 import { IUser } from "../../types/user";
 
 const LOCATE_GAP = 0.00008;

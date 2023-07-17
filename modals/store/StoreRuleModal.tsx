@@ -1,7 +1,7 @@
 import RuleModal, {
   IRuleModalContent,
 } from "../../components/common/modal/RuleModal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function StoreRuleModal({ setIsModal }: IModal) {
   const content: IRuleModalContent = {

@@ -18,7 +18,7 @@ import {
 } from "../../hooks/user/pointSystem/mutation";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
   const toast = useToast();

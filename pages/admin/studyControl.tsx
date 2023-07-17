@@ -27,7 +27,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
-import { Status } from "../../types/statistics";
+import { StudyStatus } from "../../types/statistics";
+
 import { IAttendance } from "../../types/studyDetails";
 import { IUser } from "../../types/user";
 const LOCATION = ["SUWAN", "YANG"];
@@ -37,7 +38,7 @@ function StudyControl() {
   const { data: SUWAN } = useStudyVoteQuery(date, "수원");
   const { data: YANG } = useStudyVoteQuery(date, "양천");
 
-  const handleStatus = (type: Status) => {};
+  const handleStatus = (type: StudyStatus) => {};
 
   const handleDeleteUser = (who: IAttendance) => {};
 

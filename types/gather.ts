@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
+import { ITime } from "./timeAndDate";
 import { IUser } from "./user";
-import { ITime } from "./utils";
 
 export type GatherCategory = "전체" | "모집중" | "완료";
 
@@ -20,9 +20,6 @@ export type GatherMemberCnt = {
 
 export type ParticipationPhase = "all" | "first" | "second";
 
-export interface GatherId {
-  gatherId: number;
-}
 export interface GatherListItem {
   text: string;
   time: ITime;
@@ -31,6 +28,13 @@ export interface GatherListItem {
 export interface GatherParticipants {
   user: IUser;
   phase: ParticipationPhase;
+}
+export interface IGatherComment {
+  user: IUser;
+  comment: string;
+  creadtedAt?: string;
+  updatedAt?: string;
+  _id: string;
 }
 export interface IGatherContent {
   type: GatherType;
@@ -51,12 +55,4 @@ export interface IGatherContent {
   user: IUser;
   status?: GatherStatus;
   comment: IGatherComment[];
-}
-
-export interface IGatherComment {
-  user: IUser;
-  comment: string;
-  creadtedAt?: string;
-  updatedAt?: string;
-  _id: string;
 }

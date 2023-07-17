@@ -3,7 +3,7 @@ import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 
 import { ModalMain } from "../../../styles/layout/modal";
-import { IModal, IRefetch } from "../../../types/common";
+import { IModal, IRefetch } from "../../../types/reactTypes";
 import GatherParticipateModalApply from "./GatherParticipateModalApply";
 import GatherParticipateModalParticipate from "./GatherParticipateModalParticipate";
 import GatherParticipateModalPassword from "./GatherParticipateModalPassword";

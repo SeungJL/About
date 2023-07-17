@@ -20,7 +20,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import { getUserBadgeScore } from "../../libs/utils/userUtils";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
-import { DispatchBoolean } from "../../types/common";
+import { DispatchBoolean } from "../../types/reactTypes";
 import { IUserBadge, USER_BADGES } from "../../types/user";
 
 interface IUserOverview {

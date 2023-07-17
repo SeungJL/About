@@ -6,13 +6,13 @@ import styled from "styled-components";
 import { useUserAttendRateQueries } from "../../../hooks/user/studyStatistics/queries";
 import { getWeekNumber } from "../../../libs/utils/dateUtils";
 import { isRecordDetailLoadingState } from "../../../recoil/loadingAtoms";
-import { IDateStartToEnd } from "../../../types/utils";
+import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 const WEEKS_CNT = 5;
 
 function RecordDetailSummary() {
   const { data: session } = useSession();
-  const [weeksDate, setWeeksDate] = useState<IDateStartToEnd[]>([]);
+  const [weeksDate, setWeeksDate] = useState<IDayjsStartToEnd[]>([]);
 
   const [myAttend, setMyAttend] = useState([]);
 

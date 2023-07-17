@@ -5,7 +5,7 @@ import {
   ModalMain,
   ModalSubtitle,
 } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function ServerInspectModal({ setIsModal }: IModal) {
   return (

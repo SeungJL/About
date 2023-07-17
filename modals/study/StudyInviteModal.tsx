@@ -8,7 +8,7 @@ import { WEB_URL } from "../../constants/system";
 import { SQUARE_RANDOM_IMAGE } from "../../storage/SquareRandomImage";
 import { STUDY_SPACE_INFO } from "../../storage/study";
 import { ModalHeaderLine, ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/studyDetails";
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 

@@ -21,7 +21,7 @@ import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user";
 
 interface IRequestSuggestModal extends IModal {

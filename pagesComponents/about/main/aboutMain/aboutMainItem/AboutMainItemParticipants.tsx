@@ -3,12 +3,12 @@ import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../../components/common/Profile/ProfileIconXsOverwrap";
 import { MAX_USER_PER_PLACE } from "../../../../../constants/study";
 import { IconUserTwo } from "../../../../../public/icons/Icons";
-import { Status } from "../../../../../types/statistics";
+import { StudyStatus } from "../../../../../types/statistics";
 import { IAttendance } from "../../../../../types/studyDetails";
 
 interface IAboutMainItemParticipants {
-  status: Status;
-  statusFixed: "myOpen" | Status;
+  status: StudyStatus;
+  statusFixed: "myOpen" | StudyStatus;
   attendances: IAttendance[];
 }
 const VOTER_SHOW_MAX = 7;

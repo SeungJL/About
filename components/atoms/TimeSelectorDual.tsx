@@ -2,7 +2,7 @@ import { Select } from "@chakra-ui/react";
 import { ChangeEvent } from "react";
 import styled from "styled-components";
 import { TIME_SELECTOR_MINUTES } from "../../constants/study";
-import { ITime } from "../../types/utils";
+import { ITime } from "../../types/timeAndDate";
 
 interface ITimeSelectorDual {
   time: ITime;

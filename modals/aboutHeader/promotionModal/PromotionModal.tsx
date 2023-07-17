@@ -5,7 +5,7 @@ import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import { CHICKEN_IMAGE } from "../../../constants/imageUrl";
 import { ModalMain } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import PromotionModalDetail from "./PromotionModalDetail";
 import PromotionModalFooter from "./PromotionModalFooter";
 import PromotionModalLastWinner from "./PromotionModalLastWinner";

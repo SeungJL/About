@@ -5,7 +5,7 @@ import { useFailToast, useTypeErrorToast } from "../../../hooks/ui/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { birthToAge } from "../../../libs/utils/membersUtil";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
-import { DispatchNumber } from "../../../types/common";
+import { DispatchNumber } from "../../../types/reactTypes";
 
 interface IGatherParticipateModalApply {
   setPageNum: DispatchNumber;

@@ -9,7 +9,7 @@ import {
   USER_FINDVOTES,
 } from "../../../libs/queryKeys";
 import { IVoteRate } from "../../../types/studyRecord";
-import { IDateStartToEnd } from "../../../types/utils";
+import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 export const useUserParticipationRateQuery = (
   startDay: Dayjs,
@@ -88,7 +88,7 @@ export interface IUserAttendRateQueries {
 }
 
 export const useUserAttendRateQueries = (
-  monthList: IDateStartToEnd[],
+  monthList: IDayjsStartToEnd[],
   type?: string,
   options?: Omit<
     UseQueryOptions<IUserAttendRateQueries, AxiosError, IUserAttendRateQueries>,
@@ -117,7 +117,7 @@ export const useUserAttendRateQueries = (
   );
 
 export const useUserVoteRateQueries = (
-  monthList: IDateStartToEnd[],
+  monthList: IDayjsStartToEnd[],
   options?: Omit<
     UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
     "queryKey" | "queryFn"

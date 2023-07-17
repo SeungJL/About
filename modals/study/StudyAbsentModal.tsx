@@ -30,7 +30,7 @@ import {
   ModalMain,
   ModalSubtitle,
 } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function StudyAbsentModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
@@ -45,14 +45,13 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const voteDate = useRecoilValue(voteDateState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
 
-  
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
-  
+
   const myStudyStartTime = studyStartTime?.find(
     (item) => item.placeId === placeId
-    )?.startTime;
-    const isFree = mySpaceFixed.status === "free";
+  )?.startTime;
+  const isFree = mySpaceFixed.status === "free";
 
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();

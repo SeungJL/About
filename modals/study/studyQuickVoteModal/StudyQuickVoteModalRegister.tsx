@@ -9,7 +9,7 @@ import {
   ModalMain,
   ModalSubtitle,
 } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import RequestStudyPreferenceModal from "../../userRequest/RequestStudyPreferenceModal";
 
 function StudyQuickVoteModalRegister({ setIsModal }: IModal) {

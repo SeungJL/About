@@ -15,12 +15,16 @@ import {
   reviewContentIdState,
 } from "../../recoil/previousAtoms";
 import { transferUserDataState } from "../../recoil/transferDataAtoms";
+
 import { IUser } from "../../types/user";
-import { IImageSliderItem } from "../../types/utils";
 import ProfileIcon from "../common/Profile/ProfileIcon";
 
 SwiperCore.use([Navigation, Pagination]); // apply the Pagination module
-
+export interface IImageSliderItem {
+  image: string;
+  title: string;
+  id: number;
+}
 interface IImageSlider {
   type: string;
   ImageContainer: string[] | IImageSliderItem[] | IUser[];

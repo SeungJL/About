@@ -13,7 +13,7 @@ import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useGatherStatusOpen } from "../../../hooks/gather/mutations";
 import { useCompleteToast, useErrorToast } from "../../../hooks/ui/CustomToast";
-import { DispatchBoolean } from "../../../types/common";
+import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
 interface IGatherExpireModalExpireDialog {

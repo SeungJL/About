@@ -2,8 +2,8 @@ import { Dayjs } from "dayjs";
 import { Document } from "mongoose";
 import { IPlaceStatus } from "./statistics";
 import { Location } from "./system";
+import { IDayjsStartToEnd, ITimeStartToEnd } from "./timeAndDate";
 import { IUser } from "./user";
-import { ITimeStartToEnd, ITimeStartToEndHM } from "./utils";
 
 export interface IParticipant {
   user: IUser;
@@ -22,7 +22,7 @@ export interface IAttendance2 extends Document {
 
 export interface IAttendance {
   user: IUser;
-  time: ITimeStartToEnd;
+  time: IDayjsStartToEnd;
   created: Date;
   arrived?: Date;
   firstChoice: boolean;
@@ -49,7 +49,7 @@ export interface IAbsence {
   message: string;
 }
 
-export interface IParticipation extends IPlaceStatus, ITimeStartToEndHM {
+export interface IParticipation extends IPlaceStatus, ITimeStartToEnd {
   place?: IPlace;
   attendences?: IAttendance[];
   absences?: IAbsence[];

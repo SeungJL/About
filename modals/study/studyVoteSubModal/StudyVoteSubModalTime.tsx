@@ -5,14 +5,14 @@ import styled from "styled-components";
 import TimeRullet from "../../../components/utils/TimeRullet";
 import { STUDY_START_VOTETIME_HOUR } from "../../../constants/study";
 import { IVoteInfo } from "../../../types/studyDetails";
-import { ITimeStartToEnd } from "../../../types/utils";
+import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteSubModalTime {
   setVoteInfo: React.Dispatch<SetStateAction<IVoteInfo>>;
 }
 
 function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
-  const [selectTime, setSelectTime] = useState<ITimeStartToEnd>({
+  const [selectTime, setSelectTime] = useState<IDayjsStartToEnd>({
     start: null,
     end: null,
   });

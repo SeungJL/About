@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import styled from "styled-components";
-import { ITime } from "../../types/utils";
+import { ITime } from "../../types/timeAndDate";
 
 interface ITimeSelectorUnit {
   time: ITime;

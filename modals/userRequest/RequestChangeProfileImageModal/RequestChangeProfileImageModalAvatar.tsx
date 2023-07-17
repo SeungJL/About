@@ -19,7 +19,7 @@ import {
   AVATAR_COST,
   AVATAR_ICON,
 } from "../../../storage/Avatar";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import { IAvatar } from "../../../types/user";
 
 interface IRequestChangeProfileImageModalAvatar extends IModal {

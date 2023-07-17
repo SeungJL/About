@@ -8,7 +8,7 @@ import {
   ModalHeaderCenter,
   ModalMain,
 } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function UserGuidePopUp({ setIsModal }: IModal) {
   const onClick = () => {

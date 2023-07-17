@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 interface IGuestLoginModal extends IModal {
   customSignin: (type: "member" | "guest") => Promise<void>;

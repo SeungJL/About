@@ -7,7 +7,7 @@ import {
   ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function NotCompletedModal2({ setIsModal }: IModal) {
   return (

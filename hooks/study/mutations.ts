@@ -6,7 +6,7 @@ import { dayjsToStr } from "../../libs/typeConverter";
 import { IStudyParticipate } from "../../types/study";
 import { IVotePlaces } from "../../types/studyDetails";
 
-import { ITimeStartToEnd } from "../../types/utils";
+import { IDayjsStartToEnd } from "../../types/timeAndDate";
 
 export const useStudyParticipateMutation = (
   date: Dayjs,
@@ -36,11 +36,11 @@ export const useStudyCancelMutation = (
 export const useStudyTimeChangeMutation = (
   date: Dayjs,
   options?: Omit<
-    UseMutationOptions<void, AxiosError, ITimeStartToEnd>,
+    UseMutationOptions<void, AxiosError, IDayjsStartToEnd>,
     "mutationKey" | "mutationFn"
   >
 ) =>
-  useMutation<void, AxiosError, ITimeStartToEnd>(async (time) => {
+  useMutation<void, AxiosError, IDayjsStartToEnd>(async (time) => {
     await axios.patch(`${SERVER_URI}/vote/${dayjsToStr(date)}`, time);
   }, options);
 

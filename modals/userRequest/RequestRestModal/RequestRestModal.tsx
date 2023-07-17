@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import styled from "styled-components";
-import { IApplyRest } from "../../../types/userRequest";
 
 import { ModalHeaderXLine } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
@@ -10,9 +9,17 @@ import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
 import { useUserApplyRestMutation } from "../../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../../hooks/userRequest/mutations";
 
-import { IModal } from "../../../types/common";
+import { Dayjs } from "dayjs";
+import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user";
 import RequestRestModalInfo from "./RequestRestModalInfo";
+
+export interface IApplyRest {
+  type: "일반" | "특별";
+  startDate: string | Dayjs;
+  endDate: string | Dayjs;
+  content: string;
+}
 
 function RequestRestModal({ setIsModal }: IModal) {
   const { data: session } = useSession();

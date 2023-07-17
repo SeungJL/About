@@ -5,9 +5,9 @@ import TimeSelector from "../../../components/utils/TimeSelector";
 import TimeSelectorBoard from "../../../components/utils/TimeSelectorBoard";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
-import { DispatchNumber } from "../../../types/common";
+import { DispatchNumber } from "../../../types/reactTypes";
 import { IVoteInfo } from "../../../types/studyDetails";
-import { ITimeStartToEndHM } from "../../../types/utils";
+import { ITimeStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteMainModalTime {
   onSubmit: () => void;
@@ -23,7 +23,7 @@ function StudyVoteMainModalTime({
   setVoteInfo,
 }: IStudyVoteMainModalTime) {
   const voteDate = useRecoilValue(voteDateState);
-  const [time, setTime] = useState<ITimeStartToEndHM>({
+  const [time, setTime] = useState<ITimeStartToEnd>({
     start: isTimeBoard ? null : { hours: 14, minutes: 0 },
     end: isTimeBoard ? null : { hours: 18, minutes: 0 },
   });
@@ -48,14 +48,14 @@ function StudyVoteMainModalTime({
         <Subtitle>참여시간 선택</Subtitle>
         {isTimeBoard ? (
           <TimeSelectorBoard
-            setTimes={({ start, end }: ITimeStartToEndHM) => {
+            setTimes={({ start, end }: ITimeStartToEnd) => {
               setTime({ start, end });
             }}
             times={time}
           />
         ) : (
           <TimeSelector
-            setTimes={({ start, end }: ITimeStartToEndHM) => {
+            setTimes={({ start, end }: ITimeStartToEnd) => {
               if (start) {
                 setTime({ end: time.end, start });
               }

@@ -13,7 +13,7 @@ import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 
-import { ITime } from "../../../types/utils";
+import { ITime } from "../../../types/timeAndDate";
 
 interface IGather {
   text: string;

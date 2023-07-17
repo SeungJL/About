@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 import { STUDY_TIME_TABLE } from "../../constants/study";
-import { ITimeSelector } from "../../types/utils";
+import { ITimeSelector } from "../../types/timeAndDate";
 
 function TimeSelectorBoard({ times, setTimes }: ITimeSelector) {
   const toast = useToast();

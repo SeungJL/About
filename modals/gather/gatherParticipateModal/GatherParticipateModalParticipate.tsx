@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useGatherParticipateMutation } from "../../../hooks/gather/mutations";
 import { useCompleteToast, useErrorToast } from "../../../hooks/ui/CustomToast";
-import { IModal, IRefetch } from "../../../types/common";
+import { IModal, IRefetch } from "../../../types/reactTypes";
 
 function GatherParticipateModalParticipate({
   setIsModal,

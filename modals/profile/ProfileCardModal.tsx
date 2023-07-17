@@ -8,7 +8,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import { birthToAge } from "../../libs/utils/membersUtil";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function ProfileCardModal({ setIsModal }: IModal) {
   const router = useRouter();

@@ -9,7 +9,7 @@ import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function RequestSecedeModal({ setIsModal }: IModal) {
   const { data: session } = useSession();

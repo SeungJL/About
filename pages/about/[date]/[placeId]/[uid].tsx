@@ -8,12 +8,12 @@ import StudySpaceNavigation from "../../../../pagesComponents/about/studySpace/S
 import StudySpaceOverview from "../../../../pagesComponents/about/studySpace/StudySpaceOverView";
 import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/StudySpaceSetting";
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
-import { IPlaceStatusType } from "../../../../types/statistics";
+import { StudyStatus } from "../../../../types/statistics";
 import { IAttendance, IPlace } from "../../../../types/studyDetails";
 export interface IStudySpaceData {
   place: IPlace;
   attendences: IAttendance[];
-  status: IPlaceStatusType;
+  status: StudyStatus;
 }
 const IMAGE_LIST = [1, 2, 3, 4, 5];
 function StudySpace2() {

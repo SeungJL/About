@@ -14,9 +14,9 @@ import {
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import { IStudyPlaces } from "../../../types/study";
-import { ITimeStartToEndHM } from "../../../types/utils";
+import { ITimeStartToEnd } from "../../../types/timeAndDate";
 import StudyQuickVoteModalRegister from "./StudyQuickVoteModalRegister";
 
 interface IStudyQuickVoteModal extends IModal {
@@ -36,7 +36,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
 
   const setIsRefetchStudy = useSetRecoilState(isRefetchStudyState);
 
-  const [time, setTime] = useState<ITimeStartToEndHM>({
+  const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hours: 14, minutes: 0 },
     end: { hours: 18, minutes: 0 },
   });
@@ -85,7 +85,7 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
               </PlaceInfo>
             </Container>
             <TimeSelector
-              setTimes={({ start, end }: ITimeStartToEndHM) => {
+              setTimes={({ start, end }: ITimeStartToEnd) => {
                 if (start) setTime({ end: time.end, start });
                 if (end) setTime({ start: time.start, end });
               }}

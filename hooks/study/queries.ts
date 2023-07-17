@@ -10,7 +10,6 @@ import { IStudyStartTime } from "../../types/study";
 import { IPlace, IVote } from "../../types/studyDetails";
 import { IArrivedData } from "../../types/studyRecord";
 import { Location } from "../../types/system";
-import { IAbsentInfo } from "../../types/userRequest";
 
 export const useStudyVoteQuery = (
   date: Dayjs,
@@ -94,7 +93,10 @@ export const useStudyCheckRecordsQuery = (
     },
     options
   );
-
+interface IAbsentInfo {
+  message?: string;
+  uid?: string;
+}
 export const useStudyAbsentQuery = (
   date: Dayjs,
   options?: Omit<

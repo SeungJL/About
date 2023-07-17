@@ -6,7 +6,7 @@ import {
   useGatherCommentEditMutation,
 } from "../../hooks/gather/mutations";
 import { Modal2Xs } from "../../styles/layout/modal";
-import { IModal, IRefetch } from "../../types/common";
+import { IModal, IRefetch } from "../../types/reactTypes";
 
 interface IGatherCommentEditModal extends IModal, IRefetch {
   commentText: string;

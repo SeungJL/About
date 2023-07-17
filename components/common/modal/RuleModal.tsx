@@ -4,8 +4,8 @@ import {
   ModalHeaderCenter,
   ModalMain,
 } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/common";
 import { IContentBasic } from "../../../types/content";
+import { IModal } from "../../../types/reactTypes";
 import { ModalLayout } from "./Modals";
 
 export interface IRuleModalContent {

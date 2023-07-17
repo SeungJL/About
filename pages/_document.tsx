@@ -39,10 +39,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="About" />
           <meta property="og:url" content="https://studyabout.herokuapp.com" />

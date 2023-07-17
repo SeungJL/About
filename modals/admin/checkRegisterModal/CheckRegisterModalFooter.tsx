@@ -15,7 +15,7 @@ import {
   useUserApproveMutation,
   useUserDeleteMutation,
 } from "../../../hooks/user/mutations";
-import { IModal, IRefetch } from "../../../types/common";
+import { IModal, IRefetch } from "../../../types/reactTypes";
 
 interface ICheckRegisterModalFooter extends IModal, IRefetch {
   uid: string;

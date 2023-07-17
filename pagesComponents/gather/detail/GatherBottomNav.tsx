@@ -7,8 +7,8 @@ import ModalPortal from "../../../components/ModalPortal";
 import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
-import { IRefetch } from "../../../types/common";
 import { IGatherContent } from "../../../types/gather";
+import { IRefetch } from "../../../types/reactTypes";
 
 interface IGatherBottomNav extends IRefetch {
   data: IGatherContent;

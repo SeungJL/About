@@ -28,8 +28,6 @@ export default async function handler(
       vote.participations.forEach((participation) => {
         if (participation.attendences.length === 0) {
           participation.status = "dismissed";
-        } else {
-          participation.status = "waiting_confirm";
         }
       });
 

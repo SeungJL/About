@@ -28,11 +28,11 @@ import {
   usePointMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
-import { IModal } from "../../types/common";
-import { ITimeStartToEnd, ITimeStartToEndHM } from "../../types/utils";
+import { IModal } from "../../types/reactTypes";
+import { IDayjsStartToEnd, ITimeStartToEnd } from "../../types/timeAndDate";
 
 interface IStudyChangeTimeModal extends IModal {
-  myVoteTime: ITimeStartToEnd;
+  myVoteTime: IDayjsStartToEnd;
 }
 
 const HOUR_TO_MINUTE = 60;
@@ -59,7 +59,7 @@ function StudyChangeTimeModal({
     item.placeId === placeId;
   })?.startTime;
 
-  const [time, setTime] = useState<ITimeStartToEndHM>({
+  const [time, setTime] = useState<ITimeStartToEnd>({
     start: {
       hours: startTime.hour(),
       minutes: startTime.minute(),
@@ -108,7 +108,7 @@ function StudyChangeTimeModal({
       <ModalMain>
         <Wrapper>
           <TimeSelector
-            setTimes={({ start, end }: ITimeStartToEndHM) => {
+            setTimes={({ start, end }: ITimeStartToEnd) => {
               if (start) setTime({ ...time, start });
               if (end) setTime({ ...time, end });
             }}

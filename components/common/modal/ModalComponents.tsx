@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 
 interface IModalHeader extends IModal {
   title: string;

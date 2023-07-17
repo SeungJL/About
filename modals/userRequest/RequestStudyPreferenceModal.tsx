@@ -13,7 +13,7 @@ import PlaceSelector from "../../components/utils/PlaceSelector";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import { useCompleteToast } from "../../hooks/ui/CustomToast";
 import { userLocationState } from "../../recoil/userAtoms";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/studyDetails";
 
 interface IRequestStudyPreferenceModal extends IModal {

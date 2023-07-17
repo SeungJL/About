@@ -25,7 +25,7 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import { IPlace, IVoteInfo } from "../../../types/studyDetails";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
 import StudyVoteSubModalTime from "./StudyVoteSubModalTime";

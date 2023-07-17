@@ -20,7 +20,7 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../../hooks/ui/CustomToast";
-import { DispatchBoolean } from "../../../types/common";
+import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
 interface IGatherExpireModalCancelDialog {

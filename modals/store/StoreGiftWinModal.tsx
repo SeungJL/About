@@ -5,7 +5,7 @@ import { ModalLayout } from "../../components/common/modal/Modals";
 
 import { useRouter } from "next/router";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 import { IStoreApplicant } from "../../types/store";
 interface IStoreGiftWinModal extends IModal {
   applyData: IStoreApplicant[];
@@ -15,7 +15,7 @@ interface IStoreGiftWinModal extends IModal {
 function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
   const [winner, setWinner] = useState([]);
   const router = useRouter();
- 
+
   useEffect(() => {
     const data = [];
     applyData.forEach((who) => {

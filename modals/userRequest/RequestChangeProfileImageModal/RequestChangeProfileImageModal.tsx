@@ -15,7 +15,7 @@ import {
 } from "../../../hooks/user/mutations";
 import { isRefetchUserInfoState } from "../../../recoil/refetchingAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";
 
 function RequestChangeProfileImageModal({ setIsModal }: IModal) {

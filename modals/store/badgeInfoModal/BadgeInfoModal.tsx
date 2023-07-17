@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import { ModalHeaderCenter } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import BadgeInfoModalFirstInfo from "./BadgeInfoModalFirstInfo";
 import BadgeInfoModalSecondInfo from "./BadgeInfoModalSecondInfo";
 

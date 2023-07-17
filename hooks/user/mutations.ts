@@ -1,8 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
+import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import { IAvatar, IUserComment, IUserRegister, Role } from "../../types/user";
-import { IApplyRest } from "../../types/userRequest";
+
 
 export const useUserRegisterMutation = (
   options?: Omit<

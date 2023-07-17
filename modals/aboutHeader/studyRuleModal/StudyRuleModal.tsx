@@ -7,7 +7,7 @@ import {
   ModalHeaderCenter,
   ModalMain,
 } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import {
   StudyRuleModalContentFirstOne,
   StudyRuleModalContentFirstThree,

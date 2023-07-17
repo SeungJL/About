@@ -10,7 +10,7 @@ import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
 import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user";
 
 function RequestChargeDepositModal({ setIsModal }: IModal) {

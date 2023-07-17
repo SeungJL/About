@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function NotCompletedModal({ setIsModal }: IModal) {
   return (

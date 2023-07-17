@@ -19,7 +19,7 @@ import {
   studyDateState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
-import { IModal } from "../../../types/common";
+import { IModal } from "../../../types/reactTypes";
 import { IParticipation, IVoteInfo } from "../../../types/studyDetails";
 import StudyVoteMainModalPlace from "./StudyVoteMainModalPlace";
 import StudyVoteMainModalTime from "./StudyVoteMainModalTime";
@@ -60,7 +60,7 @@ function StudyVoteMainModal({
           getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
         }
       }
-  
+
       setUpdateStudy(true);
       completeToast("studyVote");
     },

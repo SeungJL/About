@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SpaceSelector2 from "../../../components/utils/PlaceSelector";
 import { studyDateState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
-import { DispatchNumber } from "../../../types/common";
+import { DispatchNumber } from "../../../types/reactTypes";
 import {
   IParticipation,
   IPlace,

@@ -7,7 +7,7 @@ import Skeleton from "../../components/common/skeleton/Skeleton";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const { data: userInfo } = useUserInfoQuery();

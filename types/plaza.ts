@@ -1,6 +1,3 @@
-import { Dayjs } from "dayjs";
-import mongoose, { model, Model, Schema } from "mongoose";
-
 export interface IPlazaData {
   category: string;
   title: string;

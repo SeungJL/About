@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../../hooks/ui/CustomToast";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
-import { DispatchNumber } from "../../../types/common";
+import { DispatchNumber } from "../../../types/reactTypes";
 
 interface IGatherParticipateModalPassword {
   setPageNum: DispatchNumber;
