@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import dbConnect from "../../../../libs/dbConnect";
+import dbConnect from "../../../../libs/backend/dbConnect";
 import { User } from "../../../../models/user";
 
 import { getParticipationRate } from "../../../../services/rateService";
@@ -30,7 +30,7 @@ export default async function handler(
         { uid: token.uid },
         "-_id + name + score"
       );
-     
+
       res.status(200).send(userScore);
       break;
 

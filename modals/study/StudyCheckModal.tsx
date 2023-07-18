@@ -9,19 +9,19 @@ import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
 } from "../../constants/pointSystem";
-import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/ui/CustomToast";
+} from "../../hooks/CustomToast";
+import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import {
   useDepositMutation,
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { useUserLocationQuery } from "../../hooks/user/queries";
-import { getToday } from "../../libs/utils/dateUtils";
+import { getToday } from "../../libs/dateUtils";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { InputSm } from "../../styles/layout/input";
 import {

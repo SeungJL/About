@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/ModalPortal";
-import { useFailToast } from "../../../hooks/ui/CustomToast";
+import { useFailToast } from "../../../hooks/CustomToast";
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
 import { IUser } from "../../../types/user/user";

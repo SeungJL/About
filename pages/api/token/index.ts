@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import dbConnect from "../../../libs/dbConnect";
+import dbConnect from "../../../libs/backend/dbConnect";
 
 export default async function handler(
   req: NextApiRequest,

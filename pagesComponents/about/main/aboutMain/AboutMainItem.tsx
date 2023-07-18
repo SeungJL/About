@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { StudySpaceLogo } from "../../../../components/ui/DesignAdjustment";
-import { dayjsToStr } from "../../../../libs/typeConverter";
+import { dayjsToStr } from "../../../../libs/dateUtils";
 import {
   myStudyFixedState,
   voteDateState,

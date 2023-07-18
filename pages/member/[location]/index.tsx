@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-import dbConnect from "../../../libs/dbConnect";
+import dbConnect from "../../../libs/backend/dbConnect";
 import { User } from "../../../models/user";
 import MemberHeader from "../../../pagesComponents/member/MemberHeader";
 import MemberMyProfile from "../../../pagesComponents/member/MemberMyProfile";

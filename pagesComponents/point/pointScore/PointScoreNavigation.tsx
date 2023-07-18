@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { useUserLocationQuery } from "../../../hooks/user/queries";
-import { SortUserScore } from "../../../libs/utils/userUtils";
+import { SortUserScore } from "../../../libs/userUtils";
 import { isPointLoadingState } from "../../../recoil/loadingAtoms";
 import { IRankScore } from "../../../types/page/ranking";
 

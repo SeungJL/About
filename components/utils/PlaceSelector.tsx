@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../constants/study";
-import { useFailToast } from "../../hooks/ui/CustomToast";
+import { useFailToast } from "../../hooks/CustomToast";
 import { IStudyVotePlaces } from "../../modals/study/studyVoteMainModal/StudyVoteMainModalPlace";
 import { IPlace } from "../../types/study/study";
 import { IStudyPlaces } from "../../types/study/studyUserAction";

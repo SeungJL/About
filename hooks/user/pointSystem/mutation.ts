@@ -1,34 +1,20 @@
 import axios, { AxiosError } from "axios";
-import { useMutation, UseMutationOptions } from "react-query";
+import { useMutation } from "react-query";
 import { SERVER_URI } from "../../../constants/system";
+import { MutationOptions } from "../../../types/reactTypes";
 import { IPointSystem } from "../../../types/user/pointSystem";
 
-export const useScoreMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, IPointSystem>,
-    "mutationKey" | "mutationFn"
-  >
-) =>
+export const useScoreMutation = (options?: MutationOptions<IPointSystem>) =>
   useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
     await axios.post(`${SERVER_URI}/user/score`, { score: value, message });
   }, options);
 
-export const usePointMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, IPointSystem>,
-    "mutationKey" | "mutationFn"
-  >
-) =>
+export const usePointMutation = (options?: MutationOptions<IPointSystem>) =>
   useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
     await axios.post(`${SERVER_URI}/user/point`, { point: value, message });
   }, options);
 
-export const useDepositMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, IPointSystem>,
-    "mutationKey" | "mutationFn"
-  >
-) =>
+export const useDepositMutation = (options?: MutationOptions<IPointSystem>) =>
   useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
     await axios.post(`${SERVER_URI}/user/deposit`, { deposit: value, message });
   }, options);

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import dbConnect from "../../../libs/dbConnect";
+import dbConnect from "../../../libs/backend/dbConnect";
 import { Vote } from "../../../models/vote";
 
 const secret = process.env.NEXTAUTH_SECRET;

@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/skeleton/Skeleton";
 import { USER_BADGES } from "../../constants/convert";
-import { getUserBadgeScore } from "../../libs/utils/userUtils";
+import { getUserBadgeScore } from "../../libs/userUtils";
 import { isRankingLoadingState } from "../../recoil/loadingAtoms";
 import { IScore } from "../../types/user/pointSystem";
 

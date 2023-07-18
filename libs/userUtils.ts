@@ -1,6 +1,6 @@
-import { IRankScore } from "../../types/page/ranking";
-import { IScore } from "../../types/user/pointSystem";
-import {  UserBadge } from "../../types/user/user";
+import { IRankScore } from "../types/page/ranking";
+import { IScore } from "../types/user/pointSystem";
+import { UserBadge } from "../types/user/user";
 
 export const getUserBadgeScore = (score) => {
   let badge: UserBadge = "아메리카노";
@@ -8,7 +8,6 @@ export const getUserBadgeScore = (score) => {
   let badgeScore = 0;
   let gap = 30;
   let nextScore = 30;
-
   if (score < 30) badgeScore = score;
   else if (score < 70) {
     (badge = "라떼"),
@@ -47,14 +46,7 @@ export const getUserBadgeScore = (score) => {
       (nextScore = 70);
     gap = 100;
   }
-
   return { badge, badgeScore, nextBadge, gap, nextScore };
-};
-
-const compare = (a: IScore, b: IScore) => {
-  if (a.score > b.score) return -1;
-  else if (a.score < b.score) return 1;
-  return 0;
 };
 
 export const myScoreRank = (scoreArr: IScore[], myScore: number) => {
@@ -67,33 +59,31 @@ export const myScoreRank = (scoreArr: IScore[], myScore: number) => {
   if (rate < 1) return 1;
   if (rate < 5) return 5;
   if (rate < 10) return 10;
-  else {
-    return Math.ceil(rate / 10) * 10;
-  }
+  else return Math.ceil(rate / 10) * 10;
 };
 
 export const SortUserScore = (
   scoreArr: IScore[],
   myScore: number
 ): IRankScore => {
+  const compare = (a: IScore, b: IScore) => {
+    if (a.score > b.score) return -1;
+    else if (a.score < b.score) return 1;
+    return 0;
+  };
   scoreArr.sort(compare);
-
   const rankNum = scoreArr.findIndex((who) => who.score < myScore);
   if (rankNum <= 100) return { scoreArr, rankNum, isRank: true };
   let highCnt = 0;
   const total = scoreArr.length;
-
   scoreArr.forEach((user) => {
     if (user.score >= myScore) highCnt++;
   });
-
   let percent;
   const rate = (highCnt / total) * 100;
   if (rate < 1) percent = 1;
   if (rate < 5) percent = 5;
   if (rate < 10) percent = 10;
-  else {
-    percent = Math.ceil(rate / 10) * 10;
-  }
+  else percent = Math.ceil(rate / 10) * 10;
   return { scoreArr, percent, isRank: false };
 };

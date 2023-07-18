@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "../../../libs/dbConnect";
+import dbConnect from "../../../libs/backend/dbConnect";
 import { Place } from "../../../models/place";
 
 import { IPlace } from "../../../types/study/study";

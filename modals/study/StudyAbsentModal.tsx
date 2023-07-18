@@ -9,14 +9,14 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
-import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/ui/CustomToast";
+} from "../../hooks/CustomToast";
+import { useStudyAbsentMutation } from "../../hooks/study/mutations";
+import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
 import {
   myStudyFixedState,

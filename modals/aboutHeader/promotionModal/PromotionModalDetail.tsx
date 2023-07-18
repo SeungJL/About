@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Skeleton from "../../../components/common/skeleton/Skeleton";
-import { useUserRequestCategoryQuery } from "../../../hooks/userRequest/queries";
+import { useUserRequestCategoryQuery } from "../../../hooks/user/queries";
 
 function PromotionModalDetail() {
   const { data: promotionData, isLoading } =

@@ -5,12 +5,12 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import TimeSelector from "../../../components/utils/TimeSelector";
-import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/ui/CustomToast";
+} from "../../../hooks/CustomToast";
+import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalMain } from "../../../styles/layout/modal";

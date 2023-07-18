@@ -7,12 +7,11 @@ import styled from "styled-components";
 import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
 import {} from "../../hooks/user/queries";
 import {
-  IUserAttendRateQueries,
   useUserAttendRateQueries,
   useUserVoteRateQueries,
 } from "../../hooks/user/studyStatistics/queries";
-import { getMonth } from "../../libs/utils/dateUtils";
-import { IUser } from "../../types/user/user";
+import { getMonth } from "../../libs/dateUtils";
+import { IUser, IUserAttendRateQueries } from "../../types/user/user";
 
 interface IAttendChart {
   type?: string;

@@ -5,19 +5,17 @@ import { SERVER_URI } from "../../../constants/system";
 
 import {
   USER_FINDPARTICIPATION,
-  USER_FINDVOTE,
   USER_FINDVOTES,
-} from "../../../libs/queryKeys";
+} from "../../../constants/queryKeys";
+import { QueryOptions } from "../../../types/reactTypes";
 import { IVoteRate } from "../../../types/study/studyRecord";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
+import { IUserAttendRateQueries } from "../../../types/user/user";
 
-export const useUserParticipationRateQuery = (
+export const useUserAttendRateQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  options?: Omit<
-    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IVoteRate[]>
 ) =>
   useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
     "userParticipationRate",
@@ -35,13 +33,11 @@ export const useUserParticipationRateQuery = (
     },
     options
   );
-export const useUserParticipationRateAllQuery = (
+
+export const useUserAttendRateAllQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  options?: Omit<
-    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IVoteRate[]>
 ) =>
   useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
     "userParticipationRateAll",
@@ -60,40 +56,10 @@ export const useUserParticipationRateAllQuery = (
     options
   );
 
-export const useUserVoteRateQuery = (
-  startDay: Dayjs,
-  endDay: Dayjs,
-  options?: Omit<
-    UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
-    [USER_FINDVOTE],
-    async () => {
-      const res = await axios.get<IVoteRate[]>(`${SERVER_URI}/user/voterate`, {
-        params: {
-          startDay: startDay.format("YYYY-MM-DD"),
-          endDay: endDay.format("YYYY-MM-DD"),
-        },
-      });
-      return res.data;
-    },
-    options
-  );
-
-export interface IUserAttendRateQueries {
-  idx: number;
-  data: IVoteRate[];
-}
-
 export const useUserAttendRateQueries = (
   monthList: IDayjsStartToEnd[],
   type?: string,
-  options?: Omit<
-    UseQueryOptions<IUserAttendRateQueries, AxiosError, IUserAttendRateQueries>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IUserAttendRateQueries>
 ) =>
   useQueries(
     monthList.map((month, idx) => {
@@ -143,3 +109,25 @@ export const useUserVoteRateQueries = (
       };
     })
   );
+
+// export const useUserVoteRateQuery = (
+//   startDay: Dayjs,
+//   endDay: Dayjs,
+//   options?: Omit<
+//     UseQueryOptions<IVoteRate[], AxiosError, IVoteRate[]>,
+//     "queryKey" | "queryFn"
+//   >
+// ) =>
+//   useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
+//     [USER_FINDVOTE],
+//     async () => {
+//       const res = await axios.get<IVoteRate[]>(`${SERVER_URI}/user/voterate`, {
+//         params: {
+//           startDay: startDay.format("YYYY-MM-DD"),
+//           endDay: endDay.format("YYYY-MM-DD"),
+//         },
+//       });
+//       return res.data;
+//     },
+//     options
+//   );

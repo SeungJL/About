@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { useCompleteToast, useErrorToast } from "../../../hooks/ui/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
 import {
   useUserApproveMutation,
   useUserDeleteMutation,

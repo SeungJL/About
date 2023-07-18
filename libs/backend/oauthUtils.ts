@@ -5,7 +5,7 @@ import { Dayjs } from "dayjs";
 import { Account } from "../../models/account";
 import { User } from "../../models/user";
 
-import dbConnect from "../dbConnect";
+import dbConnect from "./dbConnect";
 
 interface kakaoProfileInfo {
   name: string;

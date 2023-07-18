@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { DEFAULT_ARRAY } from "../../constants/default";
+import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
-import { useErrorToast } from "../../hooks/ui/CustomToast";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 
 import { GatherCategory, IGatherContent } from "../../types/page/gather";

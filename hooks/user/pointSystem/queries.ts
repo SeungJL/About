@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery } from "react-query";
 import { SERVER_URI } from "../../../constants/system";
+import { QueryOptions } from "../../../types/reactTypes";
 import {
   IDeposit,
   IPoint,
@@ -10,12 +11,7 @@ import {
 } from "../../../types/user/pointSystem";
 
 //score
-export const useScoreQuery = (
-  options?: Omit<
-    UseQueryOptions<IScore, AxiosError, IScore>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useScoreQuery = (options?: QueryOptions<IScore>) =>
   useQuery<IScore, AxiosError, IScore>(
     "score",
     async () => {
@@ -25,12 +21,7 @@ export const useScoreQuery = (
     options
   );
 
-export const useScoreLogQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useScoreLogQuery = (options?: QueryOptions<IPointLog[]>) =>
   useQuery<IPointLog[], AxiosError, IPointLog[]>(
     "scoreLog",
     async () => {
@@ -40,12 +31,7 @@ export const useScoreLogQuery = (
     options
   );
 
-export const useScoreAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IScore[], AxiosError, IScore[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useScoreAllQuery = (options?: QueryOptions<IScore[]>) =>
   useQuery<IScore[], AxiosError, IScore[]>(
     "scoreAll",
     async () => {
@@ -55,12 +41,7 @@ export const useScoreAllQuery = (
     options
   );
 
-export const useScoreLogAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useScoreLogAllQuery = (options?: QueryOptions<IPointLog[]>) =>
   useQuery<IPointLog[], AxiosError, IPointLog[]>(
     "scoreLogAll",
     async () => {
@@ -71,12 +52,7 @@ export const useScoreLogAllQuery = (
   );
 
 //point
-export const usePointQuery = (
-  options?: Omit<
-    UseQueryOptions<IPoint, AxiosError, IPoint>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const usePointQuery = (options?: QueryOptions<IPoint>) =>
   useQuery<IPoint, AxiosError, IPoint>(
     "point",
     async () => {
@@ -86,12 +62,7 @@ export const usePointQuery = (
     options
   );
 
-export const usePointLogQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const usePointLogQuery = (options?: QueryOptions<IPointLog[]>) =>
   useQuery<IPointLog[], AxiosError, IPointLog[]>(
     "pointLog",
     async () => {
@@ -101,12 +72,7 @@ export const usePointLogQuery = (
     options
   );
 
-export const usePointAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointAll[], AxiosError, IPointAll[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const usePointAllQuery = (options?: QueryOptions<IPointAll[]>) =>
   useQuery<IPointAll[], AxiosError, IPointAll[]>(
     "pointAll",
     async () => {
@@ -117,13 +83,8 @@ export const usePointAllQuery = (
     options
   );
 
-export const usePointLogAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog, AxiosError, IPointLog>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery(
+export const usePointLogAllQuery = (options?: QueryOptions<IPointLog>) =>
+  useQuery<IPointLog, AxiosError, IPointLog>(
     "pointLogAll",
     async () => {
       const res = await axios.get(`${SERVER_URI}/log/point/all`);
@@ -133,12 +94,7 @@ export const usePointLogAllQuery = (
   );
 
 //deposit
-export const useDepositQuery = (
-  options?: Omit<
-    UseQueryOptions<IDeposit, AxiosError, IDeposit>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useDepositQuery = (options?: QueryOptions<IDeposit>) =>
   useQuery<IDeposit, AxiosError, IDeposit>(
     "deposit",
     async () => {
@@ -148,12 +104,7 @@ export const useDepositQuery = (
     options
   );
 
-export const useDepositLogQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointLog[], AxiosError, IPointLog[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useDepositLogQuery = (options?: QueryOptions<IPointLog[]>) =>
   useQuery<IPointLog[], AxiosError, IPointLog[]>(
     "depositLog",
     async () => {
@@ -163,12 +114,7 @@ export const useDepositLogQuery = (
     options
   );
 
-export const useDepositAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IPointAll[], AxiosError, IPointAll[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useDepositAllQuery = (options?: QueryOptions<IPointAll[]>) =>
   useQuery<IPointAll[], AxiosError, IPointAll[]>(
     "depositAll",
     async () => {

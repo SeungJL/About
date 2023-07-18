@@ -5,9 +5,11 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import styled from "styled-components";
 import { ModalHeaderXLine } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
-import { useCompleteToast, useFailToast } from "../../../hooks/ui/CustomToast";
-import { useUserApplyRestMutation } from "../../../hooks/user/mutations";
-import { useUserRequestMutation } from "../../../hooks/userRequest/mutations";
+import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
+import {
+  useUserApplyRestMutation,
+  useUserRequestMutation,
+} from "../../../hooks/user/mutations";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
 import RequestRestModalInfo from "./RequestRestModalInfo";

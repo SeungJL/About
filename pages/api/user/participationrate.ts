@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next/types";
-import dbConnect from "../../../libs/dbConnect";
+import dbConnect from "../../../libs/backend/dbConnect";
 import { getParticipationRate } from "../../../services/rateService";
 
 export default async function handler(

@@ -36,7 +36,7 @@ import SuccessScreen from "../../../components/layouts/SuccessScreen";
 import ModalPortal from "../../../components/ModalPortal";
 import { useGatherContentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { randomPassword } from "../../../libs/utils/validUtils";
+import { randomPassword } from "../../../libs/valid";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 

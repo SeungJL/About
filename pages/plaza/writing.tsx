@@ -4,10 +4,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
 import styled from "styled-components";
-import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
-
+import { useUserRequestMutation } from "../../hooks/user/mutations";
 import VoteList from "../../pagesComponents/plaza/writing/VoteList";
 import WritingCategory from "../../pagesComponents/plaza/writing/WritingCategory";
 import WritingContent from "../../pagesComponents/plaza/writing/WritingContent";

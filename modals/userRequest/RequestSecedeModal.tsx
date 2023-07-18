@@ -6,8 +6,8 @@ import {
   ModalHeaderX,
 } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
-import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
+import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
+import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 

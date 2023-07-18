@@ -4,13 +4,6 @@ export const role = {
   stranger: { value: "stranger", display: "미인증 사용자" },
 };
 
-export const getRoleName = (roleStr: string) => {
-  if (role[roleStr]) {
-    return role[roleStr];
-  }
-  return role.stranger.display;
-};
-
 export const isStranger = (roleStr: string) => {
   return roleStr === role.stranger.value;
 };

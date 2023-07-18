@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import { useErrorToast } from "../../hooks/ui/CustomToast";
+import { useErrorToast } from "../../hooks/CustomToast";
 import {
   useScoreAllQuery,
   useScoreQuery,
 } from "../../hooks/user/pointSystem/queries";
 import { useUserLocationQuery } from "../../hooks/user/queries";
-import { SortUserScore } from "../../libs/utils/userUtils";
+import { SortUserScore } from "../../libs/userUtils";
 import RankingCategory from "../../pagesComponents/ranking/RankingCategory";
 import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
 import RankingOverView from "../../pagesComponents/ranking/RankingOverview";

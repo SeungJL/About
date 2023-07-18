@@ -12,13 +12,13 @@ import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/ui/CustomToast";
+} from "../../hooks/CustomToast";
 import {
   useUserApproveMutation,
   useUserRegisterMutation,
 } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { getUserBadgeScore } from "../../libs/utils/userUtils";
+import { getUserBadgeScore } from "../../libs/userUtils";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { DispatchBoolean } from "../../types/reactTypes";

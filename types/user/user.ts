@@ -1,5 +1,6 @@
 import { Document } from "mongoose";
 import { USER_BADGES } from "../../constants/convert";
+import { IVoteRate } from "../study/studyRecord";
 import { Location } from "../system";
 
 /** user */
@@ -57,6 +58,13 @@ export interface IMajor {
   detail: string;
 }
 
+export interface IIsActive {
+  isActive: {
+    isActive: boolean;
+    _id: string;
+  };
+}
+
 /** register */
 export interface IUserRegister extends IRegisterForm {
   role?: Role;
@@ -101,4 +109,9 @@ export type UserBadgeColor = typeof USER_BADGES[UserBadge];
 export interface IUserComment {
   comment: string;
   _id: string;
+}
+
+export interface IUserAttendRateQueries {
+  idx: number;
+  data: IVoteRate[];
 }

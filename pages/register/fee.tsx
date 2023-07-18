@@ -15,7 +15,7 @@ import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import Header from "../../components/layouts/Header";
 import ProgressStatus from "../../components/layouts/ProgressStatus";
-import { useErrorToast } from "../../hooks/ui/CustomToast";
+import { useErrorToast } from "../../hooks/CustomToast";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
 import RegisterCost from "../../pagesComponents/register/fee/RegisterCost";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";

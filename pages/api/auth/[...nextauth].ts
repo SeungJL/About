@@ -2,10 +2,13 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
-import clientPromise from "../../../libs/mongodb";
+import clientPromise from "../../../libs/backend/mongodb";
 
-import dbConnect from "../../../libs/dbConnect";
-import { getProfile, refreshAccessToken } from "../../../libs/utils/oauthUtils";
+import dbConnect from "../../../libs/backend/dbConnect";
+import {
+  getProfile,
+  refreshAccessToken,
+} from "../../../libs/backend/oauthUtils";
 import { Account } from "../../../models/account";
 import { User } from "../../../models/user";
 import { Role } from "../../../types/user/user";

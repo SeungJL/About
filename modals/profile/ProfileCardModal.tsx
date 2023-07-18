@@ -1,11 +1,10 @@
 import { Button } from "@chakra-ui/react";
-import styled from "styled-components";
-
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
+import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { birthToAge } from "../../libs/utils/membersUtil";
+import { birthToAge } from "../../libs/converter";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { ModalMain, ModalXL } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";

@@ -17,7 +17,6 @@ export const useFailToast = () => {
   const showFailToast = useCallback(
     (type: FailToast, sub?: string) => {
       let text = "";
-
       if (type === "free") text = sub;
       if (type === "error")
         text = "오류가 발생했어요! 관리자에게 문의해주세요!";
@@ -25,10 +24,6 @@ export const useFailToast = () => {
       if (type === "loadStudy") text = "스터디 정보를 불러오지 못 했어요.";
       if (type === "apply") text = "신청에 실패했어요. 조건을 확인해 주세요!";
       if (type === "time") text = "입력하신 시간을 다시 확인해주세요!";
-      if (type === "studyVote") {
-        if (sub === "beforeTime")
-          text = "시작 시간은 종료 시간 이전이어야 합니다.";
-      }
       toast({
         title: "실패",
         description: text,

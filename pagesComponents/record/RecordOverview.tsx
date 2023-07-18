@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
-  useUserParticipationRateAllQuery,
-  useUserParticipationRateQuery,
+  useUserAttendRateAllQuery,
+  useUserAttendRateQuery,
 } from "../../hooks/user/studyStatistics/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IDateRange } from "../../pages/record";
@@ -61,11 +61,11 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
     if (userUid && openData) processAttendanceData(userUid as string, openData);
   }, [userUid, openData]);
 
-  const { data: myAttend } = useUserParticipationRateQuery(
+  const { data: myAttend } = useUserAttendRateQuery(
     dateRange?.startDate,
     dateRange?.endDate
   );
-  const { data: myAttend2 } = useUserParticipationRateAllQuery(
+  const { data: myAttend2 } = useUserAttendRateAllQuery(
     dateRange?.startDate,
     dateRange?.endDate
   );

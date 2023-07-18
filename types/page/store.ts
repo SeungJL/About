@@ -14,3 +14,8 @@ export interface IStoreApplicant {
   cnt: number;
   giftId?: number;
 }
+
+
+export interface IStoreQuery {
+  users: IStoreApplicant[];
+}

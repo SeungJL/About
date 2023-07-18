@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "../../../../../../libs/dbConnect";
+import dbConnect from "../../../../../../libs/backend/dbConnect";
 import { confirm } from "../../../../../../services/voteService";
 
 const SECRET = process.env.NEXTAUTH_SECRET;

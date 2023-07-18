@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Seo from "../../components/Seo";
-import { arrangeMainSpace } from "../../libs/utils/studyUtils";
+import { arrangeMainSpace } from "../../libs/studyUtils";
 import AboutHeader from "../../pagesComponents/about/main/AboutHeader";
 import AboutMain from "../../pagesComponents/about/main/AboutMain";
 import AboutUpperBar from "../../pagesComponents/about/main/aboutMain/aboutUpperBar/AboutUpperBar";

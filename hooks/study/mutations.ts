@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../libs/typeConverter";
+import { dayjsToStr } from "../../libs/dateUtils";
 import {
   IStudyParticipate,
   IStudyPlaces,

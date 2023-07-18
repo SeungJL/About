@@ -3,12 +3,12 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
-import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/ui/CustomToast";
+} from "../../../hooks/CustomToast";
+import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
 import {
   usePointMutation,
   useScoreMutation,

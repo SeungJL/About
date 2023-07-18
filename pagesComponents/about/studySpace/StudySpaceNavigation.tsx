@@ -25,7 +25,7 @@ import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/ui/CustomToast";
+} from "../../../hooks/CustomToast";
 import {
   usePointMutation,
   useScoreMutation,

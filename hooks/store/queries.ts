@@ -1,17 +1,11 @@
 import axios, { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
-import { IStoreApplicant } from "../../types/page/store";
-
-interface IStoreQuery {
-  users: IStoreApplicant[];
-}
+import { useQuery } from "react-query";
+import { IStoreQuery } from "../../types/page/store";
+import { QueryOptions } from "../../types/reactTypes";
 
 export const useStoreQuery = (
   giftId: number,
-  options?: Omit<
-    UseQueryOptions<IStoreQuery, AxiosError, IStoreQuery>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IStoreQuery>
 ) =>
   useQuery<IStoreQuery, AxiosError, IStoreQuery>(
     ["storeGift", giftId],
@@ -22,12 +16,7 @@ export const useStoreQuery = (
     options
   );
 
-export const useStoreAllQuery = (
-  options?: Omit<
-    UseQueryOptions<IStoreQuery, AxiosError, IStoreQuery>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useStoreAllQuery = (options?: QueryOptions<IStoreQuery>) =>
   useQuery<IStoreQuery, AxiosError, IStoreQuery>(
     "storeGiftAll",
     async () => {

@@ -11,11 +11,11 @@ import {
   PROMOTION_POP_UP2,
   USER_GUIDE,
 } from "../../constants/localStorage";
+import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
-import { useTypeErrorToast } from "../../hooks/ui/CustomToast";
 import { useUserRoleMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { ensureLocalStorage } from "../../libs/utils/localStorageUtils";
+import { ensureLocalStorage } from "../../libs/storage";
 import PromotionModal from "../../modals/aboutHeader/promotionModal/PromotionModal";
 import LastWeekAttendPopUp from "../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";

@@ -1,15 +1,13 @@
 import axios, { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery } from "react-query";
 import { GATHER_CONTENT } from "../../constants/queryKey";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
 import { IGatherContent } from "../../types/page/gather";
+import { QueryOptions } from "../../types/reactTypes";
 
 export const useGatherContentQuery = (
-  options?: Omit<
-    UseQueryOptions<IGatherContent[], AxiosError, IGatherContent[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IGatherContent[]>
 ) =>
   useQuery<IGatherContent[], AxiosError, IGatherContent[]>(
     [GATHER_CONTENT, "content"],
@@ -20,10 +18,7 @@ export const useGatherContentQuery = (
     options
   );
 export const useGatherSummaryQuery = (
-  options?: Omit<
-    UseQueryOptions<IGatherSummary[], AxiosError, IGatherSummary[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IGatherSummary[]>
 ) =>
   useQuery<IGatherSummary[], AxiosError, IGatherSummary[]>(
     [GATHER_CONTENT, "summary"],

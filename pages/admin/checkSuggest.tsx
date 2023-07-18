@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layouts/Header";
-import { useUserRequestQuery } from "../../hooks/userRequest/queries";
+import { useUserRequestQuery } from "../../hooks/user/queries";
 
 function CheckSuggest() {
   const { data, isLoading } = useUserRequestQuery();

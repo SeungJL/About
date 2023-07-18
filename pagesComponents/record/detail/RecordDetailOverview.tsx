@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useStudyArrivedCntQuery } from "../../../hooks/study/queries";
-import { useUserParticipationRateQuery } from "../../../hooks/user/studyStatistics/queries";
+import { useUserAttendRateQuery } from "../../../hooks/user/studyStatistics/queries";
 import { IDateRange } from "../../../pages/record";
 interface IRecordDetailOverview {}
 
@@ -19,12 +19,12 @@ function RecordDetailOverview({}: IRecordDetailOverview) {
     endDate: dayjs(),
   });
 
-  const { data } = useUserParticipationRateQuery(
+  const { data } = useUserAttendRateQuery(
     dateRange?.startDate,
     dateRange?.endDate
   );
 
-  const { data: currentMonthAttend } = useUserParticipationRateQuery(
+  const { data: currentMonthAttend } = useUserAttendRateQuery(
     dayjs().date(1),
     dayjs()
   );

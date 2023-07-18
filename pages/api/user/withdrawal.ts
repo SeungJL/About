@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { withdrawal } from "../../../libs/utils/oauthUtils";
+import { withdrawal } from "../../../libs/backend/oauthUtils";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

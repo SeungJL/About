@@ -1,20 +1,17 @@
-import Seo from "../../components/Seo";
-
-import { useState } from "react";
-import Header from "../../components/layouts/Header";
-import Category from "../../pagesComponents/plaza/main/Category";
-import { PlazaLayout } from "../../pagesComponents/plaza/main/plazaStyles";
-import { category } from "../../types/page/plaza";
-
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
+import Header from "../../components/layouts/Header";
 import ModalPortal from "../../components/ModalPortal";
-
-import { useUserRequestQuery } from "../../hooks/userRequest/queries";
+import Seo from "../../components/Seo";
+import { useUserRequestQuery } from "../../hooks/user/queries";
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
+import Category from "../../pagesComponents/plaza/main/Category";
 import PlazaBlock from "../../pagesComponents/plaza/main/PlazaBlock";
+import { PlazaLayout } from "../../pagesComponents/plaza/main/plazaStyles";
+import { category } from "../../types/page/plaza";
 
 function Plaza() {
   const { data } = useUserRequestQuery({

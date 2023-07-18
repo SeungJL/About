@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../components/ModalPortal";
-import { useCompleteToast } from "../hooks/ui/CustomToast";
+import { useCompleteToast } from "../hooks/CustomToast";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
 import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";

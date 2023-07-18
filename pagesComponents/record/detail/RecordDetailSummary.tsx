@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { useUserAttendRateQueries } from "../../../hooks/user/studyStatistics/queries";
-import { getWeekNumber } from "../../../libs/utils/dateUtils";
+import { getWeekNumber } from "../../../libs/dateUtils";
 import { isRecordDetailLoadingState } from "../../../recoil/loadingAtoms";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 

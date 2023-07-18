@@ -2,8 +2,7 @@ import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import ScoreBadge from "../../components/common/ScoreBadge";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { getRole } from "../../libs/contentConverter";
-import { birthToAge } from "../../libs/utils/membersUtil";
+import { birthToAge, getRole } from "../../libs/converter";
 function MemberMyProfile() {
   const { data: userInfo } = useUserInfoQuery();
 

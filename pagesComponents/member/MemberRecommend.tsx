@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useFailToast } from "../../hooks/ui/CustomToast";
+import { useFailToast } from "../../hooks/CustomToast";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 
 function MemberRecommend() {

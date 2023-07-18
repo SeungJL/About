@@ -5,14 +5,14 @@ import { PopUpLayout } from "../../components/common/modal/Modals";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Skeleton from "../../components/common/skeleton/Skeleton";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { useUserParticipationRateQuery } from "../../hooks/user/studyStatistics/queries";
+import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const { data: userInfo } = useUserInfoQuery();
 
-  const { data: parRate, isLoading } = useUserParticipationRateQuery(
+  const { data: parRate, isLoading } = useUserAttendRateQuery(
     dayjs().day(1).subtract(1, "week"),
     dayjs().day(0)
   );

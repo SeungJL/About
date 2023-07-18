@@ -12,7 +12,7 @@ import { UseMutateFunction } from "react-query";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
-import { useFailToast } from "../../../hooks/ui/CustomToast";
+import { useFailToast } from "../../../hooks/CustomToast";
 import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
 import {
   AVATAR_COLOR,

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { now } from "../../../libs/utils/dateUtils";
+import { now } from "../../../libs/dateUtils";
 
 export default async function handler(
   req: NextApiRequest,

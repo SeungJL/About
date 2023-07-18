@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
 import { PopUpLayout } from "../../components/common/modal/Modals";
-import { useCompleteToast } from "../../hooks/ui/CustomToast";
+import { useCompleteToast } from "../../hooks/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import {
   ModalFooterNav,

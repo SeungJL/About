@@ -1,3 +1,5 @@
+import dayjs, { Dayjs } from "dayjs";
+import { STUDY_VOTE_END_HOUR, STUDY_VOTE_START_HOUR } from "../constants/study";
 import {
   ANYANG_숨맑은집,
   ANYANG_인뎃커피,
@@ -14,8 +16,9 @@ import {
   YANG_파스쿠찌,
   YANG_할리스,
   YANG_할리스2,
-} from "../../storage/study";
-import { IPlace, IStudy } from "../../types/study/study";
+} from "../storage/study";
+import { IPlace, IStudy, StudyDate } from "../types/study/study";
+import { getToday, now } from "./dateUtils";
 
 export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
   const temp = [];
@@ -61,4 +64,29 @@ export const arrangeMainSpace = (participations: IStudy[]) => {
   };
 
   return participations.sort(compare);
+};
+
+export const getInterestingDate = () => {
+  const today = getToday();
+  const current = now();
+  if (current < today.hour(STUDY_VOTE_START_HOUR)) return today;
+  return today.add(1, "day");
+};
+
+type GetStudyDate = (voteDate: Dayjs) => StudyDate;
+
+export const getStudyDate: GetStudyDate = (voteDate) => {
+  const currentDate = dayjs().date();
+  const currentHours = dayjs().hour();
+  const selectDate = voteDate.date();
+
+  if (currentDate === selectDate - 1) {
+    if (currentHours >= STUDY_VOTE_END_HOUR) return "today";
+  }
+  if (currentDate === selectDate) {
+    if (currentHours < STUDY_VOTE_END_HOUR) return "today";
+    else return "passed";
+  }
+  if (selectDate < currentDate) return "passed";
+  if (currentDate < selectDate) return "not passed";
 };

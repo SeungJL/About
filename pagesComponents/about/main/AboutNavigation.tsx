@@ -14,7 +14,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../../constants/design";
 import { GATHER_ALERT, POINT_ALERT } from "../../../constants/localStorage";
-import { useFailToast } from "../../../hooks/ui/CustomToast";
+import { useFailToast } from "../../../hooks/CustomToast";
 import { userLocationState } from "../../../recoil/userAtoms";
 
 function AboutNavigation() {

@@ -1,6 +1,6 @@
 import { Badge } from "@chakra-ui/react";
 import { USER_BADGES } from "../../constants/convert";
-import { getUserBadgeScore } from "../../libs/utils/userUtils";
+import { getUserBadgeScore } from "../../libs/userUtils";
 
 interface IScoreBadge {
   score: number;

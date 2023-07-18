@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-
 import Seo from "../../components/Seo";
 import { fetchFamousBooks } from "../../hooks/book/temp";
 

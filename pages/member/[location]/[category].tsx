@@ -9,9 +9,9 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import Header from "../../../components/layouts/Header";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import dbConnect from "../../../libs/dbConnect";
-import { birthToDayjs } from "../../../libs/utils/dateUtils";
-import { birthToAge } from "../../../libs/utils/membersUtil";
+import dbConnect from "../../../libs/backend/dbConnect";
+import { birthToAge, birthToDayjs } from "../../../libs/converter";
+
 import { User } from "../../../models/user";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";

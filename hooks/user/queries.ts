@@ -1,40 +1,24 @@
 import axios, { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery } from "react-query";
+import { USER_INFO, USER_REQUEST } from "../../constants/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-
-import { USER_COMMENT, USER_FINFACTIVE } from "../../libs/queryKeys";
+import { QueryOptions } from "../../types/reactTypes";
 import { Location } from "../../types/system";
 import {
   IAvatar,
+  IIsActive,
   IRegisterForm,
   IUser,
-  IUserComment,
   Role,
 } from "../../types/user/user";
+import {
+  IUserRequest,
+  UserRequestCategory,
+} from "../../types/user/userRequest";
 
-export const useRegisterFormsQuery = (
-  options?: Omit<
-    UseQueryOptions<IRegisterForm[], AxiosError, IRegisterForm[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IRegisterForm[], AxiosError, IRegisterForm[]>(
-    "registerForms",
-    async () => {
-      const res = await axios.get<IRegisterForm[]>(`${SERVER_URI}/register`);
-      return res.data;
-    },
-    options
-  );
-
-export const useUserInfoQuery = (
-  options?: Omit<
-    UseQueryOptions<IUser, AxiosError, IUser>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>
   useQuery<IUser, AxiosError, IUser>(
-    [USER_FINFACTIVE, "userInfo"],
+    [USER_INFO],
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
       return res.data;
@@ -42,14 +26,9 @@ export const useUserInfoQuery = (
     options
   );
 
-export const useUserRoleQuery = (
-  options?: Omit<
-    UseQueryOptions<Role, AxiosError, Role>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useUserRoleQuery = (options?: QueryOptions<Role>) =>
   useQuery<Role, AxiosError, Role>(
-    [USER_FINFACTIVE, "userRole"],
+    [USER_INFO, "userRole"],
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
       return res.data.role;
@@ -57,14 +36,9 @@ export const useUserRoleQuery = (
     options
   );
 
-export const useUserLocationQuery = (
-  options?: Omit<
-    UseQueryOptions<Location, AxiosError, Location>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useUserLocationQuery = (options?: QueryOptions<Location>) =>
   useQuery<Location, AxiosError, Location>(
-    [USER_FINFACTIVE, "userLocation"],
+    [USER_INFO, "userLocation"],
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
       return res.data.location;
@@ -72,36 +46,7 @@ export const useUserLocationQuery = (
     options
   );
 
-interface IComment {
-  comments: IUserComment[];
-}
-
-export const useUserCommentQuery = (
-  options?: Omit<
-    UseQueryOptions<IComment, AxiosError, IComment>,
-    "queryKey" | "queryFn"
-  >
-) =>
-  useQuery<IComment, AxiosError, IComment>(
-    USER_COMMENT,
-    async () => {
-      const res = await axios.get<IComment>(`${SERVER_URI}/user/comment`);
-      return res.data;
-    },
-    options
-  );
-interface IIsActive {
-  isActive: {
-    isActive: boolean;
-    _id: string;
-  };
-}
-export const useUserIsActiveQuery = (
-  options?: Omit<
-    UseQueryOptions<IIsActive, AxiosError, IIsActive>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useUserIsActiveQuery = (options?: QueryOptions<IIsActive>) =>
   useQuery<IIsActive, AxiosError, IIsActive>(
     "isActive",
     async () => {
@@ -112,12 +57,7 @@ export const useUserIsActiveQuery = (
     options
   );
 
-export const useUserAvatarQuery = (
-  options?: Omit<
-    UseQueryOptions<IAvatar, AxiosError, IAvatar>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useUserAvatarQuery = (options?: QueryOptions<IAvatar>) =>
   useQuery<IAvatar, AxiosError, IAvatar>(
     "avatar",
     async () => {
@@ -126,3 +66,57 @@ export const useUserAvatarQuery = (
     },
     options
   );
+
+export const useRegisterFormsQuery = (
+  options?: QueryOptions<IRegisterForm[]>
+) =>
+  useQuery<IRegisterForm[], AxiosError, IRegisterForm[]>(
+    "registerForms",
+    async () => {
+      const res = await axios.get<IRegisterForm[]>(`${SERVER_URI}/register`);
+      return res.data;
+    },
+    options
+  );
+export const useUserRequestQuery = (options?: QueryOptions<IUserRequest[]>) =>
+  useQuery<IUserRequest[], AxiosError, IUserRequest[]>(
+    USER_REQUEST,
+    async () => {
+      const res = await axios.get<IUserRequest[]>(`${SERVER_URI}/plaza`);
+      return res.data;
+    },
+    options
+  );
+
+export const useUserRequestCategoryQuery = (
+  category: UserRequestCategory,
+  options?: QueryOptions<IUserRequest[]>
+) =>
+  useQuery<IUserRequest[], AxiosError, IUserRequest[]>(
+    [USER_REQUEST, category],
+    async () => {
+      const res = await axios.get<IUserRequest[]>(`${SERVER_URI}/plaza`);
+      const filterData = res.data.filter((item) => item.category === category);
+      return filterData;
+    },
+    options
+  );
+
+// interface IComment {
+//   comments: IUserComment[];
+// }
+
+// export const useUserCommentQuery = (
+//   options?: Omit<
+//     UseQueryOptions<IComment, AxiosError, IComment>,
+//     "queryKey" | "queryFn"
+//   >
+// ) =>
+//   useQuery<IComment, AxiosError, IComment>(
+//     USER_COMMENT,
+//     async () => {
+//       const res = await axios.get<IComment>(`${SERVER_URI}/user/comment`);
+//       return res.data;
+//     },
+//     options
+//   );

@@ -1,12 +1,11 @@
-import styled from "styled-components";
-
 import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
-import dbConnect from "../../libs/dbConnect";
-import { getInterestingDate, getToday } from "../../libs/utils/dateUtils";
-
 import { useRouter } from "next/router";
+import styled from "styled-components";
 import Header from "../../components/layouts/Header";
+import dbConnect from "../../libs/backend/dbConnect";
+import { getToday } from "../../libs/dateUtils";
+import { getInterestingDate } from "../../libs/studyUtils";
 import { Attendence } from "../../models/attendence";
 import { User } from "../../models/user";
 

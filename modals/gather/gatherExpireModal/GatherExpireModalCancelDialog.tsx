@@ -12,14 +12,14 @@ import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import {
-  useGatherDeleteMutation,
-  useGatherStatusClose,
-} from "../../../hooks/gather/mutations";
-import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/ui/CustomToast";
+} from "../../../hooks/CustomToast";
+import {
+  useGatherDeleteMutation,
+  useGatherStatusClose,
+} from "../../../hooks/gather/mutations";
 import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 

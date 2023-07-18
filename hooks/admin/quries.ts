@@ -1,14 +1,10 @@
 import axios, { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery } from "react-query";
 import { SERVER_URI } from "../../constants/system";
+import { QueryOptions } from "../../types/reactTypes";
 import { IUser } from "../../types/user/user";
 
-export const useAdminUsersControlQuery = (
-  options?: Omit<
-    UseQueryOptions<IUser[], AxiosError, IUser[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>
   useQuery<IUser[], AxiosError, IUser[]>(
     "adminUserControl",
     async () => {

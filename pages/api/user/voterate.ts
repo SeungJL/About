@@ -1,6 +1,6 @@
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import dbConnect from "../../../libs/dbConnect";
+import dbConnect from "../../../libs/backend/dbConnect";
 
 import { User } from "../../../models/user";
 import { Vote } from "../../../models/vote";

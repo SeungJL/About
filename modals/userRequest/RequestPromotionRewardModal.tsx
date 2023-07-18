@@ -1,4 +1,3 @@
-import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
@@ -10,21 +9,16 @@ import {
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
-import { useCompleteToast, useFailToast } from "../../hooks/ui/CustomToast";
+import { useUserRequestMutation } from "../../hooks/user/mutations";
 
 import {
   usePointMutation,
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { useUserRequestMutation } from "../../hooks/userRequest/mutations";
 import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
-  const toast = useToast();
-  const completeToast = useCompleteToast();
-  const failToast = useFailToast();
-
   const { data: session } = useSession();
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
