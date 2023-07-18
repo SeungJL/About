@@ -1,15 +1,17 @@
-import { useToast } from "@chakra-ui/react";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 import { STUDY_TIME_TABLE } from "../../../constants/study";
+import { useFailToast } from "../../../hooks/CustomToast";
 import { ITimeSelector } from "../../../types/timeAndDate";
 
 function TimeSelectorBoard({ times, setTimes }: ITimeSelector) {
-  const toast = useToast();
+  const failToast = useFailToast();
+
   const [isStart, setIsStart] = useState(true);
 
   const timeArr: Dayjs[] = [];
+
   const startTime =
     times.start &&
     dayjs()
@@ -36,14 +38,7 @@ function TimeSelectorBoard({ times, setTimes }: ITimeSelector) {
       setIsStart(false);
     } else {
       if (time.format("HH:mm") < startTime) {
-        toast({
-          title: "선택 불가능",
-          description: "종료 시간은 시작 시간 이후여야 합니다",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "bottom",
-        });
+        failToast("free", "종료 시간은 시작 시간 이후여야 합니다.");
         return;
       }
       if (time.format("HH:mm") === startTime) {
@@ -59,7 +54,6 @@ function TimeSelectorBoard({ times, setTimes }: ITimeSelector) {
           start: times.start,
           end: null,
         });
-
         return;
       }
       setTimes({
@@ -93,9 +87,10 @@ const Layout = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: 2px solid var(--font-h5);
+  border: var(--border-main);
   border-radius: var(--border-radius-sub);
-  padding: 4px 0;
+  padding: var(--padding-min) 0;
+  padding-right: var(--padding-md);
   overflow-y: auto;
 `;
 
@@ -117,7 +112,7 @@ const SelectCircle = styled.div<{ isStart: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: var(--border-radius-main);
 `;
 
 export default TimeSelectorBoard;

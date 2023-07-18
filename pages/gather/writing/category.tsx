@@ -1,12 +1,13 @@
 import { useToast } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
+import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/layout/ProgressStatus";
+import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
@@ -15,6 +16,7 @@ import { GatherType } from "../../../types/page/gather";
 
 function WritingCategory() {
   const router = useRouter();
+  const failToast = useFailToast();
   const toast = useToast();
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherDataState
@@ -23,14 +25,7 @@ function WritingCategory() {
 
   const onClickNext = () => {
     if (!selectType) {
-      toast({
-        title: "진행 불가",
-        description: `주제를 선택해 주세요!`,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+      failToast("free", "주제를 선택해 주세요!", true);
       return;
     }
     setGatherContent((old) => ({ ...old, type: selectType }));
@@ -38,7 +33,7 @@ function WritingCategory() {
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+    <PageLayout>
       <ProgressStatus value={25} />
       <Header title="" url="/gather" />
       <RegisterLayout>
@@ -62,16 +57,12 @@ function WritingCategory() {
         </ItemContainer>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </Layout>
+    </PageLayout>
   );
 }
 
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
-
 const ItemContainer = styled.div`
-  margin-top: 20px;
+  margin-top: var(--margin-max);
   display: flex;
   flex-direction: column;
 `;
@@ -79,13 +70,11 @@ const ItemContainer = styled.div`
 const Item = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: var(--margin-md);
   height: 60px;
   border-radius: var(--border-radius-sub);
   border: ${(props) =>
-    props.isSelected
-      ? "1.5px solid var(--color-mint)"
-      : "1.5px solid  var(--font-h6)"};
+    props.isSelected ? "var(--border-mint)" : "var(--border-main)"};
 `;
 
 const IconWrapper = styled.div`

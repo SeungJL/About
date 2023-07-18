@@ -77,11 +77,10 @@ function SearchLocation({ location, setLocation }: ISearchLocation) {
 const Input = styled.input`
   height: 100%;
   width: 100%;
-  margin-left: 4px;
+  margin-left: var(--margin-min);
   background-color: inherit;
-
-  padding: 8px 1px;
-  padding-left: 5px;
+  padding: var(--padding-md) 0;
+  padding-left: var(--padding-min);
   ::placeholder {
     font-size: 13px;
   }
@@ -92,22 +91,22 @@ const Input = styled.input`
 
 const Wrapper = styled.div`
   height: 100%;
-  border-bottom: 1.5px solid var(--font-h5);
-  padding-left: 1px;
+  border-bottom: var(--border-main);
+  padding-left: var(--padding-min);
   display: flex;
   align-items: center;
   width: 85%;
-  margin-right: 8px;
+  margin-right: var(--margin-md);
 `;
 
 const SearchContent = styled.div<{ isContent: boolean }>`
-  margin-top: 12px;
-  height: ${(props) => (props.isContent ? "220px" : null)};
-  padding-left: 12px;
+  margin-top: var(--margin-sub);
+  height: ${(props) => props.isContent && "220px"};
+  padding-left: var(--padding-sub);
   overflow: auto;
   border: ${(props) => (props.isContent ? "1px solid var(--font-h5)" : null)};
   border-radius: var(--border-radius-sub);
-  padding: 6px 8px;
+  padding: var(--padding-min);
 `;
 
 const Layout = styled.div`
@@ -122,7 +121,7 @@ const Layout = styled.div`
 
 const Item = styled.div`
   color: var(--font-h2);
-  padding: 5px 0;
+  padding: var(--padding-min) 0;
 `;
 
 export default SearchLocation;

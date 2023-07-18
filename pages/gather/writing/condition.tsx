@@ -12,7 +12,6 @@ import {
   RangeSliderThumb,
   RangeSliderTrack,
   Switch,
-  useToast,
 } from "@chakra-ui/react";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -32,9 +31,11 @@ import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import ModalPortal from "../../../components/common/ModalPortal";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
+import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/layout/ProgressStatus";
 import SuccessScreen from "../../../components/layout/SuccessScreen";
 import { randomPassword } from "../../../helpers/validHelpers";
+import { useErrorToast, useFailToast } from "../../../hooks/CustomToast";
 import { useGatherContentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
@@ -45,7 +46,9 @@ import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 const AGE_BAR = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
 function WritingCondition() {
-  const toast = useToast();
+  const errorToast = useErrorToast();
+  const failToast = useFailToast();
+
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherDataState
   );
@@ -61,19 +64,17 @@ function WritingCondition() {
   const [isPreMember, setIsPreMember] = useState(
     gatherContent?.preCnt ? true : false
   );
-
   const [isMaxCondition, setIsMaxCondition] = useState(true);
-
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
-
   const [age, setAge] = useState(gatherContent?.age || [19, 28]);
-
+  const [password, setPassword] = useState(gatherContent?.password);
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
   const { mutate } = useGatherContentMutation({
-    onSuccess(data) {
-      console.log("Suc");
+    onSuccess() {
+      setIsSuccessScreen(true);
     },
+    onError: errorToast,
   });
 
   const { data } = useUserInfoQuery();
@@ -83,14 +84,7 @@ function WritingCondition() {
       !isMaxCondition &&
       (minValue < 1 || maxValue < 1 || minValue > maxValue)
     ) {
-      toast({
-        title: "진행 불가",
-        description: `인원을 확인해 주세요.`,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+      failToast("free", "인원을 확인해 주세요!", true);
       return;
     }
     const gatherData = {
@@ -103,15 +97,11 @@ function WritingCondition() {
       user: data,
     };
     setGatherContent(gatherData);
-
     mutate(gatherData);
-    setIsSuccessScreen(true);
   };
   const onChangeAge = (value) => {
     setAge(value);
   };
-
-  const [password, setPassword] = useState(gatherContent?.password);
 
   useEffect(() => {
     if (isPreMember) setPassword(randomPassword());
@@ -119,7 +109,7 @@ function WritingCondition() {
 
   return (
     <>
-      <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+      <PageLayout>
         <ProgressStatus value={100} />
         <Header title="" url="/gather/writing/date" />
         <RegisterLayout>
@@ -209,7 +199,6 @@ function WritingCondition() {
                   <FontAwesomeIcon icon={faUser} />
                   <span>나이(만)</span>
                 </div>
-
                 <Switch
                   colorScheme="mintTheme"
                   isChecked={ageCondition}
@@ -309,7 +298,7 @@ function WritingCondition() {
           </Container>
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
-      </Layout>
+      </PageLayout>
       {isSuccessScreen && (
         <ModalPortal setIsModal={setIsSuccessScreen}>
           <SuccessScreen url={`/gather`}>
@@ -328,20 +317,17 @@ const PreAlert = styled.span`
   font-size: 11px;
   color: var(--font-h3);
 `;
-const GatherLink = styled.span`
-  margin-right: 12px;
-`;
 
 const MemberCnt = styled.div`
   display: flex;
   align-items: center;
   > span {
-    margin: 0 8px;
+    margin: 0 var(--margin-md);
   }
 `;
 
 const SelectAge = styled(motion.div)`
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   display: flex;
   flex-direction: column;
 `;
@@ -359,10 +345,8 @@ const AgeText = styled.div`
 
 const Age = styled.span``;
 
-const GenderNav = styled.div``;
-
 const PreMemberContainer = styled.div`
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   display: flex;
   justify-content: space-between;
   font-size: 13px;
@@ -371,61 +355,51 @@ const PreMemberContainer = styled.div`
     align-items: center;
     > span {
       color: var(--font-h4);
-      margin-right: 8px;
+      margin-right: var(--margin-md);
     }
   }
 `;
 const PreMember = styled.div`
   display: flex;
-
   align-items: center;
   > div {
-    margin-right: 8px;
+    margin-right: var(--margin-md);
     > span {
-      margin: 0 8px;
+      margin: 0 var(--margin-md);
     }
   }
 `;
 
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
-
 const Container = styled.div`
   font-size: 14px;
-  margin-top: 20px;
+  margin-top: var(--margin-max);
 `;
 
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: var(--padding-main) 0;
   align-items: center;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: var(--border-sub);
   > div:first-child {
     span {
-      margin-left: 8px;
+      margin-left: var(--margin-md);
     }
   }
 `;
 
 const SlideItem = styled(motion.div)`
-  padding: 16px 0;
-  border-bottom: 1px solid var(--font-h5);
+  padding: var(--padding-main) 0;
+  border-bottom: var(--border-sub);
   > div {
     display: flex;
     justify-content: space-between;
     > div:first-child {
       span {
-        margin-left: 8px;
+        margin-left: var(--margin-md);
       }
     }
   }
-`;
-
-const SuccessMesagge = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export default WritingCondition;

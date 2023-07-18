@@ -18,6 +18,8 @@ function PageLayout({ children }: IPageLayout) {
   );
 }
 
-const Layout = styled(motion.div)``;
+const Layout = styled(motion.div)`
+  min-height: 100vh;
+`;
 
 export default PageLayout;

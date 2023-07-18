@@ -15,7 +15,7 @@ export const useFailToast = () => {
   const toast = useToast();
 
   const showFailToast = useCallback(
-    (type: FailToast, sub?: string) => {
+    (type: FailToast, sub?: string, isTop: boolean = false) => {
       let text = "";
       if (type === "free") text = sub;
       if (type === "error")
@@ -31,8 +31,7 @@ export const useFailToast = () => {
         status: "error",
         duration: 3000,
         isClosable: true,
-        position: "bottom",
-        variant: "subtle",
+        position: isTop ? "top" : "bottom",
       });
     },
     [toast]

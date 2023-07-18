@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useFailToast } from "../../../hooks/CustomToast";
 
 interface ISpaceMap {
   lat?: number;
@@ -7,6 +8,7 @@ interface ISpaceMap {
 
 function SpaceMap({ lat, lon }: ISpaceMap) {
   const mapRef = useRef();
+  const failToast = useFailToast();
 
   const [myLat, setMyLat] = useState(null);
   const [myLon, setMyLon] = useState(null);
@@ -56,14 +58,13 @@ function SpaceMap({ lat, lon }: ISpaceMap) {
     };
 
     const onError = (error) => {
-      console.error(error);
+      failToast("free", "오류가 발생했어요! 관리자에게 문의해주세요!");
     };
 
-    if (navigator.geolocation) {
+    if (navigator.geolocation)
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
+    else console.error("Geolocation is not supported by this browser.");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

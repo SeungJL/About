@@ -1,5 +1,4 @@
 import { useToast } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -7,8 +6,10 @@ import styled from "styled-components";
 import TimeSelectorUnit from "../../../components/features/atoms/TimeSelectorUnit";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
+import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/layout/ProgressStatus";
 import { TIME_SELECTOR_UNIT } from "../../../constants/util";
+import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
@@ -23,6 +24,7 @@ interface IGather {
 function WritingContent() {
   const router = useRouter();
   const toast = useToast();
+  const failToast = useFailToast();
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherDataState
   );
@@ -57,25 +59,11 @@ function WritingContent() {
 
   const onClickNext = () => {
     if (!firstGather?.text) {
-      toast({
-        title: "진행 불가",
-        description: `1차 모임 작성은 필수입니다!`,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+      failToast("free", "1차 모임 작성은 필수입니다!", true);
       return;
     }
     if (!title || !content) {
-      toast({
-        title: "진행 불가",
-        description: `내용을 작성해 주세요!`,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+      failToast("free", "내용을 작성해 주세요!", true);
       return;
     }
     setGatherContent((old) => ({
@@ -90,12 +78,11 @@ function WritingContent() {
         },
       ],
     }));
-
     router.push(`/gather/writing/date`);
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+    <PageLayout>
       <ProgressStatus value={50} />
       <Header title="" url="/gather/writing/category" />
       <RegisterLayout>
@@ -144,19 +131,15 @@ function WritingContent() {
         <Message>2차 모임은 있는 경우에만 작성해 주시면 돼요!</Message>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </Layout>
+    </PageLayout>
   );
 }
-
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
 
 const Container = styled.div``;
 
 const TitleInput = styled.input`
-  margin-top: 20px;
-  border-bottom: 2px solid var(--font-h1);
+  margin-top: var(--margin-max);
+  border-bottom: var(--border-thick);
   width: 100%;
   height: 40px;
   background-color: inherit;
@@ -171,45 +154,44 @@ const TitleInput = styled.input`
 const TimeContent = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 14px;
+  margin-top: var(--margin-main);
   > span:first-child {
     color: var(--font-h2);
     font-size: 14px;
     font-weight: 600;
-    margin-right: 12px;
+    margin-right: var(--margin-sub);
   }
 `;
 
 const TimeContentInput = styled.input`
   flex: 1;
-  border: 1.5px solid var(--font-h5);
+  border: var(--border-main);
   border-radius: var(--border-radius-sub);
   height: 36px;
-
-  padding: 8px 10px;
+  padding: var(--padding-md);
   font-size: 12px;
   :focus {
     outline: none;
-    border: 1.5px solid var(--font-h2);
+    border: var(--border-focus);
   }
 `;
 
 const Content = styled.textarea`
   margin-top: 40px;
-  border: 1.5px solid var(--font-h5);
+  border: var(--border-main);
   border-radius: var(--border-radius-sub);
   height: 200px;
   width: 100%;
-  padding: 8px 10px;
+  padding: var(--padding-sub);
   font-size: 12px;
   :focus {
     outline: none;
-    border: 1.5px solid var(--font-h2);
+    border: var(--border-focus);
   }
 `;
 
 const Message = styled.div`
-  margin-top: 20px;
+  margin-top: var(--margin-max);
   font-size: 13px;
   color: var(--font-h4);
 `;

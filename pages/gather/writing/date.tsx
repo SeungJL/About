@@ -7,7 +7,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ko from "date-fns/locale/ko";
 import dayjs, { Dayjs } from "dayjs";
-import { motion } from "framer-motion";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -17,6 +16,7 @@ import styled from "styled-components";
 import SearchLocation from "../../../components/features/lib/SearchLocation";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
+import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/layout/ProgressStatus";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
@@ -77,7 +77,7 @@ function WritingDate() {
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+    <PageLayout>
       <ProgressStatus value={75} />
       <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
@@ -97,12 +97,7 @@ function WritingDate() {
             dateFormat="M월 d일 p"
             minTime={minTime}
             maxTime={maxTime}
-            renderCustomHeader={({
-              date,
-
-              decreaseMonth,
-              increaseMonth,
-            }) => (
+            renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
               <CalendarCustomHeader>
                 <button onClick={decreaseMonth}>
                   <FontAwesomeIcon icon={faChevronLeft} />
@@ -125,7 +120,7 @@ function WritingDate() {
         </Location>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </Layout>
+    </PageLayout>
   );
 }
 
@@ -138,20 +133,17 @@ const CalendarCustomHeader = styled.div`
 
 const Container = styled.div`
   display: flex;
-
-  margin-top: 20px;
+  padding-left: var(--padding-min);
+  margin-top: var(--margin-max);
   align-items: center;
-
-  border-bottom: 1.5px solid var(--font-h5);
+  border-bottom: var(--border-main);
 
   .react-datepicker__time-list-item {
     font-size: 14px;
   }
-
   .react-datepicker__header {
     font-size: 14px;
   }
-
   .react-datepicker__day-name {
     font-weight: 400;
     font-size: 12px;
@@ -170,22 +162,18 @@ const Container = styled.div`
 
 const StyledDatePicker = styled(DatePicker)`
   background-color: inherit;
-  padding: 12px 0;
-  margin-left: 8px;
+  padding: var(--padding-sub) 0;
+  margin-left: var(--margin-md);
   :focus {
     outline: none;
   }
 `;
 
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
-
 const LocationDetailInput = styled.input`
   width: 100%;
   background-color: inherit;
-  border-bottom: 1.5px solid var(--font-h5);
-  padding: 6px 4px;
+  border-bottom: var(--border-main);
+  padding: var(--padding-min);
   outline: none;
   font-size: 13px;
   color: var(--font-h2);

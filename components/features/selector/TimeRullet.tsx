@@ -66,7 +66,7 @@ function TimeRullet({ timeArr, setTime }: ITimeRullet) {
 
 const Layout = styled.div`
   height: 187px;
-  margin-top: 8px;
+  margin-top: var(--margin-md);
   width: 161px;
   border-radius: 13px;
   background-color: var(--font-h8);

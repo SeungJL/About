@@ -35,10 +35,13 @@
   --border-sub: 1px solid var(--font-h5);
   --border-sub-light: 1px solid var(--border-color-light);
 
+  --border-thick: 2px solid var(--font-h1);
+
   --border-mint: 1.5px solid var(--color-mint);
 
   --border-radius-sub: 6px;
   --border-radius-main: 12px;
+  --border-focus: 1.5px solid var(--font-h1);
 
   --padding-max: 20px;
   --padding-main: 16px;
