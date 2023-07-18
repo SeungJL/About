@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import SkeletonItem from "../../components/common/skeleton/SkeletonItem";
 import CountNum from "../../components/utils/CountNum";
@@ -70,7 +70,7 @@ function StoreApplyGiftModal({
 
   return (
     <ModalLayout size="md">
-      <ModalHeaderXLine title="상품 응모" setIsModal={setIsModal} />
+      <ModalHeaderX title="상품 응모" setIsModal={setIsModal} />
       <ModalMain>
         {!isLoading ? (
           <>

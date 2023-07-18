@@ -97,12 +97,8 @@ const Item = styled.div`
   }
   > input,
   select {
-    padding: 0 var(--padding-min);
+    padding: var(--padding-min);
   }
-`;
-
-const TypeMessage = styled.span`
-  margin-left: var(--margin-sub);
 `;
 
 const DateItem = styled(Item)`

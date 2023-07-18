@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { PopUpLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
@@ -30,7 +30,7 @@ function ProfileModifyPopUp({ setIsModal }: IModal) {
   return (
     <>
       <PopUpLayout size="md">
-        <ModalHeaderXLine title="프로필 수정" setIsModal={setIsModal} />
+        <ModalHeaderX title="프로필 수정" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>
             입력할 수 있는 프로필 정보가 있어요! (+5점)

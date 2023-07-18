@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import {
   ModalFooterNav,
@@ -13,7 +13,7 @@ function NotCompletedModal2({ setIsModal }: IModal) {
   return (
     <>
       <ModalLayout size="md">
-        <ModalHeaderXLine title="미완성 컨텐츠" setIsModal={setIsModal} />
+        <ModalHeaderX title="미완성 컨텐츠" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>완전히 완성되지 않은 컨텐츠 입니다.</ModalSubtitle>
           <div>

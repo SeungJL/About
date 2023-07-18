@@ -1,4 +1,4 @@
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import {
   ModalFooterNav,
@@ -11,7 +11,7 @@ function ServerInspectModal({ setIsModal }: IModal) {
   return (
     <>
       <ModalLayout size="md">
-        <ModalHeaderXLine title="점검중" setIsModal={setIsModal} />
+        <ModalHeaderX title="점검중" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>임시적으로 비활성화 된 컨텐츠 입니다.</ModalSubtitle>
           <div>

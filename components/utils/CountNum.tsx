@@ -1,11 +1,11 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SetStateAction } from "react";
 import styled from "styled-components";
+import { DispatchNumber } from "../../types/reactTypes";
 
 interface ICountNum {
   value: number;
-  setValue: React.Dispatch<SetStateAction<number>>;
+  setValue: DispatchNumber;
 }
 
 function CountNum({ value, setValue }: ICountNum) {

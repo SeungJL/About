@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../../components/layouts/Header";
-import { LogoAdjustmentImage } from "../../components/ui/DesignAdjustment";
+import { StudySpaceLogo } from "../../components/ui/DesignAdjustment";
 import { useStudyPlaceQuery } from "../../hooks/study/queries";
 import { ISpaceControl } from "../../types/page/admin";
 
@@ -137,7 +137,7 @@ function StudySpaceControl() {
           >
             <div>
               <ImageContainer>
-                <LogoAdjustmentImage place={place} />
+                <StudySpaceLogo place={place} isBig={false} />
               </ImageContainer>
               <SpaceInfo>
                 <Status>

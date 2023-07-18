@@ -49,10 +49,13 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
       <Layout>
         <Grade>
           <div>
-            <Badge marginRight="var(--margin-md)" colorScheme={userBadge.color}>
-              {userBadge.badge}
+            <Badge
+              marginRight="var(--margin-md)"
+              colorScheme={userBadge?.color}
+            >
+              {userBadge?.badge}
             </Badge>
-            <span style={{ color: userBadge.color }}>{myPoint || "0"}점</span>
+            <span style={{ color: userBadge?.color }}>{myPoint || "0"}점</span>
             <IconWrapper onClick={() => setIsBadgeInfoModal(true)}>
               <FontAwesomeIcon icon={faQuestionCircle} />
             </IconWrapper>

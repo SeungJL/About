@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { PopUpLayout } from "../../components/common/modal/Modals";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Skeleton from "../../components/common/skeleton/Skeleton";
@@ -22,7 +22,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   return (
     <>
       <PopUpLayout size="md">
-        <ModalHeaderXLine title="지난주 스터디 기록" setIsModal={setIsModal} />
+        <ModalHeaderX title="지난주 스터디 기록" setIsModal={setIsModal} />
         <Container>
           {!isLoading ? (
             <Info>

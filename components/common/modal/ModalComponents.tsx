@@ -53,27 +53,3 @@ const ModalFooterTwoLayout = styled.div`
     flex: 1;
   }
 `;
-
-export const ModalHeaderXLine = ({ title, setIsModal }: IModalHeader) => (
-  <ModalHeaderXLineLayout>
-    <span>{title}</span>
-    <div onClick={() => setIsModal(false)}>
-      <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
-    </div>
-  </ModalHeaderXLineLayout>
-);
-
-const ModalHeaderXLineLayout = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 12px;
-  border-bottom: var(--border-main);
-  > span {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--font-h1);
-  }
-  > div {
-    margin-right: 2px;
-  }
-`;

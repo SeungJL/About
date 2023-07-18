@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderXLine } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 
 import { useRouter } from "next/router";
@@ -32,7 +32,7 @@ function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
 
   return (
     <ModalLayout size="md">
-      <ModalHeaderXLine title="당첨자 발표" setIsModal={setIsModal} />
+      <ModalHeaderX title="당첨자 발표" setIsModal={setIsModal} />
       <ModalMain>
         <Message>당첨을 축하합니다!</Message>
         <Winner>
