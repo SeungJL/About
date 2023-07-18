@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { birthToAge } from "../../../helpers/converterHelpers";
 import { useFailToast, useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { birthToAge } from "../../../libs/converter";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { DispatchNumber } from "../../../types/reactTypes";
 

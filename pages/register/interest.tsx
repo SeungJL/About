@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../components/layouts/BottomNav";
-import Header from "../../components/layouts/Header";
-import ProgressStatus from "../../components/layouts/ProgressStatus";
+import BottomNav from "../../components/layout/BottomNav";
+import Header from "../../components/layout/Header";
+import ProgressStatus from "../../components/layout/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 

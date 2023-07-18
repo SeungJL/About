@@ -5,9 +5,10 @@ import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import ModalPortal from "../../components/common/ModalPortal";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import ModalPortal from "../../components/ModalPortal";
 import { USER_BADGES } from "../../constants/convert";
+import { getUserBadgeScore } from "../../helpers/userHelpers";
 import {
   useCompleteToast,
   useErrorToast,
@@ -18,7 +19,6 @@ import {
   useUserRegisterMutation,
 } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { getUserBadgeScore } from "../../libs/userUtils";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { DispatchBoolean } from "../../types/reactTypes";

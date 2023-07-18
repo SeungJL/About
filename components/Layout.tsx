@@ -7,7 +7,7 @@ import Script from "next/script";
 import styled from "styled-components";
 import { useToken } from "../hooks/token/useToken";
 import { useUserInfoQuery } from "../hooks/user/queries";
-import GuestBottomNav from "./layouts/GuestBottomNav";
+import GuestBottomNav from "./layout/GuestBottomNav";
 
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 config.autoAddCss = false;

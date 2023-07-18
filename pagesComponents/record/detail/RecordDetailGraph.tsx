@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AttendChart from "../../../components/utils/AttendChart";
+import AttendChart from "../../../components/features/lib/AttendChart";
 
 function RecordDetailGraph() {
   return (

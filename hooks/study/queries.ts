@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { STUDY_VOTE_INFO } from "../../constants/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../libs/dateUtils";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import { IStudyPreferencesQuery } from "../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
 import { IPlace, IStudyStartTime, IVote } from "../../types/study/study";
 import { IArrivedData } from "../../types/study/studyRecord";

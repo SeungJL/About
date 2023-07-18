@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
+import Header from "../../components/layout/Header";
 import { useUpdateProfileMutation } from "../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
 import { useDepositAllQuery } from "../../hooks/user/pointSystem/queries";

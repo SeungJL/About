@@ -3,9 +3,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { getStudyDate } from "../../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { getStudyDate } from "../../../libs/studyUtils";
 import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
 import { isRefetchStudySpacelState } from "../../../recoil/refetchingAtoms";
 import {

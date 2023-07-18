@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layouts/Header";
+import Header from "../../components/layout/Header";
 import {
   usePointLogQuery,
   usePointQuery,

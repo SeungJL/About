@@ -18,7 +18,7 @@ import {
   YANG_할리스2,
 } from "../storage/study";
 import { IPlace, IStudy, StudyDate } from "../types/study/study";
-import { getToday, now } from "./dateUtils";
+import { getToday, now } from "./dateHelpers";
 
 export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
   const temp = [];

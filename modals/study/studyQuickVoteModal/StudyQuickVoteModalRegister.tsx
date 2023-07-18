@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
-import ModalPortal from "../../../components/ModalPortal";
+import ModalPortal from "../../../components/common/ModalPortal";
 import { userLocationState } from "../../../recoil/userAtoms";
 import {
   ModalFooterNav,

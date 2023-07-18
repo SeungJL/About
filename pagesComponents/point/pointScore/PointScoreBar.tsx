@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/ModalPortal";
+import ModalPortal from "../../../components/common/ModalPortal";
 import { USER_BADGES } from "../../../constants/convert";
+import { getUserBadgeScore } from "../../../helpers/userHelpers";
 import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
-import { getUserBadgeScore } from "../../../libs/userUtils";
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
 import { IUserBadge } from "../../../types/user/user";
 

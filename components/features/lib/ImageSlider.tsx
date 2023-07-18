@@ -13,11 +13,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import {
   prevPageUrlState,
   reviewContentIdState,
-} from "../../recoil/previousAtoms";
-import { transferUserDataState } from "../../recoil/transferDataAtoms";
+} from "../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 
-import { IUser } from "../../types/user/user";
-import ProfileIcon from "../common/Profile/ProfileIcon";
+import { IUser } from "../../../types/user/user";
+import ProfileIcon from "../../common/Profile/ProfileIcon";
 
 SwiperCore.use([Navigation, Pagination]); // apply the Pagination module
 export interface IImageSliderItem {

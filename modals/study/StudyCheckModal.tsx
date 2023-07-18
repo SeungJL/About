@@ -9,6 +9,7 @@ import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
 } from "../../constants/pointSystem";
+import { getToday } from "../../helpers/dateHelpers";
 import {
   useCompleteToast,
   useErrorToast,
@@ -21,7 +22,6 @@ import {
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { useUserLocationQuery } from "../../hooks/user/queries";
-import { getToday } from "../../libs/dateUtils";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { InputSm } from "../../styles/layout/input";
 import {

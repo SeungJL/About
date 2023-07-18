@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import ScoreBadge from "../../components/common/ScoreBadge";
+import { birthToAge, getRole } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { birthToAge, getRole } from "../../libs/converter";
 function MemberMyProfile() {
   const { data: userInfo } = useUserInfoQuery();
 

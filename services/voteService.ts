@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import { strToDate } from "../libs/dateUtils";
+import { strToDate } from "../helpers/dateHelpers";
 import { Vote } from "../models/vote";
 
 export const findOneVote = (date: Date) =>

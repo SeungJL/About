@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
+import Header from "../../components/layout/Header";
 import PointIntro from "../../pagesComponents/point/PointIntro";
 import PointPoint from "../../pagesComponents/point/PointPoint";
 import PointScore from "../../pagesComponents/point/PointScore";

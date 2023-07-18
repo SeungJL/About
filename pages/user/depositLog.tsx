@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layouts/Header";
+import Header from "../../components/layout/Header";
 import {
   useDepositLogQuery,
   useDepositQuery,
@@ -13,7 +13,6 @@ function ScoreLog() {
   const { data } = useDepositQuery();
   const { data: depositLog, isLoading } = useDepositLogQuery();
 
-  
   const filterLog = depositLog?.filter((item) => item?.meta?.value);
 
   return (

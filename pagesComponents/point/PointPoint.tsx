@@ -2,7 +2,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import ImageSlider from "../../components/utils/ImageSlider";
+import ImageSlider from "../../components/features/lib/ImageSlider";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 import { STORE_GIFT } from "../../storage/Store";
 

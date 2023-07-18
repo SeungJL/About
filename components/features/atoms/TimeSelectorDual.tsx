@@ -1,8 +1,8 @@
 import { Select } from "@chakra-ui/react";
 import { ChangeEvent } from "react";
 import styled from "styled-components";
-import { TIME_SELECTOR_MINUTES } from "../../constants/util";
-import { ITime } from "../../types/timeAndDate";
+import { TIME_SELECTOR_MINUTES } from "../../../constants/util";
+import { ITime } from "../../../types/timeAndDate";
 
 interface ITimeSelectorDual {
   time: ITime;

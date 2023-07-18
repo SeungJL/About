@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import SkeletonItem from "../../components/common/skeleton/SkeletonItem";
-import CountNum from "../../components/utils/CountNum";
+import CountNum from "../../components/features/atoms/CountNum";
 import {
   useCompleteToast,
   useErrorToast,

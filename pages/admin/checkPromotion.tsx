@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layouts/Header";
+import Header from "../../components/layout/Header";
 import { useUserRequestQuery } from "../../hooks/user/queries";
 
 function CheckPromotion() {

@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import TimeSelector from "../../components/utils/TimeSelector";
+import TimeSelector from "../../components/features/selector/TimeSelector";
 import { useStudyTimeChangeMutation } from "../../hooks/study/mutations";
 import {
   myStudyFixedState,

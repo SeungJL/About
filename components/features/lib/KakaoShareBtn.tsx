@@ -2,8 +2,8 @@ import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { REVIEW_DATA } from "../../storage/Review";
-import { SQUARE_RANDOM_IMAGE } from "../../storage/SquareRandomImage";
+import { REVIEW_DATA } from "../../../storage/Review";
+import { SQUARE_RANDOM_IMAGE } from "../../../storage/SquareRandomImage";
 
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 

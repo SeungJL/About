@@ -14,10 +14,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layouts/BottomNav";
-import Header from "../../../components/layouts/Header";
-import ProgressStatus from "../../../components/layouts/ProgressStatus";
-import SearchLocation from "../../../components/utils/SearchLocation";
+import SearchLocation from "../../../components/features/lib/SearchLocation";
+import BottomNav from "../../../components/layout/BottomNav";
+import Header from "../../../components/layout/Header";
+import ProgressStatus from "../../../components/layout/ProgressStatus";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
@@ -40,7 +40,7 @@ function WritingDate() {
         ? (gatherContent?.date as Dayjs).toDate()
         : currentDate
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [detail, setDetail] = useState(gatherContent?.location?.sub);

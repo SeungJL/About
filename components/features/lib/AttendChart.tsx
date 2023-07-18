@@ -5,14 +5,14 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { UseQueryResult } from "react-query";
 import styled from "styled-components";
-import { MONTH_LIST } from "../../constants/util";
-import {} from "../../hooks/user/queries";
+import { MONTH_LIST } from "../../../constants/util";
+import { getMonth } from "../../../helpers/dateHelpers";
+import {} from "../../../hooks/user/queries";
 import {
   useUserAttendRateQueries,
   useUserVoteRateQueries,
-} from "../../hooks/user/studyStatistics/queries";
-import { getMonth } from "../../libs/dateUtils";
-import { IUser, IUserAttendRateQueries } from "../../types/user/user";
+} from "../../../hooks/user/studyStatistics/queries";
+import { IUser, IUserAttendRateQueries } from "../../../types/user/user";
 const CHART_MONTH_RANGE = [
   {
     start: dayjs().subtract(2, "month").startOf("month"),

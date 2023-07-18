@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { userLocationState } from "../../recoil/userAtoms";
-import { Location } from "../../types/system";
+import { isMainLoadingState } from "../../../recoil/loadingAtoms";
+import { userLocationState } from "../../../recoil/userAtoms";
+import { Location } from "../../../types/system";
 
 function LocationSelector() {
   const [value, setValue] = useState<Location>("수원");

@@ -3,8 +3,8 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
-import ModalPortal from "../../components/ModalPortal";
+import ModalPortal from "../../components/common/ModalPortal";
+import Header from "../../components/layout/Header";
 import {
   useRegisterFormsQuery,
   useUserInfoQuery,

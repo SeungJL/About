@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
+import { now, strToDate } from "../../../../helpers/dateHelpers";
 import dbConnect from "../../../../libs/backend/dbConnect";
-import { now, strToDate } from "../../../../libs/dateUtils";
 import { findOneVote } from "../../../../services/voteService";
 import { IUser } from "../../../../types/user/user";
 

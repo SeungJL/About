@@ -1,7 +1,7 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import SpaceSelector2 from "../../../components/utils/PlaceSelector";
+import PlaceSelector from "../../../components/features/selector/PlaceSelector";
 import { studyDateState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber } from "../../../types/reactTypes";
@@ -67,7 +67,7 @@ function StudyVoteMainModalPlace({
       <ModalMain>
         <Subtitle>{page === 0 ? "1지망" : "2지망"} 선택</Subtitle>
         {page === 0 ? (
-          <SpaceSelector2
+          <PlaceSelector
             places={places}
             votePlaces={votePlaces}
             setVotePlaces={setVotePlaces}
@@ -75,7 +75,7 @@ function StudyVoteMainModalPlace({
             isBig={isBig}
           />
         ) : (
-          <SpaceSelector2
+          <PlaceSelector
             places={places}
             votePlaces={votePlaces}
             setVotePlaces={setVotePlaces}

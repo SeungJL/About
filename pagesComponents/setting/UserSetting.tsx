@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import ModalPortal from "../../components/ModalPortal";
+import ModalPortal from "../../components/common/ModalPortal";
 import {
   ATTEND_POP_UP,
   NOTICE_ALERT,
@@ -11,11 +11,11 @@ import {
   PROMOTION_POP_UP2,
   USER_GUIDE,
 } from "../../constants/localStorage";
+import { ensureLocalStorage } from "../../helpers/storageHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserRoleMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { ensureLocalStorage } from "../../libs/storage";
 import PromotionModal from "../../modals/aboutHeader/promotionModal/PromotionModal";
 import LastWeekAttendPopUp from "../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import AttendChart from "../../components/utils/AttendChart";
-import { birthToAge } from "../../libs/converter";
+import AttendChart from "../../components/features/lib/AttendChart";
+import { birthToAge } from "../../helpers/converterHelpers";
 import { IUser } from "../../types/user/user";
 
 function DetailInfo({ user }: { user: IUser }) {

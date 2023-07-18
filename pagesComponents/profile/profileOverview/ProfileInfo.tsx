@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import { USER_BADGES } from "../../../constants/convert";
-import { getUserBadgeScore } from "../../../libs/userUtils";
+import { getUserBadgeScore } from "../../../helpers/userHelpers";
 import { IUser } from "../../../types/user/user";
 
 interface IProfileInfo {

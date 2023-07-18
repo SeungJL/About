@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { FullScreen } from "../styles/layout/modal";
-import { IModal } from "../types/reactTypes";
+import { FullScreen } from "../../styles/layout/modal";
+import { IModal } from "../../types/reactTypes";
 
 interface IModalPortal extends IModal {
   children: React.ReactNode;

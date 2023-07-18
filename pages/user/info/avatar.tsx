@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import Header from "../../../components/layouts/Header";
-import PageLayout from "../../../components/layouts/PageLayout";
+import Header from "../../../components/layout/Header";
+import PageLayout from "../../../components/layout/PageLayout";
 
 function Avatar() {
   return (

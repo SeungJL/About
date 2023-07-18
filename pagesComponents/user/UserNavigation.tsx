@@ -6,7 +6,7 @@ import { useFailToast } from "../../hooks/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import { useState } from "react";
-import ModalPortal from "../../components/ModalPortal";
+import ModalPortal from "../../components/common/ModalPortal";
 import {
   useUserLocationQuery,
   useUserRoleQuery,

@@ -1,6 +1,6 @@
 import { StarIcon } from "@chakra-ui/icons";
 import styled from "styled-components";
-import Header from "../../../components/layouts/Header";
+import Header from "../../../components/layout/Header";
 
 function ScoreSystem() {
   return (

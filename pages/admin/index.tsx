@@ -2,10 +2,10 @@ import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
+import Header from "../../components/layout/Header";
+import { getToday } from "../../helpers/dateHelpers";
+import { getInterestingDate } from "../../helpers/studyHelpers";
 import dbConnect from "../../libs/backend/dbConnect";
-import { getToday } from "../../libs/dateUtils";
-import { getInterestingDate } from "../../libs/studyUtils";
 import { Attendence } from "../../models/attendence";
 import { User } from "../../models/user";
 

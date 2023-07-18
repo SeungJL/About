@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
-import Seo from "../../components/Seo";
+import Seo from "../../components/common/Seo";
 import GatherCategoryBar from "../../pagesComponents/gather/GatgerCategoryBar";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";

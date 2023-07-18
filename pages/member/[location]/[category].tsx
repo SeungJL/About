@@ -7,10 +7,10 @@ import { useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
-import Header from "../../../components/layouts/Header";
+import Header from "../../../components/layout/Header";
+import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import dbConnect from "../../../libs/backend/dbConnect";
-import { birthToAge, birthToDayjs } from "../../../libs/converter";
 
 import { User } from "../../../models/user";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";

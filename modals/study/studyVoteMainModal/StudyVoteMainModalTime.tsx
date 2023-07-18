@@ -1,8 +1,8 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import TimeSelector from "../../../components/utils/TimeSelector";
-import TimeSelectorBoard from "../../../components/utils/TimeSelectorBoard";
+import TimeSelector from "../../../components/features/selector/TimeSelector";
+import TimeSelectorBoard from "../../../components/features/selector/TimeSelectorBoard";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber } from "../../../types/reactTypes";

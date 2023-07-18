@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../components/ModalPortal";
+import ModalPortal from "../../../components/common/ModalPortal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import StudyRuleModal from "../../../modals/aboutHeader/studyRuleModal/StudyRuleModal";
 import { isNoticeAlertState } from "../../../recoil/renderTriggerAtoms";

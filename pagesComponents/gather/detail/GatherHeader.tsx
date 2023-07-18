@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
-import Header from "../../../components/layouts/Header";
-import KakaoShareBtn from "../../../components/utils/KakaoShare";
+import KakaoShareBtn from "../../../components/features/lib/KakaoShareBtn";
+import Header from "../../../components/layout/Header";
 import { WEB_URL } from "../../../constants/system";
 
 interface IGatherHeader {

@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { SortUserScore } from "../../../helpers/userHelpers";
 import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { useUserLocationQuery } from "../../../hooks/user/queries";
-import { SortUserScore } from "../../../libs/userUtils";
 import { isPointLoadingState } from "../../../recoil/loadingAtoms";
 import { IRankScore } from "../../../types/page/ranking";
 

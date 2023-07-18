@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { strToDate } from "../../../../../../helpers/dateHelpers";
 import dbConnect from "../../../../../../libs/backend/dbConnect";
-import { strToDate } from "../../../../../../libs/dateUtils";
 import { Vote } from "../../../../../../models/vote";
 
 const SECRET = process.env.NEXTAUTH_SECRET;

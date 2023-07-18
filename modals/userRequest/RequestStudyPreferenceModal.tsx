@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
-import PlaceSelector from "../../components/utils/PlaceSelector";
+import PlaceSelector from "../../components/features/selector/PlaceSelector";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import { useStudyPlaceQuery } from "../../hooks/study/queries";

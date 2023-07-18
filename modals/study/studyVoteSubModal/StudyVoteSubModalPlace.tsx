@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import PlaceSelectorSub from "../../../components/utils/PlaceSelectorSub";
+import PlaceSelectorSub from "../../../components/features/selector/PlaceSelectorSub";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { voteDateState } from "../../../recoil/studyAtoms";

@@ -2,7 +2,7 @@ import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/layouts/Header";
+import Header from "../../components/layout/Header";
 import DetailInfo from "../../pagesComponents/profile/DetailInfo";
 import ProfileOverview from "../../pagesComponents/profile/ProfileOverview";
 import { prevPageUrlState } from "../../recoil/previousAtoms";

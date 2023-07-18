@@ -8,8 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import Header from "../../../components/layouts/Header";
-import PageLayout from "../../../components/layouts/PageLayout";
+import Header from "../../../components/layout/Header";
+import PageLayout from "../../../components/layout/PageLayout";
 
 const Policy = () => {
   const router = useRouter();

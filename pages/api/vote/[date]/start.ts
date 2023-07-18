@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { strToDate } from "../../../../helpers/dateHelpers";
 import dbConnect from "../../../../libs/backend/dbConnect";
-import { strToDate } from "../../../../libs/dateUtils";
 import { findOneVote } from "../../../../services/voteService";
 
 export default async function handler(

@@ -1,8 +1,8 @@
 import { SetStateAction, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { arrangeSpace } from "../../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { arrangeSpace } from "../../../libs/studyUtils";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { userLocationState } from "../../../recoil/userAtoms";

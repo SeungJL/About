@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
-import TimeSelector from "../../../components/utils/TimeSelector";
+import TimeSelector from "../../../components/features/selector/TimeSelector";
 import {
   useCompleteToast,
   useErrorToast,
