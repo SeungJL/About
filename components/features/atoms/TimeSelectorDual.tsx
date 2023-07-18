@@ -13,7 +13,6 @@ interface ITimeSelectorDual {
 function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
   const changeHour = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = Number(event.currentTarget.value);
-
     setTime({ hours: value, minutes: time.minutes });
   };
 

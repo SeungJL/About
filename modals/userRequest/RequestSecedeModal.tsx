@@ -20,7 +20,7 @@ function RequestSecedeModal({ setIsModal }: IModal) {
 
   const { mutate } = useUserRequestMutation({
     onSuccess() {
-      completeToast("free", "탈퇴완료");
+      completeToast("free", "탈퇴가 완료되었습니다.");
     },
     onError(err) {
       console.error(err);

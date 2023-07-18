@@ -34,7 +34,7 @@ const Login: NextPage<{
   const [isModal, setIsModal] = useState(false);
 
   useEffect(() => {
-    if (status === "logout") completeToast("free", "로그아웃 완료");
+    if (status === "logout") completeToast("free", "로그아웃 되었습니다.");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 

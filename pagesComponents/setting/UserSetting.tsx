@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import ModalPortal from "../../components/common/ModalPortal";
 import {
   ATTEND_POP_UP,
@@ -32,7 +32,7 @@ export default function UserSetting() {
   const isGuest = session?.user.name === "guest";
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
-  const setLocation = useSetRecoilState(userLocationState);
+  const [location, setLocation] = useRecoilState(userLocationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
 
   const [myProfileNull, setMyProfileNull] = useState(false);
@@ -44,7 +44,7 @@ export default function UserSetting() {
   const { mutate: setRole } = useUserRoleMutation();
 
   const setInitialSetting = (data: IUser) => {
-    setLocation(data.location);
+    if (!location) setLocation(data.location);
     if (!data?.majors?.length) setMyProfileNull(true);
     const rest = data?.rest;
     if (rest && dayjs() < dayjs(rest.endDate)) setRole("resting");
@@ -64,6 +64,7 @@ export default function UserSetting() {
   });
 
   useEffect(() => {
+    console.log("useE");
     if (isLoading) return;
     if (isGuest) {
       setLocation("수원");
@@ -86,7 +87,8 @@ export default function UserSetting() {
     }
     if (popupCnt === 2) return;
     if (!ensureLocalStorage(ATTEND_POP_UP)) setIsAttend(true);
-  }, [isGuest, isLoading, myProfileNull, setIsNoticeAlert, setLocation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isGuest, isLoading, myProfileNull]);
 
   if (isMainLoading) return null;
 

@@ -1,9 +1,10 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ClipboardJS from "clipboard";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
 
 interface ICopyBtn {
   size?: string;
@@ -11,46 +12,30 @@ interface ICopyBtn {
 }
 
 export const CopyBtn = ({ size, text }: ICopyBtn) => {
-  const toast = useToast();
+  const completeToast = useCompleteToast();
+  const failToast = useFailToast();
+
   const btnRef = useRef(null);
+
   if (!size) size = "sm";
 
   useEffect(() => {
-    if (!btnRef.current) {
-      return;
-    }
+    if (!btnRef.current) return;
 
     const clipboard = new ClipboardJS(btnRef.current, {
       text: () => text,
     });
-
     clipboard.on("success", () => {
-      toast({
-        title: "복사 완료",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-        variant: "left-accent",
-      });
+      completeToast("free", "복사 완료");
     });
-
     clipboard.on("error", () => {
-      toast({
-        title: "복사 실패",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-        variant: "left-accent",
-      });
+      failToast("free", "복사 실패");
     });
-
-    // 클린업 함수
     return () => {
       clipboard.destroy();
     };
-  }, [text, toast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text]);
 
   if (size === "lg")
     return (
@@ -69,6 +54,7 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
 const ClickableIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
 `;
+
 const LayoutLg = styled.div``;
 
 const Layout = styled.span``;

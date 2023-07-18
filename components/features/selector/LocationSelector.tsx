@@ -17,6 +17,7 @@ function LocationSelector() {
 
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const locationValue = event.currentTarget.value as Location;
+    console.log(4, locationValue);
     setLocation(locationValue);
     setValue(locationValue);
     setIsMainLoading(true);

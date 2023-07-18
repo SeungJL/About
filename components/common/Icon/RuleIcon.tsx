@@ -1,13 +1,9 @@
 import { faBalanceScale } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SetStateAction } from "react";
 import styled from "styled-components";
+import { IModal } from "../../../types/reactTypes";
 
-interface IRuleIcon {
-  setIsModal: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function RuleIcon({ setIsModal }: IRuleIcon) {
+function RuleIcon({ setIsModal }: IModal) {
   return (
     <Layout onClick={() => setIsModal(true)}>
       <FontAwesomeIcon icon={faBalanceScale} size="lg" color="var(--font-h2)" />

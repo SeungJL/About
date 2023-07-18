@@ -17,7 +17,7 @@ function GatherParticipateModalParticipate({
 
   const { mutate: participate } = useGatherParticipateMutation(gatherId, {
     onSuccess() {
-      completeToast("free", "모임 참여 완료!");
+      completeToast("free", "참여 완료!");
     },
     onError: errorToast,
   });

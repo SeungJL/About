@@ -20,7 +20,7 @@ function StudySettingParticipations({
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
   const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
-
+  console.log(3, location);
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess(data) {
       console.log(data);
