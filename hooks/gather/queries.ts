@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
-import { GATHER_CONTENT } from "../../constants/queryKey";
+import { GATHER_CONTENT } from "../../constants/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
 import { IGatherContent } from "../../types/page/gather";

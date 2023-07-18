@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../constants/design";
+import { VOTE_TABLE_COLOR } from "../../constants/system";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/study/studyRecord";
 import { Location } from "../../types/system";

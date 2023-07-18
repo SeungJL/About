@@ -8,7 +8,7 @@ import TimeSelectorUnit from "../../../components/atoms/TimeSelectorUnit";
 import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
 import ProgressStatus from "../../../components/layouts/ProgressStatus";
-import { TIME_SELECTOR_UNIT } from "../../../constants/study";
+import { TIME_SELECTOR_UNIT } from "../../../constants/util";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";

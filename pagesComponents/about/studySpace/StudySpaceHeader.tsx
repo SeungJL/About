@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import KakaoShareBtn from "../../../components/utils/KakaoShare";
-import { STUDY_RANDOM_IMGAGE_LENGTH } from "../../../constants/study";
 import { WEB_URL } from "../../../constants/system";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
 import { IPlace } from "../../../types/study/study";
 
+const STUDY_RANDOM_IMGAGE_LENGTH = 5;
 interface IStudySpaceHeader {
   title: string;
   place: IPlace;

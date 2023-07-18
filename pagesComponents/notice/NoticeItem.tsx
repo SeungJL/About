@@ -16,7 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { faChessQueen } from "@fortawesome/free-solid-svg-icons";
-import { VOTE_TABLE_COLOR } from "../../constants/design";
+import { VOTE_TABLE_COLOR } from "../../constants/system";
 
 function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
   return (

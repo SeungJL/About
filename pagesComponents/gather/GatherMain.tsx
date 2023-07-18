@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { DEFAULT_ARRAY } from "../../constants/default";
+import { DEFAULT_ARRAY } from "../../constants/system";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
-
 import { GatherCategory, IGatherContent } from "../../types/page/gather";
 import GatherBlock from "./GatherBlock";
 import GatherBlockSkeleton from "./GatherBlockSkeleton";

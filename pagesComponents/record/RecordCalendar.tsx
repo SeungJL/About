@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../constants/design";
+import { VOTE_TABLE_COLOR } from "../../constants/system";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/study/studyRecord";

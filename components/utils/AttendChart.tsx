@@ -1,10 +1,11 @@
 import { AxiosError } from "axios";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { UseQueryResult } from "react-query";
 import styled from "styled-components";
-import { CHART_MONTH_RANGE, MONTH_LIST } from "../../constants/range";
+import { MONTH_LIST } from "../../constants/util";
 import {} from "../../hooks/user/queries";
 import {
   useUserAttendRateQueries,
@@ -12,6 +13,20 @@ import {
 } from "../../hooks/user/studyStatistics/queries";
 import { getMonth } from "../../libs/dateUtils";
 import { IUser, IUserAttendRateQueries } from "../../types/user/user";
+const CHART_MONTH_RANGE = [
+  {
+    start: dayjs().subtract(2, "month").startOf("month"),
+    end: dayjs().subtract(2, "month").endOf("month"),
+  },
+  {
+    start: dayjs().subtract(1, "month").startOf("month"),
+    end: dayjs().subtract(1, "month").endOf("month"),
+  },
+  {
+    start: dayjs().startOf("month"),
+    end: dayjs().endOf("month"),
+  },
+];
 
 interface IAttendChart {
   type?: string;

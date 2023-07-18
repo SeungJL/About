@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TIME_SELECTOR_END, TIME_SELECTOR_START } from "../../constants/study";
+import { TIME_SELECTOR_END, TIME_SELECTOR_START } from "../../constants/util";
 import { ITimeSelector } from "../../types/timeAndDate";
 import TimeSelectorDual from "../atoms/TimeSelectorDual";
 

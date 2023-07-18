@@ -2,7 +2,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { DEFAULT_BACK_URL } from "../../constants/default";
+import { DEFAULT_BACK_URL } from "../../constants/system";
 
 interface IHeader {
   title: string;

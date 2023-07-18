@@ -2,10 +2,8 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-
+import { VOTE_TABLE_COLOR } from "../../../../constants/system";
 import { isVotingState, studyDateState } from "../../../../recoil/studyAtoms";
-
-import { VOTE_TABLE_COLOR } from "../../../../constants/design";
 import { IAttendance } from "../../../../types/study/study";
 
 const BLOCK_WIDTH = 26.386;

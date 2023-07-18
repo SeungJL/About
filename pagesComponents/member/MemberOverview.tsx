@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { LOCATION_OPEN_DATE } from "../../constants/study";
+import { LOCATION_OPEN_DATE } from "../../constants/system";
 import { useStudyPlaceQuery } from "../../hooks/study/queries";
 interface IMemberOverview {
   totalMemberCnt: number;
