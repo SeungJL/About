@@ -119,7 +119,6 @@ const Main = styled.main`
 const ImageWrapper = styled.div`
   width: 100%;
   aspect-ratio: 1/1;
-  background-color: pink;
 `;
 
 const Item = styled.div`
