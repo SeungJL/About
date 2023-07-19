@@ -61,6 +61,7 @@ const Layout = styled.div`
 
 const Profile = styled.div`
   padding: 0 var(--padding-min);
+  margin-bottom: var(--margin-min);
   display: flex;
   flex-direction: column;
   line-height: 2.4;
@@ -78,7 +79,6 @@ const Interests = styled.div`
 
 const ProfileItem = styled.div`
   display: flex;
-
   > span:first-child {
     display: inline-block;
     width: 64px;

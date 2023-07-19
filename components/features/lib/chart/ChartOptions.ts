@@ -1,4 +1,8 @@
-export const ChartStudyOptions = (text: string, attendMax: number) => ({
+export const ChartStudyOptions = (
+  xaxis: number[],
+  attendMax: number,
+  text?: string
+): ApexCharts.ApexOptions => ({
   chart: {
     zoom: {
       enabled: false,
@@ -21,18 +25,14 @@ export const ChartStudyOptions = (text: string, attendMax: number) => ({
       opacity: 0.5,
     },
   },
-  xaxis: {
-    min: 2,
-    max: 4,
-  },
-
+  xaxis: { categories: xaxis },
   yaxis: {
     min: 0,
     max: attendMax,
     forceNiceScale: true,
     labels: {
       formatter: function (val) {
-        return Math.round(val).toString(); // y-axis 라벨은 반올림한 정수로 표시
+        return Math.round(val).toString();
       },
     },
   },

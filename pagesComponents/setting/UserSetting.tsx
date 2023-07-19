@@ -64,7 +64,6 @@ export default function UserSetting() {
   });
 
   useEffect(() => {
-    console.log("useE");
     if (isLoading) return;
     if (isGuest) {
       setLocation("수원");

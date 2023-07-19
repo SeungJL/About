@@ -20,7 +20,6 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
   const isGuest = session?.user.name === "guest";
 
   const [userBadge, setUserBadge] = useState<IUserBadge>();
-
   const [isBadgeInfoModal, setIsBadgeInfoModal] = useState(false);
   const [scoreInfo, setScoreInfo] = useState({
     value: 0,

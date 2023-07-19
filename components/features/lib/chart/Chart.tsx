@@ -26,8 +26,8 @@ function Chart({ type, user }: IChart) {
   const [attendMax, setAttendMax] = useState(5);
   const [isLoading, setIsLoading] = useState(true);
 
-  const Uid = type === "study" ? session?.uid : user?.uid;
-  const text = type === "study" ? undefined : "내 스터디 참여";
+  const Uid = user?.uid || session?.uid;
+  const text = "스터디 참여";
 
   const monthXaxis = [];
   for (let i = getMonth() - 2; i <= getMonth() + 1; i++)
@@ -84,33 +84,32 @@ function Chart({ type, user }: IChart) {
     if (
       attendRateArr?.length === monthArr.length &&
       attendRateArr?.some((item) => item >= 0)
-    ) {
-      console.log(77, attendRateArr);
+    )
       setIsLoading(false);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attendRateArr]);
-  if (!isLoading) console.log(666, attendMax);
+
   return (
     <>
       {type === "study" && !isLoading && (
-        <MainWrapper>
+        <ChartWrapper>
           <ApexCharts
             type="line"
             series={[
               { name: "평균 참여율", data: attendAverageArr },
               { name: "스터디 참여", data: attendRateArr },
             ]}
-            options={ChartStudyOptions(text, attendMax)}
+            options={ChartStudyOptions(monthXaxis, attendMax)}
           />
-        </MainWrapper>
+        </ChartWrapper>
       )}
     </>
   );
 }
 
-const MainWrapper = styled.div`
+const ChartWrapper = styled.div`
   min-height: 213px;
+  margin-right: var(--margin-sub);
 `;
 
 export default Chart;

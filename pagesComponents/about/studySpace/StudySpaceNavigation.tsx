@@ -46,7 +46,7 @@ function StudySpaceNavigation({
   voteCnt,
 }: IStudySpaceNavigation) {
   const router = useRouter();
-
+  console.log(attendences);
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
@@ -66,6 +66,7 @@ function StudySpaceNavigation({
   const myVote = attendences?.find(
     (props) => (props.user as IUser).uid === session?.uid
   );
+
 
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();
@@ -100,7 +101,7 @@ function StudySpaceNavigation({
       return;
     }
     if (type === "change") {
-      if (!mySpaceFixed) {
+      if (!myVote) {
         failToast("free", "스터디에 투표하지 않은 인원입니다.");
         return;
       }

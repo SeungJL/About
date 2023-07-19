@@ -4,7 +4,7 @@ import Chart from "../../../components/features/lib/chart/Chart";
 function RecordDetailGraph() {
   return (
     <Layout>
-      <Chart type="main" />
+      <Chart type="study" />
     </Layout>
   );
 }

@@ -17,7 +17,7 @@ function GatherParticipateModalApply({
   const failToast = useFailToast();
   const userErrorToast = useTypeErrorToast();
   const gatherData = useRecoilValue(transferGatherDataState);
-  console.log(gatherData);
+
   const { data: userInfo } = useUserInfoQuery({
     onError: (e) => userErrorToast(e, "user"),
   });
