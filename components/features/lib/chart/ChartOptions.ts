@@ -1,9 +1,10 @@
 export const ChartStudyOptions = (
-  xaxis: number[],
+  xaxis: string[],
   attendMax: number,
   text?: string
 ): ApexCharts.ApexOptions => ({
   chart: {
+    type: "line",
     zoom: {
       enabled: false,
     },

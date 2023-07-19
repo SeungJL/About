@@ -29,7 +29,7 @@ function Chart({ type, user }: IChart) {
   const Uid = user?.uid || session?.uid;
   const text = "스터디 참여";
 
-  const monthXaxis = [];
+  const monthXaxis: string[] = [];
   for (let i = getMonth() - 2; i <= getMonth() + 1; i++)
     monthXaxis.push(MONTH_LIST[i]);
 
@@ -94,7 +94,6 @@ function Chart({ type, user }: IChart) {
       {type === "study" && !isLoading && (
         <ChartWrapper>
           <ApexCharts
-            type="line"
             series={[
               { name: "평균 참여율", data: attendAverageArr },
               { name: "스터디 참여", data: attendRateArr },
