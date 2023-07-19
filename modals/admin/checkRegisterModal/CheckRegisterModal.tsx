@@ -1,6 +1,5 @@
-import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
-import { ModalLg } from "../../../styles/layout/modal";
+import { ModalLayout } from "../../../components/common/modal/Modals";
 import { IModal, IRefetch } from "../../../types/reactTypes";
 import { IRegisterForm } from "../../../types/user/user";
 import CheckRegisterModalDetail from "./CheckRegisterModalDetail";
@@ -17,7 +16,7 @@ function CheckRegisterModal({
 }: ICheckRegisterModal) {
   if (!applicant) return null;
   return (
-    <Layout>
+    <ModalLayout size="md">
       <ModalHeaderX title={applicant.name} setIsModal={setIsModal} />
       <CheckRegisterModalDetail applicant={applicant} />
       <CheckRegisterModalFooter
@@ -25,10 +24,8 @@ function CheckRegisterModal({
         setIsRefetch={setIsRefetch}
         uid={applicant.uid}
       />
-    </Layout>
+    </ModalLayout>
   );
 }
-
-const Layout = styled(ModalLg)``;
 
 export default CheckRegisterModal;

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import {
   POINT_SYSTEM_MINUS,
@@ -24,11 +25,7 @@ import {
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { InputSm } from "../../styles/layout/input";
-import {
-  ModalFooterNav,
-  ModalHeaderLine,
-  ModalMain,
-} from "../../styles/layout/modal";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IUser } from "../../types/user/user";
 
@@ -104,7 +101,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   return (
     <>
       <ModalLayout size="md">
-        <ModalHeaderLine>출석체크</ModalHeaderLine>
+        <ModalHeaderX title="출석체크" setIsModal={setIsModal} />
         <ModalMain>
           <Content>
             도착하셨나요? <br />

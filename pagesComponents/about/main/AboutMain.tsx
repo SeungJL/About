@@ -1,10 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
-import styled from "styled-components";
-
+import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { voteDateState } from "../../../recoil/studyAtoms";
-
+import styled from "styled-components";
+import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
+import { voteDateState } from "../../../recoil/studyAtoms";
+import { userLocationState } from "../../../recoil/userAtoms";
+import { SUWAN_탐앤탐스 } from "../../../storage/study";
 import { IStudy } from "../../../types/study/study";
 import AboutMainItem from "./aboutMain/AboutMainItem";
 import AboutMainItemSkeleton from "./aboutMain/AboutMainItemSkeleton";
@@ -15,7 +17,18 @@ interface IAboutMain {
 
 function AboutMain({ participations }: IAboutMain) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
+  const [interSectionStudy, setInterSectionStudy] = useState<IStudy>();
   const isMainLoading = useRecoilValue(isMainLoadingState);
+  const location = useRecoilValue(userLocationState);
+
+  useStudyVoteQuery(voteDate, "수원", {
+    enabled: location === "안양",
+    onSuccess(data) {
+      setInterSectionStudy(
+        data.participations.find((study) => study.place._id === SUWAN_탐앤탐스)
+      );
+    },
+  });
 
   return (
     <AnimatePresence initial={false}>
@@ -27,11 +40,10 @@ function AboutMain({ participations }: IAboutMain) {
           dragElastic={1}
           onDragEnd={(e, { offset, velocity }) => {
             const swipe = swipePower(offset.x, velocity.x);
-            if (swipe < -swipeConfidenceThreshold) {
+            if (swipe < -swipeConfidenceThreshold)
               setVoteDate((old) => old.add(1, "day"));
-            } else if (swipe > swipeConfidenceThreshold) {
+            else if (swipe > swipeConfidenceThreshold)
               setVoteDate((old) => old.subtract(1, "day"));
-            }
           }}
         >
           <Main>
@@ -46,6 +58,13 @@ function AboutMain({ participations }: IAboutMain) {
                 ) : null}
               </div>
             ))}
+            {(location === "안양" && interSectionStudy?.status === "pending") ||
+            interSectionStudy?.attendences.filter((who) => who.firstChoice)
+              .length ? (
+              <Block>
+                <AboutMainItem participation={interSectionStudy} />
+              </Block>
+            ) : null}
           </Main>
         </Layout>
       ) : (

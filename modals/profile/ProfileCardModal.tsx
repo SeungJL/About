@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { ModalMain, ModalXL } from "../../styles/layout/modal";
+import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function ProfileCardModal({ setIsModal }: IModal) {
@@ -21,7 +22,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <Layout>
+      <ModalLayout size="xl">
         <ModalHeaderX title={user?.name} setIsModal={setIsModal} />
         <ModalMain>
           <Profile>
@@ -71,7 +72,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
             확인
           </Button>
         </Footer>
-      </Layout>
+      </ModalLayout>
     </>
   );
 }
@@ -120,7 +121,7 @@ const ProfileItem = styled.div`
     font-weight: 600;
     > span {
       display: inline-block;
-      width: 52px;
+      margin-right: var(--margin-sub);
     }
   }
 `;
@@ -132,7 +133,5 @@ const FriendList = styled.div`
   border-radius: var(--border-radius-sub);
   padding: 6px 8px;
 `;
-
-const Layout = styled(ModalXL)``;
 
 export default ProfileCardModal;

@@ -30,7 +30,7 @@ const Layout = styled.div``;
 const Wrapper = styled.div``;
 const HrDiv = styled.div`
   height: 1px;
-  background-color: var(--border-color-light);
+  background-color: var(--font-h56);
 `;
 
 export default StudySpaceSkeleton;

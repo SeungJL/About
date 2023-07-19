@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
@@ -10,7 +11,6 @@ import { voteDateState } from "../../recoil/studyAtoms";
 import { InputSm } from "../../styles/layout/input";
 import {
   ModalFooterNav,
-  ModalHeaderLine,
   ModalMain,
   ModalSubtitle,
 } from "../../styles/layout/modal";
@@ -47,7 +47,7 @@ function StudyChangeArrivedModal({
 
   return (
     <ModalLayout size="md">
-      <ModalHeaderLine>도착 메모</ModalHeaderLine>
+      <ModalHeaderX title="도착 메모" setIsModal={setIsModal} />
       <ModalMain>
         <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
         <Form id="changeMemo">

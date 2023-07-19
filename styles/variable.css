@@ -1,47 +1,29 @@
 :root {
-  --main-bg-color: linear-gradient(45deg, #a55c1b, #000000);
-  --font-black: rgb(0, 0, 0, 0.8);
-  --main-color: RGB(137, 86, 40);
   --font-h1: #343943;
   --font-h2: #565b67;
   --font-h3: #767d8a;
   --font-h4: #a0a4af;
   --font-h5: #d1d6dd;
   --font-h6: #e3e6eb;
-  --font-h65: #eaecf0;
+  --font-h56: #eaecf0;
   --font-h7: #f0f2f5;
   --font-h8: #f6f7f9;
-  --color-yellow: #f5deb3;
-  --color-brown: #8b4513;
+
   --color-orange: #ffa500;
-  --color-orange2: #d2691e;
-  --color-orange3: #fd7b5b;
   --color-mint: #00c2b3;
   --color-red: #ff6b6b;
-  --color-peach: #ffeae5;
-  --width-80: 300px;
-  --width-90: 338px;
 
-  --height-sm: 240px;
-  --height-md: 360px;
-  --height-lg: 410px;
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
-  --border-headline: 1px solid var(--font-h3);
-  --border-color-light: var(--font-h65);
-
   --border-main: 1.5px solid var(--font-h5);
-  --border-main-light: 1.5px solid var(--border-color-light);
+  --border-main-light: 1.5px solid var(--font-h56);
   --border-sub: 1px solid var(--font-h5);
-  --border-sub-light: 1px solid var(--border-color-light);
-
   --border-thick: 2px solid var(--font-h1);
-
   --border-mint: 1.5px solid var(--color-mint);
+  --border-focus: 1.5px solid var(--font-h1);
 
   --border-radius-sub: 6px;
   --border-radius-main: 12px;
-  --border-focus: 1.5px solid var(--font-h1);
 
   --padding-max: 20px;
   --padding-main: 16px;

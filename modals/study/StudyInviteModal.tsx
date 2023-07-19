@@ -3,11 +3,12 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
+import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { WEB_URL } from "../../constants/system";
 import { SQUARE_RANDOM_IMAGE } from "../../storage/SquareRandomImage";
 import { STUDY_SPACE_INFO } from "../../storage/study";
-import { ModalHeaderLine, ModalMain } from "../../styles/layout/modal";
+import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/study/study";
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
@@ -70,7 +71,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
 
   return (
     <ModalLayout size="md">
-      <ModalHeaderLine>친구초대</ModalHeaderLine>
+      <ModalHeaderX title="친구 초대" setIsModal={setIsModal} />
       <ModalMain>
         <MainText>
           친구 초대를 통해 스터디에 참여하면 초대한 인원과 참여한 인원 모두
