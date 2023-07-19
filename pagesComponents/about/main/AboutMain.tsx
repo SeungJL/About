@@ -4,11 +4,7 @@ import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { voteDateState } from "../../../recoil/studyAtoms";
 
-import { useState } from "react";
-import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
-import { userLocationState } from "../../../recoil/userAtoms";
-import { SUWAN_탐앤탐스 } from "../../../storage/study";
 import { IStudy } from "../../../types/study/study";
 import AboutMainItem from "./aboutMain/AboutMainItem";
 import AboutMainItemSkeleton from "./aboutMain/AboutMainItemSkeleton";
@@ -19,20 +15,7 @@ interface IAboutMain {
 
 function AboutMain({ participations }: IAboutMain) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const [bothStudy, setBothStudy] = useState<IStudy>();
-
   const isMainLoading = useRecoilValue(isMainLoadingState);
-  const location = useRecoilValue(userLocationState);
-
-  useStudyVoteQuery(voteDate, "수원", {
-    enabled: location === "안양",
-    onSuccess(data) {
-      const temp = data.participations.find(
-        (item) => item.place._id === SUWAN_탐앤탐스
-      );
-      setBothStudy(temp);
-    },
-  });
 
   return (
     <AnimatePresence initial={false}>
@@ -63,12 +46,6 @@ function AboutMain({ participations }: IAboutMain) {
                 ) : null}
               </div>
             ))}
-            {(location === "안양" && bothStudy?.status === "pending") ||
-            bothStudy?.attendences.filter((who) => who.firstChoice).length ? (
-              <Block>
-                <AboutMainItem participation={bothStudy} />
-              </Block>
-            ) : null}
           </Main>
         </Layout>
       ) : (

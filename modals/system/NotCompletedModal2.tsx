@@ -1,8 +1,10 @@
+import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import {
   ModalFooterNav,
   ModalMain,
+  ModalMd,
   ModalSubtitle,
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
@@ -26,5 +28,7 @@ function NotCompletedModal2({ setIsModal }: IModal) {
     </>
   );
 }
+
+const Layout = styled(ModalMd)``;
 
 export default NotCompletedModal2;

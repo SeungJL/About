@@ -31,8 +31,7 @@ const SIZE_HEIGHT_MAP = {
   xl: "400px",
   lg: "300px",
   md: "240px",
-  // sm: "240px",
-  xs: "120px",
+  sm: "240px",
 };
 
 const Layout = styled(motion.div)<{ size: Size }>`

@@ -35,7 +35,7 @@ const Layout = styled.div`
 
 const HrDiv = styled.div`
   height: 8px;
-  background-color: var(--border-font-h56);
+  background-color: var(--border-color-light);
 `;
 
 export default Gather;

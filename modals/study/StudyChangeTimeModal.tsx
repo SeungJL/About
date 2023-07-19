@@ -9,10 +9,13 @@ import {
   studyStartTimeState,
   voteDateState,
 } from "../../recoil/studyAtoms";
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
+import {
+  ModalFooterNav,
+  ModalHeaderLine,
+  ModalMain,
+} from "../../styles/layout/modal";
 
 import { useRouter } from "next/router";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import {
@@ -101,7 +104,7 @@ function StudyChangeTimeModal({
 
   return (
     <ModalLayout size="md">
-      <ModalHeaderX title="시간 변경" setIsModal={setIsModal} />
+      <ModalHeaderLine>시간변경</ModalHeaderLine>
       <ModalMain>
         <Wrapper>
           <TimeSelector

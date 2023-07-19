@@ -46,6 +46,7 @@ function StudySpaceNavigation({
   voteCnt,
 }: IStudySpaceNavigation) {
   const router = useRouter();
+  console.log(attendences);
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
