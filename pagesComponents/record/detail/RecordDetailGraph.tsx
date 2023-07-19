@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import AttendChart from "../../../components/features/lib/AttendChart";
+import Chart from "../../../components/features/lib/chart/Chart";
 
 function RecordDetailGraph() {
   return (
     <Layout>
-      <AttendChart type="main" />
+      <Chart type="main" />
     </Layout>
   );
 }

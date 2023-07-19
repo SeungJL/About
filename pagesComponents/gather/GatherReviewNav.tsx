@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ImageSlider from "../../components/features/lib/ImageSlider";
+import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 import GatherImageSliderSkeleton from "./GatherImageSliderSkeleton";
@@ -18,7 +18,7 @@ function GatherReviewNav() {
   return (
     <Layout>
       {!isGatherLoading ? (
-        <ImageSlider type="gatherReviewNav" ImageContainer={ImageArr} />
+        <ImageSlider type="gatherReviewNav" imageContainer={ImageArr} />
       ) : (
         <GatherImageSliderSkeleton />
       )}

@@ -17,7 +17,7 @@ function GatherParticipateModalApply({
   const failToast = useFailToast();
   const userErrorToast = useTypeErrorToast();
   const gatherData = useRecoilValue(transferGatherDataState);
-
+  console.log(gatherData);
   const { data: userInfo } = useUserInfoQuery({
     onError: (e) => userErrorToast(e, "user"),
   });
@@ -25,12 +25,15 @@ function GatherParticipateModalApply({
   const onApply = () => {
     const myOld = birthToAge(userInfo.birth);
 
-    if (gatherData.user.location !== userInfo.location) {
-      failToast("free", "참여할 수 없는 지역입니다.");
-      return;
-    }
+    // if (gatherData.user.location !== userInfo.location) {
+    //   failToast("free", "참여할 수 없는 지역입니다.");
+    //   return;
+    // }
 
-    if (myOld < gatherData.age[0] || myOld > gatherData.age[1]) {
+    if (
+      (gatherData.age[0] !== 19 && myOld < gatherData.age[0]) ||
+      myOld > gatherData.age[1]
+    ) {
       failToast("free", "나이 조건이 맞지 않습니다.");
       return;
     }

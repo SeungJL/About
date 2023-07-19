@@ -17,6 +17,7 @@ function GatherParticipateModalParticipate({
 
   const { mutate: participate } = useGatherParticipateMutation(gatherId, {
     onSuccess() {
+      setIsRefetch(true);
       completeToast("free", "참여 완료!");
     },
     onError: errorToast,
@@ -24,7 +25,6 @@ function GatherParticipateModalParticipate({
 
   const selectGatherTime = (time: "first" | "second") => {
     participate(time);
-    setIsRefetch(true);
     setIsModal(false);
   };
 

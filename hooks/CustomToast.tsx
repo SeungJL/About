@@ -50,7 +50,7 @@ export type CompleteToast =
 export const useCompleteToast = () => {
   const toast = useToast();
   const showCompleteToast = useCallback(
-    (type: CompleteToast, sub?: string) => {
+    (type: CompleteToast, sub?: string, isTop: boolean = false) => {
       let text = "";
       if (type === "free" || type === "content") text = sub;
 
@@ -66,7 +66,7 @@ export const useCompleteToast = () => {
           status: "success",
           duration: 3000,
           isClosable: true,
-          position: "bottom",
+          position: isTop ? "top" : "bottom",
           variant: "subtle",
         });
       else
@@ -75,7 +75,7 @@ export const useCompleteToast = () => {
           status: "success",
           duration: 3000,
           isClosable: true,
-          position: "bottom",
+          position: isTop ? "top" : "bottom",
           variant: "subtle",
         });
     },

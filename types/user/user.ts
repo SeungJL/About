@@ -1,6 +1,5 @@
 import { Document } from "mongoose";
 import { USER_BADGES } from "../../constants/convert";
-import { IVoteRate } from "../study/studyRecord";
 import { Location } from "../system";
 
 /** user */
@@ -109,9 +108,4 @@ export type UserBadgeColor = typeof USER_BADGES[UserBadge];
 export interface IUserComment {
   comment: string;
   _id: string;
-}
-
-export interface IUserAttendRateQueries {
-  idx: number;
-  data: IVoteRate[];
 }

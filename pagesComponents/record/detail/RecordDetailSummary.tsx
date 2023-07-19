@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { getWeekNumber } from "../../../helpers/dateHelpers";
 import { useUserAttendRateQueries } from "../../../hooks/user/studyStatistics/queries";
 import { isRecordDetailLoadingState } from "../../../recoil/loadingAtoms";
+import { IUserAttendRate } from "../../../types/study/studyRecord";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 const WEEKS_CNT = 5;
@@ -28,19 +29,16 @@ function RecordDetailSummary() {
         end: dayjs().subtract(i, "week").day(6),
       });
     }
-    if (weeksArr?.length === WEEKS_CNT) {
-      setWeeksDate(weeksArr);
-    }
+    if (weeksArr?.length === WEEKS_CNT) setWeeksDate(weeksArr);
   }, []);
 
-  const setUserRate = async (data) => {
+  const setUserRate = (data: IUserAttendRate) => {
     const temp = [...myAttend];
-    const myData = data?.data?.find((who) => who?.uid === session?.uid);
-    temp[data?.idx] = myData.cnt;
-    await setMyAttend(temp);
+    temp[data.idx] = data.data[0].cnt;
+    setMyAttend(temp);
   };
 
-  useUserAttendRateQueries(weeksDate, "recordSummary", {
+  useUserAttendRateQueries(weeksDate, {
     enabled: !!weeksDate,
     onSuccess: setUserRate,
   });

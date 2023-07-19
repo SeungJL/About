@@ -2,14 +2,14 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import ImageSlider from "../../components/features/lib/ImageSlider";
+import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 import { STORE_GIFT } from "../../storage/Store";
 
 function PointPoint() {
   const router = useRouter();
 
-  const ImageContainer = STORE_GIFT.map((item) => item.image);
+  const imageContainer = STORE_GIFT.map((item) => item.image);
   const { data } = usePointQuery();
 
   return (
@@ -29,7 +29,7 @@ function PointPoint() {
           </div>
         </Button>
         <Wrapper>
-          <ImageSlider type="point" ImageContainer={ImageContainer} />
+          <ImageSlider type="point" imageContainer={imageContainer} />
         </Wrapper>
       </Store>
     </Layout>

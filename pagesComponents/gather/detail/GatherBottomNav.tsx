@@ -4,6 +4,11 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/common/ModalPortal";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/CustomToast";
 import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
@@ -16,6 +21,9 @@ interface IGatherBottomNav extends IRefetch {
 
 function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
   const router = useRouter();
+  const completeToast = useCompleteToast();
+  const failToast = useFailToast();
+  const errorToast = useErrorToast();
   const { data: session } = useSession();
   const myUid = session.uid;
   const myGather = data.user.uid === myUid;
@@ -26,13 +34,16 @@ function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
   const [isParticipationModal, setIsParticipationModal] = useState(false);
   const gatherId = +router.query.id;
 
-  const { mutate: cancel } = useGatherCancelMutation(gatherId);
+  const { mutate: cancel } = useGatherCancelMutation(gatherId, {
+    onSuccess() {
+      completeToast("free", "취소되었습니다.", true);
+      setIsRefetch(true);
+    },
+    onError: errorToast,
+  });
 
   const onClick = (type: string) => {
-    if (type === "cancel") {
-      cancel();
-      setIsRefetch(true);
-    }
+    if (type === "cancel") cancel();
     if (type === "participate") setIsParticipationModal(true);
     if (type === "expire") setIsExpirationModal(true);
   };

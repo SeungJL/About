@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ImageSlider from "../../components/features/lib/ImageSlider";
+import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import { IUser } from "../../types/user/user";
 
 interface IMemberMember {
@@ -9,7 +9,7 @@ interface IMemberMember {
 function MemberSectionList({ users }: IMemberMember) {
   return (
     <Layout>
-      <ImageSlider type="member" ImageContainer={users} />
+      <ImageSlider type="member" imageContainer={users} />
     </Layout>
   );
 }

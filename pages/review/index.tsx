@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
-import ImageSlider from "../../components/features/lib/ImageSlider";
+import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
 import Header from "../../components/layout/Header";
 import { WEB_URL } from "../../constants/system";
@@ -90,7 +90,7 @@ function Review() {
               <Item id={"review" + item.id} key={item.id}>
                 <ReviewItemHeader temp={temp} date={item.date} />
                 <ImageWrapper>
-                  <ImageSlider ImageContainer={item.images} type="review" />
+                  <ImageSlider imageContainer={item.images} type="review" />
                 </ImageWrapper>
                 {item.summary && <ReviewGatherSummary summary={item.summary} />}
                 <ReviewContent text={item.text} />

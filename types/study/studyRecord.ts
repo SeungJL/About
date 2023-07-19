@@ -18,3 +18,8 @@ export interface IVoteRate {
   uid: string;
   cnt: number;
 }
+
+export interface IUserAttendRate {
+  idx: number;
+  data: IVoteRate[];
+}

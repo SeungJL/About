@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AttendChart from "../../components/features/lib/AttendChart";
+import Chart from "../../components/features/lib/chart/Chart";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { IUser } from "../../types/user/user";
 
@@ -47,7 +47,7 @@ function DetailInfo({ user }: { user: IUser }) {
           </div>
         </ProfileItem>
       </Profile>
-      <AttendChart type="modal" user={user} />
+      <Chart type="study" user={user} />
     </Layout>
   );
 }
