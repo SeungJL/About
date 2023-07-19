@@ -92,7 +92,11 @@ function Review() {
                 <ImageWrapper>
                   <ImageSlider imageContainer={item.images} type="review" />
                 </ImageWrapper>
-                {item.summary && <ReviewGatherSummary summary={item.summary} />}
+                {item.summary ? (
+                  <ReviewGatherSummary summary={item.summary} />
+                ) : (
+                  <Spacing />
+                )}
                 <ReviewContent text={item.text} />
                 <ReviewStatus temp={temp} />
               </Item>
@@ -119,6 +123,10 @@ const ImageWrapper = styled.div`
 
 const Item = styled.div`
   margin-bottom: 60px;
+`;
+
+const Spacing = styled.div`
+  height: var(--margin-max);
 `;
 
 export default Review;

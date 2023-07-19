@@ -15,7 +15,7 @@ function ImageSliderReview({ imageContainer }: IImageSliderReview) {
       navigation
       pagination={true}
       modules={[Pagination]} // enable pagination
-      style={{ width: "100%", height: "100%", background: "pink" }}
+      style={{ width: "100%", height: "100%" }}
     >
       {imageContainer?.map((image, index) => (
         <SwiperSlide key={index}>

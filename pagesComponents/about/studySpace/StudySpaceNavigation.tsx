@@ -67,7 +67,6 @@ function StudySpaceNavigation({
     (props) => (props.user as IUser).uid === session?.uid
   );
 
-
   const { mutate: getScore } = useScoreMutation();
   const { mutate: getPoint } = usePointMutation();
   const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import { ICON_SIZE } from "../../../constants/system";
-import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar2";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar";
 import { Size } from "../../../types/system";
 import { IUser } from "../../../types/user/user";
 

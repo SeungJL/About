@@ -18,7 +18,7 @@ import {
   AVATAR_COLOR,
   AVATAR_COST,
   AVATAR_ICON,
-} from "../../../storage/avatar2";
+} from "../../../storage/avatar";
 import { IModal } from "../../../types/reactTypes";
 import { IAvatar } from "../../../types/user/user";
 

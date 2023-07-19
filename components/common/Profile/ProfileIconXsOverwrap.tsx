@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
-import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar2";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar";
 
 import { IUser } from "../../../types/user/user";
 
