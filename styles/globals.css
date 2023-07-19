@@ -26,13 +26,3 @@ a {
   background-color: var(--font-h8);
   color: var(--font-h1);
 }
-
-.CircularProgressbar-trail {
-  stroke-width: 1;
-}
-.swiper-button-prev:after {
-  display: none;
-}
-.swiper-button-next:after {
-  display: none;
-}

@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
+import { ModalLayout } from "../../components/common/modal/Modals";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { ModalMain, ModalXL } from "../../styles/layout/modal";
+import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function ProfileCardModal({ setIsModal }: IModal) {
@@ -21,7 +22,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <Layout>
+      <ModalLayout size="xl">
         <ModalHeaderX title={user?.name} setIsModal={setIsModal} />
         <ModalMain>
           <Profile>
@@ -71,7 +72,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
             확인
           </Button>
         </Footer>
-      </Layout>
+      </ModalLayout>
     </>
   );
 }
@@ -83,7 +84,7 @@ const FriendTitle = styled.span`
 const ProfileUpPart = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: var(--margin-md);
   > div {
     display: flex;
     > span:first-child {
@@ -98,7 +99,7 @@ const ProfileUpPart = styled.div`
 const Footer = styled.footer``;
 
 const Profile = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: var(--margin-md);
   display: flex;
   flex-direction: column;
   line-height: 2.4;
@@ -116,23 +117,23 @@ const ProfileItem = styled.div`
     font-weight: 600;
   }
   > div {
+    flex: 1;
     color: var(--font-h1);
     font-weight: 600;
+
     > span {
       display: inline-block;
-      width: 52px;
+      margin-right: var(--margin-main);
     }
   }
 `;
 
 const FriendList = styled.div`
-  margin-top: 6px;
+  margin-top: var(--margin-min);
   height: 116px;
-  border: 1px solid var(--font-h5);
+  border: var(--border-main);
   border-radius: var(--border-radius-sub);
   padding: 6px 8px;
 `;
-
-const Layout = styled(ModalXL)``;
 
 export default ProfileCardModal;

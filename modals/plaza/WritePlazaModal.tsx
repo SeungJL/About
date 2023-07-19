@@ -4,8 +4,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-
-import { ModalLg } from "../../styles/layout/modal";
+import { ModalLayout } from "../../components/common/modal/Modals";
 
 import PlazaVoteList from "./WritePlaza/PlazaVoteList";
 
@@ -54,7 +53,7 @@ function WritePlazaModal({ setIsModal }) {
   };
 
   return (
-    <Layout>
+    <ModalLayout size="md">
       <Category>
         <Button
           onClick={() => setIsVoteCategory(true)}
@@ -129,8 +128,8 @@ function WritePlazaModal({ setIsModal }) {
           </VoteList>
         )}
       </Form>
-      <button form="createPlaza">제출</button>
-    </Layout>
+      <SubmitBtn form="createPlaza">제출</SubmitBtn>
+    </ModalLayout>
   );
 }
 
@@ -145,14 +144,12 @@ const DeleteIcon = styled.button.attrs((props) => ({
   type: "button",
 }))``;
 
-const Layout = styled(ModalLg)`
-  > button:last-child {
-    width: 60px;
-    height: 25px;
-    background-color: lightGray;
-    border-radius: 10px;
-    align-self: flex-end;
-  }
+const SubmitBtn = styled.button`
+  width: 60px;
+  height: 25px;
+  background-color: lightGray;
+  border-radius: 10px;
+  align-self: flex-end;
 `;
 
 const Category = styled.div`

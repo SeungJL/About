@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import { PopUpLayout } from "../../components/common/modal/Modals";
 import {
   useGatherCommentDeleteMutation,
   useGatherCommentEditMutation,
 } from "../../hooks/gather/mutations";
-import { Modal2Xs } from "../../styles/layout/modal";
 import { IModal, IRefetch } from "../../types/reactTypes";
 
 interface IGatherCommentEditModal extends IModal, IRefetch {
@@ -45,25 +45,31 @@ function GatherCommentEditModal({
 
   return (
     <>
-      {isFirst ? (
-        <Layout>
-          <button onClick={() => setIsFirst(false)}>수정하기</button>
-          <button onClick={onDelete}>삭제하기</button>
-        </Layout>
-      ) : (
-        <Layout>
-          <Input value={value} onChange={(e) => setValue(e.target.value)} />
-          <Footer>
-            <button onClick={() => setIsModal(false)}>취소</button>
-            <button onClick={onEdit}>변경</button>
-          </Footer>
-        </Layout>
-      )}
+      <PopUpLayout size="xs">
+        <Container>
+          {isFirst ? (
+            <>
+              <button onClick={() => setIsFirst(false)}>수정하기</button>
+              <button onClick={onDelete}>삭제하기</button>
+            </>
+          ) : (
+            <>
+              <Input value={value} onChange={(e) => setValue(e.target.value)} />
+              <Footer>
+                <button onClick={() => setIsModal(false)}>취소</button>
+                <button onClick={onEdit}>변경</button>
+              </Footer>
+            </>
+          )}
+        </Container>
+      </PopUpLayout>
     </>
   );
 }
 
-const Layout = styled(Modal2Xs)`
+const Container = styled.div`
+  height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;

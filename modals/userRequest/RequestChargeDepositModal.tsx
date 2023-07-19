@@ -127,7 +127,7 @@ const MainItem = styled.div`
 
 const Hr = styled.div`
   height: 1.5px;
-  background-color: var(--font-h65);
+  background-color: var(--font-h56);
   margin: var(--margin-min) 0;
 `;
 
