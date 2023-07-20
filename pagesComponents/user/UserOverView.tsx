@@ -1,7 +1,6 @@
 import { Badge } from "@chakra-ui/react";
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -21,6 +20,7 @@ import {
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
+import { isGuestState } from "../../recoil/userAtoms";
 import { DispatchBoolean } from "../../types/reactTypes";
 import { IUserBadge } from "../../types/user/user";
 
@@ -32,8 +32,7 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
   const errorToast = useErrorToast();
-  const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
+  const isGuest = useRecoilValue(isGuestState);
 
   const isRefetchUserInfo = useRecoilValue(isRefetchUserInfoState);
 
@@ -44,6 +43,7 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { data: user, refetch } = useUserInfoQuery({
+    enabled: !isGuest,
     onSuccess(data) {
       setValue(data.comment);
       const badge = getUserBadgeScore(data.score).badge;
@@ -199,6 +199,7 @@ const Comment = styled.div`
 `;
 
 const Message = styled.input`
+  width: 100%;
   color: var(--font-h2);
   background-color: inherit;
   font-size: 12px;

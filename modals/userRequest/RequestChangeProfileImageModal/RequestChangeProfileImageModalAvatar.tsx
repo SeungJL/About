@@ -9,11 +9,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
+import { isGuestState } from "../../../recoil/userAtoms";
 import {
   AVATAR_COLOR,
   AVATAR_COST,
@@ -36,6 +38,8 @@ function RequestChangeProfileImageModalAvatar({
   setUserAvatar,
 }: IRequestChangeProfileImageModalAvatar) {
   const failToast = useFailToast();
+
+  const isGuest = useRecoilValue(isGuestState);
 
   const [iconIdx, setIconIdx] = useState(0);
   const [back, setBack] = useState(false);
@@ -62,6 +66,10 @@ function RequestChangeProfileImageModalAvatar({
   };
 
   const onSubmit = () => {
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
     if (AVATAR_COST[iconIdx] > score.score) {
       failToast("free", "프로필 변경을 위한 점수가 부족해요!");
       return;

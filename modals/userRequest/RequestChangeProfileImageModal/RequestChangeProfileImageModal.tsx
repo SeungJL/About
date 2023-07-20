@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
@@ -14,6 +14,7 @@ import {
   useUserUpdateProfileMutation,
 } from "../../../hooks/user/mutations";
 import { isRefetchUserInfoState } from "../../../recoil/refetchingAtoms";
+import { isGuestState } from "../../../recoil/userAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";
@@ -23,6 +24,7 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
 
+  const isGuest = useRecoilValue(isGuestState);
   const setIsRefetchUserInfo = useSetRecoilState(isRefetchUserInfoState);
 
   const [isFirst, setIsFirst] = useState(true);
@@ -38,6 +40,10 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   });
 
   const onClickKakao = () => {
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
     updateProfile();
     setUserAvatar({ type: null, bg: null });
     setIsModal(false);
