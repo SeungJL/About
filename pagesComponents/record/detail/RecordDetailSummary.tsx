@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { getWeekNumber } from "../../../helpers/dateHelpers";
 import { useUserAttendRateQueries } from "../../../hooks/user/studyStatistics/queries";
 import { isRecordDetailLoadingState } from "../../../recoil/loadingAtoms";
-import { IUserAttendRate } from "../../../types/study/studyRecord";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 const WEEKS_CNT = 5;
@@ -34,7 +33,6 @@ function RecordDetailSummary() {
 
   const setUserRate = (data: number[]) => {
     setMyAttend(data);
-
   };
 
   useUserAttendRateQueries(weeksDate, {

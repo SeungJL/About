@@ -20,7 +20,6 @@ function ProfileOverview({ user }: IProfileOverview) {
   const [isLoading, setIsLoading] = useState(true);
 
   useUserInfoQuery({
-    enabled: !isGuest,
     onSuccess(data) {
       if (!userData) setUserData(data);
       setIsLoading(false);

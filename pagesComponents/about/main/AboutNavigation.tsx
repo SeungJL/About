@@ -37,10 +37,6 @@ function AboutNavigation() {
     if (type === "gather") localStorage.setItem(GATHER_ALERT, "read");
     if (type === "point") localStorage.setItem(POINT_ALERT, "read");
     if (type === "member") {
-      if (isGuest) {
-        failToast("guest");
-        return;
-      }
       router.push(`/member/${location}`);
       return;
     }

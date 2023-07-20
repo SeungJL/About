@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
+import BlurredPart from "../../../components/common/BlurredPart";
 import dbConnect from "../../../libs/backend/dbConnect";
 import { User } from "../../../models/user";
 import MemberHeader from "../../../pagesComponents/member/MemberHeader";
@@ -24,12 +25,15 @@ function Member({ membersAll }) {
   const [memberMembers, setMemberMembers] = useState<IUser[]>();
   const [humanMembers, setHumanMembers] = useState<IUser[]>();
   const [restingMembers, setRestingMembers] = useState<IUser[]>();
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setMembers(membersAll?.filter((who) => who?.location === location));
-  }, [location, membersAll]);
+    setMembers(
+      membersAll?.filter(
+        (who) => who?.location === (isGuest ? "수원" : location)
+      )
+    );
+  }, [isGuest, location, membersAll]);
 
   useEffect(() => {
     if (!members) return;
@@ -62,38 +66,43 @@ function Member({ membersAll }) {
           activeMemberCnt={memberMembers?.length}
         />
         <HrDiv />
-        {!isGuest && (
-          <>
-            <MemberMyProfile />
-            <HrDiv />
-            <MembersContainer>
-              <MemberTitle>멤버 소개</MemberTitle>
-              <Section>
-                <MemberSectionTitle
-                  category="활동 멤버"
-                  subTitle="정식 활동 멤버입니다"
-                />
+
+        <>
+          <MemberMyProfile />
+          <HrDiv />
+          <MembersContainer>
+            <MemberTitle>멤버 소개</MemberTitle>
+            <Section>
+              <MemberSectionTitle
+                category="활동 멤버"
+                subTitle="정식 활동 멤버입니다"
+              />
+              <BlurredPart isBlur={isGuest}>
                 <MemberSectionList users={memberMembers} />
-              </Section>
-              <Section>
-                <MemberSectionTitle
-                  category="수습 멤버"
-                  subTitle="열심히 활동해봐요~!"
-                />
+              </BlurredPart>
+            </Section>
+            <Section>
+              <MemberSectionTitle
+                category="수습 멤버"
+                subTitle="열심히 활동해봐요~!"
+              />
+              <BlurredPart isBlur={isGuest}>
                 <MemberSectionList users={humanMembers} />
-              </Section>
-              <Section>
-                <MemberSectionTitle
-                  category="휴식 멤버"
-                  subTitle="휴식중인 멤버입니다"
-                />
+              </BlurredPart>
+            </Section>
+            <Section>
+              <MemberSectionTitle
+                category="휴식 멤버"
+                subTitle="휴식중인 멤버입니다"
+              />
+              <BlurredPart isBlur={isGuest}>
                 <MemberSectionList users={restingMembers} />
-              </Section>
-            </MembersContainer>
-            <HrDiv />
-            <MemberRecommend />
-          </>
-        )}
+              </BlurredPart>
+            </Section>
+          </MembersContainer>
+          <HrDiv />
+          <MemberRecommend />
+        </>
       </Layout>
       {isLoading && <MemberSkeleton />}
     </>

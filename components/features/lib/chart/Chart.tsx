@@ -1,13 +1,14 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { MONTH_LIST } from "../../../../constants/util";
 import { getMonth } from "../../../../helpers/dateHelpers";
 import { useErrorToast } from "../../../../hooks/CustomToast";
 import {} from "../../../../hooks/user/queries";
 import { useUserAttendRateAllQueries } from "../../../../hooks/user/studyStatistics/queries";
+import { IVoteRate } from "../../../../types/study/studyRecord";
 import { IUser } from "../../../../types/user/user";
 import { ChartStudyOptions } from "./ChartOptions";
 
@@ -18,6 +19,7 @@ interface IChart {
 
 function Chart({ type, user }: IChart) {
   const { data: session } = useSession();
+  console.log(2, session);
   const errorToast = useErrorToast();
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -28,6 +30,7 @@ function Chart({ type, user }: IChart) {
 
   const Uid = user?.uid || session?.uid;
   const text = "스터디 참여";
+  let maxCnt = 5;
 
   const monthXaxis: string[] = [];
   for (let i = getMonth() - 2; i <= getMonth() + 1; i++)
@@ -48,47 +51,51 @@ function Chart({ type, user }: IChart) {
     },
   ];
 
+  const setAttendRate = (data: IVoteRate[]) => {
+    let userCnt: number;
+    let averageValue = 0;
+    let averageCnt = 0;
+    let maxCnt = 5;
+    data.forEach((who) => {
+      if (who.uid === Uid) userCnt = who.cnt;
+      if (who.cnt > 0) {
+        averageValue += who.cnt;
+        averageCnt++;
+      }
+    });
+    if (userCnt > maxCnt) {
+      if (userCnt > 15) maxCnt = 18;
+      else if (userCnt > 12) maxCnt = 15;
+      else if (userCnt > 8) maxCnt = 12;
+      else if (userCnt > 5) maxCnt = 8;
+    }
+    return {
+      maxCnt,
+      userCnt,
+      average: parseFloat((averageValue / averageCnt).toFixed(1)),
+    };
+  };
+
   useUserAttendRateAllQueries(monthArr, {
     onSuccess(data) {
-      const attendRateTemp = [...attendRateArr];
-      const attendAverageTemp = [...attendAverageArr];
-      let userCnt: number;
-      let averageValue = 0;
-      let averageCnt = 0;
-      data.data.forEach((who) => {
-        if (who.uid === Uid) userCnt = who.cnt;
-        if (who.cnt > 0) {
-          averageValue += who.cnt;
-          averageCnt++;
-        }
+      let rateTemp = [];
+      let averageTemp = [];
+      let max = 5;
+      data.forEach((element) => {
+        const { userCnt, average, maxCnt } = setAttendRate(element);
+        rateTemp.push(userCnt);
+        averageTemp.push(average);
+        if (max < maxCnt) max = maxCnt;
       });
-      if (userCnt > attendMax) {
-        let temp = attendMax;
-        if (userCnt > 15) temp = 18;
-        else if (userCnt > 12) temp = 15;
-        else if (userCnt > 8) temp = 12;
-        else if (userCnt > 5) temp = 8;
-        setAttendMax(temp);
-      }
-      attendRateTemp[data.idx] = userCnt;
-      attendAverageTemp[data.idx] = parseFloat(
-        (averageValue / averageCnt).toFixed(1)
-      );
-      setAttendRateArr(attendRateTemp);
-      setAttendAverageArr(attendAverageTemp);
+      setAttendRateArr(rateTemp);
+      setAttendAverageArr(averageTemp);
+      setAttendMax(max);
+      setIsLoading(false);
     },
     onError: errorToast,
   });
 
-  useEffect(() => {
-    if (
-      attendRateArr?.length === monthArr.length &&
-      attendRateArr?.every((item) => item >= 0)
-    )
-      setIsLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [attendRateArr]);
-
+  if (!isLoading) console.log(attendAverageArr, attendRateArr);
   return (
     <>
       {type === "study" && !isLoading && (

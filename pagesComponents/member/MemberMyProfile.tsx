@@ -1,14 +1,16 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import ScoreBadge from "../../components/common/ScoreBadge";
 import { birthToAge, getRole } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import { isGuestState } from "../../recoil/userAtoms";
 function MemberMyProfile() {
   const { data: userInfo } = useUserInfoQuery();
-
+  const isGuest = useRecoilValue(isGuestState);
   return (
     <Layout>
-      {userInfo && (
+      {userInfo ? (
         <>
           <Title>내 프로필 카드</Title>
           <Wrapper>
@@ -46,6 +48,8 @@ function MemberMyProfile() {
             </Info>
           </Wrapper>
         </>
+      ) : (
+        isGuest && <GuestMessage>게스트 로그인 이용중</GuestMessage>
       )}
     </Layout>
   );
@@ -108,6 +112,15 @@ const Info = styled.div`
       margin-left: var(--margin-min);
     }
   }
+`;
+
+const GuestMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: var(--font-h3);
+  min-height: 181px;
 `;
 
 export default MemberMyProfile;
