@@ -1,13 +1,16 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BlurredPart from "../../components/common/BlurredPart";
 import Chart from "../../components/features/lib/chart/Chart";
 import { birthToAge } from "../../helpers/converterHelpers";
+import { isGuestState } from "../../recoil/userAtoms";
 import { IUser } from "../../types/user/user";
 
 function DetailInfo({ user }: { user: IUser }) {
+  const isGuest = useRecoilValue(isGuestState);
   return (
     <Layout>
-      <BlurredPart isBlur={true}>
+      <BlurredPart isBlur={isGuest}>
         <Profile>
           <ProfileItem>
             <span>나이</span>
