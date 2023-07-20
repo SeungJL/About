@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -11,7 +10,6 @@ import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 const WEEKS_CNT = 5;
 
 function RecordDetailSummary() {
-  const { data: session } = useSession();
   const [weeksDate, setWeeksDate] = useState<IDayjsStartToEnd[]>([]);
 
   const [myAttend, setMyAttend] = useState([]);
@@ -31,22 +29,13 @@ function RecordDetailSummary() {
     if (weeksArr?.length === WEEKS_CNT) setWeeksDate(weeksArr);
   }, []);
 
-  const setUserRate = (data: number[]) => {
-    setMyAttend(data);
-  };
-
   useUserAttendRateQueries(weeksDate, {
     enabled: !!weeksDate,
-    onSuccess: setUserRate,
-  });
-  useEffect(() => {
-    if (myAttend?.length === WEEKS_CNT && myAttend.every((item) => item >= 0)) {
-      console.log(myAttend);
+    onSuccess(data) {
+      setMyAttend(data);
       setIsRecordDetailLoading(false);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myAttend]);
+    },
+  });
 
   return (
     <>
