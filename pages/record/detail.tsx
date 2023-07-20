@@ -1,4 +1,5 @@
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import RecordDetailGraph from "../../pagesComponents/record/detail/RecordDetailGraph";
 import RecordDetailHeader from "../../pagesComponents/record/detail/RecordDetailHeader";
@@ -8,8 +9,13 @@ import RecordDetailSummary from "../../pagesComponents/record/detail/RecordDetai
 
 import { isRecordDetailLoadingState } from "../../recoil/loadingAtoms";
 function Detail() {
-  const isRecordDetailLoading = useRecoilValue(isRecordDetailLoadingState);
-
+  const [isRecordDetailLoading, setIsRecordDetailLoading] = useRecoilState(
+    isRecordDetailLoadingState
+  );
+  useEffect(() => {
+    setIsRecordDetailLoading(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <Layout isLoading={isRecordDetailLoading}>

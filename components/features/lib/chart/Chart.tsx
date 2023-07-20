@@ -83,7 +83,7 @@ function Chart({ type, user }: IChart) {
   useEffect(() => {
     if (
       attendRateArr?.length === monthArr.length &&
-      attendRateArr?.some((item) => item >= 0)
+      attendRateArr?.every((item) => item >= 0)
     )
       setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps

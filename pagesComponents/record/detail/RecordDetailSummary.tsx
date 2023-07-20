@@ -32,10 +32,9 @@ function RecordDetailSummary() {
     if (weeksArr?.length === WEEKS_CNT) setWeeksDate(weeksArr);
   }, []);
 
-  const setUserRate = (data: IUserAttendRate) => {
-    const temp = [...myAttend];
-    temp[data.idx] = data.data[0].cnt;
-    setMyAttend(temp);
+  const setUserRate = (data: number[]) => {
+    setMyAttend(data);
+
   };
 
   useUserAttendRateQueries(weeksDate, {
@@ -43,8 +42,10 @@ function RecordDetailSummary() {
     onSuccess: setUserRate,
   });
   useEffect(() => {
-    if (myAttend?.length === WEEKS_CNT && myAttend?.some((item) => item >= 0))
+    if (myAttend?.length === WEEKS_CNT && myAttend.every((item) => item >= 0)) {
+      console.log(myAttend);
       setIsRecordDetailLoading(false);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myAttend]);

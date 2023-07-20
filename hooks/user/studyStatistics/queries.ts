@@ -56,28 +56,33 @@ export const useUserAttendRateAllQuery = (
 
 export const useUserAttendRateQueries = (
   monthList: IDayjsStartToEnd[],
-  options?: QueryOptions<IUserAttendRate>
-) =>
-  useQueries(
-    monthList.map((month, idx) => {
-      return {
-        queryKey: [USER_FINDPARTICIPATION, idx],
-        queryFn: async () => {
-          const res = await axios.get<IVoteRate[]>(
-            `${SERVER_URI}/user/participationrate`,
-            {
-              params: {
-                startDay: month.start.format("YYYY-MM-DD"),
-                endDay: month.end.format("YYYY-MM-DD"),
-              },
-            }
-          );
-          return { idx, data: res.data };
+  options?: QueryOptions<number[]>
+) => {
+  const queryFn = async (month: IDayjsStartToEnd) => {
+    const res = await axios.get<IVoteRate[]>(
+      `${SERVER_URI}/user/participationrate`,
+      {
+        params: {
+          startDay: month.start.format("YYYY-MM-DD"),
+          endDay: month.end.format("YYYY-MM-DD"),
         },
-        ...options,
-      };
-    })
+      }
+    );
+    return res.data[0].cnt;
+  };
+
+  const queryFns = monthList.map((month) => queryFn(month));
+
+  return useQuery(
+    [USER_FINDPARTICIPATION],
+    async () => {
+      const results = await Promise.all(queryFns);
+      return results;
+    },
+    options
   );
+};
+
 export const useUserAttendRateAllQueries = (
   monthList: IDayjsStartToEnd[],
   options?: QueryOptions<IUserAttendRate>
@@ -85,7 +90,7 @@ export const useUserAttendRateAllQueries = (
   useQueries(
     monthList.map((month, idx) => {
       return {
-        queryKey: [USER_FINDPARTICIPATION + "3334", idx],
+        queryKey: [USER_FINDPARTICIPATION + "all", idx],
         queryFn: async () => {
           const res = await axios.get<IVoteRate[]>(
             `${SERVER_URI}/user/participationrate/all`,
