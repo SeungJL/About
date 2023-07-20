@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PointIntro from "../../pagesComponents/point/PointIntro";
@@ -8,13 +8,19 @@ import PointScore from "../../pagesComponents/point/PointScore";
 import PointPointSkeleton from "../../pagesComponents/point/skeleton/PointPointSkeleton";
 import PointScoreSkeleton from "../../pagesComponents/point/skeleton/PointScoreSkeleton";
 import { isPointLoadingState } from "../../recoil/loadingAtoms";
+import { isGuestState } from "../../recoil/userAtoms";
 
 function Point() {
+  const isGuest = useRecoilValue(isGuestState);
   const [isPoingLoading, setIsPointLoading] =
     useRecoilState(isPointLoadingState);
 
   useEffect(() => {
     setIsPointLoading(true);
+    if (isGuest)
+      setTimeout(() => {
+        setIsPointLoading(false);
+      }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

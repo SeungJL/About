@@ -49,7 +49,10 @@ function Ranking() {
   useEffect(() => {
     if (isLoading) return;
     let temp = userScoreAll;
-    if (isFilter) temp = [...temp].filter((who) => who.location === location);
+    if (isFilter)
+      temp = [...temp].filter(
+        (who) => who.location === (isGuest ? "수원" : location)
+      );
     setUserScoreList(temp);
     const { rankNum, percent, isRank } = SortUserScore(temp, myScore);
     setMyRank({ rankNum, percent, isRank, score: myScore });
@@ -58,12 +61,12 @@ function Ranking() {
   }, [isFilter, isLoading, location, myScore, userScoreAll]);
 
   useEffect(() => {
-    if (myUid)
+    if (myUid && myScore > 0)
       setTimeout(() => {
         const element = document.getElementById(`ranking${myUid}`);
         element?.scrollIntoView({ behavior: "smooth" });
       }, 800);
-  }, [myUid]);
+  }, [myScore, myUid]);
 
   return (
     <>

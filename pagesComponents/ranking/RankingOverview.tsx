@@ -1,6 +1,6 @@
 import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
@@ -34,6 +34,11 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
     },
     onError: (e) => typeErrorToast(e, "user"),
   });
+
+  useEffect(() => {
+    if (isGuest)
+      setUserBadge({ badge: "아메리카노", color: USER_BADGES["아메리카노"] });
+  }, [isGuest]);
 
   return (
     <>

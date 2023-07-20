@@ -5,10 +5,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  useUserAttendRateAllQuery,
-  useUserAttendRateQuery,
-} from "../../hooks/user/studyStatistics/queries";
+import { useFailToast } from "../../hooks/CustomToast";
+import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IDateRange } from "../../pages/record";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
@@ -20,6 +18,7 @@ interface IRecordOverview {
 }
 
 function RecordOverview({ openData, dateRange }: IRecordOverview) {
+  const failToast = useFailToast();
   const { data: session } = useSession();
   const router = useRouter();
   const isGuest = session?.user.name === "guest";
@@ -36,7 +35,6 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
     let myRecentDate = null;
     let open = 0;
     let num = 0;
-
     openData.forEach((data) => {
       const arrivedInfoList = data.arrivedInfoList;
       open += arrivedInfoList.length;
@@ -65,12 +63,16 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
     dateRange?.startDate,
     dateRange?.endDate
   );
-  const { data: myAttend2 } = useUserAttendRateAllQuery(
-    dateRange?.startDate,
-    dateRange?.endDate
-  );
 
   const myMonthCnt = myAttend?.find((user) => user.uid === userUid)?.cnt;
+
+  const onClickDetail = () => {
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
+    router.push(`/record/detail`);
+  };
 
   return (
     <>
@@ -91,7 +93,7 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
               <div>
                 <ContentName>내 참여 횟수</ContentName>
                 <ContentValue style={{ color: "var(--color-mint)" }}>
-                  {myMonthCnt}회
+                  {myMonthCnt || 0}회
                 </ContentValue>
               </div>
               <div>
@@ -104,10 +106,7 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
               </div>
             </MyRecordItem>
           </MyRecord>
-          <Button
-            color="var(--font-h2)"
-            onClick={() => router.push(`/record/detail`)}
-          >
+          <Button color="var(--font-h2)" onClick={onClickDetail}>
             분석
           </Button>
         </Layout>

@@ -23,7 +23,7 @@ import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
-import { userLocationState } from "../../recoil/userAtoms";
+import { isGuestState, userLocationState } from "../../recoil/userAtoms";
 import { IUser } from "../../types/user/user";
 
 export default function UserSetting() {
@@ -34,6 +34,7 @@ export default function UserSetting() {
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const [location, setLocation] = useRecoilState(userLocationState);
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
+  const setIsGuest = useSetRecoilState(isGuestState);
 
   const [myProfileNull, setMyProfileNull] = useState(false);
   const [isAttend, setIsAttend] = useState(false);
@@ -44,6 +45,7 @@ export default function UserSetting() {
   const { mutate: setRole } = useUserRoleMutation();
 
   const setInitialSetting = (data: IUser) => {
+    if (!data) return;
     if (!location) setLocation(data.location);
     if (!data?.majors?.length) setMyProfileNull(true);
     const rest = data?.rest;
@@ -51,7 +53,7 @@ export default function UserSetting() {
   };
 
   const { data: userInfo, isLoading } = useUserInfoQuery({
-    enabled: isGuest === false,
+    enabled: !isGuest,
     onSuccess: setInitialSetting,
     onError: (e) => typeErrorToast(e, "user"),
   });
@@ -66,6 +68,7 @@ export default function UserSetting() {
   useEffect(() => {
     if (isLoading) return;
     if (isGuest) {
+      setIsGuest(true);
       setLocation("수원");
       return;
     }

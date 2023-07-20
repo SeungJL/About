@@ -2,7 +2,7 @@ import { Badge, Progress } from "@chakra-ui/react";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/common/ModalPortal";
 import { USER_BADGES } from "../../../constants/convert";
@@ -42,6 +42,11 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
       });
     },
   });
+
+  useEffect(() => {
+    if (isGuest)
+      setUserBadge({ badge: "아메리카노", color: USER_BADGES["아메리카노"] });
+  }, [isGuest]);
 
   return (
     <>
