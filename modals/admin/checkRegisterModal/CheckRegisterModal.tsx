@@ -16,7 +16,7 @@ function CheckRegisterModal({
 }: ICheckRegisterModal) {
   if (!applicant) return null;
   return (
-    <ModalLayout size="md">
+    <ModalLayout size="lg">
       <ModalHeaderX title={applicant.name} setIsModal={setIsModal} />
       <CheckRegisterModalDetail applicant={applicant} />
       <CheckRegisterModalFooter
