@@ -70,7 +70,7 @@ function Store() {
                   alt="storeGift"
                   unoptimized={true}
                   src={item.image}
-                />{" "}
+                />
                 {item?.max === applyNum[idx] && <Circle>추첨 완료</Circle>}
               </ImageWrapper>
               <Name>{item.name}</Name>

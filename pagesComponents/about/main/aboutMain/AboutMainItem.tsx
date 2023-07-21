@@ -7,7 +7,7 @@ import {
   myStudyFixedState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-import { YANG_할리스 } from "../../../../storage/study";
+import { SUWAN_투썸, YANG_할리스 } from "../../../../storage/study";
 import { IStudy } from "../../../../types/study/study";
 import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
 import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
@@ -31,7 +31,9 @@ function AboutMainItem({ participation }: IAboutMainItem) {
 
   return (
     <Layout status={statusFixed === "myOpen"} onClick={onClickItem}>
-      <ImageContainer isDark={place._id === YANG_할리스}>
+      <ImageContainer
+        isDark={place._id === YANG_할리스 || place._id === SUWAN_투썸}
+      >
         <StudySpaceLogo place={place} isBig={true} />
       </ImageContainer>
       <SpaceInfo>

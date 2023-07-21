@@ -6,15 +6,17 @@ export const StudyLocation: Location[] = ["수원", "양천", "안양", "강남"
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
 export const SUWAN_카탈로그 = "62e5d6e0e098c232c05c3d3f";
-export const SUWAN_아티제 = "63625f1d958585371af0248b";
+export const SUWAN_투썸상현 = "64b15fb72704a3af110733ba";
 export const SUWAN_커피빈 = "644f6ffe9edb56992ccda5e9";
 export const SUWAN_칸나 = "644f70529edb56992ccda5eb";
 export const SUWAN_이디야 = "6479f39e907daf3e8a5cda6e";
+export const SUWAN_스타벅스 = "64ba45feefd3711264521a87";
 //양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
 export const YANG_할리스2 = "6456f0b320352b2d8758295c";
+export const YANG_카페베네 = "64ba43a5efd3711264521a86";
 //안양
 export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
 export const ANYANG_숨맑은집 = "6456ede120352b2d87582955";
@@ -26,17 +28,17 @@ export const SPACE_NAME = {
   "64395f1e8d1edf4e056e993d": "투썸플레이스",
   "640c271121863deff358f459": "탐앤탐스",
   "62e5d6e0e098c232c05c3d3f": "카탈로그",
-  "63625f1d958585371af0248b": "아티제",
+  "64b15fb72704a3af110733ba": "투썸상현",
   "644f6ffe9edb56992ccda5e9": "커피빈",
   "644f70529edb56992ccda5eb": "칸나",
   "6479f39e907daf3e8a5cda6e": "이디야",
-
+  "64ba45feefd3711264521a87": "스타벅스",
   //양천
   "6437e9d7ab537b843c6143ac": "위카페",
   "6437ea69ab537b843c6143ad": "할리스",
   "6437eb3fab537b843c6143ae": "파스쿠찌",
   "6456f0b320352b2d8758295c": "할리스2",
-
+  "64ba43a5efd3711264521a86": "카페베네",
   //안양
   "6456ef2820352b2d87582959": "커피인더스트리",
   "6456ede120352b2d87582955": "숨맑은집",
@@ -46,7 +48,7 @@ export const SPACE_NAME = {
 
 export const SPACE_LOCATION = {
   //수원
-  [SUWAN_아티제]: "수원",
+  [SUWAN_투썸상현]: "수원",
   [SUWAN_카탈로그]: "수원",
   [SUWAN_탐앤탐스]: "수원",
   [SUWAN_투썸]: "수원",
@@ -54,11 +56,13 @@ export const SPACE_LOCATION = {
   [SUWAN_커피빈]: "수원",
   [SUWAN_칸나]: "수원",
   [SUWAN_이디야]: "수원",
+  [SUWAN_스타벅스]: "수원",
   //양천
   [YANG_할리스2]: "양천",
   [YANG_위카페]: "양천",
   [YANG_파스쿠찌]: "양천",
   [YANG_할리스]: "양천",
+  [YANG_카페베네]: "양천",
   //안양
   [ANYANG_숨맑은집]: "안양",
   [ANYANG_인뎃커피]: "안양",
@@ -79,16 +83,15 @@ export const STUDY_SPACE_INFO = [
     time: "08:00 - 24:00",
   },
   {
-    id: SUWAN_아티제,
-    location: "경기 수원시 영통구 센트럴타운로 85",
-    time: "09:00 - 22:30",
+    id: SUWAN_투썸상현,
+    location: "경기 용인시 수지구 광교중앙로 310",
+    time: "08:00 - 24:00",
   },
   {
     id: SUWAN_투썸,
     location: "경기 수원시 팔달구 인계로 166번길 48-15",
     time: "09:00 - 24:00",
   },
-
   {
     id: SUWAN_커피빈,
     location: "경기 수원시 장안구 경수대로 989",
@@ -104,7 +107,11 @@ export const STUDY_SPACE_INFO = [
     location: "경기 수원시 권선구 구운중로4번길 20",
     time: "10:30 - 21:00",
   },
-
+  {
+    id: SUWAN_스타벅스,
+    location: "경기 수원시 영통구 대학로 47 광교스타인",
+    time: "07:30 - 21:00",
+  },
   //양천
   {
     id: YANG_위카페,
@@ -125,6 +132,11 @@ export const STUDY_SPACE_INFO = [
     id: YANG_할리스2,
     location: "서울 양천구 오목로 344",
     time: "08:00 ~ 23:00",
+  },
+  {
+    id: YANG_카페베네,
+    location: "서울 영등포구 당산로 138",
+    time: "08:00~22:00",
   },
 
   //안양
