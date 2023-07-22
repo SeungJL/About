@@ -5,11 +5,13 @@ import { Size } from "../../../types/system";
 interface IModalLayout {
   children: React.ReactNode;
   size: Size;
+  height?: number;
 }
 
-export const ModalLayout = ({ children, size }: IModalLayout) => (
+export const ModalLayout = ({ children, size, height }: IModalLayout) => (
   <Layout
     size={size}
+    height={height}
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
@@ -35,9 +37,10 @@ const SIZE_HEIGHT_MAP = {
   xs: "120px",
 };
 
-const Layout = styled(motion.div)<{ size: Size }>`
+const Layout = styled(motion.div)<{ size: Size; height?: number }>`
   width: 340px;
-  height: ${(props) => SIZE_HEIGHT_MAP[props.size]};
+  height: ${(props) => `${props.height}px` || SIZE_HEIGHT_MAP[props.size]};
+
   padding: var(--padding-main);
   background-color: white;
   border-radius: var(--border-radius-main);

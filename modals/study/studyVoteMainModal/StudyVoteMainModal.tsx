@@ -22,16 +22,19 @@ import {
 import { IModal } from "../../../types/reactTypes";
 import { IStudy } from "../../../types/study/study";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
+import { Location } from "../../../types/system";
 import StudyVoteMainModalPlace from "./StudyVoteMainModalPlace";
 import StudyVoteMainModalTime from "./StudyVoteMainModalTime";
 interface IStudyVoteMainModal extends IModal {
   isBig: boolean;
   participations: IStudy[];
+  location: Location;
 }
 
 function StudyVoteMainModal({
   setIsModal,
   isBig,
+  location,
   participations,
 }: IStudyVoteMainModal) {
   const failToast = useFailToast();
@@ -86,7 +89,9 @@ function StudyVoteMainModal({
 
   return (
     <>
-      <ModalLayout size={isBig ? "xl" : "md"}>
+      <ModalLayout
+        size={location === "수원" ? "xl" : location === "양천" ? "lg" : "md"}
+      >
         <ModalHeaderX
           title={voteDate.format("M월 D일 스터디 투표")}
           setIsModal={setIsModal}

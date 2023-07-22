@@ -117,7 +117,7 @@ const PlaceIcon = styled.div`
   justify-content: center;
 `;
 const Name = styled.span`
-  margin-left: var(--margin-md);
+  margin-left: var(--margin-min);
   font-size: 14px;
   font-weight: 600;
 `;
