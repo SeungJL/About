@@ -17,7 +17,7 @@ function LocationMember({ location }: { location: Location }) {
         <Member>
           <MemberCnt>
             <FontAwesomeIcon icon={faUserClock} size="xs" />
-            <span>9</span>
+            <span>16</span>
           </MemberCnt>
         </Member>
       ) : false ? null : (

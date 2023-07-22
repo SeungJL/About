@@ -56,7 +56,6 @@ function CheckRegisterModalFooter({
     onClose();
     deleteForm(uid);
     setIsModal(false);
-    completeToast("success");
     setIsRefetch(true);
   };
 

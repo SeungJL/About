@@ -104,7 +104,8 @@ function Major() {
 }
 
 const Layout = styled(motion.div)`
-  height: 100vh;
+  min-height: 100vh;
+  margin-bottom: var(--margin-max);
 `;
 
 const Section = styled.section`
