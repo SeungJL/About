@@ -7,7 +7,6 @@ import {
   myStudyFixedState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-import { SUWAN_투썸, YANG_할리스 } from "../../../../storage/study";
 import { IStudy } from "../../../../types/study/study";
 import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
 import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
@@ -31,9 +30,7 @@ function AboutMainItem({ participation }: IAboutMainItem) {
 
   return (
     <Layout status={statusFixed === "myOpen"} onClick={onClickItem}>
-      <ImageContainer
-        isDark={place._id === YANG_할리스 || place._id === SUWAN_투썸}
-      >
+      <ImageContainer>
         <StudySpaceLogo place={place} isBig={true} />
       </ImageContainer>
       <SpaceInfo>
@@ -62,7 +59,7 @@ const Layout = styled.div<{ status: boolean }>`
   border: ${(props) => props.status && "var(--border-mint)"};
 `;
 
-const ImageContainer = styled.div<{ isDark?: boolean }>`
+const ImageContainer = styled.div`
   width: 77px;
   height: 77px;
   border: var(--border-sub);
@@ -71,7 +68,6 @@ const ImageContainer = styled.div<{ isDark?: boolean }>`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-color: ${(props) => props.isDark && "var(--font-h7)"};
 `;
 
 const SpaceInfo = styled.div`

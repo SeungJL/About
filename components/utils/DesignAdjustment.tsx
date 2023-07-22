@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SUWAN_이디야 } from "../../storage/study";
+import { SUWAN_이디야, YANG_이디야 } from "../../storage/study";
 import { IPlace } from "../../types/study/study";
 
 interface IStudySpaceLogo {
@@ -9,7 +9,7 @@ interface IStudySpaceLogo {
 export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
   let W = 40;
   let H = 40;
-  if (place._id === SUWAN_이디야) {
+  if (place._id === SUWAN_이디야 || place._id === YANG_이디야) {
     W = 50;
     H = 50;
   }

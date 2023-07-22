@@ -15,8 +15,9 @@ export const SUWAN_스타벅스 = "64ba45feefd3711264521a87";
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
 export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
-export const YANG_할리스2 = "6456f0b320352b2d8758295c";
+export const YANG_이디야 = "6456f0b320352b2d8758295c";
 export const YANG_카페베네 = "64ba43a5efd3711264521a86";
+export const YANG_스타벅스 = "64bbc30787f8dc1a5210da6a";
 //안양
 export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
 export const ANYANG_숨맑은집 = "6456ede120352b2d87582955";
@@ -37,8 +38,9 @@ export const SPACE_NAME = {
   "6437e9d7ab537b843c6143ac": "위카페",
   "6437ea69ab537b843c6143ad": "할리스",
   "6437eb3fab537b843c6143ae": "파스쿠찌",
-  "6456f0b320352b2d8758295c": "할리스2",
+  "6456f0b320352b2d8758295c": "이디야",
   "64ba43a5efd3711264521a86": "카페베네",
+  "64bbc30787f8dc1a5210da6a": "스타벅스",
   //안양
   "6456ef2820352b2d87582959": "커피인더스트리",
   "6456ede120352b2d87582955": "숨맑은집",
@@ -58,11 +60,12 @@ export const SPACE_LOCATION = {
   [SUWAN_이디야]: "수원",
   [SUWAN_스타벅스]: "수원",
   //양천
-  [YANG_할리스2]: "양천",
+  [YANG_이디야]: "양천",
   [YANG_위카페]: "양천",
   [YANG_파스쿠찌]: "양천",
   [YANG_할리스]: "양천",
   [YANG_카페베네]: "양천",
+  [YANG_스타벅스]: "양천",
   //안양
   [ANYANG_숨맑은집]: "안양",
   [ANYANG_인뎃커피]: "안양",
@@ -116,48 +119,53 @@ export const STUDY_SPACE_INFO = [
   {
     id: YANG_위카페,
     location: "서울특별시 강서구 등촌동 648-5 1층",
-    time: "08:00 ~ 21:00",
+    time: "08:00 - 21:00",
   },
   {
     id: YANG_할리스,
     location: "서울특별시 영등포구 당산제2동 당산로 219",
-    time: "08:00 ~ 01:00",
+    time: "08:00 - 01:00",
   },
   {
     id: YANG_파스쿠찌,
     location: "서울특별시 강서구 화곡동 897-14",
-    time: "08:00 ~ 00:00",
+    time: "08:00 - 00:00",
   },
   {
-    id: YANG_할리스2,
-    location: "서울 양천구 오목로 344",
-    time: "08:00 ~ 23:00",
+    id: YANG_이디야,
+    location: "서울 양천구 신목로 102 대경프라자",
+    time: "07:30 - 23:30",
   },
   {
     id: YANG_카페베네,
     location: "서울 영등포구 당산로 138",
-    time: "08:00~22:00",
+    time: "08:00 - 22:00",
+  },
+  {
+    id: YANG_스타벅스,
+    location: "서울 강서구 등촌로 57",
+    time: "07:30 - 22:00",
   },
 
   //안양
   {
     id: ANYANG_파스쿠찌,
     location: "경기 안양시 만안구 안양로304번길 12",
-    time: "09:30 ~ 23:00",
+    time: "09:30 - 23:00",
   },
   {
     id: ANYANG_숨맑은집,
     location: "경기 안양시 동안구 평촌대로223번길 44",
-    time: "09:00 ~ 24:00",
+    time: "09:00 - 24:00",
   },
   {
     id: ANYANG_인뎃커피,
     location: "경기 안양시 동안구 흥안대로 530",
-    time: "09:00 ~ 24:00",
+    time: "09:00 - 24:00",
   },
   {
     id: ANYANG_커피인더스트리,
     location: "경기 군포시 군포로 731",
-    time: "09:00 ~ 24:00",
+    time: "09:00 - 24:00",
   },
 ];
