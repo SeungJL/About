@@ -30,7 +30,7 @@ function RecordDetailSummary() {
   }, []);
 
   useUserAttendRateQueries(weeksDate, {
-    enabled: !!weeksDate,
+    enabled: weeksDate.length !== 0,
     onSuccess(data) {
       setMyAttend(data);
       setIsRecordDetailLoading(false);

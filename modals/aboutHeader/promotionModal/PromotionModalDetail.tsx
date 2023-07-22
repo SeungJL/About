@@ -30,7 +30,7 @@ function PromotionModalDetail() {
       </div>
       <div>
         <span>추첨 날짜</span>
-        <span>{currentMonth + 2}월 10일</span>
+        <span>{currentMonth + 2}월 20일</span>
       </div>
     </Layout>
   );
