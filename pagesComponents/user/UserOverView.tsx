@@ -51,7 +51,7 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   } = useUserInfoQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      console.log(55, data);
+  
       setValue(data.comment);
       const badge = getUserBadgeScore(data.score).badge;
       setBadge({

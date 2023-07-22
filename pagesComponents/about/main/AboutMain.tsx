@@ -24,13 +24,12 @@ function AboutMain({ participations }: IAboutMain) {
   useStudyVoteQuery(voteDate, "수원", {
     enabled: location === "안양",
     onSuccess(data) {
-      console.log(data);
       setInterSectionStudy(
         data.participations.find((study) => study.place._id === SUWAN_탐앤탐스)
       );
     },
   });
-  console.log(2, location);
+
   return (
     <AnimatePresence initial={false}>
       {!isMainLoading ? (

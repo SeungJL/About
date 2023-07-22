@@ -19,7 +19,6 @@ interface IChart {
 
 function Chart({ type, user }: IChart) {
   const { data: session } = useSession();
-  console.log(2, session);
   const errorToast = useErrorToast();
   const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -95,7 +94,6 @@ function Chart({ type, user }: IChart) {
     onError: errorToast,
   });
 
-  if (!isLoading) console.log(attendAverageArr, attendRateArr);
   return (
     <>
       {type === "study" && !isLoading && (
