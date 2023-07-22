@@ -2,7 +2,7 @@ import { Badge } from "@chakra-ui/react";
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../components/common/ModalPortal";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
@@ -34,7 +34,9 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   const errorToast = useErrorToast();
   const isGuest = useRecoilValue(isGuestState);
 
-  const isRefetchUserInfo = useRecoilValue(isRefetchUserInfoState);
+  const [isRefetchUserInfo, setIsRefetchUserInfo] = useRecoilState(
+    isRefetchUserInfoState
+  );
 
   const [value, setValue] = useState("");
   const [isProfileModal, setIsProfileModal] = useState(false);
@@ -42,9 +44,14 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { data: user, refetch } = useUserInfoQuery({
+  const {
+    data: user,
+    refetch,
+    isLoading,
+  } = useUserInfoQuery({
     enabled: !isGuest,
     onSuccess(data) {
+      console.log(55, data);
       setValue(data.comment);
       const badge = getUserBadgeScore(data.score).badge;
       setBadge({
@@ -56,7 +63,10 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   });
 
   useEffect(() => {
-    if (isRefetchUserInfo) refetch();
+    if (isRefetchUserInfo) {
+      setIsRefetchUserInfo(false);
+      refetch();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchUserInfo]);
 
@@ -93,38 +103,44 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
 
   return (
     <>
-      <Layout>
-        <UserImg>
-          <ProfileIcon user={user || "guest"} size="xl" />
-          <IconWrapper onClick={() => setIsProfileModal(true)}>
-            <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
-          </IconWrapper>
-        </UserImg>
-        <UserInfo>
-          <UserProfile>
-            <UserName>{isGuest ? "게스트" : user?.name}</UserName>
-            <Badge fontSize={12} colorScheme={badge?.color}>
-              {badge?.badge}
-            </Badge>
-          </UserProfile>
-          <Comment>
-            <span>Comment</span>
-            <div>
-              <Message
-                value={!isGuest ? value : "안녕하세요! 잘 부탁드려요~ ㅎㅎ"}
-                disabled={true}
-                ref={inputRef}
-                type="text"
-                onBlur={handleSubmit}
-                onChange={onWrite}
+      {!isLoading && (
+        <Layout>
+          <UserImg>
+            <ProfileIcon user={user || "guest"} size="xl" />
+            <IconWrapper onClick={() => setIsProfileModal(true)}>
+              <FontAwesomeIcon
+                icon={faCamera}
+                color="var(--font-h2)"
+                size="lg"
               />
-              <span onClick={handleWrite}>
-                <FontAwesomeIcon icon={faPenToSquare} />
-              </span>
-            </div>
-          </Comment>
-        </UserInfo>
-      </Layout>
+            </IconWrapper>
+          </UserImg>
+          <UserInfo>
+            <UserProfile>
+              <UserName>{isGuest ? "게스트" : user?.name}</UserName>
+              <Badge fontSize={12} colorScheme={badge?.color}>
+                {badge?.badge}
+              </Badge>
+            </UserProfile>
+            <Comment>
+              <span>Comment</span>
+              <div>
+                <Message
+                  value={!isGuest ? value : "안녕하세요! 잘 부탁드려요~ ㅎㅎ"}
+                  disabled={true}
+                  ref={inputRef}
+                  type="text"
+                  onBlur={handleSubmit}
+                  onChange={onWrite}
+                />
+                <span onClick={handleWrite}>
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </span>
+              </div>
+            </Comment>
+          </UserInfo>
+        </Layout>
+      )}
       {isProfileModal && (
         <ModalPortal setIsModal={setIsProfileModal}>
           <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />

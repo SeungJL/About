@@ -12,16 +12,24 @@ interface IProfileIcon {
 }
 
 function ProfileIcon({ user, size }: IProfileIcon) {
-  const IAvatar = (user as IUser)?.avatar?.type;
+  const avatarType = (user as IUser)?.avatar?.type;
   const avatarBg = (user as IUser)?.avatar?.bg;
-  const isAvatar = Boolean(IAvatar >= 0 && avatarBg >= 0) || user === "guest";
+  const isAvatar = Boolean(
+    (avatarType !== null &&
+      avatarType !== undefined &&
+      avatarBg !== undefined &&
+      avatarBg !== null &&
+      avatarType >= 0 &&
+      avatarBg >= 0) ||
+      user === "guest"
+  );
 
   const iconSize = ICON_SIZE[size];
 
   const [isError, setIsError] = useState(false);
 
   const imageUrl = isAvatar
-    ? `${AVATAR_ICON[IAvatar]}`
+    ? `${AVATAR_ICON[avatarType]}`
     : `${(user as IUser)?.profileImage}`;
 
   return (
