@@ -1,3 +1,4 @@
+import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
 import { GatherStatus } from "../../../types/page/gather";
 
@@ -30,33 +31,42 @@ function GatherBlockHeader({
 
   return (
     <Layout>
-      <Status status={status}>{getStatusText(status)}</Status>·
-      <OpenLocation>{openLocation}</OpenLocation>·
-      <Category>{typeTitle}</Category>·<Location>{locationMain}</Location>
+      <Detail>
+        <OpenLocation>{openLocation}</OpenLocation>·
+        <Category>{typeTitle}</Category>·<Location>{locationMain}</Location>
+      </Detail>
+      <Badge
+        colorScheme={
+          status === "pending"
+            ? "blue"
+            : status === "open"
+            ? "mintTheme"
+            : status === "close"
+            ? "blackAlpha"
+            : "blue"
+        }
+        fontSize="12px"
+        variant="outline"
+      >
+        {getStatusText(status)}
+      </Badge>
     </Layout>
   );
 }
 
 const Layout = styled.header`
-  font-size: 12px;
-  color: var(--font-h3);
   display: flex;
   align-items: center;
+  justify-content: space-between;
+`;
+
+const Detail = styled.div`
+  color: var(--font-h3);
+  font-size: 12px;
 `;
 
 const OpenLocation = styled.span`
-  margin: 0 var(--margin-min);
-`;
-
-const Status = styled.span<{ status: string }>`
-  color: ${(props) =>
-    props?.status === "pending"
-      ? " var(--color-mint)"
-      : props?.status === "open"
-      ? "var(--color-red)"
-      : "var(--font-h4)"};
   margin-right: var(--margin-min);
-  font-weight: 600;
 `;
 
 const Category = styled.span`
@@ -64,7 +74,7 @@ const Category = styled.span`
 `;
 
 const Location = styled.span`
-  margin-left: var(--margin-min);
+  margin: 0 var(--margin-min);
 `;
 
 export default GatherBlockHeader;
