@@ -32,11 +32,11 @@ export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
     //수원
     if (ID === SUWAN_탐앤탐스) temp[0] = participant;
     else if (ID === SUWAN_투썸) temp[2] = participant;
-    else if (ID === SUWAN_카탈로그) temp[6] = participant;
-    else if (ID === SUWAN_투썸상현) temp[5] = participant;
-    else if (ID === SUWAN_커피빈) temp[3] = participant;
+    else if (ID === SUWAN_카탈로그) temp[3] = participant;
+    else if (ID === SUWAN_투썸상현) temp[7] = participant;
+    else if (ID === SUWAN_커피빈) temp[5] = participant;
     else if (ID === SUWAN_칸나) temp[4] = participant;
-    else if (ID === SUWAN_이디야) temp[7] = participant;
+    else if (ID === SUWAN_이디야) temp[6] = participant;
     else if (ID === SUWAN_스타벅스) temp[1] = participant;
     //양천
     if (ID === YANG_위카페) temp[0] = participant;
