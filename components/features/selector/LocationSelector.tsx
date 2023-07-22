@@ -27,6 +27,7 @@ function LocationSelector() {
         <option value="수원">수원</option>
         <option value="양천">양천구</option>
         <option value="안양">안양</option>
+        <option value="강남">강남</option>
       </select>
     </Layout>
   );
