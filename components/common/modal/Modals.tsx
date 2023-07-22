@@ -39,7 +39,8 @@ const SIZE_HEIGHT_MAP = {
 
 const Layout = styled(motion.div)<{ size: Size; height?: number }>`
   width: 340px;
-  height: ${(props) => `${props.height}px` || SIZE_HEIGHT_MAP[props.size]};
+  height: ${(props) =>
+    props.height ? `${props?.height}px` : SIZE_HEIGHT_MAP[props.size]};
 
   padding: var(--padding-main);
   background-color: white;

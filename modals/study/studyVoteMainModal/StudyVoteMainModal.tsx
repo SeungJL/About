@@ -91,6 +91,7 @@ function StudyVoteMainModal({
     <>
       <ModalLayout
         size={location === "수원" ? "xl" : location === "양천" ? "lg" : "md"}
+        height={location === "양천" && 320}
       >
         <ModalHeaderX
           title={voteDate.format("M월 D일 스터디 투표")}
