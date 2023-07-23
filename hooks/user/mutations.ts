@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useMutation } from "react-query";
+import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import { MutationOptions } from "../../types/reactTypes";
@@ -55,17 +55,17 @@ export const useUserRequestMutation = (
     return res.data;
   }, options);
 
-// export const useUserActiveMutation = (
-//   options?: Omit<
-//     UseMutationOptions<void, AxiosError, boolean>,
-//     "mutationKey" | "mutationFn"
-//   >
-// ) =>
-//   useMutation<void, AxiosError, boolean>(async (isActive) => {
-//     await axios.post(`${SERVER_URI}/user/profile`, {
-//       isActive,
-//     });
-//   }, options);
+export const useUserActiveMutation = (
+  options?: Omit<
+    UseMutationOptions<void, AxiosError, any>,
+    "mutationKey" | "mutationFn"
+  >
+) =>
+  useMutation<void, AxiosError, any>(async (data) => {
+    await axios.post(`${SERVER_URI}/user/profile`, {
+      data,
+    });
+  }, options);
 
 // export const useUserCommentMutation = (
 //   options?: Omit<
