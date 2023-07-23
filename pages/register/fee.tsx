@@ -202,12 +202,13 @@ function Fee() {
                   textAlign="left"
                   height="28px"
                 >
-                  Q. 추가적으로 궁금한 내용이 있어요!
+                  Q. 오류가 발생했어요 ㅠ && 추가적으로 궁금한 내용이 있어요!
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
             </h2>
             <AccordionPanel pt={4} pb={4}>
+              오픈채팅방에 오셔서 말씀해주세요!
               https://open.kakao.com/o/sjDgVzmf
             </AccordionPanel>
           </AccordionItem>
