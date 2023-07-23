@@ -21,8 +21,8 @@ function RegisterLayout({
 }
 
 const Layout = styled.div`
-  padding: 0 14px;
-  margin-bottom: 48px;
+  margin: 0 var(--margin-main);
+  padding-bottom: 60px;
 `;
 
 const Message = styled.div`

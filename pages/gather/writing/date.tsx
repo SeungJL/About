@@ -18,11 +18,13 @@ import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/layout/ProgressStatus";
+import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 
 function WritingDate() {
+  const failToast = useFailToast();
   const router = useRouter();
   const toast = useToast();
   const [gatherContent, setGatherContent] = useRecoilState(
@@ -47,14 +49,7 @@ function WritingDate() {
   const [location, setLocation] = useState(gatherContent?.location?.main);
   const onClickNext = () => {
     if (!location) {
-      toast({
-        title: "진행 불가",
-        description: `장소를 선택해 주세요!`,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+      failToast("free", "장소를 선택해 주세요!", true);
       return;
     }
     setGatherContent((old) => ({
@@ -71,10 +66,6 @@ function WritingDate() {
   const maxTime = new Date();
   maxTime.setHours(23);
   maxTime.setMinutes(30);
-
-  const detailOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDetail(e.target.value);
-  };
 
   return (
     <PageLayout>
@@ -115,7 +106,7 @@ function WritingDate() {
           <LocationDetailInput
             placeholder="상세 주소"
             value={detail}
-            onChange={detailOnchange}
+            onChange={(e) => setDetail(e.target.value)}
           />
         </Location>
         <BottomNav onClick={() => onClickNext()} />

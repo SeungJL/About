@@ -87,6 +87,7 @@ function WritingCondition() {
       failToast("free", "인원을 확인해 주세요!", true);
       return;
     }
+
     const gatherData = {
       ...gatherContent,
       age,
@@ -104,8 +105,8 @@ function WritingCondition() {
   };
 
   useEffect(() => {
-    if (isPreMember) setPassword(randomPassword());
-  }, [isPreMember]);
+    if (!password) setPassword(randomPassword());
+  }, [password]);
 
   return (
     <>

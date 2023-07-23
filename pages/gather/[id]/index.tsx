@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MainLoading } from "../../../components/common/MainLoading";
+import PageLayout from "../../../components/layout/PageLayout";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import GatherBadge from "../../../pagesComponents/gather/detail/GatherBadge";
 import GatherBottomNav from "../../../pagesComponents/gather/detail/GatherBottomNav";
@@ -47,7 +48,7 @@ function GatherDetail() {
       {!gatherData ? (
         <MainLoading />
       ) : (
-        <>
+        <PageLayout>
           <GatherHeader
             title={gatherData.title}
             date={dayjs(gatherData.date)}
@@ -75,7 +76,7 @@ function GatherDetail() {
               <GatherBottomNav data={gatherData} setIsRefetch={setIsRefetch} />
             )}
           </Layout>
-        </>
+        </PageLayout>
       )}
     </>
   );

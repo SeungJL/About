@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import Seo from "../../components/common/Seo";
 import Header from "../../components/layout/Header";
+import PageLayout from "../../components/layout/PageLayout";
 import { NOTICE_ALERT } from "../../constants/localStorage";
 import NoticeItem from "../../pagesComponents/notice/NoticeItem";
 import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
@@ -25,12 +26,7 @@ function Notice() {
   }, []);
 
   return (
-    <NoticeLayout
-      initial={{ x: "100%" }}
-      animate={{ x: 0 }}
-      exit={{ x: "-100%" }}
-      transition={{ duration: 0.3 }}
-    >
+    <PageLayout>
       <Seo title="Notice" />
       <Header title="알림" />
       <Layout>
@@ -50,7 +46,7 @@ function Notice() {
           </Accordion>
         </Main>
       </Layout>
-    </NoticeLayout>
+    </PageLayout>
   );
 }
 

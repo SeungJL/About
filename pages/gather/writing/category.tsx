@@ -33,31 +33,33 @@ function WritingCategory() {
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={25} />
-      <Header title="" url="/gather" />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>주제를 선택해 주세요.</span>
-        </RegisterOverview>
-        <ItemContainer>
-          {GATHER_CATEGORY?.map((item, idx) => (
-            <Item
-              key={idx}
-              isSelected={item === selectType}
-              onClick={() => setSelectType(item)}
-            >
-              <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
-              <Info>
-                <span>{item.title}</span>
-                <span>{item.subtitle}</span>
-              </Info>
-            </Item>
-          ))}
-        </ItemContainer>
-        <BottomNav onClick={() => onClickNext()} />
-      </RegisterLayout>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <ProgressStatus value={25} />
+        <Header title="" url="/gather" />
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>주제를 선택해 주세요.</span>
+          </RegisterOverview>
+          <ItemContainer>
+            {GATHER_CATEGORY?.map((item, idx) => (
+              <Item
+                key={idx}
+                isSelected={item === selectType}
+                onClick={() => setSelectType(item)}
+              >
+                <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
+                <Info>
+                  <span>{item.title}</span>
+                  <span>{item.subtitle}</span>
+                </Info>
+              </Item>
+            ))}
+          </ItemContainer>
+        </RegisterLayout>
+      </PageLayout>
+      <BottomNav onClick={() => onClickNext()} />
+    </>
   );
 }
 

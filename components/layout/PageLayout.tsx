@@ -8,9 +8,9 @@ interface IPageLayout {
 function PageLayout({ children }: IPageLayout) {
   return (
     <Layout
-      initial={{ x: "100%" }}
+      initial={{ x: 375 }}
       animate={{ x: 0 }}
-      exit={{ x: "-100%" }}
+      exit={{ x: -375 }}
       transition={{ duration: 0.3 }}
     >
       {children}
@@ -20,6 +20,7 @@ function PageLayout({ children }: IPageLayout) {
 
 const Layout = styled(motion.div)`
   min-height: 100vh;
+  padding-bottom: 20px;
 `;
 
 export default PageLayout;
