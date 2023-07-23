@@ -11,6 +11,7 @@ import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { MainLoading } from "../../components/common/MainLoading";
+import PageLayout from "../../components/layout/PageLayout";
 import {
   useUserApproveMutation,
   useUserRegisterMutation,
@@ -64,7 +65,7 @@ function Message() {
       {isLoading ? (
         <MainLoading />
       ) : (
-        <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+        <PageLayout>
           <ProgressStatus value={80} />
           <Header
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -100,7 +101,7 @@ function Message() {
             onClick={onClickNext}
             text={session?.isActive ? "완료" : null}
           />
-        </Layout>
+        </PageLayout>
       )}
     </>
   );

@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
+import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/layout/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
@@ -34,7 +35,7 @@ function Phone() {
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+    <PageLayout>
       <ProgressStatus value={88} />
       <Header title="회원가입" url="/register/comment" />
       <RegisterLayout errorMessage={errorMessage}>
@@ -49,7 +50,7 @@ function Phone() {
         />
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </Layout>
+    </PageLayout>
   );
 }
 

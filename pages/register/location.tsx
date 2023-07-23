@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
+import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/layout/ProgressStatus";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import LocationBlockProfileEdit from "../../pagesComponents/register/location/LocationBlockProfileEdit";
@@ -82,7 +83,7 @@ function Location() {
       {isLoading ? (
         <MainLoading />
       ) : (
-        <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+        <PageLayout>
           <ProgressStatus value={10} />
           <Header
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -121,7 +122,7 @@ function Location() {
             </ButtonNav>
           </RegisterLayout>
           <BottomNav onClick={() => onClickNext()} />
-        </Layout>
+        </PageLayout>
       )}
     </>
   );

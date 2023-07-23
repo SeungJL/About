@@ -9,6 +9,7 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
 import { motion } from "framer-motion";
+import PageLayout from "../../components/layout/PageLayout";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 import { INTEREST_DATA } from "../../storage/ProfileData";
@@ -48,7 +49,7 @@ function Interest() {
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+    <PageLayout>
       <ProgressStatus value={70} />
       <Header
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -87,7 +88,7 @@ function Interest() {
         </Container>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} />
-    </Layout>
+    </PageLayout>
   );
 }
 

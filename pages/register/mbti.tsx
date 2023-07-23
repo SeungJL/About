@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
+import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/layout/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
@@ -33,7 +34,7 @@ function Mbti() {
   };
 
   return (
-    <Layout initial={{ x: 200 }} animate={{ x: 0 }}>
+    <PageLayout>
       <ProgressStatus value={50} />
       <Header
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -57,7 +58,7 @@ function Mbti() {
         </ButtonNav>
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </Layout>
+    </PageLayout>
   );
 }
 

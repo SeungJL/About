@@ -10,6 +10,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
+import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/layout/ProgressStatus";
 import { birthToAge } from "../../helpers/converterHelpers";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
@@ -63,7 +64,7 @@ function Birthday() {
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
 
   return (
-    <Layout>
+    <PageLayout>
       <ProgressStatus value={40} />
       <Header
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -107,7 +108,7 @@ function Birthday() {
         </DateContainer>
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </Layout>
+    </PageLayout>
   );
 }
 
