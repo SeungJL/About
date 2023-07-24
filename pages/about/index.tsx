@@ -52,6 +52,7 @@ function About() {
       </Setting>
       <Layout>
         <AboutHeader />
+
         <AboutNavigation />
         <AboutUpperBar />
         <Calendar />
