@@ -1,17 +1,28 @@
 import { GetServerSideProps } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import { getToday } from "../../helpers/dateHelpers";
 import { getInterestingDate } from "../../helpers/studyHelpers";
+import { useFailToast } from "../../hooks/CustomToast";
+import { useUserRoleQuery } from "../../hooks/user/queries";
 import dbConnect from "../../libs/backend/dbConnect";
 import { Attendence } from "../../models/attendence";
 import { User } from "../../models/user";
 
 function Admin() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const failToast = useFailToast();
+  const { data: role } = useUserRoleQuery();
+
+  const onClick = (url: string, isAccess?: boolean) => {
+    if (role !== "manager" && isAccess) {
+      failToast("free", "이건 안돼 ^ㅡ^");
+      return;
+    }
+    router.push(`/admin/${url}`);
+  };
 
   return (
     <>
@@ -22,32 +33,34 @@ function Admin() {
             <div>
               <BlockName>유저 응답</BlockName>
               <NavBlock>
-                <button onClick={() => router.push(`/admin/checkRegister`)}>
+                <button onClick={() => onClick(`checkRegister`)}>
                   가입신청 확인
                 </button>
-                <button onClick={() => router.push(`/admin/checkSuggest`)}>
+                <button onClick={() => onClick(`checkSuggest`)}>
                   건의사항 확인
                 </button>
-                <button onClick={() => router.push(`/admin/checkRest`)}>
+                <button onClick={() => onClick(`checkRest`)}>
                   휴식신청 확인
                 </button>
-                <button onClick={() => router.push(`/admin/checkPromotion`)}>
+                <button onClick={() => onClick(`checkPromotion`)}>
                   홍보인원 확인
                 </button>
-                <button onClick={() => router.push(`/admin/checkSecede`)}>
-                  탈퇴신청 확인{" "}
+                <button onClick={() => onClick(`checkSecede`)}>
+                  탈퇴신청 확인
                 </button>
-                <button>당일불참 확인</button>
+                <button onClick={() => onClick(`checkAbsent`)}>
+                  당일불참 확인
+                </button>
               </NavBlock>
             </div>
             <div>
               <BlockName>유저 정보</BlockName>
               <NavBlock>
-                <button onClick={() => router.push(`/admin/userControl`)}>
-                  유저 정보 관리 O
+                <button onClick={() => onClick(`userControl`, true)}>
+                  유저 정보 관리
                 </button>
                 <button>유저 상태 확인</button>
-                <button onClick={() => router.push(`/admin/pointSystemLog`)}>
+                <button onClick={() => onClick(`pointSystemLog`, true)}>
                   포인트시스템 로그
                 </button>
               </NavBlock>
@@ -55,21 +68,21 @@ function Admin() {
             <div>
               <BlockName>스터디 관리</BlockName>
               <NavBlock>
-                <button onClick={() => router.push(`/admin/studySpaceControl`)}>
-                  스터디 장소 정보 O
+                <button onClick={() => onClick(`studySpaceControl`, true)}>
+                  스터디 장소 정보
                 </button>
-                <button onClick={() => router.push(`/admin/studyControl`)}>
-                  스터디 상태 변경 O
+                <button onClick={() => onClick(`studyControl`, true)}>
+                  스터디 상태 변경
                 </button>
               </NavBlock>
             </div>
-            <div>
+            {/* <div>
               <BlockName>게시글 작성</BlockName>
               <NavBlock>
                 <button>공지사항</button>
                 <button>Plaza</button>
               </NavBlock>
-            </div>
+            </div> */}
             <div>
               <BlockName />
             </div>

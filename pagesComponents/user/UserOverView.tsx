@@ -2,7 +2,7 @@ import { Badge } from "@chakra-ui/react";
 import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../components/common/ModalPortal";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
@@ -17,26 +17,19 @@ import {
   useUserApproveMutation,
   useUserRegisterMutation,
 } from "../../hooks/user/mutations";
-import { useUserInfoQuery } from "../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
-import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
-import { DispatchBoolean } from "../../types/reactTypes";
-import { IUserBadge } from "../../types/user/user";
+import { IUser, IUserBadge } from "../../types/user/user";
 
 interface IUserOverview {
-  setIsLoading: DispatchBoolean;
+  userInfo: IUser;
 }
 
-export default function UserOverview({ setIsLoading }: IUserOverview) {
+export default function UserOverview({ userInfo }: IUserOverview) {
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
   const errorToast = useErrorToast();
   const isGuest = useRecoilValue(isGuestState);
-
-  const [isRefetchUserInfo, setIsRefetchUserInfo] = useRecoilState(
-    isRefetchUserInfoState
-  );
 
   const [value, setValue] = useState("");
   const [isProfileModal, setIsProfileModal] = useState(false);
@@ -44,31 +37,18 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const {
-    data: user,
-    refetch,
-    isLoading,
-  } = useUserInfoQuery({
-    enabled: !isGuest,
-    onSuccess(data) {
-  
-      setValue(data.comment);
-      const badge = getUserBadgeScore(data.score).badge;
-      setBadge({
-        badge,
-        color: USER_BADGES[badge],
-      });
-      setIsLoading(false);
-    },
-  });
-
   useEffect(() => {
-    if (isRefetchUserInfo) {
-      setIsRefetchUserInfo(false);
-      refetch();
+    setValue(userInfo?.comment || "안녕하세요! 잘 부탁드려요~ ㅎㅎ");
+    if (isGuest) {
+      setBadge({ badge: "아메리카노", color: USER_BADGES["아메리카노"] });
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefetchUserInfo]);
+    const badge = getUserBadgeScore(userInfo.score).badge;
+    setBadge({
+      badge,
+      color: USER_BADGES[badge],
+    });
+  }, [isGuest, userInfo]);
 
   const { mutate } = useUserRegisterMutation({
     onError: errorToast,
@@ -97,50 +77,45 @@ export default function UserOverview({ setIsLoading }: IUserOverview) {
   };
 
   const handleSubmit = async () => {
-    await mutate({ ...user, comment: value });
-    await approve(user?.uid);
+    await mutate({ ...userInfo, comment: value });
+    await approve(userInfo?.uid);
   };
 
   return (
     <>
-      {!isLoading && (
-        <Layout>
-          <UserImg>
-            <ProfileIcon user={user || "guest"} size="xl" />
-            <IconWrapper onClick={() => setIsProfileModal(true)}>
-              <FontAwesomeIcon
-                icon={faCamera}
-                color="var(--font-h2)"
-                size="lg"
+      <Layout>
+        <UserImg>
+          <ProfileIcon user={userInfo || "guest"} size="xl" />
+          <IconWrapper onClick={() => setIsProfileModal(true)}>
+            <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
+          </IconWrapper>
+        </UserImg>
+        <UserInfo>
+          <UserProfile>
+            <UserName>{isGuest ? "게스트" : userInfo?.name}</UserName>
+            <Badge fontSize={12} colorScheme={badge?.color}>
+              {badge?.badge}
+            </Badge>
+          </UserProfile>
+          <Comment>
+            <span>Comment</span>
+            <div>
+              <Message
+                value={value}
+                disabled={true}
+                ref={inputRef}
+                type="text"
+                onBlur={handleSubmit}
+                onChange={onWrite}
               />
-            </IconWrapper>
-          </UserImg>
-          <UserInfo>
-            <UserProfile>
-              <UserName>{isGuest ? "게스트" : user?.name}</UserName>
-              <Badge fontSize={12} colorScheme={badge?.color}>
-                {badge?.badge}
-              </Badge>
-            </UserProfile>
-            <Comment>
-              <span>Comment</span>
-              <div>
-                <Message
-                  value={!isGuest ? value : "안녕하세요! 잘 부탁드려요~ ㅎㅎ"}
-                  disabled={true}
-                  ref={inputRef}
-                  type="text"
-                  onBlur={handleSubmit}
-                  onChange={onWrite}
-                />
-                <span onClick={handleWrite}>
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                </span>
-              </div>
-            </Comment>
-          </UserInfo>
-        </Layout>
-      )}
+              <span onClick={handleWrite}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </span>
+            </div>
+          </Comment>
+        </UserInfo>
+      </Layout>
+
       {isProfileModal && (
         <ModalPortal setIsModal={setIsProfileModal}>
           <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />

@@ -7,10 +7,7 @@ import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import { useState } from "react";
 import ModalPortal from "../../components/common/ModalPortal";
-import {
-  useUserLocationQuery,
-  useUserRoleQuery,
-} from "../../hooks/user/queries";
+import { useUserLocationQuery } from "../../hooks/user/queries";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
 import RequestLogoutModal from "../../modals/userRequest/RequestLogoutModal";
 import RequestPromotionRewardModal from "../../modals/userRequest/RequestPromotionRewardModal";
@@ -18,8 +15,13 @@ import RequestRestModal from "../../modals/userRequest/RequestRestModal/RequestR
 import RequestSecedeModal from "../../modals/userRequest/RequestSecedeModal";
 import SettingStudySpace from "../../modals/userRequest/RequestStudyPreferenceModal";
 import RequestSuggestModal from "../../modals/userRequest/RequestSuggestModal";
+import { Role } from "../../types/user/user";
 
-function UserNavigation() {
+interface IUserNavigation {
+  role: Role;
+}
+
+function UserNavigation({ role }: IUserNavigation) {
   const router = useRouter();
   const failToast = useFailToast();
   const { data: session } = useSession();
@@ -31,7 +33,6 @@ function UserNavigation() {
   const [isLogoutModal, setIsLogoutModal] = useState(false);
 
   const { data: location } = useUserLocationQuery();
-  const { data: role } = useUserRoleQuery();
 
   const onClickProfileEdit = () => {
     if (isGuest) {

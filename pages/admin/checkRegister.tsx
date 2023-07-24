@@ -1,25 +1,20 @@
 import { Button } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../components/common/ModalPortal";
 import Header from "../../components/layout/Header";
-import {
-  useRegisterFormsQuery,
-  useUserInfoQuery,
-} from "../../hooks/user/queries";
+import ButtonCheckNav from "../../components/ui/ButtonCheckNav";
+import { useRegisterFormsQuery } from "../../hooks/user/queries";
 import CheckRegisterModal from "../../modals/admin/checkRegisterModal/CheckRegisterModal";
+import { StudyLocation } from "../../storage/study";
 import { IRegisterForm } from "../../types/user/user";
 function CheckRegister() {
-  const { data: session } = useSession();
-
-  const temp = [1, 2, 3];
   const [isModal, setIsModal] = useState(false);
   const [applicant, setApplicant] = useState<IRegisterForm>();
-  const { data } = useUserInfoQuery();
+
   const [isRefetch, setIsRefetch] = useState(false);
-  const { data: applyData, refetch } = useRegisterFormsQuery({});
+  const { data: applyData, refetch } = useRegisterFormsQuery();
   const [registerData, setRegisterData] = useState<IRegisterForm[]>([]);
 
   const [category, setCategory] = useState("수원");
@@ -52,32 +47,11 @@ function CheckRegister() {
     <>
       <Header title="가입 신청 확인" url="/admin" />
       <Layout>
-        <LocationFilter>
-          <Button
-            colorScheme={category === "수원" ? "mintTheme" : null}
-            onClick={() => setCategory("수원")}
-          >
-            수원
-          </Button>
-          <Button
-            colorScheme={category === "양천" ? "mintTheme" : null}
-            onClick={() => setCategory("양천")}
-          >
-            양천
-          </Button>
-          <Button
-            colorScheme={category === "준비" ? "mintTheme" : null}
-            onClick={() => setCategory("준비")}
-          >
-            준비지역
-          </Button>
-          <Button
-            colorScheme={category === "보류" ? "mintTheme" : null}
-            onClick={() => setCategory("보류")}
-          >
-            보류
-          </Button>
-        </LocationFilter>
+        <ButtonCheckNav
+          buttonList={StudyLocation}
+          selectedButton={category}
+          setSelectedButton={setCategory}
+        />
         <Main>
           {registerData?.map((who, idx) => (
             <Item key={idx}>

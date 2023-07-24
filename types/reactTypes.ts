@@ -4,6 +4,7 @@ import { UseMutationOptions, UseQueryOptions } from "react-query";
 
 export type DispatchBoolean = Dispatch<SetStateAction<boolean>>;
 export type DispatchNumber = Dispatch<SetStateAction<number>>;
+export type DispatchString = Dispatch<SetStateAction<string>>;
 
 export interface IModal {
   setIsModal: DispatchBoolean;
