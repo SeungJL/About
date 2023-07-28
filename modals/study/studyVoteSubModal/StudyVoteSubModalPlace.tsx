@@ -46,7 +46,7 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
         selectPlaces={subPlace}
         setSelectPlaces={setSubPlace}
       />
-      {location !== "수원" && <Comment>Study with us</Comment>}
+      {location === "안양" && <Comment>Study with us</Comment>}
     </Layout>
   );
 }
