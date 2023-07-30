@@ -42,35 +42,19 @@ function KakaoShareBtn({
         type === "gather"
           ? {
               container: "#kakao-share-button",
-              objectType: "location",
+              objectType: "feed",
               content: {
                 title,
                 description: subtitle,
                 imageUrl:
-                  "https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png",
+                  "https://user-images.githubusercontent.com/84257439/257071180-58679dae-0f0f-405f-bf4d-4c72457a5d49.jpg",
+                imageWidth: 800,
+                imageHeight: 400,
                 link: {
                   mobileWebUrl: url,
                   webUrl: url,
                 },
               },
-              address: location,
-              // addressTitle: "카카오 본사",
-              buttons: [
-                {
-                  title: "웹으로 이동",
-                  link: {
-                    mobileWebUrl: url,
-                    webUrl: url,
-                  },
-                },
-                {
-                  title: "앱으로 이동",
-                  link: {
-                    mobileWebUrl: url,
-                    webUrl: url,
-                  },
-                },
-              ],
             }
           : type === "study"
           ? {
