@@ -7,8 +7,9 @@ import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/ui/ButtonCheckNav";
 import { useRegisterFormsQuery } from "../../hooks/user/queries";
 import CheckRegisterModal from "../../modals/admin/checkRegisterModal/CheckRegisterModal";
-import { StudyLocation } from "../../storage/study";
+import { RegisterLocation } from "../../storage/study";
 import { IRegisterForm } from "../../types/user/user";
+
 function CheckRegister() {
   const [isModal, setIsModal] = useState(false);
   const [applicant, setApplicant] = useState<IRegisterForm>();
@@ -48,7 +49,7 @@ function CheckRegister() {
       <Header title="가입 신청 확인" url="/admin" />
       <Layout>
         <ButtonCheckNav
-          buttonList={StudyLocation}
+          buttonList={RegisterLocation}
           selectedButton={category}
           setSelectedButton={setCategory}
         />
@@ -67,7 +68,7 @@ function CheckRegister() {
               <Summary>
                 <div>
                   <span>{who?.name}</span>
-                  <span>2023년 5월 9일 신청</span>
+                  <span>2023년 o월 oo일 신청</span>
                 </div>
                 <span>{who?.location}</span>
               </Summary>

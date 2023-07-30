@@ -55,10 +55,12 @@ function UserNavigation({ role }: IUserNavigation) {
     if (!isOpen) setModalOpen("");
   };
 
+  const isAdmin = role === "previliged" || role === "manager";
+
   return (
     <>
       <Layout>
-        {role === "previliged" && (
+        {isAdmin && (
           <div>
             <BlockName>관리자</BlockName>
             <NavBlock>

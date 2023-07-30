@@ -1,12 +1,8 @@
 import { Location } from "../types/system";
 
-export const StudyLocation: Location[] = [
-  "수원",
-  "양천",
-  "안양",
-  "강남",
-  "보류",
-];
+export const StudyLocation: Location[] = ["수원", "양천", "안양", "강남"];
+
+export const RegisterLocation = [...StudyLocation, "보류"];
 
 //수원
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";

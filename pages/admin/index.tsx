@@ -17,7 +17,7 @@ function Admin() {
   const { data: role } = useUserRoleQuery();
 
   const onClick = (url: string, isAccess?: boolean) => {
-    if (role !== "manager" && isAccess) {
+    if (role === "manager" && isAccess) {
       failToast("free", "이건 안돼 ^ㅡ^");
       return;
     }
