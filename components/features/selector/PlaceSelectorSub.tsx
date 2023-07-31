@@ -25,7 +25,7 @@ function PlaceSelectorSub({
   };
 
   const location = useRecoilValue(userLocationState);
-  console.log(location);
+  
 
   return (
     <Layout location={location}>
