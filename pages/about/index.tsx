@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Seo from "../../components/common/Seo";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
 import AboutHeader from "../../pagesComponents/about/main/AboutHeader";
 import AboutMain from "../../pagesComponents/about/main/AboutMain";
@@ -39,7 +38,6 @@ function About() {
 
   return (
     <>
-      <Seo title="About" />
       <Setting>
         <UserSetting />
         <DateSetting />

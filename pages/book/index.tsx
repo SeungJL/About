@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import Seo from "../../components/common/Seo";
 import { fetchFamousBooks } from "../../hooks/book/temp";
 
 interface IBooks {
@@ -61,7 +60,6 @@ function Books() {
 
   return (
     <>
-      <Seo title="Books" />
       <BooksLayout>
         <BooksHeader>
           <Title>Book</Title>

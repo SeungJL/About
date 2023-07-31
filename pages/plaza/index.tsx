@@ -54,7 +54,7 @@ function Plaza() {
   return (
     <>
       <Layout>
-        <Seo title="Plaza" />
+      
         <Header title="소통의 광장" />
         <PlazaLayout>
           <Category category={category} setCategory={setCategory} />

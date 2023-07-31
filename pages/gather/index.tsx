@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
-import Seo from "../../components/common/Seo";
 import GatherCategoryBar from "../../pagesComponents/gather/GatgerCategoryBar";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";
@@ -16,7 +15,6 @@ function Gather() {
 
   return (
     <>
-      <Seo title="모임" />
       <GatherHeader />
       <Layout>
         <GatherReviewNav />

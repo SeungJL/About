@@ -27,7 +27,6 @@ function Notice() {
 
   return (
     <PageLayout>
-      <Seo title="Notice" />
       <Header title="알림" />
       <Layout>
         <Category>

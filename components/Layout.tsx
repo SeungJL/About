@@ -7,6 +7,7 @@ import Script from "next/script";
 import styled from "styled-components";
 import { useToken } from "../hooks/token/useToken";
 import { useUserInfoQuery } from "../hooks/user/queries";
+import Seo from "./common/Seo";
 import GuestBottomNav from "./layout/GuestBottomNav";
 
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
@@ -48,6 +49,7 @@ function Layout({ children }: ILayout) {
           {isGuest && <GuestBottomNav />}
         </>
       )}
+      <Seo title="ABOUT" />
       <Script
         strategy="beforeInteractive"
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
