@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faCheckToSlot, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import { faBullseye, faCheckToSlot, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -66,7 +66,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
               </Button>{" "}
               <Button
                 width="50%"
-                leftIcon={<FontAwesomeIcon icon={faCrosshairs} />}
+                leftIcon={<FontAwesomeIcon icon={faBullseye} />}
                 onClick={() => onClickBtn("vote")}
                 size="md"
                 colorScheme="blackAlpha"
