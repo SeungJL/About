@@ -60,6 +60,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
                 size="md"
                 width="50%"
                 mr="var(--margin-md)"
+                _hover={{ bg: "var(--color-mint)" }}
               >
                 빠른 투표
               </Button>{" "}

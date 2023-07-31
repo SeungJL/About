@@ -51,6 +51,7 @@ function DateSetting() {
     setIsMainLoading(true);
     if (!voteDate) return;
     const studyDate = getStudyDate(voteDate);
+    console.log(3, studyDate);
     setStudyDate(studyDate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
