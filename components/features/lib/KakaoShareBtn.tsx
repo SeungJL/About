@@ -47,7 +47,7 @@ function KakaoShareBtn({
                 title,
                 description: subtitle,
                 imageUrl:
-                  "https://user-images.githubusercontent.com/84257439/257071180-58679dae-0f0f-405f-bf4d-4c72457a5d49.jpg",
+                  "https://user-images.githubusercontent.com/84257439/257462056-d83a1217-1237-4cf3-914a-e00bbcf23777.jpg",
                 imageWidth: 800,
                 imageHeight: 400,
                 link: {
