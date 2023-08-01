@@ -1,15 +1,8 @@
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
-import { getToday } from "../../helpers/dateHelpers";
-import { getInterestingDate } from "../../helpers/studyHelpers";
 import { useFailToast } from "../../hooks/CustomToast";
 import { useUserRoleQuery } from "../../hooks/user/queries";
-import dbConnect from "../../libs/backend/dbConnect";
-import { Attendence } from "../../models/attendence";
-import { User } from "../../models/user";
 
 function Admin() {
   const router = useRouter();
@@ -161,34 +154,3 @@ const NavBlock = styled.div`
   }
 `;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession({ req: context.req });
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-      props: {},
-    };
-  }
-  await dbConnect();
-
-  const user = await User.findOne({ uid: session.uid });
-  const attendences = await Attendence.find({
-    date: {
-      $gte: getToday().add(-4, "week").toDate(),
-      $lte: getInterestingDate().add(-1, "day").toDate(),
-    },
-    "participants.user": user._id,
-  }).populate("participants.user");
-
-  return {
-    props: {
-      user: JSON.stringify(user),
-      attendences: JSON.stringify(attendences),
-    },
-  };
-};
-export default Admin;

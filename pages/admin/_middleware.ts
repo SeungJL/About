@@ -9,7 +9,13 @@ const secret = process.env.NEXTAUTH_SECRET;
 export async function middleware(req: NextRequest) {
   const session = await getToken({ req, secret });
 
-  const allowedId = ["2259633694", "2283035576", "2255707346"];
+  const allowedId = [
+    "2259633694",
+    "2283035576",
+    "2282184929",
+    "2753657224",
+    "2769380662",
+  ];
 
   if (!allowedId.includes(session.uid?.toString())) {
     return NextResponse.redirect(new URL("/about", req.url));
