@@ -97,29 +97,6 @@ const UserLayout = styled.div`
   overflow: visible;
 `;
 
-const UserScoresNav = styled.nav`
-  margin-top: 2px;
-  display: flex;
-  justify-content: space-between;
-  height: 30px;
-  margin-bottom: 12px;
-  > button {
-    color: var(--font-h3);
-    width: 49%;
-    border: 1px solid var(--font-h4);
-    border-radius: 3px;
-    display: flex;
-
-    justify-content: space-around;
-    align-items: center;
-    font-size: 12px;
-    > span:last-child {
-      font-weight: 600;
-      color: var(--font-h1);
-    }
-  }
-`;
-
 const Navigation = styled.nav`
   display: flex;
   flex-direction: column;
