@@ -154,3 +154,4 @@ const NavBlock = styled.div`
   }
 `;
 
+export default Admin;
