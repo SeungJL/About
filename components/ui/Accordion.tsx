@@ -6,6 +6,7 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import styled from "styled-components";
+import { OPEN_KAKAO_LINK } from "../../constants/private";
 
 export interface IAccordionContent {
   title: string;
@@ -45,7 +46,12 @@ function Accordion({ contentArr }: IAccordion) {
               {Array.isArray(content) ? (
                 content.map((list, idx) => <li key={idx}>{list}</li>)
               ) : (
-                <p>{content}</p>
+                <p>
+                  {content}
+                  {content === "" && (
+                    <a href={OPEN_KAKAO_LINK}>{OPEN_KAKAO_LINK}</a>
+                  )}
+                </p>
               )}
             </AccordionPanel>
           </AccordionItem>

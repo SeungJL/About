@@ -16,6 +16,8 @@ const P = styled.pre`
   background-color: var(--input-bg);
 `;
 
+export const OPEN_KAKAO_LINK = "https://open.kakao.com/o/sjDgVzmf";
+
 export const PROMOTION_TEXT = `안녕하세요! 저희는 카공 스터디로 시작했다가 어쩌다보니 친목 활동까지 같이 하게 된 200명 이상 규모의 동아리 About입니다! 카공도 같이 하고, 근처에 사는 새로운 또래 친구들을 만날 수도 있어요! 공부를 목적으로 하시는 분도, 공부와 함께 친목을 목적으로 하신는 분도 모두 환영합니다! 😊
 
 ☕️동아리 소개☕️
@@ -89,12 +91,10 @@ export const ACCORDION_CONTENT_FEE: IAccordionContent[] = [
   },
   {
     title: "추가적으로 궁금한 내용이 있어요!",
-    content:
-      "오픈채팅방에 오셔서 말씀해주세요! https://open.kakao.com/o/sjDgVzmf",
+    content: "",
   },
   {
     title: "가입 신청이 안돼요 ㅠㅠ",
-    content:
-      "오픈채팅방에 오셔서 말씀해주세요! https://open.kakao.com/o/sjDgVzmf",
+    content: "",
   },
 ];
