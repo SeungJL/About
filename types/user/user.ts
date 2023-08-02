@@ -26,6 +26,29 @@ export interface IUser extends Document {
   thumbnailImage: string;
 }
 
+export interface IUser2 {
+  uid: string;
+  registerDate: string;
+  isActive: boolean;
+  birth: string;
+  mbti: string;
+  gender: Gender;
+  name: string;
+  point: number;
+  role: Role;
+  score: number;
+  comment: string;
+  rest: IRest;
+  location: Location;
+  avatar: IAvatar;
+  interests?: IInterests;
+  deposit: number;
+  majors: IMajor[];
+  telephone: string;
+  profileImage: string;
+  thumbnailImage: string;
+}
+
 export type Gender = "남성" | "여성" | "";
 
 export type Role =

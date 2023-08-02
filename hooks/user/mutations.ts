@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios";
-import { useMutation, UseMutationOptions } from "react-query";
+import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import { MutationOptions } from "../../types/reactTypes";
-import { IAvatar, IUserRegister, Role } from "../../types/user/user";
+import { IAvatar, IUser2, IUserRegister, Role } from "../../types/user/user";
 import { IUserRequest } from "../../types/user/userRequest";
 
 export const useUserRegisterMutation = (
@@ -23,9 +23,9 @@ export const useUserDeleteMutation = (options?: MutationOptions<string>) =>
     await axios.delete(`${SERVER_URI}/register/approval`, { data: { uid } });
   }, options);
 
-export const useUserUpdateProfileMutation = (options?: MutationOptions<void>) =>
-  useMutation<void, AxiosError, void>(async () => {
-    await axios.patch("/api/user/profile");
+export const useUserInfoMutation = (options?: MutationOptions<IUser2>) =>
+  useMutation<void, AxiosError, IUser2>(async (userInfo) => {
+    await axios.post(`${SERVER_URI}/user/profile`, userInfo);
   }, options);
 
 export const useUserAvatarMutation = (options?: MutationOptions<IAvatar>) =>
@@ -55,16 +55,11 @@ export const useUserRequestMutation = (
     return res.data;
   }, options);
 
-export const useUserActiveMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, any>,
-    "mutationKey" | "mutationFn"
-  >
+export const useUserUpdateProfileImageMutation = (
+  options?: MutationOptions<void>
 ) =>
-  useMutation<void, AxiosError, any>(async (data) => {
-    await axios.post(`${SERVER_URI}/user/profile`, {
-      data,
-    });
+  useMutation<void, AxiosError, void>(async () => {
+    await axios.patch("/api/user/profile");
   }, options);
 
 // export const useUserCommentMutation = (

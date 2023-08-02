@@ -6,12 +6,12 @@ import GatherCategoryBar from "../../pagesComponents/gather/GatgerCategoryBar";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";
 import GatherReviewNav from "../../pagesComponents/gather/GatherReviewNav";
-import { GatherCategory } from "../../types/page/gather";
+import { Location } from "../../types/system";
 
 function Gather() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const [category, setCategory] = useState<GatherCategory>("전체");
+  const [category, setCategory] = useState<Location>("all");
 
   return (
     <>

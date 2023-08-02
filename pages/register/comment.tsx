@@ -8,14 +8,10 @@ import ProgressStatus from "../../components/layout/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
-import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { MainLoading } from "../../components/common/MainLoading";
 import PageLayout from "../../components/layout/PageLayout";
-import {
-  useUserApproveMutation,
-  useUserRegisterMutation,
-} from "../../hooks/user/mutations";
+import { useUserInfoMutation } from "../../hooks/user/mutations";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 import { MESSAGE_DATA } from "../../storage/ProfileData";
@@ -33,8 +29,8 @@ function Message() {
   const [value, setValue] = useState(registerForm?.comment || "");
   const [index, setIndex] = useState(null);
 
-  const { mutate, isLoading } = useUserRegisterMutation();
-  const { mutate: approve } = useUserApproveMutation();
+  const { data: userInfo } = useUserInfoQuery();
+  const { mutate: updateUserInfo } = useUserInfoMutation();
 
   const InputIdx = MESSAGE_DATA?.length;
 
@@ -50,66 +46,53 @@ function Message() {
 
     if (isProfileEdit) {
       setIsProfileEdit(false);
-      await mutate({ ...registerForm, comment: tempComment });
-      await setTimeout(() => {
-        approve(session?.uid as string);
-      }, 1000);
+      await updateUserInfo({
+        ...userInfo,
+        ...registerForm,
+        comment: tempComment,
+      });
       await router.push(`/about`);
-    } else {
-      router.push(`/register/phone`);
-    }
+    } else router.push(`/register/phone`);
   };
 
   return (
-    <>
-      {isLoading ? (
-        <MainLoading />
-      ) : (
-        <PageLayout>
-          <ProgressStatus value={80} />
-          <Header
-            title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-            url="/register/interest"
-          />
-          <RegisterLayout errorMessage={errorMessage}>
-            <RegisterOverview>
-              <span>자기 소개 문장을 입력해 주세요</span>
-              <span>나를 소개하는 문장을 선택하거나 직접 입력해 주세요.</span>
-            </RegisterOverview>
-            <Container>
-              {MESSAGE_DATA?.map((item, idx) => (
-                <Item
-                  key={idx}
-                  onClick={() => setIndex(idx)}
-                  isSelected={idx === index}
-                >
-                  {item}
-                </Item>
-              ))}
-            </Container>
-            <Input
-              onClick={() => setIndex(InputIdx)}
-              placeholder="직접 입력"
-              isSelected={
-                index === InputIdx || (index === null && value !== "")
-              }
-              onChange={(e) => setValue(e.target?.value)}
-              value={value}
-            />
-          </RegisterLayout>
-          <BottomNav
-            onClick={onClickNext}
-            text={session?.isActive ? "완료" : null}
-          />
-        </PageLayout>
-      )}
-    </>
+    <PageLayout>
+      <ProgressStatus value={80} />
+      <Header
+        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
+        url="/register/interest"
+      />
+      <RegisterLayout errorMessage={errorMessage}>
+        <RegisterOverview>
+          <span>자기 소개 문장을 입력해 주세요</span>
+          <span>나를 소개하는 문장을 선택하거나 직접 입력해 주세요.</span>
+        </RegisterOverview>
+        <Container>
+          {MESSAGE_DATA?.map((item, idx) => (
+            <Item
+              key={idx}
+              onClick={() => setIndex(idx)}
+              isSelected={idx === index}
+            >
+              {item}
+            </Item>
+          ))}
+        </Container>
+        <Input
+          onClick={() => setIndex(InputIdx)}
+          placeholder="직접 입력"
+          isSelected={index === InputIdx || (index === null && value !== "")}
+          onChange={(e) => setValue(e.target?.value)}
+          value={value}
+        />
+      </RegisterLayout>
+      <BottomNav
+        onClick={onClickNext}
+        text={session?.isActive ? "완료" : null}
+      />
+    </PageLayout>
   );
 }
-
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
 
 const Container = styled.div`
   margin-top: 40px;

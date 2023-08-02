@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import { Location } from "../../types/system";
 
 interface IGatherCategoryBar {
-  category: string;
+  category: Location;
   setCategory: Dispatch<SetStateAction<string>>;
 }
 
@@ -10,22 +11,28 @@ function GatherCategoryBar({ category, setCategory }: IGatherCategoryBar) {
   return (
     <Layout>
       <Button
-        isSelected={category === "전체"}
-        onClick={() => setCategory("전체")}
+        isSelected={category === "all"}
+        onClick={() => setCategory("all")}
       >
         전체
       </Button>
       <Button
-        isSelected={category === "모집중"}
-        onClick={() => setCategory("모집중")}
+        isSelected={category === "수원"}
+        onClick={() => setCategory("수원")}
       >
-        모집중
+        수원
       </Button>
       <Button
-        isSelected={category === "완료"}
-        onClick={() => setCategory("완료")}
+        isSelected={category === "양천"}
+        onClick={() => setCategory("양천")}
       >
-        완료
+        양천
+      </Button>
+      <Button
+        isSelected={category === "안양"}
+        onClick={() => setCategory("안양")}
+      >
+        안양
       </Button>
     </Layout>
   );
@@ -37,7 +44,7 @@ const Layout = styled.nav`
   align-items: center;
   border-bottom: 1px solid var(--font-h6);
   margin: 0 var(--margin-main);
-  padding: 4px 0;
+  padding: var(--padding-min) 0;
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`

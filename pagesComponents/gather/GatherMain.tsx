@@ -5,12 +5,13 @@ import { DEFAULT_ARRAY } from "../../constants/system";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
-import { GatherCategory, IGatherContent } from "../../types/page/gather";
+import { IGatherContent } from "../../types/page/gather";
+import { Location } from "../../types/system";
 import GatherBlock from "./GatherBlock";
 import GatherBlockSkeleton from "./GatherBlockSkeleton";
 
 interface IGatherMain {
-  category: GatherCategory;
+  category: Location;
 }
 function GatherMain({ category }: IGatherMain) {
   const errorToast = useErrorToast();
@@ -26,15 +27,13 @@ function GatherMain({ category }: IGatherMain) {
   });
 
   useEffect(() => {
-    if (category === "모집중")
-      setGatherData(
-        gatherContentArr?.filter((item) => item?.status === "pending")
-      );
-    if (category === "완료")
-      setGatherData(
-        gatherContentArr?.filter((item) => item.status !== "pending")
-      );
-    if (category === "전체") setGatherData(gatherContentArr);
+    if (category === "all") setGatherData(gatherContentArr);
+    if (category === "수원")
+      setGatherData(gatherContentArr?.filter((item) => item.place === "수원"));
+    if (category === "양천")
+      setGatherData(gatherContentArr?.filter((item) => item.place === "양천"));
+    if (category === "안양")
+      setGatherData(gatherContentArr?.filter((item) => item.place === "안양"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, gatherContentArr]);
 

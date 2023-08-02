@@ -13,10 +13,7 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../hooks/CustomToast";
-import {
-  useUserApproveMutation,
-  useUserRegisterMutation,
-} from "../../hooks/user/mutations";
+import { useUserInfoMutation } from "../../hooks/user/mutations";
 import RequestChangeProfileImageModal from "../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isGuestState } from "../../recoil/userAtoms";
 import { IUser, IUserBadge } from "../../types/user/user";
@@ -50,16 +47,7 @@ export default function UserOverview({ userInfo }: IUserOverview) {
     });
   }, [isGuest, userInfo]);
 
-  const { mutate } = useUserRegisterMutation({
-    onError: errorToast,
-  });
-
-  const { mutate: approve } = useUserApproveMutation({
-    onSuccess() {
-      completeToast("change");
-    },
-    onError: errorToast,
-  });
+  const { mutate: updateUserInfo } = useUserInfoMutation();
 
   const handleWrite = () => {
     if (isGuest) {
@@ -76,9 +64,8 @@ export default function UserOverview({ userInfo }: IUserOverview) {
     setValue(text);
   };
 
-  const handleSubmit = async () => {
-    await mutate({ ...userInfo, comment: value });
-    await approve(userInfo?.uid);
+  const handleSubmit = () => {
+    updateUserInfo({ ...userInfo, comment: value });
   };
 
   return (
