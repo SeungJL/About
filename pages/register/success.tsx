@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 function ApplySuccess({}) {
   const router = useRouter();
-  const onClicked = () => {};
   return (
     <Layout>
       <Icon>
@@ -39,7 +38,7 @@ function ApplySuccess({}) {
 
 const Layout = styled.div`
   width: 375px;
-  height: 100vh;
+  min-height: 100vh;
   left: 50%;
   top: 0;
   transform: translate(-50%, 0);
@@ -86,7 +85,7 @@ const ButtonWrapper = styled.div`
   height: 72px;
   position: fixed;
   bottom: 0;
-  padding: 14px;
+  padding: var(--padding-main);
   left: 0;
 `;
 
