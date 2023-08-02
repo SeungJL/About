@@ -18,20 +18,24 @@ function ApplySuccess({}) {
           <br /> 조금만 기다려주세요~!
         </span>
       </Content>
-      <ButtonWrapper>
-        <Button
-          width="100%"
-          height="100%"
-          borderRadius="100px"
-          backgroundColor="var(--color-mint)"
-          color="white"
-          fontSize="15px"
-          onClick={() => router.push("/login")}
-          _focus={{ backgroundColor: "var(--color-mint)" }}
-        >
-          확인
-        </Button>
-      </ButtonWrapper>
+
+      <Button
+        position="fixed"
+        left="50%"
+        bottom="0"
+        transform="translate(-50%,0)"
+        width={`calc(100% - 2*var(--margin-main))`}
+        height="44px"
+        mb="var(--margin-main)"
+        borderRadius="100px"
+        backgroundColor="var(--color-mint)"
+        color="white"
+        fontSize="15px"
+        _focus={{ backgroundColor: "var(--color-mint)" }}
+        onClick={() => router.push(`/login`)}
+      >
+        확인
+      </Button>
     </Layout>
   );
 }
@@ -39,6 +43,7 @@ function ApplySuccess({}) {
 const Layout = styled.div`
   width: 375px;
   min-height: 100vh;
+  padding-bottom: 20px;
   left: 50%;
   top: 0;
   transform: translate(-50%, 0);
@@ -78,15 +83,6 @@ const Content = styled.div`
     color: var(--font-h2);
     font-weight: 500;
   }
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  height: 72px;
-  position: fixed;
-  bottom: 0;
-  padding: var(--padding-main);
-  left: 0;
 `;
 
 export default ApplySuccess;
