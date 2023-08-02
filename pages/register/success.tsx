@@ -8,17 +8,21 @@ function ApplySuccess({}) {
   const router = useRouter();
   return (
     <Layout>
-      <Icon>
-        <FontAwesomeIcon icon={faCircleCheck} size="5x" />
-      </Icon>
-      <Content>
-        <span>신청이 완료됐어요!</span>
-        <span style={{ textAlign: "center" }}>
-          확인하는대로 연락 드릴게요!
-          <br /> 조금만 기다려주세요~!
-        </span>
-      </Content>
+      <Content2>
+        <FontAwesomeIcon
+          icon={faCircleCheck}
+          size="5x"
+          color="var(--color-mint)"
+        />
 
+        <Content>
+          <span>신청이 완료됐어요!</span>
+          <span style={{ textAlign: "center" }}>
+            확인하는대로 연락 드릴게요!
+            <br /> 조금만 기다려주세요~!
+          </span>
+        </Content>
+      </Content2>
       <Button
         position="fixed"
         left="50%"
@@ -41,47 +45,38 @@ function ApplySuccess({}) {
 }
 
 const Layout = styled.div`
-  width: 375px;
   min-height: 100vh;
-  padding-bottom: 20px;
-  left: 50%;
-  top: 0;
-  transform: translate(-50%, 0);
-  z-index: 2000;
-  position: fixed;
   background-color: white;
+  display: flex;
+  flex-direction: column;
 `;
 
-const Icon = styled.div`
-  position: absolute;
-  top: 24%;
+const Content2 = styled.div`
+  position: fixed;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--color-mint);
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  text-align: center;
 `;
 
 const Content = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-
+  margin-top: var(--margin-main);
   > span:first-child {
     color: var(--font-h1);
     font-weight: 600;
     font-size: 22px;
   }
   > span:last-child {
-    display: inline-block;
-    margin-top: var(--margin-main);
+    margin-top: var(--margin-sub);
     font-size: 17px;
     color: var(--font-h2);
-    font-weight: 500;
   }
 `;
 
