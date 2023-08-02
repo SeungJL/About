@@ -73,7 +73,7 @@ const Content = styled.div`
   }
   > span:last-child {
     display: inline-block;
-    margin-top: 14px;
+    margin-top: var(--margin-main);
     font-size: 17px;
     color: var(--font-h2);
     font-weight: 500;
