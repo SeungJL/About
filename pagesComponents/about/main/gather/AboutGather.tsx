@@ -33,7 +33,7 @@ function AboutGather() {
   return (
     <Layout>
       <Header>
-        <Title>어바웃 모임</Title>
+        <Title>ABOUT 모임</Title>
         <ShowAllBtn onClick={() => router.push(`/gather`)}>
           <span>모두보기</span>
           <FontAwesomeIcon icon={faChevronRight} size="sm" />
@@ -89,9 +89,8 @@ function AboutGather() {
 const Layout = styled.div`
   width: 100%;
   padding-left: var(--padding-main);
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   display: flex;
-
   flex-direction: column;
 `;
 
@@ -105,8 +104,8 @@ const Header = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 16px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 const ShowAllBtn = styled.button`
@@ -122,7 +121,7 @@ const GatherItem = styled.div`
   display: flex;
   flex-direction: column;
   border-bottom: var(--border-main-light);
-
+  box-shadow: var(--box-shadow-sub);
   padding: var(--padding-sub) 0;
   height: 130px;
   background-color: white;

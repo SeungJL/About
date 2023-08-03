@@ -75,7 +75,6 @@ export const arrangeMainSpace = (participations: IStudy[]) => {
 export const getInterestingDate = () => {
   const today = getToday();
   const current = now();
-  console.log(33, today);
   if (current < today.hour(STUDY_VOTE_START_HOUR)) return today;
   return today.add(1, "day");
 };
@@ -85,7 +84,7 @@ type GetStudyDate = (voteDate: Dayjs) => StudyDate;
 export const getStudyDate: GetStudyDate = (voteDate) => {
   const currentDate = dayjs().startOf("day");
   const currentHours = dayjs().hour();
-
+  console.log(1, currentDate, voteDate);
   if (currentDate.isSame(voteDate)) {
     if (currentHours < STUDY_VOTE_END_HOUR) return "today";
     else return "passed";
@@ -93,7 +92,7 @@ export const getStudyDate: GetStudyDate = (voteDate) => {
 
   if (voteDate < currentDate) return "passed";
   if (currentDate < voteDate) {
-    console.log(currentDate, voteDate);
+    if (currentHours >= STUDY_VOTE_END_HOUR) return "today";
     return "not passed";
   }
 };

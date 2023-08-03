@@ -36,7 +36,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
         {status === "open" ? "확정 인원" : "참여중인 인원"} &nbsp;
         <span>{data?.participants.length + 1} /</span>
         {data?.memberCnt.max ? (
-          <span>{data?.memberCnt.max}</span>
+          <span> {data?.memberCnt.max}</span>
         ) : (
           <>
             <span style={{ marginLeft: "4px" }} />

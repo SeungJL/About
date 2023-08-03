@@ -49,6 +49,7 @@ function AboutMainItem({ participation }: IAboutMainItem) {
 const Layout = styled.div<{ status: boolean }>`
   height: 110px;
   background-color: white;
+  box-shadow: var(--box-shadow-sub);
   border-radius: var(--border-radius-main);
   display: flex;
   align-items: center;

@@ -106,6 +106,7 @@ const Main = styled.main`
 `;
 
 const MoreInfoNav = styled.div`
+  box-shadow: var(--box-shadow-sub);
   height: 44px;
   display: flex;
   justify-content: center;

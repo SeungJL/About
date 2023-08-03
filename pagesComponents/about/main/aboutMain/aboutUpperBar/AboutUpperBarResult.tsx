@@ -14,6 +14,7 @@ function AboutUpperBarResult() {
   const studyDate = useRecoilValue(studyDateState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
+
   return (
     <Layout>
       {studyDate !== "not passed" && (

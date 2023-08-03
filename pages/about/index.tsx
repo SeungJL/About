@@ -11,6 +11,8 @@ import Calendar from "../../pagesComponents/about/main/Calendar";
 import EventBanner from "../../pagesComponents/about/main/EventBanner";
 import AboutGather from "../../pagesComponents/about/main/gather/AboutGather";
 import ReadyToOpen from "../../pagesComponents/about/main/ReadyToOpen";
+import AboutWinRecord from "../../pagesComponents/about/main/winRecord/AboutWinRecord";
+import AboutReview from "../../pagesComponents/AboutReview";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
 import UserSetting from "../../pagesComponents/setting/UserSetting";
@@ -66,6 +68,8 @@ function About() {
         <HrDiv />
         <AboutGather />
         <EventBanner />
+        <AboutReview />
+        <AboutWinRecord />
       </Layout>
     </>
   );
@@ -74,6 +78,7 @@ function About() {
 const Setting = styled.div``;
 const Layout = styled.div`
   min-height: 100vh;
+  padding-bottom: 40px;
 `;
 const HrDiv = styled.div`
   height: 8px;
