@@ -1,6 +1,8 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faChevronRight, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { WIN_RECORD } from "../../../../storage/winRecord";
 
 function AboutWinRecord() {
   return (
@@ -13,14 +15,22 @@ function AboutWinRecord() {
           <Reason>내용</Reason>
           <Present>상품</Present>
         </Header>
-        {[1, 2, 3].map((item, idx) => (
-          <Item key={idx}>
-            <Date>1/2</Date>
-            <Name>이승주</Name>
-            <Reason>건의하기</Reason>
-            <Present>황금 올리브 치킨</Present>
-          </Item>
-        ))}
+        {WIN_RECORD.slice()
+          .reverse()
+          .slice(0, 8)
+          .map((item, idx) => (
+            <Item key={idx}>
+              <Date>{item.date}</Date>
+              <Name>
+                {item.name} <FontAwesomeIcon icon={faCircle} size="xs" />
+              </Name>
+              <Reason>{item.reason}</Reason>
+              <Present>{item.present}</Present>
+            </Item>
+          ))}
+        <IconWrapper>
+          <FontAwesomeIcon icon={faEllipsis} />
+        </IconWrapper>
       </Content>
       <MoreInfoNav>
         <span>더보기</span>
@@ -41,19 +51,18 @@ const Title = styled.span`
 
 const Content = styled.div`
   margin-top: var(--margin-main);
-  height: 200px;
+  height: 290px;
   background-color: var(--font-h56);
   border-radius: var(--border-radius-main);
   padding: var(--padding-sub);
 `;
 
 const Item = styled.div`
-  margin-top: var(--margin-min);
   border-bottom: 1px solid var(--font-h5);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--font-h2);
   display: flex;
-  padding: var(--padding-min) 0;
+  padding: var(--padding-md) 0;
 
   > span {
     text-align: center;
@@ -62,10 +71,17 @@ const Item = styled.div`
 
 const Header = styled.header`
   display: flex;
-  font-size: 13px;
+  font-size: 12px;
+  color: var(--font-h2);
+  font-weight: 600;
+  margin-bottom: var(--margin-min);
   > span {
     text-align: center;
   }
+`;
+
+const IconWrapper = styled.div`
+  text-align: center;
 `;
 
 const Name = styled.span`
@@ -90,7 +106,7 @@ const MoreInfoNav = styled.div`
   justify-content: center;
   background-color: white;
   align-items: center;
-  margin-top: var(--margin-max);
+  margin-top: var(--margin-main);
   margin-bottom: var(--margin-max);
   border-radius: var(--border-radius-main);
   color: var(--font-h3);
