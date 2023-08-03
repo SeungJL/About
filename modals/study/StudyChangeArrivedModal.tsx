@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
@@ -40,8 +39,8 @@ function StudyChangeArrivedModal({
     },
   });
 
-  const onChangeMemo = async () => {
-    await changeMemo(memo);
+  const onChangeMemo = () => {
+    changeMemo(memo);
     setIsModal(false);
   };
 
@@ -50,28 +49,18 @@ function StudyChangeArrivedModal({
       <ModalHeaderX title="도착 메모" setIsModal={setIsModal} />
       <ModalMain>
         <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
-        <Form id="changeMemo">
-          <InputSm
-            placeholder="여기에 작성해주세요!"
-            onChange={(e) => setMemo(e.target.value)}
-            value={memo}
-          />
-        </Form>
+        <InputSm
+          placeholder="여기에 작성해주세요!"
+          onChange={(e) => setMemo(e.target.value)}
+          value={memo}
+        />
       </ModalMain>
       <ModalFooterNav>
-        <button type="button" onClick={() => setIsModal(false)}>
-          취소
-        </button>
-        <button type="button" form="changeMemo" onClick={onChangeMemo}>
-          변경
-        </button>
+        <button onClick={() => setIsModal(false)}>취소</button>
+        <button onClick={onChangeMemo}>변경</button>
       </ModalFooterNav>
     </ModalLayout>
   );
 }
-
-const Form = styled.form`
-  height: 100%;
-`;
 
 export default StudyChangeArrivedModal;

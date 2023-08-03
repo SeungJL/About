@@ -8,6 +8,8 @@ import AboutUpperBar from "../../pagesComponents/about/main/aboutMain/aboutUpper
 import AboutVoteNav from "../../pagesComponents/about/main/aboutMain/AboutVoteNav";
 import AboutNavigation from "../../pagesComponents/about/main/AboutNavigation";
 import Calendar from "../../pagesComponents/about/main/Calendar";
+import EventBanner from "../../pagesComponents/about/main/EventBanner";
+import AboutGather from "../../pagesComponents/about/main/gather/AboutGather";
 import ReadyToOpen from "../../pagesComponents/about/main/ReadyToOpen";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
@@ -35,7 +37,7 @@ function About() {
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySpaceFixed, participations]);
- 
+
   return (
     <>
       <Setting>
@@ -61,12 +63,22 @@ function About() {
         ) : (
           <ReadyToOpen />
         )}
+        <HrDiv />
+        <AboutGather />
+        <EventBanner />
       </Layout>
     </>
   );
 }
 
 const Setting = styled.div``;
-const Layout = styled.div``;
+const Layout = styled.div`
+  min-height: 100vh;
+`;
+const HrDiv = styled.div`
+  height: 8px;
+  margin-bottom: var(--margin-main);
+  background-color: var(--font-h56);
+`;
 
 export default About;

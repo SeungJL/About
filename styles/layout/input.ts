@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const InputSm = styled.input`
-  height: 60px;
+  flex: 1;
   width: 100%;
-  background-color: var(--font-h6);
+  background-color: var(--font-h56);
   border-radius: var(--border-radius-sub);
-  padding: 8px;
+  padding: var(--padding-sub);
   &:focus {
     outline: none;
   }

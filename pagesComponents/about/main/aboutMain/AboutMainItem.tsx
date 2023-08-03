@@ -47,12 +47,12 @@ function AboutMainItem({ participation }: IAboutMainItem) {
 }
 
 const Layout = styled.div<{ status: boolean }>`
-  height: 100px;
+  height: 110px;
   background-color: white;
   border-radius: var(--border-radius-main);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--margin-main);
   padding: var(--padding-sub);
   padding-left: ${(props) => props.status && "0px"};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};

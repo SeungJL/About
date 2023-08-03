@@ -107,12 +107,11 @@ function StudyCheckModal({ setIsModal }: IModal) {
             도착하셨나요? <br />
             자리나 인상착의를 간단하게 남겨주세요!
           </Content>
-          <Form id="AttendCheckForm">
-            <InputSm
-              placeholder="여기에 작성해주세요!"
-              onChange={(e) => setMemo(e.target.value)}
-            />
-          </Form>
+          <InputSm
+            placeholder="여기에 작성해주세요!"
+            onChange={(e) => setMemo(e.target.value)}
+            value={memo}
+          />
         </ModalMain>
 
         <ModalFooterNav>
@@ -143,10 +142,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
 const Content = styled.div`
   margin-bottom: var(--margin-sub);
-`;
-
-const Form = styled.form`
-  height: 100%;
 `;
 
 const Loading = styled.div`
