@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faBullseye, faCheckToSlot, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import { faBullseye, faCheckToSlot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useState } from "react";

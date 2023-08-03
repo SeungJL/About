@@ -75,6 +75,7 @@ export const arrangeMainSpace = (participations: IStudy[]) => {
 export const getInterestingDate = () => {
   const today = getToday();
   const current = now();
+  console.log(33, today);
   if (current < today.hour(STUDY_VOTE_START_HOUR)) return today;
   return today.add(1, "day");
 };
@@ -91,5 +92,8 @@ export const getStudyDate: GetStudyDate = (voteDate) => {
   }
 
   if (voteDate < currentDate) return "passed";
-  if (currentDate < voteDate) return "not passed";
+  if (currentDate < voteDate) {
+    console.log(currentDate, voteDate);
+    return "not passed";
+  }
 };

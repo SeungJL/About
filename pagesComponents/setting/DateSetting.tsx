@@ -30,7 +30,7 @@ function DateSetting() {
             (who) => who.firstChoice && who.user.uid === session.uid
           )
       );
-      if (isMyVote) setVoteDate(dayjs());
+      if (isMyVote) setVoteDate(dayjs().startOf("day"));
       else setVoteDate(getInterestingDate());
     },
   });
@@ -51,7 +51,7 @@ function DateSetting() {
     setIsMainLoading(true);
     if (!voteDate) return;
     const studyDate = getStudyDate(voteDate);
-   
+
     setStudyDate(studyDate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);

@@ -30,6 +30,7 @@ function StudySettingUser({ participations }: IStudySettingUser) {
     if (!participations) return;
     setMySpaceFixed(null);
     setInitialInfo(participations);
+  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [participations]);
 
