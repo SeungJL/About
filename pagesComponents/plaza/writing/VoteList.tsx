@@ -1,4 +1,4 @@
-import { faCheck, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faMinus } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";

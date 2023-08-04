@@ -1,5 +1,6 @@
 import { Badge } from "@chakra-ui/react";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/pro-regular-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -36,7 +37,7 @@ function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
       ) : null}
       {startTime && (
         <Result>
-          <FontAwesomeIcon icon={faClock} size="sm" />
+          <FontAwesomeIcon icon={faClock} size="xs" />
           <ResultInfo>{startTime?.format("HH:mm")} ~</ResultInfo>
         </Result>
       )}

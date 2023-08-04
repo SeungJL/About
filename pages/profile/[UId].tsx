@@ -1,4 +1,4 @@
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";

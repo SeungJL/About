@@ -1,10 +1,9 @@
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../components/common/ModalPortal";
-import Seo from "../../components/common/Seo";
 import Header from "../../components/layout/Header";
 import { useUserRequestQuery } from "../../hooks/user/queries";
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
@@ -54,7 +53,6 @@ function Plaza() {
   return (
     <>
       <Layout>
-      
         <Header title="소통의 광장" />
         <PlazaLayout>
           <Category category={category} setCategory={setCategory} />

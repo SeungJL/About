@@ -1,11 +1,11 @@
-import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import {
   faCalendarCheck,
   faOtter,
   faRankingStar,
   faStar,
+  faTeddyBear,
   faUsers,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -111,7 +111,11 @@ function AboutNavigation() {
         </Item>
         <Item>
           <Button onClick={() => router.push("plaza")}>
-            <FontAwesomeIcon icon={faPlaystation} size="xl" />
+            <FontAwesomeIcon
+              icon={faTeddyBear}
+              size="xl"
+              color="var(--font-h2)"
+            />
           </Button>
           <span>광장</span>
         </Item>

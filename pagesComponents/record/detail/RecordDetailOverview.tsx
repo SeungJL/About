@@ -1,4 +1,4 @@
-import { faRightLeft } from "@fortawesome/free-solid-svg-icons";
+import { faRightLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";

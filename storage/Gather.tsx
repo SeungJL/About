@@ -7,7 +7,7 @@ import {
   faPersonRunning,
   faShuttleSpace,
   faUserAstronaut,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { VOTE_TABLE_COLOR } from "../constants/system";
 

@@ -7,7 +7,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";

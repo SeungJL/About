@@ -1,5 +1,5 @@
 import { Badge } from "@chakra-ui/react";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";

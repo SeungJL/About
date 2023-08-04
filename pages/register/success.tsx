@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";

@@ -9,7 +9,7 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NextLink from "next/link";
 import { Dispatch, SetStateAction } from "react";

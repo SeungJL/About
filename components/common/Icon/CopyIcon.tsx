@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCopy } from "@fortawesome/pro-regular-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ClipboardJS from "clipboard";
 import { useEffect, useRef } from "react";

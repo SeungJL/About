@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -12,6 +13,7 @@ import "../styles/globals.css";
 import "../styles/variable.css";
 import theme from "../theme";
 
+config.autoAddCss = false;
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const queryClient = useMemo(
     () =>

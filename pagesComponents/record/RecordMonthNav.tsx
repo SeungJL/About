@@ -1,4 +1,4 @@
-import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faCaretRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useEffect } from "react";

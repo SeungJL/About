@@ -20,7 +20,7 @@ import {
   faChevronLeft,
   faChevronRight,
   faDeleteLeft,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useState } from "react";

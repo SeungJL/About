@@ -1,4 +1,4 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
@@ -50,7 +50,7 @@ function AboutGather() {
         {gatherContentArr
           ?.slice()
           .reverse()
-          .slice(0, 3)
+          .slice(0, 4)
           .map((item, index) => {
             const title = item.title;
             const participants = [
@@ -63,6 +63,7 @@ function AboutGather() {
                   <AboutGatherHeader
                     title={item.type.title}
                     place={item.place}
+                    status={item.status}
                   />
                   <AboutGatherTitle>
                     {title.length < textVisibleLength

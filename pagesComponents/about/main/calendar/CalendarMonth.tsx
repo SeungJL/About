@@ -3,7 +3,7 @@ import {
   faChevronLeft,
   faChevronRight,
   faChevronUp,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { SetStateAction } from "react";

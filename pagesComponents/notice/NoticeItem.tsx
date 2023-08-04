@@ -2,7 +2,7 @@ import {
   faChessKing,
   faChessPawn,
   faChessRook,
-} from "@fortawesome/free-regular-svg-icons";
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
@@ -15,7 +15,7 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import { faChessQueen } from "@fortawesome/free-solid-svg-icons";
+import { faChessQueen } from "@fortawesome/pro-solid-svg-icons";
 import { VOTE_TABLE_COLOR } from "../../constants/system";
 
 function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {

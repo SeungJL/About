@@ -1,4 +1,4 @@
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";

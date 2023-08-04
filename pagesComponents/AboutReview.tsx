@@ -1,4 +1,4 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRouter } from "next/router";

@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { SetStateAction, useState } from "react";

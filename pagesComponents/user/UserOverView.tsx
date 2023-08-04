@@ -1,5 +1,5 @@
 import { Badge } from "@chakra-ui/react";
-import { faCamera, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";

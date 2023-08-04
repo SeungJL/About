@@ -1,4 +1,5 @@
-import { faCheckDouble, faThumbTack } from "@fortawesome/free-solid-svg-icons";
+
+import { faCheckDouble, faThumbTack } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { PopUpLayout } from "../../components/common/modal/Modals";

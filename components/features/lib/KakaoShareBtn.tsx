@@ -1,4 +1,4 @@
-import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";

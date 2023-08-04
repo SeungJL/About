@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { faUserGroup } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";

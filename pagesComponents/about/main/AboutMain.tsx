@@ -1,4 +1,4 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";

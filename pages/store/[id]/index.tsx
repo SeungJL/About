@@ -1,5 +1,5 @@
 import { Box, Button, Collapse, useDisclosure } from "@chakra-ui/react";
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRouter } from "next/router";

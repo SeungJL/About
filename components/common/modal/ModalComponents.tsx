@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { IModal } from "../../../types/reactTypes";

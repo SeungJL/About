@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import {
   faChevronLeft,
   faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";

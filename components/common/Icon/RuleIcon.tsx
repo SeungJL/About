@@ -1,4 +1,4 @@
-import { faBalanceScale } from "@fortawesome/free-solid-svg-icons";
+import { faBalanceScale } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { IModal } from "../../../types/reactTypes";

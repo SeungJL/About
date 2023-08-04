@@ -1,5 +1,9 @@
-import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
-import { faBalanceScale, faGift } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBalanceScale,
+  faBell,
+  faGift,
+  faUser,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";

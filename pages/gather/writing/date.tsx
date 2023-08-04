@@ -3,7 +3,7 @@ import {
   faCalendarDays,
   faChevronLeft,
   faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ko from "date-fns/locale/ko";
 import dayjs, { Dayjs } from "dayjs";

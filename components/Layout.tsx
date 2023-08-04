@@ -55,6 +55,11 @@ function Layout({ children }: ILayout) {
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
       />
       <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
+
+      <Script
+        src="https://kit.fontawesome.com/4071928605.js"
+        crossOrigin="anonymous"
+      ></Script>
     </LayoutContainer>
   );
 }

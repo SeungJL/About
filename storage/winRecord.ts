@@ -34,7 +34,24 @@ export const WIN_RECORD: {
     reason: "스토어 응모 당첨",
     present: "허쉬 초콜릿드링크",
   },
-  ,
+  {
+    name: "송재",
+    date: "7/3",
+    reason: "홍보 이벤트 당첨",
+    present: "BBQ 황금올리브 세트",
+  },
+  {
+    name: "이승",
+    date: "7/3",
+    reason: "홍보 이벤트 당첨",
+    present: "BBQ 황금올리브 세트",
+  },
+  {
+    name: "김소",
+    date: "7/3",
+    reason: "홍보 이벤트 당첨",
+    present: "BBQ 황금올리브 세트",
+  },
   {
     name: "김예",
     date: "7/16",
@@ -66,7 +83,7 @@ export const WIN_RECORD: {
     present: "베스킨라빈스 싱글",
   },
   {
-    name: "무성",
+    name: "박무",
     date: "8/2",
     reason: "건의사항 제출",
     present: "굽네 오리지널 세트",

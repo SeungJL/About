@@ -1,5 +1,5 @@
-import { faCircleXmark, faClock } from "@fortawesome/free-regular-svg-icons";
-import { faBan } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faClock } from "@fortawesome/pro-regular-svg-icons";
+import { faBan } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -46,7 +46,7 @@ function StudySpaceNavigation({
   voteCnt,
 }: IStudySpaceNavigation) {
   const router = useRouter();
-  
+
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();

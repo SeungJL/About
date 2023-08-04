@@ -1,4 +1,4 @@
-import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";

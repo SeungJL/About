@@ -2,7 +2,7 @@ import {
   faCaretUp,
   faUserClock,
   faUsers,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { Location } from "../../../types/system";

@@ -1,8 +1,8 @@
 import {
   faCircleCheck,
   faCircleXmark,
-} from "@fortawesome/free-regular-svg-icons";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-regular-svg-icons";
+import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";

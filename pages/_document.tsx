@@ -6,6 +6,7 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
+import Script from "next/script";
 import { Fragment } from "react";
 import { ServerStyleSheet } from "styled-components";
 
@@ -49,7 +50,11 @@ export default class MyDocument extends Document {
             property="og:site_name"
             content="https://studyabout.herokuapp.com"
           />
-          <meta charSet="utf-8" key="charset" />
+          <meta charSet="utf-8" key="charset" />{" "}
+          <Script
+            src="https://kit.fontawesome.com/4071928605.js"
+            crossOrigin="anonymous"
+          ></Script>
         </Head>
         <body>
           <Main />

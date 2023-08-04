@@ -20,7 +20,6 @@ import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import { IStudy } from "../../types/study/study";
-
 function About() {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
@@ -57,6 +56,7 @@ function About() {
         <AboutNavigation />
         <AboutUpperBar />
         <Calendar />
+
         {location !== "강남" ? (
           <>
             <AboutVoteNav participations={participations} />

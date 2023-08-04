@@ -1,4 +1,4 @@
-import { faInfinity, faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { faInfinity, faUserGroup } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../components/common/Profile/ProfileIconXsOverwrap";

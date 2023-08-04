@@ -1,4 +1,4 @@
-import { faHeart, faMessage } from "@fortawesome/free-regular-svg-icons";
+import { faHeart, faMessage } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";

@@ -1,4 +1,4 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";

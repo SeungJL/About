@@ -1,4 +1,4 @@
-import { faCalendarDay, faUserCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDay, faUserCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs, { Dayjs } from "dayjs";
 import styled from "styled-components";

@@ -1,10 +1,16 @@
-import { faCircle } from "@fortawesome/free-regular-svg-icons";
-import { faChevronRight, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronRight,
+  faCircle,
+  faEllipsis,
+} from "@fortawesome/pro-regular-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { WIN_RECORD } from "../../../../storage/winRecord";
 
 function AboutWinRecord() {
+  const router = useRouter();
   return (
     <Layout>
       <Title>이벤트 당첨 기록</Title>
@@ -22,7 +28,8 @@ function AboutWinRecord() {
             <Item key={idx}>
               <Date>{item.date}</Date>
               <Name>
-                {item.name} <FontAwesomeIcon icon={faCircle} size="xs" />
+                <span>{item.name}</span>
+                <FontAwesomeIcon icon={faCircle} size="sm" />
               </Name>
               <Reason>{item.reason}</Reason>
               <Present>{item.present}</Present>
@@ -32,7 +39,11 @@ function AboutWinRecord() {
           <FontAwesomeIcon icon={faEllipsis} />
         </IconWrapper>
       </Content>
-      <MoreInfoNav>
+      <MoreInfoNav
+        onClick={() => {
+          router.push(`/about/winRecord`);
+        }}
+      >
         <span>더보기</span>
         <FontAwesomeIcon icon={faChevronRight} size="sm" />
       </MoreInfoNav>
@@ -51,7 +62,7 @@ const Title = styled.span`
 
 const Content = styled.div`
   margin-top: var(--margin-main);
-  height: 290px;
+  height: 320px;
   background-color: var(--font-h56);
   border-radius: var(--border-radius-main);
   padding: var(--padding-sub);
@@ -86,6 +97,9 @@ const IconWrapper = styled.div`
 
 const Name = styled.span`
   flex: 0.15;
+  > span:first-child {
+    margin-right: 1px;
+  }
 `;
 
 const Date = styled.span`
