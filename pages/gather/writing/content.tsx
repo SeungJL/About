@@ -66,17 +66,16 @@ function WritingContent() {
       failToast("free", "내용을 작성해 주세요!", true);
       return;
     }
+
+    const gatherList = [{ text: firstGather.text, time: firstGather.time }];
+    if (secondGather?.text?.length)
+      gatherList.push({ text: secondGather.text, time: secondGather.time });
+
     setGatherContent((old) => ({
       ...old,
       title,
       content,
-      gatherList: [
-        { text: firstGather.text, time: firstGather.time },
-        secondGather?.text && {
-          text: secondGather.text,
-          time: secondGather.time,
-        },
-      ],
+      gatherList,
     }));
     router.push(`/gather/writing/date`);
   };
