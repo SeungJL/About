@@ -10,7 +10,7 @@ export const PromotionComponent = () => <P>{PROMOTION_TEXT}</P>;
 const P = styled.pre`
   padding: var(--padding-md);
   border-radius: var(--border-radius-sub);
-  height: 169px;
+  height: 146px;
   overflow-y: auto;
   font-size: 12px;
   background-color: var(--input-bg);
@@ -18,7 +18,7 @@ const P = styled.pre`
 
 export const OPEN_KAKAO_LINK = "https://open.kakao.com/o/sjDgVzmf";
 
-export const PROMOTION_TEXT = `안녕하세요! 저희는 카공 스터디로 시작했다가 어쩌다보니 친목 활동까지 같이 하게 된 200명 이상 규모의 동아리 About입니다! 카공도 같이 하고, 근처에 사는 새로운 또래 친구들을 만날 수도 있어요! 공부를 목적으로 하시는 분도, 공부와 함께 친목을 목적으로 하신는 분도 모두 환영합니다! 😊
+export const PROMOTION_TEXT = `안녕하세요! 카공 및 친목 동아리 ABOUT입니다! 카공뿐만 아니라, 근처에 사는 새로운 또래 친구들을 만날 수 있는 기회를 제공하는 걸 목적으로 하고 있어요! 공부를 목적으로 하시는 분도, 공부와 함께 친목을 목적으로 하신는 분도 모두 환영합니다! 😊
 
 ☕️동아리 소개☕️
 ✔ 개인 공부에 집중도 할 수 있고, 소소하게 얘기도 할 수 있는 분위기의 스터디

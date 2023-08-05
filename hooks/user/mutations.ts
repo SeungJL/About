@@ -54,6 +54,14 @@ export const useUserRequestMutation = (
     const res = await axios.post(`${SERVER_URI}/plaza`, { plaza });
     return res.data;
   }, options);
+export const useUserRequestMutation2 = (
+  options?: MutationOptions<IUserRequest>
+) =>
+  useMutation<void, AxiosError, IUserRequest>(async (plaza) => {
+    console.log(plaza);
+    const res = await axios.post(`${SERVER_URI}/request`, { plaza });
+    return res.data;
+  }, options);
 
 export const useUserUpdateProfileImageMutation = (
   options?: MutationOptions<void>

@@ -1,4 +1,7 @@
+import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 
@@ -20,6 +23,9 @@ import { IModal } from "../../types/reactTypes";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
+
+  const [isFirst, setIsFirst] = useState(true);
+
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
   const { mutate: sendPromotionReward } = useUserRequestMutation();
@@ -39,19 +45,38 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
       <ModalHeaderX title="홍보 리워드 신청" setIsModal={setIsModal} />
       <ModalMain>
         <Overview>
-          에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 15 score / 15
-          point와 추첨을 통해 기프티콘을 받을 수 있습니다. 도와주시는 모든 분들
-          정말 감사합니다!
+          에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 ABOUT 포인트와
+          추첨을 통해 꽤 높은 확률로 상품을 보내드립니다! 도와주시는 모든 분들
+          감사합니다!
         </Overview>
-        <Title>제목: 카공 및 친목 동아리 About</Title>
-        <PromotionComponent />
-        <CopyWrapper>
-          <CopyBtn size="lg" text={PROMOTION_TEXT} />
-        </CopyWrapper>
+        {isFirst ? (
+          <Container>
+            <PromotionComponent />
+            <CopyWrapper>
+              <CopyBtn size="lg" text={PROMOTION_TEXT} />
+            </CopyWrapper>
+          </Container>
+        ) : (
+          <ImageContainer>
+            <Image
+              src="https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png"
+              alt="promotionImage"
+              width={165}
+              height={166}
+            />
+            <ImageText>이미지를 꾹 눌러서 저장해주세요!</ImageText>
+          </ImageContainer>
+        )}
+        <Button
+          mt="var(--margin-min)"
+          onClick={() => setIsFirst((old) => !old)}
+        >
+          {isFirst ? "이미지 다운로드" : "돌아가기"}
+        </Button>
         <Message>
-          게시완료 눌러주시면 자동으로 적립됩니다!
-          <br />
-          여러번 지원해도 되니 또 신청해주세요 :)
+          제목은 &quot;카공 및 친목 동아리 ABOUT&quot; 로 적어주시면 되고,
+          이미지는 굳이 안넣어주셔도 돼요! 여러번 지원해도 너무 환영하니 자주
+          신청해주세요 🙂
         </Message>
       </ModalMain>
       <ModalFooterTwo
@@ -65,14 +90,26 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
 
 const Overview = styled.div`
   font-weight: 600;
+  margin-bottom: var(--margin-sub);
 `;
 
-const Title = styled.div`
-  margin: var(--margin-sub) 0;
+const ImageText = styled.span`
+  font-size: 12px;
+  color: var(--font-h1);
+  margin-bottom: auto;
+`;
+const Container = styled.div``;
+
+const ImageContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CopyWrapper = styled.div`
-  margin-top: auto;
+  margin-top: var(--margin-sub);
 `;
 
 const Message = styled.div`

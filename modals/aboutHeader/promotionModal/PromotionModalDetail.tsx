@@ -18,7 +18,7 @@ function PromotionModalDetail() {
       </div>
       <div>
         <span>추첨 인원</span>
-        <span>2명</span>
+        <span>3명</span>
       </div>
       <div>
         <span>현재 참여 수</span>
@@ -30,7 +30,7 @@ function PromotionModalDetail() {
       </div>
       <div>
         <span>추첨 날짜</span>
-        <span>{currentMonth + 1}월 20일</span>
+        <span>{currentMonth + 2}월 3일</span>
       </div>
     </Layout>
   );

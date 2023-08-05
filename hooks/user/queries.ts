@@ -87,6 +87,15 @@ export const useUserRequestQuery = (options?: QueryOptions<IUserRequest[]>) =>
     },
     options
   );
+export const useUserRequestQuery2 = (options?: QueryOptions<IUserRequest[]>) =>
+  useQuery<IUserRequest[], AxiosError, IUserRequest[]>(
+    USER_REQUEST + "2",
+    async () => {
+      const res = await axios.get<IUserRequest[]>(`${SERVER_URI}/request`);
+      return res.data;
+    },
+    options
+  );
 
 export const useUserRequestCategoryQuery = (
   category: UserRequestCategory,

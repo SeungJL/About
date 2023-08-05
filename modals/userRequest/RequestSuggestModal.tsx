@@ -17,8 +17,14 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { useUserLocationQuery } from "../../hooks/user/queries";
+import {
+  useUserRequestMutation,
+  useUserRequestMutation2,
+} from "../../hooks/user/mutations";
+import {
+  useUserLocationQuery,
+  useUserRequestQuery2,
+} from "../../hooks/user/queries";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
@@ -47,6 +53,19 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
     },
   });
 
+  const { data } = useUserRequestQuery2();
+  console.log(3, data);
+
+  const { mutate: sendDeclaration2 } = useUserRequestMutation2({
+    onSuccess() {
+      completeToast("success");
+    },
+    onError(err) {
+      console.error(err);
+      failToast("error");
+    },
+  });
+
   const onValid = (data) => {
     const declarationInfo: IUserRequest = {
       category: type === "suggest" ? "건의" : "신고",
@@ -54,10 +73,10 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
       writer: isRealName ? session.user.name : "",
       content: data.content,
       date: dayjs(),
-      // location,
+      location: "수원",
     };
 
-    sendDeclaration(declarationInfo);
+    sendDeclaration2(declarationInfo);
     setIsModal(false);
   };
 
