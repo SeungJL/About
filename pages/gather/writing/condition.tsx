@@ -97,7 +97,7 @@ function WritingCondition() {
       password,
       user: data,
     };
-    console.log(gatherData);
+  
     setGatherContent(gatherData);
     mutate(gatherData);
   };

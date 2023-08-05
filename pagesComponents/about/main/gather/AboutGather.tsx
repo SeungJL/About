@@ -1,5 +1,3 @@
-import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -7,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; //
 import { Swiper, SwiperSlide } from "swiper/react";
+import AboutSectionHeader from "../../../../components/common/AboutSectionHeader";
 import { useGatherContentQuery } from "../../../../hooks/gather/queries";
 import { transferGatherDataState } from "../../../../recoil/transferDataAtoms";
 import { IGatherContent } from "../../../../types/page/gather";
@@ -32,13 +31,7 @@ function AboutGather() {
 
   return (
     <Layout>
-      <Header>
-        <Title>ABOUT 모임</Title>
-        <ShowAllBtn onClick={() => router.push(`/gather`)}>
-          <span>모두보기</span>
-          <FontAwesomeIcon icon={faChevronRight} size="sm" />
-        </ShowAllBtn>
-      </Header>
+      <AboutSectionHeader title="ABOUT 모임" url="/gather" />
       <Swiper
         navigation
         style={{
@@ -93,28 +86,6 @@ const Layout = styled.div`
   margin-bottom: 32px;
   display: flex;
   flex-direction: column;
-`;
-
-const Header = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: var(--padding-main);
-  margin-bottom: var(--margin-main);
-`;
-
-const Title = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-`;
-
-const ShowAllBtn = styled.button`
-  color: var(--font-h3);
-  font-size: 12px;
-  > span:first-child {
-    margin-right: var(--margin-min);
-  }
 `;
 
 const GatherItem = styled.div`

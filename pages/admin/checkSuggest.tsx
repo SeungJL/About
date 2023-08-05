@@ -8,7 +8,7 @@ function CheckSuggest() {
   const suggestData = data?.filter(
     (item) => item.category === ("건의" || "신고")
   );
-
+  console.log(data);
   return (
     <>
       <Header title="건의사항 확인" url="/admin" />

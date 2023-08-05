@@ -120,6 +120,6 @@ const Point = styled.span`
   color: var(--font-h1);
 
   text-align: center;
-  width: 50px;
+  width: 54px;
 `;
 export default ScoreLog;

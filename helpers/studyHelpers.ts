@@ -84,7 +84,6 @@ type GetStudyDate = (voteDate: Dayjs) => StudyDate;
 export const getStudyDate: GetStudyDate = (voteDate) => {
   const currentDate = dayjs().startOf("day");
   const currentHours = dayjs().hour();
-  console.log(1, currentDate, voteDate);
   if (currentDate.isSame(voteDate)) {
     if (currentHours < STUDY_VOTE_END_HOUR) return "today";
     else return "passed";

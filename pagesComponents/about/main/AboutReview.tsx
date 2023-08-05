@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { reviewContentIdState } from "../recoil/previousAtoms";
-import { REVIEW_DATA } from "../storage/Review";
+import { reviewContentIdState } from "../../../recoil/previousAtoms";
+import { REVIEW_DATA } from "../../../storage/Review";
 function AboutReview() {
   const router = useRouter();
   const setReviewContentId = useSetRecoilState(reviewContentIdState);

@@ -1,4 +1,5 @@
 import { Dayjs } from "dayjs";
+import { Location } from "../system";
 
 export type UserRequestCategory =
   | "건의"
@@ -11,6 +12,7 @@ export type UserRequestCategory =
 
 export interface IUserRequest {
   category: UserRequestCategory;
+  location?: Location;
   title?: string;
   date?: Dayjs;
   writer: string;

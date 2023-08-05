@@ -26,9 +26,7 @@ export default function Admin() {
   };
 
   const myCommand = async () => {
-    await axios
-      .get("http://localhost:3000/api/user/score/all")
-      .then((data) => console.log(data));
+    await axios.get("http://localhost:3000/api/user/score/all");
   };
 
   return (

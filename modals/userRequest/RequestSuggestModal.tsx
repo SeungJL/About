@@ -18,6 +18,7 @@ import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
+import { useUserLocationQuery } from "../../hooks/user/queries";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
@@ -33,6 +34,8 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
 
   const [isRealName, setIsRealName] = useState(true);
   const { register, handleSubmit } = useForm();
+
+  const { data: location } = useUserLocationQuery();
 
   const { mutate: sendDeclaration } = useUserRequestMutation({
     onSuccess() {
@@ -51,6 +54,7 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
       writer: isRealName ? session.user.name : "",
       content: data.content,
       date: dayjs(),
+      // location,
     };
 
     sendDeclaration(declarationInfo);

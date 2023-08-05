@@ -111,7 +111,7 @@ function Location() {
                       <LocationTitle location={space} />
                       <LocationMember location={space} />
                       {space === "강남" && (
-                        <Message>예약 인원 30명이 되면 열려요!</Message>
+                        <Message>예약 인원 40명이 되면 열려요!</Message>
                       )}
                     </>
                   ) : (

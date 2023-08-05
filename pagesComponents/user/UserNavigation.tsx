@@ -166,13 +166,13 @@ function UserNavigation({ role }: IUserNavigation) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border: var(--border-sub);
+  border: var(--border-main-light);
   border-radius: var(--border-radius-sub);
   margin: var(--margin-max) 0;
 `;
 const BlockName = styled.div`
   padding: var(--padding-min) 0;
-  background-color: var(--font-h6);
+  background-color: var(--font-h56);
   font-weight: 600;
   font-size: 12px;
   display: flex;
@@ -189,7 +189,7 @@ const NavBlock = styled.div`
     padding-left: var(--padding-md);
     text-align: start;
     font-size: 13px;
-    border-bottom: var(--border-sub);
+    border-bottom: var(--border-main-light);
   }
 `;
 export default UserNavigation;

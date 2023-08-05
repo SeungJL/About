@@ -40,18 +40,16 @@ function Member({ membersAll }) {
     let memberArr = [];
     let humanArr = [];
     let restingArr = [];
+    let adminArr = [];
     members?.forEach((who) => {
       if (who?.name === "guest") return;
-      if (
-        who.role === "member" ||
-        who.role === "previliged" ||
-        who.role === "manager"
-      )
-        memberArr.push(who);
+      if (who.role === "member") memberArr.push(who);
+      if (who.role === "previliged" || who.role === "manager")
+        adminArr.push(who);
       if (who.role === "human") humanArr.push(who);
       if (who.role === "resting") restingArr.push(who);
     });
-    setMemberMembers(memberArr);
+    setMemberMembers([...adminArr, ...memberArr]);
     setHumanMembers(humanArr);
     setRestingMembers(restingArr);
     setIsLoading(false);

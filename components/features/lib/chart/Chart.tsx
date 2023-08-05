@@ -28,8 +28,6 @@ function Chart({ type, user }: IChart) {
   const [isLoading, setIsLoading] = useState(true);
 
   const Uid = user?.uid || session?.uid;
-  const text = "스터디 참여";
-  let maxCnt = 5;
 
   const monthXaxis: string[] = [];
   for (let i = getMonth() - 2; i <= getMonth() + 1; i++)
@@ -100,8 +98,8 @@ function Chart({ type, user }: IChart) {
         <ChartWrapper>
           <ApexCharts
             series={[
-              { name: "평균 참여율", data: attendAverageArr },
-              { name: "스터디 참여", data: attendRateArr },
+              { name: "평균 참여 횟수", data: attendAverageArr },
+              { name: "내 참여 횟수", data: attendRateArr },
             ]}
             options={ChartStudyOptions(monthXaxis, attendMax)}
           />
