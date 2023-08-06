@@ -1,5 +1,3 @@
-import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { MemberSectionCategory } from "../../types/page/member";
 
@@ -20,10 +18,10 @@ function MemberSectionTitle({
         <span>{category}</span>
         <span>{subTitle}</span>
       </TitleWrapper>
-      <Button onClick={() => setClickSection(category)}>
+      {/* <Button onClick={() => setClickSection(category)}>
         <span>더보기</span>
         <FontAwesomeIcon icon={faChevronRight} size="xs" />
-      </Button>
+      </Button> */}
     </Layout>
   );
 }
