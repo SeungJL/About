@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import { USER_BADGES } from "../../../constants/convert";
+import { getRole } from "../../../helpers/converterHelpers";
 import { getUserBadgeScore } from "../../../helpers/userHelpers";
 import { IUser } from "../../../types/user/user";
 
@@ -18,18 +19,7 @@ function ProfileInfo({ user }: IProfileInfo) {
 
   const userBadge = getUserBadgeScore(user?.score);
 
-  const status =
-    user?.role === "human"
-      ? "수습멤버"
-      : user?.role === "manager"
-      ? "운영진"
-      : user?.role === "member"
-      ? "동아리원"
-      : user?.role === "previliged"
-      ? "관리자"
-      : user?.role === "resting"
-      ? "휴식멤버"
-      : "외부인";
+  const status = getRole(user?.role);
 
   return (
     <>

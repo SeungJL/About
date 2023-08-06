@@ -58,10 +58,15 @@ export default function UserSetting() {
     onError: (e) => typeErrorToast(e, "user"),
   });
 
+  const role = userInfo?.role;
+
   useStudyArrivedCntQuery({
-    enabled: userInfo?.role === "human",
+    enabled: role === "human" || role === "member",
     onSuccess(data) {
-      if (data[session.uid as string] >= 2) setRole("member");
+      if (role === "human" && data[session.uid as string] >= 2)
+        setRole("member");
+      if (role === "member" && data[session.uid as string] < 2)
+        setRole("human");
     },
   });
 

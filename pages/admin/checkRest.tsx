@@ -4,6 +4,7 @@ import styled from "styled-components";
 import AdminLocationSelector from "../../components/common/AdminLocationSelector";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
+import { getRestInfo } from "../../helpers/transformHelpers";
 import { useUserRequestQuery2 } from "../../hooks/user/queries";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -31,7 +32,7 @@ function CheckRest() {
             />
           </Nav>
           {suggestData?.map((item, idx) => {
-            const [type, date, content] = item.content.split(`/`);
+            const { type, date, content } = getRestInfo(item?.content);
 
             return (
               <Item key={idx}>

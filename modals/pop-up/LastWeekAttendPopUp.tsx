@@ -4,6 +4,7 @@ import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { PopUpLayout } from "../../components/common/modal/Modals";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Skeleton from "../../components/common/skeleton/Skeleton";
+import { getRole } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
@@ -19,6 +20,8 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
 
   const parCnt = parRate?.find((who) => who.uid === userInfo.uid)?.cnt;
 
+  const rest = userInfo?.role === "resting" && userInfo?.rest;
+
   return (
     <>
       <PopUpLayout size="md">
@@ -27,18 +30,38 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
           {!isLoading ? (
             <Info>
               <Item>
-                <span>구성</span>
-                수습 회원
+                <span>역할 구성</span>
+                {getRole(userInfo.role)}
               </Item>
               <Item>
                 <span>스터디 참여 </span>
                 {parCnt} 회
               </Item>
+              {userInfo.role === "resting" ? (
+                <Item>
+                  <span>휴식 기간</span>{" "}
+                  {rest.type === "일반" ? (
+                    <Rest>
+                      <span>
+                        {dayjs(rest.startDate).format("YY-MM-DD")} ~{" "}
+                        {dayjs(rest.endDate).format("YY-MM-DD")}
+                      </span>
+                      <DDay>
+                        D-2
+                        {dayjs(rest.endDate).diff(dayjs(), "day")}{" "}
+                      </DDay>
+                    </Rest>
+                  ) : (
+                    <Rest>자율참여 멤버</Rest>
+                  )}
+                </Item>
+              ) : (
+                <Item>
+                  <span>받은 좋아요</span>0 개
+                </Item>
+              )}
               <Item>
-                <span>받은 좋아요</span>0 개
-              </Item>
-              <Item>
-                <span>다음 참여 정산</span>
+                <span>참여 정산</span>
                 8월 1일
               </Item>
             </Info>
@@ -72,7 +95,6 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
           )}
           <ImageWrapper>
             <ProfileIcon user={userInfo} size="lg" />
-            <span>{userInfo.name}</span>
           </ImageWrapper>
         </Container>
         <ModalFooterNav>
@@ -97,9 +119,12 @@ const Info = styled.div`
 const SkeletonText = styled.div`
   width: 60px;
 `;
-
+const DDay = styled.span`
+  color: var(--color-red);
+  margin-left: var(--margin-md);
+`;
 const ImageWrapper = styled.div`
-  margin-right: var(--margin-main);
+  margin-right: var(--margin-md);
   margin-left: auto;
   display: flex;
   flex-direction: column;
@@ -111,11 +136,13 @@ const ImageWrapper = styled.div`
   }
 `;
 
+const Rest = styled.div``;
+
 const Item = styled.div`
   display: flex;
   > span {
     display: inline-block;
-    width: 100px;
+    width: 80px;
     font-weight: 600;
   }
 `;
