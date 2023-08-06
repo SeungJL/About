@@ -6,15 +6,17 @@ import { DEFAULT_BACK_URL } from "../../constants/system";
 
 interface IHeader {
   title: string;
-  url?: string;
+  url?: string | "back";
   children?: React.ReactNode;
 }
 
 const Header = ({ title, url, children }: IHeader) => {
   const router = useRouter();
   const handleClick = () => {
-    if (url) router.push(`${url}`);
-    else router.push(DEFAULT_BACK_URL);
+    if (url) {
+      if (url === "back") router.back();
+      else router.push(`${url}`);
+    } else router.push(DEFAULT_BACK_URL);
   };
 
   return (

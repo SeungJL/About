@@ -50,16 +50,8 @@ export const useUserApplyRestMutation = (
 export const useUserRequestMutation = (
   options?: MutationOptions<IUserRequest>
 ) =>
-  useMutation<void, AxiosError, IUserRequest>(async (plaza) => {
-    const res = await axios.post(`${SERVER_URI}/plaza`, { plaza });
-    return res.data;
-  }, options);
-export const useUserRequestMutation2 = (
-  options?: MutationOptions<IUserRequest>
-) =>
-  useMutation<void, AxiosError, IUserRequest>(async (plaza) => {
-    console.log(plaza);
-    const res = await axios.post(`${SERVER_URI}/request`, { plaza });
+  useMutation<void, AxiosError, IUserRequest>(async (request) => {
+    const res = await axios.post(`${SERVER_URI}/request`, { request });
     return res.data;
   }, options);
 

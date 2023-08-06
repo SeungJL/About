@@ -21,7 +21,7 @@ const Layout = styled.div`
   flex-direction: column;
   justify-content: space-between;
   border: var(--border-mint);
-  height: 88px;
+  height: 94px;
   border-radius: var(--border-radius-main);
   padding: var(--padding-md);
   > * {

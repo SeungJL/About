@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import LocationCategory from "../../components/common/LocationCategory";
 import { MainLoading } from "../../components/common/MainLoading";
 import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
@@ -16,6 +17,7 @@ import ReviewStatus from "../../pagesComponents/review/ReviewStatus";
 import { reviewContentIdState } from "../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 import { GatherLocation, GatherType } from "../../types/page/gather";
+import { Location } from "../../types/system";
 
 export interface IGatherSummary {
   title: string;
@@ -32,17 +34,39 @@ interface IReview {
   text: string;
   title: string;
   summary?: IGatherSummary;
+  writer?: string;
+  location: string;
 }
 
 function Review() {
   const router = useRouter();
+
+  const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
+  const [category, setCategory] = useState<Location>("all");
+
   const url = WEB_URL + router?.asPath;
   const temp = {
     name: "이승주",
-    profileImage:
-      "https://p.kakaocdn.net/th/talkp/wnRiSzjBU5/8bx7JYsl1lMDmJk4KjnJV0/xukg66_640x640_s.jpg",
-    avatar: { bg: 3, type: 2 },
+    profileImage: null,
+    avatar: { bg: 10, type: 9 },
+  };
+
+  const writers = {
+    이승주: { name: "이승주", profileImage: null, avatar: { bg: 10, type: 9 } },
+    서유진: { name: "서유진", profileImage: null, avatar: { bg: 3, type: 4 } },
+    재욱: {
+      name: "재욱",
+      profileImage:
+        "https://p.kakaocdn.net/th/talkp/wn07WrT0Bp/xZrUl20KAKbNB3QKIvG4Bk/hjiiy1_640x640_s.jpg",
+      avatar: null,
+    },
+    김석훈: {
+      name: "김석훈",
+      profileImage:
+        "http://k.kakaocdn.net/dn/cWx5rA/btr7dOzI5TO/AW8kPq23hSHFF7TjSihJ91/img_640x640.jpg",
+      avatar: null,
+    },
   };
 
   const reviewContentId = useRecoilValue(reviewContentIdState);
@@ -55,9 +79,17 @@ function Review() {
           const findItem = data.find((item) => item.id === review.id);
           return { ...review, summary: findItem || null };
         });
+      setInitialData(updatedReviewData);
       setReviewData(updatedReviewData);
     },
   });
+
+  useEffect(() => {
+    if (category === "all") setReviewData(initialData);
+    else
+      setReviewData(initialData.filter((item) => item.location === category));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
 
   useEffect(() => {
     if (reviewContentId) {
@@ -85,23 +117,29 @@ function Review() {
         {!reviewData ? (
           <MainLoading />
         ) : (
-          <Main>
-            {reviewData?.map((item) => (
-              <Item id={"review" + item.id} key={item.id}>
-                <ReviewItemHeader temp={temp} date={item.date} />
-                <ImageWrapper>
-                  <ImageSlider imageContainer={item.images} type="review" />
-                </ImageWrapper>
-                {item.summary ? (
-                  <ReviewGatherSummary summary={item.summary} />
-                ) : (
-                  <Spacing />
-                )}
-                <ReviewContent text={item.text} />
-                <ReviewStatus temp={temp} />
-              </Item>
-            ))}
-          </Main>
+          <>
+            <LocationCategory category={category} setCategory={setCategory} />
+            <Main>
+              {reviewData?.map((item) => (
+                <Item id={"review" + item.id} key={item.id}>
+                  <ReviewItemHeader
+                    writer={writers[item?.writer || "이승주"]}
+                    date={item.date}
+                  />
+                  <ImageWrapper>
+                    <ImageSlider imageContainer={item.images} type="review" />
+                  </ImageWrapper>
+                  {item.summary ? (
+                    <ReviewGatherSummary summary={item.summary} />
+                  ) : (
+                    <Spacing />
+                  )}
+                  <ReviewContent text={item.text} />
+                  <ReviewStatus temp={temp} />
+                </Item>
+              ))}
+            </Main>
+          </>
         )}
       </Layout>
     </>

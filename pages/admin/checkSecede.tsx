@@ -1,19 +1,35 @@
+import { useState } from "react";
 import styled from "styled-components";
+import AdminLocationSelector from "../../components/common/AdminLocationSelector";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
-import { useUserRequestQuery } from "../../hooks/user/queries";
+import { useUserRequestQuery2 } from "../../hooks/user/queries";
+import { IUserRequest } from "../../types/user/userRequest";
 
 function CheckSecede() {
-  const { data, isLoading } = useUserRequestQuery();
-  const suggestData = data?.filter((item) => item.category === "탈퇴");
+  const [initialData, setInitialData] = useState<IUserRequest[]>();
+  const [suggestData, setSuggestData] = useState<IUserRequest[]>();
+
+  const { isLoading } = useUserRequestQuery2({
+    onSuccess(data) {
+      setInitialData(data.filter((item) => item.category === "탈퇴"));
+    },
+  });
 
   return (
     <>
-      <Header title="건의사항 확인" url="/admin" />
+      <Header title="탈퇴신청 확인" url="/admin" />
       {isLoading ? (
         <MainLoading />
       ) : (
         <Layout>
+          <Nav>
+            <AdminLocationSelector
+              initialData={initialData}
+              setRequestData={setSuggestData}
+              type="request"
+            />
+          </Nav>
           {suggestData
             ?.slice()
             .reverse()
@@ -38,7 +54,10 @@ function CheckSecede() {
 }
 
 const Layout = styled.div``;
-
+const Nav = styled.nav`
+  margin: 0 var(--margin-main);
+  margin-top: var(--margin-sub);
+`;
 const Item = styled.div`
   display: flex;
   flex-direction: column;

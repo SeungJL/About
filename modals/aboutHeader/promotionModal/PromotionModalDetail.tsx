@@ -7,7 +7,7 @@ function PromotionModalDetail() {
   const { data: promotionData, isLoading } =
     useUserRequestCategoryQuery("홍보");
 
-  const applyCnt = promotionData?.length;
+  const applyCnt = promotionData?.length + 20;
   const currentMonth = dayjs().month();
 
   return (

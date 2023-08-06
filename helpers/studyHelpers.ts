@@ -55,17 +55,20 @@ export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
   return temp;
 };
 
-export const arrangeMainSpace = (participations: IStudy[]) => {
+export const arrangeMainSpace = (
+  participations: IStudy[],
+  isPassed?: boolean
+) => {
   const compare = (a: IStudy, b: IStudy) => {
-    const cntA = a.attendences.length;
-    const cntB = b.attendences.length;
+    const cntA = !isPassed
+      ? a.attendences.length
+      : a.attendences.filter((who) => who.firstChoice).length;
+    const cntB = !isPassed
+      ? b.attendences.length
+      : b.attendences.filter((who) => who.firstChoice).length;
 
-    if (cntA > cntB) {
-      return -1;
-    }
-    if (cntA < cntB) {
-      return 1;
-    }
+    if (cntA > cntB) return -1;
+    if (cntA < cntB) return 1;
     return 0;
   };
 

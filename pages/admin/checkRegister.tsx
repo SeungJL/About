@@ -2,23 +2,20 @@ import { Button } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import AdminLocationSelector from "../../components/common/AdminLocationSelector";
 import ModalPortal from "../../components/common/ModalPortal";
 import Header from "../../components/layout/Header";
-import ButtonCheckNav from "../../components/ui/ButtonCheckNav";
 import { useRegisterFormsQuery } from "../../hooks/user/queries";
 import CheckRegisterModal from "../../modals/admin/checkRegisterModal/CheckRegisterModal";
-import { RegisterLocation } from "../../storage/study";
 import { IRegisterForm } from "../../types/user/user";
 
 function CheckRegister() {
   const [isModal, setIsModal] = useState(false);
   const [applicant, setApplicant] = useState<IRegisterForm>();
-
   const [isRefetch, setIsRefetch] = useState(false);
-  const { data: applyData, refetch } = useRegisterFormsQuery();
   const [registerData, setRegisterData] = useState<IRegisterForm[]>([]);
 
-  const [category, setCategory] = useState("수원");
+  const { data: applyData, refetch } = useRegisterFormsQuery();
 
   const onClick = (who?: IRegisterForm) => {
     setApplicant(who);
@@ -33,25 +30,14 @@ function CheckRegister() {
     setIsRefetch(false);
   }, [isRefetch, refetch]);
 
-  useEffect(() => {
-    if (category === "준비") {
-      setRegisterData(
-        applyData?.filter(
-          (who) => who?.location === "안양" || who?.location === "강남"
-        )
-      );
-    } else
-      setRegisterData(applyData?.filter((who) => who?.location === category));
-  }, [applyData, category]);
-
   return (
     <>
       <Header title="가입 신청 확인" url="/admin" />
       <Layout>
-        <ButtonCheckNav
-          buttonList={RegisterLocation}
-          selectedButton={category}
-          setSelectedButton={setCategory}
+        <AdminLocationSelector
+          initialData={applyData}
+          setRequestData={setRegisterData}
+          type="register"
         />
         <Main>
           {registerData?.map((who, idx) => (

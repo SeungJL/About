@@ -85,7 +85,7 @@ const ProfileName = styled.div`
   }
 `;
 const HeartWrapper = styled.div`
-  margin-right: var(--margin-main);
+  margin-right: var(--margin-min);
 `;
 
 const Comment = styled.div`

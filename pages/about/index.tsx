@@ -17,14 +17,20 @@ import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
 import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
+import {
+  myStudyFixedState,
+  studyDateState,
+  voteDateState,
+} from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
+
 import { IStudy } from "../../types/study/study";
 function About() {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
+  const studyDate = useRecoilValue(studyDateState);
 
   const [participations, setParticipations] = useState<IStudy[]>([]);
   const [studySpaces, setStudySpaces] = useState<IStudy[]>([]);
@@ -32,7 +38,8 @@ function About() {
   useEffect(() => {
     if (!participations?.length) return;
     const arrangedSpace = arrangeMainSpace(
-      participations?.filter((space) => space !== mySpaceFixed)
+      participations?.filter((space) => space !== mySpaceFixed),
+      studyDate !== "not passed"
     );
     setStudySpaces(arrangedSpace);
     setIsMainLoading(false);

@@ -12,6 +12,7 @@ import {
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
+import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 
 import {
@@ -23,16 +24,22 @@ import { IModal } from "../../types/reactTypes";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
+  const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
 
   const [isFirst, setIsFirst] = useState(true);
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
-  const { mutate: sendPromotionReward } = useUserRequestMutation();
+  const { mutate: sendPromotionReward } = useUserRequestMutation({
+    onSuccess: () => completeToast("free", "이벤트 응모 및 포인트 지급 완료!"),
+    onError: errorToast,
+  });
 
   const onSubmit = () => {
     getPoint(POINT_SYSTEM_PLUS.promotionReward.point);
     getScore(POINT_SYSTEM_PLUS.promotionReward.score);
+
     sendPromotionReward({
       category: "홍보",
       writer: session.user.name,
@@ -89,8 +96,8 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
 }
 
 const Overview = styled.div`
-  font-weight: 600;
   margin-bottom: var(--margin-sub);
+  font-weight: 600;
 `;
 
 const ImageText = styled.span`

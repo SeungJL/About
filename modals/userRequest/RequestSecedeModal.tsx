@@ -21,6 +21,7 @@ function RequestSecedeModal({ setIsModal }: IModal) {
   const { mutate } = useUserRequestMutation({
     onSuccess() {
       completeToast("free", "탈퇴가 완료되었습니다.");
+      signOut();
     },
     onError(err) {
       console.error(err);
@@ -28,13 +29,12 @@ function RequestSecedeModal({ setIsModal }: IModal) {
     },
   });
 
-  const onSecede = async () => {
-    await mutate({
+  const onSecede = () => {
+    mutate({
       category: "탈퇴",
       content: value,
       writer: session?.user.name,
     });
-    await signOut();
   };
 
   return (

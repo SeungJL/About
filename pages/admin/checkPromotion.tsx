@@ -1,15 +1,16 @@
+import dayjs from "dayjs";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
-import { useUserRequestQuery } from "../../hooks/user/queries";
+import { useUserRequestQuery2 } from "../../hooks/user/queries";
 
 function CheckPromotion() {
-  const { data, isLoading } = useUserRequestQuery();
+  const { data, isLoading } = useUserRequestQuery2();
   const suggestData = data?.filter((item) => item.category === "홍보");
 
   return (
     <>
-      <Header title="홍보현황 확인" url="/admin" />
+      <Header title="홍보기록 확인" url="/admin" />
       {isLoading ? (
         <MainLoading />
       ) : (
@@ -20,7 +21,7 @@ function CheckPromotion() {
             .map((item, idx) => (
               <Item key={idx}>
                 <span>{item?.writer}</span>
-                <span>2022-05-03</span>
+                <span>{dayjs(item?.updatedAt).format("YYYY-MM-DD")}</span>
               </Item>
             ))}
         </Layout>

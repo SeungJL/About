@@ -18,4 +18,5 @@ export interface IUserRequest {
   writer: string;
   content?: string;
   rest?: { type: "일반" | "특별"; start: Dayjs; end: Dayjs };
+  updatedAt?: string;
 }

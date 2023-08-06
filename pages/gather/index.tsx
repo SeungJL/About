@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
-import GatherCategoryBar from "../../pagesComponents/gather/GatgerCategoryBar";
+import LocationCategory from "../../components/common/LocationCategory";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";
 import GatherReviewNav from "../../pagesComponents/gather/GatherReviewNav";
@@ -19,7 +19,7 @@ function Gather() {
       <Layout>
         <GatherReviewNav />
         <HrDiv />
-        <GatherCategoryBar category={category} setCategory={setCategory} />
+        <LocationCategory category={category} setCategory={setCategory} />
         <GatherMain category={category} />
         {!isGuest && <WritingIcon url="/gather/writing/category" />}
       </Layout>

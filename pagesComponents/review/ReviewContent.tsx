@@ -4,29 +4,26 @@ import styled from "styled-components";
 const SHORT_TEXT_MAX = 61;
 
 function ReviewContent({ text }: { text: string }) {
-  const textShort = text?.slice(0, SHORT_TEXT_MAX);
   const [isShort, setIsShort] = useState(true);
 
   return (
-    <Layout>
-      {isShort ? (
-        <P onClick={() => setIsShort(false)}>
-          {textShort}
-          <span>{text?.length > SHORT_TEXT_MAX && "... 더 보기"}</span>
-        </P>
-      ) : (
-        <P>{text}</P>
-      )}
-    </Layout>
+    <P isShort={isShort} onClick={() => setIsShort((old) => !old)}>
+      {text}
+    </P>
   );
 }
 
-const Layout = styled.div``;
+const P = styled.p<{ isShort: boolean }>`
+  ${(props) =>
+    props.isShort &&
+    `-webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;   `}
 
-const P = styled.p`
   padding: 0 var(--padding-main);
   margin-bottom: var(--margin-max);
   font-size: 13px;
+  display: -webkit-box;
 
   > span {
     font-size: 12px;

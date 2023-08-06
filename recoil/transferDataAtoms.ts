@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { IGatherContent } from "../types/page/gather";
+import { MemberSectionCategory } from "../types/page/member";
 import { IStudy } from "../types/study/study";
 import { IUser } from "../types/user/user";
 
@@ -14,5 +15,13 @@ export const transferGatherDataState = atom<IGatherContent>({
 
 export const transferStudyDataState = atom<IStudy[]>({
   key: "transferStudyData",
+  default: null,
+});
+
+export const transferMemberDataState = atom<{
+  category: MemberSectionCategory;
+  memberData: IUser[];
+}>({
+  key: "transferMemberData",
   default: null,
 });

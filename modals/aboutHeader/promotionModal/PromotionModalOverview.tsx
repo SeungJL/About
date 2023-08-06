@@ -3,13 +3,14 @@ import styled from "styled-components";
 function PromotionModalOverview() {
   return (
     <Layout>
-      본인 학교 에브리타임에 동아리 홍보글을 작성해주시면 <b>+15 Point</b>와
-      추첨을 통해 매 달 <b>BBQ 황금 올리브 치킨 세트</b>를 드립니다! 중복 지원도
-      가능하니까 생각나실 때 여러번 지원해주시면 더 감사합니다 ^^...
+      에브리타임 홍보 게시판에 동아리 홍보글을 올려주시면 ABOUT 포인트와 추첨을
+      통해 꽤 높은 확률로 상품을 보내드립니다! 도와주시는 모든 분들 감사합니다!
     </Layout>
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  font-weight: 600;
+`;
 
 export default PromotionModalOverview;

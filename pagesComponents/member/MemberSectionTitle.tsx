@@ -1,21 +1,29 @@
+import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { MemberSectionCategory } from "../../types/page/member";
 
 interface IMemberSectionTitle {
-  category: string;
+  category: MemberSectionCategory;
   subTitle: string;
+  setClickSection?: React.Dispatch<MemberSectionCategory>;
 }
 
-function MemberSectionTitle({ category, subTitle }: IMemberSectionTitle) {
+function MemberSectionTitle({
+  category,
+  subTitle,
+  setClickSection,
+}: IMemberSectionTitle) {
   return (
     <Layout>
       <TitleWrapper>
         <span>{category}</span>
         <span>{subTitle}</span>
       </TitleWrapper>
-      {/* <Button>
+      <Button onClick={() => setClickSection(category)}>
         <span>더보기</span>
-        <FontAwesomeIcon icon={faChevronRight} />
-      </Button> */}
+        <FontAwesomeIcon icon={faChevronRight} size="xs" />
+      </Button>
     </Layout>
   );
 }

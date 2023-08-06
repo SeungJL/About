@@ -3,13 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 
-function ReviewItemHeader({ temp, date }: { temp: any; date: string }) {
+interface IReviewItemHeader {
+  writer: any;
+  date: string;
+}
+
+function ReviewItemHeader({ writer, date }: IReviewItemHeader) {
   return (
     <Layout>
       <Profile>
-        <ProfileIcon user={temp} size="sm" />
+        <ProfileIcon user={writer} size="sm" />
         <div>
-          <span>{temp?.name}</span>
+          <span>{writer?.name}</span>
           <span>{date}</span>
         </div>
       </Profile>

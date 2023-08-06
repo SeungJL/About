@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import BlurredPart from "../../../components/common/BlurredPart";
@@ -14,6 +15,8 @@ import MemberRecommend from "../../../pagesComponents/member/MemberRecommend";
 import MemberSectionList from "../../../pagesComponents/member/MemberSectionList";
 import MemberSectionTitle from "../../../pagesComponents/member/MemberSectionTitle";
 import MemberSkeleton from "../../../pagesComponents/member/MemberSkeleton";
+import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
+import { MemberSectionCategory } from "../../../types/page/member";
 import { IUser } from "../../../types/user/user";
 function Member({ membersAll }) {
   const { data: session } = useSession();
@@ -21,11 +24,14 @@ function Member({ membersAll }) {
   const router = useRouter();
   const location = router.query.location;
 
+  const setTransferMemberData = useSetRecoilState(transferMemberDataState);
+
   const [members, setMembers] = useState<IUser[]>();
   const [memberMembers, setMemberMembers] = useState<IUser[]>();
   const [humanMembers, setHumanMembers] = useState<IUser[]>();
   const [restingMembers, setRestingMembers] = useState<IUser[]>();
   const [isLoading, setIsLoading] = useState(true);
+  const [clickSection, setClickSection] = useState<MemberSectionCategory>();
 
   useEffect(() => {
     setMembers(
@@ -55,6 +61,19 @@ function Member({ membersAll }) {
     setIsLoading(false);
   }, [members]);
 
+  useEffect(() => {
+    if (!clickSection) return;
+    const memberData =
+      clickSection === "활동 멤버"
+        ? memberMembers
+        : clickSection === "수습 멤버"
+        ? humanMembers
+        : restingMembers;
+    setTransferMemberData({ category: clickSection, memberData });
+    router.push(`/member/${location}/detail`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickSection]);
+
   return (
     <>
       <MemberHeader />
@@ -64,7 +83,6 @@ function Member({ membersAll }) {
           activeMemberCnt={memberMembers?.length}
         />
         <HrDiv />
-
         <>
           <MemberMyProfile />
           <HrDiv />
@@ -74,6 +92,7 @@ function Member({ membersAll }) {
               <MemberSectionTitle
                 category="활동 멤버"
                 subTitle="정식 활동 멤버입니다"
+                setClickSection={setClickSection}
               />
               <BlurredPart isBlur={isGuest}>
                 <MemberSectionList users={memberMembers} />
@@ -83,6 +102,7 @@ function Member({ membersAll }) {
               <MemberSectionTitle
                 category="수습 멤버"
                 subTitle="열심히 활동해봐요~!"
+                setClickSection={setClickSection}
               />
               <BlurredPart isBlur={isGuest}>
                 <MemberSectionList users={humanMembers} />
@@ -92,6 +112,7 @@ function Member({ membersAll }) {
               <MemberSectionTitle
                 category="휴식 멤버"
                 subTitle="휴식중인 멤버입니다"
+                setClickSection={setClickSection}
               />
               <BlurredPart isBlur={isGuest}>
                 <MemberSectionList users={restingMembers} />

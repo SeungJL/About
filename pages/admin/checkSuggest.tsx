@@ -1,14 +1,24 @@
+import dayjs from "dayjs";
+import { useState } from "react";
 import styled from "styled-components";
+import AdminLocationSelector from "../../components/common/AdminLocationSelector";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
-import { useUserRequestQuery } from "../../hooks/user/queries";
+import { useUserRequestQuery2 } from "../../hooks/user/queries";
+import { IUserRequest } from "../../types/user/userRequest";
 
 function CheckSuggest() {
-  const { data, isLoading } = useUserRequestQuery();
-  const suggestData = data?.filter(
-    (item) => item.category === ("건의" || "신고")
-  );
-  console.log(data);
+  const [initialData, setInitialData] = useState<IUserRequest[]>();
+  const [suggestData, setSuggestData] = useState<IUserRequest[]>();
+
+  const { isLoading } = useUserRequestQuery2({
+    onSuccess(data) {
+      setInitialData(
+        data.filter((item) => item.category === ("건의" || "신고"))
+      );
+    },
+  });
+
   return (
     <>
       <Header title="건의사항 확인" url="/admin" />
@@ -16,6 +26,13 @@ function CheckSuggest() {
         <MainLoading />
       ) : (
         <Layout>
+          <Nav>
+            <AdminLocationSelector
+              initialData={initialData}
+              setRequestData={setSuggestData}
+              type="request"
+            />
+          </Nav>
           {suggestData
             ?.slice()
             .reverse()
@@ -26,7 +43,7 @@ function CheckSuggest() {
                     <Title>{item?.title}</Title>
                     <div>
                       <span>{item.writer || "익명"}</span>
-                      <span>2022-08-14</span>
+                      <span>{dayjs(item.updatedAt).format("M월 D일")}</span>
                     </div>
                   </ItemHeader>
                   <Content>{item.content}</Content>
@@ -40,6 +57,11 @@ function CheckSuggest() {
 }
 
 const Layout = styled.div``;
+
+const Nav = styled.nav`
+  margin: 0 var(--margin-main);
+  margin-top: var(--margin-sub);
+`;
 
 const Item = styled.div`
   display: flex;
