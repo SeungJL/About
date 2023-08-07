@@ -10,14 +10,23 @@ interface IAboutGatherMember {
   participants: IUser[];
 }
 
+const VISIBLE_MEMBER_CNT = 7;
+
 function AboutGatherMember({ memberCnt, participants }: IAboutGatherMember) {
   return (
     <Layout>
       <Member>
         {participants.map((who, idx) => (
-          <ProfileContainer zIndex={idx} key={idx}>
-            <ProfileIconXsOverwrap user={who} isOverlap={idx === 8} />
-          </ProfileContainer>
+          <>
+            {idx <= VISIBLE_MEMBER_CNT && (
+              <ProfileContainer zIndex={idx} key={idx}>
+                <ProfileIconXsOverwrap
+                  user={who}
+                  isOverlap={idx === VISIBLE_MEMBER_CNT}
+                />
+              </ProfileContainer>
+            )}
+          </>
         ))}
       </Member>
       <MemberCnt>

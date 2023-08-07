@@ -16,7 +16,7 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-import { StudyLocation } from "../../storage/study";
+import { STUDY_LOCATION } from "../../storage/study";
 import { Location } from "../../types/system";
 
 function Location() {
@@ -99,7 +99,7 @@ function Location() {
               )}
             </RegisterOverview>
             <ButtonNav>
-              {StudyLocation?.map((space) => (
+              {STUDY_LOCATION?.map((space) => (
                 <Button
                   isSelected={location === space}
                   onClick={() => setLocation(space)}

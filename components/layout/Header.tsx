@@ -1,18 +1,25 @@
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { DEFAULT_BACK_URL } from "../../constants/system";
+import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 interface IHeader {
   title: string;
   url?: string | "back";
+  isPrev?: boolean;
   children?: React.ReactNode;
 }
 
-const Header = ({ title, url, children }: IHeader) => {
+const Header = ({ title, url, children, isPrev }: IHeader) => {
   const router = useRouter();
+
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
   const handleClick = () => {
+    if (isPrev) setPrevPageUrl(null);
     if (url) {
       if (url === "back") router.back();
       else router.push(`${url}`);

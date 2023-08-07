@@ -24,8 +24,11 @@ function GatherDetail() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const gatherId = router.query.id;
+
   const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
+
   const [isRefetch, setIsRefetch] = useState(false);
+
   const { refetch } = useGatherContentQuery({
     onSuccess(data) {
       setGatherData(data?.find((item) => item?.id === +gatherId));

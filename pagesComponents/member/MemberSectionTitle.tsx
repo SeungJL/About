@@ -1,6 +1,8 @@
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { isGuestState } from "../../recoil/userAtoms";
 import { MemberSectionCategory } from "../../types/page/member";
 
 interface IMemberSectionTitle {
@@ -14,13 +16,15 @@ function MemberSectionTitle({
   subTitle,
   setClickSection,
 }: IMemberSectionTitle) {
+  const isGuest = useRecoilValue(isGuestState);
+
   return (
     <Layout>
       <TitleWrapper>
         <span>{category}</span>
         <span>{subTitle}</span>
       </TitleWrapper>
-      <Button onClick={() => setClickSection(category)}>
+      <Button disabled={isGuest} onClick={() => setClickSection(category)}>
         <span>더보기</span>
         <FontAwesomeIcon icon={faChevronRight} size="xs" />
       </Button>

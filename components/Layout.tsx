@@ -35,7 +35,7 @@ function Layout({ children }: ILayout) {
     onSuccess(data) {
       if (!data?.birth && isAccessPermission) router.push("/register/location");
     },
-    onError() {
+    onError(err) {
       if (!session) router.push("/login");
       else router.push("/checkingServer");
     },

@@ -14,7 +14,10 @@ import ReviewContent from "../../pagesComponents/review/ReviewContent";
 import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
 import ReviewItemHeader from "../../pagesComponents/review/ReviewItemHeader";
 import ReviewStatus from "../../pagesComponents/review/ReviewStatus";
-import { reviewContentIdState } from "../../recoil/previousAtoms";
+import {
+  prevPageUrlState,
+  reviewContentIdState,
+} from "../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 import { GatherLocation, GatherType } from "../../types/page/gather";
 import { Location } from "../../types/system";
@@ -40,6 +43,8 @@ interface IReview {
 
 function Review() {
   const router = useRouter();
+
+  const prevPageUrl = useRecoilValue(prevPageUrlState);
 
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
@@ -105,7 +110,11 @@ function Review() {
 
   return (
     <>
-      <Header title="모임 리뷰" url="gather">
+      <Header
+        title="모임 리뷰"
+        url={prevPageUrl || "/gather"}
+        isPrev={!!prevPageUrl}
+      >
         <KakaoShareBtn
           title="모임 리뷰"
           subtitle="즐거운 모임 가득 ~!"

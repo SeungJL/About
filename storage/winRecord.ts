@@ -88,4 +88,22 @@ export const WIN_RECORD: {
     reason: "건의사항 제출",
     present: "굽네 오리지널 세트",
   },
+  {
+    name: "손희",
+    date: "8/8",
+    reason: "스토어 응모 당첨",
+    present: "베스킨라빈스 싱글",
+  },
+  {
+    name: "조수",
+    date: "8/8",
+    reason: "스토어 응모 당첨",
+    present: "베스킨라빈스 싱글",
+  },
+  {
+    name: "서유",
+    date: "8/8",
+    reason: "스토어 응모 당첨",
+    present: "올리브영 10000원권",
+  },
 ];

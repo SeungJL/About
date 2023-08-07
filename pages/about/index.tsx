@@ -23,6 +23,7 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
+import { NOT_OPEN_LOCATION } from "../../storage/study";
 
 import { IStudy } from "../../types/study/study";
 function About() {
@@ -36,6 +37,7 @@ function About() {
   const [studySpaces, setStudySpaces] = useState<IStudy[]>([]);
 
   useEffect(() => {
+    if (NOT_OPEN_LOCATION.includes(location)) setIsMainLoading(false);
     if (!participations?.length) return;
     const arrangedSpace = arrangeMainSpace(
       participations?.filter((space) => space !== mySpaceFixed),

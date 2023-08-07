@@ -4,12 +4,19 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { reviewContentIdState } from "../../../recoil/previousAtoms";
+import {
+  prevPageUrlState,
+  reviewContentIdState,
+} from "../../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../../storage/Review";
 function AboutReview() {
   const router = useRouter();
+
   const setReviewContentId = useSetRecoilState(reviewContentIdState);
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
   const onClick = (id: number) => {
+    setPrevPageUrl("/about");
     if (id !== -1) setReviewContentId(id);
     router.push(`review`);
   };

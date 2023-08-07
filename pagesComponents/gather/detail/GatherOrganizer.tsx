@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import { getDateDiff } from "../../../helpers/dateHelpers";
 import { IUser } from "../../../types/user/user";
 
 interface IGatherOrganizer {
@@ -9,17 +10,14 @@ interface IGatherOrganizer {
 }
 
 function GatherOrganizer({ createdAt, organizer }: IGatherOrganizer) {
-  const writingDate = dayjs().diff(createdAt, "day");
+  const writingDate = getDateDiff(dayjs(createdAt));
+
   return (
     <Layout>
       <ProfileIcon user={organizer} size="md" />
       <div>
         <span>{organizer?.name}</span>
-        {writingDate === 0 ? (
-          <span>오늘</span>
-        ) : (
-          <span>{writingDate}일 전</span>
-        )}
+        <span>{writingDate}</span>
       </div>
     </Layout>
   );

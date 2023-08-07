@@ -38,11 +38,11 @@ function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
         </li>
         <li>
           <span>활동 지역</span>
-          <StudyLocation>
+          <STUDY_LOCATION>
             {placeData?.map((place) => (
               <span key={place?._id}>{place?.branch}</span>
             ))}
-          </StudyLocation>
+          </STUDY_LOCATION>
         </li>
       </Info>
     </Layout>
@@ -81,7 +81,7 @@ const Info = styled.div`
   }
 `;
 
-const StudyLocation = styled.div`
+const STUDY_LOCATION = styled.div`
   min-height: 48px;
   flex: 1;
   color: var(--font-h2);

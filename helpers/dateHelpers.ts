@@ -32,3 +32,14 @@ export const getWeekNumber = (date: Dayjs) => {
   const currentDate = date.date();
   return Math.ceil((currentDate - startDay) / 7) + 2;
 };
+
+export const getDateDiff = (date: Dayjs) => {
+  const daysDiff = dayjs().diff(date, "day");
+
+  if (daysDiff < 1) {
+    const hoursDiff = dayjs().diff(date, "hour");
+    if (hoursDiff < 1) return "방금 전";
+    return `${dayjs().diff(date, "hours")}시간 전`;
+  }
+  return `${daysDiff}일 전`;
+};

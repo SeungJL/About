@@ -7,6 +7,7 @@ import "swiper/css/pagination"; //
 import { Swiper, SwiperSlide } from "swiper/react";
 import AboutSectionHeader from "../../../../components/common/AboutSectionHeader";
 import { useGatherContentQuery } from "../../../../hooks/gather/queries";
+import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferGatherDataState } from "../../../../recoil/transferDataAtoms";
 import { IGatherContent } from "../../../../types/page/gather";
 import AboutGatherDetail from "./AboutGatherDetail";
@@ -17,6 +18,7 @@ function AboutGather() {
   const router = useRouter();
 
   const setGatherData = useSetRecoilState(transferGatherDataState);
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
   const { data: gatherContentArr, isLoading } = useGatherContentQuery();
 
@@ -26,6 +28,7 @@ function AboutGather() {
 
   const onClickItem = (data: IGatherContent) => {
     setGatherData(data);
+    setPrevPageUrl("/about");
     router.push(`/gather/${data.id}`);
   };
 
@@ -43,7 +46,7 @@ function AboutGather() {
         {gatherContentArr
           ?.slice()
           .reverse()
-          .slice(0, 4)
+          .slice(0, 5)
           .map((item, index) => {
             const title = item.title;
             const participants = [

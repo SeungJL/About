@@ -1,9 +1,10 @@
-import { faBalanceScale, faTrophy } from "@fortawesome/pro-solid-svg-icons";
+import { faTrophy } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import RuleIcon from "../../components/common/Icon/RuleIcon";
 import { MainLoading } from "../../components/common/MainLoading";
 import ModalPortal from "../../components/common/ModalPortal";
 import Header from "../../components/layout/Header";
@@ -34,11 +35,7 @@ function Store() {
   return (
     <>
       <Header title="포인트 추첨" url="point">
-        <FontAwesomeIcon
-          icon={faBalanceScale}
-          size="lg"
-          onClick={() => setIsModal(true)}
-        />
+        <RuleIcon setIsModal={setIsModal} />
       </Header>
       <Layout>
         {STORE_GIFT?.map((item, idx) => {

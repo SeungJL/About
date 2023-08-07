@@ -1,5 +1,5 @@
 import { Badge, Progress } from "@chakra-ui/react";
-import { faQuestionCircle } from "@fortawesome/pro-solid-svg-icons";
+import { faQuestionCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";

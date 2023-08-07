@@ -1,11 +1,13 @@
 import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/common/ModalPortal";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import { getDateDiff } from "../../../helpers/dateHelpers";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
@@ -79,7 +81,13 @@ function GatherComments({ comment, setIsRefetch }: IGatherComments) {
                   <ProfileIcon user={item.user} size="xs" />
                 </div>
                 <CommentContent>
-                  <span>{item.user.name}</span>
+                  <Name>
+                    <span>{item.user.name}</span>
+                    <CommentDetail>
+                      {item.user.location} ·{" "}
+                      {getDateDiff(dayjs(item.updatedAt))}
+                    </CommentDetail>
+                  </Name>
                   <p>
                     {item.comment}
                     {item.user.uid === session?.uid && (
@@ -125,6 +133,15 @@ const Layout = styled.div`
   }
 `;
 
+const Name = styled.div`
+  display: flex;
+  align-items: center;
+  > span:first-child {
+    font-weight: 600;
+    margin-right: var(--margin-min);
+  }
+`;
+
 const IconWrapper = styled.span`
   margin-left: var(--margin-md);
 `;
@@ -156,13 +173,17 @@ const CommentContent = styled.div`
   height: 68%;
   justify-content: space-around;
   margin-left: var(--margin-sub);
+
   font-size: 12px;
-  > span:first-child {
-    font-weight: 600;
-  }
+
   > span:last-child {
     color: var(--font-h2);
   }
+`;
+
+const CommentDetail = styled.span`
+  font-size: 10px;
+  color: var(--font-h3);
 `;
 
 const MyText = styled.textarea`
