@@ -1,7 +1,7 @@
+import { faDice } from "@fortawesome/pro-regular-svg-icons";
 import {
   faCalendarCheck,
   faOtter,
-  faRankingStar,
   faStar,
   faTeddyBear,
   faUsers,
@@ -52,14 +52,14 @@ function AboutNavigation() {
               color={VOTE_TABLE_COLOR[1]}
             />
           </Button>
-          <span>기록</span>
+          <span>캘린더</span>
         </Item>
         <Item>
           <Button onClick={() => onClick("point")}>
             <FontAwesomeIcon
-              icon={faRankingStar}
+              icon={faDice}
               size="xl"
-              color={VOTE_TABLE_COLOR[2]}
+              color={VOTE_TABLE_COLOR[3]}
             />
             {isPointAlert && (
               <IconWrapper>
@@ -71,14 +71,14 @@ function AboutNavigation() {
               </IconWrapper>
             )}
           </Button>
-          <span>포인트</span>
+          <span>트레이드</span>
         </Item>
         <Item>
           <Button onClick={() => onClick("member")}>
             <FontAwesomeIcon
               icon={faUsers}
               size="xl"
-              color={VOTE_TABLE_COLOR[3]}
+              color={VOTE_TABLE_COLOR[2]}
             />
             <IconWrapper>
               <FontAwesomeIcon
@@ -112,7 +112,7 @@ function AboutNavigation() {
             <FontAwesomeIcon
               icon={faTeddyBear}
               size="xl"
-              color="var(--font-h2)"
+              color={VOTE_TABLE_COLOR[4]}
             />
           </Button>
           <span>광장</span>

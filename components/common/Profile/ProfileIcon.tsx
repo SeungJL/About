@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { ICON_SIZE } from "../../../constants/system";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar";
 import { Size } from "../../../types/system";
-import { IUser } from "../../../types/user/user";
+import { IRegisterForm, IUser } from "../../../types/user/user";
 
 interface IProfileIcon {
-  user: IUser | "guest";
+  user: IUser | IRegisterForm | "guest";
   size?: Size;
 }
 
@@ -34,7 +34,7 @@ function ProfileIcon({ user, size }: IProfileIcon) {
 
   return (
     <>
-      {user && (
+      {user && imageUrl && (
         <Layout
           avatarBg={
             user === "guest" || isError

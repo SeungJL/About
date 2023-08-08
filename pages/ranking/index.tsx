@@ -1,20 +1,25 @@
+import dayjs from "dayjs";
+import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
+import { MainLoadingAbsolute } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
-import { SortUserScore } from "../../helpers/userHelpers";
+import { sortUserScore } from "../../helpers/userHelpers";
 import { useErrorToast } from "../../hooks/CustomToast";
-import {
-  useScoreAllQuery,
-  useScoreQuery,
-} from "../../hooks/user/pointSystem/queries";
-import { useUserLocationQuery } from "../../hooks/user/queries";
+import { useUserAttendRateAllQuery } from "../../hooks/user/studyStatistics/queries";
+import dbConnect from "../../libs/backend/dbConnect";
+import { User } from "../../models/user";
+import RankingBar from "../../pagesComponents/ranking/RankingBar";
 import RankingCategory from "../../pagesComponents/ranking/RankingCategory";
 import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
 import RankingOverView from "../../pagesComponents/ranking/RankingOverview";
-import { isRankingLoadingState } from "../../recoil/loadingAtoms";
-import { IScore } from "../../types/user/pointSystem";
+import {
+  IRankingUser,
+  RankingCategory as RankingCategoryType,
+} from "../../types/page/ranking";
+import { IUser } from "../../types/user/user";
 
 export interface IMyRank {
   score: number;
@@ -23,77 +28,130 @@ export interface IMyRank {
   percent?: number;
 }
 
-function Ranking() {
-  const errorToast = useErrorToast();
+interface IRanking {
+  membersAll: IUser[];
+}
+
+function Ranking({ membersAll }: IRanking) {
   const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
+  const errorToast = useErrorToast();
+
   const myUid = session?.uid;
 
-  const setIsRankingLoading = useSetRecoilState(isRankingLoadingState);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [isFilter, setIsFilter] = useState(true);
-  const [userScoreList, setUserScoreList] = useState<IScore[]>([]);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [month, setMonth] = useState(dayjs().month());
+  const [category, setCategory] = useState<RankingCategoryType>("월간");
+  const [userScoreList, setUserScoreList] = useState<
+    IUser[] | IRankingUser[]
+  >();
   const [myRank, setMyRank] = useState<IMyRank>();
+  const dayjsMonth = dayjs().month(month);
 
-  const { data: location } = useUserLocationQuery();
-  const { data } = useScoreQuery({
-    enabled: isGuest === false,
-  });
-
-  const myScore = data?.score | 0;
-
-  const { data: userScoreAll, isLoading } = useScoreAllQuery({
-    onError: errorToast,
-  });
+  const { data: monthScoreList, refetch } = useUserAttendRateAllQuery(
+    dayjsMonth.date(0),
+    month === dayjs().month() ? dayjs() : dayjsMonth.endOf("month"),
+    {
+      onError: errorToast,
+    }
+  );
 
   useEffect(() => {
-    if (isLoading) return;
-    let temp = userScoreAll;
-    if (isFilter)
-      temp = [...temp].filter(
-        (who) => who.location === (isGuest ? "수원" : location)
-      );
-    setUserScoreList(temp);
-    const { rankNum, percent, isRank } = SortUserScore(temp, myScore);
-    setMyRank({ rankNum, percent, isRank, score: myScore });
-    setIsRankingLoading(false);
+    refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFilter, isLoading, location, myScore, userScoreAll]);
+  }, [month]);
 
   useEffect(() => {
-    if (myUid && myScore > 0)
+    if (!isLoading) setIsInitialLoading(false);
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (category === "지난") setMonth(dayjs().month() - 1);
+    if (category === "월간") setMonth(dayjs().month());
+
+    if (!userScoreList) return;
+    const { rankNum, percent, isRank, score } = sortUserScore(
+      userScoreList,
+      session?.uid,
+      category === "누적" ? "score" : "attend"
+    );
+    setMyRank({ rankNum, percent, isRank, score });
+    setIsLoading(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, session?.uid, userScoreList]);
+
+  useEffect(() => {
+    if (myUid && myRank?.score > 0)
       setTimeout(() => {
         const element = document.getElementById(`ranking${myUid}`);
         element?.scrollIntoView({ behavior: "smooth" });
       }, 800);
-  }, [myScore, myUid]);
+  }, [myRank?.score, myUid]);
 
   return (
-    <>
-      <Header title="About 랭킹" url="/point" />
-      <Layout>
-        <RankingOverView myRank={myRank} length={userScoreList?.length} />
-        <RankingSection>
-          <RankingCategory isFilter={isFilter} setIsFilter={setIsFilter} />
-          <RankingMembers memberList={userScoreList} />
-        </RankingSection>
-      </Layout>
-    </>
+    <Layout>
+      <Wrapper>
+        <Header title="About 랭킹" url="/point" />
+        <RankingOverView
+          myRank={myRank}
+          length={userScoreList?.length}
+          isLoading={isLoading}
+          isinitialLoading={isInitialLoading}
+        />
+        <RankingCategory
+          initialUserScoreList={membersAll}
+          initialMonthAttendArr={monthScoreList}
+          setUserScoreList={setUserScoreList}
+          category={category}
+          setCategory={setCategory}
+          setIsLoading={setIsLoading}
+        />
+      </Wrapper>
+      <RankingSection>
+        <RankingBar isScore={category === "누적"} />
+        <>
+          {isLoading ? (
+            <MainLoadingAbsolute />
+          ) : (
+            <RankingMembers
+              memberList={userScoreList}
+              type={category === "누적" ? "score" : "attend"}
+            />
+          )}
+        </>
+      </RankingSection>
+    </Layout>
   );
 }
+export const getServerSideProps: GetServerSideProps = async () => {
+  await dbConnect();
+  const user = await User.find();
+  const filterUser = user?.filter(
+    (who) => who?.isActive && who?.name !== "guest"
+  );
+  const membersAll: IUser[] = JSON.parse(safeJsonStringify(filterUser));
+  return { props: { membersAll } };
+};
 
 const Layout = styled.div`
   height: 100vh;
 `;
 
+const Wrapper = styled.div`
+  background-color: var(--font-h7);
+  height: 35vh;
+`;
+
 const RankingSection = styled.div`
-  background-color: white;
-  height: 100%;
+  position: relative;
   overflow-y: scroll;
+  background-color: white;
   padding: var(--padding-main) var(--padding-sub);
   border-radius: var(--border-radius-main);
-  height: calc(75vh - 46px);
-  border: 5px solid var(--color-mint);
+  height: 65vh;
+  border: 4px solid var(--color-mint);
 `;
 
 export default Ranking;

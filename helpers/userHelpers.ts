@@ -1,6 +1,7 @@
-import { IRankScore } from "../types/page/ranking";
+import { IRankingUser, IRankScore } from "../types/page/ranking";
+import { IVoteRate } from "../types/study/studyRecord";
 import { IScore } from "../types/user/pointSystem";
-import { UserBadge } from "../types/user/user";
+import { IUser, UserBadge } from "../types/user/user";
 
 export const getUserBadgeScore = (score) => {
   let badge: UserBadge = "아메리카노";
@@ -62,28 +63,63 @@ export const myScoreRank = (scoreArr: IScore[], myScore: number) => {
   else return Math.ceil(rate / 10) * 10;
 };
 
-export const SortUserScore = (
-  scoreArr: IScore[],
-  myScore: number
+export const sortUserScore = (
+  scoreArr: IScore[] | IUser[] | IRankingUser[],
+  uid: string,
+  type: "score" | "attend"
 ): IRankScore => {
-  const compare = (a: IScore, b: IScore) => {
+  let myValue = null;
+
+  const compareAttend = (a: IVoteRate, b: IVoteRate) => {
+    if (!myValue && a.uid === uid) myValue = a.cnt;
+    if (a.cnt > b.cnt) return -1;
+    else if (a.cnt < b.cnt) return 1;
+    return 0;
+  };
+  const compareScore = (a: IScore, b: IScore) => {
+    if (!myValue && a.uid === uid) myValue = a.score;
     if (a.score > b.score) return -1;
     else if (a.score < b.score) return 1;
     return 0;
   };
-  scoreArr.sort(compare);
-  const rankNum = scoreArr.findIndex((who) => who.score < myScore);
-  if (rankNum <= 100) return { scoreArr, rankNum, isRank: true };
-  let highCnt = 0;
+
   const total = scoreArr.length;
-  scoreArr.forEach((user) => {
-    if (user.score >= myScore) highCnt++;
-  });
+  let myRankNum = 0;
+  let highCnt = 0;
   let percent;
+
+  if (type === "score") {
+    (scoreArr as IScore[]).sort(compareScore);
+    scoreArr.forEach((user) => {
+      if (user.score > myValue) myRankNum++;
+    });
+    if (myRankNum <= 100)
+      return {
+        scoreArr: scoreArr as IScore[],
+        rankNum: myRankNum,
+        isRank: true,
+        score: myValue,
+      };
+  }
+
+  if (type === "attend") {
+    (scoreArr as IVoteRate[]).sort(compareAttend);
+    if (myValue !== 0)
+      (scoreArr as IVoteRate[]).forEach((user) => {
+        if (user.cnt > myValue) myRankNum++;
+      });
+    return {
+      scoreArr: scoreArr as IVoteRate[],
+      rankNum: myRankNum,
+      isRank: true,
+      score: myValue,
+    };
+  }
+
   const rate = (highCnt / total) * 100;
   if (rate < 1) percent = 1;
   if (rate < 5) percent = 5;
   if (rate < 10) percent = 10;
   else percent = Math.ceil(rate / 10) * 10;
-  return { scoreArr, percent, isRank: false };
+  return { scoreArr, percent, isRank: false, score: myValue };
 };

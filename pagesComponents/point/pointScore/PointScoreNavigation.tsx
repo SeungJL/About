@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { SortUserScore } from "../../../helpers/userHelpers";
+import { sortUserScore } from "../../../helpers/userHelpers";
 import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { useUserLocationQuery } from "../../../hooks/user/queries";
 import { isPointLoadingState } from "../../../recoil/loadingAtoms";
@@ -30,7 +30,7 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
     enabled: !isGuest,
     onSuccess(data) {
       const temp = data.filter((who) => who.location === location);
-      const arrangedData = SortUserScore(temp, myPoint);
+      const arrangedData = sortUserScore(temp, session?.uid, "score");
       if (arrangedData.isRank)
         setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
@@ -59,7 +59,7 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
               {isGuest ? (
                 <span>New</span>
               ) : myRank?.isRank ? (
-                <span> {myRank?.rankNum}위</span>
+                <span> {myRank?.rankNum + 1}위</span>
               ) : (
                 <span>상위 {myRank?.percent}%</span>
               )}

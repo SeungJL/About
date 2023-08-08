@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AdminLocationSelector from "../../components/common/AdminLocationSelector";
 import ModalPortal from "../../components/common/ModalPortal";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Header from "../../components/layout/Header";
 import { useRegisterFormsQuery } from "../../hooks/user/queries";
 import CheckRegisterModal from "../../modals/admin/checkRegisterModal/CheckRegisterModal";
@@ -42,15 +42,7 @@ function CheckRegister() {
         <Main>
           {registerData?.map((who, idx) => (
             <Item key={idx}>
-              <Profile>
-                <Image
-                  src={`${who?.profileImage}`}
-                  width={48}
-                  height={48}
-                  unoptimized={true}
-                  alt="profile"
-                />
-              </Profile>
+              <ProfileIcon user={who} size="md" />
               <Summary>
                 <div>
                   <span>{who?.name}</span>

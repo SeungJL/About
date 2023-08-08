@@ -18,7 +18,12 @@ import MemberSkeleton from "../../../pagesComponents/member/MemberSkeleton";
 import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
 import { MemberSectionCategory } from "../../../types/page/member";
 import { IUser } from "../../../types/user/user";
-function Member({ membersAll }) {
+
+interface IMember {
+  membersAll: IUser[];
+}
+
+function Member({ membersAll }: IMember) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const router = useRouter();

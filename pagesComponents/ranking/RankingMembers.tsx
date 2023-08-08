@@ -1,66 +1,78 @@
-import { Badge, Box } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Skeleton from "../../components/common/skeleton/Skeleton";
+import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { USER_BADGES } from "../../constants/convert";
 import { getUserBadgeScore } from "../../helpers/userHelpers";
 import { isRankingLoadingState } from "../../recoil/loadingAtoms";
-import { IScore } from "../../types/user/pointSystem";
+import { RankingType } from "../../types/page/ranking";
+import { IVoteRate } from "../../types/study/studyRecord";
+import { IUser } from "../../types/user/user";
 
 interface IRankingMembers {
-  memberList: IScore[];
+  memberList: IUser[] | IVoteRate[];
+  type: RankingType;
 }
 
-const DEFAULT_ARRAY = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-function RankingMembers({ memberList }: IRankingMembers) {
+function RankingMembers({ memberList, type }: IRankingMembers) {
   const { data: session } = useSession();
   const isLoading = useRecoilValue(isRankingLoadingState);
 
+  let tempCnt = 0;
+  let score;
+  let attendCnt;
+
   return (
     <Layout>
-      {!isLoading ? (
+      {type === "score" ? (
         <>
           {memberList?.map((who, idx) => {
-            const score = who?.score;
+            if (score === who.score) {
+              tempCnt++;
+            } else tempCnt = 0;
+            score = who?.score;
             const { badge } = getUserBadgeScore(score);
+
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
-                <Rank>{idx + 1}위</Rank>
-                <RankingMine isMine={who.uid === session?.uid}>
-                  {who?.name !== "무성" ? who?.name : "비공개"}
-                </RankingMine>
-                <Badge colorScheme={USER_BADGES[badge]}>{badge}</Badge>
-                <Box ml="auto" />
-                <span>{score} 점</span>
+                <Rank>{idx - tempCnt + 1}위</Rank>
+                <Name>
+                  <ProfileIcon size="sm" user={who} />
+                  <RankingMine isMine={who.uid === session?.uid}>
+                    {who?.name !== "무성" ? who?.name : "비공개"}
+                  </RankingMine>
+                  <Badge colorScheme={USER_BADGES[badge]}>{badge}</Badge>
+                </Name>
+                <Score>{score} 점</Score>
               </Item>
             );
           })}
         </>
-      ) : (
+      ) : type === "attend" ? (
         <>
-          {DEFAULT_ARRAY.map((item) => {
+          {memberList?.map((who, idx) => {
+            if (attendCnt === who.cnt) {
+              tempCnt++;
+            } else tempCnt = 0;
+            attendCnt = who.cnt;
+            const { badge } = getUserBadgeScore(who.score);
             return (
-              <Item key={item}>
-                <Rank>
-                  <Skeleton>temp</Skeleton>
-                </Rank>
-                <RankingMine>
-                  <Skeleton>temp</Skeleton>
-                </RankingMine>
-                <InitialBadge>
-                  <Skeleton>temp</Skeleton>
-                </InitialBadge>
-                <Box ml="auto" />
-                <Score>
-                  <Skeleton>temp</Skeleton>
-                </Score>
+              <Item key={idx} id={`ranking${who.uid}`}>
+                <Rank>{idx - tempCnt + 1}위</Rank>
+                <Name>
+                  <ProfileIcon size="sm" user={who} />
+                  <RankingMine isMine={who.uid === session?.uid}>
+                    {who?.name !== "무성" ? who?.name : "비공개"}
+                  </RankingMine>
+                  <Badge colorScheme={USER_BADGES[badge]}>{badge}</Badge>
+                </Name>
+                <Score>{attendCnt} 회</Score>
               </Item>
             );
           })}
         </>
-      )}
+      ) : null}
     </Layout>
   );
 }
@@ -69,28 +81,31 @@ const Layout = styled.div``;
 
 const Item = styled.div`
   display: flex;
-  height: 48px;
+  padding: var(--padding-sub);
   align-items: center;
   border-bottom: var(--border-main-light);
-  > div {
-    text-align: center;
-    width: 60px;
-  }
+`;
+
+const Name = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
 `;
 
 const Rank = styled.div`
-  margin-right: var(--margin-sub);
+  text-align: start;
+  flex: 0.2;
   font-weight: 600;
 `;
 
-const Score = styled.div`
-  margin-left: auto;
-`;
+const Score = styled.div``;
 
 const RankingMine = styled.div<{ isMine?: boolean }>`
-  margin-right: 8px;
+  margin: 0 var(--margin-sub);
+  font-weight: 600;
   color: ${(props) => props.isMine && "var(--color-mint)"};
   font-weight: ${(props) => props.isMine && "600"};
+  font-size: 14px;
 `;
 
 const InitialBadge = styled.div`

@@ -1,7 +1,6 @@
 import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Skeleton from "../../components/common/skeleton/Skeleton";
@@ -10,20 +9,25 @@ import { getUserBadgeScore } from "../../helpers/userHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { IMyRank } from "../../pages/ranking";
-import { isRankingLoadingState } from "../../recoil/loadingAtoms";
 import { IUserBadge } from "../../types/user/user";
 
 interface IRankingOverview {
   myRank: IMyRank;
   length: number;
+  isLoading: boolean;
+  isinitialLoading: boolean;
 }
 
-function RankingOverview({ myRank, length }: IRankingOverview) {
+function RankingOverview({
+  myRank,
+  length,
+  isLoading,
+  isinitialLoading,
+}: IRankingOverview) {
   const typeErrorToast = useTypeErrorToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const isLoading = useRecoilValue(isRankingLoadingState);
   const [userBadge, setUserBadge] = useState<IUserBadge>();
 
   const { data: userInfo } = useUserInfoQuery({
@@ -51,7 +55,10 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
                 <span>
                   <Skeleton isLoad={!isLoading}>
                     <RankNum>
-                      {isGuest ? "--" : myRank?.rankNum} <span>위</span>
+                      {isGuest
+                        ? "--"
+                        : !isinitialLoading && myRank?.rankNum + 1}
+                      <span>위</span>
                     </RankNum>
                   </Skeleton>
                 </span>
@@ -71,14 +78,14 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
           </span>
         </Myrank>
         <Profile isGuest={isGuest}>
-          <Skeleton isLoad={!isLoading}>
+          <Skeleton isLoad={!isinitialLoading}>
             <ProfileIcon user={userInfo || "guest"} size="xl" />
             <span>{session?.user.name}</span>
           </Skeleton>
         </Profile>
         <ScoreContainer>
           <RankBadge>
-            <Skeleton isLoad={!isLoading}>
+            <Skeleton isLoad={!isinitialLoading}>
               <Name>등급:</Name>
               <Badge colorScheme={userBadge?.color} fontSize="13px" mb="6px">
                 {userBadge?.badge}
@@ -86,7 +93,7 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
             </Skeleton>
           </RankBadge>
           <Score>
-            <Skeleton isLoad={!isLoading}>
+            <Skeleton isLoad={!isinitialLoading}>
               <Name>점수:</Name>
               <span>{userInfo?.score || 0}점</span>
             </Skeleton>
@@ -98,7 +105,7 @@ function RankingOverview({ myRank, length }: IRankingOverview) {
 }
 
 const Layout = styled.div`
-  height: 25vh;
+  height: 20vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
