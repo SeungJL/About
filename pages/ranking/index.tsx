@@ -66,12 +66,12 @@ function Ranking({ membersAll }: IRanking) {
     if (!userScoreList) return;
     const { rankNum, percent, isRank, score } = sortUserScore(
       userScoreList,
-      session?.uid,
+      session?.uid as string,
       category === "누적" ? "score" : "attend"
     );
-   
+
     setMyRank({ rankNum, percent, isRank, score });
-   
+
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, session?.uid, userScoreList]);
