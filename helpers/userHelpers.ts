@@ -77,7 +77,10 @@ export const sortUserScore = (
     return 0;
   };
   const compareScore = (a: IScore, b: IScore) => {
-    if (!myValue && a.uid === uid) myValue = a.score;
+    if (!myValue && a.uid === uid) {
+      myValue = a.score;
+    }
+
     if (a.score > b.score) return -1;
     else if (a.score < b.score) return 1;
     return 0;
@@ -85,13 +88,13 @@ export const sortUserScore = (
 
   const total = scoreArr.length;
   let myRankNum = 0;
-  let highCnt = 0;
   let percent;
 
   if (type === "score") {
     (scoreArr as IScore[]).sort(compareScore);
+
     scoreArr.forEach((user) => {
-      if (user.score > myValue) myRankNum++;
+      if (myValue !== null && user.score > myValue) myRankNum++;
     });
     if (myRankNum <= 100)
       return {
@@ -116,10 +119,15 @@ export const sortUserScore = (
     };
   }
 
-  const rate = (highCnt / total) * 100;
+  const rate = (myRankNum / total) * 100;
   if (rate < 1) percent = 1;
   if (rate < 5) percent = 5;
   if (rate < 10) percent = 10;
   else percent = Math.ceil(rate / 10) * 10;
-  return { scoreArr, percent, isRank: false, score: myValue };
+  return {
+    scoreArr,
+    percent: myValue === 0 ? 100 : percent,
+    isRank: false,
+    score: myValue,
+  };
 };

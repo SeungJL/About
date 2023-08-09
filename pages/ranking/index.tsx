@@ -34,12 +34,12 @@ interface IRanking {
 
 function Ranking({ membersAll }: IRanking) {
   const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const errorToast = useErrorToast();
 
   const myUid = session?.uid;
 
   const [isLoading, setIsLoading] = useState(true);
-
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [month, setMonth] = useState(dayjs().month());
   const [category, setCategory] = useState<RankingCategoryType>("월간");
@@ -49,46 +49,40 @@ function Ranking({ membersAll }: IRanking) {
   const [myRank, setMyRank] = useState<IMyRank>();
   const dayjsMonth = dayjs().month(month);
 
-  const { data: monthScoreList, refetch } = useUserAttendRateAllQuery(
-    dayjsMonth.date(0),
-    month === dayjs().month() ? dayjs() : dayjsMonth.endOf("month"),
-    {
-      onError: errorToast,
-    }
-  );
-
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [month]);
+  const { data: monthScoreList, isLoading: attendLoading } =
+    useUserAttendRateAllQuery(
+      dayjsMonth.date(0),
+      month === dayjs().month() ? dayjs() : dayjsMonth.endOf("month"),
+      {
+        onError: errorToast,
+      }
+    );
 
   useEffect(() => {
     if (!isLoading) setIsInitialLoading(false);
   }, [isLoading]);
 
   useEffect(() => {
-    if (category === "지난") setMonth(dayjs().month() - 1);
-    if (category === "월간") setMonth(dayjs().month());
-
     if (!userScoreList) return;
     const { rankNum, percent, isRank, score } = sortUserScore(
       userScoreList,
       session?.uid,
       category === "누적" ? "score" : "attend"
     );
+   
     setMyRank({ rankNum, percent, isRank, score });
+   
     setIsLoading(false);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, session?.uid, userScoreList]);
 
   useEffect(() => {
-    if (myUid && myRank?.score > 0)
+    if (myUid && !isGuest)
       setTimeout(() => {
         const element = document.getElementById(`ranking${myUid}`);
         element?.scrollIntoView({ behavior: "smooth" });
       }, 800);
-  }, [myRank?.score, myUid]);
+  }, [isGuest, myRank?.score, myUid]);
 
   return (
     <Layout>
@@ -102,11 +96,12 @@ function Ranking({ membersAll }: IRanking) {
         />
         <RankingCategory
           initialUserScoreList={membersAll}
-          initialMonthAttendArr={monthScoreList}
+          initialMonthAttendArr={!attendLoading && monthScoreList}
           setUserScoreList={setUserScoreList}
           category={category}
           setCategory={setCategory}
           setIsLoading={setIsLoading}
+          setMonth={setMonth}
         />
       </Wrapper>
       <RankingSection>

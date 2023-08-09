@@ -31,6 +31,7 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
     onSuccess(data) {
       const temp = data.filter((who) => who.location === location);
       const arrangedData = sortUserScore(temp, session?.uid, "score");
+
       if (arrangedData.isRank)
         setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });

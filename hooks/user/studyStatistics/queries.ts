@@ -6,6 +6,7 @@ import {
   USER_FINDVOTES,
 } from "../../../constants/queryKeys";
 import { SERVER_URI } from "../../../constants/system";
+import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { QueryOptions } from "../../../types/reactTypes";
 import { IVoteRate } from "../../../types/study/studyRecord";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
@@ -38,7 +39,7 @@ export const useUserAttendRateAllQuery = (
   options?: QueryOptions<IVoteRate[]>
 ) =>
   useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
-    "userParticipationRateAll",
+    ["userParticipationRateAll", dayjsToStr(startDay), dayjsToStr(endDay)],
     async () => {
       const res = await axios.get<IVoteRate[]>(
         `${SERVER_URI}/user/participationrate/all`,

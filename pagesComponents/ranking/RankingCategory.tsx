@@ -5,7 +5,7 @@ import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { RankingCategory as RankingCategoryType } from "../../types/page/ranking";
-import { DispatchBoolean } from "../../types/reactTypes";
+import { DispatchBoolean, DispatchNumber } from "../../types/reactTypes";
 import { IVoteRate } from "../../types/study/studyRecord";
 import { IUser } from "../../types/user/user";
 interface IRankingCategory {
@@ -15,6 +15,7 @@ interface IRankingCategory {
   category: RankingCategoryType;
   setCategory: React.Dispatch<SetStateAction<RankingCategoryType>>;
   setIsLoading: DispatchBoolean;
+  setMonth: DispatchNumber;
 }
 
 function RankingCategory({
@@ -24,6 +25,7 @@ function RankingCategory({
   category,
   setCategory,
   setIsLoading,
+  setMonth,
 }: IRankingCategory) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -49,10 +51,10 @@ function RankingCategory({
       const filterData = userDataArr.filter(
         (who) => who.location === (isGuest ? "수원" : location)
       );
+
       setUserScoreList(filterData);
       return;
     }
-
     setUserScoreList(userDataArr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -67,6 +69,9 @@ function RankingCategory({
   const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setIsLoading(true);
     setUserScoreList(null);
+    const value = e.target.value as RankingCategoryType;
+    if (value === "지난") setMonth(dayjs().month() - 1);
+    if (value === "월간") setMonth(dayjs().month());
     setCategory(e.target.value as RankingCategoryType);
   };
 
