@@ -101,14 +101,14 @@ function KakaoShareBtn({
       window.Kakao.Link.createDefaultButton(options);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [img]);
+  console.log(img);
   return (
     <Layout id="kakao-share-button">
       {!isBig ? (
         <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
       ) : (
-        <Button colorScheme="mintTheme" width="100%" >
+        <Button colorScheme="mintTheme" width="100%">
           공유하기
         </Button>
       )}

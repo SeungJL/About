@@ -1,4 +1,5 @@
 import {
+  faBadgeCheck,
   faBalanceScale,
   faBell,
   faGift,
@@ -32,6 +33,15 @@ function AboutHeader() {
       <Layout>
         <ABOUT>ABOUT</ABOUT>
         <Nav>
+          {/* <IconWrapper>
+            <FontAwesomeIcon
+              icon={faBadgeCheck}
+              size="lg"
+              color="var(--color-mint)"
+              onClick={() => onClickIcon("")}
+              bounce
+            />
+          </IconWrapper> */}
           <IconWrapper>
             <FontAwesomeIcon
               icon={faGift}
