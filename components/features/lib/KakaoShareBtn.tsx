@@ -3,6 +3,7 @@ import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
+import { useFailToast } from "../../../hooks/CustomToast";
 import { REVIEW_DATA } from "../../../storage/Review";
 import { SQUARE_RANDOM_IMAGE } from "../../../storage/SquareRandomImage";
 
@@ -27,6 +28,7 @@ function KakaoShareBtn({
   url,
   isBig,
 }: IKakaoShareBtn) {
+  const failToast = useFailToast();
   const random_num = Math.floor(Math.random() * 3);
 
   useEffect(() => {
@@ -106,7 +108,7 @@ function KakaoShareBtn({
       {!isBig ? (
         <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
       ) : (
-        <Button colorScheme="mintTheme" width="100%">
+        <Button colorScheme="mintTheme" width="100%" >
           공유하기
         </Button>
       )}

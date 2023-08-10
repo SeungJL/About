@@ -54,6 +54,11 @@ function GatherKakaoShareModal({
           url={WEB_URL + router.asPath}
           location={locationMain}
           isBig={true}
+          img={
+            selectedItem
+              ? GATHER_SHARE_IMAGES[selectedItem]
+              : GATHER_SHARE_IMAGES[3]
+          }
         />
       </ShareBtnWrapper>
     </ModalLayout>
