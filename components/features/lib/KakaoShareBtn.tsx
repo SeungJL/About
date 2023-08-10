@@ -102,7 +102,7 @@ function KakaoShareBtn({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [img]);
-  console.log(img);
+
   return (
     <Layout id="kakao-share-button">
       {!isBig ? (

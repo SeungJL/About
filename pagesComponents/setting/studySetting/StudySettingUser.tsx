@@ -15,7 +15,6 @@ function StudySettingUser({ participations }: IStudySettingUser) {
 
   const setInitialInfo = (participations: IStudy[]) => {
     participations.forEach((participation) => {
-      console.log("장소", participation);
       participation.attendences.forEach((who) => {
         if (!who.user) return;
         if (
