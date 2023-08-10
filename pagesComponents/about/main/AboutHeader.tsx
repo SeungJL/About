@@ -21,11 +21,14 @@ function AboutHeader() {
 
   const [isRule, setIsRule] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
+  const [isAttendCheck, setIsAttendCheck] = useState(false);
 
   const onClickIcon = (type: string) => {
     if (type === "promotion") setIsPromotion(true);
     if (type === "rule") setIsRule(true);
     if (type === "notice" || type === "user") router.push(type);
+    if (type === "attendCheck") {
+    }
   };
 
   return (
