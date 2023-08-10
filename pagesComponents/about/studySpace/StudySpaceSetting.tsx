@@ -7,7 +7,7 @@ import { getStudyDate } from "../../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
-import { isRefetchStudySpacelState } from "../../../recoil/refetchingAtoms";
+import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
   myStudyFixedState,
@@ -32,7 +32,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
 
   const setIsVoting = useSetRecoilState(isVotingState);
   const [isRefetchStudySpace, setIsRefetchStudySpace] = useRecoilState(
-    isRefetchStudySpacelState
+    isRefetchStudySpaceState
   );
   const setVoteDate = useSetRecoilState(voteDateState);
   const setStudyDate = useSetRecoilState(studyDateState);

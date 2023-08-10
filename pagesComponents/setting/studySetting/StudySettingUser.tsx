@@ -14,10 +14,10 @@ function StudySettingUser({ participations }: IStudySettingUser) {
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
   const setInitialInfo = (participations: IStudy[]) => {
-    console.log(33, participations);
     participations.forEach((participation) => {
+      console.log("장소", participation);
       participation.attendences.forEach((who) => {
-        console.log(who.user);
+        if (!who.user) return;
         if (
           who.user.uid === session.uid &&
           ["open", "free"].includes(participation.status)

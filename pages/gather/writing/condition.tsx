@@ -1,5 +1,4 @@
 import {
-  Button,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -19,7 +18,6 @@ import {
   faMinus,
   faPlus,
   faUserGroup,
-  faUserSecret,
   faVenusMars,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +25,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import ModalPortal from "../../../components/common/ModalPortal";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
@@ -97,7 +94,7 @@ function WritingCondition() {
       password,
       user: data,
     };
-  
+
     setGatherContent(gatherData);
     mutate(gatherData);
   };
@@ -235,7 +232,7 @@ function WritingCondition() {
                 </SelectAge>
               )}
             </SlideItem>
-            <SlideItem layout>
+            {/* <SlideItem layout>
               <div>
                 <div>
                   <FontAwesomeIcon icon={faUserSecret} />
@@ -296,7 +293,7 @@ function WritingCondition() {
                   </div>
                 </PreMemberContainer>
               )}
-            </SlideItem>
+            </SlideItem> */}
           </Container>
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>

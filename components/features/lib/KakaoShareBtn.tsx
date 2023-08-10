@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
@@ -14,6 +15,7 @@ interface IKakaoShareBtn {
   img?: string;
   location?: string;
   url: string;
+  isBig?: boolean;
 }
 
 function KakaoShareBtn({
@@ -23,6 +25,7 @@ function KakaoShareBtn({
   img,
   location,
   url,
+  isBig,
 }: IKakaoShareBtn) {
   const random_num = Math.floor(Math.random() * 3);
 
@@ -46,8 +49,7 @@ function KakaoShareBtn({
               content: {
                 title,
                 description: subtitle,
-                imageUrl:
-                  "https://user-images.githubusercontent.com/84257439/257071180-58679dae-0f0f-405f-bf4d-4c72457a5d49.jpg",
+                imageUrl: img,
                 imageWidth: 800,
                 imageHeight: 400,
                 link: {
@@ -101,7 +103,13 @@ function KakaoShareBtn({
 
   return (
     <Layout id="kakao-share-button">
-      <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
+      {!isBig ? (
+        <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
+      ) : (
+        <Button colorScheme="mintTheme" width="100%">
+          공유하기
+        </Button>
+      )}
     </Layout>
   );
 }

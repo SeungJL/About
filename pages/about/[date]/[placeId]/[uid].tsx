@@ -18,7 +18,7 @@ export interface IStudySpaceData {
   attendences: IAttendance[];
   status: StudyStatus;
 }
-const IMAGE_LIST = [1, 2, 3, 4, 5];
+const IMAGE_LIST = [1, 2, 3, 4, 5, 6];
 
 function StudySpace2() {
   const [studySpaceData, setStudySpaceData] = useState<IStudySpaceData>();

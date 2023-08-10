@@ -106,4 +106,10 @@ export const WIN_RECORD: {
     reason: "스토어 응모 당첨",
     present: "올리브영 10000원권",
   },
+  {
+    name: "김석",
+    date: "8/10",
+    reason: "스토어 응모 당첨",
+    present: "황금 올리브 치킨",
+  },
 ];

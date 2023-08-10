@@ -24,7 +24,7 @@ import {
   useDepositMutation,
   usePointMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { isRefetchStudySpacelState } from "../../recoil/refetchingAtoms";
+import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IDayjsStartToEnd, ITimeStartToEnd } from "../../types/timeAndDate";
 
@@ -46,7 +46,7 @@ function StudyChangeTimeModal({
 
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
-  const setIsRefetch = useSetRecoilState(isRefetchStudySpacelState);
+  const setIsRefetch = useSetRecoilState(isRefetchStudySpaceState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
 
   const isFree = mySpaceFixed?.status === "free";

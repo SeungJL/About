@@ -7,7 +7,7 @@ import { WEB_URL } from "../../../constants/system";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
 import { IPlace } from "../../../types/study/study";
 
-const STUDY_RANDOM_IMGAGE_LENGTH = 5;
+const STUDY_RANDOM_IMGAGE_LENGTH = 6;
 interface IStudySpaceHeader {
   title: string;
   place: IPlace;

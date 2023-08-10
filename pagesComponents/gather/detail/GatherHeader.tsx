@@ -1,32 +1,40 @@
-import { Dayjs } from "dayjs";
+import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import KakaoShareBtn from "../../../components/features/lib/KakaoShareBtn";
+import ModalPortal from "../../../components/common/ModalPortal";
 import Header from "../../../components/layout/Header";
-import { WEB_URL } from "../../../constants/system";
+import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
-
-interface IGatherHeader {
-  title: string;
-  date: Dayjs;
-  locationMain: string;
-}
+import { IGatherHeader } from "../../../types/page/gather";
 
 function GatherHeader({ title, date, locationMain }: IGatherHeader) {
-  const router = useRouter();
 
   const prevPageUrl = useRecoilValue(prevPageUrlState);
 
+  const [isModal, setIsModal] = useState(false);
+
   return (
-    <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>
-      <KakaoShareBtn
-        title={title}
-        subtitle={date.format("M월 DD일(dd)")}
-        type="gather"
-        url={WEB_URL + router.asPath}
-        location={locationMain}
-      />
-    </Header>
+    <>
+      <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>
+        <FontAwesomeIcon
+          icon={faArrowUpFromBracket}
+          size="lg"
+          onClick={() => setIsModal(true)}
+        />
+      </Header>
+      {isModal && (
+        <ModalPortal setIsModal={setIsModal}>
+          <GatherKakaoShareModal
+            setIsModal={setIsModal}
+            title={title}
+            date={date}
+            locationMain={locationMain}
+          />
+        </ModalPortal>
+      )}
+    </>
   );
 }
 

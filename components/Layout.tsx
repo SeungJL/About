@@ -33,9 +33,10 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
-      if (!data?.birth && isAccessPermission) router.push("/register/location");
+      if (data?.birth === "" && isAccessPermission)
+        router.push("/register/location");
     },
-    onError(err) {
+    onError() {
       if (!session) router.push("/login");
       else router.push("/checkingServer");
     },

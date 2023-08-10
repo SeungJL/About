@@ -1,11 +1,10 @@
-import { useRecoilState } from "recoil";
-import styled from "styled-components";
-
 import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
 import { MainLoading } from "../../../components/common/MainLoading";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import GatherBadge from "../../../pagesComponents/gather/detail/GatherBadge";

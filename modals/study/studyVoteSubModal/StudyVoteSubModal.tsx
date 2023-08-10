@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { studyDateState, voteDateState } from "../../../recoil/studyAtoms";
 
 import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
@@ -24,6 +24,7 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
+import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/study";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
@@ -42,6 +43,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   const errorToast = useErrorToast();
   const inviteUid = router.query?.uid;
 
+  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
   const studyDate = useRecoilValue(studyDateState);
   const voteDate = useRecoilValue(voteDateState);
 
@@ -77,6 +79,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
       }
+      setIsRefetchStudySpace(true);
       completeToast("studyVote");
     },
     onError: errorToast,

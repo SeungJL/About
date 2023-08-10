@@ -57,3 +57,9 @@ export interface IGatherContent {
   status?: GatherStatus;
   comment: IGatherComment[];
 }
+
+export interface IGatherHeader {
+  title: string;
+  date: Dayjs;
+  locationMain: string;
+}
