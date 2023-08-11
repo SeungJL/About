@@ -29,6 +29,7 @@ function GatherBlock({ data }: IGatherBlock) {
             status={data.status}
             typeTitle={data.type.title}
             locationMain={data.location.main}
+            openLocation={data.place}
           />
           <Title>{data.title}</Title>
           <GatherDetail age={data.age} date={data.date} />

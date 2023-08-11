@@ -17,3 +17,5 @@ export const PROMOTION_POP_UP2 =
 export const GATHER_ALERT = "gatherAlert";
 
 export const POINT_ALERT = "pointAlert";
+
+export const ATTEND_CHECK = dayjs().format("YYYYMMDD") + "attendCheck";

@@ -8,7 +8,8 @@ export type UserRequestCategory =
   | "휴식"
   | "충전"
   | "탈퇴"
-  | "불참";
+  | "불참"
+  | "출석";
 
 export interface IUserRequest {
   category: UserRequestCategory;

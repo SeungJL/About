@@ -7,44 +7,64 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/common/ModalPortal";
+import { ATTEND_CHECK } from "../../../constants/localStorage";
+import AttendCheckModal from "../../../modals/aboutHeader/AttendCheckModal";
+import AttendCheckWinModal from "../../../modals/aboutHeader/AttendCheckWinModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import StudyRuleModal from "../../../modals/aboutHeader/studyRuleModal/StudyRuleModal";
-import { isNoticeAlertState } from "../../../recoil/renderTriggerAtoms";
+import {
+  attendCheckWinGiftState,
+  isNoticeAlertState,
+} from "../../../recoil/renderTriggerAtoms";
 
 function AboutHeader() {
   const router = useRouter();
+
   const isNoticeAlert = useRecoilValue(isNoticeAlertState);
+
+  const attendCheckWinGift = useRecoilValue(attendCheckWinGiftState);
 
   const [isRule, setIsRule] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
   const [isAttendCheck, setIsAttendCheck] = useState(false);
+  const [isAttendCheckGift, setIsAttendCheckGift] = useState(false);
+
+  useEffect(() => {
+    if (!!attendCheckWinGift) setIsAttendCheckGift(true);
+    else setIsAttendCheck(false);
+  }, [attendCheckWinGift]);
 
   const onClickIcon = (type: string) => {
     if (type === "promotion") setIsPromotion(true);
     if (type === "rule") setIsRule(true);
     if (type === "notice" || type === "user") router.push(type);
     if (type === "attendCheck") {
+      setIsAttendCheck(true);
     }
   };
+
+  const hasAttend = localStorage.getItem(ATTEND_CHECK);
 
   return (
     <>
       <Layout>
         <ABOUT>ABOUT</ABOUT>
         <Nav>
-          {/* <IconWrapper>
-            <FontAwesomeIcon
-              icon={faBadgeCheck}
-              size="lg"
-              color="var(--color-mint)"
-              onClick={() => onClickIcon("")}
-              bounce
-            />
-          </IconWrapper> */}
+          {!hasAttend && (
+            <IconWrapper>
+              <FontAwesomeIcon
+                icon={faBadgeCheck}
+                size="lg"
+                color="var(--color-mint)"
+                onClick={() => onClickIcon("attendCheck")}
+                bounce
+              />
+            </IconWrapper>
+          )}
           <IconWrapper>
             <FontAwesomeIcon
               icon={faGift}
@@ -85,6 +105,16 @@ function AboutHeader() {
         {isPromotion && (
           <ModalPortal setIsModal={setIsPromotion}>
             <PromotionModal setIsModal={setIsPromotion} />
+          </ModalPortal>
+        )}
+        {isAttendCheck && (
+          <ModalPortal setIsModal={setIsAttendCheck}>
+            <AttendCheckModal setIsModal={setIsAttendCheck} />
+          </ModalPortal>
+        )}
+        {isAttendCheckGift && (
+          <ModalPortal setIsModal={setIsAttendCheckGift}>
+            <AttendCheckWinModal setIsModal={setIsAttendCheckGift} />
           </ModalPortal>
         )}
       </>

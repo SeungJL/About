@@ -1,17 +1,20 @@
 import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
 import { GatherStatus } from "../../../types/page/gather";
+import { Location } from "../../../types/system";
 
 interface IGatherBlockHeader {
   status: GatherStatus;
   typeTitle: string;
   locationMain: string;
+  openLocation: Location;
 }
 
 function GatherBlockHeader({
   status,
   typeTitle,
   locationMain,
+  openLocation,
 }: IGatherBlockHeader) {
   const getStatusText = (status) => {
     switch (status) {
@@ -25,9 +28,6 @@ function GatherBlockHeader({
         return null;
     }
   };
-
-  const openLocation =
-    locationMain === "홍대" || locationMain === "가평" ? "양천구" : "수원";
 
   return (
     <Layout>
