@@ -146,13 +146,13 @@ export const REVIEW_DATA = [
     writer: "서유진",
   },
   {
-    id: 53,
+    id: 50,
     date: "8월 9일",
     images: [
-      "https://user-images.githubusercontent.com/84257439/258634458-563a4584-d6d6-4cb2-a851-4f5205748ccb.jpg",
-      "https://user-images.githubusercontent.com/84257439/258634461-a0f853fb-2f13-4ff6-bfed-8d56b63e1f94.jpg",
-      "https://user-images.githubusercontent.com/84257439/258634464-56e6eadc-bfa9-432f-b1fb-10805e3b8ec9.jpg",
-      "https://user-images.githubusercontent.com/84257439/258634468-b1de4aa0-63c3-4587-8c08-05b83f72f57b.jpg",
+      "https://user-images.githubusercontent.com/84257439/260235052-4262a4d3-5e69-463a-89a0-2746e0722be6.jpg",
+      "https://user-images.githubusercontent.com/84257439/260235051-796e3568-c11b-4044-b747-0f283d36bb55.jpg",
+      "https://user-images.githubusercontent.com/84257439/260235050-98d2c259-c799-473a-84ea-025f168bc300.jpg",
+      "https://user-images.githubusercontent.com/84257439/260235046-4fb986ad-22c8-49b4-9d27-843431e2ecc2.jpg",
     ],
     text: "토요일 오후 늦게 영화관람으로 시작된 번개~! 영화는 투표해서 다 같이 극장판 코난 보러 갔는데 오랜만에 보니까 재밌더라구요🤭 2차는 저녁 먹고 보드게임 카페 가서 즐겁게 놀았습니당🎲 역시 서로의 신뢰를 쌓는 게임으로는 <선물입니다> 만한 게 없죠!🫡 3차로 영통 최고 아웃풋 아쿠아라운지 가서 칵테일 마시면서 얘기하고 놀고 마무리로 코노까지 갔어요 !.! 🍸🎤 영통도 은근 재미난 동네랍니당 다들 많이 놀러오세요~~😉",
     title: "토요일 영화보고 보드게임",
