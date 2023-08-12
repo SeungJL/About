@@ -23,19 +23,20 @@ function StudySettingParticipations({
 
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess(data) {
-      
       setParticipations(arrangeSpace(data.participations));
     },
     onError: (e) => typeErrorToast(e, "study"),
   });
 
   useEffect(() => {
+    refetch();
     if (isRefetch) {
       setTimeout(() => {
         refetch();
         setIsRefetch(false);
       }, 600);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetch]);
 

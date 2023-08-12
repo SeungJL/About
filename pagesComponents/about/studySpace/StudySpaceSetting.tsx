@@ -59,7 +59,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
       setTimeout(() => {
         refetch();
         setIsRefetchStudySpace(false);
-      }, 1000);
+      }, 600);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchStudySpace]);
