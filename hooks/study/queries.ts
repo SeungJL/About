@@ -23,6 +23,15 @@ export const useStudyVoteQuery = (
       const res = await axios.get<IVote>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}`
       );
+
+      // const data: IVote2 = {
+      //   ...res.data,
+      //   participations: res.data.participations.map((participation) => ({
+      //     ...participation,
+      //     attendences: participation.attendences.filter((who) => who.user),
+      //   })),
+      // };
+
       return res.data;
     },
     options

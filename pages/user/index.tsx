@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -19,7 +20,8 @@ function UserInfo() {
   const { data: userInfo, refetch } = useUserInfoQuery({
     enabled: !isGuest,
   });
-
+  const { data: session } = useSession();
+  console.log(session);
   useEffect(() => {
     if (isRefetchUserInfo) {
       setIsRefetchUserInfo(false);

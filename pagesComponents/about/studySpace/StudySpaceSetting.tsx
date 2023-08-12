@@ -56,8 +56,10 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
 
   useEffect(() => {
     if (isRefetchStudySpace) {
-      refetch();
-      setIsRefetchStudySpace(false);
+      setTimeout(() => {
+        refetch();
+        setIsRefetchStudySpace(false);
+      }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchStudySpace]);

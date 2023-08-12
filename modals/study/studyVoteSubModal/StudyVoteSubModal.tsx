@@ -58,6 +58,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   const { mutate: getInvitePoint } = useAdminPointMutation(inviteUid as string);
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
+    
     onSuccess: () => {
       if (studyDate === "today") {
         getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);

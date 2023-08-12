@@ -31,7 +31,6 @@ function Layout({ children }: ILayout) {
     router.pathname.slice(0, 9) !== "/register" &&
     router.asPath !== "/checkingServer";
 
-  console.log(44, session);
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {

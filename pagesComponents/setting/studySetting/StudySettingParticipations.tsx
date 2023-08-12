@@ -23,6 +23,7 @@ function StudySettingParticipations({
 
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess(data) {
+      
       setParticipations(arrangeSpace(data.participations));
     },
     onError: (e) => typeErrorToast(e, "study"),

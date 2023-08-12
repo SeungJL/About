@@ -1,7 +1,7 @@
 import { IattendCheckPresent } from "../types/modal/attendCheck";
 
 export const ATTEND_CHECK_PRESENT_LIST: IattendCheckPresent[] = [
-  { item: "10 point", percent: 3 },
+  { item: "10 Point", percent: 3 },
   { item: "30 Point", percent: 1 },
   { item: "100 Point", percent: 0.2 },
   { item: "츄파춥스", percent: 0.2 },

@@ -8,6 +8,10 @@ export interface IVote extends Document {
   date: Date;
   participations: IStudy[];
 }
+export interface IVote2 {
+  date: Date;
+  participations: IStudy[];
+}
 
 export interface IStudy extends ITimeStartToEnd {
   place: IPlace;

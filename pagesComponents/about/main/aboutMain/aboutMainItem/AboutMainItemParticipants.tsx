@@ -17,8 +17,8 @@ function AboutMainItemParticipants({
   attendances,
 }: IAboutMainItemParticipants) {
   const { data: session } = useSession();
-
-  const isMyVote = attendances.find((who) => who.user.uid === session?.uid);
+ 
+  const isMyVote = attendances.find((who) => who.user?.uid === session?.uid);
   const voterCnt = attendances.length;
   const voteStatus: "GOOD" | "FULL" =
     status === "pending"
