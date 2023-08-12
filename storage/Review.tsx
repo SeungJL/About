@@ -159,4 +159,15 @@ export const REVIEW_DATA = [
     location: "수원",
     writer: "서유진",
   },
+  {
+    id: 39,
+    date: "8월 12일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/260235228-a8f51260-08f2-415c-849a-6dd77c1cc924.jpg",
+      "https://user-images.githubusercontent.com/84257439/260235229-6408664c-8ebd-4483-9d38-a399be934e45.jpg",
+    ],
+    text: "사진을 1차밖에 못 찍었어요... 1차가 끝났을 때 저는 죽어있었거든요... 택시타고 도망갔답니다. 뭐 아무튼 새로운 분들도 많이 오고, OB(?)라고 해야하나 초기 멤버 분들도 오랜만에 많이 와서 재밌었던 모임이었습니다 :)",
+    title: "여름방학 마지막 정기모임",
+    location: "수원",
+  },
 ];
