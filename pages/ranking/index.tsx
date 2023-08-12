@@ -52,7 +52,9 @@ function Ranking({ membersAll }: IRanking) {
   const { data: monthScoreList, isLoading: attendLoading } =
     useUserAttendRateAllQuery(
       dayjsMonth.date(0),
-      month === dayjs().month() ? dayjs() : dayjsMonth.endOf("month"),
+      month === dayjs().month()
+        ? dayjs().add(1, "day")
+        : dayjsMonth.endOf("month"),
       {
         onError: errorToast,
       }
