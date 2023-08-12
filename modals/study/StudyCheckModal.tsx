@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
@@ -23,6 +23,7 @@ import {
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { useUserLocationQuery } from "../../hooks/user/queries";
+import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { InputSm } from "../../styles/layout/input";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
@@ -41,6 +42,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
 
+  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
   const voteDate = useRecoilValue(voteDateState);
 
   const { data: location } = useUserLocationQuery();
@@ -66,6 +68,8 @@ function StudyCheckModal({ setIsModal }: IModal) {
         ).add(1, "hour") < dayjs()
       )
         getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
+
+      setIsRefetchStudySpace(true);
     },
 
     onError: errorToast,

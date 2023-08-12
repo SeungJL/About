@@ -12,6 +12,8 @@ function ProfilePage() {
   const userData = useRecoilValue(transferUserDataState);
   const beforePage = useRecoilValue(prevPageUrlState);
 
+  console.log(userData);
+
   return (
     <Container>
       <Header title="" url={beforePage}>

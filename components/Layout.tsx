@@ -19,6 +19,7 @@ interface ILayout {
 function Layout({ children }: ILayout) {
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
   const router = useRouter();
 
   const { data: session } = useSession();
@@ -30,11 +31,12 @@ function Layout({ children }: ILayout) {
     router.pathname.slice(0, 9) !== "/register" &&
     router.asPath !== "/checkingServer";
 
+  console.log(44, session);
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
       if (data === null) router.push("/login");
-      if (data?.birth === "" && isAccessPermission)
+      if ((data?.birth === "" || !data?.birth) && isAccessPermission)
         router.push("/register/location");
     },
     onError() {

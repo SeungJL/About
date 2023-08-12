@@ -29,6 +29,9 @@ function Admin() {
                 <button onClick={() => onClick(`checkRegister`)}>
                   가입신청 확인
                 </button>
+                <button onClick={() => onClick(`checkAttendWinner`)}>
+                  출석 당첨자 확인
+                </button>
                 <button onClick={() => onClick(`checkSuggest`)}>
                   건의사항 확인
                 </button>

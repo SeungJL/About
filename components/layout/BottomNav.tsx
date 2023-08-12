@@ -20,6 +20,7 @@ function BottomNav({ onClick, text }: IBottomNav) {
       color="white"
       fontSize="15px"
       onClick={onClick}
+      _focus={{ backgroundColor: "var(--color-mint)", color: "white" }}
     >
       {text || "다음"}
     </Button>

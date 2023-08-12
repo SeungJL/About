@@ -144,7 +144,7 @@ const Layout = styled.header`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  > div:nth-child(3) {
+  > div:nth-child(4) {
     position: relative;
   }
 `;

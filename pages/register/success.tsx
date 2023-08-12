@@ -36,6 +36,7 @@ function ApplySuccess({}) {
         color="white"
         fontSize="15px"
         onClick={() => router.push(`/login`)}
+        _focus={{ backgroundColor: "var(--color-mint)", color: "white" }}
       >
         확인
       </Button>
