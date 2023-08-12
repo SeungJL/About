@@ -79,14 +79,14 @@ function AboutHeader() {
               onClick={() => onClickIcon("rule")}
             />
           </IconWrapper>
-          <IconWrapper>
+          <NoticeWrapper>
             <FontAwesomeIcon
               icon={faBell}
               size="xl"
               onClick={() => onClickIcon("notice")}
             />
             {isNoticeAlert && <IconAlert />}
-          </IconWrapper>
+          </NoticeWrapper>
           <IconWrapper>
             <FontAwesomeIcon
               icon={faUser}
@@ -144,13 +144,13 @@ const Layout = styled.header`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  > div:nth-child(4) {
-    position: relative;
-  }
 `;
 
 const IconWrapper = styled.div`
   margin-left: var(--margin-max);
+`;
+const NoticeWrapper = styled(IconWrapper)`
+  position: relative;
 `;
 
 const IconAlert = styled.div`
