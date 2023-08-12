@@ -62,7 +62,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
               )}
               <Item>
                 <span>참여 정산</span>
-                8월 1일
+                9월 1일
               </Item>
             </Info>
           ) : (
