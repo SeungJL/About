@@ -54,7 +54,7 @@ function AboutHeader() {
       <Layout>
         <ABOUT>ABOUT</ABOUT>
         <Nav>
-          {hasAttend && (
+          {!hasAttend && (
             <IconWrapper>
               <FontAwesomeIcon
                 icon={faBadgeCheck}
