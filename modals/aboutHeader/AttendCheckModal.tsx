@@ -16,7 +16,11 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { ATTEND_CHECK } from "../../constants/localStorage";
-import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import {
   usePointMutation,
@@ -33,6 +37,8 @@ const ARRAY_LENGTH = 10000;
 
 function AttendCheckModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
+  const failToast = useFailToast();
   const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
   const percentItemArr: IattendCheckPresent[] = new Array(ARRAY_LENGTH).fill(
@@ -57,6 +63,10 @@ function AttendCheckModal({ setIsModal }: IModal) {
     onError: errorToast,
   });
   const onClickCheck = () => {
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
     localStorage.setItem(ATTEND_CHECK, "read");
     setPoint({ value: 3, message: "출석체크" });
     setScore({ value: 3, message: "출석체크" });

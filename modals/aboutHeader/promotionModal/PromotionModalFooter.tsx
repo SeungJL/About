@@ -1,6 +1,9 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { useFailToast } from "../../../hooks/CustomToast";
+import { isGuestState } from "../../../recoil/userAtoms";
 import { DispatchBoolean, IModal } from "../../../types/reactTypes";
 import RequestPromotionRewardModal from "../../userRequest/RequestPromotionRewardModal";
 
@@ -12,7 +15,17 @@ function PromotionModalFooter({
   setIsModal,
   setIsFirst,
 }: IPromotionModalFooter) {
+  const failToast = useFailToast();
+  const isGuest = useRecoilValue(isGuestState);
   const [isApplyModal, setIsApplyModal] = useState(false);
+
+  const onClickAttend = () => {
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
+    setIsApplyModal(true);
+  };
 
   return (
     <>
@@ -25,7 +38,7 @@ function PromotionModalFooter({
           <Button
             backgroundColor="var(--color-mint)"
             color="white"
-            onClick={() => setIsApplyModal(true)}
+            onClick={onClickAttend}
           >
             참여할래 !
           </Button>
