@@ -25,13 +25,13 @@ function Store() {
       const temp = new Array(6).fill(0);
       data?.users.forEach((who) => {
         const giftIdx = Number(who?.giftId);
-        if (giftIdx <= 6 || who?.uid === "7" || who?.cnt < 1) return;
-        temp[giftIdx - 1] += who?.cnt;
+        if (giftIdx <= 6 || giftIdx > 12 || who?.cnt < 1) return;
+        temp[giftIdx - 7] += who?.cnt;
         setApplyNum(temp);
       });
     },
   });
-
+  console.log(applyNum);
   return (
     <>
       <Header title="포인트 추첨" url="point">
