@@ -57,7 +57,7 @@ function GatherKakaoShareModal({
           img={
             selectedItem
               ? GATHER_SHARE_IMAGES[selectedItem]
-              : GATHER_SHARE_IMAGES[3]
+              : GATHER_SHARE_IMAGES[1]
           }
         />
       </ShareBtnWrapper>

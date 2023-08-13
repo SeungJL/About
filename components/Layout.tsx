@@ -34,6 +34,7 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
+      if (isGuest) return;
       if (data === null) router.push("/login");
       if ((data?.birth === "" || !data?.birth) && isAccessPermission)
         router.push("/register/location");
@@ -58,7 +59,6 @@ function Layout({ children }: ILayout) {
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
       />
       <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
-
       <Script
         src="https://kit.fontawesome.com/4071928605.js"
         crossOrigin="anonymous"

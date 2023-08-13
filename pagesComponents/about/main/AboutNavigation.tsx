@@ -80,13 +80,13 @@ function AboutNavigation() {
               size="xl"
               color={VOTE_TABLE_COLOR[2]}
             />
-            <IconWrapper>
+            {/* <IconWrapper>
               <FontAwesomeIcon
                 icon={faStar}
                 color="var(--color-red)"
                 size="sm"
               />
-            </IconWrapper>
+            </IconWrapper> */}
           </Button>
           <span>멤버</span>
         </Item>

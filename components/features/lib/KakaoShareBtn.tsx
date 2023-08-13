@@ -42,6 +42,7 @@ function KakaoShareBtn({
   }, []);
 
   useEffect(() => {
+    if (type === "gather" && !img) return;
     if (window.Kakao) {
       const options =
         type === "gather"
