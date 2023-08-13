@@ -7,6 +7,8 @@ interface IImageSliderPoint {
   imageContainer: ImageContainer;
 }
 
+const ITEM_WIDTH = 74;
+
 function ImageSliderPoint({ imageContainer }: IImageSliderPoint) {
   return (
     <Swiper
@@ -23,8 +25,8 @@ function ImageSliderPoint({ imageContainer }: IImageSliderPoint) {
             <Image
               src={image}
               alt={`Slide ${index}`}
-              width="100%"
-              height="100%"
+              width="80%"
+              height="80%"
             />
           </PointItem>
         </SwiperSlide>
@@ -34,12 +36,14 @@ function ImageSliderPoint({ imageContainer }: IImageSliderPoint) {
 }
 
 const PointItem = styled.div`
-  background-color: var(--font-h7);
+  background-color: var(--font-h8);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: ${ITEM_WIDTH}px;
+  height: ${ITEM_WIDTH}px;
+  border: 1px solid var(--font-h5);
+  overflow: hidden;
   border-radius: var(--border-radius-main);
 `;
 

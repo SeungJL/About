@@ -37,6 +37,7 @@ function CalendarDate({ calendarType }: ICalendarDate) {
         else temp.push({ date: i - startDayInMonth });
       }
     }
+
     setCalendarBox(temp);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

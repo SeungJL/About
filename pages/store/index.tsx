@@ -1,6 +1,5 @@
 import { faTrophy } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
@@ -8,6 +7,7 @@ import RuleIcon from "../../components/common/Icon/RuleIcon";
 import { MainLoading } from "../../components/common/MainLoading";
 import ModalPortal from "../../components/common/ModalPortal";
 import Header from "../../components/layout/Header";
+import { StoreGiftImage } from "../../components/utils/DesignAdjustment";
 import { useStoreAllQuery } from "../../hooks/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { STORE_GIFT } from "../../storage/Store";
@@ -25,7 +25,7 @@ function Store() {
       const temp = new Array(6).fill(0);
       data?.users.forEach((who) => {
         const giftIdx = Number(who?.giftId);
-        if (giftIdx > 6 || who?.uid === "7" || who?.cnt < 1) return;
+        if (giftIdx <= 6 || who?.uid === "7" || who?.cnt < 1) return;
         temp[giftIdx - 1] += who?.cnt;
         setApplyNum(temp);
       });
@@ -41,7 +41,6 @@ function Store() {
         {STORE_GIFT?.map((item, idx) => {
           const winTemp = [];
           for (let i = 0; i < item?.winner; i++) winTemp.push(i);
-
           return (
             <Item key={idx} onClick={() => router.push(`/store/${idx}`)}>
               <Status>
@@ -61,18 +60,14 @@ function Store() {
                 </div>
               </Status>
               <ImageWrapper>
-                <Image
-                  width={ITEM_WIDTH}
-                  height={ITEM_WIDTH}
-                  alt="storeGift"
-                  unoptimized={true}
-                  src={item.image}
-                />
+                <StoreGiftImage imageSrc={item.image} giftId={item.giftId} />
                 {item?.max === applyNum[idx] && <Circle>추첨 완료</Circle>}
               </ImageWrapper>
-              <Name>{item.name}</Name>
+              <Info>
+                <Name>{item.name}</Name>
 
-              <Point>{item.point} point</Point>
+                <Point>{item.point} point</Point>
+              </Info>
               {item?.max === applyNum[idx] && (
                 <CompletedRapple></CompletedRapple>
               )}
@@ -106,6 +101,13 @@ const CompletedRapple = styled.div`
   height: 100%;
   background-color: white;
   opacity: 0.8;
+`;
+
+const Info = styled.div`
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Circle = styled.div`
@@ -152,8 +154,16 @@ const Status = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  margin-top: 8px;
-  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Layout = styled.div`
@@ -172,6 +182,7 @@ const Item = styled.div`
   align-items: center;
   position: relative;
   border-radius: var(--border-radius-sub);
+  padding-bottom: var(--padding-sub);
 `;
 
 const Name = styled.span`
@@ -179,10 +190,9 @@ const Name = styled.span`
 `;
 
 const Point = styled.span`
+  margin-top: var(--margin-min);
   color: var(--color-mint);
   font-size: 16px;
-  margin-top: auto;
-  margin-bottom: 12px;
 `;
 
 const Load = styled.div``;
