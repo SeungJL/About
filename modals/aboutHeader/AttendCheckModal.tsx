@@ -103,7 +103,7 @@ function AttendCheckModal({ setIsModal }: IModal) {
               </PopoverTrigger>
               <PopoverContent bg="var(--font-h56)">
                 <PopoverHeader fontWeight="semibold">
-                  선물 목록 <SubTitle>(14 종류)</SubTitle>
+                  선물 목록 <SubTitle>(16 종류)</SubTitle>
                 </PopoverHeader>
                 <PopoverArrow />
                 <PopoverCloseButton />
@@ -123,7 +123,7 @@ function AttendCheckModal({ setIsModal }: IModal) {
               </PopoverTrigger>
               <PopoverContent bg="var(--font-h56)">
                 <PopoverHeader fontWeight="semibold">
-                  당첨 확률<SubTitle>(총 5.06%)</SubTitle>
+                  당첨 확률<SubTitle>(총 7.06%)</SubTitle>
                 </PopoverHeader>
                 <PopoverArrow />
                 <PopoverCloseButton />

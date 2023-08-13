@@ -15,6 +15,8 @@ export const ATTEND_CHECK_PRESENT_LIST: IattendCheckPresent[] = [
   { item: "CGV 영화관람권", percent: 0.02 },
   { item: "춘식이 미니 페이스 쿠션", percent: 0.01 },
   { item: "BHC 뿌링클", percent: 0.01 },
+  { item: "라벤더 배지", percent: 1 },
+  { item: "딸기스무디 배지", percent: 1 },
 ];
 
 /**
