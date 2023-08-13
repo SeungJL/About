@@ -8,20 +8,29 @@ import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar";
 import { IUser } from "../../../types/user/user";
 
 interface IProfileIconXsOVerwrap {
-  user: IUser;
+  user: IUser | "guest";
   isOverlap?: boolean;
 }
 
 function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
-  const IAvatar = user?.avatar?.type;
-  const avatarBg = user?.avatar?.bg;
-  const isAvatar = Boolean(IAvatar >= 0 && avatarBg >= 0);
+  const avatarType = (user as IUser)?.avatar?.type;
+  const avatarBg = (user as IUser)?.avatar?.bg;
+
+  const isAvatar = Boolean(
+    (avatarType !== null &&
+      avatarType !== undefined &&
+      avatarBg !== undefined &&
+      avatarBg !== null &&
+      avatarType >= 0 &&
+      avatarBg >= 0) ||
+      user === "guest"
+  );
 
   const [isError, setIsError] = useState(false);
 
   const imageUrl = isAvatar
-    ? `${AVATAR_ICON[IAvatar]}`
-    : `${user?.profileImage}`;
+    ? `${AVATAR_ICON[avatarType]}`
+    : `${(user as IUser)?.profileImage}`;
 
   return (
     <Layout>
