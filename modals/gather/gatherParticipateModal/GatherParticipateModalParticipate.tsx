@@ -50,7 +50,7 @@ function GatherParticipateModalParticipate({
           2차 참여 신청
         </Button>
       </Layout>
-      <Message>늦참의 경우 일단 신청 후 댓글에 남겨주세요!</Message>
+      <Message>기준 시간보다 늦참인 경우, 신청 후 댓글 남겨주세요!</Message>
     </>
   );
 }
@@ -65,7 +65,8 @@ const Layout = styled.div`
 const Message = styled.span`
   display: inline-block;
   margin-top: var(--margin-main);
-  color: var(--font-h3);
+  font-size: 11px;
+  color: var(--font-h1);
 `;
 
 export default GatherParticipateModalParticipate;
