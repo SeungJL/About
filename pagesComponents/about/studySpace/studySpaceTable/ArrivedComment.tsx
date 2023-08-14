@@ -54,7 +54,7 @@ function ArrivedComment({ attendances }: IArrivedComment) {
     setUser(att);
     setIsChangeModal(true);
   };
-
+ 
   return (
     <>
       <Layout key={router.asPath}>
@@ -71,7 +71,9 @@ function ArrivedComment({ attendances }: IArrivedComment) {
           });
           const user = att.user;
 
-          const isAbsent = absentData?.find((who) => who?.uid === user?.uid);
+          const absentArr = absentData?.filter((who) => who?.uid === user?.uid);
+          const isAbsent =
+            absentArr?.length >= 1 && absentArr[absentArr.length - 1];
           return (
             <Block key={idx} onClick={() => onClickUser(user)}>
               <ProfileIcon user={user} size="md" />

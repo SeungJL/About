@@ -53,6 +53,7 @@ export const useStudyArrivedMutation = (
   >
 ) =>
   useMutation<void, AxiosError, string>(async (memo) => {
+    console.log(memo);
     await axios.patch(`${SERVER_URI}/vote/${dayjsToStr(date)}/arrived`, {
       memo,
     });
@@ -79,6 +80,7 @@ export const useStudyAbsentMutation = (
   >
 ) =>
   useMutation(async (message) => {
+  
     await axios.post(`${SERVER_URI}/vote/${dayjsToStr(date)}/absence`, {
       message,
     });
