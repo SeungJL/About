@@ -2,7 +2,7 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import Script from "next/script";
 import styled from "styled-components";
 import { useToken } from "../hooks/token/useToken";
@@ -32,14 +32,15 @@ function Layout({ children }: ILayout) {
     router.asPath !== "/checkingServer";
 
   useUserInfoQuery({
-    enabled: isAccessPermission && Boolean(token),
+    enabled: isAccessPermission && Boolean(token) && !!session,
     onSuccess(data) {
-      if (isGuest) return;
-      if (data === null) router.push("/login");
+      if (isGuest || !isAccessPermission) return;
+      if (data === null) router.push("/register/location");
       if ((data?.birth === "" || !data?.birth) && isAccessPermission)
         router.push("/register/location");
     },
     onError() {
+      console.log(555, session);
       if (!session) router.push("/login");
       else router.push("/checkingServer");
     },

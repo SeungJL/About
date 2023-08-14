@@ -5,7 +5,7 @@ import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 interface IGuestLoginModal extends IModal {
-  customSignin: (type: "member" | "guest") => Promise<void>;
+  customSignin: (type: "member" | "guest") => void;
 }
 
 function GuestLoginModal({ setIsModal, customSignin }: IGuestLoginModal) {
@@ -15,7 +15,7 @@ function GuestLoginModal({ setIsModal, customSignin }: IGuestLoginModal) {
         <ModalHeaderX title="게스트 로그인" setIsModal={setIsModal} />
         <ModalMain>
           이 기능은 동아리 외부인을 위한 기능으로, 완성되지 않은 기능들이
-          있습니다.{" "}
+          있습니다.
           <b>
             해당 동아리 소속의 인원은 카카오 로그인을 이용해주시기 바랍니다.
           </b>

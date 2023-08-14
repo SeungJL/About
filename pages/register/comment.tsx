@@ -16,7 +16,7 @@ import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 import { MESSAGE_DATA } from "../../storage/ProfileData";
 
-function Message() {
+function Comment() {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -136,4 +136,4 @@ const Input = styled.input<{ isSelected: boolean }>`
   }
 `;
 
-export default Message;
+export default Comment;

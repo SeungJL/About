@@ -7,6 +7,7 @@ import {
   getProviders,
   LiteralUnion,
   signIn,
+  useSession,
 } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -24,6 +25,7 @@ const Login: NextPage<{
     ClientSafeProvider
   >;
 }> = ({ providers }) => {
+  const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const router = useRouter();
   const status = router.query?.status;
@@ -38,11 +40,15 @@ const Login: NextPage<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
-  const customSignin = async (type: "member" | "guest") => {
+  const customSignin = (type: "member" | "guest") => {
+    if (session) {
+      router.push(`/about`);
+      return;
+    }
     const provider = type === "member" ? kakaoProvider.id : "guest";
     setLoading(true);
-    await signIn(provider, { callbackUrl: `${window.location.origin}/about` });
-    await setLoading(false);
+    signIn(provider, { callbackUrl: `${window.location.origin}/about` });
+    setLoading(false);
   };
 
   return (
@@ -105,8 +111,9 @@ const Login: NextPage<{
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders();
+
   return {
     props: { providers },
   };

@@ -15,6 +15,7 @@ export const useUserRegisterMutation = (
 
 export const useUserApproveMutation = (options?: MutationOptions<string>) =>
   useMutation<void, AxiosError, string>(async (uid) => {
+    console.log(2, uid);
     await axios.post(`${SERVER_URI}/register/approval`, { uid });
   }, options);
 

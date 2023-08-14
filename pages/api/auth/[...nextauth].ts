@@ -2,9 +2,8 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
-import clientPromise from "../../../libs/backend/mongodb";
-
 import dbConnect from "../../../libs/backend/dbConnect";
+import clientPromise from "../../../libs/backend/mongodb";
 import {
   getProfile,
   refreshAccessToken,
@@ -33,7 +32,6 @@ export const authOptions: NextAuthOptions = {
           uid: "0",
           name: "guest",
           role: "member",
-
           profileImage: "",
           isActive: true,
         };
@@ -84,17 +82,13 @@ export const authOptions: NextAuthOptions = {
       }
 
       const accessToken: any = account.access_token;
-
       if (!accessToken) {
         return false;
       }
-
       const kakaoProfile = await getProfile(accessToken, user.uid as string);
-
       if (!kakaoProfile) {
         return false;
       }
-
       await dbConnect();
 
       await User.updateOne({ uid: user.uid }, { $set: kakaoProfile });
@@ -123,7 +117,6 @@ export const authOptions: NextAuthOptions = {
         return token;
       }
       if (account && user) {
-        const client = await clientPromise;
         await Account.updateOne(
           { providerAccountId: account.providerAccountId },
           {
