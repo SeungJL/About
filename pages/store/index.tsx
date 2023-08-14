@@ -31,7 +31,7 @@ function Store() {
       });
     },
   });
-  console.log(applyNum);
+ 
   return (
     <>
       <Header title="포인트 추첨" url="point">

@@ -40,7 +40,7 @@ function Layout({ children }: ILayout) {
         router.push("/register/location");
     },
     onError() {
-      console.log(555, session);
+
       if (!session) router.push("/login");
       else router.push("/checkingServer");
     },

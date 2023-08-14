@@ -21,7 +21,7 @@ function UserInfo() {
     enabled: !isGuest,
   });
   const { data: session } = useSession();
-  console.log(session);
+
   useEffect(() => {
     if (isRefetchUserInfo) {
       setIsRefetchUserInfo(false);
