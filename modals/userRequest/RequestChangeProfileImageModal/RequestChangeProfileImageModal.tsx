@@ -17,6 +17,7 @@ import { isRefetchUserInfoState } from "../../../recoil/refetchingAtoms";
 import { isGuestState } from "../../../recoil/userAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
+import RequestChagneProfileImageModalBadge from "./RequestChagneProfileImageModalBadge";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";
 
 function RequestChangeProfileImageModal({ setIsModal }: IModal) {
@@ -27,7 +28,7 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   const isGuest = useRecoilValue(isGuestState);
   const setIsRefetchUserInfo = useSetRecoilState(isRefetchUserInfoState);
 
-  const [isFirst, setIsFirst] = useState(true);
+  const [pageNum, setPageNum] = useState(0);
 
   const { mutate: updateProfile } = useUserUpdateProfileImageMutation();
 
@@ -51,35 +52,41 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
 
   return (
     <>
-      {isFirst ? (
-        <ModalLayout size="md">
+      {pageNum === 0 ? (
+        <ModalLayout size="lg" height={260}>
           <ModalHeaderX title="프로필 이미지 변경" setIsModal={setIsModal} />
           <Container>
             <Button
               colorScheme="mintTheme"
               size="lg"
-              onClick={() => setIsFirst(false)}
+              onClick={() => setPageNum(1)}
             >
               아바타 선택
             </Button>
             <Button size="lg" onClick={onClickKakao}>
               카카오 프로필로 변경 / 업데이트
             </Button>
+            <Button size="lg" onClick={() => setPageNum(2)}>
+              이벤트 배지로 변경
+            </Button>
           </Container>
         </ModalLayout>
-      ) : (
+      ) : pageNum === 1 ? (
         <RequestChangeProfileImageModalAvatar
           setIsModal={setIsModal}
           setUserAvatar={setUserAvatar}
         />
+      ) : (
+        <RequestChagneProfileImageModalBadge setIsModal={setIsModal} />
       )}
     </>
   );
 }
 
 const Container = styled(ModalMain)`
+  margin-top: var(--margin-main);
+  margin-bottom: var(--margin-md);
   justify-content: space-around;
-  margin: var(--margin-max) 0;
 `;
 
 export default RequestChangeProfileImageModal;

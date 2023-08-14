@@ -125,6 +125,8 @@ export type UserBadge =
   | "콜드브루"
   | "아인슈페너";
 
+export type EventBadge = "딸기스무디" | "라벤더";
+
 export type UserBadgeColor = typeof USER_BADGES[UserBadge];
 
 /** react-query */

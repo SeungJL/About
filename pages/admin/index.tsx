@@ -39,6 +39,9 @@ function Admin() {
                   휴식신청 확인
                 </button>
                 <button onClick={() => onClick(`checkPromotion`)}>
+                  배지신청 확인
+                </button>
+                <button onClick={() => onClick(`checkPromotion`)}>
                   홍보인원 확인
                 </button>
                 <button onClick={() => onClick(`checkSecede`)}>
