@@ -32,7 +32,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               tempCnt++;
             } else tempCnt = 0;
             score = who?.score;
-            const { badge } = getUserBadgeScore(score);
+            const { badge } = getUserBadgeScore(score, session?.uid as string);
 
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
@@ -56,7 +56,10 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               tempCnt++;
             } else tempCnt = 0;
             attendCnt = who.cnt;
-            const { badge } = getUserBadgeScore(who.score);
+            const { badge } = getUserBadgeScore(
+              who.score,
+              session?.uid as string
+            );
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
                 <Rank>{idx - tempCnt + 1}위</Rank>

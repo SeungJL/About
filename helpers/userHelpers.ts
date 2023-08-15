@@ -1,9 +1,14 @@
+import { EVENT_BADGE_딸기스무디 } from "../storage/eventBadgeUser";
 import { IRankingUser, IRankScore } from "../types/page/ranking";
 import { IVoteRate } from "../types/study/studyRecord";
 import { IScore } from "../types/user/pointSystem";
 import { IUser, UserBadge } from "../types/user/user";
 
-export const getUserBadgeScore = (score) => {
+export const getUserBadgeScore = (score: number, uid: string) => {
+  let eventBadge: UserBadge = null;
+
+  if (EVENT_BADGE_딸기스무디.includes(uid)) eventBadge = "딸기스무디";
+
   let badge: UserBadge = "아메리카노";
   let nextBadge: UserBadge = "라떼";
   let badgeScore = 0;
@@ -47,7 +52,7 @@ export const getUserBadgeScore = (score) => {
       (nextScore = 70);
     gap = 100;
   }
-  return { badge, badgeScore, nextBadge, gap, nextScore };
+  return { badge: eventBadge || badge, badgeScore, nextBadge, gap, nextScore };
 };
 
 export const myScoreRank = (scoreArr: IScore[], myScore: number) => {

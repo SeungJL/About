@@ -40,7 +40,7 @@ export default function UserOverview({ userInfo }: IUserOverview) {
       setBadge({ badge: "아메리카노", color: USER_BADGES["아메리카노"] });
       return;
     }
-    const badge = getUserBadgeScore(userInfo.score).badge;
+    const badge = getUserBadgeScore(userInfo.score, userInfo.uid).badge;
     setBadge({
       badge,
       color: USER_BADGES[badge],

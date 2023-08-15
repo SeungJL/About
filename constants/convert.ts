@@ -6,4 +6,6 @@ export const USER_BADGES = {
   모카: "yellow",
   콜드브루: "twitter",
   아인슈페너: "teal",
+  딸기스무디: "badgePink",
+  라벤더: "facebook",
 };

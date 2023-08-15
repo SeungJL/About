@@ -33,7 +33,7 @@ function RankingOverview({
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      const { badge } = getUserBadgeScore(data?.score);
+      const { badge } = getUserBadgeScore(data?.score, session?.uid as string);
       setUserBadge({ badge, color: USER_BADGES[badge] });
     },
     onError: (e) => typeErrorToast(e, "user"),

@@ -25,7 +25,7 @@ function MemberMyProfile() {
               </div>
               <div>
                 <span>등급</span>
-                &nbsp;: <ScoreBadge score={userInfo?.score} />
+                &nbsp;: <ScoreBadge score={userInfo.score} uid={userInfo.uid} />
               </div>
               <div>
                 <span>구성</span>

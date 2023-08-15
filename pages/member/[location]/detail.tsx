@@ -33,7 +33,7 @@ function Detail() {
       <Header title={category} url={`/member/${router.query?.location}`} />
       <Container>
         {memberData?.memberData.map((who) => {
-          const userBadge = getUserBadgeScore(who.score);
+          const userBadge = getUserBadgeScore(who.score, who.uid);
           const rest = category === "휴식 멤버" && who?.rest;
           return (
             <Item key={who.uid} onClick={() => onClickUser(who)}>

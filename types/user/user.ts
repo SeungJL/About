@@ -123,7 +123,9 @@ export type UserBadge =
   | "에스프레소"
   | "모카"
   | "콜드브루"
-  | "아인슈페너";
+  | "아인슈페너"
+  | "딸기스무디"
+  | "라벤더";
 
 export type EventBadge = "딸기스무디" | "라벤더";
 

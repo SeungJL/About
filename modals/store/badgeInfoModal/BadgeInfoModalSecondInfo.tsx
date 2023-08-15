@@ -6,7 +6,7 @@ function BadgeInfoModalSecondInfo() {
     <Layout>
       <Item>
         <div>
-          <Badge fontSize={12} variant="badgePink">
+          <Badge fontSize={12} colorScheme="badgePink">
             딸기스무디
           </Badge>
         </div>

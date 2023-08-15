@@ -32,7 +32,7 @@ function PointScoreBar({ myPoint }: IPointScoreBar) {
     enabled: !isGuest,
     onSuccess(data) {
       const { badge, badgeScore, nextBadge, gap, nextScore } =
-        getUserBadgeScore(data.score);
+        getUserBadgeScore(data.score, session?.uid as string);
       setUserBadge({ badge, color: USER_BADGES[badge] });
       setScoreInfo({
         value: badgeScore,

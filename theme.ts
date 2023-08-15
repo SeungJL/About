@@ -1,12 +1,11 @@
 import { extendTheme } from "@chakra-ui/react";
-import { css } from "@chakra-ui/system";
 
-const badgePink = css({
-  bg: "#FEE7E7",
-  color: "#FF69B4",
-});
 const theme = extendTheme({
   colors: {
+    badgePink: {
+      100: "#FEE7E7",
+      800: "#FF69B4",
+    },
     redMy: "#ff6b6b",
     mint: "#00c2b3",
     my: {
@@ -22,12 +21,6 @@ const theme = extendTheme({
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
   components: {
-    Badge: {
-      variants: {
-        badgePink,
-      },
-    },
-
     Progress: {
       baseStyle: {
         track: {
