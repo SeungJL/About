@@ -8,7 +8,7 @@ export const getUserBadgeScore = (score: number, uid: string) => {
   let eventBadge: UserBadge = null;
 
   if (EVENT_BADGE_딸기스무디.includes(uid)) eventBadge = "딸기스무디";
-
+  console.log(3, uid, eventBadge);
   let badge: UserBadge = "아메리카노";
   let nextBadge: UserBadge = "라떼";
   let badgeScore = 0;

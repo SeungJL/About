@@ -1,11 +1,9 @@
 import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { USER_BADGES } from "../../constants/convert";
 import { getUserBadgeScore } from "../../helpers/userHelpers";
-import { isRankingLoadingState } from "../../recoil/loadingAtoms";
 import { RankingType } from "../../types/page/ranking";
 import { IVoteRate } from "../../types/study/studyRecord";
 import { IUser } from "../../types/user/user";
@@ -17,7 +15,6 @@ interface IRankingMembers {
 
 function RankingMembers({ memberList, type }: IRankingMembers) {
   const { data: session } = useSession();
-  const isLoading = useRecoilValue(isRankingLoadingState);
 
   let tempCnt = 0;
   let score;
@@ -32,7 +29,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               tempCnt++;
             } else tempCnt = 0;
             score = who?.score;
-            const { badge } = getUserBadgeScore(score, session?.uid as string);
+            const { badge } = getUserBadgeScore(score, who.uid);
 
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
@@ -56,10 +53,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               tempCnt++;
             } else tempCnt = 0;
             attendCnt = who.cnt;
-            const { badge } = getUserBadgeScore(
-              who.score,
-              session?.uid as string
-            );
+            const { badge } = getUserBadgeScore(who.score, who.uid);
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
                 <Rank>{idx - tempCnt + 1}위</Rank>

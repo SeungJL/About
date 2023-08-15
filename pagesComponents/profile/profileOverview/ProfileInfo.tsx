@@ -17,10 +17,10 @@ function ProfileInfo({ user }: IProfileInfo) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const userBadge = getUserBadgeScore(user?.score, session?.uid as string);
+  const userBadge = getUserBadgeScore(user?.score, user?.uid);
 
   const status = getRole(user?.role);
-
+  console.log(userBadge);
   return (
     <>
       <Layout>
