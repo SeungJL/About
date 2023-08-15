@@ -34,9 +34,9 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
   const onApply = () => {
     sendRequest({
       category: "배지",
-      writer: session?.user.name,
+      writer: session?.user.name as string,
       title: !!selectBadge ? `${selectBadge}로 변경 신청` : "배지 해제 신청",
-      content: session?.uid,
+      content: session?.uid as string,
     });
     setIsModal(false);
   };
