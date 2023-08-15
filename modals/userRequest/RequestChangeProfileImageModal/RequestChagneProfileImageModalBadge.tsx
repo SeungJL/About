@@ -1,13 +1,27 @@
 import { Badge, Button } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
+import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
+import { useUserRequestMutation } from "../../../hooks/user/mutations";
 import { ModalMain } from "../../../styles/layout/modal";
 import { EventBadge } from "../../../types/user/user";
 
 function RequestChagneProfileImageModalBadge({ setIsModal }) {
+  const { data: session } = useSession();
+  const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
+
   const [selectBadge, setSelectBadge] = useState<EventBadge>(null);
+
+  const { mutate: sendRequest } = useUserRequestMutation({
+    onSuccess() {
+      completeToast("apply");
+    },
+    onError: errorToast,
+  });
 
   const onClick = (type: EventBadge) => {
     if (selectBadge === type) {
@@ -15,6 +29,16 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
       return;
     }
     setSelectBadge(type);
+  };
+
+  const onApply = () => {
+    sendRequest({
+      category: "배지",
+      writer: session?.user.name,
+      title: !!selectBadge ? `${selectBadge}로 변경 신청` : "배지 해제 신청",
+      content: session?.uid,
+    });
+    setIsModal(false);
   };
 
   return (
@@ -45,8 +69,8 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
           </Item>
         </Container>
       </ModalMain>
-      <Button colorScheme="mintTheme" mt="auto">
-        변경 신청
+      <Button colorScheme="mintTheme" mt="auto" onClick={onApply}>
+        변경 신청 / 해제 신청(미 선택)
       </Button>
     </ModalLayout>
   );

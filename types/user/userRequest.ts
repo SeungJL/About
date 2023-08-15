@@ -9,7 +9,8 @@ export type UserRequestCategory =
   | "충전"
   | "탈퇴"
   | "불참"
-  | "출석";
+  | "출석"
+  | "배지";
 
 export interface IUserRequest {
   category: UserRequestCategory;

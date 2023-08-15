@@ -4,13 +4,13 @@ import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
 import { useUserRequestQuery2 } from "../../hooks/user/queries";
 
-function CheckPromotion() {
+function CheckApplyBadge() {
   const { data, isLoading } = useUserRequestQuery2();
-  const suggestData = data?.filter((item) => item.category === "홍보");
+  const suggestData = data?.filter((item) => item.category === "배지");
 
   return (
     <>
-      <Header title="홍보기록 확인" url="/admin" />
+      <Header title="배지 신청 확인" url="/admin" />
       {isLoading ? (
         <MainLoading />
       ) : (
@@ -20,8 +20,14 @@ function CheckPromotion() {
             .reverse()
             .map((item, idx) => (
               <Item key={idx}>
-                <span>{item?.writer}</span>
-                <span>{dayjs(item?.updatedAt).format("YYYY-MM-DD")}</span>
+                <div>
+                  <span>{item?.writer}</span>
+                  <span>{dayjs(item?.updatedAt).format("YYYY-MM-DD")}</span>
+                </div>
+                <span>
+                  <b>UID:</b> {item.content}
+                </span>
+                <span>{item.title}</span>
               </Item>
             ))}
         </Layout>
@@ -34,11 +40,23 @@ const Layout = styled.div``;
 
 const Item = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 12px;
   border-bottom: 1px solid var(--font-h5);
-  > span {
-    margin-right: 12px;
+  > div:first-child {
+    > span:first-child {
+      margin-right: var(--margin-md);
+    }
+    > span:last-child {
+      color: var(--font-h3);
+      font-size: 12px;
+    }
+  }
+  > span:nth-child(2) {
+    font-size: 13px;
+    color: var(--font-h2);
+    margin-bottom: var(--margin-md);
   }
 `;
 
-export default CheckPromotion;
+export default CheckApplyBadge;

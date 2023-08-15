@@ -38,7 +38,7 @@ function Admin() {
                 <button onClick={() => onClick(`checkRest`)}>
                   휴식신청 확인
                 </button>
-                <button onClick={() => onClick(`checkPromotion`)}>
+                <button onClick={() => onClick(`checkApplyBadge`)}>
                   배지신청 확인
                 </button>
                 <button onClick={() => onClick(`checkPromotion`)}>
