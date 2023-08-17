@@ -1,4 +1,7 @@
-import { EVENT_BADGE_딸기스무디 } from "../storage/eventBadgeUser";
+import {
+  EVENT_BADGE_딸기스무디,
+  EVENT_BADGE_라벤더,
+} from "../storage/eventBadgeUser";
 import { IRankingUser, IRankScore } from "../types/page/ranking";
 import { IVoteRate } from "../types/study/studyRecord";
 import { IScore } from "../types/user/pointSystem";
@@ -8,7 +11,8 @@ export const getUserBadgeScore = (score: number, uid: string) => {
   let eventBadge: UserBadge = null;
 
   if (EVENT_BADGE_딸기스무디.includes(uid)) eventBadge = "딸기스무디";
-  console.log(3, uid, eventBadge);
+  if (EVENT_BADGE_라벤더.includes(uid)) eventBadge = "라벤더";
+
   let badge: UserBadge = "아메리카노";
   let nextBadge: UserBadge = "라떼";
   let badgeScore = 0;

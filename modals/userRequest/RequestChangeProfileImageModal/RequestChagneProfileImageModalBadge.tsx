@@ -55,7 +55,7 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
             isSelected={selectBadge === "딸기스무디"}
             onClick={() => onClick("딸기스무디")}
           >
-            <Badge fontSize={12} variant="badgePink">
+            <Badge fontSize={12} colorScheme="badgePink">
               딸기스무디
             </Badge>
           </Item>

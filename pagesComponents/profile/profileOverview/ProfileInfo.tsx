@@ -8,19 +8,39 @@ import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import { USER_BADGES } from "../../../constants/convert";
 import { getRole } from "../../../helpers/converterHelpers";
 import { getUserBadgeScore } from "../../../helpers/userHelpers";
+import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
+import { useInteractionLikeMutation } from "../../../hooks/interaction/mutations";
+import { IInteractionSendLike } from "../../../types/interaction";
 import { IUser } from "../../../types/user/user";
 
 interface IProfileInfo {
   user: IUser;
 }
 function ProfileInfo({ user }: IProfileInfo) {
+  const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
   const userBadge = getUserBadgeScore(user?.score, user?.uid);
 
   const status = getRole(user?.role);
-  console.log(userBadge);
+
+  const { mutate: sendHeart } = useInteractionLikeMutation({
+    onSuccess() {
+      completeToast("free", "전송 완료");
+    },
+    onError: errorToast,
+  });
+
+  const onClickHeart = () => {
+    const data: IInteractionSendLike = {
+      to: user?.uid,
+      message: `${session?.user.name}님으로 부터 좋아요를 받았어요!`,
+    };
+    sendHeart(data);
+  };
+
   return (
     <>
       <Layout>
@@ -36,7 +56,7 @@ function ProfileInfo({ user }: IProfileInfo) {
             <span>{!isGuest ? status : "게스트"}</span>
           </ProfileName>
           {user && user?.uid !== session?.uid && (
-            <HeartWrapper>
+            <HeartWrapper onClick={onClickHeart}>
               <FontAwesomeIcon icon={faHeart} size="xl" />
             </HeartWrapper>
           )}

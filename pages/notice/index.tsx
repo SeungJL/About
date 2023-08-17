@@ -1,21 +1,16 @@
-import { Accordion } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import Seo from "../../components/common/Seo";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import { NOTICE_ALERT } from "../../constants/localStorage";
+import NoticeActive from "../../pagesComponents/notice/NoticeActive";
 import NoticeItem from "../../pagesComponents/notice/NoticeItem";
 import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
-import { noticeData } from "../../storage/notice";
 
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);
-
-  noticeData.sort((a, b) => Number(b.id) - Number(a.id));
-
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   useEffect(() => {
     if (isNoticeAlert) {
@@ -37,13 +32,7 @@ function Notice() {
             활동 알림
           </Button>
         </Category>
-        <Main>
-          <Accordion allowToggle>
-            {noticeData.map((item) => (
-              <NoticeItem key={item.id} item={item} isNotice={isNotice} />
-            ))}
-          </Accordion>
-        </Main>
+        <Main>{isNotice ? <NoticeItem /> : <NoticeActive />}</Main>
       </Layout>
     </PageLayout>
   );

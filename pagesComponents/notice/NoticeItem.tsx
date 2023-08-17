@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 import {
+  Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
@@ -17,42 +18,44 @@ import {
 } from "@chakra-ui/react";
 import { faChessQueen } from "@fortawesome/pro-solid-svg-icons";
 import { VOTE_TABLE_COLOR } from "../../constants/system";
+import { noticeData } from "../../storage/notice";
 
-function NoticeItem({ item, isNotice }: { item: any; isNotice: boolean }) {
+function NoticeItem() {
+  noticeData.sort((a, b) => Number(b.id) - Number(a.id));
   return (
     <>
-      {isNotice ? (
-        <AccordionItem borderTop="none">
-          <AccordionButton height="60px">
-            <Box as="span" flex="1" textAlign="left" display="flex">
-              <Flex width="48px" align="center">
-                {item.category === "main" ? (
-                  <IconKing />
-                ) : item.category === "sub" ? (
-                  <IconPawn />
-                ) : item.category === "event" ? (
-                  <IconRook />
-                ) : (
-                  <IconQueen />
-                )}
-              </Flex>
-              <Flex direction="column" flex="1">
-                <Text color="var(--font-h1)">{item.title}</Text>
-                <Text fontSize="12px" color="var(--font-h3)">
-                  {item.date}
-                </Text>
-              </Flex>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
+      <Accordion allowToggle>
+        {noticeData.map((item) => (
+          <AccordionItem borderTop="none" key={item.id}>
+            <AccordionButton height="60px">
+              <Box as="span" flex="1" textAlign="left" display="flex">
+                <Flex width="48px" align="center">
+                  {item.category === "main" ? (
+                    <IconKing />
+                  ) : item.category === "sub" ? (
+                    <IconPawn />
+                  ) : item.category === "event" ? (
+                    <IconRook />
+                  ) : (
+                    <IconQueen />
+                  )}
+                </Flex>
+                <Flex direction="column" flex="1">
+                  <Text color="var(--font-h1)">{item.title}</Text>
+                  <Text fontSize="12px" color="var(--font-h3)">
+                    {item.date}
+                  </Text>
+                </Flex>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
 
-          <AccordionPanel pb={4} p="6">
-            {item.content}
-          </AccordionPanel>
-        </AccordionItem>
-      ) : (
-        <Active></Active>
-      )}
+            <AccordionPanel pb={4} p="6">
+              {item.content}
+            </AccordionPanel>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </>
   );
 }
