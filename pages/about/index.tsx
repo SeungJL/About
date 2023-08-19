@@ -24,8 +24,8 @@ import {
 } from "../../recoil/studyAtoms";
 import { userLocationState } from "../../recoil/userAtoms";
 import { NOT_OPEN_LOCATION } from "../../storage/study";
-
 import { IStudy } from "../../types/study/study";
+
 function About() {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);

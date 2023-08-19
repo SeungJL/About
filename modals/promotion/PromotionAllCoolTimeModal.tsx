@@ -1,0 +1,151 @@
+import {
+  faClock,
+  faThumbsUp,
+  faXmark,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
+import styled from "styled-components";
+import { ModalLayout } from "../../components/common/modal/Modals";
+import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
+import { IPromotionApply } from "../../types/page/promotion";
+import { IModal } from "../../types/reactTypes";
+
+interface IPromotionAllCoolTimeModal extends IModal {
+  promotionData: IPromotionApply[];
+}
+
+function PromotionAllCoolTimeModal({
+  promotionData,
+  setIsModal,
+}: IPromotionAllCoolTimeModal) {
+  console.log(2, promotionData);
+  return (
+    <ModalLayout size="xl">
+      <ModalHeaderXLayout>
+        <div>
+          <span>전체 홍보 현황</span>
+          <Explanation>
+            <div>
+              <FontAwesomeIcon icon={faThumbsUp} color="var(--color-mint)" />
+              <span>신청 가능</span>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faClock} color="var(--color-red)" />
+              <span>쿨타임</span>
+            </div>
+          </Explanation>
+        </div>
+
+        <div onClick={() => setIsModal(false)}>
+          <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
+        </div>
+      </ModalHeaderXLayout>
+      <Container>
+        {promotionData?.map((item) => {
+          const cool = dayjs(item.lastDate).add(4, "day").diff(dayjs(), "day");
+
+          return (
+            <Item key={item.name}>
+              <UniName>
+                {item.name.length <= 6
+                  ? item.name
+                  : item.name.slice(0, 5) + "..."}
+              </UniName>
+              <CoolTime>
+                {cool >= 1 ? (
+                  <Cool>
+                    <FontAwesomeIcon icon={faClock} />
+                    {cool > 1 ? <span>{cool}일</span> : <span>{cool}H</span>}
+                  </Cool>
+                ) : (
+                  <Ok>
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                    <span />
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                    <span />
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                  </Ok>
+                )}
+              </CoolTime>
+            </Item>
+          );
+        })}
+      </Container>
+
+      <ModalFooterNav>
+        <button onClick={() => setIsModal(false)}>확인</button>
+      </ModalFooterNav>
+    </ModalLayout>
+  );
+}
+const ModalHeaderXLayout = styled.div`
+  display: flex;
+  justify-content: space-between;
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--font-h1);
+  }
+`;
+
+const Explanation = styled.div`
+  font-size: 12px;
+  display: flex;
+  margin-left: var(--margin-min);
+  align-items: center;
+  > div {
+    font-weight: 400;
+    margin-left: var(--margin-md);
+    > span {
+      margin-left: var(--margin-min);
+      color: var(--font-h3);
+    }
+  }
+`;
+
+const Container = styled(ModalMain)`
+  border: var(--border-mint);
+  border-radius: var(--border-radius-main);
+  padding: var(--padding-main) var(--padding-sub);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--margin-md) var(--margin-sub);
+  overflow-y: auto;
+`;
+
+const Item = styled.div`
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--padding-min);
+`;
+
+const UniName = styled.div`
+  flex: 0.65;
+`;
+
+const CoolTime = styled.div`
+  flex: 0.35;
+`;
+
+const Cool = styled.span`
+  color: var(--color-red);
+  > span:last-child {
+    margin-left: var(--margin-min);
+  }
+`;
+
+const Ok = styled.div`
+  display: flex;
+  color: var(--color-mint);
+  align-items: center;
+  > span {
+    margin: 0 1px;
+  }
+`;
+
+export default PromotionAllCoolTimeModal;

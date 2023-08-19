@@ -11,24 +11,26 @@ interface INoticeActive {
 function NoticeActive({ likeData }: INoticeActive) {
   return (
     <>
-      {likeData?.map((item, idx) => {
-        const [name, message] = item.message.split("님");
-
-        return (
-          <Item key={idx}>
-            <IconWrapper>
-              <FontAwesomeIcon
-                color="var(--color-red)"
-                icon={faCircleHeart}
-                size="xl"
-              />
-            </IconWrapper>
-            <Name>{name}</Name>
-            <Content>님{message}</Content>
-            <Date>1일 전</Date>
-          </Item>
-        );
-      })}
+      {likeData
+        ?.slice()
+        ?.reverse()
+        ?.map((item, idx) => {
+          const [name, message] = item.message.split("님");
+          return (
+            <Item key={idx}>
+              <IconWrapper>
+                <FontAwesomeIcon
+                  color="var(--color-red)"
+                  icon={faCircleHeart}
+                  size="xl"
+                />
+              </IconWrapper>
+              <Name>{name}</Name>
+              <Content>님{message}</Content>
+              <Date>1일 전</Date>
+            </Item>
+          );
+        })}
     </>
   );
 }
@@ -38,6 +40,7 @@ const Item = styled.div`
   align-items: center;
   padding: var(--padding-sub) var(--padding-main);
   font-size: 13px;
+  border-bottom: 1px solid var(--font-h56);
 `;
 
 const IconWrapper = styled.div`

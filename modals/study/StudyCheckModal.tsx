@@ -10,6 +10,7 @@ import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
 } from "../../constants/pointSystem";
+import { getToday } from "../../helpers/dateHelpers";
 import {
   useCompleteToast,
   useErrorToast,
@@ -52,7 +53,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
 
   const { mutate: handleArrived } = useStudyArrivedMutation(
-    dayjs().subtract(1, "day"),
+    getToday().subtract(1, "day"),
     {
       onSuccess() {
         completeToast("free", "출석 완료 !");
@@ -60,7 +61,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
           getScore(POINT_SYSTEM_PLUS.attendCheck.score);
           getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
         }
-
         if (
           !isFree &&
           dayjs(
@@ -70,10 +70,8 @@ function StudyCheckModal({ setIsModal }: IModal) {
           ).add(1, "hour") < dayjs()
         )
           getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
-
         setIsRefetchStudySpace(true);
       },
-
       onError: errorToast,
     }
   );
@@ -82,11 +80,9 @@ function StudyCheckModal({ setIsModal }: IModal) {
     await setIsChecking(true);
     await checkArrived();
   };
-
   const checkArrived = () => {
     // navigator.geolocation.getCurrentPosition((data) => {
     //   const coords = data?.coords;
-
     if (
       // (coords.latitude > myPlace?.latitude - LOCATE_GAP ||
       //   coords.latitude < myPlace?.latitude + LOCATE_GAP) &&
@@ -95,7 +91,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
       true
     ) {
       handleArrived(memo);
-
       setTimeout(() => {
         setIsChecking(false);
         setIsModal(false);

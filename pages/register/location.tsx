@@ -128,9 +128,7 @@ function Location() {
   );
 }
 
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
+
 
 const ButtonNav = styled.nav`
   margin-top: var(--margin-max);

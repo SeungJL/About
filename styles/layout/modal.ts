@@ -44,11 +44,13 @@ export const ModalFooterNav = styled.footer`
   }
   > button:first-child {
     color: var(--font-h2);
-    margin-right: 16px;
+    margin-right: var(--margin-min);
+  }
+  > button:nth-child(2) {
+    margin-left: var(--margin-sub);
+    color: var(--color-mint);
   }
   > button:last-child {
-    color: var(--color-mint);
-    margin-right: 3px;
     font-weight: 600;
   }
 `;
