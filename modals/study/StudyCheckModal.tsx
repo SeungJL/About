@@ -52,7 +52,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const { data: session } = useSession();
 
   const { mutate: handleArrived } = useStudyArrivedMutation(
-    dayjs().subtract(0, "day"),
+    dayjs().subtract(1, "day"),
     {
       onSuccess() {
         completeToast("free", "출석 완료 !");

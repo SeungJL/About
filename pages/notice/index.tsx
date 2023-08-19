@@ -27,10 +27,7 @@ function Notice() {
   const { data: likeData } = useInteractionLikeQuery({
     onSuccess(data) {
       const likeCnt = localStorage.getItem(LIKE_HEART_CNT);
-      if (JSON.stringify(likeCnt)?.length !== data?.length) {
-        console.log(JSON.stringify(likeCnt), data);
-        setIsActiveAlert(true);
-      }
+      if (+likeCnt !== data?.length) setIsActiveAlert(true);
     },
   });
 

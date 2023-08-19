@@ -39,8 +39,7 @@ function AboutHeader() {
   useInteractionLikeQuery({
     onSuccess(data) {
       const likeCnt = localStorage.getItem(LIKE_HEART_CNT);
-      if (JSON.stringify(likeCnt)?.length !== data?.length)
-        setIsNoticeAlert(true);
+      if (+likeCnt !== data?.length) setIsNoticeAlert(true);
     },
   });
 
