@@ -84,7 +84,7 @@ export const useStudyCheckRecordsQuery = (
   >
 ) =>
   useQuery(
-    ["studyCheckRecords", startDay, endDay],
+    ["studyCheckRecords", dayjsToStr(startDay), dayjsToStr(endDay)],
     async () => {
       const res = await axios.get<IArrivedData[]>(
         `${SERVER_URI}/vote/arrived`,

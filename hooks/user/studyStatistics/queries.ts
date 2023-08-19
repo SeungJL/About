@@ -17,7 +17,7 @@ export const useUserAttendRateQuery = (
   options?: QueryOptions<IVoteRate[]>
 ) =>
   useQuery<IVoteRate[], AxiosError, IVoteRate[]>(
-    "userParticipationRate",
+    ["userParticipationRate", dayjsToStr(startDay), dayjsToStr(endDay)],
     async () => {
       const res = await axios.get<IVoteRate[]>(
         `${SERVER_URI}/user/participationrate`,

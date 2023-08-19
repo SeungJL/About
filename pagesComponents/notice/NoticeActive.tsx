@@ -2,37 +2,33 @@ import { faCircleHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-import { useInteractionLikeQuery } from "../../hooks/interaction/queries";
-import { InteractionType } from "../../types/interaction";
+import { IInteractionGetLike } from "../../types/interaction";
 
 interface INoticeActive {
-  type: InteractionType;
-  from: string;
-  message?: string;
+  likeData: IInteractionGetLike[];
 }
 
-function NoticeActive() {
-  const { data: likeData } = useInteractionLikeQuery();
+function NoticeActive({ likeData }: INoticeActive) {
   return (
     <>
-      {likeData?.map((item, idx) => (
-        <Item key={idx}>
-          <IconWrapper>
-            <FontAwesomeIcon
-              color="var(--color-red)"
-              icon={faCircleHeart}
-              size="xl"
-            />
-          </IconWrapper>
-          <Content>
-            <ContentUp>
-              <span>하트 알림</span>
-              <span>22-08-14</span>
-            </ContentUp>
-            <ContentDown>{item.message}</ContentDown>
-          </Content>
-        </Item>
-      ))}
+      {likeData?.map((item, idx) => {
+        const [name, message] = item.message.split("님");
+
+        return (
+          <Item key={idx}>
+            <IconWrapper>
+              <FontAwesomeIcon
+                color="var(--color-red)"
+                icon={faCircleHeart}
+                size="xl"
+              />
+            </IconWrapper>
+            <Name>{name}</Name>
+            <Content>님{message}</Content>
+            <Date>1일 전</Date>
+          </Item>
+        );
+      })}
     </>
   );
 }
@@ -40,28 +36,25 @@ function NoticeActive() {
 const Item = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 var(--padding-main);
+  padding: var(--padding-sub) var(--padding-main);
+  font-size: 13px;
 `;
 
 const IconWrapper = styled.div`
   margin-right: var(--margin-main);
 `;
 
-const Content = styled.div``;
-
-const ContentUp = styled.div`
-  margin-bottom: var(--margin-min);
-  > span:first-child {
-    margin-right: var(--margin-md);
-  }
-  > span:last-child {
-    font-size: 12px;
-    color: var(--font-h3);
-  }
+const Name = styled.span`
+  font-weight: 600;
 `;
 
-const ContentDown = styled.div`
-  font-size: 12px;
+const Content = styled.span`
+  margin-right: var(--margin-md);
+`;
+
+const Date = styled.span`
+  color: var(--font-h3);
+  font-size: 11px;
 `;
 
 export default NoticeActive;

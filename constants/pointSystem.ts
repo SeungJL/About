@@ -21,6 +21,10 @@ export const POINT_SYSTEM_PLUS = {
     score: { value: 3, message: "건의사항" },
     point: { value: 3, message: "건의사항" },
   },
+  like: {
+    score: { value: 3, message: "좋아요 점수" },
+    point: { value: 3, message: "좋아요 점수" },
+  },
 };
 
 export const POINT_SYSTEM_MINUS = {

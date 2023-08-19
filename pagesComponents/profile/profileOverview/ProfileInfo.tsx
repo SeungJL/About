@@ -1,16 +1,32 @@
 import { Badge } from "@chakra-ui/react";
 import { faHeart } from "@fortawesome/pro-regular-svg-icons";
-
+import { faHeart as faSolidHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import { USER_BADGES } from "../../../constants/convert";
+import { LIKE_HEART } from "../../../constants/localStorage";
+import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
 import { getRole } from "../../../helpers/converterHelpers";
 import { getUserBadgeScore } from "../../../helpers/userHelpers";
-import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
+import {
+  useAdminPointMutation,
+  useAdminScoremMutation,
+} from "../../../hooks/admin/mutation";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../../hooks/CustomToast";
 import { useInteractionLikeMutation } from "../../../hooks/interaction/mutations";
-import { IInteractionSendLike } from "../../../types/interaction";
+import { useStudyCheckRecordsQuery } from "../../../hooks/study/queries";
+import {
+  IInteractionLikeStorage,
+  IInteractionSendLike,
+} from "../../../types/interaction";
 import { IUser } from "../../../types/user/user";
 
 interface IProfileInfo {
@@ -18,25 +34,96 @@ interface IProfileInfo {
 }
 function ProfileInfo({ user }: IProfileInfo) {
   const completeToast = useCompleteToast();
+  const failToast = useFailToast();
   const errorToast = useErrorToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
+  const [isConditionOk, setIsConditionOk] = useState(false);
+  const [isHeartLoading, setIsHeartLoading] = useState(true);
+
   const userBadge = getUserBadgeScore(user?.score, user?.uid);
 
   const status = getRole(user?.role);
+  const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(
+    localStorage.getItem(LIKE_HEART)
+  );
+
+  const isHeart =
+    storedLikeArr &&
+    storedLikeArr.find(
+      (who) =>
+        dayjs(who?.date) > dayjs().subtract(3, "day") && who?.uid === user?.uid
+    );
 
   const { mutate: sendHeart } = useInteractionLikeMutation({
     onSuccess() {
-      completeToast("free", "전송 완료");
+      completeToast("free", "좋아요 전송 완료");
     },
     onError: errorToast,
   });
 
+  const { mutate: sendPoint } = useAdminPointMutation(user?.uid, {
+    onSuccess() {
+      console.log(1234);
+    },
+  });
+  const { mutate: sendScore } = useAdminScoremMutation(user?.uid);
+
+  useStudyCheckRecordsQuery(dayjs().subtract(5, "day"), dayjs(), {
+    enabled: !isGuest,
+    onSuccess(data) {
+      data.forEach((study) => {
+        study.arrivedInfoList.forEach((arrivedInfoList) => {
+          const bothAttend = arrivedInfoList.arrivedInfo.filter(
+            (item) => item.uid === user.uid || item.uid === session.uid
+          );
+
+          if (bothAttend.length >= 2) {
+            setIsConditionOk(true);
+          }
+        });
+      });
+      setIsHeartLoading(false);
+    },
+  });
+
   const onClickHeart = () => {
+    if (isGuest) {
+      failToast("free", "게스트에게는 불가능합니다.");
+      return;
+    }
+
+    let interval;
+    const checkCondition = () => {
+      if (isHeartLoading) return;
+      clearInterval(interval);
+      handleHeart();
+    };
+
+    interval = setInterval(checkCondition, 100);
+  };
+
+  const handleHeart = () => {
+    if (!isConditionOk) {
+      failToast(
+        "free",
+        "5일 이내 같은 스터디에 참여한 경우에만 보낼 수 있어요!"
+      );
+      return;
+    }
+    sendPoint(POINT_SYSTEM_PLUS.like.point);
+    sendScore(POINT_SYSTEM_PLUS.like.score);
+    localStorage.setItem(
+      LIKE_HEART,
+      JSON.stringify([
+        storedLikeArr && [...storedLikeArr],
+        { uid: user?.uid, date: dayjs() },
+      ])
+    );
     const data: IInteractionSendLike = {
       to: user?.uid,
-      message: `${session?.user.name}님으로 부터 좋아요를 받았어요!`,
+      message: `${session?.user.name}님으로부터 좋아요를 받았어요!`,
     };
     sendHeart(data);
   };
@@ -56,9 +143,21 @@ function ProfileInfo({ user }: IProfileInfo) {
             <span>{!isGuest ? status : "게스트"}</span>
           </ProfileName>
           {user && user?.uid !== session?.uid && (
-            <HeartWrapper onClick={onClickHeart}>
-              <FontAwesomeIcon icon={faHeart} size="xl" />
-            </HeartWrapper>
+            <>
+              {isHeart ? (
+                <HeartWrapper onClick={onClickHeart}>
+                  <FontAwesomeIcon
+                    icon={faSolidHeart}
+                    size="xl"
+                    color="var(--color-red)"
+                  />
+                </HeartWrapper>
+              ) : (
+                <HeartWrapper onClick={onClickHeart}>
+                  <FontAwesomeIcon icon={faHeart} size="xl" />
+                </HeartWrapper>
+              )}
+            </>
           )}
         </Profile>
         <Comment>{user?.comment}</Comment>

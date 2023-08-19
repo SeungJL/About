@@ -19,3 +19,7 @@ export const GATHER_ALERT = "gatherAlert";
 export const POINT_ALERT = "pointAlert";
 
 export const ATTEND_CHECK = dayjs().format("YYYYMMDD") + "attendCheck";
+
+export const LIKE_HEART = "LikeHeart";
+
+export const LIKE_HEART_CNT = "likeHeartCnt";

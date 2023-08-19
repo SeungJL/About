@@ -8,10 +8,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+
 import ModalPortal from "../../../components/common/ModalPortal";
-import { ATTEND_CHECK } from "../../../constants/localStorage";
+import { ATTEND_CHECK, LIKE_HEART_CNT } from "../../../constants/localStorage";
+import { useInteractionLikeQuery } from "../../../hooks/interaction/queries";
 import AttendCheckModal from "../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../modals/aboutHeader/AttendCheckWinModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
@@ -20,11 +22,12 @@ import {
   attendCheckWinGiftState,
   isNoticeAlertState,
 } from "../../../recoil/renderTriggerAtoms";
+import { AlertIcon } from "../../../styles/icons";
 
 function AboutHeader() {
   const router = useRouter();
 
-  const isNoticeAlert = useRecoilValue(isNoticeAlertState);
+  const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
 
   const attendCheckWinGift = useRecoilValue(attendCheckWinGiftState);
 
@@ -32,6 +35,14 @@ function AboutHeader() {
   const [isPromotion, setIsPromotion] = useState(false);
   const [isAttendCheck, setIsAttendCheck] = useState(false);
   const [isAttendCheckGift, setIsAttendCheckGift] = useState(false);
+
+  useInteractionLikeQuery({
+    onSuccess(data) {
+      const likeCnt = localStorage.getItem(LIKE_HEART_CNT);
+      if (JSON.stringify(likeCnt)?.length !== data?.length)
+        setIsNoticeAlert(true);
+    },
+  });
 
   useEffect(() => {
     if (!!attendCheckWinGift) setIsAttendCheckGift(true);
@@ -85,7 +96,7 @@ function AboutHeader() {
               size="xl"
               onClick={() => onClickIcon("notice")}
             />
-            {isNoticeAlert && <IconAlert />}
+            {isNoticeAlert && <Alert />}
           </NoticeWrapper>
           <IconWrapper>
             <FontAwesomeIcon
@@ -128,6 +139,12 @@ const ABOUT = styled.span`
   color: var(--font-h1);
 `;
 
+const Alert = styled(AlertIcon)`
+  position: absolute;
+  right: 1px;
+  top: 1px;
+`;
+
 const Layout = styled.header`
   height: 50px;
   display: flex;
@@ -151,16 +168,6 @@ const IconWrapper = styled.div`
 `;
 const NoticeWrapper = styled(IconWrapper)`
   position: relative;
-`;
-
-const IconAlert = styled.div`
-  position: absolute;
-  right: 1px;
-  top: 1px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--color-red);
 `;
 
 export default AboutHeader;

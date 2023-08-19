@@ -10,7 +10,6 @@ import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
 } from "../../constants/pointSystem";
-import { getToday } from "../../helpers/dateHelpers";
 import {
   useCompleteToast,
   useErrorToast,
@@ -52,28 +51,32 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
 
-  const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
-    onSuccess() {
-      completeToast("free", "출석 완료 !");
-      if (isChecking && voteDate > dayjs().subtract(1, "day")) {
-        getScore(POINT_SYSTEM_PLUS.attendCheck.score);
-        getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
-      }
-      if (isFree) return;
-      if (
-        dayjs(
-          mySpaceFixed?.attendences?.find(
-            (who) => (who?.user as IUser).uid === session?.uid
-          ).time.start
-        ).add(1, "hour") < dayjs()
-      )
-        getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
+  const { mutate: handleArrived } = useStudyArrivedMutation(
+    dayjs().subtract(0, "day"),
+    {
+      onSuccess() {
+        completeToast("free", "출석 완료 !");
+        if (isChecking && voteDate > dayjs().subtract(1, "day")) {
+          getScore(POINT_SYSTEM_PLUS.attendCheck.score);
+          getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
+        }
 
-      setIsRefetchStudySpace(true);
-    },
+        if (
+          !isFree &&
+          dayjs(
+            mySpaceFixed?.attendences?.find(
+              (who) => (who?.user as IUser).uid === session?.uid
+            ).time.start
+          ).add(1, "hour") < dayjs()
+        )
+          getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
 
-    onError: errorToast,
-  });
+        setIsRefetchStudySpace(true);
+      },
+
+      onError: errorToast,
+    }
+  );
 
   const onCheckClicked = async () => {
     await setIsChecking(true);
