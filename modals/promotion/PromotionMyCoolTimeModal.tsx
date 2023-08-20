@@ -14,21 +14,21 @@ function PromotionMyCoolTimeModal({
   myApply,
   setIsModal,
 }: IPromotionMyCoolTimeModal) {
-  const diff =
-    myApply && dayjs(myApply.lastDate).add(4, "day").diff(dayjs(), "day");
-  const diffHours =
-    72 - dayjs(myApply.lastDate).add(3, "day").diff(dayjs(), "hours");
-  console.log(myApply, diff);
+  const cool = dayjs(myApply.lastDate)
+    .add(3, "day")
+    .subtract(6, "hours")
+    .diff(dayjs(), "hours");
+
   return (
     <ModalLayout size="md">
-      <ModalHeaderX title="내 신청 쿨타임" setIsModal={setIsModal} />
+      <ModalHeaderX title="우리 학교 홍보 쿨타임" setIsModal={setIsModal} />
       <ModalMain>
-        {myApply && <Uni>학교: {myApply.name}</Uni>}
+        {myApply && <Uni>{myApply.name}</Uni>}
         <Container>
-          {diff > 0 && diff <= 3
-            ? `신청 가능 날짜까지 ${diff > 1 ? diff : diffHours}${
-                diff > 1 ? "일" : "시간"
-              } 남았어요 !`
+          {cool > 0
+            ? `신청 가능 ${cool > 24 ? "날짜" : "시간"}까지 ${
+                cool > 24 ? Math.ceil(cool / 24) : cool
+              }${cool > 24 ? "일" : "시간"} 남았어요 !`
             : "신청 가능 !"}
         </Container>
       </ModalMain>
@@ -59,7 +59,8 @@ const Container = styled.div`
 const Info = styled.div``;
 
 const Uni = styled.span`
-  color: var(--font-h1);
+  font-weight: 600;
+  color: var(--font-h2);
   font-size: 14px;
   flex: 0.4;
 `;

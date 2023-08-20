@@ -6,7 +6,7 @@ import { VOTE_TABLE_COLOR } from "../../../../constants/system";
 import { isVotingState, studyDateState } from "../../../../recoil/studyAtoms";
 import { IAttendance } from "../../../../types/study/study";
 
-const BLOCK_WIDTH = 26.386;
+const BLOCK_WIDTH = 26;
 
 interface IUserItemArr {
   name: string;
@@ -74,9 +74,9 @@ const UserBlock = styled.div`
 `;
 
 const UserIcon = styled.div<{ start: number; gap: number; color: string }>`
-  min-width: ${BLOCK_WIDTH * 3}px;
-  width: ${(props) => props.gap * BLOCK_WIDTH}px;
-  margin-left: ${(props) => props.start * BLOCK_WIDTH}px;
+  min-width: ${BLOCK_WIDTH * 3 + 2}px;
+  width: ${(props) => props.gap * BLOCK_WIDTH + 2}px;
+  margin-left: ${(props) => props.start * BLOCK_WIDTH - 1}px;
   background-color: ${(props) => props.color};
   position: relative;
   z-index: 10;
@@ -86,6 +86,7 @@ const UserIcon = styled.div<{ start: number; gap: number; color: string }>`
   flex-direction: column;
   font-size: 11px;
   color: white;
+
   > div:last-child {
     font-size: 10px;
   }

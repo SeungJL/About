@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { faCopy } from "@fortawesome/pro-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ClipboardJS from "clipboard";
 import { useEffect, useRef } from "react";
@@ -42,6 +43,18 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
       <LayoutLg ref={btnRef}>
         <Button width="100%">본문 내용 복사하기</Button>{" "}
       </LayoutLg>
+    );
+
+  if (size === "md")
+    return (
+      <Button
+        leftIcon={<FontAwesomeIcon icon={faCopy} />}
+        size="xs"
+        colorScheme="twitter"
+        ref={btnRef}
+      >
+        <span>복사하기</span>
+      </Button>
     );
 
   return (

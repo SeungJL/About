@@ -31,16 +31,14 @@ const Layout = styled.div`
   font-size: 11px;
 `;
 
-const TimeBlockLayout = styled.div`
-  flex: 1;
-`;
+const TimeBlockLayout = styled.div``;
 
 const Time = styled.div`
-  margin-left: -8px;
+  margin-left: -6px;
   margin-bottom: 2px;
 `;
 const Block = styled.div`
-  flex: 1;
+  width: 26px;
   height: 92%;
   border-left: 1px solid var(--font-h5);
 `;

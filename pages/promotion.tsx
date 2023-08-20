@@ -1,31 +1,20 @@
-import { useState } from "react";
 import styled from "styled-components";
-import RuleIcon from "../components/common/Icon/RuleIcon";
-import ModalPortal from "../components/common/ModalPortal";
 import Header from "../components/layout/Header";
-import PromotionRuleModal from "../modals/promotion/PromotionRuleModal";
 import PromotionApply from "../pagesComponents/promotion/PromotionApply";
 import PromotionDetail from "../pagesComponents/promotion/PromotionDetail";
 import PromotionNav from "../pagesComponents/promotion/PromotionNav";
+import PromotionOverview from "../pagesComponents/promotion/PromotionOverview";
 
 function Promotion() {
-  const [isModal, setIsModal] = useState(false);
-
   return (
     <>
-      <Header title="홍보 페이지" url="/promotion">
-        <RuleIcon setIsModal={setIsModal} />
-      </Header>
+      <Header title="홍보 페이지" url="/promotion" />
       <Layout>
         <PromotionDetail />
+        <PromotionOverview />
         <PromotionApply />
         <PromotionNav />
       </Layout>
-      {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <PromotionRuleModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
     </>
   );
 }

@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { ModalLayout } from "../../components/common/modal/Modals";
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
+import { useUserRequestCategoryQuery } from "../../hooks/user/queries";
+import { ModalMain } from "../../styles/layout/modal";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
 
@@ -19,7 +20,8 @@ function PromotionAllCoolTimeModal({
   promotionData,
   setIsModal,
 }: IPromotionAllCoolTimeModal) {
-  console.log(2, promotionData);
+  const { data } = useUserRequestCategoryQuery("홍보");
+  const applyCnt = data?.length + 20;
   return (
     <ModalLayout size="xl">
       <ModalHeaderXLayout>
@@ -41,9 +43,12 @@ function PromotionAllCoolTimeModal({
           <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
         </div>
       </ModalHeaderXLayout>
+
       <Container>
         {promotionData?.map((item) => {
-          const cool = dayjs(item.lastDate).add(4, "day").diff(dayjs(), "day");
+          const cool = dayjs(item.lastDate)
+            .add(3, "day")
+            .diff(dayjs(), "hours");
 
           return (
             <Item key={item.name}>
@@ -56,7 +61,11 @@ function PromotionAllCoolTimeModal({
                 {cool >= 1 ? (
                   <Cool>
                     <FontAwesomeIcon icon={faClock} />
-                    {cool > 1 ? <span>{cool}일</span> : <span>{cool}H</span>}
+                    {cool >= 24 ? (
+                      <span>{Math.ceil(cool / 24)}일</span>
+                    ) : (
+                      <span>{cool}H</span>
+                    )}
                   </Cool>
                 ) : (
                   <Ok>
@@ -72,8 +81,11 @@ function PromotionAllCoolTimeModal({
           );
         })}
       </Container>
-
       <ModalFooterNav>
+        <Sum>
+          <span>{dayjs().add(1, "month").month()}월 누적:</span>
+          <span>{applyCnt}회</span>
+        </Sum>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
     </ModalLayout>
@@ -135,7 +147,7 @@ const CoolTime = styled.div`
 const Cool = styled.span`
   color: var(--color-red);
   > span:last-child {
-    margin-left: var(--margin-min);
+    margin-left: var(--margin-md);
   }
 `;
 
@@ -145,6 +157,30 @@ const Ok = styled.div`
   align-items: center;
   > span {
     margin: 0 1px;
+  }
+`;
+
+const Sum = styled.div`
+  font-size: 12px;
+  margin-left: var(--margin-min);
+  color: var(--font-h2);
+  > span:first-child {
+    margin-right: var(--margin-min);
+  }
+  > span:last-child {
+  }
+`;
+
+export const ModalFooterNav = styled.footer`
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+
+  > button {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: var(--margin-min);
+    cursor: pointer;
   }
 `;
 

@@ -19,10 +19,16 @@ function PromotionDetail() {
   return (
     <>
       <Layout>
-        <Button mr="var(--margin-md)" onClick={() => setIsMyModal(true)}>
-          내 쿨타임
+        <Button
+          w="50%"
+          mr="var(--margin-md)"
+          onClick={() => setIsAllModal(true)}
+        >
+          전체 현황
         </Button>
-        <Button onClick={() => setIsAllModal(true)}>전체 현황</Button>
+        <Button w="50%" onClick={() => setIsMyModal(true)}>
+          우리 학교 쿨타임
+        </Button>
       </Layout>
       {isMyModal && (
         <ModalPortal setIsModal={setIsMyModal}>
@@ -45,6 +51,7 @@ function PromotionDetail() {
 }
 
 const Layout = styled.div`
+  display: flex;
   margin: var(--margin-sub) 0;
 `;
 
