@@ -28,6 +28,8 @@ function Detail() {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
+
+ 
   return (
     <PageLayout>
       <Header title={category} url={`/member/${router.query?.location}`} />
