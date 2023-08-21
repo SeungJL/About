@@ -4,12 +4,14 @@ import PromotionApply from "../pagesComponents/promotion/PromotionApply";
 import PromotionDetail from "../pagesComponents/promotion/PromotionDetail";
 import PromotionNav from "../pagesComponents/promotion/PromotionNav";
 import PromotionOverview from "../pagesComponents/promotion/PromotionOverview";
+import PromotionTitle from "../pagesComponents/promotion/PromotionTitle";
 
 function Promotion() {
   return (
     <>
       <Header title="홍보 페이지" url="/promotion" />
       <Layout>
+        <PromotionTitle />
         <PromotionDetail />
         <PromotionOverview />
         <PromotionApply />

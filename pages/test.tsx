@@ -1,157 +1,29 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const wholeTextArray = [
-  "apple",
-  "banana",
-  "coding",
-  "javascript",
-  "원티드",
-  "프리온보딩",
-  "프론트엔드",
-];
-
-const AutoComplete = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [isHaveInputValue, setIsHaveInputValue] = useState(false);
-  const [dropDownList, setDropDownList] = useState(wholeTextArray);
-  const [dropDownItemIndex, setDropDownItemIndex] = useState(-1);
-
-  const showDropDownList = () => {
-    if (inputValue === "") {
-      setIsHaveInputValue(false);
-      setDropDownList([]);
-    } else {
-      const choosenTextList = wholeTextArray.filter((textItem) =>
-        textItem.includes(inputValue)
-      );
-      setDropDownList(choosenTextList);
-    }
-  };
-
-  const changeInputValue = (event) => {
-    setInputValue(event.target.value);
-    setIsHaveInputValue(true);
-  };
-
-  const clickDropDownItem = (clickedItem) => {
-    setInputValue(clickedItem);
-    setIsHaveInputValue(false);
-  };
-
-  const handleDropDownKey = (event) => {
-    //input에 값이 있을때만 작동
-    if (isHaveInputValue) {
-      if (
-        event.key === "ArrowDown" &&
-        dropDownList.length - 1 > dropDownItemIndex
-      ) {
-        setDropDownItemIndex(dropDownItemIndex + 1);
-      }
-
-      if (event.key === "ArrowUp" && dropDownItemIndex >= 0)
-        setDropDownItemIndex(dropDownItemIndex - 1);
-      if (event.key === "Enter" && dropDownItemIndex >= 0) {
-        clickDropDownItem(dropDownList[dropDownItemIndex]);
-        setDropDownItemIndex(-1);
-      }
-    }
-  };
-
-  useEffect(showDropDownList, [inputValue]);
-
+function Test() {
   return (
-    <WholeBox>
-      <span>제목</span>
-      <InputBox isHaveInputValue={isHaveInputValue}>
-        <Input
-          type="text"
-          value={inputValue}
-          onChange={changeInputValue}
-          onKeyUp={handleDropDownKey}
-        />
-        <DeleteButton onClick={() => setInputValue("")}>&times;</DeleteButton>
-      </InputBox>
-      {isHaveInputValue && (
-        <DropDownBox>
-          {dropDownList.length === 0 && (
-            <DropDownItem>해당하는 단어가 없습니다</DropDownItem>
-          )}
-          {dropDownList.map((dropDownItem, dropDownIndex) => {
-            return (
-              <DropDownItem
-                key={dropDownIndex}
-                onClick={() => clickDropDownItem(dropDownItem)}
-                onMouseOver={() => setDropDownItemIndex(dropDownIndex)}
-                className={
-                  dropDownItemIndex === dropDownIndex ? "selected" : ""
-                }
-              >
-                {dropDownItem}
-              </DropDownItem>
-            );
-          })}
-        </DropDownBox>
-      )}
-    </WholeBox>
+    <Layout>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.0"
+        width="240.000000pt"
+        height="240.000000pt"
+        viewBox="0 0 240.000000 240.000000"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <g
+          transform="translate(0.000000,240.000000) scale(0.100000,-0.100000)"
+          fill="#000000"
+          stroke="none"
+        >
+          <path d="M648 2010 c-51 -15 -94 -49 -118 -92 -22 -37 -25 -55 -24 -128 1 -55 8 -106 21 -145 l19 -60 -27 -61 c-99 -220 -86 -459 39 -683 40 -73 144 -188 211 -234 l44 -30 -39 -12 c-93 -28 -138 -69 -132 -122 l3 -28 238 -3 237 -2 6 30 c6 30 7 30 75 30 66 0 68 -1 71 -27 l3 -28 243 -3 242 -2 0 30 c0 17 -4 40 -10 50 -13 24 -71 59 -122 75 l-41 12 44 30 c67 46 171 161 211 234 125 224 138 462 39 683 l-27 61 23 75 c47 160 18 281 -78 330 -82 43 -174 36 -297 -22 l-63 -29 -67 17 c-90 23 -254 23 -344 0 l-68 -18 -54 27 c-99 48 -193 65 -258 45z m685 -235 c185 -39 356 -205 413 -400 21 -71 23 -227 4 -295 -26 -98 -111 -232 -183 -290 -57 -46 -132 -89 -193 -112 -47 -17 -82 -21 -174 -22 -134 0 -201 20 -306 91 -80 55 -118 94 -170 174 -64 99 -87 174 -87 294 -1 113 16 185 66 280 42 78 155 191 235 233 110 59 258 76 395 47z" />
+          <path d="M1066 1091 c-61 -65 -111 -122 -113 -127 -2 -5 8 -22 22 -39 l25 -30 89 92 89 93 76 -79 c42 -43 83 -86 90 -96 12 -17 15 -15 39 17 15 19 27 38 27 41 0 7 -219 241 -228 244 -4 1 -56 -51 -116 -116z" />
+        </g>
+      </svg>
+    </Layout>
   );
-};
+}
 
-const activeBorderRadius = "16px 16px 0 0";
-const inactiveBorderRadius = "16px 16px 16px 16px";
+const Layout = styled.div``;
 
-const WholeBox = styled.div`
-  padding: 10px;
-`;
-
-const InputBox = styled.div<{ isHaveInputValue: any }>`
-  display: flex;
-
-  flex-direction: row;
-  padding: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: ${(props) =>
-    props.isHaveInputValue ? activeBorderRadius : inactiveBorderRadius};
-  z-index: 3;
-
-  &:focus-within {
-    box-shadow: 0 10px 10px rgb(0, 0, 0, 0.3);
-  }
-`;
-
-const Input = styled.input`
-  flex: 1 0 0;
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  font-size: 16px;
-`;
-
-const DeleteButton = styled.div`
-  cursor: pointer;
-`;
-
-const DropDownBox = styled.ul`
-  display: block;
-  margin: 0 auto;
-  padding: 8px 0;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-top: none;
-  border-radius: 0 0 16px 16px;
-  box-shadow: 0 10px 10px rgb(0, 0, 0, 0.3);
-  list-style-type: none;
-  z-index: 3;
-`;
-
-const DropDownItem = styled.li`
-  padding: 0 16px;
-
-  &.selected {
-    background-color: lightgray;
-  }
-`;
-
-export default AutoComplete;
+export default Test;
