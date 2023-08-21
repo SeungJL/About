@@ -2,8 +2,7 @@ import styled from "styled-components";
 import Header from "../components/layout/Header";
 import PromotionApply from "../pagesComponents/promotion/PromotionApply";
 import PromotionDetail from "../pagesComponents/promotion/PromotionDetail";
-import PromotionNav from "../pagesComponents/promotion/PromotionNav";
-import PromotionOverview from "../pagesComponents/promotion/PromotionOverview";
+import PromotionNav from "../pagesComponents/promotion/PromotionContent";
 import PromotionTitle from "../pagesComponents/promotion/PromotionTitle";
 
 function Promotion() {
@@ -13,7 +12,7 @@ function Promotion() {
       <Layout>
         <PromotionTitle />
         <PromotionDetail />
-        <PromotionOverview />
+
         <PromotionApply />
         <PromotionNav />
       </Layout>

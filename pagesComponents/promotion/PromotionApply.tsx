@@ -84,9 +84,14 @@ function PromotionApply() {
               })}
               placeholder="학교명"
               mr="var(--margin-sub)"
+              p="var(--padding-max) var(--padding-sub)"
               value={value}
               onChange={(e) => setValue(e.target.value)}
               _focus={{ outline: "none" }}
+              _placeholder={{
+                fontWeight: "600",
+                color: "var(--font-h4)",
+              }}
             />
             {filterData?.length !== 0 && (
               <Collapse in={isOpen} animateOpacity>
@@ -116,7 +121,6 @@ function PromotionApply() {
 }
 
 const Layout = styled.div`
-  margin: var(--margin-max) 0;
   position: relative;
 `;
 

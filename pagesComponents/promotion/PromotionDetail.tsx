@@ -23,10 +23,19 @@ function PromotionDetail() {
           w="50%"
           mr="var(--margin-md)"
           onClick={() => setIsAllModal(true)}
+          size="lg"
+          color="var(--font-h2)"
+          borderRadius="var(--border-radius-main)"
         >
           전체 현황
         </Button>
-        <Button w="50%" onClick={() => setIsMyModal(true)}>
+        <Button
+          w="50%"
+          onClick={() => setIsMyModal(true)}
+          size="lg"
+          borderRadius="var(--border-radius-main)"
+          color="var(--font-h2)"
+        >
           우리 학교 쿨타임
         </Button>
       </Layout>
@@ -52,7 +61,8 @@ function PromotionDetail() {
 
 const Layout = styled.div`
   display: flex;
-  margin: var(--margin-sub) 0;
+  margin-top: 40px;
+  margin-bottom: var(--margin-main);
 `;
 
 export default PromotionDetail;

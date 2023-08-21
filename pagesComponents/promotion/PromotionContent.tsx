@@ -6,7 +6,7 @@ import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { PROMOTION_TEXT } from "../../constants/private";
 import PromotionText from "./PromotionText";
 
-function PromotionNav() {
+function PromotionContent() {
   const [isText, setIsText] = useState(true);
 
   return (
@@ -100,4 +100,4 @@ const Title = styled.div`
   margin-bottom: var(--margin-sub);
 `;
 
-export default PromotionNav;
+export default PromotionContent;
