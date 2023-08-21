@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Header from "../components/layout/Header";
 import PromotionApply from "../pagesComponents/promotion/PromotionApply";
+import PromotionContent from "../pagesComponents/promotion/PromotionContent";
 import PromotionDetail from "../pagesComponents/promotion/PromotionDetail";
-import PromotionNav from "../pagesComponents/promotion/PromotionContent";
 import PromotionTitle from "../pagesComponents/promotion/PromotionTitle";
 
 function Promotion() {
@@ -12,16 +12,13 @@ function Promotion() {
       <Layout>
         <PromotionTitle />
         <PromotionDetail />
-
         <PromotionApply />
-        <PromotionNav />
+        <PromotionContent />
       </Layout>
     </>
   );
 }
 
-const Layout = styled.div`
-  margin: 0 var(--margin-main);
-`;
+const Layout = styled.div``;
 
 export default Promotion;

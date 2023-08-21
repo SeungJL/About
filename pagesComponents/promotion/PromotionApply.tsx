@@ -72,7 +72,7 @@ function PromotionApply() {
     setIsModal(true);
     setUniName(data.uniName);
   });
-
+  console.log(filterData);
   return (
     <>
       <Layout>
@@ -83,11 +83,16 @@ function PromotionApply() {
                 validate: (value) => value.slice(0, -3) === "대학교",
               })}
               placeholder="학교명"
+              borderRadius="var(--border-radius-sub)"
               mr="var(--margin-sub)"
-              p="var(--padding-max) var(--padding-sub)"
               value={value}
+              border="var(--border-main)"
               onChange={(e) => setValue(e.target.value)}
-              _focus={{ outline: "none" }}
+              _focus={{
+                borderColor: "var(--font-h1)",
+                borderBottomRadius:
+                  value !== "" && filterData?.length > 0 && "none",
+              }}
               _placeholder={{
                 fontWeight: "600",
                 color: "var(--font-h4)",
@@ -105,7 +110,11 @@ function PromotionApply() {
               </Collapse>
             )}
           </div>
-          <Button type="submit" colorScheme="mintTheme">
+          <Button
+            type="submit"
+            colorScheme="mintTheme"
+            borderRadius="var(--border-radius-sub)"
+          >
             입력
           </Button>
         </Form>
@@ -121,11 +130,15 @@ function PromotionApply() {
 }
 
 const Layout = styled.div`
+  display: flex;
+  margin: 0 40px;
   position: relative;
 `;
 
 const Form = styled.form`
   display: flex;
+
+  width: 100%;
   > div:first-child {
     flex: 1;
     display: flex;
@@ -140,16 +153,22 @@ const AutoItem = styled.div`
   padding: var(--padding-md) 0;
   padding-left: 14px;
   border-bottom: var(--border-sub);
+  border-color: black;
+  color: var(--font-h2);
+  font-size: 13px;
 `;
 
 const AutoContent = styled.div`
   width: calc(100% - 68px);
-  max-height: 160px;
+  max-height: 145px;
   position: absolute;
   z-index: 10;
   background-color: white;
-  padding: var(--padding-sub) 0;
+  /* padding: var(--padding-sub) 0; */
   overflow-y: auto;
+  border: 1px solid black;
+  border-bottom-left-radius: var(--border-radius-main);
+  border-bottom-right-radius: var(--border-radius-main);
 `;
 
 const ErrorMessage = styled.div`

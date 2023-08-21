@@ -24,6 +24,7 @@ function PromotionTitle() {
 }
 
 const Layout = styled.div`
+  margin: 0 20px;
   margin-top: var(--margin-max);
 `;
 
