@@ -35,23 +35,23 @@ const EveryTime = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 48px;
-  font-weight: 1000;
+  font-size: 40px;
+  font-weight: 800;
   line-height: 1.3;
   > span:first-child {
-    color: var(--color-red);
+    color: #c62917;
   }
 `;
 
 const Detail = styled.div`
   margin-top: var(--margin-max);
-  font-weight: 800;
+  font-weight: 600;
   font-size: 13px;
   color: var(--font-h2);
   > div:first-child {
     margin-bottom: var(--margin-main);
     > b {
-      color: var(--color-red);
+      color: #c62917;
       font-weight: 800;
     }
   }
