@@ -20,8 +20,9 @@ function PromotionAllCoolTimeModal({
   promotionData,
   setIsModal,
 }: IPromotionAllCoolTimeModal) {
-  const { data } = useUserRequestCategoryQuery("홍보");
-  const applyCnt = data?.length + 20;
+  const { data, isLoading } = useUserRequestCategoryQuery("홍보");
+  console.log(data);
+  const applyCnt = data?.length + 15;
   return (
     <ModalLayout size="xl">
       <ModalHeaderXLayout>
@@ -84,7 +85,7 @@ function PromotionAllCoolTimeModal({
       <ModalFooterNav>
         <Sum>
           <span>{dayjs().add(1, "month").month()}월 누적:</span>
-          <span>{applyCnt}회</span>
+          <span>{!isLoading && applyCnt}회</span>
         </Sum>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>

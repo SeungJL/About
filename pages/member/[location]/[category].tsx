@@ -25,6 +25,7 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
   const locationUrl = router?.query?.location;
 
   const setBeforePage = useSetRecoilState(prevPageUrlState);
+
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
   const { data, isLoading } = useUserInfoQuery();
@@ -36,7 +37,9 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
       if (idx === 0)
         setFilterMember(
           membersListAll?.filter(
-            (who) => +birthToAge(who?.birth) === +birthToAge(data?.birth)
+            (who) =>
+              +birthToAge(who?.birth) === +birthToAge(data?.birth) &&
+              who?.location === data?.location
           )
         );
       if (idx === 1)
@@ -63,7 +66,8 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
           membersListAll?.filter((who) => {
             return (
               who?.majors &&
-              who?.majors[0]?.department === data?.majors[0]?.department
+              who?.majors[0]?.department === data?.majors[0]?.department &&
+              who?.location === data?.location
             );
           })
         );

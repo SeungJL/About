@@ -39,12 +39,12 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
     const findUni = data?.find((item) => item.name === uniName);
     if (!findUni) setContentType("none");
     else {
-      console.log(findUni);
+    
       const diff = dayjs(findUni.lastDate)
         .add(3, "day")
         .subtract(9, "hours")
         .diff(dayjs(), "hour");
-      console.log(diff);
+      
       if (diff <= 0) mutate(uniName);
       else {
         setContentType("cool");

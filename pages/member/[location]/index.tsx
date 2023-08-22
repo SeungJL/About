@@ -54,6 +54,7 @@ function Member({ membersAll }: IMember) {
     let adminArr = [];
     members?.forEach((who) => {
       if (who?.name === "guest") return;
+
       if (who.role === "member") memberArr.push(who);
       if (who.role === "previliged" || who.role === "manager")
         adminArr.push(who);

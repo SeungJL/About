@@ -72,7 +72,7 @@ function PromotionApply() {
     setIsModal(true);
     setUniName(data.uniName);
   });
-  console.log(filterData);
+
   return (
     <>
       <Layout>

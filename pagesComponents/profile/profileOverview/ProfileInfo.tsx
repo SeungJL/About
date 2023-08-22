@@ -63,11 +63,7 @@ function ProfileInfo({ user }: IProfileInfo) {
     onError: errorToast,
   });
 
-  const { mutate: sendPoint } = useAdminPointMutation(user?.uid, {
-    onSuccess() {
-      console.log(1234);
-    },
-  });
+  const { mutate: sendPoint } = useAdminPointMutation(user?.uid, {});
   const { mutate: sendScore } = useAdminScoremMutation(user?.uid);
 
   useStudyCheckRecordsQuery(dayjs().subtract(5, "day"), dayjs(), {
