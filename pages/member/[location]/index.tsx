@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -35,6 +36,7 @@ function Member({ membersAll }: IMember) {
   const [memberMembers, setMemberMembers] = useState<IUser[]>();
   const [humanMembers, setHumanMembers] = useState<IUser[]>();
   const [restingMembers, setRestingMembers] = useState<IUser[]>();
+  const [birthMembers, setBirthMembers] = useState<IUser[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [clickSection, setClickSection] = useState<MemberSectionCategory>();
 
@@ -52,6 +54,7 @@ function Member({ membersAll }: IMember) {
     let humanArr = [];
     let restingArr = [];
     let adminArr = [];
+    let birthArr = [];
     members?.forEach((who) => {
       if (who?.name === "guest") return;
 
@@ -60,10 +63,14 @@ function Member({ membersAll }: IMember) {
         adminArr.push(who);
       if (who.role === "human") humanArr.push(who);
       if (who.role === "resting") restingArr.push(who);
+
+      if (who.birth.slice(2) === dayjs().format("MMDD") && who.role !== "human")
+        birthArr.push(who);
     });
     setMemberMembers([...adminArr, ...memberArr]);
     setHumanMembers(humanArr);
     setRestingMembers(restingArr);
+    setBirthMembers(birthArr);
     setIsLoading(false);
   }, [members]);
 
@@ -94,6 +101,18 @@ function Member({ membersAll }: IMember) {
           <HrDiv />
           <MembersContainer>
             <MemberTitle>멤버 소개</MemberTitle>
+            {birthMembers.length !== 0 && (
+              <Section>
+                <MemberSectionTitle
+                  category="생일"
+                  subTitle="생일을 축하해요!"
+                  setClickSection={setClickSection}
+                />
+                <BlurredPart isBlur={isGuest}>
+                  <MemberSectionList users={birthMembers} />
+                </BlurredPart>
+              </Section>
+            )}
             <Section>
               <MemberSectionTitle
                 category="활동 멤버"

@@ -74,7 +74,6 @@ function ProfileInfo({ user }: IProfileInfo) {
           const bothAttend = arrivedInfoList.arrivedInfo.filter(
             (item) => item.uid === user.uid || item.uid === session.uid
           );
-
           if (bothAttend.length >= 2) {
             setIsConditionOk(true);
           }
@@ -101,10 +100,10 @@ function ProfileInfo({ user }: IProfileInfo) {
   };
 
   const handleHeart = () => {
-    if (!isConditionOk) {
+    if (!isConditionOk && user.birth.slice(2) !== dayjs().format("MMDD")) {
       failToast(
         "free",
-        "5일 이내 같은 스터디에 참여한 경우에만 보낼 수 있어요!"
+        "최근 같은 스터디에 참여한 멤버 또는 생일인 인원에게만 보낼 수 있어요!"
       );
       return;
     }

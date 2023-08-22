@@ -49,9 +49,9 @@ function AboutHeader() {
   }, [attendCheckWinGift]);
 
   const onClickIcon = (type: string) => {
-    if (type === "promotion") setIsPromotion(true);
     if (type === "rule") setIsRule(true);
-    if (type === "notice" || type === "user") router.push(type);
+    if (type === "notice" || type === "user" || type === "promotion")
+      router.push(type);
     if (type === "attendCheck") {
       setIsAttendCheck(true);
     }
@@ -77,16 +77,16 @@ function AboutHeader() {
           )}
           <IconWrapper>
             <FontAwesomeIcon
-              icon={faGift}
+              icon={faBalanceScale}
               size="lg"
-              onClick={() => onClickIcon("promotion")}
+              onClick={() => onClickIcon("rule")}
             />
           </IconWrapper>
           <IconWrapper>
             <FontAwesomeIcon
-              icon={faBalanceScale}
+              icon={faGift}
               size="lg"
-              onClick={() => onClickIcon("rule")}
+              onClick={() => onClickIcon("promotion")}
             />
           </IconWrapper>
           <NoticeWrapper>

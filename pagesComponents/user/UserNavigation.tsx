@@ -10,7 +10,6 @@ import ModalPortal from "../../components/common/ModalPortal";
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
 import RequestLogoutModal from "../../modals/userRequest/RequestLogoutModal";
-import RequestPromotionRewardModal from "../../modals/userRequest/RequestPromotionRewardModal";
 import RequestRestModal from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import RequestSecedeModal from "../../modals/userRequest/RequestSecedeModal";
 import SettingStudySpace from "../../modals/userRequest/RequestStudyPreferenceModal";
@@ -46,6 +45,10 @@ function UserNavigation({ role }: IUserNavigation) {
   const onClickItem = (type: string) => {
     if (isGuest) {
       failToast("guest");
+      return;
+    }
+    if (type === "promotion") {
+      router.push(`/promotion`);
       return;
     }
     setModalOpen(type);
@@ -137,11 +140,7 @@ function UserNavigation({ role }: IUserNavigation) {
           <RequestChargeDepositModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
-      {modalOpen === "promotion" && (
-        <ModalPortal setIsModal={handleOutput}>
-          <RequestPromotionRewardModal setIsModal={handleOutput} />
-        </ModalPortal>
-      )}
+
       {modalOpen === "secede" && (
         <ModalPortal setIsModal={handleOutput}>
           <RequestSecedeModal setIsModal={handleOutput} />
