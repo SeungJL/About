@@ -170,4 +170,42 @@ export const REVIEW_DATA = [
     title: "여름방학 마지막 정기모임",
     location: "수원",
   },
+  {
+    id: 61,
+    date: "8월 17일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/262350984-f4c2472f-4ed2-4a82-ab53-60d956863b94.jpg",
+      "https://user-images.githubusercontent.com/84257439/262351015-b0ed304b-08f7-461d-97eb-20c02e366a18.jpg",
+    ],
+    text: "휴일이니까 놀아야지! 인원이 많다보니 더 재밌게 할 수 있는 보드게임들이 있거든요! 재밌게 놀고 뒤풀이하고 헤어졌습니당",
+    title: "광복절 보드게임 번개",
+    location: "수원",
+  },
+  {
+    id: 60,
+    date: "8월 20일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/262351038-804a7392-a91a-4901-905d-dd31364a56ca.jpg",
+      "https://user-images.githubusercontent.com/84257439/262351111-240d33cb-0fdf-4f25-b4ee-34fa453aea63.jpg",
+      "https://user-images.githubusercontent.com/84257439/262351036-9e163547-bf1c-49e6-ad98-5408f5e2f9d2.jpg",
+    ],
+    text: "이게 되나 싶었던 PC방 번개! 크아를 하기 위해 PC방에서 모였어요! 이게 뭐라고 웃으면서 몇시간 동안 재밌게 했네요. 크아가 끝나고는 덕몽어스를 했는데 혹시 아시나요?! 어몽어스랑 비슷한 마피아 게임인데, 직업이 많아서 더 재밌어요 ㅎㅎ 다 같이 사진도 찰칵",
+    title: "PC방에서 게임 번개!",
+    location: "수원",
+    writer: "윤경",
+  },
+  {
+    id: 28,
+    date: "8월 22일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/262351141-504ef563-5881-4eb0-bb03-8989c3017451.jpg",
+      "https://user-images.githubusercontent.com/84257439/262351125-d1d9c2d8-5d32-4c2c-a831-e3f59f43e02f.jpg",
+      "https://user-images.githubusercontent.com/84257439/262351134-89d74ce7-23ff-4abe-89e2-ff0d8f0275e4.jpg",
+      "https://user-images.githubusercontent.com/84257439/262351144-ffdbcd9d-8789-4f74-ada3-a02d3ce80440.jpg",
+    ],
+    text: "8월 양천구 스터디 엠티😎 청평역에서 도보로 이동 가능하고 앞에 강도 끼어있는 펜션으로 첫 엠티를 갔습니다‼ 펜션 안에 노래방 기계가 있어서 다들 한 곡씩 마 노래도 하고! 고기도 구워먹고! 게임도 하고 마 다했서!!!!! 마트팀,, 고기사장님들,, 게임진행자,, 안주요리사분들 총무총괄분들 다들 수고 많았읍니다. 덕분에 풍성한 엠티가 되었어요〰〰 곰세마리와 관람차 지옥에 빠져서 잔뜩 술을 드신 모든 분들도 수고하셨습니다. (저는 먹고 즐기기만 했지만) 다음에 또 놀러가요!!!!! 스터디에서도… 자주 봅시다🙃 다들 개강하고… 자주 나오실거라 믿어 의심치 않습니다… (저도 열심히 나가보겠읍니다🤓)",
+    title: "양천 여름 MT",
+    location: "양천",
+    writer: "찬민",
+  },
 ];

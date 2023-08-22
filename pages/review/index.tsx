@@ -60,6 +60,17 @@ function Review() {
   const writers = {
     이승주: { name: "이승주", profileImage: null, avatar: { bg: 10, type: 9 } },
     서유진: { name: "서유진", profileImage: null, avatar: { bg: 3, type: 4 } },
+    찬민: {
+      name: "찬민",
+      profileImage:
+        "https://p.kakaocdn.net/th/talkp/wnUXvUROY2/jUp0CmCy3sXzVO8hEoLZhk/duaypz_640x640_s.jpg",
+      avatar: null,
+    },
+    윤경: {
+      name: "윤경",
+      profileImage: null,
+      avatar: { bg: 0, type: 8 },
+    },
     재욱: {
       name: "재욱",
       profileImage:
