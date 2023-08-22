@@ -101,7 +101,7 @@ function Member({ membersAll }: IMember) {
           <HrDiv />
           <MembersContainer>
             <MemberTitle>멤버 소개</MemberTitle>
-            {birthMembers.length !== 0 && (
+            {birthMembers?.length !== 0 && (
               <Section>
                 <MemberSectionTitle
                   category="생일"

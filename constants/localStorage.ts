@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export const NOTICE_ALERT = "noticeAlert20";
+export const NOTICE_ALERT = "noticeAlert21";
 export const USER_GUIDE = dayjs().date(1).format("YYYYMMDD") + "userGuide";
 export const SUGGEST_POP_UP = "suggest";
 // export const POP_UP = dayjs().date(1).format("YYYYMMDD") + "popUp";
