@@ -55,20 +55,23 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();
+
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
       completeToast("success");
       setIsRefetch(true);
+      let fee: { value: number; message: string };
       if (isFree) return;
       if (dayjs() > myStudyStartTime)
-        getDeposit(POINT_SYSTEM_MINUS.absentStudy.depositLate);
-      else getDeposit(POINT_SYSTEM_MINUS.absentStudy.deposit);
-      if (value !== "")
-        sendRequest({
-          writer: session.user.name,
-          category: "불참",
-          content: value,
-        });
+        fee = POINT_SYSTEM_MINUS.absentStudy.depositLate;
+      else fee = POINT_SYSTEM_MINUS.absentStudy.deposit;
+      getDeposit(fee);
+      sendRequest({
+        writer: session.user.name,
+        title: session.uid + `D${fee.value}`,
+        category: "불참",
+        content: value,
+      });
     },
     onError: errorToast,
   });

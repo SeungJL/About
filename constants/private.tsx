@@ -21,8 +21,7 @@ export const OPEN_KAKAO_LINK = "https://open.kakao.com/o/sjDgVzmf";
 
 export const PROMOTION_TEXT = `안녕하세요! 카공 및 친목 동아리 ABOUT입니다!
 
-공부를 목적으로 하시는 분도, 카공과 함께 동네 친구를 만들고 싶은 분들도
-모두 환영해요!😊
+공부를 목적으로 하시는 분도, 카공과 함께 동네 친구를 만들고 싶은 분들도 모두 환영해요!😊
 
 ☕️동아리 소개☕️
 ✔개인 공부에 집중도 할 수 있고, 소소하게 얘기도 할 수 있는 분위기의 스터디

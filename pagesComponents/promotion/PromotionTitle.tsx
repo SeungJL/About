@@ -26,11 +26,12 @@ function PromotionTitle() {
 const Layout = styled.div`
   margin: 0 20px;
   margin-top: var(--margin-max);
+  text-align: center;
 `;
 
 const EveryTime = styled.div`
   position: relative;
-  z-index: 100;
+  z-index: 2;
   background-color: var(--font-h8);
   border-radius: var(--border-radius-main);
 `;
@@ -50,7 +51,7 @@ const Detail = styled.div`
   font-size: 13px;
   color: var(--font-h2);
   > div:first-child {
-    margin-bottom: var(--margin-main);
+    margin-bottom: var(--margin-md);
     > b {
       color: #c62917;
       font-weight: 800;

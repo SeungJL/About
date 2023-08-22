@@ -31,34 +31,37 @@ function CheckRest() {
               type="request"
             />
           </Nav>
-          {suggestData?.map((item, idx) => {
-            const { type, date, content } = getRestInfo(item?.content);
+          {suggestData
+            ?.slice()
+            .reverse()
+            .map((item, idx) => {
+              const { type, date, content } = getRestInfo(item?.content);
 
-            return (
-              <Item key={idx}>
-                <div>
-                  <span>이름:</span>
-                  <span>{item.writer}</span>
-                </div>
-                <div>
-                  <span>날짜:</span>
-                  <span>{dayjs(item.updatedAt).format("YYYY-MM-DD")} </span>
-                </div>
-                <div>
-                  <span>종류:</span>
-                  <span>{type}</span>
-                </div>
-                <div>
-                  <span>기간:</span>
-                  <span>{date}</span>
-                </div>
-                <div>
-                  <span>내용:</span>
-                  <span>{content} </span>
-                </div>
-              </Item>
-            );
-          })}
+              return (
+                <Item key={idx}>
+                  <div>
+                    <span>이름:</span>
+                    <span>{item.writer}</span>
+                  </div>
+                  <div>
+                    <span>날짜:</span>
+                    <span>{dayjs(item.updatedAt).format("YYYY-MM-DD")} </span>
+                  </div>
+                  <div>
+                    <span>종류:</span>
+                    <span>{type}</span>
+                  </div>
+                  <div>
+                    <span>기간:</span>
+                    <span>{date}</span>
+                  </div>
+                  <div>
+                    <span>내용:</span>
+                    <span>{content} </span>
+                  </div>
+                </Item>
+              );
+            })}
         </Layout>
       )}
     </>

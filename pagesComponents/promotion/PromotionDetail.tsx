@@ -25,6 +25,7 @@ function PromotionDetail() {
           onClick={() => setIsAllModal(true)}
           color="var(--font-h2)"
           borderRadius="var(--border-radius-sub)"
+          border="1px solid var(--font-h6)"
         >
           전체 현황
         </Button>
@@ -33,6 +34,7 @@ function PromotionDetail() {
           onClick={() => setIsMyModal(true)}
           borderRadius="var(--border-radius-sub)"
           color="var(--font-h2)"
+          border="1px solid var(--font-h6)"
         >
           우리 학교 쿨타임
         </Button>
