@@ -1,12 +1,18 @@
 import styled from "styled-components";
 
-function EveryTimeIcon() {
+interface IEveryTimeIcon {
+  isSmall: boolean;
+}
+
+function EveryTimeIcon({ isSmall }: IEveryTimeIcon) {
+  const W = isSmall ? 40 : 54;
   return (
     <Layout
+      isSmall={isSmall}
       xmlns="http://www.w3.org/2000/svg"
       version="1.0"
-      width="40.000000pt"
-      height="40.000000pt"
+      width={W}
+      height={W}
       viewBox="0 0 240.000000 240.000000"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -22,10 +28,10 @@ function EveryTimeIcon() {
   );
 }
 
-const Layout = styled.svg`
+const Layout = styled.svg<{ isSmall: boolean }>`
   position: absolute;
-  top: -30px;
-  right: -30px;
+  top: ${(props) => (props.isSmall ? "-20px" : "-27px")};
+  right: ${(props) => (props.isSmall ? "-20px" : "-27px")};
   z-index: -1;
 `;
 

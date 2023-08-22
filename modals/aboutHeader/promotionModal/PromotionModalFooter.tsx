@@ -1,50 +1,31 @@
 import { Button } from "@chakra-ui/react";
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useFailToast } from "../../../hooks/CustomToast";
-import { isGuestState } from "../../../recoil/userAtoms";
-import { DispatchBoolean, IModal } from "../../../types/reactTypes";
-import RequestPromotionRewardModal from "../../userRequest/RequestPromotionRewardModal";
+import { IModal } from "../../../types/reactTypes";
 
-interface IPromotionModalFooter extends IModal {
-  setIsFirst: DispatchBoolean;
-}
-
-function PromotionModalFooter({
-  setIsModal,
-  setIsFirst,
-}: IPromotionModalFooter) {
-  const failToast = useFailToast();
-  const isGuest = useRecoilValue(isGuestState);
-  const [isApplyModal, setIsApplyModal] = useState(false);
+function PromotionModalFooter({ setIsModal }: IModal) {
+  const router = useRouter();
 
   const onClickAttend = () => {
-    if (isGuest) {
-      failToast("guest");
-      return;
-    }
-    setIsApplyModal(true);
+    router.push(`/promotion`);
+    setIsModal(false);
   };
 
   return (
     <>
       <Layout>
-        <LastWinnerBtn onClick={() => setIsFirst((old) => !old)}>
-          지난 당첨자 확인
-        </LastWinnerBtn>
-        <div>
-          <Button onClick={() => setIsModal(false)}>다음에</Button>
-          <Button
-            backgroundColor="var(--color-mint)"
-            color="white"
-            onClick={onClickAttend}
-          >
-            참여할래 !
-          </Button>
-        </div>
+        <Button onClick={() => setIsModal(false)} width="50%">
+          다음에
+        </Button>
+        <Button
+          backgroundColor="var(--color-mint)"
+          color="white"
+          onClick={onClickAttend}
+          width="50%"
+        >
+          참여할래 !
+        </Button>
       </Layout>
-      {isApplyModal && <RequestPromotionRewardModal setIsModal={setIsModal} />}
     </>
   );
 }

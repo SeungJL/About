@@ -69,7 +69,7 @@ export default function UserSetting() {
         setRole("human");
     },
   });
-  
+
   useEffect(() => {
     if (isLoading) return;
     if (isGuest) {

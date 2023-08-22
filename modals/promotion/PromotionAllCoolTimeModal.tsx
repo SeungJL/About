@@ -21,7 +21,7 @@ function PromotionAllCoolTimeModal({
   setIsModal,
 }: IPromotionAllCoolTimeModal) {
   const { data, isLoading } = useUserRequestCategoryQuery("홍보");
-  console.log(data);
+
   const applyCnt = data?.length + 15;
   return (
     <ModalLayout size="xl">
