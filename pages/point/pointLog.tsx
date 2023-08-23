@@ -1,6 +1,7 @@
 import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
@@ -8,8 +9,11 @@ import {
   usePointLogQuery,
   usePointQuery,
 } from "../../hooks/user/pointSystem/queries";
+import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 function PointLog() {
+  const prevPageUrl = useRecoilValue(prevPageUrlState);
+
   const { data } = usePointQuery();
   const { data: pointLog, isLoading } = usePointLogQuery();
 
@@ -17,7 +21,7 @@ function PointLog() {
 
   return (
     <>
-      <Header title="점수 기록" url="/point" />
+      <Header title="점수 기록" url={prevPageUrl || "/point"} />
       {isLoading ? (
         <MainLoading />
       ) : (

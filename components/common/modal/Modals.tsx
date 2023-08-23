@@ -33,7 +33,7 @@ const SIZE_HEIGHT_MAP = {
   xl: "400px",
   lg: "300px",
   md: "240px",
-  // sm: "240px",
+  sm: "180px",
   xs: "120px",
 };
 

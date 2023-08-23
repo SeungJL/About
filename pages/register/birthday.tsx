@@ -86,7 +86,7 @@ function Birthday() {
               dateFormat="연도 / 월 선택"
               showMonthYearPicker
               inputProps={{ readOnly: true }}
-              onFocus={(e) => e.preventDefault()}
+              onFocus={(e) => e.target.blur()}
             />
           </Button>
           <Button size="md" mt="10px" as="div">
@@ -96,7 +96,7 @@ function Birthday() {
               onChange={(date) => setStartDate(date)}
               dateFormat="날짜 선택"
               inputProps={{ readOnly: true }}
-              onFocus={(e) => e.preventDefault()}
+              onFocus={(e) => e.target.blur()}
               renderCustomHeader={({ date }) => (
                 <div
                   style={{

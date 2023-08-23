@@ -6,10 +6,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { useRecoilValue } from "recoil";
-import {
-  useStudyCancelMutation,
-  useStudyOpenFreeMutation,
-} from "../../../hooks/study/mutations";
+import { useStudyCancelMutation } from "../../../hooks/study/mutations";
 import {
   isVotingState,
   myStudyFixedState,
@@ -39,14 +36,13 @@ interface IStudySpaceNavigation {
   voteCnt: number;
 }
 
-export type ModalType = "change" | "absent" | "main" | "cancel";
+export type ModalType = "change" | "absent" | "main" | "cancel" | "free";
 
 function StudySpaceNavigation({
   studySpaceData: { place, attendences, status },
   voteCnt,
 }: IStudySpaceNavigation) {
   const router = useRouter();
-
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
@@ -54,7 +50,6 @@ function StudySpaceNavigation({
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const voteDate = dayjs(router.query.date as string);
-  const placeId = router.query.placeId;
 
   const isVoting = useRecoilValue(isVotingState);
   const studyDate = useRecoilValue(studyDateState);
@@ -73,13 +68,6 @@ function StudySpaceNavigation({
     onSuccess() {
       completeToast("success");
       router.push(`/about`);
-    },
-    onError: errorToast,
-  });
-
-  const { mutate: openFree } = useStudyOpenFreeMutation(voteDate, {
-    onSuccess() {
-      completeToast("free", "스터디가 Free로 오픈되었습니다.");
     },
     onError: errorToast,
   });
@@ -112,22 +100,18 @@ function StudySpaceNavigation({
     setModalType(type);
   };
 
-  const handleFreeOpen = () => {
-    openFree(placeId as string);
-  };
-
   return (
     <>
-      {myVote && status === "dismissed" ? (
+      {studyDate === "today" && status === "dismissed" ? (
         <Layout>
-          <MainButton func={true} onClick={handleFreeOpen}>
-            Free 오픈 요청
+          <MainButton func={true} onClick={() => onBtnClicked("free")}>
+            Free 오픈 신청
           </MainButton>
         </Layout>
       ) : studyDate === "passed" || status === "dismissed" ? (
         <Layout>
           <MainButton disabled={true} func={false}>
-            {studyDate === "passed" ? "기간 만료" : "스터디가 열리지 않았어요!"}
+            기간 만료
           </MainButton>
         </Layout>
       ) : (

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -21,7 +22,7 @@ function RequestRestModalInfo({ onSubmit }: IRequestRestModalInfo) {
   } = useForm<IApplyRest>({
     defaultValues: {
       type: "일반",
-      startDate: "",
+      startDate: dayjs().format("YYYY-MM-DD"),
       endDate: "",
       content: "",
     },

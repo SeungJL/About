@@ -4,6 +4,7 @@ import ModalPortal from "../../../../components/common/ModalPortal";
 import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
 import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal";
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
+import StudyFreeOpenModal from "../../../../modals/study/StudyFreeOpenModal";
 import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
 import { IAttendance, IPlace } from "../../../../types/study/study";
 import VoteSuccessScreen from "../VoteSuccessScreen";
@@ -26,8 +27,10 @@ function StudySpaceNavModal({
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isVoteComplete, setIsVoteComplete] = useState(false);
+  const [isFreeModal, setIsFreeModal] = useState(false);
 
   useEffect(() => {
+    if (type === "free") setIsFreeModal(true);
     if (type === "change") setIsChangeModal(true);
     if (type === "absent") setIsAbsentmodal(true);
     if (type === "main")
@@ -37,6 +40,11 @@ function StudySpaceNavModal({
   }, [myVote?.firstChoice, type]);
   return (
     <Layout>
+      {isFreeModal && (
+        <ModalPortal setIsModal={setIsFreeModal}>
+          <StudyFreeOpenModal setIsModal={setIsFreeModal} />
+        </ModalPortal>
+      )}
       {isChangeModal && (
         <ModalPortal setIsModal={setIsChangeModal}>
           <StudyChangeTimeModal

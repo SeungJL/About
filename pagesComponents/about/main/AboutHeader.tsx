@@ -13,6 +13,7 @@ import styled from "styled-components";
 
 import ModalPortal from "../../../components/common/ModalPortal";
 import { ATTEND_CHECK, LIKE_HEART_CNT } from "../../../constants/localStorage";
+import { useFailToast } from "../../../hooks/CustomToast";
 import { useInteractionLikeQuery } from "../../../hooks/interaction/queries";
 import AttendCheckModal from "../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../modals/aboutHeader/AttendCheckWinModal";
@@ -22,13 +23,16 @@ import {
   attendCheckWinGiftState,
   isNoticeAlertState,
 } from "../../../recoil/renderTriggerAtoms";
+import { isGuestState } from "../../../recoil/userAtoms";
 import { AlertIcon } from "../../../styles/icons";
 
 function AboutHeader() {
   const router = useRouter();
+  const failToast = useFailToast();
 
   const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
 
+  const isGuest = useRecoilValue(isGuestState);
   const attendCheckWinGift = useRecoilValue(attendCheckWinGiftState);
 
   const [isRule, setIsRule] = useState(false);
@@ -49,6 +53,10 @@ function AboutHeader() {
   }, [attendCheckWinGift]);
 
   const onClickIcon = (type: string) => {
+    if (type === "promotion" && isGuest) {
+      failToast("guest");
+      return;
+    }
     if (type === "rule") setIsRule(true);
     if (type === "notice" || type === "user" || type === "promotion")
       router.push(type);

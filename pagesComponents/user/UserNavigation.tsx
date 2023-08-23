@@ -8,6 +8,7 @@ import { isProfileEditState } from "../../recoil/previousAtoms";
 import { useState } from "react";
 import ModalPortal from "../../components/common/ModalPortal";
 import { useUserLocationQuery } from "../../hooks/user/queries";
+import RequestBirthModal from "../../modals/userRequest/RequestBirthModal";
 import RequestChargeDepositModal from "../../modals/userRequest/RequestChargeDepositModal";
 import RequestLogoutModal from "../../modals/userRequest/RequestLogoutModal";
 import RequestRestModal from "../../modals/userRequest/RequestRestModal/RequestRestModal";
@@ -80,9 +81,7 @@ function UserNavigation({ role }: IUserNavigation) {
             <button onClick={() => onClickItem("declaration")}>
               불편사항 신고
             </button>
-            <button onClick={() => onClickItem("promotion")}>
-              홍보 리워드 신청
-            </button>
+
             <button onClick={() => onClickItem("rest")}>휴식 신청</button>
           </NavBlock>
         </div>
@@ -92,6 +91,9 @@ function UserNavigation({ role }: IUserNavigation) {
             <button onClick={onClickProfileEdit}>프로필 수정</button>
             <button onClick={() => onClickItem("spaceSetting")}>
               스터디 선호 장소 설정
+            </button>
+            <button onClick={() => onClickItem("birthday")}>
+              생일 공개 설정
             </button>
             <button onClick={() => onClickItem("deposit")}>보증금 충전</button>
             <button onClick={() => setIsLogoutModal(true)}>로그아웃</button>
@@ -152,6 +154,11 @@ function UserNavigation({ role }: IUserNavigation) {
             isBig={Boolean(location === "수원")}
             setIsModal={handleOutput}
           />
+        </ModalPortal>
+      )}
+      {modalOpen === "birthday" && (
+        <ModalPortal setIsModal={handleOutput}>
+          <RequestBirthModal setIsModal={handleOutput} />
         </ModalPortal>
       )}
       <RequestLogoutModal
