@@ -124,7 +124,8 @@ const Container = styled(ModalMain)`
   border-radius: var(--border-radius-main);
   padding: var(--padding-main) var(--padding-sub);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(40%, auto));
+  grid-auto-rows: 36px;
   gap: var(--margin-md) var(--margin-sub);
   overflow-y: auto;
 `;

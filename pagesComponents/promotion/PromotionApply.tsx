@@ -131,6 +131,7 @@ function PromotionApply() {
 
 const Layout = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 0 40px;
   position: relative;
 `;

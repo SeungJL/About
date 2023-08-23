@@ -8,11 +8,7 @@ export const ATTEND_POP_UP = dayjs().day(1).format("YYYYMMDD") + "attend";
 
 export const PROFILE_POP_UP = dayjs().format("YYYYMMDD") + "profile";
 
-export const PROMOTION_POP_UP1 =
-  dayjs().day(3).format("YYYYMMDD") + "promotion";
-
-export const PROMOTION_POP_UP2 =
-  dayjs().day(6).format("YYYYMMDD") + "promotion";
+export const PROMOTION_POP_UP = "promotion";
 
 export const GATHER_ALERT = "gatherAlert";
 

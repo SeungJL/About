@@ -13,7 +13,7 @@ function PromotionModalOverview() {
         <span>홍보 이벤트</span>
       </Title>
       <Detail>
-        에브리타임에 홍보글을 작성해주시면 <b>+50 Point</b>와 추첨을 통해{" "}
+        에브리타임에 홍보글을 작성해주시면 <b>50 Point</b>와 추첨을 통해{" "}
         <b>BBQ 황금 올리브 치킨</b>를 드려요!
       </Detail>
     </Layout>

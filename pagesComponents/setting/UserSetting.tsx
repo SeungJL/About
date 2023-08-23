@@ -7,8 +7,7 @@ import {
   ATTEND_POP_UP,
   NOTICE_ALERT,
   PROFILE_POP_UP,
-  PROMOTION_POP_UP1,
-  PROMOTION_POP_UP2,
+  PROMOTION_POP_UP,
   USER_GUIDE,
 } from "../../constants/localStorage";
 import { ensureLocalStorage } from "../../helpers/storageHelpers";
@@ -72,6 +71,9 @@ export default function UserSetting() {
 
   useEffect(() => {
     if (isLoading) return;
+
+    const promotion = localStorage.getItem(PROMOTION_POP_UP);
+
     if (isGuest) {
       setIsGuest(true);
       setLocation("수원");
@@ -88,11 +90,13 @@ export default function UserSetting() {
       popupCnt++;
     }
     if (popupCnt === 2) return;
-    if (!ensureLocalStorage(PROMOTION_POP_UP1, PROMOTION_POP_UP2)) {
+    if (!promotion || dayjs(promotion).add(3, "day") <= dayjs()) {
+      localStorage.setItem(PROMOTION_POP_UP, dayjs().format("YYYYMMDD"));
       setIsPromotion(true);
       popupCnt++;
     }
     if (popupCnt === 2) return;
+
     if (!ensureLocalStorage(ATTEND_POP_UP)) setIsAttend(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest, isLoading, myProfileNull]);
