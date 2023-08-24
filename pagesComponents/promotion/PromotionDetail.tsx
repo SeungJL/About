@@ -62,7 +62,7 @@ function PromotionDetail() {
 const Layout = styled.div`
   display: flex;
   margin: 0 40px;
-  margin-top: 40px;
+  margin-top: 32px;
   margin-bottom: var(--margin-main);
 `;
 

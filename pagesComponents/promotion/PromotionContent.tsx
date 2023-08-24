@@ -82,7 +82,7 @@ const Container = styled.div`
 `;
 
 const Layout = styled.div`
-  margin-top: 40px;
+  margin-top: var(--margin-max);
 `;
 
 const Wrapper = styled.div`
