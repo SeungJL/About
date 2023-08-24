@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -50,11 +49,7 @@ function GatherDetail() {
         <MainLoading />
       ) : (
         <>
-          <GatherHeader
-            title={gatherData.title}
-            date={dayjs(gatherData.date)}
-            locationMain={gatherData.location.main}
-          />
+          <GatherHeader gatherData={gatherData} />
           <Layout>
             <GatherBadge typeTitle={gatherData.type.title} />
             <GatherOrganizer

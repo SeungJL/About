@@ -17,7 +17,7 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-
+dayjs.locale("ko");
 function Birthday() {
   const router = useRouter();
   const [registerForm, setRegisterForm] = useRecoilState(

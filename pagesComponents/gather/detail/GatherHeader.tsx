@@ -1,18 +1,31 @@
 import { faPenCircle } from "@fortawesome/pro-regular-svg-icons";
 import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dayjs } from "dayjs";
+import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/common/ModalPortal";
 import Header from "../../../components/layout/Header";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { IGatherHeader } from "../../../types/page/gather";
+import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
+import { IGatherContent } from "../../../types/page/gather";
 
-function GatherHeader({ title, date, locationMain }: IGatherHeader) {
+interface IGatherHeader {
+  gatherData: IGatherContent;
+}
+
+function GatherHeader({ gatherData }: IGatherHeader) {
+  const router = useRouter();
+
+  const title = gatherData?.title;
+  const date = gatherData?.date as Dayjs;
+  const locationMain = gatherData?.location.main;
+
   const prevPageUrl = useRecoilValue(prevPageUrlState);
-
+  const setGatherContent = useSetRecoilState(sharedGatherDataState);
   const [isModal, setIsModal] = useState(false);
 
   return (
@@ -23,7 +36,7 @@ function GatherHeader({ title, date, locationMain }: IGatherHeader) {
           size="lg"
           onClick={() => setIsModal(true)}
         />
-        <SettingWrapper>
+        <SettingWrapper onClick={() => router.push("/gather/writing/category")}>
           <FontAwesomeIcon icon={faPenCircle} size="xl" />
         </SettingWrapper>
       </Header>
