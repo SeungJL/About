@@ -21,8 +21,8 @@ function PromotionAllCoolTimeModal({
   setIsModal,
 }: IPromotionAllCoolTimeModal) {
   const { data, isLoading } = useUserRequestCategoryQuery("홍보");
-
   const applyCnt = data?.length + 15;
+
   return (
     <ModalLayout size="xl">
       <ModalHeaderXLayout>
@@ -39,12 +39,10 @@ function PromotionAllCoolTimeModal({
             </div>
           </Explanation>
         </div>
-
         <div onClick={() => setIsModal(false)}>
           <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
         </div>
       </ModalHeaderXLayout>
-
       <Container>
         {promotionData?.map((item) => {
           const cool = dayjs(item.lastDate)
