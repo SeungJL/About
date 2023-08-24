@@ -14,7 +14,7 @@ function CheckAttendWinner() {
       setInitialData(data.filter((item) => item.category === "출석"));
     },
   });
-
+  console.log(initialData);
   return (
     <>
       <Header title="출석체크 당첨자" url="/admin" />

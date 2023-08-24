@@ -112,4 +112,28 @@ export const WIN_RECORD: {
     reason: "스토어 응모 당첨",
     present: "황금 올리브 치킨",
   },
+  {
+    name: "서유",
+    date: "8/20",
+    reason: "출석체크 랜덤 선물",
+    present: "초코에몽",
+  },
+  {
+    name: "박유",
+    date: "8/21",
+    reason: "출석체크 랜덤 선물",
+    present: "베스킨 라빈스",
+  },
+  {
+    name: "김영",
+    date: "8/21",
+    reason: "출석체크 랜덤 선물",
+    present: "MEGA 커피",
+  },
+  {
+    name: "이예",
+    date: "8/22",
+    reason: "출석체크 랜덤 선물",
+    present: "MEGA 커피",
+  },
 ];
