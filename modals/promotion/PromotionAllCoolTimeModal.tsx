@@ -146,11 +146,12 @@ const CoolTime = styled.div`
   flex: 0.35;
 `;
 
-const Cool = styled.span`
+const Cool = styled.div`
+  padding: 0 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: var(--color-red);
-  > span:last-child {
-    margin-left: var(--margin-md);
-  }
 `;
 
 const Ok = styled.div`
