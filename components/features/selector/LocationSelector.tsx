@@ -1,3 +1,4 @@
+import { Select } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -26,26 +27,37 @@ function LocationSelector() {
     <>
       {!isMainLoading && (
         <Layout>
-          <select value={value} onChange={onChange}>
-            <option value="수원">수원</option>
-            <option value="양천">양천구</option>
-            <option value="안양">안양</option>
-            <option value="강남">강남</option>
-          </select>
+          <CustomSelect
+            value={value}
+            onChange={onChange}
+            color="var(--font-h2)"
+            bg="var(--font-h8)"
+            fontWeight="600"
+            textAlign="center"
+            border="none"
+            size="sm"
+            ml="var(--margin-md)"
+            _focus={{ border: "none" }}
+          >
+            <Options value="수원">수원</Options>
+            <Options value="양천">양천구</Options>
+            <Options value="안양">안양</Options>
+            <Options value="강남">강남</Options>
+          </CustomSelect>
         </Layout>
       )}
     </>
   );
 }
 
-const Layout = styled.div`
-  > select {
-    color: var(--font-h2);
-    background-color: var(--font-h8);
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-  }
+const Layout = styled.div``;
+
+const CustomSelect = styled(Select)`
+  padding-right: 20px !important;
+`;
+
+const Options = styled.option`
+  text-align: center !important;
 `;
 
 export default LocationSelector;
