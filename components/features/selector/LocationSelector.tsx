@@ -53,7 +53,7 @@ function LocationSelector() {
 const Layout = styled.div``;
 
 const CustomSelect = styled(Select)`
-  padding-right: 20px !important;
+  padding-right: 24px !important;
 `;
 
 const Options = styled.option`
