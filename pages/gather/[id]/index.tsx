@@ -61,7 +61,6 @@ function GatherDetail() {
               createdAt={gatherData.createdAt}
               organizer={gatherData.user}
             />
-
             <GatherTitle title={gatherData.title} status={gatherData.status} />
             <GatherDetailInfo data={gatherData} />
             <GatherContent
