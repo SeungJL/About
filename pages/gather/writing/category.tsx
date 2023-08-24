@@ -1,7 +1,6 @@
-import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
@@ -10,6 +9,7 @@ import ProgressStatus from "../../../components/layout/ProgressStatus";
 import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
 import { GatherType } from "../../../types/page/gather";
@@ -17,12 +17,18 @@ import { GatherType } from "../../../types/page/gather";
 function WritingCategory() {
   const router = useRouter();
   const failToast = useFailToast();
-  const toast = useToast();
+
+  const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherDataState
   );
   const [selectType, setSelectType] = useState<GatherType>(gatherContent?.type);
 
+  useEffect(() => {
+    if (!gatherContent) return;
+    setSelectType(gatherContent.type);
+  }, [gatherContent]);
+  console.log(2, selectType);
   const onClickNext = () => {
     if (!selectType) {
       failToast("free", "주제를 선택해 주세요!", true);
@@ -36,25 +42,27 @@ function WritingCategory() {
     <>
       <PageLayout>
         <ProgressStatus value={25} />
-        <Header title="" url="/gather" />
+        <Header title="" url={prevPageUrl || "/gather"} />
         <RegisterLayout>
           <RegisterOverview>
             <span>주제를 선택해 주세요.</span>
           </RegisterOverview>
           <ItemContainer>
-            {GATHER_CATEGORY?.map((item, idx) => (
-              <Item
-                key={idx}
-                isSelected={item === selectType}
-                onClick={() => setSelectType(item)}
-              >
-                <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
-                <Info>
-                  <span>{item.title}</span>
-                  <span>{item.subtitle}</span>
-                </Info>
-              </Item>
-            ))}
+            {GATHER_CATEGORY?.map((item, idx) => {
+              return (
+                <Item
+                  key={idx}
+                  isSelected={item?.title === selectType?.title}
+                  onClick={() => setSelectType(item)}
+                >
+                  <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
+                  <Info>
+                    <span>{item.title}</span>
+                    <span>{item.subtitle}</span>
+                  </Info>
+                </Item>
+              );
+            })}
           </ItemContainer>
         </RegisterLayout>
       </PageLayout>

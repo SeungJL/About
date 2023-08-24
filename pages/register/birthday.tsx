@@ -49,7 +49,7 @@ function Birthday() {
 
   const onClickNext = () => {
     const age = birthToAge(dayjs(startDate).format("YYMMDD"));
-    console.log(age, startDate);
+
     if (age < 19 || age > 26) {
       setErrorMessage("죄송합니다. 19 ~ 26세의 인원만 가입이 가능합니다.");
       return;

@@ -1,10 +1,9 @@
-import { faPenCircle } from "@fortawesome/pro-regular-svg-icons";
 import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/common/ModalPortal";
 import Header from "../../../components/layout/Header";
@@ -24,9 +23,15 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const date = gatherData?.date as Dayjs;
   const locationMain = gatherData?.location.main;
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
+  const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
   const setGatherContent = useSetRecoilState(sharedGatherDataState);
   const [isModal, setIsModal] = useState(false);
+
+  const onClick = () => {
+    setPrevPageUrl(`/gather/${router.query.id}`);
+    setGatherContent(gatherData);
+    router.push("/gather/writing/category");
+  };
 
   return (
     <>
@@ -36,9 +41,9 @@ function GatherHeader({ gatherData }: IGatherHeader) {
           size="lg"
           onClick={() => setIsModal(true)}
         />
-        <SettingWrapper onClick={() => router.push("/gather/writing/category")}>
+        {/* <SettingWrapper onClick={onClick}>
           <FontAwesomeIcon icon={faPenCircle} size="xl" />
-        </SettingWrapper>
+        </SettingWrapper> */}
       </Header>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>

@@ -1,7 +1,11 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ICON_SIZE } from "../../../constants/system";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar";
 import { Size } from "../../../types/system";
 import { IRegisterForm, IUser } from "../../../types/user/user";
@@ -9,9 +13,15 @@ import { IRegisterForm, IUser } from "../../../types/user/user";
 interface IProfileIcon {
   user: IUser | IRegisterForm | "guest";
   size?: Size;
+  isMember?: boolean;
 }
 
-function ProfileIcon({ user, size }: IProfileIcon) {
+function ProfileIcon({ user, size, isMember }: IProfileIcon) {
+  const router = useRouter();
+
+  const setUserData = useSetRecoilState(transferUserDataState);
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
   const avatarType = (user as IUser)?.avatar?.type;
   const avatarBg = (user as IUser)?.avatar?.bg;
   const isAvatar = Boolean(
@@ -32,6 +42,14 @@ function ProfileIcon({ user, size }: IProfileIcon) {
     ? `${AVATAR_ICON[avatarType]}`
     : `${(user as IUser)?.profileImage}`;
 
+  const onClick = () => {
+    if (!isMember) return;
+    const url = router.pathname;
+    setUserData(user as IUser);
+    setPrevPageUrl(url);
+    router.push(`/profile/${(user as IUser).uid}`);
+  };
+
   return (
     <>
       {user && imageUrl && (
@@ -42,6 +60,7 @@ function ProfileIcon({ user, size }: IProfileIcon) {
               : isAvatar && AVATAR_COLOR[avatarBg]
           }
           size={iconSize}
+          onClick={onClick}
         >
           <Image
             src={isError ? AVATAR_ICON[0] : imageUrl}

@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ko from "date-fns/locale/ko";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -37,13 +37,11 @@ function WritingDate() {
     const currentDate = new Date();
     currentDate.setHours(14);
     currentDate.setMinutes(0);
+
     setDate(
-      gatherContent?.date
-        ? (gatherContent?.date as Dayjs).toDate()
-        : currentDate
+      gatherContent?.date ? dayjs(gatherContent?.date).toDate() : currentDate
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [gatherContent]);
 
   const [detail, setDetail] = useState(gatherContent?.location?.sub);
   const [location, setLocation] = useState(gatherContent?.location?.main);

@@ -35,7 +35,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               <Item key={idx} id={`ranking${who.uid}`}>
                 <Rank>{idx - tempCnt + 1}위</Rank>
                 <Name>
-                  <ProfileIcon size="sm" user={who} />
+                  <ProfileIcon size="sm" user={who} isMember={true} />
                   <RankingMine isMine={who.uid === session?.uid}>
                     {who?.name !== "무성" ? who?.name : "비공개"}
                   </RankingMine>
@@ -58,7 +58,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               <Item key={idx} id={`ranking${who.uid}`}>
                 <Rank>{idx - tempCnt + 1}위</Rank>
                 <Name>
-                  <ProfileIcon size="sm" user={who} />
+                  <ProfileIcon size="sm" user={who} isMember={true} />
                   <RankingMine isMine={who.uid === session?.uid}>
                     {who?.name !== "무성" ? who?.name : "비공개"}
                   </RankingMine>

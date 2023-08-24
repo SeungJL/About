@@ -4,19 +4,13 @@ dayjs.locale("ko");
 
 export const birthToAge = (birth: string) => {
   if (!birth) return;
-
   const yearSlice = birth?.slice(0, 2);
-
   const birthYear = +yearSlice < 50 ? "20" + yearSlice : "19" + yearSlice;
-
   const currentYear = dayjs().year();
-
   const birthDate = dayjs(birth.slice(2, 4) + "-" + birth.slice(4)).year(
     dayjs().year()
   );
-
   const age = currentYear - +birthYear;
-
   if (birthDate < dayjs()) return age;
   else return age - 1;
 };
