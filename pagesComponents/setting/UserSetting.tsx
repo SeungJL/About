@@ -8,6 +8,7 @@ import {
   NOTICE_ALERT,
   PROFILE_POP_UP,
   PROMOTION_POP_UP,
+  SUGGEST_POP_UP,
   USER_GUIDE,
 } from "../../constants/localStorage";
 import { ensureLocalStorage } from "../../helpers/storageHelpers";
@@ -18,6 +19,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import PromotionModal from "../../modals/aboutHeader/promotionModal/PromotionModal";
 import LastWeekAttendPopUp from "../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../modals/pop-up/ProfileModifyPopUp";
+import SuggestPopUp from "../../modals/pop-up/SuggestPopUp";
 
 import UserGuidePopUp from "../../modals/pop-up/UserGuidePopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
@@ -40,6 +42,7 @@ export default function UserSetting() {
   const [isUserGuide, setIsUserGuide] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
+  const [isSuggest, setIsSuggest] = useState(false);
 
   const { mutate: setRole } = useUserRoleMutation();
 
@@ -73,6 +76,7 @@ export default function UserSetting() {
     if (isLoading) return;
 
     const promotion = localStorage.getItem(PROMOTION_POP_UP);
+    const suggest = localStorage.getItem(SUGGEST_POP_UP);
 
     if (isGuest) {
       setIsGuest(true);
@@ -93,6 +97,12 @@ export default function UserSetting() {
     if (!promotion || dayjs(promotion).add(3, "day") <= dayjs()) {
       localStorage.setItem(PROMOTION_POP_UP, dayjs().format("YYYYMMDD"));
       setIsPromotion(true);
+      popupCnt++;
+    }
+    if (popupCnt === 2) return;
+    if (!suggest || dayjs(suggest).add(2, "weeks") <= dayjs()) {
+      localStorage.setItem(SUGGEST_POP_UP, dayjs().format("YYYYMMDD"));
+      setIsSuggest(true);
       popupCnt++;
     }
     if (popupCnt === 2) return;
@@ -123,6 +133,11 @@ export default function UserSetting() {
       {isUserGuide && (
         <ModalPortal setIsModal={setIsUserGuide}>
           <UserGuidePopUp setIsModal={setIsUserGuide} />
+        </ModalPortal>
+      )}
+      {isSuggest && (
+        <ModalPortal setIsModal={setIsSuggest}>
+          <SuggestPopUp setIsModal={setIsSuggest} />
         </ModalPortal>
       )}
     </>

@@ -1,4 +1,3 @@
-
 import { faCheckDouble, faThumbTack } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
@@ -52,7 +51,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
               매일 <b>오후 11시</b>에 스터디 결과 발표 !
             </li>
             <li>
-              <b>3명 이상</b>의 인원이 참여하는 경우 Open !
+              스터디가 열리지 않았더라도, <b>Free 오픈</b> 신청 가능
             </li>
             <li>
               <b>출석체크</b>를 통해 자리나 인상착의 기록
@@ -92,7 +91,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
               <b>오른쪽 상단의 동아리 이용가이드 확인하기 !</b>
             </li>
             <li>다양한 컨텐츠가 존재해요! 계속 생겨날 예정!</li>
-            <li>오류 및 이용 문의는 관리자에게 ! 금방 해결 됨!</li>
+            <li>건의사항 항상 환영해요! 이용 문의도 관리자에게</li>
             <li>다들 재밌는 활동 해봐요~!</li>
           </Content>
         </Item>

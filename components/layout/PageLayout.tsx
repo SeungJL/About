@@ -19,6 +19,7 @@ function PageLayout({ children }: IPageLayout) {
 }
 
 const Layout = styled(motion.div)`
+  position: relative;
   min-height: 100vh;
   padding-bottom: 20px;
 `;

@@ -126,7 +126,6 @@ function UserNavigation({ role }: IUserNavigation) {
           <RequestSuggestModal type="suggest" setIsModal={handleOutput} />
         </ModalPortal>
       )}
-
       {modalOpen === "rest" && (
         <ModalPortal setIsModal={handleOutput}>
           <RequestRestModal setIsModal={handleOutput} />
