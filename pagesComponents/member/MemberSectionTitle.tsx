@@ -24,10 +24,12 @@ function MemberSectionTitle({
         <span>{category}</span>
         <span>{subTitle}</span>
       </TitleWrapper>
-      <Button disabled={isGuest} onClick={() => setClickSection(category)}>
-        <span>더보기</span>
-        <FontAwesomeIcon icon={faChevronRight} size="xs" />
-      </Button>
+      {category !== "생일" && (
+        <Button disabled={isGuest} onClick={() => setClickSection(category)}>
+          <span>더보기</span>
+          <FontAwesomeIcon icon={faChevronRight} size="xs" />
+        </Button>
+      )}
     </Layout>
   );
 }
