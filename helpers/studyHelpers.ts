@@ -5,6 +5,13 @@ import {
   ANYANG_인뎃커피,
   ANYANG_커피인더스트리,
   ANYANG_파스쿠찌,
+  GANGNAM_강남,
+  GANGNAM_강남구청,
+  GANGNAM_교대,
+  GANGNAM_논현,
+  GANGNAM_선릉,
+  GANGNAM_신논현,
+  GANGNAM_양재,
   SUWAN_스타벅스,
   SUWAN_이디야,
   SUWAN_카탈로그,
@@ -50,6 +57,14 @@ export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
     else if (ID === ANYANG_인뎃커피) temp[1] = participant;
     else if (ID === ANYANG_파스쿠찌) temp[2] = participant;
     else if (ID === ANYANG_커피인더스트리) temp[3] = participant;
+    //
+    if (ID === GANGNAM_강남) temp[0] = participant;
+    if (ID === GANGNAM_강남구청) temp[4] = participant;
+    if (ID === GANGNAM_논현) temp[1] = participant;
+    if (ID === GANGNAM_신논현) temp[5] = participant;
+    if (ID === GANGNAM_교대) temp[6] = participant;
+    if (ID === GANGNAM_선릉) temp[3] = participant;
+    if (ID === GANGNAM_양재) temp[2] = participant;
   });
 
   return temp;

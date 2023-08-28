@@ -6,11 +6,18 @@ interface IModalLayout {
   children: React.ReactNode;
   size: Size;
   height?: number;
+  isWideShort?: boolean;
 }
 
-export const ModalLayout = ({ children, size, height }: IModalLayout) => (
+export const ModalLayout = ({
+  children,
+  size,
+  height,
+  isWideShort,
+}: IModalLayout) => (
   <Layout
     size={size}
+    isWideShort={isWideShort}
     height={height}
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
@@ -37,8 +44,12 @@ const SIZE_HEIGHT_MAP = {
   xs: "120px",
 };
 
-const Layout = styled(motion.div)<{ size: Size; height?: number }>`
-  width: 340px;
+const Layout = styled(motion.div)<{
+  size: Size;
+  height?: number;
+  isWideShort?: boolean;
+}>`
+  width: ${(props) => (!props.isWideShort ? "340px" : "300px")};
   height: ${(props) =>
     props.height ? `${props?.height}px` : SIZE_HEIGHT_MAP[props.size]};
 

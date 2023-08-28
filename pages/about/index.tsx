@@ -11,7 +11,6 @@ import AboutReview from "../../pagesComponents/about/main/AboutReview";
 import Calendar from "../../pagesComponents/about/main/Calendar";
 import EventBanner from "../../pagesComponents/about/main/EventBanner";
 import AboutGather from "../../pagesComponents/about/main/gather/AboutGather";
-import ReadyToOpen from "../../pagesComponents/about/main/ReadyToOpen";
 import WinRecord from "../../pagesComponents/about/main/WinRecord";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
@@ -66,14 +65,9 @@ function About() {
         <AboutUpperBar />
         <Calendar />
 
-        {location !== "강남" ? (
-          <>
-            <AboutVoteNav participations={participations} />
-            <AboutMain participations={studySpaces} />
-          </>
-        ) : (
-          <ReadyToOpen />
-        )}
+        <AboutVoteNav participations={participations} />
+        <AboutMain participations={studySpaces} />
+
         <HrDiv />
         <AboutGather />
         <EventBanner />

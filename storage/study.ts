@@ -28,6 +28,15 @@ export const ANYANG_숨맑은집 = "6456ede120352b2d87582955";
 export const ANYANG_파스쿠찌 = "6456eed520352b2d87582957";
 export const ANYANG_인뎃커피 = "6456ef8120352b2d8758295b";
 
+//강남
+export const GANGNAM_신논현 = "64ecc33940f6dace3b065598";
+export const GANGNAM_논현 = "64ecc3c240f6dace3b06559c";
+export const GANGNAM_교대 = "64ecc41640f6dace3b06559d";
+export const GANGNAM_양재 = "64ecc48d40f6dace3b06559e";
+export const GANGNAM_선릉 = "64ecc54240f6dace3b0655a0";
+export const GANGNAM_강남구청 = "64ecc4ef40f6dace3b06559f";
+export const GANGNAM_강남 = "64ecc58540f6dace3b0655a1";
+
 export const SPACE_NAME = {
   //수원
   [SUWAN_투썸]: "투썸플레이스",
@@ -50,6 +59,14 @@ export const SPACE_NAME = {
   [ANYANG_숨맑은집]: "숨맑은집",
   [ANYANG_파스쿠찌]: "파스쿠찌",
   [ANYANG_인뎃커피]: "인뎃커피",
+  //강남
+  [GANGNAM_강남]: "할리스",
+  [GANGNAM_강남구청]: "파스쿠찌",
+  [GANGNAM_신논현]: "커피빈",
+  [GANGNAM_논현]: "커피빈",
+  [GANGNAM_교대]: "아펜즈커피",
+  [GANGNAM_양재]: "미오커피",
+  [GANGNAM_선릉]: "커피빈",
 };
 
 export const SPACE_LOCATION = {
@@ -75,6 +92,14 @@ export const SPACE_LOCATION = {
   [ANYANG_인뎃커피]: "안양",
   [ANYANG_커피인더스트리]: "안양",
   [ANYANG_파스쿠찌]: "안양",
+  //강남
+  [GANGNAM_강남]: "강남",
+  [GANGNAM_강남구청]: "강남",
+  [GANGNAM_신논현]: "강남",
+  [GANGNAM_논현]: "강남",
+  [GANGNAM_교대]: "강남",
+  [GANGNAM_양재]: "강남",
+  [GANGNAM_선릉]: "강남",
 };
 
 export const STUDY_SPACE_INFO = [
@@ -171,5 +196,42 @@ export const STUDY_SPACE_INFO = [
     id: ANYANG_커피인더스트리,
     location: "경기 군포시 군포로 731",
     time: "09:00 - 24:00",
+  },
+
+  //강남
+  {
+    id: GANGNAM_강남,
+    location: "서울 강남구 강남대로 402",
+    time: "07:30 - 24:00",
+  },
+  {
+    id: GANGNAM_강남구청,
+    location: "서울 강남구 선릉로131길 12",
+    time: "07:30 - 23:00",
+  },
+  {
+    id: GANGNAM_교대,
+    location: "서울 서초구 서초중앙로 119",
+    time: "08:00 - 05:00",
+  },
+  {
+    id: GANGNAM_논현,
+    location: "서울 서초구 신반포로47길 5",
+    time: "07:00 - 22:00",
+  },
+  {
+    id: GANGNAM_선릉,
+    location: "서울 강남구 선릉로 433 세방빌딩",
+    time: "07:00 - 22:00",
+  },
+  {
+    id: GANGNAM_신논현,
+    location: "서울 강남구 강남대로112길 20",
+    time: "07:00 - 21:00",
+  },
+  {
+    id: GANGNAM_양재,
+    location: "서울 서초구 강남대로 210 행복빌딩",
+    time: "08:00 - 23:00",
   },
 ];

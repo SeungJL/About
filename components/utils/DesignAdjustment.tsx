@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { SUWAN_이디야, YANG_이디야 } from "../../storage/study";
+import {
+  GANGNAM_교대,
+  GANGNAM_논현,
+  GANGNAM_양재,
+  SUWAN_이디야,
+  YANG_이디야,
+} from "../../storage/study";
 import { IPlace } from "../../types/study/study";
 
 interface IStudySpaceLogo {
@@ -13,6 +19,9 @@ export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
     W = 50;
     H = 50;
   }
+  if (place._id === GANGNAM_논현) W = 50;
+  if (place._id === GANGNAM_양재) W = 35;
+  if (place._id === GANGNAM_교대) W = 50;
   return (
     <>
       <Image

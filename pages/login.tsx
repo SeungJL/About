@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../components/common/ModalPortal";
 import { useCompleteToast } from "../hooks/CustomToast";
+import { useUserInfoQuery } from "../hooks/user/queries";
+import CheckApplicantModal from "../modals/login/CheckApplicantModal";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
 import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";
@@ -34,20 +36,30 @@ const Login: NextPage<{
 
   const [loading, setLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
+  const [isCheckModal, setIsCheckModal] = useState(false);
+  const [isMember, setIsMember] = useState(false);
 
+  useUserInfoQuery({
+    onSuccess(data) {
+      if (data?.mbti) setIsMember(true);
+    },
+  });
+  console.log(55, isCheckModal);
   useEffect(() => {
     if (status === "logout") completeToast("free", "로그아웃 되었습니다.");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
   const customSignin = (type: "member" | "guest") => {
-    if (session) {
-      router.push(`/about`);
+    setLoading(true);
+    const provider = type === "member" ? kakaoProvider.id : "guest";
+    if (isMember) {
+      if (session) router.push(`/about`);
+      else signIn(provider, { callbackUrl: `${window.location.origin}/about` });
       return;
     }
-    const provider = type === "member" ? kakaoProvider.id : "guest";
-    setLoading(true);
-    signIn(provider, { callbackUrl: `${window.location.origin}/about` });
+    console.log(44);
+    setIsCheckModal(true);
     setLoading(false);
   };
 
@@ -106,6 +118,12 @@ const Login: NextPage<{
             customSignin={customSignin}
           />
         </ModalPortal>
+      )}
+      {isCheckModal && (
+        <CheckApplicantModal
+          provider={kakaoProvider.id}
+          setIsCheckModal={setIsCheckModal}
+        />
       )}
     </>
   );

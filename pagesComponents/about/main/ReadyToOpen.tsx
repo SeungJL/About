@@ -1,17 +1,29 @@
 import styled from "styled-components";
 
 function ReadyToOpen() {
-  return <Layout>오픈 준비중 . . . !</Layout>;
+  return (
+    <Layout>
+      <span>COMING SOON</span>
+    </Layout>
+  );
 }
 
 const Layout = styled.div`
-  height: 300px;
+  background-color: rgba(234, 236, 240, 0.6);
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--font-h2);
+  font-size: 26px;
+  font-weight: 700;
+  border-radius: var(--border-radius-sub);
+  color: var(--font-h1);
+  > span {
+    opacity: 1;
+  }
 `;
 
 export default ReadyToOpen;

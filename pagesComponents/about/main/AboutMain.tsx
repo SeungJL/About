@@ -14,6 +14,7 @@ import { SUWAN_탐앤탐스 } from "../../../storage/study";
 import { IStudy } from "../../../types/study/study";
 import AboutMainItem from "./aboutMain/AboutMainItem";
 import AboutMainItemSkeleton from "./aboutMain/AboutMainItemSkeleton";
+import ReadyToOpen from "./ReadyToOpen";
 interface IAboutMain {
   participations: IStudy[];
 }
@@ -67,17 +68,20 @@ function AboutMain({ participations }: IAboutMain) {
           }}
         >
           <Main>
-            {participations
-              .slice(0, participationsVisibleCnt)
-              .map((participation, idx) => (
-                <AboutMainItem participation={participation} key={idx} />
-              ))}
-            {location === "안양" &&
-            (interSectionStudy?.status === "pending" ||
-              interSectionStudy?.attendences.filter((who) => who.firstChoice)
-                .length) ? (
-              <AboutMainItem participation={interSectionStudy} />
-            ) : null}
+            <Container>
+              {participations
+                .slice(0, participationsVisibleCnt)
+                .map((participation, idx) => (
+                  <AboutMainItem participation={participation} key={idx} />
+                ))}
+              {location === "안양" &&
+              (interSectionStudy?.status === "pending" ||
+                interSectionStudy?.attendences.filter((who) => who.firstChoice)
+                  .length) ? (
+                <AboutMainItem participation={interSectionStudy} />
+              ) : null}
+              {location === "강남" && <ReadyToOpen />}
+            </Container>
             <MoreInfoNav onClick={onClickMoreInfo}>
               <span>더보기</span>
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
@@ -103,6 +107,10 @@ const Layout = styled(motion.div)`
 
 const Main = styled.main`
   padding: 0 var(--padding-main);
+`;
+
+const Container = styled.div`
+  position: relative;
 `;
 
 const MoreInfoNav = styled.div`

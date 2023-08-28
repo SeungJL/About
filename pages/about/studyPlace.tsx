@@ -17,7 +17,7 @@ function StudyPlace() {
       <Spacer />
       <Main>
         {myStudyFixed && <AboutMainItem participation={myStudyFixed} />}
-        {participations.map((participation, idx) => (
+        {participations?.map((participation, idx) => (
           <AboutMainItem participation={participation} key={idx} />
         ))}
       </Main>
