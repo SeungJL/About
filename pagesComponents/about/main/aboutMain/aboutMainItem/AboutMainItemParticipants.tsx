@@ -17,7 +17,7 @@ function AboutMainItemParticipants({
   attendances,
 }: IAboutMainItemParticipants) {
   const { data: session } = useSession();
- 
+
   const isMyVote = attendances.find((who) => who.user?.uid === session?.uid);
   const voterCnt = attendances.length;
   const voteStatus: "GOOD" | "FULL" =
@@ -73,7 +73,7 @@ function AboutMainItemParticipants({
                 ? attendances.length
                 : firstAttendance.length}
             </VoterImpact>
-            /{statusFixed === "pending" ? "8" : "10"}
+            /{statusFixed === "pending" ? "8" : "8"}
           </span>
         </ParticipantStatus>
       </div>

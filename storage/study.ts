@@ -1,6 +1,12 @@
 import { Location } from "../types/system";
 
-export const STUDY_LOCATION: Location[] = ["수원", "양천", "안양", "강남"];
+export const STUDY_LOCATION: Location[] = [
+  "수원",
+  "양천",
+  "안양",
+  "강남",
+  "동대문",
+];
 
 export const NOT_OPEN_LOCATION = ["강남"];
 

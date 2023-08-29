@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -110,7 +109,7 @@ function Location() {
                     <>
                       <LocationTitle location={space} />
                       <LocationMember location={space} />
-                      {space === "강남" && (
+                      {space === "동대문" && (
                         <Message>예약 인원 40명이 되면 열려요!</Message>
                       )}
                     </>
@@ -127,8 +126,6 @@ function Location() {
     </>
   );
 }
-
-
 
 const ButtonNav = styled.nav`
   margin-top: var(--margin-max);

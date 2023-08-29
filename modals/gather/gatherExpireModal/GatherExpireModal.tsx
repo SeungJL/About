@@ -21,7 +21,7 @@ function GatherExpireModal({ setIsModal, setIsRefetch }: IModal & IRefetch) {
   useEffect(() => {
     if (!isComplete) return;
     setIsRefetch(true);
-    setIsModal(true);
+    setIsModal(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isComplete]);
 

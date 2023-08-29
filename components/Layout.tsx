@@ -19,9 +19,7 @@ interface ILayout {
 function Layout({ children }: ILayout) {
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
   const router = useRouter();
-  console.log(router.query);
 
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";

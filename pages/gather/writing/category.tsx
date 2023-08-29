@@ -28,7 +28,7 @@ function WritingCategory() {
     if (!gatherContent) return;
     setSelectType(gatherContent.type);
   }, [gatherContent]);
-  console.log(2, selectType);
+
   const onClickNext = () => {
     if (!selectType) {
       failToast("free", "주제를 선택해 주세요!", true);

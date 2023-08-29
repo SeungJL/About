@@ -53,8 +53,8 @@ export const StudyRuleModalContentFirstOne = () => (
         <b>3명 이상</b>의 인원이 같은 시간에 참여하는 경우 Open !
       </li>
       <li>
-        스터디가 열리지 않았다면 투표한 장소의 <b>Free 오픈</b>을 통해 개인이
-        오픈할 수 있음 ! 자유롭게 출석 !
+        스터디가 열리지 않았어도 <b>Free 오픈</b>을 통해 개인이 스터디를 오픈할
+        수 있습니다 ! 자유롭게 출석 !
       </li>
     </ul>
   </Content>
@@ -68,8 +68,8 @@ export const StudyRuleModalContentFirstTwo = () => (
       </li>
       <li>출석체크 기록을 통해 다른 인원을 확인할 수 있어요 !</li>
       <li>
-        인사만 해도 <b>OK</b> 같이 공부를 해도 <b>OK</b> 같이 밥을 먹어도{" "}
-        <b>OK</b>
+        스터디 참여에 부담을 가질 필요 없어요! 보통은 같이 하지만 혼자 따로
+        하셔도 상관없습니다! 인사 정도만 해주세요 ㅎㅎ
       </li>
     </ul>
   </Content>
@@ -78,10 +78,6 @@ export const StudyRuleModalContentFirstTwo = () => (
 export const StudyRuleModalContentFirstThree = () => (
   <Content>
     <ul>
-      <li>
-        <b>다양한 컨텐츠</b>가 준비되어 있어요! 잘 모르겠는 건 아무나 붙잡고
-        물어보면 그 분도 모르니까 관리자한테 질문!
-      </li>
       <li>
         <b>
           다른 인원에게 피해를 끼치는 행위를 엄격하게 금지합니다 ! 불편한

@@ -27,7 +27,6 @@ import { NOT_OPEN_LOCATION } from "../../storage/study";
 import { IStudy } from "../../types/study/study";
 
 function About({ check }) {
-  console.log(check);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
