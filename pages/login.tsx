@@ -13,10 +13,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { ModalLayout } from "../components/common/modal/Modals";
 import ModalPortal from "../components/common/ModalPortal";
-import { useCompleteToast } from "../hooks/CustomToast";
-import { useUserInfoQuery } from "../hooks/user/queries";
-import CheckApplicantModal from "../modals/login/CheckApplicantModal";
+import { useCompleteToast, useFailToast } from "../hooks/CustomToast";
+import { useRegisterFormsQuery } from "../hooks/user/queries";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
 import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";
@@ -29,6 +29,7 @@ const Login: NextPage<{
 }> = ({ providers }) => {
   const { data: session } = useSession();
   const completeToast = useCompleteToast();
+  const failToast = useFailToast();
   const router = useRouter();
   const status = router.query?.status;
 
@@ -37,29 +38,42 @@ const Login: NextPage<{
   const [loading, setLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isCheckModal, setIsCheckModal] = useState(false);
-  const [isMember, setIsMember] = useState(false);
+  const [isApplicant, setIsApplicant] = useState(false);
 
-  useUserInfoQuery({
+  const { isLoading } = useRegisterFormsQuery({
+    enabled: !!session,
     onSuccess(data) {
-      if (data?.mbti) setIsMember(true);
+      if (data?.find((who) => who.uid === session.uid)) setIsApplicant(true);
     },
   });
-  console.log(55, isCheckModal);
+
   useEffect(() => {
     if (status === "logout") completeToast("free", "로그아웃 되었습니다.");
+    if (status === "noMember")
+      failToast("free", "동아리에 소속되어 있지 않습니다.");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
-  const customSignin = (type: "member" | "guest") => {
-    setLoading(true);
+  const customSignin = async (type: "member" | "guest") => {
     const provider = type === "member" ? kakaoProvider.id : "guest";
-    if (isMember) {
-      if (session) router.push(`/about`);
-      else signIn(provider, { callbackUrl: `${window.location.origin}/about` });
+    setLoading(true);
+    if (provider === "guest") {
+      setIsModal(false);
+      signIn(provider, { callbackUrl: `${window.location.origin}/about` });
       return;
     }
-    console.log(44);
-    setIsCheckModal(true);
+    if (isLoading) await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (isApplicant) {
+      setIsCheckModal(true);
+      setLoading(false);
+      return;
+    }
+    if (session) router.push(`/about?status=login`);
+    else
+      signIn(provider, {
+        callbackUrl: `${window.location.origin}/about?status=login`,
+      });
+
     setLoading(false);
   };
 
@@ -120,10 +134,24 @@ const Login: NextPage<{
         </ModalPortal>
       )}
       {isCheckModal && (
-        <CheckApplicantModal
-          provider={kakaoProvider.id}
-          setIsCheckModal={setIsCheckModal}
-        />
+        <ModalPortal setIsModal={setIsModal}>
+          <ModalLayout size="md" isWideShort={true}>
+            <Header>
+              <span>가입 대기중</span>
+            </Header>
+            <Text>
+              가입 신청은 완료됐습니다! <br />
+              며칠 내에 관리자가 카톡으로 연락드려요!
+            </Text>
+            <Button
+              mt="auto"
+              colorScheme="mintTheme"
+              onClick={() => setIsCheckModal(false)}
+            >
+              확인
+            </Button>
+          </ModalLayout>
+        </ModalPortal>
       )}
     </>
   );
@@ -166,6 +194,20 @@ const Message = styled.span`
   font-size: 10px;
   text-align: center;
   color: var(--color-red);
+`;
+const Header = styled.header`
+  font-weight: 600;
+  text-align: center;
+  font-size: 18px;
+`;
+
+const Text = styled.span`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--font-h1);
+  line-height: var(--line-height);
 `;
 
 export default Login;

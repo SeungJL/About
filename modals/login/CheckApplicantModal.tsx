@@ -24,9 +24,8 @@ function CheckApplicantModal({
 
   useRegisterFormsQuery({
     onSuccess(data) {
-      if (data.find((who) => who.uid === session.uid)) {
-        setIsModal(true);
-      } else {
+      if (data.find((who) => who.uid === session.uid)) setIsModal(true);
+      else {
         if (session) router.push(`/register/location`);
         else
           signIn(provider, {

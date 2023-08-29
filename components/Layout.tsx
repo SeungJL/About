@@ -21,6 +21,7 @@ function Layout({ children }: ILayout) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const router = useRouter();
+  console.log(router.query);
 
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -35,7 +36,11 @@ function Layout({ children }: ILayout) {
     enabled: isAccessPermission && Boolean(token) && !!session,
     onSuccess(data) {
       if (isGuest || !isAccessPermission) return;
-      if (data === null) router.push("/register/location");
+      if (data === null) {
+        if (router?.query?.status === "login")
+          router.push(`/register/location`);
+        else router.push("/login/?status=noMember");
+      }
       if ((data?.birth === "" || !data?.birth) && isAccessPermission)
         router.push("/register/location");
     },
@@ -67,6 +72,8 @@ function Layout({ children }: ILayout) {
   );
 }
 
-const LayoutContainer = styled.div``;
+const LayoutContainer = styled.div`
+  overflow: hidden;
+`;
 
 export default Layout;

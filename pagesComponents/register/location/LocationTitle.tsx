@@ -11,7 +11,7 @@ function LocationTitle({ location }: { location: Location }) {
         </Badge>
       ) : location === "강남" ? (
         <Badge colorScheme="yellow" variant="outline" fontSize="10px" mb="4px">
-          예약중
+          9월 1일 오픈
         </Badge>
       ) : (
         <Badge colorScheme="teal" variant="outline" fontSize="10px" mb="4px">

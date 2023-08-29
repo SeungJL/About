@@ -125,6 +125,11 @@ export default function UserSetting() {
           <ProfileModifyPopUp setIsModal={setIsProfile} />
         </ModalPortal>
       )}
+      {isSuggest && (
+        <ModalPortal setIsModal={setIsSuggest}>
+          <SuggestPopUp setIsModal={setIsSuggest} />
+        </ModalPortal>
+      )}
       {isPromotion && (
         <ModalPortal setIsModal={setIsPromotion}>
           <PromotionModal setIsModal={setIsPromotion} />
@@ -133,11 +138,6 @@ export default function UserSetting() {
       {isUserGuide && (
         <ModalPortal setIsModal={setIsUserGuide}>
           <UserGuidePopUp setIsModal={setIsUserGuide} />
-        </ModalPortal>
-      )}
-      {isSuggest && (
-        <ModalPortal setIsModal={setIsSuggest}>
-          <SuggestPopUp setIsModal={setIsSuggest} />
         </ModalPortal>
       )}
     </>

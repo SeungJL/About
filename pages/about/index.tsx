@@ -1,3 +1,4 @@
+import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -25,13 +26,13 @@ import { userLocationState } from "../../recoil/userAtoms";
 import { NOT_OPEN_LOCATION } from "../../storage/study";
 import { IStudy } from "../../types/study/study";
 
-function About() {
+function About({ check }) {
+  console.log(check);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(userLocationState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
   const studyDate = useRecoilValue(studyDateState);
-
   const [participations, setParticipations] = useState<IStudy[]>([]);
   const [studySpaces, setStudySpaces] = useState<IStudy[]>([]);
 
@@ -64,10 +65,8 @@ function About() {
         <AboutNavigation />
         <AboutUpperBar />
         <Calendar />
-
         <AboutVoteNav participations={participations} />
         <AboutMain participations={studySpaces} />
-
         <HrDiv />
         <AboutGather />
         <EventBanner />
@@ -91,3 +90,14 @@ const HrDiv = styled.div`
 `;
 
 export default About;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query } = context;
+
+  if (query?.status === "check") {
+    return {
+      props: { check: true },
+    };
+  }
+  return { props: {} };
+};
