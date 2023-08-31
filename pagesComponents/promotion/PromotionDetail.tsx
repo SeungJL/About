@@ -3,11 +3,13 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../components/common/ModalPortal";
+import { useFailToast } from "../../hooks/CustomToast";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
 import PromotionAllCoolTimeModal from "../../modals/promotion/PromotionAllCoolTimeModal";
 import PromotionMyCoolTimeModal from "../../modals/promotion/PromotionMyCoolTimeModal";
 
 function PromotionDetail() {
+  const failToast = useFailToast();
   const { data: session } = useSession();
   const [isMyModal, setIsMyModal] = useState(false);
   const [isAllModal, setIsAllModal] = useState(false);
@@ -15,6 +17,14 @@ function PromotionDetail() {
   const { data: promotionData } = usePromotionQuery();
 
   const myApply = promotionData?.find((item) => item.uid === session?.uid);
+
+  const onClick = () => {
+    if (!myApply) {
+      failToast("free", "홍보 참여 기록이 있어야 확인할 수 있어요!");
+      return;
+    }
+    setIsMyModal(true);
+  };
 
   return (
     <>
@@ -31,7 +41,7 @@ function PromotionDetail() {
         </Button>
         <Button
           w="50%"
-          onClick={() => setIsMyModal(true)}
+          onClick={onClick}
           borderRadius="var(--border-radius-sub)"
           color="var(--font-h2)"
           border="1px solid var(--font-h6)"
