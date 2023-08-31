@@ -14,8 +14,8 @@ function LocationMember({ location }: { location: Location }) {
       : location === "양천"
       ? 51
       : location === "안양"
-      ? 17
-      : 2;
+      ? 27
+      : 3;
   const newCnt = location === "수원" ? 4 : location === "양천" ? 3 : 2;
 
   return (

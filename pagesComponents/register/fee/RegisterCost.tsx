@@ -5,16 +5,16 @@ function RegisterCost({ isSecond }: { isSecond?: boolean }) {
     <Layout>
       <div>
         <span>가입비</span>
-        <span>{isSecond ? "+1000원" : "+2000원"}</span>
+        <span>{isSecond ? "+0원" : "+2000원"}</span>
       </div>
       <div>
         <span>보증금</span>
-        <span>+ 3000원</span>
+        <span>{isSecond ? "+0원" : "+3000원"}</span>
       </div>
 
       <div>
         <span>총 금액</span>
-        <span>= {isSecond ? "4000원" : "5000원"}</span>
+        <span>= {isSecond ? "0원" : "5000원"}</span>
       </div>
     </Layout>
   );

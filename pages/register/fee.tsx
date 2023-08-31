@@ -47,9 +47,9 @@ function Fee() {
         <Cost>
           {isReady && (
             <div style={{ marginBottom: "20px", color: "var(--font-h2)" }}>
-              <span>오픈준비중 지역은 가입비 1000원만 납부하면 신청완료!</span>
-              <br />
-              <span>오픈 할 때 입력하신 연락처로 개인 연락드려요!</span>
+              <span style={{ fontWeight: "600" }}>
+                신규 오픈 지역으로 가입비랑 보증금을 모두 지원해드려요!
+              </span>
             </div>
           )}
           <div>
@@ -65,7 +65,7 @@ function Fee() {
         <Account>운영진에게 연락을 받은 후 납부해야 할 금액입니다!</Account>
         <Message>현재 페이지에서는 가입 신청만 진행됩니다.</Message>
         <Telephone>
-          <span> 연락받을 연락처:</span> {registerForm?.telephone}
+          <span>연락받을 연락처:</span> {registerForm?.telephone}
           <Message>연락처를 한번 더 확인해 주세요!</Message>
         </Telephone>
         <Accordion contentArr={ACCORDION_CONTENT_FEE} />
