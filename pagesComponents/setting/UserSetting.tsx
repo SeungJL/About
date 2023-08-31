@@ -100,7 +100,7 @@ export default function UserSetting() {
       popupCnt++;
     }
     if (popupCnt === 2) return;
-    if (!suggest || dayjs(suggest).add(2, "weeks") <= dayjs()) {
+    if (!suggest || dayjs(suggest).add(1, "weeks") <= dayjs()) {
       localStorage.setItem(SUGGEST_POP_UP, dayjs().format("YYYYMMDD"));
       setIsSuggest(true);
       popupCnt++;
