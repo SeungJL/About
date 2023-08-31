@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -49,7 +50,7 @@ function GatherKakaoShareModal({
       <ShareBtnWrapper>
         <KakaoShareBtn
           title={title}
-          subtitle={date.format("M월 DD일(dd)")}
+          subtitle={dayjs(date).format("M월 DD일(dd)")}
           type="gather"
           url={WEB_URL + router.asPath}
           location={locationMain}
