@@ -55,6 +55,7 @@ function Member({ membersAll }: IMember) {
     let restingArr = [];
     let adminArr = [];
     let birthArr = [];
+    console.log(membersAll.filter((item) => item.location === "안양"));
     members?.forEach((who) => {
       if (who?.name === "guest") return;
 
