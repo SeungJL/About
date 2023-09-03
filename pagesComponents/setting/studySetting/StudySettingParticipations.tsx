@@ -29,8 +29,8 @@ function StudySettingParticipations({
   });
 
   useEffect(() => {
-    refetch();
     if (isRefetch) {
+
       setTimeout(() => {
         refetch();
         setIsRefetch(false);

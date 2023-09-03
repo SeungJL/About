@@ -87,7 +87,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
         <ModalPortal setIsModal={setIsVoteModal}>
           <StudyVoteMainModal
             setIsModal={setIsVoteModal}
-            isBig={location === "수원" || location === "양천"}
+            isBig={location !== "안양"}
             location={location}
             participations={participations}
           />

@@ -64,7 +64,6 @@ function StudyVoteMainModal({
           getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
         }
       }
-
       setUpdateStudy(true);
       completeToast("studyVote");
     },
@@ -90,7 +89,15 @@ function StudyVoteMainModal({
   return (
     <>
       <ModalLayout
-        size={location === "수원" ? "xl" : location === "양천" ? "lg" : "md"}
+        size={
+          location === "수원"
+            ? "xl"
+            : location === "강남"
+            ? "xl"
+            : location === "양천"
+            ? "lg"
+            : "md"
+        }
         height={location === "양천" && 320}
       >
         <ModalHeaderX

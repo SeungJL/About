@@ -80,7 +80,7 @@ function AboutMain({ participations }: IAboutMain) {
                   .length) ? (
                 <AboutMainItem participation={interSectionStudy} />
               ) : null}
-              {location === "강남" && <ReadyToOpen />}
+              {location === "동대문" && <ReadyToOpen />}
             </Container>
             <MoreInfoNav onClick={onClickMoreInfo}>
               <span>더보기</span>
