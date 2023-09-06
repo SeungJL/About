@@ -9,9 +9,9 @@ function LocationTitle({ location }: { location: Location }) {
         <Badge variant="outline" fontSize="10px" mb="4px">
           준비중
         </Badge>
-      ) : location === "강남" || location === "동대문" ? (
+      ) : location === "동대문" ? (
         <Badge colorScheme="yellow" variant="outline" fontSize="10px" mb="4px">
-          {location === "강남" ? "9월 4일 오픈" : "모집중"}
+          모집중
         </Badge>
       ) : (
         <Badge colorScheme="teal" variant="outline" fontSize="10px" mb="4px">
