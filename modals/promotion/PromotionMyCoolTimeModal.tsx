@@ -44,7 +44,7 @@ function PromotionMyCoolTimeModal({
 
   return (
     <ModalLayout size="xl">
-      <ModalHeaderX title="추첨 당첨 기록" setIsModal={setIsModal} />
+      <ModalHeaderX title="지난 당첨 기록" setIsModal={setIsModal} />
       <ModalMain>
         <Container>
           {monthArr.map((item, idx) => (

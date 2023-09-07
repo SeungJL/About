@@ -46,7 +46,7 @@ function PromotionDetail() {
           color="var(--font-h2)"
           border="1px solid var(--font-h6)"
         >
-          우리 학교 쿨타임
+          지난 당첨 기록
         </Button>
       </Layout>
       {isMyModal && (
