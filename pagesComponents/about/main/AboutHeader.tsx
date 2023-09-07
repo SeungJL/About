@@ -5,6 +5,7 @@ import {
   faGift,
   faUser,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faRabbitRunning } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -12,12 +13,17 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import ModalPortal from "../../../components/common/ModalPortal";
-import { ATTEND_CHECK, LIKE_HEART_CNT } from "../../../constants/localStorage";
+import {
+  ATTEND_CHECK,
+  LIKE_HEART_CNT,
+  RABBIT_RUN,
+} from "../../../constants/localStorage";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { useInteractionLikeQuery } from "../../../hooks/interaction/queries";
 import AttendCheckModal from "../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../modals/aboutHeader/AttendCheckWinModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
+import RegularGatherModal from "../../../modals/aboutHeader/RegularGatherModal";
 import StudyRuleModal from "../../../modals/aboutHeader/studyRuleModal/StudyRuleModal";
 import {
   attendCheckWinGiftState,
@@ -35,6 +41,8 @@ function AboutHeader() {
   const isGuest = useRecoilValue(isGuestState);
   const attendCheckWinGift = useRecoilValue(attendCheckWinGiftState);
 
+  const [isRabbitRun, setIsRabbitRun] = useState(false);
+  const [isRabbit, setIsRabbit] = useState(false);
   const [isRule, setIsRule] = useState(false);
   const [isPromotion, setIsPromotion] = useState(false);
   const [isAttendCheck, setIsAttendCheck] = useState(false);
@@ -50,6 +58,10 @@ function AboutHeader() {
   useEffect(() => {
     if (!!attendCheckWinGift) setIsAttendCheckGift(true);
     else setIsAttendCheck(false);
+    if (!localStorage.getItem(RABBIT_RUN)) {
+      setIsRabbitRun(true);
+      localStorage.setItem(RABBIT_RUN, "read");
+    }
   }, [attendCheckWinGift]);
 
   const onClickIcon = (type: string) => {
@@ -57,6 +69,7 @@ function AboutHeader() {
       failToast("guest");
       return;
     }
+    if (type === "rabbit") setIsRabbit(true);
     if (type === "rule") setIsRule(true);
     if (type === "notice" || type === "user" || type === "promotion")
       router.push(type);
@@ -83,6 +96,15 @@ function AboutHeader() {
               />
             </IconWrapper>
           )}
+          <IconWrapper>
+            <FontAwesomeIcon
+              icon={faRabbitRunning}
+              size="lg"
+              color="var(--color-red)"
+              bounce={!!hasAttend && isRabbitRun}
+              onClick={() => onClickIcon("rabbit")}
+            />
+          </IconWrapper>
           <IconWrapper>
             <FontAwesomeIcon
               icon={faBalanceScale}
@@ -133,6 +155,11 @@ function AboutHeader() {
         {isAttendCheckGift && (
           <ModalPortal setIsModal={setIsAttendCheckGift}>
             <AttendCheckWinModal setIsModal={setIsAttendCheckGift} />
+          </ModalPortal>
+        )}
+        {isRabbit && (
+          <ModalPortal setIsModal={setIsRabbit}>
+            <RegularGatherModal setIsModal={setIsRabbit} />
           </ModalPortal>
         )}
       </>

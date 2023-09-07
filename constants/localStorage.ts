@@ -19,3 +19,5 @@ export const ATTEND_CHECK = dayjs().format("YYYYMMDD") + "attendCheck";
 export const LIKE_HEART = "LikeHeart";
 
 export const LIKE_HEART_CNT = "likeHeartCnt";
+
+export const RABBIT_RUN = "rabbitRun" + dayjs().format("YYYYMMDD");
