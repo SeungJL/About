@@ -1,3 +1,5 @@
+import { faCircle } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
@@ -14,22 +16,54 @@ function PromotionMyCoolTimeModal({
   myApply,
   setIsModal,
 }: IPromotionMyCoolTimeModal) {
+  const monthArr = [
+    { month: 9, winner: [] },
+    {
+      month: 8,
+      gift: "황금 올리브 치킨 세트",
+      winner: [
+        { name: "임성", location: "수원" },
+        { name: "연", location: "수원" },
+      ],
+    },
+    {
+      month: 7,
+      gift: "황금 올리브 치킨 세트",
+      winner: [
+        { name: "김소", location: "양천" },
+        { name: "이승", location: "수원" },
+        { name: "송재", location: "양천" },
+      ],
+    },
+  ];
+
   const cool = dayjs(myApply.lastDate)
     .add(3, "day")
     .subtract(6, "hours")
     .diff(dayjs(), "hours");
 
   return (
-    <ModalLayout size="md">
-      <ModalHeaderX title="우리 학교 홍보 쿨타임" setIsModal={setIsModal} />
+    <ModalLayout size="xl">
+      <ModalHeaderX title="추첨 당첨 기록" setIsModal={setIsModal} />
       <ModalMain>
-        {myApply && <Uni>{myApply.name}</Uni>}
         <Container>
-          {cool > 0
-            ? `신청 가능 ${cool > 24 ? "날짜" : "시간"}까지 ${
-                cool > 24 ? Math.ceil(cool / 24) : cool
-              }${cool > 24 ? "일" : "시간"} 남았어요 !`
-            : "신청 가능 !"}
+          {monthArr.map((item, idx) => (
+            <Item key={idx}>
+              <Title>
+                <Month>{item.month}월 당첨자</Month>
+                <Gift>황금 올리브 치킨 세트</Gift>
+              </Title>
+              <Winner>
+                {item.winner.map((who, idx) => (
+                  <WinnerItem key={idx}>
+                    {who.name}
+                    <FontAwesomeIcon icon={faCircle} size="sm" />({who.location}
+                    )
+                  </WinnerItem>
+                ))}
+              </Winner>
+            </Item>
+          ))}
         </Container>
       </ModalMain>
       <ModalFooterNav>
@@ -47,13 +81,42 @@ function PromotionMyCoolTimeModal({
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  padding: var(--padding-main);
   flex: 1;
-  font-size: 15px;
-  font-weight: 600;
+
   border: var(--border-mint);
   border-radius: var(--border-radius-main);
+`;
+
+const Item = styled.div`
+  margin-bottom: var(--margin-main);
+`;
+
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--margin-md);
+`;
+
+const Month = styled.div`
+  font-weight: 600;
+
+  font-size: 14px;
+  margin-right: var(--margin-md);
+`;
+
+const Winner = styled.div`
+  display: flex;
+`;
+
+const WinnerItem = styled.div`
+  margin-right: var(--margin-sub);
+`;
+
+const Gift = styled.div`
+  color: var(--font-h3);
+  font-size: 11px;
 `;
 
 const Info = styled.div``;

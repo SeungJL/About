@@ -6,6 +6,7 @@ import { useUserRequestQuery2 } from "../../hooks/user/queries";
 
 function CheckPromotion() {
   const { data, isLoading } = useUserRequestQuery2();
+
   const suggestData = data?.filter((item) => item.category === "홍보");
 
   return (

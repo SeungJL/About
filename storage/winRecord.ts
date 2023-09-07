@@ -136,4 +136,16 @@ export const WIN_RECORD: {
     reason: "출석체크 랜덤 선물",
     present: "MEGA 커피",
   },
+  {
+    name: "연",
+    date: "9/7",
+    reason: "홍보이벤트 당첨 선물",
+    present: "BBQ 황금올리브 세트",
+  },
+  {
+    name: "임성",
+    date: "9/7",
+    reason: "홍보이벤트 당첨 선물",
+    present: "BBQ 황금올리브 세트",
+  },
 ];
