@@ -55,15 +55,17 @@ function Member({ membersAll }: IMember) {
     let restingArr = [];
     let adminArr = [];
     let birthArr = [];
-   
+
     members?.forEach((who) => {
       if (who?.name === "guest") return;
-
       if (who.role === "member") memberArr.push(who);
       if (who.role === "previliged" || who.role === "manager")
         adminArr.push(who);
       if (who.role === "human") humanArr.push(who);
-      if (who.role === "resting") restingArr.push(who);
+      if (who.role === "resting") {
+        if (dayjs(who.rest.endDate) >= dayjs()) restingArr.push(who);
+        else memberArr.push(who);
+      }
 
       if (who.birth.slice(2) === dayjs().format("MMDD") && who.role !== "human")
         birthArr.push(who);
