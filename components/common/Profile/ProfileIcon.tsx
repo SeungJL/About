@@ -56,7 +56,7 @@ function ProfileIcon({ user, size, isMember }: IProfileIcon) {
         <Layout
           avatarBg={
             user === "guest" || isError
-              ? AVATAR_COLOR[4]
+              ? AVATAR_COLOR[5]
               : isAvatar && AVATAR_COLOR[avatarBg]
           }
           size={iconSize}

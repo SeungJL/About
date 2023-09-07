@@ -37,7 +37,7 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
       <Wrapper
         style={{
           background: isError
-            ? AVATAR_COLOR[4]
+            ? AVATAR_COLOR[5]
             : isAvatar && AVATAR_COLOR[avatarBg],
         }}
       >
