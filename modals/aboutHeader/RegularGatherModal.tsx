@@ -60,7 +60,7 @@ function RegularGatherModal({ setIsModal }: IModal) {
           이번 달에는 개강을 맞아 같은 동네의 또래 친구들을 만날 수 있는
           조모임으로 진행합니다!
           <Count>
-            <span>현재 신청 인원:</span>
+            <span>전체 신청 인원:</span>
             <span>
               {isLoading
                 ? "..."
