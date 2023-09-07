@@ -1,22 +1,30 @@
 import { Button } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
-import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import {
   useUserInfoQuery,
   useUserRequestQuery2,
 } from "../../hooks/user/queries";
+import { isGuestState } from "../../recoil/userAtoms";
 import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
 function RegularGatherModal({ setIsModal }: IModal) {
+  const isGuest = useRecoilValue(isGuestState);
+  const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
-  const { data: userInfo } = useUserInfoQuery();
+  const { data: userInfo } = useUserInfoQuery({ enabled: isGuest === false });
   const { data: requestData, isLoading } = useUserRequestQuery2();
 
   const { mutate } = useUserRequestMutation({
@@ -30,8 +38,10 @@ function RegularGatherModal({ setIsModal }: IModal) {
   const { register, handleSubmit } = useForm();
 
   const onValid = (data) => {
-  
-
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
     const applyData: IUserRequest = {
       category: "조모임",
       location: userInfo.location,
