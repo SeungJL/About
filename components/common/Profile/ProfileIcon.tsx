@@ -63,7 +63,7 @@ function ProfileIcon({ user, size, isMember }: IProfileIcon) {
           onClick={onClick}
         >
           <Image
-            src={isError ? AVATAR_ICON[0] : imageUrl}
+            src={isError ? AVATAR_ICON[1] : imageUrl}
             width={isError || isAvatar ? 0.8 * iconSize : iconSize}
             height={isError || isAvatar ? 0.8 * iconSize : iconSize}
             alt="ProfileIcon"

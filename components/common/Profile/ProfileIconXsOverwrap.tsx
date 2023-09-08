@@ -43,7 +43,7 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
       >
         {!isOverlap ? (
           <Image
-            src={isError ? AVATAR_ICON[0] : imageUrl}
+            src={isError ? AVATAR_ICON[1] : imageUrl}
             width={isAvatar ? 21 : 26}
             height={isAvatar ? 21 : 26}
             alt="ProfileIconXsOverwrap"
@@ -53,7 +53,7 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
         ) : (
           <OverlapWrapper>
             <Image
-              src={isError ? AVATAR_ICON[0] : imageUrl}
+              src={isError ? AVATAR_ICON[1] : imageUrl}
               width={isError ? 21 : isAvatar ? 21 : 26}
               height={isError ? 21 : isAvatar ? 21 : 26}
               alt="ProfileIconXsOverwrap"
