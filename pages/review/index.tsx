@@ -58,8 +58,12 @@ function Review() {
   };
 
   const writers = {
-    이승주: { name: "이승주", profileImage: null, avatar: { bg: 10, type: 9 } },
-    서유진: { name: "서유진", profileImage: null, avatar: { bg: 3, type: 4 } },
+    이승주: {
+      name: "이승주",
+      profileImage: null,
+      avatar: { bg: 0, type: 11 },
+    },
+    서유진: { name: "서유진", profileImage: null, avatar: { bg: 3, type: 7 } },
     찬민: {
       name: "찬민",
       profileImage:
@@ -81,6 +85,12 @@ function Review() {
       name: "김석훈",
       profileImage:
         "http://k.kakaocdn.net/dn/cWx5rA/btr7dOzI5TO/AW8kPq23hSHFF7TjSihJ91/img_640x640.jpg",
+      avatar: null,
+    },
+    최지아: {
+      name: "최지아",
+      profileImage:
+        "https://p.kakaocdn.net/th/talkp/woeoxF3Sok/CwC8U0RXEY4zM2nnOl7MN0/wxwkco_640x640_s.jpg",
       avatar: null,
     },
   };

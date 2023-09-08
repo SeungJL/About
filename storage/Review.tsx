@@ -208,4 +208,30 @@ export const REVIEW_DATA = [
     location: "양천",
     writer: "찬민",
   },
+  {
+    id: 62,
+    date: "8월 23일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/266530760-c9211cd5-5406-4dbe-8726-351f0710c240.jpg",
+      "https://user-images.githubusercontent.com/84257439/266530731-c72566b7-5c14-46b0-9bf3-67da6f503307.jpg",
+      "https://user-images.githubusercontent.com/84257439/266530804-00801ca4-e739-45fe-9c33-e40e2fa63f37.jpg",
+      "https://user-images.githubusercontent.com/84257439/266530786-6e61ea82-92df-4f25-9635-f7a65e7411fa.jpg",
+    ],
+    text: "",
+    title: "행궁동에서 영화보고 밥 먹기",
+    location: "수원",
+    writer: "최지아",
+  },
+  {
+    id: 64,
+    date: "8월 25일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/266534122-ee0f4627-25cb-48ea-8b9c-faee32e7c723.jpg",
+      "https://user-images.githubusercontent.com/84257439/266534132-8dd6f018-4786-49d7-b487-15e087d4e8d1.jpg",
+      "https://user-images.githubusercontent.com/84257439/266534135-c12d76bf-c79f-4c65-992e-780b8c31c927.jpg",
+    ],
+    text: "비 오는날 초가집에서 감성있는 막걸리 번개. 도토리묵이랑 막걸리가 특히 맛있었어요 ㅎㅎ",
+    title: "두메산골 막걸리",
+    location: "수원",
+  },
 ];
