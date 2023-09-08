@@ -19,6 +19,7 @@ function RecordSetting({
 }: IRecordSetting) {
   const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
   const dayjsMonth = dayjs().month(month);
+
   useEffect(() => {
     if (!openData) return;
     const daysInMonth = dayjsMonth.daysInMonth();
@@ -32,14 +33,15 @@ function RecordSetting({
           ? null
           : { date: i - startDayInMonth + 1, arrivedInfoList: [] }
     );
-
     openData?.forEach((element) => {
       const infoDate = dayjs(element.date).date();
+
       if (temp[startDayInMonth + infoDate - 1]) {
         temp[startDayInMonth + infoDate - 1].arrivedInfoList =
           element.arrivedInfoList;
       }
     });
+
     setMonthData(temp);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

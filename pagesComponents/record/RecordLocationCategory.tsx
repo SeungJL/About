@@ -62,7 +62,15 @@ function RecordLocationCategory({
         >
           안양
         </Button>
+        <Button
+          category={category}
+          isSelected={category === "강남"}
+          onClick={() => onClickBadge("강남")}
+        >
+          강남
+        </Button>
       </SpaceBadge>
+      <span>Free 오픈 제외</span>
     </Layout>
   );
 }
@@ -79,6 +87,10 @@ const Layout = styled.div`
   > div {
     display: flex;
     align-items: center;
+  }
+  > span:last-child {
+    font-size: 10px;
+    color: var(--font-h3);
   }
 `;
 
@@ -97,6 +109,9 @@ const SpaceBadge = styled.section`
   }
   > button:nth-child(3) {
     color: ${VOTE_TABLE_COLOR[2]};
+  }
+  > button:nth-child(4) {
+    color: ${VOTE_TABLE_COLOR[1]};
   }
 `;
 

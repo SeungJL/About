@@ -11,6 +11,7 @@ import RecordCalendarSkeleton from "./skeleton/RecordCalendarSkeleton";
 const 수원 = VOTE_TABLE_COLOR[0];
 const 양천 = VOTE_TABLE_COLOR[3];
 const 안양 = VOTE_TABLE_COLOR[2];
+const 강남 = VOTE_TABLE_COLOR[1];
 
 interface IRecordCalendar {
   month: number;
@@ -37,6 +38,8 @@ function RecordCalendar({ month, monthData }: IRecordCalendar) {
                     <OpenDate location="양천">{item?.date}</OpenDate>
                   ) : month === 6 && item?.date === 9 ? (
                     <OpenDate location="안양">{item?.date}</OpenDate>
+                  ) : month === 8 && item?.date === 5 ? (
+                    <OpenDate location="강남">{item?.date}</OpenDate>
                   ) : (
                     <div>{item?.date}</div>
                   )}
@@ -51,6 +54,9 @@ function RecordCalendar({ month, monthData }: IRecordCalendar) {
                       {item?.arrivedInfoList.some(
                         (place) => SPACE_LOCATION[place.placeId] === "안양"
                       ) && <Open location="안양">Open</Open>}
+                      {item?.arrivedInfoList.some(
+                        (place) => SPACE_LOCATION[place.placeId] === "강남"
+                      ) && <Open location="강남">Open</Open>}
                     </>
                   )}
                 </DayItem>
@@ -120,7 +126,9 @@ const OpenDate = styled.div<{ location: Location }>`
       ? `2px solid ${수원}`
       : props.location === "양천"
       ? `2px solid ${양천}`
-      : `2px solid ${안양}`};
+      : props.location === "안양"
+      ? `2px solid ${안양}`
+      : `2px solid ${강남}`};
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -129,7 +137,13 @@ const OpenDate = styled.div<{ location: Location }>`
 const Open = styled.div<{ location: Location }>`
   font-size: 10px;
   color: ${(props) =>
-    props.location === "수원" ? 수원 : props.location === "양천" ? 양천 : 안양};
+    props.location === "수원"
+      ? 수원
+      : props.location === "양천"
+      ? 양천
+      : props.location === "안양"
+      ? 안양
+      : 강남};
 `;
 
 export default RecordCalendar;
