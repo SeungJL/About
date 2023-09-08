@@ -28,9 +28,9 @@ const Header = ({ title, url, children, isPrev }: IHeader) => {
 
   return (
     <Layout>
-      <div onClick={handleClick}>
+      <IconWrapper onClick={handleClick}>
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
-      </div>
+      </IconWrapper>
       <Title>{title}</Title>
       <Nav>{children}</Nav>
     </Layout>
@@ -39,17 +39,24 @@ const Header = ({ title, url, children, isPrev }: IHeader) => {
 
 const Layout = styled.div`
   height: 46px;
-  padding: 0 var(--padding-main);
+  padding-right: var(--padding-main);
   display: flex;
+  justify-content: center;
   align-items: center;
   color: var(--font-h1);
+`;
+
+const IconWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--padding-main);
 `;
 
 const Title = styled.span`
   color: var(--font-h1);
   font-size: 17px;
   font-weight: 600;
-  margin-left: var(--margin-main);
 `;
 
 const Nav = styled.nav`
