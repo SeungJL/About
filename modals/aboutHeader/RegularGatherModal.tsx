@@ -18,10 +18,17 @@ import {
 } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 import { ModalMain } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { DispatchBoolean, IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
-function RegularGatherModal({ setIsModal }: IModal) {
+interface IRegularGatherModal extends IModal {
+  setIsRabbitRun: DispatchBoolean;
+}
+
+function RegularGatherModal({
+  setIsModal,
+  setIsRabbitRun,
+}: IRegularGatherModal) {
   const isGuest = useRecoilValue(isGuestState);
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
@@ -40,8 +47,10 @@ function RegularGatherModal({ setIsModal }: IModal) {
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
-    if (!localStorage.getItem(RABBIT_RUN))
+    if (!localStorage.getItem(RABBIT_RUN)) {
+      setIsRabbitRun(false);
       localStorage.setItem(RABBIT_RUN, "read");
+    }
   }, []);
 
   const onValid = (data) => {

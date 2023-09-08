@@ -58,8 +58,7 @@ function AboutHeader() {
   useEffect(() => {
     if (!!attendCheckWinGift) setIsAttendCheckGift(true);
     else setIsAttendCheck(false);
-    if (!localStorage.getItem(RABBIT_RUN)) 
-      setIsRabbitRun(true);
+    if (!localStorage.getItem(RABBIT_RUN)) setIsRabbitRun(true);
   }, [attendCheckWinGift]);
 
   const onClickIcon = (type: string) => {
@@ -157,7 +156,10 @@ function AboutHeader() {
         )}
         {isRabbit && (
           <ModalPortal setIsModal={setIsRabbit}>
-            <RegularGatherModal setIsModal={setIsRabbit} />
+            <RegularGatherModal
+              setIsRabbitRun={setIsRabbitRun}
+              setIsModal={setIsRabbit}
+            />
           </ModalPortal>
         )}
       </>
