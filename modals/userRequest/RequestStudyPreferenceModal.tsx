@@ -43,6 +43,9 @@ function RequestStudyPreferenceModal({
   const { mutate: setStudyPreference } = useStudyPreferenceMutation({
     onSuccess() {
       completeToast("success");
+      setTimeout(() => {
+        document.location.reload();
+      }, 1000);
     },
   });
 

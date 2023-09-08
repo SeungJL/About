@@ -71,7 +71,7 @@ function Ranking({ membersAll }: IRanking) {
       session?.uid as string,
       category === "누적" ? "score" : "attend"
     );
-
+  
     setMyRank({ rankNum, percent, isRank, score });
 
     setIsLoading(false);

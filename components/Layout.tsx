@@ -33,7 +33,6 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token) && !!session,
     onSuccess(data) {
-      console.log(data);
       if (isGuest || !isAccessPermission) return;
       if (data === null) {
         if (router?.query?.status === "login")

@@ -2,8 +2,9 @@ import { Select, Switch } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useUserLocationQuery } from "../../hooks/user/queries";
+import { userLocationState } from "../../recoil/userAtoms";
 import { RankingCategory as RankingCategoryType } from "../../types/page/ranking";
 import { DispatchBoolean, DispatchNumber } from "../../types/reactTypes";
 import { IVoteRate } from "../../types/study/studyRecord";
@@ -29,9 +30,8 @@ function RankingCategory({
 }: IRankingCategory) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-
-  const { data: location } = useUserLocationQuery();
-
+  const location = useRecoilValue(userLocationState);
+  
   const [isFilter, setIsFilter] = useState(true);
 
   useEffect(() => {
@@ -104,7 +104,7 @@ function RankingCategory({
           mx="var(--margin-md)"
           onChange={onChangeFilter}
         />
-        <SwitchLabel isSelected={isFilter}>수원</SwitchLabel>
+        <SwitchLabel isSelected={isFilter}>{location}</SwitchLabel>
       </SwitchWrapper>
     </Layout>
   );

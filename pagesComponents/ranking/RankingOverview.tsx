@@ -54,12 +54,13 @@ function RankingOverview({
                 <span>랭킹:</span>
                 <span>
                   <Skeleton isLoad={!isLoading}>
-                    <RankNum>
-                      {isGuest
-                        ? "--"
-                        : !isinitialLoading && myRank?.rankNum + 1}
-                      <span>위</span>
-                    </RankNum>
+                    {isGuest ? (
+                      <RankNew>New</RankNew>
+                    ) : !isinitialLoading && myRank.rankNum === -1 ? (
+                      <RankNew>New</RankNew>
+                    ) : (
+                      <RankNum>{myRank?.rankNum + 1}위</RankNum>
+                    )}
                   </Skeleton>
                 </span>
               </>
@@ -103,6 +104,14 @@ function RankingOverview({
     </>
   );
 }
+
+const RankNew = styled.span`
+  font-size: 20px;
+  font-weight: 800;
+  > span {
+    font-size: 18px;
+  }
+`;
 
 const Layout = styled.div`
   height: 20vh;

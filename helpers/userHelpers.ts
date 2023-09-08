@@ -105,10 +105,11 @@ export const sortUserScore = (
     scoreArr.forEach((user) => {
       if (myValue !== null && user.score > myValue) myRankNum++;
     });
+
     if (myRankNum <= 100)
       return {
         scoreArr: scoreArr as IScore[],
-        rankNum: myRankNum,
+        rankNum: myValue === 0 ? -1 : myRankNum,
         isRank: true,
         score: myValue,
       };
@@ -122,7 +123,7 @@ export const sortUserScore = (
       });
     return {
       scoreArr: scoreArr as IVoteRate[],
-      rankNum: myRankNum,
+      rankNum: myValue === 0 ? -1 : myRankNum,
       isRank: true,
       score: myValue,
     };

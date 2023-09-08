@@ -34,7 +34,7 @@ function StudyQuickVoteModalRegister({ setIsModal }: IModal) {
         <ModalPortal setIsModal={setIsPreference}>
           <RequestStudyPreferenceModal
             setIsModal={setIsModal}
-            isBig={location === "수원"}
+            isBig={location !== "안양"}
           />
         </ModalPortal>
       )}

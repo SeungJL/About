@@ -31,7 +31,7 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
     onSuccess(data) {
       const temp = data.filter((who) => who.location === location);
       const arrangedData = sortUserScore(temp, session?.uid as string, "score");
-
+   
       if (arrangedData.isRank)
         setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
       else setMyRank({ percent: arrangedData.percent, isRank: false });
@@ -57,10 +57,10 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
           <div>About 랭킹</div>
           {(myRank || isGuest) && (
             <div>
-              {isGuest ? (
+              {isGuest || myRank?.rankNum === -1 ? (
                 <span>New</span>
               ) : myRank?.isRank ? (
-                <span> {myRank?.rankNum + 1}위</span>
+                <span>지역 {myRank?.rankNum + 1}위</span>
               ) : (
                 <span>상위 {myRank?.percent}%</span>
               )}
