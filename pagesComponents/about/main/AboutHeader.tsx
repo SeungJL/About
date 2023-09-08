@@ -58,10 +58,8 @@ function AboutHeader() {
   useEffect(() => {
     if (!!attendCheckWinGift) setIsAttendCheckGift(true);
     else setIsAttendCheck(false);
-    if (!localStorage.getItem(RABBIT_RUN)) {
+    if (!localStorage.getItem(RABBIT_RUN)) 
       setIsRabbitRun(true);
-      localStorage.setItem(RABBIT_RUN, "read");
-    }
   }, [attendCheckWinGift]);
 
   const onClickIcon = (type: string) => {

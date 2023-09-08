@@ -1,9 +1,11 @@
 import { Button } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
+import { RABBIT_RUN } from "../../constants/localStorage";
 import {
   useCompleteToast,
   useErrorToast,
@@ -36,6 +38,11 @@ function RegularGatherModal({ setIsModal }: IModal) {
   });
 
   const { register, handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (!localStorage.getItem(RABBIT_RUN))
+      localStorage.setItem(RABBIT_RUN, "read");
+  }, []);
 
   const onValid = (data) => {
     if (isGuest) {
