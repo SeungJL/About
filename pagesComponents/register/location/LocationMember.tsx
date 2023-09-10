@@ -1,8 +1,4 @@
-import {
-  faCaretUp,
-  faUserClock,
-  faUsers,
-} from "@fortawesome/pro-solid-svg-icons";
+import { faCaretUp, faUsers } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { Location } from "../../../types/system";
@@ -10,35 +6,38 @@ import { Location } from "../../../types/system";
 function LocationMember({ location }: { location: Location }) {
   const memberCnt =
     location === "수원"
-      ? 171
+      ? 181
       : location === "양천"
-      ? 51
+      ? 66
       : location === "안양"
-      ? 27
-      : 3;
-  const newCnt = location === "수원" ? 4 : location === "양천" ? 3 : 2;
+      ? 29
+      : location === "강남"
+      ? 34
+      : 11;
+
+  const newCnt =
+    location === "수원"
+      ? 4
+      : location === "양천"
+      ? 3
+      : location === "강남"
+      ? 4
+      : location === "안양"
+      ? 2
+      : 7;
 
   return (
     <Layout>
-      {location === "강남" ? (
-        <Member>
-          <MemberCnt>
-            <FontAwesomeIcon icon={faUserClock} size="xs" />
-            <span>41</span>
-          </MemberCnt>
-        </Member>
-      ) : false ? null : (
-        <Member>
-          <MemberCnt>
-            <FontAwesomeIcon icon={faUsers} size="xs" />
-            <span>{memberCnt}</span>
-          </MemberCnt>
-          <NewMember>
-            <FontAwesomeIcon icon={faCaretUp} />
-            <span>{newCnt}</span>
-          </NewMember>
-        </Member>
-      )}
+      <Member>
+        <MemberCnt>
+          <FontAwesomeIcon icon={faUsers} size="xs" />
+          <span>{memberCnt}</span>
+        </MemberCnt>
+        <NewMember>
+          <FontAwesomeIcon icon={faCaretUp} />
+          <span>{newCnt}</span>
+        </NewMember>
+      </Member>
     </Layout>
   );
 }
