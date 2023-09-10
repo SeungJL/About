@@ -58,6 +58,9 @@ function RegularGatherModal({
       failToast("guest");
       return;
     }
+    /**종료 */
+    failToast("free", "신청이 마감되었습니다.");
+    return;
     const applyData: IUserRequest = {
       category: "조모임",
       location: userInfo.location,
