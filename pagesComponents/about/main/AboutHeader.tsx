@@ -23,7 +23,7 @@ import { useInteractionLikeQuery } from "../../../hooks/interaction/queries";
 import AttendCheckModal from "../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../modals/aboutHeader/AttendCheckWinModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
-import RegularGatherModal from "../../../modals/aboutHeader/RegularGatherModal";
+import RegularGatherResultModal from "../../../modals/aboutHeader/RegularGatherResultModal";
 import StudyRuleModal from "../../../modals/aboutHeader/studyRuleModal/StudyRuleModal";
 import {
   attendCheckWinGiftState,
@@ -156,9 +156,13 @@ function AboutHeader() {
         )}
         {isRabbit && (
           <ModalPortal setIsModal={setIsRabbit}>
-            <RegularGatherModal
+            {/* <RegularGatherModal
               setIsRabbitRun={setIsRabbitRun}
               setIsModal={setIsRabbit}
+            /> */}
+            <RegularGatherResultModal
+              setIsModal={setIsRabbit}
+              setIsRabbitRun={setIsRabbitRun}
             />
           </ModalPortal>
         )}
