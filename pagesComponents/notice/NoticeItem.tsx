@@ -1,12 +1,4 @@
 import {
-  faChessKing,
-  faChessPawn,
-  faChessRook,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
-
-import {
   Accordion,
   AccordionButton,
   AccordionIcon,
@@ -16,18 +8,24 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import { faChessQueen } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faChessKing,
+  faChessPawn,
+  faChessQueen,
+  faChessRook,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 import { VOTE_TABLE_COLOR } from "../../constants/system";
 import { noticeData } from "../../storage/notice";
 
 function NoticeItem() {
-  noticeData.sort((a, b) => Number(b.id) - Number(a.id));
   return (
     <>
       <Accordion allowToggle>
-        {noticeData.map((item) => (
+        {[...noticeData].reverse().map((item) => (
           <AccordionItem borderTop="none" key={item.id}>
-            <AccordionButton height="60px">
+            <AccordionButton height="60px" _focus={{ outline: "none" }}>
               <Box as="span" flex="1" textAlign="left" display="flex">
                 <Flex width="48px" align="center">
                   {item.category === "main" ? (
@@ -49,10 +47,7 @@ function NoticeItem() {
               </Box>
               <AccordionIcon />
             </AccordionButton>
-
-            <AccordionPanel pb={4} p="6">
-              {item.content}
-            </AccordionPanel>
+            <AccordionPanel p={6}>{item.content}</AccordionPanel>
           </AccordionItem>
         ))}
       </Accordion>
@@ -94,16 +89,10 @@ const IconLayout = styled.div<{ name: string }>`
     props.name === "king"
       ? "var(--color-red)"
       : props.name === "pawn"
-      ? VOTE_TABLE_COLOR[2]
+      ? VOTE_TABLE_COLOR[1]
       : props.name === "queen"
       ? VOTE_TABLE_COLOR[3]
       : "var(--color-mint)"};
-`;
-
-const Active = styled.div`
-  text-align: center;
-  margin-top: 10px;
-  color: var(--font-h2);
 `;
 
 export default NoticeItem;
