@@ -50,7 +50,7 @@ function CheckGather() {
           <Teams>
             <Team>
               <span>Team A:</span>
-              <Members>이선호 김희석 조승원 이도경 이윤경</Members>
+              <Members>이선호 김희석 조승원 이도경 이혜빈 이윤경</Members>
             </Team>
             <Team>
               <span>Team B:</span>
