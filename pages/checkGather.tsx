@@ -41,7 +41,7 @@ function CheckGather() {
             </Team>
             <Team>
               <span>Team G:</span>
-              <Members>웅섭 준형 양병연 연 구채은 예은</Members>
+              <Members>웅섭 준형 양병연 아연 구채은 예은</Members>
             </Team>
           </Teams>
         </Item>
