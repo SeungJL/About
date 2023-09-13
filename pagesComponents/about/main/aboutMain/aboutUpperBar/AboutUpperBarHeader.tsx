@@ -23,6 +23,7 @@ function AboutUpperBarHeader() {
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const [isModal, setIsModal] = useState(false);
+ 
 
   const isCheck = !!mySpaceFixed?.attendences.find(
     (who) => who.user.uid === session?.uid
@@ -39,13 +40,12 @@ function AboutUpperBarHeader() {
             <ButtonSkeleton>
               <Skeleton>temp</Skeleton>
             </ButtonSkeleton>
+          ) : isCheck ? (
+            <Check>
+              <FontAwesomeIcon icon={faCheck} size="lg" />
+            </Check>
           ) : (
-            mySpaceFixed &&
-            (isCheck ? (
-              <Check>
-                <FontAwesomeIcon icon={faCheck} size="lg" />
-              </Check>
-            ) : (
+            mySpaceFixed && (
               <Button
                 leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
                 onClick={() => setIsModal(true)}
@@ -56,7 +56,7 @@ function AboutUpperBarHeader() {
               >
                 출석체크
               </Button>
-            ))
+            )
           )}
         </Title>
         <LocationSelector />

@@ -34,7 +34,9 @@ function AboutUpperBarResult() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+
+`;
 
 const Result = styled.div`
   margin: 16px 0;

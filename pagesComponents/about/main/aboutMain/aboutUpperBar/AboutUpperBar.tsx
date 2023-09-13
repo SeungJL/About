@@ -13,6 +13,7 @@ function AboutUpperBar() {
 
 const Layout = styled.div`
   padding: var(--padding-main);
+  padding-bottom: 0;
 `;
 
 export default AboutUpperBar;
