@@ -22,25 +22,9 @@ function StudySettingParticipations({
   const location = useRecoilValue(locationState);
   const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
 
-  const { refetch } = useStudyVoteQuery(voteDate, location, {
-    onSuccess(data) {
-      const temp = arrangeSpace(data.participations);
-      setParticipations(temp);
-      setStudyState(temp);
-    },
-    onError: (e) => typeErrorToast(e, "study"),
-  });
 
-  useEffect(() => {
-    if (isRefetch) {
-      setTimeout(() => {
-        refetch();
-        setIsRefetch(false);
-      }, 600);
-    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefetch]);
+ 
 
   return null;
 }

@@ -134,7 +134,7 @@ const Login: NextPage<{
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <ModalLayout size="md" isWideShort={true}>
+          <ModalLayout size="md" width={true}>
             <Header>
               <span>가입 대기중</span>
             </Header>

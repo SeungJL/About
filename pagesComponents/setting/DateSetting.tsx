@@ -20,8 +20,9 @@ function DateSetting() {
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 
+  //스터디 참여자인지 판단
   useStudyVoteQuery(dayjs(), location, {
-    enabled: isDefaultPrev && voteDate === null,
+    enabled: isDefaultPrev,
     onSuccess(data) {
       const isMyVote = data.participations.some(
         (participation) =>
@@ -32,6 +33,7 @@ function DateSetting() {
       );
       if (isMyVote) setVoteDate(dayjs().startOf("day"));
       else setVoteDate(getInterestingDate());
+      setIsDefaultPrev(false);
     },
   });
 
@@ -42,16 +44,15 @@ function DateSetting() {
     if (STUDY_VOTE_START_HOUR <= currentHour && currentHour < VOTER_DATE_END) {
       if (isGuest) setVoteDate(dayjs());
       else setIsDefaultPrev(true);
-    } else setVoteDate(getInterestingDate);
+    } else setVoteDate(getInterestingDate());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest]);
 
-  //날짜
+  //날짜 판단
   useEffect(() => {
     setIsMainLoading(true);
     if (!voteDate) return;
     const studyDate = getStudyDate(voteDate);
-
     setStudyDate(studyDate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);

@@ -1,5 +1,6 @@
 import { faInfinity, faUserGroup } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Fragment } from "react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../components/common/Profile/ProfileIconXsOverwrap";
 import { GatherMemberCnt } from "../../../../types/page/gather";
@@ -17,16 +18,16 @@ function AboutGatherMember({ memberCnt, participants }: IAboutGatherMember) {
     <Layout>
       <Member>
         {participants.map((who, idx) => (
-          <>
+          <Fragment key={idx}>
             {idx <= VISIBLE_MEMBER_CNT && (
-              <ProfileContainer zIndex={idx} key={idx}>
+              <ProfileContainer zIndex={idx}>
                 <ProfileIconXsOverwrap
                   user={who}
                   isOverlap={idx === VISIBLE_MEMBER_CNT}
                 />
               </ProfileContainer>
             )}
-          </>
+          </Fragment>
         ))}
       </Member>
       <MemberCnt>

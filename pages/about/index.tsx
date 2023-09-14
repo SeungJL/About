@@ -19,7 +19,6 @@ import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
   myStudyFixedState,
   studyDateState,
-  studyState,
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
@@ -29,7 +28,6 @@ import { IStudy } from "../../types/study/study";
 function About() {
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
-  const A = useRecoilValue(studyState);
 
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
@@ -48,8 +46,7 @@ function About() {
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySpaceFixed, participations]);
-  console.log(23);
-  
+
   return (
     <>
       <Setting>

@@ -1,12 +1,11 @@
-export const ensureLocalStorage = (key: string, secondKey?: string) => {
-  let temp = true;
+import dayjs from "dayjs";
 
-  if (!localStorage.getItem(key)) {
-    localStorage.setItem(key, "read");
-    temp = false;
-  }
-  if (secondKey && !localStorage.getItem(secondKey)) {
-    localStorage.setItem(secondKey, "read");
+export const checkAndSetLocalStorage = (key: string, gap: number) => {
+  let temp = true;
+  const value = localStorage.getItem(key);
+
+  if (!value || dayjs(value).add(gap, "day") <= dayjs()) {
+    localStorage.setItem(key, dayjs().format("YYYYMMDD"));
     temp = false;
   }
 

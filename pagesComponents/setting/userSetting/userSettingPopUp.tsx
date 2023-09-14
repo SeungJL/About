@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import ModalPortal from "../../../components/common/ModalPortal";
@@ -9,7 +8,7 @@ import {
   SUGGEST_POP_UP,
   USER_GUIDE,
 } from "../../../constants/localStorage";
-import { ensureLocalStorage } from "../../../helpers/storageHelpers";
+import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../../modals/pop-up/ProfileModifyPopUp";
@@ -24,7 +23,6 @@ interface IUserSettingPopUp {
 function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const setIsNoticeAlert = useSetRecoilState(isNoticeAlertState);
 
-  const [myProfileNull, setMyProfileNull] = useState(false);
   const [isAttend, setIsAttend] = useState(false);
   const [isUserGuide, setIsUserGuide] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
@@ -32,38 +30,31 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const [isSuggest, setIsSuggest] = useState(false);
 
   useEffect(() => {
-    const promotion = localStorage.getItem(PROMOTION_POP_UP);
-    const suggest = localStorage.getItem(SUGGEST_POP_UP);
-
     let popupCnt = 0;
     if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
     if (isProfileEdit) {
       setIsProfile(true);
       popupCnt++;
     }
-    if (!ensureLocalStorage(USER_GUIDE)) {
+    if (!checkAndSetLocalStorage(USER_GUIDE, 15)) {
       setIsUserGuide(true);
-      popupCnt++;
+      if (++popupCnt === 2) return;
     }
-    if (popupCnt === 2) return;
-
-    if (!promotion || dayjs(promotion).add(3, "day") <= dayjs()) {
-      localStorage.setItem(PROMOTION_POP_UP, dayjs().format("YYYYMMDD"));
+    if (!checkAndSetLocalStorage(PROMOTION_POP_UP, 3)) {
       setIsPromotion(true);
-      popupCnt++;
+      if (++popupCnt === 2) return;
     }
-
-    if (popupCnt === 2) return;
-    if (!suggest || dayjs(suggest).add(1, "weeks") <= dayjs()) {
-      localStorage.setItem(SUGGEST_POP_UP, dayjs().format("YYYYMMDD"));
+    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 7)) {
       setIsSuggest(true);
-      popupCnt++;
+      if (++popupCnt === 2) return;
+    }
+    if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
+      setIsAttend(true);
+      if (++popupCnt === 2) return;
     }
 
-    if (popupCnt === 2) return;
-    if (!ensureLocalStorage(ATTEND_POP_UP)) setIsAttend(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isProfileEdit]);
 
   return (
     <>

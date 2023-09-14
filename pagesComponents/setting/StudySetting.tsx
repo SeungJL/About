@@ -1,14 +1,14 @@
-import dayjs from "dayjs";
 import { SetStateAction, useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { STUDY_VOTE_END_HOUR } from "../../constants/study";
-import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
-import { useStudyStartTimeQuery } from "../../hooks/study/queries";
-import { studyStartTimeState, voteDateState } from "../../recoil/studyAtoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { arrangeSpace } from "../../helpers/studyHelpers";
+import { useTypeErrorToast } from "../../hooks/CustomToast";
+import { useStudyVoteQuery } from "../../hooks/study/queries";
+import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
+import { studyState, voteDateState } from "../../recoil/studyAtoms";
+import { locationState } from "../../recoil/userAtoms";
 import { IStudy } from "../../types/study/study";
-import StudySettingParticipations from "./studySetting/StudySettingParticipations";
+import StudySettingDecision from "./studySetting/StudySettingDecision";
 import StudySettingUser from "./studySetting/StudySettingUser";
-
 interface IStudySetting {
   participations: IStudy[];
   setParticipations: React.Dispatch<SetStateAction<IStudy[]>>;
@@ -16,28 +16,39 @@ interface IStudySetting {
 
 function StudySetting({ participations, setParticipations }: IStudySetting) {
   const voteDate = useRecoilValue(voteDateState);
-  const setStudyStartTime = useSetRecoilState(studyStartTimeState);
 
-  useStudyStartTimeQuery(voteDate, {
+  const typeErrorToast = useTypeErrorToast();
+
+  const setStudyState = useSetRecoilState(studyState);
+
+  const location = useRecoilValue(locationState);
+  const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
+
+  const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess(data) {
-      setStudyStartTime(data);
+      const temp = arrangeSpace(data.participations);
+      setParticipations(temp);
+      setStudyState(temp);
     },
+    onError: (e) => typeErrorToast(e, "study"),
   });
-
-  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day")
-  );
-
   useEffect(() => {
-    if (participations.length === 0 || participations[0].status !== "pending")
-      return;
-    if (dayjs().hour() >= STUDY_VOTE_END_HOUR) decideSpace();
+    if (isRefetch) {
+      setTimeout(() => {
+        refetch();
+        setIsRefetch(false);
+      }, 600);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [participations]);
+  }, [isRefetch]);
 
   return (
     <>
-      <StudySettingParticipations setParticipations={setParticipations} />
+      <StudySettingDecision
+        voteDate={voteDate}
+        participations={participations}
+      />
       <StudySettingUser participations={participations} />
     </>
   );

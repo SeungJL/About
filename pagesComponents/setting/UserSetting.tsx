@@ -14,12 +14,12 @@ export default function UserSetting() {
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
+  const isPopUpCondition = !isMainLoading && !isGuest;
+
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,
     onError: (e) => typeErrorToast(e, "user"),
   });
-
-  const isPopUpCondition = !isMainLoading && !isGuest;
 
   return (
     <>

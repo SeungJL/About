@@ -9,7 +9,7 @@ const nextConfig = {
       "play-lh.googleusercontent.com",
     ],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   compiler: {
     styledComponents: true,
   },
