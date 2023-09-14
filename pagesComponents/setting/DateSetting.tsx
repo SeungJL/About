@@ -6,7 +6,7 @@ import { STUDY_VOTE_START_HOUR, VOTER_DATE_END } from "../../constants/study";
 import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { studyDateState, voteDateState } from "../../recoil/studyAtoms";
+import { studyDateStatusState, voteDateState } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
 
 function DateSetting() {
@@ -15,7 +15,7 @@ function DateSetting() {
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const location = useRecoilValue(locationState);
-  const setStudyDate = useSetRecoilState(studyDateState);
+  const setStudyDate = useSetRecoilState(studyDateStatusState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
@@ -52,8 +52,8 @@ function DateSetting() {
   useEffect(() => {
     setIsMainLoading(true);
     if (!voteDate) return;
-    const studyDate = getStudyDate(voteDate);
-    setStudyDate(studyDate);
+    const studyDateStatus = getStudyDate(voteDate);
+    setStudyDate(studyDateStatus);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 

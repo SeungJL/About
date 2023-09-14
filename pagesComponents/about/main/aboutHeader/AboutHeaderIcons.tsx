@@ -1,0 +1,112 @@
+import {
+  faBadgeCheck,
+  faBalanceScale,
+  faBell,
+  faGift,
+  faUser,
+} from "@fortawesome/pro-regular-svg-icons";
+import { faRabbitRunning } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import {
+  ATTEND_CHECK,
+  LIKE_HEART_CNT,
+  NOTICE_ALERT,
+} from "../../../../constants/localStorage";
+import { useInteractionLikeQuery } from "../../../../hooks/interaction/queries";
+import { AlertIcon } from "../../../../styles/icons";
+import { AboutHeaderIconType } from "./AboutHeader";
+
+interface IAboutHeaderIcons {
+  setIconType: React.Dispatch<AboutHeaderIconType>;
+  isRabbitRun: boolean;
+}
+
+function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
+  const [isNoticeAlert, setIsNoticeAlert] = useState(false);
+
+  useInteractionLikeQuery({
+    onSuccess(data) {
+      const likeCnt = localStorage.getItem(LIKE_HEART_CNT);
+      if (+likeCnt !== data?.length) setIsNoticeAlert(true);
+    },
+  });
+
+  useEffect(() => {
+    if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
+  }, []);
+
+  const isAttendCheck = localStorage.getItem(ATTEND_CHECK);
+
+  return (
+    <Layout>
+      {!isAttendCheck && (
+        <IconWrapper>
+          <FontAwesomeIcon
+            icon={faBadgeCheck}
+            size="lg"
+            color="var(--color-mint)"
+            onClick={() => setIconType("attendCheck")}
+            bounce
+          />
+        </IconWrapper>
+      )}
+      <IconWrapper>
+        <FontAwesomeIcon
+          icon={faRabbitRunning}
+          size="lg"
+          color="var(--color-red)"
+          bounce={!!isAttendCheck && isRabbitRun}
+          onClick={() => setIconType("rabbit")}
+        />
+      </IconWrapper>
+      <IconWrapper>
+        <FontAwesomeIcon
+          icon={faBalanceScale}
+          size="lg"
+          onClick={() => setIconType("rule")}
+        />
+      </IconWrapper>
+      <IconWrapper>
+        <FontAwesomeIcon
+          icon={faGift}
+          size="lg"
+          onClick={() => setIconType("promotion")}
+        />
+      </IconWrapper>
+      <NoticeWrapper>
+        <FontAwesomeIcon
+          icon={faBell}
+          size="xl"
+          onClick={() => setIconType("notice")}
+        />
+        {isNoticeAlert && <Alert />}
+      </NoticeWrapper>
+      <IconWrapper>
+        <FontAwesomeIcon
+          icon={faUser}
+          size="xl"
+          onClick={() => setIconType("user")}
+        />
+      </IconWrapper>
+    </Layout>
+  );
+}
+const IconWrapper = styled.div`
+  margin-left: var(--margin-max);
+`;
+const Layout = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const NoticeWrapper = styled(IconWrapper)`
+  position: relative;
+`;
+const Alert = styled(AlertIcon)`
+  position: absolute;
+  right: 1px;
+  top: 1px;
+`;
+
+export default AboutHeaderIcons;

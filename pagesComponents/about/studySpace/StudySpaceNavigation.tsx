@@ -10,7 +10,7 @@ import { useStudyCancelMutation } from "../../../hooks/study/mutations";
 import {
   isVotingState,
   myStudyFixedState,
-  studyDateState,
+  studyDateStatusState,
 } from "../../../recoil/studyAtoms";
 
 import { useSession } from "next-auth/react";
@@ -39,7 +39,7 @@ interface IStudySpaceNavigation {
 export type ModalType = "change" | "absent" | "main" | "cancel" | "free";
 
 function StudySpaceNavigation({
-  studySpaceData: { place, attendences, status },
+  studySpaceData: { place, attendences, status, startTime },
   voteCnt,
 }: IStudySpaceNavigation) {
   const router = useRouter();
@@ -52,7 +52,7 @@ function StudySpaceNavigation({
   const voteDate = dayjs(router.query.date as string);
 
   const isVoting = useRecoilValue(isVotingState);
-  const studyDate = useRecoilValue(studyDateState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
 
   const [modalType, setModalType] = useState("");
@@ -93,7 +93,7 @@ function StudySpaceNavigation({
         return;
       }
     }
-    if (type === "absent" && studyDate === "not passed") {
+    if (type === "absent" && studyDateStatus === "not passed") {
       failToast("free", "스터디 시작 이후에만 사용이 가능합니다.");
       return;
     }
@@ -102,13 +102,13 @@ function StudySpaceNavigation({
 
   return (
     <>
-      {studyDate === "today" && status === "dismissed" ? (
+      {studyDateStatus === "today" && status === "dismissed" ? (
         <Layout>
           <MainButton func={true} onClick={() => onBtnClicked("free")}>
             Free 오픈 신청
           </MainButton>
         </Layout>
-      ) : studyDate === "passed" || status === "dismissed" ? (
+      ) : studyDateStatus === "passed" || status === "dismissed" ? (
         <Layout>
           <MainButton disabled={true} func={false}>
             기간 만료
@@ -130,7 +130,7 @@ function StudySpaceNavigation({
               <span>당일 불참</span>
             </Button>
           </SubNav>
-          {studyDate === "today" ? (
+          {studyDateStatus === "today" ? (
             <MainButton
               disabled={Boolean(myVote?.arrived)}
               func={!myVote?.arrived}

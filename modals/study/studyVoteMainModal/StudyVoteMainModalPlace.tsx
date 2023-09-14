@@ -2,7 +2,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PlaceSelector from "../../../components/features/selector/PlaceSelector";
-import { studyDateState } from "../../../recoil/studyAtoms";
+import { studyDateStatusState } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber } from "../../../types/reactTypes";
 import { IPlace, IStudy } from "../../../types/study/study";
@@ -31,7 +31,7 @@ function StudyVoteMainModalPlace({
   isBig,
   participations,
 }: IStudyVoteMainModalPlace) {
-  const studyDate = useRecoilValue(studyDateState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [places, setPlaces] = useState<IStudyVotePlaces[]>();
   const [votePlaces, setVotePlaces] = useState<IStudyPlaces>({
@@ -58,7 +58,7 @@ function StudyVoteMainModalPlace({
       setErrorMessage("장소를 선택해주세요!");
       return;
     }
-    if (studyDate === "today") setPage(2);
+    if (studyDateStatus === "today") setPage(2);
     else setPage(1);
   };
 

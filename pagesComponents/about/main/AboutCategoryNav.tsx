@@ -16,7 +16,7 @@ import { GATHER_ALERT, POINT_ALERT } from "../../../constants/localStorage";
 import { VOTE_TABLE_COLOR } from "../../../constants/system";
 import { locationState } from "../../../recoil/userAtoms";
 
-function AboutNavigation() {
+function AboutCategoryNav() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const router = useRouter();
@@ -155,4 +155,4 @@ const Button = styled.button`
   position: relative;
 `;
 
-export default AboutNavigation;
+export default AboutCategoryNav;

@@ -16,7 +16,7 @@ import {
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
-  studyDateState,
+  studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { IModal } from "../../../types/reactTypes";
@@ -43,7 +43,7 @@ function StudyVoteMainModal({
 
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
-  const studyDate = useRecoilValue(studyDateState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const setUpdateStudy = useSetRecoilState(isRefetchStudyState);
 
   const [page, setPage] = useState(0);
@@ -55,11 +55,11 @@ function StudyVoteMainModal({
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
       if (!isVoting) {
-        if (studyDate === "today") {
+        if (studyDateStatus === "today") {
           getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);
           getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
         }
-        if (studyDate === "not passed") {
+        if (studyDateStatus === "not passed") {
           getScore(POINT_SYSTEM_PLUS.voteStudy.score);
           getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
         }

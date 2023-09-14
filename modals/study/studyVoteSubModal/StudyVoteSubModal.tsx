@@ -4,7 +4,10 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { studyDateState, voteDateState } from "../../../recoil/studyAtoms";
+import {
+  studyDateStatusState,
+  voteDateState,
+} from "../../../recoil/studyAtoms";
 
 import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
 
@@ -44,7 +47,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   const inviteUid = router.query?.uid;
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
-  const studyDate = useRecoilValue(studyDateState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const voteDate = useRecoilValue(voteDateState);
 
   const [isFirst, setIsFirst] = useState(true);
@@ -59,11 +62,11 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
-      if (studyDate === "today") {
+      if (studyDateStatus === "today") {
         getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);
         getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
       }
-      if (studyDate === "not passed") {
+      if (studyDateStatus === "not passed") {
         getScore(POINT_SYSTEM_PLUS.voteStudy.score);
         getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
       }
@@ -97,8 +100,8 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
       failToast("free", "시작 시간은 종료 시간 이전이어야 합니다.");
       return;
     }
-    if (studyDate === "not passed") setIsFirst(false);
-    if (studyDate === "today") onSubmit();
+    if (studyDateStatus === "not passed") setIsFirst(false);
+    if (studyDateStatus === "today") onSubmit();
   };
 
   return (
@@ -122,7 +125,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
       </Wrapper>
       <MainButton onClick={isFirst ? handleNext : onSubmit}>
         {isFirst ? (
-          <span>{studyDate === "not passed" ? "선택" : "완료"}</span>
+          <span>{studyDateStatus === "not passed" ? "선택" : "완료"}</span>
         ) : (
           <span>투표 완료</span>
         )}

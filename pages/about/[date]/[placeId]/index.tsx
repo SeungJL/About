@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import StudySpaceVoteOverview from "../../../../pagesComponents/about/studySpace/SpaceSpaceVoteOverview";
@@ -17,6 +18,7 @@ export interface IStudySpaceData {
   place: IPlace;
   attendences: IAttendance[];
   status: StudyStatus;
+  startTime?: Dayjs;
 }
 const IMAGE_LIST = [1, 2, 3, 4, 5, 6];
 function StudySpace() {

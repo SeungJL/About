@@ -72,6 +72,7 @@ function AttendCheckModal({ setIsModal }: IModal) {
     setScore({ value: 3, message: "출석체크" });
     const randomNum = Math.round(Math.random() * 10000);
     const gift = percentItemArr[randomNum];
+
     if (gift !== null) {
       setAttendCheckWinGift(gift);
       const data: IUserRequest = {

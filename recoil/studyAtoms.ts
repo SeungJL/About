@@ -3,8 +3,8 @@ import { atom, RecoilEnv } from "recoil";
 import { IStudy, IStudyStartTime, StudyDate } from "../types/study/study";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
-export const studyState = atom<IStudy[]>({
-  key: "studyVote",
+export const participationsState = atom<IStudy[]>({
+  key: "participations",
   default: null,
 });
 
@@ -18,8 +18,8 @@ export const isVotingState = atom({
   default: false,
 });
 
-export const studyDateState = atom<StudyDate>({
-  key: "studyDate",
+export const studyDateStatusState = atom<StudyDate>({
+  key: "studyDateStatus",
   default: "today",
 });
 

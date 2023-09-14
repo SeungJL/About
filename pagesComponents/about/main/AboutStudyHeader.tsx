@@ -5,25 +5,24 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../../../components/common/ModalPortal";
-import Skeleton from "../../../../../components/common/skeleton/Skeleton";
-import LocationSelector from "../../../../../components/features/selector/LocationSelector";
-import StudyCheckModal from "../../../../../modals/study/StudyCheckModal";
-import { isMainLoadingState } from "../../../../../recoil/loadingAtoms";
+import ModalPortal from "../../../components/common/ModalPortal";
+import Skeleton from "../../../components/common/skeleton/Skeleton";
+import LocationSelector from "../../../components/features/selector/LocationSelector";
+import StudyCheckModal from "../../../modals/study/StudyCheckModal";
+import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import {
   myStudyFixedState,
-  studyDateState,
-} from "../../../../../recoil/studyAtoms";
+  studyDateStatusState,
+} from "../../../recoil/studyAtoms";
 
-function AboutUpperBarHeader() {
+function AboutStudyHeader() {
   const { data: session } = useSession();
 
-  const studyDate = useRecoilValue(studyDateState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const [isModal, setIsModal] = useState(false);
- 
 
   const isCheck = !!mySpaceFixed?.attendences.find(
     (who) => who.user.uid === session?.uid
@@ -32,11 +31,13 @@ function AboutUpperBarHeader() {
   return (
     <>
       <Layout>
-        <Title isNotPassed={studyDate !== "not passed"}>
+        <Title isNotPassed={studyDateStatus !== "not passed"}>
           <span>
-            {studyDate === "not passed" ? "카공 스터디" : "내 스터디 결과"}
+            {studyDateStatus === "not passed"
+              ? "카공 스터디"
+              : "내 스터디 결과"}
           </span>
-          {isMainLoading && studyDate === "today" ? (
+          {isMainLoading && studyDateStatus === "today" ? (
             <ButtonSkeleton>
               <Skeleton>temp</Skeleton>
             </ButtonSkeleton>
@@ -71,6 +72,8 @@ function AboutUpperBarHeader() {
 }
 
 const Layout = styled.div`
+  padding: var(--padding-main);
+  padding-bottom: 0;
   display: flex;
   justify-content: space-between;
   font-size: 18px;
@@ -91,4 +94,4 @@ const ButtonSkeleton = styled.div`
   width: 84px;
   height: 28px;
 `;
-export default AboutUpperBarHeader;
+export default AboutStudyHeader;

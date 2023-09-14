@@ -15,7 +15,7 @@ import ProfileIcon from "../../../../components/common/Profile/ProfileIcon";
 import { useStudyAbsentQuery } from "../../../../hooks/study/queries";
 import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrivedModal";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { studyDateState } from "../../../../recoil/studyAtoms";
+import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 import { IAttendance } from "../../../../types/study/study";
 import { IUser } from "../../../../types/user/user";
@@ -29,7 +29,7 @@ function ArrivedComment({ attendances }: IArrivedComment) {
   const { data: session } = useSession();
   const voteDate = dayjs(router.query.date as string);
 
-  const studyDate = useRecoilValue(studyDateState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const setUserData = useSetRecoilState(transferUserDataState);
 
@@ -54,12 +54,13 @@ function ArrivedComment({ attendances }: IArrivedComment) {
     setUser(att);
     setIsChangeModal(true);
   };
- 
+
   return (
     <>
       <Layout key={router.asPath}>
         {attendances?.map((att, idx) => {
-          if (studyDate !== "not passed" && !att?.firstChoice) return null;
+          if (studyDateStatus !== "not passed" && !att?.firstChoice)
+            return null;
           const arrivedTime = att?.arrived
             ? new Date(att.arrived)
             : new Date(2023, 1, 1, 21, 0, 0);
@@ -110,7 +111,7 @@ function ArrivedComment({ attendances }: IArrivedComment) {
                     <FontAwesomeIcon icon={faCircleCheck} size="xl" />
                     <span>{arrivedHM}</span>
                   </Check>
-                ) : studyDate !== "not passed" && isAbsent ? (
+                ) : studyDateStatus !== "not passed" && isAbsent ? (
                   <Check isCheck={false}>
                     <FontAwesomeIcon icon={faCircleXmark} size="xl" />
                     <span>불참</span>

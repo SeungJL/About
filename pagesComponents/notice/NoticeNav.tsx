@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { LIKE_HEART_CNT, NOTICE_ALERT } from "../../constants/localStorage";
-import { isNoticeAlertState } from "../../recoil/renderTriggerAtoms";
+import { LIKE_HEART_CNT } from "../../constants/localStorage";
 import { AlertIcon } from "../../styles/icons";
 import { DispatchBoolean } from "../../types/reactTypes";
 
@@ -13,14 +11,9 @@ interface INoticeNav {
 }
 
 function NoticeNav({ isNotice, setIsNotice, activeAlertCnt }: INoticeNav) {
-  const [isNoticeAlert, setIsNoticeAlert] = useRecoilState(isNoticeAlertState);
   const [isActiveAlert, setIsActiveAlert] = useState(false);
 
   useEffect(() => {
-    if (isNoticeAlert) {
-      localStorage.setItem(NOTICE_ALERT, "read");
-      setIsNoticeAlert(false);
-    }
     if (!activeAlertCnt) return;
     if (!isNotice) {
       localStorage.setItem(LIKE_HEART_CNT, `${activeAlertCnt}`);
@@ -29,7 +22,7 @@ function NoticeNav({ isNotice, setIsNotice, activeAlertCnt }: INoticeNav) {
     if (+localStorage.getItem(LIKE_HEART_CNT) < activeAlertCnt)
       setIsActiveAlert(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeAlertCnt, isNotice, isNoticeAlert]);
+  }, [activeAlertCnt, isNotice]);
 
   return (
     <Layout>

@@ -1,10 +1,10 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/skeleton/Skeleton";
-import { studyDateState } from "../../../../recoil/studyAtoms";
+import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 
 function AboutMainItemSkeleton() {
-  const studyDate = useRecoilValue(studyDateState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   return (
     <Layout>
       <ImageContainer>
@@ -13,7 +13,7 @@ function AboutMainItemSkeleton() {
       <SpaceInfo>
         <Branch>
           <Skeleton>temp</Skeleton>
-          {studyDate !== "not passed" && (
+          {studyDateStatus !== "not passed" && (
             <BranchSub>
               <Skeleton>temp</Skeleton>
             </BranchSub>

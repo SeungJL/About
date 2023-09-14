@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { voteDateState } from "../../../recoil/studyAtoms";
-import CalendarDate from "./calendar/CalendarDate";
-import CalendarDay from "./calendar/CalendarDay";
-import CalendarMonth from "./calendar/CalendarMonth";
+import { voteDateState } from "../../../../recoil/studyAtoms";
+import CalendarDate from "./CalendarDate";
+import CalendarDay from "./CalendarDay";
+import CalendarMonth from "./CalendarMonth";
 
 function Calendar() {
   const voteDate = useRecoilValue(voteDateState);

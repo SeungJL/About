@@ -11,7 +11,7 @@ import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
   myStudyFixedState,
-  studyDateState,
+  studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
@@ -35,15 +35,21 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
     isRefetchStudySpaceState
   );
   const setVoteDate = useSetRecoilState(voteDateState);
-  const setStudyDate = useSetRecoilState(studyDateState);
+  const setStudyDate = useSetRecoilState(studyDateStatusState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
   const handleSuccess = (data: IVote) => {
+    console.log(data);
     const participation = data.participations.find(
       (props) => props.place._id === spaceID
     );
-    const { place, attendences, status } = participation;
-    setStudySpaceData({ place, attendences, status });
+    const { place, attendences, status, startTime } = participation;
+    setStudySpaceData({
+      place,
+      attendences,
+      status,
+      startTime: dayjs(startTime),
+    });
     const isVoted = attendences.find((who) => who?.user.uid === session?.uid);
     if (["open", "free"].includes(status)) setMySpaceFixed(participation);
     setIsVoting(!!isVoted);
@@ -65,8 +71,8 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   }, [isRefetchStudySpace]);
 
   useEffect(() => {
-    const studyDate = getStudyDate(voteDate);
-    setStudyDate(studyDate);
+    const studyDateStatus = getStudyDate(voteDate);
+    setStudyDate(studyDateStatus);
     setVoteDate(voteDate); //global voteDate
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);

@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
-import AboutHeader from "../../pagesComponents/about/main/AboutHeader";
-import AboutMain from "../../pagesComponents/about/main/AboutMain";
-import AboutUpperBar from "../../pagesComponents/about/main/aboutMain/aboutUpperBar/AboutUpperBar";
-import AboutVoteNav from "../../pagesComponents/about/main/aboutMain/AboutVoteNav";
-import AboutNavigation from "../../pagesComponents/about/main/AboutNavigation";
+import Calendar from "../../pagesComponents/about/main/aboutCalendar/Calendar";
+import AboutCategoryNav from "../../pagesComponents/about/main/AboutCategoryNav";
+import AboutGather from "../../pagesComponents/about/main/aboutGather/AboutGather";
+import AboutHeader from "../../pagesComponents/about/main/aboutHeader/AboutHeader";
+import AboutMain from "../../pagesComponents/about/main/aboutMain/AboutMain";
 import AboutReview from "../../pagesComponents/about/main/AboutReview";
-import Calendar from "../../pagesComponents/about/main/Calendar";
+import AboutStudyHeader from "../../pagesComponents/about/main/AboutStudyHeader";
+import AboutStudyResult from "../../pagesComponents/about/main/aboutStudyResult/AboutStudyResult";
+import AboutVoteNav from "../../pagesComponents/about/main/AboutVoteNav";
 import EventBanner from "../../pagesComponents/about/main/EventBanner";
-import AboutGather from "../../pagesComponents/about/main/gather/AboutGather";
 import WinRecord from "../../pagesComponents/about/main/WinRecord";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
@@ -18,31 +19,31 @@ import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
   myStudyFixedState,
-  studyDateState,
-  voteDateState,
+  participationsState,
+  studyDateStatusState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
 import { NOT_OPEN_LOCATION } from "../../storage/study";
 import { IStudy } from "../../types/study/study";
 
 function About() {
-  const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
-
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
+  const participations = useRecoilValue(participationsState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
-  const studyDate = useRecoilValue(studyDateState);
-  const [participations, setParticipations] = useState<IStudy[]>([]);
-  const [studySpaces, setStudySpaces] = useState<IStudy[]>([]);
 
+  const [otherStudies, setOtherStudies] = useState<IStudy[]>([]);
+
+  //스터디 정렬
   useEffect(() => {
     if (NOT_OPEN_LOCATION.includes(location)) setIsMainLoading(false);
-    if (!participations?.length) return;
-    const arrangedSpace = arrangeMainSpace(
+    if (!participations) return;
+    const arrangedOtherStudies = arrangeMainSpace(
       participations?.filter((space) => space !== mySpaceFixed),
-      studyDate !== "not passed"
+      studyDateStatus !== "not passed"
     );
-    setStudySpaces(arrangedSpace);
+    setOtherStudies(arrangedOtherStudies);
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySpaceFixed, participations]);
@@ -52,20 +53,16 @@ function About() {
       <Setting>
         <UserSetting />
         <DateSetting />
-        {voteDate && (
-          <StudySetting
-            participations={participations}
-            setParticipations={setParticipations}
-          />
-        )}
+        <StudySetting />
       </Setting>
       <Layout>
         <AboutHeader />
-        <AboutNavigation />
-        <AboutUpperBar />
+        <AboutCategoryNav />
+        <AboutStudyHeader />
+        <AboutStudyResult />
         <Calendar />
-        <AboutVoteNav participations={participations} />
-        <AboutMain participations={studySpaces} />
+        <AboutVoteNav />
+        <AboutMain participations={otherStudies} />
         <HrDiv />
         <AboutGather />
         <EventBanner />

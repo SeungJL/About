@@ -6,11 +6,6 @@ export const isVoteCompletedState = atom({
   default: false,
 });
 
-export const isNoticeAlertState = atom({
-  key: "isNoticeAlert",
-  default: false,
-});
-
 export const attendCheckWinGiftState = atom<IattendCheckPresent>({
   key: "attendCheckWinGift",
   default: null,

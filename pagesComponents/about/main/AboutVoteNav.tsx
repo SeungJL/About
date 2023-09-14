@@ -4,37 +4,34 @@ import {
   faCheckToSlot,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../../components/common/ModalPortal";
-import { useFailToast } from "../../../../hooks/CustomToast";
-import { useStudyPreferenceQuery } from "../../../../hooks/study/queries";
-import StudyQuickVoteModal from "../../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
-import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
-import { studyDateState } from "../../../../recoil/studyAtoms";
-import { locationState } from "../../../../recoil/userAtoms";
-import { IStudy } from "../../../../types/study/study";
+import ModalPortal from "../../../components/common/ModalPortal";
+import { useFailToast } from "../../../hooks/CustomToast";
+import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
+import StudyQuickVoteModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
+import StudyVoteMainModal from "../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
+import {
+  participationsState,
+  studyDateStatusState,
+} from "../../../recoil/studyAtoms";
+import { isGuestState, locationState } from "../../../recoil/userAtoms";
 
-interface IAboutVoteNav {
-  participations: IStudy[];
-}
-
-function AboutVoteNav({ participations }: IAboutVoteNav) {
-  const { data: session } = useSession();
+function AboutVoteNav() {
   const failToast = useFailToast();
-  const isGuest = session?.user.name === "guest";
 
-  const studyDate = useRecoilValue(studyDateState);
+  const isGuest = useRecoilValue(isGuestState);
   const location = useRecoilValue(locationState);
+  const participations = useRecoilValue(participationsState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isQuickVoteModal, setIsQuickVoteModal] = useState(false);
 
   const { data: studyPreference } = useStudyPreferenceQuery();
 
-  const voteCnt = participations.reduce(
+  const voteCnt = participations?.reduce(
     (acc, par) =>
       acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
     0
@@ -51,7 +48,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
 
   return (
     <>
-      {studyDate === "not passed" && (
+      {studyDateStatus === "not passed" && (
         <Layout>
           <div>
             <Navigation>

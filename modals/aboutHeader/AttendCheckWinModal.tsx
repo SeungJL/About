@@ -19,6 +19,7 @@ function AttendCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
     setAttendCheckWinGift(null);
   };
 
+  if (!attendCheckWinGift) return;
   return (
     <ModalLayout size="lg">
       <Header>
