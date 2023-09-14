@@ -14,13 +14,13 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { GATHER_ALERT, POINT_ALERT } from "../../../constants/localStorage";
 import { VOTE_TABLE_COLOR } from "../../../constants/system";
-import { userLocationState } from "../../../recoil/userAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 
 function AboutNavigation() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const router = useRouter();
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
 
   const [isGatherAlert, setIsGatherAlert] = useState(false);
   const [isPointAlert, setIsPointAlert] = useState(false);

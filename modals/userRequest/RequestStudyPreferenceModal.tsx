@@ -7,7 +7,7 @@ import PlaceSelector from "../../components/features/selector/PlaceSelector";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import { useStudyPlaceQuery } from "../../hooks/study/queries";
-import { userLocationState } from "../../recoil/userAtoms";
+import { locationState } from "../../recoil/userAtoms";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/study/study";
@@ -23,7 +23,7 @@ function RequestStudyPreferenceModal({
 }: IRequestStudyPreferenceModal) {
   const completeToast = useCompleteToast();
 
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
 
   const [page, setPage] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");

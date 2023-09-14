@@ -3,12 +3,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
-import { userLocationState } from "../../../recoil/userAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 import { Location } from "../../../types/system";
 
 function LocationSelector() {
   const [value, setValue] = useState<Location>("수원");
-  const [location, setLocation] = useRecoilState(userLocationState);
+  const [location, setLocation] = useRecoilState(locationState);
   const [isMainLoading, setIsMainLoading] = useRecoilState(isMainLoadingState);
 
   useEffect(() => {

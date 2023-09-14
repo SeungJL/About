@@ -7,14 +7,14 @@ import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { studyDateState, voteDateState } from "../../recoil/studyAtoms";
-import { userLocationState } from "../../recoil/userAtoms";
+import { locationState } from "../../recoil/userAtoms";
 
 function DateSetting() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
   const setStudyDate = useSetRecoilState(studyDateState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 

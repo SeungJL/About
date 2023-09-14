@@ -1,11 +1,11 @@
 import { SetStateAction, useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { arrangeSpace } from "../../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
-import { voteDateState } from "../../../recoil/studyAtoms";
-import { userLocationState } from "../../../recoil/userAtoms";
+import { studyState, voteDateState } from "../../../recoil/studyAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 import { IStudy } from "../../../types/study/study";
 
 interface IStudySettingParticipations {
@@ -17,20 +17,22 @@ function StudySettingParticipations({
 }: IStudySettingParticipations) {
   const typeErrorToast = useTypeErrorToast();
 
+  const setStudyState = useSetRecoilState(studyState);
   const voteDate = useRecoilValue(voteDateState);
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
   const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
 
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     onSuccess(data) {
-      setParticipations(arrangeSpace(data.participations));
+      const temp = arrangeSpace(data.participations);
+      setParticipations(temp);
+      setStudyState(temp);
     },
     onError: (e) => typeErrorToast(e, "study"),
   });
 
   useEffect(() => {
     if (isRefetch) {
-
       setTimeout(() => {
         refetch();
         setIsRefetch(false);

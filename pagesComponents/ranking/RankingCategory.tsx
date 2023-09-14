@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { userLocationState } from "../../recoil/userAtoms";
+import { locationState } from "../../recoil/userAtoms";
 import { RankingCategory as RankingCategoryType } from "../../types/page/ranking";
 import { DispatchBoolean, DispatchNumber } from "../../types/reactTypes";
 import { IVoteRate } from "../../types/study/studyRecord";
@@ -30,8 +30,8 @@ function RankingCategory({
 }: IRankingCategory) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const location = useRecoilValue(userLocationState);
-  
+  const location = useRecoilValue(locationState);
+
   const [isFilter, setIsFilter] = useState(true);
 
   useEffect(() => {

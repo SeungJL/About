@@ -17,34 +17,33 @@ interface ILayout {
 }
 
 function Layout({ children }: ILayout) {
+  const { data: session } = useSession();
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const router = useRouter();
 
-  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const isAccessPermission =
-    session?.user.name !== "guest" &&
-    router.pathname.slice(0, 6) !== "/login" &&
-    router.pathname.slice(0, 9) !== "/register" &&
-    router.asPath !== "/checkingServer";
+  const PROTECTED_ROUTES = ["/login", "/register", "/checkingServer"];
+  const isAccessPermission = !PROTECTED_ROUTES.some((route) =>
+    router.asPath.startsWith(route)
+  );
+
+  const navigateTo = (path) => {
+    router.push(path);
+  };
 
   useUserInfoQuery({
-    enabled: isAccessPermission && Boolean(token) && !!session,
+    enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
-      if (isGuest || !isAccessPermission) return;
-      if (data === null) {
-        if (router?.query?.status === "login")
-          router.push(`/register/location`);
-        else router.push("/login/?status=noMember");
+      if (data === null && !isGuest) {
+        if (router.query.status === "login") navigateTo(`/register/location`);
+        else navigateTo("/login/?status=noMember");
       }
-      if ((data?.birth === "" || !data?.birth) && isAccessPermission)
-        router.push("/register/location");
     },
     onError() {
-      if (!session) router.push("/login");
-      else router.push("/checkingServer");
+      if (!session) navigateTo("/login");
+      else navigateTo("/checkingServer");
     },
   });
 
@@ -58,14 +57,13 @@ function Layout({ children }: ILayout) {
       )}
       <Seo title="ABOUT" />
       <Script
-        strategy="beforeInteractive"
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
       />
       <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
       <Script
         src="https://kit.fontawesome.com/4071928605.js"
         crossOrigin="anonymous"
-      ></Script>
+      />
     </LayoutContainer>
   );
 }

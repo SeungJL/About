@@ -9,7 +9,7 @@ import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../recoil/transferDataAtoms";
-import { userLocationState } from "../../../recoil/userAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 import { SUWAN_탐앤탐스 } from "../../../storage/study";
 import { IStudy } from "../../../types/study/study";
 import AboutMainItem from "./aboutMain/AboutMainItem";
@@ -25,7 +25,7 @@ function AboutMain({ participations }: IAboutMain) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [interSectionStudy, setInterSectionStudy] = useState<IStudy>();
   const isMainLoading = useRecoilValue(isMainLoadingState);
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
   const setTransferStudyData = useSetRecoilState(transferStudyDataState);
 
   useStudyVoteQuery(voteDate, "수원", {

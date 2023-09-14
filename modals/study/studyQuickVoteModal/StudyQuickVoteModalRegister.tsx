@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../../components/common/modal/Modals";
 import ModalPortal from "../../../components/common/ModalPortal";
-import { userLocationState } from "../../../recoil/userAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 import {
   ModalFooterNav,
   ModalMain,
@@ -14,7 +14,7 @@ import RequestStudyPreferenceModal from "../../userRequest/RequestStudyPreferenc
 
 function StudyQuickVoteModalRegister({ setIsModal }: IModal) {
   const [isPreference, setIsPreference] = useState(false);
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
   return (
     <>
       <ModalLayout size="md">

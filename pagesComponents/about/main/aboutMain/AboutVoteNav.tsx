@@ -14,7 +14,7 @@ import { useStudyPreferenceQuery } from "../../../../hooks/study/queries";
 import StudyQuickVoteModal from "../../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import { studyDateState } from "../../../../recoil/studyAtoms";
-import { userLocationState } from "../../../../recoil/userAtoms";
+import { locationState } from "../../../../recoil/userAtoms";
 import { IStudy } from "../../../../types/study/study";
 
 interface IAboutVoteNav {
@@ -27,7 +27,7 @@ function AboutVoteNav({ participations }: IAboutVoteNav) {
   const isGuest = session?.user.name === "guest";
 
   const studyDate = useRecoilValue(studyDateState);
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
 
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isQuickVoteModal, setIsQuickVoteModal] = useState(false);

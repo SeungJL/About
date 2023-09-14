@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { userLocationState } from "../../../recoil/userAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 import { IPlace } from "../../../types/study/study";
 import { Location } from "../../../types/system";
 import { StudySpaceLogo } from "../../utils/DesignAdjustment";
@@ -24,8 +24,7 @@ function PlaceSelectorSub({
     });
   };
 
-  const location = useRecoilValue(userLocationState);
-  
+  const location = useRecoilValue(locationState);
 
   return (
     <Layout location={location}>

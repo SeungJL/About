@@ -1,4 +1,3 @@
-import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -20,15 +19,18 @@ import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
   myStudyFixedState,
   studyDateState,
+  studyState,
   voteDateState,
 } from "../../recoil/studyAtoms";
-import { userLocationState } from "../../recoil/userAtoms";
+import { locationState } from "../../recoil/userAtoms";
 import { NOT_OPEN_LOCATION } from "../../storage/study";
 import { IStudy } from "../../types/study/study";
 
-function About({ check }) {
+function About() {
   const voteDate = useRecoilValue(voteDateState);
-  const location = useRecoilValue(userLocationState);
+  const location = useRecoilValue(locationState);
+  const A = useRecoilValue(studyState);
+
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
   const studyDate = useRecoilValue(studyDateState);
@@ -46,7 +48,8 @@ function About({ check }) {
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySpaceFixed, participations]);
-
+  console.log(23);
+  
   return (
     <>
       <Setting>
@@ -89,14 +92,3 @@ const HrDiv = styled.div`
 `;
 
 export default About;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query } = context;
-
-  if (query?.status === "check") {
-    return {
-      props: { check: true },
-    };
-  }
-  return { props: {} };
-};

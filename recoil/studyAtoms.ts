@@ -3,6 +3,11 @@ import { atom, RecoilEnv } from "recoil";
 import { IStudy, IStudyStartTime, StudyDate } from "../types/study/study";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
+export const studyState = atom<IStudy[]>({
+  key: "studyVote",
+  default: null,
+});
+
 export const voteDateState = atom<Dayjs>({
   key: "voteDate",
   default: null,
