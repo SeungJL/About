@@ -6,7 +6,11 @@ import { STUDY_VOTE_START_HOUR, VOTER_DATE_END } from "../../constants/study";
 import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { studyDateStatusState, voteDateState } from "../../recoil/studyAtoms";
+import {
+  myStudyFixedState,
+  studyDateStatusState,
+  voteDateState,
+} from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
 
 function DateSetting() {
@@ -17,6 +21,7 @@ function DateSetting() {
   const location = useRecoilValue(locationState);
   const setStudyDate = useSetRecoilState(studyDateStatusState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
+  const setMyStudyFixed = useSetRecoilState(myStudyFixedState);
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 
@@ -54,6 +59,7 @@ function DateSetting() {
     if (!voteDate) return;
     const studyDateStatus = getStudyDate(voteDate);
     setStudyDate(studyDateStatus);
+    setMyStudyFixed(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 

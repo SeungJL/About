@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
 
-interface IUserScoreBar {
+interface IuserOverviewPointNav {
   myPoint: number;
   myDeposit: number;
 }
 
-function UserScoreBar({ myPoint, myDeposit }: IUserScoreBar) {
+function UserOverviewPointNav({ myPoint, myDeposit }: IuserOverviewPointNav) {
   const router = useRouter();
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
@@ -57,4 +57,4 @@ const Layout = styled.div`
   }
 `;
 
-export default UserScoreBar;
+export default UserOverviewPointNav;

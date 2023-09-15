@@ -1,13 +1,11 @@
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import UserNavigation from "../../pagesComponents/user/UserNavigation";
-import UserOverview from "../../pagesComponents/user/UserOverView";
-import UserScoreBar from "../../pagesComponents/user/UserScoreBar";
+import UserNavigation from "../../pagesComponents/user/userNavigation/UserNavigation";
+import UserOverview from "../../pagesComponents/user/userOverview/UserOverView";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
 
@@ -20,7 +18,6 @@ function UserInfo() {
   const { data: userInfo, refetch } = useUserInfoQuery({
     enabled: !isGuest,
   });
-  const { data: session } = useSession();
 
   useEffect(() => {
     if (isRefetchUserInfo) {
@@ -35,12 +32,8 @@ function UserInfo() {
       <Header title="마이페이지" />
       {(userInfo || isGuest) && (
         <UserLayout>
-          <UserOverview userInfo={userInfo} />
-          <UserScoreBar
-            myPoint={userInfo?.point}
-            myDeposit={userInfo?.deposit}
-          />
-          <UserNavigation role={userInfo?.role} />
+          <UserOverview />
+          <UserNavigation />
         </UserLayout>
       )}
     </PageLayout>

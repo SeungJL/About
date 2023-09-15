@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { faCheck, faSquareCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../components/common/ModalPortal";
@@ -23,10 +23,17 @@ function AboutStudyHeader() {
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const [isModal, setIsModal] = useState(false);
+  const [isCheck, setIsCheck] = useState<Boolean>(null);
 
-  const isCheck = !!mySpaceFixed?.attendences.find(
-    (who) => who.user.uid === session?.uid
-  )?.arrived;
+  //출석체크 했는지 판단
+  useEffect(() => {
+    setIsCheck(null);
+    if (!mySpaceFixed) return;
+    const myCheck = !!mySpaceFixed?.attendences.find(
+      (who) => who.user.uid === session?.uid
+    )?.arrived;
+    setIsCheck(!!myCheck);
+  }, [mySpaceFixed, mySpaceFixed?.attendences, session?.uid, studyDateStatus]);
 
   return (
     <>
@@ -46,7 +53,8 @@ function AboutStudyHeader() {
               <FontAwesomeIcon icon={faCheck} size="lg" />
             </Check>
           ) : (
-            mySpaceFixed && (
+            mySpaceFixed &&
+            isCheck !== null && (
               <Button
                 leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
                 onClick={() => setIsModal(true)}
@@ -61,7 +69,7 @@ function AboutStudyHeader() {
           )}
         </Title>
         <LocationSelector />
-      </Layout>{" "}
+      </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
           <StudyCheckModal setIsModal={setIsModal} />

@@ -39,7 +39,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
   const handleSuccess = (data: IVote) => {
-    console.log(data);
+  
     const participation = data.participations.find(
       (props) => props.place._id === spaceID
     );

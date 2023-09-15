@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { GATHER_ALERT } from "../../constants/localStorage";
 import { DEFAULT_ARRAY } from "../../constants/system";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
@@ -20,7 +21,9 @@ function GatherMain({ category }: IGatherMain) {
     useRecoilState(isGatherLoadingState);
 
   const { data: gatherContentArr } = useGatherContentQuery({
-    onSuccess() {
+    onSuccess(data) {
+      const lastGather = data[data.length - 1];
+      localStorage.setItem(GATHER_ALERT, String(lastGather.id));
       setIsGatherLoading(false);
     },
     onError: errorToast,

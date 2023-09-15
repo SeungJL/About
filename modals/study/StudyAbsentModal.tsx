@@ -55,7 +55,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();
-  console.log(1, mySpaceFixed);
+  
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
       completeToast("success");

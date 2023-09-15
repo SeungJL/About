@@ -6,7 +6,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination"; //
 import { Swiper, SwiperSlide } from "swiper/react";
 import AboutSectionHeader from "../../../../components/common/AboutSectionHeader";
+import { GATHER_ALERT } from "../../../../constants/localStorage";
 import { useGatherContentQuery } from "../../../../hooks/gather/queries";
+import { isGatherAlertState } from "../../../../recoil/alertAtoms";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferGatherDataState } from "../../../../recoil/transferDataAtoms";
 import { IGatherContent } from "../../../../types/page/gather";
@@ -19,8 +21,16 @@ function AboutGather() {
 
   const setGatherData = useSetRecoilState(transferGatherDataState);
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+  const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
 
-  const { data: gatherContentArr, isLoading } = useGatherContentQuery();
+  const { data: gatherContentArr, isLoading } = useGatherContentQuery({
+    onSuccess(data) {
+      const lastGather = data[data.length - 1];
+      if (localStorage.getItem(GATHER_ALERT) !== String(lastGather.id))
+        setIsGatherAlert(true);
+      else setIsGatherAlert(false);
+    },
+  });
 
   if (isLoading) return null;
 

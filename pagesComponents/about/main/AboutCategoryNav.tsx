@@ -7,33 +7,24 @@ import {
   faUsers,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { GATHER_ALERT, POINT_ALERT } from "../../../constants/localStorage";
 import { VOTE_TABLE_COLOR } from "../../../constants/system";
+import { isGatherAlertState } from "../../../recoil/alertAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 
+type AboutCategory = "record" | "point" | "member" | "gather" | "plaza";
+
 function AboutCategoryNav() {
-  const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
   const router = useRouter();
   const location = useRecoilValue(locationState);
 
-  const [isGatherAlert, setIsGatherAlert] = useState(false);
-  const [isPointAlert, setIsPointAlert] = useState(false);
+  const isGatherAlert = useRecoilValue(isGatherAlertState);
+  const [isPointAlert, setIsPointAlert] = useState(true);
 
-  useEffect(() => {
-    if (isGuest) return;
-    // if (!localStorage.getItem(POINT_ALERT)) setIsPointAlert(true);
-    if (!localStorage.getItem(GATHER_ALERT)) setIsGatherAlert(true);
-  }, [isGuest]);
-
-  const onClick = (type: string) => {
-    if (type === "gather") localStorage.setItem(GATHER_ALERT, "read");
-    if (type === "point") localStorage.setItem(POINT_ALERT, "read");
+  const onClickItem = (type: AboutCategory) => {
     if (type === "member") {
       router.push(`/member/${location}`);
       return;
@@ -45,7 +36,7 @@ function AboutCategoryNav() {
     <>
       <Layout>
         <Item>
-          <Button onClick={() => router.push("record")}>
+          <Button onClick={() => onClickItem("record")}>
             <FontAwesomeIcon
               icon={faCalendarCheck}
               size="xl"
@@ -55,7 +46,7 @@ function AboutCategoryNav() {
           <span>캘린더</span>
         </Item>
         <Item>
-          <Button onClick={() => onClick("point")}>
+          <Button onClick={() => onClickItem("point")}>
             <FontAwesomeIcon
               icon={faDice}
               size="xl"
@@ -74,41 +65,36 @@ function AboutCategoryNav() {
           <span>트레이드</span>
         </Item>
         <Item>
-          <Button onClick={() => onClick("member")}>
+          <Button onClick={() => onClickItem("member")}>
             <FontAwesomeIcon
               icon={faUsers}
               size="xl"
               color={VOTE_TABLE_COLOR[2]}
             />
-            {/* <IconWrapper>
-              <FontAwesomeIcon
-                icon={faStar}
-                color="var(--color-red)"
-                size="sm"
-              />
-            </IconWrapper> */}
           </Button>
           <span>멤버</span>
         </Item>
         <Item>
-          <Button onClick={() => onClick("gather")}>
+          <Button onClick={() => onClickItem("gather")}>
             <FontAwesomeIcon
               icon={faOtter}
               size="xl"
               color={VOTE_TABLE_COLOR[0]}
             />
-            <IconWrapper>
-              <FontAwesomeIcon
-                icon={faStar}
-                color="var(--color-red)"
-                size="sm"
-              />
-            </IconWrapper>
+            {isGatherAlert && (
+              <IconWrapper>
+                <FontAwesomeIcon
+                  icon={faStar}
+                  color="var(--color-red)"
+                  size="sm"
+                />
+              </IconWrapper>
+            )}
           </Button>
           <span>모임</span>
         </Item>
         <Item>
-          <Button onClick={() => router.push("plaza")}>
+          <Button onClick={() => onClickItem("plaza")}>
             <FontAwesomeIcon
               icon={faTeddyBear}
               size="xl"

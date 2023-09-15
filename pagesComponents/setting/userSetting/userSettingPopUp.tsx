@@ -17,65 +17,71 @@ interface IUserSettingPopUp {
   isProfileEdit: boolean;
 }
 
+export type UserPopUp =
+  | "lastWeekAttend"
+  | "profileEdit"
+  | "suggest"
+  | "promotion"
+  | "userGuide";
+
 function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
-  const [isAttend, setIsAttend] = useState(false);
-  const [isUserGuide, setIsUserGuide] = useState(false);
-  const [isProfile, setIsProfile] = useState(false);
-  const [isPromotion, setIsPromotion] = useState(false);
-  const [isSuggest, setIsSuggest] = useState(false);
+  const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
 
   useEffect(() => {
-    let popupCnt = 0;
-
-    if (isProfileEdit) {
-      setIsProfile(true);
-      popupCnt++;
-    }
+    let popUpCnt = 0;
+    if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
     if (!checkAndSetLocalStorage(USER_GUIDE, 15)) {
-      setIsUserGuide(true);
-      if (++popupCnt === 2) return;
+      setPopUpTypes((old) => [...old, "userGuide"]);
+      if (++popUpCnt === 2) return;
     }
     if (!checkAndSetLocalStorage(PROMOTION_POP_UP, 3)) {
-      setIsPromotion(true);
-      if (++popupCnt === 2) return;
+      setPopUpTypes((old) => [...old, "promotion"]);
+      if (++popUpCnt === 2) return;
     }
     if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 7)) {
-      setIsSuggest(true);
-      if (++popupCnt === 2) return;
+      setPopUpTypes((old) => [...old, "suggest"]);
+      if (++popUpCnt === 2) return;
     }
     if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
-      setIsAttend(true);
-      if (++popupCnt === 2) return;
+      setPopUpTypes((old) => [...old, "lastWeekAttend"]);
+      if (++popUpCnt === 2) return;
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProfileEdit]);
 
+  const filterPopUpTypes = (type: UserPopUp) => {
+    setPopUpTypes((popUps) => popUps.filter((popUp) => popUp !== type));
+  };
+
   return (
     <>
-      {isAttend && (
-        <ModalPortal setIsModal={setIsAttend}>
-          <LastWeekAttendPopUp setIsModal={setIsAttend} />
+      {popUpTypes.includes("lastWeekAttend") && (
+        <ModalPortal setIsModal={() => filterPopUpTypes("lastWeekAttend")}>
+          <LastWeekAttendPopUp
+            setIsModal={() => filterPopUpTypes("lastWeekAttend")}
+          />
         </ModalPortal>
       )}
-      {isProfile && (
-        <ModalPortal setIsModal={setIsProfile}>
-          <ProfileModifyPopUp setIsModal={setIsProfile} />
+      {popUpTypes.includes("profileEdit") && (
+        <ModalPortal setIsModal={() => filterPopUpTypes("profileEdit")}>
+          <ProfileModifyPopUp
+            setIsModal={() => filterPopUpTypes("profileEdit")}
+          />
         </ModalPortal>
       )}
-      {isSuggest && (
-        <ModalPortal setIsModal={setIsSuggest}>
-          <SuggestPopUp setIsModal={setIsSuggest} />
+      {popUpTypes.includes("suggest") && (
+        <ModalPortal setIsModal={() => filterPopUpTypes("suggest")}>
+          <SuggestPopUp setIsModal={() => filterPopUpTypes("suggest")} />
         </ModalPortal>
       )}
-      {isPromotion && (
-        <ModalPortal setIsModal={setIsPromotion}>
-          <PromotionModal setIsModal={setIsPromotion} />
+      {popUpTypes.includes("promotion") && (
+        <ModalPortal setIsModal={() => filterPopUpTypes("promotion")}>
+          <PromotionModal setIsModal={() => filterPopUpTypes("promotion")} />
         </ModalPortal>
       )}
-      {isUserGuide && (
-        <ModalPortal setIsModal={setIsUserGuide}>
-          <UserGuidePopUp setIsModal={setIsUserGuide} />
+      {popUpTypes.includes("userGuide") && (
+        <ModalPortal setIsModal={() => filterPopUpTypes("userGuide")}>
+          <UserGuidePopUp setIsModal={() => filterPopUpTypes("userGuide")} />
         </ModalPortal>
       )}
     </>

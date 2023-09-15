@@ -7,12 +7,12 @@ import Skeleton from "../../components/common/skeleton/Skeleton";
 import { getRole } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
+
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const { data: userInfo } = useUserInfoQuery();
-
   const { data: parRate, isLoading } = useUserAttendRateQuery(
     dayjs().day(1).subtract(1, "week"),
     dayjs().day(0)
@@ -25,7 +25,10 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   return (
     <>
       <PopUpLayout size="md">
-        <ModalHeaderX title="지난주 스터디 기록" setIsModal={setIsModal} />
+        <ModalHeaderX
+          title="지난주 스터디 기록"
+          setIsModal={() => setIsModal(false)}
+        />
         <Container>
           {!isLoading ? (
             <Info>

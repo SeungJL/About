@@ -134,5 +134,5 @@ export type UserBadgeColor = typeof USER_BADGES[UserBadge];
 /** react-query */
 export interface IUserComment {
   comment: string;
-  _id: string;
+  _id?: string;
 }

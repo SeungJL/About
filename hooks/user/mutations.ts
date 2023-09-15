@@ -15,7 +15,6 @@ export const useUserRegisterMutation = (
 
 export const useUserApproveMutation = (options?: MutationOptions<string>) =>
   useMutation<void, AxiosError, string>(async (uid) => {
-   
     await axios.post(`${SERVER_URI}/register/approval`, { uid });
   }, options);
 
@@ -69,9 +68,9 @@ export const useUserUpdateProfileImageMutation = (
 //     "mutationKey" | "mutationFn"
 //   >
 // ) =>
-//   useMutation<void, AxiosError, IUserComment>(async (comments) => {
+//   useMutation<void, AxiosError, IUserComment>(async (comment) => {
+//     console.log(comment);
 //     await axios.post(`${SERVER_URI}/user/comment`, {
-//       comment: comments.comment,
-//       _id: comments._id,
+//       comment,
 //     });
 //   }, options);
