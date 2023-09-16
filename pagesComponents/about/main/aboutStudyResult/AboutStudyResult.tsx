@@ -1,47 +1,37 @@
-import { motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/skeleton/Skeleton";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
-import {
-  myStudyFixedState,
-  studyDateStatusState,
-} from "../../../../recoil/studyAtoms";
+import { myStudyFixedState } from "../../../../recoil/studyAtoms";
 import AboutMainItem from "../aboutMain/AboutMainItem";
 import NoMyStudy from "./NoMyStudy";
 
 function AboutStudyResult() {
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
-
+  console.log(isMainLoading);
   return (
-    <Layout>
-      {studyDateStatus !== "not passed" && (
-        <Skeleton isLoad={!isMainLoading}>
-          <Result>
-            <Wrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              {isMainLoading ? null : mySpaceFixed !== null ? (
-                <AboutMainItem participation={mySpaceFixed} />
-              ) : (
-                <NoMyStudy />
-              )}
-            </Wrapper>
-          </Result>
-        </Skeleton>
-      )}
+    <Layout isLoad={!isMainLoading}>
+      <Skeleton isLoad={!isMainLoading}>
+        <Result>
+          {isMainLoading ? null : mySpaceFixed !== null ? (
+            <AboutMainItem participation={mySpaceFixed} isMyResult={true} />
+          ) : (
+            <NoMyStudy />
+          )}
+        </Result>
+      </Skeleton>
     </Layout>
   );
 }
 
-const Layout = styled.div`
-  padding: var(--padding-main);
-  padding-bottom: 0;
+const Layout = styled.div<{ isLoad: boolean }>`
+  margin: 0 var(--padding-main);
+  margin-bottom: ${(props) => (props.isLoad ? "0" : "29px")};
 `;
 
 const Result = styled.div`
-  margin: 16px 0;
-  min-height: 100px;
+  min-height: 110px;
   > span {
     display: inline-block;
     color: var(--font-h1);
@@ -49,7 +39,5 @@ const Result = styled.div`
     font-size: 18px;
   }
 `;
-
-const Wrapper = styled(motion.div)``;
 
 export default AboutStudyResult;

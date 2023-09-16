@@ -3,6 +3,7 @@ import { Document } from "mongoose";
 
 import { IDayjsStartToEnd, ITimeStartToEnd } from "../timeAndDate";
 import { IUser } from "../user/user";
+import { IStudyPlaces } from "./studyUserAction";
 
 export interface IVote extends Document {
   date: Date;
@@ -59,3 +60,8 @@ export interface IStudyStartTime {
 }
 
 export type StudyDate = "passed" | "today" | "not passed";
+
+export interface IStudyPreferencesQuery {
+  _id: string;
+  studyPreference: IStudyPlaces;
+}

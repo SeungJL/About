@@ -39,7 +39,7 @@ function NoMyStudy() {
 const Layout = styled.div``;
 
 const Text = styled.div`
-  height: 100px;
+  height: 110px;
   background-color: var(--font-h7);
   display: flex;
   justify-content: center;
@@ -48,16 +48,15 @@ const Text = styled.div`
   border-radius: var(--border-radius-main);
   font-size: 15px;
   color: var(--font-h1);
-  margin-top: var(--margin-main);
 `;
 
 const SubText = styled.div`
-  margin-top: var(--margin-min);
+  margin: var(--margin-min) 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   font-size: 11px;
-  color: var(--font-h3);
+  color: var(--font-h4);
 `;
 
 export default NoMyStudy;

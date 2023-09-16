@@ -11,11 +11,9 @@ import ModalPortal from "../../../components/common/ModalPortal";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
 import StudyQuickVoteModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
+import StudyQuickVoteRegisterModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteRegisterModal";
 import StudyVoteMainModal from "../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
-import {
-  participationsState,
-  studyDateStatusState,
-} from "../../../recoil/studyAtoms";
+import { participationsState } from "../../../recoil/studyAtoms";
 import { isGuestState, locationState } from "../../../recoil/userAtoms";
 
 function AboutVoteNav() {
@@ -24,12 +22,9 @@ function AboutVoteNav() {
   const isGuest = useRecoilValue(isGuestState);
   const location = useRecoilValue(locationState);
   const participations = useRecoilValue(participationsState);
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isQuickVoteModal, setIsQuickVoteModal] = useState(false);
-
-  const { data: studyPreference } = useStudyPreferenceQuery();
 
   const voteCnt = participations?.reduce(
     (acc, par) =>
@@ -46,40 +41,38 @@ function AboutVoteNav() {
     if (type === "quickVote") setIsQuickVoteModal(true);
   };
 
+  const { data: studyPreference } = useStudyPreferenceQuery();
+
   return (
     <>
-      {studyDateStatus === "not passed" && (
-        <Layout>
-          <div>
-            <Navigation>
-              <Button
-                leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
-                onClick={() => onClickBtn("quickVote")}
-                background="mint"
-                color="white"
-                size="md"
-                width="50%"
-                mr="var(--margin-md)"
-                _hover={{ bg: "var(--color-mint)" }}
-              >
-                빠른 투표
-              </Button>{" "}
-              <Button
-                width="50%"
-                leftIcon={<FontAwesomeIcon icon={faBullseyePointer} />}
-                onClick={() => onClickBtn("vote")}
-                size="md"
-                colorScheme="blackAlpha"
-              >
-                직접 투표
-              </Button>
-            </Navigation>
-          </div>
-          <VoterCnt>
-            현재 <b>{voteCnt}명</b>의 멤버가 스터디에 투표중이에요!
-          </VoterCnt>
-        </Layout>
-      )}
+      <Layout>
+        <Navigation>
+          <Button
+            leftIcon={<FontAwesomeIcon icon={faCheckToSlot} />}
+            onClick={() => onClickBtn("quickVote")}
+            background="mint"
+            color="white"
+            size="md"
+            width="50%"
+            mr="var(--margin-md)"
+            _hover={{ bg: "var(--color-mint)" }}
+          >
+            빠른 투표
+          </Button>
+          <Button
+            width="50%"
+            leftIcon={<FontAwesomeIcon icon={faBullseyePointer} />}
+            onClick={() => onClickBtn("vote")}
+            size="md"
+            colorScheme="blackAlpha"
+          >
+            직접 투표
+          </Button>
+        </Navigation>
+        <VoterCnt>
+          현재 <b>{voteCnt}명</b>의 멤버가 스터디에 투표중이에요!
+        </VoterCnt>
+      </Layout>
       {isVoteModal && (
         <ModalPortal setIsModal={setIsVoteModal}>
           <StudyVoteMainModal
@@ -90,14 +83,16 @@ function AboutVoteNav() {
           />
         </ModalPortal>
       )}
-      {isQuickVoteModal && (
-        <ModalPortal setIsModal={setIsQuickVoteModal}>
-          <StudyQuickVoteModal
-            setIsModal={setIsQuickVoteModal}
-            data={studyPreference}
-          />
-        </ModalPortal>
-      )}
+      {isQuickVoteModal &&
+        (studyPreference ? (
+          <ModalPortal setIsModal={setIsQuickVoteModal}>
+            <StudyQuickVoteModal setIsModal={setIsQuickVoteModal} />
+          </ModalPortal>
+        ) : (
+          <ModalPortal setIsModal={setIsQuickVoteModal}>
+            <StudyQuickVoteRegisterModal setIsModal={setIsQuickVoteModal} />
+          </ModalPortal>
+        ))}
     </>
   );
 }

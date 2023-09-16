@@ -1,29 +1,20 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
 import { ModalLayout } from "../../components/common/modal/Modals";
 import PlaceSelector from "../../components/features/selector/PlaceSelector";
+import { LOCATION_PLACE_SMALL } from "../../constants/location";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
-import { useStudyPlaceQuery } from "../../hooks/study/queries";
-import { locationState } from "../../recoil/userAtoms";
+import { useStudyPlacesLocationQuery } from "../../hooks/study/queries";
+import { useUserLocationQuery } from "../../hooks/user/queries";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/study/study";
 import { IStudyPlaces } from "../../types/study/studyUserAction";
 
-interface IRequestStudyPreferenceModal extends IModal {
-  isBig: boolean;
-}
-
-function RequestStudyPreferenceModal({
-  setIsModal,
-  isBig,
-}: IRequestStudyPreferenceModal) {
+function RequestStudyPreferenceModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
-
-  const location = useRecoilValue(locationState);
 
   const [page, setPage] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,23 +24,26 @@ function RequestStudyPreferenceModal({
     subPlace: [],
   });
 
-  useStudyPlaceQuery({
+  //사이즈 설정
+  const { data: location } = useUserLocationQuery();
+  const isBig = !LOCATION_PLACE_SMALL.includes(location);
+
+  //같은 지역의 스터디 장소 호출
+  useStudyPlacesLocationQuery(location, {
+    enabled: !!location,
     onSuccess(data) {
-      const filterData = data.filter((place) => place.location === location);
-      setPlaces(filterData);
+      setPlaces(data);
     },
   });
 
   const { mutate: setStudyPreference } = useStudyPreferenceMutation({
     onSuccess() {
       completeToast("success");
-      setTimeout(() => {
-        document.location.reload();
-      }, 1000);
+      setIsModal(false);
     },
   });
 
-  const firstSubmit = () => {
+  const selectFirst = () => {
     if (!votePlaces?.place) {
       setErrorMessage("장소를 선택해주세요!");
       return;
@@ -59,7 +53,6 @@ function RequestStudyPreferenceModal({
 
   const onSubmit = () => {
     setStudyPreference(votePlaces);
-    setIsModal(false);
   };
 
   return (
@@ -80,7 +73,7 @@ function RequestStudyPreferenceModal({
             </ModalMain>
             <ModalFooterNav>
               <Error>{errorMessage}</Error>
-              <button onClick={firstSubmit}>다음</button>
+              <button onClick={selectFirst}>다음</button>
             </ModalFooterNav>
           </>
         ) : (

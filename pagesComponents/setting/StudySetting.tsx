@@ -38,7 +38,6 @@ function StudySetting() {
 
   //내 스터디 확인
   const setMyStudySpace = (participations: IStudy[]) => {
-    setMySpaceFixed(null);
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
         if (!who.user) return;

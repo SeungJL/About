@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function CalendarDay() {
+function AboutCalendarDays() {
   return (
     <Layout>
       <span>일</span>
@@ -24,4 +24,4 @@ const Layout = styled.div`
   padding: 0 2px;
 `;
 
-export default CalendarDay;
+export default AboutCalendarDays;

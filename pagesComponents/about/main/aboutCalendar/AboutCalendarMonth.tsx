@@ -5,53 +5,48 @@ import {
   faChevronUp,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion } from "framer-motion";
 import { SetStateAction } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 
-interface ICalendarMonth {
+interface IAboutCalendarMonth {
   calendarType: "week" | "month";
   setCalendarType: React.Dispatch<SetStateAction<"week" | "month">>;
 }
 
-function CalendarMonth({ calendarType, setCalendarType }: ICalendarMonth) {
+function AboutCalendarMonth({
+  calendarType,
+  setCalendarType,
+}: IAboutCalendarMonth) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
+  //날짜 변경
   const onClickMove = (cnt: number) => {
     setVoteDate((old) => old.add(cnt, "month").date(cnt));
   };
 
   return (
     <Layout>
-      {voteDate && (
-        <>
-          <span>{voteDate.format("YYYY년 M월")}</span>
-          {calendarType === "week" ? (
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              size="xs"
-              onClick={() => setCalendarType("month")}
-              color="var(--font-h2)"
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faChevronUp}
-              size="xs"
-              onClick={() => setCalendarType("week")}
-              color="var(--font-h2)"
-            />
-          )}
-        </>
+      <span>{voteDate.format("YYYY년 M월")}</span>
+      {calendarType === "week" ? (
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          size="xs"
+          onClick={() => setCalendarType("month")}
+          color="var(--font-h2)"
+        />
+      ) : (
+        <FontAwesomeIcon
+          icon={faChevronUp}
+          size="xs"
+          onClick={() => setCalendarType("week")}
+          color="var(--font-h2)"
+        />
       )}
       {calendarType === "month" && (
         <>
-          <MonthNav
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
+          <MonthNav>
             <FontAwesomeIcon
               icon={faChevronLeft}
               onClick={() => onClickMove(-1)}
@@ -80,7 +75,7 @@ const Layout = styled.span`
     margin-right: var(--margin-md);
   }
 `;
-const MonthNav = styled(motion.nav)`
+const MonthNav = styled.div`
   margin-left: auto;
   width: 40px;
   display: flex;
@@ -89,4 +84,4 @@ const MonthNav = styled(motion.nav)`
   color: var(--font-h2);
 `;
 
-export default CalendarMonth;
+export default AboutCalendarMonth;

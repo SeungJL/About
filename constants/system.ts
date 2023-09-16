@@ -1,12 +1,7 @@
 export const WEB_URL = "https://studyabout.herokuapp.com";
 export const SERVER_URI = process.env.NEXT_PUBLIC_SERVER_URI;
 
-export const LOCATION_ALL = ["수원", "양천", "안양", "강남", "보류"];
 
-export const LOCATION_OPEN_DATE = {
-  수원: "2023-04-07",
-  양천: "2023-04-19",
-};
 
 export const VOTE_TABLE_COLOR = [
   "#FF8896",

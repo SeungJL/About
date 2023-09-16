@@ -1,12 +1,18 @@
 import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
-import { STUDY_VOTE_INFO } from "../../constants/queryKeys";
+import { STUDY_PLACE, STUDY_VOTE_INFO } from "../../constants/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
-import { IStudyPreferencesQuery } from "../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
-import { IPlace, IStudyStartTime, IVote } from "../../types/study/study";
+
+import {
+  IPlace,
+  IStudyPreferencesQuery,
+  IStudyStartTime,
+  IVote,
+} from "../../types/study/study";
 import { IArrivedData } from "../../types/study/studyRecord";
+import { IStudyPlaces } from "../../types/study/studyUserAction";
 import { Location } from "../../types/system";
 
 export const useStudyVoteQuery = (
@@ -38,17 +44,33 @@ export const useStudyVoteQuery = (
   );
 };
 
-export const useStudyPlaceQuery = (
+export const useStudyPlacesQuery = (
   options?: Omit<
     UseQueryOptions<IPlace[], AxiosError, IPlace[]>,
     "queryKey" | "queryFn"
   >
 ) =>
   useQuery<IPlace[], AxiosError, IPlace[]>(
-    "studyPlace",
+    [STUDY_PLACE, "all"],
     async () => {
       const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
       return res.data;
+    },
+    options
+  );
+export const useStudyPlacesLocationQuery = (
+  location: Location,
+  options?: Omit<
+    UseQueryOptions<IPlace[], AxiosError, IPlace[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<IPlace[], AxiosError, IPlace[]>(
+    [STUDY_PLACE, "location"],
+    async () => {
+      const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
+      const places = res.data.filter((place) => place.location === location);
+      return places;
     },
     options
   );
@@ -124,7 +146,7 @@ export const useStudyAbsentQuery = (
 
 export const useStudyPreferenceQuery = (
   options?: Omit<
-    UseQueryOptions<IStudyPreferencesQuery, AxiosError, IStudyPreferencesQuery>,
+    UseQueryOptions<IStudyPlaces, AxiosError, IStudyPlaces>,
     "queryKey" | "queryFn"
   >
 ) =>
@@ -134,7 +156,7 @@ export const useStudyPreferenceQuery = (
       const res = await axios.get<IStudyPreferencesQuery>(
         `${SERVER_URI}/user/preference`
       );
-      return res.data;
+      return res.data.studyPreference;
     },
     options
   );

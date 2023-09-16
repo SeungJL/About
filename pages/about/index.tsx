@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
-import Calendar from "../../pagesComponents/about/main/aboutCalendar/Calendar";
+import AboutCalendar from "../../pagesComponents/about/main/aboutCalendar/AboutCalendar";
 import AboutCategoryNav from "../../pagesComponents/about/main/AboutCategoryNav";
 import AboutGather from "../../pagesComponents/about/main/aboutGather/AboutGather";
 import AboutHeader from "../../pagesComponents/about/main/aboutHeader/AboutHeader";
@@ -21,6 +21,7 @@ import {
   myStudyFixedState,
   participationsState,
   studyDateStatusState,
+  voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
 import { NOT_OPEN_LOCATION } from "../../storage/study";
@@ -31,6 +32,7 @@ function About() {
   const mySpaceFixed = useRecoilValue(myStudyFixedState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const participations = useRecoilValue(participationsState);
+  const voteDate = useRecoilValue(voteDateState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const [otherStudies, setOtherStudies] = useState<IStudy[]>([]);
@@ -59,9 +61,9 @@ function About() {
         <AboutHeader />
         <AboutCategoryNav />
         <AboutStudyHeader />
-        <AboutStudyResult />
-        <Calendar />
-        <AboutVoteNav />
+        {studyDateStatus !== "not passed" && <AboutStudyResult />}
+        {voteDate && <AboutCalendar />}
+        {studyDateStatus === "not passed" && <AboutVoteNav />}
         <AboutMain participations={otherStudies} />
         <HrDiv />
         <AboutGather />

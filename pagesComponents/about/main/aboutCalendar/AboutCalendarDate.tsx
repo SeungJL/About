@@ -3,16 +3,15 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 
-interface ICalendarDate {
+interface IAboutCalendarDate {
   calendarType: "week" | "month";
 }
 
 interface ICalendarBox {
   date: number;
-  isAttend: boolean;
 }
 
-function CalendarDate({ calendarType }: ICalendarDate) {
+function AboutCalendarDate({ calendarType }: IAboutCalendarDate) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [calendarBox, setCalendarBox] = useState<ICalendarBox[]>([]);
 
@@ -37,13 +36,11 @@ function CalendarDate({ calendarType }: ICalendarDate) {
         else temp.push({ date: i - startDayInMonth });
       }
     }
-
     setCalendarBox(temp);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarType, voteDate]);
 
-  const onClickDate = (d: { date: number; isAttend: boolean }) => {
+  const onClickDate = (d: ICalendarBox) => {
     setVoteDate(voteDate.date(d.date));
   };
 
@@ -53,13 +50,11 @@ function CalendarDate({ calendarType }: ICalendarDate) {
     <Layout isSmall={calendarType === "week"}>
       {calendarBox.map((d, idx) => (
         <DayItem key={idx} onClick={() => onClickDate(d)}>
-          {d?.date === voteDate?.date() ? (
+          {d?.date === voteDate.date() ? (
             <IconCircle>{d?.date}</IconCircle>
           ) : (
             <div>{d?.date}</div>
           )}
-
-          {d?.isAttend && <AttendCircle />}
         </DayItem>
       ))}
     </Layout>
@@ -100,10 +95,5 @@ const DayItem = styled.div`
     margin: 4px auto 0px auto;
   }
 `;
-const AttendCircle = styled.div`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--color-mint);
-`;
-export default CalendarDate;
+
+export default AboutCalendarDate;

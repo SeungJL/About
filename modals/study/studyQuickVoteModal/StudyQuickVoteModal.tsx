@@ -11,35 +11,27 @@ import {
   useFailToast,
 } from "../../../hooks/CustomToast";
 import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
+import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
-import { IStudyPlaces } from "../../../types/study/studyUserAction";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";
-import StudyQuickVoteModalRegister from "./StudyQuickVoteModalRegister";
 
-interface IStudyQuickVoteModal extends IModal {
-  data: IStudyPreferencesQuery;
-}
-
-export interface IStudyPreferencesQuery {
-  _id: string;
-  studyPreference: IStudyPlaces;
-}
-
-function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
+function StudyQuickVoteModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
-  const voteDate = useRecoilValue(voteDateState);
 
+  const voteDate = useRecoilValue(voteDateState);
   const setIsRefetchStudy = useSetRecoilState(isRefetchStudyState);
 
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hours: 14, minutes: 0 },
     end: { hours: 18, minutes: 0 },
   });
+
+  const { data: studyPreference } = useStudyPreferenceQuery();
 
   const { mutate } = useStudyQuickVoteMutation(voteDate, {
     onSuccess() {
@@ -61,74 +53,59 @@ function StudyQuickVoteModal({ setIsModal, data }: IStudyQuickVoteModal) {
   };
 
   return (
-    <>
-      {data && data.studyPreference ? (
-        <ModalLayout size="lg">
-          <ModalHeaderX
-            title={`${voteDate?.format("M월 D일")} 스터디 투표`}
-            setIsModal={setIsModal}
-          />
-          <ModalMain>
-            <Container>
-              <PlaceInfo>
-                <div>
-                  <b>1 지망:</b> {data.studyPreference.place.branch}
-                </div>
-                <div>
-                  <b>2 지망:</b>
-                  <Subplaces>
-                    {data?.studyPreference.subPlace?.map((item) => (
-                      <span key={item._id}>{item.branch}</span>
-                    ))}
-                  </Subplaces>
-                </div>
-              </PlaceInfo>
-            </Container>
-            <TimeSelector
-              setTimes={({ start, end }: ITimeStartToEnd) => {
-                if (start) setTime({ end: time.end, start });
-                if (end) setTime({ start: time.start, end });
-              }}
-              times={time}
-            />
-          </ModalMain>
-          <Button colorScheme="mintTheme" onClick={onSubmit}>
-            제출
-          </Button>
-        </ModalLayout>
-      ) : (
-        data && <StudyQuickVoteModalRegister setIsModal={setIsModal} />
-      )}
-    </>
+    <ModalLayout size="lg">
+      <ModalHeaderX
+        title={`${voteDate?.format("M월 D일")} 스터디 투표`}
+        setIsModal={setIsModal}
+      />
+      <ModalMain>
+        <PlaceInfo>
+          <div>
+            <b>1 지망:</b> {studyPreference.place.branch}
+          </div>
+          <div>
+            <b>2 지망:</b>
+            <Subplaces>
+              {studyPreference.subPlace.map((item) => (
+                <span key={item._id}>{item.branch}</span>
+              ))}
+            </Subplaces>
+          </div>
+        </PlaceInfo>
+        <TimeSelector
+          setTimes={({ start, end }: ITimeStartToEnd) => {
+            if (start) setTime({ end: time.end, start });
+            if (end) setTime({ start: time.start, end });
+          }}
+          times={time}
+        />
+      </ModalMain>
+      <Button colorScheme="mintTheme" onClick={onSubmit}>
+        제출
+      </Button>
+    </ModalLayout>
   );
 }
+
+const PlaceInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 2;
+  font-size: 14px;
+  > div {
+    display: flex;
+    > b {
+      display: inline-block;
+      width: 44px;
+      margin-right: var(--margin-md);
+    }
+  }
+`;
 
 const Subplaces = styled.div`
   flex: 1;
   > span {
     margin-right: var(--margin-min);
-  }
-`;
-
-const Container = styled.div`
-  line-height: 2;
-  font-size: 14px;
-  > div {
-    > div {
-      > b {
-        display: inline-block;
-        width: 44px;
-        margin-right: var(--margin-md);
-      }
-    }
-  }
-`;
-
-const PlaceInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  > div {
-    display: flex;
   }
 `;
 

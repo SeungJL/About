@@ -1,4 +1,5 @@
 export const STUDY_VOTE_INFO = "vote_get";
+export const STUDY_PLACE = "study_place";
 export const PLACE_FINDALL = "place_findall";
 export const USER_INFO = "user_info";
 export const USER_FINDPARTICIPATION = "user_findparticipation";

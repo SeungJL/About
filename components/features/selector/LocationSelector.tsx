@@ -24,29 +24,27 @@ function LocationSelector() {
   };
 
   return (
-    <>
+    <Layout>
       {!isMainLoading && (
-        <Layout>
-          <CustomSelect
-            value={value}
-            onChange={onChange}
-            color="var(--font-h2)"
-            bg="var(--font-h8)"
-            fontWeight="600"
-            textAlign="center"
-            border="none"
-            size="sm"
-            ml="var(--margin-md)"
-            _focus={{ border: "none" }}
-          >
-            <Options value="수원">수원</Options>
-            <Options value="양천">양천구</Options>
-            <Options value="안양">안양</Options>
-            <Options value="강남">강남</Options>
-          </CustomSelect>
-        </Layout>
+        <CustomSelect
+          value={value}
+          onChange={onChange}
+          color="var(--font-h2)"
+          bg="var(--font-h8)"
+          fontWeight="600"
+          textAlign="center"
+          border="none"
+          size="sm"
+          ml="var(--margin-md)"
+          _focus={{ border: "none" }}
+        >
+          <Options value="수원">수원</Options>
+          <Options value="양천">양천구</Options>
+          <Options value="안양">안양</Options>
+          <Options value="강남">강남</Options>
+        </CustomSelect>
       )}
-    </>
+    </Layout>
   );
 }
 
@@ -54,6 +52,7 @@ const Layout = styled.div``;
 
 const CustomSelect = styled(Select)`
   padding-right: 24px !important;
+  padding-bottom: 0px !important;
 `;
 
 const Options = styled.option`

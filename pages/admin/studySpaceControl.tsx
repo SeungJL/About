@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import { StudySpaceLogo } from "../../components/utils/DesignAdjustment";
-import { useStudyPlaceQuery } from "../../hooks/study/queries";
+import { useStudyPlacesQuery } from "../../hooks/study/queries";
 import { ISpaceControl } from "../../types/page/admin";
 
 function StudySpaceControl() {
-  const { data } = useStudyPlaceQuery();
+  const { data } = useStudyPlacesQuery();
   const { register, handleSubmit } = useForm({});
 
   const [addRequestForm, setAddRequestForm] = useState({

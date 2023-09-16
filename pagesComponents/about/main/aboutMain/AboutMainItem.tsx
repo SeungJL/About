@@ -13,9 +13,10 @@ import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
 
 interface IAboutMainItem {
   participation: IStudy;
+  isMyResult?: boolean;
 }
 
-function AboutMainItem({ participation }: IAboutMainItem) {
+function AboutMainItem({ participation, isMyResult }: IAboutMainItem) {
   const router = useRouter();
 
   const voteDate = useRecoilValue(voteDateState);
@@ -29,7 +30,11 @@ function AboutMainItem({ participation }: IAboutMainItem) {
   };
 
   return (
-    <Layout status={statusFixed === "myOpen"} onClick={onClickItem}>
+    <Layout
+      status={statusFixed === "myOpen"}
+      isMyResult={isMyResult}
+      onClick={onClickItem}
+    >
       <ImageContainer>
         <StudySpaceLogo place={place} isBig={true} />
       </ImageContainer>
@@ -46,14 +51,15 @@ function AboutMainItem({ participation }: IAboutMainItem) {
   );
 }
 
-const Layout = styled.div<{ status: boolean }>`
+const Layout = styled.div<{ status: boolean; isMyResult: boolean }>`
   height: 110px;
   background-color: white;
   box-shadow: var(--box-shadow-sub);
   border-radius: var(--border-radius-main);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-main);
+  margin-bottom: ${(props) =>
+    props.isMyResult ? "29px" : "var(--margin-main)"};
   padding: var(--padding-sub);
   padding-left: ${(props) => props.status && "0px"};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};

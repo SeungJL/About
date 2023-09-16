@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { LOCATION_OPEN_DATE } from "../../constants/system";
-import { useStudyPlaceQuery } from "../../hooks/study/queries";
+import { useStudyPlacesQuery } from "../../hooks/study/queries";
 interface IMemberOverview {
   totalMemberCnt: number;
   activeMemberCnt: number;
@@ -12,7 +12,7 @@ function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
   const router = useRouter();
   const location = router.query.location;
 
-  const { data } = useStudyPlaceQuery();
+  const { data } = useStudyPlacesQuery();
 
   const placeData = data?.filter((place) => place?.location === location);
 

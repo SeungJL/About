@@ -8,6 +8,7 @@ import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
   myStudyFixedState,
+  participationsState,
   studyDateStatusState,
   voteDateState,
 } from "../../recoil/studyAtoms";
@@ -22,6 +23,7 @@ function DateSetting() {
   const setStudyDate = useSetRecoilState(studyDateStatusState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
   const setMyStudyFixed = useSetRecoilState(myStudyFixedState);
+  const setParticipations = useSetRecoilState(participationsState);
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 
@@ -60,6 +62,7 @@ function DateSetting() {
     const studyDateStatus = getStudyDate(voteDate);
     setStudyDate(studyDateStatus);
     setMyStudyFixed(null);
+    setParticipations(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 
