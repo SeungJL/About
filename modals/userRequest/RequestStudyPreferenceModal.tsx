@@ -68,7 +68,6 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
                 votePlaces={votePlaces}
                 setVotePlaces={setVotePlaces}
                 isMain={true}
-                isBig={isBig}
               />
             </ModalMain>
             <ModalFooterNav>
@@ -85,7 +84,6 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
                 votePlaces={votePlaces}
                 setVotePlaces={setVotePlaces}
                 isMain={false}
-                isBig={isBig}
               />
             </ModalMain>
             <ModalFooterNav>
