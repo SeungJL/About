@@ -30,7 +30,7 @@ function AboutMain({ participations }: IAboutMain) {
     setTransferStudyData(participations);
     router.push("/about/studyPlace");
   };
-
+  console.log(1, isMainLoading, participations);
   //스와이프 함수
   const onDragEnd = (e, { offset, velocity }) => {
     const swipe = swipePower(offset.x, velocity.x);

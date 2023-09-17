@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { NOT_OPEN_LOCATION } from "../../constants/location";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
 import AboutCalendar from "../../pagesComponents/about/main/aboutCalendar/AboutCalendar";
 import AboutCategoryNav from "../../pagesComponents/about/main/AboutCategoryNav";
@@ -24,7 +25,6 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
-import { NOT_OPEN_LOCATION } from "../../storage/study";
 import { IStudy } from "../../types/study/study";
 
 function About() {
@@ -47,6 +47,7 @@ function About() {
     );
     setOtherStudies(arrangedOtherStudies);
     setIsMainLoading(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
 

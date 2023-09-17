@@ -23,6 +23,7 @@ function StudyVoteMainModalTime({
   setVoteInfo,
 }: IStudyVoteMainModalTime) {
   const voteDate = useRecoilValue(voteDateState);
+
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: isTimeBoard ? null : { hours: 14, minutes: 0 },
     end: isTimeBoard ? null : { hours: 18, minutes: 0 },

@@ -33,12 +33,12 @@ function StudyVoteMainModalPlace({
 }: IStudyVoteMainModalPlace) {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [places, setPlaces] = useState<IStudyVotePlaces[]>();
   const [votePlaces, setVotePlaces] = useState<IStudyPlaces>({
     place: undefined,
     subPlace: [],
   });
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const temp: IStudyVotePlaces[] = participations?.map((participation) => ({

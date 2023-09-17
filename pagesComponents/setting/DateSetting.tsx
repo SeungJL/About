@@ -60,7 +60,6 @@ function DateSetting() {
     setIsMainLoading(true);
     if (!voteDate) return;
     const studyDateStatus = getStudyDate(voteDate);
-    console.log(4);
     setStudyDateStatus(studyDateStatus);
     setMyStudyFixed(null);
     setParticipations(null);
