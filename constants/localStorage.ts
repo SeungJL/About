@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
 
-export const NOTICE_ALERT = "noticeAlert23";
+export const NOTICE_ALERT = "noticeAlert24";
 export const USER_GUIDE = "userGuide";
 export const SUGGEST_POP_UP = "suggestPopUp";
+export const STUDY_SPACE = "studySpacePopUp";
 
 export const ATTEND_POP_UP = "attendPopUp";
 

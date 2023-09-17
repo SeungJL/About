@@ -24,7 +24,7 @@ import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
 interface IRequestSuggestModal extends IModal {
-  type: "suggest" | "declare";
+  type: "suggest" | "declare" | "studySpace";
 }
 
 function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
@@ -33,7 +33,12 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
   const completeToast = useCompleteToast();
 
   const [isRealName, setIsRealName] = useState(true);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      title: type === "studySpace" ? "스터디 장소 추천" : "",
+      content: "",
+    },
+  });
 
   const { data: location } = useUserLocationQuery();
 
@@ -64,7 +69,13 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
   return (
     <ModalLayout size="xl">
       <ModalHeaderX
-        title={type === "suggest" ? "건의하기" : "불편사항 신고"}
+        title={
+          type === "suggest"
+            ? "건의하기"
+            : type === "declare"
+            ? "불편사항 신고"
+            : "스터디 장소 추천"
+        }
         setIsModal={setIsModal}
       />
       <ModalMain>
@@ -159,6 +170,7 @@ const Item = styled.div`
 `;
 
 const TitleInput = styled.input`
+  padding: 0 var(--padding-min);
   background-color: var(--input-bg);
   border-radius: var(--border-radius-sub);
 `;
@@ -192,6 +204,7 @@ const ContentInput = styled.textarea`
   display: block;
   width: 100%;
   height: 100%;
+  padding: var(--padding-min);
   background-color: var(--input-bg);
 `;
 

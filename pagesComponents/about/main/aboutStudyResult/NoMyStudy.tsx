@@ -2,12 +2,26 @@ import { Button } from "@chakra-ui/react";
 import { faSparkles } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/common/ModalPortal";
+import { useFailToast } from "../../../../hooks/CustomToast";
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
+import { isGuestState } from "../../../../recoil/userAtoms";
 
 function NoMyStudy() {
+  const failToast = useFailToast();
+  const isGuest = useRecoilValue(isGuestState);
   const [isFreeOpenModal, setIsFreeOpenModal] = useState(false);
+
+  const onClickFreeOpen = () => {
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
+    setIsFreeOpenModal(true);
+  };
+
   return (
     <>
       <Layout>
@@ -17,7 +31,7 @@ function NoMyStudy() {
           <Button
             leftIcon={<FontAwesomeIcon icon={faSparkles} size="sm" />}
             rightIcon={<FontAwesomeIcon icon={faSparkles} size="sm" />}
-            onClick={() => setIsFreeOpenModal(true)}
+            onClick={onClickFreeOpen}
             colorScheme="mintTheme"
             size="xs"
             color="mint"

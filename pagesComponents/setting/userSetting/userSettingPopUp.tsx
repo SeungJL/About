@@ -3,11 +3,13 @@ import ModalPortal from "../../../components/common/ModalPortal";
 import {
   ATTEND_POP_UP,
   PROMOTION_POP_UP,
+  STUDY_SPACE,
   SUGGEST_POP_UP,
   USER_GUIDE,
 } from "../../../constants/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
+import FreeStudySpacePopUp from "../../../modals/pop-up/FreeStudySpacePopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../../modals/pop-up/SuggestPopUp";
@@ -22,7 +24,8 @@ export type UserPopUp =
   | "profileEdit"
   | "suggest"
   | "promotion"
-  | "userGuide";
+  | "userGuide"
+  | "studySpace";
 
 function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -30,6 +33,10 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   useEffect(() => {
     let popUpCnt = 0;
     if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
+    if (!checkAndSetLocalStorage(STUDY_SPACE, 2)) {
+      setPopUpTypes((old) => [...old, "studySpace"]);
+      if (++popUpCnt === 2) return;
+    }
     if (!checkAndSetLocalStorage(USER_GUIDE, 15)) {
       setPopUpTypes((old) => [...old, "userGuide"]);
       if (++popUpCnt === 2) return;
@@ -72,6 +79,13 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       {popUpTypes.includes("suggest") && (
         <ModalPortal setIsModal={() => filterPopUpTypes("suggest")}>
           <SuggestPopUp setIsModal={() => filterPopUpTypes("suggest")} />
+        </ModalPortal>
+      )}
+      {popUpTypes.includes("studySpace") && (
+        <ModalPortal setIsModal={() => filterPopUpTypes("studySpace")}>
+          <FreeStudySpacePopUp
+            setIsModal={() => filterPopUpTypes("studySpace")}
+          />
         </ModalPortal>
       )}
       {popUpTypes.includes("promotion") && (
