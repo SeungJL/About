@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import {
   ModalFooterTwo,
   ModalHeaderX,
@@ -7,6 +8,7 @@ import {
 import { ModalLayout } from "../../components/common/modal/Modals";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useStudyOpenFreeMutation } from "../../hooks/study/mutations";
+import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { ModalMain } from "../../styles/layout/modal";
 
 function StudyFreeOpenModal({ setIsModal }) {
@@ -15,9 +17,11 @@ function StudyFreeOpenModal({ setIsModal }) {
   const errorToast = useErrorToast();
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
+  const setIsRefetch = useSetRecoilState(isRefetchStudySpaceState);
   const { mutate: openFree } = useStudyOpenFreeMutation(voteDate, {
     onSuccess() {
       completeToast("free", "스터디가 Free로 오픈되었습니다.");
+      setIsRefetch(true);
       setIsModal(false);
     },
     onError: errorToast,
