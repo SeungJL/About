@@ -57,6 +57,7 @@ export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
     else if (ID === ANYANG_인뎃커피) temp[1] = participant;
     else if (ID === ANYANG_파스쿠찌) temp[2] = participant;
     else if (ID === ANYANG_커피인더스트리) temp[3] = participant;
+    else if (ID === SUWAN_탐앤탐스) temp[4] = participant;
     //
     if (ID === GANGNAM_강남) temp[0] = participant;
     if (ID === GANGNAM_강남구청) temp[4] = participant;

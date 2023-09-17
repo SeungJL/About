@@ -3,34 +3,45 @@ import styled from "styled-components";
 import Skeleton from "../../../../components/common/skeleton/Skeleton";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 
-function AboutMainItemSkeleton() {
+const VISIBLE_CNT = 3;
+
+function AboutMainSkeleton() {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   return (
     <Layout>
-      <ImageContainer>
-        <Skeleton>temp</Skeleton>
-      </ImageContainer>
-      <SpaceInfo>
-        <Branch>
-          <Skeleton>temp</Skeleton>
-          {studyDateStatus !== "not passed" && (
-            <BranchSub>
+      {new Array(VISIBLE_CNT).fill(0)?.map((item, idx) => (
+        <Item key={idx}>
+          <ImageContainer>
+            <Skeleton>temp</Skeleton>
+          </ImageContainer>
+          <SpaceInfo>
+            <Branch>
               <Skeleton>temp</Skeleton>
-            </BranchSub>
-          )}
-        </Branch>
-        <Info>
-          <Skeleton>temp</Skeleton>
-        </Info>
-        <Participants>
-          <Skeleton>temp</Skeleton>
-        </Participants>
-      </SpaceInfo>
+              {studyDateStatus !== "not passed" && (
+                <BranchSub>
+                  <Skeleton>temp</Skeleton>
+                </BranchSub>
+              )}
+            </Branch>
+            <Info>
+              <Skeleton>temp</Skeleton>
+            </Info>
+            <Participants>
+              <Skeleton>temp</Skeleton>
+            </Participants>
+          </SpaceInfo>
+        </Item>
+      ))}
     </Layout>
   );
 }
 
 const Layout = styled.div`
+  min-height: 422px;
+  margin-top: var(--margin-main);
+  padding: 0 var(--padding-main);
+`;
+const Item = styled.div`
   height: 100px;
   background-color: white;
   border-radius: 8px;
@@ -75,7 +86,6 @@ const Participants = styled.div`
   margin-top: auto;
   margin-left: auto;
   width: 110px;
-
   height: 26px;
 `;
-export default AboutMainItemSkeleton;
+export default AboutMainSkeleton;

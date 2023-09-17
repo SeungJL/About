@@ -29,7 +29,7 @@ import { IStudy } from "../../types/study/study";
 
 function About() {
   const location = useRecoilValue(locationState);
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const participations = useRecoilValue(participationsState);
   const voteDate = useRecoilValue(voteDateState);
@@ -37,18 +37,18 @@ function About() {
 
   const [otherStudies, setOtherStudies] = useState<IStudy[]>([]);
 
-  //스터디 정렬
+  //스터디 정렬 *내 스터디 *투표 인원수 고려
   useEffect(() => {
     if (NOT_OPEN_LOCATION.includes(location)) setIsMainLoading(false);
     if (!participations) return;
     const arrangedOtherStudies = arrangeMainSpace(
-      participations?.filter((space) => space !== mySpaceFixed),
+      participations?.filter((space) => space !== myStudyFixed),
       studyDateStatus !== "not passed"
     );
     setOtherStudies(arrangedOtherStudies);
     setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mySpaceFixed, participations]);
+  }, [myStudyFixed, participations]);
 
   return (
     <>

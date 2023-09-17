@@ -10,7 +10,9 @@ interface IAboutMainItemParticipants {
   statusFixed: "myOpen" | StudyStatus;
   attendances: IAttendance[];
 }
+
 const VOTER_SHOW_MAX = 7;
+
 function AboutMainItemParticipants({
   status,
   statusFixed,
@@ -20,6 +22,7 @@ function AboutMainItemParticipants({
 
   const isMyVote = attendances.find((who) => who.user?.uid === session?.uid);
   const voterCnt = attendances.length;
+
   const voteStatus: "GOOD" | "FULL" =
     status === "pending"
       ? isMyVote
@@ -28,7 +31,9 @@ function AboutMainItemParticipants({
         ? "FULL"
         : null
       : null;
+
   const firstAttendance = attendances.filter((att) => att.firstChoice);
+
   return (
     <Layout status={statusFixed === "myOpen"}>
       <div>

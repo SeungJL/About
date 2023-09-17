@@ -36,8 +36,8 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const failToast = useFailToast();
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
-  const isFree = mySpaceFixed.status === "free";
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const isFree = myStudyFixed.status === "free";
 
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
@@ -62,7 +62,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
       if (
         !isFree &&
         dayjs(
-          mySpaceFixed?.attendences?.find(
+          myStudyFixed?.attendences?.find(
             (who) => (who?.user as IUser).uid === session?.uid
           ).time.start
         ).add(1, "hour") < dayjs()

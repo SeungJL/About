@@ -84,18 +84,19 @@ function StudyVoteMainModalPlace({
           />
         )}
       </ModalMain>
-
-      {page === 0 ? (
-        <ModalFooterNav>
-          <Error>{errorMessage}</Error>
-          <button onClick={firstSubmit}>다음</button>
-        </ModalFooterNav>
-      ) : (
-        <ModalFooterNav>
-          <button onClick={() => setPage(0)}>뒤로가기</button>
-          <button onClick={() => setPage(2)}>다음</button>
-        </ModalFooterNav>
-      )}
+      <ModalFooterNav>
+        {page === 0 ? (
+          <>
+            <Error>{errorMessage}</Error>
+            <button onClick={firstSubmit}>다음</button>
+          </>
+        ) : (
+          <>
+            <button onClick={() => setPage(0)}>뒤로가기</button>
+            <button onClick={() => setPage(2)}>다음</button>
+          </>
+        )}
+      </ModalFooterNav>
     </>
   );
 }

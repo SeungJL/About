@@ -24,7 +24,7 @@ function StudySetting() {
   const location = useRecoilValue(locationState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
-  const setStudyInfos = useSetRecoilState(participationsState);
+  const setParticipations = useSetRecoilState(participationsState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
   const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
 
@@ -55,7 +55,7 @@ function StudySetting() {
     enabled: !!voteDate && !!location,
     onSuccess(data) {
       const participations = data.participations;
-      setStudyInfos(arrangeSpace(participations));
+      setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
       if (participations[0].status === "pending") setDecideStudy();
     },

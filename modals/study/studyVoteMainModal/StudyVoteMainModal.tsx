@@ -16,31 +16,21 @@ import {
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
+  participationsState,
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { IModal } from "../../../types/reactTypes";
-import { IStudy } from "../../../types/study/study";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
-import { Location } from "../../../types/system";
 import StudyVoteMainModalPlace from "./StudyVoteMainModalPlace";
 import StudyVoteMainModalTime from "./StudyVoteMainModalTime";
-interface IStudyVoteMainModal extends IModal {
-  isBig: boolean;
-  participations: IStudy[];
-  location: Location;
-}
 
-function StudyVoteMainModal({
-  setIsModal,
-  isBig,
-  location,
-  participations,
-}: IStudyVoteMainModal) {
+function StudyVoteMainModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
   const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
 
+  const participations = useRecoilValue(participationsState);
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
@@ -51,6 +41,9 @@ function StudyVoteMainModal({
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
+
+  const placeCnt = participations?.length;
+  const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "lg" : "md";
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
@@ -70,7 +63,7 @@ function StudyVoteMainModal({
     onError: errorToast,
   });
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     const startTime = voteInfo?.start;
     const endTime = voteInfo?.end;
 
@@ -82,42 +75,30 @@ function StudyVoteMainModal({
       failToast("free", "시작 시작은 종료 시간 이전이어야 합니다.");
       return;
     }
+    patchAttend(voteInfo);
     setIsModal(false);
-    await patchAttend(voteInfo);
   };
 
   return (
     <>
-      <ModalLayout
-        size={
-          location === "수원"
-            ? "xl"
-            : location === "강남"
-            ? "xl"
-            : location === "양천"
-            ? "lg"
-            : "md"
-        }
-        height={location === "양천" && 320}
-      >
+      <ModalLayout size={modalSize} height={modalSize === "lg" && 320}>
         <ModalHeaderX
           title={voteDate.format("M월 D일 스터디 투표")}
           setIsModal={setIsModal}
         />
-
         {page === 0 || page === 1 ? (
           <StudyVoteMainModalPlace
             setVoteInfo={setVoteInfo}
             page={page}
             setPage={setPage}
             participations={participations}
-            isBig={isBig}
+            isBig={modalSize !== "md"}
           />
         ) : (
           <StudyVoteMainModalTime
             setVoteInfo={setVoteInfo}
             onSubmit={onSubmit}
-            isTimeBoard={isBig}
+            isTimeBoard={modalSize !== "md"}
             setPage={setPage}
           />
         )}

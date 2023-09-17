@@ -20,10 +20,10 @@ function AboutMainItem({ participation, isMyResult }: IAboutMainItem) {
   const router = useRouter();
 
   const voteDate = useRecoilValue(voteDateState);
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
 
-  const { attendences, place, status } = participation || {};
-  const statusFixed = place === mySpaceFixed?.place ? "myOpen" : status;
+  const { attendences, place, status } = participation;
+  const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 
   const onClickItem = () => {
     router.push(`/about/${dayjsToStr(voteDate)}/${participation.place._id}`);

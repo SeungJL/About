@@ -2,84 +2,60 @@ import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { useStudyVoteQuery } from "../../../../hooks/study/queries";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { locationState } from "../../../../recoil/userAtoms";
-import { SUWAN_탐앤탐스 } from "../../../../storage/study";
 import { IStudy } from "../../../../types/study/study";
 import AboutMainItem from "./AboutMainItem";
-import AboutMainItemSkeleton from "./AboutMainItemSkeleton";
+import AboutMainSkeleton from "./AboutMainSkeleton";
 import ReadyToOpen from "./ReadyToOpen";
 interface IAboutMain {
   participations: IStudy[];
 }
 
+const VISIBLE_CNT = 3;
+
 function AboutMain({ participations }: IAboutMain) {
   const router = useRouter();
 
-  const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const [interSectionStudy, setInterSectionStudy] = useState<IStudy>();
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const location = useRecoilValue(locationState);
+  const setVoteDate = useSetRecoilState(voteDateState);
   const setTransferStudyData = useSetRecoilState(transferStudyDataState);
 
-  useStudyVoteQuery(voteDate, "수원", {
-    enabled: location === "안양",
-    onSuccess(data) {
-      if (location !== "안양") return;
-      setInterSectionStudy(
-        data.participations.find((study) => study.place._id === SUWAN_탐앤탐스)
-      );
-    },
-  });
-
-  useEffect(() => {
-    setInterSectionStudy(null);
-  }, [location]);
-
   const onClickMoreInfo = () => {
-    const studyData = [...participations];
-    if (interSectionStudy) studyData.push(interSectionStudy);
-    setTransferStudyData(studyData);
+    setTransferStudyData(participations);
     router.push("/about/studyPlace");
   };
 
-  const participationsVisibleCnt = location !== "안양" ? 3 : 2;
+  //스와이프 함수
+  const onDragEnd = (e, { offset, velocity }) => {
+    const swipe = swipePower(offset.x, velocity.x);
+    if (swipe < -swipeConfidenceThreshold)
+      setVoteDate((old) => old.add(1, "day"));
+    else if (swipe > swipeConfidenceThreshold)
+      setVoteDate((old) => old.subtract(1, "day"));
+  };
 
   return (
     <AnimatePresence initial={false}>
       {!isMainLoading ? (
         <Layout
-          key={voteDate.format("MMDDdd")}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={1}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
-            if (swipe < -swipeConfidenceThreshold)
-              setVoteDate((old) => old.add(1, "day"));
-            else if (swipe > swipeConfidenceThreshold)
-              setVoteDate((old) => old.subtract(1, "day"));
-          }}
+          onDragEnd={onDragEnd}
         >
           <Main>
             <Container>
               {participations
-                .slice(0, participationsVisibleCnt)
+                .slice(0, VISIBLE_CNT)
                 .map((participation, idx) => (
                   <AboutMainItem participation={participation} key={idx} />
                 ))}
-              {location === "안양" &&
-              (interSectionStudy?.status === "pending" ||
-                interSectionStudy?.attendences.filter((who) => who.firstChoice)
-                  .length) ? (
-                <AboutMainItem participation={interSectionStudy} />
-              ) : null}
               {location === "동대문" && <ReadyToOpen />}
             </Container>
             <MoreInfoNav onClick={onClickMoreInfo}>
@@ -89,19 +65,14 @@ function AboutMain({ participations }: IAboutMain) {
           </Main>
         </Layout>
       ) : (
-        <Layout>
-          <Main>
-            {[1, 2, 3]?.map((item) => (
-              <AboutMainItemSkeleton key={item} />
-            ))}
-          </Main>
-        </Layout>
+        <AboutMainSkeleton />
       )}
     </AnimatePresence>
   );
 }
 
 const Layout = styled(motion.div)`
+  min-height: 422px;
   margin-top: var(--margin-main);
 `;
 

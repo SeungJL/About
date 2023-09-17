@@ -20,7 +20,7 @@ function DateSetting() {
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const location = useRecoilValue(locationState);
-  const setStudyDate = useSetRecoilState(studyDateStatusState);
+  const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
   const setMyStudyFixed = useSetRecoilState(myStudyFixedState);
   const setParticipations = useSetRecoilState(participationsState);
@@ -60,7 +60,8 @@ function DateSetting() {
     setIsMainLoading(true);
     if (!voteDate) return;
     const studyDateStatus = getStudyDate(voteDate);
-    setStudyDate(studyDateStatus);
+    console.log(4);
+    setStudyDateStatus(studyDateStatus);
     setMyStudyFixed(null);
     setParticipations(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps

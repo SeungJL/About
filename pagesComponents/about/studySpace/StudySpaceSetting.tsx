@@ -35,11 +35,10 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
     isRefetchStudySpaceState
   );
   const setVoteDate = useSetRecoilState(voteDateState);
-  const setStudyDate = useSetRecoilState(studyDateStatusState);
+  const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
   const handleSuccess = (data: IVote) => {
-  
     const participation = data.participations.find(
       (props) => props.place._id === spaceID
     );
@@ -72,7 +71,7 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
 
   useEffect(() => {
     const studyDateStatus = getStudyDate(voteDate);
-    setStudyDate(studyDateStatus);
+    setStudyDateStatus(studyDateStatus);
     setVoteDate(voteDate); //global voteDate
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);

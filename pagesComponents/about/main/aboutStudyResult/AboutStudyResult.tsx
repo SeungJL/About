@@ -7,15 +7,15 @@ import AboutMainItem from "../aboutMain/AboutMainItem";
 import NoMyStudy from "./NoMyStudy";
 
 function AboutStudyResult() {
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
-  console.log(isMainLoading);
+
   return (
     <Layout isLoad={!isMainLoading}>
       <Skeleton isLoad={!isMainLoading}>
         <Result>
-          {isMainLoading ? null : mySpaceFixed !== null ? (
-            <AboutMainItem participation={mySpaceFixed} isMyResult={true} />
+          {isMainLoading ? null : myStudyFixed !== null ? (
+            <AboutMainItem participation={myStudyFixed} isMyResult={true} />
           ) : (
             <NoMyStudy />
           )}

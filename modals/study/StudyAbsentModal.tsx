@@ -41,7 +41,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const placeId = router.query.placeId;
 
   const studyStartTime = useRecoilValue(studyStartTimeState);
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
   const voteDate = useRecoilValue(voteDateState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpaceState);
 
@@ -51,11 +51,11 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const myStudyStartTime = studyStartTime?.find(
     (item) => item.placeId === placeId
   )?.startTime;
-  const isFree = mySpaceFixed.status === "free";
+  const isFree = myStudyFixed.status === "free";
 
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();
-  
+
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
       completeToast("success");
@@ -77,7 +77,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   });
 
   const handleCancleBtn = () => {
-    if (mySpaceFixed) absentStudy(value);
+    if (myStudyFixed) absentStudy(value);
     else failToast("free", "스터디에 참여하지 않은 인원입니다.");
     setIsModal(false);
   };

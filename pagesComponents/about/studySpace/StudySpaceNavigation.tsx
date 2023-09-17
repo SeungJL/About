@@ -53,7 +53,7 @@ function StudySpaceNavigation({
 
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
 
   const [modalType, setModalType] = useState("");
 
@@ -78,7 +78,7 @@ function StudySpaceNavigation({
       return;
     }
     if (type === "cancel") {
-      if (mySpaceFixed)
+      if (myStudyFixed)
         failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
       else {
         getScore(POINT_SYSTEM_MINUS.cancelStudy.score);

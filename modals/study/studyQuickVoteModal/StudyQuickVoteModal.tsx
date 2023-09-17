@@ -81,7 +81,7 @@ function StudyQuickVoteModal({ setIsModal }: IModal) {
         />
       </ModalMain>
       <Button colorScheme="mintTheme" onClick={onSubmit}>
-        제출
+        투표
       </Button>
     </ModalLayout>
   );
@@ -92,6 +92,7 @@ const PlaceInfo = styled.div`
   flex-direction: column;
   line-height: 2;
   font-size: 14px;
+  margin-bottom: var(--margin-md);
   > div {
     display: flex;
     > b {

@@ -47,9 +47,9 @@ function StudyChangeTimeModal({
   const voteDate = useRecoilValue(voteDateState);
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpaceState);
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
 
-  const isFree = mySpaceFixed?.status === "free";
+  const isFree = myStudyFixed?.status === "free";
   const startTime = dayjs(myVoteTime.start);
   const endTime = dayjs(myVoteTime.end);
   const myStudyStartTime = studyStartTime?.find((item) => {

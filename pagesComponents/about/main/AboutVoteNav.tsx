@@ -75,12 +75,7 @@ function AboutVoteNav() {
       </Layout>
       {isVoteModal && (
         <ModalPortal setIsModal={setIsVoteModal}>
-          <StudyVoteMainModal
-            setIsModal={setIsVoteModal}
-            isBig={location !== "안양"}
-            location={location}
-            participations={participations}
-          />
+          <StudyVoteMainModal setIsModal={setIsVoteModal} />
         </ModalPortal>
       )}
       {isQuickVoteModal &&

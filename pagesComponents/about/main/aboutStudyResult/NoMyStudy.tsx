@@ -29,7 +29,7 @@ function NoMyStudy() {
       </Layout>
       {isFreeOpenModal && (
         <ModalPortal setIsModal={setIsFreeOpenModal}>
-          <StudyVoteMainModal />
+          <StudyVoteMainModal setIsModal={setIsFreeOpenModal} />
         </ModalPortal>
       )}
     </>

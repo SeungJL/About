@@ -19,7 +19,7 @@ function AboutStudyHeader() {
   const { data: session } = useSession();
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const mySpaceFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const [isModal, setIsModal] = useState(false);
@@ -28,12 +28,12 @@ function AboutStudyHeader() {
   //출석체크 했는지 판단
   useEffect(() => {
     setIsCheck(null);
-    if (!mySpaceFixed) return;
-    const myCheck = !!mySpaceFixed?.attendences.find(
+    if (!myStudyFixed) return;
+    const myCheck = !!myStudyFixed?.attendences.find(
       (who) => who.user.uid === session?.uid
     )?.arrived;
     setIsCheck(!!myCheck);
-  }, [mySpaceFixed, mySpaceFixed?.attendences, session?.uid, studyDateStatus]);
+  }, [myStudyFixed, myStudyFixed?.attendences, session?.uid, studyDateStatus]);
 
   return (
     <>
@@ -53,7 +53,7 @@ function AboutStudyHeader() {
               <FontAwesomeIcon icon={faCheck} size="lg" />
             </Check>
           ) : (
-            mySpaceFixed &&
+            myStudyFixed &&
             isCheck !== null && (
               <Button
                 leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
