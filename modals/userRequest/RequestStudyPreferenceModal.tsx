@@ -89,7 +89,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
               />
             </ModalMain>
             <ModalFooterNav>
-              <button onClick={() => setPage(0)}>뒤로가기</button>
+              <button onClick={() => setPage(0)}>이전</button>
               <button onClick={onSubmit}>완료</button>
             </ModalFooterNav>
           </>

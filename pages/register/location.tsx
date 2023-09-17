@@ -7,6 +7,7 @@ import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/layout/ProgressStatus";
+import { STUDY_LOCATION } from "../../constants/location";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import LocationBlockProfileEdit from "../../pagesComponents/register/location/LocationBlockProfileEdit";
 import LocationMember from "../../pagesComponents/register/location/LocationMember";
@@ -15,7 +16,6 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-import { STUDY_LOCATION } from "../../storage/study";
 import { Location } from "../../types/system";
 
 function Location() {

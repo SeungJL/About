@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import styled from "styled-components";
 import {
   ModalFooterTwo,
   ModalHeaderX,
@@ -38,9 +37,5 @@ function StudyFreeOpenModal({ setIsModal }) {
     </ModalLayout>
   );
 }
-
-const Layout = styled.div``;
-
-const Footer = styled.div``;
 
 export default StudyFreeOpenModal;

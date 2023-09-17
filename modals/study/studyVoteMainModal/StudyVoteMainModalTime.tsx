@@ -4,22 +4,16 @@ import styled from "styled-components";
 import TimeSelector from "../../../components/features/selector/TimeSelector";
 import TimeSelectorBoard from "../../../components/features/selector/TimeSelectorBoard";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
-import { DispatchNumber } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteMainModalTime {
-  onSubmit: () => void;
   isTimeBoard: boolean;
-  setPage: DispatchNumber;
   setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
 }
 
 function StudyVoteMainModalTime({
-  onSubmit,
   isTimeBoard,
-  setPage,
   setVoteInfo,
 }: IStudyVoteMainModalTime) {
   const voteDate = useRecoilValue(voteDateState);
@@ -46,7 +40,6 @@ function StudyVoteMainModalTime({
   return (
     <>
       <Layout>
-        <Subtitle>참여시간 선택</Subtitle>
         {isTimeBoard ? (
           <TimeSelectorBoard
             setTimes={({ start, end }: ITimeStartToEnd) => {
@@ -68,15 +61,11 @@ function StudyVoteMainModalTime({
           />
         )}
       </Layout>
-      <ModalFooterNav>
-        <button onClick={() => setPage(1)}>뒤로가기</button>
-        <button onClick={onSubmit}>완료</button>
-      </ModalFooterNav>
     </>
   );
 }
 
-const Layout = styled(ModalMain)`
+const Layout = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -87,10 +76,5 @@ const Layout = styled(ModalMain)`
     margin-bottom: 8px;
   }
 `;
-const Subtitle = styled.div`
-  color: var(--font-h3);
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: var(--margin-md);
-`;
+
 export default StudyVoteMainModalTime;

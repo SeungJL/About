@@ -40,7 +40,7 @@ function GatherParticipateModalPassword({
       </Layout>
       <Footer>
         <Button width="50%" onClick={() => setPageNum(0)}>
-          뒤로가기
+          이전
         </Button>
         <Button
           color="white"

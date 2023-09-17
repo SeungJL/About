@@ -61,10 +61,7 @@ function UserNavigationModals({
       )}
       {modalOpen === "spaceSetting" && (
         <ModalPortal setIsModal={setIsModal}>
-          <SettingStudySpace
-            isBig={Boolean(location === "수원")}
-            setIsModal={setIsModal}
-          />
+          <SettingStudySpace setIsModal={setIsModal} />
         </ModalPortal>
       )}
       {modalOpen === "birthday" && (

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useEffect, useRef, useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { NOT_OPEN_LOCATION } from "../../constants/location";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
@@ -31,23 +31,38 @@ function About() {
   const location = useRecoilValue(locationState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const participations = useRecoilValue(participationsState);
+  const [participations, setParticipations] =
+    useRecoilState(participationsState);
   const voteDate = useRecoilValue(voteDateState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const [otherStudies, setOtherStudies] = useState<IStudy[]>([]);
 
+  const isFirstRender = useRef(true);
+
   //스터디 정렬 *내 스터디 *투표 인원수 고려
   useEffect(() => {
+    //첫번째 렌더링시에만 적용
+    if (isFirstRender.current) {
+      setIsMainLoading(true);
+      setParticipations(null);
+      isFirstRender.current = false;
+      return;
+    }
     if (NOT_OPEN_LOCATION.includes(location)) setIsMainLoading(false);
-    if (!participations) return;
+    if (!participations) {
+      setOtherStudies([]);
+      return;
+    }
     const arrangedOtherStudies = arrangeMainSpace(
       participations?.filter((space) => space !== myStudyFixed),
       studyDateStatus !== "not passed"
     );
     setOtherStudies(arrangedOtherStudies);
-    setIsMainLoading(false);
-
+    //0.1초 정도의 딜레이를 주는게 더 자연스러움
+    setTimeout(() => {
+      setIsMainLoading(false);
+    }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
 

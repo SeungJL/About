@@ -69,7 +69,8 @@ function AboutVoteNav() {
           </Button>
         </Navigation>
         <VoterCnt>
-          현재 <b>{voteCnt}명</b>의 멤버가 스터디에 투표중이에요!
+          현재 <b>{voteCnt !== undefined ? voteCnt : "-"}명</b>의 멤버가
+          스터디에 투표중이에요!
         </VoterCnt>
       </Layout>
       {isVoteModal && (

@@ -2,7 +2,8 @@ import { SetStateAction } from "react";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../../constants/study";
 import { useFailToast } from "../../../hooks/CustomToast";
-import { IStudyVotePlaces } from "../../../modals/study/studyVoteMainModal/StudyVoteMainModalPlace";
+import { IStudyVotePlaces } from "../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
+
 import { IPlace } from "../../../types/study/study";
 import { IStudyPlaces } from "../../../types/study/studyUserAction";
 import { StudySpaceLogo } from "../../utils/DesignAdjustment";
@@ -12,7 +13,6 @@ interface IPlaceSelector {
   votePlaces: IStudyPlaces;
   setVotePlaces: React.Dispatch<SetStateAction<IStudyPlaces>>;
   isMain: boolean;
-  isBig: boolean;
 }
 
 type Selected = "main" | "sub" | "none";
@@ -22,9 +22,11 @@ function PlaceSelector({
   votePlaces,
   setVotePlaces,
   isMain,
-  isBig,
 }: IPlaceSelector) {
   const failToast = useFailToast();
+
+  const isGridLayout = places?.length > 4;
+
   const onClickItem = (place: IPlace, isMax?: boolean) => {
     if (isMax) {
       failToast(
@@ -46,7 +48,7 @@ function PlaceSelector({
 
   return (
     <>
-      <Layout isBig={isBig}>
+      <Layout isGridLayout={isGridLayout}>
         {places?.map((place) => {
           const placeInfo = place?.place || place;
           let selected: Selected = "none";
@@ -56,7 +58,7 @@ function PlaceSelector({
           const isMax = isMain && place.voteCnt >= MAX_USER_PER_PLACE;
           return (
             <>
-              {isBig ? (
+              {isGridLayout ? (
                 <Item
                   selected={selected}
                   key={placeInfo._id}
@@ -87,9 +89,9 @@ function PlaceSelector({
   );
 }
 
-const Layout = styled.div<{ isBig: boolean }>`
+const Layout = styled.div<{ isGridLayout: boolean }>`
   margin-top: var(--margin-min);
-  display: ${(props) => (props.isBig ? "grid" : "flex")};
+  display: ${(props) => (props.isGridLayout ? "grid" : "flex")};
   grid-template-columns: repeat(2, 1fr);
   gap: var(--margin-md);
 `;

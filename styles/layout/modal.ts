@@ -38,16 +38,19 @@ export const ModalFooterNav = styled.footer`
   display: flex;
   justify-content: flex-end;
   margin-top: auto;
+
   > button {
     font-size: 14px;
     cursor: pointer;
   }
   > button:first-child {
+    font-weight: 600;
     color: var(--font-h2);
-    margin-right: var(--margin-min);
+    padding-right: var(--padding-md);
   }
   > button:nth-child(2) {
-    margin-left: var(--margin-sub);
+    padding-left: var(--padding-md);
+    padding-right: 2px;
     color: var(--color-mint);
   }
   > button:last-child {

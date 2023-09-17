@@ -1,6 +1,7 @@
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { RegisterLocation } from "../../storage/study";
+import { RegisterLocation } from "../../constants/location";
+
 import { Location } from "../../types/system";
 import { IRegisterForm } from "../../types/user/user";
 import { IUserRequest } from "../../types/user/userRequest";

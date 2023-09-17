@@ -27,6 +27,8 @@ export const toDate = (raw: string | Date) => {
 
 export const dayjsToStr = (date: Dayjs) => date.format("YYYY-MM-DD");
 
+export const dayjsToFormat = (date: Dayjs, text: string) => date.format(text);
+
 export const getWeekNumber = (date: Dayjs) => {
   const startDay = date.startOf("month").day();
   const currentDate = date.date();
