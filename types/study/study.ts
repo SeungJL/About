@@ -7,14 +7,14 @@ import { IStudyPlaces } from "./studyUserAction";
 
 export interface IVote extends Document {
   date: Date;
-  participations: IStudy[];
+  participations: IParticipation[];
 }
 export interface IVote2 {
   date: Date;
-  participations: IStudy[];
+  participations: IParticipation[];
 }
 
-export interface IStudy extends ITimeStartToEnd {
+export interface IParticipation extends ITimeStartToEnd {
   place: IPlace;
   attendences: IAttendance[];
   absences: IAbsence[];

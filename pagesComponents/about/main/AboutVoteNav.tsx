@@ -69,8 +69,8 @@ function AboutVoteNav() {
           </Button>
         </Navigation>
         <VoterCnt>
-          현재 <b>{voteCnt !== undefined ? voteCnt : "-"}명</b>의 멤버가
-          스터디에 투표중이에요!
+          현재 <b>{voteCnt !== undefined ? voteCnt : ""}명</b>의 멤버가 스터디에
+          투표중이에요!
         </VoterCnt>
       </Layout>
       {isVoteModal && (
@@ -103,7 +103,13 @@ const VoterCnt = styled.div`
   font-size: 15px;
   margin-left: var(--margin-min);
   margin-top: var(--margin-max);
+  display: flex;
+
   > b {
+    margin-left: var(--margin-md);
+    display: inline-block;
+    text-align: end;
+    width: 24px;
     color: var(--font-h1);
   }
 `;

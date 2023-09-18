@@ -27,19 +27,20 @@ import {
   usePointMutation,
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
-import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
+
+import { IParticipation } from "../../../types/study/study";
 import { IUser } from "../../../types/user/user";
 import StudySpaceNavModal from "./studySpaceNavModal";
 
 interface IStudySpaceNavigation {
-  studySpaceData: IStudySpaceData;
+  participation: IParticipation;
   voteCnt: number;
 }
 
 export type ModalType = "change" | "absent" | "main" | "cancel" | "free";
 
 function StudySpaceNavigation({
-  studySpaceData: { place, attendences, status, startTime },
+  participation: { place, attendences, status, startTime },
   voteCnt,
 }: IStudySpaceNavigation) {
   const router = useRouter();

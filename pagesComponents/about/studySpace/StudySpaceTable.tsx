@@ -25,9 +25,8 @@ function StudyTimeTable({ attendances }: IStudyTimeTable) {
 const Table = styled.div<{ cnt: number }>`
   margin: 0 var(--margin-main);
   margin-top: var(--margin-main);
-  padding-left: var(--padding-sub);
   position: relative;
-  height: ${(props) => props.cnt * 41 + 48}px;
+  height: ${(props) => props.cnt * 45 + 28}px;
 `;
 
 export default StudyTimeTable;

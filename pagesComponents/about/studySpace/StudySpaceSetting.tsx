@@ -6,7 +6,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { getStudyDate } from "../../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { IStudySpaceData } from "../../../pages/about/[date]/[placeId]";
+
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
@@ -15,20 +15,20 @@ import {
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
-import { IVote } from "../../../types/study/study";
+import { IParticipation, IVote } from "../../../types/study/study";
 
 interface IStudySpaceSetting {
-  setStudySpaceData: React.Dispatch<SetStateAction<IStudySpaceData>>;
+  participation: IParticipation;
+  setParticipation: React.Dispatch<SetStateAction<IParticipation>>;
 }
 
-function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
+function StudySpaceSetting({
+  participation,
+  setParticipation,
+}: IStudySpaceSetting) {
   const router = useRouter();
   const typeErrorToast = useTypeErrorToast();
   const { data: session } = useSession();
-
-  const voteDate = dayjs(router.query.date as string);
-  const spaceID = router.query.placeId;
-  const location = SPACE_LOCATION[spaceID as string];
 
   const setIsVoting = useSetRecoilState(isVotingState);
   const [isRefetchStudySpace, setIsRefetchStudySpace] = useRecoilState(
@@ -38,27 +38,45 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
   const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
 
+  const voteDate = dayjs(router.query.date as string);
+  const placeId = router.query.placeId;
+  const location = SPACE_LOCATION[placeId as string];
+
   const handleSuccess = (data: IVote) => {
-    const participation = data.participations.find(
-      (props) => props.place._id === spaceID
-    );
-    const { place, attendences, status, startTime } = participation;
-    setStudySpaceData({
-      place,
-      attendences,
-      status,
-      startTime: dayjs(startTime),
-    });
-    const isVoted = attendences.find((who) => who?.user.uid === session?.uid);
-    if (["open", "free"].includes(status)) setMySpaceFixed(participation);
-    setIsVoting(!!isVoted);
+    if (!participation) handleDate();
+    handleStudy(data);
   };
 
+  //스터디 세팅
+  const handleStudy = (data: IVote) => {
+    console.log(1, participation);
+    const findParticipation = data.participations.find(
+      (props) => props.place._id === placeId
+    );
+    setParticipation(findParticipation);
+    const isVoted = findParticipation.attendences.find(
+      (who) => who?.user.uid === session?.uid
+    );
+    setIsVoting(!!isVoted);
+    if (["open", "free"].includes(findParticipation.status))
+      setMySpaceFixed(participation);
+  };
+
+  //날짜 세팅
+  const handleDate = () => {
+    const studyDateStatus = getStudyDate(voteDate);
+    setStudyDateStatus(studyDateStatus);
+    setVoteDate(voteDate);
+  };
+
+  //url을 통해 접속해서 participation이 없는 경우 또는 refetch
   const { refetch } = useStudyVoteQuery(voteDate, location, {
+    enabled: !participation,
     onSuccess: handleSuccess,
     onError: (e) => typeErrorToast(e, "study"),
   });
 
+  //refetch
   useEffect(() => {
     if (isRefetchStudySpace) {
       setTimeout(() => {
@@ -68,13 +86,6 @@ function StudySpaceSetting({ setStudySpaceData }: IStudySpaceSetting) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchStudySpace]);
-
-  useEffect(() => {
-    const studyDateStatus = getStudyDate(voteDate);
-    setStudyDateStatus(studyDateStatus);
-    setVoteDate(voteDate); //global voteDate
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [voteDate]);
 
   return null;
 }

@@ -28,7 +28,7 @@ import {
 } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber, IModal } from "../../../types/reactTypes";
-import { IPlace, IStudy } from "../../../types/study/study";
+import { IParticipation, IPlace } from "../../../types/study/study";
 import {
   IStudyParticipate,
   IStudyPlaces,
@@ -44,7 +44,7 @@ interface IStudyVoteMainModalPlace {
   setPage: DispatchNumber;
   setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
   isBig: boolean;
-  participations?: IStudy[];
+  participations?: IParticipation[];
 }
 
 export interface IStudyVotePlaces {

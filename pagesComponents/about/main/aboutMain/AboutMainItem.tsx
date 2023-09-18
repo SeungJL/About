@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { StudySpaceLogo } from "../../../../components/utils/DesignAdjustment";
 import { dayjsToStr } from "../../../../helpers/dateHelpers";
@@ -7,12 +7,13 @@ import {
   myStudyFixedState,
   voteDateState,
 } from "../../../../recoil/studyAtoms";
-import { IStudy } from "../../../../types/study/study";
+import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
+import { IParticipation } from "../../../../types/study/study";
 import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
 import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
 
 interface IAboutMainItem {
-  participation: IStudy;
+  participation: IParticipation;
   isMyResult?: boolean;
 }
 
@@ -21,11 +22,15 @@ function AboutMainItem({ participation, isMyResult }: IAboutMainItem) {
 
   const voteDate = useRecoilValue(voteDateState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const setTransferStudySpaceData = useSetRecoilState(
+    transferStudySpaceDataState
+  );
 
   const { attendences, place, status } = participation;
   const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 
   const onClickItem = () => {
+    setTransferStudySpaceData(participation);
     router.push(`/about/${dayjsToStr(voteDate)}/${participation.place._id}`);
   };
 

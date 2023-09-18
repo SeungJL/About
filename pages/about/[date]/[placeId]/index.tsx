@@ -1,5 +1,5 @@
-import { Dayjs } from "dayjs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import StudySpaceVoteOverview from "../../../../pagesComponents/about/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceCover from "../../../../pagesComponents/about/studySpace/StudySpaceCover";
@@ -9,35 +9,33 @@ import StudySpaceOverview from "../../../../pagesComponents/about/studySpace/Stu
 import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/StudySpaceSetting";
 import StudySpaceSkeleton from "../../../../pagesComponents/about/studySpace/StudySpaceSkeleton";
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
-import {
-  IAttendance,
-  IPlace,
-  StudyStatus,
-} from "../../../../types/study/study";
-export interface IStudySpaceData {
-  place: IPlace;
-  attendences: IAttendance[];
-  status: StudyStatus;
-  startTime?: Dayjs;
-}
-const IMAGE_LIST = [1, 2, 3, 4, 5, 6];
+import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
+import { IParticipation } from "../../../../types/study/study";
+
+const IMAGE_ARRAY_LENGTH = 6;
+
 function StudySpace() {
-  const [studySpaceData, setStudySpaceData] = useState<IStudySpaceData>();
-  const [randomNum, setRandomNum] = useState<number>();
+  const transferStudySpaceData = useRecoilValue(transferStudySpaceDataState);
 
-  const place = studySpaceData?.place;
-  const attendances = studySpaceData?.attendences;
+  const [participation, setParticipation] = useState<IParticipation>(
+    transferStudySpaceData
+  );
+  const [randomNum] = useState(() =>
+    Math.floor(Math.random() * IMAGE_ARRAY_LENGTH)
+  );
 
-  useEffect(() => {
-    setRandomNum(Math.floor(Math.random() * IMAGE_LIST.length));
-  }, []);
+  const place = participation?.place;
+  const attendances = participation?.attendences;
 
   const coverImageUrl = `/studyRandom/study${randomNum + 1}.jpg`;
 
   return (
     <>
-      <StudySpaceSetting setStudySpaceData={setStudySpaceData} />
-      {studySpaceData ? (
+      <StudySpaceSetting
+        participation={participation}
+        setParticipation={setParticipation}
+      />
+      {participation ? (
         <>
           <StudySpaceHeader title={place.brand} place={place} />
           <Layout>
@@ -53,7 +51,7 @@ function StudySpace() {
             />
             <StudyTimeTable attendances={attendances} />
             <StudySpaceNavigation
-              studySpaceData={studySpaceData}
+              participation={participation}
               voteCnt={attendances.length}
             />
           </Layout>

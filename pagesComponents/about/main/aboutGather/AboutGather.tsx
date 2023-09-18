@@ -16,6 +16,8 @@ import AboutGatherDetail from "./AboutGatherDetail";
 import AboutGatherHeader from "./AboutGatherHeader";
 import AboutGatherMember from "./AboutGatherMember";
 
+const TEXT_VISIBLE_LENGTH = 22;
+
 function AboutGather() {
   const router = useRouter();
 
@@ -23,7 +25,8 @@ function AboutGather() {
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
   const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
 
-  const { data: gatherContentArr, isLoading } = useGatherContentQuery({
+  //신규 모임 존재여부 체크
+  const { data: gatherContentArr } = useGatherContentQuery({
     onSuccess(data) {
       const lastGather = data[data.length - 1];
       if (localStorage.getItem(GATHER_ALERT) !== String(lastGather.id))
@@ -31,10 +34,6 @@ function AboutGather() {
       else setIsGatherAlert(false);
     },
   });
-
-  if (isLoading) return null;
-
-  const textVisibleLength = 22;
 
   const onClickItem = (data: IGatherContent) => {
     setGatherData(data);
@@ -54,9 +53,8 @@ function AboutGather() {
         slidesPerView={1.2}
       >
         {gatherContentArr
-          ?.slice()
+          ?.slice(-5)
           .reverse()
-          .slice(0, 5)
           .map((item, index) => {
             const title = item.title;
             const participants = [
@@ -72,9 +70,9 @@ function AboutGather() {
                     status={item.status}
                   />
                   <AboutGatherTitle>
-                    {title.length < textVisibleLength
+                    {title.length < TEXT_VISIBLE_LENGTH
                       ? title
-                      : title.slice(0, textVisibleLength) + "..."}
+                      : title.slice(0, TEXT_VISIBLE_LENGTH) + "..."}
                   </AboutGatherTitle>
                   <AboutGatherDetail
                     location={item.location}

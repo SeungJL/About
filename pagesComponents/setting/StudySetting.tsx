@@ -14,7 +14,7 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
-import { IStudy } from "../../types/study/study";
+import { IParticipation } from "../../types/study/study";
 
 function StudySetting() {
   const { data: session } = useSession();
@@ -37,7 +37,7 @@ function StudySetting() {
   };
 
   //내 스터디 확인
-  const setMyStudySpace = (participations: IStudy[]) => {
+  const setMyStudySpace = (participations: IParticipation[]) => {
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
         if (!who.user) return;

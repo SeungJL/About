@@ -29,7 +29,6 @@ function StudySpaceOverview({ space }: IStudySpaceOverview) {
               <span>지도</span>
             </div>
           </Location>
-
           <Time>
             시간: <span>{location.time}</span>
           </Time>

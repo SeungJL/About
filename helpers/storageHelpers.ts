@@ -11,3 +11,4 @@ export const checkAndSetLocalStorage = (key: string, gap: number) => {
 
   return temp;
 };
+

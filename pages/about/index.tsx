@@ -25,7 +25,7 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
-import { IStudy } from "../../types/study/study";
+import { IParticipation } from "../../types/study/study";
 
 function About() {
   const location = useRecoilValue(locationState);
@@ -36,7 +36,7 @@ function About() {
   const voteDate = useRecoilValue(voteDateState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
-  const [otherStudies, setOtherStudies] = useState<IStudy[]>([]);
+  const [otherStudies, setOtherStudies] = useState<IParticipation[]>([]);
 
   const isFirstRender = useRef(true);
 

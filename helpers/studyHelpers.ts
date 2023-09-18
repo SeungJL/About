@@ -27,15 +27,16 @@ import {
   YANG_파스쿠찌,
   YANG_할리스,
 } from "../storage/study";
-import { IPlace, IStudy, StudyDate } from "../types/study/study";
+import { IParticipation, IPlace, StudyDate } from "../types/study/study";
 import { getToday, now } from "./dateHelpers";
 
-export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
+export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
   const temp = [];
 
   participations.forEach((participant) => {
     const ID =
-      (participant as IStudy)?.place?._id || (participant as IPlace)?._id;
+      (participant as IParticipation)?.place?._id ||
+      (participant as IPlace)?._id;
     //수원
     if (ID === SUWAN_탐앤탐스) temp[0] = participant;
     else if (ID === SUWAN_투썸) temp[2] = participant;
@@ -72,10 +73,10 @@ export const arrangeSpace = (participations: IStudy[] | IPlace[]) => {
 };
 
 export const arrangeMainSpace = (
-  participations: IStudy[],
+  participations: IParticipation[],
   isPassed?: boolean
 ) => {
-  const compare = (a: IStudy, b: IStudy) => {
+  const compare = (a: IParticipation, b: IParticipation) => {
     const cntA = !isPassed
       ? a.attendences.length
       : a.attendences.filter((who) => who.firstChoice).length;

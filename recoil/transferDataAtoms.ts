@@ -1,7 +1,8 @@
 import { atom } from "recoil";
+
 import { IGatherContent } from "../types/page/gather";
 import { MemberSectionCategory } from "../types/page/member";
-import { IStudy } from "../types/study/study";
+import { IParticipation } from "../types/study/study";
 import { IUser } from "../types/user/user";
 
 export const transferUserDataState = atom<IUser>({
@@ -13,7 +14,7 @@ export const transferGatherDataState = atom<IGatherContent>({
   default: null,
 });
 
-export const transferStudyDataState = atom<IStudy[]>({
+export const transferStudyDataState = atom<IParticipation[]>({
   key: "transferStudyData",
   default: null,
 });
@@ -23,5 +24,10 @@ export const transferMemberDataState = atom<{
   memberData: IUser[];
 }>({
   key: "transferMemberData",
+  default: null,
+});
+
+export const transferStudySpaceDataState = atom<IParticipation>({
+  key: "transferStudySpaceData",
   default: null,
 });

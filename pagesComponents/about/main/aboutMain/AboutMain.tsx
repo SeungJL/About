@@ -8,12 +8,12 @@ import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { locationState } from "../../../../recoil/userAtoms";
-import { IStudy } from "../../../../types/study/study";
+import { IParticipation } from "../../../../types/study/study";
 import AboutMainItem from "./AboutMainItem";
 import AboutMainSkeleton from "./AboutMainSkeleton";
 import ReadyToOpen from "./ReadyToOpen";
 interface IAboutMain {
-  participations: IStudy[];
+  participations: IParticipation[];
 }
 
 const VISIBLE_CNT = 3;

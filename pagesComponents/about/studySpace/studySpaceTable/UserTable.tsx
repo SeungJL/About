@@ -101,7 +101,7 @@ const Layout = styled.div`
   width: 100%;
   position: absolute;
   height: 100%;
-  margin-top: 32px;
+  margin-top: 24px;
 `;
 
 const Time = styled.span<{ isSecond: boolean }>`
