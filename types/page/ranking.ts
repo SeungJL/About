@@ -10,6 +10,12 @@ export interface IRankScore {
   score?: number;
 }
 
+export interface ISortedUserScores {
+  scoreArr: IScore[];
+  rankValue: number;
+  isRankNum: boolean;
+}
+
 export type RankingType = "score" | "attend";
 
 export type RankingCategory = "월간" | "누적" | "지난";

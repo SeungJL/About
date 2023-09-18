@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import Skeleton from "../../components/common/skeleton/Skeleton";
-import { USER_BADGES } from "../../constants/convert";
-import { getUserBadgeScore } from "../../helpers/userHelpers";
+import { BADGE_COLOR } from "../../constants/badge";
+import { getUserBadge } from "../../helpers/userHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { IMyRank } from "../../pages/ranking";
@@ -33,15 +33,15 @@ function RankingOverview({
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      const { badge } = getUserBadgeScore(data.score, data.uid);
-      setUserBadge({ badge, color: USER_BADGES[badge] });
+      const { badge } = getUserBadge(data.score, data.uid);
+      setUserBadge({ badge, color: BADGE_COLOR[badge] });
     },
     onError: (e) => typeErrorToast(e, "user"),
   });
 
   useEffect(() => {
     if (isGuest)
-      setUserBadge({ badge: "아메리카노", color: USER_BADGES["아메리카노"] });
+      setUserBadge({ badge: "아메리카노", color: BADGE_COLOR["아메리카노"] });
   }, [isGuest]);
 
   return (

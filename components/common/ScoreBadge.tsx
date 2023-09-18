@@ -1,6 +1,6 @@
 import { Badge } from "@chakra-ui/react";
-import { USER_BADGES } from "../../constants/convert";
-import { getUserBadgeScore } from "../../helpers/userHelpers";
+import { BADGE_COLOR } from "../../constants/badge";
+import { getUserBadge } from "../../helpers/userHelpers";
 
 interface IScoreBadge {
   score: number;
@@ -8,8 +8,8 @@ interface IScoreBadge {
 }
 
 function ScoreBadge({ score, uid }: IScoreBadge) {
-  const { badge } = getUserBadgeScore(score, uid);
-  return <Badge colorScheme={USER_BADGES[badge]}>{badge}</Badge>;
+  const { badge } = getUserBadge(score, uid);
+  return <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>;
 }
 
 export default ScoreBadge;

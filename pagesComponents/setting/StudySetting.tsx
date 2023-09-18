@@ -72,16 +72,7 @@ function StudySetting() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetch]);
 
-  // const setStudyStartTime = useSetRecoilState(studyStartTimeState);
-
-  // useStudyStartTimeQuery(voteDate, {
-  //   onSuccess(data) {
-  //     console.log(data);
-  //     setStudyStartTime(data);
-  //   },
-  // });
-
-  return <>{/* <StudySettingUser participations={participations} /> */}</>;
+  return null;
 }
 
 export default StudySetting;

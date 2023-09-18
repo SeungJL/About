@@ -2,8 +2,8 @@ import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import { USER_BADGES } from "../../constants/convert";
-import { getUserBadgeScore } from "../../helpers/userHelpers";
+import { BADGE_COLOR } from "../../constants/badge";
+import { getUserBadge } from "../../helpers/userHelpers";
 import { RankingType } from "../../types/page/ranking";
 import { IVoteRate } from "../../types/study/studyRecord";
 import { IUser } from "../../types/user/user";
@@ -29,7 +29,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               tempCnt++;
             } else tempCnt = 0;
             score = who?.score;
-            const { badge } = getUserBadgeScore(score, who.uid);
+            const { badge } = getUserBadge(score, who.uid);
 
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
@@ -39,7 +39,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
                   <RankingMine isMine={who.uid === session?.uid}>
                     {who?.name !== "무성" ? who?.name : "비공개"}
                   </RankingMine>
-                  <Badge colorScheme={USER_BADGES[badge]}>{badge}</Badge>
+                  <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
                 </Name>
                 <Score>{score} 점</Score>
               </Item>
@@ -53,7 +53,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
               tempCnt++;
             } else tempCnt = 0;
             attendCnt = who.cnt;
-            const { badge } = getUserBadgeScore(who.score, who.uid);
+            const { badge } = getUserBadge(who.score, who.uid);
             return (
               <Item key={idx} id={`ranking${who.uid}`}>
                 <Rank>{idx - tempCnt + 1}위</Rank>
@@ -62,7 +62,7 @@ function RankingMembers({ memberList, type }: IRankingMembers) {
                   <RankingMine isMine={who.uid === session?.uid}>
                     {who?.name !== "무성" ? who?.name : "비공개"}
                   </RankingMine>
-                  <Badge colorScheme={USER_BADGES[badge]}>{badge}</Badge>
+                  <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
                 </Name>
                 <Score>{attendCnt} 회</Score>
               </Item>

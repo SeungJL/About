@@ -7,11 +7,11 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
-import { USER_BADGES } from "../../../constants/convert";
+import { BADGE_COLOR } from "../../../constants/badge";
 import { LIKE_HEART } from "../../../constants/localStorage";
 import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
 import { getRole } from "../../../helpers/converterHelpers";
-import { getUserBadgeScore } from "../../../helpers/userHelpers";
+import { getUserBadge } from "../../../helpers/userHelpers";
 import {
   useAdminPointMutation,
   useAdminScoremMutation,
@@ -42,7 +42,7 @@ function ProfileInfo({ user }: IProfileInfo) {
   const [isConditionOk, setIsConditionOk] = useState(false);
   const [isHeartLoading, setIsHeartLoading] = useState(true);
 
-  const userBadge = getUserBadgeScore(user?.score, user?.uid);
+  const userBadge = getUserBadge(user?.score, user?.uid);
 
   const status = getRole(user?.role);
   const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(
@@ -131,7 +131,7 @@ function ProfileInfo({ user }: IProfileInfo) {
           <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>
-              <Badge fontSize={12} colorScheme={USER_BADGES[userBadge?.badge]}>
+              <Badge fontSize={12} colorScheme={BADGE_COLOR[userBadge?.badge]}>
                 {userBadge?.badge}
               </Badge>
             </div>

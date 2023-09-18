@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { USER_BADGES } from "../../constants/convert";
+import { BADGE_COLOR } from "../../constants/badge";
 import { Location } from "../system";
 
 /** user */
@@ -129,7 +129,7 @@ export type UserBadge =
 
 export type EventBadge = "딸기스무디" | "라벤더";
 
-export type UserBadgeColor = typeof USER_BADGES[UserBadge];
+export type UserBadgeColor = typeof BADGE_COLOR[UserBadge];
 
 /** react-query */
 export interface IUserComment {

@@ -5,8 +5,7 @@ import Header from "../../components/layout/Header";
 import PointIntro from "../../pagesComponents/point/PointIntro";
 import PointPoint from "../../pagesComponents/point/PointPoint";
 import PointScore from "../../pagesComponents/point/PointScore";
-import PointPointSkeleton from "../../pagesComponents/point/skeleton/PointPointSkeleton";
-import PointScoreSkeleton from "../../pagesComponents/point/skeleton/PointScoreSkeleton";
+import PointSkeleton from "../../pagesComponents/point/skeleton/PointSkeleton";
 import { isPointLoadingState } from "../../recoil/loadingAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
 
@@ -17,12 +16,9 @@ function Point() {
 
   useEffect(() => {
     setIsPointLoading(true);
-    if (isGuest)
-      setTimeout(() => {
-        setIsPointLoading(false);
-      }, 200);
+    if (isGuest) setIsPointLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isGuest]);
 
   return (
     <>
@@ -33,12 +29,7 @@ function Point() {
           <PointScore />
           <PointPoint />
         </Container>
-        {isPoingLoading && (
-          <>
-            <PointScoreSkeleton />
-            <PointPointSkeleton />
-          </>
-        )}
+        {isPoingLoading && <PointSkeleton />}
       </Layout>
     </>
   );

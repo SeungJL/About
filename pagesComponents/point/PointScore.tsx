@@ -1,17 +1,27 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useScoreQuery } from "../../hooks/user/pointSystem/queries";
+import { isGuestState } from "../../recoil/userAtoms";
 import PointScoreBar from "./pointScore/PointScoreBar";
 import PointScoreNavigation from "./pointScore/PointScoreNavigation";
 
 function PointScore() {
-  const { data } = useScoreQuery();
-  const myPoint = data?.score;
+  const isGuest = useRecoilValue(isGuestState);
+  const { data, isLoading } = useScoreQuery({
+    enabled: !isGuest,
+  });
+
+  const myScore = isGuest ? 0 : data?.score;
 
   return (
-    <Layout>
-      <PointScoreBar myPoint={myPoint} />
-      <PointScoreNavigation myPoint={myPoint} />
-    </Layout>
+    <>
+      {!isLoading && (
+        <Layout>
+          <PointScoreBar myScore={myScore} />
+          <PointScoreNavigation myScore={myScore} />
+        </Layout>
+      )}
+    </>
   );
 }
 

@@ -1,8 +1,6 @@
 export const WEB_URL = "https://studyabout.herokuapp.com";
 export const SERVER_URI = process.env.NEXT_PUBLIC_SERVER_URI;
 
-
-
 export const VOTE_TABLE_COLOR = [
   "#FF8896",
   "#FEBC5A",
@@ -25,6 +23,11 @@ export const VOTE_TABLE_COLOR = [
   "#D7BCE8",
   "#B0C4DE",
 ];
+
+export const SCHEME_TO_COLOR = {
+  facebook: "#223B67",
+  badgePink: "#FF69B4",
+};
 
 export const ICON_SIZE = {
   xl: 75,

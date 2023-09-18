@@ -1,47 +1,50 @@
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { sortUserScore } from "../../../helpers/userHelpers";
+import { sortUserScores } from "../../../helpers/userHelpers";
 import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { useUserLocationQuery } from "../../../hooks/user/queries";
 import { isPointLoadingState } from "../../../recoil/loadingAtoms";
-import { IRankScore } from "../../../types/page/ranking";
+import { isGuestState } from "../../../recoil/userAtoms";
+import { ISortedUserScores } from "../../../types/page/ranking";
 
 interface IPointScoreNavigation {
-  myPoint: number;
+  myScore: number;
 }
 
-function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
-  const { data: session } = useSession();
+function PointScoreNavigation({ myScore }: IPointScoreNavigation) {
   const router = useRouter();
-  const isGuest = session?.user.name === "guest";
 
+  const isGuest = useRecoilValue(isGuestState);
   const setIsPointLoading = useSetRecoilState(isPointLoadingState);
 
-  const [myRank, setMyRank] = useState<IRankScore>();
+  const [rankInfo, setRankInfo] = useState<ISortedUserScores>();
 
-  const { data: location } = useUserLocationQuery();
+  const { data: location } = useUserLocationQuery({
+    enabled: !isGuest,
+  });
 
   useScoreAllQuery({
     enabled: !isGuest,
     onSuccess(data) {
-      const temp = data.filter((who) => who.location === location);
-      const arrangedData = sortUserScore(temp, session?.uid as string, "score");
-   
-      if (arrangedData.isRank)
-        setMyRank({ rankNum: arrangedData.rankNum, isRank: true });
-      else setMyRank({ percent: arrangedData.percent, isRank: false });
+      const locationData = data.filter((who) => who.location === location);
+      const sortedData = sortUserScores(locationData, myScore);
+      setRankInfo(sortedData);
+      setIsPointLoading(false);
     },
   });
 
-  useEffect(() => {
-    if (myRank || isGuest) setIsPointLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myRank]);
+  const rankValueText =
+    isGuest ||
+    (rankInfo &&
+      (rankInfo.rankValue === -1
+        ? "NEW"
+        : rankInfo.isRankNum
+        ? `지역 ${rankInfo.rankValue}위`
+        : `상위 ${rankInfo.rankValue}%`));
 
   return (
     <>
@@ -49,24 +52,16 @@ function PointScoreNavigation({ myPoint }: IPointScoreNavigation) {
         <Button onClick={() => router.push("/point/scoreLog")}>
           <div>About 점수</div>
           <div>
-            <span>{myPoint || 0}점</span>
+            <span>{myScore || 0}점</span>
             <FontAwesomeIcon icon={faChevronRight} size="xs" />
           </div>
         </Button>
         <Button onClick={() => router.push("/ranking")}>
           <div>About 랭킹</div>
-          {(myRank || isGuest) && (
-            <div>
-              {isGuest || myRank?.rankNum === -1 ? (
-                <span>New</span>
-              ) : myRank?.isRank ? (
-                <span>지역 {myRank?.rankNum + 1}위</span>
-              ) : (
-                <span>상위 {myRank?.percent}%</span>
-              )}
-              <FontAwesomeIcon icon={faChevronRight} size="xs" />
-            </div>
-          )}
+          <div>
+            <span>{rankValueText}</span>
+            <FontAwesomeIcon icon={faChevronRight} size="xs" />
+          </div>
         </Button>
       </Layout>
     </>
