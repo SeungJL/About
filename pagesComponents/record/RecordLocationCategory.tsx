@@ -14,16 +14,16 @@ function RecordLocationCategory({
   setOpenData,
   arrivedData,
 }: IRecordLocationCategory) {
-  const [category, setCategory] = useState<Location>("all");
+  const [category, setCategory] = useState<Location>("전체");
 
   const onClickBadge = (value: Location) => {
-    if (value === category) setCategory("all");
+    if (value === category) setCategory("전체");
     else setCategory(value);
   };
 
   useEffect(() => {
     if (!arrivedData) return;
-    if (category !== "all")
+    if (category !== "전체")
       setOpenData(
         arrivedData.map((item) => {
           return {
@@ -118,7 +118,7 @@ const SpaceBadge = styled.section`
 const Button = styled.button<{ category: Location; isSelected: boolean }>`
   font-size: ${(props) => (props.isSelected ? "14px" : "12px")};
   opacity: ${(props) =>
-    props.category !== "all" && !props.isSelected ? "0.7" : "1"};
+    props.category !== "전체" && !props.isSelected ? "0.7" : "1"};
 `;
 
 export default RecordLocationCategory;

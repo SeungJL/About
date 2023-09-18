@@ -3,11 +3,12 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import LocationCategory from "../../components/common/LocationCategory";
 import { MainLoading } from "../../components/common/MainLoading";
 import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
 import Header from "../../components/layout/Header";
+import ButtonCheckNav from "../../components/ui/ButtonCheckNav";
+import { STUDY_LOCATION } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
 import { useGatherSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pagesComponents/review/ReviewContent";
@@ -48,7 +49,7 @@ function Review() {
 
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
-  const [category, setCategory] = useState<Location>("all");
+  const [category, setCategory] = useState<Location>("전체");
 
   const url = WEB_URL + router?.asPath;
   const temp = {
@@ -111,7 +112,7 @@ function Review() {
   });
 
   useEffect(() => {
-    if (category === "all") setReviewData(initialData);
+    if (category === "전체") setReviewData(initialData);
     else
       setReviewData(initialData.filter((item) => item.location === category));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -148,7 +149,11 @@ function Review() {
           <MainLoading />
         ) : (
           <>
-            <LocationCategory category={category} setCategory={setCategory} />
+            <ButtonCheckNav
+              buttonList={["전체", ...STUDY_LOCATION]}
+              selectedButton={category}
+              setSelectedButton={setCategory}
+            />
             <Main>
               {reviewData?.map((item) => (
                 <Item id={"review" + item.id} key={item.id}>

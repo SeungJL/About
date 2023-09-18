@@ -11,7 +11,7 @@ function GatherCategoryBar({ category, setCategory }: IGatherCategoryBar) {
   return (
     <Layout>
       <Button
-        isSelected={category === "all"}
+        isSelected={category === "전체"}
         onClick={() => setCategory("all")}
       >
         전체

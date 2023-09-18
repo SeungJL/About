@@ -6,7 +6,6 @@ import MemberOverviewSkeleton from "./memberSkeleton/MemberOverviewSkeleton";
 import MemberSectionListSkeleton from "./memberSkeleton/MemberSectionListSkeleton";
 
 function MemberSkeleton() {
-
   return (
     <Layout>
       <MemberOverviewSkeleton />
@@ -16,24 +15,15 @@ function MemberSkeleton() {
       <MembersContainer>
         <MemberTitle>멤버 소개</MemberTitle>
         <Section>
-          <MemberSectionTitle
-            category="활동 멤버"
-            subTitle="정식 활동 멤버입니다"
-          />
+          <MemberSectionTitle section="member" />
           <MemberSectionListSkeleton />
         </Section>
         <Section>
-          <MemberSectionTitle
-            category="수습 멤버"
-            subTitle="열심히 활동해봐요~!"
-          />
+          <MemberSectionTitle section="human" />
           <MemberSectionListSkeleton />
         </Section>
         <Section>
-          <MemberSectionTitle
-            category="휴식 멤버"
-            subTitle="휴식중인 멤버입니다"
-          />
+          <MemberSectionTitle section="resting" />
           <MemberSectionListSkeleton />
         </Section>
       </MembersContainer>

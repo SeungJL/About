@@ -8,7 +8,7 @@ import { MemberClassification } from "../../types/page/member";
 
 interface IMemberSectionTitle {
   section: MemberClassification;
-  onClickSection: (section: MemberClassification) => void;
+  onClickSection?: (section: MemberClassification) => void;
 }
 
 const SECTION_TEXT: Record<MemberClassification, string> = {
