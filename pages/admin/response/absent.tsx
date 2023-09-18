@@ -1,14 +1,14 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
-import ModalPortal from "../../components/common/ModalPortal";
-import Header from "../../components/layout/Header";
-import { useUserRequestQuery2 } from "../../hooks/user/queries";
-import CheckAbsentModal from "../../modals/admin/CheckAbsentModal";
+import { MainLoading } from "../../../components/common/MainLoading";
+import ModalPortal from "../../../components/common/ModalPortal";
+import Header from "../../../components/layout/Header";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
+import CheckAbsentModal from "../../../modals/admin/CheckAbsentModal";
 
-function CheckAbsent() {
-  const { data, isLoading } = useUserRequestQuery2();
+function AdminAbsent() {
+  const { data, isLoading } = useUserRequestQuery();
   const suggestData = data?.filter((item) => item.category === "불참");
   const [isModal, setIsModal] = useState(false);
   const [userFee, setUserFee] = useState<{ fee: number; uid: string }>();
@@ -115,4 +115,4 @@ const Content = styled.div`
   min-height: 20px;
 `;
 
-export default CheckAbsent;
+export default AdminAbsent;

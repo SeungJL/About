@@ -2,12 +2,12 @@ import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
-import { StudySpaceLogo } from "../../components/utils/DesignAdjustment";
-import { useStudyPlacesQuery } from "../../hooks/study/queries";
-import { ISpaceControl } from "../../types/page/admin";
+import Header from "../../../components/layout/Header";
+import { StudySpaceLogo } from "../../../components/utils/DesignAdjustment";
+import { useStudyPlacesQuery } from "../../../hooks/study/queries";
+import { ISpaceControl } from "../../../types/page/admin";
 
-function StudySpaceControl() {
+function AdminStudySpace() {
   const { data } = useStudyPlacesQuery();
   const { register, handleSubmit } = useForm({});
 
@@ -280,4 +280,4 @@ const Info = styled.input`
   font-size: 12px;
 `;
 
-export default StudySpaceControl;
+export default AdminStudySpace;

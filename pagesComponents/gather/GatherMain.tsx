@@ -30,7 +30,7 @@ function GatherMain({ category }: IGatherMain) {
   });
 
   useEffect(() => {
-    if (category === "all") setGatherData(gatherContentArr);
+    if (category === "전체") setGatherData(gatherContentArr);
     if (category === "수원")
       setGatherData(gatherContentArr?.filter((item) => item.place === "수원"));
     if (category === "양천")

@@ -1,11 +1,11 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layout/Header";
-import { useUserRequestQuery2 } from "../../hooks/user/queries";
+import { MainLoading } from "../../../components/common/MainLoading";
+import Header from "../../../components/layout/Header";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
 
-function CheckPromotion() {
-  const { data, isLoading } = useUserRequestQuery2();
+function AdminPromotion() {
+  const { data, isLoading } = useUserRequestQuery();
 
   const suggestData = data?.filter((item) => item.category === "홍보");
 
@@ -42,4 +42,4 @@ const Item = styled.div`
   }
 `;
 
-export default CheckPromotion;
+export default AdminPromotion;

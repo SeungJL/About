@@ -1,5 +1,6 @@
-export type MemberSectionCategory =
-  | "활동 멤버"
-  | "수습 멤버"
-  | "휴식 멤버"
-  | "생일";
+import { IUser } from "../user/user";
+
+export type MemberClassification = "member" | "human" | "resting" | "birth";
+
+export interface IClassifiedMember
+  extends Record<MemberClassification, IUser[]> {}

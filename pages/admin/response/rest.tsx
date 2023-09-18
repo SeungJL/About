@@ -1,17 +1,17 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import AdminLocationSelector from "../../components/common/AdminLocationSelector";
-import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layout/Header";
-import { getRestInfo } from "../../helpers/transformHelpers";
-import { useUserRequestQuery2 } from "../../hooks/user/queries";
-import { IUserRequest } from "../../types/user/userRequest";
+import AdminLocationSelector from "../../../components/common/AdminLocationSelector";
+import { MainLoading } from "../../../components/common/MainLoading";
+import Header from "../../../components/layout/Header";
+import { getRestInfo } from "../../../helpers/transformHelpers";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
+import { IUserRequest } from "../../../types/user/userRequest";
 
-function CheckRest() {
+function AdminRest() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
   const [suggestData, setSuggestData] = useState<IUserRequest[]>();
-  const { isLoading } = useUserRequestQuery2({
+  const { isLoading } = useUserRequestQuery({
     onSuccess(data) {
       setInitialData(data.filter((item) => item.category === "휴식"));
     },
@@ -117,4 +117,4 @@ const Content = styled.div`
   }
 `;
 
-export default CheckRest;
+export default AdminRest;

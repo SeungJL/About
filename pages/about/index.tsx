@@ -13,7 +13,7 @@ import AboutStudyHeader from "../../pagesComponents/about/main/AboutStudyHeader"
 import AboutStudyResult from "../../pagesComponents/about/main/aboutStudyResult/AboutStudyResult";
 import AboutVoteNav from "../../pagesComponents/about/main/AboutVoteNav";
 import EventBanner from "../../pagesComponents/about/main/EventBanner";
-import WinRecord from "../../pagesComponents/about/main/WinRecord";
+import AboutWinRecord from "../../pagesComponents/about/main/WinRecord";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
 import StudySetting from "../../pagesComponents/setting/StudySetting";
 import UserSetting from "../../pagesComponents/setting/UserSetting";
@@ -85,8 +85,7 @@ function About() {
         <AboutGather />
         <EventBanner />
         <AboutReview />
-        <WinRecord />
-        {/* <AboutRanking /> */}
+        <AboutWinRecord />
       </Layout>
     </>
   );

@@ -1,4 +1,3 @@
-import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -23,14 +22,14 @@ interface IGather {
 
 function WritingContent() {
   const router = useRouter();
-  const toast = useToast();
   const failToast = useFailToast();
+
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherDataState
   );
+
   const [title, setTitle] = useState(gatherContent?.title || "");
   const [content, setContent] = useState(gatherContent?.content || "");
-
   const [firstGather, setFirstGather] = useState<IGather>({
     text: gatherContent?.gatherList?.[0]?.text || "",
     time: { hours: 14, minutes: 0 },

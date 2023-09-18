@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import BlurredPart from "../../../components/common/BlurredPart";
+import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import dbConnect from "../../../libs/backend/dbConnect";
 import { User } from "../../../models/user";
 import MemberHeader from "../../../pagesComponents/member/MemberHeader";
@@ -17,141 +17,123 @@ import MemberSectionList from "../../../pagesComponents/member/MemberSectionList
 import MemberSectionTitle from "../../../pagesComponents/member/MemberSectionTitle";
 import MemberSkeleton from "../../../pagesComponents/member/MemberSkeleton";
 import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
-import { MemberSectionCategory } from "../../../types/page/member";
+import { isGuestState } from "../../../recoil/userAtoms";
+import {
+  IClassifiedMember,
+  MemberClassification,
+} from "../../../types/page/member";
 import { IUser } from "../../../types/user/user";
 
 interface IMember {
   membersAll: IUser[];
 }
 
+const MEMBER_SECTIONS: MemberClassification[] = [
+  "member",
+  "human",
+  "birth",
+  "resting",
+];
+
+export const SECTION_NAME: Record<MemberClassification, string> = {
+  member: "활동 멤버",
+  human: "수습 멤버",
+  resting: "휴식 멤버",
+  birth: "생일",
+};
+
 function Member({ membersAll }: IMember) {
-  const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
   const router = useRouter();
   const location = router.query.location;
 
+  const isGuest = useRecoilValue(isGuestState);
   const setTransferMemberData = useSetRecoilState(transferMemberDataState);
 
-  const [members, setMembers] = useState<IUser[]>();
-  const [memberMembers, setMemberMembers] = useState<IUser[]>();
-  const [humanMembers, setHumanMembers] = useState<IUser[]>();
-  const [restingMembers, setRestingMembers] = useState<IUser[]>();
-  const [birthMembers, setBirthMembers] = useState<IUser[]>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [clickSection, setClickSection] = useState<MemberSectionCategory>();
+  const [locationMemberCnt, setLocationMemberCnt] = useState<number>();
+  const [classifiedMembers, setClassifiedMembers] =
+    useState<IClassifiedMember>();
 
+  //멤버 분류
   useEffect(() => {
-    setMembers(
-      membersAll?.filter(
-        (who) => who?.location === (isGuest ? "수원" : location)
-      )
+    if (!location) return;
+    const locationMembers = membersAll.filter(
+      (who) => who.location === location
     );
-  }, [isGuest, location, membersAll]);
-
-  useEffect(() => {
-    if (!members) return;
-    let memberArr = [];
-    let humanArr = [];
-    let restingArr = [];
-    let adminArr = [];
-    let birthArr = [];
-
-    members?.forEach((who) => {
-      if (who?.name === "guest") return;
-      if (who.role === "member") memberArr.push(who);
-      if (who.role === "previliged" || who.role === "manager")
-        adminArr.push(who);
-      if (who.role === "human") humanArr.push(who);
-      if (who.role === "resting") {
-        if (dayjs(who.rest.endDate) >= dayjs()) restingArr.push(who);
-        else memberArr.push(who);
+    setLocationMemberCnt(locationMembers.length);
+    const classified = {
+      member: [],
+      human: [],
+      resting: [],
+      birth: [],
+    };
+    locationMembers.forEach((who) => {
+      switch (who.role) {
+        case "member":
+        case "previliged":
+        case "manager":
+          classified.member.push(who);
+          break;
+        case "human":
+          classified.human.push(who);
+          break;
+        case "resting":
+          if (dayjs(who.rest.endDate) >= dayjs()) classified.resting.push(who);
+          else classified.member.push(who);
+          break;
       }
-
-      if (who.birth.slice(2) === dayjs().format("MMDD") && who.role !== "human")
-        birthArr.push(who);
+      if (
+        who.role !== "human" &&
+        who.birth.slice(2) === dayjsToFormat(dayjs(), "MMDD")
+      )
+        classified.birth.push(who);
     });
-    setMemberMembers([...adminArr, ...memberArr]);
-    setHumanMembers(humanArr);
-    setRestingMembers(restingArr);
-    setBirthMembers(birthArr);
-    setIsLoading(false);
-  }, [members]);
+    setClassifiedMembers(classified);
+  }, [location, membersAll]);
 
-  useEffect(() => {
-    if (!clickSection) return;
-    const memberData =
-      clickSection === "활동 멤버"
-        ? memberMembers
-        : clickSection === "수습 멤버"
-        ? humanMembers
-        : restingMembers;
-    setTransferMemberData({ category: clickSection, memberData });
+  //상세페이지로 이동
+  const onClickSection = (section: MemberClassification) => {
+    setTransferMemberData({ section, members: classifiedMembers[section] });
     router.push(`/member/${location}/detail`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clickSection]);
+  };
 
   return (
     <>
       <MemberHeader />
-      <Layout isLoading={isLoading}>
-        <MemberOverview
-          totalMemberCnt={members?.length}
-          activeMemberCnt={memberMembers?.length}
-        />
-        <HrDiv />
-        <>
-          <MemberMyProfile />
+      {classifiedMembers ? (
+        <Layout>
+          <MemberOverview
+            totalMemberCnt={locationMemberCnt}
+            activeMemberCnt={classifiedMembers.member.length}
+          />
           <HrDiv />
-          <MembersContainer>
-            <MemberTitle>멤버 소개</MemberTitle>
-            {birthMembers?.length !== 0 && (
-              <Section>
-                <MemberSectionTitle
-                  category="생일"
-                  subTitle="생일을 축하해요!"
-                  setClickSection={setClickSection}
-                />
-                <BlurredPart isBlur={isGuest}>
-                  <MemberSectionList users={birthMembers} />
-                </BlurredPart>
-              </Section>
-            )}
-            <Section>
-              <MemberSectionTitle
-                category="활동 멤버"
-                subTitle="정식 활동 멤버입니다"
-                setClickSection={setClickSection}
-              />
-              <BlurredPart isBlur={isGuest}>
-                <MemberSectionList users={memberMembers} />
-              </BlurredPart>
-            </Section>
-            <Section>
-              <MemberSectionTitle
-                category="수습 멤버"
-                subTitle="열심히 활동해봐요~!"
-                setClickSection={setClickSection}
-              />
-              <BlurredPart isBlur={isGuest}>
-                <MemberSectionList users={humanMembers} />
-              </BlurredPart>
-            </Section>
-            <Section>
-              <MemberSectionTitle
-                category="휴식 멤버"
-                subTitle="휴식중인 멤버입니다"
-                setClickSection={setClickSection}
-              />
-              <BlurredPart isBlur={isGuest}>
-                <MemberSectionList users={restingMembers} />
-              </BlurredPart>
-            </Section>
-          </MembersContainer>
-          <HrDiv />
-          <MemberRecommend />
-        </>
-      </Layout>
-      {isLoading && <MemberSkeleton />}
+          <>
+            <MemberMyProfile />
+            <HrDiv />
+            <MembersContainer>
+              <MemberTitle>멤버 소개</MemberTitle>
+              {MEMBER_SECTIONS.map((section) => {
+                if (section === "birth" && classifiedMembers.birth.length === 0)
+                  return;
+                return (
+                  <Section key={section}>
+                    <MemberSectionTitle
+                      section={section}
+                      onClickSection={onClickSection}
+                    />
+                    <BlurredPart isBlur={isGuest}>
+                      <MemberSectionList members={classifiedMembers[section]} />
+                    </BlurredPart>
+                  </Section>
+                );
+              })}
+            </MembersContainer>
+            <HrDiv />
+            <MemberRecommend />
+          </>
+        </Layout>
+      ) : (
+        <MemberSkeleton />
+      )}
     </>
   );
 }
@@ -174,8 +156,7 @@ const MembersContainer = styled.div`
   }
 `;
 
-const Layout = styled.div<{ isLoading: boolean }>`
-  visibility: ${(props) => (props.isLoading ? "hidden" : "visibility")};
+const Layout = styled.div`
   > div:first-child {
     margin-top: 0;
   }

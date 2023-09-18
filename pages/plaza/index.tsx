@@ -5,7 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../components/common/ModalPortal";
 import Header from "../../components/layout/Header";
-import { useUserRequestQuery } from "../../hooks/user/queries";
+import { usePlazaQuery } from "../../hooks/user/queries";
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
 import Category from "../../pagesComponents/plaza/main/Category";
 import PlazaBlock from "../../pagesComponents/plaza/main/PlazaBlock";
@@ -13,7 +13,7 @@ import { PlazaLayout } from "../../pagesComponents/plaza/main/plazaStyles";
 import { category } from "../../types/page/plaza";
 
 function Plaza() {
-  const { data } = useUserRequestQuery({
+  const { data } = usePlazaQuery({
     onSuccess(test) {},
   });
 

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
-import AdminLocationSelector from "../../components/common/AdminLocationSelector";
-import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layout/Header";
-import { useUserRequestQuery2 } from "../../hooks/user/queries";
-import { IUserRequest } from "../../types/user/userRequest";
+import AdminLocationSelector from "../../../components/common/AdminLocationSelector";
+import { MainLoading } from "../../../components/common/MainLoading";
+import Header from "../../../components/layout/Header";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
+import { IUserRequest } from "../../../types/user/userRequest";
 
-function CheckSecede() {
+function AdminSecede() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
   const [suggestData, setSuggestData] = useState<IUserRequest[]>();
 
-  const { isLoading } = useUserRequestQuery2({
+  const { isLoading } = useUserRequestQuery({
     onSuccess(data) {
       setInitialData(data.filter((item) => item.category === "탈퇴"));
     },
@@ -99,4 +99,4 @@ const Content = styled.div`
   margin-bottom: 6px;
 `;
 
-export default CheckSecede;
+export default AdminSecede;

@@ -1,13 +1,13 @@
 import { useToast } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
-import { useUpdateProfileMutation } from "../../hooks/admin/mutation";
-import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
-import { useDepositAllQuery } from "../../hooks/user/pointSystem/queries";
-import { IUser } from "../../types/user/user";
+import Header from "../../../components/layout/Header";
+import { useUpdateProfileMutation } from "../../../hooks/admin/mutation";
+import { useAdminUsersControlQuery } from "../../../hooks/admin/quries";
+import { useDepositAllQuery } from "../../../hooks/user/pointSystem/queries";
+import { IUser } from "../../../types/user/user";
 
-export default function Admin() {
+function AdminUserInfo() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [admins, setAdmins] = useState<IUser[]>([]);
   const [members, setMembers] = useState<IUser[]>([]);
@@ -231,3 +231,5 @@ const Input = styled.input`
   border-right: 1px solid black;
   background-color: inherit;
 `;
+
+export default AdminUserInfo;

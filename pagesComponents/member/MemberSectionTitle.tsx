@@ -2,30 +2,33 @@ import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { SECTION_NAME } from "../../pages/member/[location]";
 import { isGuestState } from "../../recoil/userAtoms";
-import { MemberSectionCategory } from "../../types/page/member";
+import { MemberClassification } from "../../types/page/member";
 
 interface IMemberSectionTitle {
-  category: MemberSectionCategory;
-  subTitle: string;
-  setClickSection?: React.Dispatch<MemberSectionCategory>;
+  section: MemberClassification;
+  onClickSection: (section: MemberClassification) => void;
 }
 
-function MemberSectionTitle({
-  category,
-  subTitle,
-  setClickSection,
-}: IMemberSectionTitle) {
+const SECTION_TEXT: Record<MemberClassification, string> = {
+  member: "정식 활동 멤버입니다",
+  human: "열심히 활동해봐요~!",
+  resting: "휴식중인 멤버입니다",
+  birth: "생일을 축하해요!",
+};
+
+function MemberSectionTitle({ section, onClickSection }: IMemberSectionTitle) {
   const isGuest = useRecoilValue(isGuestState);
 
   return (
     <Layout>
       <TitleWrapper>
-        <span>{category}</span>
-        <span>{subTitle}</span>
+        <span>{SECTION_NAME[section]}</span>
+        <span>{SECTION_TEXT[section]}</span>
       </TitleWrapper>
-      {category !== "생일" && (
-        <Button disabled={isGuest} onClick={() => setClickSection(category)}>
+      {section !== "birth" && (
+        <Button disabled={isGuest} onClick={() => onClickSection(section)}>
           <span>더보기</span>
           <FontAwesomeIcon icon={faChevronRight} size="xs" />
         </Button>

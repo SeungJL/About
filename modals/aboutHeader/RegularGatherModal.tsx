@@ -14,7 +14,7 @@ import {
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import {
   useUserInfoQuery,
-  useUserRequestQuery2,
+  useUserRequestQuery,
 } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 import { ModalMain } from "../../styles/layout/modal";
@@ -34,7 +34,7 @@ function RegularGatherModal({
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const { data: userInfo } = useUserInfoQuery({ enabled: isGuest === false });
-  const { data: requestData, isLoading } = useUserRequestQuery2();
+  const { data: requestData, isLoading } = useUserRequestQuery();
 
   const { mutate } = useUserRequestMutation({
     onSuccess() {

@@ -25,13 +25,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
-import { useStudyVoteQuery } from "../../hooks/study/queries";
-import { IAttendance, StudyStatus } from "../../types/study/study";
-import { IUser } from "../../types/user/user";
+import Header from "../../../components/layout/Header";
+import { useStudyVoteQuery } from "../../../hooks/study/queries";
+import { IAttendance, StudyStatus } from "../../../types/study/study";
+import { IUser } from "../../../types/user/user";
+
 const LOCATION = ["SUWAN", "YANG"];
 
-function StudyControl() {
+function AdminStudyStatus() {
   const [date, setDate] = useState(dayjs());
   const { data: SUWAN } = useStudyVoteQuery(date, "수원");
   const { data: YANG } = useStudyVoteQuery(date, "양천");
@@ -198,4 +199,4 @@ const Att = styled.div`
 
 const Delete = styled.div``;
 
-export default StudyControl;
+export default AdminStudyStatus;

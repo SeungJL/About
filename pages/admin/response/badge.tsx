@@ -1,11 +1,11 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layout/Header";
-import { useUserRequestQuery2 } from "../../hooks/user/queries";
+import { MainLoading } from "../../../components/common/MainLoading";
+import Header from "../../../components/layout/Header";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
 
-function CheckApplyBadge() {
-  const { data, isLoading } = useUserRequestQuery2();
+function AdminBadge() {
+  const { data, isLoading } = useUserRequestQuery();
   const suggestData = data?.filter((item) => item.category === "배지");
 
   return (
@@ -59,4 +59,4 @@ const Item = styled.div`
   }
 `;
 
-export default CheckApplyBadge;
+export default AdminBadge;

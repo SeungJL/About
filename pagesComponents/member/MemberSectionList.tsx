@@ -3,13 +3,13 @@ import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import { IUser } from "../../types/user/user";
 
 interface IMemberMember {
-  users: IUser[];
+  members: IUser[];
 }
 
-function MemberSectionList({ users }: IMemberMember) {
+function MemberSectionList({ members }: IMemberMember) {
   return (
     <Layout>
-      <ImageSlider type="member" imageContainer={users} />
+      <ImageSlider type="member" imageContainer={members} />
     </Layout>
   );
 }

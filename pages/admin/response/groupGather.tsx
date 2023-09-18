@@ -1,27 +1,26 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import AdminLocationSelector from "../../components/common/AdminLocationSelector";
-import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layout/Header";
-import { useUserRequestQuery2 } from "../../hooks/user/queries";
-import { IUserRequest } from "../../types/user/userRequest";
+import AdminLocationSelector from "../../../components/common/AdminLocationSelector";
+import { MainLoading } from "../../../components/common/MainLoading";
+import Header from "../../../components/layout/Header";
+import { birthToAge } from "../../../helpers/converterHelpers";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
+import { IUserRequest } from "../../../types/user/userRequest";
 
-function CheckSuggest() {
+function AdminGroupGather() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
   const [suggestData, setSuggestData] = useState<IUserRequest[]>();
 
-  const { isLoading } = useUserRequestQuery2({
+  const { isLoading } = useUserRequestQuery({
     onSuccess(data) {
-      setInitialData(
-        data.filter((item) => item.category === ("건의" || "신고"))
-      );
+      setInitialData(data.filter((item) => item.category === "조모임"));
     },
   });
 
   return (
     <>
-      <Header title="건의사항 확인" url="/admin" />
+      <Header title="조모임 신청 확인" url="/admin" />
       {isLoading ? (
         <MainLoading />
       ) : (
@@ -36,20 +35,26 @@ function CheckSuggest() {
           {suggestData
             ?.slice()
             .reverse()
-            .map((item, idx) => (
-              <Item key={idx}>
-                <Wrapper>
-                  <ItemHeader>
-                    <Title>{item?.title}</Title>
-                    <div>
-                      <span>{item.writer || "익명"}</span>
-                      <span>{dayjs(item.updatedAt).format("M월 D일")}</span>
-                    </div>
-                  </ItemHeader>
-                  <Content>{item.content}</Content>
-                </Wrapper>
-              </Item>
-            ))}
+            .map((item, idx) => {
+              const [birth, mbti] = item.title.split("-");
+              const age = birthToAge(birth);
+
+              return (
+                <Item key={idx}>
+                  <Wrapper>
+                    <ItemHeader>
+                      <Title>
+                        {item.writer} {age} {mbti}
+                      </Title>
+                      <div>
+                        <span>{dayjs(item.updatedAt).format("M월 D일")}</span>
+                      </div>
+                    </ItemHeader>
+                    <Content>{item.content}</Content>
+                  </Wrapper>
+                </Item>
+              );
+            })}
         </Layout>
       )}
     </>
@@ -104,4 +109,4 @@ const Content = styled.div`
   margin-bottom: 6px;
 `;
 
-export default CheckSuggest;
+export default AdminGroupGather;

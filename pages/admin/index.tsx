@@ -10,11 +10,15 @@ function Admin() {
   const { data: role } = useUserRoleQuery();
 
   const onClick = (url: string, isAccess?: boolean) => {
-    if (role === "manager" && isAccess) {
-      failToast("free", "이건 안돼 ^ㅡ^");
+    if (isAccess !== false) {
+      router.push(`/admin/response/${url}`);
       return;
     }
-    router.push(`/admin/${url}`);
+    if (role === "manager") {
+      failToast("free", "관리자만 접근 가능합니다.");
+      return;
+    }
+    router.push(`/admin/system/${url}`);
   };
 
   return (
@@ -26,43 +30,35 @@ function Admin() {
             <div>
               <BlockName>유저 응답</BlockName>
               <NavBlock>
-                <button onClick={() => onClick(`checkRegister`)}>
+                <button onClick={() => onClick(`register`)}>
                   가입신청 확인
                 </button>
-                <button onClick={() => onClick(`checkAttendWinner`)}>
+                <button onClick={() => onClick(`attend`)}>
                   출석 당첨자 확인
                 </button>
                 <button onClick={() => onClick(`groupGather`)}>
                   조모임 신청 확인
                 </button>
-                <button onClick={() => onClick(`checkSuggest`)}>
+                <button onClick={() => onClick(`suggest`)}>
                   건의사항 확인
                 </button>
-                <button onClick={() => onClick(`checkRest`)}>
-                  휴식신청 확인
-                </button>
-                <button onClick={() => onClick(`checkApplyBadge`)}>
-                  배지신청 확인
-                </button>
-                <button onClick={() => onClick(`checkPromotion`)}>
+                <button onClick={() => onClick(`rest`)}>휴식신청 확인</button>
+                <button onClick={() => onClick(`badge`)}>배지신청 확인</button>
+                <button onClick={() => onClick(`promotion`)}>
                   홍보인원 확인
                 </button>
-                <button onClick={() => onClick(`checkSecede`)}>
-                  탈퇴신청 확인
-                </button>
-                <button onClick={() => onClick(`checkAbsent`)}>
-                  당일불참 확인
-                </button>
+                <button onClick={() => onClick(`secede`)}>탈퇴신청 확인</button>
+                <button onClick={() => onClick(`absent`)}>당일불참 확인</button>
               </NavBlock>
             </div>
             <div>
               <BlockName>유저 정보</BlockName>
               <NavBlock>
-                <button onClick={() => onClick(`userControl`, true)}>
+                <button onClick={() => onClick(`userInfo`, false)}>
                   유저 정보 관리
                 </button>
                 <button>유저 상태 확인</button>
-                <button onClick={() => onClick(`pointSystemLog`, true)}>
+                <button onClick={() => onClick(`pointLog`, false)}>
                   포인트시스템 로그
                 </button>
               </NavBlock>
@@ -70,26 +66,19 @@ function Admin() {
             <div>
               <BlockName>스터디 관리</BlockName>
               <NavBlock>
-                <button onClick={() => onClick(`studySpaceControl`, true)}>
+                <button onClick={() => onClick(`studySpace`, false)}>
                   스터디 장소 정보
                 </button>
-                <button onClick={() => onClick(`studyControl`, true)}>
+                <button onClick={() => onClick(`studyStatus`, false)}>
                   스터디 상태 변경
                 </button>
               </NavBlock>
             </div>
-            {/* <div>
-              <BlockName>게시글 작성</BlockName>
-              <NavBlock>
-                <button>공지사항</button>
-                <button>Plaza</button>
-              </NavBlock>
-            </div> */}
+
             <div>
               <BlockName />
             </div>
           </Navigation>
-          {/* <UserNavigation /> */}
         </UserLayout>
       </Layout>
     </>

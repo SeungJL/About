@@ -6,7 +6,7 @@ import styled from "styled-components";
 import AboutMoreInfoBtn from "../../../components/common/AboutMoreInfoBtn";
 import { WIN_RECORD } from "../../../storage/winRecord";
 
-function WinRecord() {
+function AboutWinRecord() {
   const router = useRouter();
   return (
     <Layout>
@@ -105,4 +105,4 @@ const Present = styled.span`
   flex: 0.35;
 `;
 
-export default WinRecord;
+export default AboutWinRecord;

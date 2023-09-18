@@ -78,7 +78,7 @@ export const useRegisterFormsQuery = (
     },
     options
   );
-export const useUserRequestQuery = (options?: QueryOptions<IUserRequest[]>) =>
+export const usePlazaQuery = (options?: QueryOptions<IUserRequest[]>) =>
   useQuery<IUserRequest[], AxiosError, IUserRequest[]>(
     USER_REQUEST,
     async () => {
@@ -87,7 +87,7 @@ export const useUserRequestQuery = (options?: QueryOptions<IUserRequest[]>) =>
     },
     options
   );
-export const useUserRequestQuery2 = (options?: QueryOptions<IUserRequest[]>) =>
+export const useUserRequestQuery = (options?: QueryOptions<IUserRequest[]>) =>
   useQuery<IUserRequest[], AxiosError, IUserRequest[]>(
     USER_REQUEST + "2",
     async () => {

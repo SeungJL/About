@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {
   usePointLogAllQuery,
   useScoreLogAllQuery,
-} from "../../hooks/user/pointSystem/queries";
+} from "../../../hooks/user/pointSystem/queries";
 
 function PointSystemLog() {
   const { data: A } = usePointLogAllQuery();

@@ -58,9 +58,7 @@ function WritingCondition() {
   const [ageCondition, setAgeCondition] = useState(
     gatherContent?.age ? true : false
   );
-  const [isPreMember, setIsPreMember] = useState(
-    gatherContent?.preCnt ? true : false
-  );
+
   const [isMaxCondition, setIsMaxCondition] = useState(true);
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
   const [age, setAge] = useState(gatherContent?.age || [19, 28]);

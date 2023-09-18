@@ -3,10 +3,12 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { SECTION_NAME } from ".";
 import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import { USER_BADGES } from "../../../constants/convert";
+import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { getUserBadgeScore } from "../../../helpers/userHelpers";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import {
@@ -15,13 +17,14 @@ import {
 } from "../../../recoil/transferDataAtoms";
 import { IUser } from "../../../types/user/user";
 
-function Detail() {
+function MemberDetail() {
   const router = useRouter();
+
   const memberData = useRecoilValue(transferMemberDataState);
   const setUserData = useSetRecoilState(transferUserDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
 
-  const category = memberData?.category;
+  const section = memberData?.section;
 
   const onClickUser = (user: IUser) => {
     setUserData(user);
@@ -29,14 +32,16 @@ function Detail() {
     router.push(`/profile/${user.uid}`);
   };
 
- 
   return (
     <PageLayout>
-      <Header title={category} url={`/member/${router.query?.location}`} />
+      <Header
+        title={SECTION_NAME[section]}
+        url={`/member/${router.query?.location}`}
+      />
       <Container>
-        {memberData?.memberData.map((who) => {
+        {memberData?.members.map((who) => {
           const userBadge = getUserBadgeScore(who.score, who.uid);
-          const rest = category === "휴식 멤버" && who?.rest;
+          const rest = section === "resting" && who?.rest;
           return (
             <Item key={who.uid} onClick={() => onClickUser(who)}>
               <ProfileWrapper>
@@ -54,9 +59,9 @@ function Detail() {
                   </Badge>
                 </Name>
                 <div>
-                  {category === "활동 멤버" ? (
+                  {section === "member" ? (
                     who.comment
-                  ) : category === "수습 멤버" ? (
+                  ) : section === "human" ? (
                     `가입일: ${dayjs(who.registerDate).format(
                       "YYYY년 M월 D일"
                     )}`
@@ -67,8 +72,8 @@ function Detail() {
                         {rest.type === "일반" ? (
                           <>
                             <span>
-                              {dayjs(rest.startDate).format("YY-MM-DD")} ~{" "}
-                              {dayjs(rest.endDate).format("YY-MM-DD")}
+                              {dayjsToFormat(dayjs(rest.startDate), "YY-MM-DD")}{" "}
+                              ~ {dayjsToFormat(dayjs(rest.endDate), "YY-MM-DD")}
                             </span>
                             <DDay>
                               D-
@@ -140,4 +145,4 @@ const Name = styled.div`
   font-size: 13px;
 `;
 
-export default Detail;
+export default MemberDetail;

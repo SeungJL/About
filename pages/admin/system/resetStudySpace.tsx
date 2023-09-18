@@ -1,8 +1,8 @@
 import { Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
-import { SERVER_URI } from "../../constants/system";
+import { SERVER_URI } from "../../../constants/system";
 
-export default function Admin() {
+function AdminResetStudySpace() {
   const secretKey = process.env.NEXTAUTH_SECRET;
 
   const onResetScore = () => {
@@ -47,3 +47,5 @@ export default function Admin() {
     </Flex>
   );
 }
+
+export default AdminResetStudySpace;

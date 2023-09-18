@@ -1,15 +1,15 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
-import Header from "../../components/layout/Header";
-import { useUserRequestQuery2 } from "../../hooks/user/queries";
-import { IUserRequest } from "../../types/user/userRequest";
+import { MainLoading } from "../../../components/common/MainLoading";
+import Header from "../../../components/layout/Header";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
+import { IUserRequest } from "../../../types/user/userRequest";
 
 function CheckAttendWinner() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
 
-  const { isLoading } = useUserRequestQuery2({
+  const { isLoading } = useUserRequestQuery({
     onSuccess(data) {
       setInitialData(data.filter((item) => item.category === "출석"));
     },

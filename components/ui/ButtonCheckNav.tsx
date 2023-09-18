@@ -15,15 +15,14 @@ function ButtonCheckNav({
 }: IButtonCheckNav) {
   return (
     <Layout>
-      <ButtonGroup flexWrap="wrap">
+      <ButtonGroup flexWrap="wrap" gap="var(--margin-md)">
         {buttonList.map((item) => (
           <Button
             colorScheme={item === selectedButton ? "mintTheme" : null}
             key={item}
             onClick={() => setSelectedButton(item)}
             ml="0px !important"
-            mb="var(--margin-md)"
-            mr="var(--margin-sub)"
+            size="sm"
           >
             {item}
           </Button>

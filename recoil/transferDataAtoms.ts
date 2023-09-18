@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-
 import { IGatherContent } from "../types/page/gather";
-import { MemberSectionCategory } from "../types/page/member";
+import { MemberClassification } from "../types/page/member";
+
 import { IParticipation } from "../types/study/study";
 import { IUser } from "../types/user/user";
 
@@ -20,8 +20,8 @@ export const transferStudyDataState = atom<IParticipation[]>({
 });
 
 export const transferMemberDataState = atom<{
-  category: MemberSectionCategory;
-  memberData: IUser[];
+  section: MemberClassification;
+  members: IUser[];
 }>({
   key: "transferMemberData",
   default: null,

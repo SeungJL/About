@@ -1,15 +1,15 @@
 import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import AdminLocationSelector from "../../components/common/AdminLocationSelector";
-import ModalPortal from "../../components/common/ModalPortal";
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import Header from "../../components/layout/Header";
-import { useRegisterFormsQuery } from "../../hooks/user/queries";
-import CheckRegisterModal from "../../modals/admin/checkRegisterModal/CheckRegisterModal";
-import { IRegisterForm } from "../../types/user/user";
+import AdminLocationSelector from "../../../components/common/AdminLocationSelector";
+import ModalPortal from "../../../components/common/ModalPortal";
+import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import Header from "../../../components/layout/Header";
+import { useRegisterFormsQuery } from "../../../hooks/user/queries";
+import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
+import { IRegisterForm } from "../../../types/user/user";
 
-function CheckRegister() {
+function AdminRegister() {
   const [isModal, setIsModal] = useState(false);
   const [applicant, setApplicant] = useState<IRegisterForm>();
   const [isRefetch, setIsRefetch] = useState(false);
@@ -136,4 +136,4 @@ const Profile = styled.div`
   overflow: hidden;
 `;
 
-export default CheckRegister;
+export default AdminRegister;

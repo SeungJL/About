@@ -1,4 +1,3 @@
-import { useToast } from "@chakra-ui/react";
 import {
   faCalendarDays,
   faChevronLeft,
@@ -26,25 +25,24 @@ import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
 function WritingDate() {
   const failToast = useFailToast();
   const router = useRouter();
-  const toast = useToast();
+
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherDataState
   );
 
   const [date, setDate] = useState<Date>();
+  const [detail, setDetail] = useState(gatherContent?.location?.sub);
+  const [location, setLocation] = useState(gatherContent?.location?.main);
 
   useEffect(() => {
     const currentDate = new Date();
     currentDate.setHours(14);
     currentDate.setMinutes(0);
-
     setDate(
       gatherContent?.date ? dayjs(gatherContent?.date).toDate() : currentDate
     );
   }, [gatherContent]);
 
-  const [detail, setDetail] = useState(gatherContent?.location?.sub);
-  const [location, setLocation] = useState(gatherContent?.location?.main);
   const onClickNext = () => {
     if (!location) {
       failToast("free", "장소를 선택해 주세요!", true);
