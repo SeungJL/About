@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { SCHEME_TO_COLOR } from "../constants/system";
 import { Role } from "../types/user/user";
 dayjs.locale("ko");
 
@@ -26,3 +27,6 @@ export const getRole = (role: Role) => {
   if (role === "resting") return "휴식 멤버";
   if (role === "waiting") return "대기 인원";
 };
+
+export const schemeToColor = (scheme: string) =>
+  SCHEME_TO_COLOR[scheme] || scheme;

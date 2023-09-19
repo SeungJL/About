@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
 import {
   usePointLogQuery,
@@ -15,44 +14,40 @@ function PointLog() {
   const prevPageUrl = useRecoilValue(prevPageUrlState);
 
   const { data } = usePointQuery();
-  const { data: pointLog, isLoading } = usePointLogQuery();
+  const { data: pointLog } = usePointLogQuery();
 
-  const filterLog = pointLog?.filter((item) => item?.meta?.value);
+  const filterLog = pointLog?.filter((item) => item.meta.value);
 
   return (
     <>
-      <Header title="점수 기록" url={prevPageUrl || "/point"} />
-      {isLoading ? (
-        <MainLoading />
-      ) : (
-        <Layout>
-          <MyPoint>
-            <span>내 점수</span>
-            <FontAwesomeIcon icon={faArrowRight} />
-            <span>{data?.point || 0} point</span>
-          </MyPoint>
-          <Container>
-            <LogHeader>
-              <Date>날짜</Date>
-              <Content>내용</Content>
-              <Point>점수</Point>
-            </LogHeader>
-            {filterLog?.reverse().map((item, idx) => {
-              const value = item?.meta.value;
-              return (
-                <Item key={idx}>
-                  <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-                  <Content>{item?.message}</Content>
-                  <Point isMinus={value < 0}>
-                    {value > 0 && "+"}
-                    {value} point
-                  </Point>
-                </Item>
-              );
-            })}
-          </Container>
-        </Layout>
-      )}
+      <Header title="포인트 로그" url={prevPageUrl || "/point"} />
+      <Layout>
+        <MyPoint>
+          <span>내 포인트</span>
+          <FontAwesomeIcon icon={faArrowRight} />
+          <span>{data?.point} 점</span>
+        </MyPoint>
+        <Container>
+          <LogHeader>
+            <Date>날짜</Date>
+            <Content>내용</Content>
+            <Point>점수</Point>
+          </LogHeader>
+          {filterLog?.reverse().map((item, idx) => {
+            const value = item?.meta.value;
+            return (
+              <Item key={idx}>
+                <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
+                <Content>{item?.message}</Content>
+                <Point isMinus={value < 0}>
+                  {value > 0 && "+"}
+                  {value} point
+                </Point>
+              </Item>
+            );
+          })}
+        </Container>
+      </Layout>
     </>
   );
 }
@@ -91,11 +86,16 @@ const MyPoint = styled.div`
   border-radius: var(--border-radius-sub);
   border: var(--border-mint);
   color: var(--font-h2);
-  font-size: 12px;
+  font-size: 14px;
+  > span:first-child {
+    flex: 1;
+  }
   > span:last-child {
+    flex: 1;
+    text-align: end;
+    font-size: 15px;
     color: var(--font-h1);
-    font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
   }
 `;
 

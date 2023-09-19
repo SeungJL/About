@@ -3,7 +3,11 @@ import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,
 } from "../storage/eventBadgeUser";
-import { ISortedUserScores } from "../types/page/ranking";
+import {
+  IRankingUser,
+  ISortedUserAttends,
+  ISortedUserScores,
+} from "../types/page/ranking";
 import { IVoteRate } from "../types/study/studyRecord";
 import { IScore } from "../types/user/pointSystem";
 import { UserBadge } from "../types/user/user";
@@ -55,7 +59,7 @@ const setPercentRankValue = (rankNum: number, total: number) => {
   else return Math.ceil(rate / 10) * 10;
 };
 
-//유저 랭킹 정렬
+//유저 점수 랭킹 정렬
 export const sortUserScores = (
   scoreArr: IScore[],
   score: number
@@ -65,7 +69,6 @@ export const sortUserScores = (
     else if (a.score < b.score) return 1;
     return 0;
   };
-
   scoreArr.sort(compare);
 
   const rankNum =
@@ -80,6 +83,35 @@ export const sortUserScores = (
   return {
     scoreArr,
     rankValue: setPercentRankValue(rankNum, scoreArr.length),
+    isRankNum: false,
+  };
+};
+//유저 월간 랭킹 정렬
+export const sortUserAttends = (
+  attendArr: IRankingUser[],
+  uid: string
+): ISortedUserAttends => {
+  let myAttendCnt = null;
+  const compare = (a: IRankingUser, b: IRankingUser) => {
+    if (a.uid === uid) myAttendCnt = a.cnt;
+    if (a.cnt > b.cnt) return -1;
+    else if (a.cnt < b.cnt) return 1;
+    return 0;
+  };
+  attendArr.sort(compare);
+
+  //정보가 없는 경우 rankNum은 0을 반환
+  const rankNum = attendArr.findIndex((who) => who.cnt === myAttendCnt) + 1;
+
+  if (rankNum <= 100)
+    return {
+      attendArr,
+      rankValue: rankNum,
+      isRankNum: true,
+    };
+  return {
+    attendArr,
+    rankValue: setPercentRankValue(rankNum, attendArr.length),
     isRankNum: false,
   };
 };

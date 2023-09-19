@@ -25,7 +25,7 @@ import {
 import { IUser } from "../../../types/user/user";
 
 interface IMember {
-  membersAll: IUser[];
+  usersAll: IUser[];
 }
 
 const MEMBER_SECTIONS: MemberClassification[] = [
@@ -42,7 +42,7 @@ export const SECTION_NAME: Record<MemberClassification, string> = {
   birth: "생일",
 };
 
-function Member({ membersAll }: IMember) {
+function Member({ usersAll }: IMember) {
   const router = useRouter();
   const location = router.query.location;
 
@@ -56,9 +56,7 @@ function Member({ membersAll }: IMember) {
   //멤버 분류
   useEffect(() => {
     if (!location) return;
-    const locationMembers = membersAll.filter(
-      (who) => who.location === location
-    );
+    const locationMembers = usersAll.filter((who) => who.location === location);
     setLocationMemberCnt(locationMembers.length);
     const classified = {
       member: [],
@@ -88,7 +86,7 @@ function Member({ membersAll }: IMember) {
         classified.birth.push(who);
     });
     setClassifiedMembers(classified);
-  }, [location, membersAll]);
+  }, [location, usersAll]);
 
   //상세페이지로 이동
   const onClickSection = (section: MemberClassification) => {
@@ -142,9 +140,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
   await dbConnect();
   const user = await User.find();
   const filterUser = user?.filter((who) => who?.isActive);
-  const membersAll = JSON.parse(safeJsonStringify(filterUser));
+  const usersAll = JSON.parse(safeJsonStringify(filterUser));
 
-  return { props: { membersAll } };
+  return { props: { usersAll } };
 };
 
 const MembersContainer = styled.div`

@@ -2,7 +2,6 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
 import {
   useScoreLogQuery,
@@ -11,44 +10,40 @@ import {
 
 function ScoreLog() {
   const { data } = useScoreQuery();
-  const { data: scoreLog, isLoading } = useScoreLogQuery();
+  const { data: scoreLog } = useScoreLogQuery();
 
-  const filterLog = scoreLog?.filter((item) => item?.meta?.value);
+  const filterLog = scoreLog?.filter((item) => item.meta.value);
 
   return (
     <>
-      <Header title="점수 기록" url="/point" />
-      {isLoading ? (
-        <MainLoading />
-      ) : (
-        <Layout>
-          <MyPoint>
-            <span>내 점수</span>
-            <FontAwesomeIcon icon={faArrowRight} />
-            <span>{data?.score || 0}점</span>
-          </MyPoint>
-          <Container>
-            <LogHeader>
-              <Date>날짜</Date>
-              <Content>내용</Content>
-              <Point>점수</Point>
-            </LogHeader>
-            {filterLog?.reverse().map((item, idx) => {
-              const value = item?.meta.value;
-              return (
-                <Item key={idx}>
-                  <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-                  <Content>{item?.message}</Content>
-                  <Point isMinus={value < 0}>
-                    {value > 0 && "+"}
-                    {value} 점
-                  </Point>
-                </Item>
-              );
-            })}
-          </Container>
-        </Layout>
-      )}
+      <Header title="점수 로그" url="/point" />
+      <Layout>
+        <MyPoint>
+          <span>내 점수</span>
+          <FontAwesomeIcon icon={faArrowRight} />
+          <span>{data?.score}점</span>
+        </MyPoint>
+        <Container>
+          <LogHeader>
+            <Date>날짜</Date>
+            <Content>내용</Content>
+            <Point>점수</Point>
+          </LogHeader>
+          {filterLog?.reverse().map((item, idx) => {
+            const value = item?.meta.value;
+            return (
+              <Item key={idx}>
+                <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
+                <Content>{item?.message}</Content>
+                <Point isMinus={value < 0}>
+                  {value > 0 && "+"}
+                  {value} 점
+                </Point>
+              </Item>
+            );
+          })}
+        </Container>
+      </Layout>
     </>
   );
 }
@@ -81,17 +76,23 @@ const MyPoint = styled.div`
   padding: 0 var(--padding-md);
   display: flex;
   justify-content: space-around;
+  padding: 0 var(--padding-sub);
   align-items: center;
   width: 160px;
   height: 40px;
   border-radius: var(--border-radius-sub);
   border: var(--border-mint);
   color: var(--font-h2);
-  font-size: 12px;
+  font-size: 14px;
+  > span:first-child {
+    flex: 1;
+  }
   > span:last-child {
+    flex: 1;
+    text-align: end;
+    font-size: 15px;
     color: var(--font-h1);
-    font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
   }
 `;
 

@@ -1,6 +1,6 @@
 import { IVoteRate } from "../study/studyRecord";
 import { IScore } from "../user/pointSystem";
-import { IUser } from "../user/user";
+import { IUser2 } from "../user/user";
 
 export interface IRankScore {
   isRank: boolean;
@@ -10,16 +10,21 @@ export interface IRankScore {
   score?: number;
 }
 
-export interface ISortedUserScores {
-  scoreArr: IScore[];
+export interface IMyRank {
   rankValue: number;
   isRankNum: boolean;
 }
-
-export type RankingType = "score" | "attend";
+export interface ISortedUserScores extends IMyRank {
+  scoreArr: IScore[];
+}
+export interface ISortedUserAttends extends IMyRank {
+  attendArr: IRankingUser[];
+}
 
 export type RankingCategory = "월간" | "누적" | "지난";
 
-export interface IRankingUser extends IUser {
-  cnt: number;
+export interface IRankingUser extends IUser2 {
+  cnt?: number;
 }
+
+export type RankingType = ISortedUserScores | ISortedUserAttends;

@@ -3,28 +3,7 @@ import { BADGE_COLOR } from "../../constants/badge";
 import { Location } from "../system";
 
 /** user */
-export interface IUser extends Document {
-  uid: string;
-  registerDate: string;
-  isActive: boolean;
-  birth: string;
-  mbti: string;
-  gender: Gender;
-  name: string;
-  point: number;
-  role: Role;
-  score: number;
-  comment: string;
-  rest: IRest;
-  location: Location;
-  avatar: IAvatar;
-  interests?: IInterests;
-  deposit: number;
-  majors: IMajor[];
-  telephone: string;
-  profileImage: string;
-  thumbnailImage: string;
-}
+export interface IUser extends IUser2, Document {}
 
 export interface IUser2 {
   uid: string;
@@ -135,4 +114,8 @@ export type UserBadgeColor = typeof BADGE_COLOR[UserBadge];
 export interface IUserComment {
   comment: string;
   _id?: string;
+}
+
+export interface IUsersAll {
+  usersAll: IUser2[];
 }
