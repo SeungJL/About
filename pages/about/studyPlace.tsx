@@ -1,4 +1,3 @@
-@ -1,36 +0,0 @@
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
