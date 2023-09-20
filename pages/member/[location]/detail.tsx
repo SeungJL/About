@@ -52,10 +52,10 @@ function MemberDetail() {
                   <span>{who.name}</span>
                   <Badge
                     fontSize={10}
-                    colorScheme={BADGE_COLOR[userBadge?.badge]}
+                    colorScheme={BADGE_COLOR[userBadge]}
                     ml="var(--margin-md)"
                   >
-                    {userBadge?.badge}
+                    {userBadge}
                   </Badge>
                 </Name>
                 <div>

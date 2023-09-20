@@ -1,14 +1,14 @@
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { sortUserScores } from "../../../helpers/userHelpers";
 import { useScoreAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { useUserLocationQuery } from "../../../hooks/user/queries";
 import { isPointLoadingState } from "../../../recoil/loadingAtoms";
-import { isGuestState } from "../../../recoil/userAtoms";
 import { ISortedUserScores } from "../../../types/page/ranking";
 
 interface IPointScoreNavigation {
@@ -17,8 +17,9 @@ interface IPointScoreNavigation {
 
 function PointScoreNavigation({ myScore }: IPointScoreNavigation) {
   const router = useRouter();
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
 
-  const isGuest = useRecoilValue(isGuestState);
   const setIsPointLoading = useSetRecoilState(isPointLoadingState);
 
   const [rankInfo, setRankInfo] = useState<ISortedUserScores>();
@@ -31,7 +32,7 @@ function PointScoreNavigation({ myScore }: IPointScoreNavigation) {
     enabled: !isGuest,
     onSuccess(data) {
       const locationData = data.filter((who) => who.location === location);
-      const sortedData = sortUserScores(locationData, myScore);
+      const sortedData = sortUserScores(locationData, session?.uid as string);
       setRankInfo(sortedData);
       setIsPointLoading(false);
     },

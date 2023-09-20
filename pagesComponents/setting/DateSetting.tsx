@@ -29,7 +29,7 @@ function DateSetting() {
 
   //스터디 참여자인지 판단
   useStudyVoteQuery(dayjs(), location, {
-    enabled: isDefaultPrev,
+    enabled: isDefaultPrev && !isGuest,
     onSuccess(data) {
       const isMyVote = data.participations.some(
         (participation) =>

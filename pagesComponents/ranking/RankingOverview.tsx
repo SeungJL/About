@@ -1,5 +1,5 @@
 import { Badge } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
@@ -7,8 +7,6 @@ import Skeleton from "../../components/common/skeleton/Skeleton";
 import { BADGE_COLOR } from "../../constants/badge";
 import { schemeToColor } from "../../helpers/converterHelpers";
 import { getUserBadge } from "../../helpers/userHelpers";
-import { useTypeErrorToast } from "../../hooks/CustomToast";
-import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 import {
   ISortedUserAttends,
@@ -17,32 +15,34 @@ import {
   RankingType,
 } from "../../types/page/ranking";
 
-import { UserBadge } from "../../types/user/user";
+import { IUser, UserBadge } from "../../types/user/user";
 
 interface IRankingOverview {
+  userInfo: IUser;
   rankInfo: RankingType;
   isLoading: boolean;
   category: RankingCategory;
 }
 
-function RankingOverview({ rankInfo, isLoading, category }: IRankingOverview) {
-  const typeErrorToast = useTypeErrorToast();
-
+function RankingOverview({
+  userInfo,
+  rankInfo,
+  isLoading,
+  category,
+}: IRankingOverview) {
   const isGuest = useRecoilValue(isGuestState);
-  const [userBadge, setUserBadge] = useState<UserBadge>("아메리카노");
+  const [userBadge, setUserBadge] = useState<UserBadge>();
 
-  const { data: userInfo } = useUserInfoQuery({
-    enabled: !isGuest,
-    onSuccess(data) {
-      const badge = getUserBadge(data.score, data.uid);
-      setUserBadge(badge);
-    },
-    onError: (e) => typeErrorToast(e, "user"),
-  });
+  useEffect(() => {
+    if (isGuest) setUserBadge("아메리카노");
+    if (!userInfo) return;
+    const badge = getUserBadge(userInfo.score, userInfo.uid);
+    setUserBadge(badge);
+  }, [isGuest, userInfo]);
 
   const totalCnt =
     category !== "누적"
-      ? (rankInfo as ISortedUserAttends)?.attendArr.length
+      ? (rankInfo as ISortedUserAttends)?.attendArr?.length
       : (rankInfo as ISortedUserScores)?.scoreArr?.length;
 
   return (
@@ -66,7 +66,9 @@ function RankingOverview({ rankInfo, isLoading, category }: IRankingOverview) {
             </Skeleton>
           </MyRank>
           <TotalCnt>
-            <Skeleton isLoad={!isLoading}>전체: {totalCnt}명</Skeleton>
+            <Skeleton isLoad={!isLoading}>
+              전체: {totalCnt && `${totalCnt}명`}
+            </Skeleton>
           </TotalCnt>
         </RankContainer>
         <ProfileContainer isGuest={isGuest}>
@@ -80,21 +82,22 @@ function RankingOverview({ rankInfo, isLoading, category }: IRankingOverview) {
         <ScoreContainer>
           <RankBadge>
             <Skeleton isLoad={!isLoading}>
-              <ScoreText>등급:</ScoreText>
-              <Badge
-                colorScheme={BADGE_COLOR[userBadge]}
-                fontSize="13px"
-                mb="6px"
-              >
-                {userBadge}
-              </Badge>
+              <BadgeWrapper>
+                <ScoreText>배지:</ScoreText>
+                <Badge
+                  colorScheme={BADGE_COLOR[userBadge]}
+                  fontSize="14px"
+                  border="1px solid var(--font-h5)"
+                >
+                  {userBadge}
+                </Badge>
+              </BadgeWrapper>
             </Skeleton>
           </RankBadge>
           <Score>
             <Skeleton isLoad={!isLoading}>
-              <ScoreText>점수:</ScoreText>
               <ScoreValue color={schemeToColor(BADGE_COLOR[userBadge])}>
-                {userInfo?.score || 0}점
+                점수: {userInfo?.score || 0}점
               </ScoreValue>
             </Skeleton>
           </Score>
@@ -104,7 +107,7 @@ function RankingOverview({ rankInfo, isLoading, category }: IRankingOverview) {
   );
 }
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--margin-sub);
   height: 20vh;
   display: flex;
   justify-content: space-around;
@@ -127,16 +130,20 @@ const MyRank = styled.div`
 
 const MyRankText = styled.span`
   color: var(--font-h1);
+  font-size: 13px;
   font-weight: 600;
   margin-right: var(--margin-min);
 `;
 
 const TotalCnt = styled.div`
+  height: 20px;
   color: var(--font-h3);
   font-size: 13px;
+  width: 67px;
 `;
 
 const RankNum = styled.span`
+  height: 30px;
   font-size: 20px;
   font-weight: 700;
 `;
@@ -178,23 +185,39 @@ const ScoreContainer = styled.div`
   align-items: center;
 `;
 
+const BadgeWrapper = styled.div`
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+`;
+
 const RankBadge = styled.div`
   display: flex;
+  font-size: 13px;
+  justify-content: center;
+
   align-items: center;
 `;
 
 const ScoreText = styled.span`
   color: var(--font-h1);
   font-weight: 600;
+
   margin-right: var(--margin-min);
 `;
 
 const ScoreValue = styled.span<{ color: string }>`
   color: ${(props) => props.color};
+  font-size: 13px;
+  display: flex;
+  margin-top: 2px;
+  align-items: center;
 `;
 
 const Score = styled.div`
-  margin-top: 2px;
+  height: 20px;
 `;
 
 export default RankingOverview;

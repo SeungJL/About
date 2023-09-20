@@ -49,7 +49,6 @@ function StudySpaceSetting({
 
   //스터디 세팅
   const handleStudy = (data: IVote) => {
-    console.log(1, participation);
     const findParticipation = data.participations.find(
       (props) => props.place._id === placeId
     );

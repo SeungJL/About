@@ -10,7 +10,7 @@ import {
 } from "../types/page/ranking";
 import { IVoteRate } from "../types/study/studyRecord";
 import { IScore } from "../types/user/pointSystem";
-import { UserBadge } from "../types/user/user";
+import { IUser, UserBadge } from "../types/user/user";
 
 type DataArrMap = {
   score: IScore[];
@@ -61,9 +61,11 @@ const setPercentRankValue = (rankNum: number, total: number) => {
 
 //유저 점수 랭킹 정렬
 export const sortUserScores = (
-  scoreArr: IScore[],
-  score: number
+  scoreArr: IScore[] | IUser[],
+  uid: string
 ): ISortedUserScores => {
+  let myScore = scoreArr.find((who) => who.uid === uid)?.score;
+
   const compare = (a: IScore, b: IScore) => {
     if (a.score > b.score) return -1;
     else if (a.score < b.score) return 1;
@@ -71,8 +73,9 @@ export const sortUserScores = (
   };
   scoreArr.sort(compare);
 
-  const rankNum =
-    score !== 0 && scoreArr.findIndex((who) => who.score === score) + 1;
+  const rankNum = myScore
+    ? scoreArr.findIndex((who) => who.score === myScore) + 1
+    : 0;
 
   if (rankNum <= 100)
     return {
@@ -91,9 +94,9 @@ export const sortUserAttends = (
   attendArr: IRankingUser[],
   uid: string
 ): ISortedUserAttends => {
-  let myAttendCnt = null;
+  let myAttendCnt = attendArr.find((who) => who.uid === uid)?.cnt;
+
   const compare = (a: IRankingUser, b: IRankingUser) => {
-    if (a.uid === uid) myAttendCnt = a.cnt;
     if (a.cnt > b.cnt) return -1;
     else if (a.cnt < b.cnt) return 1;
     return 0;
@@ -101,7 +104,9 @@ export const sortUserAttends = (
   attendArr.sort(compare);
 
   //정보가 없는 경우 rankNum은 0을 반환
-  const rankNum = attendArr.findIndex((who) => who.cnt === myAttendCnt) + 1;
+  const rankNum = myAttendCnt
+    ? attendArr.findIndex((who) => who.cnt === myAttendCnt) + 1
+    : 0;
 
   if (rankNum <= 100)
     return {

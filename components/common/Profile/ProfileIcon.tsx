@@ -22,7 +22,7 @@ function ProfileIcon({ user, size, isMember }: IProfileIcon) {
   const setUserData = useSetRecoilState(transferUserDataState);
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
-  const avatarType = (user as IUser)?.avatar?.type;
+  const avatarType = user !== "guest" ? (user as IUser)?.avatar?.type : 0;
   const avatarBg = (user as IUser)?.avatar?.bg;
   const isAvatar = Boolean(
     (avatarType !== null &&
@@ -55,7 +55,7 @@ function ProfileIcon({ user, size, isMember }: IProfileIcon) {
       {user && imageUrl && (
         <Layout
           avatarBg={
-            user === "guest" || isError
+            user === ("guest" || isError)
               ? AVATAR_COLOR[5]
               : isAvatar && AVATAR_COLOR[avatarBg]
           }

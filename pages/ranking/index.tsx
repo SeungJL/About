@@ -5,14 +5,18 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
+import { MainLoadingAbsolute } from "../../components/common/MainLoading";
 import Header from "../../components/layout/Header";
 import { getMonth } from "../../helpers/dateHelpers";
-import { sortUserAttends } from "../../helpers/userHelpers";
-import { useErrorToast } from "../../hooks/CustomToast";
+import { sortUserAttends, sortUserScores } from "../../helpers/userHelpers";
+import { useErrorToast, useTypeErrorToast } from "../../hooks/CustomToast";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateAllQuery } from "../../hooks/user/studyStatistics/queries";
 import dbConnect from "../../libs/backend/dbConnect";
 import { User } from "../../models/user";
 import RankingBar from "../../pagesComponents/ranking/RankingBar";
+import RankingCategoryBar from "../../pagesComponents/ranking/RankingCategory";
+import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
 import RankingOverview from "../../pagesComponents/ranking/RankingOverview";
 import { locationState } from "../../recoil/userAtoms";
 import {
@@ -26,21 +30,17 @@ function Ranking({ usersAll }: IUsersAll) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const errorToast = useErrorToast();
-
-  const myUid = session?.uid;
-
-  // const [isInitialLoading, setIsInitialLoading] = useState(true);
-  // const [month, setMonth] = useState(dayjs().month());
-  const [isLocationFilter, setIsLocationFilter] = useState(true);
-  const [category, setCategory] = useState<RankingCategory>("월간");
-  const [usersAllData, setUsersAllData] = useState<IRankingUser[]>();
-  const [rankInfo, setRankInfo] = useState<RankingType>();
-  const [isLoading, setIsLoading] = useState(true);
+  const typeErrorToast = useTypeErrorToast();
 
   const location = useRecoilValue(locationState);
 
-  // const dayjsMonth = dayjs().month(month);
+  const [isLoading, setIsLoading] = useState(true);
+  const [initialUsersData, setInitialUsersData] = useState<IRankingUser[]>();
+  const [category, setCategory] = useState<RankingCategory>("월간");
+  const [isLocationFilter, setIsLocationFilter] = useState(true);
+  const [rankInfo, setRankInfo] = useState<RankingType>();
 
+  const myUid = session?.uid;
   const currentMonth = getMonth();
   const month2 = category === "월간" ? currentMonth : currentMonth - 1;
   const dayjsMonth2 = dayjs().month(month2);
@@ -49,6 +49,12 @@ function Ranking({ usersAll }: IUsersAll) {
       ? dayjs().add(1, "day")
       : dayjs().month(month2).endOf("month");
 
+  const { data: userInfo } = useUserInfoQuery({
+    enabled: !isGuest,
+    onError: (e) => typeErrorToast(e, "user"),
+  });
+
+  //스터디 참여 기록
   const { data: attendAllData, isLoading: isAttendRateLoading } =
     useUserAttendRateAllQuery(dayjsMonth2.date(0), endDate, {
       enabled: category !== "누적",
@@ -57,76 +63,77 @@ function Ranking({ usersAll }: IUsersAll) {
 
   //모든 유저 데이터와 attendAllData의 mixing
   useEffect(() => {
-    if (isAttendRateLoading) return;
+    if (isAttendRateLoading || initialUsersData) return;
     const userAll = attendAllData.map((who) => {
       const userInfo = usersAll.find((user) => user.uid === who.uid);
       return { ...userInfo, ...who };
     });
-
-    setUsersAllData(userAll);
-  }, [attendAllData, isAttendRateLoading, usersAll]);
+    setInitialUsersData(userAll);
+  }, [attendAllData, initialUsersData, isAttendRateLoading, usersAll]);
 
   useEffect(() => {
-    if (!usersAllData) return;
+    setIsLoading(true);
+    setRankInfo(null);
+
+    if (!initialUsersData || isAttendRateLoading) return;
 
     const filtered = isLocationFilter
-      ? usersAllData.filter((who) => who.location === location)
-      : usersAllData;
+      ? initialUsersData.filter((who) => who.location === location)
+      : initialUsersData;
 
-    if (category !== "누적") {
-      const sortedData = sortUserAttends(filtered, session?.uid as string);
-      setRankInfo(sortedData);
+    const sortedData =
+      category !== "누적"
+        ? sortUserAttends(filtered, session?.uid as string)
+        : sortUserScores(filtered, session?.uid as string);
+
+    setRankInfo(sortedData);
+    if (userInfo || isGuest) setIsLoading(false);
+  }, [
+    category,
+    isLocationFilter,
+    location,
+    session?.uid,
+    initialUsersData,
+    userInfo,
+    isAttendRateLoading,
+    isGuest,
+  ]);
+
+  //본인 위치로 스크롤
+  useEffect(() => {
+    if (myUid && !isGuest) {
+      setTimeout(() => {
+        const element = document.getElementById(`ranking${myUid}`);
+        element?.scrollIntoView({ behavior: "smooth" });
+      }, 800);
     }
-    setIsLoading(false);
-  }, [category, isLocationFilter, location, session?.uid, usersAllData]);
-
-  // useEffect(() => {
-  //   if (isLocationFilter) attendAllData.filter((who) => who);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!userScoreList) return;
-
-  //   setMyRank({ rankNum, percent, isRank, score });
-
-  //   setIsLoading(false);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [category, session?.uid, userScoreList]);
-
-  // useEffect(() => {
-  //   if (myUid && !isGuest)
-  //     setTimeout(() => {
-  //       const element = document.getElementById(`ranking${myUid}`);
-  //       element?.scrollIntoView({ behavior: "smooth" });
-  //     }, 800);
-  // }, [isGuest, myRank?.score, myUid]);
+  }, [isGuest, myUid, rankInfo]);
 
   return (
     <Layout>
       <Wrapper>
         <Header title="About 랭킹" url="/point" />
-        <RankingOverview rankInfo={rankInfo} isLoading={isLoading} category={category}/>
-        {/* <RankingCategory
-          initialUserScoreList={usersAll}
-          initialMonthAttendArr={!attendLoading && monthScoreList}
-          setUserScoreList={setUserScoreList}
+        <RankingOverview
+          userInfo={userInfo}
+          rankInfo={rankInfo}
+          isLoading={isLoading}
+          category={category}
+        />
+        <RankingCategoryBar
           category={category}
           setCategory={setCategory}
-          setIsLoading={setIsLoading}
-          setMonth={setMonth}
-        /> */}
+          isLocationFilter={isLocationFilter}
+          setIsLocationFilter={setIsLocationFilter}
+        />
       </Wrapper>
       <RankingSection>
         <RankingBar isScore={category === "누적"} />
         <>
-          {/* {isLoading ? (
-            <MainLoadingAbsolute />
+          {!isLoading ? (
+            <RankingMembers rankInfo={rankInfo} category={category} />
           ) : (
-            <RankingMembers
-              memberList={userScoreList}
-              type={category === "누적" ? "score" : "attend"}
-            />
-          )} */}
+            <MainLoadingAbsolute />
+          )}
         </>
       </RankingSection>
     </Layout>

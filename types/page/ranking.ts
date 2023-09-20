@@ -1,6 +1,6 @@
 import { IVoteRate } from "../study/studyRecord";
 import { IScore } from "../user/pointSystem";
-import { IUser2 } from "../user/user";
+import { IUser, IUser2 } from "../user/user";
 
 export interface IRankScore {
   isRank: boolean;
@@ -15,7 +15,7 @@ export interface IMyRank {
   isRankNum: boolean;
 }
 export interface ISortedUserScores extends IMyRank {
-  scoreArr: IScore[];
+  scoreArr: IScore[] | IUser[];
 }
 export interface ISortedUserAttends extends IMyRank {
   attendArr: IRankingUser[];

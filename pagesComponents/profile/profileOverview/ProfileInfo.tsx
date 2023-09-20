@@ -131,8 +131,8 @@ function ProfileInfo({ user }: IProfileInfo) {
           <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>
-              <Badge fontSize={12} colorScheme={BADGE_COLOR[userBadge?.badge]}>
-                {userBadge?.badge}
+              <Badge fontSize={12} colorScheme={BADGE_COLOR[userBadge]}>
+                {userBadge}
               </Badge>
             </div>
             <span>{!isGuest ? status : "게스트"}</span>

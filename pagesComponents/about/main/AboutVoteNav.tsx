@@ -40,7 +40,9 @@ function AboutVoteNav() {
     if (type === "quickVote") setIsQuickVoteModal(true);
   };
 
-  const { data: studyPreference } = useStudyPreferenceQuery();
+  const { data: studyPreference } = useStudyPreferenceQuery({
+    enabled: !isGuest,
+  });
 
   return (
     <>

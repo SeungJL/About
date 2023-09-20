@@ -148,7 +148,7 @@ export const useStudyPreferenceQuery = (
       const res = await axios.get<IStudyPreferencesQuery>(
         `${SERVER_URI}/user/preference`
       );
-      return res.data.studyPreference;
+      return res.data?.studyPreference;
     },
     options
   );

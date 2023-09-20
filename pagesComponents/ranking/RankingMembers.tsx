@@ -3,73 +3,61 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/Profile/ProfileIcon";
 import { BADGE_COLOR } from "../../constants/badge";
+import { RANKING_ANONYMOUS_USERS } from "../../constants/user";
 import { getUserBadge } from "../../helpers/userHelpers";
-import { RankingType } from "../../types/page/ranking";
-import { IVoteRate } from "../../types/study/studyRecord";
+import {
+  IRankingUser,
+  ISortedUserAttends,
+  ISortedUserScores,
+  RankingCategory,
+  RankingType,
+} from "../../types/page/ranking";
 import { IUser } from "../../types/user/user";
 
 interface IRankingMembers {
-  memberList: IUser[] | IVoteRate[];
-  type: RankingType;
+  rankInfo: RankingType;
+  category: RankingCategory;
 }
 
-function RankingMembers({ memberList, type }: IRankingMembers) {
+function RankingMembers({ rankInfo, category }: IRankingMembers) {
   const { data: session } = useSession();
 
-  let tempCnt = 0;
-  let score;
-  let attendCnt;
+  let dupCnt = 0;
+  let value;
+
+  const isAttendCategory = category !== "누적";
+  const memberList = isAttendCategory
+    ? (rankInfo as ISortedUserAttends)?.attendArr
+    : ((rankInfo as ISortedUserScores)?.scoreArr as IUser[]);
 
   return (
     <Layout>
-      {type === "score" ? (
-        <>
-          {memberList?.map((who, idx) => {
-            if (score === who.score) {
-              tempCnt++;
-            } else tempCnt = 0;
-            score = who?.score;
-            const { badge } = getUserBadge(score, who.uid);
+      {memberList?.map((who, idx) => {
+        const whoValue =
+          value === !isAttendCategory
+            ? (who as IUser).score
+            : (who as IRankingUser).cnt;
 
-            return (
-              <Item key={idx} id={`ranking${who.uid}`}>
-                <Rank>{idx - tempCnt + 1}위</Rank>
-                <Name>
-                  <ProfileIcon size="sm" user={who} isMember={true} />
-                  <RankingMine isMine={who.uid === session?.uid}>
-                    {who?.name !== "무성" ? who?.name : "비공개"}
-                  </RankingMine>
-                  <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
-                </Name>
-                <Score>{score} 점</Score>
-              </Item>
-            );
-          })}
-        </>
-      ) : type === "attend" ? (
-        <>
-          {memberList?.map((who, idx) => {
-            if (attendCnt === who.cnt) {
-              tempCnt++;
-            } else tempCnt = 0;
-            attendCnt = who.cnt;
-            const { badge } = getUserBadge(who.score, who.uid);
-            return (
-              <Item key={idx} id={`ranking${who.uid}`}>
-                <Rank>{idx - tempCnt + 1}위</Rank>
-                <Name>
-                  <ProfileIcon size="sm" user={who} isMember={true} />
-                  <RankingMine isMine={who.uid === session?.uid}>
-                    {who?.name !== "무성" ? who?.name : "비공개"}
-                  </RankingMine>
-                  <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
-                </Name>
-                <Score>{attendCnt} 회</Score>
-              </Item>
-            );
-          })}
-        </>
-      ) : null}
+        if (value === whoValue) dupCnt++;
+        else dupCnt = 0;
+        value = whoValue;
+        const badge = getUserBadge(who?.score, who?.uid);
+        return (
+          <Item key={idx} id={`ranking${who.uid}`}>
+            <Rank>{idx - dupCnt + 1}위</Rank>
+            <Name>
+              <ProfileIcon size="sm" user={who} isMember={true} />
+              <RankingMine isMine={who.uid === session?.uid}>
+                {!RANKING_ANONYMOUS_USERS.includes(who?.uid)
+                  ? who?.name
+                  : "비공개"}
+              </RankingMine>
+              <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
+            </Name>
+            <Score>{`${value} ${isAttendCategory ? "회" : "점"}`}</Score>
+          </Item>
+        );
+      })}
     </Layout>
   );
 }

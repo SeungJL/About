@@ -6,6 +6,8 @@ export type DispatchBoolean = Dispatch<SetStateAction<boolean>>;
 export type DispatchNumber = Dispatch<SetStateAction<number>>;
 export type DispatchString = Dispatch<SetStateAction<string>>;
 
+export type DispatchType<T> = Dispatch<SetStateAction<T>>;
+
 export interface IModal {
   setIsModal: DispatchBoolean;
 }
