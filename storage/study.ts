@@ -1,4 +1,3 @@
-
 //수원
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
@@ -15,6 +14,8 @@ export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
 export const YANG_이디야 = "6456f0b320352b2d8758295c";
 export const YANG_카페베네 = "64ba43a5efd3711264521a86";
 export const YANG_스타벅스 = "64bbc30787f8dc1a5210da6a";
+export const YANG_카페꼼마 = "650afdb79ea186d7d9b2a1b6";
+export const YANG_몽글 = "650afd559ea186d7d9b2a1b5";
 //안양
 export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
 export const ANYANG_숨맑은집 = "6456ede120352b2d87582955";
@@ -47,6 +48,8 @@ export const SPACE_NAME = {
   [YANG_이디야]: "이디야",
   [YANG_카페베네]: "카페베네",
   [YANG_스타벅스]: "스타벅스",
+  [YANG_몽글]: "몽글",
+  [YANG_카페꼼마]: "카페꼼마",
   //안양
   [ANYANG_커피인더스트리]: "커피인더스트리",
   [ANYANG_숨맑은집]: "숨맑은집",
@@ -80,6 +83,8 @@ export const SPACE_LOCATION = {
   [YANG_할리스]: "양천",
   [YANG_카페베네]: "양천",
   [YANG_스타벅스]: "양천",
+  [YANG_몽글]: "양천",
+  [YANG_카페꼼마]: "카페꼼마",
   //안양
   [ANYANG_숨맑은집]: "안양",
   [ANYANG_인뎃커피]: "안양",
@@ -167,6 +172,16 @@ export const STUDY_SPACE_INFO = [
     id: YANG_스타벅스,
     location: "서울 강서구 등촌로 57",
     time: "07:30 - 22:00",
+  },
+  {
+    id: YANG_카페꼼마,
+    location: "서울 영등포구 국제금융로 8길 16",
+    time: "07:30 - 21:30",
+  },
+  {
+    id: YANG_몽글,
+    location: "서울 구로구 공원로6나길 29-17",
+    time: "11:30 - 22:00",
   },
 
   //안양
