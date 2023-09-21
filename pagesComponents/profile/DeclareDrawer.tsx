@@ -98,7 +98,7 @@ function DeclareDrawer({
           <FontAwesomeIcon icon={faX} size="sm" onClick={onClose} />
         </DrawerHeader>
         <DrawerBody
-          p="var(--padding-main) var(--padding-sub)"
+          p="var(--padding-main) "
           display="flex"
           flexDirection="column"
         >
@@ -164,8 +164,8 @@ const DeclareContent = ({
         &apos;{`${name}`}&apos;님을 신고하시겠어요?
       </DistanceHeader>
       <DeclareOverview>
-        다른 인원에게 피해를 끼치는 행위를 엄격하게 금지하고 있습니다. 불편한
-        상황을 느낀 경우 주저하지 말고 신고해주세요!
+        다른 인원에게 피해를 주는 행위를 엄격히 금지하고 있습니다. 불편한 상황이
+        있는 경우 주저하지 말고 신고해주세요!
       </DeclareOverview>
       <RadioGroup onChange={setDeclareIdx} value={declareIdx}>
         <DeclareText>
@@ -204,7 +204,7 @@ const DistanceText = styled.div`
 
 const DeclareOverview = styled.p`
   font-size: 13px;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--margin-max);
   color: var(--font-h2);
 `;
 
