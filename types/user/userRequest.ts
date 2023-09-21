@@ -23,3 +23,5 @@ export interface IUserRequest {
   rest?: { type: "일반" | "특별"; start: Dayjs; end: Dayjs };
   updatedAt?: string;
 }
+
+export type DeclareRequest = "distance" | "declare";

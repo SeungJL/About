@@ -15,6 +15,9 @@ const theme = extendTheme({
     mintTheme: {
       500: "#00c2b3",
     },
+    redTheme: {
+      500: "#ff6b6b",
+    },
   },
   fonts: {
     body: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
