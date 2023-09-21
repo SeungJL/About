@@ -152,7 +152,7 @@ const DistanceContent = ({ name }: { name: string }) => {
     </>
   );
 };
-console.log(2);
+
 const DeclareContent = ({
   name,
   declareIdx,
