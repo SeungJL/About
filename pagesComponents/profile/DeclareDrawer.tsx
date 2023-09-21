@@ -117,6 +117,7 @@ function DeclareDrawer({
             bg="var(--color-red)"
             h="40px"
             mt="auto"
+            _focus={{ outline: "none" }}
           >
             {title}
           </Button>
