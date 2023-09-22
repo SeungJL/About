@@ -216,7 +216,8 @@ const DeclareText = styled.div`
     margin-bottom: var(--margin-md);
 
     > span {
-      font-size: 14px !important;
+      color: var(--font-h1);
+      font-size: 13px !important;
     }
   }
 `;
