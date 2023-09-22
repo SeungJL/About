@@ -36,8 +36,9 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
+      console.log(data);
       //정상적인 가입 경로가 아닌데도 유저 테이블이 생성되는 경우가 있음
-      if ((data === null && !isGuest) || data.birth === "") {
+      if ((data === null && !isGuest) || data?.birth === "") {
         if (router.query.status === "login") navigateTo(`/register/location`);
         else navigateTo("/login/?status=noMember");
       }
