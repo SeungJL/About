@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Skeleton from "../../../components/common/skeleton/Skeleton";
+import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
 
 function PointScoreSkeleton() {
   return (

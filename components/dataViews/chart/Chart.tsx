@@ -3,13 +3,13 @@ import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import styled from "styled-components";
-import { MONTH_LIST } from "../../../../constants/util";
-import { getMonth } from "../../../../helpers/dateHelpers";
-import { useErrorToast } from "../../../../hooks/CustomToast";
-import {} from "../../../../hooks/user/queries";
-import { useUserAttendRateAllQueries } from "../../../../hooks/user/studyStatistics/queries";
-import { IVoteRate } from "../../../../types/study/studyRecord";
-import { IUser } from "../../../../types/user/user";
+import { MONTH_LIST } from "../../../constants/util";
+import { getMonth } from "../../../helpers/dateHelpers";
+import { useErrorToast } from "../../../hooks/CustomToast";
+import {} from "../../../hooks/user/queries";
+import { useUserAttendRateAllQueries } from "../../../hooks/user/studyStatistics/queries";
+import { IVoteRate } from "../../../types/study/studyRecord";
+import { IUser } from "../../../types/user/user";
 import { ChartStudyOptions } from "./ChartOptions";
 
 interface IChart {

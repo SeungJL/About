@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import ScoreBadge from "../../components/common/ScoreBadge";
+import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
+import ScoreBadge from "../../components/common/user/ScoreBadge";
 import { birthToAge, getRole } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";

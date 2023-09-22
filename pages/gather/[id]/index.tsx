@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { MainLoading } from "../../../components/common/MainLoading";
+import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import { useGatherContentQuery } from "../../../hooks/gather/queries";
 import GatherBadge from "../../../pagesComponents/gather/detail/GatherBadge";
 import GatherBottomNav from "../../../pagesComponents/gather/detail/GatherBottomNav";

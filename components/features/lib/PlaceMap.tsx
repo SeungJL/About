@@ -6,7 +6,7 @@ interface ISpaceMap {
   lon?: number;
 }
 
-function SpaceMap({ lat, lon }: ISpaceMap) {
+function PlaceMap({ lat, lon }: ISpaceMap) {
   const mapRef = useRef();
   const failToast = useFailToast();
 
@@ -72,4 +72,4 @@ function SpaceMap({ lat, lon }: ISpaceMap) {
   );
 }
 
-export default SpaceMap;
+export default PlaceMap;

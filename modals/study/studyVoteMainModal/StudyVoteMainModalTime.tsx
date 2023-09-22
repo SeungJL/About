@@ -1,8 +1,8 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import TimeSelector from "../../../components/features/selector/TimeSelector";
-import TimeSelectorBoard from "../../../components/features/selector/TimeSelectorBoard";
+import TimeSelector from "../../../components/features/picker/TimeSelector";
+import TimeSelectorBoard from "../../../components/features/picker/TimeSelectorBoard";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";

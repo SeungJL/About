@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/common/ModalPortal";
+import ModalPortal from "../../components/modal/ModalPortal";
 import { useFailToast } from "../../hooks/CustomToast";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
 import PromotionAllCoolTimeModal from "../../modals/promotion/PromotionAllCoolTimeModal";

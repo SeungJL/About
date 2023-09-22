@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
-import ButtonCheckNav from "../../components/ui/ButtonCheckNav";
+import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import { LOCATION_USE_ALL } from "../../constants/location";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";

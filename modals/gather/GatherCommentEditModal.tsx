@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { PopUpLayout } from "../../components/common/modal/Modals";
+import { PopUpLayout } from "../../components/modal/Modals";
 import {
   useGatherCommentDeleteMutation,
   useGatherCommentEditMutation,

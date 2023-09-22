@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
 import styled from "styled-components";
-import Skeleton from "../../../../components/common/skeleton/Skeleton";
+import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 function StudySpaceVoteOverviewSkeleton() {
   const router = useRouter();
   const date = dayjs(router.query.date as string);

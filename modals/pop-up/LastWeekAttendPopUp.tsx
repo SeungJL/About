@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import { PopUpLayout } from "../../components/common/modal/Modals";
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
-import Skeleton from "../../components/common/skeleton/Skeleton";
+import Skeleton from "../../components/common/masks/skeleton/Skeleton";
+import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
+import { ModalHeaderX } from "../../components/modal/ModalComponents";
+import { PopUpLayout } from "../../components/modal/Modals";
 import { getRole } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";

@@ -5,7 +5,7 @@ import { XAlertIcon } from "../components/common/Icon/XAlertIcon";
 
 function NoMember({}) {
   const router = useRouter();
-  const onClicked = () => {};
+
   return (
     <Layout>
       <Icon>

@@ -12,11 +12,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import SearchLocation from "../../../components/features/lib/SearchLocation";
+import LocationSearch from "../../../components/features/lib/LocationSearch";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
-import ProgressStatus from "../../../components/layout/ProgressStatus";
+import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
@@ -98,7 +98,7 @@ function WritingDate() {
           />
         </Container>
         <Location>
-          <SearchLocation location={location} setLocation={setLocation} />
+          <LocationSearch location={location} setLocation={setLocation} />
           <LocationDetailInput
             placeholder="상세 주소"
             value={detail}

@@ -2,11 +2,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/MainLoading";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/layout/ProgressStatus";
+import ProgressStatus from "../../components/templates/ProgressStatus";
 import {
   LOCATION_ALL,
   LOCATION_NOT_OPEN,

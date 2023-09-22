@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ModalPortal from "../../../../components/common/ModalPortal";
+import ModalPortal from "../../../../components/modal/ModalPortal";
 import AttendCheckModal from "../../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../../modals/aboutHeader/AttendCheckWinModal";
 import PromotionModal from "../../../../modals/aboutHeader/promotionModal/PromotionModal";

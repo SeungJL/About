@@ -2,7 +2,7 @@ import { faLocationDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import SpaceMap from "../../../components/features/lib/SpaceMap";
+import PlaceMap from "../../../components/features/lib/PlaceMap";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
 import { IPlace } from "../../../types/study/study";
 
@@ -37,7 +37,7 @@ function StudySpaceOverview({ space }: IStudySpaceOverview) {
       {isModal && (
         <MapWrapper>
           <MapBtn onClick={() => setIsModal(false)}>X</MapBtn>
-          <SpaceMap lat={space.latitude} lon={space.longitude} />
+          <PlaceMap lat={space.latitude} lon={space.longitude} />
         </MapWrapper>
       )}
     </>

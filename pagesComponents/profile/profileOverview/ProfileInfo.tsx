@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { BADGE_COLOR } from "../../../constants/badge";
 import { LIKE_HEART } from "../../../constants/localStorage";
 import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { Size } from "../../../types/system";
+import { Size } from "../../types/system";
 
 interface IModalLayout {
   children: React.ReactNode;
@@ -52,7 +52,6 @@ const Layout = styled(motion.div)<{
   width: ${(props) => (props.width ? "330px" : "340px")};
   height: ${(props) =>
     props.height ? `${props?.height}px` : SIZE_HEIGHT_MAP[props.size]};
-
   padding: var(--padding-main);
   background-color: white;
   border-radius: var(--border-radius-main);

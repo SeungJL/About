@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../../components/common/MainLoading";
+import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import Header from "../../../components/layout/Header";
 import { useUserRequestQuery } from "../../../hooks/user/queries";
 

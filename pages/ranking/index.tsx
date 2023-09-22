@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-import { MainLoadingAbsolute } from "../../components/common/MainLoading";
+import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import { getMonth } from "../../helpers/dateHelpers";
 import { sortUserAttends, sortUserScores } from "../../helpers/userHelpers";

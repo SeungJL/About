@@ -5,7 +5,7 @@ import { RegisterLocation } from "../../constants/location";
 import { Location } from "../../types/system";
 import { IRegisterForm } from "../../types/user/user";
 import { IUserRequest } from "../../types/user/userRequest";
-import ButtonCheckNav from "../ui/ButtonCheckNav";
+import ButtonCheckNav from "../templates/ButtonCheckNav";
 
 interface IAdminLocationSelector {
   initialData: IRegisterForm[] | IUserRequest[];

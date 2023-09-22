@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ModalPortal from "../../../components/common/ModalPortal";
+import ModalPortal from "../../../components/modal/ModalPortal";
 import {
   ATTEND_POP_UP,
   PROMOTION_POP_UP,

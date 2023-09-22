@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ICON_SIZE } from "../../../constants/system";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { AVATAR_COLOR, AVATAR_ICON } from "../../../storage/avatar";
-import { Size } from "../../../types/system";
-import { IRegisterForm, IUser } from "../../../types/user/user";
+import { ICON_SIZE } from "../../../../constants/system";
+import { prevPageUrlState } from "../../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
+import { AVATAR_COLOR, AVATAR_ICON } from "../../../../storage/avatar";
+import { Size } from "../../../../types/system";
+import { IRegisterForm, IUser } from "../../../../types/user/user";
 
 interface IProfileIcon {
   user: IUser | IRegisterForm | "guest";

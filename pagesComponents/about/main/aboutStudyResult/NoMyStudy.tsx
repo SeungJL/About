@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../../components/common/ModalPortal";
+import ModalPortal from "../../../../components/modal/ModalPortal";
 import { useFailToast } from "../../../../hooks/CustomToast";
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import { isGuestState } from "../../../../recoil/userAtoms";

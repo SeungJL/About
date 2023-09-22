@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../../components/common/MainLoading";
+import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import Header from "../../../components/layout/Header";
 import { useUserRequestQuery } from "../../../hooks/user/queries";
 import { IUserRequest } from "../../../types/user/userRequest";

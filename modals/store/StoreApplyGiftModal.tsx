@@ -2,10 +2,10 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../components/common/modal/Modals";
-import SkeletonItem from "../../components/common/skeleton/SkeletonItem";
+import SkeletonItem from "../../components/common/masks/skeleton/SkeletonItem";
 import CountNum from "../../components/features/atoms/CountNum";
+import { ModalHeaderX } from "../../components/modal/ModalComponents";
+import { ModalLayout } from "../../components/modal/Modals";
 import {
   useCompleteToast,
   useErrorToast,

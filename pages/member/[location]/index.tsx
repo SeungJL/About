@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-import BlurredPart from "../../../components/common/BlurredPart";
+import BlurredPart from "../../../components/common/masks/BlurredPart";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import dbConnect from "../../../libs/backend/dbConnect";
 import { User } from "../../../models/user";

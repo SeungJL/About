@@ -6,8 +6,8 @@ import styled from "styled-components";
 import {
   ModalFooterTwo,
   ModalHeaderX,
-} from "../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../components/common/modal/Modals";
+} from "../../components/modal/ModalComponents";
+import { ModalLayout } from "../../components/modal/Modals";
 import { RABBIT_RUN } from "../../constants/localStorage";
 import { ModalMain } from "../../styles/layout/modal";
 import { DispatchBoolean, IModal } from "../../types/reactTypes";

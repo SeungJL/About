@@ -1,10 +1,10 @@
 import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import AdminLocationSelector from "../../../components/common/AdminLocationSelector";
-import ModalPortal from "../../../components/common/ModalPortal";
-import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
+import ModalPortal from "../../../components/modal/ModalPortal";
+import AdminLocationSelector from "../../../components/pages/AdminLocationSelector";
 import { useRegisterFormsQuery } from "../../../hooks/user/queries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
 import { IRegisterForm } from "../../../types/user/user";

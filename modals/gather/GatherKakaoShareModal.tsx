@@ -3,9 +3,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../components/common/modal/Modals";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
+import { ModalHeaderX } from "../../components/modal/ModalComponents";
+import { ModalLayout } from "../../components/modal/Modals";
 
 import { WEB_URL } from "../../constants/system";
 import { GATHER_SHARE_IMAGES } from "../../storage/Gather";

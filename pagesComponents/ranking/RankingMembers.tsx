@@ -1,7 +1,7 @@
 import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
+import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import { BADGE_COLOR } from "../../constants/badge";
 import { RANKING_ANONYMOUS_USERS } from "../../constants/user";
 import { getUserBadge } from "../../helpers/userHelpers";

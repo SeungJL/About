@@ -2,8 +2,8 @@ import { faHeart, faMessage } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/common/ModalPortal";
-import ProfileIconXsOverwrap from "../../components/common/Profile/ProfileIconXsOverwrap";
+import ProfileIconXsOverwrap from "../../components/common/user/Profile/ProfileIconXsOverwrap";
+import ModalPortal from "../../components/modal/ModalPortal";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";

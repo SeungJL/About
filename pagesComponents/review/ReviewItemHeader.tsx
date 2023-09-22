@@ -1,7 +1,7 @@
 import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/Profile/ProfileIcon";
+import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 
 interface IReviewItemHeader {
   writer: any;

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { getDateDiff } from "../../../helpers/dateHelpers";
 import { IUser } from "../../../types/user/user";
 

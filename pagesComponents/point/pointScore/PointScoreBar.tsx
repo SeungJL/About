@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/common/ModalPortal";
+import ModalPortal from "../../../components/modal/ModalPortal";
 import { BADGE_COLOR, BADGE_INFO, EVENT_BADGE } from "../../../constants/badge";
 import { SCHEME_TO_COLOR } from "../../../constants/system";
 import { getUserBadge } from "../../../helpers/userHelpers";

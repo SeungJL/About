@@ -10,7 +10,7 @@ interface ISearchLocation {
   setLocation?: React.Dispatch<SetStateAction<string>>;
 }
 
-function SearchLocation({ location, setLocation }: ISearchLocation) {
+function LocationSearch({ location, setLocation }: ISearchLocation) {
   const [query, setQuery] = useState(location || "");
   const [results, setResults] = useState([]);
 
@@ -124,4 +124,4 @@ const Item = styled.div`
   padding: var(--padding-min) 0;
 `;
 
-export default SearchLocation;
+export default LocationSearch;

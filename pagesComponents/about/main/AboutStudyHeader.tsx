@@ -5,9 +5,9 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../components/common/ModalPortal";
-import Skeleton from "../../../components/common/skeleton/Skeleton";
-import LocationSelector from "../../../components/features/selector/LocationSelector";
+import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
+import LocationSelector from "../../../components/features/picker/LocationSelector";
+import ModalPortal from "../../../components/modal/ModalPortal";
 import StudyCheckModal from "../../../modals/study/StudyCheckModal";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import {

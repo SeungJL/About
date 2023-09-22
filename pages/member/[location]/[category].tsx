@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
 import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";

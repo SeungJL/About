@@ -2,8 +2,8 @@ import { faCoins, faGift } from "@fortawesome/pro-duotone-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../../components/common/modal/Modals";
+import { ModalHeaderX } from "../../../components/modal/ModalComponents";
+import { ModalLayout } from "../../../components/modal/Modals";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import PromotionModalFooter from "./PromotionModalFooter";

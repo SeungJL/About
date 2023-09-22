@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import TimeSelector from "../../components/features/selector/TimeSelector";
+import TimeSelector from "../../components/features/picker/TimeSelector";
 import { useStudyTimeChangeMutation } from "../../hooks/study/mutations";
 import {
   myStudyFixedState,
@@ -12,8 +12,8 @@ import {
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 
 import { useRouter } from "next/router";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../components/common/modal/Modals";
+import { ModalHeaderX } from "../../components/modal/ModalComponents";
+import { ModalLayout } from "../../components/modal/Modals";
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import {
   useCompleteToast,

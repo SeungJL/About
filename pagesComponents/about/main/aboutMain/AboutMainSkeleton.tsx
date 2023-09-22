@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Skeleton from "../../../../components/common/skeleton/Skeleton";
+import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 
 const VISIBLE_CNT = 3;

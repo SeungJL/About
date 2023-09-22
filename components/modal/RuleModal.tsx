@@ -3,9 +3,9 @@ import {
   ModalFooterNav,
   ModalHeaderCenter,
   ModalMain,
-} from "../../../styles/layout/modal";
-import { IContentBasic } from "../../../types/common";
-import { IModal } from "../../../types/reactTypes";
+} from "../../styles/layout/modal";
+import { IContentBasic } from "../../types/common";
+import { IModal } from "../../types/reactTypes";
 import { ModalLayout } from "./Modals";
 
 export interface IRuleModalContent {

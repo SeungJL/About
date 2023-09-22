@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IAccordionContent } from "../components/ui/Accordion";
+import { IAccordionContent } from "../components/templates/Accordion";
 export const ACCOUNT = "1002-364-221277 우리은행 이승주(어바웃)";
 export const ACCOUNT_SHORT = "1002-364-221277 우리은행 어바웃";
 

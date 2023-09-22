@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/common/modal/Modals";
+import { ModalLayout } from "../../components/modal/Modals";
 import { useUserRequestCategoryQuery } from "../../hooks/user/queries";
 import { ModalMain } from "../../styles/layout/modal";
 import { IPromotionApply } from "../../types/page/promotion";

@@ -1,9 +1,9 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../../components/common/modal/Modals";
-import PlaceSelector from "../../../components/features/selector/PlaceSelector";
+import PlaceSelector from "../../../components/features/picker/PlaceSelector";
+import { ModalHeaderX } from "../../../components/modal/ModalComponents";
+import { ModalLayout } from "../../../components/modal/Modals";
 import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import {

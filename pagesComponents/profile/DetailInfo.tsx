@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BlurredPart from "../../components/common/BlurredPart";
-import Chart from "../../components/features/lib/chart/Chart";
+import BlurredPart from "../../components/common/masks/BlurredPart";
+import Chart from "../../components/dataViews/chart/Chart";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { isGuestState } from "../../recoil/userAtoms";
 import { IUser } from "../../types/user/user";

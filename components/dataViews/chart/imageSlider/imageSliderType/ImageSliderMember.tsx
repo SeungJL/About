@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { prevPageUrlState } from "../../../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../../../recoil/transferDataAtoms";
 import { IUser } from "../../../../../types/user/user";
-import ProfileIcon from "../../../../common/Profile/ProfileIcon";
+import ProfileIcon from "../../../../common/user/Profile/ProfileIcon";
 import { ImageContainer } from "../ImageSlider";
 
 interface IImageSliderMember {

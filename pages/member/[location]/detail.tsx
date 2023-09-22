@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { SECTION_NAME } from ".";
-import ProfileIcon from "../../../components/common/Profile/ProfileIcon";
+import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import { BADGE_COLOR } from "../../../constants/badge";

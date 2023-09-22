@@ -4,8 +4,8 @@ import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../components/common/modal/Modals";
+import { ModalHeaderX } from "../../components/modal/ModalComponents";
+import { ModalLayout } from "../../components/modal/Modals";
 import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,

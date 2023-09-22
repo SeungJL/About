@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
+import { ModalHeaderX } from "../../components/modal/ModalComponents";
 
-import { ModalLayout } from "../../components/common/modal/Modals";
+import { ModalLayout } from "../../components/modal/Modals";
 import { useAdminDepositMutation } from "../../hooks/admin/mutation";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";

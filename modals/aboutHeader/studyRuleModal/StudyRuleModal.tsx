@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalLayout } from "../../../components/common/modal/Modals";
+import { ModalLayout } from "../../../components/modal/Modals";
 import {
   ModalFooterNav,
   ModalHeaderCenter,

@@ -15,7 +15,7 @@ interface IPopoverIcon {
   text: string;
 }
 
-export const PopoverIcon = ({ title, text }: IPopoverIcon) => (
+export const PopOverIcon = ({ title, text }: IPopoverIcon) => (
   <Popover>
     <PopoverTrigger>
       <FontAwesomeIcon

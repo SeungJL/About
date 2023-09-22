@@ -5,8 +5,8 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/common/modal/ModalComponents";
-import { ModalLayout } from "../../components/common/modal/Modals";
+import { ModalHeaderX } from "../../components/modal/ModalComponents";
+import { ModalLayout } from "../../components/modal/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { usePromotionMutation } from "../../hooks/promotion/mutations";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
@@ -39,12 +39,11 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
     const findUni = data?.find((item) => item.name === uniName);
     if (!findUni) setContentType("none");
     else {
-    
       const diff = dayjs(findUni.lastDate)
         .add(3, "day")
         .subtract(9, "hours")
         .diff(dayjs(), "hour");
-      
+
       if (diff <= 0) mutate(uniName);
       else {
         setContentType("cool");

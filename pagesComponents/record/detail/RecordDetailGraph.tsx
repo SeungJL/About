@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Chart from "../../../components/features/lib/chart/Chart";
+import Chart from "../../../components/dataViews/chart/Chart";
 
 function RecordDetailGraph() {
   return (
