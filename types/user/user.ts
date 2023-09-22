@@ -95,7 +95,6 @@ export interface IUserBadge {
 }
 
 export type UserBadge =
-  | null
   | "아메리카노"
   | "라떼"
   | "마키아또"
@@ -103,10 +102,9 @@ export type UserBadge =
   | "모카"
   | "콜드브루"
   | "아인슈페너"
-  | "딸기스무디"
-  | "라벤더";
+  | EventBadge;
 
-export type EventBadge = "딸기스무디" | "라벤더";
+export type EventBadge = "딸기스무디" | "라벤더" | "민트초코";
 
 export type UserBadgeColor = typeof BADGE_COLOR[UserBadge];
 

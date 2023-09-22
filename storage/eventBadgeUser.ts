@@ -2,7 +2,7 @@ export const EVENT_BADGE_라벤더 = [
   "2941876134",
   "2948913118",
   "2867069006",
-  "2259633694",
+  ,
   "2753686016",
 ];
 export const EVENT_BADGE_딸기스무디 = [
@@ -11,3 +11,5 @@ export const EVENT_BADGE_딸기스무디 = [
   "2948912376",
   "2894619536",
 ];
+
+export const EVENT_BADGE_민트초코 = ["2259633694"];

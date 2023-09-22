@@ -32,7 +32,7 @@ function Store() {
 
   return (
     <>
-      <Header title="포인트 추첨" url="point">
+      <Header title="포인트 스토어" url="/point">
         <RuleIcon setIsModal={setIsModal} />
       </Header>
       <Layout>

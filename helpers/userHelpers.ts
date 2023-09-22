@@ -2,6 +2,7 @@ import { BADGE_INFO } from "../constants/badge";
 import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,
+  EVENT_BADGE_민트초코,
 } from "../storage/eventBadgeUser";
 import {
   IRankingUser,
@@ -26,6 +27,7 @@ type SortUserScore = <T extends keyof DataArrMap>(
 export const getUserBadge = (score: number, uid: string): UserBadge => {
   if (EVENT_BADGE_딸기스무디.includes(uid)) return "딸기스무디";
   if (EVENT_BADGE_라벤더.includes(uid)) return "라벤더";
+  if (EVENT_BADGE_민트초코.includes(uid)) return "민트초코";
 
   const { badge } = BADGE_INFO.find((_, idx) => {
     if (idx === BADGE_INFO.length - 1) return true;

@@ -14,6 +14,12 @@ import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";
 import { STORE_GIFT } from "../../../storage/Store";
 import { IStoreApplicant, IStoreGift } from "../../../types/page/store";
 
+const dayjs = require("dayjs");
+require("dayjs/locale/ko");
+const localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
+dayjs.locale("ko");
+
 function StoreItem() {
   const router = useRouter();
   const itemId = Number(router.query?.id);
@@ -23,15 +29,11 @@ function StoreItem() {
   const [applyData, setApplyData] = useState<IStoreApplicant[]>([]);
   const [isRefetch, setIsRefetch] = useState(false);
 
-  const info: IStoreGift = STORE_GIFT[itemId];
-
-  const dayjs = require("dayjs");
-  require("dayjs/locale/ko");
-  const localizedFormat = require("dayjs/plugin/localizedFormat");
-  dayjs.extend(localizedFormat);
-  dayjs.locale("ko");
-
   const { isOpen, onToggle } = useDisclosure();
+
+  const info: IStoreGift = STORE_GIFT[itemId];
+  const totalApply = applyData?.reduce((acc, cur) => acc + cur.cnt, 0);
+  const isCompleted = totalApply === info?.max;
 
   const { isLoading, refetch } = useStoreQuery(info?.giftId, {
     enabled: info !== undefined,
@@ -45,10 +47,6 @@ function StoreItem() {
     if (isRefetch) refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetch]);
-
-  const totalApply = applyData?.reduce((acc, cur) => acc + cur.cnt, 0);
-
-  const isCompleted = totalApply === info?.max;
 
   return (
     <>

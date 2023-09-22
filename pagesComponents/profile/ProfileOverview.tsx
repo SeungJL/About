@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -13,9 +12,6 @@ interface IProfileOverview {
 }
 
 function ProfileOverview({ user }: IProfileOverview) {
-  const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
-
   const [userData, setUserData] = useState<IUser>(user);
   const [isLoading, setIsLoading] = useState(true);
 

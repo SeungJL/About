@@ -45,11 +45,12 @@ interface IReview {
 function Review() {
   const router = useRouter();
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
-
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
   const [category, setCategory] = useState<LocationFilterType>("전체");
+
+  const prevPageUrl = useRecoilValue(prevPageUrlState);
+  const reviewContentId = useRecoilValue(reviewContentIdState);
 
   const url = WEB_URL + router?.asPath;
   const temp = {
@@ -95,8 +96,6 @@ function Review() {
       avatar: null,
     },
   };
-
-  const reviewContentId = useRecoilValue(reviewContentIdState);
 
   useGatherSummaryQuery({
     onSuccess(data) {

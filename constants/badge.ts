@@ -5,7 +5,7 @@ interface IBadgeInfo {
   minScore: number;
 }
 
-export const EVENT_BADGE: UserBadge[] = ["딸기스무디", "라벤더"];
+export const EVENT_BADGE: UserBadge[] = ["딸기스무디", "라벤더", "민트초코"];
 
 export const BADGE_COLOR: Record<UserBadge, string> = {
   아메리카노: "gray",
@@ -17,6 +17,7 @@ export const BADGE_COLOR: Record<UserBadge, string> = {
   아인슈페너: "teal",
   딸기스무디: "badgePink",
   라벤더: "facebook",
+  민트초코: "mintTheme",
 };
 
 export const BADGE_INFO: IBadgeInfo[] = [
