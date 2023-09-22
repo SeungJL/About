@@ -36,7 +36,7 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: isAccessPermission && Boolean(token),
     onSuccess(data) {
-      if (data === null && !isGuest) {
+      if ((data === null && !isGuest) || data.birth === "") {
         if (router.query.status === "login") navigateTo(`/register/location`);
         else navigateTo("/login/?status=noMember");
       }
