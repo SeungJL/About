@@ -29,6 +29,8 @@ function RecordDetailOverview({}: IRecordDetailOverview) {
     dayjs()
   );
 
+  console.log(currentMonthAttend);
+
   const myMonthAttend = currentMonthAttend?.find(
     (who) => who?.uid === session?.uid
   );
