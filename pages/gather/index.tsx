@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
 import ButtonCheckNav from "../../components/ui/ButtonCheckNav";
-import { STUDY_LOCATION } from "../../constants/location";
+import { LOCATION_USE_ALL } from "../../constants/location";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";
 import GatherReviewNav from "../../pagesComponents/gather/GatherReviewNav";
@@ -22,7 +22,7 @@ function Gather() {
         <HrDiv />
         <Wrapper>
           <ButtonCheckNav
-            buttonList={["전체", ...STUDY_LOCATION]}
+            buttonList={["전체", ...LOCATION_USE_ALL]}
             selectedButton={category}
             setSelectedButton={setCategory}
           />

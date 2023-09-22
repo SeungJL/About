@@ -1,17 +1,12 @@
 import { faRightLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import Skeleton from "../../../../components/common/skeleton/Skeleton";
 
 function RecordDetailOverviewSkeleton() {
   return (
     <Layout>
-      <Title>
-        <Skeleton>temp</Skeleton>
-      </Title>
-      <Value>
-        <Skeleton>temp</Skeleton>
-      </Value>
+      <Title></Title>
+      <Value></Value>
       <ChangeBtn>
         <span>전환</span>
         <FontAwesomeIcon icon={faRightLeft} size="xs" />

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
@@ -67,7 +66,6 @@ function Name() {
   );
 }
 
-
 const NameInput = styled.input`
   margin-top: 40px;
   border: var(--border-main);
@@ -78,6 +76,9 @@ const NameInput = styled.input`
   ::placeholder {
     font-size: 12px;
     color: var(--font-h4);
+  }
+  :focus {
+    outline-color: var(--font-h1);
   }
 `;
 

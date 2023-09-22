@@ -8,7 +8,6 @@ import ProgressStatus from "../../components/layout/ProgressStatus";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
-import { motion } from "framer-motion";
 import PageLayout from "../../components/layout/PageLayout";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
@@ -92,9 +91,6 @@ function Interest() {
   );
 }
 
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -141,6 +137,9 @@ const Input = styled.input`
   border-radius: var(--border-radius-sub);
   ::placeholder {
     color: var(--font-h4);
+  }
+  :focus {
+    outline-color: var(--font-h1);
   }
 `;
 

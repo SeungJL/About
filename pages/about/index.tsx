@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { NOT_OPEN_LOCATION } from "../../constants/location";
+import { LOCATION_RECRUITING } from "../../constants/location";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
 import AboutCalendar from "../../pagesComponents/about/main/aboutCalendar/AboutCalendar";
 import AboutCategoryNav from "../../pagesComponents/about/main/AboutCategoryNav";
@@ -49,7 +49,7 @@ function About() {
       isFirstRender.current = false;
       return;
     }
-    if (NOT_OPEN_LOCATION.includes(location)) setIsMainLoading(false);
+    if (LOCATION_RECRUITING.includes(location)) setIsMainLoading(false);
     if (!participations) {
       setOtherStudies([]);
       return;

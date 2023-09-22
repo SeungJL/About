@@ -29,6 +29,7 @@ function ApplySuccess({}) {
         bottom="0"
         transform="translate(-50%,0)"
         width={`calc(100% - 2*var(--margin-main))`}
+        maxWidth={358}
         height="44px"
         mb="var(--margin-main)"
         borderRadius="100px"
@@ -46,7 +47,7 @@ function ApplySuccess({}) {
 
 const Layout = styled.div`
   min-height: 100vh;
-  background-color: white;
+  background-color: var(--font-h8);
   display: flex;
   flex-direction: column;
 `;

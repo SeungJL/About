@@ -32,9 +32,9 @@ function MemberOverviewSkeleton() {
         </li>
         <li>
           <span>활동 지역</span>
-          <STUDY_LOCATION location={location as Location}>
+          <LOCATION_USE_ALL location={location as Location}>
             <Skeleton>temp</Skeleton>
-          </STUDY_LOCATION>
+          </LOCATION_USE_ALL>
         </li>
       </Info>
     </Layout>
@@ -76,7 +76,7 @@ const Info = styled.div`
   }
 `;
 
-const STUDY_LOCATION = styled.div<{ location: Location }>`
+const LOCATION_USE_ALL = styled.div<{ location: Location }>`
   flex: 1;
   color: var(--font-h2);
   height: ${(props) => (props.location === "수원" ? "36px" : "18px")};

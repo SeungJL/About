@@ -1,55 +1,30 @@
 import { faCaretUp, faUsers } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { LOCATION_MEMBER_CNT } from "../../../constants/location";
 import { Location } from "../../../types/system";
 
 function LocationMember({ location }: { location: Location }) {
-  const memberCnt =
-    location === "수원"
-      ? 181
-      : location === "양천"
-      ? 66
-      : location === "안양"
-      ? 29
-      : location === "강남"
-      ? 34
-      : 11;
-
-  const newCnt =
-    location === "수원"
-      ? 4
-      : location === "양천"
-      ? 3
-      : location === "강남"
-      ? 4
-      : location === "안양"
-      ? 2
-      : 7;
-
   return (
     <Layout>
-      <Member>
-        <MemberCnt>
-          <FontAwesomeIcon icon={faUsers} size="xs" />
-          <span>{memberCnt}</span>
-        </MemberCnt>
-        <NewMember>
-          <FontAwesomeIcon icon={faCaretUp} />
-          <span>{newCnt}</span>
-        </NewMember>
-      </Member>
+      <MemberCnt>
+        <FontAwesomeIcon icon={faUsers} size="xs" />
+        <span>{LOCATION_MEMBER_CNT[location].member}</span>
+      </MemberCnt>
+      <NewMember>
+        <FontAwesomeIcon icon={faCaretUp} />
+        <span>{LOCATION_MEMBER_CNT[location].new}</span>
+      </NewMember>
     </Layout>
   );
 }
 
-const Layout = styled.div``;
-
-const Member = styled.div`
+const Layout = styled.div`
   color: var(--font-h2);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
+  justify-content: space-around;
+  height: 80%;
 `;
 
 const MemberCnt = styled.div`
@@ -57,7 +32,6 @@ const MemberCnt = styled.div`
   justify-content: flex-end;
   align-items: center;
   font-size: 15px;
-
   > span:last-child {
     margin-left: 4px;
   }

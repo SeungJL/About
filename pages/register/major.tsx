@@ -1,5 +1,4 @@
 import { useToast } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -12,21 +11,19 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-
 import { majors_DATA } from "../../storage/ProfileData";
 import { IMajor } from "../../types/user/user";
 
 function Major() {
   const router = useRouter();
-
   const toast = useToast();
 
+  const isProfileEdit = useRecoilValue(isProfileEditState);
   const [registerForm, setRegisterForm] = useRecoilState(
     sharedRegisterFormState
   );
 
   const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
-  const isProfileEdit = useRecoilValue(isProfileEditState);
 
   const onClickNext = () => {
     if (!majors.length) {
@@ -103,11 +100,6 @@ function Major() {
     </PageLayout>
   );
 }
-
-const Layout = styled(motion.div)`
-  min-height: 100vh;
-  margin-bottom: var(--margin-max);
-`;
 
 const Section = styled.section`
   margin-bottom: var(--margin-main);

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
@@ -55,6 +55,12 @@ function Comment() {
     } else router.push(`/register/phone`);
   };
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (index === null && value !== "") inputRef.current.focus();
+  }, [index, value]);
+
   return (
     <PageLayout>
       <ProgressStatus value={80} />
@@ -81,7 +87,7 @@ function Comment() {
         <Input
           onClick={() => setIndex(InputIdx)}
           placeholder="직접 입력"
-          isSelected={index === InputIdx || (index === null && value !== "")}
+          ref={inputRef}
           onChange={(e) => setValue(e.target?.value)}
           value={value}
         />
@@ -110,18 +116,13 @@ const Item = styled.div<{ isSelected: boolean }>`
   margin-bottom: var(--margin-sub);
   color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
   border: ${(props) =>
-    props.isSelected
-      ? "1.5px solid var(--font-h1)"
-      : "1.5px solid var(--font-h6)"};
+    props.isSelected ? "var(--border-thick)" : "1.5px solid var(--font-h6)"};
 `;
 
-const Input = styled.input<{ isSelected: boolean }>`
+const Input = styled.input`
   width: 100%;
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
-  border: ${(props) =>
-    props.isSelected
-      ? "1.5px solid var(--font-h1)"
-      : "1.5px solid var(--font-h6)"};
+  color: var(--font-h4);
+  border: 1.5px solid var(--font-h6);
   border-radius: var(--border-radius-sub);
   display: flex;
   justify-content: center;
@@ -133,6 +134,9 @@ const Input = styled.input<{ isSelected: boolean }>`
 
   ::placeholder {
     color: var(--font-h4);
+  }
+  :focus {
+    outline-color: var(--font-h1);
   }
 `;
 

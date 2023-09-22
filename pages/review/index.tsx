@@ -8,7 +8,7 @@ import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
 import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/ui/ButtonCheckNav";
-import { STUDY_LOCATION } from "../../constants/location";
+import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
 import { useGatherSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pagesComponents/review/ReviewContent";
@@ -150,7 +150,7 @@ function Review() {
         ) : (
           <>
             <ButtonCheckNav
-              buttonList={["전체", ...STUDY_LOCATION]}
+              buttonList={["전체", ...LOCATION_USE_ALL]}
               selectedButton={category}
               setSelectedButton={setCategory}
             />

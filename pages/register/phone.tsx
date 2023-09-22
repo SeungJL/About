@@ -69,6 +69,9 @@ const NameInput = styled.input`
     font-size: 12px;
     color: var(--font-h4);
   }
+  :focus {
+    outline-color: var(--font-h1);
+  }
 `;
 
 export default Phone;

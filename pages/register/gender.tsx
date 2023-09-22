@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -65,10 +64,6 @@ function Gender() {
   );
 }
 
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
-
 const ButtonNav = styled.nav`
   margin-top: 40px;
   display: flex;
@@ -83,7 +78,7 @@ const Button = styled.button<{ isSelected: boolean }>`
   font-size: 14px;
   font-weight: ${(props) => props.isSelected && "600"};
   border: ${(props) =>
-    props.isSelected ? "1.5px solid var(--font-h1)" : "var(--border-main)"};
+    props.isSelected ? "var(--border-thick)" : "var(--border-main)"};
 `;
 
 export default Gender;
