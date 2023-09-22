@@ -1,4 +1,5 @@
 :root {
+  --max-width: 390px;
   --font-h1: #343943;
   --font-h2: #565b67;
   --font-h3: #767d8a;

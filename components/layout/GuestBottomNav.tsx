@@ -21,6 +21,7 @@ function GuestBottomNav() {
 const Layout = styled.div`
   position: fixed;
   bottom: 0;
+  max-width: 390px;
   background-color: white;
   height: 50px;
   width: 100vw;
