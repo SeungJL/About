@@ -13,8 +13,6 @@ import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { STORE_GIFT } from "../../storage/Store";
 import { FullScreen } from "../../styles/layout/modal";
 
-const ITEM_WIDTH = 120;
-
 function Store() {
   const [applyNum, setApplyNum] = useState([]);
   const router = useRouter();
@@ -31,7 +29,7 @@ function Store() {
       });
     },
   });
- 
+
   return (
     <>
       <Header title="포인트 추첨" url="point">
@@ -75,7 +73,6 @@ function Store() {
           );
         })}
       </Layout>
-
       {isLoading && (
         <>
           <Load>

@@ -149,11 +149,13 @@ function Review() {
           <MainLoading />
         ) : (
           <>
-            <ButtonCheckNav
-              buttonList={["전체", ...LOCATION_USE_ALL]}
-              selectedButton={category}
-              setSelectedButton={setCategory}
-            />
+            <NavWrapper>
+              <ButtonCheckNav
+                buttonList={["전체", ...LOCATION_USE_ALL]}
+                selectedButton={category}
+                setSelectedButton={setCategory}
+              />
+            </NavWrapper>
             <Main>
               {reviewData?.map((item) => (
                 <Item id={"review" + item.id} key={item.id}>
@@ -182,6 +184,10 @@ function Review() {
 }
 
 const Layout = styled.div``;
+
+const NavWrapper = styled.div`
+  margin: var(--margin-md) var(--margin-sub);
+`;
 
 const Main = styled.main`
   margin-top: var(--margin-max);
