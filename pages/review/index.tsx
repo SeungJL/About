@@ -21,7 +21,7 @@ import {
 } from "../../recoil/previousAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 import { GatherLocation, GatherType } from "../../types/page/gather";
-import { Location } from "../../types/system";
+import { LocationFilterType } from "../../types/system";
 
 export interface IGatherSummary {
   title: string;
@@ -49,7 +49,7 @@ function Review() {
 
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
-  const [category, setCategory] = useState<Location>("전체");
+  const [category, setCategory] = useState<LocationFilterType>("전체");
 
   const url = WEB_URL + router?.asPath;
   const temp = {

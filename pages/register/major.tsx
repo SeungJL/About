@@ -120,7 +120,7 @@ const Content = styled.button<{ isSelected: boolean }>`
   padding: var(--padding-min) var(--padding-md);
   font-size: 12px;
   border-radius: 100px;
-  border: var(--border-sub);
+  border: 1px solid var(--font-h5);
   margin-right: var(--margin-md);
   margin-bottom: var(--margin-md);
   background-color: ${(props) => props.isSelected && "var(--color-mint)"};
