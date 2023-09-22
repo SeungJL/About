@@ -29,14 +29,16 @@ function Layout({ children }: ILayout) {
     router.asPath.startsWith(route)
   );
 
+  console.log(24, router.asPath, isAccessPermission);
+
   const navigateTo = (path) => {
     router.push(path);
   };
 
   useUserInfoQuery({
-    enabled: isAccessPermission && Boolean(token),
+    enabled: !isGuest && isAccessPermission && Boolean(token),
     onSuccess(data) {
-      console.log(data);
+      console.log(2, isAccessPermission, data);
       //정상적인 가입 경로가 아닌데도 유저 테이블이 생성되는 경우가 있음
       if ((data === null && !isGuest) || data?.birth === "") {
         if (router.query.status === "login") navigateTo(`/register/location`);

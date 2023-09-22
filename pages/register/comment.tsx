@@ -29,7 +29,7 @@ function Comment() {
   const [value, setValue] = useState(registerForm?.comment || "");
   const [index, setIndex] = useState(null);
 
-  const { data: userInfo } = useUserInfoQuery();
+  const { data: userInfo } = useUserInfoQuery({ enabled: isProfileEdit });
   const { mutate: updateUserInfo } = useUserInfoMutation();
 
   const InputIdx = MESSAGE_DATA?.length;
