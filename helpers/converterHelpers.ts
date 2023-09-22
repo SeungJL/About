@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
-import { SCHEME_TO_COLOR } from "../constants/system";
-import { Role } from "../types/user/user";
+import { SCHEME_TO_COLOR } from "../constants/styles";
+
 dayjs.locale("ko");
 
+// 생년월일 to 만 나이
 export const birthToAge = (birth: string) => {
   if (!birth) return;
   const yearSlice = birth?.slice(0, 2);
@@ -15,18 +16,11 @@ export const birthToAge = (birth: string) => {
   if (birthDate < dayjs()) return age;
   else return age - 1;
 };
+
+//생년월일 to Dayjs
 export const birthToDayjs = (birth: string) =>
   dayjs(birth.slice(2, 4) + "-" + birth.slice(4, 6));
 
-export const getRole = (role: Role) => {
-  if (role === "human") return "수습 멤버";
-  if (role === "manager") return "운영진";
-  if (role === "member") return "동아리원";
-  if (role === "noMember") return "외부인";
-  if (role === "previliged") return "관리자";
-  if (role === "resting") return "휴식 멤버";
-  if (role === "waiting") return "대기 인원";
-};
-
+//차크라 색상 to 일반 색상
 export const schemeToColor = (scheme: string) =>
   SCHEME_TO_COLOR[scheme] || scheme;

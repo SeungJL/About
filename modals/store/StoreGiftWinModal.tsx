@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 
 import { useRouter } from "next/router";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";

@@ -16,14 +16,15 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../constants/system";
-import { noticeData } from "../../storage/notice";
+import { TABLE_COLORS } from "../../constants/styles";
+
+import { NOTICE_ARR } from "../../storage/notice";
 
 function NoticeItem() {
   return (
     <>
       <Accordion allowToggle>
-        {[...noticeData].reverse().map((item) => (
+        {[...NOTICE_ARR].reverse().map((item) => (
           <AccordionItem borderTop="none" key={item.id}>
             <AccordionButton height="60px" _focus={{ outline: "none" }}>
               <Box as="span" flex="1" textAlign="left" display="flex">
@@ -89,9 +90,9 @@ const IconLayout = styled.div<{ name: string }>`
     props.name === "king"
       ? "var(--color-red)"
       : props.name === "pawn"
-      ? VOTE_TABLE_COLOR[1]
+      ? TABLE_COLORS[1]
       : props.name === "queen"
-      ? VOTE_TABLE_COLOR[3]
+      ? TABLE_COLORS[3]
       : "var(--color-mint)"};
 `;
 

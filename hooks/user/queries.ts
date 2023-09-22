@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { USER_INFO, USER_REQUEST } from "../../constants/queryKeys";
-import { SERVER_URI } from "../../constants/system";
+import { SERVER_URI } from "../../constants/url";
 import { QueryOptions } from "../../types/reactTypes";
 import { Location } from "../../types/system";
 import {

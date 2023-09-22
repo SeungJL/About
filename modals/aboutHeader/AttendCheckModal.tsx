@@ -13,9 +13,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
-import { ATTEND_CHECK } from "../../constants/localStorage";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
+import { ATTEND_CHECK_POP_UP } from "../../constants/localStorage";
 import {
   useCompleteToast,
   useErrorToast,
@@ -67,7 +67,7 @@ function AttendCheckModal({ setIsModal }: IModal) {
       failToast("guest");
       return;
     }
-    localStorage.setItem(ATTEND_CHECK, "read");
+    localStorage.setItem(ATTEND_CHECK_POP_UP, "read");
     setPoint({ value: 3, message: "출석체크" });
     setScore({ value: 3, message: "출석체크" });
     const randomNum = Math.round(Math.random() * 10000);

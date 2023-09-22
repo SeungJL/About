@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
-import ModalPortal from "../../../components/modal/ModalPortal";
+import ModalPortal from "../../../components/modals/ModalPortal";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";

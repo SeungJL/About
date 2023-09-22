@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import Header from "../../../components/layout/Header";
-import ModalPortal from "../../../components/modal/ModalPortal";
+import ModalPortal from "../../../components/modals/ModalPortal";
 import { useStoreQuery } from "../../../hooks/store/queries";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
 import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";

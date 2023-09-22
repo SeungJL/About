@@ -2,7 +2,7 @@ import { faImage } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
-import { DEFAULT_ARRAY } from "../../constants/system";
+import { DEFAULT_ARRAY } from "../../constants/url";
 
 function GatherImageSliderSkeleton() {
   return (

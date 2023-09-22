@@ -1,4 +1,4 @@
-import { SERVER_URI } from "../../constants/system";
+import { SERVER_URI } from "../../constants/url";
 
 export function fetchFamousBooks() {
   return fetch(`${SERVER_URI}/book`, {

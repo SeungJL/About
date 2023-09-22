@@ -6,7 +6,7 @@ import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import ModalPortal from "../../components/modal/ModalPortal";
+import ModalPortal from "../../components/modals/ModalPortal";
 import { StoreGiftImage } from "../../components/utils/DesignAdjustment";
 import { useStoreAllQuery } from "../../hooks/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";

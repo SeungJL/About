@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modal/ModalPortal";
+import ModalPortal from "../../../components/modals/ModalPortal";
 import StudyInviteModal from "../../../modals/study/StudyInviteModal";
 import { IPlace } from "../../../types/study/study";
 interface IStudySpaceVoteOverview {

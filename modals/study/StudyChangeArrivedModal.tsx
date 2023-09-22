@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";

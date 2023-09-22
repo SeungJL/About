@@ -11,7 +11,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../../components/common/user/Profile/ProfileIcon";
-import ModalPortal from "../../../../components/modal/ModalPortal";
+import ModalPortal from "../../../../components/modals/ModalPortal";
 import { useStudyAbsentQuery } from "../../../../hooks/study/queries";
 import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrivedModal";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";

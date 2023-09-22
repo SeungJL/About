@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import Header from "../../components/layout/Header";
-import ModalPortal from "../../components/modal/ModalPortal";
+import ModalPortal from "../../components/modals/ModalPortal";
 import GatherRuleModal from "../../modals/gather/GatherRuleModal";
 
 function GatherHeader() {

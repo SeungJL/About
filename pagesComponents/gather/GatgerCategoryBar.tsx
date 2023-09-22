@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
-import { Location } from "../../types/system";
+import { LocationFilterType } from "../../types/system";
 
 interface IGatherCategoryBar {
-  category: Location;
+  category: LocationFilterType;
   setCategory: Dispatch<SetStateAction<string>>;
 }
 

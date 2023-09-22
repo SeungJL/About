@@ -10,11 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
-  ATTEND_CHECK,
+  ATTEND_CHECK_POP_UP,
   LIKE_HEART_CNT,
   NOTICE_ALERT,
 } from "../../../../constants/localStorage";
 import { useInteractionLikeQuery } from "../../../../hooks/interaction/queries";
+import { NOTICE_ARR } from "../../../../storage/notice";
 import { AlertIcon } from "../../../../styles/icons";
 import { AboutHeaderIconType } from "./AboutHeader";
 
@@ -34,10 +35,11 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
   });
 
   useEffect(() => {
-    if (!localStorage.getItem(NOTICE_ALERT)) setIsNoticeAlert(true);
+    if (localStorage.getItem(NOTICE_ALERT) !== String(NOTICE_ARR.length))
+      setIsNoticeAlert(true);
   }, []);
 
-  const isAttendCheck = localStorage.getItem(ATTEND_CHECK);
+  const isAttendCheck = localStorage.getItem(ATTEND_CHECK_POP_UP);
 
   return (
     <Layout>

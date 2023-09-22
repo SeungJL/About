@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalLayout } from "../../components/modals/Modals";
 import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
 import {
   useCompleteToast,

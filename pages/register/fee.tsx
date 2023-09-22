@@ -8,7 +8,7 @@ import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import Accordion from "../../components/templates/Accordion";
 import ProgressStatus from "../../components/templates/ProgressStatus";
-import { ACCORDION_CONTENT_FEE } from "../../constants/private";
+import { ACCORDION_CONTENT_FEE } from "../../constants/content";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
 import RegisterCost from "../../pagesComponents/register/fee/RegisterCost";

@@ -3,8 +3,8 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/modal/ModalPortal";
-import { ModalLayout } from "../../components/modal/Modals";
+import ModalPortal from "../../components/modals/ModalPortal";
+import { ModalLayout } from "../../components/modals/Modals";
 import { useRegisterFormsQuery } from "../../hooks/user/queries";
 import { DispatchBoolean } from "../../types/reactTypes";
 

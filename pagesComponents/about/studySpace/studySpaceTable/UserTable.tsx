@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../../../constants/system";
+import { TABLE_COLORS } from "../../../../constants/styles";
 import {
   isVotingState,
   studyDateStatusState,
@@ -59,7 +59,7 @@ function UserTable({ attendances }: IUserTable) {
           <UserIcon
             start={user.startGap}
             gap={user.gap}
-            color={VOTE_TABLE_COLOR[idx]}
+            color={TABLE_COLORS[idx]}
           >
             <Name>{user.name}</Name>
             <Time isSecond={user?.isSecond}>

@@ -1,4 +1,6 @@
-import RuleModal, { IRuleModalContent } from "../../components/modal/RuleModal";
+import RuleModal, {
+  IRuleModalContent,
+} from "../../components/modals/RuleModal";
 import { IModal } from "../../types/reactTypes";
 
 function StoreRuleModal({ setIsModal }: IModal) {

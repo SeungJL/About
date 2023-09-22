@@ -1,5 +1,5 @@
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalMain,

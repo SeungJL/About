@@ -6,6 +6,7 @@ import { NOTICE_ALERT, RABBIT_RUN } from "../../../../constants/localStorage";
 import { useFailToast } from "../../../../hooks/CustomToast";
 import { attendCheckWinGiftState } from "../../../../recoil/renderTriggerAtoms";
 import { isGuestState } from "../../../../recoil/userAtoms";
+import { NOTICE_ARR } from "../../../../storage/notice";
 import AboutHeaderIcons from "./AboutHeaderIcons";
 import AboutHeaderModals from "./AboutHeaderModals";
 
@@ -33,7 +34,8 @@ function AboutHeader() {
       failToast("guest");
       return;
     }
-    if (iconType === "notice") localStorage.setItem(NOTICE_ALERT, "read");
+    if (iconType === "notice")
+      localStorage.setItem(NOTICE_ALERT, String(NOTICE_ARR.length));
     if (iconType === "rabbit") setIsRabbitRun(false);
     if (
       (["notice", "user", "promotion"] as AboutHeaderIconType[]).includes(

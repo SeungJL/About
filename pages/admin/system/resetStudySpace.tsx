@@ -1,6 +1,6 @@
 import { Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
-import { SERVER_URI } from "../../../constants/system";
+import { SERVER_URI } from "../../../constants/url";
 
 function AdminResetStudySpace() {
   const secretKey = process.env.NEXTAUTH_SECRET;

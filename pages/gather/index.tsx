@@ -8,11 +8,11 @@ import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";
 import GatherReviewNav from "../../pagesComponents/gather/GatherReviewNav";
 import { isGuestState } from "../../recoil/userAtoms";
-import { Location } from "../../types/system";
+import { LocationFilterType } from "../../types/system";
 
 function Gather() {
   const isGuest = useRecoilValue(isGuestState);
-  const [category, setCategory] = useState<Location>("전체");
+  const [category, setCategory] = useState<LocationFilterType>("전체");
 
   return (
     <>

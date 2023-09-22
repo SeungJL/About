@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
+import ImageSlider from "../../components/dataViews/chart/imageSlider/ImageSlider";
 import { IUser } from "../../types/user/user";
 
 interface IMemberMember {

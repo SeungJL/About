@@ -5,10 +5,10 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import styled from "styled-components";
-import { useToken } from "../hooks/token/useToken";
-import { useUserInfoQuery } from "../hooks/user/queries";
-import Seo from "./common/Seo";
-import GuestBottomNav from "./layout/GuestBottomNav";
+import { useToken } from "../../hooks/token/useToken";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import GuestBottomNav from "../layout/GuestBottomNav";
+import Seo from "./Seo";
 
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 config.autoAddCss = false;

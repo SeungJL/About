@@ -2,9 +2,9 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { PopUpLayout } from "../../components/modal/Modals";
-import { getRole } from "../../helpers/converterHelpers";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { PopUpLayout } from "../../components/modals/Modals";
+import { USER_ROLE } from "../../constants/user";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
 
@@ -34,7 +34,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
             <Info>
               <Item>
                 <span>역할 구성</span>
-                {getRole(userInfo.role)}
+                {USER_ROLE[userInfo.role]}
               </Item>
               <Item>
                 <span>스터디 참여 </span>

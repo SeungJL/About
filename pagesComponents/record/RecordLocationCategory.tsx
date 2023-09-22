@@ -1,9 +1,10 @@
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../constants/system";
+import { LOCATION_CONVERT, LOCATION_OPEN } from "../../constants/location";
+import { TABLE_COLORS } from "../../constants/styles";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/study/studyRecord";
-import { Location } from "../../types/system";
+import { Location, LocationFilterType } from "../../types/system";
 
 interface IRecordLocationCategory {
   setOpenData: React.Dispatch<SetStateAction<IArrivedData[]>>;
@@ -14,7 +15,7 @@ function RecordLocationCategory({
   setOpenData,
   arrivedData,
 }: IRecordLocationCategory) {
-  const [category, setCategory] = useState<Location>("전체");
+  const [category, setCategory] = useState<LocationFilterType>("전체");
 
   const onClickBadge = (value: Location) => {
     if (value === category) setCategory("전체");
@@ -41,34 +42,16 @@ function RecordLocationCategory({
   return (
     <Layout>
       <SpaceBadge>
-        <Button
-          category={category}
-          isSelected={category === "수원"}
-          onClick={() => onClickBadge("수원")}
-        >
-          수원
-        </Button>
-        <Button
-          category={category}
-          isSelected={category === "양천"}
-          onClick={() => onClickBadge("양천")}
-        >
-          양천구
-        </Button>
-        <Button
-          category={category}
-          isSelected={category === "안양"}
-          onClick={() => onClickBadge("안양")}
-        >
-          안양
-        </Button>
-        <Button
-          category={category}
-          isSelected={category === "강남"}
-          onClick={() => onClickBadge("강남")}
-        >
-          강남
-        </Button>
+        {LOCATION_OPEN.map((location) => (
+          <Button
+            key={location}
+            category={category}
+            isSelected={category === location}
+            onClick={() => onClickBadge(location)}
+          >
+            {LOCATION_CONVERT[location]}
+          </Button>
+        ))}
       </SpaceBadge>
       <span>Free 오픈 제외</span>
     </Layout>
@@ -102,20 +85,23 @@ const SpaceBadge = styled.section`
     font-weight: 600;
   }
   > button:first-child {
-    color: ${VOTE_TABLE_COLOR[0]};
+    color: ${TABLE_COLORS[0]};
   }
   > button:nth-child(2) {
-    color: ${VOTE_TABLE_COLOR[3]};
+    color: ${TABLE_COLORS[3]};
   }
   > button:nth-child(3) {
-    color: ${VOTE_TABLE_COLOR[2]};
+    color: ${TABLE_COLORS[2]};
   }
   > button:nth-child(4) {
-    color: ${VOTE_TABLE_COLOR[1]};
+    color: ${TABLE_COLORS[1]};
   }
 `;
 
-const Button = styled.button<{ category: Location; isSelected: boolean }>`
+const Button = styled.button<{
+  category: LocationFilterType;
+  isSelected: boolean;
+}>`
   font-size: ${(props) => (props.isSelected ? "14px" : "12px")};
   opacity: ${(props) =>
     props.category !== "전체" && !props.isSelected ? "0.7" : "1"};

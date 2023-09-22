@@ -6,7 +6,7 @@ import { useRouter } from "next/dist/client/router";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import ModalPortal from "../../../components/modal/ModalPortal";
+import ModalPortal from "../../../components/modals/ModalPortal";
 import { getDateDiff } from "../../../helpers/dateHelpers";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";

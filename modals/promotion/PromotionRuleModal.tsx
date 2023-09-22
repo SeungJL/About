@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import RuleModal, { IRuleModalContent } from "../../components/modal/RuleModal";
+import RuleModal, {
+  IRuleModalContent,
+} from "../../components/modals/RuleModal";
 import { IModal } from "../../types/reactTypes";
 
 function PromotionRuleModal({ setIsModal }: IModal) {

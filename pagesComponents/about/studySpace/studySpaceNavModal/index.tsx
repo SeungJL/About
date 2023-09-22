@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../../components/modal/ModalPortal";
+import ModalPortal from "../../../../components/modals/ModalPortal";
 import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
 import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal";
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";

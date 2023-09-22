@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modal/ModalPortal";
+import ModalPortal from "../../../components/modals/ModalPortal";
 import { PrivacyPolicy } from "../../../storage/PrivacyPolicy";
 import Terms from "../../../storage/terms";
 

@@ -10,7 +10,7 @@ import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { BADGE_COLOR } from "../../../constants/badge";
 import { LIKE_HEART } from "../../../constants/localStorage";
 import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
-import { getRole } from "../../../helpers/converterHelpers";
+import { USER_ROLE } from "../../../constants/user";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import {
   useAdminPointMutation,
@@ -44,7 +44,7 @@ function ProfileInfo({ user }: IProfileInfo) {
 
   const userBadge = getUserBadge(user?.score, user?.uid);
 
-  const status = getRole(user?.role);
+  const status = USER_ROLE[user?.role];
   const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(
     localStorage.getItem(LIKE_HEART)
   );

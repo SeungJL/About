@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import ModalPortal from "../../../components/modal/ModalPortal";
+import ModalPortal from "../../../components/modals/ModalPortal";
 import {
   ATTEND_POP_UP,
   PROMOTION_POP_UP,
-  STUDY_SPACE,
+  STUDY_SPACE_POP_UP,
   SUGGEST_POP_UP,
-  USER_GUIDE,
+  USER_GUIDE_POP_UP,
 } from "../../../constants/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
@@ -33,11 +33,11 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   useEffect(() => {
     let popUpCnt = 0;
     if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
-    if (!checkAndSetLocalStorage(STUDY_SPACE, 2)) {
+    if (!checkAndSetLocalStorage(STUDY_SPACE_POP_UP, 2)) {
       setPopUpTypes((old) => [...old, "studySpace"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(USER_GUIDE, 15)) {
+    if (!checkAndSetLocalStorage(USER_GUIDE_POP_UP, 15)) {
       setPopUpTypes((old) => [...old, "userGuide"]);
       if (++popUpCnt === 2) return;
     }

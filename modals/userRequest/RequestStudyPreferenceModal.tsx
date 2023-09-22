@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PlaceSelector from "../../components/features/picker/PlaceSelector";
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 import { LOCATION_PLACE_SMALL } from "../../constants/location";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";

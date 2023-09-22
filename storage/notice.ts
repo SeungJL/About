@@ -1,4 +1,4 @@
-export const noticeData = [
+export const NOTICE_ARR = [
   {
     id: "1",
     title: "동아리 리모델링 !!",

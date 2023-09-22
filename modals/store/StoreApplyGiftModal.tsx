@@ -4,8 +4,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import SkeletonItem from "../../components/common/masks/skeleton/SkeletonItem";
 import CountNum from "../../components/features/atoms/CountNum";
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,

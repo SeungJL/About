@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ICON_SIZE } from "../../../../constants/system";
+import { ICON_SIZE } from "../../../../constants/styles";
+
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 import { AVATAR_COLOR, AVATAR_ICON } from "../../../../storage/avatar";

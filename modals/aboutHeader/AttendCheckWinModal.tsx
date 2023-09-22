@@ -3,7 +3,7 @@ import { faLollipop } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalLayout } from "../../components/modals/Modals";
 import { attendCheckWinGiftState } from "../../recoil/renderTriggerAtoms";
 import { IModal } from "../../types/reactTypes";
 

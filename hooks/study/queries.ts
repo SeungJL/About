@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { useQuery, UseQueryOptions } from "react-query";
 import { STUDY_PLACE, STUDY_VOTE_INFO } from "../../constants/queryKeys";
-import { SERVER_URI } from "../../constants/system";
+import { SERVER_URI } from "../../constants/url";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 
 import {

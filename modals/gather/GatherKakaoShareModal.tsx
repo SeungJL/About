@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
-import { ModalHeaderX } from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+import { ModalHeaderX } from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 
-import { WEB_URL } from "../../constants/system";
+import { WEB_URL } from "../../constants/url";
 import { GATHER_SHARE_IMAGES } from "../../storage/Gather";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 import { IGatherHeader } from "../../types/page/gather";

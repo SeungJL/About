@@ -4,8 +4,8 @@ import { useSetRecoilState } from "recoil";
 import {
   ModalFooterTwo,
   ModalHeaderX,
-} from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+} from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useStudyOpenFreeMutation } from "../../hooks/study/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";

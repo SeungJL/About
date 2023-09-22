@@ -5,7 +5,7 @@ import {
   USER_FINDPARTICIPATION,
   USER_FINDVOTES,
 } from "../../../constants/queryKeys";
-import { SERVER_URI } from "../../../constants/system";
+import { SERVER_URI } from "../../../constants/url";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { QueryOptions } from "../../../types/reactTypes";
 import { IVoteRate } from "../../../types/study/studyRecord";

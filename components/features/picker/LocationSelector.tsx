@@ -2,6 +2,7 @@ import { Select } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { LOCATION_CONVERT, LOCATION_OPEN } from "../../../constants/location";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { Location } from "../../../types/system";
@@ -38,10 +39,11 @@ function LocationSelector() {
           ml="var(--margin-md)"
           _focus={{ border: "none" }}
         >
-          <Options value="수원">수원</Options>
-          <Options value="양천">양천구</Options>
-          <Options value="안양">안양</Options>
-          <Options value="강남">강남</Options>
+          {LOCATION_OPEN.map((location) => (
+            <Options key={location} value={location}>
+              {LOCATION_CONVERT[location]}
+            </Options>
+          ))}
         </CustomSelect>
       )}
     </Layout>

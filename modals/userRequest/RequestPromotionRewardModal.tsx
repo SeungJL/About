@@ -8,8 +8,8 @@ import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import {
   ModalFooterTwo,
   ModalHeaderX,
-} from "../../components/modal/ModalComponents";
-import { ModalLayout } from "../../components/modal/Modals";
+} from "../../components/modals/ModalComponents";
+import { ModalLayout } from "../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
 import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";

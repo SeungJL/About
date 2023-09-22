@@ -11,7 +11,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../../constants/system";
+import { TABLE_COLORS } from "../../../constants/styles";
+
 import { isGatherAlertState } from "../../../recoil/alertAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 
@@ -40,18 +41,14 @@ function AboutCategoryNav() {
             <FontAwesomeIcon
               icon={faCalendarCheck}
               size="xl"
-              color={VOTE_TABLE_COLOR[1]}
+              color={TABLE_COLORS[1]}
             />
           </Button>
           <span>캘린더</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("point")}>
-            <FontAwesomeIcon
-              icon={faDice}
-              size="xl"
-              color={VOTE_TABLE_COLOR[3]}
-            />
+            <FontAwesomeIcon icon={faDice} size="xl" color={TABLE_COLORS[3]} />
             {isPointAlert && (
               <IconWrapper>
                 <FontAwesomeIcon
@@ -66,21 +63,13 @@ function AboutCategoryNav() {
         </Item>
         <Item>
           <Button onClick={() => onClickItem("member")}>
-            <FontAwesomeIcon
-              icon={faUsers}
-              size="xl"
-              color={VOTE_TABLE_COLOR[2]}
-            />
+            <FontAwesomeIcon icon={faUsers} size="xl" color={TABLE_COLORS[2]} />
           </Button>
           <span>멤버</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("gather")}>
-            <FontAwesomeIcon
-              icon={faOtter}
-              size="xl"
-              color={VOTE_TABLE_COLOR[0]}
-            />
+            <FontAwesomeIcon icon={faOtter} size="xl" color={TABLE_COLORS[0]} />
             {isGatherAlert && (
               <IconWrapper>
                 <FontAwesomeIcon
@@ -98,7 +87,7 @@ function AboutCategoryNav() {
             <FontAwesomeIcon
               icon={faTeddyBear}
               size="xl"
-              color={VOTE_TABLE_COLOR[4]}
+              color={TABLE_COLORS[4]}
             />
           </Button>
           <span>광장</span>

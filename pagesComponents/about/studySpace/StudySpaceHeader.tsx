@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import KakaoShareBtn from "../../../components/features/lib/KakaoShareBtn";
-import { WEB_URL } from "../../../constants/system";
+import { WEB_URL } from "../../../constants/url";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
 import { IPlace } from "../../../types/study/study";
 

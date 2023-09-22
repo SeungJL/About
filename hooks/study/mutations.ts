@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
-import { SERVER_URI } from "../../constants/system";
+import { SERVER_URI } from "../../constants/url";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import {
   IStudyParticipate,
@@ -53,7 +53,6 @@ export const useStudyArrivedMutation = (
   >
 ) =>
   useMutation<void, AxiosError, string>(async (memo) => {
-   
     await axios.patch(`${SERVER_URI}/vote/${dayjsToStr(date)}/arrived`, {
       memo,
     });

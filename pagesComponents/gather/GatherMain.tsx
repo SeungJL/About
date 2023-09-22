@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { GATHER_ALERT } from "../../constants/localStorage";
-import { DEFAULT_ARRAY } from "../../constants/system";
+import { DEFAULT_ARRAY } from "../../constants/url";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { IGatherContent } from "../../types/page/gather";
-import { Location } from "../../types/system";
+import { LocationFilterType } from "../../types/system";
 import GatherBlock from "./GatherBlock";
 import GatherBlockSkeleton from "./GatherBlockSkeleton";
 
 interface IGatherMain {
-  category: Location;
+  category: LocationFilterType;
 }
 function GatherMain({ category }: IGatherMain) {
   const errorToast = useErrorToast();

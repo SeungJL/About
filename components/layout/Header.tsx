@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { DEFAULT_BACK_URL } from "../../constants/system";
+import { DEFAULT_BACK_URL } from "../../constants/url";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 interface IHeader {

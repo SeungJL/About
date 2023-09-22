@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../components/common/user/Profile/ProfileIconXsOverwrap";
-import ModalPortal from "../../components/modal/ModalPortal";
+import ModalPortal from "../../components/modals/ModalPortal";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";

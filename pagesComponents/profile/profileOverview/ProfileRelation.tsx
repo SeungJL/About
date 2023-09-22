@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modal/ModalPortal";
+import ModalPortal from "../../../components/modals/ModalPortal";
 import { useFailToast } from "../../../hooks/CustomToast";
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";

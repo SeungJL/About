@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { SERVER_URI } from "../../constants/system";
+import { SERVER_URI } from "../../constants/url";
 import { MutationOptions } from "../../types/reactTypes";
 import { IPointSystem } from "../../types/user/pointSystem";
 

@@ -1,17 +1,17 @@
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { VOTE_TABLE_COLOR } from "../../constants/system";
+import { TABLE_COLORS } from "../../constants/styles";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/study/studyRecord";
 import { Location } from "../../types/system";
 import RecordCalendarSkeleton from "./skeleton/RecordCalendarSkeleton";
 
-const 수원 = VOTE_TABLE_COLOR[0];
-const 양천 = VOTE_TABLE_COLOR[3];
-const 안양 = VOTE_TABLE_COLOR[2];
-const 강남 = VOTE_TABLE_COLOR[1];
+const 수원 = TABLE_COLORS[0];
+const 양천 = TABLE_COLORS[3];
+const 안양 = TABLE_COLORS[2];
+const 강남 = TABLE_COLORS[1];
 
 interface IRecordCalendar {
   month: number;

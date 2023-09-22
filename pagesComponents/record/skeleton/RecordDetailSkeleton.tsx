@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
-import { DEFAULT_ARRAY } from "../../../constants/system";
+import { DEFAULT_ARRAY } from "../../../constants/url";
 
 function RecordDetailSkeleton() {
   return (

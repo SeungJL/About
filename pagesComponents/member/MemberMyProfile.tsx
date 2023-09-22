@@ -2,7 +2,8 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import ScoreBadge from "../../components/common/user/ScoreBadge";
-import { birthToAge, getRole } from "../../helpers/converterHelpers";
+import { USER_ROLE } from "../../constants/user";
+import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 function MemberMyProfile() {
@@ -29,7 +30,7 @@ function MemberMyProfile() {
               </div>
               <div>
                 <span>구성</span>
-                <span>: {getRole(userInfo?.role)}</span>
+                <span>: {USER_ROLE[userInfo?.role]}</span>
               </div>
               <div>
                 <span>전공</span>

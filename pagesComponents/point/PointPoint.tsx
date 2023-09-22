@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ImageSlider from "../../components/features/lib/imageSlider/ImageSlider";
+import ImageSlider from "../../components/dataViews/chart/imageSlider/ImageSlider";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 import { STORE_GIFT } from "../../storage/Store";

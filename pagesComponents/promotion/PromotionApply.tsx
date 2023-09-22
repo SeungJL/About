@@ -2,7 +2,7 @@ import { Button, Collapse, Input, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";
 import styled from "styled-components";
-import ModalPortal from "../../components/modal/ModalPortal";
+import ModalPortal from "../../components/modals/ModalPortal";
 import { useFailToast } from "../../hooks/CustomToast";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
 import PromotionApplyModal from "../../modals/promotion/PromotionApplyModal";

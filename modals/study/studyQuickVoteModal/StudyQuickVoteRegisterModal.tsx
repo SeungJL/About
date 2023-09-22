@@ -2,9 +2,9 @@ import { faRegistered } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/modal/ModalComponents";
-import ModalPortal from "../../../components/modal/ModalPortal";
-import { ModalLayout } from "../../../components/modal/Modals";
+import { ModalHeaderX } from "../../../components/modals/ModalComponents";
+import ModalPortal from "../../../components/modals/ModalPortal";
+import { ModalLayout } from "../../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalMain,

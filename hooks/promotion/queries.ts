@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import { SERVER_URI } from "../../constants/system";
+import { SERVER_URI } from "../../constants/url";
 import { IPromotionApply } from "../../types/page/promotion";
 
 export const usePromotionQuery = (

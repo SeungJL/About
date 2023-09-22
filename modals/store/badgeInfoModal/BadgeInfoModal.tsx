@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalLayout } from "../../../components/modal/Modals";
+import { ModalLayout } from "../../../components/modals/Modals";
 import { ModalHeaderCenter } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import BadgeInfoModalFirstInfo from "./BadgeInfoModalFirstInfo";
