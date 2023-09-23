@@ -64,12 +64,21 @@ function Ranking({ usersAll }: IUsersAll) {
   //모든 유저 데이터와 attendAllData의 mixing
   useEffect(() => {
     if (isAttendRateLoading) return;
-    const userAll = attendAllData.map((who) => {
-      const userInfo = usersAll.find((user) => user.uid === who.uid);
-      return { ...userInfo, ...who };
-    });
+    const userAll =
+      category === "누적"
+        ? usersAll
+        : attendAllData.map((who) => {
+            const userInfo = usersAll.find((user) => user.uid === who.uid);
+            return { ...userInfo, ...who };
+          });
     setInitialUsersData(userAll);
-  }, [attendAllData, initialUsersData, isAttendRateLoading, usersAll]);
+  }, [
+    attendAllData,
+    category,
+    initialUsersData,
+    isAttendRateLoading,
+    usersAll,
+  ]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -78,12 +87,12 @@ function Ranking({ usersAll }: IUsersAll) {
     const filtered = isLocationFilter
       ? initialUsersData.filter((who) => who.location === location)
       : initialUsersData;
+
     const sortedData =
       category !== "누적"
         ? sortUserAttends(filtered, session?.uid as string)
         : sortUserScores(filtered, session?.uid as string);
 
-    console.log(sortedData);
     setRankInfo(sortedData);
     if (userInfo || isGuest) setIsLoading(false);
   }, [

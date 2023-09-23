@@ -34,7 +34,7 @@ function RankingMembers({ rankInfo, category }: IRankingMembers) {
     <Layout>
       {memberList?.map((who, idx) => {
         const whoValue =
-          value === !isAttendCategory
+          value !== isAttendCategory
             ? (who as IUser).score
             : (who as IRankingUser).cnt;
 
