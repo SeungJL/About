@@ -83,7 +83,7 @@ function ProfileInfo({ user }: IProfileInfo) {
       setIsHeartLoading(false);
     },
   });
-  console.log(5, isConditionOk);
+
   const onClickHeart = () => {
     if (isGuest) {
       failToast("free", "게스트에게는 불가능합니다.");
