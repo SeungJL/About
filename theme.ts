@@ -7,15 +7,15 @@ const theme = extendTheme({
       800: "#FF69B4",
     },
     redMy: "#ff6b6b",
-    mint: "var(--color-mint)",
+    mint: "#00c2b3",
     my: {
       bg: "#FEE7E7",
       color: "#FF69B4",
     },
     mintTheme: {
       100: "#E6FFFA",
-      500: "var(--color-mint)",
-      800: "var(--color-mint)",
+      500: "#00c2b3",
+      800: "#00c2b3",
     },
     redTheme: {
       500: "#ff6b6b",
