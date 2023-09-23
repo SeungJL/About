@@ -30,12 +30,11 @@ function GatherMain({ category }: IGatherMain) {
 
   useEffect(() => {
     if (category === "전체") setGatherData(gatherContentArr);
-    if (category === "수원")
-      setGatherData(gatherContentArr?.filter((item) => item.place === "수원"));
-    if (category === "양천")
-      setGatherData(gatherContentArr?.filter((item) => item.place === "양천"));
-    if (category === "안양")
-      setGatherData(gatherContentArr?.filter((item) => item.place === "안양"));
+    else
+      setGatherData(
+        gatherContentArr?.filter((item) => item.place === category)
+      );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, gatherContentArr]);
 
