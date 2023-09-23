@@ -74,6 +74,7 @@ function ProfileInfo({ user }: IProfileInfo) {
           const bothAttend = arrivedInfoList.arrivedInfo.filter(
             (item) => item.uid === user.uid || item.uid === session.uid
           );
+          console.log(13, bothAttend);
           if (bothAttend.length >= 2) {
             setIsConditionOk(true);
           }
@@ -82,7 +83,7 @@ function ProfileInfo({ user }: IProfileInfo) {
       setIsHeartLoading(false);
     },
   });
-
+  console.log(5, isConditionOk);
   const onClickHeart = () => {
     if (isGuest) {
       failToast("free", "게스트에게는 불가능합니다.");
