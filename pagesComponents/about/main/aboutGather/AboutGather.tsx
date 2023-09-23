@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination"; //
 import { Swiper, SwiperSlide } from "swiper/react";
 import AboutSectionHeader from "../../../../components/pages/AboutSectionHeader";
-import { GATHER_ALERT } from "../../../../constants/localStorage";
+import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
 import { useGatherContentQuery } from "../../../../hooks/gather/queries";
 import { isGatherAlertState } from "../../../../recoil/alertAtoms";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";

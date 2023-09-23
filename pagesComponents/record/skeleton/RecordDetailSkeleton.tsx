@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
-import { DEFAULT_ARRAY } from "../../../constants/url";
 
 function RecordDetailSkeleton() {
   return (
     <>
       <Layout>
-        {DEFAULT_ARRAY.map((item, idx) => (
+        {new Array(6).map((item, idx) => (
           <Block key={idx}>
             <Date>
               <span>

@@ -12,9 +12,8 @@ import {
 import { faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-
 import styled from "styled-components";
-import { DECLARE_LIST } from "../../constants/content";
+import { DECLARE_LIST } from "../../constants/contents/requestContents";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";

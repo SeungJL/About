@@ -1,7 +1,7 @@
 import { Badge } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { BADGE_COLOR } from "../../../constants/badge";
+import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { isGuestState } from "../../../recoil/userAtoms";

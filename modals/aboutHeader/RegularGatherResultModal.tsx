@@ -8,7 +8,7 @@ import {
   ModalHeaderX,
 } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { RABBIT_RUN } from "../../constants/localStorage";
+import { RABBIT_RUN } from "../../constants/keys/localStorage";
 import { ModalMain } from "../../styles/layout/modal";
 import { DispatchBoolean, IModal } from "../../types/reactTypes";
 

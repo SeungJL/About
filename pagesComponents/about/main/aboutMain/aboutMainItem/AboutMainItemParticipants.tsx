@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../../components/common/user/Profile/ProfileIconXsOverwrap";
-import { MAX_USER_PER_PLACE } from "../../../../../constants/study";
+import { MAX_USER_PER_PLACE } from "../../../../../constants/settingValue/study";
 import { IconUserTwo } from "../../../../../public/icons/Icons";
 import { IAttendance, StudyStatus } from "../../../../../types/study/study";
 

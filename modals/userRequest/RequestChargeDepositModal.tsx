@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { ACCOUNT_SHORT } from "../../constants/private";
+import { ACCOUNT_SHORT } from "../../constants/contents/Private";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";

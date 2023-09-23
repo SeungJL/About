@@ -9,9 +9,9 @@ import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
 import PageLayout from "../../components/layout/PageLayout";
+import { INTEREST_DATA } from "../../constants/contents/ProfileData";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-import { INTEREST_DATA } from "../../storage/ProfileData";
 
 function Interest() {
   const router = useRouter();

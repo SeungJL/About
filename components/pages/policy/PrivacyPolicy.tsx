@@ -13,7 +13,7 @@ import { faXmark } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NextLink from "next/link";
 import { Dispatch, SetStateAction } from "react";
-import { FullScreen } from "../styles/layout/modal";
+import { FullScreen } from "../../../styles/layout/modal";
 
 export const PrivacyPolicy = ({
   setIsModal,

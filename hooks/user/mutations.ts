@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { SERVER_URI } from "../../constants/url";
+import { SERVER_URI } from "../../constants/system";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import { MutationOptions } from "../../types/reactTypes";
 import { IAvatar, IUser2, IUserRegister, Role } from "../../types/user/user";

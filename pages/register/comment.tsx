@@ -10,11 +10,11 @@ import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
 import { useSession } from "next-auth/react";
 import PageLayout from "../../components/layout/PageLayout";
+import { MESSAGE_DATA } from "../../constants/contents/ProfileData";
 import { useUserInfoMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-import { MESSAGE_DATA } from "../../storage/ProfileData";
 
 function Comment() {
   const router = useRouter();

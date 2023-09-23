@@ -2,7 +2,7 @@ import { faCheckDouble, faThumbTack } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { PopUpLayout } from "../../components/modals/Modals";
-import { USER_GUIDE_POP_UP } from "../../constants/localStorage";
+import { USER_GUIDE_POP_UP } from "../../constants/keys/localStorage";
 import {
   ModalFooterNav,
   ModalHeaderCenter,

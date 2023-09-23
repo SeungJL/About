@@ -4,8 +4,8 @@ import { useQueries, useQuery, UseQueryOptions } from "react-query";
 import {
   USER_FINDPARTICIPATION,
   USER_FINDVOTES,
-} from "../../../constants/queryKeys";
-import { SERVER_URI } from "../../../constants/url";
+} from "../../../constants/keys/queryKeys";
+import { SERVER_URI } from "../../../constants/system";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { QueryOptions } from "../../../types/reactTypes";
 import { IVoteRate } from "../../../types/study/studyRecord";

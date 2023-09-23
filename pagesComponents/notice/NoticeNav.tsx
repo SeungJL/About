@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { LIKE_HEART_CNT } from "../../constants/localStorage";
+import { LIKE_HEART_CNT } from "../../constants/keys/localStorage";
 import { AlertIcon } from "../../styles/icons";
 import { DispatchBoolean } from "../../types/reactTypes";
 

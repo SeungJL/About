@@ -6,7 +6,7 @@ import {
   STUDY_SPACE_POP_UP,
   SUGGEST_POP_UP,
   USER_GUIDE_POP_UP,
-} from "../../../constants/localStorage";
+} from "../../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import FreeStudySpacePopUp from "../../../modals/pop-up/FreeStudySpacePopUp";

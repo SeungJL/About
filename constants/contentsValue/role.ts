@@ -1,6 +1,4 @@
-import { Role } from "../types/user/user";
-
-export const RANKING_ANONYMOUS_USERS = ["2653213703"];
+import { Role } from "../../types/user/user";
 
 export const USER_ROLE: Record<Role, string> = {
   human: "수습 멤버",

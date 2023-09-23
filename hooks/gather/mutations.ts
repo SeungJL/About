@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { SERVER_URI } from "../../constants/url";
+import { SERVER_URI } from "../../constants/system";
 import { IGatherCommentUnit } from "../../pagesComponents/gather/detail/GatherComment";
 import { IGatherContent, ParticipationPhase } from "../../types/page/gather";
 import { MutationOptions } from "../../types/reactTypes";

@@ -7,7 +7,7 @@ import { SECTION_NAME } from ".";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
-import { BADGE_COLOR } from "../../../constants/badge";
+import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";

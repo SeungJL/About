@@ -12,10 +12,10 @@ import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import dbConnect from "../../../libs/backend/dbConnect";
 
+import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contents/friend";
 import { User } from "../../../models/user";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { FRIEND_RECOMMEND_CATEGORY } from "../../../storage/friend";
 import { IUser } from "../../../types/user/user";
 
 function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {

@@ -14,7 +14,7 @@ import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { useRouter } from "next/router";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
+import { POINT_SYSTEM_MINUS } from "../../constants/contentsValue/pointSystem";
 import {
   useCompleteToast,
   useErrorToast,

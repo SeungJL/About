@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { RABBIT_RUN } from "../../constants/localStorage";
+import { RABBIT_RUN } from "../../constants/keys/localStorage";
 import {
   useCompleteToast,
   useErrorToast,

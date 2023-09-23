@@ -1,9 +1,9 @@
-import { BADGE_INFO } from "../constants/badge";
+import { BADGE_INFO } from "../constants/contentsValue/badge";
 import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,
   EVENT_BADGE_민트초코,
-} from "../storage/eventBadgeUser";
+} from "../constants/storage/eventBadgeUser";
 import {
   IRankingUser,
   ISortedUserAttends,

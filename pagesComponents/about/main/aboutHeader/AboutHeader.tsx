@@ -2,7 +2,10 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { NOTICE_ALERT, RABBIT_RUN } from "../../../../constants/localStorage";
+import {
+  NOTICE_ALERT,
+  RABBIT_RUN,
+} from "../../../../constants/keys/localStorage";
 import { useFailToast } from "../../../../hooks/CustomToast";
 import { attendCheckWinGiftState } from "../../../../recoil/renderTriggerAtoms";
 import { isGuestState } from "../../../../recoil/userAtoms";

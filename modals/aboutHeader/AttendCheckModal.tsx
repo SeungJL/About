@@ -15,7 +15,8 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { ATTEND_CHECK_POP_UP } from "../../constants/localStorage";
+import { ATTEND_CHECK_PRESENT_LIST } from "../../constants/contentsValue/attendCheck";
+import { ATTEND_CHECK_POP_UP } from "../../constants/keys/localStorage";
 import {
   useCompleteToast,
   useErrorToast,
@@ -27,7 +28,6 @@ import {
   useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { attendCheckWinGiftState } from "../../recoil/renderTriggerAtoms";
-import { ATTEND_CHECK_PRESENT_LIST } from "../../storage/attendCheck";
 import { ModalMain } from "../../styles/layout/modal";
 import { IattendCheckPresent } from "../../types/modal/attendCheck";
 import { IModal } from "../../types/reactTypes";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { STUDY_TIME_TABLE } from "../../../../constants/study";
+import { STUDY_TIME_TABLE } from "../../../../constants/settingValue/study";
 
 function TimeTable() {
   return (

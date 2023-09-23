@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PlaceSelector from "../../../components/features/picker/PlaceSelector";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
 import { ModalLayout } from "../../../components/modals/Modals";
-import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
+import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import {
   useCompleteToast,

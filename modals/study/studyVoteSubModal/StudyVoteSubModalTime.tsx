@@ -3,7 +3,7 @@ import "dayjs/locale/ko";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import TimeRullet from "../../../components/features/picker/TimeRullet";
-import { STUDY_START_VOTETIME_HOUR } from "../../../constants/study";
+import { STUDY_START_VOTETIME_HOUR } from "../../../constants/settingValue/study";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 

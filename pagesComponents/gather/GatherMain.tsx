@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { GATHER_ALERT } from "../../constants/localStorage";
-import { DEFAULT_ARRAY } from "../../constants/url";
+import { GATHER_ALERT } from "../../constants/keys/localStorage";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
@@ -53,7 +52,7 @@ function GatherMain({ category }: IGatherMain) {
         </Layout>
       ) : (
         <Layout>
-          {DEFAULT_ARRAY.map((item) => (
+          {new Array(6).map((item) => (
             <GatherBlockSkeleton key={item} />
           ))}
         </Layout>

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalLayout } from "../../components/modals/Modals";
-import { POINT_SYSTEM_MINUS } from "../../constants/pointSystem";
+import { POINT_SYSTEM_MINUS } from "../../constants/contentsValue/pointSystem";
 import {
   useCompleteToast,
   useErrorToast,

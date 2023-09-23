@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
-import { PROMOTION_TEXT } from "../../constants/private";
+import { PROMOTION_TEXT } from "../../constants/contents/Private";
 import PromotionText from "./PromotionText";
 
 function PromotionContent() {

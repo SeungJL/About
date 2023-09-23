@@ -108,7 +108,7 @@ const VoterCnt = styled.div`
   display: flex;
 
   > b {
-    margin-left: var(--margin-md);
+    margin-left: var(--margin-min);
     display: inline-block;
     text-align: end;
     width: 24px;

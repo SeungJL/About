@@ -13,7 +13,7 @@ import {
   ATTEND_CHECK_POP_UP,
   LIKE_HEART_CNT,
   NOTICE_ALERT,
-} from "../../../../constants/localStorage";
+} from "../../../../constants/keys/localStorage";
 import { useInteractionLikeQuery } from "../../../../hooks/interaction/queries";
 import { NOTICE_ARR } from "../../../../storage/notice";
 import { AlertIcon } from "../../../../styles/icons";

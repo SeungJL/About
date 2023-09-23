@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import styled from "styled-components";
-import { MONTH_LIST } from "../../../constants/util";
+import { MONTH_LIST } from "../../../constants/settingValue/util";
 import { getMonth } from "../../../helpers/dateHelpers";
 import { useErrorToast } from "../../../hooks/CustomToast";
 import {} from "../../../hooks/user/queries";

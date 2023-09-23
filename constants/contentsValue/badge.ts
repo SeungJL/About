@@ -1,4 +1,4 @@
-import { UserBadge } from "../types/user/user";
+import { UserBadge } from "../../types/user/user";
 
 interface IBadgeInfo {
   badge: UserBadge;

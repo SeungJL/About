@@ -7,10 +7,10 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import { BADGE_COLOR } from "../../../constants/badge";
-import { LIKE_HEART } from "../../../constants/localStorage";
-import { POINT_SYSTEM_PLUS } from "../../../constants/pointSystem";
-import { USER_ROLE } from "../../../constants/user";
+import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
+import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
+import { USER_ROLE } from "../../../constants/contentsValue/role";
+import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import {
   useAdminPointMutation,

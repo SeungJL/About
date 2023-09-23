@@ -9,7 +9,7 @@ import { ModalLayout } from "../../components/modals/Modals";
 import {
   POINT_SYSTEM_MINUS,
   POINT_SYSTEM_PLUS,
-} from "../../constants/pointSystem";
+} from "../../constants/contentsValue/pointSystem";
 import { getToday } from "../../helpers/dateHelpers";
 import {
   useCompleteToast,

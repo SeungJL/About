@@ -5,7 +5,11 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/modals/ModalPortal";
-import { BADGE_COLOR, BADGE_INFO, EVENT_BADGE } from "../../../constants/badge";
+import {
+  BADGE_COLOR,
+  BADGE_INFO,
+  EVENT_BADGE,
+} from "../../../constants/contentsValue/badge";
 import { SCHEME_TO_COLOR } from "../../../constants/styles";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";

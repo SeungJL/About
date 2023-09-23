@@ -1,4 +1,4 @@
-import { IattendCheckPresent } from "../types/modal/attendCheck";
+import { IattendCheckPresent } from "../../types/modal/attendCheck";
 
 export const ATTEND_CHECK_PRESENT_LIST: IattendCheckPresent[] = [
   { item: "10 Point", percent: 3 },

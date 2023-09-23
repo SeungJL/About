@@ -3,9 +3,9 @@ import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
+import { SQUARE_RANDOM_IMAGE } from "../../../constants/image/imageUrl";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { REVIEW_DATA } from "../../../storage/Review";
-import { SQUARE_RANDOM_IMAGE } from "../../../storage/SquareRandomImage";
 
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 

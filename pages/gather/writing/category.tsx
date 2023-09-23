@@ -6,12 +6,15 @@ import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
+import {
+  GatherCategoryIcons,
+  GATHER_CATEGORY,
+} from "../../../constants/contents/GatherContents";
 import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
-import { GatherCategoryIcons, GATHER_CATEGORY } from "../../../storage/Gather";
 import { GatherType } from "../../../types/page/gather";
 
 function WritingCategory() {

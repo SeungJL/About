@@ -6,7 +6,7 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import styled from "styled-components";
-import { OPEN_KAKAO_LINK } from "../../constants/private";
+import { OPEN_KAKAO_LINK } from "../../constants/contents/Private";
 
 export interface IAccordionContent {
   title: string;

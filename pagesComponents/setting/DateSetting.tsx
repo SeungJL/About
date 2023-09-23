@@ -2,7 +2,10 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { STUDY_VOTE_START_HOUR, VOTER_DATE_END } from "../../constants/study";
+import {
+  STUDY_VOTE_START_HOUR,
+  VOTER_DATE_END,
+} from "../../constants/settingValue/study";
 import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";

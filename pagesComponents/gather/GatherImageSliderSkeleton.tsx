@@ -2,7 +2,6 @@ import { faImage } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
-import { DEFAULT_ARRAY } from "../../constants/url";
 
 function GatherImageSliderSkeleton() {
   return (
@@ -13,7 +12,7 @@ function GatherImageSliderSkeleton() {
         </div>
         <span>리뷰</span>
       </GatherReviewNavIcon>
-      {DEFAULT_ARRAY.map((item) => (
+      {new Array(6).map((item) => (
         <GatherReviewNavItem key={item}>
           <div>
             <Skeleton>temp</Skeleton>

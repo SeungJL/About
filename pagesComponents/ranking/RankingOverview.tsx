@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
-import { BADGE_COLOR } from "../../constants/badge";
+import { BADGE_COLOR } from "../../constants/contentsValue/badge";
 import { schemeToColor } from "../../helpers/converterHelpers";
 import { getUserBadge } from "../../helpers/userHelpers";
 import { isGuestState } from "../../recoil/userAtoms";

@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { BADGE_COLOR } from "../../constants/badge";
+import { BADGE_COLOR } from "../../constants/contentsValue/badge";
 import { Location } from "../system";
 
 /** user */

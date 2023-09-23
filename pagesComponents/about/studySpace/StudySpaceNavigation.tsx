@@ -16,8 +16,8 @@ import {
 import { useSession } from "next-auth/react";
 
 import { useState } from "react";
-import { POINT_SYSTEM_MINUS } from "../../../constants/pointSystem";
-import { MAX_USER_PER_PLACE } from "../../../constants/study";
+import { POINT_SYSTEM_MINUS } from "../../../constants/contentsValue/pointSystem";
+import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
 import {
   useCompleteToast,
   useErrorToast,

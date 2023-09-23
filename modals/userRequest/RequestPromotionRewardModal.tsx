@@ -10,8 +10,11 @@ import {
   ModalHeaderX,
 } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { POINT_SYSTEM_PLUS } from "../../constants/pointSystem";
-import { PromotionComponent, PROMOTION_TEXT } from "../../constants/private";
+import {
+  PromotionComponent,
+  PROMOTION_TEXT,
+} from "../../constants/contents/Private";
+import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 

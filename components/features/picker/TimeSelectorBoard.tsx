@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import { STUDY_TIME_TABLE } from "../../../constants/study";
+import { STUDY_TIME_TABLE } from "../../../constants/settingValue/study";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { ITimeSelector } from "../../../types/timeAndDate";
 

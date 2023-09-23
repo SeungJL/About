@@ -1,5 +1,8 @@
 import dayjs, { Dayjs } from "dayjs";
-import { STUDY_VOTE_END_HOUR, STUDY_VOTE_START_HOUR } from "../constants/study";
+import {
+  STUDY_VOTE_END_HOUR,
+  STUDY_VOTE_START_HOUR,
+} from "../constants/settingValue/study";
 import {
   ANYANG_숨맑은집,
   ANYANG_인뎃커피,

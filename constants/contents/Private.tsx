@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { IAccordionContent } from "../components/templates/Accordion";
 export const ACCOUNT = "1002-364-221277 우리은행 이승주(어바웃)";
 export const ACCOUNT_SHORT = "1002-364-221277 우리은행 어바웃";
 
@@ -64,4 +63,3 @@ https://open.kakao.com/o/sjDgVzmf
 ✔혹시하는 마음에 한번 더 언급하자면 신천지아니고, 웹 사이트 상에서의 프로필도 모두 오픈되어 있어요! 관련해서 문의하지 말아주세요...🥲
 
 `;
-

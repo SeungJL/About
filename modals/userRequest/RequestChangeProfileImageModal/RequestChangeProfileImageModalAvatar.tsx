@@ -13,14 +13,14 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
 import { ModalLayout } from "../../../components/modals/Modals";
-import { useFailToast } from "../../../hooks/CustomToast";
-import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
-import { isGuestState } from "../../../recoil/userAtoms";
 import {
   AVATAR_COLOR,
   AVATAR_COST,
   AVATAR_ICON,
-} from "../../../storage/avatar";
+} from "../../../constants/contentsValue/avatar";
+import { useFailToast } from "../../../hooks/CustomToast";
+import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
+import { isGuestState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IAvatar } from "../../../types/user/user";
 

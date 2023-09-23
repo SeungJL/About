@@ -9,12 +9,9 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const Terms = ({ closeModal }) => {
-  const router = useRouter();
-
   return (
     <Layout>
       <Container>

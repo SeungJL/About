@@ -1,5 +1,5 @@
 import { Badge } from "@chakra-ui/react";
-import { BADGE_COLOR } from "../../../constants/badge";
+import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
 import { getUserBadge } from "../../../helpers/userHelpers";
 
 interface IScoreBadge {

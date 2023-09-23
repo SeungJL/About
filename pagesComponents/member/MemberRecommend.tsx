@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { FRIEND_RECOMMEND_CATEGORY } from "../../constants/contents/friend";
 import { useFailToast } from "../../hooks/CustomToast";
-import { FRIEND_RECOMMEND_CATEGORY } from "../../storage/friend";
 
 function MemberRecommend() {
   const failToast = useFailToast();

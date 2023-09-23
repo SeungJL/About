@@ -7,7 +7,7 @@ import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
-import { TIME_SELECTOR_UNIT } from "../../../constants/util";
+import { TIME_SELECTOR_UNIT } from "../../../constants/settingValue/util";
 import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";

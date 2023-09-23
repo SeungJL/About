@@ -4,7 +4,7 @@ import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { PopUpLayout } from "../../components/modals/Modals";
-import { USER_ROLE } from "../../constants/user";
+import { USER_ROLE } from "../../constants/contentsValue/role";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
 

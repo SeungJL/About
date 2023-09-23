@@ -9,7 +9,7 @@ import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
 import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import { LOCATION_USE_ALL } from "../../constants/location";
-import { WEB_URL } from "../../constants/url";
+import { WEB_URL } from "../../constants/system";
 import { useGatherSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pagesComponents/review/ReviewContent";
 import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
