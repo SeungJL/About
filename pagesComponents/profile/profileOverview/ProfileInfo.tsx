@@ -66,7 +66,7 @@ function ProfileInfo({ user }: IProfileInfo) {
   const { mutate: sendPoint } = useAdminPointMutation(user?.uid, {});
   const { mutate: sendScore } = useAdminScoremMutation(user?.uid);
 
-  useStudyCheckRecordsQuery(dayjs().subtract(5, "day"), dayjs(), {
+  useStudyCheckRecordsQuery(dayjs().subtract(4, "day"), dayjs().add(1, "day"), {
     enabled: !isGuest,
     onSuccess(data) {
       data.forEach((study) => {
