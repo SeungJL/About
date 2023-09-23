@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { Location } from "../system";
+import { LocationFilterType } from "../system";
 import { ITime } from "../timeAndDate";
 import { IUser } from "../user/user";
 
@@ -41,7 +41,7 @@ export interface IGatherContent {
   title: string;
   content: string;
   location: GatherLocation;
-  place: Location;
+  place: LocationFilterType;
   date: Dayjs | string;
   createdAt?: string;
   updatedAt?: string;

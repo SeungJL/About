@@ -1,13 +1,13 @@
 import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
 import { GatherStatus } from "../../../types/page/gather";
-import { Location } from "../../../types/system";
+import { LocationFilterType } from "../../../types/system";
 
 interface IGatherBlockHeader {
   status: GatherStatus;
   typeTitle: string;
   locationMain: string;
-  openLocation: Location;
+  openLocation: LocationFilterType;
 }
 
 function GatherBlockHeader({

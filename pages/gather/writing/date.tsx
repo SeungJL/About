@@ -31,7 +31,7 @@ function WritingDate() {
   );
 
   const [date, setDate] = useState<Date>();
-  const [detail, setDetail] = useState(gatherContent?.location?.sub);
+  const [detail, setDetail] = useState(gatherContent?.location?.sub || "");
   const [location, setLocation] = useState(gatherContent?.location?.main);
 
   useEffect(() => {
