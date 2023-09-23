@@ -10,7 +10,7 @@ function BadgeInfoModalSecondInfo() {
             딸기스무디
           </Badge>
         </div>
-        <Info>이벤트 흭득 예정</Info>
+        <Info>출석보상 획득 가능</Info>
       </Item>
       <Item>
         <div>
@@ -18,7 +18,15 @@ function BadgeInfoModalSecondInfo() {
             라벤더
           </Badge>
         </div>
-        <Info>이벤트 흭득 예정</Info>
+        <Info>출석보상 획득 가능</Info>
+      </Item>
+      <Item>
+        <div>
+          <Badge fontSize={12} colorScheme="mintTheme">
+            민트초코
+          </Badge>
+        </div>
+        <Info>비공개</Info>
       </Item>
     </Layout>
   );
