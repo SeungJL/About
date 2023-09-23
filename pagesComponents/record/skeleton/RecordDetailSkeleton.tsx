@@ -5,7 +5,7 @@ function RecordDetailSkeleton() {
   return (
     <>
       <Layout>
-        {new Array(6).map((item, idx) => (
+        {new Array(6).fill(0).map((_, idx) => (
           <Block key={idx}>
             <Date>
               <span>

@@ -52,8 +52,8 @@ function GatherMain({ category }: IGatherMain) {
         </Layout>
       ) : (
         <Layout>
-          {new Array(6).map((item) => (
-            <GatherBlockSkeleton key={item} />
+          {new Array(6).fill(0).map((item, idx) => (
+            <GatherBlockSkeleton key={idx} />
           ))}
         </Layout>
       )}
