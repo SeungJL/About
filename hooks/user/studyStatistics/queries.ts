@@ -45,11 +45,12 @@ export const useUserAttendRateAllQuery = (
         `${SERVER_URI}/user/participationrate/all`,
         {
           params: {
-            startDay: startDay.format("YYYY-MM-DD"),
-            endDay: endDay.format("YYYY-MM-DD"),
+            startDay: dayjsToStr(startDay),
+            endDay: dayjsToStr(endDay),
           },
         }
       );
+
       return res.data;
     },
     options
