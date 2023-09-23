@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
+import { PopOverIcon2 } from "../../../components/common/Icon/PopOverIcon2";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IApplyRest } from "./RequestRestModal";
 const POPOVER_MESSAGE =
@@ -55,7 +55,7 @@ function RequestRestModalInfo({ onSubmit }: IRequestRestModalInfo) {
             <option value="일반">일반 휴식</option>
             <option value="특별">특별 휴식</option>
           </TypeSelect>
-          <PopOverIcon title="일반 휴식 / 특별 휴식" text={POPOVER_MESSAGE} />
+          <PopOverIcon2 title="일반 휴식 / 특별 휴식" text={POPOVER_MESSAGE} />
         </Item>
         <DateItem>
           <span>기간:</span>
