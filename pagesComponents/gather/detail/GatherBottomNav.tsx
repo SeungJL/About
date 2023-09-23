@@ -111,7 +111,7 @@ function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
           </Button>
         )}
       </Layout>{" "}
-      {isParticipationModal && (
+      {!isParticipationModal && (
         <ModalPortal setIsModal={setIsParticipationModal}>
           <GatherParticipateModal
             setIsModal={setIsParticipationModal}
