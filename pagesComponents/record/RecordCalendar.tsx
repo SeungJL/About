@@ -102,7 +102,7 @@ const CallenderDays = styled.div`
   padding: 0;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-auto-rows: 56px;
+  grid-auto-rows: 68px;
 `;
 const DayItem = styled.div`
   flex: 1;

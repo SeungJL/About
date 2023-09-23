@@ -22,7 +22,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
   const router = useRouter();
   const setUserData = useSetRecoilState(transferUserDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
-  const organizer = data.user;
+const organizer = data.user;
   const status = data?.status;
   const onClickProfile = (user: IUser) => {
     setUserData(user);
