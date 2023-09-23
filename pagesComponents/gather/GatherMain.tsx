@@ -32,7 +32,9 @@ function GatherMain({ category }: IGatherMain) {
     if (category === "전체") setGatherData(gatherContentArr);
     else
       setGatherData(
-        gatherContentArr?.filter((item) => item.place === category)
+        gatherContentArr?.filter(
+          (item) => item.place === category || item.place === "전체"
+        )
       );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
