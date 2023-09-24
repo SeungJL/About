@@ -33,14 +33,14 @@ function RankingMembers({ rankInfo, category }: IRankingMembers) {
   return (
     <Layout>
       {memberList?.map((who, idx) => {
-        const whoValue =
-          value !== isAttendCategory
-            ? (who as IUser).score
-            : (who as IRankingUser).cnt;
-
+        const whoValue = !isAttendCategory
+          ? (who as IUser).score
+          : (who as IRankingUser).cnt;
+        console.log(isAttendCategory, whoValue);
         if (value === whoValue) dupCnt++;
         else dupCnt = 0;
         value = whoValue;
+
         const badge = getUserBadge(who?.score, who?.uid);
         return (
           <Item key={idx} id={`ranking${who.uid}`}>

@@ -72,13 +72,7 @@ function Ranking({ usersAll }: IUsersAll) {
             return { ...userInfo, ...who };
           });
     setInitialUsersData(userAll);
-  }, [
-    attendAllData,
-    category,
-    initialUsersData,
-    isAttendRateLoading,
-    usersAll,
-  ]);
+  }, [attendAllData, category, isAttendRateLoading, usersAll]);
 
   useEffect(() => {
     setIsLoading(true);
