@@ -10,7 +10,7 @@ import { useStudyPlacesLocationQuery } from "../../hooks/study/queries";
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IPlace } from "../../types/study/study";
+import { IPlace } from "../../types/study/studyDetail";
 import { IStudyPlaces } from "../../types/study/studyUserAction";
 
 function RequestStudyPreferenceModal({ setIsModal }: IModal) {

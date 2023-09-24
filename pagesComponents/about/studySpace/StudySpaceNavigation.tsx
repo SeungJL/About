@@ -28,7 +28,7 @@ import {
   useScoreMutation,
 } from "../../../hooks/user/pointSystem/mutation";
 
-import { IParticipation } from "../../../types/study/study";
+import { IParticipation } from "../../../types/study/studyDetail";
 import { IUser } from "../../../types/user/user";
 import StudySpaceNavModal from "./studySpaceNavModal";
 

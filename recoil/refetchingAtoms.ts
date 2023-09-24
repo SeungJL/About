@@ -8,6 +8,12 @@ export const isRefetchStudySpaceState = atom({
   key: "isRefetchStudySpace",
   default: false,
 });
+
+export const isRefetchStudyAbsentState = atom({
+  key: "isRefetchStudyAbsent",
+  default: false,
+});
+
 export const isRefetchUserInfoState = atom({
   key: "isRefetchUserInfoState",
   default: false,

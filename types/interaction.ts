@@ -1,5 +1,3 @@
-import { Dayjs } from "dayjs";
-
 export type InteractionType = "like";
 
 export interface IInteractionSendLike {
@@ -14,5 +12,5 @@ export interface IInteractionGetLike extends IInteractionSendLike {
 
 export interface IInteractionLikeStorage {
   uid: string;
-  date: Dayjs;
+  date: string;
 }

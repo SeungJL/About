@@ -11,7 +11,7 @@ import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
 import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/record/RecordOverview";
 import RecordSetting from "../../pagesComponents/record/RecordSetting";
-import { IArrivedData } from "../../types/study/studyRecord";
+import { IArrivedData } from "../../types/study/study";
 
 export interface IDateRange {
   startDate: Dayjs;

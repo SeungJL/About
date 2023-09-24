@@ -32,7 +32,7 @@ import {
   YANG_파스쿠찌,
   YANG_할리스,
 } from "../storage/study";
-import { IParticipation, IPlace, StudyDate } from "../types/study/study";
+import { IParticipation, IPlace, StudyDate } from "../types/study/studyDetail";
 import { getToday, now } from "./dateHelpers";
 
 export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {

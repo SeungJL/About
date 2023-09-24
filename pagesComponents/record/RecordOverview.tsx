@@ -10,7 +10,7 @@ import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IDateRange } from "../../pages/record";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
-import { IArrivedData } from "../../types/study/studyRecord";
+import { IArrivedData } from "../../types/study/study";
 import RecordOverviewSkeleton from "./skeleton/RecordOverviewSkeleton";
 interface IRecordOverview {
   dateRange: IDateRange;

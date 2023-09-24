@@ -9,8 +9,9 @@ import StudySpaceOverview from "../../../../pagesComponents/about/studySpace/Stu
 import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/StudySpaceSetting";
 import StudySpaceSkeleton from "../../../../pagesComponents/about/studySpace/StudySpaceSkeleton";
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
+import StudySpaceUserComments from "../../../../pagesComponents/about/studySpace/studySpaceUserComments/StudySpaceUserComments";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
-import { IParticipation } from "../../../../types/study/study";
+import { IParticipation } from "../../../../types/study/studyDetail";
 
 const IMAGE_ARRAY_LENGTH = 6;
 
@@ -50,6 +51,7 @@ function StudySpace() {
               place={place}
             />
             <StudyTimeTable attendances={attendances} />
+            <StudySpaceUserComments attendances={attendances} />
             <StudySpaceNavigation
               participation={participation}
               voteCnt={attendances.length}

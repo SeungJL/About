@@ -9,7 +9,7 @@ import {
   ISortedUserAttends,
   ISortedUserScores,
 } from "../types/page/ranking";
-import { IVoteRate } from "../types/study/studyRecord";
+import { IVoteRate } from "../types/study/study";
 import { IScore } from "../types/user/pointSystem";
 import { IUser, UserBadge } from "../types/user/user";
 

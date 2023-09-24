@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { SetStateAction, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
-import { IArrivedData } from "../../types/study/studyRecord";
+import { IArrivedData } from "../../types/study/study";
 
 interface IRecordSetting {
   openData: IArrivedData[];

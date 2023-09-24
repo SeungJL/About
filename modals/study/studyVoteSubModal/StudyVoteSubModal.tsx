@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import {
   useAdminPointMutation,
-  useAdminScoremMutation,
+  useAdminScoreMutation,
 } from "../../../hooks/admin/mutation";
 import {
   useCompleteToast,
@@ -29,7 +29,7 @@ import {
 } from "../../../hooks/user/pointSystem/mutation";
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { IModal } from "../../../types/reactTypes";
-import { IPlace } from "../../../types/study/study";
+import { IPlace } from "../../../types/study/studyDetail";
 import { IStudyParticipate } from "../../../types/study/studyUserAction";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
 import StudyVoteSubModalTime from "./StudyVoteSubModalTime";
@@ -55,9 +55,7 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getScore } = useScoreMutation();
-  const { mutate: getInviteScore } = useAdminScoremMutation(
-    inviteUid as string
-  );
+  const { mutate: getInviteScore } = useAdminScoreMutation(inviteUid as string);
   const { mutate: getInvitePoint } = useAdminPointMutation(inviteUid as string);
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {

@@ -11,10 +11,11 @@ import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { USER_ROLE } from "../../../constants/contentsValue/role";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
+import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import {
   useAdminPointMutation,
-  useAdminScoremMutation,
+  useAdminScoreMutation,
 } from "../../../hooks/admin/mutation";
 import {
   useCompleteToast,
@@ -64,7 +65,7 @@ function ProfileInfo({ user }: IProfileInfo) {
   });
 
   const { mutate: sendPoint } = useAdminPointMutation(user?.uid, {});
-  const { mutate: sendScore } = useAdminScoremMutation(user?.uid);
+  const { mutate: sendScore } = useAdminScoreMutation(user?.uid);
 
   useStudyCheckRecordsQuery(dayjs().subtract(4, "day"), dayjs().add(1, "day"), {
     enabled: !isGuest,
@@ -74,7 +75,6 @@ function ProfileInfo({ user }: IProfileInfo) {
           const bothAttend = arrivedInfoList.arrivedInfo.filter(
             (item) => item.uid === user.uid || item.uid === session.uid
           );
-          console.log(13, bothAttend);
           if (bothAttend.length >= 2) {
             setIsConditionOk(true);
           }
@@ -114,7 +114,7 @@ function ProfileInfo({ user }: IProfileInfo) {
       LIKE_HEART,
       JSON.stringify([
         storedLikeArr && [...storedLikeArr],
-        { uid: user?.uid, date: dayjs() },
+        { uid: user?.uid, date: dayjsToStr(dayjs()) },
       ])
     );
     const data: IInteractionSendLike = {

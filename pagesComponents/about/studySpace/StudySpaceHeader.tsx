@@ -5,7 +5,7 @@ import styled from "styled-components";
 import KakaoShareBtn from "../../../components/features/lib/KakaoShareBtn";
 import { WEB_URL } from "../../../constants/system";
 import { STUDY_SPACE_INFO } from "../../../storage/study";
-import { IPlace } from "../../../types/study/study";
+import { IPlace } from "../../../types/study/studyDetail";
 
 const STUDY_RANDOM_IMGAGE_LENGTH = 6;
 interface IStudySpaceHeader {

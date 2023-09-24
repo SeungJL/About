@@ -6,13 +6,17 @@ import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 
 import {
+  IAbsentInfo,
+  IArrivedData,
+  IStudyPlaces,
+} from "../../types/study/study";
+import {
   IPlace,
   IStudyPreferencesQuery,
   IStudyStartTime,
   IVote,
-} from "../../types/study/study";
-import { IArrivedData } from "../../types/study/studyRecord";
-import { IStudyPlaces } from "../../types/study/studyUserAction";
+} from "../../types/study/studyDetail";
+
 import { Location } from "../../types/system";
 
 export const useStudyVoteQuery = (
@@ -114,10 +118,7 @@ export const useStudyCheckRecordsQuery = (
     },
     options
   );
-interface IAbsentInfo {
-  message?: string;
-  uid?: string;
-}
+
 export const useStudyAbsentQuery = (
   date: Dayjs,
   options?: Omit<

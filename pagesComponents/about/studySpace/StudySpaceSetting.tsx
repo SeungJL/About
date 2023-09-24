@@ -15,7 +15,7 @@ import {
   voteDateState,
 } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
-import { IParticipation, IVote } from "../../../types/study/study";
+import { IParticipation, IVote } from "../../../types/study/studyDetail";
 
 interface IStudySpaceSetting {
   participation: IParticipation;

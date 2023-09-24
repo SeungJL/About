@@ -4,7 +4,7 @@ import {
   IParticipation,
   IStudyStartTime,
   StudyDate,
-} from "../types/study/study";
+} from "../types/study/studyDetail";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const participationsState = atom<IParticipation[]>({

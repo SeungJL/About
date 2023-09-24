@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import { strToDate } from "../../../../helpers/dateHelpers";
 import dbConnect from "../../../../libs/backend/dbConnect";
 import { Vote } from "../../../../models/vote";
-import { IVote } from "../../../../types/study/study";
+import { IVote } from "../../../../types/study/studyDetail";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

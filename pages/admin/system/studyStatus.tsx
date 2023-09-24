@@ -27,7 +27,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { IAttendance, StudyStatus } from "../../../types/study/study";
+import { IAttendance, StudyStatus } from "../../../types/study/studyDetail";
 import { IUser } from "../../../types/user/user";
 
 const LOCATION = ["SUWAN", "YANG"];

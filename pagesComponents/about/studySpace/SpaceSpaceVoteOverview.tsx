@@ -7,7 +7,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/modals/ModalPortal";
 import StudyInviteModal from "../../../modals/study/StudyInviteModal";
-import { IPlace } from "../../../types/study/study";
+import { IPlace } from "../../../types/study/studyDetail";
 interface IStudySpaceVoteOverview {
   voteCnt: number;
   place: IPlace;

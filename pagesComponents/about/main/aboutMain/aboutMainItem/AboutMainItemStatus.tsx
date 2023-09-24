@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { studyStartTimeState } from "../../../../../recoil/studyAtoms";
-import { IPlace } from "../../../../../types/study/study";
+import { IPlace } from "../../../../../types/study/studyDetail";
 
 interface IAboutMainItemStatus {
   status: string;

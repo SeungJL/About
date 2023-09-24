@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { IGatherContent } from "../types/page/gather";
 import { MemberClassification } from "../types/page/member";
 
-import { IParticipation } from "../types/study/study";
+import { IParticipation } from "../types/study/studyDetail";
 import { IUser } from "../types/user/user";
 
 export const transferUserDataState = atom<IUser>({

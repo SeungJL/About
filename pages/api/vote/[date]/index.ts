@@ -8,7 +8,11 @@ import { Vote } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
 import { IStudyParticipate } from "../../../../types/study/studyUserAction";
 
-import { IAttendance, IPlace, IVote } from "../../../../types/study/study";
+import {
+  IAttendance,
+  IPlace,
+  IVote,
+} from "../../../../types/study/studyDetail";
 import { IUser } from "../../../../types/user/user";
 
 const secret = process.env.NEXTAUTH_SECRET;

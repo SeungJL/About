@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { TABLE_COLORS } from "../../constants/styles";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { SPACE_LOCATION } from "../../storage/study";
-import { IArrivedData } from "../../types/study/studyRecord";
+import { IArrivedData } from "../../types/study/study";
 import { Location } from "../../types/system";
 import RecordCalendarSkeleton from "./skeleton/RecordCalendarSkeleton";
 

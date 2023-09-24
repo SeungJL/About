@@ -8,7 +8,7 @@ import { getMonth } from "../../../helpers/dateHelpers";
 import { useErrorToast } from "../../../hooks/CustomToast";
 import {} from "../../../hooks/user/queries";
 import { useUserAttendRateAllQueries } from "../../../hooks/user/studyStatistics/queries";
-import { IVoteRate } from "../../../types/study/studyRecord";
+import { IVoteRate } from "../../../types/study/study";
 import { IUser } from "../../../types/user/user";
 import { ChartStudyOptions } from "./ChartOptions";
 

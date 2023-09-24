@@ -1,4 +1,4 @@
-import { IVoteRate } from "../study/studyRecord";
+import { IVoteRate } from "../study/study";
 import { IScore } from "../user/pointSystem";
 import { IUser, IUser2 } from "../user/user";
 

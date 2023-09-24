@@ -10,7 +10,7 @@ import { WEB_URL } from "../../constants/system";
 import { STUDY_SPACE_INFO } from "../../storage/study";
 import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IPlace } from "../../types/study/study";
+import { IPlace } from "../../types/study/studyDetail";
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 
 interface IStudyInviteModal extends IModal {

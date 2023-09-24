@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { LOCATION_CONVERT, LOCATION_OPEN } from "../../constants/location";
 import { TABLE_COLORS } from "../../constants/styles";
 import { SPACE_LOCATION } from "../../storage/study";
-import { IArrivedData } from "../../types/study/studyRecord";
+import { IArrivedData } from "../../types/study/study";
 import { Location, LocationFilterType } from "../../types/system";
 
 interface IRecordLocationCategory {

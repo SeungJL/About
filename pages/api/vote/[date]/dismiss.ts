@@ -4,7 +4,7 @@ import { strToDate } from "../../../../helpers/dateHelpers";
 import dbConnect from "../../../../libs/backend/dbConnect";
 
 import { findOneVote } from "../../../../services/voteService";
-import { IAbsence, IVote } from "../../../../types/study/study";
+import { IAbsence, IVote } from "../../../../types/study/studyDetail";
 import { IUser } from "../../../../types/user/user";
 
 const secret = process.env.NEXTAUTH_SECRET;

@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { locationState } from "../../../recoil/userAtoms";
-import { IPlace } from "../../../types/study/study";
+import { IPlace } from "../../../types/study/studyDetail";
 import { Location } from "../../../types/system";
 import { StudySpaceLogo } from "../../utils/DesignAdjustment";
 

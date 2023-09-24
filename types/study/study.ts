@@ -1,67 +1,39 @@
 import { Dayjs } from "dayjs";
-import { Document } from "mongoose";
+import { IPlace } from "./studyDetail";
 
-import { IDayjsStartToEnd, ITimeStartToEnd } from "../timeAndDate";
-import { IUser } from "../user/user";
-import { IStudyPlaces } from "./studyUserAction";
 
-export interface IVote extends Document {
-  date: Date;
-  participations: IParticipation[];
-}
-export interface IVote2 {
-  date: Date;
-  participations: IParticipation[];
+/** arrived */
+export interface IArrivedInfo {
+  uid: string;
+  name: string;
 }
 
-export interface IParticipation extends ITimeStartToEnd {
-  place: IPlace;
-  attendences: IAttendance[];
-  absences: IAbsence[];
-  startTime?: Date;
-  endTime?: Date;
-  status: StudyStatus;
-}
-
-export interface IAttendance {
-  user: IUser;
-  time: IDayjsStartToEnd;
-  created: Date;
-  arrived?: Date;
-  firstChoice: boolean;
-  confirmed: boolean;
-  memo: string;
-}
-
-export interface IPlace {
-  status: string;
-  fullname: string;
-  brand?: string;
-  branch?: string;
-  image?: string;
-  latitude: number;
-  longitude: number;
-  priority?: number;
-  _id: string;
-  location: string;
-}
-
-export interface IAbsence {
-  user: string | IUser;
-  noShow: boolean;
-  message: string;
-}
-
-export type StudyStatus = "pending" | "open" | "dismissed" | "free";
-
-export interface IStudyStartTime {
+export interface IArrivedInfoList {
   placeId: string;
-  startTime: Dayjs;
+  arrivedInfo: IArrivedInfo[];
 }
 
-export type StudyDate = "passed" | "today" | "not passed";
+export interface IArrivedData {
+  date: string | number;
+  arrivedInfoList: IArrivedInfoList[];
+}
 
-export interface IStudyPreferencesQuery {
-  _id: string;
-  studyPreference: IStudyPlaces;
+export interface IVoteRate {
+  uid: string;
+  cnt: number;
+}
+
+export interface IAbsentInfo {
+  message?: string;
+  uid?: string;
+}
+
+export interface IStudyPlaces {
+  place: IPlace;
+  subPlace?: IPlace[];
+}
+
+export interface IStudyParticipate extends IStudyPlaces {
+  start: Dayjs;
+  end: Dayjs;
 }

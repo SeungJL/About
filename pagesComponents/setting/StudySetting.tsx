@@ -14,7 +14,7 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
-import { IParticipation } from "../../types/study/study";
+import { IParticipation } from "../../types/study/studyDetail";
 
 function StudySetting() {
   const { data: session } = useSession();

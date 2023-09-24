@@ -1,5 +1,6 @@
 import {
   faCircleCheck,
+  faCircleHeart,
   faCircleXmark,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
@@ -17,7 +18,7 @@ import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrived
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
-import { IAttendance } from "../../../../types/study/study";
+import { IAttendance } from "../../../../types/study/studyDetail";
 import { IUser } from "../../../../types/user/user";
 
 interface IArrivedComment {
@@ -39,14 +40,15 @@ function ArrivedComment({ attendances }: IArrivedComment) {
   const { data: absentData, refetch } = useStudyAbsentQuery(voteDate);
 
   useEffect(() => {
+    console.log(1);
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attendances]);
 
   const onClickUser = (user: IUser) => {
     setUserData(user);
-    router.push(`/profile/${user.uid}}`);
     setBeforePage(router?.asPath);
+    router.push(`/profile/${user.uid}}`);
   };
 
   const onClickEdit = (event: MouseEvent<SVGSVGElement>, att: IAttendance) => {
@@ -80,7 +82,18 @@ function ArrivedComment({ attendances }: IArrivedComment) {
               <ProfileIcon user={user} size="md" />
               <BlockInfo>
                 <Info>
-                  <span>{user.name}</span>
+                  <NameContainer>
+                    <span>{user.name}</span>
+
+                    <HeartWrapper>
+                      <FontAwesomeIcon
+                        icon={faCircleHeart}
+                        color="var(--color-red)"
+                        flip={true}
+                        style={{ animationDuration: "2s" }}
+                      />
+                    </HeartWrapper>
+                  </NameContainer>
                   <div>
                     {!isAbsent ? (
                       <Memo>
@@ -155,6 +168,23 @@ const Absent = styled.span`
   margin-left: var(--margin-min);
 `;
 
+const NameContainer = styled.div`
+  display: flex;
+  align-items: center;
+  > span:first-child {
+    color: var(--font-h1);
+    font-weight: 600;
+    font-size: 15px;
+    margin-right: var(--margin-min);
+  }
+`;
+
+const HeartWrapper = styled.div`
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+`;
+
 const Memo = styled.span``;
 
 const Check = styled.div<{ isCheck: boolean }>`
@@ -180,10 +210,7 @@ const Info = styled.div`
   display: flex;
   justify-content: center;
   padding: var(--padding-min) 0;
-  > span {
-    font-weight: 600;
-    font-size: 15px;
-  }
+
   > div {
     font-size: 13px;
     margin-top: var(--margin-min);

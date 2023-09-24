@@ -7,7 +7,7 @@ import {
   isVotingState,
   studyDateStatusState,
 } from "../../../../recoil/studyAtoms";
-import { IAttendance } from "../../../../types/study/study";
+import { IAttendance } from "../../../../types/study/studyDetail";
 
 const BLOCK_WIDTH = 26;
 

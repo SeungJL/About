@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
+import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { voteDateState } from "../../recoil/studyAtoms";
@@ -14,7 +14,7 @@ import {
   ModalSubtitle,
 } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { IAttendance } from "../../types/study/study";
+import { IAttendance } from "../../types/study/studyDetail";
 
 interface IStudyChangeArrivedModal extends IModal {
   user: IAttendance;
@@ -25,7 +25,6 @@ function StudyChangeArrivedModal({
   user,
 }: IStudyChangeArrivedModal) {
   const completeToast = useCompleteToast();
-  const failToast = useFailToast();
 
   const voteDate = useRecoilValue(voteDateState);
   const setIsRefetch = useSetRecoilState(isRefetchStudySpaceState);

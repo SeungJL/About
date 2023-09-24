@@ -11,6 +11,15 @@ export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>
     });
   }, options);
 
+export const useAdminAboutPointMutaion = (
+  uid: string,
+  options?: MutationOptions<IPointSystem>
+) =>
+  useMutation<void, AxiosError, IPointSystem>(async (data) => {
+    await axios.post(`${SERVER_URI}/admin/user/${uid}/point`, data);
+    await axios.post(`${SERVER_URI}/admin/user/${uid}/score`, data);
+  }, options);
+
 export const useAdminPointMutation = (
   uid: string,
   options?: MutationOptions<IPointSystem>
@@ -19,7 +28,7 @@ export const useAdminPointMutation = (
     await axios.post(`${SERVER_URI}/admin/user/${uid}/point`, data);
   }, options);
 
-export const useAdminScoremMutation = (
+export const useAdminScoreMutation = (
   uid: string,
   options?: MutationOptions<IPointSystem>
 ) =>

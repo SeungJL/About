@@ -3,10 +3,8 @@ import { Dayjs } from "dayjs";
 import { useMutation, UseMutationOptions } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
-import {
-  IStudyParticipate,
-  IStudyPlaces,
-} from "../../types/study/studyUserAction";
+import { IStudyParticipate, IStudyPlaces } from "../../types/study/study";
+
 import { IDayjsStartToEnd } from "../../types/timeAndDate";
 
 export const useStudyParticipateMutation = (
@@ -53,6 +51,7 @@ export const useStudyArrivedMutation = (
   >
 ) =>
   useMutation<void, AxiosError, string>(async (memo) => {
+    console.log(date, memo);
     await axios.patch(`${SERVER_URI}/vote/${dayjsToStr(date)}/arrived`, {
       memo,
     });

@@ -8,7 +8,7 @@ import {
   voteDateState,
 } from "../../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
-import { IParticipation } from "../../../../types/study/study";
+import { IParticipation } from "../../../../types/study/studyDetail";
 import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
 import AboutMainItemStatus from "./aboutMainItem/AboutMainItemStatus";
 

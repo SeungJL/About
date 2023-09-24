@@ -6,7 +6,7 @@ import {
   SUWAN_이디야,
   YANG_이디야,
 } from "../../storage/study";
-import { IPlace } from "../../types/study/study";
+import { IPlace } from "../../types/study/studyDetail";
 
 interface IStudySpaceLogo {
   place: IPlace;

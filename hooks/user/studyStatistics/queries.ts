@@ -8,7 +8,7 @@ import {
 import { SERVER_URI } from "../../../constants/system";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { QueryOptions } from "../../../types/reactTypes";
-import { IVoteRate } from "../../../types/study/studyRecord";
+import { IVoteRate } from "../../../types/study/study";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 export const useUserAttendRateQuery = (

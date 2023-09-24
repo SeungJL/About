@@ -1,4 +1,4 @@
-import { IPlace } from "./study/study";
+import { IPlace } from "./study/studyDetail";
 import { IUser } from "./user/user";
 
 export interface IAttendance2 extends Document {

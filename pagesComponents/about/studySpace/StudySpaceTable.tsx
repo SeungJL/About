@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { IAttendance } from "../../../types/study/study";
-import ArrivedComment from "./studySpaceTable/ArrivedComment";
+import { IAttendance } from "../../../types/study/studyDetail";
 import TimeTable from "./studySpaceTable/TimeTable";
 import UserTable from "./studySpaceTable/UserTable";
 
@@ -17,7 +16,6 @@ function StudyTimeTable({ attendances }: IStudyTimeTable) {
         <UserTable attendances={attendances} />
         <TimeTable />
       </Table>
-      <ArrivedComment attendances={attendances} />
     </>
   );
 }
