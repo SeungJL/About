@@ -16,13 +16,10 @@ export const checkAndSetLocalStorage = (key: string, gap: number) => {
 
 export const pushArrToLocalStorage = (key: string, uid: string) => {
   const currentDateStr = dayjsToStr(dayjs());
-  const stored: IInteractionLikeStorage[] = JSON.parse(
-    localStorage.getItem(key)
-  );
-  const changed = stored?.length
-    ? stored.map((item) =>
-        item.uid === uid ? { ...item, date: currentDateStr } : item
-      )
-    : [{ uid, date: currentDateStr }];
-  localStorage.setItem(key, JSON.stringify(changed));
+  const stored: IInteractionLikeStorage[] =
+    JSON.parse(localStorage.getItem(key)) || [];
+  const foundItem = stored?.find((item) => item.uid === uid);
+  if (foundItem) foundItem.date = currentDateStr;
+  else stored.push({ uid, date: currentDateStr });
+  localStorage.setItem(key, JSON.stringify(stored));
 };

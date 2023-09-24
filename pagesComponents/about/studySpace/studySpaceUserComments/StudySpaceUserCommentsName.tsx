@@ -1,6 +1,8 @@
 import { faCircleHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { POINT_SYSTEM_PLUS } from "../../../../constants/contentsValue/pointSystem";
 import { LIKE_HEART } from "../../../../constants/keys/localStorage";
@@ -22,8 +24,12 @@ function StudySpaceUserCommentsName({
   name,
   isArrivedCondition,
 }: IStudySpaceUserCommentsName) {
+  const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
+
+  const [isHeart, setIsHeart] = useState(false);
+  const [isRecheck, setIsRecheck] = useState(true);
 
   const { mutate: sendAboutPoint } = useAdminAboutPointMutaion(uid);
 
@@ -34,23 +40,34 @@ function StudySpaceUserCommentsName({
     onError: errorToast,
   });
 
-  const isLikeRecord = (
-    JSON.parse(localStorage.getItem(LIKE_HEART)) as IInteractionLikeStorage[]
-  )?.find((who) => who.uid === uid);
-
-  const isOverlap =
-    isLikeRecord !== undefined &&
-    dayjs().diff(dayjs(isLikeRecord?.date), "day") < LIKE_HEART_PERIOD;
+  useEffect(() => {
+    if (!isRecheck) return;
+    const isLikeRecord = (
+      JSON.parse(localStorage.getItem(LIKE_HEART)) as IInteractionLikeStorage[]
+    )?.find((who) => who.uid === uid);
+    const isOverlap =
+      isLikeRecord !== undefined &&
+      dayjs().diff(dayjs(isLikeRecord?.date), "day") < LIKE_HEART_PERIOD;
+    if (isArrivedCondition && !isOverlap && uid !== session?.uid)
+      setIsHeart(true);
+    else setIsHeart(false);
+    setIsRecheck(false);
+  }, [isArrivedCondition, uid, isRecheck, session?.uid]);
 
   const onClick = () => {
+    sendHeart({
+      to: uid,
+      message: `${session?.user.name}님으로부터 좋아요를 받았어요!`,
+    });
     sendAboutPoint(POINT_SYSTEM_PLUS.like.point);
     pushArrToLocalStorage(LIKE_HEART, uid);
+    setIsRecheck(true);
   };
 
   return (
     <Layout>
       <span>{name}</span>
-      {isArrivedCondition && !isOverlap && (
+      {isHeart && (
         <HeartWrapper onClick={onClick}>
           <FontAwesomeIcon
             icon={faCircleHeart}
