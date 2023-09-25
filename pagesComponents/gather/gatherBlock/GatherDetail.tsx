@@ -19,7 +19,7 @@ function GatherDetail({ age, date }: IGatherDetail) {
       </Condition>
       <Date>
         <FontAwesomeIcon icon={faCalendarDay} color="var(--font-h4)" />
-        <span>{dayjs(date).format("M월 DD일")}</span>
+        <span>{date === "미정" ? date : dayjs(date).format("M월 DD일")}</span>
       </Date>
     </Layout>
   );

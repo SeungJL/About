@@ -42,7 +42,9 @@ function GatherDetailInfo({
         <IconWrapper>
           <FontAwesomeIcon icon={faCalendarDays} color="var(--font-h3)" />
         </IconWrapper>
-        <span>{dayjs(date).format("M.DD(ddd) 오후 h:mm")}</span>
+        <span>
+          {date === "미정" ? date : dayjs(date).format("M.DD(ddd) 오후 h:mm")}
+        </span>
       </Item>
       <Item>
         <IconWrapper>

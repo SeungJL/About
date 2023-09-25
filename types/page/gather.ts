@@ -42,7 +42,7 @@ export interface IGatherContent {
   content: string;
   location: GatherLocation;
   place: LocationFilterType;
-  date: Dayjs | string;
+  date: Dayjs | string | "미정";
   createdAt?: string;
   updatedAt?: string;
   memberCnt: GatherMemberCnt;
