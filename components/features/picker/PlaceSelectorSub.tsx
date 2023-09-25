@@ -1,9 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { locationState } from "../../../recoil/userAtoms";
 import { IPlace } from "../../../types/study/studyDetail";
-import { Location } from "../../../types/system";
 import { StudySpaceLogo } from "../../utils/DesignAdjustment";
 
 interface IPlaceSelectorSub {
@@ -24,10 +21,8 @@ function PlaceSelectorSub({
     });
   };
 
-  const location = useRecoilValue(locationState);
-
   return (
-    <Layout location={location}>
+    <Layout isBig={places?.length > 6}>
       {places?.map((place) => (
         <Item key={place._id}>
           <Place
@@ -43,11 +38,11 @@ function PlaceSelectorSub({
   );
 }
 
-const Layout = styled.div<{ location: Location }>`
+const Layout = styled.div<{ isBig: boolean }>`
   height: 100%;
   display: grid;
   grid-template-columns: ${(props) =>
-    props.location === "수원" ? "repeat(4,1fr)" : "repeat(3, 1fr)"};
+    props.isBig ? "repeat(4,1fr)" : "repeat(3, 1fr)"};
   flex: 1;
   margin-bottom: var(--margin-main);
 `;

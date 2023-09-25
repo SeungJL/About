@@ -7,8 +7,8 @@ import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { SPACE_LOCATION } from "../../../storage/study";
+import { IStudyParticipate } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
-import { IStudyParticipate } from "../../../types/study/studyUserAction";
 
 interface IStudyVoteSubModalPlace {
   setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;

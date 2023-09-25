@@ -30,7 +30,8 @@ import {
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
-import { IStudyParticipate } from "../../../types/study/studyUserAction";
+
+import { IStudyParticipate } from "../../../types/study/study";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
 import StudyVoteSubModalTime from "./StudyVoteSubModalTime";
 
