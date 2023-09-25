@@ -72,7 +72,7 @@ function StudySpaceUserCommentsName({
           <FontAwesomeIcon
             icon={faCircleHeart}
             color="var(--color-red)"
-            flip={true}
+            flip="horizontal"
             style={{ animationDuration: "2s" }}
           />
         </HeartWrapper>
