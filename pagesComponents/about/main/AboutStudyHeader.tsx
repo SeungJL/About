@@ -82,7 +82,6 @@ function AboutStudyHeader() {
 const Layout = styled.div`
   height: 62px;
   padding: var(--padding-main);
-
   display: flex;
   justify-content: space-between;
   font-size: 18px;

@@ -96,9 +96,14 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
   );
 }
 const IconWrapper = styled.div`
-  margin-left: var(--margin-max);
+  padding: 0 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 const Layout = styled.div`
+  height: 100%;
+
   display: flex;
   align-items: center;
 `;

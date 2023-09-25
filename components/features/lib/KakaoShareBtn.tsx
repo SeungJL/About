@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { SQUARE_RANDOM_IMAGE } from "../../../constants/image/imageUrl";
-import { useFailToast } from "../../../hooks/CustomToast";
 import { REVIEW_DATA } from "../../../storage/Review";
 
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
@@ -28,7 +27,6 @@ function KakaoShareBtn({
   url,
   isBig,
 }: IKakaoShareBtn) {
-  const failToast = useFailToast();
   const random_num = Math.floor(Math.random() * 3);
 
   useEffect(() => {

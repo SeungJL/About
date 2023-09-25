@@ -51,6 +51,7 @@ function RegularGatherModal({
       setIsRabbitRun(false);
       localStorage.setItem(RABBIT_RUN, "read");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onValid = (data) => {

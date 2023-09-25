@@ -36,7 +36,7 @@ function LocationSelector() {
           textAlign="center"
           border="none"
           size="sm"
-          ml="var(--margin-md)"
+          ml="var(--margin-main)"
           _focus={{ border: "none" }}
         >
           {LOCATION_OPEN.map((location) => (
@@ -54,6 +54,7 @@ const Layout = styled.div``;
 
 const CustomSelect = styled(Select)`
   padding-right: 24px !important;
+  margin-left: 12px !important;
   padding-bottom: 0px !important;
 `;
 

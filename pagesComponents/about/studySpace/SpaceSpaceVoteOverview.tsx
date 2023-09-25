@@ -30,7 +30,7 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
           </span>
           <Button
             size="xs"
-            ml="var(--margin-min)"
+            ml="var(--margin-md)"
             colorScheme="mintTheme"
             onClick={() => setIsModal(true)}
           >
@@ -67,6 +67,7 @@ const Container = styled.div`
   align-items: center;
   color: var(--font-h2);
   > span {
+    font-size: 14px;
     margin-left: var(--margin-min);
   }
 `;

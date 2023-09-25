@@ -72,11 +72,12 @@ const ABOUT = styled.span`
 `;
 
 const Layout = styled.header`
-  height: 50px;
+  height: 46px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--padding-main);
+  padding-left: var(--padding-main);
+  padding-right: 6px;
   color: var(--font-h2);
   > div:first-child {
     display: flex;
