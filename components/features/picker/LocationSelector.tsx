@@ -1,4 +1,3 @@
-import { Select } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -27,40 +26,33 @@ function LocationSelector() {
   return (
     <Layout>
       {!isMainLoading && (
-        <CustomSelect
-          value={value}
-          onChange={onChange}
-          color="var(--font-h3)"
-          bg="var(--font-h8)"
-          fontWeight="600"
-          fontSize="12px"
-          textAlign="center"
-          border="none"
-          size="sm"
-          ml="var(--margin-main)"
-          _focus={{ border: "none" }}
-        >
+        <Select2 value={value} onChange={onChange}>
           {LOCATION_OPEN.map((location) => (
-            <Options key={location} value={location}>
+            <Option key={location} value={location}>
               {LOCATION_CONVERT[location]}
-            </Options>
+            </Option>
           ))}
-        </CustomSelect>
+        </Select2>
       )}
     </Layout>
   );
 }
 
+const Select2 = styled.select`
+  color: var(--font-h2);
+  font-weight: 600;
+  font-size: 12px;
+  background: inherit;
+  text-align: end;
+  border: none;
+  padding-right: var(--padding-min);
+  :focus {
+    outline: none;
+  }
+`;
+
+const Option = styled.option``;
+
 const Layout = styled.div``;
-
-const CustomSelect = styled(Select)`
-  padding-right: 24px !important;
-  margin-left: 12px !important;
-  padding-bottom: 0px !important;
-`;
-
-const Options = styled.option`
-  text-align: center !important;
-`;
 
 export default LocationSelector;

@@ -60,6 +60,7 @@ function AboutCalendarMonth({
 }
 
 const Layout = styled.span`
+  margin: 0 var(--padding-main);
   display: flex;
   align-items: center;
   color: var(--font-h3);

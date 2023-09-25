@@ -15,13 +15,15 @@ function AboutCalendarDays() {
 }
 
 const Layout = styled.div`
-  margin: var(--margin-md);
+  margin: 0 var(--margin-main);
+
+  padding: 0 var(--padding-min);
   margin-top: var(--margin-max);
+
   display: flex;
   justify-content: space-between;
   color: var(--font-h3);
   font-size: 13px;
-  padding: 0 2px;
 `;
 
 export default AboutCalendarDays;

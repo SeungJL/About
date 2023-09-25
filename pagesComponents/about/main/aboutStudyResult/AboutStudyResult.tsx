@@ -27,6 +27,7 @@ function AboutStudyResult() {
 
 const Layout = styled.div<{ isLoad: boolean }>`
   margin: 0 var(--padding-main);
+  margin-top: var(--margin-sub);
   margin-bottom: ${(props) => (props.isLoad ? "0" : "29px")};
 `;
 

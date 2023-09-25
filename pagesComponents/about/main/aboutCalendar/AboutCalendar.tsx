@@ -23,11 +23,10 @@ function AboutCalendar() {
 
 const Layout = styled.div`
   border-bottom: var(--border-main-light);
-  padding: 0 var(--padding-main);
 `;
 
 const Content = styled.div`
-  min-height: 70px;
+  /* min-height: 70px; */
 `;
 
 export default AboutCalendar;

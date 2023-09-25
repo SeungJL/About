@@ -18,7 +18,8 @@ function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
   useEffect(() => {
     const daysInMonth = voteDate.daysInMonth();
     const startDayInMonth = voteDate.date(1).day();
-    const rowsInMonth = startDayInMonth + daysInMonth < 35 ? 5 : 6;
+    const rowsInMonth = startDayInMonth + daysInMonth <= 35 ? 5 : 6;
+
     const date = voteDate.date();
     const dayInWeek = voteDate.day();
     const temp = [];
@@ -29,6 +30,7 @@ function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
         temp.push({ date: validDate });
       }
     } else {
+      console.log(2, rowsInMonth);
       for (let i = 1; i <= 7 * rowsInMonth; i++) {
         if (i <= startDayInMonth) temp.push(null);
         else if (i > daysInMonth + startDayInMonth) temp.push(null);
@@ -44,7 +46,7 @@ function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
   };
 
   const IconCircle = ({ children }) => <CircleLayout>{children}</CircleLayout>;
-
+  console.log(calendarBox);
   return (
     <Layout isSmall={isCalendarWeek}>
       {calendarBox.map((d, idx) => (
@@ -60,39 +62,29 @@ function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
   );
 }
 
-const CircleLayout = styled.div`
-  width: 25px;
-  text-align: center;
-  height: 25px;
-  border-radius: 50%;
-  padding-top: 2px;
-  color: white;
-  background-color: var(--color-mint);
-`;
-
 const Layout = styled.div<{ isSmall: boolean }>`
   color: var(--font-h3);
   font-size: 15px;
-  margin: ${(props) => !props.isSmall && "var(--margin-min)"};
-  margin-left: -9px;
-  margin-right: -9px;
   font-weight: 600;
-  padding: 0;
   display: ${(props) => (props.isSmall ? "flex" : "grid")};
   justify-content: ${(props) => props.isSmall && "spaceBetween"};
   grid-template-columns: ${(props) => !props.isSmall && "repeat(7,1fr)"};
-  grid-auto-rows: ${(props) => !props.isSmall && "36px"};
 `;
 
 const DayItem = styled.div`
+  padding: var(--padding-sub) var(--padding-min);
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 32px;
   align-items: center;
-  > div {
-    margin: 4px auto 0px auto;
-  }
+`;
+
+const CircleLayout = styled.div`
+  width: 25px;
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--color-mint);
 `;
 
 export default AboutCalendarDate;
