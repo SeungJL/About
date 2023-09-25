@@ -36,7 +36,6 @@ function RankingMembers({ rankInfo, category }: IRankingMembers) {
         const whoValue = !isAttendCategory
           ? (who as IUser).score
           : (who as IRankingUser).cnt;
-        console.log(isAttendCategory, whoValue);
         if (value === whoValue) dupCnt++;
         else dupCnt = 0;
         value = whoValue;

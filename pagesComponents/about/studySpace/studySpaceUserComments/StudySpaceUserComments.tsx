@@ -22,7 +22,7 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
   const router = useRouter();
   const { data: session } = useSession();
   const voteDate = dayjs(router.query.date as string);
-  console.log(attendances.find((who) => who.user.uid === session?.uid));
+
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const setTransferUserData = useSetRecoilState(transferUserDataState);
   const [isRefetchStudyAbsent, setIsRefetchStudyAbsent] = useRecoilState(
