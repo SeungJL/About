@@ -5,17 +5,17 @@ import AboutCalendarDays from "./AboutCalendarDays";
 import AboutCalendarMonth from "./AboutCalendarMonth";
 
 function AboutCalendar() {
-  const [calendarType, setCalendarType] = useState<"week" | "month">("week");
+  const [isCalendarWeek, setIsCalendarWeek] = useState(true);
 
   return (
     <Layout>
       <AboutCalendarMonth
-        calendarType={calendarType}
-        setCalendarType={setCalendarType}
+        isCalendarWeek={isCalendarWeek}
+        setIsCalendarWeek={setIsCalendarWeek}
       />
       <Content>
         <AboutCalendarDays />
-        <AboutCalendarDate calendarType={calendarType} />
+        <AboutCalendarDate isCalendarWeek={isCalendarWeek} />
       </Content>
     </Layout>
   );

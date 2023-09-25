@@ -4,14 +4,14 @@ import styled from "styled-components";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 
 interface IAboutCalendarDate {
-  calendarType: "week" | "month";
+  isCalendarWeek: boolean;
 }
 
 interface ICalendarBox {
   date: number;
 }
 
-function AboutCalendarDate({ calendarType }: IAboutCalendarDate) {
+function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const [calendarBox, setCalendarBox] = useState<ICalendarBox[]>([]);
 
@@ -22,14 +22,13 @@ function AboutCalendarDate({ calendarType }: IAboutCalendarDate) {
     const date = voteDate.date();
     const dayInWeek = voteDate.day();
     const temp = [];
-    if (calendarType === "week") {
+    if (isCalendarWeek) {
       const start = date - dayInWeek;
       for (let i = start; i < start + 7; i++) {
         const validDate = i >= 1 && i <= daysInMonth ? i : null;
         temp.push({ date: validDate });
       }
-    }
-    if (calendarType === "month") {
+    } else {
       for (let i = 1; i <= 7 * rowsInMonth; i++) {
         if (i <= startDayInMonth) temp.push(null);
         else if (i > daysInMonth + startDayInMonth) temp.push(null);
@@ -38,7 +37,7 @@ function AboutCalendarDate({ calendarType }: IAboutCalendarDate) {
     }
     setCalendarBox(temp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calendarType, voteDate]);
+  }, [isCalendarWeek, voteDate]);
 
   const onClickDate = (d: ICalendarBox) => {
     setVoteDate(voteDate.date(d.date));
@@ -47,7 +46,7 @@ function AboutCalendarDate({ calendarType }: IAboutCalendarDate) {
   const IconCircle = ({ children }) => <CircleLayout>{children}</CircleLayout>;
 
   return (
-    <Layout isSmall={calendarType === "week"}>
+    <Layout isSmall={isCalendarWeek}>
       {calendarBox.map((d, idx) => (
         <DayItem key={idx} onClick={() => onClickDate(d)}>
           {d?.date === voteDate.date() ? (

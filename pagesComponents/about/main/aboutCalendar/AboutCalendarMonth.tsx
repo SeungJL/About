@@ -5,22 +5,25 @@ import {
   faChevronUp,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SetStateAction } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../../recoil/studyAtoms";
+import { DispatchBoolean } from "../../../../types/reactTypes";
 
 interface IAboutCalendarMonth {
-  calendarType: "week" | "month";
-  setCalendarType: React.Dispatch<SetStateAction<"week" | "month">>;
+  isCalendarWeek: boolean;
+  setIsCalendarWeek: DispatchBoolean;
 }
 
 function AboutCalendarMonth({
-  calendarType,
-  setCalendarType,
+  isCalendarWeek,
+  setIsCalendarWeek,
 }: IAboutCalendarMonth) {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
+  const onClickToggle = () => {
+    setIsCalendarWeek((old) => !old);
+  };
   //날짜 변경
   const onClickMove = (cnt: number) => {
     setVoteDate((old) => old.add(cnt, "month").date(cnt));
@@ -28,23 +31,15 @@ function AboutCalendarMonth({
 
   return (
     <Layout>
-      <span>{voteDate.format("YYYY년 M월")}</span>
-      {calendarType === "week" ? (
-        <FontAwesomeIcon
-          icon={faChevronDown}
-          size="xs"
-          onClick={() => setCalendarType("month")}
-          color="var(--font-h2)"
-        />
-      ) : (
-        <FontAwesomeIcon
-          icon={faChevronUp}
-          size="xs"
-          onClick={() => setCalendarType("week")}
-          color="var(--font-h2)"
-        />
-      )}
-      {calendarType === "month" && (
+      <MonthMain onClick={onClickToggle}>
+        <span>{voteDate.format("YYYY년 M월")}</span>
+        {isCalendarWeek ? (
+          <FontAwesomeIcon icon={faChevronDown} size="xs" />
+        ) : (
+          <FontAwesomeIcon icon={faChevronUp} size="xs" />
+        )}
+      </MonthMain>
+      {!isCalendarWeek && (
         <>
           <MonthNav>
             <FontAwesomeIcon
@@ -67,20 +62,23 @@ function AboutCalendarMonth({
 const Layout = styled.span`
   display: flex;
   align-items: center;
+  color: var(--font-h3);
+`;
+
+const MonthMain = styled.div`
   > span {
-    color: var(--font-h1);
-    font-size: 13px;
+    font-size: 12px;
     align-items: center;
     margin-right: var(--margin-md);
   }
 `;
+
 const MonthNav = styled.div`
   margin-left: auto;
   width: 40px;
   display: flex;
   justify-content: space-between;
   margin-right: var(--margin-sub);
-  color: var(--font-h2);
 `;
 
 export default AboutCalendarMonth;
