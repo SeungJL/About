@@ -11,16 +11,16 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
     <Layout>
       <Image
         src={coverImageUrl}
-        width={343}
-        height={165}
+        width={390}
+        height={176}
         unoptimized={true}
         alt="studySpace"
       />
       <SpaceIcon>
         <Image
           src={`${logoImageUrl}`}
-          width={70}
-          height={70}
+          width={72}
+          height={72}
           unoptimized={true}
           alt="spaceIcon"
         />
@@ -31,7 +31,6 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
-  height: 165px;
   position: relative;
 `;
 
@@ -39,13 +38,13 @@ const SpaceIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 70px;
+  width: 72px;
+  height: 72px;
   border-radius: var(--border-radius-main);
   position: absolute;
   border: var(--border-main-light);
   overflow: hidden;
-  bottom: -24px;
+  bottom: -16px;
   left: 12px;
   background-color: white;
 `;

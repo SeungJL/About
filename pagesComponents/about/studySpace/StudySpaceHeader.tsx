@@ -48,7 +48,6 @@ const Layout = styled.div`
   justify-content: space-between;
   align-items: center;
   color: var(--font-h2);
-  padding-right: var(--padding-max);
 `;
 
 const Title = styled.span`

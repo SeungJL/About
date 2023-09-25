@@ -172,7 +172,7 @@ function StudySpaceNavigation({
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
-  margin-top: var(--margin-main);
+  margin-top: var(--margin-min);
   padding: var(--padding-sub) 0;
   border-radius: var(--border-radius-main);
 `;

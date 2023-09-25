@@ -18,7 +18,7 @@ function StudySpaceOverview({ space }: IStudySpaceOverview) {
     <>
       <Layout>
         <span>
-          {space.brand}
+          {space.brand}{" "}
           {space.branch !== "수원시청역" ? space.branch : "나혜석거리점"}
         </span>
         <SpaceDetail>
@@ -46,8 +46,8 @@ function StudySpaceOverview({ space }: IStudySpaceOverview) {
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
-  margin-top: 36px;
-  padding-bottom: var(--padding-main);
+  margin-top: 24px;
+  margin-bottom: var(--padding-sub);
   > span:first-child {
     font-weight: 600;
     font-size: 18px;

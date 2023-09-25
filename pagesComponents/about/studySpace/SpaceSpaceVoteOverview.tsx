@@ -26,7 +26,7 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
         <Container>
           <FontAwesomeIcon icon={faUserGroup} size="sm" />
           <span>
-            현재 <b> {voteCnt}명</b>이 투표했어요
+            현재 <b> {voteCnt}명</b>의 멤버가 투표중이에요!
           </span>
           <Button
             size="xs"
@@ -49,7 +49,7 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
-  padding-top: var(--padding-max);
+  padding-top: var(--margin-main);
   display: flex;
   flex-direction: column;
   > span:first-child {
@@ -65,7 +65,7 @@ const Container = styled.div`
   margin: var(--margin-min) 0;
   display: flex;
   align-items: center;
-  color: var(--font-h2);
+  color: var(--font-h3);
   > span {
     font-size: 14px;
     margin-left: var(--margin-min);
