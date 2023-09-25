@@ -16,6 +16,12 @@
     "strict": false,
     "plugins": [{ "name": "typescript-styled-plugin" }]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/admin/system/studySpace.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "global.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/admin/system/studySpace.tsx"
+  ],
   "exclude": ["node_modules"]
 }
