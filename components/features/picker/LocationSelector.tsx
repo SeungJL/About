@@ -1,7 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { LOCATION_CONVERT, LOCATION_OPEN } from "../../../constants/location";
+import {
+  LOCATION_CONVERT,
+  LOCATION_RECRUITING,
+  LOCATION_USE_ALL,
+} from "../../../constants/location";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { Location } from "../../../types/system";
@@ -20,6 +24,7 @@ function LocationSelector() {
     const locationValue = event.currentTarget.value as Location;
     setLocation(locationValue);
     setValue(locationValue);
+    if (LOCATION_RECRUITING.includes(locationValue)) return;
     setIsMainLoading(true);
   };
 
@@ -27,7 +32,7 @@ function LocationSelector() {
     <Layout>
       {!isMainLoading && (
         <Select2 value={value} onChange={onChange}>
-          {LOCATION_OPEN.map((location) => (
+          {LOCATION_USE_ALL.map((location) => (
             <Option key={location} value={location}>
               {LOCATION_CONVERT[location]}
             </Option>

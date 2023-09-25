@@ -25,6 +25,10 @@ function AboutVoteNav() {
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [isQuickVoteModal, setIsQuickVoteModal] = useState(false);
 
+  const { data: studyPreference } = useStudyPreferenceQuery({
+    enabled: !isGuest,
+  });
+
   const voteCnt = participations?.reduce(
     (acc, par) =>
       acc + par.attendences.reduce((a, b) => a + (b.firstChoice ? 1 : 0), 0),
@@ -39,10 +43,6 @@ function AboutVoteNav() {
     if (type === "vote") setIsVoteModal(true);
     if (type === "quickVote") setIsQuickVoteModal(true);
   };
-
-  const { data: studyPreference } = useStudyPreferenceQuery({
-    enabled: !isGuest,
-  });
 
   return (
     <>

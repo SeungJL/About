@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { LOCATION_RECRUITING } from "../../../../constants/location";
+import { useFailToast } from "../../../../hooks/CustomToast";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
@@ -19,6 +21,7 @@ interface IAboutMain {
 const VISIBLE_CNT = 3;
 
 function AboutMain({ participations }: IAboutMain) {
+  const failToast = useFailToast();
   const router = useRouter();
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
@@ -27,6 +30,10 @@ function AboutMain({ participations }: IAboutMain) {
   const setTransferStudyData = useSetRecoilState(transferStudyDataState);
 
   const onClickMoreInfo = () => {
+    if (LOCATION_RECRUITING.includes(location)) {
+      failToast("free", "오픈 준비중!");
+      return;
+    }
     setTransferStudyData(participations);
     router.push("/about/studyPlace");
   };
@@ -56,7 +63,7 @@ function AboutMain({ participations }: IAboutMain) {
                 .map((participation, idx) => (
                   <AboutMainItem participation={participation} key={idx} />
                 ))}
-              {location === "동대문" && <ReadyToOpen />}
+              {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>
             <MoreInfoNav onClick={onClickMoreInfo}>
               <span>더보기</span>
@@ -91,7 +98,7 @@ const MoreInfoNav = styled.div`
   justify-content: center;
   background-color: white;
   align-items: center;
-  margin-bottom: var(--margin-max);
+  margin-bottom: var(--margin-main);
   border-radius: var(--border-radius-main);
   color: var(--font-h3);
   font-weight: 600;

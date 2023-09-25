@@ -72,8 +72,8 @@ const Layout = styled.div<{ status: boolean; isMyResult: boolean }>`
 `;
 
 const ImageContainer = styled.div`
-  width: 77px;
-  height: 77px;
+  width: 86px;
+  height: 86px;
   border: var(--border-sub);
   border-radius: var(--border-radius-main);
   display: flex;

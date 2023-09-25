@@ -27,8 +27,8 @@ export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
       <Image
         src={`${place.image}`}
         alt="studyLogoSm"
-        width={isBig ? W * 1.6 : W}
-        height={isBig ? W * 1.6 : W}
+        width={isBig ? W * 1.8 : W}
+        height={isBig ? W * 1.8 : W}
         unoptimized={true}
       />
     </>

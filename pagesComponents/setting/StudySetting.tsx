@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { LOCATION_OPEN } from "../../constants/location";
 import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
@@ -52,7 +53,7 @@ function StudySetting() {
 
   //스터디 데이터 가져오기
   const { refetch } = useStudyVoteQuery(voteDate, location, {
-    enabled: !!voteDate && !!location,
+    enabled: !!voteDate && LOCATION_OPEN.includes(location),
     onSuccess(data) {
       const participations = data.participations;
       setParticipations(arrangeSpace(participations));
