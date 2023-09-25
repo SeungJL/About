@@ -12,8 +12,8 @@ function GatherImageSliderSkeleton() {
         </div>
         <span>리뷰</span>
       </GatherReviewNavIcon>
-      {new Array(6).fill(0).map((item) => (
-        <GatherReviewNavItem key={item}>
+      {new Array(6).fill(0).map((_, idx) => (
+        <GatherReviewNavItem key={idx}>
           <div>
             <Skeleton>temp</Skeleton>
           </div>
