@@ -67,10 +67,10 @@ function AboutCalendarMonth({
 const Layout = styled.span`
   display: flex;
   align-items: center;
-  font-weight: 600;
+  font-weight: 400;
   > span {
-    color: var(--font-h2);
-    font-size: 14px;
+    color: var(--font-h1);
+    font-size: 13px;
     align-items: center;
     margin-right: var(--margin-md);
   }
