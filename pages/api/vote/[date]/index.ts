@@ -2,12 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import { strToDate } from "../../../../helpers/dateHelpers";
 import dbConnect from "../../../../libs/backend/dbConnect";
-
 import { Place } from "../../../../models/place";
 import { Vote } from "../../../../models/vote";
 import { findOneVote } from "../../../../services/voteService";
-import { IStudyParticipate } from "../../../../types/study/studyUserAction";
-
+import { IStudyParticipate } from "../../../../types/study/study";
 import {
   IAttendance,
   IPlace,

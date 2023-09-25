@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { IStudyVotePlaces } from "../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
-
+import { IStudyPlaces } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
-import { IStudyPlaces } from "../../../types/study/studyUserAction";
 import { StudySpaceLogo } from "../../utils/DesignAdjustment";
 
 interface IPlaceSelector {

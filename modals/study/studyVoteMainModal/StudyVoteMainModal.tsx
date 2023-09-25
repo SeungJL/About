@@ -28,11 +28,9 @@ import {
 } from "../../../recoil/studyAtoms";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { DispatchNumber, IModal } from "../../../types/reactTypes";
+import { IStudyParticipate, IStudyPlaces } from "../../../types/study/study";
 import { IParticipation, IPlace } from "../../../types/study/studyDetail";
-import {
-  IStudyParticipate,
-  IStudyPlaces,
-} from "../../../types/study/studyUserAction";
+
 import StudyVoteMainModalTime from "./StudyVoteMainModalTime";
 
 interface IStudyVoteMainModal extends IModal {

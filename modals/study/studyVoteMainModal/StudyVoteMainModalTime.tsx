@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TimeSelector from "../../../components/features/picker/TimeSelector";
 import TimeSelectorBoard from "../../../components/features/picker/TimeSelectorBoard";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { IStudyParticipate } from "../../../types/study/studyUserAction";
+import { IStudyParticipate } from "../../../types/study/study";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteMainModalTime {
