@@ -40,7 +40,6 @@ function ArrivedComment({ attendances }: IArrivedComment) {
   const { data: absentData, refetch } = useStudyAbsentQuery(voteDate);
 
   useEffect(() => {
-    console.log(1);
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attendances]);
@@ -84,7 +83,6 @@ function ArrivedComment({ attendances }: IArrivedComment) {
                 <Info>
                   <NameContainer>
                     <span>{user.name}</span>
-
                     <HeartWrapper>
                       <FontAwesomeIcon
                         icon={faCircleHeart}
