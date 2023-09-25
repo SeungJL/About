@@ -1,6 +1,7 @@
 import { faCircleHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -12,7 +13,6 @@ import { useAdminAboutPointMutaion } from "../../../../hooks/admin/mutation";
 import { useCompleteToast, useErrorToast } from "../../../../hooks/CustomToast";
 import { useInteractionLikeMutation } from "../../../../hooks/interaction/mutations";
 import { IInteractionLikeStorage } from "../../../../types/interaction";
-
 interface IStudySpaceUserCommentsName {
   name: string;
   isArrivedCondition: boolean;
@@ -68,13 +68,13 @@ function StudySpaceUserCommentsName({
     <Layout>
       <span>{name}</span>
       {isHeart && (
-        <HeartWrapper onClick={onClick}>
-          <FontAwesomeIcon
-            icon={faCircleHeart}
-            color="var(--color-red)"
-            flip={true}
-            style={{ animationDuration: "2s" }}
-          />
+        <HeartWrapper
+          onClick={onClick}
+          animate="spin"
+          variants={spinVariants}
+          transition={spinTransition}
+        >
+          <FontAwesomeIcon icon={faCircleHeart} color="var(--color-red)" />
         </HeartWrapper>
       )}
     </Layout>
@@ -91,10 +91,22 @@ const Layout = styled.div`
     margin-right: var(--margin-min);
   }
 `;
-const HeartWrapper = styled.div`
+const HeartWrapper = styled(motion.div)`
   margin-bottom: 3px;
   display: flex;
   align-items: center;
 `;
+
+const spinTransition = {
+  loop: Infinity,
+  ease: "linear",
+  duration: 2,
+};
+
+const spinVariants = {
+  spin: {
+    rotateY: [0, 360],
+  },
+};
 
 export default StudySpaceUserCommentsName;
