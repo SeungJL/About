@@ -76,11 +76,12 @@ const MonthMain = styled.div`
 `;
 
 const MonthNav = styled.div`
+  align-self: flex-end;
   margin-left: auto;
   width: 40px;
   display: flex;
   justify-content: space-between;
-  margin-right: var(--margin-sub);
+  margin-right: var(--margin-md);
 `;
 
 export default AboutCalendarMonth;
