@@ -68,7 +68,7 @@ const Layout = styled.span`
   display: flex;
   align-items: center;
   > span {
-    color: var(--font-h2);
+    color: var(--font-h1);
     font-size: 13px;
     align-items: center;
     margin-right: var(--margin-md);
