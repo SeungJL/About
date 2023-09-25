@@ -11,5 +11,7 @@ export declare global {
 }
 
 declare module "@fortawesome/react-fontawesome" {
-  export type FlipProp = "horizontal" | "vertical" | "both" | boolean;
+  export interface FontAwesomeIconProps {
+    flip?: "horizontal" | "vertical" | "both" | boolean;
+  }
 }
