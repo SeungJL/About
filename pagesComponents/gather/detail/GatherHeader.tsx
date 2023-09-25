@@ -1,6 +1,5 @@
 import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -20,7 +19,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const router = useRouter();
 
   const title = gatherData?.title;
-  const date = gatherData?.date as Dayjs;
+  const date = gatherData?.date;
   const locationMain = gatherData?.location.main;
 
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);

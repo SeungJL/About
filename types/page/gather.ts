@@ -60,6 +60,6 @@ export interface IGatherContent {
 
 export interface IGatherHeader {
   title: string;
-  date: Dayjs;
+  date: Dayjs | string | "미정";
   locationMain: string;
 }

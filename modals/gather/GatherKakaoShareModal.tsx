@@ -49,7 +49,7 @@ function GatherKakaoShareModal({
       <ShareBtnWrapper>
         <KakaoShareBtn
           title={title}
-          subtitle={dayjs(date).format("M월 DD일(dd)")}
+          subtitle={date === "미정" ? date : dayjs(date).format("M월 DD일(dd)")}
           type="gather"
           url={WEB_URL + router.asPath}
           location={locationMain}
