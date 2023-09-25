@@ -80,9 +80,9 @@ function AboutStudyHeader() {
 }
 
 const Layout = styled.div`
-  height: 54px;
+  height: 46px;
   padding: var(--padding-main);
-  padding-bottom: var(--padding-md);
+  padding-bottom: 0;
   display: flex;
   justify-content: space-between;
   font-size: 18px;

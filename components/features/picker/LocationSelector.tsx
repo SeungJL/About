@@ -30,9 +30,10 @@ function LocationSelector() {
         <CustomSelect
           value={value}
           onChange={onChange}
-          color="var(--font-h2)"
+          color="var(--font-h3)"
           bg="var(--font-h8)"
           fontWeight="600"
+          fontSize="12px"
           textAlign="center"
           border="none"
           size="sm"

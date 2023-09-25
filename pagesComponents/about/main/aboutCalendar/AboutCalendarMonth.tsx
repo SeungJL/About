@@ -45,12 +45,12 @@ function AboutCalendarMonth({
             <FontAwesomeIcon
               icon={faChevronLeft}
               onClick={() => onClickMove(-1)}
-              size="sm"
+              size="xs"
             />
             <FontAwesomeIcon
               icon={faChevronRight}
               onClick={() => onClickMove(1)}
-              size="sm"
+              size="xs"
             />
           </MonthNav>
         </>
@@ -63,13 +63,14 @@ const Layout = styled.span`
   display: flex;
   align-items: center;
   color: var(--font-h3);
+  font-weight: 600;
 `;
 
 const MonthMain = styled.div`
   > span {
     font-size: 12px;
     align-items: center;
-    margin-right: var(--margin-md);
+    margin-right: var(--margin-min);
   }
 `;
 
