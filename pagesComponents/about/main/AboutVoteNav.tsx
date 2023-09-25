@@ -104,7 +104,7 @@ const VoterCnt = styled.div`
   color: var(--font-h3);
   font-size: 15px;
   margin-left: var(--margin-min);
-  margin-top: var(--margin-max);
+  margin-top: var(--margin-main);
   display: flex;
 
   > b {
