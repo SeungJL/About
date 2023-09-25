@@ -10,7 +10,8 @@ interface IAboutGatherDetail {
 function AboutGatherDetail({ location, date }: IAboutGatherDetail) {
   return (
     <Layout>
-      {location.main}, {dayjs(date).format("M월 D일 h시")}
+      {location.main},{" "}
+      {date === "미정" ? date : dayjs(date).format("M월 D일 h시")}
     </Layout>
   );
 }
