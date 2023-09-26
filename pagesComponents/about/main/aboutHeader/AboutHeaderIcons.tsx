@@ -103,7 +103,6 @@ const IconWrapper = styled.div`
 `;
 const Layout = styled.div`
   height: 100%;
-
   display: flex;
   align-items: center;
 `;
@@ -112,8 +111,8 @@ const NoticeWrapper = styled(IconWrapper)`
 `;
 const Alert = styled(AlertIcon)`
   position: absolute;
-  right: 1px;
-  top: 1px;
+  right: 11px;
+  top: 14px;
 `;
 
 export default AboutHeaderIcons;

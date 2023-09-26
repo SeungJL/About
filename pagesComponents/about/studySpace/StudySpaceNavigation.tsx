@@ -181,7 +181,7 @@ const Layout = styled.div`
 
 const SubNav = styled.nav`
   display: flex;
-  margin-bottom: var(--margin-max);
+  margin-bottom: var(--margin-main);
   justify-content: space-around;
 `;
 

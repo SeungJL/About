@@ -18,8 +18,7 @@ function StudySpaceOverview({ space }: IStudySpaceOverview) {
     <>
       <Layout>
         <span>
-          {space.brand}{" "}
-          {space.branch !== "수원시청역" ? space.branch : "나혜석거리점"}
+          {space.brand} {space.branch}
         </span>
         <SpaceDetail>
           <Location>
