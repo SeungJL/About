@@ -106,7 +106,12 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
               </div>
             </MyRecordItem>
           </MyRecord>
-          <Button color="var(--font-h2)" onClick={onClickDetail}>
+          <Button
+            w="60px"
+            h="40px"
+            color="var(--font-h2)"
+            onClick={onClickDetail}
+          >
             분석
           </Button>
         </Layout>
@@ -149,7 +154,7 @@ const MyRecordItem = styled.div`
 `;
 
 const ContentName = styled.span`
-  margin-right: var(--margin-min);
+  margin-right: var(--margin-md);
   color: var(--font-h3);
   font-size: 13px;
 `;
