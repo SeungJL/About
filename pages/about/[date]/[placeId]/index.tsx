@@ -65,7 +65,9 @@ function StudySpace() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  min-height: 100vh;
+`;
 
 const HrDiv = styled.div`
   height: 1px;

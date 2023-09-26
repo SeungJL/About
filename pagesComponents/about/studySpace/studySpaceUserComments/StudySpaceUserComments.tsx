@@ -86,6 +86,7 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
 }
 
 const Layout = styled.div`
+  min-height: 20px;
   margin: 0 var(--margin-main);
   margin-top: var(--margin-max);
   display: flex;
