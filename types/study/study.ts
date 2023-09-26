@@ -1,7 +1,6 @@
 import { Dayjs } from "dayjs";
 import { IPlace } from "./studyDetail";
 
-
 /** arrived */
 export interface IArrivedInfo {
   uid: string;
@@ -14,7 +13,7 @@ export interface IArrivedInfoList {
 }
 
 export interface IArrivedData {
-  date: string | number;
+  date: number;
   arrivedInfoList: IArrivedInfoList[];
 }
 

@@ -24,13 +24,14 @@ const Layout = styled.div`
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  width: 347px;
-  margin: 0 14px;
+  width: calc(100vw - 32px);
+  max-width: 358px;
+  margin: 0 var(--margin-main);
   height: 40px;
   padding: 4px;
   border-radius: 24px;
-  background-color: var(--font-h6);
-  bottom: 20px;
+  background-color: var(--font-h56);
+  bottom: var(--margin-main);
   color: var(--font-h3);
   font-weight: 600;
 `;

@@ -1,16 +1,18 @@
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
-import { useStudyCheckRecordsQuery } from "../../hooks/study/queries";
-
 import RecordCalendar from "../../pagesComponents/record/RecordCalendar";
-import RecordDetail from "../../pagesComponents/record/RecordDetail";
+import RecordCalendarSetting from "../../pagesComponents/record/RecordCalendarSetting";
 import RecordLocationCategory from "../../pagesComponents/record/RecordLocationCategory";
 import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
+
 import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/record/RecordOverview";
-import RecordSetting from "../../pagesComponents/record/RecordSetting";
+import RecordSkeleton from "../../pagesComponents/record/RecordSkeleton";
+import { isRecordLoadingState } from "../../recoil/loadingAtoms";
+
 import { IArrivedData } from "../../types/study/study";
 
 export interface IDateRange {
@@ -18,61 +20,68 @@ export interface IDateRange {
   endDate: Dayjs;
 }
 
+export interface INavMonth {
+  year: number;
+  month: number;
+}
+
 function Record() {
-  const [month, setMonth] = useState(dayjs().month());
+  //매달 1일을 기준으로 함
+
+  const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
+  const [navMonth, setNavMonth] = useState(dayjs().startOf("month"));
+
+  const [arrivedCalendar, setArrivedCalendar] = useState<IArrivedData[]>();
+  const [filterData, setFilterData] = useState<IArrivedData[]>();
+  const [isLoading, setIsLoading] = useState(true);
+
   const [isCalendar, setIsCalendar] = useState(true);
-  const [openData, setOpenData] = useState<IArrivedData[]>();
-  const [monthData, setMonthData] = useState<IArrivedData[]>([]);
-  const [dateRange, setDateRange] = useState<IDateRange>({
-    startDate: dayjs().date(1),
-    endDate: dayjs().date(dayjs().daysInMonth()),
-  });
 
-  const { data: arrivedData } = useStudyCheckRecordsQuery(
-    dateRange?.startDate,
-    dateRange?.endDate,
-    {
-      onSuccess(data) {
-        setOpenData(data);
-      },
-    }
-  );
+  useEffect(() => {
+    if (!arrivedCalendar) return;
+    setFilterData(arrivedCalendar);
+    setIsLoading(false);
+  }, [arrivedCalendar, setIsRecordLoading]);
 
+  //달의 첫째 날
+  console.log(isLoading, arrivedCalendar);
   return (
     <>
       <Header title="스터디 기록" />
-      <RecordSetting
-        openData={openData}
-        month={month}
-        setMonthData={setMonthData}
-        monthData={monthData}
+      <RecordCalendarSetting
+        navMonth={navMonth}
+        setArrivedCalendar={setArrivedCalendar}
       />
       <Layout>
-        <RecordMonthNav
-          month={month}
-          setMonth={setMonth}
-          setDateRange={setDateRange}
-        />
-        <RecordOverview openData={openData} dateRange={dateRange} />
-        <RecordLocationCategory
-          setOpenData={setOpenData}
-          arrivedData={arrivedData}
-        />
-        {isCalendar ? (
-          <RecordCalendar month={month} monthData={monthData} />
+        <RecordMonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
+        {!isLoading ? (
+          <>
+            <RecordOverview arrivedCalendar={arrivedCalendar} />
+            <RecordLocationCategory
+              initialData={arrivedCalendar}
+              setFilterData={setFilterData}
+            />
+            {isCalendar ? (
+              <RecordCalendar filterData={filterData} navMonth={navMonth} />
+            ) : (
+              // <RecordDetail monthData={monthData} month={month} />
+              <></>
+            )}
+            <RecordNavigation
+              isCalendar={isCalendar}
+              setIsCalendar={setIsCalendar}
+            />
+          </>
         ) : (
-          <RecordDetail monthData={monthData} month={month} />
+          <RecordSkeleton />
         )}
-        <RecordNavigation
-          isCalendar={isCalendar}
-          setIsCalendar={setIsCalendar}
-        />
       </Layout>
     </>
   );
 }
 
 const Layout = styled.div`
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;

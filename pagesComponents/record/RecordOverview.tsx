@@ -3,68 +3,53 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useFailToast } from "../../hooks/CustomToast";
-import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import { IDateRange } from "../../pages/record";
-import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { IArrivedData } from "../../types/study/study";
-import RecordOverviewSkeleton from "./skeleton/RecordOverviewSkeleton";
 interface IRecordOverview {
-  dateRange: IDateRange;
-  openData: IArrivedData[];
+  arrivedCalendar: IArrivedData[];
 }
 
-function RecordOverview({ openData, dateRange }: IRecordOverview) {
+interface IStudySummary {
+  myCnt: number;
+  myRecent: number;
+  openCnt: number;
+  memberCnt: number;
+}
+
+function RecordOverview({ arrivedCalendar }: IRecordOverview) {
   const failToast = useFailToast();
-  const { data: session } = useSession();
   const router = useRouter();
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const userUid = session?.uid;
 
+  const [studySummary, setStudySummary] = useState<IStudySummary>();
   const [isNotCompleted, setIsNotCompleted] = useState(false);
-  const [myRecentAttend, setMyRecentAttend] = useState<string>();
-  const [totalOpen, setTotalOpen] = useState<number>();
-  const [totalAttendance, setTotalAttendance] = useState<number>();
-
-  const isRecordLoading = useRecoilValue(isRecordLoadingState);
-
-  const processAttendanceData = (userUid: string, openData: IArrivedData[]) => {
-    let myRecentDate = null;
-    let open = 0;
-    let num = 0;
-    openData.forEach((data) => {
-      const arrivedInfoList = data.arrivedInfoList;
-      open += arrivedInfoList.length;
-      num += arrivedInfoList.reduce(
-        (sum, info) => sum + info.arrivedInfo.length,
-        0
-      );
-      if (
-        !myRecentDate &&
-        arrivedInfoList.some((info) =>
-          info.arrivedInfo.some((who) => who.uid === userUid)
-        )
-      )
-        myRecentDate = data.date;
-    });
-    setTotalOpen(open);
-    setTotalAttendance(num);
-    setMyRecentAttend(myRecentDate);
-  };
 
   useEffect(() => {
-    if (userUid && openData) processAttendanceData(userUid as string, openData);
-  }, [userUid, openData]);
-
-  const { data: myAttend } = useUserAttendRateQuery(
-    dateRange?.startDate,
-    dateRange?.endDate
-  );
-
-  const myMonthCnt = myAttend?.find((user) => user.uid === userUid)?.cnt;
+    let myRecent = null;
+    let openCnt = 0;
+    let memberCnt = 0;
+    let myCnt = 0;
+    const reverseData = arrivedCalendar.slice().reverse();
+    reverseData.forEach((item) => {
+      if (!item) return;
+      const arrivedInfo = item.arrivedInfoList;
+      openCnt += arrivedInfo.length;
+      arrivedInfo.forEach((info) => {
+        const memberList = info.arrivedInfo;
+        memberCnt += memberList.length;
+        if (memberList.find((who) => who.uid === session?.uid)) {
+          myCnt++;
+          if (!myRecent) myRecent = item.date;
+        }
+      });
+    });
+    const summary = { myCnt, myRecent, openCnt, memberCnt };
+    setStudySummary(summary);
+  }, [arrivedCalendar, session?.uid]);
 
   const onClickDetail = () => {
     if (isGuest) {
@@ -76,48 +61,47 @@ function RecordOverview({ openData, dateRange }: IRecordOverview) {
 
   return (
     <>
-      {!isRecordLoading ? (
-        <Layout>
-          <MyRecord>
-            <MyRecordItem>
-              <div>
-                <ContentName>스터디 오픈</ContentName>
-                <ContentValue>{totalOpen}회</ContentValue>
-              </div>
-              <div>
-                <ContentName>참여한 인원</ContentName>
-                <ContentValue>{totalAttendance}명</ContentValue>
-              </div>
-            </MyRecordItem>
-            <MyRecordItem>
-              <div>
-                <ContentName>내 참여 횟수</ContentName>
-                <ContentValue style={{ color: "var(--color-mint)" }}>
-                  {myMonthCnt || 0}회
-                </ContentValue>
-              </div>
-              <div>
-                <ContentName>내 최근 참여</ContentName>
-                <ContentValue style={{ color: "var(--color-mint)" }}>
-                  {!isGuest && myRecentAttend
-                    ? dayjs(myRecentAttend).format("M월 DD일")
-                    : "기록 없음"}
-                </ContentValue>
-              </div>
-            </MyRecordItem>
-          </MyRecord>
-          <Button
-            w="60px"
-            h="40px"
-            color="var(--font-h2)"
-            onClick={onClickDetail}
-          >
-            분석
-          </Button>
-        </Layout>
-      ) : (
-        <RecordOverviewSkeleton />
-      )}
+      <Layout>
+        <MyRecord>
+          <MyRecordItem>
+            <div>
+              <ContentName>스터디 오픈</ContentName>
+              <ContentValue>{studySummary?.openCnt}회</ContentValue>
+            </div>
+            <div>
+              <ContentName>참여한 인원</ContentName>
+              <ContentValue>{studySummary?.memberCnt}명</ContentValue>
+            </div>
+          </MyRecordItem>
+          <MyRecordItem>
+            <div>
+              <ContentName>내 참여 횟수</ContentName>
+              <ContentValue style={{ color: "var(--color-mint)" }}>
+                {studySummary?.myCnt}회
+              </ContentValue>
+            </div>
+            <div>
+              <ContentName>내 최근 참여</ContentName>
+              <ContentValue style={{ color: "var(--color-mint)" }}>
+                {!isGuest && studySummary?.myRecent
+                  ? dayjsToFormat(
+                      dayjs().date(studySummary?.myRecent),
+                      "M월 D일"
+                    )
+                  : "기록 없음"}
+              </ContentValue>
+            </div>
+          </MyRecordItem>
+        </MyRecord>
+        <Button
+          w="60px"
+          h="40px"
+          color="var(--font-h2)"
+          onClick={onClickDetail}
+        >
+          분석
+        </Button>
+      </Layout>
       {isNotCompleted && <NotCompletedModal setIsModal={setIsNotCompleted} />}
     </>
   );

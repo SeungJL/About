@@ -1,72 +1,58 @@
-import dayjs from "dayjs";
-import { useRecoilValue } from "recoil";
+import dayjs, { Dayjs } from "dayjs";
 import styled from "styled-components";
+import { LOCATION_OPEN_DATE } from "../../constants/location";
 import { TABLE_COLORS } from "../../constants/styles";
-import { isRecordLoadingState } from "../../recoil/loadingAtoms";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import { SPACE_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/study/study";
 import { Location } from "../../types/system";
-import RecordCalendarSkeleton from "./skeleton/RecordCalendarSkeleton";
-
 const 수원 = TABLE_COLORS[0];
 const 양천 = TABLE_COLORS[3];
 const 안양 = TABLE_COLORS[2];
 const 강남 = TABLE_COLORS[1];
 
 interface IRecordCalendar {
-  month: number;
-  monthData: IArrivedData[];
+  filterData: IArrivedData[];
+  navMonth: Dayjs;
 }
-function RecordCalendar({ month, monthData }: IRecordCalendar) {
-  const dayjsMonth = dayjs().month(month);
-  const isRecordLoading = useRecoilValue(isRecordLoadingState);
-
+function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
+  console.log(filterData, navMonth);
   return (
     <>
-      {!isRecordLoading ? (
-        <Layout>
-          <DayOfWeek />
-          <CallenderDays>
-            {monthData.map((item, idx) => {
-              return (
-                <DayItem key={idx}>
-                  {item?.date === dayjsMonth?.date() ? (
-                    <Today>{item?.date}</Today>
-                  ) : month === 3 && item?.date === 7 ? (
-                    <OpenDate location="수원">{item?.date}</OpenDate>
-                  ) : month === 3 && item?.date === 19 ? (
-                    <OpenDate location="양천">{item?.date}</OpenDate>
-                  ) : month === 6 && item?.date === 9 ? (
-                    <OpenDate location="안양">{item?.date}</OpenDate>
-                  ) : month === 8 && item?.date === 5 ? (
-                    <OpenDate location="강남">{item?.date}</OpenDate>
-                  ) : (
-                    <div>{item?.date}</div>
-                  )}
-                  {item?.arrivedInfoList.length !== 0 && (
-                    <>
-                      {item?.arrivedInfoList.some(
-                        (place) => SPACE_LOCATION[place.placeId] === "수원"
-                      ) && <Open location="수원">Open</Open>}
-                      {item?.arrivedInfoList.some(
-                        (place) => SPACE_LOCATION[place.placeId] === "양천"
-                      ) && <Open location="양천">Open</Open>}
-                      {item?.arrivedInfoList.some(
-                        (place) => SPACE_LOCATION[place.placeId] === "안양"
-                      ) && <Open location="안양">Open</Open>}
-                      {item?.arrivedInfoList.some(
-                        (place) => SPACE_LOCATION[place.placeId] === "강남"
-                      ) && <Open location="강남">Open</Open>}
-                    </>
-                  )}
-                </DayItem>
-              );
-            })}
-          </CallenderDays>
-        </Layout>
-      ) : (
-        <RecordCalendarSkeleton month={month} />
-      )}
+      <Layout>
+        <DayOfWeek />
+        <CallenderDays>
+          {filterData?.map((item, idx) => {
+            const arrivedInfo = item?.arrivedInfoList;
+            const date = item?.date;
+            const dayjsDate = date && dayjsToStr(navMonth.date(date));
+            let openLocation = null;
+            for (let key in LOCATION_OPEN_DATE)
+              if (LOCATION_OPEN_DATE[key] === dayjsDate) openLocation = key;
+            const openStudyLocation = new Set();
+            arrivedInfo?.forEach((place) => {
+              openStudyLocation.add(SPACE_LOCATION[place.placeId]);
+            });
+
+            return (
+              <DayItem key={idx}>
+                {!openLocation ? (
+                  <DayItemDate isToday={date === dayjs().date()}>
+                    {date}
+                  </DayItemDate>
+                ) : (
+                  <LocationOpen location={openLocation}>{date}</LocationOpen>
+                )}
+                {Array.from(openStudyLocation).map((location, idx) => (
+                  <Open key={idx} location={location as Location}>
+                    Open
+                  </Open>
+                ))}
+              </DayItem>
+            );
+          })}
+        </CallenderDays>
+      </Layout>
     </>
   );
 }
@@ -82,27 +68,14 @@ const DayOfWeek = () => (
   </DayLine>
 );
 
-const DayLine = styled.div`
-  margin: 8px 22px;
-  display: flex;
-  justify-content: space-between;
-  color: var(--font-h3);
-  font-size: 12px;
-  padding: 2px;
-  padding-top: var(--padding-sub);
-  margin-bottom: var(--margin-sub);
-`;
-
 const Layout = styled.div``;
 
 const CallenderDays = styled.div`
-  color: var(--font-h2);
-  margin: 0px var(--margin-min);
-  font-size: 14px;
-  padding: 0;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
   grid-auto-rows: 68px;
+  grid-template-columns: repeat(7, 1fr);
+  margin: 0 var(--margin-min);
+  font-size: 14px;
 `;
 const DayItem = styled.div`
   flex: 1;
@@ -111,13 +84,13 @@ const DayItem = styled.div`
   align-items: center;
 `;
 
-const Today = styled.div`
-  color: var(--color-mint);
-  font-weight: 600;
-  font-size: 15px;
+const DayItemDate = styled.span<{ isToday: boolean }>`
+  color: ${(props) => (props.isToday ? "var(--color-mint)" : null)};
+  font-weight: ${(props) => (props.isToday ? "600" : null)};
+  font-size: ${(props) => (props.isToday ? "15px" : null)};
 `;
 
-const OpenDate = styled.div<{ location: Location }>`
+const LocationOpen = styled.div<{ location: Location }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,6 +117,14 @@ const Open = styled.div<{ location: Location }>`
       : props.location === "안양"
       ? 안양
       : 강남};
+`;
+
+const DayLine = styled.div`
+  margin: var(--margin-sub) 24px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--font-h3);
+  font-size: 12px;
 `;
 
 export default RecordCalendar;

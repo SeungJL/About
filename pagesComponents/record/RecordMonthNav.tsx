@@ -1,41 +1,37 @@
 import { faCaretLeft, faCaretRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dayjs } from "dayjs";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isRecordLoadingState } from "../../recoil/loadingAtoms";
+import { DispatchType } from "../../types/reactTypes";
 
 interface IRecordMonthNav {
   month: number;
-  setMonth: Dispatch<SetStateAction<number>>;
-  setDateRange: any;
+  setNavMonth: DispatchType<Dayjs>;
 }
 
-function RecordMonthNav({ month, setMonth, setDateRange }: IRecordMonthNav) {
+function RecordMonthNav({ month, setNavMonth }: IRecordMonthNav) {
   const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
 
-  useEffect(() => {
+  const onClick = (dir: "left" | "right") => {
     setIsRecordLoading(true);
-    setDateRange({
-      startDate: dayjs().month(month).date(1),
-      endDate: dayjs().month(month).date(dayjs().daysInMonth()),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [month]);
+    if (dir === "left") setNavMonth((old) => old.subtract(1, "day"));
+    else setNavMonth((old) => old.add(1, "month"));
+  };
 
   return (
     <Layout>
       <FontAwesomeIcon
         icon={faCaretLeft}
         size="xs"
-        onClick={() => setMonth(month - 1)}
+        onClick={() => onClick("left")}
       />
       <span>{month + 1}월</span>
       <FontAwesomeIcon
         icon={faCaretRight}
         size="xs"
-        onClick={() => setMonth(month + 1)}
+        onClick={() => onClick("right")}
       />
     </Layout>
   );

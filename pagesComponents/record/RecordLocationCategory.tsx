@@ -1,19 +1,20 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { LOCATION_CONVERT, LOCATION_OPEN } from "../../constants/location";
 import { TABLE_COLORS } from "../../constants/styles";
 import { SPACE_LOCATION } from "../../storage/study";
+import { DispatchType } from "../../types/reactTypes";
 import { IArrivedData } from "../../types/study/study";
 import { Location, LocationFilterType } from "../../types/system";
 
 interface IRecordLocationCategory {
-  setOpenData: React.Dispatch<SetStateAction<IArrivedData[]>>;
-  arrivedData: IArrivedData[];
+  initialData: IArrivedData[];
+  setFilterData: DispatchType<IArrivedData[]>;
 }
 
 function RecordLocationCategory({
-  setOpenData,
-  arrivedData,
+  initialData,
+  setFilterData,
 }: IRecordLocationCategory) {
   const [category, setCategory] = useState<LocationFilterType>("전체");
 
@@ -23,21 +24,20 @@ function RecordLocationCategory({
   };
 
   useEffect(() => {
-    if (!arrivedData) return;
-    if (category !== "전체")
-      setOpenData(
-        arrivedData.map((item) => {
-          return {
-            ...item,
-            arrivedInfoList: item.arrivedInfoList.filter(
-              (place) => SPACE_LOCATION[place?.placeId] === category
-            ),
-          };
-        })
-      );
-    else setOpenData(arrivedData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [arrivedData, category]);
+    if (!initialData) return;
+    if (category === "전체") setFilterData(initialData);
+    else {
+      const filtered = initialData.flatMap((item) => {
+        const filteredArrived = item.arrivedInfoList.filter(
+          (place) => SPACE_LOCATION[place?.placeId] === category
+        );
+        if (filteredArrived.length)
+          return [{ ...item, arrivedInfoList: filteredArrived }];
+        return [];
+      });
+      setFilterData(filtered);
+    }
+  }, [category, initialData, setFilterData]);
 
   return (
     <Layout>
@@ -53,7 +53,6 @@ function RecordLocationCategory({
           </Button>
         ))}
       </SpaceBadge>
-      <span>Free 오픈 제외</span>
     </Layout>
   );
 }
