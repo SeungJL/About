@@ -1,6 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import RecordCalendar from "../../pagesComponents/record/RecordCalendar";
@@ -11,7 +10,6 @@ import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
 import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
 import RecordOverview from "../../pagesComponents/record/RecordOverview";
 import RecordSkeleton from "../../pagesComponents/record/RecordSkeleton";
-import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 
 import { IArrivedData } from "../../types/study/study";
 
@@ -27,10 +25,7 @@ export interface INavMonth {
 
 function Record() {
   //매달 1일을 기준으로 함
-
-  const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
   const [navMonth, setNavMonth] = useState(dayjs().startOf("month"));
-
   const [arrivedCalendar, setArrivedCalendar] = useState<IArrivedData[]>();
   const [filterData, setFilterData] = useState<IArrivedData[]>();
   const [isLoading, setIsLoading] = useState(true);
@@ -41,10 +36,8 @@ function Record() {
     if (!arrivedCalendar) return;
     setFilterData(arrivedCalendar);
     setIsLoading(false);
-  }, [arrivedCalendar, setIsRecordLoading]);
+  }, [arrivedCalendar]);
 
-  //달의 첫째 날
-  console.log(isLoading, arrivedCalendar);
   return (
     <>
       <Header title="스터디 기록" />

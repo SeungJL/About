@@ -1,4 +1,5 @@
 import { Location } from "../types/system";
+import { TABLE_COLORS } from "./styles";
 
 export const LOCATION_OPEN: Location[] = ["수원", "양천", "안양", "강남"];
 export const LOCATION_RECRUITING: Location[] = ["동대문"];
@@ -42,4 +43,11 @@ export const LOCATION_MEMBER_CNT: {
   강남: { member: 34, new: 3 },
   동대문: { member: 13, new: 6 },
   마포: { member: 0, new: 0 },
+};
+
+export const LOCATION_TABLE_COLOR = {
+  수원: TABLE_COLORS[0],
+  양천: TABLE_COLORS[3],
+  안양: TABLE_COLORS[2],
+  강남: TABLE_COLORS[1],
 };
