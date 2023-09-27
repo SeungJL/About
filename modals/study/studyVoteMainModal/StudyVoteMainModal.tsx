@@ -137,7 +137,9 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   const openFreeStudy = async () => {
     const choicedPlace = voteInfo.place;
     await openFree(choicedPlace._id);
-    await patchAttend(voteInfo);
+    setTimeout(() => {
+      patchAttend(voteInfo);
+    }, 1000);
   };
 
   //스터디 장소와 투표인원수 나열
