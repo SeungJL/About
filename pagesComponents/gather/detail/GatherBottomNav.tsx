@@ -132,12 +132,14 @@ function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
 }
 
 const Layout = styled.nav`
-  width: 100%;
-  height: 72px;
   position: fixed;
+  left: 50%;
   bottom: 0;
+  transform: translate(-50%, 0);
+  width: 100%;
+  max-width: 390px;
+  height: 72px;
   padding: var(--padding-main);
-  left: 0;
 `;
 
 export default GatherBottomNav;

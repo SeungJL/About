@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
 import { useGatherParticipateMutation } from "../../../hooks/gather/mutations";
-import { usePointMutation } from "../../../hooks/user/pointSystem/mutation";
 import { IModal, IRefetch } from "../../../types/reactTypes";
 
 function GatherParticipateModalParticipate({
@@ -16,13 +15,10 @@ function GatherParticipateModalParticipate({
   const router = useRouter();
   const gatherId = +router.query.id;
 
-  const { mutate } = usePointMutation();
-
   const { mutate: participate } = useGatherParticipateMutation(gatherId, {
     onSuccess() {
       setIsRefetch(true);
-      mutate({ value: 50, message: "조모임 참여" });
-      completeToast("free", "적립 완료!");
+      completeToast("free", "참여 완료!");
     },
     onError: errorToast,
   });

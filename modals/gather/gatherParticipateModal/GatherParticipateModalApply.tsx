@@ -47,11 +47,15 @@ function GatherParticipateModalApply({
     }
 
     if (gatherData.genderCondition) {
+      const organizerGender = gatherData.user.gender;
+
       const participants = gatherData.participants;
-      const manCnt = participants.filter(
+      let manCnt = participants.filter(
         (who) => who.user.gender === "남성"
       ).length;
-      const womanCnt = participants.length - manCnt;
+      let womanCnt = participants.length - manCnt;
+      if (organizerGender === "남성") manCnt++;
+      else womanCnt++;
 
       if (userInfo.gender === "남성") {
         if (
