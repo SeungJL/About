@@ -16,35 +16,34 @@ function RecordMonthNav({ month, setNavMonth }: IRecordMonthNav) {
 
   const onClick = (dir: "left" | "right") => {
     setIsRecordLoading(true);
-    if (dir === "left") setNavMonth((old) => old.subtract(1, "day"));
+    if (dir === "left") setNavMonth((old) => old.subtract(1, "month"));
     else setNavMonth((old) => old.add(1, "month"));
   };
 
   return (
     <Layout>
-      <FontAwesomeIcon
-        icon={faCaretLeft}
-        size="xs"
-        onClick={() => onClick("left")}
-      />
+      <IconWrapper onClick={() => onClick("left")}>
+        <FontAwesomeIcon icon={faCaretLeft} size="xs" />
+      </IconWrapper>
       <span>{month + 1}월</span>
-      <FontAwesomeIcon
-        icon={faCaretRight}
-        size="xs"
-        onClick={() => onClick("right")}
-      />
+      <IconWrapper onClick={() => onClick("right")}>
+        <FontAwesomeIcon icon={faCaretRight} size="xs" />
+      </IconWrapper>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-sub);
+  display: flex;
+  align-items: center;
+  margin-top: var(--margin-md);
   font-size: 20px;
   font-weight: 700;
-  padding: 0 var(--padding-main);
-  > span {
-    margin: 0 var(--margin-min);
-  }
+  padding: 0 var(--padding-sub);
+`;
+
+const IconWrapper = styled.div`
+  padding: 0 var(--padding-min);
 `;
 
 export default RecordMonthNav;

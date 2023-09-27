@@ -14,7 +14,7 @@ import {
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
-import { SPACE_LOCATION } from "../../../storage/study";
+import { PLACE_TO_LOCATION } from "../../../storage/study";
 import { IParticipation, IVote } from "../../../types/study/studyDetail";
 
 interface IStudySpaceSetting {
@@ -40,7 +40,7 @@ function StudySpaceSetting({
 
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
-  const location = SPACE_LOCATION[placeId as string];
+  const location = PLACE_TO_LOCATION[placeId as string];
 
   const handleSuccess = (data: IVote) => {
     if (!participation) handleDate();

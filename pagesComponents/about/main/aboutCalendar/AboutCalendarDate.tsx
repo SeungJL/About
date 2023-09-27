@@ -30,7 +30,7 @@ function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
         temp.push({ date: validDate });
       }
     } else {
-      console.log(2, rowsInMonth);
+   
       for (let i = 1; i <= 7 * rowsInMonth; i++) {
         if (i <= startDayInMonth) temp.push(null);
         else if (i > daysInMonth + startDayInMonth) temp.push(null);
@@ -46,7 +46,7 @@ function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
   };
 
   const IconCircle = ({ children }) => <CircleLayout>{children}</CircleLayout>;
-  console.log(calendarBox);
+
   return (
     <Layout isSmall={isCalendarWeek}>
       {calendarBox.map((d, idx) => (

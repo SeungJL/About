@@ -6,7 +6,7 @@ import PlaceSelectorSub from "../../../components/features/picker/PlaceSelectorS
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { SPACE_LOCATION } from "../../../storage/study";
+import { PLACE_TO_LOCATION } from "../../../storage/study";
 import { IStudyParticipate } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
 
@@ -19,7 +19,7 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
   const router = useRouter();
   const placeId = router.query.placeId;
   const voteDate = useRecoilValue(voteDateState);
-  const location = SPACE_LOCATION[placeId as string];
+  const location = PLACE_TO_LOCATION[placeId as string];
   const [otherPlaces, setOtherPlaces] = useState<IPlace[]>();
   const [subPlace, setSubPlace] = useState([]);
 

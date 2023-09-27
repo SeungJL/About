@@ -7,7 +7,7 @@ import {
   LOCATION_TABLE_COLOR,
 } from "../../constants/location";
 import { dayjsToStr } from "../../helpers/dateHelpers";
-import { SPACE_LOCATION } from "../../storage/study";
+import { PLACE_TO_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/study/study";
 import { Location } from "../../types/system";
 
@@ -29,7 +29,7 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
             if (LOCATION_OPEN_DATE[key] === dayjsDate) openLocation = key;
           const openStudyLocation = new Set();
           arrivedInfo?.forEach((place) => {
-            openStudyLocation.add(SPACE_LOCATION[place.placeId]);
+            openStudyLocation.add(PLACE_TO_LOCATION[place.placeId]);
           });
 
           return (
@@ -77,7 +77,7 @@ const Layout = styled.div``;
 
 const CallenderDays = styled.div`
   display: grid;
-  grid-auto-rows: 68px;
+  grid-auto-rows: 72px;
   grid-template-columns: repeat(7, 1fr);
   margin: 0 var(--margin-min);
   font-size: 14px;
@@ -87,6 +87,7 @@ const DayItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid var(--font-h56);
 `;
 
 const DayItemDate = styled.span<{ isToday: boolean }>`
@@ -111,7 +112,7 @@ const Open = styled.div<{ location: Location }>`
 `;
 
 const DayLine = styled.div`
-  margin: var(--margin-sub) 24px;
+  margin: var(--margin-md) 24px;
   display: flex;
   justify-content: space-between;
   color: var(--font-h3);

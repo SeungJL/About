@@ -1,113 +1,105 @@
 import styled from "styled-components";
 import { IArrivedData } from "../../types/study/study";
 
-import dayjs from "dayjs";
-import { useRecoilValue } from "recoil";
-import { isRecordLoadingState } from "../../recoil/loadingAtoms";
-import { SPACE_NAME } from "../../storage/study";
-import RecordDetailSkeleton from "./skeleton/RecordDetailSkeleton";
+import { Dayjs } from "dayjs";
+import { LOCATION_TABLE_COLOR } from "../../constants/location";
+import { dayjsToFormat } from "../../helpers/dateHelpers";
+import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../storage/study";
+import { Location } from "../../types/system";
 
 interface IRecordDetail {
-  month: number;
-  monthData: IArrivedData[];
+  navMonth: Dayjs;
+  filterData: IArrivedData[];
 }
-function RecordDetail({ monthData, month }: IRecordDetail) {
-  const isRecordLoading = useRecoilValue(isRecordLoadingState);
-  const reversedData = [...monthData]?.reverse();
+function RecordDetail({ filterData, navMonth }: IRecordDetail) {
+
+  const reversedData = [...filterData]
+    ?.reverse()
+    .filter((item) => item && item.arrivedInfoList.length);
+
   return (
-    <>
-      {reversedData && !isRecordLoading ? (
-        <Layout>
-          {reversedData?.map((item, idx) => (
-            <Block key={idx}>
-              {item !== null && item?.arrivedInfoList.length !== 0 && (
-                <>
-                  <Date>
-                    {dayjs()
-                      .month(month)
-                      .date(item?.date as number)
-                      .add(1, "day")
-                      .format("YYYY-MM-DD")}
-                  </Date>
-                  <SpaceWrapper>
-                    {item.arrivedInfoList.map((space, idx2) => (
-                      <div key={idx2}>
-                        <SpaceHeader>
-                          <span> {SPACE_NAME[space.placeId]}</span>
-                          <span>
-                            참여자수: <span>{space.arrivedInfo.length}명</span>
-                          </span>
-                        </SpaceHeader>
-                        <MemberWrapper>
-                          {space.arrivedInfo.map((who, idx3) => (
-                            <Member key={idx3}>{who.name}</Member>
-                          ))}
-                        </MemberWrapper>
-                      </div>
-                    ))}
-                  </SpaceWrapper>
-                </>
-              )}
-            </Block>
-          ))}
-        </Layout>
-      ) : (
-        <RecordDetailSkeleton />
-      )}
-    </>
+    <Layout>
+      {reversedData.map((item, idx) => (
+        <Block key={idx}>
+          {item?.arrivedInfoList?.length > 0 && (
+            <>
+              <Date>
+                {dayjsToFormat(navMonth.date(item?.date).add(1, "day"), "M/D")}
+              </Date>
+              <StudyInfo>
+                {item.arrivedInfoList.map((space, idx2) => (
+                  <PlaceInfo key={idx2}>
+                    <PlaceName>
+                      <span>{PLACE_TO_NAME[space.placeId]}</span>
+                      <OpenLocation location={PLACE_TO_LOCATION[space.placeId]}>
+                        {PLACE_TO_LOCATION[space.placeId]}
+                      </OpenLocation>
+                    </PlaceName>
+                    <MemberWrapper>
+                      {space.arrivedInfo.map((who, idx3) => (
+                        <Member key={idx3}>{who.name}</Member>
+                      ))}
+                    </MemberWrapper>
+                  </PlaceInfo>
+                ))}
+              </StudyInfo>
+            </>
+          )}
+        </Block>
+      ))}
+    </Layout>
   );
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-main);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `;
-
-const Block = styled.div``;
+const Block = styled.div`
+  border-top: 4px solid var(--font-h56);
+  padding: var(--padding-sub) var(--padding-main);
+  padding-bottom: 0;
+`;
 const Date = styled.div`
-  padding: var(--padding-min) var(--padding-main);
-  font-weight: 600;
-  font-size: 12px;
-  color: var(--font-h3);
-  background-color: var(--font-h7);
+  margin-bottom: var(--margin-sub);
+  font-size: 13px;
+  color: var(--font-h2);
 `;
-
-const SpaceWrapper = styled.div`
-  padding: var(--padding-main);
+const StudyInfo = styled.div`
   font-size: 12px;
   color: var(--font-h2);
 `;
+const PlaceInfo = styled.div`
+  margin-bottom: var(--margin-sub);
+`;
 
-const SpaceHeader = styled.header`
+const PlaceName = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   color: var(--font-h2);
   font-size: 14px;
   > span:first-child {
     font-weight: 600;
-    margin-right: var(--margin-sub);
+    margin-right: var(--margin-min);
   }
-  > span:last-child {
-    font-size: 12px;
-    > span {
-      font-weight: 600;
-    }
-  }
+`;
+const OpenLocation = styled.span<{ location: Location }>`
+  font-size: 11px;
+  color: ${(props) => LOCATION_TABLE_COLOR[props.location]};
 `;
 
 const MemberWrapper = styled.div`
-  padding: var(--padding-sub) 0;
+  margin-top: var(--margin-sub);
+
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20%, auto));
   align-items: center;
   line-height: 2;
 `;
 
-const Member = styled.div`
+const Member = styled.span`
   margin-right: var(--margin-min);
-  color: var(--font-h1);
+  color: var(--font-h3);
 `;
 
 export default RecordDetail;

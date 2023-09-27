@@ -2,17 +2,19 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect } from "react";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useStudyCheckRecordsQuery } from "../../hooks/study/queries";
-import { DispatchType } from "../../types/reactTypes";
+import { DispatchBoolean, DispatchType } from "../../types/reactTypes";
 import { IArrivedData } from "../../types/study/study";
 
 interface IRecordSetting {
   navMonth: Dayjs;
   setArrivedCalendar: DispatchType<IArrivedData[]>;
+  setIsRecordLoading: DispatchBoolean;
 }
 
 function RecordCalendarSetting({
   navMonth,
   setArrivedCalendar,
+  setIsRecordLoading,
 }: IRecordSetting) {
   const errorToast = useErrorToast();
 
@@ -23,7 +25,9 @@ function RecordCalendarSetting({
       onError: errorToast,
     }
   );
+
   useEffect(() => {
+    setIsRecordLoading(true);
     if (isLoading) return;
     const daysInMonth = navMonth.daysInMonth();
     const frontBlankDate = navMonth.day();

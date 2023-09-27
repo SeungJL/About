@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { LOCATION_CONVERT, LOCATION_OPEN } from "../../constants/location";
-import { TABLE_COLORS } from "../../constants/styles";
-import { SPACE_LOCATION } from "../../storage/study";
+import {
+  LOCATION_CONVERT,
+  LOCATION_OPEN,
+  LOCATION_TABLE_COLOR,
+} from "../../constants/location";
+import { PLACE_TO_LOCATION } from "../../storage/study";
 import { DispatchType } from "../../types/reactTypes";
 import { IArrivedData } from "../../types/study/study";
 import { Location, LocationFilterType } from "../../types/system";
@@ -27,13 +30,12 @@ function RecordLocationCategory({
     if (!initialData) return;
     if (category === "전체") setFilterData(initialData);
     else {
-      const filtered = initialData.flatMap((item) => {
-        const filteredArrived = item.arrivedInfoList.filter(
-          (place) => SPACE_LOCATION[place?.placeId] === category
+      const filtered = initialData.map((item) => {
+        const filteredArrived = item?.arrivedInfoList.filter(
+          (place) => PLACE_TO_LOCATION[place?.placeId] === category
         );
-        if (filteredArrived.length)
-          return [{ ...item, arrivedInfoList: filteredArrived }];
-        return [];
+        if (!filteredArrived) return;
+        return { ...item, arrivedInfoList: filteredArrived };
       });
       setFilterData(filtered);
     }
@@ -45,8 +47,8 @@ function RecordLocationCategory({
         {LOCATION_OPEN.map((location) => (
           <Button
             key={location}
+            location={location}
             category={category}
-            isSelected={category === location}
             onClick={() => onClickBadge(location)}
           >
             {LOCATION_CONVERT[location]}
@@ -79,31 +81,21 @@ const Layout = styled.div`
 const SpaceBadge = styled.section`
   display: flex;
   align-items: center;
-  > button {
-    margin-right: var(--margin-sub);
-    font-weight: 600;
-  }
-  > button:first-child {
-    color: ${TABLE_COLORS[0]};
-  }
-  > button:nth-child(2) {
-    color: ${TABLE_COLORS[3]};
-  }
-  > button:nth-child(3) {
-    color: ${TABLE_COLORS[2]};
-  }
-  > button:nth-child(4) {
-    color: ${TABLE_COLORS[1]};
-  }
 `;
 
 const Button = styled.button<{
+  location: Location;
   category: LocationFilterType;
-  isSelected: boolean;
 }>`
-  font-size: ${(props) => (props.isSelected ? "14px" : "12px")};
+  margin-right: var(--margin-sub);
+  font-weight: 600;
+  color: ${(props) => LOCATION_TABLE_COLOR[props.location]};
+  font-size: ${(props) =>
+    props.category === props.location ? "14px" : "12px"};
   opacity: ${(props) =>
-    props.category !== "전체" && !props.isSelected ? "0.7" : "1"};
+    props.category !== "전체" && props.category !== props.location
+      ? "0.7"
+      : "1"};
 `;
 
 export default RecordLocationCategory;

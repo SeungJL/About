@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import RecordCalendar from "../../pagesComponents/record/RecordCalendar";
 import RecordCalendarSetting from "../../pagesComponents/record/RecordCalendarSetting";
+import RecordDetail from "../../pagesComponents/record/RecordDetail";
 import RecordLocationCategory from "../../pagesComponents/record/RecordLocationCategory";
 import RecordMonthNav from "../../pagesComponents/record/RecordMonthNav";
 
@@ -29,7 +30,6 @@ function Record() {
   const [arrivedCalendar, setArrivedCalendar] = useState<IArrivedData[]>();
   const [filterData, setFilterData] = useState<IArrivedData[]>();
   const [isLoading, setIsLoading] = useState(true);
-
   const [isCalendar, setIsCalendar] = useState(true);
 
   useEffect(() => {
@@ -44,6 +44,7 @@ function Record() {
       <RecordCalendarSetting
         navMonth={navMonth}
         setArrivedCalendar={setArrivedCalendar}
+        setIsRecordLoading={setIsLoading}
       />
       <Layout>
         <RecordMonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
@@ -57,17 +58,16 @@ function Record() {
             {isCalendar ? (
               <RecordCalendar filterData={filterData} navMonth={navMonth} />
             ) : (
-              // <RecordDetail monthData={monthData} month={month} />
-              <></>
+              <RecordDetail filterData={filterData} navMonth={navMonth} />
             )}
-            <RecordNavigation
-              isCalendar={isCalendar}
-              setIsCalendar={setIsCalendar}
-            />
           </>
         ) : (
-          <RecordSkeleton />
+          <RecordSkeleton isCalendar={isCalendar} />
         )}
+        <RecordNavigation
+          isCalendar={isCalendar}
+          setIsCalendar={setIsCalendar}
+        />
       </Layout>
     </>
   );

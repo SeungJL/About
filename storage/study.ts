@@ -31,7 +31,7 @@ export const GANGNAM_선릉 = "64ecc54240f6dace3b0655a0";
 export const GANGNAM_강남구청 = "64ecc4ef40f6dace3b06559f";
 export const GANGNAM_강남 = "64ecc58540f6dace3b0655a1";
 
-export const SPACE_NAME = {
+export const PLACE_TO_NAME = {
   //수원
   [SUWAN_투썸]: "투썸플레이스",
   [SUWAN_탐앤탐스]: "탐앤탐스",
@@ -65,7 +65,7 @@ export const SPACE_NAME = {
   [GANGNAM_선릉]: "커피빈",
 };
 
-export const SPACE_LOCATION = {
+export const PLACE_TO_LOCATION = {
   //수원
   [SUWAN_투썸상현]: "수원",
   [SUWAN_카탈로그]: "수원",
