@@ -16,7 +16,7 @@ export const useStoreQuery = (
     options
   );
 
-export const useStoreAllQuery = (options?: QueryOptions<IStoreQuery>) =>
+export const useStoreGiftEntryQuery = (options?: QueryOptions<IStoreQuery>) =>
   useQuery<IStoreQuery, AxiosError, IStoreQuery>(
     "storeGiftAll",
     async () => {

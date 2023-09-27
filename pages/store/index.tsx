@@ -8,25 +8,26 @@ import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import ModalPortal from "../../components/modals/ModalPortal";
 import { StoreGiftImage } from "../../components/utils/DesignAdjustment";
-import { useStoreAllQuery } from "../../hooks/store/queries";
+import { GIFT_ID_INFO } from "../../constants/contentsValue/store";
+import { useStoreGiftEntryQuery } from "../../hooks/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { STORE_GIFT } from "../../storage/Store";
 import { FullScreen } from "../../styles/layout/modal";
 
 function Store() {
-  const [applyNum, setApplyNum] = useState([]);
   const router = useRouter();
+  const [applyNum, setApplyNum] = useState([]);
   const [isModal, setIsModal] = useState(false);
 
-  const { isLoading } = useStoreAllQuery({
+  const { isLoading } = useStoreGiftEntryQuery({
     onSuccess(data) {
-      const temp = new Array(6).fill(0);
-      data?.users.forEach((who) => {
-        const giftIdx = Number(who?.giftId);
-        if (giftIdx <= 6 || giftIdx > 12 || who?.cnt < 1) return;
-        temp[giftIdx - 7] += who?.cnt;
-        setApplyNum(temp);
+      const giftArr = new Array(6).fill(0);
+      data.users.forEach((who) => {
+        const giftIdx = +who.giftId - GIFT_ID_INFO.startId;
+        if (giftIdx >= 0 && giftIdx <= GIFT_ID_INFO.giftCnt)
+          giftArr[giftIdx] += who.cnt;
       });
+      setApplyNum(giftArr);
     },
   });
 
@@ -36,48 +37,41 @@ function Store() {
         <RuleIcon setIsModal={setIsModal} />
       </Header>
       <Layout>
-        {STORE_GIFT?.map((item, idx) => {
-          const winTemp = [];
-          for (let i = 0; i < item?.winner; i++) winTemp.push(i);
+        {STORE_GIFT.map((item, idx) => {
           return (
             <Item key={idx} onClick={() => router.push(`/store/${idx}`)}>
               <Status>
-                <div>
-                  {winTemp?.map((win) => (
-                    <div key={win} style={{ marginLeft: "auto" }}>
+                <Trophy>
+                  {new Array(item.winner).fill(0).map((_, idx) => (
+                    <div key={idx}>
                       <FontAwesomeIcon
                         icon={faTrophy}
                         color="var(--color-mint)"
                       />
                     </div>
                   ))}
-                </div>
-                <div>
+                </Trophy>
+                <ApplyCnt>
                   <span>{applyNum[idx]}</span>
-                  <span>/{item?.max}</span>
-                </div>
+                  <span>/{item.max}</span>
+                </ApplyCnt>
               </Status>
               <ImageWrapper>
                 <StoreGiftImage imageSrc={item.image} giftId={item.giftId} />
-                {item?.max === applyNum[idx] && <Circle>추첨 완료</Circle>}
+                {item.max === applyNum[idx] && <Circle>추첨 완료</Circle>}
               </ImageWrapper>
               <Info>
                 <Name>{item.name}</Name>
-
                 <Point>{item.point} point</Point>
               </Info>
-              {item?.max === applyNum[idx] && (
-                <CompletedRapple></CompletedRapple>
-              )}
+              {item?.max === applyNum[idx] && <CompletedRapple />}
             </Item>
           );
         })}
       </Layout>
       {isLoading && (
         <>
-          <Load>
-            <MainLoading />
-          </Load>
+          <MainLoading />
           <FullScreen />
         </>
       )}
@@ -90,64 +84,45 @@ function Store() {
   );
 }
 
-const CompletedRapple = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  opacity: 0.8;
+const Layout = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  margin: 0 var(--margin-main);
+  padding: var(--padding-main) 0;
+  gap: var(--margin-sub);
 `;
 
-const Info = styled.div`
-  margin-top: auto;
+const Item = styled.div`
+  position: relative;
+  height: 196px;
+  padding: var(--padding-md);
+  background-color: var(--font-h7);
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Circle = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  border: 2px solid var(--font-h1);
-  display: flex;
-  font-size: 14px;
-  justify-content: center;
-  align-items: center;
-
-  font-weight: 800;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-sub);
 `;
 
 const Status = styled.div`
-  position: absolute;
+  align-self: flex-end;
   display: flex;
   flex-direction: column;
-  right: 12px;
-  top: 9px;
   font-size: 13px;
-  > span:first-child {
-    font-size: 14px;
-    font-weight: 600;
+`;
+
+const Trophy = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  > div {
+    margin-left: var(--padding-min);
   }
-  > div:first-child {
-    display: flex;
-    align-items: center;
-    > div {
-      padding-left: 3px;
-    }
-  }
-  > div:last-child {
-    margin-top: 2px;
-    align-self: flex-end;
-    color: var(--font-h3);
-  }
+`;
+
+const ApplyCnt = styled.div`
+  align-self: flex-end;
+  color: var(--font-h3);
 `;
 
 const ImageWrapper = styled.div`
@@ -155,31 +130,14 @@ const ImageWrapper = styled.div`
   height: 120px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: absolute;
-
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: -16px;
 `;
 
-const Layout = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  padding: 14px;
-  gap: 14px;
-`;
-
-const Item = styled.div`
-  height: 196px;
-  background-color: var(--font-h7);
+const Info = styled.div`
+  margin-top: -12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  border-radius: var(--border-radius-sub);
-  padding-bottom: var(--padding-sub);
 `;
 
 const Name = styled.span`
@@ -192,6 +150,30 @@ const Point = styled.span`
   font-size: 16px;
 `;
 
-const Load = styled.div``;
+const Circle = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  border: 2px solid var(--font-h1);
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+`;
+const CompletedRapple = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--font-h56);
+  opacity: 0.5;
+`;
 
 export default Store;
