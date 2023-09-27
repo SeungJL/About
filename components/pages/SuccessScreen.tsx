@@ -33,6 +33,7 @@ function SuccessScreen({ children, url }: ISuccessScreen) {
 
 const Layout = styled.div`
   width: 100vw;
+  max-width: 390px;
   height: 100vh;
   left: 50%;
   top: 0;
@@ -47,6 +48,7 @@ const Layout = styled.div`
 
 const Icon = styled.div`
   margin-top: 34%;
+
   color: var(--color-mint);
 `;
 
