@@ -2,6 +2,7 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import {
   useScoreLogQuery,
@@ -10,7 +11,7 @@ import {
 
 function ScoreLog() {
   const { data } = useScoreQuery();
-  const { data: scoreLog } = useScoreLogQuery();
+  const { data: scoreLog, isLoading } = useScoreLogQuery();
 
   const filterLog = scoreLog?.filter((item) => item.meta.value);
 
@@ -29,19 +30,25 @@ function ScoreLog() {
             <Content>내용</Content>
             <Point>점수</Point>
           </LogHeader>
-          {filterLog?.reverse().map((item, idx) => {
-            const value = item?.meta.value;
-            return (
-              <Item key={idx}>
-                <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-                <Content>{item?.message}</Content>
-                <Point isMinus={value < 0}>
-                  {value > 0 && "+"}
-                  {value} 점
-                </Point>
-              </Item>
-            );
-          })}
+          <>
+            {!isLoading ? (
+              filterLog.reverse().map((item, idx) => {
+                const value = item?.meta.value;
+                return (
+                  <Item key={idx}>
+                    <Date>{dayjs(item.timestamp).format("M.DD")}</Date>
+                    <Content>{item.message}</Content>
+                    <Point isMinus={value < 0}>
+                      {value > 0 && "+"}
+                      {value} 점
+                    </Point>
+                  </Item>
+                );
+              })
+            ) : (
+              <MainLoading />
+            )}
+          </>
         </Container>
       </Layout>
     </>

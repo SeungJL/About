@@ -1,5 +1,5 @@
 import { Badge, Progress } from "@chakra-ui/react";
-import { faQuestionCircle } from "@fortawesome/pro-regular-svg-icons";
+import { faQuestionCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -38,10 +38,8 @@ function PointScoreBar({ myScore }: IPointScoreBar) {
 
   const badgeInfo = BADGE_INFO.find((info) => info.badge === userBadge);
   const nextBadgeInfo = BADGE_INFO[BADGE_INFO.findIndex(() => badgeInfo) + 1];
-
   const badgeColor = BADGE_COLOR[userBadge];
   const nextBadgeColor = BADGE_COLOR[nextBadgeInfo?.badge];
-
   const badgeGap = nextBadgeInfo?.minScore - badgeInfo?.minScore;
   const remainingScore = nextBadgeInfo?.minScore - myScore;
 
@@ -58,7 +56,7 @@ function PointScoreBar({ myScore }: IPointScoreBar) {
                 {myScore}점
               </BadgeName>
               <IconWrapper onClick={() => setIsBadgeModal(true)}>
-                <FontAwesomeIcon icon={faQuestionCircle} />
+                <FontAwesomeIcon icon={faQuestionCircle} size="sm" />
               </IconWrapper>
             </div>
             {![...EVENT_BADGE, BADGE_INFO.slice(-1)[0]].includes(userBadge) && (

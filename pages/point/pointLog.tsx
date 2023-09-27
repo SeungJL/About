@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import {
   usePointLogQuery,
@@ -14,7 +15,7 @@ function PointLog() {
   const prevPageUrl = useRecoilValue(prevPageUrlState);
 
   const { data } = usePointQuery();
-  const { data: pointLog } = usePointLogQuery();
+  const { data: pointLog, isLoading } = usePointLogQuery();
 
   const filterLog = pointLog?.filter((item) => item.meta.value);
 
@@ -33,19 +34,25 @@ function PointLog() {
             <Content>내용</Content>
             <Point>점수</Point>
           </LogHeader>
-          {filterLog?.reverse().map((item, idx) => {
-            const value = item?.meta.value;
-            return (
-              <Item key={idx}>
-                <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-                <Content>{item?.message}</Content>
-                <Point isMinus={value < 0}>
-                  {value > 0 && "+"}
-                  {value} point
-                </Point>
-              </Item>
-            );
-          })}
+          <>
+            {!isLoading ? (
+              filterLog?.reverse().map((item, idx) => {
+                const value = item?.meta.value;
+                return (
+                  <Item key={idx}>
+                    <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
+                    <Content>{item?.message}</Content>
+                    <Point isMinus={value < 0}>
+                      {value > 0 && "+"}
+                      {value} point
+                    </Point>
+                  </Item>
+                );
+              })
+            ) : (
+              <MainLoading />
+            )}
+          </>
         </Container>
       </Layout>
     </>
