@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { IStoreQuery } from "../../types/page/store";
 import { QueryOptions } from "../../types/reactTypes";
 
-export const useStoreQuery = (
+export const useStoreGiftQuery = (
   giftId: number,
   options?: QueryOptions<IStoreQuery>
 ) =>

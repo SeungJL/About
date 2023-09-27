@@ -8,17 +8,21 @@ import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IStoreApplicant } from "../../types/page/store";
 import { IModal } from "../../types/reactTypes";
 interface IStoreGiftWinModal extends IModal {
-  applyData: IStoreApplicant[];
+  applicants: IStoreApplicant[];
   win: number;
 }
 
-function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
+function StoreGiftWinModal({
+  setIsModal,
+  applicants,
+  win,
+}: IStoreGiftWinModal) {
   const [winner, setWinner] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     const data = [];
-    applyData.forEach((who) => {
+    applicants.forEach((who) => {
       for (let i = 0; i < who?.cnt; i++) data.push(who);
     });
     const temp = [];
@@ -26,7 +30,7 @@ function StoreGiftWinModal({ setIsModal, applyData, win }: IStoreGiftWinModal) {
     if (win >= 2) temp.push(data[6]);
     if (win >= 3) temp.push(data[9]);
     setWinner(temp);
-  }, [applyData, win]);
+  }, [applicants, win]);
 
   const tempA = ["김유리", "김영우", "김예나"];
 
