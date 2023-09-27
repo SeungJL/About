@@ -23,7 +23,7 @@ function AboutCategoryNav() {
   const location = useRecoilValue(locationState);
 
   const isGatherAlert = useRecoilValue(isGatherAlertState);
-  const [isPointAlert, setIsPointAlert] = useState(true);
+  const [isPointAlert, setIsPointAlert] = useState(false);
 
   const onClickItem = (type: AboutCategory) => {
     if (type === "member") {
