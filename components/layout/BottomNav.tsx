@@ -13,6 +13,7 @@ function BottomNav({ onClick, text }: IBottomNav) {
       bottom="0"
       transform="translate(-50%,0)"
       width={`calc(100% - 2*var(--margin-main))`}
+      maxW="358px"
       height="44px"
       mb="var(--margin-main)"
       borderRadius="100px"

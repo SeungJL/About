@@ -209,7 +209,7 @@ function WritingCondition() {
                 >
                   <RangeSlider
                     value={age}
-                    min={20}
+                    min={19}
                     max={28}
                     step={1}
                     width="97%"
