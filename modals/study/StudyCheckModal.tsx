@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
 import {
-  POINT_SYSTEM_MINUS,
+  POINT_SYSTEM_Deposit,
   POINT_SYSTEM_PLUS,
 } from "../../constants/contentsValue/pointSystem";
 import { getToday } from "../../helpers/dateHelpers";
@@ -18,9 +18,8 @@ import {
 } from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import {
+  useAboutPointMutation,
   useDepositMutation,
-  usePointMutation,
-  useScoreMutation,
 } from "../../hooks/user/pointSystem/mutation";
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
@@ -47,18 +46,17 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   const { data: location } = useUserLocationQuery();
 
-  const { mutate: getPoint } = usePointMutation();
-  const { mutate: getScore } = useScoreMutation();
+  const { mutate: getAboutPoint } = useAboutPointMutation();
+
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
 
   const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
     onSuccess() {
       completeToast("free", "출석 완료 !");
-      if (isChecking && voteDate > dayjs().subtract(1, "day")) {
-        getScore(POINT_SYSTEM_PLUS.STUDY_ATTEND.score);
-        getPoint(POINT_SYSTEM_PLUS.STUDY_ATTEND.point);
-      }
+      if (isChecking && voteDate > dayjs().subtract(1, "day"))
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_ATTEND);
+
       if (
         !isFree &&
         dayjs(
@@ -67,7 +65,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
           ).time.start
         ).add(1, "hour") < dayjs()
       )
-        getDeposit(POINT_SYSTEM_MINUS.attendCheck.deposit);
+        getDeposit(POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE);
       setIsRefetchStudySpace(true);
     },
     onError: errorToast,

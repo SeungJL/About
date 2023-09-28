@@ -14,19 +14,13 @@ import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
-import {
-  useAdminPointMutation,
-  useAdminScoreMutation,
-} from "../../../hooks/admin/mutation";
+import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
 } from "../../../hooks/CustomToast";
-import {
-  usePointMutation,
-  useScoreMutation,
-} from "../../../hooks/user/pointSystem/mutation";
+import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
@@ -54,30 +48,25 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   const [isFirst, setIsFirst] = useState(true);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
-  const { mutate: getPoint } = usePointMutation();
-  const { mutate: getScore } = useScoreMutation();
-  const { mutate: getInviteScore } = useAdminScoreMutation(inviteUid as string);
-  const { mutate: getInvitePoint } = useAdminPointMutation(inviteUid as string);
+  const { mutate: getAboutPoint } = useAboutPointMutation();
+
+  const { mutate: getInviteAboutPoint } = useAdminAboutPointMutation(
+    inviteUid as string
+  );
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
       if (studyDateStatus === "today") {
-        getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);
-        getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
       }
       if (studyDateStatus === "not passed") {
-        getScore(POINT_SYSTEM_PLUS.STUDY_VOTE.score);
-        getPoint(POINT_SYSTEM_PLUS.STUDY_VOTE.point);
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
       }
+
       if (inviteUid) {
-        getScore(POINT_SYSTEM_PLUS.STUDY_VOTE.invitePoint);
-        getPoint(POINT_SYSTEM_PLUS.STUDY_VOTE.inviteScore);
-        getInviteScore({
-          value: POINT_SYSTEM_PLUS.STUDY_VOTE.inviteScore.value,
-          message: `${session?.user.name}님의 스터디 참여 보너스`,
-        });
-        getInvitePoint({
-          value: POINT_SYSTEM_PLUS.STUDY_VOTE.invitePoint.value,
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
+        getInviteAboutPoint({
+          value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
       }

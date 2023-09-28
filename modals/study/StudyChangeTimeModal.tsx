@@ -14,7 +14,7 @@ import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { useRouter } from "next/router";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
-import { POINT_SYSTEM_MINUS } from "../../constants/contentsValue/pointSystem";
+import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import {
   useCompleteToast,
   useErrorToast,
@@ -73,9 +73,8 @@ function StudyChangeTimeModal({
       if (isFree) return;
       if (dayjs() >= dayjs().hour(time.start.hours).minute(time.start.minutes))
         getPoint({ value: -5, message: "늦은 시간 변경" });
-      else if (studyStartTime && dayjs() > myStudyStartTime) {
-        getDeposit(POINT_SYSTEM_MINUS.timeChange.deposit);
-      }
+      else if (studyStartTime && dayjs() > myStudyStartTime)
+        getDeposit(POINT_SYSTEM_Deposit.STUDY_TIME_CHANGE);
     },
     onError: errorToast,
   });

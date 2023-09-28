@@ -11,7 +11,7 @@ export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>
     });
   }, options);
 
-export const useAdminAboutPointMutaion = (
+export const useAdminAboutPointMutation = (
   uid: string,
   options?: MutationOptions<IPointSystem>
 ) =>

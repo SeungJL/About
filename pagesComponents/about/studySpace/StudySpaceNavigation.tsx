@@ -2,20 +2,11 @@ import { faCircleXmark, faClock } from "@fortawesome/pro-regular-svg-icons";
 import { faBan } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-
-import { useRecoilValue } from "recoil";
-import { useStudyCancelMutation } from "../../../hooks/study/mutations";
-import {
-  isVotingState,
-  myStudyFixedState,
-  studyDateStatusState,
-} from "../../../recoil/studyAtoms";
-
 import { useSession } from "next-auth/react";
-
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { POINT_SYSTEM_MINUS } from "../../../constants/contentsValue/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
 import {
@@ -23,10 +14,13 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../../hooks/CustomToast";
+import { useStudyCancelMutation } from "../../../hooks/study/mutations";
+import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import {
-  usePointMutation,
-  useScoreMutation,
-} from "../../../hooks/user/pointSystem/mutation";
+  isVotingState,
+  myStudyFixedState,
+  studyDateStatusState,
+} from "../../../recoil/studyAtoms";
 
 import { IParticipation } from "../../../types/study/studyDetail";
 import { IUser } from "../../../types/user/user";
@@ -63,8 +57,7 @@ function StudySpaceNavigation({
     (props) => (props.user as IUser).uid === session?.uid
   );
 
-  const { mutate: getScore } = useScoreMutation();
-  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
     onSuccess() {
       completeToast("success");
@@ -82,8 +75,7 @@ function StudySpaceNavigation({
       if (myStudyFixed)
         failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
       else {
-        getScore(POINT_SYSTEM_MINUS.cancelStudy.score);
-        getPoint(POINT_SYSTEM_MINUS.cancelStudy.point);
+        getAboutPoint(POINT_SYSTEM_MINUS.STUDY_VOTE_CANCEL);
         handleAbsent();
       }
       return;

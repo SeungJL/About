@@ -13,10 +13,7 @@ import { USER_ROLE } from "../../../constants/contentsValue/role";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
-import {
-  useAdminPointMutation,
-  useAdminScoreMutation,
-} from "../../../hooks/admin/mutation";
+import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
 import {
   useCompleteToast,
   useErrorToast,
@@ -64,8 +61,7 @@ function ProfileInfo({ user }: IProfileInfo) {
     onError: errorToast,
   });
 
-  const { mutate: sendPoint } = useAdminPointMutation(user?.uid, {});
-  const { mutate: sendScore } = useAdminScoreMutation(user?.uid);
+  const { mutate: sendAboutPoint } = useAdminAboutPointMutation(user?.uid);
 
   useStudyCheckRecordsQuery(dayjs().subtract(4, "day"), dayjs().add(1, "day"), {
     enabled: !isGuest,
@@ -108,8 +104,8 @@ function ProfileInfo({ user }: IProfileInfo) {
       );
       return;
     }
-    sendPoint(POINT_SYSTEM_PLUS.LIKE.point);
-    sendScore(POINT_SYSTEM_PLUS.LIKE.score);
+    sendAboutPoint(POINT_SYSTEM_PLUS.LIKE);
+
     localStorage.setItem(
       LIKE_HEART,
       JSON.stringify([

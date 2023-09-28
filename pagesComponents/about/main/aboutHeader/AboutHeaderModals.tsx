@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ModalPortal from "../../../../components/modals/ModalPortal";
 import AttendCheckModal from "../../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../../modals/aboutHeader/AttendCheckWinModal";
-import PointSystemsModal from "../../../../modals/aboutHeader/PointSystemsModal";
+import PointSystemsModal from "../../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../../modals/aboutHeader/promotionModal/PromotionModal";
 import RegularGatherResultModal from "../../../../modals/aboutHeader/RegularGatherResultModal";
 import { AboutHeaderIconType } from "./AboutHeader";

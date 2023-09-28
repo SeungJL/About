@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalLayout } from "../../components/modals/Modals";
-import { POINT_SYSTEM_MINUS } from "../../constants/contentsValue/pointSystem";
+import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import {
   useCompleteToast,
   useErrorToast,
@@ -63,8 +63,8 @@ function StudyAbsentModal({ setIsModal }: IModal) {
       let fee: { value: number; message: string };
       if (isFree) return;
       if (dayjs() > myStudyStartTime)
-        fee = POINT_SYSTEM_MINUS.absentStudy.depositLate;
-      else fee = POINT_SYSTEM_MINUS.absentStudy.deposit;
+        fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER;
+      else fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE;
       getDeposit(fee);
       sendRequest({
         writer: session.user.name,

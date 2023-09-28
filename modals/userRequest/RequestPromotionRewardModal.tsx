@@ -18,10 +18,7 @@ import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 
-import {
-  usePointMutation,
-  useScoreMutation,
-} from "../../hooks/user/pointSystem/mutation";
+import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -33,16 +30,14 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
   const [isFirst, setIsFirst] = useState(true);
 
   const { mutate: getPoint } = usePointMutation();
-  const { mutate: getScore } = useScoreMutation();
+
   const { mutate: sendPromotionReward } = useUserRequestMutation({
     onSuccess: () => completeToast("free", "이벤트 응모 및 포인트 지급 완료!"),
     onError: errorToast,
   });
 
   const onSubmit = () => {
-    getPoint(POINT_SYSTEM_PLUS.PROMOTION.point);
-    getScore(POINT_SYSTEM_PLUS.PROMOTION.score);
-
+    getPoint(POINT_SYSTEM_PLUS.PROMOTION);
     sendPromotionReward({
       category: "홍보",
       writer: session.user.name,

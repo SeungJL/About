@@ -15,10 +15,7 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipateMutation,
 } from "../../../hooks/study/mutations";
-import {
-  usePointMutation,
-  useScoreMutation,
-} from "../../../hooks/user/pointSystem/mutation";
+import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
@@ -72,11 +69,11 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   const placeCnt = participations?.length;
   const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "lg" : "md";
 
-  const { mutate: getPoint } = usePointMutation();
-  const { mutate: getScore } = useScoreMutation();
+  const { mutate: getAboutPoint } = useAboutPointMutation();
+
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
-      getAboutPoint();
+      getPoint();
       completeToast("studyVote");
       setUpdateStudy(true);
     },
@@ -91,16 +88,13 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   });
 
   //투표 완료시 점수 획득
-  const getAboutPoint = () => {
+  const getPoint = () => {
     if (!isVoting) {
-      if (studyDateStatus === "today") {
-        getScore(POINT_SYSTEM_PLUS.voteStudyDaily.score);
-        getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
-      }
-      if (studyDateStatus === "not passed") {
-        getScore(POINT_SYSTEM_PLUS.STUDY_VOTE.score);
-        getPoint(POINT_SYSTEM_PLUS.STUDY_VOTE.point);
-      }
+      if (studyDateStatus === "today")
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
+
+      if (studyDateStatus === "not passed")
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
     }
   };
 
