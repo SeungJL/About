@@ -1,30 +1,16 @@
 export const POINT_SYSTEM_PLUS = {
-  attendCheck: {
-    score: { value: 5, message: "스터디 출석" },
-    point: { value: 5, message: "스터디 출석" },
-  },
-  voteStudy: {
+  STUDY_ATTEND: { value: 5, message: "스터디 출석" },
+  STUDY_VOTE: {
     score: { value: 5, message: "스터디 투표" },
     point: { value: 5, message: "스터디 투표" },
     inviteScore: { value: 2, message: "친구 초대 보너스" },
     invitePoint: { value: 2, message: "친구 초대 보너스" },
   },
-  voteStudyDaily: {
-    score: { value: 2, message: "당일 참여" },
-    point: { value: 2, message: "당일 참여" },
-  },
-  promotionReward: {
-    score: { value: 15, message: "홍보 리워드" },
-    point: { value: 15, message: "홍보 리워드" },
-  },
-  suggest: {
-    score: { value: 3, message: "건의사항" },
-    point: { value: 3, message: "건의사항" },
-  },
-  like: {
-    score: { value: 3, message: "좋아요 점수" },
-    point: { value: 3, message: "좋아요 점수" },
-  },
+  DAILY_ATTEND: { value: 5, message: "일일 출석" },
+  voteStudyDaily: { value: 2, message: "당일 참여" },
+  PROMOTION: { value: 50, message: "홍보 리워드" },
+  suggest: { value: 3, message: "건의사항" },
+  LIKE: { value: 3, message: "좋아요" },
 };
 
 export const POINT_SYSTEM_MINUS = {

@@ -91,7 +91,7 @@ function AttendCheckModal({ setIsModal }: IModal) {
       <ModalHeaderX title="매일매일 출석체크 !" setIsModal={setIsModal} />
       <ModalMain>
         <PresentMessage>
-          매일 출석체크로 <b>+5 ABOUT</b> 포인트를 얻을 수 있고, 운이 좋으면
+          매일 출석체크로 <b>+5 point</b>를 얻을 수 있고, 운이 좋으면
           <b> 랜덤 이벤트 선물</b>도 받을 수 있어요!
         </PresentMessage>
         <Container>

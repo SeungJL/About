@@ -66,18 +66,18 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
         getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
       }
       if (studyDateStatus === "not passed") {
-        getScore(POINT_SYSTEM_PLUS.voteStudy.score);
-        getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
+        getScore(POINT_SYSTEM_PLUS.STUDY_VOTE.score);
+        getPoint(POINT_SYSTEM_PLUS.STUDY_VOTE.point);
       }
       if (inviteUid) {
-        getScore(POINT_SYSTEM_PLUS.voteStudy.invitePoint);
-        getPoint(POINT_SYSTEM_PLUS.voteStudy.inviteScore);
+        getScore(POINT_SYSTEM_PLUS.STUDY_VOTE.invitePoint);
+        getPoint(POINT_SYSTEM_PLUS.STUDY_VOTE.inviteScore);
         getInviteScore({
-          value: POINT_SYSTEM_PLUS.voteStudy.inviteScore.value,
+          value: POINT_SYSTEM_PLUS.STUDY_VOTE.inviteScore.value,
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
         getInvitePoint({
-          value: POINT_SYSTEM_PLUS.voteStudy.invitePoint.value,
+          value: POINT_SYSTEM_PLUS.STUDY_VOTE.invitePoint.value,
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
       }

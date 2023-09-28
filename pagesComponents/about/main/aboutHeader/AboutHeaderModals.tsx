@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import ModalPortal from "../../../../components/modals/ModalPortal";
 import AttendCheckModal from "../../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../../modals/aboutHeader/AttendCheckWinModal";
+import PointSystemsModal from "../../../../modals/aboutHeader/PointSystemsModal";
 import PromotionModal from "../../../../modals/aboutHeader/promotionModal/PromotionModal";
 import RegularGatherResultModal from "../../../../modals/aboutHeader/RegularGatherResultModal";
-import StudyRuleModal from "../../../../modals/aboutHeader/studyRuleModal/StudyRuleModal";
 import { AboutHeaderIconType } from "./AboutHeader";
 
 interface IAboutHeaderModals {
@@ -25,7 +25,7 @@ function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
     <>
       {iconType === "rule" && (
         <ModalPortal setIsModal={setIsModal}>
-          <StudyRuleModal setIsModal={setIsModal} />
+          <PointSystemsModal setIsModal={setIsModal} />
         </ModalPortal>
       )}
       {iconType === "promotion" && (

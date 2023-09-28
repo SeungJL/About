@@ -56,8 +56,8 @@ function StudyCheckModal({ setIsModal }: IModal) {
     onSuccess() {
       completeToast("free", "출석 완료 !");
       if (isChecking && voteDate > dayjs().subtract(1, "day")) {
-        getScore(POINT_SYSTEM_PLUS.attendCheck.score);
-        getPoint(POINT_SYSTEM_PLUS.attendCheck.point);
+        getScore(POINT_SYSTEM_PLUS.STUDY_ATTEND.score);
+        getPoint(POINT_SYSTEM_PLUS.STUDY_ATTEND.point);
       }
       if (
         !isFree &&

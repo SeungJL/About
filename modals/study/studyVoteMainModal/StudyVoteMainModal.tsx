@@ -98,8 +98,8 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
         getPoint(POINT_SYSTEM_PLUS.voteStudyDaily.point);
       }
       if (studyDateStatus === "not passed") {
-        getScore(POINT_SYSTEM_PLUS.voteStudy.score);
-        getPoint(POINT_SYSTEM_PLUS.voteStudy.point);
+        getScore(POINT_SYSTEM_PLUS.STUDY_VOTE.score);
+        getPoint(POINT_SYSTEM_PLUS.STUDY_VOTE.point);
       }
     }
   };

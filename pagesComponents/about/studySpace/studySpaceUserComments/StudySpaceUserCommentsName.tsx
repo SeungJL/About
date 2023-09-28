@@ -59,7 +59,7 @@ function StudySpaceUserCommentsName({
       to: uid,
       message: `${session?.user.name}님으로부터 좋아요를 받았어요!`,
     });
-    sendAboutPoint(POINT_SYSTEM_PLUS.like.point);
+    sendAboutPoint(POINT_SYSTEM_PLUS.LIKE.point);
     pushArrToLocalStorage(LIKE_HEART, uid);
     setIsRecheck(true);
   };

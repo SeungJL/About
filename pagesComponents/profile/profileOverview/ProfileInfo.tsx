@@ -108,8 +108,8 @@ function ProfileInfo({ user }: IProfileInfo) {
       );
       return;
     }
-    sendPoint(POINT_SYSTEM_PLUS.like.point);
-    sendScore(POINT_SYSTEM_PLUS.like.score);
+    sendPoint(POINT_SYSTEM_PLUS.LIKE.point);
+    sendScore(POINT_SYSTEM_PLUS.LIKE.score);
     localStorage.setItem(
       LIKE_HEART,
       JSON.stringify([

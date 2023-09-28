@@ -40,8 +40,8 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
   });
 
   const onSubmit = () => {
-    getPoint(POINT_SYSTEM_PLUS.promotionReward.point);
-    getScore(POINT_SYSTEM_PLUS.promotionReward.score);
+    getPoint(POINT_SYSTEM_PLUS.PROMOTION.point);
+    getScore(POINT_SYSTEM_PLUS.PROMOTION.score);
 
     sendPromotionReward({
       category: "홍보",
