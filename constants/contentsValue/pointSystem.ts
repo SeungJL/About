@@ -1,11 +1,7 @@
 export const POINT_SYSTEM_PLUS = {
   STUDY_ATTEND: { value: 5, message: "스터디 출석" },
-  STUDY_VOTE: {
-    score: { value: 5, message: "스터디 투표" },
-    point: { value: 5, message: "스터디 투표" },
-    inviteScore: { value: 2, message: "친구 초대 보너스" },
-    invitePoint: { value: 2, message: "친구 초대 보너스" },
-  },
+  STUDY_VOTE: { value: 5, message: "스터디 투표" },
+  STUDY_INVITE: { value: 2, message: "친구 초대 보너스" },
   DAILY_ATTEND: { value: 5, message: "일일 출석" },
   voteStudyDaily: { value: 2, message: "당일 참여" },
   PROMOTION: { value: 50, message: "홍보 리워드" },

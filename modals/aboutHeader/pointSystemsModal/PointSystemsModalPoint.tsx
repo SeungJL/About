@@ -16,7 +16,7 @@ function PointSystemsModalPoint() {
       <Item>
         <Name>스터디 투표</Name>
         <FontAwesomeIcon fontSize="32px" icon={faCheckToSlot} />
-        <Point>{POINT_SYSTEM_PLUS.STUDY_VOTE.point.value} point</Point>
+        <Point>{POINT_SYSTEM_PLUS.STUDY_VOTE.value} point</Point>
       </Item>
       <Item>
         <Name>스터디 출석</Name>
