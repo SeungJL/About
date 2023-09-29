@@ -155,8 +155,8 @@ const Section = styled.section`
   }
 `;
 const MemberTitle = styled.span`
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 800;
 `;
 
 const HrDiv = styled.div`
