@@ -19,7 +19,7 @@ function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
   const openDate = dayjs(LOCATION_OPEN_DATE[location as string]);
   return (
     <Layout>
-      <Title>{location} 스터디</Title>
+      <Title>{location} 지역</Title>
       <Info>
         <li>
           <span>개설 날짜</span>

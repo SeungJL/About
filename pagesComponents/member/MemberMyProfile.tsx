@@ -7,8 +7,8 @@ import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 function MemberMyProfile() {
-  const { data: userInfo } = useUserInfoQuery();
   const isGuest = useRecoilValue(isGuestState);
+  const { data: userInfo } = useUserInfoQuery();
   return (
     <Layout>
       {userInfo ? (
@@ -20,32 +20,32 @@ function MemberMyProfile() {
               <Name>{userInfo?.name}</Name>
             </Profile>
             <Info>
-              <div>
+              <InfoItem>
                 <span>나이</span>
-                <span>: {birthToAge(userInfo?.birth)}세</span>
-              </div>
-              <div>
-                <span>등급</span>
-                &nbsp;: <ScoreBadge score={userInfo.score} uid={userInfo.uid} />
-              </div>
-              <div>
+                <span>{birthToAge(userInfo?.birth)}세</span>
+              </InfoItem>
+              <InfoItem>
+                <span>배지</span>
+                <ScoreBadge score={userInfo.score} uid={userInfo.uid} />
+              </InfoItem>
+              <InfoItem>
                 <span>구성</span>
-                <span>: {USER_ROLE[userInfo?.role]}</span>
-              </div>
-              <div>
+                <span> {USER_ROLE[userInfo?.role]}</span>
+              </InfoItem>
+              <InfoItem>
                 <span>전공</span>
                 <span>
-                  : {userInfo?.majors?.length && userInfo?.majors[0].detail}
+                  {userInfo?.majors?.length && userInfo?.majors[0].detail}
                 </span>
-              </div>
-              <div>
+              </InfoItem>
+              <InfoItem>
                 <span>MBTI</span>
-                <span>: {userInfo?.mbti}</span>
-              </div>
-              <div>
-                <span>관심사</span>
-                <span>: {userInfo?.interests?.first}</span>
-              </div>
+                <span> {userInfo?.mbti}</span>
+              </InfoItem>
+              <InfoItem>
+                <span>관심</span>
+                <span> {userInfo?.interests?.first}</span>
+              </InfoItem>
             </Info>
           </Wrapper>
         </>
@@ -57,33 +57,9 @@ function MemberMyProfile() {
 }
 
 const Layout = styled.div`
-  padding-top: var(--padding-sub);
-  padding-bottom: var(--padding-main);
+  padding: var(--padding-sub) 0;
   margin: 0 var(--margin-main);
-  min-height: 181px;
-`;
-
-const Profile = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Name = styled.span`
-  display: inline-block;
-  margin-top: var(--margin-min);
-  font-weight: 600;
-`;
-
-const Wrapper = styled.div`
-  border-radius: var(--border-radius-main);
-  border: var(--border-main);
-  border-color: var(--color-mint);
-  padding: var(--padding-sub) var(--padding-main);
-  display: flex;
-  align-items: center;
-  height: 120px;
-  margin-top: var(--margin-sub);
+  min-height: 167px;
 `;
 
 const Title = styled.span`
@@ -91,27 +67,49 @@ const Title = styled.span`
   margin-bottom: var(--margin-sub);
 `;
 
+const Wrapper = styled.div`
+  border-radius: var(--border-radius-main);
+  border: var(--border-mint);
+  padding: var(--padding-md) var(--padding-main);
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+  height: 110px;
+  margin-top: var(--margin-sub);
+  font-size: 12px;
+`;
+
+const Profile = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const Name = styled.span`
+  display: inline-block;
+  font-weight: 600;
+`;
+
 const Info = styled.div`
   flex: 1;
-  height: 90%;
+  height: 100%;
+  padding: var(--padding-min) 0;
   font-size: 12px;
   color: var(--font-h2);
   margin-left: var(--margin-main);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
-  > div {
-    display: flex;
-    align-items: center;
+  grid-template-columns: 1fr 1.5fr;
+`;
 
-    > span:first-child {
-      display: inline-block;
-      width: 36px;
-      font-weight: 600;
-    }
-    > span:last-child {
-      margin-left: var(--margin-min);
-    }
+const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  > span:first-child {
+    display: inline-block;
+    width: 36px;
+    font-weight: 600;
   }
 `;
 
