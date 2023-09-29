@@ -135,10 +135,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const MembersContainer = styled.div`
   margin: 0 var(--margin-main);
-  padding-top: var(--padding-sub);
-  padding-bottom: var(--padding-main);
+  padding: var(--padding-sub) 0;
   > section {
-    padding-top: var(--margin-main);
+    margin-top: var(--margin-sub);
   }
 `;
 
@@ -151,7 +150,7 @@ const Layout = styled.div`
 const Section = styled.section`
   > div:last-child {
     height: 60px;
-    margin: var(--margin-sub) 0;
+    margin-top: var(--margin-sub);
     margin-left: -8px;
   }
 `;
