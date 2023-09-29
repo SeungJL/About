@@ -110,7 +110,7 @@ function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
             참여하기
           </Button>
         )}
-      </Layout>{" "}
+      </Layout>
       {isParticipationModal && (
         <ModalPortal setIsModal={setIsParticipationModal}>
           <GatherParticipateModal

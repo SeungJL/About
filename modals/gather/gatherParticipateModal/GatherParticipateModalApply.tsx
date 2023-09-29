@@ -40,7 +40,7 @@ function GatherParticipateModalApply({
 
     if (
       gatherData.memberCnt.max !== 0 &&
-      gatherData.memberCnt.max <= gatherData.participants.length
+      gatherData.memberCnt.max <= gatherData.participants.length + 1
     ) {
       failToast("free", "모집 인원이 마감되었습니다.");
       return;

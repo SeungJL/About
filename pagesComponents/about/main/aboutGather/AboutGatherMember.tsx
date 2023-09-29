@@ -3,17 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment } from "react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../components/common/user/Profile/ProfileIconXsOverwrap";
-import { GatherMemberCnt } from "../../../../types/page/gather";
+import { GatherMemberCnt, GatherStatus } from "../../../../types/page/gather";
 import { IUser } from "../../../../types/user/user";
 
 interface IAboutGatherMember {
   memberCnt: GatherMemberCnt;
   participants: IUser[];
+  status: GatherStatus;
 }
 
 const VISIBLE_MEMBER_CNT = 7;
 
-function AboutGatherMember({ memberCnt, participants }: IAboutGatherMember) {
+function AboutGatherMember({
+  memberCnt,
+  participants,
+  status,
+}: IAboutGatherMember) {
+  const isFull = memberCnt.max === participants.length;
+
   return (
     <Layout>
       <Member>
@@ -31,18 +38,24 @@ function AboutGatherMember({ memberCnt, participants }: IAboutGatherMember) {
         ))}
       </Member>
       <MemberCnt>
-        <FontAwesomeIcon icon={faUserGroup} size="xs" />
-        <div>
-          <span>{participants?.length}/</span>
-          {memberCnt.max ? (
-            <span>{memberCnt.max}</span>
-          ) : (
-            <>
-              <span />
-              <FontAwesomeIcon icon={faInfinity} size="xs" />
-            </>
-          )}
-        </div>
+        {status === "close" ? (
+          <Status>취소</Status>
+        ) : isFull ? (
+          <Full>FULL</Full>
+        ) : (
+          <div>
+            <FontAwesomeIcon icon={faUserGroup} size="xs" />
+            <Participants>{participants.length}</Participants>
+            <Slash>/</Slash>
+            {memberCnt.max ? (
+              <span>{memberCnt.max}</span>
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faInfinity} size="xs" />
+              </>
+            )}
+          </div>
+        )}
       </MemberCnt>
     </Layout>
   );
@@ -75,4 +88,16 @@ const MemberCnt = styled.span`
     margin-left: var(--margin-min);
   }
 `;
+
+const Full = styled.span`
+  font-size: 14px;
+  color: var(--color-red);
+`;
+
+const Status = styled.span``;
+
+const Slash = styled.span``;
+
+const Participants = styled.span``;
+
 export default AboutGatherMember;

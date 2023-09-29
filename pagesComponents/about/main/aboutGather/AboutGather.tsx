@@ -81,6 +81,7 @@ function AboutGather() {
                   <AboutGatherMember
                     participants={participants}
                     memberCnt={item.memberCnt}
+                    status={item.status}
                   />
                 </GatherItem>
               </SwiperSlide>
