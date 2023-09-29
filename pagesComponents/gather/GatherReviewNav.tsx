@@ -7,13 +7,11 @@ import GatherImageSliderSkeleton from "./GatherImageSliderSkeleton";
 
 function GatherReviewNav() {
   const isGatherLoading = useRecoilValue(isGatherLoadingState);
-  const ImageArr = REVIEW_DATA.slice()
-    .reverse()
-    .map((item) => ({
-      image: item.images[0],
-      title: item.title,
-      id: item.id,
-    }));
+  const ImageArr = [...REVIEW_DATA].reverse().map((item) => ({
+    image: item.images[0],
+    title: item.title,
+    id: item.id,
+  }));
 
   return (
     <Layout>
