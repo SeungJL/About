@@ -18,6 +18,7 @@ function Gather() {
     <>
       <GatherHeader />
       <Layout>
+        <HrDiv />
         <GatherReviewNav />
         <HrDiv />
         <NavWrapper>
