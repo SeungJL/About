@@ -46,7 +46,6 @@ function About() {
       isFirstRender.current = false;
       return;
     }
-
     if (!participations) {
       setOtherStudies([]);
       return;

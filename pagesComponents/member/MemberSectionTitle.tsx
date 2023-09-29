@@ -4,14 +4,14 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { SECTION_NAME } from "../../pages/member/[location]";
 import { isGuestState } from "../../recoil/userAtoms";
-import { MemberClassification } from "../../types/page/member";
+import { MemberGroup } from "../../types/page/member";
 
 interface IMemberSectionTitle {
-  section: MemberClassification;
-  onClickSection?: (section: MemberClassification) => void;
+  section: MemberGroup;
+  onClickSection?: (section: MemberGroup) => void;
 }
 
-const SECTION_TEXT: Record<MemberClassification, string> = {
+const SECTION_TEXT: Record<MemberGroup, string> = {
   member: "정식 활동 멤버입니다",
   human: "열심히 활동해봐요~!",
   resting: "휴식중인 멤버입니다",

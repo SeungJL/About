@@ -18,24 +18,16 @@ import MemberSectionTitle from "../../../pagesComponents/member/MemberSectionTit
 import MemberSkeleton from "../../../pagesComponents/member/MemberSkeleton";
 import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
 import { isGuestState } from "../../../recoil/userAtoms";
-import {
-  IClassifiedMember,
-  MemberClassification,
-} from "../../../types/page/member";
+import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
 import { IUser } from "../../../types/user/user";
 
 interface IMember {
   usersAll: IUser[];
 }
 
-const MEMBER_SECTIONS: MemberClassification[] = [
-  "member",
-  "human",
-  "birth",
-  "resting",
-];
+const MEMBER_SECTIONS: MemberGroup[] = ["member", "human", "birth", "resting"];
 
-export const SECTION_NAME: Record<MemberClassification, string> = {
+export const SECTION_NAME: Record<MemberGroup, string> = {
   member: "활동 멤버",
   human: "수습 멤버",
   resting: "휴식 멤버",
@@ -45,13 +37,12 @@ export const SECTION_NAME: Record<MemberClassification, string> = {
 function Member({ usersAll }: IMember) {
   const router = useRouter();
   const location = router.query.location;
-
   const isGuest = useRecoilValue(isGuestState);
+
   const setTransferMemberData = useSetRecoilState(transferMemberDataState);
 
+  const [groupedMembers, setgroupedMembers] = useState<IGroupedMembers>();
   const [locationMemberCnt, setLocationMemberCnt] = useState<number>();
-  const [classifiedMembers, setClassifiedMembers] =
-    useState<IClassifiedMember>();
 
   //멤버 분류
   useEffect(() => {
@@ -79,55 +70,52 @@ function Member({ usersAll }: IMember) {
           else classified.member.push(who);
           break;
       }
-      if (
-        who.role !== "human" &&
-        who.birth.slice(2) === dayjsToFormat(dayjs(), "MMDD")
-      )
+      const today = dayjsToFormat(dayjs(), "MMDD");
+      if (who.role !== "human" && who.birth.slice(2) === today) {
         classified.birth.push(who);
+      }
     });
-    setClassifiedMembers(classified);
+    setgroupedMembers(classified);
   }, [location, usersAll]);
 
   //상세페이지로 이동
-  const onClickSection = (section: MemberClassification) => {
-    setTransferMemberData({ section, members: classifiedMembers[section] });
+  const onClickSection = (section: MemberGroup) => {
+    setTransferMemberData({ section, members: groupedMembers[section] });
     router.push(`/member/${location}/detail`);
   };
 
   return (
     <>
       <MemberHeader />
-      {classifiedMembers ? (
+      {groupedMembers ? (
         <Layout>
           <MemberOverview
             totalMemberCnt={locationMemberCnt}
-            activeMemberCnt={classifiedMembers.member.length}
+            activeMemberCnt={groupedMembers.member.length}
           />
           <HrDiv />
-          <>
-            <MemberMyProfile />
-            <HrDiv />
-            <MembersContainer>
-              <MemberTitle>멤버 소개</MemberTitle>
-              {MEMBER_SECTIONS.map((section) => {
-                if (section === "birth" && classifiedMembers.birth.length === 0)
-                  return;
-                return (
-                  <Section key={section}>
-                    <MemberSectionTitle
-                      section={section}
-                      onClickSection={onClickSection}
-                    />
-                    <BlurredPart isBlur={isGuest}>
-                      <MemberSectionList members={classifiedMembers[section]} />
-                    </BlurredPart>
-                  </Section>
-                );
-              })}
-            </MembersContainer>
-            <HrDiv />
-            <MemberRecommend />
-          </>
+          <MemberMyProfile />
+          <HrDiv />
+          <MembersContainer>
+            <MemberTitle>멤버 소개</MemberTitle>
+            {MEMBER_SECTIONS.map((section) => {
+              if (section === "birth" && groupedMembers.birth.length === 0)
+                return;
+              return (
+                <Section key={section}>
+                  <MemberSectionTitle
+                    section={section}
+                    onClickSection={onClickSection}
+                  />
+                  <BlurredPart isBlur={isGuest}>
+                    <MemberSectionList members={groupedMembers[section]} />
+                  </BlurredPart>
+                </Section>
+              );
+            })}
+          </MembersContainer>
+          <HrDiv />
+          <MemberRecommend />
         </Layout>
       ) : (
         <MemberSkeleton />

@@ -16,18 +16,14 @@ function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
   const { data } = useStudyPlacesQuery();
 
   const placeData = data?.filter((place) => place?.location === location);
-
+  const openDate = dayjs(LOCATION_OPEN_DATE[location as string]);
   return (
     <Layout>
       <Title>{location} 스터디</Title>
       <Info>
         <li>
           <span>개설 날짜</span>
-          <span>
-            {dayjs(LOCATION_OPEN_DATE[location as string]).format(
-              "YYYY년 M월 D일"
-            )}
-          </span>
+          <span>{openDate.format("YYYY년 M월 D일")}</span>
         </li>
         <li>
           <span>전체 멤버</span>
@@ -38,12 +34,12 @@ function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
           <span>{activeMemberCnt}명</span>
         </li>
         <li>
-          <span>활동 지역</span>
-          <LOCATION_USE_ALL>
+          <span>활동 장소</span>
+          <StudySpaces>
             {placeData?.map((place) => (
               <span key={place?._id}>{place?.branch}</span>
             ))}
-          </LOCATION_USE_ALL>
+          </StudySpaces>
         </li>
       </Info>
     </Layout>
@@ -51,8 +47,8 @@ function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
 }
 
 const Layout = styled.div`
-  padding-top: var(--padding-sub);
-  padding-bottom: var(--padding-main);
+  padding-top: var(--padding-md);
+  padding-bottom: var(--padding-md);
   margin: 0 var(--margin-main);
 `;
 
@@ -63,29 +59,32 @@ const Title = styled.span`
 const Info = styled.div`
   font-size: 12px;
   line-height: 2;
-  margin-top: var(--margin-sub);
+  margin-top: var(--margin-md);
   > li {
     display: flex;
     margin-left: -2px;
     list-style-type: none;
     > span:first-child {
       margin-right: var(--margin-md);
+      font-weight: 600;
+      color: var(--font-h2);
     }
     > span:last-child {
-      font-weight: 600;
     }
   }
   > li::before {
     content: "•";
     font-size: 10px;
-    padding-right: var(--padding-md);
+    padding-right: var(--padding-min);
   }
 `;
 
-const LOCATION_USE_ALL = styled.div`
-  min-height: 48px;
+const StudySpaces = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   flex: 1;
-  color: var(--font-h2);
+  color: var(--font-h1);
+
   > span {
     margin-right: var(--margin-min);
   }
