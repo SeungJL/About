@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import { LIKE_HEART } from "../constants/keys/localStorage";
+import { LIKE_HEART_PERIOD } from "../constants/settingValue/localStorage";
 import { IInteractionLikeStorage } from "../types/interaction";
 import { dayjsToStr } from "./dateHelpers";
 
@@ -22,4 +24,16 @@ export const pushArrToLocalStorage = (key: string, uid: string) => {
   if (foundItem) foundItem.date = currentDateStr;
   else stored.push({ uid, date: currentDateStr });
   localStorage.setItem(key, JSON.stringify(stored));
+};
+
+export const isHeartCheckLocalStorage = (toUid: string) => {
+  const isLikeRecord = (
+    JSON.parse(localStorage.getItem(LIKE_HEART)) as IInteractionLikeStorage[]
+  )?.find((who) => who.uid === toUid);
+  const isOverlap =
+    isLikeRecord !== undefined &&
+    dayjs().diff(dayjs(isLikeRecord?.date), "day") < LIKE_HEART_PERIOD;
+
+  if (isOverlap) return false;
+  return true;
 };

@@ -25,7 +25,7 @@ function Layout({ children }: ILayout) {
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const isGuest = session?.user.name === "guest";
-  console.log(session);
+
   const [isErrorModal, setIsErrorModal] = useState(false);
 
   const PROTECTED_ROUTES = ["/login", "/register", "/checkingServer"];

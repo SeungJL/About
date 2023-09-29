@@ -7,6 +7,7 @@ import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import BlurredPart from "../../../components/common/masks/BlurredPart";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import dbConnect from "../../../libs/backend/dbConnect";
 import { User } from "../../../models/user";
 import MemberHeader from "../../../pagesComponents/member/MemberHeader";
@@ -43,6 +44,11 @@ function Member({ usersAll }: IMember) {
 
   const [groupedMembers, setgroupedMembers] = useState<IGroupedMembers>();
   const [locationMemberCnt, setLocationMemberCnt] = useState<number>();
+
+  const { data: studyPlaces } = useStudyPlacesQuery();
+  const locationPlaces = studyPlaces?.filter(
+    (place) => place?.location === location
+  );
 
   //멤버 분류
   useEffect(() => {
@@ -92,6 +98,7 @@ function Member({ usersAll }: IMember) {
           <MemberOverview
             totalMemberCnt={locationMemberCnt}
             activeMemberCnt={groupedMembers.member.length}
+            locationPlaces={locationPlaces}
           />
           <HrDiv />
           <MemberMyProfile />

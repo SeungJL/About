@@ -3,19 +3,21 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { LOCATION_OPEN_DATE } from "../../constants/location";
 
-import { useStudyPlacesQuery } from "../../hooks/study/queries";
+import { IPlace } from "../../types/study/studyDetail";
 interface IMemberOverview {
   totalMemberCnt: number;
   activeMemberCnt: number;
+  locationPlaces: IPlace[];
 }
 
-function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
+function MemberOverview({
+  totalMemberCnt,
+  activeMemberCnt,
+  locationPlaces,
+}: IMemberOverview) {
   const router = useRouter();
   const location = router.query.location;
 
-  const { data } = useStudyPlacesQuery();
-
-  const placeData = data?.filter((place) => place?.location === location);
   const openDate = dayjs(LOCATION_OPEN_DATE[location as string]);
   return (
     <Layout>
@@ -36,7 +38,7 @@ function MemberOverview({ totalMemberCnt, activeMemberCnt }: IMemberOverview) {
         <li>
           <span>활동 장소</span>
           <StudySpaces>
-            {placeData?.map((place) => (
+            {locationPlaces?.map((place) => (
               <span key={place?._id}>{place?.branch}</span>
             ))}
           </StudySpaces>
