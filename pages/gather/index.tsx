@@ -20,13 +20,13 @@ function Gather() {
       <Layout>
         <GatherReviewNav />
         <HrDiv />
-        <Wrapper>
+        <NavWrapper>
           <ButtonCheckNav
             buttonList={["전체", ...LOCATION_USE_ALL]}
             selectedButton={category}
             setSelectedButton={setCategory}
           />
-        </Wrapper>
+        </NavWrapper>
         <GatherMain category={category} />
         {!isGuest && <WritingIcon url="/gather/writing/category" />}
       </Layout>
@@ -34,18 +34,15 @@ function Gather() {
   );
 }
 
-const Layout = styled.div`
-  position: relative;
-`;
+const Layout = styled.div``;
 
-const Wrapper = styled.div`
+const NavWrapper = styled.div`
   margin: 0 var(--margin-main);
   padding: var(--padding-sub) 0;
-  border-bottom: 1px solid var(--font-h6);
 `;
 
 const HrDiv = styled.div`
-  height: 8px;
+  height: 4px;
   background-color: var(--font-h56);
 `;
 
