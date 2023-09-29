@@ -20,7 +20,7 @@ export const transferStudyDataState = atom<IParticipation[]>({
 });
 
 export const transferMemberDataState = atom<{
-  section: MemberGroup;
+  section: MemberGroup | "all";
   members: IUser[];
 }>({
   key: "transferMemberData",

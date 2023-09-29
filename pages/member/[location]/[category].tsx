@@ -1,78 +1,57 @@
 import dayjs from "dayjs";
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
-import safeJsonStringify from "safe-json-stringify";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
 import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import dbConnect from "../../../libs/backend/dbConnect";
 
 import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contents/friend";
-import { User } from "../../../models/user";
+import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../recoil/transferDataAtoms";
+import {
+  transferMemberDataState,
+  transferUserDataState,
+} from "../../../recoil/transferDataAtoms";
 import { IUser } from "../../../types/user/user";
 
-function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
+function FriendCategory() {
   const router = useRouter();
+  const locationUrl = router.query?.location;
   const idx = Number(router.query?.category);
 
-  const locationUrl = router?.query?.location;
-
+  const membersData = useRecoilValue(transferMemberDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
+  const setUserData = useSetRecoilState(transferUserDataState);
 
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
-  const { data, isLoading } = useUserInfoQuery();
+  const { data: userInfo, isLoading } = useUserInfoQuery();
 
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const members = membersData?.members;
 
   useEffect(() => {
-    if (!isLoading) {
-      if (idx === 0)
-        setFilterMember(
-          membersListAll?.filter(
-            (who) =>
-              +birthToAge(who?.birth) === +birthToAge(data?.birth) &&
-              who?.location === data?.location
-          )
-        );
-      if (idx === 1)
-        setFilterMember(
-          membersListAll?.filter(
-            (who) =>
-              who?.mbti === data?.mbti && who?.location === data?.location
-          )
-        );
+    if (isLoading || !members) return;
 
-      if (idx === 2)
-        setFilterMember(
-          membersListAll?.filter((who) => {
-            const birthDayjs = birthToDayjs(who.birth);
-
-            return (
-              birthDayjs.month() === dayjs().month() &&
-              who?.location === data?.location
-            );
-          })
-        );
-      if (idx === 3) {
-        setFilterMember(
-          membersListAll?.filter((who) => {
-            return (
-              who?.majors &&
-              who?.majors[0]?.department === data?.majors[0]?.department &&
-              who?.location === data?.location
-            );
-          })
-        );
+    const filtered = members.filter((who) => {
+      switch (idx) {
+        case 0:
+          return birthToAge(who.birth) === birthToAge(userInfo.birth);
+        case 1:
+          return who.mbti === userInfo.mbti;
+        case 2:
+          const birthDayjs = birthToDayjs(who.birth);
+          return birthDayjs.month() === dayjs().month();
+        case 3:
+          return (
+            who?.majors &&
+            who?.majors[0]?.department === userInfo?.majors[0]?.department
+          );
       }
-    }
+    });
+    setFilterMember(filtered);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
@@ -90,19 +69,18 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
       />
       <Layout>
         {filterMember?.map((who) => (
-          <Item key={who?.uid} onClick={() => onClickProfile(who)}>
+          <Item key={who.uid} onClick={() => onClickProfile(who)}>
             <ProfileHeader>
               <ProfileIcon user={who} size="md" />
-              <span>{who?.name}</span>
+              <span>{who.name}</span>
             </ProfileHeader>
-
             <Info>
               <Detail>
                 <span>나이</span>
-                <span>{birthToAge(who?.birth)}</span>
+                <span>{birthToAge(who.birth)}</span>
                 {idx === 2 && (
                   <Birthday>
-                    / {birthToDayjs(who?.birth).format("M월 D일")}
+                    / {dayjsToFormat(birthToDayjs(who.birth), "M월 D일")}
                   </Birthday>
                 )}
               </Detail>
@@ -127,16 +105,17 @@ function FriendCategory({ membersListAll }: { membersListAll: IUser[] }) {
 }
 
 const Layout = styled.div`
-  padding: 14px;
+  margin: 0 var(--margin-main);
+  padding: var(--padding-sub) 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: var(--margin-md);
 `;
 
 const Item = styled.div`
-  border: 1.5px solid var(--font-h6);
+  border: var(--border-main-light);
   border-radius: var(--border-radius-sub);
-  padding: 6px;
+  padding: var(--padding-md);
 `;
 
 const ProfileHeader = styled.div`
@@ -144,17 +123,17 @@ const ProfileHeader = styled.div`
   align-items: center;
   > span {
     font-weight: 600;
-    margin-left: 14px;
+    margin-left: var(--margin-main);
     font-size: 15px;
   }
 `;
 
 const Info = styled.div`
-  margin-top: 12px;
+  margin-top: var(--margin-sub);
   display: flex;
   flex-direction: column;
   line-height: 2.2;
-  padding-left: 4px;
+  padding-left: var(--padding-min);
 `;
 
 const Detail = styled.div`
@@ -174,31 +153,9 @@ const Detail = styled.div`
 `;
 
 const Birthday = styled.span`
-  margin-left: 4px;
+  margin-left: var(--margin-min);
   font-weight: 600;
   color: var(--font-h1);
 `;
 
 export default FriendCategory;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession({ req: context.req });
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-      props: {},
-    };
-  }
-
-  await dbConnect();
-
-  const user = await User.find();
-  const filterUser = user?.filter((who) => who?.isActive);
-  const membersListAll = JSON.parse(safeJsonStringify(filterUser));
-
-  return { props: { membersListAll } };
-};

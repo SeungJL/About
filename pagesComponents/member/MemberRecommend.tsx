@@ -9,22 +9,32 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../constants/contents/friend";
 import { useFailToast } from "../../hooks/CustomToast";
+import { transferMemberDataState } from "../../recoil/transferDataAtoms";
+import { IUser } from "../../types/user/user";
 
-function MemberRecommend() {
+interface IMemberRecommend {
+  members: IUser[];
+}
+
+function MemberRecommend({ members }: IMemberRecommend) {
   const failToast = useFailToast();
-  const { data: session } = useSession();
   const router = useRouter();
-  const locationUrl = router.query.location;
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
+  const locationUrl = router.query.location;
+
+  const setTransferMemberData = useSetRecoilState(transferMemberDataState);
 
   const onClickBtn = (idx: number) => {
     if (isGuest) {
       failToast("guest");
       return;
     }
+    setTransferMemberData({ section: "all", members });
     router.push(`/member/${locationUrl}/${idx}`);
   };
 

@@ -43,7 +43,7 @@ function Member({ usersAll }: IMember) {
   const setTransferMemberData = useSetRecoilState(transferMemberDataState);
 
   const [groupedMembers, setgroupedMembers] = useState<IGroupedMembers>();
-  const [locationMemberCnt, setLocationMemberCnt] = useState<number>();
+  const [locationMembers, setLocationMembers] = useState<IUser[]>();
 
   const { data: studyPlaces } = useStudyPlacesQuery();
   const locationPlaces = studyPlaces?.filter(
@@ -54,7 +54,8 @@ function Member({ usersAll }: IMember) {
   useEffect(() => {
     if (!location) return;
     const locationMembers = usersAll.filter((who) => who.location === location);
-    setLocationMemberCnt(locationMembers.length);
+    setLocationMembers(locationMembers);
+
     const classified = {
       member: [],
       human: [],
@@ -96,7 +97,7 @@ function Member({ usersAll }: IMember) {
       {groupedMembers ? (
         <Layout>
           <MemberOverview
-            totalMemberCnt={locationMemberCnt}
+            totalMemberCnt={locationMembers.length}
             activeMemberCnt={groupedMembers.member.length}
             locationPlaces={locationPlaces}
           />
@@ -122,7 +123,7 @@ function Member({ usersAll }: IMember) {
             })}
           </MembersContainer>
           <HrDiv />
-          <MemberRecommend />
+          <MemberRecommend members={locationMembers} />
         </Layout>
       ) : (
         <MemberSkeleton />
