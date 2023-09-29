@@ -19,7 +19,6 @@ interface IStudySpaceUserCommentsComment {
 function StudySpaceUserCommentsComment({
   isAbsent,
   memo,
-
   att,
 }: IStudySpaceUserCommentsComment) {
   const { data: session } = useSession();

@@ -39,7 +39,7 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchStudyAbsent]);
 
-  const isArrived = attendances.find((who) => who.user.uid === session?.uid);
+  const isAttend = attendances.find((who) => who.user.uid === session?.uid);
 
   const onClickUser = (user: IUser) => {
     setTransferUserData(user);
@@ -64,7 +64,9 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
                   <StudySpaceUserCommentsName
                     name={user.name}
                     uid={user.uid}
-                    isArrivedCondition={!!(isArrived && memo)}
+                    isArrivedCondition={
+                      !!(isAttend?.memo !== undefined && memo)
+                    }
                   />
                   <StudySpaceUserCommentsComment
                     isAbsent={isAbsent}

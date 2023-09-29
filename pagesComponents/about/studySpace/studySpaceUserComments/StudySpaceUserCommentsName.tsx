@@ -48,9 +48,9 @@ function StudySpaceUserCommentsName({
     const isOverlap =
       isLikeRecord !== undefined &&
       dayjs().diff(dayjs(isLikeRecord?.date), "day") < LIKE_HEART_PERIOD;
-    if (isArrivedCondition && !isOverlap && uid !== session?.uid)
+    if (isArrivedCondition && !isOverlap && uid !== session?.uid) {
       setIsHeart(true);
-    else setIsHeart(false);
+    } else setIsHeart(false);
     setIsRecheck(false);
   }, [isArrivedCondition, uid, isRecheck, session?.uid]);
 

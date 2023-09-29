@@ -25,7 +25,7 @@ interface IMember {
   usersAll: IUser[];
 }
 
-const MEMBER_SECTIONS: MemberGroup[] = ["member", "human", "birth", "resting"];
+const MEMBER_SECTIONS: MemberGroup[] = ["birth", "member", "human", "resting"];
 
 export const SECTION_NAME: Record<MemberGroup, string> = {
   member: "활동 멤버",
