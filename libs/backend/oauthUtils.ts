@@ -179,7 +179,7 @@ export const withdrawal = async (accessToken: string) => {
   return;
 };
 
-const getNullableProfile = async (accessToken: string) => {
+const getKakaoProfile = async (accessToken: string) => {
   try {
     const res = await axios.get("https://kapi.kakao.com/v1/api/talk/profile", {
       headers: {
@@ -188,7 +188,6 @@ const getNullableProfile = async (accessToken: string) => {
     });
     return {
       name: res.data.nickName as string,
-
       profileImage:
         (res.data.profileImageURL as string) ||
         "https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png",
@@ -199,11 +198,10 @@ const getNullableProfile = async (accessToken: string) => {
 };
 
 export const getProfile = async (accessToken: string, uid: string) => {
-  const nullableProfile = await getNullableProfile(accessToken);
-  if (nullableProfile) {
-    return nullableProfile;
-  }
+  const kakaoProfile = await getKakaoProfile(accessToken);
+  if (kakaoProfile) return kakaoProfile;
 
+  //가져오기에 실패하면 uid를 갱신해서 다시 시도
   const refreshedAccessToken: string = await getRefreshedAccessToken(uid);
-  return getNullableProfile(refreshedAccessToken);
+  return getKakaoProfile(refreshedAccessToken);
 };

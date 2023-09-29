@@ -54,6 +54,7 @@ const Login: NextPage<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
+  console.log(1, session);
   const customSignin = async (type: "member" | "guest") => {
     const provider = type === "member" ? kakaoProvider.id : "guest";
     setLoading(true);
@@ -68,6 +69,7 @@ const Login: NextPage<{
       setLoading(false);
       return;
     }
+
     if (session) router.push(`/about?status=login`);
     else
       signIn(provider, {

@@ -16,17 +16,15 @@ export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
+    //직접적으로 사용자 정보를 인증하는 경우
     CredentialsProvider({
       id: "guest",
       name: "guest",
-
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
+      //추가적인 입력 필드
       credentials: {},
+
       async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
+        //자격 증명 로직 추가 가능
         const profile = {
           id: "0",
           uid: "0",
@@ -35,15 +33,10 @@ export const authOptions: NextAuthOptions = {
           profileImage: "",
           isActive: true,
         };
-        if (profile) {
-          // Any object returned will be saved in `user` property of the JWT
-          return profile;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-        }
+        //반환되는 값은 jwt의 user에 저장된다
+        if (profile) return profile;
+        //오류를 사용자에게 보여주고 싶으면 추가로 작성
+        return null;
       },
     }),
     KakaoProvider({
@@ -53,56 +46,55 @@ export const authOptions: NextAuthOptions = {
         id: profile.id.toString(),
         uid: profile.id.toString(),
         name: profile.properties.nickname,
-        role: "member",
+        role: "human",
         profileImage: profile.properties.profile_image,
         isActive: false,
         score: 0,
       }),
     }),
   ],
+  //DB랑 연결하고 유저 정보를 조회한다. 기본적으로 accounts와 users에서.
   adapter: MongoDBAdapter(clientPromise),
   session: {
     strategy: "jwt",
+    //자동 로그아웃
     maxAge: 30 * 24 * 60 * 60, // 30 days
+    //세션 정보 업데이트
     updateAge: 3 * 24 * 60 * 60, // 3 days
   },
   pages: {
+    //로그인 할 때 보여질 페이지
     signIn: "/login",
+    //로그아웃이나 에러날 때 등 보여질 페이지 추가 가능
   },
   callbacks: {
+    //user은 위에서 만든 profile, account는 계정 정보
+    //반환값이 true면 인증 성공했다는 뜻
+    //false면 nextAuth의 반환 실패메세지
     async signIn({ user, account }) {
-      if (account.provider === "guest") {
-        await dbConnect();
-        await User.updateOne(
-          { uid: user.uid },
-          { $set: user },
-          { upsert: true }
-        );
-        return true;
-      }
+      console.log(1, user, account);
+      if (account.provider === "guest") return true;
 
       const accessToken: any = account.access_token;
-      if (!accessToken) {
-        return false;
-      }
-      const kakaoProfile = await getProfile(accessToken, user.uid as string);
-      if (!kakaoProfile) {
-        return false;
-      }
-      await dbConnect();
+      if (!accessToken) return false;
 
+      const kakaoProfile = await getProfile(accessToken, user.uid as string);
+      if (!kakaoProfile) return false;
+
+      await dbConnect();
+      //해당 uid가 존재하는 경우에는 카카오 프로필만 업데이트
       await User.updateOne({ uid: user.uid }, { $set: kakaoProfile });
 
       return true;
     },
+    //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
     async session({ session, token }) {
       if (session.user.name === "guest") {
         session.id = "0";
         session.uid = "0";
-        session.user.name = "guest";
-        session.role = "member";
+        session.role = "guest";
         session.error = "";
-        session.isActive = true;
+        session.isActive = false;
       } else {
         session.id = token.id.toString();
         session.uid = token.uid.toString();
@@ -111,9 +103,10 @@ export const authOptions: NextAuthOptions = {
         session.error = token.error;
         session.isActive = token.isActive as boolean;
       }
-
       return session;
     },
+    //token 빼고는 모두 초기값으로 undefined
+    //
     async jwt({ token, account, profile, user }) {
       if (account && account.provider === "guest") {
         return token;

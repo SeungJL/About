@@ -92,10 +92,7 @@ function Comment() {
           value={value}
         />
       </RegisterLayout>
-      <BottomNav
-        onClick={onClickNext}
-        text={session?.isActive ? "완료" : null}
-      />
+      <BottomNav onClick={onClickNext} text={isProfileEdit ? "완료" : null} />
     </PageLayout>
   );
 }
