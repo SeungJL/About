@@ -44,7 +44,7 @@ function CheckApplicantModal({
     <>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <ModalLayout size="sm" height={168} width={true}>
+          <ModalLayout size="sm" height={168}>
             <Header>
               <span>가입 신청 완료!</span>
             </Header>

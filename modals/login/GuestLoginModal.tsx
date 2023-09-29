@@ -12,7 +12,7 @@ interface IGuestLoginModal extends IModal {
 function GuestLoginModal({ setIsModal, customSignin }: IGuestLoginModal) {
   return (
     <>
-      <ModalLayout size="md" width={true}>
+      <ModalLayout size="md">
         <ModalHeaderX title="게스트 로그인" setIsModal={setIsModal} />
         <Main>
           게스트 로그인은 동아리 외부인을 위한 것으로 기능과 이용에 많은 제한이

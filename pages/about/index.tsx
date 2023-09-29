@@ -23,11 +23,9 @@ import {
   studyDateStatusState,
   voteDateState,
 } from "../../recoil/studyAtoms";
-import { locationState } from "../../recoil/userAtoms";
 import { IParticipation } from "../../types/study/studyDetail";
 
 function About() {
-  const location = useRecoilValue(locationState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const [participations, setParticipations] =

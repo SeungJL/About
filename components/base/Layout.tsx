@@ -4,10 +4,13 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Script from "next/script";
+import { useState } from "react";
 import styled from "styled-components";
 import { useToken } from "../../hooks/token/useToken";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import ErrorUserInfoPopUp from "../../modals/pop-up/ErrorUserInfoPopUp";
 import GuestBottomNav from "../layout/GuestBottomNav";
+import ModalPortal from "../modals/ModalPortal";
 import Seo from "./Seo";
 
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
@@ -18,11 +21,12 @@ interface ILayout {
 
 function Layout({ children }: ILayout) {
   const { data: session } = useSession();
+  const router = useRouter();
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  const router = useRouter();
-
   const isGuest = session?.user.name === "guest";
+
+  const [isErrorModal, setIsErrorModal] = useState(false);
 
   const PROTECTED_ROUTES = ["/login", "/register", "/checkingServer"];
   const isAccessPermission = !PROTECTED_ROUTES.some((route) =>
@@ -41,6 +45,7 @@ function Layout({ children }: ILayout) {
         if (router.query.status === "login") navigateTo(`/register/location`);
         else navigateTo("/login/?status=noMember");
       }
+      if (data._id !== session.id) setIsErrorModal(true);
     },
     onError() {
       if (!session) navigateTo("/login");
@@ -54,6 +59,11 @@ function Layout({ children }: ILayout) {
         <>
           <div id="root-modal">{children}</div>
           {isGuest && <GuestBottomNav />}
+          {isErrorModal && (
+            <ModalPortal setIsModal={() => {}}>
+              <ErrorUserInfoPopUp setIsModal={setIsErrorModal} />
+            </ModalPortal>
+          )}
         </>
       )}
       <Seo title="ABOUT" />

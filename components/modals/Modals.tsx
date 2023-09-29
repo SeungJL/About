@@ -6,18 +6,11 @@ interface IModalLayout {
   children: React.ReactNode;
   size: Size;
   height?: number;
-  width?: boolean;
 }
 
-export const ModalLayout = ({
-  children,
-  size,
-  height,
-  width,
-}: IModalLayout) => (
+export const ModalLayout = ({ children, size, height }: IModalLayout) => (
   <Layout
     size={size}
-    width={width}
     height={height}
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
@@ -44,14 +37,34 @@ const SIZE_HEIGHT_MAP = {
   xs: "120px",
 };
 
+const IS_WIDTH_VIEW_MAIN = {
+  xxl: true,
+  xl: true,
+  lg: true,
+  md: false,
+  sm: false,
+  xs: false,
+};
+
 const Layout = styled(motion.div)<{
   size: Size;
   height?: number;
-  width?: boolean;
+  width?: number;
 }>`
-  width: ${(props) => (props.width ? "330px" : "340px")};
+  width: ${(props) =>
+    props.width
+      ? `${props.width}px`
+      : IS_WIDTH_VIEW_MAIN[props.size]
+      ? "var(--view-width)"
+      : "var(--view-width-light)"};
+  max-width: ${(props) =>
+    IS_WIDTH_VIEW_MAIN[props.size]
+      ? "var(--view-max-width)"
+      : "var(--view-max-width-light)"};
+
   height: ${(props) =>
     props.height ? `${props?.height}px` : SIZE_HEIGHT_MAP[props.size]};
+
   padding: var(--padding-main);
   background-color: white;
   border-radius: var(--border-radius-main);

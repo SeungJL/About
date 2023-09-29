@@ -1,5 +1,10 @@
 :root {
+  --view-width: calc(100vw - 2 * var(--margin-main));
+  --view-max-width: calc(var(--max-width) - 2 * var(--margin-main));
+  --view-width-light: calc(100vw - 4 * var(--margin-main));
+  --view-max-width-light: calc(var(--max-width) - 4 * var(--margin-main));
   --max-width: 390px;
+
   --font-h1: #343943;
   --font-h2: #565b67;
   --font-h3: #767d8a;
