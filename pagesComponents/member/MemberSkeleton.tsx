@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import MemberRecommend from "./MemberRecommend";
 import MemberSectionTitle from "./MemberSectionTitle";
 import MemberMyProfileSkeleton from "./memberSkeleton/MemberMyProfileSkeleton";
 import MemberOverviewSkeleton from "./memberSkeleton/MemberOverviewSkeleton";
@@ -28,7 +27,6 @@ function MemberSkeleton() {
         </Section>
       </MembersContainer>
       <HrDiv />
-      <MemberRecommend />
     </Layout>
   );
 }
