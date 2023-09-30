@@ -8,7 +8,6 @@ export interface IGather extends Omit<IGatherWriting, "date"> {
   date: string;
   createdAt?: string;
   updatedAt?: string;
-  genderCondition: boolean;
   participants: GatherParticipants[];
   id: number;
   user: IUser;
@@ -18,6 +17,7 @@ export interface IGather extends Omit<IGatherWriting, "date"> {
 
 export interface IGatherWriting {
   type: GatherType;
+  genderCondition: boolean;
   title: string;
   content: string;
   gatherList: GatherListItem[];
