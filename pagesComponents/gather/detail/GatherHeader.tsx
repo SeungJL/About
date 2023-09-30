@@ -26,11 +26,11 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const setGatherContent = useSetRecoilState(sharedGatherWritingState);
   const [isModal, setIsModal] = useState(false);
 
-  const onClick = () => {
-    setPrevPageUrl(`/gather/${router.query.id}`);
-    setGatherContent(gatherData);
-    router.push("/gather/writing/category");
-  };
+  // const onClick = () => {
+  //   setPrevPageUrl(`/gather/${router.query.id}`);
+  //   setGatherContent(gatherData);
+  //   router.push("/gather/writing/category");
+  // };
 
   return (
     <>
