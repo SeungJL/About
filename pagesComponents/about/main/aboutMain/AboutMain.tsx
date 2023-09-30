@@ -65,10 +65,10 @@ function AboutMain({ participations }: IAboutMain) {
                 ))}
               {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>
-            <MoreInfoNav onClick={onClickMoreInfo}>
+            <MoreInfoBtn onClick={onClickMoreInfo}>
               <span>더보기</span>
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            </MoreInfoNav>
+            </MoreInfoBtn>
           </Main>
         </Layout>
       ) : (
@@ -79,26 +79,25 @@ function AboutMain({ participations }: IAboutMain) {
 }
 
 const Layout = styled(motion.div)`
-  min-height: 422px;
   margin-top: var(--margin-main);
+  padding-bottom: var(--padding-main);
 `;
 
 const Main = styled.main`
-  padding: 0 var(--padding-main);
+  margin: 0 var(--margin-main);
 `;
 
-const Container = styled.div`
-  position: relative;
-`;
+const Container = styled.div``;
 
-const MoreInfoNav = styled.div`
+const MoreInfoBtn = styled.button`
+  width: 100%;
   box-shadow: var(--box-shadow-sub);
   height: 44px;
   display: flex;
   justify-content: center;
   background-color: white;
   align-items: center;
-  margin-bottom: var(--margin-main);
+
   border-radius: var(--border-radius-main);
   color: var(--font-h3);
   font-weight: 600;

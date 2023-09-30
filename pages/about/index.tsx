@@ -21,7 +21,7 @@ import {
   myStudyFixedState,
   participationsState,
   studyDateStatusState,
-  voteDateState
+  voteDateState,
 } from "../../recoil/studyAtoms";
 import { IParticipation } from "../../types/study/studyDetail";
 
@@ -93,7 +93,7 @@ const Layout = styled.div`
   padding-bottom: 40px;
 `;
 const HrDiv = styled.div`
-  height: 8px;
+  height: 4px;
   margin-bottom: var(--margin-main);
   background-color: var(--font-h56);
 `;
