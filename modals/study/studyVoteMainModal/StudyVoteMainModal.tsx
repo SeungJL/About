@@ -153,7 +153,10 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
 
   return (
     <>
-      <ModalLayout size={modalSize} height={modalSize === "lg" && 320}>
+      <ModalLayout
+        size={modalSize}
+        height={modalSize === "lg" ? 320 : undefined}
+      >
         <ModalHeaderX
           title={dayjsToFormat(
             voteDate,
