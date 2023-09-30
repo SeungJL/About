@@ -3,7 +3,7 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; // for the pagination dots
-import { IGatherContent } from "../../../../types/page/gather";
+import { IGather } from "../../../../types/page/gather";
 import { IUser } from "../../../../types/user/user";
 import ImageSliderGatherReviewNav from "./imageSliderType/ImageSliderGatherReviewNav";
 import ImageSliderMember from "./imageSliderType/ImageSliderMember";
@@ -16,7 +16,7 @@ export type ImageContainer =
   | string[]
   | IImageSliderItem[]
   | IUser[]
-  | IGatherContent[];
+  | IGather[];
 
 export interface IImageSliderItem {
   image: string;

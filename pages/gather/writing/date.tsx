@@ -20,14 +20,14 @@ import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
-import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
+import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 
 function WritingDate() {
   const failToast = useFailToast();
   const router = useRouter();
 
   const [gatherContent, setGatherContent] = useRecoilState(
-    sharedGatherDataState
+    sharedGatherWritingState
   );
 
   const [date, setDate] = useState<Date>();
@@ -74,6 +74,7 @@ function WritingDate() {
         <Container>
           <FontAwesomeIcon icon={faCalendarDays} />
           <StyledDatePicker
+            disabledKeyboardNavigation
             selected={date}
             onChange={(date) => setDate(date)}
             locale={ko}

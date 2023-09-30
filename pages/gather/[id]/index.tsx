@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
-import { useGatherContentQuery } from "../../../hooks/gather/queries";
+import { useGatherAllQuery } from "../../../hooks/gather/queries";
 import GatherBadge from "../../../pagesComponents/gather/detail/GatherBadge";
 import GatherBottomNav from "../../../pagesComponents/gather/detail/GatherBottomNav";
 import GatherComments from "../../../pagesComponents/gather/detail/GatherComment";
@@ -27,7 +27,7 @@ function GatherDetail() {
 
   const [isRefetch, setIsRefetch] = useState(false);
 
-  const { refetch } = useGatherContentQuery({
+  const { refetch } = useGatherAllQuery({
     onSuccess(data) {
       setGatherData(data?.find((item) => item?.id === +gatherId));
     },

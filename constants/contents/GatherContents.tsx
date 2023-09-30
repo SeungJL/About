@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TABLE_COLORS } from "../styles";
 
 //모임 카테고리
-export const GATHER_CATEGORY = [
+export const GATHER_TYPES = [
   { title: "취미", subtitle: "보드게임·방탈출·볼링" },
   { title: "맛집·카페", subtitle: "맛집투어·카페·디저트" },
   { title: "술 번개", subtitle: "only 저녁" },

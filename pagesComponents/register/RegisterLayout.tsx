@@ -22,7 +22,7 @@ function RegisterLayout({
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
-  padding-bottom: 60px;
+  padding-bottom: 40px;
 `;
 
 const Message = styled.div`

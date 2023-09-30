@@ -11,18 +11,18 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { IGatherContent } from "../../../types/page/gather";
+import { IGather } from "../../../types/page/gather";
 import { IUser } from "../../../types/user/user";
 
 interface IGatherParticipation {
-  data: IGatherContent;
+  data: IGather;
 }
 
 function GatherParticipation({ data }: IGatherParticipation) {
   const router = useRouter();
   const setUserData = useSetRecoilState(transferUserDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
-const organizer = data.user;
+  const organizer = data.user;
   const status = data?.status;
   const onClickProfile = (user: IUser) => {
     setUserData(user);

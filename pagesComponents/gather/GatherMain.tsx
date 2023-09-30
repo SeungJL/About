@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { GATHER_ALERT } from "../../constants/keys/localStorage";
 import { useErrorToast } from "../../hooks/CustomToast";
-import { useGatherContentQuery } from "../../hooks/gather/queries";
+import { useGatherAllQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
-import { IGatherContent } from "../../types/page/gather";
+import { IGather } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
 import GatherBlock from "./GatherBlock";
 import GatherBlockSkeleton from "./GatherBlockSkeleton";
@@ -17,50 +17,48 @@ interface IGatherMain {
 function GatherMain({ category }: IGatherMain) {
   const errorToast = useErrorToast();
 
-  const [isGatherLoading, setIsGatherLoading] =
-    useRecoilState(isGatherLoadingState);
+  const setIsGatherLoading = useSetRecoilState(isGatherLoadingState);
 
-  const [gatherData, setGatherData] = useState<IGatherContent[]>();
+  const [gatherData, setGatherData] = useState<IGather[]>();
 
-  const { data: gatherContentArr, isLoading } = useGatherContentQuery({
+  const { data: gatherAll, isLoading } = useGatherAllQuery({
     onSuccess(data) {
-      const lastGather = data[data.length - 1];
+      const lastGather = data.slice(-1)[0];
       localStorage.setItem(GATHER_ALERT, String(lastGather.id));
-      setIsGatherLoading(false);
     },
     onError: errorToast,
   });
 
   useEffect(() => {
     if (isLoading) return;
-    let filtered = gatherContentArr;
+    let filtered = gatherAll;
     if (category !== "전체")
-      filtered = gatherContentArr.filter(
+      filtered = gatherAll.filter(
         (item) => item.place === category || item.place === "전체"
       );
     setGatherData(filtered);
+    setIsGatherLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, gatherContentArr, isLoading]);
+  }, [category, gatherAll, isLoading]);
+
+  const gathers = gatherData && [...gatherData].reverse();
 
   return (
-    <>
-      {!isGatherLoading ? (
-        <Layout>
-          {gatherData
-            ?.slice()
-            .reverse()
-            .map((data, idx) => (
-              <GatherBlock key={idx} data={data} />
-            ))}
-        </Layout>
+    <Layout>
+      {gathers ? (
+        <>
+          {gathers.map((gather, idx) => (
+            <GatherBlock key={idx} gather={gather} />
+          ))}
+        </>
       ) : (
-        <Layout>
+        <>
           {new Array(6).fill(0).map((_, idx) => (
             <GatherBlockSkeleton key={idx} />
           ))}
-        </Layout>
+        </>
       )}
-    </>
+    </Layout>
   );
 }
 

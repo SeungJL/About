@@ -23,6 +23,7 @@ function ButtonCheckNav({
             onClick={() => setSelectedButton(item)}
             ml="0px !important"
             size="sm"
+            _focus={{ outline: "none" }}
           >
             {item}
           </Button>

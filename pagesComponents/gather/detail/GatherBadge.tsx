@@ -2,7 +2,7 @@ import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
 import {
   GatherCategoryIcons,
-  GATHER_CATEGORY,
+  GATHER_TYPES,
 } from "../../../constants/contents/GatherContents";
 
 interface IGatherBadge {
@@ -12,7 +12,7 @@ interface IGatherBadge {
 function GatherBadge({ typeTitle }: IGatherBadge) {
   const categoryIcon =
     GatherCategoryIcons[
-      GATHER_CATEGORY?.findIndex((item) => item?.title === typeTitle)
+      GATHER_TYPES?.findIndex((item) => item?.title === typeTitle)
     ];
   return (
     <Badge p="3px 6px" my="4px" fontSize="12px" alignSelf="flex-start">

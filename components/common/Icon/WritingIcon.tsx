@@ -27,6 +27,9 @@ const Layout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (min-width: 391px) {
+    right: calc(((100vw - 390px) / 2) + 12px);
+  }
 `;
 
 export default WritingIcon;

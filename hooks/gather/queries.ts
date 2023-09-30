@@ -3,16 +3,14 @@ import { useQuery } from "react-query";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
-import { IGatherContent } from "../../types/page/gather";
+import { IGather } from "../../types/page/gather";
 import { QueryOptions } from "../../types/reactTypes";
 
-export const useGatherContentQuery = (
-  options?: QueryOptions<IGatherContent[]>
-) =>
-  useQuery<IGatherContent[], AxiosError, IGatherContent[]>(
+export const useGatherAllQuery = (options?: QueryOptions<IGather[]>) =>
+  useQuery<IGather[], AxiosError, IGather[]>(
     [GATHER_CONTENT, "content"],
     async () => {
-      const res = await axios.get<IGatherContent[]>(`${SERVER_URI}/gather`);
+      const res = await axios.get<IGather[]>(`${SERVER_URI}/gather`);
       // const data = res.data.map((content) => ({
       //   ...content,
       //   participants: content.participants.filter((who) => who.user),
@@ -27,7 +25,7 @@ export const useGatherSummaryQuery = (
   useQuery<IGatherSummary[], AxiosError, IGatherSummary[]>(
     [GATHER_CONTENT, "summary"],
     async () => {
-      const res = await axios.get<IGatherContent[]>(`${SERVER_URI}/gather`);
+      const res = await axios.get<IGather[]>(`${SERVER_URI}/gather`);
       const data = res.data.map((item) => ({
         title: item.title,
         type: item.type,

@@ -11,7 +11,7 @@ import { TIME_SELECTOR_UNIT } from "../../../constants/settingValue/util";
 import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
-import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
+import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 
 import { ITime } from "../../../types/timeAndDate";
 
@@ -24,28 +24,21 @@ function WritingContent() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [gatherContent, setGatherContent] = useRecoilState(
-    sharedGatherDataState
+  const [gatherWriting, setGatherWriting] = useRecoilState(
+    sharedGatherWritingState
   );
 
-  const [title, setTitle] = useState(gatherContent?.title || "");
-  const [content, setContent] = useState(gatherContent?.content || "");
+  //초기 input 세팅
+  const [title, setTitle] = useState(gatherWriting?.title || "");
+  const [content, setContent] = useState(gatherWriting?.content || "");
   const [firstGather, setFirstGather] = useState<IGather>({
-    text: gatherContent?.gatherList?.[0]?.text || "",
+    text: gatherWriting?.gatherList?.[0]?.text || "",
     time: { hours: 14, minutes: 0 },
   });
   const [secondGather, setSecondGather] = useState<IGather>({
-    text: gatherContent?.gatherList?.[1]?.text || "",
+    text: gatherWriting?.gatherList?.[1]?.text || "",
     time: { hours: 18, minutes: 0 },
   });
-
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
 
   const onChangeInput = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -70,7 +63,7 @@ function WritingContent() {
     if (secondGather?.text?.length)
       gatherList.push({ text: secondGather.text, time: secondGather.time });
 
-    setGatherContent((old) => ({
+    setGatherWriting((old) => ({
       ...old,
       title,
       content,
@@ -91,12 +84,12 @@ function WritingContent() {
           <TitleInput
             placeholder="제목"
             value={title}
-            onChange={onChangeTitle}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <Content
             placeholder="소개글을 입력해 주세요"
             value={content}
-            onChange={onChangeContent}
+            onChange={(e) => setContent(e.target.value)}
           />
         </Container>
         <TimeContent>

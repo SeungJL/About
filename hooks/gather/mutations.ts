@@ -2,14 +2,12 @@ import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherCommentUnit } from "../../pagesComponents/gather/detail/GatherComment";
-import { IGatherContent, ParticipationPhase } from "../../types/page/gather";
+import { IGather, ParticipationPhase } from "../../types/page/gather";
 import { MutationOptions } from "../../types/reactTypes";
 
 /** gather info */
-export const useGatherContentMutation = (
-  options?: MutationOptions<IGatherContent>
-) =>
-  useMutation<void, AxiosError, IGatherContent>(async (gather) => {
+export const useGatherContentMutation = (options?: MutationOptions<IGather>) =>
+  useMutation<void, AxiosError, IGather>(async (gather) => {
     await axios.post(`${SERVER_URI}/gather`, { gather });
   }, options);
 

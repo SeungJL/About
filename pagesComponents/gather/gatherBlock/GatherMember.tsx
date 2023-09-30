@@ -19,11 +19,11 @@ function GatherMember({ organizer, participants, memberCnt }: IGatherMember) {
     <Layout>
       <Writer>
         <ProfileIcon user={organizer} size="xs" />
-        <span>{organizer?.name}</span>
+        <span>{organizer.name}</span>
       </Writer>
       <Voter>
         <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
-        <span>{participants?.length + 1} /</span>
+        <span>{participants.length + 1} /</span>
         {memberCnt.max ? (
           <span>{memberCnt.max}</span>
         ) : (

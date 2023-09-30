@@ -1,9 +1,9 @@
 import { atom } from "recoil";
-import { IGatherContent } from "../types/page/gather";
+import { IGatherWriting } from "../types/page/gather";
 import { IRegisterForm, IUser } from "../types/user/user";
 
-export const sharedGatherDataState = atom<IGatherContent>({
-  key: "sharedGatherData",
+export const sharedGatherWritingState = atom<IGatherWriting>({
+  key: "sharedGatherWriting",
   default: null,
 });
 export const sharedRegisterFormState = atom<IRegisterForm | IUser>({

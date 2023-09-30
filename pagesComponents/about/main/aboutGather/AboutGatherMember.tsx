@@ -19,8 +19,6 @@ function AboutGatherMember({
   participants,
   status,
 }: IAboutGatherMember) {
-  const isFull = memberCnt.max === participants.length;
-
   return (
     <Layout>
       <Member>
@@ -43,21 +41,19 @@ function AboutGatherMember({
       <MemberCnt>
         {status === "close" ? (
           <Status>취소</Status>
-        ) : isFull ? (
-          <Full>FULL</Full>
         ) : (
-          <div>
+          <>
             <FontAwesomeIcon icon={faUserGroup} size="xs" />
             <Participants>{participants.length}</Participants>
             <Slash>/</Slash>
             {memberCnt.max ? (
               <span>{memberCnt.max}</span>
             ) : (
-              <>
-                <FontAwesomeIcon icon={faInfinity} size="xs" />
-              </>
+              <InfinityWrapper>
+                <FontAwesomeIcon icon={faInfinity} size="sm" />
+              </InfinityWrapper>
             )}
-          </div>
+          </>
         )}
       </MemberCnt>
     </Layout>
@@ -87,20 +83,18 @@ const ProfileContainer = styled.div<{ zIndex: number }>`
 const MemberCnt = styled.span`
   display: flex;
   align-items: center;
-  > div {
-    margin-left: var(--margin-min);
-  }
-`;
-
-const Full = styled.span`
-  font-size: 14px;
-  color: var(--color-red);
 `;
 
 const Status = styled.span``;
 
-const Slash = styled.span``;
+const Slash = styled.span`
+  margin: 0 2px;
+`;
 
-const Participants = styled.span``;
+const Participants = styled.span`
+  margin-left: var(--margin-min);
+`;
+
+const InfinityWrapper = styled.div``;
 
 export default AboutGatherMember;

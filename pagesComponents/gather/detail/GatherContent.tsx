@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { GatherListItem } from "../../../types/page/gather";
 
-interface IGatherContent {
+interface IGather {
   content: string;
   gatherList: GatherListItem[];
 }
 
-function GatherContent({ content, gatherList }: IGatherContent) {
+function GatherContent({ content, gatherList }: IGather) {
   return (
     <Layout>
       <Content>{content}</Content>
@@ -32,7 +32,7 @@ const Layout = styled.div`
   padding-top: var(--padding-main);
   min-height: 100px;
 `;
-const Content = styled.p``;
+const Content = styled.pre``;
 
 const ListContainer = styled.div`
   margin-top: var(--margin-max);

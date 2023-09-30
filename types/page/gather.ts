@@ -3,10 +3,34 @@ import { LocationFilterType } from "../system";
 import { ITime } from "../timeAndDate";
 import { IUser } from "../user/user";
 
+export interface IGather extends Omit<IGatherWriting, "date"> {
+  place: LocationFilterType;
+  date: string;
+  createdAt?: string;
+  updatedAt?: string;
+  genderCondition: boolean;
+  participants: GatherParticipants[];
+  id: number;
+  user: IUser;
+  status?: GatherStatus;
+  comment: IGatherComment[];
+}
+
+export interface IGatherWriting {
+  type: GatherType;
+  title: string;
+  content: string;
+  gatherList: GatherListItem[];
+  date: Dayjs;
+  location: GatherLocation;
+  memberCnt: GatherMemberCnt;
+  password?: string;
+  age?: number[];
+  preCnt?: number;
+}
+
 export type GatherCategory = "전체" | "모집중" | "완료";
-
 export type GatherType = { title: string; subtitle?: string };
-
 export type GatherStatus = "open" | "close" | "end" | "pending";
 
 export type GatherLocation = {
@@ -35,27 +59,6 @@ export interface IGatherComment {
   creadtedAt?: string;
   updatedAt?: string;
   _id: string;
-}
-export interface IGatherContent {
-  type: GatherType;
-  title: string;
-  content: string;
-  location: GatherLocation;
-  place: LocationFilterType;
-  date: Dayjs | string | "미정";
-  createdAt?: string;
-  updatedAt?: string;
-  memberCnt: GatherMemberCnt;
-  gatherList: GatherListItem[];
-  age?: number[];
-  preCnt?: number;
-  genderCondition: boolean;
-  participants: GatherParticipants[];
-  password?: string;
-  id: number;
-  user: IUser;
-  status?: GatherStatus;
-  comment: IGatherComment[];
 }
 
 export interface IGatherHeader {

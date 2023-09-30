@@ -7,11 +7,11 @@ import "swiper/css/pagination"; //
 import { Swiper, SwiperSlide } from "swiper/react";
 import AboutSectionHeader from "../../../../components/pages/AboutSectionHeader";
 import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
-import { useGatherContentQuery } from "../../../../hooks/gather/queries";
+import { useGatherAllQuery } from "../../../../hooks/gather/queries";
 import { isGatherAlertState } from "../../../../recoil/alertAtoms";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferGatherDataState } from "../../../../recoil/transferDataAtoms";
-import { IGatherContent } from "../../../../types/page/gather";
+import { IGather } from "../../../../types/page/gather";
 import AboutGatherDetail from "./AboutGatherDetail";
 import AboutGatherHeader from "./AboutGatherHeader";
 import AboutGatherMember from "./AboutGatherMember";
@@ -26,7 +26,7 @@ function AboutGather() {
   const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
 
   //신규 모임 존재여부 체크
-  const { data: gatherContentArr } = useGatherContentQuery({
+  const { data: gatherContentArr } = useGatherAllQuery({
     onSuccess(data) {
       const lastGather = data[data.length - 1];
       if (localStorage.getItem(GATHER_ALERT) !== String(lastGather.id))
@@ -35,7 +35,7 @@ function AboutGather() {
     },
   });
 
-  const onClickItem = (data: IGatherContent) => {
+  const onClickItem = (data: IGather) => {
     setGatherData(data);
     setPrevPageUrl("/about");
     router.push(`/gather/${data.id}`);
@@ -95,7 +95,8 @@ function AboutGather() {
 const Layout = styled.div`
   width: 100%;
   padding-left: var(--padding-main);
-  margin-bottom: 32px;
+  margin-top: var(--margin-main);
+  margin-bottom: var(--margin-main);
   display: flex;
   flex-direction: column;
 `;

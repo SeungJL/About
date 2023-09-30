@@ -16,18 +16,20 @@ function GatherBlockHeader({
   locationMain,
   openLocation,
 }: IGatherBlockHeader) {
-  const getStatusText = (status) => {
+  const getStatusBadge = (status: GatherStatus) => {
     switch (status) {
       case "pending":
-        return "모집중";
+        return { text: "모집중", color: "blue" };
       case "open":
-        return "오픈";
+        return { text: "오픈", color: "mintTheme" };
       case "close":
-        return "취소";
+        return { text: "취소", color: "blackAlpha" };
       default:
         return null;
     }
   };
+
+  const { text, color } = getStatusBadge(status);
 
   return (
     <Layout>
@@ -35,20 +37,8 @@ function GatherBlockHeader({
         <OpenLocation>{openLocation}</OpenLocation>·
         <Category>{typeTitle}</Category>·<Location>{locationMain}</Location>
       </Detail>
-      <Badge
-        colorScheme={
-          status === "pending"
-            ? "blue"
-            : status === "open"
-            ? "mintTheme"
-            : status === "close"
-            ? "blackAlpha"
-            : "blue"
-        }
-        fontSize="12px"
-        variant="outline"
-      >
-        {getStatusText(status)}
+      <Badge colorScheme={color} fontSize="12px" variant="outline">
+        {text}
       </Badge>
     </Layout>
   );

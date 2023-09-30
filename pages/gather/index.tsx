@@ -15,36 +15,34 @@ function Gather() {
   const [category, setCategory] = useState<LocationFilterType>("전체");
 
   return (
-    <>
+    <Layout>
       <GatherHeader />
-      <Layout>
-        <HrDiv />
+      <ReviewWrapper>
         <GatherReviewNav />
-        <HrDiv />
-        <NavWrapper>
-          <ButtonCheckNav
-            buttonList={["전체", ...LOCATION_USE_ALL]}
-            selectedButton={category}
-            setSelectedButton={setCategory}
-          />
-        </NavWrapper>
-        <GatherMain category={category} />
-        {!isGuest && <WritingIcon url="/gather/writing/category" />}
-      </Layout>
-    </>
+      </ReviewWrapper>
+      <NavWrapper>
+        <ButtonCheckNav
+          buttonList={["전체", ...LOCATION_USE_ALL]}
+          selectedButton={category}
+          setSelectedButton={setCategory}
+        />
+      </NavWrapper>
+      <GatherMain category={category} />
+      {!isGuest && <WritingIcon url="/gather/writing/category" />}
+    </Layout>
   );
 }
 
 const Layout = styled.div``;
 
+const ReviewWrapper = styled.div`
+  border-top: 4px solid var(--font-h56);
+  border-bottom: 4px solid var(--font-h56);
+`;
+
 const NavWrapper = styled.div`
   margin: 0 var(--margin-main);
   padding: var(--padding-sub) 0;
-`;
-
-const HrDiv = styled.div`
-  height: 4px;
-  background-color: var(--font-h56);
 `;
 
 export default Gather;

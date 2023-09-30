@@ -33,27 +33,27 @@ function ImageSliderGatherReviewNav({
     >
       <SwiperSlide onClick={() => onClickReviewItem(0)}>
         <GatherReviewNavItem>
-          <div>
+          <ImageWrapper>
             <FontAwesomeIcon
               icon={faImage}
               size="2x"
               color="var(--color-mint)"
             />
-          </div>
+          </ImageWrapper>
           <span>리뷰</span>
         </GatherReviewNavItem>
       </SwiperSlide>
       {(imageContainer as IImageSliderItem[]).map((item, index) => (
         <SwiperSlide key={index} onClick={() => onClickReviewItem(item.id)}>
           <GatherReviewNavItem>
-            <div>
+            <ImageWrapper>
               <Image
                 src={item.image}
                 alt={`Slide ${index}`}
                 width={54}
                 height={54}
               />
-            </div>
+            </ImageWrapper>
             <span>{item.title}</span>
           </GatherReviewNavItem>
         </SwiperSlide>
@@ -67,24 +67,25 @@ const GatherReviewNavItem = styled.div`
   flex-direction: column;
   width: 68px;
   align-items: center;
-  > div {
-    border-radius: var(--border-radius-main);
-    width: 52px;
-    height: 52px;
-    overflow: hidden;
-    background-color: var(--font-h6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: var(--margin-md);
-  }
   > span {
     font-size: 10px;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+`;
+
+const ImageWrapper = styled.div`
+  border-radius: var(--border-radius-main);
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  background-color: var(--font-h56);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--margin-md);
 `;
 
 export default ImageSliderGatherReviewNav;

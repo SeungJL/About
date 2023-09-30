@@ -12,11 +12,11 @@ import {
 import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
-import { IGatherContent } from "../../../types/page/gather";
+import { IGather } from "../../../types/page/gather";
 import { IRefetch } from "../../../types/reactTypes";
 
 interface IGatherBottomNav extends IRefetch {
-  data: IGatherContent;
+  data: IGather;
 }
 
 function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {

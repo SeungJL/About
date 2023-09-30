@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IGatherContent } from "../types/page/gather";
+import { IGather } from "../types/page/gather";
 import { MemberGroup } from "../types/page/member";
 
 import { IParticipation } from "../types/study/studyDetail";
@@ -9,7 +9,7 @@ export const transferUserDataState = atom<IUser>({
   key: "transferUserData",
   default: null,
 });
-export const transferGatherDataState = atom<IGatherContent>({
+export const transferGatherDataState = atom<IGather>({
   key: "transferGatherData",
   default: null,
 });

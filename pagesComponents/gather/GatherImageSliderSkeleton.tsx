@@ -28,7 +28,6 @@ function GatherImageSliderSkeleton() {
 
 const Layout = styled.div`
   margin: 0 var(--margin-md);
-  margin-bottom: 15px;
   display: flex;
   overflow: hidden;
 `;

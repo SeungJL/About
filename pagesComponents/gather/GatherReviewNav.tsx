@@ -5,13 +5,18 @@ import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 import GatherImageSliderSkeleton from "./GatherImageSliderSkeleton";
 
+const IMAGE_VISIBLE = 6;
+
 function GatherReviewNav() {
   const isGatherLoading = useRecoilValue(isGatherLoadingState);
-  const ImageArr = [...REVIEW_DATA].reverse().map((item) => ({
-    image: item.images[0],
-    title: item.title,
-    id: item.id,
-  }));
+  const ImageArr = [...REVIEW_DATA]
+    .slice(-IMAGE_VISIBLE)
+    .reverse()
+    .map((item) => ({
+      image: item.images[0],
+      title: item.title,
+      id: item.id,
+    }));
 
   return (
     <Layout>
@@ -26,7 +31,7 @@ function GatherReviewNav() {
 
 const Layout = styled.div`
   padding: var(--padding-md) 0;
-  margin: 0 var(--margin-main);
+  margin: 0 var(--margin-sub);
   display: flex;
   align-items: center;
 `;

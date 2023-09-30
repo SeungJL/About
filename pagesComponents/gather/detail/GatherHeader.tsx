@@ -8,11 +8,11 @@ import Header from "../../../components/layout/Header";
 import ModalPortal from "../../../components/modals/ModalPortal";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
-import { IGatherContent } from "../../../types/page/gather";
+import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
+import { IGather } from "../../../types/page/gather";
 
 interface IGatherHeader {
-  gatherData: IGatherContent;
+  gatherData: IGather;
 }
 
 function GatherHeader({ gatherData }: IGatherHeader) {
@@ -23,7 +23,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const locationMain = gatherData?.location.main;
 
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
-  const setGatherContent = useSetRecoilState(sharedGatherDataState);
+  const setGatherContent = useSetRecoilState(sharedGatherWritingState);
   const [isModal, setIsModal] = useState(false);
 
   const onClick = () => {

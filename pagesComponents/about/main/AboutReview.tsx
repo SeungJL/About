@@ -50,7 +50,7 @@ function AboutReview() {
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
-  margin-top: 32px;
+  margin-top: var(--margin-max);
 `;
 
 const Title = styled.span`

@@ -77,7 +77,6 @@ function About() {
         {voteDate && <AboutCalendar />}
         {studyDateStatus === "not passed" && <AboutVoteNav />}
         <AboutMain participations={otherStudies} />
-        <HrDiv />
         <AboutGather />
         <EventBanner />
         <AboutReview />
@@ -91,11 +90,6 @@ const Setting = styled.div``;
 const Layout = styled.div`
   min-height: 100vh;
   padding-bottom: 40px;
-`;
-const HrDiv = styled.div`
-  height: 4px;
-  margin-bottom: var(--margin-main);
-  background-color: var(--font-h56);
 `;
 
 export default About;

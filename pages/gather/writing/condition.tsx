@@ -38,7 +38,7 @@ import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 
-import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
+import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 
 const AGE_BAR = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
@@ -47,7 +47,7 @@ function WritingCondition() {
   const failToast = useFailToast();
 
   const [gatherContent, setGatherContent] = useRecoilState(
-    sharedGatherDataState
+    sharedGatherWritingState
   );
 
   const [maxValue, setMaxValue] = useState(gatherContent?.memberCnt?.max || 4);

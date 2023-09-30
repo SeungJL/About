@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
@@ -8,69 +8,59 @@ import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import {
   GatherCategoryIcons,
-  GATHER_CATEGORY,
+  GATHER_TYPES,
 } from "../../../constants/contents/GatherContents";
 import { useFailToast } from "../../../hooks/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { sharedGatherDataState } from "../../../recoil/sharedDataAtoms";
+import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { GatherType } from "../../../types/page/gather";
 
 function WritingCategory() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
-  const [gatherContent, setGatherContent] = useRecoilState(
-    sharedGatherDataState
+  const [gatherWriting, setGatherWriting] = useRecoilState(
+    sharedGatherWritingState
   );
-  const [selectType, setSelectType] = useState<GatherType>(gatherContent?.type);
 
-  useEffect(() => {
-    if (!gatherContent) return;
-    setSelectType(gatherContent.type);
-  }, [gatherContent]);
+  const [gatherType, setGatherType] = useState<GatherType>(gatherWriting?.type);
 
   const onClickNext = () => {
-    if (!selectType) {
+    if (!gatherType) {
       failToast("free", "주제를 선택해 주세요!", true);
       return;
     }
-    setGatherContent((old) => ({ ...old, type: selectType }));
+    setGatherWriting((old) => ({ ...old, type: gatherType }));
     router.push(`/gather/writing/content`);
   };
 
   return (
-    <>
-      <PageLayout>
-        <ProgressStatus value={25} />
-        <Header title="" url={prevPageUrl || "/gather"} />
-        <RegisterLayout>
-          <RegisterOverview>
-            <span>주제를 선택해 주세요.</span>
-          </RegisterOverview>
-          <ItemContainer>
-            {GATHER_CATEGORY?.map((item, idx) => {
-              return (
-                <Item
-                  key={idx}
-                  isSelected={item?.title === selectType?.title}
-                  onClick={() => setSelectType(item)}
-                >
-                  <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
-                  <Info>
-                    <span>{item.title}</span>
-                    <span>{item.subtitle}</span>
-                  </Info>
-                </Item>
-              );
-            })}
-          </ItemContainer>
-        </RegisterLayout>
-      </PageLayout>
-      <BottomNav onClick={() => onClickNext()} />
-    </>
+    <PageLayout>
+      <ProgressStatus value={25} />
+      <Header title="" url="/gather" />
+      <RegisterLayout>
+        <RegisterOverview>
+          <span>주제를 선택해 주세요.</span>
+        </RegisterOverview>
+        <ItemContainer>
+          {GATHER_TYPES.map((type, idx) => (
+            <Item
+              key={idx}
+              isSelected={type.title === gatherType?.title}
+              onClick={() => setGatherType(type)}
+            >
+              <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
+              <Info>
+                <span>{type.title}</span>
+                <span>{type.subtitle}</span>
+              </Info>
+            </Item>
+          ))}
+        </ItemContainer>
+      </RegisterLayout>
+      <BottomNav onClick={onClickNext} />
+    </PageLayout>
   );
 }
 
@@ -87,7 +77,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   height: 60px;
   border-radius: var(--border-radius-sub);
   border: ${(props) =>
-    props.isSelected ? "var(--border-mint)" : "var(--border-main)"};
+    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-main)"};
 `;
 
 const IconWrapper = styled.div`
@@ -99,7 +89,6 @@ const IconWrapper = styled.div`
 
 const Info = styled.div`
   display: flex;
-
   flex-direction: column;
   > span:first-child {
     font-weight: 600;
