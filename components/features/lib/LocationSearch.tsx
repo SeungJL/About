@@ -2,28 +2,28 @@ import { Button } from "@chakra-ui/react";
 import { faLocationDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { SetStateAction, useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 
 interface ISearchLocation {
   location?: string;
-  setLocation?: React.Dispatch<SetStateAction<string>>;
+  setLocation?: (place: string) => void;
 }
 
+const API_URL = "https://dapi.kakao.com/v2/local/search/keyword.json";
+const API_KEY = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
+
 function LocationSearch({ location, setLocation }: ISearchLocation) {
-  const [query, setQuery] = useState(location || "");
+  const [value, setValue] = useState(location || "");
   const [results, setResults] = useState([]);
 
   const handleSearch = async () => {
-    const apiUrl = "https://dapi.kakao.com/v2/local/search/keyword.json";
-    const apiKey = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
-
     try {
-      const response = await axios.get(apiUrl, {
-        headers: { Authorization: `KakaoAK ${apiKey}` },
-        params: { query },
+      const response = await axios.get(API_URL, {
+        headers: { Authorization: `KakaoAK ${API_KEY}` },
+        params: { query: value },
       });
-
+      console.log(response.data);
       setResults(response.data.documents);
     } catch (error) {
       console.error("주소 검색에 실패했습니다.", error);
@@ -31,15 +31,21 @@ function LocationSearch({ location, setLocation }: ISearchLocation) {
   };
 
   const onClickItem = (name: string) => {
-    setQuery(name);
+    setValue(name);
     setResults([]);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setQuery(value);
-    setLocation && setLocation(value);
+    setValue(value);
+    setLocation(value);
   };
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") handleSearch();
+  };
+
+  const SearchColor = value === "" ? "blackAlpha" : "mintTheme";
 
   return (
     <Layout>
@@ -47,33 +53,52 @@ function LocationSearch({ location, setLocation }: ISearchLocation) {
         <Wrapper>
           <FontAwesomeIcon icon={faLocationDot} />
           <Input
-            type="text"
+            onKeyDown={handleKeyPress}
+            type="search"
             placeholder="장소를 입력해 주세요."
-            value={query}
+            value={value}
             onChange={onChange}
           />
         </Wrapper>
-        <Button size="sm" onClick={handleSearch}>
-          검색
-        </Button>
+        <SearchWrapper>
+          <Button
+            h="28px"
+            size="sm"
+            onClick={handleSearch}
+            colorScheme={SearchColor}
+          >
+            검색
+          </Button>
+        </SearchWrapper>
       </div>
       <SearchContent isContent={results.length !== 0}>
         {results.length > 0 && (
-          <ul>
+          <>
             {results.map((result) => (
               <Item
                 key={result.id}
                 onClick={() => onClickItem(result.place_name)}
               >
-                {result.place_name}
+                <span>{result.place_name}</span>
+                <span>{result.place_name}</span>
               </Item>
             ))}
-          </ul>
+          </>
         )}
       </SearchContent>
     </Layout>
   );
 }
+const Layout = styled.div`
+  width: inherit;
+  background-color: inherit;
+  display: flex;
+
+  flex-direction: column;
+  > div:first-child {
+    display: flex;
+  }
+`;
 const Input = styled.input`
   height: 100%;
   width: 100%;
@@ -109,19 +134,20 @@ const SearchContent = styled.div<{ isContent: boolean }>`
   padding: var(--padding-min);
 `;
 
-const Layout = styled.div`
-  width: inherit;
-  background-color: inherit;
-  display: flex;
-  flex-direction: column;
-  > div:first-child {
-    display: flex;
-  }
-`;
-
 const Item = styled.div`
   color: var(--font-h2);
   padding: var(--padding-min) 0;
+`;
+
+const ItemPlace = styled.span``;
+
+const ItemDetail = styled.span`
+  color: var(--font-h3);
+`;
+
+const SearchWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export default LocationSearch;

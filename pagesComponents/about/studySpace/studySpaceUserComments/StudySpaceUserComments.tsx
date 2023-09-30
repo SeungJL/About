@@ -28,7 +28,7 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
   const [isRefetchStudyAbsent, setIsRefetchStudyAbsent] = useRecoilState(
     isRefetchStudyAbsentState
   );
-
+  console.log(attendances);
   const { data: absentData, refetch } = useStudyAbsentQuery(voteDate);
 
   useEffect(() => {

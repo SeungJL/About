@@ -41,6 +41,7 @@
     "@types/crypto-js": "^4.1.1",
     "@types/navermaps": "^3.0.16",
     "@types/next-auth": "^3.15.0",
+    "@types/react-datepicker": "^4.15.1",
     "@types/safe-json-stringify": "^1.1.2",
     "@types/styled-components": "^5.1.26",
     "apexcharts": "^3.37.1",

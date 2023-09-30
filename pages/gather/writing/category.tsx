@@ -16,7 +16,7 @@ import RegisterOverview from "../../../pagesComponents/register/RegisterOverview
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { GatherType } from "../../../types/page/gather";
 
-function WritingCategory() {
+function WritingGatherCategory() {
   const router = useRouter();
   const failToast = useFailToast();
 
@@ -99,4 +99,4 @@ const Info = styled.div`
   }
 `;
 
-export default WritingCategory;
+export default WritingGatherCategory;

@@ -21,7 +21,7 @@ import {
   myStudyFixedState,
   participationsState,
   studyDateStatusState,
-  voteDateState,
+  voteDateState
 } from "../../recoil/studyAtoms";
 import { IParticipation } from "../../types/study/studyDetail";
 

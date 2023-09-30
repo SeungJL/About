@@ -35,7 +35,7 @@ export type GatherStatus = "open" | "close" | "end" | "pending";
 
 export type GatherLocation = {
   main: string;
-  sub?: string;
+  sub: string;
 };
 
 export type GatherMemberCnt = {

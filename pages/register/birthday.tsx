@@ -82,10 +82,9 @@ function Birthday() {
             <StyledDatePicker
               locale={ko}
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={(date) => setStartDate(date as Date)}
               dateFormat="연도 / 월 선택"
               showMonthYearPicker
-              inputProps={{ readOnly: true }}
               onFocus={(e) => e.target.blur()}
             />
           </Button>
@@ -93,9 +92,8 @@ function Birthday() {
             <StyledDatePicker
               locale={ko}
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={(date) => setStartDate(date as Date)}
               dateFormat="날짜 선택"
-              inputProps={{ readOnly: true }}
               onFocus={(e) => e.target.blur()}
               renderCustomHeader={({ date }) => (
                 <div

@@ -1,67 +1,48 @@
-import {
-  faCalendarDays,
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
-import { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
+import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
-import styled from "styled-components";
-import LocationSearch from "../../../components/features/lib/LocationSearch";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/CustomToast";
+import GatherWritingDateDate from "../../../pagesComponents/gather/writing/GatherWritingDateDate";
+import GatherWritingDateSubject from "../../../pagesComponents/gather/writing/GatherWritingDateSubject";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
+import { GatherListItem } from "../../../types/page/gather";
 
 function WritingDate() {
   const failToast = useFailToast();
   const router = useRouter();
 
-  const [gatherContent, setGatherContent] = useRecoilState(
+  const [gatherWriting, setGatherWriting] = useRecoilState(
     sharedGatherWritingState
   );
 
   const [date, setDate] = useState<Date>();
-  const [detail, setDetail] = useState(gatherContent?.location?.sub || "");
-  const [location, setLocation] = useState(gatherContent?.location?.main);
-
-  useEffect(() => {
-    const currentDate = new Date();
-    currentDate.setHours(14);
-    currentDate.setMinutes(0);
-    setDate(
-      gatherContent?.date ? dayjs(gatherContent?.date).toDate() : currentDate
-    );
-  }, [gatherContent]);
+  const [gatherList, setGatherList] = useState<GatherListItem[]>();
 
   const onClickNext = () => {
-    if (!location) {
-      failToast("free", "장소를 선택해 주세요!", true);
+    if (gatherList && !gatherList[0].text) {
+      failToast("free", "1차 모임 작성은 필수입니다!", true);
       return;
     }
-    setGatherContent((old) => ({
+    const givenDay = dayjs(date);
+    if (givenDay.isSame(dayjs(), "day") && givenDay.hour() === 14) {
+      failToast("free", "날짜/시간 선택은 필수입니다!", true);
+      return;
+    }
+    setGatherWriting((old) => ({
       ...old,
-      location: { main: location, sub: detail },
       date: dayjs(date),
+      gatherList,
     }));
     router.push(`/gather/writing/condition`);
   };
-  const minTime = new Date();
-  minTime.setHours(9);
-  minTime.setMinutes(0);
-
-  const maxTime = new Date();
-  maxTime.setHours(23);
-  maxTime.setMinutes(30);
 
   return (
     <PageLayout>
@@ -69,107 +50,21 @@ function WritingDate() {
       <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
         <RegisterOverview>
-          <span>날짜와 장소를 선택해 주세요.</span>
+          <span>날짜와 주제를 선택해 주세요.</span>
         </RegisterOverview>
-        <Container>
-          <FontAwesomeIcon icon={faCalendarDays} />
-          <StyledDatePicker
-            disabledKeyboardNavigation
-            selected={date}
-            onChange={(date) => setDate(date)}
-            locale={ko}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={30}
-            timeCaption="시간"
-            dateFormat="M월 d일 p"
-            minTime={minTime}
-            maxTime={maxTime}
-            renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
-              <CalendarCustomHeader>
-                <button onClick={decreaseMonth}>
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                <span>{dayjs(date)?.format("M월 D일")}</span>{" "}
-                <button onClick={increaseMonth}>
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
-              </CalendarCustomHeader>
-            )}
-          />
-        </Container>
-        <Location>
-          <LocationSearch location={location} setLocation={setLocation} />
-          <LocationDetailInput
-            placeholder="상세 주소"
-            value={detail}
-            onChange={(e) => setDetail(e.target.value)}
-          />
-        </Location>
+        <GatherWritingDateDate
+          date={date}
+          setDate={setDate}
+          gatherWriting={gatherWriting}
+        />
+        <GatherWritingDateSubject
+          gatherWriting={gatherWriting}
+          setGatherList={setGatherList}
+        />
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
     </PageLayout>
   );
 }
-
-const CalendarCustomHeader = styled.div`
-  margin: 10px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 var(--padding-min);
-`;
-
-const Container = styled.div`
-  display: flex;
-  padding-left: var(--padding-min);
-  margin-top: var(--margin-max);
-  align-items: center;
-  border-bottom: var(--border-main);
-
-  .react-datepicker__time-list-item {
-    font-size: 14px;
-  }
-  .react-datepicker__header {
-    font-size: 14px;
-  }
-  .react-datepicker__day-name {
-    font-weight: 400;
-    font-size: 12px;
-    margin: 0px 5.5px;
-  }
-  .react-datepicker__day {
-    font-weight: 400;
-    width: 30px;
-    height: 30px;
-    padding-top: 4px;
-  }
-  .react-datepicker__triangle {
-    left: -35% !important;
-  }
-`;
-
-const StyledDatePicker = styled(DatePicker)`
-  background-color: inherit;
-  padding: var(--padding-sub) 0;
-  margin-left: var(--margin-md);
-  :focus {
-    outline: none;
-  }
-`;
-
-const LocationDetailInput = styled.input`
-  width: 100%;
-  background-color: inherit;
-  border-bottom: var(--border-main);
-  padding: var(--padding-min);
-  outline: none;
-  font-size: 13px;
-  color: var(--font-h2);
-`;
-
-const Location = styled.div`
-  margin-top: 12px;
-  background-color: inherit;
-`;
 
 export default WritingDate;
