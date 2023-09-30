@@ -39,6 +39,7 @@ import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
+import { IGatherWriting } from "../../../types/page/gather";
 
 const AGE_BAR = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
@@ -83,7 +84,7 @@ function WritingCondition() {
       return;
     }
 
-    const gatherData = {
+    const gatherData: IGatherWriting = {
       ...gatherContent,
       age,
       preCnt,

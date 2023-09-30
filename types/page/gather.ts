@@ -10,7 +10,6 @@ export interface IGather extends Omit<IGatherWriting, "date"> {
   updatedAt?: string;
   participants: GatherParticipants[];
   id: number;
-  user: IUser;
   status?: GatherStatus;
   comment: IGatherComment[];
 }
@@ -25,8 +24,9 @@ export interface IGatherWriting {
   location: GatherLocation;
   memberCnt: GatherMemberCnt;
   password?: string;
-  age?: number[];
+  age: number[];
   preCnt?: number;
+  user: IUser;
 }
 
 export type GatherCategory = "전체" | "모집중" | "완료";
