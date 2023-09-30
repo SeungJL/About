@@ -30,7 +30,10 @@ function AboutGatherMember({
               <ProfileContainer zIndex={idx}>
                 <ProfileIconXsOverwrap
                   user={who}
-                  isOverlap={idx === VISIBLE_MEMBER_CNT}
+                  isOverlap={
+                    idx === VISIBLE_MEMBER_CNT &&
+                    participants.length - 1 > VISIBLE_MEMBER_CNT
+                  }
                 />
               </ProfileContainer>
             )}
