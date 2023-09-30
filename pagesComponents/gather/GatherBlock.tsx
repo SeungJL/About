@@ -22,29 +22,23 @@ function GatherBlock({ data }: IGatherBlock) {
   };
 
   return (
-    <>
-      {data && (
-        <Layout onClick={onClickBlock}>
-          <GatherBlockHeader
-            status={data.status}
-            typeTitle={data.type.title}
-            locationMain={data.location.main}
-            openLocation={data.place}
-          />
-          <Title>{data.title}</Title>
-          <GatherDetail age={data.age} date={data.date} />
-          <GatherMember
-            organizer={data.user}
-            participants={data.participants}
-            memberCnt={data.memberCnt}
-          />
-        </Layout>
-      )}
-    </>
+    <Layout onClick={onClickBlock}>
+      <GatherBlockHeader
+        status={data.status}
+        typeTitle={data.type.title}
+        locationMain={data.location.main}
+        openLocation={data.place}
+      />
+      <Title>{data.title}</Title>
+      <GatherDetail age={data.age} date={data.date} />
+      <GatherMember
+        organizer={data.user}
+        participants={data.participants}
+        memberCnt={data.memberCnt}
+      />
+    </Layout>
   );
 }
-
-export default GatherBlock;
 
 const Layout = styled.div`
   display: flex;
@@ -59,3 +53,5 @@ const Title = styled.div`
   font-size: 15px;
   font-weight: 600;
 `;
+
+export default GatherBlock;

@@ -13,13 +13,16 @@ import GatherBlockSkeleton from "./GatherBlockSkeleton";
 interface IGatherMain {
   category: LocationFilterType;
 }
+
 function GatherMain({ category }: IGatherMain) {
   const errorToast = useErrorToast();
-  const [gatherData, setGatherData] = useState<IGatherContent[]>();
+
   const [isGatherLoading, setIsGatherLoading] =
     useRecoilState(isGatherLoadingState);
 
-  const { data: gatherContentArr } = useGatherContentQuery({
+  const [gatherData, setGatherData] = useState<IGatherContent[]>();
+
+  const { data: gatherContentArr, isLoading } = useGatherContentQuery({
     onSuccess(data) {
       const lastGather = data[data.length - 1];
       localStorage.setItem(GATHER_ALERT, String(lastGather.id));
@@ -29,16 +32,15 @@ function GatherMain({ category }: IGatherMain) {
   });
 
   useEffect(() => {
-    if (category === "전체") setGatherData(gatherContentArr);
-    else
-      setGatherData(
-        gatherContentArr?.filter(
-          (item) => item.place === category || item.place === "전체"
-        )
+    if (isLoading) return;
+    let filtered = gatherContentArr;
+    if (category !== "전체")
+      filtered = gatherContentArr.filter(
+        (item) => item.place === category || item.place === "전체"
       );
-
+    setGatherData(filtered);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, gatherContentArr]);
+  }, [category, gatherContentArr, isLoading]);
 
   return (
     <>
