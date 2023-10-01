@@ -12,14 +12,8 @@ import {
   RangeSliderTrack,
   Switch,
 } from "@chakra-ui/react";
-import { faUser } from "@fortawesome/pro-regular-svg-icons";
-import {
-  faExclamationCircle,
-  faMinus,
-  faPlus,
-  faUserGroup,
-  faVenusMars,
-} from "@fortawesome/pro-solid-svg-icons";
+import { faQuestionCircle, faUser } from "@fortawesome/pro-regular-svg-icons";
+import { faUserGroup, faVenusMars } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -35,11 +29,12 @@ import { randomPassword } from "../../../helpers/validHelpers";
 import { useErrorToast, useFailToast } from "../../../hooks/CustomToast";
 import { useGatherContentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
+import GatherWritingConditionCnt from "../../../pagesComponents/gather/writing/GatherWritingConditionCnt";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherWriting } from "../../../types/page/gather";
+import { GatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
 
 const AGE_BAR = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
@@ -53,6 +48,12 @@ function WritingCondition() {
 
   const [maxValue, setMaxValue] = useState(gatherContent?.memberCnt?.max || 4);
   const [minValue, setMinValue] = useState(gatherContent?.memberCnt?.min || 4);
+
+  const [memberCnt, setMemberCnt] = useState<GatherMemberCnt>({
+    min: 4,
+    max: 0,
+  });
+
   const [genderCondition, setGenderCondition] = useState(
     gatherContent?.genderCondition || false
   );
@@ -60,7 +61,6 @@ function WritingCondition() {
     gatherContent?.age ? true : false
   );
 
-  const [isMaxCondition, setIsMaxCondition] = useState(true);
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
   const [age, setAge] = useState(gatherContent?.age || [19, 28]);
   const [password, setPassword] = useState(gatherContent?.password);
@@ -76,19 +76,19 @@ function WritingCondition() {
   const { data } = useUserInfoQuery();
 
   const onClickNext = async () => {
-    if (
-      !isMaxCondition &&
-      (minValue < 1 || maxValue < 1 || minValue > maxValue)
-    ) {
-      failToast("free", "인원을 확인해 주세요!", true);
-      return;
-    }
+    // if (
+    //   !isMaxCondition &&
+    //   (minValue < 1 || maxValue < 1 || minValue > maxValue)
+    // ) {
+    //   failToast("free", "인원을 확인해 주세요!", true);
+    //   return;
+    // }
 
     const gatherData: IGatherWriting = {
       ...gatherContent,
       age,
       preCnt,
-      memberCnt: { min: minValue, max: isMaxCondition ? 0 : maxValue },
+      // memberCnt: { min: minValue, max: isMaxCondition ? 0 : maxValue },
       genderCondition: genderCondition,
       password,
       user: data,
@@ -116,121 +116,79 @@ function WritingCondition() {
           </RegisterOverview>
           <Container>
             <Item>
-              <div>
+              <Name>
                 <FontAwesomeIcon icon={faUserGroup} />
                 <span>최소 인원</span>
-              </div>
-              <MemberCnt>
-                <FontAwesomeIcon
-                  icon={faMinus}
-                  onClick={() => setMinValue((old) => old - 1)}
-                />
-                <span>{minValue}명</span>
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  onClick={() => setMinValue((old) => old + 1)}
-                />
-              </MemberCnt>
+              </Name>
+              <GatherWritingConditionCnt
+                isMin={true}
+                value={memberCnt.min}
+                setMemberCnt={setMemberCnt}
+              />
             </Item>
             <Item>
-              <div>
+              <Name>
                 <FontAwesomeIcon icon={faUserGroup} />
                 <span>최대 인원</span>
-              </div>
-              <MemberCnt>
-                <Switch
-                  colorScheme="mintTheme"
-                  isChecked={isMaxCondition}
-                  onChange={(e) => setIsMaxCondition(e.target.checked)}
-                  mr="16px"
-                />
-                {isMaxCondition ? (
-                  <MaxConditionText>제한없음</MaxConditionText>
-                ) : (
-                  <>
-                    <FontAwesomeIcon
-                      icon={faMinus}
-                      onClick={() => setMaxValue((old) => old - 1)}
-                    />
-                    <span>{maxValue}명</span>
-                    <FontAwesomeIcon
-                      icon={faPlus}
-                      onClick={() => setMaxValue((old) => old + 1)}
-                    />
-                  </>
-                )}
-              </MemberCnt>
+              </Name>
+              <GatherWritingConditionCnt
+                isMin={false}
+                value={memberCnt.max}
+                setMemberCnt={setMemberCnt}
+              />
             </Item>
             <Item>
-              <div>
+              <Name>
                 <FontAwesomeIcon icon={faVenusMars} />
                 <span style={{ marginRight: "8px" }}>성별 고려</span>
-                <Popover>
-                  <PopoverTrigger>
-                    <FontAwesomeIcon
-                      icon={faExclamationCircle}
-                      color="var(--font-h3)"
-                      size="sm"
-                    />
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <PopoverArrow />
-                    <PopoverCloseButton />
-                    <PopoverHeader fontSize="11px">
-                      네비게이션 기능
-                    </PopoverHeader>
-                    <PopoverBody fontSize="11px">
-                      성별 비율을 최대 2대1까지 제한합니다.
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
-              </div>
+                <GenderPopOver />
+              </Name>
               <Switch
+                mr="var(--margin-min)"
                 colorScheme="mintTheme"
                 isChecked={genderCondition}
                 onChange={(e) => setGenderCondition(e.target.checked)}
               />
             </Item>
-            <SlideItem layout>
-              <div>
-                <div>
-                  <FontAwesomeIcon icon={faUser} />
-                  <span>나이(만)</span>
-                </div>
-                <Switch
-                  colorScheme="mintTheme"
-                  isChecked={ageCondition}
-                  onChange={(e) => setAgeCondition(e.target.checked)}
-                />
-              </div>
-              {ageCondition && (
-                <SelectAge
-                  initial={{ opacity: 0, y: -30 }}
-                  animate={{ opacity: 1, y: 0 }}
+            <Item>
+              <Name>
+                <FontAwesomeIcon icon={faUser} />
+                <span>나이(만)</span>
+              </Name>
+              <Switch
+                mr="var(--margin-min)"
+                colorScheme="mintTheme"
+                isChecked={ageCondition}
+                onChange={(e) => setAgeCondition(e.target.checked)}
+              />
+            </Item>
+            {ageCondition && (
+              <SelectAge
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <RangeSlider
+                  value={age}
+                  min={19}
+                  max={28}
+                  step={1}
+                  width="97%"
+                  alignSelf="center"
+                  onChange={onChangeAge}
                 >
-                  <RangeSlider
-                    value={age}
-                    min={19}
-                    max={28}
-                    step={1}
-                    width="97%"
-                    alignSelf="center"
-                    onChange={onChangeAge}
-                  >
-                    <RangeSliderTrack bg="var(--font-h5)">
-                      <RangeSliderFilledTrack bg="var(--color-mint)" />
-                    </RangeSliderTrack>
-                    <RangeSliderThumb boxSize={6} index={0} />
-                    <RangeSliderThumb boxSize={6} index={1} />
-                  </RangeSlider>
-                  <AgeText>
-                    {AGE_BAR?.map((num) => (
-                      <Age key={num}>{num}</Age>
-                    ))}
-                  </AgeText>
-                </SelectAge>
-              )}
-            </SlideItem>
+                  <RangeSliderTrack bg="var(--font-h5)">
+                    <RangeSliderFilledTrack bg="var(--color-mint)" />
+                  </RangeSliderTrack>
+                  <RangeSliderThumb boxSize={6} index={0} />
+                  <RangeSliderThumb boxSize={6} index={1} />
+                </RangeSlider>
+                <AgeText>
+                  {AGE_BAR?.map((num) => (
+                    <Age key={num}>{num}</Age>
+                  ))}
+                </AgeText>
+              </SelectAge>
+            )}
             {/* <SlideItem layout>
               <div>
                 <div>
@@ -311,9 +269,31 @@ function WritingCondition() {
   );
 }
 
+const GenderPopOver = () => (
+  <Popover>
+    <PopoverTrigger>
+      <FontAwesomeIcon icon={faQuestionCircle} color="var(--font-h3)" />
+    </PopoverTrigger>
+    <PopoverContent>
+      <PopoverArrow />
+      <PopoverCloseButton />
+      <PopoverHeader fontSize="11px">네비게이션 기능</PopoverHeader>
+      <PopoverBody fontSize="11px">
+        성별 비율을 최대 2대1까지 제한합니다.
+      </PopoverBody>
+    </PopoverContent>
+  </Popover>
+);
+
 const PreAlert = styled.span`
   font-size: 11px;
   color: var(--font-h3);
+`;
+
+const Name = styled.div`
+  span {
+    margin-left: var(--margin-md);
+  }
 `;
 
 const MemberCnt = styled.div`
@@ -379,14 +359,9 @@ const Item = styled.div`
   padding: var(--padding-main) 0;
   align-items: center;
   border-bottom: var(--border-sub);
-  > div:first-child {
-    span {
-      margin-left: var(--margin-md);
-    }
-  }
 `;
 
-const SlideItem = styled(motion.div)`
+const SlideItem = styled.div`
   padding: var(--padding-main) 0;
   border-bottom: var(--border-sub);
   > div {
