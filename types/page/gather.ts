@@ -4,7 +4,6 @@ import { ITime } from "../timeAndDate";
 import { IUser } from "../user/user";
 
 export interface IGather extends Omit<IGatherWriting, "date"> {
-  place: LocationFilterType;
   date: string;
   createdAt?: string;
   updatedAt?: string;
@@ -16,6 +15,7 @@ export interface IGather extends Omit<IGatherWriting, "date"> {
 
 export interface IGatherWriting {
   type: GatherType;
+  place: LocationFilterType;
   genderCondition: boolean;
   title: string;
   content: string;

@@ -39,7 +39,7 @@ function WritingGatherContent() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={50} />
+      <ProgressStatus value={40} />
       <Header title="" url="/gather/writing/category" />
       <RegisterLayout>
         <RegisterOverview>
@@ -57,7 +57,6 @@ function WritingGatherContent() {
             onChange={(e) => setContent(e.target.value)}
           />
         </Container>
-
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
     </PageLayout>

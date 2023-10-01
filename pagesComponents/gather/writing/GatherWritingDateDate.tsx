@@ -96,7 +96,7 @@ function GatherWritingDateDate({
 }
 
 const Layout = styled.div`
-  margin-top: 40px;
+  margin-top: var(--margin-max);
 `;
 
 const Container = styled.div`

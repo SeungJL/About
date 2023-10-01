@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import { faCheckCircle } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
@@ -26,7 +27,19 @@ function SuccessScreen({ children, url }: ISuccessScreen) {
         <FontAwesomeIcon icon={faCheckCircle} size="5x" />
       </Icon>
       <Content>{children}</Content>
-      <Button onClick={onClicked}>확인</Button>
+      <Button
+        mt="auto"
+        width={`calc(100% - 2*var(--margin-main))`}
+        height="44px"
+        mb="var(--margin-main)"
+        borderRadius="100px"
+        backgroundColor="var(--color-mint)"
+        color="white"
+        fontSize="15px"
+        onClick={onClicked}
+      >
+        확인
+      </Button>
     </Layout>
   );
 }
@@ -69,19 +82,6 @@ const Content = styled.div`
     font-size: 17px;
     color: var(--font-h3);
   }
-`;
-const Button = styled.button`
-  width: 335px;
-  margin-top: auto;
-  margin-bottom: 16px;
-
-  border-radius: var(--border-radius-sub);
-  color: white;
-  padding: 14px 100px 14px 100px;
-  font-size: 15px;
-  font-weight: 700;
-
-  background-color: var(--color-mint);
 `;
 
 export default SuccessScreen;

@@ -37,7 +37,7 @@ function WritingGatherCategory() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={25} />
+      <ProgressStatus value={20} />
       <Header title="" url="/gather" />
       <RegisterLayout>
         <RegisterOverview>

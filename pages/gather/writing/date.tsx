@@ -41,12 +41,12 @@ function WritingDate() {
       date: dayjs(date),
       gatherList,
     }));
-    router.push(`/gather/writing/condition`);
+    router.push(`/gather/writing/location`);
   };
 
   return (
     <PageLayout>
-      <ProgressStatus value={75} />
+      <ProgressStatus value={60} />
       <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
         <RegisterOverview>

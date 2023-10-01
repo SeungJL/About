@@ -4,10 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
+import { GatherLocation } from "../../../types/page/gather";
+import { DispatchType } from "../../../types/reactTypes";
 
 interface ISearchLocation {
   location?: string;
-  setLocation?: (place: string) => void;
+  setLocation?: DispatchType<GatherLocation>;
 }
 
 const API_URL = "https://dapi.kakao.com/v2/local/search/keyword.json";
@@ -23,22 +25,24 @@ function LocationSearch({ location, setLocation }: ISearchLocation) {
         headers: { Authorization: `KakaoAK ${API_KEY}` },
         params: { query: value },
       });
-      console.log(response.data);
+
       setResults(response.data.documents);
     } catch (error) {
       console.error("주소 검색에 실패했습니다.", error);
     }
   };
 
-  const onClickItem = (name: string) => {
-    setValue(name);
+  const onClickItem = (info: any) => {
+    const placeName = info.place_name;
+    setValue(placeName);
+    setLocation({ main: placeName, sub: info.address_name });
     setResults([]);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setValue(value);
-    setLocation(value);
+    setLocation((old) => ({ ...old, main: value }));
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -75,10 +79,7 @@ function LocationSearch({ location, setLocation }: ISearchLocation) {
         {results.length > 0 && (
           <>
             {results.map((result) => (
-              <Item
-                key={result.id}
-                onClick={() => onClickItem(result.place_name)}
-              >
+              <Item key={result.id} onClick={() => onClickItem(result)}>
                 <span>{result.place_name}</span>
                 <span>{result.place_name}</span>
               </Item>

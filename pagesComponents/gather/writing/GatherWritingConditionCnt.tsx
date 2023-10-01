@@ -1,8 +1,7 @@
 import { Switch } from "@chakra-ui/react";
-import { faMinus, faPlus } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import CountNum from "../../../components/features/atoms/CountNum";
 import { GatherMemberCnt } from "../../../types/page/gather";
 import { DispatchType } from "../../../types/reactTypes";
 
@@ -18,10 +17,14 @@ function GatherWritingConditionCnt({
   setMemberCnt,
 }: IGatherWritingConditionCnt) {
   const [isMaxLimit, setIsMaxLimit] = useState(!isMin);
-  const handleCnt = (cnt: number) => {
-    if (isMin) setMemberCnt((old) => ({ ...old, min: old.min + cnt }));
-    else setMemberCnt((old) => ({ ...old, max: old.max + cnt }));
-  };
+  const [number, setNumber] = useState(value);
+
+  useEffect(() => {
+    if (isMin) setMemberCnt((old) => ({ ...old, min: number }));
+    else setMemberCnt((old) => ({ ...old, max: number }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [number]);
 
   const toggleSwitch = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
@@ -42,15 +45,12 @@ function GatherWritingConditionCnt({
           />
         )}
         {!isMaxLimit ? (
-          <>
-            <CounterWrapper isMinus={true} onClick={() => handleCnt(-1)}>
-              <FontAwesomeIcon icon={faMinus} />
-            </CounterWrapper>
-            <span>{value}명</span>
-            <CounterWrapper isMinus={false} onClick={() => handleCnt(1)}>
-              <FontAwesomeIcon icon={faPlus} />
-            </CounterWrapper>
-          </>
+          <CountNum
+            value={number}
+            setValue={setNumber}
+            unit="명"
+            min={!isMin ? 4 : undefined}
+          />
         ) : (
           <MaxConditionText>제한 없음</MaxConditionText>
         )}

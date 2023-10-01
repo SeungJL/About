@@ -38,19 +38,14 @@ function WritingGahterLocation() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={75} />
+      <ProgressStatus value={80} />
       <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 장소를 선택해 주세요.</span>
         </RegisterOverview>
         <Location>
-          <LocationSearch
-            location={location.main}
-            setLocation={(place) =>
-              setLocation((old) => ({ ...old, main: place }))
-            }
-          />
+          <LocationSearch location={location.main} setLocation={setLocation} />
           <LocationDetailInput
             placeholder="상세 주소"
             value={location.sub}
