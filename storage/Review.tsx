@@ -247,20 +247,9 @@ export const REVIEW_DATA: IReviewData[] = [
       ,
     ],
     title: "수원 조모임 A,E",
-    text: "",
+    text: "수원 조모임 A,E",
   },
-  {
-    id: 10002,
-    dateCreated: "10월 2일",
-    images: [
-      "https://user-images.githubusercontent.com/84257439/271973658-037e6fa4-1c66-420f-a689-e18e807b9b03.jpg",
-      "https://user-images.githubusercontent.com/84257439/271973650-b75cd620-5d50-4004-b940-cc7ad0bbf2a6.jpg",
 
-      "https://user-images.githubusercontent.com/84257439/271972601-1cb1178e-4ba6-4b72-b440-e28c973e9913.jpg",
-    ],
-    title: "수원 조모임 F, G",
-    text: "",
-  },
   {
     id: 10003,
     dateCreated: "10월 2일",
@@ -270,7 +259,7 @@ export const REVIEW_DATA: IReviewData[] = [
       "https://user-images.githubusercontent.com/84257439/271972601-1cb1178e-4ba6-4b72-b440-e28c973e9913.jpg",
     ],
     title: "수원 조모임 F, G",
-    text: "",
+    text: "수원 조모임 F, G",
   },
   {
     id: 10004,
@@ -280,7 +269,7 @@ export const REVIEW_DATA: IReviewData[] = [
       "https://user-images.githubusercontent.com/84257439/271973650-b75cd620-5d50-4004-b940-cc7ad0bbf2a6.jpg",
     ],
     title: "강남 조모임",
-    text: "",
+    text: "강남 조모임",
   },
   {
     id: 10005,
@@ -291,7 +280,7 @@ export const REVIEW_DATA: IReviewData[] = [
       "https://user-images.githubusercontent.com/84257439/271978083-e4294333-6b0b-4ec3-b35f-d30f9c42d47f.jpg",
     ],
     title: "수원 조모임 B,C",
-    text: "",
+    text: "수원 조모임 B,C",
   },
   {
     id: 10006,
@@ -304,7 +293,7 @@ export const REVIEW_DATA: IReviewData[] = [
       "https://user-images.githubusercontent.com/84257439/271976418-7a018634-07ed-4b77-af49-507eb63faa5c.jpg",
     ],
     title: "양천 조모임 A,B,C",
-    text: "",
+    text: "양천 조모임 A,B,C",
   },
   {
     id: 72,
