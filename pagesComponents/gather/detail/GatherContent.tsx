@@ -28,8 +28,8 @@ function GatherContent({ content, gatherList }: IGather) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: var(--border-main-light);
-  border-bottom: var(--border-main-light);
+  border-top: var(--border-main);
+  border-bottom: var(--border-main);
   margin-top: var(--margin-main);
   padding-top: var(--padding-main);
   min-height: 160px;
