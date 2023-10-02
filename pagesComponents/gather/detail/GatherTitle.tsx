@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { STATUS_TP_COLOR } from "../../../constants/styles";
+import { STATUS_TO_TEXT } from "../../../constants/util/convert";
+
 import { GatherStatus } from "../../../types/page/gather";
 
 interface IGatherTitle {
@@ -9,15 +12,7 @@ interface IGatherTitle {
 function GatherTitle({ status, title }: IGatherTitle) {
   return (
     <Layout status={status}>
-      <span>
-        {status === "pending"
-          ? "모집중"
-          : status === "open"
-          ? "오픈"
-          : status === "close"
-          ? "취소"
-          : null}
-      </span>
+      <span>{STATUS_TO_TEXT[status]}</span>
       <span>{title}</span>
     </Layout>
   );
@@ -25,16 +20,10 @@ function GatherTitle({ status, title }: IGatherTitle) {
 
 const Layout = styled.div<{ status: GatherStatus }>`
   color: var(--font-h1);
-  margin-top: var(--margin-md);
   font-size: 16px;
   font-weight: 600;
   > span:first-child {
-    color: ${(props) =>
-      props?.status === "pending"
-        ? " var(--color-mint)"
-        : props?.status === "open"
-        ? "var(--color-red)"
-        : "var(--font-h4)"};
+    color: ${(props) => STATUS_TP_COLOR[props.status]};
     margin-right: var(--margin-md);
   }
 `;

@@ -26,18 +26,20 @@ function GatherContent({ content, gatherList }: IGather) {
 }
 
 const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
   border-top: var(--border-main-light);
   border-bottom: var(--border-main-light);
   margin-top: var(--margin-main);
   padding-top: var(--padding-main);
-  min-height: 100px;
+  min-height: 160px;
 `;
 const Content = styled.pre`
   white-space: pre-wrap;
 `;
 
 const ListContainer = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: auto;
   margin-bottom: var(--margin-main);
   line-height: var(--line-height);
 `;

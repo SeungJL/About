@@ -1,8 +1,7 @@
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import { useGatherAllQuery } from "../../../hooks/gather/queries";
@@ -16,20 +15,20 @@ import GatherOrganizer from "../../../pagesComponents/gather/detail/GatherOrgani
 import GatherParticipation from "../../../pagesComponents/gather/detail/GatherParticipation";
 import GatherTitle from "../../../pagesComponents/gather/detail/GatherTitle";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
+import { isGuestState } from "../../../recoil/userAtoms";
 
 function GatherDetail() {
   const router = useRouter();
-  const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
   const gatherId = router.query.id;
 
+  const isGuest = useRecoilValue(isGuestState);
   const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
 
   const [isRefetch, setIsRefetch] = useState(false);
 
   const { refetch } = useGatherAllQuery({
     onSuccess(data) {
-      setGatherData(data?.find((item) => item?.id === +gatherId));
+      setGatherData(data.find((item) => item.id === +gatherId));
     },
   });
 
@@ -45,9 +44,7 @@ function GatherDetail() {
 
   return (
     <>
-      {!gatherData ? (
-        <MainLoading />
-      ) : (
+      {gatherData ? (
         <>
           <GatherHeader gatherData={gatherData} />
           <Layout>
@@ -72,6 +69,8 @@ function GatherDetail() {
             <GatherBottomNav data={gatherData} setIsRefetch={setIsRefetch} />
           )}
         </>
+      ) : (
+        <MainLoading />
       )}
     </>
   );
@@ -79,6 +78,7 @@ function GatherDetail() {
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
+  margin-top: var(--margin-min);
   display: flex;
   flex-direction: column;
   padding-bottom: 100px;

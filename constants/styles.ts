@@ -1,3 +1,5 @@
+import { GatherStatus } from "../types/page/gather";
+
 export const TABLE_COLORS = [
   "#FF8896",
   "#FEBC5A",
@@ -32,4 +34,11 @@ export const ICON_SIZE = {
   md: 50,
   sm: 40,
   xs: 30,
+};
+
+export const STATUS_TP_COLOR: Record<GatherStatus, string> = {
+  open: "var(--color-mint)",
+  pending: "var(--color-red)",
+  close: "var(--font-h4)",
+  end: "var(--font-h4)",
 };

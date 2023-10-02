@@ -1,14 +1,13 @@
-import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
+import { faArrowUpFromBracket } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
 import ModalPortal from "../../../components/modals/ModalPortal";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGather } from "../../../types/page/gather";
 
 interface IGatherHeader {
@@ -23,14 +22,13 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const locationMain = gatherData?.location.main;
 
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
-  const setGatherContent = useSetRecoilState(sharedGatherWritingState);
+
   const [isModal, setIsModal] = useState(false);
 
-  // const onClick = () => {
-  //   setPrevPageUrl(`/gather/${router.query.id}`);
-  //   setGatherContent(gatherData);
-  //   router.push("/gather/writing/category");
-  // };
+  const onClick = () => {
+    setPrevPageUrl(`/gather/${router.query.id}`);
+    router.push("/gather/writing/category");
+  };
 
   return (
     <>

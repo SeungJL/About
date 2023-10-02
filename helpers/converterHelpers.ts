@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { SCHEME_TO_COLOR } from "../constants/styles";
+import { GatherStatus } from "../types/page/gather";
 
 dayjs.locale("ko");
 
@@ -24,3 +25,4 @@ export const birthToDayjs = (birth: string) =>
 //차크라 색상 to 일반 색상
 export const schemeToColor = (scheme: string) =>
   SCHEME_TO_COLOR[scheme] || scheme;
+

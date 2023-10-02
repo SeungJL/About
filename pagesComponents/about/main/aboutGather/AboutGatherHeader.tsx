@@ -1,5 +1,7 @@
 import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
+import { STATUS_TO_TEXT } from "../../../../constants/util/convert";
+
 import { GatherStatus } from "../../../../types/page/gather";
 import { LocationFilterType } from "../../../../types/system";
 
@@ -10,8 +12,6 @@ interface IAboutGatherHeader {
 }
 
 function AboutGatherHeader({ place, title, status }: IAboutGatherHeader) {
-  const gatherStatus =
-    status === "open" ? "오픈" : status === "pending" ? "모집중" : "취소";
   return (
     <Layout>
       <Badge colorScheme="green">{place}</Badge>
@@ -19,7 +19,7 @@ function AboutGatherHeader({ place, title, status }: IAboutGatherHeader) {
         {title}
       </Badge>
       <Badge colorScheme={status === "open" ? "pink" : "twitter"}>
-        {gatherStatus}
+        {STATUS_TO_TEXT[status]}
       </Badge>
     </Layout>
   );

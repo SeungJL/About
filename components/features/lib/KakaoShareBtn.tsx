@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faArrowUpFromBracket } from "@fortawesome/pro-solid-svg-icons";
+import { faArrowUpFromBracket } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";

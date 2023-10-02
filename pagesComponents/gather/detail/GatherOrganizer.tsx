@@ -15,31 +15,31 @@ function GatherOrganizer({ createdAt, organizer }: IGatherOrganizer) {
   return (
     <Layout>
       <ProfileIcon user={organizer} size="md" />
-      <div>
-        <span>{organizer?.name}</span>
+      <Info>
+        <span>{organizer.name}</span>
         <span>{writingDate}</span>
-      </div>
+      </Info>
     </Layout>
   );
 }
 
 const Layout = styled.div`
   display: flex;
-
   margin: var(--margin-md) 0;
-  > div:last-child {
-    margin-left: var(--margin-sub);
-    display: flex;
-    flex-direction: column;
-    font-size: 12px;
-    align-items: flex-start;
-    > span:first-child {
-      font-weight: 600;
-    }
-    > span:last-child {
-      font-size: 10px;
-      color: var(--font-h3);
-    }
+`;
+
+const Info = styled.div`
+  margin-left: var(--margin-sub);
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  align-items: flex-start;
+  > span:first-child {
+    font-weight: 600;
+  }
+  > span:last-child {
+    font-size: 11px;
+    color: var(--font-h3);
   }
 `;
 
