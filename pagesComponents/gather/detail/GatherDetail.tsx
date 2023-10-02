@@ -46,7 +46,7 @@ function GatherDetailInfo({
         <span>
           {date === "미정"
             ? date
-            : dayjsToFormat(dayjs(date), "M.DD(ddd) 오후 h:mm")}
+            : dayjsToFormat(dayjs(date), "M.D(ddd) 오후 h:mm")}
         </span>
       </Item>
       <Item>

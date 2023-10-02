@@ -31,7 +31,7 @@ const Layout = styled.div`
   border-top: var(--border-main);
   border-bottom: var(--border-main);
   margin-top: var(--margin-main);
-  padding-top: var(--padding-main);
+  padding: var(--padding-main) 0;
   min-height: 160px;
 `;
 const Content = styled.pre`
@@ -40,7 +40,6 @@ const Content = styled.pre`
 
 const ListContainer = styled.div`
   margin-top: auto;
-  margin-bottom: var(--margin-main);
   line-height: var(--line-height);
 `;
 
