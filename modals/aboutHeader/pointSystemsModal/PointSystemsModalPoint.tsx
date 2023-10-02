@@ -49,7 +49,7 @@ function PointSystemsModalPoint() {
         <li>포인트는 스토어에서 사용 가능</li>
         <li>적립된 포인트는 동아리 점수로도 합산</li>
         <li>건의, 초대하기 등에서도 포인트 획득 가능</li>
-        <li>100 point는 실제 1000원의 환산 가치 </li>
+        <li>100 point = 1000원</li>
       </Contents>
     </>
   );

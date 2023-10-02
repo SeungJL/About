@@ -72,9 +72,9 @@ function DeclareDrawer({
   const onSubmit = () => {
     const data: IUserRequest = {
       category: "신고",
-      writer: userInfo?.name,
+      writer: `${userInfo?.name}-${userInfo?.uid}`,
       location: userInfo?.location,
-      title: `${userData?.name}-${userData?.uid}-${userData?.location}`,
+      title: `${userData?.name}-${userData?.uid}`,
       content:
         declareModal === "declare" ? DECLARE_LIST[declareIdx] : "거리두기",
     };

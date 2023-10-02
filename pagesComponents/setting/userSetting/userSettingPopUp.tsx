@@ -8,12 +8,12 @@ import {
   USER_GUIDE_POP_UP,
 } from "../../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
+import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import FreeStudySpacePopUp from "../../../modals/pop-up/FreeStudySpacePopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../../modals/pop-up/SuggestPopUp";
-import UserGuidePopUp from "../../../modals/pop-up/UserGuidePopUp";
 
 interface IUserSettingPopUp {
   isProfileEdit: boolean;
@@ -95,7 +95,7 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       )}
       {popUpTypes.includes("userGuide") && (
         <ModalPortal setIsModal={() => filterPopUpTypes("userGuide")}>
-          <UserGuidePopUp setIsModal={() => filterPopUpTypes("userGuide")} />
+          <PointSystemsModal setIsModal={() => filterPopUpTypes("userGuide")} />
         </ModalPortal>
       )}
     </>

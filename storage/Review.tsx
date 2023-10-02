@@ -237,6 +237,76 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "비 오는날 초가집에서 감성있는 막걸리 번개. 도토리묵이랑 막걸리가 특히 맛있었어요 ㅎㅎ",
   },
   {
+    id: 10001,
+    dateCreated: "10월 2일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/271972590-35d30eb1-126d-4462-aa09-3e194c428e1e.jpg",
+      "https://user-images.githubusercontent.com/84257439/271972604-d45bc71c-ad56-4b0c-8bda-21cfb7fb788d.jpg",
+      "https://user-images.githubusercontent.com/84257439/271972631-f696057b-f482-428a-9f51-5147e89134da.jpg",
+      "https://user-images.githubusercontent.com/84257439/271972579-f46cb13b-b9c3-4726-b3f3-2347f4cea353.jpg",
+      ,
+    ],
+    title: "수원 조모임 A,E",
+    text: "",
+  },
+  {
+    id: 10002,
+    dateCreated: "10월 2일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/271973658-037e6fa4-1c66-420f-a689-e18e807b9b03.jpg",
+      "https://user-images.githubusercontent.com/84257439/271973650-b75cd620-5d50-4004-b940-cc7ad0bbf2a6.jpg",
+
+      "https://user-images.githubusercontent.com/84257439/271972601-1cb1178e-4ba6-4b72-b440-e28c973e9913.jpg",
+    ],
+    title: "수원 조모임 F, G",
+    text: "",
+  },
+  {
+    id: 10003,
+    dateCreated: "10월 2일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/271977064-e0c86716-ec3c-4107-a420-712834c5433d.jpg",
+      "https://user-images.githubusercontent.com/84257439/271977041-c7583f00-5d68-49b7-9c86-4c6064d4bacc.jpg",
+      "https://user-images.githubusercontent.com/84257439/271972601-1cb1178e-4ba6-4b72-b440-e28c973e9913.jpg",
+    ],
+    title: "수원 조모임 F, G",
+    text: "",
+  },
+  {
+    id: 10004,
+    dateCreated: "10월 2일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/271973658-037e6fa4-1c66-420f-a689-e18e807b9b03.jpg",
+      "https://user-images.githubusercontent.com/84257439/271973650-b75cd620-5d50-4004-b940-cc7ad0bbf2a6.jpg",
+    ],
+    title: "강남 조모임",
+    text: "",
+  },
+  {
+    id: 10005,
+    dateCreated: "10월 2일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/271978078-bb49b768-27a6-4acb-8c1b-4b7442529f56.jpg",
+      "https://user-images.githubusercontent.com/84257439/271978061-4e192f9b-8b5b-4de8-a7e4-0d0ef9d673f2.jpg",
+      "https://user-images.githubusercontent.com/84257439/271978083-e4294333-6b0b-4ec3-b35f-d30f9c42d47f.jpg",
+    ],
+    title: "수원 조모임 B,C",
+    text: "",
+  },
+  {
+    id: 10006,
+    dateCreated: "10월 2일",
+    images: [
+      "https://user-images.githubusercontent.com/84257439/271976398-86da4b7a-9811-4399-a6eb-3ba10053af8f.jpg",
+      "https://user-images.githubusercontent.com/84257439/271976421-d0a2cb5c-1959-4cb3-ae4f-014455df9879.jpg",
+      "https://user-images.githubusercontent.com/84257439/271976402-779e7815-dedc-4d13-a4d1-45003133c997.jpg",
+      "https://user-images.githubusercontent.com/84257439/271976409-73676f0d-75f6-4ca4-bd9f-2749e7c40f7a.jpg",
+      "https://user-images.githubusercontent.com/84257439/271976418-7a018634-07ed-4b77-af49-507eb63faa5c.jpg",
+    ],
+    title: "양천 조모임 A,B,C",
+    text: "",
+  },
+  {
     id: 72,
     dateCreated: "10월 2일",
     images: [

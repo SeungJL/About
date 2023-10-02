@@ -36,7 +36,9 @@ function AboutReview() {
                   alt="aboutReviewImage"
                 />
               </ImageContainer>
-              <ReviewText>{item.text.slice(0, 40)}</ReviewText>
+              <ReviewText>
+                {!item.text ? "후기 생략" : item.text.slice(0, 40)}
+              </ReviewText>
             </ReviewItem>
           ))}
       </ReviewContainer>

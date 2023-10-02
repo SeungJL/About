@@ -148,4 +148,10 @@ export const WIN_RECORD: {
     reason: "홍보이벤트 당첨 선물",
     present: "BBQ 황금올리브 세트",
   },
+  {
+    name: "박유",
+    date: "9/28",
+    reason: "스토어 응모 당첨",
+    present: "올리브영 10000원권",
+  },
 ];
