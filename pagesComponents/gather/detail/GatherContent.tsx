@@ -30,8 +30,9 @@ const Layout = styled.div`
   flex-direction: column;
   border-top: var(--border-main);
   border-bottom: var(--border-main);
-  margin-top: var(--margin-main);
-  padding: var(--padding-main) 0;
+  margin-top: var(--margin-sub);
+  padding: var(--padding-sub) 0;
+
   min-height: 160px;
 `;
 const Content = styled.pre`

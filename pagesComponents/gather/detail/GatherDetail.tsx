@@ -89,6 +89,7 @@ const Layout = styled.div`
   flex-direction: column;
   margin-top: var(--margin-md);
   line-height: 2;
+  font-size: 13px;
 
   color: var(--font-h2);
 `;

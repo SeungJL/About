@@ -53,7 +53,7 @@ const GatherReviewNavIcon = styled.div`
   }
 `;
 const GatherReviewNavItem = styled.div`
-  margin-right: 22px;
+  margin-right: 25px;
   display: flex;
   flex-direction: column;
   width: 68px;
