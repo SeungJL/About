@@ -195,7 +195,7 @@ function WritingCondition() {
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
       </PageLayout>
-      {!isSuccessScreen && (
+      {isSuccessScreen && (
         <ModalPortal setIsModal={setIsSuccessScreen}>
           <SuccessScreen url={`/gather`}>
             <>

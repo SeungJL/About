@@ -32,7 +32,9 @@ const Layout = styled.div`
   padding-top: var(--padding-main);
   min-height: 100px;
 `;
-const Content = styled.pre``;
+const Content = styled.pre`
+  white-space: pre-wrap;
+`;
 
 const ListContainer = styled.div`
   margin-top: var(--margin-max);
