@@ -19,7 +19,7 @@ export const useGatherAllQuery = (options?: QueryOptions<IGather[]>) =>
     },
     options
   );
-export const useGatherSummaryQuery = (
+export const useGatherAllSummaryQuery = (
   options?: QueryOptions<IGatherSummary[]>
 ) =>
   useQuery<IGatherSummary[], AxiosError, IGatherSummary[]>(
@@ -32,6 +32,7 @@ export const useGatherSummaryQuery = (
         location: item.location,
         date: item.date,
         id: item.id,
+        place: item.place,
       }));
       return data;
     },

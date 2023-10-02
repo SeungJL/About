@@ -1,5 +1,3 @@
-import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 
@@ -18,7 +16,7 @@ function ReviewItemHeader({ writer, date }: IReviewItemHeader) {
           <span>{date}</span>
         </div>
       </Profile>
-      <FontAwesomeIcon icon={faEllipsis} size="lg" />
+      {/* <FontAwesomeIcon icon={faEllipsis} size="lg" /> */}
     </Layout>
   );
 }
@@ -26,7 +24,7 @@ function ReviewItemHeader({ writer, date }: IReviewItemHeader) {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 var(--padding-main);
+  margin: 0 var(--margin-main);
   margin-bottom: var(--margin-sub);
   align-items: center;
 `;

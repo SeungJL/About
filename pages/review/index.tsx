@@ -1,4 +1,3 @@
-import { Dayjs } from "dayjs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -10,7 +9,7 @@ import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
-import { useGatherSummaryQuery } from "../../hooks/gather/queries";
+import { useGatherAllSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pagesComponents/review/ReviewContent";
 import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
 import ReviewItemHeader from "../../pagesComponents/review/ReviewItemHeader";
@@ -19,7 +18,7 @@ import {
   prevPageUrlState,
   reviewContentIdState,
 } from "../../recoil/previousAtoms";
-import { REVIEW_DATA } from "../../storage/Review";
+import { IReviewData, REVIEW_DATA } from "../../storage/Review";
 import { GatherLocation, GatherType } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
 
@@ -27,19 +26,13 @@ export interface IGatherSummary {
   title: string;
   type: GatherType;
   location: GatherLocation;
-  date: Dayjs | string;
+  date: string;
   id: number;
+  place: LocationFilterType;
 }
 
-interface IReview {
-  id: number;
-  date: string;
-  images: string[];
-  text: string;
-  title: string;
+interface IReview extends IReviewData {
   summary?: IGatherSummary;
-  writer?: string;
-  location: string;
 }
 
 function Review() {
@@ -53,11 +46,6 @@ function Review() {
   const reviewContentId = useRecoilValue(reviewContentIdState);
 
   const url = WEB_URL + router?.asPath;
-  const temp = {
-    name: "이승주",
-    profileImage: null,
-    avatar: { bg: 10, type: 9 },
-  };
 
   const writers = {
     이승주: {
@@ -97,13 +85,22 @@ function Review() {
     },
   };
 
-  useGatherSummaryQuery({
+  useGatherAllSummaryQuery({
+    enabled: !initialData,
     onSuccess(data) {
+      const reviewObject = data.reduce((acc, summary) => {
+        acc[summary.id] = summary;
+        return acc;
+      }, {});
       const updatedReviewData = REVIEW_DATA.slice()
         .reverse()
         .map((review) => {
-          const findItem = data.find((item) => item.id === review.id);
-          return { ...review, summary: findItem || null };
+          const findItem = reviewObject[review.id];
+          return {
+            ...review,
+            place: findItem?.place ?? review.place,
+            summary: findItem && { ...findItem },
+          };
         });
       setInitialData(updatedReviewData);
       setReviewData(updatedReviewData);
@@ -112,8 +109,12 @@ function Review() {
 
   useEffect(() => {
     if (category === "전체") setReviewData(initialData);
-    else
-      setReviewData(initialData.filter((item) => item.location === category));
+    else {
+      const filtered = initialData.filter(
+        (item) => item.place === category || item.place === "전체"
+      );
+      setReviewData(filtered);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
@@ -144,9 +145,7 @@ function Review() {
         />
       </Header>
       <Layout>
-        {!reviewData ? (
-          <MainLoading />
-        ) : (
+        {reviewData ? (
           <>
             <NavWrapper>
               <ButtonCheckNav
@@ -156,11 +155,11 @@ function Review() {
               />
             </NavWrapper>
             <Main>
-              {reviewData?.map((item) => (
+              {reviewData.map((item) => (
                 <Item id={"review" + item.id} key={item.id}>
                   <ReviewItemHeader
                     writer={writers[item?.writer || "이승주"]}
-                    date={item.date}
+                    date={item.dateCreated}
                   />
                   <ImageWrapper>
                     <ImageSlider imageContainer={item.images} type="review" />
@@ -170,12 +169,14 @@ function Review() {
                   ) : (
                     <Spacing />
                   )}
-                  <ReviewContent text={item.text} />
-                  <ReviewStatus temp={temp} />
+                  {item?.text && <ReviewContent text={item.text} />}
+                  <ReviewStatus temp={writers["이승주"]} />
                 </Item>
               ))}
             </Main>
           </>
+        ) : (
+          <MainLoading />
         )}
       </Layout>
     </>
@@ -200,7 +201,7 @@ const ImageWrapper = styled.div`
 `;
 
 const Item = styled.div`
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 `;
 
 const Spacing = styled.div`

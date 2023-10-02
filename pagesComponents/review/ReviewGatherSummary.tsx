@@ -27,11 +27,10 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
         />
       </IconWrapper>
       <Content>
-        <span>{summary?.title}</span>
+        <span>{summary.title}</span>
         <ContentDetail>
-          <span>{summary?.type.title}</span>·
-          <span>{summary?.location?.main}</span>·
-          <span>{date.format("M월 D일")}</span>
+          <span>{summary.type.title}</span>·<span>{summary.location.main}</span>
+          ·<span>{date.format("M월 D일")}</span>
         </ContentDetail>
       </Content>
     </Layout>
