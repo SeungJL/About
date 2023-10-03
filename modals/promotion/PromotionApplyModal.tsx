@@ -29,7 +29,7 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
 
   const { mutate } = usePromotionMutation({
     onSuccess() {
-      completeToast("free", "50 POINT 지급 완료! 도와주셔서 감사합니다!");
+      completeToast("free", "100 POINT 지급 완료! 도와주셔서 감사합니다!");
       setIsModal(false);
     },
   });
@@ -66,7 +66,7 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
             <ModalMain>
               <ModalSubtitle>
                 홍보글 게시를 진행해 주셨나요?
-                <br /> + 50 Point와 추첨을 통해 치킨 기프티콘을 드려요!
+                <br /> + 100 Point와 추첨을 통해 치킨 기프티콘을 드려요!
               </ModalSubtitle>
               <Uni>
                 <span>학교:</span>
