@@ -14,7 +14,7 @@ function PromotionTitle() {
       </Title>
       <Detail>
         <div>
-          에브리타임에 홍보글을 작성해주시면 <b>+50 Point</b>와 추첨을 통해 매
+          에브리타임에 홍보글을 작성해주시면 <b>+100 Point</b>와 추첨을 통해 매
           달 <b>BBQ 황금 올리브 치킨 세트</b>를 드립니다!
         </div>
         <div>[학교 당 3일에 1번만 참여 가능]</div>
