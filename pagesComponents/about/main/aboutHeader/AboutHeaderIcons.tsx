@@ -6,6 +6,7 @@ import {
   faUser,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
@@ -13,6 +14,7 @@ import {
   LIKE_HEART_CNT,
   NOTICE_ALERT,
 } from "../../../../constants/keys/localStorage";
+import { dayjsToStr } from "../../../../helpers/dateHelpers";
 import { useInteractionLikeQuery } from "../../../../hooks/interaction/queries";
 import { NOTICE_ARR } from "../../../../storage/notice";
 import { AlertIcon } from "../../../../styles/icons";
@@ -38,7 +40,8 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
       setIsNoticeAlert(true);
   }, []);
 
-  const isAttendCheck = localStorage.getItem(ATTEND_CHECK_POP_UP);
+  const isAttendCheck =
+    localStorage.getItem(ATTEND_CHECK_POP_UP) === dayjsToStr(dayjs());
 
   return (
     <Layout>

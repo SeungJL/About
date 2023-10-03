@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { faCheckCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -17,6 +18,7 @@ import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
 import { ATTEND_CHECK_PRESENT_LIST } from "../../constants/contentsValue/attendCheck";
 import { ATTEND_CHECK_POP_UP } from "../../constants/keys/localStorage";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import {
   useCompleteToast,
   useErrorToast,
@@ -67,7 +69,7 @@ function AttendCheckModal({ setIsModal }: IModal) {
       failToast("guest");
       return;
     }
-    localStorage.setItem(ATTEND_CHECK_POP_UP, "read");
+    localStorage.setItem(ATTEND_CHECK_POP_UP, dayjsToStr(dayjs()));
     setPoint({ value: 3, message: "출석체크" });
     setScore({ value: 3, message: "출석체크" });
     const randomNum = Math.round(Math.random() * 10000);

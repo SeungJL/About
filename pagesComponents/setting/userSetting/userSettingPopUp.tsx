@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ModalPortal from "../../../components/modals/ModalPortal";
 import {
   ATTEND_POP_UP,
+  FAQ_POP_UP,
   PROMOTION_POP_UP,
   STUDY_SPACE_POP_UP,
   SUGGEST_POP_UP,
@@ -10,6 +11,7 @@ import {
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
+import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
 import FreeStudySpacePopUp from "../../../modals/pop-up/FreeStudySpacePopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import ProfileModifyPopUp from "../../../modals/pop-up/ProfileModifyPopUp";
@@ -25,7 +27,8 @@ export type UserPopUp =
   | "suggest"
   | "promotion"
   | "userGuide"
-  | "studySpace";
+  | "studySpace"
+  | "faq";
 
 function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -33,7 +36,11 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   useEffect(() => {
     let popUpCnt = 0;
     if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
-    if (!checkAndSetLocalStorage(STUDY_SPACE_POP_UP, 2)) {
+    if (!checkAndSetLocalStorage(FAQ_POP_UP, 2)) {
+      setPopUpTypes((old) => [...old, "faq"]);
+      if (++popUpCnt === 2) return;
+    }
+    if (!checkAndSetLocalStorage(STUDY_SPACE_POP_UP, 5)) {
       setPopUpTypes((old) => [...old, "studySpace"]);
       if (++popUpCnt === 2) return;
     }
@@ -62,6 +69,11 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
 
   return (
     <>
+      {popUpTypes.includes("faq") && (
+        <ModalPortal setIsModal={() => filterPopUpTypes("faq")}>
+          <FAQPopUp setIsModal={() => filterPopUpTypes("faq")} />
+        </ModalPortal>
+      )}
       {popUpTypes.includes("lastWeekAttend") && (
         <ModalPortal setIsModal={() => filterPopUpTypes("lastWeekAttend")}>
           <LastWeekAttendPopUp

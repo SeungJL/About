@@ -11,14 +11,14 @@ import { OPEN_KAKAO_LINK } from "../../constants/contents/Private";
 export interface IAccordionContent {
   title: string;
   content: string | string[];
-  list?: boolean;
 }
 
 interface IAccordion {
   contentArr: IAccordionContent[];
+  isFull?: boolean;
 }
 
-function Accordion({ contentArr }: IAccordion) {
+function Accordion({ contentArr, isFull }: IAccordion) {
   return (
     <ChakraAccordian
       allowToggle
@@ -31,28 +31,30 @@ function Accordion({ contentArr }: IAccordion) {
         return (
           <AccordionItem key={idx}>
             <AccordionButton
-              p="8px"
+              p="var(--padding-sub) var(--padding-md)"
               display="flex"
               justifyContent="space-between"
               fontSize="13px"
             >
-              <div>
+              <Container isFull={isFull}>
                 <QIcon>Q.</QIcon>
                 <Title>{item.title}</Title>
-              </div>
+              </Container>
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel p="var(--padding-sub) var(--padding-md)">
-              {Array.isArray(content) ? (
-                content.map((list, idx) => <li key={idx}>{list}</li>)
-              ) : (
-                <p>
-                  {content}
-                  {content === "" && (
-                    <a href={OPEN_KAKAO_LINK}>{OPEN_KAKAO_LINK}</a>
-                  )}
-                </p>
-              )}
+              <Content isFull={isFull}>
+                {Array.isArray(content) ? (
+                  content.map((list, idx) => <li key={idx}>{list}</li>)
+                ) : (
+                  <p>
+                    {content}
+                    {content === "" && (
+                      <a href={OPEN_KAKAO_LINK}>{OPEN_KAKAO_LINK}</a>
+                    )}
+                  </p>
+                )}
+              </Content>
             </AccordionPanel>
           </AccordionItem>
         );
@@ -61,10 +63,23 @@ function Accordion({ contentArr }: IAccordion) {
   );
 }
 
+const Container = styled.div<{ isFull: boolean }>`
+  margin: ${(props) => (props.isFull ? "0 var(--margin-md)" : 0)};
+  display: flex;
+  width: 100%;
+`;
+
 const QIcon = styled.span`
   margin-right: var(--margin-md);
 `;
 
-const Title = styled.span``;
+const Title = styled.div`
+  width: 90%;
+  text-align: start;
+`;
+
+const Content = styled.div<{ isFull: boolean }>`
+  padding: ${(props) => props.isFull && "var(--padding-md)"};
+`;
 
 export default Accordion;

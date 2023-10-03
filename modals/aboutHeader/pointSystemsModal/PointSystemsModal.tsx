@@ -16,7 +16,7 @@ function PointSystemsModal({ setIsModal }: IModal) {
   return (
     <ModalLayout size="xxl">
       <ModalHeaderCenter>
-        <Title>동아리 가이드</Title>
+        <Title>포인트 가이드</Title>
         <div>대학생들의 카공 및 친목 동아리 ABOUT</div>
       </ModalHeaderCenter>
       <Nav>
