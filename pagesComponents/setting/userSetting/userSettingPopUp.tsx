@@ -36,11 +36,11 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   useEffect(() => {
     let popUpCnt = 0;
     if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
-    if (!checkAndSetLocalStorage(FAQ_POP_UP, 2)) {
+    if (!checkAndSetLocalStorage(FAQ_POP_UP, 7)) {
       setPopUpTypes((old) => [...old, "faq"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(STUDY_SPACE_POP_UP, 5)) {
+    if (!checkAndSetLocalStorage(STUDY_SPACE_POP_UP, 4)) {
       setPopUpTypes((old) => [...old, "studySpace"]);
       if (++popUpCnt === 2) return;
     }

@@ -340,4 +340,12 @@ export const NOTICE_ARR = [
     content: "동아리 캘린더 게시판이 업데이트 되었습니다.",
     date: "2023-09-27",
   },
+  {
+    id: "44",
+    title: "홍보 리워드 2배 이벤트 !",
+    category: "event",
+    content:
+      "당분간 동아리 홍보 리워드가 50 point에서 100point로 상향됩니다! 많음 참여 부탁드려요!",
+    date: "2023-10-03",
+  },
 ];
