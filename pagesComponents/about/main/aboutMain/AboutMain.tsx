@@ -81,7 +81,6 @@ function AboutMain({ participations }: IAboutMain) {
 const Layout = styled(motion.div)`
   margin-top: var(--margin-main);
   padding-bottom: var(--padding-main);
-  border-bottom: var(--border-main-light);
 `;
 
 const Main = styled.main`

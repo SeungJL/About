@@ -349,9 +349,17 @@ export const NOTICE_ARR = [
     date: "2023-10-03",
   },
   {
-    id: "update",
+    id: "45",
     title: "이벤트 캘린더 업데이트",
     category: "update",
+    content:
+      "이벤트 캘린더가 업데이트 되었습니다. 메인 페이지에서 확인이 가능합니다.",
+    date: "2023-10-06",
+  },
+  {
+    id: "46",
+    title: "동아리 홍보글 변경 안내",
+    category: "main",
     content:
       "이벤트 캘린더가 업데이트 되었습니다. 메인 페이지에서 확인이 가능합니다.",
     date: "2023-10-06",

@@ -21,7 +21,7 @@ import {
   myStudyFixedState,
   participationsState,
   studyDateStatusState,
-  voteDateState
+  voteDateState,
 } from "../../recoil/studyAtoms";
 import { IParticipation } from "../../types/study/studyDetail";
 
@@ -77,8 +77,8 @@ function About() {
         {voteDate && <AboutCalendar />}
         {studyDateStatus === "not passed" && <AboutVoteNav />}
         <AboutMain participations={otherStudies} />
-        <AboutGather />
         <EventBanner />
+        <AboutGather />
         <AboutReview />
         <AboutWinRecord />
       </Layout>

@@ -95,7 +95,7 @@ function AboutGather() {
 const Layout = styled.div`
   width: 100%;
   padding-left: var(--padding-main);
-  margin-top: var(--margin-main);
+  margin-top: 24px;
   margin-bottom: var(--margin-main);
   display: flex;
   flex-direction: column;
