@@ -6,7 +6,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { PROMOTION_TEXT } from "../../constants/contents/Private";
-import PromotionText from "./PromotionText";
 
 function PromotionContent() {
   const [isText, setIsText] = useState(true);
@@ -42,7 +41,7 @@ function PromotionContent() {
           {isText ? (
             <>
               <Title>카공 및 친목 동아리 ABOUT</Title>
-              <PromotionText />
+              <Pre>{PROMOTION_TEXT}</Pre>
             </>
           ) : (
             <ImageWrapper>
@@ -123,6 +122,11 @@ const Content = styled.div`
 const Message = styled.span`
   margin-left: auto;
   color: var(--font-h2);
+  font-size: 12px;
+`;
+
+const Pre = styled.pre`
+  white-space: pre-wrap;
   font-size: 12px;
 `;
 

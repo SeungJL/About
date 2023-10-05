@@ -93,9 +93,7 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
           <div>
             <BlockName>안내</BlockName>
             <NavBlock>
-              <button
-                onClick={() => onClickBlock("page", `user/info/scoreSystem`)}
-              >
+              <button onClick={() => onClickBlock("page", `/faq`)}>
                 자주 묻는 질문
               </button>
               <button onClick={() => onClickBlock("page", `user/info/policy`)}>

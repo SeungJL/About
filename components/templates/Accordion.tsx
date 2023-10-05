@@ -1,5 +1,5 @@
 import {
-  Accordion as ChakraAccordian,
+  Accordion as ChakraAccordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
@@ -16,11 +16,12 @@ export interface IAccordionContent {
 interface IAccordion {
   contentArr: IAccordionContent[];
   isFull?: boolean;
+  isQ?: boolean;
 }
 
-function Accordion({ contentArr, isFull }: IAccordion) {
+function Accordion({ contentArr, isFull, isQ = true }: IAccordion) {
   return (
-    <ChakraAccordian
+    <ChakraAccordion
       allowToggle
       marginTop="40px"
       fontSize="13px"
@@ -31,13 +32,14 @@ function Accordion({ contentArr, isFull }: IAccordion) {
         return (
           <AccordionItem key={idx}>
             <AccordionButton
+              _focus={{ outline: "none" }}
               p="var(--padding-sub) var(--padding-md)"
               display="flex"
               justifyContent="space-between"
               fontSize="13px"
             >
               <Container isFull={isFull}>
-                <QIcon>Q.</QIcon>
+                {isQ && <QIcon>Q.</QIcon>}
                 <Title>{item.title}</Title>
               </Container>
               <AccordionIcon />
@@ -59,7 +61,7 @@ function Accordion({ contentArr, isFull }: IAccordion) {
           </AccordionItem>
         );
       })}
-    </ChakraAccordian>
+    </ChakraAccordion>
   );
 }
 

@@ -1,4 +1,5 @@
 import { IAccordionContent } from "../../components/templates/Accordion";
+import { EVENT_CONTENT_2023 } from "./eventContents";
 
 //회원가입 질문 컨텐츠
 export const ACCORDION_CONTENT_FEE: IAccordionContent[] = [
@@ -125,5 +126,22 @@ export const ACCORDION_CONTENT_FAQ: IAccordionContent[] = [
     title: "[신고] 이상한 사람이 있어요.",
     content:
       "유저 프로필로 들어가면 거리두기 기능과 신고 기능이 존재합니다. 개인적인 만남을 요구하거나, 종교 포교 목적, 모임에서의 불쾌한 언행 등의 경우처럼 명확하게 이유가 있는 경우 신고하기를 해주시면 되고, 그냥 좀 안맞는 사람인거 같다 라는 경우에는 거리두기를 이용해주시면 됩니다. 거리두기의 경우 스터디나 모임에서 겹치는 일이 없도록 필터가 적용됩니다. 익명성이 보장되니까 너무 부담갖지 말고 신청해주세요.",
+  },
+];
+
+export const ACCORDION_CONTENT_EVENT = [
+  ...EVENT_CONTENT_2023[10].map((item) => ({
+    title: item.content,
+    content: item.text,
+  })),
+  {
+    title: "[스터디] FREE 오픈 장소 추가",
+    content:
+      "FREE 오픈 신청 장소를 추천 받고 있습니다. 추첨을 통해 상품을 드려요!",
+  },
+  {
+    title: "[항시]피드백은 항상 환영입니다.",
+    content:
+      "어떤 것이든 건의사항을 주시면 항상 감사히 받아요~ 가끔은 선물을 드리기도 한답니다.",
   },
 ];

@@ -348,4 +348,12 @@ export const NOTICE_ARR = [
       "당분간 동아리 홍보 리워드가 50 point에서 100point로 상향됩니다! 많음 참여 부탁드려요!",
     date: "2023-10-03",
   },
+  {
+    id: "update",
+    title: "이벤트 캘린더 업데이트",
+    category: "update",
+    content:
+      "이벤트 캘린더가 업데이트 되었습니다. 메인 페이지에서 확인이 가능합니다.",
+    date: "2023-10-06",
+  },
 ];

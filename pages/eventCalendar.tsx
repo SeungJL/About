@@ -4,23 +4,87 @@ import styled from "styled-components";
 import MonthNav from "../components/features/atoms/MonthNav";
 import Header from "../components/layout/Header";
 import PageLayout from "../components/layout/PageLayout";
+import Accordion from "../components/templates/Accordion";
+import { ACCORDION_CONTENT_EVENT } from "../constants/contents/accordionContents";
 import { EVENT_CONTENT_2023 } from "../constants/contents/eventContents";
 import { DAYS_OF_WEEK } from "../constants/util/util";
 
-const DAYS_TITLE = ["점수 X 2", null, null, null, "이벤트", null, "포인트 X 2"];
+const DAYS_TITLE = [
+  "포인트 X 2",
+  null,
+  null,
+  null,
+  "출석 X 2",
+  null,
+  "점수 X 2",
+];
+
+interface IEventContent {
+  content: string;
+  color: string;
+  isFirst: boolean;
+  isLast: boolean;
+}
 
 function EventCalendar() {
   const [navMonth, setNavMonth] = useState(dayjs().startOf("month"));
 
-  const daysInMonth = navMonth.daysInMonth();
-  const frontBlankDate = navMonth.day();
-  const totalDate = daysInMonth + frontBlankDate;
-  const rowsInMonth = totalDate <= 35 ? 5 : 6;
+  const getFilledDates = (navMonth: dayjs.Dayjs) => {
+    const daysInMonth = navMonth.daysInMonth();
+    const frontBlankDate = navMonth.day();
+    const totalDate = daysInMonth + frontBlankDate;
+    const rowsInMonth = totalDate <= 35 ? 5 : 6;
+    return Array.from({ length: 7 * rowsInMonth }, (_, idx) =>
+      idx < frontBlankDate || idx >= totalDate ? null : idx - frontBlankDate + 1
+    );
+  };
 
-  const filledDates = Array.from({ length: 7 * rowsInMonth }, (_, idx) =>
-    idx < frontBlankDate || idx >= totalDate ? null : idx - frontBlankDate + 1
-  );
-  console.log(filledDates);
+  const filledDates = getFilledDates(navMonth);
+
+  const eventBlocks: { [key: string]: string } = {
+    first: null,
+    second: null,
+    third: null,
+  };
+
+  let endBlocks = [];
+
+  const filledContents = (date: number) => {
+    const eventArr =
+      navMonth.year() === 2023
+        ? EVENT_CONTENT_2023[navMonth.month() + 1]
+        : null;
+
+    return eventArr.reduce((acc: IEventContent[], event) => {
+      const isFirstDay = date === event.start;
+      const isEndDay = date === event.end;
+      if (event.start <= date && date <= event.end) {
+        acc.push({
+          content: event.content,
+          color: event.color,
+          isFirst: isFirstDay,
+          isLast: isEndDay,
+        });
+        if (isFirstDay) fillEventDate(event.content);
+        if (isEndDay) endBlocks.push(event.content);
+      }
+      return acc;
+    }, []);
+  };
+
+  const fillEventDate = (content: string) => {
+    const availableKey = Object.keys(eventBlocks).find(
+      (key) => !eventBlocks[key]
+    );
+    if (availableKey) eventBlocks[availableKey] = content;
+  };
+
+  const deleteEventDate = (content: string) => {
+    for (let key in eventBlocks) {
+      if (eventBlocks[key] === content) eventBlocks[key] = null;
+    }
+  };
+
   return (
     <PageLayout>
       <Header title="이벤트 캘린더" url="/about" />
@@ -41,28 +105,51 @@ function EventCalendar() {
         <CalendarDates>
           {filledDates?.map((item, idx) => {
             const day = idx % 7 === 0 ? "sun" : idx % 7 === 6 ? "sat" : null;
-            const isToday =
-              navMonth.month() === dayjs().month() && item === dayjs().date();
-            const contentArr = [];
-            if (navMonth.year() === 2023) {
-              const A = EVENT_CONTENT_2023[navMonth.month() + 1];
-              console.log(A);
-            }
+            const isToday = navMonth.date(item).isSame(dayjs(), "day");
+
+            const contentArr = filledContents(item);
+            const dateInfo = Object.values(eventBlocks).map((title) =>
+              contentArr.find((c) => c.content === title)
+            );
+
+            endBlocks.forEach((item) => deleteEventDate(item));
+            endBlocks = [];
+
             return (
               <DateBlock key={idx} isToday={isToday}>
-                <Date day={day}>{item}</Date>
-                <DateContent></DateContent>
+                <Date day={day} isToday={isToday}>
+                  {!isToday ? item : <TodayCircle>{item}</TodayCircle>}
+                </Date>
+                <DateContent>
+                  {dateInfo.map((item) => (
+                    <EventBlock
+                      isFirst={item?.isFirst}
+                      isLast={item?.isLast}
+                      key={item?.content}
+                      color={item?.color}
+                    >
+                      {item?.isFirst ? item?.content : "\u00A0"}
+                    </EventBlock>
+                  ))}
+                </DateContent>
               </DateBlock>
             );
           })}
         </CalendarDates>
       </Calendar>
+      <DetailTitle>이벤트 상세정보</DetailTitle>
+
+      <Accordion
+        contentArr={ACCORDION_CONTENT_EVENT}
+        isQ={false}
+        isFull={true}
+      />
     </PageLayout>
   );
 }
 
 const Title = styled.div`
-  margin-bottom: var(--margin-main);
+  margin: var(--margin-max) 0;
 `;
 
 const Calendar = styled.div`
@@ -76,7 +163,8 @@ const WeekTitleHeader = styled.div`
   font-size: 10px;
   color: var(--color-mint);
   margin: 0 var(--margin-min);
-  margin-bottom: 2px;
+  margin-bottom: var(--margin-min);
+  font-weight: 600;
   > div {
     flex: 1;
     text-align: center;
@@ -87,8 +175,7 @@ const DayOfWeek = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: var(--font-h56);
-  padding: 2px var(--padding-min);
-
+  padding: var(--padding-min);
   font-size: 12px;
   > div {
     flex: 1;
@@ -112,8 +199,7 @@ const CalendarDates = styled.div`
 `;
 
 const DateBlock = styled.div<{ isToday: boolean }>`
-  height: 80px;
-  padding: var(--padding-min) 0;
+  padding-top: var(--padding-min);
   font-size: 12px;
   font-weight: 600;
   text-align: center;
@@ -122,9 +208,14 @@ const DateBlock = styled.div<{ isToday: boolean }>`
   background-color: ${(props) => (props.isToday ? "var(--font-h56)" : null)};
 `;
 
-const Date = styled.div<{ day: "sun" | "sat" }>`
+const Date = styled.div<{ day: "sun" | "sat"; isToday: boolean }>`
+  position: relative;
+  height: 18px;
+  margin-bottom: var(--margin-min);
   color: ${(props) =>
-    props.day === "sun"
+    props.isToday
+      ? "white"
+      : props.day === "sun"
       ? "var(--color-red)"
       : props.day === "sat"
       ? "var(--color-blue)"
@@ -132,5 +223,42 @@ const Date = styled.div<{ day: "sun" | "sat" }>`
 `;
 
 const DateContent = styled.div``;
+
+const EventBlock = styled.div<{
+  color: string;
+  isFirst: boolean;
+  isLast: boolean;
+}>`
+  font-size: 10px;
+  margin-bottom: 2px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: white;
+  background-color: ${(props) => props.color};
+  position: relative;
+  width: ${(props) => (props.isFirst || props.isLast ? "54.57px" : "54.57px")};
+  z-index: ${(props) => (props.isFirst ? 4 : 0)};
+
+  padding-left: ${(props) => (props.isFirst ? "var(--margin-min)" : 0)};
+  padding-right: ${(props) => (props.isLast ? "var(--margin-min)" : 0)};
+`;
+
+const TodayCircle = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--font-h1);
+  color: white;
+`;
+
+const DetailTitle = styled.div`
+  font-weight: 600;
+  margin-top: var(--margin-sub);
+  margin-left: var(--margin-main);
+`;
 
 export default EventCalendar;
