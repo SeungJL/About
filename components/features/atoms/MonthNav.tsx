@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dayjs } from "dayjs";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isRecordLoadingState } from "../../recoil/loadingAtoms";
-import { DispatchType } from "../../types/reactTypes";
+import { isRecordLoadingState } from "../../../recoil/loadingAtoms";
+import { DispatchType } from "../../../types/reactTypes";
 
-interface IRecordMonthNav {
+interface IMonthNav {
   month: number;
   setNavMonth: DispatchType<Dayjs>;
 }
 
-function RecordMonthNav({ month, setNavMonth }: IRecordMonthNav) {
+function MonthNav({ month, setNavMonth }: IMonthNav) {
   const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
 
   const onClick = (dir: "left" | "right") => {
@@ -46,4 +46,4 @@ const IconWrapper = styled.div`
   padding: 0 var(--padding-min);
 `;
 
-export default RecordMonthNav;
+export default MonthNav;

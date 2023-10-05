@@ -23,3 +23,5 @@ export const MONTH_LIST = [
   "11월",
   "12월",
 ];
+
+export const DAYS_OF_WEEK = ["일", "월", "화", "수", "목", "금", "토"];

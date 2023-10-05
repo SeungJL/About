@@ -154,7 +154,7 @@ function AttendCheckModal({ setIsModal }: IModal) {
           </Detail>
         </Container>
       </ModalMain>
-      <Button size="md" colorScheme="mintTheme" onClick={onClickCheck}>
+      <Button size="lg" colorScheme="mintTheme" onClick={onClickCheck}>
         출석
       </Button>
     </ModalLayout>

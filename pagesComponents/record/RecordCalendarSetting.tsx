@@ -47,7 +47,8 @@ function RecordCalendarSetting({
       if (data) data.arrivedInfoList = item.arrivedInfoList;
     });
     setArrivedCalendar(filledDates);
-  }, [isLoading, navMonth, setArrivedCalendar, studyRecords]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, navMonth, studyRecords]);
 
   return null;
 }

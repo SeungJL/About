@@ -6,7 +6,7 @@ function EventBanner() {
   const router = useRouter();
   return (
     <Layout onClick={() => router.push(`/event/1`)}>
-      <Image src="/event/event.png" width={360} height={90} alt="eventImg" />
+      <Image src="/2.png" width={360} height={90} alt="eventImg" />
     </Layout>
   );
 }
