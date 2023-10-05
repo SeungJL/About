@@ -26,6 +26,8 @@ interface IEventContent {
   isLast: boolean;
 }
 
+const BLOCK_WIDTH = 52;
+
 function EventCalendar() {
   const [navMonth, setNavMonth] = useState(dayjs().startOf("month"));
 
@@ -153,6 +155,8 @@ const Title = styled.div`
 `;
 
 const Calendar = styled.div`
+  width: 364px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 `;
@@ -162,7 +166,7 @@ const WeekTitleHeader = styled.div`
   justify-content: space-between;
   font-size: 10px;
   color: var(--color-mint);
-  margin: 0 var(--margin-min);
+
   margin-bottom: var(--margin-min);
   font-weight: 600;
   > div {
@@ -175,7 +179,7 @@ const DayOfWeek = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: var(--font-h56);
-  padding: var(--padding-min);
+  padding: var(--padding-min) 0;
   font-size: 12px;
   > div {
     flex: 1;
@@ -190,7 +194,6 @@ const DayOfWeek = styled.div`
 `;
 
 const CalendarDates = styled.div`
-  margin: 0 var(--margin-min);
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   > div:first-child {
@@ -199,6 +202,7 @@ const CalendarDates = styled.div`
 `;
 
 const DateBlock = styled.div<{ isToday: boolean }>`
+  width: 52px;
   padding-top: var(--padding-min);
   font-size: 12px;
   font-weight: 600;
@@ -236,9 +240,8 @@ const EventBlock = styled.div<{
   color: white;
   background-color: ${(props) => props.color};
   position: relative;
-  width: ${(props) => (props.isFirst || props.isLast ? "54.57px" : "54.57px")};
-  z-index: ${(props) => (props.isFirst ? 4 : 0)};
 
+  z-index: ${(props) => (props.isFirst ? 4 : 0)};
   padding-left: ${(props) => (props.isFirst ? "var(--margin-min)" : 0)};
   padding-right: ${(props) => (props.isLast ? "var(--margin-min)" : 0)};
 `;
