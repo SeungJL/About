@@ -15,12 +15,12 @@ import {
   GANGNAM_선릉,
   GANGNAM_신논현,
   GANGNAM_양재,
-  SUWAN_스타벅스,
   SUWAN_이디야,
   SUWAN_카탈로그,
   SUWAN_칸나,
   SUWAN_커피빈,
   SUWAN_탐앤탐스,
+  SUWAN_탐앤탐스2,
   SUWAN_투썸,
   SUWAN_투썸상현,
   YANG_몽글,
@@ -50,7 +50,7 @@ export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
     else if (ID === SUWAN_커피빈) temp[5] = participant;
     else if (ID === SUWAN_칸나) temp[4] = participant;
     else if (ID === SUWAN_이디야) temp[6] = participant;
-    else if (ID === SUWAN_스타벅스) temp[1] = participant;
+    else if (ID === SUWAN_탐앤탐스2) temp[4] = participant;
     //양천
     if (ID === YANG_위카페) temp[0] = participant;
     else if (ID === YANG_이디야) temp[5] = participant;

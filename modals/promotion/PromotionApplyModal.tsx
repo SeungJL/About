@@ -113,7 +113,8 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
             <ModalMain>
               <ModalSubtitle>
                 처음 홍보를 진행하는 대학교예요! <br />
-                대학교 목록에 {uniName}를 추가 후 진행할게요!
+                대학교 목록에 {uniName}를 추가 후 진행할게요! 최초 등록시 +300
+                point가 지급됩니다.
               </ModalSubtitle>
               <SubMessage>(자동으로 진행됩니다)</SubMessage>
             </ModalMain>
@@ -122,7 +123,7 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
                 다음에
               </Button>
               <Button w="50%" colorScheme="mintTheme" onClick={handleApply}>
-                신청
+                확인
               </Button>
             </Footer>
           </>

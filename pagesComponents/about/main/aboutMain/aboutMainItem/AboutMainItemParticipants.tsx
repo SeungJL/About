@@ -122,6 +122,7 @@ const ParticipantStatus = styled.div`
   margin-left: var(--margin-md);
   margin-bottom: var(--margin-min);
   > span {
+    margin-left: 2px;
     font-weight: 400;
     font-size: 12px;
     color: var(--font-h3);

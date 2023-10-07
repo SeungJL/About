@@ -7,6 +7,7 @@ export const SUWAN_커피빈 = "644f6ffe9edb56992ccda5e9";
 export const SUWAN_칸나 = "644f70529edb56992ccda5eb";
 export const SUWAN_이디야 = "6479f39e907daf3e8a5cda6e";
 export const SUWAN_스타벅스 = "64ba45feefd3711264521a87";
+export const SUWAN_탐앤탐스2 = "65211465032de083c092353c";
 //양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
@@ -41,6 +42,7 @@ export const PLACE_TO_NAME = {
   [SUWAN_칸나]: "칸나",
   [SUWAN_이디야]: "이디야",
   [SUWAN_스타벅스]: "스타벅스",
+  [SUWAN_탐앤탐스2]: "탐앤탐스",
   //양천
   [YANG_위카페]: "위카페",
   [YANG_할리스]: "할리스",
@@ -76,6 +78,7 @@ export const PLACE_TO_LOCATION = {
   [SUWAN_칸나]: "수원",
   [SUWAN_이디야]: "수원",
   [SUWAN_스타벅스]: "수원",
+  [SUWAN_탐앤탐스2]: "수원",
   //양천
   [YANG_이디야]: "양천",
   [YANG_위카페]: "양천",
@@ -141,6 +144,11 @@ export const STUDY_SPACE_INFO = [
     id: SUWAN_스타벅스,
     location: "경기 수원시 영통구 대학로 47 광교스타인",
     time: "07:30 - 21:00",
+  },
+  {
+    id: SUWAN_탐앤탐스2,
+    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    time: "08:00 - 23:00",
   },
   //양천
   {
