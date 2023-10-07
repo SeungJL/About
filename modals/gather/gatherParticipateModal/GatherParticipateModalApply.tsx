@@ -25,7 +25,9 @@ function GatherParticipateModalApply({
   const onApply = () => {
     const myOld = birthToAge(userInfo.birth);
 
-    if (gatherData.place !== "전체" && gatherData.place !== userInfo.location) {
+    const places = gatherData.place.split("/");
+
+    if (places[0] !== "전체" && !places.includes(userInfo.location)) {
       failToast("free", "참여할 수 없는 지역입니다.");
       return;
     }

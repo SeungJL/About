@@ -33,9 +33,10 @@ function GatherMain({ category }: IGatherMain) {
     if (isLoading) return;
     let filtered = gatherAll;
     if (category !== "전체")
-      filtered = gatherAll.filter(
-        (item) => item.place === category || item.place === "전체"
-      );
+      filtered = gatherAll.filter((item) => {
+        const [main, sub] = item.place.split("/");
+        return main === category || sub === category || main === "전체";
+      });
     setGatherData(filtered);
     setIsGatherLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
