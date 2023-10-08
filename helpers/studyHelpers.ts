@@ -48,7 +48,7 @@ export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
     else if (ID === SUWAN_카탈로그) temp[3] = participant;
     else if (ID === SUWAN_투썸상현) temp[7] = participant;
     else if (ID === SUWAN_커피빈) temp[5] = participant;
-    else if (ID === SUWAN_칸나) temp[4] = participant;
+    else if (ID === SUWAN_칸나) temp[1] = participant;
     else if (ID === SUWAN_이디야) temp[6] = participant;
     else if (ID === SUWAN_탐앤탐스2) temp[4] = participant;
     //양천

@@ -55,7 +55,6 @@ function StudySetting() {
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     enabled: !!voteDate && LOCATION_OPEN.includes(location),
     onSuccess(data) {
-      console.log(data);
       const participations = data.participations;
       setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
