@@ -51,6 +51,7 @@ export const useGatherParticipateMutation = (
   options?: MutationOptions<ParticipationPhase>
 ) =>
   useMutation<void, AxiosError, ParticipationPhase>(async (phase) => {
+    console.log(gatherId, phase);
     await axios.post(`${SERVER_URI}/gather/participate`, {
       gatherId,
       phase,

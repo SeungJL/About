@@ -65,9 +65,9 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   });
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
   const [errorMessage, setErrorMessage] = useState("");
-
+  console.log(participations);
   const placeCnt = participations?.length;
-  const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "lg" : "md";
+  const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "xl" : "md";
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
 
@@ -150,12 +150,12 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     setVoteInfo((old) => ({ ...old, ...votePlaces }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [votePlaces]);
-
+  console.log(modalSize);
   return (
     <>
       <ModalLayout
         size={modalSize}
-        height={modalSize === "lg" ? 320 : undefined}
+        height={modalSize !== "xl" ? 340 : undefined}
       >
         <ModalHeaderX
           title={dayjsToFormat(

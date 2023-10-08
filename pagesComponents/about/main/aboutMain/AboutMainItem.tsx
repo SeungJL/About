@@ -65,7 +65,7 @@ const Layout = styled.div<{ status: boolean; isMyResult: boolean }>`
   display: flex;
   align-items: center;
   margin-bottom: ${(props) =>
-    props.isMyResult ? "29px" : "var(--margin-main)"};
+    props.isMyResult ? "45px" : "var(--margin-main)"};
   padding: var(--padding-sub);
   padding-left: ${(props) => props.status && "0px"};
   flex-direction: ${(props) => (props.status ? "row-reverse" : null)};

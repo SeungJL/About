@@ -29,10 +29,10 @@ export default function UserSetting() {
   });
 
   useEffect(() => {
-    if (!checkAndSetLocalStorage(FAQ_POP_UP, 2)) {
+    if (isGuest && !checkAndSetLocalStorage(FAQ_POP_UP, 2)) {
       setIsGuestPopUp(true);
     }
-  }, []);
+  }, [isGuest]);
 
   return (
     <>

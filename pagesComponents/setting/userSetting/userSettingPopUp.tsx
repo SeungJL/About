@@ -40,11 +40,11 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       setPopUpTypes((old) => [...old, "faq"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(STUDY_SPACE_POP_UP, 4)) {
+    if (!checkAndSetLocalStorage(STUDY_SPACE_POP_UP, 3)) {
       setPopUpTypes((old) => [...old, "studySpace"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(USER_GUIDE_POP_UP, 15)) {
+    if (!checkAndSetLocalStorage(USER_GUIDE_POP_UP, 14)) {
       setPopUpTypes((old) => [...old, "userGuide"]);
       if (++popUpCnt === 2) return;
     }
@@ -52,7 +52,7 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       setPopUpTypes((old) => [...old, "promotion"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 7)) {
+    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 14)) {
       setPopUpTypes((old) => [...old, "suggest"]);
       if (++popUpCnt === 2) return;
     }
