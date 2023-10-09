@@ -26,7 +26,7 @@ export const EVENT_CONTENT_2023: Record<string, Content[]> = {
     },
     {
       content: "[시험기간] 스터디 투표 2배 이벤트 ",
-      start: 9,
+      start: 11,
       end: 27,
       color: TABLE_COLORS[3],
       text: "시험 기간에 스터디에 투표하면 점수를 2배로 받아요!",
