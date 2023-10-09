@@ -366,7 +366,7 @@ export const NOTICE_ARR = [
   {
     id: "47",
     title: "동아리 홍보 최초 등록 이벤트",
-    category: "main",
+    category: "event",
     content:
       "아직 등록되지 않은 학교 목록에 홍보글을 작성해주시면 자동으로 300 point(3000원)가 지급됩니다. 치킨 기프티콘 응모는 덤!",
     date: "2023-10-06",
