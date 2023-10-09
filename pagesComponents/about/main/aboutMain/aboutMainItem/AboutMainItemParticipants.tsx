@@ -14,7 +14,7 @@ interface IAboutMainItemParticipants {
   attendances: IAttendance[];
 }
 
-const VOTER_SHOW_MAX = 7;
+const VOTER_SHOW_MAX = 8;
 
 function AboutMainItemParticipants({
   status,
