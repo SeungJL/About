@@ -29,7 +29,7 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
 
   const { mutate } = usePromotionMutation({
     onSuccess() {
-      completeToast("free", "100 POINT 지급 완료! 도와주셔서 감사합니다!");
+      completeToast("free", "포인트 지급 완료! 감사합니다!");
       setIsModal(false);
     },
   });
