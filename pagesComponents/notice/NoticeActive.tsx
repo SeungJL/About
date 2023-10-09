@@ -9,6 +9,7 @@ interface INoticeActive {
 }
 
 function NoticeActive({ likeData }: INoticeActive) {
+  console.log(likeData);
   return (
     <>
       {likeData
@@ -27,7 +28,7 @@ function NoticeActive({ likeData }: INoticeActive) {
               </IconWrapper>
               <Name>{name}</Name>
               <Content>님{message}</Content>
-              <Date>1일 전</Date>
+              {/* <Date>1일 전</Date> */}
             </Item>
           );
         })}
