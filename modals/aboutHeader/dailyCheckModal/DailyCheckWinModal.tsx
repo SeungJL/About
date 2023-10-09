@@ -3,13 +3,13 @@ import { faLollipop } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/modals/Modals";
-import { attendCheckWinGiftState } from "../../recoil/renderTriggerAtoms";
-import { IModal } from "../../types/reactTypes";
+import { ModalLayout } from "../../../components/modals/Modals";
+import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
+import { IModal } from "../../../types/reactTypes";
 
 interface IAttendCheckWinModal extends IModal {}
 
-function AttendCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
+function DailyCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
   const [attendCheckWinGift, setAttendCheckWinGift] = useRecoilState(
     attendCheckWinGiftState
   );
@@ -20,8 +20,9 @@ function AttendCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
   };
 
   if (!attendCheckWinGift) return;
+
   return (
-    <ModalLayout size="lg">
+    <ModalLayout size="md">
       <Header>
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
         <span>랜덤 선물 당첨</span>
@@ -29,7 +30,7 @@ function AttendCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
       </Header>
       <Container>
         <Message>
-          <b>{attendCheckWinGift.percent}%</b>의 확률을 뚫고 당첨되었어요 !
+          <b>{attendCheckWinGift.percent}%</b>의 확률을 뚫고 당첨되었어요!
         </Message>
         <GiftWrapper>
           <Gift>{attendCheckWinGift.item}</Gift>
@@ -37,8 +38,8 @@ function AttendCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
       </Container>
       <SubMessage>
         {attendCheckWinGift.item.includes("Point")
-          ? "포인트는 즉시 적립되었습니다."
-          : "상품은 운영진이 확인하는대로 카톡으로 보내드려요!"}
+          ? "포인트가 적립되었습니다."
+          : "상품은 확인하는대로 카톡으로 보내드려요!"}
       </SubMessage>
       <Button colorScheme="mintTheme" onClick={onClick}>
         확인
@@ -72,7 +73,7 @@ const GiftWrapper = styled.div`
 const Gift = styled.div`
   border: var(--border-mint);
   width: 80%;
-  height: 50%;
+  height: 60%;
   border-radius: var(--border-radius-main);
   font-size: 16px;
   font-weight: 600;
@@ -96,4 +97,4 @@ const SubMessage = styled.span`
   color: var(--font-h3);
 `;
 
-export default AttendCheckWinModal;
+export default DailyCheckWinModal;

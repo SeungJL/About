@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import ModalPortal from "../../../../components/modals/ModalPortal";
-import AttendCheckWinModal from "../../../../modals/aboutHeader/AttendCheckWinModal";
-import DailyCheckModal from "../../../../modals/aboutHeader/DailyCheckModal";
+import DailyCheckModal from "../../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
+import DailyCheckWinModal from "../../../../modals/aboutHeader/dailyCheckModal/DailyCheckWinModal";
+
 import PointSystemsModal from "../../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../../modals/aboutHeader/promotionModal/PromotionModal";
-import RegularGatherResultModal from "../../../../modals/aboutHeader/RegularGatherResultModal";
+import RegularGatherResultModal from "../../../../modals/aboutHeader/regularGatherModal/RegularGatherResultModal";
+
 import { AboutHeaderIconType } from "./AboutHeader";
 
 interface IAboutHeaderModals {
@@ -40,7 +42,7 @@ function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
       )}
       {iconType === "attendCheckWin" && (
         <ModalPortal setIsModal={setIsModal}>
-          <AttendCheckWinModal setIsModal={setIsModal} />
+          <DailyCheckWinModal setIsModal={setIsModal} />
         </ModalPortal>
       )}
       {iconType === "rabbit" && (

@@ -265,7 +265,7 @@ export const REVIEW_DATA: IReviewData[] = [
     id: 10004,
     dateCreated: "10월 2일",
     images: [
-      "https://user-images.githubusercontent.com/84257439/271973658-037e6fa4-1c66-420f-a689-e18e807b9b03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%A1%B0%EB%AA%A8%EC%9E%84/271978083-e4294333-6b0b-4ec3-b35f-d30f9c42d47f+(1).webp",
       "https://user-images.githubusercontent.com/84257439/271973650-b75cd620-5d50-4004-b940-cc7ad0bbf2a6.jpg",
     ],
     title: "강남 조모임",
@@ -275,8 +275,8 @@ export const REVIEW_DATA: IReviewData[] = [
     id: 10005,
     dateCreated: "10월 2일",
     images: [
-      "https://user-images.githubusercontent.com/84257439/271978078-bb49b768-27a6-4acb-8c1b-4b7442529f56.jpg",
-      "https://user-images.githubusercontent.com/84257439/271978061-4e192f9b-8b5b-4de8-a7e4-0d0ef9d673f2.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%A1%B0%EB%AA%A8%EC%9E%84/271978078-bb49b768-27a6-4acb-8c1b-4b7442529f56.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%A1%B0%EB%AA%A8%EC%9E%84/271978061-4e192f9b-8b5b-4de8-a7e4-0d0ef9d673f2.webp",
       "https://user-images.githubusercontent.com/84257439/271978083-e4294333-6b0b-4ec3-b35f-d30f9c42d47f.jpg",
     ],
     title: "수원 조모임 B,C",
@@ -286,7 +286,7 @@ export const REVIEW_DATA: IReviewData[] = [
     id: 10006,
     dateCreated: "10월 2일",
     images: [
-      "https://user-images.githubusercontent.com/84257439/271976398-86da4b7a-9811-4399-a6eb-3ba10053af8f.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%A1%B0%EB%AA%A8%EC%9E%84/271976398-86da4b7a-9811-4399-a6eb-3ba10053af8f.webp",
       "https://user-images.githubusercontent.com/84257439/271976421-d0a2cb5c-1959-4cb3-ae4f-014455df9879.jpg",
       "https://user-images.githubusercontent.com/84257439/271976402-779e7815-dedc-4d13-a4d1-45003133c997.jpg",
       "https://user-images.githubusercontent.com/84257439/271976409-73676f0d-75f6-4ca4-bd9f-2749e7c40f7a.jpg",
@@ -299,7 +299,7 @@ export const REVIEW_DATA: IReviewData[] = [
     id: 72,
     dateCreated: "10월 2일",
     images: [
-      "https://user-images.githubusercontent.com/84257439/271933759-39a5e429-493a-46d2-9179-0df6192dbb05.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%A1%B0%EB%AA%A8%EC%9E%84/271933759-39a5e429-493a-46d2-9179-0df6192dbb05.webp",
       "https://user-images.githubusercontent.com/84257439/271933797-f6c9bcd5-56be-4176-a536-5f6b9956561e.jpg",
       "https://user-images.githubusercontent.com/84257439/271933769-9724e866-74f6-4672-80c4-16e6e695368b.jpg",
       "https://user-images.githubusercontent.com/84257439/271933774-c1757b4a-86c4-4f04-981a-c13ce084ad01.jpg",
@@ -307,5 +307,19 @@ export const REVIEW_DATA: IReviewData[] = [
     ],
     text: "저녁 같이 먹고 강남역에 있는 무제한 칵테일바에 갔어요! 안주 반입이 가능해서 편의점 과자랑 함께했답니다 ㅎㅎ 과자 사오라고 했더니 그들의 초이스는 뻥이요, 계란과자, 건빵... 어딘가 세대를 건너간 듯한 초이스지만 생각보다 너무 맛있더라고요! 초중반에는 칵테일만 먹었는데, 다 도수가 엄청 약하더라고요...! 끊임없이 계속 시켜서 사장님께 미안한 마음... 나중에는 그냥 샷으로 마셨어요 ㅎㅎ 토닉워터도 섞어서! 막차까지 게임도 하고, 얘기도 많이 하고 시간가는 줄 몰랐던 번개였습니당",
     title: "무제한 칵테일바 번개",
+  },
+  {
+    id: 73,
+    dateCreated: "10월 10일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.9/KakaoTalk_20231010_045952391_02.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.9/KakaoTalk_20231010_045952391.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.9/KakaoTalk_20231010_045952391_01.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.9/KakaoTalk_20231010_045952391_04.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.9/KakaoTalk_20231010_045952391_06.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.9/KakaoTalk_20231010_045952391_03.webp",
+    ],
+    text: "재밌었던 한글날 번개! 1차로 갔던 술집이 음식이 진짜 맛있었어요 ㅜㅜ 음식이 맛있으니까 술도 잘 들어가고 말도 잘 나오고 아무튼 다 재밌는거임. 이번에는 수원/안양 같이 열었던 거라 초면인 사람들이 더 많았는데도 너무 잘 놀았습니당. 다들 몇시까지 마신건지 모르겠지만 잘 들어가셨죠? 다음에 또 봐요!",
+    title: "한글날 술 번개",
   },
 ];

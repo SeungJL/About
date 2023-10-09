@@ -46,7 +46,7 @@ function PromotionContent() {
           ) : (
             <ImageWrapper>
               <Image
-                src="https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png"
+                src="https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/%EB%A1%9C%EA%B3%A0.webp"
                 alt="promotionImage"
                 width={220}
                 height={220}

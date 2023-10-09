@@ -14,23 +14,23 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
-import { DAILY_CHECK_WIN_ITEM } from "../../constants/contentsValue/dailyCheck";
-import { DAILY_CHECK_POP_UP } from "../../constants/keys/localStorage";
-import { dayjsToStr } from "../../helpers/dateHelpers";
+import { ModalHeaderX } from "../../../components/modals/ModalComponents";
+import { ModalLayout } from "../../../components/modals/Modals";
+import { DAILY_CHECK_WIN_ITEM } from "../../../constants/contentsValue/dailyCheck";
+import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
+import { dayjsToStr } from "../../../helpers/dateHelpers";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { useAboutPointMutation } from "../../hooks/user/pointSystem/mutation";
-import { attendCheckWinGiftState } from "../../recoil/renderTriggerAtoms";
-import { ModalMain } from "../../styles/layout/modal";
-import { IattendCheckPresent } from "../../types/modal/attendCheck";
-import { IModal } from "../../types/reactTypes";
-import { IUserRequest } from "../../types/user/userRequest";
+} from "../../../hooks/CustomToast";
+import { useUserRequestMutation } from "../../../hooks/user/mutations";
+import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
+import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
+import { ModalMain } from "../../../styles/layout/modal";
+import { IattendCheckPresent } from "../../../types/modal/attendCheck";
+import { IModal } from "../../../types/reactTypes";
+import { IUserRequest } from "../../../types/user/userRequest";
 
 const ARRAY_LENGTH = 10000;
 

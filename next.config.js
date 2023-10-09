@@ -4,9 +4,9 @@ const nextConfig = {
   images: {
     domains: [
       "localhost",
-      "*",
       "user-images.githubusercontent.com",
       "play-lh.googleusercontent.com",
+      "studyabout.s3.ap-northeast-2.amazonaws.com",
     ],
   },
   reactStrictMode: false,

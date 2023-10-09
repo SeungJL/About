@@ -61,7 +61,8 @@ function Chart({ type, user }: IChart) {
       }
     });
     if (userCnt > maxCnt) {
-      if (userCnt > 15) maxCnt = 18;
+      if (userCnt > 18) maxCnt = 21;
+      else if (userCnt > 15) maxCnt = 18;
       else if (userCnt > 12) maxCnt = 15;
       else if (userCnt > 8) maxCnt = 12;
       else if (userCnt > 5) maxCnt = 8;

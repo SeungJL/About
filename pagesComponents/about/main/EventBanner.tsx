@@ -6,7 +6,12 @@ function EventBanner() {
   const router = useRouter();
   return (
     <Layout onClick={() => router.push(`/eventCalendar`)}>
-      <Image src="/banner.jpg" width={375} height={90} alt="eventImg" />
+      <Image
+        src="https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/banner.webp"
+        width={375}
+        height={90}
+        alt="eventImg"
+      />
     </Layout>
   );
 }

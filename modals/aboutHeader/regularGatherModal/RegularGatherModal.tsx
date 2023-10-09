@@ -3,23 +3,23 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
-import { RABBIT_RUN } from "../../constants/keys/localStorage";
+import { ModalHeaderX } from "../../../components/modals/ModalComponents";
+import { ModalLayout } from "../../../components/modals/Modals";
+import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
+} from "../../../hooks/CustomToast";
+import { useUserRequestMutation } from "../../../hooks/user/mutations";
 import {
   useUserInfoQuery,
   useUserRequestQuery,
-} from "../../hooks/user/queries";
-import { isGuestState } from "../../recoil/userAtoms";
-import { ModalMain } from "../../styles/layout/modal";
-import { DispatchBoolean, IModal } from "../../types/reactTypes";
-import { IUserRequest } from "../../types/user/userRequest";
+} from "../../../hooks/user/queries";
+import { isGuestState } from "../../../recoil/userAtoms";
+import { ModalMain } from "../../../styles/layout/modal";
+import { DispatchBoolean, IModal } from "../../../types/reactTypes";
+import { IUserRequest } from "../../../types/user/userRequest";
 
 interface IRegularGatherModal extends IModal {
   setIsRabbitRun: DispatchBoolean;
