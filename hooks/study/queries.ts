@@ -33,7 +33,6 @@ export const useStudyVoteQuery = (
       const res = await axios.get<IVote>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}`
       );
-
       return res.data;
     },
     options

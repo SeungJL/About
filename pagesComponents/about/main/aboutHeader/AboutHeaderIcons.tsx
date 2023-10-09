@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
-  ATTEND_CHECK_POP_UP,
+  DAILY_CHECK_POP_UP,
   LIKE_HEART_CNT,
   NOTICE_ALERT,
 } from "../../../../constants/keys/localStorage";
@@ -41,7 +41,7 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
   }, []);
 
   const isAttendCheck =
-    localStorage.getItem(ATTEND_CHECK_POP_UP) === dayjsToStr(dayjs());
+    localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
 
   return (
     <Layout>

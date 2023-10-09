@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ModalPortal from "../../../../components/modals/ModalPortal";
-import AttendCheckModal from "../../../../modals/aboutHeader/AttendCheckModal";
 import AttendCheckWinModal from "../../../../modals/aboutHeader/AttendCheckWinModal";
+import DailyCheckModal from "../../../../modals/aboutHeader/DailyCheckModal";
 import PointSystemsModal from "../../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../../modals/aboutHeader/promotionModal/PromotionModal";
 import RegularGatherResultModal from "../../../../modals/aboutHeader/RegularGatherResultModal";
@@ -35,7 +35,7 @@ function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
       )}
       {iconType === "attendCheck" && (
         <ModalPortal setIsModal={setIsModal}>
-          <AttendCheckModal setIsModal={setIsModal} />
+          <DailyCheckModal setIsModal={setIsModal} />
         </ModalPortal>
       )}
       {iconType === "attendCheckWin" && (

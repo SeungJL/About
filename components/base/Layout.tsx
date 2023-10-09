@@ -13,38 +13,39 @@ import GuestBottomNav from "../layout/GuestBottomNav";
 import ModalPortal from "../modals/ModalPortal";
 import Seo from "./Seo";
 
-const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
+const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 config.autoAddCss = false;
+const FREE_ROUTERS = ["/login", "/register", "/checkingServer"];
+
 interface ILayout {
   children: React.ReactNode;
 }
 
 function Layout({ children }: ILayout) {
-  const { data: session } = useSession();
   const router = useRouter();
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
   const [isErrorModal, setIsErrorModal] = useState(false);
 
-  const PROTECTED_ROUTES = ["/login", "/register", "/checkingServer"];
-  const isAccessPermission = !PROTECTED_ROUTES.some((route) =>
+  const isFreeRoute = !FREE_ROUTERS.some((route) =>
     router.asPath.startsWith(route)
   );
+  const isCondition = !!session && !isGuest && isFreeRoute && Boolean(token);
 
-  const navigateTo = (path) => {
+  const navigateTo = (path: string) => {
     router.push(path);
   };
-  const isCondition =
-    !!session && !isGuest && isAccessPermission && Boolean(token);
-  
+
+  //조건이 true인 경우 동아리원이 맞는지 권한 여부 체크
   useUserInfoQuery({
     enabled: isCondition,
     onSuccess(data) {
-      //다른 곳에서 query 호출되는 경우가 있음
+      //다른 곳에서 query 호출이 중복되는 경우 방지
       if (!isCondition) return;
-      //정상적인 가입 경로가 아닌데도 유저 테이블이 생성되는 경우가 있음
+      //정상적이지 않은 유저테이블 생성에 대한 오류 방지
       if ((data === null && !isGuest) || data?.birth === "") {
         if (router.query.status === "login") navigateTo(`/register/location`);
         else navigateTo("/login/?status=noMember");
@@ -73,7 +74,7 @@ function Layout({ children }: ILayout) {
       )}
       <Seo title="ABOUT" />
       <Script
-        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
+        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`}
       />
       <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
       <Script

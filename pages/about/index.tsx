@@ -54,6 +54,7 @@ function About() {
       participations?.filter((space) => space !== myStudyFixed),
       studyDateStatus !== "not passed"
     );
+
     setOtherStudies(arrangedOtherStudies);
     //0.1초 정도의 딜레이를 주는게 더 자연스러움
     setTimeout(() => {

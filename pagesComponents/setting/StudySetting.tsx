@@ -57,6 +57,7 @@ function StudySetting() {
     onSuccess(data) {
       const participations = data.participations;
       setParticipations(arrangeSpace(participations));
+
       setMyStudySpace(participations);
       if (participations[0].status === "pending") setDecideStudy();
     },

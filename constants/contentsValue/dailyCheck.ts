@@ -1,6 +1,6 @@
 import { IattendCheckPresent } from "../../types/modal/attendCheck";
 
-export const ATTEND_CHECK_PRESENT_LIST: IattendCheckPresent[] = [
+export const DAILY_CHECK_WIN_ITEM: IattendCheckPresent[] = [
   { item: "10 Point", percent: 3 },
   { item: "30 Point", percent: 1 },
   { item: "100 Point", percent: 0.2 },
@@ -24,5 +24,3 @@ export const ATTEND_CHECK_PRESENT_LIST: IattendCheckPresent[] = [
 100회에 기대값 3000원정도
 
  */
-
-37;

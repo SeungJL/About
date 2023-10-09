@@ -11,7 +11,7 @@ export const SUGGEST_POP_UP = "suggestPopUp";
 export const STUDY_SPACE_POP_UP = "studySpacePopUp";
 export const ATTEND_POP_UP = "attendPopUp";
 export const PROMOTION_POP_UP = "promotionPopUp";
-export const ATTEND_CHECK_POP_UP = "attendCheckPopUp";
+export const DAILY_CHECK_POP_UP = "attendCheckPopUp";
 export const FAQ_POP_UP = "faqPopUp";
 
 //체크
