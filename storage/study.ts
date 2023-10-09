@@ -37,7 +37,7 @@ export const PLACE_TO_NAME = {
   [SUWAN_투썸]: "투썸플레이스",
   [SUWAN_탐앤탐스]: "탐앤탐스",
   [SUWAN_카탈로그]: "카탈로그",
-  [SUWAN_투썸상현]: "투썸상현",
+  [SUWAN_투썸상현]: "투썸플레이스",
   [SUWAN_커피빈]: "커피빈",
   [SUWAN_칸나]: "칸나",
   [SUWAN_이디야]: "이디야",
