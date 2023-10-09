@@ -12,7 +12,6 @@ export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
   const name = PLACE_TO_NAME[place._id];
 
   if (name === "이디야") W = 50;
-
   if (name === "칸나") W = 45;
   if (name === "이디야") W = 55;
   if (name === "투썸플레이스") W = 43;
@@ -27,16 +26,15 @@ export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
   if (name === "인뎃커피") W = 50;
   if (name === "커피인더스트리") W = 43;
   if (name === "아펜즈커피") W = 50;
+
   return (
-    <>
-      <Image
-        src={`${place.image}`}
-        alt="studyLogoSm"
-        width={isBig ? W * 1.8 : W}
-        height={isBig ? W * 1.8 : W}
-        unoptimized={true}
-      />
-    </>
+    <Image
+      src={`${place.image}`}
+      alt="studyLogoSm"
+      width={isBig ? W * 1.8 : W}
+      height={isBig ? W * 1.8 : W}
+      unoptimized={true}
+    />
   );
 };
 interface IStoreGift {
