@@ -154,4 +154,16 @@ export const WIN_RECORD: {
     reason: "스토어 응모 당첨",
     present: "올리브영 10000원권",
   },
+  {
+    name: "최지",
+    date: "10/9",
+    reason: "스토어 응모 당첨",
+    present: "투썸 10000원권",
+  },
+  {
+    name: "김아",
+    date: "10/9",
+    reason: "스토어 응모 당첨",
+    present: "다이소 5000원권",
+  },
 ];
