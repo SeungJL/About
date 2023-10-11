@@ -35,4 +35,5 @@ export interface IStudyPlaces {
 export interface IStudyParticipate extends IStudyPlaces {
   start: Dayjs;
   end: Dayjs;
+  memo?: string;
 }

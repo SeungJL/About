@@ -6,7 +6,7 @@ import PlaceSelectorSub from "../../../components/features/picker/PlaceSelectorS
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { PLACE_TO_LOCATION } from "../../../storage/study";
+import { ALL_스터디인증, PLACE_TO_LOCATION } from "../../../storage/study";
 import { IStudyParticipate } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
 
@@ -32,7 +32,10 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
     onSuccess(data) {
       setOtherPlaces(
         data.participations
-          .filter((par) => par.place._id != placeId)
+          .filter(
+            (par) =>
+              par.place._id != placeId && par.place._id !== ALL_스터디인증
+          )
           .map((par) => par.place)
       );
     },

@@ -25,6 +25,7 @@ function StudySpace() {
     Math.floor(Math.random() * IMAGE_ARRAY_LENGTH)
   );
 
+  const isPrivate = transferStudySpaceData.place.location !== "전체";
   const place = participation?.place;
   const attendances = participation?.attendences;
 
@@ -38,13 +39,13 @@ function StudySpace() {
       />
       {participation ? (
         <>
-          <StudySpaceHeader title={place.brand} place={place} />
           <Layout>
+            <StudySpaceHeader title={place.brand} place={place} />
             <StudySpaceCover
               coverImageUrl={coverImageUrl}
               logoImageUrl={place.image}
             />
-            <StudySpaceOverview space={place} />
+            {isPrivate && <StudySpaceOverview space={place} />}
             <HrDiv />
             <StudySpaceVoteOverview
               voteCnt={attendances.length}
@@ -55,6 +56,7 @@ function StudySpace() {
             <StudySpaceNavigation
               participation={participation}
               voteCnt={attendances.length}
+              isPrivate={isPrivate}
             />
           </Layout>
         </>
@@ -67,6 +69,8 @@ function StudySpace() {
 
 const Layout = styled.div`
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 const HrDiv = styled.div`

@@ -8,8 +8,8 @@ export const useAboutPointMutation = (
   options?: MutationOptions<IPointSystem>
 ) =>
   useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
+    await axios.post(`${SERVER_URI}/user/point`, { point: value, message });
     await axios.post(`${SERVER_URI}/user/score`, { score: value, message });
-    await axios.post(`${SERVER_URI}/user/point`, { score: value, message });
   }, options);
 
 export const useScoreMutation = (options?: MutationOptions<IPointSystem>) =>

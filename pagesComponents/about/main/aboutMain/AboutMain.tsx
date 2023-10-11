@@ -47,6 +47,8 @@ function AboutMain({ participations }: IAboutMain) {
       setVoteDate((old) => old.subtract(1, "day"));
   };
 
+  const temp = participations[participations.length - 1];
+
   return (
     <AnimatePresence initial={false}>
       {!isMainLoading ? (
@@ -58,6 +60,9 @@ function AboutMain({ participations }: IAboutMain) {
         >
           <Main>
             <Container>
+              {temp?.status === "pending" && (
+                <AboutMainItem participation={temp} />
+              )}
               {participations
                 .slice(0, VISIBLE_CNT)
                 .map((participation, idx) => (

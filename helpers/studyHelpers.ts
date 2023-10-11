@@ -4,6 +4,7 @@ import {
   STUDY_VOTE_START_HOUR,
 } from "../constants/settingValue/study";
 import {
+  ALL_스터디인증,
   ANYANG_숨맑은집,
   ANYANG_인뎃커피,
   ANYANG_커피인더스트리,
@@ -51,6 +52,7 @@ export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
     else if (ID === SUWAN_칸나) temp[1] = participant;
     else if (ID === SUWAN_이디야) temp[6] = participant;
     else if (ID === SUWAN_탐앤탐스2) temp[4] = participant;
+    else if (ID === ALL_스터디인증) temp[8] = participant;
     //양천
     if (ID === YANG_위카페) temp[0] = participant;
     else if (ID === YANG_이디야) temp[5] = participant;

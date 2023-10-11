@@ -9,6 +9,7 @@ import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
 import {
+  isVotingState,
   myStudyFixedState,
   participationsState,
   studyDateStatusState,
@@ -25,6 +26,7 @@ function StudySetting() {
   const location = useRecoilValue(locationState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
+  const setIsVoting = useSetRecoilState(isVotingState);
   const setParticipations = useSetRecoilState(participationsState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
   const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
@@ -39,16 +41,18 @@ function StudySetting() {
 
   //내 스터디 확인
   const setMyStudySpace = (participations: IParticipation[]) => {
+    let isCheckMyVote = false;
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
         if (!who.user) return;
-        if (
-          who.user.uid === session?.uid &&
-          ["open", "free"].includes(participation.status)
-        )
-          setMySpaceFixed(participation);
+        if (who.user.uid === session?.uid) {
+          isCheckMyVote = true;
+          if (["open", "free"].includes(participation.status))
+            setMySpaceFixed(participation);
+        }
       });
     });
+    setIsVoting(isCheckMyVote);
   };
 
   //스터디 데이터 가져오기
@@ -57,7 +61,6 @@ function StudySetting() {
     onSuccess(data) {
       const participations = data.participations;
       setParticipations(arrangeSpace(participations));
-
       setMyStudySpace(participations);
       if (participations[0].status === "pending") setDecideStudy();
     },

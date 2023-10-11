@@ -69,7 +69,7 @@ export const useUserUpdateProfileImageMutation = (
 //   >
 // ) =>
 //   useMutation<void, AxiosError, IUserComment>(async (comment) => {
-//     console.log(comment);
+//
 //     await axios.post(`${SERVER_URI}/user/comment`, {
 //       comment,
 //     });

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { POINT_SYSTEM_MINUS } from "../../../constants/contentsValue/pointSystem";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
@@ -16,6 +16,7 @@ import {
 } from "../../../hooks/CustomToast";
 import { useStudyCancelMutation } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
+import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
   myStudyFixedState,
@@ -29,13 +30,15 @@ import StudySpaceNavModal from "./studySpaceNavModal";
 interface IStudySpaceNavigation {
   participation: IParticipation;
   voteCnt: number;
+  isPrivate?: boolean;
 }
 
 export type ModalType = "change" | "absent" | "main" | "cancel" | "free";
 
 function StudySpaceNavigation({
-  participation: { place, attendences, status, startTime },
+  participation: { place, attendences, status },
   voteCnt,
+  isPrivate,
 }: IStudySpaceNavigation) {
   const router = useRouter();
   const failToast = useFailToast();
@@ -50,6 +53,8 @@ function StudySpaceNavigation({
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
 
+  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+
   const [modalType, setModalType] = useState("");
 
   const isMax = voteCnt >= MAX_USER_PER_PLACE;
@@ -60,8 +65,8 @@ function StudySpaceNavigation({
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
     onSuccess() {
+      setIsRefetchStudySpace(true);
       completeToast("success");
-      router.push(`/about`);
     },
     onError: errorToast,
   });
@@ -168,7 +173,7 @@ const Layout = styled.div`
   margin: 0 var(--margin-main);
   padding: var(--padding-sub) 0;
   border-radius: var(--border-radius-main);
-  margin-top: var(--margin-min);
+  margin-top: auto;
 `;
 
 const SubNav = styled.nav`

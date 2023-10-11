@@ -33,7 +33,7 @@ function WritingDate() {
     }
     const givenDay = dayjs(date);
     if (givenDay.isSame(dayjs(), "day") && givenDay.hour() === 14) {
-      console.log(givenDay.hour());
+    
       failToast("free", "날짜/시간 선택을 확인해주세요!", true);
       return;
     }

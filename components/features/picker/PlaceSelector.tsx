@@ -55,6 +55,7 @@ function PlaceSelector({
           if (votePlaces.subPlace.find((subPlace) => subPlace === placeInfo))
             selected = "sub";
           const isMax = isMain && place.voteCnt >= MAX_USER_PER_PLACE;
+
           return (
             <>
               {isGridLayout ? (

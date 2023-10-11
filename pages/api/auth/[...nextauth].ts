@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
     //반환값이 true면 인증 성공했다는 뜻
     //false면 nextAuth의 반환 실패메세지
     async signIn({ user, account }) {
-      console.log(1, user, account);
+      
       if (account.provider === "guest") return true;
 
       const accessToken: any = account.access_token;

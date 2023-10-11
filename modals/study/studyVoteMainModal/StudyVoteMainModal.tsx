@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import PlaceSelector from "../../../components/features/picker/PlaceSelector";
@@ -23,23 +23,16 @@ import {
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
+import { ALL_스터디인증 } from "../../../storage/study";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
-import { DispatchNumber, IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types/reactTypes";
 import { IStudyParticipate, IStudyPlaces } from "../../../types/study/study";
-import { IParticipation, IPlace } from "../../../types/study/studyDetail";
+import { IPlace } from "../../../types/study/studyDetail";
 
 import StudyVoteMainModalTime from "./StudyVoteMainModalTime";
 
 interface IStudyVoteMainModal extends IModal {
   isFreeOpen?: boolean;
-}
-
-interface IStudyVoteMainModalPlace {
-  page: number;
-  setPage: DispatchNumber;
-  setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
-  isBig: boolean;
-  participations?: IParticipation[];
 }
 
 export interface IStudyVotePlaces {
@@ -65,7 +58,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   });
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
   const [errorMessage, setErrorMessage] = useState("");
-  console.log(participations);
+
   const placeCnt = participations?.length;
   const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "xl" : "md";
 
@@ -92,7 +85,6 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     if (!isVoting) {
       if (studyDateStatus === "today")
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
-
       if (studyDateStatus === "not passed")
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
     }
@@ -138,10 +130,12 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
 
   //스터디 장소와 투표인원수 나열
   useEffect(() => {
-    const temp: IStudyVotePlaces[] = participations?.map((participation) => ({
-      place: participation.place,
-      voteCnt: participation.attendences.length,
-    }));
+    const temp: IStudyVotePlaces[] = participations
+      ?.map((participation) => ({
+        place: participation.place,
+        voteCnt: participation.attendences.length,
+      }))
+      .filter((study) => study.place._id !== ALL_스터디인증);
     setPlaces(temp);
   }, [participations]);
 
@@ -150,7 +144,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     setVoteInfo((old) => ({ ...old, ...votePlaces }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [votePlaces]);
-  console.log(modalSize);
+
   return (
     <>
       <ModalLayout

@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { TABLE_COLORS } from "../../../../constants/styles";
-import {
-  isVotingState,
-  studyDateStatusState,
-} from "../../../../recoil/studyAtoms";
+import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 import { IAttendance } from "../../../../types/study/studyDetail";
 
 const BLOCK_WIDTH = 26;
@@ -25,7 +22,6 @@ interface IUserTable {
 }
 
 function UserTable({ attendances }: IUserTable) {
-  const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [userArr, setUserArr] = useState<IUserItemArr[]>([]);
@@ -50,7 +46,7 @@ function UserTable({ attendances }: IUserTable) {
       if (studyDateStatus === "not passed") setUserArr((old) => [...old, temp]);
       else if (att.firstChoice) setUserArr((old) => [...old, temp]);
     });
-  }, [isVoting, attendances, studyDateStatus]);
+  }, [attendances, studyDateStatus]);
 
   return (
     <Layout>
