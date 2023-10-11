@@ -25,8 +25,10 @@ function StudySpace() {
     Math.floor(Math.random() * IMAGE_ARRAY_LENGTH)
   );
 
-  const isPrivate = transferStudySpaceData.place.brand === "자유";
-  const { place, attendences, status } = participation;
+  const isPrivate = participation?.place.brand === "자유";
+
+  console.log(44, participation);
+  const { place, attendences, status } = participation || {};
 
   const coverImageUrl = `/studyRandom/study${randomNum + 1}.jpg`;
 

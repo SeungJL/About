@@ -28,7 +28,7 @@ function StudySpaceNavModal({
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isVoteComplete, setIsVoteComplete] = useState(false);
   const [isFreeModal, setIsFreeModal] = useState(false);
-
+  console.log(22, place);
   useEffect(() => {
     if (type === "free") setIsFreeModal(true);
     if (type === "change") setIsChangeModal(true);

@@ -65,9 +65,7 @@ function AboutMain({ participations }: IAboutMain) {
         >
           <Main>
             <Container>
-              {studyDateStatus !== "not passed" && privateStudy && (
-                <AboutMainItem participation={privateStudy} />
-              )}
+              {privateStudy && <AboutMainItem participation={privateStudy} />}
               {studies.slice(0, VISIBLE_CNT).map((participation, idx) => (
                 <AboutMainItem participation={participation} key={idx} />
               ))}

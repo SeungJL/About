@@ -34,6 +34,7 @@ interface IStudyVoteSubModal extends IModal {
 }
 
 function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
+  console.log(55, place);
   const router = useRouter();
   const { data: session } = useSession();
   const completeToast = useCompleteToast();

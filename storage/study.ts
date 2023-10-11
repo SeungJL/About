@@ -1,6 +1,3 @@
-//전체
-export const ALL_스터디인증 = "65263917e90698c18a3b1e99";
-
 //수원
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
@@ -11,6 +8,7 @@ export const SUWAN_칸나 = "644f70529edb56992ccda5eb";
 export const SUWAN_이디야 = "6479f39e907daf3e8a5cda6e";
 export const SUWAN_스타벅스 = "64ba45feefd3711264521a87";
 export const SUWAN_탐앤탐스2 = "65211465032de083c092353c";
+export const SUWAN_자유 = "65263917e90698c18a3b1e99";
 //양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
@@ -36,8 +34,6 @@ export const GANGNAM_강남구청 = "64ecc4ef40f6dace3b06559f";
 export const GANGNAM_강남 = "64ecc58540f6dace3b0655a1";
 
 export const PLACE_TO_NAME = {
-  //전체
-  [ALL_스터디인증]: "스터디인증",
   //수원
   [SUWAN_투썸]: "투썸플레이스",
   [SUWAN_탐앤탐스]: "탐앤탐스",
@@ -48,6 +44,7 @@ export const PLACE_TO_NAME = {
   [SUWAN_이디야]: "이디야",
   [SUWAN_스타벅스]: "스타벅스",
   [SUWAN_탐앤탐스2]: "탐앤탐스",
+  [SUWAN_자유]: "스터디 인증",
   //양천
   [YANG_위카페]: "위카페",
   [YANG_할리스]: "할리스",
@@ -73,8 +70,6 @@ export const PLACE_TO_NAME = {
 };
 
 export const PLACE_TO_LOCATION = {
-  //전체
-  [ALL_스터디인증]: "전체",
   //수원
   [SUWAN_투썸상현]: "수원",
   [SUWAN_카탈로그]: "수원",
@@ -86,6 +81,7 @@ export const PLACE_TO_LOCATION = {
   [SUWAN_이디야]: "수원",
   [SUWAN_스타벅스]: "수원",
   [SUWAN_탐앤탐스2]: "수원",
+  [SUWAN_자유]: "수원",
   //양천
   [YANG_이디야]: "양천",
   [YANG_위카페]: "양천",
