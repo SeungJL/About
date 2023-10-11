@@ -23,7 +23,6 @@ import {
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
-import { ALL_스터디인증 } from "../../../storage/study";
 import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import { IStudyParticipate, IStudyPlaces } from "../../../types/study/study";
@@ -135,7 +134,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
         place: participation.place,
         voteCnt: participation.attendences.length,
       }))
-      .filter((study) => study.place._id !== ALL_스터디인증);
+      .filter((study) => study.place.brand !== "자유");
     setPlaces(temp);
   }, [participations]);
 
