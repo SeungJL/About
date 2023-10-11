@@ -27,30 +27,35 @@ import { IPlace } from "../../../types/study/studyDetail";
 
 import { IStudyParticipate } from "../../../types/study/study";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
+import StudyVoteSubModalPrivate from "./StudyVoteSubModalPrivate";
 import StudyVoteSubModalTime from "./StudyVoteSubModalTime";
 
 interface IStudyVoteSubModal extends IModal {
   place: IPlace;
+  isPrivate: boolean;
 }
 
-function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
-  console.log(55, place);
+function StudyVoteSubModal({
+  setIsModal,
+  place,
+  isPrivate,
+}: IStudyVoteSubModal) {
   const router = useRouter();
   const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
   const errorToast = useErrorToast();
+
   const inviteUid = router.query?.uid;
 
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const voteDate = useRecoilValue(voteDateState);
+  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
 
   const [isFirst, setIsFirst] = useState(true);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
-
   const { mutate: getInviteAboutPoint } = useAdminAboutPointMutation(
     inviteUid as string
   );
@@ -63,7 +68,6 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
       if (studyDateStatus === "not passed") {
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
       }
-
       if (inviteUid) {
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
         getInviteAboutPoint({
@@ -71,7 +75,6 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
       }
-
       setIsRefetchStudySpace(true);
       completeToast("studyVote");
     },
@@ -87,12 +90,15 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
     setIsModal(false);
   };
 
-  const handleNext = () => {
+  const handleFirst = () => {
     if (voteInfo?.start >= voteInfo?.end) {
       failToast("free", "시작 시간은 종료 시간 이전이어야 합니다.");
       return;
     }
-    if (studyDateStatus === "not passed") setIsFirst(false);
+    if (studyDateStatus === "not passed" || isPrivate) {
+      setIsFirst(false);
+      return;
+    }
     if (studyDateStatus === "today") onSubmit();
   };
 
@@ -105,22 +111,26 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
       <TopNav />
       <Header>
         <span>{voteDate.locale("ko").format("M월 DD일 ddd요일")}</span>
-        {isFirst ? (
-          <span>스터디 참여시간을 선택해주세요!</span>
-        ) : (
-          <span>추가 2지망 장소를 선택해주세요</span>
-        )}
+        <span>
+          {isFirst
+            ? "스터디 참여시간을 선택해주세요!"
+            : !isPrivate
+            ? "추가 2지망 장소를 선택해주세요!"
+            : "스터디 신청 할 장소를 입력해주세요!"}
+        </span>
       </Header>
       {isFirst && <StudyVoteSubModalTime setVoteInfo={setVoteInfo} />}
       <Wrapper isFirst={isFirst}>
-        <StudyVoteSubModalPlace setVoteInfo={setVoteInfo} />
-      </Wrapper>
-      <MainButton onClick={isFirst ? handleNext : onSubmit}>
-        {isFirst ? (
-          <span>{studyDateStatus === "not passed" ? "선택" : "완료"}</span>
+        {!isPrivate ? (
+          <StudyVoteSubModalPlace setVoteInfo={setVoteInfo} />
         ) : (
-          <span>투표 완료</span>
+          <StudyVoteSubModalPrivate />
         )}
+      </Wrapper>
+      <MainButton onClick={isFirst ? handleFirst : onSubmit}>
+        {isFirst && (studyDateStatus === "not passed" || isPrivate)
+          ? "다음"
+          : "투표 완료"}
       </MainButton>
     </Layout>
   );

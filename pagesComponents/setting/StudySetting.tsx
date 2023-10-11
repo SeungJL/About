@@ -60,6 +60,7 @@ function StudySetting() {
     enabled: !!voteDate && LOCATION_OPEN.includes(location),
     onSuccess(data) {
       const participations = data.participations;
+      console.log(participations.find((item) => item.place.brand === "자유"));
       setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
       if (participations[0].status === "pending") setDecideStudy();

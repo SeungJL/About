@@ -19,7 +19,6 @@ import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation"
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
-  myStudyFixedState,
   studyDateStatusState,
 } from "../../../recoil/studyAtoms";
 
@@ -35,11 +34,12 @@ interface IStudySpaceNavigation {
   attendences: IAttendance[];
   place: IPlace;
   status: StudyStatus;
-
   isPrivate?: boolean;
 }
 
-export type ModalType = "change" | "absent" | "main" | "cancel" | "free";
+type MainBtnType = "vote" | "freeOpen" | "attendCheck" | "private";
+type SubBtnType = "change" | "absent" | "cancel";
+export type StudySpaceModalType = MainBtnType | SubBtnType;
 
 function StudySpaceNavigation({
   place,
@@ -51,20 +51,17 @@ function StudySpaceNavigation({
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
-
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const voteDate = dayjs(router.query.date as string);
 
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
 
-  const [modalType, setModalType] = useState("");
+  const [modalType, setModalType] = useState<StudySpaceModalType>();
 
-  const isMax = attendences.length >= MAX_USER_PER_PLACE;
   const myVote = attendences?.find(
     (props) => (props.user as IUser).uid === session?.uid
   );
@@ -73,97 +70,86 @@ function StudySpaceNavigation({
   const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
     onSuccess() {
       setIsRefetchStudySpace(true);
+      getAboutPoint(POINT_SYSTEM_MINUS.STUDY_VOTE_CANCEL);
       completeToast("success");
     },
     onError: errorToast,
   });
 
-  const onBtnClicked = (type: ModalType) => {
+  const onClickSubBtn = (type: SubBtnType) => {
     if (isGuest) {
       failToast("guest");
       return;
     }
-    if (type === "cancel") {
-      if (myStudyFixed)
-        failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
-      else {
-        getAboutPoint(POINT_SYSTEM_MINUS.STUDY_VOTE_CANCEL);
-        handleAbsent();
-      }
+    if (!myVote) {
+      failToast("free", "스터디에 투표하지 않은 인원입니다.");
       return;
     }
-    if (type === "change") {
-      if (!myVote) {
-        failToast("free", "스터디에 투표하지 않은 인원입니다.");
-        return;
-      }
+    if (type === "cancel") {
+      if (studyDateStatus !== "not passed") {
+        failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
+      } else handleAbsent();
+      return;
     }
     if (type === "absent" && studyDateStatus === "not passed") {
-      failToast("free", "스터디 시작 이후에만 사용이 가능합니다.");
+      failToast("free", "스터디 확정 이후에 사용이 가능합니다.");
       return;
     }
     setModalType(type);
   };
 
+  const onClickMainBtn = (type: MainBtnType) => {
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
+    setModalType(type);
+  };
+
+  const getStudyButtonText = (): {
+    text: string;
+    func?: MainBtnType;
+  } => {
+    const isMax = attendences.length >= MAX_USER_PER_PLACE;
+
+    if (studyDateStatus === "passed") return { text: "기간만료" };
+    if (studyDateStatus === "not passed") {
+      if (isVoting) return { text: "투표 완료" };
+      if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
+      return { text: "스터디 투표", func: "vote" };
+    }
+    if (isPrivate) return { text: "개인 스터디 신청", func: "private" };
+    if (status === "dismissed")
+      return { text: "Free 오픈 신청", func: "freeOpen" };
+    if (myVote?.arrived) return { text: "출석 완료" };
+    if (myVote?.firstChoice) return { text: "출석 체크", func: "attendCheck" };
+    return { text: "당일 참여", func: "vote" };
+  };
+  const { text, func } = getStudyButtonText();
+
   return (
     <>
-      {studyDateStatus === "today" && status === "dismissed" ? (
-        <Layout>
-          <MainButton func={true} onClick={() => onBtnClicked("free")}>
-            Free 오픈 신청
-          </MainButton>
-        </Layout>
-      ) : studyDateStatus === "passed" || status === "dismissed" ? (
-        <Layout>
-          <MainButton disabled={true} func={false}>
-            기간 만료
-          </MainButton>
-        </Layout>
-      ) : (
-        <Layout>
+      <Layout>
+        {isVoting && studyDateStatus !== "passed" && (
           <SubNav>
-            <Button onClick={() => onBtnClicked("cancel")}>
+            <Button onClick={() => onClickSubBtn("cancel")}>
               <FontAwesomeIcon icon={faCircleXmark} size="xl" />
               <span>투표 취소</span>
             </Button>
-            <Button onClick={() => onBtnClicked("change")}>
+            <Button onClick={() => onClickSubBtn("change")}>
               <FontAwesomeIcon icon={faClock} size="xl" />
               <span>시간 변경</span>
             </Button>
-            <Button onClick={() => onBtnClicked("absent")}>
+            <Button onClick={() => onClickSubBtn("absent")}>
               <FontAwesomeIcon icon={faBan} size="xl" />
               <span>당일 불참</span>
             </Button>
           </SubNav>
-          {studyDateStatus === "today" ? (
-            <MainButton
-              disabled={Boolean(myVote?.arrived)}
-              func={!myVote?.arrived}
-              onClick={() => {
-                onBtnClicked("main");
-              }}
-            >
-              {myVote?.arrived
-                ? "출석 완료"
-                : myVote?.firstChoice
-                ? "출석 체크"
-                : "당일 참여"}
-            </MainButton>
-          ) : (
-            <MainButton
-              disabled={(isVoting || isMax) && true}
-              func={!isVoting && !isMax}
-              onClick={() => onBtnClicked("main")}
-            >
-              {isVoting
-                ? "투표 완료"
-                : isMax
-                ? "정원 마감 (2지망 투표로만 가능)"
-                : "스터디 투표"}
-            </MainButton>
-          )}
-        </Layout>
-      )}
+        )}
+        <MainButton func={!!func} onClick={() => onClickMainBtn(func)}>
+          {text}
+        </MainButton>
+      </Layout>
       <StudySpaceNavModal
         type={modalType}
         setType={setModalType}

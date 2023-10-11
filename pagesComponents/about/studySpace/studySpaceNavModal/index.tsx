@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../../components/modals/ModalPortal";
 import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
@@ -6,12 +6,14 @@ import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal"
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
 import StudyFreeOpenModal from "../../../../modals/study/StudyFreeOpenModal";
 import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
+import { DispatchType } from "../../../../types/reactTypes";
 import { IAttendance, IPlace } from "../../../../types/study/studyDetail";
+import { StudySpaceModalType } from "../StudySpaceNavigation";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 
 interface IStudySpaceNavModal {
-  type: string;
-  setType: React.Dispatch<SetStateAction<string>>;
+  type: StudySpaceModalType;
+  setType: DispatchType<StudySpaceModalType>;
   myVote: IAttendance;
   place: IPlace;
 }
@@ -22,50 +24,44 @@ function StudySpaceNavModal({
   myVote,
   place,
 }: IStudySpaceNavModal) {
-  const [isChangeModal, setIsChangeModal] = useState(false);
-  const [isAbsentmodal, setIsAbsentmodal] = useState(false);
-  const [isVoteModal, setIsVoteModal] = useState(false);
-  const [isCheckModal, setIsCheckModal] = useState(false);
   const [isVoteComplete, setIsVoteComplete] = useState(false);
-  const [isFreeModal, setIsFreeModal] = useState(false);
-  console.log(22, place);
-  useEffect(() => {
-    if (type === "free") setIsFreeModal(true);
-    if (type === "change") setIsChangeModal(true);
-    if (type === "absent") setIsAbsentmodal(true);
-    if (type === "main")
-      myVote?.firstChoice ? setIsCheckModal(true) : setIsVoteModal(true);
-    setType("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myVote?.firstChoice, type]);
+
+  const closeModal = () => {
+    setType(null);
+  };
+
   return (
     <Layout>
-      {isFreeModal && (
-        <ModalPortal setIsModal={setIsFreeModal}>
-          <StudyFreeOpenModal setIsModal={setIsFreeModal} />
+      {["vote", "private"].includes(type) && (
+        <ModalPortal setIsModal={closeModal}>
+          <StudyVoteSubModal
+            setIsModal={closeModal}
+            place={place}
+            isPrivate={type === "private"}
+          />
         </ModalPortal>
       )}
-      {isChangeModal && (
-        <ModalPortal setIsModal={setIsChangeModal}>
+      {type === "freeOpen" && (
+        <ModalPortal setIsModal={closeModal}>
+          <StudyFreeOpenModal setIsModal={closeModal} />
+        </ModalPortal>
+      )}
+      {type === "attendCheck" && (
+        <ModalPortal setIsModal={closeModal}>
+          <StudyCheckModal setIsModal={closeModal} />
+        </ModalPortal>
+      )}
+      {type === "change" && (
+        <ModalPortal setIsModal={closeModal}>
           <StudyChangeTimeModal
-            setIsModal={setIsChangeModal}
+            setIsModal={closeModal}
             myVoteTime={myVote?.time}
           />
         </ModalPortal>
       )}
-      {isAbsentmodal && (
-        <ModalPortal setIsModal={setIsAbsentmodal}>
-          <StudyAbsentModal setIsModal={setIsAbsentmodal} />
-        </ModalPortal>
-      )}
-      {isVoteModal && (
-        <ModalPortal setIsModal={setIsVoteModal}>
-          <StudyVoteSubModal setIsModal={setIsVoteModal} place={place} />
-        </ModalPortal>
-      )}
-      {isCheckModal && (
-        <ModalPortal setIsModal={setIsCheckModal}>
-          <StudyCheckModal setIsModal={setIsCheckModal} />
+      {type === "absent" && (
+        <ModalPortal setIsModal={closeModal}>
+          <StudyAbsentModal setIsModal={closeModal} />
         </ModalPortal>
       )}
       {isVoteComplete && (
