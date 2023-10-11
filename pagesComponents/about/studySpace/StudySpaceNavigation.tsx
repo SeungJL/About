@@ -23,21 +23,28 @@ import {
   studyDateStatusState,
 } from "../../../recoil/studyAtoms";
 
-import { IParticipation } from "../../../types/study/studyDetail";
+import {
+  IAttendance,
+  IPlace,
+  StudyStatus,
+} from "../../../types/study/studyDetail";
 import { IUser } from "../../../types/user/user";
 import StudySpaceNavModal from "./studySpaceNavModal";
 
 interface IStudySpaceNavigation {
-  participation: IParticipation;
-  voteCnt: number;
+  attendences: IAttendance[];
+  place: IPlace;
+  status: StudyStatus;
+
   isPrivate?: boolean;
 }
 
 export type ModalType = "change" | "absent" | "main" | "cancel" | "free";
 
 function StudySpaceNavigation({
-  participation: { place, attendences, status },
-  voteCnt,
+  place,
+  attendences,
+  status,
   isPrivate,
 }: IStudySpaceNavigation) {
   const router = useRouter();
@@ -57,7 +64,7 @@ function StudySpaceNavigation({
 
   const [modalType, setModalType] = useState("");
 
-  const isMax = voteCnt >= MAX_USER_PER_PLACE;
+  const isMax = attendences.length >= MAX_USER_PER_PLACE;
   const myVote = attendences?.find(
     (props) => (props.user as IUser).uid === session?.uid
   );

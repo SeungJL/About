@@ -7,7 +7,10 @@ import styled from "styled-components";
 import { LOCATION_RECRUITING } from "../../../../constants/location";
 import { useFailToast } from "../../../../hooks/CustomToast";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
-import { voteDateState } from "../../../../recoil/studyAtoms";
+import {
+  studyDateStatusState,
+  voteDateState,
+} from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { locationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/study/studyDetail";
@@ -24,6 +27,7 @@ function AboutMain({ participations }: IAboutMain) {
   const failToast = useFailToast();
   const router = useRouter();
 
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const location = useRecoilValue(locationState);
   const setVoteDate = useSetRecoilState(voteDateState);
@@ -47,6 +51,9 @@ function AboutMain({ participations }: IAboutMain) {
       setVoteDate((old) => old.subtract(1, "day"));
   };
 
+  const privateStudy = participations.find((par) => par.place.brand === "자유");
+  const studies = participations.filter((par) => par !== privateStudy);
+
   return (
     <AnimatePresence initial={false}>
       {!isMainLoading ? (
@@ -58,11 +65,12 @@ function AboutMain({ participations }: IAboutMain) {
         >
           <Main>
             <Container>
-              {participations
-                .slice(0, VISIBLE_CNT)
-                .map((participation, idx) => (
-                  <AboutMainItem participation={participation} key={idx} />
-                ))}
+              {studyDateStatus !== "not passed" && privateStudy && (
+                <AboutMainItem participation={privateStudy} />
+              )}
+              {studies.slice(0, VISIBLE_CNT).map((participation, idx) => (
+                <AboutMainItem participation={participation} key={idx} />
+              ))}
               {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>
             <MoreInfoBtn onClick={onClickMoreInfo}>

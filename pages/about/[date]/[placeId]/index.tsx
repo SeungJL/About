@@ -25,9 +25,8 @@ function StudySpace() {
     Math.floor(Math.random() * IMAGE_ARRAY_LENGTH)
   );
 
-  const isPrivate = transferStudySpaceData.place.location !== "전체";
-  const place = participation?.place;
-  const attendances = participation?.attendences;
+  const isPrivate = transferStudySpaceData.place.brand === "자유";
+  const { place, attendences, status } = participation;
 
   const coverImageUrl = `/studyRandom/study${randomNum + 1}.jpg`;
 
@@ -45,17 +44,19 @@ function StudySpace() {
               coverImageUrl={coverImageUrl}
               logoImageUrl={place.image}
             />
-            {isPrivate && <StudySpaceOverview space={place} />}
+            {!isPrivate && <StudySpaceOverview space={place} />}
             <HrDiv />
             <StudySpaceVoteOverview
-              voteCnt={attendances.length}
+              voteCnt={attendences.length}
               place={place}
+              status={status}
             />
-            <StudyTimeTable attendances={attendances} />
-            <StudySpaceUserComments attendances={attendances} />
+            {!isPrivate && <StudyTimeTable attendances={attendences} />}
+            <StudySpaceUserComments attendances={attendences} />
             <StudySpaceNavigation
-              participation={participation}
-              voteCnt={attendances.length}
+              place={place}
+              attendences={attendences}
+              status={status}
               isPrivate={isPrivate}
             />
           </Layout>

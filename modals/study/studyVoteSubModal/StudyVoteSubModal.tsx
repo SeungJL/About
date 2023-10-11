@@ -78,7 +78,11 @@ function StudyVoteSubModal({ setIsModal, place }: IStudyVoteSubModal) {
   });
 
   const onSubmit = () => {
-    const data: IStudyParticipate = { ...voteInfo, place, memo: "테스트" };
+    const data: IStudyParticipate = {
+      ...voteInfo,
+      place,
+      memo: "아주대 앞 탐앤탐스",
+    };
     patchAttend(data);
     setIsModal(false);
   };

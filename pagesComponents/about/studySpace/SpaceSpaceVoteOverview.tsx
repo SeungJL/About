@@ -7,12 +7,17 @@ import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/modals/ModalPortal";
 import StudyInviteModal from "../../../modals/study/StudyInviteModal";
-import { IPlace } from "../../../types/study/studyDetail";
+import { IPlace, StudyStatus } from "../../../types/study/studyDetail";
 interface IStudySpaceVoteOverview {
   voteCnt: number;
   place: IPlace;
+  status: StudyStatus;
 }
-function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
+function StudySpaceVoteOverview({
+  voteCnt,
+  place,
+  status,
+}: IStudySpaceVoteOverview) {
   const router = useRouter();
   const date = dayjs(router.query.date as string);
 
@@ -25,17 +30,24 @@ function StudySpaceVoteOverview({ voteCnt, place }: IStudySpaceVoteOverview) {
         <div />
         <Container>
           <FontAwesomeIcon icon={faUserGroup} size="sm" />
-          <span>
-            현재 <b> {voteCnt}명</b>의 멤버가 투표중이에요!
-          </span>
-          <Button
-            size="xs"
-            ml="var(--margin-md)"
-            colorScheme="mintTheme"
-            onClick={() => setIsModal(true)}
-          >
-            친구초대
-          </Button>
+          {status === "dismissed" ? (
+            <span>오픈되지 않은 스터디입니다.</span>
+          ) : (
+            <span>
+              현재 <b> {voteCnt}명</b>의 멤버가{" "}
+              {status === "pending" ? "투표중" : "참여중"}이에요!
+            </span>
+          )}
+          {status !== "dismissed" && (
+            <Button
+              size="xs"
+              ml="var(--margin-md)"
+              colorScheme="mintTheme"
+              onClick={() => setIsModal(true)}
+            >
+              친구초대
+            </Button>
+          )}
         </Container>
       </Layout>
       {isModal && (
