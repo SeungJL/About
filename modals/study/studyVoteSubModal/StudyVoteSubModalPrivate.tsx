@@ -1,11 +1,28 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { InputLg } from "../../../styles/layout/input";
+import { DispatchType } from "../../../types/reactTypes";
+import { IStudyParticipate } from "../../../types/study/study";
 
-function StudyVoteSubModalPrivate() {
+interface IStudyVoteSubModalPrivate {
+  setVoteInfo: DispatchType<IStudyParticipate>;
+}
+
+function StudyVoteSubModalPrivate({ setVoteInfo }: IStudyVoteSubModalPrivate) {
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setVoteInfo((old) => ({ ...old, memo: value }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
   return (
     <Layout>
       <Overview>장소를 특정할 수 있도록 적어주세요!</Overview>
-      <InputLg placeholder="예시: 아주대 앞 탐앤탐스" />
+      <InputLg
+        placeholder="예시: 아주대 앞 탐앤탐스"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
       <Rule>
         <li>혼자서라도 카공 개인이 공부하고 인증하는 컨텐츠</li>
         <li>출석체크시 사진을 통해 인증</li>
@@ -31,8 +48,8 @@ const Overview = styled.div`
 
 const Rule = styled.div`
   color: var(--font-h2);
-  margin-top: var(--margin-max);
-  font-size: 13px;
+  margin-top: 32px;
+  font-size: 12px;
   line-height: var(--line-height);
 `;
 

@@ -27,7 +27,7 @@ function StudySpace() {
     Math.floor(Math.random() * IMAGE_ARRAY_LENGTH)
   );
 
-  const isPrivate = participation?.place.brand === "자유";
+  const isPrivate = participation?.place.brand === "자유 신청";
 
   const { place, attendences, status } = participation || {};
 
@@ -36,7 +36,7 @@ function StudySpace() {
   const filtered =
     studyDateStatus === "not passed"
       ? attendences
-      : attendences.filter((who) => who.firstChoice);
+      : attendences?.filter((who) => who.firstChoice);
 
   return (
     <>

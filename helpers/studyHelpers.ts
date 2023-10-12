@@ -16,6 +16,7 @@ import {
   GANGNAM_신논현,
   GANGNAM_양재,
   SUWAN_이디야,
+  SUWAN_자유신청,
   SUWAN_카탈로그,
   SUWAN_칸나,
   SUWAN_커피빈,
@@ -51,6 +52,7 @@ export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
     else if (ID === SUWAN_칸나) temp[1] = participant;
     else if (ID === SUWAN_이디야) temp[6] = participant;
     else if (ID === SUWAN_탐앤탐스2) temp[4] = participant;
+    else if (ID === SUWAN_자유신청) temp[8] = participant;
 
     //양천
     if (ID === YANG_위카페) temp[0] = participant;

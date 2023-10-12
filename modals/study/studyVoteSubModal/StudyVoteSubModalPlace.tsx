@@ -37,7 +37,7 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
       setOtherPlaces(
         data.participations
           .filter(
-            (par) => par.place._id != placeId && par.place.brand !== "자유"
+            (par) => par.place._id != placeId && par.place.brand !== "자유 신청"
           )
           .map((par) => par.place)
       );

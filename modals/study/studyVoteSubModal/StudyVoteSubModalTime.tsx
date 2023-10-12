@@ -1,14 +1,15 @@
 import { Dayjs } from "dayjs";
 import "dayjs/locale/ko";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TimeRullet from "../../../components/features/picker/TimeRullet";
 import { STUDY_START_VOTETIME_HOUR } from "../../../constants/settingValue/study";
+import { DispatchType } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteSubModalTime {
-  setVoteInfo: React.Dispatch<SetStateAction<IStudyParticipate>>;
+  setVoteInfo: DispatchType<IStudyParticipate>;
 }
 
 function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {

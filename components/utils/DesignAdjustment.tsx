@@ -26,6 +26,7 @@ export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
   if (name === "인뎃커피") W = 50;
   if (name === "커피인더스트리") W = 43;
   if (name === "아펜즈커피") W = 50;
+  if (name === "자유신청") W = 44;
 
   return (
     <Image

@@ -47,7 +47,9 @@ function AboutMain({ participations }: IAboutMain) {
       setVoteDate((old) => old.subtract(1, "day"));
   };
 
-  const privateStudy = participations.find((par) => par.place.brand === "자유");
+  const privateStudy = participations.find(
+    (par) => par.place.brand === "자유 신청"
+  );
   const studies = participations.filter((par) => par !== privateStudy);
 
   return (

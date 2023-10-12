@@ -116,7 +116,7 @@ function StudyVoteSubModal({
             ? "스터디 참여시간을 선택해주세요!"
             : !isPrivate
             ? "추가 2지망 장소를 선택해주세요!"
-            : "스터디 신청 할 장소를 입력해주세요!"}
+            : "스터디 신청 장소를 입력해주세요!"}
         </span>
       </Header>
       {isFirst && <StudyVoteSubModalTime setVoteInfo={setVoteInfo} />}
@@ -124,7 +124,7 @@ function StudyVoteSubModal({
         {!isPrivate ? (
           <StudyVoteSubModalPlace setVoteInfo={setVoteInfo} />
         ) : (
-          <StudyVoteSubModalPrivate />
+          <StudyVoteSubModalPrivate setVoteInfo={setVoteInfo} />
         )}
       </Wrapper>
       <MainButton onClick={isFirst ? handleFirst : onSubmit}>

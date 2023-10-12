@@ -118,7 +118,8 @@ function StudySpaceNavigation({
       if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
       return { text: "스터디 투표", func: "vote" };
     }
-    if (isPrivate) return { text: "개인 스터디 신청", func: "private" };
+    if (isPrivate && !isVoting)
+      return { text: "개인 스터디 신청", func: "private" };
     if (status === "dismissed")
       return { text: "Free 오픈 신청", func: "freeOpen" };
     if (myVote?.arrived) return { text: "출석 완료" };

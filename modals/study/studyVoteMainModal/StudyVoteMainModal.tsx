@@ -134,7 +134,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
         place: participation.place,
         voteCnt: participation.attendences.length,
       }))
-      .filter((study) => study.place.brand !== "자유");
+      .filter((study) => study.place.brand !== "자유 신청");
     setPlaces(temp);
   }, [participations]);
 
