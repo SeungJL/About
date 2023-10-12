@@ -213,7 +213,6 @@ const DeclareText = styled.div`
   flex-direction: column;
   > label {
     margin-bottom: var(--margin-md);
-
     > span {
       color: var(--font-h1);
       font-size: 13px !important;
