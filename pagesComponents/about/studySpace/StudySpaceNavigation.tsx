@@ -37,7 +37,12 @@ interface IStudySpaceNavigation {
   isPrivate?: boolean;
 }
 
-type MainBtnType = "vote" | "freeOpen" | "attendCheck" | "private";
+type MainBtnType =
+  | "vote"
+  | "freeOpen"
+  | "attendCheck"
+  | "attendCheckImage"
+  | "private";
 type SubBtnType = "change" | "absent" | "cancel";
 export type StudySpaceModalType = MainBtnType | SubBtnType;
 
@@ -123,6 +128,7 @@ function StudySpaceNavigation({
     if (status === "dismissed")
       return { text: "Free 오픈 신청", func: "freeOpen" };
     if (myVote?.arrived) return { text: "출석 완료" };
+    if (isPrivate) return { text: "출석 체크", func: "attendCheckImage" };
     if (myVote?.firstChoice) return { text: "출석 체크", func: "attendCheck" };
     return { text: "당일 참여", func: "vote" };
   };

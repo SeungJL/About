@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ModalPortal from "../../../../components/modals/ModalPortal";
 import StudyAbsentModal from "../../../../modals/study/StudyAbsentModal";
 import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal";
+import StudyCheckImageModal from "../../../../modals/study/StudyCheckImageModal";
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
 import StudyFreeOpenModal from "../../../../modals/study/StudyFreeOpenModal";
 import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
@@ -49,6 +50,11 @@ function StudySpaceNavModal({
       {type === "attendCheck" && (
         <ModalPortal setIsModal={closeModal}>
           <StudyCheckModal setIsModal={closeModal} />
+        </ModalPortal>
+      )}
+      {type === "attendCheckImage" && (
+        <ModalPortal setIsModal={closeModal}>
+          <StudyCheckImageModal setIsModal={closeModal} />
         </ModalPortal>
       )}
       {type === "change" && (
