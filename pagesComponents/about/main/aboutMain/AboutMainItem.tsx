@@ -30,7 +30,6 @@ function AboutMainItem({ participation, isMyResult }: IAboutMainItem) {
   const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 
   const onClickItem = () => {
-   
     setTransferStudySpaceData(participation);
     router.push(`/about/${dayjsToStr(voteDate)}/${participation.place._id}`);
   };

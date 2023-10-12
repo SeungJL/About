@@ -41,7 +41,7 @@ function StudySpaceSetting({
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
   const location = PLACE_TO_LOCATION[placeId as string];
-  console.log(13, location);
+
   const handleSuccess = (data: IVote) => {
     if (!participation) handleDate();
     handleStudy(data);
@@ -49,7 +49,6 @@ function StudySpaceSetting({
 
   //스터디 세팅
   const handleStudy = (data: IVote) => {
-    console.log(66, voteDate, location, data);
     const findParticipation = data.participations.find(
       (props) => props.place._id === placeId
     );

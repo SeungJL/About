@@ -10,6 +10,7 @@ import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/Stud
 import StudySpaceSkeleton from "../../../../pagesComponents/about/studySpace/StudySpaceSkeleton";
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
 import StudySpaceUserComments from "../../../../pagesComponents/about/studySpace/studySpaceUserComments/StudySpaceUserComments";
+import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
 import { IParticipation } from "../../../../types/study/studyDetail";
 
@@ -17,6 +18,7 @@ const IMAGE_ARRAY_LENGTH = 6;
 
 function StudySpace() {
   const transferStudySpaceData = useRecoilValue(transferStudySpaceDataState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [participation, setParticipation] = useState<IParticipation>(
     transferStudySpaceData
@@ -27,10 +29,14 @@ function StudySpace() {
 
   const isPrivate = participation?.place.brand === "자유";
 
-  console.log(44, participation);
   const { place, attendences, status } = participation || {};
 
   const coverImageUrl = `/studyRandom/study${randomNum + 1}.jpg`;
+
+  const filtered =
+    studyDateStatus === "not passed"
+      ? attendences
+      : attendences.filter((who) => who.firstChoice);
 
   return (
     <>
@@ -49,15 +55,15 @@ function StudySpace() {
             {!isPrivate && <StudySpaceOverview space={place} />}
             <HrDiv />
             <StudySpaceVoteOverview
-              voteCnt={attendences.length}
+              voteCnt={filtered.length}
               place={place}
               status={status}
             />
-            {!isPrivate && <StudyTimeTable attendances={attendences} />}
-            <StudySpaceUserComments attendances={attendences} />
+            {!isPrivate && <StudyTimeTable attendances={filtered} />}
+            <StudySpaceUserComments attendances={filtered} />
             <StudySpaceNavigation
               place={place}
-              attendences={attendences}
+              attendences={filtered}
               status={status}
               isPrivate={isPrivate}
             />

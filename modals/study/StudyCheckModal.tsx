@@ -85,7 +85,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
       //   coords.longitude < myPlace?.longitude + LOCATE_GAP)
       true
     ) {
-      handleArrived(memo);
+      handleArrived(memo || "출석");
       setTimeout(() => {
         setIsChecking(false);
         setIsModal(false);

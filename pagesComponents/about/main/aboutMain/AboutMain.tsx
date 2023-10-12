@@ -7,10 +7,7 @@ import styled from "styled-components";
 import { LOCATION_RECRUITING } from "../../../../constants/location";
 import { useFailToast } from "../../../../hooks/CustomToast";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
-import {
-  studyDateStatusState,
-  voteDateState,
-} from "../../../../recoil/studyAtoms";
+import { voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { locationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/study/studyDetail";
@@ -27,7 +24,6 @@ function AboutMain({ participations }: IAboutMain) {
   const failToast = useFailToast();
   const router = useRouter();
 
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const location = useRecoilValue(locationState);
   const setVoteDate = useSetRecoilState(voteDateState);

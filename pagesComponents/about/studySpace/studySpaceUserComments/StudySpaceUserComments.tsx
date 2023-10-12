@@ -53,7 +53,7 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
         {attendances.map((att, idx) => {
           const user = att.user;
           const isAbsent = absentData?.find((who) => who.uid === user.uid);
-          console.log(2, att.memo);
+
           const memo = att.memo === "" ? "출석" : att.memo;
           return (
             <Block key={idx}>
