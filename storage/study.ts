@@ -246,27 +246,47 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EB%AA%BD%EA%B8%80.webp",
   },
+  {
+    id: YANG_자유신청,
+    location: "",
+    time: "",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
+  },
 
   //안양
   {
     id: ANYANG_파스쿠찌,
     location: "경기 안양시 만안구 안양로304번길 12",
     time: "09:30 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%ED%8C%8C%EC%8A%A4%EC%BF%A0%EC%B0%8C_%EC%95%88%EC%96%91.webp",
   },
   {
     id: ANYANG_숨맑은집,
     location: "경기 안양시 동안구 평촌대로223번길 44",
     time: "09:00 - 24:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EC%88%A8%EB%A7%91%EC%9D%80%EC%A7%91.webp",
   },
   {
     id: ANYANG_인뎃커피,
     location: "경기 안양시 동안구 흥안대로 530",
     time: "09:00 - 24:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EC%9D%B8%EB%8E%83%EC%BB%A4%ED%94%BC.webp",
   },
   {
     id: ANYANG_커피인더스트리,
     location: "경기 군포시 군포로 731",
     time: "09:00 - 24:00",
+  },
+  {
+    id: ANYANG_자유신청,
+    location: "",
+    time: "",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
   },
 
   //강남
