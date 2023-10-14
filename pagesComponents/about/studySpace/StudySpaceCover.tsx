@@ -49,8 +49,8 @@ const SpaceIcon = styled.div`
   position: absolute;
   border: var(--border-main-light);
   overflow: hidden;
-  bottom: -16px;
-  left: 12px;
+  bottom: -20px;
+  left: 20px;
   background-color: white;
 `;
 

@@ -45,7 +45,7 @@ function StudySpaceOverview({ place, info }: IStudySpaceOverview) {
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
-  margin-top: 24px;
+  margin-top: 28px;
   margin-bottom: var(--padding-sub);
   > span:first-child {
     font-weight: 600;

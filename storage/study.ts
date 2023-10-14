@@ -136,6 +136,8 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     id: SUWAN_탐앤탐스,
     location: "경기 수원시 팔달구 매산로 1",
     time: "08:00 - 24:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A4.webp",
   },
   {
     id: SUWAN_투썸상현,
@@ -171,17 +173,30 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     id: SUWAN_탐앤탐스2,
     location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
     time: "08:00 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A4_%EA%B2%BD%EA%B8%B0%EB%8C%80.webp",
+  },
+  {
+    id: SUWAN_자유신청,
+    location: "",
+    time: "",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
   },
   //양천
   {
     id: YANG_위카페,
     location: "서울특별시 강서구 등촌동 648-5 1층",
     time: "08:00 - 21:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%9C%84%EC%B9%B4%ED%8E%98.webp",
   },
   {
     id: YANG_할리스,
     location: "서울특별시 영등포구 당산제2동 당산로 219",
     time: "08:00 - 01:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%ED%95%A0%EB%A6%AC%EC%8A%A4_%EB%8B%B9%EC%82%B0.webp",
   },
   {
     id: YANG_파스쿠찌,
