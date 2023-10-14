@@ -32,15 +32,13 @@ function StudySpace() {
 
   const { place, attendences, status } = participation || {};
 
-  const coverImageUrl = `/studyRandom/study${randomNum + 1}.jpg`;
-
   const filtered =
     studyDateStatus === "not passed"
       ? attendences
       : attendences?.filter((who) => who.firstChoice);
 
   const info = STUDY_SPACE_INFO.find((info) => info.id === place?._id);
-
+  const coverImageUrl = info?.image || `/studyRandom/study${randomNum + 1}.jpg`;
   return (
     <>
       <StudySpaceSetting

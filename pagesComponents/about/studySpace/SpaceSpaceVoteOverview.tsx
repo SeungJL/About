@@ -51,7 +51,9 @@ function StudySpaceVoteOverview({
             </Button>
           )}
         </Container>
-        <Message>다른 인원의 인증사진 확인 기능도 개발중에 있습니다.</Message>
+        {isPrivate && (
+          <Message>다른 인원의 인증사진 확인 기능도 개발중에 있습니다.</Message>
+        )}
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>

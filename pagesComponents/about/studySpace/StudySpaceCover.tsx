@@ -9,13 +9,14 @@ interface IStudySpaceCover {
 function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
   return (
     <Layout>
-      <Image
-        src={coverImageUrl}
-        width={390}
-        height={176}
-        unoptimized={true}
-        alt="studySpace"
-      />
+      <ImageWrapper>
+        <Image
+          src={coverImageUrl}
+          layout="fill"
+          unoptimized={true}
+          alt="studySpace"
+        />
+      </ImageWrapper>
       <SpaceIcon>
         <Image
           src={`${logoImageUrl}`}
@@ -30,8 +31,12 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
   position: relative;
+`;
+
+const ImageWrapper = styled.div`
+  width: 100%;
+  aspect-ratio: 2/1;
 `;
 
 const SpaceIcon = styled.div`
