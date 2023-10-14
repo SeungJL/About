@@ -12,26 +12,30 @@ export const SUWAN_자유신청 = "6479f39e907daf3e8a5cda6e";
 //양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
-export const YANG_파스쿠찌 = "6437eb3fab537b843c6143ae";
+export const YANG_파스쿠찌 = "652a5093db9e8e554deafd63";
 export const YANG_이디야 = "6456f0b320352b2d8758295c";
 export const YANG_카페베네 = "64ba43a5efd3711264521a86";
 export const YANG_스타벅스 = "64bbc30787f8dc1a5210da6a";
 export const YANG_카페꼼마 = "650afdb79ea186d7d9b2a1b6";
 export const YANG_몽글 = "650afd559ea186d7d9b2a1b5";
+export const YANG_자유신청 = "6437eb3fab537b843c6143ae";
+
 //안양
 export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
 export const ANYANG_숨맑은집 = "6456ede120352b2d87582955";
-export const ANYANG_파스쿠찌 = "6456eed520352b2d87582957";
+export const ANYANG_파스쿠찌 = "652a52a6db9e8e554deafd67";
 export const ANYANG_인뎃커피 = "6456ef8120352b2d8758295b";
+export const ANYANG_자유신청 = "6456eed520352b2d87582957";
 
 //강남
 export const GANGNAM_신논현 = "64ecc33940f6dace3b065598";
 export const GANGNAM_논현 = "64ecc3c240f6dace3b06559c";
-export const GANGNAM_교대 = "64ecc41640f6dace3b06559d";
+export const GANGNAM_교대 = "652a5245db9e8e554deafd66";
 export const GANGNAM_양재 = "64ecc48d40f6dace3b06559e";
 export const GANGNAM_선릉 = "64ecc54240f6dace3b0655a0";
 export const GANGNAM_강남구청 = "64ecc4ef40f6dace3b06559f";
 export const GANGNAM_강남 = "64ecc58540f6dace3b0655a1";
+export const GANGNAM_자유신청 = "64ecc41640f6dace3b06559d";
 
 export const PLACE_TO_NAME = {
   //수원
@@ -54,11 +58,13 @@ export const PLACE_TO_NAME = {
   [YANG_스타벅스]: "스타벅스",
   [YANG_몽글]: "몽글",
   [YANG_카페꼼마]: "카페꼼마",
+  [YANG_자유신청]: "자유신청",
   //안양
   [ANYANG_커피인더스트리]: "커피인더스트리",
   [ANYANG_숨맑은집]: "숨맑은집",
   [ANYANG_파스쿠찌]: "파스쿠찌",
   [ANYANG_인뎃커피]: "인뎃커피",
+  [ANYANG_자유신청]: "자유신청",
   //강남
   [GANGNAM_강남]: "할리스",
   [GANGNAM_강남구청]: "파스쿠찌",
@@ -67,6 +73,7 @@ export const PLACE_TO_NAME = {
   [GANGNAM_교대]: "아펜즈커피",
   [GANGNAM_양재]: "미오커피",
   [GANGNAM_선릉]: "커피빈",
+  [GANGNAM_자유신청]: "강남",
 };
 
 export const PLACE_TO_LOCATION = {
@@ -90,12 +97,14 @@ export const PLACE_TO_LOCATION = {
   [YANG_카페베네]: "양천",
   [YANG_스타벅스]: "양천",
   [YANG_몽글]: "양천",
-  [YANG_카페꼼마]: "카페꼼마",
+  [YANG_카페꼼마]: "양천",
+  [YANG_자유신청]: "양천",
   //안양
   [ANYANG_숨맑은집]: "안양",
   [ANYANG_인뎃커피]: "안양",
   [ANYANG_커피인더스트리]: "안양",
   [ANYANG_파스쿠찌]: "안양",
+  [ANYANG_자유신청]: "안양",
   //강남
   [GANGNAM_강남]: "강남",
   [GANGNAM_강남구청]: "강남",
@@ -104,14 +113,24 @@ export const PLACE_TO_LOCATION = {
   [GANGNAM_교대]: "강남",
   [GANGNAM_양재]: "강남",
   [GANGNAM_선릉]: "강남",
+  [GANGNAM_자유신청]: "강남",
 };
 
-export const STUDY_SPACE_INFO = [
+export interface IStudySpaceInfo {
+  id: string;
+  location: string;
+  time: string;
+  image?: string;
+}
+
+export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
   //수원
   {
     id: SUWAN_카탈로그,
     location: "경기 수원시 팔달구 아주로 47번길 13",
     time: "12:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%B9%B4%ED%83%88%EB%A1%9C%EA%B7%B8.webp",
   },
   {
     id: SUWAN_탐앤탐스,

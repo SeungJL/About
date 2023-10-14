@@ -6,6 +6,7 @@ import {
 import {
   ANYANG_숨맑은집,
   ANYANG_인뎃커피,
+  ANYANG_자유신청,
   ANYANG_커피인더스트리,
   ANYANG_파스쿠찌,
   GANGNAM_강남,
@@ -15,6 +16,7 @@ import {
   GANGNAM_선릉,
   GANGNAM_신논현,
   GANGNAM_양재,
+  GANGNAM_자유신청,
   SUWAN_이디야,
   SUWAN_자유신청,
   SUWAN_카탈로그,
@@ -28,6 +30,7 @@ import {
   YANG_스타벅스,
   YANG_위카페,
   YANG_이디야,
+  YANG_자유신청,
   YANG_카페꼼마,
   YANG_카페베네,
   YANG_파스쿠찌,
@@ -63,12 +66,14 @@ export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
     else if (ID === YANG_스타벅스) temp[4] = participant;
     else if (ID === YANG_카페꼼마) temp[2] = participant;
     else if (ID === YANG_몽글) temp[7] = participant;
+    else if (ID === YANG_자유신청) temp[8] = participant;
     //안양
     if (ID === ANYANG_숨맑은집) temp[0] = participant;
     else if (ID === ANYANG_인뎃커피) temp[1] = participant;
     else if (ID === ANYANG_파스쿠찌) temp[2] = participant;
     else if (ID === ANYANG_커피인더스트리) temp[3] = participant;
     else if (ID === SUWAN_탐앤탐스) temp[4] = participant;
+    else if (ID === ANYANG_자유신청) temp[5] = participant;
     //
     if (ID === GANGNAM_강남) temp[0] = participant;
     if (ID === GANGNAM_강남구청) temp[4] = participant;
@@ -77,6 +82,7 @@ export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
     if (ID === GANGNAM_교대) temp[6] = participant;
     if (ID === GANGNAM_선릉) temp[3] = participant;
     if (ID === GANGNAM_양재) temp[2] = participant;
+    if (ID === GANGNAM_자유신청) temp[8] = participant;
   });
 
   return temp;

@@ -12,11 +12,13 @@ interface IStudySpaceVoteOverview {
   voteCnt: number;
   place: IPlace;
   status: StudyStatus;
+  isPrivate: boolean;
 }
 function StudySpaceVoteOverview({
   voteCnt,
   place,
   status,
+  isPrivate,
 }: IStudySpaceVoteOverview) {
   const router = useRouter();
   const date = dayjs(router.query.date as string);
@@ -38,7 +40,7 @@ function StudySpaceVoteOverview({
               {status === "pending" ? "투표중" : "참여중"}이에요!
             </span>
           )}
-          {status !== "dismissed" && (
+          {status !== "dismissed" && !isPrivate && (
             <Button
               size="xs"
               ml="var(--margin-md)"
@@ -49,6 +51,7 @@ function StudySpaceVoteOverview({
             </Button>
           )}
         </Container>
+        <Message>다른 인원의 인증사진 확인 기능도 개발중에 있습니다.</Message>
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
@@ -82,6 +85,12 @@ const Container = styled.div`
     font-size: 14px;
     margin-left: var(--margin-min);
   }
+`;
+
+const Message = styled.div`
+  margin-top: var(--margin-min);
+  font-size: 12px;
+  color: var(--color-mint);
 `;
 
 export default StudySpaceVoteOverview;

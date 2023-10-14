@@ -3,38 +3,40 @@ import { faCamera } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import { ModalLayout } from "../../components/modals/Modals";
+import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { getToday } from "../../helpers/dateHelpers";
+import {
+  useCompleteToast,
+  useErrorToast,
+  useFailToast,
+} from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../hooks/user/pointSystem/mutation";
+import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function StudyCheckImageModal({ setIsModal }: IModal) {
-  //   const completeToast = useCompleteToast();
-  //   const errorToast = useErrorToast();
-  //   const failToast = useFailToast();
+  const completeToast = useCompleteToast();
+  const errorToast = useErrorToast();
+  const failToast = useFailToast();
+
+  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+
   const { mutate: getAboutPoint } = useAboutPointMutation();
 
   const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
     onSuccess() {
-      //   completeToast("free", "출석 완료 !");
-      //   if (isChecking && voteDate > dayjs().subtract(1, "day"))
-      //     getAboutPoint(POINT_SYSTEM_PLUS.STUDY_ATTEND);
-      //   if (
-      //     !isFree &&
-      //     dayjs(
-      //       myStudyFixed?.attendences?.find(
-      //         (who) => (who?.user as IUser).uid === session?.uid
-      //       ).time.start
-      //     ).add(1, "hour") < dayjs()
-      //   )
-      //     getDeposit(POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE);
-      //   setIsRefetchStudySpace(true);
+      getAboutPoint(POINT_SYSTEM_PLUS.STUDY_PRIVATE_ATTEND);
+      completeToast("free", "출석 완료 !");
+      setIsRefetchStudySpace(true);
+      setIsModal(false);
     },
-    // onError: errorToast,
+    onError: errorToast,
   });
 
   const [imageSrc, setImageSrc] = useState(null);
@@ -42,7 +44,6 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onloadend = () => {
       setImageSrc(reader.result);
@@ -54,9 +55,15 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   const fileInputRef = useRef(null);
 
   const handleBtnClick = () => {
-    console.log(2);
-    console.log(fileInputRef);
     fileInputRef.current.click();
+  };
+  console.log(imageSrc);
+  const onSubmit = () => {
+    if (!imageSrc) {
+      failToast("free", "인증 사진을 첨부해주세요!");
+      return;
+    }
+    handleArrived(null);
   };
 
   return (
@@ -91,7 +98,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
           )}
         </Container>
       </ModalMain>
-      <Button size="lg" colorScheme="mintTheme">
+      <Button size="lg" colorScheme="mintTheme" onClick={onSubmit}>
         출석
       </Button>
     </ModalLayout>

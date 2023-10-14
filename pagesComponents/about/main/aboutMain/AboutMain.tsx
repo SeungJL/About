@@ -50,6 +50,8 @@ function AboutMain({ participations }: IAboutMain) {
   const privateStudy = participations.find(
     (par) => par.place.brand === "자유 신청"
   );
+
+  console.log(22, privateStudy);
   const studies = participations.filter((par) => par !== privateStudy);
 
   return (

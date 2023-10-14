@@ -16,9 +16,13 @@ import StudySpaceUserCommentsComment from "./StudySpaceUserCommentsComment";
 import StudySpaceUserCommentsName from "./StudySpaceUserCommentsName";
 interface IStudySpaceUserComments {
   attendances: IAttendance[];
+  isPrivate: boolean;
 }
 
-function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
+function StudySpaceUserComments({
+  attendances,
+  isPrivate,
+}: IStudySpaceUserComments) {
   const router = useRouter();
   const { data: session } = useSession();
   const voteDate = dayjs(router.query.date as string);
@@ -53,34 +57,35 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
         {attendances.map((att, idx) => {
           const user = att.user;
           const isAbsent = absentData?.find((who) => who.uid === user.uid);
-
           const memo = att.memo === "" ? "출석" : att.memo;
           return (
-            <Block key={idx}>
-              <ProfileIconWrapper onClick={() => onClickUser(user)}>
-                <ProfileIcon user={user} size="md" />
-              </ProfileIconWrapper>
-              <BlockInfo>
-                <Info>
-                  <StudySpaceUserCommentsName
-                    name={user.name}
-                    uid={user.uid}
-                    isArrivedCondition={
-                      !!(isAttend?.memo !== undefined && memo)
-                    }
+            <Wrapper key={idx} isPrivate={isPrivate}>
+              <Block>
+                <ProfileIconWrapper onClick={() => onClickUser(user)}>
+                  <ProfileIcon user={user} size="md" />
+                </ProfileIconWrapper>
+                <BlockInfo>
+                  <Info>
+                    <StudySpaceUserCommentsName
+                      name={user.name}
+                      uid={user.uid}
+                      isArrivedCondition={
+                        !!(isAttend?.memo !== undefined && memo)
+                      }
+                    />
+                    <StudySpaceUserCommentsComment
+                      isAbsent={isAbsent}
+                      memo={memo}
+                      att={att}
+                    />
+                  </Info>
+                  <StudySpaceUserCommentsCheck
+                    arrived={att.arrived}
+                    isAbsent={!!isAbsent}
                   />
-                  <StudySpaceUserCommentsComment
-                    isAbsent={isAbsent}
-                    memo={memo}
-                    att={att}
-                  />
-                </Info>
-                <StudySpaceUserCommentsCheck
-                  arrived={att.arrived}
-                  isAbsent={!!isAbsent}
-                />
-              </BlockInfo>
-            </Block>
+                </BlockInfo>
+              </Block>
+            </Wrapper>
           );
         })}
       </Layout>
@@ -90,14 +95,19 @@ function StudySpaceUserComments({ attendances }: IStudySpaceUserComments) {
 
 const Layout = styled.div`
   min-height: 20px;
-  margin: 0 var(--margin-main);
   margin-top: var(--margin-max);
   display: flex;
   flex-direction: column;
 `;
+
+const Wrapper = styled.div<{ isPrivate: boolean }>`
+  border-bottom: ${(props) => props.isPrivate && "var(--border-main-light)"};
+`;
+
 const Block = styled.div`
   height: 60px;
-  margin-bottom: var(--margin-sub);
+  margin: var(--margin-md) var(--margin-main);
+
   display: flex;
   align-items: center;
 `;

@@ -12,6 +12,7 @@ import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySp
 import StudySpaceUserComments from "../../../../pagesComponents/about/studySpace/studySpaceUserComments/StudySpaceUserComments";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
+import { STUDY_SPACE_INFO } from "../../../../storage/study";
 import { IParticipation } from "../../../../types/study/studyDetail";
 
 const IMAGE_ARRAY_LENGTH = 6;
@@ -38,6 +39,8 @@ function StudySpace() {
       ? attendences
       : attendences?.filter((who) => who.firstChoice);
 
+  const info = STUDY_SPACE_INFO.find((info) => info.id === place?._id);
+
   return (
     <>
       <StudySpaceSetting
@@ -52,15 +55,19 @@ function StudySpace() {
               coverImageUrl={coverImageUrl}
               logoImageUrl={place.image}
             />
-            {!isPrivate && <StudySpaceOverview space={place} />}
+            {!isPrivate && <StudySpaceOverview place={place} info={info} />}
             <HrDiv />
             <StudySpaceVoteOverview
               voteCnt={filtered.length}
               place={place}
               status={status}
+              isPrivate={isPrivate}
             />
             {!isPrivate && <StudyTimeTable attendances={filtered} />}
-            <StudySpaceUserComments attendances={filtered} />
+            <StudySpaceUserComments
+              attendances={filtered}
+              isPrivate={isPrivate}
+            />
             <StudySpaceNavigation
               place={place}
               attendences={filtered}

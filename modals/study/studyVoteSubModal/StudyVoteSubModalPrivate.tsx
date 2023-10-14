@@ -24,9 +24,9 @@ function StudyVoteSubModalPrivate({ setVoteInfo }: IStudyVoteSubModalPrivate) {
         onChange={(e) => setValue(e.target.value)}
       />
       <Rule>
-        <li>혼자서라도 카공 개인이 공부하고 인증하는 컨텐츠</li>
-        <li>출석체크시 사진을 통해 인증</li>
-        <li>출석완료시 +5 point를 받습니다.</li>
+        <li>혼자라도 개인 카공을 신청하고 인증할 수 있습니다.</li>
+        <li>출석체크시에는 사진을 통해 인증해야 합니다.</li>
+        <li>출석완료시 +2 point를 받습니다.</li>
         <li>미 인증시 -100원이 부과됩니다.</li>
       </Rule>
     </Layout>

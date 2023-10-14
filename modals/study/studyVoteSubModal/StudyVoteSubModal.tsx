@@ -62,7 +62,7 @@ function StudyVoteSubModal({
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
-      if (studyDateStatus === "today") {
+      if (studyDateStatus === "today" && !isPrivate) {
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
       }
       if (studyDateStatus === "not passed") {

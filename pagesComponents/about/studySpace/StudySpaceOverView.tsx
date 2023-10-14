@@ -3,40 +3,40 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
 import PlaceMap from "../../../components/features/lib/PlaceMap";
-import { STUDY_SPACE_INFO } from "../../../storage/study";
+import { IStudySpaceInfo } from "../../../storage/study";
 import { IPlace } from "../../../types/study/studyDetail";
 
 interface IStudySpaceOverview {
-  space: IPlace;
+  place: IPlace;
+  info: IStudySpaceInfo;
 }
 
-function StudySpaceOverview({ space }: IStudySpaceOverview) {
-  const location = STUDY_SPACE_INFO?.find((info) => info.id === space._id);
+function StudySpaceOverview({ place, info }: IStudySpaceOverview) {
   const [isModal, setIsModal] = useState(false);
 
   return (
     <>
       <Layout>
         <span>
-          {space.brand} {space.branch}
+          {place.brand} {place.branch}
         </span>
         <SpaceDetail>
           <Location>
-            위치: <span>{location.location}</span>
+            위치: <span>{info.location}</span>
             <div onClick={() => setIsModal(true)}>
               <FontAwesomeIcon icon={faLocationDot} size="sm" />
               <span>지도</span>
             </div>
           </Location>
           <Time>
-            시간: <span>{location.time}</span>
+            시간: <span>{info.time}</span>
           </Time>
         </SpaceDetail>
       </Layout>
       {isModal && (
         <MapWrapper>
           <MapBtn onClick={() => setIsModal(false)}>X</MapBtn>
-          <PlaceMap lat={space.latitude} lon={space.longitude} />
+          <PlaceMap lat={place.latitude} lon={place.longitude} />
         </MapWrapper>
       )}
     </>
