@@ -143,21 +143,29 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     id: SUWAN_투썸상현,
     location: "경기 용인시 수지구 광교중앙로 310",
     time: "08:00 - 24:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%ED%88%AC%EC%8D%B8_%EC%83%81%ED%98%84.webp",
   },
   {
     id: SUWAN_투썸,
     location: "경기 수원시 팔달구 인계로 166번길 48-15",
     time: "09:00 - 24:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%ED%88%AC%EC%8D%B8_%EB%82%98%ED%98%9C%EC%84%9D%EA%B1%B0%EB%A6%AC.webp",
   },
   {
     id: SUWAN_커피빈,
     location: "경기 수원시 장안구 경수대로 989",
     time: "07:00 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%BB%A4%ED%94%BC%EB%B9%88_%EC%86%A1%EC%A3%BD.webp",
   },
   {
     id: SUWAN_칸나,
     location: "경기 수원시 영통구 덕영대로 1693",
     time: "10:00 - 04:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%B9%B4%ED%8E%98%EC%B9%B8%EB%82%98.webp",
   },
   {
     id: SUWAN_이디야,
@@ -207,26 +215,36 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     id: YANG_이디야,
     location: "서울 양천구 신목로 102 대경프라자",
     time: "07:30 - 23:30",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%9D%B4%EB%94%94%EC%95%BC_%EC%98%A4%EB%AA%A9%EA%B5%90.webp",
   },
   {
     id: YANG_카페베네,
     location: "서울 영등포구 당산로 138",
     time: "08:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%B9%B4%ED%8E%98%EB%B2%A0%EB%84%A4_%EC%98%81%EB%93%B1%ED%8F%AC.webp",
   },
   {
     id: YANG_스타벅스,
     location: "서울 강서구 등촌로 57",
     time: "07:30 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4_%ED%99%94%EA%B3%A1.webp",
   },
   {
     id: YANG_카페꼼마,
     location: "서울 영등포구 국제금융로 8길 16",
     time: "07:30 - 21:30",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%B9%B4%ED%8E%98%EA%BC%BC%EB%A7%88.webp",
   },
   {
     id: YANG_몽글,
     location: "서울 구로구 공원로6나길 29-17",
     time: "11:30 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EB%AA%BD%EA%B8%80.webp",
   },
 
   //안양
