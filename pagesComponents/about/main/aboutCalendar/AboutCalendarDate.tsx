@@ -30,7 +30,6 @@ function AboutCalendarDate({ isCalendarWeek }: IAboutCalendarDate) {
         temp.push({ date: validDate });
       }
     } else {
-   
       for (let i = 1; i <= 7 * rowsInMonth; i++) {
         if (i <= startDayInMonth) temp.push(null);
         else if (i > daysInMonth + startDayInMonth) temp.push(null);

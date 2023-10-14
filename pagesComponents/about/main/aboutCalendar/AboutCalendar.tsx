@@ -30,7 +30,7 @@ const Layout = styled.div`
 `;
 
 const Content = styled.div`
-  /* min-height: 70px; */
+  margin: 0 var(--margin-min);
 `;
 
 export default AboutCalendar;
