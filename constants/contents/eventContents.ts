@@ -13,7 +13,7 @@ export const EVENT_CONTENT_2023: Record<string, Content[]> = {
     {
       content: "[10월] 에타 홍보 이벤트",
       start: 2,
-      end: 15,
+      end: 29,
       color: TABLE_COLORS[2],
       text: "에타에 동아리 홍보글을 올려주시면 100 포인트와 추첨을 통해 치킨 기프티콘을 드려요!",
     },
@@ -26,7 +26,7 @@ export const EVENT_CONTENT_2023: Record<string, Content[]> = {
     },
     {
       content: "[시험기간] 스터디 투표 2배 이벤트 ",
-      start: 11,
+      start: 16,
       end: 27,
       color: TABLE_COLORS[3],
       text: "시험 기간에 스터디에 투표하면 점수를 2배로 받아요!",
