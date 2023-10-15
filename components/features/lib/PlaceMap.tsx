@@ -14,12 +14,14 @@ function PlaceMap({ lat, lon }: ISpaceMap) {
   const [myLon, setMyLon] = useState(null);
 
   useEffect(() => {
+    console.log(1, new naver.maps.LatLng(lat, lon));
     const option = {
       center: new naver.maps.LatLng(lat, lon),
       scaleControl: false,
       mapDataControl: false,
       zoom: 14,
     };
+    console.log(4, option);
     const container = document.getElementById("map");
     const map = new naver.maps.Map(container, option);
 

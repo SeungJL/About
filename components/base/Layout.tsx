@@ -13,7 +13,7 @@ import GuestBottomNav from "../layout/GuestBottomNav";
 import ModalPortal from "../modals/ModalPortal";
 import Seo from "./Seo";
 
-const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
+const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 config.autoAddCss = false;
 const FREE_ROUTERS = ["/login", "/register", "/checkingServer"];
 
@@ -58,7 +58,7 @@ function Layout({ children }: ILayout) {
       else navigateTo("/checkingServer");
     },
   });
-
+  console.log(1, NEXT_PUBLIC_NAVER_CLIENT_ID);
   return (
     <LayoutContainer>
       {token && (
@@ -74,7 +74,7 @@ function Layout({ children }: ILayout) {
       )}
       <Seo title="ABOUT" />
       <Script
-        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`}
+        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NEXT_PUBLIC_NAVER_CLIENT_ID}`}
       />
       <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
       <Script
