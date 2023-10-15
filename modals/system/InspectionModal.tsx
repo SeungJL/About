@@ -1,5 +1,5 @@
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalMain,
@@ -10,7 +10,7 @@ import { IModal } from "../../types/reactTypes";
 function ServerInspectModal({ setIsModal }: IModal) {
   return (
     <>
-      <ModalLayout size="md">
+      <ModalLeyou size="md">
         <ModalHeaderX title="점검중" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>임시적으로 비활성화 된 컨텐츠 입니다.</ModalSubtitle>
@@ -22,7 +22,7 @@ function ServerInspectModal({ setIsModal }: IModal) {
         <ModalFooterNav>
           <button onClick={() => setIsModal(false)}>확인</button>
         </ModalFooterNav>
-      </ModalLayout>
+      </ModalLeyou>
     </>
   );
 }

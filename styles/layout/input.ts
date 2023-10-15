@@ -1,5 +1,15 @@
 import styled from "styled-components";
 
+export const Textarea = styled.textarea`
+  flex: 1;
+  background-color: var(--font-h56);
+  border-radius: var(--border-radius-sub);
+  padding: var(--padding-sub);
+  &:focus {
+    outline: none;
+  }
+`;
+
 export const InputSm = styled.input`
   flex: 1;
   width: 100%;

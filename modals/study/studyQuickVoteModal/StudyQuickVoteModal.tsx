@@ -1,20 +1,21 @@
-import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import TimeSelector from "../../../components/features/picker/TimeSelector";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
+import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
 } from "../../../hooks/CustomToast";
 import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
-import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
 import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";
 
@@ -30,8 +31,6 @@ function StudyQuickVoteModal({ setIsModal }: IModal) {
     start: { hours: 14, minutes: 0 },
     end: { hours: 18, minutes: 0 },
   });
-
-  const { data: studyPreference } = useStudyPreferenceQuery();
 
   const { mutate } = useStudyQuickVoteMutation(voteDate, {
     onSuccess() {
@@ -53,25 +52,9 @@ function StudyQuickVoteModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="lg">
-      <ModalHeaderX
-        title={`${voteDate?.format("M월 D일")} 스터디 투표`}
-        setIsModal={setIsModal}
-      />
-      <ModalMain>
-        <PlaceInfo>
-          <div>
-            <b>1 지망:</b> {studyPreference.place.branch}
-          </div>
-          <div>
-            <b>2 지망:</b>
-            <Subplaces>
-              {studyPreference.subPlace.map((item) => (
-                <span key={item._id}>{item.branch}</span>
-              ))}
-            </Subplaces>
-          </div>
-        </PlaceInfo>
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text={`${dayjsToFormat(voteDate, "M월 D일")} 빠른 투표`} />
+      <ModalBody>
         <TimeSelector
           setTimes={({ start, end }: ITimeStartToEnd) => {
             if (start) setTime({ end: time.end, start });
@@ -79,35 +62,10 @@ function StudyQuickVoteModal({ setIsModal }: IModal) {
           }}
           times={time}
         />
-      </ModalMain>
-      <Button colorScheme="mintTheme" onClick={onSubmit}>
-        투표
-      </Button>
+      </ModalBody>
+      <ModalFooterOne onClick={onSubmit} text="투표" />
     </ModalLayout>
   );
 }
-
-const PlaceInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: 2;
-  font-size: 14px;
-  margin-bottom: var(--margin-md);
-  > div {
-    display: flex;
-    > b {
-      display: inline-block;
-      width: 44px;
-      margin-right: var(--margin-md);
-    }
-  }
-`;
-
-const Subplaces = styled.div`
-  flex: 1;
-  > span {
-    margin-right: var(--margin-min);
-  }
-`;
 
 export default StudyQuickVoteModal;

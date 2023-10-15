@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalHeaderCenter,
@@ -19,7 +19,7 @@ function StudyRuleModal({ setIsModal }: IModal) {
   const [isTip, setIsTip] = useState(true);
 
   return (
-    <ModalLayout size="xxl">
+    <ModalLeyou size="xxl">
       <ModalHeaderCenter>
         <Title>동아리 가이드</Title>
         <div>대학생들의 카공 및 친목 동아리 About</div>
@@ -64,7 +64,7 @@ function StudyRuleModal({ setIsModal }: IModal) {
       <ModalFooterNav>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

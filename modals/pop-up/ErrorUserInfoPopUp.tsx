@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
@@ -36,7 +36,7 @@ function ErrorUserInfoPopUp({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <Header>유저 정보 오류</Header>
       <ModalMain>
         <ModalSubtitle>
@@ -53,7 +53,7 @@ function ErrorUserInfoPopUp({ setIsModal }: IModal) {
           오류전송
         </Button>
       </ModalFooter>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

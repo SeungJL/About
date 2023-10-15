@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../components/modals/ModalPortal";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useRegisterFormsQuery } from "../../hooks/user/queries";
 import { DispatchBoolean } from "../../types/reactTypes";
 
@@ -44,7 +44,7 @@ function CheckApplicantModal({
     <>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <ModalLayout size="sm" height={168}>
+          <ModalLeyou size="sm" height={168}>
             <Header>
               <span>가입 신청 완료!</span>
             </Header>
@@ -55,7 +55,7 @@ function CheckApplicantModal({
             <Button mt="auto" colorScheme="mintTheme" onClick={onClick}>
               확인
             </Button>
-          </ModalLayout>
+          </ModalLeyou>
         </ModalPortal>
       )}
     </>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal, IRefetch } from "../../../types/reactTypes";
@@ -15,7 +15,7 @@ function GatherParticipateModal({
   const [pageNum, setPageNum] = useState(0);
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="참여신청" setIsModal={setIsModal} />
       <ModalMain>
         {pageNum === 0 ? (
@@ -29,7 +29,7 @@ function GatherParticipateModal({
           />
         )}
       </ModalMain>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

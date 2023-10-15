@@ -1,14 +1,16 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ModalFooter } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { useEffect, useState } from "react";
+import {
+  ModalBody,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { SQUARE_RANDOM_IMAGE } from "../../constants/image/imageUrl";
 import { WEB_URL } from "../../constants/system";
 import { STUDY_SPACE_INFO } from "../../storage/study";
-import { ModalMain } from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/study/studyDetail";
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
@@ -24,6 +26,8 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   const random_num = Math.floor(Math.random() * 3);
   const url = WEB_URL + router?.asPath + "/" + session?.uid;
 
+  const [isRenderingCheck, setIsRenderingCheck] = useState(false);
+
   const location = STUDY_SPACE_INFO?.find(
     (info) => info?.id === place?._id
   )?.location;
@@ -36,8 +40,11 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
     ) {
       window.Kakao.init(kakaoAppKey);
     }
+    setIsRenderingCheck(true);
   }, []);
+
   useEffect(() => {
+    if (!isRenderingCheck) return;
     if (window.Kakao) {
       const options = {
         container: "#kakao-share-button-invite",
@@ -70,21 +77,18 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   }, []);
 
   return (
-    <ModalLayout size="md">
-      <ModalHeaderX title="친구 초대" setIsModal={setIsModal} />
-      <ModalMain>
-        <MainText>
-          친구 초대를 통해 스터디에 참여하면 초대한 인원과 참여한 인원 모두
-          +2점을 받아요!
-        </MainText>
-
-        <SubText>※ 어느정도 친한 인원에게만 사용해주세요</SubText>
-      </ModalMain>
-      <Footer>
+    <ModalLayout onClose={() => setIsModal(false)} size="sm">
+      <ModalHeader text="친구 초대" />
+      <ModalBody>
+        <ModalSubtitle>
+          친구 초대를 통해 참여하면 초대한 인원과 참여한 인원 모두 2 point를
+          받아요!
+        </ModalSubtitle>
+      </ModalBody>
+      <ModalFooter p="var(--padding-sub) var(--padding-main)">
         <Button width="50%" onClick={() => setIsModal(false)}>
           취소
         </Button>
-
         <Button
           width="50%"
           colorScheme="mintTheme"
@@ -92,21 +96,9 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
         >
           친구초대
         </Button>
-      </Footer>
+      </ModalFooter>
     </ModalLayout>
   );
 }
-
-const MainText = styled.span`
-  color: var(--font-h1);
-  font-weight: 600;
-`;
-
-const SubText = styled.span`
-  margin-top: var(--margin-sub);
-  font-size: 12px;
-`;
-
-const Footer = styled.footer``;
 
 export default StudyInviteModal;

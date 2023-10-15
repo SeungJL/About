@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
 import {
-  ModalFooterTwo,
+  ModalFeeterTwe,
   ModalHeaderX,
 } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import { ModalMain } from "../../../styles/layout/modal";
 import { DispatchBoolean, IModal } from "../../../types/reactTypes";
@@ -31,7 +31,7 @@ function RegularGatherResultModal({
   };
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="조모임 신청 결과" setIsModal={setIsModal} />
       <Container>
         <b>조모임 신청 결과가 나왔어요!</b> 너무 슬프지만 조건에 맞는 조편성이
@@ -42,12 +42,12 @@ function RegularGatherResultModal({
           <FontAwesomeIcon icon={faFaceSurprise} size="2x" />
         </IconWrapper>
       </Container>
-      <ModalFooterTwo
+      <ModalFeeterTwe
         right="확인하러가기"
         setIsModal={setIsModal}
         onSubmit={onClick}
       />
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

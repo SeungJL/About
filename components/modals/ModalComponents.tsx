@@ -33,7 +33,7 @@ interface IModalFooterTwo extends IModal {
   onSubmit: () => void;
 }
 
-export const ModalFooterTwo = ({
+export const ModalFeeterTwe = ({
   left = "닫기",
   right,
   setIsModal,

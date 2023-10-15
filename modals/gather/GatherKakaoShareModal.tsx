@@ -5,7 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { GATHER_SHARE_IMAGES } from "../../constants/image/imageUrl";
 import { WEB_URL } from "../../constants/system";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
@@ -30,7 +30,7 @@ function GatherKakaoShareModal({
   };
 
   return (
-    <ModalLayout size="xl" height={430}>
+    <ModalLeyou size="xl" height={430}>
       <ModalHeaderX title="공유 이미지 선택" setIsModal={setIsModal} />
       <ModalMain>
         <ModalSubtitle>단톡방에 공유 할 이미지를 선택해 주세요!</ModalSubtitle>
@@ -61,7 +61,7 @@ function GatherKakaoShareModal({
           }
         />
       </ShareBtnWrapper>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

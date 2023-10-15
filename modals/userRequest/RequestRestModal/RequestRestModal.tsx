@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
 import {
   useUserApplyRestMutation,
@@ -64,7 +64,7 @@ function RequestRestModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderX title="휴식신청" setIsModal={setIsModal} />
       <RequestRestModalInfo onSubmit={onSubmit} />
       <ModalFooterNav>
@@ -75,7 +75,7 @@ function RequestRestModal({ setIsModal }: IModal) {
           제출
         </button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

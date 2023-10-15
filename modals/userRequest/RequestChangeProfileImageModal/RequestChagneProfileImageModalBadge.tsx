@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../../hooks/user/mutations";
 import { ModalMain } from "../../../styles/layout/modal";
@@ -42,7 +42,7 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
   };
 
   return (
-    <ModalLayout size="lg">
+    <ModalLeyou size="lg">
       <ModalHeaderX title="내 배지 변경 신청" setIsModal={setIsModal} />
       <ModalMain>
         <Message>
@@ -72,7 +72,7 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
       <Button colorScheme="mintTheme" mt="auto" onClick={onApply}>
         변경 신청 / 해제 신청(미 선택)
       </Button>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

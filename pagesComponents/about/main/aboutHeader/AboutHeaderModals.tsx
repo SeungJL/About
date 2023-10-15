@@ -4,7 +4,6 @@ import DailyCheckModal from "../../../../modals/aboutHeader/dailyCheckModal/Dail
 import DailyCheckWinModal from "../../../../modals/aboutHeader/dailyCheckModal/DailyCheckWinModal";
 
 import PointSystemsModal from "../../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
-import PromotionModal from "../../../../modals/aboutHeader/promotionModal/PromotionModal";
 import RegularGatherResultModal from "../../../../modals/aboutHeader/regularGatherModal/RegularGatherResultModal";
 
 import { AboutHeaderIconType } from "./AboutHeader";
@@ -25,20 +24,9 @@ function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
 
   return (
     <>
-      {iconType === "rule" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <PointSystemsModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
-      {iconType === "promotion" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <PromotionModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
+      {iconType === "rule" && <PointSystemsModal setIsModal={setIsModal} />}
       {iconType === "attendCheck" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <DailyCheckModal setIsModal={setIsModal} />
-        </ModalPortal>
+        <DailyCheckModal setIsModal={setIsModal} />
       )}
       {iconType === "attendCheckWin" && (
         <ModalPortal setIsModal={setIsModal}>

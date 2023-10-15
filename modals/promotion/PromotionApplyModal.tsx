@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { usePromotionMutation } from "../../hooks/promotion/mutations";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
@@ -58,7 +58,7 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
   };
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="이벤트 보상 신청" setIsModal={setIsModal} />
       <>
         {!contentType ? (
@@ -129,7 +129,7 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
           </>
         )}
       </>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

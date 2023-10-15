@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
@@ -53,7 +53,7 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   return (
     <>
       {pageNum === 0 ? (
-        <ModalLayout size="lg" height={260}>
+        <ModalLeyou size="lg" height={260}>
           <ModalHeaderX title="프로필 이미지 변경" setIsModal={setIsModal} />
           <Container>
             <Button
@@ -70,7 +70,7 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
               이벤트 배지로 변경
             </Button>
           </Container>
-        </ModalLayout>
+        </ModalLeyou>
       ) : pageNum === 1 ? (
         <RequestChangeProfileImageModalAvatar
           setIsModal={setIsModal}

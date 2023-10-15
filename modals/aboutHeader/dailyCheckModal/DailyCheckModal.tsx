@@ -14,8 +14,12 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import { DAILY_CHECK_WIN_ITEM } from "../../../constants/contentsValue/dailyCheck";
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
@@ -27,7 +31,6 @@ import {
 import { useUserRequestMutation } from "../../../hooks/user/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
-import { ModalMain } from "../../../styles/layout/modal";
 import { IattendCheckPresent } from "../../../types/modal/attendCheck";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
@@ -85,11 +88,11 @@ function DailyCheckModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="md">
-      <ModalHeaderX title="매일매일 출석체크 !" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text="매일매일 출석체크 !" />
+      <ModalBody>
         <PresentMessage>
-          매일 출석체크로 <b>+5 point</b>를 얻을 수 있고, 운이 좋으면
+          매일 출석체크로 <b>5 point</b>를 얻을 수 있고, 운이 좋으면
           <b> 랜덤 이벤트 선물</b>도 받을 수 있어요!
         </PresentMessage>
         <Container>
@@ -109,10 +112,8 @@ function DailyCheckModal({ setIsModal }: IModal) {
             <PresentPercentPopOver />
           </Detail>
         </Container>
-      </ModalMain>
-      <Button size="lg" colorScheme="mintTheme" onClick={onClickCheck}>
-        출석
-      </Button>
+      </ModalBody>
+      <ModalFooterOne text="출석" onClick={onClickCheck} isFull={true} />
     </ModalLayout>
   );
 }
@@ -166,24 +167,27 @@ const PresentPercentPopOver = () => (
 
 const Container = styled.div`
   margin-top: var(--margin-md);
-  height: 100%;
+  flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 var(--padding-md);
+
   > div:first-child {
     padding: var(--padding-min) 0;
   }
 `;
 
 const Detail = styled.div`
-  height: 90%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  flex: 0.3;
+  flex: 0.35;
   > span {
+    width: 65px;
+    text-align: end;
+    color: var(--font-h2);
     display: block;
     padding: 2px 0;
     font-weight: 600;

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import {
   useCompleteToast,
@@ -73,7 +73,7 @@ function RegularGatherModal({
     mutate(applyData);
   };
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderX title="조모임 참여 신청서" setIsModal={setIsModal} />
       <ModalMain>
         <Overview>
@@ -123,7 +123,7 @@ function RegularGatherModal({
           신청
         </Button>
       </ModalFooter>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

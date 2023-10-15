@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../components/modals/ModalPortal";
-import { ModalLayout } from "../components/modals/Modals";
+import { ModalLeyou } from "../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../hooks/CustomToast";
 import { useRegisterFormsQuery } from "../hooks/user/queries";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
@@ -53,7 +53,6 @@ const Login: NextPage<{
       failToast("free", "동아리에 소속되어 있지 않습니다.");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
-
 
   const customSignin = async (type: "member" | "guest") => {
     const provider = type === "member" ? kakaoProvider.id : "guest";
@@ -136,7 +135,7 @@ const Login: NextPage<{
       )}
       {isCheckModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <ModalLayout size="md">
+          <ModalLeyou size="md">
             <Header>
               <span>가입 대기중</span>
             </Header>
@@ -151,7 +150,7 @@ const Login: NextPage<{
             >
               확인
             </Button>
-          </ModalLayout>
+          </ModalLeyou>
         </ModalPortal>
       )}
     </>

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
@@ -22,7 +22,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout size="xl">
+      <ModalLeyou size="xl">
         <ModalHeaderX title={user?.name} setIsModal={setIsModal} />
         <ModalMain>
           <Profile>
@@ -72,7 +72,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
             확인
           </Button>
         </Footer>
-      </ModalLayout>
+      </ModalLeyou>
     </>
   );
 }

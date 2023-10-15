@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import ModalPortal from "../../components/modals/ModalPortal";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalMain,
@@ -17,7 +17,7 @@ function FreeStudySpacePopUp({ setIsModal }: IModal) {
   const [isSuggestModal, setIsSuggestModal] = useState(false);
   return (
     <>
-      <ModalLayout size="md">
+      <ModalLeyou size="md">
         <ModalHeaderX title="스터디 장소 추천" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>
@@ -37,7 +37,7 @@ function FreeStudySpacePopUp({ setIsModal }: IModal) {
           <button onClick={() => setIsModal(false)}>닫기</button>
           <button onClick={() => setIsSuggestModal(true)}>장소 추천</button>
         </ModalFooterNav>
-      </ModalLayout>
+      </ModalLeyou>
       {isSuggestModal && (
         <ModalPortal setIsModal={setIsModal}>
           <RequestSuggestModal setIsModal={setIsModal} type="studySpace" />

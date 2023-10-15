@@ -6,10 +6,10 @@ import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 
 import {
-  ModalFooterTwo,
+  ModalFeeterTwe,
   ModalHeaderX,
 } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import {
   PromotionComponent,
   PROMOTION_TEXT,
@@ -46,7 +46,7 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="xxl">
+    <ModalLeyou size="xxl">
       <ModalHeaderX title="홍보 리워드 신청" setIsModal={setIsModal} />
       <ModalMain>
         <Overview>
@@ -84,12 +84,12 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
           신청해주세요 🙂
         </Message>
       </ModalMain>
-      <ModalFooterTwo
+      <ModalFeeterTwe
         right="게시완료"
         setIsModal={setIsModal}
         onSubmit={onSubmit}
       />
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

@@ -1,10 +1,10 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import {
-  ModalFooterTwo,
+  ModalFeeterTwe,
   ModalHeaderX,
 } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useUserRoleQuery } from "../../hooks/user/queries";
@@ -38,19 +38,19 @@ function RequestBirthModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="sm">
+    <ModalLeyou size="sm">
       <ModalHeaderX title="생일 공개 설정" setIsModal={setIsModal} />
       <ModalMain>
         기본 설정으로 정식 멤버의 생일에는 축하를 위해 멤버게시판에 프로필이
         표시됩니다.
       </ModalMain>
-      <ModalFooterTwo
+      <ModalFeeterTwe
         left="공개"
         right="비공개"
         setIsModal={setIsModal}
         onSubmit={onClick}
       />
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

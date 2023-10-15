@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
@@ -43,7 +43,7 @@ function PromotionMyCoolTimeModal({
     .diff(dayjs(), "hours");
 
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderX title="지난 당첨 기록" setIsModal={setIsModal} />
       <ModalMain>
         <Container>
@@ -75,7 +75,7 @@ function PromotionMyCoolTimeModal({
           확인
         </button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

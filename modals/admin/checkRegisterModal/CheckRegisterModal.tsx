@@ -1,5 +1,5 @@
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import { IModal, IRefetch } from "../../../types/reactTypes";
 import { IRegisterForm } from "../../../types/user/user";
 import CheckRegisterModalDetail from "./CheckRegisterModalDetail";
@@ -16,7 +16,7 @@ function CheckRegisterModal({
 }: ICheckRegisterModal) {
   if (!applicant) return null;
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderX title={applicant.name} setIsModal={setIsModal} />
       <CheckRegisterModalDetail applicant={applicant} />
       <CheckRegisterModalFooter
@@ -24,7 +24,7 @@ function CheckRegisterModal({
         setIsRefetch={setIsRefetch}
         uid={applicant.uid}
       />
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

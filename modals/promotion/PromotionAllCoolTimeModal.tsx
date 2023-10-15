@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useUserRequestCategoryQuery } from "../../hooks/user/queries";
 import { ModalMain } from "../../styles/layout/modal";
 import { IPromotionApply } from "../../types/page/promotion";
@@ -24,7 +24,7 @@ function PromotionAllCoolTimeModal({
   const applyCnt = data?.length + 15;
 
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderXLayout>
         <div>
           <span>전체 홍보 현황</span>
@@ -87,7 +87,7 @@ function PromotionAllCoolTimeModal({
         </Sum>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 const ModalHeaderXLayout = styled.div`

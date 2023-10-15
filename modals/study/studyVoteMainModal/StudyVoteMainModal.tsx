@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import PlaceSelector from "../../../components/features/picker/PlaceSelector";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import {
@@ -23,7 +28,6 @@ import {
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
-import { ModalFooterNav, ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import { IStudyParticipate, IStudyPlaces } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
@@ -56,7 +60,6 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     subPlace: [],
   });
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
-  const [errorMessage, setErrorMessage] = useState("");
 
   const placeCnt = participations?.length;
   const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "xl" : "md";
@@ -92,7 +95,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   //메인 장소 선택
   const firstSubmit = () => {
     if (!votePlaces?.place) {
-      setErrorMessage("장소를 선택해주세요!");
+      failToast("free", "장소를 선택해주세요!");
       return;
     }
     if (studyDateStatus === "today" || isFreeOpen) setPage(2);
@@ -144,63 +147,58 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [votePlaces]);
 
+  const subtitle = isFreeOpen
+    ? "FREE OPEN"
+    : page === 0
+    ? "MAIN PICK"
+    : page === 1
+    ? "SUB PICK"
+    : "TIME PICK";
+
   return (
     <>
       <ModalLayout
+        onClose={() => setIsModal(false)}
         size={modalSize}
         height={modalSize !== "xl" ? 340 : undefined}
       >
-        <ModalHeaderX
-          title={dayjsToFormat(
+        <ModalHeader
+          text={dayjsToFormat(
             voteDate,
             `M월 D일 스터디 ${isFreeOpen ? "오픈" : "투표"}`
           )}
-          setIsModal={setIsModal}
         />
-        <ModalMain>
-          <Subtitle>
-            {isFreeOpen
-              ? "FREE OPEN"
-              : page === 0
-              ? "MAIN PICK"
-              : page === 1
-              ? "SUB PICK"
-              : "TIME PICK"}
-          </Subtitle>
+        <ModalBody>
+          <Subtitle>{subtitle}</Subtitle>
           {page === 0 || page === 1 ? (
-            <>
-              <PlaceSelector
-                places={places}
-                votePlaces={votePlaces}
-                setVotePlaces={setVotePlaces}
-                isMain={page === 0}
-              />
-            </>
+            <PlaceSelector
+              places={places}
+              votePlaces={votePlaces}
+              setVotePlaces={setVotePlaces}
+              isMain={page === 0}
+            />
           ) : (
             <StudyVoteMainModalTime
               setVoteInfo={setVoteInfo}
               isTimeBoard={modalSize !== "md"}
             />
           )}
-        </ModalMain>
-        <ModalFooterNav>
-          {page === 0 ? (
-            <>
-              <Error>{errorMessage}</Error>
-              <button onClick={firstSubmit}>다음</button>
-            </>
-          ) : page === 1 ? (
-            <>
-              <button onClick={() => setPage(0)}>이전</button>
-              <button onClick={() => setPage(2)}>다음</button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => setPage(1)}>이전</button>
-              <button onClick={onSubmit}>완료</button>
-            </>
-          )}
-        </ModalFooterNav>
+        </ModalBody>
+
+        {page === 0 ? (
+          <ModalFooterOne onClick={firstSubmit} text="다음" />
+        ) : page === 1 ? (
+          <ModalFooterTwo
+            onClickLeft={() => setPage(0)}
+            onClickRight={() => setPage(2)}
+          />
+        ) : (
+          <ModalFooterTwo
+            onClickLeft={() => setPage(1)}
+            onClickRight={onSubmit}
+            rightText="완료"
+          />
+        )}
       </ModalLayout>
     </>
   );
@@ -212,12 +210,6 @@ const Subtitle = styled.div`
   margin-top: var(--margin-min);
   margin-bottom: var(--margin-sub);
   margin-left: 2px;
-`;
-
-const Error = styled.span`
-  font-size: 13px;
-  margin-right: 16px;
-  color: var(--color-red);
 `;
 
 export default StudyVoteMainModal;

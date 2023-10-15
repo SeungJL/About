@@ -12,7 +12,7 @@ import { UseMutateFunction } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import {
   AVATAR_COLOR,
   AVATAR_COST,
@@ -79,7 +79,7 @@ function RequestChangeProfileImageModalAvatar({
   };
 
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderX title="아바타 캐릭터 선택" setIsModal={setIsModal} />
       <UpPart>
         <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
@@ -120,7 +120,7 @@ function RequestChangeProfileImageModalAvatar({
       <Button onClick={onSubmit} colorScheme="mintTheme">
         변경
       </Button>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

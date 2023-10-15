@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useUserLocationQuery } from "../../hooks/user/queries";
@@ -67,7 +67,7 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
   };
 
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderX
         title={
           type === "suggest"
@@ -140,7 +140,7 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
           제출
         </button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

@@ -2,10 +2,10 @@ import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import {
-  ModalFooterTwo,
+  ModalFeeterTwe,
   ModalHeaderX,
 } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
@@ -38,7 +38,7 @@ function RequestSecedeModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="xl">
+    <ModalLeyou size="xl">
       <ModalHeaderX title="회원 탈퇴" setIsModal={setIsModal} />
       <ModalMain>
         <ModalSubtitle>탈퇴하시겠습니까?</ModalSubtitle>
@@ -50,12 +50,12 @@ function RequestSecedeModal({ setIsModal }: IModal) {
         <Textarea value={value} onChange={(e) => setValue(e.target.value)} />
         <Message>고생하셨어요 ~!</Message>
       </ModalMain>
-      <ModalFooterTwo
+      <ModalFeeterTwe
         right="회원탈퇴"
         onSubmit={onSecede}
         setIsModal={setIsModal}
       />
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

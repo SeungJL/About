@@ -1,14 +1,123 @@
+import {
+  Button,
+  Modal,
+  ModalBody as ChakraModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter as ChakraModalFooter,
+  ModalHeader as ChakraModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 import styled from "styled-components";
 import { Size } from "../../types/system";
-
 interface IModalLayout {
   children: React.ReactNode;
   size: Size;
   height?: number;
 }
 
-export const ModalLayout = ({ children, size, height }: IModalLayout) => (
+interface IModalLa {
+  size: Size;
+  height?: number;
+  children: ReactNode;
+  onClose: () => void;
+}
+
+export const ModalLayout = ({ onClose, size, height, children }: IModalLa) => (
+  <Modal
+    isOpen={true}
+    onClose={onClose}
+    //별도로 제어하기 때문에 onClose를 사용하는 일이 없으나 overlay 제어에 사용
+    size={IS_WIDTH_VIEW_MAIN[size] ? "sm" : "xs"}
+  >
+    <ModalOverlay />
+    <ModalContent
+      h={height || SIZE_HEIGHT_MAP[size]}
+      my="auto"
+      borderRadius="var(--border-radius-main)"
+    >
+      {children}
+    </ModalContent>
+  </Modal>
+);
+
+export const ModalHeader = ({ text }) => (
+  <>
+    <ChakraModalHeader
+      display="flex"
+      alignItems="center"
+      p="var(--padding-sub) var(--padding-main)"
+    >
+      {text}
+    </ChakraModalHeader>
+    <ModalCloseButton mt="2px" />
+  </>
+);
+
+export const ModalHeaderCenter = ({ children }) => (
+  <ChakraModalHeader
+    display="flex"
+    alignItems="center"
+    p="var(--padding-sub) var(--padding-main)"
+    justifyContent="space-between"
+  >
+    {children}
+  </ChakraModalHeader>
+);
+
+export const ModalBody = ({ children }) => (
+  <ChakraModalBody p="0 var(--padding-main)" display="flex" flexDir="column">
+    {children}
+  </ChakraModalBody>
+);
+
+interface IModalFooterTwo {
+  onClickLeft: () => void;
+  onClickRight: () => void;
+  leftText?: string;
+  rightText?: string;
+}
+
+export const ModalFooterTwo = ({
+  onClickLeft,
+  onClickRight,
+  leftText,
+  rightText,
+}: IModalFooterTwo) => (
+  <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
+    <Button variant="ghost" mr={3} onClick={onClickLeft}>
+      {leftText || "이전"}
+    </Button>
+    <Button variant="ghost" color="var(--color-mint)" onClick={onClickRight}>
+      {rightText || "다음"}
+    </Button>
+  </ChakraModalFooter>
+);
+
+interface IModalFooterOne {
+  onClick: () => void;
+  text?: string;
+  isFull?: boolean;
+}
+
+export const ModalFooterOne = ({ onClick, text, isFull }: IModalFooterOne) => (
+  <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
+    <Button
+      size={isFull ? "lg" : "md"}
+      variant={isFull ? "solid" : "ghost"}
+      color={!isFull ? "var(--color-mint)" : "white"}
+      w={isFull && "100%"}
+      colorScheme={isFull && "mintTheme"}
+      onClick={onClick}
+    >
+      {text || "확인"}
+    </Button>
+  </ChakraModalFooter>
+);
+
+export const ModalLeyou = ({ children, size, height }: IModalLayout) => (
   <Layout
     size={size}
     height={height}

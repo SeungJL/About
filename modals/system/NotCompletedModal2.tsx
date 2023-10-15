@@ -1,5 +1,5 @@
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalMain,
@@ -10,7 +10,7 @@ import { IModal } from "../../types/reactTypes";
 function NotCompletedModal2({ setIsModal }: IModal) {
   return (
     <>
-      <ModalLayout size="md">
+      <ModalLeyou size="md">
         <ModalHeaderX title="미완성 컨텐츠" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>완전히 완성되지 않은 컨텐츠 입니다.</ModalSubtitle>
@@ -22,7 +22,7 @@ function NotCompletedModal2({ setIsModal }: IModal) {
         <ModalFooterNav>
           <button onClick={() => setIsModal(false)}>확인</button>
         </ModalFooterNav>
-      </ModalLayout>
+      </ModalLeyou>
     </>
   );
 }

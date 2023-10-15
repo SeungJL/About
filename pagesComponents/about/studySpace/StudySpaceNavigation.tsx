@@ -43,7 +43,7 @@ type MainBtnType =
   | "attendCheck"
   | "attendCheckImage"
   | "private";
-type SubBtnType = "change" | "absent" | "cancel" | "privateAbsent";
+type SubBtnType = "change" | "absent" | "cancel" | "lightAbsent";
 export type StudySpaceModalType = MainBtnType | SubBtnType;
 
 function StudySpaceNavigation({
@@ -150,7 +150,9 @@ function StudySpaceNavigation({
             </Button>
             <Button
               onClick={() =>
-                onClickSubBtn(!isPrivate ? "absent" : "privateAbsent")
+                onClickSubBtn(
+                  !isPrivate && status !== "free" ? "absent" : "lightAbsent"
+                )
               }
             >
               <FontAwesomeIcon icon={faBan} size="xl" />

@@ -52,13 +52,15 @@ function StudySpaceSetting({
     const findParticipation = data.participations.find(
       (props) => props.place._id === placeId
     );
+
     setParticipation(findParticipation);
     const isVoted = findParticipation.attendences.find(
       (who) => who?.user.uid === session?.uid
     );
     setIsVoting(!!isVoted);
-    if (["open", "free"].includes(findParticipation.status))
-      setMySpaceFixed(participation);
+    if (["open", "free"].includes(findParticipation.status)) {
+      setMySpaceFixed(findParticipation);
+    }
   };
 
   //날짜 세팅

@@ -1,4 +1,4 @@
-import { SetStateAction } from "react";
+import { Fragment, SetStateAction } from "react";
 import styled from "styled-components";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
 import { useFailToast } from "../../../hooks/CustomToast";
@@ -57,11 +57,10 @@ function PlaceSelector({
           const isMax = isMain && place.voteCnt >= MAX_USER_PER_PLACE;
 
           return (
-            <>
+            <Fragment key={placeInfo._id}>
               {isGridLayout ? (
                 <Item
                   selected={selected}
-                  key={placeInfo._id}
                   onClick={() => onClickItem(placeInfo, isMax)}
                   isMax={isMax}
                 >
@@ -71,7 +70,7 @@ function PlaceSelector({
                   <Name>{placeInfo.branch}</Name>
                 </Item>
               ) : (
-                <FlexItem key={placeInfo._id}>
+                <FlexItem>
                   <FlexPlaceIcon
                     selected={selected}
                     onClick={() => onClickItem(placeInfo)}
@@ -81,7 +80,7 @@ function PlaceSelector({
                   <FlexName>{placeInfo.branch}</FlexName>
                 </FlexItem>
               )}
-            </>
+            </Fragment>
           );
         })}
       </Layout>

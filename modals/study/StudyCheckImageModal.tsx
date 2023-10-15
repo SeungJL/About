@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { getToday } from "../../helpers/dateHelpers";
 import {
@@ -67,7 +67,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="md" height={320}>
+    <ModalLeyou size="md" height={320}>
       <ModalHeaderX title="출석체크" setIsModal={setIsModal} />
       <ModalMain>
         <ModalSubtitle>참여를 인증할 수 있는 사진을 올려주세요!</ModalSubtitle>
@@ -103,7 +103,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
       <Button size="lg" colorScheme="mintTheme" onClick={onSubmit}>
         출석
       </Button>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

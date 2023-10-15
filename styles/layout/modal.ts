@@ -59,6 +59,7 @@ export const ModalFooterNav = styled.footer`
 `;
 
 export const ModalHeaderCenter = styled.header`
+  margin-top: var(--margin-sub);
   text-align: center;
   padding-bottom: var(--padding-main);
   > span:first-child {

@@ -1,15 +1,17 @@
-import { Button } from "@chakra-ui/react";
 import { faLollipop } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalLayout } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeaderCenter,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
 import { IModal } from "../../../types/reactTypes";
 
-interface IAttendCheckWinModal extends IModal {}
-
-function DailyCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
+function DailyCheckWinModal({ setIsModal }: IModal) {
   const [attendCheckWinGift, setAttendCheckWinGift] = useRecoilState(
     attendCheckWinGiftState
   );
@@ -22,46 +24,29 @@ function DailyCheckWinModal({ setIsModal }: IAttendCheckWinModal) {
   if (!attendCheckWinGift) return;
 
   return (
-    <ModalLayout size="md">
-      <Header>
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeaderCenter>
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
         <span>랜덤 선물 당첨</span>
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
-      </Header>
-      <Container>
+      </ModalHeaderCenter>
+      <ModalBody>
         <Message>
-          <b>{attendCheckWinGift.percent}%</b>의 확률을 뚫고 당첨되었어요!
+          <b>{attendCheckWinGift.percent}%</b> 확률을 뚫고 당첨되었어요!
         </Message>
         <GiftWrapper>
           <Gift>{attendCheckWinGift.item}</Gift>
         </GiftWrapper>
-      </Container>
-      <SubMessage>
-        {attendCheckWinGift.item.includes("Point")
-          ? "포인트가 적립되었습니다."
-          : "상품은 확인하는대로 카톡으로 보내드려요!"}
-      </SubMessage>
-      <Button colorScheme="mintTheme" onClick={onClick}>
-        확인
-      </Button>
+        <SubMessage>
+          {attendCheckWinGift.item.includes("Point")
+            ? "포인트가 적립되었습니다."
+            : "상품은 확인후 카톡으로 보내드립니다."}
+        </SubMessage>
+      </ModalBody>
+      <ModalFooterOne text="확인" onClick={onClick} />
     </ModalLayout>
   );
 }
-
-const Header = styled.header`
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-`;
 
 const GiftWrapper = styled.div`
   flex: 1;
@@ -92,9 +77,10 @@ const Message = styled.div`
 `;
 
 const SubMessage = styled.span`
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--margin-min);
   font-size: 12px;
   color: var(--font-h3);
+  text-align: center;
 `;
 
 export default DailyCheckWinModal;

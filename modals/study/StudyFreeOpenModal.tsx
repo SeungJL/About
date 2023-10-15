@@ -2,10 +2,10 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import {
-  ModalFooterTwo,
+  ModalFeeterTwe,
   ModalHeaderX,
 } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useStudyOpenFreeMutation } from "../../hooks/study/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
@@ -27,18 +27,18 @@ function StudyFreeOpenModal({ setIsModal }) {
     onError: errorToast,
   });
   return (
-    <ModalLayout size="sm">
+    <ModalLeyou size="sm">
       <ModalHeaderX title="Free 오픈 신청" setIsModal={setIsModal} />
       <ModalMain>
         규칙에 상관없이 자유롭게 참여할 수 있고, 스터디 출석 리워드도 그대로
         받을 수 있습니다.
       </ModalMain>
-      <ModalFooterTwo
+      <ModalFeeterTwe
         right="오픈"
         setIsModal={setIsModal}
         onSubmit={() => openFree(placeId as string)}
       />
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

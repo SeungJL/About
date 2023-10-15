@@ -9,11 +9,14 @@ import {
   studyStartTimeState,
   voteDateState,
 } from "../../recoil/studyAtoms";
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 
 import { useRouter } from "next/router";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import {
   useCompleteToast,
@@ -99,9 +102,9 @@ function StudyChangeTimeModal({
   };
 
   return (
-    <ModalLayout size="md">
-      <ModalHeaderX title="시간 변경" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout size="md" onClose={() => setIsModal(false)}>
+      <ModalHeader text="시간 변경" />
+      <ModalBody>
         <Wrapper>
           <TimeSelector
             setTimes={({ start, end }: ITimeStartToEnd) => {
@@ -114,11 +117,13 @@ function StudyChangeTimeModal({
         {studyStartTime && dayjs() > myStudyStartTime && (
           <WaringMsg>스터디 시작 이후의 시간 변경은 -5점을 받습니다.</WaringMsg>
         )}
-      </ModalMain>
-      <ModalFooterNav>
-        <button onClick={() => setIsModal(false)}>취소</button>
-        <button onClick={onSubmit}>변경</button>
-      </ModalFooterNav>
+      </ModalBody>
+      <ModalFooterTwo
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={onSubmit}
+        leftText="취소"
+        rightText="변경"
+      />
     </ModalLayout>
   );
 }

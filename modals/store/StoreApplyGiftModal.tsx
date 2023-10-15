@@ -5,7 +5,7 @@ import styled from "styled-components";
 import SkeletonItem from "../../components/common/masks/skeleton/SkeletonItem";
 import CountNum from "../../components/features/atoms/CountNum";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
@@ -69,7 +69,7 @@ function StoreApplyGiftModal({
   };
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="상품 응모" setIsModal={setIsModal} />
       <ModalMain>
         {!isLoading ? (
@@ -119,7 +119,7 @@ function StoreApplyGiftModal({
           응모하기
         </Button>
       </Footer>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

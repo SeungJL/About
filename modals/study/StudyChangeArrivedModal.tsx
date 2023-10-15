@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
@@ -44,7 +44,7 @@ function StudyChangeArrivedModal({
   };
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="도착 메모" setIsModal={setIsModal} />
       <ModalMain>
         <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
@@ -58,7 +58,7 @@ function StudyChangeArrivedModal({
         <button onClick={() => setIsModal(false)}>취소</button>
         <button onClick={onChangeMemo}>변경</button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

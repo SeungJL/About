@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { ACCOUNT_SHORT } from "../../constants/contents/Private";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
@@ -39,7 +39,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="보증금 충전" setIsModal={setIsModal} />
       {isFirst ? (
         <>
@@ -102,7 +102,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
           </Footer>
         </>
       )}
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

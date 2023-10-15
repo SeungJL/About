@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal, IRefetch } from "../../../types/reactTypes";
@@ -27,7 +27,7 @@ function GatherExpireModal({ setIsModal, setIsRefetch }: IModal & IRefetch) {
 
   return (
     <>
-      <ModalLayout size="md">
+      <ModalLeyou size="md">
         <ModalHeaderX title="모집 종료" setIsModal={setIsModal} />
         <Nav>
           <Button
@@ -43,7 +43,7 @@ function GatherExpireModal({ setIsModal, setIsRefetch }: IModal & IRefetch) {
             모임 취소
           </Button>
         </Nav>
-      </ModalLayout>
+      </ModalLeyou>
       <GatherExpireModalExpireDialog
         setIsComplete={setIsComplete}
         modal={modal}

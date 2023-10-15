@@ -58,7 +58,7 @@ function Layout({ children }: ILayout) {
       else navigateTo("/checkingServer");
     },
   });
-  console.log(1, NEXT_PUBLIC_NAVER_CLIENT_ID);
+ 
   return (
     <LayoutContainer>
       {token && (

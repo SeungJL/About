@@ -4,8 +4,12 @@ import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import {
   POINT_SYSTEM_Deposit,
   POINT_SYSTEM_PLUS,
@@ -24,8 +28,8 @@ import {
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
-import { InputSm } from "../../styles/layout/input";
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
+import { Textarea } from "../../styles/layout/input";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IUser } from "../../types/user/user";
 
@@ -97,28 +101,20 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout size="md">
-        <ModalHeaderX title="출석체크" setIsModal={setIsModal} />
-        <ModalMain>
-          <Content>
+      <ModalLayout onClose={() => setIsModal(false)} size="lg">
+        <ModalHeader text="출석체크" />
+        <ModalBody>
+          <ModalSubtitle>
             도착하셨나요? <br />
             자리나 인상착의를 간단하게 남겨주세요!
-          </Content>
-          <InputSm
+          </ModalSubtitle>
+          <Textarea
             placeholder="여기에 작성해주세요!"
             onChange={(e) => setMemo(e.target.value)}
             value={memo}
           />
-        </ModalMain>
-
-        <ModalFooterNav>
-          <button type="button" onClick={() => setIsModal(false)}>
-            취소
-          </button>
-          <button type="button" form="AttendCheckForm" onClick={onCheckClicked}>
-            출석
-          </button>
-        </ModalFooterNav>
+        </ModalBody>
+        <ModalFooterOne text="출석" onClick={onCheckClicked} />
       </ModalLayout>
       {isChecking && (
         <Loading>

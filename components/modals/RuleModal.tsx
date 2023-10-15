@@ -6,7 +6,7 @@ import {
 } from "../../styles/layout/modal";
 import { IContentBasic } from "../../types/common";
 import { IModal } from "../../types/reactTypes";
-import { ModalLayout } from "./Modals";
+import { ModalLeyou } from "./Modals";
 
 export interface IRuleModalContent {
   headerContent: IContentBasic;
@@ -34,7 +34,7 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
   );
 
   return (
-    <ModalLayout size="xxl">
+    <ModalLeyou size="xxl">
       <ModalHeaderCenter>
         <Title>{header.title}</Title>
         <div>{header.text}</div>
@@ -47,7 +47,7 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
       <ModalFooterNav>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import { ModalHeaderCenter } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import BadgeInfoModalFirstInfo from "./BadgeInfoModalFirstInfo";
@@ -11,7 +11,7 @@ function BadgeInfoModal({ setIsModal }: IModal) {
   const [page, setPage] = useState(0);
 
   return (
-    <ModalLayout size="xxl">
+    <ModalLeyou size="xxl">
       {page === 0 ? (
         <>
           <ModalHeaderCenter>
@@ -38,7 +38,7 @@ function BadgeInfoModal({ setIsModal }: IModal) {
           </Footer>
         </>
       )}
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

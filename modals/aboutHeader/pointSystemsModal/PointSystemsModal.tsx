@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalLayout } from "../../../components/modals/Modals";
 import {
-  ModalFooterNav,
-  ModalHeaderCenter,
-  ModalMain,
-} from "../../../styles/layout/modal";
+  ModalBody,
+  ModalFooterOne,
+  ModalLayout,
+} from "../../../components/modals/Modals";
+import { ModalHeaderCenter } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import PointSystemsModalFee from "./PointSystemsModalFee";
 import PointSystemsModalPoint from "./PointSystemsModalPoint";
@@ -14,25 +14,25 @@ function PointSystemsModal({ setIsModal }: IModal) {
   const [isTip, setIsTip] = useState(true);
 
   return (
-    <ModalLayout size="xxl">
-      <ModalHeaderCenter>
-        <Title>포인트 가이드</Title>
-        <div>대학생들의 카공 및 친목 동아리 ABOUT</div>
-      </ModalHeaderCenter>
-      <Nav>
-        <Button isSelected={isTip} onClick={() => setIsTip(true)}>
-          ABOUT 포인트
-        </Button>
-        <Button isSelected={!isTip} onClick={() => setIsTip(false)}>
-          스터디 벌금
-        </Button>
-      </Nav>
-      <Main>
-        {isTip ? <PointSystemsModalPoint /> : <PointSystemsModalFee />}
-      </Main>
-      <ModalFooterNav>
-        <button onClick={() => setIsModal(false)}>확인</button>
-      </ModalFooterNav>
+    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
+      <ModalBody>
+        <ModalHeaderCenter>
+          <Title>포인트 가이드</Title>
+          <div>대학생들의 카공 및 친목 동아리 ABOUT</div>
+        </ModalHeaderCenter>
+        <Nav>
+          <Button isSelected={isTip} onClick={() => setIsTip(true)}>
+            ABOUT 포인트
+          </Button>
+          <Button isSelected={!isTip} onClick={() => setIsTip(false)}>
+            스터디 벌금
+          </Button>
+        </Nav>
+        <Wrapper>
+          {isTip ? <PointSystemsModalPoint /> : <PointSystemsModalFee />}
+        </Wrapper>
+      </ModalBody>
+      <ModalFooterOne onClick={() => setIsModal(false)} />
     </ModalLayout>
   );
 }
@@ -48,8 +48,8 @@ const Nav = styled.nav`
   display: flex;
 `;
 
-const Main = styled(ModalMain)`
-  margin: var(--margin-sub) 0;
+const Wrapper = styled.div`
+  margin-top: var(--margin-sub);
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`

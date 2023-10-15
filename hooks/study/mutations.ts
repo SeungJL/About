@@ -16,7 +16,6 @@ export const useStudyParticipateMutation = (
 ) =>
   useMutation<void, AxiosError, IStudyParticipate>(
     async (studyParticipate: IStudyParticipate) => {
-      console.log(studyParticipate);
       await axios.post(
         `${SERVER_URI}/vote/${dayjsToStr(date)}`,
         studyParticipate

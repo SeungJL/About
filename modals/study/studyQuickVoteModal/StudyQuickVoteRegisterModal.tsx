@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../../components/modals/ModalComponents";
 import ModalPortal from "../../../components/modals/ModalPortal";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLeyou } from "../../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalMain,
@@ -18,7 +18,7 @@ function StudyQuickVoteRegisterModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout size="md">
+      <ModalLeyou size="md">
         <ModalHeaderX title="스터디 빠른 투표" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>
@@ -37,7 +37,7 @@ function StudyQuickVoteRegisterModal({ setIsModal }: IModal) {
           <button onClick={() => setIsModal(false)}>닫기</button>
           <button onClick={() => setIsPreference(true)}>등록하기</button>
         </ModalFooterNav>
-      </ModalLayout>
+      </ModalLeyou>
       {isPreference && (
         <ModalPortal setIsModal={setIsPreference}>
           <RequestStudyPreferenceModal setIsModal={setIsModal} />

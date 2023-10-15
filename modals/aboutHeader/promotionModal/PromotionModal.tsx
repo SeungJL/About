@@ -12,7 +12,7 @@ import PromotionModalOverview from "./PromotionModalOverview";
 function PromotionModal({ setIsModal }: IModal) {
   return (
     <>
-      <ModalLayout size="xl">
+      <ModalLayout onClose={() => setIsModal(false)} size="xl">
         <ModalHeaderX title="" setIsModal={setIsModal} />
         <Container>
           <PromotionModalOverview />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import PlaceSelector from "../../components/features/picker/PlaceSelector";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { LOCATION_PLACE_SMALL } from "../../constants/location";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
@@ -57,7 +57,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout size={isBig ? "xl" : "md"}>
+      <ModalLeyou size={isBig ? "xl" : "md"}>
         <ModalHeaderX title="스터디 선호 장소 설정" setIsModal={setIsModal} />
         {page === 0 ? (
           <>
@@ -92,7 +92,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
             </ModalFooterNav>
           </>
         )}
-      </ModalLayout>
+      </ModalLeyou>
     </>
   );
 }

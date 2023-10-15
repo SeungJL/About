@@ -1,5 +1,5 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { IconButton } from "@chakra-ui/react";
+import { IconButton, ModalHeader } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -7,7 +7,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterTwo,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import {
   useCompleteToast,
@@ -24,12 +28,7 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { InputSm } from "../../styles/layout/input";
-import {
-  ModalFooterNav,
-  ModalHeaderLine,
-  ModalMain,
-  ModalSubtitle,
-} from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function StudyAbsentModal({ setIsModal }: IModal) {
@@ -47,12 +46,12 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
+  console.log(myStudyFixed);
 
   const myStudyStartTime = studyStartTime?.find(
     (item) => item.placeId === placeId
   )?.startTime;
   const isFree = myStudyFixed.status === "free";
-
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();
 
@@ -84,58 +83,53 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout size="md">
-        <ModalHeaderLine>
-          <Header>
-            {!isTooltip ? <span>불참 경고</span> : <span>불참 인정 사유</span>}
-            <div onClick={() => setIsTooltip((old) => !old)}>
-              <span>인정 사유</span>
-              <IconWrapper
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <IconButton
-                  color="white"
-                  background="var(--color-mint)"
-                  aria-label="iconLabel"
-                  icon={<SearchIcon />}
-                  size="xs"
-                />
-              </IconWrapper>
-            </div>
-          </Header>
-        </ModalHeaderLine>
-        {isTooltip ? (
-          <>
-            <ModalMain>
+      <ModalLayout onClose={() => setIsModal(false)} size="md">
+        <ModalHeader
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <span>{isTooltip ? "불참 인정 사유" : "불참 경고"}</span>
+          <Reason onClick={() => setIsTooltip((old) => !old)}>
+            <span>인정 사유</span>
+            <IconWrapper whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <IconButton
+                color="white"
+                background="var(--color-mint)"
+                aria-label="iconLabel"
+                icon={<SearchIcon />}
+                size="xs"
+              />
+            </IconWrapper>
+          </Reason>
+        </ModalHeader>
+        <ModalBody>
+          {isTooltip ? (
+            <>
               <TooltipInfo
                 initial={{ opacity: 0, y: -120, x: 160, scale: 0 }}
                 animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
               >
-                <ol>
-                  <li>
-                    본인의 참여 시간이 다른 인원과 <b>1명 이하</b>로 겹치고,
-                    <b> 1시간 이하</b>로 겹치는 경우
-                  </li>
-                  <li>관리자에게 따로 연락해서 동의를 구한 경우</li>
-                </ol>
+                <li>
+                  본인의 참여 시간이 다른 인원과 <b>1명 이하</b>로 겹치고,
+                  <b> 1시간 이하</b>로 겹치는 경우
+                </li>
+                <li>관리자에게 따로 연락해서 동의를 구한 경우</li>
               </TooltipInfo>
-            </ModalMain>
-          </>
-        ) : (
-          <>
-            <ModalMain>
+            </>
+          ) : (
+            <>
               <ModalSubtitle>
                 {dayjs() < myStudyStartTime ? (
-                  <div>
+                  <P>
                     스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이
                     부여됩니다. 참여 시간을 변경해 보는 것은 어떨까요?
-                  </div>
+                  </P>
                 ) : (
-                  <div>
-                    스터디 시작 시간 이전으로 벌금 <b>200원</b>이 부여됩니다.
-                    참여 시간을 변경해 보는 건 어떨까요?
-                  </div>
+                  <P>
+                    당일 불참으로 벌금 <b>200원</b>이 부과됩니다. 참여 시간을
+                    변경해 보는 건 어떨까요?
+                  </P>
                 )}
               </ModalSubtitle>
               <InputSm
@@ -143,44 +137,44 @@ function StudyAbsentModal({ setIsModal }: IModal) {
                 onChange={(e) => setValue(e.target.value)}
                 placeholder="불참 사유"
               />
-            </ModalMain>
-            <ModalFooterNav>
-              <button onClick={() => setIsModal(false)}>취소</button>
-              <button onClick={() => handleCancleBtn()}>불참</button>
-            </ModalFooterNav>
-          </>
+            </>
+          )}
+        </ModalBody>
+        {!isTooltip && (
+          <ModalFooterTwo
+            onClickLeft={() => setIsModal(false)}
+            onClickRight={handleCancleBtn}
+            leftText="취소"
+            rightText="불참"
+          />
         )}
       </ModalLayout>
     </>
   );
 }
 
-const Header = styled.header`
+const Reason = styled.div`
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-mint);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  > div {
-    font-weight: 600;
-    font-size: 12px;
-    color: var(--color-mint);
-    display: flex;
-    align-items: center;
-    > span:first-child {
-      margin-right: var(--margin-md);
-    }
+  > span:first-child {
+    margin-right: var(--margin-md);
   }
 `;
 
+const P = styled.p``;
+
 const IconWrapper = styled(motion.div)``;
 
-const TooltipInfo = styled(motion.div)`
+const TooltipInfo = styled(motion.ol)`
   height: 100%;
-  > ol {
-    > li {
-      margin-left: var(--margin-main);
-      font-size: 13px;
-      margin-bottom: var(--margin-sub);
-    }
+
+  > li {
+    margin-left: var(--margin-main);
+    font-size: 13px;
+    margin-bottom: var(--margin-sub);
   }
 `;
 

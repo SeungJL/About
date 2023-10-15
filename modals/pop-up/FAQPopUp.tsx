@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import {
-  ModalFooterTwo,
+  ModalFeeterTwe,
   ModalHeaderX,
 } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -18,7 +18,7 @@ function FAQPopUp({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="뉴비 가이드" setIsModal={setIsModal} />
       <ModalMain>
         <ModalSubtitle>
@@ -43,12 +43,12 @@ function FAQPopUp({ setIsModal }: IModal) {
           />
         </Wrapper>
       </ModalMain>
-      <ModalFooterTwo
+      <ModalFeeterTwe
         right="확인하러가기"
         setIsModal={setIsModal}
         onSubmit={onSubmit}
       />
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

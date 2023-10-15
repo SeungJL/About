@@ -1,13 +1,13 @@
 import { Button } from "@chakra-ui/react";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function NotCompletedModal({ setIsModal }: IModal) {
   return (
     <>
-      <ModalLayout size="md">
+      <ModalLeyou size="md">
         <ModalHeaderX title="미완성 컨텐츠" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>
@@ -19,7 +19,7 @@ function NotCompletedModal({ setIsModal }: IModal) {
         <Button colorScheme="mintTheme" onClick={() => setIsModal(false)}>
           닫기
         </Button>
-      </ModalLayout>
+      </ModalLeyou>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 
 import { useRouter } from "next/router";
 import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
@@ -35,7 +35,7 @@ function StoreGiftWinModal({
   const tempA = ["김유리", "김영우", "김예나"];
 
   return (
-    <ModalLayout size="md">
+    <ModalLeyou size="md">
       <ModalHeaderX title="당첨자 발표" setIsModal={setIsModal} />
       <ModalMain>
         <Message>당첨을 축하합니다!</Message>
@@ -48,7 +48,7 @@ function StoreGiftWinModal({
       <ModalFooterNav>
         <button onClick={() => setIsModal(false)}>확인</button>
       </ModalFooterNav>
-    </ModalLayout>
+    </ModalLeyou>
   );
 }
 

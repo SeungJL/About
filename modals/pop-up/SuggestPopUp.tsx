@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ModalHeaderX } from "../../components/modals/ModalComponents";
 import ModalPortal from "../../components/modals/ModalPortal";
-import { ModalLayout } from "../../components/modals/Modals";
+import { ModalLeyou } from "../../components/modals/Modals";
 import {
   ModalFooterNav,
   ModalMain,
@@ -17,7 +17,7 @@ function SuggestPopUp({ setIsModal }: IModal) {
   const [isSuggestModal, setIsSuggestModal] = useState(false);
   return (
     <>
-      <ModalLayout size="md">
+      <ModalLeyou size="md">
         <ModalHeaderX title="건의하기" setIsModal={setIsModal} />
         <ModalMain>
           <ModalSubtitle>
@@ -36,7 +36,7 @@ function SuggestPopUp({ setIsModal }: IModal) {
           <button onClick={() => setIsModal(false)}>닫기</button>
           <button onClick={() => setIsSuggestModal(true)}>건의하기</button>
         </ModalFooterNav>
-      </ModalLayout>
+      </ModalLeyou>
       {isSuggestModal && (
         <ModalPortal setIsModal={setIsModal}>
           <RequestSuggestModal setIsModal={setIsModal} type="suggest" />
