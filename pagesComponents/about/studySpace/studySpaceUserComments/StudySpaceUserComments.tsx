@@ -1,15 +1,11 @@
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
-import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../../components/common/user/Profile/ProfileIcon";
-import { useStudyAbsentQuery } from "../../../../hooks/study/queries";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { isRefetchStudyAbsentState } from "../../../../recoil/refetchingAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
-import { IAttendance } from "../../../../types/study/studyDetail";
+import { IAbsence, IAttendance } from "../../../../types/study/studyDetail";
 import { IUser } from "../../../../types/user/user";
 import StudySpaceUserCommentsCheck from "./StudySpaceUserCommentsCheck";
 import StudySpaceUserCommentsComment from "./StudySpaceUserCommentsComment";
@@ -17,31 +13,19 @@ import StudySpaceUserCommentsName from "./StudySpaceUserCommentsName";
 interface IStudySpaceUserComments {
   attendances: IAttendance[];
   isPrivate: boolean;
+  absences: IAbsence[];
 }
 
 function StudySpaceUserComments({
   attendances,
   isPrivate,
+  absences,
 }: IStudySpaceUserComments) {
   const router = useRouter();
   const { data: session } = useSession();
-  const voteDate = dayjs(router.query.date as string);
 
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const setTransferUserData = useSetRecoilState(transferUserDataState);
-  const [isRefetchStudyAbsent, setIsRefetchStudyAbsent] = useRecoilState(
-    isRefetchStudyAbsentState
-  );
-
-  const { data: absentData, refetch } = useStudyAbsentQuery(voteDate);
-
-  useEffect(() => {
-    if (isRefetchStudyAbsent) {
-      refetch();
-      setIsRefetchStudyAbsent(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefetchStudyAbsent]);
 
   const isAttend = attendances.find((who) => who.user.uid === session?.uid);
 
@@ -56,7 +40,7 @@ function StudySpaceUserComments({
       <Layout key={router.asPath}>
         {attendances.map((att, idx) => {
           const user = att.user;
-          const isAbsent = absentData?.find((who) => who.uid === user.uid);
+          const isAbsent = absences?.find((who) => who.user.uid === user.uid);
           const memo = att.memo === "" ? "출석" : att.memo;
           return (
             <Wrapper key={idx} isPrivate={isPrivate}>
@@ -77,6 +61,7 @@ function StudySpaceUserComments({
                       isAbsent={isAbsent}
                       memo={memo}
                       att={att}
+                      isPrivate={isPrivate}
                     />
                   </Info>
                   <StudySpaceUserCommentsCheck

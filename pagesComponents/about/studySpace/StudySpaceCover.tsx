@@ -15,6 +15,7 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
           layout="fill"
           unoptimized={true}
           alt="studySpace"
+          priority={true}
         />
       </ImageWrapper>
       <SpaceIcon>
@@ -35,6 +36,7 @@ const Layout = styled.div`
 `;
 
 const ImageWrapper = styled.div`
+  position: relative;
   width: 100%;
   aspect-ratio: 2/1;
 `;

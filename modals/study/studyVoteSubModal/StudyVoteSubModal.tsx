@@ -130,6 +130,8 @@ function StudyVoteSubModal({
       <MainButton onClick={isFirst ? handleFirst : onSubmit}>
         {isFirst && (studyDateStatus === "not passed" || isPrivate)
           ? "다음"
+          : isPrivate
+          ? "신청 완료"
           : "투표 완료"}
       </MainButton>
     </Layout>

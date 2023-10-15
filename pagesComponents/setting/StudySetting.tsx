@@ -59,15 +59,7 @@ function StudySetting() {
   const { refetch } = useStudyVoteQuery(voteDate, location, {
     enabled: !!voteDate && LOCATION_OPEN.includes(location),
     onSuccess(data) {
-      console.log(
-        11,
-        data.participations.find((item) => item.place.brand === "자유 신청")
-      );
-      const dataPars = data.participations;
-      const participations =
-        studyDateStatus !== "not passed"
-          ? dataPars
-          : dataPars.filter((par) => par.place.brand !== "자유 신청");
+      const participations = data.participations;
       setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
       if (participations[0].status === "pending") setDecideStudy();

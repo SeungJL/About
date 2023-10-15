@@ -22,6 +22,10 @@ export const POINT_SYSTEM_Deposit = {
     value: -100,
     message: "스터디 시작 이후 시간 변경",
   },
+  STUDY_PRIVATE_ABSENT: {
+    value: -100,
+    message: "개인 스터디 미 인증",
+  },
   STUDY_ATTEND_LATE: {
     value: -100,
     message: "스터디 지각",

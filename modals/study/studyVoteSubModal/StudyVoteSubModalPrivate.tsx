@@ -19,7 +19,7 @@ function StudyVoteSubModalPrivate({ setVoteInfo }: IStudyVoteSubModalPrivate) {
     <Layout>
       <Overview>장소를 특정할 수 있도록 적어주세요!</Overview>
       <InputLg
-        placeholder="예시: 아주대 앞 탐앤탐스"
+        placeholder="예시: 아주대 앞 탐앤탐스, 개인 독서실 등"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />

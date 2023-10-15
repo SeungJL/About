@@ -5,7 +5,6 @@ import { IDayjsStartToEnd, ITimeStartToEnd } from "../timeAndDate";
 import { IUser } from "../user/user";
 import { IStudyPlaces } from "./study";
 
-
 export interface IVote extends Document {
   date: Date;
   participations: IParticipation[];
@@ -48,7 +47,7 @@ export interface IPlace {
 }
 
 export interface IAbsence {
-  user: string | IUser;
+  user: IUser;
   noShow: boolean;
   message: string;
 }

@@ -6,6 +6,7 @@ import StudyChangeTimeModal from "../../../../modals/study/StudyChangeTimeModal"
 import StudyCheckImageModal from "../../../../modals/study/StudyCheckImageModal";
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
 import StudyFreeOpenModal from "../../../../modals/study/StudyFreeOpenModal";
+import StudyPrivateAbsentModal from "../../../../modals/study/StudyPrivateAbsentModal";
 import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
 import { DispatchType } from "../../../../types/reactTypes";
 import { IAttendance, IPlace } from "../../../../types/study/studyDetail";
@@ -68,6 +69,11 @@ function StudySpaceNavModal({
       {type === "absent" && (
         <ModalPortal setIsModal={closeModal}>
           <StudyAbsentModal setIsModal={closeModal} />
+        </ModalPortal>
+      )}
+      {type === "privateAbsent" && (
+        <ModalPortal setIsModal={closeModal}>
+          <StudyPrivateAbsentModal setIsModal={closeModal} />
         </ModalPortal>
       )}
       {isVoteComplete && (

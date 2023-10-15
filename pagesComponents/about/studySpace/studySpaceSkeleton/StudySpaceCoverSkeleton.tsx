@@ -9,13 +9,15 @@ interface IStudySpaceCoverSkeleton {
 function StudySpaceCoverSkeleton({ coverImageUrl }: IStudySpaceCoverSkeleton) {
   return (
     <Layout>
-      <Image
-        src={coverImageUrl}
-        width={343}
-        height={165}
-        unoptimized={true}
-        alt="studySpace"
-      />
+      {coverImageUrl && (
+        <Image
+          src={coverImageUrl}
+          width={343}
+          height={165}
+          unoptimized={true}
+          alt="studySpace"
+        />
+      )}
       <SpaceIcon>
         <Skeleton>temp</Skeleton>
       </SpaceIcon>

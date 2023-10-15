@@ -27,7 +27,7 @@ function StudySpaceVoteOverview({
 
   return (
     <>
-      <Layout>
+      <Layout isPrivate={isPrivate}>
         <span>{date.format("M월 D일 참여 멤버")}</span>
         <div />
         <Container>
@@ -64,8 +64,9 @@ function StudySpaceVoteOverview({
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.div<{ isPrivate: boolean }>`
   margin: 0 var(--margin-main);
+  margin-top: ${(props) => props.isPrivate && "var(--margin-sub)"};
   padding-top: var(--margin-main);
   display: flex;
   flex-direction: column;

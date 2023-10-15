@@ -38,7 +38,9 @@ function StudySpace() {
       : attendences?.filter((who) => who.firstChoice);
 
   const info = STUDY_SPACE_INFO.find((info) => info.id === place?._id);
-  const coverImageUrl = info?.image || `/studyRandom/study${randomNum + 1}.jpg`;
+  const coverImageUrl =
+    info && (info?.image || `/studyRandom/study${randomNum + 1}.jpg`);
+  const absences = participation?.absences;
   return (
     <>
       <StudySpaceSetting
@@ -54,7 +56,6 @@ function StudySpace() {
               logoImageUrl={place.image}
             />
             {!isPrivate && <StudySpaceOverview place={place} info={info} />}
-            <HrDiv />
             <StudySpaceVoteOverview
               voteCnt={filtered.length}
               place={place}
@@ -64,6 +65,7 @@ function StudySpace() {
             {!isPrivate && <StudyTimeTable attendances={filtered} />}
             <StudySpaceUserComments
               attendances={filtered}
+              absences={absences}
               isPrivate={isPrivate}
             />
             <StudySpaceNavigation
@@ -85,11 +87,6 @@ const Layout = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-`;
-
-const HrDiv = styled.div`
-  height: 1px;
-  background-color: var(--font-h56);
 `;
 
 export default StudySpace;

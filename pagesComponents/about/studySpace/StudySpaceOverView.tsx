@@ -15,7 +15,7 @@ function StudySpaceOverview({ place, info }: IStudySpaceOverview) {
   const [isModal, setIsModal] = useState(false);
 
   return (
-    <>
+    <Wrapper>
       <Layout>
         <span>
           {place.brand} {place.branch}
@@ -39,14 +39,19 @@ function StudySpaceOverview({ place, info }: IStudySpaceOverview) {
           <PlaceMap lat={place.latitude} lon={place.longitude} />
         </MapWrapper>
       )}
-    </>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  border-bottom: var(--border-main-light);
+`;
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
   margin-top: 28px;
   margin-bottom: var(--padding-sub);
+
   > span:first-child {
     font-weight: 600;
     font-size: 18px;

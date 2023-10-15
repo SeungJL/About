@@ -51,7 +51,6 @@ function AboutMain({ participations }: IAboutMain) {
     (par) => par.place.brand === "자유 신청"
   );
 
-  console.log(22, privateStudy);
   const studies = participations.filter((par) => par !== privateStudy);
 
   return (
@@ -66,9 +65,11 @@ function AboutMain({ participations }: IAboutMain) {
           <Main>
             <Container>
               {privateStudy && <AboutMainItem participation={privateStudy} />}
-              {studies.slice(0, VISIBLE_CNT).map((participation, idx) => (
-                <AboutMainItem participation={participation} key={idx} />
-              ))}
+              {studies
+                .slice(0, privateStudy ? VISIBLE_CNT - 1 : VISIBLE_CNT)
+                .map((participation, idx) => (
+                  <AboutMainItem participation={participation} key={idx} />
+                ))}
               {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>
             <MoreInfoBtn onClick={onClickMoreInfo}>

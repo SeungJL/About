@@ -43,7 +43,7 @@ type MainBtnType =
   | "attendCheck"
   | "attendCheckImage"
   | "private";
-type SubBtnType = "change" | "absent" | "cancel";
+type SubBtnType = "change" | "absent" | "cancel" | "privateAbsent";
 export type StudySpaceModalType = MainBtnType | SubBtnType;
 
 function StudySpaceNavigation({
@@ -123,7 +123,8 @@ function StudySpaceNavigation({
       if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
       return { text: "스터디 투표", func: "vote" };
     }
-    if (isPrivate && !isVoting)
+    if (isVoting && !myVote) return { text: "다른 스터디에 참여중입니다." };
+    if (isPrivate && !myVote)
       return { text: "개인 스터디 신청", func: "private" };
     if (status === "dismissed")
       return { text: "Free 오픈 신청", func: "freeOpen" };
@@ -135,7 +136,7 @@ function StudySpaceNavigation({
   const { text, func } = getStudyButtonText();
 
   return (
-    <>
+    <Wrapper>
       <Layout>
         {isVoting && studyDateStatus !== "passed" && (
           <SubNav>
@@ -147,7 +148,11 @@ function StudySpaceNavigation({
               <FontAwesomeIcon icon={faClock} size="xl" />
               <span>시간 변경</span>
             </Button>
-            <Button onClick={() => onClickSubBtn("absent")}>
+            <Button
+              onClick={() =>
+                onClickSubBtn(!isPrivate ? "absent" : "privateAbsent")
+              }
+            >
               <FontAwesomeIcon icon={faBan} size="xl" />
               <span>당일 불참</span>
             </Button>
@@ -163,17 +168,21 @@ function StudySpaceNavigation({
         myVote={myVote}
         place={place}
       />
-    </>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  margin-top: auto;
+`;
 
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 var(--margin-main);
   padding: var(--padding-sub) 0;
+  padding-top: var(--padding-max);
   border-radius: var(--border-radius-main);
-  margin-top: auto;
 `;
 
 const SubNav = styled.nav`

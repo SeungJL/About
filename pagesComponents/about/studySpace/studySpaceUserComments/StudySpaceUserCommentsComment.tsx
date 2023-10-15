@@ -12,14 +12,15 @@ import { IAttendance } from "../../../../types/study/studyDetail";
 interface IStudySpaceUserCommentsComment {
   isAbsent: IAbsentInfo;
   memo: string;
-
   att: IAttendance;
+  isPrivate: boolean;
 }
 
 function StudySpaceUserCommentsComment({
   isAbsent,
   memo,
   att,
+  isPrivate,
 }: IStudySpaceUserCommentsComment) {
   const { data: session } = useSession();
 
@@ -39,12 +40,13 @@ function StudySpaceUserCommentsComment({
       <Layout>
         {!isAbsent ? (
           <Memo>
+            {isPrivate && <SpaceName>스터디 장소:</SpaceName>}
             <span>{memo}</span>
-            {memo && isMine && (
+            {memo && isMine && !isPrivate && (
               <EditIconWrapper>
                 <FontAwesomeIcon
                   icon={faPenToSquare}
-                  color="var(--font-h1)"
+                  color="var(--font-h2)"
                   size="sm"
                   onClick={(e) => onClickEdit(e, att)}
                 />
@@ -68,6 +70,13 @@ function StudySpaceUserCommentsComment({
 }
 
 const Layout = styled.div``;
+
+const SpaceName = styled.span`
+  color: var(--color-mint);
+  font-weight: 600;
+  margin-right: var(--margin-md);
+`;
+
 const Memo = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -75,7 +84,7 @@ const Memo = styled.span`
   overflow: hidden;
 `;
 const EditIconWrapper = styled.span`
-  margin-left: var(--margin-min);
+  margin-left: var(--margin-md);
 `;
 const Absent = styled.span`
   font-size: 12px;

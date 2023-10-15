@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faCamera } from "@fortawesome/pro-regular-svg-icons";
+import { faCameraViewfinder } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -57,7 +57,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   const handleBtnClick = () => {
     fileInputRef.current.click();
   };
-  console.log(imageSrc);
+
   const onSubmit = () => {
     if (!imageSrc) {
       failToast("free", "인증 사진을 첨부해주세요!");
@@ -78,21 +78,23 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
           accept="image/*"
           onChange={handleImageChange}
         />
-        <Container>
-          <Button
-            onClick={handleBtnClick}
-            w="100px"
-            leftIcon={<FontAwesomeIcon icon={faCamera} />}
-          >
-            파일 선택
-          </Button>
-          {imageSrc && (
+        <Container onClick={handleBtnClick}>
+          {!imageSrc ? (
+            <>
+              <FontAwesomeIcon
+                icon={faCameraViewfinder}
+                size="4x"
+                color="var(--font-h4)"
+              />
+              <CameraText>사진 올리기</CameraText>
+            </>
+          ) : (
             <ImageContainer>
               <Image
                 src={imageSrc}
                 alt="Image Preview"
-                width={150}
-                height={150}
+                width={140}
+                height={140}
               />
             </ImageContainer>
           )}
@@ -109,12 +111,28 @@ const Input = styled.input`
   display: none;
 `;
 
+const CameraText = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font-h4);
+  margin-top: var(--margin-sub);
+`;
+
 const Container = styled.div`
+  margin: var(--margin-min) 0;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px dashed var(--font-h5);
+  border-radius: var(--border-radius-main);
+  background-color: var(--font-h8);
 `;
 
 const ImageContainer = styled.div`
-  flex: 1;
+  width: 150px;
+  height: 150px;
   display: flex;
   justify-content: center;
 `;

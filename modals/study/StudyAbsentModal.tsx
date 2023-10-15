@@ -17,7 +17,7 @@ import {
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { isRefetchStudyAbsentState } from "../../recoil/refetchingAtoms";
+import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import {
   myStudyFixedState,
   studyStartTimeState,
@@ -43,7 +43,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
   const voteDate = useRecoilValue(voteDateState);
-  const setIsRefetchStudyAbsent = useSetRecoilState(isRefetchStudyAbsentState);
+  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
 
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
@@ -59,7 +59,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
       completeToast("success");
-      setIsRefetchStudyAbsent(true);
+      setIsRefetchStudySpace(true);
       let fee: { value: number; message: string };
       if (isFree) return;
       if (dayjs() > myStudyStartTime)
