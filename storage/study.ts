@@ -66,7 +66,7 @@ export const PLACE_TO_NAME = {
   [ANYANG_인뎃커피]: "인뎃커피",
   [ANYANG_자유신청]: "자유신청",
   //강남
-  [GANGNAM_강남]: "할리스",
+  [GANGNAM_강남]: "커피빈",
   [GANGNAM_강남구청]: "파스쿠찌",
   [GANGNAM_신논현]: "커피빈",
   [GANGNAM_논현]: "커피빈",
@@ -292,37 +292,51 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
   //강남
   {
     id: GANGNAM_강남,
-    location: "서울 강남구 강남대로 402",
-    time: "07:30 - 24:00",
+    location: "서울 강남구 테헤란로 1길 29",
+    time: "07:30 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EA%B0%95%EB%82%A8.webp",
   },
   {
     id: GANGNAM_강남구청,
     location: "서울 강남구 선릉로131길 12",
     time: "07:30 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%ED%8C%8C%EC%8A%A4%EC%BF%A0%EC%B0%8C_%EA%B0%95%EB%82%A8%EA%B5%AC%EC%B2%AD.webp",
   },
   {
     id: GANGNAM_교대,
     location: "서울 서초구 서초중앙로 119",
     time: "08:00 - 05:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%95%84%ED%8E%9C%EC%A6%88.webp",
   },
   {
     id: GANGNAM_논현,
     location: "서울 서초구 신반포로47길 5",
     time: "07:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EB%85%BC%ED%98%84.webp",
   },
   {
     id: GANGNAM_선릉,
     location: "서울 강남구 선릉로 433 세방빌딩",
     time: "07:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EC%84%A0%EB%A6%89.webp",
   },
   {
     id: GANGNAM_신논현,
     location: "서울 강남구 강남대로112길 20",
     time: "07:00 - 21:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EC%8B%A0%EB%85%BC%ED%98%84.webp",
   },
   {
     id: GANGNAM_양재,
     location: "서울 서초구 강남대로 210 행복빌딩",
     time: "08:00 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EB%AF%B8%EC%98%A4%EC%BB%A4%ED%94%BC.webp",
   },
 ];
