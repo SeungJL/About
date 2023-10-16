@@ -3,8 +3,8 @@ import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { PopOverIcon2 } from "../../../components/common/Icon/PopOverIcon2";
+import { ModalBody } from "../../../components/modals/Modals";
 
-import { ModalMain } from "../../../styles/layout/modal";
 import { IApplyRest } from "./RequestRestModal";
 const POPOVER_MESSAGE =
   "일반 휴식은 기본 분기별로 1회, 최대 한달까지만 가능합니다. 추가적으로 휴식 기간이 필요한 경우 보증금 500원 차감과 함께 신청됩니다. 특별 휴식은 기간에 상관없이 휴식이 가능하나, 인정될만한 특수한 사정이 있는 경우에만 관리자 동의하에 가능합니다.";
@@ -44,7 +44,7 @@ function RequestRestModalInfo({ onSubmit }: IRequestRestModalInfo) {
   };
 
   return (
-    <ModalMain>
+    <ModalBody>
       <Form onSubmit={handleSubmit(onSubmit)} id="rest">
         <Item>
           <span>이름:</span>
@@ -75,7 +75,7 @@ function RequestRestModalInfo({ onSubmit }: IRequestRestModalInfo) {
         </Item>
       </Form>
       <ErrorMessage>{errors?.endDate?.message}</ErrorMessage>
-    </ModalMain>
+    </ModalBody>
   );
 }
 

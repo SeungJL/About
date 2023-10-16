@@ -1,7 +1,10 @@
-import { Button } from "@chakra-ui/react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -12,32 +15,18 @@ interface IGuestLoginModal extends IModal {
 function GuestLoginModal({ setIsModal, customSignin }: IGuestLoginModal) {
   return (
     <>
-      <ModalLeyou size="md">
-        <ModalHeaderX title="게스트 로그인" setIsModal={setIsModal} />
-        <Main>
-          게스트 로그인은 동아리 외부인을 위한 것으로 기능과 이용에 많은 제한이
-          있습니다.
-          <span>
-            동아리 소속의 인원은 카카오 로그인을 통해 접속해 주시기 바랍니다.
-          </span>
-        </Main>
-        <Footer>
-          <Button
-            w="50%"
-            mr="var(--margin-sub)"
-            onClick={() => setIsModal(false)}
-          >
-            닫기
-          </Button>
-          <Button
-            colorScheme="mintTheme"
-            w="50%"
-            onClick={() => customSignin("guest")}
-          >
-            로그인
-          </Button>
-        </Footer>
-      </ModalLeyou>
+      <ModalLayout onClose={() => setIsModal(false)} size="sm">
+        <ModalHeader text="게스트 로그인" />
+        <ModalBody>
+          게스트용 로그인은 제한된 기능만을 제공합니다. 동아리 회원은 카카오
+          로그인으로 접속해 주세요.
+        </ModalBody>
+        <ModalFooterOne
+          isFull={true}
+          text="로그인"
+          onClick={() => customSignin("guest")}
+        />
+      </ModalLayout>
     </>
   );
 }

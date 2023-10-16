@@ -27,8 +27,12 @@ export const ModalMain = styled.main`
   font-size: 13px;
 `;
 
-export const ModalSubtitle = styled.div`
-  font-weight: 600;
+interface IModalSubTitle {
+  isLight?: boolean;
+}
+
+export const ModalSubtitle = styled.div<IModalSubTitle>`
+  font-weight: ${(props) => (props.isLight ? "400" : "600")};
   margin-bottom: var(--margin-main);
   color: var(--font-h2);
   font-size: 13px;

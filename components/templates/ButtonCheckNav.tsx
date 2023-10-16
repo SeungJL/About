@@ -13,10 +13,11 @@ function ButtonCheckNav({
   selectedButton,
   setSelectedButton,
 }: IButtonCheckNav) {
+  const filtered = buttonList.filter((item) => item !== "마포");
   return (
     <Layout>
       <ButtonGroup flexWrap="wrap" gap="var(--margin-md)">
-        {buttonList.map((item) => (
+        {filtered.map((item) => (
           <Button
             colorScheme={item === selectedButton ? "mintTheme" : null}
             key={item}

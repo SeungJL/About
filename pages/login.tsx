@@ -13,8 +13,12 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../components/modals/ModalPortal";
-import { ModalLeyou } from "../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeaderCenter,
+  ModalLayout,
+} from "../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../hooks/CustomToast";
 import { useRegisterFormsQuery } from "../hooks/user/queries";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
@@ -126,32 +130,19 @@ const Login: NextPage<{
         </Wrapper>
       </Layout>
       {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <GuestLoginModal
-            setIsModal={setIsModal}
-            customSignin={customSignin}
-          />
-        </ModalPortal>
+        <GuestLoginModal setIsModal={setIsModal} customSignin={customSignin} />
       )}
       {isCheckModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <ModalLeyou size="md">
-            <Header>
-              <span>가입 대기중</span>
-            </Header>
-            <Text>
-              가입 신청은 완료됐습니다! <br />
-              며칠 내에 관리자가 카톡으로 연락드려요!
-            </Text>
-            <Button
-              mt="auto"
-              colorScheme="mintTheme"
-              onClick={() => setIsCheckModal(false)}
-            >
-              확인
-            </Button>
-          </ModalLeyou>
-        </ModalPortal>
+        <ModalLayout onClose={() => setIsModal(false)} size="sm">
+          <ModalHeaderCenter text="가입 대기중" />
+          <ModalBody>
+            가입 대기중입니다. <br /> 며칠 내에 카톡으로 연락드려요!
+          </ModalBody>
+          <ModalFooterOne
+            isFull={true}
+            onClick={() => setIsCheckModal(false)}
+          />
+        </ModalLayout>
       )}
     </>
   );
@@ -194,20 +185,6 @@ const Message = styled.span`
   font-size: 10px;
   text-align: center;
   color: var(--color-red);
-`;
-const Header = styled.header`
-  font-weight: 600;
-  text-align: center;
-  font-size: 18px;
-`;
-
-const Text = styled.span`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: var(--font-h1);
-  line-height: var(--line-height);
 `;
 
 export default Login;

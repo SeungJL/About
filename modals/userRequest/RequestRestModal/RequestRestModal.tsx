@@ -1,15 +1,14 @@
+import { Button, ModalFooter } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { useSession } from "next-auth/react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../../components/modals/Modals";
+import { ModalHeader, ModalLayout } from "../../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
 import {
   useUserApplyRestMutation,
   useUserRequestMutation,
 } from "../../../hooks/user/mutations";
-import { ModalFooterNav } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
 import RequestRestModalInfo from "./RequestRestModalInfo";
@@ -64,18 +63,23 @@ function RequestRestModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLeyou size="xl">
-      <ModalHeaderX title="휴식신청" setIsModal={setIsModal} />
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+      <ModalHeader text="휴식신청" />
       <RequestRestModalInfo onSubmit={onSubmit} />
-      <ModalFooterNav>
-        <button type="button" onClick={() => setIsModal(false)}>
+      <ModalFooter p="var(--padding-sub) var(--padding-main)">
+        <Button variant="ghost" type="button" onClick={() => setIsModal(false)}>
           취소
-        </button>
-        <button type="submit" form="rest">
+        </Button>
+        <Button
+          form="rest"
+          type="submit"
+          variant="ghost"
+          color="var(--color-mint)"
+        >
           제출
-        </button>
-      </ModalFooterNav>
-    </ModalLeyou>
+        </Button>
+      </ModalFooter>
+    </ModalLayout>
   );
 }
 

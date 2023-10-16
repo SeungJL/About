@@ -49,6 +49,8 @@ const Nav = styled.nav`
 `;
 
 const Wrapper = styled.div`
+  height: 100%;
+
   margin-top: var(--margin-sub);
 `;
 

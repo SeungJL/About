@@ -21,6 +21,7 @@ function PromotionModalOverview() {
 }
 
 const Layout = styled.div`
+  margin-top: 28px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -44,7 +45,7 @@ const Title = styled.div`
 
 const Detail = styled.div`
   flex: 1;
-  margin-top: 40px;
+  margin-top: var(--margin-max);
   font-weight: 600;
   font-size: 14px;
   color: var(--font-h2);

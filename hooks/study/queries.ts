@@ -64,7 +64,9 @@ export const useStudyPlacesLocationQuery = (
     [STUDY_PLACE, "location"],
     async () => {
       const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
-      const places = res.data.filter((place) => place.location === location);
+      const places = res.data.filter(
+        (place) => place.location === location && place.brand !== "자유 신청"
+      );
       return places;
     },
     options

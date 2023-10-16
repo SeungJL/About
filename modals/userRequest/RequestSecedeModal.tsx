@@ -2,13 +2,14 @@ import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import {
-  ModalFeeterTwe,
-  ModalHeaderX,
-} from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function RequestSecedeModal({ setIsModal }: IModal) {
@@ -38,24 +39,26 @@ function RequestSecedeModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLeyou size="xl">
-      <ModalHeaderX title="회원 탈퇴" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+      <ModalHeader text="회원 탈퇴" />
+      <ModalBody>
         <ModalSubtitle>탈퇴하시겠습니까?</ModalSubtitle>
         <span>
-          보증금 환급을 원하신다면 아래에 본인의 계좌번호와 성함을 남겨주세요.
+          보증금 환급을 원하신다면 아래에 계좌번호와 성함을 남겨주세요.
           확인하는대로 환급해 드리도록 하겠습니다. 단톡방은 직접 나가주시면
           됩니다 !
         </span>
         <Textarea value={value} onChange={(e) => setValue(e.target.value)} />
         <Message>고생하셨어요 ~!</Message>
-      </ModalMain>
-      <ModalFeeterTwe
-        right="회원탈퇴"
-        onSubmit={onSecede}
-        setIsModal={setIsModal}
+      </ModalBody>
+      <ModalFooterTwo
+        isFull={true}
+        leftText="닫기"
+        rightText="회원탈퇴"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={onSecede}
       />
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 

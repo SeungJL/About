@@ -1,4 +1,6 @@
 import {
+  Button,
+  ModalFooter,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -14,12 +16,14 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useUserLocationQuery } from "../../hooks/user/queries";
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -66,19 +70,17 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
     setIsModal(false);
   };
 
+  const title =
+    type === "suggest"
+      ? "건의하기"
+      : type === "declare"
+      ? "불편사항 신고"
+      : "스터디 장소 추천";
+
   return (
-    <ModalLeyou size="xl">
-      <ModalHeaderX
-        title={
-          type === "suggest"
-            ? "건의하기"
-            : type === "declare"
-            ? "불편사항 신고"
-            : "스터디 장소 추천"
-        }
-        setIsModal={setIsModal}
-      />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+      <ModalHeader text={title} />
+      <ModalBody>
         <Form onSubmit={handleSubmit(onValid)} id="declaration">
           <Item>
             <span>제목: </span>
@@ -91,20 +93,20 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
           <Item>
             <span>작성자: </span>
             <Writer>
-              <Button
+              <WriterBtn
                 type="button"
                 isSelected={isRealName}
                 onClick={() => setIsRealName(true)}
               >
                 실명
-              </Button>
-              <Button
+              </WriterBtn>
+              <WriterBtn
                 type="button"
                 isSelected={!isRealName}
                 onClick={() => setIsRealName(false)}
               >
                 익명
-              </Button>
+              </WriterBtn>
               <div />
               <Popover>
                 <PopoverTrigger>
@@ -131,16 +133,22 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
             <ContentInput {...register("content")} />
           </Item>
         </Form>
-      </ModalMain>
-      <ModalFooterNav>
-        <button type="button" onClick={() => setIsModal(false)}>
+      </ModalBody>
+
+      <ModalFooter p="var(--padding-sub) var(--padding-main)">
+        <Button variant="ghost" type="button" onClick={() => setIsModal(false)}>
           취소
-        </button>
-        <button form="declaration" type="submit">
+        </Button>
+        <Button
+          form="declaration"
+          type="submit"
+          variant="ghost"
+          color="var(--color-mint)"
+        >
           제출
-        </button>
-      </ModalFooterNav>
-    </ModalLeyou>
+        </Button>
+      </ModalFooter>
+    </ModalLayout>
   );
 }
 
@@ -185,7 +193,7 @@ const Writer = styled.div`
     width: 12px;
   }
 `;
-const Button = styled.button<{ isSelected: boolean }>`
+const WriterBtn = styled.button<{ isSelected: boolean }>`
   font-size: 12px;
   width: 36px;
   height: 18px;

@@ -1,11 +1,8 @@
-import { faLollipop } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import {
   ModalBody,
   ModalFooterOne,
-  ModalHeaderCenter,
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
@@ -25,11 +22,11 @@ function DailyCheckWinModal({ setIsModal }: IModal) {
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeaderCenter>
+      {/* <ModalHeaderCenter>
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
         <span>랜덤 선물 당첨</span>
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
-      </ModalHeaderCenter>
+      </ModalHeaderCenter> */}
       <ModalBody>
         <Message>
           <b>{attendCheckWinGift.percent}%</b> 확률을 뚫고 당첨되었어요!

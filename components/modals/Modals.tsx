@@ -56,19 +56,23 @@ export const ModalHeader = ({ text }) => (
   </>
 );
 
-export const ModalHeaderCenter = ({ children }) => (
+export const ModalHeaderCenter = ({ text }) => (
   <ChakraModalHeader
     display="flex"
     alignItems="center"
     p="var(--padding-sub) var(--padding-main)"
-    justifyContent="space-between"
+    justifyContent="center"
   >
-    {children}
+    {text}
   </ChakraModalHeader>
 );
 
 export const ModalBody = ({ children }) => (
-  <ChakraModalBody p="0 var(--padding-main)" display="flex" flexDir="column">
+  <ChakraModalBody
+    p="var(--padding-min) var(--padding-main)"
+    display="flex"
+    flexDir="column"
+  >
     {children}
   </ChakraModalBody>
 );
@@ -78,6 +82,7 @@ interface IModalFooterTwo {
   onClickRight: () => void;
   leftText?: string;
   rightText?: string;
+  isFull?: boolean;
 }
 
 export const ModalFooterTwo = ({
@@ -85,12 +90,26 @@ export const ModalFooterTwo = ({
   onClickRight,
   leftText,
   rightText,
+  isFull,
 }: IModalFooterTwo) => (
   <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
-    <Button variant="ghost" mr={3} onClick={onClickLeft}>
+    <Button
+      w={isFull && "100%"}
+      variant={isFull ? "solid" : "ghost"}
+      mr={!isFull && "var(--margin-md)"}
+      onClick={onClickLeft}
+      size={isFull ? "lg" : "md"}
+    >
       {leftText || "이전"}
     </Button>
-    <Button variant="ghost" color="var(--color-mint)" onClick={onClickRight}>
+    <Button
+      w={isFull && "100%"}
+      variant={isFull ? "solid" : "ghost"}
+      color={isFull ? "white" : "var(--color-mint)"}
+      onClick={onClickRight}
+      colorScheme={isFull && "mintTheme"}
+      size={isFull ? "lg" : "md"}
+    >
       {rightText || "다음"}
     </Button>
   </ChakraModalFooter>
@@ -107,7 +126,7 @@ export const ModalFooterOne = ({ onClick, text, isFull }: IModalFooterOne) => (
     <Button
       size={isFull ? "lg" : "md"}
       variant={isFull ? "solid" : "ghost"}
-      color={!isFull ? "var(--color-mint)" : "white"}
+      color={!isFull ? "var(--font-h1)" : "white"}
       w={isFull && "100%"}
       colorScheme={isFull && "mintTheme"}
       onClick={onClick}

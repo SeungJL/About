@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import {
-  ModalFooterNav,
-  ModalHeaderCenter,
-  ModalMain,
-} from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
+
 import { IContentBasic } from "../../types/common";
 import { IModal } from "../../types/reactTypes";
-import { ModalLeyou } from "./Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeaderCenter,
+  ModalLayout,
+} from "./Modals";
 
 export interface IRuleModalContent {
   headerContent: IContentBasic;
@@ -34,20 +36,20 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
   );
 
   return (
-    <ModalLeyou size="xxl">
-      <ModalHeaderCenter>
-        <Title>{header.title}</Title>
-        <div>{header.text}</div>
-      </ModalHeaderCenter>
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
+      <ModalHeaderCenter text={header.title} />
+
+      <ModalBody>
+        <ModalSubtitle isLight={true}>
+          다양한 주제의 모임에 참여하거나 직접 모임을 개최할 수 있습니다 ! 다들
+          재밌게 놀아봐요~!
+        </ModalSubtitle>
         {main.map((item, idx) => (
           <ContentItem title={item.title} texts={item.texts} key={idx} />
         ))}
-      </ModalMain>
-      <ModalFooterNav>
-        <button onClick={() => setIsModal(false)}>확인</button>
-      </ModalFooterNav>
-    </ModalLeyou>
+      </ModalBody>
+      <ModalFooterOne onClick={() => setIsModal(false)} />
+    </ModalLayout>
   );
 }
 
@@ -59,12 +61,6 @@ const ItemContent = styled.ul`
   margin-top: var(--margin-min);
   margin-bottom: var(--margin-sub);
   line-height: var(--line-height);
-`;
-
-const Title = styled.span`
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--font-h1);
 `;
 
 const RuleTitle = styled.span`

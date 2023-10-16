@@ -178,7 +178,7 @@ const Container = styled.div`
 `;
 
 const Detail = styled.div`
-  height: 60%;
+  height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -191,7 +191,7 @@ const Detail = styled.div`
     display: block;
     padding: 2px 0;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 11px;
   }
 `;
 

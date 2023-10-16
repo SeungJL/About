@@ -1,20 +1,25 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PlaceSelector from "../../components/features/picker/PlaceSelector";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { LOCATION_PLACE_SMALL } from "../../constants/location";
-import { useCompleteToast } from "../../hooks/CustomToast";
+import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import { useStudyPlacesLocationQuery } from "../../hooks/study/queries";
 import { useUserLocationQuery } from "../../hooks/user/queries";
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IStudyPlaces } from "../../types/study/study";
 import { IPlace } from "../../types/study/studyDetail";
 
 function RequestStudyPreferenceModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
+  const failToast = useFailToast();
 
   const [page, setPage] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
@@ -45,7 +50,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   const selectFirst = () => {
     if (!votePlaces?.place) {
-      setErrorMessage("장소를 선택해주세요!");
+      failToast("free", "장소를 선택해주세요!");
       return;
     }
     setPage(1);
@@ -57,11 +62,11 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLeyou size={isBig ? "xl" : "md"}>
-        <ModalHeaderX title="스터디 선호 장소 설정" setIsModal={setIsModal} />
-        {page === 0 ? (
-          <>
-            <ModalMain>
+      <ModalLayout onClose={() => setIsModal(false)} size={isBig ? "xl" : "md"}>
+        <ModalHeader text="스터디 선호 장소 설정" />
+        <ModalBody>
+          {page === 0 ? (
+            <>
               <Subtitle>1지망 선택</Subtitle>
               <PlaceSelector
                 places={places}
@@ -69,15 +74,9 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
                 setVotePlaces={setVotePlaces}
                 isMain={true}
               />
-            </ModalMain>
-            <ModalFooterNav>
-              <Error>{errorMessage}</Error>
-              <button onClick={selectFirst}>다음</button>
-            </ModalFooterNav>
-          </>
-        ) : (
-          <>
-            <ModalMain>
+            </>
+          ) : (
+            <>
               <Subtitle>2지망 선택</Subtitle>
               <PlaceSelector
                 places={places}
@@ -85,14 +84,19 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
                 setVotePlaces={setVotePlaces}
                 isMain={false}
               />
-            </ModalMain>
-            <ModalFooterNav>
-              <button onClick={() => setPage(0)}>이전</button>
-              <button onClick={onSubmit}>완료</button>
-            </ModalFooterNav>
-          </>
+            </>
+          )}
+        </ModalBody>
+        {page === 0 ? (
+          <ModalFooterOne text="다음" onClick={selectFirst} />
+        ) : (
+          <ModalFooterTwo
+            rightText="완료"
+            onClickLeft={() => setPage(0)}
+            onClickRight={onSubmit}
+          />
         )}
-      </ModalLeyou>
+      </ModalLayout>
     </>
   );
 }
@@ -102,12 +106,6 @@ const Subtitle = styled.div`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: var(--margin-md);
-`;
-
-const Error = styled.span`
-  font-size: 13px;
-  margin-right: var(--margin-right);
-  color: var(--color-red);
 `;
 
 export default RequestStudyPreferenceModal;
