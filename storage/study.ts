@@ -346,4 +346,11 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EB%AF%B8%EC%98%A4%EC%BB%A4%ED%94%BC.webp",
   },
+  {
+    id: GANGNAM_자유신청,
+    location: "",
+    time: "",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
+  },
 ];
