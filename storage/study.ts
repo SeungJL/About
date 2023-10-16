@@ -1,3 +1,6 @@
+//전체
+export const ALL_스터디인증 = "65263917e90698c18a3b1e99";
+
 //수원
 export const SUWAN_투썸 = "64395f1e8d1edf4e056e993d";
 export const SUWAN_탐앤탐스 = "640c271121863deff358f459";
@@ -38,6 +41,8 @@ export const GANGNAM_강남 = "64ecc58540f6dace3b0655a1";
 export const GANGNAM_자유신청 = "64ecc41640f6dace3b06559d";
 
 export const PLACE_TO_NAME = {
+  //전체
+  [ALL_스터디인증]: "스터디인증",
   //수원
   [SUWAN_투썸]: "투썸플레이스",
   [SUWAN_탐앤탐스]: "탐앤탐스",
@@ -77,6 +82,8 @@ export const PLACE_TO_NAME = {
 };
 
 export const PLACE_TO_LOCATION = {
+  //전체
+  [ALL_스터디인증]: "전체",
   //수원
   [SUWAN_투썸상현]: "수원",
   [SUWAN_카탈로그]: "수원",
