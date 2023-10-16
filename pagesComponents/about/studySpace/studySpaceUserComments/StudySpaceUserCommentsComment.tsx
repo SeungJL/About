@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { MouseEvent, useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../../components/modals/ModalPortal";
 import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrivedModal";
 import { IAbsentInfo } from "../../../../types/study/study";
 import { IAttendance } from "../../../../types/study/studyDetail";
@@ -61,9 +60,7 @@ function StudySpaceUserCommentsComment({
         )}
       </Layout>
       {isChangeModal && (
-        <ModalPortal setIsModal={setIsChangeModal}>
-          <StudyChangeArrivedModal user={user} setIsModal={setIsChangeModal} />
-        </ModalPortal>
+        <StudyChangeArrivedModal user={user} setIsModal={setIsChangeModal} />
       )}
     </>
   );

@@ -63,7 +63,7 @@ function StudyQuickVoteModal({ setIsModal }: IModal) {
           times={time}
         />
       </ModalBody>
-      <ModalFooterOne onClick={onSubmit} text="투표" />
+      <ModalFooterOne isFull={true} onClick={onSubmit} text="투표" />
     </ModalLayout>
   );
 }

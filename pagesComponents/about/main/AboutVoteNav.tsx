@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
 import StudyQuickVoteModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
@@ -75,20 +74,12 @@ function AboutVoteNav() {
           투표중이에요!
         </VoterCnt>
       </Layout>
-      {isVoteModal && (
-        <ModalPortal setIsModal={setIsVoteModal}>
-          <StudyVoteMainModal setIsModal={setIsVoteModal} />
-        </ModalPortal>
-      )}
+      {isVoteModal && <StudyVoteMainModal setIsModal={setIsVoteModal} />}
       {isQuickVoteModal &&
         (studyPreference ? (
-          <ModalPortal setIsModal={setIsQuickVoteModal}>
-            <StudyQuickVoteModal setIsModal={setIsQuickVoteModal} />
-          </ModalPortal>
+          <StudyQuickVoteModal setIsModal={setIsQuickVoteModal} />
         ) : (
-          <ModalPortal setIsModal={setIsQuickVoteModal}>
-            <StudyQuickVoteRegisterModal setIsModal={setIsQuickVoteModal} />
-          </ModalPortal>
+          <StudyQuickVoteRegisterModal setIsModal={setIsQuickVoteModal} />
         ))}
     </>
   );

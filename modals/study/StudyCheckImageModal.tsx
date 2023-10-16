@@ -1,12 +1,15 @@
-import { Button } from "@chakra-ui/react";
 import { faCameraViewfinder } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { getToday } from "../../helpers/dateHelpers";
 import {
@@ -17,7 +20,7 @@ import {
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../hooks/user/pointSystem/mutation";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
-import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function StudyCheckImageModal({ setIsModal }: IModal) {
@@ -67,9 +70,9 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLeyou size="md" height={320}>
-      <ModalHeaderX title="출석체크" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="md" height={320}>
+      <ModalHeader text="출석체크" />
+      <ModalBody>
         <ModalSubtitle>참여를 인증할 수 있는 사진을 올려주세요!</ModalSubtitle>
         <Input
           ref={fileInputRef}
@@ -99,11 +102,9 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
             </ImageContainer>
           )}
         </Container>
-      </ModalMain>
-      <Button size="lg" colorScheme="mintTheme" onClick={onSubmit}>
-        출석
-      </Button>
-    </ModalLeyou>
+      </ModalBody>
+      <ModalFooterOne text="출석" onClick={onSubmit} isFull={true} />
+    </ModalLayout>
   );
 }
 

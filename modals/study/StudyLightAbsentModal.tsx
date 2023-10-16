@@ -44,7 +44,12 @@ function StudyLightAbsentModal({ setIsModal }: IModal) {
         불참하시겠어요? <br />
         {isPrivate && "-100원의 벌금이 발생합니다."}
       </ModalBody>
-      <ModalFooterOne onClick={() => absentStudy(null)} text="불참" />
+      <ModalFooterOne
+        onClick={() => absentStudy(null)}
+        text="불참"
+        isFull={true}
+        isRed={true}
+      />
     </ModalLayout>
   );
 }

@@ -1,6 +1,5 @@
-import { Button } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { birthToAge } from "../../../helpers/converterHelpers";
 import { useFailToast, useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -90,37 +89,15 @@ function GatherParticipateModalApply({
   };
 
   return (
-    <>
-      <Layout>
-        <Button
-          color="white"
-          backgroundColor="var(--color-mint)"
-          marginBottom="var(--margin-main)"
-          height="48px"
-          fontSize="17px"
-          onClick={onApply}
-        >
-          일반 참여 신청
-        </Button>
-        <Button onClick={() => setPageNum(1)} height="48px" fontSize="17px">
-          사전 확정 인원
-        </Button>
-      </Layout>
-      <Message>사전 확정 인원은 암호코드가 필요합니다.</Message>
-    </>
+    <ModalBody>
+      <ModalBodyNavTwo
+        topText="일반 참여 신청"
+        bottomText="사전 확정 인원"
+        onClickTop={onApply}
+        onClickBottom={() => setPageNum(1)}
+      />
+    </ModalBody>
   );
 }
 
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  margin-top: var(--margin-main);
-`;
-const Message = styled.span`
-  display: inline-block;
-  margin-top: var(--margin-main);
-  color: var(--font-h3);
-`;
 export default GatherParticipateModalApply;

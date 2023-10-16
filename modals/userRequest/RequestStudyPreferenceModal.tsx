@@ -22,7 +22,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
 
   const [page, setPage] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
+
   const [places, setPlaces] = useState<IPlace[]>();
   const [votePlaces, setVotePlaces] = useState<IStudyPlaces>({
     place: undefined,

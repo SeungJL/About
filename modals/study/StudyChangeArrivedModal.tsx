@@ -1,18 +1,18 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { voteDateState } from "../../recoil/studyAtoms";
-import { InputSm } from "../../styles/layout/input";
-import {
-  ModalFooterNav,
-  ModalMain,
-  ModalSubtitle,
-} from "../../styles/layout/modal";
+import { Textarea } from "../../styles/layout/input";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IAttendance } from "../../types/study/studyDetail";
 
@@ -44,21 +44,23 @@ function StudyChangeArrivedModal({
   };
 
   return (
-    <ModalLeyou size="md">
-      <ModalHeaderX title="도착 메모" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text="출석 메모 변경" />
+      <ModalBody>
         <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
-        <InputSm
+        <Textarea
           placeholder="여기에 작성해주세요!"
           onChange={(e) => setMemo(e.target.value)}
           value={memo}
         />
-      </ModalMain>
-      <ModalFooterNav>
-        <button onClick={() => setIsModal(false)}>취소</button>
-        <button onClick={onChangeMemo}>변경</button>
-      </ModalFooterNav>
-    </ModalLeyou>
+      </ModalBody>
+      <ModalFooterTwo
+        leftText="취소"
+        rightText="변경"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={onChangeMemo}
+      />
+    </ModalLayout>
   );
 }
 

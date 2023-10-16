@@ -33,7 +33,7 @@ interface IModalSubTitle {
 
 export const ModalSubtitle = styled.div<IModalSubTitle>`
   font-weight: ${(props) => (props.isLight ? "400" : "600")};
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--margin-sub);
   color: var(--font-h2);
   font-size: 13px;
 `;

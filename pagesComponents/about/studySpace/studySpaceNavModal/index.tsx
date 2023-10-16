@@ -44,33 +44,21 @@ function StudySpaceNavModal({
         </ModalPortal>
       )}
       {type === "freeOpen" && (
-        <ModalPortal setIsModal={closeModal}>
-          <StudyFreeOpenModal setIsModal={closeModal} />
-        </ModalPortal>
+        <StudyFreeOpenModal place={place} setIsModal={closeModal} />
       )}
-      {type === "attendCheck" && (
-        <ModalPortal setIsModal={closeModal}>
-          <StudyCheckModal setIsModal={closeModal} />
-        </ModalPortal>
-      )}
+      {type === "attendCheck" && <StudyCheckModal setIsModal={closeModal} />}
       {type === "attendCheckImage" && (
-        <ModalPortal setIsModal={closeModal}>
-          <StudyCheckImageModal setIsModal={closeModal} />
-        </ModalPortal>
+        <StudyCheckImageModal setIsModal={closeModal} />
       )}
       {type === "change" && (
-        <ModalPortal setIsModal={closeModal}>
-          <StudyChangeTimeModal
-            setIsModal={closeModal}
-            myVoteTime={myVote?.time}
-          />
-        </ModalPortal>
+        <StudyChangeTimeModal
+          setIsModal={closeModal}
+          myVoteTime={myVote?.time}
+        />
       )}
       {type === "absent" && <StudyAbsentModal setIsModal={closeModal} />}
       {type === "lightAbsent" && (
-        <ModalPortal setIsModal={closeModal}>
-          <StudyLightAbsentModal setIsModal={closeModal} />
-        </ModalPortal>
+        <StudyLightAbsentModal setIsModal={closeModal} />
       )}
       {isVoteComplete && (
         <ModalPortal setIsModal={setIsVoteComplete}>

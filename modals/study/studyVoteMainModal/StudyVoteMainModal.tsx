@@ -66,7 +66,6 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
 
-  console.log(voteDate);
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
       getPoint();

@@ -58,7 +58,7 @@ function StudySpaceSetting({
       (who) => who?.user.uid === session?.uid
     );
     setIsVoting(!!isVoted);
-    if (["open", "free"].includes(findParticipation.status)) {
+    if (!!isVoted && ["open", "free"].includes(findParticipation.status)) {
       setMySpaceFixed(findParticipation);
     }
   };

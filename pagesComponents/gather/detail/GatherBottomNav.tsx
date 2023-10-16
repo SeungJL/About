@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import {
   useCompleteToast,
   useErrorToast,
@@ -112,20 +111,16 @@ function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
         )}
       </Layout>
       {isParticipationModal && (
-        <ModalPortal setIsModal={setIsParticipationModal}>
-          <GatherParticipateModal
-            setIsModal={setIsParticipationModal}
-            setIsRefetch={setIsRefetch}
-          />
-        </ModalPortal>
+        <GatherParticipateModal
+          setIsModal={setIsParticipationModal}
+          setIsRefetch={setIsRefetch}
+        />
       )}
       {isExpirationModal && (
-        <ModalPortal setIsModal={setIsExpirationModal}>
-          <GatherExpireModal
-            setIsModal={setIsExpirationModal}
-            setIsRefetch={setIsRefetch}
-          />
-        </ModalPortal>
+        <GatherExpireModal
+          setIsModal={setIsExpirationModal}
+          setIsRefetch={setIsRefetch}
+        />
       )}
     </>
   );

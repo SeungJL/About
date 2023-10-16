@@ -1,15 +1,10 @@
-import { Button } from "@chakra-ui/react";
-import { faCheck, faSquareCheck } from "@fortawesome/pro-solid-svg-icons";
+import { faCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
 import LocationSelector from "../../../components/features/picker/LocationSelector";
-import ModalPortal from "../../../components/modals/ModalPortal";
-import StudyCheckModal from "../../../modals/study/StudyCheckModal";
-import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import {
   myStudyFixedState,
   studyDateStatusState,
@@ -20,9 +15,7 @@ function AboutStudyHeader() {
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
-  const isMainLoading = useRecoilValue(isMainLoadingState);
 
-  const [isModal, setIsModal] = useState(false);
   const [isCheck, setIsCheck] = useState<Boolean>(null);
 
   //출석체크 했는지 판단
@@ -44,37 +37,14 @@ function AboutStudyHeader() {
               ? "카공 스터디"
               : "내 스터디 결과"}
           </span>
-          {isMainLoading && studyDateStatus === "today" ? (
-            <ButtonSkeleton>
-              <Skeleton>temp</Skeleton>
-            </ButtonSkeleton>
-          ) : isCheck ? (
+          {isCheck && (
             <Check>
               <FontAwesomeIcon icon={faCheck} size="lg" />
             </Check>
-          ) : (
-            myStudyFixed &&
-            isCheck !== null && (
-              <Button
-                leftIcon={<FontAwesomeIcon icon={faSquareCheck} />}
-                onClick={() => setIsModal(true)}
-                background="mint"
-                color="white"
-                size="sm"
-                marginLeft="var(--margin-sub)"
-              >
-                출석체크
-              </Button>
-            )
           )}
         </Title>
         <LocationSelector />
       </Layout>
-      {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <StudyCheckModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
     </>
   );
 }

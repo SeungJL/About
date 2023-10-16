@@ -1,9 +1,9 @@
-import { Button } from "@chakra-ui/react";
 import { faUnlock } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { ModalBody, ModalFooterTwo } from "../../../components/modals/Modals";
 import { useFailToast } from "../../../hooks/CustomToast";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { DispatchNumber } from "../../../types/reactTypes";
@@ -27,52 +27,43 @@ function GatherParticipateModalPassword({
 
   return (
     <>
-      <Layout>
+      <ModalBody>
         <CodeText>전달 받은 암호 네자리를 입력해 주세요.</CodeText>
-        <div>
+        <Container>
           <FontAwesomeIcon icon={faUnlock} color="var(--font-h4)" />
           <Input
             placeholder="암호 입력"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-      </Layout>
-      <Footer>
-        <Button width="50%" onClick={() => setPageNum(0)}>
-          이전
-        </Button>
-        <Button
-          color="white"
-          backgroundColor="var(--color-mint)"
-          width="50%"
-          onClick={onApply}
-        >
-          다음
-        </Button>
-      </Footer>
+        </Container>
+      </ModalBody>
+      <ModalFooterTwo
+        isFull={true}
+        onClickLeft={() => setPageNum(0)}
+        onClickRight={onApply}
+        isSmall={true}
+      />
     </>
   );
 }
-const Layout = styled.div`
+
+const Container = styled.div`
+  margin-top: var(--margin-min);
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  margin-top: 16px;
-  > div:last-child {
-    margin-top: 10px;
-  }
+  align-items: center;
 `;
 
-const CodeText = styled.span``;
+const CodeText = styled.span`
+  font-size: 12px;
+`;
+
 const Input = styled.input`
   margin-left: var(--margin-md);
   background-color: var(--font-h7);
   padding: var(--padding-min) var(--padding-md);
   border-radius: var(--border-radius-sub);
 `;
-
-const Footer = styled.footer``;
 
 export default GatherParticipateModalPassword;

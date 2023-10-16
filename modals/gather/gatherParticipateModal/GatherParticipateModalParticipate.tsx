@@ -1,6 +1,5 @@
-import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import styled from "styled-components";
+import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
 import { useGatherParticipateMutation } from "../../../hooks/gather/mutations";
 import { IModal, IRefetch } from "../../../types/reactTypes";
@@ -29,44 +28,15 @@ function GatherParticipateModalParticipate({
   };
 
   return (
-    <>
-      <Layout>
-        <Button
-          color="white"
-          backgroundColor="var(--color-mint)"
-          marginBottom="var(--margin-main)"
-          height="48px"
-          fontSize="17px"
-          onClick={() => selectGatherTime("first")}
-          _hover={{ bg: "var(--color-mint)" }}
-        >
-          1차 참여 신청
-        </Button>
-        <Button
-          onClick={() => selectGatherTime("second")}
-          height="48px"
-          fontSize="17px"
-        >
-          2차 참여 신청
-        </Button>
-      </Layout>
-      <Message>기준 시간보다 늦참인 경우, 신청 후 댓글 남겨주세요!</Message>
-    </>
+    <ModalBody>
+      <ModalBodyNavTwo
+        topText="1차 참여 신청"
+        bottomText="2차 참여 신청"
+        onClickTop={() => selectGatherTime("first")}
+        onClickBottom={() => selectGatherTime("second")}
+      />
+    </ModalBody>
   );
 }
-
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  margin-top: var(--margin-main);
-`;
-const Message = styled.span`
-  display: inline-block;
-  margin-top: var(--margin-main);
-  font-size: 11px;
-  color: var(--font-h1);
-`;
 
 export default GatherParticipateModalParticipate;

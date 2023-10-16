@@ -1,9 +1,12 @@
-import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalBodyNavTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { ModalMain } from "../../../styles/layout/modal";
 import { IModal, IRefetch } from "../../../types/reactTypes";
@@ -27,23 +30,17 @@ function GatherExpireModal({ setIsModal, setIsRefetch }: IModal & IRefetch) {
 
   return (
     <>
-      <ModalLeyou size="md">
-        <ModalHeaderX title="모집 종료" setIsModal={setIsModal} />
-        <Nav>
-          <Button
-            color="white"
-            backgroundColor="var(--color-mint)"
-            marginBottom="var(--margin-main)"
-            size="lg"
-            onClick={() => setModal("expire")}
-          >
-            모집 마감
-          </Button>
-          <Button onClick={() => setModal("cancel")} size="lg">
-            모임 취소
-          </Button>
-        </Nav>
-      </ModalLeyou>
+      <ModalLayout onClose={() => setIsModal(false)} size="sm">
+        <ModalHeader text="모집 종료" />
+        <ModalBody>
+          <ModalBodyNavTwo
+            topText="모집 마감"
+            bottomText="모임 취소"
+            onClickTop={() => setModal("expire")}
+            onClickBottom={() => setModal("cancel")}
+          />
+        </ModalBody>
+      </ModalLayout>
       <GatherExpireModalExpireDialog
         setIsComplete={setIsComplete}
         modal={modal}

@@ -83,7 +83,7 @@ function TimeSelectorBoard({ times, setTimes }: ITimeSelector) {
   );
 }
 const Layout = styled.div`
-  height: 253px;
+  height: 244px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

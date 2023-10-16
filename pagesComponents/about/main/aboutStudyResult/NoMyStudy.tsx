@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../../components/modals/ModalPortal";
 import { useFailToast } from "../../../../hooks/CustomToast";
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import { isGuestState } from "../../../../recoil/userAtoms";
@@ -42,12 +41,7 @@ function NoMyStudy() {
         </SubText>
       </Layout>
       {isFreeOpenModal && (
-        <ModalPortal setIsModal={setIsFreeOpenModal}>
-          <StudyVoteMainModal
-            setIsModal={setIsFreeOpenModal}
-            isFreeOpen={true}
-          />
-        </ModalPortal>
+        <StudyVoteMainModal setIsModal={setIsFreeOpenModal} isFreeOpen={true} />
       )}
     </>
   );

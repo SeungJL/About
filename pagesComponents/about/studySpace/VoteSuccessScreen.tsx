@@ -21,7 +21,6 @@ function VoteSuccessScreen({}) {
         <span>투표를 완료했어요</span>
         <span>스터디 결과는 오후 10시에 확인할 수 있어요 !</span>
       </Content>
-
       <Button onClick={onClicked}>홈으로</Button>
     </Layout>
   );

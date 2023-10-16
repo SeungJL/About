@@ -101,7 +101,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="lg">
+      <ModalLayout onClose={() => setIsModal(false)} size="md">
         <ModalHeader text="출석체크" />
         <ModalBody>
           <ModalSubtitle>
@@ -114,7 +114,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
             value={memo}
           />
         </ModalBody>
-        <ModalFooterOne text="출석" onClick={onCheckClicked} />
+        <ModalFooterOne isFull={true} text="출석" onClick={onCheckClicked} />
       </ModalLayout>
       {isChecking && (
         <Loading>
@@ -132,10 +132,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
     </>
   );
 }
-
-const Content = styled.div`
-  margin-bottom: var(--margin-sub);
-`;
 
 const Loading = styled.div`
   display: flex;

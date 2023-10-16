@@ -38,30 +38,28 @@ function StudyVoteMainModalTime({
   }, [time, voteDate]);
 
   return (
-    <>
-      <Layout>
-        {isTimeBoard ? (
-          <TimeSelectorBoard
-            setTimes={({ start, end }: ITimeStartToEnd) => {
-              setTime({ start, end });
-            }}
-            times={time}
-          />
-        ) : (
-          <TimeSelector
-            setTimes={({ start, end }: ITimeStartToEnd) => {
-              if (start) {
-                setTime({ end: time.end, start });
-              }
-              if (end) {
-                setTime({ start: time.start, end });
-              }
-            }}
-            times={time}
-          />
-        )}
-      </Layout>
-    </>
+    <Layout>
+      {isTimeBoard ? (
+        <TimeSelectorBoard
+          setTimes={({ start, end }: ITimeStartToEnd) => {
+            setTime({ start, end });
+          }}
+          times={time}
+        />
+      ) : (
+        <TimeSelector
+          setTimes={({ start, end }: ITimeStartToEnd) => {
+            if (start) {
+              setTime({ end: time.end, start });
+            }
+            if (end) {
+              setTime({ start: time.start, end });
+            }
+          }}
+          times={time}
+        />
+      )}
+    </Layout>
   );
 }
 
@@ -73,7 +71,7 @@ const Layout = styled.div`
     font-size: 14px;
     font-weight: 600;
     display: inline-block;
-    margin-bottom: 8px;
+    margin-bottom: var(--margin-md);
   }
 `;
 

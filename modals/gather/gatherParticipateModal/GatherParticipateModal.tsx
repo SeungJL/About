@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../../components/modals/Modals";
+import { ModalHeader, ModalLayout } from "../../../components/modals/Modals";
 
-import { ModalMain } from "../../../styles/layout/modal";
 import { IModal, IRefetch } from "../../../types/reactTypes";
 import GatherParticipateModalApply from "./GatherParticipateModalApply";
 import GatherParticipateModalParticipate from "./GatherParticipateModalParticipate";
@@ -15,9 +13,9 @@ function GatherParticipateModal({
   const [pageNum, setPageNum] = useState(0);
 
   return (
-    <ModalLeyou size="md">
-      <ModalHeaderX title="참여신청" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="sm">
+      <ModalHeader text="참여신청" />
+      <>
         {pageNum === 0 ? (
           <GatherParticipateModalApply setPageNum={setPageNum} />
         ) : pageNum === 1 ? (
@@ -28,8 +26,8 @@ function GatherParticipateModal({
             setIsRefetch={setIsRefetch}
           />
         )}
-      </ModalMain>
-    </ModalLeyou>
+      </>
+    </ModalLayout>
   );
 }
 

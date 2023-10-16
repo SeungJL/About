@@ -1,5 +1,6 @@
 import {
   Button,
+  Flex,
   Modal,
   ModalBody as ChakraModalBody,
   ModalCloseButton,
@@ -83,6 +84,7 @@ interface IModalFooterTwo {
   leftText?: string;
   rightText?: string;
   isFull?: boolean;
+  isSmall?: boolean;
 }
 
 export const ModalFooterTwo = ({
@@ -91,6 +93,7 @@ export const ModalFooterTwo = ({
   leftText,
   rightText,
   isFull,
+  isSmall,
 }: IModalFooterTwo) => (
   <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
     <Button
@@ -98,7 +101,7 @@ export const ModalFooterTwo = ({
       variant={isFull ? "solid" : "ghost"}
       mr={!isFull && "var(--margin-md)"}
       onClick={onClickLeft}
-      size={isFull ? "lg" : "md"}
+      size={isFull && !isSmall ? "lg" : "md"}
     >
       {leftText || "이전"}
     </Button>
@@ -108,7 +111,7 @@ export const ModalFooterTwo = ({
       color={isFull ? "white" : "var(--color-mint)"}
       onClick={onClickRight}
       colorScheme={isFull && "mintTheme"}
-      size={isFull ? "lg" : "md"}
+      size={isFull && !isSmall ? "lg" : "md"}
     >
       {rightText || "다음"}
     </Button>
@@ -119,21 +122,55 @@ interface IModalFooterOne {
   onClick: () => void;
   text?: string;
   isFull?: boolean;
+  isRed?: boolean;
 }
 
-export const ModalFooterOne = ({ onClick, text, isFull }: IModalFooterOne) => (
+export const ModalFooterOne = ({
+  onClick,
+  text,
+  isFull,
+  isRed,
+}: IModalFooterOne) => (
   <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
     <Button
       size={isFull ? "lg" : "md"}
       variant={isFull ? "solid" : "ghost"}
-      color={!isFull ? "var(--font-h1)" : "white"}
+      color={!isFull ? "var(--color-mint)" : "white"}
       w={isFull && "100%"}
-      colorScheme={isFull && "mintTheme"}
+      colorScheme={isFull && !isRed ? "mintTheme" : "redTheme"}
       onClick={onClick}
     >
       {text || "확인"}
     </Button>
   </ChakraModalFooter>
+);
+
+interface IModalBodyNavTwo {
+  topText: string;
+  bottomText: string;
+  onClickTop: () => void;
+  onClickBottom: () => void;
+}
+
+export const ModalBodyNavTwo = ({
+  topText,
+  bottomText,
+  onClickBottom,
+  onClickTop,
+}: IModalBodyNavTwo) => (
+  <Flex direction="column" h="100%" mt="var(--margin-min)">
+    <Button
+      colorScheme="mintTheme"
+      marginBottom="var(--margin-sub)"
+      size="lg"
+      onClick={onClickTop}
+    >
+      {topText}
+    </Button>
+    <Button size="lg" onClick={onClickBottom}>
+      {bottomText}
+    </Button>
+  </Flex>
 );
 
 export const ModalLeyou = ({ children, size, height }: IModalLayout) => (
