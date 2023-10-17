@@ -62,8 +62,10 @@ function DateSetting() {
   //날짜 판단
   useEffect(() => {
     setIsMainLoading(true);
+    setStudyDateStatus(null);
     if (!voteDate) return;
     const studyDateStatus = getStudyDate(voteDate);
+    console.log(2, studyDateStatus);
     setStudyDateStatus(studyDateStatus);
     setMyStudyFixed(null);
     setParticipations(null);

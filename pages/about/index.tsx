@@ -1,7 +1,9 @@
+import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
+import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import AboutCalendar from "../../pagesComponents/about/main/aboutCalendar/AboutCalendar";
 import AboutCategoryNav from "../../pagesComponents/about/main/AboutCategoryNav";
 import AboutGather from "../../pagesComponents/about/main/aboutGather/AboutGather";
@@ -37,6 +39,10 @@ function About() {
 
   const isFirstRender = useRef(true);
 
+  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
+    dayjs().add(1, "day")
+  );
+
   //스터디 정렬 *내 스터디 *투표 인원수 고려
   useEffect(() => {
     //첫번째 렌더링시에만 적용
@@ -62,6 +68,17 @@ function About() {
     }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
+
+  useEffect(() => {
+    if (
+      participations &&
+      participations[0].status === "pending" &&
+      studyDateStatus === "today"
+    ) {
+      decideSpace();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participations, studyDateStatus]);
 
   return (
     <>
