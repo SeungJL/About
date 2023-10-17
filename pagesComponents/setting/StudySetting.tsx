@@ -70,7 +70,13 @@ function StudySetting() {
       const participations = studyVoteData.participations;
       setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
-      if (participations[0].status === "pending") setDecideStudy();
+
+      if (
+        studyDateStatus !== "not passed" &&
+        participations[0].status === "pending"
+      ) {
+        setDecideStudy();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studyVoteData]);
