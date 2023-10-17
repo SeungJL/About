@@ -70,11 +70,11 @@ function StudySetting() {
       const participations = studyVoteData.participations;
       setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
-
       if (
         studyDateStatus === "today" &&
         participations[0].status === "pending"
       ) {
+        console.log(studyDateStatus, participations[0].status);
         setDecideStudy();
       }
     }
