@@ -72,7 +72,7 @@ function StudySetting() {
       setMyStudySpace(participations);
 
       if (
-        studyDateStatus !== "not passed" &&
+        studyDateStatus === "today" &&
         participations[0].status === "pending"
       ) {
         setDecideStudy();
