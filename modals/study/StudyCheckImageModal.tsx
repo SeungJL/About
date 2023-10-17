@@ -11,7 +11,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
-import { getToday } from "../../helpers/dateHelpers";
+import { now } from "../../helpers/dateHelpers";
 import {
   useCompleteToast,
   useErrorToast,
@@ -32,15 +32,18 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
 
-  const { mutate: handleArrived } = useStudyArrivedMutation(getToday(), {
-    onSuccess() {
-      getAboutPoint(POINT_SYSTEM_PLUS.STUDY_PRIVATE_ATTEND);
-      completeToast("free", "출석 완료 !");
-      setIsRefetchStudySpace(true);
-      setIsModal(false);
-    },
-    onError: errorToast,
-  });
+  const { mutate: handleArrived } = useStudyArrivedMutation(
+    now().startOf("day"),
+    {
+      onSuccess() {
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_PRIVATE_ATTEND);
+        completeToast("free", "출석 완료 !");
+        setIsRefetchStudySpace(true);
+        setIsModal(false);
+      },
+      onError: errorToast,
+    }
+  );
 
   const [imageSrc, setImageSrc] = useState(null);
 

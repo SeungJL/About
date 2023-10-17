@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -6,6 +5,8 @@ import {
   STUDY_VOTE_START_HOUR,
   VOTER_DATE_END,
 } from "../../constants/settingValue/study";
+import { getCurrentDate } from "../../helpers/dateHelpers";
+
 import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
@@ -16,10 +17,11 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
+import { IParticipation } from "../../types/study/studyDetail";
 
 function DateSetting() {
   const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
+  const isGuest = session && session.user.name === "guest";
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const location = useRecoilValue(locationState);
@@ -30,47 +32,46 @@ function DateSetting() {
 
   const [isDefaultPrev, setIsDefaultPrev] = useState(false);
 
-  //스터디 참여자인지 판단
-  useStudyVoteQuery(dayjs(), location, {
-    enabled: isDefaultPrev && !isGuest && !!location,
-    onSuccess(data) {
-      if (voteDate) return;
-      const isMyVote = data.participations.some(
-        (participation) =>
-          participation.status === "open" &&
-          participation.attendences.some(
-            (who) => who.firstChoice && who.user.uid === session.uid
-          )
-      );
-      if (isMyVote) setVoteDate(dayjs().startOf("day"));
-      else setVoteDate(getInterestingDate());
-      setIsDefaultPrev(false);
-    },
-  });
+  const currentDate = getCurrentDate();
 
-  //최초 접속
+  // 최초 voteDate 설정
   useEffect(() => {
-    if (voteDate) return;
-    const currentHour = dayjs().hour();
+    if (voteDate || isGuest === undefined) return;
+    const currentHour = currentDate.hour();
     if (STUDY_VOTE_START_HOUR <= currentHour && currentHour < VOTER_DATE_END) {
-      if (isGuest) setVoteDate(dayjs());
+      if (isGuest) setVoteDate(currentDate);
       else setIsDefaultPrev(true);
     } else setVoteDate(getInterestingDate());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGuest]);
 
-  //날짜 판단
+  //voteDate가 변경될 때 세팅
   useEffect(() => {
     setIsMainLoading(true);
-    setStudyDateStatus(null);
     if (!voteDate) return;
-    const studyDateStatus = getStudyDate(voteDate);
-    setStudyDateStatus(studyDateStatus);
     setMyStudyFixed(null);
-    console.log(4);
     setParticipations(null);
+    setStudyDateStatus(getStudyDate(voteDate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
+
+  //오늘 스터디 참여자인지 판단
+  useStudyVoteQuery(currentDate, location, {
+    enabled: isDefaultPrev && !!location,
+    onSuccess(data) {
+      if (voteDate) return;
+      const isMyVote = findMyVote(data.participations);
+      if (isMyVote) setVoteDate(currentDate);
+      else setVoteDate(getInterestingDate());
+      setIsDefaultPrev(false);
+    },
+  });
+
+  const findMyVote = (pars: IParticipation[]) => {
+    const hasUserVoted = (who) =>
+      who.user.uid === session.uid && who.firstChoice;
+    return pars.some((par) => par.status === "open" && hasUserVoted(par));
+  };
 
   return null;
 }

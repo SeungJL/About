@@ -1,28 +1,22 @@
 import dayjs, { Dayjs } from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
+export const getCurrentDate = () => dayjs().startOf("day");
+export const getCurrentHour = () => dayjs().hour();
 
-const TZ_SEOUL = "Asia/Seoul";
-
-export const now = () => dayjs().tz(TZ_SEOUL);
-
-export const getToday = () => now().startOf("day");
-
-export const getMonth = () => getToday().month();
+export const now = () => dayjs();
+export const currentHour = () => dayjs().hour();
+export const getMonth = () => dayjs().month();
 
 export const strToDate = (dateStr: string) => {
-  return dayjs(dateStr, "YYYY-MM-DD").tz(TZ_SEOUL).startOf("day");
+  return dayjs(dateStr, "YYYY-MM-DD").startOf("day");
 };
 
 export const toDate = (raw: string | Date) => {
   let dayjsDate: Dayjs;
   if (typeof raw === "string") dayjsDate = strToDate(raw);
-  else dayjsDate = dayjs(raw).tz(TZ_SEOUL).startOf("day");
+  else dayjsDate = dayjs(raw).startOf("day");
 
-  return dayjs(dayjsDate).tz(TZ_SEOUL).startOf("day");
+  return dayjs(dayjsDate).startOf("day");
 };
 
 export const dayjsToStr = (date: Dayjs) => date?.format("YYYY-MM-DD");

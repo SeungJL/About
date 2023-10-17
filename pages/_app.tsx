@@ -20,6 +20,10 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
+            staleTime: 1 * 60 * 1000,
+            cacheTime: 10 * 60 * 1000,
+            retry: 2,
+            refetchOnWindowFocus: false,
             onError: (err) => {
               console.error(err);
             },

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
@@ -37,21 +37,8 @@ function About() {
 
   const [otherStudies, setOtherStudies] = useState<IParticipation[]>([]);
 
-  const isFirstRender = useRef(true);
-
-  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day")
-  );
-
   //스터디 정렬 *내 스터디 *투표 인원수 고려
   useEffect(() => {
-    //첫번째 렌더링시에만 적용
-    // if (isFirstRender.current) {
-    //   setIsMainLoading(true);
-    //   setParticipations(null);
-    //   isFirstRender.current = false;
-    //   return;
-    // }
     if (!participations) {
       setOtherStudies([]);
       return;
@@ -60,8 +47,12 @@ function About() {
       participations?.filter((space) => space !== myStudyFixed),
       studyDateStatus !== "not passed"
     );
+    const filtered =
+      studyDateStatus === "not passed"
+        ? arrangedOtherStudies.filter((par) => par.place.brand !== "자유 신청")
+        : arrangedOtherStudies;
 
-    setOtherStudies(arrangedOtherStudies);
+    setOtherStudies(filtered);
     //0.1초 정도의 딜레이를 주는게 더 자연스러움
     setTimeout(() => {
       setIsMainLoading(false);
@@ -69,19 +60,19 @@ function About() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
 
+  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
+    dayjs().add(1, "day")
+  );
+
   useEffect(() => {
     if (
-      participations &&
-      participations[0].status === "pending" &&
+      participations?.[0]?.status === "pending" &&
       studyDateStatus === "today"
     ) {
-      console.log(5);
       decideSpace();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [participations, studyDateStatus]);
-
-  console.log(7, participations);
 
   return (
     <>

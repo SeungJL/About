@@ -10,7 +10,6 @@ import {
   isVotingState,
   myStudyFixedState,
   participationsState,
-  studyDateStatusState,
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
@@ -22,28 +21,21 @@ function StudySetting() {
 
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const setIsVoting = useSetRecoilState(isVotingState);
   const setParticipations = useSetRecoilState(participationsState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
   const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
 
-  //내 스터디 확인
-  const setMyStudySpace = (participations: IParticipation[]) => {
-    let isCheckMyVote = false;
-    participations.forEach((participation) => {
-      participation.attendences.forEach((who) => {
-        if (!who.user) return;
-        if (who.user.uid === session?.uid) {
-          isCheckMyVote = true;
-          if (["open", "free"].includes(participation.status))
-            setMySpaceFixed(participation);
-        }
-      });
-    });
-    setIsVoting(isCheckMyVote);
-  };
+  useEffect(() => {
+    if (isRefetch) {
+      setTimeout(() => {
+        refetch();
+        setIsRefetch(false);
+      }, 500);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRefetch]);
 
   //스터디 데이터 가져오기
   const { refetch, data: studyVoteData } = useStudyVoteQuery(
@@ -54,26 +46,32 @@ function StudySetting() {
       onError: (e) => typeErrorToast(e, "study"),
     }
   );
-  console.log(2, studyVoteData);
+
   useEffect(() => {
     if (studyVoteData) {
       const participations = studyVoteData.participations;
+
       setParticipations(arrangeSpace(participations));
-      console.log(5, participations);
       setMyStudySpace(participations);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studyVoteData]);
 
-  useEffect(() => {
-    if (isRefetch) {
-      setTimeout(() => {
-        refetch();
-        setIsRefetch(false);
-      }, 600);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefetch]);
+  //내 스터디 확인
+  const setMyStudySpace = (participations: IParticipation[]) => {
+    let isCheckMyVote = false;
+    participations.forEach((participation) => {
+      participation.attendences.forEach((who) => {
+        if (who.user.uid === session?.uid) {
+          isCheckMyVote = true;
+          if (["open", "free"].includes(participation.status)) {
+            setMySpaceFixed(participation);
+          }
+        }
+      });
+    });
+    setIsVoting(isCheckMyVote);
+  };
 
   return null;
 }
