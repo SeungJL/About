@@ -65,9 +65,9 @@ function DateSetting() {
     setStudyDateStatus(null);
     if (!voteDate) return;
     const studyDateStatus = getStudyDate(voteDate);
-    console.log(2, studyDateStatus);
     setStudyDateStatus(studyDateStatus);
     setMyStudyFixed(null);
+    console.log(4);
     setParticipations(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);

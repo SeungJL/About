@@ -46,12 +46,12 @@ function About() {
   //스터디 정렬 *내 스터디 *투표 인원수 고려
   useEffect(() => {
     //첫번째 렌더링시에만 적용
-    if (isFirstRender.current) {
-      setIsMainLoading(true);
-      setParticipations(null);
-      isFirstRender.current = false;
-      return;
-    }
+    // if (isFirstRender.current) {
+    //   setIsMainLoading(true);
+    //   setParticipations(null);
+    //   isFirstRender.current = false;
+    //   return;
+    // }
     if (!participations) {
       setOtherStudies([]);
       return;
@@ -75,10 +75,13 @@ function About() {
       participations[0].status === "pending" &&
       studyDateStatus === "today"
     ) {
+      console.log(5);
       decideSpace();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [participations, studyDateStatus]);
+
+  console.log(7, participations);
 
   return (
     <>

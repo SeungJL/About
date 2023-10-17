@@ -54,11 +54,12 @@ function StudySetting() {
       onError: (e) => typeErrorToast(e, "study"),
     }
   );
-
+  console.log(2, studyVoteData);
   useEffect(() => {
     if (studyVoteData) {
       const participations = studyVoteData.participations;
       setParticipations(arrangeSpace(participations));
+      console.log(5, participations);
       setMyStudySpace(participations);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
