@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { LOCATION_OPEN } from "../../constants/location";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
@@ -54,11 +55,17 @@ function StudySetting() {
     });
     setIsVoting(isCheckMyVote);
   };
-
+ 
   //스터디 데이터 가져오기
-  const { refetch } = useStudyVoteQuery(voteDate, location, {
+  const {
+    refetch,
+
+    data: studyVoteData,
+  } = useStudyVoteQuery(voteDate, location, {
     enabled: !!voteDate && LOCATION_OPEN.includes(location),
+
     onSuccess(data) {
+     
       const participations = data.participations;
       setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
@@ -68,7 +75,19 @@ function StudySetting() {
   });
 
   useEffect(() => {
+    if (studyVoteData) {
+     
+      const participations = studyVoteData.participations;
+      setParticipations(arrangeSpace(participations));
+      setMyStudySpace(participations);
+      if (participations[0].status === "pending") setDecideStudy();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [studyVoteData]);
+
+  useEffect(() => {
     if (isRefetch) {
+      
       setTimeout(() => {
         refetch();
         setIsRefetch(false);

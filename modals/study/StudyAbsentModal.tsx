@@ -46,7 +46,6 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
-  console.log(myStudyFixed);
 
   const myStudyStartTime = studyStartTime?.find(
     (item) => item.placeId === placeId

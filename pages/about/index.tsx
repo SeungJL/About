@@ -66,8 +66,8 @@ function About() {
   return (
     <>
       <Setting>
-        <UserSetting />
         <DateSetting />
+        <UserSetting />
         <StudySetting />
       </Setting>
       <Layout>

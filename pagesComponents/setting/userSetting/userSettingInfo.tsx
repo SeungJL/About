@@ -29,6 +29,7 @@ function UserSettingInfo({ userInfo }: IUserSettingInfo) {
       return;
     }
     if (!userInfo) return;
+    
     //지역 설정
     setLocation(userInfo.location);
     // eslint-disable-next-line react-hooks/exhaustive-deps

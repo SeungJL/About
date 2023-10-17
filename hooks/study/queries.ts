@@ -28,14 +28,19 @@ export const useStudyVoteQuery = (
   >
 ) => {
   return useQuery<IVote, AxiosError, IVote>(
-    [STUDY_VOTE_INFO, date, location],
+    [STUDY_VOTE_INFO, dayjsToStr(date), location],
     async () => {
+      const startTime = Date.now();
       const res = await axios.get<IVote>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}`
       );
+      const endTime = Date.now(); // 쿼리가 성공적으로 완료된 시간
+      const duration = endTime - startTime; // 수행 시간
+ 
       return res.data;
     },
-    options
+
+    { ...options, staleTime: 1000 }
   );
 };
 

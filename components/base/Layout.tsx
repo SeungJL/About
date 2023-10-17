@@ -43,6 +43,7 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: isCondition,
     onSuccess(data) {
+     
       //다른 곳에서 query 호출이 중복되는 경우 방지
       if (!isCondition) return;
       //정상적이지 않은 유저테이블 생성에 대한 오류 방지
@@ -58,7 +59,7 @@ function Layout({ children }: ILayout) {
       else navigateTo("/checkingServer");
     },
   });
- 
+
   return (
     <LayoutContainer>
       {token && (

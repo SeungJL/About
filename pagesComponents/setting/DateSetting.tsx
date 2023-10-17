@@ -32,8 +32,9 @@ function DateSetting() {
 
   //스터디 참여자인지 판단
   useStudyVoteQuery(dayjs(), location, {
-    enabled: isDefaultPrev && !isGuest,
+    enabled: isDefaultPrev && !isGuest && !!location,
     onSuccess(data) {
+      if (voteDate) return;
       const isMyVote = data.participations.some(
         (participation) =>
           participation.status === "open" &&

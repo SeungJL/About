@@ -25,8 +25,7 @@ export const toDate = (raw: string | Date) => {
   return dayjs(dayjsDate).tz(TZ_SEOUL).startOf("day");
 };
 
-
-export const dayjsToStr = (date: Dayjs) => date.format("YYYY-MM-DD");
+export const dayjsToStr = (date: Dayjs) => date?.format("YYYY-MM-DD");
 
 export const dayjsToFormat = (date: Dayjs, text: string) => date.format(text);
 
