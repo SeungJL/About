@@ -7,6 +7,8 @@ const nextConfig = {
       "user-images.githubusercontent.com",
       "play-lh.googleusercontent.com",
       "studyabout.s3.ap-northeast-2.amazonaws.com",
+      "k.kakaocdn.net",
+      "p.kakaocdn.net",
     ],
   },
   reactStrictMode: false,

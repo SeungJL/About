@@ -10,13 +10,7 @@ function StudySpaceCoverSkeleton({ coverImageUrl }: IStudySpaceCoverSkeleton) {
   return (
     <Layout>
       {coverImageUrl && (
-        <Image
-          src={coverImageUrl}
-          width={343}
-          height={165}
-          unoptimized={true}
-          alt="studySpace"
-        />
+        <Image src={coverImageUrl} width={343} height={165} alt="studySpace" />
       )}
       <SpaceIcon>
         <Skeleton>temp</Skeleton>

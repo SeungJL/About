@@ -13,19 +13,12 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
         <Image
           src={coverImageUrl}
           layout="fill"
-          unoptimized={true}
           alt="studySpace"
           priority={true}
         />
       </ImageWrapper>
       <SpaceIcon>
-        <Image
-          src={`${logoImageUrl}`}
-          width={72}
-          height={72}
-          unoptimized={true}
-          alt="spaceIcon"
-        />
+        <Image src={`${logoImageUrl}`} width={72} height={72} alt="spaceIcon" />
       </SpaceIcon>
     </Layout>
   );

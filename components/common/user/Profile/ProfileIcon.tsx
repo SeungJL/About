@@ -71,7 +71,6 @@ function ProfileIcon({ user, size, isMember }: IProfileIcon) {
             width={isError || isAvatar ? 0.8 * iconSize : iconSize}
             height={isError || isAvatar ? 0.8 * iconSize : iconSize}
             alt="ProfileIcon"
-            unoptimized={true}
             onError={() => setIsError(true)}
           />
         </Layout>

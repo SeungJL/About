@@ -98,7 +98,6 @@ function RequestChangeProfileImageModalAvatar({
               <Image
                 width={80}
                 height={80}
-                unoptimized={true}
                 src={AVATAR_ICON[iconIdx]}
                 alt="avatar"
               />

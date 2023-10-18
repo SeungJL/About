@@ -50,7 +50,6 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
             width={isAvatar ? 21 : 26}
             height={isAvatar ? 21 : 26}
             alt="ProfileIconXsOverwrap"
-            unoptimized={true}
             onError={() => setIsError(true)}
           />
         ) : (
@@ -60,7 +59,6 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
               width={isError ? 21 : isAvatar ? 21 : 26}
               height={isError ? 21 : isAvatar ? 21 : 26}
               alt="ProfileIconXsOverwrap"
-              unoptimized={true}
               onError={() => setIsError(true)}
             />
             <IconWrapper>

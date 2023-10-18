@@ -9,13 +9,7 @@ interface IStoreDetailCover {
 function StoreDetailCover({ image, isCompleted }: IStoreDetailCover) {
   return (
     <Layout>
-      <Image
-        width={200}
-        height={200}
-        alt="storeGiftDetail"
-        unoptimized={true}
-        src={image}
-      />
+      <Image width={200} height={200} alt="storeGiftDetail" src={image} />
       {isCompleted && (
         <CompletedRapple>
           <Circle>추첨 완료</Circle>

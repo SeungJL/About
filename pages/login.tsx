@@ -44,9 +44,12 @@ const Login: NextPage<{
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isApplicant, setIsApplicant] = useState(false);
 
+
+  
   const { isLoading } = useRegisterFormsQuery({
     enabled: !!session,
     onSuccess(data) {
+      console.log(24);
       if (data?.find((who) => who.uid === session.uid)) setIsApplicant(true);
     },
   });

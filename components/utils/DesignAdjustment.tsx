@@ -47,7 +47,6 @@ export const StudySpaceLogo = ({
       alt="studyLogoSm"
       width={isBig ? W * 1.8 : W}
       height={isBig ? W * 1.8 : W}
-      unoptimized={true}
       priority={isImagePriority}
     />
   );
@@ -71,13 +70,7 @@ export const StoreGiftImage = ({ imageSrc, giftId }: IStoreGift) => {
   }
   return (
     <>
-      <Image
-        src={imageSrc}
-        alt="storeGiftImage"
-        width={W}
-        height={H}
-        unoptimized={true}
-      />
+      <Image src={imageSrc} alt="storeGiftImage" width={W} height={H} />
     </>
   );
 };

@@ -29,9 +29,10 @@ function Layout({ children }: ILayout) {
 
   const [isErrorModal, setIsErrorModal] = useState(false);
 
-  const isPublicRoute = !PUBLIC_ROUTES.some((route) =>
+  const isPublicRoute = PUBLIC_ROUTES.some((route) =>
     router.asPath.startsWith(route)
   );
+
   const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
 
   //접속 권한 확인

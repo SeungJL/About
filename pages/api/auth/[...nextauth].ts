@@ -72,7 +72,6 @@ export const authOptions: NextAuthOptions = {
     //반환값이 true면 인증 성공했다는 뜻
     //false면 nextAuth의 반환 실패메세지
     async signIn({ user, account }) {
-      
       if (account.provider === "guest") return true;
 
       const accessToken: any = account.access_token;
@@ -80,7 +79,7 @@ export const authOptions: NextAuthOptions = {
 
       const kakaoProfile = await getProfile(accessToken, user.uid as string);
       if (!kakaoProfile) return false;
-
+      console.log(kakaoProfile);
       await dbConnect();
       //해당 uid가 존재하는 경우에는 카카오 프로필만 업데이트
       await User.updateOne({ uid: user.uid }, { $set: kakaoProfile });
