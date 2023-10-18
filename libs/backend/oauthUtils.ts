@@ -10,6 +10,7 @@ import dbConnect from "./dbConnect";
 interface kakaoProfileInfo {
   name: string;
   profileImage: string;
+  thumbnailURL: string;
 }
 
 export const getRefreshedAccessToken = async (uid: string) => {
@@ -180,6 +181,8 @@ export const withdrawal = async (accessToken: string) => {
 };
 
 const getKakaoProfile = async (accessToken: string) => {
+  const defaultUrl =
+    "https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png";
   try {
     const res = await axios.get("https://kapi.kakao.com/v1/api/talk/profile", {
       headers: {
@@ -188,9 +191,10 @@ const getKakaoProfile = async (accessToken: string) => {
     });
     return {
       name: res.data.nickName as string,
-      profileImage:
-        (res.data.profileImageURL as string) ||
-        "https://user-images.githubusercontent.com/48513798/173180642-8fc5948e-a437-45f3-91d0-3f0098a38195.png",
+      profileImage: (res.data.profileImageURL as string) || defaultUrl,
+      thumbnailURL:
+        "https://p.kakaocdn.net/th/talkp/wneSbKczTz/rpaPLecKe5bXfGxlKyRNXk/a47fyq_110x110_c.jpg" ||
+        defaultUrl,
     } as kakaoProfileInfo;
   } catch (err) {
     return null;
