@@ -1,9 +1,7 @@
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
-import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import AboutCalendar from "../../pagesComponents/about/main/aboutCalendar/AboutCalendar";
 import AboutCategoryNav from "../../pagesComponents/about/main/AboutCategoryNav";
 import AboutGather from "../../pagesComponents/about/main/aboutGather/AboutGather";
@@ -30,8 +28,7 @@ import { IParticipation } from "../../types/study/studyDetail";
 function About() {
   const myStudyFixed = useRecoilValue(myStudyFixedState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const [participations, setParticipations] =
-    useRecoilState(participationsState);
+  const participations = useRecoilValue(participationsState);
   const voteDate = useRecoilValue(voteDateState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
@@ -60,20 +57,6 @@ function About() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
 
-  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day")
-  );
-
-  useEffect(() => {
-    if (
-      participations?.[0]?.status === "pending" &&
-      studyDateStatus === "today"
-    ) {
-      decideSpace();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [participations, studyDateStatus]);
-  console.log("check");
   return (
     <>
       <Setting>

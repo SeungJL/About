@@ -1,15 +1,18 @@
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { LOCATION_OPEN } from "../../constants/location";
 import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
+import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
 import {
   isVotingState,
   myStudyFixedState,
   participationsState,
+  studyDateStatusState,
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
@@ -21,9 +24,11 @@ function StudySetting() {
 
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const setIsVoting = useSetRecoilState(isVotingState);
-  const setParticipations = useSetRecoilState(participationsState);
+  const [participations, setParticipations] =
+    useRecoilState(participationsState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
   const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
 
@@ -36,6 +41,17 @@ function StudySetting() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetch]);
+
+  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
+    dayjs().add(1, "day")
+  );
+
+  useEffect(() => {
+    const hasStudyDecision =
+      participations?.[0]?.status === "pending" && studyDateStatus === "today";
+    if (hasStudyDecision) decideSpace();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participations, studyDateStatus]);
 
   //스터디 데이터 가져오기
   const { refetch, data: studyVoteData } = useStudyVoteQuery(
@@ -50,7 +66,6 @@ function StudySetting() {
   useEffect(() => {
     if (studyVoteData) {
       const participations = studyVoteData.participations;
-
       setParticipations(arrangeSpace(participations));
       setMyStudySpace(participations);
     }
