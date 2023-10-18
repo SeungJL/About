@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { PopUpLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import {
-  ModalFooterNav,
-  ModalMain,
-  ModalSubtitle,
-} from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function ProfileModifyPopUp({ setIsModal }: IModal) {
@@ -29,22 +29,23 @@ function ProfileModifyPopUp({ setIsModal }: IModal) {
 
   return (
     <>
-      <PopUpLayout size="md">
-        <ModalHeaderX title="프로필 수정" setIsModal={setIsModal} />
-        <ModalMain>
-          <ModalSubtitle>
-            입력할 수 있는 프로필 정보가 있어요! (+5점)
-          </ModalSubtitle>
+      <ModalLayout onClose={() => setIsModal(false)} size="md">
+        <ModalHeader text="프로필 수정" />
+        <ModalBody>
+          <ModalSubtitle>입력할 수 있는 프로필 정보가 있어요!</ModalSubtitle>
           <div>
-            나이, 전공, 관심사, mbti 등을 통해 다른 친구를 만날 수 있는 컨텐츠를
-            만들고 있어요! 🥰 금방 작성하는데 잠깐 입력하고 가시면 어떨까요?
+            나이, 전공, 관심사, mbti 등 다른 친구를 만날 수 있는 컨텐츠가 있어요
+            🥰 잠깐 입력하고 가시면 어떨까요?
           </div>
-        </ModalMain>
-        <ModalFooterNav>
-          <button onClick={onClickClosed}>닫기</button>
-          <button onClick={onClickModify}>프로필 수정</button>
-        </ModalFooterNav>
-      </PopUpLayout>
+        </ModalBody>
+        <ModalFooterTwo
+          leftText="닫기"
+          rightText="프로필 수정"
+          onClickLeft={onClickClosed}
+          onClickRight={onClickModify}
+          isFull={true}
+        />
+      </ModalLayout>
     </>
   );
 }

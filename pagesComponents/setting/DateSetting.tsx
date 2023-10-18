@@ -5,7 +5,7 @@ import {
   STUDY_VOTE_START_HOUR,
   VOTER_DATE_END,
 } from "../../constants/settingValue/study";
-import { getCurrentDate } from "../../helpers/dateHelpers";
+import { getCurrentDate, getCurrentHour } from "../../helpers/dateHelpers";
 
 import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
@@ -37,7 +37,7 @@ function DateSetting() {
   // 최초 voteDate 설정
   useEffect(() => {
     if (voteDate || isGuest === undefined) return;
-    const currentHour = currentDate.hour();
+    const currentHour = getCurrentHour();
     if (STUDY_VOTE_START_HOUR <= currentHour && currentHour < VOTER_DATE_END) {
       if (isGuest) setVoteDate(currentDate);
       else setIsDefaultPrev(true);

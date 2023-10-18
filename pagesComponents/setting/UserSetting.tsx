@@ -1,12 +1,7 @@
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import ModalPortal from "../../components/modals/ModalPortal";
-import { FAQ_POP_UP } from "../../constants/keys/localStorage";
-import { checkAndSetLocalStorage } from "../../helpers/storageHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import FAQPopUp from "../../modals/pop-up/FAQPopUp";
 
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import UserSettingInfo from "./userSetting/userSettingInfo";
@@ -19,8 +14,6 @@ export default function UserSetting() {
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
-  const [isGuestPopUp, setIsGuestPopUp] = useState(false);
-
   const isPopUpCondition = !isMainLoading && !isGuest;
 
   const { data: userInfo } = useUserInfoQuery({
@@ -28,22 +21,11 @@ export default function UserSetting() {
     onError: (e) => typeErrorToast(e, "user"),
   });
 
-  useEffect(() => {
-    if (isGuest && !checkAndSetLocalStorage(FAQ_POP_UP, 2)) {
-      setIsGuestPopUp(true);
-    }
-  }, [isGuest]);
-
   return (
     <>
       <UserSettingInfo userInfo={userInfo} />
       {isPopUpCondition && (
         <UserSettingPopUp isProfileEdit={userInfo?.majors?.length === 0} />
-      )}
-      {isGuestPopUp && (
-        <ModalPortal setIsModal={setIsGuestPopUp}>
-          <FAQPopUp setIsModal={setIsGuestPopUp} />
-        </ModalPortal>
       )}
     </>
   );

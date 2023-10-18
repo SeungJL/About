@@ -54,16 +54,16 @@ function HeartLikeIcon({ toUid }: IHeartLikeIcon) {
       animate="spin"
       variants={spinVariants}
       transition={spinTransition}
-      isshow={isShow}
+      isshow={isShow ? "true" : "false"}
     >
       <FontAwesomeIcon icon={faCircleHeart} color="var(--color-red)" />
     </Layout>
   );
 }
 
-const Layout = styled(motion.div)<{ isshow: boolean }>`
+const Layout = styled(motion.div)<{ isshow: "true" | "false" }>`
   margin-bottom: 3px;
-  display: ${(props) => (props.isshow ? "flex" : "none")};
+  display: ${(props) => (props.isshow === "true" ? "flex" : "none")};
   align-items: center;
 `;
 

@@ -73,7 +73,7 @@ function About() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [participations, studyDateStatus]);
-
+  console.log("check");
   return (
     <>
       <Setting>

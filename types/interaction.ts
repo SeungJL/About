@@ -1,3 +1,5 @@
+import { ITimeStamps } from "./timeAndDate";
+
 export type InteractionType = "like";
 
 export interface IInteractionSendLike {
@@ -5,7 +7,7 @@ export interface IInteractionSendLike {
   message?: string;
 }
 
-export interface IInteractionGetLike extends IInteractionSendLike {
+export interface IInteractionGetLike extends IInteractionSendLike, ITimeStamps {
   from: string;
   type: InteractionType;
 }

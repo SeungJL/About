@@ -2,33 +2,41 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { PopUpLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { USER_ROLE } from "../../constants/contentsValue/role";
+import { useInteractionLikeQuery } from "../../hooks/interaction/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
 
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
+  const lastWeekFirstDay = dayjs().day(1).subtract(1, "week");
+  const lastWeekLastDay = dayjs().day(0);
+
   const { data: userInfo } = useUserInfoQuery();
+  const { data: likeData } = useInteractionLikeQuery();
   const { data: parRate, isLoading } = useUserAttendRateQuery(
-    dayjs().day(1).subtract(1, "week"),
-    dayjs().day(0)
+    lastWeekFirstDay.subtract(1, "day"),
+    lastWeekLastDay.subtract(1, "day")
   );
 
   const parCnt = parRate?.find((who) => who.uid === userInfo.uid)?.cnt;
-
   const rest = userInfo?.role === "resting" && userInfo?.rest;
+  const lastWeekLikeCnt = likeData?.filter((like) => {
+    const date = dayjs(like.createdAt);
+    return lastWeekFirstDay <= date && date <= lastWeekLastDay;
+  })?.length;
 
   return (
-    <>
-      <PopUpLayout size="md">
-        <ModalHeaderX
-          title="지난주 스터디 기록"
-          setIsModal={() => setIsModal(false)}
-        />
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text="지난주 스터디 기록" />
+      <ModalBody>
         <Container>
           {!isLoading ? (
             <Info>
@@ -60,7 +68,8 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
                 </Item>
               ) : (
                 <Item>
-                  <span>받은 좋아요</span>0 개
+                  <span>받은 좋아요</span>
+                  {lastWeekLikeCnt} 개
                 </Item>
               )}
               <Item>
@@ -69,48 +78,51 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
               </Item>
             </Info>
           ) : (
-            <Info>
-              <Item>
-                <span>구성</span>
-                <SkeletonText>
-                  <Skeleton>temp</Skeleton>
-                </SkeletonText>
-              </Item>
-              <Item>
-                <span>스터디 참여 </span>
-                <SkeletonText>
-                  <Skeleton>temp</Skeleton>
-                </SkeletonText>
-              </Item>
-              <Item>
-                <span>받은 좋아요</span>{" "}
-                <SkeletonText>
-                  <Skeleton>temp</Skeleton>
-                </SkeletonText>
-              </Item>
-              <Item>
-                <span>다음 참여 정산</span>
-                <SkeletonText>
-                  <Skeleton>temp</Skeleton>
-                </SkeletonText>
-              </Item>
-            </Info>
+            <LayoutSkeleton />
           )}
           <ImageWrapper>
             <ProfileIcon user={userInfo} size="lg" />
           </ImageWrapper>
         </Container>
-        <ModalFooterNav>
-          <button onClick={() => setIsModal(false)}>확인</button>
-        </ModalFooterNav>
-      </PopUpLayout>
-    </>
+      </ModalBody>
+      <ModalFooterOne onClick={() => setIsModal(false)} />
+    </ModalLayout>
   );
 }
 
-const Container = styled(ModalMain)`
+const LayoutSkeleton = () => (
+  <Info>
+    <Item>
+      <span>역할 구성</span>
+      <SkeletonText>
+        <Skeleton>temp</Skeleton>
+      </SkeletonText>
+    </Item>
+    <Item>
+      <span>스터디 참여 </span>
+      <SkeletonText>
+        <Skeleton>temp</Skeleton>
+      </SkeletonText>
+    </Item>
+    <Item>
+      <span>받은 좋아요</span>
+      <SkeletonText>
+        <Skeleton>temp</Skeleton>
+      </SkeletonText>
+    </Item>
+    <Item>
+      <span>참여 정산</span>
+      <SkeletonText>
+        <Skeleton>temp</Skeleton>
+      </SkeletonText>
+    </Item>
+  </Info>
+);
+
+const Container = styled.div`
   display: flex;
   flex-direction: row;
+  height: 100%;
 `;
 
 const Info = styled.div`
@@ -145,7 +157,7 @@ const Item = styled.div`
   display: flex;
   > span {
     display: inline-block;
-    width: 80px;
+    width: 88px;
     font-weight: 600;
   }
 `;

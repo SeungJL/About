@@ -4,7 +4,12 @@ import {
   STUDY_VOTE_END_HOUR,
   STUDY_VOTE_START_HOUR,
 } from "../constants/settingValue/study";
-import { IParticipation, IPlace, StudyDate } from "../types/study/studyDetail";
+import {
+  IParticipation,
+  IPlace,
+  StudyDate,
+  StudyStatus,
+} from "../types/study/studyDetail";
 import { getCurrentDate, getCurrentHour } from "./dateHelpers";
 
 export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
@@ -27,20 +32,30 @@ export const arrangeMainSpace = (
   participations: IParticipation[],
   isPassed?: boolean
 ) => {
-  const compare = (a: IParticipation, b: IParticipation) => {
-    const cntA = !isPassed
-      ? a.attendences.length
-      : a.attendences.filter((who) => who.firstChoice).length;
-    const cntB = !isPassed
-      ? b.attendences.length
-      : b.attendences.filter((who) => who.firstChoice).length;
-
-    if (cntA > cntB) return -1;
-    if (cntA < cntB) return 1;
-    return 0;
+  const getCount = (participation: IParticipation) => {
+    if (!isPassed) return participation.attendences.length;
+    return participation.attendences.filter((who) => who.firstChoice).length;
+  };
+  const getStatusPriority = (status: StudyStatus) => {
+    switch (status) {
+      case "open":
+        return 1;
+      case "free":
+        return 2;
+      default:
+        return 3;
+    }
   };
 
-  return participations.sort(compare);
+  return participations.sort((a, b) => {
+    const aStatusPriority = getStatusPriority(a.status);
+    const bStatusPriority = getStatusPriority(b.status);
+
+    if (aStatusPriority !== bStatusPriority)
+      return aStatusPriority - bStatusPriority;
+
+    return getCount(b) - getCount(a);
+  });
 };
 
 export const getInterestingDate = () => {

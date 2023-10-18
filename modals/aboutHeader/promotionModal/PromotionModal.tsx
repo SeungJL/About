@@ -8,7 +8,6 @@ import {
   ModalFooterTwo,
   ModalLayout,
 } from "../../../components/modals/Modals";
-import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import PromotionModalOverview from "./PromotionModalOverview";
 
@@ -62,12 +61,6 @@ function PromotionModal({ setIsModal }: IModal) {
   );
 }
 
-const Container = styled(ModalMain)`
-  display: flex;
-  flex-direction: column;
-  margin-top: var(--margin-min);
-`;
-
 const ImageContainer = styled.div`
   margin-top: var(--margin-sub);
   height: 100%;
@@ -89,7 +82,6 @@ const IconWrapper = styled.div`
 
 const Info = styled.div`
   line-height: var(--line-height);
-
   position: absolute;
   bottom: 24px;
   right: 4px;

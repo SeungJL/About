@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import {
-  ModalFeeterTwe,
-  ModalHeaderX,
-} from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
-import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function FAQPopUp({ setIsModal }: IModal) {
@@ -18,9 +19,9 @@ function FAQPopUp({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLeyou size="md">
-      <ModalHeaderX title="뉴비 가이드" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text="뉴비 가이드" />
+      <ModalBody>
         <ModalSubtitle>
           아직도 이걸 모른다고?! 아직도 이걸 모르는 당신은 뉴비! 궁금한 거
           있으면 보고 가~
@@ -42,13 +43,15 @@ function FAQPopUp({ setIsModal }: IModal) {
             color="var(--color-orange)"
           />
         </Wrapper>
-      </ModalMain>
-      <ModalFeeterTwe
-        right="확인하러가기"
-        setIsModal={setIsModal}
-        onSubmit={onSubmit}
+      </ModalBody>
+      <ModalFooterTwo
+        leftText="닫기"
+        rightText="보러가기"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={onSubmit}
+        isFull={true}
       />
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 
