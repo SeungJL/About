@@ -78,7 +78,6 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       {popUpTypes.includes("suggest") && (
         <SuggestPopUp setIsModal={() => filterPopUpTypes("suggest")} />
       )}
-
       {popUpTypes.includes("promotion") && (
         <PromotionModal setIsModal={() => filterPopUpTypes("promotion")} />
       )}

@@ -11,7 +11,7 @@ interface INoticeActive {
 }
 
 function NoticeActive({ likeData }: INoticeActive) {
-  console.log(likeData);
+
   return (
     <>
       {likeData

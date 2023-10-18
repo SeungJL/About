@@ -2,7 +2,9 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { MY_TODAY_STUDY_FIXED } from "../../constants/keys/localStorage";
 import { LOCATION_OPEN } from "../../constants/location";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
@@ -45,10 +47,10 @@ function StudySetting() {
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day")
   );
-
   useEffect(() => {
     const hasStudyDecision =
       participations?.[0]?.status === "pending" && studyDateStatus === "today";
+
     if (hasStudyDecision) decideSpace();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [participations, studyDateStatus]);
@@ -81,6 +83,9 @@ function StudySetting() {
           isCheckMyVote = true;
           if (["open", "free"].includes(participation.status)) {
             setMySpaceFixed(participation);
+            if (studyDateStatus === "today") {
+              localStorage.setItem(MY_TODAY_STUDY_FIXED, dayjsToStr(dayjs()));
+            }
           }
         }
       });

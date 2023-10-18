@@ -58,6 +58,7 @@ export const arrangeMainSpace = (
   });
 };
 
+//투표 시작 시간 기준까지는 오늘, 넘어가면 내일
 export const getInterestingDate = () => {
   const currentDate = getCurrentDate();
   if (dayjs() < currentDate.hour(STUDY_VOTE_START_HOUR)) return currentDate;
@@ -66,18 +67,17 @@ export const getInterestingDate = () => {
 
 type GetStudyDate = (voteDate: Dayjs) => StudyDate;
 
+//today는 스터디 결과 확정 시간 기준으로 24시간
 export const getStudyDate: GetStudyDate = (voteDate) => {
   const currentDate = getCurrentDate();
   const currentHours = getCurrentHour();
 
-  if (currentDate.isSame(voteDate))
-    return currentHours < STUDY_VOTE_END_HOUR ? "today" : "passed";
+  const isTodayCondition =
+    currentDate.isSame(voteDate) ||
+    (voteDate.isSame(currentDate.add(1, "day")) &&
+      currentHours >= STUDY_VOTE_END_HOUR);
+
+  if (isTodayCondition) return "today";
   if (voteDate.isBefore(currentDate)) return "passed";
-  if (
-    voteDate.isSame(currentDate.add(1, "day")) &&
-    currentHours >= STUDY_VOTE_END_HOUR
-  ) {
-    return "today";
-  }
   return "not passed";
 };
