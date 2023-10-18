@@ -11,12 +11,10 @@ function AboutCalendar() {
   const [isCalendarWeek, setIsCalendarWeek] = useState(true);
   return (
     <Layout>
-      {studyDateStatus === "not passed" && (
-        <AboutCalendarMonth
-          isCalendarWeek={isCalendarWeek}
-          setIsCalendarWeek={setIsCalendarWeek}
-        />
-      )}
+      <AboutCalendarMonth
+        isCalendarWeek={isCalendarWeek}
+        setIsCalendarWeek={setIsCalendarWeek}
+      />
       <Content>
         <AboutCalendarDays />
         <AboutCalendarDate isCalendarWeek={isCalendarWeek} />

@@ -16,9 +16,15 @@ function StudyPlace() {
       <Header title={`${dayjs().format("M월 D일")} 스터디`} />
       <Spacer />
       <Main>
-        {myStudyFixed && <AboutMainItem participation={myStudyFixed} />}
+        {myStudyFixed && (
+          <AboutMainItem participation={myStudyFixed} isImagePriority={true} />
+        )}
         {participations?.map((participation, idx) => (
-          <AboutMainItem participation={participation} key={idx} />
+          <AboutMainItem
+            participation={participation}
+            key={idx}
+            isImagePriority={myStudyFixed ? idx < 4 : idx < 5}
+          />
         ))}
       </Main>
     </PageLayout>

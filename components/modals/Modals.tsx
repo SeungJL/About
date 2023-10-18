@@ -53,7 +53,7 @@ export const ModalHeader = ({ text }) => (
     >
       {text}
     </ChakraModalHeader>
-    <ModalCloseButton mt="2px" />
+    <ModalCloseButton mt="2px" _focus={{ outline: "none" }} />
   </>
 );
 

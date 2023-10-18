@@ -9,8 +9,13 @@ import { IPlace } from "../../types/study/studyDetail";
 interface IStudySpaceLogo {
   place: IPlace;
   isBig: boolean;
+  isImagePriority: boolean;
 }
-export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
+export const StudySpaceLogo = ({
+  place,
+  isBig,
+  isImagePriority,
+}: IStudySpaceLogo) => {
   let W = 40;
 
   const id = place._id;
@@ -43,6 +48,7 @@ export const StudySpaceLogo = ({ place, isBig }: IStudySpaceLogo) => {
       width={isBig ? W * 1.8 : W}
       height={isBig ? W * 1.8 : W}
       unoptimized={true}
+      priority={isImagePriority}
     />
   );
 };

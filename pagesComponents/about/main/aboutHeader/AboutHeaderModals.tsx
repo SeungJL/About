@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ModalPortal from "../../../../components/modals/ModalPortal";
 import DailyCheckModal from "../../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import DailyCheckWinModal from "../../../../modals/aboutHeader/dailyCheckModal/DailyCheckWinModal";
 
@@ -29,21 +28,13 @@ function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
         <DailyCheckModal setIsModal={setIsModal} />
       )}
       {iconType === "attendCheckWin" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <DailyCheckWinModal setIsModal={setIsModal} />
-        </ModalPortal>
+        <DailyCheckWinModal setIsModal={setIsModal} />
       )}
       {iconType === "rabbit" && (
-        <ModalPortal setIsModal={setIsModal}>
-          {/* <RegularGatherModal
-              setIsRabbitRun={setIsRabbitRun}
-              setIsModal={setIsRabbit}
-            /> */}
-          <RegularGatherResultModal
-            setIsModal={setIsModal}
-            setIsRabbitRun={setIsModal}
-          />
-        </ModalPortal>
+        <RegularGatherResultModal
+          setIsModal={setIsModal}
+          setIsRabbitRun={setIsModal}
+        />
       )}
     </>
   );

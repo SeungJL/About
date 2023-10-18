@@ -64,11 +64,20 @@ function AboutMain({ participations }: IAboutMain) {
         >
           <Main>
             <Container>
-              {privateStudy && <AboutMainItem participation={privateStudy} />}
+              {privateStudy && (
+                <AboutMainItem
+                  participation={privateStudy}
+                  isImagePriority={true}
+                />
+              )}
               {studies
                 .slice(0, privateStudy ? VISIBLE_CNT - 1 : VISIBLE_CNT)
                 .map((participation, idx) => (
-                  <AboutMainItem participation={participation} key={idx} />
+                  <AboutMainItem
+                    participation={participation}
+                    key={idx}
+                    isImagePriority={idx < 2}
+                  />
                 ))}
               {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>

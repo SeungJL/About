@@ -23,7 +23,7 @@ function AboutStudyHeader() {
     setIsCheck(null);
     if (!myStudyFixed) return;
     const myCheck = !!myStudyFixed?.attendences.find(
-      (who) => who.user.uid === session?.uid
+      (who) => who?.user?.uid === session?.uid
     )?.arrived;
     setIsCheck(!!myCheck);
   }, [myStudyFixed, myStudyFixed?.attendences, session?.uid, studyDateStatus]);

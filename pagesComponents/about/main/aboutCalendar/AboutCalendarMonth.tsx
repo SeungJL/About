@@ -34,30 +34,43 @@ function AboutCalendarMonth({
       <MonthMain onClick={onClickToggle}>
         <span>{voteDate.format("YYYY년 M월")}</span>
         {isCalendarWeek ? (
-          <FontAwesomeIcon icon={faChevronDown} size="xs" />
+          <IconWrapper>
+            <FontAwesomeIcon icon={faChevronDown} size="xs" />
+          </IconWrapper>
         ) : (
-          <FontAwesomeIcon icon={faChevronUp} size="xs" />
+          <IconWrapper>
+            <FontAwesomeIcon icon={faChevronUp} size="xs" />
+          </IconWrapper>
         )}
       </MonthMain>
       {!isCalendarWeek && (
         <>
           <MonthNav>
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              onClick={() => onClickMove(-1)}
-              size="xs"
-            />
-            <FontAwesomeIcon
-              icon={faChevronRight}
-              onClick={() => onClickMove(1)}
-              size="xs"
-            />
+            <IconWrapper>
+              <FontAwesomeIcon
+                icon={faChevronLeft}
+                onClick={() => onClickMove(-1)}
+                size="xs"
+              />
+            </IconWrapper>
+            <IconWrapper>
+              <FontAwesomeIcon
+                icon={faChevronRight}
+                onClick={() => onClickMove(1)}
+                size="xs"
+              />
+            </IconWrapper>
           </MonthNav>
         </>
       )}
     </Layout>
   );
 }
+
+const IconWrapper = styled.div`
+  display: inline-block;
+  padding: 0 var(--padding-min);
+`;
 
 const Layout = styled.span`
   margin: 0 var(--padding-main);

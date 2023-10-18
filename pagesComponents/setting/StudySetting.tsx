@@ -79,7 +79,7 @@ function StudySetting() {
     let isCheckMyVote = false;
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
-        if (who.user.uid === session?.uid) {
+        if (who?.user?.uid === session?.uid) {
           isCheckMyVote = true;
           if (["open", "free"].includes(participation.status)) {
             setMySpaceFixed(participation);
