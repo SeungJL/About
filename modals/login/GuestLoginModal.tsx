@@ -15,7 +15,7 @@ interface IGuestLoginModal extends IModal {
 function GuestLoginModal({ setIsModal, customSignin }: IGuestLoginModal) {
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="sm">
+      <ModalLayout onClose={() => setIsModal(false)} size="sm" height={200}>
         <ModalHeader text="게스트 로그인" />
         <ModalBody>
           게스트용 로그인은 제한된 기능만을 제공합니다. 동아리 회원은 카카오
