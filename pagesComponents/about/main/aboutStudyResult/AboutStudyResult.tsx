@@ -15,7 +15,11 @@ function AboutStudyResult() {
       <Skeleton isLoad={!isMainLoading}>
         <Result>
           {isMainLoading ? null : myStudyFixed !== null ? (
-            <AboutMainItem participation={myStudyFixed} isMyResult={true} />
+            <AboutMainItem
+              participation={myStudyFixed}
+              isMyResult={true}
+              isImagePriority={true}
+            />
           ) : (
             <NoMyStudy />
           )}

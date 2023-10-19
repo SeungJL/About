@@ -48,7 +48,6 @@ function About() {
       studyDateStatus === "not passed"
         ? arrangedOtherStudies.filter((par) => par.place.brand !== "자유 신청")
         : arrangedOtherStudies;
-
     setOtherStudies(filtered);
     //0.1초 정도의 딜레이를 주는게 더 자연스러움
     setTimeout(() => {
