@@ -9,7 +9,7 @@ import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 const WEEKS_CNT = 5;
 
-function RecordDetailSummary() {
+function RecordAnalysisSummary() {
   const [weeksDate, setWeeksDate] = useState<IDayjsStartToEnd[]>([]);
 
   const [myAttend, setMyAttend] = useState([]);
@@ -98,4 +98,4 @@ const WeekAttend = styled.span`
   font-weight: 600;
 `;
 
-export default RecordDetailSummary;
+export default RecordAnalysisSummary;

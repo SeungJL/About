@@ -9,7 +9,7 @@ import { IPlace } from "../../types/study/studyDetail";
 interface IStudySpaceLogo {
   place: IPlace;
   isBig: boolean;
-  isImagePriority: boolean;
+  isImagePriority?: boolean;
 }
 export const StudySpaceLogo = ({
   place,

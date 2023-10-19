@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 
-function RecordDetailSummarySkeleton() {
+function RecordAnalysisSummarySkeleton() {
   return (
     <Layout>
       <Title>요약</Title>
@@ -56,4 +56,4 @@ const WeekAttend = styled.span`
   width: 28px;
 `;
 
-export default RecordDetailSummarySkeleton;
+export default RecordAnalysisSummarySkeleton;

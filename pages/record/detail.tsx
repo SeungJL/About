@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import RecordDetailGraph from "../../pagesComponents/record/detail/RecordDetailGraph";
-import RecordDetailHeader from "../../pagesComponents/record/detail/RecordDetailHeader";
-import RecordDetailOverview from "../../pagesComponents/record/detail/RecordDetailOverview";
-import RecordDetailSkeleton from "../../pagesComponents/record/detail/RecordDetailSkeleton";
-import RecordDetailSummary from "../../pagesComponents/record/detail/RecordDetailSummary";
+import RecordAnalysisGraph from "../../pagesComponents/record/analysis/RecordAnalysisGraph";
+import RecordAnalysisHeader from "../../pagesComponents/record/analysis/RecordAnalysisHeader";
+import RecordAnalysisOverview from "../../pagesComponents/record/analysis/RecordAnalysisOverview";
+import RecordAnalysisSkeleton from "../../pagesComponents/record/analysis/RecordAnalysisSkeleton";
+import RecordAnalysisSummary from "../../pagesComponents/record/analysis/RecordAnalysisSummary";
 
 import { isRecordDetailLoadingState } from "../../recoil/loadingAtoms";
 function Detail() {
@@ -19,12 +19,12 @@ function Detail() {
   return (
     <>
       <Layout isLoading={isRecordDetailLoading}>
-        <RecordDetailHeader />
-        <RecordDetailOverview />
-        <RecordDetailSummary />
-        <RecordDetailGraph />
+        <RecordAnalysisHeader />
+        <RecordAnalysisOverview />
+        <RecordAnalysisSummary />
+        <RecordAnalysisGraph />
       </Layout>
-      {isRecordDetailLoading && <RecordDetailSkeleton />}
+      {isRecordDetailLoading && <RecordAnalysisSkeleton />}
     </>
   );
 }

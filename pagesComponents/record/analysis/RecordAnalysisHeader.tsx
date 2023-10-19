@@ -1,12 +1,17 @@
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
-function RecordDetailHeaderSkeleton() {
+function RecordAnalysisHeader() {
+  const router = useRouter();
+
   return (
     <Layout>
-      <FontAwesomeIcon icon={faChevronLeft} size="lg" />
-      <Title>내 스터디 분석</Title>
+      <div onClick={() => router.back()}>
+        <FontAwesomeIcon icon={faChevronLeft} size="lg" />
+        <Title>내 스터디 분석</Title>
+      </div>
     </Layout>
   );
 }
@@ -19,10 +24,10 @@ const Layout = styled.div`
   color: white;
   background-color: var(--color-mint);
 `;
+
 const Title = styled.span`
   font-size: 17px;
   font-weight: 600;
   margin-left: var(--margin-main);
 `;
-
-export default RecordDetailHeaderSkeleton;
+export default RecordAnalysisHeader;

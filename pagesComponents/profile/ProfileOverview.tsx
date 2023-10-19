@@ -13,26 +13,24 @@ interface IProfileOverview {
 
 function ProfileOverview({ user }: IProfileOverview) {
   const [userData, setUserData] = useState<IUser>(user);
-  const [isLoading, setIsLoading] = useState(true);
 
   useUserInfoQuery({
     onSuccess(data) {
       if (!userData) setUserData(data);
-      setIsLoading(false);
     },
   });
 
   return (
-    <>
-      {!isLoading ? (
-        <Layout>
+    <Layout>
+      {userData ? (
+        <>
           <ProfileInfo user={userData} />
           <ProfileRelation user={user} />
-        </Layout>
+        </>
       ) : (
         <ProfileOverviewSkeleton />
       )}
-    </>
+    </Layout>
   );
 }
 

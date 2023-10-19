@@ -224,7 +224,7 @@ const Calendar = styled.div``;
 
 const CallenderDays = styled.div`
   display: grid;
-  grid-auto-rows: 68px;
+  grid-auto-rows: 72px;
   grid-template-columns: repeat(7, 1fr);
   margin: 0 var(--margin-min);
   font-size: 14px;

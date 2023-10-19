@@ -71,7 +71,9 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
         start,
         end,
       };
-      patchAttend(data);
+      setTimeout(() => {
+        patchAttend(data);
+      }, 500);
     } catch (err) {
       errorToast(err);
     }

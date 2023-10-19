@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useStudyArrivedCntQuery } from "../../../hooks/study/queries";
 import { useUserAttendRateQuery } from "../../../hooks/user/studyStatistics/queries";
 
-function RecordDetailOverview() {
+function RecordAnalysisOverview() {
   const { data: session } = useSession();
 
   const [isFirst, setIsFirst] = useState(true);
@@ -78,4 +78,4 @@ const ChangeBtn = styled.button`
   }
 `;
 
-export default RecordDetailOverview;
+export default RecordAnalysisOverview;

@@ -22,11 +22,13 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
       <CallenderDays>
         {filterData?.map((item, idx) => {
           const arrivedInfo = item?.arrivedInfoList;
+
           const date = item?.date;
           const dayjsDate = date && dayjsToStr(navMonth.date(date));
           let openLocation = null;
-          for (let key in LOCATION_OPEN_DATE)
+          for (let key in LOCATION_OPEN_DATE) {
             if (LOCATION_OPEN_DATE[key] === dayjsDate) openLocation = key;
+          }
           const openStudyLocation = new Set();
           arrivedInfo?.forEach((place) => {
             openStudyLocation.add(PLACE_TO_LOCATION[place.placeId]);
@@ -43,7 +45,6 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
               )}
               {Array.from(openStudyLocation).map((location, idx) => {
                 if (idx > 3) return;
-
                 return (
                   <Open key={idx} location={location as Location}>
                     {idx !== 2 || openStudyLocation.size <= 3 ? (

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RecordMonthNav from "../../components/features/atoms/MonthNav";
 import Header from "../../components/layout/Header";
+import RecordDetail from "../../pagesComponents/record/detail/RecordDetail";
 import RecordCalendar from "../../pagesComponents/record/RecordCalendar";
 import RecordCalendarSetting from "../../pagesComponents/record/RecordCalendarSetting";
-import RecordDetail from "../../pagesComponents/record/RecordDetail";
 import RecordLocationCategory from "../../pagesComponents/record/RecordLocationCategory";
 
 import RecordNavigation from "../../pagesComponents/record/RecordNavigation";

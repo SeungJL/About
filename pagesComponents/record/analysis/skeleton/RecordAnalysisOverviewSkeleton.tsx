@@ -2,7 +2,7 @@ import { faRightLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-function RecordDetailOverviewSkeleton() {
+function RecordAnalysisOverviewSkeleton() {
   return (
     <Layout>
       <Title></Title>
@@ -54,4 +54,4 @@ const ChangeBtn = styled.button`
   }
 `;
 
-export default RecordDetailOverviewSkeleton;
+export default RecordAnalysisOverviewSkeleton;

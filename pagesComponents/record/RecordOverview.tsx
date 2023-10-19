@@ -84,10 +84,7 @@ function RecordOverview({ arrivedCalendar }: IRecordOverview) {
               <ContentName>내 최근 참여</ContentName>
               <ContentValue style={{ color: "var(--color-mint)" }}>
                 {!isGuest && studySummary?.myRecent
-                  ? dayjsToFormat(
-                      dayjs().date(studySummary?.myRecent),
-                      "M월 D일"
-                    )
+                  ? dayjsToFormat(dayjs().date(studySummary?.myRecent), "M/D")
                   : "기록 없음"}
               </ContentValue>
             </div>

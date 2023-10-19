@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
 
-function RecordDetailSkeleton() {
+function RecordAnalysisSkeleton() {
   return (
     <>
       <Layout>
@@ -77,4 +77,4 @@ const Info = styled.div`
 const Member = styled.div`
   height: 48px;
 `;
-export default RecordDetailSkeleton;
+export default RecordAnalysisSkeleton;

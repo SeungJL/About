@@ -3,7 +3,7 @@ import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
 
 function ProfileOverviewSkeleton() {
   return (
-    <Layout>
+    <>
       <Top>
         <Profile>
           <ProfileIcon>
@@ -52,7 +52,7 @@ function ProfileOverviewSkeleton() {
           <Skeleton>temp</Skeleton>
         </Button>
       </Bottom>
-    </Layout>
+    </>
   );
 }
 
@@ -62,16 +62,10 @@ const Status = styled.span`
   height: 16px;
 `;
 
-const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
-  display: flex;
-  flex-direction: column;
-`;
 const Top = styled.div``;
 
 const Button = styled.div`
-  width: 80px;
+  width: 70px;
   height: 26px;
 `;
 const Bottom = styled.div`
@@ -86,7 +80,7 @@ const Bottom = styled.div`
 
 const RelationItem = styled.div`
   width: max-content;
-  padding: 0 10px;
+  padding: 0 var(--padding-md);
 
   display: flex;
   flex-direction: column;
@@ -105,8 +99,8 @@ const RelationItem = styled.div`
   }
 `;
 const ProfileIcon = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   overflow: hidden;
 `;

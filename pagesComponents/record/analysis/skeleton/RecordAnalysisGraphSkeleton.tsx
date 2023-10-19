@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 
-function RecordDetailGraphSkeleton() {
+function RecordAnalysisGraphSkeleton() {
   return (
     <Layout>
       <Title>내 스터디 참여</Title>
@@ -25,4 +25,4 @@ const Graph = styled.div`
   height: 200px;
 `;
 
-export default RecordDetailGraphSkeleton;
+export default RecordAnalysisGraphSkeleton;
