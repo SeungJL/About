@@ -68,7 +68,7 @@ const Layout = styled(motion.div)<{ isshow: "true" | "false" }>`
 `;
 
 const spinTransition = {
-  loop: Infinity,
+  repeat: Infinity,
   ease: "linear",
   duration: 2,
 };

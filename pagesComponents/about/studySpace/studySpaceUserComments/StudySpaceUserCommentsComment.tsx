@@ -37,7 +37,7 @@ function StudySpaceUserCommentsComment({
   return (
     <>
       <Layout>
-        {!isAbsent ? (
+        {!isAbsent || att?.arrived ? (
           <Memo>
             {isPrivate && <SpaceName>스터디 장소:</SpaceName>}
             <span>{memo}</span>
@@ -55,7 +55,12 @@ function StudySpaceUserCommentsComment({
         ) : (
           <>
             <FontAwesomeIcon icon={faCircleXmark} color="var(--color-red)" />
-            &nbsp; -<Absent>{isAbsent?.message}</Absent>
+            &nbsp;
+            {!isPrivate ? (
+              <Absent>-{isAbsent?.message}</Absent>
+            ) : (
+              <Absent>{memo}</Absent>
+            )}
           </>
         )}
       </Layout>
