@@ -4,9 +4,14 @@ import { IStoreGift } from "../../../types/page/store";
 interface IStoreDetailOverview {
   info: IStoreGift;
   totalApplyCnt: number;
+  isActive: boolean;
 }
 
-function StoreDetailOverview({ info, totalApplyCnt }: IStoreDetailOverview) {
+function StoreDetailOverview({
+  info,
+  totalApplyCnt,
+  isActive,
+}: IStoreDetailOverview) {
   return (
     <Layout>
       <Overview>
@@ -15,7 +20,8 @@ function StoreDetailOverview({ info, totalApplyCnt }: IStoreDetailOverview) {
       </Overview>
       <Price>{info.point} point</Price>
       <ApplyCnt>
-        현재 전체 응모 횟수는 <b>{totalApplyCnt}회</b>입니다.
+        현재 전체 응모 횟수는 <b>{isActive ? info.max : totalApplyCnt}회</b>
+        입니다.
       </ApplyCnt>
     </Layout>
   );

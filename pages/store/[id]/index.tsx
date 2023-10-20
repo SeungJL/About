@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -18,8 +17,6 @@ dayjs.extend(localizedFormat);
 dayjs.locale("ko");
 
 function StoreItem() {
-  const router = useRouter();
-
   const [isApplyModal, setIsApplyModal] = useState(false);
   const [isWinModal, setIsWinModal] = useState(false);
 
@@ -36,6 +33,7 @@ function StoreItem() {
           <StoreDetailOverview
             info={giftInfo}
             totalApplyCnt={giftInfo.totalCnt}
+            isActive={isActive}
           />
           <StoreDetailNav
             applyUsers={giftInfo.users}
