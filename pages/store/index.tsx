@@ -1,35 +1,82 @@
 import { faTrophy } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import ModalPortal from "../../components/modals/ModalPortal";
-import { StoreGiftImage } from "../../components/utils/DesignAdjustment";
-import { GIFT_ID_INFO } from "../../constants/contentsValue/store";
 import { useStoreGiftEntryQuery } from "../../hooks/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
-import { STORE_GIFT } from "../../storage/Store";
-import { FullScreen } from "../../styles/layout/modal";
+import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
+import { IStoreApplicant } from "../../types/page/store";
+
+import { Button } from "@chakra-ui/react";
+import { useSetRecoilState } from "recoil";
+import { StoreGiftImage } from "../../components/utils/DesignAdjustment";
+import { transferStoreGiftDataState } from "../../recoil/transferDataAtoms";
+import { IStoreGift } from "../../types/page/store";
+
+export interface IGiftEntry extends IStoreGift {
+  users: IStoreApplicant[];
+  totalCnt: number;
+}
+interface IGiftEntries {
+  active: IGiftEntry[];
+  inactive: IGiftEntry[];
+}
 
 function Store() {
   const router = useRouter();
-  const [applyNum, setApplyNum] = useState([]);
+  const [giftEntries, setGiftEntries] = useState<IGiftEntries>({
+    active: STORE_GIFT_ACTIVE.map((gift) => ({
+      ...gift,
+      users: [],
+      totalCnt: 0,
+    })),
+    inactive: STORE_GIFT_inActive.map((gift) => ({
+      ...gift,
+      users: [],
+      totalCnt: 0,
+    })),
+  });
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isShowActive, setIsShowActive] = useState(true);
   const [isModal, setIsModal] = useState(false);
 
-  const { isLoading } = useStoreGiftEntryQuery({
-    onSuccess(data) {
-      const giftArr = new Array(6).fill(0);
-      data.users.forEach((who) => {
-        const giftIdx = +who.giftId - GIFT_ID_INFO.startId;
-        if (giftIdx >= 0 && giftIdx <= GIFT_ID_INFO.giftCnt)
-          giftArr[giftIdx] += who.cnt;
-      });
-      setApplyNum(giftArr);
-    },
-  });
+  const setTransferStoreGiftData = useSetRecoilState(
+    transferStoreGiftDataState
+  );
+
+  const { data: storeGiftEntries } = useStoreGiftEntryQuery({});
+
+  useEffect(() => {
+    if (!storeGiftEntries) return;
+    const temp: IGiftEntries = {
+      active: [...giftEntries.active],
+      inactive: [...giftEntries.inactive],
+    };
+    storeGiftEntries.users.forEach((who) => {
+      const giftId = who.giftId;
+      const gift =
+        temp.active.find((item) => item.giftId === giftId) ||
+        temp.inactive.find((item) => item.giftId === giftId);
+      if (gift) {
+        gift.users.push(who);
+        gift.totalCnt += who.cnt;
+      }
+    });
+    setGiftEntries(temp);
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeGiftEntries]);
+
+  const giftArr = isShowActive ? giftEntries.active : giftEntries.inactive;
+
+  const onClickGift = (item: IGiftEntry) => {
+    setTransferStoreGiftData({ isActive: isShowActive, data: item });
+    router.push(`/store/${item.giftId}`);
+  };
 
   return (
     <>
@@ -37,58 +84,77 @@ function Store() {
         <RuleIcon setIsModal={setIsModal} />
       </Header>
       <Layout>
-        {STORE_GIFT.map((item, idx) => {
-          return (
-            <Item key={idx} onClick={() => router.push(`/store/${idx}`)}>
-              <Status>
-                <Trophy>
-                  {new Array(item.winner).fill(0).map((_, idx) => (
-                    <div key={idx}>
-                      <FontAwesomeIcon
-                        icon={faTrophy}
-                        color="var(--color-mint)"
-                      />
-                    </div>
-                  ))}
-                </Trophy>
-                <ApplyCnt>
-                  <span>{applyNum[idx]}</span>
-                  <span>/{item.max}</span>
-                </ApplyCnt>
-              </Status>
-              <ImageWrapper>
-                <StoreGiftImage imageSrc={item.image} giftId={item.giftId} />
-                {item.max === applyNum[idx] && <Circle>추첨 완료</Circle>}
-              </ImageWrapper>
-              <Info>
-                <Name>{item.name}</Name>
-                <Point>{item.point} point</Point>
-              </Info>
-              {item?.max === applyNum[idx] && <CompletedRapple />}
-            </Item>
-          );
-        })}
+        <Nav>
+          <Button
+            onClick={() => setIsShowActive(true)}
+            colorScheme={isShowActive ? "mintTheme" : "gray"}
+          >
+            현재 상품
+          </Button>
+          <Button
+            onClick={() => setIsShowActive(false)}
+            colorScheme={!isShowActive ? "mintTheme" : "gray"}
+          >
+            지난 상품
+          </Button>
+        </Nav>
+        {!isLoading && (
+          <Container>
+            {giftArr.map((item, idx) => (
+              <Item key={idx} onClick={() => onClickGift(item)}>
+                <Status>
+                  <Trophy>
+                    {new Array(item.winner).fill(0).map((_, idx) => (
+                      <div key={idx}>
+                        <FontAwesomeIcon
+                          icon={faTrophy}
+                          color="var(--color-mint)"
+                        />
+                      </div>
+                    ))}
+                  </Trophy>
+                  <ApplyCnt>
+                    <span>{item.totalCnt}</span>
+                    <span>/{item.max}</span>
+                  </ApplyCnt>
+                </Status>
+                <ImageWrapper>
+                  <StoreGiftImage
+                    imageSrc={item.image}
+                    giftId={item.giftId}
+                    isImagePriority={idx < 6}
+                  />
+                  {!isShowActive && <Circle>추첨 완료</Circle>}
+                </ImageWrapper>
+                <Info>
+                  <Name>{item.name}</Name>
+                  <Point>{item.point} point</Point>
+                </Info>
+                {!isShowActive && <CompletedRapple />}
+              </Item>
+            ))}
+          </Container>
+        )}
       </Layout>
-      {isLoading && (
-        <>
-          <MainLoading />
-          <FullScreen />
-        </>
-      )}
-      {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <StoreRuleModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
+
+      {isModal && <StoreRuleModal setIsModal={setIsModal} />}
     </>
   );
 }
-
 const Layout = styled.div`
+  margin: 0 var(--margin-main);
+`;
+
+const Nav = styled.nav`
+  margin-top: var(--margin-sub);
+  display: flex;
+`;
+
+const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  margin: 0 var(--margin-main);
+
   padding: var(--padding-main) 0;
   gap: var(--margin-sub);
 `;
@@ -126,10 +192,12 @@ const ApplyCnt = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 120px;
-  height: 120px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+
   margin-top: -16px;
 `;
 

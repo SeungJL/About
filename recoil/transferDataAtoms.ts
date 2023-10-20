@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { IGiftEntry } from "../pages/store";
 import { IGather } from "../types/page/gather";
 import { MemberGroup } from "../types/page/member";
 
@@ -29,5 +30,15 @@ export const transferMemberDataState = atom<{
 
 export const transferStudySpaceDataState = atom<IParticipation>({
   key: "transferStudySpaceData",
+  default: null,
+});
+
+interface ItransferStoreGiftData {
+  data: IGiftEntry;
+  isActive: boolean;
+}
+
+export const transferStoreGiftDataState = atom<ItransferStoreGiftData>({
+  key: "transferStoreGiftData",
   default: null,
 });

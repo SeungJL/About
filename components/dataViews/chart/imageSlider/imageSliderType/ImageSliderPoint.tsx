@@ -27,6 +27,7 @@ function ImageSliderPoint({ imageContainer }: IImageSliderPoint) {
               alt={`Slide ${index}`}
               width="80%"
               height="80%"
+              priority={index < 4}
             />
           </PointItem>
         </SwiperSlide>

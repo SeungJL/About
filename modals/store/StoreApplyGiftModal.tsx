@@ -4,8 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import SkeletonItem from "../../components/common/masks/skeleton/SkeletonItem";
 import CountNum from "../../components/features/atoms/CountNum";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import { ModalHeader, ModalLayout } from "../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
@@ -69,8 +68,8 @@ function StoreApplyGiftModal({
   };
 
   return (
-    <ModalLeyou size="md">
-      <ModalHeaderX title="상품 응모" setIsModal={setIsModal} />
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text="상품 응모" />
       <ModalMain>
         {!isLoading ? (
           <>
@@ -119,7 +118,7 @@ function StoreApplyGiftModal({
           응모하기
         </Button>
       </Footer>
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 

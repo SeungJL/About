@@ -54,23 +54,32 @@ export const StudySpaceLogo = ({
 interface IStoreGift {
   imageSrc: string;
   giftId: number;
+  isImagePriority?: boolean;
 }
 
-export const StoreGiftImage = ({ imageSrc, giftId }: IStoreGift) => {
+export const StoreGiftImage = ({
+  imageSrc,
+  giftId,
+  isImagePriority,
+}: IStoreGift) => {
   let W = 120;
   let H = 120;
 
-  if (giftId === 8 || giftId === 10) {
-    W = 110;
-    H = 110;
+  if (giftId === 8) {
+    W = 90;
+    H = 90;
   }
   if (giftId === 11) {
     W = 100;
     H = 100;
   }
   return (
-    <>
-      <Image src={imageSrc} alt="storeGiftImage" width={W} height={H} />
-    </>
+    <Image
+      src={imageSrc}
+      alt="storeGiftImage"
+      width={W}
+      height={H}
+      priority={isImagePriority}
+    />
   );
 };
