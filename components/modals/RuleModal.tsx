@@ -38,7 +38,6 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xxl">
       <ModalHeaderCenter text={header.title} />
-
       <ModalBody>
         <ModalSubtitle isLight={true}>
           다양한 주제의 모임에 참여하거나 직접 모임을 개최할 수 있습니다 ! 다들

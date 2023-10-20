@@ -1,26 +1,25 @@
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ImageSlider from "../../components/dataViews/chart/imageSlider/ImageSlider";
-import { usePointQuery } from "../../hooks/user/pointSystem/queries";
-import { isGuestState } from "../../recoil/userAtoms";
 import { STORE_GIFT } from "../../storage/Store";
 
-function PointPoint() {
+interface IPointPoint {
+  mypoint: number;
+}
+
+function PointPoint({ mypoint }: IPointPoint) {
   const router = useRouter();
-  const isGuest = useRecoilValue(isGuestState);
 
   const imageContainer = STORE_GIFT.map((item) => item.image);
-  const { data } = usePointQuery({ enabled: !isGuest });
 
   return (
     <Layout>
       <Button onClick={() => router.push("/point/pointLog")}>
         <div>About 포인트</div>
         <div>
-          <span>{isGuest ? 0 : data?.point}점</span>
+          <span>{mypoint}점</span>
           <FontAwesomeIcon icon={faChevronRight} />
         </div>
       </Button>

@@ -1,10 +1,5 @@
-import dayjs from "dayjs";
 import { IStoreGift } from "../types/page/store";
 
-require("dayjs/locale/ko");
-const localizedFormat = require("dayjs/plugin/localizedFormat");
-dayjs.extend(localizedFormat);
-dayjs.locale("ko");
 export const STORE_GIFT: IStoreGift[] = [
   {
     image:

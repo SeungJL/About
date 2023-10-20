@@ -1,8 +1,12 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalLeyou } from "../../../components/modals/Modals";
-import { ModalHeaderCenter } from "../../../styles/layout/modal";
+import {
+  ModalBody,
+  ModalHeaderCenter,
+  ModalLayout,
+} from "../../../components/modals/Modals";
+
 import { IModal } from "../../../types/reactTypes";
 import BadgeInfoModalFirstInfo from "./BadgeInfoModalFirstInfo";
 import BadgeInfoModalSecondInfo from "./BadgeInfoModalSecondInfo";
@@ -10,42 +14,42 @@ import BadgeInfoModalSecondInfo from "./BadgeInfoModalSecondInfo";
 function BadgeInfoModal({ setIsModal }: IModal) {
   const [page, setPage] = useState(0);
 
+  const onClick = () => {
+    if (page === 0) setPage(1);
+    else setIsModal(false);
+  };
+
   return (
-    <ModalLeyou size="xxl">
-      {page === 0 ? (
-        <>
-          <ModalHeaderCenter>
-            <span>멤버 배지</span>
-            <div>
-              멤버 등급은 기본적으로 7가지로 나뉩니다. <br />
-              흭득한 배지는 선택해서 사용할 수 있습니다.
-            </div>
-          </ModalHeaderCenter>
+    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
+      <ModalHeaderCenter text={page === 0 ? "멤버 배지" : "유니크 배지"} />
+      <ModalBody>
+        <Subtitle>
+          {page === 0
+            ? "활동을 통해 다양한 배지를 획득해 보세요!"
+            : "특정 기간 또는 이벤트를 통해 획득 수 있습니다!"}
+        </Subtitle>
+        {page === 0 ? (
           <BadgeInfoModalFirstInfo />
-          <Footer onClick={() => setPage(1)}>
-            <Button colorScheme="mintTheme">다음 페이지</Button>
-          </Footer>
-        </>
-      ) : (
-        <>
-          <ModalHeaderCenter>
-            <span>유니크 배지</span>
-            <div>특정한 기간 또는 이벤트를 통해 얻을 수 있습니다.</div>
-          </ModalHeaderCenter>
+        ) : (
           <BadgeInfoModalSecondInfo />
-          <Footer onClick={() => setIsModal(false)}>
-            <Button colorScheme="mintTheme">확인했어요!</Button>
-          </Footer>
-        </>
-      )}
-    </ModalLeyou>
+        )}
+      </ModalBody>
+      <Footer>
+        <Button onClick={onClick} colorScheme="mintTheme">
+          {page === 0 ? "다음 페이지" : "확인했어요!"}
+        </Button>
+      </Footer>
+    </ModalLayout>
   );
 }
 
+const Subtitle = styled.div`
+  text-align: center;
+`;
+
 const Footer = styled.footer`
-  margin-top: var(--margin-main);
+  padding: var(--padding-sub) var(--padding-main);
   display: flex;
-  align-items: center;
   justify-content: center;
 `;
 

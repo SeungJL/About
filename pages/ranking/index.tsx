@@ -1,19 +1,16 @@
 import dayjs from "dayjs";
-import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import { getMonth } from "../../helpers/dateHelpers";
 import { sortUserAttends, sortUserScores } from "../../helpers/userHelpers";
+import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
 import { useErrorToast, useTypeErrorToast } from "../../hooks/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateAllQuery } from "../../hooks/user/studyStatistics/queries";
-import dbConnect from "../../libs/backend/dbConnect";
-import { User } from "../../models/user";
 import RankingBar from "../../pagesComponents/ranking/RankingBar";
 import RankingCategoryBar from "../../pagesComponents/ranking/RankingCategory";
 import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
@@ -24,9 +21,8 @@ import {
   RankingCategory,
   RankingType,
 } from "../../types/page/ranking";
-import { IUser, IUsersAll } from "../../types/user/user";
 
-function Ranking({ usersAll }: IUsersAll) {
+function Ranking() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const errorToast = useErrorToast();
@@ -54,6 +50,9 @@ function Ranking({ usersAll }: IUsersAll) {
     onError: (e) => typeErrorToast(e, "user"),
   });
 
+  const { data: usersAll, isLoading: isAdminUsersLoading } =
+    useAdminUsersControlQuery();
+
   //스터디 참여 기록
   const { data: attendAllData, isLoading: isAttendRateLoading } =
     useUserAttendRateAllQuery(dayjsMonth2.date(0), endDate, {
@@ -63,16 +62,25 @@ function Ranking({ usersAll }: IUsersAll) {
 
   //모든 유저 데이터와 attendAllData의 mixing
   useEffect(() => {
-    if (isAttendRateLoading) return;
+    if (isAttendRateLoading || isAdminUsersLoading) return;
+    const filteredUsers = usersAll?.filter(
+      (who) => who?.isActive && who?.name !== "guest"
+    );
     const userAll =
       category === "누적"
-        ? usersAll
+        ? filteredUsers
         : attendAllData.map((who) => {
-            const userInfo = usersAll.find((user) => user.uid === who.uid);
+            const userInfo = filteredUsers.find((user) => user.uid === who.uid);
             return { ...userInfo, ...who };
           });
     setInitialUsersData(userAll);
-  }, [attendAllData, category, isAttendRateLoading, usersAll]);
+  }, [
+    attendAllData,
+    category,
+    isAdminUsersLoading,
+    isAttendRateLoading,
+    usersAll,
+  ]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -106,7 +114,7 @@ function Ranking({ usersAll }: IUsersAll) {
       setTimeout(() => {
         const element = document.getElementById(`ranking${myUid}`);
         element?.scrollIntoView({ behavior: "smooth" });
-      }, 800);
+      }, 500);
     }
   }, [isGuest, myUid, rankInfo]);
 
@@ -140,15 +148,6 @@ function Ranking({ usersAll }: IUsersAll) {
     </Layout>
   );
 }
-export const getServerSideProps: GetServerSideProps = async () => {
-  await dbConnect();
-  const user = await User.find();
-  const filterUser = user?.filter(
-    (who) => who?.isActive && who?.name !== "guest"
-  );
-  const usersAll: IUser[] = JSON.parse(safeJsonStringify(filterUser));
-  return { props: { usersAll } };
-};
 
 const Layout = styled.div`
   height: 100vh;

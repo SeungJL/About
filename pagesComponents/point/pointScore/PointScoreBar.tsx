@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import {
   BADGE_COLOR,
   BADGE_INFO,
@@ -77,11 +76,7 @@ function PointScoreBar({ myScore }: IPointScoreBar) {
           />
         </Layout>
       )}
-      {isBadgeModal && (
-        <ModalPortal setIsModal={setIsBadgeModal}>
-          <BadgeInfoModal setIsModal={setIsBadgeModal} />
-        </ModalPortal>
-      )}
+      {isBadgeModal && <BadgeInfoModal setIsModal={setIsBadgeModal} />}
     </>
   );
 }

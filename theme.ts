@@ -26,6 +26,14 @@ const theme = extendTheme({
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
   components: {
+    Button: {
+      baseStyle: {
+        _focus: {
+          outline: "none",
+          boxShadow: "none",
+        },
+      },
+    },
     Progress: {
       baseStyle: {
         track: {
