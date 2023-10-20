@@ -1,3 +1,6 @@
+import { ModalHeader } from "@chakra-ui/react";
+import { faLollipop } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import {
@@ -22,11 +25,15 @@ function DailyCheckWinModal({ setIsModal }: IModal) {
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="md">
-      {/* <ModalHeaderCenter>
+      <ModalHeader
+        display="flex"
+        p="var(--padding-sub) var(--padding-main)"
+        justifyContent="space-between"
+      >
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
         <span>랜덤 선물 당첨</span>
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
-      </ModalHeaderCenter> */}
+      </ModalHeader>
       <ModalBody>
         <Message>
           <b>{attendCheckWinGift.percent}%</b> 확률을 뚫고 당첨되었어요!
@@ -65,7 +72,6 @@ const Gift = styled.div`
 `;
 
 const Message = styled.div`
-  margin-top: var(--margin-sub);
   text-align: center;
   color: var(--font-h1);
   > span:nth-child(2) {
@@ -74,7 +80,6 @@ const Message = styled.div`
 `;
 
 const SubMessage = styled.span`
-  margin-bottom: var(--margin-min);
   font-size: 12px;
   color: var(--font-h3);
   text-align: center;
