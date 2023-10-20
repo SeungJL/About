@@ -19,6 +19,7 @@ import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation"
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
+  myStudyFixedState,
   studyDateStatusState,
 } from "../../../recoil/studyAtoms";
 
@@ -62,6 +63,7 @@ function StudySpaceNavigation({
 
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
+  const myStudyFixed = useRecoilValue(myStudyFixedState);
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
 
@@ -123,7 +125,7 @@ function StudySpaceNavigation({
       if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
       return { text: "스터디 투표", func: "vote" };
     }
-    if (isVoting && !myVote) return { text: "다른 스터디에 참여중입니다." };
+    if (myStudyFixed && !myVote) return { text: "다른 스터디에 참여중입니다." };
     if (isPrivate && !myVote)
       return { text: "개인 스터디 신청", func: "private" };
     if (status === "dismissed")
@@ -135,10 +137,14 @@ function StudySpaceNavigation({
   };
   const { text, func } = getStudyButtonText();
 
+  const isShowSubNav =
+    (isVoting && studyDateStatus === "not passed") ||
+    (studyDateStatus === "today" && myVote);
+
   return (
     <Wrapper>
       <Layout>
-        {isVoting && studyDateStatus !== "passed" && (
+        {isShowSubNav && (
           <SubNav>
             <Button onClick={() => onClickSubBtn("cancel")}>
               <FontAwesomeIcon icon={faCircleXmark} size="xl" />
