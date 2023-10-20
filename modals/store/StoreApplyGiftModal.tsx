@@ -1,10 +1,18 @@
-import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import SkeletonItem from "../../components/common/masks/skeleton/SkeletonItem";
+import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
 import CountNum from "../../components/features/atoms/CountNum";
-import { ModalHeader, ModalLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
+import { STORE_GIFT } from "../../constants/keys/queryKeys";
 import {
   useCompleteToast,
   useErrorToast,
@@ -13,25 +21,23 @@ import {
 import { useStoreMutation } from "../../hooks/store/mutation";
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
-import { ModalMain } from "../../styles/layout/modal";
+import { isGuestState } from "../../recoil/userAtoms";
 import { IStoreApplicant, IStoreGift } from "../../types/page/store";
-import { DispatchBoolean, IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/reactTypes";
 
 interface IStoreApplyGiftModal extends IModal {
   giftInfo: IStoreGift;
-  setIsRefetch: DispatchBoolean;
 }
 
-function StoreApplyGiftModal({
-  setIsModal,
-  giftInfo,
-  setIsRefetch,
-}: IStoreApplyGiftModal) {
+function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
   const { data: session } = useSession();
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
-  const isGuest = session?.user.name === "guest";
+
+  const isGuest = useRecoilValue(isGuestState);
 
   const [value, setValue] = useState(1);
 
@@ -39,8 +45,11 @@ function StoreApplyGiftModal({
   const { mutate: applyGift } = useStoreMutation({
     onSuccess() {
       getPoint({ value: -totalCost, message: `${giftInfo.name}응모` });
-      setIsRefetch(true);
       completeToast("free", "응모에 성공했어요! 당첨 발표일을 기다려주세요!");
+      setTimeout(() => {
+        queryClient.invalidateQueries(STORE_GIFT);
+        router.push("/store");
+      }, 500);
     },
     onError: errorToast,
   });
@@ -63,14 +72,14 @@ function StoreApplyGiftModal({
       cnt: value,
       giftId: giftInfo.giftId,
     };
+
     applyGift(info);
-    setIsModal(false);
   };
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader text="상품 응모" />
-      <ModalMain>
+      <ModalBody>
         {!isLoading ? (
           <>
             <Item>
@@ -87,47 +96,24 @@ function StoreApplyGiftModal({
                 {totalCost} point
               </NeedPoint>
             </Item>
+            <CountNav>
+              <CountNum value={value} setValue={setValue} />
+            </CountNav>
           </>
         ) : (
-          <>
-            <Item>
-              <span>상품</span>
-              <SkeletonItem w={100} />
-            </Item>
-            <Item>
-              <span>보유 포인트</span>
-              <SkeletonItem w={50} />
-            </Item>
-            <Item>
-              <span>필요 포인트</span>
-              <SkeletonItem w={50} />
-            </Item>
-          </>
+          <MainLoadingAbsolute />
         )}
-        <CountNav>
-          <CountNum value={value} setValue={setValue} />
-        </CountNav>
-      </ModalMain>
-      <Footer>
-        <Button
-          width="100%"
-          backgroundColor="var(--color-mint)"
-          onClick={onApply}
-          color="white"
-        >
-          응모하기
-        </Button>
-      </Footer>
+      </ModalBody>
+      <ModalFooterOne text="응모하기" onClick={onApply} isFull={true} />
     </ModalLayout>
   );
 }
 
 const Item = styled.div`
   display: flex;
+  justify-content: space-between;
   margin-bottom: var(--margin-min);
-  > span:first-child {
-    display: inline-block;
-    width: 80px;
+  > span:last-child {
     font-weight: 600;
   }
 `;
@@ -140,8 +126,7 @@ const CountNav = styled.nav`
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
-
-const Footer = styled.footer``;
 
 export default StoreApplyGiftModal;

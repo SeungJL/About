@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { GiftModel } from "../../../models/gift";
 
-import dbConnect from "../../../libs/backend/dbConnect";
 import { BadRequestError } from "../../../libs/backend/custom-error";
+import dbConnect from "../../../libs/backend/dbConnect";
 
 export default async function giftController(
   req: NextApiRequest,
@@ -17,7 +17,7 @@ export default async function giftController(
 
     if (existingUser) {
       const user = await GiftModel.findOneAndUpdate(
-        { uid },
+        { uid, giftId },
         { name, uid, cnt: existingUser.cnt + cnt, giftId },
         { new: true, runValidators: true }
       );
@@ -35,6 +35,7 @@ export default async function giftController(
       return res.status(200).json({ user: resUser });
     }
     const newUser = await GiftModel.create({ name, uid, cnt, giftId });
+  
     const user = {
       name: newUser.name,
       uid: newUser.uid,

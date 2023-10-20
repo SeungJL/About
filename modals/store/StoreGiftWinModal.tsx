@@ -1,54 +1,47 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 
-import { useRouter } from "next/router";
-import { ModalFooterNav, ModalMain } from "../../styles/layout/modal";
-import { IStoreApplicant } from "../../types/page/store";
+import { selectRandomWinners } from "../../helpers/validHelpers";
+import { IGiftEntry } from "../../pages/store";
 import { IModal } from "../../types/reactTypes";
 interface IStoreGiftWinModal extends IModal {
-  applicants: IStoreApplicant[];
-  win: number;
+  applicants: IGiftEntry;
+  winCnt: number;
 }
 
 function StoreGiftWinModal({
   setIsModal,
   applicants,
-  win,
+  winCnt,
 }: IStoreGiftWinModal) {
-  const [winner, setWinner] = useState([]);
-  const router = useRouter();
+  const users = applicants.users;
 
-  useEffect(() => {
-    const data = [];
-    applicants.forEach((who) => {
-      for (let i = 0; i < who?.cnt; i++) data.push(who);
-    });
-    const temp = [];
-    if (win >= 1) temp.push(data[2]);
-    if (win >= 2) temp.push(data[6]);
-    if (win >= 3) temp.push(data[9]);
-    setWinner(temp);
-  }, [applicants, win]);
-
-  const tempA = ["김유리", "김영우", "김예나"];
+  const winners: number[] = selectRandomWinners(
+    applicants.max,
+    winCnt,
+    applicants.giftId
+  );
 
   return (
-    <ModalLeyou size="md">
-      <ModalHeaderX title="당첨자 발표" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text="당첨자 발표" />
+      <ModalBody>
         <Message>당첨을 축하합니다!</Message>
         <Winner>
-          {(router?.query.id as string) === "0"
-            ? tempA.map((who, idx) => <Win key={idx}>{who}</Win>)
-            : winner.map((who, idx) => <Win key={idx}>{who.name}</Win>)}
+          {winners.map((num, idx) => (
+            <Win key={idx}>
+              {!num || users.length < num ? "비공개" : users[num]?.name}
+            </Win>
+          ))}
         </Winner>
-      </ModalMain>
-      <ModalFooterNav>
-        <button onClick={() => setIsModal(false)}>확인</button>
-      </ModalFooterNav>
-    </ModalLeyou>
+      </ModalBody>
+      <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />
+    </ModalLayout>
   );
 }
 
@@ -70,7 +63,7 @@ const Winner = styled.div`
   border: var(--border-mint);
 `;
 
-const Win = styled.div`
+const Win = styled.span`
   font-size: 15px;
   font-weight: 600;
   color: var(--font-h2);

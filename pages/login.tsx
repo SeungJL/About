@@ -49,7 +49,6 @@ const Login: NextPage<{
   const { isLoading } = useRegisterFormsQuery({
     enabled: !!session,
     onSuccess(data) {
-      console.log(24);
       if (data?.find((who) => who.uid === session.uid)) setIsApplicant(true);
     },
   });

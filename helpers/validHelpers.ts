@@ -22,3 +22,31 @@ export const randomPassword = () => {
   return newPassword;
 };
 
+export const selectRandomWinners = (
+  total: number,
+  winner: number,
+  uniqueNumber: number
+): number[] => {
+  function hashStringToInt(s, max) {
+    let hash = 0;
+    for (let i = 0; i < s.length; i++) {
+      hash = (hash << 5) - hash + s.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
+    }
+
+    return Math.abs(hash) % max;
+  }
+  const winners = new Set<number>();
+  let seedStr = uniqueNumber.toString();
+
+  while (winners.size < winner) {
+    const hashValue = hashStringToInt(seedStr, total);
+
+    if (!winners.has(hashValue)) {
+      winners.add(hashValue);
+    }
+    seedStr += winner.toString();
+  }
+
+  return Array.from(winners);
+};

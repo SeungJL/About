@@ -34,8 +34,7 @@ function StudySpaceUserComments({
     setBeforePage(router.asPath);
     router.push(`/profile/${user.uid}}`);
   };
-  console.log(2, attendances);
-  console.log(absences);
+
   return (
     <>
       <Layout key={router.asPath}>

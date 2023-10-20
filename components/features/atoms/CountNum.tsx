@@ -19,7 +19,7 @@ function CountNum({ value, setValue, unit, min = 1 }: ICountNum) {
         disabled={value <= min}
         onClick={() => setValue((old) => old - 1)}
       >
-        <FontAwesomeIcon icon={faMinus} />
+        <FontAwesomeIcon icon={faMinus} size="sm" />
       </IconWrapper>
       <Count>
         {value}
@@ -30,25 +30,23 @@ function CountNum({ value, setValue, unit, min = 1 }: ICountNum) {
         isVisible={true}
         onClick={() => setValue((old) => old + 1)}
       >
-        <FontAwesomeIcon icon={faPlus} />
+        <FontAwesomeIcon icon={faPlus} size="sm" />
       </IconWrapper>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 20px;
 `;
 
 const IconWrapper = styled.button<{ isMinus: boolean; isVisible: boolean }>`
   color: ${(props) => (props.isVisible ? "var(--font-h1)" : "var(--font-h6)")};
   padding: 0 var(--padding-min);
-  margin-right: ${(props) => (props.isMinus ? "var(--margin-min)" : 0)};
-  margin-left: ${(props) => (!props.isMinus ? "var(--margin-min)" : 0)};
+  margin-right: ${(props) => (props.isMinus ? "var(--margin-main)" : 0)};
+  margin-left: ${(props) => (!props.isMinus ? "var(--margin-main)" : 0)};
   cursor: pointer;
 `;
 

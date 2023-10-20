@@ -10,3 +10,5 @@ export const ARRIVE_FINDMEMO = "arrive_findmemo";
 export const PLAZA_FINDALL = "plaza_findall";
 export const USER_REQUEST = "user_request";
 export const GATHER_CONTENT = "GATHER";
+
+export const STORE_GIFT = "storeGift";

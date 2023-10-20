@@ -25,12 +25,12 @@ const RecordDetailStudyBlock = ({
           </PlaceName>
           {arrivedInfoList?.arrivedInfo.length > 0 && (
             <MemberWrapper>
-              {arrivedInfoList.arrivedInfo.map((user, idx4) => (
+              {arrivedInfoList.arrivedInfo.map((user, idx2) => (
                 <>
-                  {idx4 < 4 && (
-                    <Member key={idx4}>{user.name.slice(-2)}</Member>
+                  {idx2 < 4 && (
+                    <Member key={idx2}>{user.name.slice(-2)}</Member>
                   )}
-                  {idx4 === 4 && (
+                  {idx2 === 4 && (
                     <FontAwesomeIcon
                       icon={faEllipsis}
                       size="sm"

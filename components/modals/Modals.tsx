@@ -73,6 +73,7 @@ export const ModalBody = ({ children }) => (
     p="var(--padding-min) var(--padding-main)"
     display="flex"
     flexDir="column"
+    position="relative"
   >
     {children}
   </ChakraModalBody>

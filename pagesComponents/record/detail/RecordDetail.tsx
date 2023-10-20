@@ -1,6 +1,7 @@
 import { IArrivedData, IArrivedInfoList } from "../../../types/study/study";
 
 import { Dayjs } from "dayjs";
+import { Fragment } from "react";
 import styled from "styled-components";
 import { LOCATION_OPEN } from "../../../constants/location";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
@@ -40,23 +41,23 @@ function RecordDetail({ filterData, navMonth }: IRecordDetail) {
 
   return (
     <Layout>
-      {reversedData.map((arrivedData) => {
+      {reversedData.map((arrivedData, idx) => {
         const sortedLocationStudies = setSortedStudies(arrivedData);
         return (
-          <>
+          <Fragment key={idx}>
             <Date>
               {dayjsToFormat(
                 navMonth.date(arrivedData?.date).add(1, "day"),
                 "M/D"
               )}
             </Date>
-            {sortedLocationStudies.map((locationStudies, idx) => (
+            {sortedLocationStudies.map((locationStudies, idx2) => (
               <RecordDetailStudyBlock
                 locationStudies={locationStudies}
-                key={idx}
+                key={idx2}
               />
             ))}
-          </>
+          </Fragment>
         );
       })}
     </Layout>

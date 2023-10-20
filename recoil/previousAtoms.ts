@@ -14,3 +14,8 @@ export const reviewContentIdState = atom<number>({
   key: "reviewContentId",
   default: null,
 });
+
+export const isPrevBooleanState = atom<boolean>({
+  key: "isPrevBooleanState",
+  default: true,
+});

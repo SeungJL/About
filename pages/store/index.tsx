@@ -11,8 +11,10 @@ import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
 import { IStoreApplicant } from "../../types/page/store";
 
 import { Button } from "@chakra-ui/react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { StoreGiftImage } from "../../components/utils/DesignAdjustment";
+import { useErrorToast } from "../../hooks/CustomToast";
+import { isPrevBooleanState } from "../../recoil/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoil/transferDataAtoms";
 import { IStoreGift } from "../../types/page/store";
 
@@ -27,34 +29,40 @@ interface IGiftEntries {
 
 function Store() {
   const router = useRouter();
-  const [giftEntries, setGiftEntries] = useState<IGiftEntries>({
-    active: STORE_GIFT_ACTIVE.map((gift) => ({
-      ...gift,
-      users: [],
-      totalCnt: 0,
-    })),
-    inactive: STORE_GIFT_inActive.map((gift) => ({
-      ...gift,
-      users: [],
-      totalCnt: 0,
-    })),
-  });
+  const errorToast = useErrorToast();
+  const [giftEntries, setGiftEntries] = useState<IGiftEntries>();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [isShowActive, setIsShowActive] = useState(true);
+  const [isPrevBoolean, setIsPrevBoolean] = useRecoilState(isPrevBooleanState);
+  const [isShowActive, setIsShowActive] = useState(isPrevBoolean);
   const [isModal, setIsModal] = useState(false);
 
   const setTransferStoreGiftData = useSetRecoilState(
     transferStoreGiftDataState
   );
 
-  const { data: storeGiftEntries } = useStoreGiftEntryQuery({});
+  const { data: storeGiftEntries } = useStoreGiftEntryQuery({
+    onError: errorToast,
+  });
+
+  useEffect(() => {
+    setIsPrevBoolean(isShowActive);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isShowActive]);
 
   useEffect(() => {
     if (!storeGiftEntries) return;
     const temp: IGiftEntries = {
-      active: [...giftEntries.active],
-      inactive: [...giftEntries.inactive],
+      active: STORE_GIFT_ACTIVE.map((gift) => ({
+        ...gift,
+        users: [],
+        totalCnt: 0,
+      })),
+      inactive: STORE_GIFT_inActive.map((gift) => ({
+        ...gift,
+        users: [],
+        totalCnt: 0,
+      })),
     };
     storeGiftEntries.users.forEach((who) => {
       const giftId = who.giftId;
@@ -71,7 +79,7 @@ function Store() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeGiftEntries]);
 
-  const giftArr = isShowActive ? giftEntries.active : giftEntries.inactive;
+  const giftArr = isShowActive ? giftEntries?.active : giftEntries?.inactive;
 
   const onClickGift = (item: IGiftEntry) => {
     setTransferStoreGiftData({ isActive: isShowActive, data: item });
@@ -114,7 +122,7 @@ function Store() {
                     ))}
                   </Trophy>
                   <ApplyCnt>
-                    <span>{item.totalCnt}</span>
+                    <span>{isShowActive ? item.totalCnt : item.max}</span>
                     <span>/{item.max}</span>
                   </ApplyCnt>
                 </Status>
@@ -136,7 +144,6 @@ function Store() {
           </Container>
         )}
       </Layout>
-
       {isModal && <StoreRuleModal setIsModal={setIsModal} />}
     </>
   );

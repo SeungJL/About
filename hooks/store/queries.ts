@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
+import { STORE_GIFT } from "../../constants/keys/queryKeys";
 import { IStoreQuery } from "../../types/page/store";
 import { QueryOptions } from "../../types/reactTypes";
 
@@ -18,7 +19,7 @@ export const useStoreGiftQuery = (
 
 export const useStoreGiftEntryQuery = (options?: QueryOptions<IStoreQuery>) =>
   useQuery<IStoreQuery, AxiosError, IStoreQuery>(
-    "storeGiftAll",
+    STORE_GIFT,
     async () => {
       const res = await axios.get<IStoreQuery>(`/api/store`);
       return res.data;

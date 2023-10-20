@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
+import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";
 import StoreDetailCover from "../../../pagesComponents/store/detail/StoreDetailCover";
 import StoreDetailDetails from "../../../pagesComponents/store/detail/StoreDetailDetails";
 import StoreDetailNav from "../../../pagesComponents/store/detail/StoreDetailNav";
@@ -21,12 +22,10 @@ function StoreItem() {
 
   const [isApplyModal, setIsApplyModal] = useState(false);
   const [isWinModal, setIsWinModal] = useState(false);
-  const [isRefetch, setIsRefetch] = useState(false);
 
   const storeGiftData = useRecoilValue(transferStoreGiftDataState);
   const giftInfo = storeGiftData?.data;
   const isActive = storeGiftData?.isActive;
-  console.log(giftInfo);
 
   return (
     <>
@@ -48,19 +47,15 @@ function StoreItem() {
         </Layout>
       )}
       {isApplyModal && (
-        <StoreApplyGiftModal
-          setIsModal={setIsApplyModal}
-          giftInfo={giftInfo}
-          setIsRefetch={setIsRefetch}
-        />
+        <StoreApplyGiftModal setIsModal={setIsApplyModal} giftInfo={giftInfo} />
       )}
-      {/* {isWinModal && (
+      {isWinModal && (
         <StoreGiftWinModal
           setIsModal={setIsWinModal}
           applicants={giftInfo}
-          win={info.winner}
+          winCnt={giftInfo.winner}
         />
-      )} */}
+      )}
     </>
   );
 }
