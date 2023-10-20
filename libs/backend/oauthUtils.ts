@@ -192,9 +192,7 @@ const getKakaoProfile = async (accessToken: string) => {
     return {
       name: res.data.nickName as string,
       profileImage: (res.data.profileImageURL as string) || defaultUrl,
-      thumbnailURL:
-        "https://p.kakaocdn.net/th/talkp/wneSbKczTz/rpaPLecKe5bXfGxlKyRNXk/a47fyq_110x110_c.jpg" ||
-        defaultUrl,
+      thumbnailURL: (res.data.thumbnailURL as string) || defaultUrl,
     } as kakaoProfileInfo;
   } catch (err) {
     return null;

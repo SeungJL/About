@@ -70,7 +70,7 @@ function StudySpaceNavigation({
   const myVote = attendences?.find(
     (props) => (props.user as IUser).uid === session?.uid
   );
-
+  console.log(12, myVote);
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
     onSuccess() {
