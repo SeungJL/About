@@ -14,7 +14,7 @@ interface IAboutMainItemParticipants {
   attendances: IAttendance[];
 }
 
-const VOTER_SHOW_MAX = 8;
+const VOTER_SHOW_MAX = 7;
 
 function AboutMainItemParticipants({
   status,
@@ -37,6 +37,11 @@ function AboutMainItemParticipants({
 
   const firstAttendance = attendances.filter((att) => att.firstChoice);
 
+  const filteredAttendances =
+    statusFixed === "pending" ? attendances : firstAttendance;
+
+  const isMax = filteredAttendances.length >= MAX_USER_PER_PLACE;
+
   return (
     <Layout status={statusFixed === "myOpen"}>
       <div>
@@ -45,45 +50,37 @@ function AboutMainItemParticipants({
         )}
       </div>
       <div>
-        {statusFixed === "pending"
-          ? attendances.map(
-              (att, idx) =>
-                idx < VOTER_SHOW_MAX && (
-                  <ProfileContainer key={idx} zIndex={idx}>
-                    <ProfileIconXsOverwrap
-                      user={att.user}
-                      isOverlap={idx === VOTER_SHOW_MAX - 1}
-                    />
-                  </ProfileContainer>
-                )
+        {filteredAttendances.map(
+          (att, idx) =>
+            idx < VOTER_SHOW_MAX && (
+              <ProfileContainer key={idx} zIndex={idx}>
+                <ProfileIconXsOverwrap
+                  user={att.user}
+                  isOverlap={idx === VOTER_SHOW_MAX - 1}
+                />
+              </ProfileContainer>
             )
-          : firstAttendance.map(
-              (att, idx) =>
-                idx < VOTER_SHOW_MAX + 1 && (
-                  <ProfileContainer key={idx} zIndex={idx}>
-                    <ProfileIconXsOverwrap
-                      user={att.user}
-                      isOverlap={idx === VOTER_SHOW_MAX}
-                    />
-                  </ProfileContainer>
-                )
-            )}
-        <ParticipantStatus>
-          <IconUserTwo />
-          <span>
-            <VoterImpact
-              isOverMax={
-                statusFixed === "pending" &&
-                attendances.length >= MAX_USER_PER_PLACE
-              }
-            >
-              {statusFixed === "pending"
-                ? attendances.length
-                : firstAttendance.length}
-            </VoterImpact>
-            /{statusFixed === "pending" ? "8" : "8"}
-          </span>
-        </ParticipantStatus>
+        )}
+        {!isMax ? (
+          <ParticipantStatus>
+            <IconUserTwo />
+            <span>
+              <VoterImpact
+                isOverMax={
+                  statusFixed === "pending" &&
+                  attendances.length >= MAX_USER_PER_PLACE
+                }
+              >
+                {statusFixed === "pending"
+                  ? attendances.length
+                  : firstAttendance.length}
+              </VoterImpact>
+              /{statusFixed === "pending" ? "8" : "8"}
+            </span>
+          </ParticipantStatus>
+        ) : (
+          <FullText>FULL</FullText>
+        )}
       </div>
     </Layout>
   );
@@ -95,6 +92,7 @@ const Layout = styled.div<{ status: boolean }>`
   justify-content: space-between;
   flex-direction: ${(props) => props.status && "row-reverse"};
   > div:last-child {
+    flex: 1;
     display: flex;
     padding-top: var(--padding--min);
     align-items: end;
@@ -114,6 +112,13 @@ const ProfileContainer = styled.div<{ zIndex: number }>`
   display: flex;
   z-index: ${(props) => props.zIndex};
   position: relative;
+`;
+
+const FullText = styled.span`
+  font-size: 16px;
+  margin-left: auto;
+  color: var(--color-red);
+  margin-right: var(--margin-sub);
 `;
 
 const ParticipantStatus = styled.div`
