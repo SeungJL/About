@@ -12,6 +12,7 @@ interface IAboutMainItemParticipants {
   status: StudyStatus;
   statusFixed: "myOpen" | StudyStatus;
   attendances: IAttendance[];
+  isImagePriority: boolean;
 }
 
 const VOTER_SHOW_MAX = 7;
@@ -20,6 +21,7 @@ function AboutMainItemParticipants({
   status,
   statusFixed,
   attendances,
+  isImagePriority,
 }: IAboutMainItemParticipants) {
   const { data: session } = useSession();
 
@@ -55,6 +57,7 @@ function AboutMainItemParticipants({
                 <ProfileIconXsOverwrap
                   user={att.user}
                   isOverlap={idx === VOTER_SHOW_MAX - 1}
+                  isImagePriority={isImagePriority}
                 />
               </ProfileContainer>
             )

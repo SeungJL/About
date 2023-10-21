@@ -59,6 +59,7 @@ function AboutMainItem({
           attendances={attendences}
           statusFixed={statusFixed}
           status={status}
+          isImagePriority={isImagePriority}
         />
       </SpaceInfo>
     </Layout>

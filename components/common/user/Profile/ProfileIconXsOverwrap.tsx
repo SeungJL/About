@@ -13,9 +13,14 @@ import { IUser } from "../../../../types/user/user";
 interface IProfileIconXsOVerwrap {
   user: IUser | "guest";
   isOverlap?: boolean;
+  isImagePriority?: boolean;
 }
 
-function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
+function ProfileIconXsOverwrap({
+  user,
+  isOverlap,
+  isImagePriority,
+}: IProfileIconXsOVerwrap) {
   const avatarType = (user as IUser)?.avatar?.type;
   const avatarBg = (user as IUser)?.avatar?.bg;
 
@@ -51,6 +56,7 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
             height={isAvatar ? 21 : 26}
             alt="ProfileIconXsOverwrap"
             onError={() => setIsError(true)}
+            priority={isImagePriority}
           />
         ) : (
           <OverlapWrapper>
@@ -60,6 +66,7 @@ function ProfileIconXsOverwrap({ user, isOverlap }: IProfileIconXsOVerwrap) {
               height={isError ? 21 : isAvatar ? 21 : 26}
               alt="ProfileIconXsOverwrap"
               onError={() => setIsError(true)}
+              priority={isImagePriority}
             />
             <IconWrapper>
               <FontAwesomeIcon icon={faEllipsis} size="lg" color="white" />
