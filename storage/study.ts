@@ -91,7 +91,6 @@ export const PLACE_TO_LOCATION = {
   [SUWAN_투썸]: "수원",
   [SUWAN_칸나]: "수원",
   [SUWAN_커피빈]: "수원",
-  [SUWAN_칸나]: "수원",
   [SUWAN_이디야]: "수원",
   [SUWAN_스타벅스]: "수원",
   [SUWAN_탐앤탐스2]: "수원",

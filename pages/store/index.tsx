@@ -58,11 +58,13 @@ function Store() {
         users: [],
         totalCnt: 0,
       })),
-      inactive: STORE_GIFT_inActive.map((gift) => ({
-        ...gift,
-        users: [],
-        totalCnt: 0,
-      })),
+      inactive: STORE_GIFT_inActive.slice()
+        .reverse()
+        .map((gift) => ({
+          ...gift,
+          users: [],
+          totalCnt: 0,
+        })),
     };
     storeGiftEntries.users.forEach((who) => {
       const giftId = who.giftId;

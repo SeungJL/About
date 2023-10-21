@@ -20,7 +20,7 @@ function StoreDetailOverview({
       </Overview>
       <Price>{info.point} point</Price>
       <ApplyCnt>
-        현재 전체 응모 횟수는 <b>{isActive ? info.max : totalApplyCnt}회</b>
+        현재 전체 응모 횟수는 <b>{!isActive ? info.max : totalApplyCnt}회</b>
         입니다.
       </ApplyCnt>
     </Layout>
