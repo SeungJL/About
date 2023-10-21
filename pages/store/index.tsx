@@ -82,7 +82,10 @@ function Store() {
   const giftArr = isShowActive ? giftEntries?.active : giftEntries?.inactive;
 
   const onClickGift = (item: IGiftEntry) => {
-    setTransferStoreGiftData({ isActive: isShowActive, data: item });
+    setTransferStoreGiftData({
+      isActive: isShowActive && item.totalCnt < item.max,
+      data: item,
+    });
     router.push(`/store/${item.giftId}`);
   };
 
