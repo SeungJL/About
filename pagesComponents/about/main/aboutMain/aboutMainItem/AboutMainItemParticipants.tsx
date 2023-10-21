@@ -44,11 +44,9 @@ function AboutMainItemParticipants({
 
   return (
     <Layout status={statusFixed === "myOpen"}>
-      <div>
-        {statusFixed === "pending" && voteStatus && (
-          <VoteComplete status={voteStatus}>{voteStatus}</VoteComplete>
-        )}
-      </div>
+      {statusFixed === "pending" && voteStatus && (
+        <VoteComplete status={voteStatus}>{voteStatus}</VoteComplete>
+      )}
       <div>
         {filteredAttendances.map(
           (att, idx) =>
