@@ -27,14 +27,14 @@ function AboutMainItemParticipants({
   const voterCnt = attendances.length;
 
   const voteStatus: "GOOD" | "FULL" =
-    status === "pending"
+    status !== "pending"
       ? isMyVote
         ? "GOOD"
         : voterCnt >= MAX_USER_PER_PLACE
         ? "FULL"
         : null
       : null;
-
+  console.log(3, voteStatus);
   const firstAttendance = attendances.filter((att) => att.firstChoice);
 
   const filteredAttendances =
@@ -115,7 +115,7 @@ const ProfileContainer = styled.div<{ zIndex: number }>`
 `;
 
 const FullText = styled.span`
-  font-size: 16px;
+  font-size: 14px;
   margin-left: auto;
   color: var(--color-red);
   margin-right: var(--margin-sub);
