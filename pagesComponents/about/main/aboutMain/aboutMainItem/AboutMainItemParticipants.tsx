@@ -27,7 +27,7 @@ function AboutMainItemParticipants({
   const voterCnt = attendances.length;
 
   const voteStatus: "GOOD" | "FULL" =
-    status !== "pending"
+    status === "pending"
       ? isMyVote
         ? "GOOD"
         : voterCnt >= MAX_USER_PER_PLACE
