@@ -34,7 +34,7 @@ function AboutMainItemParticipants({
         ? "FULL"
         : null
       : null;
-  console.log(3, voteStatus);
+
   const firstAttendance = attendances.filter((att) => att.firstChoice);
 
   const filteredAttendances =
@@ -62,22 +62,24 @@ function AboutMainItemParticipants({
             )
         )}
         {!isMax ? (
-          <ParticipantStatus>
-            <IconUserTwo />
-            <span>
-              <VoterImpact
-                isOverMax={
-                  statusFixed === "pending" &&
-                  attendances.length >= MAX_USER_PER_PLACE
-                }
-              >
-                {statusFixed === "pending"
-                  ? attendances.length
-                  : firstAttendance.length}
-              </VoterImpact>
-              /{statusFixed === "pending" ? "8" : "8"}
-            </span>
-          </ParticipantStatus>
+          filteredAttendances.length > 0 && (
+            <ParticipantStatus>
+              <IconUserTwo />
+              <span>
+                <VoterImpact
+                  isOverMax={
+                    statusFixed === "pending" &&
+                    attendances.length >= MAX_USER_PER_PLACE
+                  }
+                >
+                  {statusFixed === "pending"
+                    ? attendances.length
+                    : firstAttendance.length}
+                </VoterImpact>
+                /{statusFixed === "pending" ? "8" : "8"}
+              </span>
+            </ParticipantStatus>
+          )
         ) : (
           <FullText>FULL</FullText>
         )}
@@ -125,7 +127,7 @@ const FullText = styled.span`
 const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
-  margin-left: var(--margin-sub);
+  margin-left: var(--margin-md);
   margin-bottom: var(--margin-min);
   > span {
     margin-left: 2px;
