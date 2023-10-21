@@ -107,7 +107,8 @@ const Layout = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--padding-md) var(--padding-main);
+  padding-top: var(--padding-sub);
   border-bottom: var(--border-main-light);
 `;
 
