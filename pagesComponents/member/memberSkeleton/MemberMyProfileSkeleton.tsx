@@ -22,7 +22,7 @@ function MemberMyProfileSkeleton() {
             </span>
           </div>
           <div>
-            <span>등급</span>
+            <span>배지</span>
             <Badge>
               <Skeleton>temp</Skeleton>
             </Badge>
@@ -46,7 +46,7 @@ function MemberMyProfileSkeleton() {
             </span>
           </div>
           <div>
-            <span>관심사</span>
+            <span>관심</span>
             <span>
               <Skeleton>temp</Skeleton>
             </span>
@@ -58,14 +58,27 @@ function MemberMyProfileSkeleton() {
 }
 
 const Layout = styled.div`
-  padding-top: var(--padding-sub);
-  padding-bottom: var(--padding-main);
+  padding: var(--padding-sub) 0;
   margin: 0 var(--margin-main);
+  min-height: 167px;
 `;
-const Badge = styled.div`
-  width: 54px;
-  margin-left: var(--margin-min);
+const Title = styled.span`
+  font-weight: 600;
+  margin-bottom: var(--margin-sub);
 `;
+const Wrapper = styled.div`
+  border-radius: var(--border-radius-main);
+  border: var(--border-mint);
+  padding: var(--padding-md) var(--padding-main);
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+  height: 110px;
+  margin-top: var(--margin-sub);
+  font-size: 12px;
+`;
+
+const Badge = styled.span``;
 
 const ProfileIcon = styled.div`
   width: 60px;
@@ -75,56 +88,38 @@ const ProfileIcon = styled.div`
 `;
 
 const Profile = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
 `;
 
 const Name = styled.span`
   display: inline-block;
-  margin-top: var(--margin-min);
   font-weight: 600;
-  width: 50px;
-`;
-
-const Wrapper = styled.div`
-  border-radius: var(--border-radius-main);
-  border: var(--border-main);
-  border-color: var(--color-mint);
-  padding: var(--padding-sub) var(--padding-main);
-  display: flex;
-  align-items: center;
-  height: 120px;
-  margin-top: var(--margin-sub);
-`;
-
-const Title = styled.span`
-  font-weight: 600;
-  margin-bottom: var(--margin-sub);
 `;
 
 const Info = styled.div`
   flex: 1;
-  height: 90%;
+  height: 100%;
+  padding: var(--padding-min) 0;
   font-size: 12px;
   color: var(--font-h2);
   margin-left: var(--margin-main);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
+  grid-template-columns: 1fr 1.5fr;
   > div {
     display: flex;
     align-items: center;
-
     > span:first-child {
       display: inline-block;
       width: 36px;
       font-weight: 600;
     }
     > span:last-child {
-      margin-left: var(--margin-min);
       display: inline-block;
-      width: 54px;
+      width: 44px;
     }
   }
 `;

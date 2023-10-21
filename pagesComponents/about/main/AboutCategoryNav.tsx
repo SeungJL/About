@@ -1,8 +1,8 @@
-import { faDice } from "@fortawesome/pro-regular-svg-icons";
 import {
   faCalendarCheck,
   faOtter,
   faStar,
+  faStore,
   faTeddyBear,
   faUsers,
 } from "@fortawesome/pro-solid-svg-icons";
@@ -48,7 +48,7 @@ function AboutCategoryNav() {
         </Item>
         <Item>
           <Button onClick={() => onClickItem("point")}>
-            <FontAwesomeIcon icon={faDice} size="xl" color={TABLE_COLORS[3]} />
+            <FontAwesomeIcon icon={faStore} size="xl" color={TABLE_COLORS[3]} />
             {isPointAlert && (
               <IconWrapper>
                 <FontAwesomeIcon
@@ -59,7 +59,7 @@ function AboutCategoryNav() {
               </IconWrapper>
             )}
           </Button>
-          <span>트레이드</span>
+          <span>스토어</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("member")}>

@@ -69,9 +69,7 @@ const Info = styled.div`
     > span:first-child {
       margin-right: var(--margin-md);
       font-weight: 600;
-      color: var(--font-h2);
-    }
-    > span:last-child {
+      color: var(--font-h1);
     }
   }
   > li::before {

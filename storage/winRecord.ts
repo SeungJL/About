@@ -166,4 +166,22 @@ export const WIN_RECORD: {
     reason: "스토어 응모 당첨",
     present: "다이소 5000원권",
   },
+  {
+    name: "유회",
+    date: "10/12",
+    reason: "출석체크 당첨 선물",
+    present: "초코에몽",
+  },
+  {
+    name: "유회",
+    date: "10/15",
+    reason: "출석체크 당첨 선물",
+    present: "MEGA 커피 깊티",
+  },
+  {
+    name: "하정",
+    date: "10/18",
+    reason: "출석체크 당첨 선물",
+    present: "MEGA 커피 깊티",
+  },
 ];

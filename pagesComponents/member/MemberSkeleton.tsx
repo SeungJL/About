@@ -41,18 +41,17 @@ const MembersContainer = styled.div`
   padding-top: var(--padding-sub);
   padding-bottom: var(--padding-main);
   > section {
-    padding-top: var(--margin-main);
+    padding-top: var(--margin-sub);
   }
 `;
 const Section = styled.section`
   > div:last-child {
-    height: 60px;
+    height: 48px;
     margin: var(--margin-sub) 0;
     margin-left: -8px;
   }
 `;
 const MemberTitle = styled.span`
-  font-size: 16px;
   font-weight: 600;
 `;
 

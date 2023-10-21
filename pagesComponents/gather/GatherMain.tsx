@@ -49,7 +49,7 @@ function GatherMain({ category }: IGatherMain) {
       {gathers ? (
         <>
           {gathers.map((gather, idx) => (
-            <GatherBlock key={idx} gather={gather} />
+            <GatherBlock key={idx} gather={gather} isImagePriority={idx < 4} />
           ))}
         </>
       ) : (

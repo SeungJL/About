@@ -30,20 +30,19 @@ function MemberOverviewSkeleton() {
             <Skeleton>temp</Skeleton>
           </span>
         </li>
-        <li>
-          <span>활동 지역</span>
-          <LOCATION_USE_ALL location={location as Location}>
+        <ActiveLocation location={location as Location}>
+          <span>활동 장소</span>
+          <StudySpaces location={location as Location}>
             <Skeleton>temp</Skeleton>
-          </LOCATION_USE_ALL>
-        </li>
+          </StudySpaces>
+        </ActiveLocation>
       </Info>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  padding-top: var(--padding-sub);
-  padding-bottom: var(--padding-main);
+  padding: var(--padding-md) 0;
   margin: 0 var(--margin-main);
 `;
 const Title = styled.div`
@@ -53,20 +52,21 @@ const Title = styled.div`
 
 const Info = styled.div`
   font-size: 12px;
-  margin-top: var(--margin-main);
-  margin-bottom: 8px;
+  margin-top: var(--margin-md);
+  line-height: 2;
   > li {
     display: flex;
     margin-left: -2px;
     list-style-type: none;
-    margin-top: 6px;
+
     > span:first-child {
       margin-right: var(--margin-md);
+      font-weight: 600;
+      color: var(--font-h1);
     }
     > span:last-child {
-      font-weight: 600;
       display: inline-block;
-      width: 75px;
+      height: 20px;
     }
   }
   > li::before {
@@ -76,10 +76,17 @@ const Info = styled.div`
   }
 `;
 
-const LOCATION_USE_ALL = styled.div<{ location: Location }>`
+const ActiveLocation = styled.li<{ location: Location }>`
+  height: ${(props) => (props.location !== "안양" ? "48px" : "24px")};
+`;
+
+const StudySpaces = styled.div<{ location: Location }>`
   flex: 1;
+
   color: var(--font-h2);
-  height: ${(props) => (props.location === "수원" ? "36px" : "18px")};
+  margin-top: 4px;
+  height: ${(props) => (props.location !== "안양" ? "40px" : "20px")};
+
   > span {
     margin-right: var(--margin-min);
   }

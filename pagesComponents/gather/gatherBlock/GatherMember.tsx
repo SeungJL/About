@@ -2,24 +2,35 @@ import { faInfinity, faUserGroup } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import { IImagePriority } from "../../../types/common";
 import {
   GatherMemberCnt,
   GatherParticipants,
 } from "../../../types/page/gather";
 import { IUser } from "../../../types/user/user";
 
-interface IGatherMember {
+interface IGatherMember extends IImagePriority {
   organizer: IUser;
   participants: GatherParticipants[];
   memberCnt: GatherMemberCnt;
 }
 
-function GatherMember({ organizer, participants, memberCnt }: IGatherMember) {
+function GatherMember({
+  organizer,
+  participants,
+  memberCnt,
+  isImagePriority,
+}: IGatherMember) {
+  const isABOUT = organizer.uid === "2259633694";
   return (
     <Layout>
-      <Writer>
-        <ProfileIcon user={organizer} size="xs" />
-        <span>{organizer.name}</span>
+      <Writer isABOUT={isABOUT}>
+        <ProfileIcon
+          user={isABOUT ? "ABOUT" : organizer}
+          size="xs"
+          isImagePriority={isImagePriority}
+        />
+        <span>{isABOUT ? "ABOUT" : organizer.name}</span>
       </Writer>
       <Voter>
         <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
@@ -43,11 +54,20 @@ const Layout = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const Writer = styled.div`
+const Writer = styled.div<{ isABOUT: boolean }>`
   display: flex;
   align-items: center;
   > span {
+    font-size: 14px;
     margin-left: var(--margin-md);
+    ${(props) =>
+      props.isABOUT &&
+      `
+background: linear-gradient(90deg, #04e19b, #03b1e8);
+-webkit-background-clip: text;
+color: transparent;
+display: inline;
+`}
   }
 `;
 
