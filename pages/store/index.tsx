@@ -132,13 +132,17 @@ function Store() {
                     giftId={item.giftId}
                     isImagePriority={idx < 6}
                   />
-                  {!isShowActive && <Circle>추첨 완료</Circle>}
+                  {(!isShowActive || item.max <= item.totalCnt) && (
+                    <Circle>추첨 완료</Circle>
+                  )}
                 </ImageWrapper>
                 <Info>
                   <Name>{item.name}</Name>
                   <Point>{item.point} point</Point>
                 </Info>
-                {!isShowActive && <CompletedRapple />}
+                {(!isShowActive || item.max <= item.totalCnt) && (
+                  <CompletedRapple />
+                )}
               </Item>
             ))}
           </Container>

@@ -23,7 +23,7 @@ function StoreItem() {
   const storeGiftData = useRecoilValue(transferStoreGiftDataState);
   const giftInfo = storeGiftData?.data;
   const isActive = storeGiftData?.isActive;
-
+  console.log(isActive);
   return (
     <>
       <Header title="상세 정보" url="/store" />
