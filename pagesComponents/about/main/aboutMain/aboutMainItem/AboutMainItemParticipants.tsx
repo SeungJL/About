@@ -45,7 +45,7 @@ function AboutMainItemParticipants({
   return (
     <Layout status={statusFixed === "myOpen"}>
       <div>
-        {statusFixed === "pending" && (
+        {statusFixed === "pending" && voteStatus && (
           <VoteComplete status={voteStatus}>{voteStatus}</VoteComplete>
         )}
       </div>
@@ -99,6 +99,7 @@ const Layout = styled.div<{ status: boolean }>`
   }
 `;
 const VoteComplete = styled.span<{ status: "GOOD" | "FULL" }>`
+  margin-right: var(--margin-md);
   display: flex;
   height: 100%;
   align-items: end;
@@ -124,7 +125,7 @@ const FullText = styled.span`
 const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
-  margin-left: var(--margin-md);
+  margin-left: var(--margin-sub);
   margin-bottom: var(--margin-min);
   > span {
     margin-left: 2px;
