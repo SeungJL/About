@@ -116,8 +116,9 @@ const Item = styled.div`
   flex-direction: column;
   align-items: center;
   > span {
-    font-size: 12px;
-    color: var(--font-h2);
+    font-size: 11px;
+    color: var(--font-h1);
+    font-weight: 600;
   }
 `;
 
@@ -126,7 +127,7 @@ const Button = styled.button`
   height: 50px;
   border-radius: 20px;
   background-color: var(--font-h7);
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--margin-md);
   position: relative;
 `;
 
