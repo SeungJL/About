@@ -5,10 +5,10 @@ import {
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import "dayjs/locale/ko";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { LocationFilterType } from "../../../types/system";
-
 dayjs.locale("ko");
 
 interface IGatherDetail {

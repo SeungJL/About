@@ -22,15 +22,13 @@ function GatherMain({ category }: IGatherMain) {
   const [gatherData, setGatherData] = useState<IGather[]>();
 
   const { data: gatherAll, isLoading } = useGatherAllQuery({
-    onSuccess(data) {
-      const lastGather = data.slice(-1)[0];
-      localStorage.setItem(GATHER_ALERT, String(lastGather.id));
-    },
     onError: errorToast,
   });
 
   useEffect(() => {
     if (isLoading) return;
+    const lastGather = gatherAll.slice(-1)[0];
+    localStorage.setItem(GATHER_ALERT, String(lastGather.id));
     let filtered = gatherAll;
     if (category !== "전체")
       filtered = gatherAll.filter((item) => {
