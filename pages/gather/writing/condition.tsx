@@ -18,17 +18,14 @@ import {
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
-import ModalPortal from "../../../components/modals/ModalPortal";
-import SuccessScreen from "../../../components/pages/SuccessScreen";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { randomPassword } from "../../../helpers/validHelpers";
 import { useErrorToast } from "../../../hooks/CustomToast";
-import { useGatherContentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherWritingConditionAgeRange from "../../../pagesComponents/gather/writing/GatherWritingConditionAgeRange";
 import GatherWritingConditionCnt from "../../../pagesComponents/gather/writing/GatherWritingConditionCnt";
@@ -36,13 +33,16 @@ import GatherWritingConditionPre from "../../../pagesComponents/gather/writing/G
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 
+import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { GatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
 
 function WritingCondition() {
   const errorToast = useErrorToast();
 
-  const gatherContent = useRecoilValue(sharedGatherWritingState);
+  const [gatherContent, setGatherContent] = useRecoilState(
+    sharedGatherWritingState
+  );
 
   const [condition, setCondition] = useState({
     gender: gatherContent?.genderCondition || false,
@@ -58,17 +58,9 @@ function WritingCondition() {
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
   const [age, setAge] = useState(gatherContent?.age || [19, 28]);
   const [password, setPassword] = useState(gatherContent?.password);
-
-  const [isSuccessScreen, setIsSuccessScreen] = useState(false);
+  const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const { data: userInfo } = useUserInfoQuery();
-
-  const { mutate } = useGatherContentMutation({
-    onSuccess() {
-      setIsSuccessScreen(true);
-    },
-    onError: errorToast,
-  });
 
   const onClickNext = async () => {
     const gatherData: IGatherWriting = {
@@ -81,7 +73,9 @@ function WritingCondition() {
       user: userInfo,
       place: condition.location ? userInfo.location : "전체",
     };
-    mutate(gatherData);
+    setGatherContent(gatherData);
+    setIsConfirmModal(true);
+    // mutate(gatherData);
   };
 
   useEffect(() => {
@@ -195,15 +189,11 @@ function WritingCondition() {
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
       </PageLayout>
-      {isSuccessScreen && (
-        <ModalPortal setIsModal={setIsSuccessScreen}>
-          <SuccessScreen url={`/gather`}>
-            <>
-              <span>모임 개최 성공</span>
-              <div>모임 게시글을 오픈 채팅방에 공유해 주세요!</div>
-            </>
-          </SuccessScreen>
-        </ModalPortal>
+      {isConfirmModal && (
+        <GatherWritingConfirmModal
+          setIsModal={setIsConfirmModal}
+          gatherData={gatherContent}
+        />
       )}
     </>
   );

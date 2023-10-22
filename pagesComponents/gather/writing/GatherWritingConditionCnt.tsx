@@ -50,6 +50,7 @@ function GatherWritingConditionCnt({
             setValue={setNumber}
             unit="명"
             min={!isMin ? 4 : undefined}
+            isSmall={true}
           />
         ) : (
           <MaxConditionText>제한 없음</MaxConditionText>

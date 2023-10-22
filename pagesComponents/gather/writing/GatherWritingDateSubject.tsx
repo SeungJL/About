@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TimeSelectorUnit from "../../../components/features/atoms/TimeSelectorUnit";
@@ -9,6 +10,7 @@ import { ITime } from "../../../types/timeAndDate";
 interface IGatherWritingDateSubject {
   gatherWriting: IGatherWriting;
   setGatherList: DispatchType<GatherListItem[]>;
+  date: Date;
 }
 interface IGatherSubject {
   text: string;
@@ -18,15 +20,27 @@ interface IGatherSubject {
 function GatherWritingDateSubject({
   gatherWriting,
   setGatherList,
+  date,
 }: IGatherWritingDateSubject) {
   const [firstGather, setFirstGather] = useState<IGatherSubject>({
     text: gatherWriting?.gatherList?.[0]?.text || "",
     time: { hours: 14, minutes: 0 },
   });
   const [secondGather, setSecondGather] = useState<IGatherSubject>({
-    text: gatherWriting?.gatherList?.[1]?.text || "",
+    text: gatherWriting?.gatherList?.[1]?.text || "늦참",
     time: { hours: 18, minutes: 0 },
   });
+
+  useEffect(() => {
+    if (date)
+      setFirstGather((old) => ({
+        ...old,
+        time: {
+          hours: dayjs(date).hour(),
+          minutes: dayjs(date).minute(),
+        },
+      }));
+  }, [date]);
 
   useEffect(() => {
     const gatherList = [{ text: firstGather.text, time: firstGather.time }];
@@ -79,7 +93,9 @@ function GatherWritingDateSubject({
           disabled={secondGather?.text === ""}
         />
       </TimeContent>
-      <Message>2차 모임은 있는 경우에만 작성해 주시면 돼요!</Message>
+      <Message>
+        2차 모임이 없는 경우 &lsquo;늦참&rsquo;으로 설정해주세요!
+      </Message>
     </Layout>
   );
 }
