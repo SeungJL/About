@@ -29,10 +29,13 @@ function GatherBlock({ gather, isImagePriority }: IGatherBlock) {
           status={gather.status}
           typeTitle={gather.type.title}
           locationMain={gather.location.main}
-          openLocation={gather.place}
         />
         <Title>{gather.title}</Title>
-        <GatherDetail age={gather.age} date={gather.date} />
+        <GatherDetail
+          age={gather.age}
+          date={gather.date}
+          location={gather.place}
+        />
         <GatherMember
           organizer={gather.user}
           participants={gather.participants}

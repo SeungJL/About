@@ -30,7 +30,7 @@ function GatherMember({
           size="xs"
           isImagePriority={isImagePriority}
         />
-        <span>{isABOUT ? "ABOUT" : organizer.name}</span>
+        <span>{isABOUT ? "어바웃" : organizer.name}</span>
       </Writer>
       <Voter>
         <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
@@ -58,7 +58,8 @@ const Writer = styled.div<{ isABOUT: boolean }>`
   display: flex;
   align-items: center;
   > span {
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 12px;
     margin-left: var(--margin-md);
     ${(props) =>
       props.isABOUT &&

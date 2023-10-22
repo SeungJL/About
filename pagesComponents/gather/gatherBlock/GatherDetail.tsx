@@ -1,29 +1,39 @@
-import { faCalendarClock, faUserCheck } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faCalendarClock,
+  faMapLocationDot,
+  faUserCheck,
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { LocationFilterType } from "../../../types/system";
 
 interface IGatherDetail {
   age: number[];
   date: string;
+  location: LocationFilterType;
 }
 
-function GatherDetail({ age, date }: IGatherDetail) {
+function GatherDetail({ age, date, location }: IGatherDetail) {
   return (
     <Layout>
-      <Age>
-        <FontAwesomeIcon icon={faUserCheck} color="var(--font-h4)" />
+      <Item>
+        <FontAwesomeIcon icon={faMapLocationDot} />
+        <span>{location}</span>
+      </Item>
+      <Item>
+        <FontAwesomeIcon icon={faUserCheck} />
         <span>
           {age[0]}~{age[1]}세
         </span>
-      </Age>
-      <Date>
-        <FontAwesomeIcon icon={faCalendarClock} color="var(--font-h4)" />
+      </Item>
+      <Item>
+        <FontAwesomeIcon icon={faCalendarClock} />
         <span>
           {date === "미정" ? date : dayjsToFormat(dayjs(date), "M월 D일")}
         </span>
-      </Date>
+      </Item>
     </Layout>
   );
 }
@@ -33,15 +43,13 @@ const Layout = styled.div`
   flex-direction: column;
   font-size: 12px;
   line-height: 2;
+  color: var(--font-h2);
 `;
-const Age = styled.div`
+
+const Item = styled.div`
   > span {
     margin-left: var(--margin-md);
   }
 `;
-const Date = styled.div`
-  > span {
-    margin-left: 10px;
-  }
-`;
+
 export default GatherDetail;

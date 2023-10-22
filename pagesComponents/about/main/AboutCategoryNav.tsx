@@ -127,9 +127,12 @@ const Button = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 20px;
-  background-color: var(--font-h7);
+  background-color: white;
   margin-bottom: var(--margin-md);
   position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.025); // 테두리를 중간 정도로 조절
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.04); // 그림자를 중간 정도로 조절
+  transition: transform 0.2s, box-shadow 0.2s;
 `;
 
 export default AboutCategoryNav;
