@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { LocationFilterType } from "../../../types/system";
 
+dayjs.locale("ko");
+
 interface IGatherDetail {
   age: number[];
   date: string;
@@ -33,7 +35,9 @@ function GatherDetail({ age, date, location }: IGatherDetail) {
       <Item>
         <FontAwesomeIcon icon={faCalendarClock} />
         <span>
-          {date === "미정" ? date : dayjsToFormat(dayjs(date), "M월 D일")}
+          {date === "미정"
+            ? date
+            : dayjsToFormat(dayjs(date), "M.D(ddd) 오후 h:mm")}
         </span>
       </Item>
     </Layout>

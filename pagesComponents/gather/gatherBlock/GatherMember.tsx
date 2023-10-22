@@ -2,6 +2,7 @@ import { faInfinity, faUserGroup } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import { ABOUT_UID } from "../../../constants/system";
 import { IImagePriority } from "../../../types/common";
 import {
   GatherMemberCnt,
@@ -21,7 +22,7 @@ function GatherMember({
   memberCnt,
   isImagePriority,
 }: IGatherMember) {
-  const isABOUT = organizer.uid === "2259633694";
+  const isABOUT = organizer.uid === ABOUT_UID;
   return (
     <Layout>
       <Writer isABOUT={isABOUT}>
