@@ -1,11 +1,13 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
 import {
   ModalBody,
   ModalFooterTwo,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import {
   useGatherCommentDeleteMutation,
   useGatherCommentEditMutation,
@@ -25,12 +27,21 @@ function GatherCommentEditModal({
 }: IGatherCommentEditModal) {
   const router = useRouter();
   const gatherId = +router.query.id;
+  const queryClient = useQueryClient();
 
   const [isFirst, setIsFirst] = useState(true);
   const [value, setValue] = useState(commentText);
 
-  const { mutate: deleteComment } = useGatherCommentDeleteMutation(gatherId);
-  const { mutate: editComment } = useGatherCommentEditMutation(gatherId);
+  const { mutate: deleteComment } = useGatherCommentDeleteMutation(gatherId, {
+    onSuccess() {
+      queryClient.invalidateQueries(GATHER_CONTENT);
+    },
+  });
+  const { mutate: editComment } = useGatherCommentEditMutation(gatherId, {
+    onSuccess() {
+      queryClient.invalidateQueries(GATHER_CONTENT);
+    },
+  });
 
   const onComplete = () => {
     setIsRefetch(true);
