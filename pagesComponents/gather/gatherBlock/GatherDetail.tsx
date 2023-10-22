@@ -20,12 +20,14 @@ function GatherDetail({ age, date, location }: IGatherDetail) {
     <Layout>
       <Item>
         <FontAwesomeIcon icon={faMapLocationDot} />
-        <span>{location}</span>
+        <span>
+          {location} {location === "전체" && "지역"}
+        </span>
       </Item>
       <Item>
         <FontAwesomeIcon icon={faUserCheck} />
         <span>
-          {age[0]}~{age[1]}세
+          {age[0]} ~ {age[1]}세
         </span>
       </Item>
       <Item>
@@ -44,6 +46,12 @@ const Layout = styled.div`
   font-size: 12px;
   line-height: 2;
   color: var(--font-h2);
+
+  > div:nth-child(2) {
+    > span {
+      margin-left: 6px;
+    }
+  }
 `;
 
 const Item = styled.div`
