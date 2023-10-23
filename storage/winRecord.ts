@@ -401,4 +401,16 @@ export const WIN_RECORD: {
     reason: "시험기간 랜덤 선물",
     present: "CU 3000원권",
   },
+  {
+    name: "이승",
+    date: "10/23",
+    reason: "홍보 이벤트 선물",
+    present: "BBQ 황금올리브 세트",
+  },
+  {
+    name: "남궁",
+    date: "10/23",
+    reason: "홍보 이벤트 선물",
+    present: "BBQ 황금올리브 세트",
+  },
 ];

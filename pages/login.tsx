@@ -44,8 +44,6 @@ const Login: NextPage<{
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isApplicant, setIsApplicant] = useState(false);
 
-
-  
   const { isLoading } = useRegisterFormsQuery({
     enabled: !!session,
     onSuccess(data) {
@@ -75,6 +73,7 @@ const Login: NextPage<{
       return;
     }
 
+    //카카오 로그인시 무조건 유저 테이블에는 데이터가 생성 또는 업데이트 된다.
     if (session) router.push(`/about?status=login`);
     else
       signIn(provider, {
