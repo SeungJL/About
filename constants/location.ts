@@ -39,10 +39,10 @@ export const LOCATION_MEMBER_CNT: {
 } = {
   수원: { member: 184, new: 4 },
   양천: { member: 62, new: 2 },
-  안양: { member: 26, new: 2 },
+  안양: { member: 35, new: 4 },
   강남: { member: 34, new: 3 },
-  동대문: { member: 13, new: 6 },
-  마포: { member: 0, new: 0 },
+  동대문: { member: 21, new: 6 },
+  마포: { member: 6, new: 3 },
 };
 
 export const LOCATION_TABLE_COLOR = {

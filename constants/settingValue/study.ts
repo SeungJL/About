@@ -65,10 +65,10 @@ export const STUDY_SPACE_ORDER = {
   [YANG_몽글]: 7,
   [YANG_자유신청]: 8,
 
-  [ANYANG_숨맑은집]: 0,
-  [ANYANG_인뎃커피]: 1,
-  [ANYANG_파스쿠찌]: 2,
-  [ANYANG_커피인더스트리]: 3,
+  [ANYANG_숨맑은집]: 1,
+  [ANYANG_인뎃커피]: 2,
+  [ANYANG_파스쿠찌]: 3,
+  [ANYANG_커피인더스트리]: 4,
   [ANYANG_자유신청]: 5,
 
   [GANGNAM_강남]: 0,

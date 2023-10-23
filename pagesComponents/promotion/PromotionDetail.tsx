@@ -18,10 +18,6 @@ function PromotionDetail() {
   const myApply = promotionData?.find((item) => item.uid === session?.uid);
 
   const onClick = () => {
-    if (!myApply) {
-      failToast("free", "홍보 참여 기록이 있어야 확인할 수 있어요!");
-      return;
-    }
     setIsMyModal(true);
   };
 
@@ -49,7 +45,7 @@ function PromotionDetail() {
         </Button>
       </Layout>
       {isMyModal && (
-        <PromotionMyCoolTimeModal myApply={myApply} setIsModal={setIsMyModal} />
+        <PromotionMyCoolTimeModal  setIsModal={setIsMyModal} />
       )}
       {isAllModal && (
         <PromotionAllCoolTimeModal

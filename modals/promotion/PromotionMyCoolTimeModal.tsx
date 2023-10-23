@@ -1,6 +1,5 @@
 import { faCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import styled from "styled-components";
 import {
   ModalBody,
@@ -8,6 +7,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { PROMOTION_WIN } from "../../storage/winRecord";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
 
@@ -15,47 +15,27 @@ interface IPromotionMyCoolTimeModal extends IModal {
   myApply: IPromotionApply;
 }
 
-function PromotionMyCoolTimeModal({
-  myApply,
-  setIsModal,
-}: IPromotionMyCoolTimeModal) {
-  const monthArr = [
-    { month: 9, winner: [] },
-    {
-      month: 8,
-      gift: "황금 올리브 치킨 세트",
-      winner: [
-        { name: "임성", location: "수원" },
-        { name: "연", location: "수원" },
-      ],
-    },
-    {
-      month: 7,
-      gift: "황금 올리브 치킨 세트",
-      winner: [
-        { name: "김소", location: "양천" },
-        { name: "이승", location: "수원" },
-        { name: "송재", location: "양천" },
-      ],
-    },
-  ];
-
-  const cool = dayjs(myApply.lastDate)
-    .add(3, "day")
-    .subtract(6, "hours")
-    .diff(dayjs(), "hours");
-
+function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader text="지난 당첨 기록" />
       <ModalBody>
         <Container>
-          {monthArr.map((item, idx) => (
+          {PROMOTION_WIN.map((item, idx) => (
             <Item key={idx}>
               <Title>
                 <Month>{item.month}월 당첨자</Month>
-                <Gift>황금 올리브 치킨 세트</Gift>
+                {item?.rate && (
+                  <Rank>
+                    <span>당첨률 </span>
+                    <span>{item.rate}</span>
+                  </Rank>
+                )}
               </Title>
+              <Gift>
+                <span>상품:</span>
+                <span>{item.gift}</span>
+              </Gift>
               <Winner>
                 {item.winner.map((who, idx) => (
                   <WinnerItem key={idx}>
@@ -79,13 +59,19 @@ const Container = styled.div`
   flex-direction: column;
   padding: var(--padding-main);
   flex: 1;
-
+  overflow-y: auto;
   border: var(--border-mint);
   border-radius: var(--border-radius-main);
 `;
 
+const Rank = styled.div`
+  font-size: 11px;
+  color: var(--color-mint);
+`;
+
 const Item = styled.div`
-  margin-bottom: var(--margin-main);
+  padding: var(--padding-md) 0;
+  border-bottom: var(--border-main-light);
 `;
 
 const Title = styled.div`
@@ -103,6 +89,9 @@ const Month = styled.div`
 
 const Winner = styled.div`
   display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--font-h2);
 `;
 
 const WinnerItem = styled.div`
@@ -110,8 +99,16 @@ const WinnerItem = styled.div`
 `;
 
 const Gift = styled.div`
-  color: var(--font-h3);
-  font-size: 11px;
+  color: var(--font-h1);
+  font-size: 13px;
+  margin-bottom: var(--margin-md);
+
+  > span:first-child {
+    margin-right: var(--margin-min);
+  }
+  > span:last-child {
+    font-weight: 600;
+  }
 `;
 
 const Info = styled.div``;

@@ -60,7 +60,7 @@ function GatherWritingConfirmModal({
             </Item>
             <Item>
               <span>주제:</span>
-              <span>{gatherData.type.subtitle}</span>
+              <span>{gatherData.type.subtitle || "기타"}</span>
             </Item>
           </Container>
         </ModalBody>

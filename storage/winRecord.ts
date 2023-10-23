@@ -414,3 +414,32 @@ export const WIN_RECORD: {
     present: "BBQ 황금올리브 세트",
   },
 ];
+
+export const PROMOTION_WIN = [
+  {
+    month: 9,
+    gift: "황금 올리브 치킨 세트",
+    winner: [
+      { name: "이승", location: "수원" },
+      { name: "남궁", location: "수원" },
+    ],
+    rate: "25%",
+  },
+  {
+    month: 8,
+    gift: "황금 올리브 치킨 세트",
+    winner: [
+      { name: "임성", location: "수원" },
+      { name: "연", location: "수원" },
+    ],
+  },
+  {
+    month: 7,
+    gift: "황금 올리브 치킨 세트",
+    winner: [
+      { name: "김소", location: "양천" },
+      { name: "이승", location: "수원" },
+      { name: "송재", location: "양천" },
+    ],
+  },
+];
