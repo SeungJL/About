@@ -167,6 +167,19 @@ export const WIN_RECORD: {
     present: "다이소 5000원권",
   },
   {
+    name: "유회",
+    date: "10/12",
+    reason: "출석체크 당첨 선물",
+    present: "초코에몽",
+  },
+  {
+    name: "유회",
+    date: "10/15",
+    reason: "출석체크 당첨 선물",
+    present: "MEGA 커피 깊티",
+  },
+
+  {
     name: "수빈",
     date: "10/16",
     reason: "시험기간 랜덤 선물",
@@ -231,6 +244,12 @@ export const WIN_RECORD: {
     date: "10/17",
     reason: "시험기간 랜덤 선물",
     present: "초코에몽",
+  },
+  {
+    name: "하정",
+    date: "10/18",
+    reason: "출석체크 당첨 선물",
+    present: "MEGA 커피 깊티",
   },
   {
     name: "이은",

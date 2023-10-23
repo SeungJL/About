@@ -33,7 +33,6 @@ function WritingDate() {
     }
     const givenDay = dayjs(date);
     if (givenDay.isSame(dayjs(), "day") && givenDay.hour() === 14) {
-    
       failToast("free", "날짜/시간 선택을 확인해주세요!", true);
       return;
     }
@@ -61,6 +60,7 @@ function WritingDate() {
         <GatherWritingDateSubject
           gatherWriting={gatherWriting}
           setGatherList={setGatherList}
+          date={date}
         />
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>

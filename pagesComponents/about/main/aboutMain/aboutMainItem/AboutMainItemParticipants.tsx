@@ -82,7 +82,7 @@ function AboutMainItemParticipants({
             </ParticipantStatus>
           )
         ) : (
-          <FullText>FULL</FullText>
+          <FullText>({MAX_USER_PER_PLACE}) FULL</FullText>
         )}
       </div>
     </Layout>

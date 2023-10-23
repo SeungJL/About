@@ -1,15 +1,12 @@
 import dayjs from "dayjs";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import safeJsonStringify from "safe-json-stringify";
 import styled from "styled-components";
 import BlurredPart from "../../../components/common/masks/BlurredPart";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { useAdminUsersControlQuery } from "../../../hooks/admin/quries";
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
-import dbConnect from "../../../libs/backend/dbConnect";
-import { User } from "../../../models/user";
 import MemberHeader from "../../../pagesComponents/member/MemberHeader";
 import MemberMyProfile from "../../../pagesComponents/member/MemberMyProfile";
 import MemberOverview from "../../../pagesComponents/member/MemberOverview";
@@ -22,10 +19,6 @@ import { isGuestState } from "../../../recoil/userAtoms";
 import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
 import { IUser } from "../../../types/user/user";
 
-interface IMember {
-  usersAll: IUser[];
-}
-
 const MEMBER_SECTIONS: MemberGroup[] = ["birth", "member", "human", "resting"];
 
 export const SECTION_NAME: Record<MemberGroup, string> = {
@@ -35,7 +28,7 @@ export const SECTION_NAME: Record<MemberGroup, string> = {
   birth: "생일",
 };
 
-function Member({ usersAll }: IMember) {
+function Member() {
   const router = useRouter();
   const location = router.query.location;
   const isGuest = useRecoilValue(isGuestState);
@@ -45,6 +38,8 @@ function Member({ usersAll }: IMember) {
   const [groupedMembers, setgroupedMembers] = useState<IGroupedMembers>();
   const [locationMembers, setLocationMembers] = useState<IUser[]>();
 
+  const { data: usersAll, isLoading } = useAdminUsersControlQuery();
+  console.log(usersAll);
   const { data: studyPlaces } = useStudyPlacesQuery();
   const locationPlaces = studyPlaces?.filter(
     (place) => place?.location === location
@@ -52,8 +47,11 @@ function Member({ usersAll }: IMember) {
 
   //멤버 분류
   useEffect(() => {
-    if (!location) return;
-    const locationMembers = usersAll.filter((who) => who.location === location);
+    if (!location || isLoading) return;
+
+    const locationMembers = usersAll
+      .filter((who) => who.location === location)
+      .sort((a, b) => (a.score > b.score ? -1 : 1));
     setLocationMembers(locationMembers);
 
     const classified = {
@@ -83,7 +81,7 @@ function Member({ usersAll }: IMember) {
       }
     });
     setgroupedMembers(classified);
-  }, [location, usersAll]);
+  }, [isLoading, location, usersAll]);
 
   //상세페이지로 이동
   const onClickSection = (section: MemberGroup) => {
@@ -131,15 +129,6 @@ function Member({ usersAll }: IMember) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  await dbConnect();
-  const user = await User.find();
-  const filterUser = user?.filter((who) => who?.isActive);
-  const usersAll = JSON.parse(safeJsonStringify(filterUser));
-
-  return { props: { usersAll } };
-};
 
 const MembersContainer = styled.div`
   margin: 0 var(--margin-main);

@@ -32,7 +32,7 @@ const Layout = styled.div`
   overflow: hidden;
 `;
 const GatherReviewNavIcon = styled.div`
-  margin-right: 22px;
+  margin-right: 28px;
   display: flex;
   flex-direction: column;
   width: 68px;
@@ -53,7 +53,7 @@ const GatherReviewNavIcon = styled.div`
   }
 `;
 const GatherReviewNavItem = styled.div`
-  margin-right: 25px;
+  margin-right: 28px;
   display: flex;
   flex-direction: column;
   width: 68px;

@@ -1,20 +1,17 @@
 import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
 import { GatherStatus } from "../../../types/page/gather";
-import { LocationFilterType } from "../../../types/system";
 
 interface IGatherBlockHeader {
   status: GatherStatus;
   typeTitle: string;
   locationMain: string;
-  openLocation: LocationFilterType;
 }
 
 function GatherBlockHeader({
   status,
   typeTitle,
   locationMain,
-  openLocation,
 }: IGatherBlockHeader) {
   const getStatusBadge = (status: GatherStatus) => {
     switch (status) {
@@ -34,7 +31,6 @@ function GatherBlockHeader({
   return (
     <Layout>
       <Detail>
-        <OpenLocation>{openLocation}</OpenLocation>·
         <Category>{typeTitle}</Category>·<Location>{locationMain}</Location>
       </Detail>
       <Badge colorScheme={color} fontSize="12px" variant="outline">
@@ -55,12 +51,8 @@ const Detail = styled.div`
   font-size: 12px;
 `;
 
-const OpenLocation = styled.span`
-  margin-right: var(--margin-min);
-`;
-
 const Category = styled.span`
-  margin: 0 var(--margin-min);
+  margin-right: var(--margin-min);
 `;
 
 const Location = styled.span`

@@ -6,7 +6,6 @@ import { useRouter } from "next/dist/client/router";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import { getDateDiff } from "../../../helpers/dateHelpers";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -105,14 +104,12 @@ function GatherComments({ comment, setIsRefetch }: IGatherComments) {
         </Comment>
       </Layout>
       {isEditModal && (
-        <ModalPortal setIsModal={setIsEditModal}>
-          <GatherCommentEditModal
-            commentText={commentText}
-            commentId={commentId}
-            setIsRefetch={setIsRefetch}
-            setIsModal={setIsEditModal}
-          />
-        </ModalPortal>
+        <GatherCommentEditModal
+          commentText={commentText}
+          commentId={commentId}
+          setIsRefetch={setIsRefetch}
+          setIsModal={setIsEditModal}
+        />
       )}
     </>
   );
@@ -193,7 +190,6 @@ const MyText = styled.textarea`
   height: 21px;
   :focus {
     outline: none;
-    caret-color: var(--color-mint);
   }
   ::placeholder {
     font-size: 12px;

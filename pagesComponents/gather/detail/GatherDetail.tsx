@@ -33,7 +33,7 @@ function GatherDetailInfo({
     <Layout>
       <Item onClick={() => setIsSubLocation(true)}>
         <IconWrapper>
-          <FontAwesomeIcon icon={faLocationDot} color="var(--font-h3)" />
+          <FontAwesomeIcon icon={faLocationDot} />
         </IconWrapper>
         <span>{location.main}</span>
         <FontAwesomeIcon icon={faChevronDown} size="2xs" />
@@ -41,7 +41,7 @@ function GatherDetailInfo({
       {isSubLocation && <LocationSub>{location.sub}</LocationSub>}
       <Item>
         <IconWrapper>
-          <FontAwesomeIcon icon={faCalendarDays} color="var(--font-h3)" />
+          <FontAwesomeIcon icon={faCalendarDays} />
         </IconWrapper>
         <span>
           {date === "미정"
@@ -51,10 +51,10 @@ function GatherDetailInfo({
       </Item>
       <Item>
         <IconWrapper>
-          <FontAwesomeIcon icon={faUser} color="var(--font-h3)" />
+          <FontAwesomeIcon icon={faUser} />
         </IconWrapper>
         <span>
-          {age[0]}~{age[1]}세
+          {age[0]} ~ {age[1]}세
         </span>
         {genderCondition && (
           <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />
@@ -62,14 +62,14 @@ function GatherDetailInfo({
       </Item>
       <Item>
         <IconWrapper>
-          <FontAwesomeIcon icon={faDoorOpen} color="var(--font-h3)" />
+          <FontAwesomeIcon icon={faDoorOpen} />
         </IconWrapper>
         <span>{memberCnt.min}명 이상 오픈</span>
       </Item>
       {isOrganizer && password && (
         <Item>
           <IconWrapper>
-            <FontAwesomeIcon icon={faKey} color="var(--font-h3)" />
+            <FontAwesomeIcon icon={faKey} />
           </IconWrapper>
           <span>암호키</span>
           <Secret>
@@ -104,6 +104,7 @@ const Item = styled.div`
 
 const IconWrapper = styled.div`
   width: 16px;
+  margin-right: var(--margin-min);
   text-align: center;
 `;
 

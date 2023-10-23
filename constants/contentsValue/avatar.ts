@@ -17,6 +17,9 @@ export const AVATAR_COST = [
   0, 30, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600,
 ];
 
+export const ABOUT_ICON =
+  "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/%EB%8F%99%EC%95%84%EB%A6%AC+%EC%95%84%EB%B0%94%ED%83%80.webp";
+
 export const AVATAR_ICON = [
   "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%95%84%EB%B0%94%ED%83%80+%EC%95%84%EC%9D%B4%EC%BD%98/%EB%B3%91%EC%95%84%EB%A6%AC.webp",
   "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%95%84%EB%B0%94%ED%83%80+%EC%95%84%EC%9D%B4%EC%BD%98/%EA%B3%A0%EC%96%91%EC%9D%B4+1.webp",

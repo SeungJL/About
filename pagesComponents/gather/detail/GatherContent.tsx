@@ -32,8 +32,7 @@ const Layout = styled.div`
   border-bottom: var(--border-main);
   margin-top: var(--margin-sub);
   padding: var(--padding-sub) 0;
-
-  min-height: 160px;
+  min-height: 140px;
 `;
 const Content = styled.pre`
   white-space: pre-wrap;

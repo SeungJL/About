@@ -19,7 +19,12 @@ function StoreGiftWinModal({
   applicants,
   winCnt,
 }: IStoreGiftWinModal) {
-  const users = applicants.users;
+  const users = applicants.users.reduce((acc, curr) => {
+    for (let i = 0; i < curr.cnt; i++) {
+      acc.push(curr);
+    }
+    return acc;
+  }, []);
 
   const winners: number[] = selectRandomWinners(
     applicants.max,
@@ -33,15 +38,9 @@ function StoreGiftWinModal({
       <ModalBody>
         <Message>당첨을 축하합니다!</Message>
         <Winner>
-          {winners.map((num, idx) => {
-            console.log(4, num);
-            console.log(users.length);
-            return (
-              <Win key={idx}>
-                {!num || users.length < num ? "비공개" : users[num]?.name}
-              </Win>
-            );
-          })}
+          {winners.map((num, idx) => (
+            <Win key={idx}>{users[num]?.name || "비공개"}</Win>
+          ))}
         </Winner>
       </ModalBody>
       <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />

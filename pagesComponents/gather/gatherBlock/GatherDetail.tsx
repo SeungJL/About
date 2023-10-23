@@ -1,29 +1,45 @@
-import { faCalendarClock, faUserCheck } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faCalendarClock,
+  faMapLocationDot,
+  faUserCheck,
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import "dayjs/locale/ko";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { LocationFilterType } from "../../../types/system";
+dayjs.locale("ko");
 
 interface IGatherDetail {
   age: number[];
   date: string;
+  location: LocationFilterType;
 }
 
-function GatherDetail({ age, date }: IGatherDetail) {
+function GatherDetail({ age, date, location }: IGatherDetail) {
   return (
     <Layout>
-      <Age>
-        <FontAwesomeIcon icon={faUserCheck} color="var(--font-h4)" />
+      <Item>
+        <FontAwesomeIcon icon={faMapLocationDot} />
         <span>
-          {age[0]}~{age[1]}세
+          {location} {location === "전체" && "지역"}
         </span>
-      </Age>
-      <Date>
-        <FontAwesomeIcon icon={faCalendarClock} color="var(--font-h4)" />
+      </Item>
+      <Item>
+        <FontAwesomeIcon icon={faUserCheck} />
         <span>
-          {date === "미정" ? date : dayjsToFormat(dayjs(date), "M월 D일")}
+          {age[0]} ~ {age[1]}세
         </span>
-      </Date>
+      </Item>
+      <Item>
+        <FontAwesomeIcon icon={faCalendarClock} />
+        <span>
+          {date === "미정"
+            ? date
+            : dayjsToFormat(dayjs(date), "M.D(ddd) 오후 h:mm")}
+        </span>
+      </Item>
     </Layout>
   );
 }
@@ -33,15 +49,19 @@ const Layout = styled.div`
   flex-direction: column;
   font-size: 12px;
   line-height: 2;
+  color: var(--font-h2);
+
+  > div:nth-child(2) {
+    > span {
+      margin-left: 6px;
+    }
+  }
 `;
-const Age = styled.div`
+
+const Item = styled.div`
   > span {
     margin-left: var(--margin-md);
   }
 `;
-const Date = styled.div`
-  > span {
-    margin-left: 10px;
-  }
-`;
+
 export default GatherDetail;

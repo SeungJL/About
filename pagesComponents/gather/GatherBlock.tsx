@@ -2,16 +2,17 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { transferGatherDataState } from "../../recoil/transferDataAtoms";
+import { IImagePriority } from "../../types/common";
 import { IGather } from "../../types/page/gather";
 import GatherBlockHeader from "./gatherBlock/GatherBlockHeader";
 import GatherDetail from "./gatherBlock/GatherDetail";
 import GatherMember from "./gatherBlock/GatherMember";
 
-interface IGatherBlock {
+interface IGatherBlock extends IImagePriority {
   gather: IGather;
 }
 
-function GatherBlock({ gather }: IGatherBlock) {
+function GatherBlock({ gather, isImagePriority }: IGatherBlock) {
   const router = useRouter();
 
   const setGatherData = useSetRecoilState(transferGatherDataState);
@@ -28,14 +29,18 @@ function GatherBlock({ gather }: IGatherBlock) {
           status={gather.status}
           typeTitle={gather.type.title}
           locationMain={gather.location.main}
-          openLocation={gather.place}
         />
         <Title>{gather.title}</Title>
-        <GatherDetail age={gather.age} date={gather.date} />
+        <GatherDetail
+          age={gather.age}
+          date={gather.date}
+          location={gather.place}
+        />
         <GatherMember
           organizer={gather.user}
           participants={gather.participants}
           memberCnt={gather.memberCnt}
+          isImagePriority={isImagePriority}
         />
       </Container>
     </Layout>

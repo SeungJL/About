@@ -1,7 +1,13 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
-import { PopUpLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterTwo,
+  ModalLayout,
+} from "../../components/modals/Modals";
+import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import {
   useGatherCommentDeleteMutation,
   useGatherCommentEditMutation,
@@ -21,12 +27,21 @@ function GatherCommentEditModal({
 }: IGatherCommentEditModal) {
   const router = useRouter();
   const gatherId = +router.query.id;
+  const queryClient = useQueryClient();
 
   const [isFirst, setIsFirst] = useState(true);
   const [value, setValue] = useState(commentText);
 
-  const { mutate: deleteComment } = useGatherCommentDeleteMutation(gatherId);
-  const { mutate: editComment } = useGatherCommentEditMutation(gatherId);
+  const { mutate: deleteComment } = useGatherCommentDeleteMutation(gatherId, {
+    onSuccess() {
+      queryClient.invalidateQueries(GATHER_CONTENT);
+    },
+  });
+  const { mutate: editComment } = useGatherCommentEditMutation(gatherId, {
+    onSuccess() {
+      queryClient.invalidateQueries(GATHER_CONTENT);
+    },
+  });
 
   const onComplete = () => {
     setIsRefetch(true);
@@ -45,24 +60,33 @@ function GatherCommentEditModal({
 
   return (
     <>
-      <PopUpLayout size="xs">
-        <Container>
-          {isFirst ? (
-            <>
-              <button onClick={() => setIsFirst(false)}>수정하기</button>
-              <button onClick={onDelete}>삭제하기</button>
-            </>
-          ) : (
-            <>
-              <Input value={value} onChange={(e) => setValue(e.target.value)} />
-              <Footer>
-                <button onClick={() => setIsModal(false)}>취소</button>
-                <button onClick={onEdit}>변경</button>
-              </Footer>
-            </>
-          )}
-        </Container>
-      </PopUpLayout>
+      <ModalLayout onClose={() => setIsModal(false)} size="xs">
+        <ModalBody>
+          <Container>
+            {isFirst ? (
+              <>
+                <button onClick={() => setIsFirst(false)}>수정하기</button>
+                <button onClick={onDelete}>삭제하기</button>
+              </>
+            ) : (
+              <>
+                <Input
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                />
+              </>
+            )}
+          </Container>
+        </ModalBody>
+        {!isFirst && (
+          <ModalFooterTwo
+            leftText="취소"
+            rightText="변경"
+            onClickLeft={() => setIsModal(false)}
+            onClickRight={onEdit}
+          />
+        )}
+      </ModalLayout>
     </>
   );
 }
@@ -85,23 +109,6 @@ const Input = styled.input`
   :focus {
     outline: none;
     border: 2px solid var(--color-mint);
-  }
-`;
-
-const Footer = styled.footer`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: auto;
-  font-size: 13px;
-  > button:first-child {
-    color: var(--font-h2);
-    margin-right: var(--margin-main);
-  }
-  > button:last-child {
-    color: var(--color-mint);
-    margin-right: var(--margin-min);
-    font-weight: 600;
   }
 `;
 

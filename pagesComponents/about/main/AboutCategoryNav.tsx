@@ -1,8 +1,8 @@
-import { faDice } from "@fortawesome/pro-regular-svg-icons";
 import {
   faCalendarCheck,
   faOtter,
   faStar,
+  faStore,
   faTeddyBear,
   faUsers,
 } from "@fortawesome/pro-solid-svg-icons";
@@ -48,7 +48,7 @@ function AboutCategoryNav() {
         </Item>
         <Item>
           <Button onClick={() => onClickItem("point")}>
-            <FontAwesomeIcon icon={faDice} size="xl" color={TABLE_COLORS[3]} />
+            <FontAwesomeIcon icon={faStore} size="xl" color={TABLE_COLORS[3]} />
             {isPointAlert && (
               <IconWrapper>
                 <FontAwesomeIcon
@@ -59,7 +59,7 @@ function AboutCategoryNav() {
               </IconWrapper>
             )}
           </Button>
-          <span>트레이드</span>
+          <span>스토어</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("member")}>
@@ -127,9 +127,14 @@ const Button = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 20px;
-  background-color: var(--font-h7);
+  background-color: white;
+
   margin-bottom: var(--margin-md);
   position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.015); // 테두리를 더 연하게 조절
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.02); // 그림자를 더 연하게 조절
+
+  transition: transform 0.2s, box-shadow 0.2s;
 `;
 
 export default AboutCategoryNav;

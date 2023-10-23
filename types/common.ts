@@ -3,3 +3,7 @@ export interface IContentBasic {
   text?: string;
   texts?: string[];
 }
+
+export interface IImagePriority {
+  isImagePriority?: boolean;
+}

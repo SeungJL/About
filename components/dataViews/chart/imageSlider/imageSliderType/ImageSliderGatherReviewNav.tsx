@@ -52,6 +52,7 @@ function ImageSliderGatherReviewNav({
                 alt={`Slide ${index}`}
                 width={54}
                 height={54}
+                priority={index < 4}
               />
             </ImageWrapper>
             <span>{item.title}</span>

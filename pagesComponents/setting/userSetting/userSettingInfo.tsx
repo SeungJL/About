@@ -40,13 +40,11 @@ function UserSettingInfo({ userInfo }: IUserSettingInfo) {
   const { role, rest } = userInfo || {};
   //휴식 만료 설정
   useStudyArrivedCntQuery({
-    enabled: role === "resting" && dayjs() > dayjs(rest.endDate),
+    enabled:
+      (role === "resting" && dayjs() > dayjs(rest.endDate)) || role === "human",
     onSuccess(data) {
       if (role === "human" && data[session.uid as string] >= 2) {
         setRole("member");
-      }
-      if (role === "member" && data[session.uid as string] < 2) {
-        setRole("human");
       }
     },
   });
