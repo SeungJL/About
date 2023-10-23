@@ -21,11 +21,13 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
   if (!size) size = "sm";
 
   useEffect(() => {
+    console.log(55, btnRef);
     if (!btnRef.current) return;
-
+    console.log(3, text);
     const clipboard = new ClipboardJS(btnRef.current, {
       text: () => text,
     });
+
     clipboard.on("success", () => {
       completeToast("free", "복사 완료");
     });
@@ -58,15 +60,11 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
     );
 
   return (
-    <Layout ref={btnRef}>
-      <ClickableIcon icon={faCopy} color="var(--font-h1)" />
-    </Layout>
+    <button ref={btnRef}>
+      <FontAwesomeIcon icon={faCopy} color="var(--font-h1)" />
+    </button>
   );
 };
-
-const ClickableIcon = styled(FontAwesomeIcon)`
-  cursor: pointer;
-`;
 
 const LayoutLg = styled.div``;
 

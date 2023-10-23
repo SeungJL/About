@@ -1,15 +1,4 @@
-import {
-  Button,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-} from "@chakra-ui/react";
-import { faExclamationCircle } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@chakra-ui/react";
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import CountNum from "../../../components/features/atoms/CountNum";
@@ -31,7 +20,7 @@ function GatherWritingConditionPre({
       <PreMember>
         <CountNum value={preCnt} setValue={setPreCnt} unit="명" />
       </PreMember>
-     
+
       <div>
         <span>암호키</span>
         <Button size="sm" disabled colorScheme="blackAlpha" mr="8px">
@@ -42,8 +31,6 @@ function GatherWritingConditionPre({
     </Layout>
   );
 }
-
-
 
 const Layout = styled.div`
   margin-top: var(--margin-sub);
