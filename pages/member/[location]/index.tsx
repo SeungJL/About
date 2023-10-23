@@ -39,7 +39,7 @@ function Member() {
   const [locationMembers, setLocationMembers] = useState<IUser[]>();
 
   const { data: usersAll, isLoading } = useAdminUsersControlQuery();
-  console.log(usersAll);
+
   const { data: studyPlaces } = useStudyPlacesQuery();
   const locationPlaces = studyPlaces?.filter(
     (place) => place?.location === location

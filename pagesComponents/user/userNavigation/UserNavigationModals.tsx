@@ -34,19 +34,11 @@ function UserNavigationModals({
   return (
     <Layout>
       {modalOpen === "suggest" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestSuggestModal type="suggest" setIsModal={setIsModal} />
-        </ModalPortal>
+        <RequestSuggestModal type="suggest" setIsModal={setIsModal} />
       )}
-      {modalOpen === "rest" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestRestModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
+      {modalOpen === "rest" && <RequestRestModal setIsModal={setIsModal} />}
       {modalOpen === "declaration" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestSuggestModal type="declare" setIsModal={setIsModal} />
-        </ModalPortal>
+        <RequestSuggestModal type="declare" setIsModal={setIsModal} />
       )}
       {modalOpen === "deposit" && (
         <ModalPortal setIsModal={setIsModal}>

@@ -12,7 +12,6 @@ import {
   ModalFooterOne,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { usePromotionQuery } from "../../hooks/promotion/queries";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
 
@@ -24,9 +23,6 @@ function PromotionAllCoolTimeModal({
   promotionData,
   setIsModal,
 }: IPromotionAllCoolTimeModal) {
-  const { data, isLoading } = usePromotionQuery();
-  const applyCnt = data?.length;
-  console.log(2, data);
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader display="flex" justifyContent="space-between">
