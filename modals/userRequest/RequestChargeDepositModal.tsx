@@ -12,6 +12,7 @@ import { ACCOUNT_SHORT } from "../../constants/contents/Private";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
+import { useDepositQuery } from "../../hooks/user/pointSystem/queries";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -22,6 +23,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 
   const [isFirst, setIsFirst] = useState(true);
 
+  const { data: depositData } = useDepositQuery();
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation({
     onSuccess() {
@@ -40,6 +42,8 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
     setIsModal(false);
   };
 
+  const myDeposit = depositData?.deposit;
+
   return (
     <ModalLayout onClose={() => setIsModal(false)} size={isFirst ? "md" : "lg"}>
       <ModalHeader text="보증금 충전" />
@@ -48,7 +52,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
           <>
             <MainItem>
               <span>보유 보증금</span>
-              <MyDeposit>1000원</MyDeposit>
+              <MyDeposit>{myDeposit}원</MyDeposit>
             </MainItem>
             <MainItem>
               <span>충전 금액</span>
@@ -57,7 +61,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
             <Hr />
             <MainItem>
               <span>충전 후 보증금</span>
-              <span>= 4000원</span>
+              <span>= {myDeposit + 3000}원</span>
             </MainItem>
           </>
         ) : (
@@ -122,7 +126,7 @@ const ChargeDeposit = styled.span`
 `;
 
 const Message = styled.div`
-  padding-top: 6px;
+  padding-top: auto;
   flex: 1;
   display: flex;
   align-items: center;
