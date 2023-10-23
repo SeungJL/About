@@ -30,8 +30,6 @@ function NoMemberPopUp({ setIsModal }: IModal) {
   );
 }
 
-const Layout = styled.div``;
-
 const Number = styled.div`
   > span:first-child {
     margin-right: var(--margin-md);

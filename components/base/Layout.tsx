@@ -40,8 +40,9 @@ function Layout({ children }: ILayout) {
     enabled: isCondition,
     onSuccess(data) {
       //다른 곳에서 query 호출이 중복되는 경우 방지
+      console.log(data);
       if (!isCondition) return;
-      if (data === null) {
+      if (data === null || !data.registerDate) {
         if (router.query.status === "login") navigateTo(`/register/location`);
         else navigateTo("/login/?status=noMember");
         return;
