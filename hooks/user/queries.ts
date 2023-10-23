@@ -37,7 +37,7 @@ export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
       return res.data;
     },
-    options
+    { ...options, staleTime: 0, cacheTime: 0 }
   );
 
 export const useUserRoleQuery = (options?: QueryOptions<Role>) =>

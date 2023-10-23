@@ -7,6 +7,7 @@ import {
   USER_GUIDE_POP_UP,
 } from "../../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
@@ -28,6 +29,9 @@ export type UserPopUp =
 
 function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
+
+  const { data } = useUserInfoQuery();
+  console.log(24, data);
 
   useEffect(() => {
     let popUpCnt = 0;

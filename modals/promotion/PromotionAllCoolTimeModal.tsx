@@ -1,3 +1,4 @@
+import { ModalHeader } from "@chakra-ui/react";
 import {
   faClock,
   faThumbsUp,
@@ -6,9 +7,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { ModalLeyou } from "../../components/modals/Modals";
-import { useUserRequestCategoryQuery } from "../../hooks/user/queries";
-import { ModalMain } from "../../styles/layout/modal";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalLayout,
+} from "../../components/modals/Modals";
+import { usePromotionQuery } from "../../hooks/promotion/queries";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
 
@@ -20,13 +24,13 @@ function PromotionAllCoolTimeModal({
   promotionData,
   setIsModal,
 }: IPromotionAllCoolTimeModal) {
-  const { data, isLoading } = useUserRequestCategoryQuery("홍보");
-  const applyCnt = data?.length + 15;
-
+  const { data, isLoading } = usePromotionQuery();
+  const applyCnt = data?.length;
+  console.log(2, data);
   return (
-    <ModalLeyou size="xl">
-      <ModalHeaderXLayout>
-        <div>
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+      <ModalHeader display="flex" justifyContent="space-between">
+        <Detail>
           <span>전체 홍보 현황</span>
           <Explanation>
             <div>
@@ -38,68 +42,61 @@ function PromotionAllCoolTimeModal({
               <span>쿨타임</span>
             </div>
           </Explanation>
-        </div>
+        </Detail>
         <div onClick={() => setIsModal(false)}>
           <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
         </div>
-      </ModalHeaderXLayout>
-      <Container>
-        {promotionData?.map((item) => {
-          const cool = dayjs(item.lastDate)
-            .add(3, "day")
-            .diff(dayjs(), "hours");
+      </ModalHeader>
+      <ModalBody>
+        <Container>
+          {promotionData?.map((item) => {
+            const cool = dayjs(item.lastDate)
+              .add(3, "day")
+              .diff(dayjs(), "hours");
 
-          return (
-            <Item key={item.name}>
-              <UniName>
-                {item.name.length <= 6
-                  ? item.name
-                  : item.name.slice(0, 5) + "..."}
-              </UniName>
-              <CoolTime>
-                {cool >= 1 ? (
-                  <Cool>
-                    <FontAwesomeIcon icon={faClock} />
-                    {cool >= 24 ? (
-                      <span>{Math.ceil(cool / 24)}일</span>
-                    ) : (
-                      <span>{cool}H</span>
-                    )}
-                  </Cool>
-                ) : (
-                  <Ok>
-                    <FontAwesomeIcon icon={faThumbsUp} />
-                    <span />
-                    <FontAwesomeIcon icon={faThumbsUp} />
-                    <span />
-                    <FontAwesomeIcon icon={faThumbsUp} />
-                  </Ok>
-                )}
-              </CoolTime>
-            </Item>
-          );
-        })}
-      </Container>
-      <ModalFooterNav>
-        <Sum>
-          <span>{dayjs().add(1, "month").month()}월 누적:</span>
-          <span>{!isLoading && applyCnt}회</span>
-        </Sum>
-        <button onClick={() => setIsModal(false)}>확인</button>
-      </ModalFooterNav>
-    </ModalLeyou>
+            return (
+              <Item key={item.name}>
+                <UniName>
+                  {item.name.length <= 6
+                    ? item.name
+                    : item.name.slice(0, 5) + "..."}
+                </UniName>
+                <CoolTime>
+                  {cool >= 1 ? (
+                    <Cool>
+                      <FontAwesomeIcon icon={faClock} />
+                      {cool >= 24 ? (
+                        <span>{Math.ceil(cool / 24)}일</span>
+                      ) : (
+                        <span>{cool}H</span>
+                      )}
+                    </Cool>
+                  ) : (
+                    <Ok>
+                      <FontAwesomeIcon icon={faThumbsUp} />
+                      <span />
+                      <FontAwesomeIcon icon={faThumbsUp} />
+                      <span />
+                      <FontAwesomeIcon icon={faThumbsUp} />
+                    </Ok>
+                  )}
+                </CoolTime>
+              </Item>
+            );
+          })}
+        </Container>
+      </ModalBody>
+      <ModalFooterOne onClick={() => setIsModal(false)} />
+    </ModalLayout>
   );
 }
-const ModalHeaderXLayout = styled.div`
+
+const Detail = styled.div`
   display: flex;
-  justify-content: space-between;
-  > div:first-child {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--font-h1);
-  }
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--font-h1);
 `;
 
 const Explanation = styled.div`
@@ -117,10 +114,10 @@ const Explanation = styled.div`
   }
 `;
 
-const Container = styled(ModalMain)`
+const Container = styled.div`
   border: var(--border-mint);
   border-radius: var(--border-radius-main);
-  padding: var(--padding-main) var(--padding-sub);
+  padding: var(--padding-md);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40%, auto));
   grid-auto-rows: 36px;

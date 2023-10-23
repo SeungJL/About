@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/modals/ModalPortal";
 import { useFailToast } from "../../hooks/CustomToast";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
 import PromotionAllCoolTimeModal from "../../modals/promotion/PromotionAllCoolTimeModal";
@@ -50,20 +49,13 @@ function PromotionDetail() {
         </Button>
       </Layout>
       {isMyModal && (
-        <ModalPortal setIsModal={setIsMyModal}>
-          <PromotionMyCoolTimeModal
-            myApply={myApply}
-            setIsModal={setIsMyModal}
-          />
-        </ModalPortal>
+        <PromotionMyCoolTimeModal myApply={myApply} setIsModal={setIsMyModal} />
       )}
       {isAllModal && (
-        <ModalPortal setIsModal={setIsAllModal}>
-          <PromotionAllCoolTimeModal
-            setIsModal={setIsAllModal}
-            promotionData={promotionData}
-          />
-        </ModalPortal>
+        <PromotionAllCoolTimeModal
+          setIsModal={setIsAllModal}
+          promotionData={promotionData}
+        />
       )}
     </>
   );
