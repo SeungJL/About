@@ -65,7 +65,7 @@ function AboutCategoryNav() {
           <Button onClick={() => onClickItem("member")}>
             <FontAwesomeIcon icon={faUsers} size="xl" color={TABLE_COLORS[2]} />
           </Button>
-          <span>멤버</span>
+          <span>동아리원</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("gather")}>
@@ -107,7 +107,7 @@ const Layout = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-md) var(--padding-main);
+  padding: var(--padding-md) var(--padding-max);
   padding-top: var(--padding-sub);
   border-bottom: var(--border-main-light);
 `;
@@ -131,9 +131,8 @@ const Button = styled.button`
 
   margin-bottom: var(--margin-md);
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.015); // 테두리를 더 연하게 조절
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.02); // 그림자를 더 연하게 조절
 
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, box-shadow 0.2s;
 `;
 
