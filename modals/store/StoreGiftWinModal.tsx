@@ -26,18 +26,22 @@ function StoreGiftWinModal({
     winCnt,
     applicants.giftId
   );
-
+  console.log(4, winners);
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader text="당첨자 발표" />
       <ModalBody>
         <Message>당첨을 축하합니다!</Message>
         <Winner>
-          {winners.map((num, idx) => (
-            <Win key={idx}>
-              {!num || users.length < num ? "비공개" : users[num]?.name}
-            </Win>
-          ))}
+          {winners.map((num, idx) => {
+            console.log(4, num);
+            console.log(users.length);
+            return (
+              <Win key={idx}>
+                {!num || users.length < num ? "비공개" : users[num]?.name}
+              </Win>
+            );
+          })}
         </Winner>
       </ModalBody>
       <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />

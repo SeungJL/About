@@ -36,7 +36,7 @@ function AboutWinRecord() {
           <FontAwesomeIcon icon={faEllipsis} />
         </IconWrapper>
       </Content>
-      <AboutMoreInfoBtn url="/about/winRecord" />
+      <AboutMoreInfoBtn url="/winRecord" />
     </Layout>
   );
 }
