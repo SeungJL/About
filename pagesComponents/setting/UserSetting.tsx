@@ -25,10 +25,7 @@ export default function UserSetting() {
     <>
       <UserSettingInfo userInfo={userInfo} />
       {isPopUpCondition && (
-        <UserSettingPopUp
-          isProfileEdit={userInfo?.majors?.length === 0}
-          isNoMember={userInfo?.registerDate === ""}
-        />
+        <UserSettingPopUp isProfileEdit={userInfo?.majors?.length === 0} />
       )}
     </>
   );

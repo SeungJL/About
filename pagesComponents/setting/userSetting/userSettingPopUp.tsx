@@ -11,13 +11,11 @@ import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/Poi
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
-import NoMemberPopUp from "../../../modals/pop-up/NoMemberPopUp";
 import ProfileModifyPopUp from "../../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../../modals/pop-up/SuggestPopUp";
 
 interface IUserSettingPopUp {
   isProfileEdit: boolean;
-  isNoMember: boolean;
 }
 
 export type UserPopUp =
@@ -26,19 +24,14 @@ export type UserPopUp =
   | "suggest"
   | "promotion"
   | "userGuide"
-  | "faq"
-  | "noMember";
+  | "faq";
 
-function UserSettingPopUp({ isProfileEdit, isNoMember }: IUserSettingPopUp) {
+function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
 
   useEffect(() => {
     let popUpCnt = 0;
 
-    if (isNoMember) {
-      setPopUpTypes((old) => [...old, "noMember"]);
-      return;
-    }
     if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 
     if (!checkAndSetLocalStorage(FAQ_POP_UP, 7)) {
@@ -71,9 +64,6 @@ function UserSettingPopUp({ isProfileEdit, isNoMember }: IUserSettingPopUp) {
 
   return (
     <>
-      {popUpTypes.includes("noMember") && (
-        <NoMemberPopUp setIsModal={() => filterPopUpTypes("noMember")} />
-      )}
       {popUpTypes.includes("faq") && (
         <FAQPopUp setIsModal={() => filterPopUpTypes("faq")} />
       )}
