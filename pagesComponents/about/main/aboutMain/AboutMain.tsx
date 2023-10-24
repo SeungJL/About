@@ -98,6 +98,7 @@ const Layout = styled(motion.div)`
   position: relative;
   margin-top: var(--margin-main);
   padding-bottom: var(--padding-main);
+  min-height: 422px;
 `;
 
 const Main = styled.main`

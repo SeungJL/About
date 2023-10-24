@@ -19,7 +19,6 @@ function ProfilePage() {
   const [isModal, setIsModal] = useState(false);
   const [declareModal, setDeclareModal] = useState<DeclareRequest>();
 
-
   return (
     <>
       <Container>

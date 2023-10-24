@@ -17,18 +17,18 @@ import {
 } from "../../types/user/userRequest";
 
 //안됨
-// export const useUidToUserInfoQuery = (
-//   uid: string,
-//   options?: QueryOptions<IUser>
-// ) =>
-//   useQuery<IUser, AxiosError, IUser>(
-//     "uidToUserInfo",
-//     async () => {
-//       const res = await axios.get<IUser>(`${SERVER_URI}/user/${uid}`);
-//       return res.data;
-//     },
-//     options
-//   );
+export const useUidToUserInfoQuery = (
+  uid: string,
+  options?: QueryOptions<IUser>
+) =>
+  useQuery<IUser, AxiosError, IUser>(
+    "uidToUserInfo",
+    async () => {
+      const res = await axios.get<IUser>(`${SERVER_URI}/user/profile/${uid}`);
+      return res.data;
+    },
+    options
+  );
 
 export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>
   useQuery<IUser, AxiosError, IUser>(

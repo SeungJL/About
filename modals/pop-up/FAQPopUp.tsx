@@ -1,6 +1,7 @@
 import { faSparkles } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
   ModalBody,
@@ -8,13 +9,17 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { prevPageUrlState } from "../../recoil/previousAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function FAQPopUp({ setIsModal }: IModal) {
   const router = useRouter();
 
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
   const onSubmit = () => {
+    setPrevPageUrl("/about");
     router.push(`/faq`);
   };
 

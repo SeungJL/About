@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MONTH_LIST } from "../../../constants/util/util";
 import { getMonth } from "../../../helpers/dateHelpers";
@@ -74,24 +74,27 @@ function Chart({ type, user }: IChart) {
     };
   };
 
-  useUserAttendRateAllQueries(monthArr, {
-    onSuccess(data) {
-      let rateTemp = [];
-      let averageTemp = [];
-      let max = 5;
-      data.forEach((element) => {
-        const { userCnt, average, maxCnt } = setAttendRate(element);
-        rateTemp.push(userCnt);
-        averageTemp.push(average);
-        if (max < maxCnt) max = maxCnt;
-      });
-      setAttendRateArr(rateTemp);
-      setAttendAverageArr(averageTemp);
-      setAttendMax(max);
-      setIsLoading(false);
-    },
+  const { data: userAttendRateAll } = useUserAttendRateAllQueries(monthArr, {
     onError: errorToast,
   });
+
+  useEffect(() => {
+    if (!userAttendRateAll) return;
+    let rateTemp = [];
+    let averageTemp = [];
+    let max = 5;
+    userAttendRateAll.forEach((element) => {
+      const { userCnt, average, maxCnt } = setAttendRate(element);
+      rateTemp.push(userCnt);
+      averageTemp.push(average);
+      if (max < maxCnt) max = maxCnt;
+    });
+    setAttendRateArr(rateTemp);
+    setAttendAverageArr(averageTemp);
+    setAttendMax(max);
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userAttendRateAll]);
 
   return (
     <>

@@ -24,7 +24,7 @@ export const isVotingState = atom({
 
 export const studyDateStatusState = atom<StudyDate>({
   key: "studyDateStatus",
-  default: "today",
+  default: null,
 });
 
 export const myStudyFixedState = atom<IParticipation>({
@@ -36,4 +36,3 @@ export const studyStartTimeState = atom<IStudyStartTime[]>({
   key: "studyStartTime",
   default: null,
 });
-

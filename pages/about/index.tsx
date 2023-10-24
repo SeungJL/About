@@ -50,12 +50,13 @@ function About() {
         : arrangedOtherStudies;
     setOtherStudies(filtered);
     //0.1초 정도의 딜레이를 주는게 더 자연스러움
-    setTimeout(() => {
-      setIsMainLoading(false);
-    }, 100);
+    // setTimeout(() => {
+    //   setIsMainLoading(false);
+    // }, 100);
+    setIsMainLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
-
+  console.log(studyDateStatus);
   return (
     <>
       <Setting>
@@ -66,15 +67,21 @@ function About() {
       <Layout>
         <AboutHeader />
         <AboutCategoryNav />
-        <AboutStudyHeader />
-        {studyDateStatus !== "not passed" && <AboutStudyResult />}
-        {voteDate && <AboutCalendar />}
-        {studyDateStatus === "not passed" && <AboutVoteNav />}
-        <AboutMain participations={otherStudies} />
-        <EventBanner />
-        <AboutGather />
-        <AboutReview />
-        <AboutWinRecord />
+        {voteDate && (
+          <>
+            <AboutStudyHeader />
+            {["passed", "today"].includes(studyDateStatus) && (
+              <AboutStudyResult />
+            )}
+            <AboutCalendar />
+            {studyDateStatus === "not passed" && <AboutVoteNav />}
+            <AboutMain participations={otherStudies} />
+            <EventBanner />
+            <AboutGather />
+            <AboutReview />
+            <AboutWinRecord />
+          </>
+        )}
       </Layout>
     </>
   );

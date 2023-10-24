@@ -24,6 +24,7 @@ function AboutCalendar() {
 }
 
 const Layout = styled.div`
+  min-height: 107px;
   border-bottom: var(--border-main-light);
 `;
 
