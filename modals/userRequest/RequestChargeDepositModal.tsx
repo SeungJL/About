@@ -1,14 +1,18 @@
-import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
-import { ModalHeader, ModalLayout } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { ACCOUNT_SHORT } from "../../constants/contents/Private";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { ModalMain } from "../../styles/layout/modal";
+import { useDepositQuery } from "../../hooks/user/pointSystem/queries";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -19,6 +23,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 
   const [isFirst, setIsFirst] = useState(true);
 
+  const { data: depositData } = useDepositQuery();
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation({
     onSuccess() {
@@ -37,15 +42,17 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
     setIsModal(false);
   };
 
+  const myDeposit = depositData?.deposit;
+
   return (
-    <ModalLayout size="md" onClose={() => setIsModal(false)}>
+    <ModalLayout onClose={() => setIsModal(false)} size={isFirst ? "md" : "lg"}>
       <ModalHeader text="보증금 충전" />
-      {isFirst ? (
-        <>
-          <Container>
+      <ModalBody>
+        {isFirst ? (
+          <>
             <MainItem>
               <span>보유 보증금</span>
-              <MyDeposit>1000원</MyDeposit>
+              <MyDeposit>{myDeposit}원</MyDeposit>
             </MainItem>
             <MainItem>
               <span>충전 금액</span>
@@ -54,21 +61,11 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
             <Hr />
             <MainItem>
               <span>충전 후 보증금</span>
-              <span>= 4000원</span>
+              <span>= {myDeposit + 3000}원</span>
             </MainItem>
-          </Container>
-          <Button
-            width="100%"
-            background="var(--color-mint)"
-            color="white"
-            onClick={() => setIsFirst(false)}
-          >
-            충전하기
-          </Button>
-        </>
-      ) : (
-        <>
-          <ModalMain>
+          </>
+        ) : (
+          <>
             <MainItem>
               <span>입금 계좌</span>
               <div>
@@ -85,29 +82,19 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
               <span>3000원</span>
             </MainItem>
             <Message>위의 계좌로 입금 후 완료 버튼을 눌러주세요!</Message>
-          </ModalMain>
-          <Footer>
-            <Button width="50%" onClick={() => setIsModal(false)}>
-              취소
-            </Button>
-            <Button
-              width="50%"
-              onClick={onComplete}
-              background="var(--color-mint)"
-              color="white"
-            >
-              입금완료
-            </Button>
-          </Footer>
-        </>
-      )}
+          </>
+        )}
+      </ModalBody>
+      <ModalFooterTwo
+        leftText="닫기"
+        rightText={isFirst ? "충전 신청" : "입금 완료"}
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={() => (isFirst ? setIsFirst(false) : onComplete())}
+        isFull={true}
+      />
     </ModalLayout>
   );
 }
-
-const Container = styled(ModalMain)`
-  justify-content: center;
-`;
 
 const MainItem = styled.div`
   padding: var(--padding-min) 0;
@@ -139,7 +126,7 @@ const ChargeDeposit = styled.span`
 `;
 
 const Message = styled.div`
-  padding-top: 6px;
+  padding-top: auto;
   flex: 1;
   display: flex;
   align-items: center;
