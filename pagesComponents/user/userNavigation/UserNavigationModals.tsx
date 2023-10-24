@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import ModalPortal from "../../../components/modals/ModalPortal";
 import { useUserLocationQuery } from "../../../hooks/user/queries";
 import RequestBirthModal from "../../../modals/userRequest/RequestBirthModal";
 import RequestChargeDepositModal from "../../../modals/userRequest/RequestChargeDepositModal";
@@ -34,40 +33,22 @@ function UserNavigationModals({
   return (
     <Layout>
       {modalOpen === "suggest" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestSuggestModal type="suggest" setIsModal={setIsModal} />
-        </ModalPortal>
+        <RequestSuggestModal type="suggest" setIsModal={setIsModal} />
       )}
-      {modalOpen === "rest" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestRestModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
+      {modalOpen === "rest" && <RequestRestModal setIsModal={setIsModal} />}
       {modalOpen === "declaration" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestSuggestModal type="declare" setIsModal={setIsModal} />
-        </ModalPortal>
+        <RequestSuggestModal type="declare" setIsModal={setIsModal} />
       )}
       {modalOpen === "deposit" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestChargeDepositModal setIsModal={setIsModal} />
-        </ModalPortal>
+        <RequestChargeDepositModal setIsModal={setIsModal} />
       )}
 
-      {modalOpen === "secede" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestSecedeModal setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
+      {modalOpen === "secede" && <RequestSecedeModal setIsModal={setIsModal} />}
       {modalOpen === "spaceSetting" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <SettingStudySpace setIsModal={setIsModal} />
-        </ModalPortal>
+        <SettingStudySpace setIsModal={setIsModal} />
       )}
       {modalOpen === "birthday" && (
-        <ModalPortal setIsModal={setIsModal}>
-          <RequestBirthModal setIsModal={setIsModal} />
-        </ModalPortal>
+        <RequestBirthModal setIsModal={setIsModal} />
       )}
       <RequestLogoutModal
         isModal={modalOpen === "logout"}

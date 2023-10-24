@@ -57,7 +57,7 @@ function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: var(--padding-main);
+  padding: var(--padding-md) var(--padding-main);
   flex: 1;
   overflow-y: auto;
   border: var(--border-mint);

@@ -1,4 +1,4 @@
-import { ModalHeader } from "@chakra-ui/react";
+import { Button, ModalFooter, ModalHeader } from "@chakra-ui/react";
 import {
   faClock,
   faThumbsUp,
@@ -7,11 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { ModalBody, ModalLayout } from "../../components/modals/Modals";
+import { PROMOTION_WIN_DATE } from "../../constants/settingValue/dateSettingValue";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
@@ -25,8 +22,12 @@ function PromotionAllCoolTimeModal({
   setIsModal,
 }: IPromotionAllCoolTimeModal) {
   const { data, isLoading } = usePromotionQuery();
-  const applyCnt = data?.length;
-  console.log(2, data);
+  const applyCnt = data?.filter(
+    (item) =>
+      dayjs(item.lastDate) > dayjs(PROMOTION_WIN_DATE) &&
+      item.uid !== "2259633694"
+  ).length;
+
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader display="flex" justifyContent="space-between">
@@ -86,7 +87,29 @@ function PromotionAllCoolTimeModal({
           })}
         </Container>
       </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} />
+      <ModalFooter
+        p="var(--padding-sub) var(--padding-main)"
+        display="flex"
+        justifyContent="space-between"
+      >
+        {!isLoading && (
+          <Sum>
+            <span>
+              홍보 인원: <b>{applyCnt}명</b>,
+            </span>
+            <span>
+              현재 당첨률: <b>{applyCnt < 2 ? "100" : (2 / applyCnt) * 100}%</b>
+            </span>
+          </Sum>
+        )}
+        <Button
+          variant="ghost"
+          color="var(--color-mint)"
+          onClick={() => setIsModal(false)}
+        >
+          확인
+        </Button>
+      </ModalFooter>
     </ModalLayout>
   );
 }
@@ -162,10 +185,9 @@ const Sum = styled.div`
   font-size: 12px;
   margin-left: var(--margin-min);
   color: var(--font-h2);
+
   > span:first-child {
     margin-right: var(--margin-min);
-  }
-  > span:last-child {
   }
 `;
 

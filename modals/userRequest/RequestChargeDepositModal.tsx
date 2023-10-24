@@ -3,8 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import { ModalHeader, ModalLayout } from "../../components/modals/Modals";
 import { ACCOUNT_SHORT } from "../../constants/contents/Private";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
@@ -39,8 +38,8 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLeyou size="md">
-      <ModalHeaderX title="보증금 충전" setIsModal={setIsModal} />
+    <ModalLayout size="md" onClose={() => setIsModal(false)}>
+      <ModalHeader text="보증금 충전" />
       {isFirst ? (
         <>
           <Container>
@@ -102,7 +101,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
           </Footer>
         </>
       )}
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 

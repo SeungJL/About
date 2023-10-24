@@ -7,7 +7,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import { faCircleExclamation } from "@fortawesome/pro-solid-svg-icons";
+import { faQuestionCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IPopoverIcon {
@@ -19,7 +19,7 @@ export const PopOverIcon2 = ({ title, text }: IPopoverIcon) => (
   <Popover>
     <PopoverTrigger>
       <FontAwesomeIcon
-        icon={faCircleExclamation}
+        icon={faQuestionCircle}
         color="var(--font-h1)"
         size="sm"
       />

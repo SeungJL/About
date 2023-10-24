@@ -34,9 +34,17 @@ function RegisterLocation() {
   const [isLoading, setIsLoading] = useState(true);
 
   //회원 정보 수정일 경우
-  useUserInfoQuery({
+  const { data: userInfo } = useUserInfoQuery({
     enabled: isProfileEdit,
-    onSuccess(data) {
+    onError(err) {
+      console.error(err);
+      setIsLoading(false);
+    },
+  });
+
+  useEffect(() => {
+    if (!isProfileEdit) setIsLoading(false);
+    if (userInfo) {
       const {
         location,
         name,
@@ -47,7 +55,7 @@ function RegisterLocation() {
         majors,
         comment,
         telephone,
-      } = data;
+      } = userInfo;
       setRegisterForm({
         location,
         name,
@@ -59,18 +67,11 @@ function RegisterLocation() {
         comment,
         telephone,
       });
-      setLocation(data?.location);
+      setLocation(userInfo.location);
       setIsLoading(false);
-    },
-    onError(err) {
-      console.error(err);
-      setIsLoading(false);
-    },
-  });
-
-  useEffect(() => {
-    if (!isProfileEdit) setIsLoading(false);
-  }, [isProfileEdit]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isProfileEdit, userInfo]);
 
   const onClickNext = () => {
     if (location === null) {
@@ -90,7 +91,7 @@ function RegisterLocation() {
           <ProgressStatus value={10} />
           <Header
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-            url={isProfileEdit ? "/about" : "/login"}
+            url={isProfileEdit ? "/user" : "/login"}
           />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
