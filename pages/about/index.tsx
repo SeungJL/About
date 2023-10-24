@@ -49,14 +49,14 @@ function About() {
         ? arrangedOtherStudies.filter((par) => par.place.brand !== "자유 신청")
         : arrangedOtherStudies;
     setOtherStudies(filtered);
-    //0.1초 정도의 딜레이를 주는게 더 자연스러움
-    // setTimeout(() => {
-    //   setIsMainLoading(false);
-    // }, 100);
-    setIsMainLoading(false);
+    //0.1초 정도의 딜레이 → otherStudies에서 main 연산
+    setTimeout(() => {
+      setIsMainLoading(false);
+    }, 100);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
-  console.log(studyDateStatus);
+
   return (
     <>
       <Setting>

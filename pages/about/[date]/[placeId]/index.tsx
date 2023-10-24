@@ -12,12 +12,14 @@ import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySp
 import StudySpaceUserComments from "../../../../pagesComponents/about/studySpace/studySpaceUserComments/StudySpaceUserComments";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
+import { isGuestState } from "../../../../recoil/userAtoms";
 import { STUDY_SPACE_INFO } from "../../../../storage/study";
 import { IParticipation } from "../../../../types/study/studyDetail";
 
 const IMAGE_ARRAY_LENGTH = 6;
 
 function StudySpace() {
+  const isGuest = useRecoilValue(isGuestState);
   const transferStudySpaceData = useRecoilValue(transferStudySpaceDataState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
@@ -68,12 +70,16 @@ function StudySpace() {
               absences={absences}
               isPrivate={isPrivate}
             />
-            <StudySpaceNavigation
-              place={place}
-              attendences={filtered}
-              status={status}
-              isPrivate={isPrivate}
-            />
+            {!isGuest ? (
+              <StudySpaceNavigation
+                place={place}
+                attendences={filtered}
+                status={status}
+                isPrivate={isPrivate}
+              />
+            ) : (
+              <Spacer />
+            )}
           </Layout>
         </>
       ) : (
@@ -87,6 +93,10 @@ const Layout = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+`;
+
+const Spacer = styled.div`
+  height: 60px;
 `;
 
 export default StudySpace;

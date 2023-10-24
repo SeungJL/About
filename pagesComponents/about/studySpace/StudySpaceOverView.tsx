@@ -1,4 +1,4 @@
-import { faLocationDot } from "@fortawesome/pro-solid-svg-icons";
+import { faLocationDot, faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
@@ -35,7 +35,9 @@ function StudySpaceOverview({ place, info }: IStudySpaceOverview) {
       </Layout>
       {isModal && (
         <MapWrapper>
-          <MapBtn onClick={() => setIsModal(false)}>X</MapBtn>
+          <MapBtn onClick={() => setIsModal(false)}>
+            <FontAwesomeIcon icon={faX} />
+          </MapBtn>
           <PlaceMap lat={place.latitude} lon={place.longitude} />
         </MapWrapper>
       )}
@@ -75,9 +77,10 @@ const Location = styled.span`
   display: flex;
   > span {
     color: var(--font-h1);
-    margin-right: var(--margin-sub);
+    margin-right: var(--margin-md);
   }
   > div {
+    padding: 0 var(--padding-min);
     > span:last-child {
       margin-left: var(--margin-min);
     }

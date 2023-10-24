@@ -5,7 +5,6 @@ import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import StudyInviteModal from "../../../modals/study/StudyInviteModal";
 import { IPlace, StudyStatus } from "../../../types/study/studyDetail";
 interface IStudySpaceVoteOverview {
@@ -55,11 +54,7 @@ function StudySpaceVoteOverview({
           <Message>다른 인원의 인증사진 확인 기능도 개발중에 있습니다.</Message>
         )}
       </Layout>
-      {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <StudyInviteModal setIsModal={setIsModal} place={place} />
-        </ModalPortal>
-      )}
+      {isModal && <StudyInviteModal setIsModal={setIsModal} place={place} />}
     </>
   );
 }

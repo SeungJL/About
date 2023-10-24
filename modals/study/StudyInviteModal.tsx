@@ -73,8 +73,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
 
       window.Kakao.Link.createDefaultButton(options);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isRenderingCheck, location, place?.fullname, random_num, url]);
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="sm">
@@ -87,7 +86,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
       </ModalBody>
       <ModalFooter p="var(--padding-sub) var(--padding-main)">
         <Button width="50%" onClick={() => setIsModal(false)}>
-          취소
+          닫기
         </Button>
         <Button
           width="50%"
