@@ -1,6 +1,9 @@
+import { Box, Button } from "@chakra-ui/react";
+import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import ImageSlider from "../../components/dataViews/chart/imageSlider/ImageSlider";
@@ -9,6 +12,7 @@ import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
+import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherAllSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pagesComponents/review/ReviewContent";
 import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
@@ -37,13 +41,16 @@ interface IReview extends IReviewData {
 
 function Review() {
   const router = useRouter();
-
+  const errorToast = useErrorToast();
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
   const [category, setCategory] = useState<LocationFilterType>("전체");
 
   const prevPageUrl = useRecoilValue(prevPageUrlState);
-  const reviewContentId = useRecoilValue(reviewContentIdState);
+  const [reviewContentId, setReviewContentId] =
+    useRecoilState(reviewContentIdState);
+
+  const [visibleCnt, setVisibleCnt] = useState(8);
 
   const url = WEB_URL + router?.asPath;
 
@@ -85,29 +92,33 @@ function Review() {
     },
   };
 
-  useGatherAllSummaryQuery({
+  const { data: gatherAllData } = useGatherAllSummaryQuery({
     enabled: !initialData,
-    onSuccess(data) {
-      const reviewObject = data.reduce((acc, summary) => {
-        acc[summary.id] = summary;
-        return acc;
-      }, {});
-      const updatedReviewData = REVIEW_DATA.slice()
-        .reverse()
-        .map((review) => {
-          const findItem = reviewObject[review.id];
-          return {
-            ...review,
-            place: findItem?.place ?? review.place,
-            summary: findItem && { ...findItem },
-          };
-        });
-      setInitialData(updatedReviewData);
-      setReviewData(updatedReviewData);
-    },
+    onError: errorToast,
   });
 
   useEffect(() => {
+    if (!gatherAllData) return;
+    const reviewObject = gatherAllData.reduce((acc, summary) => {
+      acc[summary.id] = summary;
+      return acc;
+    }, {});
+    const updatedReviewData = REVIEW_DATA.slice()
+      .reverse()
+      .map((review) => {
+        const findItem = reviewObject[review.id];
+        return {
+          ...review,
+          place: findItem?.place ?? review.place,
+          summary: findItem && { ...findItem },
+        };
+      });
+    setInitialData(updatedReviewData);
+    setReviewData(updatedReviewData);
+  }, [gatherAllData]);
+
+  useEffect(() => {
+    if (!initialData) return;
     if (category === "전체") setReviewData(initialData);
     else {
       const filtered = initialData.filter(
@@ -115,11 +126,10 @@ function Review() {
       );
       setReviewData(filtered);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
+  }, [category, initialData]);
 
   useEffect(() => {
-    if (reviewContentId) {
+    if (reviewContentId && reviewData) {
       const element = document.getElementById(`review${reviewContentId}`);
       if (element) {
         window.scrollTo({
@@ -128,7 +138,13 @@ function Review() {
         });
       }
     }
+    setReviewContentId(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviewContentId, reviewData]);
+
+  const handleLoadMore = () => {
+    setVisibleCnt((old) => old + 8);
+  };
 
   return (
     <>
@@ -155,7 +171,7 @@ function Review() {
               />
             </NavWrapper>
             <Main>
-              {reviewData.map((item) => (
+              {reviewData.slice(0, visibleCnt).map((item) => (
                 <Item id={"review" + item.id} key={item.id}>
                   <ReviewItemHeader
                     writer={writers[item?.writer || "이승주"]}
@@ -173,6 +189,18 @@ function Review() {
                   <ReviewStatus temp={writers["이승주"]} />
                 </Item>
               ))}
+              {visibleCnt < reviewData.length && (
+                <Button
+                  onClick={handleLoadMore}
+                  m="var(--margin-main)"
+                  colorScheme="gray"
+                  boxShadow="var(--box-shadow)"
+                  color="var(--font-h3)"
+                >
+                  <Box mr="var(--margin-md)">더 보기</Box>
+                  <FontAwesomeIcon icon={faEllipsis} />
+                </Button>
+              )}
             </Main>
           </>
         ) : (

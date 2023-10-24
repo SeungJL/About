@@ -49,8 +49,7 @@ function MemberOverview({
 }
 
 const Layout = styled.div`
-  padding-top: var(--padding-md);
-  padding-bottom: var(--padding-md);
+  padding: var(--padding-md) 0;
   margin: 0 var(--margin-main);
 `;
 

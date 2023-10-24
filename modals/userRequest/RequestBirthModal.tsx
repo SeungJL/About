@@ -1,14 +1,15 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import {
-  ModalFeeterTwe,
-  ModalHeaderX,
-} from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useUserRoleQuery } from "../../hooks/user/queries";
-import { ModalMain } from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function RequestBirthModal({ setIsModal }: IModal) {
@@ -38,19 +39,22 @@ function RequestBirthModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLeyou size="sm">
-      <ModalHeaderX title="생일 공개 설정" setIsModal={setIsModal} />
-      <ModalMain>
-        기본 설정으로 정식 멤버의 생일에는 축하를 위해 멤버게시판에 프로필이
-        표시됩니다.
-      </ModalMain>
-      <ModalFeeterTwe
-        left="공개"
-        right="비공개"
-        setIsModal={setIsModal}
-        onSubmit={onClick}
+    <ModalLayout onClose={() => setIsModal(false)} size="sm">
+      <ModalHeader text="생일 공개 설정" />
+      <ModalBody>
+        <ModalSubtitle>
+          기본 설정으로 동아리원 생일에는 축하를 위해 멤버게시판에 프로필이
+          표시됩니다.
+        </ModalSubtitle>
+      </ModalBody>
+      <ModalFooterTwo
+        leftText="공개"
+        rightText="비공개"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={onClick}
+        isFull={true}
       />
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 

@@ -29,8 +29,12 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
       <Content>
         <span>{summary.title}</span>
         <ContentDetail>
-          <span>{summary.type.title}</span>·<span>{summary.location.main}</span>
-          ·<span>{date.format("M월 D일")}</span>
+          <span>
+            {summary.place} {summary.place === "전체" && "지역"}
+          </span>
+          ·<span>{summary.type.title}</span>·
+          <span>{summary.location.main}</span>·
+          <span>{date.format("M월 D일")}</span>
         </ContentDetail>
       </Content>
     </Layout>
@@ -77,6 +81,9 @@ const ContentDetail = styled.div`
     margin-right: var(--margin-min);
   }
   > span:nth-child(2) {
+    margin: 0 var(--margin-min);
+  }
+  > span:nth-child(3) {
     margin: 0 var(--margin-min);
   }
   > span:last-child {

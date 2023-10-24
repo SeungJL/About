@@ -309,7 +309,7 @@ export const REVIEW_DATA: IReviewData[] = [
     title: "무제한 칵테일바 번개",
   },
   {
-    id: 73,
+    id: 82,
     dateCreated: "10월 10일",
     images: [
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.9/KakaoTalk_20231010_045952391_02.webp",

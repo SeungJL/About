@@ -59,7 +59,8 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  margin: var(--margin-min) 0;
+  margin-top: 2px;
+  margin-bottom: var(--margin-min);
   font-size: 15px;
   font-weight: 600;
 `;

@@ -49,7 +49,7 @@ const Info = styled.div`
     font-weight: 600;
   }
   > span:last-child {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--font-h3);
   }
 `;

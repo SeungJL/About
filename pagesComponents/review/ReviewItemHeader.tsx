@@ -7,12 +7,13 @@ interface IReviewItemHeader {
 }
 
 function ReviewItemHeader({ writer, date }: IReviewItemHeader) {
+  const isABOUT = writer.name === "이승주";
   return (
     <Layout>
       <Profile>
-        <ProfileIcon user={writer} size="sm" />
+        <ProfileIcon user={isABOUT ? "ABOUT" : writer} size="sm" />
         <div>
-          <span>{writer?.name}</span>
+          <Writer isABOUT={isABOUT}>{isABOUT ? "어바웃" : writer.name}</Writer>
           <span>{date}</span>
         </div>
       </Profile>
@@ -29,17 +30,26 @@ const Layout = styled.div`
   align-items: center;
 `;
 
+const Writer = styled.span<{ isABOUT: boolean }>`
+  font-weight: 600;
+  font-size: 13px;
+  ${(props) =>
+    props.isABOUT &&
+    `
+background: linear-gradient(90deg, #04e19b, #03b1e8);
+-webkit-background-clip: text;
+color: transparent;
+display: inline;`}
+`;
+
 const Profile = styled.div`
   display: flex;
   align-items: center;
   > div:last-child {
-    margin-left: var(--margin-md);
+    margin-left: var(--margin-sub);
     display: flex;
     flex-direction: column;
-    > span:first-child {
-      font-weight: 600;
-      font-size: 12px;
-    }
+
     > span:last-child {
       color: var(--font-h3);
       font-size: 10px;

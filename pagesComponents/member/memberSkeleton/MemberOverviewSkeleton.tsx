@@ -72,7 +72,7 @@ const Info = styled.div`
   > li::before {
     content: "•";
     font-size: 10px;
-    padding-right: var(--padding-md);
+    padding-right: var(--padding-min);
   }
 `;
 

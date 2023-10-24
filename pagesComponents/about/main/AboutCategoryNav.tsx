@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { TABLE_COLORS } from "../../../constants/styles";
+import { TABLE_STRONG_COLORS } from "../../../constants/styles";
 
 import { isGatherAlertState } from "../../../recoil/alertAtoms";
 import { locationState } from "../../../recoil/userAtoms";
@@ -41,14 +41,18 @@ function AboutCategoryNav() {
             <FontAwesomeIcon
               icon={faCalendarCheck}
               size="xl"
-              color={TABLE_COLORS[1]}
+              color={TABLE_STRONG_COLORS[1]}
             />
           </Button>
           <span>캘린더</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("point")}>
-            <FontAwesomeIcon icon={faStore} size="xl" color={TABLE_COLORS[3]} />
+            <FontAwesomeIcon
+              icon={faStore}
+              size="xl"
+              color={TABLE_STRONG_COLORS[2]}
+            />
             {isPointAlert && (
               <IconWrapper>
                 <FontAwesomeIcon
@@ -63,13 +67,21 @@ function AboutCategoryNav() {
         </Item>
         <Item>
           <Button onClick={() => onClickItem("member")}>
-            <FontAwesomeIcon icon={faUsers} size="xl" color={TABLE_COLORS[2]} />
+            <FontAwesomeIcon
+              icon={faUsers}
+              size="xl"
+              color={TABLE_STRONG_COLORS[3]}
+            />
           </Button>
           <span>동아리원</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("gather")}>
-            <FontAwesomeIcon icon={faOtter} size="xl" color={TABLE_COLORS[0]} />
+            <FontAwesomeIcon
+              icon={faOtter}
+              size="xl"
+              color={TABLE_STRONG_COLORS[0]}
+            />
             {isGatherAlert && (
               <IconWrapper>
                 <FontAwesomeIcon
@@ -80,14 +92,14 @@ function AboutCategoryNav() {
               </IconWrapper>
             )}
           </Button>
-          <span>모임</span>
+          <span>모임 번개</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("plaza")}>
             <FontAwesomeIcon
               icon={faTeddyBear}
               size="xl"
-              color={TABLE_COLORS[4]}
+              color={TABLE_STRONG_COLORS[4]}
             />
           </Button>
           <span>광장</span>

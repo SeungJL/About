@@ -23,6 +23,14 @@ export const TABLE_COLORS = [
   "#B0C4DE",
 ];
 
+export const TABLE_STRONG_COLORS = [
+  "#ff6b6b",
+  "#FFA500",
+  "#007BFF",
+  "#20B2AA",
+  "#BA55D3",
+];
+
 export const SCHEME_TO_COLOR = {
   facebook: "#223B67",
   badgePink: "#FF69B4",
