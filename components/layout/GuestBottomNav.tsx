@@ -3,6 +3,10 @@ import { signOut } from "next-auth/react";
 import styled from "styled-components";
 
 function GuestBottomNav() {
+  const logout = () => {
+    signOut({ callbackUrl: "/login" });
+  };
+
   return (
     <Layout>
       <span>현재 게스트 로그인을 이용중입니다.</span>
@@ -10,7 +14,7 @@ function GuestBottomNav() {
         backgroundColor="var(--color-red)"
         color="white"
         size="sm"
-        onClick={() => signOut()}
+        onClick={logout}
       >
         로그아웃
       </Button>
