@@ -1,5 +1,3 @@
-import { faAnglesRight } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -29,8 +27,6 @@ function Fee() {
     onError: errorToast,
   });
 
-  const isReady = registerForm?.location === "안양";
-
   const onClickNext = () => {
     mutate(registerForm);
   };
@@ -45,21 +41,8 @@ function Fee() {
           <span>보증금은 회원 탈퇴시 환급해드려요!</span>
         </RegisterOverview>
         <Cost>
-          {isReady && (
-            <div style={{ marginBottom: "20px", color: "var(--font-h2)" }}>
-              <span style={{ fontWeight: "600" }}>
-                신규 오픈 지역으로 가입비랑 보증금을 모두 지원해드려요!
-              </span>
-            </div>
-          )}
           <div>
             <RegisterCost />
-            {isReady && (
-              <>
-                <FontAwesomeIcon icon={faAnglesRight} />
-                <RegisterCost isSecond={true} />
-              </>
-            )}
           </div>
         </Cost>
         <Account>운영진에게 연락을 받은 후 납부해야 할 금액입니다!</Account>
