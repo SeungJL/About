@@ -15,6 +15,7 @@ export const ATTEND_POP_UP = "attendPopUp";
 export const PROMOTION_POP_UP = "promotionPopUp";
 export const DAILY_CHECK_POP_UP = "attendCheckPopUp";
 export const FAQ_POP_UP = "faqPopUp";
+export const MANAGER_POP_UP = "managerPopUp";
 
 //체크
 export const RABBIT_RUN = "rabbitRun";

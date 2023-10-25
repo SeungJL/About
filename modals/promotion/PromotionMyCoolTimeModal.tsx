@@ -1,8 +1,8 @@
+import { ModalBody } from "@chakra-ui/react";
 import { faCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import {
-  ModalBody,
   ModalFooterOne,
   ModalHeader,
   ModalLayout,
@@ -19,7 +19,13 @@ function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader text="지난 당첨 기록" />
-      <ModalBody>
+      <ModalBody
+        p="var(--padding-min) var(--padding-main)"
+        display="flex"
+        flexDir="column"
+        position="relative"
+        overflowY="auto"
+      >
         <Container>
           {PROMOTION_WIN.map((item, idx) => (
             <Item key={idx}>

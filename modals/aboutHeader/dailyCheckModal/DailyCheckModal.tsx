@@ -168,6 +168,7 @@ const PresentPercentPopOver = () => (
 const Container = styled.div`
   margin-top: var(--margin-md);
   flex: 1;
+
   display: flex;
   justify-content: space-between;
   align-items: center;

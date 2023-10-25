@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   ATTEND_POP_UP,
   FAQ_POP_UP,
+  MANAGER_POP_UP,
   PROMOTION_POP_UP,
   SUGGEST_POP_UP,
   USER_GUIDE_POP_UP,
@@ -11,6 +12,7 @@ import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/Poi
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
+import ManagerPopUp from "../../../modals/pop-up/ManagerPopUp";
 import ProfileModifyPopUp from "../../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../../modals/pop-up/SuggestPopUp";
 
@@ -24,7 +26,8 @@ export type UserPopUp =
   | "suggest"
   | "promotion"
   | "userGuide"
-  | "faq";
+  | "faq"
+  | "manager";
 
 function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -53,6 +56,10 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
     }
     if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
       setPopUpTypes((old) => [...old, "lastWeekAttend"]);
+      if (++popUpCnt === 2) return;
+    }
+    if (!checkAndSetLocalStorage(MANAGER_POP_UP, 7)) {
+      setPopUpTypes((old) => [...old, "manager"]);
       if (++popUpCnt === 2) return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,6 +92,9 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       )}
       {popUpTypes.includes("userGuide") && (
         <PointSystemsModal setIsModal={() => filterPopUpTypes("userGuide")} />
+      )}
+      {popUpTypes.includes("manager") && (
+        <ManagerPopUp setIsModal={() => filterPopUpTypes("manager")} />
       )}
     </>
   );

@@ -1,4 +1,4 @@
-import { Button, ModalFooter, ModalHeader } from "@chakra-ui/react";
+import { Button, ModalBody, ModalFooter, ModalHeader } from "@chakra-ui/react";
 import {
   faClock,
   faThumbsUp,
@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { ModalBody, ModalLayout } from "../../components/modals/Modals";
+import { ModalLayout } from "../../components/modals/Modals";
 import { PROMOTION_WIN_DATE } from "../../constants/settingValue/dateSettingValue";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
 import { IPromotionApply } from "../../types/page/promotion";
@@ -48,7 +48,13 @@ function PromotionAllCoolTimeModal({
           <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
         </div>
       </ModalHeader>
-      <ModalBody>
+      <ModalBody
+        p="var(--padding-min) var(--padding-main)"
+        display="flex"
+        flexDir="column"
+        position="relative"
+        overflowY="auto"
+      >
         <Container>
           {promotionData?.map((item) => {
             const cool = dayjs(item.lastDate)

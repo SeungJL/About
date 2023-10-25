@@ -74,7 +74,6 @@ export const ModalBody = ({ children }) => (
     display="flex"
     flexDir="column"
     position="relative"
-    overflowY="auto"
   >
     {children}
   </ChakraModalBody>
