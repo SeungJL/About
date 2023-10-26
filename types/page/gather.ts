@@ -1,4 +1,5 @@
 import { Dayjs } from "dayjs";
+import { CombinedLocation } from "../../pages/gather/writing/condition";
 import { LocationFilterType } from "../system";
 import { ITime } from "../timeAndDate";
 import { IUser } from "../user/user";
@@ -15,7 +16,7 @@ export interface IGather extends Omit<IGatherWriting, "date"> {
 
 export interface IGatherWriting {
   type: GatherType;
-  place: LocationFilterType;
+  place: LocationFilterType | CombinedLocation;
   genderCondition: boolean;
   title: string;
   content: string;
@@ -27,6 +28,7 @@ export interface IGatherWriting {
   age: number[];
   preCnt?: number;
   user: IUser;
+  isAdminOpen?: boolean;
 }
 
 export type GatherCategory = "전체" | "모집중" | "완료";

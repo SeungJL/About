@@ -35,11 +35,13 @@ function GatherComments({ comment, setIsRefetch }: IGatherComments) {
   const [commentId, setCommentId] = useState("");
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [value]);
+
   const { mutate: writeComment } = useGatherCommentMutation();
   const onSubmit = () => {
     const data: IGatherCommentUnit = { gatherId, comment: value };

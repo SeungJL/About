@@ -1,8 +1,8 @@
 import { Button } from "@chakra-ui/react";
 import styled from "styled-components";
-import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
-import CountNum from "../../../components/features/atoms/CountNum";
-import { DispatchNumber } from "../../../types/reactTypes";
+import { CopyBtn } from "../../../../components/common/Icon/CopyIcon";
+import CountNum from "../../../../components/features/atoms/CountNum";
+import { DispatchNumber } from "../../../../types/reactTypes";
 
 interface IGatherWritingConditionPre {
   preCnt: number;
@@ -20,7 +20,6 @@ function GatherWritingConditionPre({
       <PreMember>
         <CountNum value={preCnt} setValue={setPreCnt} unit="명" />
       </PreMember>
-
       <div>
         <span>암호키</span>
         <Button size="sm" disabled colorScheme="blackAlpha" mr="8px">

@@ -9,22 +9,25 @@ import {
 } from "@chakra-ui/react";
 import { faQuestionCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
 interface IPopoverIcon {
   title: string;
   text: string;
 }
 
-export const PopOverIcon2 = ({ title, text }: IPopoverIcon) => (
+export const PopOverIcon = ({ title, text }: IPopoverIcon) => (
   <Popover>
     <PopoverTrigger>
-      <FontAwesomeIcon
-        icon={faQuestionCircle}
-        color="var(--font-h1)"
-        size="sm"
-      />
+      <IconWrapper>
+        <FontAwesomeIcon icon={faQuestionCircle} color="var(--font-h3)" />
+      </IconWrapper>
     </PopoverTrigger>
-    <PopoverContent>
+    <PopoverContent
+      ml="var(--margin-md)"
+      fontSize="12px"
+      _focus={{ outline: "none" }}
+    >
       <PopoverArrow />
       <PopoverCloseButton />
       <PopoverHeader fontWeight="600">{title}</PopoverHeader>
@@ -32,3 +35,7 @@ export const PopOverIcon2 = ({ title, text }: IPopoverIcon) => (
     </PopoverContent>
   </Popover>
 );
+
+const IconWrapper = styled.div`
+  margin-left: var(--margin-md);
+`;

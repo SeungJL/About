@@ -92,7 +92,7 @@ function AboutCategoryNav() {
               </IconWrapper>
             )}
           </Button>
-          <span>모임 번개</span>
+          <span>모임/번개</span>
         </Item>
         <Item>
           <Button onClick={() => onClickItem("plaza")}>

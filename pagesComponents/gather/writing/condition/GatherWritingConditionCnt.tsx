@@ -1,9 +1,9 @@
 import { Switch } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import CountNum from "../../../components/features/atoms/CountNum";
-import { GatherMemberCnt } from "../../../types/page/gather";
-import { DispatchType } from "../../../types/reactTypes";
+import CountNum from "../../../../components/features/atoms/CountNum";
+import { GatherMemberCnt } from "../../../../types/page/gather";
+import { DispatchType } from "../../../../types/reactTypes";
 
 interface IGatherWritingConditionCnt {
   isMin: boolean;
