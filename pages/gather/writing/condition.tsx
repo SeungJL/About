@@ -87,7 +87,7 @@ function WritingCondition() {
       password,
       user: userInfo,
       place: location || userInfo?.location,
-      isAdminOpen: condition.manager,
+      isAdminOpen: !condition.manager,
     };
     setGatherContent(gatherData);
     setIsConfirmModal(true);
@@ -211,6 +211,7 @@ function WritingCondition() {
                 preCnt={preCnt}
                 setPreCnt={setPreCnt}
                 password={password}
+                
               />
             )}
             {isManager && (

@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
   ModalBody,
@@ -14,6 +15,7 @@ import {
   useFailToast,
 } from "../../hooks/CustomToast";
 import { useGatherContentMutation } from "../../hooks/gather/mutations";
+import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGatherWriting } from "../../types/page/gather";
 import { IModal } from "../../types/reactTypes";
@@ -32,40 +34,48 @@ function GatherWritingConfirmModal({
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
+  const setGatherContent = useSetRecoilState(sharedGatherWritingState);
+
   const { mutate } = useGatherContentMutation({
     onSuccess() {
+      setTimeout(() => {
+        setGatherContent(null);
+      }, 500);
       setIsSuccessScreen(true);
     },
     onError: errorToast,
   });
 
   const onSubmit = () => {
+    console.log(gatherData);
     mutate(gatherData);
   };
-
+  console.log(gatherData);
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="md">
-        <ModalHeader text="모임 개설" />
-        <ModalBody>
-          <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
-          <Container>
-            <Item>
-              <span>제목:</span>
-              <span>{gatherData?.title}</span>
-            </Item>
-            <Item>
-              <span>날짜:</span>
-              <span>{dayjs(gatherData.date).format("M월 D일, H시 m분")}</span>
-            </Item>
-            <Item>
-              <span>주제:</span>
-              <span>{gatherData.type.subtitle || "기타"}</span>
-            </Item>
-          </Container>
-        </ModalBody>
-        <ModalFooterOne isFull={true} text="모임 개설" onClick={onSubmit} />
-      </ModalLayout>
+      {gatherData && (
+        <ModalLayout onClose={() => setIsModal(false)} size="md">
+          <ModalHeader text="모임 개설" />
+          <ModalBody>
+            <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
+            <Container>
+              <Item>
+                <span>제목:</span>
+                <span>{gatherData?.title}</span>
+              </Item>
+              <Item>
+                <span>날짜:</span>
+                <span>{dayjs(gatherData.date).format("M월 D일, H시 m분")}</span>
+              </Item>
+              <Item>
+                <span>주제:</span>
+                <span>{gatherData.type.subtitle || "기타"}</span>
+              </Item>
+            </Container>
+          </ModalBody>
+          <ModalFooterOne isFull={true} text="모임 개설" onClick={onSubmit} />
+        </ModalLayout>
+      )}
       {isSuccessScreen && (
         <SuccessScreen url={`/gather`}>
           <>

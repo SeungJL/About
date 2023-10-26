@@ -41,7 +41,7 @@ function GatherDetail() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gatherData, isRefetch]);
-
+  console.log(gatherData);
   return (
     <>
       {gatherData ? (

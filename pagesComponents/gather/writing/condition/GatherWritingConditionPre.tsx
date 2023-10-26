@@ -18,7 +18,12 @@ function GatherWritingConditionPre({
   return (
     <Layout>
       <PreMember>
-        <CountNum value={preCnt} setValue={setPreCnt} unit="명" />
+        <CountNum
+          value={preCnt}
+          setValue={setPreCnt}
+          unit="명"
+          isSmall={true}
+        />
       </PreMember>
       <div>
         <span>암호키</span>

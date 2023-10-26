@@ -22,8 +22,13 @@ function GatherParticipation({ data }: IGatherParticipation) {
   const router = useRouter();
   const setUserData = useSetRecoilState(transferUserDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
+
   const organizer = data.user;
-  const status = data?.status;
+  const status = data.status;
+  const participantsCnt = data.participants.length;
+
+  const isAdminOpen = data.isAdminOpen;
+
   const onClickProfile = (user: IUser) => {
     setUserData(user);
     setBeforePage(router?.asPath);
@@ -34,7 +39,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
     <Layout>
       <span>
         {status === "open" ? "확정 인원" : "참여중인 인원"} &nbsp;
-        <span>{data?.participants.length + 1} /</span>
+        <span>{isAdminOpen ? participantsCnt : participantsCnt + 1} /</span>
         {data?.memberCnt.max ? (
           <span> {data?.memberCnt.max}</span>
         ) : (
@@ -46,25 +51,31 @@ function GatherParticipation({ data }: IGatherParticipation) {
       </span>
 
       <div>
-        <MemberItem
-          key={organizer?.uid}
-          onClick={() => onClickProfile(organizer)}
-        >
-          <Organizer>
-            <ProfileIcon user={organizer} size="md" />
-            <CrownWrapper>
-              <FontAwesomeIcon
-                icon={faCrown}
-                color="var(--color-orange)"
-                size="lg"
-              />
-            </CrownWrapper>
-          </Organizer>
-          <UserOverview>
-            <span>{organizer?.name}</span>
-            <span>{organizer?.comment}</span>
-          </UserOverview>
-        </MemberItem>
+        {!isAdminOpen ? (
+          <MemberItem
+            key={organizer?.uid}
+            onClick={() => onClickProfile(organizer)}
+          >
+            <Organizer>
+              <ProfileIcon user={organizer} size="md" />
+              <CrownWrapper>
+                <FontAwesomeIcon
+                  icon={faCrown}
+                  color="var(--color-orange)"
+                  size="lg"
+                />
+              </CrownWrapper>
+            </Organizer>
+            <UserOverview>
+              <span>{organizer?.name}</span>
+              <span>{organizer?.comment}</span>
+            </UserOverview>
+          </MemberItem>
+        ) : (
+          <Empty>
+            <span>참여자를 모집중입니다.</span>
+          </Empty>
+        )}
         {data?.participants.map((who) => (
           <MemberItem
             key={who?.user.uid}
@@ -146,6 +157,17 @@ const Layout = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+  }
+`;
+
+const Empty = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  > span {
+    font-size: 18px;
+    color: var(--font-h4);
   }
 `;
 
