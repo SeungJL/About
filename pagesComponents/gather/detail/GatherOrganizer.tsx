@@ -8,11 +8,16 @@ import { IUser } from "../../../types/user/user";
 interface IGatherOrganizer {
   createdAt: string;
   organizer: IUser;
+  isAdminOpen: boolean;
 }
 
-function GatherOrganizer({ createdAt, organizer }: IGatherOrganizer) {
+function GatherOrganizer({
+  createdAt,
+  organizer,
+  isAdminOpen,
+}: IGatherOrganizer) {
   const writingDate = getDateDiff(dayjs(createdAt));
-  const isABOUT = organizer.uid === ABOUT_UID;
+  const isABOUT = organizer.uid === ABOUT_UID || isAdminOpen;
   return (
     <Layout>
       <ProfileIcon user={isABOUT ? "ABOUT" : organizer} size="sm" />

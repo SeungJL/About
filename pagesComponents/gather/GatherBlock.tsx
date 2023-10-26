@@ -41,6 +41,7 @@ function GatherBlock({ gather, isImagePriority }: IGatherBlock) {
           participants={gather.participants}
           memberCnt={gather.memberCnt}
           isImagePriority={isImagePriority}
+          isAdminOpen={gather.isAdminOpen}
         />
       </Container>
     </Layout>

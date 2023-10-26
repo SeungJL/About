@@ -14,6 +14,7 @@ interface IGatherMember extends IImagePriority {
   organizer: IUser;
   participants: GatherParticipants[];
   memberCnt: GatherMemberCnt;
+  isAdminOpen: boolean;
 }
 
 function GatherMember({
@@ -21,8 +22,9 @@ function GatherMember({
   participants,
   memberCnt,
   isImagePriority,
+  isAdminOpen,
 }: IGatherMember) {
-  const isABOUT = organizer.uid === ABOUT_UID;
+  const isABOUT = organizer.uid === ABOUT_UID || isAdminOpen;
   return (
     <Layout>
       <Writer isABOUT={isABOUT}>

@@ -52,6 +52,7 @@ function GatherDetail() {
             <GatherOrganizer
               createdAt={gatherData.createdAt}
               organizer={gatherData.user}
+              isAdminOpen={gatherData.isAdminOpen}
             />
             <GatherTitle title={gatherData.title} status={gatherData.status} />
             <GatherDetailInfo data={gatherData} />
