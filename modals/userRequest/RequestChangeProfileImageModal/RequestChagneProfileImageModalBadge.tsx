@@ -1,12 +1,15 @@
-import { Badge, Button } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../../hooks/user/mutations";
-import { ModalMain } from "../../../styles/layout/modal";
 import { EventBadge } from "../../../types/user/user";
 
 function RequestChagneProfileImageModalBadge({ setIsModal }) {
@@ -42,9 +45,9 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
   };
 
   return (
-    <ModalLeyou size="lg">
-      <ModalHeaderX title="내 배지 변경 신청" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout size="lg" onClose={() => setIsModal(false)}>
+      <ModalHeader text="내 배지 변경 신청" />
+      <ModalBody>
         <Message>
           이벤트 배지는 출석체크의 랜덤 보상에서 <b>1% 확률</b>로 흭득할 수
           있습니다. 배지를 선택 후 신청을 완료하시면 관리자가{" "}
@@ -68,11 +71,13 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
             </Badge>
           </Item>
         </Container>
-      </ModalMain>
-      <Button colorScheme="mintTheme" mt="auto" onClick={onApply}>
-        변경 신청 / 해제 신청(미 선택)
-      </Button>
-    </ModalLeyou>
+      </ModalBody>
+      <ModalFooterOne
+        onClick={onApply}
+        text="  변경 신청 / 해제 신청(미 선택)"
+        isFull={true}
+      />
+    </ModalLayout>
   );
 }
 

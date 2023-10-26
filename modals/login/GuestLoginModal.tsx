@@ -1,11 +1,10 @@
-import styled from "styled-components";
 import {
   ModalBody,
   ModalFooterOne,
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 interface IGuestLoginModal extends IModal {
@@ -32,17 +31,5 @@ function GuestLoginModal({ setIsModal, customSignin }: IGuestLoginModal) {
     </>
   );
 }
-
-const Main = styled(ModalMain)`
-  line-height: 1.7;
-  > span {
-    margin-top: var(--margin-md);
-    font-weight: 600;
-  }
-`;
-
-const Footer = styled.div`
-  display: flex;
-`;
 
 export default GuestLoginModal;

@@ -1,17 +1,21 @@
-import { Button } from "@chakra-ui/react";
 import { faClock } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/CustomToast";
 import { usePromotionMutation } from "../../hooks/promotion/mutations";
 import { usePromotionQuery } from "../../hooks/promotion/queries";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 interface IPromotionApplyModal extends IModal {
@@ -58,78 +62,68 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
   };
 
   return (
-    <ModalLeyou size="md">
-      <ModalHeaderX title="이벤트 보상 신청" setIsModal={setIsModal} />
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalHeader text="이벤트 보상 신청" />
+      <ModalBody>
+        <ModalSubtitle>
+          {!contentType ? (
+            <>
+              홍보글을 작성해 주셨나요? <b> +100 Point</b>와 추첨을 통해 치킨
+              기프티콘을 드려요!
+            </>
+          ) : contentType === "cool" ? (
+            <>
+              아직 신청 쿨타임이 지나지 않았어요!
+              <br />
+              쿨타임이 끝난 뒤에 다시 신청해주세요!
+            </>
+          ) : (
+            <>
+              처음 홍보를 진행하는 대학교예요! 대학교 목록에 {uniName}를 추가 후
+              진행할게요! 최초 등록시 +300 point가 지급됩니다.
+            </>
+          )}
+        </ModalSubtitle>
+
+        {!contentType ? (
+          <Uni>
+            <span>학교:</span>
+            <span>{uniName}</span>
+          </Uni>
+        ) : (
+          contentType === "cool" && (
+            <CoolTime>
+              <FontAwesomeIcon icon={faClock} />
+              <span>
+                {coolTime >= 24 ? Math.ceil(coolTime / 24) : coolTime}{" "}
+                {coolTime >= 24 ? "일" : "시간"}
+              </span>
+            </CoolTime>
+          )
+        )}
+      </ModalBody>
       <>
         {!contentType ? (
-          <>
-            <ModalMain>
-              <ModalSubtitle>
-                홍보글 게시를 진행해 주셨나요?
-                <br /> + 100 Point와 추첨을 통해 치킨 기프티콘을 드려요!
-              </ModalSubtitle>
-              <Uni>
-                <span>학교:</span>
-                <span>{uniName}</span>
-              </Uni>
-            </ModalMain>
-            <Footer>
-              <Button w="50%" onClick={() => setIsModal(false)}>
-                다음에
-              </Button>
-              <Button w="50%" colorScheme="mintTheme" onClick={onSubmit}>
-                게시완료
-              </Button>
-            </Footer>
-          </>
+          <ModalFooterTwo
+            leftText="다음에"
+            rightText="게시완료"
+            onClickLeft={() => setIsModal(false)}
+            onClickRight={onSubmit}
+            isFull={true}
+          />
         ) : contentType === "cool" ? (
-          <>
-            <ModalMain>
-              <ModalSubtitle>
-                아직 신청 쿨타임이 지나지 않았어요!
-                <br />
-                쿨타임이 끝난 뒤에 다시 신청해주세요!
-              </ModalSubtitle>
-              <CoolTime>
-                <FontAwesomeIcon icon={faClock} />
-                <span>
-                  {coolTime >= 24 ? Math.ceil(coolTime / 24) : coolTime}{" "}
-                  {coolTime >= 24 ? "일" : "시간"}
-                </span>
-              </CoolTime>
-            </ModalMain>
-            <Footer>
-              <Button
-                colorScheme="mintTheme"
-                w="100%"
-                onClick={() => setIsModal(false)}
-              >
-                확인
-              </Button>
-            </Footer>
-          </>
+          <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />
         ) : (
-          <>
-            <ModalMain>
-              <ModalSubtitle>
-                처음 홍보를 진행하는 대학교예요! <br />
-                대학교 목록에 {uniName}를 추가 후 진행할게요! 최초 등록시 +300
-                point가 지급됩니다.
-              </ModalSubtitle>
-              <SubMessage>(자동으로 진행됩니다)</SubMessage>
-            </ModalMain>
-            <Footer>
-              <Button w="50%" onClick={() => setIsModal(false)}>
-                다음에
-              </Button>
-              <Button w="50%" colorScheme="mintTheme" onClick={handleApply}>
-                확인
-              </Button>
-            </Footer>
-          </>
+          <ModalFooterTwo
+            leftText="다음에"
+            rightText="확인"
+            onClickLeft={() => setIsModal(false)}
+            onClickRight={handleApply}
+            isFull={true}
+          />
         )}
       </>
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 

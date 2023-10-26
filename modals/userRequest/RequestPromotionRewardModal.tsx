@@ -6,10 +6,11 @@ import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 
 import {
-  ModalFeeterTwe,
-  ModalHeaderX,
-} from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import {
   PromotionComponent,
   PROMOTION_TEXT,
@@ -19,7 +20,6 @@ import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 
 import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
-import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
@@ -46,9 +46,9 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLeyou size="xxl">
-      <ModalHeaderX title="홍보 리워드 신청" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
+      <ModalHeader text="홍보 리워드 신청" />
+      <ModalBody>
         <Overview>
           에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 ABOUT 포인트와
           추첨을 통해 꽤 높은 확률로 상품을 보내드립니다! 도와주시는 모든 분들
@@ -83,13 +83,14 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
           이미지는 굳이 안넣어주셔도 돼요! 여러번 지원해도 너무 환영하니 자주
           신청해주세요 🙂
         </Message>
-      </ModalMain>
-      <ModalFeeterTwe
-        right="게시완료"
-        setIsModal={setIsModal}
-        onSubmit={onSubmit}
+      </ModalBody>
+      <ModalFooterTwo
+        leftText="확인"
+        rightText="게시완료"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={onSubmit}
       />
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 

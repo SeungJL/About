@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ModalLeyou } from "../../../components/modals/Modals";
 import {
-  ModalFooterNav,
-  ModalHeaderCenter,
-  ModalMain,
-} from "../../../styles/layout/modal";
+  ModalBody,
+  ModalFooterOne,
+  ModalLayout,
+} from "../../../components/modals/Modals";
+import { ModalHeaderCenter } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import {
   StudyRuleModalContentFirstOne,
@@ -19,7 +19,7 @@ function StudyRuleModal({ setIsModal }: IModal) {
   const [isTip, setIsTip] = useState(true);
 
   return (
-    <ModalLeyou size="xxl">
+    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
       <ModalHeaderCenter>
         <Title>동아리 가이드</Title>
         <div>대학생들의 카공 및 친목 동아리 About</div>
@@ -32,7 +32,7 @@ function StudyRuleModal({ setIsModal }: IModal) {
           이용 필독
         </Button>
       </Nav>
-      <ModalMain>
+      <ModalBody>
         {!isTip ? (
           <>
             <Item>
@@ -60,11 +60,9 @@ function StudyRuleModal({ setIsModal }: IModal) {
             </Item>
           </>
         )}
-      </ModalMain>
-      <ModalFooterNav>
-        <button onClick={() => setIsModal(false)}>확인</button>
-      </ModalFooterNav>
-    </ModalLeyou>
+      </ModalBody>
+      <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />
+    </ModalLayout>
   );
 }
 

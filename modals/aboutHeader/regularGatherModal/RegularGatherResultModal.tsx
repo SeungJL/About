@@ -10,7 +10,6 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
-import { ModalMain } from "../../../styles/layout/modal";
 import { DispatchBoolean, IModal } from "../../../types/reactTypes";
 
 interface IRegularGatherResultModal extends IModal {
@@ -53,15 +52,6 @@ function RegularGatherResultModal({
     </ModalLayout>
   );
 }
-
-const Layout = styled.div``;
-
-const Container = styled(ModalMain)`
-  > b {
-    color: var(--font-h1);
-    margin-bottom: var(--margin-md);
-  }
-`;
 
 const IconWrapper = styled.div`
   margin-top: var(--margin-md);

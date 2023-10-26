@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
-import { ModalMain } from "../../../styles/layout/modal";
+import { ModalBody } from "../../../components/modals/Modals";
 import { IRegisterForm } from "../../../types/user/user";
 
 interface ICheckRegisterModalDetail {
@@ -9,7 +9,7 @@ interface ICheckRegisterModalDetail {
 
 function CheckRegisterModalDetail({ applicant }: ICheckRegisterModalDetail) {
   return (
-    <ModalMain>
+    <ModalBody>
       <Item>
         <b>성별 </b>
         {applicant?.gender}
@@ -41,7 +41,7 @@ function CheckRegisterModalDetail({ applicant }: ICheckRegisterModalDetail) {
           <CopyBtn text={applicant?.telephone} />
         </IconWrapper>
       </Item>
-    </ModalMain>
+    </ModalBody>
   );
 }
 

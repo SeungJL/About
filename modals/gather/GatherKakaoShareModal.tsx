@@ -1,14 +1,18 @@
+import { ModalFooter } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { GATHER_SHARE_IMAGES } from "../../constants/image/imageUrl";
 import { WEB_URL } from "../../constants/system";
-import { ModalMain, ModalSubtitle } from "../../styles/layout/modal";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGatherHeader } from "../../types/page/gather";
 import { IModal } from "../../types/reactTypes";
 
@@ -30,9 +34,9 @@ function GatherKakaoShareModal({
   };
 
   return (
-    <ModalLeyou size="xl" height={430}>
-      <ModalHeaderX title="공유 이미지 선택" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="xl" height={430}>
+      <ModalHeader text="공유 이미지 선택" />
+      <ModalBody>
         <ModalSubtitle>단톡방에 공유 할 이미지를 선택해 주세요!</ModalSubtitle>
         <Container>
           {GATHER_SHARE_IMAGES.map((item, idx) => (
@@ -45,8 +49,8 @@ function GatherKakaoShareModal({
             </Item>
           ))}
         </Container>
-      </ModalMain>
-      <ShareBtnWrapper>
+      </ModalBody>
+      <ModalFooter p="var(--padding-sub) var(--padding-main)">
         <KakaoShareBtn
           title={title}
           subtitle={date === "미정" ? date : dayjs(date).format("M월 D일(dd)")}
@@ -60,8 +64,8 @@ function GatherKakaoShareModal({
               : GATHER_SHARE_IMAGES[1]
           }
         />
-      </ShareBtnWrapper>
-    </ModalLeyou>
+      </ModalFooter>
+    </ModalLayout>
   );
 }
 

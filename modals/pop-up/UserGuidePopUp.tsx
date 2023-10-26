@@ -1,13 +1,13 @@
 import { faCheckDouble, faThumbTack } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { PopUpLayout } from "../../components/modals/Modals";
-import { USER_GUIDE_POP_UP } from "../../constants/keys/localStorage";
 import {
-  ModalFooterNav,
-  ModalHeaderCenter,
-  ModalMain,
-} from "../../styles/layout/modal";
+  ModalBody,
+  ModalFooterOne,
+  ModalLayout,
+} from "../../components/modals/Modals";
+import { USER_GUIDE_POP_UP } from "../../constants/keys/localStorage";
+import { ModalHeaderCenter } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function UserGuidePopUp({ setIsModal }: IModal) {
@@ -17,7 +17,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
   };
 
   return (
-    <PopUpLayout size="xxl">
+    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
       <ModalHeaderCenter>
         <span>
           <FontAwesomeIcon
@@ -35,7 +35,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
         <div>기본적인 내용은 알고 쓰자!</div>
       </ModalHeaderCenter>
       <hr />
-      <ModalMain>
+      <ModalBody>
         <Item>
           <Category>
             <FontAwesomeIcon
@@ -95,11 +95,10 @@ function UserGuidePopUp({ setIsModal }: IModal) {
             <li>다들 재밌는 활동 해봐요~!</li>
           </Content>
         </Item>
-      </ModalMain>
-      <ModalFooterNav>
-        <button onClick={onClick}>확인</button>
-      </ModalFooterNav>
-    </PopUpLayout>
+      </ModalBody>
+
+      <ModalFooterOne text="확인" onClick={onClick} />
+    </ModalLayout>
   );
 }
 

@@ -97,7 +97,7 @@ function GatherExpireModalCancelDialog({
               <Button
                 colorScheme="mintTheme"
                 onClick={onCancel}
-                ml="var(--margin-min)"
+                ml="var(--margin-md)"
               >
                 모집취소
               </Button>

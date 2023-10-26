@@ -107,7 +107,7 @@ function KakaoShareBtn({
       {!isBig ? (
         <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
       ) : (
-        <Button colorScheme="mintTheme" width="100%">
+        <Button colorScheme="mintTheme" width="100%" size="lg">
           공유하기
         </Button>
       )}
@@ -115,6 +115,8 @@ function KakaoShareBtn({
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  width: 100%;
+`;
 
 export default KakaoShareBtn;

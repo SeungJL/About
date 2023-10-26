@@ -1,15 +1,6 @@
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { useRef } from "react";
-import styled from "styled-components";
+import { useDisclosure } from "@chakra-ui/react";
+import AlertDialog from "../../../components/modals/AlertDialog";
+import { ModalFooterTwo } from "../../../components/modals/Modals";
 import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
 import {
   useUserApproveMutation,
@@ -30,8 +21,6 @@ function CheckRegisterModalFooter({
   const errorToast = useErrorToast();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
-
   const { mutate: approve } = useUserApproveMutation({
     onSuccess() {
       completeToast("free", "가입이 승인되었습니다.");
@@ -61,42 +50,16 @@ function CheckRegisterModalFooter({
 
   return (
     <>
-      <Layout>
-        <Button width="50%" onClick={onOpen}>
-          거절
-        </Button>
-        <Button width="50%" colorScheme="mintTheme" onClick={onClickAgree}>
-          승인
-        </Button>
-      </Layout>
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent width="340px">
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              가입 거절
-            </AlertDialogHeader>
-            <AlertDialogBody>정말로 거절할거야?</AlertDialogBody>
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                취소
-              </Button>
-              <Button colorScheme="mintTheme" onClick={onClickDelete} ml={3}>
-                거절
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+      <ModalFooterTwo
+        leftText="거절"
+        rightText="승인"
+        onClickLeft={onOpen}
+        onClickRight={onClickAgree}
+        isFull={true}
+      />
+      <AlertDialog isOpen={isOpen} onClose={onClose} onSubmit={onClickDelete} />
     </>
   );
 }
-
-const Layout = styled.footer`
-  display: flex;
-`;
 
 export default CheckRegisterModalFooter;

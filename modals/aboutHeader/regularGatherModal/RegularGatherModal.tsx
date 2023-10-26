@@ -1,10 +1,13 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ModalFooter } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import {
   useCompleteToast,
@@ -17,7 +20,6 @@ import {
   useUserRequestQuery,
 } from "../../../hooks/user/queries";
 import { isGuestState } from "../../../recoil/userAtoms";
-import { ModalMain } from "../../../styles/layout/modal";
 import { DispatchBoolean, IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
 
@@ -73,9 +75,9 @@ function RegularGatherModal({
     mutate(applyData);
   };
   return (
-    <ModalLeyou size="xl">
-      <ModalHeaderX title="조모임 참여 신청서" setIsModal={setIsModal} />
-      <ModalMain>
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+      <ModalHeader text="조모임 참여 신청서" />
+      <ModalBody>
         <Overview>
           이번 달에는 개강을 맞아 같은 동네의 또래 친구들을 만날 수 있는
           조모임으로 진행합니다!
@@ -109,21 +111,28 @@ function RegularGatherModal({
             <ContentInput {...register("content")} />
           </Item>
         </Form>
-      </ModalMain>
-      <ModalFooter>
-        <Button w="50%" type="button" onClick={() => setIsModal(false)}>
+      </ModalBody>
+
+      <ModalFooter p="var(--padding-sub) var(--padding-main)">
+        <Button
+          w="100%"
+          size="lg"
+          type="button"
+          onClick={() => setIsModal(false)}
+        >
           취소
         </Button>
         <Button
-          w="50%"
+          w="100%"
           colorScheme="mintTheme"
           form="declaration"
           type="submit"
+          size="lg"
         >
           신청
         </Button>
       </ModalFooter>
-    </ModalLeyou>
+    </ModalLayout>
   );
 }
 
@@ -181,10 +190,6 @@ const Item = styled.div`
     height: 90%;
     flex: 1;
   }
-`;
-
-const ModalFooter = styled.div`
-  display: flex;
 `;
 
 const Content = styled.div`

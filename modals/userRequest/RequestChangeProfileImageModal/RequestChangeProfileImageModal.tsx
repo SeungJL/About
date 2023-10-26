@@ -2,8 +2,11 @@ import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
@@ -15,7 +18,6 @@ import {
 } from "../../../hooks/user/mutations";
 import { isRefetchUserInfoState } from "../../../recoil/refetchingAtoms";
 import { isGuestState } from "../../../recoil/userAtoms";
-import { ModalMain } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import RequestChagneProfileImageModalBadge from "./RequestChagneProfileImageModalBadge";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";
@@ -53,24 +55,26 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   return (
     <>
       {pageNum === 0 ? (
-        <ModalLeyou size="lg" height={260}>
-          <ModalHeaderX title="프로필 이미지 변경" setIsModal={setIsModal} />
-          <Container>
-            <Button
-              colorScheme="mintTheme"
-              size="lg"
-              onClick={() => setPageNum(1)}
-            >
-              아바타 선택
-            </Button>
-            <Button size="lg" onClick={onClickKakao}>
-              카카오 프로필로 변경 / 업데이트
-            </Button>
-            <Button size="lg" onClick={() => setPageNum(2)}>
-              이벤트 배지로 변경
-            </Button>
-          </Container>
-        </ModalLeyou>
+        <ModalLayout onClose={() => setIsModal(false)} size="md">
+          <ModalHeader text="프로필 이미지 변경" />
+          <ModalBody>
+            <Container>
+              <Button
+                colorScheme="mintTheme"
+                size="lg"
+                onClick={() => setPageNum(1)}
+              >
+                아바타 선택
+              </Button>
+              <Button size="lg" onClick={onClickKakao}>
+                카카오 프로필로 변경 / 업데이트
+              </Button>
+              <Button size="lg" onClick={() => setPageNum(2)}>
+                이벤트 배지로 변경
+              </Button>
+            </Container>
+          </ModalBody>
+        </ModalLayout>
       ) : pageNum === 1 ? (
         <RequestChangeProfileImageModalAvatar
           setIsModal={setIsModal}
@@ -83,9 +87,12 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   );
 }
 
-const Container = styled(ModalMain)`
-  margin-top: var(--margin-main);
-  margin-bottom: var(--margin-md);
+const Container = styled.div`
+  margin: var(--margin-md) 0;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
   justify-content: space-around;
 `;
 

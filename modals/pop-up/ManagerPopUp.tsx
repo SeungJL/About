@@ -66,7 +66,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const { mutate } = useUserRequestMutation({
-    onSuccess() {
+  onSuccess() {
       completeToast("free", "지원이 완료되었습니다.");
       setIsModal(false);
     },

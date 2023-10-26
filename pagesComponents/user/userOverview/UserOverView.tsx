@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isGuestState } from "../../../recoil/userAtoms";
@@ -41,9 +40,7 @@ export default function UserOverview() {
         myDeposit={userInfo?.deposit}
       />
       {isProfileModal && (
-        <ModalPortal setIsModal={setIsProfileModal}>
-          <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />
-        </ModalPortal>
+        <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />
       )}
     </>
   );

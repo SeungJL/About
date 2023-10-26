@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/react";
 import {
   faChevronLeft,
   faChevronRight,
@@ -11,8 +10,12 @@ import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterOne,
+  ModalHeader,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import {
   AVATAR_COLOR,
   AVATAR_COST,
@@ -79,47 +82,47 @@ function RequestChangeProfileImageModalAvatar({
   };
 
   return (
-    <ModalLeyou size="xl">
-      <ModalHeaderX title="아바타 캐릭터 선택" setIsModal={setIsModal} />
-      <UpPart>
-        <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
-          {iconIdx !== 0 && <FontAwesomeIcon icon={faChevronLeft} />}
-        </ArrowIcon>
-        <AnimatePresence>
-          <IconWrapper
-            custom={back}
-            variants={variants}
-            initial="entry"
-            animate="center"
-            exit="exit"
-            key={iconIdx}
-          >
-            <Icon bg={AVATAR_COLOR[BG]}>
-              <Image
-                width={80}
-                height={80}
-                src={AVATAR_ICON[iconIdx]}
-                alt="avatar"
-              />
-            </Icon>
-            <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
-          </IconWrapper>
-        </AnimatePresence>
-        <ArrowIcon isLeft={false} onClick={() => handleMove("next")}>
-          {iconIdx !== AVATAR_ICON.length - 1 && (
-            <FontAwesomeIcon icon={faChevronRight} />
-          )}
-        </ArrowIcon>
-      </UpPart>
-      <DownPart>
-        {AVATAR_COLOR.map((color, idx) => (
-          <Color key={idx} bg={color} onClick={() => setBG(idx)} />
-        ))}
-      </DownPart>
-      <Button onClick={onSubmit} colorScheme="mintTheme">
-        변경
-      </Button>
-    </ModalLeyou>
+    <ModalLayout size="xl" onClose={() => setIsModal(false)}>
+      <ModalHeader text="아바타 캐릭터 선택" />
+      <ModalBody>
+        <UpPart>
+          <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
+            {iconIdx !== 0 && <FontAwesomeIcon icon={faChevronLeft} />}
+          </ArrowIcon>
+          <AnimatePresence>
+            <IconWrapper
+              custom={back}
+              variants={variants}
+              initial="entry"
+              animate="center"
+              exit="exit"
+              key={iconIdx}
+            >
+              <Icon bg={AVATAR_COLOR[BG]}>
+                <Image
+                  width={80}
+                  height={80}
+                  src={AVATAR_ICON[iconIdx]}
+                  alt="avatar"
+                />
+              </Icon>
+              <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
+            </IconWrapper>
+          </AnimatePresence>
+          <ArrowIcon isLeft={false} onClick={() => handleMove("next")}>
+            {iconIdx !== AVATAR_ICON.length - 1 && (
+              <FontAwesomeIcon icon={faChevronRight} />
+            )}
+          </ArrowIcon>
+        </UpPart>
+        <DownPart>
+          {AVATAR_COLOR.map((color, idx) => (
+            <Color key={idx} bg={color} onClick={() => setBG(idx)} />
+          ))}
+        </DownPart>
+      </ModalBody>
+      <ModalFooterOne text="변경" onClick={onSubmit} isFull={true} />
+    </ModalLayout>
   );
 }
 
@@ -150,7 +153,6 @@ const ArrowIcon = styled.div<{ isLeft: boolean }>`
 
 const DownPart = styled.div`
   flex: 0.4;
-  margin-bottom: var(--margin-max);
   display: flex;
   align-items: center;
   overflow-x: scroll;

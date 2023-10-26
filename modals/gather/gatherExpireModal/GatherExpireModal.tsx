@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
 import {
   ModalBody,
   ModalBodyNavTwo,
@@ -8,7 +7,6 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
-import { ModalMain } from "../../../styles/layout/modal";
 import { IModal, IRefetch } from "../../../types/reactTypes";
 import GatherExpireModalCancelDialog from "./GatherExpireModalCancelDialog";
 import GatherExpireModalExpireDialog from "./GatherExpireModalExpireDialogs";
@@ -53,11 +51,5 @@ function GatherExpireModal({ setIsModal, setIsRefetch }: IModal & IRefetch) {
     </>
   );
 }
-
-const Nav = styled(ModalMain)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
 
 export default GatherExpireModal;

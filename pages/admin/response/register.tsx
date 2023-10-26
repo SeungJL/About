@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import AdminLocationSelector from "../../../components/pages/AdminLocationSelector";
 import { useRegisterFormsQuery } from "../../../hooks/user/queries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
@@ -63,13 +62,11 @@ function AdminRegister() {
         </Main>
       </Layout>
       {isModal && (
-        <ModalPortal setIsModal={setIsModal}>
-          <CheckRegisterModal
-            setIsModal={setIsModal}
-            applicant={applicant}
-            setIsRefetch={setIsRefetch}
-          />
-        </ModalPortal>
+        <CheckRegisterModal
+          setIsModal={setIsModal}
+          applicant={applicant}
+          setIsRefetch={setIsRefetch}
+        />
       )}
     </>
   );

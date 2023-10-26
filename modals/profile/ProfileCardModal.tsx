@@ -1,13 +1,15 @@
-import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ModalHeaderX } from "../../components/modals/ModalComponents";
-import { ModalLeyou } from "../../components/modals/Modals";
+import {
+  ModalBody,
+  ModalFooterTwo,
+  ModalHeader,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { ModalMain } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
 function ProfileCardModal({ setIsModal }: IModal) {
@@ -22,9 +24,9 @@ function ProfileCardModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLeyou size="xl">
-        <ModalHeaderX title={user?.name} setIsModal={setIsModal} />
-        <ModalMain>
+      <ModalLayout onClose={() => setIsModal(false)} size="xl">
+        <ModalHeader text={user?.name} />
+        <ModalBody>
           <Profile>
             <ProfileUpPart>
               <div>
@@ -58,21 +60,15 @@ function ProfileCardModal({ setIsModal }: IModal) {
           </Profile>
           <FriendTitle>친구</FriendTitle>
           <FriendList>{/* <ProfileIconMd user={user} /> */}</FriendList>
-        </ModalMain>
-        <Footer>
-          <Button width="50%" onClick={() => onClickModify()}>
-            프로필 변경
-          </Button>
-          <Button
-            onClick={() => setIsModal(false)}
-            width="50%"
-            color="white"
-            backgroundColor="var(--color-mint)"
-          >
-            확인
-          </Button>
-        </Footer>
-      </ModalLeyou>
+        </ModalBody>
+        <ModalFooterTwo
+          leftText="프로필 변경"
+          rightText="확인"
+          onClickLeft={() => onClickModify()}
+          onClickRight={() => setIsModal(false)}
+          isFull={true}
+        />
+      </ModalLayout>
     </>
   );
 }
