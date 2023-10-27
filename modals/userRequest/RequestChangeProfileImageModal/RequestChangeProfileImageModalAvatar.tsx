@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import ImageSlider from "../../../components/dataViews/chart/imageSlider/ImageSlider";
 import {
   ModalBody,
   ModalFooterOne,
@@ -116,9 +117,11 @@ function RequestChangeProfileImageModalAvatar({
           </ArrowIcon>
         </UpPart>
         <DownPart>
-          {AVATAR_COLOR.map((color, idx) => (
-            <Color key={idx} bg={color} onClick={() => setBG(idx)} />
-          ))}
+          <ImageSlider
+            type="avatarColor"
+            imageContainer={AVATAR_COLOR}
+            onClick={(idx) => setBG(idx)}
+          />
         </DownPart>
       </ModalBody>
       <ModalFooterOne text="변경" onClick={onSubmit} isFull={true} />
@@ -132,7 +135,6 @@ const UpPart = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  border-bottom: var(--border-main-light);
 `;
 
 const IconWrapper = styled(motion.div)`
@@ -152,17 +154,12 @@ const ArrowIcon = styled.div<{ isLeft: boolean }>`
 `;
 
 const DownPart = styled.div`
-  flex: 0.4;
+  flex: 0.3;
   display: flex;
   align-items: center;
-  overflow-x: scroll;
-  ::-webkit-scrollbar {
-    height: 4px;
-    background-color: var(--font-h6);
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--font-h4);
-  }
+  border-top: var(--border-main-light);
+  border-bottom: var(--border-main-light);
+  margin-bottom: var(--margin-min);
 `;
 
 const Icon = styled.div<{ bg: string }>`
@@ -178,14 +175,6 @@ const Icon = styled.div<{ bg: string }>`
 
 const IconPoint = styled.div`
   color: var(--color-mint);
-`;
-
-const Color = styled.div<{ bg: string }>`
-  min-width: 40px;
-  min-height: 40px;
-  border-radius: 50%;
-  margin-right: var(--margin-sub);
-  background-color: ${(props) => props.bg};
 `;
 
 const variants = {

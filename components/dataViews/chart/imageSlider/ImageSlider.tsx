@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination"; // for the pagination dots
 import { IGather } from "../../../../types/page/gather";
 import { IUser } from "../../../../types/user/user";
+import ImageSliderAvatarColor from "./imageSliderType/ImageSliderAvatarColor";
 import ImageSliderGatherReviewNav from "./imageSliderType/ImageSliderGatherReviewNav";
 import ImageSliderMember from "./imageSliderType/ImageSliderMember";
 import ImageSliderPoint from "./imageSliderType/ImageSliderPoint";
@@ -26,9 +27,10 @@ export interface IImageSliderItem {
 interface IImageSlider {
   type: string;
   imageContainer: ImageContainer;
+  onClick?: (idx?: number) => void;
 }
 
-function ImageSlider({ type, imageContainer }: IImageSlider) {
+function ImageSlider({ type, imageContainer, onClick }: IImageSlider) {
   return (
     <>
       {imageContainer && (
@@ -41,6 +43,11 @@ function ImageSlider({ type, imageContainer }: IImageSlider) {
             <ImageSliderGatherReviewNav imageContainer={imageContainer} />
           ) : type === "member" ? (
             <ImageSliderMember imageContainer={imageContainer} />
+          ) : type === "avatarColor" ? (
+            <ImageSliderAvatarColor
+              imageContainer={imageContainer}
+              onClick={onClick}
+            />
           ) : null}
         </Layout>
       )}

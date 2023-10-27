@@ -18,15 +18,6 @@ export const ModalHeaderLine = styled.header`
   padding-bottom: var(--padding-sub);
 `;
 
-export const ModalMain = styled.main`
-  margin: var(--margin-main) 0;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  color: var(--font-h2);
-  font-size: 13px;
-`;
-
 interface IModalSubTitle {
   isLight?: boolean;
 }

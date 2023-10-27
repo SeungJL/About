@@ -10,7 +10,6 @@ export const AVATAR_COLOR = [
   "#9E7CFF",
   "#E5BEE7",
   "#FAD2E1",
-  "#FFF8E1",
 ];
 
 export const AVATAR_COST = [
