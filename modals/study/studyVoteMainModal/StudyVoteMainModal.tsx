@@ -62,7 +62,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
   const placeCnt = participations?.length;
-  const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "xl" : "md";
+  const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "lg" : "md";
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
 

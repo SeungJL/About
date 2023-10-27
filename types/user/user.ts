@@ -5,14 +5,13 @@ import { Location } from "../system";
 /** user */
 export interface IUser extends IUser2, Document {}
 
-export interface IUser2 {
-  uid: string;
+export interface IUser2 extends IUserIdentity {
   registerDate: string;
   isActive: boolean;
   birth: string;
   mbti: string;
   gender: Gender;
-  name: string;
+
   point: number;
   role: Role;
   score: number;
@@ -26,6 +25,11 @@ export interface IUser2 {
   telephone: string;
   profileImage: string;
   thumbnailImage: string;
+}
+
+export interface IUserIdentity {
+  name: string;
+  uid: string;
 }
 
 export type Gender = "남성" | "여성" | "";

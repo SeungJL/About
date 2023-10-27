@@ -1,17 +1,21 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { ICollectionAlphabet } from "../../../types/user/collections";
 
 interface IuserOverviewPointNav {
-  myPoint: number;
+  alphabets: ICollectionAlphabet;
   myDeposit: number;
 }
 
-function UserOverviewPointNav({ myPoint, myDeposit }: IuserOverviewPointNav) {
+function UserOverviewPointNav({ alphabets, myDeposit }: IuserOverviewPointNav) {
   const router = useRouter();
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
+  const alphabetArr = alphabets?.collects;
 
   const onClick = (type: "point" | "deposit") => {
     if (type === "point") {
@@ -24,10 +28,16 @@ function UserOverviewPointNav({ myPoint, myDeposit }: IuserOverviewPointNav) {
 
   return (
     <Layout>
-      <button onClick={() => onClick("point")}>
-        <span>보유 포인트</span>
-        <span>{myPoint || 0} point</span>
-      </button>
+      <Container>
+        <span>수집 현황</span>
+        <Collection>
+          <AlphabetIcon alphabet="A" isDuotone={!alphabetArr?.includes("A")} />
+          <AlphabetIcon alphabet="B" isDuotone={!alphabetArr?.includes("B")} />
+          <AlphabetIcon alphabet="O" isDuotone={!alphabetArr?.includes("O")} />
+          <AlphabetIcon alphabet="U" isDuotone={!alphabetArr?.includes("U")} />
+          <AlphabetIcon alphabet="T" isDuotone={!alphabetArr?.includes("T")} />
+        </Collection>
+      </Container>
       <button onClick={() => onClick("deposit")}>
         <span>보유 보증금</span>
         <span>{myDeposit || 0} 원</span>
@@ -35,6 +45,30 @@ function UserOverviewPointNav({ myPoint, myDeposit }: IuserOverviewPointNav) {
     </Layout>
   );
 }
+
+const Collection = styled.div`
+  display: flex;
+  font-size: 8px;
+  align-items: center;
+  > * {
+    margin-right: 3px;
+  }
+`;
+
+const Container = styled.div`
+  color: var(--font-h3);
+  width: 49%;
+  border: var(--border-main);
+  border-radius: var(--border-radius-sub);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 12px;
+  > span:last-child {
+    font-weight: 600;
+    color: var(--font-h1);
+  }
+`;
 
 const Layout = styled.div`
   display: flex;

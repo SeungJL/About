@@ -10,11 +10,13 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { ALPHABET_COLLECTION } from "../../constants/contentsValue/collection";
 import {
   POINT_SYSTEM_Deposit,
   POINT_SYSTEM_PLUS,
 } from "../../constants/contentsValue/pointSystem";
 import { now } from "../../helpers/dateHelpers";
+import { useCollectionAlphabetMutation } from "../../hooks/collection/mutations";
 import {
   useCompleteToast,
   useErrorToast,
@@ -31,7 +33,9 @@ import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { Textarea } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import { Alphabet } from "../../types/user/collections";
 import { IUser } from "../../types/user/user";
+import AlphabetModal from "../common/AlphabetModal";
 
 const LOCATE_GAP = 0.00008;
 
@@ -44,6 +48,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
+  const [alphabetType, setAlphabetType] = useState<Alphabet>(null);
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
   const voteDate = useRecoilValue(voteDateState);
@@ -51,6 +56,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const { data: location } = useUserLocationQuery();
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
+  const { mutate: getAlphabet } = useCollectionAlphabetMutation();
 
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
@@ -59,6 +65,13 @@ function StudyCheckModal({ setIsModal }: IModal) {
     now().startOf("day"),
     {
       onSuccess() {
+        const randomValue = Math.random();
+        if (randomValue <= 0.2) {
+          const randomIdx = Math.floor(Math.random() * 5);
+          const alphabet = ALPHABET_COLLECTION[randomIdx];
+          getAlphabet(alphabet);
+          setAlphabetType(alphabet);
+        }
         completeToast("free", "출석 완료 !");
         if (isChecking && voteDate > dayjs().subtract(1, "day"))
           getAboutPoint(POINT_SYSTEM_PLUS.STUDY_ATTEND);
@@ -131,6 +144,12 @@ function StudyCheckModal({ setIsModal }: IModal) {
           <div />
           <span>{session?.user.name}님의 현재 위치를 확인중입니다</span>
         </Loading>
+      )}
+      {alphabetType && (
+        <AlphabetModal
+          setIsModal={() => setAlphabetType(null)}
+          alphabet={alphabetType}
+        />
       )}
     </>
   );

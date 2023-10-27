@@ -4,19 +4,23 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isGuestState } from "../../../recoil/userAtoms";
+import { ICollectionAlphabet } from "../../../types/user/collections";
+import { IUser } from "../../../types/user/user";
 import UserOverviewBadge from "./UserOverviewBadge";
 import UserOverviewComment from "./UserOverviewComment";
 import UserOverviewPointNav from "./UserOverviewPointNav";
 
-export default function UserOverview() {
+interface IUserOverview {
+  userInfo: IUser;
+  alphabets: ICollectionAlphabet;
+}
+
+export default function UserOverview({ userInfo, alphabets }: IUserOverview) {
   const isGuest = useRecoilValue(isGuestState);
 
   const [isProfileModal, setIsProfileModal] = useState(false);
-
-  const { data: userInfo } = useUserInfoQuery();
 
   return (
     <>
@@ -36,7 +40,7 @@ export default function UserOverview() {
         </UserInfo>
       </Layout>
       <UserOverviewPointNav
-        myPoint={userInfo?.point}
+        alphabets={alphabets}
         myDeposit={userInfo?.deposit}
       />
       {isProfileModal && (
