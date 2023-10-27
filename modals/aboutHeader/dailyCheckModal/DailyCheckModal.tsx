@@ -28,6 +28,8 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../../hooks/CustomToast";
+import { useDailyCheckMutation } from "../../../hooks/dailyCheck/mutation";
+import { useDailyCheckAllQuery } from "../../../hooks/dailyCheck/queries";
 import { useUserRequestMutation } from "../../../hooks/user/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
@@ -58,22 +60,28 @@ function DailyCheckModal({ setIsModal }: IModal) {
 
   const setAttendCheckWinGift = useSetRecoilState(attendCheckWinGiftState);
 
+  const { data: dailyCheckAll } = useDailyCheckAllQuery();
+
+  const { mutate: attendDailyCheck } = useDailyCheckMutation();
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: sendRequest } = useUserRequestMutation({
     onError: errorToast,
   });
-
   const onClickCheck = () => {
     if (isGuest) {
       failToast("guest");
       return;
     }
-    localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
+    if (dailyCheckAll?.find((item) => item.uid === session?.uid)) {
+      localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
+      failToast("free", "오늘 출석체크는 이미 완료됐어요!");
+      setIsModal(false);
+      return;
+    }
+    attendDailyCheck();
     getAboutPoint({ value: 3, message: "출석체크" });
-
     const randomNum = Math.round(Math.random() * 10000);
     const gift = percentItemArr[randomNum];
-
     if (gift !== null) {
       setAttendCheckWinGift(gift);
       const data: IUserRequest = {

@@ -8,6 +8,7 @@ export const LIKE_HEART = "LikeHeart";
 export const LIKE_HEART_CNT = "likeHeartCnt";
 
 // 팝업
+export const GATHER_INTRO_MODAL = "gatherIntro";
 export const USER_GUIDE_POP_UP = "userGuidePopUp";
 export const SUGGEST_POP_UP = "suggestPopUp";
 export const STUDY_SPACE_POP_UP = "studySpacePopUp";

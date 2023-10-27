@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import { GATHER_INTRO_MODAL } from "../../../constants/keys/localStorage";
+import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import { useGatherAllQuery } from "../../../hooks/gather/queries";
+import GatherIntroModal from "../../../modals/gather/GatherIntroModal";
 import GatherBadge from "../../../pagesComponents/gather/detail/GatherBadge";
 import GatherBottomNav from "../../../pagesComponents/gather/detail/GatherBottomNav";
 import GatherComments from "../../../pagesComponents/gather/detail/GatherComment";
@@ -25,6 +28,7 @@ function GatherDetail() {
   const [gatherData, setGatherData] = useRecoilState(transferGatherDataState);
 
   const [isRefetch, setIsRefetch] = useState(false);
+ 
 
   const { refetch } = useGatherAllQuery({
     onSuccess(data) {
@@ -41,7 +45,9 @@ function GatherDetail() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gatherData, isRefetch]);
-  console.log(gatherData);
+
+ 
+
   return (
     <>
       {gatherData ? (
@@ -73,6 +79,7 @@ function GatherDetail() {
       ) : (
         <MainLoading />
       )}
+    
     </>
   );
 }
