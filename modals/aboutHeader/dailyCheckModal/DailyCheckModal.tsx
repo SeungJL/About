@@ -73,12 +73,12 @@ function DailyCheckModal({ setIsModal }: IModal) {
       failToast("guest");
       return;
     }
+    localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
     if (dailyCheckAll?.find((item) => item.uid === session?.uid)) {
       failToast("free", "오늘 출석체크는 이미 완료됐어요!");
       setIsModal(false);
       return;
     }
-    localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
     attendDailyCheck();
     getAboutPoint(POINT_SYSTEM_PLUS.DAILY_ATTEND);
     const randomNum = Math.round(Math.random() * 10000);
