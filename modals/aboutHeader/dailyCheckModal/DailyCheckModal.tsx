@@ -21,6 +21,7 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { DAILY_CHECK_WIN_ITEM } from "../../../constants/contentsValue/dailyCheck";
+import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import {
@@ -79,7 +80,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
     }
     localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
     attendDailyCheck();
-    getAboutPoint({ value: 3, message: "출석체크" });
+    getAboutPoint(POINT_SYSTEM_PLUS.DAILY_ATTEND);
     const randomNum = Math.round(Math.random() * 10000);
     const gift = percentItemArr[randomNum];
     if (gift !== null) {
