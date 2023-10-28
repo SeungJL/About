@@ -73,11 +73,11 @@ function DailyCheckModal({ setIsModal }: IModal) {
       return;
     }
     if (dailyCheckAll?.find((item) => item.uid === session?.uid)) {
-      localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
       failToast("free", "오늘 출석체크는 이미 완료됐어요!");
       setIsModal(false);
       return;
     }
+    localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
     attendDailyCheck();
     getAboutPoint({ value: 3, message: "출석체크" });
     const randomNum = Math.round(Math.random() * 10000);

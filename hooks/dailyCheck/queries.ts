@@ -8,8 +8,10 @@ export const useDailyCheckAllQuery = (options?: QueryOptions<IDailyCheck[]>) =>
   useQuery<IDailyCheck[], AxiosError, IDailyCheck[]>(
     "dailyCheck",
     async () => {
-      const res = await axios.get<IDailyCheck[]>(`${SERVER_URI}/dailyCheck/all`);
+      const res = await axios.get<IDailyCheck[]>(
+        `${SERVER_URI}/dailyCheck/all`
+      );
       return res.data;
     },
-    options
+    { ...options, staleTime: 0, cacheTime: 0 }
   );
