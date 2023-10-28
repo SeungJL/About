@@ -3,7 +3,7 @@ export const POINT_SYSTEM_PLUS = {
   STUDY_PRIVATE_ATTEND: { value: 2, message: "개인 스터디 인증" },
   STUDY_VOTE: { value: 5, message: "스터디 투표" },
   STUDY_INVITE: { value: 2, message: "친구 초대 보너스" },
-  DAILY_ATTEND: { value: 5, message: "일일 출석" },
+  DAILY_ATTEND: { value: 3, message: "일일 출석" },
   STUDY_VOTE_DAILY: { value: 2, message: "당일 참여" },
   PROMOTION: { value: 100, message: "홍보 리워드" },
   suggest: { value: 3, message: "건의사항" },
