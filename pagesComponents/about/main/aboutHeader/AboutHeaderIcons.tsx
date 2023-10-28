@@ -42,7 +42,7 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
 
   const isAttendCheck =
     localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
-
+  console.log(isAttendCheck);
   return (
     <Layout>
       {!isAttendCheck && (

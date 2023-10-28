@@ -13,11 +13,11 @@ interface IAboutHeaderModals {
 }
 
 function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
-  const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState<boolean>();
 
   useEffect(() => {
     if (iconType) setIsModal(true);
-    if (!isModal) setIconType(null);
+    if (isModal === false) setIconType(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [iconType, isModal]);
 
