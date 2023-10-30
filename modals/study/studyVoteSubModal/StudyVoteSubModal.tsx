@@ -25,6 +25,8 @@ import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
 
+import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
 import { IStudyParticipate } from "../../../types/study/study";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
 import StudyVoteSubModalPrivate from "./StudyVoteSubModalPrivate";
@@ -55,6 +57,7 @@ function StudyVoteSubModal({
   const [isFirst, setIsFirst] = useState(true);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
+  const resetQueryData = useResetQueryData();
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: getInviteAboutPoint } = useAdminAboutPointMutation(
     inviteUid as string
@@ -62,6 +65,7 @@ function StudyVoteSubModal({
 
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
+      resetQueryData(STUDY_VOTE_INFO);
       if (studyDateStatus === "today" && !isPrivate) {
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
       }
@@ -75,7 +79,6 @@ function StudyVoteSubModal({
           message: `${session?.user.name}님의 스터디 참여 보너스`,
         });
       }
-      setIsRefetchStudySpace(true);
       completeToast("studyVote");
     },
     onError: errorToast,

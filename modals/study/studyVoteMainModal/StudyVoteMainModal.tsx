@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PlaceSelector from "../../../components/features/picker/PlaceSelector";
 import {
@@ -10,7 +10,9 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
+import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
@@ -21,7 +23,6 @@ import {
   useStudyParticipateMutation,
 } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
-import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
   participationsState,
@@ -51,8 +52,8 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const setUpdateStudy = useSetRecoilState(isRefetchStudyState);
 
+  const resetQueryData = useResetQueryData();
   const [page, setPage] = useState(0);
   const [places, setPlaces] = useState<IStudyVotePlaces[]>();
   const [votePlaces, setVotePlaces] = useState<IStudyPlaces>({
@@ -70,7 +71,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     onSuccess: () => {
       getPoint();
       completeToast("studyVote");
-      setUpdateStudy(true);
+      resetQueryData(STUDY_VOTE_INFO);
     },
     onError: errorToast,
   });

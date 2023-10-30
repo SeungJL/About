@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
 import TimeSelector from "../../components/features/picker/TimeSelector";
 import {
   ModalBody,
@@ -9,6 +8,8 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { STUDY_VOTE_INFO } from "../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../hooks/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
@@ -18,7 +19,6 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipateMutation,
 } from "../../hooks/study/mutations";
-import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IStudyParticipate } from "../../types/study/study";
 import { IPlace } from "../../types/study/studyDetail";
@@ -30,14 +30,14 @@ interface IStudyFreeOpenModal extends IModal {
 
 function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
   const router = useRouter();
+
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
   const errorToast = useErrorToast();
+  const resetQueryData = useResetQueryData();
 
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
-
-  const setIsRefetch = useSetRecoilState(isRefetchStudySpaceState);
 
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hours: 14, minutes: 0 },
@@ -50,7 +50,7 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
   });
   const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
     onSuccess: () => {
-      setIsRefetch(true);
+      resetQueryData(STUDY_VOTE_INFO);
       setIsModal(false);
       completeToast("free", "스터디가 Free로 오픈되었습니다.");
     },
