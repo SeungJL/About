@@ -95,7 +95,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
     setIsModal(false);
     completeToast("free", "출석체크 완료 !");
   };
-  console.log(4);
+
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader text="매일매일 출석체크 !" />

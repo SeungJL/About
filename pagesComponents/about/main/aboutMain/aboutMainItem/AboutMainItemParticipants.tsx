@@ -36,7 +36,7 @@ function AboutMainItemParticipants({
         ? "FULL"
         : null
       : null;
-  console.log(attendances);
+
   const firstAttendance = attendances.filter((att) => att.firstChoice);
 
   const filteredAttendances =

@@ -31,7 +31,7 @@ function StoreGiftWinModal({
     winCnt,
     applicants.giftId
   );
-  console.log(4, winners);
+
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader text="당첨자 발표" />

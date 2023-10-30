@@ -92,7 +92,7 @@ function WritingCondition() {
     setGatherContent(gatherData);
     setIsConfirmModal(true);
   };
-  console.log(condition.manager);
+
 
   useEffect(() => {
     if (!password) setPassword(randomPassword());

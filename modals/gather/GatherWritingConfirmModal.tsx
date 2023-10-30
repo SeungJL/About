@@ -47,10 +47,10 @@ function GatherWritingConfirmModal({
   });
 
   const onSubmit = () => {
-    console.log(gatherData);
+   
     mutate(gatherData);
   };
-  console.log(gatherData);
+
   return (
     <>
       {gatherData && (

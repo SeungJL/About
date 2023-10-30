@@ -10,11 +10,11 @@ import { useCollectionAlphabetQuery } from "../hooks/collection/queries";
 function Test() {
   const { mutate, data } = useCollectionAlphabetMutation();
   const { data: data2 } = useCollectionAlphabetQuery();
-  console.log(data2);
+
   const onClick = () => {
     mutate("T");
   };
-  console.log(data);
+ 
   return (
     <ModalLayout size="xl" onClose={() => {}}>
       <Layout>

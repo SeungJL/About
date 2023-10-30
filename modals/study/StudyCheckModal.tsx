@@ -61,7 +61,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
-  console.log(alphabetType);
 
   const { mutate: handleArrived } = useStudyArrivedMutation(
     now().startOf("day"),
