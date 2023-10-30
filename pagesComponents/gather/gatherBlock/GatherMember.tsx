@@ -25,6 +25,7 @@ function GatherMember({
   isAdminOpen,
 }: IGatherMember) {
   const isABOUT = organizer.uid === ABOUT_UID || isAdminOpen;
+  const participantCnt = participants.length;
   return (
     <Layout>
       <Writer isABOUT={isABOUT}>
@@ -37,7 +38,7 @@ function GatherMember({
       </Writer>
       <Voter>
         <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
-        <span>{participants.length + 1} /</span>
+        <span>{isAdminOpen ? participantCnt : participantCnt + 1} /</span>
         {memberCnt.max ? (
           <span>{memberCnt.max}</span>
         ) : (

@@ -71,7 +71,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
               <span>{organizer?.comment}</span>
             </UserOverview>
           </MemberItem>
-        ) : (
+        ) : data.participants.length ? null : (
           <Empty>
             <span>참여자를 모집중입니다.</span>
           </Empty>

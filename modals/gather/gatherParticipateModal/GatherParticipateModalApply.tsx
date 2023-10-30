@@ -23,6 +23,7 @@ function GatherParticipateModalApply({
 
   const onApply = () => {
     const myOld = birthToAge(userInfo.birth);
+    const participantsCnt = gatherData.participants.length;
 
     const places = gatherData.place.split("/");
 
@@ -39,10 +40,10 @@ function GatherParticipateModalApply({
       return;
     }
 
-    if (
-      gatherData.memberCnt.max !== 0 &&
-      gatherData.memberCnt.max <= gatherData.participants.length + 1
-    ) {
+    const maxCnt = gatherData.isAdminOpen
+      ? participantsCnt
+      : participantsCnt + 1;
+    if (gatherData.memberCnt.max !== 0 && gatherData.memberCnt.max <= maxCnt) {
       failToast("free", "모집 인원이 마감되었습니다.");
       return;
     }
