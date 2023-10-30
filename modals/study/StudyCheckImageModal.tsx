@@ -12,6 +12,8 @@ import {
 } from "../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { now } from "../../helpers/dateHelpers";
+import { getRandomAlphabet } from "../../helpers/eventHelpers";
+import { useCollectionAlphabetMutation } from "../../hooks/collection/mutations";
 import {
   useCompleteToast,
   useErrorToast,
@@ -20,6 +22,7 @@ import {
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../hooks/user/pointSystem/mutation";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
+import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -29,13 +32,19 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
-
+  const { mutate: getAlphabet } = useCollectionAlphabetMutation();
   const { mutate: handleArrived } = useStudyArrivedMutation(
     now().startOf("day"),
     {
       onSuccess() {
+        const alphabet = getRandomAlphabet(20);
+        if (alphabet) {
+          getAlphabet(alphabet);
+          setTransferAlphabetState(alphabet);
+        }
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_PRIVATE_ATTEND);
         completeToast("free", "출석 완료 !");
         setIsRefetchStudySpace(true);

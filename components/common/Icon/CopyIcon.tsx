@@ -1,11 +1,10 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useClipboard } from "@chakra-ui/react";
 import { faCopy } from "@fortawesome/pro-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ClipboardJS from "clipboard";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
+import { useCompleteToast } from "../../../hooks/CustomToast";
 
 interface ICopyBtn {
   size?: string;
@@ -14,36 +13,20 @@ interface ICopyBtn {
 
 export const CopyBtn = ({ size, text }: ICopyBtn) => {
   const completeToast = useCompleteToast();
-  const failToast = useFailToast();
 
-  const btnRef = useRef(null);
+  const { onCopy, value, hasCopied } = useClipboard(text);
 
   if (!size) size = "sm";
 
   useEffect(() => {
-    console.log(55, btnRef);
-    if (!btnRef.current) return;
-    console.log(3, text);
-    const clipboard = new ClipboardJS(btnRef.current, {
-      text: () => text,
-    });
-
-    clipboard.on("success", () => {
-      completeToast("free", "복사 완료");
-    });
-    clipboard.on("error", () => {
-      failToast("free", "복사 실패");
-    });
-    return () => {
-      clipboard.destroy();
-    };
+    if (hasCopied) completeToast("free", "복사 완료");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text]);
+  }, [hasCopied]);
 
   if (size === "lg")
     return (
-      <LayoutLg ref={btnRef}>
-        <Button width="100%">본문 내용 복사하기</Button>{" "}
+      <LayoutLg onClick={onCopy}>
+        <Button width="100%">본문 내용 복사하기</Button>
       </LayoutLg>
     );
 
@@ -53,14 +36,14 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
         leftIcon={<FontAwesomeIcon icon={faCopy} />}
         size="xs"
         colorScheme="twitter"
-        ref={btnRef}
+        onClick={onCopy}
       >
         <span>복사하기</span>
       </Button>
     );
 
   return (
-    <button ref={btnRef}>
+    <button onClick={onCopy}>
       <FontAwesomeIcon icon={faCopy} color="var(--font-h1)" />
     </button>
   );

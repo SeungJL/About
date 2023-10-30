@@ -10,3 +10,8 @@ export const attendCheckWinGiftState = atom<IattendCheckPresent>({
   key: "attendCheckWinGift",
   default: null,
 });
+
+export const modalRenderTriggerState = atom({
+  key: "modalRenderTriggerState",
+  default: false,
+});

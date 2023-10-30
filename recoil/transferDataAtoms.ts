@@ -4,6 +4,7 @@ import { IGather } from "../types/page/gather";
 import { MemberGroup } from "../types/page/member";
 
 import { IParticipation } from "../types/study/studyDetail";
+import { Alphabet } from "../types/user/collections";
 import { IUser } from "../types/user/user";
 
 export const transferUserDataState = atom<IUser>({
@@ -40,5 +41,9 @@ interface ItransferStoreGiftData {
 
 export const transferStoreGiftDataState = atom<ItransferStoreGiftData>({
   key: "transferStoreGiftData",
+  default: null,
+});
+export const transferAlphabetState = atom<Alphabet>({
+  key: "transferAlphabetState",
   default: null,
 });

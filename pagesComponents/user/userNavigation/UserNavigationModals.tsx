@@ -20,13 +20,13 @@ function UserNavigationModals({
   modalOpen,
   setModalOpen,
 }: IUserNavigationModals) {
-  const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState<boolean>();
 
   const { data: location } = useUserLocationQuery();
 
   useEffect(() => {
     if (modalOpen) setIsModal(true);
-    if (!isModal) setModalOpen(null);
+    if (isModal === false) setModalOpen(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalOpen, isModal]);
 

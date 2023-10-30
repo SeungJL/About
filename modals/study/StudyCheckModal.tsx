@@ -10,12 +10,12 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { ALPHABET_COLLECTION } from "../../constants/contentsValue/collection";
 import {
   POINT_SYSTEM_Deposit,
   POINT_SYSTEM_PLUS,
 } from "../../constants/contentsValue/pointSystem";
 import { now } from "../../helpers/dateHelpers";
+import { getRandomAlphabet } from "../../helpers/eventHelpers";
 import { useCollectionAlphabetMutation } from "../../hooks/collection/mutations";
 import {
   useCompleteToast,
@@ -30,12 +30,12 @@ import {
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
+import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { Textarea } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { Alphabet } from "../../types/user/collections";
 import { IUser } from "../../types/user/user";
-import AlphabetModal from "../common/AlphabetModal";
 
 const LOCATE_GAP = 0.00008;
 
@@ -51,6 +51,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const [alphabetType, setAlphabetType] = useState<Alphabet>(null);
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
   const voteDate = useRecoilValue(voteDateState);
 
   const { data: location } = useUserLocationQuery();
@@ -60,18 +61,18 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   const { mutate: getDeposit } = useDepositMutation();
   const { data: session } = useSession();
+  console.log(alphabetType);
 
   const { mutate: handleArrived } = useStudyArrivedMutation(
     now().startOf("day"),
     {
       onSuccess() {
-        const randomValue = Math.random();
-        if (randomValue <= 0.2) {
-          const randomIdx = Math.floor(Math.random() * 5);
-          const alphabet = ALPHABET_COLLECTION[randomIdx];
+        const alphabet = getRandomAlphabet(20);
+        if (alphabet) {
           getAlphabet(alphabet);
-          setAlphabetType(alphabet);
+          setTransferAlphabetState(alphabet);
         }
+
         completeToast("free", "출석 완료 !");
         if (isChecking && voteDate > dayjs().subtract(1, "day"))
           getAboutPoint(POINT_SYSTEM_PLUS.STUDY_ATTEND);
@@ -144,12 +145,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
           <div />
           <span>{session?.user.name}님의 현재 위치를 확인중입니다</span>
         </Loading>
-      )}
-      {alphabetType && (
-        <AlphabetModal
-          setIsModal={() => setAlphabetType(null)}
-          alphabet={alphabetType}
-        />
       )}
     </>
   );
