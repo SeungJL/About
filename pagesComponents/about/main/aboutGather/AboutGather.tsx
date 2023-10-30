@@ -57,10 +57,11 @@ function AboutGather() {
           .reverse()
           .map((item, index) => {
             const title = item.title;
-            const participants = [
-              ...item.participants.map((who) => who.user),
-              item.user,
-            ];
+            const participants = item.isAdminOpen ? [] : [item.user];
+            item.participants.forEach((who) => {
+              participants.push(who.user);
+            });
+
             return (
               <SwiperSlide key={index}>
                 <GatherItem onClick={() => onClickItem(item)}>

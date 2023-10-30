@@ -22,7 +22,7 @@ function RequestSecedeModal({ setIsModal }: IModal) {
   const { mutate } = useUserRequestMutation({
     onSuccess() {
       completeToast("free", "탈퇴가 완료되었습니다.");
-      signOut();
+      signOut({ callbackUrl: "/login" });
     },
     onError(err) {
       console.error(err);

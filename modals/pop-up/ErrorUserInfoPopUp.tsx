@@ -22,7 +22,7 @@ function ErrorUserInfoPopUp({ setIsModal }: IModal) {
   });
 
   const logout = () => {
-    signOut();
+    signOut({ callbackUrl: "/login" });
     setIsModal(false);
   };
 
