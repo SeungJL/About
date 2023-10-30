@@ -65,7 +65,7 @@ function WritingCondition() {
 
   const [memberCnt, setMemberCnt] = useState<GatherMemberCnt>({
     min: 4,
-    max: 4,
+    max: 0,
   });
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
   const [age, setAge] = useState(gatherContent?.age || [19, 28]);
@@ -92,7 +92,6 @@ function WritingCondition() {
     setGatherContent(gatherData);
     setIsConfirmModal(true);
   };
-
 
   useEffect(() => {
     if (!password) setPassword(randomPassword());
@@ -211,7 +210,6 @@ function WritingCondition() {
                 preCnt={preCnt}
                 setPreCnt={setPreCnt}
                 password={password}
-                
               />
             )}
             {isManager && (

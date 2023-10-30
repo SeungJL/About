@@ -39,7 +39,7 @@ function WritingGahterLocation() {
   return (
     <PageLayout>
       <ProgressStatus value={80} />
-      <Header title="" url="/gather/writing/content" />
+      <Header title="" url="/gather/writing/date" />
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 장소를 선택해 주세요.</span>

@@ -9,11 +9,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import SuccessScreen from "../../components/pages/SuccessScreen";
-import {
-  useCompleteToast,
-  useErrorToast,
-  useFailToast,
-} from "../../hooks/CustomToast";
+import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentMutation } from "../../hooks/gather/mutations";
 import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -28,10 +24,9 @@ function GatherWritingConfirmModal({
   setIsModal,
   gatherData,
 }: IGatherWritingConfirmModal) {
-  const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
-  const failToast = useFailToast();
 
+  console.log(gatherData);
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
   const setGatherContent = useSetRecoilState(sharedGatherWritingState);
@@ -47,7 +42,6 @@ function GatherWritingConfirmModal({
   });
 
   const onSubmit = () => {
-   
     mutate(gatherData);
   };
 
