@@ -13,10 +13,10 @@ function GatherIntroModal({ setIsModal }: IModal) {
       <ModalHeader text="11월, 모임 활성화 안내" />
       <ModalBody>
         <Ol>
-          <li>매주 토요일마다 주모임이 개설됩니다.</li>
+          <li>매주 금,토,일 중에 주모임이 개설됩니다.</li>
           <Ul>
             <li>수요일까지 신청을 받고 인원이 되는 경우 오픈</li>
-            <li>격주 토요일은 20대 초반 모임으로 진행</li>
+            <li>격주에 한번 정도는 20대 초반 모임으로 진행</li>
           </Ul>
           <li>두달에 한번 정기모임이 진행됩니다.</li>
           <Ul>
