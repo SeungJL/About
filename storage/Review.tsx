@@ -322,4 +322,30 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "재밌었던 한글날 번개! 1차로 갔던 술집이 음식이 진짜 맛있었어요 ㅜㅜ 음식이 맛있으니까 술도 잘 들어가고 말도 잘 나오고 아무튼 다 재밌는거임. 이번에는 수원/안양 같이 열었던 거라 초면인 사람들이 더 많았는데도 너무 잘 놀았습니당. 다들 몇시까지 마신건지 모르겠지만 잘 들어가셨죠? 다음에 또 봐요!",
     title: "한글날 술 번개",
   },
+  {
+    id: 84,
+    dateCreated: "10월 28일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.28/KakaoTalk_20231031_173829100_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.28/KakaoTalk_20231031_173829100_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.28/KakaoTalk_20231031_173829100.jpg",
+    ],
+    text: "",
+    title: "광교 술 번개",
+    writer: "김지훈",
+  },
+  {
+    id: 87,
+    dateCreated: "10월 29일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/10.29+%EA%B0%95%EB%82%A8+%EB%B2%88%EA%B0%9C/KakaoTalk_20231031_174933331.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/10.29+%EA%B0%95%EB%82%A8+%EB%B2%88%EA%B0%9C/KakaoTalk_20231031_173628666_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/%EC%88%98%EC%9B%90+10.28/KakaoTalk_20231031_173829100_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/10.29+%EA%B0%95%EB%82%A8+%EB%B2%88%EA%B0%9C/KakaoTalk_20231031_173628666_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/10.29+%EA%B0%95%EB%82%A8+%EB%B2%88%EA%B0%9C/KakaoTalk_20231031_173628666_04.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/10.29+%EA%B0%95%EB%82%A8+%EB%B2%88%EA%B0%9C/KakaoTalk_20231031_173628666_05.jpg",
+    ],
+    text: "강남에서 모인 술 번개! 이번에는 정말 초면인 사람이 많았는데도, 어색한 순간 없이 재밌는 모임이었어요! 놀다보니 막차를 놓친 사람들도, 겁나 뛰어서 막차를 겨우 탄 사람들도 있었는데 아쉬운 마음에 바로 다음 번개를 또 열었네요 ㅎㅎ",
+    title: "시험 끝난 기념 강남 술 번개!",
+  },
 ];

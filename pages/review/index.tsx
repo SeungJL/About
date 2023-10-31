@@ -10,6 +10,7 @@ import ImageSlider from "../../components/dataViews/chart/imageSlider/ImageSlide
 import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
 import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
+import { DEFAULT_IMAGE_URL } from "../../constants/image/imageUrl";
 import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
 import { useErrorToast } from "../../hooks/CustomToast";
@@ -89,6 +90,10 @@ function Review() {
       profileImage:
         "https://p.kakaocdn.net/th/talkp/woeoxF3Sok/CwC8U0RXEY4zM2nnOl7MN0/wxwkco_640x640_s.jpg",
       avatar: null,
+    },
+    김지훈: {
+      name: "김지훈",
+      profileImage: DEFAULT_IMAGE_URL,
     },
   };
 
