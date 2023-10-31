@@ -22,14 +22,16 @@ function GatherWritingConditionCnt({
   useEffect(() => {
     if (isMin) setMemberCnt((old) => ({ ...old, min: number }));
     else setMemberCnt((old) => ({ ...old, max: number }));
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [number]);
 
   const toggleSwitch = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
-    if (!isChecked) setMemberCnt((old) => ({ ...old, max: 4 }));
-    else setMemberCnt((old) => ({ ...old, max: 0 }));
+
+    if (!isChecked) {
+      setMemberCnt((old) => ({ ...old, max: 4 }));
+      setNumber(4);
+    } else setMemberCnt((old) => ({ ...old, max: 0 }));
     setIsMaxLimit(isChecked);
   };
 

@@ -26,7 +26,6 @@ function GatherWritingConfirmModal({
 }: IGatherWritingConfirmModal) {
   const errorToast = useErrorToast();
 
-  console.log(gatherData);
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
   const setGatherContent = useSetRecoilState(sharedGatherWritingState);
@@ -83,15 +82,26 @@ function GatherWritingConfirmModal({
 }
 
 const Container = styled.div`
-  line-height: 1.8;
+  line-height: 2;
   font-size: 13px;
   color: var(--font-h2);
 `;
 
 const Item = styled.div`
+  width: 100%;
+  display: flex;
   > span:first-child {
+    display: inline-block;
+    width: 32px;
     font-weight: 600;
     margin-right: var(--margin-md);
+  }
+  > span:last-child {
+    flex: 1;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 

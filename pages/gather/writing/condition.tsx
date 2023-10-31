@@ -111,7 +111,7 @@ function WritingCondition() {
     <>
       <PageLayout>
         <ProgressStatus value={100} />
-        <Header title="" url="/gather/writing/date" />
+        <Header title="" url="/gather/writing/location" />
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>

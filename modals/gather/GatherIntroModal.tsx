@@ -10,7 +10,7 @@ import { IModal } from "../../types/reactTypes";
 function GatherIntroModal({ setIsModal }: IModal) {
   return (
     <ModalLayout size="lg" onClose={() => setIsModal(false)}>
-      <ModalHeader text="11월, 모임 컨텐츠 활성화 안내" />
+      <ModalHeader text="11월, 모임 활성화 안내" />
       <ModalBody>
         <Ol>
           <li>매주 토요일마다 주모임이 개설됩니다.</li>
