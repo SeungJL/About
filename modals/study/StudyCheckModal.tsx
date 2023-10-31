@@ -34,7 +34,6 @@ import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { Textarea } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { Alphabet } from "../../types/user/collections";
 import { IUser } from "../../types/user/user";
 
 const LOCATE_GAP = 0.00008;
@@ -48,7 +47,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
 
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
-  const [alphabetType, setAlphabetType] = useState<Alphabet>(null);
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);

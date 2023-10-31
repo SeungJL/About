@@ -32,7 +32,12 @@ function GatherHeader({ gatherData }: IGatherHeader) {
 
   return (
     <>
-      <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>
+      <Header
+        title=""
+        url={prevPageUrl || "/gather"}
+        isPrev={!!prevPageUrl}
+        isNoLine={true}
+      >
         <FontAwesomeIcon
           icon={faArrowUpFromBracket}
           size="lg"

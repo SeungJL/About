@@ -28,7 +28,7 @@ function UserOverviewPointNav({ alphabets, myDeposit }: IuserOverviewPointNav) {
 
   return (
     <Layout>
-      <Container>
+      <Container onClick={() => router.push("/user/collection")}>
         <span>수집 현황</span>
         <Collection>
           <AlphabetIcon alphabet="A" isDuotone={!alphabetArr?.includes("A")} />

@@ -13,7 +13,7 @@ function Notice() {
 
   return (
     <PageLayout>
-      <Header title="알림" />
+      <Header title="알림" isNoLine={true} />
       <Layout>
         <NoticeNav
           isNotice={isNotice}

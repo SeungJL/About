@@ -14,6 +14,7 @@ interface IAlphabetModal extends IModal {
 }
 
 function AlphabetModal({ alphabet, setIsModal }: IAlphabetModal) {
+  if (!alphabet) return;
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeaderCenter text="알파벳을 획득했어요!" />

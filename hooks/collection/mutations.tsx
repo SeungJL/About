@@ -1,14 +1,21 @@
 import axios, { AxiosError } from "axios";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
+import { COLLECTION_ALPHABET } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { MutationOptions } from "../../types/reactTypes";
 
 export const useCollectionAlphabetMutation = (
   options?: MutationOptions<string>
-) =>
-  useMutation<void, AxiosError, string>(async (alphabet) => {
+) => {
+  const queryClient = useQueryClient();
+  return useMutation<void, AxiosError, string>(async (alphabet) => {
     const res = await axios.post(`${SERVER_URI}/collection/alphabet`, {
       alphabet,
     });
-    return res.data;
+    const data = res.data;
+    if (data) {
+      queryClient.invalidateQueries(COLLECTION_ALPHABET);
+    }
+    return data;
   }, options);
+};

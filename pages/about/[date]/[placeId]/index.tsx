@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ALPHABET_COLLECTION } from "../../../../constants/contentsValue/collection";
-import AlphabetModal from "../../../../modals/common/AlphabetModal";
 import StudySpaceVoteOverview from "../../../../pagesComponents/about/studySpace/SpaceSpaceVoteOverview";
 import StudySpaceCover from "../../../../pagesComponents/about/studySpace/StudySpaceCover";
 import StudySpaceHeader from "../../../../pagesComponents/about/studySpace/StudySpaceHeader";
@@ -13,10 +11,7 @@ import StudySpaceSkeleton from "../../../../pagesComponents/about/studySpace/Stu
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
 import StudySpaceUserComments from "../../../../pagesComponents/about/studySpace/studySpaceUserComments/StudySpaceUserComments";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
-import {
-  transferAlphabetState,
-  transferStudySpaceDataState,
-} from "../../../../recoil/transferDataAtoms";
+import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
 import { isGuestState } from "../../../../recoil/userAtoms";
 import { STUDY_SPACE_INFO } from "../../../../storage/study";
 import { IParticipation } from "../../../../types/study/studyDetail";
@@ -26,9 +21,7 @@ const IMAGE_ARRAY_LENGTH = 6;
 function StudySpace() {
   const isGuest = useRecoilValue(isGuestState);
   const transferStudySpaceData = useRecoilValue(transferStudySpaceDataState);
-  const [transferAlphabet, setTransferAlphabet] = useRecoilState(
-    transferAlphabetState
-  );
+
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [participation, setParticipation] = useState<IParticipation>(
@@ -94,12 +87,6 @@ function StudySpace() {
         </>
       ) : (
         <StudySpaceSkeleton coverImageUrl={coverImageUrl} />
-      )}
-      {transferAlphabet && (
-        <AlphabetModal
-          setIsModal={() => setTransferAlphabet(null)}
-          alphabet={transferAlphabet}
-        />
       )}
     </>
   );

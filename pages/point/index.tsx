@@ -35,6 +35,7 @@ function Point() {
 
 const Layout = styled.div`
   margin: 0 var(--margin-main);
+  margin-top: var(--margin-sub);
 `;
 
 const Container = styled.div``;

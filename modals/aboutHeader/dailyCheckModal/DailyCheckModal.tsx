@@ -24,6 +24,8 @@ import { DAILY_CHECK_WIN_ITEM } from "../../../constants/contentsValue/dailyChec
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
+import { getRandomAlphabet } from "../../../helpers/eventHelpers";
+import { useCollectionAlphabetMutation } from "../../../hooks/collection/mutations";
 import {
   useCompleteToast,
   useErrorToast,
@@ -34,6 +36,7 @@ import { useDailyCheckAllQuery } from "../../../hooks/dailyCheck/queries";
 import { useUserRequestMutation } from "../../../hooks/user/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
+import { transferAlphabetState } from "../../../recoil/transferDataAtoms";
 import { IattendCheckPresent } from "../../../types/modal/attendCheck";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
@@ -60,9 +63,10 @@ function DailyCheckModal({ setIsModal }: IModal) {
   });
 
   const setAttendCheckWinGift = useSetRecoilState(attendCheckWinGiftState);
-
+  const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
   const { data: dailyCheckAll } = useDailyCheckAllQuery();
 
+  const { mutate: getAlphabet } = useCollectionAlphabetMutation();
   const { mutate: attendDailyCheck } = useDailyCheckMutation();
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: sendRequest } = useUserRequestMutation({
@@ -84,7 +88,15 @@ function DailyCheckModal({ setIsModal }: IModal) {
     const randomNum = Math.round(Math.random() * 10000);
     const gift = percentItemArr[randomNum];
     if (gift !== null) {
-      setAttendCheckWinGift(gift);
+      if (gift.item === "알파벳") {
+        const alphabet = getRandomAlphabet(20);
+        if (alphabet) {
+          getAlphabet(alphabet);
+          setTransferAlphabetState(alphabet);
+        }
+      } else {
+        setAttendCheckWinGift(gift);
+      }
       const data: IUserRequest = {
         writer: session?.user.name,
         category: "출석",

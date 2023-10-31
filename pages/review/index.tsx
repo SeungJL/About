@@ -216,14 +216,16 @@ function Review() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  margin-top: var(--margin-min);
+`;
 
 const NavWrapper = styled.div`
-  margin: var(--margin-md) var(--margin-sub);
+  padding: var(--padding-md) var(--padding-sub);
 `;
 
 const Main = styled.main`
-  margin-top: var(--margin-max);
+  margin-top: var(--margin-sub);
   display: flex;
   flex-direction: column;
 `;

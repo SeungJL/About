@@ -36,7 +36,7 @@ function MonthNav({ month, setNavMonth }: IMonthNav) {
 const Layout = styled.div`
   display: flex;
   align-items: center;
-  margin-top: var(--margin-md);
+  margin-top: var(--margin-sub);
   font-size: 20px;
   font-weight: 700;
   padding: 0 var(--padding-sub);

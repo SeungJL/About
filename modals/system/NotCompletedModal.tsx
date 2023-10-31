@@ -10,16 +10,12 @@ import { IModal } from "../../types/reactTypes";
 function NotCompletedModal({ setIsModal }: IModal) {
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalLayout onClose={() => setIsModal(false)} size="sm">
         <ModalHeader text="미완성 컨텐츠" />
         <ModalBody>
-          <ModalSubtitle>
-            개발이 완료되지 않은 기능입니다.
-            <br />
-            <span>조금만 더 기다려주세요!</span>
-          </ModalSubtitle>
+          <ModalSubtitle>개발 진행중인 컨텐츠입니다.</ModalSubtitle>
         </ModalBody>
-        <ModalFooterOne text="닫기" onClick={() => setIsModal(false)} />
+        <ModalFooterOne onClick={() => setIsModal(false)} />
       </ModalLayout>
     </>
   );

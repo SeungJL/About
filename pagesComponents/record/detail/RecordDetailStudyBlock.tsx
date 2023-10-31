@@ -1,5 +1,6 @@
 import { faEllipsis } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Fragment } from "react";
 import styled from "styled-components";
 import { LOCATION_TABLE_COLOR } from "../../../constants/location";
 import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
@@ -26,10 +27,8 @@ const RecordDetailStudyBlock = ({
           {arrivedInfoList?.arrivedInfo.length > 0 && (
             <MemberWrapper>
               {arrivedInfoList.arrivedInfo.map((user, idx2) => (
-                <>
-                  {idx2 < 4 && (
-                    <Member key={idx2}>{user.name.slice(-2)}</Member>
-                  )}
+                <Fragment key={idx2}>
+                  {idx2 < 4 && <Member>{user.name.slice(-2)}</Member>}
                   {idx2 === 4 && (
                     <FontAwesomeIcon
                       icon={faEllipsis}
@@ -37,7 +36,7 @@ const RecordDetailStudyBlock = ({
                       color="var(--font-h3)"
                     />
                   )}
-                </>
+                </Fragment>
               ))}
             </MemberWrapper>
           )}

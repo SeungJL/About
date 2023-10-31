@@ -8,8 +8,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useToken } from "../../hooks/token/useToken";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import ErrorUserInfoPopUp from "../../modals/pop-up/ErrorUserInfoPopUp";
-import GuestBottomNav from "../layout/GuestBottomNav";
+import BaseModal from "./BaseModal";
 import Seo from "./Seo";
 
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
@@ -40,7 +39,6 @@ function Layout({ children }: ILayout) {
     enabled: isCondition,
     onSuccess(data) {
       //다른 곳에서 query 호출이 중복되는 경우 방지
-
       if (!isCondition) return;
       if (data === null || !data.registerDate) {
         if (router.query.status === "login") navigateTo(`/register/location`);
@@ -64,8 +62,11 @@ function Layout({ children }: ILayout) {
       {token && (
         <>
           <div id="root-modal">{children}</div>
-          {isGuest && <GuestBottomNav />}
-          {isErrorModal && <ErrorUserInfoPopUp setIsModal={setIsErrorModal} />}
+          <BaseModal
+            isGuest={isGuest}
+            isError={isErrorModal}
+            setIsError={setIsErrorModal}
+          />
         </>
       )}
       <Seo title="ABOUT" />

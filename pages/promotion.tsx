@@ -8,7 +8,7 @@ import PromotionTitle from "../pagesComponents/promotion/PromotionTitle";
 function Promotion() {
   return (
     <>
-      <Header title="홍보 페이지" />
+      <Header title="홍보 페이지" isNoLine={true} />
       <Layout>
         <PromotionTitle />
         <PromotionDetail />

@@ -39,37 +39,33 @@ function Record() {
   }, [arrivedCalendar]);
 
   return (
-    <>
+    <Layout>
       <Header title="스터디 기록" />
       <RecordCalendarSetting
         navMonth={navMonth}
         setArrivedCalendar={setArrivedCalendar}
         setIsRecordLoading={setIsLoading}
       />
-      <Layout>
-        <RecordMonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
-        {!isLoading ? (
-          <>
-            <RecordOverview arrivedCalendar={arrivedCalendar} />
-            <RecordLocationCategory
-              initialData={arrivedCalendar}
-              setFilterData={setFilterData}
-            />
-            {isCalendar ? (
-              <RecordCalendar filterData={filterData} navMonth={navMonth} />
-            ) : (
-              <RecordDetail filterData={filterData} navMonth={navMonth} />
-            )}
-          </>
-        ) : (
-          <RecordSkeleton isCalendar={isCalendar} />
-        )}
-        <RecordNavigation
-          isCalendar={isCalendar}
-          setIsCalendar={setIsCalendar}
-        />
-      </Layout>
-    </>
+
+      <RecordMonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
+      {!isLoading ? (
+        <>
+          <RecordOverview arrivedCalendar={arrivedCalendar} />
+          <RecordLocationCategory
+            initialData={arrivedCalendar}
+            setFilterData={setFilterData}
+          />
+          {isCalendar ? (
+            <RecordCalendar filterData={filterData} navMonth={navMonth} />
+          ) : (
+            <RecordDetail filterData={filterData} navMonth={navMonth} />
+          )}
+        </>
+      ) : (
+        <RecordSkeleton isCalendar={isCalendar} />
+      )}
+      <RecordNavigation isCalendar={isCalendar} setIsCalendar={setIsCalendar} />
+    </Layout>
   );
 }
 

@@ -11,9 +11,10 @@ interface IHeader {
   url?: string | "back";
   isPrev?: boolean;
   children?: React.ReactNode;
+  isNoLine?: boolean;
 }
 
-const Header = ({ title, url, children, isPrev }: IHeader) => {
+const Header = ({ title, url, children, isPrev, isNoLine }: IHeader) => {
   const router = useRouter();
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
@@ -27,7 +28,7 @@ const Header = ({ title, url, children, isPrev }: IHeader) => {
   };
 
   return (
-    <Layout>
+    <Layout isNoLine={isNoLine || title === ""}>
       <IconWrapper onClick={handleClick}>
         <FontAwesomeIcon icon={faChevronLeft} size="lg" />
       </IconWrapper>
@@ -37,13 +38,14 @@ const Header = ({ title, url, children, isPrev }: IHeader) => {
   );
 };
 
-const Layout = styled.div`
+const Layout = styled.div<{ isNoLine: boolean }>`
   height: 46px;
   padding-right: var(--padding-main);
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--font-h1);
+  border-bottom: ${(props) => !props.isNoLine && "var(--border-main-light)"};
 `;
 
 const IconWrapper = styled.div`

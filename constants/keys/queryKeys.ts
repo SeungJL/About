@@ -12,3 +12,5 @@ export const USER_REQUEST = "user_request";
 export const GATHER_CONTENT = "GATHER";
 
 export const STORE_GIFT = "storeGift";
+
+export const COLLECTION_ALPHABET = "collectionAlphabet";

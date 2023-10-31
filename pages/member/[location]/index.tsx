@@ -139,6 +139,7 @@ const MembersContainer = styled.div`
 `;
 
 const Layout = styled.div`
+  margin-top: var(--margin-min);
   > div:first-child {
     margin-top: 0;
   }
