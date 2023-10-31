@@ -1,17 +1,19 @@
-import { faStars } from "@fortawesome/pro-solid-svg-icons";
+import { faChevronRight, faStars } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
-import { PopOverIcon } from "../../components/common/Icon/PopOverIcon2";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import { useCollectionAlphabetQuery } from "../../hooks/collection/queries";
-import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import { isGuestState } from "../../recoil/userAtoms";
+import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
+import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon2";
+import Header from "../../../components/layout/Header";
+import PageLayout from "../../../components/layout/PageLayout";
+import { useCollectionAlphabetQuery } from "../../../hooks/collection/queries";
+import NotCompletedModal from "../../../modals/system/NotCompletedModal";
+import { isGuestState } from "../../../recoil/userAtoms";
 
 function Collection() {
+  const router = useRouter();
   const isGuest = useRecoilValue(isGuestState);
 
   const [isAlphabetModal, setIsAlphabetModal] = useState(false);
@@ -35,9 +37,9 @@ function Collection() {
                 text="일일 출석체크, 스터디 출석체크, 스토어에서 알파벳을 획득할 수 있어요"
               />
             </div>
-            <div>
-              <span>완성 횟수:</span>
-              <span>{collectCnt}회</span>
+            <div onClick={() => router.push("/user/collection/alphabet")}>
+              <span>전체 획득 현황</span>
+              <FontAwesomeIcon icon={faChevronRight} />
             </div>
           </Title>
           <AlphabetContainer>
@@ -104,7 +106,9 @@ const Title = styled.div`
   }
   > div:last-child {
     font-size: 12px;
-    color: var(--font-h3);
+    display: flex;
+    align-items: center;
+    font-weight: 600;
     > span:first-child {
       margin-right: var(--margin-min);
     }

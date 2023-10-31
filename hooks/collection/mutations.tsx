@@ -19,3 +19,17 @@ export const useCollectionAlphabetMutation = (
     return data;
   }, options);
 };
+
+export const useAlphabetCompletedMutation = (
+  options?: MutationOptions<void>
+) => {
+  const queryClient = useQueryClient();
+  return useMutation<void, AxiosError, void>(async () => {
+    const res = await axios.post(`${SERVER_URI}/collection/alphabet/completed`);
+    const data = res.data;
+    if (data) {
+      queryClient.invalidateQueries(COLLECTION_ALPHABET);
+    }
+    return data;
+  }, options);
+};

@@ -18,3 +18,16 @@ export const useCollectionAlphabetQuery = (
     },
     options
   );
+export const useCollectionAlphabetAllQuery = (
+  options?: QueryOptions<ICollectionAlphabet[]>
+) =>
+  useQuery<ICollectionAlphabet[], AxiosError, ICollectionAlphabet[]>(
+    "alphabetAll",
+    async () => {
+      const res = await axios.get<ICollectionAlphabet[]>(
+        `${SERVER_URI}/collection/alphabet/all`
+      );
+      return res.data;
+    },
+    options
+  );

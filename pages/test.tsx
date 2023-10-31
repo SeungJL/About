@@ -4,21 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { ModalLayout } from "../components/modals/Modals";
 import { TABLE_STRONG_COLORS } from "../constants/styles";
-import { useCollectionAlphabetMutation } from "../hooks/collection/mutations";
-import { useCollectionAlphabetQuery } from "../hooks/collection/queries";
 
 function Test() {
-  const { mutate, data } = useCollectionAlphabetMutation();
-  const { data: data2 } = useCollectionAlphabetQuery();
+  // const { mutate, data } = useCollectionAlphabetMutation();
+  // const { data: data2 } = useCollectionAlphabetQuery();
 
-  const onClick = () => {
-    mutate("T");
-  };
- 
+  // const onClick = () => {
+  //   mutate("T");
+  // };
+
+  console.log(4);
   return (
     <ModalLayout size="xl" onClose={() => {}}>
       <Layout>
-        <Button onClick={onClick}>클릭</Button>
+        <Button>클릭</Button>
         <FontAwesomeIcon icon={faA} size="3x" color={TABLE_STRONG_COLORS[0]} />
         <FontAwesomeIcon icon={faB} size="3x" color={TABLE_STRONG_COLORS[1]} />
         <FontAwesomeIcon icon={faO} size="3x" color={TABLE_STRONG_COLORS[3]} />
