@@ -34,7 +34,7 @@ function Collection() {
               <span>알파벳 컬렉션</span>
               <PopOverIcon
                 title="알파벳 컬렉션"
-                text="일일 출석체크, 스터디 출석체크를 통해 알파벳을 획득할 수 있어요."
+                text="일일 출석체크, 스터디 출석체크를 통해 알파벳을 획득할 수 있어요! 개인 스터디, FREE 오픈에서도 획득 가능합니다."
               />
             </div>
             <div onClick={() => router.push("/user/collection/alphabet")}>
