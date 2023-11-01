@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import Header from "../../../components/layout/Header";
@@ -11,13 +11,11 @@ function AdminSuggest() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
   const [suggestData, setSuggestData] = useState<IUserRequest[]>();
 
-  const { isLoading } = useUserRequestQuery({
-    onSuccess(data) {
-      setInitialData(
-        data.filter((item) => item.category === ("건의" || "신고"))
-      );
-    },
-  });
+  const { data, isLoading } = useUserRequestQuery({});
+
+  useEffect(() => {
+    setInitialData(data.filter((item) => item.category === ("건의" || "신고")));
+  }, [data]);
 
   return (
     <>

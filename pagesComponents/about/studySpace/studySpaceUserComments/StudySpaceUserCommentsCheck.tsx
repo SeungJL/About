@@ -46,6 +46,7 @@ const Layout = styled.div`
 `;
 
 const Check = styled.div<{ isCheck: boolean }>`
+  margin-top: var(--margin-min);
   margin-left: auto;
   width: 40px;
   display: flex;
