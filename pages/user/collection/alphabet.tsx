@@ -3,8 +3,9 @@ import { faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
@@ -21,12 +22,21 @@ import {
   useCollectionAlphabetQuery,
 } from "../../../hooks/collection/queries";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 import { isGuestState } from "../../../recoil/userAtoms";
-import { ICollectionAlphabet } from "../../../types/user/collections";
+import { Alphabet, ICollectionAlphabet } from "../../../types/user/collections";
+import { IUser } from "../../../types/user/user";
+
+const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];
 
 function CollectionAlphabet() {
+  const router = useRouter();
   const { data: session } = useSession();
   const isGuest = useRecoilValue(isGuestState);
+
+  const setUserData = useSetRecoilState(transferUserDataState);
+  const setBeforePage = useSetRecoilState(prevPageUrlState);
 
   const { data: alphabets } = useCollectionAlphabetQuery({
     enabled: !isGuest,
@@ -47,11 +57,22 @@ function CollectionAlphabet() {
 
   const [members, setMembers] = useState<ICollectionAlphabet[]>();
   const [isChangeModal, setIsChangeModal] = useState(false);
+  const [hasAlphabetAll, setHasAlphabetAll] = useState(false);
 
   useEffect(() => {
     if (!userAlphabetAll) return;
-    const idx = userAlphabetAll.find((who) => who.user.uid === session?.uid);
-    if (idx) {
+    const findItem = userAlphabetAll.find(
+      (who) => who.user.uid === session?.uid
+    );
+    console.log(findItem);
+    if (
+      ALPHABET_COLLECTION.every((item) => findItem?.collects.includes(item))
+    ) {
+      console.log(12);
+      setHasAlphabetAll(true);
+    }
+
+    if (findItem) {
       userAlphabetAll.sort((a, b) => {
         if (a.user.uid === session?.uid) return -1;
         if (b.user.uid === session?.uid) return 1;
@@ -60,7 +81,13 @@ function CollectionAlphabet() {
     }
     setMembers(userAlphabetAll);
   }, [session?.uid, userAlphabetAll]);
+  console.log(1, hasAlphabetAll);
 
+  const onClickProfile = (user: IUser) => {
+    setUserData(user);
+    setBeforePage(router?.asPath);
+    router.push(`/profile/${user.uid}`);
+  };
   return (
     <>
       <PageLayout>
@@ -82,7 +109,7 @@ function CollectionAlphabet() {
             });
             return (
               <Item key={user.uid}>
-                <ProfileWrapper>
+                <ProfileWrapper onClick={() => onClickProfile(user)}>
                   <ProfileIcon user={user} size="sm" />
                 </ProfileWrapper>
                 <Info>
@@ -150,7 +177,13 @@ function CollectionAlphabet() {
                   </UserAlphabets>
                 </Info>
                 {who.user.uid === session?.uid ? (
-                  <></>
+                  <Button
+                    colorScheme="telegram"
+                    size="xs"
+                    disabled={!hasAlphabetAll}
+                  >
+                    상품 교환
+                  </Button>
                 ) : (
                   <Button
                     size="xs"

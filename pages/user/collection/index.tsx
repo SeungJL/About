@@ -9,7 +9,7 @@ import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon2";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import { useCollectionAlphabetQuery } from "../../../hooks/collection/queries";
-import NotCompletedModal from "../../../modals/system/NotCompletedModal";
+import UserCollectionAlphabetModal from "../../../modals/user/collection/UserCollectionAlphabetModal";
 import { isGuestState } from "../../../recoil/userAtoms";
 
 function Collection() {
@@ -34,7 +34,7 @@ function Collection() {
               <span>알파벳 컬렉션</span>
               <PopOverIcon
                 title="알파벳 컬렉션"
-                text="일일 출석체크, 스터디 출석체크, 스토어에서 알파벳을 획득할 수 있어요"
+                text="일일 출석체크, 스터디 출석체크를 통해 알파벳을 획득할 수 있어요."
               />
             </div>
             <div onClick={() => router.push("/user/collection/alphabet")}>
@@ -80,7 +80,9 @@ function Collection() {
         </Container>
         <HrDiv />
       </PageLayout>
-      {isAlphabetModal && <NotCompletedModal setIsModal={setIsAlphabetModal} />}
+      {isAlphabetModal && (
+        <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />
+      )}
     </>
   );
 }
