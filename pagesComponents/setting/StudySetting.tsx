@@ -64,7 +64,7 @@ function StudySetting() {
       onError: (e) => typeErrorToast(e, "study"),
     }
   );
-
+  console.log(location);
   useEffect(() => {
     if (studyVoteData) {
       const participations = studyVoteData.participations;

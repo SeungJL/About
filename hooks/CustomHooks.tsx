@@ -5,7 +5,7 @@ export const useResetQueryData = () => {
   const queryClient = useQueryClient();
 
   const refetchWithDelay = useCallback(
-    (key: string) => {
+    (key: string | string[]) => {
       const timeoutId = setTimeout(() => {
         queryClient.refetchQueries(key);
       }, 800);

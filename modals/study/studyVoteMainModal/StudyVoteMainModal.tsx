@@ -11,7 +11,7 @@ import {
 } from "../../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/CustomHooks";
 import {
   useCompleteToast,
@@ -29,6 +29,7 @@ import {
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IStudyParticipate, IStudyPlaces } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
@@ -52,6 +53,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   const voteDate = useRecoilValue(voteDateState);
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
+  const location = useRecoilValue(locationState);
 
   const resetQueryData = useResetQueryData();
   const [page, setPage] = useState(0);
@@ -71,7 +73,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     onSuccess: () => {
       getPoint();
       completeToast("studyVote");
-      resetQueryData(STUDY_VOTE_INFO);
+      resetQueryData([STUDY_VOTE_INFO, dayjsToStr(voteDate), location]);
     },
     onError: errorToast,
   });
