@@ -35,7 +35,7 @@ import {
 //장소당 최대 인원
 export const MAX_USER_PER_PLACE = 8;
 //스터디 시간
-export const STUDY_VOTE_START_HOUR = 14;
+export const STUDY_VOTE_START_HOUR = 16;
 export const VOTER_DATE_END = 18;
 export const STUDY_VOTE_END_HOUR = 23;
 

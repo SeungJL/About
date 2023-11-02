@@ -59,8 +59,10 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
         <TimeWrapper>
           <span>종료 시간</span>
           <TimeRullet
+            startTime={selectTime?.start}
             timeArr={endTimeArr}
             setTime={(time) => setSelectTime((old) => ({ ...old, end: time }))}
+            isEndTime={true}
           />
         </TimeWrapper>
       </TimeChoiceLayout>{" "}

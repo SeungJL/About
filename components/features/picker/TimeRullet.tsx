@@ -7,17 +7,45 @@ import { useRouter } from "next/dist/client/router";
 
 const ITEM_HEIGHT = 34;
 interface ITimeRullet {
-  timeArr: { hour: string; minutes: string }[];
+  timeArr: { hour: number; minutes: string }[];
   setTime: (time: Dayjs) => void;
+  startTime?: Dayjs;
+  isEndTime?: boolean;
 }
 
-function TimeRullet({ timeArr, setTime }: ITimeRullet) {
+function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
   const router = useRouter();
   const voteDate = dayjs(router.query.date as string);
 
-  const [index, setIndex] = useState(2);
+  const [index, setIndex] = useState<number>();
+  const [endTimeStartLimit, setEndTimeStartLimit] = useState<number>();
+  const isDragging = useMotionValue(false);
 
   useEffect(() => {
+    if (isEndTime && startTime && !isDragging.get()) {
+      let findIdx = timeArr.findIndex(
+        (item) =>
+          item.hour === startTime.hour() &&
+          (item.minutes === "00"
+            ? startTime.minute() === 0
+            : startTime.minute() === 30)
+      );
+      if (findIdx < 4) findIdx = 0;
+      if (findIdx > 20) findIdx = 16;
+      setIndex(findIdx + 4);
+      setEndTimeStartLimit(findIdx);
+      y.set(-(findIdx + 3) * ITEM_HEIGHT + 30);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTime, isEndTime, timeArr]);
+
+  useEffect(() => {
+    if (index === undefined) {
+      setIndex(4);
+      y.set(-3 * ITEM_HEIGHT + 30);
+      return;
+    }
+
     const selectTime = timeArr[index];
     setTime(
       voteDate?.hour(Number(selectTime.hour)).minute(Number(selectTime.minutes))
@@ -29,11 +57,27 @@ function TimeRullet({ timeArr, setTime }: ITimeRullet) {
 
   const handleDrag = () => {
     const Y = y.get();
-    if (Y < -30) setIndex(3);
-    let Move = Math.floor(-(Y + 30) / ITEM_HEIGHT) + 3;
-    if (Move > 20) Move = 20;
-    if (Move < 0) Move = 0;
-    setIndex(Move);
+
+    let moveValue = -(Y + 30) / ITEM_HEIGHT;
+
+    if (moveValue > 0) Math.ceil(moveValue);
+    else if (moveValue < -500) Math.floor(moveValue);
+    else Math.round(moveValue);
+
+    let move =
+      (moveValue > 0
+        ? Math.ceil(moveValue)
+        : moveValue < -500
+        ? Math.floor(moveValue)
+        : Math.round(moveValue)) + 3;
+
+    if (move < endTimeStartLimit) {
+      y.set(-(endTimeStartLimit - 2) * ITEM_HEIGHT + 30);
+      return;
+    }
+    if (move > 20) move = 20;
+    if (move < 0) move = 0;
+    setIndex(move);
   };
 
   return (
@@ -41,10 +85,12 @@ function TimeRullet({ timeArr, setTime }: ITimeRullet) {
       <TimeLayout
         style={{ y }}
         drag="y"
-        dragConstraints={{ top: -560, bottom: -10 }}
+        dragConstraints={{ top: -560, bottom: 10 }}
         dragElastic={0.2}
-        dragMomentum={true}
+        dragMomentum={false}
         onDrag={() => handleDrag()}
+        onDragStart={() => isDragging.set(true)}
+        onDragEnd={() => isDragging.set(false)}
       >
         {timeArr.map((item, idx) =>
           idx === index ? (
@@ -54,7 +100,10 @@ function TimeRullet({ timeArr, setTime }: ITimeRullet) {
               </BlockIcon>
             </ChoiceBlock>
           ) : (
-            <ChoiceBlock key={idx}>
+            <ChoiceBlock
+              key={idx}
+              isDisabled={isEndTime && idx < endTimeStartLimit}
+            >
               {item.hour} : {item.minutes}
             </ChoiceBlock>
           )
@@ -94,7 +143,7 @@ const BlockIcon = styled.div`
   border-radius: 13px;
 `;
 
-const ChoiceBlock = styled.div`
+const ChoiceBlock = styled.div<{ isDisabled?: boolean }>`
   height: ${ITEM_HEIGHT}px;
   width: 100%;
   display: flex;
@@ -103,6 +152,7 @@ const ChoiceBlock = styled.div`
   font-size: 18px;
   font-weight: 600;
   background-color: var(--font-h8);
+  color: ${(props) => (props.isDisabled ? "var(--font-h4)" : "var(--font-h1)")};
 `;
 
 export default TimeRullet;
