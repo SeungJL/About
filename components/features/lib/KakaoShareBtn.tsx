@@ -28,7 +28,7 @@ function KakaoShareBtn({
   isBig,
 }: IKakaoShareBtn) {
   const random_num = Math.floor(Math.random() * 3);
-
+  console.log(img);
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
