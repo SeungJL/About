@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  ALPHABET_POP_UP,
   ATTEND_POP_UP,
   FAQ_POP_UP,
   MANAGER_POP_UP,
@@ -10,6 +11,7 @@ import {
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
+import AlphabetPopUp from "../../../modals/pop-up/AlphabetPopUp";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import ManagerPopUp from "../../../modals/pop-up/ManagerPopUp";
@@ -27,7 +29,8 @@ export type UserPopUp =
   | "promotion"
   | "userGuide"
   | "faq"
-  | "manager";
+  | "manager"
+  | "alphabet";
 
 function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -37,7 +40,11 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
 
     if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 
-    if (!checkAndSetLocalStorage(FAQ_POP_UP, 7)) {
+    if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 6)) {
+      setPopUpTypes((old) => [...old, "alphabet"]);
+      if (++popUpCnt === 2) return;
+    }
+    if (!checkAndSetLocalStorage(FAQ_POP_UP, 8)) {
       setPopUpTypes((old) => [...old, "faq"]);
       if (++popUpCnt === 2) return;
     }
@@ -95,6 +102,13 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       )}
       {popUpTypes.includes("manager") && (
         <ManagerPopUp setIsModal={() => filterPopUpTypes("manager")} />
+      )}
+      {popUpTypes.includes("alphabet") && (
+        <AlphabetPopUp
+          setIsModal={() => {
+            filterPopUpTypes("alphabet");
+          }}
+        />
       )}
     </>
   );

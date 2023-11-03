@@ -6,6 +6,7 @@ type Content = {
   end: number;
   color: string;
   text: string;
+  blockIdx?: number;
 };
 
 export const EVENT_CONTENT_2023: Record<string, Content[]> = {
@@ -37,6 +38,37 @@ export const EVENT_CONTENT_2023: Record<string, Content[]> = {
       end: 31,
       color: TABLE_COLORS[6],
       text: "진행 예정",
+    },
+  ],
+  11: [
+    {
+      content: "수원/안양 정기모임",
+      start: 17,
+      end: 18,
+      color: TABLE_COLORS[2],
+      text: "정기모임",
+    },
+    {
+      content: "양천/강남",
+      start: 18,
+      end: 18,
+      color: TABLE_COLORS[0],
+      text: "정기모임",
+    },
+    {
+      content: "정기 모임",
+      start: 19,
+      end: 19,
+      color: TABLE_COLORS[0],
+      text: "정기모임",
+      blockIdx: 1,
+    },
+    {
+      content: "11월 홍보 이벤트 당첨자 선별",
+      start: 26,
+      end: 30,
+      color: TABLE_COLORS[3],
+      text: "11월 홍보 이벤트 당첨자 선별",
     },
   ],
 };

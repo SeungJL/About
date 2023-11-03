@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import TimeSelector from "../../../components/features/picker/TimeSelector";
 import {
   ModalBody,
@@ -7,15 +7,17 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
+import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
 } from "../../../hooks/CustomToast";
 import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
-import { isRefetchStudyState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { ITimeStartToEnd } from "../../../types/timeAndDate";
 
@@ -25,17 +27,19 @@ function StudyQuickVoteModal({ setIsModal }: IModal) {
   const errorToast = useErrorToast();
 
   const voteDate = useRecoilValue(voteDateState);
-  const setIsRefetchStudy = useSetRecoilState(isRefetchStudyState);
+  const location = useRecoilValue(locationState);
 
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hours: 14, minutes: 0 },
     end: { hours: 18, minutes: 0 },
   });
 
+  const resetQueryData = useResetQueryData();
+
   const { mutate } = useStudyQuickVoteMutation(voteDate, {
     onSuccess() {
-      setIsRefetchStudy(true);
       completeToast("studyVote");
+      resetQueryData([STUDY_VOTE_INFO, dayjsToStr(voteDate), location]);
     },
     onError: errorToast,
   });

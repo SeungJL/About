@@ -9,7 +9,6 @@ import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
-import { isRefetchStudyState } from "../../recoil/refetchingAtoms";
 import {
   isVotingState,
   myStudyFixedState,
@@ -32,20 +31,14 @@ function StudySetting() {
   const [participations, setParticipations] =
     useRecoilState(participationsState);
   const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
-  const [isRefetch, setIsRefetch] = useRecoilState(isRefetchStudyState);
-
-  useEffect(() => {
-    if (isRefetch) {
-      setTimeout(() => {
-        refetch();
-        setIsRefetch(false);
-      }, 500);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefetch]);
 
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day")
+    dayjs().add(1, "day"),
+    {
+      onSuccess() {
+        refetch();
+      },
+    }
   );
   useEffect(() => {
     const hasStudyDecision =
@@ -56,7 +49,7 @@ function StudySetting() {
   }, [participations, studyDateStatus]);
 
   //스터디 데이터 가져오기
-  const { refetch, data: studyVoteData } = useStudyVoteQuery(
+  const { data: studyVoteData, refetch } = useStudyVoteQuery(
     voteDate,
     location,
     {
@@ -64,7 +57,7 @@ function StudySetting() {
       onError: (e) => typeErrorToast(e, "study"),
     }
   );
-  console.log(location);
+
   useEffect(() => {
     if (studyVoteData) {
       const participations = studyVoteData.participations;

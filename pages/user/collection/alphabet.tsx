@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
+import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
@@ -53,22 +54,21 @@ function CollectionAlphabet() {
     },
   });
 
-  const { data: userAlphabetAll } = useCollectionAlphabetAllQuery();
+  const { data: userAlphabetAll, isLoading } = useCollectionAlphabetAllQuery();
 
   const [members, setMembers] = useState<ICollectionAlphabet[]>();
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [hasAlphabetAll, setHasAlphabetAll] = useState(false);
 
   useEffect(() => {
-    if (!userAlphabetAll) return;
+    if (isLoading) return;
     const findItem = userAlphabetAll.find(
       (who) => who.user.uid === session?.uid
     );
-    console.log(findItem);
+
     if (
       ALPHABET_COLLECTION.every((item) => findItem?.collects.includes(item))
     ) {
-      console.log(12);
       setHasAlphabetAll(true);
     }
 
@@ -80,8 +80,7 @@ function CollectionAlphabet() {
       });
     }
     setMembers(userAlphabetAll);
-  }, [session?.uid, userAlphabetAll]);
-  console.log(1, hasAlphabetAll);
+  }, [isLoading, session?.uid, userAlphabetAll]);
 
   const onClickProfile = (user: IUser) => {
     setUserData(user);
@@ -92,111 +91,117 @@ function CollectionAlphabet() {
     <>
       <PageLayout>
         <Header title="전체 수집 현황" url="/user/collection" />
-        <Members>
-          {members?.map((who) => {
-            const user = who.user;
-            const userBadge = getUserBadge(user.score, user.uid);
-            const alphabets = who.collects;
-            const alphabetsCnt = {
-              A: 0,
-              B: 0,
-              O: 0,
-              U: 0,
-              T: 0,
-            };
-            alphabets.forEach((alphabet) => {
-              alphabetsCnt[alphabet]++;
-            });
-            return (
-              <Item key={user.uid}>
-                <ProfileWrapper onClick={() => onClickProfile(user)}>
-                  <ProfileIcon user={user} size="sm" />
-                </ProfileWrapper>
-                <Info>
-                  <Name>
-                    <span>{user.name}</span>
-                    <Badge
-                      fontSize={10}
-                      colorScheme={BADGE_COLOR[userBadge]}
-                      ml="var(--margin-md)"
-                    >
-                      {userBadge}
-                    </Badge>
-                  </Name>
-                  <UserAlphabets>
-                    <div>
-                      <AlphabetIcon
-                        alphabet="A"
-                        isDuotone={!alphabets?.includes("A")}
-                      />
-                      <FontAwesomeIcon icon={faX} />
-                      <AlphabetCnt hasAlphabet={alphabetsCnt.A !== 0}>
-                        {alphabetsCnt.A}
-                      </AlphabetCnt>
-                    </div>
-                    <div>
-                      <AlphabetIcon
-                        alphabet="B"
-                        isDuotone={!alphabets?.includes("B")}
-                      />{" "}
-                      <FontAwesomeIcon icon={faX} />
-                      <AlphabetCnt hasAlphabet={alphabetsCnt.B !== 0}>
-                        {alphabetsCnt.B}
-                      </AlphabetCnt>
-                    </div>
-                    <div>
-                      <AlphabetIcon
-                        alphabet="O"
-                        isDuotone={!alphabets?.includes("O")}
-                      />{" "}
-                      <FontAwesomeIcon icon={faX} />
-                      <AlphabetCnt hasAlphabet={alphabetsCnt.O !== 0}>
-                        {alphabetsCnt.O}
-                      </AlphabetCnt>
-                    </div>
-                    <div>
-                      <AlphabetIcon
-                        alphabet="U"
-                        isDuotone={!alphabets?.includes("U")}
-                      />{" "}
-                      <FontAwesomeIcon icon={faX} />
-                      <AlphabetCnt hasAlphabet={alphabetsCnt.U !== 0}>
-                        {alphabetsCnt.U}
-                      </AlphabetCnt>
-                    </div>
-                    <div>
-                      <AlphabetIcon
-                        alphabet="T"
-                        isDuotone={!alphabets?.includes("T")}
-                      />{" "}
-                      <FontAwesomeIcon icon={faX} />
-                      <AlphabetCnt hasAlphabet={alphabetsCnt.T !== 0}>
-                        {alphabetsCnt.T}
-                      </AlphabetCnt>
-                    </div>
-                  </UserAlphabets>
-                </Info>
-                {who.user.uid === session?.uid ? (
-                  <Button
-                    colorScheme="telegram"
-                    size="xs"
-                    disabled={!hasAlphabetAll}
-                  >
-                    상품 교환
-                  </Button>
-                ) : (
-                  <Button
-                    size="xs"
-                    colorScheme="mintTheme"
-                    onClick={() => setIsChangeModal(true)}
-                  >
-                    교환 신청
-                  </Button>
-                )}
-              </Item>
-            );
-          })}
-        </Members>
+        {!isLoading ? (
+          <>
+            <Members>
+              {members?.map((who) => {
+                const user = who.user;
+                const userBadge = getUserBadge(user.score, user.uid);
+                const alphabets = who.collects;
+                const alphabetsCnt = {
+                  A: 0,
+                  B: 0,
+                  O: 0,
+                  U: 0,
+                  T: 0,
+                };
+                alphabets.forEach((alphabet) => {
+                  alphabetsCnt[alphabet]++;
+                });
+                return (
+                  <Item key={user.uid}>
+                    <ProfileWrapper onClick={() => onClickProfile(user)}>
+                      <ProfileIcon user={user} size="sm" />
+                    </ProfileWrapper>
+                    <Info>
+                      <Name>
+                        <span>{user.name}</span>
+                        <Badge
+                          fontSize={10}
+                          colorScheme={BADGE_COLOR[userBadge]}
+                          ml="var(--margin-md)"
+                        >
+                          {userBadge}
+                        </Badge>
+                      </Name>
+                      <UserAlphabets>
+                        <div>
+                          <AlphabetIcon
+                            alphabet="A"
+                            isDuotone={!alphabets?.includes("A")}
+                          />
+                          <FontAwesomeIcon icon={faX} />
+                          <AlphabetCnt hasAlphabet={alphabetsCnt.A !== 0}>
+                            {alphabetsCnt.A}
+                          </AlphabetCnt>
+                        </div>
+                        <div>
+                          <AlphabetIcon
+                            alphabet="B"
+                            isDuotone={!alphabets?.includes("B")}
+                          />{" "}
+                          <FontAwesomeIcon icon={faX} />
+                          <AlphabetCnt hasAlphabet={alphabetsCnt.B !== 0}>
+                            {alphabetsCnt.B}
+                          </AlphabetCnt>
+                        </div>
+                        <div>
+                          <AlphabetIcon
+                            alphabet="O"
+                            isDuotone={!alphabets?.includes("O")}
+                          />{" "}
+                          <FontAwesomeIcon icon={faX} />
+                          <AlphabetCnt hasAlphabet={alphabetsCnt.O !== 0}>
+                            {alphabetsCnt.O}
+                          </AlphabetCnt>
+                        </div>
+                        <div>
+                          <AlphabetIcon
+                            alphabet="U"
+                            isDuotone={!alphabets?.includes("U")}
+                          />{" "}
+                          <FontAwesomeIcon icon={faX} />
+                          <AlphabetCnt hasAlphabet={alphabetsCnt.U !== 0}>
+                            {alphabetsCnt.U}
+                          </AlphabetCnt>
+                        </div>
+                        <div>
+                          <AlphabetIcon
+                            alphabet="T"
+                            isDuotone={!alphabets?.includes("T")}
+                          />{" "}
+                          <FontAwesomeIcon icon={faX} />
+                          <AlphabetCnt hasAlphabet={alphabetsCnt.T !== 0}>
+                            {alphabetsCnt.T}
+                          </AlphabetCnt>
+                        </div>
+                      </UserAlphabets>
+                    </Info>
+                    {who.user.uid === session?.uid ? (
+                      <Button
+                        colorScheme="telegram"
+                        size="xs"
+                        disabled={!hasAlphabetAll}
+                      >
+                        상품 교환
+                      </Button>
+                    ) : (
+                      <Button
+                        size="xs"
+                        colorScheme="mintTheme"
+                        onClick={() => setIsChangeModal(true)}
+                      >
+                        교환 신청
+                      </Button>
+                    )}
+                  </Item>
+                );
+              })}
+            </Members>
+          </>
+        ) : (
+          <MainLoading />
+        )}
       </PageLayout>
       {isChangeModal && <NotCompletedModal setIsModal={setIsChangeModal} />}
     </>

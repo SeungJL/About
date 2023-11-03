@@ -24,6 +24,7 @@ interface IEventContent {
   color: string;
   isFirst: boolean;
   isLast: boolean;
+  blockIdx?: number;
 }
 
 const BLOCK_WIDTH = 52;
@@ -56,7 +57,7 @@ function EventCalendar() {
       navMonth.year() === 2023
         ? EVENT_CONTENT_2023[navMonth.month() + 1]
         : null;
-
+    if (!eventArr) return;
     return eventArr.reduce((acc: IEventContent[], event) => {
       const isFirstDay = date === event.start;
       const isEndDay = date === event.end;
@@ -66,6 +67,7 @@ function EventCalendar() {
           color: event.color,
           isFirst: isFirstDay,
           isLast: isEndDay,
+          blockIdx: event?.blockIdx,
         });
         if (isFirstDay) fillEventDate(event.content);
         if (isEndDay) endBlocks.push(event.content);
@@ -111,7 +113,7 @@ function EventCalendar() {
 
             const contentArr = filledContents(item);
             const dateInfo = Object.values(eventBlocks).map((title) =>
-              contentArr.find((c) => c.content === title)
+              contentArr?.find((c) => c.content === title)
             );
 
             endBlocks.forEach((item) => deleteEventDate(item));
@@ -123,16 +125,31 @@ function EventCalendar() {
                   {!isToday ? item : <TodayCircle>{item}</TodayCircle>}
                 </Date>
                 <DateContent>
-                  {dateInfo.map((item) => (
-                    <EventBlock
-                      isFirst={item?.isFirst}
-                      isLast={item?.isLast}
-                      key={item?.content}
-                      color={item?.color}
-                    >
-                      {item?.isFirst ? item?.content : "\u00A0"}
-                    </EventBlock>
-                  ))}
+                  {dateInfo.map((item, idx2) => {
+                    console.log(item);
+                    return (
+                      <>
+                        {item?.blockIdx !== undefined && (
+                          <EventBlock
+                            isFirst={item?.isFirst}
+                            isLast={item?.isLast}
+                            key={idx2}
+                            color={null}
+                          >
+                            &nbsp;
+                          </EventBlock>
+                        )}
+                        <EventBlock
+                          isFirst={item?.isFirst}
+                          isLast={item?.isLast}
+                          key={idx2}
+                          color={item?.color}
+                        >
+                          {item?.isFirst ? item?.content : "\u00A0"}
+                        </EventBlock>
+                      </>
+                    );
+                  })}
                 </DateContent>
               </DateBlock>
             );
@@ -142,7 +159,7 @@ function EventCalendar() {
       <DetailTitle>이벤트 상세정보</DetailTitle>
 
       <Accordion
-        contentArr={ACCORDION_CONTENT_EVENT}
+        contentArr={ACCORDION_CONTENT_EVENT(navMonth.month() + 1)}
         isQ={false}
         isFull={true}
       />

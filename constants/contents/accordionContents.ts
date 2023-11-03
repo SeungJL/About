@@ -129,19 +129,22 @@ export const ACCORDION_CONTENT_FAQ: IAccordionContent[] = [
   },
 ];
 
-export const ACCORDION_CONTENT_EVENT = [
-  ...EVENT_CONTENT_2023[10].map((item) => ({
-    title: item.content,
-    content: item.text,
-  })),
-  {
-    title: "[스터디] FREE 오픈 장소 추가",
-    content:
-      "FREE 오픈 신청 장소를 추천 받고 있습니다. 추첨을 통해 상품을 드려요!",
-  },
-  {
-    title: "[항시]피드백은 항상 환영입니다.",
-    content:
-      "어떤 것이든 건의사항을 주시면 항상 감사히 받아요~ 가끔은 선물을 드리기도 한답니다.",
-  },
-];
+export const ACCORDION_CONTENT_EVENT = (month: number) => {
+  if (month !== 10 && month !== 11) return;
+  return [
+    ...EVENT_CONTENT_2023[month].map((item) => ({
+      title: item.content,
+      content: item.text,
+    })),
+    {
+      title: "[스터디] FREE 오픈 장소 추가",
+      content:
+        "FREE 오픈 신청 장소를 추천 받고 있습니다. 추첨을 통해 상품을 드려요!",
+    },
+    {
+      title: "[항시]피드백은 항상 환영입니다.",
+      content:
+        "어떤 것이든 건의사항을 주시면 항상 감사히 받아요~ 가끔은 선물을 드리기도 한답니다.",
+    },
+  ];
+};
