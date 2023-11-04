@@ -53,7 +53,6 @@ function About() {
     setTimeout(() => {
       setIsMainLoading(false);
     }, 100);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myStudyFixed, participations]);
 

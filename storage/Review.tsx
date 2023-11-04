@@ -349,7 +349,7 @@ export const REVIEW_DATA: IReviewData[] = [
     title: "시험 끝난 기념 강남 술 번개!",
   },
   {
-    id: 87,
+    id: 71,
     dateCreated: "11월 4일",
     images: [
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.03+%EC%88%98%EC%9B%90/KakaoTalk_20231104_140640981_01.jpg",

@@ -23,6 +23,7 @@ a {
   margin: 0 auto;
   min-height: 100vh;
   height: 100%;
+  overflow: hidden;
   background-color: var(--font-h8);
   color: var(--font-h1);
 }

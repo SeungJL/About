@@ -8,31 +8,31 @@ import {
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const participationsState = atom<IParticipation[]>({
-  key: "participations",
+  key: "participationsState",
   default: null,
 });
 
 export const voteDateState = atom<Dayjs>({
-  key: "voteDate",
+  key: "voteDateState",
   default: null,
 });
 
 export const isVotingState = atom({
-  key: "isVoting",
+  key: "isVotingState",
   default: false,
 });
 
 export const studyDateStatusState = atom<StudyDate>({
-  key: "studyDateStatus",
+  key: "studyDateStatusState",
   default: null,
 });
 
 export const myStudyFixedState = atom<IParticipation>({
-  key: "myStudyFixed",
+  key: "myStudyFixedState",
   default: null,
 });
 
 export const studyStartTimeState = atom<IStudyStartTime[]>({
-  key: "studyStartTime",
+  key: "studyStartTimeState",
   default: null,
 });

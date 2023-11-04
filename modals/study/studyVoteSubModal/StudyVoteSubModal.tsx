@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   studyDateStatusState,
   voteDateState,
@@ -21,7 +21,6 @@ import {
   useFailToast,
 } from "../../../hooks/CustomToast";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
-import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
 
@@ -52,7 +51,6 @@ function StudyVoteSubModal({
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const voteDate = useRecoilValue(voteDateState);
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
 
   const [isFirst, setIsFirst] = useState(true);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
@@ -63,27 +61,30 @@ function StudyVoteSubModal({
     inviteUid as string
   );
 
-  const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
-    onSuccess: () => {
-      resetQueryData(STUDY_VOTE_INFO);
-      if (studyDateStatus === "today" && !isPrivate) {
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
-      }
-      if (studyDateStatus === "not passed") {
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
-      }
-      if (inviteUid) {
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
-        getInviteAboutPoint({
-          value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
-          message: `${session?.user.name}님의 스터디 참여 보너스`,
-        });
-      }
-      completeToast("studyVote");
-    },
-    onError: errorToast,
-  });
-
+  const { mutate: patchAttend, isLoading } = useStudyParticipateMutation(
+    voteDate,
+    {
+      onSuccess: () => {
+        resetQueryData(STUDY_VOTE_INFO);
+        if (studyDateStatus === "today" && !isPrivate) {
+          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
+        }
+        if (studyDateStatus === "not passed") {
+          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
+        }
+        if (inviteUid) {
+          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
+          getInviteAboutPoint({
+            value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
+            message: `${session?.user.name}님의 스터디 참여 보너스`,
+          });
+        }
+        completeToast("studyVote");
+      },
+      onError: errorToast,
+    }
+  );
+  console.log(isLoading);
   const onSubmit = () => {
     const data: IStudyParticipate = {
       ...voteInfo,

@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PlaceSelectorSub from "../../../components/features/picker/PlaceSelectorSub";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
-import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { voteDateState } from "../../../recoil/studyAtoms";
+import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
 import { DispatchType } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
@@ -22,8 +20,6 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
   const placeId = router.query.placeId;
   const location = PLACE_TO_LOCATION[placeId as string];
 
-  const voteDate = useRecoilValue(voteDateState);
-
   const [otherPlaces, setOtherPlaces] = useState<IPlace[]>();
   const [subPlace, setSubPlace] = useState([]);
 
@@ -32,18 +28,23 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subPlace]);
 
-  useStudyVoteQuery(voteDate, location, {
-    onSuccess(data) {
-      setOtherPlaces(
-        data.participations
-          .filter(
-            (par) => par.place._id != placeId && par.place.brand !== "자유 신청"
-          )
-          .map((par) => par.place)
-      );
+  const { data: studyPlaces } = useStudyPlacesQuery({
+    onError() {
+      errorToast("study");
     },
-    onError: (e) => errorToast(e, "study"),
   });
+
+  useEffect(() => {
+    if (!studyPlaces) return;
+    setOtherPlaces(
+      studyPlaces.filter(
+        (place) =>
+          place.location === location &&
+          place._id != placeId &&
+          place.brand !== "자유 신청"
+      )
+    );
+  }, [location, placeId, studyPlaces]);
 
   return (
     <Layout>
