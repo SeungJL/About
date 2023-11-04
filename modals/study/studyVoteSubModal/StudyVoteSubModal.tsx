@@ -24,6 +24,7 @@ import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation"
 import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
 
+import { Button } from "@chakra-ui/react";
 import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/CustomHooks";
 import { IStudyParticipate } from "../../../types/study/study";
@@ -61,30 +62,27 @@ function StudyVoteSubModal({
     inviteUid as string
   );
 
-  const { mutate: patchAttend, isLoading } = useStudyParticipateMutation(
-    voteDate,
-    {
-      onSuccess: () => {
-        resetQueryData(STUDY_VOTE_INFO);
-        if (studyDateStatus === "today" && !isPrivate) {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
-        }
-        if (studyDateStatus === "not passed") {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
-        }
-        if (inviteUid) {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
-          getInviteAboutPoint({
-            value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
-            message: `${session?.user.name}님의 스터디 참여 보너스`,
-          });
-        }
-        completeToast("studyVote");
-      },
-      onError: errorToast,
-    }
-  );
-  console.log(isLoading);
+  const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
+    onSuccess: () => {
+      if (studyDateStatus === "today" && !isPrivate) {
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
+      }
+      if (studyDateStatus === "not passed") {
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
+      }
+      if (inviteUid) {
+        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
+        getInviteAboutPoint({
+          value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
+          message: `${session?.user.name}님의 스터디 참여 보너스`,
+        });
+      }
+      resetQueryData(STUDY_VOTE_INFO);
+      completeToast("studyVote");
+    },
+    onError: errorToast,
+  });
+
   const onSubmit = () => {
     const data: IStudyParticipate = {
       ...voteInfo,
@@ -131,13 +129,28 @@ function StudyVoteSubModal({
           <StudyVoteSubModalPrivate setVoteInfo={setVoteInfo} />
         )}
       </Wrapper>
-      <MainButton onClick={isFirst ? handleFirst : onSubmit}>
+
+      <Button
+        w="100%"
+        colorScheme="mintTheme"
+        size="lg"
+        borderRadius="var(--border-radius-sub)"
+        onClick={isFirst ? handleFirst : onSubmit}
+        mt="auto"
+      >
         {isFirst && (studyDateStatus === "not passed" || isPrivate)
           ? "다음"
           : isPrivate
           ? "신청 완료"
           : "투표 완료"}
-      </MainButton>
+      </Button>
+      {/* <MainButton onClick={isFirst ? handleFirst : onSubmit}>
+        {isFirst && (studyDateStatus === "not passed" || isPrivate)
+          ? "다음"
+          : isPrivate
+          ? "신청 완료"
+          : "투표 완료"}
+      </MainButton> */}
     </Layout>
   );
 }
@@ -171,8 +184,9 @@ const Layout = styled(motion.div)`
   bottom: 0;
   width: 375px;
   height: 424px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: var(--border-radius-main);
+  border-top-right-radius: var(--border-radius-main);
+
   background-color: white;
   z-index: 20;
   padding: var(--padding-main);

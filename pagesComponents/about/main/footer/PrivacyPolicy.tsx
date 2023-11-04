@@ -12,17 +12,10 @@ import {
 import { faXmark } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NextLink from "next/link";
-import { Dispatch, SetStateAction } from "react";
-import { FullScreen } from "../../../styles/layout/modal";
+import { FullScreen } from "../../../../styles/layout/modal";
+import { IModal } from "../../../../types/reactTypes";
 
-export const PrivacyPolicy = ({
-  setIsModal,
-}: {
-  setIsModal: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const xClicked = () => {
-    setIsModal(false);
-  };
+export const PrivacyPolicy = ({ setIsModal }: IModal) => {
   return (
     <>
       <Container
@@ -55,7 +48,7 @@ export const PrivacyPolicy = ({
           >
             Vote Helper 개인정보 취급방침
           </Heading>
-          <span onClick={xClicked}>
+          <span onClick={() => setIsModal(false)}>
             <FontAwesomeIcon icon={faXmark} size="xl" />
           </span>
         </Flex>
@@ -328,7 +321,7 @@ export const PrivacyPolicy = ({
           width="100%"
           height="8vh"
           zIndex="1000"
-          onClick={xClicked}
+          onClick={() => setIsModal(false)}
         >
           확인
         </Button>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import AdminLocationSelector from "../../../components/features/picker/AdminLocationSelector";
 import Header from "../../../components/layout/Header";
-import AdminLocationSelector from "../../../components/pages/AdminLocationSelector";
 import { useUserRequestQuery } from "../../../hooks/user/queries";
 import { IUserRequest } from "../../../types/user/userRequest";
 

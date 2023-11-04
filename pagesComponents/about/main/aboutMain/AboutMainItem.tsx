@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { StudySpaceLogo } from "../../../../components/utils/DesignAdjustment";
+import { StudySpaceLogo } from "../../../../components/utils/CustomImages";
 import { dayjsToStr } from "../../../../helpers/dateHelpers";
 import {
   myStudyFixedState,

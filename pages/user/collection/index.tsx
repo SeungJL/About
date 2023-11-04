@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon2";
+import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import { useCollectionAlphabetQuery } from "../../../hooks/collection/queries";

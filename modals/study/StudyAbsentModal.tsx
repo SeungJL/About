@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   ModalBody,
@@ -13,6 +13,9 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
+import { STUDY_VOTE_INFO } from "../../constants/keys/queryKeys";
+import { dayjsToStr } from "../../helpers/dateHelpers";
+import { useResetQueryData } from "../../hooks/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
@@ -21,12 +24,12 @@ import {
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import {
   myStudyFixedState,
   studyStartTimeState,
   voteDateState,
 } from "../../recoil/studyAtoms";
+import { locationState } from "../../recoil/userAtoms";
 import { InputSm } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
@@ -42,7 +45,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const studyStartTime = useRecoilValue(studyStartTimeState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
   const voteDate = useRecoilValue(voteDateState);
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const location = useRecoilValue(locationState);
 
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
@@ -51,13 +54,16 @@ function StudyAbsentModal({ setIsModal }: IModal) {
     (item) => item.placeId === placeId
   )?.startTime;
   const isFree = myStudyFixed.status === "free";
+
+  const resetQueryData = useResetQueryData();
+
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();
 
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
       completeToast("success");
-      setIsRefetchStudySpace(true);
+      resetQueryData([STUDY_VOTE_INFO, dayjsToStr(voteDate), location]);
       let fee: { value: number; message: string };
       if (isFree) return;
       if (dayjs() > myStudyStartTime)

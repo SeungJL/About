@@ -8,16 +8,16 @@ import { Alphabet } from "../types/user/collections";
 import { IUser } from "../types/user/user";
 
 export const transferUserDataState = atom<IUser>({
-  key: "transferUserData",
+  key: "transferUserDataState",
   default: null,
 });
 export const transferGatherDataState = atom<IGather>({
-  key: "transferGatherData",
+  key: "transferGatherDataState",
   default: null,
 });
 
 export const transferStudyDataState = atom<IParticipation[]>({
-  key: "transferStudyData",
+  key: "transferStudyDataState",
   default: null,
 });
 
@@ -25,12 +25,12 @@ export const transferMemberDataState = atom<{
   section: MemberGroup | "all";
   members: IUser[];
 }>({
-  key: "transferMemberData",
+  key: "transferMemberDataState",
   default: null,
 });
 
 export const transferStudySpaceDataState = atom<IParticipation>({
-  key: "transferStudySpaceData",
+  key: "transferStudySpaceDataState",
   default: null,
 });
 
@@ -40,10 +40,10 @@ interface ItransferStoreGiftData {
 }
 
 export const transferStoreGiftDataState = atom<ItransferStoreGiftData>({
-  key: "transferStoreGiftData",
+  key: "transferStoreGiftDataState",
   default: null,
 });
 export const transferAlphabetState = atom<Alphabet>({
-  key: "transferAlphabetState",
+  key: "transferAlphabetStateState",
   default: null,
 });

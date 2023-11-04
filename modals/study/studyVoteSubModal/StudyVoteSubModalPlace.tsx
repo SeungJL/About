@@ -29,8 +29,8 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
   }, [subPlace]);
 
   const { data: studyPlaces } = useStudyPlacesQuery({
-    onError() {
-      errorToast("study");
+    onError(err) {
+      errorToast(err, "study");
     },
   });
 

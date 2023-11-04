@@ -3,7 +3,7 @@ import { faCircle, faEllipsis } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import AboutMoreInfoBtn from "../../../components/pages/AboutMoreInfoBtn";
+import MoreInfoBtn from "../../../components/layout/atoms/MoreInfoBtn";
 import { WIN_RECORD } from "../../../storage/winRecord";
 
 function AboutWinRecord() {
@@ -36,7 +36,7 @@ function AboutWinRecord() {
           <FontAwesomeIcon icon={faEllipsis} />
         </IconWrapper>
       </Content>
-      <AboutMoreInfoBtn url="/winRecord" />
+      <MoreInfoBtn url="/winRecord" />
     </Layout>
   );
 }

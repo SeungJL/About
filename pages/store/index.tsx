@@ -12,7 +12,7 @@ import { IStoreApplicant } from "../../types/page/store";
 
 import { Button } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { StoreGiftImage } from "../../components/utils/DesignAdjustment";
+import { StoreGiftImage } from "../../components/utils/CustomImages";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { isPrevBooleanState } from "../../recoil/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoil/transferDataAtoms";

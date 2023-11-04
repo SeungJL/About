@@ -34,7 +34,7 @@ import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 
 import { faUserPolice } from "@fortawesome/pro-solid-svg-icons";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon2";
+import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
 
 import GatherWritingConditionLocation from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionLocation";

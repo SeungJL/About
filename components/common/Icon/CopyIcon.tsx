@@ -14,7 +14,7 @@ interface ICopyBtn {
 export const CopyBtn = ({ size, text }: ICopyBtn) => {
   const completeToast = useCompleteToast();
 
-  const { onCopy, value, hasCopied } = useClipboard(text);
+  const { onCopy, hasCopied } = useClipboard(text);
 
   if (!size) size = "sm";
 
@@ -50,5 +50,3 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
 };
 
 const LayoutLg = styled.div``;
-
-const Layout = styled.span``;

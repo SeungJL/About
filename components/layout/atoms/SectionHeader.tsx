@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-interface IAboutSectionHeader {
+interface ISectionHeader {
   title: string;
   subTitle?: string;
   url: string;
 }
 
-function AboutSectionHeader({ title, subTitle, url }: IAboutSectionHeader) {
+function SectionHeader({ title, subTitle, url }: ISectionHeader) {
   const router = useRouter();
   return (
     <Layout>
@@ -42,4 +42,4 @@ const ShowAllBtn = styled.button`
     margin-right: var(--margin-min);
   }
 `;
-export default AboutSectionHeader;
+export default SectionHeader;

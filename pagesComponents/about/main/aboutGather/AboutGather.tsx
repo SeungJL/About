@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; //
 import { Swiper, SwiperSlide } from "swiper/react";
-import AboutSectionHeader from "../../../../components/pages/AboutSectionHeader";
+import SectionHeader from "../../../../components/layout/atoms/SectionHeader";
 import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
 import { useGatherAllQuery } from "../../../../hooks/gather/queries";
 import { isGatherAlertState } from "../../../../recoil/alertAtoms";
@@ -43,7 +43,7 @@ function AboutGather() {
 
   return (
     <Layout>
-      <AboutSectionHeader title="ABOUT 모임" url="/gather" />
+      <SectionHeader title="ABOUT 모임" url="/gather" />
       <Swiper
         navigation
         style={{

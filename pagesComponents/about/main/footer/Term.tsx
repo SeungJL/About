@@ -10,8 +10,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import styled from "styled-components";
+import { IModal } from "../../../../types/reactTypes";
 
-const Terms = ({ closeModal }) => {
+const Term = ({ setIsModal }: IModal) => {
   return (
     <Layout>
       <Container>
@@ -440,7 +441,7 @@ const Terms = ({ closeModal }) => {
         width="100%"
         height="8vh"
         zIndex="1000"
-        onClick={() => closeModal(false)}
+        onClick={() => setIsModal(false)}
       >
         홈으로 돌아가기
       </Button>
@@ -454,4 +455,4 @@ const Layout = styled.div`
   top: 0;
 `;
 
-export default Terms;
+export default Term;

@@ -53,16 +53,4 @@ const AvatarColorItem = styled.div`
   }
 `;
 
-const ImageWrapper = styled.div`
-  border-radius: var(--border-radius-main);
-  width: 52px;
-  height: 52px;
-  overflow: hidden;
-  background-color: var(--font-h56);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: var(--margin-md);
-`;
-
 export default ImageSliderAvatarColor;

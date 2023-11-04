@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon2";
+import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 
 import { ModalBody } from "../../../components/modals/Modals";
 

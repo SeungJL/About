@@ -1,11 +1,11 @@
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { RegisterLocation } from "../../constants/location";
+import { RegisterLocation } from "../../../constants/location";
 
-import { Location } from "../../types/system";
-import { IRegisterForm } from "../../types/user/user";
-import { IUserRequest } from "../../types/user/userRequest";
-import ButtonCheckNav from "../templates/ButtonCheckNav";
+import { Location } from "../../../types/system";
+import { IRegisterForm } from "../../../types/user/user";
+import { IUserRequest } from "../../../types/user/userRequest";
+import ButtonCheckNav from "../../templates/ButtonCheckNav";
 
 interface IAdminLocationSelector {
   initialData: IRegisterForm[] | IUserRequest[];

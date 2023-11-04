@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
-import { StudySpaceLogo } from "../../../components/utils/DesignAdjustment";
+import { StudySpaceLogo } from "../../../components/utils/CustomImages";
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import { ISpaceControl } from "../../../types/page/admin";
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../../../components/modals/ModalPortal";
-import { PrivacyPolicy } from "../../../components/pages/policy/PrivacyPolicy";
-import Terms from "../../../components/pages/policy/terms";
+import { PrivacyPolicy } from "./footer/PrivacyPolicy";
+import Terms from "./footer/Term";
 
 export default function AboutFooter() {
   const [isShowTerm, setIsShowTerm] = useState(false);
@@ -30,7 +30,7 @@ export default function AboutFooter() {
       </div>
       {isShowTerm && (
         <ModalPortal setIsModal={setIsShowTerm}>
-          <Terms closeModal={setIsShowTerm} />
+          <Terms setIsModal={setIsShowTerm} />
         </ModalPortal>
       )}
       {isShowPolicy && <PrivacyPolicy setIsModal={setIsShowPolicy} />}

@@ -3,7 +3,7 @@ import AlphabetModal from "../../modals/common/AlphabetModal";
 import ErrorUserInfoPopUp from "../../modals/pop-up/ErrorUserInfoPopUp";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { DispatchBoolean } from "../../types/reactTypes";
-import GuestBottomNav from "../layout/GuestBottomNav";
+import GuestBottomNav from "../layout/atoms/GuestBottomNav";
 
 interface IBaseModal {
   isGuest: boolean;

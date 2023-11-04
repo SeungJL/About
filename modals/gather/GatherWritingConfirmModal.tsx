@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import SuccessScreen from "../../components/pages/SuccessScreen";
+import SuccessScreen from "../../components/layout/SuccessScreen";
 import { useErrorToast } from "../../hooks/CustomToast";
 import { useGatherContentMutation } from "../../hooks/gather/mutations";
 import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";

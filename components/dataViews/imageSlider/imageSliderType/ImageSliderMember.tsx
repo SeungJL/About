@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { dayjsToFormat } from "../../../../../helpers/dateHelpers";
-import { prevPageUrlState } from "../../../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../../../recoil/transferDataAtoms";
-import { IUser } from "../../../../../types/user/user";
-import HeartLikeIcon from "../../../../common/Icon/HeartLikeIcon";
-import ProfileIcon from "../../../../common/user/Profile/ProfileIcon";
+import { dayjsToFormat } from "../../../../helpers/dateHelpers";
+import { prevPageUrlState } from "../../../../recoil/previousAtoms";
+import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
+import { IUser } from "../../../../types/user/user";
+import HeartLikeIcon from "../../../common/Icon/HeartLikeIcon";
+import ProfileIcon from "../../../common/user/Profile/ProfileIcon";
 import { ImageContainer } from "../ImageSlider";
 
 interface IImageSliderMember {

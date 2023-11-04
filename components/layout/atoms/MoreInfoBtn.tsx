@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-interface IAboutMoreInfoBtn {
+interface IMoreInfoBtn {
   url: string;
 }
 
-function AboutMoreInfoBtn({ url }: IAboutMoreInfoBtn) {
+function MoreInfoBtn({ url }: IMoreInfoBtn) {
   const router = useRouter();
   return (
     <Layout
@@ -38,4 +38,4 @@ const Layout = styled.div`
   }
 `;
 
-export default AboutMoreInfoBtn;
+export default MoreInfoBtn;

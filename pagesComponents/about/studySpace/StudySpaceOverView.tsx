@@ -2,7 +2,7 @@ import { faLocationDot, faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import PlaceMap from "../../../components/features/lib/PlaceMap";
+import PlaceMap from "../../../components/features/location/PlaceMap";
 import { IStudySpaceInfo } from "../../../storage/study";
 import { IPlace } from "../../../types/study/studyDetail";
 

@@ -21,7 +21,6 @@ const IMAGE_ARRAY_LENGTH = 6;
 function StudySpace() {
   const isGuest = useRecoilValue(isGuestState);
   const transferStudySpaceData = useRecoilValue(transferStudySpaceDataState);
-
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [participation, setParticipation] = useState<IParticipation>(

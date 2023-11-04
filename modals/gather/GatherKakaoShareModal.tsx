@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import KakaoShareBtn from "../../components/features/lib/KakaoShareBtn";
+import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
 import {
   ModalBody,
   ModalHeader,

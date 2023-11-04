@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ImageSlider from "../../components/dataViews/chart/imageSlider/ImageSlider";
+import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { REVIEW_DATA } from "../../storage/Review";
 import GatherImageSliderSkeleton from "./GatherImageSliderSkeleton";

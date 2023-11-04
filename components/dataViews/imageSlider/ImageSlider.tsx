@@ -3,8 +3,8 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; // for the pagination dots
-import { IGather } from "../../../../types/page/gather";
-import { IUser } from "../../../../types/user/user";
+import { IGather } from "../../../types/page/gather";
+import { IUser } from "../../../types/user/user";
 import ImageSliderAvatarColor from "./imageSliderType/ImageSliderAvatarColor";
 import ImageSliderGatherReviewNav from "./imageSliderType/ImageSliderGatherReviewNav";
 import ImageSliderMember from "./imageSliderType/ImageSliderMember";

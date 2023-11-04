@@ -1,9 +1,10 @@
 import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery } from "react-query";
 import { STUDY_PLACE, STUDY_VOTE_INFO } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
+import { QueryOptions } from "../../types/reactTypes";
 
 import {
   IAbsentInfo,
@@ -22,10 +23,7 @@ import { Location } from "../../types/system";
 export const useStudyVoteQuery = (
   date: Dayjs,
   location: Location,
-  options?: Omit<
-    UseQueryOptions<IVote, AxiosError, IVote>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IVote>
 ) => {
   return useQuery<IVote, AxiosError, IVote>(
     [STUDY_VOTE_INFO, dayjsToStr(date), location],
@@ -41,12 +39,7 @@ export const useStudyVoteQuery = (
   );
 };
 
-export const useStudyPlacesQuery = (
-  options?: Omit<
-    UseQueryOptions<IPlace[], AxiosError, IPlace[]>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useStudyPlacesQuery = (options?: QueryOptions<IPlace[]>) =>
   useQuery<IPlace[], AxiosError, IPlace[]>(
     [STUDY_PLACE, "all"],
     async () => {
@@ -57,10 +50,7 @@ export const useStudyPlacesQuery = (
   );
 export const useStudyPlacesLocationQuery = (
   location: Location,
-  options?: Omit<
-    UseQueryOptions<IPlace[], AxiosError, IPlace[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IPlace[]>
 ) =>
   useQuery<IPlace[], AxiosError, IPlace[]>(
     [STUDY_PLACE, "location"],
@@ -76,10 +66,7 @@ export const useStudyPlacesLocationQuery = (
 
 export const useStudyStartTimeQuery = (
   date: Dayjs,
-  options?: Omit<
-    UseQueryOptions<IStudyStartTime[], AxiosError, IStudyStartTime[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IStudyStartTime[]>
 ) =>
   useQuery(
     ["studyStartTime", date],
@@ -99,10 +86,7 @@ export const useStudyStartTimeQuery = (
 export const useStudyCheckRecordsQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  options?: Omit<
-    UseQueryOptions<IArrivedData[], AxiosError, IArrivedData[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IArrivedData[]>
 ) =>
   useQuery(
     ["studyCheckRecords", dayjsToStr(startDay), dayjsToStr(endDay)],
@@ -124,10 +108,7 @@ export const useStudyCheckRecordsQuery = (
 
 export const useStudyAbsentQuery = (
   date: Dayjs,
-  options?: Omit<
-    UseQueryOptions<IAbsentInfo[], AxiosError, IAbsentInfo[]>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IAbsentInfo[]>
 ) =>
   useQuery(
     "studyAbsent",
@@ -140,12 +121,7 @@ export const useStudyAbsentQuery = (
     options
   );
 
-export const useStudyPreferenceQuery = (
-  options?: Omit<
-    UseQueryOptions<IStudyPlaces, AxiosError, IStudyPlaces>,
-    "queryKey" | "queryFn"
-  >
-) =>
+export const useStudyPreferenceQuery = (options?: QueryOptions<IStudyPlaces>) =>
   useQuery(
     "studyPreference",
     async () => {
@@ -160,10 +136,7 @@ interface IArrivedTotal {
   [key: string]: number;
 }
 export const useStudyArrivedCntQuery = (
-  options?: Omit<
-    UseQueryOptions<IArrivedTotal, AxiosError, IArrivedTotal>,
-    "queryKey" | "queryFn"
-  >
+  options?: QueryOptions<IArrivedTotal>
 ) =>
   useQuery(
     "arriveCnt",
