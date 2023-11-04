@@ -348,4 +348,16 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "강남에서 모인 술 번개! 이번에는 정말 초면인 사람이 많았는데도, 어색한 순간 없이 재밌는 모임이었어요! 놀다보니 막차를 놓친 사람들도, 겁나 뛰어서 막차를 겨우 탄 사람들도 있었는데 아쉬운 마음에 바로 다음 번개를 또 열었네요 ㅎㅎ",
     title: "시험 끝난 기념 강남 술 번개!",
   },
+  {
+    id: 87,
+    dateCreated: "11월 4일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.03+%EC%88%98%EC%9B%90/KakaoTalk_20231104_140640981_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.03+%EC%88%98%EC%9B%90/KakaoTalk_20231104_140640981.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.03+%EC%88%98%EC%9B%90/KakaoTalk_20231104_140640981_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.03+%EC%88%98%EC%9B%90/KakaoTalk_20231104_140640981_03.jpg",
+    ],
+    text: "",
+    title: "아주대생 친목 모임",
+  },
 ];
