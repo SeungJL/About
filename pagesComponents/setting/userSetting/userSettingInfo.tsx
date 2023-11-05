@@ -39,7 +39,7 @@ function UserSettingInfo({ userInfo }: IUserSettingInfo) {
 
   const { role, rest } = userInfo || {};
   //휴식 만료 설정
-  useStudyArrivedCntQuery(session?.uid, {
+  useStudyArrivedCntQuery(session?.uid as string, {
     enabled:
       (role === "resting" && dayjs() > dayjs(rest.endDate)) || role === "human",
     onSuccess(data) {
