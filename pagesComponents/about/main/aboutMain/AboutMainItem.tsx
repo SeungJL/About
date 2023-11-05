@@ -28,7 +28,7 @@ function AboutMainItem({
     transferStudySpaceDataState
   );
 
-  const { attendences, place, status } = participation;
+  const { attendences, place, status } = participation || {};
   const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 
   const onClickItem = () => {
