@@ -17,6 +17,7 @@ import MemberSkeleton from "../../../pagesComponents/member/MemberSkeleton";
 import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
 import { isGuestState } from "../../../recoil/userAtoms";
 import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
+import { Location } from "../../../types/system";
 import { IUser } from "../../../types/user/user";
 
 const MEMBER_SECTIONS: MemberGroup[] = ["birth", "member", "human", "resting"];
@@ -40,10 +41,7 @@ function Member() {
 
   const { data: usersAll, isLoading } = useAdminUsersControlQuery();
 
-  const { data: studyPlaces } = useStudyPlacesQuery();
-  const locationPlaces = studyPlaces?.filter(
-    (place) => place?.location === location
-  );
+  const { data: studyPlaces } = useStudyPlacesQuery(location as Location);
 
   //멤버 분류
   useEffect(() => {
@@ -97,7 +95,7 @@ function Member() {
           <MemberOverview
             totalMemberCnt={locationMembers.length}
             activeMemberCnt={groupedMembers.member.length}
-            locationPlaces={locationPlaces}
+            locationPlaces={studyPlaces}
           />
           <HrDiv />
           <MemberMyProfile />

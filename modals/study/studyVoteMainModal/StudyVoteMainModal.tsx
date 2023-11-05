@@ -10,7 +10,7 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
-import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
+import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/CustomHooks";
 import {
@@ -20,7 +20,7 @@ import {
 } from "../../../hooks/CustomToast";
 import {
   useStudyOpenFreeMutation,
-  useStudyParticipateMutation,
+  useStudyParticipationMutation,
 } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import {
@@ -69,14 +69,18 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
 
-  const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
-    onSuccess: () => {
-      getPoint();
-      completeToast("studyVote");
-      resetQueryData([STUDY_VOTE_INFO, dayjsToStr(voteDate), location]);
-    },
-    onError: errorToast,
-  });
+  const { mutate: patchAttend } = useStudyParticipationMutation(
+    voteDate,
+    "post",
+    {
+      onSuccess: () => {
+        getPoint();
+        completeToast("studyVote");
+        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
+      },
+      onError: errorToast,
+    }
+  );
   const { mutate: openFree } = useStudyOpenFreeMutation(voteDate, {
     onSuccess() {
       completeToast("free", "스터디가 Free로 오픈되었습니다.");

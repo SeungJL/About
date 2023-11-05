@@ -26,7 +26,7 @@ function AboutCalendarMonth({
   };
   //날짜 변경
   const onClickMove = (cnt: number) => {
-    setVoteDate((old) => old.add(cnt, "month").date(cnt));
+    setVoteDate((old) => old.add(cnt, "month").date(1));
   };
 
   return (

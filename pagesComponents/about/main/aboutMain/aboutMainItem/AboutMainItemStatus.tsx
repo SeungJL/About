@@ -4,7 +4,8 @@ import { faClock } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { studyStartTimeState } from "../../../../../recoil/studyAtoms";
+import { useStudyStartTimeQuery } from "../../../../../hooks/study/queries";
+import { voteDateState } from "../../../../../recoil/studyAtoms";
 import { IPlace } from "../../../../../types/study/studyDetail";
 
 interface IAboutMainItemStatus {
@@ -13,11 +14,8 @@ interface IAboutMainItemStatus {
 }
 
 function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
-  const studyStartTime = useRecoilValue(studyStartTimeState);
-
-  const startTime = studyStartTime?.find(
-    (item) => item.placeId === place._id
-  )?.startTime;
+  const voteDate = useRecoilValue(voteDateState);
+  const { data: startTime } = useStudyStartTimeQuery(voteDate, place._id);
 
   return (
     <Layout>
@@ -38,7 +36,7 @@ function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
       {startTime && (
         <Result>
           <FontAwesomeIcon icon={faClock} size="xs" />
-          <ResultInfo>{startTime?.format("HH:mm")} ~</ResultInfo>
+          <ResultInfo>{startTime.format("HH:mm")} ~</ResultInfo>
         </Result>
       )}
     </Layout>

@@ -1,7 +1,12 @@
 import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { useQuery } from "react-query";
-import { STUDY_PLACE, STUDY_VOTE_INFO } from "../../constants/keys/queryKeys";
+import {
+  STUDY_ATTEND_RECORD,
+  STUDY_PLACE,
+  STUDY_START_TIME,
+  STUDY_VOTE,
+} from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { QueryOptions } from "../../types/reactTypes";
@@ -14,7 +19,6 @@ import {
 import {
   IPlace,
   IStudyPreferencesQuery,
-  IStudyStartTime,
   IVote,
 } from "../../types/study/studyDetail";
 
@@ -24,72 +28,70 @@ export const useStudyVoteQuery = (
   date: Dayjs,
   location: Location,
   options?: QueryOptions<IVote>
-) => {
-  return useQuery<IVote, AxiosError, IVote>(
-    [STUDY_VOTE_INFO, dayjsToStr(date), location],
+) =>
+  useQuery<IVote, AxiosError, IVote>(
+    [STUDY_VOTE, dayjsToStr(date), location],
     async () => {
       const res = await axios.get<IVote>(
-        `${SERVER_URI}/vote/${dayjsToStr(date)}?location=${location}`
+        `${SERVER_URI}/vote/${dayjsToStr(date)}`,
+        {
+          params: { location },
+        }
       );
-
-      return res.data;
-    },
-
-    options
-  );
-};
-
-export const useStudyPlacesQuery = (options?: QueryOptions<IPlace[]>) =>
-  useQuery<IPlace[], AxiosError, IPlace[]>(
-    [STUDY_PLACE, "all"],
-    async () => {
-      const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
       return res.data;
     },
     options
   );
-export const useStudyPlacesLocationQuery = (
-  location: Location,
+
+export const useStudyPlacesQuery = (
+  location: Location | "all",
   options?: QueryOptions<IPlace[]>
 ) =>
   useQuery<IPlace[], AxiosError, IPlace[]>(
-    [STUDY_PLACE, "location"],
+    [STUDY_PLACE, location],
     async () => {
       const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
       const places = res.data.filter(
-        (place) => place.location === location && place.brand !== "자유 신청"
+        (place) =>
+          place.brand !== "자유 신청" &&
+          (location === "all" || place.location === location)
       );
       return places;
     },
     options
   );
 
+interface IStudyStartTimeData {
+  place_id: string;
+  startTime: string;
+}
+
 export const useStudyStartTimeQuery = (
   date: Dayjs,
-  options?: QueryOptions<IStudyStartTime[]>
+  placeId: string,
+  options?: QueryOptions<Dayjs>
 ) =>
   useQuery(
-    ["studyStartTime", date],
+    [STUDY_START_TIME, dayjsToStr(date), placeId],
     async () => {
-      const res = await axios.get<{ place_id: string; startTime: string }[]>(
+      const res = await axios.get<IStudyStartTimeData[]>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}/start`
       );
-      const data: IStudyStartTime[] = res.data.map((item) => ({
-        placeId: item.place_id,
-        startTime: dayjs(item.startTime),
-      }));
-      return data;
+      const findItem = res.data.find(
+        (item) => item.place_id === placeId
+      )?.startTime;
+      return dayjs(findItem);
     },
     options
   );
 
-export const useStudyCheckRecordsQuery = (
+export const useStudyAttendRecordQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   options?: QueryOptions<IArrivedData[]>
 ) =>
   useQuery(
-    ["studyCheckRecords", dayjsToStr(startDay), dayjsToStr(endDay)],
+    [STUDY_ATTEND_RECORD, dayjsToStr(startDay), dayjsToStr(endDay)],
     async () => {
       const res = await axios.get<IArrivedData[]>(
         `${SERVER_URI}/vote/arrived`,
@@ -100,7 +102,6 @@ export const useStudyCheckRecordsQuery = (
           },
         }
       );
-
       return res.data;
     },
     options

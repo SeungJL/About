@@ -28,7 +28,7 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subPlace]);
 
-  const { data: studyPlaces } = useStudyPlacesQuery({
+  const { data: studyPlaces } = useStudyPlacesQuery(location, {
     onError(err) {
       errorToast(err, "study");
     },
@@ -36,14 +36,7 @@ function StudyVoteSubModalPlace({ setVoteInfo }: IStudyVoteSubModalPlace) {
 
   useEffect(() => {
     if (!studyPlaces) return;
-    setOtherPlaces(
-      studyPlaces.filter(
-        (place) =>
-          place.location === location &&
-          place._id != placeId &&
-          place.brand !== "자유 신청"
-      )
-    );
+    setOtherPlaces(studyPlaces.filter((place) => place._id != placeId));
   }, [location, placeId, studyPlaces]);
 
   return (

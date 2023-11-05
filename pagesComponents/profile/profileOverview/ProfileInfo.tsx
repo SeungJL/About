@@ -20,7 +20,7 @@ import {
   useFailToast,
 } from "../../../hooks/CustomToast";
 import { useInteractionLikeMutation } from "../../../hooks/interaction/mutations";
-import { useStudyCheckRecordsQuery } from "../../../hooks/study/queries";
+import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import {
   IInteractionLikeStorage,
   IInteractionSendLike,
@@ -63,7 +63,7 @@ function ProfileInfo({ user }: IProfileInfo) {
 
   const { mutate: sendAboutPoint } = useAdminAboutPointMutation(user?.uid);
 
-  useStudyCheckRecordsQuery(dayjs().subtract(4, "day"), dayjs().add(1, "day"), {
+  useStudyAttendRecordQuery(dayjs().subtract(4, "day"), dayjs().add(1, "day"), {
     enabled: !isGuest,
     onSuccess(data) {
       data.forEach((study) => {

@@ -360,4 +360,14 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "",
     title: "아주대생 친목 모임",
   },
+  {
+    id: 94,
+    dateCreated: "11월 4일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.04+%EB%B2%94%EA%B3%84/KakaoTalk_20231105_143924081_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.04+%EB%B2%94%EA%B3%84/KakaoTalk_20231105_143924081.jpg",
+    ],
+    text: "",
+    title: "범계역 번개 모임",
+  },
 ];

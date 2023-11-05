@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { STUDY_VOTE_INFO } from "../../constants/keys/queryKeys";
+import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/CustomHooks";
 import {
   useCompleteToast,
@@ -17,7 +17,7 @@ import {
 } from "../../hooks/CustomToast";
 import {
   useStudyOpenFreeMutation,
-  useStudyParticipateMutation,
+  useStudyParticipationMutation,
 } from "../../hooks/study/mutations";
 import { IModal } from "../../types/reactTypes";
 import { IStudyParticipate } from "../../types/study/study";
@@ -48,14 +48,18 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
     onSuccess() {},
     onError: errorToast,
   });
-  const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
-    onSuccess: () => {
-      resetQueryData(STUDY_VOTE_INFO);
-      setIsModal(false);
-      completeToast("free", "스터디가 Free로 오픈되었습니다.");
-    },
-    onError: errorToast,
-  });
+  const { mutate: patchAttend } = useStudyParticipationMutation(
+    voteDate,
+    "post",
+    {
+      onSuccess: () => {
+        resetQueryData(STUDY_VOTE);
+        setIsModal(false);
+        completeToast("free", "스터디가 Free로 오픈되었습니다.");
+      },
+      onError: errorToast,
+    }
+  );
 
   const onSubmit = async () => {
     const start = voteDate.hour(time.start.hours).minute(time.start.minutes);

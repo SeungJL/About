@@ -9,7 +9,7 @@ import {
   voteDateState,
 } from "../../../recoil/studyAtoms";
 
-import { useStudyParticipateMutation } from "../../../hooks/study/mutations";
+import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -25,8 +25,10 @@ import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
 
 import { Button } from "@chakra-ui/react";
-import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
+import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
+import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/CustomHooks";
+import { locationState } from "../../../recoil/userAtoms";
 import { IStudyParticipate } from "../../../types/study/study";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
 import StudyVoteSubModalPrivate from "./StudyVoteSubModalPrivate";
@@ -52,6 +54,7 @@ function StudyVoteSubModal({
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const voteDate = useRecoilValue(voteDateState);
+  const location = useRecoilValue(locationState);
 
   const [isFirst, setIsFirst] = useState(true);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
@@ -62,32 +65,37 @@ function StudyVoteSubModal({
     inviteUid as string
   );
 
-  const { mutate: patchAttend } = useStudyParticipateMutation(voteDate, {
-    onSuccess: () => {
-      if (studyDateStatus === "today" && !isPrivate) {
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
-      }
-      if (studyDateStatus === "not passed") {
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
-      }
-      if (inviteUid) {
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
-        getInviteAboutPoint({
-          value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
-          message: `${session?.user.name}님의 스터디 참여 보너스`,
-        });
-      }
-      resetQueryData(STUDY_VOTE_INFO);
-      completeToast("studyVote");
-    },
-    onError: errorToast,
-  });
+  const { mutate: patchAttend } = useStudyParticipationMutation(
+    voteDate,
+    "post",
+    {
+      onSuccess() {
+        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
+        completeToast("studyVote");
+        if (studyDateStatus === "today" && !isPrivate) {
+          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
+        }
+        if (studyDateStatus === "not passed") {
+          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
+        }
+        if (inviteUid) {
+          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
+          getInviteAboutPoint({
+            value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
+            message: `${session?.user.name}님의 스터디 참여 보너스`,
+          });
+        }
+      },
+      onError: errorToast,
+    }
+  );
 
   const onSubmit = () => {
     const data: IStudyParticipate = {
       ...voteInfo,
       place,
     };
+
     patchAttend(data);
     setIsModal(false);
   };
@@ -144,13 +152,6 @@ function StudyVoteSubModal({
           ? "신청 완료"
           : "투표 완료"}
       </Button>
-      {/* <MainButton onClick={isFirst ? handleFirst : onSubmit}>
-        {isFirst && (studyDateStatus === "not passed" || isPrivate)
-          ? "다음"
-          : isPrivate
-          ? "신청 완료"
-          : "투표 완료"}
-      </MainButton> */}
     </Layout>
   );
 }

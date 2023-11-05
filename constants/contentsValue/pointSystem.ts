@@ -15,6 +15,10 @@ export const POINT_SYSTEM_MINUS = {
     value: -5,
     message: "투표 취소",
   },
+  STUDY_TIME_CHANGE: {
+    value: -5,
+    message: "늦은 시간 변경",
+  },
 };
 
 export const POINT_SYSTEM_Deposit = {

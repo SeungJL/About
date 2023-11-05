@@ -8,7 +8,7 @@ import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import { ISpaceControl } from "../../../types/page/admin";
 
 function AdminStudySpace() {
-  const { data } = useStudyPlacesQuery();
+  const { data } = useStudyPlacesQuery("all");
   const { register, handleSubmit } = useForm({});
 
   const [addRequestForm, setAddRequestForm] = useState({

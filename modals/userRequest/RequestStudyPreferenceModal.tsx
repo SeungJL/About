@@ -11,7 +11,7 @@ import {
 import { LOCATION_PLACE_SMALL } from "../../constants/location";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
-import { useStudyPlacesLocationQuery } from "../../hooks/study/queries";
+import { useStudyPlacesQuery } from "../../hooks/study/queries";
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { IModal } from "../../types/reactTypes";
 import { IStudyPlaces } from "../../types/study/study";
@@ -34,7 +34,8 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
   const isBig = !LOCATION_PLACE_SMALL.includes(location);
 
   //같은 지역의 스터디 장소 호출
-  useStudyPlacesLocationQuery(location, {
+
+  useStudyPlacesQuery(location, {
     enabled: !!location,
     onSuccess(data) {
       setPlaces(data);

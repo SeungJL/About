@@ -7,7 +7,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
-import { STUDY_VOTE_INFO } from "../../../constants/keys/queryKeys";
+import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/CustomHooks";
 import {
@@ -39,7 +39,7 @@ function StudyQuickVoteModal({ setIsModal }: IModal) {
   const { mutate } = useStudyQuickVoteMutation(voteDate, {
     onSuccess() {
       completeToast("studyVote");
-      resetQueryData([STUDY_VOTE_INFO, dayjsToStr(voteDate), location]);
+      resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
     },
     onError: errorToast,
   });

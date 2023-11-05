@@ -5,23 +5,26 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { POINT_SYSTEM_MINUS } from "../../../constants/contentsValue/pointSystem";
+import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
+import { dayjsToStr } from "../../../helpers/dateHelpers";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
 } from "../../../hooks/CustomToast";
-import { useStudyCancelMutation } from "../../../hooks/study/mutations";
+import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
-import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
   myStudyFixedState,
   studyDateStatusState,
 } from "../../../recoil/studyAtoms";
+import { locationState } from "../../../recoil/userAtoms";
 
 import {
   IAttendance,
@@ -64,24 +67,29 @@ function StudySpaceNavigation({
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const location = useRecoilValue(locationState);
 
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const resetQueryData = useResetQueryData();
 
   const [modalType, setModalType] = useState<StudySpaceModalType>();
 
   const myVote = attendences?.find(
     (props) => (props.user as IUser).uid === session?.uid
   );
-  
+
   const { mutate: getAboutPoint } = useAboutPointMutation();
-  const { mutate: handleAbsent } = useStudyCancelMutation(voteDate, {
-    onSuccess() {
-      setIsRefetchStudySpace(true);
-      getAboutPoint(POINT_SYSTEM_MINUS.STUDY_VOTE_CANCEL);
-      completeToast("success");
-    },
-    onError: errorToast,
-  });
+  const { mutate: handleAbsent } = useStudyParticipationMutation(
+    voteDate,
+    "delete",
+    {
+      onSuccess() {
+        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
+        getAboutPoint(POINT_SYSTEM_MINUS.STUDY_VOTE_CANCEL);
+        completeToast("success");
+      },
+      onError: errorToast,
+    }
+  );
 
   const onClickSubBtn = (type: SubBtnType) => {
     if (isGuest) {

@@ -13,7 +13,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
-import { STUDY_VOTE_INFO } from "../../constants/keys/queryKeys";
+import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/CustomHooks";
 import {
@@ -22,13 +22,10 @@ import {
   useFailToast,
 } from "../../hooks/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
+import { useStudyStartTimeQuery } from "../../hooks/study/queries";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import {
-  myStudyFixedState,
-  studyStartTimeState,
-  voteDateState,
-} from "../../recoil/studyAtoms";
+import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
 import { InputSm } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -42,7 +39,6 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const placeId = router.query.placeId;
 
-  const studyStartTime = useRecoilValue(studyStartTimeState);
   const myStudyFixed = useRecoilValue(myStudyFixedState);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
@@ -50,12 +46,14 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
 
-  const myStudyStartTime = studyStartTime?.find(
-    (item) => item.placeId === placeId
-  )?.startTime;
   const isFree = myStudyFixed.status === "free";
 
   const resetQueryData = useResetQueryData();
+
+  const { data: startTime } = useStudyStartTimeQuery(
+    voteDate,
+    placeId as string
+  );
 
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();
@@ -63,11 +61,10 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
       completeToast("success");
-      resetQueryData([STUDY_VOTE_INFO, dayjsToStr(voteDate), location]);
+      resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
       let fee: { value: number; message: string };
       if (isFree) return;
-      if (dayjs() > myStudyStartTime)
-        fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER;
+      if (dayjs() > startTime) fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER;
       else fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE;
       getDeposit(fee);
       sendRequest({
@@ -125,7 +122,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
           ) : (
             <>
               <ModalSubtitle>
-                {dayjs() < myStudyStartTime ? (
+                {dayjs() < startTime ? (
                   <P>
                     스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이
                     부여됩니다. 참여 시간을 변경해 보는 것은 어떨까요?

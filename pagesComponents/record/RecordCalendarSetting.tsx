@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect } from "react";
 import { useErrorToast } from "../../hooks/CustomToast";
-import { useStudyCheckRecordsQuery } from "../../hooks/study/queries";
+import { useStudyAttendRecordQuery } from "../../hooks/study/queries";
 import { DispatchBoolean, DispatchType } from "../../types/reactTypes";
 import { IArrivedData } from "../../types/study/study";
 
@@ -18,7 +18,7 @@ function RecordCalendarSetting({
 }: IRecordSetting) {
   const errorToast = useErrorToast();
 
-  const { data: studyRecords, isLoading } = useStudyCheckRecordsQuery(
+  const { data: studyRecords, isLoading } = useStudyAttendRecordQuery(
     navMonth,
     navMonth.endOf("month"),
     {

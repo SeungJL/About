@@ -1,10 +1,6 @@
 import { Dayjs } from "dayjs";
 import { atom, RecoilEnv } from "recoil";
-import {
-  IParticipation,
-  IStudyStartTime,
-  StudyDate,
-} from "../types/study/studyDetail";
+import { IParticipation, StudyDate } from "../types/study/studyDetail";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const participationsState = atom<IParticipation[]>({
@@ -29,10 +25,5 @@ export const studyDateStatusState = atom<StudyDate>({
 
 export const myStudyFixedState = atom<IParticipation>({
   key: "myStudyFixedState",
-  default: null,
-});
-
-export const studyStartTimeState = atom<IStudyStartTime[]>({
-  key: "studyStartTimeState",
   default: null,
 });
