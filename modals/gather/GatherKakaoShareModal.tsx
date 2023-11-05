@@ -32,7 +32,7 @@ function GatherKakaoShareModal({
     if (idx === selectedItem) setSelectedItem(null);
     else setSelectedItem(idx);
   };
-  console.log(selectedItem);
+ 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl" height={430}>
       <ModalHeader text="공유 이미지 선택" />

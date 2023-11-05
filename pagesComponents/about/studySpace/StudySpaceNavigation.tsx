@@ -20,8 +20,8 @@ import {
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import {
-  isVotingState,
   myStudyState,
+  myVotingState,
   studyDateStatusState,
 } from "../../../recoil/studyAtoms";
 import { locationState } from "../../../recoil/userAtoms";
@@ -64,7 +64,7 @@ function StudySpaceNavigation({
   const isGuest = session?.user.name === "guest";
   const voteDate = dayjs(router.query.date as string);
 
-  const isVoting = useRecoilValue(isVotingState);
+  const myVoting = useRecoilValue(myVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudyFixed = useRecoilValue(myStudyState);
   const location = useRecoilValue(locationState);
@@ -129,7 +129,7 @@ function StudySpaceNavigation({
 
     if (studyDateStatus === "passed") return { text: "기간만료" };
     if (studyDateStatus === "not passed") {
-      if (isVoting) return { text: "투표 완료" };
+      if (myVoting) return { text: "투표 완료" };
       if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
       return { text: "스터디 투표", func: "vote" };
     }
@@ -146,7 +146,7 @@ function StudySpaceNavigation({
   const { text, func } = getStudyButtonText();
 
   const isShowSubNav =
-    (isVoting && studyDateStatus === "not passed") ||
+    (myVoting && studyDateStatus === "not passed") ||
     (studyDateStatus === "today" && myVote);
 
   return (

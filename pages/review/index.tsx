@@ -50,7 +50,7 @@ function Review() {
   const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [reviewContentId, setReviewContentId] =
     useRecoilState(reviewContentIdState);
-  console.log(24);
+ 
   const [visibleCnt, setVisibleCnt] = useState(8);
 
   const url = WEB_URL + router?.asPath;
@@ -101,7 +101,7 @@ function Review() {
     enabled: !initialData,
     onError: errorToast,
   });
-  console.log(initialData);
+ 
   useEffect(() => {
     if (!gatherAllData) return;
     const reviewObject = gatherAllData.reduce((acc, summary) => {
@@ -150,7 +150,7 @@ function Review() {
   const handleLoadMore = () => {
     setVisibleCnt((old) => old + 8);
   };
-  console.log(533);
+  
   return (
     <>
       <Header

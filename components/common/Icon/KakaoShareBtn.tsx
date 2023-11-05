@@ -97,7 +97,7 @@ function KakaoShareBtn({
                 },
               },
             };
-      console.log(window.Kakao);
+    
       window.Kakao.Link.createDefaultButton(options);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,25 +1,19 @@
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
-import { useTypeErrorToast } from "../../hooks/CustomToast";
-import { useUserInfoQuery } from "../../hooks/user/queries";
 
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
+import { userInfoState } from "../../recoil/userAtoms";
 import UserSettingInfo from "./userSetting/userSettingInfo";
 import UserSettingPopUp from "./userSetting/userSettingPopUp";
 
 export default function UserSetting() {
-  const typeErrorToast = useTypeErrorToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
+  const userInfo = useRecoilValue(userInfoState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   const isPopUpCondition = !isMainLoading && !isGuest;
-
-  const { data: userInfo } = useUserInfoQuery({
-    enabled: !isGuest,
-    onError: (e) => typeErrorToast(e, "user"),
-  });
 
   return (
     <>

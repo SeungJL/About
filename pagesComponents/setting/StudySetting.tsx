@@ -1,10 +1,7 @@
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { MY_TODAY_STUDY_FIXED } from "../../constants/keys/localStorage";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { LOCATION_OPEN } from "../../constants/location";
-import { dayjsToStr } from "../../helpers/dateHelpers";
 import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
@@ -13,48 +10,22 @@ import {
   useStudyVoteQuery,
 } from "../../hooks/study/queries";
 import {
-  isVotingState,
-  myStudyState,
   participationsState,
   studyDateStatusState,
   studyStartTimeArrState,
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
-import { IParticipation } from "../../types/study/studyDetail";
 
 function StudySetting() {
-  const { data: session } = useSession();
   const typeErrorToast = useTypeErrorToast();
 
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-
   const setStudyStartTimeArr = useSetRecoilState(studyStartTimeArrState);
+  const setParticipations = useSetRecoilState(participationsState);
 
-  const setIsVoting = useSetRecoilState(isVotingState);
-  const [participations, setParticipations] =
-    useRecoilState(participationsState);
-  const setMySpaceFixed = useSetRecoilState(myStudyState);
-
-  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day"),
-    {
-      onSuccess() {
-        refetch();
-      },
-    }
-  );
-  useEffect(() => {
-    const hasStudyDecision =
-      participations?.[0]?.status === "pending" && studyDateStatus === "today";
-
-    if (hasStudyDecision) decideSpace();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [participations, studyDateStatus]);
-
-  //스터디 데이터 가져오기
   const { data: studyVoteData, refetch } = useStudyVoteQuery(
     voteDate,
     location,
@@ -64,6 +35,27 @@ function StudySetting() {
     }
   );
 
+  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
+    dayjs().add(1, "day"),
+    {
+      onSuccess() {
+        setTimeout(() => {
+          refetch();
+        }, 200);
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (!studyVoteData) return;
+    const participations = studyVoteData.participations;
+    if (participations[0].status === "pending" && studyDateStatus === "today") {
+      decideSpace();
+    }
+    setParticipations(arrangeSpace(participations));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [studyVoteData]);
+
   useStudyStartTimeQuery(voteDate, {
     enabled: !!voteDate,
     onSuccess(data) {
@@ -71,35 +63,6 @@ function StudySetting() {
     },
   });
 
-  useEffect(() => {
-    if (studyVoteData) {
-      const participations = studyVoteData.participations;
-      setParticipations(arrangeSpace(participations));
-      setMyStudySpace(participations);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [studyVoteData]);
-
-  //내 스터디 확인
-  const setMyStudySpace = (participations: IParticipation[]) => {
-    let isCheckMyVote = false;
-    participations.forEach((participation) => {
-      participation.attendences.forEach((who) => {
-        if (who?.user?.uid === session?.uid) {
-          isCheckMyVote = true;
-          if (["open", "free"].includes(participation.status)) {
-            setMySpaceFixed(participation);
-            if (studyDateStatus === "today") {
-              localStorage.setItem(MY_TODAY_STUDY_FIXED, dayjsToStr(dayjs()));
-            }
-          }
-        }
-      });
-    });
-    setIsVoting(isCheckMyVote);
-  };
-
   return null;
 }
-
 export default StudySetting;

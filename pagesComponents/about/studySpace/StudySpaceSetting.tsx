@@ -3,17 +3,11 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { getStudyDate } from "../../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../../hooks/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
-import {
-  isVotingState,
-  myStudyState,
-  studyDateStatusState,
-  voteDateState,
-} from "../../../recoil/studyAtoms";
+import { voteDateState } from "../../../recoil/studyAtoms";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
 import { IParticipation, IVote } from "../../../types/study/studyDetail";
 
@@ -30,13 +24,10 @@ function StudySpaceSetting({
   const typeErrorToast = useTypeErrorToast();
   const { data: session } = useSession();
 
-  const setIsVoting = useSetRecoilState(isVotingState);
   const [isRefetchStudySpace, setIsRefetchStudySpace] = useRecoilState(
     isRefetchStudySpaceState
   );
   const setVoteDate = useSetRecoilState(voteDateState);
-  const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
-  const setMySpaceFixed = useSetRecoilState(myStudyState);
 
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
@@ -57,16 +48,10 @@ function StudySpaceSetting({
     const isVoted = findParticipation.attendences.find(
       (who) => who?.user.uid === session?.uid
     );
-    setIsVoting(!!isVoted);
-    if (!!isVoted && ["open", "free"].includes(findParticipation.status)) {
-      setMySpaceFixed(findParticipation);
-    }
   };
 
   //날짜 세팅
   const handleDate = () => {
-    const studyDateStatus = getStudyDate(voteDate);
-    setStudyDateStatus(studyDateStatus);
     setVoteDate(voteDate);
   };
 

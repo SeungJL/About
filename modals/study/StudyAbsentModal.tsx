@@ -24,7 +24,11 @@ import {
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { myStudyState, voteDateState } from "../../recoil/studyAtoms";
+import {
+  myStudyState,
+  studyStartTimeState,
+  voteDateState,
+} from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
 import { InputSm } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -41,6 +45,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const myStudyFixed = useRecoilValue(myStudyState);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
+  const studyStartTime = useRecoilValue(studyStartTimeState);
 
   const [isTooltip, setIsTooltip] = useState(false);
   const [value, setValue] = useState<string>("");
@@ -58,7 +63,8 @@ function StudyAbsentModal({ setIsModal }: IModal) {
       resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
       let fee: { value: number; message: string };
       if (isFree) return;
-      if (dayjs() > startTime) fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER;
+      if (dayjs() > studyStartTime.startTime)
+        fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER;
       else fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE;
       getDeposit(fee);
       sendRequest({
@@ -116,7 +122,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
           ) : (
             <>
               <ModalSubtitle>
-                {dayjs() < startTime ? (
+                {dayjs() < studyStartTime.startTime ? (
                   <P>
                     스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이
                     부여됩니다. 참여 시간을 변경해 보는 것은 어떨까요?

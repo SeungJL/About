@@ -4,10 +4,11 @@ import {
   STUDY_VOTE_END_HOUR,
   STUDY_VOTE_START_HOUR,
 } from "../constants/settingValue/study";
+
 import {
   IParticipation,
   IPlace,
-  StudyDate,
+  StudyDateStatus,
   StudyStatus,
 } from "../types/study/studyDetail";
 import { getCurrentDate, getCurrentHour } from "./dateHelpers";
@@ -65,7 +66,7 @@ export const getInterestingDate = () => {
   return currentDate.add(1, "day");
 };
 
-type GetStudyDate = (voteDate: Dayjs) => StudyDate;
+type GetStudyDate = (voteDate: Dayjs) => StudyDateStatus;
 
 //today는 스터디 결과 확정 시간 기준으로 24시간
 export const getStudyDate: GetStudyDate = (voteDate) => {

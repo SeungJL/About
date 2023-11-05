@@ -126,7 +126,7 @@ function EventCalendar() {
                 </Date>
                 <DateContent>
                   {dateInfo.map((item, idx2) => {
-                    console.log(item);
+                  
                     return (
                       <>
                         {item?.blockIdx !== undefined && (

@@ -4,8 +4,10 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { useToken } from "../../hooks/token/useToken";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import { userInfoState } from "../../recoil/userAtoms";
 import BaseModal from "./BaseModal";
 import BaseScript from "./BaseScript";
 import Seo from "./Seo";
@@ -27,6 +29,8 @@ function Layout({ children }: ILayout) {
 
   const [isErrorModal, setIsErrorModal] = useState(false);
 
+  const setUserInfo = useSetRecoilState(userInfoState);
+
   const isPublicRoute = PUBLIC_ROUTES.some((route) =>
     router.asPath.startsWith(route)
   );
@@ -45,6 +49,8 @@ function Layout({ children }: ILayout) {
       }
       //유저 데이터 에러
       if (session && data._id !== session.id) setIsErrorModal(true);
+
+      setUserInfo(data);
     },
     onError() {
       navigateTo("/checkingServer");

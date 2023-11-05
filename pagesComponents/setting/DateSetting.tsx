@@ -13,23 +13,16 @@ import {
   getCurrentHour,
 } from "../../helpers/dateHelpers";
 
-import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
+import { getInterestingDate } from "../../helpers/studyHelpers";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import {
-  myStudyState,
-  participationsState,
-  studyDateStatusState,
-  voteDateState,
-} from "../../recoil/studyAtoms";
+import { participationsState, voteDateState } from "../../recoil/studyAtoms";
 
 function DateSetting() {
   const { data: session } = useSession();
   const isGuest = session && session.user.name === "guest";
 
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
-  const setMyStudyFixed = useSetRecoilState(myStudyState);
   const setParticipations = useSetRecoilState(participationsState);
 
   const currentDate = getCurrentDate();
@@ -54,9 +47,7 @@ function DateSetting() {
   useEffect(() => {
     setIsMainLoading(true);
     if (!voteDate) return;
-    setMyStudyFixed(null);
     setParticipations(null);
-    setStudyDateStatus(getStudyDate(voteDate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);
 

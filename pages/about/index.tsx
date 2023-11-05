@@ -26,10 +26,10 @@ import {
 import { IParticipation } from "../../types/study/studyDetail";
 
 function About() {
-  const myStudyFixed = useRecoilValue(myStudyState);
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const participations = useRecoilValue(participationsState);
   const voteDate = useRecoilValue(voteDateState);
+  const participations = useRecoilValue(participationsState);
+  const myStudy = useRecoilValue(myStudyState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const [otherStudies, setOtherStudies] = useState<IParticipation[]>([]);
@@ -41,7 +41,7 @@ function About() {
       return;
     }
     const arrangedOtherStudies = arrangeMainSpace(
-      participations?.filter((space) => space !== myStudyFixed),
+      participations.filter((space) => space !== myStudy),
       studyDateStatus !== "not passed"
     );
     const filtered =
@@ -49,12 +49,11 @@ function About() {
         ? arrangedOtherStudies.filter((par) => par.place.brand !== "자유 신청")
         : arrangedOtherStudies;
     setOtherStudies(filtered);
-    //0.1초 정도의 딜레이 → otherStudies에서 main 연산
     setTimeout(() => {
       setIsMainLoading(false);
     }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myStudyFixed, participations]);
+  }, [myStudy, participations]);
 
   return (
     <>

@@ -13,7 +13,7 @@ function Test() {
   //   mutate("T");
   // };
 
-  console.log(4);
+  
   return (
     <ModalLayout size="xl" onClose={() => {}}>
       <Layout>

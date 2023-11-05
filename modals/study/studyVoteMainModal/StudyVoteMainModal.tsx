@@ -24,7 +24,7 @@ import {
 } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import {
-  isVotingState,
+  myVotingState,
   participationsState,
   studyDateStatusState,
   voteDateState,
@@ -51,7 +51,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
 
   const participations = useRecoilValue(participationsState);
   const voteDate = useRecoilValue(voteDateState);
-  const isVoting = useRecoilValue(isVotingState);
+  const myVoting = useRecoilValue(myVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const location = useRecoilValue(locationState);
 
@@ -91,7 +91,7 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
 
   //투표 완료시 점수 획득
   const getPoint = () => {
-    if (!isVoting) {
+    if (!myVoting) {
       if (studyDateStatus === "today")
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
       if (studyDateStatus === "not passed")

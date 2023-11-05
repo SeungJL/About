@@ -23,7 +23,7 @@ function PlaceSelector({
   isMain,
 }: IPlaceSelector) {
   const failToast = useFailToast();
-  console.log(22, votePlaces);
+ 
   const isGridLayout = places?.length > 4;
 
   const onClickItem = (place: IPlace, isMax?: boolean) => {

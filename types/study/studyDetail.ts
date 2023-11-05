@@ -59,7 +59,7 @@ export interface IStudyStartTime {
   startTime: Dayjs;
 }
 
-export type StudyDate = "passed" | "today" | "not passed";
+export type StudyDateStatus = "passed" | "today" | "not passed";
 
 export interface IStudyPreferencesQuery {
   _id: string;

@@ -3,15 +3,15 @@ import { Location } from "../types/system";
 import { IUser } from "../types/user/user";
 
 export const userInfoState = atom<IUser>({
-  key: "userInfo",
+  key: "UserInfo",
   default: null,
 });
 export const isGuestState = atom({
-  key: "isGuest",
+  key: "IsGuest",
   default: false,
 });
 
 export const locationState = atom<Location>({
-  key: "location",
+  key: "Location",
   default: null,
 });
