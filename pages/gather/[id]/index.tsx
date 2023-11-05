@@ -61,14 +61,9 @@ function GatherDetail() {
               gatherList={gatherData.gatherList}
             />
             <GatherParticipation data={gatherData} />
-            <GatherComments
-              comment={gatherData.comment}
-              setIsRefetch={setIsRefetch}
-            />
+            <GatherComments comment={gatherData.comment} />
           </Layout>
-          {!isGuest && (
-            <GatherBottomNav data={gatherData} setIsRefetch={setIsRefetch} />
-          )}
+          {!isGuest && <GatherBottomNav data={gatherData} />}
         </>
       ) : (
         <MainLoading />

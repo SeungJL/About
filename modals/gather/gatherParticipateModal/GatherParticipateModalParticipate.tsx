@@ -1,29 +1,34 @@
 import { useRouter } from "next/router";
 import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
+import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
 import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
-import { useGatherParticipateMutation } from "../../../hooks/gather/mutations";
-import { IModal, IRefetch } from "../../../types/reactTypes";
+import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
+import { IModal } from "../../../types/reactTypes";
 
-function GatherParticipateModalParticipate({
-  setIsModal,
-  setIsRefetch,
-}: IModal & IRefetch) {
+function GatherParticipateModalParticipate({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
 
   const router = useRouter();
   const gatherId = +router.query.id;
 
-  const { mutate: participate } = useGatherParticipateMutation(gatherId, {
-    onSuccess() {
-      setIsRefetch(true);
-      completeToast("free", "참여 완료!");
-    },
-    onError: errorToast,
-  });
+  const resetQueryData = useResetQueryData();
+  const { mutate: participate } = useGatherParticipationMutation(
+    "post",
+    gatherId,
+    {
+      onSuccess() {
+        resetQueryData([GATHER_CONTENT]);
 
-  const selectGatherTime = (time: "first" | "second") => {
-    participate(time);
+        completeToast("free", "참여 완료!");
+      },
+      onError: errorToast,
+    }
+  );
+
+  const selectGatherTime = (phase: "first" | "second") => {
+    participate(phase);
     setIsModal(false);
   };
 

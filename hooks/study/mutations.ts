@@ -8,25 +8,25 @@ import { IStudyParticipate, IStudyPlaces } from "../../types/study/study";
 
 import { IDayjsStartToEnd } from "../../types/timeAndDate";
 
-type StudyParticipationParam<T> = T extends "get" | "post"
+type StudyParticipationParam<T> = T extends "post"
   ? IStudyParticipate
   : T extends "patch"
   ? IDayjsStartToEnd
   : void;
 
 export const useStudyParticipationMutation = <
-  T extends "get" | "post" | "patch" | "delete"
+  T extends "post" | "patch" | "delete"
 >(
   date: Dayjs,
   method: T,
   options?: MutationOptions<StudyParticipationParam<T>>
 ) =>
   useMutation<void, AxiosError, StudyParticipationParam<T>>(
-    (studyParticipate) =>
+    (param) =>
       requestServer<StudyParticipationParam<T>>({
-        method: method,
+        method,
         url: `vote/${dayjsToStr(date)}`,
-        body: studyParticipate,
+        body: param,
       }),
     options
   );

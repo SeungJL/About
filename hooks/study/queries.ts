@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { useQuery } from "react-query";
 import {
+  STUDY_ARRIVED_CNT,
   STUDY_ATTEND_RECORD,
   STUDY_PLACE,
   STUDY_START_TIME,
@@ -11,11 +12,7 @@ import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { QueryOptions } from "../../types/reactTypes";
 
-import {
-  IAbsentInfo,
-  IArrivedData,
-  IStudyPlaces,
-} from "../../types/study/study";
+import { IArrivedData, IStudyPlaces } from "../../types/study/study";
 import {
   IPlace,
   IStudyPreferencesQuery,
@@ -23,6 +20,24 @@ import {
 } from "../../types/study/studyDetail";
 
 import { Location } from "../../types/system";
+
+export const useStudyPlacesQuery = (
+  location: Location | "all",
+  options?: QueryOptions<IPlace[]>
+) =>
+  useQuery<IPlace[], AxiosError, IPlace[]>(
+    [STUDY_PLACE, location],
+    async () => {
+      const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
+      const places = res.data.filter(
+        (place) =>
+          place.brand !== "자유 신청" &&
+          (location === "all" || place.location === location)
+      );
+      return places;
+    },
+    options
+  );
 
 export const useStudyVoteQuery = (
   date: Dayjs,
@@ -39,24 +54,6 @@ export const useStudyVoteQuery = (
         }
       );
       return res.data;
-    },
-    options
-  );
-
-export const useStudyPlacesQuery = (
-  location: Location | "all",
-  options?: QueryOptions<IPlace[]>
-) =>
-  useQuery<IPlace[], AxiosError, IPlace[]>(
-    [STUDY_PLACE, location],
-    async () => {
-      const res = await axios.get<IPlace[]>(`${SERVER_URI}/place`);
-      const places = res.data.filter(
-        (place) =>
-          place.brand !== "자유 신청" &&
-          (location === "all" || place.location === location)
-      );
-      return places;
     },
     options
   );
@@ -80,7 +77,7 @@ export const useStudyStartTimeQuery = (
       const findItem = res.data.find(
         (item) => item.place_id === placeId
       )?.startTime;
-      return dayjs(findItem);
+      if (findItem) return dayjs(findItem);
     },
     options
   );
@@ -107,17 +104,21 @@ export const useStudyAttendRecordQuery = (
     options
   );
 
-export const useStudyAbsentQuery = (
-  date: Dayjs,
-  options?: QueryOptions<IAbsentInfo[]>
+interface IArrivedTotal {
+  [key: string]: number;
+}
+export const useStudyArrivedCntQuery = (
+  uid: string,
+  options?: QueryOptions<number>
 ) =>
   useQuery(
-    "studyAbsent",
+    [STUDY_ARRIVED_CNT, uid],
     async () => {
-      const res = await axios.get<IAbsentInfo[]>(
-        `${SERVER_URI}/vote/${dayjsToStr(date)}/absence`
+      if (!uid) return;
+      const res = await axios.get<IArrivedTotal>(
+        `${SERVER_URI}/vote/arriveCnt`
       );
-      return res.data;
+      return res.data?.[uid];
     },
     options
   );
@@ -133,45 +134,3 @@ export const useStudyPreferenceQuery = (options?: QueryOptions<IStudyPlaces>) =>
     },
     options
   );
-interface IArrivedTotal {
-  [key: string]: number;
-}
-export const useStudyArrivedCntQuery = (
-  options?: QueryOptions<IArrivedTotal>
-) =>
-  useQuery(
-    "arriveCnt",
-    async () => {
-      const res = await axios.get<IArrivedTotal>(
-        `${SERVER_URI}/vote/arriveCnt`
-      );
-      return res.data;
-    },
-    options
-  );
-
-// export const useStudyArrivedQuery = (
-//   date: Dayjs,
-//   options?: Omit<
-//     UseQueryOptions<
-//       { user: IUser; memo: string }[],
-//       AxiosError,
-//       { user: IUser; memo: string }[]
-//     >,
-//     "mutationKey" | "mutationFn"
-//   >
-// ) =>
-//   useQuery<
-//     { user: IUser; memo: string }[],
-//     AxiosError,
-//     { user: IUser; memo: string }[]
-//   >(
-//     ARRIVE_FINDMEMO,
-//     async () => {
-//       const res = await axios.get(
-//         `${SERVER_URI}/vote/${dayjsToStr(date)}/arrived`
-//       );
-//       return res.data;
-//     },
-//     options
-//   );

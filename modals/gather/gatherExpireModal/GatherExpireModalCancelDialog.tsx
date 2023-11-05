@@ -11,14 +11,10 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
 import {
-  useCompleteToast,
-  useErrorToast,
-  useFailToast,
-} from "../../../hooks/CustomToast";
-import {
-  useGatherDeleteMutation,
-  useGatherStatusClose,
+  useGatherStatusMutation,
+  useGatherWritingMutation,
 } from "../../../hooks/gather/mutations";
 import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
@@ -36,27 +32,26 @@ function GatherExpireModalCancelDialog({
 }: IGatherExpireModalCancelDialog) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
-  const failToast = useFailToast();
+
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   const gatherId = +router.query.id;
 
-  const onComplete = (type: "delete" | "close") => {
-    if (type === "delete") completeToast("free", "모임이 삭제되었습니다.");
-    if (type === "close") completeToast("free", "모임이 취소되었습니다.");
-
+  const onComplete = async (type: "delete" | "close") => {
     setIsComplete(true);
-    setTimeout(() => {
+    if (type === "delete") {
+      completeToast("free", "모임이 삭제되었습니다.");
       router.push(`/gather`);
-    }, 1000);
+    }
+    if (type === "close") completeToast("free", "모임이 취소되었습니다.");
   };
 
-  const { mutate: gatherDelete } = useGatherDeleteMutation(gatherId, {
+  const { mutate: gatherDelete } = useGatherWritingMutation("delete", {
     onSuccess: () => onComplete("delete"),
     onError: errorToast,
   });
-  const { mutate: statusClose } = useGatherStatusClose(gatherId, {
+  const { mutate: statusClose } = useGatherStatusMutation(gatherId, {
     onSuccess: () => onComplete("close"),
     onError: errorToast,
   });
@@ -67,8 +62,8 @@ function GatherExpireModalCancelDialog({
   }, [modal]);
 
   const onCancel = () => {
-    if (isNoMember) gatherDelete();
-    else statusClose();
+    if (isNoMember) gatherDelete({ gatherId });
+    else statusClose("close");
   };
 
   return (

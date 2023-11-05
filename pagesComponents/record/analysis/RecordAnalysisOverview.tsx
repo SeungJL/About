@@ -21,7 +21,10 @@ function RecordAnalysisOverview() {
     (who) => who?.uid === session?.uid
   );
 
-  const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery();
+  const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
+    session?.uid
+  );
+
   return (
     <>
       {!isLoading && (

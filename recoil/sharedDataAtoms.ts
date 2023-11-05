@@ -3,10 +3,10 @@ import { IGatherWriting } from "../types/page/gather";
 import { IRegisterForm, IUser } from "../types/user/user";
 
 export const sharedGatherWritingState = atom<IGatherWriting>({
-  key: "sharedGatherWriting",
+  key: "sharedGatherWritingState",
   default: null,
 });
 export const sharedRegisterFormState = atom<IRegisterForm | IUser>({
-  key: "sharedRegisterForm",
+  key: "sharedRegisterFormState",
   default: null,
 });

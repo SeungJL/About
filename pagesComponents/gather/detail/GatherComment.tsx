@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { getDateDiff } from "../../../helpers/dateHelpers";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
@@ -18,10 +20,9 @@ export interface IGatherCommentUnit {
 
 interface IGatherComments {
   comment: IGatherComment[];
-  setIsRefetch: React.Dispatch<SetStateAction<boolean>>;
 }
 
-function GatherComments({ comment, setIsRefetch }: IGatherComments) {
+function GatherComments({ comment }: IGatherComments) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const router = useRouter();
@@ -42,12 +43,16 @@ function GatherComments({ comment, setIsRefetch }: IGatherComments) {
     }
   }, [value]);
 
-  const { mutate: writeComment } = useGatherCommentMutation();
+  const resetQueryData = useResetQueryData();
+
+  const { mutate: writeComment } = useGatherCommentMutation("post", gatherId, {
+    onSuccess() {
+      resetQueryData([GATHER_CONTENT]);
+    },
+  });
   const onSubmit = () => {
-    const data: IGatherCommentUnit = { gatherId, comment: value };
-    writeComment(data);
+    writeComment({ comment: value });
     setValue("");
-    setIsRefetch(true);
   };
 
   const onClickEdit = (commentId, text) => {
@@ -109,7 +114,6 @@ function GatherComments({ comment, setIsRefetch }: IGatherComments) {
         <GatherCommentEditModal
           commentText={commentText}
           commentId={commentId}
-          setIsRefetch={setIsRefetch}
           setIsModal={setIsEditModal}
         />
       )}

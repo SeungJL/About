@@ -2,15 +2,17 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import SuccessScreen from "../../components/layout/SuccessScreen";
 import {
   ModalBody,
   ModalFooterOne,
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import SuccessScreen from "../../components/layout/SuccessScreen";
+import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../hooks/CustomHooks";
 import { useErrorToast } from "../../hooks/CustomToast";
-import { useGatherContentMutation } from "../../hooks/gather/mutations";
+import { useGatherWritingMutation } from "../../hooks/gather/mutations";
 import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGatherWriting } from "../../types/page/gather";
@@ -28,20 +30,22 @@ function GatherWritingConfirmModal({
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
 
+  const resetQueryData = useResetQueryData();
   const setGatherContent = useSetRecoilState(sharedGatherWritingState);
 
-  const { mutate } = useGatherContentMutation({
+  const { mutate } = useGatherWritingMutation("post", {
     onSuccess() {
+      resetQueryData([GATHER_CONTENT]);
       setTimeout(() => {
         setGatherContent(null);
-      }, 500);
+      }, 200);
       setIsSuccessScreen(true);
     },
     onError: errorToast,
   });
 
   const onSubmit = () => {
-    mutate(gatherData);
+    mutate({ gather: gatherData });
   };
 
   return (

@@ -2,6 +2,7 @@ export const STUDY_VOTE = "studyVote";
 export const STUDY_PLACE = "studyPlace";
 export const STUDY_START_TIME = "studyStartTime";
 export const STUDY_ATTEND_RECORD = "studyAttendRecord";
+export const STUDY_ARRIVED_CNT = "studyArrivedCnt";
 
 export const PLACE_FINDALL = "place_findall";
 export const USER_INFO = "user_info";

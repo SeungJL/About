@@ -3,27 +3,24 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  useCompleteToast,
-  useErrorToast,
-  useFailToast,
-} from "../../../hooks/CustomToast";
-import { useGatherCancelMutation } from "../../../hooks/gather/mutations";
+import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
+import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
+import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
 import { GatherStatus, IGather } from "../../../types/page/gather";
-import { IRefetch } from "../../../types/reactTypes";
 
-interface IGatherBottomNav extends IRefetch {
+interface IGatherBottomNav {
   data: IGather;
 }
 
 type ButtonType = "cancel" | "participate" | "expire";
 
-function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
+function GatherBottomNav({ data }: IGatherBottomNav) {
   const router = useRouter();
   const completeToast = useCompleteToast();
-  const failToast = useFailToast();
+
   const errorToast = useErrorToast();
   const { data: session } = useSession();
   const myUid = session.uid;
@@ -35,13 +32,18 @@ function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
   const [isParticipationModal, setIsParticipationModal] = useState(false);
   const gatherId = +router.query.id;
 
-  const { mutate: cancel } = useGatherCancelMutation(gatherId, {
-    onSuccess() {
-      completeToast("free", "취소되었습니다.", true);
-      setIsRefetch(true);
-    },
-    onError: errorToast,
-  });
+  const resetQueryData = useResetQueryData();
+  const { mutate: cancel } = useGatherParticipationMutation(
+    "delete",
+    gatherId,
+    {
+      onSuccess() {
+        completeToast("free", "취소되었습니다.", true);
+        resetQueryData([GATHER_CONTENT]);
+      },
+      onError: errorToast,
+    }
+  );
 
   const onClick = (type: ButtonType) => {
     if (type === "cancel") cancel();
@@ -93,16 +95,10 @@ function GatherBottomNav({ data, setIsRefetch }: IGatherBottomNav) {
         </Button>
       </Layout>
       {isParticipationModal && (
-        <GatherParticipateModal
-          setIsModal={setIsParticipationModal}
-          setIsRefetch={setIsRefetch}
-        />
+        <GatherParticipateModal setIsModal={setIsParticipationModal} />
       )}
       {isExpirationModal && (
-        <GatherExpireModal
-          setIsModal={setIsExpirationModal}
-          setIsRefetch={setIsRefetch}
-        />
+        <GatherExpireModal setIsModal={setIsExpirationModal} />
       )}
     </>
   );

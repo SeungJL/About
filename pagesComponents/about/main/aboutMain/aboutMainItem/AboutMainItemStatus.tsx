@@ -16,7 +16,7 @@ interface IAboutMainItemStatus {
 function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
   const voteDate = useRecoilValue(voteDateState);
   const { data: startTime } = useStudyStartTimeQuery(voteDate, place._id);
-
+  console.log(startTime);
   return (
     <Layout>
       <Branch>{place.branch}</Branch>

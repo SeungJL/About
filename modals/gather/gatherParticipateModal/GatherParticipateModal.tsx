@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { ModalHeader, ModalLayout } from "../../../components/modals/Modals";
 
-import { IModal, IRefetch } from "../../../types/reactTypes";
+import { IModal } from "../../../types/reactTypes";
 import GatherParticipateModalApply from "./GatherParticipateModalApply";
 import GatherParticipateModalParticipate from "./GatherParticipateModalParticipate";
 import GatherParticipateModalPassword from "./GatherParticipateModalPassword";
 
-function GatherParticipateModal({
-  setIsModal,
-  setIsRefetch,
-}: IModal & IRefetch) {
+function GatherParticipateModal({ setIsModal }: IModal) {
   const [pageNum, setPageNum] = useState(0);
 
   return (
@@ -21,10 +18,7 @@ function GatherParticipateModal({
         ) : pageNum === 1 ? (
           <GatherParticipateModalPassword setPageNum={setPageNum} />
         ) : (
-          <GatherParticipateModalParticipate
-            setIsModal={setIsModal}
-            setIsRefetch={setIsRefetch}
-          />
+          <GatherParticipateModalParticipate setIsModal={setIsModal} />
         )}
       </>
     </ModalLayout>

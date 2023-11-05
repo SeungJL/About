@@ -58,6 +58,7 @@ function Layout({ children }: ILayout) {
   return (
     <>
       <Seo title="ABOUT" />
+
       {token && (
         <>
           <div id="root-modal">{children}</div>

@@ -6,22 +6,25 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
+import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../../hooks/CustomHooks";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
-import { IModal, IRefetch } from "../../../types/reactTypes";
+import { IModal } from "../../../types/reactTypes";
 import GatherExpireModalCancelDialog from "./GatherExpireModalCancelDialog";
 import GatherExpireModalExpireDialog from "./GatherExpireModalExpireDialogs";
 
 export type GatherExpireModalDialogType = "expire" | "cancel";
 
-function GatherExpireModal({ setIsModal, setIsRefetch }: IModal & IRefetch) {
+function GatherExpireModal({ setIsModal }: IModal) {
   const gatherData = useRecoilValue(transferGatherDataState);
 
+  const resetQueryData = useResetQueryData();
   const [modal, setModal] = useState<GatherExpireModalDialogType>();
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     if (!isComplete) return;
-    setIsRefetch(true);
+    resetQueryData([GATHER_CONTENT]);
     setIsModal(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isComplete]);

@@ -8,7 +8,7 @@ import { QueryOptions } from "../../types/reactTypes";
 
 export const useGatherAllQuery = (options?: QueryOptions<IGather[]>) =>
   useQuery<IGather[], AxiosError, IGather[]>(
-    [GATHER_CONTENT, "content"],
+    [GATHER_CONTENT],
     async () => {
       const res = await axios.get<IGather[]>(`${SERVER_URI}/gather`);
       // const data = res.data.map((content) => ({

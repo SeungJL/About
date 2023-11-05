@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PlaceSelector from "../../components/features/picker/PlaceSelector";
 import {
@@ -11,11 +11,13 @@ import {
 import { LOCATION_PLACE_SMALL } from "../../constants/location";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
-import { useStudyPlacesQuery } from "../../hooks/study/queries";
+import {
+  useStudyPlacesQuery,
+  useStudyPreferenceQuery,
+} from "../../hooks/study/queries";
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { IModal } from "../../types/reactTypes";
 import { IStudyPlaces } from "../../types/study/study";
-import { IPlace } from "../../types/study/studyDetail";
 
 function RequestStudyPreferenceModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
@@ -23,24 +25,29 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   const [page, setPage] = useState(0);
 
-  const [places, setPlaces] = useState<IPlace[]>();
   const [votePlaces, setVotePlaces] = useState<IStudyPlaces>({
     place: undefined,
     subPlace: [],
   });
 
-  //사이즈 설정
+  const { data: studyPreference } = useStudyPreferenceQuery();
+
   const { data: location } = useUserLocationQuery();
   const isBig = !LOCATION_PLACE_SMALL.includes(location);
 
   //같은 지역의 스터디 장소 호출
 
-  useStudyPlacesQuery(location, {
+  const { data: studyPlaces } = useStudyPlacesQuery(location, {
     enabled: !!location,
-    onSuccess(data) {
-      setPlaces(data);
-    },
   });
+
+  useEffect(() => {
+    if (!studyPreference) return;
+    setVotePlaces({
+      place: studyPreference.place,
+      subPlace: studyPreference?.subPlace,
+    });
+  }, [studyPreference]);
 
   const { mutate: setStudyPreference } = useStudyPreferenceMutation({
     onSuccess() {
@@ -70,7 +77,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
             <>
               <Subtitle>1지망 선택</Subtitle>
               <PlaceSelector
-                places={places}
+                places={studyPlaces}
                 votePlaces={votePlaces}
                 setVotePlaces={setVotePlaces}
                 isMain={true}
@@ -80,7 +87,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
             <>
               <Subtitle>2지망 선택</Subtitle>
               <PlaceSelector
-                places={places}
+                places={studyPlaces}
                 votePlaces={votePlaces}
                 setVotePlaces={setVotePlaces}
                 isMain={false}

@@ -2,12 +2,12 @@ import { atom } from "recoil";
 import { IattendCheckPresent } from "../types/modal/attendCheck";
 
 export const isVoteCompletedState = atom({
-  key: "isVoteCompleted",
+  key: "isVoteCompletedState",
   default: false,
 });
 
 export const attendCheckWinGiftState = atom<IattendCheckPresent>({
-  key: "attendCheckWinGift",
+  key: "attendCheckWinGiftState",
   default: null,
 });
 

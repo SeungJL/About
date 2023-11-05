@@ -8,13 +8,11 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
-import {
-  useGatherCommentDeleteMutation,
-  useGatherCommentEditMutation,
-} from "../../hooks/gather/mutations";
-import { IModal, IRefetch } from "../../types/reactTypes";
+import { useResetQueryData } from "../../hooks/CustomHooks";
+import { useGatherCommentMutation } from "../../hooks/gather/mutations";
+import { IModal } from "../../types/reactTypes";
 
-interface IGatherCommentEditModal extends IModal, IRefetch {
+interface IGatherCommentEditModal extends IModal {
   commentText: string;
   commentId: string;
 }
@@ -23,7 +21,6 @@ function GatherCommentEditModal({
   commentText,
   setIsModal,
   commentId,
-  setIsRefetch,
 }: IGatherCommentEditModal) {
   const router = useRouter();
   const gatherId = +router.query.id;
@@ -32,29 +29,33 @@ function GatherCommentEditModal({
   const [isFirst, setIsFirst] = useState(true);
   const [value, setValue] = useState(commentText);
 
-  const { mutate: deleteComment } = useGatherCommentDeleteMutation(gatherId, {
+  const resetQueryData = useResetQueryData();
+  const { mutate: deleteComment } = useGatherCommentMutation(
+    "delete",
+    gatherId,
+    {
+      onSuccess() {
+        resetQueryData([GATHER_CONTENT]);
+      },
+    }
+  );
+  const { mutate: editComment } = useGatherCommentMutation("patch", gatherId, {
     onSuccess() {
-      queryClient.invalidateQueries(GATHER_CONTENT);
-    },
-  });
-  const { mutate: editComment } = useGatherCommentEditMutation(gatherId, {
-    onSuccess() {
-      queryClient.invalidateQueries(GATHER_CONTENT);
+      resetQueryData([GATHER_CONTENT]);
     },
   });
 
   const onComplete = () => {
-    setIsRefetch(true);
     setIsModal(false);
   };
 
   const onDelete = () => {
-    deleteComment(commentId);
+    deleteComment({ commentId });
     onComplete();
   };
 
   const onEdit = () => {
-    editComment([commentId, value]);
+    editComment({ comment: value, commentId });
     onComplete();
   };
 

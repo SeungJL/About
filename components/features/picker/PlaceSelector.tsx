@@ -23,7 +23,7 @@ function PlaceSelector({
   isMain,
 }: IPlaceSelector) {
   const failToast = useFailToast();
-
+  console.log(22, votePlaces);
   const isGridLayout = places?.length > 4;
 
   const onClickItem = (place: IPlace, isMax?: boolean) => {
@@ -45,15 +45,24 @@ function PlaceSelector({
     setVotePlaces((old) => ({ ...old, subPlace }));
   };
 
+  if (!places) return null;
+
   return (
     <>
       <Layout isGridLayout={isGridLayout}>
         {places?.map((place) => {
           const placeInfo = place?.place || place;
           let selected: Selected = "none";
-          if (placeInfo === votePlaces.place) selected = "main";
-          if (votePlaces.subPlace.find((subPlace) => subPlace === placeInfo))
+          if (placeInfo._id === votePlaces?.place?._id) selected = "main";
+
+          if (
+            !isMain &&
+            votePlaces.subPlace.some(
+              (subPlace) => subPlace._id === placeInfo._id
+            )
+          ) {
             selected = "sub";
+          }
           const isMax = isMain && place.voteCnt >= MAX_USER_PER_PLACE;
 
           return (
