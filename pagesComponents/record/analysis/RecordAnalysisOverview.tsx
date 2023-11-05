@@ -22,7 +22,7 @@ function RecordAnalysisOverview() {
   );
 
   const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
-    session?.uid
+    session?.uid as string
   );
 
   return (
