@@ -16,7 +16,7 @@ import {
 import { getInterestingDate, getStudyDate } from "../../helpers/studyHelpers";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
-  myStudyFixedState,
+  myStudyState,
   participationsState,
   studyDateStatusState,
   voteDateState,
@@ -29,7 +29,7 @@ function DateSetting() {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);
-  const setMyStudyFixed = useSetRecoilState(myStudyFixedState);
+  const setMyStudyFixed = useSetRecoilState(myStudyState);
   const setParticipations = useSetRecoilState(participationsState);
 
   const currentDate = getCurrentDate();

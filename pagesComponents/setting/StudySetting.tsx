@@ -8,12 +8,16 @@ import { dayjsToStr } from "../../helpers/dateHelpers";
 import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
-import { useStudyVoteQuery } from "../../hooks/study/queries";
+import {
+  useStudyStartTimeQuery,
+  useStudyVoteQuery,
+} from "../../hooks/study/queries";
 import {
   isVotingState,
-  myStudyFixedState,
+  myStudyState,
   participationsState,
   studyDateStatusState,
+  studyStartTimeArrState,
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
@@ -27,10 +31,12 @@ function StudySetting() {
   const location = useRecoilValue(locationState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
+  const setStudyStartTimeArr = useSetRecoilState(studyStartTimeArrState);
+
   const setIsVoting = useSetRecoilState(isVotingState);
   const [participations, setParticipations] =
     useRecoilState(participationsState);
-  const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
+  const setMySpaceFixed = useSetRecoilState(myStudyState);
 
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day"),
@@ -57,6 +63,13 @@ function StudySetting() {
       onError: (e) => typeErrorToast(e, "study"),
     }
   );
+
+  useStudyStartTimeQuery(voteDate, {
+    enabled: !!voteDate,
+    onSuccess(data) {
+      setStudyStartTimeArr(data);
+    },
+  });
 
   useEffect(() => {
     if (studyVoteData) {

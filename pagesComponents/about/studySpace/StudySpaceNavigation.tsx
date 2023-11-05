@@ -21,7 +21,7 @@ import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
 import {
   isVotingState,
-  myStudyFixedState,
+  myStudyState,
   studyDateStatusState,
 } from "../../../recoil/studyAtoms";
 import { locationState } from "../../../recoil/userAtoms";
@@ -66,7 +66,7 @@ function StudySpaceNavigation({
 
   const isVoting = useRecoilValue(isVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
   const location = useRecoilValue(locationState);
 
   const resetQueryData = useResetQueryData();

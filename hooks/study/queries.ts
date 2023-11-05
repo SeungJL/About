@@ -10,6 +10,7 @@ import {
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
+import { IStudyStartTime } from "../../recoil/studyAtoms";
 import { QueryOptions } from "../../types/reactTypes";
 
 import { IArrivedData, IStudyPlaces } from "../../types/study/study";
@@ -65,19 +66,18 @@ interface IStudyStartTimeData {
 
 export const useStudyStartTimeQuery = (
   date: Dayjs,
-  placeId: string,
-  options?: QueryOptions<Dayjs>
+  options?: QueryOptions<IStudyStartTime[]>
 ) =>
   useQuery(
-    [STUDY_START_TIME, dayjsToStr(date), placeId],
+    [STUDY_START_TIME, dayjsToStr(date)],
     async () => {
       const res = await axios.get<IStudyStartTimeData[]>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}/start`
       );
-      const findItem = res.data.find(
-        (item) => item.place_id === placeId
-      )?.startTime;
-      if (findItem) return dayjs(findItem);
+      return res.data.map((item) => ({
+        ...item,
+        startTime: dayjs(item.startTime),
+      }));
     },
     options
   );

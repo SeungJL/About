@@ -28,7 +28,6 @@ function AboutGather() {
   //신규 모임 존재여부 체크
   const { data: gatherContentArr } = useGatherAllQuery({
     onSuccess(data) {
-      console.log(2, data);
       const lastGather = data[data.length - 1];
       if (localStorage.getItem(GATHER_ALERT) !== String(lastGather.id))
         setIsGatherAlert(true);

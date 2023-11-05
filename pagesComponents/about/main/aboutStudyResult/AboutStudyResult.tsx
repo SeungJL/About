@@ -2,12 +2,12 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
-import { myStudyFixedState } from "../../../../recoil/studyAtoms";
+import { myStudyState } from "../../../../recoil/studyAtoms";
 import AboutMainItem from "../aboutMain/AboutMainItem";
 import NoMyStudy from "./NoMyStudy";
 
 function AboutStudyResult() {
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
 
   return (

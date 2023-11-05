@@ -10,7 +10,7 @@ import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import {
   isVotingState,
-  myStudyFixedState,
+  myStudyState,
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
@@ -36,7 +36,7 @@ function StudySpaceSetting({
   );
   const setVoteDate = useSetRecoilState(voteDateState);
   const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
-  const setMySpaceFixed = useSetRecoilState(myStudyFixedState);
+  const setMySpaceFixed = useSetRecoilState(myStudyState);
 
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;

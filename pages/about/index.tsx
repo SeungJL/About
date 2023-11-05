@@ -18,7 +18,7 @@ import StudySetting from "../../pagesComponents/setting/StudySetting";
 import UserSetting from "../../pagesComponents/setting/UserSetting";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
-  myStudyFixedState,
+  myStudyState,
   participationsState,
   studyDateStatusState,
   voteDateState,
@@ -26,7 +26,7 @@ import {
 import { IParticipation } from "../../types/study/studyDetail";
 
 function About() {
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const participations = useRecoilValue(participationsState);
   const voteDate = useRecoilValue(voteDateState);

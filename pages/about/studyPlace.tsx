@@ -4,12 +4,12 @@ import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import AboutMainItem from "../../pagesComponents/about/main/aboutMain/AboutMainItem";
-import { myStudyFixedState } from "../../recoil/studyAtoms";
+import { myStudyState } from "../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../recoil/transferDataAtoms";
 
 function StudyPlace() {
   const participations = useRecoilValue(transferStudyDataState);
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
 
   return (
     <PageLayout>

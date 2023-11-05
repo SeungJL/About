@@ -3,10 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { StudySpaceLogo } from "../../../../components/utils/CustomImages";
 import { dayjsToStr } from "../../../../helpers/dateHelpers";
-import {
-  myStudyFixedState,
-  voteDateState,
-} from "../../../../recoil/studyAtoms";
+import { myStudyState, voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
 import { IParticipation } from "../../../../types/study/studyDetail";
 import AboutMainItemParticipants from "./aboutMainItem/AboutMainItemParticipants";
@@ -26,7 +23,7 @@ function AboutMainItem({
   const router = useRouter();
 
   const voteDate = useRecoilValue(voteDateState);
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
   const setTransferStudySpaceData = useSetRecoilState(
     transferStudySpaceDataState
   );

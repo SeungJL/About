@@ -4,7 +4,11 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import TimeSelector from "../../components/features/picker/TimeSelector";
 import { useStudyParticipationMutation } from "../../hooks/study/mutations";
-import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
+import {
+  myStudyState,
+  studyStartTimeState,
+  voteDateState,
+} from "../../recoil/studyAtoms";
 
 import { useRouter } from "next/router";
 import {
@@ -25,7 +29,6 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../hooks/CustomToast";
-import { useStudyStartTimeQuery } from "../../hooks/study/queries";
 import {
   useDepositMutation,
   usePointMutation,
@@ -53,7 +56,7 @@ function StudyChangeTimeModal({
   const voteDate = useRecoilValue(voteDateState);
 
   const location = useRecoilValue(locationState);
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
 
   const isFree = myStudyFixed?.status === "free";
   const startTime = dayjs(myVoteTime.start);
@@ -69,10 +72,7 @@ function StudyChangeTimeModal({
 
   const resetQueryData = useResetQueryData();
 
-  const { data: studyStartTime } = useStudyStartTimeQuery(
-    voteDate,
-    placeId as string
-  );
+  const studyStartTime = useRecoilValue(studyStartTimeState);
 
   const { mutate: getPoint } = usePointMutation();
   const { mutate: getDeposit } = useDepositMutation();
@@ -88,7 +88,7 @@ function StudyChangeTimeModal({
           dayjs() >= dayjs().hour(time.start.hours).minute(time.start.minutes)
         ) {
           getPoint(POINT_SYSTEM_MINUS.STUDY_TIME_CHANGE);
-        } else if (studyStartTime && dayjs() > studyStartTime) {
+        } else if (studyStartTime && dayjs() > studyStartTime.startTime) {
           getDeposit(POINT_SYSTEM_Deposit.STUDY_TIME_CHANGE);
         }
       },
@@ -128,7 +128,7 @@ function StudyChangeTimeModal({
             times={time}
           />
         </Wrapper>
-        {studyStartTime && dayjs() > studyStartTime && (
+        {studyStartTime && dayjs() > studyStartTime.startTime && (
           <WaringMsg>스터디 시작 이후의 시간 변경은 -5점을 받습니다.</WaringMsg>
         )}
       </ModalBody>

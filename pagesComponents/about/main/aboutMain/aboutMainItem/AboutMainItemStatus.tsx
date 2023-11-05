@@ -2,10 +2,13 @@ import { Badge } from "@chakra-ui/react";
 import { faClock } from "@fortawesome/pro-regular-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useStudyStartTimeQuery } from "../../../../../hooks/study/queries";
-import { voteDateState } from "../../../../../recoil/studyAtoms";
+import {
+  studyStartTimeArrState,
+  voteDateState,
+} from "../../../../../recoil/studyAtoms";
 import { IPlace } from "../../../../../types/study/studyDetail";
 
 interface IAboutMainItemStatus {
@@ -15,8 +18,12 @@ interface IAboutMainItemStatus {
 
 function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
   const voteDate = useRecoilValue(voteDateState);
-  const { data: startTime } = useStudyStartTimeQuery(voteDate, place._id);
-  console.log(startTime);
+  const studyStartTimeArr = useRecoilValue(studyStartTimeArrState);
+
+  const studyStartTime = studyStartTimeArr?.find(
+    (study) => study.place_id === place?._id
+  )?.startTime;
+
   return (
     <Layout>
       <Branch>{place.branch}</Branch>
@@ -33,10 +40,10 @@ function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
           Free
         </Badge>
       ) : null}
-      {startTime && (
+      {studyStartTime && (
         <Result>
           <FontAwesomeIcon icon={faClock} size="xs" />
-          <ResultInfo>{startTime.format("HH:mm")} ~</ResultInfo>
+          <ResultInfo>{dayjs(studyStartTime).format("HH:mm")} ~</ResultInfo>
         </Result>
       )}
     </Layout>

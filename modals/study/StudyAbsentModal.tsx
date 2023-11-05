@@ -22,10 +22,9 @@ import {
   useFailToast,
 } from "../../hooks/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
-import { useStudyStartTimeQuery } from "../../hooks/study/queries";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
 import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
-import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
+import { myStudyState, voteDateState } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
 import { InputSm } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -39,7 +38,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const placeId = router.query.placeId;
 
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
 
@@ -49,11 +48,6 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const isFree = myStudyFixed.status === "free";
 
   const resetQueryData = useResetQueryData();
-
-  const { data: startTime } = useStudyStartTimeQuery(
-    voteDate,
-    placeId as string
-  );
 
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = useDepositMutation();

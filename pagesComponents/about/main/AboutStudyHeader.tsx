@@ -5,16 +5,13 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import LocationSelector from "../../../components/features/picker/LocationSelector";
-import {
-  myStudyFixedState,
-  studyDateStatusState,
-} from "../../../recoil/studyAtoms";
+import { myStudyState, studyDateStatusState } from "../../../recoil/studyAtoms";
 
 function AboutStudyHeader() {
   const { data: session } = useSession();
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
 
   const [isCheck, setIsCheck] = useState<Boolean>(null);
 

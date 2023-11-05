@@ -29,7 +29,7 @@ import {
 } from "../../hooks/user/pointSystem/mutation";
 import { useUserLocationQuery } from "../../hooks/user/queries";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
-import { myStudyFixedState, voteDateState } from "../../recoil/studyAtoms";
+import { myStudyState, voteDateState } from "../../recoil/studyAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { Textarea } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -42,7 +42,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const failToast = useFailToast();
-  const myStudyFixed = useRecoilValue(myStudyFixedState);
+  const myStudyFixed = useRecoilValue(myStudyState);
   const isFree = myStudyFixed.status === "free";
 
   const [memo, setMemo] = useState("");
