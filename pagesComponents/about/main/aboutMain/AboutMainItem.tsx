@@ -27,7 +27,7 @@ function AboutMainItem({
   const setTransferStudySpaceData = useSetRecoilState(
     transferStudySpaceDataState
   );
-
+  console.log(33, participation);
   const { attendences, place, status } = participation || {};
   const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 
@@ -42,23 +42,27 @@ function AboutMainItem({
       isMyResult={isMyResult}
       onClick={onClickItem}
     >
-      <ImageContainer>
-        <StudySpaceLogo
-          place={place}
-          isBig={true}
-          isImagePriority={isImagePriority}
-        />
-      </ImageContainer>
-      <SpaceInfo>
-        <AboutMainItemStatus place={place} status={status} />
-        <Info>{place.brand}</Info>
-        <AboutMainItemParticipants
-          attendances={attendences}
-          statusFixed={statusFixed}
-          status={status}
-          isImagePriority={isImagePriority}
-        />
-      </SpaceInfo>
+      {participation && (
+        <>
+          <ImageContainer>
+            <StudySpaceLogo
+              place={place}
+              isBig={true}
+              isImagePriority={isImagePriority}
+            />
+          </ImageContainer>
+          <SpaceInfo>
+            <AboutMainItemStatus place={place} status={status} />
+            <Info>{place.brand}</Info>
+            <AboutMainItemParticipants
+              attendances={attendences}
+              statusFixed={statusFixed}
+              status={status}
+              isImagePriority={isImagePriority}
+            />
+          </SpaceInfo>
+        </>
+      )}
     </Layout>
   );
 }
