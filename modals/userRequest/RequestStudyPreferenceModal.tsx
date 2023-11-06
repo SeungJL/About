@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PlaceSelector from "../../components/features/picker/PlaceSelector";
 import {
@@ -15,7 +16,7 @@ import {
   useStudyPlacesQuery,
   useStudyPreferenceQuery,
 } from "../../hooks/study/queries";
-import { useUserLocationQuery } from "../../hooks/user/queries";
+import { userInfoState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IStudyPlaces } from "../../types/study/study";
 
@@ -32,7 +33,9 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   const { data: studyPreference } = useStudyPreferenceQuery();
 
-  const { data: location } = useUserLocationQuery();
+  const userInfo = useRecoilValue(userInfoState);
+  const location = userInfo?.location;
+
   const isBig = !LOCATION_PLACE_SMALL.includes(location);
 
   //같은 지역의 스터디 장소 호출

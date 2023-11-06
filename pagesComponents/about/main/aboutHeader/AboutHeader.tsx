@@ -37,15 +37,16 @@ function AboutHeader() {
       failToast("guest");
       return;
     }
-    if (iconType === "notice")
+    if (iconType === "notice") {
       localStorage.setItem(NOTICE_ALERT, String(NOTICE_ARR.length));
+    }
     if (iconType === "rabbit") setIsRabbitRun(false);
-    if (
-      (["notice", "user", "promotion"] as AboutHeaderIconType[]).includes(
-        iconType
-      )
-    )
-      router.push(iconType);
+    const iconTypeArr = [
+      "notice",
+      "user",
+      "promotion",
+    ] as AboutHeaderIconType[];
+    if (iconTypeArr.includes(iconType)) router.push(iconType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [iconType, isGuest, router]);
 
@@ -55,13 +56,11 @@ function AboutHeader() {
   }, [attendCheckWinGift]);
 
   return (
-    <>
-      <Layout>
-        <ABOUT>ABOUT</ABOUT>
-        <AboutHeaderIcons setIconType={setIconType} isRabbitRun={isRabbitRun} />
-        <AboutHeaderModals iconType={iconType} setIconType={setIconType} />
-      </Layout>
-    </>
+    <Layout>
+      <ABOUT>ABOUT</ABOUT>
+      <AboutHeaderIcons setIconType={setIconType} isRabbitRun={isRabbitRun} />
+      <AboutHeaderModals iconType={iconType} setIconType={setIconType} />
+    </Layout>
   );
 }
 

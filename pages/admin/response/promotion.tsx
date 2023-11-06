@@ -5,9 +5,7 @@ import Header from "../../../components/layout/Header";
 import { useUserRequestQuery } from "../../../hooks/user/queries";
 
 function AdminPromotion() {
-  const { data, isLoading } = useUserRequestQuery();
-
-  const suggestData = data?.filter((item) => item.category === "홍보");
+  const { data, isLoading } = useUserRequestQuery("홍보");
 
   return (
     <>
@@ -16,7 +14,7 @@ function AdminPromotion() {
         <MainLoading />
       ) : (
         <Layout>
-          {suggestData
+          {data
             ?.slice()
             .reverse()
             .map((item, idx) => (

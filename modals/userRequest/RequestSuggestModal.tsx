@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   ModalBody,
@@ -23,7 +24,7 @@ import {
 } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { useUserLocationQuery } from "../../hooks/user/queries";
+import { userInfoState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -43,8 +44,8 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
       content: "",
     },
   });
-
-  const { data: location } = useUserLocationQuery();
+  const userInfo = useRecoilValue(userInfoState);
+  const location = userInfo?.location;
 
   const { mutate: sendDeclaration } = useUserRequestMutation({
     onSuccess() {

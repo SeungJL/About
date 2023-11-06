@@ -11,12 +11,13 @@ function AdminSuggest() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
   const [suggestData, setSuggestData] = useState<IUserRequest[]>();
 
-  const { data, isLoading } = useUserRequestQuery({});
+  const { data: data1 } = useUserRequestQuery("건의");
+  const { data: data2, isLoading } = useUserRequestQuery("신고");
 
   useEffect(() => {
     if (isLoading) return;
-    setInitialData(data.filter((item) => item.category === ("건의" || "신고")));
-  }, [data, isLoading]);
+    setInitialData([...data1, ...data2]);
+  }, [data1, data2, isLoading]);
 
   return (
     <>

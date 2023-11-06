@@ -5,8 +5,7 @@ import Header from "../../../components/layout/Header";
 import { useUserRequestQuery } from "../../../hooks/user/queries";
 
 function AdminBadge() {
-  const { data, isLoading } = useUserRequestQuery();
-  const suggestData = data?.filter((item) => item.category === "배지");
+  const { data, isLoading } = useUserRequestQuery("배지");
 
   return (
     <>
@@ -15,7 +14,7 @@ function AdminBadge() {
         <MainLoading />
       ) : (
         <Layout>
-          {suggestData
+          {data
             ?.slice()
             .reverse()
             .map((item, idx) => (

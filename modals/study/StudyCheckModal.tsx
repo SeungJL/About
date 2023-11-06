@@ -27,7 +27,6 @@ import {
   useAboutPointMutation,
   useDepositMutation,
 } from "../../hooks/user/pointSystem/mutation";
-import { useUserLocationQuery } from "../../hooks/user/queries";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { myStudyState, voteDateState } from "../../recoil/studyAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
@@ -51,8 +50,6 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
   const voteDate = useRecoilValue(voteDateState);
-
-  const { data: location } = useUserLocationQuery();
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: getAlphabet } = useCollectionAlphabetMutation();

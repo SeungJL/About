@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import AdminLocationSelector from "../../../components/features/picker/AdminLocationSelector";
@@ -11,11 +11,11 @@ import { IUserRequest } from "../../../types/user/userRequest";
 function AdminRest() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
   const [suggestData, setSuggestData] = useState<IUserRequest[]>();
-  const { isLoading } = useUserRequestQuery({
-    onSuccess(data) {
-      setInitialData(data.filter((item) => item.category === "휴식"));
-    },
-  });
+  const { data, isLoading } = useUserRequestQuery("휴식");
+
+  useEffect(() => {
+    if (data) setInitialData(data);
+  }, [data]);
 
   return (
     <>

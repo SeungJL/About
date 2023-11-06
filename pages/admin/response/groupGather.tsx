@@ -12,11 +12,7 @@ function AdminGroupGather() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();
   const [suggestData, setSuggestData] = useState<IUserRequest[]>();
 
-  const { isLoading } = useUserRequestQuery({
-    onSuccess(data) {
-      setInitialData(data.filter((item) => item.category === "조모임"));
-    },
-  });
+  const { data, isLoading } = useUserRequestQuery("조모임");
 
   return (
     <>

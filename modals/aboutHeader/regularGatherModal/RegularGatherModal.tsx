@@ -36,7 +36,7 @@ function RegularGatherModal({
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const { data: userInfo } = useUserInfoQuery({ enabled: isGuest === false });
-  const { data: requestData, isLoading } = useUserRequestQuery();
+  const { data: requestData, isLoading } = useUserRequestQuery("조모임");
 
   const { mutate } = useUserRequestMutation({
     onSuccess() {
@@ -83,13 +83,7 @@ function RegularGatherModal({
           조모임으로 진행합니다!
           <Count>
             <span>전체 신청 인원:</span>
-            <span>
-              {isLoading
-                ? "..."
-                : requestData?.filter((item) => item.category === "조모임")
-                    ?.length}
-              명
-            </span>
+            <span>{isLoading ? "..." : requestData?.length}명</span>
           </Count>
           <Rule>
             <li>조 인원은 4~6명 사이로 구성됩니다.</li>

@@ -1,11 +1,10 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
-import { useUserRequestCategoryQuery } from "../../../hooks/user/queries";
+import { useUserRequestQuery } from "../../../hooks/user/queries";
 
 function PromotionModalDetail() {
-  const { data: promotionData, isLoading } =
-    useUserRequestCategoryQuery("홍보");
+  const { data: promotionData, isLoading } = useUserRequestQuery("홍보");
 
   const applyCnt = promotionData?.length + 20;
   const currentMonth = dayjs().month();

@@ -36,8 +36,9 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
   });
 
   useEffect(() => {
-    if (localStorage.getItem(NOTICE_ALERT) !== String(NOTICE_ARR.length))
+    if (localStorage.getItem(NOTICE_ALERT) !== String(NOTICE_ARR.length)) {
       setIsNoticeAlert(true);
+    }
   }, []);
 
   const isAttendCheck =

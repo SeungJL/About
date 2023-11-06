@@ -11,6 +11,7 @@ export const userInfoState = atom<IUser>({
   key: "UserInfo",
   default: null,
 });
+
 export const isGuestState = atom({
   key: "IsGuest",
   default: false,

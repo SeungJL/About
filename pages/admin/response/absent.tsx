@@ -8,8 +8,8 @@ import { useUserRequestQuery } from "../../../hooks/user/queries";
 import CheckAbsentModal from "../../../modals/admin/CheckAbsentModal";
 
 function AdminAbsent() {
-  const { data, isLoading } = useUserRequestQuery();
-  const suggestData = data?.filter((item) => item.category === "불참");
+  const { data: suggestData, isLoading } = useUserRequestQuery("불참");
+
   const [isModal, setIsModal] = useState(false);
   const [userFee, setUserFee] = useState<{ fee: number; uid: string }>();
 

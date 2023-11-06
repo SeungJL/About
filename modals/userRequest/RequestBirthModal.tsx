@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   ModalBody,
@@ -8,7 +9,7 @@ import {
 } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { useUserRoleQuery } from "../../hooks/user/queries";
+import { userInfoState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -17,7 +18,9 @@ function RequestBirthModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const { data: session } = useSession();
 
-  const { data: role } = useUserRoleQuery();
+  const userInfo = useRecoilValue(userInfoState);
+  const role = userInfo?.role;
+
   const { mutate } = useUserRequestMutation({
     onSuccess() {
       completeToast("success");

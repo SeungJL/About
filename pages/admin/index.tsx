@@ -1,13 +1,15 @@
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import { useFailToast } from "../../hooks/CustomToast";
-import { useUserRoleQuery } from "../../hooks/user/queries";
+import { userInfoState } from "../../recoil/userAtoms";
 
 function Admin() {
   const router = useRouter();
   const failToast = useFailToast();
-  const { data: role } = useUserRoleQuery();
+  const userInfo = useRecoilValue(userInfoState);
+  const role = userInfo?.role;
 
   const onClick = (url: string, isAccess?: boolean) => {
     if (isAccess !== false) {
