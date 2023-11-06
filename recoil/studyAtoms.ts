@@ -4,7 +4,7 @@ import { MY_TODAY_STUDY_FIXED } from "../constants/keys/localStorage";
 import { dayjsToStr } from "../helpers/dateHelpers";
 import { getStudyDate } from "../helpers/studyHelpers";
 import { IParticipation, StudyDateStatus } from "../types/study/studyDetail";
-import { userInfoState } from "./userAtoms";
+import { userAccessUid } from "./userAtoms";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 //날짜
@@ -29,13 +29,15 @@ export const participationsState = atom<IParticipation[]>({
 export const myVotingState = selector<IParticipation[]>({
   key: "MyVoting",
   get: ({ get }) => {
-    const userInfo = get(userInfoState);
+    const uid = get(userAccessUid);
     const participations = get(participationsState);
-    if (!userInfo || !participations) return null;
+
+    if (!uid || !participations) return null;
+
     const temp = [];
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
-        if (who.user.uid === userInfo.uid) {
+        if (who.user.uid === uid) {
           temp.push(participation);
         }
       });
@@ -50,6 +52,7 @@ export const myStudyState = selector<IParticipation>({
   get: ({ get }) => {
     const studyDateStatus = get(studyDateStatusState);
     const myVoting = get(myVotingState);
+
     if (!studyDateStatus || !myVoting) return null;
 
     const findStudy = myVoting.find((participation) => {

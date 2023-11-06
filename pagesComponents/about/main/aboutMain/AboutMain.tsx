@@ -52,7 +52,7 @@ function AboutMain({ participations }: IAboutMain) {
   );
 
   const studies = participations.filter((par) => par !== privateStudy);
-  console.log(studies);
+ 
   return (
     <AnimatePresence initial={false}>
       {!isMainLoading ? (

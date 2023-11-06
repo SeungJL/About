@@ -27,7 +27,7 @@ function AboutMainItem({
   const setTransferStudySpaceData = useSetRecoilState(
     transferStudySpaceDataState
   );
-  console.log(33, participation);
+ 
   const { attendences, place, status } = participation || {};
   const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 

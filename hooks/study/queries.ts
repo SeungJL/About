@@ -48,12 +48,15 @@ export const useStudyVoteQuery = (
   useQuery<IVote, AxiosError, IVote>(
     [STUDY_VOTE, dayjsToStr(date), location],
     async () => {
+     
+    
       const res = await axios.get<IVote>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}`,
         {
           params: { location },
         }
       );
+    
       return res.data;
     },
     options

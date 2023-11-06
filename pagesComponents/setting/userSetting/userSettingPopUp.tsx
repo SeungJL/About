@@ -32,13 +32,13 @@ export type UserPopUp =
   | "manager"
   | "alphabet";
 
-function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
+function UserSettingPopUp() {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
 
   useEffect(() => {
     let popUpCnt = 0;
 
-    if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
+    // if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 
     if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 6)) {
       setPopUpTypes((old) => [...old, "alphabet"]);
@@ -70,7 +70,7 @@ function UserSettingPopUp({ isProfileEdit }: IUserSettingPopUp) {
       if (++popUpCnt === 2) return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isProfileEdit]);
+  }, []);
 
   const filterPopUpTypes = (type: UserPopUp) => {
     setPopUpTypes((popUps) => popUps.filter((popUp) => popUp !== type));

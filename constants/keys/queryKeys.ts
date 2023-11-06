@@ -1,3 +1,7 @@
+export const USER_ACCESS_UID = "userAccessuid";
+export const USER_INITIAL_LOCATION = "userInitialLocation";
+export const USER_INITIAL_INFO = "userInitialInfo";
+
 export const STUDY_VOTE = "studyVote";
 export const STUDY_PLACE = "studyPlace";
 export const STUDY_START_TIME = "studyStartTime";

@@ -52,7 +52,9 @@ function StudySetting() {
     if (participations[0].status === "pending" && studyDateStatus === "today") {
       decideSpace();
     }
+
     setParticipations(arrangeSpace(participations));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studyVoteData]);
 

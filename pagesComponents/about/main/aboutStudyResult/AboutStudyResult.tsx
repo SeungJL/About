@@ -9,7 +9,7 @@ import NoMyStudy from "./NoMyStudy";
 function AboutStudyResult() {
   const myStudyFixed = useRecoilValue(myStudyState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
-  console.log(25, myStudyFixed);
+
   return (
     <Layout isLoad={!isMainLoading}>
       <Skeleton isLoad={!isMainLoading}>
