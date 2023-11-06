@@ -54,14 +54,14 @@ export interface IAbsence {
 
 export type StudyStatus = "pending" | "open" | "dismissed" | "free";
 
-export interface IStudyStartTime {
-  placeId: string;
-  startTime: Dayjs;
-}
-
 export type StudyDateStatus = "passed" | "today" | "not passed";
 
 export interface IStudyPreferencesQuery {
   _id: string;
   studyPreference: IStudyPlaces;
+}
+
+export interface IStudyStartTime {
+  place_id: string;
+  startTime: Dayjs;
 }

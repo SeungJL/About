@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { MY_TODAY_STUDY_FIXED } from "../../constants/keys/localStorage";
 import {
   STUDY_VOTE_START_HOUR,
@@ -16,21 +15,19 @@ import {
 import { getInterestingDate } from "../../helpers/studyHelpers";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { participationsState, voteDateState } from "../../recoil/studyAtoms";
+import { isGuestState } from "../../recoil/userAtoms";
 
 function DateSetting() {
-  const { data: session } = useSession();
-  const isGuest = session && session.user.name === "guest";
-
+  const isGuest = useRecoilValue(isGuestState);
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
-  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
   const setParticipations = useSetRecoilState(participationsState);
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const currentDate = getCurrentDate();
 
   // 최초 voteDate 설정
   useEffect(() => {
     if (voteDate || isGuest === undefined) return;
-
     const currentHour = getCurrentHour();
     if (STUDY_VOTE_START_HOUR <= currentHour && currentHour < VOTER_DATE_END) {
       const todayStudy = localStorage.getItem(MY_TODAY_STUDY_FIXED);

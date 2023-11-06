@@ -8,7 +8,7 @@ export const useResetQueryData = () => {
     (key: string | string[]) => {
       const timeoutId = setTimeout(() => {
         queryClient.refetchQueries(key);
-      }, 200);
+      }, 500);
       return () => clearTimeout(timeoutId);
     },
     [queryClient]

@@ -12,7 +12,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import {
   isGuestState,
   locationState,
-  userAccessUid,
+  userAccessUidState,
 } from "../../recoil/userAtoms";
 import { Location } from "../../types/system";
 import BaseModal from "./BaseModal";
@@ -34,7 +34,7 @@ function Layout({ children }: ILayout) {
 
   const isGuest = session?.user.name === "guest";
 
-  const setUserAccessUid = useSetRecoilState(userAccessUid);
+  const setUserAccessUid = useSetRecoilState(userAccessUidState);
   const setLocation = useSetRecoilState(locationState);
   const setIsGuest = useSetRecoilState(isGuestState);
 
@@ -59,7 +59,6 @@ function Layout({ children }: ILayout) {
         JSON.parse(userInitialInfo);
       setUserAccessUid(info.uid);
       setLocation(info.location);
-     
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInitialInfo]);
@@ -72,7 +71,6 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: isCondition && userInitialInfo === null,
     onSuccess(data) {
-     
       //유저 데이터 없음
       if (data === null || !data.registerDate) {
         if (router.query.status === "login") navigateTo(`/register/location`);

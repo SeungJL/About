@@ -10,13 +10,14 @@ import {
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
-import { IStudyStartTime } from "../../recoil/studyAtoms";
+
 import { QueryOptions } from "../../types/reactTypes";
 
 import { IArrivedData, IStudyPlaces } from "../../types/study/study";
 import {
   IPlace,
   IStudyPreferencesQuery,
+  IStudyStartTime,
   IVote,
 } from "../../types/study/studyDetail";
 

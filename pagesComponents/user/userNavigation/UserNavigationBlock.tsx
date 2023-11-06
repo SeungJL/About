@@ -2,9 +2,8 @@ import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../../hooks/CustomToast";
-import { useUserRoleQuery } from "../../../hooks/user/queries";
 import { isProfileEditState } from "../../../recoil/previousAtoms";
-import { isGuestState } from "../../../recoil/userAtoms";
+import { isGuestState, userInfoState } from "../../../recoil/userAtoms";
 import { DispatchString } from "../../../types/reactTypes";
 import { UserOverviewModal } from "./UserNavigation";
 
@@ -23,7 +22,8 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
   const isGuest = useRecoilValue(isGuestState);
   const setIsProfileEditState = useSetRecoilState(isProfileEditState);
 
-  const { data: role, isLoading } = useUserRoleQuery({ enabled: !isGuest });
+  const userInfo = useRecoilValue(userInfoState);
+  const role = userInfo?.role;
   const isAdmin = role === "previliged" || role === "manager";
 
   //네비게이션 함수
@@ -35,86 +35,96 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
       failToast("guest");
       return;
     }
+
     if (type === "page") {
       if (content === "register/location") setIsProfileEditState(true);
       router.push(content);
     }
-    if (type === "modal") setModalOpen(content);
+    if (type === "modal") {
+      if ((content as UserOverviewModal) === "levelUp") {
+        if (role !== "human") {
+          failToast("free", "신청가능한 등급이 없습니다.");
+          return;
+        }
+      }
+      setModalOpen(content);
+    }
   };
 
   return (
     <>
-      {!isLoading && (
-        <Layout>
-          {isAdmin && (
-            <div>
-              <BlockName>관리자</BlockName>
-              <NavBlock>
-                <button onClick={() => onClickBlock("page", "/admin")}>
-                  관리자 페이지
-                </button>
-              </NavBlock>
-            </div>
-          )}
+      <Layout>
+        {isAdmin && (
           <div>
-            <BlockName>신청</BlockName>
+            <BlockName>관리자</BlockName>
             <NavBlock>
-              <button onClick={() => onClickBlock("modal", "suggest")}>
-                건의하기
-              </button>
-              <button onClick={() => onClickBlock("modal", "declaration")}>
-                불편사항 신고
-              </button>
-              <button onClick={() => onClickBlock("modal", "rest")}>
-                휴식 신청
+              <button onClick={() => onClickBlock("page", "/admin")}>
+                관리자 페이지
               </button>
             </NavBlock>
           </div>
-          <div>
-            <BlockName>정보 변경</BlockName>
-            <NavBlock>
-              <button onClick={() => onClickBlock("page", "register/location")}>
-                프로필 수정
-              </button>
-              <button onClick={() => onClickBlock("modal", "spaceSetting")}>
-                스터디 선호 장소 설정
-              </button>
-              <button onClick={() => onClickBlock("modal", "birthday")}>
-                생일 공개 설정
-              </button>
-              <button onClick={() => onClickBlock("modal", "deposit")}>
-                보증금 충전
-              </button>
-              <button onClick={() => onClickBlock("modal", "logout")}>
-                로그아웃
-              </button>
-            </NavBlock>
-          </div>
-          <div>
-            <BlockName>안내</BlockName>
-            <NavBlock>
-              <button onClick={() => onClickBlock("page", `/faq`)}>
-                자주 묻는 질문
-              </button>
-              <button onClick={() => onClickBlock("page", `user/info/policy`)}>
-                서비스 이용 약관
-              </button>
-              <button onClick={() => onClickBlock("page", `user/info/privacy`)}>
-                개인정보 처리방침
-              </button>
-              <button onClick={() => onClickBlock("page", `user/info/avatar`)}>
-                아바타 아이콘 저작권
-              </button>
-              <button onClick={() => onClickBlock("modal", "secede")}>
-                회원 탈퇴
-              </button>
-            </NavBlock>
-          </div>
-          <div>
-            <BlockName />
-          </div>
-        </Layout>
-      )}
+        )}
+        <div>
+          <BlockName>신청</BlockName>
+          <NavBlock>
+            <button onClick={() => onClickBlock("modal", "suggest")}>
+              건의하기
+            </button>
+            <button onClick={() => onClickBlock("modal", "declaration")}>
+              불편사항 신고
+            </button>
+            <button onClick={() => onClickBlock("modal", "rest")}>
+              휴식 신청 / 취소
+            </button>
+            <button onClick={() => onClickBlock("modal", "levelUp")}>
+              등업 신청
+            </button>
+          </NavBlock>
+        </div>
+        <div>
+          <BlockName>정보 변경</BlockName>
+          <NavBlock>
+            <button onClick={() => onClickBlock("page", "register/location")}>
+              프로필 수정
+            </button>
+            <button onClick={() => onClickBlock("modal", "spaceSetting")}>
+              스터디 선호 장소 설정
+            </button>
+            <button onClick={() => onClickBlock("modal", "birthday")}>
+              생일 공개 설정
+            </button>
+            <button onClick={() => onClickBlock("modal", "deposit")}>
+              보증금 충전
+            </button>
+            <button onClick={() => onClickBlock("modal", "logout")}>
+              로그아웃
+            </button>
+          </NavBlock>
+        </div>
+        <div>
+          <BlockName>안내</BlockName>
+          <NavBlock>
+            <button onClick={() => onClickBlock("page", `/faq`)}>
+              자주 묻는 질문
+            </button>
+            <button onClick={() => onClickBlock("page", `user/info/policy`)}>
+              서비스 이용 약관
+            </button>
+            <button onClick={() => onClickBlock("page", `user/info/privacy`)}>
+              개인정보 처리방침
+            </button>
+            <button onClick={() => onClickBlock("page", `user/info/avatar`)}>
+              아바타 아이콘 저작권
+            </button>
+            <button onClick={() => onClickBlock("modal", "secede")}>
+              회원 탈퇴
+            </button>
+          </NavBlock>
+        </div>
+        <div>
+          <BlockName />
+        </div>
+      </Layout>
     </>
   );
 }

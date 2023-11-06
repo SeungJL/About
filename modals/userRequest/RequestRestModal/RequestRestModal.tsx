@@ -8,6 +8,7 @@ import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
 import {
   useUserApplyRestMutation,
   useUserRequestMutation,
+  useUserRoleMutation,
 } from "../../../hooks/user/mutations";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
@@ -26,9 +27,10 @@ function RequestRestModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
 
   const { mutate: sendRestRequest } = useUserRequestMutation();
-
+  const { mutate: setRole } = useUserRoleMutation();
   const { mutate: applyRest } = useUserApplyRestMutation({
     onSuccess() {
+      setIsModal(false);
       completeToast("apply");
     },
     onError(err) {
@@ -56,10 +58,9 @@ function RequestRestModal({ setIsModal }: IModal) {
         " / " +
         data.content,
     };
-
+    setRole("resting");
     sendRestRequest(requestData);
     applyRest(restInfo);
-    setIsModal(false);
   };
 
   return (

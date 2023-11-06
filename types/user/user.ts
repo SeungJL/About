@@ -11,7 +11,6 @@ export interface IUser2 extends IUserIdentity {
   birth: string;
   mbti: string;
   gender: Gender;
-
   point: number;
   role: Role;
   score: number;
@@ -48,6 +47,8 @@ export interface IRest {
   startDate: Date;
   endDate: Date;
   content: string;
+  cumulativeSum: number;
+  restCnt: number;
 }
 export interface IAvatar {
   type: number;

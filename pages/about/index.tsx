@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
 import AboutCalendar from "../../pagesComponents/about/main/aboutCalendar/AboutCalendar";
 import AboutCategoryNav from "../../pagesComponents/about/main/AboutCategoryNav";
@@ -34,13 +35,12 @@ function About() {
 
   const [otherStudies, setOtherStudies] = useState<IParticipation[]>([]);
 
-  //스터디 정렬 *내 스터디 *투표 인원수 고려
+  //스터디 정렬
   useEffect(() => {
     if (!participations) {
       setOtherStudies([]);
       return;
     }
-
     const arrangedOtherStudies = arrangeMainSpace(
       participations.filter((space) => space !== myStudy),
       studyDateStatus !== "not passed"
@@ -50,6 +50,7 @@ function About() {
         ? arrangedOtherStudies.filter((par) => par.place.brand !== "자유 신청")
         : arrangedOtherStudies;
     setOtherStudies(filtered);
+
     setTimeout(() => {
       setIsMainLoading(false);
     }, 100);

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
-import { useUserLocationQuery } from "../../../hooks/user/queries";
 import RequestBirthModal from "../../../modals/userRequest/RequestBirthModal";
 import RequestChargeDepositModal from "../../../modals/userRequest/RequestChargeDepositModal";
+import RequestLevelUpModal from "../../../modals/userRequest/RequestLevelUpModal";
 import RequestLogoutModal from "../../../modals/userRequest/RequestLogoutModal";
+import RequestRestCancelModal from "../../../modals/userRequest/RequestRestCancelModal";
 import RequestRestModal from "../../../modals/userRequest/RequestRestModal/RequestRestModal";
 import RequestSecedeModal from "../../../modals/userRequest/RequestSecedeModal";
 import SettingStudySpace from "../../../modals/userRequest/RequestStudyPreferenceModal";
 import RequestSuggestModal from "../../../modals/userRequest/RequestSuggestModal";
+import { userInfoState } from "../../../recoil/userAtoms";
 import { UserOverviewModal } from "./UserNavigation";
 
 interface IUserNavigationModals {
@@ -22,7 +25,7 @@ function UserNavigationModals({
 }: IUserNavigationModals) {
   const [isModal, setIsModal] = useState<boolean>();
 
-  const { data: location } = useUserLocationQuery();
+  const userInfo = useRecoilValue(userInfoState);
 
   useEffect(() => {
     if (modalOpen) setIsModal(true);
@@ -35,7 +38,18 @@ function UserNavigationModals({
       {modalOpen === "suggest" && (
         <RequestSuggestModal type="suggest" setIsModal={setIsModal} />
       )}
-      {modalOpen === "rest" && <RequestRestModal setIsModal={setIsModal} />}
+      {modalOpen === "rest" &&
+        (userInfo?.role !== "resting" ? (
+          <RequestRestModal setIsModal={setIsModal} />
+        ) : (
+          <RequestRestCancelModal
+            setIsModal={setIsModal}
+            rest={userInfo?.rest}
+          />
+        ))}
+      {modalOpen === "levelUp" && (
+        <RequestLevelUpModal setIsModal={setIsModal} />
+      )}
       {modalOpen === "declaration" && (
         <RequestSuggestModal type="declare" setIsModal={setIsModal} />
       )}

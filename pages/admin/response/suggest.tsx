@@ -14,8 +14,9 @@ function AdminSuggest() {
   const { data, isLoading } = useUserRequestQuery({});
 
   useEffect(() => {
+    if (isLoading) return;
     setInitialData(data.filter((item) => item.category === ("건의" || "신고")));
-  }, [data]);
+  }, [data, isLoading]);
 
   return (
     <>

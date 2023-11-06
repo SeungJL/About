@@ -1,32 +1,38 @@
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { FAQ_POP_UP } from "../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../helpers/storageHelpers";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import FAQPopUp from "../../modals/pop-up/FAQPopUp";
 
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
+import { isGuestState, userInfoState } from "../../recoil/userAtoms";
 import UserSettingPopUp from "./userSetting/userSettingPopUp";
 
 export default function UserSetting() {
-  const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
-
+  const isGuest = useRecoilValue(isGuestState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
-  const isPopUpCondition = !isMainLoading && !isGuest;
+  const setUserInfo = useSetRecoilState(userInfoState);
 
   const [isGuestPopUp, setIsGuestPopUp] = useState(false);
- 
+
+  const isPopUpCondition = !isMainLoading && !isGuest;
+
   useEffect(() => {
-    if (isGuest) {
-      if (!checkAndSetLocalStorage(FAQ_POP_UP, 2)) setIsGuestPopUp(true);
-      return;
+    if (isGuest && !checkAndSetLocalStorage(FAQ_POP_UP, 2)) {
+      setIsGuestPopUp(true);
     }
   }, [isGuest]);
 
+  useUserInfoQuery({
+    enabled: !isGuest,
+    onSuccess(data) {
+      setUserInfo(data);
+    },
+  });
+
   return (
     <>
-      {/* <UserSettingInfo /> */}
       {isPopUpCondition && <UserSettingPopUp />}
       {isGuestPopUp && <FAQPopUp setIsModal={setIsGuestPopUp} />}
     </>

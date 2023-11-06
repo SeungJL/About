@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { Location } from "../types/system";
 import { IUser } from "../types/user/user";
 
-export const userAccessUid = atom<string>({
+export const userAccessUidState = atom<string>({
   key: "userAccessUid",
   default: null,
 });

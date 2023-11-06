@@ -1,20 +1,22 @@
 import dayjs, { Dayjs } from "dayjs";
-import { atom, RecoilEnv, selector } from "recoil";
+import { atom, selector } from "recoil";
 import { MY_TODAY_STUDY_FIXED } from "../constants/keys/localStorage";
 import { dayjsToStr } from "../helpers/dateHelpers";
 import { getStudyDate } from "../helpers/studyHelpers";
-import { IParticipation, StudyDateStatus } from "../types/study/studyDetail";
-import { userAccessUid } from "./userAtoms";
-RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+import {
+  IParticipation,
+  IStudyStartTime,
+  StudyDateStatus,
+} from "../types/study/studyDetail";
+import { userAccessUidState } from "./userAtoms";
 
-//날짜
 export const voteDateState = atom<Dayjs>({
-  key: "VoteDate",
+  key: "voteDate",
   default: null,
 });
 
 export const studyDateStatusState = selector<StudyDateStatus>({
-  key: "StudyDateStatus",
+  key: "studyDateStatus",
   get: ({ get }) => {
     const voteDate = get(voteDateState);
     if (voteDate) return getStudyDate(voteDate);
@@ -22,24 +24,20 @@ export const studyDateStatusState = selector<StudyDateStatus>({
 });
 
 export const participationsState = atom<IParticipation[]>({
-  key: "Participations",
+  key: "participations",
   default: null,
 });
 
 export const myVotingState = selector<IParticipation[]>({
-  key: "MyVoting",
+  key: "myVoting",
   get: ({ get }) => {
-    const uid = get(userAccessUid);
+    const uid = get(userAccessUidState);
     const participations = get(participationsState);
-
     if (!uid || !participations) return null;
-
     const temp = [];
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
-        if (who.user.uid === uid) {
-          temp.push(participation);
-        }
+        if (who.user.uid === uid) temp.push(participation);
       });
     });
     if (temp.length) return temp;
@@ -48,36 +46,26 @@ export const myVotingState = selector<IParticipation[]>({
 });
 
 export const myStudyState = selector<IParticipation>({
-  key: "MyStudy",
+  key: "myStudy",
   get: ({ get }) => {
     const studyDateStatus = get(studyDateStatusState);
     const myVoting = get(myVotingState);
-
     if (!studyDateStatus || !myVoting) return null;
-
     const findStudy = myVoting.find((participation) => {
       if (["open", "free"].includes(participation.status)) {
         if (studyDateStatus === "today") {
           localStorage.setItem(MY_TODAY_STUDY_FIXED, dayjsToStr(dayjs()));
         }
-
         return true;
       }
-
       return false;
     });
-
     return findStudy || null;
   },
 });
 
-export interface IStudyStartTime {
-  place_id: string;
-  startTime: Dayjs;
-}
-
 export const studyStartTimeArrState = atom<IStudyStartTime[]>({
-  key: "StudyStartTimeArr",
+  key: "studyStartTimeArr",
   default: null,
 });
 

@@ -10,7 +10,8 @@ export type UserOverviewModal =
   | "birthday"
   | "deposit"
   | "secede"
-  | "logout";
+  | "logout"
+  | "levelUp";
 
 function UserNavigation() {
   const [modalOpen, setModalOpen] = useState<UserOverviewModal>();
