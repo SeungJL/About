@@ -48,15 +48,13 @@ export const useStudyVoteQuery = (
   useQuery<IVote, AxiosError, IVote>(
     [STUDY_VOTE, dayjsToStr(date), location],
     async () => {
-     
-    
       const res = await axios.get<IVote>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}`,
         {
           params: { location },
         }
       );
-    
+
       return res.data;
     },
     options
@@ -77,6 +75,7 @@ export const useStudyStartTimeQuery = (
       const res = await axios.get<IStudyStartTimeData[]>(
         `${SERVER_URI}/vote/${dayjsToStr(date)}/start`
       );
+
       return res.data.map((item) => ({
         ...item,
         startTime: dayjs(item.startTime),

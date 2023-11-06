@@ -36,11 +36,11 @@ function About() {
 
   //스터디 정렬 *내 스터디 *투표 인원수 고려
   useEffect(() => {
-   
     if (!participations) {
       setOtherStudies([]);
       return;
     }
+
     const arrangedOtherStudies = arrangeMainSpace(
       participations.filter((space) => space !== myStudy),
       studyDateStatus !== "not passed"
@@ -51,7 +51,6 @@ function About() {
         : arrangedOtherStudies;
     setOtherStudies(filtered);
     setTimeout(() => {
-   
       setIsMainLoading(false);
     }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps

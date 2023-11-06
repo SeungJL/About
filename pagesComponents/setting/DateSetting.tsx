@@ -30,7 +30,7 @@ function DateSetting() {
   // 최초 voteDate 설정
   useEffect(() => {
     if (voteDate || isGuest === undefined) return;
-    
+
     const currentHour = getCurrentHour();
     if (STUDY_VOTE_START_HOUR <= currentHour && currentHour < VOTER_DATE_END) {
       const todayStudy = localStorage.getItem(MY_TODAY_STUDY_FIXED);
@@ -48,7 +48,6 @@ function DateSetting() {
   useEffect(() => {
     setIsMainLoading(true);
     if (!voteDate) return;
- 
     setParticipations(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voteDate]);

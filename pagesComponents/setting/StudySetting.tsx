@@ -48,6 +48,7 @@ function StudySetting() {
 
   useEffect(() => {
     if (!studyVoteData) return;
+
     const participations = studyVoteData.participations;
     if (participations[0].status === "pending" && studyDateStatus === "today") {
       decideSpace();
