@@ -74,6 +74,7 @@ export const studyStartTimeState = selector<IStudyStartTime>({
   get: ({ get }) => {
     const studyStartTimeArr = get(studyStartTimeArrState);
     const myStudyPlaceId = get(myStudyState)?.place?._id;
+    if (!studyStartTimeArr || !myStudyPlaceId) return null;
     const myStudyStartTime = studyStartTimeArr.find(
       (item) => item.place_id === myStudyPlaceId
     );

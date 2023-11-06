@@ -122,6 +122,7 @@ interface IModalFooterOne {
   text?: string;
   isFull?: boolean;
   isRed?: boolean;
+  isLoading?: boolean;
 }
 
 export const ModalFooterOne = ({
@@ -129,6 +130,7 @@ export const ModalFooterOne = ({
   text,
   isFull,
   isRed,
+  isLoading,
 }: IModalFooterOne) => (
   <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
     <Button
@@ -137,6 +139,7 @@ export const ModalFooterOne = ({
       color={!isFull ? "var(--color-mint)" : "white"}
       w={isFull && "100%"}
       colorScheme={isFull && !isRed ? "mintTheme" : "redTheme"}
+      isLoading={isLoading}
       onClick={onClick}
     >
       {text || "확인"}

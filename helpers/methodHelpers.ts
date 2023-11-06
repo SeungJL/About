@@ -13,9 +13,9 @@ export const requestServer = async <T, M = void>({
   url,
   body,
 }: IRequestParams<T, M>): Promise<M> => {
-
   switch (method) {
     case "post":
+      console.log(url, body);
       const res = await axios.post<M>(`${SERVER_URI}/${url}`, body);
       return res.data;
     case "patch":

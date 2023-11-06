@@ -42,6 +42,7 @@ function StudySpaceUserComments({
           const user = att.user;
           const isAbsent = absences?.find((who) => who.user.uid === user.uid);
           const memo = att.memo === "" ? "출석" : att.memo;
+
           return (
             <Wrapper key={idx} isPrivate={isPrivate}>
               <Block>

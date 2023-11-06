@@ -122,7 +122,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
           ) : (
             <>
               <ModalSubtitle>
-                {dayjs() < studyStartTime.startTime ? (
+                {dayjs() < studyStartTime?.startTime ? (
                   <P>
                     스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이
                     부여됩니다. 참여 시간을 변경해 보는 것은 어떨까요?

@@ -61,26 +61,20 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
     }
   );
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     const start = voteDate.hour(time.start.hours).minute(time.start.minutes);
     const end = voteDate.hour(time.end.hours).minute(time.end.minutes);
     if (start > end) {
       failToast("time");
       return;
     }
-    try {
-      await openFree(placeId as string);
-      const data: IStudyParticipate = {
-        place,
-        start,
-        end,
-      };
-      setTimeout(() => {
-        patchAttend(data);
-      }, 500);
-    } catch (err) {
-      errorToast(err);
-    }
+    openFree(placeId as string);
+    const data: IStudyParticipate = {
+      place,
+      start,
+      end,
+    };
+    patchAttend(data);
   };
 
   return (

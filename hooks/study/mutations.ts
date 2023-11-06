@@ -56,10 +56,10 @@ export const useStudyOpenFreeMutation = (
 ) =>
   useMutation<void, AxiosError, string>(
     (placeId) =>
-      requestServer<string>({
+      requestServer<{ placeId: string }>({
         method: "patch",
         url: `vote/${dayjsToStr(date)}/free`,
-        body: placeId,
+        body: { placeId },
       }),
     options
   );
@@ -70,10 +70,10 @@ export const useStudyArrivedMutation = (
 ) =>
   useMutation<void, AxiosError, string>(
     (memo) =>
-      requestServer<string>({
+      requestServer<{ memo: string }>({
         method: "patch",
         url: `vote/${dayjsToStr(date)}/arrived`,
-        body: memo,
+        body: { memo },
       }),
     options
   );
@@ -84,10 +84,10 @@ export const useStudyAbsentMutation = (
 ) =>
   useMutation<void, AxiosError, string>(
     (message) =>
-      requestServer<string>({
+      requestServer<{ message: string }>({
         method: "post",
         url: `vote/${dayjsToStr(date)}/absence`,
-        body: message,
+        body: { message },
       }),
     options
   );

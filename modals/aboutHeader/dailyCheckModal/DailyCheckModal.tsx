@@ -64,7 +64,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
 
   const setAttendCheckWinGift = useSetRecoilState(attendCheckWinGiftState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
-  const { data: dailyCheckAll } = useDailyCheckAllQuery();
+  const { data: dailyCheckAll, isLoading } = useDailyCheckAllQuery();
 
   const { mutate: getAlphabet } = useCollectionAlphabetMutation();
   const { mutate: attendDailyCheck } = useDailyCheckMutation();
@@ -134,7 +134,12 @@ function DailyCheckModal({ setIsModal }: IModal) {
           </Detail>
         </Container>
       </ModalBody>
-      <ModalFooterOne text="출석" onClick={onClickCheck} isFull={true} />
+      <ModalFooterOne
+        isLoading={isLoading}
+        text="출석"
+        onClick={onClickCheck}
+        isFull={true}
+      />
     </ModalLayout>
   );
 }
