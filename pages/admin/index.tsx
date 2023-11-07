@@ -1,7 +1,9 @@
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
+import { SERVER_URI } from "../../constants/system";
 import { useFailToast } from "../../hooks/CustomToast";
 import { userInfoState } from "../../recoil/userAtoms";
 
@@ -22,6 +24,14 @@ function Admin() {
     }
     router.push(`/admin/system/${url}`);
   };
+
+  async function onRemoveLog() {
+    if (confirm()) {
+      await axios.delete(`${SERVER_URI}/admin/log/delete/45`);
+    } else {
+      return;
+    }
+  }
 
   return (
     <>
@@ -77,6 +87,12 @@ function Admin() {
                 <button onClick={() => onClick(`resetStudySpace`, false)}>
                   스터디 초기화 및 업데이트
                 </button>
+              </NavBlock>
+            </div>
+            <div>
+              <BlockName>로그 관리</BlockName>
+              <NavBlock>
+                <button onClick={() => onRemoveLog()}>오래된 로그 삭제</button>
               </NavBlock>
             </div>
 
