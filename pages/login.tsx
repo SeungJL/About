@@ -20,7 +20,7 @@ import {
   ModalLayout,
 } from "../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../hooks/CustomToast";
-import { useRegisterFormsQuery } from "../hooks/user/queries";
+import { useUserRegisterFormsQuery } from "../hooks/user/queries";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
 import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";
@@ -44,7 +44,7 @@ const Login: NextPage<{
   const [isCheckModal, setIsCheckModal] = useState(false);
   const [isApplicant, setIsApplicant] = useState(false);
 
-  const { isLoading } = useRegisterFormsQuery({
+  const { isLoading } = useUserRegisterFormsQuery({
     enabled: !!session,
     onSuccess(data) {
       if (data?.find((who) => who.uid === session.uid)) setIsApplicant(true);

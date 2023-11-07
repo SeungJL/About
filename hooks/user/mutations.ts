@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
+import { requestServer } from "../../helpers/methodHelpers";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import { MutationOptions } from "../../types/reactTypes";
 import { IAvatar, IUser2, IUserRegister, Role } from "../../types/user/user";
@@ -9,19 +10,29 @@ import { IUserRequest } from "../../types/user/userRequest";
 export const useUserRegisterMutation = (
   options?: MutationOptions<IUserRegister>
 ) =>
-  useMutation<void, AxiosError, IUserRegister>(async (userRegister) => {
-    await axios.post(`${SERVER_URI}/register`, userRegister);
-  }, options);
+  useMutation<void, AxiosError, IUserRegister>(
+    (param) =>
+      requestServer<IUserRegister>({
+        method: "post",
+        url: `register`,
+        body: param,
+      }),
+    options
+  );
 
-export const useUserApproveMutation = (options?: MutationOptions<string>) =>
-  useMutation<void, AxiosError, string>(async (uid) => {
-    await axios.post(`${SERVER_URI}/register/approval`, { uid });
-  }, options);
-
-export const useUserDeleteMutation = (options?: MutationOptions<string>) =>
-  useMutation<void, AxiosError, string>(async (uid) => {
-    await axios.delete(`${SERVER_URI}/register/approval`, { data: { uid } });
-  }, options);
+export const useUserRegisterControlMutation = <T extends "post" | "delete">(
+  method: T,
+  options?: MutationOptions<string>
+) =>
+  useMutation<void, AxiosError, string>(
+    (param) =>
+      requestServer<{ uid: string }>({
+        method,
+        url: `register/approval`,
+        body: { uid: param },
+      }),
+    options
+  );
 
 export const useUserInfoMutation = (options?: MutationOptions<IUser2>) =>
   useMutation<void, AxiosError, IUser2>(async (userInfo) => {

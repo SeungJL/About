@@ -2,10 +2,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import AlertDialog from "../../../components/modals/AlertDialog";
 import { ModalFooterTwo } from "../../../components/modals/Modals";
 import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
-import {
-  useUserApproveMutation,
-  useUserDeleteMutation,
-} from "../../../hooks/user/mutations";
+import { useUserRegisterControlMutation } from "../../../hooks/user/mutations";
 import { IModal, IRefetch } from "../../../types/reactTypes";
 
 interface ICheckRegisterModalFooter extends IModal, IRefetch {
@@ -21,14 +18,14 @@ function CheckRegisterModalFooter({
   const errorToast = useErrorToast();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutate: approve } = useUserApproveMutation({
+  const { mutate: approve } = useUserRegisterControlMutation("post", {
     onSuccess() {
       completeToast("free", "가입이 승인되었습니다.");
     },
     onError: errorToast,
   });
 
-  const { mutate: deleteForm } = useUserDeleteMutation({
+  const { mutate: deleteForm } = useUserRegisterControlMutation("delete", {
     onSuccess() {
       completeToast("free", "가입이 거절되었습니다.");
     },

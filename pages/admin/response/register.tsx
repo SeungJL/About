@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import AdminLocationSelector from "../../../components/features/picker/AdminLocationSelector";
 import Header from "../../../components/layout/Header";
-import { useRegisterFormsQuery } from "../../../hooks/user/queries";
+import { useUserRegisterFormsQuery } from "../../../hooks/user/queries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
 import { IRegisterForm } from "../../../types/user/user";
 
@@ -14,7 +14,7 @@ function AdminRegister() {
   const [isRefetch, setIsRefetch] = useState(false);
   const [registerData, setRegisterData] = useState<IRegisterForm[]>([]);
 
-  const { data: applyData, refetch } = useRegisterFormsQuery();
+  const { data: applyData, refetch } = useUserRegisterFormsQuery();
 
   const onClick = (who?: IRegisterForm) => {
     setApplicant(who);
