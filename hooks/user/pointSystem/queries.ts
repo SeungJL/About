@@ -2,24 +2,9 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { SERVER_URI } from "../../../constants/system";
 import { QueryOptions } from "../../../types/reactTypes";
-import {
-  IDeposit,
-  IPoint,
-  IPointAll,
-  IPointLog,
-  IScore,
-} from "../../../types/user/pointSystem";
+import { IPointAll, IPointLog, IScore } from "../../../types/user/pointSystem";
 
 //score
-export const useScoreQuery = (options?: QueryOptions<IScore>) =>
-  useQuery<IScore, AxiosError, IScore>(
-    "score",
-    async () => {
-      const res = await axios.get<IScore>(`${SERVER_URI}/user/score`);
-      return res.data;
-    },
-    options
-  );
 
 export const useScoreLogQuery = (options?: QueryOptions<IPointLog[]>) =>
   useQuery<IPointLog[], AxiosError, IPointLog[]>(
@@ -51,17 +36,6 @@ export const useScoreLogAllQuery = (options?: QueryOptions<IPointLog[]>) =>
     options
   );
 
-//point
-export const usePointQuery = (options?: QueryOptions<IPoint>) =>
-  useQuery<IPoint, AxiosError, IPoint>(
-    "point",
-    async () => {
-      const res = await axios.get<IPoint>(`${SERVER_URI}/user/point`);
-      return res.data;
-    },
-    options
-  );
-
 export const usePointLogQuery = (options?: QueryOptions<IPointLog[]>) =>
   useQuery<IPointLog[], AxiosError, IPointLog[]>(
     "pointLog",
@@ -88,17 +62,6 @@ export const usePointLogAllQuery = (options?: QueryOptions<IPointLog>) =>
     "pointLogAll",
     async () => {
       const res = await axios.get(`${SERVER_URI}/log/point/all`);
-      return res.data;
-    },
-    options
-  );
-
-//deposit
-export const useDepositQuery = (options?: QueryOptions<IDeposit>) =>
-  useQuery<IDeposit, AxiosError, IDeposit>(
-    "deposit",
-    async () => {
-      const res = await axios.get<IDeposit>(`${SERVER_URI}/user/deposit`);
       return res.data;
     },
     options

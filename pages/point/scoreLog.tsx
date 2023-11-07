@@ -4,15 +4,13 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import {
-  useScoreLogQuery,
-  useScoreQuery,
-} from "../../hooks/user/pointSystem/queries";
+import { useScoreLogQuery } from "../../hooks/user/pointSystem/queries";
+import { usePointSystemQuery } from "../../hooks/user/queries";
 
 function ScoreLog() {
-  const { data } = useScoreQuery();
+  const { data: score } = usePointSystemQuery("score");
   const { data: scoreLog, isLoading } = useScoreLogQuery();
-
+  console.log(scoreLog);
   const filterLog = scoreLog?.filter((item) => item.meta.value);
 
   return (
@@ -22,7 +20,7 @@ function ScoreLog() {
         <MyPoint>
           <span>내 점수</span>
           <FontAwesomeIcon icon={faArrowRight} />
-          <span>{data?.score}점</span>
+          <span>{score}점</span>
         </MyPoint>
         <Container>
           <LogHeader>

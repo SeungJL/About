@@ -23,7 +23,7 @@ import {
   AVATAR_ICON,
 } from "../../../constants/contentsValue/avatar";
 import { useFailToast } from "../../../hooks/CustomToast";
-import { useScoreQuery } from "../../../hooks/user/pointSystem/queries";
+import { usePointSystemQuery } from "../../../hooks/user/queries";
 import { isGuestState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IAvatar } from "../../../types/user/user";
@@ -49,7 +49,7 @@ function RequestChangeProfileImageModalAvatar({
   const [back, setBack] = useState(false);
   const [BG, setBG] = useState(0);
 
-  const { data: score } = useScoreQuery();
+  const { data: score } = usePointSystemQuery("score");
 
   useEffect(() => {
     if (iconIdx === 0) setBack(false);
@@ -74,7 +74,7 @@ function RequestChangeProfileImageModalAvatar({
       failToast("guest");
       return;
     }
-    if (AVATAR_COST[iconIdx] > score.score) {
+    if (AVATAR_COST[iconIdx] > score) {
       failToast("free", "프로필 변경을 위한 점수가 부족해요!");
       return;
     }

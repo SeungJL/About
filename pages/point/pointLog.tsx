@@ -5,16 +5,14 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import {
-  usePointLogQuery,
-  usePointQuery,
-} from "../../hooks/user/pointSystem/queries";
+import { usePointLogQuery } from "../../hooks/user/pointSystem/queries";
+import { usePointSystemQuery } from "../../hooks/user/queries";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 function PointLog() {
   const prevPageUrl = useRecoilValue(prevPageUrlState);
 
-  const { data } = usePointQuery();
+  const { data: point } = usePointSystemQuery("point");
   const { data: pointLog, isLoading } = usePointLogQuery();
 
   const filterLog = pointLog?.filter((item) => item.meta.value);
@@ -26,7 +24,7 @@ function PointLog() {
         <MyPoint>
           <span>내 포인트</span>
           <FontAwesomeIcon icon={faArrowRight} />
-          <span>{data?.point} 점</span>
+          <span>{point} 점</span>
         </MyPoint>
         <Container>
           <LogHeader>

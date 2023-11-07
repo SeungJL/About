@@ -4,6 +4,8 @@ export const USER_INITIAL_LOCATION = "userInitialLocation";
 export const USER_INITIAL_INFO = "userInitialInfo";
 export const USER_REGISTER_FORM = "userRegisterForm";
 
+export const USER_POINT_SYSTEM = "userPointSystem";
+
 export const STUDY_VOTE = "studyVote";
 export const STUDY_PLACE = "studyPlace";
 export const STUDY_START_TIME = "studyStartTime";

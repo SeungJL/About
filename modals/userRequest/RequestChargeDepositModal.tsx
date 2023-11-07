@@ -14,7 +14,7 @@ import {
   usePointSystemMutation,
   useUserRequestMutation,
 } from "../../hooks/user/mutations";
-import { useDepositQuery } from "../../hooks/user/pointSystem/queries";
+import { usePointSystemQuery } from "../../hooks/user/queries";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -25,7 +25,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 
   const [isFirst, setIsFirst] = useState(true);
 
-  const { data: depositData } = useDepositQuery();
+  const { data: deposit } = usePointSystemQuery("deposit");
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = usePointSystemMutation("deposit", {
     onSuccess() {
@@ -44,7 +44,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
     setIsModal(false);
   };
 
-  const myDeposit = depositData?.deposit;
+  const myDeposit = deposit;
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size={isFirst ? "md" : "lg"}>

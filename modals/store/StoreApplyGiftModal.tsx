@@ -20,7 +20,7 @@ import {
 } from "../../hooks/CustomToast";
 import { useStoreMutation } from "../../hooks/store/mutation";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
-import { usePointQuery } from "../../hooks/user/pointSystem/queries";
+import { usePointSystemQuery } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 import { IStoreApplicant, IStoreGift } from "../../types/page/store";
 import { IModal } from "../../types/reactTypes";
@@ -41,7 +41,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
 
   const [value, setValue] = useState(1);
 
-  const { data: myPoint, isLoading } = usePointQuery();
+  const { data: myPoint, isLoading } = usePointSystemQuery("point");
   const { mutate: applyGift } = useStoreMutation({
     onSuccess() {
       getPoint({ value: -totalCost, message: `${giftInfo.name}응모` });
@@ -62,7 +62,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
       failToast("guest");
       return;
     }
-    if (myPoint.point < totalCost) {
+    if (myPoint < totalCost) {
       failToast("free", "보유중인 포인트가 부족해요!");
       return;
     }
@@ -88,11 +88,11 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
             </Item>
             <Item>
               <span>보유 포인트</span>
-              <span>{myPoint.point} point</span>
+              <span>{myPoint} point</span>
             </Item>
             <Item>
               <span>필요 포인트</span>
-              <NeedPoint overMax={totalCost > myPoint.point}>
+              <NeedPoint overMax={totalCost > myPoint}>
                 {totalCost} point
               </NeedPoint>
             </Item>

@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import {
   USER_INFO,
+  USER_POINT_SYSTEM,
   USER_REGISTER_FORM,
   USER_REQUEST,
 } from "../../constants/keys/queryKeys";
@@ -51,7 +52,56 @@ export const useUserRequestQuery = (
     options
   );
 
-//안됨
+interface PointSystemResponse {
+  score?: number;
+  point?: number;
+  deposit?: number;
+}
+
+export const usePointSystemQuery = (
+  category: "score" | "point" | "deposit",
+  options?: QueryOptions<number>
+) =>
+  useQuery<number, AxiosError, number>(
+    [USER_POINT_SYSTEM, category],
+    async () => {
+      const res = await axios.get<PointSystemResponse>(
+        `${SERVER_URI}/user/${category}`
+      );
+      switch (category) {
+        case "score":
+          return res.data?.score;
+        case "point":
+          return res.data?.point;
+        case "deposit":
+          return res.data?.deposit;
+      }
+    },
+    options
+  );
+
+export const usePointSystemLogQuery = (
+  category: "score" | "point" | "deposit",
+  options?: QueryOptions<number>
+) =>
+  useQuery<number, AxiosError, number>(
+    [USER_POINT_SYSTEM, category],
+    async () => {
+      const res = await axios.get<PointSystemResponse>(
+        `${SERVER_URI}/user/${category}`
+      );
+      switch (category) {
+        case "score":
+          return res.data?.score;
+        case "point":
+          return res.data?.point;
+        case "deposit":
+          return res.data?.deposit;
+      }
+    },
+    options
+  );
+
 export const useUidToUserInfoQuery = (
   uid: string,
   options?: QueryOptions<IUser>

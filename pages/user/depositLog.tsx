@@ -4,13 +4,11 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import {
-  useDepositLogQuery,
-  useDepositQuery,
-} from "../../hooks/user/pointSystem/queries";
+import { useDepositLogQuery } from "../../hooks/user/pointSystem/queries";
+import { usePointSystemQuery } from "../../hooks/user/queries";
 
 function ScoreLog() {
-  const { data } = useDepositQuery();
+  const { data: deposit } = usePointSystemQuery("deposit");
   const { data: depositLog, isLoading } = useDepositLogQuery();
 
   const filterLog = depositLog?.filter((item) => item?.meta?.value);
@@ -25,7 +23,7 @@ function ScoreLog() {
           <MyPoint>
             <span>보증금</span>
             <FontAwesomeIcon icon={faArrowRight} />
-            <span>{data?.deposit}원</span>
+            <span>{deposit}원</span>
           </MyPoint>
           <Container>
             <LogHeader>

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { ModalLayout } from "../components/modals/Modals";
 import { TABLE_STRONG_COLORS } from "../constants/styles";
+import { usePointSystemQuery } from "../hooks/user/queries";
 
 function Test() {
   // const { mutate, data } = useCollectionAlphabetMutation();
@@ -13,7 +14,10 @@ function Test() {
   //   mutate("T");
   // };
 
-  
+  const { data } = usePointSystemQuery("deposit");
+
+  console.log(data);
+
   return (
     <ModalLayout size="xl" onClose={() => {}}>
       <Layout>
