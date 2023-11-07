@@ -7,7 +7,10 @@ import styled from "styled-components";
 import { LOCATION_RECRUITING } from "../../../../constants/location";
 import { useFailToast } from "../../../../hooks/CustomToast";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
-import { voteDateState } from "../../../../recoil/studyAtoms";
+import {
+  studyDateStatusState,
+  voteDateState,
+} from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { locationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/study/studyDetail";
@@ -26,6 +29,7 @@ function AboutMain({ participations }: IAboutMain) {
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const location = useRecoilValue(locationState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const setVoteDate = useSetRecoilState(voteDateState);
   const setTransferStudyData = useSetRecoilState(transferStudyDataState);
 
@@ -52,7 +56,7 @@ function AboutMain({ participations }: IAboutMain) {
   );
 
   const studies = participations.filter((par) => par !== privateStudy);
- 
+
   return (
     <AnimatePresence initial={false}>
       {!isMainLoading ? (
@@ -64,7 +68,7 @@ function AboutMain({ participations }: IAboutMain) {
         >
           <Main>
             <Container>
-              {privateStudy && (
+              {privateStudy && studyDateStatus !== "not passed" && (
                 <AboutMainItem
                   participation={privateStudy}
                   isImagePriority={true}
@@ -79,6 +83,12 @@ function AboutMain({ participations }: IAboutMain) {
                     isImagePriority={idx < 2}
                   />
                 ))}
+              {privateStudy && studyDateStatus === "not passed" && (
+                <AboutMainItem
+                  participation={privateStudy}
+                  isImagePriority={true}
+                />
+              )}
               {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>
             <MoreInfoBtn onClick={onClickMoreInfo}>

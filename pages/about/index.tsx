@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -45,10 +46,13 @@ function About() {
       participations.filter((space) => space !== myStudy),
       studyDateStatus !== "not passed"
     );
+
     const filtered =
-      studyDateStatus === "not passed"
+      studyDateStatus === "not passed" &&
+      !voteDate.isSame(dayjs().add(1, "day").startOf("day"))
         ? arrangedOtherStudies.filter((par) => par.place.brand !== "자유 신청")
         : arrangedOtherStudies;
+
     setOtherStudies(filtered);
 
     setTimeout(() => {

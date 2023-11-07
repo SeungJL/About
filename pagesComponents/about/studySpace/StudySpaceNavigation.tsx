@@ -129,14 +129,14 @@ function StudySpaceNavigation({
     const isMax = attendences.length >= MAX_USER_PER_PLACE;
 
     if (studyDateStatus === "passed") return { text: "기간만료" };
+    if (isPrivate && !myVote)
+      return { text: "개인 스터디 신청", func: "private" };
     if (studyDateStatus === "not passed") {
       if (myVoting) return { text: "투표 완료" };
       if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
       return { text: "스터디 투표", func: "vote" };
     }
     if (myStudyFixed && !myVote) return { text: "다른 스터디에 참여중입니다." };
-    if (isPrivate && !myVote)
-      return { text: "개인 스터디 신청", func: "private" };
     if (status === "dismissed")
       return { text: "Free 오픈 신청", func: "freeOpen" };
     if (myVote?.arrived) return { text: "출석 완료" };
