@@ -7,7 +7,7 @@ import {
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { QueryOptions } from "../../types/reactTypes";
-import { IRegisterForm, IUser } from "../../types/user/user";
+import { IUser, IUserRegisterForm } from "../../types/user/user";
 import {
   IUserRequest,
   UserRequestCategory,
@@ -24,12 +24,14 @@ export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>
   );
 
 export const useUserRegisterFormsQuery = (
-  options?: QueryOptions<IRegisterForm[]>
+  options?: QueryOptions<IUserRegisterForm[]>
 ) =>
-  useQuery<IRegisterForm[], AxiosError, IRegisterForm[]>(
+  useQuery<IUserRegisterForm[], AxiosError, IUserRegisterForm[]>(
     [USER_REGISTER_FORM],
     async () => {
-      const res = await axios.get<IRegisterForm[]>(`${SERVER_URI}/register`);
+      const res = await axios.get<IUserRegisterForm[]>(
+        `${SERVER_URI}/register`
+      );
       return res.data;
     },
     options

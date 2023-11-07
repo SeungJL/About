@@ -6,17 +6,17 @@ import AdminLocationSelector from "../../../components/features/picker/AdminLoca
 import Header from "../../../components/layout/Header";
 import { useUserRegisterFormsQuery } from "../../../hooks/user/queries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
-import { IRegisterForm } from "../../../types/user/user";
+import { IUserRegisterForm } from "../../../types/user/user";
 
 function AdminRegister() {
   const [isModal, setIsModal] = useState(false);
-  const [applicant, setApplicant] = useState<IRegisterForm>();
+  const [applicant, setApplicant] = useState<IUserRegisterForm>();
   const [isRefetch, setIsRefetch] = useState(false);
-  const [registerData, setRegisterData] = useState<IRegisterForm[]>([]);
+  const [registerData, setRegisterData] = useState<IUserRegisterForm[]>([]);
 
   const { data: applyData, refetch } = useUserRegisterFormsQuery();
 
-  const onClick = (who?: IRegisterForm) => {
+  const onClick = (who?: IUserRegisterForm) => {
     setApplicant(who);
     setIsModal(true);
   };

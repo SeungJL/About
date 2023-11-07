@@ -10,8 +10,10 @@ import {
 } from "../../components/modals/Modals";
 import { ACCOUNT_SHORT } from "../../constants/contents/Private";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointSystemMutation,
+  useUserRequestMutation,
+} from "../../hooks/user/mutations";
 import { useDepositQuery } from "../../hooks/user/pointSystem/queries";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
@@ -25,7 +27,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 
   const { data: depositData } = useDepositQuery();
   const { mutate: sendRequest } = useUserRequestMutation();
-  const { mutate: getDeposit } = useDepositMutation({
+  const { mutate: getDeposit } = usePointSystemMutation("deposit", {
     onSuccess() {
       completeToast("success");
     },

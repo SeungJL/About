@@ -25,8 +25,9 @@ import {
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import {
   useAboutPointMutation,
-  useDepositMutation,
-} from "../../hooks/user/pointSystem/mutation";
+  usePointSystemMutation,
+} from "../../hooks/user/mutations";
+
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { myStudyState, voteDateState } from "../../recoil/studyAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
@@ -54,7 +55,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: getAlphabet } = useCollectionAlphabetMutation();
 
-  const { mutate: getDeposit } = useDepositMutation();
+  const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { data: session } = useSession();
 
   const { mutate: handleArrived } = useStudyArrivedMutation(

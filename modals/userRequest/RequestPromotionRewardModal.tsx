@@ -17,9 +17,11 @@ import {
 } from "../../constants/contents/Private";
 import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
+import {
+  usePointSystemMutation,
+  useUserRequestMutation,
+} from "../../hooks/user/mutations";
 
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
 import { IModal } from "../../types/reactTypes";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
@@ -29,7 +31,7 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
 
   const [isFirst, setIsFirst] = useState(true);
 
-  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getPoint } = usePointSystemMutation("point");
 
   const { mutate: sendPromotionReward } = useUserRequestMutation({
     onSuccess: () => completeToast("free", "이벤트 응모 및 포인트 지급 완료!"),

@@ -19,7 +19,7 @@ import {
   useFailToast,
 } from "../../hooks/CustomToast";
 import { useStoreMutation } from "../../hooks/store/mutation";
-import { usePointMutation } from "../../hooks/user/pointSystem/mutation";
+import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointQuery } from "../../hooks/user/pointSystem/queries";
 import { isGuestState } from "../../recoil/userAtoms";
 import { IStoreApplicant, IStoreGift } from "../../types/page/store";
@@ -53,7 +53,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
     },
     onError: errorToast,
   });
-  const { mutate: getPoint } = usePointMutation();
+  const { mutate: getPoint } = usePointSystemMutation("point");
 
   const totalCost = giftInfo.point * value;
 

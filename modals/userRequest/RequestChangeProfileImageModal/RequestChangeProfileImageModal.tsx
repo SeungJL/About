@@ -13,7 +13,7 @@ import {
   useFailToast,
 } from "../../../hooks/CustomToast";
 import {
-  useUserAvatarMutation,
+  useUserInfoFieldMutation,
   useUserUpdateProfileImageMutation,
 } from "../../../hooks/user/mutations";
 import { isRefetchUserInfoState } from "../../../recoil/refetchingAtoms";
@@ -34,7 +34,7 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
 
   const { mutate: updateProfile } = useUserUpdateProfileImageMutation();
 
-  const { mutate: setUserAvatar } = useUserAvatarMutation({
+  const { mutate: setUserAvatar } = useUserInfoFieldMutation("avatar", {
     onSuccess() {
       completeToast("success");
       setIsRefetchUserInfo(true);

@@ -29,10 +29,7 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../hooks/CustomToast";
-import {
-  useDepositMutation,
-  usePointMutation,
-} from "../../hooks/user/pointSystem/mutation";
+import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { locationState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IDayjsStartToEnd, ITimeStartToEnd } from "../../types/timeAndDate";
@@ -74,8 +71,8 @@ function StudyChangeTimeModal({
 
   const studyStartTime = useRecoilValue(studyStartTimeState);
 
-  const { mutate: getPoint } = usePointMutation();
-  const { mutate: getDeposit } = useDepositMutation();
+  const { mutate: getPoint } = usePointSystemMutation("point");
+  const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { mutate: patchAttend } = useStudyParticipationMutation(
     voteDate,
     "patch",

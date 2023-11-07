@@ -19,6 +19,7 @@ export const requestServer = async <T, M = void>({
       const res = await axios.post<M>(`${SERVER_URI}/${url}`, body);
       return res.data;
     case "patch":
+      console.log(2, url, body);
       return axios.patch(`${SERVER_URI}/${url}`, body);
     case "delete":
       return axios.delete(`${SERVER_URI}/${url}`, { data: body });

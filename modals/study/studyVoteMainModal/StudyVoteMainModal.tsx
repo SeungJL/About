@@ -22,7 +22,8 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,
 } from "../../../hooks/study/mutations";
-import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
+import { useAboutPointMutation } from "../../../hooks/user/mutations";
+
 import {
   myVotingState,
   participationsState,

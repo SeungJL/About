@@ -13,10 +13,10 @@ import {
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 import { Size } from "../../../../types/system";
-import { IRegisterForm, IUser } from "../../../../types/user/user";
+import { IUser, IUserRegisterForm } from "../../../../types/user/user";
 
 interface IProfileIcon {
-  user: IUser | IRegisterForm | "guest" | "ABOUT";
+  user: IUser | IUserRegisterForm | "guest" | "ABOUT";
   size?: Size;
   isMember?: boolean;
   isImagePriority?: boolean;

@@ -6,9 +6,8 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { ModalHeader, ModalLayout } from "../../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
 import {
-  useUserApplyRestMutation,
+  useUserInfoFieldMutation,
   useUserRequestMutation,
-  useUserRoleMutation,
 } from "../../../hooks/user/mutations";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
@@ -27,8 +26,9 @@ function RequestRestModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
 
   const { mutate: sendRestRequest } = useUserRequestMutation();
-  const { mutate: setRole } = useUserRoleMutation();
-  const { mutate: applyRest } = useUserApplyRestMutation({
+
+  const { mutate: setRole } = useUserInfoFieldMutation("role");
+  const { mutate: setRest } = useUserInfoFieldMutation("rest", {
     onSuccess() {
       setIsModal(false);
       completeToast("apply");
@@ -40,6 +40,10 @@ function RequestRestModal({ setIsModal }: IModal) {
   });
 
   const onSubmit = (data: IApplyRest) => {
+    if (!data.endDate) {
+      failToast("free", "종료 일정을 선택해주세요.");
+      return;
+    }
     const restInfo = {
       type: data.type,
       startDate: data.startDate,
@@ -58,9 +62,9 @@ function RequestRestModal({ setIsModal }: IModal) {
         " / " +
         data.content,
     };
-    setRole("resting");
+    setRole({ role: "resting" });
     sendRestRequest(requestData);
-    applyRest(restInfo);
+    setRest({ info: restInfo });
   };
 
   return (

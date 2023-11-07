@@ -8,7 +8,7 @@ import {
 } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
-import { useUserRoleMutation } from "../../hooks/user/mutations";
+import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
 import { userAccessUidState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
@@ -26,11 +26,11 @@ function RequestLevelUpModal({ setIsModal }: IModal) {
       },
     }
   );
-  const { mutate: setRole } = useUserRoleMutation();
+  const { mutate: setRole } = useUserInfoFieldMutation("role");
 
   const onClick = () => {
     if (isLoading) return;
-    if (studyArrivedCnt >= 2) setRole("member");
+    if (studyArrivedCnt >= 2) setRole({ role: "member" });
     else {
       failToast("free", `현재 스터디에 ${studyArrivedCnt}회 참여하였습니다.`);
       setIsModal(false);

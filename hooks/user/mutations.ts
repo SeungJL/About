@@ -4,15 +4,21 @@ import { SERVER_URI } from "../../constants/system";
 import { requestServer } from "../../helpers/methodHelpers";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
 import { MutationOptions } from "../../types/reactTypes";
-import { IAvatar, IUser2, IUserRegister, Role } from "../../types/user/user";
+import { IPointSystem } from "../../types/user/pointSystem";
+import {
+  IAvatar,
+  IUser,
+  IUserRegisterFormWriting,
+  Role,
+} from "../../types/user/user";
 import { IUserRequest } from "../../types/user/userRequest";
 
 export const useUserRegisterMutation = (
-  options?: MutationOptions<IUserRegister>
+  options?: MutationOptions<IUserRegisterFormWriting>
 ) =>
-  useMutation<void, AxiosError, IUserRegister>(
+  useMutation<void, AxiosError, IUserRegisterFormWriting>(
     (param) =>
-      requestServer<IUserRegister>({
+      requestServer<IUserRegisterFormWriting>({
         method: "post",
         url: `register`,
         body: param,
@@ -34,39 +40,76 @@ export const useUserRegisterControlMutation = <T extends "post" | "delete">(
     options
   );
 
-export const useUserInfoMutation = (options?: MutationOptions<IUser2>) =>
-  useMutation<void, AxiosError, IUser2>(async (userInfo) => {
-    await axios.post(`${SERVER_URI}/user/profile`, userInfo);
-  }, options);
+export const useUserInfoMutation = (options?: MutationOptions<IUser>) =>
+  useMutation<void, AxiosError, IUser>(
+    (param) =>
+      requestServer<IUser>({
+        method: "post",
+        url: `user/profile`,
+        body: param,
+      }),
+    options
+  );
 
-export const useUserAvatarMutation = (options?: MutationOptions<IAvatar>) =>
-  useMutation<void, AxiosError, IAvatar>(async (avatar) => {
-    await axios.post(`${SERVER_URI}/user/avatar`, avatar);
-  }, options);
+type UserInfoFieldParam<T> = T extends "avatar"
+  ? IAvatar
+  : T extends "role"
+  ? { role: Role }
+  : T extends "rest"
+  ? { info: IApplyRest }
+  : { comment: string };
 
-export const useUserRoleMutation = (options?: MutationOptions<Role>) =>
-  useMutation<void, AxiosError, Role>(async (role) => {
-    await axios.patch(`${SERVER_URI}/user/role`, { role });
-  }, options);
-
-export const useUserApplyRestMutation = (
-  options?: MutationOptions<IApplyRest>
+export const useUserInfoFieldMutation = <
+  T extends "avatar" | "comment" | "role" | "rest"
+>(
+  field: T,
+  options?: MutationOptions<UserInfoFieldParam<T>>
 ) =>
-  useMutation<void, AxiosError, IApplyRest>(async (info) => {
-    console.log(2, { info });
-    await axios.post(`${SERVER_URI}/user/rest`, {
-      info,
+  useMutation<void, AxiosError, UserInfoFieldParam<T>>(
+    (param) =>
+      requestServer<UserInfoFieldParam<T>>({
+        method: "patch",
+        url: `user/${field}`,
+        body: param,
+      }),
+    options
+  );
+
+export const usePointSystemMutation = (
+  field: "point" | "score" | "deposit",
+  options?: MutationOptions<IPointSystem>
+) =>
+  useMutation<void, AxiosError, IPointSystem>((param) => {
+    const body = { [field]: param.value, meesage: param.message };
+    return requestServer<typeof body>({
+      method: "patch",
+      url: `user/${field}`,
+      body,
     });
+  }, options);
+
+export const useAboutPointMutation = (
+  options?: MutationOptions<IPointSystem>
+) =>
+  useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
+    await Promise.all([
+      axios.post(`${SERVER_URI}/user/point`, { point: value, message }),
+      axios.post(`${SERVER_URI}/user/score`, { score: value, message }),
+    ]);
   }, options);
 
 export const useUserRequestMutation = (
   options?: MutationOptions<IUserRequest>
 ) =>
-  useMutation<void, AxiosError, IUserRequest>(async (request) => {
-    console.log(request);
-    const res = await axios.post(`${SERVER_URI}/request`, { request });
-    return res.data;
-  }, options);
+  useMutation<void, AxiosError, IUserRequest>(
+    (param) =>
+      requestServer<{ request: IUserRequest }>({
+        method: "post",
+        url: `request`,
+        body: { request: param },
+      }),
+    options
+  );
 
 export const useUserUpdateProfileImageMutation = (
   options?: MutationOptions<void>
@@ -74,16 +117,3 @@ export const useUserUpdateProfileImageMutation = (
   useMutation<void, AxiosError, void>(async () => {
     await axios.patch("/api/user/profile");
   }, options);
-
-// export const useUserCommentMutation = (
-//   options?: Omit<
-//     UseMutationOptions<void, AxiosError, IUserComment>,
-//     "mutationKey" | "mutationFn"
-//   >
-// ) =>
-//   useMutation<void, AxiosError, IUserComment>(async (comment) => {
-//
-//     await axios.post(`${SERVER_URI}/user/comment`, {
-//       comment,
-//     });
-//   }, options);

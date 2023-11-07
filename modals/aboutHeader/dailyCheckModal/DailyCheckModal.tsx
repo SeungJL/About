@@ -33,8 +33,11 @@ import {
 } from "../../../hooks/CustomToast";
 import { useDailyCheckMutation } from "../../../hooks/dailyCheck/mutation";
 import { useDailyCheckAllQuery } from "../../../hooks/dailyCheck/queries";
-import { useUserRequestMutation } from "../../../hooks/user/mutations";
-import { useAboutPointMutation } from "../../../hooks/user/pointSystem/mutation";
+import {
+  useAboutPointMutation,
+  useUserRequestMutation,
+} from "../../../hooks/user/mutations";
+
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
 import { transferAlphabetState } from "../../../recoil/transferDataAtoms";
 import { IattendCheckPresent } from "../../../types/modal/attendCheck";

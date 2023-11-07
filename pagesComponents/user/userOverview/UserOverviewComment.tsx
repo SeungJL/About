@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../../hooks/CustomToast";
-import { useUserInfoMutation } from "../../../hooks/user/mutations";
+import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { isGuestState } from "../../../recoil/userAtoms";
 
@@ -16,7 +16,7 @@ function UserOverviewComment() {
   const [value, setValue] = useState("");
 
   const { data: userInfo, isLoading } = useUserInfoQuery();
-  const { mutate: updateUserInfo } = useUserInfoMutation();
+  const { mutate: setComment } = useUserInfoFieldMutation("comment");
 
   useEffect(() => {
     if (isLoading) return;
@@ -37,7 +37,7 @@ function UserOverviewComment() {
     setValue(text);
   };
   const handleSubmit = () => {
-    updateUserInfo({ ...userInfo, comment: value });
+    setComment({ comment: value });
   };
   return (
     <Layout>

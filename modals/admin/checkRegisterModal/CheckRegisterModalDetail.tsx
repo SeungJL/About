@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import { ModalBody } from "../../../components/modals/Modals";
-import { IRegisterForm } from "../../../types/user/user";
+import { IUserRegisterForm } from "../../../types/user/user";
 
 interface ICheckRegisterModalDetail {
-  applicant: IRegisterForm;
+  applicant: IUserRegisterForm;
 }
 
 function CheckRegisterModalDetail({ applicant }: ICheckRegisterModalDetail) {

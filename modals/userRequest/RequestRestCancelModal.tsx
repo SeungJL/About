@@ -9,7 +9,7 @@ import {
 } from "../../components/modals/Modals";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
-import { useUserRoleMutation } from "../../hooks/user/mutations";
+import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
 import { userAccessUidState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
@@ -23,11 +23,11 @@ function RequestRestCancelModal({ setIsModal, rest }: IRequestRestCancelModal) {
   const userAccessUid = useRecoilValue(userAccessUidState);
 
   const { data: studyArrivedCnt } = useStudyArrivedCntQuery(userAccessUid, {});
-  const { mutate: setRole } = useUserRoleMutation();
+  const { mutate: setRole } = useUserInfoFieldMutation("role");
 
   const onClick = () => {
-    if (studyArrivedCnt >= 2) setRole("member");
-    else setRole("human");
+    if (studyArrivedCnt >= 2) setRole({ role: "member" });
+    else setRole({ role: "human" });
   };
 
   return (

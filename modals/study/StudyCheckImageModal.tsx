@@ -20,7 +20,8 @@ import {
   useFailToast,
 } from "../../hooks/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
-import { useAboutPointMutation } from "../../hooks/user/pointSystem/mutation";
+import { useAboutPointMutation } from "../../hooks/user/mutations";
+
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";

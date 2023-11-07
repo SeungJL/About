@@ -10,7 +10,7 @@ import {
 import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
-import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
+import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { PLACE_TO_NAME } from "../../storage/study";
 import { IModal } from "../../types/reactTypes";
@@ -26,7 +26,7 @@ function StudyLightAbsentModal({ setIsModal }: IModal) {
 
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
 
-  const { mutate: getDeposit } = useDepositMutation();
+  const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
       setIsRefetchStudySpace(true);

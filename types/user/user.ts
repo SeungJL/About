@@ -1,31 +1,34 @@
-import { Document } from "mongoose";
 import { BADGE_COLOR } from "../../constants/contentsValue/badge";
 import { Location } from "../system";
 
-/** user */
-export interface IUser extends IUser2, Document {}
-
-export interface IUser2 extends IUserIdentity {
-  registerDate: string;
+export interface IUser extends IUserRegisterForm {
   isActive: boolean;
-  birth: string;
-  mbti: string;
-  gender: Gender;
   point: number;
   role: Role;
   score: number;
-  comment: string;
   rest: IRest;
-  location: Location;
   avatar: IAvatar;
-  interests?: IInterests;
   deposit: number;
-  majors: IMajor[];
-  telephone: string;
   profileImage: string;
   thumbnailImage: string;
+  _id: string;
 }
-
+export interface IUserRegisterForm extends IUserRegisterFormWriting {
+  registerDate?: string;
+  profileImage?: string;
+  uid?: string;
+}
+export interface IUserRegisterFormWriting {
+  location: Location;
+  name: string;
+  mbti?: string;
+  birth: string;
+  gender: Gender;
+  interests?: IInterests;
+  majors: IMajor[];
+  comment: string;
+  telephone?: string;
+}
 export interface IUserIdentity {
   name: string;
   uid: string;
@@ -71,28 +74,6 @@ export interface IIsActive {
   };
 }
 
-/** register */
-export interface IUserRegister extends IRegisterForm {
-  role?: Role;
-  isActive?: boolean;
-}
-
-export interface IRegisterForm {
-  registerDate?: string;
-  location: Location;
-  name: string;
-  mbti?: string;
-  birth: string;
-  agree?: any;
-  gender: Gender;
-  interests?: IInterests;
-  majors: IMajor[];
-  comment: string;
-  telephone?: string;
-  profileImage?: string;
-  uid?: string;
-}
-
 /** badge */
 export interface IUserBadge {
   badge: UserBadge;
@@ -120,5 +101,5 @@ export interface IUserComment {
 }
 
 export interface IUsersAll {
-  usersAll: IUser2[];
+  usersAll: IUser[];
 }

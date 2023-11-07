@@ -1,11 +1,11 @@
 import { ModalHeader, ModalLayout } from "../../../components/modals/Modals";
 import { IModal, IRefetch } from "../../../types/reactTypes";
-import { IRegisterForm } from "../../../types/user/user";
+import { IUserRegisterForm } from "../../../types/user/user";
 import CheckRegisterModalDetail from "./CheckRegisterModalDetail";
 import CheckRegisterModalFooter from "./CheckRegisterModalFooter";
 
 interface ICheckRegisterModal extends IModal, IRefetch {
-  applicant: IRegisterForm;
+  applicant: IUserRegisterForm;
 }
 
 function CheckRegisterModal({

@@ -22,8 +22,10 @@ import {
   useFailToast,
 } from "../../hooks/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
-import { useDepositMutation } from "../../hooks/user/pointSystem/mutation";
+import {
+  usePointSystemMutation,
+  useUserRequestMutation,
+} from "../../hooks/user/mutations";
 import {
   myStudyState,
   studyStartTimeState,
@@ -55,7 +57,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const resetQueryData = useResetQueryData();
 
   const { mutate: sendRequest } = useUserRequestMutation();
-  const { mutate: getDeposit } = useDepositMutation();
+  const { mutate: getDeposit } = usePointSystemMutation("deposit");
 
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
