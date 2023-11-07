@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { useFailToast } from "../../../hooks/CustomToast";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { isProfileEditState } from "../../../recoil/previousAtoms";
 import { isGuestState, userInfoState } from "../../../recoil/userAtoms";
 import { DispatchString } from "../../../types/reactTypes";

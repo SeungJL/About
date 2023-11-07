@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useFailToast } from "../../../hooks/CustomToast";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
 import StudyQuickVoteModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteModal";
 import StudyQuickVoteRegisterModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteRegisterModal";

@@ -7,7 +7,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useCompleteToast } from "../../hooks/CustomToast";
+import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { voteDateState } from "../../recoil/studyAtoms";

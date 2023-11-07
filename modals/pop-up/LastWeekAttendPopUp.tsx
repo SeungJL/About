@@ -9,9 +9,10 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { USER_ROLE } from "../../constants/contentsValue/role";
-import { useInteractionLikeQuery } from "../../hooks/interaction/queries";
+
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { useUserAttendRateQuery } from "../../hooks/user/studyStatistics/queries";
+import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";
+import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
 
 import { IModal } from "../../types/reactTypes";
 
@@ -23,10 +24,11 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const { data: likeData } = useInteractionLikeQuery();
   const { data: parRate, isLoading } = useUserAttendRateQuery(
     lastWeekFirstDay.subtract(1, "day"),
-    lastWeekLastDay.subtract(1, "day")
+    lastWeekLastDay.subtract(1, "day"),
+    true
   );
 
-  const parCnt = parRate?.find((who) => who.uid === userInfo.uid)?.cnt;
+  const parCnt = parRate?.cnt;
   const rest = userInfo?.role === "resting" && userInfo?.rest;
   const lastWeekLikeCnt = likeData?.filter((like) => {
     const date = dayjs(like.createdAt);

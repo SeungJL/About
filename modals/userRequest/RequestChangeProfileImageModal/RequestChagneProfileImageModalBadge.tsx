@@ -8,8 +8,12 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
-import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../../hooks/user/mutations";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../../hooks/custom/CustomToast";
+import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
+
 import { EventBadge } from "../../../types/user/user";
 
 function RequestChagneProfileImageModalBadge({ setIsModal }) {

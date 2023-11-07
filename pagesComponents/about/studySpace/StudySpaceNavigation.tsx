@@ -11,12 +11,12 @@ import { POINT_SYSTEM_MINUS } from "../../../constants/contentsValue/pointSystem
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
-import { useResetQueryData } from "../../../hooks/CustomHooks";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
+} from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/mutations";
 

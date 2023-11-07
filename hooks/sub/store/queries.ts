@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
-import { STORE_GIFT } from "../../constants/keys/queryKeys";
-import { IStoreQuery } from "../../types/page/store";
-import { QueryOptions } from "../../types/reactTypes";
+import { STORE_GIFT } from "../../../constants/keys/queryKeys";
+import { IStoreQuery } from "../../../types/page/store";
+import { QueryOptions } from "../../../types/reactTypes";
 
 export const useStoreGiftQuery = (
   giftId: number,

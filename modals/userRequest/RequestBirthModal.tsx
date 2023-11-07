@@ -7,8 +7,8 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
+import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
+import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { userInfoState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";

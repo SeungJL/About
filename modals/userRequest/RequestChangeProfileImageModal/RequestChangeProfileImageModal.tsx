@@ -11,7 +11,7 @@ import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
+} from "../../../hooks/custom/CustomToast";
 import {
   useUserInfoFieldMutation,
   useUserUpdateProfileImageMutation,

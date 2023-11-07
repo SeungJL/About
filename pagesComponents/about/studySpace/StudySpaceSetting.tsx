@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { useTypeErrorToast } from "../../../hooks/CustomToast";
+import { useTypeErrorToast } from "../../../hooks/custom/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";

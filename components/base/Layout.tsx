@@ -6,8 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { USER_INITIAL_INFO } from "../../constants/keys/queryKeys";
-
-import { useToken } from "../../hooks/token/useToken";
+import { useToken } from "../../hooks/custom/CustomHooks";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import {
   isGuestState,

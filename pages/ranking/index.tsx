@@ -8,9 +8,12 @@ import Header from "../../components/layout/Header";
 import { getMonth } from "../../helpers/dateHelpers";
 import { sortUserAttends, sortUserScores } from "../../helpers/userHelpers";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
-import { useErrorToast, useTypeErrorToast } from "../../hooks/CustomToast";
+import {
+  useErrorToast,
+  useTypeErrorToast,
+} from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { useUserAttendRateAllQuery } from "../../hooks/user/studyStatistics/queries";
+import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
 import RankingBar from "../../pagesComponents/ranking/RankingBar";
 import RankingCategoryBar from "../../pagesComponents/ranking/RankingCategory";
 import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
@@ -55,7 +58,7 @@ function Ranking() {
 
   //스터디 참여 기록
   const { data: attendAllData, isLoading: isAttendRateLoading } =
-    useUserAttendRateAllQuery(dayjsMonth2.date(0), endDate, {
+    useUserAttendRateQuery(dayjsMonth2.date(0), endDate, false, {
       enabled: category !== "누적",
       onError: errorToast,
     });

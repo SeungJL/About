@@ -10,7 +10,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { LOCATION_PLACE_SMALL } from "../../constants/location";
-import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
+import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import {
   useStudyPlacesQuery,

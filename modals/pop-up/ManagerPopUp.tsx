@@ -17,8 +17,12 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../hooks/custom/CustomToast";
+import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
+
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -66,7 +70,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const { mutate } = useUserRequestMutation({
-  onSuccess() {
+    onSuccess() {
       completeToast("free", "지원이 완료되었습니다.");
       setIsModal(false);
     },

@@ -12,12 +12,12 @@ import {
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
-import { useResetQueryData } from "../../../hooks/CustomHooks";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
+} from "../../../hooks/custom/CustomToast";
 import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,

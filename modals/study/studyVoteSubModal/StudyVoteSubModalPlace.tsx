@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PlaceSelectorSub from "../../../components/features/picker/PlaceSelectorSub";
-import { useTypeErrorToast } from "../../../hooks/CustomToast";
+import { useTypeErrorToast } from "../../../hooks/custom/CustomToast";
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
 import { DispatchType } from "../../../types/reactTypes";

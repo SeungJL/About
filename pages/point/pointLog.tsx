@@ -5,15 +5,17 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import { usePointLogQuery } from "../../hooks/user/pointSystem/queries";
-import { usePointSystemQuery } from "../../hooks/user/queries";
+import {
+  usePointSystemLogQuery,
+  usePointSystemQuery,
+} from "../../hooks/user/queries";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 function PointLog() {
   const prevPageUrl = useRecoilValue(prevPageUrlState);
 
   const { data: point } = usePointSystemQuery("point");
-  const { data: pointLog, isLoading } = usePointLogQuery();
+  const { data: pointLog, isLoading } = usePointSystemLogQuery("point");
 
   const filterLog = pointLog?.filter((item) => item.meta.value);
 

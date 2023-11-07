@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MONTH_LIST } from "../../../constants/util/util";
 import { getMonth } from "../../../helpers/dateHelpers";
-import { useErrorToast } from "../../../hooks/CustomToast";
-import {} from "../../../hooks/user/queries";
-import { useUserAttendRateAllQueries } from "../../../hooks/user/studyStatistics/queries";
+import { useErrorToast } from "../../../hooks/custom/CustomToast";
+import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/queries";
+
 import { IVoteRate } from "../../../types/study/study";
 import { IUser } from "../../../types/user/user";
 import { ChartStudyOptions } from "./ChartOptions";
@@ -74,10 +74,14 @@ function Chart({ type, user }: IChart) {
     };
   };
 
-  const { data: userAttendRateAll } = useUserAttendRateAllQueries(monthArr, {
-    onError: errorToast,
-  });
-
+  const { data: userAttendRateAll } = useUserAttendRateQueries(
+    monthArr,
+    false,
+    {
+      onError: errorToast,
+    }
+  );
+  console.log(userAttendRateAll);
   useEffect(() => {
     if (!userAttendRateAll) return;
     let rateTemp = [];
@@ -89,7 +93,8 @@ function Chart({ type, user }: IChart) {
       averageTemp.push(average);
       if (max < maxCnt) max = maxCnt;
     });
-    setAttendRateArr(rateTemp);
+
+    setAttendRateArr(rateTemp.map((cnt) => cnt || 0));
     setAttendAverageArr(averageTemp);
     setAttendMax(max);
     setIsLoading(false);

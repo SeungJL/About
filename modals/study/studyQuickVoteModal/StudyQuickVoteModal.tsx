@@ -9,12 +9,12 @@ import {
 } from "../../../components/modals/Modals";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
-import { useResetQueryData } from "../../../hooks/CustomHooks";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
+} from "../../../hooks/custom/CustomToast";
 import { useStudyQuickVoteMutation } from "../../../hooks/study/mutations";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { locationState } from "../../../recoil/userAtoms";

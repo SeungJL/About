@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import { SERVER_URI } from "../../constants/system";
-import { IInteractionGetLike } from "../../types/interaction";
+import { SERVER_URI } from "../../../../constants/system";
+import { IInteractionGetLike } from "../../../../types/interaction";
 
 export const useInteractionLikeQuery = (
   options?: Omit<

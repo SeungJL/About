@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
-import { useFailToast } from "../../hooks/CustomToast";
+import { useFailToast } from "../../hooks/custom/CustomToast";
 import { userInfoState } from "../../recoil/userAtoms";
 
 function Admin() {

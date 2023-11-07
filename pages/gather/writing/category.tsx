@@ -10,7 +10,7 @@ import {
   GatherCategoryIcons,
   GATHER_TYPES,
 } from "../../../constants/contents/GatherContents";
-import { useFailToast } from "../../../hooks/CustomToast";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";

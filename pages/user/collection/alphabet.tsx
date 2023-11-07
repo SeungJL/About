@@ -17,11 +17,11 @@ import { getUserBadge } from "../../../helpers/userHelpers";
 import {
   useAlphabetCompletedMutation,
   useCollectionAlphabetMutation,
-} from "../../../hooks/collection/mutations";
+} from "../../../hooks/user/sub/collection/mutations";
 import {
   useCollectionAlphabetAllQuery,
   useCollectionAlphabetQuery,
-} from "../../../hooks/collection/queries";
+} from "../../../hooks/user/sub/collection/queries";
 import NotCompletedModal from "../../../modals/system/NotCompletedModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";

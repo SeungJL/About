@@ -4,8 +4,11 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
-import { useResetQueryData } from "../../../hooks/CustomHooks";
-import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../../hooks/custom/CustomToast";
 import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";

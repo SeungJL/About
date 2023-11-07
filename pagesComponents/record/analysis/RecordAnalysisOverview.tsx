@@ -5,20 +5,17 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useStudyArrivedCntQuery } from "../../../hooks/study/queries";
-import { useUserAttendRateQuery } from "../../../hooks/user/studyStatistics/queries";
+import { useUserAttendRateQuery } from "../../../hooks/user/sub/studyRecord/queries";
 
 function RecordAnalysisOverview() {
   const { data: session } = useSession();
 
   const [isFirst, setIsFirst] = useState(true);
 
-  const { data: currentMonthAttend } = useUserAttendRateQuery(
+  const { data: myMonthAttend } = useUserAttendRateQuery(
     dayjs().date(0),
-    dayjs()
-  );
-
-  const myMonthAttend = currentMonthAttend?.find(
-    (who) => who?.uid === session?.uid
+    dayjs(),
+    true
   );
 
   const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
@@ -26,9 +23,9 @@ function RecordAnalysisOverview() {
   );
 
   return (
-    <>
+    <Layout>
       {!isLoading && (
-        <Layout>
+        <>
           <Title>
             {isFirst ? `${dayjs().month() + 1}월 참여` : "누적 참여"}
           </Title>
@@ -42,9 +39,9 @@ function RecordAnalysisOverview() {
             <span>전환</span>
             <FontAwesomeIcon icon={faRightLeft} size="xs" />
           </ChangeBtn>
-        </Layout>
+        </>
       )}
-    </>
+    </Layout>
   );
 }
 

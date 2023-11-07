@@ -8,7 +8,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
-import { useResetQueryData } from "../../hooks/CustomHooks";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../hooks/gather/mutations";
 import { IModal } from "../../types/reactTypes";
 

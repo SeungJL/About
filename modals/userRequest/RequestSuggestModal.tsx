@@ -22,8 +22,8 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
+import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
+import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { userInfoState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";

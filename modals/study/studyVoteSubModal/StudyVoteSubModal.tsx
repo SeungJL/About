@@ -19,7 +19,7 @@ import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
+} from "../../../hooks/custom/CustomToast";
 
 import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
@@ -27,7 +27,7 @@ import { IPlace } from "../../../types/study/studyDetail";
 import { Button } from "@chakra-ui/react";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
-import { useResetQueryData } from "../../../hooks/CustomHooks";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useAboutPointMutation } from "../../../hooks/user/mutations";
 import { locationState } from "../../../recoil/userAtoms";
 import { IStudyParticipate } from "../../../types/study/study";

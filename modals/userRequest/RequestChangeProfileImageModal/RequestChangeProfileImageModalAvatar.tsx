@@ -22,7 +22,7 @@ import {
   AVATAR_COST,
   AVATAR_ICON,
 } from "../../../constants/contentsValue/avatar";
-import { useFailToast } from "../../../hooks/CustomToast";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
 import { isGuestState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";

@@ -8,7 +8,10 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
-import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../hooks/custom/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";

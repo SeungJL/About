@@ -17,8 +17,8 @@ import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/CustomToast";
-import { useStoreMutation } from "../../hooks/store/mutation";
+} from "../../hooks/custom/CustomToast";
+import { useStoreMutation } from "../../hooks/sub/store/mutation";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemQuery } from "../../hooks/user/queries";
 import { isGuestState } from "../../recoil/userAtoms";

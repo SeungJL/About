@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
-import { USER_REQUEST } from "../../constants/keys/queryKeys";
-import { SERVER_URI } from "../../constants/system";
-import { QueryOptions } from "../../types/reactTypes";
-import { IUserRequest } from "../../types/user/userRequest";
+import { USER_REQUEST } from "../../../constants/keys/queryKeys";
+import { SERVER_URI } from "../../../constants/system";
+import { QueryOptions } from "../../../types/reactTypes";
+import { IUserRequest } from "../../../types/user/userRequest";
 
 export const usePlazaQuery = (options?: QueryOptions<IUserRequest[]>) =>
   useQuery<IUserRequest[], AxiosError, IUserRequest[]>(

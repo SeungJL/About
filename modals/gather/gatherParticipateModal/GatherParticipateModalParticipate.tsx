@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
 import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
-import { useResetQueryData } from "../../../hooks/CustomHooks";
-import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../../hooks/custom/CustomToast";
 import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
 import { IModal } from "../../../types/reactTypes";
 

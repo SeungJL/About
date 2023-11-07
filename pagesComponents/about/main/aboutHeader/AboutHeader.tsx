@@ -6,7 +6,7 @@ import {
   NOTICE_ALERT,
   RABBIT_RUN,
 } from "../../../../constants/keys/localStorage";
-import { useFailToast } from "../../../../hooks/CustomToast";
+import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import { attendCheckWinGiftState } from "../../../../recoil/renderTriggerAtoms";
 import { isGuestState } from "../../../../recoil/userAtoms";
 import { NOTICE_ARR } from "../../../../storage/notice";

@@ -6,7 +6,7 @@ import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
-import { useFailToast } from "../../../hooks/CustomToast";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";

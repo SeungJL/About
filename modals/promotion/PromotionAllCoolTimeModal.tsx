@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { ModalLayout } from "../../components/modals/Modals";
 import { PROMOTION_WIN_DATE } from "../../constants/settingValue/dateSettingValue";
-import { usePromotionQuery } from "../../hooks/promotion/queries";
+import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
 

@@ -18,9 +18,9 @@ import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
-import { useInteractionLikeMutation } from "../../../hooks/interaction/mutations";
+} from "../../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
+import { useInteractionLikeMutation } from "../../../hooks/user/sub/interaction/mutations";
 import {
   IInteractionLikeStorage,
   IInteractionSendLike,

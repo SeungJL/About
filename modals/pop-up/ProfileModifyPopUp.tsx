@@ -6,7 +6,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useCompleteToast } from "../../hooks/CustomToast";
+import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";

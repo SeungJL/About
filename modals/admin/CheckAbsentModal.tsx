@@ -7,7 +7,10 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { useAdminDepositMutation } from "../../hooks/admin/mutation";
-import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../hooks/custom/CustomToast";
 import { IModal } from "../../types/reactTypes";
 
 interface ICheckAbsentModal extends IModal {

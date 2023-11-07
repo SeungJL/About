@@ -4,7 +4,7 @@ import { faCopy } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { useCompleteToast } from "../../../hooks/CustomToast";
+import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 
 interface ICopyBtn {
   size?: string;

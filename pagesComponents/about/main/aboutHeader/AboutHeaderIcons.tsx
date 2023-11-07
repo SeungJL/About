@@ -15,7 +15,7 @@ import {
   NOTICE_ALERT,
 } from "../../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../../helpers/dateHelpers";
-import { useInteractionLikeQuery } from "../../../../hooks/interaction/queries";
+import { useInteractionLikeQuery } from "../../../../hooks/user/sub/interaction/queries";
 import { NOTICE_ARR } from "../../../../storage/notice";
 import { AlertIcon } from "../../../../styles/icons";
 import { AboutHeaderIconType } from "./AboutHeader";

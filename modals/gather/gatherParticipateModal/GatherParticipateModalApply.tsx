@@ -1,7 +1,10 @@
 import { useRecoilValue } from "recoil";
 import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { birthToAge } from "../../../helpers/converterHelpers";
-import { useFailToast, useTypeErrorToast } from "../../../hooks/CustomToast";
+import {
+  useFailToast,
+  useTypeErrorToast,
+} from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { DispatchNumber } from "../../../types/reactTypes";

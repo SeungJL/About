@@ -5,7 +5,7 @@ import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import AdminLocationSelector from "../../../components/features/picker/AdminLocationSelector";
 import Header from "../../../components/layout/Header";
 import { getRestInfo } from "../../../helpers/transformHelpers";
-import { useUserRequestQuery } from "../../../hooks/user/queries";
+import { useUserRequestQuery } from "../../../hooks/admin/quries";
 import { IUserRequest } from "../../../types/user/userRequest";
 
 function AdminRest() {

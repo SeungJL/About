@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../constants/contents/friend";
-import { useFailToast } from "../../hooks/CustomToast";
+import { useFailToast } from "../../hooks/custom/CustomToast";
 import { transferMemberDataState } from "../../recoil/transferDataAtoms";
 import { IUser } from "../../types/user/user";
 

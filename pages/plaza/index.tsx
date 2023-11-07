@@ -5,7 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import ModalPortal from "../../components/modals/ModalPortal";
-import { usePlazaQuery } from "../../hooks/plaza/queries";
+import { usePlazaQuery } from "../../hooks/sub/plaza/queries";
 
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
 import Category from "../../pagesComponents/plaza/main/Category";

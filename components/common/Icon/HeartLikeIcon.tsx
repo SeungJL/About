@@ -11,8 +11,11 @@ import {
   pushArrToLocalStorage,
 } from "../../../helpers/storageHelpers";
 import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
-import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
-import { useInteractionLikeMutation } from "../../../hooks/interaction/mutations";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../../hooks/custom/CustomToast";
+import { useInteractionLikeMutation } from "../../../hooks/user/sub/interaction/mutations";
 
 interface IHeartLikeIcon {
   toUid: string;

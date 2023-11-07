@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { requestServer } from "../../helpers/methodHelpers";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
+import { IInteractionSendLike } from "../../types/interaction";
 import { MutationOptions } from "../../types/reactTypes";
 import { IPointSystem } from "../../types/user/pointSystem";
 import {
@@ -98,18 +99,8 @@ export const useAboutPointMutation = (
     ]);
   }, options);
 
-export const useUserRequestMutation = (
-  options?: MutationOptions<IUserRequest>
-) =>
-  useMutation<void, AxiosError, IUserRequest>(
-    (param) =>
-      requestServer<{ request: IUserRequest }>({
-        method: "post",
-        url: `request`,
-        body: { request: param },
-      }),
-    options
-  );
+
+
 
 export const useUserUpdateProfileImageMutation = (
   options?: MutationOptions<void>

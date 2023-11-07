@@ -6,7 +6,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useCompleteToast, useFailToast } from "../../hooks/CustomToast";
+import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
 import { userAccessUidState } from "../../recoil/userAtoms";

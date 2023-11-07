@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { GATHER_ALERT } from "../../constants/keys/localStorage";
-import { useErrorToast } from "../../hooks/CustomToast";
+import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherAllQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { IGather } from "../../types/page/gather";

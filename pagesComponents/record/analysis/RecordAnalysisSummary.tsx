@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { getWeekNumber } from "../../../helpers/dateHelpers";
-import { useUserAttendRateQueries } from "../../../hooks/user/studyStatistics/queries";
+import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/queries";
 import { isRecordDetailLoadingState } from "../../../recoil/loadingAtoms";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
@@ -29,7 +29,7 @@ function RecordAnalysisSummary() {
     if (weeksArr?.length === WEEKS_CNT) setWeeksDate(weeksArr);
   }, []);
 
-  useUserAttendRateQueries(weeksDate, {
+  useUserAttendRateQueries(weeksDate, true, {
     enabled: weeksDate.length !== 0,
     onSuccess(data) {
       setMyAttend(data);

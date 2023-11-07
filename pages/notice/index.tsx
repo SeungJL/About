@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
-import { useInteractionLikeQuery } from "../../hooks/interaction/queries";
+import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";
 import NoticeActive from "../../pagesComponents/notice/NoticeActive";
 import NoticeItem from "../../pagesComponents/notice/NoticeItem";
 import NoticeNav from "../../pagesComponents/notice/NoticeNav";

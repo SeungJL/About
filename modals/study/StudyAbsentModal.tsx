@@ -15,17 +15,15 @@ import {
 import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../helpers/dateHelpers";
-import { useResetQueryData } from "../../hooks/CustomHooks";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/CustomToast";
+} from "../../hooks/custom/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
-import {
-  usePointSystemMutation,
-  useUserRequestMutation,
-} from "../../hooks/user/mutations";
+import { usePointSystemMutation } from "../../hooks/user/mutations";
+import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import {
   myStudyState,
   studyStartTimeState,

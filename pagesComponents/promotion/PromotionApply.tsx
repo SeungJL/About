@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";
 import styled from "styled-components";
 import ModalPortal from "../../components/modals/ModalPortal";
-import { useFailToast } from "../../hooks/CustomToast";
-import { usePromotionQuery } from "../../hooks/promotion/queries";
+import { useFailToast } from "../../hooks/custom/CustomToast";
+import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import PromotionApplyModal from "../../modals/promotion/PromotionApplyModal";
 import { IPromotionApply } from "../../types/page/promotion";
 

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Header from "../../../components/layout/Header";
 import { useUpdateProfileMutation } from "../../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../../hooks/admin/quries";
-import { useDepositAllQuery } from "../../../hooks/user/pointSystem/queries";
 import { IUser } from "../../../types/user/user";
 
 function AdminUserInfo() {
@@ -27,10 +26,6 @@ function AdminUserInfo() {
       setMembers(tempMembers);
       setFiltered(tempMembers);
     },
-  });
-
-  useDepositAllQuery({
-    onSuccess(data) {},
   });
 
   const [value, setValue] = useState<string>("");

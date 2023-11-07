@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { LOCATION_RECRUITING } from "../../../../constants/location";
-import { useFailToast } from "../../../../hooks/CustomToast";
+import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
 import {
   studyDateStatusState,

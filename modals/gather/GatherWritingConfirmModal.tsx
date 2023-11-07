@@ -10,8 +10,8 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
-import { useResetQueryData } from "../../hooks/CustomHooks";
-import { useErrorToast } from "../../hooks/CustomToast";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
+import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherWritingMutation } from "../../hooks/gather/mutations";
 import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";

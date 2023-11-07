@@ -23,12 +23,12 @@ import {
 } from "../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../helpers/dateHelpers";
-import { useResetQueryData } from "../../hooks/CustomHooks";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/CustomToast";
+} from "../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { locationState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";

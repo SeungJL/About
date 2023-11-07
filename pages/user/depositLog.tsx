@@ -4,12 +4,14 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import { useDepositLogQuery } from "../../hooks/user/pointSystem/queries";
-import { usePointSystemQuery } from "../../hooks/user/queries";
+import {
+  usePointSystemLogQuery,
+  usePointSystemQuery,
+} from "../../hooks/user/queries";
 
 function ScoreLog() {
   const { data: deposit } = usePointSystemQuery("deposit");
-  const { data: depositLog, isLoading } = useDepositLogQuery();
+  const { data: depositLog, isLoading } = usePointSystemLogQuery("deposit");
 
   const filterLog = depositLog?.filter((item) => item?.meta?.value);
 

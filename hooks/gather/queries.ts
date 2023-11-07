@@ -11,10 +11,6 @@ export const useGatherAllQuery = (options?: QueryOptions<IGather[]>) =>
     [GATHER_CONTENT],
     async () => {
       const res = await axios.get<IGather[]>(`${SERVER_URI}/gather`);
-      // const data = res.data.map((content) => ({
-      //   ...content,
-      //   participants: content.participants.filter((who) => who.user),
-      // }));
       return res.data;
     },
     options

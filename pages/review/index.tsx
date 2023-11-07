@@ -13,7 +13,7 @@ import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import { DEFAULT_IMAGE_URL } from "../../constants/image/imageUrl";
 import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
-import { useErrorToast } from "../../hooks/CustomToast";
+import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherAllSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pagesComponents/review/ReviewContent";
 import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
@@ -50,7 +50,7 @@ function Review() {
   const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [reviewContentId, setReviewContentId] =
     useRecoilState(reviewContentIdState);
- 
+
   const [visibleCnt, setVisibleCnt] = useState(8);
 
   const url = WEB_URL + router?.asPath;
@@ -101,7 +101,7 @@ function Review() {
     enabled: !initialData,
     onError: errorToast,
   });
- 
+
   useEffect(() => {
     if (!gatherAllData) return;
     const reviewObject = gatherAllData.reduce((acc, summary) => {
@@ -150,7 +150,7 @@ function Review() {
   const handleLoadMore = () => {
     setVisibleCnt((old) => old + 8);
   };
-  
+
   return (
     <>
       <Header

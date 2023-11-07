@@ -4,11 +4,12 @@ import { useSession } from "next-auth/react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { ModalHeader, ModalLayout } from "../../../components/modals/Modals";
-import { useCompleteToast, useFailToast } from "../../../hooks/CustomToast";
 import {
-  useUserInfoFieldMutation,
-  useUserRequestMutation,
-} from "../../../hooks/user/mutations";
+  useCompleteToast,
+  useFailToast,
+} from "../../../hooks/custom/CustomToast";
+import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
+import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
 import RequestRestModalInfo from "./RequestRestModalInfo";

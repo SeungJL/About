@@ -7,7 +7,7 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
-import { useResetQueryData } from "../../../hooks/CustomHooks";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { IModal } from "../../../types/reactTypes";
 import GatherExpireModalCancelDialog from "./GatherExpireModalCancelDialog";

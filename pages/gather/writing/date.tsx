@@ -7,7 +7,7 @@ import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
-import { useFailToast } from "../../../hooks/CustomToast";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherWritingDateDate from "../../../pagesComponents/gather/writing/GatherWritingDateDate";
 import GatherWritingDateSubject from "../../../pagesComponents/gather/writing/GatherWritingDateSubject";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";

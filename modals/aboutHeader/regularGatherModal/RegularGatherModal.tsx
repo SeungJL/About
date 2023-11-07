@@ -9,16 +9,15 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
+import { useUserRequestQuery } from "../../../hooks/admin/quries";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
-import { useUserRequestMutation } from "../../../hooks/user/mutations";
-import {
-  useUserInfoQuery,
-  useUserRequestQuery,
-} from "../../../hooks/user/queries";
+} from "../../../hooks/custom/CustomToast";
+
+import { useUserInfoQuery } from "../../../hooks/user/queries";
+import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 import { isGuestState } from "../../../recoil/userAtoms";
 import { DispatchBoolean, IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";

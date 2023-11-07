@@ -13,14 +13,14 @@ import {
 import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
 import { now } from "../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../helpers/eventHelpers";
-import { useCollectionAlphabetMutation } from "../../hooks/collection/mutations";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/CustomToast";
+} from "../../hooks/custom/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../hooks/user/mutations";
+import { useCollectionAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";

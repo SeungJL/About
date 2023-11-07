@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
-import { useFailToast } from "../../hooks/CustomToast";
+import { useFailToast } from "../../hooks/custom/CustomToast";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IArrivedData } from "../../types/study/study";
 interface IRecordOverview {

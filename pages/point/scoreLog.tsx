@@ -4,13 +4,15 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
-import { useScoreLogQuery } from "../../hooks/user/pointSystem/queries";
-import { usePointSystemQuery } from "../../hooks/user/queries";
+import {
+  usePointSystemLogQuery,
+  usePointSystemQuery,
+} from "../../hooks/user/queries";
 
 function ScoreLog() {
   const { data: score } = usePointSystemQuery("score");
-  const { data: scoreLog, isLoading } = useScoreLogQuery();
-  console.log(scoreLog);
+  const { data: scoreLog, isLoading } = usePointSystemLogQuery("score");
+
   const filterLog = scoreLog?.filter((item) => item.meta.value);
 
   return (

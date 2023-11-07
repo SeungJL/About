@@ -2,8 +2,8 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { useFailToast } from "../../hooks/CustomToast";
-import { usePromotionQuery } from "../../hooks/promotion/queries";
+import { useFailToast } from "../../hooks/custom/CustomToast";
+import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import PromotionAllCoolTimeModal from "../../modals/promotion/PromotionAllCoolTimeModal";
 import PromotionMyCoolTimeModal from "../../modals/promotion/PromotionMyCoolTimeModal";
 
@@ -44,9 +44,7 @@ function PromotionDetail() {
           지난 당첨 기록
         </Button>
       </Layout>
-      {isMyModal && (
-        <PromotionMyCoolTimeModal  setIsModal={setIsMyModal} />
-      )}
+      {isMyModal && <PromotionMyCoolTimeModal setIsModal={setIsMyModal} />}
       {isAllModal && (
         <PromotionAllCoolTimeModal
           setIsModal={setIsAllModal}

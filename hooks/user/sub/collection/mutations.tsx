@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import { COLLECTION_ALPHABET } from "../../constants/keys/queryKeys";
-import { SERVER_URI } from "../../constants/system";
-import { MutationOptions } from "../../types/reactTypes";
+import { COLLECTION_ALPHABET } from "../../../../constants/keys/queryKeys";
+import { SERVER_URI } from "../../../../constants/system";
+import { MutationOptions } from "../../../../types/reactTypes";
 
 export const useCollectionAlphabetMutation = (
   options?: MutationOptions<string>

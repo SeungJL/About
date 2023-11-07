@@ -16,11 +16,12 @@ import {
   PROMOTION_TEXT,
 } from "../../constants/contents/Private";
 import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
-import { useCompleteToast, useErrorToast } from "../../hooks/CustomToast";
 import {
-  usePointSystemMutation,
-  useUserRequestMutation,
-} from "../../hooks/user/mutations";
+  useCompleteToast,
+  useErrorToast,
+} from "../../hooks/custom/CustomToast";
+import { usePointSystemMutation } from "../../hooks/user/mutations";
+import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 
 import { IModal } from "../../types/reactTypes";
 

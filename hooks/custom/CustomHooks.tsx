@@ -1,5 +1,21 @@
-import { useCallback } from "react";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
+
+export const useToken = () => {
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("/api/token");
+      setToken(response.data);
+    };
+
+    fetchData();
+  }, []);
+
+  return token;
+};
 
 export const useResetQueryData = () => {
   const queryClient = useQueryClient();

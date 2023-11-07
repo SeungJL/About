@@ -11,10 +11,11 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useCompleteToast } from "../../hooks/CustomToast";
-import { usePromotionMutation } from "../../hooks/promotion/mutations";
-import { usePromotionQuery } from "../../hooks/promotion/queries";
-import { useUserRequestMutation } from "../../hooks/user/mutations";
+import { useCompleteToast } from "../../hooks/custom/CustomToast";
+import { usePromotionMutation } from "../../hooks/sub/promotion/mutations";
+import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
+import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
+
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 

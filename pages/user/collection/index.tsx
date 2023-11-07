@@ -8,7 +8,7 @@ import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
-import { useCollectionAlphabetQuery } from "../../../hooks/collection/queries";
+import { useCollectionAlphabetQuery } from "../../../hooks/user/sub/collection/queries";
 import UserCollectionAlphabetModal from "../../../modals/user/collection/UserCollectionAlphabetModal";
 import { isGuestState } from "../../../recoil/userAtoms";
 

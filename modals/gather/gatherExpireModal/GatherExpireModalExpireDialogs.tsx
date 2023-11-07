@@ -11,7 +11,10 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useCompleteToast, useErrorToast } from "../../../hooks/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../../hooks/custom/CustomToast";
 import { useGatherStatusMutation } from "../../../hooks/gather/mutations";
 import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";

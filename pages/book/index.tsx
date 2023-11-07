@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { useQuery } from "react-query";
 import styled from "styled-components";
-import { fetchFamousBooks } from "../../hooks/book/temp";
 
 interface IBooks {
   bookImageURL: string;
@@ -52,7 +50,7 @@ const BookTitle = styled.span`
 `;
 
 function Books() {
-  const data: any = useQuery<any>("famousBooks", fetchFamousBooks);
+  const data: any = null;
 
   const booksObj: any = data.data?.response;
   const isLoading = data.isLoading;

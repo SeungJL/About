@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect } from "react";
-import { useErrorToast } from "../../hooks/CustomToast";
+import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../hooks/study/queries";
 import { DispatchBoolean, DispatchType } from "../../types/reactTypes";
 import { IArrivedData } from "../../types/study/study";

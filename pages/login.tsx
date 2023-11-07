@@ -19,8 +19,8 @@ import {
   ModalHeaderCenter,
   ModalLayout,
 } from "../components/modals/Modals";
-import { useCompleteToast, useFailToast } from "../hooks/CustomToast";
-import { useUserRegisterFormsQuery } from "../hooks/user/queries";
+import { useUserRegisterFormsQuery } from "../hooks/admin/quries";
+import { useCompleteToast, useFailToast } from "../hooks/custom/CustomToast";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
 import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";

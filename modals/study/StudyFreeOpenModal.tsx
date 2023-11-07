@@ -9,12 +9,12 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
-import { useResetQueryData } from "../../hooks/CustomHooks";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../hooks/CustomToast";
+} from "../../hooks/custom/CustomToast";
 import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,

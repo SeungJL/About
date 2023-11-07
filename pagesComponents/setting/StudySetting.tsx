@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { LOCATION_OPEN } from "../../constants/location";
 import { arrangeSpace } from "../../helpers/studyHelpers";
-import { useTypeErrorToast } from "../../hooks/CustomToast";
+import { useTypeErrorToast } from "../../hooks/custom/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import {
   useStudyStartTimeQuery,

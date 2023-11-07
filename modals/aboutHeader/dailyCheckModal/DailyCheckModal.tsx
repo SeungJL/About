@@ -25,18 +25,17 @@ import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem"
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../../helpers/eventHelpers";
-import { useCollectionAlphabetMutation } from "../../../hooks/collection/mutations";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/CustomToast";
-import { useDailyCheckMutation } from "../../../hooks/dailyCheck/mutation";
-import { useDailyCheckAllQuery } from "../../../hooks/dailyCheck/queries";
-import {
-  useAboutPointMutation,
-  useUserRequestMutation,
-} from "../../../hooks/user/mutations";
+} from "../../../hooks/custom/CustomToast";
+
+import { useAboutPointMutation } from "../../../hooks/user/mutations";
+import { useCollectionAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
+import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
+import { useDailyCheckAllQuery } from "../../../hooks/user/sub/dailyCheck/queries";
+import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
 import { transferAlphabetState } from "../../../recoil/transferDataAtoms";
