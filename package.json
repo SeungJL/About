@@ -37,7 +37,6 @@
     "@next-auth/mongodb-adapter": "^1.0.3",
     "@next/bundle-analyzer": "^13.3.1",
     "@types/crypto-js": "^4.1.1",
-    "@types/navermaps": "^3.0.16",
     "@types/react-datepicker": "^4.15.1",
     "@types/safe-json-stringify": "^1.1.2",
     "@types/styled-components": "^5.1.26",
@@ -77,6 +76,7 @@
     "swiper": "^8.4.7"
   },
   "devDependencies": {
+    "@types/navermaps": "^3.7.3",
     "@types/node": "17.0.34",
     "@types/qs": "^6.9.7",
     "@types/react": "18.0.9",

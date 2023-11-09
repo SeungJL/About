@@ -11,8 +11,6 @@ import AboutHeader from "../../pagesComponents/about/main/aboutHeader/AboutHeade
 import AboutMain from "../../pagesComponents/about/main/aboutMain/AboutMain";
 import AboutReview from "../../pagesComponents/about/main/AboutReview";
 import AboutStudyHeader from "../../pagesComponents/about/main/AboutStudyHeader";
-import AboutStudyResult from "../../pagesComponents/about/main/aboutStudyResult/AboutStudyResult";
-import AboutVoteNav from "../../pagesComponents/about/main/AboutVoteNav";
 import EventBanner from "../../pagesComponents/about/main/EventBanner";
 import AboutWinRecord from "../../pagesComponents/about/main/WinRecord";
 import DateSetting from "../../pagesComponents/setting/DateSetting";
@@ -43,7 +41,7 @@ function About() {
       return;
     }
     const arrangedOtherStudies = arrangeMainSpace(
-      participations.filter((space) => space !== myStudy),
+      [...participations],
       studyDateStatus !== "not passed"
     );
 
@@ -74,11 +72,11 @@ function About() {
         {voteDate && (
           <>
             <AboutStudyHeader />
-            {["passed", "today"].includes(studyDateStatus) && (
+            {/* {["passed", "today"].includes(studyDateStatus) && (
               <AboutStudyResult />
-            )}
+            )} */}
             <AboutCalendar />
-            {studyDateStatus === "not passed" && <AboutVoteNav />}
+            {/* {studyDateStatus === "not passed" && <AboutVoteNav />} */}
             <AboutMain participations={otherStudies} />
             <EventBanner />
             <AboutGather />

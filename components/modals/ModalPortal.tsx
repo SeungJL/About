@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FullScreen } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { DispatchBoolean } from "../../types/reactTypes";
 
-interface IModalPortal extends IModal {
-  children: React.ReactNode;
+interface IModalPortal {
+  children?: React.ReactNode;
+  setIsModal?: DispatchBoolean;
 }
 
 function ModalPortal({ children, setIsModal }: IModalPortal) {

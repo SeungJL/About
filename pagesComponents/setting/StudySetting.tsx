@@ -6,6 +6,7 @@ import { arrangeSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/custom/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import {
+  useStudyPlacesQuery,
   useStudyStartTimeQuery,
   useStudyVoteQuery,
 } from "../../hooks/study/queries";
@@ -62,6 +63,7 @@ function StudySetting() {
       setStudyStartTimeArr(data);
     },
   });
+  useStudyPlacesQuery(location);
 
   return null;
 }

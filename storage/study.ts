@@ -12,6 +12,13 @@ export const SUWAN_이디야 = "6527c32774e4622ec48d12dd";
 export const SUWAN_스타벅스 = "64ba45feefd3711264521a87";
 export const SUWAN_탐앤탐스2 = "65211465032de083c092353c";
 export const SUWAN_자유신청 = "6479f39e907daf3e8a5cda6e";
+
+export const SUWAN_망포역 = "654cad470f651095a2e41849";
+export const SUWAN_고색역 = "654ca7770f651095a2e41845";
+export const SUWAN_성균관대역 = "654ca7b50f651095a2e41846";
+export const SUWAN_행궁동 = "654ca8e60f651095a2e41847";
+export const SUWAN_광교엘리웨이 = "654ca92f0f651095a2e41848";
+
 //양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
 export const YANG_할리스 = "6437ea69ab537b843c6143ad";
@@ -54,6 +61,11 @@ export const PLACE_TO_NAME = {
   [SUWAN_스타벅스]: "스타벅스",
   [SUWAN_탐앤탐스2]: "탐앤탐스",
   [SUWAN_자유신청]: "자유신청",
+  [SUWAN_고색역]: "에이티씨",
+  [SUWAN_성균관대역]: "스타벅스",
+  [SUWAN_광교엘리웨이]: "책발전소",
+  [SUWAN_행궁동]: "본지르르",
+  [SUWAN_망포역]: "커피빈",
   //양천
   [YANG_위카페]: "위카페",
   [YANG_할리스]: "할리스",
@@ -95,6 +107,11 @@ export const PLACE_TO_LOCATION = {
   [SUWAN_스타벅스]: "수원",
   [SUWAN_탐앤탐스2]: "수원",
   [SUWAN_자유신청]: "수원",
+  [SUWAN_고색역]: "수원",
+  [SUWAN_성균관대역]: "수원",
+  [SUWAN_광교엘리웨이]: "수원",
+  [SUWAN_행궁동]: "수원",
+  [SUWAN_망포역]: "수원",
   //양천
   [YANG_이디야]: "양천",
   [YANG_위카페]: "양천",
@@ -190,6 +207,42 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A4_%EA%B2%BD%EA%B8%B0%EB%8C%80.webp",
   },
+  {
+    id: SUWAN_고색역,
+    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    time: "12:00 - 21:30",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EA%B3%A0%EC%83%89%EC%97%AD_%EC%97%90%EC%9D%B4%ED%8B%B0%EC%94%A8.webp",
+  },
+  {
+    id: SUWAN_성균관대역,
+    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    time: "07:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EC%84%B1%EB%8C%80%EC%97%AD_%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4.webp",
+  },
+  {
+    id: SUWAN_광교엘리웨이,
+    location: " 경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    time: "10:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EA%B4%91%EA%B5%90_%EC%B1%85%EB%B0%9C%EC%A0%84%EC%86%8C.webp",
+  },
+  {
+    id: SUWAN_행궁동,
+    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    time: "12:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%96%89%EA%B6%81%EB%8F%99_%EB%B3%B8%EC%A7%80%EB%A5%B4%EB%A5%B4.webp",
+  },
+  {
+    id: SUWAN_망포역,
+    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    time: "07:00 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EB%A7%9D%ED%8F%AC%EC%97%AD_%EC%BB%A4%ED%94%BC%EB%B9%88.webp",
+  },
+
   {
     id: SUWAN_자유신청,
     location: "",

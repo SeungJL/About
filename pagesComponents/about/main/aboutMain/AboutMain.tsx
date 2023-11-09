@@ -106,7 +106,7 @@ function AboutMain({ participations }: IAboutMain) {
 
 const Layout = styled(motion.div)`
   position: relative;
-  margin-top: var(--margin-main);
+  margin-top: var(--margin-md);
   padding-bottom: var(--padding-main);
   min-height: 422px;
 `;
