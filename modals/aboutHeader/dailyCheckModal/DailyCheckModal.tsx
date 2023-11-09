@@ -34,7 +34,7 @@ import {
 import { useAboutPointMutation } from "../../../hooks/user/mutations";
 import { useCollectionAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
 import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
-import { useDailyCheckAllQuery } from "../../../hooks/user/sub/dailyCheck/queries";
+import { useDailyCheckQuery } from "../../../hooks/user/sub/dailyCheck/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
@@ -66,7 +66,12 @@ function DailyCheckModal({ setIsModal }: IModal) {
 
   const setAttendCheckWinGift = useSetRecoilState(attendCheckWinGiftState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
-  const { data: dailyCheckAll, isLoading } = useDailyCheckAllQuery();
+  const { data: dailyCheckAll, isLoading } = useDailyCheckQuery();
+
+  const checkRecords = dailyCheckAll?.map((item) => ({
+    ...item,
+    createdAt: dayjs(item?.createdAt),
+  }));
 
   const { mutate: getAlphabet } = useCollectionAlphabetMutation();
   const { mutate: attendDailyCheck } = useDailyCheckMutation();
@@ -74,13 +79,19 @@ function DailyCheckModal({ setIsModal }: IModal) {
   const { mutate: sendRequest } = useUserRequestMutation({
     onError: errorToast,
   });
+
   const onClickCheck = () => {
     if (isGuest) {
       failToast("guest");
       return;
     }
     localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
-    if (dailyCheckAll?.find((item) => item.uid === session?.uid)) {
+
+    if (
+      checkRecords?.find(
+        (item) => item.createdAt.startOf("day") === dayjs().startOf("day")
+      )
+    ) {
       failToast("free", "오늘 출석체크는 이미 완료됐어요!");
       setIsModal(false);
       return;
