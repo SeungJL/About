@@ -1,3 +1,5 @@
+import { faLeft, faRight } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { IPlace } from "../../../types/study/studyDetail";
@@ -14,6 +16,18 @@ function PlaceSelectorSub({
   selectPlaces,
   setSelectPlaces,
 }: IPlaceSelectorSub) {
+  const isTwoPage = places?.length > 8;
+
+  const first = [];
+  const second = [];
+
+  if (isTwoPage) {
+    places?.forEach((place) => {
+      if (first.length < 8) first.push(place);
+      else second.push(place);
+    });
+  }
+
   const onClick = (place: IPlace) => {
     setSelectPlaces((old) => {
       if (old.includes(place)) return old.filter((item) => item !== place);
@@ -22,8 +36,8 @@ function PlaceSelectorSub({
   };
 
   return (
-    <Layout isBig={places?.length > 6}>
-      {places?.map((place) => (
+    <Layout isTwoPage={isTwoPage}>
+      {(isTwoPage ? first : places)?.map((place) => (
         <Item key={place._id}>
           <Place
             isSelected={selectPlaces.includes(place)}
@@ -34,17 +48,27 @@ function PlaceSelectorSub({
           <Name>{place.branch}</Name>
         </Item>
       ))}
+      <LeftArrow>
+        <FontAwesomeIcon icon={faLeft} />
+      </LeftArrow>
+      <RightArrow>
+        <FontAwesomeIcon icon={faRight} />
+      </RightArrow>
     </Layout>
   );
 }
 
-const Layout = styled.div<{ isBig: boolean }>`
+const Layout = styled.div<{ isTwoPage: boolean }>`
+  position: relative;
   height: 100%;
   display: grid;
-  grid-template-columns: ${(props) =>
-    props.isBig ? "repeat(4,1fr)" : "repeat(3, 1fr)"};
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: ${(props) =>
+    props.isTwoPage ? "repeat(2,1fr)" : "repeat(4, 1fr)"};
   flex: 1;
   margin-bottom: var(--margin-main);
+  gap: var(--margin-min);
+  padding: ${(props) => (props.isTwoPage ? "0 var(--margin-sub)" : null)};
 `;
 
 const Item = styled.div`
@@ -57,18 +81,30 @@ const Item = styled.div`
 const Place = styled.div<{ isSelected: boolean }>`
   border-radius: var(--border-radius-main);
   overflow: hidden;
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--margin-min);
   border: ${(props) =>
     props.isSelected ? "2px solid var(--color-mint)" : "var(--border-main)"};
 `;
 
 const Name = styled.span`
   font-size: 13px;
+`;
+
+const LeftArrow = styled.div`
+  padding: var(--padding-min);
+  position: absolute;
+  top: 42%;
+`;
+const RightArrow = styled.div`
+  padding: var(--padding-min);
+  position: absolute;
+  top: 42%;
+  right: 0;
 `;
 
 export default PlaceSelectorSub;
