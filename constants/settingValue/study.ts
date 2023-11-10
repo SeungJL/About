@@ -12,15 +12,15 @@ import {
   GANGNAM_신논현,
   GANGNAM_양재,
   GANGNAM_자유신청,
-  SUWAN_이디야,
+  SUWAN_경기대,
+  SUWAN_경희대,
+  SUWAN_구운동,
+  SUWAN_상현역,
+  SUWAN_송죽,
+  SUWAN_수원시청,
+  SUWAN_수원역,
+  SUWAN_아주대,
   SUWAN_자유신청,
-  SUWAN_카탈로그,
-  SUWAN_칸나,
-  SUWAN_커피빈,
-  SUWAN_탐앤탐스,
-  SUWAN_탐앤탐스2,
-  SUWAN_투썸,
-  SUWAN_투썸상현,
   YANG_몽글,
   YANG_스타벅스,
   YANG_위카페,
@@ -45,14 +45,14 @@ export const STUDY_TIME_TABLE = [
 ];
 
 export const STUDY_SPACE_ORDER = {
-  [SUWAN_탐앤탐스]: 0,
-  [SUWAN_칸나]: 1,
-  [SUWAN_투썸]: 2,
-  [SUWAN_카탈로그]: 3,
-  [SUWAN_탐앤탐스2]: 4,
-  [SUWAN_커피빈]: 5,
-  [SUWAN_이디야]: 6,
-  [SUWAN_투썸상현]: 7,
+  [SUWAN_수원역]: 0,
+  [SUWAN_경희대]: 1,
+  [SUWAN_수원시청]: 2,
+  [SUWAN_아주대]: 3,
+  [SUWAN_경기대]: 4,
+  [SUWAN_송죽]: 5,
+  [SUWAN_구운동]: 6,
+  [SUWAN_상현역]: 7,
   [SUWAN_자유신청]: 8,
 
   [YANG_위카페]: 0,
@@ -79,4 +79,16 @@ export const STUDY_SPACE_ORDER = {
   [GANGNAM_신논현]: 5,
   [GANGNAM_교대]: 6,
   [GANGNAM_자유신청]: 8,
+};
+
+export const STUDY_VOTE_ICON = {
+  default: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 0.4), rgba(1, 175, 237, 0.4));">
+  <button style="width: 100%; height: 100%; border: none; background: transparent;"></button>
+  </div>`,
+  main: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 1), rgba(1, 175, 237, 1));">
+  <button style="width: 100%; height: 100%; border: none; background: transparent;">A</button>
+  </div>`,
+  sub: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 0.7), rgba(1, 175, 237, 0.7));">
+  <button style="width: 100%; height: 100%; border: none; background: transparent;">B</button>
+  </div>`,
 };

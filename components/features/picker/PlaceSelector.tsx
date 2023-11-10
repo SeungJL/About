@@ -25,8 +25,13 @@ function PlaceSelector({
   const failToast = useFailToast();
 
   const isGridLayout = places?.length > 4;
+  console.log(places);
+  const placeCnt = places?.length;
+  const layoutMethod =
+    placeCnt > 8 ? "manyGrid" : placeCnt > 4 ? "smallGrid" : "flex";
 
   const onClickItem = (place: IPlace, isMax?: boolean) => {
+    console.log(place);
     if (isMax) {
       failToast(
         "free",
@@ -38,18 +43,22 @@ function PlaceSelector({
       setVotePlaces((old) => ({ ...old, place }));
       return;
     }
-    let subPlace = [...votePlaces.subPlace];
-    const findItem = subPlace.indexOf(place);
-    if (findItem === -1) subPlace = [...subPlace, place];
-    else subPlace.splice(findItem, 1);
-    setVotePlaces((old) => ({ ...old, subPlace }));
+    const subPlace = [...votePlaces.subPlace];
+    const isPlaceInSubPlace = subPlace.some((sub) => sub._id === place._id);
+
+    setVotePlaces((old) => ({
+      ...old,
+      subPlace: isPlaceInSubPlace
+        ? subPlace.filter((sub) => sub._id !== place._id)
+        : [...subPlace, place],
+    }));
   };
 
   if (!places) return null;
 
   return (
     <>
-      <Layout isGridLayout={isGridLayout}>
+      <Layout layoutMethod={layoutMethod}>
         {places?.map((place) => {
           const placeInfo = place?.place || place;
           let selected: Selected = "none";
@@ -67,7 +76,7 @@ function PlaceSelector({
 
           return (
             <Fragment key={placeInfo._id}>
-              {isGridLayout ? (
+              {layoutMethod === "smallGrid" ? (
                 <Item
                   selected={selected}
                   onClick={() => onClickItem(placeInfo, isMax)}
@@ -97,10 +106,11 @@ function PlaceSelector({
   );
 }
 
-const Layout = styled.div<{ isGridLayout: boolean }>`
+const Layout = styled.div<{ layoutMethod: string }>`
   margin-top: var(--margin-min);
-  display: ${(props) => (props.isGridLayout ? "grid" : "flex")};
-  grid-template-columns: repeat(2, 1fr);
+  display: ${(props) => (props.layoutMethod === "flex" ? "flex" : "grid")};
+  grid-template-columns: ${(props) =>
+    props.layoutMethod === "smallGrid" ? "repeat(2, 1fr)" : "repeat(4,1fr)"};
   gap: var(--margin-md);
 `;
 
@@ -133,12 +143,14 @@ const Name = styled.span`
 `;
 
 const FlexItem = styled.div`
-  width: 100%;
+  width: 88%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   border-radius: var(--border-radius-main);
+
+  white-space: nowrap;
 `;
 
 const FlexPlaceIcon = styled.div<{ selected: Selected }>`

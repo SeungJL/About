@@ -1,55 +1,118 @@
-import { faRotate } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {} from "react-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useStudyPlacesQuery } from "../../../hooks/study/queries";
+import { STUDY_VOTE_ICON } from "../../../constants/settingValue/study";
+import { getStudySecondRecommendation } from "../../../helpers/studyHelpers";
+import { createNaverMapDot } from "../../../helpers/utilHelpers";
+import { useStudyVoteQuery } from "../../../hooks/study/queries";
+import { voteDateState } from "../../../recoil/studyAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
+import { IStudyParticipate } from "../../../types/study/study";
+import { IPlace } from "../../../types/study/studyDetail";
+import InitialSetting from "./initialSetting";
+import MapBottomNav from "./MapBottomNav";
+import MapControlNav from "./MapControlNav";
 
 function StudyVoteMap({ setIsModal }: IModal) {
-  const mapRef = useRef<naver.maps.Map>(null);
-
+  const polylinesRef = useRef([]);
+  const mapRef = useRef(null);
+  const infoRef = useRef(null);
+  const markersRef = useRef<{ marker: any; place: IPlace }[]>([]);
+  const [naverMap, setNaverMap] = useState(null);
   const location = useRecoilValue(locationState);
+  const voteDate = useRecoilValue(voteDateState);
 
-  const { data } = useStudyPlacesQuery(location);
+  const { data: voteData } = useStudyVoteQuery(voteDate, location);
+  const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
-  const locationPoints = data?.map((place) => ({
-    lat: place?.latitude,
-    lon: place?.longitude,
-  }));
-
+  //1지망 투표시 2지망 추천 장소 선택
   useEffect(() => {
-    if (!mapRef.current) return;
-    const map = new naver.maps.Map(mapRef.current as naver.maps.Map, {
-      center: new naver.maps.LatLng(37.2789488, 127.0429329),
-      zoom: 13,
-      minZoom: 12,
+    if (!naverMap || !voteData) return;
+    if (voteInfo?.place) {
+      const subPlaceRecommedation = getStudySecondRecommendation(
+        voteInfo.place._id,
+        1
+      );
+      const subPlace = [];
+      voteData.participations.forEach((par) => {
+        if (subPlaceRecommedation.includes(par.place._id)) {
+          subPlace.push(par.place);
+        }
+      });
+      setVoteInfo((old) => ({ ...old, subPlace: subPlace }));
+    }
+  }, [naverMap, voteData, voteInfo?.place]);
+
+  //투표 정보 바뀌었을때 지도 업데이트
+  useEffect(() => {
+    const main = voteInfo?.place;
+    const subs = voteInfo?.subPlace;
+    markersRef.current.forEach((item) => {
+      const marker = item.marker;
+      const place = item.place;
+      const icon =
+        main === place
+          ? STUDY_VOTE_ICON["main"]
+          : subs?.includes(place)
+          ? STUDY_VOTE_ICON["sub"]
+          : STUDY_VOTE_ICON["default"];
+      marker.setIcon({
+        content: icon,
+        size: new naver.maps.Size(25, 25),
+      });
+      if (main === place) {
+        const findVote = voteData.participations.find(
+          (par) => par.place._id === place._id
+        );
+
+        const info = new naver.maps.InfoWindow({
+          content: `<div style="font-size:12px; padding:2px 4px"><span style="font-weight:600;">${place.brand}</span><br/><span>현재 신청 인원: ${findVote.attendences.length}명</span></div>`,
+        });
+        if (info.getMap()) info.close();
+        info.open(naverMap, marker);
+        infoRef.current = info;
+      }
     });
-  }, [mapRef]);
-
- 
-
-  const onClickCenter = () => {
-    mapRef.current.setCenter;
-  };
+    polylinesRef.current.forEach((polyline) => polyline.setMap(null));
+    polylinesRef.current = [];
+    if (subs && subs.length) {
+      subs.forEach((place) => {
+        const polyline = new naver.maps.Polyline({
+          map: naverMap,
+          path: [
+            createNaverMapDot(main.latitude, main.longitude),
+            createNaverMapDot(place.latitude, place.longitude),
+          ],
+        });
+        polylinesRef.current.push(polyline);
+      });
+    }
+    if (!main && infoRef?.current) {
+      infoRef.current.close();
+    }
+  }, [markersRef, naverMap, voteData.participations, voteInfo]);
 
   return (
-    <Layout>
-      <Container>
-        <Map id="map" ref={mapRef} />
-        <ReturnBtn>
-          <FontAwesomeIcon icon={faRotate} size="lg" />
-        </ReturnBtn>
-      </Container>
-    </Layout>
+    <>
+      <InitialSetting
+        mapRef={mapRef}
+        places={voteData?.participations}
+        setVoteInfo={setVoteInfo}
+        setNaverMap={setNaverMap}
+        markersRef={markersRef}
+      />
+      <Layout>
+        <Container>
+          <Map id="map" ref={mapRef} />
+          <MapControlNav naverMap={naverMap} />
+        </Container>
+        <MapBottomNav setIsModal={setIsModal} />
+      </Layout>
+    </>
   );
 }
-const Map = styled.div`
-  width: 100%;
-  height: 100%;
-`;
 
 const Layout = styled.div`
   position: fixed;
@@ -66,12 +129,9 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-
-const ReturnBtn = styled.button`
-  position: absolute;
-  top: var(--margin-sub);
-  left: var(--margin-sub);
+const Map = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 export default StudyVoteMap;

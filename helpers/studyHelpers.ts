@@ -4,6 +4,7 @@ import {
   STUDY_VOTE_END_HOUR,
   STUDY_VOTE_START_HOUR,
 } from "../constants/settingValue/study";
+import { STUDY_DISTANCE } from "../storage/study";
 
 import {
   IParticipation,
@@ -81,4 +82,23 @@ export const getStudyDate: GetStudyDate = (voteDate) => {
   if (isTodayCondition) return "today";
   if (voteDate.isBefore(currentDate)) return "passed";
   return "not passed";
+};
+
+export const getStudySecondRecommendation = (
+  startPlace: string,
+  targetDistance: number
+) => {
+  let placesAtDistance = new Set();
+
+  if (STUDY_DISTANCE[targetDistance]) {
+    STUDY_DISTANCE[targetDistance].forEach((pair) => {
+      if (pair[0] === startPlace) {
+        placesAtDistance.add(pair[1]);
+      } else if (pair[1] === startPlace) {
+        placesAtDistance.add(pair[0]);
+      }
+    });
+  }
+
+  return Array.from(placesAtDistance);
 };

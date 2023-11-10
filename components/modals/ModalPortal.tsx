@@ -13,7 +13,7 @@ function ModalPortal({ children, setIsModal }: IModalPortal) {
   const [mounted, setMounted] = useState(false);
 
   const closeModal = () => {
-    setIsModal(false);
+    if (setIsModal) setIsModal(false);
   };
 
   useEffect(() => {
