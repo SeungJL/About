@@ -29,16 +29,32 @@ function MapControlNav({ naverMap }) {
       <ReturnBtn onClick={() => onClickRetrun("center")}>
         <FontAwesomeIcon icon={faRotate} size="lg" />
       </ReturnBtn>
-      <Button size="sm" onClick={() => onClickRetrun("center")}>
+      <Button
+        colorScheme="blackAlpha"
+        size="sm"
+        onClick={() => onClickRetrun("center")}
+      >
         가운데로
       </Button>
-      <Button size="sm" onClick={() => onClickRetrun("장안구")}>
+      <Button
+        colorScheme="blackAlpha"
+        size="sm"
+        onClick={() => onClickRetrun("장안구")}
+      >
         장안구
       </Button>
-      <Button size="sm" onClick={() => onClickRetrun("영통구")}>
+      <Button
+        colorScheme="blackAlpha"
+        size="sm"
+        onClick={() => onClickRetrun("영통구")}
+      >
         영통구
       </Button>
-      <Button size="sm" onClick={() => onClickRetrun("권선구")}>
+      <Button
+        colorScheme="blackAlpha"
+        size="sm"
+        onClick={() => onClickRetrun("권선구")}
+      >
         권선구
       </Button>
     </Layout>
@@ -53,7 +69,15 @@ const Layout = styled.div`
   > button {
     margin-right: var(--margin-min);
   }
+  > button:first-child {
+    margin-right: var(--margin-md);
+  }
 `;
-const ReturnBtn = styled.button``;
+const ReturnBtn = styled.button`
+  background-color: var(--font-h6);
+  padding: 4px;
+  border-radius: 50%;
+  margin-right: var(--margin-md);
+`;
 
 export default MapControlNav;

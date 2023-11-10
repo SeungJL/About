@@ -167,7 +167,7 @@ const Header = styled.header`
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--margin-sub);
   > span:first-child {
     font-weight: 600;
     font-size: 15px;
@@ -185,7 +185,7 @@ const Layout = styled(motion.div)`
   position: fixed;
   bottom: 0;
   width: 375px;
-  height: 424px;
+  height: 420px;
   border-top-left-radius: var(--border-radius-main);
   border-top-right-radius: var(--border-radius-main);
 

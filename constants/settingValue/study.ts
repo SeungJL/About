@@ -14,13 +14,19 @@ import {
   GANGNAM_자유신청,
   SUWAN_경기대,
   SUWAN_경희대,
+  SUWAN_고색역,
+  SUWAN_광교엘리웨이,
+  SUWAN_광교중앙역,
   SUWAN_구운동,
+  SUWAN_망포역,
   SUWAN_상현역,
+  SUWAN_성균관대역,
   SUWAN_송죽,
   SUWAN_수원시청,
   SUWAN_수원역,
   SUWAN_아주대,
   SUWAN_자유신청,
+  SUWAN_행궁동,
   YANG_몽글,
   YANG_스타벅스,
   YANG_위카페,
@@ -85,10 +91,63 @@ export const STUDY_VOTE_ICON = {
   default: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 0.4), rgba(1, 175, 237, 0.4));">
   <button style="width: 100%; height: 100%; border: none; background: transparent;"></button>
   </div>`,
-  main: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 1), rgba(1, 175, 237, 1));">
+  main: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;font-size:15px;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 1), rgba(1, 175, 237, 1));">
   <button style="width: 100%; height: 100%; border: none; background: transparent;">A</button>
   </div>`,
-  sub: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 0.7), rgba(1, 175, 237, 0.7));">
+  sub: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  font-size:15px; width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 0.7), rgba(1, 175, 237, 0.7));">
   <button style="width: 100%; height: 100%; border: none; background: transparent;">B</button>
   </div>`,
+};
+
+//15 //25
+export const STUDY_DISTANCE = {
+  1: [
+    [SUWAN_수원시청, SUWAN_수원역],
+    [SUWAN_수원시청, SUWAN_망포역],
+    [SUWAN_수원시청, SUWAN_아주대],
+    [SUWAN_수원시청, SUWAN_고색역],
+    [SUWAN_수원역, SUWAN_고색역],
+    [SUWAN_수원역, SUWAN_성균관대역],
+    [SUWAN_수원역, SUWAN_행궁동],
+    [SUWAN_수원역, SUWAN_구운동],
+    [SUWAN_수원역, SUWAN_망포역],
+    [SUWAN_경희대, SUWAN_망포역],
+    [SUWAN_아주대, SUWAN_경기대],
+    [SUWAN_아주대, SUWAN_광교중앙역],
+    [SUWAN_아주대, SUWAN_광교엘리웨이],
+    [SUWAN_아주대, SUWAN_행궁동],
+    [SUWAN_아주대, SUWAN_상현역],
+    [SUWAN_경기대, SUWAN_광교중앙역],
+    [SUWAN_경기대, SUWAN_행궁동],
+    [SUWAN_경기대, SUWAN_상현역],
+    [SUWAN_구운동, SUWAN_고색역],
+    [SUWAN_구운동, SUWAN_성균관대역],
+    [SUWAN_상현역, SUWAN_광교중앙역],
+    [SUWAN_상현역, SUWAN_경기대],
+    [SUWAN_상현역, SUWAN_광교엘리웨이],
+    [SUWAN_고색역, SUWAN_성균관대역],
+    [SUWAN_고색역, SUWAN_망포역],
+    [SUWAN_광교엘리웨이, SUWAN_광교중앙역],
+    [SUWAN_송죽, SUWAN_행궁동],
+    [SUWAN_송죽, SUWAN_성균관대역],
+  ],
+  2: [
+    [SUWAN_수원시청, SUWAN_행궁동],
+    [SUWAN_수원시청, SUWAN_경희대],
+    [SUWAN_수원시청, SUWAN_광교엘리웨이],
+    [SUWAN_수원시청, SUWAN_광교중앙역],
+    [SUWAN_아주대, SUWAN_수원역],
+    [SUWAN_아주대, SUWAN_송죽],
+    [SUWAN_수원역, SUWAN_송죽],
+    [SUWAN_성균관대역, SUWAN_행궁동],
+    [SUWAN_고색역, SUWAN_행궁동],
+    [SUWAN_망포역, SUWAN_광교엘리웨이],
+    [SUWAN_경희대, SUWAN_광교엘리웨이],
+    [SUWAN_광교엘리웨이, SUWAN_경기대],
+    [SUWAN_구운동, SUWAN_행궁동],
+    [SUWAN_구운동, SUWAN_수원시청],
+    [SUWAN_구운동, SUWAN_송죽],
+    [SUWAN_행궁동, SUWAN_광교중앙역],
+    [SUWAN_상현역, SUWAN_행궁동],
+  ],
 };

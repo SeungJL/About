@@ -5,7 +5,7 @@ export const FullScreen = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   width: 100vw;
   height: 100vh;
-  z-index: 10;
+  z-index: 20;
   top: 0;
   left: 0;
 `;

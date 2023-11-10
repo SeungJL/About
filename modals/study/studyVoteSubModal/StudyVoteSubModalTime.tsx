@@ -71,6 +71,7 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
 }
 
 const Layout = styled.div``;
+
 const TimeChoiceLayout = styled.div`
   display: flex;
   width: 100%;
@@ -81,7 +82,7 @@ const TimeChoiceLayout = styled.div`
 const TimeWrapper = styled.div`
   > span {
     font-weight: 600;
-    color: var(--font-h3);
+    color: var(--font-h2);
     font-size: 13px;
   }
 `;

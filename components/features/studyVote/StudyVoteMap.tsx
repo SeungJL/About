@@ -20,12 +20,17 @@ function StudyVoteMap({ setIsModal }: IModal) {
   const mapRef = useRef(null);
   const infoRef = useRef(null);
   const markersRef = useRef<{ marker: any; place: IPlace }[]>([]);
-  const [naverMap, setNaverMap] = useState(null);
+
   const location = useRecoilValue(locationState);
   const voteDate = useRecoilValue(voteDateState);
 
-  const { data: voteData } = useStudyVoteQuery(voteDate, location);
+  const [naverMap, setNaverMap] = useState(null);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
+  const [twoDistanceSub, setTwoDistanceSub] = useState([]);
+
+  const { data: voteData } = useStudyVoteQuery(voteDate, location);
+
+  let isTwo = true;
 
   //1지망 투표시 2지망 추천 장소 선택
   useEffect(() => {
@@ -35,6 +40,11 @@ function StudyVoteMap({ setIsModal }: IModal) {
         voteInfo.place._id,
         1
       );
+      const subPlaceTwo = getStudySecondRecommendation(voteInfo.place._id, 2);
+      if (isTwo) {
+        subPlaceRecommedation.push(...[...subPlaceTwo]);
+        setTwoDistanceSub(subPlaceTwo);
+      }
       const subPlace = [];
       voteData.participations.forEach((par) => {
         if (subPlaceRecommedation.includes(par.place._id)) {
@@ -43,7 +53,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
       });
       setVoteInfo((old) => ({ ...old, subPlace: subPlace }));
     }
-  }, [naverMap, voteData, voteInfo?.place]);
+  }, [isTwo, naverMap, voteData, voteInfo?.place]);
 
   //투표 정보 바뀌었을때 지도 업데이트
   useEffect(() => {
@@ -79,12 +89,17 @@ function StudyVoteMap({ setIsModal }: IModal) {
     polylinesRef.current = [];
     if (subs && subs.length) {
       subs.forEach((place) => {
+        const isTwo = twoDistanceSub.includes(place._id);
+
         const polyline = new naver.maps.Polyline({
           map: naverMap,
           path: [
             createNaverMapDot(main.latitude, main.longitude),
             createNaverMapDot(place.latitude, place.longitude),
           ],
+          strokeColor: isTwo ? "var(--color-red)" : "var(--color-mint)", // 여기에서 폴리라인의 색상을 지정합니다.
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
         });
         polylinesRef.current.push(polyline);
       });
@@ -92,8 +107,8 @@ function StudyVoteMap({ setIsModal }: IModal) {
     if (!main && infoRef?.current) {
       infoRef.current.close();
     }
-  }, [markersRef, naverMap, voteData.participations, voteInfo]);
-
+  }, [markersRef, naverMap, twoDistanceSub, voteData.participations, voteInfo]);
+  console.log(voteInfo);
   return (
     <>
       <InitialSetting
@@ -108,7 +123,11 @@ function StudyVoteMap({ setIsModal }: IModal) {
           <Map id="map" ref={mapRef} />
           <MapControlNav naverMap={naverMap} />
         </Container>
-        <MapBottomNav setIsModal={setIsModal} />
+        <MapBottomNav
+          voteInfo={voteInfo}
+          setIsModal={setIsModal}
+          setVoteInfo={setVoteInfo}
+        />
       </Layout>
     </>
   );

@@ -1,10 +1,10 @@
 import dayjs, { Dayjs } from "dayjs";
 import {
+  STUDY_DISTANCE,
   STUDY_SPACE_ORDER,
   STUDY_VOTE_END_HOUR,
   STUDY_VOTE_START_HOUR,
 } from "../constants/settingValue/study";
-import { STUDY_DISTANCE } from "../storage/study";
 
 import {
   IParticipation,
