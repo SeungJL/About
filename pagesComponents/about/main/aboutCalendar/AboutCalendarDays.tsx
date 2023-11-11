@@ -9,7 +9,6 @@ interface IAboutCalendarDays {
 dayjs.locale("ko");
 dayjs.locale("ko");
 function AboutCalendarDays({ voteDate }: IAboutCalendarDays) {
-  console.log(voteDate.locale("ko").format("ddd"));
   const monthDateArr = [];
 
   for (let i = 0; i < 7; i++) {
@@ -20,7 +19,7 @@ function AboutCalendarDays({ voteDate }: IAboutCalendarDays) {
       )
     );
   }
-  console.log(2, voteDate);
+
   return (
     <Layout>
       {monthDateArr.map((date, idx) => (

@@ -22,7 +22,7 @@ function InitialSetting({
   markersRef,
 }: IInitialSetting) {
   const infoRef = useRef<naver.maps.InfoWindow>();
-  console.log(places);
+
   //초기 세팅
   useEffect(() => {
     if (!mapRef.current) return;

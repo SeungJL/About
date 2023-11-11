@@ -67,7 +67,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
   const setAttendCheckWinGift = useSetRecoilState(attendCheckWinGiftState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
   const { data: dailyCheckAll, isLoading } = useDailyCheckAllQuery();
-  console.log(dailyCheckAll);
+
   const { mutate: getAlphabet } = useCollectionAlphabetMutation();
   const { mutate: attendDailyCheck } = useDailyCheckMutation();
   const { mutate: getAboutPoint } = useAboutPointMutation();

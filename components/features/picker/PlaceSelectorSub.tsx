@@ -1,6 +1,6 @@
 import { faLeft, faRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IPlace } from "../../../types/study/studyDetail";
 import { StudySpaceLogo } from "../../utils/CustomImages";
@@ -21,12 +21,19 @@ function PlaceSelectorSub({
   const first = [];
   const second = [];
 
-  if (isTwoPage) {
-    places?.forEach((place) => {
-      if (first.length < 8) first.push(place);
-      else second.push(place);
+  const [pagePlaces, setPagePlaces] = useState<{
+    first: IPlace[];
+    second: IPlace[];
+  }>();
+  const [isFirst, setIsFirst] = useState(true);
+
+  useEffect(() => {
+    if (!places) return;
+    setPagePlaces({
+      first: places.slice(0, 8),
+      second: places.slice(8),
     });
-  }
+  }, [isTwoPage, places]);
 
   const onClick = (place: IPlace) => {
     setSelectPlaces((old) => {
@@ -35,9 +42,18 @@ function PlaceSelectorSub({
     });
   };
 
+  const onClickArrow = (type: "left" | "right") => {
+    if (type === "left") {
+      setIsFirst(true);
+    }
+    if (type === "right") {
+      setIsFirst(false);
+    }
+  };
+
   return (
     <Layout isTwoPage={isTwoPage}>
-      {(isTwoPage ? first : places)?.map((place) => (
+      {(isFirst ? pagePlaces?.first : pagePlaces?.second)?.map((place) => (
         <Item key={place._id}>
           <Place
             isSelected={selectPlaces.includes(place)}
@@ -48,12 +64,16 @@ function PlaceSelectorSub({
           <Name>{place.branch}</Name>
         </Item>
       ))}
-      <LeftArrow>
-        <FontAwesomeIcon icon={faLeft} />
-      </LeftArrow>
-      <RightArrow>
-        <FontAwesomeIcon icon={faRight} />
-      </RightArrow>
+      {!isFirst && (
+        <LeftArrow onClick={() => onClickArrow("left")}>
+          <FontAwesomeIcon icon={faLeft} />
+        </LeftArrow>
+      )}
+      {isTwoPage && isFirst && (
+        <RightArrow onClick={() => onClickArrow("right")}>
+          <FontAwesomeIcon icon={faRight} />
+        </RightArrow>
+      )}
     </Layout>
   );
 }
@@ -93,6 +113,7 @@ const Place = styled.div<{ isSelected: boolean }>`
 
 const Name = styled.span`
   font-size: 13px;
+  white-space: nowrap;
 `;
 
 const LeftArrow = styled.div`

@@ -112,14 +112,13 @@ const Layout = styled.div`
   align-items: center;
   > button {
     margin-top: var(--margin-sub);
-    width: 90%;
+    width: var(--view-max-width);
   }
 `;
 
 const TimeModalLayout = styled(motion.div)`
   position: fixed;
   bottom: 0;
-
   width: 375px;
   height: 420px;
   border-top-left-radius: var(--border-radius-main);

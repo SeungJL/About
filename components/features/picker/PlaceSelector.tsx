@@ -25,13 +25,13 @@ function PlaceSelector({
   const failToast = useFailToast();
 
   const isGridLayout = places?.length > 4;
-  console.log(places);
+ 
   const placeCnt = places?.length;
   const layoutMethod =
     placeCnt > 8 ? "manyGrid" : placeCnt > 4 ? "smallGrid" : "flex";
 
   const onClickItem = (place: IPlace, isMax?: boolean) => {
-    console.log(place);
+ 
     if (isMax) {
       failToast(
         "free",

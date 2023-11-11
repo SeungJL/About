@@ -1,28 +1,20 @@
-import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  studyDateStatusState,
-  voteDateState,
-} from "../../../../recoil/studyAtoms";
+import { voteDateState } from "../../../../recoil/studyAtoms";
 import AboutCalendarDate from "./AboutCalendarDate";
 import AboutCalendarDays from "./AboutCalendarDays";
 import AboutCalendarMonth from "./AboutCalendarMonth";
 import AboutCalendarVote from "./AboutCalendarVote";
 
 function AboutCalendar() {
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
   const voteDate = useRecoilValue(voteDateState);
-  const [isCalendarWeek, setIsCalendarWeek] = useState(true);
+
   return (
     <Layout>
-      <AboutCalendarMonth
-        isCalendarWeek={isCalendarWeek}
-        setIsCalendarWeek={setIsCalendarWeek}
-      />
+      <AboutCalendarMonth />
       <Content>
         <AboutCalendarDays voteDate={voteDate} />
-        <AboutCalendarDate isCalendarWeek={isCalendarWeek} />
+        <AboutCalendarDate />
         <AboutCalendarVote />
       </Content>
       <ViewCover />
@@ -41,9 +33,7 @@ const Content = styled.div`
 `;
 const ViewCover = styled.div`
   height: 48px;
-
   width: 100%;
-
   position: relative;
   z-index: 3;
   background-color: var(--font-h8);

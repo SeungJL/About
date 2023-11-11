@@ -138,7 +138,6 @@ function StudyVoteSubModal({
           <StudyVoteSubModalPrivate setVoteInfo={setVoteInfo} />
         )}
       </Wrapper>
-
       <Button
         w="100%"
         colorScheme="mintTheme"

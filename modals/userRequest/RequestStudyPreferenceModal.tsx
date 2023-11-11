@@ -50,7 +50,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
       subPlace: studyPreference?.subPlace,
     });
   }, [studyPreference]);
-  console.log(votePlaces);
+ 
 
   const { mutate: setStudyPreference } = useStudyPreferenceMutation({
     onSuccess() {

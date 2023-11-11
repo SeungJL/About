@@ -27,21 +27,29 @@ function StudyVoteMap({ setIsModal }: IModal) {
   const [naverMap, setNaverMap] = useState(null);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
   const [twoDistanceSub, setTwoDistanceSub] = useState([]);
+  const [isCheckPreSet, setIsCheckPreSet] = useState(false);
+  const [precision, setPrecision] = useState(1);
 
   const { data: voteData } = useStudyVoteQuery(voteDate, location);
-
-  let isTwo = true;
 
   //1지망 투표시 2지망 추천 장소 선택
   useEffect(() => {
     if (!naverMap || !voteData) return;
+    if (isCheckPreSet) {
+      setIsCheckPreSet(false);
+      return;
+    }
+    if (precision === 0) {
+      setVoteInfo((old) => ({ ...old, subPlace: [] }));
+      return;
+    }
     if (voteInfo?.place) {
       const subPlaceRecommedation = getStudySecondRecommendation(
         voteInfo.place._id,
         1
       );
       const subPlaceTwo = getStudySecondRecommendation(voteInfo.place._id, 2);
-      if (isTwo) {
+      if (precision === 2) {
         subPlaceRecommedation.push(...[...subPlaceTwo]);
         setTwoDistanceSub(subPlaceTwo);
       }
@@ -53,19 +61,21 @@ function StudyVoteMap({ setIsModal }: IModal) {
       });
       setVoteInfo((old) => ({ ...old, subPlace: subPlace }));
     }
-  }, [isTwo, naverMap, voteData, voteInfo?.place]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [precision, naverMap, voteData, voteInfo?.place]);
 
   //투표 정보 바뀌었을때 지도 업데이트
   useEffect(() => {
     const main = voteInfo?.place;
     const subs = voteInfo?.subPlace;
+
     markersRef.current.forEach((item) => {
       const marker = item.marker;
       const place = item.place;
       const icon =
-        main === place
+        main?._id === place._id
           ? STUDY_VOTE_ICON["main"]
-          : subs?.includes(place)
+          : subs?.map((place) => place._id)?.includes(place._id)
           ? STUDY_VOTE_ICON["sub"]
           : STUDY_VOTE_ICON["default"];
       marker.setIcon({
@@ -108,7 +118,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
       infoRef.current.close();
     }
   }, [markersRef, naverMap, twoDistanceSub, voteData.participations, voteInfo]);
-  console.log(voteInfo);
+
   return (
     <>
       <InitialSetting
@@ -121,7 +131,13 @@ function StudyVoteMap({ setIsModal }: IModal) {
       <Layout>
         <Container>
           <Map id="map" ref={mapRef} />
-          <MapControlNav naverMap={naverMap} />
+          <MapControlNav
+            naverMap={naverMap}
+            setVoteInfo={setVoteInfo}
+            setIsCheckPreSet={setIsCheckPreSet}
+            precision={precision}
+            setPrecision={setPrecision}
+          />
         </Container>
         <MapBottomNav
           voteInfo={voteInfo}
@@ -140,6 +156,7 @@ const Layout = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+  max-width: 390px;
   aspect-ratio: 1/1;
 `;
 

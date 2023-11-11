@@ -72,11 +72,7 @@ function About() {
         {voteDate && (
           <>
             <AboutStudyHeader />
-            {/* {["passed", "today"].includes(studyDateStatus) && (
-              <AboutStudyResult />
-            )} */}
             <AboutCalendar />
-            {/* {studyDateStatus === "not passed" && <AboutVoteNav />} */}
             <AboutMain participations={otherStudies} />
             <EventBanner />
             <AboutGather />

@@ -1,11 +1,108 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import StudyVoteMap from "../../../../components/features/studyVote/StudyVoteMap";
 import ModalPortal from "../../../../components/modals/ModalPortal";
+import StudyCheckImageModal from "../../../../modals/study/StudyCheckImageModal";
+import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
+import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
+import {
+  myStudyState,
+  studyDateStatusState,
+} from "../../../../recoil/studyAtoms";
+import { userAccessUidState } from "../../../../recoil/userAtoms";
+
+type BtnType =
+  | "vote"
+  | "voteComplete"
+  | "attend"
+  | "attendPrivate"
+  | "attendComplete"
+  | "absence"
+  | "passed";
 
 function AboutCalendarVote() {
-  const [isModal, setIsModal] = useState(false);
+  const isMainLoading = useRecoilValue(isMainLoadingState);
+  const userAccessUid = useRecoilValue(userAccessUidState);
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
+  const myStudy = useRecoilValue(myStudyState);
+  const isAttend = !!myStudy?.attendences?.find(
+    (att) => att.user.uid === userAccessUid
+  )?.arrived;
+  const isPrivate = myStudy?.place.brand === "자유 신청";
+
+  const [modalType, setModalType] = useState<BtnType>();
+
+  const onClickBtn = (type: BtnType) => {
+    const modalTypeArr: BtnType[] = ["vote", "attend", "attendPrivate"];
+    if (modalTypeArr.includes(type)) {
+      setModalType(type);
+    }
+  };
+
+  const getBtnType = (): BtnType => {
+    if (studyDateStatus === "not passed") return "vote";
+    if (studyDateStatus === "today") {
+      if (isAttend) return "attendComplete";
+      else if (isPrivate) return "attendPrivate";
+      else if (myStudy) return "attend";
+      else return "vote";
+    }
+    if (studyDateStatus === "passed") {
+      if (isAttend) return "attendComplete";
+      if (myStudy) return "absence";
+      return "passed";
+    }
+  };
+
+  const getBtnTextAndColorAndShadow = (
+    type: BtnType
+  ): { text: string; color: string; shadow: string } => {
+    if (type === "vote")
+      return {
+        text: "투표",
+        color: "mintTheme",
+        shadow: "rgba(0, 194, 179, 0.4)",
+      };
+    if (type === "voteComplete")
+      return {
+        text: "투표완료",
+        color: "yellowTheme",
+        shadow: "rgba(254, 188, 90, 0.4)",
+      };
+    if (type === "attend" || type === "attendPrivate")
+      return {
+        text: "출석",
+        color: "mintTheme",
+        shadow: "rgba(0, 194, 179, 0.4)",
+      };
+    if (type === "attendComplete")
+      return {
+        text: "출석완료",
+        color: "yellowTheme",
+        shadow: "rgba(254, 188, 90, 0.4)",
+      };
+    if (type === "absence")
+      return {
+        text: "불참",
+        color: "redTheme",
+        shadow: "rgba(255, 107, 107, 0.4)",
+      };
+    if (type === "passed")
+      return {
+        text: "기간만료",
+        color: "gray",
+        shadow: "var(--font-h5)",
+      };
+  };
+
+  const setIsModal = () => {
+    setModalType(null);
+  };
+
+  const btnType = getBtnType();
+  const btnStyle = getBtnTextAndColorAndShadow(btnType);
 
   return (
     <>
@@ -17,18 +114,23 @@ function AboutCalendarVote() {
           w="72px"
           size="lg"
           h="72px"
-          onClick={() => setIsModal(true)}
-          colorScheme="mintTheme"
-          boxShadow="0px 0px 12px rgba(0, 194, 179, 0.4)"
+          onClick={() => onClickBtn(btnType)}
+          colorScheme={btnStyle.color}
+          color={btnStyle.color !== "gray" ? "white" : "var(--font-h3)"}
+          boxShadow={`0 0 12px ${btnStyle.shadow}`}
         >
-          투표
+          {!isMainLoading && btnStyle.text}
         </Button>
       </Layout>
-      <Container></Container>
-      {isModal && (
+      <Container />
+      {modalType === "vote" && (
         <ModalPortal>
           <StudyVoteMap setIsModal={setIsModal} />
         </ModalPortal>
+      )}
+      {modalType === "attend" && <StudyCheckModal setIsModal={setIsModal} />}
+      {modalType === "attendPrivate" && (
+        <StudyCheckImageModal setIsModal={setIsModal} />
       )}
     </>
   );

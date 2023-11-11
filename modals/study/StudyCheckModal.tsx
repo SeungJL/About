@@ -14,8 +14,10 @@ import {
   POINT_SYSTEM_Deposit,
   POINT_SYSTEM_PLUS,
 } from "../../constants/contentsValue/pointSystem";
-import { now } from "../../helpers/dateHelpers";
+import { STUDY_VOTE } from "../../constants/keys/queryKeys";
+import { dayjsToStr, now } from "../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../helpers/eventHelpers";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
@@ -31,6 +33,7 @@ import { useCollectionAlphabetMutation } from "../../hooks/user/sub/collection/m
 import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
 import { myStudyState, voteDateState } from "../../recoil/studyAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
+import { locationState } from "../../recoil/userAtoms";
 import { Textarea } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
@@ -43,14 +46,17 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const errorToast = useErrorToast();
   const failToast = useFailToast();
   const myStudyFixed = useRecoilValue(myStudyState);
-  const isFree = myStudyFixed.status === "free";
+  const isFree = myStudyFixed?.status === "free";
 
   const [memo, setMemo] = useState("");
   const [isChecking, setIsChecking] = useState(false);
 
+  const location = useRecoilValue(locationState);
   const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
   const voteDate = useRecoilValue(voteDateState);
+
+  const resetQueryData = useResetQueryData();
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: getAlphabet } = useCollectionAlphabetMutation();
@@ -81,7 +87,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
           ).add(1, "hour") < dayjs()
         )
           getDeposit(POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE);
-        setIsRefetchStudySpace(true);
+        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
       },
       onError: errorToast,
     }
