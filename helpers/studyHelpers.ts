@@ -12,6 +12,7 @@ import {
   StudyDateStatus,
   StudyStatus,
 } from "../types/study/studyDetail";
+import { Location } from "../types/system";
 import { getCurrentDate, getCurrentHour } from "./dateHelpers";
 
 export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
@@ -85,13 +86,14 @@ export const getStudyDate: GetStudyDate = (voteDate) => {
 };
 
 export const getStudySecondRecommendation = (
+  location: Location,
   startPlace: string,
   targetDistance: number
 ) => {
   let placesAtDistance = new Set();
 
-  if (STUDY_DISTANCE[targetDistance]) {
-    STUDY_DISTANCE[targetDistance].forEach((pair) => {
+  if (STUDY_DISTANCE[location][targetDistance]) {
+    STUDY_DISTANCE[location][targetDistance].forEach((pair) => {
       if (pair[0] === startPlace) {
         placesAtDistance.add(pair[1]);
       } else if (pair[1] === startPlace) {

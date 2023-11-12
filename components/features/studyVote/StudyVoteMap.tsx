@@ -44,10 +44,15 @@ function StudyVoteMap({ setIsModal }: IModal) {
     }
     if (voteInfo?.place) {
       const subPlaceRecommedation = getStudySecondRecommendation(
+        location,
         voteInfo.place._id,
         1
       );
-      const subPlaceTwo = getStudySecondRecommendation(voteInfo.place._id, 2);
+      const subPlaceTwo = getStudySecondRecommendation(
+        location,
+        voteInfo.place._id,
+        2
+      );
       if (precision === 2) {
         subPlaceRecommedation.push(...[...subPlaceTwo]);
         setTwoDistanceSub(subPlaceTwo);

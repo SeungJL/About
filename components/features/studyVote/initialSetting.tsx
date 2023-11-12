@@ -1,6 +1,8 @@
 import { MutableRefObject, useEffect, useRef } from "react";
-import { STUDY_VOTE_ICON } from "../../../constants/settingValue/study";
+import { useRecoilValue } from "recoil";
+import { STUDY_LOCATION_CENTER, STUDY_VOTE_ICON } from "../../../constants/settingValue/study";
 import { createNaverMapDot } from "../../../helpers/utilHelpers";
+import { locationState } from "../../../recoil/userAtoms";
 import { DispatchType } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
 import { IParticipation, IPlace } from "../../../types/study/studyDetail";
@@ -21,6 +23,7 @@ function InitialSetting({
   setNaverMap,
   markersRef,
 }: IInitialSetting) {
+  const location = useRecoilValue(locationState);
   const infoRef = useRef<naver.maps.InfoWindow>();
 
   //초기 세팅
@@ -31,7 +34,7 @@ function InitialSetting({
       createNaverMapDot(37.357058, 127.142965)
     );
     const map = new naver.maps.Map(mapRef.current, {
-      center: createNaverMapDot(37.278992, 127.025727),
+      center: STUDY_LOCATION_CENTER[location],
       zoom: 13,
       minZoom: 12,
       maxBounds: maxBounds,
