@@ -176,10 +176,12 @@ function StudySpaceNavigation({
           </SubNav>
         )}
         <MainButton
-          func={location === "수원" ? false : !!func}
+          func={location === "수원" && func === "vote" ? false : !!func}
           onClick={() => onClickMainBtn(func)}
         >
-          {location === "수원" ? "기능 점검중. 첫 화면에서 투표해주세요" : text}
+          {location === "수원" && func === "vote"
+            ? "기능 점검중. 첫 화면에서 투표해주세요"
+            : text}
         </MainButton>
       </Layout>
       <StudySpaceNavModal
