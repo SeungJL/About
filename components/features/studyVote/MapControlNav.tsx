@@ -38,7 +38,7 @@ function MapControlNav({
 }: IMapControlNav) {
   const failToast = useFailToast();
   const { data } = useStudyPreferenceQuery();
-
+  console.log(data);
   const [preSet, setPreSet] = useState<"first" | "second">();
 
   const onClickRetrun = (type: ReturnDot) => {
@@ -67,7 +67,14 @@ function MapControlNav({
     }
     setIsCheckPreSet(true);
     if (preSet === type) {
+      setVoteInfo((old) => ({
+        ...old,
+        place: null,
+        subPlace: null,
+      }));
+      setIsCheckPreSet(null);
       setPreSet(null);
+      setPrecision(null);
       return;
     }
     setVoteInfo((old) => ({
@@ -75,6 +82,10 @@ function MapControlNav({
       place: data.place,
       subPlace: data.subPlace,
     }));
+    naverMap.setCenter(
+      createNaverMapDot(data.place.latitude, data.place.longitude)
+    );
+    setPrecision(2);
     setPreSet(type);
   };
 

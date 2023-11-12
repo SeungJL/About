@@ -124,7 +124,7 @@ function AboutCalendarVote() {
       </Layout>
       <Container />
       {modalType === "vote" && (
-        <ModalPortal>
+        <ModalPortal opacity={0.6}>
           <StudyVoteMap setIsModal={setIsModal} />
         </ModalPortal>
       )}

@@ -10,6 +10,11 @@ import { voteDateState } from "../../../../recoil/studyAtoms";
 function AboutCalendarMonth() {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
+  const currentMonth = voteDate.month() + 1;
+
+  const leftMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+  const rightMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+
   const onClickArrow = (type: "left" | "right") => {
     setVoteDate((old) =>
       type === "left"
@@ -24,10 +29,10 @@ function AboutCalendarMonth() {
         <ArrowBtn>
           <FontAwesomeIcon icon={faChevronLeft} size="sm" />
         </ArrowBtn>
-        <span>{voteDate.month() - 1}월</span>
+        <span>{leftMonth}월</span>
       </ControlBtn>
       <ControlBtn onClick={() => onClickArrow("right")}>
-        <span>{voteDate.month() + 1}월</span>
+        <span>{rightMonth}월</span>
         <ArrowBtn>
           <FontAwesomeIcon icon={faChevronRight} size="sm" />
         </ArrowBtn>

@@ -94,7 +94,7 @@ export const STUDY_VOTE_ICON = {
   main: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;font-size:15px;  width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 1), rgba(1, 175, 237, 1));">
   <button style="width: 100%; height: 100%; border: none; background: transparent;">A</button>
   </div>`,
-  sub: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  font-size:15px; width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 0.7), rgba(1, 175, 237, 0.7));">
+  sub: `<div style="display:flex; justify-content:center; align-items:center; color:white; font-weight:800;  font-size:15px; width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(to right, rgba(3, 224, 154, 0.7), rgba(1, 175, 237, 0.6));">
   <button style="width: 100%; height: 100%; border: none; background: transparent;">B</button>
   </div>`,
 };

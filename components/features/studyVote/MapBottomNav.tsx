@@ -111,8 +111,12 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   > button {
+    margin-top: var(--margin-main);
+    width: var(--view-width);
+    max-width: var(--view-max-width);
+  }
+  > button:last-child {
     margin-top: var(--margin-sub);
-    width: var(--view-max-width);
   }
 `;
 

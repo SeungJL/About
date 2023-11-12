@@ -88,7 +88,7 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
               프로필 수정
             </button>
             <button onClick={() => onClickBlock("modal", "spaceSetting")}>
-              스터디 선호 장소 설정
+              스터디 프리셋 설정
             </button>
             <button onClick={() => onClickBlock("modal", "birthday")}>
               생일 공개 설정

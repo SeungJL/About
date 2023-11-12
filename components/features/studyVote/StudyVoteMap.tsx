@@ -36,8 +36,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
   useEffect(() => {
     if (!naverMap || !voteData) return;
     if (isCheckPreSet) {
-      setIsCheckPreSet(false);
-      return;
+      setIsCheckPreSet(null);
     }
     if (precision === 0) {
       setVoteInfo((old) => ({ ...old, subPlace: [] }));
@@ -83,20 +82,18 @@ function StudyVoteMap({ setIsModal }: IModal) {
         size: new naver.maps.Size(25, 25),
         anchor: new naver.maps.Point(12.5, 12.5),
       });
-      var contentString = [
-        '<div class="map_label" style="padding:4px; text-align:center;">',
-        "여기에 텍스트",
-        "</div>",
-      ].join("");
-      new naver.maps.OverlayView();
-
       if (main === place) {
         const findVote = voteData.participations.find(
           (par) => par.place._id === place._id
         );
-
         const info = new naver.maps.InfoWindow({
-          content: `<div style="font-size:12px; padding:2px 4px"><span style="font-weight:600;">${place.brand}</span><br/><span>현재 신청 인원: ${findVote.attendences.length}명</span></div>`,
+          content: `<div style="font-size:12px;  padding:4px 6px"><span style="font-weight:600;">${place.brand}</span><br/><span>현재 신청 인원: ${findVote.attendences.length}명</span></div>`,
+          borderWidth: 1,
+          disableAnchor: false,
+          backgroundColor: "var(--font-h8)",
+          borderColor: "var(--font-h3)",
+          anchorSize: new naver.maps.Size(10, 10),
+          anchorColor: "var(--font-h8)",
         });
         if (info.getMap()) info.close();
         info.open(naverMap, marker);
@@ -115,7 +112,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
             createNaverMapDot(place.latitude, place.longitude),
           ],
           strokeColor: isTwo ? "var(--color-red)" : "var(--color-mint)",
-          strokeOpacity: 0.8,
+          strokeOpacity: 0.5,
           strokeWeight: 3,
         });
         polylinesRef.current.push(polyline);

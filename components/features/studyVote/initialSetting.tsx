@@ -32,7 +32,7 @@ function InitialSetting({
     );
     const map = new naver.maps.Map(mapRef.current, {
       center: createNaverMapDot(37.278992, 127.025727),
-      zoom: 12,
+      zoom: 13,
       minZoom: 12,
       maxBounds: maxBounds,
       mapTypeControl: false,
@@ -62,13 +62,17 @@ function InitialSetting({
 
       naver.maps.Event.addListener(marker, "click", function () {
         setVoteInfo((old) => {
-          if (!old?.place) return { ...old, place: place };
-          else if (place === old.place) {
+          if (!old?.place) {
+            map.setCenter(createNaverMapDot(place.latitude, place.longitude));
+            return { ...old, place: place };
+          } else if (place._id === old.place._id) {
             return { ...old, place: null, subPlace: [] };
-          } else if (old?.subPlace.includes(place)) {
+          } else if (
+            old?.subPlace.map((place) => place._id).includes(place._id)
+          ) {
             return {
               ...old,
-              subPlace: old.subPlace.filter((item) => item !== place),
+              subPlace: old.subPlace.filter((item) => item._id !== place._id),
             };
           } else return { ...old, subPlace: [...old.subPlace, place] };
         });

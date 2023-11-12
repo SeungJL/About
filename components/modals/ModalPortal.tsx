@@ -6,9 +6,10 @@ import { DispatchBoolean } from "../../types/reactTypes";
 interface IModalPortal {
   children?: React.ReactNode;
   setIsModal?: DispatchBoolean;
+  opacity?: 0.6 | 1;
 }
 
-function ModalPortal({ children, setIsModal }: IModalPortal) {
+function ModalPortal({ children, setIsModal, opacity }: IModalPortal) {
   const ref = useRef<Element | null>();
   const [mounted, setMounted] = useState(false);
 
@@ -27,7 +28,7 @@ function ModalPortal({ children, setIsModal }: IModalPortal) {
   if (ref.current && mounted) {
     return createPortal(
       <div className="modal-container">
-        <FullScreen onClick={closeModal} />
+        <FullScreen onClick={closeModal} opacity={opacity} />
         {children}
       </div>,
       ref.current

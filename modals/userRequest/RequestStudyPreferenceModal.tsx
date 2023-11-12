@@ -9,6 +9,8 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { STUDY_PREFERENCE } from "../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import {
@@ -30,6 +32,8 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
     subPlace: [],
   });
 
+  const resetQueryData = useResetQueryData();
+
   const { data: studyPreference } = useStudyPreferenceQuery();
 
   const userInfo = useRecoilValue(userInfoState);
@@ -50,10 +54,10 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
       subPlace: studyPreference?.subPlace,
     });
   }, [studyPreference]);
- 
 
   const { mutate: setStudyPreference } = useStudyPreferenceMutation({
     onSuccess() {
+      resetQueryData([STUDY_PREFERENCE]);
       completeToast("success");
       setIsModal(false);
     },

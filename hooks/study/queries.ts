@@ -5,6 +5,7 @@ import {
   STUDY_ARRIVED_CNT,
   STUDY_ATTEND_RECORD,
   STUDY_PLACE,
+  STUDY_PREFERENCE,
   STUDY_START_TIME,
   STUDY_VOTE,
 } from "../../constants/keys/queryKeys";
@@ -128,7 +129,7 @@ export const useStudyArrivedCntQuery = (
 
 export const useStudyPreferenceQuery = (options?: QueryOptions<IStudyPlaces>) =>
   useQuery(
-    "studyPreference",
+    [STUDY_PREFERENCE],
     async () => {
       const res = await axios.get<IStudyPreferencesQuery>(
         `${SERVER_URI}/user/preference`

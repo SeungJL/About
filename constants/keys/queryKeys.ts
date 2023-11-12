@@ -5,14 +5,14 @@ export const USER_INITIAL_INFO = "userInitialInfo";
 export const USER_REGISTER_FORM = "userRegisterForm";
 export const USER_POINT_SYSTEM = "userPointSystem";
 
-export const USER_ATTEND_RATE="userAttendRate"
+export const USER_ATTEND_RATE = "userAttendRate";
 
 export const STUDY_VOTE = "studyVote";
 export const STUDY_PLACE = "studyPlace";
 export const STUDY_START_TIME = "studyStartTime";
 export const STUDY_ATTEND_RECORD = "studyAttendRecord";
 export const STUDY_ARRIVED_CNT = "studyArrivedCnt";
-
+export const STUDY_PREFERENCE = "studyPreference";
 
 export const PLACE_FINDALL = "place_findall";
 export const USER_INFO = "user_info";
