@@ -81,7 +81,15 @@ function StudyVoteMap({ setIsModal }: IModal) {
       marker.setIcon({
         content: icon,
         size: new naver.maps.Size(25, 25),
+        anchor: new naver.maps.Point(12.5, 12.5),
       });
+      var contentString = [
+        '<div class="map_label" style="padding:4px; text-align:center;">',
+        "여기에 텍스트",
+        "</div>",
+      ].join("");
+      new naver.maps.OverlayView();
+
       if (main === place) {
         const findVote = voteData.participations.find(
           (par) => par.place._id === place._id
@@ -100,14 +108,13 @@ function StudyVoteMap({ setIsModal }: IModal) {
     if (subs && subs.length) {
       subs.forEach((place) => {
         const isTwo = twoDistanceSub.includes(place._id);
-
         const polyline = new naver.maps.Polyline({
           map: naverMap,
           path: [
             createNaverMapDot(main.latitude, main.longitude),
             createNaverMapDot(place.latitude, place.longitude),
           ],
-          strokeColor: isTwo ? "var(--color-red)" : "var(--color-mint)", // 여기에서 폴리라인의 색상을 지정합니다.
+          strokeColor: isTwo ? "var(--color-red)" : "var(--color-mint)",
           strokeOpacity: 0.8,
           strokeWeight: 3,
         });
@@ -157,7 +164,7 @@ const Layout = styled.div`
   transform: translate(-50%, -50%);
   width: 100%;
   max-width: 390px;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1.2;
 `;
 
 const Container = styled.div`

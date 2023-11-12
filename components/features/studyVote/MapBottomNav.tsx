@@ -120,7 +120,7 @@ const TimeModalLayout = styled(motion.div)`
   position: fixed;
   bottom: 0;
   width: 375px;
-  height: 420px;
+  height: 411.5px;
   border-top-left-radius: var(--border-radius-main);
   border-top-right-radius: var(--border-radius-main);
 
@@ -142,7 +142,7 @@ const Header = styled.header`
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--margin-max);
   > span:first-child {
     font-weight: 600;
     font-size: 15px;

@@ -21,7 +21,7 @@ import {
   DispatchType,
 } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
-type ReturnDot = "center" | "장안구" | "영통구" | "권선구";
+type ReturnDot = "center" | "동쪽" | "서쪽" | "남쪽" | "북쪽";
 
 interface IMapControlNav extends IPrecisionPopOver {
   naverMap: any;
@@ -40,7 +40,6 @@ function MapControlNav({
   const { data } = useStudyPreferenceQuery();
 
   const [preSet, setPreSet] = useState<"first" | "second">();
- 
 
   const onClickRetrun = (type: ReturnDot) => {
     setVoteInfo(null);
@@ -52,12 +51,12 @@ function MapControlNav({
     switch (type) {
       case "center":
         return createNaverMapDot(37.2789488, 127.0429329);
-      case "장안구":
-        return createNaverMapDot(37.2965, 126.999691);
-      case "권선구":
-        return createNaverMapDot(37.264836, 126.991827);
-      case "영통구":
-        return createNaverMapDot(37.254727, 127.064505);
+      case "서쪽":
+        return createNaverMapDot(37.278888, 126.991981);
+      case "북쪽":
+        return createNaverMapDot(37.287918, 127.027491);
+      case "동쪽":
+        return createNaverMapDot(37.268884, 127.058477);
     }
   };
 
@@ -68,7 +67,6 @@ function MapControlNav({
     }
     setIsCheckPreSet(true);
     if (preSet === type) {
-     
       setPreSet(null);
       return;
     }
@@ -91,28 +89,28 @@ function MapControlNav({
           size="sm"
           onClick={() => onClickRetrun("center")}
         >
-          가운데로
+          중앙
         </Button>
         <Button
           colorScheme="blackAlpha"
           size="sm"
-          onClick={() => onClickRetrun("장안구")}
+          onClick={() => onClickRetrun("서쪽")}
         >
-          장안구
+          서쪽
         </Button>
         <Button
           colorScheme="blackAlpha"
           size="sm"
-          onClick={() => onClickRetrun("영통구")}
+          onClick={() => onClickRetrun("동쪽")}
         >
-          영통구
+          동쪽
         </Button>
         <Button
           colorScheme="blackAlpha"
           size="sm"
-          onClick={() => onClickRetrun("권선구")}
+          onClick={() => onClickRetrun("북쪽")}
         >
-          권선구
+          북쪽
         </Button>
         <PrecisionPopOver precision={precision} setPrecision={setPrecision} />
       </TopNav>

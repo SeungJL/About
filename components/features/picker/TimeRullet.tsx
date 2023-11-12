@@ -34,7 +34,7 @@ function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
       if (findIdx > 20) findIdx = 16;
       setIndex(findIdx + 4);
       setEndTimeStartLimit(findIdx);
-      y.set(-(findIdx + 3) * ITEM_HEIGHT + 30);
+      y.set(-(findIdx + 3) * ITEM_HEIGHT + 28);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, isEndTime, timeArr]);
@@ -42,7 +42,7 @@ function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
   useEffect(() => {
     if (index === undefined) {
       setIndex(4);
-      y.set(-3 * ITEM_HEIGHT + 30);
+      y.set(-3 * ITEM_HEIGHT + 28);
       return;
     }
 
@@ -58,7 +58,7 @@ function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
   const handleDrag = () => {
     const Y = y.get();
 
-    let moveValue = -(Y + 30) / ITEM_HEIGHT;
+    let moveValue = -(Y + 28) / ITEM_HEIGHT;
 
     if (moveValue > 0) Math.ceil(moveValue);
     else if (moveValue < -500) Math.floor(moveValue);
@@ -114,7 +114,7 @@ function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
 }
 
 const Layout = styled.div`
-  height: 192.5px;
+  height: 188px;
   margin-top: var(--margin-md);
   width: 161px;
   border-radius: 13px;

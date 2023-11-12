@@ -31,8 +31,8 @@ function InitialSetting({
       createNaverMapDot(37.357058, 127.142965)
     );
     const map = new naver.maps.Map(mapRef.current, {
-      center: createNaverMapDot(37.2789488, 127.0429329),
-      zoom: 13,
+      center: createNaverMapDot(37.278992, 127.025727),
+      zoom: 12,
       minZoom: 12,
       maxBounds: maxBounds,
       mapTypeControl: false,
@@ -54,6 +54,7 @@ function InitialSetting({
         icon: {
           content: icon,
           size: new naver.maps.Size(25, 25),
+          anchor: new naver.maps.Point(12.5, 12.5),
         },
       });
 

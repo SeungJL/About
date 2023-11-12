@@ -70,13 +70,14 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  width: 100%;
+`;
 
 const TimeChoiceLayout = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: var(--margin-sub);
 `;
 
 const TimeWrapper = styled.div`

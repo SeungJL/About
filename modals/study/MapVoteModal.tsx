@@ -7,8 +7,7 @@ function MapVoteModal({ setIsModal }: IModal) {
   return (
     <Layout>
       <ModalPortal setIsModal={setIsModal} />
-      <PlaceVoteMap />
-      <Nav></Nav>
+      <PlaceVoteMap setIsModal={setIsModal} />
     </Layout>
   );
 }
@@ -22,7 +21,5 @@ const Layout = styled.div`
   transform: translate(-50%, -50%);
   z-index: 100;
 `;
-
-const Nav = styled.nav``;
 
 export default MapVoteModal;
