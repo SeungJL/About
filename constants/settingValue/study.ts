@@ -1,4 +1,3 @@
-import { createNaverMapDot } from "../../helpers/utilHelpers";
 import {
   ANYANG_숨맑은집,
   ANYANG_인뎃커피,
@@ -100,9 +99,6 @@ export const STUDY_VOTE_ICON = {
   </div>`,
 };
 
-export const STUDY_LOCATION_CENTER = {
-  수원: createNaverMapDot(37.278992, 127.025727),
-};
 //15 //25
 export const STUDY_DISTANCE = {
   수원: {

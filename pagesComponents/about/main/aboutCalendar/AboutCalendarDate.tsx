@@ -75,7 +75,7 @@ function AboutCalendarDate() {
               </DayItem>
             );
           })}
-          <Pick>PICK</Pick>
+          <Pick>Today</Pick>
         </AnimatePresence>
       </Layout>
     </>
@@ -89,11 +89,12 @@ const Layout = styled.div`
   font-weight: 600;
   display: flex;
   justify-content: space-between;
+  margin: 0 2px;
 `;
 
 const DayItem = styled(motion.div)<{ iscenter: "true" | "false" }>`
   padding: var(--padding-sub) var(--padding-min);
-  margin: ${(props) => props.iscenter === "true" && "0 23px"};
+  margin: ${(props) => props.iscenter === "true" && "0 24.3px"};
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -132,6 +133,8 @@ const Pick = styled.div`
   top: -48px;
   transform: translate(-50%, -50%);
   color: var(--color-mint);
+  font-weight: 400;
+  font-size: 13px;
 `;
 
 export default AboutCalendarDate;

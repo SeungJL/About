@@ -116,7 +116,8 @@ function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
 const Layout = styled.div`
   height: 188px;
   margin-top: var(--margin-md);
-  width: 161px;
+  width: 100%;
+
   border-radius: 13px;
   background-color: var(--font-h8);
   color: var(--font-h2);
@@ -152,6 +153,7 @@ const ChoiceBlock = styled.div<{ isDisabled?: boolean }>`
   font-size: 18px;
   font-weight: 600;
   background-color: var(--font-h8);
+
   color: ${(props) => (props.isDisabled ? "var(--font-h4)" : "var(--font-h1)")};
 `;
 

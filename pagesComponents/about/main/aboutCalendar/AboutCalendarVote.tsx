@@ -51,7 +51,7 @@ function AboutCalendarVote() {
     }
     if (studyDateStatus === "passed") {
       if (isAttend) return "attendComplete";
-      if (myStudy) return "absence";
+      if (myStudy?.status !== "free") return "absence";
       return "passed";
     }
   };
@@ -61,25 +61,25 @@ function AboutCalendarVote() {
   ): { text: string; color: string; shadow: string } => {
     if (type === "vote")
       return {
-        text: "투표",
+        text: "참여 신청",
         color: "mintTheme",
         shadow: "rgba(0, 194, 179, 0.4)",
       };
     if (type === "voteComplete")
       return {
-        text: "투표완료",
+        text: "투표 완료",
         color: "yellowTheme",
         shadow: "rgba(254, 188, 90, 0.4)",
       };
     if (type === "attend" || type === "attendPrivate")
       return {
-        text: "출석",
+        text: "출석 체크",
         color: "mintTheme",
         shadow: "rgba(0, 194, 179, 0.4)",
       };
     if (type === "attendComplete")
       return {
-        text: "출석완료",
+        text: "출석 완료",
         color: "yellowTheme",
         shadow: "rgba(254, 188, 90, 0.4)",
       };
@@ -91,7 +91,7 @@ function AboutCalendarVote() {
       };
     if (type === "passed")
       return {
-        text: "기간만료",
+        text: "기간 만료",
         color: "gray",
         shadow: "var(--font-h5)",
       };
@@ -111,9 +111,9 @@ function AboutCalendarVote() {
           position="relative"
           borderRadius="50%"
           zIndex="2"
-          w="72px"
+          w="76px"
+          h="76px"
           size="lg"
-          h="72px"
           onClick={() => onClickBtn(btnType)}
           colorScheme={btnStyle.color}
           color={btnStyle.color !== "gray" ? "white" : "var(--font-h3)"}

@@ -68,12 +68,6 @@ function AboutMain({ participations }: IAboutMain) {
         >
           <Main>
             <Container>
-              {privateStudy && studyDateStatus !== "not passed" && (
-                <AboutMainItem
-                  participation={privateStudy}
-                  isImagePriority={true}
-                />
-              )}
               {studies
                 .slice(0, privateStudy ? VISIBLE_CNT - 1 : VISIBLE_CNT)
                 .map((participation, idx) => (
@@ -83,7 +77,7 @@ function AboutMain({ participations }: IAboutMain) {
                     isImagePriority={idx < 2}
                   />
                 ))}
-              {privateStudy && studyDateStatus === "not passed" && (
+              {privateStudy && (
                 <AboutMainItem
                   participation={privateStudy}
                   isImagePriority={true}

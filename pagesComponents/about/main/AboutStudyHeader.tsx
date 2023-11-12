@@ -1,5 +1,3 @@
-import { faCheck } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -34,11 +32,6 @@ function AboutStudyHeader() {
               ? "카공 스터디"
               : "내 스터디 결과"}
           </span>
-          {isCheck && (
-            <Check>
-              <FontAwesomeIcon icon={faCheck} size="lg" />
-            </Check>
-          )}
         </Title>
         <LocationSelector />
       </Layout>

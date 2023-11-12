@@ -32,8 +32,7 @@ function AboutCalendarDays({ voteDate }: IAboutCalendarDays) {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  padding: 0 var(--padding-min);
+  margin: 0 2px;
   margin-top: var(--margin-max);
   display: flex;
   justify-content: space-between;
@@ -41,10 +40,11 @@ const Layout = styled.div`
   font-size: 13px;
 `;
 
-const Date = styled.span<{ isCenter: boolean }>`
-  margin: ${(props) => props.isCenter && "0 30px"};
+const Date = styled.div<{ isCenter: boolean }>`
+  text-align: center;
+  padding: 0 4px;
+  flex: 1;
+  margin: ${(props) => props.isCenter && "0 23.8px"};
 `;
-
-const Center = styled.span``;
 
 export default AboutCalendarDays;

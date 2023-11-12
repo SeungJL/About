@@ -56,6 +56,7 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
             }
           />
         </TimeWrapper>
+        <Spacer />
         <TimeWrapper>
           <span>종료 시간</span>
           <TimeRullet
@@ -81,11 +82,17 @@ const TimeChoiceLayout = styled.div`
 `;
 
 const TimeWrapper = styled.div`
+  flex: 1;
+
   > span {
     font-weight: 600;
     color: var(--font-h2);
     font-size: 13px;
   }
+`;
+
+const Spacer = styled.div`
+  width: var(--margin-main);
 `;
 
 export default StudyVoteSubModalTime;

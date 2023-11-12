@@ -123,7 +123,8 @@ const Layout = styled.div`
 const TimeModalLayout = styled(motion.div)`
   position: fixed;
   bottom: 0;
-  width: 375px;
+  width: 100vw;
+  max-width: var(--max-width);
   height: 411.5px;
   border-top-left-radius: var(--border-radius-main);
   border-top-right-radius: var(--border-radius-main);
