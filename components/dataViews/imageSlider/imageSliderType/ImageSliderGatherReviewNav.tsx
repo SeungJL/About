@@ -68,6 +68,7 @@ const GatherReviewNavItem = styled.div`
   flex-direction: column;
   width: 68px;
   align-items: center;
+
   > span {
     font-size: 10px;
     display: -webkit-box;

@@ -43,6 +43,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
       return;
     }
     if (voteInfo?.place) {
+      console.log(location);
       const subPlaceRecommedation = getStudySecondRecommendation(
         location,
         voteInfo.place._id,
@@ -63,6 +64,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
           subPlace.push(par.place);
         }
       });
+      console.log(2, subPlace);
       setVoteInfo((old) => ({ ...old, subPlace: subPlace }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,6 +128,8 @@ function StudyVoteMap({ setIsModal }: IModal) {
     }
   }, [markersRef, naverMap, twoDistanceSub, voteData, voteInfo]);
 
+  const getPoint = !voteInfo?.place ? 0 : 3 + voteInfo?.subPlace?.length;
+
   return (
     <>
       <InitialSetting
@@ -136,6 +140,9 @@ function StudyVoteMap({ setIsModal }: IModal) {
         markersRef={markersRef}
       />
       <Layout>
+        <Message>
+          신청 장소에 비례해서 포인트 획득! 현재: <u>+{getPoint} POINT</u>
+        </Message>
         <Container>
           <Map id="map" ref={mapRef} />
           <MapControlNav
@@ -159,22 +166,27 @@ function StudyVoteMap({ setIsModal }: IModal) {
 const Layout = styled.div`
   position: fixed;
   z-index: 20;
-  top: 50%;
+  top: 49%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   max-width: 390px;
-  aspect-ratio: 1/1.2;
 `;
 
 const Container = styled.div`
+  aspect-ratio: 1/1.2;
   position: relative;
-  width: 100%;
-  height: 100%;
 `;
 const Map = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const Message = styled.div`
+  font-size: 12px;
+  text-align: center;
+  color: var(--color-red);
+  margin: var(--margin-md) var(--margin-sub);
 `;
 
 export default StudyVoteMap;

@@ -51,7 +51,8 @@ export const GANGNAM_교대 = "652a5245db9e8e554deafd66";
 export const GANGNAM_양재 = "64ecc48d40f6dace3b06559e";
 export const GANGNAM_선릉 = "64ecc54240f6dace3b0655a0";
 export const GANGNAM_강남구청 = "64ecc4ef40f6dace3b06559f";
-export const GANGNAM_강남 = "64ecc58540f6dace3b0655a1";
+export const GANGNAM_강남 = "652a9e8adb9e8e554deafd68";
+export const GANGNAM_도곡 = "65522b7ed01680084c5c6a93";
 export const GANGNAM_자유신청 = "64ecc41640f6dace3b06559d";
 
 export const PLACE_TO_NAME = {
@@ -103,6 +104,7 @@ export const PLACE_TO_NAME = {
   [GANGNAM_교대]: "아펜즈커피",
   [GANGNAM_양재]: "미오커피",
   [GANGNAM_선릉]: "커피빈",
+  [GANGNAM_도곡]: "카페올로",
   [GANGNAM_자유신청]: "강남",
 };
 
@@ -150,6 +152,7 @@ export const PLACE_TO_LOCATION = {
   [GANGNAM_교대]: "강남",
   [GANGNAM_양재]: "강남",
   [GANGNAM_선릉]: "강남",
+  [GANGNAM_도곡]: "강남",
   [GANGNAM_자유신청]: "강남",
 };
 

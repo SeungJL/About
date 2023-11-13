@@ -7,10 +7,7 @@ import styled from "styled-components";
 import { LOCATION_RECRUITING } from "../../../../constants/location";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
-import {
-  studyDateStatusState,
-  voteDateState,
-} from "../../../../recoil/studyAtoms";
+import { voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { locationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/study/studyDetail";
@@ -29,7 +26,7 @@ function AboutMain({ participations }: IAboutMain) {
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const location = useRecoilValue(locationState);
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
+
   const setVoteDate = useSetRecoilState(voteDateState);
   const setTransferStudyData = useSetRecoilState(transferStudyDataState);
 
@@ -51,11 +48,11 @@ function AboutMain({ participations }: IAboutMain) {
       setVoteDate((old) => old.subtract(1, "day"));
   };
 
-  const privateStudy = participations.find(
+  const privateStudy = participations?.find(
     (par) => par?.place?.brand === "자유 신청"
   );
 
-  const studies = participations.filter((par) => par !== privateStudy);
+  const studies = participations?.filter((par) => par !== privateStudy);
 
   return (
     <AnimatePresence initial={false}>

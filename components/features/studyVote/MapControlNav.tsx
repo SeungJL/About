@@ -55,7 +55,6 @@ function MapControlNav({
       양천: {
         중앙: createNaverMapDot(37.527588, 126.896441),
         서쪽: createNaverMapDot(37.530588, 126.856441),
-
         동쪽: createNaverMapDot(37.517588, 126.906441),
       },
     };

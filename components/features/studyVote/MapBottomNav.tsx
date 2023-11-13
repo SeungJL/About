@@ -97,7 +97,7 @@ function MapBottomNav({ setIsModal, setVoteInfo, voteInfo }: IMapBottomNav) {
               mt="auto"
               onClick={onSubmit}
             >
-              완료
+              선택 완료
             </Button>
           </TimeModalLayout>
         </ModalPortal>

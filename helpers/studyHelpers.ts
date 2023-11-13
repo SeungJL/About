@@ -15,21 +15,7 @@ import {
 import { Location } from "../types/system";
 import { getCurrentDate, getCurrentHour } from "./dateHelpers";
 
-export const arrangeSpace = (participations: IParticipation[] | IPlace[]) => {
-  const arrangedSpaceArr = [];
 
-  participations.forEach((participant) => {
-    const ID =
-      (participant as IParticipation)?.place?._id ||
-      (participant as IPlace)?._id;
-
-    if (STUDY_SPACE_ORDER[ID] !== undefined) {
-      arrangedSpaceArr[STUDY_SPACE_ORDER[ID]] = participant;
-    }
-  });
-
-  return arrangedSpaceArr;
-};
 
 export const arrangeMainSpace = (
   participations: IParticipation[],
@@ -53,7 +39,6 @@ export const arrangeMainSpace = (
   return participations.sort((a, b) => {
     const aStatusPriority = getStatusPriority(a.status);
     const bStatusPriority = getStatusPriority(b.status);
-
     if (aStatusPriority !== bStatusPriority)
       return aStatusPriority - bStatusPriority;
 
@@ -92,13 +77,11 @@ export const getStudySecondRecommendation = (
 ) => {
   let placesAtDistance = new Set();
 
-  if (STUDY_DISTANCE[location][targetDistance]) {
-    STUDY_DISTANCE[location][targetDistance].forEach((pair) => {
-      if (pair[0] === startPlace) {
-        placesAtDistance.add(pair[1]);
-      } else if (pair[1] === startPlace) {
-        placesAtDistance.add(pair[0]);
-      }
+  const targets = STUDY_DISTANCE[location][targetDistance];
+  if (targets) {
+    targets.forEach((pair) => {
+      if (pair[0] === startPlace) placesAtDistance.add(pair[1]);
+      else if (pair[1] === startPlace) placesAtDistance.add(pair[0]);
     });
   }
 

@@ -50,8 +50,10 @@ function AboutCalendarVote() {
       else return "vote";
     }
     if (studyDateStatus === "passed") {
-      if (isAttend) return "attendComplete";
-      if (myStudy?.status !== "free") return "absence";
+      if (myStudy) {
+        if (isAttend) return "attendComplete";
+        if (myStudy?.status !== "free") return "absence";
+      }
       return "passed";
     }
   };

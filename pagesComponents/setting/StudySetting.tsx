@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { LOCATION_OPEN } from "../../constants/location";
-import { arrangeSpace } from "../../helpers/studyHelpers";
+import { arrangeMainSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/custom/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import {
@@ -10,6 +10,7 @@ import {
   useStudyStartTimeQuery,
   useStudyVoteQuery,
 } from "../../hooks/study/queries";
+import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import {
   participationsState,
   studyDateStatusState,
@@ -26,6 +27,7 @@ function StudySetting() {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const setStudyStartTimeArr = useSetRecoilState(studyStartTimeArrState);
   const setParticipations = useSetRecoilState(participationsState);
+  const setIsMainLoading = useSetRecoilState(isMainLoadingState);
 
   const { data: studyVoteData, refetch } = useStudyVoteQuery(
     voteDate,
@@ -54,9 +56,19 @@ function StudySetting() {
     if (participations[0].status === "pending" && studyDateStatus === "today") {
       decideSpace();
     }
-    setParticipations(arrangeSpace(participations));
+    const arrangedStudies = arrangeMainSpace(
+      [...participations],
+      studyDateStatus !== "not passed"
+    );
+    const filtered =
+      studyDateStatus !== "not passed" || !voteDate.isSame(dayjs(), "day")
+        ? arrangedStudies
+        : arrangedStudies.filter((par) => par.place.brand !== "자유 신청");
+    setParticipations(filtered);
+    setIsMainLoading(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [studyVoteData]);
+  }, [studyDateStatus, studyVoteData, voteDate]);
 
   useStudyStartTimeQuery(voteDate, {
     enabled: !!voteDate,
