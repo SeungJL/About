@@ -27,7 +27,7 @@ export const StudySpaceLogo = ({
     if (name === "이디야") W = 50;
     if (name === "카탈로그") W = 42;
     if (name === "칸나") W = 39;
-    if (name === "이디야") W = 55;
+    if (name === "이디야") W = 45;
     if (name === "투썸플레이스") W = 38;
     if (name === "커피빈") W = 42;
     if (name === "미오커피") W = 31;
@@ -42,6 +42,12 @@ export const StudySpaceLogo = ({
     if (name === "커피인더스트리") W = 43;
     if (name === "아펜즈커피") W = 40;
     if (name === "자유신청") W = 38;
+    if (name === "시나본") W = 42;
+    if (name === "코나빈스") W = 39;
+    if (name === "레어 그루브") W = 37;
+    if (place.branch === "신풍역") {
+      W = 38;
+    }
   }
   return (
     <Image

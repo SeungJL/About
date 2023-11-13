@@ -323,6 +323,34 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EB%AA%BD%EA%B8%80.webp",
   },
   {
+    id: YANG_양천구청역,
+    location: "서울 양천구 목동동로 77",
+    time: "08:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%96%91%EC%B2%9C%EA%B5%AC%EC%B2%AD%EC%97%AD_%EC%8B%9C%EB%82%98%EB%B3%B8.png",
+  },
+  {
+    id: YANG_신월동,
+    location: "서울 양천구 지양로 72",
+    time: "10:00 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%8B%A0%EC%9B%94%EB%8F%99_%EC%BD%94%EB%82%98%EB%B9%88%EC%8A%A4.png",
+  },
+  {
+    id: YANG_신길역,
+    location: "서울 영등포구 영등포로62길 2",
+    time: "09:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%8B%A0%EA%B8%B8%EC%97%AD_%EB%A0%88%EC%96%B4+%EA%B7%B8%EB%A3%A8%EB%B8%8C.png",
+  },
+  {
+    id: YANG_신풍역,
+    location: "서울 영등포구 신풍로 52-1",
+    time: "09:00 - 23:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%8B%A0%ED%92%8D%EC%97%AD_%EC%9D%B4%EB%94%94%EC%95%BC.png",
+  },
+  {
     id: YANG_자유신청,
     location: "",
     time: "",
@@ -356,6 +384,20 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     id: ANYANG_커피인더스트리,
     location: "경기 군포시 군포로 731",
     time: "09:00 - 24:00",
+  },
+  {
+    id: ANYANG_범계학원가,
+    location: "경기 안양시 동안구 귀인로 190번길 39",
+    time: "09:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EB%B2%94%EA%B3%84_%ED%95%99%EC%9B%90%EA%B0%80.png",
+  },
+  {
+    id: ANYANG_호계,
+    location: "경기 군포시 군포로 731",
+    time: "08:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EB%B2%94%EA%B3%84_%ED%98%B8%EA%B3%84.png",
   },
   {
     id: ANYANG_자유신청,
@@ -414,6 +456,13 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     time: "08:00 - 23:00",
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EB%AF%B8%EC%98%A4%EC%BB%A4%ED%94%BC.webp",
+  },
+  {
+    id: GANGNAM_도곡,
+    location: "서울 가안ㅁ구 남부순환로 2736 지앤지빌딩",
+    time: "08:00 - 22:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EB%8F%84%EA%B3%A1%EB%8F%99_%EC%B9%B4%ED%8E%98%EC%98%AC%EB%A1%9C.png",
   },
   {
     id: GANGNAM_자유신청,
