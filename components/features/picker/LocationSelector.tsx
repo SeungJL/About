@@ -30,27 +30,25 @@ function LocationSelector() {
 
   return (
     <Layout>
-      {!isMainLoading && (
-        <Select2 value={value} onChange={onChange}>
-          {LOCATION_USE_ALL.map((location) => (
-            <Option key={location} value={location}>
-              {LOCATION_CONVERT[location]}
-            </Option>
-          ))}
-        </Select2>
-      )}
+      <Select value={value} onChange={onChange}>
+        {LOCATION_USE_ALL.map((location) => (
+          <Option key={location} value={location}>
+            {LOCATION_CONVERT[location]} 지역
+          </Option>
+        ))}
+      </Select>
     </Layout>
   );
 }
 
-const Select2 = styled.select`
-  color: var(--font-h2);
+const Select = styled.select`
+  appearance: none;
+  color: var(--font-h3);
   font-weight: 600;
   font-size: 12px;
   background: inherit;
   text-align: end;
   border: none;
-  padding-right: var(--padding-min);
   :focus {
     outline: none;
   }
@@ -58,6 +56,8 @@ const Select2 = styled.select`
 
 const Option = styled.option``;
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  display: flex;
+`;
 
 export default LocationSelector;

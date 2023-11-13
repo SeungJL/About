@@ -56,6 +56,7 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
             }
           />
         </TimeWrapper>
+        <Spacer />
         <TimeWrapper>
           <span>종료 시간</span>
           <TimeRullet
@@ -70,20 +71,28 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  width: 100%;
+`;
+
 const TimeChoiceLayout = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: var(--margin-sub);
 `;
 
 const TimeWrapper = styled.div`
+  flex: 1;
+
   > span {
     font-weight: 600;
-    color: var(--font-h3);
+    color: var(--font-h2);
     font-size: 13px;
   }
+`;
+
+const Spacer = styled.div`
+  width: var(--margin-main);
 `;
 
 export default StudyVoteSubModalTime;

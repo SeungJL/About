@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FullScreen } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { DispatchBoolean } from "../../types/reactTypes";
 
-interface IModalPortal extends IModal {
-  children: React.ReactNode;
+interface IModalPortal {
+  children?: React.ReactNode;
+  setIsModal?: DispatchBoolean;
+  opacity?: 0.6 | 1;
 }
 
-function ModalPortal({ children, setIsModal }: IModalPortal) {
+function ModalPortal({ children, setIsModal, opacity }: IModalPortal) {
   const ref = useRef<Element | null>();
   const [mounted, setMounted] = useState(false);
 
   const closeModal = () => {
-    setIsModal(false);
+    if (setIsModal) setIsModal(false);
   };
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function ModalPortal({ children, setIsModal }: IModalPortal) {
   if (ref.current && mounted) {
     return createPortal(
       <div className="modal-container">
-        <FullScreen onClick={closeModal} />
+        <FullScreen onClick={closeModal} opacity={opacity} />
         {children}
       </div>,
       ref.current

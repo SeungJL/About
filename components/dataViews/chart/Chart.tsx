@@ -81,7 +81,7 @@ function Chart({ type, user }: IChart) {
       onError: errorToast,
     }
   );
-  console.log(userAttendRateAll);
+
   useEffect(() => {
     if (!userAttendRateAll) return;
     let rateTemp = [];

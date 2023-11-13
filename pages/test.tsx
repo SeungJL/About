@@ -1,40 +1,65 @@
-import { Button } from "@chakra-ui/react";
-import { faA, faB, faO, faT, faU } from "@fortawesome/pro-solid-svg-icons";
+import { faA, faB } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
 import styled from "styled-components";
-import { ModalLayout } from "../components/modals/Modals";
-import { TABLE_STRONG_COLORS } from "../constants/styles";
 
 function Test() {
-  // const { mutate, data } = useCollectionAlphabetMutation();
-  // const { data: data2 } = useCollectionAlphabetQuery();
-
-  // const onClick = () => {
-  //   mutate("T");
-  // };
+  const C = useRef();
+  const AA = () => <button>23</button>;
 
   return (
-    <ModalLayout size="xl" onClose={() => {}}>
-      <Layout>
-        <Button>클릭</Button>
-        <FontAwesomeIcon icon={faA} size="3x" color={TABLE_STRONG_COLORS[0]} />
-        <FontAwesomeIcon icon={faB} size="3x" color={TABLE_STRONG_COLORS[1]} />
-        <FontAwesomeIcon icon={faO} size="3x" color={TABLE_STRONG_COLORS[3]} />
-        <FontAwesomeIcon icon={faU} size="3x" color={TABLE_STRONG_COLORS[2]} />
-        <FontAwesomeIcon icon={faT} size="3x" color={TABLE_STRONG_COLORS[4]} />
-      </Layout>
-    </ModalLayout>
+    <Layout>
+      <A>
+        <FontAwesomeIcon icon={faA} color="white" size="2x" />
+      </A>
+      <B>
+        <FontAwesomeIcon icon={faB} color="white" size="2x" />
+      </B>
+
+      <D />
+    </Layout>
   );
 }
 
 const Layout = styled.div`
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+  margin-top: 200px;
+  margin-left: 50px;
   > * {
-    margin-right: 4px;
+    margin-right: 20px;
   }
+  display: flex;
+`;
+
+const A = styled.button`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(
+    to right,
+    rgba(3, 224, 154, 1),
+    rgba(1, 175, 237, 1)
+  );
+`;
+const B = styled.button`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(
+    to right,
+    rgba(3, 224, 154, 0.6),
+    rgba(1, 175, 237, 0.6)
+  );
+`;
+
+const D = styled.button`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(
+    to right,
+    rgba(3, 224, 154, 0.35),
+    rgba(1, 175, 237, 0.35)
+  );
 `;
 
 export default Test;

@@ -20,6 +20,12 @@ const theme = extendTheme({
     redTheme: {
       500: "#ff6b6b",
     },
+    yellowTheme: {
+      500: "#FEBC5A",
+    },
+    puppleTheme: {
+      500: "#9E7CFF",
+    },
   },
   fonts: {
     body: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,

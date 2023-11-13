@@ -5,6 +5,7 @@ import {
   STUDY_ARRIVED_CNT,
   STUDY_ATTEND_RECORD,
   STUDY_PLACE,
+  STUDY_PREFERENCE,
   STUDY_START_TIME,
   STUDY_VOTE,
 } from "../../constants/keys/queryKeys";
@@ -15,6 +16,7 @@ import { QueryOptions } from "../../types/reactTypes";
 
 import { IArrivedData, IStudyPlaces } from "../../types/study/study";
 import {
+  IParticipation,
   IPlace,
   IStudyPreferencesQuery,
   IStudyStartTime,
@@ -44,9 +46,9 @@ export const useStudyPlacesQuery = (
 export const useStudyVoteQuery = (
   date: Dayjs,
   location: Location,
-  options?: QueryOptions<IVote>
+  options?: QueryOptions<IParticipation[]>
 ) =>
-  useQuery<IVote, AxiosError, IVote>(
+  useQuery<IParticipation[], AxiosError, IParticipation[]>(
     [STUDY_VOTE, dayjsToStr(date), location],
     async () => {
       const res = await axios.get<IVote>(
@@ -56,7 +58,7 @@ export const useStudyVoteQuery = (
         }
       );
 
-      return res.data;
+      return res.data.participations;
     },
     options
   );
@@ -128,7 +130,7 @@ export const useStudyArrivedCntQuery = (
 
 export const useStudyPreferenceQuery = (options?: QueryOptions<IStudyPlaces>) =>
   useQuery(
-    "studyPreference",
+    [STUDY_PREFERENCE],
     async () => {
       const res = await axios.get<IStudyPreferencesQuery>(
         `${SERVER_URI}/user/preference`

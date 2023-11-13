@@ -7,10 +7,7 @@ import styled from "styled-components";
 import { LOCATION_RECRUITING } from "../../../../constants/location";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
-import {
-  studyDateStatusState,
-  voteDateState,
-} from "../../../../recoil/studyAtoms";
+import { voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { locationState } from "../../../../recoil/userAtoms";
 import { IParticipation } from "../../../../types/study/studyDetail";
@@ -29,7 +26,7 @@ function AboutMain({ participations }: IAboutMain) {
 
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const location = useRecoilValue(locationState);
-  const studyDateStatus = useRecoilValue(studyDateStatusState);
+
   const setVoteDate = useSetRecoilState(voteDateState);
   const setTransferStudyData = useSetRecoilState(transferStudyDataState);
 
@@ -51,11 +48,11 @@ function AboutMain({ participations }: IAboutMain) {
       setVoteDate((old) => old.subtract(1, "day"));
   };
 
-  const privateStudy = participations.find(
-    (par) => par.place.brand === "자유 신청"
+  const privateStudy = participations?.find(
+    (par) => par?.place?.brand === "자유 신청"
   );
 
-  const studies = participations.filter((par) => par !== privateStudy);
+  const studies = participations?.filter((par) => par !== privateStudy);
 
   return (
     <AnimatePresence initial={false}>
@@ -68,12 +65,6 @@ function AboutMain({ participations }: IAboutMain) {
         >
           <Main>
             <Container>
-              {privateStudy && studyDateStatus !== "not passed" && (
-                <AboutMainItem
-                  participation={privateStudy}
-                  isImagePriority={true}
-                />
-              )}
               {studies
                 .slice(0, privateStudy ? VISIBLE_CNT - 1 : VISIBLE_CNT)
                 .map((participation, idx) => (
@@ -83,7 +74,7 @@ function AboutMain({ participations }: IAboutMain) {
                     isImagePriority={idx < 2}
                   />
                 ))}
-              {privateStudy && studyDateStatus === "not passed" && (
+              {privateStudy && (
                 <AboutMainItem
                   participation={privateStudy}
                   isImagePriority={true}
@@ -106,7 +97,7 @@ function AboutMain({ participations }: IAboutMain) {
 
 const Layout = styled(motion.div)`
   position: relative;
-  margin-top: var(--margin-main);
+  margin-top: var(--margin-md);
   padding-bottom: var(--padding-main);
   min-height: 422px;
 `;

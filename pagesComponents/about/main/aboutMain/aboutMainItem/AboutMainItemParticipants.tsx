@@ -56,7 +56,12 @@ function AboutMainItemParticipants({
               <ProfileContainer key={idx} zIndex={idx}>
                 <ProfileIconXsOverwrap
                   user={att.user}
-                  isOverlap={idx === VOTER_SHOW_MAX - 1}
+                  isOverlap={
+                    idx ===
+                    (filteredAttendances.length > VOTER_SHOW_MAX
+                      ? VOTER_SHOW_MAX - 1
+                      : undefined)
+                  }
                   isImagePriority={isImagePriority}
                 />
               </ProfileContainer>

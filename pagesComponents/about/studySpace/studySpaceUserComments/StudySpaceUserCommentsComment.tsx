@@ -33,7 +33,7 @@ function StudySpaceUserCommentsComment({
     setUser(att);
     setIsChangeModal(true);
   };
-  console.log(memo);
+
   return (
     <>
       <Layout>

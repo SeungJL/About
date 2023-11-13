@@ -138,7 +138,6 @@ function StudyVoteSubModal({
           <StudyVoteSubModalPrivate setVoteInfo={setVoteInfo} />
         )}
       </Wrapper>
-
       <Button
         w="100%"
         colorScheme="mintTheme"
@@ -167,7 +166,7 @@ const Header = styled.header`
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--margin-max);
   > span:first-child {
     font-weight: 600;
     font-size: 15px;
@@ -184,8 +183,9 @@ const Header = styled.header`
 const Layout = styled(motion.div)`
   position: fixed;
   bottom: 0;
-  width: 375px;
-  height: 424px;
+  width: 100vw;
+  max-width: var(--max-width);
+  height: 411.5px;
   border-top-left-radius: var(--border-radius-main);
   border-top-right-radius: var(--border-radius-main);
 
@@ -203,20 +203,6 @@ const TopNav = styled.nav`
   border-radius: 4px;
   background-color: var(--font-h5);
   margin-bottom: var(--margin-max);
-`;
-
-const MainButton = styled.button`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color-mint);
-  color: white;
-  height: 48px;
-  border-radius: var(--border-radius-main);
-  font-weight: 600;
-  font-size: 16px;
-  margin-top: var(--margin-main);
 `;
 
 export default StudyVoteSubModal;

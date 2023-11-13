@@ -149,7 +149,7 @@ function StudySpaceNavigation({
   const isShowSubNav =
     (myVoting && studyDateStatus === "not passed") ||
     (studyDateStatus === "today" && myVote);
-  console.log(isPrivate);
+
   return (
     <Wrapper>
       <Layout>

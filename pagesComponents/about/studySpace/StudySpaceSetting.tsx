@@ -9,7 +9,7 @@ import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { voteDateState } from "../../../recoil/studyAtoms";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
-import { IParticipation, IVote } from "../../../types/study/studyDetail";
+import { IParticipation } from "../../../types/study/studyDetail";
 
 interface IStudySpaceSetting {
   participation: IParticipation;
@@ -33,16 +33,14 @@ function StudySpaceSetting({
   const placeId = router.query.placeId;
   const location = PLACE_TO_LOCATION[placeId as string];
 
-  const handleSuccess = (data: IVote) => {
+  const handleSuccess = (data: IParticipation[]) => {
     if (!participation) handleDate();
     handleStudy(data);
   };
 
   //스터디 세팅
-  const handleStudy = (data: IVote) => {
-    const findParticipation = data.participations.find(
-      (props) => props.place._id === placeId
-    );
+  const handleStudy = (data: IParticipation[]) => {
+    const findParticipation = data.find((props) => props.place._id === placeId);
 
     setParticipation(findParticipation);
     const isVoted = findParticipation.attendences.find(

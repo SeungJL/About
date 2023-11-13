@@ -15,11 +15,11 @@ export const requestServer = async <T, M = void>({
 }: IRequestParams<T, M>): Promise<M> => {
   switch (method) {
     case "post":
-      console.log(url, body);
+   
       const res = await axios.post<M>(`${SERVER_URI}/${url}`, body);
       return res.data;
     case "patch":
-      console.log(2, url, body);
+   
       return axios.patch(`${SERVER_URI}/${url}`, body);
     case "delete":
       return axios.delete(`${SERVER_URI}/${url}`, { data: body });

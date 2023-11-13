@@ -9,7 +9,8 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { LOCATION_PLACE_SMALL } from "../../constants/location";
+import { STUDY_PREFERENCE } from "../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import {
@@ -31,18 +32,20 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
     subPlace: [],
   });
 
+  const resetQueryData = useResetQueryData();
+
   const { data: studyPreference } = useStudyPreferenceQuery();
 
   const userInfo = useRecoilValue(userInfoState);
   const location = userInfo?.location;
-
-  const isBig = !LOCATION_PLACE_SMALL.includes(location);
 
   //같은 지역의 스터디 장소 호출
 
   const { data: studyPlaces } = useStudyPlacesQuery(location, {
     enabled: !!location,
   });
+  const size =
+    studyPlaces?.length > 8 ? "xxl" : studyPlaces?.length > 4 ? "xl" : "md";
 
   useEffect(() => {
     if (!studyPreference) return;
@@ -54,6 +57,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   const { mutate: setStudyPreference } = useStudyPreferenceMutation({
     onSuccess() {
+      resetQueryData([STUDY_PREFERENCE]);
       completeToast("success");
       setIsModal(false);
     },
@@ -73,12 +77,11 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size={isBig ? "xl" : "md"}>
+      <ModalLayout onClose={() => setIsModal(false)} size={size}>
         <ModalHeader text="스터디 선호 장소 설정" />
         <ModalBody>
           {page === 0 ? (
             <>
-              <Subtitle>1지망 선택</Subtitle>
               <PlaceSelector
                 places={studyPlaces}
                 votePlaces={votePlaces}
@@ -88,7 +91,6 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
             </>
           ) : (
             <>
-              <Subtitle>2지망 선택</Subtitle>
               <PlaceSelector
                 places={studyPlaces}
                 votePlaces={votePlaces}
