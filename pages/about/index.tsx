@@ -44,13 +44,12 @@ function About() {
       [...participations],
       studyDateStatus !== "not passed"
     );
-
+    console.log(4, arrangedOtherStudies);
     const filtered =
       studyDateStatus === "not passed" &&
       !voteDate.isSame(dayjs().add(1, "day").startOf("day"))
         ? arrangedOtherStudies.filter((par) => par.place.brand !== "자유 신청")
         : arrangedOtherStudies;
-
     setOtherStudies(filtered);
 
     setTimeout(() => {

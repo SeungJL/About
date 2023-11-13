@@ -63,86 +63,84 @@ function AdminStudyStatus() {
             <Section key={place}>
               <SectionHeader>{place}</SectionHeader>
               <Accordion defaultIndex={[0]} allowMultiple>
-                {(place === "SUWAN" ? SUWAN : YANG)?.participations.map(
-                  (place) => (
-                    <AccordionItem key={place.place._id}>
-                      <h2>
-                        <AccordionButton
-                          background="gray.200"
-                          borderBottom="1px solid lightGray"
+                {(place === "SUWAN" ? SUWAN : YANG).map((place) => (
+                  <AccordionItem key={place.place._id}>
+                    <h2>
+                      <AccordionButton
+                        background="gray.200"
+                        borderBottom="1px solid lightGray"
+                      >
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          fontWeight="600"
                         >
-                          <Box
-                            as="span"
-                            flex="1"
-                            textAlign="left"
-                            fontWeight="600"
-                          >
-                            {place.place.brand} / {place.attendences.length}명 /
-                            {place.status}
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>
-                        <SpaceItem>
-                          <div>
-                            <span style={{ fontSize: "15px" }}>
-                              상태: {place.status}
-                            </span>
-                            <Popover>
-                              <PopoverTrigger>
-                                <Button>Trigger</Button>
-                              </PopoverTrigger>
-                              <Portal>
-                                <PopoverContent>
-                                  <PopoverArrow />
-                                  <PopoverHeader>Header</PopoverHeader>
-                                  <PopoverCloseButton />
-                                  <PopoverBody>
-                                    <Button
-                                      size="sm"
-                                      ml="2"
-                                      onClick={() => handleStatus("open")}
-                                    >
-                                      open
-                                    </Button>
-                                    <Button
-                                      size="sm"
-                                      ml="2"
-                                      onClick={() => handleStatus("dismissed")}
-                                    >
-                                      dismissed
-                                    </Button>
-                                    <Button
-                                      size="sm"
-                                      ml="2"
-                                      onClick={() => handleStatus("pending")}
-                                    >
-                                      pending
-                                    </Button>
-                                  </PopoverBody>
-                                  <PopoverFooter>
-                                    This is the footer
-                                  </PopoverFooter>
-                                </PopoverContent>
-                              </Portal>
-                            </Popover>
-                          </div>
-                          <Participant>
-                            {place?.attendences.map((who, idx) => (
-                              <Att key={idx}>
-                                <span> {(who.user as IUser).name}</span>
-                                <Delete onClick={() => handleDeleteUser(who)}>
-                                  <FontAwesomeIcon icon={faDeleteLeft} />
-                                </Delete>
-                              </Att>
-                            ))}
-                          </Participant>
-                        </SpaceItem>
-                      </AccordionPanel>
-                    </AccordionItem>
-                  )
-                )}
+                          {place.place.brand} / {place.attendences.length}명 /
+                          {place.status}
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                      <SpaceItem>
+                        <div>
+                          <span style={{ fontSize: "15px" }}>
+                            상태: {place.status}
+                          </span>
+                          <Popover>
+                            <PopoverTrigger>
+                              <Button>Trigger</Button>
+                            </PopoverTrigger>
+                            <Portal>
+                              <PopoverContent>
+                                <PopoverArrow />
+                                <PopoverHeader>Header</PopoverHeader>
+                                <PopoverCloseButton />
+                                <PopoverBody>
+                                  <Button
+                                    size="sm"
+                                    ml="2"
+                                    onClick={() => handleStatus("open")}
+                                  >
+                                    open
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    ml="2"
+                                    onClick={() => handleStatus("dismissed")}
+                                  >
+                                    dismissed
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    ml="2"
+                                    onClick={() => handleStatus("pending")}
+                                  >
+                                    pending
+                                  </Button>
+                                </PopoverBody>
+                                <PopoverFooter>
+                                  This is the footer
+                                </PopoverFooter>
+                              </PopoverContent>
+                            </Portal>
+                          </Popover>
+                        </div>
+                        <Participant>
+                          {place?.attendences.map((who, idx) => (
+                            <Att key={idx}>
+                              <span> {(who.user as IUser).name}</span>
+                              <Delete onClick={() => handleDeleteUser(who)}>
+                                <FontAwesomeIcon icon={faDeleteLeft} />
+                              </Delete>
+                            </Att>
+                          ))}
+                        </Participant>
+                      </SpaceItem>
+                    </AccordionPanel>
+                  </AccordionItem>
+                ))}
               </Accordion>
             </Section>
           ))}

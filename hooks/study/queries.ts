@@ -16,6 +16,7 @@ import { QueryOptions } from "../../types/reactTypes";
 
 import { IArrivedData, IStudyPlaces } from "../../types/study/study";
 import {
+  IParticipation,
   IPlace,
   IStudyPreferencesQuery,
   IStudyStartTime,
@@ -45,9 +46,9 @@ export const useStudyPlacesQuery = (
 export const useStudyVoteQuery = (
   date: Dayjs,
   location: Location,
-  options?: QueryOptions<IVote>
+  options?: QueryOptions<IParticipation[]>
 ) =>
-  useQuery<IVote, AxiosError, IVote>(
+  useQuery<IParticipation[], AxiosError, IParticipation[]>(
     [STUDY_VOTE, dayjsToStr(date), location],
     async () => {
       const res = await axios.get<IVote>(
@@ -57,7 +58,7 @@ export const useStudyVoteQuery = (
         }
       );
 
-      return res.data;
+      return res.data.participations;
     },
     options
   );

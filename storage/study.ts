@@ -29,6 +29,10 @@ export const YANG_카페베네 = "64ba43a5efd3711264521a86";
 export const YANG_스타벅스 = "64bbc30787f8dc1a5210da6a";
 export const YANG_카페꼼마 = "650afdb79ea186d7d9b2a1b6";
 export const YANG_몽글 = "650afd559ea186d7d9b2a1b5";
+export const YANG_신풍역 = "6551d99dd01680084c5c6a92";
+export const YANG_신길역 = "6551d7cbd01680084c5c6a91";
+export const YANG_신월동 = "6551d5bdd01680084c5c6a90";
+export const YANG_양천구청역 = "6551d2b3d01680084c5c6a8f";
 export const YANG_자유신청 = "6437eb3fab537b843c6143ae";
 
 //안양
@@ -36,6 +40,8 @@ export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
 export const ANYANG_숨맑은집 = "6456ede120352b2d87582955";
 export const ANYANG_파스쿠찌 = "652a52a6db9e8e554deafd67";
 export const ANYANG_인뎃커피 = "6456ef8120352b2d8758295b";
+export const ANYANG_범계학원가 = "6551ba13d01680084c5c6a8c";
+export const ANYANG_호계 = "6551bdbfd01680084c5c6a8d";
 export const ANYANG_자유신청 = "6456eed520352b2d87582957";
 
 //강남
@@ -78,6 +84,11 @@ export const PLACE_TO_NAME = {
   [YANG_몽글]: "몽글",
   [YANG_카페꼼마]: "카페꼼마",
   [YANG_자유신청]: "자유신청",
+  [YANG_신풍역]: "이디야",
+  [YANG_신길역]: "레어 그루브",
+  [YANG_신월동]: "코나빈스",
+  [YANG_양천구청역]: "시나본",
+
   //안양
   [ANYANG_커피인더스트리]: "커피인더스트리",
   [ANYANG_숨맑은집]: "숨맑은집",
@@ -409,4 +420,3 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
   },
 ];
-

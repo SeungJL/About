@@ -11,17 +11,19 @@ import {
 import { faBullseyeArrow, faRotate } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { createNaverMapDot } from "../../../helpers/utilHelpers";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
+import { locationState } from "../../../recoil/userAtoms";
 import {
   DispatchBoolean,
   DispatchNumber,
   DispatchType,
 } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
-type ReturnDot = "center" | "동쪽" | "서쪽" | "남쪽" | "북쪽";
+type ReturnDot = "중앙" | "동쪽" | "서쪽" | "남쪽" | "북쪽";
 
 interface IMapControlNav extends IPrecisionPopOver {
   naverMap: any;
@@ -38,26 +40,29 @@ function MapControlNav({
 }: IMapControlNav) {
   const failToast = useFailToast();
   const { data } = useStudyPreferenceQuery();
-  console.log(data);
+
+  const location = useRecoilValue(locationState);
   const [preSet, setPreSet] = useState<"first" | "second">();
 
   const onClickRetrun = (type: ReturnDot) => {
-    setVoteInfo(null);
-    const returnDot = getReturnDot(type);
-    naverMap.setCenter(returnDot);
-  };
+    const LOCATION_RETURN_DOT = {
+      수원: {
+        중앙: createNaverMapDot(37.2789488, 127.0429329),
+        서쪽: createNaverMapDot(37.278888, 126.991981),
+        북쪽: createNaverMapDot(37.287918, 127.027491),
+        동쪽: createNaverMapDot(37.268884, 127.058477),
+      },
+      양천: {
+        중앙: createNaverMapDot(37.527588, 126.896441),
+        서쪽: createNaverMapDot(37.530588, 126.856441),
 
-  const getReturnDot = (type: ReturnDot) => {
-    switch (type) {
-      case "center":
-        return createNaverMapDot(37.2789488, 127.0429329);
-      case "서쪽":
-        return createNaverMapDot(37.278888, 126.991981);
-      case "북쪽":
-        return createNaverMapDot(37.287918, 127.027491);
-      case "동쪽":
-        return createNaverMapDot(37.268884, 127.058477);
-    }
+        동쪽: createNaverMapDot(37.517588, 126.906441),
+      },
+    };
+    setVoteInfo(null);
+    const returnDot = LOCATION_RETURN_DOT[location][type];
+
+    naverMap.setCenter(returnDot);
   };
 
   const onClickPreSet = (type: "first" | "second") => {
@@ -92,13 +97,13 @@ function MapControlNav({
   return (
     <Layout>
       <TopNav>
-        <ReturnBtn onClick={() => onClickRetrun("center")}>
+        <ReturnBtn onClick={() => onClickRetrun("중앙")}>
           <FontAwesomeIcon icon={faRotate} />
         </ReturnBtn>
         <Button
           colorScheme="blackAlpha"
           size="sm"
-          onClick={() => onClickRetrun("center")}
+          onClick={() => onClickRetrun("중앙")}
         >
           중앙
         </Button>
@@ -116,13 +121,15 @@ function MapControlNav({
         >
           동쪽
         </Button>
-        <Button
-          colorScheme="blackAlpha"
-          size="sm"
-          onClick={() => onClickRetrun("북쪽")}
-        >
-          북쪽
-        </Button>
+        {location !== "양천" && (
+          <Button
+            colorScheme="blackAlpha"
+            size="sm"
+            onClick={() => onClickRetrun("북쪽")}
+          >
+            북쪽
+          </Button>
+        )}
         <PrecisionPopOver precision={precision} setPrecision={setPrecision} />
       </TopNav>
       <BottomNav>

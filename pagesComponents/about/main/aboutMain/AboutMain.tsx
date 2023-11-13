@@ -52,7 +52,7 @@ function AboutMain({ participations }: IAboutMain) {
   };
 
   const privateStudy = participations.find(
-    (par) => par.place.brand === "자유 신청"
+    (par) => par?.place?.brand === "자유 신청"
   );
 
   const studies = participations.filter((par) => par !== privateStudy);

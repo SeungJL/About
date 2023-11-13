@@ -36,6 +36,7 @@ function StudySetting() {
     }
   );
 
+  console.log(5, studyVoteData);
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day"),
     {
@@ -49,7 +50,7 @@ function StudySetting() {
 
   useEffect(() => {
     if (!studyVoteData) return;
-    const participations = studyVoteData.participations;
+    const participations = studyVoteData;
     if (participations[0].status === "pending" && studyDateStatus === "today") {
       decideSpace();
     }

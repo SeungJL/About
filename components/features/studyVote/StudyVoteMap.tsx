@@ -58,7 +58,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
         setTwoDistanceSub(subPlaceTwo);
       }
       const subPlace = [];
-      voteData.participations.forEach((par) => {
+      voteData.forEach((par) => {
         if (subPlaceRecommedation.includes(par.place._id)) {
           subPlace.push(par.place);
         }
@@ -88,9 +88,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
         anchor: new naver.maps.Point(12.5, 12.5),
       });
       if (main === place) {
-        const findVote = voteData.participations.find(
-          (par) => par.place._id === place._id
-        );
+        const findVote = voteData.find((par) => par.place._id === place._id);
         const info = new naver.maps.InfoWindow({
           content: `<div style="font-size:12px;  padding:4px 6px"><span style="font-weight:600;">${place.brand}</span><br/><span>현재 신청 인원: ${findVote.attendences.length}명</span></div>`,
           borderWidth: 1,
@@ -126,13 +124,13 @@ function StudyVoteMap({ setIsModal }: IModal) {
     if (!main && infoRef?.current) {
       infoRef.current.close();
     }
-  }, [markersRef, naverMap, twoDistanceSub, voteData.participations, voteInfo]);
+  }, [markersRef, naverMap, twoDistanceSub, voteData, voteInfo]);
 
   return (
     <>
       <InitialSetting
         mapRef={mapRef}
-        places={voteData?.participations}
+        places={voteData}
         setVoteInfo={setVoteInfo}
         setNaverMap={setNaverMap}
         markersRef={markersRef}

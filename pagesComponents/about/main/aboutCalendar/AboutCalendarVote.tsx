@@ -139,6 +139,7 @@ function AboutCalendarVote() {
 const Layout = styled.div`
   border-radius: 50%;
   position: absolute;
+  z-index: 20;
   z-index: 4;
   left: 50%;
   transform: translate(-50%, -50%);

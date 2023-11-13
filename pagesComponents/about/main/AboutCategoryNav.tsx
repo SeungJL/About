@@ -140,12 +140,9 @@ const Button = styled.button`
   height: 50px;
   border-radius: 20px;
   background-color: white;
-
   margin-bottom: var(--margin-md);
   position: relative;
-
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
 `;
 
 export default AboutCategoryNav;

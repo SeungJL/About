@@ -7,9 +7,6 @@ import { DispatchType } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
 import { IParticipation, IPlace } from "../../../types/study/studyDetail";
 
-const STUDY_LOCATION_CENTER = {
-  수원: createNaverMapDot(37.278992, 127.025727),
-};
 interface IInitialSetting {
   mapRef: MutableRefObject<any>;
   markersRef: MutableRefObject<{ marker: any; place: IPlace }[]>;
@@ -31,16 +28,36 @@ function InitialSetting({
 
   //초기 세팅
   useEffect(() => {
+    const LOCATION_CENTER = {
+      수원: createNaverMapDot(37.278992, 127.025727),
+      안양: createNaverMapDot(37.388896, 126.950088),
+      양천: createNaverMapDot(37.527588, 126.896441),
+      강남: createNaverMapDot(37.503744, 127.048898),
+    };
+    const createBound = (
+      lat1: number,
+      lng1: number,
+      lat2: number,
+      lng2: number
+    ) =>
+      new naver.maps.LatLngBounds(
+        createNaverMapDot(lat1, lng1),
+        createNaverMapDot(lat2, lng2)
+      );
+
+    const MAX_BOUNDS = {
+      수원: createBound(37.22711, 126.955637, 37.357058, 127.142965),
+      안양: createBound(37.451075, 126.888074, 37.363247, 126.984474),
+      양천: createBound(37.553289, 126.819398, 37.482753, 126.941598),
+      강남: createBound(37.532565, 126.991213, 37.468873, 127.107285),
+    };
     if (!mapRef.current) return;
-    const maxBounds = new naver.maps.LatLngBounds(
-      createNaverMapDot(37.22711, 126.955637),
-      createNaverMapDot(37.357058, 127.142965)
-    );
+
     const map = new naver.maps.Map(mapRef.current, {
-      center: STUDY_LOCATION_CENTER[location],
+      center: LOCATION_CENTER[location],
       zoom: 13,
       minZoom: 12,
-      maxBounds: maxBounds,
+      maxBounds: MAX_BOUNDS[location],
       mapTypeControl: false,
       scaleControl: false,
       logoControl: false,
