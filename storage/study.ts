@@ -259,6 +259,11 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EB%A7%9D%ED%8F%AC%EC%97%AD_%EC%BB%A4%ED%94%BC%EB%B9%88.webp",
   },
+  {
+    id: SUWAN_광교중앙역,
+    location: "경기 수원시 영통구 센트럴타운로 85 라온존",
+    time: "09:00 - 22:30",
+  },
 
   {
     id: SUWAN_자유신청,
