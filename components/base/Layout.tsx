@@ -66,7 +66,7 @@ function Layout({ children }: ILayout) {
     router.asPath.startsWith(route)
   );
   const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
-  console.log(2, isGuest);
+
   //접속 권한 확인
   useUserInfoQuery({
     enabled: isCondition && userInitialInfo === null,

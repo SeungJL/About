@@ -7,13 +7,20 @@ import { useRouter } from "next/dist/client/router";
 
 const ITEM_HEIGHT = 34;
 interface ITimeRullet {
+  startTimeArr?: { hour: number; minutes: string }[];
   timeArr: { hour: number; minutes: string }[];
   setTime: (time: Dayjs) => void;
   startTime?: Dayjs;
   isEndTime?: boolean;
 }
 
-function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
+function TimeRullet({
+  startTimeArr,
+  timeArr,
+  startTime,
+  isEndTime,
+  setTime,
+}: ITimeRullet) {
   const router = useRouter();
   const voteDate = dayjs(router.query.date as string);
 
@@ -23,15 +30,15 @@ function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
 
   useEffect(() => {
     if (isEndTime && startTime && !isDragging.get()) {
-      let findIdx = timeArr.findIndex(
+      let findIdx = startTimeArr.findIndex(
         (item) =>
           item.hour === startTime.hour() &&
           (item.minutes === "00"
             ? startTime.minute() === 0
             : startTime.minute() === 30)
       );
-      if (findIdx < 4) findIdx = 0;
-      if (findIdx > 20) findIdx = 16;
+
+      if (findIdx > 16) findIdx = 16;
       setIndex(findIdx + 4);
       setEndTimeStartLimit(findIdx);
       y.set(-(findIdx + 3) * ITEM_HEIGHT + 28);
@@ -39,10 +46,11 @@ function TimeRullet({ timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, isEndTime, timeArr]);
 
+  if (isEndTime) console.log(index);
   useEffect(() => {
     if (index === undefined) {
-      setIndex(4);
-      y.set(-3 * ITEM_HEIGHT + 28);
+      setIndex(8);
+      y.set(-7 * ITEM_HEIGHT + 28);
       return;
     }
 
