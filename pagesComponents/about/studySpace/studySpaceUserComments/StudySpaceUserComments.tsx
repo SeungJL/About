@@ -1,3 +1,5 @@
+import { faBlockQuestion } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useSetRecoilState } from "recoil";
@@ -5,7 +7,11 @@ import styled from "styled-components";
 import ProfileIcon from "../../../../components/common/user/Profile/ProfileIcon";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
-import { IAbsence, IAttendance } from "../../../../types/study/studyDetail";
+import {
+  IAbsence,
+  IAttendance,
+  StudyStatus,
+} from "../../../../types/study/studyDetail";
 import { IUser } from "../../../../types/user/user";
 import StudySpaceUserCommentsCheck from "./StudySpaceUserCommentsCheck";
 import StudySpaceUserCommentsComment from "./StudySpaceUserCommentsComment";
@@ -14,12 +20,14 @@ interface IStudySpaceUserComments {
   attendances: IAttendance[];
   isPrivate: boolean;
   absences: IAbsence[];
+  status: StudyStatus;
 }
 
 function StudySpaceUserComments({
   attendances,
   isPrivate,
   absences,
+  status,
 }: IStudySpaceUserComments) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -30,10 +38,12 @@ function StudySpaceUserComments({
   const isAttend = attendances.find((who) => who.user.uid === session?.uid);
 
   const onClickUser = (user: IUser) => {
+    if (status !== "open") return;
     setTransferUserData(user);
     setBeforePage(router.asPath);
     router.push(`/profile/${user.uid}}`);
   };
+  console.log(2, status);
 
   return (
     <>
@@ -47,12 +57,17 @@ function StudySpaceUserComments({
             <Wrapper key={idx} isPrivate={isPrivate}>
               <Block>
                 <ProfileIconWrapper onClick={() => onClickUser(user)}>
-                  <ProfileIcon user={user} size="md" />
+                  {status === "open" ? (
+                    <ProfileIcon user={user} size="md" />
+                  ) : (
+                    <FontAwesomeIcon icon={faBlockQuestion} size="3x" />
+                  )}
                 </ProfileIconWrapper>
                 <BlockInfo>
                   <Info>
                     <StudySpaceUserCommentsName
                       name={user.name}
+                      status={status}
                       uid={user.uid}
                       isArrivedCondition={
                         !!(isAttend?.memo !== undefined && memo)

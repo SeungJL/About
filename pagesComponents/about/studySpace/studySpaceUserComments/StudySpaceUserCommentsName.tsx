@@ -2,16 +2,19 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import HeartLikeIcon from "../../../../components/common/Icon/HeartLikeIcon";
+import { StudyStatus } from "../../../../types/study/studyDetail";
 interface IStudySpaceUserCommentsName {
   name: string;
   isArrivedCondition: boolean;
   uid: string;
+  status: StudyStatus;
 }
 
 function StudySpaceUserCommentsName({
   uid,
   name,
   isArrivedCondition,
+  status,
 }: IStudySpaceUserCommentsName) {
   const { data: session } = useSession();
 
@@ -25,7 +28,7 @@ function StudySpaceUserCommentsName({
 
   return (
     <Layout>
-      <span>{name}</span>
+      <span>{status === "open" ? name : "비공개"}</span>
       {isHeart && <HeartLikeIcon toUid={uid} />}
     </Layout>
   );

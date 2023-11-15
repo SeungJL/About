@@ -1,19 +1,20 @@
 import styled from "styled-components";
-import { IAttendance } from "../../../types/study/studyDetail";
+import { IAttendance, StudyStatus } from "../../../types/study/studyDetail";
 import TimeTable from "./studySpaceTable/TimeTable";
 import UserTable from "./studySpaceTable/UserTable";
 
 interface IStudyTimeTable {
   attendances: IAttendance[];
+  status: StudyStatus;
 }
 
-function StudyTimeTable({ attendances }: IStudyTimeTable) {
+function StudyTimeTable({ attendances, status }: IStudyTimeTable) {
   const attendCnt = attendances.length;
 
   return (
     <>
       <Table cnt={attendCnt}>
-        <UserTable attendances={attendances} />
+        <UserTable attendances={attendances} status={status} />
         <TimeTable />
       </Table>
     </>

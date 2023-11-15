@@ -43,7 +43,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
       return;
     }
     if (voteInfo?.place) {
-      console.log(location);
+    
       const subPlaceRecommedation = getStudySecondRecommendation(
         location,
         voteInfo.place._id,
@@ -64,7 +64,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
           subPlace.push(par.place);
         }
       });
-      console.log(2, subPlace);
+      
       setVoteInfo((old) => ({ ...old, subPlace: subPlace }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

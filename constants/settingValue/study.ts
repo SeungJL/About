@@ -187,7 +187,6 @@ export const STUDY_DISTANCE = {
     1: [
       [YANG_신월동, YANG_파스쿠찌],
       [YANG_파스쿠찌, YANG_양천구청역],
-
       [YANG_파스쿠찌, YANG_이디야],
       [YANG_파스쿠찌, YANG_스타벅스],
       [YANG_양천구청역, YANG_이디야],

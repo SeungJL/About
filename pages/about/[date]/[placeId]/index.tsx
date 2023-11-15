@@ -66,8 +66,11 @@ function StudySpace() {
               status={status}
               isPrivate={isPrivate}
             />
-            {!isPrivate && <StudyTimeTable attendances={filtered} />}
+            {!isPrivate && (
+              <StudyTimeTable status={status} attendances={filtered} />
+            )}
             <StudySpaceUserComments
+              status={status}
               attendances={filtered}
               absences={absences}
               isPrivate={isPrivate}

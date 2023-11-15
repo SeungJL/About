@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { TABLE_COLORS } from "../../../../constants/styles";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
-import { IAttendance } from "../../../../types/study/studyDetail";
+import { IAttendance, StudyStatus } from "../../../../types/study/studyDetail";
 
 const BLOCK_WIDTH = 26;
 
@@ -19,9 +19,10 @@ interface IUserItemArr {
 
 interface IUserTable {
   attendances: IAttendance[];
+  status: StudyStatus;
 }
 
-function UserTable({ attendances }: IUserTable) {
+function UserTable({ attendances, status }: IUserTable) {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const [userArr, setUserArr] = useState<IUserItemArr[]>([]);
@@ -57,7 +58,7 @@ function UserTable({ attendances }: IUserTable) {
             gap={user.gap}
             color={TABLE_COLORS[idx]}
           >
-            <Name>{user.name}</Name>
+            <Name>{status === "open" ? user.name : "비공개"}</Name>
             <Time isSecond={user?.isSecond}>
               {user.start}~{user.end}
             </Time>

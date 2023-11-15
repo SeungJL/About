@@ -1,3 +1,5 @@
+import { faBlockQuestion } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../../components/common/user/Profile/ProfileIconXsOverwrap";
@@ -54,16 +56,20 @@ function AboutMainItemParticipants({
           (att, idx) =>
             idx < VOTER_SHOW_MAX && (
               <ProfileContainer key={idx} zIndex={idx}>
-                <ProfileIconXsOverwrap
-                  user={att.user}
-                  isOverlap={
-                    idx ===
-                    (filteredAttendances.length > VOTER_SHOW_MAX
-                      ? VOTER_SHOW_MAX - 1
-                      : undefined)
-                  }
-                  isImagePriority={isImagePriority}
-                />
+                {status === "open" ? (
+                  <ProfileIconXsOverwrap
+                    user={att.user}
+                    isOverlap={
+                      idx ===
+                      (filteredAttendances.length > VOTER_SHOW_MAX
+                        ? VOTER_SHOW_MAX - 1
+                        : undefined)
+                    }
+                    isImagePriority={isImagePriority}
+                  />
+                ) : (
+                  <FontAwesomeIcon icon={faBlockQuestion} size="xl" />
+                )}
               </ProfileContainer>
             )
         )}
@@ -134,7 +140,7 @@ const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
   margin-left: var(--margin-md);
-  margin-bottom: var(--margin-min);
+  /* margin-bottom: var(--margin-min); */
   > span {
     margin-left: 2px;
     font-weight: 400;

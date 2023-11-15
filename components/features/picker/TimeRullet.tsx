@@ -46,7 +46,6 @@ function TimeRullet({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, isEndTime, timeArr]);
 
-  if (isEndTime) console.log(index);
   useEffect(() => {
     if (index === undefined) {
       setIndex(8);
