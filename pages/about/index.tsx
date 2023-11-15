@@ -18,7 +18,6 @@ import { participationsState, voteDateState } from "../../recoil/studyAtoms";
 function About() {
   const voteDate = useRecoilValue(voteDateState);
   const participations = useRecoilValue(participationsState);
-
   return (
     <>
       <Setting>

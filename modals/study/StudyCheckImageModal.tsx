@@ -64,7 +64,6 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
     reader.onloadend = () => {
       setImageSrc(reader.result);
     };
-
     reader.readAsDataURL(file);
   };
 

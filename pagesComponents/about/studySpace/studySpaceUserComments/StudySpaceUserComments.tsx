@@ -36,14 +36,15 @@ function StudySpaceUserComments({
   const setTransferUserData = useSetRecoilState(transferUserDataState);
 
   const isAttend = attendances.find((who) => who.user.uid === session?.uid);
+  const hasPublicAccess =
+    status === "open" || (status !== "pending" && !!isAttend);
 
   const onClickUser = (user: IUser) => {
-    if (status !== "open") return;
+    if (hasPublicAccess) return;
     setTransferUserData(user);
     setBeforePage(router.asPath);
     router.push(`/profile/${user.uid}}`);
   };
-  console.log(2, status);
 
   return (
     <>
@@ -52,12 +53,11 @@ function StudySpaceUserComments({
           const user = att.user;
           const isAbsent = absences?.find((who) => who.user.uid === user.uid);
           const memo = att.memo === "" ? "출석" : att.memo;
-
           return (
             <Wrapper key={idx} isPrivate={isPrivate}>
               <Block>
                 <ProfileIconWrapper onClick={() => onClickUser(user)}>
-                  {status === "open" ? (
+                  {hasPublicAccess ? (
                     <ProfileIcon user={user} size="md" />
                   ) : (
                     <FontAwesomeIcon icon={faBlockQuestion} size="3x" />
@@ -67,8 +67,8 @@ function StudySpaceUserComments({
                   <Info>
                     <StudySpaceUserCommentsName
                       name={user.name}
-                      status={status}
                       uid={user.uid}
+                      hasPublicAccess={hasPublicAccess}
                       isArrivedCondition={
                         !!(isAttend?.memo !== undefined && memo)
                       }
