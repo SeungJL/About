@@ -40,7 +40,8 @@ function StudySpaceUserComments({
     status === "open" || (status !== "pending" && !!isAttend);
 
   const onClickUser = (user: IUser) => {
-    if (hasPublicAccess) return;
+  
+    if (!hasPublicAccess) return;
     setTransferUserData(user);
     setBeforePage(router.asPath);
     router.push(`/profile/${user.uid}}`);
