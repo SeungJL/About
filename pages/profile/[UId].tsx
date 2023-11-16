@@ -1,9 +1,11 @@
 import { faEllipsisVertical } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
+import { useUidToUserInfoQuery } from "../../hooks/user/queries";
 import BottomDrawer from "../../pagesComponents/profile/BottomDrawer";
 import DeclareDrawer from "../../pagesComponents/profile/DeclareDrawer";
 import DetailInfo from "../../pagesComponents/profile/DetailInfo";
@@ -13,11 +15,17 @@ import { transferUserDataState } from "../../recoil/transferDataAtoms";
 import { DeclareRequest } from "../../types/user/userRequest";
 
 function ProfilePage() {
+  const router = useRouter();
   const userData = useRecoilValue(transferUserDataState);
   const beforePage = useRecoilValue(prevPageUrlState);
 
+  const uid = router.query.uid;
   const [isModal, setIsModal] = useState(false);
   const [declareModal, setDeclareModal] = useState<DeclareRequest>();
+
+  const { data: userInfo } = useUidToUserInfoQuery(uid as string, {
+    enabled: uid && !userData,
+  });
 
   return (
     <>
@@ -30,9 +38,9 @@ function ProfilePage() {
           />
         </Header>
         <Layout>
-          <ProfileOverview user={userData} />
+          <ProfileOverview user={userData || userInfo} />
           <HrDiv />
-          <DetailInfo user={userData} />
+          <DetailInfo user={userData || userInfo} />
         </Layout>
       </Container>
       <BottomDrawer
@@ -41,7 +49,7 @@ function ProfilePage() {
         setDeclareModal={setDeclareModal}
       />
       <DeclareDrawer
-        userData={userData}
+        userData={userData || userInfo}
         declareModal={declareModal}
         setDeclareModal={setDeclareModal}
       />

@@ -1,6 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { useUserInfoQuery } from "../../hooks/user/queries";
 import { IUser } from "../../types/user/user";
 import ProfileInfo from "./profileOverview/ProfileInfo";
 
@@ -12,19 +10,11 @@ interface IProfileOverview {
 }
 
 function ProfileOverview({ user }: IProfileOverview) {
-  const [userData, setUserData] = useState<IUser>(user);
-
-  useUserInfoQuery({
-    onSuccess(data) {
-      if (!userData) setUserData(data);
-    },
-  });
-
   return (
     <Layout>
-      {userData ? (
+      {user ? (
         <>
-          <ProfileInfo user={userData} />
+          <ProfileInfo user={user} />
           <ProfileRelation user={user} />
         </>
       ) : (

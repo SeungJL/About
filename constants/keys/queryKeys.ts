@@ -5,7 +5,11 @@ export const USER_INITIAL_INFO = "userInitialInfo";
 export const USER_REGISTER_FORM = "userRegisterForm";
 export const USER_POINT_SYSTEM = "userPointSystem";
 
+export const UID_TO_USER = "uidToUser";
+
 export const USER_ATTEND_RATE = "userAttendRate";
+
+export const NOTICE_ACTIVE_LOG = "noticeActiveLog";
 
 export const STUDY_VOTE = "studyVote";
 export const STUDY_PLACE = "studyPlace";

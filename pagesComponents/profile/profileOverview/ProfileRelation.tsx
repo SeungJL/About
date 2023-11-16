@@ -1,11 +1,21 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modals/ModalPortal";
-import { useFailToast } from "../../../hooks/custom/CustomToast";
+import {
+  useCompleteToast,
+  useFailToast,
+} from "../../../hooks/custom/CustomToast";
+import {
+  useUserFriendMutation,
+  useUserFriendRequestMutation,
+} from "../../../hooks/user/mutations";
+import ConfirmModal, {
+  IConfirmContent,
+} from "../../../modals/common/ConfirmModal";
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
-import NotCompletedModal from "../../../modals/system/NotCompletedModal";
+import { isGuestState } from "../../../recoil/userAtoms";
 import { IUser } from "../../../types/user/user";
 
 interface IProfileRelation {
@@ -14,19 +24,57 @@ interface IProfileRelation {
 
 function ProfileRelation({ user }: IProfileRelation) {
   const failGuestToast = useFailToast();
-
+  const completeToast = useCompleteToast();
   const { data: session } = useSession();
-  const [isFriend, setIsFriend] = useState(false);
-  const [isProfileCard, setIsProfileCard] = useState(false);
-  const isGuest = session?.user.name === "guest";
+
+  const isGuest = useRecoilValue(isGuestState);
+  const [modalType, setModalType] = useState<
+    "requestFriend" | "cancelFriend" | "isMyProfile"
+  >();
+  const [isMyFriend, setIsMyFriend] = useState(false);
+
+  const { mutate: requestFriend } = useUserFriendRequestMutation("post", {
+    onSuccess() {
+      completeToast("free", "친구 요청이 전송되었습니다.");
+      setModalType(null);
+    },
+  });
+
+  const { mutate: deleteFriend } = useUserFriendMutation("delete", {
+    onSuccess() {
+      completeToast("free", "친구 목록에서 삭제되었습니다.");
+      setIsMyFriend(false);
+      setModalType(null);
+    },
+  });
+
+  useEffect(() => {
+    if (user?.friend?.some((who) => who === session?.uid)) {
+      setIsMyFriend(true);
+    }
+  }, [session?.uid, user?.friend]);
+
   const onClickCard = () => {
     if (isGuest) {
       failGuestToast("guest");
       return;
     }
-    setIsProfileCard(true);
+    setModalType("isMyProfile");
   };
 
+  const requestFriendConrirm: IConfirmContent = {
+    title: "친구 요청을 보내시겠어요?",
+    onClickRight: () =>
+      requestFriend({
+        toUid: user?.uid,
+        message: `${session?.user?.name}님으로부터의 친구추가 요청`,
+      }),
+  };
+  const cancelFriendConrirm: IConfirmContent = {
+    title: "친구 목록에서 삭제하시겠어요?",
+    onClickRight: () => deleteFriend(user.uid),
+  };
+  console.log(2, isMyFriend);
   return (
     <>
       <Layout>
@@ -45,29 +93,46 @@ function ProfileRelation({ user }: IProfileRelation) {
           </RelationItem>
         </div>
         {user && user?.uid !== session?.uid ? (
-          <Button
-            backgroundColor="var(--color-mint)"
-            color="white"
-            size="sm"
-            onClick={() => setIsFriend(true)}
-          >
-            친구신청
-          </Button>
+          !isMyFriend ? (
+            <Button
+              backgroundColor="var(--color-mint)"
+              color="white"
+              size="sm"
+              onClick={() => setModalType("requestFriend")}
+            >
+              친구 신청
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              color="var(--color-mint)"
+              borderColor="var(--color-mint)"
+              size="sm"
+              onClick={() => setModalType("cancelFriend")}
+            >
+              친구 취소
+            </Button>
+          )
         ) : (
           <Button onClick={onClickCard} size="sm">
             내 프로필 카드
           </Button>
         )}
       </Layout>
-      {isProfileCard && (
-        <ModalPortal setIsModal={setIsProfileCard}>
-          <ProfileCardModal setIsModal={setIsProfileCard} />
-        </ModalPortal>
+      {modalType === "isMyProfile" && (
+        <ProfileCardModal setIsModal={() => setModalType(null)} />
       )}
-      {isFriend && (
-        <ModalPortal setIsModal={setIsFriend}>
-          <NotCompletedModal setIsModal={setIsFriend} />
-        </ModalPortal>
+      {modalType === "requestFriend" && (
+        <ConfirmModal
+          setIsModal={() => setModalType(null)}
+          content={requestFriendConrirm}
+        />
+      )}
+      {modalType === "cancelFriend" && (
+        <ConfirmModal
+          setIsModal={() => setModalType(null)}
+          content={cancelFriendConrirm}
+        />
       )}
     </>
   );

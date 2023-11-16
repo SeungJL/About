@@ -11,11 +11,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   DAILY_CHECK_POP_UP,
-  LIKE_HEART_CNT,
+  NOTICE_ACTIVE_CNT,
   NOTICE_ALERT,
 } from "../../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../../helpers/dateHelpers";
-import { useInteractionLikeQuery } from "../../../../hooks/user/sub/interaction/queries";
+import { useNoticeActiveLogQuery } from "../../../../hooks/user/sub/interaction/queries";
 import { NOTICE_ARR } from "../../../../storage/notice";
 import { AlertIcon } from "../../../../styles/icons";
 import { AboutHeaderIconType } from "./AboutHeader";
@@ -28,10 +28,11 @@ interface IAboutHeaderIcons {
 function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
   const [isNoticeAlert, setIsNoticeAlert] = useState(false);
 
-  useInteractionLikeQuery({
+  useNoticeActiveLogQuery({
     onSuccess(data) {
-      const likeCnt = localStorage.getItem(LIKE_HEART_CNT);
-      if (+likeCnt !== data?.length) setIsNoticeAlert(true);
+      const activeCnt = localStorage.getItem(NOTICE_ACTIVE_CNT);
+      if (+activeCnt !== data?.length) setIsNoticeAlert(true);
+      console.log(2, activeCnt, data?.length);
     },
   });
 

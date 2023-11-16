@@ -2,11 +2,12 @@ import { faBlockQuestion } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../../components/common/user/Profile/ProfileIcon";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
+import { userInfoState } from "../../../../recoil/userAtoms";
 import {
   IAbsence,
   IAttendance,
@@ -32,21 +33,22 @@ function StudySpaceUserComments({
   const router = useRouter();
   const { data: session } = useSession();
 
+  const userInfo = useRecoilValue(userInfoState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const setTransferUserData = useSetRecoilState(transferUserDataState);
 
+  const myFriendList = userInfo?.friend;
   const isAttend = attendances.find((who) => who.user.uid === session?.uid);
   const hasPublicAccess =
     status === "open" || (status !== "pending" && !!isAttend);
 
-  const onClickUser = (user: IUser) => {
-  
-    if (!hasPublicAccess) return;
+  const onClickUser = (user: IUser, isFunc) => {
+    if (!isFunc) return;
     setTransferUserData(user);
     setBeforePage(router.asPath);
     router.push(`/profile/${user.uid}}`);
   };
-
+  console.log(myFriendList);
   return (
     <>
       <Layout key={router.asPath}>
@@ -54,11 +56,18 @@ function StudySpaceUserComments({
           const user = att.user;
           const isAbsent = absences?.find((who) => who.user.uid === user.uid);
           const memo = att.memo === "" ? "출석" : att.memo;
+          const isOpenProfile =
+            hasPublicAccess ||
+            user.uid === userInfo?.uid ||
+            myFriendList?.includes(user.uid);
+
           return (
             <Wrapper key={idx} isPrivate={isPrivate}>
               <Block>
-                <ProfileIconWrapper onClick={() => onClickUser(user)}>
-                  {hasPublicAccess ? (
+                <ProfileIconWrapper
+                  onClick={() => onClickUser(user, isOpenProfile)}
+                >
+                  {isOpenProfile ? (
                     <ProfileIcon user={user} size="md" />
                   ) : (
                     <FontAwesomeIcon icon={faBlockQuestion} size="3x" />
@@ -69,7 +78,7 @@ function StudySpaceUserComments({
                     <StudySpaceUserCommentsName
                       name={user.name}
                       uid={user.uid}
-                      hasPublicAccess={hasPublicAccess}
+                      hasPublicAccess={isOpenProfile}
                       isArrivedCondition={
                         !!(isAttend?.memo !== undefined && memo)
                       }

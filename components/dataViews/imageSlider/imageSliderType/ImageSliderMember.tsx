@@ -22,7 +22,7 @@ function ImageSliderMember({ imageContainer }: IImageSliderMember) {
 
   const onClickUser = (user: IUser) => {
     setUserData(user);
-    router.push(`/profile/${user.uid}}`);
+    router.push(`/profile/${user.uid}`);
     setBeforePage(router?.asPath);
   };
 

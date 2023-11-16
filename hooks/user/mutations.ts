@@ -3,7 +3,6 @@ import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { requestServer } from "../../helpers/methodHelpers";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
-import { IInteractionSendLike } from "../../types/interaction";
 import { MutationOptions } from "../../types/reactTypes";
 import { IPointSystem } from "../../types/user/pointSystem";
 import {
@@ -12,7 +11,6 @@ import {
   IUserRegisterFormWriting,
   Role,
 } from "../../types/user/user";
-import { IUserRequest } from "../../types/user/userRequest";
 
 export const useUserRegisterMutation = (
   options?: MutationOptions<IUserRegisterFormWriting>
@@ -99,12 +97,50 @@ export const useAboutPointMutation = (
     ]);
   }, options);
 
-
-
-
 export const useUserUpdateProfileImageMutation = (
   options?: MutationOptions<void>
 ) =>
   useMutation<void, AxiosError, void>(async () => {
     await axios.patch("/api/user/profile");
   }, options);
+
+interface IPostUserFriendRequest {
+  toUid: string;
+  message: string;
+}
+interface IPatchUserFriendRequest {
+  from: string;
+  status: "refusal" | "approval";
+}
+
+type UserFriendRequest<T> = T extends "post"
+  ? IPostUserFriendRequest
+  : IPatchUserFriendRequest;
+
+export const useUserFriendRequestMutation = <T extends "post" | "patch">(
+  method: T,
+  options?: MutationOptions<UserFriendRequest<T>>
+) =>
+  useMutation<void, AxiosError, UserFriendRequest<T>>(
+    (param) =>
+      requestServer<UserFriendRequest<T>>({
+        method,
+        url: `user/friend/request`,
+        body: param,
+      }),
+    options
+  );
+
+export const useUserFriendMutation = (
+  method: "patch" | "delete",
+  options?: MutationOptions<string>
+) =>
+  useMutation<void, AxiosError, string>(
+    (param) =>
+      requestServer<{ toUid: string }>({
+        method,
+        url: `user/friend`,
+        body: { toUid: param },
+      }),
+    options
+  );

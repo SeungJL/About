@@ -77,7 +77,12 @@ const Info = styled.div`
 `;
 
 const ActiveLocation = styled.li<{ location: Location }>`
-  height: ${(props) => (props.location !== "안양" ? "48px" : "24px")};
+  height: ${(props) =>
+    props.location === "수원"
+      ? "74px"
+      : props.location !== "안양"
+      ? "48px"
+      : "24px"};
 `;
 
 const StudySpaces = styled.div<{ location: Location }>`
@@ -85,7 +90,12 @@ const StudySpaces = styled.div<{ location: Location }>`
 
   color: var(--font-h2);
   margin-top: 4px;
-  height: ${(props) => (props.location !== "안양" ? "40px" : "20px")};
+  height: ${(props) =>
+    props.location === "수원"
+      ? "72px"
+      : props.location !== "안양"
+      ? "40px"
+      : "20px"};
 
   > span {
     margin-right: var(--margin-min);

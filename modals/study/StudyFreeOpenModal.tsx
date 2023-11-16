@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import TimeSelector from "../../components/features/picker/TimeSelector";
 import {
   ModalBody,
@@ -9,6 +10,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
@@ -19,6 +21,7 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,
 } from "../../hooks/study/mutations";
+import { locationState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IStudyParticipate } from "../../types/study/study";
 import { IPlace } from "../../types/study/studyDetail";
@@ -39,13 +42,17 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
 
+  const location = useRecoilValue(locationState);
+
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hours: 14, minutes: 0 },
     end: { hours: 18, minutes: 0 },
   });
 
   const { mutateAsync: openFree } = useStudyOpenFreeMutation(voteDate, {
-    onSuccess() {},
+    onSuccess() {
+      completeToast("free", "스터디가 Free로 오픈되었습니다.");
+    },
     onError: errorToast,
   });
   const { mutate: patchAttend } = useStudyParticipationMutation(
@@ -53,28 +60,30 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
     "post",
     {
       onSuccess: () => {
-        resetQueryData(STUDY_VOTE);
+        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
         setIsModal(false);
-        completeToast("free", "스터디가 Free로 오픈되었습니다.");
       },
       onError: errorToast,
     }
   );
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const start = voteDate.hour(time.start.hours).minute(time.start.minutes);
     const end = voteDate.hour(time.end.hours).minute(time.end.minutes);
     if (start > end) {
       failToast("time");
       return;
     }
-    openFree(placeId as string);
     const data: IStudyParticipate = {
       place,
       start,
       end,
     };
-    patchAttend(data);
+
+    await openFree(placeId as string);
+    setTimeout(() => {
+      patchAttend(data);
+    }, 500);
   };
 
   return (

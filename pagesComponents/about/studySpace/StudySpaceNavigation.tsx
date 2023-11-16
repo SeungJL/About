@@ -175,11 +175,8 @@ function StudySpaceNavigation({
             </Button>
           </SubNav>
         )}
-        <MainButton
-          func={func === "vote" ? false : !!func}
-          onClick={() => onClickMainBtn(func)}
-        >
-          {func === "vote" ? "기능 점검중. 첫 화면에서 투표해주세요" : text}
+        <MainButton func={!!func} onClick={() => onClickMainBtn(func)}>
+          {text}
         </MainButton>
       </Layout>
       <StudySpaceNavModal

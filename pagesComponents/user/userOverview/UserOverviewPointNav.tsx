@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { ICollectionAlphabet } from "../../../types/user/collections";
 
@@ -29,19 +28,9 @@ function UserOverviewPointNav({ alphabets, myDeposit }: IuserOverviewPointNav) {
   return (
     <Layout>
       <Container onClick={() => router.push("/user/collection")}>
-        <span>수집 현황</span>
-        <Collection>
-          <AlphabetIcon alphabet="A" isDuotone={!alphabetArr?.includes("A")} />
-          <AlphabetIcon alphabet="B" isDuotone={!alphabetArr?.includes("B")} />
-          <AlphabetIcon alphabet="O" isDuotone={!alphabetArr?.includes("O")} />
-          <AlphabetIcon alphabet="U" isDuotone={!alphabetArr?.includes("U")} />
-          <AlphabetIcon alphabet="T" isDuotone={!alphabetArr?.includes("T")} />
-        </Collection>
+        내 컬렉션
       </Container>
-      <button onClick={() => onClick("deposit")}>
-        <span>보유 보증금</span>
-        <span>{myDeposit || 0} 원</span>
-      </button>
+      <button onClick={() => onClick("deposit")}>내 프로필 정보</button>
     </Layout>
   );
 }

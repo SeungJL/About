@@ -46,6 +46,8 @@ function AboutMainItemParticipants({
 
   const isMax = filteredAttendances.length >= MAX_USER_PER_PLACE;
 
+  const hasPublicAcess = status !== "pending" && isMyVote;
+
   return (
     <Layout status={statusFixed === "myOpen"}>
       {statusFixed === "pending" && voteStatus && (
@@ -56,7 +58,7 @@ function AboutMainItemParticipants({
           (att, idx) =>
             idx < VOTER_SHOW_MAX && (
               <ProfileContainer key={idx} zIndex={idx}>
-                {status === "open" ? (
+                {status === "open" || hasPublicAcess ? (
                   <ProfileIconXsOverwrap
                     user={att.user}
                     isOverlap={

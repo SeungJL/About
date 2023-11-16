@@ -2,14 +2,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
-import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";
+import { useNoticeActiveLogQuery } from "../../hooks/user/sub/interaction/queries";
 import NoticeActive from "../../pagesComponents/notice/NoticeActive";
 import NoticeItem from "../../pagesComponents/notice/NoticeItem";
 import NoticeNav from "../../pagesComponents/notice/NoticeNav";
 
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);
-  const { data: likeData } = useInteractionLikeQuery();
+
+  const { data: activeLogs } = useNoticeActiveLogQuery();
 
   return (
     <PageLayout>
@@ -18,10 +19,10 @@ function Notice() {
         <NoticeNav
           isNotice={isNotice}
           setIsNotice={setIsNotice}
-          activeAlertCnt={likeData?.length}
+          activeAlertCnt={activeLogs?.length}
         />
         <Container>
-          {isNotice ? <NoticeItem /> : <NoticeActive likeData={likeData} />}
+          {isNotice ? <NoticeItem /> : <NoticeActive activeLogs={activeLogs}/>}
         </Container>
       </Layout>
     </PageLayout>

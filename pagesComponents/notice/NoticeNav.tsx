@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { LIKE_HEART_CNT } from "../../constants/keys/localStorage";
+import { NOTICE_ACTIVE_CNT } from "../../constants/keys/localStorage";
 import { AlertIcon } from "../../styles/icons";
 import { DispatchBoolean } from "../../types/reactTypes";
 
@@ -16,10 +16,10 @@ function NoticeNav({ isNotice, setIsNotice, activeAlertCnt }: INoticeNav) {
   useEffect(() => {
     if (!activeAlertCnt) return;
     if (!isNotice) {
-      localStorage.setItem(LIKE_HEART_CNT, `${activeAlertCnt}`);
+      localStorage.setItem(NOTICE_ACTIVE_CNT, `${activeAlertCnt}`);
       setIsActiveAlert(false);
     }
-    if (+localStorage.getItem(LIKE_HEART_CNT) < activeAlertCnt)
+    if (+localStorage.getItem(NOTICE_ACTIVE_CNT) < activeAlertCnt)
       setIsActiveAlert(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeAlertCnt, isNotice]);

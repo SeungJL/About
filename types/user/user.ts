@@ -11,6 +11,7 @@ export interface IUser extends IUserRegisterForm {
   deposit: number;
   profileImage: string;
   thumbnailImage: string;
+  friend: string[];
   _id: string;
 }
 export interface IUserRegisterForm extends IUserRegisterFormWriting {

@@ -5,7 +5,8 @@ export const GATHER_ALERT = "gatherAlert";
 export const NOTICE_ALERT = "noticeAlert";
 export const POINT_ALERT = "pointAlert";
 export const LIKE_HEART = "LikeHeart";
-export const LIKE_HEART_CNT = "likeHeartCnt";
+
+export const NOTICE_ACTIVE_CNT = "noticeActiveCnt";
 
 // 팝업
 export const GATHER_INTRO_MODAL = "gatherIntro";

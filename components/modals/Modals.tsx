@@ -11,20 +11,20 @@ import {
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { Size } from "../../types/system";
-interface IModalLayout {
-  children: React.ReactNode;
-  size: Size;
-  height?: number;
-}
 
-interface IModalLa {
+interface IModalLayout {
   size: Size;
   height?: number;
   children: ReactNode;
   onClose: () => void;
 }
 
-export const ModalLayout = ({ onClose, size, height, children }: IModalLa) => (
+export const ModalLayout = ({
+  onClose,
+  size,
+  height,
+  children,
+}: IModalLayout) => (
   <Modal
     isOpen={true}
     onClose={onClose}
@@ -42,7 +42,12 @@ export const ModalLayout = ({ onClose, size, height, children }: IModalLa) => (
   </Modal>
 );
 
-export const ModalHeader = ({ text }) => (
+interface IModalHeader {
+  text: string;
+  isCloseBtn?: boolean;
+}
+
+export const ModalHeader = ({ text, isCloseBtn = true }: IModalHeader) => (
   <>
     <ChakraModalHeader
       display="flex"
@@ -51,7 +56,7 @@ export const ModalHeader = ({ text }) => (
     >
       {text}
     </ChakraModalHeader>
-    <ModalCloseButton mt="2px" _focus={{ outline: "none" }} />
+    {isCloseBtn && <ModalCloseButton mt="2px" _focus={{ outline: "none" }} />}
   </>
 );
 
@@ -94,7 +99,7 @@ export const ModalFooterTwo = ({
   isFull,
   isSmall,
 }: IModalFooterTwo) => (
-  <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
+  <ChakraModalFooter mt="auto" p="var(--padding-sub) var(--padding-main)">
     <Button
       w={isFull && "100%"}
       variant={isFull ? "solid" : "ghost"}
