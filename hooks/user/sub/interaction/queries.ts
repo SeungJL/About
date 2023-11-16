@@ -1,6 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import { NOTICE_ACTIVE_LOG } from "../../../../constants/keys/queryKeys";
+import {
+  NOTICE_ACTIVE_LOG,
+  NOTICE_HEART_LOG,
+} from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
 import { INoticeActiveLog } from "../../../../types/interaction";
 import { QueryOptions } from "../../../../types/reactTypes";
@@ -24,10 +27,26 @@ export const useInteractionLikeQuery = (
   >
 ) =>
   useQuery<INoticeActiveLog[], AxiosError, INoticeActiveLog[]>(
-    "userInteraction",
+    [NOTICE_HEART_LOG],
     async () => {
       const res = await axios.get<INoticeActiveLog[]>(
         `${SERVER_URI}/notice/like`
+      );
+      return res.data;
+    },
+    options
+  );
+export const useLikeAllQuery = (
+  options?: Omit<
+    UseQueryOptions<INoticeActiveLog[], AxiosError, INoticeActiveLog[]>,
+    "queryKey" | "queryFn"
+  >
+) =>
+  useQuery<INoticeActiveLog[], AxiosError, INoticeActiveLog[]>(
+    "likeAll",
+    async () => {
+      const res = await axios.get<INoticeActiveLog[]>(
+        `${SERVER_URI}/notice/like/all`
       );
       return res.data;
     },

@@ -13,7 +13,7 @@ function NotCompletedModal({ setIsModal }: IModal) {
       <ModalLayout onClose={() => setIsModal(false)} size="sm">
         <ModalHeader text="미완성 컨텐츠" />
         <ModalBody>
-          <ModalSubtitle>개발 진행중인 컨텐츠입니다.</ModalSubtitle>
+          <ModalSubtitle>개발 진행중인 컨텐츠입니다. (곧 나옴)</ModalSubtitle>
         </ModalBody>
         <ModalFooterOne onClick={() => setIsModal(false)} />
       </ModalLayout>

@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import NotCompletedModal from "../../../modals/system/NotCompletedModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { ICollectionAlphabet } from "../../../types/user/collections";
 
@@ -11,6 +13,8 @@ interface IuserOverviewPointNav {
 
 function UserOverviewPointNav({ alphabets, myDeposit }: IuserOverviewPointNav) {
   const router = useRouter();
+
+  const [isModal, setIsModal] = useState(false);
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
@@ -26,12 +30,15 @@ function UserOverviewPointNav({ alphabets, myDeposit }: IuserOverviewPointNav) {
   };
 
   return (
-    <Layout>
-      <Container onClick={() => router.push("/user/collection")}>
-        내 컬렉션
-      </Container>
-      <button onClick={() => onClick("deposit")}>내 프로필 정보</button>
-    </Layout>
+    <>
+      <Layout>
+        <Container onClick={() => router.push("/user/collection")}>
+          내 컬렉션
+        </Container>
+        <button onClick={() => setIsModal(true)}>내 프로필 정보</button>
+      </Layout>
+      {isModal && <NotCompletedModal setIsModal={setIsModal} />}
+    </>
   );
 }
 

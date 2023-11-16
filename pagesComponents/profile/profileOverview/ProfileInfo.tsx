@@ -5,15 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
 import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { USER_ROLE } from "../../../constants/contentsValue/role";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
+import { NOTICE_HEART_LOG } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
@@ -21,6 +24,7 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import { useInteractionLikeMutation } from "../../../hooks/user/sub/interaction/mutations";
+import { userInfoState } from "../../../recoil/userAtoms";
 import {
   IInteractionLikeStorage,
   IInteractionSendLike,
@@ -36,6 +40,8 @@ function ProfileInfo({ user }: IProfileInfo) {
   const errorToast = useErrorToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
+
+  const userInfo = useRecoilValue(userInfoState);
 
   const [isConditionOk, setIsConditionOk] = useState(false);
   const [isHeartLoading, setIsHeartLoading] = useState(true);
@@ -54,9 +60,12 @@ function ProfileInfo({ user }: IProfileInfo) {
         dayjs(who?.date) > dayjs().subtract(3, "day") && who?.uid === user?.uid
     );
 
+  const resetQueryData = useResetQueryData();
+
   const { mutate: sendHeart } = useInteractionLikeMutation({
     onSuccess() {
       completeToast("free", "좋아요 전송 완료");
+      resetQueryData([NOTICE_HEART_LOG]);
     },
     onError: errorToast,
   });
@@ -97,10 +106,14 @@ function ProfileInfo({ user }: IProfileInfo) {
   };
 
   const handleHeart = () => {
-    if (!isConditionOk && user.birth.slice(2) !== dayjs().format("MMDD")) {
+    if (
+      !userInfo?.friend.includes(user?.uid) &&
+      !isConditionOk &&
+      user.birth.slice(2) !== dayjs().format("MMDD")
+    ) {
       failToast(
         "free",
-        "최근 같은 스터디에 참여한 멤버 또는 생일인 인원에게만 보낼 수 있어요!"
+        "최근 같은 스터디에 참여한 멤버 또는 친구로 등록된 인원, 생일인 인원에게만 보낼 수 있어요!"
       );
       return;
     }

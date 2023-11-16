@@ -46,9 +46,9 @@ function StudySpaceUserComments({
     if (!isFunc) return;
     setTransferUserData(user);
     setBeforePage(router.asPath);
-    router.push(`/profile/${user.uid}}`);
+    router.push(`/profile/${user.uid}`);
   };
-  console.log(myFriendList);
+
   return (
     <>
       <Layout key={router.asPath}>

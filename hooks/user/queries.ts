@@ -80,3 +80,18 @@ export const useUidToUserInfoQuery = (
     },
     options
   );
+export const useUidsToUsersInfoQuery = (
+  uids: string[],
+  options?: QueryOptions<IUser[]>
+) =>
+  useQuery<IUser[], AxiosError, IUser[]>(
+    [UID_TO_USER, uids],
+    async () => {
+      const queryString = uids.map((uid) => `uids=${uid}`).join("&");
+      const res = await axios.get<IUser[]>(
+        `${SERVER_URI}/user/profiles?${queryString}`
+      );
+      return res.data;
+    },
+    options
+  );

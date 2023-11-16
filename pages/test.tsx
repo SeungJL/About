@@ -2,11 +2,16 @@ import { faA, faB } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
 import styled from "styled-components";
+import { useUidsToUsersInfoQuery } from "../hooks/user/queries";
 
 function Test() {
   const C = useRef();
   const AA = () => <button>23</button>;
 
+  const temp: { uid: string; cnt: number }[] = [];
+
+  const { data } = useUidsToUsersInfoQuery(["2542567004", "2259633694"]);
+  console.log(data);
   return (
     <Layout>
       <A>

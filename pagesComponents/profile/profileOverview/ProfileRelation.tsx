@@ -74,18 +74,18 @@ function ProfileRelation({ user }: IProfileRelation) {
     title: "친구 목록에서 삭제하시겠어요?",
     onClickRight: () => deleteFriend(user.uid),
   };
-  console.log(2, isMyFriend);
+
   return (
     <>
       <Layout>
         <div>
           <RelationItem>
             <span>친구</span>
-            <span>0</span>
+            <span>{user?.friend?.length}</span>
           </RelationItem>
           <RelationItem>
             <span>좋아요</span>
-            <span>0</span>
+            <span>{user?.like || 0}</span>
           </RelationItem>
           <RelationItem>
             <span>활동</span>
@@ -100,7 +100,7 @@ function ProfileRelation({ user }: IProfileRelation) {
               size="sm"
               onClick={() => setModalType("requestFriend")}
             >
-              친구 신청
+              친구 요청
             </Button>
           ) : (
             <Button

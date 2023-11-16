@@ -17,7 +17,7 @@ import { IUser, IUserRegisterForm } from "../../../../types/user/user";
 
 interface IProfileIcon {
   user: IUser | IUserRegisterForm | "guest" | "ABOUT";
-  size?: Size;
+  size: Size;
   isMember?: boolean;
   isImagePriority?: boolean;
 }

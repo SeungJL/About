@@ -12,6 +12,7 @@ export interface IUser extends IUserRegisterForm {
   profileImage: string;
   thumbnailImage: string;
   friend: string[];
+  like: number;
   _id: string;
 }
 export interface IUserRegisterForm extends IUserRegisterFormWriting {

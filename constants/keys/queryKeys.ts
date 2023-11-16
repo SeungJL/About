@@ -10,6 +10,7 @@ export const UID_TO_USER = "uidToUser";
 export const USER_ATTEND_RATE = "userAttendRate";
 
 export const NOTICE_ACTIVE_LOG = "noticeActiveLog";
+export const NOTICE_HEART_LOG = "noticeHeartLog";
 
 export const STUDY_VOTE = "studyVote";
 export const STUDY_PLACE = "studyPlace";

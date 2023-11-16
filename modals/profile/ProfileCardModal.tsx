@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import {
   ModalBody,
   ModalFooterTwo,
@@ -8,13 +9,20 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { birthToAge } from "../../helpers/converterHelpers";
-import { useUserInfoQuery } from "../../hooks/user/queries";
+import { useUidsToUsersInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
+import { userInfoState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 
 function ProfileCardModal({ setIsModal }: IModal) {
   const router = useRouter();
-  const { data: user } = useUserInfoQuery();
+  const userInfo = useRecoilValue(userInfoState);
+
+  const { data: friends } = useUidsToUsersInfoQuery(userInfo?.friend, {
+    enabled: !!userInfo?.friend,
+  });
+  console.log(friends, userInfo?.friend);
+
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
 
   const onClickModify = () => {
@@ -25,41 +33,45 @@ function ProfileCardModal({ setIsModal }: IModal) {
   return (
     <>
       <ModalLayout onClose={() => setIsModal(false)} size="xl">
-        <ModalHeader text={user?.name} />
+        <ModalHeader text={userInfo?.name} />
         <ModalBody>
           <Profile>
             <ProfileUpPart>
               <div>
                 <span>나이</span>
-                <span> {birthToAge(user?.birth)}</span>
+                <span> {birthToAge(userInfo?.birth)}</span>
               </div>
               <div>
                 <span>성별</span>
-                <span> {user?.gender}</span>
+                <span> {userInfo?.gender}</span>
               </div>
               <div>
                 <span>MBTI</span>
-                <span> {user?.mbti}</span>
+                <span> {userInfo?.mbti}</span>
               </div>
               <div>
                 <span>지역</span>
-                <span> {user?.location}</span>
+                <span> {userInfo?.location}</span>
               </div>
             </ProfileUpPart>
             <ProfileItem>
               <span>전공</span>
-              <span>{user?.majors[0].detail}</span>
+              <span>{userInfo?.majors[0].detail}</span>
             </ProfileItem>
             <ProfileItem>
               <span>관심사</span>
               <div>
-                <span>1. {user?.interests.first}</span>
-                <span>2. {user?.interests.second}</span>
+                <span>1. {userInfo?.interests.first}</span>
+                <span>2. {userInfo?.interests.second}</span>
               </div>
             </ProfileItem>
           </Profile>
           <FriendTitle>친구</FriendTitle>
-          <FriendList>{/* <ProfileIconMd user={user} /> */}</FriendList>
+          <FriendList>
+            {friends?.map((who) => (
+              <ProfileIcon user={who} key={who.uid} size="sm" />
+            ))}
+          </FriendList>
         </ModalBody>
         <ModalFooterTwo
           leftText="프로필 변경"
@@ -80,7 +92,7 @@ const FriendTitle = styled.span`
 const ProfileUpPart = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+
   > div {
     display: flex;
     > span:first-child {
@@ -92,13 +104,12 @@ const ProfileUpPart = styled.div`
     }
   }
 `;
-const Footer = styled.footer``;
 
 const Profile = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: var(--margin-md);
   display: flex;
   flex-direction: column;
-  line-height: 2.4;
+  line-height: 2.2;
 `;
 
 const ProfileItem = styled.div`
@@ -124,7 +135,7 @@ const ProfileItem = styled.div`
 
 const FriendList = styled.div`
   margin-top: 6px;
-  height: 116px;
+  flex: 1;
   border: 1px solid var(--font-h5);
   border-radius: var(--border-radius-sub);
   padding: 6px 8px;
