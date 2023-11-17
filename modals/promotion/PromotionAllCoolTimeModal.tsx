@@ -104,7 +104,8 @@ function PromotionAllCoolTimeModal({
               홍보 인원: <b>{applyCnt}명</b>,
             </span>
             <span>
-              현재 당첨률: <b>{applyCnt < 2 ? "100" : (2 / applyCnt) * 100}%</b>
+              현재 당첨률:{" "}
+              <b>{applyCnt < 2 ? "100" : Math.round((2 / applyCnt) * 100)}%</b>
             </span>
           </Sum>
         )}
