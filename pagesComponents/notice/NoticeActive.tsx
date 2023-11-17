@@ -42,7 +42,6 @@ function NoticeActive({ activeLogs }: INoticeActive) {
       resetQueryData([NOTICE_ACTIVE_LOG]);
     },
   });
-  console.log(activeLogs);
 
   const onClickFriendRequest = async (
     status: "approval" | "refusal",
@@ -129,7 +128,8 @@ const IconWrapper = styled.div`
   margin-right: var(--margin-main);
 `;
 
-const Name = styled.span`
+const Name = styled.div`
+  height: 22px;
   font-weight: 600;
 `;
 
