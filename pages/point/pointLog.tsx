@@ -16,7 +16,7 @@ function PointLog() {
 
   const { data: point } = usePointSystemQuery("point");
   const { data: pointLog, isLoading } = usePointSystemLogQuery("point");
-
+  console.log(4, pointLog);
   const filterLog = pointLog?.filter((item) => item.meta.value);
 
   return (

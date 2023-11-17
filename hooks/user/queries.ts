@@ -57,7 +57,7 @@ export const usePointSystemLogQuery = (
   options?: QueryOptions<IPointLog[]>
 ) =>
   useQuery<IPointLog[], AxiosError, IPointLog[]>(
-    [USER_POINT_SYSTEM, category, isUserScope],
+    [USER_POINT_SYSTEM, category, isUserScope, "log"],
     async () => {
       const scopeQuery = isUserScope ? "" : "all";
       const res = await axios.get<IPointLog[]>(
