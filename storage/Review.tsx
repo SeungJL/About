@@ -370,4 +370,16 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "",
     title: "범계역 번개 모임",
   },
+  {
+    id: 97,
+    dateCreated: "11월 11일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.11+%EC%88%98%EC%9B%90/KakaoTalk_20231117_162333882_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.11+%EC%88%98%EC%9B%90/KakaoTalk_20231117_162333882_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.11+%EC%88%98%EC%9B%90/KakaoTalk_20231117_162333882.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.11+%EC%88%98%EC%9B%90/KakaoTalk_20231117_162333882_01.jpg",
+    ],
+    text: "",
+    title: "빼빼로데이 수원역 번개! (20대 초반)",
+  },
 ];

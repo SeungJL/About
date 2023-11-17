@@ -71,4 +71,13 @@ export const EVENT_CONTENT_2023: Record<string, Content[]> = {
       text: "11월 홍보 이벤트 당첨자 선별",
     },
   ],
+  12: [
+    {
+      content: "시험 기간 이벤트",
+      start: 4,
+      end: 8,
+      color: TABLE_COLORS[0],
+      text: "이벤트",
+    },
+  ],
 };

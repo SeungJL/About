@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import styled from "styled-components";
 import MonthNav from "../components/features/atoms/MonthNav";
 import Header from "../components/layout/Header";
@@ -126,14 +126,12 @@ function EventCalendar() {
                 </Date>
                 <DateContent>
                   {dateInfo.map((item, idx2) => {
-                  
                     return (
-                      <>
+                      <Fragment key={idx2}>
                         {item?.blockIdx !== undefined && (
                           <EventBlock
                             isFirst={item?.isFirst}
                             isLast={item?.isLast}
-                            key={idx2}
                             color={null}
                           >
                             &nbsp;
@@ -142,12 +140,11 @@ function EventCalendar() {
                         <EventBlock
                           isFirst={item?.isFirst}
                           isLast={item?.isLast}
-                          key={idx2}
                           color={item?.color}
                         >
                           {item?.isFirst ? item?.content : "\u00A0"}
                         </EventBlock>
-                      </>
+                      </Fragment>
                     );
                   })}
                 </DateContent>

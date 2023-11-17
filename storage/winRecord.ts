@@ -413,6 +413,18 @@ export const WIN_RECORD: {
     reason: "홍보 이벤트 선물",
     present: "BBQ 황금올리브 세트",
   },
+  {
+    name: "김재",
+    date: "11/5",
+    reason: "출석 당첨 선물",
+    present: "초코에몽",
+  },
+  {
+    name: "김무",
+    date: "11/5",
+    reason: "출석 당첨 선물",
+    present: "초코에몽",
+  },
 ];
 
 export const PROMOTION_WIN = [
