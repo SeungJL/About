@@ -73,6 +73,9 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
             <button onClick={() => onClickBlock("modal", "declaration")}>
               불편사항 신고
             </button>
+            <button onClick={() => onClickBlock("modal", "studyPlace")}>
+              스터디 장소 추가 요청
+            </button>
             <button onClick={() => onClickBlock("modal", "rest")}>
               휴식 신청 / 취소
             </button>

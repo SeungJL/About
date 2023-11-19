@@ -4,12 +4,14 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { TABLE_COLORS } from "../../../../constants/styles";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
+import { userInfoState } from "../../../../recoil/userAtoms";
 import { IAttendance, StudyStatus } from "../../../../types/study/studyDetail";
 
 const BLOCK_WIDTH = 26;
 
 interface IUserItemArr {
   name: string;
+  uid: string;
   start: string;
   end: string;
   gap: number;
@@ -25,7 +27,13 @@ interface IUserTable {
 function UserTable({ attendances, status }: IUserTable) {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
+  const userInfo = useRecoilValue(userInfoState);
   const [userArr, setUserArr] = useState<IUserItemArr[]>([]);
+
+  const myFriends = userInfo?.friend;
+  const isAttend = attendances.find((who) => who.user.uid === userInfo?.uid);
+  const hasPublicAccess =
+    status === "open" || (status !== "pending" && !!isAttend);
 
   useEffect(() => {
     setUserArr([]);
@@ -43,6 +51,7 @@ function UserTable({ attendances, status }: IUserTable) {
         startGap: startTime - 10,
         gap,
         isSecond: !att.firstChoice,
+        uid: att.user.uid,
       };
       if (studyDateStatus === "not passed") setUserArr((old) => [...old, temp]);
       else if (att.firstChoice) setUserArr((old) => [...old, temp]);
@@ -51,20 +60,26 @@ function UserTable({ attendances, status }: IUserTable) {
 
   return (
     <Layout>
-      {userArr?.map((user, idx) => (
-        <UserBlock key={idx}>
-          <UserIcon
-            start={user.startGap}
-            gap={user.gap}
-            color={TABLE_COLORS[idx]}
-          >
-            <Name>{status === "open" ? user.name : "비공개"}</Name>
-            <Time isSecond={user?.isSecond}>
-              {user.start}~{user.end}
-            </Time>
-          </UserIcon>
-        </UserBlock>
-      ))}
+      {userArr?.map((user, idx) => {
+        const isOpenProfile =
+          hasPublicAccess ||
+          user.uid === userInfo?.uid ||
+          myFriends?.includes(user.uid);
+        return (
+          <UserBlock key={idx}>
+            <UserIcon
+              start={user.startGap}
+              gap={user.gap}
+              color={TABLE_COLORS[idx]}
+            >
+              <Name>{isOpenProfile ? user.name : "비공개"}</Name>
+              <Time isSecond={user?.isSecond}>
+                {user.start}~{user.end}
+              </Time>
+            </UserIcon>
+          </UserBlock>
+        );
+      })}
     </Layout>
   );
 }

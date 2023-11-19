@@ -1,21 +1,17 @@
 import dayjs, { Dayjs } from "dayjs";
 import {
   STUDY_DISTANCE,
-  STUDY_SPACE_ORDER,
   STUDY_VOTE_END_HOUR,
   STUDY_VOTE_START_HOUR,
 } from "../constants/settingValue/study";
 
 import {
   IParticipation,
-  IPlace,
   StudyDateStatus,
   StudyStatus,
 } from "../types/study/studyDetail";
 import { Location } from "../types/system";
 import { getCurrentDate, getCurrentHour } from "./dateHelpers";
-
-
 
 export const arrangeMainSpace = (
   participations: IParticipation[],
@@ -86,4 +82,22 @@ export const getStudySecondRecommendation = (
   }
 
   return Array.from(placesAtDistance);
+};
+
+export const filterStudyPlaces = (
+  pars: IParticipation[],
+  location: Location,
+  isWeekend: boolean
+) => {
+  console.log(isWeekend);
+  const filterPars = pars.filter((par) => {
+    const place = par.place;
+    if (location === "수원" && place.branch === "행궁동") {
+      return isWeekend
+        ? place.brand === "행궁 81.2"
+        : place.brand === "본지르르";
+    }
+    return true;
+  });
+  return filterPars;
 };

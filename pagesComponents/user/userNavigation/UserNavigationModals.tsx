@@ -38,6 +38,9 @@ function UserNavigationModals({
       {modalOpen === "suggest" && (
         <RequestSuggestModal type="suggest" setIsModal={setIsModal} />
       )}
+      {modalOpen === "studyPlace" && (
+        <RequestSuggestModal type="studySpace" setIsModal={setIsModal} />
+      )}
       {modalOpen === "rest" &&
         (userInfo?.role !== "resting" ? (
           <RequestRestModal setIsModal={setIsModal} />

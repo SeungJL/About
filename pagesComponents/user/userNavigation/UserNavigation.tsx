@@ -11,7 +11,8 @@ export type UserOverviewModal =
   | "deposit"
   | "secede"
   | "logout"
-  | "levelUp";
+  | "levelUp"
+  | "studyPlace";
 
 function UserNavigation() {
   const [modalOpen, setModalOpen] = useState<UserOverviewModal>();

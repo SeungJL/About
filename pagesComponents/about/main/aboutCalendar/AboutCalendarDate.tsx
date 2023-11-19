@@ -75,7 +75,7 @@ function AboutCalendarDate() {
               </DayItem>
             );
           })}
-          <Pick>Today</Pick>
+          <Pick>PICK</Pick>
         </AnimatePresence>
       </Layout>
     </>
