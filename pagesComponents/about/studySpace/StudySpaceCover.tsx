@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
+import { SQUARE_RANDOM_IMAGE } from "../../../constants/image/imageUrl";
 
 interface IStudySpaceCover {
   coverImageUrl: string;
@@ -11,7 +12,7 @@ function StudySpaceCover({ coverImageUrl, logoImageUrl }: IStudySpaceCover) {
     <Layout>
       <ImageWrapper>
         <Image
-          src={coverImageUrl}
+          src={coverImageUrl || SQUARE_RANDOM_IMAGE[0]}
           layout="fill"
           alt="studySpace"
           priority={true}
