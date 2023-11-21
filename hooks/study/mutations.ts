@@ -17,19 +17,26 @@ type StudyParticipationParam<T> = T extends "post"
 export const useStudyParticipationMutation = <
   T extends "post" | "patch" | "delete"
 >(
-  date: Dayjs,
+  voteDate: Dayjs,
   method: T,
   options?: MutationOptions<StudyParticipationParam<T>>
 ) =>
-  useMutation<void, AxiosError, StudyParticipationParam<T>>(
-    (param) =>
-      requestServer<StudyParticipationParam<T>>({
-        method,
-        url: `vote/${dayjsToStr(date)}`,
-        body: param,
-      }),
-    options
-  );
+  useMutation<void, AxiosError, StudyParticipationParam<T>>((param) => {
+    const voteInfo = param;
+    if (method !== "delete") {
+      const updatedVoteInfo = voteInfo as IStudyParticipate | IDayjsStartToEnd;
+      const { start, end } = updatedVoteInfo;
+      updatedVoteInfo.start = voteDate
+        .hour(start.hour())
+        .minute(start.minute());
+      updatedVoteInfo.end = voteDate.hour(end.hour()).minute(end.minute());
+    }
+    return requestServer<StudyParticipationParam<T>>({
+      method,
+      url: `vote/${dayjsToStr(voteDate)}`,
+      body: voteInfo,
+    });
+  }, options);
 
 interface IStudyQuickVoteParam {
   start: Dayjs;
@@ -96,7 +103,7 @@ export const useStudyResultDecideMutation = (
   date: Dayjs,
   options?: MutationOptions<void>
 ) =>
-  useMutation<void, AxiosError, void>(
+  useMutation<any, AxiosError, void>(
     () =>
       requestServer<void>({
         method: "patch",

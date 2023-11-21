@@ -47,15 +47,15 @@ function AboutMainItemParticipants({
   const isMax = filteredAttendances.length >= MAX_USER_PER_PLACE;
 
   const hasPublicAcess = status !== "pending" && isMyVote;
-
+  console.log(1, attendances, isMyVote, hasPublicAcess);
   return (
     <Layout status={statusFixed === "myOpen"}>
       {statusFixed === "pending" && voteStatus && (
         <VoteComplete status={voteStatus}>{voteStatus}</VoteComplete>
       )}
       <div>
-        {filteredAttendances.map(
-          (att, idx) =>
+        {filteredAttendances.map((att, idx) => {
+          return (
             idx < VOTER_SHOW_MAX && (
               <ProfileContainer key={idx} zIndex={idx}>
                 {status === "open" || hasPublicAcess ? (
@@ -74,7 +74,8 @@ function AboutMainItemParticipants({
                 )}
               </ProfileContainer>
             )
-        )}
+          );
+        })}
         {!isMax ? (
           filteredAttendances.length > 0 && (
             <ParticipantStatus>

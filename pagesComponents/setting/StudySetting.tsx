@@ -38,7 +38,6 @@ function StudySetting() {
     }
   );
 
-
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day"),
     {

@@ -88,9 +88,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
     localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
 
     if (
-      checkRecords?.find(
-        (item) => item.createdAt.startOf("day") === dayjs().startOf("day")
-      )
+      checkRecords?.find((item) => item.createdAt.date() === dayjs().date())
     ) {
       failToast("free", "오늘 출석체크는 이미 완료됐어요!");
       setIsModal(false);

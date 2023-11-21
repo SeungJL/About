@@ -60,6 +60,9 @@ const Button = styled.button<{ isSelected: boolean }>`
   font-size: 12px;
   padding-bottom: var(--padding-md);
   color: var(--font-h1);
+  :focus {
+    outline: none;
+  }
   border-bottom: ${(props) =>
     props.isSelected ? "2px solid var(--font-h1)" : "1px solid var(--font-h6)"};
 `;
