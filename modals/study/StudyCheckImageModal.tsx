@@ -86,6 +86,8 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
       failToast("free", "인증 사진을 첨부해주세요!");
       return;
     } //
+    handleArrived(null);
+    return;
     const response = await fetch(imageSrc);
 
     const blob = await response.blob();
@@ -116,7 +118,6 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
 
     // const blob = await response.blob();
     // const file = new File([blob], "image.jpg", { type: blob.type });
-    // handleArrived(null);
   };
 
   return (
