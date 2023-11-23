@@ -56,7 +56,7 @@ function ProfileIcon({ user, size, isMember, isImagePriority }: IProfileIcon) {
     const url = router.pathname;
     setUserData(user as IUser);
     setPrevPageUrl(url);
-    console.log(4, `/profile/${(user as IUser).uid}`);
+
     router.push(`/profile/${(user as IUser).uid}`);
   };
 

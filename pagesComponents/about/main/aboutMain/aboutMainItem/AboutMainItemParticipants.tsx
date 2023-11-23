@@ -47,7 +47,7 @@ function AboutMainItemParticipants({
   const isMax = filteredAttendances.length >= MAX_USER_PER_PLACE;
 
   const hasPublicAcess = status !== "pending" && isMyVote;
-  console.log(1, attendances, isMyVote, hasPublicAcess);
+ 
   return (
     <Layout status={statusFixed === "myOpen"}>
       {statusFixed === "pending" && voteStatus && (

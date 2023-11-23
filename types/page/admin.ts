@@ -1,3 +1,5 @@
+import { Location } from "../system";
+
 export interface ISpaceControl {
   branch?: string;
   latitude?: number;
@@ -6,4 +8,9 @@ export interface ISpaceControl {
   location?: Location;
   status?: string;
   image?: string;
+}
+
+export interface ICounter {
+  key: "enthusiasticMember";
+  location: Location;
 }

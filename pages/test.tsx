@@ -1,27 +1,33 @@
-import { faA, faB } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@chakra-ui/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { useUidsToUsersInfoQuery } from "../hooks/user/queries";
+import { useCounterMutation } from "../hooks/sub/counter/mutations";
+import { useCounterQuery } from "../hooks/sub/counter/queries";
 
 function Test() {
   const C = useRef();
   const AA = () => <button>23</button>;
 
-  const temp: { uid: string; cnt: number }[] = [];
+  const { mutate, data: data2 } = useCounterMutation(
+    "enthusiasticMember",
+    "양천",
+    {
+      onSuccess(data) {
+        console.log(2, data);
+        console.log("SUC");
+      },
+    }
+  );
+  console.log(55, data2);
+  const { data } = useCounterQuery("enthusiasticMember", "수원");
+  console.log(1, data);
+  const onClick = () => {
+    mutate();
+  };
 
-  const { data } = useUidsToUsersInfoQuery(["2542567004", "2259633694"]);
-  console.log(data);
   return (
     <Layout>
-      <A>
-        <FontAwesomeIcon icon={faA} color="white" size="2x" />
-      </A>
-      <B>
-        <FontAwesomeIcon icon={faB} color="white" size="2x" />
-      </B>
-
-      <D />
+      <Button onClick={onClick}>클릭하세요.</Button>
     </Layout>
   );
 }

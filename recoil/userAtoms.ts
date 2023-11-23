@@ -1,6 +1,7 @@
-import { atom } from "recoil";
+import { atom, RecoilEnv } from "recoil";
 import { Location } from "../types/system";
 import { IUser } from "../types/user/user";
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const userAccessUidState = atom<string>({
   key: "userAccessUid",

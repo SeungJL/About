@@ -21,7 +21,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
   const { data: friends } = useUidsToUsersInfoQuery(userInfo?.friend, {
     enabled: !!userInfo?.friend,
   });
-  console.log(friends, userInfo?.friend);
+ 
 
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
 

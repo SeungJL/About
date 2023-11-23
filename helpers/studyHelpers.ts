@@ -89,7 +89,7 @@ export const filterStudyPlaces = (
   location: Location,
   isWeekend: boolean
 ) => {
-  console.log(isWeekend);
+ 
   const filterPars = pars.filter((par) => {
     const place = par.place;
     if (location === "수원" && place.branch === "행궁동") {

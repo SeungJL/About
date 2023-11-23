@@ -32,7 +32,6 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
     onSuccess(data) {
       const activeCnt = localStorage.getItem(NOTICE_ACTIVE_CNT);
       if (+activeCnt !== data?.length) setIsNoticeAlert(true);
-      console.log(2, activeCnt, data?.length);
     },
   });
 
@@ -100,7 +99,7 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
     </Layout>
   );
 }
-const IconWrapper = styled.div`
+const IconWrapper = styled.button`
   padding: 0 10px;
   height: 100%;
   display: flex;

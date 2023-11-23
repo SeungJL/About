@@ -10,7 +10,7 @@ import { isGuestState } from "../../recoil/userAtoms";
 
 function Point() {
   const isGuest = useRecoilValue(isGuestState);
-
+  console.log(23);
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,
   });
