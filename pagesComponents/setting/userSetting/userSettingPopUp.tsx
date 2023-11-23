@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { MEMEBER_MASKING_AND_FRIEND } from "../../../constants/contents/PopUpContents";
 import {
   ALPHABET_POP_UP,
   ATTEND_POP_UP,
   FAQ_POP_UP,
   MANAGER_POP_UP,
-  MEMBER_MASKING_POP_UP,
   PROMOTION_POP_UP,
   SUGGEST_POP_UP,
   USER_GUIDE_POP_UP,
@@ -14,7 +12,6 @@ import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import AlphabetPopUp from "../../../modals/pop-up/AlphabetPopUp";
-import ContentPopUp from "../../../modals/pop-up/ContentPopUp";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import ManagerPopUp from "../../../modals/pop-up/ManagerPopUp";
@@ -44,10 +41,10 @@ function UserSettingPopUp() {
 
     // if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 
-    if (!checkAndSetLocalStorage(MEMBER_MASKING_POP_UP, 3)) {
-      setPopUpTypes((old) => [...old, "memberMasking"]);
-      if (++popUpCnt === 2) return;
-    }
+    // if (!checkAndSetLocalStorage(MEMBER_MASKING_POP_UP, 3)) {
+    //   setPopUpTypes((old) => [...old, "memberMasking"]);
+    //   if (++popUpCnt === 2) return;
+    // }
     if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 6)) {
       setPopUpTypes((old) => [...old, "alphabet"]);
       if (++popUpCnt === 2) return;
@@ -118,12 +115,12 @@ function UserSettingPopUp() {
           }}
         />
       )}
-      {popUpTypes.includes("memberMasking") && (
+      {/* {popUpTypes.includes("memberMasking") && (
         <ContentPopUp
           content={MEMEBER_MASKING_AND_FRIEND}
           setIsModal={() => filterPopUpTypes("memberMasking")}
         />
-      )}
+      )} */}
     </>
   );
 }
