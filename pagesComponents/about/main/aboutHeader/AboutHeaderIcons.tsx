@@ -5,6 +5,7 @@ import {
   faGift,
   faUser,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faRabbitRunning } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -58,7 +59,7 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
         </IconWrapper>
       )}
       {/** rabbit */}
-      {/* <IconWrapper>
+      <IconWrapper>
         <FontAwesomeIcon
           icon={faRabbitRunning}
           size="lg"
@@ -66,7 +67,7 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
           bounce={!!isAttendCheck && isRabbitRun}
           onClick={() => setIconType("rabbit")}
         />
-      </IconWrapper> */}
+      </IconWrapper>
       <IconWrapper>
         <FontAwesomeIcon
           icon={faBalanceScale}

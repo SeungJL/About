@@ -19,6 +19,7 @@ import {
   useFailToast,
 } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
+import { useImageUploadMutation } from "../../hooks/sub/utilMutations";
 import { useAboutPointMutation } from "../../hooks/user/mutations";
 import { useCollectionAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 
@@ -73,12 +74,49 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
     fileInputRef.current.click();
   };
 
-  const onSubmit = () => {
+  const { mutate, data } = useImageUploadMutation({
+    onSuccess() {
+      console.log("SUC", data);
+    },
+  });
+
+  const onSubmit = async () => {
+    console.log(1);
     if (!imageSrc) {
       failToast("free", "인증 사진을 첨부해주세요!");
       return;
-    }
-    handleArrived(null);
+    } //
+    const response = await fetch(imageSrc);
+
+    const blob = await response.blob();
+
+    const file = new File([blob], "스터디 인증 사진 테스트", {
+      type: blob.type,
+    });
+    // FormData 객체 생성
+
+    const formData = new FormData();
+    formData.append("image", file); // 'image'는 서버에서 파일을 참조하는 키입니다.
+    mutate(formData);
+    // 서버로 POST 요청 보내기
+
+    // fetch(`${SERVER_URI}/image/upload`, {
+    //   method: "POST",
+    //   body: null,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("SUC", data);
+    //     // 여기서 성공 메시지 등 처리
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     // 여기서 에러 처리
+    //   });
+
+    // const blob = await response.blob();
+    // const file = new File([blob], "image.jpg", { type: blob.type });
+    // handleArrived(null);
   };
 
   return (

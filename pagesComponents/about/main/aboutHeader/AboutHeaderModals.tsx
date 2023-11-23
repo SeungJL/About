@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import DailyCheckModal from "../../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import DailyCheckWinModal from "../../../../modals/aboutHeader/dailyCheckModal/DailyCheckWinModal";
+import EnthusiasticModal from "../../../../modals/aboutHeader/EnthusiasticModal/EnthusiasticModal";
 
 import PointSystemsModal from "../../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
-import RegularGatherResultModal from "../../../../modals/aboutHeader/regularGatherModal/RegularGatherResultModal";
 
 import { AboutHeaderIconType } from "./AboutHeader";
 
@@ -31,7 +31,7 @@ function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
         <DailyCheckWinModal setIsModal={setIsModal} />
       )}
       {iconType === "rabbit" && (
-        <RegularGatherResultModal
+        <EnthusiasticModal
           setIsModal={setIsModal}
           setIsRabbitRun={setIsModal}
         />
