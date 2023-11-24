@@ -90,12 +90,15 @@ export const usePointSystemMutation = (
 export const useAboutPointMutation = (
   options?: MutationOptions<IPointSystem>
 ) =>
-  useMutation<void, AxiosError, IPointSystem>(async ({ value, message }) => {
-    await Promise.all([
-      axios.patch(`${SERVER_URI}/user/point`, { point: value, message }),
-      axios.patch(`${SERVER_URI}/user/score`, { score: value, message }),
-    ]);
-  }, options);
+  useMutation<void, AxiosError, IPointSystem>(
+    async ({ value, message, sub }) => {
+      await Promise.all([
+        axios.patch(`${SERVER_URI}/user/point`, { point: value, message, sub }),
+        axios.patch(`${SERVER_URI}/user/score`, { score: value, message, sub }),
+      ]);
+    },
+    options
+  );
 
 export const useUserUpdateProfileImageMutation = (
   options?: MutationOptions<void>

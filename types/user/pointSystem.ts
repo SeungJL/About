@@ -4,9 +4,11 @@ import { Location } from "../system";
 export interface IPointSystem {
   value: number;
   message?: string;
+  sub?: string;
 }
 export interface IPointLog {
   message: string;
+  sub?: string;
   meta: {
     type: "score" | "point" | "deposit";
     uid: number;

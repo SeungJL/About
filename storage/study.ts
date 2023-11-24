@@ -13,11 +13,11 @@ export const SUWAN_스타벅스 = "64ba45feefd3711264521a87";
 export const SUWAN_경기대 = "65211465032de083c092353c";
 export const SUWAN_광교중앙역 = "63625f1d958585371af0248b";
 export const SUWAN_자유신청 = "6479f39e907daf3e8a5cda6e";
-export const SUWAN_행궁동2 = "6559f7e8e5c9066b9b8e7d2a";
+export const SUWAN_행궁동 = "6559f7e8e5c9066b9b8e7d2a";
 export const SUWAN_망포역 = "6559f61fe5c9066b9b8e7d29";
 export const SUWAN_고색역 = "654ca7770f651095a2e41845";
 export const SUWAN_성균관대역 = "654ca7b50f651095a2e41846";
-export const SUWAN_행궁동 = "654ca8e60f651095a2e41847";
+
 export const SUWAN_광교엘리웨이 = "654ca92f0f651095a2e41848";
 
 //양천
@@ -72,9 +72,9 @@ export const PLACE_TO_NAME = {
   [SUWAN_고색역]: "에이티씨",
   [SUWAN_성균관대역]: "스타벅스",
   [SUWAN_광교엘리웨이]: "책발전소",
-  [SUWAN_행궁동]: "본지르르",
+
   [SUWAN_망포역]: "스타벅스",
-  [SUWAN_행궁동2]: "행궁 81.2",
+  [SUWAN_행궁동]: "행궁 81.2",
   [SUWAN_광교중앙역]: "아티제",
   //양천
   [YANG_위카페]: "위카페",
@@ -124,7 +124,7 @@ export const PLACE_TO_LOCATION = {
   [SUWAN_경기대]: "수원",
   [SUWAN_자유신청]: "수원",
   [SUWAN_고색역]: "수원",
-  [SUWAN_행궁동2]: "수원",
+
   [SUWAN_성균관대역]: "수원",
   [SUWAN_광교엘리웨이]: "수원",
   [SUWAN_행궁동]: "수원",
@@ -247,15 +247,9 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EA%B4%91%EA%B5%90_%EC%B1%85%EB%B0%9C%EC%A0%84%EC%86%8C.webp",
   },
+
   {
     id: SUWAN_행궁동,
-    location: "경기 수원시 팔달구 정조로 838",
-    time: "12:00 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%96%89%EA%B6%81%EB%8F%99_%EB%B3%B8%EC%A7%80%EB%A5%B4%EB%A5%B4.webp",
-  },
-  {
-    id: SUWAN_행궁동2,
     location: "경기 수원시 팔달구 신풍로 56",
     time: "10:00 - 22:00",
     image:

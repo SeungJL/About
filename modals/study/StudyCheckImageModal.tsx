@@ -85,21 +85,21 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
     if (!imageSrc) {
       failToast("free", "인증 사진을 첨부해주세요!");
       return;
-    } //
+    }
     handleArrived(null);
     return;
-    const response = await fetch(imageSrc);
+    // const response = await fetch(imageSrc);
 
-    const blob = await response.blob();
+    // const blob = await response.blob();
 
-    const file = new File([blob], "스터디 인증 사진 테스트", {
-      type: blob.type,
-    });
-    // FormData 객체 생성
+    // const file = new File([blob], "스터디 인증 사진 테스트", {
+    //   type: blob.type,
+    // });
+    // // FormData 객체 생성
 
-    const formData = new FormData();
-    formData.append("image", file); // 'image'는 서버에서 파일을 참조하는 키입니다.
-    mutate(formData);
+    // const formData = new FormData();
+    // formData.append("image", file); // 'image'는 서버에서 파일을 참조하는 키입니다.
+    // mutate(formData);
     // 서버로 POST 요청 보내기
 
     // fetch(`${SERVER_URI}/image/upload`, {

@@ -20,6 +20,7 @@ export const FAQ_POP_UP = "faqPopUp";
 export const MANAGER_POP_UP = "managerPopUp";
 export const ALPHABET_POP_UP = "alphabetPopUp";
 export const MEMBER_MASKING_POP_UP = "memberMaskingPopUp";
+export const RABBIT_POP_UP = "rabbitPopUp";
 
 //체크
 export const RABBIT_RUN = "rabbitRun";

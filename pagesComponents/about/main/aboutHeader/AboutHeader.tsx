@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   NOTICE_ALERT,
-  RABBIT_RUN,
+  RABBIT_POP_UP,
 } from "../../../../constants/keys/localStorage";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import { attendCheckWinGiftState } from "../../../../recoil/renderTriggerAtoms";
@@ -52,7 +52,7 @@ function AboutHeader() {
 
   useEffect(() => {
     if (!!attendCheckWinGift) setIconType("attendCheckWin");
-    if (!localStorage.getItem(RABBIT_RUN)) setIsRabbitRun(true);
+    if (!localStorage.getItem(RABBIT_POP_UP)) setIsRabbitRun(true);
   }, [attendCheckWinGift]);
 
   return (

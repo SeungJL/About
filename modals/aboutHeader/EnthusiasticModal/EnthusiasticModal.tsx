@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
+import { RABBIT_POP_UP } from "../../../constants/keys/localStorage";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
@@ -36,6 +37,12 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
     enabled: !!location,
   });
 
+  useEffect(() => {
+    localStorage.setItem(RABBIT_POP_UP, "read");
+    setIsRabbitRun(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {
       completeToast("free", "이번 달 열활멤버가 되었습니다.");
@@ -44,7 +51,7 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
   });
 
   const confirmContent: IConfirmContent = {
-    title: "",
+    title: "열활멤버에 지원하시겠어요?",
     onClickRight: () => mutate({ role: "enthusiastic" }),
   };
 

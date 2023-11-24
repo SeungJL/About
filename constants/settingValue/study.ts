@@ -120,6 +120,7 @@ export const STUDY_DISTANCE = {
       [SUWAN_수원역, SUWAN_고색역],
       [SUWAN_수원역, SUWAN_성균관대역],
       [SUWAN_수원역, SUWAN_행궁동],
+
       [SUWAN_수원역, SUWAN_구운동],
       [SUWAN_경희대, SUWAN_망포역],
       [SUWAN_아주대, SUWAN_경기대],

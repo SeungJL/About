@@ -15,6 +15,8 @@ import InitialSetting from "./initialSetting";
 import MapBottomNav from "./MapBottomNav";
 import MapControlNav from "./MapControlNav";
 
+export type ChoiceRank = "first" | "second" | "third";
+
 function StudyVoteMap({ setIsModal }: IModal) {
   const polylinesRef = useRef([]);
   const mapRef = useRef(null);
@@ -29,6 +31,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
   const [twoDistanceSub, setTwoDistanceSub] = useState([]);
   const [isCheckPreSet, setIsCheckPreSet] = useState(false);
   const [precision, setPrecision] = useState(1);
+  const [choiceRank, setChoiceRank] = useState<ChoiceRank>();
 
   const { data: voteData } = useStudyVoteQuery(voteDate, location);
 
@@ -38,35 +41,46 @@ function StudyVoteMap({ setIsModal }: IModal) {
     if (isCheckPreSet) {
       setIsCheckPreSet(null);
     }
-    if (precision === 0) {
-      setVoteInfo((old) => ({ ...old, subPlace: [] }));
-      return;
-    }
+    const subPlace = [];
+
+    // if (precision === 0) {
+    //   setVoteInfo((old) => ({ ...old, subPlace: [] }));
+    // } else
+
     if (voteInfo?.place) {
-    
-      const subPlaceRecommedation = getStudySecondRecommendation(
-        location,
-        voteInfo.place._id,
-        1
-      );
-      const subPlaceTwo = getStudySecondRecommendation(
-        location,
-        voteInfo.place._id,
-        2
-      );
-      if (precision === 2) {
-        subPlaceRecommedation.push(...[...subPlaceTwo]);
-        setTwoDistanceSub(subPlaceTwo);
-      }
-      const subPlace = [];
-      voteData.forEach((par) => {
-        if (subPlaceRecommedation.includes(par.place._id)) {
-          subPlace.push(par.place);
+      const mainVoteAttCnt = voteData.find(
+        (par) => par.place._id === voteInfo.place._id
+      ).attendences.length;
+
+      const choices: ChoiceRank[] = ["first", "second", "third"];
+      let choice = choices[mainVoteAttCnt];
+      setChoiceRank(choice);
+
+      if (precision !== 0) {
+        const subPlaceRecommedation = getStudySecondRecommendation(
+          location,
+          voteInfo.place._id,
+          1
+        );
+
+        const subPlaceTwo = getStudySecondRecommendation(
+          location,
+          voteInfo.place._id,
+          2
+        );
+        if (precision === 2) {
+          subPlaceRecommedation.push(...[...subPlaceTwo]);
+          setTwoDistanceSub(subPlaceTwo);
         }
-      });
-      
-      setVoteInfo((old) => ({ ...old, subPlace: subPlace }));
+
+        voteData.forEach((par) => {
+          if (subPlaceRecommedation.includes(par.place._id)) {
+            subPlace.push(par.place);
+          }
+        });
+      }
     }
+    setVoteInfo((old) => ({ ...old, subPlace: subPlace }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [precision, naverMap, voteData, voteInfo?.place]);
 
@@ -157,6 +171,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
           voteInfo={voteInfo}
           setIsModal={setIsModal}
           setVoteInfo={setVoteInfo}
+          choiceRank={choiceRank}
         />
       </Layout>
     </>

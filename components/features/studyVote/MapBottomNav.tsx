@@ -13,8 +13,10 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { useAboutPointMutation } from "../../../hooks/user/mutations";
+import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 import StudyVoteSubModalTime from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalTime";
 import {
+  myVotingState,
   studyDateStatusState,
   voteDateState,
 } from "../../../recoil/studyAtoms";
@@ -22,19 +24,37 @@ import { locationState } from "../../../recoil/userAtoms";
 import { DispatchType, IModal } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
 import ModalPortal from "../../modals/ModalPortal";
+import { ChoiceRank } from "./StudyVoteMap";
 
 interface IMapBottomNav extends IModal {
   voteInfo: IStudyParticipate;
   setVoteInfo: DispatchType<IStudyParticipate>;
+  choiceRank: ChoiceRank;
 }
 
-function MapBottomNav({ setIsModal, setVoteInfo, voteInfo }: IMapBottomNav) {
+function MapBottomNav({
+  setIsModal,
+  setVoteInfo,
+  voteInfo,
+  choiceRank,
+}: IMapBottomNav) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const [isTimeModal, setIsTimeModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
+  const myVoting = useRecoilValue(myVotingState);
+
+  const { data: pointLog } = usePointSystemLogQuery("point", true, {
+    enabled: !!myVoting,
+  });
+
+  const myPrevVotePoint = pointLog?.find(
+    (item) =>
+      item.message === "스터디 투표" && item.sub === dayjsToStr(voteDate)
+  );
+  console.log(4, pointLog, myPrevVotePoint);
 
   const resetQueryData = useResetQueryData();
   const { mutate: getAboutPoint } = useAboutPointMutation();
@@ -46,13 +66,11 @@ function MapBottomNav({ setIsModal, setVoteInfo, voteInfo }: IMapBottomNav) {
       onSuccess() {
         setIsModal(false);
         resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
-        completeToast("studyVote");
-        if (studyDateStatus === "today") {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
+        let getPoint = POINT_SYSTEM_PLUS.STUDY_VOTE[choiceRank];
+        if (studyDateStatus === "not passed" && choiceRank) {
+          getAboutPoint({ ...getPoint, sub: dayjsToStr(voteDate) });
         }
-        if (studyDateStatus === "not passed") {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
-        }
+        completeToast("studyVote", getPoint.value);
       },
       onError: errorToast,
     }

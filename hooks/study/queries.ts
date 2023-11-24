@@ -11,7 +11,6 @@ import {
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
-import { filterStudyPlaces } from "../../helpers/studyHelpers";
 
 import { QueryOptions } from "../../types/reactTypes";
 
@@ -58,11 +57,15 @@ export const useStudyVoteQuery = (
           params: { location },
         }
       );
-      return filterStudyPlaces(
-        res.data.participations,
-        location,
-        [0, 6].includes(date.day())
+
+      return res.data.participations.filter(
+        (par) => par.place.status === "active"
       );
+      // return filterStudyPlaces(
+      //   res.data.participations,
+      //   location,
+      //   [0, 6].includes(date.day())
+      // );
     },
     options
   );

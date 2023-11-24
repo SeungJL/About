@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -94,10 +93,12 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
   //투표 완료시 점수 획득
   const getPoint = () => {
     if (!myVoting) {
-      if (studyDateStatus === "today")
+      if (studyDateStatus === "today") {
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
-      if (studyDateStatus === "not passed")
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
+      }
+      // if (studyDateStatus === "not passed") {
+      //   getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
+      // }
     }
   };
 
@@ -130,7 +131,6 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     patchAttend(voteInfo);
     setIsModal(false);
   };
-
   const openFreeStudy = async () => {
     const choicedPlace = voteInfo.place;
     await openFree(choicedPlace._id);
