@@ -4,7 +4,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { LOCATION_OPEN } from "../../constants/location";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/custom/CustomToast";
-import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import {
   useStudyPlacesQuery,
   useStudyStartTimeQuery,
@@ -38,22 +37,22 @@ function StudySetting() {
     }
   );
 
-  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day"),
-    {
-      onSuccess() {
-        setTimeout(() => {
-          refetch();
-        }, 200);
-      },
-    }
-  );
+  // const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
+  //   dayjs().add(1, "day"),
+  //   {
+  //     onSuccess() {
+  //       setTimeout(() => {
+  //         refetch();
+  //       }, 200);
+  //     },
+  //   }
+  // );
 
   useEffect(() => {
     if (!studyVoteData) return;
     const participations = studyVoteData;
     if (participations[0].status === "pending" && studyDateStatus === "today") {
-      decideSpace();
+      // decideSpace();
     }
     const arrangedStudies = arrangeMainSpace(
       [...participations],
