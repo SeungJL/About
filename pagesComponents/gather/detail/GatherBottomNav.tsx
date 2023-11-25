@@ -41,7 +41,7 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
     gatherId,
     {
       onSuccess() {
-        completeToast("free", "취소되었습니다.", true);
+        completeToast("free", "참여 신청이 취소되었습니다.", true);
         resetQueryData([GATHER_CONTENT]);
       },
       onError: errorToast,

@@ -79,7 +79,11 @@ export const usePointSystemMutation = (
   options?: MutationOptions<IPointSystem>
 ) =>
   useMutation<void, AxiosError, IPointSystem>((param) => {
-    const body = { [field]: param.value, meesage: param.message };
+    const body = {
+      [field]: param.value,
+      message: param.message,
+      sub: param.sub,
+    };
     return requestServer<typeof body>({
       method: "patch",
       url: `user/${field}`,

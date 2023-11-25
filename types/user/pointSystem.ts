@@ -8,8 +8,8 @@ export interface IPointSystem {
 }
 export interface IPointLog {
   message: string;
-  sub?: string;
   meta: {
+    sub?: string;
     type: "score" | "point" | "deposit";
     uid: number;
     value: number;

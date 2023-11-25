@@ -64,7 +64,7 @@ function ProfileInfo({ user }: IProfileInfo) {
 
   const { mutate: sendHeart } = useInteractionLikeMutation({
     onSuccess() {
-      completeToast("free", "좋아요 전송 완료");
+      completeToast("free", "전송되었습니다!");
       resetQueryData([NOTICE_HEART_LOG]);
     },
     onError: errorToast,

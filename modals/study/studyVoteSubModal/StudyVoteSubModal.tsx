@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   studyDateStatusState,
   voteDateState,
@@ -25,10 +25,12 @@ import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
 
 import { Button } from "@chakra-ui/react";
+import { ChoiceRank } from "../../../components/features/studyVote/StudyVoteMap";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { useAboutPointMutation } from "../../../hooks/user/mutations";
+import { usePointSystemMutation } from "../../../hooks/user/mutations";
+import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { IStudyParticipate } from "../../../types/study/study";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
@@ -38,12 +40,14 @@ import StudyVoteSubModalTime from "./StudyVoteSubModalTime";
 interface IStudyVoteSubModal extends IModal {
   place: IPlace;
   isPrivate: boolean;
+  attCnt: number;
 }
 
 function StudyVoteSubModal({
   setIsModal,
   place,
   isPrivate,
+  attCnt,
 }: IStudyVoteSubModal) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -56,12 +60,13 @@ function StudyVoteSubModal({
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
+  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
 
   const [isFirst, setIsFirst] = useState(true);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
 
   const resetQueryData = useResetQueryData();
-  const { mutate: getAboutPoint } = useAboutPointMutation();
+  const { mutate: getPoint } = usePointSystemMutation("point");
   const { mutate: getInviteAboutPoint } = useAdminAboutPointMutation(
     inviteUid as string
   );
@@ -72,15 +77,20 @@ function StudyVoteSubModal({
     {
       onSuccess() {
         resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
-        completeToast("studyVote");
-        if (studyDateStatus === "today" && !isPrivate) {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
-        }
-        if (studyDateStatus === "not passed") {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
-        }
+        const choices: ChoiceRank[] = ["first", "second", "third"];
+        const choice = choices[attCnt];
+        if (studyDateStatus === "not passed" && choice) {
+          const point = POINT_SYSTEM_PLUS.STUDY_VOTE[choice];
+          const subCnt = voteInfo.subPlace.length;
+          getPoint({
+            value: point.value || 0 + subCnt,
+            message: point.message,
+            sub: dayjsToStr(voteDate),
+          });
+          completeToast("studyVote", point.value);
+        } else completeToast("studyVote");
         if (inviteUid) {
-          getAboutPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
+          getPoint(POINT_SYSTEM_PLUS.STUDY_INVITE);
           getInviteAboutPoint({
             value: POINT_SYSTEM_PLUS.STUDY_INVITE.value,
             message: `${session?.user.name}님의 스터디 참여 보너스`,
@@ -96,7 +106,6 @@ function StudyVoteSubModal({
       ...voteInfo,
       place,
     };
-
     patchAttend(data);
     setIsModal(false);
   };

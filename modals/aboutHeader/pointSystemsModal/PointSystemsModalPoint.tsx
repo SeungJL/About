@@ -17,12 +17,12 @@ function PointSystemsModalPoint() {
         <Item>
           <Name>스터디 투표</Name>
           <FontAwesomeIcon fontSize="32px" icon={faCheckToSlot} />
-          <Point>{POINT_SYSTEM_PLUS.STUDY_VOTE.value} point</Point>
+          <Point>0~20 point</Point>
         </Item>
         <Item>
           <Name>스터디 출석</Name>
           <FontAwesomeIcon fontSize="32px" icon={faCheckCircle} />
-          <Point>{POINT_SYSTEM_PLUS.STUDY_ATTEND.value} point</Point>
+          <Point>5 point</Point>
         </Item>
         <Item>
           <Name>에타 홍보</Name>
@@ -46,8 +46,8 @@ function PointSystemsModalPoint() {
         </Item>
       </Layout>
       <Contents>
+        <li>이외에도 다양한 곳에서 획득 가능</li>
         <li>포인트는 스토어에서 사용 가능</li>
-        <li>적립된 포인트는 동아리 점수로도 합산</li>
         <li>100 point = 1000원</li>
       </Contents>
     </>

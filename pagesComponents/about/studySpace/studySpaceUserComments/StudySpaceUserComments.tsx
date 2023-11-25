@@ -6,6 +6,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../../components/common/user/Profile/ProfileIcon";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
+import { voteDateState } from "../../../../recoil/studyAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 import { userInfoState } from "../../../../recoil/userAtoms";
 import {
@@ -34,13 +35,16 @@ function StudySpaceUserComments({
   const { data: session } = useSession();
 
   const userInfo = useRecoilValue(userInfoState);
+  const voteDate = useRecoilValue(voteDateState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
   const setTransferUserData = useSetRecoilState(transferUserDataState);
 
   const myFriendList = userInfo?.friend;
   const isAttend = attendances.find((who) => who.user.uid === session?.uid);
   const hasPublicAccess =
-    status === "open" || (status !== "pending" && !!isAttend);
+    status === "open" ||
+    (status !== "pending" && !!isAttend) ||
+    voteDate.date() % 10 !== 1;
 
   const onClickUser = (user: IUser, isFunc) => {
     if (!isFunc) return;

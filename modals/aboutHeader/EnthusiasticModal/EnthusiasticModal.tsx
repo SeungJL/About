@@ -45,7 +45,7 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
 
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {
-      completeToast("free", "이번 달 열활멤버가 되었습니다.");
+      completeToast("free", "이번 달 열활멤버가 되었습니다!");
       setIsModal(false);
     },
   });
@@ -62,7 +62,7 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
         <ModalBody>
           <ModalSubtitle>매 달마다 열활멤버 신청을 받습니다.</ModalSubtitle>
           <CurrentMember>
-            현재 인원: <span>{memberCnt}명</span>
+            현재 인원: <span>{memberCnt || " "}명</span>
           </CurrentMember>
           <Container>
             <li>

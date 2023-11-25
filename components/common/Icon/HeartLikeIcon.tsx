@@ -31,7 +31,7 @@ function HeartLikeIcon({ toUid }: IHeartLikeIcon) {
   const { mutate: sendAboutPoint } = useAdminAboutPointMutation(toUid);
   const { mutate: sendHeart } = useInteractionLikeMutation({
     onSuccess() {
-      completeToast("free", "좋아요 전송 완료");
+      completeToast("free", "전송 완료!");
     },
     onError: errorToast,
   });
@@ -44,7 +44,7 @@ function HeartLikeIcon({ toUid }: IHeartLikeIcon) {
   const onClick = () => {
     sendHeart({
       to: toUid,
-      message: `${session?.user.name}님으로부터 좋아요를 받았어요!`,
+      message: `${session?.user.name}님에게 좋아요를 받았어요!`,
     });
     sendAboutPoint(POINT_SYSTEM_PLUS.LIKE);
     pushArrToLocalStorage(LIKE_HEART, toUid);

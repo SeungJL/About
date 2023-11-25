@@ -84,7 +84,10 @@ function GatherParticipation({ data }: IGatherParticipation) {
             <ProfileIcon user={who.user} size="md" />
             <UserOverview>
               <span>{who?.user.name}</span>
-              <span>{who?.user.comment}</span>
+              <span>
+                {who?.user.comment.slice(0, 23)}{" "}
+                {who?.user.comment.length > 23 && "..."}
+              </span>
             </UserOverview>
             <ParticipateTime isFirst={who?.phase === "first"}>
               {who?.phase === "first" ? (

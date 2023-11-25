@@ -9,7 +9,6 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
-import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
@@ -75,7 +74,6 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     "post",
     {
       onSuccess: () => {
-        getPoint();
         completeToast("studyVote");
         resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
       },
@@ -89,18 +87,6 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
     },
     onError: errorToast,
   });
-
-  //투표 완료시 점수 획득
-  const getPoint = () => {
-    if (!myVoting) {
-      if (studyDateStatus === "today") {
-        getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE_DAILY);
-      }
-      // if (studyDateStatus === "not passed") {
-      //   getAboutPoint(POINT_SYSTEM_PLUS.STUDY_VOTE);
-      // }
-    }
-  };
 
   //메인 장소 선택
   const firstSubmit = () => {

@@ -10,9 +10,10 @@ import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
+  useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
-import { useAboutPointMutation } from "../../../hooks/user/mutations";
+import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 import StudyVoteSubModalTime from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalTime";
 import {
@@ -39,6 +40,7 @@ function MapBottomNav({
   choiceRank,
 }: IMapBottomNav) {
   const completeToast = useCompleteToast();
+  const failToast = useFailToast();
   const errorToast = useErrorToast();
   const [isTimeModal, setIsTimeModal] = useState(false);
   const voteDate = useRecoilValue(voteDateState);
@@ -50,44 +52,56 @@ function MapBottomNav({
     enabled: !!myVoting,
   });
 
+  //오늘 날짜 투표 포인트 받은거 찾기
   const myPrevVotePoint = pointLog?.find(
     (item) =>
-      item.message === "스터디 투표" && item.sub === dayjsToStr(voteDate)
-  );
-  console.log(4, pointLog, myPrevVotePoint);
+      item.message === "스터디 투표" && item.meta.sub === dayjsToStr(voteDate)
+  )?.meta.value;
 
   const resetQueryData = useResetQueryData();
-  const { mutate: getAboutPoint } = useAboutPointMutation();
+
+  const { mutate: getPoint } = usePointSystemMutation("point");
 
   const { mutate: patchAttend } = useStudyParticipationMutation(
     voteDate,
     "post",
     {
       onSuccess() {
-        setIsModal(false);
-        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
-        let getPoint = POINT_SYSTEM_PLUS.STUDY_VOTE[choiceRank];
-        if (studyDateStatus === "not passed" && choiceRank) {
-          getAboutPoint({ ...getPoint, sub: dayjsToStr(voteDate) });
-        }
-        completeToast("studyVote", getPoint.value);
+        handleSuccess();
       },
       onError: errorToast,
     }
   );
 
+  const handleSuccess = async () => {
+    resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
+    if (myPrevVotePoint) {
+      await getPoint({ message: "스터디 투표 취소", value: -myPrevVotePoint });
+    }
+    let point = POINT_SYSTEM_PLUS.STUDY_VOTE[choiceRank];
+    if (studyDateStatus === "not passed" && choiceRank) {
+      await getPoint({ ...point, sub: dayjsToStr(voteDate) });
+      completeToast("studyVote", point.value);
+    } else completeToast("studyVote");
+    setIsModal(false);
+  };
+
   const onSubmit = () => {
     patchAttend(voteInfo);
+  };
+
+  const onClickTimeSelect = () => {
+    if (!voteInfo?.place) {
+      failToast("free", "장소를 먼저 선택해주세요!");
+      return;
+    }
+    setIsTimeModal(true);
   };
 
   return (
     <>
       <Layout>
-        <Button
-          colorScheme="mintTheme"
-          size="lg"
-          onClick={() => setIsTimeModal(true)}
-        >
+        <Button colorScheme="mintTheme" size="lg" onClick={onClickTimeSelect}>
           시간 선택
         </Button>
         <Button size="lg" onClick={() => setIsModal(false)}>

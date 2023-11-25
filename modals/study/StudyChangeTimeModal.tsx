@@ -17,10 +17,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import {
-  POINT_SYSTEM_Deposit,
-  POINT_SYSTEM_MINUS,
-} from "../../constants/contentsValue/pointSystem";
+import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
@@ -30,6 +27,7 @@ import {
   useFailToast,
 } from "../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
+import { usePointSystemLogQuery } from "../../hooks/user/queries";
 import { locationState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IDayjsStartToEnd, ITimeStartToEnd } from "../../types/timeAndDate";
@@ -71,23 +69,30 @@ function StudyChangeTimeModal({
 
   const studyStartTime = useRecoilValue(studyStartTimeState);
 
-  const { mutate: getPoint } = usePointSystemMutation("point");
+  const { data } = usePointSystemLogQuery("deposit");
+
+  const prevFee = data?.find(
+    (item) =>
+      item?.meta?.sub === dayjsToStr(voteDate) &&
+      item.message === POINT_SYSTEM_Deposit.STUDY_TIME_CHANGE.message
+  );
+
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { mutate: patchAttend } = useStudyParticipationMutation(
     voteDate,
     "patch",
     {
       onSuccess() {
-        completeToast("success");
         resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
         if (isFree) return;
-        if (
-          dayjs() >= dayjs().hour(time.start.hours).minute(time.start.minutes)
-        ) {
-          getPoint(POINT_SYSTEM_MINUS.STUDY_TIME_CHANGE);
-        } else if (studyStartTime && dayjs() > studyStartTime.startTime) {
-          getDeposit(POINT_SYSTEM_Deposit.STUDY_TIME_CHANGE);
+
+        if (studyStartTime && dayjs() > studyStartTime.startTime && !prevFee) {
+          getDeposit({
+            ...POINT_SYSTEM_Deposit.STUDY_TIME_CHANGE,
+            sub: dayjsToStr(voteDate),
+          });
         }
+        completeToast("change");
       },
       onError: errorToast,
     }

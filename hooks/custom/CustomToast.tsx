@@ -59,7 +59,11 @@ export const useCompleteToast = () => {
       if (type === "apply") text = "신청 완료!";
       if (type === "success") text = "정상적으로 처리되었습니다.";
       if (type === "studyVote") {
-        text = sub ? `투표 완료! ${sub} Point 적립` : "투표 완료!";
+        const seqText =
+          sub === 10 ? "첫" : sub === 5 ? "두" : sub === 2 ? "세" : undefined;
+        text = sub
+          ? `${seqText}번째로 투표 완료! ${sub} Point 적립`
+          : "투표 완료!";
       }
       if (type === "content")
         toast({

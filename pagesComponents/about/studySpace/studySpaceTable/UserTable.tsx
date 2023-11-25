@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { TABLE_COLORS } from "../../../../constants/styles";
-import { studyDateStatusState } from "../../../../recoil/studyAtoms";
+import {
+  studyDateStatusState,
+  voteDateState,
+} from "../../../../recoil/studyAtoms";
 import { userInfoState } from "../../../../recoil/userAtoms";
 import { IAttendance, StudyStatus } from "../../../../types/study/studyDetail";
 
@@ -28,12 +31,15 @@ function UserTable({ attendances, status }: IUserTable) {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const userInfo = useRecoilValue(userInfoState);
+  const voteDate = useRecoilValue(voteDateState);
   const [userArr, setUserArr] = useState<IUserItemArr[]>([]);
 
   const myFriends = userInfo?.friend;
   const isAttend = attendances.find((who) => who.user.uid === userInfo?.uid);
   const hasPublicAccess =
-    status === "open" || (status !== "pending" && !!isAttend);
+    status === "open" ||
+    (status !== "pending" && !!isAttend) ||
+    voteDate.date() % 10 !== 1;
 
   useEffect(() => {
     setUserArr([]);

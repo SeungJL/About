@@ -8,4 +8,5 @@ export const USER_ROLE: Record<Role, string> = {
   previliged: "관리자",
   resting: "휴식 멤버",
   waiting: "대기 인원",
+  enthusiastic: "열활 멤버",
 };

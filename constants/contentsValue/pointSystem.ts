@@ -2,27 +2,14 @@ export const POINT_SYSTEM_PLUS = {
   STUDY_ATTEND: { value: 5, message: "스터디 출석" },
   STUDY_PRIVATE_ATTEND: { value: 2, message: "개인 스터디 인증" },
   STUDY_VOTE: {
-    first: { value: 5, message: "스터디 투표" },
+    first: { value: 10, message: "스터디 투표" },
     second: { value: 5, message: "스터디 투표" },
-    third: { value: 5, message: "스터디 투표" },
+    third: { value: 2, message: "스터디 투표" },
   },
   STUDY_INVITE: { value: 2, message: "친구 초대 보너스" },
   DAILY_ATTEND: { value: 3, message: "일일 출석" },
-  STUDY_VOTE_DAILY: { value: 2, message: "당일 참여" },
   PROMOTION: { value: 100, message: "홍보 리워드" },
-  suggest: { value: 3, message: "건의사항" },
-  LIKE: { value: 3, message: "좋아요" },
-};
-
-export const POINT_SYSTEM_MINUS = {
-  STUDY_VOTE_CANCEL: {
-    value: -5,
-    message: "투표 취소",
-  },
-  STUDY_TIME_CHANGE: {
-    value: -5,
-    message: "늦은 시간 변경",
-  },
+  LIKE: { value: 2, message: "좋아요" },
 };
 
 export const POINT_SYSTEM_Deposit = {

@@ -1,10 +1,12 @@
 import { faBlockQuestion } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../../components/common/user/Profile/ProfileIconXsOverwrap";
 import { MAX_USER_PER_PLACE } from "../../../../../constants/settingValue/study";
 import { IconUserTwo } from "../../../../../public/icons/Icons";
+import { voteDateState } from "../../../../../recoil/studyAtoms";
 import {
   IAttendance,
   StudyStatus,
@@ -27,6 +29,7 @@ function AboutMainItemParticipants({
 }: IAboutMainItemParticipants) {
   const { data: session } = useSession();
 
+  const voteDate = useRecoilValue(voteDateState);
   const isMyVote = attendances.find((who) => who.user?.uid === session?.uid);
   const voterCnt = attendances.length;
 
@@ -46,8 +49,9 @@ function AboutMainItemParticipants({
 
   const isMax = filteredAttendances.length >= MAX_USER_PER_PLACE;
 
-  const hasPublicAcess = status !== "pending" && isMyVote;
- 
+  const hasPublicAccess =
+    (status !== "pending" && isMyVote) || voteDate.date() % 10 !== 1;
+
   return (
     <Layout status={statusFixed === "myOpen"}>
       {statusFixed === "pending" && voteStatus && (
@@ -58,7 +62,7 @@ function AboutMainItemParticipants({
           return (
             idx < VOTER_SHOW_MAX && (
               <ProfileContainer key={idx} zIndex={idx}>
-                {status === "open" || hasPublicAcess ? (
+                {status === "open" || hasPublicAccess ? (
                   <ProfileIconXsOverwrap
                     user={att.user}
                     isOverlap={

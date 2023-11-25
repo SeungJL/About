@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { POINT_SYSTEM_MINUS } from "../../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
@@ -18,14 +17,15 @@ import {
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
-import { useAboutPointMutation } from "../../../hooks/user/mutations";
+import { usePointSystemMutation } from "../../../hooks/user/mutations";
+import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 
 import {
   myStudyState,
   myVotingState,
   studyDateStatusState,
 } from "../../../recoil/studyAtoms";
-import { locationState } from "../../../recoil/userAtoms";
+import { locationState, userAccessUidState } from "../../../recoil/userAtoms";
 
 import {
   IAttendance,
@@ -65,6 +65,7 @@ function StudySpaceNavigation({
   const isGuest = session?.user.name === "guest";
   const voteDate = dayjs(router.query.date as string);
 
+  const uid = useRecoilValue(userAccessUidState);
   const myVoting = useRecoilValue(myVotingState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudyFixed = useRecoilValue(myStudyState);
@@ -78,15 +79,28 @@ function StudySpaceNavigation({
     (props) => (props.user as IUser).uid === session?.uid
   );
 
-  const { mutate: getAboutPoint } = useAboutPointMutation();
+  const { data: pointLog } = usePointSystemLogQuery("point", true, {
+    enabled: !!myVote,
+  });
+  const myPrevVotePoint = pointLog?.find(
+    (item) =>
+      item.message === "스터디 투표" && item.meta.sub === dayjsToStr(voteDate)
+  )?.meta.value;
+
+  const { mutate: getPoint } = usePointSystemMutation("point");
   const { mutate: handleAbsent } = useStudyParticipationMutation(
     voteDate,
     "delete",
     {
       onSuccess() {
         resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
-        getAboutPoint(POINT_SYSTEM_MINUS.STUDY_VOTE_CANCEL);
-        completeToast("success");
+        if (myPrevVotePoint) {
+          getPoint({
+            message: "스터디 투표 취소",
+            value: -myPrevVotePoint,
+          });
+        }
+        completeToast("free", "신청이 취소되었습니다.");
       },
       onError: errorToast,
     }
@@ -132,6 +146,7 @@ function StudySpaceNavigation({
     if (isPrivate && !myVote)
       return { text: "개인 스터디 신청", func: "private" };
     if (studyDateStatus === "not passed") {
+      console.log(23, myVote, myVoting);
       if (myVoting) return { text: "투표 완료" };
       if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
       return { text: "스터디 투표", func: "vote" };
@@ -147,13 +162,16 @@ function StudySpaceNavigation({
   const { text, func } = getStudyButtonText();
 
   const isShowSubNav =
-    (myVoting && studyDateStatus === "not passed") ||
-    (studyDateStatus === "today" && myVote);
+    text !== "출석 완료" &&
+    ((myVoting && studyDateStatus === "not passed") ||
+      (studyDateStatus === "today" && myVote));
+
+  const attCnt = attendences?.filter((att) => att.user.uid !== uid)?.length;
 
   return (
     <Wrapper>
       <Layout>
-        {isShowSubNav && (
+        {!isShowSubNav && (
           <SubNav>
             <Button onClick={() => onClickSubBtn("cancel")}>
               <FontAwesomeIcon icon={faCircleXmark} size="xl" />
@@ -184,6 +202,7 @@ function StudySpaceNavigation({
         setType={setModalType}
         myVote={myVote}
         place={place}
+        attCnt={attCnt}
       />
     </Wrapper>
   );

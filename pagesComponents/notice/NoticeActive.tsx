@@ -36,7 +36,7 @@ function NoticeActive({ activeLogs }: INoticeActive) {
 
   const { mutate } = useUserFriendRequestMutation("patch", {
     onSuccess() {
-      if (type === "approval") completeToast("free", "수락하였습니다.");
+      if (type === "approval") completeToast("free", "수락 완료 !");
       if (type === "refusal") failToast("free", "거절하였습니다.");
       type = null;
       resetQueryData([NOTICE_ACTIVE_LOG]);
@@ -70,7 +70,10 @@ function NoticeActive({ activeLogs }: INoticeActive) {
                 />
               </IconWrapper>
               <Name>{name}</Name>
-              <Content>님{message}</Content>
+              <Content>
+                님{message} {type === "like" && <Point>+2 point</Point>}
+              </Content>
+
               {type === "friend" ? (
                 item.status === "pending" ? (
                   <FriendButtons>
@@ -131,14 +134,22 @@ const IconWrapper = styled.div`
 const Name = styled.div`
   height: 22px;
   font-weight: 600;
+  white-space: nowrap;
 `;
 
 const Content = styled.span`
+  white-space: nowrap;
   height: 22px;
   margin-right: var(--margin-md);
 `;
 
+const Point = styled.span`
+  color: var(--color-mint);
+  font-size: 10px;
+`;
+
 const Date = styled.span`
+  white-space: nowrap;
   color: var(--font-h3);
   font-size: 11px;
 `;

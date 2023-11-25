@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import {} from "react-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE_ICON } from "../../../constants/settingValue/study";
 import { getStudySecondRecommendation } from "../../../helpers/studyHelpers";
 import { createNaverMapDot } from "../../../helpers/utilHelpers";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { voteDateState } from "../../../recoil/studyAtoms";
-import { locationState } from "../../../recoil/userAtoms";
+import { locationState, userAccessUidState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { IStudyParticipate } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
@@ -23,6 +24,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
   const infoRef = useRef(null);
   const markersRef = useRef<{ marker: any; place: IPlace }[]>([]);
 
+  const uid = useRecoilValue(userAccessUidState);
   const location = useRecoilValue(locationState);
   const voteDate = useRecoilValue(voteDateState);
 
@@ -43,17 +45,13 @@ function StudyVoteMap({ setIsModal }: IModal) {
     }
     const subPlace = [];
 
-    // if (precision === 0) {
-    //   setVoteInfo((old) => ({ ...old, subPlace: [] }));
-    // } else
-
     if (voteInfo?.place) {
-      const mainVoteAttCnt = voteData.find(
-        (par) => par.place._id === voteInfo.place._id
-      ).attendences.length;
+      const mainVoteAttCnt = voteData
+        .find((par) => par.place._id === voteInfo.place._id)
+        .attendences.filter((att) => att.user.uid !== uid).length;
 
       const choices: ChoiceRank[] = ["first", "second", "third"];
-      let choice = choices[mainVoteAttCnt];
+      const choice = choices[mainVoteAttCnt];
       setChoiceRank(choice);
 
       if (precision !== 0) {
@@ -72,7 +70,6 @@ function StudyVoteMap({ setIsModal }: IModal) {
           subPlaceRecommedation.push(...[...subPlaceTwo]);
           setTwoDistanceSub(subPlaceTwo);
         }
-
         voteData.forEach((par) => {
           if (subPlaceRecommedation.includes(par.place._id)) {
             subPlace.push(par.place);
@@ -142,7 +139,8 @@ function StudyVoteMap({ setIsModal }: IModal) {
     }
   }, [markersRef, naverMap, twoDistanceSub, voteData, voteInfo]);
 
-  const getPoint = !voteInfo?.place ? 0 : 3 + voteInfo?.subPlace?.length;
+  let point = POINT_SYSTEM_PLUS.STUDY_VOTE[choiceRank]?.value || 0;
+  const getPoint = !voteInfo?.place ? 0 : point + voteInfo?.subPlace?.length;
 
   return (
     <>

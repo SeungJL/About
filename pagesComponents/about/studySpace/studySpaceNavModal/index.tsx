@@ -18,6 +18,7 @@ interface IStudySpaceNavModal {
   setType: DispatchType<StudySpaceModalType>;
   myVote: IAttendance;
   place: IPlace;
+  attCnt: number;
 }
 
 function StudySpaceNavModal({
@@ -25,6 +26,7 @@ function StudySpaceNavModal({
   setType,
   myVote,
   place,
+  attCnt,
 }: IStudySpaceNavModal) {
   const [isVoteComplete, setIsVoteComplete] = useState(false);
 
@@ -40,6 +42,7 @@ function StudySpaceNavModal({
             setIsModal={closeModal}
             place={place}
             isPrivate={type === "private"}
+            attCnt={attCnt}
           />
         </ModalPortal>
       )}

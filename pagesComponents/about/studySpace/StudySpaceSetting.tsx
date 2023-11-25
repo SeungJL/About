@@ -7,7 +7,7 @@ import { useTypeErrorToast } from "../../../hooks/custom/CustomToast";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 
 import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
-import { voteDateState } from "../../../recoil/studyAtoms";
+import { participationsState, voteDateState } from "../../../recoil/studyAtoms";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
 import { IParticipation } from "../../../types/study/studyDetail";
 
@@ -28,6 +28,7 @@ function StudySpaceSetting({
     isRefetchStudySpaceState
   );
   const setVoteDate = useSetRecoilState(voteDateState);
+  const setParticipations = useSetRecoilState(participationsState);
 
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
@@ -40,12 +41,10 @@ function StudySpaceSetting({
 
   //스터디 세팅
   const handleStudy = (data: IParticipation[]) => {
+    setParticipations(data);
     const findParticipation = data.find((props) => props.place._id === placeId);
-
     setParticipation(findParticipation);
-    const isVoted = findParticipation.attendences.find(
-      (who) => who?.user.uid === session?.uid
-    );
+  
   };
 
   //날짜 세팅
@@ -63,10 +62,11 @@ function StudySpaceSetting({
   //refetch
   useEffect(() => {
     if (isRefetchStudySpace) {
+      console.log(4);
       setTimeout(() => {
         refetch();
         setIsRefetchStudySpace(false);
-      }, 600);
+      }, 800);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRefetchStudySpace]);

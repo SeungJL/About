@@ -36,7 +36,7 @@ function PointLog() {
           </LogHeader>
           <>
             {!isLoading ? (
-              filterLog?.reverse().map((item, idx) => {
+              filterLog?.map((item, idx) => {
                 const value = item?.meta.value;
                 return (
                   <Item key={idx}>
