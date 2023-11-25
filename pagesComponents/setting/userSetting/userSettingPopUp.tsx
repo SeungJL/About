@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { NEW_POINT_SYSTEM } from "../../../constants/contents/PopUpContents";
 import {
   ALPHABET_POP_UP,
   ATTEND_POP_UP,
   FAQ_POP_UP,
   MANAGER_POP_UP,
+  NEW_POINT_SYSTEM_POP_UP,
   PROMOTION_POP_UP,
   SUGGEST_POP_UP,
   USER_GUIDE_POP_UP,
@@ -11,6 +13,7 @@ import {
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
+import ContentPopUp from "../../../modals/common/ContentPopUp";
 import AlphabetPopUp from "../../../modals/pop-up/AlphabetPopUp";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
@@ -31,7 +34,7 @@ export type UserPopUp =
   | "faq"
   | "manager"
   | "alphabet"
-  | "memberMasking";
+  | "newPointSystem";
 
 function UserSettingPopUp() {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -41,20 +44,20 @@ function UserSettingPopUp() {
 
     // if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 
-    // if (!checkAndSetLocalStorage(MEMBER_MASKING_POP_UP, 3)) {
-    //   setPopUpTypes((old) => [...old, "memberMasking"]);
-    //   if (++popUpCnt === 2) return;
-    // }
-    if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 6)) {
+    if (!checkAndSetLocalStorage(NEW_POINT_SYSTEM_POP_UP, 7)) {
+      setPopUpTypes((old) => [...old, "newPointSystem"]);
+      if (++popUpCnt === 2) return;
+    }
+    if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 12)) {
       setPopUpTypes((old) => [...old, "alphabet"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(FAQ_POP_UP, 8)) {
+    if (!checkAndSetLocalStorage(FAQ_POP_UP, 14)) {
       setPopUpTypes((old) => [...old, "faq"]);
       if (++popUpCnt === 2) return;
     }
 
-    if (!checkAndSetLocalStorage(USER_GUIDE_POP_UP, 14)) {
+    if (!checkAndSetLocalStorage(USER_GUIDE_POP_UP, 21)) {
       setPopUpTypes((old) => [...old, "userGuide"]);
       if (++popUpCnt === 2) return;
     }
@@ -62,7 +65,7 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "promotion"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 14)) {
+    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 7)) {
       setPopUpTypes((old) => [...old, "suggest"]);
       if (++popUpCnt === 2) return;
     }
@@ -70,7 +73,7 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "lastWeekAttend"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(MANAGER_POP_UP, 7)) {
+    if (!checkAndSetLocalStorage(MANAGER_POP_UP, 10)) {
       setPopUpTypes((old) => [...old, "manager"]);
       if (++popUpCnt === 2) return;
     }
@@ -115,12 +118,12 @@ function UserSettingPopUp() {
           }}
         />
       )}
-      {/* {popUpTypes.includes("memberMasking") && (
+      {popUpTypes.includes("newPointSystem") && (
         <ContentPopUp
-          content={MEMEBER_MASKING_AND_FRIEND}
-          setIsModal={() => filterPopUpTypes("memberMasking")}
+          content={NEW_POINT_SYSTEM}
+          setIsModal={() => filterPopUpTypes("newPointSystem")}
         />
-      )} */}
+      )}
     </>
   );
 }

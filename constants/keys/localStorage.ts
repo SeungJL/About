@@ -21,6 +21,7 @@ export const MANAGER_POP_UP = "managerPopUp";
 export const ALPHABET_POP_UP = "alphabetPopUp";
 export const MEMBER_MASKING_POP_UP = "memberMaskingPopUp";
 export const RABBIT_POP_UP = "rabbitPopUp";
+export const NEW_POINT_SYSTEM_POP_UP = "newPointSystemPopUp";
 
 //체크
 export const RABBIT_RUN = "rabbitRun";

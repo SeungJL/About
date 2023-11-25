@@ -28,9 +28,17 @@ function ContentPopUp({ content, setIsModal }: IContentPopUp) {
               <Container key={idx}>
                 <Subtitile>{item.subtitle}</Subtitile>
                 <Ul>
-                  {item.content.map((text, idx2) => (
-                    <li key={idx2}>{text}</li>
-                  ))}
+                  {item.content.map((text, idx2) => {
+                    const textArr = text.split("/");
+                    console.log(textArr);
+                    return (
+                      <li key={idx2}>
+                        {textArr[0]}
+                        <b>{textArr[1]}</b>
+                        {textArr[2]}
+                      </li>
+                    );
+                  })}
                 </Ul>
               </Container>
             ))}
