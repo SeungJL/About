@@ -62,7 +62,7 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
         <ModalBody>
           <ModalSubtitle>매 달마다 열활멤버 신청을 받습니다.</ModalSubtitle>
           <CurrentMember>
-            현재 인원: <span>{memberCnt || " "}명</span>
+            현재 인원: <span>{memberCnt || 0}명</span>
           </CurrentMember>
           <Container>
             <li>
