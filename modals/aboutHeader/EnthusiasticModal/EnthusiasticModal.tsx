@@ -59,6 +59,7 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
     onClickRight: () => {
       if (isExpired) {
         failToast("free", "이미 마감되었습니다.");
+        setIsConfirmModal(false);
         return;
       }
       mutate({ role: "enthusiastic" });
