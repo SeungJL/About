@@ -13,7 +13,8 @@ interface IMemberSectionTitle {
 
 const SECTION_TEXT: Record<MemberGroup, string> = {
   member: "정식 활동 멤버입니다",
-  human: "열심히 활동해봐요~!",
+  human: "새싹 멤버 뉴비~!",
+  enthusiastic: "열심히 활동해봐요~!",
   resting: "휴식중인 멤버입니다",
   birth: "생일을 축하해요!",
 };
