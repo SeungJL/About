@@ -8,7 +8,10 @@ import {
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { RABBIT_POP_UP } from "../../../constants/keys/localStorage";
-import { useCompleteToast } from "../../../hooks/custom/CustomToast";
+import {
+  useCompleteToast,
+  useFailToast,
+} from "../../../hooks/custom/CustomToast";
 import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { locationState } from "../../../recoil/userAtoms";
@@ -29,6 +32,7 @@ const LOCATION_WIN = {
 
 function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
   const completeToast = useCompleteToast();
+  const failToast = useFailToast();
   const location = useRecoilValue(locationState);
 
   const [isConfirmModal, setIsConfirmModal] = useState(false);
@@ -52,9 +56,16 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
 
   const confirmContent: IConfirmContent = {
     title: "열활멤버에 지원하시겠어요?",
-    onClickRight: () => mutate({ role: "enthusiastic" }),
+    onClickRight: () => {
+      if (isExpired) {
+        failToast("free", "이미 마감되었습니다.");
+        return;
+      }
+      mutate({ role: "enthusiastic" });
+    },
   };
 
+  const isExpired = LOCATION_WIN[location] <= memberCnt;
   return (
     <>
       <ModalLayout size="xl" onClose={() => setIsModal(false)}>
@@ -63,11 +74,7 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
           <ModalSubtitle>매 달마다 열활멤버 신청을 받습니다.</ModalSubtitle>
           <CurrentMember>
             현재 인원:
-            <span>
-              {LOCATION_WIN[location] <= memberCnt
-                ? "모집 마감"
-                : `${memberCnt}명` || 0}
-            </span>
+            <span>{isExpired ? "모집 마감" : `${memberCnt}명` || 0}</span>
           </CurrentMember>
           <Container>
             <li>
