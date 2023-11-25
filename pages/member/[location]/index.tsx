@@ -20,10 +20,17 @@ import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
 import { Location } from "../../../types/system";
 import { IUser } from "../../../types/user/user";
 
-const MEMBER_SECTIONS: MemberGroup[] = ["birth", "member", "human", "resting"];
+const MEMBER_SECTIONS: MemberGroup[] = [
+  "birth",
+  "member",
+  "enthusiastic",
+  "human",
+  "resting",
+];
 
 export const SECTION_NAME: Record<MemberGroup, string> = {
   member: "활동 멤버",
+  enthusiastic: "열활 멤버",
   human: "수습 멤버",
   resting: "휴식 멤버",
   birth: "생일",
@@ -57,6 +64,7 @@ function Member() {
       human: [],
       resting: [],
       birth: [],
+      enthusiastic: [],
     };
     locationMembers.forEach((who) => {
       switch (who.role) {
@@ -67,6 +75,9 @@ function Member() {
           break;
         case "human":
           classified.human.push(who);
+          break;
+        case "enthusiastic":
+          classified.enthusiastic.push(who);
           break;
         case "resting":
           if (dayjs(who.rest.endDate) >= dayjs()) classified.resting.push(who);
