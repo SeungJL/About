@@ -62,7 +62,12 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
         <ModalBody>
           <ModalSubtitle>매 달마다 열활멤버 신청을 받습니다.</ModalSubtitle>
           <CurrentMember>
-            현재 인원: <span>{memberCnt || 0}명</span>
+            현재 인원:
+            <span>
+              {LOCATION_WIN[location] <= memberCnt
+                ? "모집 마감"
+                : `${memberCnt}명` || 0}
+            </span>
           </CurrentMember>
           <Container>
             <li>
@@ -111,6 +116,7 @@ const CurrentMember = styled.div`
   border-radius: var(--border-radius-sub);
   font-size: 13px;
   > span {
+    margin-left: var(--margin-min);
     color: var(--color-mint);
   }
 `;
