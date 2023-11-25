@@ -146,7 +146,6 @@ function StudySpaceNavigation({
     if (isPrivate && !myVote)
       return { text: "개인 스터디 신청", func: "private" };
     if (studyDateStatus === "not passed") {
-      console.log(23, myVote, myVoting);
       if (myVoting) return { text: "투표 완료" };
       if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
       return { text: "스터디 투표", func: "vote" };
@@ -171,7 +170,7 @@ function StudySpaceNavigation({
   return (
     <Wrapper>
       <Layout>
-        {!isShowSubNav && (
+        {isShowSubNav && (
           <SubNav>
             <Button onClick={() => onClickSubBtn("cancel")}>
               <FontAwesomeIcon icon={faCircleXmark} size="xl" />
