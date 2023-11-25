@@ -28,7 +28,7 @@ function MemberSectionTitle({ section, onClickSection }: IMemberSectionTitle) {
         <span>{SECTION_NAME[section]}</span>
         <span>{SECTION_TEXT[section]}</span>
       </TitleWrapper>
-      {section !== "birth" && (
+      {(section !== "birth"&&section!=="enthusiastic") && (
         <Button disabled={isGuest} onClick={() => onClickSection(section)}>
           <span>더보기</span>
           <FontAwesomeIcon icon={faChevronRight} size="xs" />
