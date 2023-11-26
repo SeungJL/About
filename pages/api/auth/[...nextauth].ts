@@ -83,7 +83,12 @@ export const authOptions: NextAuthOptions = {
       //해당 uid가 존재하는 경우에는 카카오 프로필만 업데이트
       await User.updateOne(
         { uid: user.uid },
-        { $set: { profileImage: kakaoProfile.thumbnailURL } }
+        {
+          $set: {
+            profileImage:
+              kakaoProfile.thumbnailURL || kakaoProfile.profileImage,
+          },
+        }
       );
 
       return true;
