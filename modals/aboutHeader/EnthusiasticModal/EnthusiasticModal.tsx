@@ -37,9 +37,13 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
 
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
-  const { data: memberCnt } = useCounterQuery("enthusiasticMember", location, {
-    enabled: !!location,
-  });
+  const { data: memberCnt, isLoading } = useCounterQuery(
+    "enthusiasticMember",
+    location,
+    {
+      enabled: !!location,
+    }
+  );
 
   useEffect(() => {
     localStorage.setItem(RABBIT_POP_UP, "read");
@@ -75,7 +79,10 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
           <ModalSubtitle>매 달마다 열활멤버 신청을 받습니다.</ModalSubtitle>
           <CurrentMember>
             현재 인원:
-            <span>{isExpired ? "모집 마감" : `${memberCnt || 0}명`}</span>
+            <span>
+              {!isLoading &&
+                (isExpired ? "모집 마감" : `${memberCnt + 1 || 1}명`)}
+            </span>
           </CurrentMember>
           <Container>
             <li>
