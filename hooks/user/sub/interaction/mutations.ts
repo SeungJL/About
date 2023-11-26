@@ -1,15 +1,38 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { SERVER_URI } from "../../../../constants/system";
+import { requestServer } from "../../../../helpers/methodHelpers";
 import { IInteractionSendLike } from "../../../../types/interaction";
 import { MutationOptions } from "../../../../types/reactTypes";
 
-export const useInteractionLikeMutation = (
-  options?: MutationOptions<IInteractionSendLike>
+interface IPostUserFriendRequest {
+  toUid: string;
+  message: string;
+}
+interface IPatchUserFriendRequest {
+  from: string;
+  status: "refusal" | "approval";
+}
+
+type Interaction<T, M> = T extends "like"
+  ? IInteractionSendLike
+  : M extends "post"
+  ? IPostUserFriendRequest
+  : IPatchUserFriendRequest;
+
+export const useInteractionMutation = <
+  T extends "like" | "friend",
+  M extends "post" | "patch"
+>(
+  type: T,
+  method: M,
+  options?: MutationOptions<Interaction<T, M>>
 ) =>
-  useMutation<void, AxiosError, IInteractionSendLike>(
-    async (sendInfo: IInteractionSendLike) => {
-      await axios.post(`${SERVER_URI}/notice/like`, sendInfo);
-    },
+  useMutation<void, AxiosError, Interaction<T, M>>(
+    (param) =>
+      requestServer<Interaction<T, M>>({
+        method,
+        url: `notice/${type}`,
+        body: param,
+      }),
     options
   );

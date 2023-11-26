@@ -11,10 +11,8 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../hooks/custom/CustomToast";
-import {
-  useUserFriendMutation,
-  useUserFriendRequestMutation,
-} from "../../hooks/user/mutations";
+import { useUserFriendMutation } from "../../hooks/user/mutations";
+import { useInteractionMutation } from "../../hooks/user/sub/interaction/mutations";
 
 import { INoticeActiveLog } from "../../types/interaction";
 
@@ -34,7 +32,7 @@ function NoticeActive({ activeLogs }: INoticeActive) {
     onError: errorToast,
   });
 
-  const { mutate } = useUserFriendRequestMutation("patch", {
+  const { mutate } = useInteractionMutation("friend", "patch", {
     onSuccess() {
       if (type === "approval") completeToast("free", "수락 완료 !");
       if (type === "refusal") failToast("free", "거절하였습니다.");

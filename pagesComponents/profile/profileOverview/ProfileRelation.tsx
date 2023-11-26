@@ -7,10 +7,9 @@ import {
   useCompleteToast,
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
-import {
-  useUserFriendMutation,
-  useUserFriendRequestMutation,
-} from "../../../hooks/user/mutations";
+import { useUserFriendMutation } from "../../../hooks/user/mutations";
+import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
+
 import ConfirmModal, {
   IConfirmContent,
 } from "../../../modals/common/ConfirmModal";
@@ -33,12 +32,16 @@ function ProfileRelation({ user }: IProfileRelation) {
   >();
   const [isMyFriend, setIsMyFriend] = useState(false);
 
-  const { mutate: requestFriend } = useUserFriendRequestMutation("post", {
-    onSuccess() {
-      completeToast("free", "친구 요청이 전송되었습니다.");
-      setModalType(null);
-    },
-  });
+  const { mutate: requestFriend, data } = useInteractionMutation(
+    "friend",
+    "post",
+    {
+      onSuccess() {
+        completeToast("free", "친구 요청이 전송되었습니다.");
+        setModalType(null);
+      },
+    }
+  );
 
   const { mutate: deleteFriend } = useUserFriendMutation("delete", {
     onSuccess() {

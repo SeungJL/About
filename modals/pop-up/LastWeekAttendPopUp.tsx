@@ -48,7 +48,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
               </Item>
               <Item>
                 <span>스터디 참여 </span>
-                {parCnt} 회
+                {parCnt || 0} 회
               </Item>
               {userInfo.role === "resting" ? (
                 <Item>

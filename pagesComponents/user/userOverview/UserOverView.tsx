@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import { useCollectionAlphabetQuery } from "../../../hooks/user/sub/collection/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isGuestState } from "../../../recoil/userAtoms";
-import { ICollectionAlphabet } from "../../../types/user/collections";
 import { IUser } from "../../../types/user/user";
 import UserOverviewBadge from "./UserOverviewBadge";
 import UserOverviewComment from "./UserOverviewComment";
@@ -14,11 +14,14 @@ import UserOverviewPointNav from "./UserOverviewPointNav";
 
 interface IUserOverview {
   userInfo: IUser;
-  alphabets: ICollectionAlphabet;
 }
 
-export default function UserOverview({ userInfo, alphabets }: IUserOverview) {
+export default function UserOverview({ userInfo }: IUserOverview) {
   const isGuest = useRecoilValue(isGuestState);
+
+  const { data: alphabets } = useCollectionAlphabetQuery({
+    enabled: !isGuest,
+  });
 
   const [isProfileModal, setIsProfileModal] = useState(false);
 

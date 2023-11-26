@@ -111,33 +111,6 @@ export const useUserUpdateProfileImageMutation = (
     await axios.patch("/api/user/profile");
   }, options);
 
-interface IPostUserFriendRequest {
-  toUid: string;
-  message: string;
-}
-interface IPatchUserFriendRequest {
-  from: string;
-  status: "refusal" | "approval";
-}
-
-type UserFriendRequest<T> = T extends "post"
-  ? IPostUserFriendRequest
-  : IPatchUserFriendRequest;
-
-export const useUserFriendRequestMutation = <T extends "post" | "patch">(
-  method: T,
-  options?: MutationOptions<UserFriendRequest<T>>
-) =>
-  useMutation<void, AxiosError, UserFriendRequest<T>>(
-    (param) =>
-      requestServer<UserFriendRequest<T>>({
-        method,
-        url: `user/friend/request`,
-        body: param,
-      }),
-    options
-  );
-
 export const useUserFriendMutation = (
   method: "patch" | "delete",
   options?: MutationOptions<string>

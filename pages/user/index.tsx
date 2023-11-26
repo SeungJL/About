@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { useCollectionAlphabetQuery } from "../../hooks/user/sub/collection/queries";
 import UserNavigation from "../../pagesComponents/user/userNavigation/UserNavigation";
 import UserOverview from "../../pagesComponents/user/userOverview/UserOverView";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
@@ -20,10 +19,6 @@ function UserInfo() {
     enabled: !isGuest,
   });
 
-  const { data: alphabets, isLoading } = useCollectionAlphabetQuery({
-    enabled: !isGuest,
-  });
-
   useEffect(() => {
     if (isRefetchUserInfo) {
       setIsRefetchUserInfo(false);
@@ -35,9 +30,9 @@ function UserInfo() {
   return (
     <PageLayout>
       <Header title="마이페이지" />
-      {((userInfo && !isLoading) || isGuest) && (
+      {(userInfo || isGuest) && (
         <UserLayout>
-          <UserOverview userInfo={userInfo} alphabets={alphabets} />
+          <UserOverview userInfo={userInfo} />
           <UserNavigation />
         </UserLayout>
       )}

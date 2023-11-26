@@ -23,7 +23,7 @@ import {
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
-import { useInteractionLikeMutation } from "../../../hooks/user/sub/interaction/mutations";
+import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 import { userInfoState } from "../../../recoil/userAtoms";
 import {
   IInteractionLikeStorage,
@@ -62,7 +62,7 @@ function ProfileInfo({ user }: IProfileInfo) {
 
   const resetQueryData = useResetQueryData();
 
-  const { mutate: sendHeart } = useInteractionLikeMutation({
+  const { mutate: sendHeart } = useInteractionMutation("like", "post", {
     onSuccess() {
       completeToast("free", "전송되었습니다!");
       resetQueryData([NOTICE_HEART_LOG]);

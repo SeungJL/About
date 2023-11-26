@@ -15,7 +15,7 @@ import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
-import { useInteractionLikeMutation } from "../../../hooks/user/sub/interaction/mutations";
+import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 
 interface IHeartLikeIcon {
   toUid: string;
@@ -29,7 +29,7 @@ function HeartLikeIcon({ toUid }: IHeartLikeIcon) {
   const [isShow, setIsShow] = useState(true);
 
   const { mutate: sendAboutPoint } = useAdminAboutPointMutation(toUid);
-  const { mutate: sendHeart } = useInteractionLikeMutation({
+  const { mutate: sendHeart } = useInteractionMutation("like", "post", {
     onSuccess() {
       completeToast("free", "전송 완료!");
     },

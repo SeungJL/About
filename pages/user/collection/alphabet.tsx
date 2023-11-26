@@ -73,7 +73,11 @@ function CollectionAlphabet() {
     }
 
     if (findItem) {
+      console.log(userAlphabetAll);
       userAlphabetAll.sort((a, b) => {
+        if (!a?.user?.uid) {
+          console.log(a);
+        }
         if (a.user.uid === session?.uid) return -1;
         if (b.user.uid === session?.uid) return 1;
         return 0;
