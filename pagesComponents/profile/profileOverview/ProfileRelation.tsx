@@ -70,7 +70,7 @@ function ProfileRelation({ user }: IProfileRelation) {
     onClickRight: () =>
       requestFriend({
         toUid: user?.uid,
-        message: `${session?.user?.name}님으로부터의 친구추가 요청`,
+        message: `${session?.user?.name}님으로부터 친구추가 요청`,
       }),
   };
   const cancelFriendConrirm: IConfirmContent = {

@@ -22,7 +22,7 @@ import {
   useCollectionAlphabetAllQuery,
   useCollectionAlphabetQuery,
 } from "../../../hooks/user/sub/collection/queries";
-import NotCompletedModal from "../../../modals/system/NotCompletedModal";
+import AlphabetChangeModal from "../../../modals/user/collection/AlphabetChangeModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 import { isGuestState } from "../../../recoil/userAtoms";
@@ -59,6 +59,10 @@ function CollectionAlphabet() {
   const [members, setMembers] = useState<ICollectionAlphabet[]>();
   const [isChangeModal, setIsChangeModal] = useState(false);
   const [hasAlphabetAll, setHasAlphabetAll] = useState(false);
+  const [opponentAlphabets, setOpponentAlphabets] = useState<{
+    user: string;
+    alphabets: Alphabet[];
+  }>();
 
   useEffect(() => {
     if (isLoading) return;
@@ -91,6 +95,12 @@ function CollectionAlphabet() {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
+
+  const onClickChangeBtn = (user, alphabets: Alphabet[]) => {
+    setOpponentAlphabets({ user, alphabets });
+    setIsChangeModal(true);
+  };
+
   return (
     <>
       <PageLayout>
@@ -193,7 +203,7 @@ function CollectionAlphabet() {
                       <Button
                         size="xs"
                         colorScheme="mintTheme"
-                        onClick={() => setIsChangeModal(true)}
+                        onClick={() => onClickChangeBtn(user.uid, alphabets)}
                       >
                         교환 신청
                       </Button>
@@ -207,7 +217,14 @@ function CollectionAlphabet() {
           <MainLoading />
         )}
       </PageLayout>
-      {isChangeModal && <NotCompletedModal setIsModal={setIsChangeModal} />}
+      {isChangeModal && (
+        <AlphabetChangeModal
+          myAlphabets={alphabets?.collects || []}
+          opponentAlpabets={opponentAlphabets.alphabets}
+          setIsModal={setIsChangeModal}
+          toUid={opponentAlphabets.user}
+        />
+      )}
     </>
   );
 }

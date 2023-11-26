@@ -81,7 +81,7 @@ function Collection() {
         <HrDiv />
       </PageLayout>
       {isAlphabetModal && (
-        <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />
+        <UserCollectionAlphabetModal  setIsModal={setIsAlphabetModal} />
       )}
     </>
   );
