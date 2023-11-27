@@ -1,11 +1,10 @@
 import {
   faBadgeCheck,
-  faBalanceScale,
   faBell,
+  faCircleP,
+  faCircleUser,
   faGift,
-  faUser,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faRabbitRunning } from "@fortawesome/pro-solid-svg-icons";
+} from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -51,69 +50,61 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
         <IconWrapper>
           <FontAwesomeIcon
             icon={faBadgeCheck}
-            size="lg"
             color="var(--color-mint)"
             onClick={() => setIconType("attendCheck")}
-            bounce
           />
         </IconWrapper>
       )}
-      {/** rabbit */}
-      <IconWrapper>
+
+      {/* <IconWrapper>
         <FontAwesomeIcon
           icon={faRabbitRunning}
-          size="lg"
           color="var(--color-red)"
           bounce={isRabbitRun}
           onClick={() => setIconType("rabbit")}
         />
-      </IconWrapper>
+      </IconWrapper> */}
       <IconWrapper>
-        <FontAwesomeIcon
-          icon={faBalanceScale}
-          size="lg"
-          onClick={() => setIconType("rule")}
-        />
+        <FontAwesomeIcon icon={faCircleP} onClick={() => setIconType("rule")} />
       </IconWrapper>
       <IconWrapper>
         <FontAwesomeIcon
           icon={faGift}
-          size="lg"
           onClick={() => setIconType("promotion")}
         />
       </IconWrapper>
       <NoticeWrapper>
-        <FontAwesomeIcon
-          icon={faBell}
-          size="xl"
-          onClick={() => setIconType("notice")}
-        />
+        <FontAwesomeIcon icon={faBell} onClick={() => setIconType("notice")} />
         {isNoticeAlert && <Alert />}
       </NoticeWrapper>
       <IconWrapper>
         <FontAwesomeIcon
-          icon={faUser}
-          size="xl"
+          icon={faCircleUser}
           onClick={() => setIconType("user")}
         />
       </IconWrapper>
     </Layout>
   );
 }
-const IconWrapper = styled.button`
-  padding: 0 10px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-`;
 const Layout = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
 `;
+
+const IconWrapper = styled.button`
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+`;
+
 const NoticeWrapper = styled(IconWrapper)`
   position: relative;
 `;
+
 const Alert = styled(AlertIcon)`
   position: absolute;
   right: 11px;

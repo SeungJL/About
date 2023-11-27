@@ -57,31 +57,32 @@ function AboutHeader() {
 
   return (
     <Layout>
-      <ABOUT>ABOUT</ABOUT>
+      <Title>ABOUT</Title>
       <AboutHeaderIcons setIconType={setIconType} isRabbitRun={isRabbitRun} />
       <AboutHeaderModals iconType={iconType} setIconType={setIconType} />
     </Layout>
   );
 }
 
-const ABOUT = styled.span`
-  font-weight: 600;
-  font-size: 22px;
-  color: var(--font-h1);
-`;
-
 const Layout = styled.header`
-  height: 46px;
+  height: 52px;
+  font-size: 20px;
+
+  background-color: white;
+  padding: 0 var(--margin-main);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: var(--padding-main);
-  padding-right: 6px;
   color: var(--font-h2);
   > div:first-child {
     display: flex;
     align-items: center;
   }
+`;
+
+const Title = styled.span`
+  font-weight: 800;
+  color: var(--font-h1);
 `;
 
 export default AboutHeader;
