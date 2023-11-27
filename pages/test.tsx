@@ -45,8 +45,11 @@ const Layout = styled.div`
   > span:nth-child(4) {
     font-weight: 600;
   }
-  > span:last-child {
+  > span:nth-child(5) {
     font-weight: 700;
+  }
+  > span:last-child {
+    font-weight: 800;
   }
 `;
 
