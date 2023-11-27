@@ -23,10 +23,10 @@ export default function UserSetting() {
       setIsGuestPopUp(true);
     }
   }, [isGuest]);
-
   useUserInfoQuery({
     enabled: isGuest === false,
     onSuccess(data) {
+      console.log(2, data);
       setUserInfo(data);
     },
   });

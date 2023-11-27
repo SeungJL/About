@@ -67,8 +67,12 @@ function AlphabetChangeModal({
       [type]: old[type] === alphabet ? null : alphabet,
     }));
   };
-
+  console.log(selectedAlphabet);
   const handleAlphabetChange = () => {
+    if (!selectedAlphabet.mine || !selectedAlphabet.opponent) {
+      failToast("free", "교환 할 알파벳을 선택해주세요.");
+      return;
+    }
     requestAlphabet({
       message: `${userInfo.name}님으로부터 알파벳 교환 요청`,
       toUid: toUid,

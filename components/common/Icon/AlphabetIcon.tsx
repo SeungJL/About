@@ -5,6 +5,13 @@ import {
   faT as T,
   faU as U,
 } from "@fortawesome/pro-duotone-svg-icons";
+import {
+  faCircleA,
+  faCircleB,
+  faCircleO,
+  faCircleT,
+  faCircleU,
+} from "@fortawesome/pro-regular-svg-icons";
 import { faA, faB, faO, faT, faU } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
@@ -15,56 +22,42 @@ interface IAlphabetIcon {
   alphabet: Alphabet;
   isDuotone?: boolean;
   isBeat?: boolean;
+  isCircle?: boolean;
 }
 
 export const AlphabetIcon = ({
   alphabet,
   isDuotone,
   isBeat,
-}: IAlphabetIcon) => (
-  <IconWrapper>
-    {alphabet === "A" ? (
+  isCircle,
+}: IAlphabetIcon) => {
+  const icons = {
+    A: { duotone: A, solid: faA, circle: faCircleA },
+    B: { duotone: B, solid: faB, circle: faCircleB },
+    O: { duotone: O, solid: faO, circle: faCircleO },
+    U: { duotone: U, solid: faU, circle: faCircleU },
+    T: { duotone: T, solid: faT, circle: faCircleT },
+  };
+  const selectedIcon = isCircle
+    ? icons[alphabet].circle
+    : isDuotone
+    ? icons[alphabet].duotone
+    : icons[alphabet].solid;
+
+  const colorIndex = ["A", "B", "O", "U", "T"].indexOf(alphabet);
+  const color = TABLE_STRONG_COLORS[colorIndex];
+
+  return (
+    <IconWrapper>
       <FontAwesomeIcon
-        icon={isDuotone ? A : faA}
+        icon={selectedIcon}
         size="2x"
-        color={TABLE_STRONG_COLORS[0]}
-        beatFade={isBeat}
-        style={{ opacity: isDuotone && 0.5 }}
-      />
-    ) : alphabet === "B" ? (
-      <FontAwesomeIcon
-        icon={isDuotone ? B : faB}
-        size="2x"
-        color={TABLE_STRONG_COLORS[1]}
+        color={color}
         beat={isBeat}
-        style={{ opacity: isDuotone && 0.5 }}
+        style={{ opacity: isDuotone ? 0.5 : 1 }}
       />
-    ) : alphabet === "O" ? (
-      <FontAwesomeIcon
-        icon={isDuotone ? O : faO}
-        size="2x"
-        color={TABLE_STRONG_COLORS[2]}
-        beat={isBeat}
-        style={{ opacity: isDuotone && 0.5 }}
-      />
-    ) : alphabet === "U" ? (
-      <FontAwesomeIcon
-        icon={isDuotone ? U : faU}
-        size="2x"
-        color={TABLE_STRONG_COLORS[3]}
-        beat={isBeat}
-        style={{ opacity: isDuotone && 0.5 }}
-      />
-    ) : (
-      <FontAwesomeIcon
-        icon={isDuotone ? T : faT}
-        size="2x"
-        color={TABLE_STRONG_COLORS[4]}
-        beat={isBeat}
-        style={{ opacity: isDuotone && 0.5 }}
-      />
-    )}
-  </IconWrapper>
-);
+    </IconWrapper>
+  );
+};
 
 const IconWrapper = styled.div``;

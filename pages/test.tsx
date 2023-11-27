@@ -1,33 +1,27 @@
-import { Button } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { useCounterMutation } from "../hooks/sub/counter/mutations";
-import { useCounterQuery } from "../hooks/sub/counter/queries";
+import { useUserInfoQuery } from "../hooks/user/queries";
+import { useCollectionAlphabetMutation } from "../hooks/user/sub/collection/mutations";
 
 function Test() {
+  const { data: session } = useSession();
+  const { data: userInfo } = useUserInfoQuery();
   const C = useRef();
   const AA = () => <button>23</button>;
-
-  const { mutate, data: data2 } = useCounterMutation(
-    "enthusiasticMember",
-    "양천",
-    {
-      onSuccess(data) {
-        console.log(2, data);
-        console.log("SUC");
-      },
-    }
-  );
-  console.log(55, data2);
-  const { data } = useCounterQuery("enthusiasticMember", "수원");
-  console.log(1, data);
-  const onClick = () => {
-    mutate();
-  };
+  const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
+  const { mutate, data } = useCollectionAlphabetMutation("change");
+  const onClick = () => {};
+  console.log(data);
 
   return (
     <Layout>
-      <Button onClick={onClick}>클릭하세요.</Button>
+      <span>안녕하세요</span>
+      <span>안녕하세요</span>
+      <span>안녕하세요</span>
+      <span>안녕하세요</span>
+      <span>안녕하세요</span>
+      <span>안녕하세요</span>
     </Layout>
   );
 }
@@ -39,6 +33,21 @@ const Layout = styled.div`
     margin-right: 20px;
   }
   display: flex;
+  > span:first-child {
+    font-weight: 300;
+  }
+  > span:nth-child(2) {
+    font-weight: 400;
+  }
+  > span:nth-child(3) {
+    font-weight: 500;
+  }
+  > span:nth-child(4) {
+    font-weight: 600;
+  }
+  > span:last-child {
+    font-weight: 700;
+  }
 `;
 
 const A = styled.button`

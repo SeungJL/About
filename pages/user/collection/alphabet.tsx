@@ -14,10 +14,7 @@ import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
 import { getUserBadge } from "../../../helpers/userHelpers";
-import {
-  useAlphabetCompletedMutation,
-  useCollectionAlphabetMutation,
-} from "../../../hooks/user/sub/collection/mutations";
+import { useAlphabetCompletedMutation } from "../../../hooks/user/sub/collection/mutations";
 import {
   useCollectionAlphabetAllQuery,
   useCollectionAlphabetQuery,
@@ -42,8 +39,6 @@ function CollectionAlphabet() {
   const { data: alphabets } = useCollectionAlphabetQuery({
     enabled: !isGuest,
   });
-
-  const { mutate } = useCollectionAlphabetMutation();
 
   const { mutate: mutate2 } = useAlphabetCompletedMutation({
     onError(err: AxiosError<{ message: string }, any>) {

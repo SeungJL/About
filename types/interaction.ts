@@ -1,6 +1,6 @@
 import { ITimeStamps } from "./timeAndDate";
 
-export type InteractionType = "like" | "friend";
+export type InteractionType = "like" | "friend" | "alphabet";
 
 export interface IInteractionSendLike {
   to: string;
@@ -10,6 +10,7 @@ export interface IInteractionSendLike {
 export interface INoticeActiveLog extends IInteractionSendLike, ITimeStamps {
   from: string;
   type: InteractionType;
+  sub?: string;
   status?: "pending" | "refusal" | "approval" | "response";
 }
 

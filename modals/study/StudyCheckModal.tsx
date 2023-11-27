@@ -59,7 +59,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const resetQueryData = useResetQueryData();
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
-  const { mutate: getAlphabet } = useCollectionAlphabetMutation();
+  const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
 
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { data: session } = useSession();
@@ -70,7 +70,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
       onSuccess() {
         const alphabet = getRandomAlphabet(20);
         if (alphabet) {
-          getAlphabet(alphabet);
+          getAlphabet({ alphabet });
           setTransferAlphabetState(alphabet);
         }
 

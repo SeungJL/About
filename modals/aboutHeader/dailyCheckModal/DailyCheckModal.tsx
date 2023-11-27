@@ -73,7 +73,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
     createdAt: dayjs(item?.createdAt),
   }));
 
-  const { mutate: getAlphabet } = useCollectionAlphabetMutation();
+  const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
   const { mutate: attendDailyCheck } = useDailyCheckMutation();
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: sendRequest } = useUserRequestMutation({
@@ -102,7 +102,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
       if (gift.item === "알파벳") {
         const alphabet = getRandomAlphabet(20);
         if (alphabet) {
-          getAlphabet(alphabet);
+          getAlphabet({ alphabet });
           setTransferAlphabetState(alphabet);
         }
       } else {

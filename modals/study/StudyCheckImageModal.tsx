@@ -37,14 +37,14 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
-  const { mutate: getAlphabet } = useCollectionAlphabetMutation();
+  const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
   const { mutate: handleArrived } = useStudyArrivedMutation(
     now().startOf("day"),
     {
       onSuccess() {
         const alphabet = getRandomAlphabet(20);
         if (alphabet) {
-          getAlphabet(alphabet);
+          getAlphabet({ alphabet });
           setTransferAlphabetState(alphabet);
         }
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_PRIVATE_ATTEND);
