@@ -88,6 +88,7 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
       <Layout>
         <Button
           size="lg"
+          h="48px"
           w="100%"
           borderRadius="var(--border-radius-main)"
           disabled={!handleFunction}
