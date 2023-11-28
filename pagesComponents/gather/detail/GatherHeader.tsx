@@ -2,11 +2,13 @@ import { faPenCircle, faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { userInfoState } from "../../../recoil/userAtoms";
 import { IGather } from "../../../types/page/gather";
 
 interface IGatherHeader {
@@ -14,17 +16,23 @@ interface IGatherHeader {
 }
 
 function GatherHeader({ gatherData }: IGatherHeader) {
+  const failToast = useFailToast();
   const router = useRouter();
 
   const title = gatherData?.title;
   const date = gatherData?.date;
   const locationMain = gatherData?.location.main;
+  const organizer = gatherData?.user;
+  console.log(organizer);
 
+  const userInfo = useRecoilValue(userInfoState);
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
 
   const [isModal, setIsModal] = useState(false);
 
   const onClick = () => {
+    failToast("free", "완성은 했는데 기능 점검 중");
+    return;
     setPrevPageUrl(`/gather/${router.query.id}`);
     router.push("/gather/writing/category");
   };
@@ -32,9 +40,11 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   return (
     <>
       <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>
-        <IconWrapper onClick={onClick}>
-          <FontAwesomeIcon icon={faPenCircle} size="xl" />
-        </IconWrapper>
+        {userInfo?.uid === organizer?.uid && (
+          <IconWrapper onClick={onClick}>
+            <FontAwesomeIcon icon={faPenCircle} size="xl" />
+          </IconWrapper>
+        )}
         <IconWrapper>
           <FontAwesomeIcon
             icon={faShareNodes}
