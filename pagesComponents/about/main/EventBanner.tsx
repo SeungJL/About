@@ -21,6 +21,8 @@ function EventBanner() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 90px;
+  background-color: RGB(235, 236, 240);
 `;
 
 export default EventBanner;
