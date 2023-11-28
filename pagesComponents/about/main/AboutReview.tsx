@@ -1,9 +1,8 @@
-import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import SectionHeader from "../../../components/layout/atoms/SectionHeader";
 import {
   prevPageUrlState,
   reviewContentIdState,
@@ -22,7 +21,7 @@ function AboutReview() {
   };
   return (
     <Layout>
-      <Title>ABOUT 모임 후기</Title>
+      <SectionHeader title="ABOUT 모임 후기" url="/review" />
       <ReviewContainer>
         {REVIEW_DATA.slice()
           .reverse()
@@ -42,29 +41,20 @@ function AboutReview() {
             </ReviewItem>
           ))}
       </ReviewContainer>
-      <MoreInfoNav onClick={() => onClick(-1)}>
-        <span>더보기</span>
-        <FontAwesomeIcon icon={faChevronRight} size="sm" />
-      </MoreInfoNav>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  margin-top: 24px;
-`;
-
-const Title = styled.span`
-  font-size: 18px;
-  font-weight: 700;
+  margin-top: var(--margin-max);
 `;
 
 const ReviewContainer = styled.div`
+  margin: 0 var(--margin-main);
   margin-top: var(--margin-main);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-sub);
+  gap: var(--margin-main);
 `;
 
 const ReviewItem = styled.div``;
@@ -73,33 +63,16 @@ const ImageContainer = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 1/1;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--border-radius2);
   overflow: hidden;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 `;
-const MoreInfoNav = styled.div`
-  box-shadow: var(--box-shadow-sub);
-  height: 44px;
-  display: flex;
-  justify-content: center;
-  background-color: white;
-  align-items: center;
-  margin-top: var(--margin-max);
-  margin-bottom: var(--margin-max);
-  border-radius: var(--border-radius-main);
-  color: var(--font-h3);
-  font-weight: 600;
-  > span:first-child {
-    margin-right: var(--margin-md);
-  }
-`;
+
 const ReviewText = styled.div`
-  color: var(--font-h2);
-  font-size: 12px;
+  color: var(--font-h1);
+  font-size: 13px;
   margin-top: var(--margin-sub);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;

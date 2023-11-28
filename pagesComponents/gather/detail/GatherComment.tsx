@@ -122,17 +122,11 @@ function GatherComments({ comment }: IGatherComments) {
 }
 
 const Layout = styled.div`
-  width: 100%;
+  margin: var(--margin-max) var(--margin-main);
   display: flex;
   flex-direction: column;
-  margin: var(--margin-max) 0;
   > span:first-child {
-    margin-right: auto;
     font-weight: 700;
-    text-align: start;
-    > span {
-      color: var(--color-mint);
-    }
   }
 `;
 
@@ -159,8 +153,7 @@ const MyCommnet = styled.div`
   display: flex;
   min-height: 60px;
   align-items: center;
-  padding-right: var(--padding-sub);
-  width: 100%;
+  flex: 1;
   margin-top: 12px;
 `;
 
@@ -185,7 +178,7 @@ const CommentContent = styled.div`
 `;
 
 const CommentDetail = styled.span`
-  font-size: 10px;
+  font-size: 11px;
   color: var(--font-h3);
 `;
 
@@ -203,7 +196,6 @@ const MyText = styled.textarea`
 `;
 
 const SubmitBtn = styled.button<{ focus: boolean }>`
-  margin-left: auto;
   font-size: 12px;
   color: ${(props) => (props.focus ? "var(--color-mint)" : "var(--font-h4)")};
 `;

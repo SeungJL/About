@@ -37,27 +37,27 @@ function GatherParticipation({ data }: IGatherParticipation) {
 
   return (
     <Layout>
-      <span>
-        {status === "open" ? "확정 인원" : "참여중인 인원"} &nbsp;
-        <span>{isAdminOpen ? participantsCnt : participantsCnt + 1} /</span>
+      <Header>
+        <span>{status === "open" ? "확정 인원" : "참여중인 인원"}</span>
+        <span>{isAdminOpen ? participantsCnt : participantsCnt + 1}</span>
+        <span>/</span>
         {data?.memberCnt.max ? (
-          <span> {data?.memberCnt.max}</span>
+          <span>{data?.memberCnt.max}</span>
         ) : (
           <>
             <span style={{ marginLeft: "4px" }} />
             <FontAwesomeIcon icon={faInfinity} color="var(--font-h2)" />
           </>
         )}
-      </span>
-
-      <div>
+      </Header>
+      <Members>
         {!isAdminOpen ? (
           <MemberItem
             key={organizer?.uid}
             onClick={() => onClickProfile(organizer)}
           >
             <Organizer>
-              <ProfileIcon user={organizer} size="md" />
+              <ProfileIcon user={organizer} size="sm" />
               <CrownWrapper>
                 <FontAwesomeIcon
                   icon={faCrown}
@@ -81,46 +81,75 @@ function GatherParticipation({ data }: IGatherParticipation) {
             key={who?.user.uid}
             onClick={() => onClickProfile(who.user)}
           >
-            <ProfileIcon user={who.user} size="md" />
+            <ProfileIcon user={who.user} size="sm" />
             <UserOverview>
               <span>{who?.user.name}</span>
-              <span>
-                {who?.user.comment.slice(0, 23)}{" "}
-                {who?.user.comment.length > 23 && "..."}
-              </span>
+              <div>{who?.user.comment}</div>
             </UserOverview>
             <ParticipateTime isFirst={who?.phase === "first"}>
               {who?.phase === "first" ? (
-                <FontAwesomeIcon icon={fa1} />
+                <FontAwesomeIcon icon={fa1} size="sm" />
               ) : (
-                <FontAwesomeIcon icon={fa2} />
+                <FontAwesomeIcon icon={fa2} size="sm" />
               )}
               <span>차</span>
             </ParticipateTime>
           </MemberItem>
         ))}
-      </div>
+      </Members>
     </Layout>
   );
 }
 const MemberItem = styled.div`
-  margin-bottom: var(--margin-main);
+  padding: var(--padding-md) 0;
   display: flex;
   align-items: center;
+
+  border-bottom: var(--border-sub);
+`;
+
+const Header = styled.header`
+  font-size: 16px;
+  padding: var(--padding-main);
+  font-weight: 600;
+
+  > span:first-child {
+    margin-right: var(--margin-sub);
+  }
+  > span:nth-child(2) {
+    font-weight: 700;
+    color: var(--color-mint);
+  }
+  > span:nth-child(3) {
+    margin: 0 var(--margin-min);
+  }
+`;
+
+const Members = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--padding-main);
 `;
 
 const UserOverview = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   line-height: var(--line-height);
-  margin-left: var(--margin-md);
+  margin-left: var(--margin-sub);
   > span:first-child {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
   }
-  > span:last-child {
-    font-size: 12px;
-    color: var(--font-h3);
+  > div:last-child {
+    width: 95%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 13px;
+    color: var(--font-h2);
   }
 `;
 const Organizer = styled.div`
@@ -128,12 +157,13 @@ const Organizer = styled.div`
 `;
 
 const ParticipateTime = styled.div<{ isFirst: boolean }>`
+  font-size: 16px;
   margin-left: auto;
   margin-right: var(--margin-md);
   color: ${(props) =>
     props.isFirst ? "var(--color-mint)" : "var(--color-orange)"};
   > span:last-child {
-    margin-left: var(--margin-min);
+    margin-left: 2px;
   }
 `;
 
@@ -146,21 +176,7 @@ const Layout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: var(--margin-max) 0;
-  > span:first-child {
-    margin-right: auto;
-    font-weight: 700;
-    text-align: start;
-    > span {
-      color: var(--color-mint);
-    }
-  }
-  > div {
-    margin-top: var(--margin-max);
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+  background-color: white;
 `;
 
 const Empty = styled.div`

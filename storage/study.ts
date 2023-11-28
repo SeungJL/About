@@ -74,7 +74,7 @@ export const PLACE_TO_NAME = {
   [SUWAN_광교엘리웨이]: "책발전소",
 
   [SUWAN_망포역]: "스타벅스",
-  [SUWAN_행궁동]: "행궁 81.2",
+  [SUWAN_행궁동]: "행궁동",
   [SUWAN_광교중앙역]: "아티제",
   //양천
   [YANG_위카페]: "위카페",
@@ -163,6 +163,7 @@ export interface IStudySpaceInfo {
   location: string;
   time: string;
   image?: string;
+  logo?: string;
 }
 
 export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
@@ -190,10 +191,11 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
   },
   {
     id: SUWAN_수원시청,
-    location: "경기 수원시 팔달구 인계로 166번길 48-15",
+    location: "경기 수원시 팔달구 인계로 166번길",
     time: "09:00 - 24:00",
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%88%AC%EC%8D%B8_%EB%82%98%ED%98%9C%EC%84%9D%EA%B1%B0%EB%A6%AC.webp",
+    logo: "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A42.webp",
   },
   {
     id: SUWAN_송죽,
@@ -216,33 +218,33 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
   },
   {
     id: SUWAN_스타벅스,
-    location: "경기 수원시 영통구 대학로 47 광교스타인",
+    location: "경기 수원시 영통구 대학로 47 ",
     time: "07:30 - 21:00",
   },
   {
     id: SUWAN_경기대,
-    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    location: "경기 수원시 영통구 대학3로4번길 12 ",
     time: "08:00 - 23:00",
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A4_%EA%B2%BD%EA%B8%B0%EB%8C%80.webp",
   },
   {
     id: SUWAN_고색역,
-    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    location: "경기 수원시 영통구 대학3로4번길 12 ",
     time: "12:00 - 21:30",
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EA%B3%A0%EC%83%89%EC%97%AD_%EC%97%90%EC%9D%B4%ED%8B%B0%EC%94%A8.webp",
   },
   {
     id: SUWAN_성균관대역,
-    location: "경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    location: "경기 수원시 영통구 대학3로4번길 12",
     time: "07:00 - 22:00",
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EC%84%B1%EB%8C%80%EC%97%AD_%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4.webp",
   },
   {
     id: SUWAN_광교엘리웨이,
-    location: " 경기 수원시 영통구 대학3로4번길 12 이스턴타워",
+    location: " 경기 수원시 영통구 대학3로4번길 12",
     time: "10:00 - 22:00",
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EA%B4%91%EA%B5%90_%EC%B1%85%EB%B0%9C%EC%A0%84%EC%86%8C.webp",
@@ -257,14 +259,14 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
   },
   {
     id: SUWAN_망포역,
-    location: "경기 수원시 영통구 영통로 195 골든스퀘어",
+    location: "경기 수원시 영통구 영통로 195",
     time: "08:00 - 22:00",
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EB%A7%9D%ED%8F%AC_%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4.png",
   },
   {
     id: SUWAN_광교중앙역,
-    location: "경기 수원시 영통구 센트럴타운로 85 라온존",
+    location: "경기 수원시 영통구 센트럴타운로 85",
     time: "09:00 - 22:30",
   },
 

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {
   AVATAR_COLOR,
   AVATAR_ICON,
-} from "../../../../constants/contentsValue/avatar";
+} from "../../../../constants/settingValue/avatar";
 
 import { IUser } from "../../../../types/user/user";
 
@@ -86,7 +86,9 @@ const Layout = styled.div`
   border-radius: 50%;
   display: inline-block;
   position: absolute;
-  bottom: 0px;
+  bottom: -24px;
+  left: 12px;
+  transform: translate(-50%, -50%);
   z-index: 1000;
 `;
 

@@ -1,6 +1,6 @@
 import { Fragment, SetStateAction } from "react";
 import styled from "styled-components";
-import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
+import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study/study";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { IStudyVotePlaces } from "../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import { IStudyPlaces } from "../../../types/study/study";
@@ -25,13 +25,12 @@ function PlaceSelector({
   const failToast = useFailToast();
 
   const isGridLayout = places?.length > 4;
- 
+
   const placeCnt = places?.length;
   const layoutMethod =
     placeCnt > 8 ? "manyGrid" : placeCnt > 4 ? "smallGrid" : "flex";
 
   const onClickItem = (place: IPlace, isMax?: boolean) => {
- 
     if (isMax) {
       failToast(
         "free",

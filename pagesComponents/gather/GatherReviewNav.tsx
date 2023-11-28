@@ -30,9 +30,9 @@ function GatherReviewNav() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-md) 0;
-  margin: 0 var(--margin-sub);
+  padding: var(--padding-sub) 0;
   display: flex;
+  background-color: white;
   align-items: center;
 `;
 

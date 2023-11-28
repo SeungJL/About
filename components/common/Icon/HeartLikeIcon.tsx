@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
+import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import {
   isHeartCheckLocalStorage,
   pushArrToLocalStorage,
@@ -59,7 +59,11 @@ function HeartLikeIcon({ toUid }: IHeartLikeIcon) {
       transition={spinTransition}
       isshow={isShow ? "true" : "false"}
     >
-      <FontAwesomeIcon icon={faCircleHeart} color="var(--color-red)" />
+      <FontAwesomeIcon
+        icon={faCircleHeart}
+        size="sm"
+        color="var(--color-red)"
+      />
     </Layout>
   );
 }

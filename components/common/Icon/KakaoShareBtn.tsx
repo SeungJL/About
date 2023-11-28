@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faArrowUpFromBracket } from "@fortawesome/pro-regular-svg-icons";
+import { faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -38,7 +38,7 @@ function KakaoShareBtn({
       window.Kakao.init(kakaoAppKey);
     }
   }, []);
-  console.log(3, img);
+
   useEffect(() => {
     if (type === "gather" && !img) return;
     if (window.Kakao) {
@@ -106,7 +106,7 @@ function KakaoShareBtn({
   return (
     <Layout id="kakao-share-button">
       {!isBig ? (
-        <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
+        <FontAwesomeIcon icon={faShareNodes} size="lg" />
       ) : (
         <Button colorScheme="mintTheme" width="100%" size="lg">
           공유하기

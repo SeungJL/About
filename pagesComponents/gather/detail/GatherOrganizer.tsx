@@ -1,5 +1,7 @@
+import { Badge } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import styled from "styled-components";
+import { AboutIcon } from "../../../components/common/Icon/AboutIcon";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { ABOUT_UID } from "../../../constants/system";
 import { getDateDiff } from "../../../helpers/dateHelpers";
@@ -9,39 +11,57 @@ interface IGatherOrganizer {
   createdAt: string;
   organizer: IUser;
   isAdminOpen: boolean;
+  category: string;
 }
 
 function GatherOrganizer({
   createdAt,
   organizer,
   isAdminOpen,
+  category,
 }: IGatherOrganizer) {
   const writingDate = getDateDiff(dayjs(createdAt));
   const isABOUT = organizer.uid === ABOUT_UID || isAdminOpen;
   return (
     <Layout>
-      <ProfileIcon user={isABOUT ? "ABOUT" : organizer} size="sm" />
-      <Info>
-        <Writer isABOUT={isABOUT}>{isABOUT ? "어바웃" : organizer.name}</Writer>
-        <span>{writingDate}</span>
-      </Info>
+      <div>
+        {isABOUT ? (
+          <AboutIcon size="md" />
+        ) : (
+          <ProfileIcon user={organizer} size="sm" />
+        )}
+        <Info>
+          <Writer>{isABOUT ? "어바웃" : organizer.name}</Writer>
+          <span>{writingDate}</span>
+        </Info>
+      </div>
+      <Badge
+        p="2px 6px"
+        fontSize="13px"
+        color="white"
+        backgroundColor="var(--color-red)"
+      >
+        {category}
+      </Badge>
     </Layout>
   );
 }
 
 const Layout = styled.div`
   display: flex;
-  margin: var(--margin-md) 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--margin-sub) var(--margin-main);
+  background-color: white;
+  border-bottom: var(--border-sub);
+  > div:first-child {
+    display: flex;
+  }
 `;
 
-const Writer = styled.span<{ isABOUT: boolean }>`
-  ${(props) =>
-    props.isABOUT &&
-    `
-background: linear-gradient(90deg, #04e19b, #03b1e8);
--webkit-background-clip: text;
-color: transparent;`}
-`;
+const Category = styled.div``;
+
+const Writer = styled.span``;
 
 const Info = styled.div`
   margin-left: var(--margin-sub);
@@ -54,7 +74,7 @@ const Info = styled.div`
     font-weight: 600;
   }
   > span:last-child {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--font-h3);
   }
 `;

@@ -45,20 +45,24 @@ function GatherDetail({ age, date, location }: IGatherDetail) {
 }
 
 const Layout = styled.div`
+  padding: var(--padding-sub) var(--padding-main);
+
   display: flex;
   flex-direction: column;
-  font-size: 12px;
-  line-height: 2;
   color: var(--font-h2);
-
+  border-bottom: var(--border-sub);
   > div:nth-child(2) {
     > span {
       margin-left: 6px;
     }
   }
+  > div:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const Item = styled.div`
+  margin-bottom: var(--margin-md);
   > span {
     margin-left: var(--margin-md);
   }

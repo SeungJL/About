@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef } from "react";
 import { useRecoilValue } from "recoil";
-import { STUDY_VOTE_ICON } from "../../../constants/settingValue/study";
+import { STUDY_VOTE_ICON } from "../../../constants/settingValue/study/study";
 import { createNaverMapDot } from "../../../helpers/utilHelpers";
 import { locationState } from "../../../recoil/userAtoms";
 import { DispatchType } from "../../../types/reactTypes";

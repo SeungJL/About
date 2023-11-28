@@ -40,7 +40,7 @@ export const ICON_SIZE = {
   xl: 75,
   lg: 60,
   md: 50,
-  sm: 40,
+  sm: 42,
   xs: 30,
 };
 

@@ -49,13 +49,13 @@ function Gather() {
 const Layout = styled.div``;
 
 const ReviewWrapper = styled.div`
-  border-top: 4px solid var(--font-h56);
-  border-bottom: 4px solid var(--font-h56);
+  border-bottom: 6px solid var(--font-h56);
 `;
 
 const NavWrapper = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  padding: var(--padding-sub) var(--padding-main);
+
+  background-color: white;
 `;
 
 export default Gather;

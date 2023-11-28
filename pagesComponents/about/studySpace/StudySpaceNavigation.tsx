@@ -1,5 +1,8 @@
-import { faCircleXmark, faClock } from "@fortawesome/pro-regular-svg-icons";
-import { faBan } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faBan,
+  faCircleXmark,
+  faClock,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
@@ -8,7 +11,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
-import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study";
+import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study/study";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
@@ -209,6 +212,7 @@ function StudySpaceNavigation({
 
 const Wrapper = styled.div`
   margin-top: auto;
+  background-color: white;
 `;
 
 const Layout = styled.div`
@@ -216,13 +220,13 @@ const Layout = styled.div`
   flex-direction: column;
   margin: 0 var(--margin-main);
   padding: var(--padding-sub) 0;
-  padding-top: var(--padding-max);
-  border-radius: var(--border-radius-main);
+  background-color: white;
 `;
 
 const SubNav = styled.nav`
   display: flex;
   margin-bottom: var(--margin-main);
+
   justify-content: space-around;
 `;
 
@@ -235,7 +239,7 @@ const Button = styled.button`
   flex-direction: column;
   justify-content: space-between;
   > span {
-    font-size: 13px;
+    font-size: 12px;
   }
 `;
 
@@ -248,10 +252,10 @@ const MainButton = styled.button<{ func?: boolean }>`
     props.func ? "var(--color-mint)" : "var(--font-h4)"};
   color: white;
   height: 48px;
-  border-radius: 13px;
+  border-radius: var(--border-radius2);
   padding: var(--padding-sub) 2px;
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 16px;
 `;
 
 export default StudySpaceNavigation;

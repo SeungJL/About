@@ -326,7 +326,7 @@ export const PrivacyPolicy = ({ setIsModal }: IModal) => {
           확인
         </Button>
       </Container>
-      <FullScreen />
+      <FullScreen  />
     </>
   );
 };

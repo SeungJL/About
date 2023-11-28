@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import {} from "react-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
-import { STUDY_VOTE_ICON } from "../../../constants/settingValue/study";
+import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
+import { STUDY_VOTE_ICON } from "../../../constants/settingValue/study/study";
 import { getStudySecondRecommendation } from "../../../helpers/studyHelpers";
 import { createNaverMapDot } from "../../../helpers/utilHelpers";
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
@@ -103,7 +103,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
       if (main === place) {
         const findVote = voteData.find((par) => par.place._id === place._id);
         const info = new naver.maps.InfoWindow({
-          content: `<div style="font-size:12px;  padding:4px 6px"><span style="font-weight:600;">${place.brand}</span><br/><span>현재 신청 인원: ${findVote.attendences.length}명</span></div>`,
+          content: `<div style=" font-size:12px; padding:4px 6px"><span style="font-weight:600; color:#565B67;">${place.brand}</span><br/><span>현재 신청 인원:<span style="color:#00c2b3; font-weight:500;"> ${findVote.attendences.length}명</span></span></div>`,
           borderWidth: 1,
           disableAnchor: false,
           backgroundColor: "var(--font-h8)",
@@ -153,7 +153,8 @@ function StudyVoteMap({ setIsModal }: IModal) {
       />
       <Layout>
         <Message>
-          신청 장소에 비례해서 포인트 획득! 현재: <u>+{getPoint} POINT</u>
+          <span>신청 장소에 비례해서 포인트 획득!</span>
+          <span>현재: +{getPoint} POINT</span>
         </Message>
         <Container>
           <Map id="map" ref={mapRef} />
@@ -179,7 +180,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
 const Layout = styled.div`
   position: fixed;
   z-index: 20;
-  top: 49%;
+  top: 51%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
@@ -196,10 +197,16 @@ const Map = styled.div`
 `;
 
 const Message = styled.div`
-  font-size: 12px;
-  text-align: center;
-  color: var(--color-red);
-  margin: var(--margin-md) var(--margin-sub);
+  display: flex;
+  justify-content: space-between;
+  margin: var(--margin-sub) var(--margin-main);
+  > span:first-child {
+    color: white;
+  }
+  > span:last-child {
+    color: var(--color-red);
+    font-weight: 700;
+  }
 `;
 
 export default StudyVoteMap;

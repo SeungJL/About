@@ -17,8 +17,8 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
+import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {

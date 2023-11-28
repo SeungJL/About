@@ -5,7 +5,7 @@ import { MY_TODAY_STUDY_FIXED } from "../../constants/keys/localStorage";
 import {
   STUDY_VOTE_START_HOUR,
   VOTER_DATE_END,
-} from "../../constants/settingValue/study";
+} from "../../constants/settingValue/study/study";
 import {
   dayjsToStr,
   getCurrentDate,

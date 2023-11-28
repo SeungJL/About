@@ -13,7 +13,7 @@ import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
+import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
 import {
   useCompleteToast,

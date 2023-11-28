@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
+import { POINT_SYSTEM_PLUS } from "../../constants/settingValue/pointSystem";
 import { now } from "../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../helpers/eventHelpers";
 import {
@@ -76,12 +76,12 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
 
   const { mutate, data } = useImageUploadMutation({
     onSuccess() {
-      console.log("SUC", data);
+    
     },
   });
 
   const onSubmit = async () => {
-    console.log(1);
+   
     if (!imageSrc) {
       failToast("free", "인증 사진을 첨부해주세요!");
       return;

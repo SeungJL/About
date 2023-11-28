@@ -5,7 +5,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import { useGatherAllQuery } from "../../../hooks/gather/queries";
-import GatherBadge from "../../../pagesComponents/gather/detail/GatherBadge";
 import GatherBottomNav from "../../../pagesComponents/gather/detail/GatherBottomNav";
 import GatherComments from "../../../pagesComponents/gather/detail/GatherComment";
 import GatherContent from "../../../pagesComponents/gather/detail/GatherContent";
@@ -46,16 +45,16 @@ function GatherDetail() {
     <>
       {gatherData ? (
         <>
-          <GatherHeader gatherData={gatherData} />
           <Layout>
-            <GatherBadge typeTitle={gatherData.type.title} />
+            <GatherHeader gatherData={gatherData} />
             <GatherOrganizer
               createdAt={gatherData.createdAt}
               organizer={gatherData.user}
               isAdminOpen={gatherData.isAdminOpen}
+              category={gatherData.type.title}
             />
-            <GatherTitle title={gatherData.title} status={gatherData.status} />
             <GatherDetailInfo data={gatherData} />
+            <GatherTitle title={gatherData.title} status={gatherData.status} />
             <GatherContent
               content={gatherData.content}
               gatherList={gatherData.gatherList}
@@ -73,8 +72,6 @@ function GatherDetail() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-min);
   display: flex;
   flex-direction: column;
   padding-bottom: 100px;

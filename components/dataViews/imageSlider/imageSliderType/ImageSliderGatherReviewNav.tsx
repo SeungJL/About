@@ -1,4 +1,4 @@
-import { faImage } from "@fortawesome/pro-solid-svg-icons";
+import { faEyes } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -28,20 +28,21 @@ function ImageSliderGatherReviewNav({
       style={{
         width: "100%",
         height: "auto",
+        marginLeft: "var(--margin-sub)",
       }}
-      slidesPerView={4.6}
+      slidesPerView={4.5}
     >
       <SwiperSlide onClick={() => onClickReviewItem(0)}>
-        <GatherReviewNavItem>
-          <ImageWrapper>
+        <ReviewItem>
+          <ReviewIcon>
             <FontAwesomeIcon
-              icon={faImage}
+              icon={faEyes}
               size="2x"
               color="var(--color-mint)"
             />
-          </ImageWrapper>
-          <span>리뷰</span>
-        </GatherReviewNavItem>
+          </ReviewIcon>
+          <Text>리뷰 둘러보기</Text>
+        </ReviewItem>
       </SwiperSlide>
       {(imageContainer as IImageSliderItem[]).map((item, index) => (
         <SwiperSlide key={index} onClick={() => onClickReviewItem(item.id)}>
@@ -55,7 +56,7 @@ function ImageSliderGatherReviewNav({
                 priority={index < 4}
               />
             </ImageWrapper>
-            <span>{item.title}</span>
+            <Text>{item.title}</Text>
           </GatherReviewNavItem>
         </SwiperSlide>
       ))}
@@ -64,30 +65,41 @@ function ImageSliderGatherReviewNav({
 }
 
 const GatherReviewNavItem = styled.div`
+  width: 74px;
   display: flex;
   flex-direction: column;
-  width: 68px;
   align-items: center;
+  color: var(--font-h1);
+`;
 
-  > span {
-    font-size: 10px;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+const ReviewItem = styled(GatherReviewNavItem)`
+  > div:last-child {
+    white-space: nowrap;
   }
 `;
 
 const ImageWrapper = styled.div`
-  border-radius: var(--border-radius-main);
-  width: 52px;
-  height: 52px;
+  border-radius: var(--border-radius2);
+  width: 54px;
+  height: 54px;
   overflow: hidden;
-  background-color: var(--font-h56);
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: var(--margin-md);
+  box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.16);
 `;
 
+const Text = styled.div`
+  font-size: 11px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+const ReviewIcon = styled(ImageWrapper)`
+  box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.16);
+  background-color: var(--font-h7);
+`;
 export default ImageSliderGatherReviewNav;

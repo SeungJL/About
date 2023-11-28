@@ -9,7 +9,7 @@ import {
   ABOUT_ICON,
   AVATAR_COLOR,
   AVATAR_ICON,
-} from "../../../../constants/contentsValue/avatar";
+} from "../../../../constants/settingValue/avatar";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 import { Size } from "../../../../types/system";

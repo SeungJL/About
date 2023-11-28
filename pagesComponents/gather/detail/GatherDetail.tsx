@@ -1,13 +1,4 @@
-import { Button } from "@chakra-ui/react";
-import {
-  faCalendarDays,
-  faChevronDown,
-  faDoorOpen,
-  faKey,
-  faLocationDot,
-  faUser,
-  faVenusMars,
-} from "@fortawesome/pro-solid-svg-icons";
+import { faChevronDown, faVenusMars } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
@@ -31,18 +22,14 @@ function GatherDetailInfo({
 
   return (
     <Layout>
-      <Item onClick={() => setIsSubLocation(true)}>
-        <IconWrapper>
-          <FontAwesomeIcon icon={faLocationDot} />
-        </IconWrapper>
+      <FirstItem isOpen={isSubLocation} onClick={() => setIsSubLocation(true)}>
+        <ItemText>장소</ItemText>
         <span>{location.main}</span>
         <FontAwesomeIcon icon={faChevronDown} size="2xs" />
-      </Item>
+      </FirstItem>
       {isSubLocation && <LocationSub>{location.sub}</LocationSub>}
       <Item>
-        <IconWrapper>
-          <FontAwesomeIcon icon={faCalendarDays} />
-        </IconWrapper>
+        <ItemText>날짜</ItemText>
         <span>
           {date === "미정"
             ? date
@@ -50,9 +37,7 @@ function GatherDetailInfo({
         </span>
       </Item>
       <Item>
-        <IconWrapper>
-          <FontAwesomeIcon icon={faUser} />
-        </IconWrapper>
+        <ItemText>나이</ItemText>
         <span>
           {age[0]} ~ {age[1]}세
         </span>
@@ -61,21 +46,14 @@ function GatherDetailInfo({
         )}
       </Item>
       <Item>
-        <IconWrapper>
-          <FontAwesomeIcon icon={faDoorOpen} />
-        </IconWrapper>
+        <ItemText>오픈</ItemText>
         <span>{memberCnt.min}명 이상 오픈</span>
       </Item>
       {isOrganizer && password && (
         <Item>
-          <IconWrapper>
-            <FontAwesomeIcon icon={faKey} />
-          </IconWrapper>
-          <span>암호키</span>
+          <ItemText>암호</ItemText>
           <Secret>
-            <Button size="xs" disabled colorScheme="blackAlpha" mr="8px">
-              {password}
-            </Button>
+            <span>{password}</span>
             <CopyBtn text={password} />
           </Secret>
         </Item>
@@ -87,38 +65,47 @@ function GatherDetailInfo({
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: var(--margin-md);
-  line-height: 2;
-  font-size: 13px;
+  margin: var(--margin-sub) var(--margin-main);
+  padding: var(--padding-md) var(--padding-sub);
 
-  color: var(--font-h2);
+  background-color: white;
+  border-radius: var(--border-radius2);
+  box-shadow: var(--box-shadow-b);
+`;
+
+const ItemText = styled.span`
+  font-weight: 600;
+  margin-right: var(--margin-sub);
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: var(--margin-min);
   > span:nth-child(2) {
     margin: 0 var(--margin-min);
   }
 `;
 
-const IconWrapper = styled.div`
-  width: 16px;
-  margin-right: var(--margin-min);
-  text-align: center;
+const FirstItem = styled(Item)<{ isOpen: boolean }>`
+  margin-bottom: ${(props) => (props.isOpen ? "0" : "var(--margin-min)")};
 `;
 
 const LocationSub = styled.div`
   color: var(--font-h3);
   font-size: 12px;
-  margin-top: var(--margin-min);
-  margin-left: var(--margin-max);
+  margin: 2px 0;
+  margin-left: 44px;
 `;
 
 const Secret = styled.div`
   display: flex;
   align-items: center;
-  font-size: 12px;
+
+  > span:first-child {
+    margin-left: var(--margin-min);
+    margin-right: var(--margin-md);
+  }
 `;
 
 export default GatherDetailInfo;

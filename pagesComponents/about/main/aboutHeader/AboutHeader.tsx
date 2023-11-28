@@ -67,13 +67,13 @@ function AboutHeader() {
 const Layout = styled.header`
   height: 52px;
   font-size: 20px;
-
   background-color: white;
   padding: 0 var(--margin-main);
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: var(--font-h2);
+  border-bottom: 1px solid var(--font-h56);
   > div:first-child {
     display: flex;
     align-items: center;

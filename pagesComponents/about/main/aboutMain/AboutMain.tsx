@@ -1,5 +1,3 @@
-import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -82,10 +80,7 @@ function AboutMain({ participations }: IAboutMain) {
               )}
               {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>
-            <MoreInfoBtn onClick={onClickMoreInfo}>
-              <span>더보기</span>
-              <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            </MoreInfoBtn>
+            <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
           </Main>
         </Layout>
       ) : (
@@ -97,8 +92,8 @@ function AboutMain({ participations }: IAboutMain) {
 
 const Layout = styled(motion.div)`
   position: relative;
-  margin-top: var(--margin-md);
   padding-bottom: var(--padding-main);
+  margin-bottom: var(--margin-sub);
   min-height: 422px;
 `;
 
@@ -110,19 +105,16 @@ const Container = styled.div``;
 
 const MoreInfoBtn = styled.button`
   width: 100%;
-  box-shadow: var(--box-shadow-sub);
+  box-shadow: var(--box-shadow-b);
   height: 44px;
   display: flex;
+
   justify-content: center;
   background-color: white;
   align-items: center;
-
-  border-radius: var(--border-radius-main);
-  color: var(--font-h3);
+  border-radius: var(--border-radius2);
+  color: var(--color-mint);
   font-weight: 600;
-  > span:first-child {
-    margin-right: var(--margin-md);
-  }
 `;
 
 const swipeConfidenceThreshold = 10000;

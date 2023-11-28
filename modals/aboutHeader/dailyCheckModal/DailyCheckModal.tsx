@@ -20,9 +20,9 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
-import { DAILY_CHECK_WIN_ITEM } from "../../../constants/contentsValue/dailyCheck";
-import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
+import { DAILY_CHECK_WIN_ITEM } from "../../../constants/settingValue/dailyCheck";
+import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../../helpers/eventHelpers";
 import {

@@ -98,7 +98,7 @@ const IconWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 10px;
+  margin-left: var(--margin-sub);
 `;
 
 const NoticeWrapper = styled(IconWrapper)`
@@ -107,7 +107,7 @@ const NoticeWrapper = styled(IconWrapper)`
 
 const Alert = styled(AlertIcon)`
   position: absolute;
-  right: 11px;
+  right: 4px;
   top: 14px;
 `;
 

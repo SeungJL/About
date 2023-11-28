@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { STUDY_TIME_TABLE } from "../../../../constants/settingValue/study";
+import { STUDY_TIME_TABLE } from "../../../../constants/settingValue/study/study";
 
 function TimeTable() {
   return (
@@ -12,7 +12,7 @@ function TimeTable() {
   );
 }
 
-const TimeBlock = ({ hour }: { hour: number }) => {
+const TimeBlock = ({ hour }: { hour?: number }) => {
   return (
     <TimeBlockLayout>
       <Time>{hour}</Time>
@@ -22,25 +22,31 @@ const TimeBlock = ({ hour }: { hour: number }) => {
 };
 
 const Layout = styled.div`
+  padding: 0 var(--padding-md);
   position: absolute;
   width: 100%;
   height: 100%;
+  padding-bottom: var(--padding-main);
   opacity: 1;
   display: flex;
-  color: var(--font-h4);
-  font-size: 11px;
+  justify-content: space-around;
+  color: var(--font-h3);
+  font-size: 12px;
 `;
 
-const TimeBlockLayout = styled.div``;
+const TimeBlockLayout = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Time = styled.div`
-  margin-left: -6px;
-  margin-bottom: 2px;
+  margin-bottom: var(--margin-min);
 `;
 const Block = styled.div`
-  width: 26px;
-  height: 92%;
-  border-left: 1px solid var(--font-h5);
+  flex: 1;
+  border-left: 1px solid var(--font-h56);
 `;
 
 export default TimeTable;

@@ -1,5 +1,7 @@
-import { faCircleXmark } from "@fortawesome/pro-regular-svg-icons";
-import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faCircleXmark,
+  faPenToSquare,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { MouseEvent, useState } from "react";
@@ -57,7 +59,7 @@ function StudySpaceUserCommentsComment({
             <FontAwesomeIcon icon={faCircleXmark} color="var(--color-red)" />
             &nbsp;
             {!isPrivate ? (
-              <Absent>-{isAbsent?.message}</Absent>
+              <Absent>{isAbsent?.message}</Absent>
             ) : (
               <Absent>{memo}</Absent>
             )}
@@ -71,7 +73,9 @@ function StudySpaceUserCommentsComment({
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  display: flex;
+`;
 
 const SpaceName = styled.span`
   color: var(--color-mint);
@@ -81,15 +85,23 @@ const SpaceName = styled.span`
 
 const Memo = styled.span`
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
+  font-size: 13px;
 `;
 const EditIconWrapper = styled.span`
   margin-left: var(--margin-md);
 `;
+
 const Absent = styled.span`
-  font-size: 12px;
+  flex: 1;
+  font-size: 13px;
   margin-left: var(--margin-min);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 export default StudySpaceUserCommentsComment;

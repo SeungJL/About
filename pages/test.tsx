@@ -1,6 +1,10 @@
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
+import {
+  VoteIconA,
+  VoteIconDefault,
+} from "../components/common/Icon/AboutIcon";
 import { useUserInfoQuery } from "../hooks/user/queries";
 import { useCollectionAlphabetMutation } from "../hooks/user/sub/collection/mutations";
 
@@ -12,16 +16,12 @@ function Test() {
   const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
   const { mutate, data } = useCollectionAlphabetMutation("change");
   const onClick = () => {};
-  console.log(data);
+
 
   return (
     <Layout>
-      <span>안녕하세요</span>
-      <span>안녕하세요</span>
-      <span>안녕하세요</span>
-      <span>안녕하세요</span>
-      <span>안녕하세요</span>
-      <span>안녕하세요</span>
+      <VoteIconA />
+      <VoteIconDefault />
     </Layout>
   );
 }

@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { StudySpaceLogo } from "../../../../components/utils/CustomImages";
 import { dayjsToStr } from "../../../../helpers/dateHelpers";
 import { myStudyState, voteDateState } from "../../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
@@ -27,7 +27,7 @@ function AboutMainItem({
   const setTransferStudySpaceData = useSetRecoilState(
     transferStudySpaceDataState
   );
- 
+
   const { attendences, place, status } = participation || {};
   const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 
@@ -45,11 +45,7 @@ function AboutMainItem({
       {participation && (
         <>
           <ImageContainer>
-            <StudySpaceLogo
-              place={place}
-              isBig={true}
-              isImagePriority={isImagePriority}
-            />
+            <Image src={place.image} layout="fill" alt="cafeImage" />
           </ImageContainer>
           <SpaceInfo>
             <AboutMainItemStatus place={place} status={status} />
@@ -70,23 +66,21 @@ function AboutMainItem({
 const Layout = styled.div<{ status: boolean; isMyResult: boolean }>`
   height: 110px;
   background-color: white;
-  box-shadow: var(--box-shadow-sub);
-  border-radius: var(--border-radius-main);
+  box-shadow: var(--box-shadow-b);
+  border-radius: var(--border-radius2);
   display: flex;
   align-items: center;
-  margin-bottom: ${(props) =>
-    props.isMyResult ? "29px" : "var(--margin-main)"};
+  margin-bottom: var(--margin-sub);
   padding: var(--padding-sub);
-  padding-left: ${(props) => props.status && "0px"};
-  flex-direction: ${(props) => (props.status ? "row-reverse" : null)};
-  border: ${(props) => props.status && "var(--border-mint)"};
+  /* border: ${(props) => props.status && "var(--border-mint)"}; */
 `;
 
 const ImageContainer = styled.div`
-  width: 86px;
-  height: 86px;
+  position: relative;
+  height: 100%;
+  aspect-ratio: 1/1;
   border: var(--border-sub);
-  border-radius: var(--border-radius-main);
+  border-radius: var(--border-radius2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,7 +100,7 @@ const Info = styled.div`
   justify-content: space-between;
 
   color: var(--font-h3);
-  font-size: 12px;
+  font-size: 13px;
 `;
 
 export default AboutMainItem;

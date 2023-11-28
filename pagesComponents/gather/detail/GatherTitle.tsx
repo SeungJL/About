@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { STATUS_TP_COLOR } from "../../../constants/styles";
+import { Badge } from "../../../components/common/customComponents/Badges";
 import { STATUS_TO_TEXT } from "../../../constants/util/convert";
 
 import { GatherStatus } from "../../../types/page/gather";
@@ -10,21 +10,30 @@ interface IGatherTitle {
 }
 
 function GatherTitle({ status, title }: IGatherTitle) {
+  const bg =
+    status === "pending"
+      ? "var(--color-mint)"
+      : status === "open"
+      ? "var(--color-red)"
+      : null;
+
   return (
     <Layout status={status}>
-      <span>{STATUS_TO_TEXT[status]}</span>
+      <Badge text={STATUS_TO_TEXT[status]} bg={bg} />
       <span>{title}</span>
     </Layout>
   );
 }
 
 const Layout = styled.div<{ status: GatherStatus }>`
+  padding: Var(--padding-main);
+  background-color: white;
   color: var(--font-h1);
   font-size: 16px;
-  font-weight: 600;
-  > span:first-child {
-    color: ${(props) => STATUS_TP_COLOR[props.status]};
-    margin-right: var(--margin-md);
+  font-weight: 700;
+  border-bottom: var(--border-sub);
+  > span:last-child {
+    margin-left: var(--margin-md);
   }
 `;
 

@@ -100,9 +100,9 @@ function NoticeActive({ activeLogs }: INoticeActive) {
         ?.map((item, idx) => {
           const type = item.type;
           const [name, message] = item.message.split("님");
-          if (type === "alphabet") console.log(item);
+        
           const alphabet = item?.sub?.split("/");
-          if (type === "alphabet") console.log(item);
+        
           return (
             <Item key={idx}>
               <IconWrapper>

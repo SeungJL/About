@@ -10,6 +10,7 @@ import StudySpaceSetting from "../../../../pagesComponents/about/studySpace/Stud
 import StudySpaceSkeleton from "../../../../pagesComponents/about/studySpace/StudySpaceSkeleton";
 import StudyTimeTable from "../../../../pagesComponents/about/studySpace/StudySpaceTable";
 import StudySpaceUserComments from "../../../../pagesComponents/about/studySpace/studySpaceUserComments/StudySpaceUserComments";
+import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { studyDateStatusState } from "../../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../../recoil/transferDataAtoms";
 import { isGuestState } from "../../../../recoil/userAtoms";
@@ -23,7 +24,7 @@ function StudySpace() {
 
   const transferStudySpaceData = useRecoilValue(transferStudySpaceDataState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-
+ 
   const [participation, setParticipation] = useState<IParticipation>(
     transferStudySpaceData
   );
@@ -46,6 +47,7 @@ function StudySpace() {
     info && (info?.image || `/studyRandom/study${randomNum + 1}.jpg`);
   const absences = participation?.absences;
 
+
   return (
     <>
       <StudySpaceSetting
@@ -56,10 +58,7 @@ function StudySpace() {
         <>
           <Layout>
             <StudySpaceHeader title={place.brand} place={place} />
-            <StudySpaceCover
-              coverImageUrl={coverImageUrl}
-              logoImageUrl={place.image}
-            />
+            <StudySpaceCover coverImageUrl={coverImageUrl} place={place} />
             {!isPrivate && <StudySpaceOverview place={place} info={info} />}
             <StudySpaceVoteOverview
               voteCnt={filtered.length}

@@ -24,43 +24,29 @@ function AboutStudyHeader() {
   }, [myStudyFixed, myStudyFixed?.attendences, session?.uid, studyDateStatus]);
 
   return (
-    <>
-      <Layout>
-        <Title isNotPassed={studyDateStatus !== "not passed"}>
-          <span>
-            {studyDateStatus === "not passed"
-              ? "카공 스터디"
-              : "내 스터디 결과"}
-          </span>
-        </Title>
-        <LocationSelector />
-      </Layout>
-    </>
+    <Layout>
+      <Title>카공 스터디</Title>
+      <LocationSelector />
+    </Layout>
   );
 }
 
 const Layout = styled.div`
-  height: 46px;
-  padding: var(--padding-sub) var(--padding-main);
-  padding-bottom: 0;
+  padding: 0 var(--margin-main);
+  padding-top: var(--padding-main);
+  padding-bottom: var(--padding-sub);
   display: flex;
   justify-content: space-between;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 600;
+  background-color: white;
 `;
-const Title = styled.div<{ isNotPassed: boolean }>`
-  font-size: ${(props) => (props.isNotPassed ? "16px" : null)};
+
+const Title = styled.div`
+  font-size: 18px;
+  font-weight: 600;
   display: flex;
   align-items: center;
 `;
 
-const Check = styled.span`
-  color: var(--color-red);
-  margin-left: var(--margin-sub);
-`;
-const ButtonSkeleton = styled.div`
-  margin-left: var(--margin-sub);
-  width: 84px;
-  height: 28px;
-`;
 export default AboutStudyHeader;

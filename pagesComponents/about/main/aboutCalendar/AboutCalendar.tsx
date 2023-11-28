@@ -11,32 +11,34 @@ function AboutCalendar() {
 
   return (
     <Layout>
-      <AboutCalendarMonth />
-      <Content>
-        <AboutCalendarDays voteDate={voteDate} />
-        <AboutCalendarDate />
-        <AboutCalendarVote />
-      </Content>
-      <ViewCover />
+      <Container>
+        <AboutCalendarMonth />
+        <Content>
+          <AboutCalendarDays voteDate={voteDate} />
+          <AboutCalendarDate />
+          <AboutCalendarVote />
+        </Content>
+      </Container>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  min-height: 107px;
+  padding: var(--padding-main);
+`;
+
+const Container = styled.div`
+  background-color: white;
+  height: 192px;
+  border-radius: var(--border-radius2);
+  box-shadow: var(--box-shadow-b);
 `;
 
 const Content = styled.div`
   border-bottom: var(--border-main-light);
   position: relative;
   margin: 0 var(--margin-min);
-`;
-const ViewCover = styled.div`
-  height: 48px;
-  width: 100%;
-  position: relative;
-  z-index: 3;
-  background-color: var(--font-h8);
+  margin-top: 36px;
 `;
 
 export default AboutCalendar;

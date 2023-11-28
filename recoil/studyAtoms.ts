@@ -37,7 +37,7 @@ export const myVotingState = selector<IParticipation[]>({
     const temp = [];
     participations.forEach((participation) => {
       participation.attendences.forEach((who) => {
-        if (who.user.uid === uid) temp.push(participation);
+        if (who.user?.uid === uid) temp.push(participation);
       });
     });
     if (temp.length) return temp;

@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
-export const FullScreen = styled.div<{ opacity?: 0.6 | 1 }>`
+export const FullScreen = styled.div<{ opacity?: number }>`
   position: fixed;
   background-color: ${(props) =>
-    props.opacity ? `rgba(0, 0, 0, ${props.opacity})` : "rgba(0,0,0,0.4)"};
-
+    props.opacity ? `rgba(0,0,0,${props.opacity})` : "rgba(0,0,0,0.4)"};
   width: 100vw;
   height: 100vh;
   z-index: 20;

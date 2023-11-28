@@ -1,6 +1,7 @@
-import { faInfinity, faUserGroup } from "@fortawesome/pro-solid-svg-icons";
+import { faInfinity } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { AboutIcon } from "../../../components/common/Icon/AboutIcon";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { ABOUT_UID } from "../../../constants/system";
 import { IImagePriority } from "../../../types/common";
@@ -28,16 +29,19 @@ function GatherMember({
   const participantCnt = participants.length;
   return (
     <Layout>
-      <Writer isABOUT={isABOUT}>
-        <ProfileIcon
-          user={isABOUT ? "ABOUT" : organizer}
-          size="xs"
-          isImagePriority={isImagePriority}
-        />
+      <Writer>
+        {isABOUT ? (
+          <AboutIcon />
+        ) : (
+          <ProfileIcon
+            user={organizer}
+            size="xs"
+            isImagePriority={isImagePriority}
+          />
+        )}
         <span>{isABOUT ? "어바웃" : organizer.name}</span>
       </Writer>
       <Voter>
-        <FontAwesomeIcon icon={faUserGroup} color="var(--font-h4)" />
         <span>{isAdminOpen ? participantCnt : participantCnt + 1} /</span>
         {memberCnt.max ? (
           <span>{memberCnt.max}</span>
@@ -53,35 +57,31 @@ function GatherMember({
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-sub);
-  font-size: 12px;
+  padding: var(--padding-sub) var(--padding-main);
+  font-size: 13px;
   display: flex;
   justify-content: space-between;
 `;
-const Writer = styled.div<{ isABOUT: boolean }>`
+
+const Writer = styled.div`
   display: flex;
   align-items: center;
   > span {
     font-weight: 600;
-    font-size: 12px;
     margin-left: var(--margin-md);
-    ${(props) =>
-      props.isABOUT &&
-      `
-background: linear-gradient(90deg, #04e19b, #03b1e8);
--webkit-background-clip: text;
-color: transparent;
-display: inline;
-`}
   }
 `;
 
 const Voter = styled.div`
   display: flex;
+  font-size: 16px;
   align-items: center;
-  > span {
+  font-weight: 600;
+  > span:first-child {
+    color: var(--color-mint);
+  }
+  > span:last-child {
     color: var(--font-h2);
-    font-weight: 600;
     margin-left: var(--margin-min);
   }
 `;

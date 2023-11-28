@@ -1,9 +1,9 @@
 import dayjs, { Dayjs } from "dayjs";
 import {
-  STUDY_DISTANCE,
   STUDY_VOTE_END_HOUR,
   STUDY_VOTE_START_HOUR,
-} from "../constants/settingValue/study";
+} from "../constants/settingValue/study/study";
+import { STUDY_DISTANCE } from "../constants/settingValue/study/StudyDistanceService";
 
 import {
   IParticipation,

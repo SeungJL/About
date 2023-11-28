@@ -37,10 +37,10 @@ function StudySpaceUserCommentsName({
 const Layout = styled.div`
   display: flex;
   align-items: center;
+  font-size: 14px;
   > span:first-child {
     color: var(--font-h1);
     font-weight: 600;
-    font-size: 15px;
     margin-right: var(--margin-min);
   }
 `;

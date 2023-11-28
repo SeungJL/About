@@ -16,9 +16,9 @@ function GatherBlockHeader({
   const getStatusBadge = (status: GatherStatus) => {
     switch (status) {
       case "pending":
-        return { text: "모집중", color: "blue" };
+        return { text: "모집중", color: "mintTheme" };
       case "open":
-        return { text: "오픈", color: "mintTheme" };
+        return { text: "오픈", color: "redTheme" };
       case "close":
         return { text: "취소", color: "blackAlpha" };
       default:
@@ -30,10 +30,8 @@ function GatherBlockHeader({
 
   return (
     <Layout>
-      <Detail>
-        <Category>{typeTitle}</Category>·<Location>{locationMain}</Location>
-      </Detail>
-      <Badge colorScheme={color} fontSize="12px" variant="outline">
+      <Category>{typeTitle}</Category>
+      <Badge p="2px 6px" colorScheme={color} fontSize="13px" variant="outline">
         {text}
       </Badge>
     </Layout>
@@ -46,17 +44,8 @@ const Layout = styled.header`
   justify-content: space-between;
 `;
 
-const Detail = styled.div`
-  color: var(--font-h3);
-  font-size: 12px;
-`;
-
 const Category = styled.span`
-  margin-right: var(--margin-min);
-`;
-
-const Location = styled.span`
-  margin: 0 var(--margin-min);
+  color: var(--font-h3);
 `;
 
 export default GatherBlockHeader;

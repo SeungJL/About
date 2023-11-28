@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { UserIcon } from "../../../../../components/common/Icon/icons";
 import ProfileIconXsOverwrap from "../../../../../components/common/user/Profile/ProfileIconXsOverwrap";
-import { MAX_USER_PER_PLACE } from "../../../../../constants/settingValue/study";
-import { IconUserTwo } from "../../../../../public/icons/Icons";
+import { MAX_USER_PER_PLACE } from "../../../../../constants/settingValue/study/study";
 import { voteDateState } from "../../../../../recoil/studyAtoms";
 import {
   IAttendance,
@@ -18,8 +18,6 @@ interface IAboutMainItemParticipants {
   attendances: IAttendance[];
   isImagePriority: boolean;
 }
-
-const VOTER_SHOW_MAX = 7;
 
 function AboutMainItemParticipants({
   status,
@@ -52,12 +50,13 @@ function AboutMainItemParticipants({
   const hasPublicAccess =
     (status !== "pending" && isMyVote) || voteDate.date() % 10 !== 1;
 
+  const VOTER_SHOW_MAX = status !== "pending" ? 7 : 5;
   return (
     <Layout status={statusFixed === "myOpen"}>
-      {statusFixed === "pending" && voteStatus && (
+      {/* {statusFixed === "pending" && voteStatus && (
         <VoteComplete status={voteStatus}>{voteStatus}</VoteComplete>
-      )}
-      <div>
+      )} */}
+      <Participants>
         {filteredAttendances.map((att, idx) => {
           return (
             idx < VOTER_SHOW_MAX && (
@@ -80,10 +79,13 @@ function AboutMainItemParticipants({
             )
           );
         })}
+      </Participants>
+      <MemberCnt>
+        <VoteStatus status={voteStatus}>{voteStatus}</VoteStatus>
         {!isMax ? (
           filteredAttendances.length > 0 && (
             <ParticipantStatus>
-              <IconUserTwo />
+              <UserIcon />
               <span>
                 <VoterImpact
                   isOverMax={
@@ -102,23 +104,42 @@ function AboutMainItemParticipants({
         ) : (
           <FullText>({MAX_USER_PER_PLACE}) FULL</FullText>
         )}
-      </div>
+      </MemberCnt>
     </Layout>
   );
 }
 
 const Layout = styled.div<{ status: boolean }>`
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Participants = styled.div`
+  position: relative;
   flex: 1;
   display: flex;
-  justify-content: space-between;
-  flex-direction: ${(props) => props.status && "row-reverse"};
-  > div:last-child {
-    flex: 1;
-    display: flex;
-    padding-top: var(--padding--min);
-    align-items: end;
-  }
+  padding-top: var(--padding--min);
+  align-items: end;
 `;
+
+const MemberCnt = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const VoteStatus = styled.div<{ status: "GOOD" | "FULL" }>`
+  margin-right: var(--margin-min);
+  display: flex;
+  height: 100%;
+  align-items: end;
+  font-size: 14px;
+  font-weight: 600;
+  color: ${(props) =>
+    props.status === "GOOD" ? "var(--color-mint)" : "var(--color-red)"};
+`;
+
 const VoteComplete = styled.span<{ status: "GOOD" | "FULL" }>`
   margin-right: var(--margin-md);
   display: flex;
@@ -147,17 +168,16 @@ const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
   margin-left: var(--margin-md);
-  /* margin-bottom: var(--margin-min); */
+  font-size: 14px;
+  color: var(--font-h3);
+  font-weight: 400;
   > span {
-    margin-left: 2px;
-    font-weight: 400;
-    font-size: 12px;
-    color: var(--font-h3);
+    margin-left: var(--margin-min);
   }
 `;
 const VoterImpact = styled.b<{ isOverMax: boolean }>`
-  color: ${(props) =>
-    props.isOverMax ? "var(--color-red)" : "var(--font-h2)"};
+  font-weight: 400;
+  color: ${(props) => (props.isOverMax ? "var(--color-red)" : "inherit")};
 `;
 
 export default AboutMainItemParticipants;

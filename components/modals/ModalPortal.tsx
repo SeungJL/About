@@ -6,10 +6,10 @@ import { DispatchBoolean } from "../../types/reactTypes";
 interface IModalPortal {
   children?: React.ReactNode;
   setIsModal?: DispatchBoolean;
-  opacity?: 0.6 | 1;
+  opacity?: number;
 }
 
-function ModalPortal({ children, setIsModal, opacity }: IModalPortal) {
+function ModalPortal({ children, setIsModal, opacity = 0.4 }: IModalPortal) {
   const ref = useRef<Element | null>();
   const [mounted, setMounted] = useState(false);
 

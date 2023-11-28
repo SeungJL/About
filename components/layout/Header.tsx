@@ -21,6 +21,7 @@ const Header = ({ title, url, children, isPrev, isNoLine }: IHeader) => {
 
   const handleClick = () => {
     if (isPrev) setPrevPageUrl(null);
+
     if (url) {
       if (url === "back") router.back();
       else router.push(`${url}`);
@@ -28,9 +29,9 @@ const Header = ({ title, url, children, isPrev, isNoLine }: IHeader) => {
   };
 
   return (
-    <Layout isNoLine={isNoLine || title === ""}>
+    <Layout isNoLine={isNoLine}>
       <IconWrapper onClick={handleClick}>
-        <FontAwesomeIcon icon={faChevronLeft} size="lg" />
+        <FontAwesomeIcon icon={faChevronLeft} />
       </IconWrapper>
       <Title>{title}</Title>
       <Nav>{children}</Nav>
@@ -39,13 +40,15 @@ const Header = ({ title, url, children, isPrev, isNoLine }: IHeader) => {
 };
 
 const Layout = styled.div<{ isNoLine: boolean }>`
-  height: 46px;
+  background-color: white;
+  height: 52px;
   padding-right: var(--padding-main);
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
   color: var(--font-h1);
-  border-bottom: ${(props) => !props.isNoLine && "var(--border-main-light)"};
+  border-bottom: ${(props) => !props.isNoLine && "1px solid var(--font-h56)"};
 `;
 
 const IconWrapper = styled.div`
@@ -57,7 +60,7 @@ const IconWrapper = styled.div`
 
 const Title = styled.span`
   color: var(--font-h1);
-  font-size: 17px;
+
   font-weight: 600;
 `;
 

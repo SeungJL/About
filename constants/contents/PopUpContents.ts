@@ -33,5 +33,13 @@ export const NEW_POINT_SYSTEM: IContentPopUpContents = {
         "스터디 투표시 장소 당 최초 3명까지 추가 포인트 획득 가능. 순서대로 /+10 point, +5 point, +2 point/",
       ],
     },
+    {
+      subtitle: "기타",
+      content: [
+        "동아리 점수는 이제 /스터디 출석체크/로만 획득 가능",
+        "새롭게 /정기 스터디/ 진행",
+        "매달 /열활멤버/ 선착순 모집",
+      ],
+    },
   ],
 };

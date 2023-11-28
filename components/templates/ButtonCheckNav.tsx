@@ -16,15 +16,16 @@ function ButtonCheckNav({
   const filtered = buttonList.filter((item) => item !== "마포");
   return (
     <Layout>
-      <ButtonGroup flexWrap="wrap" gap="var(--margin-md)">
+      <ButtonGroup gap="var(--margin-md)">
         {filtered.map((item) => (
           <Button
-            colorScheme={item === selectedButton ? "mintTheme" : null}
+            bgColor={item === selectedButton ? "var(--color-mint)" : "white"}
+            color={item === selectedButton ? "white" : "var(--font-h2)"}
             key={item}
             onClick={() => setSelectedButton(item)}
             ml="0px !important"
-            size="sm"
-            _focus={{ outline: "none" }}
+            border="1px solid var(--font-h5)"
+            _focus={{ outline: "none", bgColor: "var(--color-mint)" }}
           >
             {item}
           </Button>

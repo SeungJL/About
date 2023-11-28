@@ -1,7 +1,7 @@
 import {
   faChevronLeft,
   faChevronRight,
-} from "@fortawesome/pro-solid-svg-icons";
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -44,19 +44,22 @@ function AboutCalendarMonth() {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 14px;
+  line-height: 20px;
   padding: 0 var(--padding-main);
-  margin-top: var(--margin-sub);
+  padding-top: var(--padding-main);
 `;
 
 const ControlBtn = styled.button`
   display: flex;
-  color: var(--font-h3);
+  color: var(--font-h2);
   > span {
     margin: 0 var(--margin-min);
   }
 `;
 
-const ArrowBtn = styled.div``;
+const ArrowBtn = styled.div`
+  color: var(--font-h3);
+`;
 
 export default AboutCalendarMonth;

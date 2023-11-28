@@ -31,24 +31,31 @@ function LocationSelector() {
   return (
     <Layout>
       <Select value={value} onChange={onChange}>
-        {LOCATION_USE_ALL.map((location) => (
-          <Option key={location} value={location}>
-            {LOCATION_CONVERT[location]} 지역
-          </Option>
-        ))}
+        {LOCATION_USE_ALL.map((location) => {
+          const name = LOCATION_CONVERT[location];
+          return (
+            <Option key={location} value={location}>
+              {name}
+              {name.length < 4 && " 지역"}
+            </Option>
+          );
+        })}
       </Select>
     </Layout>
   );
 }
 
 const Select = styled.select`
-  appearance: none;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid var(--font-h5);
+  background-color: white;
   color: var(--font-h3);
-  font-weight: 600;
-  font-size: 12px;
-  background: inherit;
-  text-align: end;
+  font-weight: 400;
+
+  font-size: 13px;
   border: none;
+  text-align: end;
   :focus {
     outline: none;
   }

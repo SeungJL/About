@@ -5,6 +5,10 @@
   --view-max-width-light: calc(var(--max-width) - 4 * var(--margin-main));
   --max-width: 390px;
 
+  --border-radius2: 4px;
+  --box-shadow2: 0px 0px 4px 0px rgba(0, 0, 0, 0.04);
+  --box-shadow-b: 1px 1px 4px 0px rgba(0, 0, 0, 0.08);
+
   --font-h1: #343943;
   --font-h2: #565b67;
   --font-h3: #767d8a;
@@ -39,7 +43,6 @@
   --padding-md: 8px;
   --padding-min: 4px;
 
-  
   --margin-max: 20px;
   --margin-main: 16px;
   --margin-sub: 12px;

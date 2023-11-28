@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 import { Document } from "mongoose";
 
-import { IDayjsStartToEnd, ITimeStartToEnd } from "../timeAndDate";
+import { IDayjsStartToEnd, ITimeStamps, ITimeStartToEnd } from "../timeAndDate";
 import { IUser } from "../user/user";
 import { IStudyPlaces } from "./study";
 
@@ -46,7 +46,7 @@ export interface IPlace {
   location: string;
 }
 
-export interface IAbsence {
+export interface IAbsence extends ITimeStamps {
   user: IUser;
   noShow: boolean;
   message: string;

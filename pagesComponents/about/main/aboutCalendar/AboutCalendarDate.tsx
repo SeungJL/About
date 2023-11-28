@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 import { voteDateState } from "../../../../recoil/studyAtoms";
 
 interface ICalendarBox {
@@ -44,97 +45,83 @@ function AboutCalendarDate() {
   const IconCircle = ({ children }) => <CircleLayout>{children}</CircleLayout>;
 
   return (
-    <>
-      <Layout>
-        <AnimatePresence>
-          {calendarBox.map((d, idx) => {
-            return (
-              <DayItem
-                layout
-                key={d.date}
-                initial={{
-                  opacity: 1,
-                  x: idx === 6 ? 40 : idx === 0 ? -40 : undefined,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                  y: idx === 3 && -46,
-                }}
-                transition={{ duration: 1 }}
-                iscenter={idx === 3 ? "true" : "false"}
-                onClick={() => onClickDate(d)}
-              >
-                {d?.date === voteDate.date() ? (
-                  <IconCircle>
-                    <PickDate>{d?.date}</PickDate>
-                  </IconCircle>
-                ) : (
-                  <div>{d?.date}</div>
-                )}
-              </DayItem>
-            );
-          })}
-          <Pick>PICK</Pick>
-        </AnimatePresence>
-      </Layout>
-    </>
+    <Layout>
+      <AnimatePresence>
+        {calendarBox.map((d, idx) => {
+          return (
+            <DayItem
+              layout
+              key={d.date}
+              initial={{
+                opacity: 1,
+                x: idx === 6 ? 40 : idx === 0 ? -40 : undefined,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                y: idx === 3 && -46,
+              }}
+              transition={{ duration: 1 }}
+              iscenter={idx === 3 ? "true" : "false"}
+              onClick={() => onClickDate(d)}
+            >
+              {d?.date === voteDate.date() ? (
+                <IconCircle>{d?.date}</IconCircle>
+              ) : (
+                <div>{d?.date}</div>
+              )}
+            </DayItem>
+          );
+        })}
+        <Pick>{dayjsToFormat(voteDate, "ddd요일")}</Pick>
+      </AnimatePresence>
+    </Layout>
   );
 }
 
 const Layout = styled.div`
   position: relative;
-  color: var(--font-h3);
-  font-size: 15px;
-  font-weight: 600;
+  color: var(--font-h1);
+  font-size: 14px;
   display: flex;
   justify-content: space-between;
-  margin: 0 2px;
 `;
 
 const DayItem = styled(motion.div)<{ iscenter: "true" | "false" }>`
-  padding: var(--padding-sub) var(--padding-min);
-  margin: ${(props) => props.iscenter === "true" && "0 24.3px"};
+  padding: 8px;
+  margin: ${(props) => props.iscenter === "true" && "0 32px"};
+  margin-bottom: 4px;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 5;
-  position: relative;
+  line-height: 20px;
 `;
 
 const CircleLayout = styled.div`
+  width: 28px;
+  height: 28px;
   position: absolute;
   display: flex;
-  flex-direction: column;
-  font-size: 15px;
-  color: var(--color-mint);
-  font-weight: 600;
-  z-index: 1000;
+  justify-content: center;
   align-items: center;
-  > span:first-child {
-    margin-bottom: 2px;
-  }
-`;
-
-const PickDate = styled.div`
   border: 1.5px solid var(--color-mint);
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  justify-content: center;
+  flex-direction: column;
+  top: -4px;
+  color: var(--color-mint);
+  font-weight: 600;
+  z-index: 3;
   align-items: center;
 `;
 
 const Pick = styled.div`
   position: absolute;
   left: 50%;
-  top: -48px;
+  top: -66px;
   transform: translate(-50%, -50%);
   color: var(--color-mint);
-  font-weight: 400;
-  font-size: 13px;
+  font-weight: 600;
 `;
 
 export default AboutCalendarDate;

@@ -1,7 +1,7 @@
-import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
 
 interface ISectionHeader {
   title: string;
@@ -11,24 +11,29 @@ interface ISectionHeader {
 
 function SectionHeader({ title, subTitle, url }: ISectionHeader) {
   const router = useRouter();
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
+  const onClick = () => {
+    setPrevPageUrl("/about");
+    router.push(url);
+  };
   return (
     <Layout>
       <Title>{title}</Title>
-      <ShowAllBtn onClick={() => router.push(`${url}`)}>
-        <span>{subTitle || "더보기"}</span>
-        <FontAwesomeIcon icon={faChevronRight} size="sm" />
-      </ShowAllBtn>
+      <ShowAllBtn onClick={onClick}>더보기</ShowAllBtn>
     </Layout>
   );
 }
 
 const Layout = styled.header`
+  padding: var(--padding-main);
+  padding-right: var(--padding-main);
+  margin-bottom: var(--margin-main);
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: var(--padding-main);
-  margin-bottom: var(--margin-main);
+  background-color: white;
 `;
 
 const Title = styled.span`
@@ -36,10 +41,8 @@ const Title = styled.span`
   font-weight: 700;
 `;
 const ShowAllBtn = styled.button`
-  color: var(--font-h3);
-  font-size: 12px;
-  > span:first-child {
-    margin-right: var(--margin-min);
-  }
+  background-color: rgba(0, 194, 179, 0.1);
+  color: var(--color-mint);
+  font-size: 13px;
 `;
 export default SectionHeader;

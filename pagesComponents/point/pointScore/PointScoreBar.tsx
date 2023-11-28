@@ -8,7 +8,7 @@ import {
   BADGE_COLOR,
   BADGE_INFO,
   EVENT_BADGE,
-} from "../../../constants/contentsValue/badge";
+} from "../../../constants/settingValue/badge";
 import { SCHEME_TO_COLOR } from "../../../constants/styles";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";

@@ -30,7 +30,7 @@ function ContentPopUp({ content, setIsModal }: IContentPopUp) {
                 <Ul>
                   {item.content.map((text, idx2) => {
                     const textArr = text.split("/");
-                    console.log(textArr);
+                    
                     return (
                       <li key={idx2}>
                         {textArr[0]}

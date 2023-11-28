@@ -19,7 +19,6 @@ function EventBanner() {
 // 16 더블
 
 const Layout = styled.div`
-  margin: var(--margin-main) 0;
   display: flex;
   flex-direction: column;
 `;

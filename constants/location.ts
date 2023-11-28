@@ -6,7 +6,7 @@ export const LOCATION_RECRUITING: Location[] = ["동대문", "마포"];
 export const LOCATION_NOT_OPEN: Location[] = [];
 
 //모집중을 포함한 지역
-export const LOCATION_USE_ALL = [...LOCATION_OPEN, ...LOCATION_RECRUITING];
+export const LOCATION_USE_ALL = [...LOCATION_OPEN];
 //전체 지역
 export const LOCATION_ALL = [
   ...LOCATION_OPEN,

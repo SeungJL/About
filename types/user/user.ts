@@ -1,4 +1,4 @@
-import { BADGE_COLOR } from "../../constants/contentsValue/badge";
+import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { Location } from "../system";
 
 export interface IUser extends IUserRegisterForm {

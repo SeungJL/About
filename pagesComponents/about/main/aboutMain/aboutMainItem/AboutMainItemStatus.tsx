@@ -42,8 +42,8 @@ function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
       ) : null}
       {studyStartTime && (
         <Result>
-          <FontAwesomeIcon icon={faClock} size="xs" />
-          <ResultInfo>{dayjs(studyStartTime).format("HH:mm")} ~</ResultInfo>
+          <FontAwesomeIcon icon={faClock} />
+          <ResultInfo>{dayjs(studyStartTime).format("HH:mm")}</ResultInfo>
         </Result>
       )}
     </Layout>
@@ -57,20 +57,19 @@ const Layout = styled.div`
 `;
 const Branch = styled.div`
   display: inline-block;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 16px;
 `;
 const Result = styled.div`
   display: flex;
   align-items: center;
+  font-size: 11px;
   margin-left: var(--margin-md);
+  color: var(--font-h2);
 `;
 
 const ResultInfo = styled.div`
   margin-left: var(--margin-min);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--font-h1);
 `;
 
 export default AboutMainItemStatus;

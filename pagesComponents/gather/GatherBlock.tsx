@@ -24,45 +24,46 @@ function GatherBlock({ gather, isImagePriority }: IGatherBlock) {
 
   return (
     <Layout onClick={onClickBlock}>
-      <Container>
+      <UpPart>
         <GatherBlockHeader
           status={gather.status}
           typeTitle={gather.type.title}
           locationMain={gather.location.main}
         />
         <Title>{gather.title}</Title>
-        <GatherDetail
-          age={gather.age}
-          date={gather.date}
-          location={gather.place}
-        />
-        <GatherMember
-          organizer={gather.user}
-          participants={gather.participants}
-          memberCnt={gather.memberCnt}
-          isImagePriority={isImagePriority}
-          isAdminOpen={gather.isAdminOpen}
-        />
-      </Container>
+      </UpPart>
+      <GatherDetail
+        age={gather.age}
+        date={gather.date}
+        location={gather.place}
+      />
+      <GatherMember
+        organizer={gather.user}
+        participants={gather.participants}
+        memberCnt={gather.memberCnt}
+        isImagePriority={isImagePriority}
+        isAdminOpen={gather.isAdminOpen}
+      />
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  border-bottom: var(--border-main-light);
-`;
-
-const Container = styled.div`
+  margin-bottom: var(--margin-sub);
+  background-color: white;
+  border-radius: var(--border-radius2);
+  box-shadow: var(--box-shadow-b);
   display: flex;
   flex-direction: column;
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+`;
+
+const UpPart = styled.div`
+  padding: var(--padding-sub) var(--padding-main);
+  border-bottom: var(--border-sub);
 `;
 
 const Title = styled.div`
-  margin-top: 2px;
-  margin-bottom: var(--margin-min);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 `;
 

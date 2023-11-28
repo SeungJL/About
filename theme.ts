@@ -34,6 +34,7 @@ const theme = extendTheme({
   components: {
     Button: {
       baseStyle: {
+        borderRadius: "4px",
         _focus: {
           outline: "none",
           boxShadow: "none",

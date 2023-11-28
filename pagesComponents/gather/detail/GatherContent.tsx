@@ -28,26 +28,28 @@ function GatherContent({ content, gatherList }: IGather) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: var(--border-main);
-  border-bottom: var(--border-main);
-  margin-top: var(--margin-sub);
-  padding: var(--padding-sub) 0;
   min-height: 140px;
+  border-bottom: 6px solid var(--font-h56);
 `;
 const Content = styled.pre`
+  min-height: 100px;
+  background-color: white;
+  padding: var(--padding-main);
   white-space: pre-wrap;
+  padding-bottom: var(--padding-main);
 `;
 
 const ListContainer = styled.div`
-  margin-top: auto;
+  margin: 0 var(--margin-main);
+  padding: var(--padding-sub) 0;
   line-height: var(--line-height);
+  background-color: var(--font-h8);
 `;
 
 const ListBlock = styled.div`
   > span:first-child {
-    display: inline-block;
-    width: 28px;
-    font-weight: 600;
+    margin-right: var(--margin-sub);
+    font-weight: 700;
   }
   > span:last-child {
     margin-left: var(--margin-md);

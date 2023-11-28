@@ -26,7 +26,7 @@ export default function UserSetting() {
   useUserInfoQuery({
     enabled: isGuest === false,
     onSuccess(data) {
-      console.log(2, data);
+     
       setUserInfo(data);
     },
   });

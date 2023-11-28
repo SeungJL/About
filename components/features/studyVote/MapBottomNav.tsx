@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { POINT_SYSTEM_PLUS } from "../../../constants/contentsValue/pointSystem";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
+import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
@@ -101,10 +101,21 @@ function MapBottomNav({
   return (
     <>
       <Layout>
-        <Button colorScheme="mintTheme" size="lg" onClick={onClickTimeSelect}>
+        <Button
+          colorScheme="mintTheme"
+          size="lg"
+          h="48px"
+          onClick={onClickTimeSelect}
+          fontSize="16px"
+        >
           시간 선택
         </Button>
-        <Button size="lg" onClick={() => setIsModal(false)}>
+        <Button
+          fontSize="16px"
+          h="48px"
+          size="lg"
+          onClick={() => setIsModal(false)}
+        >
           닫기
         </Button>
       </Layout>

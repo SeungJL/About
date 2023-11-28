@@ -1,4 +1,4 @@
-import { faArrowUpFromBracket } from "@fortawesome/pro-regular-svg-icons";
+import { faPenCircle, faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -31,20 +31,17 @@ function GatherHeader({ gatherData }: IGatherHeader) {
 
   return (
     <>
-      <Header
-        title=""
-        url={prevPageUrl || "/gather"}
-        isPrev={!!prevPageUrl}
-        isNoLine={true}
-      >
-        <FontAwesomeIcon
-          icon={faArrowUpFromBracket}
-          size="lg"
-          onClick={() => setIsModal(true)}
-        />
-        {/* <SettingWrapper onClick={onClick}>
+      <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>
+        <IconWrapper onClick={onClick}>
           <FontAwesomeIcon icon={faPenCircle} size="xl" />
-        </SettingWrapper> */}
+        </IconWrapper>
+        <IconWrapper>
+          <FontAwesomeIcon
+            icon={faShareNodes}
+            size="lg"
+            onClick={() => setIsModal(true)}
+          />
+        </IconWrapper>
       </Header>
       {isModal && (
         <GatherKakaoShareModal
@@ -58,6 +55,13 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   );
 }
 
-const SettingWrapper = styled.div``;
+const IconWrapper = styled.button`
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: var(--margin-sub);
+`;
 
 export default GatherHeader;

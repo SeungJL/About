@@ -44,7 +44,7 @@ function GatherKakaoShareModal({
         "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EA%B3%B5%EC%9C%A0+%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%A0%95%EA%B8%B0+%EC%8A%A4%ED%84%B0%EB%94%94.jpg"
       );
   };
-  console.log(2, adminImageUrl);
+  
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl" height={430}>
       <ModalHeader text="공유 이미지 선택" />

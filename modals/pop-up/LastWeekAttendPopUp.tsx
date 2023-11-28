@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { USER_ROLE } from "../../constants/contentsValue/role";
+import { USER_ROLE } from "../../constants/settingValue/role";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";

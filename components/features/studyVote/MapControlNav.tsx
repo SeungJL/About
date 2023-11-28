@@ -8,7 +8,10 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import { faBullseyeArrow, faRotate } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faBullseyeArrow,
+  faRotateRight,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -93,55 +96,67 @@ function MapControlNav({
     setPreSet(type);
   };
 
+  const navArr: ReturnDot[] = ["중앙", "서쪽", "동쪽", "북쪽"];
+
+  const filterArr: ReturnDot[] = navArr.filter((dot) => {
+    if (location === "양천" && dot === "북쪽") return false;
+    return true;
+  });
+
+  const onClickSecond = () => {
+    failToast("free", "2번 프리셋이 존재하지 않습니다.");
+  };
+
   return (
     <Layout>
       <TopNav>
-        <ReturnBtn onClick={() => onClickRetrun("중앙")}>
-          <FontAwesomeIcon icon={faRotate} />
-        </ReturnBtn>
-        <Button
-          colorScheme="blackAlpha"
-          size="sm"
-          onClick={() => onClickRetrun("중앙")}
-        >
-          중앙
-        </Button>
-        <Button
-          colorScheme="blackAlpha"
-          size="sm"
-          onClick={() => onClickRetrun("서쪽")}
-        >
-          서쪽
-        </Button>
-        <Button
-          colorScheme="blackAlpha"
-          size="sm"
-          onClick={() => onClickRetrun("동쪽")}
-        >
-          동쪽
-        </Button>
-        {location !== "양천" && (
-          <Button
-            colorScheme="blackAlpha"
-            size="sm"
-            onClick={() => onClickRetrun("북쪽")}
-          >
-            북쪽
-          </Button>
-        )}
+        <div>
+          <ReturnBtn onClick={() => onClickRetrun("중앙")}>
+            <FontAwesomeIcon icon={faRotateRight} size="lg" />
+          </ReturnBtn>
+          {filterArr.map((item) => (
+            <Button
+              key={item}
+              bg="white"
+              borderRadius="var(--border-radius2)"
+              size="sm"
+              onClick={() => onClickRetrun(item)}
+              fontSize="14px"
+              color="var(--font-h2)"
+              p="var(--padding-md) var(--padding-sub)"
+              h="34px"
+              w="50px"
+            >
+              {item}
+            </Button>
+          ))}
+        </div>
         <PrecisionPopOver precision={precision} setPrecision={setPrecision} />
       </TopNav>
       <BottomNav>
         <Button
           size="sm"
+          w="34px"
+          h="34px"
           border={preSet !== "first" && "1px solid var(--font-h4)"}
-          colorScheme={preSet === "first" ? "mintTheme" : "gray"}
+          bgColor={
+            preSet === "first" ? "var(--color-mint) !important" : "white"
+          }
+          color={preSet === "first" ? "white !important" : "var(--font-h2)"}
           mr="var(--margin-md)"
           onClick={() => onClickPreSet("first")}
         >
           1
         </Button>
-        <Button size="sm" border="1px solid var(--font-h4)">
+        <Button
+          w="34px"
+          h="34px"
+          bgColor={preSet === "second" ? "var(--color-mint)" : "white"}
+          color={preSet === "second" ? "white !important" : "var(--font-h2)"}
+          size="sm"
+          border="1px solid var(--font-h4)"
+          onClick={() => onClickSecond()}
+        >
           2
         </Button>
       </BottomNav>
@@ -158,7 +173,15 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
   <Popover>
     <PopoverTrigger>
       <TargetIcon>
-        <FontAwesomeIcon icon={faBullseyeArrow} size="xl" />
+        <Button
+          borderRadius="4px"
+          w="34px"
+          h="34px"
+          border="1px solid var(--font-h5)"
+          bg="white"
+        >
+          <FontAwesomeIcon icon={faBullseyeArrow} size="xl" />
+        </Button>
       </TargetIcon>
     </PopoverTrigger>
     <PopoverContent
@@ -202,20 +225,24 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
 const Layout = styled.div``;
 
 const TopNav = styled.nav`
+  padding: var(--padding-sub) var(--padding-main);
+  background-color: rgba(0, 0, 0, 0.1);
   width: 100%;
   display: flex;
   align-items: center;
   position: absolute;
-  top: var(--margin-md);
-  left: var(--margin-md);
-  > button {
-    margin-right: var(--margin-min);
-  }
-  > button:first-child {
-    margin-right: var(--margin-md);
-  }
-  > button:last-child {
-    margin-right: var(--margin-main);
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+
+  > div {
+    display: flex;
+    align-items: center;
+
+    button {
+      margin-right: var(--margin-min);
+    }
   }
 `;
 
@@ -226,19 +253,18 @@ const BottomNav = styled.nav`
   z-index: 50;
 `;
 
+const PreciseBtn = styled.button``;
+
 const ReturnBtn = styled.button`
-  width: 28px;
-  height: 28px;
-  background-color: var(--font-h6);
+  width: 34px;
+  height: 34px;
+  background-color: var(--color-mint);
+  color: white;
   padding: 4px;
-  border-radius: 50%;
-  margin-right: var(--margin-md);
+  border-radius: var(--border-radius2);
+  border: 1px solid var(--font-h5);
 `;
 
-const TargetIcon = styled.button`
-  padding: var(--padding-min);
-  margin-left: auto;
-  margin-right: var(--margin-main) !important;
-`;
+const TargetIcon = styled.button``;
 
 export default MapControlNav;

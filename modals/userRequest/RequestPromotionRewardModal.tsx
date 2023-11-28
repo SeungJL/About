@@ -15,7 +15,7 @@ import {
   PromotionComponent,
   PROMOTION_TEXT,
 } from "../../constants/contents/Private";
-import { POINT_SYSTEM_PLUS } from "../../constants/contentsValue/pointSystem";
+import { POINT_SYSTEM_PLUS } from "../../constants/settingValue/pointSystem";
 import {
   useCompleteToast,
   useErrorToast,

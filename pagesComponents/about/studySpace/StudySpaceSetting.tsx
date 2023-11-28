@@ -62,7 +62,7 @@ function StudySpaceSetting({
   //refetch
   useEffect(() => {
     if (isRefetchStudySpace) {
-      console.log(4);
+    
       setTimeout(() => {
         refetch();
         setIsRefetchStudySpace(false);

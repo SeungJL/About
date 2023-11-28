@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -64,38 +63,38 @@ function AboutCalendarVote() {
     if (type === "vote")
       return {
         text: "참여 신청",
-        color: "mintTheme",
-        shadow: "rgba(0, 194, 179, 0.4)",
+        color: "#00c2b3",
+        shadow: "rgba(0, 194, 179, 0.1)",
       };
     if (type === "voteComplete")
       return {
         text: "투표 완료",
-        color: "yellowTheme",
-        shadow: "rgba(254, 188, 90, 0.4)",
+        color: "#FEBC5A",
+        shadow: "rgba(254, 188, 90, 0.2)",
       };
     if (type === "attend" || type === "attendPrivate")
       return {
         text: "출석 체크",
-        color: "mintTheme",
-        shadow: "rgba(0, 194, 179, 0.4)",
+        color: "#00c2b3",
+        shadow: "rgba(0, 194, 179, 0.1)",
       };
     if (type === "attendComplete")
       return {
         text: "출석 완료",
-        color: "yellowTheme",
-        shadow: "rgba(254, 188, 90, 0.4)",
+        color: "#FEBC5A",
+        shadow: "rgba(254, 188, 90, 0.2)",
       };
     if (type === "absence")
       return {
-        text: "불참",
-        color: "redTheme",
-        shadow: "rgba(255, 107, 107, 0.4)",
+        text: "당일 불참",
+        color: "var(--color-red)",
+        shadow: "rgba(255, 107, 107, 0.1)",
       };
     if (type === "passed")
       return {
         text: "기간 만료",
-        color: "gray",
-        shadow: "var(--font-h5)",
+        color: "var(--font-h5)",
+        shadow: "rgba(209, 214, 221, 0.2)",
       };
   };
 
@@ -109,24 +108,21 @@ function AboutCalendarVote() {
   return (
     <>
       <Layout>
-        <Button
-          position="relative"
-          borderRadius="50%"
-          zIndex="2"
-          w="76px"
-          h="76px"
-          size="lg"
-          onClick={() => onClickBtn(btnType)}
-          colorScheme={btnStyle.color}
-          color={btnStyle.color !== "gray" ? "white" : "var(--font-h3)"}
-          boxShadow={`0 0 12px ${btnStyle.shadow}`}
-        >
-          {!isMainLoading && btnStyle.text}
-        </Button>
+        <VoteOutCircle>
+          <VoteCircle shadow={btnStyle.shadow}>
+            <VoteBtn
+              bg={btnStyle.color}
+              textColor={btnStyle.color !== "gray" ? "white" : "var(--font-h3)"}
+              onClick={() => onClickBtn(btnType)}
+            >
+              {!isMainLoading && btnStyle.text}
+            </VoteBtn>
+          </VoteCircle>
+        </VoteOutCircle>
       </Layout>
       <Container />
       {modalType === "vote" && (
-        <ModalPortal opacity={0.6}>
+        <ModalPortal opacity={0.7}>
           <StudyVoteMap setIsModal={setIsModal} />
         </ModalPortal>
       )}
@@ -145,6 +141,57 @@ const Layout = styled.div`
   z-index: 4;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+const VoteOutCircle = styled.div`
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    background-color: white;
+    border: 1.5px solid var(--font-h7);
+    border-bottom: none;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    border-radius: 100px 100px 0 0;
+  }
+`;
+
+const VoteCircle = styled.div<{ shadow: string }>`
+  position: relative;
+  z-index: 4;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: ${(props) => props.shadow};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const VoteBtn = styled.button<{
+  bg: string;
+  textColor: string;
+}>`
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background-color: ${(props) => props.bg};
+  color: ${(props) => props.textColor};
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 27px;
 `;
 
 const Container = styled.div`

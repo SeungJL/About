@@ -7,7 +7,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { POINT_SYSTEM_Deposit } from "../../constants/contentsValue/pointSystem";
+import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import {
   useCompleteToast,
   useErrorToast,

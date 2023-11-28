@@ -1,4 +1,4 @@
-import { BADGE_INFO } from "../constants/contentsValue/badge";
+import { BADGE_INFO } from "../constants/settingValue/badge";
 import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,

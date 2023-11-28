@@ -12,8 +12,9 @@ import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
-import { BADGE_COLOR } from "../../../constants/contentsValue/badge";
+import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { getUserBadge } from "../../../helpers/userHelpers";
+import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { useAlphabetCompletedMutation } from "../../../hooks/user/sub/collection/mutations";
 import {
   useCollectionAlphabetAllQuery,
@@ -22,17 +23,19 @@ import {
 import AlphabetChangeModal from "../../../modals/user/collection/AlphabetChangeModal";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { isGuestState } from "../../../recoil/userAtoms";
+import { isGuestState, userInfoState } from "../../../recoil/userAtoms";
 import { Alphabet, ICollectionAlphabet } from "../../../types/user/collections";
 import { IUser } from "../../../types/user/user";
 
 const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];
 
 function CollectionAlphabet() {
+  const failToast = useFailToast();
   const router = useRouter();
   const { data: session } = useSession();
   const isGuest = useRecoilValue(isGuestState);
 
+  const userInfo = useRecoilValue(userInfoState);
   const setUserData = useSetRecoilState(transferUserDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
 
@@ -72,11 +75,9 @@ function CollectionAlphabet() {
     }
 
     if (findItem) {
-      console.log(userAlphabetAll);
+   
       userAlphabetAll.sort((a, b) => {
-        if (!a?.user?.uid) {
-          console.log(a);
-        }
+     
         if (a.user.uid === session?.uid) return -1;
         if (b.user.uid === session?.uid) return 1;
         return 0;
@@ -91,8 +92,13 @@ function CollectionAlphabet() {
     router.push(`/profile/${user.uid}`);
   };
 
-  const onClickChangeBtn = (user, alphabets: Alphabet[]) => {
-    setOpponentAlphabets({ user, alphabets });
+  const onClickChangeBtn = (user: IUser, alphabets: Alphabet[]) => {
+    const myFriends = userInfo?.friend;
+    if (!myFriends.includes(user.uid)) {
+      failToast("free", "친구끼리만 교환 신청이 가능합니다.");
+      return;
+    }
+    setOpponentAlphabets({ user: user.uid, alphabets });
     setIsChangeModal(true);
   };
 
@@ -198,7 +204,7 @@ function CollectionAlphabet() {
                       <Button
                         size="xs"
                         colorScheme="mintTheme"
-                        onClick={() => onClickChangeBtn(user.uid, alphabets)}
+                        onClick={() => onClickChangeBtn(user, alphabets)}
                       >
                         교환 신청
                       </Button>

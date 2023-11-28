@@ -26,8 +26,10 @@ function About() {
         <StudySetting />
       </Setting>
       <Layout>
-        <AboutHeader />
-        <AboutCategoryNav />
+        <Container>
+          <AboutHeader />
+          <AboutCategoryNav />
+        </Container>
         {voteDate && (
           <>
             <AboutStudyHeader />
@@ -45,9 +47,14 @@ function About() {
 }
 
 const Setting = styled.div``;
+
 const Layout = styled.div`
   min-height: 100vh;
   padding-bottom: 40px;
+`;
+
+const Container = styled.div`
+  background-color: white;
 `;
 
 export default About;

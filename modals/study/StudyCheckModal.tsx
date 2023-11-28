@@ -10,11 +10,11 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import {
   POINT_SYSTEM_Deposit,
   POINT_SYSTEM_PLUS,
-} from "../../constants/contentsValue/pointSystem";
-import { STUDY_VOTE } from "../../constants/keys/queryKeys";
+} from "../../constants/settingValue/pointSystem";
 import { dayjsToStr, now } from "../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../helpers/eventHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";

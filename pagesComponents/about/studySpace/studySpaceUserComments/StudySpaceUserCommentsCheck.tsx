@@ -1,13 +1,11 @@
-import {
-  faCircleCheck,
-  faCircleXmark,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Badge } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import styled from "styled-components";
+import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 
 interface IStudySpaceUserCommentsCheck {
   arrived: Date;
-  isAbsent: boolean;
+  isAbsent: string;
 }
 
 function StudySpaceUserCommentsCheck({
@@ -23,17 +21,40 @@ function StudySpaceUserCommentsCheck({
     minute: "2-digit",
     hour12: false,
   });
+
   return (
     <Layout>
       {arrived ? (
         <Check isCheck={true}>
-          <FontAwesomeIcon icon={faCircleCheck} size="xl" />
+          <Badge
+            color="var(--color-mint)"
+            variant="outline"
+            border="1.5px solid var(--color-mint)"
+            borderRadius="var(--border-radius2)"
+            boxShadow="none"
+            fontSize="12px"
+            textAlign="center"
+            p="0 var(--padding-min)"
+          >
+            출석
+          </Badge>
           <span>{arrivedHM}</span>
         </Check>
-      ) : isAbsent ? (
+      ) : !!isAbsent ? (
         <Check isCheck={false}>
-          <FontAwesomeIcon icon={faCircleXmark} size="xl" />
-          <span>불참</span>
+          <Badge
+            color="var(--color-red)"
+            variant="outline"
+            border="1.5px solid var(--color-red)"
+            borderRadius="var(--border-radius2)"
+            boxShadow="none"
+            fontSize="12px"
+            textAlign="center"
+            p="0 var(--padding-min)"
+          >
+            불참
+          </Badge>
+          <span>{dayjsToFormat(dayjs(isAbsent), "HH:mm")}</span>
         </Check>
       ) : null}
     </Layout>
@@ -46,7 +67,7 @@ const Layout = styled.div`
 `;
 
 const Check = styled.div<{ isCheck: boolean }>`
-  margin-top: var(--margin-min);
+  margin-top: var(--margin-sub);
   margin-left: auto;
   width: 40px;
   display: flex;
@@ -55,10 +76,10 @@ const Check = styled.div<{ isCheck: boolean }>`
   align-items: center;
   color: ${(props) =>
     props.isCheck ? "var(--color-mint)" : "var(--color-red)"};
-  > span {
+  > span:last-child {
     display: inline-block;
-    margin-top: var(--margin-min);
-    font-size: 11px;
+    margin-top: 2px;
+    font-size: 10px;
     color: var(--font-h4);
   }
 `;
