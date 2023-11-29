@@ -25,7 +25,8 @@ function PromotionAllCoolTimeModal({
   const applyCnt = data?.filter(
     (item) =>
       dayjs(item.lastDate) > dayjs(PROMOTION_WIN_DATE) &&
-      item.uid !== "2259633694"
+      item.uid !== "2259633694" &&
+      item.uid !== "2636066822"
   ).length;
 
   return (
