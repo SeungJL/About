@@ -32,6 +32,7 @@ function StudySpaceOverview({ place, info }: IStudySpaceOverview) {
               size="xs"
               colorScheme="mintTheme"
               leftIcon={<FontAwesomeIcon icon={faLocationDot} />}
+              onClick={() => setIsModal(true)}
             >
               지도보기
             </Button>
