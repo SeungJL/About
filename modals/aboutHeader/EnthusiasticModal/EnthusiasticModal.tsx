@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
@@ -7,7 +7,6 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
-import { RABBIT_POP_UP } from "../../../constants/keys/localStorage";
 import {
   useCompleteToast,
   useFailToast,
@@ -16,12 +15,10 @@ import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { locationState } from "../../../recoil/userAtoms";
 import { ModalSubtitle } from "../../../styles/layout/modal";
-import { DispatchBoolean, IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types/reactTypes";
 import ConfirmModal, { IConfirmContent } from "../../common/ConfirmModal";
 
-interface IEnthusiasticModal extends IModal {
-  setIsRabbitRun: DispatchBoolean;
-}
+interface IEnthusiasticModal extends IModal {}
 
 const LOCATION_WIN = {
   수원: 3,
@@ -30,7 +27,7 @@ const LOCATION_WIN = {
   강남: 6,
 };
 
-function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
+function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
   const location = useRecoilValue(locationState);
@@ -44,12 +41,6 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
       enabled: !!location,
     }
   );
-
-  useEffect(() => {
-    localStorage.setItem(RABBIT_POP_UP, "read");
-    setIsRabbitRun(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {
@@ -97,7 +88,7 @@ function EnthusiasticModal({ setIsModal, setIsRabbitRun }: IEnthusiasticModal) {
               <li>
                 한달 동안
                 <b>
-                  <u>5번 스터디 참여</u>
+                  <u>4번 스터디 참여 또는 신청</u>
                 </b>
               </li>
               <span>(미오픈 투표, FREE 오픈, 개인스터디 = 2회당 1번)</span>

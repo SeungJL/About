@@ -3,6 +3,7 @@ import { NEW_POINT_SYSTEM } from "../../../constants/contents/PopUpContents";
 import {
   ALPHABET_POP_UP,
   ATTEND_POP_UP,
+  ENTHUSIASTIC_POP_UP,
   FAQ_POP_UP,
   MANAGER_POP_UP,
   NEW_POINT_SYSTEM_POP_UP,
@@ -11,6 +12,7 @@ import {
   USER_GUIDE_POP_UP,
 } from "../../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
+import EnthusiasticModal from "../../../modals/aboutHeader/EnthusiasticModal/EnthusiasticModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import ContentPopUp from "../../../modals/common/ContentPopUp";
@@ -34,7 +36,8 @@ export type UserPopUp =
   | "faq"
   | "manager"
   | "alphabet"
-  | "newPointSystem";
+  | "newPointSystem"
+  | "enthusiastic";
 
 function UserSettingPopUp() {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -44,6 +47,10 @@ function UserSettingPopUp() {
 
     // if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 
+    if (!checkAndSetLocalStorage(ENTHUSIASTIC_POP_UP, 1)) {
+      setPopUpTypes((old) => [...old, "enthusiastic"]);
+      if (++popUpCnt === 2) return;
+    }
     if (!checkAndSetLocalStorage(NEW_POINT_SYSTEM_POP_UP, 7)) {
       setPopUpTypes((old) => [...old, "newPointSystem"]);
       if (++popUpCnt === 2) return;
@@ -122,6 +129,11 @@ function UserSettingPopUp() {
         <ContentPopUp
           content={NEW_POINT_SYSTEM}
           setIsModal={() => filterPopUpTypes("newPointSystem")}
+        />
+      )}
+      {popUpTypes.includes("enthusiastic") && (
+        <EnthusiasticModal
+          setIsModal={() => filterPopUpTypes("enthusiastic")}
         />
       )}
     </>

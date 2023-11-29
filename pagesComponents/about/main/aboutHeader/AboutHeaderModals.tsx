@@ -30,12 +30,7 @@ function AboutHeaderModals({ iconType, setIconType }: IAboutHeaderModals) {
       {iconType === "attendCheckWin" && (
         <DailyCheckWinModal setIsModal={setIsModal} />
       )}
-      {iconType === "rabbit" && (
-        <EnthusiasticModal
-          setIsModal={setIsModal}
-          setIsRabbitRun={setIsModal}
-        />
-      )}
+      {iconType === "rabbit" && <EnthusiasticModal setIsModal={setIsModal} />}
     </>
   );
 }
