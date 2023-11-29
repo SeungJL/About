@@ -188,7 +188,7 @@ const Layout = styled.div`
 `;
 
 const Container = styled.div`
-  aspect-ratio: 1/1.2;
+  aspect-ratio: 1/1.1;
   position: relative;
 `;
 const Map = styled.div`
