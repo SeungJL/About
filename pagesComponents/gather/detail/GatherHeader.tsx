@@ -23,7 +23,6 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const date = gatherData?.date;
   const locationMain = gatherData?.location.main;
   const organizer = gatherData?.user;
-  console.log(organizer);
 
   const userInfo = useRecoilValue(userInfoState);
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);

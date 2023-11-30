@@ -12,7 +12,7 @@ interface IStudySpaceCover {
 
 function StudySpaceCover({ coverImageUrl, place }: IStudySpaceCover) {
   const logo = STUDY_CAFE_LOGO?.[place?.fullname];
-  console.log(place, logo);
+ 
   return (
     <Layout>
       <MaskingContainer>

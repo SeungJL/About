@@ -401,4 +401,16 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "까먹고 사진을 하나도 안찍었는데... 아무튼 역시 파티룸은 어두워야 된다는 걸 한번 더 깨달음. 공간 자체는 작았는데도 되게 재밌는 일이 많았음. 만난지 얼마 안돼서 노래방 가는 조도 있었고, 갑자기 공개 프로포즈(?) 하는 사람도 봄. 사실 다른 조는 어땠는지 잘 모르겠고 아무튼 우리 조는 올타임으로 재밌었음. 생각해보니까 보드게임 많이 가지고 갔던 것도 까먹고 있었음... 막차타고 가는 인원이 생각보다 많아서 조금 아쉬웠지만 밤새 놀았던 분들도 넘 재밌었슴다",
     title: "양천/강남 정기모임",
   },
+  {
+    id: 108,
+    dateCreated: "11월 24일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036_02.jpg",
+    ],
+    text: "마라는 옳다",
+    title: "용용선생 마라 번개",
+  },
 ];

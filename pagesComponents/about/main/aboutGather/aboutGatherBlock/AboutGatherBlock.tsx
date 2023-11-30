@@ -26,7 +26,7 @@ function AboutGatherBlock({ gather }: IAboutGatherBlock) {
     // setTransferStudySpaceData(participation);
     router.push(`/gather/${gather.id}`);
   };
-  console.log(gather);
+ 
 
   const participants = gather?.participants?.map((who) => who.user);
 
