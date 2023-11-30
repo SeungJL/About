@@ -80,11 +80,13 @@ function AboutMain({ participations }: IAboutMain) {
               )}
               {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
             </Container>
-            <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
           </Main>
+          <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
         </Layout>
       ) : (
-        <AboutMainSkeleton />
+        <>
+          <AboutMainSkeleton />
+        </>
       )}
     </AnimatePresence>
   );
