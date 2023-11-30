@@ -42,7 +42,7 @@ function PointScoreBar({ myScore }: IPointScoreBar) {
       if (badgeInfo.badge === nextBadge) {
         return {
           nextBadgePoint: badgeInfo.minScore,
-          badgeGap: nextBadgePoint - BADGE_INFO[i - 1].minScore,
+          badgeGap: badgeInfo.minScore - BADGE_INFO[i - 1].minScore,
         };
       }
     }
