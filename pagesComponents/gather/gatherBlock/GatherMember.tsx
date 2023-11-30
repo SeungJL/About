@@ -6,15 +6,15 @@ import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { ABOUT_UID } from "../../../constants/system";
 import { IImagePriority } from "../../../types/common";
 import {
-  GatherMemberCnt,
-  GatherParticipants,
+  IGatherMemberCnt,
+  IGatherParticipants,
 } from "../../../types/page/gather";
 import { IUser } from "../../../types/user/user";
 
 interface IGatherMember extends IImagePriority {
   organizer: IUser;
-  participants: GatherParticipants[];
-  memberCnt: GatherMemberCnt;
+  participants: IGatherParticipants[];
+  memberCnt: IGatherMemberCnt;
   isAdminOpen: boolean;
 }
 

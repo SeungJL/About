@@ -13,7 +13,7 @@ import GatherWritingDateSubject from "../../../pagesComponents/gather/writing/Ga
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { GatherListItem } from "../../../types/page/gather";
+import { IGatherListItem } from "../../../types/page/gather";
 
 function WritingDate() {
   const failToast = useFailToast();
@@ -24,7 +24,7 @@ function WritingDate() {
   );
 
   const [date, setDate] = useState<Date>();
-  const [gatherList, setGatherList] = useState<GatherListItem[]>();
+  const [gatherList, setGatherList] = useState<IGatherListItem[]>();
 
   const onClickNext = () => {
     if (gatherList && !gatherList[0].text) {

@@ -39,7 +39,7 @@ import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfi
 
 import GatherWritingConditionLocation from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionLocation";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { GatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
+import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
 import { Location } from "../../../types/system";
 
 type ButtonType = "gender" | "age" | "pre" | "location" | "manager";
@@ -63,7 +63,7 @@ function WritingCondition() {
     manager: true,
   });
 
-  const [memberCnt, setMemberCnt] = useState<GatherMemberCnt>({
+  const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
     min: 4,
     max: 0,
   });

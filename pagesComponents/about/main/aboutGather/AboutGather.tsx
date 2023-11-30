@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; //
-import { Swiper, SwiperSlide } from "swiper/react";
 import SectionHeader from "../../../../components/layout/atoms/SectionHeader";
 import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
 import { useGatherAllQuery } from "../../../../hooks/gather/queries";
@@ -13,7 +11,7 @@ import { isGatherAlertState } from "../../../../recoil/alertAtoms";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferGatherDataState } from "../../../../recoil/transferDataAtoms";
 import { IGather } from "../../../../types/page/gather";
-import GatherBlock from "../../../gather/GatherBlock";
+import GatherBlock from "./aboutGatherBlock/AboutGatherBlock";
 
 const TEXT_VISIBLE_LENGTH = 22;
 
@@ -40,55 +38,52 @@ function AboutGather() {
     router.push(`/gather/${data.id}`);
   };
 
+  const onClickMoreInfo = () => {
+    router.push("/about/studyPlace");
+  };
+
   return (
     <Layout>
       <SectionHeader title="ABOUT 모임" url="/gather" />
       <Container>
-        <Swiper
-          navigation
-          pagination={true}
-          modules={[Pagination]}
-          style={{
-            width: "100%",
-            height: "100%",
-            paddingBottom: "var(--padding-sub)",
-          }}
-          slidesPerView={1}
-        >
-          {gatherContentArr
-            ?.slice(-5)
-            .reverse()
-            .map((item, index) => (
-              <SwiperSlide key={index} style={{ marginRight: "12px" }}>
-                <GatherBlock gather={item} />
-              </SwiperSlide>
-            ))}
-        </Swiper>
+        <Main>
+          <Container>
+            {gatherContentArr
+              ?.slice(-3)
+              ?.reverse()
+              ?.map((gather, idx) => (
+                <GatherBlock gather={gather} key={idx} />
+              ))}
+          </Container>
+          <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
+        </Main>
       </Container>
     </Layout>
   );
 }
-
+const MoreInfoBtn = styled.button`
+  width: 100%;
+  box-shadow: var(--box-shadow-b);
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  align-items: center;
+  border-radius: var(--border-radius2);
+  color: var(--color-mint);
+  font-weight: 600;
+`;
+const Main = styled.main`
+  margin: 0 var(--margin-main);
+`;
 const Layout = styled.div`
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  > .swiper-pagination,
-  .swiper-pagination-bullets,
-  .swiper-pagination-horizontal {
-    bottom: 0px !important;
-
-    > .swiper-pagination-bullet-active {
-      background-color: var(--color-mint);
-      z-index: 10;
-    }
-  }
+  min-height: 485px;
 `;
 
-const Container = styled.div`
-  padding: 0 var(--padding-main);
-`;
+const Container = styled.div``;
 
 export default AboutGather;

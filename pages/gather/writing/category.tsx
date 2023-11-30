@@ -14,7 +14,7 @@ import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { GatherType } from "../../../types/page/gather";
+import { IGatherType } from "../../../types/page/gather";
 
 function WritingGatherCategory() {
   const router = useRouter();
@@ -24,14 +24,16 @@ function WritingGatherCategory() {
     sharedGatherWritingState
   );
 
-  const [gatherType, setGatherType] = useState<GatherType>(gatherWriting?.type);
+  const [IGatherType, setIGatherType] = useState<IGatherType>(
+    gatherWriting?.type
+  );
 
   const onClickNext = () => {
-    if (!gatherType) {
+    if (!IGatherType) {
       failToast("free", "주제를 선택해 주세요!", true);
       return;
     }
-    setGatherWriting((old) => ({ ...old, type: gatherType }));
+    setGatherWriting((old) => ({ ...old, type: IGatherType }));
     router.push(`/gather/writing/content`);
   };
 
@@ -47,8 +49,8 @@ function WritingGatherCategory() {
           {GATHER_TYPES.map((type, idx) => (
             <Item
               key={idx}
-              isSelected={type.title === gatherType?.title}
-              onClick={() => setGatherType(type)}
+              isSelected={type.title === IGatherType?.title}
+              onClick={() => setIGatherType(type)}
             >
               <IconWrapper>{GatherCategoryIcons[idx]}</IconWrapper>
               <Info>

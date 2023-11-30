@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
-import { GatherLocation } from "../../../types/page/gather";
+import { IGatherLocation } from "../../../types/page/gather";
 import { DispatchType } from "../../../types/reactTypes";
 
 interface ISearchLocation {
   location?: string;
-  setLocation?: DispatchType<GatherLocation>;
+  setLocation?: DispatchType<IGatherLocation>;
 }
 
 const API_URL = "https://dapi.kakao.com/v2/local/search/keyword.json";

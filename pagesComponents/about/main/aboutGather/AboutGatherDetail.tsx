@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { GatherLocation } from "../../../../types/page/gather";
+import { IGatherLocation } from "../../../../types/page/gather";
 
 interface IAboutGatherDetail {
-  location: GatherLocation;
+  location: IGatherLocation;
   date: string;
 }
 

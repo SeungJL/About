@@ -24,13 +24,13 @@ import {
   reviewContentIdState,
 } from "../../recoil/previousAtoms";
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
-import { GatherLocation, GatherType } from "../../types/page/gather";
+import { IGatherLocation, IGatherType } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
 
 export interface IGatherSummary {
   title: string;
-  type: GatherType;
-  location: GatherLocation;
+  type: IGatherType;
+  location: IGatherLocation;
   date: string;
   id: number;
   place: LocationFilterType;

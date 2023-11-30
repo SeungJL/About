@@ -11,7 +11,7 @@ import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { GatherLocation } from "../../../types/page/gather";
+import { IGatherLocation } from "../../../types/page/gather";
 
 function WritingGahterLocation() {
   const router = useRouter();
@@ -20,7 +20,7 @@ function WritingGahterLocation() {
   const [gatherWriting, setGatherWriting] = useRecoilState(
     sharedGatherWritingState
   );
-  const [location, setLocation] = useState<GatherLocation>(
+  const [location, setLocation] = useState<IGatherLocation>(
     gatherWriting?.location || { main: "", sub: "" }
   );
 

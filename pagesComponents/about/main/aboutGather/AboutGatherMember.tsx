@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment } from "react";
 import styled from "styled-components";
 import ProfileIconXsOverwrap from "../../../../components/common/user/Profile/ProfileIconXsOverwrap";
-import { GatherMemberCnt, GatherStatus } from "../../../../types/page/gather";
+import { GatherStatus, IGatherMemberCnt } from "../../../../types/page/gather";
 import { IUser } from "../../../../types/user/user";
 
 interface IAboutGatherMember {
-  memberCnt: GatherMemberCnt;
+  memberCnt: IGatherMemberCnt;
   participants: IUser[];
   status: GatherStatus;
 }

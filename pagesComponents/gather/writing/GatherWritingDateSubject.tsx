@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TimeSelectorUnit from "../../../components/features/atoms/TimeSelectorUnit";
 import { TIME_SELECTOR_UNIT } from "../../../constants/util/util";
-import { GatherListItem, IGatherWriting } from "../../../types/page/gather";
+import { IGatherListItem, IGatherWriting } from "../../../types/page/gather";
 import { DispatchType } from "../../../types/reactTypes";
 import { ITime } from "../../../types/timeAndDate";
 
 interface IGatherWritingDateSubject {
   gatherWriting: IGatherWriting;
-  setGatherList: DispatchType<GatherListItem[]>;
+  setGatherList: DispatchType<IGatherListItem[]>;
   date: Date;
 }
 interface IGatherSubject {

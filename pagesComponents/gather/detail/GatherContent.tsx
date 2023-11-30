@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { GatherListItem } from "../../../types/page/gather";
+import { IGatherListItem } from "../../../types/page/gather";
 
 interface IGather {
   content: string;
-  gatherList: GatherListItem[];
+  gatherList: IGatherListItem[];
 }
 
 function GatherContent({ content, gatherList }: IGather) {
