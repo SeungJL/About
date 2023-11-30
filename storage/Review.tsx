@@ -405,8 +405,8 @@ export const REVIEW_DATA: IReviewData[] = [
     id: 108,
     dateCreated: "11월 24일",
     images: [
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036.jpg",
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036.jpg",
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036_01.jpg",
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/11.24+%EC%88%98%EC%9B%90/KakaoTalk_20231130_155203036_02.jpg",
     ],
