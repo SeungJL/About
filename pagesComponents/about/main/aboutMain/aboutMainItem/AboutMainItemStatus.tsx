@@ -34,9 +34,9 @@ function AboutMainItemStatus({
     <Layout>
       <Branch>{place.branch}</Branch>
       <div>
-        {status === "pending" && plusCnt ? (
+        {status === "pending" ? (
           <Badge colorScheme="redTheme" variant="outline">
-            +{plusCnt} POINT
+            {plusCnt ? `+${plusCnt} POINT` : "오픈 예정"}
           </Badge>
         ) : status !== "pending" && status === "open" ? (
           <Badge colorScheme="green">Open</Badge>
