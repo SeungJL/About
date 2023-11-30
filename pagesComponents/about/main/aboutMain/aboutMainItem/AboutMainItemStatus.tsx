@@ -5,41 +5,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  studyStartTimeArrState,
-  voteDateState,
-} from "../../../../../recoil/studyAtoms";
+import { studyStartTimeArrState } from "../../../../../recoil/studyAtoms";
 import { IPlace } from "../../../../../types/study/studyDetail";
 
 interface IAboutMainItemStatus {
   status: string;
   place: IPlace;
+  memberCnt?: number;
 }
 
-function AboutMainItemStatus({ status, place }: IAboutMainItemStatus) {
-  const voteDate = useRecoilValue(voteDateState);
+function AboutMainItemStatus({
+  status,
+  place,
+  memberCnt,
+}: IAboutMainItemStatus) {
   const studyStartTimeArr = useRecoilValue(studyStartTimeArrState);
 
   const studyStartTime = studyStartTimeArr?.find(
     (study) => study.place_id === place?._id
   )?.startTime;
+  console.log(memberCnt);
+
+  const plusCnt =
+    status === "pending" &&
+    (memberCnt === 0 ? 10 : memberCnt === 1 ? 5 : memberCnt === 2 ? 2 : null);
 
   return (
     <Layout>
       <Branch>{place.branch}</Branch>
-      {status !== "pending" && status === "open" ? (
-        <Badge colorScheme="green" ml="var(--margin-md)">
-          Open
-        </Badge>
-      ) : status !== "pending" && status === "dismissed" ? (
-        <Badge colorScheme="blackAlpha" ml="var(--margin-md)">
-          Closed
-        </Badge>
-      ) : status === "free" ? (
-        <Badge colorScheme="purple" ml="var(--margin-md)">
-          Free
-        </Badge>
-      ) : null}
+      <div>
+        {status === "pending" && plusCnt ? (
+          <Badge colorScheme="redTheme" variant="outline">
+            +{plusCnt} POINT
+          </Badge>
+        ) : status !== "pending" && status === "open" ? (
+          <Badge colorScheme="green">Open</Badge>
+        ) : status !== "pending" && status === "dismissed" ? (
+          <Badge colorScheme="blackAlpha">Closed</Badge>
+        ) : status === "free" ? (
+          <Badge colorScheme="purple">Free</Badge>
+        ) : null}
+      </div>
       {studyStartTime && (
         <Result>
           <FontAwesomeIcon icon={faClock} />
@@ -54,6 +60,13 @@ const Layout = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
+  > div:last-child {
+    display: flex;
+    align-items: center;
+    > span {
+      margin-left: var(--margin-md);
+    }
+  }
 `;
 const Branch = styled.div`
   display: inline-block;

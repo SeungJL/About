@@ -48,7 +48,11 @@ function AboutMainItem({
             <Image src={place.image} layout="fill" alt="cafeImage" />
           </ImageContainer>
           <SpaceInfo>
-            <AboutMainItemStatus place={place} status={status} />
+            <AboutMainItemStatus
+              place={place}
+              status={status}
+              memberCnt={attendences.length}
+            />
             <Info>{place.brand}</Info>
             <AboutMainItemParticipants
               attendances={attendences}
