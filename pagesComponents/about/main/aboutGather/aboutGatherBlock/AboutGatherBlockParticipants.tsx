@@ -1,10 +1,10 @@
+import { faInfinity } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { UserIcon } from "../../../../../components/common/Icon/icons";
 import ProfileIconXsOverwrap from "../../../../../components/common/user/Profile/ProfileIconXsOverwrap";
 import { MAX_USER_PER_PLACE } from "../../../../../constants/settingValue/study/study";
-import { voteDateState } from "../../../../../recoil/studyAtoms";
 import { GatherStatus } from "../../../../../types/page/gather";
 import { IUser } from "../../../../../types/user/user";
 
@@ -21,20 +21,18 @@ function GatherBlockParticipants({
 }: IGatherBlockParticipants) {
   const { data: session } = useSession();
 
-  const voteDate = useRecoilValue(voteDateState);
   const isMyVote = participants.find((who) => who.uid === session?.uid);
   const voterCnt = participants.length;
 
-  const voteStatus: "GOOD" | "FULL" =
+  const voteStatus: "exist" | "FULL" =
     status === "pending"
       ? isMyVote
-        ? "GOOD"
+        ? "exist"
         : voterCnt >= MAX_USER_PER_PLACE
         ? "FULL"
         : null
       : null;
 
-  const isMax = participants.length >= MAX_USER_PER_PLACE;
 
   const VOTER_SHOW_MAX = 5;
   return (
@@ -42,13 +40,14 @@ function GatherBlockParticipants({
       <Participants>
         {participants.map((user, idx) => {
           return (
-            idx < VOTER_SHOW_MAX && (
+            idx < VOTER_SHOW_MAX - (voteStatus === "exist" ? 1 : 0) && (
               <ProfileContainer key={idx} zIndex={idx}>
                 <ProfileIconXsOverwrap
                   user={user}
                   isOverlap={
                     idx ===
-                    (participants.length > VOTER_SHOW_MAX
+                    (participants.length >
+                    VOTER_SHOW_MAX - (voteStatus === "exist" ? 1 : 0)
                       ? VOTER_SHOW_MAX - 1
                       : undefined)
                   }
@@ -59,23 +58,17 @@ function GatherBlockParticipants({
         })}
       </Participants>
       <MemberCnt>
-        <VoteStatus status={voteStatus}>{voteStatus}</VoteStatus>
-        {!isMax ? (
-          participants.length > 0 && (
-            <ParticipantStatus>
-              <UserIcon />
-              <span>
-                <VoterImpact
-                  isOverMax={participants.length >= MAX_USER_PER_PLACE}
-                >
-                  {participants.length}
-                </VoterImpact>
-                /{maxCnt}
-              </span>
-            </ParticipantStatus>
-          )
-        ) : (
-          <FullText>({MAX_USER_PER_PLACE}) FULL</FullText>
+        <VoteStatus status={voteStatus}>
+          {voteStatus === "exist" && "참여중"}
+        </VoteStatus>
+        {participants.length > 0 && (
+          <ParticipantStatus>
+            <UserIcon />
+            <span>
+              <span>{participants.length}</span>/
+              {maxCnt || <FontAwesomeIcon icon={faInfinity} />}
+            </span>
+          </ParticipantStatus>
         )}
       </MemberCnt>
     </Layout>
@@ -102,18 +95,17 @@ const MemberCnt = styled.div`
   align-items: center;
 `;
 
-const VoteStatus = styled.div<{ status: "GOOD" | "FULL" }>`
-  margin-right: var(--margin-min);
+const VoteStatus = styled.div<{ status: "exist" | "FULL" }>`
   display: flex;
   height: 100%;
   align-items: end;
   font-size: 14px;
   font-weight: 600;
   color: ${(props) =>
-    props.status === "GOOD" ? "var(--color-mint)" : "var(--color-red)"};
+    props.status === "exist" ? "var(--color-mint)" : "var(--color-red)"};
 `;
 
-const VoteComplete = styled.span<{ status: "GOOD" | "FULL" }>`
+const VoteComplete = styled.span<{ status: "exist" | "FULL" }>`
   margin-right: var(--margin-md);
   display: flex;
   height: 100%;
@@ -121,7 +113,7 @@ const VoteComplete = styled.span<{ status: "GOOD" | "FULL" }>`
   font-size: 14px;
   font-weight: 600;
   color: ${(props) =>
-    props.status === "GOOD" ? "var(--color-mint)" : "var(--color-red)"};
+    props.status === "exist" ? "var(--color-mint)" : "var(--color-red)"};
 `;
 const ProfileContainer = styled.div<{ zIndex: number }>`
   width: 23px;
@@ -147,10 +139,6 @@ const ParticipantStatus = styled.div`
   > span {
     margin-left: var(--margin-min);
   }
-`;
-const VoterImpact = styled.b<{ isOverMax: boolean }>`
-  font-weight: 400;
-  color: ${(props) => (props.isOverMax ? "var(--color-red)" : "inherit")};
 `;
 
 export default GatherBlockParticipants;
