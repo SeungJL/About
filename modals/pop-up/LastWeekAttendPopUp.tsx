@@ -8,18 +8,18 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { USER_ROLE } from "../../constants/settingValue/role";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
+import PointScoreBar from "../../pagesComponents/point/pointScore/PointScoreBar";
 
 import { IModal } from "../../types/reactTypes";
 
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
-  const lastWeekFirstDay = dayjs().day(1).subtract(1, "week");
-  const lastWeekLastDay = dayjs().day(0);
-
+  const lastWeekFirstDay = dayjs().day(1).subtract(1, "week").startOf("date");
+  const lastWeekLastDay = dayjs().day(0).startOf("date");
+  console.log(2, lastWeekFirstDay, lastWeekLastDay);
   const { data: userInfo } = useUserInfoQuery();
   const { data: likeData } = useInteractionLikeQuery();
   const { data: parRate, isLoading } = useUserAttendRateQuery(
@@ -27,7 +27,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
     lastWeekLastDay.subtract(1, "day"),
     true
   );
-
+  console.log(userInfo);
   const parCnt = parRate?.cnt;
   const rest = userInfo?.role === "resting" && userInfo?.rest;
   const lastWeekLikeCnt = likeData?.filter((like) => {
@@ -36,21 +36,25 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   })?.length;
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text="지난주 스터디 기록" />
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+      <ModalHeader text="지난주 내 기록" />
       <ModalBody>
-        {/* <PointScoreBar myScore={userInfo.score} /> */}
+        <PointScoreBar myScore={userInfo.score} />
+        <span>라떼 달성시 20 포인트, 배지 해금!</span>
         <Container>
           {!isLoading ? (
             <Info>
               <Item>
-                <span>역할 구성</span>
-                {USER_ROLE[userInfo.role]}
+                <span>지난 주 스터디 참여 </span>
+                {parCnt || 0} 회<br />
               </Item>
               <Item>
-                <span>스터디 참여 </span>
-                {parCnt || 0} 회
+                <span>이번 달 스터디 참여 </span>
+                {parCnt || 0} 회<br />
               </Item>
+              <div>
+                아직 이번 달 스터디 참여 조건을 충족시키지 못했어요 ㅠㅠ
+              </div>
               {userInfo.role === "resting" ? (
                 <Item>
                   <span>휴식 기간</span>{" "}
@@ -79,6 +83,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
                 <span>참여 정산</span>
                 12월 1일
               </Item>
+              <span>이번에 신규 가입하셨군요? 반가워요!</span>
             </Info>
           ) : (
             <LayoutSkeleton />

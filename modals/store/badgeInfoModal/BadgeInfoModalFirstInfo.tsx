@@ -10,7 +10,7 @@ function BadgeInfoModalFirstInfo() {
             아메리카노
           </Badge>
         </div>
-        <Info>0점 ~ 29점</Info>
+        <Info>0점 ~ 19점</Info>
       </Item>
       <Item>
         <div>
@@ -18,7 +18,7 @@ function BadgeInfoModalFirstInfo() {
             라떼
           </Badge>
         </div>
-        <Info>30점 ~ 69점 </Info>
+        <Info>20점 ~ 39점 </Info>
       </Item>
       <Item>
         <div>
@@ -26,7 +26,7 @@ function BadgeInfoModalFirstInfo() {
             마키아또
           </Badge>
         </div>
-        <Info>70점 ~ 119점</Info>
+        <Info>40점 ~ 59점</Info>
       </Item>
       <Item>
         <div>
@@ -34,15 +34,15 @@ function BadgeInfoModalFirstInfo() {
             콜드브루
           </Badge>
         </div>
-        <Info>120점 ~ 179점</Info>
+        <Info>60점 ~ 79점</Info>
       </Item>
       <Item>
         <div>
-          <Badge fontSize={12} variant="subtle" colorScheme="teal">
-            아인슈페너
+          <Badge fontSize={12} variant="subtle" colorScheme="red">
+            유스베리
           </Badge>
         </div>
-        <Info>180점 ~ 249점</Info>
+        <Info>80점 ~ 99점</Info>
       </Item>
       <Item>
         <div>
@@ -50,7 +50,15 @@ function BadgeInfoModalFirstInfo() {
             모카
           </Badge>
         </div>
-        <Info>250점 ~ 329점</Info>
+        <Info>100점 ~ 119점</Info>
+      </Item>
+      <Item>
+        <div>
+          <Badge fontSize={12} variant="subtle" colorScheme="teal">
+            아인슈페너
+          </Badge>
+        </div>
+        <Info>120점 ~ 139점</Info>
       </Item>
       <Item>
         <div>

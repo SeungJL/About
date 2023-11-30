@@ -91,6 +91,7 @@ export type UserBadge =
   | "모카"
   | "콜드브루"
   | "아인슈페너"
+  | "유스베리"
   | EventBadge;
 
 export type EventBadge = "딸기스무디" | "라벤더" | "민트초코";

@@ -21,7 +21,6 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,
 } from "../../../hooks/study/mutations";
-import { useAboutPointMutation } from "../../../hooks/user/mutations";
 
 import {
   myVotingState,
@@ -66,8 +65,6 @@ function StudyVoteMainModal({ setIsModal, isFreeOpen }: IStudyVoteMainModal) {
 
   const placeCnt = participations?.length;
   const modalSize = placeCnt > 6 ? "xl" : placeCnt > 4 ? "lg" : "md";
-
-  const { mutate: getAboutPoint } = useAboutPointMutation();
 
   const { mutate: patchAttend } = useStudyParticipationMutation(
     voteDate,

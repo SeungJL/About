@@ -8,7 +8,7 @@ interface IScoreBadge {
 }
 
 function ScoreBadge({ score, uid }: IScoreBadge) {
-  const badge = getUserBadge(score, uid);
+  const { badge } = getUserBadge(score, uid);
   return <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>;
 }
 

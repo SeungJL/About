@@ -36,7 +36,7 @@ function RankingOverview({
   useEffect(() => {
     if (isGuest) setUserBadge("아메리카노");
     if (!userInfo) return;
-    const badge = getUserBadge(userInfo.score, userInfo.uid);
+    const { badge } = getUserBadge(userInfo.score, userInfo.uid);
     setUserBadge(badge);
   }, [isGuest, userInfo]);
 

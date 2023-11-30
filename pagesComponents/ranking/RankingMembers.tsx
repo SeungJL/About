@@ -40,7 +40,7 @@ function RankingMembers({ rankInfo, category }: IRankingMembers) {
         else dupCnt = 0;
         value = whoValue;
 
-        const badge = getUserBadge(who?.score, who?.uid);
+        const { badge } = getUserBadge(who?.score, who?.uid);
         return (
           <Item key={idx} id={`ranking${who.uid}`}>
             <Rank>{idx - dupCnt + 1}위</Rank>

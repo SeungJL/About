@@ -18,7 +18,7 @@ function UserOverviewBadge() {
       setBadge({ badge: "아메리카노", color: BADGE_COLOR["아메리카노"] });
       return;
     }
-    const badge = getUserBadge(userInfo.score, userInfo.uid);
+    const { badge } = getUserBadge(userInfo.score, userInfo.uid);
     setBadge({
       badge,
       color: BADGE_COLOR[badge],

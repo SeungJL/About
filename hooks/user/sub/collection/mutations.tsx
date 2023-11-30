@@ -31,6 +31,17 @@ export const useCollectionAlphabetMutation = <T extends "get" | "change">(
     }
   );
 };
+export const useA = (options?: MutationOptions<void>) => {
+  return useMutation<void, AxiosError, void>(
+    async () =>
+      requestServer<void>({
+        method: "patch",
+        url: `user/score/reset`,
+        body: null,
+      }),
+    options
+  );
+};
 
 export const useAlphabetCompletedMutation = (
   options?: MutationOptions<void>

@@ -44,9 +44,7 @@ function Ranking() {
   const month2 = category === "월간" ? currentMonth : currentMonth - 1;
   const dayjsMonth2 = dayjs().month(month2);
   const endDate =
-    category === "월간"
-      ? dayjs().add(1, "day")
-      : dayjs().month(month2).endOf("month");
+    category === "월간" ? dayjs() : dayjs().month(month2).endOf("month");
 
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,

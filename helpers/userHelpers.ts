@@ -39,7 +39,7 @@ export const getUserBadge = (score: number, uid: string): IUserBadge => {
   for (let i = 0; i < BADGE_INFO.length; i++) {
     let item = BADGE_INFO[i];
     if (score < item.minScore) {
-      badge = badge ?? BADGE_INFO[i - 1].badge;
+      badge = badge ?? BADGE_INFO[i - 1]?.badge;
       nextBadge = item.badge;
       break;
     }

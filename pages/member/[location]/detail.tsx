@@ -40,7 +40,7 @@ function MemberDetail() {
       />
       <Container>
         {memberData?.members.map((who) => {
-          const userBadge = getUserBadge(who.score, who.uid);
+          const { badge } = getUserBadge(who.score, who.uid);
           const rest = section === "resting" && who?.rest;
           return (
             <Item key={who.uid} onClick={() => onClickUser(who)}>
@@ -52,10 +52,10 @@ function MemberDetail() {
                   <span>{who.name}</span>
                   <Badge
                     fontSize={10}
-                    colorScheme={BADGE_COLOR[userBadge]}
+                    colorScheme={BADGE_COLOR[badge]}
                     ml="var(--margin-md)"
                   >
-                    {userBadge}
+                    {badge}
                   </Badge>
                 </Name>
                 <div>

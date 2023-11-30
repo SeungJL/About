@@ -1,12 +1,13 @@
+import { Badge, Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import {
-  VoteIconA,
-  VoteIconDefault,
-} from "../components/common/Icon/AboutIcon";
+
 import { useUserInfoQuery } from "../hooks/user/queries";
-import { useCollectionAlphabetMutation } from "../hooks/user/sub/collection/mutations";
+import {
+  useA,
+  useCollectionAlphabetMutation,
+} from "../hooks/user/sub/collection/mutations";
 
 function Test() {
   const { data: session } = useSession();
@@ -14,14 +15,20 @@ function Test() {
   const C = useRef();
   const AA = () => <button>23</button>;
   const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
-  const { mutate, data } = useCollectionAlphabetMutation("change");
-  const onClick = () => {};
+  const { mutate, data } = useA({
+    onSuccess() {
+      console.log("ss");
+    },
+  });
 
+  const onClick = () => {
+    mutate();
+  };
 
   return (
     <Layout>
-      <VoteIconA />
-      <VoteIconDefault />
+      <Badge colorScheme="red">테스트</Badge>
+      <Button onClick={onClick}>23</Button>
     </Layout>
   );
 }

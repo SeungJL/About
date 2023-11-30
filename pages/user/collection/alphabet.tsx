@@ -109,7 +109,7 @@ function CollectionAlphabet() {
             <Members>
               {members?.map((who) => {
                 const user = who.user;
-                const userBadge = getUserBadge(user.score, user.uid);
+                const { badge } = getUserBadge(user.score, user.uid);
                 const alphabets = who.collects;
                 const alphabetsCnt = {
                   A: 0,
@@ -131,10 +131,10 @@ function CollectionAlphabet() {
                         <span>{user.name}</span>
                         <Badge
                           fontSize={10}
-                          colorScheme={BADGE_COLOR[userBadge]}
+                          colorScheme={BADGE_COLOR[badge]}
                           ml="var(--margin-md)"
                         >
-                          {userBadge}
+                          {badge}
                         </Badge>
                       </Name>
                       <UserAlphabets>

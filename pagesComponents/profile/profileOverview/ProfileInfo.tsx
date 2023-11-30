@@ -46,7 +46,7 @@ function ProfileInfo({ user }: IProfileInfo) {
   const [isConditionOk, setIsConditionOk] = useState(false);
   const [isHeartLoading, setIsHeartLoading] = useState(true);
 
-  const userBadge = getUserBadge(user?.score, user?.uid);
+  const { badge } = getUserBadge(user?.score, user?.uid);
 
   const status = USER_ROLE[user?.role];
   const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(
@@ -141,8 +141,8 @@ function ProfileInfo({ user }: IProfileInfo) {
           <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>
-              <Badge fontSize={12} colorScheme={BADGE_COLOR[userBadge]}>
-                {userBadge}
+              <Badge fontSize={12} colorScheme={BADGE_COLOR[badge]}>
+                {badge}
               </Badge>
             </div>
             <span>{!isGuest ? status : "게스트"}</span>
