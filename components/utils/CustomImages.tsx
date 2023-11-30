@@ -50,7 +50,7 @@ export const StudySpaceLogo = ({
     if (name === "아티제") W = 50;
     if (name === "에이티씨") W = 50;
     if (name === "행궁동") W = 50;
-
+    if (name === "자유신청") W = 50;
     if (place.branch === "신풍역") {
       W = 38;
     }

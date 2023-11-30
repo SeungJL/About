@@ -275,7 +275,7 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     location: "",
     time: "",
     image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
   },
   //양천
   {
@@ -365,7 +365,7 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     location: "",
     time: "",
     image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
   },
 
   //안양
@@ -414,7 +414,7 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     location: "",
     time: "",
     image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
   },
 
   //강남
@@ -479,6 +479,6 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     location: "",
     time: "",
     image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8%EC%8A%A4%ED%84%B0%EB%94%94.webp",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
   },
 ];
