@@ -9,8 +9,6 @@ import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
 import { useGatherAllQuery } from "../../../../hooks/gather/queries";
 import { isGatherAlertState } from "../../../../recoil/alertAtoms";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { transferGatherDataState } from "../../../../recoil/transferDataAtoms";
-import { IGather } from "../../../../types/page/gather";
 import GatherBlock from "./aboutGatherBlock/AboutGatherBlock";
 
 const TEXT_VISIBLE_LENGTH = 22;
@@ -18,7 +16,6 @@ const TEXT_VISIBLE_LENGTH = 22;
 function AboutGather() {
   const router = useRouter();
 
-  const setGatherData = useSetRecoilState(transferGatherDataState);
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
   const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
 
@@ -32,14 +29,8 @@ function AboutGather() {
     },
   });
 
-  const onClickItem = (data: IGather) => {
-    setGatherData(data);
-    setPrevPageUrl("/about");
-    router.push(`/gather/${data.id}`);
-  };
-
   const onClickMoreInfo = () => {
-    router.push("/about/studyPlace");
+    router.push("/gather");
   };
 
   return (

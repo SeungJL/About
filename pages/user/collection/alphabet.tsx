@@ -75,9 +75,7 @@ function CollectionAlphabet() {
     }
 
     if (findItem) {
-   
       userAlphabetAll.sort((a, b) => {
-     
         if (a.user.uid === session?.uid) return -1;
         if (b.user.uid === session?.uid) return 1;
         return 0;
@@ -197,6 +195,9 @@ function CollectionAlphabet() {
                         colorScheme="telegram"
                         size="xs"
                         disabled={!hasAlphabetAll}
+                        onClick={() => {
+                          failToast("free", "개발이 완료되지 않은 기능입니다.");
+                        }}
                       >
                         상품 교환
                       </Button>

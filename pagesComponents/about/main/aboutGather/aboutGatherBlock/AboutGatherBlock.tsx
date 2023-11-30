@@ -5,7 +5,8 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { GATHER_SHARE_IMAGES } from "../../../../../constants/image/imageUrl";
 import { dayjsToFormat } from "../../../../../helpers/dateHelpers";
-import { transferStudySpaceDataState } from "../../../../../recoil/transferDataAtoms";
+import { prevPageUrlState } from "../../../../../recoil/previousAtoms";
+import { transferGatherDataState } from "../../../../../recoil/transferDataAtoms";
 import { IGather } from "../../../../../types/page/gather";
 import GatherBlockParticipants from "./AboutGatherBlockParticipants";
 import GatherBlockStatus from "./AboutGatherBlockStatus";
@@ -18,15 +19,14 @@ interface IAboutGatherBlock {
 function AboutGatherBlock({ gather }: IAboutGatherBlock) {
   const router = useRouter();
 
-  const setTransferStudySpaceData = useSetRecoilState(
-    transferStudySpaceDataState
-  );
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+  const setGatherData = useSetRecoilState(transferGatherDataState);
 
   const onClickItem = () => {
-    // setTransferStudySpaceData(participation);
+    setPrevPageUrl("/about");
+    setGatherData(gather);
     router.push(`/gather/${gather.id}`);
   };
- 
 
   const participants = gather?.participants?.map((who) => who.user);
 
