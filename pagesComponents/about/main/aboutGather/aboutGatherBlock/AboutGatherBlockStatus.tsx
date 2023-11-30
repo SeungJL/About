@@ -2,28 +2,29 @@ import { Badge } from "@chakra-ui/react";
 
 import styled from "styled-components";
 import { SingleLineText } from "../../../../../styles/layout/components";
+import { GatherStatus } from "../../../../../types/page/gather";
 
 interface IAboutGatherBlockStatus {
-  status: string;
+  status: GatherStatus;
   title: string;
 }
 
 function AboutGatherBlockStatus({ status, title }: IAboutGatherBlockStatus) {
-  console.log(title);
+  
   return (
     <Layout>
       <Branch>{title}</Branch>
       {status === "open" ? (
-        <Badge colorScheme="mintTheme" ml="var(--margin-md)">
-          Open
+        <Badge p="2px 4px" colorScheme="redTheme" variant="outline">
+          오픈
         </Badge>
       ) : status === "pending" ? (
         <Badge p="2px 4px" colorScheme="mintTheme" variant="outline">
           모집중
         </Badge>
-      ) : status === "free" ? (
-        <Badge colorScheme="purple" ml="var(--margin-md)">
-          Free
+      ) : status === "close" ? (
+        <Badge p="2px 4px" colorScheme="blackAlpha" variant="outline">
+          취소
         </Badge>
       ) : null}
     </Layout>
