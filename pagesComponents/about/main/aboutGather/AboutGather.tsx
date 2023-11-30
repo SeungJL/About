@@ -8,15 +8,14 @@ import SectionHeader from "../../../../components/layout/atoms/SectionHeader";
 import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
 import { useGatherAllQuery } from "../../../../hooks/gather/queries";
 import { isGatherAlertState } from "../../../../recoil/alertAtoms";
-import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import GatherBlock from "./aboutGatherBlock/AboutGatherBlock";
+import AboutGatherBlockSkeleton from "./aboutGatherBlock/AboutGatherBlockSkeleton";
 
 const TEXT_VISIBLE_LENGTH = 22;
 
 function AboutGather() {
   const router = useRouter();
 
-  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
   const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
 
   //신규 모임 존재여부 체크
@@ -36,19 +35,17 @@ function AboutGather() {
   return (
     <Layout>
       <SectionHeader title="ABOUT 모임" url="/gather" />
-      <Container>
-        <Main>
-          <Container>
-            {gatherContentArr
-              ?.slice(-3)
-              ?.reverse()
-              ?.map((gather, idx) => (
-                <GatherBlock gather={gather} key={idx} />
-              ))}
-          </Container>
-          <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
-        </Main>
-      </Container>
+      <Main>
+        <Container>
+          {gatherContentArr
+            ? gatherContentArr
+                .slice(-3)
+                .reverse()
+                .map((gather, idx) => <GatherBlock gather={gather} key={idx} />)
+            : [0, 1, 2].map((_, idx) => <AboutGatherBlockSkeleton key={idx} />)}
+        </Container>
+        <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
+      </Main>
     </Layout>
   );
 }
@@ -75,6 +72,8 @@ const Layout = styled.div`
   min-height: 485px;
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  min-height: 354px;
+`;
 
 export default AboutGather;
