@@ -11,10 +11,10 @@ export async function middleware(req: NextRequest) {
 
   const allowedId = [
     "2259633694",
-    "2283035576",
+    "2542567004",
     "2282184929",
     "2753657224",
-    "2769380662",
+    "3185336288",
   ];
 
   if (!allowedId.includes(session.uid?.toString())) {
