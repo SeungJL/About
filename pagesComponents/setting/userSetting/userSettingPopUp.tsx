@@ -51,11 +51,11 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "enthusiastic"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(NEW_POINT_SYSTEM_POP_UP, 7)) {
+    if (!checkAndSetLocalStorage(NEW_POINT_SYSTEM_POP_UP, 18)) {
       setPopUpTypes((old) => [...old, "newPointSystem"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 12)) {
+    if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 24)) {
       setPopUpTypes((old) => [...old, "alphabet"]);
       if (++popUpCnt === 2) return;
     }
@@ -72,7 +72,7 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "promotion"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 7)) {
+    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 14)) {
       setPopUpTypes((old) => [...old, "suggest"]);
       if (++popUpCnt === 2) return;
     }

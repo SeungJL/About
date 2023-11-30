@@ -60,9 +60,10 @@ const Layout = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
-  > div:last-child {
+  > div:nth-child(2) {
     display: flex;
     align-items: center;
+
     > span {
       margin-left: var(--margin-md);
     }

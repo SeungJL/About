@@ -36,9 +36,10 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   })?.length;
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader text="지난주 스터디 기록" />
       <ModalBody>
+        /
         <Container>
           {!isLoading ? (
             <Info>

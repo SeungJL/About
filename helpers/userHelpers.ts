@@ -24,16 +24,32 @@ type SortUserScore = <T extends keyof DataArrMap>(
   type: T
 ) => void;
 
-export const getUserBadge = (score: number, uid: string): UserBadge => {
-  if (EVENT_BADGE_딸기스무디.includes(uid)) return "딸기스무디";
-  if (EVENT_BADGE_라벤더.includes(uid)) return "라벤더";
-  if (EVENT_BADGE_민트초코.includes(uid)) return "민트초코";
+interface IUserBadge {
+  badge: UserBadge;
+  nextBadge: UserBadge;
+}
 
-  const { badge } = BADGE_INFO.find((_, idx) => {
-    if (idx === BADGE_INFO.length - 1) return true;
-    return score < BADGE_INFO[idx + 1].minScore;
-  });
-  return badge;
+export const getUserBadge = (score: number, uid: string): IUserBadge => {
+  let badge: UserBadge;
+  let nextBadge: UserBadge;
+  if (EVENT_BADGE_딸기스무디.includes(uid)) badge = "딸기스무디";
+  if (EVENT_BADGE_라벤더.includes(uid)) badge = "라벤더";
+  if (EVENT_BADGE_민트초코.includes(uid)) badge = "민트초코";
+
+  for (let i = 0; i < BADGE_INFO.length; i++) {
+    let item = BADGE_INFO[i];
+    if (score < item.minScore) {
+      badge = badge ?? BADGE_INFO[i - 1].badge;
+      nextBadge = item.badge;
+      break;
+    }
+    if (i === BADGE_INFO.length - 1) {
+      badge = badge ?? item.badge;
+      nextBadge = null;
+    }
+  }
+
+  return { badge, nextBadge };
 };
 
 export const myScoreRank = (scoreArr: IScore[], myScore: number) => {
