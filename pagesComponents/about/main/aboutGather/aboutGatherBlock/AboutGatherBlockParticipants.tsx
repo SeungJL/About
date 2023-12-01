@@ -39,15 +39,14 @@ function GatherBlockParticipants({
       <Participants>
         {participants.map((user, idx) => {
           return (
-            idx < VOTER_SHOW_MAX - (voteStatus === "exist" ? 1 : 0) && (
+            idx < VOTER_SHOW_MAX && (
               <ProfileContainer key={idx} zIndex={idx}>
                 <ProfileIconXsOverwrap
                   user={user}
                   isOverlap={
                     idx ===
-                    (participants.length >
-                    VOTER_SHOW_MAX - (voteStatus === "exist" ? 1 : 0)
-                      ? VOTER_SHOW_MAX - (voteStatus === "exist" ? 1 : 0) - 1
+                    (participants.length > VOTER_SHOW_MAX
+                      ? VOTER_SHOW_MAX - 1
                       : undefined)
                   }
                 />
