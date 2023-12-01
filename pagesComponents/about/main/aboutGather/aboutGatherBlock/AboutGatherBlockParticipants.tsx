@@ -33,7 +33,6 @@ function GatherBlockParticipants({
         : null
       : null;
 
-
   const VOTER_SHOW_MAX = 5;
   return (
     <Layout>
@@ -48,7 +47,7 @@ function GatherBlockParticipants({
                     idx ===
                     (participants.length >
                     VOTER_SHOW_MAX - (voteStatus === "exist" ? 1 : 0)
-                      ? VOTER_SHOW_MAX - 1
+                      ? VOTER_SHOW_MAX - (voteStatus === "exist" ? 1 : 0) - 1
                       : undefined)
                   }
                 />
