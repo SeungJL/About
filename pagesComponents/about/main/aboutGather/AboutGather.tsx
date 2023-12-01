@@ -60,6 +60,7 @@ const MoreInfoBtn = styled.button`
   border-radius: var(--border-radius2);
   color: var(--color-mint);
   font-weight: 600;
+  margin-top:auto;
 `;
 const Main = styled.main`
   margin: 0 var(--margin-main);
