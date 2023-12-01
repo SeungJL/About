@@ -68,7 +68,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
             </Organizer>
             <UserOverview>
               <span>{organizer?.name}</span>
-              <span>{organizer?.comment}</span>
+              <div>{organizer?.comment}</div>
             </UserOverview>
           </MemberItem>
         ) : data.participants.length ? null : (
