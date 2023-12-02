@@ -36,7 +36,7 @@ function ScoreLog() {
             {filterLog?.map((item, idx) => (
               <Item key={idx}>
                 <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-                <Content>{item?.message}</Content>
+                <Content>{item?.message || "뭔가 있음"}</Content>
                 <Point>
                   {item?.meta.value > 0 && "+"}
                   {item?.meta.value} 원
