@@ -91,7 +91,7 @@ function RegisterLocation() {
           <ProgressStatus value={10} />
           <Header
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-            url={isProfileEdit ? "/user" : "/login"}
+            url={isProfileEdit ? "/user/profile" : "/login"}
           />
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>

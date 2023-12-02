@@ -32,9 +32,7 @@ function AboutStudyHeader() {
 }
 
 const Layout = styled.div`
-  padding: 0 var(--margin-main);
-  padding-top: var(--padding-main);
-  padding-bottom: var(--padding-sub);
+  padding: var(--padding-main);
   display: flex;
   justify-content: space-between;
   font-size: 18px;

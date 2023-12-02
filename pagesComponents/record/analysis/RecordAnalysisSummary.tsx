@@ -29,13 +29,17 @@ function RecordAnalysisSummary() {
     if (weeksArr?.length === WEEKS_CNT) setWeeksDate(weeksArr);
   }, []);
 
-  useUserAttendRateQueries(weeksDate, true, {
+  const { data } = useUserAttendRateQueries(weeksDate, true, {
     enabled: weeksDate.length !== 0,
-    onSuccess(data) {
+  });
+
+  useEffect(() => {
+    if (data && weeksDate.length) {
       setMyAttend(data);
       setIsRecordDetailLoading(false);
-    },
-  });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, weeksDate]);
 
   return (
     <>

@@ -35,7 +35,9 @@ function UserOverviewPointNav({ alphabets, myDeposit }: IuserOverviewPointNav) {
         <button onClick={() => router.push("/user/collection")}>
           내 컬렉션
         </button>
-        <button onClick={() => setIsModal(true)}>내 프로필 정보</button>
+        <button onClick={() => router.push("/user/profile")}>
+          내 프로필 정보
+        </button>
       </Layout>
       {isModal && <NotCompletedModal setIsModal={setIsModal} />}
     </>

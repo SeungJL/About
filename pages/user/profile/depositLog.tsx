@@ -2,12 +2,12 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import Header from "../../components/layout/Header";
+import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import Header from "../../../components/layout/Header";
 import {
   usePointSystemLogQuery,
   usePointSystemQuery,
-} from "../../hooks/user/queries";
+} from "../../../hooks/user/queries";
 
 function ScoreLog() {
   const { data: deposit } = usePointSystemQuery("deposit");
@@ -17,7 +17,7 @@ function ScoreLog() {
 
   return (
     <>
-      <Header title="보증금 기록" url="/user" />
+      <Header title="보증금 기록" url="/user/profile" />
       {isLoading ? (
         <MainLoading />
       ) : (

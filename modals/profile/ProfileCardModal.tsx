@@ -21,7 +21,6 @@ function ProfileCardModal({ setIsModal }: IModal) {
   const { data: friends } = useUidsToUsersInfoQuery(userInfo?.friend, {
     enabled: !!userInfo?.friend,
   });
- 
 
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
 
@@ -139,6 +138,7 @@ const FriendList = styled.div`
   border: 1px solid var(--font-h5);
   border-radius: var(--border-radius-sub);
   padding: 6px 8px;
+  display: flex;
 `;
 
 export default ProfileCardModal;

@@ -83,7 +83,8 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
                 <span>참여 정산</span>
                 12월 1일
               </Item>
-              <span>이번에 신규 가입하셨군요? 반가워요!</span>
+              <span>이번 달에 스터디에 참여하지</span>
+              1회 참여 필수 !!
             </Info>
           ) : (
             <LayoutSkeleton />

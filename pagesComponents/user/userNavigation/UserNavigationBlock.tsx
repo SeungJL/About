@@ -20,7 +20,6 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
   const failToast = useFailToast();
 
   const isGuest = useRecoilValue(isGuestState);
-  const setIsProfileEditState = useSetRecoilState(isProfileEditState);
 
   const userInfo = useRecoilValue(userInfoState);
   const role = userInfo?.role;
@@ -37,7 +36,7 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
     }
 
     if (type === "page") {
-      if (content === "register/location") setIsProfileEditState(true);
+    
       router.push(content);
     }
     if (type === "modal") {
@@ -85,11 +84,9 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
           </NavBlock>
         </div>
         <div>
-          <BlockName>정보 변경</BlockName>
+          <BlockName>기타 세팅</BlockName>
           <NavBlock>
-            <button onClick={() => onClickBlock("page", "register/location")}>
-              프로필 수정
-            </button>
+         
             <button onClick={() => onClickBlock("modal", "spaceSetting")}>
               스터디 프리셋 설정
             </button>

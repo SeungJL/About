@@ -51,7 +51,7 @@ const Layout = styled.div<{ isNoLine: boolean }>`
   border-bottom: ${(props) => !props.isNoLine && "1px solid var(--font-h56)"};
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled.button`
   height: 100%;
   display: flex;
   align-items: center;

@@ -89,11 +89,7 @@ function AboutCategoryNav() {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: var(--padding-main);
-  padding-bottom: 14px;
-  margin: 0 22px;
-  margin-top: 2px;
-  background-color: white;
+  padding: var(--padding-main) 24px;
   border-bottom: 1px solid var(--font-h56);
 `;
 

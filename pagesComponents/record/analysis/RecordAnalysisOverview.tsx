@@ -29,12 +29,7 @@ function RecordAnalysisOverview() {
           <Title>
             {isFirst ? `${dayjs().month() + 1}월 참여` : "누적 참여"}
           </Title>
-          <Value>
-            {isFirst
-              ? myMonthAttend?.cnt
-              : myArrivedCnt[session?.uid as string]}
-            회 참여
-          </Value>
+          <Value>{isFirst ? myMonthAttend?.cnt : myArrivedCnt}회 참여</Value>
           <ChangeBtn onClick={() => setIsFirst((old) => !old)}>
             <span>전환</span>
             <FontAwesomeIcon icon={faRightLeft} size="xs" />
