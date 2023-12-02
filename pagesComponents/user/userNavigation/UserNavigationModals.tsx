@@ -32,7 +32,7 @@ function UserNavigationModals({
     if (isModal === false) setModalOpen(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalOpen, isModal]);
-
+  console.log(userInfo);
   return (
     <Layout>
       {modalOpen === "suggest" && (

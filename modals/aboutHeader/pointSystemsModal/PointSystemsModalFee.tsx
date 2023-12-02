@@ -17,22 +17,22 @@ function PointSystemsModalFee() {
         <Item>
           <Name>스터디 지각</Name>
           <FontAwesomeIcon fontSize="32px" icon={faAlarmClock} />
-          <Point>{-POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE.value}원</Point>
+          <Point>{POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE.value}원</Point>
         </Item>
         <Item>
           <Name>당일 불참 1</Name>
           <FontAwesomeIcon fontSize="32px" icon={faDoNotEnter} />
-          <Point>{-POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE.value}원</Point>
+          <Point>{POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE.value}원</Point>
         </Item>
         <Item>
           <Name>당일 불참 2</Name>
           <FontAwesomeIcon fontSize="32px" icon={faCircleXmark} />
-          <Point>{-POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER.value}원</Point>
+          <Point>{POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER.value}원</Point>
         </Item>
         <Item>
           <Name>한달 정산</Name>
           <FontAwesomeIcon fontSize="32px" icon={faCalendarXmark} />
-          <Point>{-POINT_SYSTEM_Deposit.STUDY_MONTH_CALCULATE.value}원</Point>
+          <Point>{POINT_SYSTEM_Deposit.STUDY_MONTH_CALCULATE.value}원</Point>
         </Item>
         <Item>
           <Name>규칙</Name>
@@ -48,8 +48,7 @@ function PointSystemsModalFee() {
       <Contents>
         <li>지각은 1시간 기준</li>
         <li>당일 불참 기준은 스터디 시작 이전과 이후로 분류</li>
-        <li>한 달에 1회 이상 스터디 참여</li>
-        <li>규칙이나 운영진 판단하에 퇴출될 수 있음</li>
+        <li>한 달에 1회 이상 스터디 참여 필수</li>
       </Contents>
     </>
   );

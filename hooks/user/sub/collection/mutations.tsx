@@ -36,7 +36,7 @@ export const useA = (options?: MutationOptions<void>) => {
     async () =>
       requestServer<void>({
         method: "patch",
-        url: `user/score/reset`,
+        url: `user/deposit/reset`,
         body: null,
       }),
     options

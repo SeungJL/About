@@ -8,6 +8,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
+import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
 import { userAccessUidState } from "../../recoil/userAtoms";
@@ -20,14 +21,20 @@ interface IRequestRestCancelModal extends IModal {
 }
 
 function RequestRestCancelModal({ setIsModal, rest }: IRequestRestCancelModal) {
+  const completeToast = useCompleteToast();
   const userAccessUid = useRecoilValue(userAccessUidState);
 
   const { data: studyArrivedCnt } = useStudyArrivedCntQuery(userAccessUid, {});
-  const { mutate: setRole } = useUserInfoFieldMutation("role");
+  const { mutate: setRole } = useUserInfoFieldMutation("role", {
+    onSuccess() {
+      completeToast("free", "해제되었습니다.");
+    },
+  });
 
   const onClick = () => {
     if (studyArrivedCnt >= 2) setRole({ role: "member" });
     else setRole({ role: "human" });
+    setIsModal(false);
   };
 
   return (

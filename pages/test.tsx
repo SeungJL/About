@@ -21,9 +21,7 @@ function Test() {
     },
   });
 
-  const onClick = () => {
-    mutate();
-  };
+  const onClick = () => {};
 
   return (
     <Layout>
