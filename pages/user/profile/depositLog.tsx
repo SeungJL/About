@@ -33,7 +33,7 @@ function ScoreLog() {
               <Content>내용</Content>
               <Point>금액</Point>
             </LogHeader>
-            {filterLog?.reverse().map((item, idx) => (
+            {filterLog?.map((item, idx) => (
               <Item key={idx}>
                 <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
                 <Content>{item?.message}</Content>
