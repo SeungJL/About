@@ -53,6 +53,7 @@ function AboutGather() {
   );
 }
 const MoreInfoBtn = styled.button`
+  margin-top: auto;
   width: 100%;
   box-shadow: var(--box-shadow-b);
   height: 44px;
@@ -66,6 +67,7 @@ const MoreInfoBtn = styled.button`
   margin-top: auto;
 `;
 const Main = styled.main`
+  min-height: 422px;
   margin: 0 var(--margin-main);
 `;
 const Layout = styled.div`

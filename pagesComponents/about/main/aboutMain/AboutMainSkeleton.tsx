@@ -42,7 +42,7 @@ function AboutMainSkeleton() {
 const Layout = styled.div`
   min-height: 422px;
   padding: 0 var(--padding-main);
-  margin-bottom: var(--margin-main);
+  margin-bottom: 32px;
 `;
 const Item = styled.div`
   height: 110px;
@@ -101,7 +101,7 @@ const MoreInfoBtn = styled.button`
   box-shadow: var(--box-shadow-b);
   height: 44px;
   display: flex;
-
+  margin-top: auto;
   justify-content: center;
   background-color: white;
   align-items: center;

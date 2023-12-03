@@ -51,7 +51,7 @@ const Layout = styled.div`
   border-radius: var(--border-radius2);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--margin-main);
   padding: var(--padding-sub);
 `;
 
