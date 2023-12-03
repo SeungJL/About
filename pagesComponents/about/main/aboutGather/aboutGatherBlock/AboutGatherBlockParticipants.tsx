@@ -21,7 +21,7 @@ function GatherBlockParticipants({
 }: IGatherBlockParticipants) {
   const { data: session } = useSession();
 
-  const isMyVote = participants.find((who) => who.uid === session?.uid);
+  const isMyVote = participants.find((who) => who?.uid === session?.uid);
   const voterCnt = participants.length;
 
   const voteStatus: "exist" | "FULL" =

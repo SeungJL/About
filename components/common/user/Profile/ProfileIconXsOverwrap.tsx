@@ -38,7 +38,8 @@ function ProfileIconXsOverwrap({
 
   const imageUrl = isAvatar
     ? `${AVATAR_ICON[avatarType]}`
-    : `${(user as IUser)?.profileImage}`;
+    : `${(user as IUser)?.profileImage || AVATAR_ICON[1]}`;
+  
 
   return (
     <Layout>

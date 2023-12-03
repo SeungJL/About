@@ -50,6 +50,14 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
   return (
     <>
       <Layout>
+        <div>
+          <BlockName>디자인</BlockName>
+          <NavBlock>
+            <button onClick={() => onClickBlock("page", "/design")}>
+              디자이너 페이지
+            </button>
+          </NavBlock>
+        </div>
         {isAdmin && (
           <div>
             <BlockName>관리자</BlockName>

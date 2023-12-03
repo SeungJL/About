@@ -42,7 +42,7 @@ function AboutMainSkeleton() {
 const Layout = styled.div`
   min-height: 422px;
   padding: 0 var(--padding-main);
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--margin-main);
 `;
 const Item = styled.div`
   height: 110px;
@@ -50,7 +50,7 @@ const Item = styled.div`
   border-radius: var(--border-radius2);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--margin-main);
   padding: 12px;
 `;
 const ImageContainer = styled.div`

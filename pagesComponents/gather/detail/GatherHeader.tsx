@@ -1,13 +1,16 @@
 import { faPenCircle, faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
+import { isGatherEditState } from "../../../recoil/checkAtoms";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { userInfoState } from "../../../recoil/userAtoms";
 import { IGather } from "../../../types/page/gather";
 
@@ -25,17 +28,19 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const organizer = gatherData?.user;
 
   const userInfo = useRecoilValue(userInfoState);
+  const setGatherWriting = useSetRecoilState(sharedGatherWritingState);
+  const setIsGatherEdit = useSetRecoilState(isGatherEditState);
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
 
   const [isModal, setIsModal] = useState(false);
 
   const onClick = () => {
-    failToast("free", "완성은 했는데 기능 점검 중");
-    return;
+    setGatherWriting({ ...gatherData, date: dayjs(gatherData.date) });
+    setIsGatherEdit(true);
     setPrevPageUrl(`/gather/${router.query.id}`);
     router.push("/gather/writing/category");
   };
-
+ 
   return (
     <>
       <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>

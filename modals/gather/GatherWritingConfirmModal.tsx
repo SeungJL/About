@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
+import { useRouter } from "next/router";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import SuccessScreen from "../../components/layout/SuccessScreen";
 import {
@@ -13,23 +14,25 @@ import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherWritingMutation } from "../../hooks/gather/mutations";
+import { isGatherEditState } from "../../recoil/checkAtoms";
 import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGatherWriting } from "../../types/page/gather";
+import { IGather, IGatherWriting } from "../../types/page/gather";
 import { IModal } from "../../types/reactTypes";
 
 interface IGatherWritingConfirmModal extends IModal {
-  gatherData: IGatherWriting;
+  gatherData: IGatherWriting | IGather;
 }
 
 function GatherWritingConfirmModal({
   setIsModal,
   gatherData,
 }: IGatherWritingConfirmModal) {
+  const router = useRouter();
   const errorToast = useErrorToast();
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
-
+  const [isGatherEdit, setIsGatherEdit] = useRecoilState(isGatherEditState);
   const resetQueryData = useResetQueryData();
   const setGatherContent = useSetRecoilState(sharedGatherWritingState);
 
@@ -43,16 +46,30 @@ function GatherWritingConfirmModal({
     },
     onError: errorToast,
   });
+  const { mutate: updateGather } = useGatherWritingMutation("patch", {
+    onSuccess() {
+      resetQueryData([GATHER_CONTENT]);
+      setTimeout(() => {
+        setGatherContent(null);
+        router.push(`/gather/${(gatherData as IGather).id}`);
+      }, 400);
+    },
+    onError: errorToast,
+  });
 
   const onSubmit = () => {
-    mutate({ gather: gatherData });
+    if (!isGatherEdit) {
+      mutate({ gather: gatherData as IGatherWriting });
+    } else {
+      updateGather({ gather: gatherData as IGather });
+    }
   };
 
   return (
     <>
       {gatherData && (
         <ModalLayout onClose={() => setIsModal(false)} size="md">
-          <ModalHeader text="모임 개설" />
+          <ModalHeader text={isGatherEdit ? "모임 수정" : "모임 개설"} />
           <ModalBody>
             <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
             <Container>
@@ -70,7 +87,11 @@ function GatherWritingConfirmModal({
               </Item>
             </Container>
           </ModalBody>
-          <ModalFooterOne isFull={true} text="모임 개설" onClick={onSubmit} />
+          <ModalFooterOne
+            isFull={true}
+            text={isGatherEdit ? "모임 수정" : "모임 개설"}
+            onClick={onSubmit}
+          />
         </ModalLayout>
       )}
       {isSuccessScreen && (

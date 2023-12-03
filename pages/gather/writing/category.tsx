@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
@@ -13,13 +13,16 @@ import {
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
+import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
+
 import { IGatherType } from "../../../types/page/gather";
 
 function WritingGatherCategory() {
   const router = useRouter();
   const failToast = useFailToast();
 
+  const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [gatherWriting, setGatherWriting] = useRecoilState(
     sharedGatherWritingState
   );
@@ -40,7 +43,7 @@ function WritingGatherCategory() {
   return (
     <PageLayout>
       <ProgressStatus value={20} />
-      <Header title="" url="/gather" />
+      <Header title="" url={prevPageUrl || "/gather"} />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>

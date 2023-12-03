@@ -1,6 +1,9 @@
 import axios, { AxiosError } from "axios";
+import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
+import { dayjsToStr } from "../../helpers/dateHelpers";
+import { requestServer } from "../../helpers/methodHelpers";
 import { MutationOptions } from "../../types/reactTypes";
 import { IPointSystem } from "../../types/user/pointSystem";
 
@@ -43,3 +46,13 @@ export const useAdminDepositMutation = (
   useMutation<void, AxiosError, IPointSystem>(async (data) => {
     await axios.post(`${SERVER_URI}/admin/user/${uid}/deposit`, data);
   }, options);
+
+export const useVoteStatusResetMutation = (options?: MutationOptions<Dayjs>) =>
+  useMutation<void, AxiosError, Dayjs>(
+    (date: Dayjs) =>
+      requestServer<Dayjs>({
+        method: "patch",
+        url: `admin/vote/${dayjsToStr(date)}/reset`,
+      }),
+    options
+  );

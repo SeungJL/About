@@ -7,7 +7,7 @@ import { useGatherAllQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { IGather } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
-import GatherBlock from "./GatherBlock";
+import AboutGatherBlock from "../about/main/aboutGather/aboutGatherBlock/AboutGatherBlock";
 import GatherBlockSkeleton from "./GatherBlockSkeleton";
 
 interface IGatherMain {
@@ -47,7 +47,11 @@ function GatherMain({ category }: IGatherMain) {
       {gathers ? (
         <>
           {gathers.map((gather, idx) => (
-            <GatherBlock key={idx} gather={gather} isImagePriority={idx < 4} />
+            <AboutGatherBlock
+              key={idx}
+              gather={gather}
+              isImagePriority={idx < 4}
+            />
           ))}
         </>
       ) : (

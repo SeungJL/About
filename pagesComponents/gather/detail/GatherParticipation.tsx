@@ -76,26 +76,29 @@ function GatherParticipation({ data }: IGatherParticipation) {
             <span>참여자를 모집중입니다.</span>
           </Empty>
         )}
-        {data?.participants.map((who) => (
-          <MemberItem
-            key={who?.user.uid}
-            onClick={() => onClickProfile(who.user)}
-          >
-            <ProfileIcon user={who.user} size="sm" />
-            <UserOverview>
-              <span>{who?.user.name}</span>
-              <div>{who?.user.comment}</div>
-            </UserOverview>
-            <ParticipateTime isFirst={who?.phase === "first"}>
-              {who?.phase === "first" ? (
-                <FontAwesomeIcon icon={fa1} size="sm" />
-              ) : (
-                <FontAwesomeIcon icon={fa2} size="sm" />
-              )}
-              <span>차</span>
-            </ParticipateTime>
-          </MemberItem>
-        ))}
+        {data?.participants.map(
+          (who) =>
+            who?.user && (
+              <MemberItem
+                key={who?.user.uid}
+                onClick={() => onClickProfile(who.user)}
+              >
+                <ProfileIcon user={who.user} size="sm" />
+                <UserOverview>
+                  <span>{who?.user?.name}</span>
+                  <div>{who?.user.comment}</div>
+                </UserOverview>
+                <ParticipateTime isFirst={who?.phase === "first"}>
+                  {who?.phase === "first" ? (
+                    <FontAwesomeIcon icon={fa1} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={fa2} size="sm" />
+                  )}
+                  <span>차</span>
+                </ParticipateTime>
+              </MemberItem>
+            )
+        )}
       </Members>
     </Layout>
   );
@@ -130,6 +133,9 @@ const Members = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 var(--padding-main);
+  > div:last-child {
+    border: none;
+  }
 `;
 
 const UserOverview = styled.div`
@@ -177,6 +183,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+  padding-bottom: var(--padding-main);
 `;
 
 const Empty = styled.div`

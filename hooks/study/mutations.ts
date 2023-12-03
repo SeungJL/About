@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
-import { useMutation, UseMutationOptions } from "react-query";
+import { useMutation } from "react-query";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { requestServer } from "../../helpers/methodHelpers";
 import { MutationOptions } from "../../types/reactTypes";
@@ -113,10 +113,7 @@ export const useStudyResultDecideMutation = (
   );
 
 export const useStudyPreferenceMutation = (
-  options?: Omit<
-    UseMutationOptions<void, AxiosError, IStudyPlaces>,
-    "queryKey" | "queryFn"
-  >
+  options?: MutationOptions<IStudyPlaces>
 ) =>
   useMutation<void, AxiosError, IStudyPlaces>(
     (votePlaces) =>
@@ -127,3 +124,4 @@ export const useStudyPreferenceMutation = (
       }),
     options
   );
+

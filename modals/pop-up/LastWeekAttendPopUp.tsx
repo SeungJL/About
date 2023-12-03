@@ -19,7 +19,7 @@ import { IModal } from "../../types/reactTypes";
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const lastWeekFirstDay = dayjs().day(1).subtract(1, "week").startOf("date");
   const lastWeekLastDay = dayjs().day(0).startOf("date");
-  console.log(2, lastWeekFirstDay, lastWeekLastDay);
+  
   const { data: userInfo } = useUserInfoQuery();
   const { data: likeData } = useInteractionLikeQuery();
   const { data: parRate, isLoading } = useUserAttendRateQuery(
@@ -27,7 +27,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
     lastWeekLastDay.subtract(1, "day"),
     true
   );
-  console.log(userInfo);
+ 
   const parCnt = parRate?.cnt;
   const rest = userInfo?.role === "resting" && userInfo?.rest;
   const lastWeekLikeCnt = likeData?.filter((like) => {

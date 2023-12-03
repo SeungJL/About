@@ -10,7 +10,6 @@ interface IAboutGatherBlockStatus {
 }
 
 function AboutGatherBlockStatus({ status, title }: IAboutGatherBlockStatus) {
-  
   return (
     <Layout>
       <Branch>{title}</Branch>
@@ -38,7 +37,7 @@ const Layout = styled.div`
   justify-content: space-between;
 `;
 const Branch = styled(SingleLineText)`
-  width: 80%;
+  width: 79%;
   font-weight: 600;
   font-size: 16px;
   text-align: start;

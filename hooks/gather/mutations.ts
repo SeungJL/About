@@ -1,15 +1,17 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../helpers/methodHelpers";
-import { IGatherWriting } from "../../types/page/gather";
+import { IGather, IGatherWriting } from "../../types/page/gather";
 import { MutationOptions } from "../../types/reactTypes";
 
 type GatherWritingParam<T> = T extends "post"
   ? { gather: IGatherWriting }
+  : T extends "patch"
+  ? { gather: IGather }
   : { gatherId: number };
 
 /** gather info */
-export const useGatherWritingMutation = <T extends "post" | "delete">(
+export const useGatherWritingMutation = <T extends "post" | "patch" | "delete">(
   method: T,
   options?: MutationOptions<GatherWritingParam<T>>
 ) =>

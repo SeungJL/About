@@ -74,9 +74,8 @@ const Layout = styled.div<{ status: boolean; isMyResult: boolean }>`
   border-radius: var(--border-radius2);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--margin-main);
   padding: var(--padding-sub);
-  /* border: ${(props) => props.status && "var(--border-mint)"}; */
 `;
 
 const ImageContainer = styled.div`

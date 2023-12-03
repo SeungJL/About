@@ -14,6 +14,7 @@ import { isGuestState } from "../../recoil/userAtoms";
 import { LocationFilterType } from "../../types/system";
 
 function Gather() {
+  
   const isGuest = useRecoilValue(isGuestState);
   const [category, setCategory] = useState<LocationFilterType>("전체");
   const [isModal, setIsModal] = useState(false);

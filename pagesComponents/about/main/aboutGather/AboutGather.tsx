@@ -8,7 +8,8 @@ import SectionHeader from "../../../../components/layout/atoms/SectionHeader";
 import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
 import { useGatherAllQuery } from "../../../../hooks/gather/queries";
 import { isGatherAlertState } from "../../../../recoil/alertAtoms";
-import GatherBlock from "./aboutGatherBlock/AboutGatherBlock";
+import AboutGatherBlock from "./aboutGatherBlock/AboutGatherBlock";
+
 import AboutGatherBlockSkeleton from "./aboutGatherBlock/AboutGatherBlockSkeleton";
 
 const TEXT_VISIBLE_LENGTH = 22;
@@ -41,7 +42,9 @@ function AboutGather() {
             ? gatherContentArr
                 .slice(-3)
                 .reverse()
-                .map((gather, idx) => <GatherBlock gather={gather} key={idx} />)
+                .map((gather, idx) => (
+                  <AboutGatherBlock gather={gather} key={idx} />
+                ))
             : [0, 1, 2].map((_, idx) => <AboutGatherBlockSkeleton key={idx} />)}
         </Container>
         <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
@@ -60,7 +63,7 @@ const MoreInfoBtn = styled.button`
   border-radius: var(--border-radius2);
   color: var(--color-mint);
   font-weight: 600;
-  margin-top:auto;
+  margin-top: auto;
 `;
 const Main = styled.main`
   margin: 0 var(--margin-main);

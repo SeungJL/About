@@ -24,7 +24,7 @@ function AboutMainItemStatus({
   const studyStartTime = studyStartTimeArr?.find(
     (study) => study.place_id === place?._id
   )?.startTime;
-  console.log(memberCnt);
+
 
   const plusCnt =
     status === "pending" &&

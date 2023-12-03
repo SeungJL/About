@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { GATHER_SHARE_IMAGES } from "../../../../../constants/image/imageUrl";
+import { GATHER_RANDOM_MAIN } from "../../../../../constants/image/imageUrl";
 import { dayjsToFormat } from "../../../../../helpers/dateHelpers";
 import { prevPageUrlState } from "../../../../../recoil/previousAtoms";
 import { transferGatherDataState } from "../../../../../recoil/transferDataAtoms";
@@ -14,21 +14,25 @@ import GatherBlockStatus from "./AboutGatherBlockStatus";
 interface IAboutGatherBlock {
   gather: IGather;
   isMyResult?: boolean;
+  isImagePriority?: boolean;
 }
 
-function AboutGatherBlock({ gather }: IAboutGatherBlock) {
+function AboutGatherBlock({ gather, isImagePriority }: IAboutGatherBlock) {
   const router = useRouter();
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
   const setGatherData = useSetRecoilState(transferGatherDataState);
-
+ 
   const onClickItem = () => {
-    setPrevPageUrl("/about");
+    setPrevPageUrl(router.asPath);
     setGatherData(gather);
     router.push(`/gather/${gather.id}`);
   };
 
   const participants = gather?.participants?.map((who) => who.user);
+
+  const randomImage =
+    GATHER_RANDOM_MAIN[Math.floor(Math.random() * GATHER_RANDOM_MAIN.length)];
 
   return (
     <Layout onClick={onClickItem}>
@@ -36,15 +40,18 @@ function AboutGatherBlock({ gather }: IAboutGatherBlock) {
         <>
           <ImageContainer>
             <Image
-              src={gather?.image || GATHER_SHARE_IMAGES[0]}
+              src={gather?.image || randomImage}
               layout="fill"
-              alt="cafeImage"
+              alt="gatherImage"
+              priority={isImagePriority}
             />
           </ImageContainer>
           <SpaceInfo>
             <GatherBlockStatus title={gather.title} status={gather.status} />
             <Info>
-              {gather.type.title} ·
+              {gather.place} {" · "}
+              {gather.type.title}
+              {" · "}
               {dayjsToFormat(dayjs(gather.date), "M월 D일(ddd) ")}
             </Info>
             <GatherBlockParticipants
@@ -66,7 +73,7 @@ const Layout = styled.div`
   border-radius: var(--border-radius2);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--margin-main);
   padding: var(--padding-sub);
 `;
 

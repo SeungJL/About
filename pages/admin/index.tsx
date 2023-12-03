@@ -87,6 +87,9 @@ function Admin() {
                 <button onClick={() => onClick(`resetStudySpace`, false)}>
                   스터디 초기화 및 업데이트
                 </button>
+                <button onClick={() => onClick(`resetStudyStatus`, false)}>
+                  스터디 상태 초기화
+                </button>
               </NavBlock>
             </div>
             <div>

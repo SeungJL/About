@@ -29,7 +29,7 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
   const myUid = session.uid;
   const myGather = data.user.uid === myUid;
   const isParticipant = data?.participants.some(
-    (who) => who?.user.uid === myUid
+    (who) => who?.user && who.user.uid === myUid
   );
   const [isExpirationModal, setIsExpirationModal] = useState(false);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
