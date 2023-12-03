@@ -12,9 +12,10 @@ import { UserBadge } from "../../../types/user/user";
 
 interface IPointScoreBar {
   myScore: number;
+  hasQuestion?: boolean;
 }
 
-function PointScoreBar({ myScore }: IPointScoreBar) {
+function PointScoreBar({ myScore, hasQuestion = true }: IPointScoreBar) {
   const { data: session } = useSession();
 
   const [userBadge, setUserBadge] = useState<{
@@ -60,9 +61,11 @@ function PointScoreBar({ myScore }: IPointScoreBar) {
             <BadgeName color={SCHEME_TO_COLOR[badgeColor] || badgeColor}>
               {myScore}점
             </BadgeName>
-            <IconWrapper onClick={() => setIsBadgeModal(true)}>
-              <FontAwesomeIcon icon={faQuestionCircle} size="sm" />
-            </IconWrapper>
+            {hasQuestion && (
+              <IconWrapper onClick={() => setIsBadgeModal(true)}>
+                <FontAwesomeIcon icon={faQuestionCircle} size="sm" />
+              </IconWrapper>
+            )}
           </div>
           {nextBadge && (
             <div>

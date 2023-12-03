@@ -19,7 +19,7 @@ import { IModal } from "../../types/reactTypes";
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const lastWeekFirstDay = dayjs().day(1).subtract(1, "week").startOf("date");
   const lastWeekLastDay = dayjs().day(0).startOf("date");
-  
+
   const { data: userInfo } = useUserInfoQuery();
   const { data: likeData } = useInteractionLikeQuery();
   const { data: parRate, isLoading } = useUserAttendRateQuery(
@@ -27,7 +27,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
     lastWeekLastDay.subtract(1, "day"),
     true
   );
- 
+
   const parCnt = parRate?.cnt;
   const rest = userInfo?.role === "resting" && userInfo?.rest;
   const lastWeekLikeCnt = likeData?.filter((like) => {
@@ -39,8 +39,10 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader text="지난주 내 기록" />
       <ModalBody>
-        <PointScoreBar myScore={userInfo.score} />
-        <span>라떼 달성시 20 포인트, 배지 해금!</span>
+        <PointScoreBar myScore={userInfo.score} hasQuestion={false} />
+        <span style={{ fontSize: "12px" }}>
+          라떼 달성시 20 포인트, 배지 해금!
+        </span>
         <Container>
           {!isLoading ? (
             <Info>
@@ -48,13 +50,6 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
                 <span>지난 주 스터디 참여 </span>
                 {parCnt || 0} 회<br />
               </Item>
-              <Item>
-                <span>이번 달 스터디 참여 </span>
-                {parCnt || 0} 회<br />
-              </Item>
-              <div>
-                아직 이번 달 스터디 참여 조건을 충족시키지 못했어요 ㅠㅠ
-              </div>
               {userInfo.role === "resting" ? (
                 <Item>
                   <span>휴식 기간</span>{" "}
@@ -75,16 +70,26 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
                 </Item>
               ) : (
                 <Item>
-                  <span>받은 좋아요</span>
+                  <span>지난주 받은 좋아요</span>
                   {lastWeekLikeCnt} 개
                 </Item>
-              )}
+              )}{" "}
+              <Item>
+                <span>이번 달 스터디 참여 </span>
+                {parCnt || 0} 회<br />
+              </Item>
               <Item>
                 <span>참여 정산</span>
                 12월 1일
               </Item>
-              <span>이번 달에 스터디에 참여하지</span>
-              1회 참여 필수 !!
+              <Item>
+                <span>보유 보증금</span>
+                1800원
+              </Item>
+              <span>
+                이번 달에 아직 스터디에 참여하지 않았어요. 4일 뒤에 경고를
+                받습니다.
+              </span>
             </Info>
           ) : (
             <LayoutSkeleton />
@@ -164,9 +169,10 @@ const Rest = styled.div``;
 
 const Item = styled.div`
   display: flex;
+  font-size: 13px;
   > span {
     display: inline-block;
-    width: 88px;
+
     font-weight: 600;
   }
 `;

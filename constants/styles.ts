@@ -34,6 +34,7 @@ export const TABLE_STRONG_COLORS = [
 export const SCHEME_TO_COLOR = {
   facebook: "#223B67",
   badgePink: "#FF69B4",
+  mintTheme: "#00c2b3",
 };
 
 export const ICON_SIZE = {

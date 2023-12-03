@@ -43,7 +43,11 @@ function AboutGather() {
                 .slice(-3)
                 .reverse()
                 .map((gather, idx) => (
-                  <AboutGatherBlock gather={gather} key={idx} />
+                  <AboutGatherBlock
+                    gather={gather}
+                    key={idx}
+                    isImagePriority={true}
+                  />
                 ))
             : [0, 1, 2].map((_, idx) => <AboutGatherBlockSkeleton key={idx} />)}
         </Container>
@@ -53,7 +57,6 @@ function AboutGather() {
   );
 }
 const MoreInfoBtn = styled.button`
-  margin-top: auto;
   width: 100%;
   box-shadow: var(--box-shadow-b);
   height: 44px;
@@ -65,9 +68,9 @@ const MoreInfoBtn = styled.button`
   color: var(--color-mint);
   font-weight: 600;
   margin-top: auto;
+  margin-bottom: var(--margin-main);
 `;
 const Main = styled.main`
-  min-height: 422px;
   margin: 0 var(--margin-main);
 `;
 const Layout = styled.div`
@@ -75,11 +78,10 @@ const Layout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 485px;
+
+  margin-bottom: var(--margin-main);
 `;
 
-const Container = styled.div`
-  min-height: 354px;
-`;
+const Container = styled.div``;
 
 export default AboutGather;
