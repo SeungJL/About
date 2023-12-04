@@ -61,11 +61,6 @@ export const useStudyVoteQuery = (
       return res.data.participations.filter(
         (par) => par.place.status === "active"
       );
-      // return filterStudyPlaces(
-      //   res.data.participations,
-      //   location,
-      //   [0, 6].includes(date.day())
-      // );
     },
     options
   );

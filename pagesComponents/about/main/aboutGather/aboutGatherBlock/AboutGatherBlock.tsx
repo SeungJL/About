@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { GATHER_RANDOM_MAIN } from "../../../../../constants/image/imageUrl";
@@ -22,29 +23,36 @@ function AboutGatherBlock({ gather, isImagePriority }: IAboutGatherBlock) {
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
   const setGatherData = useSetRecoilState(transferGatherDataState);
- 
+
+  const [randomImage, setRandomImage] = useState<string>();
+
   const onClickItem = () => {
     setPrevPageUrl(router.asPath);
     setGatherData(gather);
     router.push(`/gather/${gather.id}`);
   };
 
-  const participants = gather?.participants?.map((who) => who.user);
+  useEffect(() => {
+    setRandomImage(
+      GATHER_RANDOM_MAIN[Math.floor(Math.random() * GATHER_RANDOM_MAIN.length)]
+    );
+  }, []);
 
-  const randomImage =
-    GATHER_RANDOM_MAIN[Math.floor(Math.random() * GATHER_RANDOM_MAIN.length)];
+  const participants = gather?.participants?.map((who) => who.user);
 
   return (
     <Layout onClick={onClickItem}>
       {gather && (
         <>
           <ImageContainer>
-            <Image
-              src={gather?.image || randomImage}
-              layout="fill"
-              alt="gatherImage"
-              priority={isImagePriority}
-            />
+            {randomImage && (
+              <Image
+                src={gather?.image || randomImage}
+                layout="fill"
+                alt="gatherImage"
+                priority={isImagePriority}
+              />
+            )}
           </ImageContainer>
           <SpaceInfo>
             <GatherBlockStatus title={gather.title} status={gather.status} />

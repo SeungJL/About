@@ -1,11 +1,15 @@
 import axios, { AxiosError } from "axios";
+import { Dayjs } from "dayjs";
 import { useQuery } from "react-query";
 import {
+  ADMIN_STUDY_RECORD,
   USER_REGISTER_FORM,
   USER_REQUEST,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import { QueryOptions } from "../../types/reactTypes";
+import { Location } from "../../types/system";
 import { IUser, IUserRegisterForm } from "../../types/user/user";
 import {
   IUserRequest,
@@ -45,6 +49,29 @@ export const useUserRegisterFormsQuery = (
       const res = await axios.get<IUserRegisterForm[]>(
         `${SERVER_URI}/register`
       );
+      return res.data;
+    },
+    options
+  );
+
+export const useAdminStudyRecordQuery = (
+  startDay: Dayjs,
+  endDay: Dayjs,
+  isAttend: Boolean,
+  location: Location,
+  options?: QueryOptions<void>
+) =>
+  useQuery(
+    [ADMIN_STUDY_RECORD, startDay, endDay, isAttend, location],
+    async () => {
+      const res = await axios.get<any>(`${SERVER_URI}/admin/vote/studyRecord`, {
+        params: {
+          startDay: dayjsToStr(startDay),
+          endDay: dayjsToStr(endDay),
+          isAttend,
+          location,
+        },
+      });
       return res.data;
     },
     options

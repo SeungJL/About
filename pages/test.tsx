@@ -1,26 +1,31 @@
 import { Badge, Button } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
+import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
 import { useUserInfoQuery } from "../hooks/user/queries";
-import {
-  useA,
-  useCollectionAlphabetMutation,
-} from "../hooks/user/sub/collection/mutations";
 
 function Test() {
   const { data: session } = useSession();
   const { data: userInfo } = useUserInfoQuery();
   const C = useRef();
   const AA = () => <button>23</button>;
-  const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
-  const { mutate, data } = useA({
-    onSuccess() {
-      console.log("ss");
-    },
-  });
 
+  const { data } = useAdminStudyRecordQuery(
+    dayjs("2023-12-01"),
+    dayjs("2023-12-04"),
+    true,
+    "안양"
+  );
+  const { data: data2 } = useAdminStudyRecordQuery(
+    dayjs("2023-12-01"),
+    dayjs("2023-12-04"),
+    null,
+    "안양"
+  );
+  console.log(4, data, data2);
   const onClick = () => {};
 
   return (

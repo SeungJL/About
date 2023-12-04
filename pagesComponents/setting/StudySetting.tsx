@@ -53,7 +53,11 @@ function StudySetting() {
     if (!studyVoteData) return;
     const participations = studyVoteData;
 
-    if (participations[0].status === "pending" && studyDateStatus === "today") {
+    if (
+      participations[0].status === "pending" &&
+      studyDateStatus === "today" &&
+      dayjs().hour() === 23
+    ) {
       decideSpace();
     }
     const arrangedStudies = arrangeMainSpace(

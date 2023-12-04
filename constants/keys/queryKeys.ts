@@ -33,3 +33,5 @@ export const GATHER_CONTENT = "GATHER";
 export const STORE_GIFT = "storeGift";
 
 export const COLLECTION_ALPHABET = "collectionAlphabet";
+
+export const ADMIN_STUDY_RECORD = "adminStudyRecord";

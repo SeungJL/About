@@ -26,6 +26,7 @@ function RequestLevelUpModal({ setIsModal }: IModal) {
       },
     }
   );
+
   const { mutate: setRole } = useUserInfoFieldMutation("role");
 
   const onClick = () => {

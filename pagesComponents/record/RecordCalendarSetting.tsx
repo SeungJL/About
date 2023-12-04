@@ -25,7 +25,7 @@ function RecordCalendarSetting({
       onError: errorToast,
     }
   );
-
+  console.log(studyRecords);
   useEffect(() => {
     setIsRecordLoading(true);
     if (isLoading) return;
