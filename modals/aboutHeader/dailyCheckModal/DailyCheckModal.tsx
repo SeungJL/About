@@ -6,7 +6,7 @@ import {
   PopoverCloseButton,
   PopoverContent,
   PopoverHeader,
-  PopoverTrigger
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import { faCheckCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +18,7 @@ import {
   ModalBody,
   ModalFooterOne,
   ModalHeader,
-  ModalLayout
+  ModalLayout,
 } from "../../../components/modals/Modals";
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { DAILY_CHECK_WIN_ITEM } from "../../../constants/settingValue/dailyCheck";
@@ -28,12 +28,10 @@ import { getRandomAlphabet } from "../../../helpers/eventHelpers";
 import {
   useCompleteToast,
   useErrorToast,
-  useFailToast
+  useFailToast,
 } from "../../../hooks/custom/CustomToast";
 
-import {
-  usePointSystemMutation
-} from "../../../hooks/user/mutations";
+import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { useCollectionAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
 import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
 import { useDailyCheckQuery } from "../../../hooks/user/sub/dailyCheck/queries";
@@ -77,7 +75,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
 
   const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
   const { mutate: attendDailyCheck } = useDailyCheckMutation();
-  
+
   const { mutate: getPoint } = usePointSystemMutation("point");
   const { mutate: sendRequest } = useUserRequestMutation({
     onError: errorToast,
@@ -89,9 +87,11 @@ function DailyCheckModal({ setIsModal }: IModal) {
       return;
     }
     localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
-
+    console.log(checkRecords);
     if (
-      checkRecords?.find((item) => item.createdAt.date() === dayjs().date())
+      checkRecords?.find(
+        (item) => dayjsToStr(item.createdAt) === dayjsToStr(dayjs())
+      )
     ) {
       failToast("free", "오늘 출석체크는 이미 완료됐어요!");
       setIsModal(false);
