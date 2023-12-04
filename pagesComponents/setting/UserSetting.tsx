@@ -23,12 +23,15 @@ export default function UserSetting() {
   });
 
   useEffect(() => {
-    if (isGuest === false && !userInfo) setUserInfo(userInfoData);
+    if (!userInfoData) return;
+    if (isGuest === false && !userInfo) {
+      setUserInfo(userInfoData);
+    }
     if (isGuest && !checkAndSetLocalStorage(FAQ_POP_UP, 2)) {
       setIsGuestPopUp(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGuest, userInfo]);
+  }, [isGuest, userInfo, userInfoData]);
 
   return (
     <>

@@ -92,7 +92,7 @@ function CollectionAlphabet() {
 
   const onClickChangeBtn = (user: IUser, alphabets: Alphabet[]) => {
     const myFriends = userInfo?.friend;
-    if (!myFriends.includes(user.uid)) {
+    if (!myFriends?.includes(user.uid)) {
       failToast("free", "친구끼리만 교환 신청이 가능합니다.");
       return;
     }
