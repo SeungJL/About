@@ -425,6 +425,36 @@ export const WIN_RECORD: {
     reason: "출석 당첨 선물",
     present: "초코에몽",
   },
+  {
+    name: "김규",
+    date: "11/10",
+    reason: "출석 당첨 선물",
+    present: "CU 3000원권",
+  },
+  {
+    name: "송유",
+    date: "11/18",
+    reason: "출석 당첨 선물",
+    present: "초코에몽",
+  },
+  {
+    name: "이성",
+    date: "11/22",
+    reason: "출석 당첨 선물",
+    present: "MEGA 커피",
+  },
+  {
+    name: "김민",
+    date: "12/4",
+    reason: "스토어 응모 선물",
+    present: "배민 10000원권",
+  },
+  {
+    name: "권혜",
+    date: "12/4",
+    reason: "스토어 응모 선물",
+    present: "배민 10000원권",
+  },
 ];
 
 export const PROMOTION_WIN = [
