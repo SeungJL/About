@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import SectionHeader from "../../../components/layout/atoms/SectionHeader";
@@ -13,6 +14,8 @@ function AboutReview() {
 
   const setReviewContentId = useSetRecoilState(reviewContentIdState);
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const onClick = (id: number) => {
     setPrevPageUrl("/about");
@@ -66,6 +69,10 @@ const ImageContainer = styled.div`
   border-radius: var(--border-radius2);
   overflow: hidden;
 `;
+
+// const ImageWrapper = styled.div<{isLoaded:boolean}>`
+// visibility:${props=>!props.isLoaded?"hidden":"show"};
+// `;
 
 const ReviewText = styled.div`
   color: var(--font-h1);
