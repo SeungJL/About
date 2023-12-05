@@ -23,7 +23,7 @@ export const MEMEBER_MASKING_AND_FRIEND: IContentPopUpContents = {
 };
 
 export const NEW_POINT_SYSTEM: IContentPopUpContents = {
-  title: "스터디 & 포인트 시스템 변경 공지",
+  title: "스터디 시스템 변경 공지",
   contents: [
     {
       subtitle: "스터디 관련",

@@ -81,7 +81,7 @@ function StudyVoteSubModal({
         const choice = choices[attCnt];
         if (studyDateStatus === "not passed" && choice) {
           const point = POINT_SYSTEM_PLUS.STUDY_VOTE[choice];
-          const subCnt = voteInfo.subPlace.length;
+          const subCnt = voteInfo.subPlace?.length;
           getPoint({
             value: point.value || 0 + subCnt,
             message: point.message,

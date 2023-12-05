@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
@@ -8,11 +9,16 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-
+import { BADGE_INFO } from "../../constants/settingValue/badge";
+import { USER_ROLE } from "../../constants/settingValue/role";
+import { getUserBadge } from "../../helpers/userHelpers";
+import {
+  IStudyRecord,
+  useAdminStudyRecordQuery,
+} from "../../hooks/admin/quries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";
-import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
 import PointScoreBar from "../../pagesComponents/point/pointScore/PointScoreBar";
+import { locationState } from "../../recoil/userAtoms";
 
 import { IModal } from "../../types/reactTypes";
 
@@ -21,139 +27,221 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const lastWeekLastDay = dayjs().day(0).startOf("date");
 
   const { data: userInfo } = useUserInfoQuery();
-  const { data: likeData } = useInteractionLikeQuery();
-  const { data: parRate, isLoading } = useUserAttendRateQuery(
-    lastWeekFirstDay.subtract(1, "day"),
-    lastWeekLastDay.subtract(1, "day"),
-    true
+  const location = useRecoilValue(locationState);
+
+  const { data: attendRecord, isLoading } = useAdminStudyRecordQuery(
+    dayjs().month() !== lastWeekFirstDay.month()
+      ? dayjs().date(1).startOf("date")
+      : lastWeekFirstDay,
+    lastWeekLastDay,
+    undefined,
+    location,
+    userInfo.uid,
+    {
+      enabled: !!location && !!userInfo.uid,
+    }
   );
 
-  const parCnt = parRate?.cnt;
-  const rest = userInfo?.role === "resting" && userInfo?.rest;
-  const lastWeekLikeCnt = likeData?.filter((like) => {
-    const date = dayjs(like.createdAt);
-    return lastWeekFirstDay <= date && date <= lastWeekLastDay;
-  })?.length;
+  const recordValue: IStudyRecord =
+    attendRecord && Object.keys(attendRecord).length !== 0
+      ? Object.values(attendRecord)[0]
+      : { vote: 0, attend: 0, monthAcc: 0 };
 
+  const today = dayjs();
+  const firstDayOfMonth = today.startOf("month");
+  const differenceInDays = today.diff(firstDayOfMonth, "day");
+  const weekNumber = Math.floor(differenceInDays / 7) + 1;
+
+  const { nextBadge } = getUserBadge(userInfo?.score, userInfo?.uid);
+  const getBadgePoint = () => {
+    for (let i = 0; i < BADGE_INFO.length; i++) {
+      const badgeInfo = BADGE_INFO[i];
+      if (badgeInfo.badge === nextBadge) {
+        return {
+          nextBadgePoint: badgeInfo.minScore,
+          badgeGap: badgeInfo.minScore - BADGE_INFO[i - 1].minScore,
+        };
+      }
+    }
+  };
+  const { nextBadgePoint } = getBadgePoint() || {};
+
+  const nextAvatar = {
+    10: "병아리",
+    30: "고양이",
+    50: "토끼",
+    70: "호돌",
+    90: "거북",
+    110: "피그",
+    130: "개굴",
+    150: "찍찍",
+    170: "햄스터",
+    190: "냥이",
+    210: "햄찌",
+    230: "샤크",
+  };
+
+  const LayoutSkeleton = () => (
+    <Info>
+      <Item>
+        <span>{weekNumber}주차 스터디 투표</span>
+
+        <SkeletonText>
+          <Skeleton>temp</Skeleton>
+        </SkeletonText>
+      </Item>
+      <Item>
+        <span>{weekNumber}주차 스터디 출석</span>
+        <SkeletonText>
+          <Skeleton>temp</Skeleton>
+        </SkeletonText>
+      </Item>
+      <Item>
+        <span>이번 달 누적 스터디 참여 </span>
+        <SkeletonText>
+          <Skeleton>temp</Skeleton>
+        </SkeletonText>
+      </Item>
+      <Item>
+        <span>다음 참여 정산일</span>
+        <SkeletonText>
+          <Skeleton>temp</Skeleton>
+        </SkeletonText>
+      </Item>
+      <Item>
+        <span>보유 보증금</span>
+        <SkeletonText>
+          <Skeleton>temp</Skeleton>
+        </SkeletonText>
+      </Item>
+    </Info>
+  );
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xl">
-      <ModalHeader text="지난주 내 기록" />
+    <ModalLayout onClose={() => setIsModal(false)}>
+      <ModalHeader
+        isLine={true}
+        text={`${dayjs().month() + 1}월 ${weekNumber}주차 주간 체크`}
+      />
       <ModalBody>
-        <PointScoreBar myScore={userInfo.score} hasQuestion={false} />
-        <span style={{ fontSize: "12px" }}>
-          라떼 달성시 20 포인트, 배지 해금!
-        </span>
+        <ScoreBarWrapper>
+          <PointScoreBar myScore={userInfo.score} hasQuestion={false} />
+          <span>
+            {nextBadge} 달성시 +10 포인트, {nextAvatar[String(nextBadgePoint)]}{" "}
+            아바타 해금!
+          </span>
+        </ScoreBarWrapper>
+        <ProfileWrapper>
+          <span>
+            {userInfo?.name} ({USER_ROLE?.[userInfo?.role]})
+          </span>
+          <ImageWrapper>
+            <ProfileIcon user={userInfo} size="sm" />
+          </ImageWrapper>
+        </ProfileWrapper>
         <Container>
           {!isLoading ? (
             <Info>
               <Item>
-                <span>지난 주 스터디 참여 </span>
-                {parCnt || 0} 회<br />
-              </Item>
-              {userInfo.role === "resting" ? (
-                <Item>
-                  <span>휴식 기간</span>{" "}
-                  {rest.type === "일반" ? (
-                    <Rest>
-                      <span>
-                        {dayjs(rest.startDate).format("YY-MM-DD")} ~{" "}
-                        {dayjs(rest.endDate).format("YY-MM-DD")}
-                      </span>
-                      <DDay>
-                        D-2
-                        {dayjs(rest.endDate).diff(dayjs(), "day")}{" "}
-                      </DDay>
-                    </Rest>
-                  ) : (
-                    <Rest>자율참여 멤버</Rest>
-                  )}
-                </Item>
-              ) : (
-                <Item>
-                  <span>지난주 받은 좋아요</span>
-                  {lastWeekLikeCnt} 개
-                </Item>
-              )}{" "}
-              <Item>
-                <span>이번 달 스터디 참여 </span>
-                {parCnt || 0} 회<br />
+                <span>{weekNumber}주차 스터디 투표</span>
+                <span>{recordValue.vote || 0} 회</span>
               </Item>
               <Item>
-                <span>참여 정산</span>
-                12월 1일
+                <span>{weekNumber}주차 스터디 출석</span>
+                <span>{recordValue.attend} 회</span>
+              </Item>
+              <Item>
+                <span>이번 달 누적 스터디 참여 </span>
+                <span>{recordValue.monthAcc || 0} 회</span>
+              </Item>
+              <Item>
+                <span>다음 참여 정산일</span>
+                <span> {dayjs().add(1, "month").month() + 1}월 1일</span>
               </Item>
               <Item>
                 <span>보유 보증금</span>
-                1800원
+                <span>{userInfo?.deposit}원</span>
               </Item>
-              <span>
-                이번 달에 아직 스터디에 참여하지 않았어요. 4일 뒤에 경고를
-                받습니다.
-              </span>
             </Info>
           ) : (
             <LayoutSkeleton />
           )}
-          <ImageWrapper>
-            <ProfileIcon user={userInfo} size="lg" />
-          </ImageWrapper>
         </Container>
+        <Message>
+          {dayjs(userInfo?.registerDate).diff(dayjs(), "month") === 0 ? (
+            <div>
+              🎉신규 가입을 환영해요🎉
+              <br />
+              앞으로 열심히 활동해봐요~!
+            </div>
+          ) : !recordValue?.monthAcc ? (
+            <div>
+              이번 달에 아직 스터디에 참여하지 않았어요.
+              <br /> {-dayjs().add(1, "month").date(1).diff(dayjs(), "day")}일
+              뒤에 경고를 받습니다.
+            </div>
+          ) : (
+            <div>
+              🎉잘 하고 있어요🎉
+              <br />
+              이번주도 열심히 파이팅~!
+            </div>
+          )}
+        </Message>
       </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} />
+      <ModalFooterOne onClick={() => setIsModal(false)} isFull={true} />
     </ModalLayout>
   );
 }
 
-const LayoutSkeleton = () => (
-  <Info>
-    <Item>
-      <span>역할 구성</span>
-      <SkeletonText>
-        <Skeleton>temp</Skeleton>
-      </SkeletonText>
-    </Item>
-    <Item>
-      <span>스터디 참여 </span>
-      <SkeletonText>
-        <Skeleton>temp</Skeleton>
-      </SkeletonText>
-    </Item>
-    <Item>
-      <span>받은 좋아요</span>
-      <SkeletonText>
-        <Skeleton>temp</Skeleton>
-      </SkeletonText>
-    </Item>
-    <Item>
-      <span>참여 정산</span>
-      <SkeletonText>
-        <Skeleton>temp</Skeleton>
-      </SkeletonText>
-    </Item>
-  </Info>
-);
+const Message = styled.div`
+  padding: var(--padding-md) var(--padding-sub);
+  color: var(--font-h2);
+  border-radius: var(--border-radius2);
+  border: 1px solid var(--color-mint);
+`;
+
+const ProfileWrapper = styled.div`
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--border-sub);
+  > span:first-child {
+    font-weight: 500;
+    font-size: 16px;
+  }
+`;
+
+const ScoreBarWrapper = styled.div`
+  padding: var(--padding-md) 0;
+  border-bottom: var(--border-sub);
+  display: flex;
+  flex-direction: column;
+  > span {
+    font-size: 12px;
+    color: var(--font-h3);
+    margin-left: auto;
+  }
+`;
 
 const Container = styled.div`
+  padding: var(--padding-sub) 0;
   display: flex;
   flex-direction: row;
   height: 100%;
 `;
 
 const Info = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 `;
 
 const SkeletonText = styled.div`
   width: 60px;
 `;
-const DDay = styled.span`
-  color: var(--color-red);
-  margin-left: var(--margin-md);
-`;
+
 const ImageWrapper = styled.div`
-  margin-right: var(--margin-md);
   margin-left: auto;
   display: flex;
   flex-direction: column;
@@ -165,14 +253,12 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const Rest = styled.div``;
-
 const Item = styled.div`
   display: flex;
-  font-size: 13px;
-  > span {
-    display: inline-block;
-
+  justify-content: space-between;
+  font-size: 14px;
+  padding: var(--padding-min) 0;
+  > span:last-child {
     font-weight: 600;
   }
 `;

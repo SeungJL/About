@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NEW_POINT_SYSTEM } from "../../../constants/contents/PopUpContents";
 import {
   ALPHABET_POP_UP,
+  ATTEND_POP_UP,
   ENTHUSIASTIC_POP_UP,
   FAQ_POP_UP,
   MANAGER_POP_UP,
@@ -46,7 +47,7 @@ function UserSettingPopUp() {
 
     // if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 
-    if (!checkAndSetLocalStorage(ENTHUSIASTIC_POP_UP, 1)) {
+    if (!checkAndSetLocalStorage(ENTHUSIASTIC_POP_UP, 4)) {
       setPopUpTypes((old) => [...old, "enthusiastic"]);
       if (++popUpCnt === 2) return;
     }
@@ -75,10 +76,10 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "suggest"]);
       if (++popUpCnt === 2) return;
     }
-    // if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
-    //   setPopUpTypes((old) => [...old, "lastWeekAttend"]);
-    //   if (++popUpCnt === 2) return;
-    // }
+    if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
+      setPopUpTypes((old) => [...old, "lastWeekAttend"]);
+      if (++popUpCnt === 2) return;
+    }
     if (!checkAndSetLocalStorage(MANAGER_POP_UP, 10)) {
       setPopUpTypes((old) => [...old, "manager"]);
       if (++popUpCnt === 2) return;

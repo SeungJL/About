@@ -17,15 +17,15 @@ function Test() {
     dayjs("2023-12-01"),
     dayjs("2023-12-04"),
     true,
-    "안양"
+    "수원"
   );
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-01"),
     dayjs("2023-12-04"),
     null,
-    "안양"
+    "수원"
   );
-  console.log(4, data, data2);
+ 
   const onClick = () => {};
 
   return (

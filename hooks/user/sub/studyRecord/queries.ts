@@ -17,6 +17,7 @@ export const useUserAttendRateQuery = <T extends boolean>(
   startDay: Dayjs,
   endDay: Dayjs,
   isUserScope: T = true as T,
+  isAttendRecord: T = false as T,
   options?: QueryOptions<UserAttendRateReturn<T>>
 ) =>
   useQuery<UserAttendRateReturn<T>, AxiosError, UserAttendRateReturn<T>>(

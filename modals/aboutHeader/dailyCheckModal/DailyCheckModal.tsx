@@ -87,7 +87,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
       return;
     }
     localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
-    console.log(checkRecords);
+    
     if (
       checkRecords?.find(
         (item) => dayjsToStr(item.createdAt) === dayjsToStr(dayjs())

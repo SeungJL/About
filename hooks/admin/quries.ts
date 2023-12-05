@@ -54,24 +54,39 @@ export const useUserRegisterFormsQuery = (
     options
   );
 
+interface IAdminStudyRecordReturn {
+  [key: string]: IStudyRecord;
+}
+
+export interface IStudyRecord {
+  attend: number;
+  vote: number;
+  monthAcc: number;
+}
+
 export const useAdminStudyRecordQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
   isAttend: Boolean,
   location: Location,
-  options?: QueryOptions<void>
+  uid?: string,
+  options?: QueryOptions<IAdminStudyRecordReturn>
 ) =>
   useQuery(
-    [ADMIN_STUDY_RECORD, startDay, endDay, isAttend, location],
+    [ADMIN_STUDY_RECORD, startDay, endDay, isAttend, location, uid],
     async () => {
-      const res = await axios.get<any>(`${SERVER_URI}/admin/vote/studyRecord`, {
-        params: {
-          startDay: dayjsToStr(startDay),
-          endDay: dayjsToStr(endDay),
-          isAttend,
-          location,
-        },
-      });
+      const res = await axios.get<IAdminStudyRecordReturn>(
+        `${SERVER_URI}/admin/vote/studyRecord`,
+        {
+          params: {
+            startDay: dayjsToStr(startDay),
+            endDay: dayjsToStr(endDay),
+            isAttend,
+            location,
+            uid,
+          },
+        }
+      );
       return res.data;
     },
     options

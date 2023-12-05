@@ -55,7 +55,11 @@ function PointScoreBar({ myScore, hasQuestion = true }: IPointScoreBar) {
       <Layout>
         <Grade>
           <div>
-            <Badge marginRight="var(--margin-md)" colorScheme={badgeColor}>
+            <Badge
+              fontSize="14px"
+              marginRight="var(--margin-md)"
+              colorScheme={badgeColor}
+            >
               {badge}
             </Badge>
             <BadgeName color={SCHEME_TO_COLOR[badgeColor] || badgeColor}>
@@ -72,16 +76,21 @@ function PointScoreBar({ myScore, hasQuestion = true }: IPointScoreBar) {
               <BadgeName color={BADGE_COLOR[nextBadge]}>
                 {nextBadgePoint}점
               </BadgeName>
-              <Badge colorScheme={BADGE_COLOR[nextBadge]} marginLeft="6px">
+              <Badge
+                fontSize="14px"
+                colorScheme={BADGE_COLOR[nextBadge]}
+                marginLeft="6px"
+              >
                 {nextBadge}
               </Badge>
             </div>
           )}
         </Grade>
         <Progress
-          value={((nextBadgePoint - myScore) / badgeGap) * 100}
-          size="xs"
-          color="var(--font-h4)"
+          value={(1 - (nextBadgePoint - myScore) / badgeGap) * 100}
+          height="12px"
+          colorScheme="mintTheme"
+          hasStripe
         />
       </Layout>
 
@@ -101,14 +110,12 @@ const Grade = styled.div`
   > div {
     display: flex;
     align-items: center;
-    > span {
-      font-size: 12px;
-    }
   }
 `;
 
 const BadgeName = styled.span<{ color: string }>`
   color: ${(props) => props.color};
+  font-weight: 600;
 `;
 
 const IconWrapper = styled.div`

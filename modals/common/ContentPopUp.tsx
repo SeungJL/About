@@ -20,7 +20,7 @@ interface IContentPopUp extends IModal {
 function ContentPopUp({ content, setIsModal }: IContentPopUp) {
   return (
     <>
-      <ModalLayout size="lg" onClose={() => setIsModal(false)}>
+      <ModalLayout onClose={() => setIsModal(false)}>
         <ModalHeader text={content.title} />
         <ModalBody>
           <Wrapper>
@@ -30,7 +30,7 @@ function ContentPopUp({ content, setIsModal }: IContentPopUp) {
                 <Ul>
                   {item.content.map((text, idx2) => {
                     const textArr = text.split("/");
-                    
+
                     return (
                       <li key={idx2}>
                         {textArr[0]}

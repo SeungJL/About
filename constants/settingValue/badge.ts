@@ -23,11 +23,11 @@ export const BADGE_COLOR: Record<UserBadge, string> = {
 
 export const BADGE_INFO: IBadgeInfo[] = [
   { badge: "아메리카노", minScore: 0 },
-  { badge: "라떼", minScore: 20 },
-  { badge: "마키아또", minScore: 40 },
-  { badge: "콜드브루", minScore: 60 },
-  { badge: "유스베리", minScore: 80 },
-  { badge: "모카", minScore: 100 },
-  { badge: "아인슈페너", minScore: 120 },
-  { badge: "에스프레소", minScore: 140 },
+  { badge: "라떼", minScore: 10 },
+  { badge: "마키아또", minScore: 30 },
+  { badge: "콜드브루", minScore: 50 },
+  { badge: "유스베리", minScore: 70 },
+  { badge: "모카", minScore: 90 },
+  { badge: "아인슈페너", minScore: 110 },
+  { badge: "에스프레소", minScore: 130 },
 ];
