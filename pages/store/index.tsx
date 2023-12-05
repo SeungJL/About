@@ -175,7 +175,7 @@ const Container = styled.div`
   gap: var(--margin-sub);
 `;
 
-const Item = styled.div`
+const Item = styled.button`
   position: relative;
   height: 196px;
   padding: var(--padding-md);

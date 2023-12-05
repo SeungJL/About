@@ -61,7 +61,7 @@ function ImageSliderMember({ imageContainer }: IImageSliderMember) {
   );
 }
 
-const MemberItem = styled.div`
+const MemberItem = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;

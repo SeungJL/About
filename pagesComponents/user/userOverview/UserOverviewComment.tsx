@@ -51,9 +51,9 @@ function UserOverviewComment() {
           onBlur={handleSubmit}
           onChange={onWrite}
         />
-        <span onClick={handleWrite}>
+        <button onClick={handleWrite}>
           <FontAwesomeIcon icon={faPenToSquare} />
-        </span>
+        </button>
       </div>
     </Layout>
   );

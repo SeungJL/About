@@ -87,7 +87,7 @@ const Layout = styled.div`
   justify-content: space-between;
 `;
 
-const DayItem = styled(motion.div)<{ iscenter: "true" | "false" }>`
+const DayItem = styled(motion.button)<{ iscenter: "true" | "false" }>`
   padding: 8px;
   margin: ${(props) => props.iscenter === "true" && "0 32px"};
   margin-bottom: 4px;

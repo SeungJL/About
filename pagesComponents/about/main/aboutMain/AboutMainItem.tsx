@@ -67,7 +67,8 @@ function AboutMainItem({
   );
 }
 
-const Layout = styled.div<{ status: boolean; isMyResult: boolean }>`
+const Layout = styled.button<{ status: boolean; isMyResult: boolean }>`
+  width: 100%;
   height: 110px;
   background-color: white;
   box-shadow: var(--box-shadow-b);

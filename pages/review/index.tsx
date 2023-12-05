@@ -237,6 +237,8 @@ const ImageWrapper = styled.div`
 
 const Item = styled.div`
   margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Spacing = styled.div`

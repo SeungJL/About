@@ -83,7 +83,7 @@ function ProfileIcon({ user, size, isMember, isImagePriority }: IProfileIcon) {
   );
 }
 
-const Layout = styled.div<{ avatarBg: string; size: number }>`
+const Layout = styled.button<{ avatarBg: string; size: number }>`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   background-color: ${(props) => props.avatarBg || "white"};

@@ -32,13 +32,15 @@ function Collection() {
           <Title>
             <div>
               <span>알파벳 컬렉션</span>
-              <PopOverIcon
-                title="알파벳 컬렉션"
-                text="일일 출석체크, 스터디 출석체크를 통해 알파벳을 획득할 수 있어요! 개인 스터디, FREE 오픈에서도 획득 가능합니다."
-              />
+              <button>
+                <PopOverIcon
+                  title="알파벳 컬렉션"
+                  text="일일 출석체크, 스터디 출석체크를 통해 알파벳을 획득할 수 있어요! 개인 스터디, FREE 오픈에서도 획득 가능합니다."
+                />
+              </button>
             </div>
             <div onClick={() => router.push("/user/collection/alphabet")}>
-              <span>전체 획득 현황</span>
+              <button>전체 획득 현황</button>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
           </Title>
@@ -81,7 +83,7 @@ function Collection() {
         <HrDiv />
       </PageLayout>
       {isAlphabetModal && (
-        <UserCollectionAlphabetModal  setIsModal={setIsAlphabetModal} />
+        <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />
       )}
     </>
   );
@@ -111,7 +113,7 @@ const Title = styled.div`
     display: flex;
     align-items: center;
     font-weight: 600;
-    > span:first-child {
+    > button:first-child {
       margin-right: var(--margin-min);
     }
   }

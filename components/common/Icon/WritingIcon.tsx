@@ -16,7 +16,7 @@ function WritingIcon({ url }: IWritingIcon) {
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.button`
   position: fixed;
   bottom: 20px;
   right: 20px;

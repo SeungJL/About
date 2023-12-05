@@ -42,7 +42,7 @@ const Layout = styled.div`
   padding: 0 var(--padding-sub);
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled.button`
   padding: 0 var(--padding-min);
 `;
 

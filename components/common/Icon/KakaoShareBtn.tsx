@@ -116,7 +116,7 @@ function KakaoShareBtn({
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.button`
   width: 100%;
 `;
 

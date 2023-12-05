@@ -81,7 +81,7 @@ const UserProfile = styled.div`
   margin-bottom: var(--margin-md);
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled.button`
   width: 28px;
   height: 28px;
   display: flex;

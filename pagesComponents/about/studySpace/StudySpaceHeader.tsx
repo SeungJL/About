@@ -31,7 +31,9 @@ function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
   return (
     <Layout>
       <div onClick={onClick}>
-        <FontAwesomeIcon icon={faChevronLeft} />
+        <button>
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </button>
         <Title>{title}</Title>
       </div>
       <div>

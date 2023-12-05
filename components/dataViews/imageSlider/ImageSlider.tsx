@@ -59,6 +59,10 @@ const Layout = styled.div<{ isHeight: boolean }>`
   text-align: center;
   width: 100%;
   height: ${(props) => (props.isHeight ? "100%" : "auto")};
+
+  .swiper-pagination-bullet {
+    background-color: var(--color-mint);
+  }
 `;
 
 export default ImageSlider;

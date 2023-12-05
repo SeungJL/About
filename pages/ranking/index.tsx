@@ -70,7 +70,7 @@ function Ranking() {
     const userAll =
       category === "누적"
         ? filteredUsers
-        : attendAllData.map((who) => {
+        : attendAllData?.map((who) => {
             const userInfo = filteredUsers.find((user) => user.uid === who.uid);
             return { ...userInfo, ...who };
           });

@@ -118,7 +118,7 @@ const BadgeName = styled.span<{ color: string }>`
   font-weight: 600;
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled.button`
   color: var(--font-h2);
   font-size: 14px;
   margin-left: var(--margin-md);

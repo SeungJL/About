@@ -60,7 +60,7 @@ const ReviewContainer = styled.div`
   gap: var(--margin-main);
 `;
 
-const ReviewItem = styled.div``;
+const ReviewItem = styled.button``;
 
 const ImageContainer = styled.div`
   position: relative;
@@ -78,6 +78,7 @@ const ReviewText = styled.div`
   color: var(--font-h1);
   font-size: 13px;
   margin-top: var(--margin-sub);
+  text-align: start;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

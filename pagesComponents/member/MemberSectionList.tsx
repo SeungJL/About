@@ -15,6 +15,7 @@ function MemberSectionList({ members }: IMemberMember) {
 }
 
 const Layout = styled.div`
+  margin-left: var(--margin-md);
   display: flex;
   flex-direction: column;
 `;

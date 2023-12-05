@@ -41,7 +41,9 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.button`
+  flex: 1;
+  text-align: start;
   margin: var(--margin-main);
   margin-bottom: var(--margin-max);
   border: var(--border-main);

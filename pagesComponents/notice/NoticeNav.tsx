@@ -45,7 +45,7 @@ const Layout = styled.div`
   display: flex;
 `;
 
-const Button = styled.div<{ isSelected: boolean }>`
+const Button = styled.button<{ isSelected: boolean }>`
   position: relative;
   width: 50%;
   text-align: center;

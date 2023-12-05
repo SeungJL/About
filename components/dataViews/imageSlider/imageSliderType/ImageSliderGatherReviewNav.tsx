@@ -64,7 +64,7 @@ function ImageSliderGatherReviewNav({
   );
 }
 
-const GatherReviewNavItem = styled.div`
+const GatherReviewNavItem = styled.button`
   width: 74px;
   display: flex;
   flex-direction: column;

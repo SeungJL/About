@@ -74,7 +74,8 @@ function AboutGatherBlock({ gather, isImagePriority }: IAboutGatherBlock) {
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.button`
+  width: 100%;
   height: 110px;
   background-color: white;
   box-shadow: var(--box-shadow-b);

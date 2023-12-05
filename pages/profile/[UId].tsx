@@ -31,11 +31,13 @@ function ProfilePage() {
     <>
       <Container>
         <Header title="" url={beforePage}>
-          <FontAwesomeIcon
-            icon={faEllipsisVertical}
-            size="lg"
-            onClick={() => setIsModal(true)}
-          />
+          <button>
+            <FontAwesomeIcon
+              icon={faEllipsisVertical}
+              size="lg"
+              onClick={() => setIsModal(true)}
+            />
+          </button>
         </Header>
         <Layout>
           <ProfileOverview user={userData || userInfo} />

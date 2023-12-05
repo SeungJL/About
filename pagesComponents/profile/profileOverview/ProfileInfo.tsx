@@ -198,7 +198,7 @@ const ProfileName = styled.div`
     color: var(--font-h3);
   }
 `;
-const HeartWrapper = styled.div`
+const HeartWrapper = styled.button`
   margin-right: var(--margin-min);
 `;
 

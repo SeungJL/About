@@ -18,7 +18,8 @@ function EventBanner() {
 
 // 16 더블
 
-const Layout = styled.div`
+const Layout = styled.button`
+  width: 100%;
   display: flex;
   flex-direction: column;
   min-height: 90px;
