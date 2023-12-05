@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import styled from "styled-components";
 import { USER_INITIAL_INFO } from "../../constants/keys/queryKeys";
 import { useToken } from "../../hooks/custom/CustomHooks";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -100,7 +101,7 @@ function Layout({ children }: ILayout) {
   };
 
   return (
-    <>
+    <D>
       <Seo title="ABOUT" />
       {token && (
         <>
@@ -113,8 +114,12 @@ function Layout({ children }: ILayout) {
         </>
       )}
       <BaseScript />
-    </>
+    </D>
   );
 }
+
+const D = styled.div`
+  position: relative;
+`;
 
 export default Layout;

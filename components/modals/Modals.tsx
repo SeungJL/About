@@ -26,6 +26,7 @@ export const ModalLayout = ({
   children,
 }: IModalLayout) => (
   <Modal
+   
     isOpen={true}
     onClose={onClose}
     //별도로 제어하기 때문에 onClose를 사용하는 일이 없으나 overlay 제어에 사용
@@ -35,6 +36,7 @@ export const ModalLayout = ({
     <ModalContent
       mx="var(--margin-main)"
       h={height || SIZE_HEIGHT_MAP[size]}
+      maxWidth="358px"
       my="auto"
       borderRadius="var(--border-radius2)"
       color="var(--font-h1)"
