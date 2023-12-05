@@ -53,9 +53,11 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const weekNumber = Math.floor(differenceInDays / 7) + 1;
 
   const { nextBadge } = getUserBadge(userInfo?.score, userInfo?.uid);
+
   const getBadgePoint = () => {
     for (let i = 0; i < BADGE_INFO.length; i++) {
       const badgeInfo = BADGE_INFO[i];
+
       if (badgeInfo.badge === nextBadge) {
         return {
           nextBadgePoint: badgeInfo.minScore,
@@ -125,10 +127,14 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
       <ModalBody>
         <ScoreBarWrapper>
           <PointScoreBar myScore={userInfo.score} hasQuestion={false} />
-          <span>
-            {nextBadge} 달성시 +10 포인트, {nextAvatar[String(nextBadgePoint)]}{" "}
-            아바타 해금!
-          </span>
+          {nextBadge ? (
+            <span>
+              {nextBadge} 달성시 +10 포인트,{" "}
+              {nextAvatar[String(nextBadgePoint)]} 아바타 해금!
+            </span>
+          ) : (
+            <span>킹왕짱</span>
+          )}
         </ScoreBarWrapper>
         <ProfileWrapper>
           <span>
