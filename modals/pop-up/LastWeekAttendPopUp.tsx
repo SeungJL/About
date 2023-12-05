@@ -203,7 +203,7 @@ const Message = styled.div`
   padding: var(--padding-md) var(--padding-sub);
   color: var(--font-h2);
   border-radius: var(--border-radius2);
-  border: 1px solid var(--color-mint);
+  background-color: var(--font-h8);
 `;
 
 const ProfileWrapper = styled.div`
