@@ -33,7 +33,7 @@ export const ModalLayout = ({
   >
     <ModalOverlay />
     <ModalContent
-      mx="var(--margin-max)"
+      mx="var(--margin-main)"
       h={height || SIZE_HEIGHT_MAP[size]}
       my="auto"
       borderRadius="var(--border-radius2)"
