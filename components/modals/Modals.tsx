@@ -33,7 +33,7 @@ export const ModalLayout = ({
   >
     <ModalOverlay />
     <ModalContent
-      mx="var(--margin-main)"
+      mx="var(--margin-max)"
       h={height || SIZE_HEIGHT_MAP[size]}
       my="auto"
       borderRadius="var(--border-radius2)"
@@ -112,7 +112,7 @@ export const ModalFooterTwo = ({
   isFull,
   isSmall,
 }: IModalFooterTwo) => (
-  <ChakraModalFooter mt="auto" p="var(--padding-sub) var(--padding-main)">
+  <ChakraModalFooter mt="auto" p="var(--padding-sub) var(--padding-max)">
     <Button
       w={isFull && "100%"}
       variant={isFull ? "solid" : "ghost"}
@@ -152,7 +152,7 @@ export const ModalFooterOne = ({
   isLoading,
   isOutline,
 }: IModalFooterOne) => (
-  <ChakraModalFooter p="var(--padding-sub) var(--padding-main)">
+  <ChakraModalFooter p="var(--padding-sub) var(--padding-max)">
     <Button
       size={isFull ? "lg" : "md"}
       variant={isFull ? "solid" : isOutline ? "outline" : "ghost"}
