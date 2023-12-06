@@ -15,7 +15,13 @@ import {
 import { isGatherAlertState } from "../../../recoil/alertAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 
-type AboutCategory = "record" | "point" | "member" | "gather" | "plaza";
+type AboutCategory =
+  | "record"
+  | "point"
+  | "member"
+  | "gather"
+  | "plaza"
+  | "study";
 
 function AboutCategoryNav() {
   const router = useRouter();
@@ -77,7 +83,7 @@ function AboutCategoryNav() {
         <span>모임/번개</span>
       </Item>
       <Item>
-        <Button onClick={() => onClickItem("plaza")}>
+        <Button onClick={() => onClickItem("study")}>
           <PlazaIcon />
         </Button>
         <span>광장</span>
