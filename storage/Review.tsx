@@ -413,4 +413,38 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "마라는 옳다",
     title: "용용선생 마라 번개",
   },
+  {
+    id: 110,
+    dateCreated: "12월 1일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.1+%EC%88%98%EC%9B%90/KakaoTalk_20231206_193123506_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.1+%EC%88%98%EC%9B%90/KakaoTalk_20231206_193123506_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.1+%EC%88%98%EC%9B%90/KakaoTalk_20231206_193123506_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.1+%EC%88%98%EC%9B%90/KakaoTalk_20231206_193123506.jpg",
+    ],
+    text: "",
+    title: "수원역 술 번개(20대 초반)",
+  },
+  {
+    id: 111,
+    dateCreated: "12월 2일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.2+%EC%88%98%EC%9B%90+%EC%A0%95%EA%B8%B0%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231206_193541715.jpg",
+    ],
+    text: "",
+    title: "12월 1주차 정기스터디",
+  },
+  {
+    id: 114,
+    dateCreated: "12월 6일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.6+%EC%88%98%EC%9B%90+%EC%A0%95%EA%B8%B0+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231206_193820021_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.6+%EC%88%98%EC%9B%90+%EC%A0%95%EA%B8%B0+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231206_193820021_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.6+%EC%88%98%EC%9B%90+%EC%A0%95%EA%B8%B0+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231206_193820021_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.6+%EC%88%98%EC%9B%90+%EC%A0%95%EA%B8%B0+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231206_193820021_04.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.6+%EC%88%98%EC%9B%90+%EC%A0%95%EA%B8%B0+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231206_193820021.jpg",
+    ],
+    text: "일찍부터 와서 공부를 시작함. 일단 여기 대박인게 저 넓은 공간에 사람이 우리밖에 없었음. 그래서 눈치 안보고 공부하다가 얘기하다가 함. 케이크 먹으면서 그렇게 5시간 정도 하고 저녁을 먹으러 감. 오랜 토론 끝에 닭갈비로 결정했음. 맥주 딱 한잔만 했음. 원래 약간의 술은 공부에 도움이 된다고 누가 그랬음. 아무튼 그럼. 저녁을 먹은 뒤 앞에 투썸 미팅룸 큰걸로 빌려서 10시까지 공부함. 되게 뭔가 많이 한 듯.",
+    title: "12월 6일 정기스터디",
+  },
 ];

@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { IGatherSummary } from "../../pages/review";
+import { SingleLineText } from "../../styles/layout/components";
 
 interface IReviewGatherSummary {
   summary: IGatherSummary;
@@ -33,7 +34,7 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
             {summary.place} {summary.place === "전체" && "지역"}
           </span>
           ·<span>{summary.type.title}</span>·
-          <span>{summary.location.main}</span>·
+          <LocationText>{summary.location.main}</LocationText>·
           <span>{date.format("M월 D일")}</span>
         </ContentDetail>
       </Content>
@@ -54,6 +55,9 @@ const Layout = styled.button`
   height: 60px;
 `;
 
+const LocationText = styled(SingleLineText)`
+  width: 134px;
+`;
 const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
