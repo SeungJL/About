@@ -14,14 +14,13 @@ interface IHeader {
   isNoLine?: boolean;
 }
 
-const Header = ({ title, url, children, isPrev, isNoLine }: IHeader) => {
+const Header = ({ title, url, children, isNoLine }: IHeader) => {
   const router = useRouter();
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
   const handleClick = () => {
-    if (isPrev) setPrevPageUrl(null);
-
+    setPrevPageUrl(null);
     if (url) {
       if (url === "back") router.back();
       else router.push(`${url}`);

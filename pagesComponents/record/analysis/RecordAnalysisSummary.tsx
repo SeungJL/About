@@ -60,7 +60,7 @@ function RecordAnalysisSummary() {
                       )
                     </span>
                   </WeekText>
-                  <WeekAttend>{item}회</WeekAttend>
+                  <WeekAttend>{item || 0}회</WeekAttend>
                 </SummaryItem>
               );
             })}
