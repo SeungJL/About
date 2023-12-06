@@ -31,7 +31,7 @@ function GatherBlockHeader({
   return (
     <Layout>
       <Category>{typeTitle}</Category>
-      <Badge p="2px 6px" colorScheme={color} fontSize="13px" variant="outline">
+      <Badge p="2px 4px" colorScheme={color} fontSize="13px" variant="outline">
         {text}
       </Badge>
     </Layout>

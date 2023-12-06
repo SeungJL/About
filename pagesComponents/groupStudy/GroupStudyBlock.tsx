@@ -1,3 +1,6 @@
+import { Badge } from "@chakra-ui/react";
+import { faLockKeyhole } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 function GroupStudyBlock() {
@@ -6,7 +9,11 @@ function GroupStudyBlock() {
   return (
     <Layout>
       <Header>
-        <span>열공러들</span>
+        <div>
+          <span>열공러들</span>
+          <FontAwesomeIcon icon={faLockKeyhole} size="lg" />
+        </div>
+        <Badge>모집중</Badge>
       </Header>
       <Title>공부 열심히 하실 분들 구함</Title>
       <Info>
@@ -38,7 +45,16 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   font-size: 12px;
+  font-weight: 600;
   color: var(--color-mint);
+  padding: var(--padding-min) 0;
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    > span:first-child {
+      margin-right: var(--margin-md);
+    }
+  }
 `;
 const Title = styled.div`
   font-weight: 600;

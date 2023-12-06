@@ -1,14 +1,26 @@
 import { Badge as ChakraBadge } from "@chakra-ui/react";
+import { ThemeTypings } from "@chakra-ui/system";
 
 interface IBadge {
   text: string;
-  bg: string;
-  fontColor?: string;
+  size?: "sm" | "lg";
+  type?: "outline" | "solid";
+  colorScheme: ThemeTypings["colorSchemes"];
 }
 
-export const Badge = ({ text, bg, fontColor = "white" }: IBadge) => {
+export const Badge = ({
+  text,
+  colorScheme,
+  size = "sm",
+  type = "solid",
+}: IBadge) => {
   return (
-    <ChakraBadge p="2px 6px" fontSize="13px" bgColor={bg} color={fontColor}>
+    <ChakraBadge
+      p="2px 4px"
+      fontSize={size === "sm" ? "11px" : "13px"}
+      colorScheme={colorScheme}
+      variant={type}
+    >
       {text}
     </ChakraBadge>
   );

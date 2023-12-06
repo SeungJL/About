@@ -22,7 +22,7 @@ function BadgeInfoModalSecondInfo() {
       </Item>
       <Item>
         <div>
-          <Badge fontSize={12} colorScheme="mintTheme">
+          <Badge fontSize={12} colorScheme="badgeMint">
             민트초코
           </Badge>
         </div>

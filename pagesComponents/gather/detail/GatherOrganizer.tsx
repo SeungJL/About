@@ -1,6 +1,6 @@
-import { Badge } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import styled from "styled-components";
+import { Badge } from "../../../components/common/customComponents/Badges";
 import { AboutIcon } from "../../../components/common/Icon/AboutIcon";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { ABOUT_UID } from "../../../constants/system";
@@ -35,14 +35,7 @@ function GatherOrganizer({
           <span>{writingDate}</span>
         </Info>
       </div>
-      <Badge
-        p="2px 6px"
-        fontSize="13px"
-        color="white"
-        backgroundColor="var(--color-red)"
-      >
-        {category}
-      </Badge>
+      <Badge colorScheme="redTheme" text={category} size="lg" />
     </Layout>
   );
 }

@@ -16,7 +16,7 @@ function CheckRegisterModal({
   if (!applicant) return null;
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
-      <ModalHeader text={applicant.name} />
+      <ModalHeader text={applicant.name || "정보없음"} />
       <CheckRegisterModalDetail applicant={applicant} />
       <CheckRegisterModalFooter
         setIsModal={setIsModal}

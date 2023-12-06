@@ -26,7 +26,6 @@ export const ModalLayout = ({
   children,
 }: IModalLayout) => (
   <Modal
-   
     isOpen={true}
     onClose={onClose}
     //별도로 제어하기 때문에 onClose를 사용하는 일이 없으나 overlay 제어에 사용

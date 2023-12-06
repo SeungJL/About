@@ -10,16 +10,12 @@ interface IGatherTitle {
 }
 
 function GatherTitle({ status, title }: IGatherTitle) {
-  const bg =
-    status === "pending"
-      ? "var(--color-mint)"
-      : status === "open"
-      ? "var(--color-red)"
-      : null;
+  const color =
+    status === "pending" ? "mintTheme" : status === "open" ? "redTheme" : null;
 
   return (
     <Layout status={status}>
-      <Badge text={STATUS_TO_TEXT[status]} bg={bg} />
+      <Badge text={STATUS_TO_TEXT[status]} colorScheme={color} size="lg" />
       <span>{title}</span>
     </Layout>
   );

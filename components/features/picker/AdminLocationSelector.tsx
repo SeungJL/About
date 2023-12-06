@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { RegisterLocation } from "../../../constants/location";
+import { LOCATION_ALL, RegisterLocation } from "../../../constants/location";
 
 import { Location } from "../../../types/system";
 import { IUserRegisterForm } from "../../../types/user/user";
@@ -20,13 +20,15 @@ function AdminLocationSelector({
   setRequestData,
   type,
 }: IAdminLocationSelector) {
-  const [category, setCategory] = useState<Location>("수원");
+  const [category, setCategory] = useState<Location | "기타">("수원");
 
   useEffect(() => {
     if (type === "register")
       setRequestData(
-        (initialData as IUserRegisterForm[])?.filter(
-          (who) => who.location === category
+        (initialData as IUserRegisterForm[])?.filter((who) =>
+          category !== "기타"
+            ? who.location === category
+            : !LOCATION_ALL.includes(who.location)
         )
       );
     if (type === "request")

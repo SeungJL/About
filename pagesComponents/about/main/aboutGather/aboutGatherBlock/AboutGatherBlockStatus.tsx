@@ -1,6 +1,5 @@
-import { Badge } from "@chakra-ui/react";
-
 import styled from "styled-components";
+import { Badge } from "../../../../../components/common/customComponents/Badges";
 import { SingleLineText } from "../../../../../styles/layout/components";
 import { GatherStatus } from "../../../../../types/page/gather";
 
@@ -10,10 +9,22 @@ interface IAboutGatherBlockStatus {
 }
 
 function AboutGatherBlockStatus({ status, title }: IAboutGatherBlockStatus) {
+  const badgeStyle =
+    status === "open"
+      ? { text: "오픈", color: "redTheme" }
+      : status === "pending"
+      ? { text: "모집중", color: "mintTheme" }
+      : { text: "취소", color: "blackAlpha" };
   return (
     <Layout>
       <Branch>{title}</Branch>
-      {status === "open" ? (
+      <Badge
+        colorScheme={badgeStyle.color}
+        text={badgeStyle.text}
+        type="outline"
+      />
+      {/* {status === "open" ? (
+        
         <Badge p="2px 4px" colorScheme="redTheme" variant="outline">
           오픈
         </Badge>
@@ -25,7 +36,7 @@ function AboutGatherBlockStatus({ status, title }: IAboutGatherBlockStatus) {
         <Badge p="2px 4px" colorScheme="blackAlpha" variant="outline">
           취소
         </Badge>
-      ) : null}
+      ) : null} */}
     </Layout>
   );
 }

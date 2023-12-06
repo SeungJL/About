@@ -32,7 +32,7 @@ function CheckRegisterModalDetail({ applicant }: ICheckRegisterModalDetail) {
       </Item>
       <Item>
         <b>관심사 </b>
-        {applicant?.interests.first}
+        {applicant?.interests?.first}
       </Item>
       <Item>
         <b>연락처 </b>

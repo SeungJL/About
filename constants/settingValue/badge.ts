@@ -18,7 +18,7 @@ export const BADGE_COLOR: Record<UserBadge, string> = {
   아인슈페너: "teal",
   딸기스무디: "badgePink",
   라벤더: "facebook",
-  민트초코: "mintTheme",
+  민트초코: "badgeMint",
 };
 
 export const BADGE_INFO: IBadgeInfo[] = [

@@ -6,6 +6,10 @@ const theme = extendTheme({
       100: "#FEE7E7",
       800: "#FF69B4",
     },
+    badgeMint: {
+      100: "#E6FFFA",
+      800: "#00c2b3",
+    },
     redMy: "#ff6b6b",
     mint: "#00c2b3",
     my: {
@@ -13,12 +17,14 @@ const theme = extendTheme({
       color: "#FF69B4",
     },
     mintTheme: {
-      100: "#E6FFFA",
+      100: "#00c2b3",
       500: "#00c2b3",
-      800: "#00c2b3",
+      800: "#ffffff",
     },
     redTheme: {
+      100: "#ff6b6b",
       500: "#ff6b6b",
+      800: "#ffffff",
     },
     yellowTheme: {
       500: "#FEBC5A",

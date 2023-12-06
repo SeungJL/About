@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import RuleIcon from "../../components/common/Icon/RuleIcon";
+import WritingIcon from "../../components/common/Icon/WritingIcon";
 import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import CheckBoxNav from "../../components/templates/CheckBoxNav";
@@ -8,32 +11,41 @@ import {
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/settingValue/study/GroupStudy";
 import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
+import { isGuestState } from "../../recoil/userAtoms";
 
 function Index() {
+  const isGuest = useRecoilValue(isGuestState);
   const [category, setCategory] = useState("전체");
   const [subCategory, setSubCategory] = useState();
+
+  const [isRuleModal, setIsRuleModal] = useState(false);
   return (
-    <Layout>
-      <Header title="소모임 그룹" />
-      <NavWrapper>
-        <ButtonCheckNav
-          buttonList={GROUP_STUDY_CATEGORY}
-          selectedButton={category}
-          setSelectedButton={setCategory}
-          isLineBtn={true}
-        />
-      </NavWrapper>
-      <SubNavWrapper>
-        <CheckBoxNav
-          buttonList={GROUP_STUDY_SUB_CATEGORY[category]}
-          selectedButton={subCategory}
-          setSelectedButton={setSubCategory}
-        />
-      </SubNavWrapper>
-      <Main>
-        <GroupStudyBlock />
-      </Main>
-    </Layout>
+    <>
+      <Layout>
+        <Header title="소모임 그룹">
+          <RuleIcon setIsModal={setIsRuleModal} />
+        </Header>
+        <NavWrapper>
+          <ButtonCheckNav
+            buttonList={GROUP_STUDY_CATEGORY}
+            selectedButton={category}
+            setSelectedButton={setCategory}
+            isLineBtn={true}
+          />
+        </NavWrapper>
+        <SubNavWrapper>
+          <CheckBoxNav
+            buttonList={GROUP_STUDY_SUB_CATEGORY[category]}
+            selectedButton={subCategory}
+            setSelectedButton={setSubCategory}
+          />
+        </SubNavWrapper>
+        <Main>
+          <GroupStudyBlock />
+        </Main>
+      </Layout>
+      {!isGuest && <WritingIcon url="/study/writing/category" />}
+    </>
   );
 }
 
