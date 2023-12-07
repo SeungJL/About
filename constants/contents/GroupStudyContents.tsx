@@ -1,0 +1,41 @@
+import {
+  faAtom,
+  faBinary,
+  faBookUser,
+  faFileCertificate,
+  faGamepad,
+  faGlobe,
+  faUserGraduate,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TABLE_COLORS } from "../styles";
+
+export const GROUP_STUDY_CATEGORY = [
+  // "전체",
+  "어학",
+  "프로그래밍",
+  "자격증",
+  "취업준비",
+  "자기계발",
+  "게임",
+  "기타",
+];
+
+export const GROUP_STUDY_SUB_CATEGORY = {
+  어학: ["토익", "오픽", "회화"],
+  자격증: ["컴활", "한국사", "정보처리기사"],
+  프로그래밍: ["코딩테스트", "프로젝트", "프로그래밍 공부"],
+  취업준비: ["공기업 면접", "사기업 면접", "인적성(NCS)"],
+  자기계발: ["투두메이트", "블로그", "다이어리", "열품타", "공부인증", "습관"],
+  기타: ["편입준비", "공사"],
+};
+
+export const GROUP_STUDY_CATEGORY_ICONS = {
+  어학: <FontAwesomeIcon icon={faGlobe} color={TABLE_COLORS[0]} />,
+  자격증: <FontAwesomeIcon icon={faFileCertificate} color={TABLE_COLORS[1]} />,
+  프로그래밍: <FontAwesomeIcon icon={faBinary} color={TABLE_COLORS[2]} />,
+  취업준비: <FontAwesomeIcon icon={faUserGraduate} color={TABLE_COLORS[3]} />,
+  자기계발: <FontAwesomeIcon icon={faBookUser} color={TABLE_COLORS[4]} />,
+  게임: <FontAwesomeIcon icon={faGamepad} color={TABLE_COLORS[5]} />,
+  기타: <FontAwesomeIcon icon={faAtom} color={TABLE_COLORS[6]} />,
+};

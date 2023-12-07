@@ -3,33 +3,31 @@ import {
   faLocationCrosshairs,
   faUser,
   faUserGroup,
-  faUserSecret,
   faVenusMars,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
-import { randomPassword } from "../../../helpers/validHelpers";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherWritingConditionAgeRange from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionAgeRange";
 import GatherWritingConditionCnt from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionCnt";
-import GatherWritingConditionPre from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionPre";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 
-import { faUserPolice } from "@fortawesome/pro-solid-svg-icons";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
-import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
 
+import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
+import GroupStudyConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
 import GatherWritingConditionLocation from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionLocation";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
+import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
+import { IGatherMemberCnt } from "../../../types/page/gather";
+import { IGroupStudyWriting } from "../../../types/page/groupStudy";
 import { Location } from "../../../types/system";
 
 type ButtonType = "gender" | "age" | "pre" | "location" | "manager";
@@ -39,16 +37,15 @@ export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 function WritingCondition() {
   const errorToast = useErrorToast();
 
-  const [gatherContent, setGatherContent] = useRecoilState(
-    sharedGatherWritingState
+  const [groupStudyWriting, setGroupStudyWriting] = useRecoilState(
+    sharedGroupStudyWritingState
   );
 
   const { data: userInfo } = useUserInfoQuery();
 
   const [condition, setCondition] = useState({
-    gender: gatherContent?.genderCondition || false,
-    age: gatherContent?.age ? true : false,
-    pre: gatherContent?.preCnt ? true : false,
+    gender: groupStudyWriting?.gender || false,
+    age: groupStudyWriting?.age ? true : false,
     location: true,
     manager: true,
   });
@@ -57,35 +54,26 @@ function WritingCondition() {
     min: 4,
     max: 0,
   });
-  const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
-  const [age, setAge] = useState(gatherContent?.age || [19, 28]);
-  const [password, setPassword] = useState(gatherContent?.password);
+
+  const [age, setAge] = useState(groupStudyWriting?.age || [19, 28]);
+
   const [location, setLocation] = useState<Location | CombinedLocation>(
     userInfo?.location
   );
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
-  const isManager = ["manager", "previliged"].includes(userInfo?.role);
-
   const onClickNext = async () => {
-    const gatherData: IGatherWriting = {
-      ...gatherContent,
+    const groupStudyData: IGroupStudyWriting = {
+      ...groupStudyWriting,
+      location,
       age,
-      preCnt,
       memberCnt,
-      genderCondition: condition.gender,
-      password,
-      user: userInfo,
-      place: location || userInfo?.location,
-      isAdminOpen: !condition.manager,
+      gender: condition.gender,
+      organizer: userInfo,
     };
-    setGatherContent(gatherData);
+    setGroupStudyWriting(groupStudyData);
     setIsConfirmModal(true);
   };
-
-  useEffect(() => {
-    if (!password) setPassword(randomPassword());
-  }, [password]);
 
   const toggleSwitch = (e: ChangeEvent<HTMLInputElement>, type: ButtonType) => {
     const isChecked = e.target.checked;
@@ -135,7 +123,7 @@ function WritingCondition() {
                 <span>성별 고려</span>
                 <PopOverIcon
                   title="성별 고려"
-                  text="성별 비율을 최대 2대1까지 제한합니다."
+                  text="성별 비율을 최대 2대1까지 제한합니다. 공부 스터디의 경우에는 설정이 불가능합니다."
                 />
               </Name>
               <Switch
@@ -181,53 +169,28 @@ function WritingCondition() {
             )}
             <Item>
               <Name>
-                <FontAwesomeIcon icon={faUserSecret} />
-                <span>사전 섭외</span>
+                <FontAwesomeIcon icon={faPersonToDoor} />
+                <span>자유 가입</span>
                 <PopOverIcon
-                  title="사전 섭외"
-                  text=" 모집 인원에서 사전 섭외 인원 자리가 먼저 고정됩니다. 암호키를 복사해서 전달해주세요."
+                  title="자유 가입"
+                  text="조건에 맞는다면 자유롭게 가입이 가능합니다."
                 />
               </Name>
               <Switch
                 mr="var(--margin-min)"
                 colorScheme="mintTheme"
-                isChecked={condition.pre}
-                onChange={(e) => toggleSwitch(e, "pre")}
+                isChecked={condition.location}
+                onChange={(e) => toggleSwitch(e, "location")}
               />
             </Item>
-            {condition.pre && (
-              <GatherWritingConditionPre
-                preCnt={preCnt}
-                setPreCnt={setPreCnt}
-                password={password}
-              />
-            )}
-            {isManager && (
-              <Item>
-                <Name>
-                  <FontAwesomeIcon icon={faUserPolice} />
-                  <span>운영진 참여</span>
-                  <PopOverIcon
-                    title="운영진 기능"
-                    text="운영진에게만 표시되는 기능입니다. 본인의 참여 여부를 선택할 수 있습니다."
-                  />
-                </Name>
-                <Switch
-                  mr="var(--margin-min)"
-                  colorScheme="mintTheme"
-                  isChecked={condition.manager}
-                  onChange={(e) => toggleSwitch(e, "manager")}
-                />
-              </Item>
-            )}
           </Container>
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
       </PageLayout>
       {isConfirmModal && (
-        <GatherWritingConfirmModal
+        <GroupStudyConfirmModal
           setIsModal={setIsConfirmModal}
-          gatherData={gatherContent}
+          groupStudyWriting={groupStudyWriting}
         />
       )}
     </>

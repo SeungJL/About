@@ -47,16 +47,6 @@ const theme = extendTheme({
         },
       },
     },
-    // Progress: {
-    //   baseStyle: {
-    //     track: {
-    //       bg: "var(--font-h7)",
-    //     },
-    //     filledTrack: {
-    //       bg: "var(--color-mint)",
-    //     },
-    //   },
-    // },
   },
 });
 

@@ -9,7 +9,7 @@ import CheckBoxNav from "../../components/templates/CheckBoxNav";
 import {
   GROUP_STUDY_CATEGORY,
   GROUP_STUDY_SUB_CATEGORY,
-} from "../../constants/settingValue/study/GroupStudy";
+} from "../../constants/contents/GroupStudyContents";
 import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
 import { isGuestState } from "../../recoil/userAtoms";
 
@@ -44,7 +44,7 @@ function Index() {
           <GroupStudyBlock />
         </Main>
       </Layout>
-      {!isGuest && <WritingIcon url="/study/writing/category" />}
+      {!isGuest && <WritingIcon url="/groupStudy/writing/category/main" />}
     </>
   );
 }
