@@ -20,7 +20,7 @@ function NoticeItem() {
           <AccordionItem
             borderTop="none"
             key={item.id}
-            borderBlock="1px solid var(--font-h7)"
+            borderBottom="1px solid var(--font-h7)"
           >
             <AccordionButton
               _focus={{ outline: "none" }}

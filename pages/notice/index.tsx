@@ -29,10 +29,11 @@ function Notice() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  background-color: white;
+`;
 
 const Container = styled.div`
-  background-color: white;
   color: var(--font-h1);
   display: flex;
   flex-direction: column;
