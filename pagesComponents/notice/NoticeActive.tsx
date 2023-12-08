@@ -1,15 +1,10 @@
 import { Button } from "@chakra-ui/react";
-import {
-  faCircleHeart,
-  faFaceThinking,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
+import { ActiveIcon } from "../../components/common/Icon/NoticeIcons";
 import { NOTICE_ACTIVE_LOG } from "../../constants/keys/queryKeys";
-import { TABLE_COLORS } from "../../constants/styles";
 import { getDateDiff } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
@@ -100,32 +95,12 @@ function NoticeActive({ activeLogs }: INoticeActive) {
         ?.map((item, idx) => {
           const type = item.type;
           const [name, message] = item.message.split("님");
-        
           const alphabet = item?.sub?.split("/");
-        
+
           return (
             <Item key={idx}>
               <IconWrapper>
-                {type === "like" ? (
-                  <FontAwesomeIcon
-                    color="var(--color-red)"
-                    icon={faCircleHeart}
-                    size="xl"
-                  />
-                ) : type === "friend" ? (
-                  <FontAwesomeIcon
-                    icon={faFaceThinking}
-                    size="xl"
-                    color={TABLE_COLORS[3]}
-                  />
-                ) : (
-                  <AlphabetWrapper>
-                    <AlphabetIcon
-                      alphabet={alphabet[0] as Alphabet}
-                      isCircle={true}
-                    />
-                  </AlphabetWrapper>
-                )}
+                <ActiveIcon type={item.type} />
               </IconWrapper>
               <Name>{name}</Name>
               <Content>
@@ -203,7 +178,7 @@ const AlphabetWrapper = styled.div`
 const Item = styled.div`
   display: flex;
   align-items: center;
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--padding-sub) var(--padding-max);
   font-size: 13px;
   border-bottom: 1px solid var(--font-h56);
 `;

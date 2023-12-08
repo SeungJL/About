@@ -51,3 +51,10 @@ export const STATUS_TP_COLOR: Record<GatherStatus, string> = {
   close: "var(--font-h4)",
   end: "var(--font-h4)",
 };
+
+export const COLOR_SCHEME_BG = {
+  "var(--color-mint)": "rgba(0, 194, 179, 0.1)",
+  "var(--color-red)": "rgba(255, 107, 107, 0.1)",
+  [TABLE_COLORS[1]]: "rgba(254, 188, 90, 0.1)",
+  [TABLE_COLORS[3]]: "rgba(113, 195, 255, 0.1)",
+};

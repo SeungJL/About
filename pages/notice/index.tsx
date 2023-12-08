@@ -14,7 +14,7 @@ function Notice() {
 
   return (
     <PageLayout>
-      <Header title="알림" isNoLine={true} />
+      <Header title="알림" />
       <Layout>
         <NoticeNav
           isNotice={isNotice}
@@ -22,22 +22,21 @@ function Notice() {
           activeAlertCnt={activeLogs?.length}
         />
         <Container>
-          {isNotice ? <NoticeItem /> : <NoticeActive activeLogs={activeLogs}/>}
+          {isNotice ? <NoticeItem /> : <NoticeActive activeLogs={activeLogs} />}
         </Container>
       </Layout>
     </PageLayout>
   );
 }
 
-const Layout = styled.div`
-  margin-top: 14px;
-`;
+const Layout = styled.div``;
 
 const Container = styled.div`
+  background-color: white;
   color: var(--font-h1);
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: var(--margin-md);
 `;
 
 export default Notice;

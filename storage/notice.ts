@@ -1,4 +1,14 @@
-export const NOTICE_ARR = [
+interface INoticeArr {
+  id: string;
+  title: string;
+  category: NoticeCategory;
+  content: string;
+  date: string;
+}
+
+export type NoticeCategory = "main" | "sub" | "event" | "update";
+
+export const NOTICE_ARR: INoticeArr[] = [
   {
     id: "1",
     title: "동아리 리모델링 !!",

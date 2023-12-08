@@ -8,15 +8,7 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import {
-  faChessKing,
-  faChessPawn,
-  faChessQueen,
-  faChessRook,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
-import { TABLE_COLORS } from "../../constants/styles";
+import { NoticeIcon } from "../../components/common/Icon/NoticeIcons";
 
 import { NOTICE_ARR } from "../../storage/notice";
 
@@ -25,75 +17,44 @@ function NoticeItem() {
     <>
       <Accordion allowToggle>
         {[...NOTICE_ARR].reverse().map((item) => (
-          <AccordionItem borderTop="none" key={item.id}>
-            <AccordionButton height="60px" _focus={{ outline: "none" }}>
+          <AccordionItem
+            borderTop="none"
+            key={item.id}
+            borderBlock="1px solid var(--font-h7)"
+          >
+            <AccordionButton
+              _focus={{ outline: "none" }}
+              p="var(--padding-sub) var(--padding-max)"
+            >
               <Box as="span" flex="1" textAlign="left" display="flex">
                 <Flex width="48px" align="center">
-                  {item.category === "main" ? (
-                    <IconKing />
-                  ) : item.category === "sub" ? (
-                    <IconPawn />
-                  ) : item.category === "event" ? (
-                    <IconRook />
-                  ) : (
-                    <IconQueen />
-                  )}
+                  <NoticeIcon type={item.category} />
                 </Flex>
-                <Flex direction="column" flex="1">
-                  <Text color="var(--font-h1)">{item.title}</Text>
-                  <Text fontSize="12px" color="var(--font-h3)">
+                <Flex direction="column" flex="1" ml="var(--margin-sub)">
+                  <Text fontSize="16px" fontWeight="500" color="var(--font-h1)">
+                    {item.title}
+                  </Text>
+                  <Text fontSize="13px" color="var(--font-h3)">
                     {item.date}
                   </Text>
                 </Flex>
               </Box>
-              <AccordionIcon />
+              <AccordionIcon fontSize="24px" color="var(--font-h2)" />
             </AccordionButton>
-            <AccordionPanel p={6}>{item.content}</AccordionPanel>
+            <AccordionPanel
+              mt="var(--margin-sub)"
+              p="0 var(--padding-max)"
+              pb="var(--padding-sub)"
+              color="var(--font-h2)"
+              lineHeight="22px"
+            >
+              {item.content}
+            </AccordionPanel>
           </AccordionItem>
         ))}
       </Accordion>
     </>
   );
 }
-
-const IconKing = () => (
-  <IconLayout name="king">
-    <FontAwesomeIcon icon={faChessKing} size="lg" color="white" />
-  </IconLayout>
-);
-const IconPawn = () => (
-  <IconLayout name="pawn">
-    <FontAwesomeIcon icon={faChessPawn} size="lg" color="white" />
-  </IconLayout>
-);
-
-const IconRook = () => (
-  <IconLayout name="rook">
-    <FontAwesomeIcon icon={faChessRook} size="lg" color="white" />
-  </IconLayout>
-);
-
-const IconQueen = () => (
-  <IconLayout name="queen">
-    <FontAwesomeIcon icon={faChessQueen} size="lg" color="white" />
-  </IconLayout>
-);
-
-const IconLayout = styled.div<{ name: string }>`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${(props) =>
-    props.name === "king"
-      ? "var(--color-red)"
-      : props.name === "pawn"
-      ? TABLE_COLORS[1]
-      : props.name === "queen"
-      ? TABLE_COLORS[3]
-      : "var(--color-mint)"};
-`;
 
 export default NoticeItem;

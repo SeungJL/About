@@ -50,8 +50,10 @@ const Button = styled.button<{ isSelected: boolean }>`
   width: 50%;
   text-align: center;
   font-weight: 600;
-  padding-bottom: var(--margin-md);
-  border-bottom: ${(props) => props.isSelected && "2px solid var(--font-h1)"};
+  padding: var(--padding-sub) 0;
+  border-bottom: ${(props) =>
+    props.isSelected && "3px solid var(--color-mint)"};
+  background-color: ${(props) => (props.isSelected ? "white" : "null")};
   color: ${(props) =>
     props.isSelected ? " var(--font-h1)" : "var(--font-h3)"};
 `;

@@ -48,6 +48,7 @@ const Layout = styled.div<{ isNoLine: boolean }>`
   font-size: 16px;
   color: var(--font-h1);
   border-bottom: ${(props) => !props.isNoLine && "1px solid var(--font-h56)"};
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.04);
 `;
 
 const IconWrapper = styled.button`
