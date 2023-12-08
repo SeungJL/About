@@ -15,7 +15,7 @@ function AdminSuggest() {
   const { data: data2, isLoading } = useUserRequestQuery("신고");
 
   useEffect(() => {
-    if (isLoading || !data1) return;
+    if (isLoading) return;
     setInitialData([...data1, ...data2]);
   }, [data1, data2, isLoading]);
 

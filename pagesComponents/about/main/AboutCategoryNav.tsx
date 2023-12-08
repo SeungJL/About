@@ -22,7 +22,7 @@ type AboutCategory =
   | "member"
   | "gather"
   | "plaza"
-  | "groupStudy";
+  | "study";
 
 function AboutCategoryNav() {
   const router = useRouter();
@@ -80,10 +80,10 @@ function AboutCategoryNav() {
         <span>모임/번개</span>
       </Item>
       <Item>
-        <Button onClick={() => onClickItem("groupStudy")}>
+        <Button onClick={() => onClickItem("study")}>
           <PlazaIcon />
         </Button>
-        <span>소모임</span>
+        <span>광장</span>
       </Item>
     </Layout>
   );

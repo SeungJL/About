@@ -1,11 +1,21 @@
-import { Switch } from "@chakra-ui/react";
+import {
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Switch,
+} from "@chakra-ui/react";
+import { faQuestionCircle } from "@fortawesome/pro-light-svg-icons";
 import {
   faLocationCrosshairs,
   faUser,
   faUserGroup,
   faUserSecret,
   faVenusMars,
-} from "@fortawesome/pro-regular-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -254,6 +264,45 @@ const Item = styled.div`
   align-items: center;
   border-bottom: var(--border-sub);
 `;
+
+const GenderPopOver = () => (
+  <Popover>
+    <PopoverTrigger>
+      <PopOverWrapper>
+        <FontAwesomeIcon icon={faQuestionCircle} color="var(--font-h2)" />
+      </PopOverWrapper>
+    </PopoverTrigger>
+    <PopoverContent ml="var(--margin-md)">
+      <PopoverArrow />
+      <PopoverCloseButton />
+      <PopoverHeader fontSize="11px" fontWeight="600">
+        네비게이션 기능
+      </PopoverHeader>
+      <PopoverBody fontSize="11px">
+        성별 비율을 최대 2대1까지 제한합니다.
+      </PopoverBody>
+    </PopoverContent>
+  </Popover>
+);
+
+// const PopOverIcon = () => (
+//   <Popover>
+//     <PopoverTrigger>
+//       <PopOverWrapper>
+//         <FontAwesomeIcon icon={faQuestionCircle} color="var(--font-h3)" />
+//       </PopOverWrapper>
+//     </PopoverTrigger>
+//     <PopoverContent>
+//       <PopoverArrow />
+//       <PopoverCloseButton />
+//       <PopoverHeader fontSize="11px">사전 섭외</PopoverHeader>
+//       <PopoverBody fontSize="11px">
+//         모집 인원에서 사전 섭외 인원 자리가 먼저 고정됩니다. 필요하다면 암호키를
+//         복사해서 전달해주세요!
+//       </PopoverBody>
+//     </PopoverContent>
+//   </Popover>
+// );
 
 const PopOverWrapper = styled.span`
   padding: 2px;
