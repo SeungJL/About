@@ -50,6 +50,7 @@ function AboutReview() {
 
 const Layout = styled.div`
   background-color: var(--font-h8);
+  padding-bottom: var(--padding-main);
 `;
 
 const ReviewContainer = styled.div`

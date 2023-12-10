@@ -43,7 +43,7 @@ function AboutWinRecord() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-max);
+  background-color: var(--font-h8);
 `;
 
 const Content = styled.div`
