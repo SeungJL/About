@@ -96,6 +96,7 @@ const Layout = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--font-h8);
 `;
 
 const Spacer = styled.div`

@@ -12,20 +12,13 @@ import {
   USER_GUIDE_POP_UP,
 } from "../../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
-import EnthusiasticModal from "../../../modals/aboutHeader/EnthusiasticModal/EnthusiasticModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import ContentPopUp from "../../../modals/common/ContentPopUp";
 import AlphabetPopUp from "../../../modals/pop-up/AlphabetPopUp";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
-import ManagerPopUp from "../../../modals/pop-up/ManagerPopUp";
-import ProfileModifyPopUp from "../../../modals/pop-up/ProfileModifyPopUp";
 import SuggestPopUp from "../../../modals/pop-up/SuggestPopUp";
-
-interface IUserSettingPopUp {
-  isProfileEdit: boolean;
-}
 
 export type UserPopUp =
   | "lastWeekAttend"
@@ -102,11 +95,11 @@ function UserSettingPopUp() {
           setIsModal={() => filterPopUpTypes("lastWeekAttend")}
         />
       )}
-      {popUpTypes.includes("profileEdit") && (
+      {/* {popUpTypes.includes("profileEdit") && (
         <ProfileModifyPopUp
           setIsModal={() => filterPopUpTypes("profileEdit")}
         />
-      )}
+      )} */}
       {popUpTypes.includes("suggest") && (
         <SuggestPopUp setIsModal={() => filterPopUpTypes("suggest")} />
       )}
@@ -116,9 +109,9 @@ function UserSettingPopUp() {
       {popUpTypes.includes("userGuide") && (
         <PointSystemsModal setIsModal={() => filterPopUpTypes("userGuide")} />
       )}
-      {popUpTypes.includes("manager") && (
+      {/* {!popUpTypes.includes("manager") && (
         <ManagerPopUp setIsModal={() => filterPopUpTypes("manager")} />
-      )}
+      )} */}
       {popUpTypes.includes("alphabet") && (
         <AlphabetPopUp
           setIsModal={() => {
@@ -132,11 +125,11 @@ function UserSettingPopUp() {
           setIsModal={() => filterPopUpTypes("newPointSystem")}
         />
       )}
-      {popUpTypes.includes("enthusiastic") && (
+      {/* {popUpTypes.includes("enthusiastic") && (
         <EnthusiasticModal
           setIsModal={() => filterPopUpTypes("enthusiastic")}
         />
-      )}
+      )} */}
     </>
   );
 }

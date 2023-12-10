@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { Badge } from "../../../components/common/customComponents/Badges";
 import {
   ModalBody,
   ModalFooterOne,
@@ -36,7 +37,6 @@ import { useCollectionAlphabetMutation } from "../../../hooks/user/sub/collectio
 import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
 import { useDailyCheckQuery } from "../../../hooks/user/sub/dailyCheck/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
-
 import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
 import { transferAlphabetState } from "../../../recoil/transferDataAtoms";
 import { IattendCheckPresent } from "../../../types/modal/attendCheck";
@@ -87,7 +87,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
       return;
     }
     localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
-    
+
     if (
       checkRecords?.find(
         (item) => dayjsToStr(item.createdAt) === dayjsToStr(dayjs())
@@ -123,7 +123,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
+    <ModalLayout onClose={() => setIsModal(false)} size="lg">
       <ModalHeader text="매일매일 출석체크 !" />
       <ModalBody>
         <PresentMessage>
@@ -132,8 +132,8 @@ function DailyCheckModal({ setIsModal }: IModal) {
         </PresentMessage>
         <Container>
           <Detail>
-            <span>+ 5 POINT</span>
-            <span>+ 랜덤 선물</span>
+            <Badge text="+ 5 POINT" bg="var(--color-red)" fontSize="11px" />
+            <Badge text="+랜덤 선물" bg="var(--color-red)" fontSize="11px" />
           </Detail>
           <CheckWrapper>
             <FontAwesomeIcon
@@ -161,9 +161,11 @@ function DailyCheckModal({ setIsModal }: IModal) {
 const PresentListPopOver = () => (
   <Popover placement="top-start">
     <PopoverTrigger>
-      <Button size="xs">선물 목록</Button>
+      <Button fontSize="11px" size="xs" colorScheme="yellowTheme">
+        선물 목록
+      </Button>
     </PopoverTrigger>
-    <PopoverContent bg="var(--font-h56)">
+    <PopoverContent bg="var(--font-h8)">
       <PopoverHeader fontWeight="semibold">
         선물 목록 <SubTitle>(16 종류)</SubTitle>
       </PopoverHeader>
@@ -184,9 +186,11 @@ const PresentListPopOver = () => (
 const PresentPercentPopOver = () => (
   <Popover placement="top-start">
     <PopoverTrigger>
-      <Button size="xs">당첨 확률</Button>
+      <Button size="xs" fontSize="11px" colorScheme="yellowTheme">
+        당첨 확률
+      </Button>
     </PopoverTrigger>
-    <PopoverContent bg="var(--font-h56)">
+    <PopoverContent bg="var(--font-h8)">
       <PopoverHeader fontWeight="semibold">
         당첨 확률<SubTitle>(총 7.06%)</SubTitle>
       </PopoverHeader>
@@ -226,6 +230,8 @@ const Detail = styled.div`
   align-items: center;
   flex: 0.35;
   > span {
+  }
+  /* > span {
     width: 65px;
     text-align: end;
     color: var(--font-h2);
@@ -233,7 +239,7 @@ const Detail = styled.div`
     padding: 2px 0;
     font-weight: 600;
     font-size: 11px;
-  }
+  } */
 `;
 
 const SubTitle = styled.span`
@@ -242,7 +248,8 @@ const SubTitle = styled.span`
   font-size: 12px;
 `;
 const PresentMessage = styled.div`
-  font-size: 12px;
+  font-size: 15px;
+  margin-bottom: var(--margin-main);
   > b {
     color: var(--color-mint);
   }

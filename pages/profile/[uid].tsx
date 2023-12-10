@@ -27,6 +27,7 @@ function ProfilePage() {
   const { data: userInfo } = useUidToUserInfoQuery(uid as string, {
     enabled: !!uid && !userData,
   });
+  console.log(userData);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
+import { faPenCircle } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -14,6 +14,7 @@ function UserOverviewComment() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [value, setValue] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   const { data: userInfo, isLoading } = useUserInfoQuery();
   const { mutate: setComment } = useUserInfoFieldMutation("comment");
@@ -23,64 +24,88 @@ function UserOverviewComment() {
     setValue(userInfo?.comment || "안녕하세요! 잘 부탁드려요~ ㅎㅎ");
   }, [isLoading, userInfo]);
 
+  useEffect(() => {
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
+
+    const input = inputRef.current;
+    input.addEventListener("focus", handleFocus);
+    input.addEventListener("blur", handleBlur);
+
+    return () => {
+      input.removeEventListener("focus", handleFocus);
+      input.removeEventListener("blur", handleBlur);
+    };
+  }, []);
+
   const handleWrite = () => {
     if (isGuest) {
       failToast("guest");
       return;
     }
     const input = inputRef.current;
-    input.disabled = false;
     input.focus();
   };
   const onWrite = () => {
     const text = inputRef.current.value;
     setValue(text);
   };
+
   const handleSubmit = () => {
+    if (userInfo.comment === value) {
+      return;
+    }
     setComment({ comment: value });
   };
+
+  const iconStyle: React.CSSProperties & {
+    "--fa-secondary-color": string;
+    "--fa-secondary-opacity": number;
+  } = {
+    "--fa-secondary-color": "white",
+    "--fa-secondary-opacity": 1,
+    border: isFocused ? "1px solid var(--font-h1)" : "1px solid var(--font-h6)",
+    borderRadius: "50%",
+  };
+
   return (
-    <Layout>
-      <span>Comment</span>
-      <div>
-        <Message
-          value={value}
-          disabled={true}
-          ref={inputRef}
-          type="text"
-          onBlur={handleSubmit}
-          onChange={onWrite}
+    <Layout onClick={handleWrite}>
+      <Message
+        value={value}
+        ref={inputRef}
+        type="text"
+        onBlur={handleSubmit}
+        onChange={onWrite}
+      />
+      <button>
+        <FontAwesomeIcon
+          icon={faPenCircle}
+          size="lg"
+          color={isFocused ? "var(--font-h1)" : "var(--font-h4)"}
+          className="fa-swap-opacity"
+          style={iconStyle}
         />
-        <button onClick={handleWrite}>
-          <FontAwesomeIcon icon={faPenToSquare} />
-        </button>
-      </div>
+      </button>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  padding: 2px var(--padding-md);
-  font-size: 12px;
-  font-weight: 600;
-  flex: 1;
+  padding: var(--padding-min) var(--padding-md);
   border: var(--border-sub);
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--border-radius2);
   display: flex;
-  flex-direction: column;
-  > div {
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
+  align-items: center;
 `;
 
 const Message = styled.input`
-  width: 100%;
-  color: var(--font-h2);
+  flex: 1;
+  color: var(--font-h1);
   background-color: inherit;
-  font-size: 12px;
-  margin-right: var(--margin-md);
+  margin-right: auto;
+  :focus {
+    outline: none;
+  }
 `;
 
 export default UserOverviewComment;

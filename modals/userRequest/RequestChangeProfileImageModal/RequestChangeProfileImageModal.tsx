@@ -55,7 +55,7 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   return (
     <>
       {pageNum === 0 ? (
-        <ModalLayout onClose={() => setIsModal(false)} size="md">
+        <ModalLayout onClose={() => setIsModal(false)} size="lg">
           <ModalHeader text="프로필 이미지 변경" />
           <ModalBody>
             <Container>
@@ -88,9 +88,9 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
 }
 
 const Container = styled.div`
-  margin: var(--margin-md) 0;
+  margin-bottom: var(--margin-main);
+  padding: var(--padding-sub) 0;
   height: 100%;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;

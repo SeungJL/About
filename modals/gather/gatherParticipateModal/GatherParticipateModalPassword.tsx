@@ -40,6 +40,8 @@ function GatherParticipateModalPassword({
       </ModalBody>
       <ModalFooterTwo
         isFull={true}
+        leftText="뒤로"
+        rightText="입력"
         onClickLeft={() => setPageNum(0)}
         onClickRight={onApply}
         isSmall={true}

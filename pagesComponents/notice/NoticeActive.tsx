@@ -1,4 +1,6 @@
 import { Button } from "@chakra-ui/react";
+import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -44,7 +46,7 @@ function NoticeActive({ activeLogs }: INoticeActive) {
     {
       onSuccess() {
         if (statusType === "approval") completeToast("free", "수락 완료 !");
-        if (statusType === "refusal") failToast("free", "거절하였습니다.");
+        if (statusType === "refusal") completeToast("free", "거절하였습니다.");
         statusType = null;
         resetQueryData([NOTICE_ACTIVE_LOG]);
       },
@@ -102,12 +104,22 @@ function NoticeActive({ activeLogs }: INoticeActive) {
               <IconWrapper>
                 <ActiveIcon type={item.type} />
               </IconWrapper>
-              <Name>{name}</Name>
+              <Name>
+                {name}
+                {type === "alphabet" && `(${alphabet[0]})`}
+              </Name>
               <Content>
                 님{message} {type === "like" && <Point>+2 point</Point>}
               </Content>
               {type === "alphabet" && (
                 <AlphabetWrapper style={{ marginRight: "var(--margin-md)" }}>
+                  <AlphabetIcon
+                    alphabet={alphabet[0] as Alphabet}
+                    isCircle={true}
+                  />
+                  <span>
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </span>
                   <AlphabetIcon
                     alphabet={alphabet[1] as Alphabet}
                     isCircle={true}
@@ -120,7 +132,11 @@ function NoticeActive({ activeLogs }: INoticeActive) {
                     <Button
                       mx="var(--margin-min)"
                       size="xs"
-                      fontSize="11px"
+                      border="1px solid var(--color-mint)"
+                      borderRadius="11px"
+                      fontSize="12px"
+                      fontWeight="700"
+                      mr="var(--margin-md)"
                       variant="ghost"
                       color="var(--color-mint)"
                       onClick={() =>
@@ -135,8 +151,11 @@ function NoticeActive({ activeLogs }: INoticeActive) {
                       수락
                     </Button>
                     <Button
-                      fontSize="11px"
+                      fontSize="12px"
+                      border="1px solid var(--font-h2)"
+                      borderRadius="11px"
                       size="xs"
+                      color="var(--font-h2)"
                       variant="ghost"
                       onClick={() =>
                         onClickFriendRequest(
@@ -172,7 +191,13 @@ function NoticeActive({ activeLogs }: INoticeActive) {
 }
 
 const AlphabetWrapper = styled.div`
-  font-size: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 8px;
+
+  > span {
+    margin: 0 var(--margin-min);
+  }
 `;
 
 const Item = styled.div`
@@ -184,39 +209,46 @@ const Item = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  margin-right: var(--margin-main);
+  margin-right: var(--margin-md);
 `;
 
 const Name = styled.div`
-  height: 22px;
   font-weight: 600;
   white-space: nowrap;
 `;
 
-const Content = styled.span`
+const Content = styled.div`
+  display: flex;
+  align-items: center;
   white-space: nowrap;
   height: 22px;
   margin-right: var(--margin-md);
 `;
 
 const Point = styled.span`
+  margin-left: var(--margin-min);
   color: var(--color-mint);
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 600;
 `;
 
 const Date = styled.span`
+  margin-left: auto;
   white-space: nowrap;
   color: var(--font-h3);
   font-size: 11px;
 `;
 
 const FriendButtons = styled.div`
+  margin-left: auto;
   display: flex;
 `;
 
 const FriendComplete = styled.span`
+  margin-left: auto;
   color: var(--font-h3);
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 12px;
 `;
 
 export default NoticeActive;

@@ -1,16 +1,14 @@
-import { faCamera } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import { useCollectionAlphabetQuery } from "../../../hooks/user/sub/collection/queries";
+import TwoButtonNav from "../../../components/layout/TwoButtonNav";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isGuestState } from "../../../recoil/userAtoms";
 import { IUser } from "../../../types/user/user";
 import UserOverviewBadge from "./UserOverviewBadge";
 import UserOverviewComment from "./UserOverviewComment";
-import UserOverviewPointNav from "./UserOverviewPointNav";
 
 interface IUserOverview {
   userInfo: IUser;
@@ -18,34 +16,47 @@ interface IUserOverview {
 
 export default function UserOverview({ userInfo }: IUserOverview) {
   const isGuest = useRecoilValue(isGuestState);
-
-  const { data: alphabets } = useCollectionAlphabetQuery({
-    enabled: !isGuest,
-  });
+  const router = useRouter();
 
   const [isProfileModal, setIsProfileModal] = useState(false);
-
+  const iconStyle: React.CSSProperties & {
+    "--fa-primary-color": string;
+    "--fa-secondary-color": string;
+    "--fa-primary-opacity": number;
+    "--fa-secondary-opacity": number;
+  } = {
+    "--fa-primary-color": "var(--color-mint)",
+    "--fa-secondary-color": "white",
+    "--fa-primary-opacity": 0.8,
+    "--fa-secondary-opacity": 1,
+    border: "1px solid var(--font-h6)",
+    borderRadius: "50%",
+  };
   return (
     <>
       <Layout>
-        <UserImg>
-          <ProfileIcon user={userInfo || "guest"} size="xl" />
-          <IconWrapper onClick={() => setIsProfileModal(true)}>
-            <FontAwesomeIcon icon={faCamera} color="var(--font-h2)" size="lg" />
-          </IconWrapper>
-        </UserImg>
-        <UserInfo>
-          <UserProfile>
-            <UserName>{isGuest ? "게스트" : userInfo?.name}</UserName>
-            <UserOverviewBadge />
-          </UserProfile>
-          <UserOverviewComment />
-        </UserInfo>
+        <UserInfoContainer>
+          <UserInfo>
+            <UserProfile>
+              <UserName>{isGuest ? "게스트" : userInfo?.name}</UserName>
+              <UserOverviewBadge />
+            </UserProfile>
+            <UserOverviewComment />
+          </UserInfo>
+          <UserImg>
+            <ProfileIcon user={userInfo || "guest"} size="xl" />
+            <IconWrapper onClick={() => setIsProfileModal(true)}>
+              <CameraIcon />
+            </IconWrapper>
+          </UserImg>
+        </UserInfoContainer>
+        <TwoButtonNav
+          leftText="내 컬렉션"
+          rightText="내 프로필 정보"
+          onClickLeft={() => router.push("/user/collection")}
+          onClickRight={() => router.push("/user/profile")}
+        />
       </Layout>
-      <UserOverviewPointNav
-        alphabets={alphabets}
-        myDeposit={userInfo?.deposit}
-      />
       {isProfileModal && (
         <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />
       )}
@@ -54,11 +65,16 @@ export default function UserOverview({ userInfo }: IUserOverview) {
 }
 
 const Layout = styled.div`
-  height: 90px;
-  padding: var(--padding-md) 0px;
+  padding: 0 var(--margin-max);
+  padding-bottom: var(--padding-max);
+  border-bottom: 6px solid var(--font-h56);
+`;
+
+const UserInfoContainer = styled.div`
+  margin: var(--margin-main) 0;
+
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-sub);
 `;
 
 const UserImg = styled.div`
@@ -66,7 +82,7 @@ const UserImg = styled.div`
 `;
 
 const UserInfo = styled.div`
-  margin-left: var(--margin-main);
+  margin-right: var(--margin-sub);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -78,25 +94,56 @@ const UserInfo = styled.div`
 const UserProfile = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-md);
+  padding: var(--padding-sub) 0;
 `;
 
 const IconWrapper = styled.button`
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: -4px;
-  bottom: -4px;
+  right: 0px;
+  bottom: 0px;
   background-color: white;
-  border: var(--border-main);
+  border: 1px solid var(--font-h5);
   border-radius: 50%;
 `;
 
 const UserName = styled.div`
-  font-weight: 600;
-  font-size: 18px;
-  margin-right: var(--margin-md);
+  font-weight: 700;
+  font-size: 20px;
+  margin-right: var(--margin-sub);
 `;
+
+const CameraIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="15"
+    height="13"
+    viewBox="0 0 15 13"
+    fill="none"
+  >
+    <ellipse cx="7" cy="7" rx="2.5" ry="3" fill="#00C2B3" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1.2204 2.79742L3.83899 2.52844L4.5 1.66779L4.91284 0.685303H9.47632L10.2917 2.40778L13.1793 2.79742L14.1139 3.81976L14.0297 10.3777L13.1793 11.7411L11.3995 11.8903L1.94672 11.7411L0.467407 10.8599L0.668701 3.37689L1.2204 2.91382V2.79742Z"
+      fill="#00C2B3"
+      fillOpacity="0.1"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12.4293 12.3285H2.06813C0.926035 12.3285 -0.00256165 11.432 1.06404e-05 10.3268V4.11779C1.06404e-05 3.01508 0.928607 2.1185 2.0707 2.1185H3.75555C3.81986 2.1185 3.87388 2.07628 3.88931 2.01419L4.09252 1.17722C4.25972 0.4843 4.8925 0 5.63075 0H8.86926C9.60751 0 10.2377 0.4843 10.4075 1.17722L10.6107 2.01667C10.6236 2.07876 10.6802 2.12098 10.7445 2.12098H12.4293C13.5714 2.12098 14.5 3.01756 14.5 4.12027V10.3292C14.5 11.432 13.5714 12.3285 12.4293 12.3285ZM2.06813 3.11442C1.49451 3.11442 1.02635 3.56643 1.02635 4.12027V10.3292C1.02635 10.8831 1.49451 11.3351 2.06813 11.3351H12.4293C13.0029 11.3351 13.4711 10.8831 13.4711 10.3292V4.12027C13.4711 3.56643 13.0029 3.11442 12.4293 3.11442H10.7445C10.1991 3.11442 9.73098 2.75678 9.60751 2.24516L9.4043 1.40571C9.34513 1.1648 9.12392 0.995919 8.86669 0.995919H5.63075C5.37352 0.995919 5.1523 1.1648 5.09314 1.40571L4.88993 2.24516C4.76389 2.75678 4.2983 3.11442 3.75298 3.11442H2.06813Z"
+      fill="#343943"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M10.5052 6.96399C10.5052 8.69753 9.04416 10.1082 7.2487 10.1082C5.45325 10.1082 3.99219 8.69753 3.99219 6.96399C3.99219 5.23044 5.45325 3.81976 7.2487 3.81976C9.04416 3.81976 10.5052 5.23044 10.5052 6.96399ZM9.47631 6.96399C9.47631 5.77683 8.47569 4.8132 7.2487 4.8132C6.01915 4.8132 5.0211 5.77683 5.0211 6.96399C5.0211 8.15114 6.01915 9.11477 7.2487 9.11477C8.47826 9.11477 9.47631 8.15114 9.47631 6.96399Z"
+      fill="#343943"
+    />
+  </svg>
+);

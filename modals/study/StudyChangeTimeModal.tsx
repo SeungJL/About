@@ -1,8 +1,7 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import TimeSelector from "../../components/features/picker/TimeSelector";
 import { useStudyParticipationMutation } from "../../hooks/study/mutations";
 import {
   myStudyState,
@@ -11,6 +10,7 @@ import {
 } from "../../recoil/studyAtoms";
 
 import { useRouter } from "next/router";
+import TimeRullet from "../../components/features/picker/TimeRullet";
 import {
   ModalBody,
   ModalFooterTwo,
@@ -19,6 +19,7 @@ import {
 } from "../../components/modals/Modals";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
+import { STUDY_START_VOTETIME_HOUR } from "../../constants/settingValue/study/study";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
@@ -30,7 +31,7 @@ import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../hooks/user/queries";
 import { locationState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
-import { IDayjsStartToEnd, ITimeStartToEnd } from "../../types/timeAndDate";
+import { IDayjsStartToEnd } from "../../types/timeAndDate";
 
 interface IStudyChangeTimeModal extends IModal {
   myVoteTime: IDayjsStartToEnd;
@@ -57,12 +58,9 @@ function StudyChangeTimeModal({
   const startTime = dayjs(myVoteTime.start);
   const endTime = dayjs(myVoteTime.end);
 
-  const [time, setTime] = useState<ITimeStartToEnd>({
-    start: {
-      hours: startTime.hour(),
-      minutes: startTime.minute(),
-    },
-    end: { hours: endTime.hour(), minutes: endTime.minute() },
+  const [time, setTime] = useState<IDayjsStartToEnd>({
+    start: startTime,
+    end: endTime,
   });
 
   const resetQueryData = useResetQueryData();
@@ -102,48 +100,90 @@ function StudyChangeTimeModal({
     const start = time.start;
     const end = time.end;
     const timeInfo = {
-      start: dayjs(voteDate.hour(start.hours).minute(start.minutes)),
-      end: dayjs(voteDate.hour(end.hours).minute(end.minutes)),
+      start,
+      end,
     };
 
-    if (
-      start.hours * HOUR_TO_MINUTE + start.minutes >=
-      end.hours * HOUR_TO_MINUTE + end.minutes
-    ) {
+    if (startTime >= endTime) {
       failToast("time");
       return;
     }
     patchAttend(timeInfo);
     setIsModal(false);
   };
+  const createTimeArr = (startHour: number, endHour: number, offset = 0) => {
+    const timeArr = [];
+    for (let i = startHour; i <= endHour; i++) {
+      timeArr.push({ hour: i + offset, minutes: "00" });
+      if (i !== endHour) timeArr.push({ hour: i + offset, minutes: "30" });
+    }
+    return timeArr;
+  };
+
+  const startTimeArr = createTimeArr(
+    STUDY_START_VOTETIME_HOUR,
+    STUDY_START_VOTETIME_HOUR + 10
+  );
+  const endTimeArr = createTimeArr(
+    STUDY_START_VOTETIME_HOUR,
+    STUDY_START_VOTETIME_HOUR + 10,
+    2
+  );
 
   return (
-    <ModalLayout size="md" onClose={() => setIsModal(false)}>
-      <ModalHeader text="시간 변경" />
+    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+      <ModalHeader text="시간 변경" isLine={true} />
       <ModalBody>
-        <Wrapper>
-          <TimeSelector
-            setTimes={({ start, end }: ITimeStartToEnd) => {
-              if (start) setTime({ ...time, start });
-              if (end) setTime({ ...time, end });
-            }}
-            times={time}
-          />
-        </Wrapper>
-        {studyStartTime && dayjs() > studyStartTime.startTime && (
-          <WaringMsg>스터디 시작 이후의 시간 변경은 -5점을 받습니다.</WaringMsg>
-        )}
+        <TimeChoiceLayout>
+          <TimeWrapper>
+            <span>시작 시간</span>
+            <TimeRullet
+              timeArr={startTimeArr}
+              setTime={(time: Dayjs) =>
+                setTime((old) => ({ ...old, start: time }))
+              }
+            />
+          </TimeWrapper>
+          <Spacer />
+          <TimeWrapper>
+            <span>종료 시간</span>
+            <TimeRullet
+              startTime={time.start}
+              startTimeArr={startTimeArr}
+              timeArr={endTimeArr}
+              setTime={(time) => setTime((old) => ({ ...old, end: time }))}
+              isEndTime={true}
+            />
+          </TimeWrapper>
+        </TimeChoiceLayout>
       </ModalBody>
       <ModalFooterTwo
         onClickLeft={() => setIsModal(false)}
         onClickRight={onSubmit}
         leftText="취소"
         rightText="변경"
+        isFull={true}
       />
     </ModalLayout>
   );
 }
 
+const TimeChoiceLayout = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+const Spacer = styled.div`
+  width: var(--margin-sub);
+`;
+const TimeWrapper = styled.div`
+  flex: 1;
+
+  > span {
+    color: var(--font-h3);
+    font-weight: 600;
+  }
+`;
 const Wrapper = styled.div`
   flex: 1;
   display: flex;

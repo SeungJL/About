@@ -22,10 +22,6 @@ function GatherIntroModal({ setIsModal }: IModal) {
           <Ul>
             <li>파티룸, 대형술집, 여행 등</li>
           </Ul>
-          <li>번개 직접 오픈시 5000원 지원금</li>
-          <Ul>
-            <li>4인 이상, 운영진 개최 모임 제외</li>
-          </Ul>
         </Ol>
       </ModalBody>
       <ModalFooterOne onClick={() => setIsModal(false)} />

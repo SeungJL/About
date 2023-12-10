@@ -128,7 +128,7 @@ function ProfileInfo({ user }: IProfileInfo) {
     );
     const data: IInteractionSendLike = {
       to: user?.uid,
-      message: `${session?.user.name}님으로부터 좋아요를 받았어요!`,
+      message: `${session?.user.name}님에게 좋아요를 받았어요!`,
     };
     sendHeart(data);
   };

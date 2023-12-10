@@ -7,7 +7,7 @@ function GatherRuleModal({ setIsModal }: IModal) {
   const content: IRuleModalContent = {
     headerContent: {
       title: "모임 게시판",
-      text: " 다양한 주제의 번개를 개설하거나 참여할 수 있어요! 재밌는 모임을 찾아 함께 떠나볼까요~!",
+      text: "다양한 주제의 모임과 번개를 개설하거나 참여할 수 있어요! 재밌는 모임 같이 참여해요~!",
     },
     mainContent: [
       {

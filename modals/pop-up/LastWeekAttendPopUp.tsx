@@ -119,7 +119,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
     </Info>
   );
   return (
-    <ModalLayout onClose={() => setIsModal(false)}>
+    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
       <ModalHeader
         isLine={true}
         text={`${dayjs().month() + 1}월 ${weekNumber}주차 주간 체크`}

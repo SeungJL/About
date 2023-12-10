@@ -136,18 +136,25 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
             <ContentInput {...register("content")} />
           </Item>
         </Form>
-        <Item
-          style={{
-            color: "var(--font-h3)",
-            marginTop: "var(--margin-min)",
-            marginBottom: "0",
-          }}
-        >
-          ※ 활동 지역을 벗어나는 곳은 채택이 어려워요.
-        </Item>
+        {type === "studySpace" && (
+          <Item
+            style={{
+              color: "var(--font-h3)",
+              marginTop: "var(--margin-min)",
+              marginBottom: "0",
+            }}
+          >
+            ※ 활동 지역을 벗어나는 곳은 채택이 어려워요.
+          </Item>
+        )}
       </ModalBody>
-      <ModalFooter p="var(--padding-sub) var(--padding-main)">
-        <Button variant="ghost" type="button" onClick={() => setIsModal(false)}>
+      <ModalFooter p="var(--padding-main) var(--padding-max)">
+        <Button
+          mr="var(--margin-sub)"
+          variant="ghost"
+          type="button"
+          onClick={() => setIsModal(false)}
+        >
           취소
         </Button>
         <Button
@@ -197,6 +204,7 @@ const TitleInput = styled.input`
 `;
 
 const Writer = styled.div`
+  height: 100%;
   display: flex;
   align-items: center;
   > button:last-child {
@@ -209,7 +217,8 @@ const Writer = styled.div`
 const WriterBtn = styled.button<{ isSelected: boolean }>`
   font-size: 12px;
   width: 36px;
-  height: 18px;
+
+  height: 80%;
   background-color: ${(props) =>
     props.isSelected ? "var(--color-mint)" : "var(--font-h6)"};
   color: ${(props) => (props.isSelected ? "white" : "var(--font-h1)")};

@@ -40,6 +40,14 @@ const theme = extendTheme({
           boxShadow: "none",
         },
       },
+      sizes: {
+        md: {
+          h: "42px",
+        },
+        lg: {
+          h: "46px",
+        },
+      },
     },
     // Progress: {
     //   baseStyle: {

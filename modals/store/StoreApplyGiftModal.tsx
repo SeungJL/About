@@ -77,7 +77,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
   };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
+    <ModalLayout onClose={() => setIsModal(false)} size="lg">
       <ModalHeader text="상품 응모" />
       <ModalBody>
         {!isLoading ? (

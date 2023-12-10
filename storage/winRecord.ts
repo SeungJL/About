@@ -455,6 +455,60 @@ export const WIN_RECORD: {
     reason: "스토어 응모 선물",
     present: "배민 10000원권",
   },
+  {
+    name: "권혜",
+    date: "12/4",
+    reason: "스토어 응모 선물",
+    present: "배민 10000원권",
+  },
+  {
+    name: "김사",
+    date: "12/8",
+    reason: "시험기간 이벤트 선물",
+    present: "투썸 기프티콘",
+  },
+  {
+    name: "소현",
+    date: "12/8",
+    reason: "시험기간 이벤트 선물",
+    present: "스타벅스 기프티콘",
+  },
+  {
+    name: "김주",
+    date: "12/8",
+    reason: "시험기간 이벤트 선물",
+    present: "할리스 기프티콘",
+  },
+  {
+    name: "김사",
+    date: "12/9",
+    reason: "시험기간 이벤트 선물",
+    present: "탐탐 기프티콘",
+  },
+  {
+    name: "김요",
+    date: "12/9",
+    reason: "시험기간 이벤트 선물",
+    present: "투썸 기프티콘",
+  },
+  {
+    name: "준석",
+    date: "12/9",
+    reason: "시험기간 이벤트 선물",
+    present: "투썸 기프티콘",
+  },
+  {
+    name: "송유",
+    date: "12/9",
+    reason: "시험기간 이벤트 선물",
+    present: "스타벅스 기프티콘",
+  },
+  {
+    name: "이동",
+    date: "12/10",
+    reason: "스토어 당첨 선물",
+    present: "던킨도넛 미니세트",
+  },
 ];
 
 export const PROMOTION_WIN = [

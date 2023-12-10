@@ -7,7 +7,7 @@ function StoreRuleModal({ setIsModal }: IModal) {
   const content: IRuleModalContent = {
     headerContent: {
       title: "포인트 추첨",
-      text: "동아리 활동을 통해 적립한 포인트로 추첨에 응모해보세요! 매번 다양한 상품들이 준비되어 있습니다!",
+      text: "활동을 통해 적립한 포인트로 추첨에 응모해보세요! 다양한 상품들이 준비되어 있습니다!",
     },
     mainContent: [
       {

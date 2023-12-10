@@ -8,7 +8,7 @@ interface IProgressStatus {
 function ProgressStatus({ value }: IProgressStatus) {
   return (
     <Layout>
-      <Progress value={value} size="sm" />
+      <Progress value={value} size="sm" colorScheme="mintTheme" />
     </Layout>
   );
 }

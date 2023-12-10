@@ -67,14 +67,14 @@ function AlphabetChangeModal({
       [type]: old[type] === alphabet ? null : alphabet,
     }));
   };
-  
+
   const handleAlphabetChange = () => {
     if (!selectedAlphabet.mine || !selectedAlphabet.opponent) {
       failToast("free", "교환 할 알파벳을 선택해주세요.");
       return;
     }
     requestAlphabet({
-      message: `${userInfo.name}님으로부터 알파벳 교환 요청`,
+      message: `${userInfo.name}님의 알파벳 교환 요청`,
       toUid: toUid,
       sub: `${selectedAlphabet.mine}/${selectedAlphabet.opponent}`,
     });
@@ -132,17 +132,18 @@ const SectionTitle = styled.div`
 `;
 
 const AlphabetContainer = styled.div`
-  margin: var(--margin-md) 0;
+  margin-top: var(--margin-md);
   display: flex;
   justify-content: space-around;
   font-size: 14px;
+
   align-items: center;
 `;
 
 const AlphabetBtn = styled.button<{ isSelected: boolean }>`
   padding: 12px;
-  height: 48px;
-  width: 48px;
+  height: 46px;
+  width: 46px;
   border-radius: var(--border-radius-sub);
   display: flex;
   justify-content: center;

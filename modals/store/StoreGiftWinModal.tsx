@@ -50,11 +50,11 @@ function StoreGiftWinModal({
 
 const Message = styled.div`
   text-align: center;
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--font-h2);
-  margin-top: var(--margin-sub);
-  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-mint);
+  margin-top: var(--margin-min);
+  margin-bottom: var(--margin-max);
 `;
 
 const Winner = styled.div`

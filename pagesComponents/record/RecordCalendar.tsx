@@ -44,7 +44,8 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
                 <LocationOpen location={openLocation}>{date}</LocationOpen>
               )}
               {Array.from(openStudyLocation).map((location, idx) => {
-                if (idx > 3) return;
+                if (idx > 2) return null;
+
                 return (
                   <Open key={idx} location={location as Location}>
                     {idx !== 2 || openStudyLocation.size <= 3 ? (

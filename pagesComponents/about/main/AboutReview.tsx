@@ -49,7 +49,7 @@ function AboutReview() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-max);
+  background-color: var(--font-h8);
 `;
 
 const ReviewContainer = styled.div`

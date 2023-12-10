@@ -1,31 +1,39 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
 import {
   ModalBody,
-  ModalFooterOne,
+  ModalFooterTwo,
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
+import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import { Alphabet } from "../../types/user/collections";
 
 function AlphabetPopUp({ setIsModal }: IModal) {
+  const router = useRouter();
+  const alphabets: Alphabet[] = ["A", "B", "O", "U", "T"];
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
+    <ModalLayout onClose={() => setIsModal(false)} size="lg">
       <ModalHeader text="알파벳 컬렉션" />
       <ModalBody>
+        <ModalSubtitle>
+          스터디 출석 또는 친구와의 교환을 통해 알파벳을 수집해봐요! 다양한
+          상품을 드립니다!
+        </ModalSubtitle>
         <AlphabetContainer>
-          <AlphabetIcon alphabet="A" />
-          <AlphabetIcon alphabet="B" />
-          <AlphabetIcon alphabet="O" />
-          <AlphabetIcon alphabet="U" />
-          <AlphabetIcon alphabet="T" />
+          {alphabets.map((item) => (
+            <AlphabetIcon key={item} alphabet={item} size="md" isBg={true} />
+          ))}
         </AlphabetContainer>
-        <Content>
-          출석체크를 통해 알파벳을 수집하고, 모두 모아 상품을 획득해봐요! 해당
-          컨텐츠는 마이페이지에서 확인할 수 있습니다.
-        </Content>
       </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} />
+      <ModalFooterTwo
+        isFull={true}
+        rightText="보러가기"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={() => router.push("/user/collection")}
+      />
     </ModalLayout>
   );
 }
@@ -34,8 +42,11 @@ const AlphabetContainer = styled.div`
   display: flex;
   margin-top: var(--margin-min);
   margin-bottom: var(--margin-max);
-  font-size: 16px;
+  font-size: 14px;
   align-items: center;
+
+  flex: 1;
+  justify-content: space-around;
   > * {
     margin-right: var(--margin-min);
   }

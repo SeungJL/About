@@ -138,7 +138,6 @@ const UpPart = styled.div`
 `;
 
 const IconWrapper = styled(motion.div)`
-  margin-top: var(--margin-max);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -154,12 +153,12 @@ const ArrowIcon = styled.div<{ isLeft: boolean }>`
 `;
 
 const DownPart = styled.div`
-  flex: 0.3;
   display: flex;
   align-items: center;
-  border-top: var(--border-main-light);
-  border-bottom: var(--border-main-light);
-  margin-bottom: var(--margin-min);
+  padding: var(--padding-md) 0;
+  margin-top: var(--margin-sub);
+  border-top: var(--border-sub);
+  border-bottom: var(--border-sub);
 `;
 
 const Icon = styled.div<{ bg: string }>`

@@ -42,7 +42,7 @@ function RequestBirthModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="sm">
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader text="생일 공개 설정" />
       <ModalBody>
         <ModalSubtitle>

@@ -39,10 +39,7 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
     <ModalLayout onClose={() => setIsModal(false)} size="xxl">
       <ModalHeaderCenter text={header.title} />
       <ModalBody>
-        <ModalSubtitle isLight={true}>
-          다양한 주제의 모임에 참여하거나 직접 모임을 개최할 수 있습니다 ! 다들
-          재밌게 놀아봐요~!
-        </ModalSubtitle>
+        <ModalSubtitle isLight={true}>{header.text}</ModalSubtitle>
         {main.map((item, idx) => (
           <ContentItem title={item.title} texts={item.texts} key={idx} />
         ))}

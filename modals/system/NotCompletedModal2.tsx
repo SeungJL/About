@@ -15,7 +15,6 @@ function NotCompletedModal2({ setIsModal }: IModal) {
         <ModalSubtitle>완전히 완성되지 않은 컨텐츠 입니다.</ModalSubtitle>
         <div>
           이후에 나올 컨텐츠들을 미리 볼 수 있도록 공개로 설정을 해두었습니다.
-          이것저것 해보셔도 상관없습니다!
         </div>
       </ModalBody>
       <ModalFooterOne
