@@ -14,18 +14,19 @@ function Test() {
   const AA = () => <button>23</button>;
 
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2023-12-01"),
     dayjs("2023-12-04"),
+    dayjs("2023-12-10"),
     true,
     "수원"
   );
   const { data: data2 } = useAdminStudyRecordQuery(
-    dayjs("2023-12-01"),
     dayjs("2023-12-04"),
+    dayjs("2023-12-10"),
     null,
-    "수원"
+    "안양"
   );
- 
+  console.log(4, data, data2);
+
   const onClick = () => {};
 
   return (
