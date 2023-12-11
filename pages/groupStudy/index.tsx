@@ -7,7 +7,7 @@ import Header from "../../components/layout/Header";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import CheckBoxNav from "../../components/templates/CheckBoxNav";
 import {
-  GROUP_STUDY_CATEGORY,
+  GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contents/GroupStudyContents";
 import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
@@ -31,10 +31,14 @@ function Index() {
     const filtered =
       category === "전체"
         ? groupStudyAll
-        : groupStudyAll.filter((item) => item.category.main === category);
+        : groupStudyAll.filter(
+            (item) =>
+              (item.category.main === category && !subCategory) ||
+              item.category.sub === subCategory
+          );
     setGroupStudies(filtered);
-  }, [category, groupStudyAll, isLoading]);
-  console.log(4, groupStudies);
+  }, [category, groupStudyAll, isLoading, subCategory]);
+
   return (
     <>
       <Layout>
@@ -43,7 +47,7 @@ function Index() {
         </Header>
         <NavWrapper>
           <ButtonCheckNav
-            buttonList={["전체", ...GROUP_STUDY_CATEGORY]}
+            buttonList={["전체", ...GROUP_STUDY_CATEGORY_ARR]}
             selectedButton={category}
             setSelectedButton={setCategory}
             isLineBtn={true}

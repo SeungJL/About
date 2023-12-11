@@ -8,8 +8,8 @@ import PageLayout from "../../../../components/layout/PageLayout";
 
 import ProgressStatus from "../../../../components/templates/ProgressStatus";
 import {
-  GROUP_STUDY_CATEGORY,
-  GROUP_STUDY_CATEGORY_ICONS,
+  GROUP_STUDY_CATEGORY_ARR,
+  GROUP_STUDY_CATEGORY_ARR_ICONS,
 } from "../../../../constants/contents/GroupStudyContents";
 
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
@@ -51,13 +51,13 @@ function WritingStudyCategoryMain() {
           <span>주제를 선택해 주세요.</span>
         </RegisterOverview>
         <ItemContainer>
-          {GROUP_STUDY_CATEGORY.map((type, idx) => (
+          {GROUP_STUDY_CATEGORY_ARR.map((type, idx) => (
             <Item
               key={idx}
               isSelected={type === category}
               onClick={() => setCategory(type)}
             >
-              <IconWrapper>{GROUP_STUDY_CATEGORY_ICONS[type]}</IconWrapper>
+              <IconWrapper>{GROUP_STUDY_CATEGORY_ARR_ICONS[type]}</IconWrapper>
               <Info>{type}</Info>
             </Item>
           ))}

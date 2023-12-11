@@ -8,7 +8,7 @@ import PageLayout from "../../../../components/layout/PageLayout";
 
 import ProgressStatus from "../../../../components/templates/ProgressStatus";
 import {
-  GROUP_STUDY_CATEGORY_ICONS,
+  GROUP_STUDY_CATEGORY_ARR_ICONS,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../../../constants/contents/GroupStudyContents";
 
@@ -60,7 +60,7 @@ function WritingStudyCategorySub() {
               onClick={() => setCategory(type)}
             >
               <IconWrapper>
-                {GROUP_STUDY_CATEGORY_ICONS[mainCategory]}
+                {GROUP_STUDY_CATEGORY_ARR_ICONS[mainCategory]}
               </IconWrapper>
               <Info>{type}</Info>
             </Item>

@@ -8,10 +8,10 @@ import {
   faUserGraduate,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GroupStudyCategory } from "../../types/page/groupStudy";
 import { TABLE_COLORS } from "../styles";
 
-export const GROUP_STUDY_CATEGORY = [
-  // "전체",
+export const GROUP_STUDY_CATEGORY_ARR: GroupStudyCategory[] = [
   "어학",
   "프로그래밍",
   "자격증",
@@ -30,7 +30,7 @@ export const GROUP_STUDY_SUB_CATEGORY = {
   기타: ["편입준비", "공사"],
 };
 
-export const GROUP_STUDY_CATEGORY_ICONS = {
+export const GROUP_STUDY_CATEGORY_ARR_ICONS = {
   어학: <FontAwesomeIcon icon={faGlobe} color={TABLE_COLORS[0]} />,
   자격증: <FontAwesomeIcon icon={faFileCertificate} color={TABLE_COLORS[1]} />,
   프로그래밍: <FontAwesomeIcon icon={faBinary} color={TABLE_COLORS[2]} />,

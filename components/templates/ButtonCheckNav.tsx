@@ -44,11 +44,11 @@ function ButtonCheckNav({
                 key={item}
                 onClick={() => setSelectedButton(item)}
                 ml="0px !important"
-                fontWeight={400}
+                fontWeight={500}
                 borderBottom={
                   item === selectedButton
-                    ? "1.5px solid var(--font-h1)"
-                    : "1.5px solid var(--font-h56)"
+                    ? "2px solid var(--font-h1)"
+                    : "2px solid var(--font-h56)"
                 }
                 borderRadius="0"
                 _focus={{ outline: "none", bgColor: "transparent" }}

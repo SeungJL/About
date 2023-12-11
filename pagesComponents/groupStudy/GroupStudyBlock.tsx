@@ -11,15 +11,15 @@ interface IGroupStudyBlock {
 
 function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
   const router = useRouter();
-  const infoArrText = ["개설자", "인원", "목표", "참여금", "진행", "시작일"];
+  const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
 
   const groupStudyInfo = {
-    개설자: groupStudy.organizer.name,
-    인원: `${groupStudy.participants.length + 1}/${groupStudy.memberCnt.max}`,
-    목표: "종결",
+    그룹장: groupStudy.organizer.name,
+    인원: `${groupStudy.participants.length + 1}/${groupStudy.memberCnt.max}명`,
+    조건: "24세 이하",
     참여금: "없음",
     진행: "자율",
-    시작일: "1월 3일",
+    개설: "1월 3일",
   };
 
   const onClick = () => {
@@ -31,7 +31,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
       <Header>
         <div>
           <span>{groupStudy.category.main}</span>
-          <FontAwesomeIcon icon={faLockKeyhole} size="lg" />
+          <FontAwesomeIcon icon={faLockKeyhole} />
         </div>
         <Badge text="모집중" colorScheme="mintTheme" type="outline" />
       </Header>
@@ -65,10 +65,10 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--color-mint);
-  padding: var(--padding-min) 0;
+  margin-bottom: var(--margin-min);
   > div:first-child {
     display: flex;
     align-items: center;
@@ -79,23 +79,24 @@ const Header = styled.header`
 `;
 const Title = styled.div`
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
 `;
 const Info = styled.div`
   width: 100%;
 
   padding: var(--padding-md) 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: var(--margin-min);
   border-bottom: var(--border-sub);
 `;
 
 const InfoItem = styled.div`
   text-align: start;
-  font-size: 12px;
+  font-size: 13px;
   > span:first-child {
     display: inline-block;
-    width: 40px;
+    margin-right: var(--margin-md);
     font-weight: 600;
     color: var(--font-h3);
   }
