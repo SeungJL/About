@@ -132,8 +132,8 @@ function DailyCheckModal({ setIsModal }: IModal) {
         </PresentMessage>
         <Container>
           <Detail>
-            <Badge text="+ 5 POINT" bg="var(--color-red)" fontSize="11px" />
-            <Badge text="+랜덤 선물" bg="var(--color-red)" fontSize="11px" />
+            <Badge text="+ 5 POINT" colorScheme="redTheme" />
+            <Badge text="+랜덤 선물" colorScheme="redTheme" />
           </Detail>
           <CheckWrapper>
             <FontAwesomeIcon
