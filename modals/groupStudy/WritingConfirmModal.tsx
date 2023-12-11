@@ -69,7 +69,7 @@ function GroupStudyConfirmModal({
   return (
     <>
       {groupStudyWriting && (
-        <ModalLayout onClose={() => setIsModal(false)} size="md">
+        <ModalLayout onClose={() => setIsModal(false)} size="lg">
           <ModalHeader text={isGatherEdit ? "모임 수정" : "모임 개설"} />
           <ModalBody>
             <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>

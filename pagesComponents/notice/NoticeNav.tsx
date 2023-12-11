@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { NewAlertIcon } from "../../components/common/Icon/AlertIcon";
 import { NOTICE_ACTIVE_CNT } from "../../constants/keys/localStorage";
 import { AlertIcon } from "../../styles/icons";
 import { DispatchBoolean } from "../../types/reactTypes";
@@ -33,7 +34,7 @@ function NoticeNav({ isNotice, setIsNotice, activeAlertCnt }: INoticeNav) {
         활동 알림
         {isActiveAlert && (
           <IconWrapper>
-            <Alert />
+            <NewAlertIcon size="sm" />
           </IconWrapper>
         )}
       </Button>
@@ -50,12 +51,19 @@ const Button = styled.button<{ isSelected: boolean }>`
   width: 50%;
   text-align: center;
   font-weight: 600;
-  padding-bottom: var(--margin-md);
-  border-bottom: ${(props) => props.isSelected && "2px solid var(--font-h1)"};
-  color: ${(props) =>
-    props.isSelected ? " var(--font-h1)" : "var(--font-h3)"};
+  font-size: 16px;
+  padding: var(--padding-sub) 0;
+  font-weight: ${(props) => (props.isSelected ? "700" : "500")};
+  border-bottom: ${(props) =>
+    props.isSelected && "3px solid var(--color-mint)"};
+  background-color: ${(props) =>
+    props.isSelected ? "white" : "var(--font-h8)"};
 `;
-const IconWrapper = styled.div``;
+const IconWrapper = styled.div`
+  position: absolute;
+  right: 40px;
+  bottom: 8px;
+`;
 
 const Alert = styled(AlertIcon)`
   position: absolute;

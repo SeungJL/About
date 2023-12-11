@@ -81,9 +81,12 @@ function RequestRestModalInfo({ onSubmit }: IRequestRestModalInfo) {
 }
 
 const Form = styled.form`
+  height: 100%;
+
   display: flex;
-  flex: 1;
+
   flex-direction: column;
+
   > div:last-child {
     flex: 1;
   }

@@ -1,47 +1,68 @@
-import { Badge } from "@chakra-ui/react";
 import { faLockKeyhole } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+import { Badge } from "../../components/common/customComponents/Badges";
+import { IGroupStudy } from "../../types/page/groupStudy";
 
-function GroupStudyBlock() {
-  const infoArrText = ["개설자", "인원", "목표", "출석", "시작일", "방식"];
+interface IGroupStudyBlock {
+  groupStudy: IGroupStudy;
+}
+
+function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
+  const router = useRouter();
+  const infoArrText = ["개설자", "인원", "목표", "출석", "방식", "시작일"];
+
+  const groupStudyInfo = {
+    개설자: groupStudy.organizer.name,
+    인원: groupStudy.memberCnt.max,
+    목표: "종결",
+    출석: "체크함",
+    방식: "자율방식",
+    시작일: "1월 3일",
+  };
+
+  const onClick = () => {
+    router.push(`/groupStudy/${groupStudy.id}`);
+  };
 
   return (
-    <Layout>
+    <Layout onClick={onClick}>
       <Header>
         <div>
-          <span>열공러들</span>
+          <span>{groupStudy.category.main}</span>
           <FontAwesomeIcon icon={faLockKeyhole} size="lg" />
         </div>
-        <Badge>모집중</Badge>
+        <Badge text="모집중" colorScheme="mintTheme" type="outline" />
       </Header>
-      <Title>공부 열심히 하실 분들 구함</Title>
+      <Title>{groupStudy.title}</Title>
       <Info>
         {infoArrText.map((item) => (
           <InfoItem key={item}>
             <span>{item}</span>
-            <span>이승주</span>
+            <span>{groupStudyInfo[item]}</span>
           </InfoItem>
         ))}
       </Info>
-      <Content>
-        서로 열심히 공부하는 방. <br />
-        나도 목적은 모르겠음.
-      </Content>
+      <Content>{groupStudy.content}</Content>
     </Layout>
   );
 }
 
-const Layout = styled.div`
+const Layout = styled.button`
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: var(--border-radius2);
   box-shadow: var(--box-shadow-b);
   padding: var(--padding-sub);
+  margin-bottom: var(--margin-main);
+  box-shadow: var(--box-shadow-b);
 `;
 
 const Header = styled.header`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   font-size: 12px;
@@ -61,6 +82,8 @@ const Title = styled.div`
   font-size: 15px;
 `;
 const Info = styled.div`
+  width: 100%;
+
   padding: var(--padding-md) 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -68,21 +91,28 @@ const Info = styled.div`
 `;
 
 const InfoItem = styled.div`
+  text-align: start;
   font-size: 12px;
   > span:first-child {
-    font-weight: 500;
-    color: var(--font-h2);
-    margin-right: var(--margin-md);
+    display: inline-block;
+    width: 40px;
+    font-weight: 600;
+    color: var(--font-h3);
   }
   > span:last-child {
     color: var(--font-h3);
   }
 `;
 
-const Content = styled.div`
+const Content = styled.pre`
   font-size: 12px;
   color: var(--font-h2);
   padding-top: var(--padding-sub);
+  white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 export default GroupStudyBlock;

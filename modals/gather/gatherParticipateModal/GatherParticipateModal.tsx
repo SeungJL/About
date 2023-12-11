@@ -10,7 +10,7 @@ function GatherParticipateModal({ setIsModal }: IModal) {
   const [pageNum, setPageNum] = useState(0);
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="sm">
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader text="참여신청" />
       <>
         {pageNum === 0 ? (

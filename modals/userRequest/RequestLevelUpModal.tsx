@@ -18,16 +18,14 @@ function RequestLevelUpModal({ setIsModal }: IModal) {
   const failToast = useFailToast();
   const userAccessUid = useRecoilValue(userAccessUidState);
 
-  const { data: studyArrivedCnt, isLoading } = useStudyArrivedCntQuery(
-    userAccessUid,
-    {
-      onSuccess() {
-        completeToast("free", "등업이 완료되었습니다.");
-      },
-    }
-  );
+  const { data: studyArrivedCnt, isLoading } =
+    useStudyArrivedCntQuery(userAccessUid);
 
-  const { mutate: setRole } = useUserInfoFieldMutation("role");
+  const { mutate: setRole } = useUserInfoFieldMutation("role", {
+    onSuccess() {
+      completeToast("free", "등업이 완료되었습니다.");
+    },
+  });
 
   const onClick = () => {
     if (isLoading) return;
@@ -38,7 +36,7 @@ function RequestLevelUpModal({ setIsModal }: IModal) {
     }
   };
   return (
-    <ModalLayout size="sm" onClose={() => setIsModal(false)}>
+    <ModalLayout size="md" onClose={() => setIsModal(false)}>
       <ModalHeader text="등업 신청" />
       <ModalBody>
         <ModalSubtitle>

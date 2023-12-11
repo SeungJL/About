@@ -16,7 +16,7 @@ function SuggestPopUp({ setIsModal }: IModal) {
   const [isSuggestModal, setIsSuggestModal] = useState(false);
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalLayout onClose={() => setIsModal(false)} size="lg">
         <ModalHeader text="건의하기" />
         <ModalBody>
           <ModalSubtitle>
@@ -54,6 +54,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: var(--margin-main);
 `;
 
 export default SuggestPopUp;

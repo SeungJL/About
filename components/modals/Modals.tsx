@@ -10,7 +10,9 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import styled from "styled-components";
 import { Size } from "../../types/system";
+import TwoButtonNav from "../layout/TwoButtonNav";
 
 interface IModalLayout {
   size?: Size;
@@ -54,13 +56,13 @@ interface IModalHeader {
 export const ModalHeader = ({
   text,
   isCloseBtn = true,
-  isLine,
+  isLine = true,
 }: IModalHeader) => (
   <>
     <ChakraModalHeader
       display="flex"
       alignItems="center"
-      p="var(--padding-sub) var(--padding-max)"
+      p="var(--padding-main) var(--padding-main)"
       fontWeight="700"
       fontSize="18px"
       color="var(--font-h1)"
@@ -78,7 +80,9 @@ export const ModalHeaderCenter = ({ text }) => (
   <ChakraModalHeader
     display="flex"
     alignItems="center"
-    p="var(--padding-sub) var(--padding-max)"
+    px="var(--padding-max)"
+    pt="var(--margin-main)"
+    pb="0"
     justifyContent="center"
   >
     {text}
@@ -87,7 +91,9 @@ export const ModalHeaderCenter = ({ text }) => (
 
 export const ModalBody = ({ children }) => (
   <ChakraModalBody
-    p="var(--padding-min) var(--padding-max)"
+    px=" var(--padding-max)"
+    pt="var(--padding-main)"
+    pb="0"
     display="flex"
     flexDir="column"
     position="relative"
@@ -108,22 +114,36 @@ interface IModalFooterTwo {
 export const ModalFooterTwo = ({
   onClickLeft,
   onClickRight,
-  leftText,
-  rightText,
-  isFull,
+  leftText = "닫기",
+  rightText = "확인",
+  isFull = true,
   isSmall,
 }: IModalFooterTwo) => (
-  <ChakraModalFooter mt="auto" p="var(--padding-sub) var(--padding-max)">
-    <Button
+  // <ChakraModalFooter mt="auto" p="var(--padding-sub) var(--padding-max)">
+  <ModalFooterLayout p="var(--padding-main) var(--padding-max)">
+    <>
+      {/* <OutlineMintBtn text={leftText} onClick={onClickLeft} />
+      
+      <SolidMintBtn text={rightText} onClick={onClickRight} /> */}
+
+      <TwoButtonNav
+        leftText={leftText}
+        rightText={rightText}
+        onClickLeft={onClickLeft}
+        onClickRight={onClickRight}
+      />
+    </>
+
+    {/* <Button
       w={isFull && "100%"}
       variant={isFull ? "solid" : "ghost"}
-      mr={!isFull && "var(--margin-md)"}
+      mr={!isFull ? "var(--margin-md)" : "var(--margin-sub)"}
       onClick={onClickLeft}
       size={isFull && !isSmall ? "lg" : "md"}
     >
       {leftText || "이전"}
-    </Button>
-    <Button
+    </Button> */}
+    {/* <Button
       w={isFull && "100%"}
       variant={isFull ? "solid" : "ghost"}
       color={isFull ? "white" : "var(--color-mint)"}
@@ -132,9 +152,16 @@ export const ModalFooterTwo = ({
       size={isFull && !isSmall ? "lg" : "md"}
     >
       {rightText || "다음"}
-    </Button>
-  </ChakraModalFooter>
+    </Button> */}
+  </ModalFooterLayout>
+  // </ChakraModalFooter>
 );
+
+const ModalFooterLayout = styled(ChakraModalFooter)`
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+`;
 
 interface IModalFooterOne {
   onClick: () => void;
@@ -153,7 +180,7 @@ export const ModalFooterOne = ({
   isLoading,
   isOutline,
 }: IModalFooterOne) => (
-  <ChakraModalFooter p="var(--padding-sub) var(--padding-max)">
+  <ChakraModalFooter p="var(--padding-main) var(--padding-max)">
     <Button
       size={isFull ? "lg" : "md"}
       variant={isFull ? "solid" : isOutline ? "outline" : "ghost"}
@@ -189,25 +216,33 @@ export const ModalBodyNavTwo = ({
   onClickBottom,
   onClickTop,
 }: IModalBodyNavTwo) => (
-  <Flex direction="column" h="100%" mt="var(--margin-min)">
+  <Flex
+    direction="column"
+    h="100%"
+    mb="var(--padding-main)"
+    py="var(--padding-sub)"
+    justifyContent="space-around"
+  >
     <Button
       colorScheme="mintTheme"
       marginBottom="var(--margin-sub)"
       size="lg"
+      h="46px"
       onClick={onClickTop}
     >
       {topText}
     </Button>
-    <Button size="lg" onClick={onClickBottom}>
+    <Button size="lg" h="46px" onClick={onClickBottom}>
       {bottomText}
     </Button>
   </Flex>
 );
 
 const SIZE_HEIGHT_MAP = {
-  xxl: "500px",
-  xl: "400px",
-  lg: "300px",
+  xxl: "530px",
+
+  xl: "370px",
+  lg: "310px",
   md: "240px",
   sm: "180px",
   xs: "120px",

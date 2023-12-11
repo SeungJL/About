@@ -76,8 +76,8 @@ function CollectionAlphabet() {
 
     if (findItem) {
       userAlphabetAll.sort((a, b) => {
-        if (a.user.uid === session?.uid) return -1;
-        if (b.user.uid === session?.uid) return 1;
+        if (a?.user?.uid === session?.uid) return -1;
+        if (b?.user?.uid === session?.uid) return 1;
         return 0;
       });
     }
@@ -108,6 +108,7 @@ function CollectionAlphabet() {
           <>
             <Members>
               {members?.map((who) => {
+                if (!who?.user) return null;
                 const user = who.user;
                 const { badge } = getUserBadge(user.score, user.uid);
                 const alphabets = who.collects;

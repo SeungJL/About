@@ -25,6 +25,7 @@ function AboutCalendar() {
 
 const Layout = styled.div`
   padding: var(--padding-main);
+  background-color: var(--font-h8);
 `;
 
 const Container = styled.div`

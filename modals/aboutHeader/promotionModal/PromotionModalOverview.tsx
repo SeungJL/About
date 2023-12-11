@@ -21,7 +21,7 @@ function PromotionModalOverview() {
 }
 
 const Layout = styled.div`
-  margin-top: 28px;
+  margin-top: var(--margin-main);
   text-align: center;
   display: flex;
   flex-direction: column;

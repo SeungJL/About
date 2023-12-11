@@ -11,6 +11,7 @@ import {
   PlazaIcon,
   StoreIcon,
 } from "../../../components/common/Icon/AboutCategoryIcons";
+import { NewAlertIcon } from "../../../components/common/Icon/AlertIcon";
 
 import { isGatherAlertState } from "../../../recoil/alertAtoms";
 import { locationState } from "../../../recoil/userAtoms";
@@ -72,11 +73,7 @@ function AboutCategoryNav() {
           <GatherIcon />
           {isGatherAlert && (
             <IconWrapper>
-              <FontAwesomeIcon
-                icon={faStar}
-                color="var(--color-red)"
-                size="sm"
-              />
+              <NewAlertIcon size="lg" />
             </IconWrapper>
           )}
         </Button>
@@ -96,10 +93,12 @@ const Layout = styled.div`
   display: flex;
   justify-content: space-between;
   padding: var(--padding-main) 24px;
+  background-color: var(--font-h8);
   border-bottom: 1px solid var(--font-h56);
 `;
 
 const IconWrapper = styled.div`
+  font-size: 12px;
   position: absolute;
   right: -1px;
   bottom: -1px;

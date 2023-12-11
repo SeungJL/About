@@ -78,8 +78,8 @@ const Layout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  margin-bottom: var(--margin-main);
+  background-color: var(--font-h8);
+  padding-bottom: var(--margin-main);
 `;
 
 const Container = styled.div``;

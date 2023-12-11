@@ -50,6 +50,7 @@ const Setting = styled.div``;
 const Layout = styled.div`
   min-height: 100vh;
   padding-bottom: 40px;
+  background-color: var(--font-h8);
 `;
 
 export default About;

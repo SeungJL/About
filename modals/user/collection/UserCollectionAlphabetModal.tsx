@@ -5,6 +5,7 @@ import {
   ModalHeaderCenter,
   ModalLayout,
 } from "../../../components/modals/Modals";
+import { ModalSubtitle } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 
 function UserCollectionAlphabetModal({ setIsModal }: IModal) {
@@ -12,14 +13,16 @@ function UserCollectionAlphabetModal({ setIsModal }: IModal) {
     <ModalLayout size="xl" onClose={() => setIsModal(false)}>
       <ModalHeaderCenter text="수집 보상" />
       <ModalBody>
-        <Subtitle>알파벳을 수집하고 다양한 상품을 획득해 봐요!</Subtitle>
+        <ModalSubtitle isCenter={true}>
+          알파벳을 수집하고 상품을 획득해 봐요!
+        </ModalSubtitle>
         <Container>
           <Item>
-            <div>현금 5000원</div>
+            <div>스타벅스 아메리카노</div>
             <div>1회차 상품</div>
           </Item>
           <Item>
-            <div>스타벅스 아메리카노</div>
+            <div>공차 상품권</div>
             <div>2회차 상품</div>
           </Item>
           <Item>
@@ -27,17 +30,13 @@ function UserCollectionAlphabetModal({ setIsModal }: IModal) {
             <div>3회차 상품</div>
           </Item>
           <Item>
-            <div>공차 상품권</div>
-            <div>4회차 상품</div>
-          </Item>
-          <Item>
             <div>배달의민족 10000원권</div>
-            <div>5회차 상품</div>
+            <div>4회차 상품</div>
           </Item>
           <Button
             w="100px"
             mt="auto"
-            mb="var(--margin-md)"
+            mb="var(--margin-main)"
             colorScheme="mintTheme"
             onClick={() => setIsModal(false)}
           >
@@ -48,13 +47,6 @@ function UserCollectionAlphabetModal({ setIsModal }: IModal) {
     </ModalLayout>
   );
 }
-
-const Layout = styled.div``;
-
-const Subtitle = styled.div`
-  text-align: center;
-  margin-bottom: var(--margin-main);
-`;
 
 const Container = styled.div`
   height: 100%;

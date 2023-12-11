@@ -20,12 +20,14 @@ function ProfilePage() {
   const beforePage = useRecoilValue(prevPageUrlState);
 
   const uid = router.query.uid;
+
   const [isModal, setIsModal] = useState(false);
   const [declareModal, setDeclareModal] = useState<DeclareRequest>();
 
   const { data: userInfo } = useUidToUserInfoQuery(uid as string, {
-    enabled: uid && !userData,
+    enabled: !!uid && !userData,
   });
+  console.log(userData);
 
   return (
     <>

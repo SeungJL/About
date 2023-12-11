@@ -16,18 +16,6 @@ function UserOverviewPointNav({ alphabets, myDeposit }: IuserOverviewPointNav) {
 
   const [isModal, setIsModal] = useState(false);
 
-  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
-
-  const alphabetArr = alphabets?.collects;
-
-  const onClick = (type: "point" | "deposit") => {
-    if (type === "point") {
-      setPrevPageUrl("/user");
-      router.push("/point/pointLog");
-      return;
-    }
-    router.push(`/user/depositLog`);
-  };
 
   return (
     <>

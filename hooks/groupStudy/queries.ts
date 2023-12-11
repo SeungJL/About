@@ -1,16 +1,20 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
-import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
+import {
+  GATHER_CONTENT,
+  GROUP_STUDY_ALL,
+} from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
 import { IGather } from "../../types/page/gather";
+import { IGroupStudy } from "../../types/page/groupStudy";
 import { QueryOptions } from "../../types/reactTypes";
 
-export const useGatherAllQuery = (options?: QueryOptions<IGather[]>) =>
-  useQuery<IGather[], AxiosError, IGather[]>(
-    [GATHER_CONTENT],
+export const useGroupStudyAllQuery = (options?: QueryOptions<IGroupStudy[]>) =>
+  useQuery<IGroupStudy[], AxiosError, IGroupStudy[]>(
+    [GROUP_STUDY_ALL],
     async () => {
-      const res = await axios.get<IGather[]>(`${SERVER_URI}/gather`);
+      const res = await axios.get<IGroupStudy[]>(`${SERVER_URI}/groupStudy`);
       return res.data;
     },
     options

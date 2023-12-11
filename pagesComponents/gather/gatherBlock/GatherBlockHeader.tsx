@@ -5,14 +5,9 @@ import { GatherStatus } from "../../../types/page/gather";
 interface IGatherBlockHeader {
   status: GatherStatus;
   typeTitle: string;
-  locationMain: string;
 }
 
-function GatherBlockHeader({
-  status,
-  typeTitle,
-  locationMain,
-}: IGatherBlockHeader) {
+function GatherBlockHeader({ status, typeTitle }: IGatherBlockHeader) {
   const getStatusBadge = (status: GatherStatus) => {
     switch (status) {
       case "pending":

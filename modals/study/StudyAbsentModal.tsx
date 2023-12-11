@@ -30,7 +30,7 @@ import {
   voteDateState,
 } from "../../recoil/studyAtoms";
 import { locationState } from "../../recoil/userAtoms";
-import { InputSm } from "../../styles/layout/input";
+import { Textarea } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -85,11 +85,15 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalLayout onClose={() => setIsModal(false)} size="lg">
         <ModalHeader
           display="flex"
           justifyContent="space-between"
           alignItems="center"
+          fontWeight="700"
+          borderBottom="var(--border-sub)"
+          fontSize="18px"
+          p="var(--padding-main) var(--padding-main)"
         >
           <span>{isTooltip ? "불참 인정 사유" : "불참 경고"}</span>
           <Reason onClick={() => setIsTooltip((old) => !old)}>
@@ -129,12 +133,13 @@ function StudyAbsentModal({ setIsModal }: IModal) {
                   </P>
                 ) : (
                   <P>
-                    당일 불참으로 벌금 <b>200원</b>이 부과됩니다. 참여 시간을
-                    변경해 보는 건 어떨까요?
+                    당일 불참으로 벌금{" "}
+                    <b>{-POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE.value}원</b>이
+                    부과됩니다. 참여 시간을 변경해 보는 건 어떨까요?
                   </P>
                 )}
               </ModalSubtitle>
-              <InputSm
+              <Textarea
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder="불참 사유"

@@ -41,7 +41,7 @@ export const LOCATION_MEMBER_CNT: {
   양천: { member: 62, new: 2 },
   안양: { member: 29, new: 1 },
   강남: { member: 34, new: 3 },
-  동대문: { member: 27, new: 3 },
+  동대문: { member: 35, new: 3 },
   마포: { member: 6, new: 3 },
 };
 

@@ -56,10 +56,12 @@ export const myStudyState = selector<IParticipation>({
         if (studyDateStatus === "today") {
           localStorage.setItem(MY_TODAY_STUDY_FIXED, dayjsToStr(dayjs()));
         }
+
         return true;
       }
       return false;
     });
+
     return findStudy || null;
   },
 });

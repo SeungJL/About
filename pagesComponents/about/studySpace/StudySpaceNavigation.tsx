@@ -2,7 +2,7 @@ import {
   faBan,
   faCircleXmark,
   faClock,
-} from "@fortawesome/pro-regular-svg-icons";
+} from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
@@ -171,7 +171,7 @@ function StudySpaceNavigation({
   const attCnt = attendences?.filter((att) => att.user.uid !== uid)?.length;
 
   return (
-    <Wrapper>
+    <Wrapper isShowSubNav={!!isShowSubNav}>
       <Layout>
         {isShowSubNav && (
           <SubNav>
@@ -210,23 +210,23 @@ function StudySpaceNavigation({
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isShowSubNav: boolean }>`
   margin-top: auto;
-  background-color: white;
+  padding-top: var(--padding-sub);
+
+  background-color: ${(props) =>
+    props.isShowSubNav ? "var(--font-h8)" : "white"};
 `;
 
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
-  background-color: white;
 `;
 
 const SubNav = styled.nav`
   display: flex;
-  margin-bottom: var(--margin-main);
-
+  padding-top: var(--padding-main);
+  padding-bottom: var(--padding-min);
   justify-content: space-around;
 `;
 
@@ -234,17 +234,21 @@ const Button = styled.button`
   align-items: center;
   color: var(--font-h2);
   width: 60px;
-  height: 48px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-size: 16px;
   > span {
-    font-size: 12px;
+    font-size: 14px;
+  }
+  > span:last-child {
+    margin-top: var(--margin-sub);
   }
 `;
 
 const MainButton = styled.button<{ func?: boolean }>`
-  width: 100%;
+  margin: var(--margin-main);
   display: flex;
   justify-content: center;
   align-items: center;

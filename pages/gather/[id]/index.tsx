@@ -26,6 +26,7 @@ function GatherDetail() {
   const [isRefetch, setIsRefetch] = useState(false);
 
   const { refetch } = useGatherAllQuery({
+    enabled: !gatherData,
     onSuccess(data) {
       setGatherData(data.find((item) => item.id === +gatherId));
     },

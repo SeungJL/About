@@ -82,27 +82,23 @@ function AboutMainItemParticipants({
       </Participants>
       <MemberCnt>
         <VoteStatus status={voteStatus}>{voteStatus}</VoteStatus>
-        {!isMax ? (
-          filteredAttendances.length > 0 && (
-            <ParticipantStatus>
-              <UserIcon />
-              <span>
-                <VoterImpact
-                  isOverMax={
-                    statusFixed === "pending" &&
-                    attendances.length >= MAX_USER_PER_PLACE
-                  }
-                >
-                  {statusFixed === "pending"
-                    ? attendances.length
-                    : firstAttendance.length}
-                </VoterImpact>
-                /{statusFixed === "pending" ? "8" : "8"}
-              </span>
-            </ParticipantStatus>
-          )
-        ) : (
-          <FullText>({MAX_USER_PER_PLACE}) FULL</FullText>
+        {filteredAttendances.length > 0 && (
+          <ParticipantStatus>
+            <UserIcon />
+            <span>
+              <VoterImpact
+                isOverMax={
+                  statusFixed === "pending" &&
+                  attendances.length >= MAX_USER_PER_PLACE
+                }
+              >
+                {statusFixed === "pending"
+                  ? attendances.length
+                  : firstAttendance.length}
+              </VoterImpact>
+              /{statusFixed === "pending" ? "8" : "8"}
+            </span>
+          </ParticipantStatus>
         )}
       </MemberCnt>
     </Layout>

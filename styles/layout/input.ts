@@ -16,6 +16,7 @@ export const InputSm = styled.input`
   background-color: var(--font-h56);
   border-radius: var(--border-radius-sub);
   padding: var(--padding-sub);
+  text-align: start;
   &:focus {
     outline: none;
   }

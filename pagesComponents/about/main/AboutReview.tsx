@@ -49,7 +49,8 @@ function AboutReview() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-max);
+  background-color: var(--font-h8);
+  padding-bottom: var(--padding-main);
 `;
 
 const ReviewContainer = styled.div`

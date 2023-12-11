@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
 import PlaceSelector from "../../components/features/picker/PlaceSelector";
 import {
   ModalBody,
@@ -41,7 +42,7 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   //같은 지역의 스터디 장소 호출
 
-  const { data: studyPlaces } = useStudyPlacesQuery(location, {
+  const { data: studyPlaces, isLoading } = useStudyPlacesQuery(location, {
     enabled: !!location,
   });
   const size =
@@ -77,39 +78,43 @@ function RequestStudyPreferenceModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size={size}>
-        <ModalHeader text="스터디 선호 장소 설정" />
-        <ModalBody>
+      {!isLoading ? (
+        <ModalLayout onClose={() => setIsModal(false)} size={size}>
+          <ModalHeader text="스터디 선호 장소 설정" />
+          <ModalBody>
+            {page === 0 ? (
+              <>
+                <PlaceSelector
+                  places={studyPlaces}
+                  votePlaces={votePlaces}
+                  setVotePlaces={setVotePlaces}
+                  isMain={true}
+                />
+              </>
+            ) : (
+              <>
+                <PlaceSelector
+                  places={studyPlaces}
+                  votePlaces={votePlaces}
+                  setVotePlaces={setVotePlaces}
+                  isMain={false}
+                />
+              </>
+            )}
+          </ModalBody>
           {page === 0 ? (
-            <>
-              <PlaceSelector
-                places={studyPlaces}
-                votePlaces={votePlaces}
-                setVotePlaces={setVotePlaces}
-                isMain={true}
-              />
-            </>
+            <ModalFooterOne text="다음" onClick={selectFirst} />
           ) : (
-            <>
-              <PlaceSelector
-                places={studyPlaces}
-                votePlaces={votePlaces}
-                setVotePlaces={setVotePlaces}
-                isMain={false}
-              />
-            </>
+            <ModalFooterTwo
+              rightText="완료"
+              onClickLeft={() => setPage(0)}
+              onClickRight={onSubmit}
+            />
           )}
-        </ModalBody>
-        {page === 0 ? (
-          <ModalFooterOne text="다음" onClick={selectFirst} />
-        ) : (
-          <ModalFooterTwo
-            rightText="완료"
-            onClickLeft={() => setPage(0)}
-            onClickRight={onSubmit}
-          />
-        )}
-      </ModalLayout>
+        </ModalLayout>
+      ) : (
+        <MainLoading />
+      )}
     </>
   );
 }

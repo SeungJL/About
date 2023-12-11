@@ -2,6 +2,7 @@ import { Button, ModalFooter } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import {
   ModalBody,
   ModalHeader,
@@ -76,7 +77,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   }, [isRenderingCheck, location, place?.fullname, random_num, url]);
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="sm">
+    <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader text="친구 초대" />
       <ModalBody>
         <ModalSubtitle>
@@ -84,20 +85,49 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
           받아요!
         </ModalSubtitle>
       </ModalBody>
-      <ModalFooter p="var(--padding-sub) var(--padding-main)">
-        <Button width="50%" onClick={() => setIsModal(false)}>
-          닫기
-        </Button>
-        <Button
-          width="50%"
-          colorScheme="mintTheme"
-          id="kakao-share-button-invite"
-        >
-          친구초대
-        </Button>
+      <ModalFooter
+        m="var(--padding-main) var(--padding-max)"
+        p="0"
+        display="flex"
+        justifyContent="space-between"
+        h="46px"
+      >
+        <Layout>
+          <Button
+            bg="white"
+            h="100%"
+            flex="1"
+            border="1.2px solid var(--color-mint)"
+            color="var(--color-mint)"
+            fontSize="16px"
+            onClick={() => setIsModal(false)}
+          >
+            닫기
+          </Button>
+          <Button
+            flex="1"
+            h="100%"
+            colorScheme="mintTheme"
+            id="kakao-share-button-invite"
+          >
+            친구초대
+          </Button>
+        </Layout>
       </ModalFooter>
     </ModalLayout>
   );
 }
+
+const Layout = styled.div`
+  width: 100%;
+  display: flex;
+  height: 46px;
+  > button:first-child {
+    margin-right: var(--margin-sub);
+  }
+  > button {
+    flex: 1;
+  }
+`;
 
 export default StudyInviteModal;

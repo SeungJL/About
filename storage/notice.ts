@@ -1,4 +1,14 @@
-export const NOTICE_ARR = [
+interface INoticeArr {
+  id: string;
+  title: string;
+  category: NoticeCategory;
+  content: string;
+  date: string;
+}
+
+export type NoticeCategory = "main" | "sub" | "event" | "update";
+
+export const NOTICE_ARR: INoticeArr[] = [
   {
     id: "1",
     title: "동아리 리모델링 !!",
@@ -521,5 +531,21 @@ export const NOTICE_ARR = [
     content:
       "보증금이 2000원 미만이었던 인원들의 보증금을 2000원으로 리셋시켰습니다. 이제는 정말 보증금 0원이 되면 동아리 활동이 불가능해지고, 탈퇴처리됩니다.",
     date: "2023-12-02",
+  },
+  {
+    id: "67",
+    title: "시험기간 이벤트",
+    category: "event",
+    content:
+      "이번주 동안 시험기간 이벤트를 진행했습니다. 당첨되신 분들은 모두 축하하고, 아쉽게 당첨되지 못한 분들도 더 파이팅해서 남은 시험기간 잘 치루시길 바라요!",
+    date: "2023-12-09",
+  },
+  {
+    id: "68",
+    title: "방학 중 소모임(스터디) 오픈 예정",
+    category: "main",
+    content:
+      "이번 겨울 방학 시즌에는 스터디/소모임을 진행합니다! 스터디를 운영해주시는 분께는 5만원 정도 상당의 사례금을 드리고, 열심히 참여하는 멤버분들한테도 소소한 상품이 있을 예정입니다. 아직 어떤 소모임들을 열지는 확정되지 않아서 어떤 분야에 다들 관심이 있으신지 사전 희망 조사를 진행하겠습니다! 추가로 진행하고 싶은 스터디가 있다면 항목 추가도 가능합니다. 인접 지역을 포함해서 인원이 충분히 모이고, 스터디를 운영해주실 분이 있는 경우에 개설됩니다. 단톡방에서 신청을 받고 있으니 관심있는 분야에 투표해주세요~!",
+    date: "2023-12-10",
   },
 ];

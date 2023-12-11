@@ -21,13 +21,13 @@ export const ModalHeaderLine = styled.header`
 
 interface IModalSubTitle {
   isLight?: boolean;
+  isCenter?: boolean;
 }
 
 export const ModalSubtitle = styled.div<IModalSubTitle>`
-  font-weight: ${(props) => (props.isLight ? "400" : "600")};
-  margin-bottom: var(--margin-sub);
-  color: var(--font-h2);
-  font-size: 13px;
+  margin-bottom: var(--margin-main);
+  font-size: 15px;
+  text-align: ${(props) => (props.isCenter ? "center" : "start")};
 `;
 
 export const ModalFooterNav = styled.footer`

@@ -40,7 +40,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
     setPrevPageUrl(`/gather/${router.query.id}`);
     router.push("/gather/writing/category");
   };
- 
+
   return (
     <>
       <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>

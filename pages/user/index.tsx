@@ -41,8 +41,6 @@ function UserInfo() {
 }
 
 const UserLayout = styled.div`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-min);
   display: flex;
   flex-direction: column;
 `;

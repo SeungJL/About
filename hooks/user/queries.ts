@@ -76,6 +76,7 @@ export const useUidToUserInfoQuery = (
     [UID_TO_USER],
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile/${uid}`);
+
       return res.data;
     },
     options
