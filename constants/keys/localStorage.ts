@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const MY_TODAY_STUDY_FIXED = "myTodayStudyFixed";
 
 //알림
@@ -13,7 +15,8 @@ export const GATHER_INTRO_MODAL = "gatherIntro";
 export const USER_GUIDE_POP_UP = "userGuidePopUp";
 export const SUGGEST_POP_UP = "suggestPopUp";
 export const STUDY_SPACE_POP_UP = "studySpacePopUp";
-export const ATTEND_POP_UP = "attendRecordPopUp";
+export const ATTEND_POP_UP =
+  "attendRecordPopUp" + dayjs().startOf("week").day();
 export const PROMOTION_POP_UP = "promotionPopUp";
 export const DAILY_CHECK_POP_UP = "attendCheckPopUp";
 export const FAQ_POP_UP = "faqPopUp";

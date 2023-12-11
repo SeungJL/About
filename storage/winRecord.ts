@@ -509,6 +509,18 @@ export const WIN_RECORD: {
     reason: "스토어 당첨 선물",
     present: "던킨도넛 미니세트",
   },
+  {
+    name: "박종",
+    date: "12/11",
+    reason: "스토어 당첨 선물",
+    present: "CU 3000원권",
+  },
+  {
+    name: "이승",
+    date: "12/11",
+    reason: "스토어 당첨 선물",
+    present: "CU 3000원권",
+  },
 ];
 
 export const PROMOTION_WIN = [

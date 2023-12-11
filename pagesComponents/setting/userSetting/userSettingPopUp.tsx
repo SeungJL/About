@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { NEW_POINT_SYSTEM } from "../../../constants/contents/PopUpContents";
 import {
@@ -83,7 +84,7 @@ function UserSettingPopUp() {
   const filterPopUpTypes = (type: UserPopUp) => {
     setPopUpTypes((popUps) => popUps.filter((popUp) => popUp !== type));
   };
-
+  console.log(dayjs().add(1, "day").startOf("week").day());
   return (
     <>
       {popUpTypes.includes("faq") && (
