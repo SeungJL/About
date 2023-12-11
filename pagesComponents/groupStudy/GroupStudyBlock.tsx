@@ -105,6 +105,7 @@ const InfoItem = styled.div`
 `;
 
 const Content = styled.pre`
+  text-align: start;
   font-size: 12px;
   color: var(--font-h2);
   padding-top: var(--padding-sub);

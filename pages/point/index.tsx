@@ -33,6 +33,7 @@ function Point() {
 }
 
 const Layout = styled.div`
+  background-color: var(--font-h8);
   margin: 0 var(--margin-main);
   margin-top: var(--margin-sub);
 `;

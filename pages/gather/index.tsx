@@ -14,7 +14,6 @@ import { isGuestState } from "../../recoil/userAtoms";
 import { LocationFilterType } from "../../types/system";
 
 function Gather() {
-  
   const isGuest = useRecoilValue(isGuestState);
   const [category, setCategory] = useState<LocationFilterType>("전체");
   const [isModal, setIsModal] = useState(false);
@@ -47,7 +46,9 @@ function Gather() {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  background-color: var(--font-h8);
+`;
 
 const ReviewWrapper = styled.div`
   border-bottom: 6px solid var(--font-h56);
