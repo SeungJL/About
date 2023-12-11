@@ -5,10 +5,10 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
+import GroupStudyBottomNav from "../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
 import GroupStudyComments from "../../pagesComponents/groupStudy/detail/GroupStudyComment";
-import GroupStudyContent from "../../pagesComponents/groupStudy/detail/GroupStudyContent";
+import GroupStudyContent from "../../pagesComponents/groupStudy/detail/GroupStudyContent/GroupStudyContent";
 import GroupStudyCover from "../../pagesComponents/groupStudy/detail/GroupStudyCover";
-import GroupStudyDetailInfo from "../../pagesComponents/groupStudy/detail/GroupStudyDetail";
 import GroupStudyHeader from "../../pagesComponents/groupStudy/detail/GroupStudyHeader";
 import GroupStudyParticipation from "../../pagesComponents/groupStudy/detail/GroupStudyParticipation";
 import GroupStudyTitle from "../../pagesComponents/groupStudy/detail/GroupStudyTitle";
@@ -55,13 +55,15 @@ function GroupStudyDetail() {
               category={groupStudy.category.main}
             /> */}
             <GroupStudyTitle
+              memberCnt={groupStudy.participants.length + 1}
               title={groupStudy.title}
               status={groupStudy.status}
             />
-            <GroupStudyDetailInfo data={groupStudy} />
-            <GroupStudyContent content={groupStudy.content} />
+
+            <GroupStudyContent groupStudy={groupStudy} />
             <GroupStudyParticipation data={groupStudy} />
             <GroupStudyComments comment={groupStudy.comment} />
+            <GroupStudyBottomNav data={groupStudy} />
           </Layout>
           {/* {!isGuest && <GroupStudyBottomNav data={groupStudy} />} */}
         </>

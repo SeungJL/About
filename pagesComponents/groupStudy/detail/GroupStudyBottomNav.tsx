@@ -3,46 +3,45 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
+
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
-import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
-import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
-import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
-import { GatherStatus, IGather } from "../../../types/page/gather";
+import { useGroupStudyParticipationMutation } from "../../../hooks/groupStudy/mutations";
+import { GatherStatus } from "../../../types/page/gather";
+import { IGroupStudy } from "../../../types/page/groupStudy";
 
-interface IGatherBottomNav {
-  data: IGather;
+interface IGroupStudyBottomNav {
+  data: IGroupStudy;
 }
 
 type ButtonType = "cancel" | "participate" | "expire";
 
-function GatherBottomNav({ data }: IGatherBottomNav) {
+function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
   const router = useRouter();
   const completeToast = useCompleteToast();
 
   const errorToast = useErrorToast();
   const { data: session } = useSession();
   const myUid = session.uid;
-  const myGather = data.user.uid === myUid;
+  const myGroupStudy = data.organizer.uid === myUid;
   const isParticipant = data?.participants.some(
-    (who) => who?.user && who.user.uid === myUid
+    (who) => who && who.uid === myUid
   );
   const [isExpirationModal, setIsExpirationModal] = useState(false);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
-  const gatherId = +router.query.id;
+  const groupStudyId = +router.query.id;
 
   const resetQueryData = useResetQueryData();
-  const { mutate: cancel } = useGatherParticipationMutation(
+  const { mutate: cancel } = useGroupStudyParticipationMutation(
     "delete",
-    gatherId,
+    groupStudyId,
     {
       onSuccess() {
         completeToast("free", "참여 신청이 취소되었습니다.", true);
-        resetQueryData([GATHER_CONTENT]);
+        // resetQueryData([GROUPSTUDY_CONTENT]);
       },
       onError: errorToast,
     }
@@ -70,13 +69,13 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
           text: "취소된 모임입니다.",
         };
     }
-    if (myGather)
+    if (myGroupStudy)
       return { text: "모집 종료", handleFunction: () => onClick("expire") };
     if (isParticipant) {
       return { text: "참여 취소", handleFunction: () => onClick("cancel") };
     }
     return {
-      text: "참여하기",
+      text: "가입 신청",
       handleFunction: () => onClick("participate"),
     };
   };
@@ -90,7 +89,7 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
           size="lg"
           h="48px"
           w="100%"
-          borderRadius="var(--border-radius-main)"
+          borderRadius="var(--border-radius2)"
           disabled={!handleFunction}
           colorScheme={handleFunction ? "mintTheme" : "blackAlpha"}
           onClick={handleFunction}
@@ -98,12 +97,12 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
           {text}
         </Button>
       </Layout>
-      {isParticipationModal && (
-        <GatherParticipateModal setIsModal={setIsParticipationModal} />
+      {/* {isParticipationModal && (
+        <GroupStudyParticipateModal setIsModal={setIsParticipationModal} />
       )}
       {isExpirationModal && (
-        <GatherExpireModal setIsModal={setIsExpirationModal} />
-      )}
+        <GroupStudyExpireModal setIsModal={setIsExpirationModal} />
+      )} */}
     </>
   );
 }
@@ -118,4 +117,4 @@ const Layout = styled.nav`
   padding: var(--padding-main);
 `;
 
-export default GatherBottomNav;
+export default GroupStudyBottomNav;

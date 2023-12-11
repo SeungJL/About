@@ -28,7 +28,6 @@ function GatherBlock({ gather, isImagePriority }: IGatherBlock) {
         <GatherBlockHeader
           status={gather.status}
           typeTitle={gather.type.title}
-          locationMain={gather.location.main}
         />
         <Title>{gather.title}</Title>
       </UpPart>

@@ -11,14 +11,14 @@ interface IGroupStudyBlock {
 
 function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
   const router = useRouter();
-  const infoArrText = ["개설자", "인원", "목표", "출석", "방식", "시작일"];
+  const infoArrText = ["개설자", "인원", "목표", "참여금", "진행", "시작일"];
 
   const groupStudyInfo = {
     개설자: groupStudy.organizer.name,
-    인원: groupStudy.memberCnt.max,
+    인원: `${groupStudy.participants.length + 1}/${groupStudy.memberCnt.max}`,
     목표: "종결",
-    출석: "체크함",
-    방식: "자율방식",
+    참여금: "없음",
+    진행: "자율",
     시작일: "1월 3일",
   };
 

@@ -1,21 +1,29 @@
 import styled from "styled-components";
 import { Badge } from "../../../components/common/customComponents/Badges";
-import { STATUS_TO_TEXT } from "../../../constants/util/convert";
 import { GatherStatus } from "../../../types/page/gather";
 
 interface IGroupStudyTitle {
   title: string;
   status: GatherStatus;
+  memberCnt: number;
 }
 
-function GroupStudyTitle({ status, title }: IGroupStudyTitle) {
+function GroupStudyTitle({ status, title, memberCnt }: IGroupStudyTitle) {
   const color =
     status === "pending" ? "mintTheme" : status === "open" ? "redTheme" : null;
 
+  const statusText = status === "pending" ? "모집중" : "미모집";
+
   return (
     <Layout status={status}>
-      <Badge text={STATUS_TO_TEXT[status]} colorScheme={color} size="lg" />
-      <span>{title}</span>
+      <Title>
+        <span>{title}</span>
+        <Badge text="모집중" colorScheme={color} size="lg" />
+      </Title>
+
+      <SubInfo>
+        멤버 {memberCnt} · 모임 1 · {statusText}
+      </SubInfo>
     </Layout>
   );
 }
@@ -23,13 +31,28 @@ function GroupStudyTitle({ status, title }: IGroupStudyTitle) {
 const Layout = styled.div<{ status: GatherStatus }>`
   padding: Var(--padding-main);
   background-color: white;
-  color: var(--font-h1);
-  font-size: 16px;
-  font-weight: 700;
+
   border-bottom: var(--border-sub);
-  > span:last-child {
-    margin-left: var(--margin-md);
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--margin-min);
+  color: var(--font-h1);
+  font-size: 18px;
+
+  font-weight: 800;
+  > span {
+    margin-right: var(--margin-md);
   }
+`;
+
+const SubInfo = styled.span`
+  font-size: 12px;
+  color: var(--font-h3);
 `;
 
 export default GroupStudyTitle;
