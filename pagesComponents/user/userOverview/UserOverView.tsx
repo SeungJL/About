@@ -19,19 +19,7 @@ export default function UserOverview({ userInfo }: IUserOverview) {
   const router = useRouter();
 
   const [isProfileModal, setIsProfileModal] = useState(false);
-  const iconStyle: React.CSSProperties & {
-    "--fa-primary-color": string;
-    "--fa-secondary-color": string;
-    "--fa-primary-opacity": number;
-    "--fa-secondary-opacity": number;
-  } = {
-    "--fa-primary-color": "var(--color-mint)",
-    "--fa-secondary-color": "white",
-    "--fa-primary-opacity": 0.8,
-    "--fa-secondary-opacity": 1,
-    border: "1px solid var(--font-h6)",
-    borderRadius: "50%",
-  };
+
   return (
     <>
       <Layout>

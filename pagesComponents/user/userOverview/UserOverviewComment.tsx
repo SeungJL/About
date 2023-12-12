@@ -3,12 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useFailToast } from "../../../hooks/custom/CustomToast";
+import { USER_INFO } from "../../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
+import {
+  useCompleteToast,
+  useFailToast,
+} from "../../../hooks/custom/CustomToast";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { isGuestState } from "../../../recoil/userAtoms";
 
 function UserOverviewComment() {
+  const completeToast = useCompleteToast();
   const failToast = useFailToast();
   const isGuest = useRecoilValue(isGuestState);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,8 +22,15 @@ function UserOverviewComment() {
   const [value, setValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
+  const resetQueryData = useResetQueryData();
+
   const { data: userInfo, isLoading } = useUserInfoQuery();
-  const { mutate: setComment } = useUserInfoFieldMutation("comment");
+  const { mutate: setComment } = useUserInfoFieldMutation("comment", {
+    onSuccess() {
+     
+      resetQueryData([USER_INFO]);
+    },
+  });
 
   useEffect(() => {
     if (isLoading) return;
@@ -53,8 +66,10 @@ function UserOverviewComment() {
 
   const handleSubmit = () => {
     if (userInfo.comment === value) {
+      console.log(1);
       return;
     }
+    console.log(2);
     setComment({ comment: value });
   };
 
