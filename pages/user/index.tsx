@@ -43,6 +43,7 @@ function UserInfo() {
 const UserLayout = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: white;
 `;
 
 export default UserInfo;
