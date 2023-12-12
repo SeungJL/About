@@ -37,12 +37,12 @@ export const RegisterLocation = [...LOCATION_USE_ALL, "기타"];
 export const LOCATION_MEMBER_CNT: {
   [key in Location]: { member: number; new: number };
 } = {
-  수원: { member: 184, new: 4 },
-  양천: { member: 62, new: 2 },
-  안양: { member: 29, new: 1 },
-  강남: { member: 34, new: 3 },
+  수원: { member: 187, new: 4 },
+  양천: { member: 61, new: 2 },
+  안양: { member: 24, new: 1 },
+  강남: { member: 53, new: 2 },
   동대문: { member: 35, new: 3 },
-  마포: { member: 6, new: 3 },
+  마포: { member: 18, new: 2 },
 };
 
 export const LOCATION_TABLE_COLOR = {
