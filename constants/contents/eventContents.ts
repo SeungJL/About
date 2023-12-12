@@ -79,5 +79,12 @@ export const EVENT_CONTENT_2023: Record<string, Content[]> = {
       color: TABLE_COLORS[0],
       text: "이벤트",
     },
+    {
+      content: "홍보 이벤트 추첨",
+      start: 22,
+      end: 24,
+      color: TABLE_COLORS[1],
+      text: "이벤트",
+    },
   ],
 };
