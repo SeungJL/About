@@ -7,6 +7,7 @@ interface IButtonCheckNav {
   selectedButton: string;
   setSelectedButton: DispatchString;
   isLineBtn?: boolean;
+  isWrap?: boolean;
 }
 
 function ButtonCheckNav({
@@ -14,11 +15,15 @@ function ButtonCheckNav({
   selectedButton,
   setSelectedButton,
   isLineBtn,
+  isWrap,
 }: IButtonCheckNav) {
   const filtered = buttonList.filter((item) => item !== "마포");
   return (
     <Layout>
-      <ButtonGroup gap={!isLineBtn ? "var(--margin-md)" : "0"}>
+      <ButtonGroup
+        flexWrap={isWrap ? "wrap" : null}
+        gap={!isLineBtn ? "var(--margin-md)" : "0"}
+      >
         {!isLineBtn
           ? filtered.map((item) => (
               <Button

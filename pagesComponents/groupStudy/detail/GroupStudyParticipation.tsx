@@ -44,7 +44,7 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
         )}
       </Header>
       <Members>
-        {participantsCnt ? (
+        {true ? (
           <MemberItem
             key={organizer?.uid}
             onClick={() => onClickProfile(organizer)}
@@ -63,22 +63,15 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
               <span>{organizer?.name}</span>
               <div>{organizer?.comment}</div>
             </UserOverview>
+            <ParticipateTime isFirst={true}>
+              <span>그룹장</span>
+            </ParticipateTime>
           </MemberItem>
         ) : (
           <Empty>
             <span>참여자를 모집중입니다.</span>
           </Empty>
         )}
-        <MemberItem onClick={() => onClickProfile(organizer)}>
-          <ProfileIcon user={organizer} size="sm" />
-          <UserOverview>
-            <span>{organizer?.name}</span>
-            <div>{organizer?.comment}</div>
-          </UserOverview>
-          <ParticipateTime isFirst={true}>
-            <span>차</span>
-          </ParticipateTime>
-        </MemberItem>
         {data?.participants.map(
           (who) =>
             who && (
@@ -89,11 +82,6 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
                   <div>{who?.comment}</div>
                 </UserOverview>
                 <ParticipateTime isFirst={true}>
-                  {/* {who?.phase === "first" ? (
-                    <FontAwesomeIcon icon={fa1} size="sm" />
-                  ) : (
-                    <FontAwesomeIcon icon={fa2} size="sm" />
-                  )} */}
                   <span>차</span>
                 </ParticipateTime>
               </MemberItem>

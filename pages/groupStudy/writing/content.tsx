@@ -34,12 +34,12 @@ function GroupStudyWritingContent() {
 
       content,
     }));
-    router.push(`/groupStudy/writing/condition`);
+    router.push(`/groupStudy/writing/period`);
   };
 
   return (
     <PageLayout>
-      <ProgressStatus value={80} />
+      <ProgressStatus value={64} />
       <Header title="" url="/groupStudy/writing/guide" />
       <RegisterLayout>
         <RegisterOverview>

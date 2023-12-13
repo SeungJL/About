@@ -40,7 +40,7 @@ function GroupStudyDetail() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupStudy, isRefetch]);
-
+  console.log(groupStudy);
   return (
     <>
       {groupStudy ? (
@@ -48,18 +48,11 @@ function GroupStudyDetail() {
           <Layout>
             <GroupStudyHeader groupStudy={groupStudy} />
             <GroupStudyCover />
-            {/* <GroupStudyOrganizer
-              createdAt={groupStudy.createdAt}
-              organizer={groupStudy.organizer}
-              // isAdminOpen={groupStudy.isAdminOpen}
-              category={groupStudy.category.main}
-            /> */}
             <GroupStudyTitle
               memberCnt={groupStudy.participants.length + 1}
               title={groupStudy.title}
               status={groupStudy.status}
             />
-
             <GroupStudyContent groupStudy={groupStudy} />
             <GroupStudyParticipation data={groupStudy} />
             <GroupStudyComments comment={groupStudy.comment} />

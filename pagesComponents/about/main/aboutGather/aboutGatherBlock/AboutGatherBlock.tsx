@@ -78,6 +78,7 @@ const Layout = styled.button`
   width: 100%;
   height: 110px;
   background-color: white;
+  background-color: pink;
   box-shadow: var(--box-shadow-b);
   border-radius: var(--border-radius2);
   display: flex;

@@ -3,7 +3,7 @@ import { ThemeTypings } from "@chakra-ui/system";
 
 interface IBadge {
   text: string;
-  size?: "sm" | "lg";
+  size?: "sm" | "md" | "lg";
   type?: "outline" | "solid";
   colorScheme: ThemeTypings["colorSchemes"];
 }
@@ -17,7 +17,7 @@ export const Badge = ({
   return (
     <ChakraBadge
       p="2px 4px"
-      fontSize={size === "sm" ? "11px" : "13px"}
+      fontSize={size === "sm" ? "11px" : size === "md" ? "12px" : "13px"}
       colorScheme={colorScheme}
       variant={type}
     >

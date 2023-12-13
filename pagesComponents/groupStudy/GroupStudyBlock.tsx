@@ -27,7 +27,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
         : groupStudy.age[0] + " ~ " + groupStudy.age[1] + "세"
     }`,
     참여금: `${groupStudy.fee ? groupStudy.fee + "원" : "기본"}`,
-    진행: "자율",
+    진행: `${groupStudy.period || "자율"}`,
     개설: dayjsToFormat(dayjs(groupStudy.createdAt), "YY년 M월 D일"),
   };
 
@@ -42,7 +42,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
           <span>{groupStudy.category.main}</span>
           <FontAwesomeIcon icon={faLockKeyhole} />
         </div>
-        <Badge text="모집중" colorScheme="mintTheme" type="outline" />
+        <Badge text="모집중" colorScheme="mintTheme" type="outline" size="md" />
       </Header>
       <Title>{groupStudy.title}</Title>
       <Info>

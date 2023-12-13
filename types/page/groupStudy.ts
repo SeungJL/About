@@ -29,7 +29,7 @@ export interface IGroupStudyWriting {
   isFree: boolean;
   age: number[];
   password: string;
-
+  period: string;
   organizer: IUser;
   location: LocationFilterType;
   date: string;

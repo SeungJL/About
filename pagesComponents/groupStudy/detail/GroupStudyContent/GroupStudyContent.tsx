@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { IGroupStudy } from "../../../../types/page/groupStudy";
+import ContentChat from "./ContentChat";
 import ContentGallery from "./ContentGallery";
 import ContentGather from "./ContentGather";
 import ContentInfo from "./ContentInfo";
@@ -9,12 +10,12 @@ interface IGroupStudyContent {
   groupStudy: IGroupStudy;
 }
 
-type Category = "정보" | "모임" | "앨범";
+type Category = "정보" | "모임" | "앨범" | "채팅";
 
 function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
   const [category, setCategory] = useState<Category>("정보");
 
-  const categoryArr: Category[] = ["정보", "모임", "앨범"];
+  const categoryArr: Category[] = ["정보", "모임", "앨범", "채팅"];
 
   return (
     <Layout>
@@ -34,8 +35,10 @@ function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
           <ContentInfo groupStudy={groupStudy} />
         ) : category === "모임" ? (
           <ContentGather />
-        ) : (
+        ) : category === "앨범" ? (
           <ContentGallery />
+        ) : (
+          <ContentChat />
         )}
       </ContentContainer>
     </Layout>
@@ -50,6 +53,8 @@ const ContentNav = styled.nav`
 const ContentBtn = styled.button<{ isSelected: boolean }>`
   flex: 1;
   padding: var(--padding-md) 0;
+  font-weight: 600;
+  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h3)")};
   border-bottom: ${(props) => props.isSelected && "2px solid var(--font-h1)"};
 `;
 
@@ -62,7 +67,7 @@ const Layout = styled.div`
 
 const ContentContainer = styled.div`
   background-color: white;
-  min-height: 240px;
+  min-height: 410px;
 `;
 
 export default GroupStudyContent;

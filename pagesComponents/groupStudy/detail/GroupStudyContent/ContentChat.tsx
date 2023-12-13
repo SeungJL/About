@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-function ContentGallery() {
+function ContentChat() {
   return (
     <Layout>
-      <Message>게시된 앨범이 없습니다.</Message>
+      <Message>올라온 채팅이 없습니다</Message>
     </Layout>
   );
 }
@@ -11,6 +11,7 @@ function ContentGallery() {
 const Layout = styled.div`
   padding: var(--padding-main);
 `;
+
 const Message = styled.div`
   display: flex;
   justify-content: center;
@@ -19,4 +20,4 @@ const Message = styled.div`
   color: var(--font-h3);
 `;
 
-export default ContentGallery;
+export default ContentChat;

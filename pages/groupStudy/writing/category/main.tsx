@@ -44,7 +44,7 @@ function WritingStudyCategoryMain() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={20} />
+      <ProgressStatus value={16} />
       <Header title="" url={prevPageUrl || "/groupStudy"} />
       <RegisterLayout>
         <RegisterOverview>

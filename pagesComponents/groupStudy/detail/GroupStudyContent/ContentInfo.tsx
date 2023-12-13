@@ -10,7 +10,7 @@ function ContentInfo({ groupStudy }: IContentInfo) {
   return (
     <Layout>
       <Wrapper>
-        <GroupStudyDetailInfo data={groupStudy} />
+        <GroupStudyDetailInfo groupStudy={groupStudy} />
       </Wrapper>
       <ContentWrapper>
         <span>소개</span>
@@ -30,10 +30,19 @@ const Wrapper = styled.div`
   background-color: var(--font-h8);
 `;
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  min-height: 410px;
+  display: flex;
+  flex-direction: column;
+`;
 
 const ContentWrapper = styled.div`
   padding: var(--padding-main);
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
   > span:first-child {
     display: inline-block;
     font-size: 16px;
@@ -47,10 +56,13 @@ const ContentWrapper = styled.div`
 const Content = styled.pre`
   margin-bottom: var(--margin-main);
   white-space: pre-wrap;
+  flex: 1;
 `;
 
 const Tag = styled.div`
   display: flex;
+  margin-top: auto;
+
   margin-bottom: var(--margin-md);
   > div {
     font-size: 13px;

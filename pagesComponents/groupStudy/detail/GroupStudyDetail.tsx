@@ -4,52 +4,43 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { IGroupStudy } from "../../../types/page/groupStudy";
 dayjs.locale("ko");
 
 interface IGroupStudyDetailInfo {
-  data: IGroupStudy;
+  groupStudy: IGroupStudy;
 }
 
-function GroupStudyDetailInfo({
-  data: { location, age, memberCnt, date, organizer, password, gender },
-}: IGroupStudyDetailInfo) {
+function GroupStudyDetailInfo({ groupStudy }: IGroupStudyDetailInfo) {
   const { data: session } = useSession();
-  const isOrganizer = organizer?.uid === session?.uid;
+  const isOrganizer = groupStudy.organizer?.uid === session?.uid;
   const [isSubLocation, setIsSubLocation] = useState(false);
 
+  const password = groupStudy.password;
   return (
     <Layout>
       <FirstItem isOpen={isSubLocation}>
         <ItemText>지역</ItemText>
-        <span>{location}</span>
+        <span>{groupStudy.location}</span>
       </FirstItem>
       <Item>
-        <ItemText>개설</ItemText>
-        <span>{dayjsToFormat(dayjs(date), "YYYY년 M월 D일")}</span>
-      </Item>
-      <Item>
-        <ItemText>나이</ItemText>
+        <ItemText>목적</ItemText>
         <span>
-          {age[0]} ~ {age[1]}세
+          {groupStudy.category.main} - {groupStudy.category.sub}
         </span>
-        {gender && <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />}
+        {groupStudy.gender && (
+          <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />
+        )}
       </Item>
       <Item>
-        <ItemText>인원</ItemText>
-        <span>{memberCnt.min}명 이상 오픈</span>
+        <ItemText>활동</ItemText>
+        <span>{groupStudy.period}</span>
       </Item>
-      {isOrganizer && password && (
-        <Item>
-          <ItemText>암호</ItemText>
-          <Secret>
-            <span>{password}</span>
-            <CopyBtn text={password} />
-          </Secret>
-        </Item>
-      )}
+      <Item>
+        <ItemText>개설</ItemText>
+        <span>{dayjsToFormat(dayjs(groupStudy.date), "YYYY년 M월 D일")}</span>
+      </Item>
     </Layout>
   );
 }
@@ -59,7 +50,6 @@ const Layout = styled.div`
   flex-direction: column;
   margin: var(--margin-sub) var(--margin-main);
   padding: var(--padding-md) var(--padding-sub);
-
   background-color: white;
   border-radius: var(--border-radius2);
   box-shadow: var(--box-shadow-b);

@@ -5,13 +5,13 @@ import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
+import ButtonCheckNav from "../../../components/templates/ButtonCheckNav";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
-
-function GroupStudyWritingGuide() {
+function GroupStudyWritingContent() {
   const router = useRouter();
   const failToast = useFailToast();
 
@@ -19,43 +19,47 @@ function GroupStudyWritingGuide() {
     sharedGroupStudyWritingState
   );
 
+  const [period, setPeriod] = useState(groupStudy?.period || "주 1회");
+
   //초기 input 세팅
-  const [title, setTitle] = useState(groupStudy?.title || "");
-  const [guide, setGuide] = useState(groupStudy?.guide || "");
 
   const onClickNext = () => {
-    if (!title || !guide) {
-      failToast("free", "내용을 작성해 주세요!", true);
-      return;
-    }
-
     setGroupStudy((old) => ({
       ...old,
-      title,
-      guide,
+      period,
     }));
-    router.push(`/groupStudy/writing/content`);
+    router.push(`/groupStudy/writing/condition`);
   };
+
+  const periodArr = [
+    "매일",
+    "주 1회",
+    "주 2회",
+    "주 3회",
+    "주 4회",
+    "주 5회",
+    "월 1회",
+    "월 2회",
+    "월 3회",
+    "월 4회",
+    "자율",
+  ];
 
   return (
     <PageLayout>
-      <ProgressStatus value={48} />
-      <Header title="" url="/groupStudy/writing/category/sub" />
+      <ProgressStatus value={84} />
+      <Header title="" url="/groupStudy/writing/condition" />
       <RegisterLayout>
         <RegisterOverview>
-          <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>
-          <span>스터디 소개에 가장 먼저 노출됩니다.</span>
+          <span>진행 주기를 체크해주세요!</span>
+          <span>나중에 변경할 수 있습니다.</span>
         </RegisterOverview>
         <Container>
-          <TitleInput
-            placeholder="제목"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Guide
-            placeholder="간단하게 작성해주세요."
-            value={guide}
-            onChange={(e) => setGuide(e.target.value)}
+          <ButtonCheckNav
+            buttonList={periodArr}
+            setSelectedButton={setPeriod}
+            selectedButton={period}
+            isWrap={true}
           />
         </Container>
         <BottomNav onClick={() => onClickNext()} />
@@ -64,28 +68,15 @@ function GroupStudyWritingGuide() {
   );
 }
 
-const Container = styled.div``;
-
-const TitleInput = styled.input`
-  margin-top: var(--margin-max);
-  padding-left: var(--padding-min);
-  border-bottom: var(--border-thick);
-  width: 100%;
-  height: 40px;
-  background-color: inherit;
-  outline: none;
-  font-size: 15px;
-  font-weight: 600;
-  ::placeholder {
-    color: var(--font-h4);
-  }
+const Container = styled.div`
+  margin-top: var(--margin-main);
 `;
 
-const Guide = styled.textarea`
+const Content = styled.textarea`
   margin-top: 40px;
   border: var(--border-main);
   border-radius: var(--border-radius-sub);
-  height: 120px;
+  height: 200px;
   width: 100%;
   padding: var(--padding-sub);
   font-size: 12px;
@@ -95,4 +86,4 @@ const Guide = styled.textarea`
   }
 `;
 
-export default GroupStudyWritingGuide;
+export default GroupStudyWritingContent;

@@ -64,6 +64,7 @@ function WritingCondition() {
     min: 4,
     max: 8,
   });
+
   const [age, setAge] = useState(groupStudyWriting?.age || [19, 28]);
 
   const [fee, setFee] = useState("");
@@ -106,7 +107,7 @@ function WritingCondition() {
     <>
       <PageLayout>
         <ProgressStatus value={100} />
-        <Header title="" url="/groupStudy/writing/content" />
+        <Header title="" url="/groupStudy/writing/period" />
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>
