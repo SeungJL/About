@@ -78,6 +78,7 @@ const ItemContainer = styled.div`
 const Item = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
+  background-color: white;
   margin-bottom: var(--margin-md);
   height: 60px;
   border-radius: var(--border-radius-sub);

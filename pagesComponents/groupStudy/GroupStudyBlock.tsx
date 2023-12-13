@@ -1,8 +1,10 @@
 import { faLockKeyhole } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Badge } from "../../components/common/customComponents/Badges";
+import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { IGroupStudy } from "../../types/page/groupStudy";
 
 interface IGroupStudyBlock {
@@ -12,14 +14,21 @@ interface IGroupStudyBlock {
 function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
   const router = useRouter();
   const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
+  console.log(groupStudy);
 
   const groupStudyInfo = {
     그룹장: groupStudy.organizer.name,
-    인원: `${groupStudy.participants.length + 1}/${groupStudy.memberCnt.max}명`,
-    조건: "24세 이하",
-    참여금: "없음",
+    인원: `${groupStudy.participants.length + 1}/${
+      groupStudy.memberCnt.max === 0 ? "자유" : groupStudy.memberCnt.max + "명"
+    }`,
+    조건: `${
+      groupStudy.age[0] === 19 && groupStudy.age[1] === 28
+        ? "제한없음"
+        : groupStudy.age[0] + " ~ " + groupStudy.age[1] + "세"
+    }`,
+    참여금: `${groupStudy.fee ? groupStudy.fee + "원" : "기본"}`,
     진행: "자율",
-    개설: "1월 3일",
+    개설: dayjsToFormat(dayjs(groupStudy.createdAt), "YY년 M월 D일"),
   };
 
   const onClick = () => {
@@ -72,8 +81,12 @@ const Header = styled.header`
   > div:first-child {
     display: flex;
     align-items: center;
+
     > span:first-child {
       margin-right: var(--margin-md);
+    }
+    > *:last-child {
+      margin-bottom: 2px;
     }
   }
 `;
@@ -86,7 +99,7 @@ const Info = styled.div`
 
   padding: var(--padding-md) 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1.4fr;
+  grid-template-columns: 1.1fr 1.1fr 1.4fr;
   gap: var(--margin-min);
   border-bottom: var(--border-sub);
 `;

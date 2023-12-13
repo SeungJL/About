@@ -39,8 +39,8 @@ function GroupStudyWritingContent() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={40} />
-      <Header title="" url="/gather/writing/category" />
+      <ProgressStatus value={80} />
+      <Header title="" url="/groupStudy/writing/guide" />
       <RegisterLayout>
         <RegisterOverview>
           <span>어떤 모임인지 작성해주세요!</span>

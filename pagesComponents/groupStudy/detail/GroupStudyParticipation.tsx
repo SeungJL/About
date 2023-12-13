@@ -69,6 +69,16 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
             <span>참여자를 모집중입니다.</span>
           </Empty>
         )}
+        <MemberItem onClick={() => onClickProfile(organizer)}>
+          <ProfileIcon user={organizer} size="sm" />
+          <UserOverview>
+            <span>{organizer?.name}</span>
+            <div>{organizer?.comment}</div>
+          </UserOverview>
+          <ParticipateTime isFirst={true}>
+            <span>차</span>
+          </ParticipateTime>
+        </MemberItem>
         {data?.participants.map(
           (who) =>
             who && (

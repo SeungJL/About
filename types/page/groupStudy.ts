@@ -23,9 +23,13 @@ export interface IGroupStudyWriting {
   content: string;
   status: GatherStatus;
   guide: string;
+  feeText: string;
+  fee: number;
   gender: boolean;
+  isFree: boolean;
   age: number[];
   password: string;
+
   organizer: IUser;
   location: LocationFilterType;
   date: string;

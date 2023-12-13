@@ -6,9 +6,9 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   CalendarIcon,
-  GatherIcon,
+  CampfireIcon,
+  GroupStudyIcon,
   MemberIcon,
-  PlazaIcon,
   StoreIcon,
 } from "../../../components/common/Icon/AboutCategoryIcons";
 import { NewAlertIcon } from "../../../components/common/Icon/AlertIcon";
@@ -70,7 +70,7 @@ function AboutCategoryNav() {
       </Item>
       <Item>
         <Button onClick={() => onClickItem("gather")}>
-          <GatherIcon />
+          <CampfireIcon />
           {isGatherAlert && (
             <IconWrapper>
               <NewAlertIcon size="lg" />
@@ -80,10 +80,10 @@ function AboutCategoryNav() {
         <span>모임/번개</span>
       </Item>
       <Item>
-        <Button onClick={() => onClickItem("plaza")}>
-          <PlazaIcon />
+        <Button onClick={() => onClickItem("groupStudy")}>
+          <GroupStudyIcon />
         </Button>
-        <span>광장</span>
+        <span>소모임</span>
       </Item>
     </Layout>
   );

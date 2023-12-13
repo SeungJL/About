@@ -39,8 +39,8 @@ function GroupStudyWritingGuide() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={40} />
-      <Header title="" url="/gather/writing/category" />
+      <ProgressStatus value={60} />
+      <Header title="" url="/groupStudy/writing/category/sub" />
       <RegisterLayout>
         <RegisterOverview>
           <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>
@@ -68,6 +68,7 @@ const Container = styled.div``;
 
 const TitleInput = styled.input`
   margin-top: var(--margin-max);
+  padding-left: var(--padding-min);
   border-bottom: var(--border-thick);
   width: 100%;
   height: 40px;

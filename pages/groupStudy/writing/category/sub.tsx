@@ -46,8 +46,11 @@ function WritingStudyCategorySub() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={20} />
-      <Header title="" url={prevPageUrl || "/gather"} />
+      <ProgressStatus value={40} />
+      <Header
+        title=""
+        url={prevPageUrl || "/groupStudy/writing/category/main"}
+      />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>
@@ -80,6 +83,7 @@ const ItemContainer = styled.div`
 
 const Item = styled.div<{ isSelected: boolean }>`
   display: flex;
+  background-color: white;
   align-items: center;
   margin-bottom: var(--margin-md);
   height: 60px;

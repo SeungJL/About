@@ -15,7 +15,7 @@ function BottomNav({ onClick, text }: IBottomNav) {
       width={`calc(100% - 2*var(--margin-main))`}
       height="44px"
       mb="var(--margin-main)"
-      borderRadius="100px"
+      borderRadius="var(--border-radius2)"
       backgroundColor="var(--color-mint)"
       color="white"
       fontSize="15px"

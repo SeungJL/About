@@ -61,9 +61,12 @@ function Index() {
           />
         </SubNavWrapper>
         <Main>
-          {groupStudies?.map((groupStudy) => (
-            <GroupStudyBlock groupStudy={groupStudy} key={groupStudy.id} />
-          ))}
+          {groupStudies
+            ?.slice()
+            ?.reverse()
+            ?.map((groupStudy) => (
+              <GroupStudyBlock groupStudy={groupStudy} key={groupStudy.id} />
+            ))}
         </Main>
       </Layout>
       {!isGuest && <WritingIcon url="/groupStudy/writing/category/main" />}

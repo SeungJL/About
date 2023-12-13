@@ -1,5 +1,6 @@
 import { Switch } from "@chakra-ui/react";
 import {
+  faDollarSign,
   faLocationCrosshairs,
   faUser,
   faUserGroup,
@@ -30,7 +31,14 @@ import { IGatherMemberCnt } from "../../../types/page/gather";
 import { IGroupStudyWriting } from "../../../types/page/groupStudy";
 import { Location } from "../../../types/system";
 
-type ButtonType = "gender" | "age" | "pre" | "location" | "manager";
+type ButtonType =
+  | "gender"
+  | "age"
+  | "pre"
+  | "location"
+  | "manager"
+  | "isFree"
+  | "fee";
 
 export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 
@@ -46,16 +54,20 @@ function WritingCondition() {
   const [condition, setCondition] = useState({
     gender: groupStudyWriting?.gender || false,
     age: groupStudyWriting?.age ? true : false,
+    isFree: true,
     location: true,
     manager: true,
+    fee: false,
   });
 
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
     min: 4,
-    max: 0,
+    max: 8,
   });
-
   const [age, setAge] = useState(groupStudyWriting?.age || [19, 28]);
+
+  const [fee, setFee] = useState("");
+  const [feeText, setFeeText] = useState("");
 
   const [location, setLocation] = useState<Location | CombinedLocation>(
     userInfo?.location
@@ -65,6 +77,9 @@ function WritingCondition() {
   const onClickNext = async () => {
     const groupStudyData: IGroupStudyWriting = {
       ...groupStudyWriting,
+      fee: +fee,
+      feeText,
+      isFree: condition.isFree,
       location,
       age,
       memberCnt,
@@ -77,9 +92,11 @@ function WritingCondition() {
 
   const toggleSwitch = (e: ChangeEvent<HTMLInputElement>, type: ButtonType) => {
     const isChecked = e.target.checked;
+
     if (type === "location" && isChecked) {
       setLocation(userInfo.location);
     }
+
     setCondition((old) => {
       return { ...old, [type]: isChecked };
     });
@@ -89,7 +106,7 @@ function WritingCondition() {
     <>
       <PageLayout>
         <ProgressStatus value={100} />
-        <Header title="" url="/gather/writing/location" />
+        <Header title="" url="/groupStudy/writing/content" />
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>
@@ -115,6 +132,7 @@ function WritingCondition() {
                 isMin={false}
                 value={memberCnt.max}
                 setMemberCnt={setMemberCnt}
+                defaultBoolean={false}
               />
             </Item>
             <Item>
@@ -127,6 +145,9 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
+                disabled={
+                  !["게임", "기타"].includes(groupStudyWriting?.category.main)
+                }
                 mr="var(--margin-min)"
                 colorScheme="mintTheme"
                 isChecked={condition.gender}
@@ -179,10 +200,47 @@ function WritingCondition() {
               <Switch
                 mr="var(--margin-min)"
                 colorScheme="mintTheme"
-                isChecked={condition.location}
-                onChange={(e) => toggleSwitch(e, "location")}
+                isChecked={condition.isFree}
+                onChange={(e) => toggleSwitch(e, "isFree")}
               />
             </Item>
+            <Item>
+              <Name>
+                <FontAwesomeIcon icon={faDollarSign} />
+                <span>참여비</span>
+                <PopOverIcon
+                  title="참여비"
+                  text="기본 참여비는 1000원이고, 그룹장에게 지급됩니다. 그 외 추가적인 활동비가 필요한 경우에 체크해주세요."
+                />
+              </Name>
+              <Switch
+                mr="var(--margin-min)"
+                colorScheme="mintTheme"
+                isChecked={condition.fee}
+                onChange={(e) => toggleSwitch(e, "fee")}
+              />
+            </Item>
+            {condition.fee && (
+              <Fee>
+                <div>
+                  <span>참여비: </span>
+                  <input
+                    value={fee}
+                    onChange={(e) => setFee(e.target.value)}
+                    placeholder="2000"
+                  />
+                </div>
+
+                <div>
+                  <span>사용처: </span>
+                  <input
+                    value={feeText}
+                    onChange={(e) => setFeeText(e.target.value)}
+                    placeholder="출석에 대한 벌금"
+                  />
+                </div>
+              </Fee>
+            )}
           </Container>
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
@@ -191,11 +249,33 @@ function WritingCondition() {
         <GroupStudyConfirmModal
           setIsModal={setIsConfirmModal}
           groupStudyWriting={groupStudyWriting}
+          setGroupStudyWriting={setGroupStudyWriting}
         />
       )}
     </>
   );
 }
+
+const Fee = styled.div`
+  padding: var(--padding-sub) 0;
+  > div {
+    margin-bottom: var(--margin-sub);
+    > input {
+      width: 60px;
+      padding: var(--padding-min) var(--padding-md);
+      border-radius: var(--border-radius2);
+      border: var(--border-main);
+      :focus {
+        outline-color: var(--font-h1);
+      }
+    }
+  }
+  > div:last-child {
+    > input {
+      width: 280px;
+    }
+  }
+`;
 
 const Name = styled.div`
   display: flex;

@@ -69,6 +69,7 @@ const TitleInput = styled.input`
   margin-top: var(--margin-max);
   border-bottom: var(--border-thick);
   width: 100%;
+  padding-left: var(--padding-min);
   height: 40px;
   background-color: inherit;
   outline: none;

@@ -45,7 +45,7 @@ function WritingStudyCategoryMain() {
   return (
     <PageLayout>
       <ProgressStatus value={20} />
-      <Header title="" url={prevPageUrl || "/gather"} />
+      <Header title="" url={prevPageUrl || "/groupStudy"} />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>
@@ -79,6 +79,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   align-items: center;
   margin-bottom: var(--margin-md);
   height: 60px;
+  background-color: white;
   border-radius: var(--border-radius-sub);
   border: ${(props) =>
     props.isSelected ? "2px solid var(--color-mint)" : "var(--border-main)"};

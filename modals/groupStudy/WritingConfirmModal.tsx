@@ -9,7 +9,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
+import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGroupStudyWritingMutation } from "../../hooks/groupStudy/mutations";
@@ -17,14 +17,16 @@ import { isGatherEditState } from "../../recoil/checkAtoms";
 import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGroupStudyWriting } from "../../types/page/groupStudy";
-import { IModal } from "../../types/reactTypes";
+import { DispatchType, IModal } from "../../types/reactTypes";
 
 interface IGroupStudyConfirmModal extends IModal {
   groupStudyWriting: IGroupStudyWriting;
+  setGroupStudyWriting: DispatchType<IGroupStudyWriting>;
 }
 
 function GroupStudyConfirmModal({
   setIsModal,
+  setGroupStudyWriting,
   groupStudyWriting,
 }: IGroupStudyConfirmModal) {
   const router = useRouter();
@@ -38,7 +40,8 @@ function GroupStudyConfirmModal({
   console.log(groupStudyWriting);
   const { mutate } = useGroupStudyWritingMutation("post", {
     onSuccess() {
-      resetQueryData([GATHER_CONTENT]);
+      resetQueryData([GROUP_STUDY_ALL]);
+      setGroupStudyWriting(null);
       setTimeout(() => {
         setGatherContent(null);
       }, 200);
@@ -48,7 +51,7 @@ function GroupStudyConfirmModal({
   });
   const { mutate: updateGather } = useGroupStudyWritingMutation("patch", {
     onSuccess() {
-      resetQueryData([GATHER_CONTENT]);
+      resetQueryData([GROUP_STUDY_ALL]);
       setTimeout(() => {
         setGatherContent(null);
         // router.push(`/gather/${(groupStudyWriting as IGather).id}`);

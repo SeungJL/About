@@ -9,14 +9,16 @@ interface IGatherWritingConditionCnt {
   isMin: boolean;
   value: number;
   setMemberCnt: DispatchType<IGatherMemberCnt>;
+  defaultBoolean?: boolean;
 }
 
 function GatherWritingConditionCnt({
   isMin,
   value,
   setMemberCnt,
+  defaultBoolean,
 }: IGatherWritingConditionCnt) {
-  const [isMaxLimit, setIsMaxLimit] = useState(!isMin);
+  const [isMaxLimit, setIsMaxLimit] = useState(defaultBoolean ?? !isMin);
   const [number, setNumber] = useState(value);
 
   useEffect(() => {
