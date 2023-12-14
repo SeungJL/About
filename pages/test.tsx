@@ -25,7 +25,7 @@ function Test() {
     null,
     "안양"
   );
-  console.log(4, data, data2);
+
 
   const onClick = () => {};
 

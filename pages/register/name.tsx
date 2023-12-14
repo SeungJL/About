@@ -26,8 +26,8 @@ function Name() {
   const [value, setValue] = useState(registerForm?.name || session?.user.name);
 
   const onClickNext = () => {
-    if (value.length < 2 || value.length > 3) {
-      setErrorMessage("2자 이상 입력해 주세요.");
+    if (value.length < 2 || value.length > 4) {
+      setErrorMessage("글자수를 확인해주세요.");
       return;
     }
     if (!checkIsKorean(value)) {

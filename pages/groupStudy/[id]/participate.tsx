@@ -4,6 +4,7 @@ import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
+import ParticipateModal from "../../../pagesComponents/groupStudy/ParticipateModal";
 import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
 import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
@@ -12,50 +13,77 @@ function Participate() {
   const groupStudy = useRecoilValue(transferGroupStudyDataState);
 
   const [questionText, setQuestionText] = useState("");
-  console.log(groupStudy);
-  const onClick = () => {};
+  const [isModal, setIsModal] = useState(false);
+ 
+  const onClick = () => {
+    setIsModal(true);
+  };
 
   return (
-    <PageLayout>
-      <Header title="" url="back" />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>모임장의 승인이 필요한 모임입니다!</span>
-          <span>모임장이 설정한 질문에 답변해주세요.</span>
-        </RegisterOverview>
-        <Container>
-          <AnswerText
-            placeholder="제목"
-            value={questionText}
-            onChange={(e) => setQuestionText(e.target.value)}
-          />
-          {/* <Guide
-            placeholder="간단하게 작성해주세요."
-            value={guide}
-            onChange={(e) => setGuide(e.target.value)}
-          /> */}
-        </Container>
-        <BottomNav text="신청" onClick={onClick} />
-      </RegisterLayout>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Header title="" url="back" />
+        <RegisterLayout>
+          <RegisterOverview>
+            {groupStudy?.questionText ? (
+              <>
+                <span>모임장의 승인이 필요한 모임입니다!</span>
+                <span>모임장이 설정한 질문에 답변해주세요.</span>
+              </>
+            ) : (
+              <>
+                <span>자유 가입으로 설정된 모임입니다!</span>
+                <span>바로 가입이 가능해요.</span>
+              </>
+            )}
+          </RegisterOverview>
+          <Container>
+            {groupStudy?.questionText && (
+              <Item>
+                <Title>Q&#41; {groupStudy?.questionText}</Title>
+                <AnswerText
+                  placeholder="부담없이 작성해주세요!"
+                  value={questionText}
+                  onChange={(e) => setQuestionText(e.target.value)}
+                />
+              </Item>
+            )}
+          </Container>
+          <BottomNav text="가입 신청" onClick={onClick} />
+        </RegisterLayout>
+      </PageLayout>
+      {isModal && (
+        <ParticipateModal
+          id={groupStudy.id}
+          fee={groupStudy.fee}
+          setIsModal={setIsModal}
+        />
+      )}
+    </>
   );
 }
 
-const Layout = styled.div``;
-const Container = styled.div``;
-const AnswerText = styled.textarea`
+const Container = styled.div`
   margin-top: var(--margin-max);
-  padding-left: var(--padding-min);
+`;
+
+const Item = styled.div``;
+
+const AnswerText = styled.textarea`
+  border-radius: var(--border-radius2);
+
   border: var(--border-main);
   width: 100%;
-  height: 40px;
-  background-color: inherit;
-  outline: none;
-  font-size: 15px;
-  font-weight: 600;
-  ::placeholder {
-    color: var(--font-h4);
+  padding: var(--padding-md);
+
+  :focus {
+    outline-color: var(--font-h1);
   }
+`;
+
+const Title = styled.div`
+  font-size: 15px;
+  margin-bottom: var(--margin-main);
 `;
 
 export default Participate;

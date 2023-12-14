@@ -2,11 +2,15 @@ import Image from "next/image";
 import styled from "styled-components";
 import { SQUARE_RANDOM_IMAGE } from "../../../constants/image/imageUrl";
 
-function GroupStudyCover() {
+interface IGroupStudyCover {
+  image: string;
+}
+
+function GroupStudyCover({ image }: IGroupStudyCover) {
   return (
     <Layout>
       <Image
-        src={SQUARE_RANDOM_IMAGE[0]}
+        src={image || SQUARE_RANDOM_IMAGE[0]}
         layout="fill"
         alt="studySpace"
         priority={true}

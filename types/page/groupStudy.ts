@@ -10,10 +10,12 @@ export type GroupStudyCategory =
   | "취업준비"
   | "자기계발"
   | "게임"
-  | "기타";
+  | "기타"
+  | "운동"
+  | "친목";
 export interface IGroupStudy extends IGroupStudyWriting {
   createdAt: string;
-  participants: IUser[];
+  participants: { user: IUser; role: "member" | "manager" | "admin" }[];
   comment: IGatherComment[];
 }
 
@@ -24,6 +26,7 @@ export interface IGroupStudyWriting {
   status: GatherStatus;
   guide: string;
   feeText: string;
+  image?: string;
   fee: number;
   gender: boolean;
   isFree: boolean;

@@ -2,9 +2,11 @@ import { faLockKeyhole } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Badge } from "../../components/common/customComponents/Badges";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
+import { transferGroupStudyDataState } from "../../recoil/transferDataAtoms";
 import { IGroupStudy } from "../../types/page/groupStudy";
 
 interface IGroupStudyBlock {
@@ -14,7 +16,8 @@ interface IGroupStudyBlock {
 function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
   const router = useRouter();
   const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
-  console.log(groupStudy);
+ 
+  const setGroupStudy = useSetRecoilState(transferGroupStudyDataState);
 
   const groupStudyInfo = {
     그룹장: groupStudy.organizer.name,
@@ -32,6 +35,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
   };
 
   const onClick = () => {
+    setGroupStudy(groupStudy);
     router.push(`/groupStudy/${groupStudy.id}`);
   };
 

@@ -53,7 +53,7 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "alphabet"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(FAQ_POP_UP, 14)) {
+    if (!checkAndSetLocalStorage(FAQ_POP_UP, 9)) {
       setPopUpTypes((old) => [...old, "faq"]);
       if (++popUpCnt === 2) return;
     }
@@ -84,7 +84,7 @@ function UserSettingPopUp() {
   const filterPopUpTypes = (type: UserPopUp) => {
     setPopUpTypes((popUps) => popUps.filter((popUp) => popUp !== type));
   };
-  console.log(dayjs().add(1, "day").startOf("week").day());
+  
   return (
     <>
       {popUpTypes.includes("faq") && (

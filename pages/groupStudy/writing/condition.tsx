@@ -84,7 +84,7 @@ function WritingCondition() {
     else setIsQuestionModal(false);
   }, [condition.isFree]);
   
-  console.log(isQuestionModal);
+ 
   const onClickNext = async () => {
     const groupStudyData: IGroupStudyWriting = {
       ...groupStudyWriting,

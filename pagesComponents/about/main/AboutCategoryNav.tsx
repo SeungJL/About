@@ -81,7 +81,10 @@ function AboutCategoryNav() {
       </Item>
       <Item>
         <Button onClick={() => onClickItem("groupStudy")}>
-          <GroupStudyIcon />
+          <GroupStudyIcon />{" "}
+          <IconWrapper>
+            <NewAlertIcon size="lg" />
+          </IconWrapper>
         </Button>
         <span>소모임</span>
       </Item>

@@ -108,7 +108,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
     // })
     //   .then((response) => response.json())
     //   .then((data) => {
-    //     console.log("SUC", data);
+    //    
     //     // 여기서 성공 메시지 등 처리
     //   })
     //   .catch((error) => {

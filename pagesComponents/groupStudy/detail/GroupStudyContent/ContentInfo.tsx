@@ -9,7 +9,7 @@ interface IContentInfo {
 function ContentInfo({ groupStudy }: IContentInfo) {
   const hashTagText = groupStudy.hashTag;
   const hashTagArr = hashTagText?.split("#");
-  console.log(hashTagArr);
+ 
 
   return (
     <Layout>
@@ -20,9 +20,9 @@ function ContentInfo({ groupStudy }: IContentInfo) {
         <span>소개</span>
         <Content>{groupStudy.content}</Content>
         <Tag>
-          <div>#코딩</div>
-          <div>#개발</div>
-          <div>#프로젝트</div>
+          {hashTagArr?.map((tag, idx) =>
+            tag ? <div key={idx}>#{tag}</div> : null
+          )}
         </Tag>
       </ContentWrapper>
     </Layout>

@@ -8,9 +8,15 @@ interface IGroupStudyTitle {
   title: string;
   status: GatherStatus;
   memberCnt: number;
+  isAdmin: boolean;
 }
 
-function GroupStudyTitle({ status, title, memberCnt }: IGroupStudyTitle) {
+function GroupStudyTitle({
+  isAdmin,
+  status,
+  title,
+  memberCnt,
+}: IGroupStudyTitle) {
   const color =
     status === "pending" ? "mintTheme" : status === "open" ? "redTheme" : null;
 
@@ -28,14 +34,16 @@ function GroupStudyTitle({ status, title, memberCnt }: IGroupStudyTitle) {
         <span>
           멤버 {memberCnt} · 모임 1 · {statusText}
         </span>
-        <SettingBtnNav>
-          <button>
-            <FontAwesomeIcon icon={faUserGroup} size="sm" />
-          </button>
-          <button>
-            <FontAwesomeIcon icon={faGear} size="sm" />
-          </button>
-        </SettingBtnNav>
+        {isAdmin && (
+          <SettingBtnNav>
+            <button>
+              <FontAwesomeIcon icon={faUserGroup} size="sm" />
+            </button>
+            <button>
+              <FontAwesomeIcon icon={faGear} size="sm" />
+            </button>
+          </SettingBtnNav>
+        )}
       </SubInfo>
     </Layout>
   );

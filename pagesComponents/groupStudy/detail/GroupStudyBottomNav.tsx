@@ -25,12 +25,12 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
 
   const errorToast = useErrorToast();
   const { data: session } = useSession();
-  console.log(router);
+ 
   const url = router.asPath;
   const myUid = session.uid;
   const myGroupStudy = data.organizer.uid === myUid;
   const isParticipant = data?.participants.some(
-    (who) => who && who.uid === myUid
+    (who) => who && who.user.uid === myUid
   );
   const [isExpirationModal, setIsExpirationModal] = useState(false);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
@@ -49,7 +49,7 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
       onError: errorToast,
     }
   );
-  console.log(url);
+
   const { mutate: cancel } = useGroupStudyParticipationMutation(
     "delete",
     groupStudyId,

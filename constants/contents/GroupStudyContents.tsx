@@ -2,9 +2,11 @@ import {
   faAtom,
   faBinary,
   faBookUser,
+  faChampagneGlasses,
   faFileCertificate,
   faGamepad,
   faGlobe,
+  faPersonRunning,
   faUserGraduate,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +20,8 @@ export const GROUP_STUDY_CATEGORY_ARR: GroupStudyCategory[] = [
   "취업준비",
   "자기계발",
   "게임",
+  "친목",
+  "운동",
   "기타",
 ];
 
@@ -28,6 +32,8 @@ export const GROUP_STUDY_SUB_CATEGORY = {
   취업준비: ["공기업 면접", "사기업 면접", "인적성(NCS)"],
   자기계발: ["투두메이트", "블로그", "다이어리", "열품타", "공부인증", "습관"],
   게임: ["리그오브레전드", "오버워치", "롤토체스"],
+  친목: ["방탈출", "보드게임"],
+  운동: ["러닝", "운동 인증"],
   기타: ["편입준비", "공사"],
 };
 
@@ -38,5 +44,7 @@ export const GROUP_STUDY_CATEGORY_ARR_ICONS = {
   취업준비: <FontAwesomeIcon icon={faUserGraduate} color={TABLE_COLORS[3]} />,
   자기계발: <FontAwesomeIcon icon={faBookUser} color={TABLE_COLORS[4]} />,
   게임: <FontAwesomeIcon icon={faGamepad} color={TABLE_COLORS[5]} />,
+  친목: <FontAwesomeIcon icon={faChampagneGlasses} color={TABLE_COLORS[7]} />,
+  운동: <FontAwesomeIcon icon={faPersonRunning} color={TABLE_COLORS[8]} />,
   기타: <FontAwesomeIcon icon={faAtom} color={TABLE_COLORS[6]} />,
 };

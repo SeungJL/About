@@ -37,7 +37,6 @@ function GroupStudyConfirmModal({
   const resetQueryData = useResetQueryData();
   const setGatherContent = useSetRecoilState(sharedGatherWritingState);
 
-  console.log(groupStudyWriting);
   const { mutate } = useGroupStudyWritingMutation("post", {
     onSuccess() {
       resetQueryData([GROUP_STUDY_ALL]);

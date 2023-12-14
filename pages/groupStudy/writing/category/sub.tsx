@@ -43,7 +43,7 @@ function WritingStudyCategorySub() {
     }));
     router.push(`/groupStudy/writing/guide`);
   };
-  console.log(mainCategory);
+ 
   useEffect(() => {
     if (!mainCategory) router.push("/groupStudy/writing/category/main");
     // eslint-disable-next-line react-hooks/exhaustive-deps

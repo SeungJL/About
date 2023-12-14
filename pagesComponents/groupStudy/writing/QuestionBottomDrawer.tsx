@@ -25,10 +25,10 @@ function QuestionBottomDrawer({
 }: IQuestionBottomDrawer) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log(3, isModal);
+  
   useEffect(() => {
     if (isModal) {
-      console.log(55);
+     
       onOpen();
     }
     if (!isModal) {
@@ -44,7 +44,7 @@ function QuestionBottomDrawer({
     setQuestion(null);
     onClose();
   };
-  console.log(1, isOpen);
+ 
   return (
     <Drawer placement="bottom" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />

@@ -1,7 +1,7 @@
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
@@ -13,11 +13,13 @@ import GroupStudyHeader from "../../../pagesComponents/groupStudy/detail/GroupSt
 import GroupStudyParticipation from "../../../pagesComponents/groupStudy/detail/GroupStudyParticipation";
 import GroupStudyTitle from "../../../pagesComponents/groupStudy/detail/GroupStudyTitle";
 import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
+import { userAccessUidState } from "../../../recoil/userAtoms";
 
 function GroupStudyDetail() {
   const router = useRouter();
   const groupStudyId = router.query.id;
 
+  const uid = useRecoilValue(userAccessUidState);
   const [groupStudy, setGroupStudy] = useRecoilState(
     transferGroupStudyDataState
   );
@@ -40,15 +42,17 @@ function GroupStudyDetail() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupStudy, isRefetch]);
-  console.log(groupStudy);
+
+
   return (
     <>
       {groupStudy ? (
         <>
           <Layout>
             <GroupStudyHeader groupStudy={groupStudy} />
-            <GroupStudyCover />
+            <GroupStudyCover image={groupStudy?.image} />
             <GroupStudyTitle
+              isAdmin={groupStudy.organizer.uid === uid}
               memberCnt={groupStudy.participants.length + 1}
               title={groupStudy.title}
               status={groupStudy.status}

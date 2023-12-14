@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 import { IGroupStudy } from "../../../types/page/groupStudy";
@@ -27,6 +28,7 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
+
 
   return (
     <Layout>
@@ -75,14 +77,17 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
         {data?.participants.map(
           (who) =>
             who && (
-              <MemberItem key={who?.uid} onClick={() => onClickProfile(who)}>
-                <ProfileIcon user={who} size="sm" />
+              <MemberItem
+                key={who?.user?.uid}
+                onClick={() => onClickProfile(who?.user)}
+              >
+                <ProfileIcon user={who?.user} size="sm" />
                 <UserOverview>
-                  <span>{who?.name}</span>
-                  <div>{who?.comment}</div>
+                  <span>{who?.user?.name}</span>
+                  <div>{who?.user?.comment}</div>
                 </UserOverview>
                 <ParticipateTime isFirst={true}>
-                  <span>차</span>
+                  {GROUP_STUDY_ROLE[who.role]}
                 </ParticipateTime>
               </MemberItem>
             )

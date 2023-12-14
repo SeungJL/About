@@ -27,7 +27,6 @@ function UserOverviewComment() {
   const { data: userInfo, isLoading } = useUserInfoQuery();
   const { mutate: setComment } = useUserInfoFieldMutation("comment", {
     onSuccess() {
-     
       resetQueryData([USER_INFO]);
     },
   });
@@ -66,10 +65,9 @@ function UserOverviewComment() {
 
   const handleSubmit = () => {
     if (userInfo.comment === value) {
-      console.log(1);
       return;
     }
-    console.log(2);
+
     setComment({ comment: value });
   };
 

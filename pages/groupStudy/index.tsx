@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -10,7 +11,9 @@ import {
   GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contents/GroupStudyContents";
+import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
+import NotCompletedGroupStudyModal from "../../modals/system/NotCompletedGroupStudyModal";
 import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
 import { isGuestState } from "../../recoil/userAtoms";
 import { IGroupStudy } from "../../types/page/groupStudy";
@@ -22,9 +25,17 @@ function Index() {
   const [category, setCategory] = useState("전체");
   const [subCategory, setSubCategory] = useState();
 
+  const [isModal, setIsModal] = useState(false);
   const [isRuleModal, setIsRuleModal] = useState(false);
 
   const { data: groupStudyAll, isLoading } = useGroupStudyAllQuery();
+
+  useEffect(() => {
+    if (localStorage.getItem("groupStudyModal") !== dayjsToStr(dayjs())) {
+      localStorage.setItem("groupStudyModal", dayjsToStr(dayjs()));
+      setIsModal(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (isLoading) return;
@@ -70,6 +81,7 @@ function Index() {
         </Main>
       </Layout>
       {!isGuest && <WritingIcon url="/groupStudy/writing/category/main" />}
+      {isModal && <NotCompletedGroupStudyModal setIsModal={setIsModal} />}
     </>
   );
 }
