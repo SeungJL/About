@@ -16,7 +16,7 @@ interface IGroupStudyBlock {
 function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
   const router = useRouter();
   const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
- 
+
   const setGroupStudy = useSetRecoilState(transferGroupStudyDataState);
 
   const groupStudyInfo = {
@@ -44,7 +44,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
       <Header>
         <div>
           <span>{groupStudy.category.main}</span>
-          <FontAwesomeIcon icon={faLockKeyhole} />
+          {groupStudy?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
         </div>
         <Badge text="모집중" colorScheme="mintTheme" type="outline" size="md" />
       </Header>
