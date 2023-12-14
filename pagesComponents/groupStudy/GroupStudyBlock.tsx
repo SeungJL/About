@@ -53,7 +53,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
           </InfoItem>
         ))}
       </Info>
-      <Content>{groupStudy.content}</Content>
+      <Content>{groupStudy.guide}</Content>
     </Layout>
   );
 }
@@ -124,10 +124,10 @@ const Content = styled.pre`
   color: var(--font-h2);
   padding-top: var(--padding-sub);
   white-space: pre-wrap;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
+  /* display: -webkit-box;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow: hidden; */
 `;
 
 export default GroupStudyBlock;

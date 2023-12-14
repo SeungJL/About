@@ -34,6 +34,7 @@ export interface IGroupStudyWriting {
   location: LocationFilterType;
   date: string;
   questionText?: string;
+  hashTag?: string;
   memberCnt: {
     min: number;
     max: number;

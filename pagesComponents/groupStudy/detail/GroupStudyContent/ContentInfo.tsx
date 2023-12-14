@@ -7,6 +7,10 @@ interface IContentInfo {
 }
 
 function ContentInfo({ groupStudy }: IContentInfo) {
+  const hashTagText = groupStudy.hashTag;
+  const hashTagArr = hashTagText?.split("#");
+  console.log(hashTagArr);
+
   return (
     <Layout>
       <Wrapper>

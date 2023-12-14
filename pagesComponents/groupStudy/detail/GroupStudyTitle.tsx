@@ -23,6 +23,11 @@ function GroupStudyTitle({ status, title, memberCnt }: IGroupStudyTitle) {
           <span>{title}</span>
           <Badge text="모집중" colorScheme={color} size="lg" />
         </div>
+      </Title>
+      <SubInfo>
+        <span>
+          멤버 {memberCnt} · 모임 1 · {statusText}
+        </span>
         <SettingBtnNav>
           <button>
             <FontAwesomeIcon icon={faUserGroup} size="sm" />
@@ -31,9 +36,6 @@ function GroupStudyTitle({ status, title, memberCnt }: IGroupStudyTitle) {
             <FontAwesomeIcon icon={faGear} size="sm" />
           </button>
         </SettingBtnNav>
-      </Title>
-      <SubInfo>
-        멤버 {memberCnt} · 모임 1 · {statusText}
       </SubInfo>
     </Layout>
   );
@@ -41,6 +43,7 @@ function GroupStudyTitle({ status, title, memberCnt }: IGroupStudyTitle) {
 
 const Layout = styled.div<{ status: GatherStatus }>`
   padding: Var(--padding-main);
+  padding-bottom: var(--padding-md);
   background-color: white;
   border-bottom: var(--border-sub);
   display: flex;
@@ -50,6 +53,7 @@ const Layout = styled.div<{ status: GatherStatus }>`
 const SettingBtnNav = styled.nav`
   display: flex;
   margin-left: auto;
+
   > button {
     margin-left: var(--margin-md);
     border-radius: 50%;
@@ -63,7 +67,6 @@ const SettingBtnNav = styled.nav`
 `;
 
 const Title = styled.div`
-  height: 32px;
   display: flex;
   align-items: center;
   margin-bottom: var(--margin-min);
@@ -78,8 +81,10 @@ const Title = styled.div`
   }
 `;
 
-const SubInfo = styled.span`
+const SubInfo = styled.div`
+  height: 32px;
   font-size: 13px;
+  display: flex;
   color: var(--font-h3);
 `;
 

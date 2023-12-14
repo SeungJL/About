@@ -39,7 +39,7 @@ function GroupStudyWritingGuide() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={48} />
+      <ProgressStatus value={42} />
       <Header title="" url="/groupStudy/writing/category/sub" />
       <RegisterLayout>
         <RegisterOverview>

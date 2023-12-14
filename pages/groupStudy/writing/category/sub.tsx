@@ -51,7 +51,7 @@ function WritingStudyCategorySub() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={32} />
+      <ProgressStatus value={28} />
       <Header
         title=""
         url={prevPageUrl || "/groupStudy/writing/category/main"}

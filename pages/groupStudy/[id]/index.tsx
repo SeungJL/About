@@ -3,16 +3,16 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
-import GroupStudyBottomNav from "../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
-import GroupStudyComments from "../../pagesComponents/groupStudy/detail/GroupStudyComment";
-import GroupStudyContent from "../../pagesComponents/groupStudy/detail/GroupStudyContent/GroupStudyContent";
-import GroupStudyCover from "../../pagesComponents/groupStudy/detail/GroupStudyCover";
-import GroupStudyHeader from "../../pagesComponents/groupStudy/detail/GroupStudyHeader";
-import GroupStudyParticipation from "../../pagesComponents/groupStudy/detail/GroupStudyParticipation";
-import GroupStudyTitle from "../../pagesComponents/groupStudy/detail/GroupStudyTitle";
-import { transferGroupStudyDataState } from "../../recoil/transferDataAtoms";
+import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
+import GroupStudyBottomNav from "../../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
+import GroupStudyComments from "../../../pagesComponents/groupStudy/detail/GroupStudyComment";
+import GroupStudyContent from "../../../pagesComponents/groupStudy/detail/GroupStudyContent/GroupStudyContent";
+import GroupStudyCover from "../../../pagesComponents/groupStudy/detail/GroupStudyCover";
+import GroupStudyHeader from "../../../pagesComponents/groupStudy/detail/GroupStudyHeader";
+import GroupStudyParticipation from "../../../pagesComponents/groupStudy/detail/GroupStudyParticipation";
+import GroupStudyTitle from "../../../pagesComponents/groupStudy/detail/GroupStudyTitle";
+import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
 
 function GroupStudyDetail() {
   const router = useRouter();

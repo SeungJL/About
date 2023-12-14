@@ -31,7 +31,10 @@ function QuestionBottomDrawer({
       console.log(55);
       onOpen();
     }
-  }, [isModal, onOpen]);
+    if (!isModal) {
+      onClose();
+    }
+  }, [isModal, onClose, onOpen]);
 
   useEffect(() => {
     // if (!isOpen) setIsModal(false);

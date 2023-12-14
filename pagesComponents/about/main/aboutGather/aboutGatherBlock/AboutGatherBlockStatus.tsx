@@ -22,21 +22,8 @@ function AboutGatherBlockStatus({ status, title }: IAboutGatherBlockStatus) {
         colorScheme={badgeStyle.color}
         text={badgeStyle.text}
         type="outline"
+        size="md"
       />
-      {/* {status === "open" ? (
-        
-        <Badge p="2px 4px" colorScheme="redTheme" variant="outline">
-          오픈
-        </Badge>
-      ) : status === "pending" ? (
-        <Badge p="2px 4px" colorScheme="mintTheme" variant="outline">
-          모집중
-        </Badge>
-      ) : status === "close" ? (
-        <Badge p="2px 4px" colorScheme="blackAlpha" variant="outline">
-          취소
-        </Badge>
-      ) : null} */}
     </Layout>
   );
 }

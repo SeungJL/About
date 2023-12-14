@@ -39,14 +39,12 @@ function GroupStudyWritingContent() {
 
   return (
     <PageLayout>
-      <ProgressStatus value={64} />
+      <ProgressStatus value={56} />
       <Header title="" url="/groupStudy/writing/guide" />
       <RegisterLayout>
         <RegisterOverview>
           <span>어떤 모임인지 작성해주세요!</span>
-          <span>
-            사람들이 가입 이전에 어떤 모임인지 정확히 알 수 있어야 해요
-          </span>
+          <span>가입 이전에 어떤 활동과 방식의 모임인지 알 수 있어야 해요</span>
         </RegisterOverview>
         <Container>
           <Content
