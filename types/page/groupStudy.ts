@@ -33,6 +33,7 @@ export interface IGroupStudyWriting {
   organizer: IUser;
   location: LocationFilterType;
   date: string;
+  questionText?: string;
   memberCnt: {
     min: number;
     max: number;

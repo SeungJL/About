@@ -7,7 +7,7 @@ import {
   faVenusMars,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
@@ -26,6 +26,7 @@ import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
 import GroupStudyConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
 import GatherWritingConditionLocation from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionLocation";
+import QuestionBottomDrawer from "../../../pagesComponents/groupStudy/writing/QuestionBottomDrawer";
 import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt } from "../../../types/page/gather";
 import { IGroupStudyWriting } from "../../../types/page/groupStudy";
@@ -70,11 +71,19 @@ function WritingCondition() {
   const [fee, setFee] = useState("");
   const [feeText, setFeeText] = useState("");
 
+  const [question, setQuestion] = useState("");
   const [location, setLocation] = useState<Location | CombinedLocation>(
     userInfo?.location
   );
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
+  const [isQuestionModal, setIsQuestionModal] = useState(false);
+
+  useEffect(() => {
+    if (!condition.isFree) setIsQuestionModal(true);
+    else setIsQuestionModal(false);
+  }, [condition.isFree]);
+  console.log(isQuestionModal);
   const onClickNext = async () => {
     const groupStudyData: IGroupStudyWriting = {
       ...groupStudyWriting,
@@ -86,6 +95,7 @@ function WritingCondition() {
       memberCnt,
       gender: condition.gender,
       organizer: userInfo,
+      questionText: question,
     };
     setGroupStudyWriting(groupStudyData);
     setIsConfirmModal(true);
@@ -246,6 +256,14 @@ function WritingCondition() {
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
       </PageLayout>
+
+      <QuestionBottomDrawer
+        isModal={isQuestionModal}
+        setIsModal={setIsQuestionModal}
+        question={question}
+        setQuestion={setQuestion}
+      />
+
       {isConfirmModal && (
         <GroupStudyConfirmModal
           setIsModal={setIsConfirmModal}

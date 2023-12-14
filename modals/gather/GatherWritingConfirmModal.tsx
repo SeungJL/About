@@ -98,7 +98,7 @@ function GatherWritingConfirmModal({
         <SuccessScreen url={`/gather`}>
           <>
             <span>모임 개최 성공</span>
-            <div>모임 게시글을 오픈 채팅방에 공유해 주세요!</div>
+            <div>모임 게시글을 단톡방에 공유해 주세요!</div>
           </>
         </SuccessScreen>
       )}

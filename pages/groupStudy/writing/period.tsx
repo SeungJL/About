@@ -48,7 +48,7 @@ function GroupStudyWritingContent() {
   return (
     <PageLayout>
       <ProgressStatus value={84} />
-      <Header title="" url="/groupStudy/writing/condition" />
+      <Header title="" url="/groupStudy/writing/content" />
       <RegisterLayout>
         <RegisterOverview>
           <span>진행 주기를 체크해주세요!</span>

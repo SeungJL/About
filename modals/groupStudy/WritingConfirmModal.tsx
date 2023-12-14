@@ -101,8 +101,8 @@ function GroupStudyConfirmModal({
       {isSuccessScreen && (
         <SuccessScreen url={`/groupStudy`}>
           <>
-            <span>모임 개최 성공</span>
-            <div>모임 게시글을 오픈 채팅방에 공유해 주세요!</div>
+            <span>소모임 개설 성공</span>
+            <div>소모임 오픈 소식을 단톡방에 공유해 주세요!</div>
           </>
         </SuccessScreen>
       )}

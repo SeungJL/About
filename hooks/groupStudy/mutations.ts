@@ -33,21 +33,20 @@ type GroupStudyParticipationParam<T> = T extends "post"
   : void;
 
 interface IGroupStudyParticipationRequest<T> {
-  groupStudyId: number;
-  phase?: GroupStudyParticipationParam<T>;
+  id: number;
 }
 
 export const useGroupStudyParticipationMutation = <T extends "post" | "delete">(
   method: T,
-  groupStudyId: number,
-  options?: MutationOptions<GroupStudyParticipationParam<T>>
+  id: number,
+  options?: MutationOptions<void>
 ) =>
-  useMutation<void, AxiosError, GroupStudyParticipationParam<T>>(
-    (param) =>
+  useMutation<void, AxiosError, void>(
+    () =>
       requestServer<IGroupStudyParticipationRequest<T>>({
         method,
         url: "groupStudy/participate",
-        body: { groupStudyId, phase: param },
+        body: { id },
       }),
     options
   );

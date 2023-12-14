@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../../components/layout/BottomNav";
@@ -43,6 +43,11 @@ function WritingStudyCategorySub() {
     }));
     router.push(`/groupStudy/writing/guide`);
   };
+  console.log(mainCategory);
+  useEffect(() => {
+    if (!mainCategory) router.push("/groupStudy/writing/category/main");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainCategory]);
 
   return (
     <PageLayout>

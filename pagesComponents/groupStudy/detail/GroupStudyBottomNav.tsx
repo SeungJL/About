@@ -35,6 +35,18 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
   const groupStudyId = +router.query.id;
 
   const resetQueryData = useResetQueryData();
+
+  const { mutate: participate } = useGroupStudyParticipationMutation(
+    "post",
+    groupStudyId,
+    {
+      onSuccess() {
+        completeToast("free", "신청되었습니다", true);
+        // resetQueryData([GROUPSTUDY_CONTENT]);
+      },
+      onError: errorToast,
+    }
+  );
   const { mutate: cancel } = useGroupStudyParticipationMutation(
     "delete",
     groupStudyId,

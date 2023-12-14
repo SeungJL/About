@@ -13,7 +13,7 @@ import { DeclareRequest } from "../../types/user/userRequest";
 interface IBottomDrawer {
   isModal: boolean;
   setIsModal: DispatchBoolean;
-  setDeclareModal: DispatchType<DeclareRequest>;
+  setDeclareModal?: DispatchType<DeclareRequest>;
 }
 
 function BottomDrawer({ isModal, setIsModal, setDeclareModal }: IBottomDrawer) {
