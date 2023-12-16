@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { IGroupStudy } from "../../../../types/page/groupStudy";
 import ContentChat from "./ContentChat";
-import ContentGallery from "./ContentGallery";
+import ContentAttend from "./ContentGallery";
 import ContentGather from "./ContentGather";
 import ContentInfo from "./ContentInfo";
 
@@ -36,7 +36,12 @@ function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
         ) : category === "모임" ? (
           <ContentGather />
         ) : category === "출석부" ? (
-          <ContentGallery />
+          <ContentAttend
+            members={[
+              groupStudy.organizer,
+              ...groupStudy.participants.map((who) => who.user),
+            ]}
+          />
         ) : (
           <ContentChat />
         )}

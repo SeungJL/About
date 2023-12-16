@@ -39,3 +39,9 @@ export const getDateDiff = (date: Dayjs) => {
   }
   return `${daysDiff}일 전`;
 };
+
+export const getDateWeek = (date: Dayjs) => {
+  const firstDayOfMonth = date.startOf("month");
+  const differenceInDays = date.diff(firstDayOfMonth, "day");
+  return Math.floor(differenceInDays / 7) + 1;
+};
