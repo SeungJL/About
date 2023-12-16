@@ -1,9 +1,14 @@
+import dayjs from "dayjs";
 import styled from "styled-components";
+import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 
 function ContentGallery() {
   return (
     <Layout>
-      <Message>게시된 앨범이 없습니다.</Message>
+      <Month>
+        {dayjsToFormat(dayjs(), "M월 D일")} ~{" "}
+        {dayjsToFormat(dayjs(), "M월 D일")}
+      </Month>
     </Layout>
   );
 }
@@ -11,12 +16,9 @@ function ContentGallery() {
 const Layout = styled.div`
   padding: var(--padding-main);
 `;
-const Message = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  font-size: 16px;
-  color: var(--font-h3);
-`;
+
+const Month = styled.div``;
+
+const Container = styled.div``;
 
 export default ContentGallery;

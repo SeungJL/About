@@ -86,5 +86,12 @@ export const EVENT_CONTENT_2023: Record<string, Content[]> = {
       color: TABLE_COLORS[1],
       text: "이벤트",
     },
+    {
+      content: "수원/강남 펭귄 핫팩",
+      start: 17,
+      end: 31,
+      color: TABLE_COLORS[2],
+      text: "이벤트",
+    },
   ],
 };

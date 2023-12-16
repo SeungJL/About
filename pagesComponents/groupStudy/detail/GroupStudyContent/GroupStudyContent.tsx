@@ -10,12 +10,12 @@ interface IGroupStudyContent {
   groupStudy: IGroupStudy;
 }
 
-type Category = "정보" | "모임" | "앨범" | "채팅";
+type Category = "정보" | "모임" | "출석부" | "채팅";
 
 function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
   const [category, setCategory] = useState<Category>("정보");
 
-  const categoryArr: Category[] = ["정보", "모임", "앨범", "채팅"];
+  const categoryArr: Category[] = ["정보", "출석부", "모임", "채팅"];
 
   return (
     <Layout>
@@ -35,7 +35,7 @@ function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
           <ContentInfo groupStudy={groupStudy} />
         ) : category === "모임" ? (
           <ContentGather />
-        ) : category === "앨범" ? (
+        ) : category === "출석부" ? (
           <ContentGallery />
         ) : (
           <ContentChat />
