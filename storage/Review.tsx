@@ -447,4 +447,16 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "일찍부터 와서 공부를 시작함. 일단 여기 대박인게 저 넓은 공간에 사람이 우리밖에 없었음. 그래서 눈치 안보고 공부하다가 얘기하다가 함. 케이크 먹으면서 그렇게 5시간 정도 하고 저녁을 먹으러 감. 오랜 토론 끝에 닭갈비로 결정했음. 맥주 딱 한잔만 했음. 원래 약간의 술은 공부에 도움이 된다고 누가 그랬음. 아무튼 그럼. 저녁을 먹은 뒤 앞에 투썸 미팅룸 큰걸로 빌려서 10시까지 공부함. 되게 뭔가 많이 한 듯.",
     title: "12월 6일 정기스터디",
   },
+  {
+    id: 116,
+    dateCreated: "12월 14일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635_03.jpg",
+    ],
+    text: "오늘도 역시 거의 장소 전세내고 쓴 기분... 알고보니 9시까지 사용이 가능해서 6시까지 공부하다가 저녁먹고 다시와서 마저 했음. 저녁은 역할맥에 갔는데 술 먹으러 간건 아니고(설마 시험 기간인데) 라이트한 안주를 찾다가 가게 됨.",
+    title: "12월 14일 정기스터디",
+  },
 ];
