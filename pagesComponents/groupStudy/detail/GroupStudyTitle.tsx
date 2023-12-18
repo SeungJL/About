@@ -1,5 +1,6 @@
 import { faGear, faUserGroup } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Badge } from "../../../components/common/customComponents/Badges";
 import { GatherStatus } from "../../../types/page/gather";
@@ -17,10 +18,15 @@ function GroupStudyTitle({
   title,
   memberCnt,
 }: IGroupStudyTitle) {
+  const router = useRouter();
   const color =
     status === "pending" ? "mintTheme" : status === "open" ? "redTheme" : null;
 
   const statusText = status === "pending" ? "모집중" : "미모집";
+
+  const onClick = () => {
+    router.push(`${router.asPath}/admin`);
+  };
 
   return (
     <Layout status={status}>
@@ -39,7 +45,7 @@ function GroupStudyTitle({
             <button>
               <FontAwesomeIcon icon={faUserGroup} size="sm" />
             </button>
-            <button>
+            <button onClick={onClick}>
               <FontAwesomeIcon icon={faGear} size="sm" />
             </button>
           </SettingBtnNav>

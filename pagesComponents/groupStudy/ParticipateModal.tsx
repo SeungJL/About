@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -9,8 +10,13 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { useFailToast } from "../../hooks/custom/CustomToast";
-import { useGroupStudyParticipationMutation } from "../../hooks/groupStudy/mutations";
+import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
+import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
+import {
+  useGroupStudyParticipationMutation,
+  useGroupStudyWaitingMutation,
+} from "../../hooks/groupStudy/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { userInfoState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -19,19 +25,48 @@ import { IModal } from "../../types/reactTypes";
 interface IParticipateModal extends IModal {
   fee: number;
   id: number;
+  isFree: boolean;
+  answer: string;
 }
 
-function ParticipateModal({ fee, id, setIsModal }: IParticipateModal) {
+function ParticipateModal({
+  isFree,
+  fee,
+  id,
+  setIsModal,
+  answer,
+}: IParticipateModal) {
+  const router = useRouter();
   const failToast = useFailToast();
+  const completeToast = useCompleteToast();
   const userInfo = useRecoilValue(userInfoState);
   const [selectBtn, setSelectBtn] = useState<"point" | "deposit">("point");
 
   const { mutate: getPoint } = usePointSystemMutation("point");
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
+
+  const resetQueryData = useResetQueryData();
+
   const { mutate: participate } = useGroupStudyParticipationMutation(
     "post",
-    id
+    id,
+    {
+      onSuccess() {
+        completeToast("free", "가입이 완료되었습니다.");
+        resetQueryData([GROUP_STUDY_ALL]);
+        router.push("/groupStudy");
+      },
+    }
   );
+
+  const { mutate: sendRegisterForm } = useGroupStudyWaitingMutation(id, {
+    onSuccess() {
+      completeToast("free", "가입 신청이 완료되었습니다.");
+      resetQueryData([GROUP_STUDY_ALL]);
+      router.push("/groupStudy");
+    },
+  });
+
   const feePoint = (fee + 1000) * 0.15;
 
   const onSubmit = () => {
@@ -52,7 +87,8 @@ function ParticipateModal({ fee, id, setIsModal }: IParticipateModal) {
         return;
       }
     }
-    //participate();
+    if (isFree) participate();
+    else sendRegisterForm(answer);
     setIsModal(false);
   };
 

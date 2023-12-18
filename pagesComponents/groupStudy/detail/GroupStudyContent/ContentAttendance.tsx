@@ -1,20 +1,36 @@
 import { Button } from "@chakra-ui/react";
+import { faCheckCircle } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../../helpers/dateHelpers";
+import { useGroupStudyAttendanceQuery } from "../../../../hooks/groupStudy/queries";
 import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
-import { IUser } from "../../../../types/user/user";
+import { userAccessUidState } from "../../../../recoil/userAtoms";
+import { IWeekRecord } from "../../../../types/page/groupStudy";
 
-interface IContentAttend {
-  members: IUser[];
-}
-
-function ContentAttend({ members }: IContentAttend) {
+function ContentAttend() {
+  const router = useRouter();
   const [isModal, setIsModal] = useState(false);
 
-  const topLineArr = ["이름", "월", "화", "수", "목", "금", "토", "일"];
-  const temp = [1, 2, 3, 4, 5, 6, 7];
+  const id = router.query.id;
+
+  const uid = useRecoilValue(userAccessUidState);
+  const [attendRecord, setAttendRecord] = useState<IWeekRecord[]>([]);
+
+  const weekDay = ["월", "화", "수", "목", "금", "토", "일"];
+  const topLineArr = ["이름", ...weekDay];
+
+  const { data } = useGroupStudyAttendanceQuery(+id, {
+    enabled: !!id,
+  });
+
+  useEffect(() => {
+    if (data) setAttendRecord(data.thisWeek);
+  }, [data, uid]);
 
   return (
     <>
@@ -39,18 +55,37 @@ function ContentAttend({ members }: IContentAttend) {
             ))}
           </TopLine>
           <Main>
-            {members.map((who) => (
-              <MainLine key={who.uid}>
-                <Name>{who.name}</Name>
-                {temp.map((item) => (
-                  <Item key={item}>{item}</Item>
-                ))}
-              </MainLine>
-            ))}
+            {attendRecord.map((who) => {
+              const attendDays = who.attendRecord;
+              const days = weekDay.map((day) =>
+                attendDays.includes(day) ? true : false
+              );
+
+              return (
+                <MainLine key={who.uid}>
+                  <Name>{who.name}</Name>
+                  {days.map((isAttend, idx) => (
+                    <Item key={idx}>
+                      {isAttend ? (
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      ) : null}
+                    </Item>
+                  ))}
+                </MainLine>
+              );
+            })}
           </Main>
         </Container>
       </Layout>
-      {isModal && <AttendCheckModal setIsModal={setIsModal} />}
+      {isModal && (
+        <AttendCheckModal
+          attendRecord={
+            attendRecord.find((who) => who.uid === uid)?.attendRecord || []
+          }
+          setIsModal={setIsModal}
+          id={+id}
+        />
+      )}
     </>
   );
 }

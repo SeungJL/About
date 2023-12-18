@@ -38,6 +38,10 @@ export interface IGroupStudyWriting {
   date: string;
   questionText?: string;
   hashTag?: string;
+  waiting: {
+    user: IUser;
+    answer?: string;
+  }[];
   memberCnt: {
     min: number;
     max: number;
@@ -48,4 +52,14 @@ export interface IGroupStudyWriting {
 export interface IGroupStudyWritingCategory {
   main: string;
   sub: string;
+}
+export interface IWeekRecord {
+  uid: string;
+  name: string;
+  attendRecord: string[];
+}
+export interface IGroupStudyAttendance {
+  firstDate: string;
+  lastWeek: IWeekRecord[];
+  thisWeek: IWeekRecord[];
 }

@@ -1,17 +1,26 @@
-import { faPenCircle, faShareNodes } from "@fortawesome/pro-light-svg-icons";
+import {
+  faGear,
+  faPenCircle,
+  faShareNodes,
+} from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
-import { useFailToast } from "../../../hooks/custom/CustomToast";
+import {
+  useCompleteToast,
+  useFailToast,
+} from "../../../hooks/custom/CustomToast";
+import { useGroupStudyParticipationMutation } from "../../../hooks/groupStudy/mutations";
 import { isGroupStudyEditState } from "../../../recoil/checkAtoms";
 
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 
 import { userInfoState } from "../../../recoil/userAtoms";
 import { IGroupStudy } from "../../../types/page/groupStudy";
+import BottomDrawer from "../../profile/BottomDrawer";
 
 interface IGroupStudyHeader {
   groupStudy: IGroupStudy;
@@ -19,6 +28,7 @@ interface IGroupStudyHeader {
 
 function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
   const failToast = useFailToast();
+  const completeToast = useCompleteToast();
   const router = useRouter();
 
   const title = groupStudy?.title;
@@ -33,6 +43,8 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
 
   const [isModal, setIsModal] = useState(false);
 
+  const [isSettigModal, setIsSettingModal] = useState(false);
+
   const onClick = () => {
     // setGroupStudyWriting({
     //   ...groupStudy,
@@ -41,6 +53,20 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     setIsGroupStudyEdit(true);
     setPrevPageUrl(`/groupStudy/${router.query.id}`);
     router.push("/groupStudy/writing/category");
+  };
+
+  const { mutate } = useGroupStudyParticipationMutation(
+    "delete",
+    groupStudy.id,
+    {
+      onSuccess() {
+        completeToast("free", "탈퇴되었습니다.");
+      },
+    }
+  );
+
+  const handleQuit = () => {
+    mutate();
   };
 
   return (
@@ -62,7 +88,22 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
             onClick={() => setIsModal(true)}
           />
         </IconWrapper>
+        <IconWrapper onClick={() => setIsSettingModal(true)}>
+          <FontAwesomeIcon
+            icon={faGear}
+            size="lg"
+            onClick={() => setIsModal(true)}
+          />
+        </IconWrapper>
       </Header>
+
+      <BottomDrawer
+        type="groupStudy"
+        isModal={isSettigModal}
+        setIsModal={setIsSettingModal}
+        onSubmit={handleQuit}
+      />
+
       {/* {isModal && (
         <GroupStudyKakaoShareModal
           setIsModal={setIsModal}

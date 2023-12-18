@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
@@ -13,13 +13,23 @@ import {
 } from "../../constants/contents/GroupStudyContents";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import NotCompletedGroupStudyModal from "../../modals/system/NotCompletedGroupStudyModal";
 import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
-import { isGuestState } from "../../recoil/userAtoms";
+import { isGuestState, userInfoState } from "../../recoil/userAtoms";
 import { IGroupStudy } from "../../types/page/groupStudy";
 
 function Index() {
   const isGuest = useRecoilValue(isGuestState);
+
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  useUserInfoQuery({
+    enabled: !userInfo,
+    onSuccess(data) {
+      setUserInfo(data);
+    },
+  });
 
   const [groupStudies, setGroupStudies] = useState<IGroupStudy[]>();
   const [category, setCategory] = useState("전체");

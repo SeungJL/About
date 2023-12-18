@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
@@ -10,6 +11,7 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGroupStudyParticipationMutation } from "../../../hooks/groupStudy/mutations";
+import { userInfoState } from "../../../recoil/userAtoms";
 import { GatherStatus } from "../../../types/page/gather";
 import { IGroupStudy } from "../../../types/page/groupStudy";
 
@@ -25,13 +27,17 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
 
   const errorToast = useErrorToast();
   const { data: session } = useSession();
- 
+
+  const userInfo = useRecoilValue(userInfoState);
+
   const url = router.asPath;
-  const myUid = session.uid;
+  const myUid = userInfo.uid;
   const myGroupStudy = data.organizer.uid === myUid;
   const isParticipant = data?.participants.some(
     (who) => who && who.user.uid === myUid
   );
+  const isPending = data.waiting.find((who) => who.user.uid === myUid);
+
   const [isExpirationModal, setIsExpirationModal] = useState(false);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
   const groupStudyId = +router.query.id;
@@ -75,20 +81,11 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
 
   const getButtonSettings = (status: GatherStatus): IButtonSetting => {
     switch (status) {
-      case "open":
-        return {
-          text: "모임장은 단톡방을 만들어주세요!",
-        };
-      case "close":
-        return {
-          text: "취소된 모임입니다.",
-        };
     }
-    if (myGroupStudy)
-      return { text: "모집 종료", handleFunction: () => onClick("expire") };
-    if (isParticipant) {
-      return { text: "참여 취소", handleFunction: () => onClick("cancel") };
-    }
+    if (isPending)
+      return {
+        text: "가입 대기중",
+      };
     return {
       text: "가입 신청",
       handleFunction: () => onClick("participate"),
@@ -102,11 +99,10 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
       <Layout>
         <Button
           size="lg"
-          h="48px"
           w="100%"
           borderRadius="var(--border-radius2)"
           disabled={!handleFunction}
-          colorScheme={handleFunction ? "mintTheme" : "blackAlpha"}
+          colorScheme={handleFunction ? "mintTheme" : "redTheme"}
           onClick={handleFunction}
         >
           {text}

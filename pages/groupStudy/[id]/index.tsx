@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import { useGroupStudyWaitingMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
 import GroupStudyBottomNav from "../../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
 import GroupStudyComments from "../../../pagesComponents/groupStudy/detail/GroupStudyComment";
@@ -12,6 +13,7 @@ import GroupStudyCover from "../../../pagesComponents/groupStudy/detail/GroupStu
 import GroupStudyHeader from "../../../pagesComponents/groupStudy/detail/GroupStudyHeader";
 import GroupStudyParticipation from "../../../pagesComponents/groupStudy/detail/GroupStudyParticipation";
 import GroupStudyTitle from "../../../pagesComponents/groupStudy/detail/GroupStudyTitle";
+import { isRefetchGroupStudyInfoState } from "../../../recoil/refetchingAtoms";
 import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
 import { userAccessUidState } from "../../../recoil/userAtoms";
 
@@ -24,6 +26,9 @@ function GroupStudyDetail() {
     transferGroupStudyDataState
   );
 
+  const [adminIsRefetch, setAdminIsRefetch] = useRecoilState(
+    isRefetchGroupStudyInfoState
+  );
   const [isRefetch, setIsRefetch] = useState(false);
 
   const { refetch } = useGroupStudyAllQuery({
@@ -34,15 +39,17 @@ function GroupStudyDetail() {
   });
 
   useEffect(() => {
-    if (isRefetch || !groupStudy) {
+    if (isRefetch || !groupStudy || adminIsRefetch) {
       setTimeout(() => {
         refetch();
         setIsRefetch(false);
+        setAdminIsRefetch(false);
       }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupStudy, isRefetch]);
 
+  const { mutate } = useGroupStudyWaitingMutation(18);
 
   return (
     <>
@@ -51,6 +58,7 @@ function GroupStudyDetail() {
           <Layout>
             <GroupStudyHeader groupStudy={groupStudy} />
             <GroupStudyCover image={groupStudy?.image} />
+
             <GroupStudyTitle
               isAdmin={groupStudy.organizer.uid === uid}
               memberCnt={groupStudy.participants.length + 1}
@@ -60,7 +68,12 @@ function GroupStudyDetail() {
             <GroupStudyContent groupStudy={groupStudy} />
             <GroupStudyParticipation data={groupStudy} />
             <GroupStudyComments comment={groupStudy.comment} />
-            <GroupStudyBottomNav data={groupStudy} />
+            {![
+              groupStudy.organizer,
+              ...groupStudy.participants.map((who) => who.user),
+            ].some((who) => who.uid === uid) ? (
+              <GroupStudyBottomNav data={groupStudy} />
+            ) : null}
           </Layout>
           {/* {!isGuest && <GroupStudyBottomNav data={groupStudy} />} */}
         </>

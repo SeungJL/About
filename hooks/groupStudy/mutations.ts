@@ -65,6 +65,26 @@ type GroupStudyCommentParam<T> = T extends "post"
       comment?: never;
       commentId: string;
     };
+
+interface IUserGroupStudyAttendRequest {
+  id: number;
+  weekRecord: string[];
+}
+
+export const useGroupStudyAttendMutation = (
+  id: number,
+  options?: MutationOptions<string[]>
+) =>
+  useMutation<void, AxiosError, string[]>(
+    (weekRecord) =>
+      requestServer<IUserGroupStudyAttendRequest>({
+        method: "patch",
+        url: "groupStudy/attendance",
+        body: { id, weekRecord },
+      }),
+    options
+  );
+
 interface IGroupStudyCommentRequest<T> {
   groupstudyId: number;
   comment?: string;
@@ -110,6 +130,49 @@ export const useGroupStudyStatusMutation = (
         body: {
           groupstudyId,
           status,
+        },
+      }),
+    options
+  );
+export const useGroupStudyWaitingMutation = (
+  id: number,
+  options?: MutationOptions<string>
+) =>
+  useMutation<void, AxiosError, string>(
+    (answer: string) =>
+      requestServer<{ id: number; answer: string }>({
+        method: "post",
+        url: "groupstudy/waiting",
+        body: {
+          id,
+          answer,
+        },
+      }),
+    options
+  );
+
+interface IWaitingStatusParam {
+  status: "agree" | "refuse";
+  userId: string;
+}
+
+interface IWaitingStatusRequest extends IWaitingStatusParam {
+  id: number;
+}
+
+export const useGroupStudyWaitingStatusMutation = (
+  id: number,
+  options?: MutationOptions<IWaitingStatusParam>
+) =>
+  useMutation<void, AxiosError, IWaitingStatusParam>(
+    ({ status, userId }) =>
+      requestServer<IWaitingStatusRequest>({
+        method: "post",
+        url: "groupstudy/waiting/status",
+        body: {
+          id,
+          status,
+          userId,
         },
       }),
     options

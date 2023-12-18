@@ -44,7 +44,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
       <Header>
         <div>
           <span>{groupStudy.category.main}</span>
-          {groupStudy?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
+          {!groupStudy?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
         </div>
         <Badge text="모집중" colorScheme="mintTheme" type="outline" size="md" />
       </Header>
