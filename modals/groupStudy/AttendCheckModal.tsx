@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { GROUP_STUDY } from "../../constants/keys/queryKeys";
+import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { dayjsToFormat, getDateWeek } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
@@ -18,9 +18,15 @@ import { IModal } from "../../types/reactTypes";
 interface IAttendCheckModal extends IModal {
   id: number;
   attendRecord: string[];
+  type: "this" | "last";
 }
 
-function AttendCheckModal({ id, attendRecord, setIsModal }: IAttendCheckModal) {
+function AttendCheckModal({
+  type,
+  id,
+  attendRecord,
+  setIsModal,
+}: IAttendCheckModal) {
   const completeToast = useCompleteToast();
 
   const dateWeek = getDateWeek(dayjs());
@@ -30,9 +36,9 @@ function AttendCheckModal({ id, attendRecord, setIsModal }: IAttendCheckModal) {
   const resetQueryData = useResetQueryData();
 
   const { mutate } = useGroupStudyAttendMutation(id, {
-    onSuccess() {
+    onSuccess(data) {
       completeToast("free", "저장되었습니다.");
-      resetQueryData([GROUP_STUDY, "attendance"]);
+      resetQueryData([GROUP_STUDY_ALL]);
       setIsModal(false);
     },
   });
@@ -56,7 +62,7 @@ function AttendCheckModal({ id, attendRecord, setIsModal }: IAttendCheckModal) {
   };
 
   const onSubmit = () => {
-    mutate(myAttend);
+    mutate({ weekRecord: myAttend, type });
   };
 
   return (

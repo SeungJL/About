@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
-import { useGroupStudyWaitingMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
 import GroupStudyBottomNav from "../../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
 import GroupStudyComments from "../../../pagesComponents/groupStudy/detail/GroupStudyComment";
@@ -48,8 +47,6 @@ function GroupStudyDetail() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupStudy, isRefetch]);
-
-  const { mutate } = useGroupStudyWaitingMutation(18);
 
   return (
     <>

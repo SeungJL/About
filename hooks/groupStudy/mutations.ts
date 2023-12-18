@@ -51,6 +51,29 @@ export const useGroupStudyParticipationMutation = <T extends "post" | "delete">(
     options
   );
 
+interface IUserGroupStudyAttendRequest extends IAttendMutationParam {
+  id: number;
+}
+
+interface IAttendMutationParam {
+  weekRecord: string[];
+  type: "this" | "last";
+}
+
+export const useGroupStudyAttendMutation = (
+  id: number,
+  options?: MutationOptions<IAttendMutationParam>
+) =>
+  useMutation<void, AxiosError, IAttendMutationParam>(
+    ({ weekRecord, type }) =>
+      requestServer<IUserGroupStudyAttendRequest>({
+        method: "patch",
+        url: "groupStudy/attendance",
+        body: { id, weekRecord, type },
+      }),
+    options
+  );
+
 type GroupStudyCommentParam<T> = T extends "post"
   ? {
       comment: string;
@@ -66,27 +89,8 @@ type GroupStudyCommentParam<T> = T extends "post"
       commentId: string;
     };
 
-interface IUserGroupStudyAttendRequest {
-  id: number;
-  weekRecord: string[];
-}
-
-export const useGroupStudyAttendMutation = (
-  id: number,
-  options?: MutationOptions<string[]>
-) =>
-  useMutation<void, AxiosError, string[]>(
-    (weekRecord) =>
-      requestServer<IUserGroupStudyAttendRequest>({
-        method: "patch",
-        url: "groupStudy/attendance",
-        body: { id, weekRecord },
-      }),
-    options
-  );
-
 interface IGroupStudyCommentRequest<T> {
-  groupstudyId: number;
+  id: number;
   comment?: string;
   commentId?: string;
 }
@@ -103,7 +107,7 @@ export const useGroupStudyCommentMutation = <
         method,
         url: "groupstudy/comment",
         body: {
-          groupstudyId,
+          id: groupstudyId,
           comment: param?.comment,
           commentId: param?.commentId,
         },

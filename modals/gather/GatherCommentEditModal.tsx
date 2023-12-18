@@ -7,20 +7,26 @@ import {
   ModalFooterTwo,
   ModalLayout,
 } from "../../components/modals/Modals";
-import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
+import {
+  GATHER_CONTENT,
+  GROUP_STUDY_ALL,
+} from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../hooks/gather/mutations";
+import { useGroupStudyCommentMutation } from "../../hooks/groupStudy/mutations";
 import { IModal } from "../../types/reactTypes";
 
 interface IGatherCommentEditModal extends IModal {
   commentText: string;
   commentId: string;
+  type?: "groupStudy";
 }
 
 function GatherCommentEditModal({
   commentText,
   setIsModal,
   commentId,
+  type,
 }: IGatherCommentEditModal) {
   const router = useRouter();
   const gatherId = +router.query.id;
@@ -30,6 +36,25 @@ function GatherCommentEditModal({
   const [value, setValue] = useState(commentText);
 
   const resetQueryData = useResetQueryData();
+
+  const { mutate: deleteCommentGroupStudy } = useGroupStudyCommentMutation(
+    "delete",
+    gatherId,
+    {
+      onSuccess() {
+        resetQueryData([GROUP_STUDY_ALL]);
+      },
+    }
+  );
+  const { mutate: editCommentGroupStudy } = useGroupStudyCommentMutation(
+    "patch",
+    gatherId,
+    {
+      onSuccess() {
+        resetQueryData([GROUP_STUDY_ALL]);
+      },
+    }
+  );
   const { mutate: deleteComment } = useGatherCommentMutation(
     "delete",
     gatherId,
@@ -50,18 +75,24 @@ function GatherCommentEditModal({
   };
 
   const onDelete = () => {
-    deleteComment({ commentId });
+    if (type === "groupStudy") deleteCommentGroupStudy({ commentId });
+    else deleteComment({ commentId });
     onComplete();
   };
 
   const onEdit = () => {
-    editComment({ comment: value, commentId });
+    if (type === "groupStudy")
+      editCommentGroupStudy({ comment: value, commentId });
+    else editComment({ comment: value, commentId });
     onComplete();
   };
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="xs">
+      <ModalLayout
+        onClose={() => setIsModal(false)}
+        size={isFirst ? "xs" : "sm"}
+      >
         <ModalBody>
           <Container>
             {isFirst ? (
@@ -94,10 +125,17 @@ function GatherCommentEditModal({
 
 const Container = styled.div`
   height: 100%;
+  margin-bottom: var(--margin-main);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
   align-items: flex-start;
+  > button {
+    :focus {
+      outline: none;
+    }
+  }
 `;
 
 const Input = styled.input`

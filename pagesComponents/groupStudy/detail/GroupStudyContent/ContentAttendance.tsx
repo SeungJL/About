@@ -1,5 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { faCheckCircle } from "@fortawesome/pro-light-svg-icons";
+import { faCheckCircle as checkCircle } from "@fortawesome/pro-regular-svg-icons";
+import { faCaretLeft, faCaretRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -7,14 +9,16 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../../helpers/dateHelpers";
-import { useGroupStudyAttendanceQuery } from "../../../../hooks/groupStudy/queries";
 import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
+import { transferGroupStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { userAccessUidState } from "../../../../recoil/userAtoms";
 import { IWeekRecord } from "../../../../types/page/groupStudy";
 
 function ContentAttend() {
   const router = useRouter();
   const [isModal, setIsModal] = useState(false);
+
+  const [isThisWeek, setIsThisWeek] = useState(true);
 
   const id = router.query.id;
 
@@ -24,30 +28,55 @@ function ContentAttend() {
   const weekDay = ["월", "화", "수", "목", "금", "토", "일"];
   const topLineArr = ["이름", ...weekDay];
 
-  const { data } = useGroupStudyAttendanceQuery(+id, {
-    enabled: !!id,
-  });
+  const groupStudy = useRecoilValue(transferGroupStudyDataState);
 
   useEffect(() => {
-    if (data) setAttendRecord(data.thisWeek);
-  }, [data, uid]);
+    if (isThisWeek) setAttendRecord(groupStudy.attendance?.thisWeek || []);
+    else setAttendRecord(groupStudy.attendance?.lastWeek || []);
+  }, [
+    groupStudy.attendance?.lastWeek,
+    groupStudy.attendance?.thisWeek,
+    isThisWeek,
+  ]);
 
   return (
     <>
       <Layout>
         <Month>
+          <IconWrapper onClick={() => setIsThisWeek(false)}>
+            {isThisWeek && (
+              <FontAwesomeIcon
+                icon={faCaretLeft}
+                size="sm"
+                color="var(--font-h2)"
+              />
+            )}
+          </IconWrapper>
           <div>
             {dayjsToFormat(dayjs().startOf("week").add(1, "day"), "M월 D일")} ~{" "}
             {dayjsToFormat(dayjs().endOf("week").add(1, "day"), "M월 D일")}
           </div>
+
+          <IconWrapper onClick={() => setIsThisWeek(true)}>
+            {!isThisWeek && (
+              <FontAwesomeIcon
+                icon={faCaretRight}
+                size="sm"
+                color="var(--font-h2)"
+              />
+            )}
+          </IconWrapper>
+        </Month>
+        <ButtonNav>
           <Button
+            fontSize="15px"
             onClick={() => setIsModal(true)}
-            size="sm"
             colorScheme="mintTheme"
+            rightIcon={<FontAwesomeIcon icon={checkCircle} />}
           >
             출석체크
           </Button>
-        </Month>
+        </ButtonNav>
         <Container>
           <TopLine>
             {topLineArr.map((text) => (
@@ -82,6 +111,7 @@ function ContentAttend() {
           attendRecord={
             attendRecord.find((who) => who.uid === uid)?.attendRecord || []
           }
+          type={isThisWeek ? "this" : "last"}
           setIsModal={setIsModal}
           id={+id}
         />
@@ -90,20 +120,31 @@ function ContentAttend() {
   );
 }
 
+const IconWrapper = styled.div`
+  width: 22.125px;
+  padding: 0 var(--padding-md);
+`;
+
 const Layout = styled.div``;
 
-const Month = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
+const ButtonNav = styled.nav`
+  display: flex;
+  margin: 0 var(--margin-main);
+  margin-bottom: var(--margin-main);
+  > button {
+    flex: 1;
+  }
+`;
 
+const Month = styled.div`
+  border-radius: var(--border-radius2);
+  margin: var(--margin-main) var(--margin-sub);
+  padding: var(--padding-md) var(--margin-max);
+  background-color: var(--font-h8);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  > div:first-child {
-    margin-top: var(--margin-min);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--font-h2);
-  }
+
+  justify-content: space-around;
 `;
 
 const AttendBtn = styled.button``;

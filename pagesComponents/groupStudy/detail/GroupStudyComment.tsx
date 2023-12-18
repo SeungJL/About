@@ -1,4 +1,4 @@
-import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
+import { faEllipsis } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
@@ -7,11 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
-// import { GROUPSTUDY_CONTENT } from "../../../constants/keys/queryKeys";
 import { getDateDiff } from "../../../helpers/dateHelpers";
+// import { GROUPSTUDY_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGroupStudyCommentMutation } from "../../../hooks/groupStudy/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
+import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
 import { IGatherComment } from "../../../types/page/gather";
 // import GroupStudyCommentEditModal from "../../../modals/groupStudy/GroupStudyCommentEditModal";
 
@@ -31,7 +32,7 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
   const groupStudyId = +router.query.id;
   const { data: userInfo } = useUserInfoQuery();
   const [value, setValue] = useState("");
-
+  console.log(comment);
   const [isEditModal, setIsEditModal] = useState(false);
 
   const [commentText, setCommentText] = useState("");
@@ -51,7 +52,8 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
     "post",
     groupStudyId,
     {
-      onSuccess() {
+      onSuccess(data) {
+        console.log(data);
         resetQueryData([GROUP_STUDY_ALL]);
       },
     }
@@ -66,7 +68,7 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
     setCommentText(text);
     setIsEditModal(true);
   };
-
+  console.log(comment);
   return (
     <>
       <Layout>
@@ -116,13 +118,14 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
           </section>
         </Comment>
       </Layout>
-      {/* {isEditModal && (
-        <GroupStudyCommentEditModal
+      {isEditModal && (
+        <GatherCommentEditModal
           commentText={commentText}
           commentId={commentId}
           setIsModal={setIsEditModal}
+          type="groupStudy"
         />
-      )} */}
+      )}
     </>
   );
 }

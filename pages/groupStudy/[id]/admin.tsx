@@ -73,6 +73,7 @@ function Admin() {
             )
           )}
         </Container>
+        <Title>기타 기능</Title>
       </Layout>
     </PageLayout>
   );
@@ -94,7 +95,9 @@ const Question = styled.div`
   font-size: 16px;
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-bottom: var(--margin-max);
+`;
 
 const Item = styled.div``;
 

@@ -16,7 +16,7 @@ function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
   const [category, setCategory] = useState<Category>("정보");
 
   const categoryArr: Category[] = ["정보", "출석부", "모임", "채팅"];
-
+  console.log(groupStudy);
   return (
     <Layout>
       <ContentNav>

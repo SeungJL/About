@@ -38,6 +38,7 @@ export interface IGroupStudyWriting {
   date: string;
   questionText?: string;
   hashTag?: string;
+  attendance: IGroupStudyAttendance;
   waiting: {
     user: IUser;
     answer?: string;
