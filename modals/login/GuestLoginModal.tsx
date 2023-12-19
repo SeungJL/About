@@ -14,7 +14,7 @@ interface IGuestLoginModal extends IModal {
 function GuestLoginModal({ setIsModal, customSignin }: IGuestLoginModal) {
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="sm" height={200}>
+      <ModalLayout onClose={() => setIsModal(false)} size="md">
         <ModalHeader text="게스트 로그인" />
         <ModalBody>
           <ModalSubtitle>

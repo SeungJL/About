@@ -77,3 +77,4 @@ export const GROUP_STUDY_RULE_CONTENT: IRuleModalContent = {
     },
   ],
 };
+ 

@@ -18,6 +18,7 @@ import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import NotCompletedGroupStudyModal from "../../modals/system/NotCompletedGroupStudyModal";
 import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
+import GroupStudySkeletonMain from "../../pagesComponents/groupStudy/GroupStudySkeletonMain";
 import { isGuestState, userInfoState } from "../../recoil/userAtoms";
 import { IGroupStudy } from "../../types/page/groupStudy";
 
@@ -83,14 +84,23 @@ function Index() {
             setSelectedButton={setSubCategory}
           />
         </SubNavWrapper>
-        <Main>
-          {groupStudies
-            ?.slice()
-            ?.reverse()
-            ?.map((groupStudy) => (
-              <GroupStudyBlock groupStudy={groupStudy} key={groupStudy.id} />
-            ))}
-        </Main>
+        <>
+          {isLoading ? (
+            <GroupStudySkeletonMain />
+          ) : (
+            <Main>
+              {groupStudies
+                ?.slice()
+                ?.reverse()
+                ?.map((groupStudy) => (
+                  <GroupStudyBlock
+                    groupStudy={groupStudy}
+                    key={groupStudy.id}
+                  />
+                ))}
+            </Main>
+          )}
+        </>
       </Layout>
       {!isGuest && <WritingIcon url="/groupStudy/writing/category/main" />}
       {isModal && <NotCompletedGroupStudyModal setIsModal={setIsModal} />}
