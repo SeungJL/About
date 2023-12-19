@@ -35,8 +35,8 @@ function AttendCheckModal({
 
   const resetQueryData = useResetQueryData();
 
-  const { mutate } = useGroupStudyAttendMutation(id, {
-    onSuccess(data) {
+  const { mutate, isLoading } = useGroupStudyAttendMutation(id, {
+    onSuccess() {
       completeToast("free", "저장되었습니다.");
       resetQueryData([GROUP_STUDY_ALL]);
       setIsModal(false);
@@ -96,6 +96,7 @@ function AttendCheckModal({
         rightText="저장"
         onClickLeft={() => setIsModal(false)}
         onClickRight={onSubmit}
+        isLoading={isLoading}
       />
     </ModalLayout>
   );

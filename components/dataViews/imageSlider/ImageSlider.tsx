@@ -6,6 +6,7 @@ import "swiper/css/pagination"; // for the pagination dots
 import { IGather } from "../../../types/page/gather";
 import { IUser } from "../../../types/user/user";
 import ImageSliderAvatarColor from "./imageSliderType/ImageSliderAvatarColor";
+import ImageSliderEventBanner from "./imageSliderType/ImageSliderEventBanner";
 import ImageSliderGatherReviewNav from "./imageSliderType/ImageSliderGatherReviewNav";
 import ImageSliderMember from "./imageSliderType/ImageSliderMember";
 import ImageSliderPoint from "./imageSliderType/ImageSliderPoint";
@@ -48,6 +49,8 @@ function ImageSlider({ type, imageContainer, onClick }: IImageSlider) {
               imageContainer={imageContainer}
               onClick={onClick}
             />
+          ) : type === "eventBanner" ? (
+            <ImageSliderEventBanner imageContainer={imageContainer} />
           ) : null}
         </Layout>
       )}

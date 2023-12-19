@@ -1,9 +1,12 @@
+import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import { dayjsToStr } from "../../../helpers/dateHelpers";
+import { useGroupStudyAttendancePatchMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
 import GroupStudyBottomNav from "../../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
 import GroupStudyComments from "../../../pagesComponents/groupStudy/detail/GroupStudyComment";
@@ -36,6 +39,23 @@ function GroupStudyDetail() {
       setGroupStudy(data.find((item) => item.id === +groupStudyId));
     },
   });
+
+  const { mutate: patchAttendance } = useGroupStudyAttendancePatchMutation(
+    +groupStudyId
+  );
+
+  useEffect(() => {
+    if (!groupStudy) return;
+    const firstDate = groupStudy.attendance.firstDate;
+
+    if (
+      firstDate &&
+      firstDate !== dayjsToStr(dayjs().startOf("day").add(1, "day"))
+    ) {
+      patchAttendance();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groupStudy?.attendance?.firstDate]);
 
   useEffect(() => {
     if (isRefetch || !groupStudy || adminIsRefetch) {

@@ -38,7 +38,7 @@ function ContentAttend() {
     groupStudy.attendance?.thisWeek,
     isThisWeek,
   ]);
-
+  console.log(dayjs().startOf("week").add(1, "day").format("YYYY-MM-DD"));
   return (
     <>
       <Layout>

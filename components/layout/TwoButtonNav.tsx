@@ -4,6 +4,7 @@ import styled from "styled-components";
 interface ITwoButtonNav {
   leftText?: string;
   rightText: string;
+  isLoading?: boolean;
   onClickLeft: () => void;
   onClickRight: () => void;
   size?: "md" | "lg";
@@ -12,6 +13,7 @@ interface ITwoButtonNav {
 function TwoButtonNav({
   leftText = "닫기",
   rightText,
+  isLoading,
   onClickLeft,
   onClickRight,
   size = "lg",
@@ -34,6 +36,8 @@ function TwoButtonNav({
         h="100%"
         color="white"
         fontSize="16px"
+        isLoading={isLoading}
+        disabled={false}
       >
         {rightText}
       </Button>

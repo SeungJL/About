@@ -5,10 +5,12 @@ import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
 import Header from "../../components/layout/Header";
+import RuleModal from "../../components/modals/RuleModal";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import CheckBoxNav from "../../components/templates/CheckBoxNav";
 import {
   GROUP_STUDY_CATEGORY_ARR,
+  GROUP_STUDY_RULE_CONTENT,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contents/GroupStudyContents";
 import { dayjsToStr } from "../../helpers/dateHelpers";
@@ -92,6 +94,12 @@ function Index() {
       </Layout>
       {!isGuest && <WritingIcon url="/groupStudy/writing/category/main" />}
       {isModal && <NotCompletedGroupStudyModal setIsModal={setIsModal} />}
+      {isRuleModal && (
+        <RuleModal
+          content={GROUP_STUDY_RULE_CONTENT}
+          setIsModal={setIsRuleModal}
+        />
+      )}
     </>
   );
 }

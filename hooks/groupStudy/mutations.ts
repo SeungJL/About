@@ -181,3 +181,19 @@ export const useGroupStudyWaitingStatusMutation = (
       }),
     options
   );
+
+export const useGroupStudyAttendancePatchMutation = (
+  id: number,
+  options?: MutationOptions<void>
+) =>
+  useMutation<void, AxiosError, void>(
+    () =>
+      requestServer<{ id: number }>({
+        method: "patch",
+        url: "groupstudy/attendance/confirm",
+        body: {
+          id,
+        },
+      }),
+    options
+  );

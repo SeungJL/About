@@ -9,6 +9,8 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
+import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useFailToast,
@@ -55,12 +57,16 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     router.push("/groupStudy/writing/category");
   };
 
+  const resetQueryData = useResetQueryData();
+
   const { mutate } = useGroupStudyParticipationMutation(
     "delete",
     groupStudy.id,
     {
       onSuccess() {
         completeToast("free", "탈퇴되었습니다.");
+        resetQueryData[GROUP_STUDY_ALL];
+        router.push("/groupStudy");
       },
     }
   );

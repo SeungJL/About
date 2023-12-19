@@ -109,6 +109,7 @@ interface IModalFooterTwo {
   rightText?: string;
   isFull?: boolean;
   isSmall?: boolean;
+  isLoading?: boolean;
 }
 
 export const ModalFooterTwo = ({
@@ -117,6 +118,7 @@ export const ModalFooterTwo = ({
   leftText = "닫기",
   rightText = "확인",
   isFull = true,
+  isLoading,
   isSmall,
 }: IModalFooterTwo) => (
   // <ChakraModalFooter mt="auto" p="var(--padding-sub) var(--padding-max)">
@@ -131,6 +133,7 @@ export const ModalFooterTwo = ({
         rightText={rightText}
         onClickLeft={onClickLeft}
         onClickRight={onClickRight}
+        isLoading={isLoading}
       />
     </>
 
