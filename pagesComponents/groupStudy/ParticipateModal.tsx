@@ -26,6 +26,7 @@ interface IParticipateModal extends IModal {
   fee: number;
   id: number;
   isFree: boolean;
+  feeText: string;
   answer: string;
 }
 
@@ -33,9 +34,11 @@ function ParticipateModal({
   isFree,
   fee,
   id,
+  feeText,
   setIsModal,
   answer,
 }: IParticipateModal) {
+  console.log(fee);
   const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
@@ -47,11 +50,21 @@ function ParticipateModal({
 
   const resetQueryData = useResetQueryData();
 
+  const chargePoint = () => {
+    if (selectBtn === "point") {
+      getPoint({ value: -fee * 0.15 || 30, message: "소모임 가입" });
+    }
+    if (selectBtn === "deposit") {
+      getDeposit({ value: -fee || -200, message: "소모임 가입" });
+    }
+  };
+
   const { mutate: participate } = useGroupStudyParticipationMutation(
     "post",
     id,
     {
       onSuccess() {
+        if (isFree) chargePoint();
         completeToast("free", "가입이 완료되었습니다.");
         resetQueryData([GROUP_STUDY_ALL]);
         router.push("/groupStudy");
@@ -67,19 +80,19 @@ function ParticipateModal({
     },
   });
 
-  const feePoint = (fee + 1000) * 0.15;
+  const feePoint = fee * 0.15;
 
   const onSubmit = () => {
-    if (selectBtn === "point" && userInfo?.point < feePoint) {
+    if ((selectBtn === "point" && userInfo?.point < feePoint) || 30) {
       failToast("free", "포인트가 부족합니다.");
       return;
     }
     if (selectBtn === "deposit") {
-      if (userInfo?.deposit < fee) {
+      if (userInfo?.deposit < fee || 200) {
         failToast("free", "보증금이 부족합니다. ");
         return;
       }
-      if (userInfo?.deposit - 1000 <= fee) {
+      if (userInfo?.deposit - 1000 <= fee || 200) {
         failToast(
           "free",
           "보증금을 사용한 뒤에도 1000원 이상 보유해야 합니다."
@@ -88,7 +101,7 @@ function ParticipateModal({
       }
     }
     if (isFree) participate();
-    else sendRegisterForm(answer);
+    else sendRegisterForm({ answer, pointType: selectBtn });
     setIsModal(false);
   };
 
@@ -97,8 +110,11 @@ function ParticipateModal({
       <ModalHeader text="가입 신청" />
       <ModalBody>
         <ModalSubtitle>
-          소모임 가입에는 150 포인트 또는 1000원이 소모됩니다. 이는 그룹장에게
-          전달되어 활동 지원금으로 사용됩니다.
+          {fee
+            ? `소모임 가입을 위해서는 가입비 ${fee}원이 필요합니다. 사용처는 "${feeText}" 입니다.`
+            : fee === 1000
+            ? "소모임 가입에는 150 포인트 또는 1000원이 소모됩니다. 이는 그룹장에게 전달되어 활동 지원금으로 사용됩니다."
+            : "소모임 가입에는 기본 참여비로 30 포인트 또는 200원이 소모됩니다."}
         </ModalSubtitle>
         <PointContainer>
           <Point>
@@ -121,11 +137,11 @@ function ParticipateModal({
         <PointContainer>
           <Fee>
             <span>필요 포인트:</span>
-            <span>{feePoint} 포인트</span>{" "}
+            <span>{feePoint || 30} 포인트</span>{" "}
           </Fee>
           <Fee>
             <span>필요 활동비:</span>
-            <span>{fee + 1000}원</span>
+            <span>{fee || 200}원</span>
           </Fee>
         </PointContainer>
         <SelectContainer>
@@ -202,7 +218,8 @@ const Fee = styled.div`
 `;
 
 const SelectContainer = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: auto;
+  margin-bottom: var(--margin-main);
   > div {
     display: flex;
     > button {

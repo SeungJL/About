@@ -138,18 +138,29 @@ export const useGroupStudyStatusMutation = (
       }),
     options
   );
+
+interface IGroupStudyWaitingParam {
+  answer: string;
+  pointType: "point" | "deposit";
+}
+
 export const useGroupStudyWaitingMutation = (
   id: number,
-  options?: MutationOptions<string>
+  options?: MutationOptions<IGroupStudyWaitingParam>
 ) =>
-  useMutation<void, AxiosError, string>(
-    (answer: string) =>
-      requestServer<{ id: number; answer: string }>({
+  useMutation<void, AxiosError, IGroupStudyWaitingParam>(
+    ({ answer, pointType }) =>
+      requestServer<{
+        id: number;
+        answer: string;
+        pointType: "point" | "deposit";
+      }>({
         method: "post",
         url: "groupstudy/waiting",
         body: {
           id,
           answer,
+          pointType,
         },
       }),
     options

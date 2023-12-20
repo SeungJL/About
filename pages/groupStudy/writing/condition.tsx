@@ -58,7 +58,7 @@ function WritingCondition() {
     isFree: true,
     location: true,
     manager: true,
-    fee: false,
+    fee: true,
   });
 
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
@@ -68,8 +68,8 @@ function WritingCondition() {
 
   const [age, setAge] = useState(groupStudyWriting?.age || [19, 28]);
 
-  const [fee, setFee] = useState("");
-  const [feeText, setFeeText] = useState("");
+  const [fee, setFee] = useState("1000");
+  const [feeText, setFeeText] = useState("기본 참여비");
 
   const [question, setQuestion] = useState("");
   const [location, setLocation] = useState<Location | CombinedLocation>(
@@ -83,8 +83,7 @@ function WritingCondition() {
     if (!condition.isFree) setIsQuestionModal(true);
     else setIsQuestionModal(false);
   }, [condition.isFree]);
-  
- 
+
   const onClickNext = async () => {
     const groupStudyData: IGroupStudyWriting = {
       ...groupStudyWriting,
@@ -222,7 +221,7 @@ function WritingCondition() {
                 <span>참여비</span>
                 <PopOverIcon
                   title="참여비"
-                  text="기본 참여비는 1000원이고, 그룹장에게 지급됩니다. 그 외 추가적인 활동비가 필요한 경우에 체크해주세요."
+                  text="기본 참여비는 1000원이고, 특별한 사용처가 없더라도 운영을 위해 그룹장에게 지급됩니다. 그 외 추가적인 활동비가 필요한 경우에도 변경할 수 있고, 아예 참여비를 원하지 않는 경우 설정하지 않아도 됩니다."
                 />
               </Name>
               <Switch

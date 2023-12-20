@@ -58,6 +58,7 @@ function Participate() {
           answer={questionText}
           id={groupStudy.id}
           fee={groupStudy.fee}
+          feeText={groupStudy.feeText}
           setIsModal={setIsModal}
         />
       )}
