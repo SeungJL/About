@@ -6,10 +6,12 @@ import styled from "styled-components";
 import { UserItem } from "../../../components/common/user/UserItem";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
+import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupStudyWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
 import { isRefetchGroupStudyInfoState } from "../../../recoil/refetchingAtoms";
 import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
+import { IUser } from "../../../types/user/user";
 
 function Admin() {
   const completeToast = useCompleteToast();
@@ -29,14 +31,28 @@ function Admin() {
     }
   );
 
-  const onClick = (
+  const { mutate: getPoint } = useAdminPointSystemMutation();
+
+  const onClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     status: "agree" | "refuse",
-    userId: string
+    user: IUser,
+    pointType?: "point" | "deposit"
   ) => {
+    const chargeFee = {
+      uid: user.uid,
+      type: pointType,
+      message: "동아리 가입",
+      value:
+        pointType === "deposit"
+          ? -groupStudy.fee || -200
+          : -groupStudy.fee * 0.15 || -30,
+    };
+
     e.stopPropagation();
-    setDeletedUser((old) => [...old, userId]);
-    mutate({ status, userId });
+    setDeletedUser((old) => [...old, user._id]);
+    await mutate({ status, userId: user._id });
+    if (status === "agree") await getPoint(chargeFee);
   };
 
   return (
@@ -51,7 +67,9 @@ function Admin() {
               <Item key={idx}>
                 <UserItem user={who.user}>
                   <Button
-                    onClick={(e) => onClick(e, "agree", who.user._id)}
+                    onClick={(e) =>
+                      onClick(e, "agree", who.user, who.pointType)
+                    }
                     size="sm"
                     colorScheme="mintTheme"
                     mr="var(--margin-md)"
@@ -59,7 +77,7 @@ function Admin() {
                     승인
                   </Button>
                   <Button
-                    onClick={(e) => onClick(e, "refuse", who.user._id)}
+                    onClick={(e) => onClick(e, "refuse", who.user)}
                     size="sm"
                     variant="outline"
                     color="var(--color-red)"

@@ -14,6 +14,29 @@ export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>
     });
   }, options);
 
+interface IAdminPointSystemParam extends IAdminPointSystemRequest {
+  uid: string;
+  type: "point" | "deposit" | "score";
+}
+
+interface IAdminPointSystemRequest {
+  value: number;
+  message: string;
+}
+
+export const useAdminPointSystemMutation = (
+  options?: MutationOptions<IAdminPointSystemParam>
+) =>
+  useMutation<void, AxiosError, IAdminPointSystemParam>(
+    async (param) =>
+      requestServer<IAdminPointSystemRequest>({
+        method: "post",
+        url: `admin/user/${param.uid}/${param.type}`,
+        body: { value: param.value, message: param.message },
+      }),
+    options
+  );
+
 export const useAdminAboutPointMutation = (
   uid: string,
   options?: MutationOptions<IPointSystem>

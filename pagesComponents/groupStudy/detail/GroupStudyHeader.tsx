@@ -47,6 +47,8 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
 
   const [isSettigModal, setIsSettingModal] = useState(false);
 
+  const resetQueryData = useResetQueryData();
+
   const onClick = () => {
     // setGroupStudyWriting({
     //   ...groupStudy,
@@ -54,10 +56,9 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     // });
     setIsGroupStudyEdit(true);
     setPrevPageUrl(`/groupStudy/${router.query.id}`);
+
     router.push("/groupStudy/writing/category");
   };
-
-  const resetQueryData = useResetQueryData();
 
   const { mutate } = useGroupStudyParticipationMutation(
     "delete",
@@ -65,8 +66,10 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     {
       onSuccess() {
         completeToast("free", "탈퇴되었습니다.");
-        resetQueryData[GROUP_STUDY_ALL];
-        router.push("/groupStudy");
+        setTimeout(() => {
+          resetQueryData[GROUP_STUDY_ALL];
+          router.push("/groupStudy");
+        }, 200);
       },
     }
   );

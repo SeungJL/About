@@ -38,7 +38,7 @@ function ParticipateModal({
   setIsModal,
   answer,
 }: IParticipateModal) {
-  console.log(fee);
+  console.log(4, fee);
   const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
@@ -80,19 +80,20 @@ function ParticipateModal({
     },
   });
 
-  const feePoint = fee * 0.15;
+  const feeValue = fee === 0 ? 200 : fee;
+  const feePoint = fee === 0 ? 30 : fee * 0.15;
 
   const onSubmit = () => {
-    if ((selectBtn === "point" && userInfo?.point < feePoint) || 30) {
+    if (selectBtn === "point" && userInfo?.point < feePoint) {
       failToast("free", "포인트가 부족합니다.");
       return;
     }
     if (selectBtn === "deposit") {
-      if (userInfo?.deposit < fee || 200) {
+      if (userInfo?.deposit < feeValue) {
         failToast("free", "보증금이 부족합니다. ");
         return;
       }
-      if (userInfo?.deposit - 1000 <= fee || 200) {
+      if (userInfo?.deposit - 1000 < feeValue) {
         failToast(
           "free",
           "보증금을 사용한 뒤에도 1000원 이상 보유해야 합니다."

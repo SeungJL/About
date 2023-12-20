@@ -42,6 +42,7 @@ export interface IGroupStudyWriting {
   waiting: {
     user: IUser;
     answer?: string;
+    pointType: "point" | "deposit";
   }[];
   memberCnt: {
     min: number;
