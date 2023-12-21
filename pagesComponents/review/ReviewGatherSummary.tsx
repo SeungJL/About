@@ -34,8 +34,8 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
             {summary.place} {summary.place === "전체" && "지역"}
           </span>
           ·<span>{summary.type.title}</span>·
-          <LocationText>{summary.location.main}</LocationText>·
-          <span>{date.format("M월 D일")}</span>
+          <span>{date.format("M월 D일")}</span> ·
+          <LocationText>{summary.location.main}</LocationText>
         </ContentDetail>
       </Content>
     </Layout>
@@ -56,7 +56,9 @@ const Layout = styled.button`
 `;
 
 const LocationText = styled(SingleLineText)`
-  width: 134px;
+  margin-left: 4px;
+
+  width: 100px;
 `;
 const IconWrapper = styled.div`
   display: flex;
