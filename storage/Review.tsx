@@ -459,4 +459,16 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "오늘도 역시 거의 장소 전세내고 쓴 기분... 알고보니 9시까지 사용이 가능해서 6시까지 공부하다가 저녁먹고 다시와서 마저 했음. 저녁은 역할맥에 갔는데 술 먹으러 간건 아니고(설마 시험 기간인데) 라이트한 안주를 찾다가 가게 됨.",
     title: "12월 14일 정기스터디",
   },
+  {
+    id: 120,
+    dateCreated: "12월 20일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894.jpg",
+    ],
+    text: "사진이 왜 이러냐면... 그만큼 신나게 놀았기 때문이다. 스터디를 마치고 맛있는 고기와 껍데기로 1차를 시작했다. 나름 유튜브에서 많이 봤던 곳을 갔는데 상상을 초월하게 맛있었다. 2차로는 새로 생긴 술집을 갔다. 별 얘기를 다 한거 같다. 원래 2차로 끝내려고 했는데, 3차로 노래방에 갔다. 온돌식 룸이었는데 분위기가 좋았다. 처음에는 분명 잔잔하게 시작을 했던 거 같은데, 끝나고 나니까 막차 시간에 너무 힘들었다. 의도치않게 정말 열정적으로 놀게되었다.",
+    title: "20일 수원역 번개",
+  },
 ];
