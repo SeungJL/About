@@ -24,7 +24,10 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
   const setGroupStudy = useSetRecoilState(transferGroupStudyDataState);
 
   const groupStudyInfo = {
-    그룹장: groupStudy.organizer.name,
+    그룹장:
+      groupStudy.organizer.name === "이승주"
+        ? "어바웃"
+        : groupStudy.organizer.name,
     인원: `${groupStudy.participants.length + 1}/${
       groupStudy.memberCnt.max === 0 ? "자유" : groupStudy.memberCnt.max + "명"
     }`,
@@ -51,7 +54,8 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
     <Layout onClick={onClick}>
       <Header>
         <div>
-          <span>{groupStudy.category.main}</span>
+          <span>{groupStudy.category.main}</span>·
+          <span>{groupStudy.category.sub}</span>
           {!groupStudy?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
         </div>
         <Badge text="모집중" colorScheme="mintTheme" type="outline" size="md" />
@@ -94,10 +98,14 @@ const Header = styled.header`
     display: flex;
     align-items: center;
 
-    > span:first-child {
+    > span {
       margin-right: var(--margin-md);
     }
-    > *:last-child {
+    > span:nth-child(2) {
+      margin-left: var(--margin-md);
+    }
+
+    > svg {
       margin-bottom: 2px;
     }
   }
@@ -123,7 +131,7 @@ const InfoItem = styled.div`
     display: inline-block;
     margin-right: var(--margin-md);
     font-weight: 600;
-    color: var(--font-h3);
+    color: var(--font-h2);
   }
   > span:last-child {
     color: var(--font-h3);
