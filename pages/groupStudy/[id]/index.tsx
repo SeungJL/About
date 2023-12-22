@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
+import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGroupStudyAttendancePatchMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
 import GroupStudyBottomNav from "../../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
@@ -39,9 +41,14 @@ function GroupStudyDetail() {
       setGroupStudy(data.find((item) => item.id === +groupStudyId));
     },
   });
-
+  const resetQueryData = useResetQueryData();
   const { mutate: patchAttendance } = useGroupStudyAttendancePatchMutation(
-    +groupStudyId
+    +groupStudyId,
+    {
+      onSuccess() {
+        resetQueryData([GROUP_STUDY_ALL]);
+      },
+    }
   );
 
   useEffect(() => {
@@ -50,7 +57,7 @@ function GroupStudyDetail() {
 
     if (
       firstDate &&
-      firstDate !== dayjsToStr(dayjs().startOf("day").add(1, "day"))
+      firstDate !== dayjsToStr(dayjs().startOf("week").add(1, "day"))
     ) {
       patchAttendance();
     }
