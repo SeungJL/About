@@ -9,7 +9,6 @@ interface IGroupStudyMine {
 function GroupStudyMine({ myStudies }: IGroupStudyMine) {
   return (
     <Layout>
-      <Title>내 소모임</Title>
       {myStudies?.length ? (
         <ImageSlider imageContainer={myStudies} type="groupStudy" />
       ) : (
@@ -22,6 +21,7 @@ function GroupStudyMine({ myStudies }: IGroupStudyMine) {
 const Layout = styled.div`
   background-color: var(--font-h8);
   border-bottom: 6px solid var(--font-h56);
+  padding-top: var(--padding-main);
 `;
 
 const Title = styled.div`

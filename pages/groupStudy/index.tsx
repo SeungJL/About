@@ -20,6 +20,7 @@ import NotCompletedGroupStudyModal from "../../modals/system/NotCompletedGroupSt
 import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
 import GroupStudyMine from "../../pagesComponents/groupStudy/GroupStudyMine";
 import GroupStudySkeletonMain from "../../pagesComponents/groupStudy/GroupStudySkeletonMain";
+import GroupStudySkeletonMine from "../../pagesComponents/groupStudy/GroupStudySkeletonMine";
 import { isGuestState, userInfoState } from "../../recoil/userAtoms";
 import { IGroupStudy } from "../../types/page/groupStudy";
 
@@ -84,8 +85,13 @@ function Index() {
       <Layout>
         <Header title="소모임 그룹">
           <RuleIcon setIsModal={setIsRuleModal} />
-        </Header>
-        <GroupStudyMine myStudies={myStudies} />
+        </Header>{" "}
+        <Title>내 소모임</Title>
+        {isLoading ? (
+          <GroupStudySkeletonMine />
+        ) : (
+          <GroupStudyMine myStudies={myStudies} />
+        )}
         <Title>전체 소모임</Title>
         <NavWrapper>
           <ButtonCheckNav
