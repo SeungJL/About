@@ -1,4 +1,4 @@
-import { faCrown, faInfinity } from "@fortawesome/pro-solid-svg-icons";
+import { faInfinity } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
@@ -29,12 +29,11 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
     router.push(`/profile/${user.uid}`);
   };
 
-
   return (
     <Layout>
       <Header>
         <span>{status === "open" ? "확정 인원" : "참여중인 인원"}</span>
-        <span>{participantsCnt + 1}</span>
+        <span>{participantsCnt}</span>
         <span>/</span>
         {data?.memberCnt.max ? (
           <span>{data?.memberCnt.max}</span>
@@ -46,34 +45,6 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
         )}
       </Header>
       <Members>
-        {true ? (
-          <MemberItem
-            key={organizer?.uid}
-            onClick={() => onClickProfile(organizer)}
-          >
-            <Organizer>
-              <ProfileIcon user={organizer} size="sm" />
-              <CrownWrapper>
-                <FontAwesomeIcon
-                  icon={faCrown}
-                  color="var(--color-orange)"
-                  size="lg"
-                />
-              </CrownWrapper>
-            </Organizer>
-            <UserOverview>
-              <span>{organizer?.name}</span>
-              <div>{organizer?.comment}</div>
-            </UserOverview>
-            <ParticipateTime isFirst={true}>
-              <span>그룹장</span>
-            </ParticipateTime>
-          </MemberItem>
-        ) : (
-          <Empty>
-            <span>참여자를 모집중입니다.</span>
-          </Empty>
-        )}
         {data?.participants.map(
           (who) =>
             who && (

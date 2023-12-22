@@ -4,10 +4,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; // for the pagination dots
 import { IGather } from "../../../types/page/gather";
+import { IGroupStudy } from "../../../types/page/groupStudy";
 import { IUser } from "../../../types/user/user";
 import ImageSliderAvatarColor from "./imageSliderType/ImageSliderAvatarColor";
 import ImageSliderEventBanner from "./imageSliderType/ImageSliderEventBanner";
 import ImageSliderGatherReviewNav from "./imageSliderType/ImageSliderGatherReviewNav";
+import ImageSliderGroupStudy from "./imageSliderType/ImageSliderGroupStudy";
 import ImageSliderMember from "./imageSliderType/ImageSliderMember";
 import ImageSliderPoint from "./imageSliderType/ImageSliderPoint";
 import ImageSliderReview from "./imageSliderType/ImageSliderReview";
@@ -18,10 +20,12 @@ export type ImageContainer =
   | string[]
   | IImageSliderItem[]
   | IUser[]
-  | IGather[];
+  | IGather[]
+  | IGroupStudy[];
 
 export interface IImageSliderItem {
   image: string;
+  
   title: string;
   id: number;
 }
@@ -51,6 +55,8 @@ function ImageSlider({ type, imageContainer, onClick }: IImageSlider) {
             />
           ) : type === "eventBanner" ? (
             <ImageSliderEventBanner imageContainer={imageContainer} />
+          ) : type === "groupStudy" ? (
+            <ImageSliderGroupStudy imageContainer={imageContainer} />
           ) : null}
         </Layout>
       )}

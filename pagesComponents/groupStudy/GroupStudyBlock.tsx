@@ -28,7 +28,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
       groupStudy.organizer.name === "이승주"
         ? "어바웃"
         : groupStudy.organizer.name,
-    인원: `${groupStudy.participants.length + 1}/${
+    인원: `${groupStudy.participants.length}/${
       groupStudy.memberCnt.max === 0 ? "자유" : groupStudy.memberCnt.max + "명"
     }`,
     조건: `${

@@ -92,6 +92,7 @@ function GroupStudyDetail() {
             <GroupStudyContent groupStudy={groupStudy} />
             <GroupStudyParticipation data={groupStudy} />
             <GroupStudyComments comment={groupStudy.comment} />
+
             {![
               groupStudy.organizer,
               ...groupStudy.participants.map((who) => who.user),

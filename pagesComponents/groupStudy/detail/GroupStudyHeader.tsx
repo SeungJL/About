@@ -66,8 +66,8 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     {
       onSuccess() {
         completeToast("free", "탈퇴되었습니다.");
+        resetQueryData[GROUP_STUDY_ALL];
         setTimeout(() => {
-          resetQueryData[GROUP_STUDY_ALL];
           router.push("/groupStudy");
         }, 200);
       },
