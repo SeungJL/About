@@ -23,9 +23,9 @@ function AboutGather() {
   const { data: gatherContentArr } = useGatherAllQuery({
     onSuccess(data) {
       const lastGather = data[data.length - 1];
-      if (localStorage.getItem(GATHER_ALERT) !== String(lastGather.id))
+      if (localStorage.getItem(GATHER_ALERT) !== String(lastGather.id)) {
         setIsGatherAlert(true);
-      else setIsGatherAlert(false);
+      } else setIsGatherAlert(false);
     },
   });
 

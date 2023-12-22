@@ -87,7 +87,7 @@ function WritingCondition() {
   const onClickNext = async () => {
     const groupStudyData: IGroupStudyWriting = {
       ...groupStudyWriting,
-      fee: +fee,
+      fee: condition.fee ? +fee : 0,
       feeText,
       isFree: condition.isFree,
       location,

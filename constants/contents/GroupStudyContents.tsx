@@ -29,7 +29,7 @@ export const GROUP_STUDY_CATEGORY_ARR: GroupStudyCategory[] = [
 export const GROUP_STUDY_SUB_CATEGORY = {
   어학: ["토익", "오픽", "회화"],
   자격증: ["컴활", "한국사", "정보처리기사"],
-  프로그래밍: ["코딩테스트", "프로젝트", "프로그래밍 공부"],
+  프로그래밍: ["코딩테스트", "프로젝트", "언어 공부"],
   취업준비: ["공기업 면접", "사기업 면접", "인적성(NCS)"],
   자기계발: ["투두메이트", "블로그", "다이어리", "열품타", "공부인증", "습관"],
   게임: ["리그오브레전드", "오버워치", "롤토체스"],
@@ -77,4 +77,3 @@ export const GROUP_STUDY_RULE_CONTENT: IRuleModalContent = {
     },
   ],
 };
- 

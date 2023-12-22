@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
@@ -10,6 +10,7 @@ import GatherIntroModal from "../../modals/gather/GatherIntroModal";
 import GatherHeader from "../../pagesComponents/gather/GatherHeader";
 import GatherMain from "../../pagesComponents/gather/GatherMain";
 import GatherReviewNav from "../../pagesComponents/gather/GatherReviewNav";
+import { isGatherAlertState } from "../../recoil/alertAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
 import { LocationFilterType } from "../../types/system";
 
@@ -17,11 +18,14 @@ function Gather() {
   const isGuest = useRecoilValue(isGuestState);
   const [category, setCategory] = useState<LocationFilterType>("전체");
   const [isModal, setIsModal] = useState(false);
+  const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
 
   useEffect(() => {
     if (!checkAndSetLocalStorage(GATHER_INTRO_MODAL, 7)) {
       setIsModal(true);
+      setIsGatherAlert(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
