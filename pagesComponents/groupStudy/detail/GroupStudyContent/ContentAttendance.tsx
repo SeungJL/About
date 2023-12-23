@@ -31,26 +31,41 @@ function ContentAttend() {
 
   const groupStudy = useRecoilValue(transferGroupStudyDataState);
 
-  const sortArr = (arr: IWeekRecord[]) => {
-    const temp = [];
+  const sortArr = (arr: IWeekRecord[]): IWeekRecord[] => {
+    const temp: IWeekRecord[] = [];
     let idxNum = null;
 
-    arr.forEach((who, idx) => {
+    for (let i = 0; i < arr.length; i++) {
+      const who = arr[i];
       if (who.uid === userInfo.uid) {
-        idxNum = idx;
-        return;
-      } else temp.push(who);
-    });
+        idxNum = i;
+        break;
+      }
+      temp.push(who);
+    }
 
-    console.log(4, idxNum, temp, [...arr.slice(idxNum)]);
     if (idxNum !== null) return [...arr.slice(idxNum), ...temp];
     else return temp;
   };
 
   useEffect(() => {
-    if (isThisWeek) {
-      setAttendRecord(sortArr(groupStudy.attendance?.thisWeek) || []);
-    } else setAttendRecord(sortArr(groupStudy.attendance?.lastWeek) || []);
+    const attendance = groupStudy.attendance;
+    const weekArr = isThisWeek
+      ? sortArr(attendance.thisWeek)
+      : sortArr(attendance.lastWeek);
+
+    for (let i = 0; i < groupStudy.participants.length; i++) {
+      const who = groupStudy.participants[i];
+      if (!weekArr.find((item) => item.uid === who.user.uid)) {
+        weekArr.push({
+          uid: who.user.uid,
+          name: who.user.name,
+          attendRecord: [],
+        });
+      }
+    }
+    setAttendRecord(weekArr || []);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     groupStudy.attendance?.lastWeek,
@@ -69,6 +84,11 @@ function ContentAttend() {
     setIsModal(true);
   };
 
+  const weekNum = isThisWeek ? 0 : -7;
+
+  const members = groupStudy.participants;
+
+
   return (
     <>
       <Layout>
@@ -83,8 +103,21 @@ function ContentAttend() {
             )}
           </IconWrapper>
           <div>
-            {dayjsToFormat(dayjs().startOf("week").add(1, "day"), "M월 D일")} ~{" "}
-            {dayjsToFormat(dayjs().endOf("week").add(1, "day"), "M월 D일")}
+            {dayjsToFormat(
+              dayjs()
+                .subtract(1, "day")
+                .startOf("week")
+                .add(1 + weekNum, "day"),
+              "M월 D일"
+            )}{" "}
+            ~{" "}
+            {dayjsToFormat(
+              dayjs()
+                .subtract(1, "day")
+                .endOf("week")
+                .add(1 + weekNum, "day"),
+              "M월 D일"
+            )}
           </div>
           <IconWrapper onClick={() => setIsThisWeek(true)}>
             {!isThisWeek && (

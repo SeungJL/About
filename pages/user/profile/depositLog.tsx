@@ -14,7 +14,7 @@ function ScoreLog() {
   const { data: depositLog, isLoading } = usePointSystemLogQuery("deposit");
 
   const filterLog = depositLog?.filter((item) => item?.meta?.value);
-  console.log(depositLog);
+ 
   return (
     <>
       <Header title="보증금 기록" url="/user/profile" />

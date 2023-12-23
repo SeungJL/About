@@ -32,7 +32,7 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
   const groupStudyId = +router.query.id;
   const { data: userInfo } = useUserInfoQuery();
   const [value, setValue] = useState("");
-  console.log(comment);
+
   const [isEditModal, setIsEditModal] = useState(false);
 
   const [commentText, setCommentText] = useState("");
@@ -53,7 +53,7 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
     groupStudyId,
     {
       onSuccess(data) {
-        console.log(data);
+     
         resetQueryData([GROUP_STUDY_ALL]);
       },
     }
@@ -68,7 +68,7 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
     setCommentText(text);
     setIsEditModal(true);
   };
-  console.log(comment);
+  
   return (
     <>
       <Layout>

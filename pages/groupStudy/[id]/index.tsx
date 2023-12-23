@@ -50,14 +50,15 @@ function GroupStudyDetail() {
       },
     }
   );
-
+ 
   useEffect(() => {
     if (!groupStudy) return;
     const firstDate = groupStudy.attendance.firstDate;
 
     if (
       firstDate &&
-      firstDate !== dayjsToStr(dayjs().startOf("week").add(1, "day"))
+      firstDate !==
+        dayjsToStr(dayjs().subtract(1, "day").startOf("week").add(1, "day"))
     ) {
       patchAttendance();
     }
@@ -88,6 +89,8 @@ function GroupStudyDetail() {
               memberCnt={groupStudy.participants.length}
               title={groupStudy.title}
               status={groupStudy.status}
+              category={groupStudy.category.main}
+              maxCnt={groupStudy.memberCnt.max}
             />
             <GroupStudyContent groupStudy={groupStudy} />
             <GroupStudyParticipation data={groupStudy} />

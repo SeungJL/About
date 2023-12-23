@@ -10,6 +10,8 @@ interface IGroupStudyTitle {
   status: GatherStatus;
   memberCnt: number;
   isAdmin: boolean;
+  category: string;
+  maxCnt: number;
 }
 
 function GroupStudyTitle({
@@ -17,12 +19,19 @@ function GroupStudyTitle({
   status,
   title,
   memberCnt,
+  category,
+  maxCnt,
 }: IGroupStudyTitle) {
   const router = useRouter();
   const color =
-    status === "pending" ? "mintTheme" : status === "open" ? "redTheme" : null;
+    status === "pending"
+      ? maxCnt > memberCnt
+        ? "mintTheme"
+        : "redTheme"
+      : "redTheme";
 
-  const statusText = status === "pending" ? "모집중" : "미모집";
+  const statusText =
+    status === "pending" ? (maxCnt > memberCnt ? "모집중" : "마감") : "마감";
 
   const onClick = () => {
     router.push(`${router.asPath}/admin`);
@@ -33,12 +42,12 @@ function GroupStudyTitle({
       <Title>
         <div>
           <span>{title}</span>
-          <Badge text="모집중" colorScheme={color} size="lg" />
+          <Badge text={statusText} colorScheme={color} size="lg" />
         </div>
       </Title>
       <SubInfo>
         <span>
-          멤버 {memberCnt} · 모임 0 · {statusText}
+          멤버 {memberCnt} · {category} · {statusText}
         </span>
         {isAdmin && (
           <SettingBtnNav>

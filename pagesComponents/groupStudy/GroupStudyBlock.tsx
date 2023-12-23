@@ -49,7 +49,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
     setGroupStudy(groupStudy);
     router.push(`/groupStudy/${groupStudy.id}`);
   };
-  console.log(groupStudy);
+
   const getBadgeText = () => {
     const status = groupStudy.status;
     const min = groupStudy.memberCnt.min;

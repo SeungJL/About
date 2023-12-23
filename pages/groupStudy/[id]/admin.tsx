@@ -16,7 +16,7 @@ import { IUser } from "../../../types/user/user";
 function Admin() {
   const completeToast = useCompleteToast();
   const groupStudy = useRecoilValue(transferGroupStudyDataState);
-  console.log(groupStudy);
+
 
   const [deletedUsers, setDeletedUser] = useState([]);
 

@@ -51,7 +51,7 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
   const setGroupStudyWriting = useSetRecoilState(sharedGroupStudyWritingState);
 
   const resetQueryData = useResetQueryData();
-  console.log(router);
+  
   const onClick = () => {
     setGroupStudyWriting(groupStudy);
     setPrevPageUrl(`${router.asPath}`);
