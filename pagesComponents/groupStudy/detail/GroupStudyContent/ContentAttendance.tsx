@@ -34,7 +34,7 @@ function ContentAttend() {
   const sortArr = (arr: IWeekRecord[]) => {
     const temp = [];
     let idxNum = null;
-    console.log(2, arr);
+
     arr.forEach((who, idx) => {
       if (who.uid === userInfo.uid) {
         idxNum = idx;

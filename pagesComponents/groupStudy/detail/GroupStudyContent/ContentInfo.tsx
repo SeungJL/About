@@ -9,7 +9,6 @@ interface IContentInfo {
 function ContentInfo({ groupStudy }: IContentInfo) {
   const hashTagText = groupStudy.hashTag;
   const hashTagArr = hashTagText?.split("#");
- 
 
   return (
     <Layout>
@@ -58,7 +57,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Content = styled.pre`
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--margin-max);
   white-space: pre-wrap;
   flex: 1;
 `;
@@ -67,14 +66,13 @@ const Tag = styled.div`
   display: flex;
   margin-top: auto;
 
-  margin-bottom: var(--margin-md);
   > div {
     font-size: 13px;
     padding: var(--padding-min) var(--padding-md);
     color: var(--font-h2);
     font-weight: 600;
     margin-right: var(--margin-md);
-    background-color: var(--font-h7);
+    background-color: var(--font-h56);
   }
 `;
 

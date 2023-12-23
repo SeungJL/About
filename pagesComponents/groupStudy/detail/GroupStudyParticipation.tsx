@@ -1,4 +1,4 @@
-import { faInfinity } from "@fortawesome/pro-solid-svg-icons";
+import { faCrown, faInfinity } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
@@ -52,7 +52,17 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
                 key={who?.user?.uid}
                 onClick={() => onClickProfile(who?.user)}
               >
-                <ProfileIcon user={who?.user} size="sm" />
+                <ProfileWrapper>
+                  <ProfileIcon user={who?.user} size="sm" />
+                  {who?.role === "admin" && (
+                    <Crown>
+                      <FontAwesomeIcon
+                        icon={faCrown}
+                        color="var(--color-orange)"
+                      />
+                    </Crown>
+                  )}
+                </ProfileWrapper>
                 <UserOverview>
                   <span>{who?.user?.name}</span>
                   <div>{who?.user?.comment}</div>
@@ -67,6 +77,17 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
     </Layout>
   );
 }
+
+const ProfileWrapper = styled.div`
+  position: relative;
+`;
+
+const Crown = styled.div`
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+`;
+
 const MemberItem = styled.div`
   padding: var(--padding-md) 0;
   display: flex;

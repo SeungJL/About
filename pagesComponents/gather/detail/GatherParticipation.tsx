@@ -59,11 +59,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
             <Organizer>
               <ProfileIcon user={organizer} size="sm" />
               <CrownWrapper>
-                <FontAwesomeIcon
-                  icon={faCrown}
-                  color="var(--color-orange)"
-                  size="lg"
-                />
+                <FontAwesomeIcon icon={faCrown} color="var(--color-orange)" />
               </CrownWrapper>
             </Organizer>
             <UserOverview>
@@ -175,8 +171,8 @@ const ParticipateTime = styled.div<{ isFirst: boolean }>`
 
 const CrownWrapper = styled.div`
   position: absolute;
-  right: -1px;
-  bottom: -1px;
+  right: -2px;
+  bottom: -2px;
 `;
 const Layout = styled.div`
   width: 100%;
