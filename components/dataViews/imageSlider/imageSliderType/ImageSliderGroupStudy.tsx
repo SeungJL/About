@@ -63,7 +63,7 @@ const BlockLayout = styled.button`
   height: 110px;
   width: 156px;
   padding: var(--padding-sub) var(--padding-sub);
-  padding-bottom: var(--padding-md);
+  padding-bottom: var(--padding-min);
   background-color: white;
   box-shadow: var(--box-shadow-b);
   border-radius: var(--border-radius2);
@@ -88,6 +88,7 @@ const Name = styled(SingleLineText)`
   font-size: 13px;
   font-weight: 600;
   margin-top: var(--margin-md);
+  padding-bottom: var(--padding-min);
 `;
 
 export default ImageSliderGroupStudy;

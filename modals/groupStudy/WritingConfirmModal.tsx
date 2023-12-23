@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import SuccessScreen from "../../components/layout/SuccessScreen";
 import {
@@ -11,12 +11,14 @@ import {
 } from "../../components/modals/Modals";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
-import { useErrorToast } from "../../hooks/custom/CustomToast";
+import {
+  useCompleteToast,
+  useErrorToast,
+} from "../../hooks/custom/CustomToast";
 import { useGroupStudyWritingMutation } from "../../hooks/groupStudy/mutations";
 import { isGatherEditState } from "../../recoil/checkAtoms";
-import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGroupStudyWriting } from "../../types/page/groupStudy";
+import { IGroupStudy, IGroupStudyWriting } from "../../types/page/groupStudy";
 import { DispatchType, IModal } from "../../types/reactTypes";
 
 interface IGroupStudyConfirmModal extends IModal {
@@ -31,36 +33,36 @@ function GroupStudyConfirmModal({
 }: IGroupStudyConfirmModal) {
   const router = useRouter();
   const errorToast = useErrorToast();
+  const completeToast = useCompleteToast();
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
   const [isGatherEdit, setIsGatherEdit] = useRecoilState(isGatherEditState);
   const resetQueryData = useResetQueryData();
-  const setGatherContent = useSetRecoilState(sharedGatherWritingState);
 
   const { mutate } = useGroupStudyWritingMutation("post", {
     onSuccess() {
       resetQueryData([GROUP_STUDY_ALL]);
       setGroupStudyWriting(null);
-      setTimeout(() => {
-        setGatherContent(null);
-      }, 200);
       setIsSuccessScreen(true);
     },
     onError: errorToast,
   });
-  const { mutate: updateGather } = useGroupStudyWritingMutation("patch", {
+  const { mutate: updateGroupStudy } = useGroupStudyWritingMutation("patch", {
     onSuccess() {
       resetQueryData([GROUP_STUDY_ALL]);
+      setGroupStudyWriting(null);
+      completeToast("free", "수정되었습니다.");
       setTimeout(() => {
-        setGatherContent(null);
-        // router.push(`/gather/${(groupStudyWriting as IGather).id}`);
-      }, 400);
+        router.push(`groupStudy/${groupStudyWriting.id}`);
+      }, 600);
     },
     onError: errorToast,
   });
 
   const onSubmit = () => {
-    mutate({ groupStudy: groupStudyWriting });
+    if (groupStudyWriting?.id) {
+      updateGroupStudy({ groupStudy: groupStudyWriting as IGroupStudy });
+    } else mutate({ groupStudy: groupStudyWriting });
     // if (!isGatherEdit) {
     //   mutate({ gather: groupStudyWriting as IGatherWriting });
     // } else {

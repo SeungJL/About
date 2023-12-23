@@ -49,6 +49,37 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
     setGroupStudy(groupStudy);
     router.push(`/groupStudy/${groupStudy.id}`);
   };
+  console.log(groupStudy);
+  const getBadgeText = () => {
+    const status = groupStudy.status;
+    const min = groupStudy.memberCnt.min;
+    const max = groupStudy.memberCnt.max;
+    const participantCnt = groupStudy.participants.length;
+    if (status === "pending") {
+      if (participantCnt < min) {
+        return {
+          text: `개설까지 ${min - participantCnt}명 남음`,
+          color: "redTheme",
+        };
+      } else if (participantCnt >= max) {
+        if (max !== 0) {
+          return {
+            text: "인원마감",
+            color: "mintTheme",
+          };
+        }
+        return {
+          text: "모집중",
+          color: "mintTheme",
+        };
+      } else {
+        return {
+          text: `마감까지 ${max - participantCnt}명 남음`,
+          color: "redTheme",
+        };
+      }
+    }
+  };
 
   return (
     <Layout onClick={onClick}>
@@ -58,7 +89,12 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
           <span>{groupStudy.category.sub}</span>
           {!groupStudy?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
         </div>
-        <Badge text="모집중" colorScheme="mintTheme" type="outline" size="md" />
+        <Badge
+          text={getBadgeText().text}
+          colorScheme={getBadgeText().color}
+          type="outline"
+          size="md"
+        />
       </Header>
       <Title>{groupStudy.title}</Title>
       <Info>
@@ -119,7 +155,7 @@ const Info = styled.div`
 
   padding: var(--padding-md) 0;
   display: grid;
-  grid-template-columns: 1.1fr 1.1fr 1.4fr;
+  grid-template-columns: 0.9fr 0.8fr 1.2fr;
   gap: var(--margin-min);
   border-bottom: var(--border-sub);
 `;
@@ -140,7 +176,7 @@ const InfoItem = styled.div`
 
 const Content = styled.pre`
   text-align: start;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--font-h2);
   padding-top: var(--padding-sub);
   white-space: pre-wrap;

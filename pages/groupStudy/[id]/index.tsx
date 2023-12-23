@@ -85,7 +85,7 @@ function GroupStudyDetail() {
 
             <GroupStudyTitle
               isAdmin={groupStudy.organizer.uid === uid}
-              memberCnt={groupStudy.participants.length + 1}
+              memberCnt={groupStudy.participants.length}
               title={groupStudy.title}
               status={groupStudy.status}
             />

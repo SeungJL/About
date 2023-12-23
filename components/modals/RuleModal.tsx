@@ -52,7 +52,7 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
 const Item = styled.div``;
 
 const ItemContent = styled.ul`
-  font-size: 11px;
+  font-size: 12px;
   margin-left: var(--margin-main);
   margin-top: var(--margin-min);
   margin-bottom: var(--margin-sub);
@@ -61,7 +61,7 @@ const ItemContent = styled.ul`
 
 const RuleTitle = styled.span`
   color: var(--font-h1);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 `;
 

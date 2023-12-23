@@ -38,7 +38,7 @@ function GroupStudyTitle({
       </Title>
       <SubInfo>
         <span>
-          멤버 {memberCnt} · 모임 1 · {statusText}
+          멤버 {memberCnt} · 모임 0 · {statusText}
         </span>
         {isAdmin && (
           <SettingBtnNav>

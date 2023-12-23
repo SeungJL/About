@@ -19,6 +19,7 @@ import { useGroupStudyParticipationMutation } from "../../../hooks/groupStudy/mu
 import { isGroupStudyEditState } from "../../../recoil/checkAtoms";
 
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
 
 import { userInfoState } from "../../../recoil/userAtoms";
 import { IGroupStudy } from "../../../types/page/groupStudy";
@@ -47,17 +48,15 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
 
   const [isSettigModal, setIsSettingModal] = useState(false);
 
+  const setGroupStudyWriting = useSetRecoilState(sharedGroupStudyWritingState);
+
   const resetQueryData = useResetQueryData();
-
+  console.log(router);
   const onClick = () => {
-    // setGroupStudyWriting({
-    //   ...groupStudy,
-    //   // date: dayjs(groupStudy.date),
-    // });
-    setIsGroupStudyEdit(true);
-    setPrevPageUrl(`/groupStudy/${router.query.id}`);
+    setGroupStudyWriting(groupStudy);
+    setPrevPageUrl(`${router.asPath}`);
 
-    router.push("/groupStudy/writing/category");
+    router.push("/groupStudy/writing/category/main");
   };
 
   const { mutate } = useGroupStudyParticipationMutation(

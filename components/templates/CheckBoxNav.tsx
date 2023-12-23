@@ -27,12 +27,12 @@ function CheckBoxNav({
             key={item}
             display="flex"
             alignItems="center"
-            mr="var(--margin-sub)"
+            mr="var(--margin-main)"
           >
             <Flex
               as="button"
-              h="16px"
-              w="16px"
+              h="20px"
+              w="20px"
               borderWidth={selectedButton === item ? "0" : "1.5px"}
               borderRadius="var(--border-radius2)"
               borderColor="var(--font-h5)"
@@ -45,7 +45,7 @@ function CheckBoxNav({
                 <FontAwesomeIcon icon={faCheck} color="white" />
               )}
             </Flex>
-            <Text ml="2">{item}</Text>
+            <Text ml="var(--margin-md)">{item}</Text>
           </Box>
         ))}
       </Flex>
