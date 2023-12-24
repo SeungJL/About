@@ -21,18 +21,22 @@ function ContentInfo({ groupStudy }: IContentInfo) {
         <span>소개</span>
         <Content>{groupStudy.content}</Content>
       </ContentWrapper>
-      <ContentWrapper>
-        <span>규칙</span>
-        <Rules>
-          {groupStudy?.rules.map((rule, idx) => (
-            <Rule key={idx}>{rule}</Rule>
-          ))}
-        </Rules>
-      </ContentWrapper>
-      <Challenge>
-        <FontAwesomeIcon icon={faBellOn} color="var(--color-red)" />
-        {groupStudy?.challenge}
-      </Challenge>
+      {!!groupStudy?.rules?.length && (
+        <ContentWrapper>
+          <span>규칙</span>
+          <Rules>
+            {groupStudy?.rules.map((rule, idx) => (
+              <Rule key={idx}>{rule}</Rule>
+            ))}
+          </Rules>
+        </ContentWrapper>
+      )}
+      {groupStudy?.challenge && (
+        <Challenge>
+          <FontAwesomeIcon icon={faBellOn} color="var(--color-red)" />
+          {groupStudy?.challenge}
+        </Challenge>
+      )}
       <Tag>
         {hashTagArr?.map((tag, idx) =>
           tag ? <div key={idx}>#{tag}</div> : null

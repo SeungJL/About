@@ -66,7 +66,9 @@ function WritingCondition() {
         : true,
     challenge: groupStudyWriting?.challenge ? true : false,
     fee:
-      groupStudyWriting?.fee !== null ? groupStudyWriting?.fee !== 200 : false,
+      groupStudyWriting?.fee !== null
+        ? groupStudyWriting?.fee !== 200 && groupStudyWriting?.fee !== 0
+        : false,
   });
   console.log(condition);
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import SuccessScreen from "../../components/layout/SuccessScreen";
 import {
@@ -15,6 +16,7 @@ import {
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
 import { useGroupStudyWritingMutation } from "../../hooks/groupStudy/mutations";
+import { transferGroupStudyDataState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGroupStudy, IGroupStudyWriting } from "../../types/page/groupStudy";
 import { DispatchType, IModal } from "../../types/reactTypes";
@@ -34,12 +36,13 @@ function GroupStudyConfirmModal({
   const completeToast = useCompleteToast();
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
-
+  const setGroupStudy = useSetRecoilState(transferGroupStudyDataState);
   const resetQueryData = useResetQueryData();
 
   const { mutate } = useGroupStudyWritingMutation("post", {
     onSuccess() {
       resetQueryData([GROUP_STUDY_ALL]);
+      setGroupStudy(null);
       setGroupStudyWriting(null);
       setIsSuccessScreen(true);
     },
@@ -48,6 +51,7 @@ function GroupStudyConfirmModal({
   const { mutate: updateGroupStudy } = useGroupStudyWritingMutation("patch", {
     onSuccess() {
       setGroupStudyWriting(null);
+      setGroupStudy(null);
       completeToast("free", "수정되었습니다.");
       resetQueryData([GROUP_STUDY_ALL], () => {
         router.push(`/groupStudy/${groupStudyWriting.id}`);

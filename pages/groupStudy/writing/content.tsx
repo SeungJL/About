@@ -39,7 +39,7 @@ function GroupStudyWritingContent() {
 
     setGroupStudy((old) => ({
       ...old,
-      rules,
+      rules: rules[0] === "" ? [] : rules,
       content,
     }));
     router.push(`/groupStudy/writing/period`);
