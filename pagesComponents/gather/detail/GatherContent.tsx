@@ -37,6 +37,7 @@ const Content = styled.pre`
   padding: var(--padding-main);
   white-space: pre-wrap;
   padding-bottom: var(--padding-main);
+  font-family: apple;
 `;
 
 const ListContainer = styled.div`

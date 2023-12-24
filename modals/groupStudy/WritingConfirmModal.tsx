@@ -60,11 +60,6 @@ function GroupStudyConfirmModal({
     if (groupStudyWriting?.id) {
       updateGroupStudy({ groupStudy: groupStudyWriting as IGroupStudy });
     } else mutate({ groupStudy: groupStudyWriting });
-    // if (!isGatherEdit) {
-    //   mutate({ gather: groupStudyWriting as IGatherWriting });
-    // } else {
-    //   updateGather({ gather: groupStudyWriting as IGather });
-    // }
   };
 
   return (

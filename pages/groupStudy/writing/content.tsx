@@ -1,3 +1,8 @@
+import {
+  faMinusCircle,
+  faPlusCircle,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -22,6 +27,9 @@ function GroupStudyWritingContent() {
   //초기 input 세팅
 
   const [content, setContent] = useState(groupStudy?.content || "");
+  const [rules, setRules] = useState<string[]>(
+    groupStudy?.rules?.length ? groupStudy?.rules : [""]
+  );
 
   const onClickNext = () => {
     if (!content) {
@@ -31,10 +39,27 @@ function GroupStudyWritingContent() {
 
     setGroupStudy((old) => ({
       ...old,
-
+      rules,
       content,
     }));
     router.push(`/groupStudy/writing/period`);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+    const value = e.target.value;
+    setRules((old) => {
+      const temp = [...old];
+      temp[idx] = value;
+      return temp;
+    });
+  };
+
+  const handleAdd = () => {
+    if (rules.length >= 4) {
+      failToast("free", "최대 4개까지만 설정 가능합니다.");
+      return;
+    }
+    setRules((old) => [...old, ""]);
   };
 
   return (
@@ -52,6 +77,25 @@ function GroupStudyWritingContent() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
+          <RuleTitle>규칙이 있나요?</RuleTitle>
+          <RuleContainer>
+            {rules.map((item, idx) => (
+              <RuleItem key={idx}>
+                <input value={item} onChange={(e) => onChange(e, idx)} />
+                <MinusWrapper
+                  onClick={() =>
+                    setRules((old) => old.filter((rule) => rule !== item))
+                  }
+                >
+                  <FontAwesomeIcon icon={faMinusCircle} />
+                </MinusWrapper>
+              </RuleItem>
+            ))}
+
+            <PlusWrapper onClick={() => handleAdd()}>
+              <FontAwesomeIcon icon={faPlusCircle} />
+            </PlusWrapper>
+          </RuleContainer>
         </Container>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
@@ -59,20 +103,40 @@ function GroupStudyWritingContent() {
   );
 }
 
-const Container = styled.div``;
-
-const TitleInput = styled.input`
-  margin-top: var(--margin-max);
-  border-bottom: var(--border-thick);
-  width: 100%;
-  height: 40px;
-  background-color: inherit;
-  outline: none;
+const RuleTitle = styled.div`
+  margin-top: var(--margin-main);
+  margin-bottom: Var(--margin-md);
   font-size: 15px;
   font-weight: 600;
-  ::placeholder {
-    color: var(--font-h4);
+`;
+
+const MinusWrapper = styled.button`
+  margin-left: var(--margin-md);
+`;
+
+const Container = styled.div``;
+
+const RuleContainer = styled.ol``;
+
+const RuleItem = styled.li`
+  margin-left: var(--margin-max);
+  margin-bottom: var(--margin-md);
+  > input {
+    width: 260px;
+    margin-left: var(--margin-md);
+    border: var(--border-main);
+    border-radius: 4px;
+    padding: 4px 8px;
+
+    :focus {
+      outline-color: var(--font-h1);
+    }
   }
+`;
+
+const PlusWrapper = styled.button`
+  margin-top: 4px;
+  padding: 0 var(--padding-min);
 `;
 
 const Content = styled.textarea`

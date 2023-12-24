@@ -66,6 +66,7 @@ const Layout = styled.div`
 `;
 
 const ContentContainer = styled.div`
+  background-color: white;
   display: flex;
   flex-direction: column;
 

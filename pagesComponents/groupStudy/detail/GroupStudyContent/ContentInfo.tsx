@@ -1,3 +1,5 @@
+import { faBellOn } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { IGroupStudy } from "../../../../types/page/groupStudy";
 import GroupStudyDetailInfo from "../GroupStudyDetail";
@@ -18,15 +20,42 @@ function ContentInfo({ groupStudy }: IContentInfo) {
       <ContentWrapper>
         <span>소개</span>
         <Content>{groupStudy.content}</Content>
-        <Tag>
-          {hashTagArr?.map((tag, idx) =>
-            tag ? <div key={idx}>#{tag}</div> : null
-          )}
-        </Tag>
       </ContentWrapper>
+      <ContentWrapper>
+        <span>규칙</span>
+        <Rules>
+          {groupStudy?.rules.map((rule, idx) => (
+            <Rule key={idx}>{rule}</Rule>
+          ))}
+        </Rules>
+      </ContentWrapper>
+      <Challenge>
+        <FontAwesomeIcon icon={faBellOn} color="var(--color-red)" />
+        {groupStudy?.challenge}
+      </Challenge>
+      <Tag>
+        {hashTagArr?.map((tag, idx) =>
+          tag ? <div key={idx}>#{tag}</div> : null
+        )}
+      </Tag>
     </Layout>
   );
 }
+
+const Challenge = styled.div`
+  padding: var(--padding-md) var(--padding-sub);
+  background-color: var(--font-h8);
+  > svg {
+    margin-right: var(--margin-md);
+  }
+`;
+
+const Rules = styled.ol``;
+
+const Rule = styled.li`
+  margin-left: var(--margin-sub);
+  margin-bottom: 4px;
+`;
 
 const Wrapper = styled.div`
   padding: var(--padding-main);
@@ -42,37 +71,30 @@ const Layout = styled.div`
 const ContentWrapper = styled.div`
   padding: var(--padding-main);
   flex: 1;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
 
   > span:first-child {
     display: inline-block;
     font-size: 16px;
-
-    margin-bottom: var(--margin-main);
-
+    margin-bottom: var(--margin-sub);
     font-weight: 700;
   }
 `;
 
 const Content = styled.pre`
-  margin-bottom: var(--margin-max);
+  font-size: 14px;
+  font-family: apple;
   white-space: pre-wrap;
   flex: 1;
 `;
 
 const Tag = styled.div`
   display: flex;
-  margin-top: auto;
-
+  padding: var(--padding-sub) var(--padding-main);
   > div {
-    font-size: 13px;
     padding: var(--padding-min) var(--padding-md);
-    color: var(--font-h2);
-    font-weight: 600;
-    margin-right: var(--margin-md);
-    background-color: var(--font-h56);
   }
 `;
 

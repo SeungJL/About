@@ -68,9 +68,6 @@ const Nav = styled.nav`
   margin-left: auto;
   display: flex;
   align-items: center;
-  > div {
-    margin-left: var(--margin-max);
-  }
 `;
 
 export default Header;

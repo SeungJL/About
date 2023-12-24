@@ -87,7 +87,7 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
             <FontAwesomeIcon icon={faPenCircle} size="xl" />
           </IconWrapper>
         )}
-        <IconWrapper>
+        <Wrapper>
           <KakaoShareBtn
             title={groupStudy.title}
             subtitle={`${groupStudy.category.main} · ${groupStudy.category.sub}`}
@@ -95,7 +95,7 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
             img={groupStudy?.image}
             type="gather"
           />
-        </IconWrapper>
+        </Wrapper>
         <IconWrapper onClick={() => setIsSettingModal(true)}>
           <FontAwesomeIcon
             icon={faGear}
@@ -123,6 +123,15 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     </>
   );
 }
+
+const Wrapper = styled.div`
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: var(--margin-sub);
+`;
 
 const IconWrapper = styled.button`
   width: 26px;

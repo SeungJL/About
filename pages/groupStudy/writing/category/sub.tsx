@@ -43,7 +43,7 @@ function WritingStudyCategorySub() {
     }));
     router.push(`/groupStudy/writing/guide`);
   };
- 
+
   useEffect(() => {
     if (!mainCategory) router.push("/groupStudy/writing/category/main");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,10 +52,7 @@ function WritingStudyCategorySub() {
   return (
     <PageLayout>
       <ProgressStatus value={28} />
-      <Header
-        title=""
-        url={prevPageUrl || "/groupStudy/writing/category/main"}
-      />
+      <Header title="" url={"/groupStudy/writing/category/main"} />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>

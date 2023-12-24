@@ -1,4 +1,5 @@
 import { LocationFilterType } from "../system";
+import { ITimeStamps } from "../timeAndDate";
 import { IUser } from "../user/user";
 import { GatherStatus, IGatherComment } from "./gather";
 
@@ -19,10 +20,12 @@ export interface IGroupStudy extends IGroupStudyWriting {
   comment: IGatherComment[];
 }
 
-export interface IGroupStudyWriting {
+export interface IGroupStudyWriting extends ITimeStamps {
   category: IGroupStudyWritingCategory;
+  challenge?: string;
   title: string;
   content: string;
+  rules: string[];
   status: GatherStatus;
   guide: string;
   feeText: string;
@@ -35,7 +38,7 @@ export interface IGroupStudyWriting {
   period: string;
   organizer: IUser;
   location: LocationFilterType;
-  date: string;
+
   questionText?: string;
   hashTag?: string;
   attendance: IGroupStudyAttendance;

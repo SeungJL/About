@@ -1,5 +1,6 @@
 import { Switch } from "@chakra-ui/react";
 import {
+  faBellOn,
   faDollarSign,
   faLocationCrosshairs,
   faUser,
@@ -32,7 +33,14 @@ import { IGatherMemberCnt } from "../../../types/page/gather";
 import { IGroupStudyWriting } from "../../../types/page/groupStudy";
 import { Location, LocationFilterType } from "../../../types/system";
 
-type ButtonType = "gender" | "age" | "pre" | "location" | "isFree" | "fee";
+type ButtonType =
+  | "gender"
+  | "age"
+  | "pre"
+  | "location"
+  | "isFree"
+  | "fee"
+  | "challenge";
 
 export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 
@@ -49,27 +57,31 @@ function WritingCondition() {
     gender: groupStudyWriting?.gender || false,
     age: groupStudyWriting?.age ? true : false,
     isFree:
-      groupStudyWriting?.isFree !== null ? groupStudyWriting?.isFree : true,
-    location:
-      groupStudyWriting?.location !== null
-        ? groupStudyWriting?.location === userInfo.location
+      groupStudyWriting?.isFree !== undefined
+        ? groupStudyWriting?.isFree
         : true,
-
+    location:
+      groupStudyWriting?.location !== undefined
+        ? groupStudyWriting?.location === userInfo?.location
+        : true,
+    challenge: groupStudyWriting?.challenge ? true : false,
     fee:
       groupStudyWriting?.fee !== null ? groupStudyWriting?.fee !== 200 : false,
   });
-
+  console.log(condition);
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
     min: groupStudyWriting?.memberCnt?.min || 4,
     max:
-      groupStudyWriting?.memberCnt?.max === null
+      groupStudyWriting?.memberCnt?.max === undefined
         ? 8
-        : groupStudyWriting?.memberCnt.max,
+        : groupStudyWriting?.memberCnt?.max,
   });
 
   const [age, setAge] = useState(groupStudyWriting?.age || [19, 28]);
 
-  const [fee, setFee] = useState("1000");
+  const [challenge, setChallenge] = useState("");
+
+  const [fee, setFee] = useState(groupStudyWriting?.fee || "1000");
   const [feeText, setFeeText] = useState(
     groupStudyWriting?.feeText || "기본 참여비"
   );
@@ -101,6 +113,7 @@ function WritingCondition() {
       gender: condition.gender,
       organizer: userInfo,
       questionText: question,
+      challenge,
     };
     setGroupStudyWriting(groupStudyData);
     setIsConfirmModal(true);
@@ -117,7 +130,7 @@ function WritingCondition() {
       return { ...old, [type]: isChecked };
     });
   };
-
+  console.log(2, groupStudyWriting);
   return (
     <>
       <PageLayout>
@@ -222,6 +235,29 @@ function WritingCondition() {
             </Item>
             <Item>
               <Name>
+                <FontAwesomeIcon icon={faBellOn} />
+                <span>챌린지</span>
+                <PopOverIcon
+                  title="챌린지"
+                  text="달성 챌린지를 진행하는 경우만 체크해주세요."
+                />
+              </Name>
+              <Switch
+                mr="var(--margin-min)"
+                colorScheme="mintTheme"
+                isChecked={condition.challenge}
+                onChange={(e) => toggleSwitch(e, "challenge")}
+              />
+            </Item>
+            {condition.challenge && (
+              <ChallengeText
+                value={challenge}
+                onChange={(e) => setChallenge(e.target.value)}
+                placeholder="2월까지 모든 인증 성공시 +5000원"
+              />
+            )}
+            <Item>
+              <Name>
                 <FontAwesomeIcon icon={faDollarSign} />
                 <span>참여비</span>
                 <PopOverIcon
@@ -280,6 +316,15 @@ function WritingCondition() {
   );
 }
 
+const ChallengeText = styled.textarea`
+  margin-top: var(--margin-main);
+  width: 100%;
+  padding: 4px 8px;
+  :focus {
+    outline-color: var(--font-h1);
+  }
+`;
+
 const Fee = styled.div`
   padding: var(--padding-sub) 0;
   > div {
@@ -304,8 +349,11 @@ const Fee = styled.div`
 const Name = styled.div`
   display: flex;
   align-items: center;
-  span {
+  > span {
     margin-left: var(--margin-md);
+  }
+  > svg {
+    width: 16px;
   }
 `;
 

@@ -108,7 +108,7 @@ function KakaoShareBtn({
       {!isBig ? (
         <FontAwesomeIcon icon={faShareNodes} size="lg" />
       ) : (
-        <Button colorScheme="mintTheme" width="100%" size="lg">
+        <Button as="div" colorScheme="mintTheme" width="100%" size="lg">
           공유하기
         </Button>
       )}
