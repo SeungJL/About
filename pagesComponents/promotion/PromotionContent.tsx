@@ -128,6 +128,7 @@ const Message = styled.span`
 const Pre = styled.pre`
   white-space: pre-wrap;
   font-size: 12px;
+  font-family: apple;
 `;
 
 const Title = styled.div`

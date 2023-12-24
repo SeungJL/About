@@ -180,6 +180,7 @@ const Content = styled.pre`
   font-size: 13px;
   color: var(--font-h2);
   padding-top: var(--padding-sub);
+  font-family: apple;
   white-space: pre-wrap;
   /* display: -webkit-box;
   -webkit-line-clamp: 7;
