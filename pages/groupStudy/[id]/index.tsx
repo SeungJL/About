@@ -10,6 +10,7 @@ import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGroupStudyAttendancePatchMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GroupStudyBottomNav from "../../../pagesComponents/groupStudy/detail/GroupStudyBottomNav";
 import GroupStudyComments from "../../../pagesComponents/groupStudy/detail/GroupStudyComment";
 import GroupStudyContent from "../../../pagesComponents/groupStudy/detail/GroupStudyContent/GroupStudyContent";
@@ -19,7 +20,7 @@ import GroupStudyParticipation from "../../../pagesComponents/groupStudy/detail/
 import GroupStudyTitle from "../../../pagesComponents/groupStudy/detail/GroupStudyTitle";
 import { isRefetchGroupStudyInfoState } from "../../../recoil/refetchingAtoms";
 import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
-import { userAccessUidState } from "../../../recoil/userAtoms";
+import { userAccessUidState, userInfoState } from "../../../recoil/userAtoms";
 
 function GroupStudyDetail() {
   const router = useRouter();
@@ -29,6 +30,14 @@ function GroupStudyDetail() {
   const [groupStudy, setGroupStudy] = useRecoilState(
     transferGroupStudyDataState
   );
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  useUserInfoQuery({
+    enabled: !userInfo,
+    onSuccess(data) {
+      setUserInfo(data);
+    },
+  });
 
   const [adminIsRefetch, setAdminIsRefetch] = useRecoilState(
     isRefetchGroupStudyInfoState
@@ -50,7 +59,7 @@ function GroupStudyDetail() {
       },
     }
   );
-  console.log(groupStudy);
+
   useEffect(() => {
     if (!groupStudy) return;
     const firstDate = groupStudy.attendance.firstDate;

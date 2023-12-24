@@ -1,13 +1,10 @@
-import {
-  faGear,
-  faPenCircle,
-  faShareNodes,
-} from "@fortawesome/pro-light-svg-icons";
+import { faGear, faPenCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import KakaoShareBtn from "../../../components/common/Icon/KakaoShareBtn";
 import Header from "../../../components/layout/Header";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
@@ -91,10 +88,12 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
           </IconWrapper>
         )}
         <IconWrapper>
-          <FontAwesomeIcon
-            icon={faShareNodes}
-            size="lg"
-            onClick={() => setIsModal(true)}
+          <KakaoShareBtn
+            title={groupStudy.title}
+            subtitle={`${groupStudy.category.main} · ${groupStudy.category.sub}`}
+            url={`/groupStudy/${groupStudy.id}`}
+            img={groupStudy?.image}
+            type="gather"
           />
         </IconWrapper>
         <IconWrapper onClick={() => setIsSettingModal(true)}>
