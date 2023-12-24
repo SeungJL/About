@@ -68,6 +68,7 @@ function ButtonCheckNav({
 
 const Layout = styled.div`
   overflow-x: auto;
+  padding-bottom: var(--padding-sub);
 
   &::-webkit-scrollbar {
     display: none;

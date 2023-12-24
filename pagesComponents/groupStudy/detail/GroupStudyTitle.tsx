@@ -25,13 +25,17 @@ function GroupStudyTitle({
   const router = useRouter();
   const color =
     status === "pending"
-      ? maxCnt > memberCnt
+      ? maxCnt === 0 || maxCnt > memberCnt
         ? "mintTheme"
         : "redTheme"
       : "redTheme";
 
   const statusText =
-    status === "pending" ? (maxCnt > memberCnt ? "모집중" : "마감") : "마감";
+    status === "pending"
+      ? maxCnt === 0 || maxCnt > memberCnt
+        ? "모집중"
+        : "마감"
+      : "마감";
 
   const onClick = () => {
     router.push(`${router.asPath}/admin`);

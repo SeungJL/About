@@ -67,9 +67,11 @@ function Layout({ children }: ILayout) {
   );
   const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
 
+  const status = router.query?.status;
+
   //접속 권한 확인
   useUserInfoQuery({
-    enabled: isCondition && userInitialInfo === null,
+    enabled: (isCondition && userInitialInfo === null) || status === "login",
     onSuccess(data) {
       if (!isCondition || userInitialInfo) return;
       //유저 데이터 없음

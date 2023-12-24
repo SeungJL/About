@@ -49,6 +49,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   margin: var(--margin-sub) var(--margin-main);
+  margin-bottom: 0;
   padding: var(--padding-md) var(--padding-sub);
   background-color: white;
   border-radius: var(--border-radius2);

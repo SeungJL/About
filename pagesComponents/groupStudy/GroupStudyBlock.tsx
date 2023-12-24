@@ -46,6 +46,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
       failToast("guest");
       return;
     }
+
     setGroupStudy(groupStudy);
     router.push(`/groupStudy/${groupStudy.id}`);
   };

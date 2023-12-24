@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { transferGroupStudyDataState } from "../../../../recoil/transferDataAtoms";
 import { SingleLineText } from "../../../../styles/layout/components";
 import { IGroupStudy } from "../../../../types/page/groupStudy";
 import { ImageContainer } from "../ImageSlider";
@@ -16,12 +18,15 @@ function ImageSliderGroupStudy({ imageContainer }: IImageSliderGroupStudy) {
   const router = useRouter();
   const [pageNum, setPageNum] = useState(0);
 
+  const setGroupStudy = useSetRecoilState(transferGroupStudyDataState);
+
   const handleSliderChange = (swiper) => {
     setPageNum(swiper.realIndex);
   };
 
-  const onClick = (id: number) => {
-    router.push(`/groupStudy/${id}`);
+  const onClick = (groupStudy: IGroupStudy) => {
+    setGroupStudy(groupStudy);
+    router.push(`/groupStudy/${groupStudy.id}`);
   };
 
   return (
@@ -40,7 +45,7 @@ function ImageSliderGroupStudy({ imageContainer }: IImageSliderGroupStudy) {
     >
       {(imageContainer as IGroupStudy[]).map((groupStudy, index) => (
         <SwiperSlide key={index}>
-          <BlockLayout onClick={() => onClick(groupStudy.id)}>
+          <BlockLayout onClick={() => onClick(groupStudy)}>
             <ImageContainer>
               {groupStudy?.image && (
                 <Image

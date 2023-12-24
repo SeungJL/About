@@ -14,6 +14,7 @@ import {
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contents/GroupStudyContents";
 import { dayjsToStr } from "../../helpers/dateHelpers";
+import { shuffleArray } from "../../helpers/utilHelpers";
 import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import NotCompletedGroupStudyModal from "../../modals/system/NotCompletedGroupStudyModal";
@@ -70,15 +71,8 @@ function Index() {
               (item.category.main === category && !subCategory) ||
               item.category.sub === subCategory
           );
-    setGroupStudies(filtered);
-  }, [
-    category,
-    groupStudies,
-    groupStudyAll,
-    isLoading,
-    subCategory,
-    userInfo?.uid,
-  ]);
+    setGroupStudies(shuffleArray(filtered));
+  }, [category, groupStudyAll, isLoading, subCategory, userInfo?.uid]);
 
   return (
     <>
@@ -87,7 +81,7 @@ function Index() {
           <RuleIcon setIsModal={setIsRuleModal} />
         </Header>{" "}
         <Title>내 소모임</Title>
-        {isLoading ? (
+        {!groupStudies ? (
           <GroupStudySkeletonMine />
         ) : (
           <GroupStudyMine myStudies={myStudies} />
@@ -150,6 +144,7 @@ const Layout = styled.div`
 
 const NavWrapper = styled.div`
   padding: var(--padding-sub) var(--padding-main);
+  padding-bottom: 0;
 `;
 
 const SubNavWrapper = styled.div``;

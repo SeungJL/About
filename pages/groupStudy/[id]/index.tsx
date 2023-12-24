@@ -50,7 +50,7 @@ function GroupStudyDetail() {
       },
     }
   );
- 
+  console.log(groupStudy);
   useEffect(() => {
     if (!groupStudy) return;
     const firstDate = groupStudy.attendance.firstDate;
