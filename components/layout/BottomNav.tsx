@@ -11,6 +11,7 @@ function BottomNav({ onClick, text }: IBottomNav) {
       position="fixed"
       left="50%"
       bottom="0"
+      maxW="var(--view-max-width)"
       transform="translate(-50%,0)"
       width={`calc(100% - 2*var(--margin-main))`}
       size="lg"

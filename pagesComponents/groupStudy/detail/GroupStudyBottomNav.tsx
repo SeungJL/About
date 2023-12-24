@@ -100,6 +100,7 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
         <Button
           size="lg"
           w="100%"
+          maxW="var(--view-max-width)"
           borderRadius="var(--border-radius2)"
           disabled={!handleFunction}
           colorScheme={handleFunction ? "mintTheme" : "redTheme"}

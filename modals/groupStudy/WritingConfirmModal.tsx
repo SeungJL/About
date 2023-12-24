@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import SuccessScreen from "../../components/layout/SuccessScreen";
 import {
@@ -16,7 +15,6 @@ import {
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
 import { useGroupStudyWritingMutation } from "../../hooks/groupStudy/mutations";
-import { isGatherEditState } from "../../recoil/checkAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGroupStudy, IGroupStudyWriting } from "../../types/page/groupStudy";
 import { DispatchType, IModal } from "../../types/reactTypes";
@@ -36,7 +34,7 @@ function GroupStudyConfirmModal({
   const completeToast = useCompleteToast();
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
-  const [isGatherEdit, setIsGatherEdit] = useRecoilState(isGatherEditState);
+
   const resetQueryData = useResetQueryData();
 
   const { mutate } = useGroupStudyWritingMutation("post", {
@@ -49,12 +47,11 @@ function GroupStudyConfirmModal({
   });
   const { mutate: updateGroupStudy } = useGroupStudyWritingMutation("patch", {
     onSuccess() {
-      resetQueryData([GROUP_STUDY_ALL]);
       setGroupStudyWriting(null);
       completeToast("free", "수정되었습니다.");
-      setTimeout(() => {
+      resetQueryData([GROUP_STUDY_ALL], () => {
         router.push(`/groupStudy/${groupStudyWriting.id}`);
-      }, 600);
+      });
     },
     onError: errorToast,
   });
@@ -74,7 +71,9 @@ function GroupStudyConfirmModal({
     <>
       {groupStudyWriting && (
         <ModalLayout onClose={() => setIsModal(false)} size="lg">
-          <ModalHeader text={isGatherEdit ? "모임 수정" : "모임 개설"} />
+          <ModalHeader
+            text={groupStudyWriting.id ? "내용 수정" : "소모임 개설"}
+          />
           <ModalBody>
             <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
             <Container>
@@ -94,7 +93,7 @@ function GroupStudyConfirmModal({
           </ModalBody>
           <ModalFooterOne
             isFull={true}
-            text={isGatherEdit ? "모임 수정" : "모임 개설"}
+            text={groupStudyWriting.id ? "내용 수정" : "소모임 개설"}
             onClick={onSubmit}
           />
         </ModalLayout>
