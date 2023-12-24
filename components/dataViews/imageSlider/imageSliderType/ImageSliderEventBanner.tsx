@@ -47,6 +47,7 @@ function ImageSliderEventBanner({ imageContainer }: IImageSliderEventBanner) {
 const Container = styled.div``;
 
 const AvatarColorItem = styled.div`
+  position: relative;
   height: 90px;
 `;
 

@@ -51,7 +51,7 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
   const setGroupStudyWriting = useSetRecoilState(sharedGroupStudyWritingState);
 
   const resetQueryData = useResetQueryData();
-  
+
   const onClick = () => {
     setGroupStudyWriting(groupStudy);
     setPrevPageUrl(`${router.asPath}`);
@@ -59,17 +59,18 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     router.push("/groupStudy/writing/category/main");
   };
 
+  const movePage = async () => {
+    completeToast("free", "탈퇴되었습니다.");
+    await resetQueryData([GROUP_STUDY_ALL], () => {
+      router.push("/groupStudy");
+    });
+  };
+
   const { mutate } = useGroupStudyParticipationMutation(
     "delete",
     groupStudy.id,
     {
-      onSuccess() {
-        completeToast("free", "탈퇴되었습니다.");
-        resetQueryData[GROUP_STUDY_ALL];
-        setTimeout(() => {
-          router.push("/groupStudy");
-        }, 200);
-      },
+      onSuccess: movePage,
     }
   );
 

@@ -31,6 +31,10 @@ function ContentAttend() {
 
   const groupStudy = useRecoilValue(transferGroupStudyDataState);
 
+  const isNotMember =
+    groupStudy.organizer.uid !== userInfo.uid &&
+    !groupStudy.participants.some((who) => who.user.uid === userInfo.uid);
+
   const sortArr = (arr: IWeekRecord[]): IWeekRecord[] => {
     const temp: IWeekRecord[] = [];
     let idxNum = null;
@@ -74,10 +78,7 @@ function ContentAttend() {
   ]);
 
   const onClickAttend = () => {
-    if (
-      groupStudy.organizer.uid !== userInfo.uid &&
-      !groupStudy.participants.some((who) => who.user.uid === userInfo.uid)
-    ) {
+    if (isNotMember) {
       failToast("free", "소속 멤버가 아닙니다.");
       return;
     }
@@ -87,7 +88,6 @@ function ContentAttend() {
   const weekNum = isThisWeek ? 0 : -7;
 
   const members = groupStudy.participants;
-
 
   return (
     <>
@@ -135,6 +135,7 @@ function ContentAttend() {
             onClick={onClickAttend}
             colorScheme="mintTheme"
             rightIcon={<FontAwesomeIcon icon={checkCircle} />}
+            disabled={isNotMember}
           >
             출석체크
           </Button>

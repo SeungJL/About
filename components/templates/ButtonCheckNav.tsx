@@ -42,6 +42,7 @@ function ButtonCheckNav({
             ))
           : filtered.map((item) => (
               <Button
+                p="0 var(--padding-sub)"
                 variant="ghost"
                 color={
                   item === selectedButton ? "var(--font-h1)" : "var(--font-h3)"

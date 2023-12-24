@@ -45,7 +45,12 @@ function AboutMainItem({
       {participation && (
         <>
           <ImageContainer>
-            <Image src={place.image} layout="fill" alt="cafeImage" />
+            <Image
+              src={place.image}
+              layout="fill"
+              alt="cafeImage"
+              priority={isImagePriority}
+            />
           </ImageContainer>
           <SpaceInfo>
             <AboutMainItemStatus

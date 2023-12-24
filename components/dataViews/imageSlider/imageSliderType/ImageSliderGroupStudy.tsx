@@ -40,7 +40,7 @@ function ImageSliderGroupStudy({ imageContainer }: IImageSliderGroupStudy) {
         position: "relative",
         paddingBottom: "var(--padding-main)",
       }}
-      slidesPerView={2.2}
+      slidesPerView={2.15}
       onSlideChange={handleSliderChange}
     >
       {(imageContainer as IGroupStudy[]).map((groupStudy, index) => (

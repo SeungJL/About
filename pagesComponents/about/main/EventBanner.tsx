@@ -11,10 +11,6 @@ function EventBanner() {
 
   const imageArr = [EVENT_BANNER_CALENDAR, EVENT_BANNER_PASSION];
 
-  const onClick = () => {
-    console.log("SUC");
-  };
-
   return (
     <Layout onClick={() => router.push(`/eventCalendar`)}>
       <ImageSlider type="eventBanner" imageContainer={imageArr} />

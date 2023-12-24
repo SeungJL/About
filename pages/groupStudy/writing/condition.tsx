@@ -30,16 +30,9 @@ import QuestionBottomDrawer from "../../../pagesComponents/groupStudy/writing/Qu
 import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt } from "../../../types/page/gather";
 import { IGroupStudyWriting } from "../../../types/page/groupStudy";
-import { Location } from "../../../types/system";
+import { Location, LocationFilterType } from "../../../types/system";
 
-type ButtonType =
-  | "gender"
-  | "age"
-  | "pre"
-  | "location"
-  | "manager"
-  | "isFree"
-  | "fee";
+type ButtonType = "gender" | "age" | "pre" | "location" | "isFree" | "fee";
 
 export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 
@@ -55,26 +48,38 @@ function WritingCondition() {
   const [condition, setCondition] = useState({
     gender: groupStudyWriting?.gender || false,
     age: groupStudyWriting?.age ? true : false,
-    isFree: true,
-    location: true,
-    manager: true,
-    fee: true,
+    isFree:
+      groupStudyWriting?.isFree !== null ? groupStudyWriting?.isFree : true,
+    location:
+      groupStudyWriting?.location !== null
+        ? groupStudyWriting?.location === userInfo.location
+        : true,
+
+    fee:
+      groupStudyWriting?.fee !== null ? groupStudyWriting?.fee !== 200 : false,
   });
 
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
-    min: 4,
-    max: 8,
+    min: groupStudyWriting?.memberCnt?.min || 4,
+    max:
+      groupStudyWriting?.memberCnt?.max === null
+        ? 8
+        : groupStudyWriting?.memberCnt.max,
   });
 
   const [age, setAge] = useState(groupStudyWriting?.age || [19, 28]);
 
   const [fee, setFee] = useState("1000");
-  const [feeText, setFeeText] = useState("기본 참여비");
-
-  const [question, setQuestion] = useState("");
-  const [location, setLocation] = useState<Location | CombinedLocation>(
-    userInfo?.location
+  const [feeText, setFeeText] = useState(
+    groupStudyWriting?.feeText || "기본 참여비"
   );
+
+  const [question, setQuestion] = useState(
+    groupStudyWriting?.questionText || ""
+  );
+  const [location, setLocation] = useState<
+    Location | CombinedLocation | LocationFilterType
+  >(groupStudyWriting?.location || userInfo?.location);
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const [isQuestionModal, setIsQuestionModal] = useState(false);
@@ -117,7 +122,7 @@ function WritingCondition() {
     <>
       <PageLayout>
         <ProgressStatus value={100} />
-        <Header title="" url="/groupStudy/writing/period" />
+        <Header title="" url="/groupStudy/writing/hashTag" />
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>
@@ -143,7 +148,7 @@ function WritingCondition() {
                 isMin={false}
                 value={memberCnt.max}
                 setMemberCnt={setMemberCnt}
-                defaultBoolean={false}
+                defaultBoolean={memberCnt.max === 0 ? true : false}
               />
             </Item>
             <Item>

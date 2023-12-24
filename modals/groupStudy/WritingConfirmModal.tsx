@@ -53,7 +53,7 @@ function GroupStudyConfirmModal({
       setGroupStudyWriting(null);
       completeToast("free", "수정되었습니다.");
       setTimeout(() => {
-        router.push(`groupStudy/${groupStudyWriting.id}`);
+        router.push(`/groupStudy/${groupStudyWriting.id}`);
       }, 600);
     },
     onError: errorToast,

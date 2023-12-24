@@ -55,7 +55,7 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || !userInfo) return;
 
     setMyStudies(
       groupStudyAll.filter((item) =>
@@ -72,7 +72,7 @@ function Index() {
               item.category.sub === subCategory
           );
     setGroupStudies(shuffleArray(filtered));
-  }, [category, groupStudyAll, isLoading, subCategory, userInfo?.uid]);
+  }, [category, groupStudyAll, isLoading, subCategory, userInfo]);
 
   return (
     <>

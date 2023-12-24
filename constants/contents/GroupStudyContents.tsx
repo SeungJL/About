@@ -17,9 +17,9 @@ import { TABLE_COLORS } from "../styles";
 export const GROUP_STUDY_CATEGORY_ARR: GroupStudyCategory[] = [
   "어학",
   "프로그래밍",
+  "자기계발",
   "자격증",
   "취업준비",
-  "자기계발",
   "게임",
   "친목",
   "운동",
