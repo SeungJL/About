@@ -90,10 +90,10 @@ const ImageContainer = styled.div`
 `;
 
 const Name = styled(SingleLineText)`
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   margin-top: var(--margin-md);
-  padding-bottom: var(--padding-min);
+  margin-bottom: var(--margin-min);
 `;
 
 export default ImageSliderGroupStudy;
