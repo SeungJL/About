@@ -62,6 +62,7 @@ export interface IWeekRecord {
   uid: string;
   name: string;
   attendRecord: string[];
+  attendRecordSub?: string[];
 }
 export interface IGroupStudyAttendance {
   firstDate: string;

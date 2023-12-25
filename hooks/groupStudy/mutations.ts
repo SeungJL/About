@@ -57,6 +57,7 @@ interface IUserGroupStudyAttendRequest extends IAttendMutationParam {
 
 interface IAttendMutationParam {
   weekRecord: string[];
+  weekRecordSub?: string[];
   type: "this" | "last";
 }
 
@@ -65,11 +66,11 @@ export const useGroupStudyAttendMutation = (
   options?: MutationOptions<IAttendMutationParam>
 ) =>
   useMutation<void, AxiosError, IAttendMutationParam>(
-    ({ weekRecord, type }) =>
+    ({ weekRecord, type, weekRecordSub }) =>
       requestServer<IUserGroupStudyAttendRequest>({
         method: "patch",
         url: "groupStudy/attendance",
-        body: { id, weekRecord, type },
+        body: { id, weekRecord, type, weekRecordSub },
       }),
     options
   );

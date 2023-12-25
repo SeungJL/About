@@ -9,6 +9,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
+import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/groupStudy";
 import { dayjsToFormat, getDateWeek } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
@@ -18,6 +19,7 @@ import { IModal } from "../../types/reactTypes";
 interface IAttendCheckModal extends IModal {
   id: number;
   attendRecord: string[];
+  attendRecordSub: string[];
   type: "this" | "last";
 }
 
@@ -25,6 +27,7 @@ function AttendCheckModal({
   type,
   id,
   attendRecord,
+  attendRecordSub,
   setIsModal,
 }: IAttendCheckModal) {
   const completeToast = useCompleteToast();
@@ -32,8 +35,11 @@ function AttendCheckModal({
   const dateWeek = getDateWeek(dayjs());
 
   const [myAttend, setMyAttend] = useState<string[]>(attendRecord);
+  const [mySubAttend, setMySubAttend] = useState<string[]>(attendRecordSub);
 
   const resetQueryData = useResetQueryData();
+
+  const isSubRecord = GROUP_STUDY_ATTEND_SUB_LIST.includes(+id);
 
   const { mutate, isLoading } = useGroupStudyAttendMutation(id, {
     onSuccess() {
@@ -54,15 +60,19 @@ function AttendCheckModal({
       setMyAttend((old) =>
         old.length === 7 ? [] : ["월", "화", "수", "목", "금", "토", "일"]
       );
+      setMySubAttend([]);
       return;
     }
-    setMyAttend((old) =>
-      old.includes(day) ? old.filter((item) => item !== day) : [...old, day]
-    );
+    if (myAttend.includes(day)) {
+      setMyAttend((old) => old.filter((item) => item !== day));
+      setMySubAttend((old) => [...old, day]);
+    } else if (mySubAttend.includes(day)) {
+      setMySubAttend((old) => old.filter((item) => item !== day));
+    } else setMyAttend((old) => [...old, day]);
   };
 
   const onSubmit = () => {
-    mutate({ weekRecord: myAttend, type });
+    mutate({ weekRecord: myAttend, type, weekRecordSub: mySubAttend });
   };
 
   return (
@@ -72,12 +82,17 @@ function AttendCheckModal({
         <CheckContainer>
           {dayArr.map((item, idx) => {
             const day = dayjsToFormat(item, "ddd");
-
             return (
               <Button
                 key={idx}
                 onClick={() => onClickBtn(day)}
-                colorScheme={myAttend?.includes(day) ? "mintTheme" : "gray"}
+                colorScheme={
+                  myAttend?.includes(day)
+                    ? "mintTheme"
+                    : mySubAttend?.includes(day)
+                    ? "yellowTheme"
+                    : "gray"
+                }
               >
                 {dayjsToFormat(item, "ddd요일")}
               </Button>
@@ -91,6 +106,20 @@ function AttendCheckModal({
             전체
           </Button>
         </CheckContainer>
+        <ColorView>
+          <ColorItem>
+            <Color color="var(--color-mint)" />
+            <span>완료</span>
+          </ColorItem>
+          <ColorItem>
+            <Color color="#FEBC5A" />
+            <span>절반 완료</span>
+          </ColorItem>
+          <ColorItem>
+            <Color color="#E2E8F0" />
+            <span>미실시</span>
+          </ColorItem>
+        </ColorView>
       </ModalBody>
       <ModalFooterTwo
         rightText="저장"
@@ -101,6 +130,29 @@ function AttendCheckModal({
     </ModalLayout>
   );
 }
+
+const ColorView = styled.div`
+  margin-top: var(--margin-main);
+  display: flex;
+`;
+
+const ColorItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: var(--margin-sub);
+  > span {
+    font-size: 13px;
+    color: var(--font-h3);
+  }
+`;
+
+const Color = styled.div<{ color: string }>`
+  width: 8px;
+  height: 8px;
+  background-color: ${(props) => props.color};
+  border-radius: 50%;
+  margin-right: var(--margin-md);
+`;
 
 const Layout = styled.div``;
 

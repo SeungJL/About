@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { faCheckCircle } from "@fortawesome/pro-light-svg-icons";
+import { faCheckCircle, faTriangle } from "@fortawesome/pro-light-svg-icons";
 import { faCheckCircle as checkCircle } from "@fortawesome/pro-regular-svg-icons";
 import { faCaretLeft, faCaretRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -65,6 +65,7 @@ function ContentAttend() {
           uid: who.user.uid,
           name: who.user.name,
           attendRecord: [],
+          attendRecordSub: [],
         });
       }
     }
@@ -88,7 +89,7 @@ function ContentAttend() {
   const weekNum = isThisWeek ? 0 : -7;
 
   const members = groupStudy.participants;
-
+  console.log(groupStudy);
   return (
     <>
       <Layout>
@@ -149,16 +150,27 @@ function ContentAttend() {
           <Main>
             {attendRecord.map((who) => {
               const attendDays = who.attendRecord;
-              const days = weekDay.map((day) =>
-                attendDays.includes(day) ? true : false
-              );
+              const attendDaySub = who?.attendRecordSub;
+              const days = weekDay.map((day) => {
+                let main = false;
+                let sub = false;
+                if (attendDays.includes(day)) main = true;
+                if (attendDaySub.includes(day)) sub = true;
+                return { main, sub };
+              });
+
               return (
                 <MainLine key={who.uid}>
                   <Name>{who.name}</Name>
                   {days.map((isAttend, idx) => (
                     <Item key={idx}>
-                      {isAttend ? (
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                      {isAttend.main ? (
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          color="var(--color-mint)"
+                        />
+                      ) : isAttend.sub ? (
+                        <FontAwesomeIcon icon={faTriangle} color="#FEBC5A" />
                       ) : null}
                     </Item>
                   ))}
@@ -171,6 +183,10 @@ function ContentAttend() {
       </Layout>
       {isModal && (
         <AttendCheckModal
+          attendRecordSub={
+            attendRecord.find((who) => who.uid === userInfo.uid)
+              ?.attendRecordSub || []
+          }
           attendRecord={
             attendRecord.find((who) => who.uid === userInfo.uid)
               ?.attendRecord || []

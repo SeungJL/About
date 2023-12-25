@@ -90,7 +90,7 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
         <Wrapper>
           <KakaoShareBtn
             title={groupStudy.title}
-            subtitle={`${groupStudy.category.main} · ${groupStudy.category.sub}`}
+            subtitle={groupStudy.guide}
             url={`/groupStudy/${groupStudy.id}`}
             img={groupStudy?.image}
             type="gather"
