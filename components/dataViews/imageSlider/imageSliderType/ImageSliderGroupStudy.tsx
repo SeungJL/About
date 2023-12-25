@@ -92,7 +92,7 @@ const ImageContainer = styled.div`
 const Name = styled(SingleLineText)`
   font-size: 12px;
   font-weight: 600;
-  padding-top: 6px;
+  padding-top: var(--padding-min);
   padding-bottom: var(--margin-min);
 `;
 
