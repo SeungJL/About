@@ -41,52 +41,53 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
       writer: session.user.name,
     };
     sendRequest(userRequestInfo);
-    getDeposit({ value: 3000, message: "보증금 충전" });
+    getDeposit({ value: 2000, message: "보증금 충전" });
     setIsModal(false);
   };
 
   const myDeposit = deposit;
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size={isFirst ? "md" : "lg"}>
+    <ModalLayout onClose={() => setIsModal(false)} size="lg">
       <ModalHeader text="보증금 충전" />
       <ModalBody>
-        {isFirst ? (
-          <>
-            <MainItem>
-              <span>보유 보증금</span>
-              <MyDeposit>{myDeposit}원</MyDeposit>
-            </MainItem>
-            <MainItem>
-              <span>충전 금액</span>
-              <ChargeDeposit>+ 3000원</ChargeDeposit>
-            </MainItem>
-            <Hr />
-            <MainItem>
-              <span>충전 후 보증금</span>
-              <span>= {myDeposit + 3000}원</span>
-            </MainItem>
-          </>
-        ) : (
-          <>
-            <MainItem>
-              <span>입금 계좌</span>
-              <div>
-                <span> {ACCOUNT_SHORT}</span>
-                <CopyBtn text={ACCOUNT_SHORT} />
-              </div>
-            </MainItem>
-            <MainItem>
-              <span>입금자 명</span>
-              <span>{session.user.name}</span>
-            </MainItem>
-            <MainItem>
-              <span>입금 금액</span>
-              <span>3000원</span>
-            </MainItem>
-            <Message>위의 계좌로 입금 후 완료 버튼을 눌러주세요!</Message>
-          </>
-        )}
+        {myDeposit &&
+          (isFirst ? (
+            <>
+              <MainItem>
+                <span>보유 보증금</span>
+                <MyDeposit>{myDeposit}원</MyDeposit>
+              </MainItem>
+              <MainItem>
+                <span>충전 금액</span>
+                <ChargeDeposit>+ 2000원</ChargeDeposit>
+              </MainItem>
+              <Hr />
+              <MainItem>
+                <span>충전 후 보증금</span>
+                <span>= {myDeposit + 2000}원</span>
+              </MainItem>
+            </>
+          ) : (
+            <>
+              <MainItem>
+                <span>입금 계좌</span>
+                <div>
+                  <span> {ACCOUNT_SHORT}</span>
+                  <CopyBtn text={ACCOUNT_SHORT} />
+                </div>
+              </MainItem>
+              <MainItem>
+                <span>입금자 명</span>
+                <span>{session.user.name}</span>
+              </MainItem>
+              <MainItem>
+                <span>입금 금액</span>
+                <span>2000원</span>
+              </MainItem>
+              <Message>위의 계좌로 입금 후 완료 버튼을 눌러주세요!</Message>
+            </>
+          ))}
       </ModalBody>
       <ModalFooterTwo
         leftText="닫기"
@@ -100,7 +101,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 }
 
 const MainItem = styled.div`
-  padding: var(--padding-min) 0;
+  padding: var(--padding-md) 0;
   display: flex;
   justify-content: space-between;
   > span:first-child {

@@ -73,7 +73,7 @@ function Index() {
           );
     setGroupStudies(shuffleArray(filtered));
   }, [category, groupStudyAll, isLoading, subCategory, userInfo]);
-
+  console.log(groupStudies);
   return (
     <>
       <Layout>

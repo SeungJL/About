@@ -82,14 +82,14 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
       <div>
         <BlockName>기타 세팅</BlockName>
         <NavBlock>
+          <button onClick={() => onClickBlock("modal", "deposit")}>
+            보증금 충전
+          </button>
           <button onClick={() => onClickBlock("modal", "spaceSetting")}>
             스터디 프리셋 설정
           </button>
           <button onClick={() => onClickBlock("modal", "birthday")}>
             생일 공개 설정
-          </button>
-          <button onClick={() => onClickBlock("modal", "deposit")}>
-            보증금 충전
           </button>
           <button onClick={() => onClickBlock("modal", "logout")}>
             로그아웃

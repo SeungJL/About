@@ -55,6 +55,11 @@ const Layout = styled.div<{ size: "md" | "lg" }>`
   > button {
     flex: 1;
   }
+  > button:last-child {
+    :hover {
+      background-color: var(--color-mint);
+    }
+  }
 `;
 
 export default TwoButtonNav;

@@ -66,7 +66,7 @@ function WritingCondition() {
         : true,
     challenge: groupStudyWriting?.challenge ? true : false,
     fee:
-      groupStudyWriting?.fee !== null
+      groupStudyWriting?.fee !== undefined
         ? groupStudyWriting?.fee !== 200 && groupStudyWriting?.fee !== 0
         : false,
   });
