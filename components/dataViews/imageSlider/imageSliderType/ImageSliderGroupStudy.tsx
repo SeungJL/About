@@ -92,8 +92,8 @@ const ImageContainer = styled.div`
 const Name = styled(SingleLineText)`
   font-size: 12px;
   font-weight: 600;
-  margin-top: var(--margin-md);
-  margin-bottom: var(--margin-min);
+  padding-top: var(--margin-md);
+  padding-bottom: var(--margin-min);
 `;
 
 export default ImageSliderGroupStudy;
