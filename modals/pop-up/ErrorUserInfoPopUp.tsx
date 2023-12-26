@@ -37,7 +37,7 @@ function ErrorUserInfoPopUp({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
+    <ModalLayout onClose={() => setIsModal(false)} size="lg">
       <ModalHeader text="유저 정보 오류" />
       <ModalBody>
         <ModalSubtitle>
