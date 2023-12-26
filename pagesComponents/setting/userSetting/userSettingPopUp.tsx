@@ -89,7 +89,7 @@ function UserSettingPopUp() {
         <FAQPopUp setIsModal={() => filterPopUpTypes("faq")} />
       )}
 
-      {!popUpTypes.includes("lastWeekAttend") && (
+      {popUpTypes.includes("lastWeekAttend") && (
         <LastWeekAttendPopUp
           setIsModal={() => filterPopUpTypes("lastWeekAttend")}
         />
