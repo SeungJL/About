@@ -35,7 +35,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
   const { mutate: getDeposit } = usePointSystemMutation("deposit", {
     onSuccess() {
       completeToast("success");
-      resetQueryData([USER_INFO]);
+      resetQueryData[USER_INFO];
     },
     onError: errorToast,
   });
