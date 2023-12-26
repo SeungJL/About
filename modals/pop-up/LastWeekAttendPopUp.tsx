@@ -186,7 +186,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
               <br />
               앞으로 열심히 활동해봐요~!
             </div>
-          ) : !recordValue?.monthAcc ? (
+          ) : recordValue?.monthAcc < 1 ? (
             <div>
               이번 달에 아직 스터디에 참여하지 않았어요.
               <br /> {-dayjs().add(1, "month").date(1).diff(dayjs(), "day")}일
