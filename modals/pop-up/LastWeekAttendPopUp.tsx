@@ -41,7 +41,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
       enabled: !!location && !!userInfo.uid,
     }
   );
-
+  console.log(attendRecord);
   const recordValue: IStudyRecord =
     attendRecord && Object.keys(attendRecord).length !== 0
       ? Object.values(attendRecord)[0]

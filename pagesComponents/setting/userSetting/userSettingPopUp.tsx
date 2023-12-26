@@ -1,9 +1,7 @@
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { NEW_POINT_SYSTEM } from "../../../constants/contents/PopUpContents";
 import {
   ALPHABET_POP_UP,
-  ATTEND_POP_UP,
   ENTHUSIASTIC_POP_UP,
   FAQ_POP_UP,
   MANAGER_POP_UP,
@@ -70,10 +68,10 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "suggest"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
-      setPopUpTypes((old) => [...old, "lastWeekAttend"]);
-      if (++popUpCnt === 2) return;
-    }
+    // if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
+    //   setPopUpTypes((old) => [...old, "lastWeekAttend"]);
+    //   if (++popUpCnt === 2) return;
+    // }
     if (!checkAndSetLocalStorage(MANAGER_POP_UP, 10)) {
       setPopUpTypes((old) => [...old, "manager"]);
       if (++popUpCnt === 2) return;
@@ -84,14 +82,14 @@ function UserSettingPopUp() {
   const filterPopUpTypes = (type: UserPopUp) => {
     setPopUpTypes((popUps) => popUps.filter((popUp) => popUp !== type));
   };
-  
+
   return (
     <>
       {popUpTypes.includes("faq") && (
         <FAQPopUp setIsModal={() => filterPopUpTypes("faq")} />
       )}
 
-      {popUpTypes.includes("lastWeekAttend") && (
+      {!popUpTypes.includes("lastWeekAttend") && (
         <LastWeekAttendPopUp
           setIsModal={() => filterPopUpTypes("lastWeekAttend")}
         />

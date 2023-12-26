@@ -521,6 +521,54 @@ export const WIN_RECORD: {
     reason: "스토어 당첨 선물",
     present: "CU 3000원권",
   },
+  {
+    name: "이승",
+    date: "12/11",
+    reason: "스토어 당첨 선물",
+    present: "CU 3000원권",
+  },
+  {
+    name: "김아",
+    date: "12/26",
+    reason: "홍보 이벤트 당첨 선물",
+    present: "투썸 케잌 깊티",
+  },
+  {
+    name: "이승",
+    date: "12/26",
+    reason: "홍보 이벤트 당첨 선물",
+    present: "투썸 케잌 깊티",
+  },
+  {
+    name: "김재",
+    date: "12/26",
+    reason: "홍보 이벤트 당첨 선물",
+    present: "투썸 케잌 깊티",
+  },
+  {
+    name: "김지",
+    date: "12/26",
+    reason: "홍보 이벤트 당첨 선물",
+    present: "투썸 케잌 깊티",
+  },
+  {
+    name: "이동",
+    date: "12/26",
+    reason: "홍보 이벤트 당첨 선물",
+    present: "투썸 케잌 깊티",
+  },
+  {
+    name: "김다",
+    date: "12/26",
+    reason: "홍보 이벤트 당첨 선물",
+    present: "투썸 케잌 깊티",
+  },
+  {
+    name: "김지",
+    date: "12/26",
+    reason: "홍보 이벤트 당첨 선물",
+    present: "투썸 케잌 깊티",
+  },
 ];
 
 export const PROMOTION_WIN = [
