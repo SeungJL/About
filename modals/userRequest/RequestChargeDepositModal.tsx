@@ -9,6 +9,8 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { ACCOUNT_SHORT } from "../../constants/contents/Private";
+import { USER_INFO } from "../../constants/keys/queryKeys";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
@@ -26,11 +28,14 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 
   const [isFirst, setIsFirst] = useState(true);
 
+  const resetQueryData = useResetQueryData();
+
   const { data: deposit } = usePointSystemQuery("deposit");
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = usePointSystemMutation("deposit", {
     onSuccess() {
       completeToast("success");
+      resetQueryData([USER_INFO]);
     },
     onError: errorToast,
   });
