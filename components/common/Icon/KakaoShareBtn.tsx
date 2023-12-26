@@ -38,7 +38,7 @@ function KakaoShareBtn({
       window.Kakao.init(kakaoAppKey);
     }
   }, []);
-
+  console.log(url, img);
   useEffect(() => {
     if (type === "gather" && !img) return;
     if (window.Kakao) {
@@ -97,7 +97,7 @@ function KakaoShareBtn({
                 },
               },
             };
-
+      console.log(2, options);
       window.Kakao.Link.createDefaultButton(options);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

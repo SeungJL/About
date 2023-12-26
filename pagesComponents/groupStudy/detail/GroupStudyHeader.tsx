@@ -7,6 +7,7 @@ import styled from "styled-components";
 import KakaoShareBtn from "../../../components/common/Icon/KakaoShareBtn";
 import Header from "../../../components/layout/Header";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
+import { WEB_URL } from "../../../constants/system";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
@@ -91,7 +92,7 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
           <KakaoShareBtn
             title={groupStudy.title}
             subtitle={groupStudy.guide}
-            url={`/groupStudy/${groupStudy.id}`}
+            url={WEB_URL + `/groupStudy/${groupStudy.id}`}
             img={groupStudy?.image}
             type="gather"
           />
