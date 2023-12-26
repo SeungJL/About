@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -13,11 +12,9 @@ import {
   GROUP_STUDY_RULE_CONTENT,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contents/GroupStudyContents";
-import { dayjsToStr } from "../../helpers/dateHelpers";
 import { shuffleArray } from "../../helpers/utilHelpers";
 import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import NotCompletedGroupStudyModal from "../../modals/system/NotCompletedGroupStudyModal";
 import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
 import GroupStudyMine from "../../pagesComponents/groupStudy/GroupStudyMine";
 import GroupStudySkeletonMain from "../../pagesComponents/groupStudy/GroupStudySkeletonMain";
@@ -42,17 +39,9 @@ function Index() {
   const [subCategory, setSubCategory] = useState();
   const [myStudies, setMyStudies] = useState([]);
 
-  const [isModal, setIsModal] = useState(false);
   const [isRuleModal, setIsRuleModal] = useState(false);
 
   const { data: groupStudyAll, isLoading } = useGroupStudyAllQuery();
-
-  useEffect(() => {
-    if (localStorage.getItem("groupStudyModal") !== dayjsToStr(dayjs())) {
-      localStorage.setItem("groupStudyModal", dayjsToStr(dayjs()));
-      setIsModal(true);
-    }
-  }, []);
 
   useEffect(() => {
     if (isLoading || !userInfo) return;
@@ -73,7 +62,7 @@ function Index() {
           );
     setGroupStudies(shuffleArray(filtered));
   }, [category, groupStudyAll, isLoading, subCategory, userInfo]);
-  console.log(groupStudies);
+
   return (
     <>
       <Layout>
@@ -121,7 +110,7 @@ function Index() {
         </>
       </Layout>
       {!isGuest && <WritingIcon url="/groupStudy/writing/category/main" />}
-      {isModal && <NotCompletedGroupStudyModal setIsModal={setIsModal} />}
+
       {isRuleModal && (
         <RuleModal
           content={GROUP_STUDY_RULE_CONTENT}
