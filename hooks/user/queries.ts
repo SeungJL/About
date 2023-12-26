@@ -15,8 +15,8 @@ export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>
   useQuery<IUser, AxiosError, IUser>(
     [USER_INFO],
     async () => {
-   
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
+
       return res.data;
     },
     options
