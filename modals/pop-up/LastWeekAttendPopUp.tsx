@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { PopOverIcon } from "../../components/common/Icon/PopOverIcon";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import {
@@ -35,13 +36,13 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
       : lastWeekFirstDay,
     lastWeekLastDay,
     undefined,
-    location,
+    userInfo.location,
     userInfo.uid,
     {
       enabled: !!location && !!userInfo.uid,
     }
   );
-  console.log(attendRecord);
+
   const recordValue: IStudyRecord =
     attendRecord && Object.keys(attendRecord).length !== 0
       ? Object.values(attendRecord)[0]
@@ -156,8 +157,14 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
                 <span>{recordValue.attend} 회</span>
               </Item>
               <Item>
-                <span>이번 달 누적 스터디 참여 </span>
-                <span>{recordValue.monthAcc || 0} 회</span>
+                <div style={{ display: "flex" }}>
+                  <span>이번 달 스터디 점수</span>
+                  <PopOverIcon
+                    title="월간 스터디 점수"
+                    text="최소 1점을 넘어야합니다. 출석을 기준으로 정규 스터디는 1회당 1점, 개인, FREE 스터디는 2회당 1점입니다."
+                  />
+                </div>
+                <span>{Math.floor(recordValue.monthAcc) || 0} 점</span>
               </Item>
               <Item>
                 <span>다음 참여 정산일</span>

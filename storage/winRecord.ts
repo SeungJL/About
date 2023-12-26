@@ -540,7 +540,7 @@ export const WIN_RECORD: {
     present: "투썸 케잌 깊티",
   },
   {
-    name: "김재",
+    name: "이재",
     date: "12/26",
     reason: "홍보 이벤트 당첨 선물",
     present: "투썸 케잌 깊티",
