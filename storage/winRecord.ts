@@ -569,6 +569,12 @@ export const WIN_RECORD: {
     reason: "홍보 이벤트 당첨 선물",
     present: "투썸 케잌 깊티",
   },
+  {
+    name: "이선",
+    date: "12/27",
+    reason: "출석체크 당첨 선물",
+    present: "BHC 뿌링클 세트",
+  },
 ];
 
 export const PROMOTION_WIN = [
