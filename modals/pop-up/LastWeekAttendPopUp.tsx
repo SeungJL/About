@@ -193,7 +193,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
               뒤에 경고를 받습니다.
             </div>
           ) : (
-            <div>
+            <div>p
               🎉잘 하고 있어요🎉
               <br />
               이번주도 열심히 파이팅~!
