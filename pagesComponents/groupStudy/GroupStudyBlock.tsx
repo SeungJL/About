@@ -66,7 +66,7 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
         if (max !== 0) {
           return {
             text: "인원마감",
-            color: "redTheme",
+            color: "yellowTheme",
           };
         }
         return {
