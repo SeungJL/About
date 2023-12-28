@@ -70,7 +70,7 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  min-height: 410px;
+  min-height: 440px;
 `;
 
 export default GroupStudyContent;

@@ -31,7 +31,7 @@ function GatherExpireModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="sm">
+      <ModalLayout onClose={() => setIsModal(false)} size="md">
         <ModalHeader text="모집 종료" />
         <ModalBody>
           <ModalBodyNavTwo

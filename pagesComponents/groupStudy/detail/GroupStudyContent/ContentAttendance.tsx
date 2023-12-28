@@ -88,8 +88,6 @@ function ContentAttend() {
 
   const weekNum = isThisWeek ? 0 : -7;
 
-  const members = groupStudy.participants;
-  console.log(groupStudy);
   return (
     <>
       <Layout>
@@ -178,7 +176,15 @@ function ContentAttend() {
               );
             })}
           </Main>
-          {attendRecord.length >= 7 && <MoreBtn>더 보기</MoreBtn>}
+          {attendRecord.length > 8 && (
+            <MoreBtn
+              onClick={() => {
+                failToast("free", "개발이 완료되지 않은 기능입니다.");
+              }}
+            >
+              더 보기
+            </MoreBtn>
+          )}
         </Container>
       </Layout>
       {isModal && (
@@ -204,7 +210,7 @@ const MoreBtn = styled.button`
   align-self: center;
   padding: 0 4px;
   border-radius: 4px;
-  margin-top: auto;
+  margin-top: var(--margin-main);
   margin-bottom: var(--margin-sub);
   background-color: rgba(0, 194, 179, 0.1);
   color: var(--color-mint);
