@@ -132,7 +132,7 @@ function WritingCondition() {
       return { ...old, [type]: isChecked };
     });
   };
-  console.log(2, groupStudyWriting);
+
   return (
     <>
       <PageLayout>
@@ -172,13 +172,10 @@ function WritingCondition() {
                 <span>성별 고려</span>
                 <PopOverIcon
                   title="성별 고려"
-                  text="성별 비율을 최대 2대1까지 제한합니다. 공부 스터디의 경우에는 설정이 불가능합니다."
+                  text="성별 비율을 최대 2대1까지 제한합니다."
                 />
               </Name>
               <Switch
-                disabled={
-                  !["게임", "기타"].includes(groupStudyWriting?.category.main)
-                }
                 mr="var(--margin-min)"
                 colorScheme="mintTheme"
                 isChecked={condition.gender}
