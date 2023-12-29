@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Badge } from "../../../components/common/customComponents/Badges";
+import { NewAlertIcon } from "../../../components/common/Icon/AlertIcon";
 import { GatherStatus } from "../../../types/page/gather";
 
 interface IGroupStudyTitle {
@@ -12,6 +13,7 @@ interface IGroupStudyTitle {
   isAdmin: boolean;
   category: string;
   maxCnt: number;
+  isWaiting: boolean;
 }
 
 function GroupStudyTitle({
@@ -21,6 +23,7 @@ function GroupStudyTitle({
   memberCnt,
   category,
   maxCnt,
+  isWaiting,
 }: IGroupStudyTitle) {
   const router = useRouter();
   const color =
@@ -60,6 +63,11 @@ function GroupStudyTitle({
             </button>
             <button onClick={onClick}>
               <FontAwesomeIcon icon={faGear} size="sm" />
+              {isWaiting && (
+                <IconWrapper>
+                  <NewAlertIcon />
+                </IconWrapper>
+              )}
             </button>
           </SettingBtnNav>
         )}
@@ -67,6 +75,12 @@ function GroupStudyTitle({
     </Layout>
   );
 }
+
+const IconWrapper = styled.div`
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+`;
 
 const Layout = styled.div<{ status: GatherStatus }>`
   padding: Var(--padding-main);
@@ -90,6 +104,9 @@ const SettingBtnNav = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  > button {
+    position: relative;
   }
 `;
 

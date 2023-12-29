@@ -100,6 +100,7 @@ function GroupStudyDetail() {
               status={groupStudy.status}
               category={groupStudy.category.main}
               maxCnt={groupStudy.memberCnt.max}
+              isWaiting={groupStudy.waiting.length !== 0}
             />
             <GroupStudyContent groupStudy={groupStudy} />
             <GroupStudyParticipation data={groupStudy} />
