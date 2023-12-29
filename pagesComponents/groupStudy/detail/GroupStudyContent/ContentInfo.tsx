@@ -1,6 +1,10 @@
 import { faBellOn } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import BlurredPart from "../../../../components/common/masks/BlurredPart";
+import { userInfoState } from "../../../../recoil/userAtoms";
 import { IGroupStudy } from "../../../../types/page/groupStudy";
 import GroupStudyDetailInfo from "../GroupStudyDetail";
 
@@ -11,6 +15,11 @@ interface IContentInfo {
 function ContentInfo({ groupStudy }: IContentInfo) {
   const hashTagText = groupStudy.hashTag;
   const hashTagArr = hashTagText?.split("#");
+  const userInfo = useRecoilValue(userInfoState);
+
+  const isMember = groupStudy?.participants?.some(
+    (who) => who.user.uid === userInfo?.uid
+  );
 
   return (
     <Layout>
@@ -31,6 +40,24 @@ function ContentInfo({ groupStudy }: IContentInfo) {
           </Rules>
         </ContentWrapper>
       )}
+      {groupStudy?.link && (
+        <KakaoLink>
+          <span>오픈채팅방 주소(참여 인원 전용)</span>
+          <div>
+            <BlurredPart isBlur={!isMember} isCenter={false}>
+              <Link href={groupStudy.link}>
+                <a
+                  onClick={(e) => {
+                    if (!isMember) e.preventDefault();
+                  }}
+                >
+                  {groupStudy?.link}
+                </a>
+              </Link>
+            </BlurredPart>
+          </div>
+        </KakaoLink>
+      )}
       {groupStudy?.challenge && (
         <Challenge>
           <FontAwesomeIcon icon={faBellOn} color="var(--color-red)" />
@@ -45,6 +72,18 @@ function ContentInfo({ groupStudy }: IContentInfo) {
     </Layout>
   );
 }
+
+const KakaoLink = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-md) var(--padding-sub);
+  padding-bottom: var(--padding-min);
+  background-color: var(--font-h8);
+
+  > div {
+    padding: var(--padding-min) 0;
+  }
+`;
 
 const Challenge = styled.div`
   padding: var(--padding-md) var(--padding-sub);
@@ -67,7 +106,8 @@ const Wrapper = styled.div`
 `;
 
 const Layout = styled.div`
-  min-height: 410px;
+  flex: 1;
+
   display: flex;
   flex-direction: column;
 `;
@@ -96,6 +136,7 @@ const Content = styled.pre`
 
 const Tag = styled.div`
   display: flex;
+  margin-top: auto;
   padding: var(--padding-sub) var(--padding-main);
   > div {
     padding: var(--padding-min) var(--padding-md);

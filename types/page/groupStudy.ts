@@ -18,6 +18,7 @@ export interface IGroupStudy extends IGroupStudyWriting {
   createdAt: string;
   participants: { user: IUser; role: "member" | "manager" | "admin" }[];
   comment: IGatherComment[];
+  link?: string;
 }
 
 export interface IGroupStudyWriting extends ITimeStamps {

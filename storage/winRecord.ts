@@ -575,6 +575,12 @@ export const WIN_RECORD: {
     reason: "출석체크 당첨 선물",
     present: "BHC 뿌링클 세트",
   },
+  {
+    name: "김예",
+    date: "12/29",
+    reason: "스토어 당첨 선물",
+    present: "스타벅스 깊티",
+  },
 ];
 
 export const PROMOTION_WIN = [

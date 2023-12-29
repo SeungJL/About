@@ -3,13 +3,20 @@ import styled from "styled-components";
 interface IBlurredPart {
   children: React.ReactNode;
   isBlur?: boolean;
+  text?: string;
+  isCenter?: boolean;
 }
 
-function BlurredPart({ children, isBlur }: IBlurredPart) {
+function BlurredPart({
+  children,
+  isBlur,
+  text = "게스트는 확인할 수 없는 내용입니다!",
+  isCenter = true,
+}: IBlurredPart) {
   return (
     <Container isBlur={isBlur}>
       <Layout isBlur={isBlur}>{children}</Layout>
-      {isBlur && <Message>게스트는 확인할 수 없는 내용입니다!</Message>}
+      {isBlur && (isCenter ? <Message>{text}</Message> : <Text></Text>)}
     </Container>
   );
 }
@@ -20,6 +27,14 @@ const Container = styled.div<{ isBlur?: boolean }>`
 
 const Layout = styled.div<{ isBlur?: boolean }>`
   filter: ${(props) => props.isBlur && "blur(6px)"};
+`;
+
+const Text = styled.div`
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-weight: 600;
 `;
 
 const Message = styled.div`
