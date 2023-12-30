@@ -65,7 +65,7 @@ function UserSettingPopUp() {
       setPopUpTypes((old) => [...old, "promotion"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 14)) {
+    if (!checkAndSetLocalStorage(SUGGEST_POP_UP, 7)) {
       setPopUpTypes((old) => [...old, "suggest"]);
       if (++popUpCnt === 2) return;
     }
