@@ -28,11 +28,8 @@ function PromotionAllCoolTimeModal({
       item.uid !== "2259633694" &&
       item.uid !== "2636066822"
   ).length;
-  console.log(
-    data?.filter(
-      (item) => item.uid !== "2259633694" && item.uid !== "2636066822"
-    )
-  );
+ 
+  
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">

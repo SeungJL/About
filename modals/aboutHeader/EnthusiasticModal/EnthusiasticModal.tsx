@@ -42,15 +42,17 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
     }
   );
 
+  console.log(memberCnt);
+
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {
-      completeToast("free", "이번 달 열활멤버가 되었습니다!");
+      completeToast("free", "이번 달 열공멤버가 되었습니다!");
       setIsModal(false);
     },
   });
 
   const confirmContent: IConfirmContent = {
-    title: "열활멤버에 지원하시겠어요?",
+    title: "열공멤버에 지원하시겠어요?",
     onClickRight: () => {
       if (isExpired) {
         failToast("free", "이미 마감되었습니다.");
@@ -64,10 +66,12 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
   const isExpired = LOCATION_WIN[location] <= memberCnt;
   return (
     <>
-      <ModalLayout size="xl" onClose={() => setIsModal(false)}>
-        <ModalHeader text="12월 열활멤버 모집" />
+      <ModalLayout size="xxl" onClose={() => setIsModal(false)}>
+        <ModalHeader text="1월 열공멤버 신청" />
         <ModalBody>
-          <ModalSubtitle>매 달마다 열활멤버 신청을 받습니다.</ModalSubtitle>
+          <ModalSubtitle>
+            매 달마다 선착순으로 열공멤버 신청을 받습니다!
+          </ModalSubtitle>
           <CurrentMember>
             현재 인원:
             <span>
@@ -83,7 +87,7 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
               <b>지원 조건</b>
             </li>
             <Condition>
-              <li>만 20~23세의 대학생</li>
+              <li>만 19~23세의 대학생</li>
               <li>인원 당 1회만 등록 가능</li>
               <li>
                 한달 동안
@@ -94,9 +98,7 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
               <span>(미오픈 투표, FREE 오픈, 개인스터디 = 2회당 1번)</span>
             </Condition>
             <Win>
-              <b>현금 5000원</b>
-              <br />
-              <span>(이번만 5000원. 이후에는 포인트)</span>
+              <b>300 POINT 지급 !</b>
             </Win>
           </Container>
         </ModalBody>
@@ -132,6 +134,9 @@ const Container = styled.ul`
   margin-left: var(--margin-main);
   font-size: 14px;
   line-height: var(--line-height);
+  > li {
+    margin-bottom: var(--margin-min);
+  }
 `;
 
 const Condition = styled.ol`
@@ -150,10 +155,8 @@ const Condition = styled.ol`
 `;
 
 const Win = styled.li`
-  > span {
-    font-size: 12px;
-    color: var(--font-h3);
-    margin-left: var(--margin-main);
+  > b {
+    color: var(--color-mint);
   }
 `;
 

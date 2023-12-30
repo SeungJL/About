@@ -75,7 +75,7 @@ export const useAdminStudyRecordQuery = (
   useQuery(
     [ADMIN_STUDY_RECORD, startDay, endDay, isAttend, location, uid],
     async () => {
-      console.log(startDay, endDay, isAttend, location, uid);
+    
       const res = await axios.get<IAdminStudyRecordReturn>(
         `${SERVER_URI}/admin/vote/studyRecord`,
         {

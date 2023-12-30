@@ -12,6 +12,7 @@ import {
   USER_GUIDE_POP_UP,
 } from "../../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
+import EnthusiasticModal from "../../../modals/aboutHeader/EnthusiasticModal/EnthusiasticModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
 import ContentPopUp from "../../../modals/common/ContentPopUp";
@@ -72,7 +73,6 @@ function UserSettingPopUp() {
     if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
       setPopUpTypes((old) => [...old, "lastWeekAttend"]);
       if (++popUpCnt === 2) return;
-      
     }
     if (!checkAndSetLocalStorage(MANAGER_POP_UP, 10)) {
       setPopUpTypes((old) => [...old, "manager"]);
@@ -126,11 +126,11 @@ function UserSettingPopUp() {
           setIsModal={() => filterPopUpTypes("newPointSystem")}
         />
       )}
-      {/* {popUpTypes.includes("enthusiastic") && (
+      {popUpTypes.includes("enthusiastic") && (
         <EnthusiasticModal
           setIsModal={() => filterPopUpTypes("enthusiastic")}
         />
-      )} */}
+      )}
     </>
   );
 }

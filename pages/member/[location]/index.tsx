@@ -31,7 +31,7 @@ const MEMBER_SECTIONS: MemberGroup[] = [
 export const SECTION_NAME: Record<MemberGroup, string> = {
   member: "활동 멤버",
   human: "수습 멤버",
-  enthusiastic: "열활 멤버",
+  enthusiastic: "열공 멤버",
   resting: "휴식 멤버",
   birth: "생일",
 };

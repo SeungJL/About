@@ -70,7 +70,7 @@ function WritingCondition() {
         ? groupStudyWriting?.fee !== 200 && groupStudyWriting?.fee !== 0
         : false,
   });
-  console.log(condition);
+
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
     min: groupStudyWriting?.memberCnt?.min || 4,
     max:
