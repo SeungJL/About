@@ -72,6 +72,7 @@ function UserSettingPopUp() {
     if (!checkAndSetLocalStorage(ATTEND_POP_UP, 7)) {
       setPopUpTypes((old) => [...old, "lastWeekAttend"]);
       if (++popUpCnt === 2) return;
+      
     }
     if (!checkAndSetLocalStorage(MANAGER_POP_UP, 10)) {
       setPopUpTypes((old) => [...old, "manager"]);

@@ -34,6 +34,7 @@ export const YANG_신길역 = "6551d7cbd01680084c5c6a91";
 export const YANG_신월동 = "6551d5bdd01680084c5c6a90";
 export const YANG_양천구청역 = "6551d2b3d01680084c5c6a8f";
 export const YANG_자유신청 = "6437eb3fab537b843c6143ae";
+export const YANG_화곡역 = "658fbbc2113d3959183e36c2";
 
 //안양
 export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
@@ -90,6 +91,7 @@ export const PLACE_TO_NAME = {
   [YANG_신길역]: "레어 그루브",
   [YANG_신월동]: "코나빈스",
   [YANG_양천구청역]: "시나본",
+  [YANG_화곡역]: "투썸플레이스",
 
   //안양
   [ANYANG_커피인더스트리]: "커피인더스트리",
@@ -139,6 +141,7 @@ export const PLACE_TO_LOCATION = {
   [YANG_스타벅스]: "양천",
   [YANG_몽글]: "양천",
   [YANG_카페꼼마]: "양천",
+  [YANG_화곡역]: "양천",
   [YANG_자유신청]: "양천",
   //안양
   [ANYANG_숨맑은집]: "안양",
@@ -339,6 +342,14 @@ export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
     image:
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%96%91%EC%B2%9C%EA%B5%AC%EC%B2%AD%EC%97%AD_%EC%8B%9C%EB%82%98%EB%B3%B8.png",
   },
+  {
+    id: YANG_화곡역,
+    location: "서울 강서구 강서로 163",
+    time: "08:00 - 24:00",
+    image:
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%ED%99%94%EA%B3%A1%EC%97%AD.jpg",
+  },
+
   {
     id: YANG_신월동,
     location: "서울 양천구 지양로 72",
