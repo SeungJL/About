@@ -95,7 +95,7 @@ function AboutMain({ participations }: IAboutMain) {
 const Layout = styled(motion.div)`
   position: relative;
   padding-bottom: var(--padding-main);
-  
+
   min-height: 422px;
   background-color: var(--font-h8);
 `;
@@ -105,7 +105,9 @@ const Main = styled.main`
   padding-bottom: var(--padding-main);
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: relative;
+`;
 
 const MoreInfoBtn = styled.button`
   width: 100%;

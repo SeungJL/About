@@ -1,34 +1,37 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/templates/ProgressStatus";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import { setLocalStorageObj } from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
-import { Gender } from "../../types/user/user";
+import { Gender, IUserRegisterFormWriting } from "../../types/user/user";
 
 function Gender() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
+
+  const info: IUserRegisterFormWriting = JSON.parse(
+    localStorage.getItem(REGISTER_INFO)
   );
+
   const isProfileEdit = useRecoilValue(isProfileEditState);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [gender, setGender] = useState<Gender>(registerForm?.gender);
+  const [gender, setGender] = useState<Gender>(info?.gender);
 
   const onClickNext = () => {
     if (!gender) {
       setErrorMessage("성별을 선택해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, gender }));
+    setLocalStorageObj(REGISTER_INFO, { ...info, gender });
     router.push(`/register/birthday`);
   };
 

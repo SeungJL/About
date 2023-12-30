@@ -37,3 +37,9 @@ export const isHeartCheckLocalStorage = (toUid: string) => {
   if (isOverlap) return false;
   return true;
 };
+
+export const setLocalStorageObj = (key: string, obj: Object) => {
+  localStorage.setItem(key, JSON.stringify(obj));
+};
+export const getLocalStorageObj = (key: string) =>
+  JSON.parse(localStorage.getItem(key));

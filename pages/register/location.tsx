@@ -1,17 +1,19 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/templates/ProgressStatus";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   LOCATION_ALL,
   LOCATION_NOT_OPEN,
   LOCATION_RECRUITING,
 } from "../../constants/location";
+import { setLocalStorageObj } from "../../helpers/storageHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import LocationBlockProfileEdit from "../../pagesComponents/register/location/LocationBlockProfileEdit";
 import LocationMember from "../../pagesComponents/register/location/LocationMember";
@@ -19,18 +21,19 @@ import LocationTitle from "../../pagesComponents/register/location/LocationTitle
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 import { Location } from "../../types/system";
+import { IUserRegisterFormWriting } from "../../types/user/user";
 
 function RegisterLocation() {
   const router = useRouter();
 
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
+  const info: IUserRegisterFormWriting = JSON.parse(
+    localStorage.getItem(REGISTER_INFO)
   );
+
   const isProfileEdit = useRecoilValue(isProfileEditState);
   const [errorMessage, setErrorMessage] = useState("");
-  const [location, setLocation] = useState<Location>(registerForm?.location);
+  const [location, setLocation] = useState<Location>(info?.location);
   const [isLoading, setIsLoading] = useState(true);
 
   //회원 정보 수정일 경우
@@ -56,7 +59,7 @@ function RegisterLocation() {
         comment,
         telephone,
       } = userInfo;
-      setRegisterForm({
+      setLocalStorageObj(REGISTER_INFO, {
         location,
         name,
         mbti,
@@ -67,6 +70,7 @@ function RegisterLocation() {
         comment,
         telephone,
       });
+
       setLocation(userInfo.location);
       setIsLoading(false);
     }
@@ -78,7 +82,7 @@ function RegisterLocation() {
       setErrorMessage("지역을 선택해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, location }));
+    setLocalStorageObj(REGISTER_INFO, { ...info, location });
     router.push(`/register/name`);
   };
 

@@ -1,29 +1,33 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/templates/ProgressStatus";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../helpers/storageHelpers";
 import { checkIsKorean } from "../../helpers/validHelpers";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import { IUserRegisterFormWriting } from "../../types/user/user";
 
 function Name() {
   const router = useRouter();
   const { data: session } = useSession();
 
+  const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
+
   const isProfileEdit = useRecoilValue(isProfileEditState);
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [value, setValue] = useState(registerForm?.name || session?.user.name);
+  const [value, setValue] = useState(info?.name || session?.user.name);
 
   const onClickNext = () => {
     if (value.length < 2 || value.length > 4) {
@@ -34,7 +38,7 @@ function Name() {
       setErrorMessage("한글로만 입력해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, name: value }));
+    setLocalStorageObj(REGISTER_INFO, { ...info, name: value });
     router.push(`/register/gender`);
   };
 

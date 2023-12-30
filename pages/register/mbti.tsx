@@ -1,27 +1,31 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { MBTI } from "../../constants/contents/ProfileData";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import { IUserRegisterFormWriting } from "../../types/user/user";
 
 function Mbti() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+
+  const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [mbti, setMbti] = useState(registerForm?.mbti);
+  const [mbti, setMbti] = useState(info?.mbti);
   const isProfileEdit = useRecoilValue(isProfileEditState);
 
   const onClickNext = () => {
@@ -29,7 +33,8 @@ function Mbti() {
       setErrorMessage("항목을 선택해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, mbti }));
+    setLocalStorageObj(REGISTER_INFO, { ...info, mbti });
+
     router.push(`/register/major`);
   };
 

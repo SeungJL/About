@@ -1,17 +1,22 @@
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { majors_DATA } from "../../constants/contents/ProfileData";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+
 import { IMajor } from "../../types/user/user";
 
 function Major() {
@@ -19,11 +24,10 @@ function Major() {
   const toast = useToast();
 
   const isProfileEdit = useRecoilValue(isProfileEditState);
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
 
-  const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
+  const info = getLocalStorageObj(REGISTER_INFO);
+
+  const [majors, setmajors] = useState<IMajor[]>(info?.majors || []);
 
   const onClickNext = () => {
     if (!majors.length) {
@@ -37,7 +41,8 @@ function Major() {
       });
       return;
     }
-    setRegisterForm((old) => ({ ...old, majors }));
+
+    setLocalStorageObj(REGISTER_INFO, { ...info, majors });
     router.push(`/register/interest`);
   };
 

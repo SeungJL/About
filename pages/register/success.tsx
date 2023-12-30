@@ -32,7 +32,7 @@ function ApplySuccess({}) {
         maxWidth={358}
         height="44px"
         mb="var(--margin-main)"
-        borderRadius="100px"
+        borderRadius="var(--border-radius2)"
         backgroundColor="var(--color-mint)"
         color="white"
         fontSize="15px"

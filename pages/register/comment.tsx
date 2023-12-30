@@ -11,30 +11,45 @@ import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 import { useSession } from "next-auth/react";
 import PageLayout from "../../components/layout/PageLayout";
 import { MESSAGE_DATA } from "../../constants/contents/ProfileData";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import { USER_INFO } from "../../constants/keys/queryKeys";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../helpers/storageHelpers";
+import { useResetQueryData } from "../../hooks/custom/CustomHooks";
+import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 function Comment() {
+  const completeToast = useCompleteToast();
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const info = getLocalStorageObj(REGISTER_INFO);
   const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [value, setValue] = useState(registerForm?.comment || "");
+  const [value, setValue] = useState(info?.comment || "");
   const [index, setIndex] = useState(null);
 
+  const resetQueryData = useResetQueryData();
+
   const { data: userInfo } = useUserInfoQuery({ enabled: isProfileEdit });
-  const { mutate: updateUserInfo } = useUserInfoMutation();
+  const { mutate: updateUserInfo } = useUserInfoMutation({
+    onSuccess() {
+      setLocalStorageObj(REGISTER_INFO, null);
+      resetQueryData(USER_INFO);
+      completeToast("free", "변경되었습니다.");
+      router.push(`/about`);
+    },
+  });
 
   const InputIdx = MESSAGE_DATA?.length;
 
-  const onClickNext = async () => {
+  const onClickNext = () => {
     if (index === null && value === "") {
       setErrorMessage("문장을 선택해 주세요.");
       return;
@@ -42,16 +57,16 @@ function Comment() {
     let tempComment = "";
     if (index === InputIdx || index === null) tempComment = value;
     else tempComment = MESSAGE_DATA[index];
-    await setRegisterForm((old) => ({ ...old, comment: tempComment }));
+
+    setLocalStorageObj(REGISTER_INFO, { ...info, comment: tempComment });
 
     if (isProfileEdit) {
       setIsProfileEdit(false);
-      await updateUserInfo({
+      updateUserInfo({
         ...userInfo,
-        ...registerForm,
+        ...info,
         comment: tempComment,
       });
-      await router.push(`/about`);
     } else router.push(`/register/phone`);
   };
 

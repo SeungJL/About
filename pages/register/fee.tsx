@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
@@ -7,28 +6,33 @@ import PageLayout from "../../components/layout/PageLayout";
 import Accordion from "../../components/templates/Accordion";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { ACCORDION_CONTENT_FEE } from "../../constants/contents/accordionContents";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../helpers/storageHelpers";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
 import RegisterCost from "../../pagesComponents/register/fee/RegisterCost";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 function Fee() {
   const errorToast = useErrorToast();
   const router = useRouter();
 
-  const registerForm = useRecoilValue(sharedRegisterFormState);
+  const info = getLocalStorageObj(REGISTER_INFO);
 
   const { mutate } = useUserRegisterMutation({
     onSuccess() {
+      setLocalStorageObj(REGISTER_INFO, null);
       router.push(`/register/success`);
     },
     onError: errorToast,
   });
 
   const onClickNext = () => {
-    mutate(registerForm);
+    mutate(info);
   };
 
   return (
@@ -48,7 +52,7 @@ function Fee() {
         <Account>운영진에게 연락을 받은 후 납부해야 할 금액입니다!</Account>
         <Message>현재 페이지에서는 가입 신청만 진행됩니다.</Message>
         <Telephone>
-          <span>연락받을 연락처:</span> {registerForm?.telephone}
+          <span>연락받을 연락처:</span> {info?.telephone}
           <Message>연락처를 한번 더 확인해 주세요!</Message>
         </Telephone>
         <Accordion contentArr={ACCORDION_CONTENT_FEE} />

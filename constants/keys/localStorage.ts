@@ -28,3 +28,5 @@ export const NEW_POINT_SYSTEM_POP_UP = "newPointSystemPopUp";
 export const ENTHUSIASTIC_POP_UP = "enthusiasticPopUp";
 //체크
 export const RABBIT_RUN = "rabbitRun";
+
+export const REGISTER_INFO = "registerInfo";

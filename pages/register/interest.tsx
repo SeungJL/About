@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
@@ -10,23 +10,22 @@ import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
 
 import PageLayout from "../../components/layout/PageLayout";
 import { INTEREST_DATA } from "../../constants/contents/ProfileData";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../helpers/storageHelpers";
 import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 function Interest() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+
+  const info = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [firstValue, setFirstValue] = useState(
-    registerForm?.interests?.first || ""
-  );
-  const [secondValue, setSecondValue] = useState(
-    registerForm?.interests?.second || ""
-  );
+  const [firstValue, setFirstValue] = useState(info?.interests?.first || "");
+  const [secondValue, setSecondValue] = useState(info?.interests?.second || "");
 
   const isProfileEdit = useRecoilValue(isProfileEditState);
 
@@ -40,10 +39,11 @@ function Interest() {
       setErrorMessage("관심사를 작성해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({
-      ...old,
+
+    setLocalStorageObj(REGISTER_INFO, {
+      ...info,
       interests: { first: firstValue, second: secondValue },
-    }));
+    });
     router.push(`/register/comment`);
   };
 

@@ -1,25 +1,26 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/templates/ProgressStatus";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
 import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
 
 function Phone() {
   const router = useRouter();
 
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const info = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [value, setValue] = useState(registerForm?.telephone || "");
+  const [value, setValue] = useState(info?.telephone || "");
 
   const onClickNext = () => {
     if (value === "") {
@@ -30,7 +31,8 @@ function Phone() {
       setErrorMessage("핸드폰 번호를 확인해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, telephone: value }));
+
+    setLocalStorageObj(REGISTER_INFO, { ...info, telephone: value });
     router.push(`/register/fee`);
   };
 
