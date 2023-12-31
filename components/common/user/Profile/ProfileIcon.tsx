@@ -5,6 +5,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ICON_SIZE } from "../../../../constants/styles";
 
+import { DEFAULT_IMAGE_URL } from "../../../../constants/image/imageUrl";
 import {
   ABOUT_ICON,
   AVATAR_COLOR,
@@ -49,7 +50,7 @@ function ProfileIcon({ user, size, isMember, isImagePriority }: IProfileIcon) {
       ? ABOUT_ICON
       : isAvatar
       ? `${AVATAR_ICON[avatarType]}`
-      : `${(user as IUser)?.profileImage}`;
+      : `${(user as IUser)?.profileImage || DEFAULT_IMAGE_URL}`;
 
   const onClick = () => {
     if (!isMember) return;
