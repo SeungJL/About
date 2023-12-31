@@ -45,7 +45,7 @@ function AboutHeaderIcons({ setIconType, isRabbitRun }: IAboutHeaderIcons) {
     localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
 
   return (
-    <Layout>
+    <Layout className="about_header">
       {!isAttendCheck && (
         <IconWrapper>
           <FontAwesomeIcon

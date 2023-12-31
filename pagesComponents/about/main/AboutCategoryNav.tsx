@@ -41,13 +41,13 @@ function AboutCategoryNav() {
 
   return (
     <Layout>
-      <Item>
+      <Item className="about_navigation1">
         <Button onClick={() => onClickItem("record")}>
           <CalendarIcon />
         </Button>
         <span>캘린더</span>
       </Item>
-      <Item>
+      <Item className="about_navigation2">
         <Button onClick={() => onClickItem("point")}>
           <StoreIcon />
           {isPointAlert && (
@@ -62,13 +62,13 @@ function AboutCategoryNav() {
         </Button>
         <span>스토어</span>
       </Item>
-      <Item>
+      <Item className="about_navigation3">
         <Button onClick={() => onClickItem("member")}>
           <MemberIcon />
         </Button>
         <span>동아리원</span>
       </Item>
-      <Item>
+      <Item className="about_navigation4">
         <Button onClick={() => onClickItem("gather")}>
           <CampfireIcon />
           {isGatherAlert && (
@@ -79,7 +79,7 @@ function AboutCategoryNav() {
         </Button>
         <span>모임/번개</span>
       </Item>
-      <Item>
+      <Item className="about_navigation5">
         <Button onClick={() => onClickItem("groupStudy")}>
           <GroupStudyIcon />{" "}
           <IconWrapper>

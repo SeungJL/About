@@ -1,18 +1,11 @@
-import { Badge, Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
-import { useRef } from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
-import { useUserInfoQuery } from "../hooks/user/queries";
-
+import { useState } from "react";
+import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
+import { COLOR_SCHEME_BG } from "../constants/styles";
 function Test() {
-  const { data: session } = useSession();
-  const { data: userInfo } = useUserInfoQuery();
-  const C = useRef();
-  const AA = () => <button>23</button>;
-
   const { data } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
@@ -26,74 +19,98 @@ function Test() {
     "안양"
   );
 
+  const [{ run, steps }, setState] = useState<{
+    run: boolean;
+    steps?: Step[];
+  }>({
+    run: false,
+    steps: [
+      {
+        content: <h2>Let begin our journey!</h2>,
+        title: <>제목</>,
+        locale: { skip: "Skip" },
+        placement: "center",
+        target: "body",
+      },
+      {
+        content: <h2>Sticky elements</h2>,
+        floaterProps: {
+          disableAnimation: true,
+        },
+        spotlightPadding: 20,
+        target: ".main_vote_btn",
+      },
+      {
+        content: "These are our super awesome projects!",
+        placement: "bottom",
+        styles: {
+          options: {
+            width: 300,
+          },
+        },
+        target: ".demo__projects h2",
+        title: "Our projects",
+      },
+      {
+        content: (
+          <div>
+            You can render anything!
+            <br />
+            <h3>Like this H3 title</h3>
+          </div>
+        ),
+        placement: "top",
+        target: ".demo__how-it-works h2",
+        title: "Our Mission",
+      },
+    ],
+  });
+  const handleJoyrideCallback = (data: CallBackProps) => {
+    const { status, type } = data;
+    const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
-  const onClick = () => {};
-
+    if (finishedStatuses.includes(status)) {
+      setState({ run: false });
+    }
+    // logGroup(type, data);
+  };
   return (
-    <Layout>
-      <Badge colorScheme="red">테스트</Badge>
-      <Button onClick={onClick}>23</Button>
-    </Layout>
+    <>
+      <GlobalStyle />
+      <Layout>
+        <Joyride
+          callback={handleJoyrideCallback}
+          continuous
+          steps={steps}
+          run={true}
+          showSkipButton
+        />
+        <div className="star-burst">첫 번째 스텝 타겟 요소</div>
+        <div className="my-other-step">두 번째 스텝 타겟 요소</div>
+      </Layout>
+    </>
   );
 }
+const GlobalStyle = createGlobalStyle`
+  background-color:black !important;
+  .react-joyride__beacon {
+    >span:first-child{
+      background-color:var(--color-mint) !important;
+
+    }
+    >span:last-child{
+    border-color:var(--color-mint) !important;
+ background-color:${COLOR_SCHEME_BG["var(--color-mint)"]} !important;
+      
+    }
+    // 기타 스타일 변경사항...
+  }
+`;
 
 const Layout = styled.div`
   margin-top: 200px;
   margin-left: 50px;
-  > * {
-    margin-right: 20px;
-  }
   display: flex;
-  > span:first-child {
-    font-weight: 300;
-  }
-  > span:nth-child(2) {
-    font-weight: 400;
-  }
-  > span:nth-child(3) {
-    font-weight: 500;
-  }
-  > span:nth-child(4) {
-    font-weight: 600;
-  }
-  > span:nth-child(5) {
-    font-weight: 700;
-  }
-  > span:last-child {
-    font-weight: 800;
-  }
-`;
-
-const A = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(
-    to right,
-    rgba(3, 224, 154, 1),
-    rgba(1, 175, 237, 1)
-  );
-`;
-const B = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(
-    to right,
-    rgba(3, 224, 154, 0.6),
-    rgba(1, 175, 237, 0.6)
-  );
-`;
-
-const D = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(
-    to right,
-    rgba(3, 224, 154, 0.35),
-    rgba(1, 175, 237, 0.35)
-  );
 `;
 
 export default Test;

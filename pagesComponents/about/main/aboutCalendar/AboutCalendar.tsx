@@ -11,7 +11,7 @@ function AboutCalendar() {
 
   return (
     <Layout>
-      <Container>
+      <Container className="about_calendar">
         <AboutCalendarMonth />
         <Content>
           <AboutCalendarDays voteDate={voteDate} />

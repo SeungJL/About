@@ -61,7 +61,7 @@ function AboutMain({ participations }: IAboutMain) {
           dragElastic={1}
           onDragEnd={onDragEnd}
         >
-          <Main>
+          <Main className="study_space">
             <Container>
               {studies
                 .slice(0, privateStudy ? VISIBLE_CNT - 1 : VISIBLE_CNT)

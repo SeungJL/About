@@ -114,7 +114,7 @@ function AboutCalendarVote() {
 
   return (
     <>
-      <Layout>
+      <Layout className="main_vote_btn">
         <VoteOutCircle>
           <VoteCircle shadow={btnStyle.shadow}>
             <VoteBtn

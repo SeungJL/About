@@ -30,3 +30,5 @@ export const ENTHUSIASTIC_POP_UP = "enthusiasticPopUp";
 export const RABBIT_RUN = "rabbitRun";
 
 export const REGISTER_INFO = "registerInfo";
+
+export const USE_GUIDE = "useGuide";
