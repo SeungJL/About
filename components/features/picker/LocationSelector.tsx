@@ -31,7 +31,7 @@ function LocationSelector() {
   return (
     <Layout>
       <Select value={value} onChange={onChange}>
-        {[...LOCATION_USE_ALL, "동대문"].map((location) => {
+        {[...LOCATION_USE_ALL].map((location) => {
           const name = LOCATION_CONVERT[location];
           return (
             <Option key={location} value={location}>

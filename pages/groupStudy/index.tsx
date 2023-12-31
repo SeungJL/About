@@ -42,15 +42,17 @@ function Index() {
   const [isRuleModal, setIsRuleModal] = useState(false);
 
   const { data: groupStudyAll, isLoading } = useGroupStudyAllQuery();
-
+  console.log(groupStudyAll);
   useEffect(() => {
-    if (isLoading || !userInfo) return;
+    if (isLoading || (!userInfo && !isGuest)) return;
 
-    setMyStudies(
-      groupStudyAll.filter((item) =>
-        item.participants.some((who) => who.user.uid === userInfo.uid)
-      )
-    );
+    if (!isGuest) {
+      setMyStudies(
+        groupStudyAll.filter((item) =>
+          item.participants.some((who) => who.user.uid === userInfo.uid)
+        )
+      );
+    }
 
     const filtered =
       category === "전체"
@@ -61,7 +63,7 @@ function Index() {
               item.category.sub === subCategory
           );
     setGroupStudies(shuffleArray(filtered));
-  }, [category, groupStudyAll, isLoading, subCategory, userInfo]);
+  }, [category, groupStudyAll, isGuest, isLoading, subCategory, userInfo]);
 
   return (
     <>
