@@ -36,6 +36,7 @@
     "@fortawesome/sharp-solid-svg-icons": "^6.4.2",
     "@next-auth/mongodb-adapter": "^1.0.3",
     "@next/bundle-analyzer": "^13.3.1",
+    "@popperjs/core": "^2.11.8",
     "@types/crypto-js": "^4.1.1",
     "@types/react-datepicker": "^4.15.1",
     "@types/safe-json-stringify": "^1.1.2",
@@ -74,7 +75,8 @@
     "recoil": "^0.7.6",
     "safe-json-stringify": "^1.2.0",
     "styled-components": "^5.3.6",
-    "swiper": "^8.4.7"
+    "swiper": "^8.4.7",
+    "type-fest": "^4.9.0"
   },
   "devDependencies": {
     "@types/navermaps": "^3.7.3",
