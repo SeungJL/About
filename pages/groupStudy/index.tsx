@@ -42,7 +42,7 @@ function Index() {
   const [isRuleModal, setIsRuleModal] = useState(false);
 
   const { data: groupStudyAll, isLoading } = useGroupStudyAllQuery();
-  console.log(groupStudyAll);
+
   useEffect(() => {
     if (isLoading || (!userInfo && !isGuest)) return;
 

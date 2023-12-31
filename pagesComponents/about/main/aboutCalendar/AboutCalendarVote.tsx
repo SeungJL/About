@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import StudyVoteMap from "../../../../components/features/studyVote/StudyVoteMap";
 import ModalPortal from "../../../../components/modals/ModalPortal";
+import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import StudyCheckImageModal from "../../../../modals/study/StudyCheckImageModal";
 import StudyCheckModal from "../../../../modals/study/StudyCheckModal";
 import { isMainLoadingState } from "../../../../recoil/loadingAtoms";
@@ -10,7 +11,7 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../../recoil/studyAtoms";
-import { userAccessUidState } from "../../../../recoil/userAtoms";
+import { isGuestState, userAccessUidState } from "../../../../recoil/userAtoms";
 
 type BtnType =
   | "vote"
@@ -22,6 +23,8 @@ type BtnType =
   | "passed";
 
 function AboutCalendarVote() {
+  const failToast = useFailToast();
+  const isGuest = useRecoilValue(isGuestState);
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const userAccessUid = useRecoilValue(userAccessUidState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
@@ -35,6 +38,10 @@ function AboutCalendarVote() {
 
   const onClickBtn = (type: BtnType) => {
     const modalTypeArr: BtnType[] = ["vote", "attend", "attendPrivate"];
+    if (isGuest) {
+      failToast("guest");
+      return;
+    }
     if (modalTypeArr.includes(type)) {
       setModalType(type);
     }
