@@ -33,11 +33,11 @@ export type UserPopUp =
   | "newPointSystem"
   | "enthusiastic";
 
-function UserSettingPopUp() {
+function UserSettingPopUp({ cnt }) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
 
   useEffect(() => {
-    let popUpCnt = 0;
+    let popUpCnt = cnt;
 
     // if (isProfileEdit) setPopUpTypes((old) => [...old, "profileEdit"]);
 

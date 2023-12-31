@@ -82,7 +82,7 @@ export default function UserSetting() {
         run={isGuide}
         showSkipButton
       />
-      {isPopUpCondition && <UserSettingPopUp />}
+      {isPopUpCondition && <UserSettingPopUp cnt={isGuide ? 1 : 0} />}
       {isGuestPopUp && <FAQPopUp setIsModal={setIsGuestPopUp} />}
     </>
   );
