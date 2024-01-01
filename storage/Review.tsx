@@ -471,4 +471,16 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "사진이 왜 이러냐면... 그만큼 신나게 놀았기 때문이다. 스터디를 마치고 맛있는 고기와 껍데기로 1차를 시작했다. 나름 유튜브에서 많이 봤던 곳을 갔는데 상상을 초월하게 맛있었다. 2차로는 새로 생긴 술집을 갔다. 별 얘기를 다 한거 같다. 원래 2차로 끝내려고 했는데, 3차로 노래방에 갔다. 온돌식 룸이었는데 분위기가 좋았다. 처음에는 분명 잔잔하게 시작을 했던 거 같은데, 끝나고 나니까 막차 시간에 너무 힘들었다. 의도치않게 정말 열정적으로 놀게되었다.",
     title: "20일 수원역 번개",
   },
+  {
+    id: 121,
+    dateCreated: "12월 28일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459_03.jpg",
+    ],
+    text: "1차는 이자카야를 갔는데 가격이 너무 비싸서 조금만 먹고 2차로 이동했다. 룸술집이었는데 주문을 하고 한참이 지나도 메뉴가 계속 안나와서 몇번을 더 물어보니까 와이파이가 잘 안돼서 주문이 안들어왔다는데... 21세기 강남에서 이게 말인가? 분노게이지가 올라가던 도중 과일화채 2개가 서비스로 나와서 맛있게 먹었다. 막차를 놓쳐서 집 가는게 힘들었지만... I들 사이에 껴 있으니까 힐링이 되고 좋았다.",
+    title: "강남 술 번개(28일)",
+  },
 ];
