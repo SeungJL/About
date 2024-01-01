@@ -18,8 +18,7 @@ const P = styled.p`
 
 export const OPEN_KAKAO_LINK = "https://open.kakao.com/o/sjDgVzmf";
 
-export const PROMOTION_TEXT = `대학생들의 카공, 그룹스터디, 친목을 위한 동아리 ABOUT입니다.
-저희는 자율적으로 참여할 수 있는 카공 스터디와, 여러 분야의 그룹 스터디, 그리고 다양한 주제의 오프라인 모임을 통해 대학생들의 공부와 취미, 재미까지 모두 챙길 수 있는 대학교 연합 동아리입니다.
+export const PROMOTION_TEXT = `안녕하세요! 저희는 대학생들의 카공, 그룹스터디, 친목을 위한 동아리 ABOUT입니다! 자율적으로 참여할 수 있는 카공 스터디와, 여러 분야의 그룹 스터디, 그리고 다양한 주제의 오프라인 모임을 통해 대학생들의 공부와 취미, 재미까지 모두 챙길 수 있는 모임을 지향하고 있습니다!
 
 ☕️ 카공 스터디 ☕️
 
