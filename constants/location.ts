@@ -8,7 +8,7 @@ export const LOCATION_OPEN: Location[] = [
   "강남",
   "동대문",
 ];
-export const LOCATION_RECRUITING: Location[] = ["마포"];
+export const LOCATION_RECRUITING: Location[] = ["마포", "동대문"];
 export const LOCATION_NOT_OPEN: Location[] = [];
 
 //모집중을 포함한 지역

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { LOCATION_OPEN } from "../../constants/location";
+import { LOCATION_OPEN, LOCATION_RECRUITING } from "../../constants/location";
 import { arrangeMainSpace } from "../../helpers/studyHelpers";
 import { useTypeErrorToast } from "../../hooks/custom/CustomToast";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
@@ -33,7 +33,10 @@ function StudySetting() {
     voteDate,
     location,
     {
-      enabled: !!voteDate && LOCATION_OPEN.includes(location),
+      enabled:
+        !!voteDate &&
+        LOCATION_OPEN.includes(location) &&
+        !LOCATION_RECRUITING.includes(location),
       onError: (e) => typeErrorToast(e, "study"),
     }
   );
@@ -54,6 +57,7 @@ function StudySetting() {
     const participations = studyVoteData;
 
     if (
+      participations?.length &&
       participations[0].status === "pending" &&
       studyDateStatus === "today" &&
       dayjs().hour() === 23
