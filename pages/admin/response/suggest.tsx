@@ -13,10 +13,14 @@ function AdminSuggest() {
 
   const { data: data1 } = useUserRequestQuery("건의");
   const { data: data2, isLoading } = useUserRequestQuery("신고");
-
+  console.log(4, suggestData);
   useEffect(() => {
     if (isLoading || !data1) return;
-    setInitialData([...data1, ...data2]);
+    const sortedData = [...data1, ...data2].sort((a, b) =>
+      dayjs(a.createdAt) > dayjs(b.createdAt) ? 1 : -1
+    );
+    console.log(5, sortedData);
+    setInitialData(sortedData);
   }, [data1, data2, isLoading]);
 
   return (

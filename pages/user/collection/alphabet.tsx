@@ -14,7 +14,10 @@ import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { getUserBadge } from "../../../helpers/userHelpers";
-import { useFailToast } from "../../../hooks/custom/CustomToast";
+import {
+  useCompleteToast,
+  useFailToast,
+} from "../../../hooks/custom/CustomToast";
 import { useAlphabetCompletedMutation } from "../../../hooks/user/sub/collection/mutations";
 import {
   useCollectionAlphabetAllQuery,
@@ -31,6 +34,7 @@ const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];
 
 function CollectionAlphabet() {
   const failToast = useFailToast();
+  const completeToast = useCompleteToast();
   const router = useRouter();
   const { data: session } = useSession();
   const isGuest = useRecoilValue(isGuestState);
@@ -43,14 +47,21 @@ function CollectionAlphabet() {
     enabled: !isGuest,
   });
 
-  const { mutate: mutate2 } = useAlphabetCompletedMutation({
-    onError(err: AxiosError<{ message: string }, any>) {
-      const res = err.response.data;
-      if (res.message === "not completed") {
-        //다 모으지 못했음
-      }
-    },
-  });
+  const { mutate: mutate2, isLoading: completeLoading } =
+    useAlphabetCompletedMutation({
+      onSuccess() {
+        completeToast(
+          "free",
+          "교환이 완료되었어요! 상품은 확인하는대로 보내드려요!"
+        );
+      },
+      onError(err: AxiosError<{ message: string }, any>) {
+        const res = err.response.data;
+        if (res.message === "not completed") {
+          //다 모으지 못했음
+        }
+      },
+    });
 
   const { data: userAlphabetAll, isLoading } = useCollectionAlphabetAllQuery();
 
@@ -98,6 +109,10 @@ function CollectionAlphabet() {
     }
     setOpponentAlphabets({ user: user.uid, alphabets });
     setIsChangeModal(true);
+  };
+
+  const handleChangePromotion = () => {
+    mutate2();
   };
 
   return (
@@ -196,9 +211,8 @@ function CollectionAlphabet() {
                         colorScheme="telegram"
                         size="xs"
                         disabled={!hasAlphabetAll}
-                        onClick={() => {
-                          failToast("free", "개발이 완료되지 않은 기능입니다.");
-                        }}
+                        isLoading={completeLoading}
+                        onClick={() => handleChangePromotion()}
                       >
                         상품 교환
                       </Button>

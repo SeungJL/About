@@ -1,5 +1,6 @@
 import { Dayjs } from "dayjs";
 import { Location } from "../system";
+import { ITimeStamps } from "../timeAndDate";
 
 export type UserRequestCategory =
   | "건의"
@@ -13,7 +14,7 @@ export type UserRequestCategory =
   | "배지"
   | "조모임";
 
-export interface IUserRequest {
+export interface IUserRequest extends ITimeStamps {
   category: UserRequestCategory;
   location?: Location;
   title?: string;
@@ -21,7 +22,6 @@ export interface IUserRequest {
   writer: string;
   content?: string;
   rest?: { type: "일반" | "특별"; start: Dayjs; end: Dayjs };
-  updatedAt?: string;
 }
 
 export type DeclareRequest = "distance" | "declare";

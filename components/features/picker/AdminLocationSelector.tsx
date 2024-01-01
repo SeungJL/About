@@ -23,6 +23,7 @@ function AdminLocationSelector({
   const [category, setCategory] = useState<Location | "기타">("수원");
 
   useEffect(() => {
+    if (!initialData) return;
     if (type === "register")
       setRequestData(
         (initialData as IUserRegisterForm[])?.filter((who) =>
@@ -31,12 +32,14 @@ function AdminLocationSelector({
             : !LOCATION_ALL.includes(who.location)
         )
       );
-    if (type === "request")
+    if (type === "request") {
+      console.log(55, initialData[50]?.location === category);
       setRequestData(
         (initialData as IUserRequest[])?.filter(
           (who) => who.location === category
         )
       );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, initialData, type]);
 
