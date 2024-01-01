@@ -109,7 +109,7 @@ function RegisterLocation() {
               )}
             </RegisterOverview>
             <ButtonNav>
-              {LOCATION_ALL?.map((place) => (
+              {LOCATION_ALL?.map((place, idx) => (
                 <Button
                   isSelected={location === place}
                   onClick={() => setLocation(place)}
@@ -122,9 +122,11 @@ function RegisterLocation() {
                       {!LOCATION_NOT_OPEN.includes(place) && (
                         <LocationMember location={place} />
                       )}
-                      {LOCATION_RECRUITING.includes(place) && (
-                        <Message>예약 인원 40명이 되면 열려요!</Message>
-                      )}
+                      {LOCATION_RECRUITING.includes(place) &&
+                        (idx === LOCATION_ALL.length - 1 ||
+                          idx === LOCATION_ALL.length - 2) && (
+                          <Message>예약 인원 40명이 되면 열려요!</Message>
+                        )}
                     </>
                   ) : (
                     <LocationBlockProfileEdit location={place} />
@@ -144,7 +146,7 @@ const ButtonNav = styled.nav`
   margin-top: var(--margin-max);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-main);
+  gap: var(--margin-sub);
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
