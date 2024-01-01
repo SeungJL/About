@@ -33,7 +33,6 @@ function AdminLocationSelector({
         )
       );
     if (type === "request") {
-      console.log(55, initialData[50]?.location === category);
       setRequestData(
         (initialData as IUserRequest[])?.filter(
           (who) => who.location === category

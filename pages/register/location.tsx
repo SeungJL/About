@@ -144,7 +144,7 @@ const ButtonNav = styled.nav`
   margin-top: var(--margin-max);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-md);
+  gap: var(--margin-main);
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`

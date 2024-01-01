@@ -1,14 +1,8 @@
 import { Location } from "../types/system";
 import { TABLE_COLORS } from "./styles";
 
-export const LOCATION_OPEN: Location[] = [
-  "수원",
-  "양천",
-  "안양",
-  "강남",
-  "동대문",
-];
-export const LOCATION_RECRUITING: Location[] = ["마포", "동대문"];
+export const LOCATION_OPEN: Location[] = ["수원", "양천", "안양", "강남"];
+export const LOCATION_RECRUITING: Location[] = ["동대문", "마포", "인천"];
 export const LOCATION_NOT_OPEN: Location[] = [];
 
 //모집중을 포함한 지역
@@ -27,6 +21,7 @@ export const LOCATION_CONVERT = {
   강남: "강남",
   동대문: "동대문/성북",
   마포: "마포/서대문",
+  인천: "인천",
 };
 
 export const LOCATION_PLACE_SMALL: Location[] = ["안양"];
@@ -49,6 +44,7 @@ export const LOCATION_MEMBER_CNT: {
   강남: { member: 53, new: 2 },
   동대문: { member: 39, new: 3 },
   마포: { member: 18, new: 2 },
+  인천: { member: 2, new: 1 },
 };
 
 export const LOCATION_TABLE_COLOR = {
