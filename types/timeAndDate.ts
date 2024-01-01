@@ -1,8 +1,8 @@
 import { Dayjs } from "dayjs";
 
 export interface ITimeStamps {
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 export interface ITime {
   hours?: number;
