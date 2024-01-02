@@ -17,13 +17,13 @@ function FreeStudySpacePopUp({ setIsModal }: IModal) {
   const [isSuggestModal, setIsSuggestModal] = useState(false);
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalLayout onClose={() => setIsModal(false)} size="lg">
         <ModalHeader text="스터디 장소 추천" />
         <ModalBody>
           <ModalSubtitle>
-            스터디가 열리지 않은 당일이라도 개인이 편한 곳에 오픈해서 공부할 수
-            있는 FREE 오픈 전용 스터디 장소가 추가됩니다. 이를 위해 신규 장소
-            추천을 받습니다.
+            같이 카공하기 좋은 스터디 장소 추천을 받습니다! 혼자 알고 있는
+            카페가 있다면 공유해주세요!{" "}
+            <span style={{ color: "var(--color-mint)" }}>(+10 point)</span>
           </ModalSubtitle>
           <Wrapper>
             <FontAwesomeIcon

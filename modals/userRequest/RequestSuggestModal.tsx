@@ -23,6 +23,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
+import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { userInfoState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
@@ -47,17 +48,22 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
   const userInfo = useRecoilValue(userInfoState);
   const location = userInfo?.location;
 
-  const { mutate: sendDeclaration } = useUserRequestMutation({
+  const { mutate } = usePointSystemMutation("point", {
     onSuccess() {
-      completeToast("success");
+      completeToast("free", "제출 완료! 10 point 획득!");
+      setIsModal(false);
     },
+  });
+
+  const { mutate: sendDeclaration } = useUserRequestMutation({
+    onSuccess() {},
     onError(err) {
       console.error(err);
       failToast("error");
     },
   });
 
-  const onValid = (data) => {
+  const onValid = async (data) => {
     const declarationInfo: IUserRequest = {
       category: type === "suggest" ? "건의" : "신고",
       title: data.title,
@@ -67,8 +73,8 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
       location,
     };
 
-    sendDeclaration(declarationInfo);
-    setIsModal(false);
+    await sendDeclaration(declarationInfo);
+    await mutate({ value: 10, message: "스터디 장소 추천" });
   };
 
   const title =

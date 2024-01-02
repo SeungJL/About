@@ -18,6 +18,7 @@ import PromotionModal from "../../../modals/aboutHeader/promotionModal/Promotion
 import ContentPopUp from "../../../modals/common/ContentPopUp";
 import AlphabetPopUp from "../../../modals/pop-up/AlphabetPopUp";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
+import FreeStudySpacePopUp from "../../../modals/pop-up/FreeStudySpacePopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import SuggestPopUp from "../../../modals/pop-up/SuggestPopUp";
 
@@ -31,7 +32,8 @@ export type UserPopUp =
   | "manager"
   | "alphabet"
   | "newPointSystem"
-  | "enthusiastic";
+  | "enthusiastic"
+  | "studySpace";
 
 function UserSettingPopUp({ cnt }) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -45,12 +47,16 @@ function UserSettingPopUp({ cnt }) {
       setPopUpTypes((old) => [...old, "enthusiastic"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(NEW_POINT_SYSTEM_POP_UP, 18)) {
+    if (!checkAndSetLocalStorage(NEW_POINT_SYSTEM_POP_UP, 22)) {
       setPopUpTypes((old) => [...old, "newPointSystem"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 24)) {
+    if (!checkAndSetLocalStorage(ALPHABET_POP_UP, 27)) {
       setPopUpTypes((old) => [...old, "alphabet"]);
+      if (++popUpCnt === 2) return;
+    }
+    if (!checkAndSetLocalStorage("studySpace", 5)) {
+      setPopUpTypes((old) => [...old, "studySpace"]);
       if (++popUpCnt === 2) return;
     }
     if (!checkAndSetLocalStorage(FAQ_POP_UP, 9)) {
@@ -62,7 +68,7 @@ function UserSettingPopUp({ cnt }) {
       setPopUpTypes((old) => [...old, "userGuide"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage(PROMOTION_POP_UP, 3)) {
+    if (!checkAndSetLocalStorage(PROMOTION_POP_UP, 4)) {
       setPopUpTypes((old) => [...old, "promotion"]);
       if (++popUpCnt === 2) return;
     }
@@ -101,6 +107,11 @@ function UserSettingPopUp({ cnt }) {
           setIsModal={() => filterPopUpTypes("profileEdit")}
         />
       )} */}
+      {popUpTypes.includes("studySpace") && (
+        <FreeStudySpacePopUp
+          setIsModal={() => filterPopUpTypes("studySpace")}
+        />
+      )}
       {popUpTypes.includes("suggest") && (
         <SuggestPopUp setIsModal={() => filterPopUpTypes("suggest")} />
       )}
@@ -113,6 +124,7 @@ function UserSettingPopUp({ cnt }) {
       {/* {!popUpTypes.includes("manager") && (
         <ManagerPopUp setIsModal={() => filterPopUpTypes("manager")} />
       )} */}
+
       {popUpTypes.includes("alphabet") && (
         <AlphabetPopUp
           setIsModal={() => {
