@@ -14,7 +14,7 @@ function LocationSelector() {
   const [value, setValue] = useState<Location>("수원");
   const [location, setLocation] = useRecoilState(locationState);
   const [isMainLoading, setIsMainLoading] = useRecoilState(isMainLoadingState);
-
+  
   useEffect(() => {
     if (location) setValue(location);
     // eslint-disable-next-line react-hooks/exhaustive-deps

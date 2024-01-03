@@ -73,7 +73,8 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: (isCondition && userInitialInfo === null) || status === "login",
     onSuccess(data) {
-      if (!isCondition || userInitialInfo) return;
+      console.log(data);
+      if (!isCondition || (userInitialInfo && status !== "login")) return;
       //유저 데이터 없음
       if (data === null || !data.registerDate) {
         if (router.query.status === "login") navigateTo(`/register/location`);

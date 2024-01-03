@@ -13,39 +13,70 @@ import {
   faRotateRight,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { STUDY_PREFERENCE_LOCAL } from "../../../constants/keys/queryKeys";
 import { createNaverMapDot } from "../../../helpers/utilHelpers";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
+import StudyQuickVoteRegisterModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteRegisterModal";
 import { locationState } from "../../../recoil/userAtoms";
 import {
   DispatchBoolean,
   DispatchNumber,
   DispatchType,
 } from "../../../types/reactTypes";
-import { IStudyParticipate } from "../../../types/study/study";
+import { IStudyParticipate, IStudyPlaces } from "../../../types/study/study";
+import { MainLoadingAbsolute } from "../../common/loaders/MainLoading";
 type ReturnDot = "중앙" | "동쪽" | "서쪽" | "남쪽" | "북쪽";
 
 interface IMapControlNav extends IPrecisionPopOver {
   naverMap: any;
   setVoteInfo: DispatchType<IStudyParticipate>;
   setIsCheckPreSet: DispatchBoolean;
+  isCheckPreset: boolean;
 }
 
 function MapControlNav({
   naverMap,
   setVoteInfo,
+  isCheckPreset,
   setIsCheckPreSet,
   precision,
   setPrecision,
 }: IMapControlNav) {
+  const [preferInfo, setPreferInfo] = useState<IStudyPlaces>();
   const failToast = useFailToast();
-  const { data } = useStudyPreferenceQuery();
+  const localValue = localStorage.getItem(STUDY_PREFERENCE_LOCAL);
+
+  const { data, isLoading } = useStudyPreferenceQuery({
+    enabled: !localValue || localValue === "undefined",
+  });
+
+  const [isModal, setIsModal] = useState(false);
+
+  useEffect(() => {
+    if (localValue && localValue !== "undefined") {
+      const value = JSON.parse(localValue);
+      setPreferInfo(value);
+    } else {
+      if (!isLoading) {
+        if (!data) {
+          setIsModal(true);
+          return;
+        }
+        localStorage.setItem(STUDY_PREFERENCE_LOCAL, JSON.stringify(data));
+        setPreferInfo(data);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isLoading]);
 
   const location = useRecoilValue(locationState);
-  const [preSet, setPreSet] = useState<"first" | "second">();
+  const [preSet, setPreSet] = useState<"first" | "second">(
+    isCheckPreset ? "first" : null
+  );
 
   const onClickRetrun = (type: ReturnDot) => {
     const LOCATION_RETURN_DOT = {
@@ -67,8 +98,23 @@ function MapControlNav({
     naverMap.setCenter(returnDot);
   };
 
+  useEffect(() => {
+    if (isCheckPreset && preferInfo && naverMap) {
+      setVoteInfo((old) => ({
+        ...old,
+        place: preferInfo.place,
+        subPlace: preferInfo.subPlace,
+      }));
+      naverMap.setCenter(
+        createNaverMapDot(preferInfo.place.latitude, preferInfo.place.longitude)
+      );
+      setPrecision(2);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preferInfo, isCheckPreset, naverMap]);
+
   const onClickPreSet = (type: "first" | "second") => {
-    if (!data) {
+    if (!preferInfo) {
       failToast("free", "설정된 스터디 프리렛이 없습니다.");
       return;
     }
@@ -86,11 +132,11 @@ function MapControlNav({
     }
     setVoteInfo((old) => ({
       ...old,
-      place: data.place,
-      subPlace: data.subPlace,
+      place: preferInfo.place,
+      subPlace: preferInfo.subPlace,
     }));
     naverMap.setCenter(
-      createNaverMapDot(data.place.latitude, data.place.longitude)
+      createNaverMapDot(preferInfo.place.latitude, preferInfo.place.longitude)
     );
     setPrecision(2);
     setPreSet(type);
@@ -108,59 +154,63 @@ function MapControlNav({
   };
 
   return (
-    <Layout>
-      <TopNav>
-        <div>
-          <ReturnBtn onClick={() => onClickRetrun("중앙")}>
-            <FontAwesomeIcon icon={faRotateRight} size="lg" />
-          </ReturnBtn>
-          {filterArr.map((item) => (
-            <Button
-              key={item}
-              bg="white"
-              borderRadius="var(--border-radius2)"
-              size="sm"
-              onClick={() => onClickRetrun(item)}
-              fontSize="14px"
-              color="var(--font-h2)"
-              p="var(--padding-md) var(--padding-sub)"
-              h="34px"
-              w="50px"
-            >
-              {item}
-            </Button>
-          ))}
-        </div>
-        <PrecisionPopOver precision={precision} setPrecision={setPrecision} />
-      </TopNav>
-      <BottomNav>
-        <Button
-          size="sm"
-          w="34px"
-          h="34px"
-          border={preSet !== "first" && "1px solid var(--font-h4)"}
-          bgColor={
-            preSet === "first" ? "var(--color-mint) !important" : "white"
-          }
-          color={preSet === "first" ? "white !important" : "var(--font-h2)"}
-          mr="var(--margin-md)"
-          onClick={() => onClickPreSet("first")}
-        >
-          1
-        </Button>
-        <Button
-          w="34px"
-          h="34px"
-          bgColor={preSet === "second" ? "var(--color-mint)" : "white"}
-          color={preSet === "second" ? "white !important" : "var(--font-h2)"}
-          size="sm"
-          border="1px solid var(--font-h4)"
-          onClick={() => onClickSecond()}
-        >
-          2
-        </Button>
-      </BottomNav>
-    </Layout>
+    <>
+      <Layout>
+        <TopNav>
+          <div>
+            <ReturnBtn onClick={() => onClickRetrun("중앙")}>
+              <FontAwesomeIcon icon={faRotateRight} size="lg" />
+            </ReturnBtn>
+            {filterArr.map((item) => (
+              <Button
+                key={item}
+                bg="white"
+                borderRadius="var(--border-radius2)"
+                size="sm"
+                onClick={() => onClickRetrun(item)}
+                fontSize="14px"
+                color="var(--font-h2)"
+                p="var(--padding-md) var(--padding-sub)"
+                h="34px"
+                w="50px"
+              >
+                {item}
+              </Button>
+            ))}
+          </div>
+          <PrecisionPopOver precision={precision} setPrecision={setPrecision} />
+        </TopNav>
+        <BottomNav>
+          <Button
+            size="sm"
+            w="34px"
+            h="34px"
+            border={preSet !== "first" && "1px solid var(--font-h4)"}
+            bgColor={
+              preSet === "first" ? "var(--color-mint) !important" : "white"
+            }
+            color={preSet === "first" ? "white !important" : "var(--font-h2)"}
+            mr="var(--margin-md)"
+            onClick={() => onClickPreSet("first")}
+          >
+            1
+          </Button>
+          <Button
+            w="34px"
+            h="34px"
+            bgColor={preSet === "second" ? "var(--color-mint)" : "white"}
+            color={preSet === "second" ? "white !important" : "var(--font-h2)"}
+            size="sm"
+            border="1px solid var(--font-h4)"
+            onClick={() => onClickSecond()}
+          >
+            2
+          </Button>
+        </BottomNav>
+      </Layout>
+      {isLoading && <MainLoadingAbsolute />}
+      {isModal && <StudyQuickVoteRegisterModal setIsModal={setIsModal} />}
+    </>
   );
 }
 
@@ -174,6 +224,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
     <PopoverTrigger>
       <TargetIcon>
         <Button
+          as="div"
           borderRadius="4px"
           w="34px"
           h="34px"
@@ -195,6 +246,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
       <PopoverHeader fontWeight="600">정밀도 단계</PopoverHeader>
       <PopoverBody display="flex" p="var(--padding-md)">
         <Button
+          as="div"
           colorScheme={precision === 0 ? "mintTheme" : "gray"}
           size="xs"
           mr="var(--margin-md)"
@@ -205,6 +257,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
         <Button
           colorScheme={precision === 1 ? "mintTheme" : "gray"}
           size="xs"
+          as="div"
           mr="var(--margin-md)"
           onClick={() => setPrecision(1)}
         >
@@ -212,6 +265,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
         </Button>
         <Button
           onClick={() => setPrecision(2)}
+          as="div"
           colorScheme={precision === 2 ? "mintTheme" : "gray"}
           size="xs"
         >
@@ -252,8 +306,6 @@ const BottomNav = styled.nav`
   left: var(--margin-md);
   z-index: 50;
 `;
-
-const PreciseBtn = styled.button``;
 
 const ReturnBtn = styled.button`
   width: 34px;

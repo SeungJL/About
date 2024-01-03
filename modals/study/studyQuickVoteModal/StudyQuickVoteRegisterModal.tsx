@@ -15,12 +15,12 @@ function StudyQuickVoteRegisterModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="sm">
-        <ModalHeader text="스터디 빠른 투표" />
+      <ModalLayout onClose={() => setIsModal(false)} size="md">
+        <ModalHeader text="스터디 프리셋" />
         <ModalBody>
           <ModalSubtitle>
-            등록된 스터디 장소가 없습니다. 최초 1회 스터디 장소 등록이
-            필요합니다.
+            설정해둔 스터디 프리셋이 없습니다. 프리셋은 최초 1회만 등록하면
+            되고, 등록시 +20 point와 더불어 앞으로 빠른 투표가 가능합니다.
           </ModalSubtitle>
         </ModalBody>
         <ModalFooterTwo

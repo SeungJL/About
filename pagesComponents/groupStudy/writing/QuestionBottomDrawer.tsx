@@ -75,7 +75,7 @@ function QuestionBottomDrawer({
 const Container = styled.div`
   border-radius: 20px;
   overflow: hidden;
-  background-color: pink;
+
 `;
 
 const BottomNav = styled.nav``;

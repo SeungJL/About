@@ -24,11 +24,7 @@ function PlaceSelector({
 }: IPlaceSelector) {
   const failToast = useFailToast();
 
-  const isGridLayout = places?.length > 4;
-
-  const placeCnt = places?.length;
-  const layoutMethod =
-    placeCnt > 8 ? "manyGrid" : placeCnt > 4 ? "smallGrid" : "flex";
+  const layoutMethod = "manyGrid";
 
   const onClickItem = (place: IPlace, isMax?: boolean) => {
     if (isMax) {
@@ -75,7 +71,7 @@ function PlaceSelector({
 
           return (
             <Fragment key={placeInfo._id}>
-              {layoutMethod === "smallGrid" ? (
+              {false ? (
                 <Item
                   selected={selected}
                   onClick={() => onClickItem(placeInfo, isMax)}
@@ -134,6 +130,8 @@ const PlaceIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 4px;
+  overflow: hidden;
 `;
 const Name = styled.span`
   margin-left: var(--margin-min);
@@ -153,6 +151,8 @@ const FlexItem = styled.div`
 `;
 
 const FlexPlaceIcon = styled.div<{ selected: Selected }>`
+  border-radius: 4px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,8 +161,8 @@ const FlexPlaceIcon = styled.div<{ selected: Selected }>`
     props.selected === "none"
       ? "var(--border-main)"
       : props.selected === "main"
-      ? "2px solid var(--color-mint)"
-      : "2px solid var(--color-orange)"};
+      ? "4px solid var(--color-mint)"
+      : "4px solid var(--color-orange)"};
 `;
 
 const FlexName = styled.span`

@@ -34,7 +34,7 @@ export default function UserSetting() {
       }
     }
     if (!userInfoData) return;
-    console.log(-dayjs(userInfoData?.registerDate).diff(dayjs(), "day"));
+
     if (dayjs().diff(dayjs(userInfoData?.registerDate)) <= 7) {
       if (!checkAndSetLocalStorage(USE_GUIDE, 3)) {
         setIsGuide(true);

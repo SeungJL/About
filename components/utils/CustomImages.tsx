@@ -30,7 +30,7 @@ export const StudySpaceLogo = ({
     if (name === "카탈로그") W = 42;
     if (name === "칸나") W = 39;
     if (name === "이디야") W = 50;
-    if (name === "투썸플레이스") W = 30;
+    if (name === "투썸플레이스") W = 34;
     if (name === "커피빈") W = 38;
     if (name === "미오커피") W = 31;
     if (name === "아펜즈커피") W = 50;

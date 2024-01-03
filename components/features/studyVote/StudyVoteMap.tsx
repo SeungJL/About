@@ -31,7 +31,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
   const [naverMap, setNaverMap] = useState(null);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();
   const [twoDistanceSub, setTwoDistanceSub] = useState([]);
-  const [isCheckPreSet, setIsCheckPreSet] = useState(false);
+  const [isCheckPreSet, setIsCheckPreSet] = useState(true);
   const [precision, setPrecision] = useState(1);
   const [choiceRank, setChoiceRank] = useState<ChoiceRank>();
 
@@ -40,9 +40,9 @@ function StudyVoteMap({ setIsModal }: IModal) {
   //1지망 투표시 2지망 추천 장소 선택
   useEffect(() => {
     if (!naverMap || !voteData) return;
-    if (isCheckPreSet) {
-      setIsCheckPreSet(null);
-    }
+    // if (isCheckPreSet) {
+    //   setIsCheckPreSet(null);
+    // }
     const subPlace = [];
 
     if (voteInfo?.place) {
@@ -159,6 +159,7 @@ function StudyVoteMap({ setIsModal }: IModal) {
         <Container>
           <Map id="map" ref={mapRef} />
           <MapControlNav
+            isCheckPreset={isCheckPreSet}
             naverMap={naverMap}
             setVoteInfo={setVoteInfo}
             setIsCheckPreSet={setIsCheckPreSet}

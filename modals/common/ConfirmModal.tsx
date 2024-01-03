@@ -8,6 +8,7 @@ interface IConfirmModal extends IModal {
 
 export interface IConfirmContent {
   title: string;
+  text?: string;
   onClickRight: () => void;
 }
 
