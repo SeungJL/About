@@ -38,7 +38,7 @@ function KakaoShareBtn({
       window.Kakao.init(kakaoAppKey);
     }
   }, []);
-  
+
   useEffect(() => {
     if (type === "gather" && !img) return;
     if (window.Kakao) {
@@ -50,7 +50,8 @@ function KakaoShareBtn({
               content: {
                 title,
                 description: subtitle,
-                imageUrl: img,
+                imageUrl:
+                  "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EA%B3%B5%EC%9C%A0+%EC%9D%B4%EB%AF%B8%EC%A7%80/temp/%EB%AF%B8%EC%88%A0%EA%B4%80.png",
                 imageWidth: 800,
                 imageHeight: 400,
                 link: {
@@ -97,7 +98,7 @@ function KakaoShareBtn({
                 },
               },
             };
-    
+
       window.Kakao.Link.createDefaultButton(options);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

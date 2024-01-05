@@ -1,8 +1,14 @@
 import { Location } from "../types/system";
 import { TABLE_COLORS } from "./styles";
 
-export const LOCATION_OPEN: Location[] = ["수원", "양천", "안양", "강남"];
-export const LOCATION_RECRUITING: Location[] = ["동대문", "마포", "인천"];
+export const LOCATION_OPEN: Location[] = [
+  "수원",
+  "양천",
+  "안양",
+  "강남",
+  "동대문",
+];
+export const LOCATION_RECRUITING: Location[] = ["마포", "인천"];
 export const LOCATION_NOT_OPEN: Location[] = [];
 
 //모집중을 포함한 지역

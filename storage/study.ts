@@ -56,6 +56,22 @@ export const GANGNAM_강남 = "652a9e8adb9e8e554deafd68";
 export const GANGNAM_도곡 = "65522b7ed01680084c5c6a93";
 export const GANGNAM_자유신청 = "64ecc41640f6dace3b06559d";
 
+//동대문
+export const DONG_장안동 = "6597c1f1a11634850ed506e0";
+export const DONG_석계역 = "6597c184a11634850ed506df";
+export const DONG_딥십리역 = "6597c124a11634850ed506de";
+export const DONG_서울시립대 = "6597c0a2a11634850ed506dd";
+export const DONG_경희대 = "6597c076a11634850ed506dc";
+export const DONG_월곡역 = "6597c047a11634850ed506db";
+export const DONG_왕십리역 = "6597c004a11634850ed506da";
+export const DONG_안암역 = "6597bfd5a11634850ed506d9";
+export const DONG_신설동역 = "6597bf9ca11634850ed506d8";
+export const DONG_길음역 = "6597bf65a11634850ed506d7";
+export const DONG_성신여대 = "6597bf26a11634850ed506d6";
+export const DONG_동대문역 = "6597bed1a11634850ed506d5";
+export const DONG_혜화역 = "6597be44a11634850ed506d3";
+export const DONG_혜화역2 = "6597be67a11634850ed506d4";
+
 export const PLACE_TO_NAME = {
   //전체
   [ALL_스터디인증]: "스터디인증",
@@ -109,6 +125,21 @@ export const PLACE_TO_NAME = {
   [GANGNAM_선릉]: "커피빈",
   [GANGNAM_도곡]: "카페올로",
   [GANGNAM_자유신청]: "강남",
+
+  [DONG_장안동]: "투썸플레이스",
+  [DONG_석계역]: "카페디졸브",
+  [DONG_딥십리역]: "아띠커피",
+  [DONG_서울시립대]: "해머스미스커피",
+  [DONG_경희대]: "빵쌤",
+  [DONG_월곡역]: "카페어바웃",
+  [DONG_왕십리역]: "어질인",
+  [DONG_안암역]: "캐치카페",
+  [DONG_신설동역]: "커피니",
+  [DONG_길음역]: "일일커피",
+  [DONG_성신여대]: "카페 뮬",
+  [DONG_동대문역]: "D CAFE",
+  [DONG_혜화역]: "캐치카페",
+  [DONG_혜화역2]: "커피빈",
 };
 
 export const PLACE_TO_LOCATION = {
@@ -159,6 +190,21 @@ export const PLACE_TO_LOCATION = {
   [GANGNAM_선릉]: "강남",
   [GANGNAM_도곡]: "강남",
   [GANGNAM_자유신청]: "강남",
+
+  [DONG_장안동]: "동대문",
+  [DONG_석계역]: "동대문",
+  [DONG_딥십리역]: "동대문",
+  [DONG_서울시립대]: "동대문",
+  [DONG_경희대]: "동대문",
+  [DONG_월곡역]: "동대문",
+  [DONG_왕십리역]: "동대문",
+  [DONG_안암역]: "동대문",
+  [DONG_신설동역]: "동대문",
+  [DONG_길음역]: "동대문",
+  [DONG_성신여대]: "동대문",
+  [DONG_동대문역]: "동대문",
+  [DONG_혜화역]: "동대문",
+  [DONG_혜화역2]: "동대문",
 };
 
 export interface IStudySpaceInfo {

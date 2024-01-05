@@ -40,7 +40,7 @@ function StudySetting() {
       onError: (e) => typeErrorToast(e, "study"),
     }
   );
-
+  console.log(studyVoteData);
   const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
     dayjs().add(1, "day"),
     {

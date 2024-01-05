@@ -41,7 +41,14 @@ function StudySpace() {
       ? attendences
       : attendences?.filter((who) => who.firstChoice);
 
-  const info = STUDY_SPACE_INFO.find((info) => info.id === place?._id);
+  const info = place?.locationText
+    ? {
+        id: "1",
+        location: place?.locationText,
+        time: place?.time,
+        image: place?.coverImage,
+      }
+    : STUDY_SPACE_INFO.find((info) => info.id === place?._id);
   const coverImageUrl =
     info && (info?.image || `/studyRandom/study${randomNum + 1}.jpg`);
   const absences = participation?.absences;

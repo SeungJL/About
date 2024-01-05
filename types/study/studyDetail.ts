@@ -44,6 +44,9 @@ export interface IPlace {
   priority?: number;
   _id: string;
   location: string;
+  time?: string;
+  locationText?: string;
+  coverImage?: string;
 }
 
 export interface IAbsence extends ITimeStamps {
