@@ -21,7 +21,7 @@ import { createNaverMapDot } from "../../../helpers/utilHelpers";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { useStudyPreferenceQuery } from "../../../hooks/study/queries";
 import StudyQuickVoteRegisterModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteRegisterModal";
-import { locationState } from "../../../recoil/userAtoms";
+import { locationState, userInfoState } from "../../../recoil/userAtoms";
 import {
   DispatchBoolean,
   DispatchNumber,
@@ -74,6 +74,7 @@ function MapControlNav({
   }, [data, isLoading]);
 
   const location = useRecoilValue(locationState);
+  const userInfo = useRecoilValue(userInfoState);
   const [preSet, setPreSet] = useState<"first" | "second">(
     isCheckPreset ? "first" : null
   );
@@ -99,7 +100,12 @@ function MapControlNav({
   };
 
   useEffect(() => {
-    if (isCheckPreset && preferInfo && naverMap) {
+    if (
+      isCheckPreset &&
+      preferInfo &&
+      naverMap &&
+      location === userInfo?.location
+    ) {
       setVoteInfo((old) => ({
         ...old,
         place: preferInfo.place,
@@ -115,7 +121,7 @@ function MapControlNav({
 
   const onClickPreSet = (type: "first" | "second") => {
     if (!preferInfo) {
-      failToast("free", "설정된 스터디 프리렛이 없습니다.");
+      failToast("free", "설정된 스터디 프리셋이 없습니다.");
       return;
     }
     setIsCheckPreSet(true);
