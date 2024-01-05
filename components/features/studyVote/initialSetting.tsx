@@ -33,6 +33,7 @@ function InitialSetting({
       안양: createNaverMapDot(37.388896, 126.950088),
       양천: createNaverMapDot(37.527588, 126.896441),
       강남: createNaverMapDot(37.503744, 127.048898),
+      동대문: createNaverMapDot(37.58452, 127.041047),
     };
     const createBound = (
       lat1: number,

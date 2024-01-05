@@ -92,6 +92,9 @@ function MapControlNav({
         서쪽: createNaverMapDot(37.530588, 126.856441),
         동쪽: createNaverMapDot(37.517588, 126.906441),
       },
+      동대문: {
+        중앙: createNaverMapDot(37.58452, 127.041047),
+      },
     };
     setVoteInfo(null);
     const returnDot = LOCATION_RETURN_DOT[location][type];
