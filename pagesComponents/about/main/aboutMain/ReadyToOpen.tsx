@@ -11,7 +11,9 @@ function ReadyToOpen() {
 const Layout = styled.div`
   background-color: rgba(234, 236, 240, 0.6);
   position: absolute;
-  top: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10;
   height: 100%;
   width: 100%;

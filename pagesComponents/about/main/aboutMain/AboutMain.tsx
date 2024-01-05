@@ -51,7 +51,7 @@ function AboutMain({ participations }: IAboutMain) {
   );
 
   const studies = participations?.filter((par) => par !== privateStudy);
-
+  console.log(studies);
   return (
     <AnimatePresence initial={false}>
       {!isMainLoading ? (
@@ -78,7 +78,8 @@ function AboutMain({ participations }: IAboutMain) {
                   isImagePriority={true}
                 />
               )}
-              {LOCATION_RECRUITING.includes(location) && <ReadyToOpen />}
+              {(LOCATION_RECRUITING.includes(location) ||
+                studies?.length === 0) && <ReadyToOpen />}
             </Container>
             <MoreInfoBtn onClick={onClickMoreInfo}>더보기</MoreInfoBtn>
           </Main>
@@ -95,6 +96,7 @@ function AboutMain({ participations }: IAboutMain) {
 const Layout = styled(motion.div)`
   position: relative;
   padding-bottom: var(--padding-main);
+  display: flex;
 
   min-height: 422px;
   background-color: var(--font-h8);
@@ -103,13 +105,22 @@ const Layout = styled(motion.div)`
 const Main = styled.main`
   margin: 0 var(--margin-main);
   padding-bottom: var(--padding-main);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Container = styled.div`
+  width: 100%;
+  flex: 1;
+  height: 100%;
+
   position: relative;
 `;
 
 const MoreInfoBtn = styled.button`
+  margin-top: auto;
+
   width: 100%;
   box-shadow: var(--box-shadow-b);
   height: 44px;
