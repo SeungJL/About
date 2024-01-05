@@ -59,6 +59,13 @@ function MapControlNav({
   useEffect(() => {
     if (localValue && localValue !== "undefined") {
       const value = JSON.parse(localValue);
+      if ((value as IStudyPlaces)?.place?.location !== location) {
+        if (isModal === false) {
+          failToast("free", "스터디 프리셋 변경이 필요합니다.");
+          setIsModal(true);
+        }
+        return;
+      }
       setPreferInfo(value);
     } else {
       if (!isLoading) {
