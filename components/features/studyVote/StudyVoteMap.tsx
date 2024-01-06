@@ -120,7 +120,9 @@ function StudyVoteMap({ setIsModal }: IModal) {
     polylinesRef.current = [];
     if (subs && subs.length) {
       subs.forEach((place) => {
+        console.log(2, twoDistanceSub);
         const isTwo = twoDistanceSub.includes(place._id);
+
         const polyline = new naver.maps.Polyline({
           map: naverMap,
           path: [

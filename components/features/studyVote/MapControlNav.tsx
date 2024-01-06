@@ -127,11 +127,11 @@ function MapControlNav({
       naverMap.setCenter(
         createNaverMapDot(preferInfo.place.latitude, preferInfo.place.longitude)
       );
-      setPrecision(2);
+      setPrecision(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferInfo, isCheckPreset, naverMap]);
-
+  console.log(precision);
   const onClickPreSet = (type: "first" | "second") => {
     if (!preferInfo) {
       failToast("free", "설정된 스터디 프리셋이 없습니다.");

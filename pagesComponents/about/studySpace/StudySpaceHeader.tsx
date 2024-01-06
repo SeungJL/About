@@ -28,7 +28,6 @@ function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
     router.push(prevPageUrl || "/about");
   };
  
-
   return (
     <Layout>
       <div onClick={onClick}>
@@ -38,12 +37,12 @@ function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
         <Title>{title}</Title>
       </div>
       <div>
-        {location && (
+        {(location || place?.locationText) && (
           <KakaoShareBtn
             type="study"
             title="같이 스터디 해요~!"
             subtitle={place.fullname}
-            location={location.location}
+            location={location?.location || place?.locationText}
             img={`/studyRandom/study${randomNum + 1}.jpg`}
             url={url}
           />
