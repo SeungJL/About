@@ -30,8 +30,10 @@ function Chart({ type, user }: IChart) {
   const Uid = user?.uid || session?.uid;
 
   const monthXaxis: string[] = [];
-  for (let i = getMonth() - 2; i <= getMonth() + 1; i++)
-    monthXaxis.push(MONTH_LIST[i]);
+  for (let i = getMonth() - 2; i <= getMonth() + 1; i++) {
+    const idx = i >= 0 ? i : 12 + i;
+    monthXaxis.push(MONTH_LIST[idx]);
+  }
 
   const monthArr = [
     {
@@ -110,7 +112,7 @@ function Chart({ type, user }: IChart) {
           <ApexCharts
             series={[
               { name: "평균 참여 횟수", data: attendAverageArr },
-              { name: "내 참여 횟수", data: attendRateArr },
+              { name: "유저 참여 횟수", data: attendRateArr },
             ]}
             options={ChartStudyOptions(monthXaxis, attendMax)}
           />
