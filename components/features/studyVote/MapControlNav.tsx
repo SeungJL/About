@@ -54,12 +54,17 @@ function MapControlNav({
     enabled: !localValue || localValue === "undefined",
   });
 
+  const location = useRecoilValue(locationState);
+  const userInfo = useRecoilValue(userInfoState);
   const [isModal, setIsModal] = useState(false);
 
   useEffect(() => {
     if (localValue && localValue !== "undefined") {
       const value = JSON.parse(localValue);
-      if ((value as IStudyPlaces)?.place?.location !== location) {
+      if (
+        (value as IStudyPlaces)?.place?.location !== location &&
+        userInfo?.location === location
+      ) {
         if (isModal === false) {
           failToast("free", "스터디 프리셋 변경이 필요합니다.");
           setIsModal(true);
@@ -80,8 +85,6 @@ function MapControlNav({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isLoading]);
 
-  const location = useRecoilValue(locationState);
-  const userInfo = useRecoilValue(userInfoState);
   const [preSet, setPreSet] = useState<"first" | "second">(
     isCheckPreset ? "first" : null
   );
