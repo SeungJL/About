@@ -97,6 +97,12 @@ function MapControlNav({
         북쪽: createNaverMapDot(37.287918, 127.027491),
         동쪽: createNaverMapDot(37.268884, 127.058477),
       },
+      강남: {
+        중앙: createNaverMapDot(37.503744, 127.048898),
+      },
+      안양: {
+        중앙: createNaverMapDot(37.388896, 126.950088),
+      },
       양천: {
         중앙: createNaverMapDot(37.527588, 126.896441),
         서쪽: createNaverMapDot(37.530588, 126.856441),
@@ -104,6 +110,8 @@ function MapControlNav({
       },
       동대문: {
         중앙: createNaverMapDot(37.58452, 127.041047),
+        서쪽: createNaverMapDot(37.582025, 127.003554),
+        북쪽: createNaverMapDot(37.601182, 127.04285),
       },
     };
     setVoteInfo(null);
@@ -165,6 +173,9 @@ function MapControlNav({
 
   const filterArr: ReturnDot[] = navArr.filter((dot) => {
     if (location === "양천" && dot === "북쪽") return false;
+    if (location === "동대문" && dot === "동쪽") return false;
+    if (location === "안양") return;
+    if (location === "강남") return;
     return true;
   });
 

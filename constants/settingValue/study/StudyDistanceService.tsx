@@ -216,13 +216,16 @@ export const STUDY_DISTANCE = {
       [DONG_동대문역, DONG_성신여대],
       [DONG_동대문역, DONG_신설동역],
       [DONG_동대문역, DONG_안암역],
-      [DONG_동대문역, DONG_월곡역],
+
       [DONG_성신여대, DONG_길음역],
       [DONG_성신여대, DONG_월곡역],
       [DONG_성신여대, DONG_안암역],
       [DONG_길음역, DONG_월곡역],
       [DONG_길음역, DONG_석계역],
       [DONG_길음역, DONG_안암역],
+      [DONG_월곡역, DONG_석계역],
+      [DONG_월곡역, DONG_경희대],
+      [DONG_월곡역, DONG_서울시립대],
       [DONG_신설동역, DONG_안암역],
       [DONG_신설동역, DONG_왕십리역],
       [DONG_신설동역, DONG_서울시립대],
@@ -244,8 +247,8 @@ export const STUDY_DISTANCE = {
     2: [
       [DONG_혜화역, DONG_안암역],
       [DONG_혜화역, DONG_왕십리역],
-      [DONG_동대문역, DONG_길음역],
-      [DONG_동대문역, DONG_석계역],
+      [DONG_동대문역, DONG_월곡역],
+
       [DONG_동대문역, DONG_딥십리역],
       [DONG_동대문역, DONG_서울시립대],
       [DONG_성신여대, DONG_석계역],
@@ -263,6 +266,7 @@ export const STUDY_DISTANCE = {
       [DONG_경희대, DONG_석계역],
       [DONG_경희대, DONG_장안동],
       [DONG_경희대, DONG_장안동],
+      [DONG_경희대, DONG_딥십리역],
     ],
   },
 };
