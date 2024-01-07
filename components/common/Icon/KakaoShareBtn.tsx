@@ -50,7 +50,7 @@ function KakaoShareBtn({
               content: {
                 title,
                 description: subtitle,
-                imageUrl: url,
+                imageUrl: img,
                 imageWidth: 800,
                 imageHeight: 400,
                 link: {
