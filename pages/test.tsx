@@ -7,11 +7,12 @@ import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
 import { COLOR_SCHEME_BG } from "../constants/styles";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2023-12-04"),
-    dayjs("2023-12-10"),
-    true,
-    "수원"
+    dayjs("2023-11-01"),
+    dayjs("2024-01-07"),
+    null,
+    "안양"
   );
+
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
