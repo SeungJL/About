@@ -79,3 +79,13 @@ export const useVoteStatusResetMutation = (options?: MutationOptions<Dayjs>) =>
       }),
     options
   );
+
+export const useMonthCalcMutation = (options?: MutationOptions) =>
+  useMutation<void, AxiosError, void>(
+    () =>
+      requestServer<Dayjs>({
+        method: "patch",
+        url: "admin/manage/monthCalc",
+      }),
+    options
+  );

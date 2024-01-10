@@ -73,10 +73,9 @@ function Layout({ children }: ILayout) {
   useUserInfoQuery({
     enabled: (isCondition && userInitialInfo === null) || status === "login",
     onSuccess(data) {
-      console.log(data);
       if (!isCondition || (userInitialInfo && status !== "login")) return;
       //유저 데이터 없음
-      if (data === null || !data.registerDate) {
+      if (data === null || !data.registerDate || data.isActive === false) {
         if (router.query.status === "login") navigateTo(`/register/location`);
         else navigateTo("/login/?status=noMember");
         return;

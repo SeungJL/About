@@ -2,23 +2,39 @@ import dayjs from "dayjs";
 import styled, { createGlobalStyle } from "styled-components";
 import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
+import { Button } from "@chakra-ui/react";
+import { AxiosError } from "axios";
 import { useState } from "react";
-import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
+import { CallBackProps, STATUS, Step } from "react-joyride";
+import { useMutation } from "react-query";
 import { COLOR_SCHEME_BG } from "../constants/styles";
+import { requestServer } from "../helpers/methodHelpers";
+import { useMonthCalcMutation } from "../hooks/admin/mutation";
+import { MutationOptions } from "../types/reactTypes";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
     dayjs("2023-11-01"),
-    dayjs("2024-01-07"),
+    dayjs("2024-01-10"),
     null,
-    "안양"
+    "수원"
   );
-
+  console.log(data);
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
     null,
     "안양"
   );
+
+  const { mutate } = useMonthCalcMutation({
+    onSuccess(data) {
+      console.log(2, data);
+      console.log("SUC");
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
 
   const [{ run, steps }, setState] = useState<{
     run: boolean;
@@ -75,19 +91,30 @@ function Test() {
     }
     // logGroup(type, data);
   };
+
+  const useA = (options?: MutationOptions<void>) =>
+    useMutation<void, AxiosError, void>(
+      () =>
+        requestServer<any>({
+          method: "patch",
+          url: "user/changeInactive",
+        }),
+      options
+    );
+
+  const { mutate: mutate2 } = useA({
+    onSuccess() {
+      console.log("SUC");
+    },
+  });
+  const onClick = () => {
+    mutate2();
+  };
   return (
     <>
       <GlobalStyle />
       <Layout>
-        <Joyride
-          callback={handleJoyrideCallback}
-          continuous
-          steps={steps}
-          run={true}
-          showSkipButton
-        />
-        <div className="star-burst">첫 번째 스텝 타겟 요소</div>
-        <div className="my-other-step">두 번째 스텝 타겟 요소</div>
+        <Button onClick={onClick}>CLICK</Button>
       </Layout>
     </>
   );
