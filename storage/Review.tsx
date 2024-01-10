@@ -483,4 +483,16 @@ export const REVIEW_DATA: IReviewData[] = [
     text: "1차는 이자카야를 갔는데 가격이 너무 비싸서 조금만 먹고 2차로 이동했다. 룸술집이었는데 주문을 하고 한참이 지나도 메뉴가 계속 안나와서 몇번을 더 물어보니까 와이파이가 잘 안돼서 주문이 안들어왔다는데... 21세기 강남에서 이게 말인가? 분노게이지가 올라가던 도중 과일화채 2개가 서비스로 나와서 맛있게 먹었다. 막차를 놓쳐서 집 가는게 힘들었지만... I들 사이에 껴 있으니까 힐링이 되고 좋았다.",
     title: "강남 술 번개(28일)",
   },
+  {
+    id: 121,
+    dateCreated: "1월 8일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564.jpg",
+    ],
+    text: "반나절 내내 놀았어요! 점심에 피자 먹고, 전시회 본 다음에, 걷다가, 보드게임 하고, 늦게까지 전막걸리를 마셨던 알찬(?) 플랜이었죠. 말도 안되게 돈이 나온건 비밀...",
+    title: "전시회 번개",
+  },
 ];
