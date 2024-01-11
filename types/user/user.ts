@@ -13,6 +13,7 @@ export interface IUser extends IUserRegisterForm {
   thumbnailImage: string;
   friend: string[];
   like: number;
+  belong?: string;
   _id: string;
 }
 export interface IUserRegisterForm extends IUserRegisterFormWriting {

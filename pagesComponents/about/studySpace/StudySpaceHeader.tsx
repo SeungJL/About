@@ -27,7 +27,7 @@ function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
   const onClick = () => {
     router.push(prevPageUrl || "/about");
   };
-  console.log(location, place);
+ 
   return (
     <Layout>
       <div onClick={onClick}>

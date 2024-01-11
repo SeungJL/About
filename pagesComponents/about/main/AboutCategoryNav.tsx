@@ -64,7 +64,10 @@ function AboutCategoryNav() {
       </Item>
       <Item className="about_navigation3">
         <Button onClick={() => onClickItem("member")}>
-          <MemberIcon />
+          <MemberIcon />{" "}
+          <IconWrapper>
+            <NewAlertIcon size="lg" />
+          </IconWrapper>
         </Button>
         <span>동아리원</span>
       </Item>

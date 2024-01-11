@@ -3,17 +3,16 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import BlurredPart from "../../../components/common/masks/BlurredPart";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { useAdminUsersControlQuery } from "../../../hooks/admin/quries";
+import { useAdminUsersLocationControlQuery } from "../../../hooks/admin/quries";
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import MemberHeader from "../../../pagesComponents/member/MemberHeader";
-import MemberMyProfile from "../../../pagesComponents/member/MemberMyProfile";
 import MemberOverview from "../../../pagesComponents/member/MemberOverview";
 import MemberRecommend from "../../../pagesComponents/member/MemberRecommend";
 import MemberSectionList from "../../../pagesComponents/member/MemberSectionList";
 import MemberSectionTitle from "../../../pagesComponents/member/MemberSectionTitle";
-import MemberSkeleton from "../../../pagesComponents/member/MemberSkeleton";
 import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
 import { isGuestState } from "../../../recoil/userAtoms";
 import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
@@ -34,6 +33,9 @@ export const SECTION_NAME: Record<MemberGroup, string> = {
   enthusiastic: "열공 멤버",
   resting: "휴식 멤버",
   birth: "생일",
+  groupA: "소그룹 A",
+  groupB: "소그룹 B",
+  groupC: "소그룹 C",
 };
 
 function Member() {
@@ -46,7 +48,12 @@ function Member() {
   const [groupedMembers, setgroupedMembers] = useState<IGroupedMembers>();
   const [locationMembers, setLocationMembers] = useState<IUser[]>();
 
-  const { data: usersAll, isLoading } = useAdminUsersControlQuery();
+  const { data: usersAll, isLoading } = useAdminUsersLocationControlQuery(
+    location as Location,
+    {
+      enabled: !!location,
+    }
+  );
 
   const { data: studyPlaces } = useStudyPlacesQuery(location as Location);
 
@@ -54,9 +61,9 @@ function Member() {
   useEffect(() => {
     if (!location || isLoading) return;
 
-    const locationMembers = usersAll
-      .filter((who) => who.location === location)
-      .sort((a, b) => (a.score > b.score ? -1 : 1));
+    const locationMembers = usersAll.sort((a, b) =>
+      a.score > b.score ? -1 : 1
+    );
     setLocationMembers(locationMembers);
 
     const classified = {
@@ -65,6 +72,9 @@ function Member() {
       resting: [],
       birth: [],
       enthusiastic: [],
+      groupA: [],
+      groupB: [],
+      groupC: [],
     };
     locationMembers.forEach((who) => {
       switch (who.role) {
@@ -84,6 +94,11 @@ function Member() {
           else classified.member.push(who);
           break;
       }
+      const belong = who?.belong?.split("/")?.[1];
+      if (belong === "A") classified.groupA.push(who);
+      if (belong === "B") classified.groupB.push(who);
+      if (belong === "C") classified.groupC.push(who);
+
       const today = dayjsToFormat(dayjs(), "MMDD");
       if (who.role !== "human" && who.birth.slice(2) === today) {
         classified.birth.push(who);
@@ -94,8 +109,24 @@ function Member() {
 
   //상세페이지로 이동
   const onClickSection = (section: MemberGroup) => {
-    setTransferMemberData({ section, members: groupedMembers[section] });
+    setTransferMemberData({
+      section,
+      members: sortGroup(groupedMembers[section]),
+    });
     router.push(`/member/${location}/detail`);
+  };
+
+  const sortGroup = (members: IUser[]) => {
+    const temp = [...members];
+    const idx = temp.findIndex(
+      (who) => who.role === "manager" || who.role === "previliged"
+    );
+    if (idx > -1) {
+      const item = temp[idx];
+      temp.splice(idx, 1);
+      temp.unshift(item);
+    }
+    return temp;
   };
 
   return (
@@ -104,12 +135,21 @@ function Member() {
       {groupedMembers ? (
         <Layout>
           <MemberOverview
-            totalMemberCnt={locationMembers.length}
-            activeMemberCnt={groupedMembers.member.length}
-            locationPlaces={studyPlaces}
+            onClickSection={onClickSection}
+            groups={[
+              groupedMembers?.groupA.length
+                ? sortGroup(groupedMembers.groupA)
+                : null,
+              groupedMembers?.groupB.length
+                ? sortGroup(groupedMembers.groupB)
+                : null,
+              groupedMembers?.groupC.length
+                ? sortGroup(groupedMembers.groupC)
+                : null,
+            ]}
           />
           <HrDiv />
-          <MemberMyProfile />
+
           <HrDiv />
           <MembersContainer>
             <MemberTitle>멤버 소개</MemberTitle>
@@ -133,7 +173,8 @@ function Member() {
           <MemberRecommend members={locationMembers} />
         </Layout>
       ) : (
-        <MemberSkeleton />
+        <MainLoading />
+        // <MemberSkeleton />
       )}
     </>
   );
@@ -162,8 +203,9 @@ const Section = styled.section`
   }
 `;
 const MemberTitle = styled.span`
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px 0;
 `;
 
 const HrDiv = styled.div`

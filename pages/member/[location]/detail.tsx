@@ -59,7 +59,7 @@ function MemberDetail() {
                   </Badge>
                 </Name>
                 <div>
-                  {section === "member" ? (
+                  {section === "member" || section?.includes("group") ? (
                     who.comment
                   ) : section === "human" ? (
                     `가입일: ${dayjs(who.registerDate).format(

@@ -25,6 +25,22 @@ export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>
     },
     options
   );
+export const useAdminUsersLocationControlQuery = (
+  location: Location,
+  options?: QueryOptions<IUser[]>
+) =>
+  useQuery<IUser[], AxiosError, IUser[]>(
+    ["adminUserControl", location],
+    async () => {
+      const res = await axios.get<IUser[]>(`${SERVER_URI}/admin/user`, {
+        params: {
+          location,
+        },
+      });
+      return res.data;
+    },
+    options
+  );
 
 export const useUserRequestQuery = (
   category: UserRequestCategory,
@@ -75,7 +91,6 @@ export const useAdminStudyRecordQuery = (
   useQuery(
     [ADMIN_STUDY_RECORD, startDay, endDay, isAttend, location, uid],
     async () => {
-    
       const res = await axios.get<IAdminStudyRecordReturn>(
         `${SERVER_URI}/admin/vote/studyRecord`,
         {

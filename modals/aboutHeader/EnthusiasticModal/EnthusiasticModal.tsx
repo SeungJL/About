@@ -42,7 +42,7 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
     }
   );
 
-  console.log(memberCnt);
+
 
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {

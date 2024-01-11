@@ -57,7 +57,7 @@ export const useStudyVoteQuery = (
           params: { location },
         }
       );
-      console.log(4, res.data);
+    
       return res.data.participations.filter(
         (par) => par.place.status === "active"
       );

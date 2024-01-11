@@ -484,7 +484,7 @@ export const REVIEW_DATA: IReviewData[] = [
     title: "강남 술 번개(28일)",
   },
   {
-    id: 121,
+    id: 122,
     dateCreated: "1월 8일",
     images: [
       "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564_01.jpg",

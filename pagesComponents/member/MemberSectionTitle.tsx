@@ -11,7 +11,7 @@ interface IMemberSectionTitle {
   onClickSection?: (section: MemberGroup) => void;
 }
 
-const SECTION_TEXT: Record<MemberGroup, string> = {
+const SECTION_TEXT = {
   member: "정식 활동 멤버입니다",
   human: "새싹 멤버 뉴비~!",
   enthusiastic: "열심히 활동해봐요~!",
@@ -28,7 +28,7 @@ function MemberSectionTitle({ section, onClickSection }: IMemberSectionTitle) {
         <span>{SECTION_NAME[section]}</span>
         <span>{SECTION_TEXT[section]}</span>
       </TitleWrapper>
-      {(section !== "birth"&&section!=="enthusiastic") && (
+      {section !== "birth" && section !== "enthusiastic" && (
         <Button disabled={isGuest} onClick={() => onClickSection(section)}>
           <span>더보기</span>
           <FontAwesomeIcon icon={faChevronRight} size="xs" />
