@@ -21,7 +21,7 @@ function About() {
   return (
     <>
       <Head>
-        <meta property="og:image" content="/test.png" />
+        <meta property="og:image" content="/ogImage.png" />
       </Head>
       <Setting />
       <Layout>
