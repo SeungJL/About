@@ -36,6 +36,9 @@ export const SECTION_NAME: Record<MemberGroup, string> = {
   groupA: "소그룹 A",
   groupB: "소그룹 B",
   groupC: "소그룹 C",
+  groupD: "소그룹 D",
+  groupE: "소그룹 E",
+  groupF: "소그룹 F",
 };
 
 function Member() {
@@ -75,6 +78,9 @@ function Member() {
       groupA: [],
       groupB: [],
       groupC: [],
+      groupD: [],
+      groupE: [],
+      groupF: [],
     };
     locationMembers.forEach((who) => {
       switch (who.role) {
@@ -98,6 +104,9 @@ function Member() {
       if (belong === "A") classified.groupA.push(who);
       if (belong === "B") classified.groupB.push(who);
       if (belong === "C") classified.groupC.push(who);
+      if (belong === "D") classified.groupD.push(who);
+      if (belong === "E") classified.groupE.push(who);
+      if (belong === "F") classified.groupF.push(who);
 
       const today = dayjsToFormat(dayjs(), "MMDD");
       if (who.role !== "human" && who.birth.slice(2) === today) {
@@ -145,6 +154,15 @@ function Member() {
                 : null,
               groupedMembers?.groupC.length
                 ? sortGroup(groupedMembers.groupC)
+                : null,
+              groupedMembers?.groupD.length
+                ? sortGroup(groupedMembers.groupD)
+                : null,
+              groupedMembers?.groupE.length
+                ? sortGroup(groupedMembers.groupE)
+                : null,
+              groupedMembers?.groupF.length
+                ? sortGroup(groupedMembers.groupF)
                 : null,
             ]}
           />

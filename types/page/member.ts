@@ -8,6 +8,9 @@ export type MemberGroup =
   | "enthusiastic"
   | "groupA"
   | "groupB"
-  | "groupC";
+  | "groupC"
+  | "groupD"
+  | "groupE"
+  | "groupF";
 
 export interface IGroupedMembers extends Record<MemberGroup, IUser[]> {}

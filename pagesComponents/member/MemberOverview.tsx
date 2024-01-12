@@ -26,6 +26,8 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
       ? "양천구/영등포구"
       : location;
 
+  const type = ["A", "B", "C", "D", "E", "F"];
+
   return (
     <Layout>
       <Title>소그룹 구성</Title>
@@ -43,14 +45,10 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
           return (
             <GroupLayout
               key={idx}
-              onClick={() =>
-                onClickSection(
-                  idx === 0 ? "groupA" : idx === 1 ? "groupB" : "groupC"
-                )
-              }
+              onClick={() => onClickSection(`group${type[idx]}` as MemberGroup)}
             >
               <GroupTitle>
-                {locationName} 그룹 {idx === 0 ? "A" : idx === 1 ? "B" : "C"}
+                {locationName} 그룹 {type[idx]}
               </GroupTitle>
               <GroupInfo>
                 <InfoItem>
@@ -91,6 +89,7 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
   );
 }
 const MemberTitle = styled.div`
+  color: var(--font-h2);
   margin-bottom: 12px;
   font-size: 13px;
 `;
