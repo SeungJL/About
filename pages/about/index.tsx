@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -19,6 +20,9 @@ function About() {
 
   return (
     <>
+      <Head>
+        <meta property="og:image" content="/test.png" />
+      </Head>
       <Setting />
       <Layout>
         <AboutHeader />

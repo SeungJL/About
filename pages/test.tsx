@@ -18,7 +18,7 @@ function Test() {
     null,
     "수원"
   );
-  console.log(data);
+
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
@@ -101,12 +101,13 @@ function Test() {
         }),
       options
     );
-
-  const { mutate: mutate2 } = useA({
-    onSuccess() {
-      console.log("SUC");
+  let b;
+  const { mutate: mutate2, data: data3 } = useA({
+    onSuccess(data) {
+      console.log(data);
     },
   });
+  console.log(b);
   const onClick = () => {
     mutate2();
   };
