@@ -1,13 +1,8 @@
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import Head from "next/head";
 
 function Index() {
-  return (
-    <Head>
-      <meta property="og:image" content="/ogImage.png" />
-    </Head>
-  );
+  return null;
 }
 export default Index;
 

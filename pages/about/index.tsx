@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -20,13 +19,6 @@ function About() {
 
   return (
     <>
-      <Head>
-        <meta
-          property="og:url"
-          content="https://studyabout.herokuapp.com/about"
-        />
-        <meta property="og:image" content="/ogImage.png" />
-      </Head>
       <Setting />
       <Layout>
         <AboutHeader />
