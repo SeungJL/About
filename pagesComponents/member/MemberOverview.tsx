@@ -5,6 +5,7 @@ import ProfileIconXsOverwrap from "../../components/common/user/Profile/ProfileI
 import { LOCATION_OPEN_DATE } from "../../constants/location";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { MemberGroup } from "../../types/page/member";
+import { Location } from "../../types/system";
 
 import { IUser } from "../../types/user/user";
 interface IMemberOverview {
@@ -15,8 +16,16 @@ interface IMemberOverview {
 function MemberOverview({ groups, onClickSection }: IMemberOverview) {
   const router = useRouter();
   const location = router.query.location;
- 
+
   const openDate = dayjs(LOCATION_OPEN_DATE[location as string]);
+
+  const locationName =
+    (location as Location) === "동대문"
+      ? "동대문구/성북구"
+      : (location as Location) === "양천"
+      ? "양천구/영등포구"
+      : location;
+
   return (
     <Layout>
       <Title>소그룹 구성</Title>
@@ -41,7 +50,7 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
               }
             >
               <GroupTitle>
-                양천/영등포 그룹 {idx === 0 ? "A" : idx === 1 ? "B" : "C"}
+                {locationName} 그룹 {idx === 0 ? "A" : idx === 1 ? "B" : "C"}
               </GroupTitle>
               <GroupInfo>
                 <InfoItem>
