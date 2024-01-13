@@ -54,7 +54,12 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
                 <InfoItem>
                   <span>그룹장</span>
                   <span>
-                    {item?.find((who) => who.role === "manager")?.name}
+                    {
+                      item?.find(
+                        (who) =>
+                          who.role === "manager" || who.role === "previliged"
+                      )?.name
+                    }
                   </span>
                 </InfoItem>
                 <InfoItem>
