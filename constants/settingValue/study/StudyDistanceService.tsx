@@ -52,6 +52,7 @@ import {
   YANG_카페베네,
   YANG_파스쿠찌,
   YANG_할리스,
+  YANG_화곡역,
 } from "../../../storage/study";
 
 //15 //25
@@ -132,6 +133,11 @@ export const STUDY_DISTANCE = {
   양천: {
     1: [
       [YANG_신월동, YANG_파스쿠찌],
+      [YANG_화곡역, YANG_파스쿠찌],
+      [YANG_화곡역, YANG_스타벅스],
+      [YANG_화곡역, YANG_위카페],
+      [YANG_화곡역, YANG_신월동],
+
       [YANG_파스쿠찌, YANG_양천구청역],
       [YANG_파스쿠찌, YANG_이디야],
       [YANG_파스쿠찌, YANG_스타벅스],
@@ -151,6 +157,8 @@ export const STUDY_DISTANCE = {
       [YANG_위카페, YANG_할리스],
     ],
     2: [
+      [YANG_화곡역, YANG_양천구청역],
+      [YANG_화곡역, YANG_이디야],
       [YANG_할리스, YANG_카페꼼마],
       [YANG_이디야, YANG_할리스],
       [YANG_신월동, YANG_스타벅스],
