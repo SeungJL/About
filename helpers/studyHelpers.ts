@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import {
-  STUDY_VOTE_END_HOUR,
   STUDY_VOTE_START_HOUR,
+  TODAY_START_HOUR,
 } from "../constants/settingValue/study/study";
 import { STUDY_DISTANCE } from "../constants/settingValue/study/StudyDistanceService";
 
@@ -57,9 +57,7 @@ export const getStudyDate: GetStudyDate = (voteDate) => {
   const currentHours = getCurrentHour();
 
   const isTodayCondition =
-    currentDate.isSame(voteDate) ||
-    (voteDate.isSame(currentDate.add(1, "day")) &&
-      currentHours >= STUDY_VOTE_END_HOUR);
+    currentDate.isSame(voteDate) && currentHours >= TODAY_START_HOUR;
 
   if (isTodayCondition) return "today";
   if (voteDate.isBefore(currentDate)) return "passed";

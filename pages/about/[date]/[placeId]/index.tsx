@@ -35,7 +35,7 @@ function StudySpace() {
   const isPrivate = participation?.place.brand === "자유 신청";
 
   const { place, attendences, status } = participation || {};
-
+  console.log(studyDateStatus);
   const filtered =
     studyDateStatus === "not passed"
       ? attendences

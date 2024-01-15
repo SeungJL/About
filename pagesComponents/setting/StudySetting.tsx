@@ -48,7 +48,7 @@ function StudySetting() {
       }, 200);
     },
   });
-  console.log(studyDateStatus);
+
   useEffect(() => {
     if (!studyVoteData) return;
     const participations = studyVoteData;
