@@ -50,7 +50,9 @@ function GroupStudyDetail() {
       setGroupStudy(data.find((item) => item.id === +groupStudyId));
     },
   });
+
   const resetQueryData = useResetQueryData();
+
   const { mutate: patchAttendance } = useGroupStudyAttendancePatchMutation(
     +groupStudyId,
     {
@@ -69,6 +71,7 @@ function GroupStudyDetail() {
       firstDate !==
         dayjsToStr(dayjs().subtract(1, "day").startOf("week").add(1, "day"))
     ) {
+      console.log(4);
       patchAttendance();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

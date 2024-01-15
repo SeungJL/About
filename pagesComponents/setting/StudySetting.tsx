@@ -41,17 +41,14 @@ function StudySetting() {
     }
   );
 
-  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(
-    dayjs().add(1, "day"),
-    {
-      onSuccess() {
-        setTimeout(() => {
-          refetch();
-        }, 200);
-      },
-    }
-  );
-
+  const { mutateAsync: decideSpace } = useStudyResultDecideMutation(dayjs(), {
+    onSuccess() {
+      setTimeout(() => {
+        refetch();
+      }, 200);
+    },
+  });
+  console.log(studyDateStatus);
   useEffect(() => {
     if (!studyVoteData) return;
     const participations = studyVoteData;
@@ -60,7 +57,7 @@ function StudySetting() {
       participations?.length &&
       participations[0].status === "pending" &&
       studyDateStatus === "today" &&
-      dayjs().hour() === 23
+      (dayjs().hour() === 9 || dayjs().hour() === 10)
     ) {
       decideSpace();
     }
