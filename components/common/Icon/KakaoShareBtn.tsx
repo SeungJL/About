@@ -3,7 +3,6 @@ import { faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { SQUARE_RANDOM_IMAGE } from "../../../constants/image/imageUrl";
 import { REVIEW_DATA } from "../../../storage/Review";
 
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
@@ -43,7 +42,7 @@ function KakaoShareBtn({
     if (type === "gather" && !img) return;
     if (window.Kakao) {
       const options =
-        type === "gather"
+        type === "gather" || type === "study"
           ? {
               container: "#kakao-share-button",
               objectType: "feed",
@@ -59,14 +58,14 @@ function KakaoShareBtn({
                 },
               },
             }
-          : type === "study"
+          : type === "study2"
           ? {
               container: "#kakao-share-button",
               objectType: "location",
               content: {
                 title,
                 description: subtitle,
-                imageUrl: SQUARE_RANDOM_IMAGE[random_num],
+                imageUrl: img,
                 link: {
                   mobileWebUrl: url,
                   webUrl: url,

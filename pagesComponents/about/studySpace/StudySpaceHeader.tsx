@@ -13,9 +13,10 @@ const STUDY_RANDOM_IMGAGE_LENGTH = 6;
 interface IStudySpaceHeader {
   title: string;
   place: IPlace;
+  coverImgUrl: string;
 }
 
-function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
+function StudySpaceHeader({ title, place, coverImgUrl }: IStudySpaceHeader) {
   const router = useRouter();
 
   const url = WEB_URL + router?.asPath;
@@ -27,7 +28,8 @@ function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
   const onClick = () => {
     router.push(prevPageUrl || "/about");
   };
- 
+
+  console.log(coverImgUrl);
   return (
     <Layout>
       <div onClick={onClick}>
@@ -44,7 +46,7 @@ function StudySpaceHeader({ title, place }: IStudySpaceHeader) {
               title="같이 스터디 해요~!"
               subtitle={place.fullname}
               location={location?.location || place?.locationText}
-              img={`/studyRandom/study${randomNum + 1}.jpg`}
+              img={coverImgUrl || `/studyRandom/study${randomNum + 1}.jpg`}
               url={url}
             />
           )}

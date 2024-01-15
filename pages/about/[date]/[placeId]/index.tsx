@@ -62,7 +62,11 @@ function StudySpace() {
       {participation ? (
         <>
           <Layout>
-            <StudySpaceHeader title={place.brand} place={place} />
+            <StudySpaceHeader
+              title={place.brand}
+              place={place}
+              coverImgUrl={coverImageUrl}
+            />
             <StudySpaceCover coverImageUrl={coverImageUrl} place={place} />
             {!isPrivate && <StudySpaceOverview place={place} info={info} />}
             <StudySpaceVoteOverview
