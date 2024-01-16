@@ -44,7 +44,7 @@ function AdminLocationSelector({
 
   return (
     <ButtonCheckNav
-      buttonList={[...RegisterLocation, "동대문"]}
+      buttonList={[...RegisterLocation]}
       selectedButton={category}
       setSelectedButton={setCategory}
     />

@@ -39,7 +39,7 @@ export const LOCATION_OPEN_DATE = {
   강남: "2023-09-04",
 };
 
-export const RegisterLocation = [...LOCATION_USE_ALL, "기타"];
+export const RegisterLocation = [...LOCATION_ALL, "기타"];
 
 export const LOCATION_MEMBER_CNT: {
   [key in Location]: { member: number; new: number };

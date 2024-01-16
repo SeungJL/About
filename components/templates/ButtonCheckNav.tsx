@@ -17,7 +17,7 @@ function ButtonCheckNav({
   isLineBtn,
   isWrap,
 }: IButtonCheckNav) {
-  const filtered = buttonList.filter((item) => item !== "마포");
+  const filtered = buttonList.filter((item) => true);
   return (
     <Layout>
       <ButtonGroup
