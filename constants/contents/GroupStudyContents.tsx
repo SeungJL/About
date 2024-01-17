@@ -35,6 +35,7 @@ export const GROUP_STUDY_SUB_CATEGORY = {
     "투두메이트",
     "블로그",
     "다이어리",
+    "시사/경제",
     "공부인증/열품타",
     "습관",
     "독서",
