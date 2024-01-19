@@ -582,19 +582,19 @@ export const WIN_RECORD: {
     present: "스타벅스 깊티",
   },
   {
-    name: "아연",
+    name: "이아",
     date: "1/18",
     reason: "스토어 당첨 선물",
     present: "베스킨라빈스 깊티",
   },
   {
-    name: "아연",
+    name: "이아",
     date: "1/18",
     reason: "스토어 당첨 선물",
     present: "베스킨라빈스 깊티",
   },
   {
-    name: "류하경",
+    name: "하경",
     date: "1/18",
     reason: "스토어 당첨 선물",
     present: "투썸 아메리카노 깊티",
