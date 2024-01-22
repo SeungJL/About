@@ -23,7 +23,7 @@ export const LOCATION_ALL = [
 export const LOCATION_CONVERT = {
   수원: "수원",
   양천: "양천/영등포",
-  안양: "안양",
+  안양: "안양/과천/군포",
   강남: "강남",
   동대문: "동대문/성북",
   마포: "마포/서대문",
