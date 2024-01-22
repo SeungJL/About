@@ -243,7 +243,6 @@ export const ModalBodyNavTwo = ({
 
 const SIZE_HEIGHT_MAP = {
   xxl: "530px",
-
   xl: "370px",
   lg: "310px",
   md: "240px",

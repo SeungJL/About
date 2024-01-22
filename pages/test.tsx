@@ -13,11 +13,13 @@ import { useMonthCalcMutation } from "../hooks/admin/mutation";
 import { MutationOptions } from "../types/reactTypes";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2023-11-01"),
-    dayjs("2024-01-10"),
+    dayjs("2024-01-15"),
+    dayjs("2024-01-21"),
     null,
-    "수원"
+    "안양"
   );
+
+  console.log(3, data);
 
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
