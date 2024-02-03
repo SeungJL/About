@@ -40,8 +40,7 @@ function AboutGather() {
         <Container>
           {gatherContentArr
             ? gatherContentArr
-                .slice(-3)
-                .reverse()
+                .slice(0, 3)
                 .map((gather, idx) => (
                   <AboutGatherBlock
                     gather={gather}

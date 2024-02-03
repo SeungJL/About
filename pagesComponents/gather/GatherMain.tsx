@@ -40,7 +40,7 @@ function GatherMain({ category }: IGatherMain) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, gatherAll, isLoading]);
 
-  const gathers = gatherData && [...gatherData].reverse();
+  const gathers = gatherData && [...gatherData];
 
   return (
     <Layout>
