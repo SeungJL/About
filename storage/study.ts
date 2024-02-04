@@ -35,6 +35,8 @@ export const YANG_신월동 = "6551d5bdd01680084c5c6a90";
 export const YANG_양천구청역 = "6551d2b3d01680084c5c6a8f";
 export const YANG_자유신청 = "6437eb3fab537b843c6143ae";
 export const YANG_화곡역 = "658fbbc2113d3959183e36c2";
+export const YANG_발산역 = "65bfac0a7d1dd938049ed19e";
+export const YANG_목동점 = "65bfab8b7d1dd938049ed19d";
 
 //안양
 export const ANYANG_커피인더스트리 = "6456ef2820352b2d87582959";
@@ -71,6 +73,7 @@ export const DONG_성신여대 = "6597bf26a11634850ed506d6";
 export const DONG_동대문역 = "6597bed1a11634850ed506d5";
 export const DONG_혜화역 = "6597be44a11634850ed506d3";
 export const DONG_혜화역2 = "6597be67a11634850ed506d4";
+export const DONG_화랑대역 = "65bfac8f7d1dd938049ed19f";
 
 export const PLACE_TO_NAME = {
   //전체
@@ -108,6 +111,8 @@ export const PLACE_TO_NAME = {
   [YANG_신월동]: "코나빈스",
   [YANG_양천구청역]: "시나본",
   [YANG_화곡역]: "투썸플레이스",
+  [YANG_목동점]: "스타벅스",
+  [YANG_발산역]: "스타벅스",
 
   //안양
   [ANYANG_커피인더스트리]: "커피인더스트리",
@@ -140,6 +145,7 @@ export const PLACE_TO_NAME = {
   [DONG_동대문역]: "D CAFE",
   [DONG_혜화역]: "캐치카페",
   [DONG_혜화역2]: "커피빈",
+  [DONG_화랑대역]: "마르티",
 };
 
 export const PLACE_TO_LOCATION = {
@@ -173,6 +179,8 @@ export const PLACE_TO_LOCATION = {
   [YANG_몽글]: "양천",
   [YANG_카페꼼마]: "양천",
   [YANG_화곡역]: "양천",
+  [YANG_발산역]: "양천",
+  [YANG_목동점]: "양천",
   [YANG_자유신청]: "양천",
   //안양
   [ANYANG_숨맑은집]: "안양",
@@ -204,6 +212,7 @@ export const PLACE_TO_LOCATION = {
   [DONG_성신여대]: "동대문",
   [DONG_동대문역]: "동대문",
   [DONG_혜화역]: "동대문",
+  [DONG_화랑대역]: "동대문",
   [DONG_혜화역2]: "동대문",
 };
 
