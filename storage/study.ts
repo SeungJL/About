@@ -17,7 +17,7 @@ export const SUWAN_행궁동 = "6559f7e8e5c9066b9b8e7d2a";
 export const SUWAN_망포역 = "6559f61fe5c9066b9b8e7d29";
 export const SUWAN_고색역 = "654ca7770f651095a2e41845";
 export const SUWAN_성균관대역 = "654ca7b50f651095a2e41846";
-
+export const SUWAN_워터쿨러 = "65bfc9347d1dd938049ed1a2";
 export const SUWAN_광교엘리웨이 = "654ca92f0f651095a2e41848";
 
 //양천
@@ -92,7 +92,7 @@ export const PLACE_TO_NAME = {
   [SUWAN_고색역]: "에이티씨",
   [SUWAN_성균관대역]: "스타벅스",
   [SUWAN_광교엘리웨이]: "책발전소",
-
+  [SUWAN_워터쿨러]: "워터쿨러",
   [SUWAN_망포역]: "스타벅스",
   [SUWAN_행궁동]: "행궁동",
   [SUWAN_광교중앙역]: "아티제",
@@ -163,6 +163,7 @@ export const PLACE_TO_LOCATION = {
   [SUWAN_경기대]: "수원",
   [SUWAN_자유신청]: "수원",
   [SUWAN_고색역]: "수원",
+  [SUWAN_워터쿨러]: "수원",
 
   [SUWAN_성균관대역]: "수원",
   [SUWAN_광교엘리웨이]: "수원",
