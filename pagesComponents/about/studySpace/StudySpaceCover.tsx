@@ -11,7 +11,7 @@ interface IStudySpaceCover {
 }
 
 function StudySpaceCover({ coverImageUrl, place }: IStudySpaceCover) {
-  const logo = STUDY_CAFE_LOGO?.[place?.fullname];
+  const logo = STUDY_CAFE_LOGO?.[place?.brand];
 
   return (
     <Layout>
