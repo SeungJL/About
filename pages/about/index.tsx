@@ -17,7 +17,6 @@ function About() {
   const voteDate = useRecoilValue(voteDateState);
   const participations = useRecoilValue(participationsState);
 
-  
   var inappdeny_exec_vanillajs = (callback) => {
     if (document.readyState !== "loading") {
       callback();
@@ -88,7 +87,7 @@ function About() {
     }
   });
 
- return (
+  return (
     <>
       <Setting />
       <Layout>
