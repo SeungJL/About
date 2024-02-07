@@ -78,7 +78,6 @@ export const getStudySecondRecommendation = (
       else if (pair[1] === startPlace) placesAtDistance.add(pair[0]);
     });
   }
-
   return Array.from(placesAtDistance);
 };
 

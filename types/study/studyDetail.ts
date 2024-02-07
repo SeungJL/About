@@ -46,6 +46,7 @@ export interface IPlace {
   location: string;
   time?: string;
   locationText?: string;
+  locationDetail?: string;
   coverImage?: string;
 }
 

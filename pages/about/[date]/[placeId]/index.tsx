@@ -35,20 +35,21 @@ function StudySpace() {
   const isPrivate = participation?.place.brand === "자유 신청";
 
   const { place, attendences, status } = participation || {};
-  console.log(studyDateStatus);
+  
   const filtered =
     studyDateStatus === "not passed"
       ? attendences
       : attendences?.filter((who) => who.firstChoice);
 
-  const info = place?.locationText
-    ? {
-        id: "1",
-        location: place?.locationText,
-        time: place?.time,
-        image: place?.coverImage,
-      }
-    : STUDY_SPACE_INFO.find((info) => info.id === place?._id);
+  const info =
+    place?.locationText || place?.locationDetail
+      ? {
+          id: "1",
+          location: place?.locationText || place?.locationDetail,
+          time: place?.time,
+          image: place?.coverImage,
+        }
+      : STUDY_SPACE_INFO.find((info) => info.id === place?._id);
   const coverImageUrl =
     info && (info?.image || `/studyRandom/study${randomNum + 1}.jpg`);
   const absences = participation?.absences;
