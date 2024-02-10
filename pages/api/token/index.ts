@@ -10,12 +10,9 @@ export default async function handler(
 
   const secret = process.env.NEXTAUTH_SECRET;
 
-  await dbConnect();
-
   switch (method) {
     case "GET":
       const jwt = await getToken({ req, secret, raw: true });
-   
       res.status(200).json(jwt);
       break;
   }

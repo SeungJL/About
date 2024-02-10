@@ -14,7 +14,7 @@ function SectionHeader({ title, subTitle, url }: ISectionHeader) {
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
   const onClick = () => {
-    setPrevPageUrl("/about");
+    setPrevPageUrl("/home");
     router.push(url);
   };
   return (

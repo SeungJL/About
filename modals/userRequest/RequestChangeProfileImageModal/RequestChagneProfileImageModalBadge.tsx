@@ -43,7 +43,7 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
       category: "배지",
       writer: session?.user.name as string,
       title: !!selectBadge ? `${selectBadge}로 변경 신청` : "배지 해제 신청",
-      content: session?.uid as string,
+      content: session?.user?.uid as string,
     });
     setIsModal(false);
   };

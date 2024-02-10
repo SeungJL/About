@@ -1,5 +1,6 @@
 import Image from "next/image";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore from "swiper";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ImageContainer } from "../ImageSlider";
 
@@ -12,7 +13,7 @@ interface IImageSliderReview {
 function ImageSliderReview({ imageContainer }: IImageSliderReview) {
   return (
     <Swiper
-      lazy={true}
+      // lazy={true}
       navigation
       pagination={true}
       style={{ width: "100%", height: "100%" }}
@@ -22,7 +23,8 @@ function ImageSliderReview({ imageContainer }: IImageSliderReview) {
           <Image
             src={`${image}`}
             alt={`Slide ${index}`}
-            layout="fill"
+            fill={true}
+            sizes="54px"
             priority={index === 0}
           />
         </SwiperSlide>

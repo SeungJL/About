@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; // for the pagination dots
+import { Navigation, Pagination } from "swiper/modules";
 import { IGather } from "../../../types/page/gather";
 import { IGroupStudy } from "../../../types/page/groupStudy";
 import { IUser } from "../../../types/user/user";
@@ -25,7 +26,7 @@ export type ImageContainer =
 
 export interface IImageSliderItem {
   image: string;
-  
+
   title: string;
   id: number;
 }

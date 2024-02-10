@@ -3,9 +3,9 @@ import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import { useNoticeActiveLogQuery } from "../../hooks/user/sub/interaction/queries";
-import NoticeActive from "../../pagesComponents/notice/NoticeActive";
-import NoticeItem from "../../pagesComponents/notice/NoticeItem";
-import NoticeNav from "../../pagesComponents/notice/NoticeNav";
+import NoticeActive from "../../pageTemplates/notice/NoticeActive";
+import NoticeItem from "../../pageTemplates/notice/NoticeItem";
+import NoticeNav from "../../pageTemplates/notice/NoticeNav";
 
 function Notice() {
   const [isNotice, setIsNotice] = useState(true);

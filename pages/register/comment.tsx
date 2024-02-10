@@ -5,8 +5,8 @@ import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import ProgressStatus from "../../components/templates/ProgressStatus";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 import { useSession } from "next-auth/react";
 import PageLayout from "../../components/layout/PageLayout";
@@ -43,7 +43,7 @@ function Comment() {
       setLocalStorageObj(REGISTER_INFO, null);
       resetQueryData(USER_INFO);
       completeToast("free", "변경되었습니다.");
-      router.push(`/about`);
+      router.push(`/home`);
     },
   });
 
@@ -93,7 +93,7 @@ function Comment() {
             <Item
               key={idx}
               onClick={() => setIndex(idx)}
-              isSelected={idx === index}
+              $isSelected={idx === index}
             >
               {item}
             </Item>
@@ -118,7 +118,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Item = styled.div<{ isSelected: boolean }>`
+const Item = styled.div<{ $isSelected: boolean }>`
   width: 100%;
   border-radius: var(--border-radius-sub);
   display: flex;
@@ -126,9 +126,10 @@ const Item = styled.div<{ isSelected: boolean }>`
   align-items: center;
   height: 48px;
   margin-bottom: var(--margin-sub);
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
+  color: ${(props) =>
+    props.$isSelected ? "var(--font-h1)" : "var(--font-h4)"};
   border: ${(props) =>
-    props.isSelected ? "var(--border-thick)" : "1.5px solid var(--font-h6)"};
+    props.$isSelected ? "var(--border-thick)" : "1.5px solid var(--font-h6)"};
 `;
 
 const Input = styled.input`

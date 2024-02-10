@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
@@ -13,11 +14,12 @@ import {
 } from "../../helpers/storageHelpers";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
-import RegisterCost from "../../pagesComponents/register/fee/RegisterCost";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterCost from "../../pageTemplates/register/fee/RegisterCost";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 function Fee() {
+  const { data, update } = useSession();
   const errorToast = useErrorToast();
   const router = useRouter();
 
@@ -25,6 +27,7 @@ function Fee() {
 
   const { mutate } = useUserRegisterMutation({
     onSuccess() {
+      update({ role: "waiting" });
       setLocalStorageObj(REGISTER_INFO, null);
       router.push(`/register/success`);
     },

@@ -47,7 +47,8 @@ export type Role =
   | "manager"
   | "previliged"
   | "resting"
-  | "enthusiastic";
+  | "enthusiastic"
+  | "newUser";
 
 export interface IRest {
   type: string;

@@ -4,10 +4,10 @@ import styled from "styled-components";
 import Header from "../../../components/layout/Header";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
 import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";
-import StoreDetailCover from "../../../pagesComponents/store/detail/StoreDetailCover";
-import StoreDetailDetails from "../../../pagesComponents/store/detail/StoreDetailDetails";
-import StoreDetailNav from "../../../pagesComponents/store/detail/StoreDetailNav";
-import StoreDetailOverview from "../../../pagesComponents/store/detail/StoreDetailOverview";
+import StoreDetailCover from "../../../pageTemplates/store/detail/StoreDetailCover";
+import StoreDetailDetails from "../../../pageTemplates/store/detail/StoreDetailDetails";
+import StoreDetailNav from "../../../pageTemplates/store/detail/StoreDetailNav";
+import StoreDetailOverview from "../../../pageTemplates/store/detail/StoreDetailOverview";
 import { transferStoreGiftDataState } from "../../../recoil/transferDataAtoms";
 
 const dayjs = require("dayjs");

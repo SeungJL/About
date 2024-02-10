@@ -91,7 +91,7 @@ function EventCalendar() {
 
   return (
     <PageLayout>
-      <Header title="이벤트 캘린더" url="/about" />
+      <Header title="이벤트 캘린더" url="/home" />
       <Title>
         <MonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
       </Title>

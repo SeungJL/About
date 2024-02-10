@@ -8,8 +8,8 @@ import PageLayout from "../../components/layout/PageLayout";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import { setLocalStorageObj } from "../../helpers/storageHelpers";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import { Gender, IUserRegisterFormWriting } from "../../types/user/user";
@@ -49,13 +49,13 @@ function Gender() {
         </RegisterOverview>
         <ButtonNav>
           <Button
-            isSelected={gender === "남성"}
+            $isSelected={gender === "남성"}
             onClick={() => setGender("남성")}
           >
             남성
           </Button>
           <Button
-            isSelected={gender === "여성"}
+            $isSelected={gender === "여성"}
             onClick={() => setGender("여성")}
           >
             여성
@@ -73,15 +73,16 @@ const ButtonNav = styled.nav`
   justify-content: space-between;
 `;
 
-const Button = styled.button<{ isSelected: boolean }>`
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
+const Button = styled.button<{ $isSelected: boolean }>`
+  color: ${(props) =>
+    props.$isSelected ? "var(--font-h1)" : "var(--font-h4)"};
   border-radius: var(--border-radius-sub);
   flex: 0.49;
   height: 48px;
   font-size: 14px;
-  font-weight: ${(props) => props.isSelected && "600"};
+  font-weight: ${(props) => props.$isSelected && "600"};
   border: ${(props) =>
-    props.isSelected ? "var(--border-thick)" : "var(--border-main)"};
+    props.$isSelected ? "var(--border-thick)" : "var(--border-main)"};
 `;
 
 export default Gender;

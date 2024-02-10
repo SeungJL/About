@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import RecordAnalysisGraph from "../../pagesComponents/record/analysis/RecordAnalysisGraph";
-import RecordAnalysisHeader from "../../pagesComponents/record/analysis/RecordAnalysisHeader";
-import RecordAnalysisOverview from "../../pagesComponents/record/analysis/RecordAnalysisOverview";
-import RecordAnalysisSkeleton from "../../pagesComponents/record/analysis/RecordAnalysisSkeleton";
-import RecordAnalysisSummary from "../../pagesComponents/record/analysis/RecordAnalysisSummary";
+import RecordAnalysisGraph from "../../pageTemplates/record/analysis/RecordAnalysisGraph";
+import RecordAnalysisHeader from "../../pageTemplates/record/analysis/RecordAnalysisHeader";
+import RecordAnalysisOverview from "../../pageTemplates/record/analysis/RecordAnalysisOverview";
+import RecordAnalysisSkeleton from "../../pageTemplates/record/analysis/RecordAnalysisSkeleton";
+import RecordAnalysisSummary from "../../pageTemplates/record/analysis/RecordAnalysisSummary";
 
 import { isRecordDetailLoadingState } from "../../recoil/loadingAtoms";
 function Detail() {

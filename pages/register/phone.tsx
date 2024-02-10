@@ -11,8 +11,8 @@ import {
   getLocalStorageObj,
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 function Phone() {
   const router = useRouter();

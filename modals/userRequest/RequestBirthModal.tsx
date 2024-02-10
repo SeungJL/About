@@ -37,7 +37,7 @@ function RequestBirthModal({ setIsModal }: IModal) {
       writer: session?.user.name,
       category: "건의",
       title: "생일 비공개 신청",
-      content: session?.uid as string,
+      content: session?.user?.uid as string,
     });
   };
 

@@ -1,10 +1,9 @@
 import dayjs, { Dayjs } from "dayjs";
 
 export const getCurrentDate = () => dayjs().startOf("day");
-export const getCurrentHour = () => dayjs().hour();
 
 export const now = () => dayjs();
-export const currentHour = () => dayjs().hour();
+export const getHour = () => dayjs().hour();
 export const getMonth = () => dayjs().month();
 
 export const strToDate = (dateStr: string) => {

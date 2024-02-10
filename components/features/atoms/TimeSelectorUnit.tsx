@@ -32,7 +32,7 @@ function TimeSelectorUnit({
       <Select
         name="hour"
         value={`${hourStr}:${minuteStr}`}
-        placeholder="시간"
+        // placeholder="시간"
         onChange={onChangeTime}
         disabled={disabled}
       >

@@ -27,7 +27,7 @@ function Chart({ type, user }: IChart) {
   const [attendMax, setAttendMax] = useState(5);
   const [isLoading, setIsLoading] = useState(true);
 
-  const Uid = user?.uid || session?.uid;
+  const Uid = user?.uid || session?.user?.uid;
 
   const monthXaxis: string[] = [];
   for (let i = getMonth() - 2; i <= getMonth() + 1; i++) {

@@ -13,8 +13,8 @@ import {
   getLocalStorageObj,
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import { IMajor } from "../../types/user/user";
@@ -85,7 +85,7 @@ function Major() {
               {item.details?.map((detail, idx) => (
                 <Content
                   key={idx}
-                  isSelected={Boolean(
+                  $isSelected={Boolean(
                     majors?.find(
                       (majors) =>
                         majors.detail === detail &&
@@ -121,15 +121,15 @@ const SectionContent = styled.div`
   flex-wrap: wrap;
 `;
 
-const Content = styled.button<{ isSelected: boolean }>`
+const Content = styled.button<{ $isSelected: boolean }>`
   padding: var(--padding-min) var(--padding-md);
   font-size: 12px;
   border-radius: 100px;
   border: 1px solid var(--font-h5);
   margin-right: var(--margin-md);
   margin-bottom: var(--margin-md);
-  background-color: ${(props) => props.isSelected && "var(--color-mint)"};
-  color: ${(props) => props.isSelected && "white"};
+  background-color: ${(props) => props.$isSelected && "var(--color-mint)"};
+  color: ${(props) => props.$isSelected && "white"};
 `;
 
 export default Major;

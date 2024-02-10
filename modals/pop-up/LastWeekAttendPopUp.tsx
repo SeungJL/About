@@ -18,7 +18,7 @@ import {
   useAdminStudyRecordQuery,
 } from "../../hooks/admin/quries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import PointScoreBar from "../../pagesComponents/point/pointScore/PointScoreBar";
+import PointScoreBar from "../../pageTemplates/point/pointScore/PointScoreBar";
 import { locationState } from "../../recoil/userAtoms";
 
 import { IModal } from "../../types/reactTypes";
@@ -193,8 +193,8 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
               뒤에 경고를 받습니다.
             </div>
           ) : (
-            <div>p
-              🎉잘 하고 있어요🎉
+            <div>
+              p 🎉잘 하고 있어요🎉
               <br />
               이번주도 열심히 파이팅~!
             </div>

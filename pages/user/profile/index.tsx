@@ -12,7 +12,7 @@ import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import { useStudyArrivedCntQuery } from "../../../hooks/study/queries";
-import PointScoreBar from "../../../pagesComponents/point/pointScore/PointScoreBar";
+import PointScoreBar from "../../../pageTemplates/point/pointScore/PointScoreBar";
 import {
   isProfileEditState,
   prevPageUrlState,

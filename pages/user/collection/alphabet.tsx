@@ -76,7 +76,7 @@ function CollectionAlphabet() {
   useEffect(() => {
     if (isLoading) return;
     const findItem = userAlphabetAll.find(
-      (who) => who.user.uid === session?.uid
+      (who) => who.user.uid === session?.user?.uid
     );
 
     if (
@@ -87,13 +87,13 @@ function CollectionAlphabet() {
 
     if (findItem) {
       userAlphabetAll.sort((a, b) => {
-        if (a?.user?.uid === session?.uid) return -1;
-        if (b?.user?.uid === session?.uid) return 1;
+        if (a?.user?.uid === session?.user?.uid) return -1;
+        if (b?.user?.uid === session?.user?.uid) return 1;
         return 0;
       });
     }
     setMembers(userAlphabetAll);
-  }, [isLoading, session?.uid, userAlphabetAll]);
+  }, [isLoading, session?.user?.uid, userAlphabetAll]);
 
   const onClickProfile = (user: IUser) => {
     setUserData(user);
@@ -206,7 +206,7 @@ function CollectionAlphabet() {
                         </div>
                       </UserAlphabets>
                     </Info>
-                    {who.user.uid === session?.uid ? (
+                    {who.user.uid === session?.user?.uid ? (
                       <Button
                         colorScheme="telegram"
                         size="xs"

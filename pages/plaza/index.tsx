@@ -8,9 +8,9 @@ import ModalPortal from "../../components/modals/ModalPortal";
 import { usePlazaQuery } from "../../hooks/sub/plaza/queries";
 
 import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
-import Category from "../../pagesComponents/plaza/main/Category";
-import PlazaBlock from "../../pagesComponents/plaza/main/PlazaBlock";
-import { PlazaLayout } from "../../pagesComponents/plaza/main/plazaStyles";
+import Category from "../../pageTemplates/plaza/main/Category";
+import PlazaBlock from "../../pageTemplates/plaza/main/PlazaBlock";
+import { PlazaLayout } from "../../pageTemplates/plaza/main/plazaStyles";
 import { category } from "../../types/page/plaza";
 
 function Plaza() {

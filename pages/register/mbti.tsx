@@ -13,8 +13,8 @@ import {
   getLocalStorageObj,
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { IUserRegisterFormWriting } from "../../types/user/user";
 
@@ -54,7 +54,7 @@ function Mbti() {
           {MBTI?.map((item, idx) => (
             <Button
               key={idx}
-              isSelected={mbti === item}
+              $isSelected={mbti === item}
               onClick={() => setMbti(item)}
             >
               {item}
@@ -79,15 +79,16 @@ const ButtonNav = styled.nav`
   gap: var(--margin-md);
 `;
 
-const Button = styled.button<{ isSelected: boolean }>`
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
+const Button = styled.button<{ $isSelected: boolean }>`
+  color: ${(props) =>
+    props.$isSelected ? "var(--font-h1)" : "var(--font-h4)"};
   border-radius: var(--border-radius-sub);
   flex: 0.49;
   height: 48px;
   font-size: 14px;
-  font-weight: ${(props) => props.isSelected && "600"};
+  font-weight: ${(props) => props.$isSelected && "600"};
   border: ${(props) =>
-    props.isSelected ? "var(--border-thick)" : "var(--border-main)"};
+    props.$isSelected ? "var(--border-thick)" : "var(--border-main)"};
 `;
 
 export default Mbti;

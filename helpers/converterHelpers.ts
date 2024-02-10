@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
 import { SCHEME_TO_COLOR } from "../constants/styles";
-import { GatherStatus } from "../types/page/gather";
+import {
+  ActiveLocation,
+  LocationEn,
+} from "../types/serviceTypes/locationTypes";
 
 dayjs.locale("ko");
 
@@ -26,3 +29,34 @@ export const birthToDayjs = (birth: string) =>
 export const schemeToColor = (scheme: string) =>
   SCHEME_TO_COLOR[scheme] || scheme;
 
+type ReturnLocationLang<T> = T extends "kr" ? ActiveLocation : LocationEn;
+
+export const convertLocationLangTo = <T extends "kr" | "en">(
+  location: ActiveLocation | LocationEn,
+  to: T
+): ReturnLocationLang<T> => {
+  const krToEnMapping: Record<ActiveLocation, LocationEn> = {
+    수원: "suw",
+    강남: "gan",
+    동대문: "don",
+    안양: "any",
+    양천: "yan",
+  };
+
+  const enToKrMapping: Record<LocationEn, ActiveLocation> = {
+    suw: "수원",
+    gan: "강남",
+    don: "동대문",
+    any: "안양",
+    yan: "양천",
+  };
+
+  if (to === "kr") {
+    return enToKrMapping[location as LocationEn] as ReturnLocationLang<T>;
+  }
+  if (to === "en") {
+    return krToEnMapping[location as ActiveLocation] as ReturnLocationLang<T>;
+  }
+
+  throw new Error("Invalid 'to' parameter or location type");
+};

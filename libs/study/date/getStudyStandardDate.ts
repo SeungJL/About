@@ -1,0 +1,8 @@
+import dayjs from "dayjs";
+import { STUDY_DATE_START_HOUR } from "../../../constants2/serviceConstants/studyConstants/studyTimeConstant";
+import { dayjsToStr, getHour } from "../../../utils/dateTimeUtils";
+
+export const getStudyStandardDate = () => {
+  const extraCnt = getHour() > STUDY_DATE_START_HOUR ? 1 : 0;
+  return dayjsToStr(dayjs().add(extraCnt, "day"));
+};

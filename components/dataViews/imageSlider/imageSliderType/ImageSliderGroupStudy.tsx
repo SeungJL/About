@@ -50,7 +50,8 @@ function ImageSliderGroupStudy({ imageContainer }: IImageSliderGroupStudy) {
               {groupStudy?.image && (
                 <Image
                   src={groupStudy?.image}
-                  layout="fill"
+                  fill={true}
+                  sizes="130px"
                   alt="groupStudyImage"
                   priority={index < 2}
                 />

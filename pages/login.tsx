@@ -36,7 +36,6 @@ const Login: NextPage<{
   const failToast = useFailToast();
   const router = useRouter();
   const status = router.query?.status;
-
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
 
   const [loading, setLoading] = useState(false);
@@ -47,7 +46,8 @@ const Login: NextPage<{
   const { isLoading } = useUserRegisterFormsQuery({
     enabled: !!session,
     onSuccess(data) {
-      if (data?.find((who) => who.uid === session.uid)) setIsApplicant(true);
+      if (data?.find((who) => who.uid === session.user.uid))
+        setIsApplicant(true);
     },
   });
 
@@ -60,10 +60,11 @@ const Login: NextPage<{
 
   const customSignin = async (type: "member" | "guest") => {
     const provider = type === "member" ? kakaoProvider.id : "guest";
+
     setLoading(true);
     if (provider === "guest") {
       setIsModal(false);
-      signIn(provider, { callbackUrl: `${window.location.origin}/about` });
+      signIn(provider, { callbackUrl: `${window.location.origin}/home` });
       return;
     }
     if (isLoading) await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -74,11 +75,10 @@ const Login: NextPage<{
     }
 
     //카카오 로그인시 무조건 유저 테이블에는 데이터가 생성 또는 업데이트 된다.
-    if (session) router.push(`/about?status=login`);
-    else
-      signIn(provider, {
-        callbackUrl: `${window.location.origin}/about?status=login`,
-      });
+
+    signIn(provider, {
+      callbackUrl: `${window.location.origin}/home?status=login`,
+    });
 
     setLoading(false);
   };

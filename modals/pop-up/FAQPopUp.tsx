@@ -17,7 +17,7 @@ function FAQPopUp({ setIsModal }: IModal) {
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
   const onSubmit = () => {
-    setPrevPageUrl("/about");
+    setPrevPageUrl("/home");
     router.push(`/faq`);
   };
 

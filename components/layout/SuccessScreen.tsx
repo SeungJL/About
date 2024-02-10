@@ -18,7 +18,7 @@ function SuccessScreen({ children, url }: ISuccessScreen) {
 
   const onClicked = () => {
     setIsCompleteModal(false);
-    router.push(url || `/about`);
+    router.push(url || `/home`);
   };
 
   return (

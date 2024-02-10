@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RecordMonthNav from "../../components/features/atoms/MonthNav";
 import Header from "../../components/layout/Header";
-import RecordDetail from "../../pagesComponents/record/detail/RecordDetail";
-import RecordCalendar from "../../pagesComponents/record/RecordCalendar";
-import RecordCalendarSetting from "../../pagesComponents/record/RecordCalendarSetting";
-import RecordLocationCategory from "../../pagesComponents/record/RecordLocationCategory";
+import RecordDetail from "../../pageTemplates/record/detail/RecordDetail";
+import RecordCalendar from "../../pageTemplates/record/RecordCalendar";
+import RecordCalendarSetting from "../../pageTemplates/record/RecordCalendarSetting";
+import RecordLocationCategory from "../../pageTemplates/record/RecordLocationCategory";
 
-import RecordNavigation from "../../pagesComponents/record/RecordNavigation";
-import RecordOverview from "../../pagesComponents/record/RecordOverview";
-import RecordSkeleton from "../../pagesComponents/record/RecordSkeleton";
+import RecordNavigation from "../../pageTemplates/record/RecordNavigation";
+import RecordOverview from "../../pageTemplates/record/RecordOverview";
+import RecordSkeleton from "../../pageTemplates/record/RecordSkeleton";
 
 import { IArrivedData } from "../../types/study/study";
 

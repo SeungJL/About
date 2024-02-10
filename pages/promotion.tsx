@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Header from "../components/layout/Header";
-import PromotionApply from "../pagesComponents/promotion/PromotionApply";
-import PromotionContent from "../pagesComponents/promotion/PromotionContent";
-import PromotionDetail from "../pagesComponents/promotion/PromotionDetail";
-import PromotionTitle from "../pagesComponents/promotion/PromotionTitle";
+import PromotionApply from "../pageTemplates/promotion/PromotionApply";
+import PromotionContent from "../pageTemplates/promotion/PromotionContent";
+import PromotionDetail from "../pageTemplates/promotion/PromotionDetail";
+import PromotionTitle from "../pageTemplates/promotion/PromotionTitle";
 
 function Promotion() {
   return (

@@ -7,8 +7,8 @@ import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
-import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
 
 function GroupStudyWritingHashTag() {

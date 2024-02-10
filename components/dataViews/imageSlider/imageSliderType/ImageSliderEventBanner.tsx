@@ -32,7 +32,7 @@ function ImageSliderEventBanner({ imageContainer }: IImageSliderEventBanner) {
         <SwiperSlide key={index}>
           <Container>
             <AvatarColorItem>
-              <Image src={item} layout="fill" alt="eventImg" />
+              <Image src={item} fill={true} sizes="400px" alt="eventImg" />
             </AvatarColorItem>
           </Container>
         </SwiperSlide>

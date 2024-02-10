@@ -4,11 +4,14 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import "nprogress/nprogress.css";
+// import "nprogress/nprogress.css";
 import { useMemo } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
+
 import Layout from "../components/base/Layout";
+import BottomNav from "../components2/BottomNav";
+
 import "../styles/globals.css";
 import "../styles/variable.css";
 import theme from "../theme";
@@ -49,6 +52,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <ChakraProvider theme={theme}>
               <Layout>
                 <Component {...pageProps} />
+                <BottomNav/>
               </Layout>
             </ChakraProvider>
           </RecoilRoot>

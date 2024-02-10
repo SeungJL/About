@@ -13,15 +13,15 @@ import {
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
 import { checkIsKorean } from "../../helpers/validHelpers";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { IUserRegisterFormWriting } from "../../types/user/user";
 
 function Name() {
   const router = useRouter();
   const { data: session } = useSession();
-
+  console.log(session);
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
   const isProfileEdit = useRecoilValue(isProfileEditState);

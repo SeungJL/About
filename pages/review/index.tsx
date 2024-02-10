@@ -15,10 +15,10 @@ import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherAllSummaryQuery } from "../../hooks/gather/queries";
-import ReviewContent from "../../pagesComponents/review/ReviewContent";
-import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
-import ReviewItemHeader from "../../pagesComponents/review/ReviewItemHeader";
-import ReviewStatus from "../../pagesComponents/review/ReviewStatus";
+import ReviewContent from "../../pageTemplates/review/ReviewContent";
+import ReviewGatherSummary from "../../pageTemplates/review/ReviewGatherSummary";
+import ReviewItemHeader from "../../pageTemplates/review/ReviewItemHeader";
+import ReviewStatus from "../../pageTemplates/review/ReviewStatus";
 import {
   prevPageUrlState,
   reviewContentIdState,

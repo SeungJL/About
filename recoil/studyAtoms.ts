@@ -16,7 +16,7 @@ export const voteDateState = atom<Dayjs>({
 });
 
 export const studyDateStatusState = selector<StudyDateStatus>({
-  key: "studyDateStatus",
+  key: "studyDateStatus2",
   get: ({ get }) => {
     const voteDate = get(voteDateState);
     if (voteDate) return getStudyDate(voteDate);
@@ -46,7 +46,7 @@ export const myVotingState = selector<IParticipation[]>({
 });
 
 export const myStudyState = selector<IParticipation>({
-  key: "myStudy",
+  key: "myStudy2",
   get: ({ get }) => {
     const studyDateStatus = get(studyDateStatusState);
     const myVoting = get(myVotingState);

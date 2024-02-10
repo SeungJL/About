@@ -81,7 +81,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
       category: "건의",
       writer: session?.user.name,
       title: "운영진 지원",
-      content: session?.uid as string,
+      content: session?.user?.uid as string,
     };
     mutate(data);
   };

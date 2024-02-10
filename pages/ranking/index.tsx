@@ -14,10 +14,10 @@ import {
 } from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
-import RankingBar from "../../pagesComponents/ranking/RankingBar";
-import RankingCategoryBar from "../../pagesComponents/ranking/RankingCategory";
-import RankingMembers from "../../pagesComponents/ranking/RankingMembers";
-import RankingOverview from "../../pagesComponents/ranking/RankingOverview";
+import RankingBar from "../../pageTemplates/ranking/RankingBar";
+import RankingCategoryBar from "../../pageTemplates/ranking/RankingCategory";
+import RankingMembers from "../../pageTemplates/ranking/RankingMembers";
+import RankingOverview from "../../pageTemplates/ranking/RankingOverview";
 import { locationState } from "../../recoil/userAtoms";
 import {
   IRankingUser,
@@ -39,7 +39,7 @@ function Ranking() {
   const [isLocationFilter, setIsLocationFilter] = useState(true);
   const [rankInfo, setRankInfo] = useState<RankingType>();
 
-  const myUid = session?.uid;
+  const myUid = session?.user?.uid;
   const currentMonth = getMonth();
   const month2 = category === "월간" ? currentMonth : currentMonth - 1;
   const dayjsMonth2 = dayjs().month(month2);
@@ -93,8 +93,8 @@ function Ranking() {
 
     const sortedData =
       category !== "누적"
-        ? sortUserAttends(filtered, session?.uid as string)
-        : sortUserScores(filtered, session?.uid as string);
+        ? sortUserAttends(filtered, session?.user?.uid as string)
+        : sortUserScores(filtered, session?.user?.uid as string);
 
     setRankInfo(sortedData);
     if (userInfo || isGuest) setIsLoading(false);
@@ -102,7 +102,7 @@ function Ranking() {
     category,
     isLocationFilter,
     location,
-    session?.uid,
+    session?.user?.uid,
     initialUsersData,
     userInfo,
     isAttendRateLoading,

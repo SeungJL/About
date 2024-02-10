@@ -69,7 +69,12 @@ function GatherKakaoShareModal({
               onClick={() => onClickItem(idx)}
               isSelected={idx === selectedItem}
             >
-              <Image src={item} layout="fill" alt="gatherShareImage" />
+              <Image
+                src={item}
+                fill={true}
+                sizes="150px"
+                alt="gatherShareImage"
+              />
             </Item>
           ))}
         </Container>

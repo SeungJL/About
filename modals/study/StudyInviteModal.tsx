@@ -25,7 +25,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
 
   const router = useRouter();
   const random_num = Math.floor(Math.random() * 3);
-  const url = WEB_URL + router?.asPath + "/" + session?.uid;
+  const url = WEB_URL + router?.asPath + "/" + session?.user?.uid;
 
   const [isRenderingCheck, setIsRenderingCheck] = useState(false);
 

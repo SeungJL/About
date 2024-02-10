@@ -11,7 +11,7 @@ import {
   StudyStatus,
 } from "../types/study/studyDetail";
 import { Location } from "../types/system";
-import { getCurrentDate, getCurrentHour } from "./dateHelpers";
+import { getCurrentDate, getHour } from "./dateHelpers";
 
 export const arrangeMainSpace = (
   participations: IParticipation[],
@@ -54,7 +54,7 @@ type GetStudyDate = (voteDate: Dayjs) => StudyDateStatus;
 //today는 스터디 결과 확정 시간 기준으로 24시간
 export const getStudyDate: GetStudyDate = (voteDate) => {
   const currentDate = getCurrentDate();
-  const currentHours = getCurrentHour();
+  const currentHours = getHour();
 
   const isTodayCondition =
     currentDate.isSame(voteDate) && currentHours >= TODAY_START_HOUR;

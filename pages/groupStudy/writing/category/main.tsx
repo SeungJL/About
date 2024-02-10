@@ -13,8 +13,8 @@ import {
 } from "../../../../constants/contents/GroupStudyContents";
 
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
-import RegisterLayout from "../../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../../pageTemplates/register/RegisterOverview";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { sharedGroupStudyWritingState } from "../../../../recoil/sharedDataAtoms";
 function WritingStudyCategoryMain() {

@@ -8,7 +8,7 @@ import { WIN_RECORD } from "../storage/winRecord";
 function WinRecord() {
   return (
     <>
-      <Header title="당첨자 로그" url={"/about"} />
+      <Header title="당첨자 로그" url={"/home"} />
       <Layout>
         <Container>
           <LogHeader>

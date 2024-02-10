@@ -15,10 +15,10 @@ import {
 import { shuffleArray } from "../../helpers/utilHelpers";
 import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import GroupStudyBlock from "../../pagesComponents/groupStudy/GroupStudyBlock";
-import GroupStudyMine from "../../pagesComponents/groupStudy/GroupStudyMine";
-import GroupStudySkeletonMain from "../../pagesComponents/groupStudy/GroupStudySkeletonMain";
-import GroupStudySkeletonMine from "../../pagesComponents/groupStudy/GroupStudySkeletonMine";
+import GroupStudyBlock from "../../pageTemplates/groupStudy/GroupStudyBlock";
+import GroupStudyMine from "../../pageTemplates/groupStudy/GroupStudyMine";
+import GroupStudySkeletonMain from "../../pageTemplates/groupStudy/GroupStudySkeletonMain";
+import GroupStudySkeletonMine from "../../pageTemplates/groupStudy/GroupStudySkeletonMine";
 import { isGuestState, userInfoState } from "../../recoil/userAtoms";
 import { IGroupStudy } from "../../types/page/groupStudy";
 

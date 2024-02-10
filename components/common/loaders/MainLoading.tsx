@@ -1,4 +1,3 @@
-import { RotatingLines } from "react-loader-spinner";
 import styled from "styled-components";
 
 interface IMainLoading {
@@ -7,13 +6,13 @@ interface IMainLoading {
 
 export const MainLoading = ({ top }: IMainLoading) => (
   <MainLoadingLayout top={top}>
-    <RotatingLines
+    {/* <RotatingLines
       strokeColor="var(--color-mint)"
       strokeWidth="5"
       animationDuration="0.75"
       width="50"
       visible={true}
-    />
+    /> */}
   </MainLoadingLayout>
 );
 
@@ -26,13 +25,13 @@ const MainLoadingLayout = styled.div<{ top?: number }>`
 
 export const MainLoadingAbsolute = () => (
   <MainLoadingAbsoluteLayout>
-    <RotatingLines
+    {/* <RotatingLines
       strokeColor="var(--color-mint)"
       strokeWidth="5"
       animationDuration="0.75"
       width="50"
       visible={true}
-    />
+    /> */}
   </MainLoadingAbsoluteLayout>
 );
 

@@ -4,9 +4,9 @@ import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import PageLayout from "../../../components/layout/PageLayout";
-import ParticipateModal from "../../../pagesComponents/groupStudy/ParticipateModal";
-import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
+import ParticipateModal from "../../../pageTemplates/groupStudy/ParticipateModal";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
 
 function Participate() {

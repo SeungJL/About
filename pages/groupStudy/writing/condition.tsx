@@ -17,17 +17,17 @@ import PageLayout from "../../../components/layout/PageLayout";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import GatherWritingConditionAgeRange from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionAgeRange";
-import GatherWritingConditionCnt from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionCnt";
-import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
+import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
+import GatherWritingConditionCnt from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionCnt";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 
 import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
 import GroupStudyConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
-import GatherWritingConditionLocation from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionLocation";
-import QuestionBottomDrawer from "../../../pagesComponents/groupStudy/writing/QuestionBottomDrawer";
+import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
+import QuestionBottomDrawer from "../../../pageTemplates/groupStudy/writing/QuestionBottomDrawer";
 import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt } from "../../../types/page/gather";
 import { IGroupStudyWriting } from "../../../types/page/groupStudy";

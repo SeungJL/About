@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ImageContainer } from "../ImageSlider";
@@ -22,13 +21,13 @@ function ImageSliderPoint({ imageContainer }: IImageSliderPoint) {
       {imageContainer.map((image, index) => (
         <SwiperSlide key={index}>
           <PointItem>
-            <Image
+            {/* <Image
               src={image}
               alt={`Slide ${index}`}
               width="80%"
               height="80%"
               priority={index < 4}
-            />
+            /> */}
           </PointItem>
         </SwiperSlide>
       ))}

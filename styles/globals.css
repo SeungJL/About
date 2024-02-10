@@ -20,6 +20,7 @@ html,
 body {
   font-family: apple;
   font-size: 14px;
+  padding-top: 26px;
 }
 
 a {

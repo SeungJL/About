@@ -5,8 +5,8 @@ import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
 import ProgressStatus from "../../components/templates/ProgressStatus";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 import PageLayout from "../../components/layout/PageLayout";
 import { INTEREST_DATA } from "../../constants/contents/ProfileData";

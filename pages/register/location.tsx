@@ -15,11 +15,11 @@ import {
 } from "../../constants/location";
 import { setLocalStorageObj } from "../../helpers/storageHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import LocationBlockProfileEdit from "../../pagesComponents/register/location/LocationBlockProfileEdit";
-import LocationMember from "../../pagesComponents/register/location/LocationMember";
-import LocationTitle from "../../pagesComponents/register/location/LocationTitle";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import LocationBlockProfileEdit from "../../pageTemplates/register/location/LocationBlockProfileEdit";
+import LocationMember from "../../pageTemplates/register/location/LocationMember";
+import LocationTitle from "../../pageTemplates/register/location/LocationTitle";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 import { Location } from "../../types/system";
 import { IUserRegisterFormWriting } from "../../types/user/user";
@@ -111,7 +111,7 @@ function RegisterLocation() {
             <ButtonNav>
               {LOCATION_ALL?.map((place, idx) => (
                 <Button
-                  isSelected={location === place}
+                  $picked={(location === place).toString()}
                   onClick={() => setLocation(place)}
                   key={place}
                   disabled={isProfileEdit || LOCATION_NOT_OPEN.includes(place)}
@@ -149,7 +149,7 @@ const ButtonNav = styled.nav`
   gap: var(--margin-sub);
 `;
 
-const Button = styled.button<{ isSelected: boolean }>`
+const Button = styled.button<{ $picked: string }>`
   padding: var(--padding-md) var(--padding-sub);
   display: flex;
   justify-content: space-between;
@@ -158,7 +158,9 @@ const Button = styled.button<{ isSelected: boolean }>`
   height: 68px;
   border-radius: var(--border-radius-sub);
   border: ${(props) =>
-    props.isSelected ? "1.5px solid var(--font-h1)" : "var(--border-main)"};
+    props.$picked === "true"
+      ? "1.5px solid var(--font-h1)"
+      : "var(--border-main)"};
 `;
 
 const Message = styled.div`

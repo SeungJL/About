@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
+// import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
@@ -82,7 +82,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
           !isFree &&
           dayjs(
             myStudyFixed?.attendences?.find(
-              (who) => (who?.user as IUser).uid === session?.uid
+              (who) => (who?.user as IUser).uid === session?.user?.uid
             ).time.start
           ).add(1, "hour") < dayjs()
         )
@@ -136,13 +136,13 @@ function StudyCheckModal({ setIsModal }: IModal) {
       </ModalLayout>
       {isChecking && (
         <Loading>
-          <RotatingLines
+          {/* <RotatingLines
             strokeColor="grey"
             strokeWidth="5"
             animationDuration="0.75"
             width="96"
             visible={true}
-          />
+          /> */}
           <div />
           <span>{session?.user.name}님의 현재 위치를 확인중입니다</span>
         </Loading>

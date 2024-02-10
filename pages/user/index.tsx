@@ -4,8 +4,8 @@ import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import UserNavigation from "../../pagesComponents/user/userNavigation/UserNavigation";
-import UserOverview from "../../pagesComponents/user/userOverview/UserOverView";
+import UserNavigation from "../../pageTemplates/user/userNavigation/UserNavigation";
+import UserOverview from "../../pageTemplates/user/userOverview/UserOverView";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
 

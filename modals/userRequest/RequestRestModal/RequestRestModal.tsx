@@ -1,8 +1,8 @@
 import { Button, ModalFooter } from "@chakra-ui/react";
 import { Dayjs } from "dayjs";
 import { useSession } from "next-auth/react";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+// import "react-date-range/dist/styles.css"; // main css file
+// import "react-date-range/dist/theme/default.css"; // theme css file
 import { ModalHeader, ModalLayout } from "../../../components/modals/Modals";
 import {
   useCompleteToast,

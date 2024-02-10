@@ -15,7 +15,7 @@ function CheckingServer() {
         <Button
           w="50%"
           colorScheme="blackAlpha"
-          onClick={() => router.push(`/about`)}
+          onClick={() => router.push(`/home`)}
         >
           재접속
         </Button>

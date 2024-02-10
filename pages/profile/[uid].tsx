@@ -6,10 +6,10 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import { useUidToUserInfoQuery } from "../../hooks/user/queries";
-import BottomDrawer from "../../pagesComponents/profile/BottomDrawer";
-import DeclareDrawer from "../../pagesComponents/profile/DeclareDrawer";
-import DetailInfo from "../../pagesComponents/profile/DetailInfo";
-import ProfileOverview from "../../pagesComponents/profile/ProfileOverview";
+import BottomDrawer from "../../pageTemplates/profile/BottomDrawer";
+import DeclareDrawer from "../../pageTemplates/profile/DeclareDrawer";
+import DetailInfo from "../../pageTemplates/profile/DetailInfo";
+import ProfileOverview from "../../pageTemplates/profile/ProfileOverview";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 import { transferUserDataState } from "../../recoil/transferDataAtoms";
 import { DeclareRequest } from "../../types/user/userRequest";
@@ -27,7 +27,6 @@ function ProfilePage() {
   const { data: userInfo } = useUidToUserInfoQuery(uid as string, {
     enabled: !!uid && !userData,
   });
- 
 
   return (
     <>

@@ -2,10 +2,10 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import PointIntro from "../../pagesComponents/point/PointIntro";
-import PointPoint from "../../pagesComponents/point/PointPoint";
-import PointScore from "../../pagesComponents/point/PointScore";
-import PointSkeleton from "../../pagesComponents/point/skeleton/PointSkeleton";
+import PointIntro from "../../pageTemplates/point/PointIntro";
+import PointPoint from "../../pageTemplates/point/PointPoint";
+import PointScore from "../../pageTemplates/point/PointScore";
+import PointSkeleton from "../../pageTemplates/point/skeleton/PointSkeleton";
 import { isGuestState } from "../../recoil/userAtoms";
 
 function Point() {
