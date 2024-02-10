@@ -29,7 +29,7 @@ function StudySpaceHeader({ title, place, coverImgUrl }: IStudySpaceHeader) {
     router.push(prevPageUrl || "/home");
   };
 
-  console.log(coverImgUrl);
+  
   return (
     <Layout>
       <div onClick={onClick}>

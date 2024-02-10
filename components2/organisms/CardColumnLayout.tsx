@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import ShadowBlockButton from "../atoms/buttons/ShadowBlockButton";
 import {
   IPostThumbnailCard,
@@ -11,26 +12,35 @@ interface ICardColumnLayout {
 }
 export function CardColumnLayout({ cardDataArr, url }: ICardColumnLayout) {
   return (
-    <div className="flex flex-col p-4">
+    <Layout>
       {cardDataArr.map((cardData, idx) => (
-        <div key={idx} className="mb-3">
+        <Item key={idx}>
           <PostThumbnailCard postThumbnailCardProps={cardData} />
-        </div>
+        </Item>
       ))}
       <ShadowBlockButton text="더보기" url={url} />
-    </div>
+    </Layout>
   );
 }
 
 export function CardColumnLayoutSkeleton() {
   return (
-    <div className="flex flex-col p-4">
+    <Layout>
       {[1, 2, 3].map((item) => (
-        <div key={item} className="mb-3">
+        <Item key={item}>
           <PostThumbnailCardSkeleton />
-        </div>
+        </Item>
       ))}
       <ShadowBlockButton text="더보기" />
-    </div>
+    </Layout>
   );
 }
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Item = styled.div`
+  margin-bottom: 12px;
+`;

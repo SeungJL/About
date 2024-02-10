@@ -1,5 +1,5 @@
-import { USER_BADGE_ARR } from "@/constants/serviceConstants/badgeConstants";
-import { USER_ROLE } from "@/constants/serviceConstants/userConstants";
+import { USER_BADGE_ARR } from "../../constants2/serviceConstants/badgeConstants";
+import { USER_ROLE } from "../../constants2/serviceConstants/userConstants";
 import { ActiveLocation, Location } from "../serviceTypes/locationTypes";
 
 export interface IUser

@@ -6,8 +6,8 @@ import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { myStudyState, voteDateState } from "../../../recoil/studyAtoms";
 import { transferStudySpaceDataState } from "../../../recoil/transferDataAtoms";
 import { IParticipation } from "../../../types/study/studyDetail";
-import AboutMainItemParticipants from "./homeMainItem/HomeMainItemParticipants";
-import AboutMainItemStatus from "./homeMainItem/HomeMainItemStatus";
+import AboutMainItemParticipants from "./HomeStudySectionItem/HomeStudySectionItemParticipants";
+import AboutMainItemStatus from "./HomeStudySectionItem/HomeStudySectionItemStatus";
 
 interface IAboutMainItem {
   participation: IParticipation;

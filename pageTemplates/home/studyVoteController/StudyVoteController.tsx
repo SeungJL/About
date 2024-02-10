@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import BetweenTextSwitcher from "../../../components2/molecules/navs/BetweenTextSwitcher";
 import { dayjsToFormat, dayjsToStr } from "../../../utils/dateTimeUtils";
@@ -11,8 +12,13 @@ function StudyVoteController() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
+  const date = newSearchParams.get("date");
+  const [selectedDate, setSelectedDate] = useState<string>();
 
-  const selectedDate = newSearchParams.get("date") || dayjsToStr(dayjs());
+  useEffect(() => {
+    setSelectedDate(date);
+  }, [date]);
+
   const selectedDateDayjs = dayjs(selectedDate);
 
   const onClick = (month: number) => {
@@ -26,15 +32,19 @@ function StudyVoteController() {
   return (
     <OuterContainer>
       <InnerContainer>
-        <BetweenTextSwitcher
-          left={textSwitcherProps.left}
-          right={textSwitcherProps.right}
-        />
-        <ContentContainer>
-          <StudyVoteControllerDays selectedDate={selectedDate} />
-          <StudyVoteControllerDate />
-        </ContentContainer>
-        <StudyVoteControllerVote />
+        {selectedDate && (
+          <>
+            <BetweenTextSwitcher
+              left={textSwitcherProps.left}
+              right={textSwitcherProps.right}
+            />
+            <ContentContainer>
+              <StudyVoteControllerDays selectedDate={selectedDate} />
+              <StudyVoteControllerDate selectedDate={selectedDate} />
+            </ContentContainer>
+            <StudyVoteControllerVote />
+          </>
+        )}
       </InnerContainer>
     </OuterContainer>
   );
@@ -117,8 +127,8 @@ const OuterContainer = styled.div`
   margin-top: 16px; /* mt-4 */
   background-color: white;
   height: 192px; /* h-48 */
-  border-radius: var(--border-radius-main); /* rounded-lg */
-  box-shadow: var(--box-shadow); /* shadow */
+  border-radius: var(--border-radius-sub); /* rounded-lg */
+  box-shadow: var(--box-shadow-b); /* shadow */
   border-bottom: var(--border-main-light); /* border-b-1.5 border-gray-7 */
   position: relative;
 `;

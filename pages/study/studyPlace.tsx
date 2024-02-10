@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import PageLayout from "../../components/layout/PageLayout";
-import AboutMainItem from "../../pageTemplates/home/main/homeMain/homeMainItem";
+import AboutMainItem from "../../pageTemplates/home/main/HomeStudySection/HomeStudySectionItem";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 import { myStudyState } from "../../recoil/studyAtoms";
 import { transferStudyDataState } from "../../recoil/transferDataAtoms";

@@ -1,12 +1,12 @@
-import { UserIcon } from "@/assets/icons/UserIcon";
-import OutlineBadge from "@/components/atoms/badges/OutlineBadge";
-import { IImageProps } from "@/types/assetTypes";
-import { ITextAndColorType } from "@/types/propTypes";
-import { IUserSummary } from "@/types/userTypes/userInfoTypes";
 import Image from "next/image";
 import Link from "next/link";
+import styled from "styled-components";
+import { UserIcon } from "../../../assets/icons/UserIcon";
+import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
+import { IImageProps } from "../../../types2/assetTypes";
+import { ITextAndColorType } from "../../../types2/propTypes";
+import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 import AvatarGroupsOverwrap from "../groups/AvatarGroupsOverwrap";
-
 export interface IPostThumbnailCard {
   participants: IUserSummary[];
   title: string;
@@ -20,7 +20,6 @@ export interface IPostThumbnailCard {
 interface IPostThumbnailCardObj {
   postThumbnailCardProps: IPostThumbnailCard;
 }
-
 export function PostThumbnailCard({
   postThumbnailCardProps: {
     participants,
@@ -34,64 +33,124 @@ export function PostThumbnailCard({
 }: IPostThumbnailCardObj) {
   const userAvatarArr = participants.map((par) => ({
     image: par.profileImage,
-    ...(par?.avatar?.type !== null ? { avatar: par.avatar } : {}),
+    ...(par.avatar?.type !== null ? { avatar: par.avatar } : {}),
   }));
 
   return (
-    <Link
-      href={url}
-      className="h-28 flex p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-    >
+    <CardLink href={url}>
       <Image
         src={image.url}
+        alt="thumbnailImage"
         priority={image.priority}
         width={86.5}
         height={86.5}
-        alt="thumbnailImage"
-        className="rounded-lg"
+        style={{ borderRadius: "0.5rem" }}
       />
-      <div className="flex flex-col ml-3 flex-1">
-        <div className="">
-          <div className="flex justify-between">
-            <div className="mr-1 flex-1 webkit-clamp-1 font-bold text-base">
-              {title}
-            </div>
-            <OutlineBadge text={badge.text} colorType={badge.colorType} />
-          </div>
-          <div className="text-gray-4 text-sm"> {subtitle} </div>
-        </div>
-        <div className="flex mt-auto">
-          <div className="flex-1">
-            <AvatarGroupsOverwrap userAvatarArr={userAvatarArr} size="sm" />
-          </div>
-          <div className="flex ml-auto mt-auto items-center  text-gray-4">
+      <ContentContainer>
+        <Title>
+          <div className="title">{title}</div>
+          {/* <OutlineBadge text={badge.text} colorType={badge.colorType} /> */}
+        </Title>
+        <Subtitle>{subtitle}</Subtitle>
+        <StatusContainer>
+          <AvatarGroupsOverwrap userAvatarArr={userAvatarArr} size="sm" />
+          <div className="statusText">
             <div>{statusText}</div>
-            <div className="flex items-center tracking-widest">
-              <div className="mb-1">
-                <UserIcon />
-              </div>
-              <span className="ml-1 ">{participants.length}/8</span>
+            <div className="userIconContainer">
+              <UserIcon />
+              <span className="ml-1">{participants.length}/8</span>
             </div>
           </div>
-        </div>
-      </div>
-    </Link>
+        </StatusContainer>
+      </ContentContainer>
+    </CardLink>
   );
 }
 
 export function PostThumbnailCardSkeleton() {
   return (
-    <div className="animate-pulse h-28 flex p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-      <div className="bg-gray-200 rounded-lg w-[86.5px] h-[86.5px]"></div>
-      <div className="flex flex-col ml-3 flex-1">
-        <div className="">
-          <div className="flex justify-between">
-            <div className="bg-gray-200 rounded-lg w-16 h-5 mr-1 webkit-clamp-1 font-bold text-base"></div>
+    <SkeletonContainer>
+      <SkeletonBlock style={{ width: "86.5px", height: "86.5px" }}>
+        <Skeleton>t</Skeleton>
+      </SkeletonBlock>
+      <ContentContainer>
+        <Title style={{ marginBottom: "4px" }}>
+          <div className="title">
+            <Skeleton>temp</Skeleton>
           </div>
-          <div className="bg-gray-200 rounded-lg w-14 h-4 mt-2 text-gray-4 text-sm"></div>
-        </div>
-        <div className="flex mt-auto"></div>
-      </div>
-    </div>
+        </Title>
+        <Subtitle>
+          <Skeleton> temp</Skeleton>
+        </Subtitle>
+      </ContentContainer>
+    </SkeletonContainer>
   );
 }
+
+const CardLink = styled(Link)`
+  height: 110px;
+  display: flex;
+  padding: 12px;
+  background-color: white;
+
+  border-radius: var(--border-radius-sub);
+  box-shadow: var(--box-shadow-b);
+  &:hover {
+    background-color: var(--font-h56); // gray-100
+  }
+`;
+
+const ContentContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px; // ml-3 수정
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: space-between;
+  .title {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+  }
+`;
+
+const Subtitle = styled.div`
+  color: var(--font-h3); // text-gray-500
+  font-size: 13px;
+`;
+
+const StatusContainer = styled.div`
+  display: flex;
+  margin-top: auto;
+
+  .statusText {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    color: var(--font-h4); // text-gray-500
+    .userIconContainer {
+      display: flex;
+    }
+  }
+`;
+
+const SkeletonContainer = styled.div`
+  height: 110px;
+  display: flex;
+  padding: 12px;
+  background-color: white;
+
+  border-radius: var(--border-radius-sub);
+  box-shadow: var(--box-shadow-b);
+  &:hover {
+    background-color: var(--font-h56); // gray-100
+  }
+`;
+
+const SkeletonBlock = styled.div`
+  background-color: var(--gray-200); // gray-200 대응
+  border-radius: 0.5rem;
+`;

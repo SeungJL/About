@@ -1,17 +1,21 @@
 import { faEllipsis } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
+import Avatar from "../../../../components2/atoms/Avatar";
 import {
   AVATAR_COLOR,
   AVATAR_ICON,
 } from "../../../../constants/settingValue/avatar";
 
-import { IUser } from "../../../../types/user/user";
+import {} from "../../../../types/user/user";
+import { IAvatar } from "../../../../types2/userTypes/userInfoTypes";
 
 interface IProfileIconXsOVerwrap {
-  user: IUser | "guest";
+  user: {
+    image: string;
+    avatar?: IAvatar;
+  };
   isOverlap?: boolean;
   isImagePriority?: boolean;
 }
@@ -21,25 +25,24 @@ function ProfileIconXsOverwrap({
   isOverlap,
   isImagePriority,
 }: IProfileIconXsOVerwrap) {
-  const avatarType = (user as IUser)?.avatar?.type;
-  const avatarBg = (user as IUser)?.avatar?.bg;
+  const avatarType = user?.avatar?.type;
+  const avatarBg = user?.avatar?.bg;
 
   const isAvatar = Boolean(
-    (avatarType !== null &&
+    avatarType !== null &&
       avatarType !== undefined &&
       avatarBg !== undefined &&
       avatarBg !== null &&
       avatarType >= 0 &&
-      avatarBg >= 0) ||
-      user === "guest"
+      avatarBg >= 0
+    // user === "guest"
   );
 
   const [isError, setIsError] = useState(false);
 
   const imageUrl = isAvatar
     ? `${AVATAR_ICON[avatarType]}`
-    : `${(user as IUser)?.profileImage || AVATAR_ICON[1]}`;
-  
+    : `${user?.image || AVATAR_ICON[1]}`;
 
   return (
     <Layout>
@@ -51,24 +54,10 @@ function ProfileIconXsOverwrap({
         }}
       >
         {!isOverlap ? (
-          <Image
-            src={isError ? AVATAR_ICON[1] : imageUrl}
-            width={isAvatar ? 21 : 26}
-            height={isAvatar ? 21 : 26}
-            alt="ProfileIconXsOverwrap"
-            onError={() => setIsError(true)}
-            priority={isImagePriority}
-          />
+          <Avatar image={user.image} size="sm" avatar={user.avatar} />
         ) : (
           <OverlapWrapper>
-            <Image
-              src={isError ? AVATAR_ICON[1] : imageUrl}
-              width={isError ? 21 : isAvatar ? 21 : 26}
-              height={isError ? 21 : isAvatar ? 21 : 26}
-              alt="ProfileIconXsOverwrap"
-              onError={() => setIsError(true)}
-              priority={isImagePriority}
-            />
+            <Avatar image={user.image} size="sm" avatar={user.avatar} />
             <IconWrapper>
               <FontAwesomeIcon icon={faEllipsis} size="lg" color="white" />
             </IconWrapper>

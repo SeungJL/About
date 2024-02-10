@@ -74,7 +74,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ account, user, profile, credentials }) {
-      console.log(22222, account, user, profile);
+    
 
       if (!account.access_token) return false;
 
@@ -100,10 +100,10 @@ export const authOptions: NextAuthOptions = {
     //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
     async session({ session, token, user, trigger }) {
       if (trigger === "update") {
-        console.log(432233, session);
+       
         return session;
       }
-      console.log(4, session, token, user, trigger);
+     
       if (session.user.name === "guest") {
         // session.id = "0";
         // session.uid = "0";
@@ -124,8 +124,7 @@ export const authOptions: NextAuthOptions = {
     //token 빼고는 모두 초기값으로 undefined
     //
     async jwt({ token, account, user, trigger, session }) {
-      console.log(12, trigger, token, account, user, session);
-
+    
       if (trigger === "update" && token?.role) {
         token.role = "waiting";
         return token;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
 import { isMainLoadingState } from "../../../recoil/loadingAtoms";
 import { myStudyState } from "../../../recoil/studyAtoms";
-import AboutMainItem from "../homeMain/HomeMainItem";
+import AboutMainItem from "../HomeStudySection/HomeStudySectionItem";
 import NoMyStudy from "./NoMyStudy";
 
 function AboutStudyResult() {

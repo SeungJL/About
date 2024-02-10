@@ -16,14 +16,13 @@ import { QueryOptions } from "../../types/reactTypes";
 
 import { IArrivedData, IStudyPlaces } from "../../types/study/study";
 import {
-  IParticipation,
   IPlace,
   IStudyPreferencesQuery,
   IStudyStartTime,
-  IVote,
 } from "../../types/study/studyDetail";
 
 import { Location } from "../../types/system";
+import { IParticipation, IVote } from "../../types2/studyTypes/studyVoteTypes";
 
 export const useStudyPlacesQuery = (
   location: Location | "all",
@@ -44,19 +43,16 @@ export const useStudyPlacesQuery = (
   );
 
 export const useStudyVoteQuery = (
-  date: Dayjs,
+  date: string,
   location: Location,
   options?: QueryOptions<IParticipation[]>
 ) =>
   useQuery<IParticipation[], AxiosError, IParticipation[]>(
-    [STUDY_VOTE, dayjsToStr(date), location],
+    [STUDY_VOTE, date, location],
     async () => {
-      const res = await axios.get<IVote>(
-        `${SERVER_URI}/vote/${dayjsToStr(date)}`,
-        {
-          params: { location },
-        }
-      );
+      const res = await axios.get<IVote>(`${SERVER_URI}/vote/${date}`, {
+        params: { location },
+      });
 
       return res.data.participations.filter(
         (par) => par.place.status === "active"

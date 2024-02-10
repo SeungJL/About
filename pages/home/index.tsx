@@ -8,6 +8,7 @@ import HomeCategoryNav from "../../pageTemplates/home/HomeCategoryNav";
 import HomeHeader from "../../pageTemplates/home/homeHeader/HomeHeader";
 import HomeInitialSetting from "../../pageTemplates/home/HomeInitialSetting";
 import HomeLocationBar from "../../pageTemplates/home/HomeLocationBar";
+import HomeStudySection from "../../pageTemplates/home/homeMain/HomeStudySection";
 import StudyVoteController from "../../pageTemplates/home/studyVoteController/StudyVoteController";
 import HomeWinRecord from "../../pageTemplates/home/WinRecord";
 import { LocationEn } from "../../types/serviceTypes/locationTypes";
@@ -37,7 +38,7 @@ function Home() {
       <HomeCategoryNav />
       <HomeLocationBar />
       <StudyVoteController />
-      {/* <HomeMain /> */}
+      <HomeStudySection />
       <EventBanner />
       {/* <HomeGather />
       <HomeReview /> */}

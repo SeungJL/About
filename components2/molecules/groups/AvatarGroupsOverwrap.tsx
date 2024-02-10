@@ -1,8 +1,6 @@
-import Avatar from "@/components/atoms/Avatar";
-import ShadowAvatar from "@/components/atoms/ShadowAvatar";
-import { IAvatar } from "@/types/userTypes/userInfoTypes";
-import { AvatarGroup } from "flowbite-react";
-
+import styled from "styled-components";
+import { IAvatar } from "../../../types2/userTypes/userInfoTypes";
+import Avatar from "../../atoms/Avatar";
 type Size = "sm";
 
 interface IUserAvatar {
@@ -14,6 +12,7 @@ interface IAvatarGroupsOverwrap {
   userAvatarArr: IUserAvatar[];
   size: Size;
 }
+const VOTER_SHOW_MAX = 6;
 
 const VIEW_CNT = 5;
 
@@ -21,24 +20,23 @@ export default function AvatarGroupsOverwrap({
   userAvatarArr,
   size,
 }: IAvatarGroupsOverwrap) {
-
   const length = userAvatarArr.length;
+
   return (
-    <div className="flex flex-wrap ">
-      <AvatarGroup className="-space-x-2">
-        {userAvatarArr.map((userAvatar, idx) =>
-          idx < VIEW_CNT ? (
-            <div key={idx} className="">
-              <Avatar
-                image={userAvatar.image}
-                avatar={userAvatar?.avatar}
-                size={size}
-              />
-            </div>
-          ) : null
-        )}
-        {length > VIEW_CNT && <ShadowAvatar text={`+${length - VIEW_CNT}`} />}
-      </AvatarGroup>
-    </div>
+    <Participants>
+      {userAvatarArr.map((att, idx) => {
+        return (
+          idx < VOTER_SHOW_MAX && (
+            <Avatar key={idx} image={att.image} avatar={att.avatar} size="sm" />
+          )
+        );
+      })}
+    </Participants>
   );
 }
+const Participants = styled.div`
+  display: flex;
+  & > *:not(:first-child) {
+    margin-left: -8px;
+  }
+`;

@@ -19,7 +19,7 @@ function Test() {
     "안양"
   );
 
-  console.log(3, data);
+ 
 
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),

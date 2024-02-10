@@ -21,7 +21,7 @@ import { IUserRegisterFormWriting } from "../../types/user/user";
 function Name() {
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(session);
+
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
   const isProfileEdit = useRecoilValue(isProfileEditState);

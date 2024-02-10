@@ -12,14 +12,14 @@ export const COLOR_TABLE = [
 ];
 
 export const COLOR_SUB_TABLE = [
-  "bg-red-200",
-  "bg-amber-200",
-  "bg-lime-200",
-  "bg-emerald-200",
-  "bg-cyan-200",
-  "bg-blue-200",
-  "bg-violet-200",
-  "bg-fuchsia-200",
-  "bg-rose-200",
-  "bg-gray-200",
+  "#FEB2B2",
+  "#FBD38D",
+  "#FAF089",
+  "#9AE6B4",
+  "#81E6D9",
+  "#90CDF4",
+  "#9DECF9",
+  "#D6BCFA",
+  "#FBB6CE",
+  "#E2E8F0",
 ];

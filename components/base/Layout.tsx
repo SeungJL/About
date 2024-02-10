@@ -68,11 +68,11 @@ function Layout({ children }: ILayout) {
   const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
 
   const status = router.query?.status;
-  console.log(5, session);
+  
   useUserInfoQuery({
     enabled: (isCondition && userInitialInfo === null) || status === "login",
     onSuccess(data) {
-      console.log(2444, data);
+     
       if (!isCondition || (userInitialInfo && status !== "login")) return;
       //유저 데이터 없음
       if (data === null || !data.registerDate || data.isActive === false) {

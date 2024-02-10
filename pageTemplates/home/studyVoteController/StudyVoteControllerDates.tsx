@@ -9,11 +9,16 @@ import { getDateArr, handleChangeDate } from "./StudyVoteController";
 
 dayjs.locale("ko");
 
-function StudyVoteControllerDates() {
+interface IStudyVoteControllerDates {
+  selectedDate: string;
+}
+
+function StudyVoteControllerDates({ selectedDate }: IStudyVoteControllerDates) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
-  const selectedDateDayjs = dayjs(newSearchParams.get("date"));
+
+  const selectedDateDayjs = dayjs(selectedDate);
 
   const [variants, setVariants] = useState({});
 

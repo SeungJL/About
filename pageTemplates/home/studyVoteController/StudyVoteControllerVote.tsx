@@ -41,7 +41,6 @@ function StudyVoteControllerVote() {
     myStudy,
     data?.user?.uid
   );
-  console.log(14, buttonProps, studyDateStatus, myStudy, data?.user?.uid);
 
   const handleButton = () => {
     const type = buttonProps.text;

@@ -1,4 +1,4 @@
-import { Button } from "flowbite-react";
+import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 
 interface IShadowBlockButton {
@@ -21,7 +21,7 @@ export default function ShadowBlockButton({ text, url }: IShadowBlockButton) {
 
 const ButtonComponent = ({ text }: { text: string }) => (
   <Button
-    className="w-full bg-white text-mint shadow font-semibold enabled:hover:bg-gray-100 focus:ring-mint"
+    // className="w-full bg-white text-mint shadow font-semibold enabled:hover:bg-gray-100 focus:ring-mint"
     size="lg"
   >
     {text}
