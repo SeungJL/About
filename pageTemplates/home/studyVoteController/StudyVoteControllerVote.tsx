@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import StudyVoteMap from "../../../components/features/studyVote/StudyVoteMap";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import ShadowCircleButton, {
   IShadowCircleProps,
 } from "../../../components2/atoms/buttons/ShadowCircleButton";
@@ -46,7 +45,7 @@ function StudyVoteControllerVote() {
     const type = buttonProps.text;
     switch (type) {
       case "참여 신청":
-        router.replace(`/vote/?${newSearchParams.toString()}`);
+        setModalType("vote");
         return;
     }
   };
@@ -61,11 +60,7 @@ function StudyVoteControllerVote() {
         <ShadowCircleButton buttonProps={buttonProps} onClick={handleButton} />
       </ButtonWrapper>
 
-      {modalType === "vote" && (
-        <ModalPortal opacity={0.7}>
-          <StudyVoteMap setIsModal={setIsModal} />
-        </ModalPortal>
-      )}
+      {modalType === "vote" && <StudyVoteMap />}
       {modalType === "attend" && <StudyCheckModal setIsModal={setIsModal} />}
       {modalType === "attendPrivate" && (
         <StudyCheckImageModal setIsModal={setIsModal} />

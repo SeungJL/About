@@ -1,4 +1,7 @@
-import { IParticipation, StudyStatus } from "@/types/studyTypes/studyVoteTypes";
+import {
+  IParticipation,
+  StudyStatus,
+} from "../../types2/studyTypes/studyVoteTypes";
 
 export const sortStudyVoteData = (
   participations: IParticipation[],

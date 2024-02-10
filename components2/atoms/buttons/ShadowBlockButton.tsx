@@ -1,6 +1,5 @@
-import { Button } from "@chakra-ui/react";
 import Link from "next/link";
-
+import styled from "styled-components";
 interface IShadowBlockButton {
   text: string;
   url?: string;
@@ -19,11 +18,17 @@ export default function ShadowBlockButton({ text, url }: IShadowBlockButton) {
   );
 }
 
-const ButtonComponent = ({ text }: { text: string }) => (
-  <Button
-    // className="w-full bg-white text-mint shadow font-semibold enabled:hover:bg-gray-100 focus:ring-mint"
-    size="lg"
-  >
-    {text}
-  </Button>
-);
+const ButtonComponent = ({ text }: { text: string }) => <Button>{text}</Button>;
+
+const Button = styled.button`
+  width: 100%;
+  background-color: white;
+  color: var(--color-mint);
+  box-shadow: var(--box-shadow-b);
+  font-weight: 600;
+  height: 44px;
+  border-radius: var(--border-radius-sub);
+  :hover {
+    background-color: var(--font-h7);
+  }
+`;

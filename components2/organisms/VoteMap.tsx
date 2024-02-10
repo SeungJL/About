@@ -1,6 +1,6 @@
-import { IMapOptions, IMarkerOptions } from "@/types/lib/naverMapTypes";
 import { useEffect, useRef } from "react";
-
+import styled from "styled-components";
+import { IMapOptions, IMarkerOptions } from "../../types2/lib/naverMapTypes";
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 interface IVoteMap {
   mapOptions?: IMapOptions;
@@ -39,5 +39,10 @@ export default function VoteMap({
     });
   }, [markersOptions]);
 
-  return <div ref={mapRef} id="map" className="w-full aspect-square" />;
+  return <Map ref={mapRef} id="map" />;
 }
+
+const Map = styled.div`
+  width: 100%;
+  height: 100%;
+`;

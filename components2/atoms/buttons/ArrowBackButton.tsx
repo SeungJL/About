@@ -1,4 +1,4 @@
-"use client";
+import styled from "styled-components";
 
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,8 +15,12 @@ export default function ArrowBackButton({ url }: IArrowBackButton) {
   };
 
   return (
-    <button className="p-2" onClick={handleGoBack}>
+    <Button onClick={handleGoBack}>
       <FontAwesomeIcon icon={faChevronLeft} />
-    </button>
+    </Button>
   );
 }
+
+const Button = styled.button`
+  padding: 8px;
+`;

@@ -58,7 +58,7 @@ export function PostThumbnailCard({
             <div>{statusText}</div>
             <div className="userIconContainer">
               <UserIcon />
-              <span className="ml-1">{participants.length}/8</span>
+              <span>{participants.length}/8</span>
             </div>
           </div>
         </StatusContainer>
@@ -125,7 +125,7 @@ const Subtitle = styled.div`
 const StatusContainer = styled.div`
   display: flex;
   margin-top: auto;
-
+  align-items: center;
   .statusText {
     display: flex;
     margin-left: auto;
@@ -133,6 +133,11 @@ const StatusContainer = styled.div`
     color: var(--font-h4); // text-gray-500
     .userIconContainer {
       display: flex;
+      align-items: center;
+      letter-spacing: 2px;
+      > span:last-child {
+        margin-left: 4px;
+      }
     }
   }
 `;

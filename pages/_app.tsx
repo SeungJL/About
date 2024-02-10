@@ -52,7 +52,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <ChakraProvider theme={theme}>
               <Layout>
                 <Component {...pageProps} />
-                <BottomNav/>
+                <BottomNav />
               </Layout>
             </ChakraProvider>
           </RecoilRoot>
