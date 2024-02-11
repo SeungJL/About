@@ -7,9 +7,10 @@ import { MutationOptions } from "../../types/reactTypes";
 import { IStudyParticipate, IStudyPlaces } from "../../types/study/study";
 
 import { IDayjsStartToEnd } from "../../types/timeAndDate";
+import { IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
 
 type StudyParticipationParam<T> = T extends "post"
-  ? IStudyParticipate
+  ? IStudyVote
   : T extends "patch"
   ? IDayjsStartToEnd
   : void;

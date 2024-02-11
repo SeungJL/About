@@ -60,7 +60,7 @@ function StudyVoteControllerVote() {
         <ShadowCircleButton buttonProps={buttonProps} onClick={handleButton} />
       </ButtonWrapper>
 
-      {modalType === "vote" && <StudyVoteMap />}
+      {modalType === "vote" && <StudyVoteMap setIsModal={setIsModal} />}
       {modalType === "attend" && <StudyCheckModal setIsModal={setIsModal} />}
       {modalType === "attendPrivate" && (
         <StudyCheckImageModal setIsModal={setIsModal} />

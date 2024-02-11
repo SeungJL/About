@@ -5,14 +5,15 @@ import styled from "styled-components";
 import TimeRullet from "../../../components/features/picker/TimeRullet";
 import { STUDY_START_VOTETIME_HOUR } from "../../../constants/settingValue/study/study";
 import { DispatchType } from "../../../types/reactTypes";
-import { IStudyParticipate } from "../../../types/study/study";
+
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
+import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
 
 interface IStudyVoteSubModalTime {
-  setVoteInfo: DispatchType<IStudyParticipate>;
+  setMyVote: DispatchType<IStudyVote>;
 }
 
-function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
+function StudyVoteSubModalTime({ setMyVote }: IStudyVoteSubModalTime) {
   const [selectTime, setSelectTime] = useState<IDayjsStartToEnd>({
     start: null,
     end: null,
@@ -21,7 +22,7 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
   useEffect(() => {
     const start = selectTime?.start;
     const end = selectTime?.end;
-    setVoteInfo((old) => ({ ...old, start, end }));
+    setMyVote((old) => ({ ...old, start, end }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectTime]);
 

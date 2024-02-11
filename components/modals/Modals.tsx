@@ -17,7 +17,7 @@ import TwoButtonNav from "../layout/TwoButtonNav";
 interface IModalLayout {
   size?: Size;
   height?: number;
-  children: ReactNode;
+  children?: ReactNode;
   onClose: () => void;
 }
 

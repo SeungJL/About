@@ -1,6 +1,5 @@
-import BgColorButton from "@/components/atoms/buttons/BgColorButton";
-import { Size } from "@/types/assetTypes";
 import { useRouter } from "next/navigation";
+import { Size } from "../../../types2/assetTypes";
 
 export interface ITwoButtonNavColProps {
   size?: Size;
@@ -32,7 +31,7 @@ export default function TwoButtonNavCol({
 
   return (
     <div className="flex flex-col">
-      <div className="mb-3">
+      {/* <div className="mb-3">
         <BgColorButton colorType="mint" size={size} text={text} func={func} />
       </div>
       <BgColorButton
@@ -40,7 +39,7 @@ export default function TwoButtonNavCol({
         size={size}
         text={downText}
         func={downFunc}
-      />
+      /> */}
     </div>
   );
 }

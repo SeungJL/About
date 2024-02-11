@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import StudyVoteTimeRulletDrawer from "../../../components2/organisms/drawer/StudyVoteTimeRulletDrawer";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
@@ -15,7 +16,6 @@ import {
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
-import StudyVoteSubModalTime from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalTime";
 import {
   myVotingState,
   studyDateStatusState,
@@ -23,21 +23,19 @@ import {
 } from "../../../recoil/studyAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { DispatchType, IModal } from "../../../types/reactTypes";
-import { IStudyParticipate } from "../../../types/study/study";
-import ModalPortal from "../../modals/ModalPortal";
-import { ChoiceRank } from "./StudyVoteMap";
+import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
 
 interface IMapBottomNav extends IModal {
-  voteInfo: IStudyParticipate;
-  setVoteInfo: DispatchType<IStudyParticipate>;
-  choiceRank: ChoiceRank;
+  myVote: IStudyVote;
+  setMyVote: DispatchType<IStudyVote>;
+  voteScore: number;
 }
 
 function MapBottomNav({
   setIsModal,
-  setVoteInfo,
-  voteInfo,
-  choiceRank,
+  setMyVote,
+  myVote,
+  voteScore,
 }: IMapBottomNav) {
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
@@ -78,20 +76,24 @@ function MapBottomNav({
     if (myPrevVotePoint) {
       await getPoint({ message: "스터디 투표 취소", value: -myPrevVotePoint });
     }
-    let point = POINT_SYSTEM_PLUS.STUDY_VOTE[choiceRank];
-    if (studyDateStatus === "not passed" && choiceRank) {
-      await getPoint({ ...point, sub: dayjsToStr(voteDate) });
+    let point = POINT_SYSTEM_PLUS.STUDY_VOTE[voteScore];
+    if (studyDateStatus === "not passed" && voteScore) {
+      await getPoint({
+        value: voteScore,
+        message: "스터디 투표",
+        sub: dayjsToStr(voteDate),
+      });
       completeToast("studyVote", point.value);
     } else completeToast("studyVote");
     setIsModal(false);
   };
 
   const onSubmit = () => {
-    patchAttend(voteInfo);
+    patchAttend(myVote);
   };
 
   const onClickTimeSelect = () => {
-    if (!voteInfo?.place) {
+    if (!myVote?.place) {
       failToast("free", "장소를 먼저 선택해주세요!");
       return;
     }
@@ -120,30 +122,10 @@ function MapBottomNav({
         </Button>
       </Layout>
       {isTimeModal && (
-        <ModalPortal setIsModal={setIsTimeModal}>
-          <TimeModalLayout
-            initial={{ y: "90vh" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <TopNav />
-            <Header>
-              <span>{voteDate.locale("ko").format("M월 DD일 ddd요일")}</span>
-              <span>스터디 참여시간을 선택해주세요!</span>
-            </Header>
-            <StudyVoteSubModalTime setVoteInfo={setVoteInfo} />
-            <Button
-              w="100%"
-              colorScheme="mintTheme"
-              size="lg"
-              borderRadius="var(--border-radius-sub)"
-              mt="auto"
-              onClick={onSubmit}
-            >
-              선택 완료
-            </Button>
-          </TimeModalLayout>
-        </ModalPortal>
+        <StudyVoteTimeRulletDrawer
+          setMyVote={setMyVote}
+          setIsModal={setIsModal}
+        />
       )}
     </>
   );

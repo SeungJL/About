@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { STUDY_VOTE_ICON } from "../../../assets/icons/MapChoiceIcon";
+import ScreenOverlay from "../../../components2/atoms/ScreenOverlay";
 import { ITwoButtonNavColProps } from "../../../components2/molecules/navs/TwoButtonNavCol";
 import VoteMap from "../../../components2/organisms/VoteMap";
 import { STUDY_DISTANCE } from "../../../constants2/serviceConstants/studyConstants/studyDistanceConstants";
@@ -12,6 +13,8 @@ import {
   getVoteLocationMaxBound,
 } from "../../../libs/study/getStudyVoteMap";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
+import { IModal } from "../../../types/reactTypes";
+import { ITimeStartToEnd } from "../../../types/timeAndDate";
 import { IMapOptions, IMarkerOptions } from "../../../types2/lib/naverMapTypes";
 import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
@@ -20,11 +23,13 @@ import {
   IStudyVote,
 } from "../../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
-import { ModalLayout } from "../../modals/Modals";
+import MapBottomNav from "./MapBottomNav";
 
 export type ChoiceRank = "first" | "second" | "third";
 
-export default function VotePage() {
+interface IStudyVoteMap extends IModal {}
+
+export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
   const router = useRouter();
   const { data } = useSession();
   const searchParams = useSearchParams();
@@ -95,41 +100,43 @@ export default function VotePage() {
     },
     size: "lg",
   };
+  const [time, setTime] = useState<ITimeStartToEnd>({
+    start: { hours: 14, minutes: 0 },
+    end: { hours: 18, minutes: 0 },
+  });
 
   return (
     <>
-      <ModalLayout>
-        <Layout>
-          <div className="flex justify-between font-semibold">
-            <div className="">점수 계산 </div>
-            <div className="">+11 POINT</div>
-          </div>
-          <MapLayout>
-            <VoteMap
-              mapOptions={mapOptions}
-              markersOptions={markersOptions}
-              handleMarker={handlePlaceVote}
-            />
-          </MapLayout>
-          <div className="p-4">
-            {/* <TwoButtonNavCol props={twoButtonNavOptions} /> */}
-          </div>
-        </Layout>
-        {/* <BottomDrawer /> */}
-      </ModalLayout>
+      <ScreenOverlay onClick={() => setIsModal(false)} />
+
+      <Layout>
+        <MapLayout>
+          <VoteMap
+            mapOptions={mapOptions}
+            markersOptions={markersOptions}
+            handleMarker={handlePlaceVote}
+          />
+        </MapLayout>
+        <MapBottomNav
+          setIsModal={setIsModal}
+          setMyVote={setMyVote}
+          myVote={myVote}
+          voteScore={voteScore}
+        />
+      </Layout>
     </>
   );
 }
+
 const Layout = styled.div`
   position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 30;
+  top: 15%;
+  left: 0;
+  z-index: 2000;
   width: 100%;
   display: flex;
+
   flex-direction: column;
-  padding: 16px;
 `;
 
 const MapLayout = styled.div`
