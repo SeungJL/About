@@ -10,19 +10,19 @@ import StudyChangeArrivedModal from "../../../../modals/study/StudyChangeArrived
 import { IAbsentInfo } from "../../../../types/study/study";
 import { IAttendance } from "../../../../types/study/studyDetail";
 
-interface IStudySpaceUserCommentsComment {
+interface IstudyUserCommentsComment {
   isAbsent: IAbsentInfo;
   memo: string;
   att: IAttendance;
   isPrivate: boolean;
 }
 
-function StudySpaceUserCommentsComment({
+function studyUserCommentsComment({
   isAbsent,
   memo,
   att,
   isPrivate,
-}: IStudySpaceUserCommentsComment) {
+}: IstudyUserCommentsComment) {
   const { data: session } = useSession();
 
   const [user, setUser] = useState<IAttendance>();
@@ -104,4 +104,4 @@ const Absent = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
-export default StudySpaceUserCommentsComment;
+export default studyUserCommentsComment;

@@ -30,7 +30,7 @@ import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
 interface IRequestSuggestModal extends IModal {
-  type: "suggest" | "declare" | "studySpace";
+  type: "suggest" | "declare" | "study";
 }
 
 function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
@@ -41,7 +41,7 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
   const [isRealName, setIsRealName] = useState(true);
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      title: type === "studySpace" ? "스터디 장소 추천" : "",
+      title: type === "study" ? "스터디 장소 추천" : "",
       content: "",
     },
   });
@@ -97,7 +97,7 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
             <span>작성일:</span>
             <div>{dayjs().format("YYYY-MM-DD")}</div>
           </Item>
-          {type !== "studySpace" && (
+          {type !== "study" && (
             <Item>
               <span>작성자: </span>
               <Writer>
@@ -142,7 +142,7 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
             <ContentInput {...register("content")} />
           </Item>
         </Form>
-        {type === "studySpace" && (
+        {type === "study" && (
           <Item
             style={{
               color: "var(--font-h3)",

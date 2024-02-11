@@ -1,6 +1,5 @@
-import { adjustCircleLogo } from "@/utils/imageUtils";
 import Image from "next/image";
-
+import styled from "styled-components";
 interface ICircleLogImage {
   logoName: string;
   imageUrl: string;
@@ -9,13 +8,16 @@ export default function CircleLogoImage({
   logoName,
   imageUrl,
 }: ICircleLogImage) {
-  const width = adjustCircleLogo(logoName);
-
   return (
-    <div className="">
-      <div className="relative w-20 h-20 bg-gray-100 rounded-full overflow-hidden">
-        <Image src={imageUrl} fill={true} alt={logoName} />
-      </div>
-    </div>
+    <CircleLogoWrapper logoName={logoName}>
+      <Image src={imageUrl} width={72} height={72} alt={logoName} />
+    </CircleLogoWrapper>
   );
 }
+
+const CircleLogoWrapper = styled.div`
+  background-color: var(--font-h7); /* bg-gray-100 */
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+`;

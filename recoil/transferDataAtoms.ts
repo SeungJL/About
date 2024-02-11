@@ -34,8 +34,8 @@ export const transferMemberDataState = atom<{
   default: null,
 });
 
-export const transferStudySpaceDataState = atom<IParticipation>({
-  key: "transferStudySpaceDataState",
+export const transferstudyDataState = atom<IParticipation>({
+  key: "transferstudyDataState",
   default: null,
 });
 

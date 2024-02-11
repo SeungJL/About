@@ -8,18 +8,18 @@ import styled from "styled-components";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import StudyInviteModal from "../../../modals/study/StudyInviteModal";
 import { IPlace, StudyStatus } from "../../../types/study/studyDetail";
-interface IStudySpaceVoteOverview {
+interface IstudyVoteOverview {
   voteCnt: number;
   place: IPlace;
   status: StudyStatus;
   isPrivate: boolean;
 }
-function StudySpaceVoteOverview({
+function studyVoteOverview({
   voteCnt,
   place,
   status,
   isPrivate,
-}: IStudySpaceVoteOverview) {
+}: IstudyVoteOverview) {
   const router = useRouter();
   const date = dayjs(router.query.date as string);
 
@@ -109,4 +109,4 @@ const Message = styled.div`
   background-color: var(--font-h8);
 `;
 
-export default StudySpaceVoteOverview;
+export default studyVoteOverview;

@@ -9,7 +9,7 @@ import {
 } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedMutation } from "../../hooks/study/mutations";
-import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
+import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { Textarea } from "../../styles/layout/input";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -27,7 +27,7 @@ function StudyChangeArrivedModal({
   const completeToast = useCompleteToast();
 
   const voteDate = useRecoilValue(voteDateState);
-  const setIsRefetch = useSetRecoilState(isRefetchStudySpaceState);
+  const setIsRefetch = useSetRecoilState(isRefetchstudyState);
 
   const [memo, setMemo] = useState(user?.memo);
 

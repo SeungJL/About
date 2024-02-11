@@ -16,7 +16,7 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
-import { IModal } from "../../../types/reactTypes";
+import { DispatchBoolean, IModal } from "../../../types/reactTypes";
 import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
 import { createTimeArr, dayjsToStr } from "../../../utils/dateTimeUtils";
 import ScreenOverlay from "../../atoms/ScreenOverlay";
@@ -24,10 +24,12 @@ import RulletPickerTwo from "../../molecules/picker/RulletPickerTwo";
 interface IStudyVoteTimeRulletDrawer extends IModal {
   myVote: IStudyVote;
   voteScore: number;
+  setIsTimeModal: DispatchBoolean;
 }
 export default function StudyVoteTimeRulletDrawer({
   myVote,
   setIsModal,
+  setIsTimeModal,
   voteScore,
 }: IStudyVoteTimeRulletDrawer) {
   const completeToast = useCompleteToast();
@@ -115,13 +117,24 @@ export default function StudyVoteTimeRulletDrawer({
     });
   };
 
+  const handleDragEnd = (_, info) => {
+    if (info.offset.y > 40) {
+      setIsTimeModal(false);
+    }
+  };
+
   return (
     <>
-      <ScreenOverlay onClick={() => setIsModal(false)} />
+      <ScreenOverlay onClick={() => setIsTimeModal(false)} />
+
       <TimeModalLayout
-        initial={{ y: "90vh" }}
+        drag="y"
+        dragConstraints={{ top: 0, bottom: 0 }}
+        onDragEnd={handleDragEnd}
+        initial={{ y: 400 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        exit={{ y: 400, transition: { duration: 0.2 } }}
+        transition={{ duration: 0.4 }}
       >
         <TopNav />
         <Header>
@@ -155,7 +168,6 @@ const TimeModalLayout = styled(motion.div)`
   bottom: 0;
   width: 100%;
   max-width: var(--max-width);
-
   border-top-left-radius: var(--border-radius-main);
   border-top-right-radius: var(--border-radius-main);
   background-color: white;

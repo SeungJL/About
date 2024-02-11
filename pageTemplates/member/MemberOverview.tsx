@@ -185,7 +185,7 @@ const Info = styled.div`
   }
 `;
 
-const StudySpaces = styled.div`
+const studys = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex: 1;

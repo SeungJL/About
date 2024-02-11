@@ -114,3 +114,25 @@ export const useTypeErrorToast = () => {
   };
   return handleError;
 };
+
+export const useInfoToast = () => {
+  const toast = useToast();
+
+  const showFailToast = useCallback(
+    (type: FailToast, sub?: string, isTop: boolean = false) => {
+      let text = "";
+      if (type === "free") text = sub;
+
+      toast({
+        title: "알림",
+        description: text,
+        status: "info",
+        duration: 3000,
+        isClosable: true,
+        position: isTop ? "top" : "bottom",
+      });
+    },
+    [toast]
+  );
+  return showFailToast;
+};

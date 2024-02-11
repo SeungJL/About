@@ -18,7 +18,7 @@ import PointSystemsModal from "../../../modals/homeHeader/pointSystemsModal/Poin
 import PromotionModal from "../../../modals/homeHeader/promotionModal/PromotionModal";
 import AlphabetPopUp from "../../../modals/pop-up/AlphabetPopUp";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";
-import FreeStudySpacePopUp from "../../../modals/pop-up/FreeStudySpacePopUp";
+import FreestudyPopUp from "../../../modals/pop-up/FreestudyPopUp";
 import LastWeekAttendPopUp from "../../../modals/pop-up/LastWeekAttendPopUp";
 import SuggestPopUp from "../../../modals/pop-up/SuggestPopUp";
 
@@ -33,7 +33,7 @@ export type UserPopUp =
   | "alphabet"
   | "newPointSystem"
   | "enthusiastic"
-  | "studySpace";
+  | "study";
 
 function UserSettingPopUp({ cnt }) {
   const [popUpTypes, setPopUpTypes] = useState<UserPopUp[]>([]);
@@ -55,8 +55,8 @@ function UserSettingPopUp({ cnt }) {
       setPopUpTypes((old) => [...old, "alphabet"]);
       if (++popUpCnt === 2) return;
     }
-    if (!checkAndSetLocalStorage("studySpace", 5)) {
-      setPopUpTypes((old) => [...old, "studySpace"]);
+    if (!checkAndSetLocalStorage("study", 5)) {
+      setPopUpTypes((old) => [...old, "study"]);
       if (++popUpCnt === 2) return;
     }
     if (!checkAndSetLocalStorage(FAQ_POP_UP, 9)) {
@@ -107,10 +107,8 @@ function UserSettingPopUp({ cnt }) {
           setIsModal={() => filterPopUpTypes("profileEdit")}
         />
       )} */}
-      {popUpTypes.includes("studySpace") && (
-        <FreeStudySpacePopUp
-          setIsModal={() => filterPopUpTypes("studySpace")}
-        />
+      {popUpTypes.includes("study") && (
+        <FreestudyPopUp setIsModal={() => filterPopUpTypes("study")} />
       )}
       {popUpTypes.includes("suggest") && (
         <SuggestPopUp setIsModal={() => filterPopUpTypes("suggest")} />

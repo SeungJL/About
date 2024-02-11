@@ -14,7 +14,7 @@ export const NOTICE_ACTIVE_CNT = "noticeActiveCnt";
 export const GATHER_INTRO_MODAL = "gatherIntro";
 export const USER_GUIDE_POP_UP = "userGuidePopUp";
 export const SUGGEST_POP_UP = "suggestPopUp";
-export const STUDY_SPACE_POP_UP = "studySpacePopUp";
+export const STUDY_SPACE_POP_UP = "studyPopUp";
 export const ATTEND_POP_UP =
   "attendRecordPopUp" + dayjs().startOf("week").day();
 export const PROMOTION_POP_UP = "promotionPopUp";

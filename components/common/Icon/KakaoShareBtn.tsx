@@ -116,6 +116,7 @@ function KakaoShareBtn({
 }
 
 const Layout = styled.button`
+  padding: 8px;
   width: 100%;
 `;
 

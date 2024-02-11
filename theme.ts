@@ -38,7 +38,6 @@ const theme = extendTheme({
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
   components: {
-    
     Button: {
       baseStyle: {
         borderRadius: "4px",
@@ -48,6 +47,9 @@ const theme = extendTheme({
         },
       },
       sizes: {
+        xs: {
+          h: "24px",
+        },
         md: {
           h: "42px",
         },

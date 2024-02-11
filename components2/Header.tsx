@@ -22,8 +22,7 @@ const HeaderContainer = styled.header`
   top: 0;
   width: 100%;
   background-color: white;
-
-  height: 56px; /* h-14 */
+  height: 56px; 
   font-size: 16px; /* text-lg */
   padding-left: 8px; /* pl-2 */
   padding-right: 8px; /* pr-4 */

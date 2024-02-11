@@ -13,7 +13,7 @@ function GroupStudyCover({ image }: IGroupStudyCover) {
         src={image || SQUARE_RANDOM_IMAGE[0]}
         fill={true}
         sizes="400px"
-        alt="studySpace"
+        alt="study"
         priority={true}
       />
     </Layout>

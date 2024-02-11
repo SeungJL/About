@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MainLoadingAbsolute } from "../../../../components/common/loaders/MainLoading";
-import TimeTable from "../studySpaceTable/TimeTable";
+import TimeTable from "../studyTable/TimeTable";
 
 function StudyTimeTableSkeleton() {
   return (

@@ -6,18 +6,18 @@ import {
 } from "../../storage/study";
 import { IPlace } from "../../types/study/studyDetail";
 
-interface IStudySpaceLogo {
+interface IstudyLogo {
   place: IPlace;
   isBig: boolean;
   isImagePriority?: boolean;
   image?: string;
 }
-export const StudySpaceLogo = ({
+export const studyLogo = ({
   place,
   isBig,
   isImagePriority,
   image,
-}: IStudySpaceLogo) => {
+}: IstudyLogo) => {
   let W = 35;
 
   const id = place._id;

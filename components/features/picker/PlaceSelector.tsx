@@ -5,7 +5,6 @@ import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { IStudyVotePlaces } from "../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import { IStudyPlaces } from "../../../types/study/study";
 import { IPlace } from "../../../types/study/studyDetail";
-import { StudySpaceLogo } from "../../utils/CustomImages";
 
 interface IPlaceSelector {
   places: IStudyVotePlaces[] | IPlace[];
@@ -78,7 +77,7 @@ function PlaceSelector({
                   isMax={isMax}
                 >
                   <PlaceIcon>
-                    <StudySpaceLogo place={placeInfo} isBig={false} />
+                    <studyLogo place={placeInfo} isBig={false} />
                   </PlaceIcon>
                   <Name>{placeInfo.branch}</Name>
                 </Item>
@@ -88,7 +87,7 @@ function PlaceSelector({
                     selected={selected}
                     onClick={() => onClickItem(placeInfo)}
                   >
-                    <StudySpaceLogo place={placeInfo} isBig={true} />
+                    <studyLogo place={placeInfo} isBig={true} />
                   </FlexPlaceIcon>
                   <FlexName>{placeInfo.branch}</FlexName>
                 </FlexItem>

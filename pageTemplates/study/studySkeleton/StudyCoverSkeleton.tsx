@@ -2,15 +2,15 @@ import Image from "next/image";
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 
-interface IStudySpaceCoverSkeleton {
+interface IStudyCoverSkeleton {
   coverImageUrl: string;
 }
 
-function StudySpaceCoverSkeleton({ coverImageUrl }: IStudySpaceCoverSkeleton) {
+function StudyCoverSkeleton({ coverImageUrl }: IStudyCoverSkeleton) {
   return (
     <Layout>
       {coverImageUrl && (
-        <Image src={coverImageUrl} width={343} height={165} alt="studySpace" />
+        <Image src={coverImageUrl} width={343} height={165} alt="study" />
       )}
       <SpaceIcon>
         <Skeleton>temp</Skeleton>
@@ -40,4 +40,4 @@ const SpaceIcon = styled.div`
   background-color: white;
 `;
 
-export default StudySpaceCoverSkeleton;
+export default StudyCoverSkeleton;

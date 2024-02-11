@@ -6,18 +6,24 @@ interface IVoteMap {
   mapOptions?: IMapOptions;
   markersOptions?: IMarkerOptions[];
   handleMarker?: (id: string) => void;
+  centerValue?: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export default function VoteMap({
   mapOptions,
   markersOptions,
   handleMarker,
+  centerValue,
 }: IVoteMap) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<naver.maps.Map | null>(null);
   const mapElementsRef = useRef({
     markers: [],
     polylines: [],
+    infoWindow: [],
   });
 
   useEffect(() => {
@@ -35,7 +41,8 @@ export default function VoteMap({
     mapElementsRef.current.polylines.forEach((polyline) =>
       polyline.setMap(null)
     );
-    mapElementsRef.current = { markers: [], polylines: [] };
+    mapElementsRef.current.infoWindow.forEach((info) => info.close());
+    mapElementsRef.current = { markers: [], polylines: [], infoWindow: [] };
 
     //새로운 옵션 적용
     markersOptions?.forEach((markerOptions) => {
@@ -44,10 +51,15 @@ export default function VoteMap({
         ...markerOptions,
       });
 
+      if (markerOptions?.isPicked) {
+        map.setCenter(markerOptions.position);
+      }
       if (markerOptions.infoWindow) {
         const info = new naver.maps.InfoWindow(markerOptions.infoWindow);
         info.open(map, marker);
+        mapElementsRef.current.infoWindow.push(info);
       }
+
       if (markerOptions.polyline) {
         const polyline = new naver.maps.Polyline({
           map,
@@ -57,7 +69,6 @@ export default function VoteMap({
       }
 
       naver.maps.Event.addListener(marker, "click", () => {
-        map.setCenter(markerOptions.position);
         if (handleMarker) {
           handleMarker(markerOptions.id);
         }
@@ -65,6 +76,12 @@ export default function VoteMap({
       mapElementsRef.current.markers.push(marker);
     });
   }, [markersOptions]);
+
+  useEffect(() => {
+    if (!centerValue) return;
+    const map = mapInstanceRef.current;
+    map.setCenter(new naver.maps.LatLng(centerValue.lat, centerValue.lng));
+  }, [centerValue]);
 
   return <Map ref={mapRef} id="map" />;
 }

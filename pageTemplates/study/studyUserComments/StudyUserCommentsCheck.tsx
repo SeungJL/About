@@ -3,15 +3,15 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 
-interface IStudySpaceUserCommentsCheck {
+interface IstudyUserCommentsCheck {
   arrived: Date;
   isAbsent: string;
 }
 
-function StudySpaceUserCommentsCheck({
+function studyUserCommentsCheck({
   arrived,
   isAbsent,
-}: IStudySpaceUserCommentsCheck) {
+}: IstudyUserCommentsCheck) {
   const arrivedTime = arrived
     ? new Date(arrived)
     : new Date(2023, 1, 1, 21, 0, 0);
@@ -84,4 +84,4 @@ const Check = styled.div<{ isCheck: boolean }>`
   }
 `;
 
-export default StudySpaceUserCommentsCheck;
+export default studyUserCommentsCheck;

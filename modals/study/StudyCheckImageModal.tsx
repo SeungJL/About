@@ -23,7 +23,7 @@ import { useImageUploadMutation } from "../../hooks/sub/utilMutations";
 import { useAboutPointMutation } from "../../hooks/user/mutations";
 import { useCollectionAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 
-import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
+import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
@@ -33,7 +33,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   const errorToast = useErrorToast();
   const failToast = useFailToast();
 
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const setIsRefetchstudy = useSetRecoilState(isRefetchstudyState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
@@ -49,7 +49,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
         }
         getAboutPoint(POINT_SYSTEM_PLUS.STUDY_PRIVATE_ATTEND);
         completeToast("free", "출석 완료 !");
-        setIsRefetchStudySpace(true);
+        setIsRefetchstudy(true);
         setIsModal(false);
       },
       onError: errorToast,
@@ -75,13 +75,10 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   };
 
   const { mutate, data } = useImageUploadMutation({
-    onSuccess() {
-    
-    },
+    onSuccess() {},
   });
 
   const onSubmit = async () => {
-   
     if (!imageSrc) {
       failToast("free", "인증 사진을 첨부해주세요!");
       return;
@@ -108,7 +105,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
     // })
     //   .then((response) => response.json())
     //   .then((data) => {
-    //    
+    //
     //     // 여기서 성공 메시지 등 처리
     //   })
     //   .catch((error) => {

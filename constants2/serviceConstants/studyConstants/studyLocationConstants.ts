@@ -1,6 +1,5 @@
-import { ActiveLocation } from "@/types/serviceTypes/locationTypes";
+import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
-  ALL_스터디인증,
   ANYANG_숨맑은집,
   ANYANG_인뎃커피,
   ANYANG_자유신청,
@@ -62,7 +61,7 @@ type LocationToPlace = {
 };
 
 export const LOCATION_TO_PLACE: LocationToPlace = {
-  전체: [ALL_스터디인증],
+  // 전체: [ALL_스터디인증],
   수원: [
     SUWAN_상현역,
     SUWAN_아주대,
@@ -130,7 +129,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
 };
 
 export const PLACE_TO_LOCATION = createPlaceToLocationMap(LOCATION_TO_PLACE);
-
+console.log(25, PLACE_TO_LOCATION);
 function createPlaceToLocationMap(obj: LocationToPlace) {
   const placeToLocationMap: { [key: string]: ActiveLocation } = {};
 

@@ -1,13 +1,18 @@
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { STUDY_VOTE_ICON } from "../../../assets/icons/MapChoiceIcon";
 import ScreenOverlay from "../../../components2/atoms/ScreenOverlay";
-import { ITwoButtonNavColProps } from "../../../components2/molecules/navs/TwoButtonNavCol";
 import VoteMap from "../../../components2/organisms/VoteMap";
+import VoteMapController from "../../../components2/organisms/VoteMapController";
+import { STUDY_PREFERENCE_LOCAL } from "../../../constants/keys/queryKeys";
 import { STUDY_DISTANCE } from "../../../constants2/serviceConstants/studyConstants/studyDistanceConstants";
-import { useStudyVoteQuery } from "../../../hooks/study/queries";
+import { useInfoToast } from "../../../hooks/custom/CustomToast";
+import {
+  useStudyPreferenceQuery,
+  useStudyVoteQuery,
+} from "../../../hooks/study/queries";
 import {
   getVoteLocationCenterDot,
   getVoteLocationMaxBound,
@@ -19,6 +24,7 @@ import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
   IParticipation,
   IPlace,
+  IStudyPlaces,
   IStudyVote,
 } from "../../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
@@ -29,31 +35,84 @@ export type ChoiceRank = "first" | "second" | "third";
 interface IStudyVoteMap extends IModal {}
 
 export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
-  const router = useRouter();
   const { data } = useSession();
+  const infoToast = useInfoToast();
   const searchParams = useSearchParams();
-  const newSearchParams = new URLSearchParams(searchParams);
   const date = searchParams.get("date");
   const location = convertLocationLangTo(
     searchParams.get("location") as ActiveLocation,
     "kr"
   );
 
-  const [isTimePicker, setIsTimePicker] = useState(false);
+  const [preferInfo, setPreferInfo] = useState<{
+    preset: "first" | "second" | null;
+    prefer: IStudyPlaces;
+  }>();
   const [myVote, setMyVote] = useState<IStudyVote>();
   const [precision, setPrecision] = useState<0 | 1 | 2>(1);
   const [voteScore, setVoteScore] = useState(0);
   const [markersOptions, setMarkersOptions] = useState<IMarkerOptions[]>();
   const [subSecond, setSubSecond] = useState<string[]>();
+  const [isPresetModal, setIsPresetModal] = useState(false);
+  const [centerValue, setCenterValue] = useState<{ lat: number; lng: number }>(
+    null
+  );
 
   const { data: studyVoteData } = useStudyVoteQuery(date, location, {
     enabled: !!location && !!date,
   });
 
+  const preferenceStorage = localStorage.getItem(STUDY_PREFERENCE_LOCAL);
+  const { data: studyPreference } = useStudyPreferenceQuery({
+    enabled: !preferenceStorage,
+  });
+
+  //스터디 프리셋 적용
+  useEffect(() => {
+    if (data?.user?.location !== location) return;
+    if (!preferenceStorage && studyPreference === undefined) return;
+    if (preferenceStorage) {
+      setPreferInfo({ preset: "first", prefer: JSON.parse(preferenceStorage) });
+    } else if (studyPreference === null) {
+      infoToast(
+        "free",
+        "최초 1회 프리셋 등록이 필요합니다. 앞으로는 더 빠르게 투표할 수 있고, 이후 마이페이지에서도 변경이 가능합니다."
+      );
+      setIsPresetModal(true);
+    } else {
+      setPreferInfo({ preset: "first", prefer: studyPreference });
+      localStorage.setItem(
+        STUDY_PREFERENCE_LOCAL,
+        JSON.stringify(studyPreference)
+      );
+    }
+  }, [data?.user, studyPreference]);
+
+  useEffect(() => {
+    if (!studyVoteData) return;
+    if (preferInfo?.preset === "first") {
+      const prefer = preferInfo.prefer;
+      const place = studyVoteData.some((par) => par.place._id === prefer.place)
+        ? prefer.place
+        : null;
+      const subPlace = prefer.subPlace.filter((sub) =>
+        studyVoteData.some((par) => par.place._id === sub)
+      );
+
+      setMyVote((old) => (place ? { ...old, place, subPlace } : { ...old }));
+    } else if (preferInfo?.prefer === null) setMyVote(null);
+  }, [preferInfo?.preset, studyVoteData]);
+
+  useEffect(() => {
+    if (!studyVoteData) return;
+    setMarkersOptions(getMarkersOptions(studyVoteData, myVote, subSecond));
+  }, [studyVoteData, myVote]);
+
   //2지망 장소 추천 및 투표 점수 추가
   useEffect(() => {
     if (!studyVoteData || !data?.user?.uid) return;
     const place = myVote?.place;
+
     if (place) {
       const { sub1, sub2 } = getSecondRecommendations(
         studyVoteData,
@@ -69,13 +128,12 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
         (old) =>
           old + getPlaceVoteRankScore(place, studyVoteData, data.user.uid)
       );
-    } else setMyVote((old) => ({ ...old, subPlace: [] }));
+    } else {
+      setMyVote((old) => ({ ...old, subPlace: [] }));
+      console.log(2333);
+      setPreferInfo(undefined);
+    }
   }, [myVote?.place]);
-
-  useEffect(() => {
-    if (!studyVoteData) return;
-    setMarkersOptions(getMarkersOptions(studyVoteData, myVote, subSecond));
-  }, [studyVoteData, myVote]);
 
   const mapOptions = getMapOptions(location);
 
@@ -84,21 +142,6 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
   };
   //인원 없을떄 투표하면
   // 신청 장소 비례해서
-
-  const onClick = () => {
-    router.replace("/");
-  };
-
-  const twoButtonNavOptions: ITwoButtonNavColProps = {
-    up: {
-      text: "시간 선택",
-      func: () => setIsTimePicker(true),
-    },
-    down: {
-      func: () => router.replace("/", { scroll: false }),
-    },
-    size: "lg",
-  };
 
   return (
     <>
@@ -109,6 +152,14 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
             mapOptions={mapOptions}
             markersOptions={markersOptions}
             handleMarker={handlePlaceVote}
+            centerValue={centerValue}
+          />
+          <VoteMapController
+            preset={preferInfo?.preset}
+            setPreset={(preset) => setPreferInfo((old) => ({ ...old, preset }))}
+            precision={precision}
+            setPrecision={setPrecision}
+            setCenterValue={setCenterValue}
           />
         </MapLayout>
         <MapBottomNav
@@ -121,21 +172,6 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
     </>
   );
 }
-
-const Layout = styled.div`
-  position: fixed;
-  top: 15%;
-  left: 0;
-  z-index: 2000;
-  width: 100%;
-  display: flex;
-
-  flex-direction: column;
-`;
-
-const MapLayout = styled.div`
-  aspect-ratio: 1/1;
-`;
 
 export const getSecondRecommendations = (
   voteData: IParticipation[],
@@ -186,7 +222,6 @@ export const getPlaceVoteRankScore = (
   const mainVoteAttCnt = voteData
     .find((par) => par.place._id === placeId)
     ?.attendences.filter((att) => att.user.uid !== uid).length;
-
   switch (mainVoteAttCnt) {
     case 0:
       return 2;
@@ -241,6 +276,7 @@ export const getMarkersOptions = (
         : null;
 
     return {
+      isPicked: myVote?.place === placeId,
       id: par.place._id,
       position: new naver.maps.LatLng(par.place.latitude, par.place.longitude),
       title: par.place.brand,
@@ -304,3 +340,19 @@ export const setVotePlaceInfo = (
       subPlace: [...(voteInfo?.subPlace || []), id],
     };
 };
+
+const Layout = styled.div`
+  position: fixed;
+  top: 15%;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  display: flex;
+
+  flex-direction: column;
+`;
+
+const MapLayout = styled.div`
+  aspect-ratio: 1/1;
+  position: relative;
+`;

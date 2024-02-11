@@ -217,7 +217,7 @@ export const PLACE_TO_LOCATION = {
   [DONG_혜화역2]: "동대문",
 };
 
-export interface IStudySpaceInfo {
+export interface IstudyInfo {
   id: string;
   location: string;
   time: string;
@@ -225,7 +225,7 @@ export interface IStudySpaceInfo {
   logo?: string;
 }
 
-export const STUDY_SPACE_INFO: IStudySpaceInfo[] = [
+export const STUDY_SPACE_INFO: IstudyInfo[] = [
   //수원
   {
     id: SUWAN_아주대,

@@ -38,4 +38,4 @@ export const COLLECTION_ALPHABET = "collectionAlphabet";
 
 export const ADMIN_STUDY_RECORD = "adminStudyRecord";
 
-export const STUDY_PREFERENCE_LOCAL = "studyPreferenceLocal";
+export const STUDY_PREFERENCE_LOCAL = "studyPreferenceLocal2";

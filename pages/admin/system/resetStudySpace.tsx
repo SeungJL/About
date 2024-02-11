@@ -2,7 +2,7 @@ import { Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
 import { SERVER_URI } from "../../../constants/system";
 
-function AdminResetStudySpace() {
+function AdminResetstudy() {
   const secretKey = process.env.NEXTAUTH_SECRET;
 
   const onResetScore = () => {
@@ -48,4 +48,4 @@ function AdminResetStudySpace() {
   );
 }
 
-export default AdminResetStudySpace;
+export default AdminResetstudy;

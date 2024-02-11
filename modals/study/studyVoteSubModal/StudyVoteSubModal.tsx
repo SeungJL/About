@@ -30,7 +30,7 @@ import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
-import { isRefetchStudySpaceState } from "../../../recoil/refetchingAtoms";
+import { isRefetchstudyState } from "../../../recoil/refetchingAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { IStudyParticipate } from "../../../types/study/study";
 import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
@@ -60,7 +60,7 @@ function StudyVoteSubModal({
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const voteDate = useRecoilValue(voteDateState);
   const location = useRecoilValue(locationState);
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const setIsRefetchstudy = useSetRecoilState(isRefetchstudyState);
 
   const [isFirst, setIsFirst] = useState(true);
   const [voteInfo, setVoteInfo] = useState<IStudyParticipate>();

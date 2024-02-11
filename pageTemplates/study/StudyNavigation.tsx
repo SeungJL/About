@@ -36,9 +36,8 @@ import {
   StudyStatus,
 } from "../../../types/study/studyDetail";
 import { IUser } from "../../../types/user/user";
-import StudySpaceNavModal from "./studySpaceNavModal";
 
-interface IStudySpaceNavigation {
+interface IstudyNavigation {
   attendences: IAttendance[];
   place: IPlace;
   status: StudyStatus;
@@ -52,14 +51,14 @@ type MainBtnType =
   | "attendCheckImage"
   | "private";
 type SubBtnType = "change" | "absent" | "cancel" | "lightAbsent";
-export type StudySpaceModalType = MainBtnType | SubBtnType;
+export type studyModalType = MainBtnType | SubBtnType;
 
-function StudySpaceNavigation({
+function studyNavigation({
   place,
   attendences,
   status,
   isPrivate,
-}: IStudySpaceNavigation) {
+}: IstudyNavigation) {
   const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
@@ -76,7 +75,7 @@ function StudySpaceNavigation({
 
   const resetQueryData = useResetQueryData();
 
-  const [modalType, setModalType] = useState<StudySpaceModalType>();
+  const [modalType, setModalType] = useState<studyModalType>();
 
   const myVote = attendences?.find(
     (props) => (props.user as IUser).uid === session?.user?.uid
@@ -199,7 +198,7 @@ function StudySpaceNavigation({
           {text}
         </MainButton>
       </Layout>
-      <StudySpaceNavModal
+      <studyNavModal
         type={modalType}
         setType={setModalType}
         myVote={myVote}
@@ -262,4 +261,4 @@ const MainButton = styled.button<{ func?: boolean }>`
   font-size: 16px;
 `;
 
-export default StudySpaceNavigation;
+export default studyNavigation;

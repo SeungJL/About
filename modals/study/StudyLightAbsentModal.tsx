@@ -14,7 +14,7 @@ import {
 } from "../../hooks/custom/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
-import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
+import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { PLACE_TO_NAME } from "../../storage/study";
 import { IModal } from "../../types/reactTypes";
 
@@ -27,12 +27,12 @@ function StudyLightAbsentModal({ setIsModal }: IModal) {
   const placeId = router.query.placeId;
   const isPrivate = PLACE_TO_NAME[placeId as string] === "자유신청";
 
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const setIsRefetchstudy = useSetRecoilState(isRefetchstudyState);
 
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
-      setIsRefetchStudySpace(true);
+      setIsRefetchstudy(true);
       let fee = POINT_SYSTEM_Deposit.STUDY_PRIVATE_ABSENT;
       if (isPrivate) getDeposit(fee);
       completeToast("success");

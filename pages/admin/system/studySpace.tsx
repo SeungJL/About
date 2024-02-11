@@ -3,11 +3,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
-import { StudySpaceLogo } from "../../../components/utils/CustomImages";
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import { ISpaceControl } from "../../../types/page/admin";
 
-function AdminStudySpace() {
+function Adminstudy() {
   const { data } = useStudyPlacesQuery("all");
   const { register, handleSubmit } = useForm({});
 
@@ -137,7 +136,7 @@ function AdminStudySpace() {
           >
             <div>
               <ImageContainer>
-                <StudySpaceLogo place={place} isBig={false} />
+                <studyLogo place={place} isBig={false} />
               </ImageContainer>
               <SpaceInfo>
                 <Status>
@@ -280,4 +279,4 @@ const Info = styled.input`
   font-size: 12px;
 `;
 
-export default AdminStudySpace;
+export default Adminstudy;

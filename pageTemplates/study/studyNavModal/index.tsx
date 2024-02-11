@@ -10,24 +10,24 @@ import StudyLightAbsentModal from "../../../../modals/study/StudyLightAbsentModa
 import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
 import { DispatchType } from "../../../../types/reactTypes";
 import { IAttendance, IPlace } from "../../../../types/study/studyDetail";
-import { StudySpaceModalType } from "../StudySpaceNavigation";
+import { studyModalType } from "../studyNavigation";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 
-interface IStudySpaceNavModal {
-  type: StudySpaceModalType;
-  setType: DispatchType<StudySpaceModalType>;
+interface IstudyNavModal {
+  type: studyModalType;
+  setType: DispatchType<studyModalType>;
   myVote: IAttendance;
   place: IPlace;
   attCnt: number;
 }
 
-function StudySpaceNavModal({
+function studyNavModal({
   type,
   setType,
   myVote,
   place,
   attCnt,
-}: IStudySpaceNavModal) {
+}: IstudyNavModal) {
   const [isVoteComplete, setIsVoteComplete] = useState(false);
 
   const closeModal = () => {
@@ -74,4 +74,4 @@ function StudySpaceNavModal({
 
 const Layout = styled.div``;
 
-export default StudySpaceNavModal;
+export default studyNavModal;

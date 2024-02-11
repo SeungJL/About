@@ -15,22 +15,19 @@ import {
   StudyStatus,
 } from "../../../../types/study/studyDetail";
 import { IUser } from "../../../../types/user/user";
-import StudySpaceUserCommentsCheck from "./StudySpaceUserCommentsCheck";
-import StudySpaceUserCommentsComment from "./StudySpaceUserCommentsComment";
-import StudySpaceUserCommentsName from "./StudySpaceUserCommentsName";
-interface IStudySpaceUserComments {
+interface IstudyUserComments {
   attendances: IAttendance[];
   isPrivate: boolean;
   absences: IAbsence[];
   status: StudyStatus;
 }
 
-function StudySpaceUserComments({
+function studyUserComments({
   attendances,
   isPrivate,
   absences,
   status,
-}: IStudySpaceUserComments) {
+}: IstudyUserComments) {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -88,7 +85,7 @@ function StudySpaceUserComments({
                 </ProfileIconWrapper>
                 <BlockInfo>
                   <Info>
-                    <StudySpaceUserCommentsName
+                    <studyUserCommentsName
                       name={user.name}
                       uid={user.uid}
                       hasPublicAccess={isOpenProfile}
@@ -96,14 +93,14 @@ function StudySpaceUserComments({
                         !!(isAttend?.memo !== undefined && memo)
                       }
                     />
-                    <StudySpaceUserCommentsComment
+                    <studyUserCommentsComment
                       isAbsent={isAbsent}
                       memo={memo}
                       att={att}
                       isPrivate={isPrivate}
                     />
                   </Info>
-                  <StudySpaceUserCommentsCheck
+                  <studyUserCommentsCheck
                     arrived={att.arrived}
                     isAbsent={isAbsent?.createdAt}
                   />
@@ -180,4 +177,4 @@ const Info = styled.div`
   }
 `;
 
-export default StudySpaceUserComments;
+export default studyUserComments;

@@ -30,7 +30,7 @@ import {
 } from "../../hooks/user/mutations";
 import { useCollectionAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 
-import { isRefetchStudySpaceState } from "../../recoil/refetchingAtoms";
+import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { myStudyState, voteDateState } from "../../recoil/studyAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { locationState } from "../../recoil/userAtoms";
@@ -52,7 +52,7 @@ function StudyCheckModal({ setIsModal }: IModal) {
   const [isChecking, setIsChecking] = useState(false);
 
   const location = useRecoilValue(locationState);
-  const setIsRefetchStudySpace = useSetRecoilState(isRefetchStudySpaceState);
+  const setIsRefetchstudy = useSetRecoilState(isRefetchstudyState);
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
   const voteDate = useRecoilValue(voteDateState);
 

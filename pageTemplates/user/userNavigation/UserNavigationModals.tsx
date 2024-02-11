@@ -9,7 +9,7 @@ import RequestLogoutModal from "../../../modals/userRequest/RequestLogoutModal";
 import RequestRestCancelModal from "../../../modals/userRequest/RequestRestCancelModal";
 import RequestRestModal from "../../../modals/userRequest/RequestRestModal/RequestRestModal";
 import RequestSecedeModal from "../../../modals/userRequest/RequestSecedeModal";
-import SettingStudySpace from "../../../modals/userRequest/RequestStudyPreferenceModal";
+import Settingstudy from "../../../modals/userRequest/RequestStudyPreferenceModal";
 import RequestSuggestModal from "../../../modals/userRequest/RequestSuggestModal";
 import { userInfoState } from "../../../recoil/userAtoms";
 import { UserOverviewModal } from "./UserNavigation";
@@ -39,7 +39,7 @@ function UserNavigationModals({
         <RequestSuggestModal type="suggest" setIsModal={setIsModal} />
       )}
       {modalOpen === "studyPlace" && (
-        <RequestSuggestModal type="studySpace" setIsModal={setIsModal} />
+        <RequestSuggestModal type="study" setIsModal={setIsModal} />
       )}
       {modalOpen === "rest" &&
         (userInfo?.role !== "resting" ? (
@@ -61,9 +61,7 @@ function UserNavigationModals({
       )}
 
       {modalOpen === "secede" && <RequestSecedeModal setIsModal={setIsModal} />}
-      {modalOpen === "spaceSetting" && (
-        <SettingStudySpace setIsModal={setIsModal} />
-      )}
+      {modalOpen === "spaceSetting" && <Settingstudy setIsModal={setIsModal} />}
       {modalOpen === "birthday" && (
         <RequestBirthModal setIsModal={setIsModal} />
       )}

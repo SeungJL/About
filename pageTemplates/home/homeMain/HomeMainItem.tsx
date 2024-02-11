@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { myStudyState, voteDateState } from "../../../recoil/studyAtoms";
-import { transferStudySpaceDataState } from "../../../recoil/transferDataAtoms";
+import { transferstudyDataState } from "../../../recoil/transferDataAtoms";
 import { IParticipation } from "../../../types/study/studyDetail";
 import AboutMainItemParticipants from "./HomeStudySectionItem/HomeStudySectionItemParticipants";
 import AboutMainItemStatus from "./HomeStudySectionItem/HomeStudySectionItemStatus";
@@ -24,15 +24,13 @@ function AboutMainItem({
 
   const voteDate = useRecoilValue(voteDateState);
   const myStudyFixed = useRecoilValue(myStudyState);
-  const setTransferStudySpaceData = useSetRecoilState(
-    transferStudySpaceDataState
-  );
+  const setTransferstudyData = useSetRecoilState(transferstudyDataState);
 
   const { attendences, place, status } = participation || {};
   const statusFixed = place === myStudyFixed?.place ? "myOpen" : status;
 
   const onClickItem = () => {
-    setTransferStudySpaceData(participation);
+    setTransferstudyData(participation);
     router.push(`/home/${dayjsToStr(voteDate)}/${participation.place._id}`);
   };
 

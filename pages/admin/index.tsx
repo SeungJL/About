@@ -78,13 +78,13 @@ function Admin() {
             <div>
               <BlockName>스터디 관리</BlockName>
               <NavBlock>
-                <button onClick={() => onClick(`studySpace`, false)}>
+                <button onClick={() => onClick(`study`, false)}>
                   스터디 장소 정보
                 </button>
                 <button onClick={() => onClick(`studyStatus`, false)}>
                   스터디 상태 변경
                 </button>
-                <button onClick={() => onClick(`resetStudySpace`, false)}>
+                <button onClick={() => onClick(`resetstudy`, false)}>
                   스터디 초기화 및 업데이트
                 </button>
                 <button onClick={() => onClick(`resetStudyStatus`, false)}>

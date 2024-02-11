@@ -1,12 +1,34 @@
 import Image from "next/image";
-import "../../styles/customClass.css";
+import styled from "styled-components";
+
 interface IRoundedCoverImage {
   imageUrl: string;
 }
 export default function RoundedCoverImage({ imageUrl }: IRoundedCoverImage) {
   return (
-    <div className="relative w-full aspect-ratio-1-2 overflow-hidden rounded-b-xl ">
-      <Image src={imageUrl} fill={true} alt="studySpace" priority={true} />
-    </div>
+    <RoundedImageWrapper>
+      <div>
+        <Image
+          src={imageUrl}
+          fill={true}
+          sizes="400px"
+          alt="study"
+          priority={true}
+        />
+      </div>
+    </RoundedImageWrapper>
   );
 }
+const RoundedImageWrapper = styled.div`
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  border-bottom-left-radius: var(--border-radius-max);
+  border-bottom-right-radius: var(--border-radius-max);
+
+  > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+`;

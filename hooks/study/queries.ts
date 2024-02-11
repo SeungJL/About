@@ -14,7 +14,7 @@ import { dayjsToStr } from "../../helpers/dateHelpers";
 
 import { QueryOptions } from "../../types/reactTypes";
 
-import { IArrivedData, IStudyPlaces } from "../../types/study/study";
+import { IArrivedData } from "../../types/study/study";
 import {
   IPlace,
   IStudyPreferencesQuery,
@@ -22,7 +22,11 @@ import {
 } from "../../types/study/studyDetail";
 
 import { Location } from "../../types/system";
-import { IParticipation, IVote } from "../../types2/studyTypes/studyVoteTypes";
+import {
+  IParticipation,
+  IStudyPlaces,
+  IVote,
+} from "../../types2/studyTypes/studyVoteTypes";
 
 export const useStudyPlacesQuery = (
   location: Location | "all",

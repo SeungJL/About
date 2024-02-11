@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 import StudyVoteTimeRulletDrawer from "../../../components2/organisms/drawer/StudyVoteTimeRulletDrawer";
@@ -52,13 +52,16 @@ function MapBottomNav({
           닫기
         </Button>
       </Layout>
-      {isTimeModal && (
-        <StudyVoteTimeRulletDrawer
-          myVote={myVote}
-          setIsModal={setIsTimeModal}
-          voteScore={voteScore}
-        />
-      )}
+      <AnimatePresence>
+        {isTimeModal && (
+          <StudyVoteTimeRulletDrawer
+            setIsTimeModal={setIsTimeModal}
+            myVote={myVote}
+            setIsModal={setIsModal}
+            voteScore={voteScore}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
-export const isRefetchStudySpaceState = atom({
-  key: "isRefetchStudySpace",
+export const isRefetchstudyState = atom({
+  key: "isRefetchstudy",
   default: false,
 });
 

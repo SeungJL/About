@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 
-function StudySpaceOverviewSkeleton() {
+function StudyOverviewSkeleton() {
   return (
     <Layout>
       <div>
@@ -67,4 +67,4 @@ const Time = styled.span`
   }
 `;
 
-export default StudySpaceOverviewSkeleton;
+export default StudyOverviewSkeleton;

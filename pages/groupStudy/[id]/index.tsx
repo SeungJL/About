@@ -71,7 +71,6 @@ function GroupStudyDetail() {
       firstDate !==
         dayjsToStr(dayjs().subtract(1, "day").startOf("week").add(1, "day"))
     ) {
-   
       patchAttendance();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

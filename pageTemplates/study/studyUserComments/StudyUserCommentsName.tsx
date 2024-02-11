@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import HeartLikeIcon from "../../../../components/common/Icon/HeartLikeIcon";
-interface IStudySpaceUserCommentsName {
+interface IstudyUserCommentsName {
   name: string;
   isArrivedCondition: boolean;
   uid: string;
@@ -10,12 +10,12 @@ interface IStudySpaceUserCommentsName {
   hasPublicAccess: boolean;
 }
 
-function StudySpaceUserCommentsName({
+function studyUserCommentsName({
   uid,
   name,
   isArrivedCondition,
   hasPublicAccess,
-}: IStudySpaceUserCommentsName) {
+}: IstudyUserCommentsName) {
   const { data: session } = useSession();
 
   const [isHeart, setIsHeart] = useState(false);
@@ -45,4 +45,4 @@ const Layout = styled.div`
   }
 `;
 
-export default StudySpaceUserCommentsName;
+export default studyUserCommentsName;

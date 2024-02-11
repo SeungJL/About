@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
 
-function StudySpaceHeaderSkeleton() {
+function StudyHeaderSkeleton() {
   return (
     <Layout>
       <div>
@@ -41,4 +41,4 @@ const Title = styled.div`
   width: 100px;
 `;
 
-export default StudySpaceHeaderSkeleton;
+export default StudyHeaderSkeleton;

@@ -13,7 +13,7 @@ import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import RequestSuggestModal from "../userRequest/RequestSuggestModal";
 
-function FreeStudySpacePopUp({ setIsModal }: IModal) {
+function FreestudyPopUp({ setIsModal }: IModal) {
   const [isSuggestModal, setIsSuggestModal] = useState(false);
   return (
     <>
@@ -42,7 +42,7 @@ function FreeStudySpacePopUp({ setIsModal }: IModal) {
       </ModalLayout>
       {isSuggestModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <RequestSuggestModal setIsModal={setIsModal} type="studySpace" />
+          <RequestSuggestModal setIsModal={setIsModal} type="study" />
         </ModalPortal>
       )}
     </>
@@ -56,4 +56,4 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export default FreeStudySpacePopUp;
+export default FreestudyPopUp;

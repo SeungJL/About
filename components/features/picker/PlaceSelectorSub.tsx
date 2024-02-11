@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IPlace } from "../../../types/study/studyDetail";
-import { StudySpaceLogo } from "../../utils/CustomImages";
 
 interface IPlaceSelectorSub {
   places: IPlace[];
@@ -59,7 +58,7 @@ function PlaceSelectorSub({
             isSelected={selectPlaces.includes(place)}
             onClick={() => onClick(place)}
           >
-            <StudySpaceLogo place={place} isBig={true} />
+            <studyLogo place={place} isBig={true} />
           </Place>
           <Name>{place.branch}</Name>
         </Item>
