@@ -14,7 +14,6 @@ import {
 } from "../../../libs/study/getStudyVoteMap";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
 import { IModal } from "../../../types/reactTypes";
-import { ITimeStartToEnd } from "../../../types/timeAndDate";
 import { IMapOptions, IMarkerOptions } from "../../../types2/lib/naverMapTypes";
 import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
@@ -100,15 +99,10 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
     },
     size: "lg",
   };
-  const [time, setTime] = useState<ITimeStartToEnd>({
-    start: { hours: 14, minutes: 0 },
-    end: { hours: 18, minutes: 0 },
-  });
 
   return (
     <>
       <ScreenOverlay onClick={() => setIsModal(false)} />
-
       <Layout>
         <MapLayout>
           <VoteMap

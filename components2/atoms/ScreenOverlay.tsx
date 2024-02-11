@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface IScreenOverlay {
-  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick: () => void;
 }
 
 const ScreenOverlay = ({ onClick }: IScreenOverlay) => {

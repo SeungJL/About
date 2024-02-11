@@ -1,33 +1,43 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { createTimeArr } from "../../../utils/dateTimeUtils";
 import RulletPicker from "../../atoms/RulletPicker";
-import { IFooterOptions } from "../../Modal";
-interface IRulletPickerTwo {}
-export default function RulletPickerTwo({}: IRulletPickerTwo) {
+interface IRulletPickerTwo {
+  leftDefaultIdx: number;
+  rightDefaultIdx: number;
+  leftRulletArr: string[];
+  rightRulletArr: string[];
+  setRulletValue: Dispatch<
+    SetStateAction<{
+      left: string;
+      right: string;
+    }>
+  >;
+}
+export default function RulletPickerTwo({
+  leftDefaultIdx,
+  rightDefaultIdx,
+  leftRulletArr,
+  rightRulletArr,
+  setRulletValue,
+}: IRulletPickerTwo) {
   const [rulletIndex, setRulletIndex] = useState<{
     start: number;
     end: number;
-  }>({ start: 8, end: 16 });
+  }>({ start: leftDefaultIdx, end: rightDefaultIdx });
 
-  const footerOptions: IFooterOptions = {
-    main: {
-      text: "변경",
-      func: () => {},
-    },
-    sub: {
-      text: "취소",
-    },
-    isFull: true,
-  };
+  useEffect(() => {
+    setRulletValue({
+      left: leftRulletArr[rulletIndex.start],
+      right: rightRulletArr[rulletIndex.end],
+    });
+  }, [rulletIndex]);
 
-  const startItemArr = createTimeArr(10, 22);
   return (
     <Layout>
       <Wrapper>
         <RulletPicker
           text="시작 시간"
-          rulletItemArr={startItemArr}
+          rulletItemArr={leftRulletArr}
           rulletIndex={rulletIndex.start}
           setRulletIndex={(idx: number) =>
             setRulletIndex((old) => ({ ...old, start: idx }))
@@ -37,7 +47,7 @@ export default function RulletPickerTwo({}: IRulletPickerTwo) {
       <Wrapper>
         <RulletPicker
           text="종료 시간"
-          rulletItemArr={startItemArr}
+          rulletItemArr={rightRulletArr}
           rulletIndex={rulletIndex.end}
           setRulletIndex={(idx: number) =>
             setRulletIndex((old) => ({ ...old, end: idx }))
