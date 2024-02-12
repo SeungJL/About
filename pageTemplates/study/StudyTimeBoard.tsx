@@ -1,0 +1,57 @@
+import { IHighlightedText } from "../../components2/atoms/HighlightedText";
+import UserTimeBoard, {
+  ITimeBoardParticipant,
+} from "../../components2/molecules/boards/userTimeBoard/UserTimeBoard";
+import {
+  IAttendance,
+  StudyStatus,
+} from "../../types2/studyTypes/studyVoteTypes";
+
+interface IStudyTimeBoard {
+  participants: IAttendance[];
+  studyStatus: StudyStatus;
+}
+export default function StudyTimeBoard({
+  participants,
+  studyStatus,
+}: IStudyTimeBoard) {
+  const timeBoardParticipants: ITimeBoardParticipant[] =
+    transformToTimeBoardProp(participants);
+
+  const headerText: IHighlightedText = getHeaderText(
+    studyStatus,
+    participants.length
+  );
+
+  return (
+    <UserTimeBoard
+      headerText={headerText}
+      participants={timeBoardParticipants}
+    />
+  );
+}
+
+const transformToTimeBoardProp = (participants: IAttendance[]) => {
+  return participants.map((par) => ({
+    name: par.user.name,
+    time: {
+      start: par.time.start,
+      end: par.time.end,
+    },
+  }));
+};
+
+const getHeaderText = (
+  studyStatus: StudyStatus,
+  num: number
+): IHighlightedText => {
+  if (studyStatus === "dismissed")
+    return { text: "오픈되지 않은 스터디입니다." };
+
+  return {
+    text: `현재 ${num}명의 멤버가 ${
+      studyStatus === "pending" ? "투표중" : "참여중"
+    }이에요!`,
+    hightlightedText: `${num}명의 멤버`,
+  };
+};

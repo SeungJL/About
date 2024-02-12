@@ -1,3 +1,10 @@
+import styled from "styled-components";
+
 export default function Divider() {
-  return <div className="h-1.5 bg-gray-7" />;
+  return <Layout />;
 }
+
+const Layout = styled.div`
+  height: 6px;
+  background-color: var(--font-h7);
+`;

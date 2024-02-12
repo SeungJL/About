@@ -1,17 +1,33 @@
-import OutlineBadge from "./OutlineBadge";
-
+import { Badge } from "@chakra-ui/react";
+import styled from "styled-components";
 interface IAttendanceBadge {
   type: "attend" | "dismissed";
   time?: string;
 }
+
 export default function AttendanceBadge({ type, time }: IAttendanceBadge) {
   return (
-    <div className={`flex flex-col items-center ${time && "mt-1"}`}>
-      <OutlineBadge
-        colorType={type === "attend" ? "mint" : "red"}
-        text={type === "attend" ? "출석" : "불참"}
-      />
-      <span className=" text-xxs text-gray-4">{time} </span>
-    </div>
+    <BadgeContainer time={time}>
+      <Badge
+        p="3px 6px"
+        variant="outline"
+        colorScheme={type === "attend" ? "mintTheme" : "redTheme"}
+      >
+        {type === "attend" ? "출석" : "불참"}
+      </Badge>
+      {time && <TimeText>{time}</TimeText>}
+    </BadgeContainer>
   );
 }
+
+const BadgeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: ${(props) => (props.time ? "8px" : "0")};
+`;
+
+const TimeText = styled.span`
+  font-size: 10px; /* Equivalent to text-xxs */
+  color: var(--font-h3); /* Assuming text-gray-4 maps to this color */
+`;

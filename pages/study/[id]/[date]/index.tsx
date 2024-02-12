@@ -2,12 +2,17 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
+import Divider from "../../../../components2/atoms/Divider";
 import { PLACE_TO_LOCATION } from "../../../../constants2/serviceConstants/studyConstants/studyLocationConstants";
 import { useStudyVoteQuery } from "../../../../hooks/study/queries";
 import { getMyStudy } from "../../../../libs/study/getMyStudy";
 import StudyCover from "../../../../pageTemplates/study/StudyCover";
+import StudyDateBar from "../../../../pageTemplates/study/StudyDateBar";
 import StudyHeader from "../../../../pageTemplates/study/StudyHeader";
+import StudyNavigation from "../../../../pageTemplates/study/StudyNavigation";
 import StudyOverview from "../../../../pageTemplates/study/StudyOverView";
+import StudyParticipants from "../../../../pageTemplates/study/StudyParticipants";
+import StudyTimeBoard from "../../../../pageTemplates/study/StudyTimeBoard";
 import { myStudyState } from "../../../../recoils/studyRecoils";
 
 export default function Page() {
@@ -31,10 +36,10 @@ export default function Page() {
 
   const study = studyAll?.find((study) => study.place._id === id);
   const place = study?.place;
-
+  const attendances = study?.attendences;
   return (
     <>
-      {place && (
+      {study && (
         <>
           <StudyHeader place={place} />
           <StudyCover imageUrl={place.coverImage} brand={place.brand} />
@@ -42,23 +47,26 @@ export default function Page() {
             title={place.fullname}
             locationDetail={place.locationDetail}
             time={place.time}
-            participantsNum={study?.attendences.length}
+            participantsNum={attendances.length}
             coordinate={{
               lat: place.latitude,
               lng: place.longitude,
             }}
           />
-          {/* <Divider />
+          <Divider />
           <StudyDateBar />
           <StudyTimeBoard
-            participants={study.attendences}
+            participants={attendances}
             studyStatus={study.status}
           />
           <StudyParticipants
-            participants={study.attendences}
+            participants={attendances}
             absences={study.absences}
           />
-          <StudyVoteNav /> */}
+          <StudyNavigation
+            voteCnt={attendances?.length}
+            studyStatus={study.status}
+          />
         </>
       )}
     </>

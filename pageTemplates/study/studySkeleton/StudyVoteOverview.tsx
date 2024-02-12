@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
 import styled from "styled-components";
 import Skeleton from "../../../../components/common/masks/skeleton/Skeleton";
-function studyVoteOverviewSkeleton() {
+function StudyDateBarSkeleton() {
   const router = useRouter();
   const date = dayjs(router.query.date as string);
   return (
@@ -63,4 +63,4 @@ const Container = styled.div`
   }
 `;
 
-export default studyVoteOverviewSkeleton;
+export default StudyDateBarSkeleton;

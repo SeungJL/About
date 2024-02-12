@@ -1,5 +1,6 @@
-import { COLOR_TABLE } from "@/constants/colorConstants";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { COLOR_TABLE } from "../../../../../constants2/colorConstants";
 import { ITimeBoardParticipant } from "../UserTimeBoard";
 import { transformToUserBlocks } from "../_lib/transformToUserBlocks";
 
@@ -16,33 +17,50 @@ interface IBoardUserBlocks {
   participants: ITimeBoardParticipant[];
 }
 export default function BoardUserBlocks({ participants }: IBoardUserBlocks) {
-  const [userBlocks, setUserBlocks] = useState<IUserTimeBlock[]>();
+  const [userBlocks, setUserBlocks] = useState([]);
 
   useEffect(() => {
+    // Assuming transformToUserBlocks is a function that transforms participants into userBlocks
     const newUserBlocks = transformToUserBlocks(participants);
     setUserBlocks(newUserBlocks);
   }, [participants]);
 
   return (
-    <div className="absolute w-full h-full pt-7">
+    <BlocksContainer>
       {userBlocks?.map((userBlock, idx) => (
-        <div
-          key={idx}
-          className={`${COLOR_TABLE[idx]}  h-9 relative z-10 rounded-lg p-1 flex flex-col text-xxs text-white mb-1`}
-          style={{
-            minWidth: `${BLOCK_WIDTH * 3 + 2}px`,
-            width: `${userBlock.startToEndInterval * BLOCK_WIDTH + 2}px`,
-            marginLeft: `${
-              userBlock.startInterval * BLOCK_WIDTH + BLOCK_WIDTH / 2 + 8
-            }px`,
-          }}
-        >
-          <div className="font-semibold">{userBlock.name} </div>
-          <div className="">
-            {userBlock.start}~{userBlock.end}{" "}
+        <UserBlock key={idx} index={idx} userBlock={userBlock}>
+          <div className="font-semibold">{userBlock.name}</div>
+          <div>
+            {userBlock.start}~{userBlock.end}
           </div>
-        </div>
+        </UserBlock>
       ))}
-    </div>
+    </BlocksContainer>
   );
 }
+
+const BlocksContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 28px; /* pt-7 */
+`;
+
+const UserBlock = styled.div`
+  background-color: ${(props) => COLOR_TABLE[props.index % COLOR_TABLE.length]};
+  height: 36px; /* h-9 */
+  position: relative;
+  z-index: 10;
+  border-radius: var(--border-radius-sub); /* rounded-lg */
+  padding: 4px; /* p-1 */
+  display: flex;
+  flex-direction: column;
+  color: white;
+  margin-bottom: 4px; /* mb-1 */
+  min-width: ${(props) => `${BLOCK_WIDTH * 3 + 2}px`};
+  width: ${(props) =>
+    `${props.userBlock.startToEndInterval * BLOCK_WIDTH + 2}px`};
+  margin-left: ${(props) =>
+    `${props.userBlock.startInterval * BLOCK_WIDTH + BLOCK_WIDTH / 2 + 8}px`};
+  font-size: 10px; /* text-xxs */
+`;

@@ -1,17 +1,28 @@
-export const COLOR_TABLE = [
-  "bg-red-400",
-  "bg-amber-400",
-  "bg-lime-400",
-  "bg-emerald-400",
-  "bg-cyan-400",
-  "bg-blue-400",
-  "bg-violet-400",
-  "bg-fuchsia-400",
-  "bg-rose-400",
-  "bg-gray-400",
+export const COLOR_TABLE_STRONG = [
+  "#F56565",
+  "#ED8936",
+  "#ECC94B",
+  "#48BB78",
+  "#38B2AC",
+  "#4299E1",
+  "#0BC5EA",
+  "#9F7AEA",
+  "#ED64A6",
+  "#A0AEC0",
 ];
 
-export const COLOR_SUB_TABLE = [
+export const COLOR_TABLE = [
+  "#FC8181",
+  "#F6AD55",
+  "#F6E05E",
+  "#68D391",
+  "#4FD1C5",
+  "#63B3ED",
+  "#76E4F7",
+  "#B794F4",
+  "#CBD5E0",
+];
+export const COLOR_TABLE_LIGHT = [
   "#FEB2B2",
   "#FBD38D",
   "#FAF089",

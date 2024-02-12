@@ -10,7 +10,7 @@ import StudyLightAbsentModal from "../../../../modals/study/StudyLightAbsentModa
 import StudyVoteSubModal from "../../../../modals/study/studyVoteSubModal/StudyVoteSubModal";
 import { DispatchType } from "../../../../types/reactTypes";
 import { IAttendance, IPlace } from "../../../../types/study/studyDetail";
-import { studyModalType } from "../studyNavigation";
+import { studyModalType } from "../StudyNavigation";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 
 interface IstudyNavModal {

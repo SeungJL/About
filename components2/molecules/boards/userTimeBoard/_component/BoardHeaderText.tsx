@@ -1,24 +1,36 @@
-import HighlightedText, {
-  IHighlightedText,
-} from "@/components/atoms/HighlightedText";
+import styled from "styled-components";
+
 import { faUserGroup } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import HighlightedText, {
+  IHighlightedText,
+} from "../../../../atoms/HighlightedText";
 
 interface IBoardHeaderText {
   headerText: IHighlightedText;
 }
 export default function BoardHeaderText({ headerText }: IBoardHeaderText) {
   return (
-    <div className=" pb-3 flex items-center bg-gray-8">
-      <FontAwesomeIcon
-        icon={faUserGroup}
-        className="text-gray-3 mr-1"
-        size="sm"
-      />
+    <HeaderContainer>
+      <Icon icon={faUserGroup} size="sm" />
       <HighlightedText
         text={headerText.text}
         hightlightedText={headerText.hightlightedText}
       />
-    </div>
+    </HeaderContainer>
   );
 }
+
+const HeaderContainer = styled.div`
+  padding-bottom: 12px; /* pb-3 */
+  display: flex;
+  align-items: center;
+  background-color: var(
+    --font-h8
+  ); /* bg-gray-8, assuming a typo in the original class and intending for a gray background */
+`;
+
+const Icon = styled(FontAwesomeIcon)`
+  color: var(--font-h3); /* text-gray-3, assuming a specific gray color */
+  margin-right: 4px; /* mr-1 */
+`;

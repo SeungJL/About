@@ -14,7 +14,7 @@ function studySkeleton({ coverImageUrl }: IstudySkeleton) {
         <StudyCoverSkeleton coverImageUrl={coverImageUrl} />
         <StudyOverviewSkeleton />
         <HrDiv />
-        <studyVoteOverviewSkeleton />
+        <StudyDateBarSkeleton />
         <StudyTimeTableSkeleton />
       </Wrapper>
     </Layout>

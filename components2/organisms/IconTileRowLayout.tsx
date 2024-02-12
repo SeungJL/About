@@ -1,4 +1,5 @@
-import { Size } from "@/types/assetTypes";
+import styled from "styled-components";
+import { Size } from "../../types2/assetTypes";
 import IconLinkTile, { IIconLinkTile } from "../atoms/IconLinkTile";
 
 interface IIconTileRowLayout {
@@ -24,3 +25,11 @@ export default function IconTileRowLayout({
     </div>
   );
 }
+
+const Layout = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+`;

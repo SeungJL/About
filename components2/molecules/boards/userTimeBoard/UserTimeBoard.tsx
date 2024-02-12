@@ -1,5 +1,6 @@
-import { IHighlightedText } from "@/components/atoms/HighlightedText";
 import { Dayjs } from "dayjs";
+import styled from "styled-components";
+import { IHighlightedText } from "../../../atoms/HighlightedText";
 import BoardHeaderText from "./_component/BoardHeaderText";
 import BoardUserBlocks from "./_component/BoardUserBlocks";
 import TimeBoard from "./_component/TimeBoard";
@@ -22,15 +23,28 @@ export default function UserTimeBoard({
   headerText,
 }: ITimeBoard) {
   return (
-    <div className="min-h-40 mx-4 my-4 ">
+    <UserTimeBoardContainer>
       <BoardHeaderText headerText={headerText} />
-      <div
-        className="flex flex-col pt-2 relative rounded-lg bg-white shadow-md"
-        style={{ height: `${participants.length * 38 + 52}px` }}
-      >
+      <BoardContainer participants={participants}>
         <TimeBoard />
         <BoardUserBlocks participants={participants} />
-      </div>
-    </div>
+      </BoardContainer>
+    </UserTimeBoardContainer>
   );
 }
+
+const UserTimeBoardContainer = styled.div`
+  min-height: 160px; /* min-h-40 */
+  margin: 16px; /* mx-4 my-4 */
+`;
+
+const BoardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 8px; /* pt-2 */
+  position: relative;
+  border-radius: var(--border-radius-main); /* rounded-lg */
+  background-color: white;
+  box-shadow: var(--box-shadow-b); /* shadow-md */
+  height: ${({ participants }) => `${participants.length * 38 + 52}px`};
+`;

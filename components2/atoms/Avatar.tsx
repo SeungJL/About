@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import styled, { css } from "styled-components";
-import { COLOR_SUB_TABLE } from "../../constants2/colorConstants";
+import { COLOR_TABLE_LIGHT } from "../../constants2/colorConstants";
 import { AVATAR_IMAGE_ARR } from "../../storage/avatarStorage";
 import { IAvatar as IAvatarProp } from "../../types2/userTypes/userInfoTypes";
 type Size = "sm" | "md" | "lg";
@@ -9,14 +10,30 @@ interface IAvatar {
   image: string;
   size: Size;
   avatar?: IAvatarProp;
+  uid?: string;
 }
-export default function Avatar({ image, size, avatar }: IAvatar) {
+export default function Avatar({ image, size, avatar, uid }: IAvatar) {
+  const router = useRouter();
+
   const avatarProps: { image: string; bg: string | null } = !avatar
     ? { image, bg: null }
-    : { image: AVATAR_IMAGE_ARR[avatar.type], bg: COLOR_SUB_TABLE[avatar.bg] };
+    : {
+        image: AVATAR_IMAGE_ARR[avatar.type],
+        bg: COLOR_TABLE_LIGHT[avatar.bg],
+      };
+
+  const onClickAvatar = () => {
+    if (size === "sm") return;
+    router.push(`/profile/${uid}`);
+  };
 
   return (
-    <AvatarContainer size={size} bg={avatarProps.bg} hasType={!!avatar?.type}>
+    <AvatarContainer
+      onClick={onClickAvatar}
+      size={size}
+      bg={avatarProps.bg}
+      hasType={!!avatar?.type}
+    >
       <ImageContainer>
         <Image
           src={avatarProps.image || AVATAR_IMAGE_ARR[0]}
@@ -56,12 +73,13 @@ const AvatarContainer = styled.div<{
     }
   }}
   ${(props) =>
-    props.size === "sm" &&
-    css`
-      padding: ${props.hasType
-        ? "3px"
-        : "2px"}; // p-1 for sm, p-2 (approx) for others
-    `}
+    props.size === "sm"
+      ? css`
+          padding: ${props.hasType ? "3px" : "2px"};
+        `
+      : css`
+          padding: ${props.hasType ? "4px" : "0px"};
+        `}
   background-color: ${(props) =>
     props.bg ? props.bg : "var(--font-h7)"}; // bg-gray-200 as fallback
 `;

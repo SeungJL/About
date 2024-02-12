@@ -1,13 +1,13 @@
+import styled from "styled-components";
 import ProfileCommentCard, {
   IProfileCommentCard,
 } from "../molecules/cards/ProfileCommentCard";
-
 interface IProfileCardColumn {
   userCardArr: IProfileCommentCard[];
 }
 export default function ProfileCardColumn({ userCardArr }: IProfileCardColumn) {
   return (
-    <div className="bg-white shadow rounded-lg">
+    <Layout>
       {userCardArr.map((userCard, idx) => (
         <ProfileCommentCard
           key={idx}
@@ -16,6 +16,12 @@ export default function ProfileCardColumn({ userCardArr }: IProfileCardColumn) {
           rightComponent={userCard?.rightComponent}
         />
       ))}
-    </div>
+    </Layout>
   );
 }
+
+const Layout = styled.div`
+  background-color: white;
+  box-shadow: var(--box-shadow-b);
+  border-radius: var(--border-radius-main);
+`;

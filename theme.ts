@@ -38,6 +38,13 @@ const theme = extendTheme({
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
   components: {
+    Badge: {
+      baseStyle: {
+        fontSize: "12px",
+        lineHeight: 1.5,
+        padding: "0px 4px",
+      },
+    },
     Button: {
       baseStyle: {
         borderRadius: "4px",
@@ -50,6 +57,7 @@ const theme = extendTheme({
         xs: {
           h: "24px",
         },
+
         md: {
           h: "42px",
         },

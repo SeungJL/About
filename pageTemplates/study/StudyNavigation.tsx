@@ -4,44 +4,37 @@ import {
   faClock,
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
-import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study/study";
-import { dayjsToStr } from "../../../helpers/dateHelpers";
-import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
+
+import { IIconLinkTile } from "../../components2/atoms/IconLinkTile";
+import IconTileRowLayout from "../../components2/organisms/IconTileRowLayout";
+import { MAX_USER_PER_PLACE } from "../../constants/settingValue/study/study";
 import {
   useCompleteToast,
   useErrorToast,
   useFailToast,
-} from "../../../hooks/custom/CustomToast";
-import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
-import { usePointSystemMutation } from "../../../hooks/user/mutations";
-import { usePointSystemLogQuery } from "../../../hooks/user/queries";
-
+} from "../../hooks/custom/CustomToast";
+import { myStudyState, studyDateStatusState } from "../../recoils/studyRecoils";
+import { PLACE_TO_LOCATION } from "../../storage/study";
+import { IPointLog } from "../../types/user/pointSystem";
+import { StudyDateStatus } from "../../types2/studyTypes/studySubTypes";
 import {
-  myStudyState,
-  myVotingState,
-  studyDateStatusState,
-} from "../../../recoil/studyAtoms";
-import { locationState, userAccessUidState } from "../../../recoil/userAtoms";
-
-import {
-  IAttendance,
-  IPlace,
+  IParticipation,
   StudyStatus,
-} from "../../../types/study/studyDetail";
-import { IUser } from "../../../types/user/user";
+} from "../../types2/studyTypes/studyVoteTypes";
 
-interface IstudyNavigation {
-  attendences: IAttendance[];
-  place: IPlace;
-  status: StudyStatus;
-  isPrivate?: boolean;
+interface IStudyNavigation {
+  voteCnt: number;
+  studyStatus: StudyStatus;
+  // attendences: IAttendance[];
+  // place: IPlace;
+  // status: StudyStatus;
+  // isPrivate?: boolean;
 }
 
 type MainBtnType =
@@ -50,85 +43,83 @@ type MainBtnType =
   | "attendCheck"
   | "attendCheckImage"
   | "private";
-type SubBtnType = "change" | "absent" | "cancel" | "lightAbsent";
+type SubBtnType = "changeTime" | "absent" | "cancel" | "lightAbsent";
 export type studyModalType = MainBtnType | SubBtnType;
 
-function studyNavigation({
-  place,
-  attendences,
-  status,
-  isPrivate,
-}: IstudyNavigation) {
+function StudyNavigation({
+  voteCnt,
+  studyStatus,
+}: // place,
+// attendences,
+// status,
+// isPrivate,
+IStudyNavigation) {
   const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
   const { data: session } = useSession();
+  const { id, date } = useParams<{ id: string; date: string }>() || {};
+
+  const location = PLACE_TO_LOCATION[id];
   const isGuest = session?.user.name === "guest";
-  const voteDate = dayjs(router.query.date as string);
 
-  const uid = useRecoilValue(userAccessUidState);
-  const myVoting = useRecoilValue(myVotingState);
+  const isPrivate = false;
+  const attendences = [];
+  const uid = session?.user.uid;
+
   const studyDateStatus = useRecoilValue(studyDateStatusState);
-  const myStudyFixed = useRecoilValue(myStudyState);
-  const location = useRecoilValue(locationState);
-
-  const resetQueryData = useResetQueryData();
+  const myStudy = useRecoilValue(myStudyState);
+  const votingType = getVotingType(myStudy, id);
 
   const [modalType, setModalType] = useState<studyModalType>();
 
-  const myVote = attendences?.find(
-    (props) => (props.user as IUser).uid === session?.user?.uid
-  );
+  // const { data: pointLog } = usePointSystemLogQuery("point", true, {
+  //   enabled: !!votingType,
+  // });
 
-  const { data: pointLog } = usePointSystemLogQuery("point", true, {
-    enabled: !!myVote,
-  });
-  const myPrevVotePoint = pointLog?.find(
-    (item) =>
-      item.message === "스터디 투표" && item.meta.sub === dayjsToStr(voteDate)
-  )?.meta.value;
+  // const myPrevVotePoint = getMyPrevVotePoint(pointLog, date);
 
-  const { mutate: getPoint } = usePointSystemMutation("point");
-  const { mutate: handleAbsent } = useStudyParticipationMutation(
-    voteDate,
-    "delete",
-    {
-      onSuccess() {
-        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
-        if (myPrevVotePoint) {
-          getPoint({
-            message: "스터디 투표 취소",
-            value: -myPrevVotePoint,
-          });
-        }
-        completeToast("free", "신청이 취소되었습니다.");
-      },
-      onError: errorToast,
-    }
-  );
+  // const { mutate: getPoint } = usePointSystemMutation("point");
 
-  const onClickSubBtn = (type: SubBtnType) => {
-    if (isGuest) {
-      failToast("guest");
-      return;
-    }
-    if (!myVote) {
-      failToast("free", "스터디에 투표하지 않은 인원입니다.");
-      return;
-    }
-    if (type === "cancel") {
-      if (studyDateStatus !== "not passed") {
-        failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
-      } else handleAbsent();
-      return;
-    }
-    if (type === "absent" && studyDateStatus === "not passed") {
-      failToast("free", "스터디 확정 이후에 사용이 가능합니다.");
-      return;
-    }
-    setModalType(type);
-  };
+  // const { mutate: handleAbsent } = useStudyParticipationMutation(
+  //   dayjs(date),
+  //   "delete",
+  //   {
+  //     onSuccess() {
+  //       if (myPrevVotePoint) {
+  //         getPoint({
+  //           message: "스터디 투표 취소",
+  //           value: -myPrevVotePoint,
+  //         });
+  //       }
+  //       completeToast("free", "신청이 취소되었습니다.");
+  //     },
+  //     onError: errorToast,
+  //   }
+  // );
+
+  // const onClickSubBtn = (type: SubBtnType) => {
+  //   if (isGuest) {
+  //     failToast("guest");
+  //     return;
+  //   }
+  //   if (!myVote) {
+  //     failToast("free", "스터디에 투표하지 않은 인원입니다.");
+  //     return;
+  //   }
+  //   if (type === "cancel") {
+  //     if (studyDateStatus !== "not passed") {
+  //       failToast("free", "참여 확정 이후에는 당일 불참 버튼을 이용해주세요!");
+  //     } else handleAbsent();
+  //     return;
+  //   }
+  //   if (type === "absent" && studyDateStatus === "not passed") {
+  //     failToast("free", "스터디 확정 이후에 사용이 가능합니다.");
+  //     return;
+  //   }
+  //   setModalType(type);
+  // };
 
   const onClickMainBtn = (type: MainBtnType) => {
     if (isGuest) {
@@ -138,76 +129,90 @@ function studyNavigation({
     setModalType(type);
   };
 
-  const getStudyButtonText = (): {
-    text: string;
-    func?: MainBtnType;
-  } => {
-    const isMax = attendences.length >= MAX_USER_PER_PLACE;
-
-    if (studyDateStatus === "passed") return { text: "기간만료" };
-    if (isPrivate && !myVote)
-      return { text: "개인 스터디 신청", func: "private" };
-    if (studyDateStatus === "not passed") {
-      if (myVoting) return { text: "투표 완료" };
-      if (isMax) return { text: "정원 마감 (2지망 투표로만 가능)" };
-      return { text: "스터디 투표", func: "vote" };
-    }
-    if (myStudyFixed && !myVote) return { text: "다른 스터디에 참여중입니다." };
-    if (status === "dismissed")
-      return { text: "Free 오픈 신청", func: "freeOpen" };
-    if (myVote?.arrived) return { text: "출석 완료" };
-    if (isPrivate) return { text: "출석 체크", func: "attendCheckImage" };
-    if (myVote?.firstChoice) return { text: "출석 체크", func: "attendCheck" };
-    return { text: "당일 참여", func: "vote" };
-  };
-  const { text, func } = getStudyButtonText();
+  const { text, func } = getMainButtonStatus(
+    voteCnt >= MAX_USER_PER_PLACE,
+    studyDateStatus,
+    votingType,
+    checkMyAttend(studyDateStatus, myStudy, uid),
+    studyStatus
+  );
 
   const isShowSubNav =
     text !== "출석 완료" &&
-    ((myVoting && studyDateStatus === "not passed") ||
-      (studyDateStatus === "today" && myVote));
+    //
+    ((myStudy && studyDateStatus === "not passed") ||
+      studyDateStatus === "today");
+  // && estudyDateStatusStatemyVote
 
   const attCnt = attendences?.filter((att) => att.user.uid !== uid)?.length;
 
+  const tileDataArr: IIconLinkTile[] = [
+    {
+      icon: <FontAwesomeIcon icon={faCircleXmark} size="xl" />,
+      text: "투표 취소",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faClock} size="xl" />,
+      text: "시간 변경",
+      func: () => setModalType("changeTime"),
+    },
+    {
+      icon: <FontAwesomeIcon icon={faBan} size="xl" />,
+
+      text: "당일 불참",
+    },
+  ];
+
   return (
-    <Wrapper isShowSubNav={!!isShowSubNav}>
-      <Layout>
-        {isShowSubNav && (
-          <SubNav>
-            <Button onClick={() => onClickSubBtn("cancel")}>
-              <FontAwesomeIcon icon={faCircleXmark} size="xl" />
-              <span>투표 취소</span>
-            </Button>
-            <Button onClick={() => onClickSubBtn("change")}>
-              <FontAwesomeIcon icon={faClock} size="xl" />
-              <span>시간 변경</span>
-            </Button>
-            <Button
-              onClick={() =>
-                onClickSubBtn(
-                  !isPrivate && status !== "free" ? "absent" : "lightAbsent"
-                )
-              }
-            >
-              <FontAwesomeIcon icon={faBan} size="xl" />
-              <span>당일 불참</span>
-            </Button>
-          </SubNav>
-        )}
-        <MainButton func={!!func} onClick={() => onClickMainBtn(func)}>
-          {text}
-        </MainButton>
-      </Layout>
-      <studyNavModal
-        type={modalType}
-        setType={setModalType}
-        myVote={myVote}
-        place={place}
-        attCnt={attCnt}
-      />
-    </Wrapper>
+    <Layout>
+      <IconTileRowLayout tileDataArr={tileDataArr} size="lg" />
+
+      <Button mt="8px" text="투표" colorType="mint" size="lg" />
+    </Layout>
   );
+  // <Wrapper isShowSubNav={!!isShowSubNav}>
+  //   <Layout>
+  //     {isShowSubNav && (
+  //       <SubNav>
+  //         <Button onClick={() => onClickSubBtn("cancel")}>
+  //           <FontAwesomeIcon icon={faCircleXmark} size="xl" />
+  //           <span>투표 취소</span>
+  //         </Button>
+  //         <Button onClick={() => onClickSubBtn("changeTime")}>
+  //           <FontAwesomeIcon icon={faClock} size="xl" />
+  //           <span>시간 변경</span>
+  //         </Button>
+  //         <Button
+  //           onClick={() =>
+  //             onClickSubBtn(
+  //               !isPrivate && status !== "free" ? "absent" : "lightAbsent"
+  //             )
+  //           }
+  //         >
+  //           <FontAwesomeIcon icon={faBan} size="xl" />
+  //           <span>당일 불참</span>
+  //         </Button>
+  //       </SubNav>
+  //     )}
+  //     <MainButton func={!!func} onClick={() => onClickMainBtn(func)}>
+  //       {text}
+  //     </MainButton>
+  //   </Layout>
+  //   {/* <studyNavModal
+  //     type={modalType}
+  //     setType={setModalType}
+  //     myVote={myVote}
+  //     place={place}
+  //     attCnt={attCnt}
+  //   /> */}
+  // </Wrapper>
 }
+
+const Layout = styled.nav`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+`;
 
 const Wrapper = styled.div<{ isShowSubNav: boolean }>`
   margin-top: auto;
@@ -215,11 +220,6 @@ const Wrapper = styled.div<{ isShowSubNav: boolean }>`
 
   background-color: ${(props) =>
     props.isShowSubNav ? "var(--font-h8)" : "white"};
-`;
-
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const SubNav = styled.nav`
@@ -261,4 +261,55 @@ const MainButton = styled.button<{ func?: boolean }>`
   font-size: 16px;
 `;
 
-export default studyNavigation;
+const getVotingType = (myStudy: IParticipation, placeId: string) => {
+  return !myStudy ? null : myStudy?.place._id === placeId ? "same" : "other";
+};
+
+const getMyPrevVotePoint = (pointLogs: IPointLog[], date: string) => {
+  return pointLogs?.find(
+    (item) => item.message === "스터디 투표" && item.meta.sub === date
+  )?.meta.value;
+};
+
+const checkMyAttend = (
+  studyDateStatus: StudyDateStatus,
+  myStudy: IParticipation,
+  uid: string
+) => {
+  return !!(
+    studyDateStatus !== "not passed" &&
+    myStudy?.attendences.find((who) => who.user.uid === uid)?.arrived
+  );
+};
+
+const getMainButtonStatus = (
+  isMax: boolean,
+  studyDateStatus: StudyDateStatus,
+  votingType: "same" | "other" | null,
+  isAttend: boolean,
+  studyStatus: StudyStatus
+): {
+  text: string;
+  func?: MainBtnType;
+} => {
+  if (isAttend) return { text: "출석 완료" };
+  switch (studyDateStatus) {
+    case "passed":
+      return { text: "기간 만료" };
+    case "not passed":
+      if (votingType) return { text: "투표 완료" };
+      if (isMax) return { text: "인원 마감" };
+      return { text: "스터디 투표", func: "vote" };
+    case "today":
+      if (votingType === "same")
+        return { text: "출석 체크", func: "attendCheck" };
+      if (votingType === "other")
+        return { text: "다른 스터디에 참여중입니다." };
+      if (isMax) return { text: "인원 마감" };
+      if (studyStatus === "dismissed")
+        return { text: "FREE 오픈 신청", func: "freeOpen" };
+      return { text: "스터디 투표", func: "vote" };
+  }
+};
+
+export default StudyNavigation;

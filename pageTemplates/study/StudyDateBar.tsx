@@ -1,51 +1,37 @@
 import { Button } from "@chakra-ui/react";
-import { faPlus, faUserGroup } from "@fortawesome/pro-solid-svg-icons";
+import { faPlus } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useRouter } from "next/dist/client/router";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import StudyInviteModal from "../../../modals/study/StudyInviteModal";
-import { IPlace, StudyStatus } from "../../../types/study/studyDetail";
-interface IstudyVoteOverview {
-  voteCnt: number;
-  place: IPlace;
-  status: StudyStatus;
-  isPrivate: boolean;
-}
-function studyVoteOverview({
-  voteCnt,
-  place,
-  status,
-  isPrivate,
-}: IstudyVoteOverview) {
-  const router = useRouter();
-  const date = dayjs(router.query.date as string);
+import { dayjsToFormat } from "../../utils/dateTimeUtils";
+
+interface IStudyDateBar {}
+function StudyDateBar({}: IStudyDateBar) {
+  const { date } = useParams<{ date: string }>();
 
   const [isModal, setIsModal] = useState(false);
 
   return (
     <>
-      <Layout isPrivate={isPrivate}>
-        <Header>
-          <span>{dayjsToFormat(date, "M월 D일 참여 멤버")}</span>
-          {status !== "dismissed" && !isPrivate && (
-            <Button
-              variant="outline"
-              fontSize="13px"
-              color="var(--font-h3)"
-              rightIcon={<FontAwesomeIcon icon={faPlus} size="xs" />}
-              size="sm"
-              padding="0 var(--padding-md)"
-              border="1px solid var(--font-h3)"
-              onClick={() => setIsModal(true)}
-            >
-              친구초대
-            </Button>
-          )}
-        </Header>
-        <div />
+      <StudyDateBarContainer>
+        <DateText>{dayjsToFormat(dayjs(date), "M월 D일 참여 멤버")}</DateText>
+        <Button
+          size="sm"
+          variant="outline"
+          color="var(--font-h3)"
+          rightIcon={<FontAwesomeIcon icon={faPlus} size="xs" />}
+          padding="0 var(--padding-md)"
+          borderColor="var(--font-h5)"
+          onClick={() => setIsModal(true)}
+        >
+          친구초대
+        </Button>
+      </StudyDateBarContainer>
+      {/* {isModal && <StudyInviteModal setIsModal={setIsModal} place={place} />} */}
+      {/* <Layout isPrivate={isPrivate}>
+      
         <Container>
           <FontAwesomeIcon
             icon={faUserGroup}
@@ -64,11 +50,22 @@ function studyVoteOverview({
         {isPrivate && (
           <Message>다른 인원의 인증사진 확인 기능도 개발중에 있습니다.</Message>
         )}
-      </Layout>
-      {isModal && <StudyInviteModal setIsModal={setIsModal} place={place} />}
+      </Layout> */}
     </>
   );
 }
+
+const StudyDateBarContainer = styled.div`
+  padding: 1rem; /* px-3 py-4 */
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+`;
+
+const DateText = styled.span`
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+`;
 
 const Layout = styled.div<{ isPrivate: boolean }>`
   margin-top: ${(props) => props.isPrivate && "var(--margin-sub)"};
@@ -109,4 +106,4 @@ const Message = styled.div`
   background-color: var(--font-h8);
 `;
 
-export default studyVoteOverview;
+export default StudyDateBar;

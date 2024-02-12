@@ -70,7 +70,7 @@ function StudyOverview({
               leftIcon={<FontAwesomeIcon icon={faLocationDot} size="sm" />}
               onClick={() => setIsModal((old) => !old)}
             >
-              지도보기
+              {isModal ? "지도 닫기" : "지도 보기"}
             </Button>
           </InfoRow>
           <InfoRow>
