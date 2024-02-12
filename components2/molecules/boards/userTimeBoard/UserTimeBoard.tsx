@@ -34,11 +34,12 @@ export default function UserTimeBoard({
 }
 
 const UserTimeBoardContainer = styled.div`
-  min-height: 160px; /* min-h-40 */
-  margin: 16px; /* mx-4 my-4 */
+  margin: 16px auto;
+  width: 344px;
 `;
 
 const BoardContainer = styled.div`
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   padding-top: 8px; /* pt-2 */

@@ -69,6 +69,12 @@ function StudyOverview({
               color="white"
               leftIcon={<FontAwesomeIcon icon={faLocationDot} size="sm" />}
               onClick={() => setIsModal((old) => !old)}
+              _focus={{
+                backgroundColor: "var(--color-mint)",
+              }}
+              _active={{
+                backgroundColor: "var(--color-mint)",
+              }}
             >
               {isModal ? "지도 닫기" : "지도 보기"}
             </Button>
@@ -91,7 +97,8 @@ function StudyOverview({
 }
 
 const OverviewWrapper = styled.div`
-  padding: 20px 16px;
+  padding: 16px 16px;
+  padding-bottom: 12px;
   background-color: white;
 `;
 
@@ -101,7 +108,7 @@ const Title = styled.span`
 `;
 
 const InfoContainer = styled.div`
-  margin-top: 16px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
 `;
@@ -110,7 +117,7 @@ const InfoRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  line-height: 2;
   font-size: 14px; /* 14px */
 `;
 

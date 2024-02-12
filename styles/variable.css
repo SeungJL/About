@@ -8,6 +8,7 @@
   --border-radius2: 4px;
   --box-shadow2: 0px 0px 4px 0px rgba(0, 0, 0, 0.04);
   --box-shadow-b: 1px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  --box-shadow-top-b: 0 -2px 4px 0px rgba(0, 0, 0, 0.08);
 
   --font-h1: #343943;
   --font-h2: #565b67;
@@ -57,4 +58,6 @@
   --width-inline-title: 15%;
 
   --button-main-height: 42px;
+
+  --header-h: 56px;
 }

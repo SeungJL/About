@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 
 function Avatar() {
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title="아바타 아이콘 저작권" url="/user" />
       <Layout>
         사용하고 있는 아바타 아이콘의 저작권은 flaticon에 있음을 밝힙니다.
@@ -13,7 +13,7 @@ function Avatar() {
         <br />
         https://www.flaticon.com/kr/
       </Layout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

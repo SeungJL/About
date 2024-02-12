@@ -11,7 +11,7 @@ export default function IconTileRowLayout({
   size,
 }: IIconTileRowLayout) {
   return (
-    <div className="flex justify-between bg-8 pt-4 pb-3 px-6">
+    <Layout>
       {tileDataArr.map((tile, idx) => (
         <IconLinkTile
           key={idx}
@@ -22,14 +22,12 @@ export default function IconTileRowLayout({
           size={size}
         />
       ))}
-    </div>
+    </Layout>
   );
 }
 
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 24px;
-  padding-top: 16px;
-  padding-bottom: 12px;
+
 `;

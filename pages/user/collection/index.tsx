@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import { useCollectionAlphabetQuery } from "../../../hooks/user/sub/collection/queries";
 import UserCollectionAlphabetModal from "../../../modals/user/collection/UserCollectionAlphabetModal";
 import { isGuestState } from "../../../recoil/userAtoms";
@@ -26,7 +26,7 @@ function Collection() {
 
   return (
     <>
-      <PageLayout>
+      <PageSlide>
         <Header title="컬렉션" url="/user" />
         <Container>
           <Title>
@@ -81,7 +81,7 @@ function Collection() {
           </AlphabetQNABtn>
         </Container>
         <HrDiv />
-      </PageLayout>
+      </PageSlide>
       {isAlphabetModal && (
         <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />
       )}

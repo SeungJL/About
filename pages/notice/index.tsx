@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
+import PageSlide from "../../components/layout/PageSlide";
 import { useNoticeActiveLogQuery } from "../../hooks/user/sub/interaction/queries";
 import NoticeActive from "../../pageTemplates/notice/NoticeActive";
 import NoticeItem from "../../pageTemplates/notice/NoticeItem";
@@ -13,7 +13,7 @@ function Notice() {
   const { data: activeLogs } = useNoticeActiveLogQuery();
 
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title="알림" />
       <Layout>
         <NoticeNav
@@ -25,7 +25,7 @@ function Notice() {
           {isNotice ? <NoticeItem /> : <NoticeActive activeLogs={activeLogs} />}
         </Container>
       </Layout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

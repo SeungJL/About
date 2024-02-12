@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { IParticipation } from "../../types2/studyTypes/studyVoteTypes";
 
 export const getMyStudy = (
@@ -13,4 +14,29 @@ export const getMyStudy = (
     })
   );
   return myStudy;
+};
+
+interface IMyStudyVoteInfo {
+  placeId: string;
+  start: Dayjs;
+  end: Dayjs;
+  arrived?: Date;
+}
+
+export const getMyStudyVoteInfo = (
+  myStudy: IParticipation,
+  myUid: string
+): IMyStudyVoteInfo => {
+  if (!myStudy) return null;
+  const {
+    time: { start, end },
+    arrived = null,
+  } = myStudy.attendences.find((who) => who.user.uid === myUid);
+
+  return {
+    placeId: myStudy.place._id,
+    start,
+    end,
+    arrived,
+  };
 };

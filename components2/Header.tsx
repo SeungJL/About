@@ -21,8 +21,9 @@ const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1000;
   background-color: white;
-  height: 56px; 
+  height: var(--header-h);
   font-size: 16px; /* text-lg */
   padding-left: 8px; /* pl-2 */
   padding-right: 8px; /* pr-4 */

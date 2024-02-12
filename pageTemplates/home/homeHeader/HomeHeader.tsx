@@ -64,7 +64,7 @@ const Layout = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 52px;
+  height: var(--header-h);
   z-index: 10;
   font-size: 20px;
   background-color: white;

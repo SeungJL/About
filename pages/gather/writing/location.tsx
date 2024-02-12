@@ -5,7 +5,7 @@ import styled from "styled-components";
 import LocationSearch from "../../../components/features/location/LocationSearch";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
@@ -37,7 +37,7 @@ function WritingGahterLocation() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <ProgressStatus value={80} />
       <Header title="" url="/gather/writing/date" />
       <RegisterLayout>
@@ -57,7 +57,7 @@ function WritingGahterLocation() {
 
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

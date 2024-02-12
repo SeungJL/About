@@ -2,9 +2,12 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
+import styled from "styled-components";
+import PageSlide from "../../../../components/layout/PageSlide";
 import Divider from "../../../../components2/atoms/Divider";
 import { PLACE_TO_LOCATION } from "../../../../constants2/serviceConstants/studyConstants/studyLocationConstants";
 import { useStudyVoteQuery } from "../../../../hooks/study/queries";
+import { getStudyDateStatus } from "../../../../libs/study/date/getStudyDateStatus";
 import { getMyStudy } from "../../../../libs/study/getMyStudy";
 import StudyCover from "../../../../pageTemplates/study/StudyCover";
 import StudyDateBar from "../../../../pageTemplates/study/StudyDateBar";
@@ -13,7 +16,10 @@ import StudyNavigation from "../../../../pageTemplates/study/StudyNavigation";
 import StudyOverview from "../../../../pageTemplates/study/StudyOverView";
 import StudyParticipants from "../../../../pageTemplates/study/StudyParticipants";
 import StudyTimeBoard from "../../../../pageTemplates/study/StudyTimeBoard";
-import { myStudyState } from "../../../../recoils/studyRecoils";
+import {
+  myStudyState,
+  studyDateStatusState,
+} from "../../../../recoils/studyRecoils";
 
 export default function Page() {
   const { data } = useSession();
@@ -21,13 +27,17 @@ export default function Page() {
 
   const setMyStudy = useSetRecoilState(myStudyState);
 
-  console.log(24);
-
   const location = PLACE_TO_LOCATION[id];
 
   const { data: studyAll } = useStudyVoteQuery(date, location, {
     enabled: !!location && !!date,
   });
+
+  const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
+
+  useEffect(() => {
+    setStudyDateStatus(getStudyDateStatus(date));
+  }, [date]);
 
   useEffect(() => {
     if (!studyAll || !data?.user) return;
@@ -38,37 +48,43 @@ export default function Page() {
   const place = study?.place;
   const attendances = study?.attendences;
   return (
-    <>
+    <Layout>
       {study && (
         <>
           <StudyHeader place={place} />
-          <StudyCover imageUrl={place.coverImage} brand={place.brand} />
-          <StudyOverview
-            title={place.fullname}
-            locationDetail={place.locationDetail}
-            time={place.time}
-            participantsNum={attendances.length}
-            coordinate={{
-              lat: place.latitude,
-              lng: place.longitude,
-            }}
-          />
-          <Divider />
-          <StudyDateBar />
-          <StudyTimeBoard
-            participants={attendances}
-            studyStatus={study.status}
-          />
-          <StudyParticipants
-            participants={attendances}
-            absences={study.absences}
-          />
+          <PageSlide>
+            <StudyCover imageUrl={place.coverImage} brand={place.brand} />
+            <StudyOverview
+              title={place.fullname}
+              locationDetail={place.locationDetail}
+              time={place.time}
+              participantsNum={attendances.length}
+              coordinate={{
+                lat: place.latitude,
+                lng: place.longitude,
+              }}
+            />
+            <Divider />
+            <StudyDateBar />
+            <StudyTimeBoard
+              participants={attendances}
+              studyStatus={study.status}
+            />
+            <StudyParticipants
+              participants={attendances}
+              absences={study.absences}
+            />
+          </PageSlide>
           <StudyNavigation
             voteCnt={attendances?.length}
             studyStatus={study.status}
           />
         </>
       )}
-    </>
+    </Layout>
   );
 }
+
+const Layout = styled.div`
+  padding-bottom: 161px;
+`;

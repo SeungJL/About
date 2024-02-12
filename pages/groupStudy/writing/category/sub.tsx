@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../../components/layout/BottomNav";
 import Header from "../../../../components/layout/Header";
-import PageLayout from "../../../../components/layout/PageLayout";
+import PageSlide from "../../../../components/layout/PageSlide";
 
 import ProgressStatus from "../../../../components/templates/ProgressStatus";
 import {
@@ -50,7 +50,7 @@ function WritingStudyCategorySub() {
   }, [mainCategory]);
 
   return (
-    <PageLayout>
+    <PageSlide>
       <ProgressStatus value={28} />
       <Header title="" url={"/groupStudy/writing/category/main"} />
       <RegisterLayout>
@@ -73,7 +73,7 @@ function WritingStudyCategorySub() {
         </ItemContainer>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} />
-    </PageLayout>
+    </PageSlide>
   );
 }
 

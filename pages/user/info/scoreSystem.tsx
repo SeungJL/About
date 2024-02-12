@@ -1,11 +1,11 @@
 import { StarIcon } from "@chakra-ui/icons";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 
 function ScoreSystem() {
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title="자주 묻는 질문" url="/user" />
       <Layout>
         <div>
@@ -101,7 +101,7 @@ function ScoreSystem() {
           </Ul>
         </div>
       </Layout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

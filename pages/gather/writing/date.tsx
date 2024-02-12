@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherWritingDateDate from "../../../pageTemplates/gather/writing/GatherWritingDateDate";
@@ -45,7 +45,7 @@ function WritingDate() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <ProgressStatus value={60} />
       <Header title="" url="/gather/writing/content" />
       <RegisterLayout>
@@ -64,7 +64,7 @@ function WritingDate() {
         />
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

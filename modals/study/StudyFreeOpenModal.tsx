@@ -28,7 +28,7 @@ import { IPlace } from "../../types/study/studyDetail";
 import { ITimeStartToEnd } from "../../types/timeAndDate";
 
 interface IStudyFreeOpenModal extends IModal {
-  place: IPlace;
+  place?: IPlace;
 }
 
 function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
@@ -82,7 +82,7 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
 
     await openFree(placeId as string);
     setTimeout(() => {
-      patchAttend(data);
+      // patchAttend(data);
     }, 500);
   };
 

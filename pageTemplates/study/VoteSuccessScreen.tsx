@@ -1,15 +1,13 @@
 import { faCheckCircle } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isVoteCompletedState } from "../../../recoil/renderTriggerAtoms";
 
-function VoteSuccessScreen({}) {
-  const setIsCompleteModal = useSetRecoilState(isVoteCompletedState);
+function VoteSuccessScreen() {
+  // const setIsCompleteModal = useSetRecoilState(isVoteCompletedState);
   const router = useRouter();
   const onClicked = () => {
-    setIsCompleteModal(false);
+    // setIsCompleteModal(false);
     router.push(`/home`);
   };
   return (

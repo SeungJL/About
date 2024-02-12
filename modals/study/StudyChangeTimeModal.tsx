@@ -34,7 +34,7 @@ import { IModal } from "../../types/reactTypes";
 import { IDayjsStartToEnd } from "../../types/timeAndDate";
 
 interface IStudyChangeTimeModal extends IModal {
-  myVoteTime: IDayjsStartToEnd;
+  myVoteTime?: IDayjsStartToEnd;
 }
 
 const HOUR_TO_MINUTE = 60;

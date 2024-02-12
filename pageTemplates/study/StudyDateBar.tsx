@@ -56,54 +56,15 @@ function StudyDateBar({}: IStudyDateBar) {
 }
 
 const StudyDateBarContainer = styled.div`
-  padding: 1rem; /* px-3 py-4 */
+  padding: 16px;
   display: flex;
   justify-content: space-between;
   background-color: white;
 `;
 
 const DateText = styled.span`
-  font-size: 1.125rem; /* text-lg */
-  font-weight: 600; /* font-semibold */
-`;
-
-const Layout = styled.div<{ isPrivate: boolean }>`
-  margin-top: ${(props) => props.isPrivate && "var(--margin-sub)"};
-
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-`;
-
-const Header = styled.header`
-  padding: var(--padding-sub) var(--margin-main);
-  display: flex;
-  justify-content: space-between;
-  > span:first-child {
-    font-weight: 600;
-    font-size: 18px;
-  }
-`;
-
-const Container = styled.div`
-  padding: 0 var(--margin-main);
-  padding-top: var(--padding-main);
-  padding-bottom: var(--padding-sub);
-  display: flex;
-  align-items: center;
-  color: var(--font-h1);
-  background-color: var(--font-h8);
-
-  > span {
-    margin-left: var(--margin-min);
-  }
-`;
-
-const Message = styled.div`
-  padding: 0 var(--padding-main);
-  font-size: 12px;
-  color: var(--color-mint);
-  background-color: var(--font-h8);
+  font-size: 18px; /* text-lg */
+  font-weight: 700; /* font-semibold */
 `;
 
 export default StudyDateBar;

@@ -12,7 +12,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { randomPassword } from "../../../helpers/validHelpers";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
@@ -99,7 +99,7 @@ function WritingCondition() {
 
   return (
     <>
-      <PageLayout>
+      <PageSlide>
         <ProgressStatus value={100} />
         <Header title="" url="/gather/writing/location" />
         <RegisterLayout>
@@ -223,7 +223,7 @@ function WritingCondition() {
           </Container>
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
-      </PageLayout>
+      </PageSlide>
       {isConfirmModal && (
         <GatherWritingConfirmModal
           setIsModal={setIsConfirmModal}

@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { useInteractionLikeQuery } from "../../../hooks/user/sub/interaction/queries";
 
 function Like() {
   const { data: activeLogs } = useInteractionLikeQuery();
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title="좋아요 기록" isNoLine={true} url="/user/profile" />
       <Container>
         {activeLogs
@@ -42,7 +42,7 @@ function Like() {
             );
           })}
       </Container>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

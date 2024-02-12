@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import ParticipateModal from "../../../pageTemplates/groupStudy/ParticipateModal";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
@@ -21,7 +21,7 @@ function Participate() {
 
   return (
     <>
-      <PageLayout>
+      <PageSlide>
         <Header title="" url="back" />
         <RegisterLayout>
           <RegisterOverview>
@@ -51,7 +51,7 @@ function Participate() {
           </Container>
           <BottomNav text="가입 신청" onClick={onClick} />
         </RegisterLayout>
-      </PageLayout>
+      </PageSlide>
       {isModal && (
         <ParticipateModal
           isFree={!questionText}

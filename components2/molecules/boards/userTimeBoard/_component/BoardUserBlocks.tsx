@@ -4,7 +4,7 @@ import { COLOR_TABLE } from "../../../../../constants2/colorConstants";
 import { ITimeBoardParticipant } from "../UserTimeBoard";
 import { transformToUserBlocks } from "../_lib/transformToUserBlocks";
 
-const BLOCK_WIDTH = 23.385;
+const BLOCK_WIDTH = 24;
 export interface IUserTimeBlock {
   name: string;
   start: string;
@@ -58,9 +58,8 @@ const UserBlock = styled.div`
   color: white;
   margin-bottom: 4px; /* mb-1 */
   min-width: ${(props) => `${BLOCK_WIDTH * 3 + 2}px`};
-  width: ${(props) =>
-    `${props.userBlock.startToEndInterval * BLOCK_WIDTH + 2}px`};
+  width: ${(props) => `${props.userBlock.startToEndInterval * BLOCK_WIDTH}px`};
   margin-left: ${(props) =>
-    `${props.userBlock.startInterval * BLOCK_WIDTH + BLOCK_WIDTH / 2 + 8}px`};
+    `${props.userBlock.startInterval * BLOCK_WIDTH + BLOCK_WIDTH / 2 + 4}px`};
   font-size: 10px; /* text-xxs */
 `;

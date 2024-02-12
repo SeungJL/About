@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
+import PageSlide from "../../components/layout/PageSlide";
 import Accordion from "../../components/templates/Accordion";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { ACCORDION_CONTENT_FEE } from "../../constants/contents/accordionContents";
@@ -39,7 +39,7 @@ function Fee() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <ProgressStatus value={100} />
       <Header title="회원가입" url="/register/phone" />
       <RegisterLayout>
@@ -61,7 +61,7 @@ function Fee() {
         <Accordion contentArr={ACCORDION_CONTENT_FEE} />
       </RegisterLayout>
       <BottomNav onClick={onClickNext} text="신청완료" />
-    </PageLayout>
+    </PageSlide>
   );
 }
 

@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
@@ -38,7 +38,7 @@ function GroupStudyWritingGuide() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <ProgressStatus value={42} />
       <Header title="" url="/groupStudy/writing/category/sub" />
       <RegisterLayout>
@@ -60,7 +60,7 @@ function GroupStudyWritingGuide() {
         </Container>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

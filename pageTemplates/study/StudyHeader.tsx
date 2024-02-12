@@ -14,7 +14,7 @@ function StudyHeader({ place }: IStudyHeader) {
   const router = useRouter();
 
   const url = WEB_URL + router?.asPath;
-  console.log(4, url);
+
   return (
     <Header title={place.brand} url="/home">
       {place?.brand !== "자유 신청" && (

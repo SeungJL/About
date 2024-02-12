@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
+import PageSlide from "../../components/layout/PageSlide";
 import AboutMainItem from "../../pageTemplates/home/main/HomeStudySection/HomeStudySectionItem";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 import { myStudyState } from "../../recoil/studyAtoms";
@@ -21,7 +21,7 @@ function StudyPlace() {
   }, []);
 
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title={`${dayjs().format("M월 D일")} 스터디`} isPrev={true} />
       <Spacer />
       <Main>
@@ -33,7 +33,7 @@ function StudyPlace() {
           />
         ))}
       </Main>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

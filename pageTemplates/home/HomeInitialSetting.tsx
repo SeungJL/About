@@ -11,7 +11,7 @@ function HomeInitialSetting() {
   const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
 
   useEffect(() => {
-    setStudyDateStatus(getStudyDateStatus(dateParam as string));
+    setStudyDateStatus(getStudyDateStatus(dateParam));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateParam]);
 

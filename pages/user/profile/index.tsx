@@ -7,7 +7,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
@@ -38,7 +38,7 @@ function UserProfile() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title="내 프로필" url="/user" />
       <UserOverview>
         <div>
@@ -85,7 +85,7 @@ function UserProfile() {
           <FontAwesomeIcon icon={faChevronRight} />
         </BlockItem>
       </Info>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

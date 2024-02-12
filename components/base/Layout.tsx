@@ -2,9 +2,11 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import BottomNav from "../../components2/BottomNav";
 import { USER_INITIAL_INFO } from "../../constants/keys/queryKeys";
 import { useToken } from "../../hooks/custom/CustomHooks";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -27,6 +29,11 @@ interface ILayout {
 
 function Layout({ children }: ILayout) {
   const router = useRouter();
+  const pathname = usePathname();
+  const segments = pathname?.split("/").filter(Boolean);
+  const firstSegment = segments?.length ? segments[0] : null;
+
+  console.log(2, router, pathname, firstSegment);
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const { data: session } = useSession();
@@ -68,11 +75,10 @@ function Layout({ children }: ILayout) {
   const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
 
   const status = router.query?.status;
-  
+
   useUserInfoQuery({
     enabled: (isCondition && userInitialInfo === null) || status === "login",
     onSuccess(data) {
-     
       if (!isCondition || (userInitialInfo && status !== "login")) return;
       //유저 데이터 없음
       if (data === null || !data.registerDate || data.isActive === false) {
@@ -107,6 +113,7 @@ function Layout({ children }: ILayout) {
       {token && (
         <>
           <div id="root-modal">{children}</div>
+          {BASE_BOTTOM_NAV_URL.includes(firstSegment) && <BottomNav />}
           <BaseModal
             isGuest={isGuest}
             isError={isErrorModal}
@@ -118,5 +125,7 @@ function Layout({ children }: ILayout) {
     </>
   );
 }
+
+const BASE_BOTTOM_NAV_URL = ["home", "ranking", "gather", "group"];
 
 export default Layout;

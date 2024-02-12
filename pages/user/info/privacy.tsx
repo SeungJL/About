@@ -9,11 +9,11 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 
 const Privacy = () => {
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title="개인정보 취급방침" url="/user" />
       <Container mt="var(--margin-main)">
         <Text marginBottom="10px">
@@ -264,7 +264,7 @@ const Privacy = () => {
           </ListItem>
         </List>
       </Container>
-    </PageLayout>
+    </PageSlide>
   );
 };
 

@@ -20,14 +20,14 @@ const TimeBlock = ({ hour }: { hour?: number }) => {
 };
 
 const TimeBoardContainer = styled.div`
-  padding: 0 0.5rem; /* px-2 */
+  padding: 0 4px; /* px-2 */
   position: absolute;
   width: 100%;
   height: 100%;
-  padding-bottom: 1rem; /* pb-4 */
+  padding-bottom: 16px; /* pb-4 */
   display: flex;
-  justify-content: around;
-  color: #4a5568; /* text-gray-3, assuming a specific gray color */
+  justify-content: space-around;
+  color: var(--font-h3); /* text-gray-3, assuming a specific gray color */
 `;
 
 const TimeBlockContainer = styled.div`
@@ -38,10 +38,10 @@ const TimeBlockContainer = styled.div`
 `;
 
 const HourText = styled.div`
-  margin-bottom: 0.25rem; /* mb-1 */
+  margin-bottom: 4px; /* mb-1 */
 `;
 
 const Divider = styled.div`
   flex: 1;
-  border-left: 1px solid #e2e8f0; /* border-l border-gray-200 */
+  border-left: 1px solid var(--font-h6); /* border-l border-gray-200 */
 `;

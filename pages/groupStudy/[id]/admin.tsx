@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { UserItem } from "../../../components/common/user/UserItem";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupStudyWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
@@ -16,7 +16,6 @@ import { IUser } from "../../../types/user/user";
 function Admin() {
   const completeToast = useCompleteToast();
   const groupStudy = useRecoilValue(transferGroupStudyDataState);
-
 
   const [deletedUsers, setDeletedUser] = useState([]);
 
@@ -56,7 +55,7 @@ function Admin() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <Header title="관리자 페이지" url="back" />
       <Layout>
         <Title>가입 신청</Title>
@@ -93,7 +92,7 @@ function Admin() {
         </Container>
         <Title>기타 기능</Title>
       </Layout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

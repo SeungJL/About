@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
+import PageSlide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
@@ -38,7 +38,7 @@ function WritingGatherContent() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <ProgressStatus value={40} />
       <Header title="" url="/gather/writing/category" />
       <RegisterLayout>
@@ -59,7 +59,7 @@ function WritingGatherContent() {
         </Container>
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </PageLayout>
+    </PageSlide>
   );
 }
 

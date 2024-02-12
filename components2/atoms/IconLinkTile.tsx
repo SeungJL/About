@@ -1,6 +1,6 @@
-import { Size } from "@/types/assetTypes";
 import Link from "next/link";
-
+import styled from "styled-components";
+import { Size } from "../../types2/assetTypes";
 export interface IIconLinkTile {
   text: string;
   icon: React.ReactNode;
@@ -18,31 +18,45 @@ export default function IconLinkTile({
 }: IIconLinkTile) {
   const renderContent = () => (
     <>
-      <div className="mb-3">{icon}</div>
-      <span
-        className={`whitespace-nowrap ${
-          size === "md" ? "text-xs font-normal" : "text-sm"
-        }`}
-      >
-        {text}
-      </span>
+      <IconContainer>{icon}</IconContainer>
+      <Text size={size}>{text}</Text>
     </>
   );
 
   return (
     <>
       {url ? (
-        <Link href={url} className="relative flex flex-col items-center w-12">
-          {renderContent()}
-        </Link>
+        <StyledLink href={url}>{renderContent()}</StyledLink>
       ) : (
-        <button
-          onClick={func}
-          className="relative flex flex-col items-center w-12"
-        >
-          {renderContent()}
-        </button>
+        <StyledButton onClick={func}>{renderContent()}</StyledButton>
       )}
     </>
   );
 }
+
+const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-decoration: none; /* Link에 기본적으로 적용되는 스타일 제거 */
+`;
+
+const StyledButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const IconContainer = styled.div`
+  margin-bottom: 8px; /* mb-3에 해당하는 마진 값 */
+`;
+
+const Text = styled.span`
+  white-space: nowrap;
+  font-size: ${(props) =>
+    props.size === "lg"
+      ? "14px"
+      : "10px"}; /* text-xs와 text-sm에 해당하는 폰트 크기 */
+  font-weight: normal;
+`;

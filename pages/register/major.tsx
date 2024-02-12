@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
+import PageSlide from "../../components/layout/PageSlide";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { majors_DATA } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
@@ -66,7 +66,7 @@ function Major() {
   };
 
   return (
-    <PageLayout>
+    <PageSlide>
       <ProgressStatus value={60} />
       <Header
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -102,7 +102,7 @@ function Major() {
         ))}
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </PageLayout>
+    </PageSlide>
   );
 }
 
