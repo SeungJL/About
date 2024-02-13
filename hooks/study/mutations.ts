@@ -6,13 +6,12 @@ import { requestServer } from "../../helpers/methodHelpers";
 import { MutationOptions } from "../../types/reactTypes";
 import { IStudyParticipate, IStudyPlaces } from "../../types/study/study";
 
-import { IDayjsStartToEnd } from "../../types/timeAndDate";
-import { IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
+import { IStudyTime, IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
 
 type StudyParticipationParam<T> = T extends "post"
   ? IStudyVote
   : T extends "patch"
-  ? IDayjsStartToEnd
+  ? IStudyTime
   : void;
 
 export const useStudyParticipationMutation = <
@@ -25,7 +24,7 @@ export const useStudyParticipationMutation = <
   useMutation<void, AxiosError, StudyParticipationParam<T>>((param) => {
     const voteInfo = param;
     if (method !== "delete") {
-      const updatedVoteInfo = voteInfo as IStudyParticipate | IDayjsStartToEnd;
+      const updatedVoteInfo = voteInfo as IStudyParticipate | IStudyTime;
       const { start, end } = updatedVoteInfo;
       updatedVoteInfo.start = voteDate
         .hour(start.hour())

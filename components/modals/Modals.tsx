@@ -9,43 +9,106 @@ import {
   ModalHeader as ChakraModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
 import styled from "styled-components";
-import { Size } from "../../types/system";
+import { IModal } from "../../types/reactTypes";
+import { Size } from "../../types2/assetTypes";
 import TwoButtonNav from "../layout/TwoButtonNav";
 
-interface IModalLayout {
+export interface IFooterOptions {
+  main: {
+    text?: string;
+    func?: () => void;
+  };
+  sub?: {
+    text?: string;
+    func?: () => void;
+  };
+  isFull?: boolean;
+}
+
+interface IModalLayout extends IModal {
+  title: string;
+  footerOptions: IFooterOptions;
+  children: React.ReactNode;
   size?: Size;
-  height?: number;
-  children?: ReactNode;
-  onClose: () => void;
 }
 
 export const ModalLayout = ({
-  onClose,
+  title,
+  setIsModal,
+  footerOptions: {
+    main: { text = "확인", func = () => setIsModal(false) },
+    sub,
+    isFull = true,
+  },
   size,
-  height,
   children,
-}: IModalLayout) => (
-  <Modal
-    isOpen={true}
-    onClose={onClose}
-    //별도로 제어하기 때문에 onClose를 사용하는 일이 없으나 overlay 제어에 사용
-    size={size && (IS_WIDTH_VIEW_MAIN[size] ? "sm" : "xs")}
-  >
-    <ModalOverlay />
-    <ModalContent
-      mx="var(--margin-main)"
-      h={height || SIZE_HEIGHT_MAP[size]}
-      maxWidth="358px"
-      my="auto"
-      borderRadius="var(--border-radius2)"
-      color="var(--font-h1)"
-    >
-      {children}
-    </ModalContent>
-  </Modal>
-);
+}: IModalLayout) => {
+  const onClose = () => setIsModal(false);
+
+  const { text: subText = "닫기", func: subFunc = onClose } = sub || {};
+
+  return (
+    <Modal isOpen={true} onClose={onClose} size={size}>
+      <ModalOverlay />
+      <ModalContent
+        mx="var(--margin-main)"
+        // h={height || SIZE_HEIGHT_MAP[size]}
+        maxWidth="358px"
+        my="auto"
+        borderRadius="var(--border-radius-sub)"
+      >
+        <ChakraModalHeader fontSize="18px" borderBottom="var(--border-sub)">
+          {title}
+        </ChakraModalHeader>
+
+        <ModalCloseButton size="lg" />
+        <ChakraModalBody pt="16px" pb="4px" px="20px">
+          {children}
+        </ChakraModalBody>
+        <ChakraModalFooter p="20px">
+          {isFull ? (
+            <TwoButtonNav
+              leftText={subText}
+              rightText={text}
+              onClickLeft={subFunc}
+              onClickRight={func}
+            />
+          ) : (
+            <></>
+          )}
+          {/* {isFull ? (
+            <>
+              {sub && (
+                <Button
+                  size="lg"
+                  className="enabled:hover:bg-gray-100 bg-white border-1.5 border-mint text-mint text-base flex-1 font-semibold"
+                  onClick={subFunc}
+                >
+                  {subText}
+                </Button>
+              )}
+              <Button
+                size="lg"
+                className="font-semibold flex-1 ml-auto bg-mint text-white enabled:hover:mintShadow"
+                onClick={func}
+              >
+                {text}
+              </Button>
+            </>
+          ) : (
+            <>
+              {sub && <button></button>}
+              <button className="ml-auto text-mint" onClick={func}>
+                {text}
+              </button>
+            </>
+          )} */}
+        </ChakraModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 
 interface IModalHeader {
   text: string;
@@ -111,6 +174,28 @@ interface IModalFooterTwo {
   isSmall?: boolean;
   isLoading?: boolean;
 }
+
+export const ModalFooterTwo3 = ({
+  onClickLeft,
+  onClickRight,
+  leftText = "닫기",
+  rightText = "확인",
+  isFull = true,
+  isLoading,
+  isSmall,
+}: IModalFooterTwo) => (
+  <ModalFooterLayout p="var(--padding-main) var(--padding-max)">
+    <>
+      <TwoButtonNav
+        leftText={leftText}
+        rightText={rightText}
+        onClickLeft={onClickLeft}
+        onClickRight={onClickRight}
+        isLoading={isLoading}
+      />
+    </>
+  </ModalFooterLayout>
+);
 
 export const ModalFooterTwo = ({
   onClickLeft,

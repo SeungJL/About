@@ -86,6 +86,49 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
     }
   );
 
+  const { text: mainText, funcType: mainFuncType } = getMainButtonStatus(
+    voteCnt >= MAX_USER_PER_PLACE,
+    studyDateStatus,
+    votingType,
+    isAttend,
+    studyStatus
+  );
+
+  const handleSubNav = (type: SubNavBtn) => {
+    if (isGuest) {
+      typeToast("guest");
+      return;
+    }
+    if (type === "cancelVote") {
+      if (studyDateStatus !== "not passed") {
+        toast("error", "스터디 확정 이후에는 당일 불참만 가능합니다.");
+        return;
+      } else {
+        setModalOptions({
+          title: "참여 취소",
+          subTitle: "스터디 신청을 취소하시겠습니까?",
+          func: () => handleAbsent(),
+        });
+      }
+    }
+    if (type === "changeTime") {
+    }
+    if (type === "absent" && studyDateStatus === "not passed") {
+      toast("error", "스터디 확정 이후부터 사용이 가능합니다.");
+      return;
+    }
+    setModalType(type);
+  };
+
+  const handleMainButton = (type: MainBtnType) => {
+    if (isGuest) {
+      typeToast("guest");
+      return;
+    }
+
+    setModalType(type);
+  };
+
   const subNavOptions: IIconLinkTile[] = [
     {
       icon: <FontAwesomeIcon icon={faCircleXmark} size="xl" />,
@@ -103,44 +146,6 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
       func: () => handleSubNav("absent"),
     },
   ];
-
-  const { text: mainText, funcType: mainFuncType } = getMainButtonStatus(
-    voteCnt >= MAX_USER_PER_PLACE,
-    studyDateStatus,
-    votingType,
-    isAttend,
-    studyStatus
-  );
-
-  const handleSubNav = (type: SubNavBtn) => {
-    if (isGuest) {
-      typeToast("guest");
-      return;
-    }
-    if (type === "cancelVote") {
-      if (studyDateStatus !== "not passed") {
-        toast("error", "스터디 확정 이후에는 당일 불참만 가능합니다.");
-      } else {
-        setModalOptions({
-          title: "참여 취소",
-          subTitle: "스터디 신청을 취소하시겠습니까?",
-          func: () => handleAbsent(),
-        });
-      }
-    }
-    if (type === "absent" && studyDateStatus === "not passed") {
-      toast("error", "스터디 확정 이후부터 사용이 가능합니다.");
-    }
-    setModalType(type);
-  };
-
-  const handleMainButton = (type: MainBtnType) => {
-    if (isGuest) {
-      typeToast("guest");
-      return;
-    }
-    setModalType(type);
-  };
 
   return (
     <>

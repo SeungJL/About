@@ -38,7 +38,6 @@ function ParticipateModal({
   setIsModal,
   answer,
 }: IParticipateModal) {
-
   const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();

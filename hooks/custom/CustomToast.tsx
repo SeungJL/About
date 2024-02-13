@@ -34,7 +34,7 @@ export const useToast = () => {
   return showToast;
 };
 
-type ToastType = "guest" | "cancel" | "error";
+type ToastType = "guest" | "cancel" | "error" | "success";
 
 export const useTypeToast = () => {
   const toast = useChakraToast();
@@ -71,6 +71,11 @@ const getTypeToToast = (
       return {
         status: "error",
         title: "오류가 발생했습니다. 관리자에게 문의해주세요!",
+      };
+    case "success":
+      return {
+        status: "success",
+        title: "완료되었습니다.",
       };
   }
 };

@@ -9,10 +9,8 @@ import StudyVoteDrawer from "../../../components2/services/studyVote/StudyVoteDr
 import { useToast } from "../../../hooks/custom/CustomToast";
 import StudyAbsentModal from "../../../modals/study/StudyAbsentModal";
 import StudyChangeTimeModal from "../../../modals/study/StudyChangeTimeModal";
-import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
 import StudyCheckModal from "../../../modals/study/StudyCheckModal";
 import StudyFreeOpenModal from "../../../modals/study/StudyFreeOpenModal";
-import StudyLightAbsentModal from "../../../modals/study/StudyLightAbsentModal";
 import { DispatchType } from "../../../types/reactTypes";
 import { studyModalType } from "../StudyNavigation";
 import VoteSuccessScreen from "../VoteSuccessScreen";
@@ -49,18 +47,18 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
       {type === "cancelVote" && (
         <AlertModal setIsModal={closeModal} alertModalOptions={modalOptions} />
       )}
-      {type === "freeOpen" && <StudyFreeOpenModal setIsModal={closeModal} />}
-      {type === "attendCheck" && <StudyCheckModal setIsModal={closeModal} />}
-      {type === "attendCheckImage" && (
-        <StudyCheckImageModal setIsModal={closeModal} />
-      )}
       {type === "changeTime" && (
         <StudyChangeTimeModal setIsModal={closeModal} />
       )}
+      {type === "freeOpen" && <StudyFreeOpenModal setIsModal={closeModal} />}
+      {type === "attendCheck" && <StudyCheckModal setIsModal={closeModal} />}
+      {/* {type === "attendCheckImage" && (
+        <StudyCheckImageModal setIsModal={closeModal} />
+      )} */}
       {type === "absent" && <StudyAbsentModal setIsModal={closeModal} />}
-      {type === "lightAbsent" && (
+      {/* {type === "lightAbsent" && (
         <StudyLightAbsentModal setIsModal={closeModal} />
-      )}
+      )} */}
       {isVoteComplete && (
         <ModalPortal setIsModal={setIsVoteComplete}>
           <VoteSuccessScreen />
