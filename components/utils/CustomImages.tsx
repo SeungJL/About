@@ -12,7 +12,7 @@ interface IstudyLogo {
   isImagePriority?: boolean;
   image?: string;
 }
-export const studyLogo = ({
+export const StudyLogo = ({
   place,
   isBig,
   isImagePriority,

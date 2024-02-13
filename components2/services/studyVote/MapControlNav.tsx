@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { MainLoadingAbsolute } from "../../../components/common/loaders/MainLoading";
 import { STUDY_PREFERENCE_LOCAL } from "../../../constants/keys/queryKeys";
 import { createNaverMapDot } from "../../../helpers/utilHelpers";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
@@ -28,7 +29,6 @@ import {
   DispatchType,
 } from "../../../types/reactTypes";
 import { IStudyParticipate, IStudyPlaces } from "../../../types/study/study";
-import { MainLoadingAbsolute } from "../../common/loaders/MainLoading";
 type ReturnDot = "중앙" | "동쪽" | "서쪽" | "남쪽" | "북쪽";
 
 interface IMapControlNav extends IPrecisionPopOver {
@@ -139,7 +139,7 @@ function MapControlNav({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferInfo, isCheckPreset, naverMap]);
-  
+
   const onClickPreSet = (type: "first" | "second") => {
     if (!preferInfo) {
       failToast("free", "설정된 스터디 프리셋이 없습니다.");

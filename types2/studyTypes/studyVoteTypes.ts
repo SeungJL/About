@@ -58,8 +58,10 @@ export interface IStudyPlaces {
   subPlace?: string[];
 }
 
-export interface IStudyVote extends IStudyPlaces {
+export interface IStudyTime {
   start?: Dayjs;
   end?: Dayjs;
+}
+export interface IStudyVote extends IStudyPlaces {
   memo?: string;
 }

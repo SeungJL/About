@@ -25,7 +25,8 @@ import { IModal } from "../../../types/reactTypes";
 import { IPlace } from "../../../types/study/studyDetail";
 
 import { Button } from "@chakra-ui/react";
-import { ChoiceRank } from "../../../components/features/studyVote/StudyVoteMap";
+import { ChoiceRank } from "../../../components2/services/studyVote/StudyVoteMap";
+import StudyVotePlacesPicker from "../../../components2/services/StudyVotePlacesPicker";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
@@ -33,7 +34,6 @@ import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { isRefetchstudyState } from "../../../recoil/refetchingAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { IStudyParticipate } from "../../../types/study/study";
-import StudyVoteSubModalPlace from "./StudyVoteSubModalPlace";
 import StudyVoteSubModalPrivate from "./StudyVoteSubModalPrivate";
 import StudyVoteSubModalTime from "./StudyVoteSubModalTime";
 
@@ -142,7 +142,7 @@ function StudyVoteSubModal({
       {isFirst && <StudyVoteSubModalTime setVoteInfo={setVoteInfo} />}
       <Wrapper isFirst={isFirst}>
         {!isPrivate ? (
-          <StudyVoteSubModalPlace setVoteInfo={setVoteInfo} />
+          <StudyVotePlacesPicker setVoteInfo={setVoteInfo} />
         ) : (
           <StudyVoteSubModalPrivate setVoteInfo={setVoteInfo} />
         )}

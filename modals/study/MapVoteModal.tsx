@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import PlaceVoteMap from "../../components/features/studyVote/StudyVoteMap";
 import ModalPortal from "../../components/modals/ModalPortal";
+import PlaceVoteMap from "../../components2/services/studyVote/StudyVoteMap";
 import { IModal } from "../../types/reactTypes";
 
 function MapVoteModal({ setIsModal }: IModal) {

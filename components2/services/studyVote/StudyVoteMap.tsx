@@ -3,9 +3,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { STUDY_VOTE_ICON } from "../../../assets/icons/MapChoiceIcon";
-import ScreenOverlay from "../../../components2/atoms/ScreenOverlay";
-import VoteMap from "../../../components2/organisms/VoteMap";
-import VoteMapController from "../../../components2/organisms/VoteMapController";
 import { STUDY_PREFERENCE_LOCAL } from "../../../constants/keys/queryKeys";
 import { STUDY_DISTANCE } from "../../../constants2/serviceConstants/studyConstants/studyDistanceConstants";
 import { useInfoToast } from "../../../hooks/custom/CustomToast";
@@ -28,6 +25,9 @@ import {
   IStudyVote,
 } from "../../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
+import ScreenOverlay from "../../atoms/ScreenOverlay";
+import VoteMap from "../../organisms/VoteMap";
+import VoteMapController from "../../organisms/VoteMapController";
 import MapBottomNav from "./MapBottomNav";
 
 export type ChoiceRank = "first" | "second" | "third";
@@ -98,7 +98,6 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
       const subPlace = prefer.subPlace.filter((sub) =>
         studyVoteData.some((par) => par.place._id === sub)
       );
-
       setMyVote((old) => (place ? { ...old, place, subPlace } : { ...old }));
     } else if (preferInfo?.prefer === null) setMyVote(null);
   }, [preferInfo?.preset, studyVoteData]);
@@ -130,7 +129,6 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
       );
     } else {
       setMyVote((old) => ({ ...old, subPlace: [] }));
-      console.log(2333);
       setPreferInfo(undefined);
     }
   }, [myVote?.place]);
@@ -164,7 +162,6 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
         </MapLayout>
         <MapBottomNav
           setIsModal={setIsModal}
-          setMyVote={setMyVote}
           myVote={myVote}
           voteScore={voteScore}
         />

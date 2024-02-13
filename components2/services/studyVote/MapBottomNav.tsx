@@ -1,14 +1,11 @@
 import { Button } from "@chakra-ui/react";
-import dayjs from "dayjs";
-import { motion } from "framer-motion";
+import dayjs, { Dayjs } from "dayjs";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
-import { STUDY_VOTE_HOUR_ARR } from "../../../constants2/serviceConstants/studyConstants/studyTimeConstant";
-import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { useCompleteToast } from "../../../hooks/custom/CustomToast";
+import { useToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
@@ -16,23 +13,19 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
-import { DispatchBoolean, IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types/reactTypes";
 import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
-import { createTimeArr, dayjsToStr } from "../../../utils/dateTimeUtils";
-import ScreenOverlay from "../../atoms/ScreenOverlay";
-import RulletPickerTwo from "../../molecules/picker/RulletPickerTwo";
-interface IStudyVoteTimeRulletDrawer extends IModal {
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
+import { IBottomDrawerLgOptions } from "../../organisms/drawer/BottomDrawerLg";
+import StudyVoteTimeRulletDrawer from "./StudyVoteTimeRulletDrawer";
+
+interface IMapBottomNav extends IModal {
   myVote: IStudyVote;
   voteScore: number;
-  setIsTimeModal: DispatchBoolean;
 }
-export default function StudyVoteTimeRulletDrawer({
-  myVote,
-  setIsModal,
-  setIsTimeModal,
-  voteScore,
-}: IStudyVoteTimeRulletDrawer) {
-  const completeToast = useCompleteToast();
+
+function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
+  const toast = useToast();
   const searchParams = useSearchParams();
   const location = searchParams.get("location");
   const date = searchParams.get("date");
@@ -40,26 +33,16 @@ export default function StudyVoteTimeRulletDrawer({
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
 
-  const leftDefaultIdx = 8;
-  const rightDefaultIdx = 10;
+  const [voteTime, setVoteTime] = useState<{ start: Dayjs; end: Dayjs }>();
+  const [isTimeModal, setIsTimeModal] = useState(false);
 
-  const startItemArr = createTimeArr(
-    STUDY_VOTE_HOUR_ARR[0],
-    STUDY_VOTE_HOUR_ARR[11]
-  );
-
-  const endTimeArr = createTimeArr(
-    STUDY_VOTE_HOUR_ARR[3],
-    STUDY_VOTE_HOUR_ARR[STUDY_VOTE_HOUR_ARR.length - 1]
-  );
-
-  const [rulletValue, setRulletValue] = useState<{
-    left: string;
-    right: string;
-  }>({
-    left: startItemArr[leftDefaultIdx],
-    right: endTimeArr[rightDefaultIdx],
-  });
+  const onClickTimeSelect = () => {
+    if (!myVote?.place) {
+      toast("error", "장소를 먼저 선택해주세요!");
+      return;
+    }
+    setIsTimeModal(true);
+  };
 
   const { data: pointLog } = usePointSystemLogQuery("point", true, {
     enabled: !!myStudy,
@@ -72,10 +55,7 @@ export default function StudyVoteTimeRulletDrawer({
       item.meta.sub === dayjsToStr(dayjs(date))
   )?.meta.value;
 
-  const resetQueryData = useResetQueryData();
-
   const { mutate: getPoint } = usePointSystemMutation("point");
-
   const { mutate: patchAttend } = useStudyParticipationMutation(
     dayjs(date),
     "post",
@@ -87,92 +67,101 @@ export default function StudyVoteTimeRulletDrawer({
   );
 
   const handleSuccess = async () => {
-    resetQueryData([STUDY_VOTE, date, location]);
     if (myPrevVotePoint) {
       await getPoint({
         message: "스터디 투표 취소",
         value: -myPrevVotePoint,
       });
     }
-
     if (studyDateStatus === "not passed" && voteScore) {
       await getPoint({
         value: voteScore,
         message: "스터디 투표",
         sub: date,
       });
-      completeToast(
-        "free",
-        `투표완료! ${!myStudy && "포인트가 적립되었습니다."}`
-      );
-    } else completeToast("studyVote");
+      toast("success", `투표 완료! ${!myStudy && "포인트가 적립되었습니다."}`);
+    } else toast("success", "투표 완료!");
     setIsModal(false);
   };
 
   const onSubmit = () => {
     patchAttend({
       ...myVote,
-      start: dayjs(rulletValue.left),
-      end: dayjs(rulletValue.right),
+      ...voteTime,
     });
   };
 
-  const handleDragEnd = (_, info) => {
-    if (info.offset.y > 40) {
-      setIsTimeModal(false);
-    }
+  const drawerOptions: IBottomDrawerLgOptions = {
+    header: {
+      title: dayjs().format("M월 DD일 ddd요일"),
+      subTitle: "스터디 참여시간을 선택해주세요!",
+    },
+    footer: {
+      buttonText: "선택 완료",
+      onClick: onSubmit,
+    },
   };
 
   return (
     <>
-      <ScreenOverlay onClick={() => setIsTimeModal(false)} />
-
-      <TimeModalLayout
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        onDragEnd={handleDragEnd}
-        initial={{ y: 400 }}
-        animate={{ y: 0 }}
-        exit={{ y: 400, transition: { duration: 0.2 } }}
-        transition={{ duration: 0.4 }}
-      >
-        <TopNav />
-        <Header>
-          <span>{dayjs().locale("ko").format("M월 DD일 ddd요일")}</span>
-          <span>스터디 참여시간을 선택해주세요!</span>
-        </Header>
-        <RulletPickerTwo
-          leftDefaultIdx={leftDefaultIdx}
-          rightDefaultIdx={rightDefaultIdx}
-          leftRulletArr={startItemArr}
-          rightRulletArr={endTimeArr}
-          setRulletValue={setRulletValue}
-        />
+      <Layout>
         <Button
-          w="100%"
           colorScheme="mintTheme"
           size="lg"
-          borderRadius="var(--border-radius-sub)"
-          mt="20px"
-          onClick={onSubmit}
+          h="48px"
+          onClick={onClickTimeSelect}
+          fontSize="16px"
         >
-          선택 완료
+          시간 선택
         </Button>
-      </TimeModalLayout>
+        <Button
+          fontSize="16px"
+          h="48px"
+          size="lg"
+          onClick={() => setIsModal(false)}
+        >
+          닫기
+        </Button>
+      </Layout>
+      <AnimatePresence>
+        {isTimeModal && (
+          <StudyVoteTimeRulletDrawer
+            drawerOptions={drawerOptions}
+            setIsModal={setIsTimeModal}
+            setVoteTime={setVoteTime}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
 
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > button {
+    margin-top: var(--margin-main);
+    width: var(--view-width);
+    max-width: var(--view-max-width);
+  }
+  > button:last-child {
+    margin-top: var(--margin-sub);
+  }
+`;
+
 const TimeModalLayout = styled(motion.div)`
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
   max-width: var(--max-width);
+  height: 411.5px;
   border-top-left-radius: var(--border-radius-main);
   border-top-right-radius: var(--border-radius-main);
+
   background-color: white;
-  z-index: 5000;
-  padding: 20px;
+  z-index: 20;
+  padding: var(--padding-main);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -201,3 +190,4 @@ const Header = styled.header`
     color: var(--font-h1);
   }
 `;
+export default MapBottomNav;

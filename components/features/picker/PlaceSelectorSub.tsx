@@ -2,10 +2,14 @@ import { faLeft, faRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
+import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study/study";
+import { useToast } from "../../../hooks/custom/CustomToast";
 import { IPlace } from "../../../types/study/studyDetail";
+import { IParticipation } from "../../../types2/studyTypes/studyVoteTypes";
+import { StudyLogo } from "../../utils/CustomImages";
 
 interface IPlaceSelectorSub {
-  places: IPlace[];
+  places: IParticipation[];
   selectPlaces: IPlace[];
   setSelectPlaces: Dispatch<SetStateAction<IPlace[]>>;
 }
@@ -15,14 +19,12 @@ function PlaceSelectorSub({
   selectPlaces,
   setSelectPlaces,
 }: IPlaceSelectorSub) {
+  const toast = useToast();
   const isTwoPage = places?.length > 8;
 
-  const first = [];
-  const second = [];
-
   const [pagePlaces, setPagePlaces] = useState<{
-    first: IPlace[];
-    second: IPlace[];
+    first: IParticipation[];
+    second: IParticipation[];
   }>();
   const [isFirst, setIsFirst] = useState(true);
 
@@ -34,7 +36,12 @@ function PlaceSelectorSub({
     });
   }, [isTwoPage, places]);
 
-  const onClick = (place: IPlace) => {
+  const onClick = (par: IParticipation) => {
+    if (par.attendences.length >= MAX_USER_PER_PLACE) {
+      toast("error", "인원이 마감되었습니다.");
+      return;
+    }
+    const place = par.place;
     setSelectPlaces((old) => {
       if (old.includes(place)) return old.filter((item) => item !== place);
       return [...old, place];
@@ -42,25 +49,22 @@ function PlaceSelectorSub({
   };
 
   const onClickArrow = (type: "left" | "right") => {
-    if (type === "left") {
-      setIsFirst(true);
-    }
-    if (type === "right") {
-      setIsFirst(false);
-    }
+    if (type === "left") setIsFirst(true);
+    if (type === "right") setIsFirst(false);
   };
 
   return (
     <Layout isTwoPage={isTwoPage}>
-      {(isFirst ? pagePlaces?.first : pagePlaces?.second)?.map((place) => (
-        <Item key={place._id}>
-          <Place
-            isSelected={selectPlaces.includes(place)}
-            onClick={() => onClick(place)}
-          >
-            <studyLogo place={place} isBig={true} />
+      {(isFirst ? pagePlaces?.first : pagePlaces?.second)?.map((par) => (
+        <Item
+          key={par.place._id}
+          isSelected={selectPlaces.includes(par.place)}
+          onClick={() => onClick(par)}
+        >
+          <Place>
+            <StudyLogo place={par.place} isBig={true} />
           </Place>
-          <Name>{place.branch}</Name>
+          <Name>{par.place.branch}</Name>
         </Item>
       ))}
       {!isFirst && (
@@ -83,20 +87,22 @@ const Layout = styled.div<{ isTwoPage: boolean }>`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  flex: 1;
-  margin-bottom: var(--margin-main);
+
   gap: var(--margin-min);
-  padding: ${(props) => (props.isTwoPage ? "0 var(--margin-sub)" : null)};
+  padding: ${(props) => (props.isTwoPage ? "0 var(--margin-main)" : null)};
 `;
 
-const Item = styled.div`
+const Item = styled.div<{ isSelected: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: var(--border-radius-main);
+  border: ${(props) =>
+    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-sub)"};
 `;
 
-const Place = styled.div<{ isSelected: boolean }>`
+const Place = styled.div`
   border-radius: var(--border-radius-main);
   overflow: hidden;
   width: 64px;
@@ -105,8 +111,6 @@ const Place = styled.div<{ isSelected: boolean }>`
   justify-content: center;
   align-items: center;
   margin-bottom: var(--margin-min);
-  border: ${(props) =>
-    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-main)"};
 `;
 
 const Name = styled.span`
@@ -123,7 +127,7 @@ const RightArrow = styled.div`
   padding: var(--padding-min);
   position: absolute;
   top: 42%;
-  right: 0;
+  right: -8px;
 `;
 
 export default PlaceSelectorSub;

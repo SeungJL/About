@@ -3,10 +3,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import StudyVoteMap from "../../../components/features/studyVote/StudyVoteMap";
 import ShadowCircleButton, {
   IShadowCircleProps,
 } from "../../../components2/atoms/buttons/ShadowCircleButton";
+import StudyVoteMap from "../../../components2/services/studyVote/StudyVoteMap";
 import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
 import StudyCheckModal from "../../../modals/study/StudyCheckModal";
 

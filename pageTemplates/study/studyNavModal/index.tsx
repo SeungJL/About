@@ -5,6 +5,7 @@ import ModalPortal from "../../../components/modals/ModalPortal";
 import AlertModal, {
   IAlertModalOptions,
 } from "../../../components2/AlertModal";
+import StudyVoteDrawer from "../../../components2/services/studyVote/StudyVoteDrawer";
 import { useToast } from "../../../hooks/custom/CustomToast";
 import StudyAbsentModal from "../../../modals/study/StudyAbsentModal";
 import StudyChangeTimeModal from "../../../modals/study/StudyChangeTimeModal";
@@ -44,6 +45,7 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
           />
         </ModalPortal>
       )} */}
+      {type === "vote" && <StudyVoteDrawer setIsModal={closeModal} />}
       {type === "cancelVote" && (
         <AlertModal setIsModal={closeModal} alertModalOptions={modalOptions} />
       )}
