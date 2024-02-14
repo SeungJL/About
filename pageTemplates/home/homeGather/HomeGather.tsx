@@ -4,23 +4,18 @@ import styled from "styled-components";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; //
-import SectionHeader from "../../../../components/layout/atoms/SectionHeader";
-import { GATHER_ALERT } from "../../../../constants/keys/localStorage";
-import { useGatherAllQuery } from "../../../../hooks/gather/queries";
-import { isGatherAlertState } from "../../../../recoil/alertAtoms";
-import AboutGatherBlock from "./homeGatherBlock/homeGatherBlock";
 
 import AboutGatherBlockSkeleton from "./homeGatherBlock/homeGatherBlockSkeleton";
 
 const TEXT_VISIBLE_LENGTH = 22;
 
-function AboutGather() {
+function HomeGather2() {
   const router = useRouter();
 
   const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
 
   //신규 모임 존재여부 체크
-  const { data: gatherContentArr } = useGatherAllQuery({
+  const { data: gatherContentArr } = useGatherQuery({
     onSuccess(data) {
       const lastGather = data[data.length - 1];
       if (localStorage.getItem(GATHER_ALERT) !== String(lastGather.id)) {
@@ -83,4 +78,4 @@ const Layout = styled.div`
 
 const Container = styled.div``;
 
-export default AboutGather;
+export default HomeGather;

@@ -1,19 +1,23 @@
-type ColorType = "mint";
+import { Button } from "@chakra-ui/react";
+import styled from "styled-components";
+
 
 interface IHighlightedTextButton {
   text: string;
-  colorType: ColorType;
 }
 export default function HighlightedTextButton({
   text,
-  colorType,
 }: IHighlightedTextButton) {
-  const getColorTheme = (colorType: ColorType) => {
-    switch (colorType) {
-      case "mint":
-        return "text-mint bg-mintShadow";
-    }
-  };
-
-  return <div className={`${getColorTheme(colorType)} text-sm`}>{text}</div>;
+  return (
+    <Button variant="ghost" size="xs">
+      <Text> {text}</Text>
+    </Button>
+  );
 }
+
+const Text = styled.span`
+  background-color: var(--color-mint-shadow);
+  font-size: 13px;
+  color: var(--color-mint);
+  font-weight: 400;
+`;

@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { GATHER_ALERT } from "../../constants/keys/localStorage";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
-import { useGatherAllQuery } from "../../hooks/gather/queries";
+import { useGatherQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { IGather } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
@@ -21,7 +21,7 @@ function GatherMain({ category }: IGatherMain) {
 
   const [gatherData, setGatherData] = useState<IGather[]>();
 
-  const { data: gatherAll, isLoading } = useGatherAllQuery({
+  const { data: gatherAll, isLoading } = useGatherQuery({
     onError: errorToast,
   });
 

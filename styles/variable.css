@@ -24,6 +24,7 @@
   --color-mint: #00c2b3;
   --color-red: #ff6b6b;
   --color-blue: #6bafff;
+  --color-mint-shadow: rgba(0, 194, 179, 0.1);
 
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   --box-shadow-sub: 0px 2px 4px rgba(0, 0, 0, 0.05);

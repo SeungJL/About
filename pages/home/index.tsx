@@ -5,12 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { getUrlWithLocationAndDate } from "../../helpers/urlHelpers";
 import HomeCategoryNav from "../../pageTemplates/home/HomeCategoryNav";
+import HomeGatherSection from "../../pageTemplates/home/HomeGatherSection";
 import HomeHeader from "../../pageTemplates/home/homeHeader/HomeHeader";
 import HomeInitialSetting from "../../pageTemplates/home/HomeInitialSetting";
 import HomeLocationBar from "../../pageTemplates/home/HomeLocationBar";
 import HomeStudySection from "../../pageTemplates/home/homeMain/HomeStudySection";
+import HomeReviewSection from "../../pageTemplates/home/HomeReviewSection";
+import HomeWinRecordSection from "../../pageTemplates/home/HomeWinRecordSection";
 import StudyVoteController from "../../pageTemplates/home/studyVoteController/StudyVoteController";
-import HomeWinRecord from "../../pageTemplates/home/WinRecord";
 import { LocationEn } from "../../types/serviceTypes/locationTypes";
 
 function Home() {
@@ -40,9 +42,9 @@ function Home() {
       <StudyVoteController />
       <HomeStudySection />
       <EventBanner />
-      {/* <HomeGather />
-      <HomeReview /> */}
-      <HomeWinRecord />
+      <HomeGatherSection />
+      <HomeReviewSection />
+      <HomeWinRecordSection />
     </>
   );
 }

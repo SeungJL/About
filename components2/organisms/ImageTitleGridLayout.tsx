@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import "../../styles/customClass.css";
+import styled from "styled-components";
+import { SingleLineText } from "../../styles/layout/components";
 export interface IImageTileData {
   imageUrl: string;
   text: string;
@@ -14,20 +15,37 @@ export default function ImageTileGridLayout({
   imageDataArr,
 }: IImageTileGridLayout) {
   return (
-    <div className="p-4  grid grid-cols-2 gap-4">
+    <GridContainer>
       {imageDataArr.map((imageData, idx) => (
-        <Link className="pb" key={idx} href={imageData.url}>
-          <div className="relative aspect-square rounded-lg overflow-hidden">
+        <Link key={idx} href={imageData.url} passHref>
+          <ImageContainer>
             <Image
               src={imageData.imageUrl}
               sizes="180px"
               fill={true}
               alt="reviewThumbnailImage"
             />
-          </div>
-          <div className="webkit-clamp-1 mt-2">{imageData.text} </div>
+          </ImageContainer>
+          <TextContainer>{imageData.text}</TextContainer>
         </Link>
       ))}
-    </div>
+    </GridContainer>
   );
 }
+const GridContainer = styled.div`
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-sub);
+  overflow: hidden;
+`;
+
+const TextContainer = styled(SingleLineText)`
+  margin-top: 8px;
+`;
