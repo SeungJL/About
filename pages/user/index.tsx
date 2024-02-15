@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
-import PageSlide from "../../components/layout/PageSlide";
+import Slide from "../../components/layout/PageSlide";
+
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import UserNavigation from "../../pageTemplates/user/userNavigation/UserNavigation";
 import UserOverview from "../../pageTemplates/user/userOverview/UserOverView";
@@ -28,15 +29,19 @@ function UserInfo() {
   }, [isRefetchUserInfo]);
 
   return (
-    <PageSlide>
-      <Header title="마이페이지" />
-      {(userInfo || isGuest) && (
-        <UserLayout>
-          <UserOverview userInfo={userInfo} />
-          <UserNavigation />
-        </UserLayout>
-      )}
-    </PageSlide>
+    <>
+      <Slide isFixed={true}>
+        <Header title="마이페이지" />
+      </Slide>
+      <Slide>
+        {(userInfo || isGuest) && (
+          <UserLayout>
+            <UserOverview userInfo={userInfo} />
+            <UserNavigation />
+          </UserLayout>
+        )}
+      </Slide>
+    </>
   );
 }
 

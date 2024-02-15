@@ -1,11 +1,15 @@
+import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { UserIcon } from "../../../assets/icons/UserIcon";
 import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
+import { SingleLineText } from "../../../styles/layout/components";
 import { IImageProps } from "../../../types2/assetTypes";
-import { ITextAndColorType } from "../../../types2/propTypes";
+import { ITextAndColorSchemes } from "../../../types2/propTypes";
+
 import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import OutlineBadge from "../../atoms/badges/OutlineBadge";
 import AvatarGroupsOverwrap from "../groups/AvatarGroupsOverwrap";
 export interface IPostThumbnailCard {
   participants: IUserSummary[];
@@ -13,7 +17,7 @@ export interface IPostThumbnailCard {
   subtitle: string;
   image: IImageProps;
   url: string;
-  badge: ITextAndColorType;
+  badge: ITextAndColorSchemes;
   statusText?: string;
 }
 
@@ -47,15 +51,17 @@ export function PostThumbnailCard({
         style={{ borderRadius: "0.5rem" }}
       />
       <ContentContainer>
-        <Title>
-          <div className="title">{title}</div>
-          {/* <OutlineBadge text={badge.text} colorType={badge.colorType} /> */}
-        </Title>
+        <TitleHeader>
+          <Title>{title}</Title>
+          <OutlineBadge text={badge.text} colorScheme={badge.colorScheme} />
+        </TitleHeader>
         <Subtitle>{subtitle}</Subtitle>
         <StatusContainer>
           <AvatarGroupsOverwrap userAvatarArr={userAvatarArr} size="sm" />
           <div className="statusText">
-            <div>{statusText}</div>
+            <Box color="var(--color-mint)" fontWeight={600} mr="8px" mt="4px">
+              {statusText}
+            </Box>
             <div className="userIconContainer">
               <UserIcon />
               <span>{participants.length}/8</span>
@@ -74,11 +80,11 @@ export function PostThumbnailCardSkeleton() {
         <Skeleton>t</Skeleton>
       </SkeletonBlock>
       <ContentContainer>
-        <Title style={{ marginBottom: "4px" }}>
-          <div className="title">
+        <TitleHeader style={{ marginBottom: "4px" }}>
+          <Title>
             <Skeleton>temp</Skeleton>
-          </div>
-        </Title>
+          </Title>
+        </TitleHeader>
         <Subtitle>
           <Skeleton> temp</Skeleton>
         </Subtitle>
@@ -107,14 +113,15 @@ const ContentContainer = styled.div`
   margin-left: 12px; // ml-3 수정
 `;
 
-const Title = styled.div`
+const TitleHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  .title {
-    flex: 1;
-    font-size: 16px;
-    font-weight: 600;
-  }
+`;
+
+const Title = styled(SingleLineText)`
+  flex: 0.8;
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 const Subtitle = styled.div`
@@ -123,9 +130,9 @@ const Subtitle = styled.div`
 `;
 
 const StatusContainer = styled.div`
+  flex: 1;
   display: flex;
-  margin-top: auto;
-  align-items: center;
+  align-items: flex-end;
   .statusText {
     display: flex;
     margin-left: auto;
@@ -135,6 +142,9 @@ const StatusContainer = styled.div`
       display: flex;
       align-items: center;
       letter-spacing: 2px;
+      > svg {
+        margin-bottom: 2px;
+      }
       > span:last-child {
         margin-left: 4px;
       }

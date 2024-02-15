@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
-import PageSlide from "../../components/layout/PageSlide";
+import Slide from "../../components/layout/Slide";
 import Accordion from "../../components/templates/Accordion";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { ACCORDION_CONTENT_FEE } from "../../constants/contents/accordionContents";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,
-  setLocalStorageObj
+  setLocalStorageObj,
 } from "../../helpers/storageHelpers";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
@@ -39,7 +39,7 @@ function Fee() {
   };
 
   return (
-    <PageSlide>
+    <Slide>
       <ProgressStatus value={100} />
       <Header title="회원가입" url="/register/phone" />
       <RegisterLayout>
@@ -61,7 +61,7 @@ function Fee() {
         <Accordion contentArr={ACCORDION_CONTENT_FEE} />
       </RegisterLayout>
       <BottomNav onClick={onClickNext} text="신청완료" />
-    </PageSlide>
+    </Slide>
   );
 }
 

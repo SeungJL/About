@@ -5,7 +5,6 @@ export const getRandomAlphabet = (percent: number) => {
 
   if (randomValue <= percent / 100) {
     const randomIdx = Math.floor(Math.random() * 5);
-
     const alphabet = ALPHABET_COLLECTION[randomIdx];
     return alphabet;
   }

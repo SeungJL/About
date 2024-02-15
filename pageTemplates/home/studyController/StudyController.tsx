@@ -1,19 +1,33 @@
+import { Box } from "@chakra-ui/react";
 import dayjs, { Dayjs } from "dayjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import BetweenTextSwitcher from "../../../components2/molecules/navs/BetweenTextSwitcher";
+import StudyVoteMap from "../../../components2/services/studyVote/StudyVoteMap";
+import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
+import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
 import { dayjsToFormat, dayjsToStr } from "../../../utils/dateTimeUtils";
 import StudyControllerDate from "./StudyControllerDates";
 import StudyControllerDays from "./StudyControllerDays";
 import StudyControllerVoteButton from "./StudyControllerVoteButton";
+
+export type VoteType =
+  | "vote"
+  | "voteChange"
+  | "attendCheck"
+  | "attendCompleted"
+  | "absent"
+  | "expired";
 
 function StudyController() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
   const date = newSearchParams.get("date");
+
   const [selectedDate, setSelectedDate] = useState<string>();
+  const [modalType, setModalType] = useState<VoteType>(null);
 
   useEffect(() => {
     setSelectedDate(date);
@@ -30,23 +44,56 @@ function StudyController() {
   const textSwitcherProps = getTextSwitcherProps(selectedDateDayjs, onClick);
 
   return (
-    <OuterContainer>
-      <InnerContainer>
-        {selectedDate && (
-          <>
-            <BetweenTextSwitcher
-              left={textSwitcherProps.left}
-              right={textSwitcherProps.right}
-            />
-            <ContentContainer>
-              <StudyControllerDays selectedDate={selectedDate} />
-              <StudyControllerDate selectedDate={selectedDate} />
-            </ContentContainer>
-            <StudyControllerVoteButton />
-          </>
-        )}
-      </InnerContainer>
-    </OuterContainer>
+    <>
+      <OuterContainer>
+        <InnerContainer>
+          {selectedDate && (
+            <>
+              <BetweenTextSwitcher
+                left={textSwitcherProps.left}
+                right={textSwitcherProps.right}
+              />
+              <ContentContainer>
+                <StudyControllerDays selectedDate={selectedDate} />
+                <StudyControllerDate selectedDate={selectedDate} />
+              </ContentContainer>
+              <Box
+                borderRadius="50%"
+                pos="absolute"
+                zIndex="5"
+                bottom="0"
+                left="50%"
+                transform="translate(-50%,50%)"
+                _after={{
+                  content: `""`,
+                  position: "absolute",
+                  zIndex: "3",
+                  backgroundColor: "white",
+                  border: "var(--border)",
+                  borderBottom: "none",
+                  top: "0px",
+                  left: "0",
+                  width: "100%",
+                  height: "50%",
+                  borderRadius: "100px 100px 0 0",
+                }}
+              >
+                <StudyControllerVoteButton setModalType={setModalType} />
+              </Box>
+            </>
+          )}
+        </InnerContainer>
+      </OuterContainer>
+      {(modalType === "vote" || modalType === "voteChange") && (
+        <StudyVoteMap setIsModal={() => setModalType(null)} />
+      )}
+      {modalType === "attendCheck" && (
+        <StudyAttendCheckModal setIsModal={() => setModalType(null)} />
+      )}
+      {modalType === "attendPrivate" && (
+        <StudyCheckImageModal setIsModal={() => setModalType(null)} />
+      )}
+    </>
   );
 }
 

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { SECTION_NAME } from ".";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
-import PageSlide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layout/Slide";
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
@@ -33,7 +33,7 @@ function MemberDetail() {
   };
 
   return (
-    <PageSlide>
+    <Slide>
       <Header
         title={SECTION_NAME[section]}
         url={`/member/${router.query?.location}`}
@@ -93,7 +93,7 @@ function MemberDetail() {
           );
         })}
       </Container>
-    </PageSlide>
+    </Slide>
   );
 }
 

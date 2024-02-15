@@ -1,54 +1,49 @@
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ShadowCircleButton, {
   IShadowCircleProps,
 } from "../../../components2/atoms/buttons/ShadowCircleButton";
-import StudyVoteMap from "../../../components2/services/studyVote/StudyVoteMap";
-import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
-import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
 
 import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
+import { DispatchType } from "../../../types2/reactTypes";
 import { StudyDateStatus } from "../../../types2/studyTypes/studySubTypes";
 import { IParticipation } from "../../../types2/studyTypes/studyVoteTypes";
+import { VoteType } from "./StudyController";
 
 export type StudyVoteActionType =
   | "참여 신청"
+  | "투표 변경"
   | "출석 체크"
   | "출석 완료"
   | "당일 불참"
   | "기간 만료";
 
-type VoteType =
-  | "vote"
-  | "attendCheck"
-  | "attendCompleted"
-  | "absent"
-  | "expired";
-
 const ACTION_TO_VOTE_TYPE: Record<StudyVoteActionType, VoteType> = {
   "참여 신청": "vote",
+  "투표 변경": "voteChange",
   "출석 체크": "attendCheck",
   "출석 완료": "attendCompleted",
   "당일 불참": "absent",
   "기간 만료": "expired",
 };
 
-function StudyControllerVoteButton() {
-  const router = useRouter();
+interface IStudyControllerVoteButton {
+  setModalType: DispatchType<VoteType>;
+}
+
+function StudyControllerVoteButton({
+  setModalType,
+}: IStudyControllerVoteButton) {
   const { data } = useSession();
   const searchParams = useSearchParams();
-  const newSearchParams = new URLSearchParams(searchParams);
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
-
-  const [modalType, setModalType] = useState<VoteType>(null);
 
   const buttonProps = getStudyVoteButtonProps(
     studyDateStatus,
@@ -61,10 +56,6 @@ function StudyControllerVoteButton() {
     setModalType(ACTION_TO_VOTE_TYPE[type]);
   };
 
-  const setIsModal = () => {
-    setModalType(null);
-  };
-
   return (
     <>
       <ButtonWrapper className="main_vote_btn">
@@ -73,14 +64,6 @@ function StudyControllerVoteButton() {
           onClick={handleModalOpen}
         />
       </ButtonWrapper>
-
-      {modalType === "vote" && <StudyVoteMap setIsModal={setIsModal} />}
-      {modalType === "attendCheck" && (
-        <StudyAttendCheckModal setIsModal={setIsModal} />
-      )}
-      {modalType === "attendPrivate" && (
-        <StudyCheckImageModal setIsModal={setIsModal} />
-      )}
     </>
   );
 }
@@ -100,6 +83,12 @@ export const getStudyVoteButtonProps = (
 
   switch (studyDateStatus) {
     case "not passed":
+      if (myStudy)
+        return {
+          text: "투표 변경",
+          color: "#F6AD55",
+          shadow: "#FEEBC8",
+        };
       return {
         text: "참여 신청",
         color: "var(--color-mint)",
@@ -146,17 +135,12 @@ export const getStudyVoteButtonProps = (
 
 const ButtonWrapper = styled.div`
   background-color: white;
-  border-radius: 9999px; /* rounded-full */
-  position: absolute;
-  z-index: 4;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
+  border-radius: 50%; /* rounded-full */
+
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 108px;
-  height: 108px;
+  padding: 6px;
 
   /* Custom after pseudo-element */
   &::after {

@@ -1,4 +1,4 @@
-import { ColorType } from "./assetTypes";
+import { ThemeTypings } from "@chakra-ui/react";
 import { LocationEn } from "./serviceTypes/locationTypes";
 
 export interface ChildrenProps {
@@ -14,7 +14,7 @@ export interface LinkButtonProp {
   url: string;
 }
 
-export interface ITextAndColorType {
+export interface ITextAndColorSchemes {
   text: string;
-  colorType: ColorType;
+  colorScheme: ThemeTypings["colorSchemes"];
 }

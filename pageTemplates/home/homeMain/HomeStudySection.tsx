@@ -19,7 +19,8 @@ import {
   sortedStudyCardListState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
-import { ITextAndColorType } from "../../../types2/propTypes";
+import { ITextAndColorSchemes } from "../../../types2/propTypes";
+
 import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
 import {
   IParticipation,
@@ -56,7 +57,11 @@ export default function HomeStudySection() {
       studyDateStatus !== "not passed"
     );
 
-    const cardList = setStudyDataToCardCol(sortedData, date as string);
+    const cardList = setStudyDataToCardCol(
+      sortedData,
+      date as string,
+      data?.user.uid
+    );
     setStudyCardColData(cardList.slice(0, 3));
     setSortedStudyCardList(cardList);
     setMyStudy(getMyStudy(studyVoteData, data.user.uid));
@@ -96,7 +101,8 @@ export default function HomeStudySection() {
 
 export const setStudyDataToCardCol = (
   studyData: IParticipation[],
-  urlDateParam: string
+  urlDateParam: string,
+  uid: string
 ): IPostThumbnailCard[] => {
   const privateStudy = studyData.find((par) => par.place.brand === "자유 신청");
   const filteredData = studyData.filter(
@@ -114,21 +120,28 @@ export const setStudyDataToCardCol = (
       url: data.place.image,
       priority: true,
     },
-    badge: getBadgeText(data.status),
+    badge: getBadgeText(data.status, getVotePoint(data.attendences.length)),
+    statusText: data.attendences.some((who) => who.user.uid === uid) && "GOOD",
   }));
   return cardColData;
 };
 
-const getBadgeText = (status: StudyStatus): ITextAndColorType => {
+const getVotePoint = (attCnt: number) =>
+  attCnt === 0 ? 10 : attCnt === 5 ? 2 : 2;
+
+const getBadgeText = (
+  status: StudyStatus,
+  point: number
+): ITextAndColorSchemes => {
   switch (status) {
     case "open":
-      return { text: "open", colorType: "green" };
+      return { text: "open", colorScheme: "green" };
     case "dismissed":
-      return { text: "closed", colorType: "gray" };
+      return { text: "closed", colorScheme: "gray" };
     case "free":
-      return { text: "free", colorType: "purple" };
+      return { text: "free", colorScheme: "purple" };
     case "pending":
-      return { text: "+2 POINT", colorType: "mint" };
+      return { text: `+${point} POINT`, colorScheme: "redTheme" };
   }
 };
 

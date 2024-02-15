@@ -1,3 +1,4 @@
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import {
   faBadgeCheck,
   faCheckCircle,
@@ -16,40 +17,40 @@ function PointSystemsModalPoint() {
       <Layout>
         <Item>
           <Name>스터디 투표</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faCheckToSlot} />
+          <FontAwesomeIcon size="2x" icon={faCheckToSlot} />
           <Point>0~20 point</Point>
         </Item>
         <Item>
           <Name>스터디 출석</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faCheckCircle} />
+          <FontAwesomeIcon size="2x" icon={faCheckCircle} />
           <Point>5 point</Point>
         </Item>
         <Item>
           <Name>에타 홍보</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faGift} />
+          <FontAwesomeIcon size="2x" icon={faGift} />
           <Point>{POINT_SYSTEM_PLUS.PROMOTION.value} point</Point>
         </Item>
         <Item>
           <Name>일일 출석</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faBadgeCheck} />
+          <FontAwesomeIcon size="2x" icon={faBadgeCheck} />
           <Point>{POINT_SYSTEM_PLUS.DAILY_ATTEND.value} point</Point>
         </Item>
         <Item>
           <Name>좋아요</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faHeartCircle} />
+          <FontAwesomeIcon size="2x" icon={faHeartCircle} />
           <Point>{POINT_SYSTEM_PLUS.LIKE.value} point</Point>
         </Item>
         <Item>
           <Name>이벤트</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faPartyHorn} />
+          <FontAwesomeIcon size="2x" icon={faPartyHorn} />
           <Point>10 point</Point>
         </Item>
       </Layout>
-      <Contents>
-        <li>이외에도 다양한 곳에서 획득 가능</li>
-        <li>포인트는 스토어에서 사용 가능</li>
-        <li>100 point = 1000원</li>
-      </Contents>
+      <UnorderedList mt="8px">
+        <ListItem>이외에도 다양한 곳에서 획득 가능</ListItem>
+        <ListItem>포인트는 스토어에서 사용 가능</ListItem>
+        <ListItem>100 point = 1000원</ListItem>
+      </UnorderedList>
     </>
   );
 }
@@ -77,7 +78,6 @@ const Item = styled.div`
 
 const Name = styled.span`
   margin-bottom: var(--gap-2);
-  font-size: 12px;
 `;
 
 const Point = styled.span`
@@ -91,8 +91,6 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
- 
-  font-size: 12.5px;
   color: var(--gray-2);
   margin-left: var(--gap-1);
 `;

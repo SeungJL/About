@@ -38,11 +38,12 @@ const theme = extendTheme({
     mintTheme: {
       100: "#00c2b3",
       500: "#00c2b3",
+      600: "#00c2b3",
       800: "#ffffff",
     },
     redTheme: {
-      100: "#ff6b6b",
-      500: "#ff6b6b",
+      100: "#F56565",
+      500: "#F56565",
       800: "#ffffff",
     },
     yellowTheme: {

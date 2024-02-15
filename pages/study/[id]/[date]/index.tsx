@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import PageSlide from "../../../../components/layout/PageSlide";
+import Slide from "../../../../components/layout/PageSlide";
 import Divider from "../../../../components2/atoms/Divider";
 import { PLACE_TO_LOCATION } from "../../../../constants2/serviceConstants/studyConstants/studyLocationConstants";
 import { useStudyVoteQuery } from "../../../../hooks/study/queries";
@@ -51,8 +51,10 @@ export default function Page() {
     <Layout>
       {study && (
         <>
-          <StudyHeader place={place} />
-          <PageSlide>
+          <Slide isFixed={true}>
+            <StudyHeader place={place} />
+          </Slide>
+          <Slide>
             <StudyCover imageUrl={place.coverImage} brand={place.brand} />
             <StudyOverview
               title={place.fullname}
@@ -74,11 +76,13 @@ export default function Page() {
               participants={attendances}
               absences={study.absences}
             />
-          </PageSlide>
-          <StudyNavigation
-            voteCnt={attendances?.length}
-            studyStatus={study.status}
-          />
+          </Slide>
+          <Slide isFixed={true} posZero="top">
+            <StudyNavigation
+              voteCnt={attendances?.length}
+              studyStatus={study.status}
+            />
+          </Slide>
         </>
       )}
     </Layout>

@@ -1,3 +1,4 @@
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import {
   faAlarmClock,
   faCalendarXmark,
@@ -16,40 +17,40 @@ function PointSystemsModalFee() {
       <Layout>
         <Item>
           <Name>스터디 지각</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faAlarmClock} />
+          <FontAwesomeIcon size="2x" icon={faAlarmClock} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE.value}원</Point>
         </Item>
         <Item>
           <Name>당일 불참 1</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faDoNotEnter} />
+          <FontAwesomeIcon size="2x" icon={faDoNotEnter} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE.value}원</Point>
         </Item>
         <Item>
           <Name>당일 불참 2</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faCircleXmark} />
+          <FontAwesomeIcon size="2x" icon={faCircleXmark} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER.value}원</Point>
         </Item>
         <Item>
           <Name>한달 정산</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faCalendarXmark} />
+          <FontAwesomeIcon size="2x" icon={faCalendarXmark} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_MONTH_CALCULATE.value}원</Point>
         </Item>
         <Item>
           <Name>규칙</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faScaleBalanced} />
+          <FontAwesomeIcon size="2x" icon={faScaleBalanced} />
           <Point>OUT</Point>
         </Item>
         <Item>
           <Name>운영진 경고</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faUserPilot} />
+          <FontAwesomeIcon size="2x" icon={faUserPilot} />
           <Point>OUT</Point>
         </Item>
       </Layout>
-      <Contents>
-        <li>지각은 1시간 기준</li>
-        <li>당일 불참 기준은 스터디 시작 이전과 이후로 분류</li>
-        <li>한 달에 1회 이상 스터디 참여 필수</li>
-      </Contents>
+      <UnorderedList mt="8px">
+        <ListItem>지각은 1시간 기준</ListItem>
+        <ListItem>당일 불참 기준은 스터디 시작 이전과 이후로 분류</ListItem>
+        <ListItem>한 달에 1회 이상 스터디 참여 필수</ListItem>
+      </UnorderedList>
     </>
   );
 }
@@ -77,23 +78,11 @@ const Item = styled.div`
 
 const Name = styled.span`
   margin-bottom: var(--gap-2);
-  font-size: 12px;
 `;
 
 const Point = styled.span`
   margin-top: var(--gap-2);
   color: var(--color-red);
-`;
-const Contents = styled.div`
-  margin-top: var(--gap-3);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  font-size: 12.5px;
-  color: var(--gray-2);
-  margin-left: var(--gap-1);
 `;
 
 export default PointSystemsModalFee;

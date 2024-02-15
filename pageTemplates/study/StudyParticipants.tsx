@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import AttendanceBadge from "../../components2/atoms/badges/AttendanceBadge";
+import AttendanceBadge from "../../components2/molecules/badge/AttendanceBadge";
 import { IProfileCommentCard } from "../../components2/molecules/cards/ProfileCommentCard";
 import ProfileCardColumn from "../../components2/organisms/ProfileCardColumn";
 import { IAbsence, IAttendance } from "../../types2/studyTypes/studyVoteTypes";

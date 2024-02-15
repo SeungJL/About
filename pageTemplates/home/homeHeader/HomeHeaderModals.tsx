@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
+import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
+import { HomeHeaderIconType } from "./HomeHeader";
 
 interface IHomeHeaderModals {
   iconType: HomeHeaderIconType;
@@ -16,11 +19,11 @@ function HomeHeaderModals({ iconType, setIconType }: IHomeHeaderModals) {
 
   return (
     <>
-      {/* {iconType === "rule" && <PointSystemsModal setIsModal={setIsModal} />}
+      {iconType === "rule" && <PointSystemsModal setIsModal={setIsModal} />}
       {iconType === "attendCheck" && (
         <DailyCheckModal setIsModal={setIsModal} />
       )}
-      {iconType === "attendCheckWin" && (
+      {/* {iconType === "attendCheckWin" && (
         <DailyCheckWinModal setIsModal={setIsModal} />
       )}
       {iconType === "rabbit" && <EnthusiasticModal setIsModal={setIsModal} />} */}

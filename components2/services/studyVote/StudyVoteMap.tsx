@@ -342,7 +342,7 @@ const Layout = styled.div`
   position: fixed;
   top: 15%;
   left: 0;
-  z-index: 2000;
+  z-index: 1000;
   width: 100%;
   display: flex;
 

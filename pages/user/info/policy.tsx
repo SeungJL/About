@@ -9,13 +9,13 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Header from "../../../components/layout/Header";
-import PageSlide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layout/Slide";
 
 const Policy = () => {
   const router = useRouter();
 
   return (
-    <PageSlide>
+    <Slide>
       <Header title="About 이용약관" url="/user" />
       <Container>
         <Heading as="h2" fontSize="2xl" marginTop="15px">
@@ -416,7 +416,7 @@ const Policy = () => {
           가지는 대한민국의 법원에 제기한다.
         </Text>
       </Container>
-    </PageSlide>
+    </Slide>
   );
 };
 

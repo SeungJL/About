@@ -13,7 +13,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import PageSlide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layout/Slide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -135,7 +135,7 @@ function WritingCondition() {
 
   return (
     <>
-      <PageSlide>
+      <Slide>
         <ProgressStatus value={100} />
         <Header title="" url="/groupStudy/writing/hashTag" />
         <RegisterLayout>
@@ -295,7 +295,7 @@ function WritingCondition() {
           </Container>
           <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
-      </PageSlide>
+      </Slide>
 
       <QuestionBottomDrawer
         isModal={isQuestionModal}

@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
-import PageSlide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layout/Slide";
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import { useUidsToUsersInfoQuery } from "../../../hooks/user/queries";
@@ -32,7 +32,7 @@ function ProfileFriend() {
   };
 
   return (
-    <PageSlide>
+    <Slide>
       <Header title="내 친구 목록" url={`/user/profile`} />
       <Container>
         {friends?.map((who) => {
@@ -60,7 +60,7 @@ function ProfileFriend() {
           );
         })}
       </Container>
-    </PageSlide>
+    </Slide>
   );
 }
 

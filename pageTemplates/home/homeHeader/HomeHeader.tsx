@@ -50,7 +50,7 @@ function HomeHeader() {
     if (!!attendCheckWinGift) setIconType("attendCheckWin");
     if (!localStorage.getItem(RABBIT_POP_UP)) setIsRabbitRun(true);
   }, [attendCheckWinGift]);
-
+  console.log(iconType);
   return (
     <Layout>
       <Title>ABOUT</Title>

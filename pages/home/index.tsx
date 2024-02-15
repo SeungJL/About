@@ -12,7 +12,7 @@ import HomeLocationBar from "../../pageTemplates/home/HomeLocationBar";
 import HomeStudySection from "../../pageTemplates/home/homeMain/HomeStudySection";
 import HomeReviewSection from "../../pageTemplates/home/HomeReviewSection";
 import HomeWinRecordSection from "../../pageTemplates/home/HomeWinRecordSection";
-import StudyController from "../../pageTemplates/home/StudyController/StudyController";
+import StudyController from "../../pageTemplates/home/studyController/StudyController";
 import { LocationEn } from "../../types/serviceTypes/locationTypes";
 
 function Home() {

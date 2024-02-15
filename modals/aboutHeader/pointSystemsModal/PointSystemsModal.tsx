@@ -1,70 +1,41 @@
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalLayout,
-} from "../../../components/modals/Modals";
-import { ModalHeaderCenter } from "../../../styles/layout/modal";
+import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+import TabNav from "../../../components2/molecules/navs/TabNav";
 import { IModal } from "../../../types/reactTypes";
 import PointSystemsModalFee from "./PointSystemsModalFee";
 import PointSystemsModalPoint from "./PointSystemsModalPoint";
 
 function PointSystemsModal({ setIsModal }: IModal) {
-  const [isTip, setIsTip] = useState(true);
+  const [isFirst, setIsFirst] = useState(true);
+
+  const footerOptions: IFooterOptions = {
+    main: {},
+  };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
-      <ModalBody>
-        <ModalHeaderCenter>
-          <Title>포인트 가이드</Title>
-          <div>대학생들의 카공 및 친목 동아리 ABOUT</div>
-        </ModalHeaderCenter>
-        <Nav>
-          <Button isSelected={isTip} onClick={() => setIsTip(true)}>
-            ABOUT 포인트
-          </Button>
-          <Button isSelected={!isTip} onClick={() => setIsTip(false)}>
-            스터디 벌금
-          </Button>
-        </Nav>
-        <Wrapper>
-          {isTip ? <PointSystemsModalPoint /> : <PointSystemsModalFee />}
-        </Wrapper>
-      </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} />
+    <ModalLayout
+      title="포인트 가이드"
+      footerOptions={footerOptions}
+      headerOptions={{
+        subTitle: "대학색들의 카공 및 친목 동아리 ABOUT",
+      }}
+      setIsModal={setIsModal}
+    >
+      <TabNav
+        left={{ text: "ABOUT 포인트", func: () => setIsFirst(true) }}
+        right={{ text: "스터디 벌금", func: () => setIsFirst(false) }}
+      />
+      <Wrapper>
+        {isFirst ? <PointSystemsModalPoint /> : <PointSystemsModalFee />}
+      </Wrapper>
     </ModalLayout>
   );
 }
 
-const Title = styled.span`
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--gray-1);
-`;
-
-const Nav = styled.nav`
-  width: 100%;
-  display: flex;
-`;
-
 const Wrapper = styled.div`
   height: 100%;
-
   margin-top: var(--gap-3);
-`;
-
-const Button = styled.button<{ isSelected: boolean }>`
-  flex: 1;
-  font-weight: 600;
-  font-size: 12px;
-  padding-bottom: var(--gap-2);
-  color: var(--gray-1);
-  :focus {
-    outline: none;
-  }
-  border-bottom: ${(props) =>
-    props.isSelected ? "2px solid var(--gray-1)" : "1px solid var(--gray-6)"};
 `;
 
 export default PointSystemsModal;

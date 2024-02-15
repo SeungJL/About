@@ -1,16 +1,13 @@
-import { Button } from "@chakra-ui/react";
-import { ITextAndColorType } from "../../../types2/propTypes";
+import { Badge } from "@chakra-ui/react";
+import { ITextAndColorSchemes } from "../../../types2/propTypes";
 
-interface IOutlineBadge extends ITextAndColorType {}
+interface IOutlineBadge extends ITextAndColorSchemes {}
 
-export default function OutlineBadge({ colorType, text }: IOutlineBadge) {
-  //text-green-400 border-green-400
+export default function OutlineBadge({ text, colorScheme }: IOutlineBadge) {
+  console.log(2, colorScheme);
   return (
-    <Button>{text}</Button>
-    // <span
-    //   className={`h-fit text-xs font-semibold px-1 py-0.5 rounded-sm border-1.5 ${colorText} `}
-    // >
-    //   {text}
-    // </span>
+    <Badge p="3px 6px" variant="outline" colorScheme={colorScheme}>
+      {text}
+    </Badge>
   );
 }

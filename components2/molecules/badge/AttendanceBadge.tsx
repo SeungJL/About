@@ -1,5 +1,5 @@
-import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
+import OutlineBadge from "../../atoms/badges/OutlineBadge";
 interface IAttendanceBadge {
   type: "attend" | "dismissed";
   time?: string;
@@ -8,13 +8,11 @@ interface IAttendanceBadge {
 export default function AttendanceBadge({ type, time }: IAttendanceBadge) {
   return (
     <BadgeContainer time={time}>
-      <Badge
-        p="3px 6px"
-        variant="outline"
+      <OutlineBadge
+        text={type === "attend" ? "출석" : "불참"}
         colorScheme={type === "attend" ? "mintTheme" : "redTheme"}
-      >
-        {type === "attend" ? "출석" : "불참"}
-      </Badge>
+      />
+
       {time && <TimeText>{time}</TimeText>}
     </BadgeContainer>
   );

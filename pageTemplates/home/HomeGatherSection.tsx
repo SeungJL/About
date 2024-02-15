@@ -10,7 +10,7 @@ import {
 } from "../../components2/organisms/CardColumnLayout";
 import { useGatherQuery } from "../../hooks/gather/queries";
 import { GatherStatus, IGather } from "../../types2/gatherTypes/gatherTypes";
-import { ITextAndColorType } from "../../types2/propTypes";
+import { ITextAndColorSchemes } from "../../types2/propTypes";
 import { getRandomImage } from "../../utils/imageUtils";
 
 export default function HomeGatherSection() {
@@ -66,16 +66,16 @@ export const setGatherDataToCardCol = (
   return cardCol;
 };
 
-const getGatherBadge = (gatherStatus: GatherStatus): ITextAndColorType => {
+const getGatherBadge = (gatherStatus: GatherStatus): ITextAndColorSchemes => {
   switch (gatherStatus) {
     case "open":
-      return { text: "오픈", colorType: "green" };
+      return { text: "오픈", colorScheme: "green" };
     case "close":
-      return { text: "취소", colorType: "gray" };
+      return { text: "취소", colorScheme: "gray" };
     case "pending":
-      return { text: "모집중", colorType: "red" };
+      return { text: "모집중", colorScheme: "red" };
     case "end":
-      return { text: "open", colorType: "mint" };
+      return { text: "open", colorScheme: "mint" };
   }
 };
 

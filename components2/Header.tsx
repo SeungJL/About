@@ -18,19 +18,21 @@ export default function Header({ title, url, children }: IHeader) {
   );
 }
 const HeaderContainer = styled.header`
-  position: fixed;
+  /* position: fixed; */
   top: 0;
+  left: 0;
   width: 100%;
   z-index: 1000;
   background-color: white;
+
   height: var(--header-h);
-  font-size: 16px; /* text-lg */
-  padding-left: 8px; /* pl-2 */
-  padding-right: 8px; /* pr-4 */
+  font-size: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: var(--border); /* border-b border-gray-7 - 색상은 예시입니다 */
+  border-bottom: var(--border);
 `;
 
 // Left Section 스타일

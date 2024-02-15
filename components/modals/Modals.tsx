@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   Modal,
@@ -14,6 +15,9 @@ import { IModal } from "../../types/reactTypes";
 import { Size } from "../../types2/assetTypes";
 import TwoButtonNav from "../layout/TwoButtonNav";
 
+export interface IHeaderOptions {
+  subTitle?: string;
+}
 export interface IFooterOptions {
   main: {
     text?: string;
@@ -32,6 +36,7 @@ interface IModalLayout extends IModal {
   children: React.ReactNode;
   size?: Size;
   initialRef?: any;
+  headerOptions?: IHeaderOptions;
 }
 
 export const ModalLayout = ({
@@ -42,6 +47,7 @@ export const ModalLayout = ({
     sub,
     isFull = true,
   },
+  headerOptions,
   size,
   initialRef,
   children,
@@ -65,16 +71,43 @@ export const ModalLayout = ({
         my="auto"
         borderRadius="var(--rounded-lg)"
       >
-        <ChakraModalHeader fontSize="18px" borderBottom="var(--border-light)">
-          {title}
-        </ChakraModalHeader>
-
-        <ModalCloseButton size="lg" />
+        {!headerOptions ? (
+          <>
+            <ChakraModalHeader
+              p="var(--gap-4)"
+              fontSize="18px"
+              borderBottom="var(--border-light)"
+            >
+              {title}
+            </ChakraModalHeader>
+            <ModalCloseButton size="lg" />
+          </>
+        ) : (
+          <>
+            <ChakraModalHeader
+              pt="var(--gap-5)"
+              pb="var(--gap-2)"
+              fontSize="20px"
+              textAlign="center"
+            >
+              {title}
+            </ChakraModalHeader>
+            {headerOptions?.subTitle && (
+              <Box textAlign="center" color="var(--gray-2)" fontSize="16px">
+                {headerOptions.subTitle}
+              </Box>
+            )}
+          </>
+        )}
         <ChakraModalBody pt="16px" pb="4px" px="20px">
           {children}
         </ChakraModalBody>
         <ChakraModalFooter p="20px">
-          {isFull ? (
+          {!sub ? (
+            <Button size="lg" colorScheme="mintTheme" w="100%" onClick={func}>
+              {text}
+            </Button>
+          ) : isFull ? (
             <TwoButtonNav
               leftText={subText}
               rightText={text}

@@ -1,21 +1,22 @@
 import { Button } from "@chakra-ui/react";
 import dayjs, { Dayjs } from "dayjs";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useToast } from "../../../hooks/custom/CustomToast";
+import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 import {
   myStudyState,
-  studyDateStatusState
+  studyDateStatusState,
 } from "../../../recoils/studyRecoils";
 import { IModal } from "../../../types/reactTypes";
 import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
+import AlertModal, { IAlertModalOptions } from "../../AlertModal";
 import { IBottomDrawerLgOptions } from "../../organisms/drawer/BottomDrawerLg";
 import StudyVoteTimeRulletDrawer from "./StudyVoteTimeRulletDrawer";
 
@@ -26,22 +27,23 @@ interface IMapBottomNav extends IModal {
 
 function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
   const toast = useToast();
+  const typeToast = useTypeToast();
   const searchParams = useSearchParams();
-  const location = searchParams.get("location");
+
   const date = searchParams.get("date");
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
 
   const [voteTime, setVoteTime] = useState<{ start: Dayjs; end: Dayjs }>();
-  const [isTimeModal, setIsTimeModal] = useState(false);
+  const [modalType, setModalType] = useState<"timePick" | "voteCancel">(null);
 
   const onClickTimeSelect = () => {
     if (!myVote?.place) {
       toast("error", "장소를 먼저 선택해주세요!");
       return;
     }
-    setIsTimeModal(true);
+    setModalType("timePick");
   };
 
   const { data: pointLog } = usePointSystemLogQuery("point", true, {
@@ -63,6 +65,23 @@ function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
       onSuccess() {
         handleSuccess();
       },
+    }
+  );
+  const { mutate: handleAbsent } = useStudyParticipationMutation(
+    dayjs(date),
+    "delete",
+    {
+      onSuccess() {
+        if (myPrevVotePoint) {
+          getPoint({
+            message: "스터디 투표 취소",
+            value: -myPrevVotePoint,
+          });
+        }
+        setIsModal(false);
+        toast("success", "취소되었습니다.");
+      },
+      onError: () => typeToast("error"),
     }
   );
 
@@ -102,33 +121,46 @@ function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
     },
   };
 
+  const alertOptions: IAlertModalOptions = {
+    title: "참여 취소",
+    subTitle: "스터디 신청을 취소하시겠습니까?",
+    func: () => handleAbsent(),
+  };
+
   return (
     <>
       <Layout>
-        <Button
-          colorScheme="mintTheme"
-          size="lg"
-          h="48px"
-          onClick={onClickTimeSelect}
-          fontSize="16px"
-        >
+        <Button colorScheme="mintTheme" size="lg" onClick={onClickTimeSelect}>
           시간 선택
         </Button>
-        <Button
-          fontSize="16px"
-          h="48px"
-          size="lg"
-          onClick={() => setIsModal(false)}
-        >
+        {myStudy && (
+          <Button
+            bgColor="red.400"
+            color="white"
+            size="lg"
+            onClick={() => setModalType("voteCancel")}
+            mt="8px"
+          >
+            참여 취소
+          </Button>
+        )}
+        <Button mt="8px" size="lg" onClick={() => setIsModal(false)}>
           닫기
         </Button>
       </Layout>
       <AnimatePresence>
-        {isTimeModal && (
+        {modalType === "timePick" && (
           <StudyVoteTimeRulletDrawer
             drawerOptions={drawerOptions}
-            setIsModal={setIsTimeModal}
+            setIsModal={() => setModalType(null)}
             setVoteTime={setVoteTime}
+          />
+        )}
+        {modalType === "voteCancel" && (
+          <AlertModal
+            alertModalOptions={alertOptions}
+            setIsModal={() => setModalType(null)}
+            colorType="redTheme"
           />
         )}
       </AnimatePresence>
@@ -145,49 +177,6 @@ const Layout = styled.div`
     width: 100%;
     max-width: var(--view-max-width);
   }
-  > button:last-child {
-    margin-top: var(--gap-3);
-  }
 `;
 
-const TimeModalLayout = styled(motion.div)`
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-  max-width: var(--max-width);
-  height: 411.5px;
-  border-top-left-radius: var(--rounded-lg);
-  border-top-right-radius: var(--rounded-lg);
-
-  background-color: white;
-  z-index: 20;
-  padding: var(--gap-4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const TopNav = styled.nav`
-  width: 56px;
-  height: 4px;
-  border-radius: 4px;
-  background-color: var(--gray-5);
-  margin-bottom: var(--gap-5);
-`;
-const Header = styled.header`
-  align-self: flex-start;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: var(--gap-5);
-  > span:first-child {
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--gray-2);
-    margin-bottom: var(--gap-1);
-  }
-  > span:last-child {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--gray-1);
-  }
-`;
 export default MapBottomNav;

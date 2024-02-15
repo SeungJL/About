@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
-import PageSlide from "../../components/layout/PageSlide";
+import Slide from "../../components/layout/Slide";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
@@ -37,7 +37,7 @@ function Phone() {
   };
 
   return (
-    <PageSlide>
+    <Slide>
       <ProgressStatus value={88} />
       <Header title="회원가입" url="/register/comment" />
       <RegisterLayout errorMessage={errorMessage}>
@@ -52,7 +52,7 @@ function Phone() {
         />
         <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </PageSlide>
+    </Slide>
   );
 }
 

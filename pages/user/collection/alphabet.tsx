@@ -11,7 +11,7 @@ import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
-import PageSlide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layout/Slide";
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { getUserBadge } from "../../../helpers/userHelpers";
 import {
@@ -117,7 +117,7 @@ function CollectionAlphabet() {
 
   return (
     <>
-      <PageSlide>
+      <Slide>
         <Header title="전체 수집 현황" url="/user/collection" />
         {!isLoading ? (
           <>
@@ -233,7 +233,7 @@ function CollectionAlphabet() {
         ) : (
           <MainLoading />
         )}
-      </PageSlide>
+      </Slide>
       {isChangeModal && (
         <AlphabetChangeModal
           myAlphabets={alphabets?.collects || []}

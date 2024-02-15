@@ -8,7 +8,7 @@ import ProgressStatus from "../../components/templates/ProgressStatus";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
-import PageSlide from "../../components/layout/PageSlide";
+import Slide from "../../components/layout/Slide";
 import { INTEREST_DATA } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
@@ -48,7 +48,7 @@ function Interest() {
   };
 
   return (
-    <PageSlide>
+    <Slide>
       <ProgressStatus value={70} />
       <Header
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -87,7 +87,7 @@ function Interest() {
         </Container>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} />
-    </PageSlide>
+    </Slide>
   );
 }
 
@@ -120,7 +120,6 @@ const Example = styled.div`
     > span {
       font-size: 12px;
       margin-right: 6px;
-   
     }
   }
 `;

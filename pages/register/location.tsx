@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import BottomNav from "../../components/layout/BottomNav";
 import Header from "../../components/layout/Header";
-import PageSlide from "../../components/layout/PageSlide";
+import Slide from "../../components/layout/Slide";
 import ProgressStatus from "../../components/templates/ProgressStatus";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
@@ -91,7 +91,7 @@ function RegisterLocation() {
       {isLoading ? (
         <MainLoading />
       ) : (
-        <PageSlide>
+        <Slide>
           <ProgressStatus value={10} />
           <Header
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -136,7 +136,7 @@ function RegisterLocation() {
             </ButtonNav>
           </RegisterLayout>
           <BottomNav onClick={() => onClickNext()} />
-        </PageSlide>
+        </Slide>
       )}
     </>
   );

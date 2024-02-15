@@ -3,7 +3,7 @@ import { Fragment, useState } from "react";
 import styled from "styled-components";
 import MonthNav from "../components/features/atoms/MonthNav";
 import Header from "../components/layout/Header";
-import PageSlide from "../components/layout/PageSlide";
+import Slide from "../components/layout/Slide";
 import Accordion from "../components/templates/Accordion";
 import { ACCORDION_CONTENT_EVENT } from "../constants/contents/accordionContents";
 import { EVENT_CONTENT_2023 } from "../constants/contents/eventContents";
@@ -90,7 +90,7 @@ function EventCalendar() {
   };
 
   return (
-    <PageSlide>
+    <Slide>
       <Header title="이벤트 캘린더" url="/home" />
       <Title>
         <MonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
@@ -160,7 +160,7 @@ function EventCalendar() {
         isQ={false}
         isFull={true}
       />
-    </PageSlide>
+    </Slide>
   );
 }
 

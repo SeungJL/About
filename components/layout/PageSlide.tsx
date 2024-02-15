@@ -1,15 +1,25 @@
-import { Slide } from "@chakra-ui/react";
+import { Slide as ChakraSlide } from "@chakra-ui/react";
 
 interface IPageLayout {
+  isFixed?: boolean;
+  posZero?: "top";
   children: React.ReactNode;
 }
 
-function PageSlide({ children }: IPageLayout) {
+function Slide({ children, isFixed, posZero }: IPageLayout) {
   return (
-    <Slide in={true} style={{ position: "static" }}>
+    <ChakraSlide
+      in={true}
+      style={{
+        position: isFixed ? "fixed" : "static",
+        zIndex: isFixed ? 100 : 0,
+        height: isFixed ? "min-content" : "max-content",
+        top: posZero === "top" ? null : 0,
+      }}
+    >
       {children}
-    </Slide>
+    </ChakraSlide>
   );
 }
 
-export default PageSlide;
+export default Slide;

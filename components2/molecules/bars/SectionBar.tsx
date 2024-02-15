@@ -4,12 +4,18 @@ import HighlightedTextButton from "../../atoms/buttons/HighlightedTextButton";
 interface ISectionBar {
   title: string;
   hasMoreBtn?: boolean;
+  rightComponent?: React.ReactNode;
 }
-export default function SectionBar({ title, hasMoreBtn = true }: ISectionBar) {
+export default function SectionBar({
+  title,
+  hasMoreBtn = true,
+  rightComponent,
+}: ISectionBar) {
   return (
     <SectionBarContainer>
       <TitleContainer>{title}</TitleContainer>
-      {hasMoreBtn && <HighlightedTextButton text="더보기" />}
+      {hasMoreBtn && !rightComponent && <HighlightedTextButton text="더보기" />}
+      {rightComponent}
     </SectionBarContainer>
   );
 }
@@ -22,6 +28,8 @@ const SectionBarContainer = styled.div`
   font-size: 16px; /* text-lg */
   font-weight: 600; /* font-semibold */
   background-color: white;
+  border-top: var(--border);
+  border-bottom: var(--border);
 `;
 
 const TitleContainer = styled.div`

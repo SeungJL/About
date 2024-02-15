@@ -3,7 +3,6 @@ import {
   faBell,
   faCircleP,
   faCircleUser,
-  faGift,
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
@@ -67,12 +66,12 @@ function HomeHeaderIcons({ setIconType, isRabbitRun }: IHomeHeaderIcons) {
       <IconWrapper>
         <FontAwesomeIcon icon={faCircleP} onClick={() => setIconType("rule")} />
       </IconWrapper>
-      <IconWrapper>
+      {/* <IconWrapper>
         <FontAwesomeIcon
           icon={faGift}
           onClick={() => setIconType("promotion")}
         />
-      </IconWrapper>
+      </IconWrapper> */}
       <NoticeWrapper>
         <FontAwesomeIcon icon={faBell} onClick={() => setIconType("notice")} />
         {isNoticeAlert && <Alert />}

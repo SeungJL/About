@@ -5,15 +5,15 @@ import {
   Link,
   List,
   ListItem,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Header from "../../../components/layout/Header";
-import PageSlide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layout/Slide";
 
 const Privacy = () => {
   return (
-    <PageSlide>
+    <Slide>
       <Header title="개인정보 취급방침" url="/user" />
       <Container mt="var(--gap-4)">
         <Text marginBottom="10px">
@@ -264,7 +264,7 @@ const Privacy = () => {
           </ListItem>
         </List>
       </Container>
-    </PageSlide>
+    </Slide>
   );
 };
 

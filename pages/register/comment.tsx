@@ -9,7 +9,7 @@ import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 import { useSession } from "next-auth/react";
-import PageSlide from "../../components/layout/PageSlide";
+import Slide from "../../components/layout/Slide";
 import { MESSAGE_DATA } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import { USER_INFO } from "../../constants/keys/queryKeys";
@@ -77,7 +77,7 @@ function Comment() {
   }, [index, value]);
 
   return (
-    <PageSlide>
+    <Slide>
       <ProgressStatus value={80} />
       <Header
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
@@ -108,7 +108,7 @@ function Comment() {
         />
       </RegisterLayout>
       <BottomNav onClick={onClickNext} text={isProfileEdit ? "완료" : null} />
-    </PageSlide>
+    </Slide>
   );
 }
 
