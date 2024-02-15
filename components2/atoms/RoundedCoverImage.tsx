@@ -23,8 +23,8 @@ const RoundedImageWrapper = styled.div`
   width: 100%;
   aspect-ratio: 2 / 1;
   overflow: hidden;
-  border-bottom-left-radius: var(--border-radius-max);
-  border-bottom-right-radius: var(--border-radius-max);
+  border-bottom-left-radius: var(--rounded-max);
+  border-bottom-right-radius: var(--rounded-max);
 
   > div {
     position: relative;

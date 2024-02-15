@@ -130,7 +130,7 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
 }
 
 const Layout = styled.div`
-  margin: var(--margin-max) var(--margin-main);
+  margin: var(--gap-5) var(--gap-4);
   display: flex;
   flex-direction: column;
   > span:first-child {
@@ -143,12 +143,12 @@ const Name = styled.div`
   align-items: center;
   > span:first-child {
     font-weight: 600;
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 
 const IconWrapper = styled.span`
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
 `;
 
 const Comment = styled.div`
@@ -176,22 +176,22 @@ const CommentContent = styled.div`
   flex-direction: column;
   height: 68%;
   justify-content: space-around;
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
 
   font-size: 12px;
 
   > span:last-child {
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;
 
 const CommentDetail = styled.span`
   font-size: 11px;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 const MyText = styled.textarea`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   flex: 1;
   background-color: inherit;
   height: 21px;
@@ -205,7 +205,7 @@ const MyText = styled.textarea`
 
 const SubmitBtn = styled.button<{ focus: boolean }>`
   font-size: 12px;
-  color: ${(props) => (props.focus ? "var(--color-mint)" : "var(--font-h4)")};
+  color: ${(props) => (props.focus ? "var(--color-mint)" : "var(--gray-4)")};
 `;
 
 export default GroupStudyComments;

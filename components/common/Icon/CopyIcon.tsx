@@ -44,7 +44,7 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
 
   return (
     <button onClick={onCopy}>
-      <FontAwesomeIcon icon={faCopy} color="var(--font-h1)" />
+      <FontAwesomeIcon icon={faCopy} color="var(--gray-1)" />
     </button>
   );
 };

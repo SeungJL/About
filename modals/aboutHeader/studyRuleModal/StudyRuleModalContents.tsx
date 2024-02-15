@@ -90,9 +90,9 @@ export const StudyRuleModalContentFirstThree = () => (
 
 const Content = styled.div`
   font-size: 11px;
-  margin-left: var(--margin-main);
-  margin-bottom: var(--margin-md);
+  margin-left: var(--gap-4);
+  margin-bottom: var(--gap-2);
   > ul {
-    line-height: var(--line-height);
+
   }
 `;

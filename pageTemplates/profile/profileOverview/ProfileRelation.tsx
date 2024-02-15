@@ -143,7 +143,7 @@ function ProfileRelation({ user }: IProfileRelation) {
 
 const Layout = styled.div`
   display: flex;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   align-items: center;
   justify-content: space-between;
   > div:first-child {
@@ -153,7 +153,7 @@ const Layout = styled.div`
 
 const RelationItem = styled.div`
   width: max-content;
-  padding: 0 var(--padding-md);
+  padding: 0 var(--gap-2);
   text-align: center;
   display: flex;
   flex-direction: column;

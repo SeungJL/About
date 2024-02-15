@@ -86,7 +86,7 @@ const Main = styled.main`
   flex-direction: column;
   margin-top: 14px;
   > div:first-child {
-    border-top: 1px solid var(--font-h5);
+    border-top: 1px solid var(--gray-5);
   }
 `;
 
@@ -97,7 +97,7 @@ const Item = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: 1px solid var(--gray-5);
 `;
 
 const Summary = styled.div`
@@ -115,14 +115,14 @@ const Summary = styled.div`
     }
     > span:last-child {
       font-size: 11px;
-      color: var(--font-h3);
+      color: var(--gray-3);
     }
   }
   > span {
     margin-right: 12px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;
 

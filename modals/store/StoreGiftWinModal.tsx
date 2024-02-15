@@ -53,15 +53,15 @@ const Message = styled.div`
   font-weight: 700;
   font-size: 16px;
   color: var(--color-mint);
-  margin-top: var(--margin-min);
-  margin-bottom: var(--margin-max);
+  margin-top: var(--gap-1);
+  margin-bottom: var(--gap-5);
 `;
 
 const Winner = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   justify-content: space-around;
   border: var(--border-mint);
 `;
@@ -69,7 +69,7 @@ const Winner = styled.div`
 const Win = styled.span`
   font-size: 15px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 export default StoreGiftWinModal;

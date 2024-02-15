@@ -101,11 +101,11 @@ function PlaceSelector({
 }
 
 const Layout = styled.div<{ layoutMethod: string }>`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   display: ${(props) => (props.layoutMethod === "flex" ? "flex" : "grid")};
   grid-template-columns: ${(props) =>
     props.layoutMethod === "smallGrid" ? "repeat(2, 1fr)" : "repeat(4,1fr)"};
-  gap: var(--margin-md);
+  gap: var(--gap-2);
 `;
 
 const Item = styled.button<{ selected: Selected; isMax: boolean }>`
@@ -114,13 +114,13 @@ const Item = styled.button<{ selected: Selected; isMax: boolean }>`
   align-items: center;
   border: ${(props) =>
     props.selected === "none"
-      ? "var(--border-main)"
+      ? "var(--border)"
       : props.selected === "main"
       ? "2px solid var(--color-mint)"
       : "2px solid var(--color-orange)"};
-  padding: var(--padding-min);
-  border-radius: var(--border-radius-sub);
-  background-color: ${(props) => props.isMax && "var(--font-h7)"};
+  padding: var(--gap-1);
+  border-radius: var(--rounded-lg);
+  background-color: ${(props) => props.isMax && "var(--gray-7)"};
 `;
 
 const PlaceIcon = styled.div`
@@ -133,7 +133,7 @@ const PlaceIcon = styled.div`
   overflow: hidden;
 `;
 const Name = styled.span`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
   font-size: 14px;
   font-weight: 600;
 `;
@@ -144,7 +144,7 @@ const FlexItem = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
 
   white-space: nowrap;
 `;
@@ -155,17 +155,17 @@ const FlexPlaceIcon = styled.div<{ selected: Selected }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   border: ${(props) =>
     props.selected === "none"
-      ? "var(--border-main)"
+      ? "var(--border)"
       : props.selected === "main"
       ? "4px solid var(--color-mint)"
       : "4px solid var(--color-orange)"};
 `;
 
 const FlexName = styled.span`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   font-size: 12px;
 `;
 

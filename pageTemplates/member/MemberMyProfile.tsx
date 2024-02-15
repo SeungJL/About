@@ -57,25 +57,25 @@ function MemberMyProfile() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-sub) 0;
-  margin: 0 var(--margin-main);
+  padding: var(--gap-3) 0;
+  margin: 0 var(--gap-4);
   min-height: 167px;
 `;
 
 const Title = styled.span`
   font-weight: 600;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const Wrapper = styled.div`
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   border: var(--border-mint);
-  padding: var(--padding-md) var(--padding-main);
+  padding: var(--gap-2) var(--gap-4);
   padding-right: 0;
   display: flex;
   align-items: center;
   height: 110px;
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   font-size: 12px;
 `;
 
@@ -95,10 +95,10 @@ const Name = styled.span`
 const Info = styled.div`
   flex: 1;
   height: 100%;
-  padding: var(--padding-min) 0;
+  padding: var(--gap-1) 0;
   font-size: 12px;
-  color: var(--font-h2);
-  margin-left: var(--margin-main);
+  color: var(--gray-2);
+  margin-left: var(--gap-4);
   display: grid;
   grid-template-columns: 1fr 1.5fr;
 `;
@@ -118,7 +118,7 @@ const GuestMessage = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   min-height: 181px;
 `;
 

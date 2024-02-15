@@ -35,5 +35,5 @@ const CalendarCustomHeader = styled.div`
   margin: 10px;
   display: flex;
   justify-content: space-between;
-  padding: 0 var(--padding-min);
+  padding: 0 var(--gap-1);
 `;

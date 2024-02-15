@@ -24,7 +24,7 @@ function Faq() {
 const Layout = styled.div``;
 
 const Title = styled.div`
-  margin: var(--margin-max) var(--margin-main);
+  margin: var(--gap-5) var(--gap-4);
   font-weight: 800;
   font-size: 20px;
 `;

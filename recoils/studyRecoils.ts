@@ -4,7 +4,7 @@ import { StudyDateStatus } from "../types2/studyTypes/studySubTypes";
 import { IParticipation } from "../types2/studyTypes/studyVoteTypes";
 
 export const studyDateStatusState = atom<StudyDateStatus>({
-  key: "studyDateStatus",
+  key: "StudyDateStatus",
   default: "today",
 });
 
@@ -14,6 +14,6 @@ export const myStudyState = atom<IParticipation | null>({
 });
 
 export const sortedStudyCardListState = atom<IPostThumbnailCard[]>({
-  key: "sortedStudyCardList",
+  key: "SortedStudyCardList",
   default: undefined,
 });

@@ -37,20 +37,20 @@ const Layout = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const Overview = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 15px;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const Rule = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   margin-top: 32px;
   font-size: 12px;
-  line-height: var(--line-height);
+ 
 `;
 
 export default StudyVoteSubModalPrivate;

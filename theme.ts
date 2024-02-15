@@ -4,7 +4,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        color: "var(--font-h1)",
+        color: "var(--gray-1)",
       },
 
       // "*:focus": {

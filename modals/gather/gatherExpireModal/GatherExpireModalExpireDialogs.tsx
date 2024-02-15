@@ -62,7 +62,7 @@ function GatherExpireModalExpireDialog({
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent m="auto var(--margin-main)">
+          <AlertDialogContent m="auto var(--gap-4)">
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               모집을 완료하겠습니까?
             </AlertDialogHeader>
@@ -76,7 +76,7 @@ function GatherExpireModalExpireDialog({
               <Button
                 colorScheme="mintTheme"
                 onClick={onComplete}
-                ml="var(--margin-min)"
+                ml="var(--gap-1)"
               >
                 모집완료
               </Button>

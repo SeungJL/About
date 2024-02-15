@@ -76,33 +76,33 @@ function ContentInfo({ groupStudy }: IContentInfo) {
 const KakaoLink = styled.div`
   display: flex;
   flex-direction: column;
-  padding: var(--padding-md) var(--padding-sub);
-  padding-bottom: var(--padding-min);
-  background-color: var(--font-h8);
+  padding: var(--gap-2) var(--gap-3);
+  padding-bottom: var(--gap-1);
+  background-color: var(--gray-8);
 
   > div {
-    padding: var(--padding-min) 0;
+    padding: var(--gap-1) 0;
   }
 `;
 
 const Challenge = styled.div`
-  padding: var(--padding-md) var(--padding-sub);
-  background-color: var(--font-h8);
+  padding: var(--gap-2) var(--gap-3);
+  background-color: var(--gray-8);
   > svg {
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
 `;
 
 const Rules = styled.ol``;
 
 const Rule = styled.li`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   margin-bottom: 4px;
 `;
 
 const Wrapper = styled.div`
-  padding: var(--padding-main);
-  background-color: var(--font-h8);
+  padding: var(--gap-4);
+  background-color: var(--gray-8);
 `;
 
 const Layout = styled.div`
@@ -113,7 +113,7 @@ const Layout = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  padding: var(--padding-main);
+  padding: var(--gap-4);
   flex: 1;
 
   display: flex;
@@ -122,7 +122,7 @@ const ContentWrapper = styled.div`
   > span:first-child {
     display: inline-block;
     font-size: 16px;
-    margin-bottom: var(--margin-sub);
+    margin-bottom: var(--gap-3);
     font-weight: 700;
   }
 `;
@@ -137,9 +137,9 @@ const Content = styled.pre`
 const Tag = styled.div`
   display: flex;
   margin-top: auto;
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
   > div {
-    padding: var(--padding-min) var(--padding-md);
+    padding: var(--gap-1) var(--gap-2);
   }
 `;
 

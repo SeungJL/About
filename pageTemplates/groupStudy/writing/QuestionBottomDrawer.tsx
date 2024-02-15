@@ -25,10 +25,8 @@ function QuestionBottomDrawer({
 }: IQuestionBottomDrawer) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  
   useEffect(() => {
     if (isModal) {
-     
       onOpen();
     }
     if (!isModal) {
@@ -44,15 +42,15 @@ function QuestionBottomDrawer({
     setQuestion(null);
     onClose();
   };
- 
+
   return (
     <Drawer placement="bottom" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
-      <DrawerContent borderTopRadius="var(--border-radius-main)">
+      <DrawerContent borderTopRadius="var(--rounded-lg)">
         <DrawerBody
           display="flex"
           flexDir="column"
-          p="var(--padding-main) var(--padding-main)"
+          p="var(--gap-4) var(--gap-4)"
         >
           <Title>가입 질문</Title>
           <Input
@@ -75,25 +73,24 @@ function QuestionBottomDrawer({
 const Container = styled.div`
   border-radius: 20px;
   overflow: hidden;
-
 `;
 
 const BottomNav = styled.nav``;
 
 const Title = styled.div`
-  margin: var(--margin-main) 0;
+  margin: var(--gap-4) 0;
   font-weight: 700;
   font-size: 18px;
 `;
 
 const Input = styled.input`
-  padding: var(--padding-md);
-  border: var(--border-main);
+  padding: var(--gap-2);
+  border: var(--border);
   height: 50px;
-  border-radius: var(--border-radius2);
-  margin-bottom: var(--margin-main);
+  border-radius: var(--rounded);
+  margin-bottom: var(--gap-4);
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 

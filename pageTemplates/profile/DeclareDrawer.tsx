@@ -100,11 +100,7 @@ function DeclareDrawer({
           <Title>{title}</Title>
           <FontAwesomeIcon icon={faX} size="sm" onClick={onClose} />
         </DrawerHeader>
-        <DrawerBody
-          p="var(--padding-main) "
-          display="flex"
-          flexDirection="column"
-        >
+        <DrawerBody p="var(--gap-4) " display="flex" flexDirection="column">
           {declareModal === "declare" ? (
             <DeclareContent
               name={userData?.name}
@@ -195,30 +191,30 @@ const Title = styled.span``;
 const DistanceHeader = styled.div`
   font-weight: 600;
   font-size: 15px;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 const DistanceText = styled.div`
   > div {
     font-size: 12px;
-    color: var(--font-h2);
-    margin-bottom: var(--margin-sub);
+    color: var(--gray-2);
+    margin-bottom: var(--gap-3);
   }
 `;
 
 const DeclareOverview = styled.p`
   font-size: 13px;
-  margin-bottom: var(--margin-max);
-  color: var(--font-h2);
+  margin-bottom: var(--gap-5);
+  color: var(--gray-2);
 `;
 
 const DeclareText = styled.div`
   display: flex;
   flex-direction: column;
   > label {
-    margin-bottom: var(--margin-md);
+    margin-bottom: var(--gap-2);
     > span {
-      color: var(--font-h1);
+      color: var(--gray-1);
       font-size: 13px !important;
     }
   }

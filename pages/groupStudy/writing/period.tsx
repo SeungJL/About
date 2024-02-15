@@ -69,20 +69,20 @@ function GroupStudyWritingContent() {
 }
 
 const Container = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
 `;
 
 const Content = styled.textarea`
   margin-top: 40px;
-  border: var(--border-main);
-  border-radius: var(--border-radius-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
   height: 200px;
   width: 100%;
-  padding: var(--padding-sub);
+  padding: var(--gap-3);
   font-size: 12px;
   :focus {
     outline: none;
-    border: var(--border-focus);
+    border: var(--border-thick);
   }
 `;
 

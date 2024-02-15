@@ -53,16 +53,16 @@ const Layout = styled.div`
   flex-direction: column;
   justify-content: center;
   > div:first-child {
-    margin-bottom: var(--margin-sub);
+    margin-bottom: var(--gap-3);
   }
 `;
 
 const Name = styled.span`
   font-size: 14px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
   display: inline-block;
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
 `;
 
 export default TimeSelector;

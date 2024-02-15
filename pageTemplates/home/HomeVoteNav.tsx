@@ -54,7 +54,7 @@ function AboutVoteNav() {
             color="white"
             size="md"
             width="50%"
-            mr="var(--margin-md)"
+            mr="var(--gap-2)"
             _hover={{ bg: "var(--color-mint)" }}
           >
             빠른 투표
@@ -88,22 +88,22 @@ function AboutVoteNav() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin: var(--padding-main);
+  margin: var(--gap-4);
 `;
 
 const VoterCnt = styled.div`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 15px;
-  margin-left: var(--margin-min);
-  margin-top: var(--margin-main);
+  margin-left: var(--gap-1);
+  margin-top: var(--gap-4);
   display: flex;
 
   > b {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
     display: inline-block;
     text-align: end;
     width: 24px;
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;
 

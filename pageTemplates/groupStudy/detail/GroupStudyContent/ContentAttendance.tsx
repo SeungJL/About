@@ -97,7 +97,7 @@ function ContentAttend() {
               <FontAwesomeIcon
                 icon={faCaretLeft}
                 size="sm"
-                color="var(--font-h2)"
+                color="var(--gray-2)"
               />
             )}
           </IconWrapper>
@@ -123,7 +123,7 @@ function ContentAttend() {
               <FontAwesomeIcon
                 icon={faCaretRight}
                 size="sm"
-                color="var(--font-h2)"
+                color="var(--gray-2)"
               />
             )}
           </IconWrapper>
@@ -210,8 +210,8 @@ const MoreBtn = styled.button`
   align-self: center;
   padding: 0 4px;
   border-radius: 4px;
-  margin-top: var(--margin-main);
-  margin-bottom: var(--margin-sub);
+  margin-top: var(--gap-4);
+  margin-bottom: var(--gap-3);
   background-color: rgba(0, 194, 179, 0.1);
   color: var(--color-mint);
   font-size: 13px;
@@ -220,7 +220,7 @@ const MoreBtn = styled.button`
 
 const IconWrapper = styled.div`
   width: 22.125px;
-  padding: 0 var(--padding-md);
+  padding: 0 var(--gap-2);
 `;
 
 const Layout = styled.div`
@@ -231,18 +231,18 @@ const Layout = styled.div`
 
 const ButtonNav = styled.nav`
   display: flex;
-  margin: 0 var(--margin-main);
-  margin-bottom: var(--margin-main);
+  margin: 0 var(--gap-4);
+  margin-bottom: var(--gap-4);
   > button {
     flex: 1;
   }
 `;
 
 const Month = styled.div`
-  border-radius: var(--border-radius2);
-  margin: var(--margin-main) var(--margin-sub);
-  padding: var(--padding-md) var(--margin-max);
-  background-color: var(--font-h8);
+  border-radius: var(--rounded);
+  margin: var(--gap-4) var(--gap-3);
+  padding: var(--gap-2) var(--gap-5);
+  background-color: var(--gray-8);
   display: flex;
   align-items: center;
 
@@ -257,15 +257,15 @@ const Container = styled.div`
 
 const TopLine = styled.div`
   display: flex;
-  background-color: var(--font-h8);
-  border: var(--border-sub);
+  background-color: var(--gray-8);
+  border: var(--border-light);
   font-size: 13px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   > div {
-    padding: var(--padding-min) 0;
+    padding: var(--gap-1) 0;
     flex: 1;
     text-align: center;
-    border-left: var(--border-sub);
+    border-left: var(--border-light);
   }
   > div:first-child {
     flex: 1.5;
@@ -277,11 +277,11 @@ const Main = styled.main``;
 
 const MainLine = styled.div`
   display: flex;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   > div {
     text-align: center;
-    border-left: var(--border-sub);
-    padding: var(--padding-min) 0;
+    border-left: var(--border-light);
+    padding: var(--gap-1) 0;
   }
   > div:first-child {
     border-left: none;

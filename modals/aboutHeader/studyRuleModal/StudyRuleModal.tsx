@@ -71,7 +71,7 @@ const Item = styled.div``;
 const Title = styled.span`
   font-size: 24px;
   font-weight: 600;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const Nav = styled.nav`
@@ -83,18 +83,18 @@ const Button = styled.button<{ isSelected: boolean }>`
   flex: 1;
   font-weight: 600;
   font-size: 12px;
-  padding-bottom: var(--padding-md);
-  color: var(--font-h1);
+  padding-bottom: var(--gap-2);
+  color: var(--gray-1);
   border-bottom: ${(props) =>
-    props.isSelected ? "2px solid var(--font-h1)" : "1px solid var(--font-h6)"};
+    props.isSelected ? "2px solid var(--gray-1)" : "1px solid var(--gray-6)"};
 `;
 
 const RuleTitle = styled.span`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-size: 12px;
   font-weight: 600;
   display: inline-block;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 
 export default StudyRuleModal;

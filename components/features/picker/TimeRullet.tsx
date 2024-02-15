@@ -122,11 +122,11 @@ function TimeRullet({
 
 const Layout = styled.div`
   height: 188px;
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   width: 100%;
-  border-radius: var(--border-radius2);
-  background-color: var(--font-h8);
-  color: var(--font-h2);
+  border-radius: var(--rounded);
+  background-color: var(--gray-8);
+  color: var(--gray-2);
   overflow: hidden;
 `;
 
@@ -140,15 +140,15 @@ const TimeLayout = styled(motion.div)`
 `;
 
 const BlockIcon = styled.div`
-  background-color: var(--font-h1);
+  background-color: var(--gray-1);
   color: white;
-  margin: 0 var(--margin-sub);
+  margin: 0 var(--gap-3);
   width: 100%;
   height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
 `;
 
 const ChoiceBlock = styled.div<{ isDisabled?: boolean }>`
@@ -159,9 +159,9 @@ const ChoiceBlock = styled.div<{ isDisabled?: boolean }>`
   align-items: center;
   font-size: 16px;
   font-weight: 600;
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
 
-  color: ${(props) => (props.isDisabled ? "var(--font-h4)" : "var(--font-h2)")};
+  color: ${(props) => (props.isDisabled ? "var(--gray-4)" : "var(--gray-2)")};
 `;
 
 export default TimeRullet;

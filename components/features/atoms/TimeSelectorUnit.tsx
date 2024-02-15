@@ -48,7 +48,7 @@ function TimeSelectorUnit({
 
 const Select = styled.select`
   font-weight: 600;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const Layout = styled.div`
@@ -56,19 +56,19 @@ const Layout = styled.div`
   align-items: center;
 
   > select {
-    color: var(--font-h2);
+    color: var(--gray-2);
     width: 68px;
     height: 36px;
     padding-left: 6px;
     margin-right: 6px;
     margin-left: 6px;
-    border: 1.5px solid var(--font-h5);
-    border-radius: var(--border-radius-sub);
+    border: 1.5px solid var(--gray-5);
+    border-radius: var(--rounded-lg);
     font-size: 12px;
 
     :focus {
       outline: none;
-      border: 1 5px solid var(--font-h2);
+      border: 1 5px solid var(--gray-2);
     }
   }
 `;

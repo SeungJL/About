@@ -87,10 +87,10 @@ function CheckGather() {
 const Layout = styled.div``;
 
 const Overview = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
   font-size: 13px;
-  color: var(--font-h2);
+  color: var(--gray-2);
   line-height: 1.6;
 `;
 
@@ -99,12 +99,12 @@ const HighLightText = styled.div`
   font-size: 20px;
   color: var(--color-red);
   font-weight: 600;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const Main = styled.main`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-max);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-5);
 `;
 
 const Item = styled.div``;
@@ -112,7 +112,7 @@ const Item = styled.div``;
 const Location = styled.div`
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 const Teams = styled.div`
@@ -121,10 +121,10 @@ const Teams = styled.div`
 
 const Team = styled.div`
   display: flex;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   > span:first-child {
     flex: 0.16;
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
     font-weight: 600;
   }
 `;

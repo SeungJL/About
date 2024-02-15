@@ -67,16 +67,16 @@ function RecordDetail({ filterData, navMonth }: IRecordDetail) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin: var(--margin-main);
+  margin: var(--gap-4);
 `;
 
 const Date = styled.div`
-  margin-top: var(--margin-md);
-  margin-bottom: var(--margin-main);
+  margin-top: var(--gap-2);
+  margin-bottom: var(--gap-4);
   margin-left: 2px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 export default RecordDetail;

@@ -44,12 +44,12 @@ const Result = styled.div`
   display: flex;
   align-items: center;
   font-size: 11px;
-  margin-left: var(--margin-md);
-  color: var(--font-h2);
+  margin-left: var(--gap-2);
+  color: var(--gray-2);
 `;
 
 const ResultInfo = styled.div`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
 `;
 
 export default AboutGatherBlockStatus;

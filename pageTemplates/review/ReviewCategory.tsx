@@ -40,7 +40,7 @@ const Layout = styled.div`
   height: 48px;
   display: flex;
   align-items: center;
-  border: 1px solid var(--font-h6);
+  border: 1px solid var(--gray-6);
   justify-content: space-between;
   padding: 4px 18px;
 `;
@@ -49,10 +49,10 @@ const Nav = styled.nav``;
 
 const Button = styled.button<{ isSelected: boolean }>`
   padding: 3px 10px;
-  border: 1.5px solid var(--font-h6);
+  border: 1.5px solid var(--gray-6);
   border-radius: 12px;
   margin-right: 12px;
-  color: ${(props) => (props.isSelected ? "white" : "var(--font-h2)")};
+  color: ${(props) => (props.isSelected ? "white" : "var(--gray-2)")};
   font-size: 13px;
   background-color: ${(props) =>
     props.isSelected ? "var(--color-mint)" : null};

@@ -36,7 +36,7 @@ function UserCollectionAlphabetModal({ setIsModal }: IModal) {
           <Button
             w="100px"
             mt="auto"
-            mb="var(--margin-main)"
+            mb="var(--gap-4)"
             colorScheme="mintTheme"
             onClick={() => setIsModal(false)}
           >
@@ -57,11 +57,11 @@ const Container = styled.div`
 
 const Item = styled.div`
   width: 100%;
-  padding: var(--padding-sub) var(--padding-sub);
+  padding: var(--gap-3) var(--gap-3);
   display: flex;
   font-size: 13px;
-  border-bottom: var(--border-main-light);
-  color: var(--font-h2);
+  border-bottom: var(--border);
+  color: var(--gray-2);
   > div {
     flex: 1;
     text-align: center;

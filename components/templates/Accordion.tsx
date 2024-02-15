@@ -25,7 +25,7 @@ function Accordion({ contentArr, isFull, isQ = true }: IAccordion) {
       allowToggle
       marginTop="40px"
       fontSize="13px"
-      color="var(--font-h2)"
+      color="var(--gray-2)"
     >
       {contentArr?.map((item, idx) => {
         const content = item.content;
@@ -33,7 +33,7 @@ function Accordion({ contentArr, isFull, isQ = true }: IAccordion) {
           <AccordionItem key={idx}>
             <AccordionButton
               _focus={{ outline: "none" }}
-              p="var(--padding-sub) var(--padding-md)"
+              p="var(--gap-3) var(--gap-2)"
               display="flex"
               justifyContent="space-between"
               fontSize="13px"
@@ -44,7 +44,7 @@ function Accordion({ contentArr, isFull, isQ = true }: IAccordion) {
               </Container>
               <AccordionIcon />
             </AccordionButton>
-            <AccordionPanel p="var(--padding-sub) var(--padding-md)">
+            <AccordionPanel p="var(--gap-3) var(--gap-2)">
               <Content isFull={isFull}>
                 {Array.isArray(content) ? (
                   content.map((list, idx) => <li key={idx}>{list}</li>)
@@ -66,14 +66,14 @@ function Accordion({ contentArr, isFull, isQ = true }: IAccordion) {
 }
 
 const Container = styled.div<{ isFull: boolean }>`
-  margin: ${(props) => (props.isFull ? "0 var(--margin-md)" : 0)};
+  margin: ${(props) => (props.isFull ? "0 var(--gap-2)" : 0)};
   display: flex;
   width: 100%;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const QIcon = styled.span`
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Title = styled.div`
@@ -82,7 +82,7 @@ const Title = styled.div`
 `;
 
 const Content = styled.div<{ isFull: boolean }>`
-  padding: ${(props) => props.isFull && "var(--padding-md)"};
+  padding: ${(props) => props.isFull && "var(--gap-2)"};
 `;
 
 export default Accordion;

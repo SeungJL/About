@@ -71,7 +71,7 @@ export const useStudyOpenFreeMutation = (
     options
   );
 
-export const useStudyArrivedMutation = (
+export const useStudyAttendCheckMutation = (
   date: Dayjs,
   options?: MutationOptions<string>
 ) =>

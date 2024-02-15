@@ -33,16 +33,16 @@ function StoreDetailDetails({ winnerCnt, max }: IStoreDetailDetails) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const DetailItem = styled.div`
   display: flex;
   font-size: 13px;
-  color: var(--font-h2);
-  margin-bottom: var(--margin-min);
+  color: var(--gray-2);
+  margin-bottom: var(--gap-1);
   > span:first-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     display: inline-block;
     font-weight: 600;
     width: 100px;

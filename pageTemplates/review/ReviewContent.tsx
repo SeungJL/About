@@ -20,14 +20,14 @@ const P = styled.p<{ isShort: boolean }>`
   -webkit-box-orient: vertical;
   overflow: hidden;   `}
 
-  padding: 0 var(--padding-main);
-  margin-bottom: var(--margin-max);
+  padding: 0 var(--gap-4);
+  margin-bottom: var(--gap-5);
   font-size: 13px;
   display: -webkit-box;
 
   > span {
     font-size: 12px;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;
 

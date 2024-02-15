@@ -23,19 +23,14 @@ function CheckBoxNav({
     <Layout>
       <Flex overflowX="auto" flexWrap="wrap" lineHeight={2.2}>
         {buttonList?.map((item) => (
-          <Box
-            key={item}
-            display="flex"
-            alignItems="center"
-            mr="var(--margin-main)"
-          >
+          <Box key={item} display="flex" alignItems="center" mr="var(--gap-4)">
             <Flex
               as="button"
               h="20px"
               w="20px"
               borderWidth={selectedButton === item ? "0" : "1.5px"}
-              borderRadius="var(--border-radius2)"
-              borderColor="var(--font-h5)"
+              borderRadius="var(--rounded)"
+              borderColor="var(--gray-5)"
               bg={selectedButton === item ? "var(--color-mint)" : "white"}
               onClick={() => handleCheckBoxChange(item)}
               justifyContent="center"
@@ -45,7 +40,7 @@ function CheckBoxNav({
                 <FontAwesomeIcon icon={faCheck} color="white" />
               )}
             </Flex>
-            <Text ml="var(--margin-md)">{item}</Text>
+            <Text ml="var(--gap-2)">{item}</Text>
           </Box>
         ))}
       </Flex>
@@ -54,7 +49,7 @@ function CheckBoxNav({
 }
 
 const Layout = styled.div`
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
 `;
 
 export default CheckBoxNav;

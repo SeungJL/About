@@ -103,10 +103,10 @@ const Layout = styled.div`
 const Input = styled.input`
   height: 100%;
   width: 100%;
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
   background-color: inherit;
-  padding: var(--padding-md) 0;
-  padding-left: var(--padding-min);
+  padding: var(--gap-2) 0;
+  padding-left: var(--gap-1);
   ::placeholder {
     font-size: 13px;
   }
@@ -117,33 +117,33 @@ const Input = styled.input`
 
 const Wrapper = styled.div`
   height: 100%;
-  border-bottom: var(--border-main);
-  padding-left: var(--padding-min);
+  border-bottom: var(--border);
+  padding-left: var(--gap-1);
   display: flex;
   align-items: center;
   width: 85%;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const SearchContent = styled.div<{ isContent: boolean }>`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   height: ${(props) => props.isContent && "220px"};
-  padding-left: var(--padding-sub);
+  padding-left: var(--gap-3);
   overflow: auto;
-  border: ${(props) => (props.isContent ? "1px solid var(--font-h5)" : null)};
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-min);
+  border: ${(props) => (props.isContent ? "1px solid var(--gray-5)" : null)};
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-1);
 `;
 
 const Item = styled.div`
-  color: var(--font-h2);
-  padding: var(--padding-min) 0;
+  color: var(--gray-2);
+  padding: var(--gap-1) 0;
 `;
 
 const ItemPlace = styled.span``;
 
 const ItemDetail = styled.span`
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 const SearchWrapper = styled.div`

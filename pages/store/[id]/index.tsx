@@ -61,7 +61,7 @@ function StoreItem() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 export default StoreItem;

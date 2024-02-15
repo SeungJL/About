@@ -79,7 +79,7 @@ const Layout = styled.div`
 `;
 
 const Header = styled.header`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-weight: 600;
   margin-bottom: 12px;
 `;
@@ -90,8 +90,8 @@ const Item = styled.div`
   align-items: center;
 
   font-size: 15px;
-  color: var(--font-h2);
-  border-bottom: 1px solid var(--font-h5);
+  color: var(--gray-2);
+  border-bottom: 1px solid var(--gray-5);
   > span:first-child {
     display: inline-block;
     width: 16px;
@@ -113,8 +113,8 @@ const InputItem = styled.div`
   display: flex;
   align-items: center;
   font-size: 15px;
-  border-bottom: 1px solid var(--font-h5);
-  color: var(--font-h2);
+  border-bottom: 1px solid var(--gray-5);
+  color: var(--gray-2);
   > span {
     margin-right: 12px;
   }
@@ -123,10 +123,10 @@ const InputItem = styled.div`
 const ListInput = styled.input`
   height: 36px;
   width: 280px;
-  background-color: var(--font-h8);
-  color: var(--font-h2);
+  background-color: var(--gray-8);
+  color: var(--gray-2);
   ::placeholder {
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   margin-right: 11px;
 `;

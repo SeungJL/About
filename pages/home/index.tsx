@@ -12,7 +12,7 @@ import HomeLocationBar from "../../pageTemplates/home/HomeLocationBar";
 import HomeStudySection from "../../pageTemplates/home/homeMain/HomeStudySection";
 import HomeReviewSection from "../../pageTemplates/home/HomeReviewSection";
 import HomeWinRecordSection from "../../pageTemplates/home/HomeWinRecordSection";
-import StudyVoteController from "../../pageTemplates/home/studyVoteController/StudyVoteController";
+import StudyController from "../../pageTemplates/home/StudyController/StudyController";
 import { LocationEn } from "../../types/serviceTypes/locationTypes";
 
 function Home() {
@@ -39,7 +39,7 @@ function Home() {
       <HomeHeader />
       <HomeCategoryNav />
       <HomeLocationBar />
-      <StudyVoteController />
+      <StudyController />
       <HomeStudySection />
       <EventBanner />
       <HomeGatherSection />

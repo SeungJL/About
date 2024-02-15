@@ -94,7 +94,7 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
   );
 }
 const MemberTitle = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   margin-bottom: 12px;
   font-size: 13px;
 `;
@@ -112,11 +112,11 @@ const GroupLayout = styled.button`
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: var(--border-radius2);
-  box-shadow: var(--box-shadow-b);
-  padding: var(--padding-sub);
-  margin-bottom: var(--margin-main);
-  box-shadow: var(--box-shadow-b);
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
+  padding: var(--gap-3);
+  margin-bottom: var(--gap-4);
+  box-shadow: var(--shadow);
 `;
 const GroupTitle = styled.div`
   font-weight: 600;
@@ -125,24 +125,24 @@ const GroupTitle = styled.div`
 const GroupInfo = styled.div`
   width: 100%;
   margin-bottom: 8px;
-  padding: var(--padding-sub) 0;
+  padding: var(--gap-3) 0;
 
   display: grid;
   grid-template-columns: 1.2fr 1fr 1.5fr;
-  gap: var(--margin-min);
-  border-bottom: var(--border-sub);
+  gap: var(--gap-1);
+  border-bottom: var(--border-light);
 `;
 const InfoItem = styled.div`
   text-align: start;
   font-size: 13px;
   > span:first-child {
     display: inline-block;
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
   > span:last-child {
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
@@ -155,7 +155,7 @@ const GroupMembers = styled.div`
 `;
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 const Title = styled.div`
@@ -167,21 +167,21 @@ const Title = styled.div`
 const Info = styled.div`
   font-size: 12px;
   line-height: 2;
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   > li {
     display: flex;
     margin-left: -2px;
     list-style-type: none;
     > span:first-child {
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
       font-weight: 600;
-      color: var(--font-h1);
+      color: var(--gray-1);
     }
   }
   > li::before {
     content: "•";
     font-size: 10px;
-    padding-right: var(--padding-min);
+    padding-right: var(--gap-1);
   }
 `;
 
@@ -189,10 +189,10 @@ const studys = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex: 1;
-  color: var(--font-h1);
+  color: var(--gray-1);
 
   > span {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 

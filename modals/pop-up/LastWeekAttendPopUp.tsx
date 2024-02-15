@@ -207,10 +207,10 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
 }
 
 const Message = styled.div`
-  padding: var(--padding-md) var(--padding-sub);
-  color: var(--font-h2);
-  border-radius: var(--border-radius2);
-  background-color: var(--font-h8);
+  padding: var(--gap-2) var(--gap-3);
+  color: var(--gray-2);
+  border-radius: var(--rounded);
+  background-color: var(--gray-8);
 `;
 
 const ProfileWrapper = styled.div`
@@ -218,7 +218,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   > span:first-child {
     font-weight: 500;
     font-size: 16px;
@@ -226,19 +226,19 @@ const ProfileWrapper = styled.div`
 `;
 
 const ScoreBarWrapper = styled.div`
-  padding: var(--padding-md) 0;
-  border-bottom: var(--border-sub);
+  padding: var(--gap-2) 0;
+  border-bottom: var(--border-light);
   display: flex;
   flex-direction: column;
   > span {
     font-size: 12px;
-    color: var(--font-h3);
+    color: var(--gray-3);
     margin-left: auto;
   }
 `;
 
 const Container = styled.div`
-  padding: var(--padding-sub) 0;
+  padding: var(--gap-3) 0;
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -262,7 +262,7 @@ const ImageWrapper = styled.div`
   align-items: center;
   > span {
     display: inline-block;
-    margin-top: var(--margin-min);
+    margin-top: var(--gap-1);
   }
 `;
 
@@ -270,7 +270,7 @@ const Item = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  padding: var(--padding-min) 0;
+  padding: var(--gap-1) 0;
   > span:last-child {
     font-weight: 600;
   }

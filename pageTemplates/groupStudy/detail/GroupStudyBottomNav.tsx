@@ -101,7 +101,7 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
           size="lg"
           w="100%"
           maxW="var(--view-max-width)"
-          borderRadius="var(--border-radius2)"
+          borderRadius="var(--rounded)"
           disabled={!handleFunction}
           colorScheme={handleFunction ? "mintTheme" : "redTheme"}
           onClick={handleFunction}
@@ -126,7 +126,7 @@ const Layout = styled.nav`
   transform: translate(-50%, 0);
   width: 100%;
   max-width: 390px;
-  padding: var(--padding-main);
+  padding: var(--gap-4);
 `;
 
 export default GroupStudyBottomNav;

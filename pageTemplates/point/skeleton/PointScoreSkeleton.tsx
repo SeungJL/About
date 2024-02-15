@@ -34,9 +34,9 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   padding: 14px;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   background-color: white;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--shadow);
   height: 166.5px;
 `;
 

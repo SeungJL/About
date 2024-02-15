@@ -79,7 +79,7 @@ function GatherKakaoShareModal({
           ))}
         </Container>
       </ModalBody>
-      <ModalFooter p="var(--padding-sub) var(--padding-main)">
+      <ModalFooter p="var(--gap-3) var(--gap-4)">
         <KakaoShareBtn
           title={title}
           subtitle={date === "미정" ? date : dayjs(date).format("M월 D일(dd)")}
@@ -105,7 +105,7 @@ const Container = styled.div`
   grid-template-rows: repeat(3, 1fr);
   width: 100%;
   height: 100%;
-  gap: var(--margin-sub);
+  gap: var(--gap-3);
 `;
 
 const Item = styled.div<{ isSelected: boolean }>`
@@ -113,7 +113,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   border: ${(props) =>
     props.isSelected ? "4px solid var(--color-mint)" : null};
 
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   overflow: hidden;
   width: 100%;
   height: 100%;

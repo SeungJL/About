@@ -26,11 +26,11 @@ const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   background-color: var(
-    --font-h8
+    --gray-8
   ); /* bg-gray-8, assuming a typo in the original class and intending for a gray background */
 `;
 
 const Icon = styled(FontAwesomeIcon)`
-  color: var(--font-h3); /* text-gray-3, assuming a specific gray color */
+  color: var(--gray-3); /* text-gray-3, assuming a specific gray color */
   margin-right: 4px; /* mr-1 */
 `;

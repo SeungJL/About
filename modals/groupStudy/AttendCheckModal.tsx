@@ -6,7 +6,7 @@ import {
   ModalBody,
   ModalFooterTwo,
   ModalHeader,
-  ModalLayout,
+  ModalLayout
 } from "../../components/modals/Modals";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/groupStudy";
@@ -132,17 +132,17 @@ function AttendCheckModal({
 }
 
 const ColorView = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   display: flex;
 `;
 
 const ColorItem = styled.div`
   display: flex;
   align-items: center;
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
   > span {
     font-size: 13px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
@@ -151,7 +151,7 @@ const Color = styled.div<{ color: string }>`
   height: 8px;
   background-color: ${(props) => props.color};
   border-radius: 50%;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Layout = styled.div``;
@@ -161,7 +161,7 @@ const CheckContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   > button {
-    margin-bottom: var(--margin-sub);
+    margin-bottom: var(--gap-3);
   }
 `;
 

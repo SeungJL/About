@@ -47,7 +47,7 @@ function studyUserCommentsComment({
               <EditIconWrapper>
                 <FontAwesomeIcon
                   icon={faPenToSquare}
-                  color="var(--font-h2)"
+                  color="var(--gray-2)"
                   size="sm"
                   onClick={(e) => onClickEdit(e, att)}
                 />
@@ -80,7 +80,7 @@ const Layout = styled.div`
 const SpaceName = styled.span`
   color: var(--color-mint);
   font-weight: 600;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Memo = styled.span`
@@ -92,13 +92,13 @@ const Memo = styled.span`
   font-size: 13px;
 `;
 const EditIconWrapper = styled.span`
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
 `;
 
 const Absent = styled.span`
   flex: 1;
   font-size: 13px;
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

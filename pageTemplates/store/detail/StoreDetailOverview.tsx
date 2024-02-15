@@ -32,26 +32,26 @@ const Layout = styled.div``;
 const Overview = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   > span:first-child {
     font-size: 18px;
     font-weight: 800;
   }
   > span:last-child {
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 const Price = styled.div`
   font-weight: 600;
   font-size: 18px;
   color: var(--color-mint);
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const ApplyCnt = styled.div`
-  color: var(--font-h3);
+  color: var(--gray-3);
   > b {
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;
 

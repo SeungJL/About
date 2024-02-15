@@ -64,17 +64,17 @@ function WritingGahterLocation() {
 const LocationDetailInput = styled.input`
   width: 100%;
   background-color: inherit;
-  border-bottom: var(--border-main);
+  border-bottom: var(--border);
   padding-top: 0;
-  padding-bottom: var(--padding-md);
-  padding-left: var(--padding-min);
+  padding-bottom: var(--gap-2);
+  padding-left: var(--gap-1);
   outline: none;
   font-size: 13px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const Location = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   background-color: inherit;
 `;
 

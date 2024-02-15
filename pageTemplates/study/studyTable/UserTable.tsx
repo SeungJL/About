@@ -105,8 +105,8 @@ const UserBlock = styled.div<{ start: number; gap: number; color: string }>`
   background-color: ${(props) => props.color};
   position: relative;
   z-index: 10;
-  border-radius: var(--border-radius2);
-  padding: var(--padding-min);
+  border-radius: var(--rounded);
+  padding: var(--gap-1);
   display: flex;
   flex-direction: column;
   font-size: 10px;
@@ -122,7 +122,7 @@ const Name = styled.span`
 `;
 
 const Time = styled.span<{ isSecond: boolean }>`
-  color: ${(props) => props.isSecond && "var(--font-h3)"};
+  color: ${(props) => props.isSecond && "var(--gray-3)"};
 `;
 
 export default UserTable;

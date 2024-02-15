@@ -14,7 +14,7 @@ function LocationSelector() {
   const [value, setValue] = useState<Location>("수원");
   const [location, setLocation] = useRecoilState(locationState);
   const [isMainLoading, setIsMainLoading] = useRecoilState(isMainLoadingState);
-  
+
   useEffect(() => {
     if (location) setValue(location);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,9 +48,9 @@ function LocationSelector() {
 const Select = styled.select`
   height: 24px;
   border-radius: 4px;
-  border: 1px solid var(--font-h5);
+  border: 1px solid var(--gray-5);
   background-color: white;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-weight: 400;
 
   font-size: 13px;

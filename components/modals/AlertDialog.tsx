@@ -25,7 +25,7 @@ function AlertDialog({ isOpen, onClose, onSubmit }: IAlertDialog) {
       onClose={onClose}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent w="336px" m="auto var(--margin-main)">
+        <AlertDialogContent w="336px" m="auto var(--gap-4)">
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             가입 거절
           </AlertDialogHeader>
@@ -37,7 +37,7 @@ function AlertDialog({ isOpen, onClose, onSubmit }: IAlertDialog) {
             <Button
               colorScheme="mintTheme"
               onClick={onSubmit}
-              ml="var(--margin-md)"
+              ml="var(--gap-2)"
             >
               거절
             </Button>

@@ -30,17 +30,17 @@ const Layout = styled.div`
   height: 30px;
 
   > button {
-    color: var(--font-h1);
+    color: var(--gray-1);
     width: 49%;
-    border: var(--border-main);
-    border-radius: var(--border-radius-sub);
+    border: var(--border);
+    border-radius: var(--rounded-lg);
     display: flex;
     justify-content: space-around;
     align-items: center;
     font-size: 12px;
     > span:last-child {
       font-weight: 600;
-      color: var(--font-h1);
+      color: var(--gray-1);
     }
   }
 `;

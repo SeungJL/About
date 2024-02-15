@@ -104,10 +104,10 @@ const Login: NextPage<{
               width="270px"
               height="40px"
               backgroundColor="#FEE500"
-              borderRadius="var(--border-radius-sub)"
+              borderRadius="var(--rounded-lg)"
               isLoading={loading}
               onClick={() => customSignin("member")}
-              mb="var(--margin-md)"
+              mb="var(--gap-2)"
               display="flex"
               justifyContent="space-between"
             >
@@ -118,10 +118,10 @@ const Login: NextPage<{
             <Button
               width="270px"
               height="40px"
-              background="var(--font-h7)"
+              background="var(--gray-7)"
               onClick={() => setIsModal(true)}
-              border="var(--border-sub)"
-              mb="var(--margin-md)"
+              border="var(--border-light)"
+              mb="var(--gap-2)"
             >
               게스트 로그인
             </Button>

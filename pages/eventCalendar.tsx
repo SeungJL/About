@@ -165,7 +165,7 @@ function EventCalendar() {
 }
 
 const Title = styled.div`
-  margin: var(--margin-max) 0;
+  margin: var(--gap-5) 0;
 `;
 
 const Calendar = styled.div`
@@ -181,7 +181,7 @@ const WeekTitleHeader = styled.div`
   font-size: 10px;
   color: var(--color-mint);
 
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   font-weight: 600;
   > div {
     flex: 1;
@@ -192,8 +192,8 @@ const WeekTitleHeader = styled.div`
 const DayOfWeek = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: var(--font-h56);
-  padding: var(--padding-min) 0;
+  background-color: var(--gray-7);
+  padding: var(--gap-1) 0;
   font-size: 12px;
   > div {
     flex: 1;
@@ -217,19 +217,19 @@ const CalendarDates = styled.div`
 
 const DateBlock = styled.div<{ isToday: boolean }>`
   width: 52px;
-  padding-top: var(--padding-min);
+  padding-top: var(--gap-1);
   font-size: 12px;
   font-weight: 600;
   text-align: center;
   flex: 1;
-  border-top: var(--border-main-light);
-  background-color: ${(props) => (props.isToday ? "var(--font-h56)" : null)};
+  border-top: var(--border);
+  background-color: ${(props) => (props.isToday ? "var(--gray-7)" : null)};
 `;
 
 const Date = styled.div<{ day: "sun" | "sat"; isToday: boolean }>`
   position: relative;
   height: 18px;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   color: ${(props) =>
     props.isToday
       ? "white"
@@ -256,8 +256,8 @@ const EventBlock = styled.div<{
   position: relative;
 
   z-index: ${(props) => (props.isFirst ? 4 : 0)};
-  padding-left: ${(props) => (props.isFirst ? "var(--margin-min)" : 0)};
-  padding-right: ${(props) => (props.isLast ? "var(--margin-min)" : 0)};
+  padding-left: ${(props) => (props.isFirst ? "var(--gap-1)" : 0)};
+  padding-right: ${(props) => (props.isLast ? "var(--gap-1)" : 0)};
 `;
 
 const TodayCircle = styled.div`
@@ -268,14 +268,14 @@ const TodayCircle = styled.div`
   height: 18px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--font-h1);
+  background-color: var(--gray-1);
   color: white;
 `;
 
 const DetailTitle = styled.div`
   font-weight: 600;
-  margin-top: var(--margin-sub);
-  margin-left: var(--margin-main);
+  margin-top: var(--gap-3);
+  margin-left: var(--gap-4);
 `;
 
 export default EventCalendar;

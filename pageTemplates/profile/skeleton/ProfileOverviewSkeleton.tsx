@@ -80,7 +80,7 @@ const Bottom = styled.div`
 
 const RelationItem = styled.div`
   width: max-content;
-  padding: 0 var(--padding-md);
+  padding: 0 var(--gap-2);
 
   display: flex;
   flex-direction: column;
@@ -134,14 +134,14 @@ const ProfileInfo = styled.div`
   }
   > span:last-child {
     font-size: 12px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
 const Comment = styled.div`
-  margin-left: var(--margin-min);
-  margin-top: var(--margin-sub);
-  color: var(--font-h1);
+  margin-left: var(--gap-1);
+  margin-top: var(--gap-3);
+  color: var(--gray-1);
   font-size: 12px;
   font-weight: 600;
   width: 140px;

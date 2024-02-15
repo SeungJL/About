@@ -98,9 +98,8 @@ function HomeCategoryNav() {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-main) 24px;
-  background-color: var(--font-h8);
-  border-bottom: 1px solid var(--font-h56);
+  padding: var(--gap-4) 24px;
+  background-color: var(--gray-8);
 `;
 
 const IconWrapper = styled.div`
@@ -118,7 +117,7 @@ const Item = styled.div`
   > span {
     white-space: nowrap;
     font-size: 12px;
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 400;
   }
 `;

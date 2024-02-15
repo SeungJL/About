@@ -40,21 +40,21 @@ function AlphabetPopUp({ setIsModal }: IModal) {
 
 const AlphabetContainer = styled.div`
   display: flex;
-  margin-top: var(--margin-min);
-  margin-bottom: var(--margin-max);
+  margin-top: var(--gap-1);
+  margin-bottom: var(--gap-5);
   font-size: 14px;
   align-items: center;
 
   flex: 1;
   justify-content: space-around;
   > * {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 
 const Content = styled.div`
   font-size: 12px;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-weight: 600;
 `;
 

@@ -40,7 +40,7 @@ function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
         ) : (
           <>
             <span style={{ marginLeft: "4px" }} />
-            <FontAwesomeIcon icon={faInfinity} color="var(--font-h2)" />
+            <FontAwesomeIcon icon={faInfinity} color="var(--gray-2)" />
           </>
         )}
       </Header>
@@ -89,27 +89,27 @@ const Crown = styled.div`
 `;
 
 const MemberItem = styled.div`
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   display: flex;
   align-items: center;
 
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
 `;
 
 const Header = styled.header`
   font-size: 16px;
-  padding: var(--padding-main);
+  padding: var(--gap-4);
   font-weight: 600;
 
   > span:first-child {
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
   }
   > span:nth-child(2) {
     font-weight: 700;
     color: var(--color-mint);
   }
   > span:nth-child(3) {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
 `;
 
@@ -117,7 +117,7 @@ const Members = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   > div:last-child {
     border: none;
   }
@@ -127,8 +127,8 @@ const UserOverview = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  line-height: var(--line-height);
-  margin-left: var(--margin-sub);
+
+  margin-left: var(--gap-3);
   > span:first-child {
     font-size: 14px;
     font-weight: 600;
@@ -140,7 +140,7 @@ const UserOverview = styled.div`
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-size: 13px;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;
 const Organizer = styled.div`
@@ -150,7 +150,7 @@ const Organizer = styled.div`
 const ParticipateTime = styled.div<{ isFirst: boolean }>`
   font-size: 16px;
   margin-left: auto;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
   color: ${(props) =>
     props.isFirst ? "var(--color-mint)" : "var(--color-orange)"};
   > span:last-child {
@@ -168,7 +168,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding-bottom: var(--padding-main);
+  padding-bottom: var(--gap-4);
 `;
 
 const Empty = styled.div`
@@ -178,7 +178,7 @@ const Empty = styled.div`
   height: 100px;
   > span {
     font-size: 18px;
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
 `;
 

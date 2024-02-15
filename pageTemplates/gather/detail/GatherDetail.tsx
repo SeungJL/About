@@ -65,34 +65,34 @@ function GatherDetailInfo({
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin: var(--margin-sub) var(--margin-main);
-  padding: var(--padding-md) var(--padding-sub);
+  margin: var(--gap-3) var(--gap-4);
+  padding: var(--gap-2) var(--gap-3);
 
   background-color: white;
-  border-radius: var(--border-radius2);
-  box-shadow: var(--box-shadow-b);
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
 `;
 
 const ItemText = styled.span`
   font-weight: 600;
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   > span:nth-child(2) {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
 `;
 
 const FirstItem = styled(Item)<{ isOpen: boolean }>`
-  margin-bottom: ${(props) => (props.isOpen ? "0" : "var(--margin-min)")};
+  margin-bottom: ${(props) => (props.isOpen ? "0" : "var(--gap-1)")};
 `;
 
 const LocationSub = styled.div`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
   margin: 2px 0;
   margin-left: 44px;
@@ -103,8 +103,8 @@ const Secret = styled.div`
   align-items: center;
 
   > span:first-child {
-    margin-left: var(--margin-min);
-    margin-right: var(--margin-md);
+    margin-left: var(--gap-1);
+    margin-right: var(--gap-2);
   }
 `;
 

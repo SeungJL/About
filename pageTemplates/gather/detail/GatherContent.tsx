@@ -29,31 +29,31 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 140px;
-  border-bottom: 6px solid var(--font-h56);
+  border-bottom: 6px solid var(--gray-7);
 `;
 const Content = styled.pre`
   min-height: 100px;
   background-color: white;
-  padding: var(--padding-main);
+  padding: var(--gap-4);
   white-space: pre-wrap;
-  padding-bottom: var(--padding-main);
+  padding-bottom: var(--gap-4);
   font-family: apple;
 `;
 
 const ListContainer = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
-  line-height: var(--line-height);
-  background-color: var(--font-h8);
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
+
+  background-color: var(--gray-8);
 `;
 
 const ListBlock = styled.div`
   > span:first-child {
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
     font-weight: 700;
   }
   > span:last-child {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 

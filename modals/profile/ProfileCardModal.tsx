@@ -6,7 +6,7 @@ import {
   ModalBody,
   ModalFooterTwo,
   ModalHeader,
-  ModalLayout,
+  ModalLayout
 } from "../../components/modals/Modals";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { useUidsToUsersInfoQuery } from "../../hooks/user/queries";
@@ -85,7 +85,7 @@ function ProfileCardModal({ setIsModal }: IModal) {
 }
 
 const FriendTitle = styled.span`
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 const ProfileUpPart = styled.div`
@@ -95,7 +95,7 @@ const ProfileUpPart = styled.div`
   > div {
     display: flex;
     > span:first-child {
-      color: var(--font-h3);
+      color: var(--gray-3);
       width: 64px;
     }
     > span:last-child {
@@ -105,7 +105,7 @@ const ProfileUpPart = styled.div`
 `;
 
 const Profile = styled.div`
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   display: flex;
   flex-direction: column;
   line-height: 2.2;
@@ -116,18 +116,18 @@ const ProfileItem = styled.div`
   > span:first-child {
     display: inline-block;
     width: 64px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   > span:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
   }
   > div {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
     > span {
       display: inline-block;
-      margin-right: var(--margin-sub);
+      margin-right: var(--gap-3);
     }
   }
 `;
@@ -135,8 +135,8 @@ const ProfileItem = styled.div`
 const FriendList = styled.div`
   margin-top: 6px;
   flex: 1;
-  border: 1px solid var(--font-h5);
-  border-radius: var(--border-radius-sub);
+  border: 1px solid var(--gray-5);
+  border-radius: var(--rounded-lg);
   padding: 6px 8px;
   display: flex;
 `;

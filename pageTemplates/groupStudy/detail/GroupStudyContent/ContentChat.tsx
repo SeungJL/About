@@ -9,7 +9,7 @@ function ContentChat() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-main);
+  padding: var(--gap-4);
 `;
 
 const Message = styled.div`
@@ -17,7 +17,7 @@ const Message = styled.div`
   justify-content: center;
   margin-top: 40px;
   font-size: 16px;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 export default ContentChat;

@@ -28,20 +28,20 @@ function PromotionDetail() {
       <Layout>
         <Button
           w="50%"
-          mr="var(--margin-md)"
+          mr="var(--gap-2)"
           onClick={() => setIsAllModal(true)}
-          color="var(--font-h2)"
-          borderRadius="var(--border-radius-sub)"
-          border="1px solid var(--font-h6)"
+          color="var(--gray-2)"
+          borderRadius="var(--rounded-lg)"
+          border="1px solid var(--gray-6)"
         >
           전체 현황
         </Button>
         <Button
           w="50%"
           onClick={onClick}
-          borderRadius="var(--border-radius-sub)"
-          color="var(--font-h2)"
-          border="1px solid var(--font-h6)"
+          borderRadius="var(--rounded-lg)"
+          color="var(--gray-2)"
+          border="1px solid var(--gray-6)"
         >
           지난 당첨 기록
         </Button>
@@ -61,7 +61,7 @@ const Layout = styled.div`
   display: flex;
   margin: 0 40px;
   margin-top: 32px;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 export default PromotionDetail;

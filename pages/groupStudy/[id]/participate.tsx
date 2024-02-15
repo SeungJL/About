@@ -67,26 +67,26 @@ function Participate() {
 }
 
 const Container = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const Item = styled.div``;
 
 const AnswerText = styled.textarea`
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
 
-  border: var(--border-main);
+  border: var(--border);
   width: 100%;
-  padding: var(--padding-md);
+  padding: var(--gap-2);
 
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 
 const Title = styled.div`
   font-size: 15px;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 export default Participate;

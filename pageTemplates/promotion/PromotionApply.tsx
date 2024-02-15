@@ -83,19 +83,19 @@ function PromotionApply() {
                 validate: (value) => value.slice(0, -3) === "대학교",
               })}
               placeholder="학교명"
-              borderRadius="var(--border-radius-sub)"
-              mr="var(--margin-sub)"
+              borderRadius="var(--rounded-lg)"
+              mr="var(--gap-3)"
               value={value}
-              border="var(--border-main)"
+              border="var(--border)"
               onChange={(e) => setValue(e.target.value)}
               _focus={{
-                borderColor: "var(--font-h1)",
+                borderColor: "var(--gray-1)",
                 borderBottomRadius:
                   value !== "" && filterData?.length > 0 && "none",
               }}
               _placeholder={{
                 fontWeight: "600",
-                color: "var(--font-h4)",
+                color: "var(--gray-4)",
               }}
             />
             {filterData?.length !== 0 && (
@@ -113,7 +113,7 @@ function PromotionApply() {
           <Button
             type="submit"
             colorScheme="mintTheme"
-            borderRadius="var(--border-radius-sub)"
+            borderRadius="var(--rounded-lg)"
           >
             입력
           </Button>
@@ -146,16 +146,16 @@ const Form = styled.form`
     flex-direction: column;
   }
   > button {
-    margin-left: var(--margin-sub);
+    margin-left: var(--gap-3);
   }
 `;
 
 const AutoItem = styled.div`
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   padding-left: 14px;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   border-color: black;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
 `;
 
@@ -165,16 +165,16 @@ const AutoContent = styled.div`
   position: absolute;
   z-index: 10;
   background-color: white;
-  /* padding: var(--padding-sub) 0; */
+  /* padding: var(--gap-3) 0; */
   overflow-y: auto;
   border: 1px solid black;
-  border-bottom-left-radius: var(--border-radius-main);
-  border-bottom-right-radius: var(--border-radius-main);
+  border-bottom-left-radius: var(--rounded-lg);
+  border-bottom-right-radius: var(--rounded-lg);
 `;
 
 const ErrorMessage = styled.div`
-  margin-top: var(--margin-sub);
-  margin-left: var(--margin-min);
+  margin-top: var(--gap-3);
+  margin-left: var(--gap-1);
   font-size: 12px;
   color: var(--color-red);
   min-height: 18px;

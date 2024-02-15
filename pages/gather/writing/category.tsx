@@ -70,7 +70,7 @@ function WritingGatherCategory() {
 }
 
 const ItemContainer = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: flex;
   flex-direction: column;
 `;
@@ -79,11 +79,11 @@ const Item = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   background-color: white;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   height: 60px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   border: ${(props) =>
-    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-main)"};
+    props.isSelected ? "2px solid var(--color-mint)" : "var(--border)"};
 `;
 
 const IconWrapper = styled.div`
@@ -100,7 +100,7 @@ const Info = styled.div`
     font-weight: 600;
   }
   > span:last-child {
-    color: var(--font-h3);
+    color: var(--gray-3);
     font-size: 12px;
   }
 `;

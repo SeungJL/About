@@ -124,24 +124,24 @@ function Index() {
 }
 const Title = styled.div`
   background-color: white;
-  padding: var(--padding-main);
+  padding: var(--gap-4);
   font-weight: 600;
   font-size: 18px;
 `;
 const Layout = styled.div`
   min-height: 100vh;
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
 `;
 
 const NavWrapper = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
   padding-bottom: 0;
 `;
 
 const SubNavWrapper = styled.div``;
 
 const Main = styled.main`
-  margin: var(--margin-main);
+  margin: var(--gap-4);
 `;
 
 export default Index;

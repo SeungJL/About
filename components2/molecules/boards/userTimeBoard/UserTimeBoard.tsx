@@ -44,8 +44,8 @@ const BoardContainer = styled.div`
   flex-direction: column;
   padding-top: 8px; /* pt-2 */
   position: relative;
-  border-radius: var(--border-radius-main); /* rounded-lg */
+  border-radius: var(--rounded-lg); /* rounded-lg */
   background-color: white;
-  box-shadow: var(--box-shadow-b); /* shadow-md */
+  box-shadow: var(--shadow); /* shadow-md */
   height: ${({ participants }) => `${participants.length * 38 + 52}px`};
 `;

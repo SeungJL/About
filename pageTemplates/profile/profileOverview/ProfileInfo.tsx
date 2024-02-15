@@ -20,14 +20,14 @@ import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
-  useFailToast,
+  useFailToast
 } from "../../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 import { userInfoState } from "../../../recoil/userAtoms";
 import {
   IInteractionLikeStorage,
-  IInteractionSendLike,
+  IInteractionSendLike
 } from "../../../types/interaction";
 import { IUser } from "../../../types/user/user";
 
@@ -179,7 +179,7 @@ const Profile = styled.div`
 `;
 
 const ProfileName = styled.div`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -190,22 +190,22 @@ const ProfileName = styled.div`
     > span:first-child {
       font-size: 16px;
       font-weight: 600;
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
     }
   }
   > span:last-child {
     font-size: 12px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 const HeartWrapper = styled.button`
-  margin-right: var(--margin-min);
+  margin-right: var(--gap-1);
 `;
 
 const Comment = styled.div`
-  margin-left: var(--margin-min);
-  margin-top: var(--margin-sub);
-  color: var(--font-h1);
+  margin-left: var(--gap-1);
+  margin-top: var(--gap-3);
+  color: var(--gray-1);
   font-size: 12px;
   font-weight: 600;
 `;

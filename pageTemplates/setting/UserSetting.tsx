@@ -110,7 +110,7 @@ const GlobalStyle = createGlobalStyle`
     }
    
       >button{
-        margin-left:var(--margin-md) !important;
+        margin-left:var(--gap-2) !important;
       padding:0 !important;
         background-color:inherit !important;
         :focus{

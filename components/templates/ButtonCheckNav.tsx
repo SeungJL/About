@@ -22,7 +22,7 @@ function ButtonCheckNav({
     <Layout>
       <ButtonGroup
         flexWrap={isWrap ? "wrap" : null}
-        gap={!isLineBtn ? "var(--margin-md)" : "0"}
+        gap={!isLineBtn ? "var(--gap-2)" : "0"}
       >
         {!isLineBtn
           ? filtered.map((item) => (
@@ -30,11 +30,11 @@ function ButtonCheckNav({
                 bgColor={
                   item === selectedButton ? "var(--color-mint)" : "white"
                 }
-                color={item === selectedButton ? "white" : "var(--font-h2)"}
+                color={item === selectedButton ? "white" : "var(--gray-2)"}
                 key={item}
                 onClick={() => setSelectedButton(item)}
                 ml="0px !important"
-                border="1px solid var(--font-h5)"
+                border="1px solid var(--gray-5)"
                 _focus={{ outline: "none", bgColor: "var(--color-mint)" }}
               >
                 {item}
@@ -42,10 +42,10 @@ function ButtonCheckNav({
             ))
           : filtered.map((item) => (
               <Button
-                p="0 var(--padding-sub)"
+                p="0 var(--gap-3)"
                 variant="ghost"
                 color={
-                  item === selectedButton ? "var(--font-h1)" : "var(--font-h3)"
+                  item === selectedButton ? "var(--gray-1)" : "var(--gray-3)"
                 }
                 key={item}
                 onClick={() => setSelectedButton(item)}
@@ -53,8 +53,8 @@ function ButtonCheckNav({
                 fontWeight={item === selectedButton ? 600 : 400}
                 borderBottom={
                   item === selectedButton
-                    ? "2px solid var(--font-h1)"
-                    : "2px solid var(--font-h56)"
+                    ? "2px solid var(--gray-1)"
+                    : "2px solid var(--gray-7)"
                 }
                 borderRadius="0"
                 _focus={{ outline: "none", bgColor: "transparent" }}
@@ -69,7 +69,7 @@ function ButtonCheckNav({
 
 const Layout = styled.div`
   overflow-x: auto;
-  padding-bottom: var(--padding-sub);
+  padding-bottom: var(--gap-3);
 
   &::-webkit-scrollbar {
     display: none;

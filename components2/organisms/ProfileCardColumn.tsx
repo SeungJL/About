@@ -22,6 +22,6 @@ export default function ProfileCardColumn({ userCardArr }: IProfileCardColumn) {
 
 const Layout = styled.div`
   background-color: white;
-  box-shadow: var(--box-shadow-b);
-  border-radius: var(--border-radius-main);
+  box-shadow: var(--shadow);
+  border-radius: var(--rounded-lg);
 `;

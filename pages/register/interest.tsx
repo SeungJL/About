@@ -95,32 +95,32 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   > div {
-    margin-bottom: var(--margin-max);
+    margin-bottom: var(--gap-5);
     > span {
       display: inline-block;
-      color: var(--font-h1);
+      color: var(--gray-1);
       font-weight: 600;
       font-size: 12px;
-      margin-bottom: var(--margin-md);
+      margin-bottom: var(--gap-2);
     }
   }
 `;
 
 const Example = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
 
   > div {
-    color: var(--font-h3);
-    padding: var(--padding-min);
-    background-color: var(--font-h7);
-    border: 1px solid var(--font-h6);
-    border-radius: var(--border-radius-sub);
+    color: var(--gray-3);
+    padding: var(--gap-1);
+    background-color: var(--gray-7);
+    border: 1px solid var(--gray-6);
+    border-radius: var(--rounded-lg);
     display: flex;
     flex-wrap: wrap;
     > span {
       font-size: 12px;
       margin-right: 6px;
-      line-height: var(--line-height);
+   
     }
   }
 `;
@@ -131,15 +131,15 @@ const Item = styled.div`
 `;
 
 const Input = styled.input`
-  padding: var(--padding-sub) var(--padding-md);
-  border: 1px solid var(--font-h6);
-  background-color: var(--font-h7);
-  border-radius: var(--border-radius-sub);
+  padding: var(--gap-3) var(--gap-2);
+  border: 1px solid var(--gray-6);
+  background-color: var(--gray-7);
+  border-radius: var(--rounded-lg);
   ::placeholder {
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 

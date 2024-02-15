@@ -23,18 +23,18 @@ function MoreInfoBtn({ url }: IMoreInfoBtn) {
 
 const Layout = styled.div`
   height: 44px;
-  box-shadow: var(--box-shadow-sub);
+  box-shadow: var(--shadow);
   display: flex;
   justify-content: center;
   background-color: white;
   align-items: center;
-  margin-top: var(--margin-main);
-  margin-bottom: var(--margin-max);
-  border-radius: var(--border-radius-main);
-  color: var(--font-h3);
+  margin-top: var(--gap-4);
+  margin-bottom: var(--gap-5);
+  border-radius: var(--rounded-lg);
+  color: var(--gray-3);
   font-weight: 600;
   > span:first-child {
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
 `;
 

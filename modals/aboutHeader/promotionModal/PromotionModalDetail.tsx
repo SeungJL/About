@@ -38,7 +38,7 @@ function PromotionModalDetail() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: var(--line-height);
+ 
   > div {
     display: flex;
     > span:first-child {
@@ -50,7 +50,7 @@ const Layout = styled.div`
 `;
 const Temp = styled.span`
   font-size: 11px;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 const VoteNum = styled.span``;
 

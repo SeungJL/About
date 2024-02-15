@@ -24,11 +24,11 @@ function StudyHeaderSkeleton() {
 
 const Layout = styled.div`
   height: var(--header-height);
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: var(--padding-max);
+  padding-right: var(--gap-5);
   > div:first-child {
     display: flex;
     align-items: center;
@@ -37,7 +37,7 @@ const Layout = styled.div`
 const Title = styled.div`
   font-size: 17px;
   font-weight: 600;
-  margin-left: var(--margin-main);
+  margin-left: var(--gap-4);
   width: 100px;
 `;
 

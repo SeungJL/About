@@ -29,10 +29,10 @@ function SuccessScreen({ children, url }: ISuccessScreen) {
       <Content>{children}</Content>
       <Button
         mt="auto"
-        width={`calc(100% - 2*var(--margin-main))`}
+        width={`calc(100% - 2*var(--gap-4))`}
         height="44px"
-        mb="var(--margin-main)"
-        borderRadius="var(--border-radius2)"
+        mb="var(--gap-4)"
+        borderRadius="var(--rounded)"
         backgroundColor="var(--color-mint)"
         color="white"
         fontSize="15px"
@@ -72,7 +72,7 @@ const Content = styled.div`
   align-items: center;
 
   > span:first-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
     font-size: 22px;
   }
@@ -80,7 +80,7 @@ const Content = styled.div`
     margin-top: 12px;
     text-align: center;
     font-size: 17px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 

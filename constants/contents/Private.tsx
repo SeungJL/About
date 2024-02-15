@@ -7,8 +7,8 @@ export const REGISTER_AGE_MIN = 12;
 export const PromotionComponent = () => <P>{PROMOTION_TEXT}</P>;
 
 const P = styled.p`
-  padding: var(--padding-md);
-  border-radius: var(--border-radius-sub);
+  padding: var(--gap-2);
+  border-radius: var(--rounded-lg);
   height: 240px;
   overflow-x: auto;
   overflow-y: auto;

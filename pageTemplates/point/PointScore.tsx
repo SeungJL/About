@@ -7,8 +7,6 @@ interface IPointScore {
 }
 
 function PointScore({ myScore }: IPointScore) {
-
-
   return (
     <Layout>
       <PointScoreBar myScore={myScore} />
@@ -20,10 +18,10 @@ function PointScore({ myScore }: IPointScore) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  padding: var(--padding-main);
-  border-radius: var(--border-radius-main);
+  padding: var(--gap-4);
+  border-radius: var(--rounded-lg);
   background-color: white;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--shadow);
 `;
 
 export default PointScore;

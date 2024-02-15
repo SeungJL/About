@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { Fragment } from "react";
 import styled from "styled-components";
-import { getDateArr } from "./StudyVoteController";
+import { getDateArr } from "./StudyController";
 
 interface IStudyControllerDays {
   selectedDate: string;
@@ -37,7 +37,7 @@ const Day = styled.div`
   flex: 1;
   text-align: center;
   color: var(
-    --font-h2
+    --gray-2
   ); /* Assuming text-gray-2 maps to this color, adjust as necessary */
 `;
 

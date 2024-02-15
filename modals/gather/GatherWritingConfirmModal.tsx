@@ -109,7 +109,7 @@ function GatherWritingConfirmModal({
 const Container = styled.div`
   line-height: 2;
   font-size: 13px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const Item = styled.div`
@@ -119,7 +119,7 @@ const Item = styled.div`
     display: inline-block;
     width: 32px;
     font-weight: 600;
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
   > span:last-child {
     flex: 1;

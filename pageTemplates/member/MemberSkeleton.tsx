@@ -32,23 +32,23 @@ function MemberSkeleton() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   > div:first-child {
     margin-top: 0;
   }
 `;
 const MembersContainer = styled.div`
-  margin: 0 var(--margin-main);
-  padding-top: var(--padding-sub);
-  padding-bottom: var(--padding-main);
+  margin: 0 var(--gap-4);
+  padding-top: var(--gap-3);
+  padding-bottom: var(--gap-4);
   > section {
-    padding-top: var(--margin-sub);
+    padding-top: var(--gap-3);
   }
 `;
 const Section = styled.section`
   > div:last-child {
     height: 48px;
-    margin: var(--margin-sub) 0;
+    margin: var(--gap-3) 0;
     margin-left: -8px;
   }
 `;
@@ -60,6 +60,6 @@ const HrDiv = styled.div`
   margin: 0 !important;
   padding: 0 !important;
   height: 1px;
-  background-color: var(--font-h5);
+  background-color: var(--gray-5);
 `;
 export default MemberSkeleton;

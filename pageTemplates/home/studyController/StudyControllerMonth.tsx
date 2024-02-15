@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { voteDateState } from "../../../recoil/studyAtoms";
 
-function StudyVoteControllerMonth() {
+function StudyControllerMonth() {
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
 
   const currentMonth = voteDate.month() + 1;
@@ -46,20 +46,20 @@ const Layout = styled.div`
   justify-content: space-between;
   font-size: 14px;
   line-height: 20px;
-  padding: 0 var(--padding-main);
-  padding-top: var(--padding-main);
+  padding: 0 var(--gap-4);
+  padding-top: var(--gap-4);
 `;
 
 const ControlBtn = styled.button`
   display: flex;
-  color: var(--font-h2);
+  color: var(--gray-2);
   > span {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
 `;
 
 const ArrowBtn = styled.div`
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
-export default StudyVoteControllerMonth;
+export default StudyControllerMonth;

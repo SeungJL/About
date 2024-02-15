@@ -104,7 +104,7 @@ const VoteStatus = styled.div<{ status: "exist" | "FULL" }>`
 `;
 
 const VoteComplete = styled.span<{ status: "exist" | "FULL" }>`
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
   display: flex;
   height: 100%;
   align-items: end;
@@ -124,18 +124,18 @@ const FullText = styled.span`
   font-size: 14px;
   margin-left: auto;
   color: var(--color-red);
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
 `;
 
 const ParticipantStatus = styled.div`
   display: flex;
   align-items: center;
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
   font-size: 14px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-weight: 400;
   > span {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
   }
 `;
 

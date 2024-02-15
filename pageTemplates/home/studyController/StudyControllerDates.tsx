@@ -5,15 +5,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TextCircle from "../../../components2/atoms/TextCircle";
-import { getDateArr, handleChangeDate } from "./StudyVoteController";
+import { getDateArr, handleChangeDate } from "./StudyController";
 
 dayjs.locale("ko");
 
-interface IStudyVoteControllerDates {
+interface IStudyControllerDates {
   selectedDate: string;
 }
 
-function StudyVoteControllerDates({ selectedDate }: IStudyVoteControllerDates) {
+function StudyControllerDates({ selectedDate }: IStudyControllerDates) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
@@ -104,4 +104,4 @@ const AbsoluteDiv = styled.div`
 const Button = styled.button`
   /* Add button specific styling here */
 `;
-export default StudyVoteControllerDates;
+export default StudyControllerDates;

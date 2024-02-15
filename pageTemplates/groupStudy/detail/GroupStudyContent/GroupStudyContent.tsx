@@ -52,17 +52,17 @@ const ContentNav = styled.nav`
 
 const ContentBtn = styled.button<{ isSelected: boolean }>`
   flex: 1;
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   font-weight: 600;
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h3)")};
-  border-bottom: ${(props) => props.isSelected && "2px solid var(--font-h1)"};
+  color: ${(props) => (props.isSelected ? "var(--gray-1)" : "var(--gray-3)")};
+  border-bottom: ${(props) => props.isSelected && "2px solid var(--gray-1)"};
 `;
 
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 140px;
-  border-bottom: 6px solid var(--font-h56);
+  border-bottom: 6px solid var(--gray-7);
 `;
 
 const ContentContainer = styled.div`

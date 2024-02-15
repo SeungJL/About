@@ -26,9 +26,9 @@ function StudyOverviewSkeleton() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
   margin-top: 36px;
-  padding-bottom: var(--padding-main);
+  padding-bottom: var(--gap-4);
   > div:first-child {
     display: inline-block;
     font-weight: 600;
@@ -38,15 +38,15 @@ const Layout = styled.div`
 `;
 
 const SpaceDetail = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 12px;
   font-weight: 600;
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
   flex-direction: column;
   > span {
     > span {
-      margin-left: var(--margin-min);
+      margin-left: var(--gap-1);
     }
   }
 `;
@@ -55,14 +55,14 @@ const Location = styled.span`
 
   > div:first-child {
     width: 240px;
-    color: var(--font-h1);
-    margin-left: var(--margin-min);
+    color: var(--gray-1);
+    margin-left: var(--gap-1);
   }
 `;
 const Time = styled.span`
   display: flex;
   > div {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
     width: 80px;
   }
 `;

@@ -13,7 +13,7 @@ function RecordAnalysisHeaderSkeleton() {
 
 const Layout = styled.div`
   height: 46px;
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   display: flex;
   align-items: center;
   color: white;
@@ -22,7 +22,7 @@ const Layout = styled.div`
 const Title = styled.span`
   font-size: 17px;
   font-weight: 600;
-  margin-left: var(--margin-main);
+  margin-left: var(--gap-4);
 `;
 
 export default RecordAnalysisHeaderSkeleton;

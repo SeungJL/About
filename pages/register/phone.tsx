@@ -62,17 +62,17 @@ const Layout = styled(motion.div)`
 
 const NameInput = styled.input`
   margin-top: 40px;
-  border: var(--border-main);
+  border: var(--border);
   height: 40px;
   width: 100%;
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-sub);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-3);
   ::placeholder {
     font-size: 12px;
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 

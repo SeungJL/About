@@ -61,13 +61,13 @@ function DetailInfo({ user }: { user: IUser }) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
 `;
 
 const Profile = styled.div`
-  padding: 0 var(--padding-min);
-  margin-bottom: var(--margin-min);
+  padding: 0 var(--gap-1);
+  margin-bottom: var(--gap-1);
   display: flex;
   flex-direction: column;
   line-height: 2.4;
@@ -76,7 +76,7 @@ const Profile = styled.div`
 const Interests = styled.div`
   display: flex;
   flex-direction: column;
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-weight: 600;
 
   > span {
@@ -89,10 +89,10 @@ const ProfileItem = styled.div`
   > span:first-child {
     display: inline-block;
     width: 64px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   > span:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
   }
 `;

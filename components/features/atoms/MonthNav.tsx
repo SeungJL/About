@@ -36,14 +36,14 @@ function MonthNav({ month, setNavMonth }: IMonthNav) {
 const Layout = styled.div`
   display: flex;
   align-items: center;
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   font-size: 20px;
   font-weight: 700;
-  padding: 0 var(--padding-sub);
+  padding: 0 var(--gap-3);
 `;
 
 const IconWrapper = styled.button`
-  padding: 0 var(--padding-min);
+  padding: 0 var(--gap-1);
 `;
 
 export default MonthNav;

@@ -1,64 +1,44 @@
 :root {
-  --view-width: calc(100vw - 2 * var(--margin-main));
-  --view-max-width: calc(var(--max-width) - 2 * var(--margin-main));
-  --view-width-light: calc(100vw - 4 * var(--margin-main));
-  --view-max-width-light: calc(var(--max-width) - 4 * var(--margin-main));
   --max-width: 390px;
 
-  --border-radius2: 4px;
-  --box-shadow2: 0px 0px 4px 0px rgba(0, 0, 0, 0.04);
-  --box-shadow-b: 1px 1px 4px 0px rgba(0, 0, 0, 0.08);
-  --box-shadow-top-b: 0 -2px 4px 0px rgba(0, 0, 0, 0.08);
+  --shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
-  --font-h1: #343943;
-  --font-h2: #565b67;
-  --font-h3: #767d8a;
-  --font-h4: #a0a4af;
-  --font-h5: #d1d6dd;
-  --font-h6: #e3e6eb;
-  --font-h56: #eaecf0;
-  --font-h7: #f0f2f5;
-  --font-h8: #f6f7f9;
+  --gray-1: #2d3748;
+  --gray-2: #4a5568;
+  --gray-3: #718096;
+  --gray-4: #a0aec0;
+  --gray-5: #cbd5e0;
+  --gray-6: #e2e8f0;
+  --gray-7: #edf2f7;
+  --gray-8: #f7fafc;
 
-  --color-orange: #ffa500;
   --color-mint: #00c2b3;
-  --color-red: #ff6b6b;
-  --color-blue: #6bafff;
-  --color-mint-shadow: rgba(0, 194, 179, 0.1);
+  --color-mint-light: rgba(0, 194, 179, 0.1);
 
-  --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  --box-shadow-sub: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  --border: 1px solid var(--gray-6);
+  --border-light: 1px solid var(--gray-7);
+  --border-thick: 2px solid var(--gray-1);
+  --border-mint: 2px solid var(--color-mint);
 
-  --border-main: 1.5px solid var(--font-h5);
-  --border-main-light: 1.5px solid var(--font-h56);
-  --border-sub: 1px solid var(--font-h56);
-  --border-thick: 2px solid var(--font-h1);
-  --border-mint: 1.5px solid var(--color-mint);
-  --border-focus: 1.5px solid var(--font-h1);
+  --rounded: 4px;
+  --rounded-lg: 8px;
+  --rounded-max: 12px;
 
-  --border-radius-sub: 6px;
-  --border-radius-main: 12px;
-  --border-radius-max: 20px;
-
-  --padding-max: 20px;
-  --padding-main: 16px;
-  --padding-sub: 12px;
-  --padding-md: 8px;
-  --padding-min: 4px;
-
-  --margin-max: 20px;
-  --margin-main: 16px;
-  --margin-sub: 12px;
-  --margin-md: 8px;
-  --margin-min: 4px;
+  --gap-5: 20px;
+  --gap-4: 16px;
+  --gap-3: 12px;
+  --gap-2: 8px;
+  --gap-1: 4px;
 
   --header-height: 46px;
-  --line-height: 1.8;
-
-  --input-bg: var(--font-h7);
-  --width-inline-title: 15%;
-
-  --button-main-height: 42px;
 
   --header-h: 56px;
+
+  --view-max-width: calc(var(--max-width) - 2 * var(--gap-4));
+  --color-orange: #ffa500;
+
+  --color-red: #ff6b6b;
+  --color-blue: #6bafff;
+  --input-bg: var(--gray-7);
 }

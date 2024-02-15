@@ -55,16 +55,16 @@ function PointSystemsModalPoint() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   > div:nth-child(-n + 3) {
-    border-bottom: var(--border-main-light);
+    border-bottom: var(--border);
   }
   > div:nth-child(2),
   div:nth-child(5) {
-    border-left: var(--border-main-light);
-    border-right: var(--border-main-light);
+    border-left: var(--border);
+    border-right: var(--border);
   }
 `;
 
@@ -72,28 +72,28 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--padding-md);
+  padding: var(--gap-2);
 `;
 
 const Name = styled.span`
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   font-size: 12px;
 `;
 
 const Point = styled.span`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   color: var(--color-mint);
 `;
 
 const Contents = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: var(--line-height);
+ 
   font-size: 12.5px;
-  color: var(--font-h2);
-  margin-left: var(--margin-min);
+  color: var(--gray-2);
+  margin-left: var(--gap-1);
 `;
 export default PointSystemsModalPoint;

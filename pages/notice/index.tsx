@@ -34,10 +34,10 @@ const Layout = styled.div`
 `;
 
 const Container = styled.div`
-  color: var(--font-h1);
+  color: var(--gray-1);
   display: flex;
   flex-direction: column;
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
 `;
 
 export default Notice;

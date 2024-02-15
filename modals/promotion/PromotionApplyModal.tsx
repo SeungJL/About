@@ -136,7 +136,7 @@ const Uni = styled.div`
   align-items: center;
   font-weight: 600;
   > span:last-child {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
     color: var(--color-mint);
   }
 `;
@@ -147,17 +147,17 @@ const CoolTime = styled.div`
   justify-content: center;
   align-items: center;
   border: var(--border-mint);
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   color: var(--color-mint);
   font-weight: 600;
   font-size: 14px;
   > span {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 
 const SubMessage = styled.span`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
 `;
 

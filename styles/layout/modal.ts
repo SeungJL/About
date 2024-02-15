@@ -12,11 +12,11 @@ export const FullScreen = styled.div<{ opacity?: number }>`
 `;
 
 export const ModalHeaderLine = styled.header`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-weight: 600;
   font-size: 16px;
-  border-bottom: var(--border-sub);
-  padding-bottom: var(--padding-sub);
+  border-bottom: var(--border-light);
+  padding-bottom: var(--gap-3);
 `;
 
 interface IModalSubTitle {
@@ -25,8 +25,8 @@ interface IModalSubTitle {
 }
 
 export const ModalSubtitle = styled.div<IModalSubTitle>`
-  margin-bottom: var(--margin-main);
-  font-size: 15px;
+  margin-bottom: var(--gap-4);
+  font-size: 16px;
   text-align: ${(props) => (props.isCenter ? "center" : "start")};
 `;
 
@@ -41,11 +41,11 @@ export const ModalFooterNav = styled.footer`
   }
   > button:first-child {
     font-weight: 600;
-    color: var(--font-h2);
-    padding-right: var(--padding-md);
+    color: var(--gray-2);
+    padding-right: var(--gap-2);
   }
   > button:nth-child(2) {
-    padding-left: var(--padding-md);
+    padding-left: var(--gap-2);
     padding-right: 2px;
     color: var(--color-mint);
   }
@@ -55,17 +55,17 @@ export const ModalFooterNav = styled.footer`
 `;
 
 export const ModalHeaderCenter = styled.header`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   text-align: center;
-  padding-bottom: var(--padding-main);
+  padding-bottom: var(--gap-4);
   > span:first-child {
     font-size: 18px;
     font-weight: 600;
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
   > div {
-    margin-top: var(--margin-sub);
+    margin-top: var(--gap-3);
     font-size: 13px;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;

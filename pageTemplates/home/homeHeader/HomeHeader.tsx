@@ -68,12 +68,12 @@ const Layout = styled.header`
   z-index: 10;
   font-size: 20px;
   background-color: white;
-  padding: 0 var(--margin-main);
+  padding: 0 var(--gap-4);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--font-h2);
-  border-bottom: 1px solid var(--font-h56);
+  color: var(--gray-2);
+  border-bottom: var(--border);
   > div:first-child {
     display: flex;
     align-items: center;
@@ -82,7 +82,7 @@ const Layout = styled.header`
 
 const Title = styled.span`
   font-weight: 800;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 export default HomeHeader;

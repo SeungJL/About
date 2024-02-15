@@ -90,7 +90,7 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
           size="lg"
           h="48px"
           w="100%"
-          borderRadius="var(--border-radius-main)"
+          borderRadius="var(--rounded-lg)"
           disabled={!handleFunction}
           colorScheme={handleFunction ? "mintTheme" : "blackAlpha"}
           onClick={handleFunction}
@@ -115,7 +115,7 @@ const Layout = styled.nav`
   transform: translate(-50%, 0);
   width: 100%;
   max-width: 390px;
-  padding: var(--padding-main);
+  padding: var(--gap-4);
 `;
 
 export default GatherBottomNav;

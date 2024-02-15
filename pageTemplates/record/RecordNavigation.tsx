@@ -26,13 +26,13 @@ const Layout = styled.div`
   position: fixed;
   width: calc(100vw - 32px);
   max-width: 358px;
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
   height: 40px;
   padding: 4px;
   border-radius: 24px;
-  background-color: var(--font-h56);
-  bottom: var(--margin-main);
-  color: var(--font-h3);
+  background-color: var(--gray-7);
+  bottom: var(--gap-4);
+  color: var(--gray-3);
   font-weight: 600;
 `;
 

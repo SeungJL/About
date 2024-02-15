@@ -13,11 +13,11 @@ function GroupStudySkeletonMine() {
 
 const Layout = styled.div`
   height: 148px;
-  border-bottom: 6px solid var(--font-h56);
+  border-bottom: 6px solid var(--gray-7);
 `;
 
 const Wrapper = styled.div`
-  padding-bottom: var(--padding-main);
+  padding-bottom: var(--gap-4);
 `;
 
 export default GroupStudySkeletonMine;

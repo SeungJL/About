@@ -30,9 +30,7 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: var(
-    --border-main-light
-  ); /* border-b border-gray-7 - 색상은 예시입니다 */
+  border-bottom: var(--border); /* border-b border-gray-7 - 색상은 예시입니다 */
 `;
 
 // Left Section 스타일
@@ -45,5 +43,5 @@ const LeftSection = styled.div`
 const Title = styled.div`
   margin-left: 4px; /* ml-1 */
   font-weight: 800; /* font-extrabold */
-  color: var(--font-h1); /* text-gray-1 - 색상은 예시입니다 */
+  color: var(--gray-1); /* text-gray-1 - 색상은 예시입니다 */
 `;

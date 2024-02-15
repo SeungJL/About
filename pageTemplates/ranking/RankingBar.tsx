@@ -16,9 +16,9 @@ function RankingBar({ isScore }: IRankingBar) {
 
 const Layout = styled.div`
   display: flex;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   align-items: center;
-  padding: 0 var(--padding-md);
+  padding: 0 var(--gap-2);
   > span {
     font-weight: 600;
   }
@@ -28,10 +28,10 @@ const Layout = styled.div`
   }
   > span:nth-child(2) {
     flex: 1;
-    margin-left: var(--margin-sub);
+    margin-left: var(--gap-3);
   }
   > span:last-child {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 

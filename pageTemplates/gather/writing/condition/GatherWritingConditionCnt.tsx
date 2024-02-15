@@ -67,9 +67,9 @@ function GatherWritingConditionCnt({
 const Layout = styled.div``;
 
 const CounterWrapper = styled.div<{ isMinus: boolean }>`
-  padding: 0 var(--padding-min);
-  margin-right: ${(props) => (props.isMinus ? "var(--margin-min)" : 0)};
-  margin-left: ${(props) => (!props.isMinus ? "var(--margin-min)" : 0)};
+  padding: 0 var(--gap-1);
+  margin-right: ${(props) => (props.isMinus ? "var(--gap-1)" : 0)};
+  margin-left: ${(props) => (!props.isMinus ? "var(--gap-1)" : 0)};
   cursor: pointer;
 `;
 
@@ -81,6 +81,6 @@ const MemberCnt = styled.div`
 const MaxConditionText = styled.div`
   width: 66px;
   text-align: center;
-  margin-right: var(--margin-min);
+  margin-right: var(--gap-1);
 `;
 export default GatherWritingConditionCnt;

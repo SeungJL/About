@@ -50,16 +50,16 @@ function AboutReview() {
 }
 
 const Layout = styled.div`
-  background-color: var(--font-h8);
-  padding-bottom: var(--padding-main);
+  background-color: var(--gray-8);
+  padding-bottom: var(--gap-4);
 `;
 
 const ReviewContainer = styled.div`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-main);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-4);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-main);
+  gap: var(--gap-4);
 `;
 
 const ReviewItem = styled.button``;
@@ -68,7 +68,7 @@ const ImageContainer = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 1/1;
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
   overflow: hidden;
 `;
 
@@ -77,9 +77,9 @@ const ImageContainer = styled.div`
 // `;
 
 const ReviewText = styled.div`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-size: 13px;
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   text-align: start;
   display: -webkit-box;
   -webkit-line-clamp: 1;

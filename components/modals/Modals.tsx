@@ -31,6 +31,7 @@ interface IModalLayout extends IModal {
   footerOptions: IFooterOptions;
   children: React.ReactNode;
   size?: Size;
+  initialRef?: any;
 }
 
 export const ModalLayout = ({
@@ -42,6 +43,7 @@ export const ModalLayout = ({
     isFull = true,
   },
   size,
+  initialRef,
   children,
 }: IModalLayout) => {
   const onClose = () => setIsModal(false);
@@ -49,16 +51,21 @@ export const ModalLayout = ({
   const { text: subText = "닫기", func: subFunc = onClose } = sub || {};
 
   return (
-    <Modal isOpen={true} onClose={onClose} size={size}>
+    <Modal
+      isOpen={true}
+      onClose={onClose}
+      size={size}
+      initialFocusRef={initialRef}
+    >
       <ModalOverlay />
       <ModalContent
-        mx="var(--margin-main)"
+        mx="var(--gap-4)"
         // h={height || SIZE_HEIGHT_MAP[size]}
         maxWidth="358px"
         my="auto"
-        borderRadius="var(--border-radius-sub)"
+        borderRadius="var(--rounded-lg)"
       >
-        <ChakraModalHeader fontSize="18px" borderBottom="var(--border-sub)">
+        <ChakraModalHeader fontSize="18px" borderBottom="var(--border-light)">
           {title}
         </ChakraModalHeader>
 
@@ -125,11 +132,11 @@ export const ModalHeader = ({
     <ChakraModalHeader
       display="flex"
       alignItems="center"
-      p="var(--padding-main) var(--padding-main)"
+      p="var(--gap-4) var(--gap-4)"
       fontWeight="700"
       fontSize="18px"
-      color="var(--font-h1)"
-      borderBottom={isLine && "var(--border-sub)"}
+      color="var(--gray-1)"
+      borderBottom={isLine && "var(--border-light)"}
     >
       {text}
     </ChakraModalHeader>
@@ -143,8 +150,8 @@ export const ModalHeaderCenter = ({ text }) => (
   <ChakraModalHeader
     display="flex"
     alignItems="center"
-    px="var(--padding-max)"
-    pt="var(--margin-main)"
+    px="var(--gap-5)"
+    pt="var(--gap-4)"
     pb="0"
     justifyContent="center"
   >
@@ -154,8 +161,8 @@ export const ModalHeaderCenter = ({ text }) => (
 
 export const ModalBody = ({ children }) => (
   <ChakraModalBody
-    px=" var(--padding-max)"
-    pt="var(--padding-main)"
+    px=" var(--gap-5)"
+    pt="var(--gap-4)"
     pb="0"
     display="flex"
     flexDir="column"
@@ -184,7 +191,7 @@ export const ModalFooterTwo3 = ({
   isLoading,
   isSmall,
 }: IModalFooterTwo) => (
-  <ModalFooterLayout p="var(--padding-main) var(--padding-max)">
+  <ModalFooterLayout p="var(--gap-4) var(--gap-5)">
     <>
       <TwoButtonNav
         leftText={leftText}
@@ -206,8 +213,8 @@ export const ModalFooterTwo = ({
   isLoading,
   isSmall,
 }: IModalFooterTwo) => (
-  // <ChakraModalFooter mt="auto" p="var(--padding-sub) var(--padding-max)">
-  <ModalFooterLayout p="var(--padding-main) var(--padding-max)">
+  // <ChakraModalFooter mt="auto" p="var(--gap-3) var(--gap-5)">
+  <ModalFooterLayout p="var(--gap-4) var(--gap-5)">
     <>
       {/* <OutlineMintBtn text={leftText} onClick={onClickLeft} />
       
@@ -225,7 +232,7 @@ export const ModalFooterTwo = ({
     {/* <Button
       w={isFull && "100%"}
       variant={isFull ? "solid" : "ghost"}
-      mr={!isFull ? "var(--margin-md)" : "var(--margin-sub)"}
+      mr={!isFull ? "var(--gap-2)" : "var(--gap-3)"}
       onClick={onClickLeft}
       size={isFull && !isSmall ? "lg" : "md"}
     >
@@ -268,7 +275,7 @@ export const ModalFooterOne = ({
   isLoading,
   isOutline,
 }: IModalFooterOne) => (
-  <ChakraModalFooter p="var(--padding-main) var(--padding-max)">
+  <ChakraModalFooter p="var(--gap-4) var(--gap-5)">
     <Button
       size={isFull ? "lg" : "md"}
       variant={isFull ? "solid" : isOutline ? "outline" : "ghost"}
@@ -307,13 +314,13 @@ export const ModalBodyNavTwo = ({
   <Flex
     direction="column"
     h="100%"
-    mb="var(--padding-main)"
-    py="var(--padding-sub)"
+    mb="var(--gap-4)"
+    py="var(--gap-3)"
     justifyContent="space-around"
   >
     <Button
       colorScheme="mintTheme"
-      marginBottom="var(--margin-sub)"
+      marginBottom="var(--gap-3)"
       size="lg"
       h="46px"
       onClick={onClickTop}

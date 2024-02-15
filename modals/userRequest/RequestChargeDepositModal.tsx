@@ -106,12 +106,12 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 }
 
 const MainItem = styled.div`
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   display: flex;
   justify-content: space-between;
   > span:first-child {
     font-weight: 600;
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
   > div {
     span:first-child {
@@ -122,12 +122,12 @@ const MainItem = styled.div`
 
 const Hr = styled.div`
   height: 1.5px;
-  background-color: var(--font-h56);
-  margin: var(--margin-min) 0;
+  background-color: var(--gray-7);
+  margin: var(--gap-1) 0;
 `;
 
 const MyDeposit = styled.span`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
 `;
 
 const ChargeDeposit = styled.span`

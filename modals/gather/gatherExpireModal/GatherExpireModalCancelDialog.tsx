@@ -6,18 +6,18 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import {
   useCompleteToast,
-  useErrorToast,
+  useErrorToast
 } from "../../../hooks/custom/CustomToast";
 import {
   useGatherStatusMutation,
-  useGatherWritingMutation,
+  useGatherWritingMutation
 } from "../../../hooks/gather/mutations";
 import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
@@ -77,7 +77,7 @@ function GatherExpireModalCancelDialog({
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent m="auto var(--margin-main)">
+          <AlertDialogContent m="auto var(--gap-4)">
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               모집을 취소하시겠습니까?
             </AlertDialogHeader>
@@ -95,7 +95,7 @@ function GatherExpireModalCancelDialog({
               <Button
                 colorScheme="mintTheme"
                 onClick={onCancel}
-                ml="var(--margin-md)"
+                ml="var(--gap-2)"
               >
                 모집취소
               </Button>

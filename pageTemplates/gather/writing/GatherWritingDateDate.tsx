@@ -96,11 +96,11 @@ function GatherWritingDateDate({
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const Container = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: flex;
   align-items: center;
   background-color: inherit;
@@ -134,13 +134,13 @@ const Container = styled.div`
 
 const StyledDatePicker = styled(DatePicker)`
   background-color: inherit;
-  padding: var(--padding-sub) 0;
-  margin-left: var(--margin-md);
+  padding: var(--gap-3) 0;
+  margin-left: var(--gap-2);
 `;
 
 const Message = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   font-size: 13px;
-  color: var(--font-h4);
+  color: var(--gray-4);
 `;
 export default GatherWritingDateDate;

@@ -36,8 +36,8 @@ function WinRecord() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-max);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-5);
   font-weight: 600;
 `;
 
@@ -46,38 +46,38 @@ const LogHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   font-size: 13px;
   > span {
     text-align: center;
   }
   > span:first-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
   > span:last-child {
-    padding-left: var(--padding-min);
+    padding-left: var(--gap-1);
   }
 `;
 
 const Container = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: flex;
   flex-direction: column;
 `;
 
 const Item = styled.div`
-  color: var(--font-h1);
+  color: var(--gray-1);
   height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   font-size: 12px;
 `;
 
 const Date = styled.span`
-  color: var(--font-h3);
-  margin-right: var(--margin-main);
+  color: var(--gray-3);
+  margin-right: var(--gap-4);
   width: 54px;
   text-align: center;
 `;

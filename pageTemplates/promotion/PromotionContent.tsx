@@ -67,21 +67,21 @@ const Guide = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: var(--margin-max);
+  margin-bottom: var(--gap-5);
   > span:first-child {
     font-weight: 600;
-    margin-bottom: var(--margin-md);
+    margin-bottom: var(--gap-2);
   }
 `;
 
 const Container = styled.div`
-  padding-top: var(--padding-max);
-  background-color: var(--font-h7);
-  padding: var(--padding-max) var(--padding-main);
+  padding-top: var(--gap-5);
+  background-color: var(--gray-7);
+  padding: var(--gap-5) var(--gap-4);
 `;
 
 const Layout = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const Wrapper = styled.div`
@@ -98,10 +98,10 @@ const ImageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   > div:last-child {
-    margin-top: var(--margin-sub);
+    margin-top: var(--gap-3);
     font-size: 12px;
     font-weight: 600;
-    color: var(--font-h1);
+    color: var(--gray-1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -109,19 +109,19 @@ const ImageWrapper = styled.div`
 `;
 
 const Nav = styled.nav`
-  border: 1px solid var(--font-h5);
-  border-radius: var(--border-radius-sub);
+  border: 1px solid var(--gray-5);
+  border-radius: var(--rounded-lg);
 `;
 
 const Content = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   display: flex;
   flex-direction: column;
 `;
 
 const Message = styled.span`
   margin-left: auto;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 12px;
 `;
 
@@ -134,7 +134,7 @@ const Pre = styled.pre`
 const Title = styled.div`
   font-weight: 700;
 
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 export default PromotionContent;

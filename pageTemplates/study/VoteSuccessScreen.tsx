@@ -50,13 +50,13 @@ const Content = styled.div`
   align-items: center;
 
   > span:first-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
     font-size: 22px;
   }
   > span:last-child {
     font-size: 17px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 const Button = styled.button`
@@ -64,7 +64,7 @@ const Button = styled.button`
   margin-top: auto;
   margin-bottom: 16px;
 
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
   color: white;
   padding: 14px 100px 14px 100px;
   font-size: 15px;

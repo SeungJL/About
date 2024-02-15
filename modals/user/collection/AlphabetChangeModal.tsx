@@ -128,11 +128,11 @@ function AlphabetChangeModal({
 const SectionTitle = styled.div`
   font-size: 13px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const AlphabetContainer = styled.div`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   display: flex;
   justify-content: space-around;
   font-size: 14px;
@@ -144,14 +144,14 @@ const AlphabetBtn = styled.button<{ isSelected: boolean }>`
   padding: 12px;
   height: 46px;
   width: 46px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   display: flex;
   justify-content: center;
   align-items: center;
   border: ${(props) =>
     props.isSelected
       ? "2px solid var(--color-mint)"
-      : "2px solid var(--font-h5)"};
+      : "2px solid var(--gray-5)"};
 `;
 
 export default AlphabetChangeModal;

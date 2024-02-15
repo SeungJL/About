@@ -176,7 +176,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.gender}
                 onChange={(e) => toggleSwitch(e, "gender")}
@@ -188,7 +188,7 @@ function WritingCondition() {
                 <span>나이(만)</span>
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.age}
                 onChange={(e) => toggleSwitch(e, "age")}
@@ -207,7 +207,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.location}
                 onChange={(e) => toggleSwitch(e, "location")}
@@ -226,7 +226,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.isFree}
                 onChange={(e) => toggleSwitch(e, "isFree")}
@@ -242,7 +242,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.challenge}
                 onChange={(e) => toggleSwitch(e, "challenge")}
@@ -265,7 +265,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.fee}
                 onChange={(e) => toggleSwitch(e, "fee")}
@@ -316,25 +316,25 @@ function WritingCondition() {
 }
 
 const ChallengeText = styled.textarea`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   width: 100%;
   padding: 4px 8px;
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 
 const Fee = styled.div`
-  padding: var(--padding-sub) 0;
+  padding: var(--gap-3) 0;
   > div {
-    margin-bottom: var(--margin-sub);
+    margin-bottom: var(--gap-3);
     > input {
       width: 60px;
-      padding: var(--padding-min) var(--padding-md);
-      border-radius: var(--border-radius2);
-      border: var(--border-main);
+      padding: var(--gap-1) var(--gap-2);
+      border-radius: var(--rounded);
+      border: var(--border);
       :focus {
-        outline-color: var(--font-h1);
+        outline-color: var(--gray-1);
       }
     }
   }
@@ -349,7 +349,7 @@ const Name = styled.div`
   display: flex;
   align-items: center;
   > span {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
   > svg {
     width: 16px;
@@ -358,15 +358,15 @@ const Name = styled.div`
 
 const Container = styled.div`
   font-size: 14px;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-main) 0;
+  padding: var(--gap-4) 0;
   align-items: center;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
 `;
 
 const PopOverWrapper = styled.span`

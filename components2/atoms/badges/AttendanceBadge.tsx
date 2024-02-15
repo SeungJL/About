@@ -29,5 +29,5 @@ const BadgeContainer = styled.div`
 
 const TimeText = styled.span`
   font-size: 10px; /* Equivalent to text-xxs */
-  color: var(--font-h3); /* Assuming text-gray-4 maps to this color */
+  color: var(--gray-3); /* Assuming text-gray-4 maps to this color */
 `;

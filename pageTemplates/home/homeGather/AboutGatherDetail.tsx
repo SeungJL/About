@@ -17,7 +17,7 @@ function AboutGatherDetail({ location, date }: IAboutGatherDetail) {
 }
 
 const Layout = styled.div`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 11px;
 `;
 

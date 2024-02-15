@@ -33,7 +33,7 @@ import {
 } from "../../../hooks/custom/CustomToast";
 
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
-import { useCollectionAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
+import { useAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
 import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
 import { useDailyCheckQuery } from "../../../hooks/user/sub/dailyCheck/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
@@ -73,7 +73,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
     createdAt: dayjs(item?.createdAt),
   }));
 
-  const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
+  const { mutate: getAlphabet } = useAlphabetMutation("get");
   const { mutate: attendDailyCheck } = useDailyCheckMutation();
 
   const { mutate: getPoint } = usePointSystemMutation("point");
@@ -165,7 +165,7 @@ const PresentListPopOver = () => (
         선물 목록
       </Button>
     </PopoverTrigger>
-    <PopoverContent bg="var(--font-h8)">
+    <PopoverContent bg="var(--gray-8)">
       <PopoverHeader fontWeight="semibold">
         선물 목록 <SubTitle>(16 종류)</SubTitle>
       </PopoverHeader>
@@ -190,7 +190,7 @@ const PresentPercentPopOver = () => (
         당첨 확률
       </Button>
     </PopoverTrigger>
-    <PopoverContent bg="var(--font-h8)">
+    <PopoverContent bg="var(--gray-8)">
       <PopoverHeader fontWeight="semibold">
         당첨 확률<SubTitle>(총 7.06%)</SubTitle>
       </PopoverHeader>
@@ -210,7 +210,7 @@ const PresentPercentPopOver = () => (
 );
 
 const Container = styled.div`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   flex: 1;
 
   display: flex;
@@ -218,7 +218,7 @@ const Container = styled.div`
   align-items: center;
 
   > div:first-child {
-    padding: var(--padding-min) 0;
+    padding: var(--gap-1) 0;
   }
 `;
 
@@ -234,7 +234,7 @@ const Detail = styled.div`
   /* > span {
     width: 65px;
     text-align: end;
-    color: var(--font-h2);
+    color: var(--gray-2);
     display: block;
     padding: 2px 0;
     font-weight: 600;
@@ -243,13 +243,13 @@ const Detail = styled.div`
 `;
 
 const SubTitle = styled.span`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-weight: 400;
   font-size: 12px;
 `;
 const PresentMessage = styled.div`
   font-size: 15px;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
   > b {
     color: var(--color-mint);
   }

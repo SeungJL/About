@@ -130,7 +130,7 @@ const StyledDatePicker = styled(DatePicker)`
   text-align: center;
   font-size: 13px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const Layout = styled(motion.div)`
@@ -139,11 +139,11 @@ const Layout = styled(motion.div)`
 
 const DateStr = styled.div`
   font-size: 22px;
-  margin: var(--margin-max) 0;
+  margin: var(--gap-5) 0;
 `;
 
 const DateContainer = styled.div`
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
   display: flex;
   flex-direction: column;
   align-items: center;

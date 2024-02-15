@@ -10,7 +10,7 @@ import { ACCORDION_CONTENT_FEE } from "../../constants/contents/accordionContent
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,
-  setLocalStorageObj,
+  setLocalStorageObj
 } from "../../helpers/storageHelpers";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useUserRegisterMutation } from "../../hooks/user/mutations";
@@ -66,11 +66,11 @@ function Fee() {
 }
 
 const Cost = styled.div`
-  margin: var(--margin-max) 0;
+  margin: var(--gap-5) 0;
   > div:first-child {
-    color: var(--font-h2);
+    color: var(--gray-2);
     font-size: 13px;
-    margin-bottom: var(--margin-sub);
+    margin-bottom: var(--gap-3);
   }
   > div:last-child {
     display: flex;
@@ -80,15 +80,15 @@ const Cost = styled.div`
 `;
 
 const Account = styled.div`
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   font-size: 14px;
   font-weight: 600;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const Message = styled.div`
   font-size: 13px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   margin-bottom: 40px;
 `;
 
@@ -97,8 +97,8 @@ const Telephone = styled.div`
     font-size: 14px;
     display: inline-block;
     font-weight: 600;
-    color: var(--font-h1);
-    margin-bottom: var(--margin-min);
+    color: var(--gray-1);
+    margin-bottom: var(--gap-1);
   }
 `;
 

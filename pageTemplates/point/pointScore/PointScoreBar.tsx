@@ -60,7 +60,7 @@ function PointScoreBar({ myScore, hasQuestion = true }: IPointScoreBar) {
           <div>
             <Badge
               fontSize="14px"
-              marginRight="var(--margin-md)"
+              marginRight="var(--gap-2)"
               colorScheme={badgeColor}
             >
               {badge}
@@ -103,12 +103,12 @@ function PointScoreBar({ myScore, hasQuestion = true }: IPointScoreBar) {
 }
 
 const Layout = styled.div`
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 const Grade = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   align-items: center;
   > div {
     display: flex;
@@ -122,9 +122,9 @@ const BadgeName = styled.span<{ color: string }>`
 `;
 
 const IconWrapper = styled.button`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 14px;
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
 `;
 
 export default PointScoreBar;

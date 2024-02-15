@@ -112,12 +112,12 @@ function VoteMapController({
               <Button
                 key={item}
                 bg="white"
-                borderRadius="var(--border-radius2)"
+                borderRadius="var(--rounded)"
                 size="sm"
                 onClick={() => onClickRetrun(item)}
                 fontSize="14px"
-                color="var(--font-h2)"
-                p="var(--padding-md) var(--padding-sub)"
+                color="var(--gray-2)"
+                p="var(--gap-2) var(--gap-3)"
                 h="34px"
                 w="50px"
               >
@@ -132,12 +132,12 @@ function VoteMapController({
             size="sm"
             w="34px"
             h="34px"
-            border={preset !== "first" && "1px solid var(--font-h4)"}
+            border={preset !== "first" && "1px solid var(--gray-4)"}
             bgColor={
               preset === "first" ? "var(--color-mint) !important" : "white"
             }
-            color={preset === "first" ? "white !important" : "var(--font-h2)"}
-            mr="var(--margin-md)"
+            color={preset === "first" ? "white !important" : "var(--gray-2)"}
+            mr="var(--gap-2)"
             onClick={() => onClickPreset("first")}
           >
             1
@@ -146,9 +146,9 @@ function VoteMapController({
             w="34px"
             h="34px"
             bgColor={preset === "second" ? "var(--color-mint)" : "white"}
-            color={preset === "second" ? "white !important" : "var(--font-h2)"}
+            color={preset === "second" ? "white !important" : "var(--gray-2)"}
             size="sm"
-            border="1px solid var(--font-h4)"
+            border="1px solid var(--gray-4)"
             onClick={() => onClickSecond()}
           >
             2
@@ -175,7 +175,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
           borderRadius="4px"
           w="34px"
           h="34px"
-          border="1px solid var(--font-h5)"
+          border="1px solid var(--gray-5)"
           bg="white"
         >
           <FontAwesomeIcon icon={faBullseyeArrow} size="xl" />
@@ -184,19 +184,19 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
     </PopoverTrigger>
     <PopoverContent
       w="120px"
-      mr="var(--margin-md)"
+      mr="var(--gap-2)"
       fontSize="12px"
       _focus={{ outline: "none" }}
     >
       <PopoverArrow />
       <PopoverCloseButton />
       <PopoverHeader fontWeight="600">정밀도 단계</PopoverHeader>
-      <PopoverBody display="flex" p="var(--padding-md)">
+      <PopoverBody display="flex" p="var(--gap-2)">
         <Button
           as="div"
           colorScheme={precision === 0 ? "mintTheme" : "gray"}
           size="xs"
-          mr="var(--margin-md)"
+          mr="var(--gap-2)"
           onClick={() => setPrecision(0)}
         >
           0
@@ -205,7 +205,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
           colorScheme={precision === 1 ? "mintTheme" : "gray"}
           size="xs"
           as="div"
-          mr="var(--margin-md)"
+          mr="var(--gap-2)"
           onClick={() => setPrecision(1)}
         >
           1
@@ -228,7 +228,7 @@ const Layout = styled.div`
 `;
 
 const TopNav = styled.nav`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
   background-color: rgba(0, 0, 0, 0.1);
   width: 100%;
   display: flex;
@@ -244,15 +244,15 @@ const TopNav = styled.nav`
     align-items: center;
 
     button {
-      margin-right: var(--margin-min);
+      margin-right: var(--gap-1);
     }
   }
 `;
 
 const BottomNav = styled.nav`
   position: absolute;
-  bottom: var(--margin-md);
-  left: var(--margin-md);
+  bottom: var(--gap-2);
+  left: var(--gap-2);
   z-index: 50;
 `;
 
@@ -262,8 +262,8 @@ const ReturnBtn = styled.button`
   background-color: var(--color-mint);
   color: white;
   padding: 4px;
-  border-radius: var(--border-radius2);
-  border: 1px solid var(--font-h5);
+  border-radius: var(--rounded);
+  border: 1px solid var(--gray-5);
 `;
 
 const TargetIcon = styled.button``;

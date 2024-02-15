@@ -21,7 +21,7 @@ function PromotionModalOverview() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ const EveryTime = styled.div`
   position: relative;
   z-index: 2;
   background-color: white;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
 `;
 
 const Title = styled.div`
@@ -45,10 +45,10 @@ const Title = styled.div`
 
 const Detail = styled.div`
   flex: 1;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   font-weight: 600;
   font-size: 14px;
-  color: var(--font-h2);
+  color: var(--gray-2);
   > b {
     color: #c62917;
     font-weight: 800;

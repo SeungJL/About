@@ -22,8 +22,8 @@ const Layout = styled.div`
   align-items: center;
   font-size: 26px;
   font-weight: 700;
-  border-radius: var(--border-radius-sub);
-  color: var(--font-h1);
+  border-radius: var(--rounded-lg);
+  color: var(--gray-1);
   > span {
     opacity: 1;
   }

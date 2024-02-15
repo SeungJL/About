@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import BetweenTextSwitcher from "../../../components2/molecules/navs/BetweenTextSwitcher";
 import { dayjsToFormat, dayjsToStr } from "../../../utils/dateTimeUtils";
-import StudyVoteControllerDate from "./StudyVoteControllerDates";
-import StudyVoteControllerDays from "./StudyVoteControllerDays";
-import StudyVoteControllerVote from "./StudyVoteControllerVote";
+import StudyControllerDate from "./StudyControllerDates";
+import StudyControllerDays from "./StudyControllerDays";
+import StudyControllerVoteButton from "./StudyControllerVoteButton";
 
-function StudyVoteController() {
+function StudyController() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
@@ -39,10 +39,10 @@ function StudyVoteController() {
               right={textSwitcherProps.right}
             />
             <ContentContainer>
-              <StudyVoteControllerDays selectedDate={selectedDate} />
-              <StudyVoteControllerDate selectedDate={selectedDate} />
+              <StudyControllerDays selectedDate={selectedDate} />
+              <StudyControllerDate selectedDate={selectedDate} />
             </ContentContainer>
-            <StudyVoteControllerVote />
+            <StudyControllerVoteButton />
           </>
         )}
       </InnerContainer>
@@ -127,15 +127,16 @@ const OuterContainer = styled.div`
   margin-top: 16px; /* mt-4 */
   background-color: white;
   height: 192px; /* h-48 */
-  border-radius: var(--border-radius-sub); /* rounded-lg */
-  box-shadow: var(--box-shadow-b); /* shadow */
-  border-bottom: var(--border-main-light); /* border-b-1.5 border-gray-7 */
+  border-radius: var(--rounded-lg); /* rounded-lg */
+  box-shadow: var(--shadow); /* shadow */
+  border-bottom: var(--border); /* border-b-1.5 border-gray-7 */
   position: relative;
+  border: 1px solid var(--gray-6);
 `;
 
 // Styled component for the inner container with the border
 const InnerContainer = styled.div`
-  border-bottom: var(--border-main-light); /* border-b-1.5 border-gray-7 */
+  border-bottom: var(--border); /* border-b-1.5 border-gray-7 */
   position: relative;
   height: 134px;
 `;
@@ -144,4 +145,4 @@ const InnerContainer = styled.div`
 const ContentContainer = styled.div`
   margin-top: 36px; /* mt-9 */
 `;
-export default StudyVoteController;
+export default StudyController;

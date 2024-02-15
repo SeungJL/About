@@ -43,9 +43,9 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   padding: 14px;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   background-color: white;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--shadow);
   height: 218px;
 `;
 const ScoreNav = styled.div`
@@ -70,7 +70,7 @@ const Slider = styled.div`
     flex-shrink: 0;
     width: 80px !important;
     height: 80px;
-    border-radius: var(--border-radius-sub);
+    border-radius: var(--rounded-lg);
     margin-right: 21px;
   }
 `;

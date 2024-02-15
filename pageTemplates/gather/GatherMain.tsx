@@ -66,7 +66,7 @@ function GatherMain({ category }: IGatherMain) {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-main);
+  padding: var(--gap-4);
 `;
 
 export default GatherMain;

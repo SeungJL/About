@@ -24,7 +24,7 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           size="lg"
-          color="var(--font-h2)"
+          color="var(--gray-2)"
         />
       </IconWrapper>
       <Content>
@@ -45,12 +45,15 @@ function ReviewGatherSummary({ summary }: IReviewGatherSummary) {
 const Layout = styled.button`
   flex: 1;
   text-align: start;
-  margin: var(--margin-main);
-  margin-bottom: var(--margin-max);
-  border: var(--border-main);
-  border-radius: var(--border-radius-sub);
+  margin: var(--gap-4);
+  margin-bottom: var(--gap-5);
+  border: var(--border);
+
+  box-shadow: var(--shadow);
+
+  border-radius: var(--rounded-lg);
   display: flex;
-  padding: var(--padding-md);
+  padding: var(--gap-2);
   align-items: center;
   height: 60px;
 `;
@@ -66,7 +69,7 @@ const IconWrapper = styled.div`
   align-items: center;
   height: 44px;
   width: 44px;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Content = styled.div`
@@ -84,18 +87,18 @@ const ContentDetail = styled.div`
   display: flex;
   align-items: center;
   font-size: 12px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   > span:first-child {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
   > span:nth-child(2) {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
   > span:nth-child(3) {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
   > span:last-child {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
   }
 `;
 

@@ -197,12 +197,12 @@ function Review() {
               {visibleCnt < reviewData.length && (
                 <Button
                   onClick={handleLoadMore}
-                  m="var(--margin-main)"
+                  m="var(--gap-4)"
                   colorScheme="gray"
-                  boxShadow="var(--box-shadow)"
-                  color="var(--font-h3)"
+                  boxShadow="var(--shadow)"
+                  color="var(--gray-3)"
                 >
-                  <Box mr="var(--margin-md)">더 보기</Box>
+                  <Box mr="var(--gap-2)">더 보기</Box>
                   <FontAwesomeIcon icon={faEllipsis} />
                 </Button>
               )}
@@ -217,15 +217,15 @@ function Review() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
 `;
 
 const NavWrapper = styled.div`
-  padding: var(--padding-md) var(--padding-sub);
+  padding: var(--gap-2) var(--gap-3);
 `;
 
 const Main = styled.main`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
   flex-direction: column;
 `;
@@ -242,7 +242,7 @@ const Item = styled.div`
 `;
 
 const Spacing = styled.div`
-  height: var(--margin-max);
+  height: var(--gap-5);
 `;
 
 export default Review;

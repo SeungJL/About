@@ -52,28 +52,28 @@ function HomeGather2() {
 }
 const MoreInfoBtn = styled.button`
   width: 100%;
-  box-shadow: var(--box-shadow-b);
+  box-shadow: var(--shadow);
   height: 44px;
   display: flex;
   justify-content: center;
   background-color: white;
   align-items: center;
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
   color: var(--color-mint);
   font-weight: 600;
   margin-top: auto;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 const Main = styled.main`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 const Layout = styled.div`
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--font-h8);
-  padding-bottom: var(--margin-main);
+  background-color: var(--gray-8);
+  padding-bottom: var(--gap-4);
 `;
 
 const Container = styled.div``;

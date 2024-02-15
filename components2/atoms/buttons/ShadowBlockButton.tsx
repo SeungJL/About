@@ -24,11 +24,12 @@ const Button = styled.button`
   width: 100%;
   background-color: white;
   color: var(--color-mint);
-  box-shadow: var(--box-shadow-b);
+  box-shadow: var(--shadow);
+  border: var(--border);
   font-weight: 600;
   height: 44px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   :hover {
-    background-color: var(--font-h7);
+    background-color: var(--gray-7);
   }
 `;

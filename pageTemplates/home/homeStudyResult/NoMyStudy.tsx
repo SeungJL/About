@@ -51,23 +51,23 @@ const Layout = styled.div``;
 
 const Text = styled.div`
   height: 110px;
-  background-color: var(--font-h7);
+  background-color: var(--gray-7);
   display: flex;
   justify-content: center;
   width: 100%;
   align-items: center;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   font-size: 15px;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const SubText = styled.div`
-  margin: var(--margin-min) 0;
+  margin: var(--gap-1) 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   font-size: 11px;
-  color: var(--font-h4);
+  color: var(--gray-4);
 `;
 
 export default NoMyStudy;

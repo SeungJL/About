@@ -199,15 +199,15 @@ function Member() {
 }
 
 const MembersContainer = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
   > section {
-    margin-top: var(--margin-sub);
+    margin-top: var(--gap-3);
   }
 `;
 
 const Layout = styled.div`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   > div:first-child {
     margin-top: 0;
   }
@@ -216,7 +216,7 @@ const Layout = styled.div`
 const Section = styled.section`
   > div:last-child {
     height: 60px;
-    margin-top: var(--margin-sub);
+    margin-top: var(--gap-3);
     margin-left: -8px;
   }
 `;
@@ -230,6 +230,6 @@ const HrDiv = styled.div`
   margin: 0 !important;
   padding: 0 !important;
   height: 1px;
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
 `;
 export default Member;

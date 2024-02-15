@@ -14,9 +14,9 @@ function StudyTimeTableSkeleton() {
 }
 
 const Table = styled.div`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-main);
-  padding-left: var(--padding-sub);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-4);
+  padding-left: var(--gap-3);
   position: relative;
   height: 195px;
 `;

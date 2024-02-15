@@ -22,8 +22,8 @@ function RecordAnalysisSummarySkeleton() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-main) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-4) 0;
 `;
 
 const Title = styled.span`
@@ -32,22 +32,22 @@ const Title = styled.span`
 `;
 
 const Summary = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
 `;
 
 const SummaryItem = styled.div`
   height: 37px;
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-md) var(--padding-min);
+  padding: var(--gap-2) var(--gap-1);
 `;
 
 const WeekText = styled.div`
   height: 20px;
   width: 140px;
   > span:last-child {
-    margin-left: var(--margin-min);
-    color: var(--font-h4);
+    margin-left: var(--gap-1);
+    color: var(--gray-4);
   }
 `;
 

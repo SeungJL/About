@@ -22,7 +22,7 @@ function StoreDetailNav({
   return (
     <Layout>
       <ButtonNav>
-        <Button bg="var(--font-h7)" size="lg" width="50%" onClick={onToggle}>
+        <Button bg="var(--gray-7)" size="lg" width="50%" onClick={onToggle}>
           참여현황
         </Button>
         {isCompleted ? (
@@ -38,9 +38,9 @@ function StoreDetailNav({
       <Collapse in={isOpen} animateOpacity>
         <Box
           fontSize="12px"
-          p="var(--padding-md)"
-          bg="var(--font-h7)"
-          color="var(--font-h2)"
+          p="var(--gap-2)"
+          bg="var(--gray-7)"
+          color="var(--gray-2)"
         >
           {applyUsers?.length === 0 ? (
             "참여 인원 없음"
@@ -64,17 +64,17 @@ function StoreDetailNav({
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: flex;
   flex-direction: column;
 `;
 
 const ButtonNav = styled.div`
-  margin: var(--margin-sub) 0;
+  margin: var(--gap-3) 0;
   display: flex;
   > button:first-child {
     color: var(--color-mint);
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
   > button:last-child {
     background-color: var(--color-mint);
@@ -92,7 +92,7 @@ const ApplicantBlock = styled.div`
   display: flex;
   align-items: center;
   > div {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
 `;
 

@@ -120,7 +120,7 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
                   <PopoverTrigger>
                     <FontAwesomeIcon
                       icon={faCircleExclamation}
-                      color="var(--font-h2)"
+                      color="var(--gray-2)"
                       size="sm"
                     />
                   </PopoverTrigger>
@@ -145,8 +145,8 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
         {type === "study" && (
           <Item
             style={{
-              color: "var(--font-h3)",
-              marginTop: "var(--margin-min)",
+              color: "var(--gray-3)",
+              marginTop: "var(--gap-1)",
               marginBottom: "0",
             }}
           >
@@ -154,9 +154,9 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
           </Item>
         )}
       </ModalBody>
-      <ModalFooter p="var(--padding-main) var(--padding-max)">
+      <ModalFooter p="var(--gap-4) var(--gap-5)">
         <Button
-          mr="var(--margin-sub)"
+          mr="var(--gap-3)"
           variant="ghost"
           type="button"
           onClick={() => setIsModal(false)}
@@ -190,7 +190,7 @@ const Form = styled.form`
 const Item = styled.div`
   display: flex;
   min-height: 28px;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   align-items: center;
   > span {
     display: inline-block;
@@ -204,9 +204,9 @@ const Item = styled.div`
 `;
 
 const TitleInput = styled.input`
-  padding: 0 var(--padding-min);
+  padding: 0 var(--gap-1);
   background-color: var(--input-bg);
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
 `;
 
 const Writer = styled.div`
@@ -214,7 +214,7 @@ const Writer = styled.div`
   display: flex;
   align-items: center;
   > button:last-child {
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
   }
   > div {
     width: 12px;
@@ -226,8 +226,8 @@ const WriterBtn = styled.button<{ isSelected: boolean }>`
 
   height: 80%;
   background-color: ${(props) =>
-    props.isSelected ? "var(--color-mint)" : "var(--font-h6)"};
-  color: ${(props) => (props.isSelected ? "white" : "var(--font-h1)")};
+    props.isSelected ? "var(--color-mint)" : "var(--gray-6)"};
+  color: ${(props) => (props.isSelected ? "white" : "var(--gray-1)")};
 `;
 
 const Content = styled.span`
@@ -235,12 +235,12 @@ const Content = styled.span`
 `;
 
 const ContentInput = styled.textarea`
-  margin-top: var(--margin-sub);
-  border-radius: var(--border-radius-sub);
+  margin-top: var(--gap-3);
+  border-radius: var(--rounded-lg);
   display: block;
   width: 100%;
   height: 100%;
-  padding: var(--padding-min);
+  padding: var(--gap-1);
   background-color: var(--input-bg);
 `;
 

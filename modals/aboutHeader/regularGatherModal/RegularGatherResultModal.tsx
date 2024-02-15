@@ -54,14 +54,14 @@ function RegularGatherResultModal({
 }
 
 const IconWrapper = styled.div`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   > * {
-    color: var(--font-h5);
-    margin-right: var(--margin-min);
+    color: var(--gray-5);
+    margin-right: var(--gap-1);
   }
 `;
 

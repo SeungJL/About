@@ -81,7 +81,7 @@ const CallenderDays = styled.div`
   display: grid;
   grid-auto-rows: 72px;
   grid-template-columns: repeat(7, 1fr);
-  margin: 0 var(--margin-min);
+  margin: 0 var(--gap-1);
   font-size: 14px;
 `;
 const DayItem = styled.div`
@@ -89,7 +89,7 @@ const DayItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid var(--font-h56);
+  border: 1px solid var(--gray-7);
 `;
 
 const DayItemDate = styled.span<{ isToday: boolean }>`
@@ -114,10 +114,10 @@ const Open = styled.div<{ location: Location }>`
 `;
 
 const DayLine = styled.div`
-  margin: var(--margin-md) 24px;
+  margin: var(--gap-2) 24px;
   display: flex;
   justify-content: space-between;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
 `;
 

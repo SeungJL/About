@@ -103,21 +103,21 @@ function UserGuidePopUp({ setIsModal }: IModal) {
 }
 
 const Item = styled.div`
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const Category = styled.span`
   > span:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
     font-size: 14px;
   }
 `;
 
 const Content = styled.ul`
-  margin-top: var(--margin-min);
-  margin-left: var(--margin-max);
-  line-height: var(--line-height);
+  margin-top: var(--gap-1);
+  margin-left: var(--gap-5);
+ 
 `;
 
 export default UserGuidePopUp;

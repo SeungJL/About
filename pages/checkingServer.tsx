@@ -32,13 +32,13 @@ function CheckingServer() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-main);
+  padding: var(--gap-4);
   position: fixed;
   top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
 `;
 
 const Title = styled.div`
@@ -46,7 +46,7 @@ const Title = styled.div`
 `;
 
 const Nav = styled.nav`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: flex;
 `;
 

@@ -42,7 +42,7 @@ const GridContainer = styled.div`
 const ImageContainer = styled.div`
   position: relative;
   aspect-ratio: 1;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   overflow: hidden;
 `;
 

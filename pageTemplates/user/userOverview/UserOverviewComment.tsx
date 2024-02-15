@@ -77,7 +77,7 @@ function UserOverviewComment() {
   } = {
     "--fa-secondary-color": "white",
     "--fa-secondary-opacity": 1,
-    border: isFocused ? "1px solid var(--font-h1)" : "1px solid var(--font-h6)",
+    border: isFocused ? "1px solid var(--gray-1)" : "1px solid var(--gray-6)",
     borderRadius: "50%",
   };
 
@@ -94,7 +94,7 @@ function UserOverviewComment() {
         <FontAwesomeIcon
           icon={faPenCircle}
           size="lg"
-          color={isFocused ? "var(--font-h1)" : "var(--font-h4)"}
+          color={isFocused ? "var(--gray-1)" : "var(--gray-4)"}
           className="fa-swap-opacity"
           style={iconStyle}
         />
@@ -104,16 +104,16 @@ function UserOverviewComment() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-min) var(--padding-md);
-  border: var(--border-sub);
-  border-radius: var(--border-radius2);
+  padding: var(--gap-1) var(--gap-2);
+  border: var(--border-light);
+  border-radius: var(--rounded);
   display: flex;
   align-items: center;
 `;
 
 const Message = styled.input`
   flex: 1;
-  color: var(--font-h1);
+  color: var(--gray-1);
   background-color: inherit;
   margin-right: auto;
   :focus {

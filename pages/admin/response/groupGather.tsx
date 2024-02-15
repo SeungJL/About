@@ -61,15 +61,15 @@ function AdminGroupGather() {
 const Layout = styled.div``;
 
 const Nav = styled.nav`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-sub);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-3);
 `;
 
 const Item = styled.div`
   display: flex;
   flex-direction: column;
 
-  border-bottom: 6px solid var(--font-h6);
+  border-bottom: 6px solid var(--gray-6);
   padding: 16px 0;
 `;
 const Wrapper = styled.div`
@@ -84,7 +84,7 @@ const ItemHeader = styled.header`
   > div {
     span {
       font-size: 10px;
-      color: var(--font-h3);
+      color: var(--gray-3);
       margin-left: 8px;
     }
   }
@@ -98,7 +98,7 @@ const Title = styled.div`
 
 const Content = styled.div`
   padding: 8px 0;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
   min-height: 48px;
   display: flex;

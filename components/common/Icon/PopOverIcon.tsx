@@ -20,11 +20,11 @@ export const PopOverIcon = ({ title, text }: IPopoverIcon) => (
   <Popover>
     <PopoverTrigger>
       <IconWrapper>
-        <FontAwesomeIcon icon={faQuestionCircle} color="var(--font-h3)" />
+        <FontAwesomeIcon icon={faQuestionCircle} color="var(--gray-3)" />
       </IconWrapper>
     </PopoverTrigger>
     <PopoverContent
-      ml="var(--margin-md)"
+      ml="var(--gap-2)"
       fontSize="12px"
       _focus={{ outline: "none" }}
     >
@@ -37,5 +37,5 @@ export const PopOverIcon = ({ title, text }: IPopoverIcon) => (
 );
 
 const IconWrapper = styled.div`
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
 `;

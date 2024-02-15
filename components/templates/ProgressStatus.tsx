@@ -11,7 +11,7 @@ function ProgressStatus({ value }: IProgressStatus) {
       <Progress
         value={value}
         size="sm"
-        bgColor="var(--font-h7)"
+        bgColor="var(--gray-7)"
         colorScheme="mintTheme"
       />
     </Layout>

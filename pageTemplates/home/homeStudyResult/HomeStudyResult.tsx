@@ -30,8 +30,8 @@ function AboutStudyResult() {
 }
 
 const Layout = styled.div<{ isLoad: boolean }>`
-  margin: 0 var(--padding-main);
-  margin-top: var(--margin-sub);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-3);
   margin-bottom: ${(props) => (props.isLoad ? "0" : "29px")};
 `;
 
@@ -39,7 +39,7 @@ const Result = styled.div`
   min-height: 110px;
   > span {
     display: inline-block;
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
     font-size: 18px;
   }

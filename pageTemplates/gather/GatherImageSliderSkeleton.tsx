@@ -27,7 +27,7 @@ function GatherImageSliderSkeleton() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-md);
+  margin: 0 var(--gap-2);
   display: flex;
   overflow: hidden;
 `;
@@ -38,11 +38,11 @@ const GatherReviewNavIcon = styled.div`
   width: 68px;
   align-items: center;
   > div {
-    border-radius: var(--border-radius-main);
+    border-radius: var(--rounded-lg);
     width: 52px;
     height: 52px;
     overflow: hidden;
-    background-color: var(--font-h6);
+    background-color: var(--gray-6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,11 +60,11 @@ const GatherReviewNavItem = styled.div`
   align-items: center;
 
   > div {
-    border-radius: var(--border-radius-main);
+    border-radius: var(--rounded-lg);
     width: 52px;
     height: 52px;
     overflow: hidden;
-    background-color: var(--font-h6);
+    background-color: var(--gray-6);
     display: flex;
     justify-content: center;
     align-items: center;

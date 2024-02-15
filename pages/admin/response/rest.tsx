@@ -70,21 +70,21 @@ function AdminRest() {
 
 const Layout = styled.div``;
 const Nav = styled.nav`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-sub);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-3);
 `;
 const Item = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: var(--line-height);
-  border-bottom: 8px solid var(--font-h56);
-  padding: var(--padding-sub) var(--padding-main);
+
+  border-bottom: 8px solid var(--gray-7);
+  padding: var(--gap-3) var(--gap-4);
   font-size: 13px;
-  color: var(--font-h2);
+  color: var(--gray-2);
   > div {
     > span:first-child {
       font-weight: 600;
-      margin-right: var(--margin-sub);
+      margin-right: var(--gap-3);
     }
   }
 `;
@@ -99,22 +99,9 @@ const Title = styled.div`
   }
   > span:last-child {
     font-size: 11px;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;
 
-const Content = styled.div`
-  padding: var(--padding-md) 0;
-  color: var(--font-h2);
-  font-size: 13px;
-  display: flex;
-  flex-direction: column;
-  line-height: var(--line-height);
-  > div {
-    > span:first-child {
-      margin-right: var(--margin-md);
-    }
-  }
-`;
 
 export default AdminRest;

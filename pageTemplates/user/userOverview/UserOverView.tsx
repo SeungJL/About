@@ -53,13 +53,13 @@ export default function UserOverview({ userInfo }: IUserOverview) {
 }
 
 const Layout = styled.div`
-  padding: 0 var(--margin-max);
-  padding-bottom: var(--padding-max);
-  border-bottom: 6px solid var(--font-h56);
+  padding: 0 var(--gap-5);
+  padding-bottom: var(--gap-5);
+  border-bottom: 6px solid var(--gray-7);
 `;
 
 const UserInfoContainer = styled.div`
-  margin: var(--margin-main) 0;
+  margin: var(--gap-4) 0;
 
   display: flex;
   align-items: center;
@@ -70,7 +70,7 @@ const UserImg = styled.div`
 `;
 
 const UserInfo = styled.div`
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -82,7 +82,7 @@ const UserInfo = styled.div`
 const UserProfile = styled.div`
   display: flex;
   align-items: center;
-  padding: var(--padding-sub) 0;
+  padding: var(--gap-3) 0;
 `;
 
 const IconWrapper = styled.button`
@@ -95,14 +95,14 @@ const IconWrapper = styled.button`
   right: 0px;
   bottom: 0px;
   background-color: white;
-  border: 1px solid var(--font-h5);
+  border: 1px solid var(--gray-5);
   border-radius: 50%;
 `;
 
 const UserName = styled.div`
   font-weight: 700;
   font-size: 20px;
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
 `;
 
 const CameraIcon = () => (

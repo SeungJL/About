@@ -26,9 +26,9 @@ function SectionHeader({ title, subTitle, url }: ISectionHeader) {
 }
 
 const Layout = styled.header`
-  padding: var(--padding-main);
-  padding-right: var(--padding-main);
-  margin-bottom: var(--margin-main);
+  padding: var(--gap-4);
+  padding-right: var(--gap-4);
+  margin-bottom: var(--gap-4);
   width: 100%;
   display: flex;
   justify-content: space-between;

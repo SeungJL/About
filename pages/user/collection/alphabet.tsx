@@ -148,7 +148,7 @@ function CollectionAlphabet() {
                         <Badge
                           fontSize={10}
                           colorScheme={BADGE_COLOR[badge]}
-                          ml="var(--margin-md)"
+                          ml="var(--gap-2)"
                         >
                           {badge}
                         </Badge>
@@ -247,22 +247,22 @@ function CollectionAlphabet() {
 }
 
 const Members = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 const Item = styled.div`
-  padding: var(--padding-sub) 0;
+  padding: var(--gap-3) 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: var(--border-sub);
-  border-bottom: var(--border-sub);
+  border-top: var(--border-light);
+  border-bottom: var(--border-light);
 `;
 const ProfileWrapper = styled.div``;
 
 const Info = styled.div`
   height: 100%;
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   margin-right: auto;
   display: flex;
   flex-direction: column;
@@ -274,7 +274,7 @@ const Name = styled.div`
   align-items: center;
   font-weight: 600;
   font-size: 13px;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 
 const UserAlphabets = styled.div`
@@ -285,18 +285,17 @@ const UserAlphabets = styled.div`
   > div {
     display: flex;
     align-items: center;
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
 
     > *:nth-child(2) {
-      margin: 0 var(--margin-min);
+      margin: 0 var(--gap-1);
     }
   }
 `;
 
 const AlphabetCnt = styled.span<{ hasAlphabet: boolean }>`
   font-size: 12px;
-  color: ${(props) =>
-    props.hasAlphabet ? "var(--font-h2)" : "var(--font-h3)"};
+  color: ${(props) => (props.hasAlphabet ? "var(--gray-2)" : "var(--gray-3)")};
 `;
 
 export default CollectionAlphabet;

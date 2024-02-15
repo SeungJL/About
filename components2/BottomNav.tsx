@@ -103,7 +103,8 @@ const Nav = styled.nav`
   height: 64px; /* Adjusted from the inline style */
   background-color: white;
   z-index: 10;
-  box-shadow: var(--box-shadow-top-b);
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-top: var(--border);
 `;
 
 const NavLink = styled<{ active: "true" | "false" }>(Link)`

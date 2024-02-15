@@ -8,15 +8,15 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   line-height: 2.5;
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   > span:last-child {
     font-size: 13px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   > span:first-child {
     font-size: 15px;
     font-weight: 600;
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;
 

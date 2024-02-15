@@ -13,10 +13,10 @@ function BottomNav({ onClick, text }: IBottomNav) {
       bottom="0"
       maxW="var(--view-max-width)"
       transform="translate(-50%,0)"
-      width={`calc(100% - 2*var(--margin-main))`}
+      width={`calc(100% - 2*var(--gap-4))`}
       size="lg"
-      mb="var(--margin-main)"
-      borderRadius="var(--border-radius2)"
+      mb="var(--gap-4)"
+      borderRadius="var(--rounded)"
       backgroundColor="var(--color-mint)"
       color="white"
       fontSize="15px"

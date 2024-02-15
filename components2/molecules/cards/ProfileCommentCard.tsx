@@ -39,7 +39,7 @@ const CardContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 12px 16px; /* py-3 px-4 */
-  border-bottom: var(--border-sub); /* border-b */
+  border-bottom: var(--border-light); /* border-b */
   line-height: 24px; /* leading-6 */
   height: 72px;
 `;
@@ -63,7 +63,7 @@ const CommentText = styled.span`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
-  color: var(--font-h3); /* text-gray-4 */
+  color: var(--gray-3); /* text-gray-4 */
   font-size: 13px;
 `;
 

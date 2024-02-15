@@ -112,7 +112,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   > span:last-child {
     font-weight: 600;
   }

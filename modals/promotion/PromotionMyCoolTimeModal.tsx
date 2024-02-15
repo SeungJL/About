@@ -20,7 +20,7 @@ function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader text="지난 당첨 기록" />
       <ModalBody
-        p="var(--padding-min) var(--padding-main)"
+        p="var(--gap-1) var(--gap-4)"
         display="flex"
         flexDir="column"
         position="relative"
@@ -63,11 +63,11 @@ function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: var(--padding-md) var(--padding-main);
+  padding: var(--gap-2) var(--gap-4);
   flex: 1;
   overflow-y: auto;
   border: var(--border-mint);
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
 `;
 
 const Rank = styled.div`
@@ -76,41 +76,41 @@ const Rank = styled.div`
 `;
 
 const Item = styled.div`
-  padding: var(--padding-md) 0;
-  border-bottom: var(--border-main-light);
+  padding: var(--gap-2) 0;
+  border-bottom: var(--border);
 `;
 
 const Title = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
 `;
 
 const Month = styled.div`
   font-weight: 600;
 
   font-size: 14px;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Winner = styled.div`
   display: flex;
   font-size: 12px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const WinnerItem = styled.div`
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
 `;
 
 const Gift = styled.div`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-size: 13px;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
 
   > span:first-child {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
   > span:last-child {
     font-weight: 600;
@@ -121,7 +121,7 @@ const Info = styled.div``;
 
 const Uni = styled.span`
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 14px;
   flex: 0.4;
 `;

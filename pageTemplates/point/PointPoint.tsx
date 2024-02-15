@@ -41,18 +41,18 @@ function PointPoint({ mypoint }: IPointPoint) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: var(--margin-max);
-  padding: var(--padding-main);
-  border-radius: var(--border-radius-main);
+  margin-top: var(--gap-5);
+  padding: var(--gap-4);
+  border-radius: var(--rounded-lg);
   background-color: white;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--shadow);
 `;
 const Button = styled.button`
   width: 100%;
   font-weight: 700;
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-sub) var(--padding-md);
+  padding: var(--gap-3) var(--gap-2);
   > div:first-child {
     font-size: 14px;
   }
@@ -60,13 +60,13 @@ const Button = styled.button`
     display: flex;
     align-items: center;
     > span:first-child {
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
     }
   }
 `;
 
 const Wrapper = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
 `;
 
 const Store = styled.div``;

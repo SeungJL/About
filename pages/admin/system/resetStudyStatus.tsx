@@ -15,12 +15,10 @@ function ResetStudyStatus() {
   const [date, setDate] = useState({ month: null, date: null });
 
   const onClickBtn = (type: "month" | "date", num: number) => {
-  
     setDate((old) => ({ ...old, [type]: num }));
   };
 
   const { mutate, data } = useVoteStatusResetMutation();
-
 
   const onClickReset = () => {
     mutate(
@@ -72,7 +70,7 @@ const Month = styled.div`
 const Date = styled.div``;
 
 const Container = styled.div`
-  margin: var(--margin-max);
+  margin: var(--gap-5);
 `;
 
 export default ResetStudyStatus;

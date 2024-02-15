@@ -37,7 +37,7 @@ function GatherWritingConditionPre({
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
   justify-content: space-between;
   font-size: 13px;
@@ -45,8 +45,8 @@ const Layout = styled.div`
     display: flex;
     align-items: center;
     > span {
-      color: var(--font-h4);
-      margin-right: var(--margin-md);
+      color: var(--gray-4);
+      margin-right: var(--gap-2);
     }
   }
 `;
@@ -54,9 +54,9 @@ const PreMember = styled.div`
   display: flex;
   align-items: center;
   > div {
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
     > span {
-      margin: 0 var(--margin-md);
+      margin: 0 var(--gap-2);
     }
   }
 `;

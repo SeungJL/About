@@ -33,7 +33,7 @@ function RankingCategoryBar({
         _focus={{ border: "none" }}
         value={category}
         onChange={onChange}
-        color="var(--font-h1)"
+        color="var(--gray-1)"
       >
         <Option value="월간">{getMonth() + 1}월 랭킹</Option>
         <Option value="지난">{getMonth()}월 랭킹</Option>
@@ -44,7 +44,7 @@ function RankingCategoryBar({
         <Switch
           isChecked={isLocationFilter}
           colorScheme="mintTheme"
-          mx="var(--margin-md)"
+          mx="var(--gap-2)"
           onChange={(e) => setIsLocationFilter(e.target.checked)}
         />
         <SwitchLabel isSelected={isLocationFilter}>{location}</SwitchLabel>
@@ -55,8 +55,8 @@ function RankingCategoryBar({
 
 const Layout = styled.div`
   margin-left: 5.5px;
-  margin-right: var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin-right: var(--gap-4);
+  padding: var(--gap-3) 0;
   display: flex;
   align-items: center;
 
@@ -66,7 +66,7 @@ const Layout = styled.div`
     text-align: center;
   }
   > span:first-child {
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
   }
 `;
 
@@ -78,7 +78,7 @@ const SwitchWrapper = styled.div`
 
 const SwitchLabel = styled.span<{ isSelected: boolean }>`
   font-size: 11px;
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h3)")};
+  color: ${(props) => (props.isSelected ? "var(--gray-1)" : "var(--gray-3)")};
 `;
 
 export default RankingCategoryBar;

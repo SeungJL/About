@@ -20,10 +20,10 @@ function StudyDateBar({}: IStudyDateBar) {
         <Button
           size="sm"
           variant="outline"
-          color="var(--font-h3)"
+          color="var(--gray-3)"
           rightIcon={<FontAwesomeIcon icon={faPlus} size="xs" />}
-          padding="0 var(--padding-md)"
-          borderColor="var(--font-h5)"
+          padding="0 var(--gap-2)"
+          borderColor="var(--gray-5)"
           onClick={() => setIsModal(true)}
         >
           친구초대
@@ -36,7 +36,7 @@ function StudyDateBar({}: IStudyDateBar) {
           <FontAwesomeIcon
             icon={faUserGroup}
             size="sm"
-            color="var(--font-h3)"
+            color="var(--gray-3)"
           />
           {status === "dismissed" ? (
             <span>오픈되지 않은 스터디입니다.</span>

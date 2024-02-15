@@ -155,7 +155,7 @@ const Layout = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background-color: var(--font-h7);
+  background-color: var(--gray-7);
   height: 35vh;
 `;
 
@@ -163,8 +163,8 @@ const RankingSection = styled.div`
   position: relative;
   overflow-y: scroll;
   background-color: white;
-  padding: var(--padding-main) var(--padding-sub);
-  border-radius: var(--border-radius-main);
+  padding: var(--gap-4) var(--gap-3);
+  border-radius: var(--rounded-lg);
   height: 65vh;
   border: 4px solid var(--color-mint);
 `;

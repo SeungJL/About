@@ -87,16 +87,16 @@ const Layout = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: var(--border-main);
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-min) 0;
-  padding-right: var(--padding-md);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-1) 0;
+  padding-right: var(--gap-2);
   overflow-y: auto;
 `;
 
 const Item = styled.div`
   font-size: 14px;
-  color: var(--font-h1);
+  color: var(--gray-1);
   height: 42px;
   display: flex;
   justify-content: center;
@@ -112,7 +112,7 @@ const SelectCircle = styled.div<{ isStart: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
 `;
 
 export default TimeSelectorBoard;

@@ -35,15 +35,15 @@ const Layout = styled.div`
 
 const Header = styled.header`
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
   margin-right: 16px;
 `;
 
 const Select = styled.select`
   width: 68px;
-  border: 1px solid var(--font-h4);
+  border: 1px solid var(--gray-4);
   border-radius: 3px;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 export default WritingType;

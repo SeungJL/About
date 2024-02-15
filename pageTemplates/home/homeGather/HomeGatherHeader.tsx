@@ -15,7 +15,7 @@ function AboutGatherHeader({ place, title, status }: IAboutGatherHeader) {
   return (
     <Layout>
       <Badge colorScheme="green">{place}</Badge>
-      <Badge mx="var(--margin-md)" colorScheme="orange">
+      <Badge mx="var(--gap-2)" colorScheme="orange">
         {title}
       </Badge>
       <Badge colorScheme={status === "open" ? "pink" : "twitter"}>
@@ -31,7 +31,7 @@ const Layout = styled.div`
 `;
 
 const Status = styled.span<{ status: GatherStatus }>`
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
   font-size: 10.5px;
   font-weight: 600;
   /* color: ${(props) =>

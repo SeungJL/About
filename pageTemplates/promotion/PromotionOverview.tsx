@@ -11,9 +11,9 @@ function PromotionOverview() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   font-size: 12px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 export default PromotionOverview;

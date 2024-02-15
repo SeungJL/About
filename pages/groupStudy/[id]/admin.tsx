@@ -71,7 +71,7 @@ function Admin() {
                     }
                     size="sm"
                     colorScheme="mintTheme"
-                    mr="var(--margin-md)"
+                    mr="var(--gap-2)"
                   >
                     승인
                   </Button>
@@ -97,30 +97,30 @@ function Admin() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-main);
+  padding: var(--gap-4);
 `;
 
 const Title = styled.div`
   font-weight: 700;
   font-size: 18px;
-  border-bottom: var(--border-main);
-  padding: var(--padding-md) 0;
+  border-bottom: var(--border);
+  padding: var(--gap-2) 0;
 `;
 
 const Question = styled.div`
-  padding: var(--padding-sub) 0;
+  padding: var(--gap-3) 0;
   font-size: 16px;
 `;
 
 const Container = styled.div`
-  margin-bottom: var(--margin-max);
+  margin-bottom: var(--gap-5);
 `;
 
 const Item = styled.div``;
 
 const Content = styled.div`
   font-size: 14px;
-  padding: var(--padding-sub);
+  padding: var(--gap-3);
 `;
 
 export default Admin;

@@ -139,7 +139,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.gender}
                 onChange={(e) => toggleSwitch(e, "gender")}
@@ -151,7 +151,7 @@ function WritingCondition() {
                 <span>나이(만)</span>
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.age}
                 onChange={(e) => toggleSwitch(e, "age")}
@@ -170,7 +170,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.location}
                 onChange={(e) => toggleSwitch(e, "location")}
@@ -189,7 +189,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.pre}
                 onChange={(e) => toggleSwitch(e, "pre")}
@@ -213,7 +213,7 @@ function WritingCondition() {
                   />
                 </Name>
                 <Switch
-                  mr="var(--margin-min)"
+                  mr="var(--gap-1)"
                   colorScheme="mintTheme"
                   isChecked={condition.manager}
                   onChange={(e) => toggleSwitch(e, "manager")}
@@ -238,21 +238,21 @@ const Name = styled.div`
   display: flex;
   align-items: center;
   span {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 
 const Container = styled.div`
   font-size: 14px;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-main) 0;
+  padding: var(--gap-4) 0;
   align-items: center;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
 `;
 
 const PopOverWrapper = styled.span`

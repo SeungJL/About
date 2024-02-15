@@ -36,7 +36,7 @@ const Color = styled.div<{ bg: string }>`
   min-width: 40px;
   min-height: 40px;
   border-radius: 50%;
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
   background-color: ${(props) => props.bg};
 `;
 const AvatarColorItem = styled.div`

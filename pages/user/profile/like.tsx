@@ -55,14 +55,14 @@ const AlphabetWrapper = styled.div`
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: var(--padding-sub) var(--padding-main);
-  padding-bottom: var(--padding-md);
-  border-bottom: 1px solid var(--font-h56);
+  padding: var(--gap-3) var(--gap-4);
+  padding-bottom: var(--gap-2);
+  border-bottom: 1px solid var(--gray-7);
   font-size: 13px;
   > span:first-child {
     font-size: 12px;
-    color: var(--font-h2);
-    margin-bottom: var(--margin-md);
+    color: var(--gray-2);
+    margin-bottom: var(--gap-2);
   }
 `;
 
@@ -72,7 +72,7 @@ const Item = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Name = styled.div`
@@ -84,7 +84,7 @@ const Name = styled.div`
 const Content = styled.span`
   white-space: nowrap;
   height: 22px;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Point = styled.span`
@@ -94,7 +94,7 @@ const Point = styled.span`
 
 const Date = styled.span`
   white-space: nowrap;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 11px;
 `;
 
@@ -103,7 +103,7 @@ const FriendButtons = styled.div`
 `;
 
 const FriendComplete = styled.span`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 11px;
 `;
 

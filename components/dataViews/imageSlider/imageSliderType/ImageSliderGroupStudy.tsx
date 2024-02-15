@@ -34,11 +34,11 @@ function ImageSliderGroupStudy({ imageContainer }: IImageSliderGroupStudy) {
       navigation
       scrollbar={{ draggable: true, el: ".swiper-scrollbar" }}
       style={{
-        marginLeft: "var(--margin-main)",
+        marginLeft: "var(--gap-4)",
         width: "100%",
         height: "auto",
         position: "relative",
-        paddingBottom: "var(--padding-main)",
+        paddingBottom: "var(--gap-4)",
       }}
       slidesPerView={2.15}
       onSlideChange={handleSliderChange}
@@ -68,11 +68,11 @@ function ImageSliderGroupStudy({ imageContainer }: IImageSliderGroupStudy) {
 const BlockLayout = styled.button`
   height: 110px;
   width: 156px;
-  padding: var(--padding-sub) var(--padding-sub);
-  padding-bottom: var(--padding-min);
+  padding: var(--gap-3) var(--gap-3);
+  padding-bottom: var(--gap-1);
   background-color: white;
-  box-shadow: var(--box-shadow-b);
-  border-radius: var(--border-radius2);
+  box-shadow: var(--shadow);
+  border-radius: var(--rounded);
   flex-direction: column;
   display: flex;
   align-items: center;
@@ -82,8 +82,8 @@ const ImageContainer = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  border: var(--border-sub);
-  border-radius: var(--border-radius2);
+  border: var(--border-light);
+  border-radius: var(--rounded);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,8 +93,8 @@ const ImageContainer = styled.div`
 const Name = styled(SingleLineText)`
   font-size: 12px;
   font-weight: 600;
-  padding-top: var(--padding-min);
-  padding-bottom: var(--margin-min);
+  padding-top: var(--gap-1);
+  padding-bottom: var(--gap-1);
 `;
 
 export default ImageSliderGroupStudy;

@@ -48,7 +48,7 @@ function BottomDrawer({
     <Drawer placement="bottom" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent bg="transparent">
-        <DrawerBody display="flex" flexDir="column" p="0 var(--padding-md)">
+        <DrawerBody display="flex" flexDir="column" p="0 var(--gap-2)">
           {type === "groupStudy" ? (
             <Button onClick={onClickAbsent} size="lg" color="var(--color-red)">
               탈퇴하기
@@ -60,7 +60,7 @@ function BottomDrawer({
                 color="var(--color-red)"
                 size="lg"
                 borderBottomRadius={0}
-                borderBottom="var(--border-main)"
+                borderBottom="var(--border)"
               >
                 거리두기
               </Button>
@@ -74,7 +74,7 @@ function BottomDrawer({
               </Button>
             </>
           )}
-          <Button onClick={onClose} bg="white" my="var(--margin-md)" size="lg">
+          <Button onClick={onClose} bg="white" my="var(--gap-2)" size="lg">
             취소
           </Button>
         </DrawerBody>

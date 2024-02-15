@@ -158,11 +158,11 @@ function Store() {
   );
 }
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 const Nav = styled.nav`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
 `;
 
@@ -171,19 +171,19 @@ const Container = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
 
-  padding: var(--padding-main) 0;
-  gap: var(--margin-sub);
+  padding: var(--gap-4) 0;
+  gap: var(--gap-3);
 `;
 
 const Item = styled.button`
   position: relative;
   height: 196px;
-  padding: var(--padding-md);
-  background-color: var(--font-h7);
+  padding: var(--gap-2);
+  background-color: var(--gray-7);
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
 `;
 
 const Status = styled.div`
@@ -198,13 +198,13 @@ const Trophy = styled.div`
   align-items: center;
   margin-left: auto;
   > div {
-    margin-left: var(--padding-min);
+    margin-left: var(--gap-1);
   }
 `;
 
 const ApplyCnt = styled.div`
   align-self: flex-end;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 const ImageWrapper = styled.div`
@@ -229,7 +229,7 @@ const Name = styled.span`
 `;
 
 const Point = styled.span`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   color: var(--color-mint);
   font-size: 16px;
 `;
@@ -240,7 +240,7 @@ const Circle = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  border: 2px solid var(--font-h1);
+  border: 2px solid var(--gray-1);
   display: flex;
   font-size: 14px;
   justify-content: center;
@@ -256,7 +256,7 @@ const CompletedRapple = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--font-h56);
+  background-color: var(--gray-7);
   opacity: 0.5;
 `;
 

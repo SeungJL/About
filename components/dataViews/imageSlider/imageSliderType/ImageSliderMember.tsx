@@ -67,7 +67,7 @@ const MemberItem = styled.div`
   align-items: center;
   > span {
     display: inline-block;
-    margin-top: var(--margin-min);
+    margin-top: var(--gap-1);
     font-size: 10px;
   }
 `;

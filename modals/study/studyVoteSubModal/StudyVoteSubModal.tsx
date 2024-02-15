@@ -151,7 +151,7 @@ function StudyVoteSubModal({
         w="100%"
         colorScheme="mintTheme"
         size="lg"
-        borderRadius="var(--border-radius-sub)"
+        borderRadius="var(--rounded-lg)"
         onClick={isFirst ? handleFirst : onSubmit}
         mt="auto"
       >
@@ -175,17 +175,17 @@ const Header = styled.header`
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--margin-max);
+  margin-bottom: var(--gap-5);
   > span:first-child {
     font-weight: 600;
     font-size: 15px;
-    color: var(--font-h2);
-    margin-bottom: var(--margin-min);
+    color: var(--gray-2);
+    margin-bottom: var(--gap-1);
   }
   > span:last-child {
     font-size: 20px;
     font-weight: 600;
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;
 
@@ -195,12 +195,12 @@ const Layout = styled(motion.div)`
   width: 100vw;
   max-width: var(--max-width);
   height: 411.5px;
-  border-top-left-radius: var(--border-radius-main);
-  border-top-right-radius: var(--border-radius-main);
+  border-top-left-radius: var(--rounded-lg);
+  border-top-right-radius: var(--rounded-lg);
 
   background-color: white;
   z-index: 20;
-  padding: var(--padding-main);
+  padding: var(--gap-4);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -210,8 +210,8 @@ const TopNav = styled.nav`
   width: 56px;
   height: 4px;
   border-radius: 4px;
-  background-color: var(--font-h5);
-  margin-bottom: var(--margin-max);
+  background-color: var(--gray-5);
+  margin-bottom: var(--gap-5);
 `;
 
 export default StudyVoteSubModal;

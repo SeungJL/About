@@ -18,6 +18,6 @@ export default function HomeWinRecordSection({}: IHomeWinRecordSection) {
 
 const Layout = styled.div`
   margin: 16px;
-  border: var(--border-main-light);
-  border-radius: var(--border-radius-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
 `;

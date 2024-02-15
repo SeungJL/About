@@ -72,16 +72,16 @@ function MemberRecommend({ members }: IMemberRecommend) {
 }
 
 const Layout = styled.div`
-  padding-top: var(--padding-sub);
-  padding-bottom: var(--padding-main);
-  margin: 0 var(--margin-main);
+  padding-top: var(--gap-3);
+  padding-bottom: var(--gap-4);
+  margin: 0 var(--gap-4);
 `;
 
 const Title = styled.span`
   font-weight: 600;
   font-size: 16px;
   display: inline-block;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const Nav = styled.nav`
@@ -90,15 +90,15 @@ const Nav = styled.nav`
 `;
 
 const Button = styled.button`
-  border-radius: var(--border-radius-sub);
-  border: var(--border-sub);
+  border-radius: var(--rounded-lg);
+  border: var(--border-light);
   height: 60px;
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   font-size: 15px;
   text-align: start;
-  padding: 0 var(--padding-max);
+  padding: 0 var(--gap-5);
   > span {
-    margin-left: var(--margin-sub);
+    margin-left: var(--gap-3);
   }
 `;
 

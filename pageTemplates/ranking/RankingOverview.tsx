@@ -12,7 +12,7 @@ import {
   ISortedUserAttends,
   ISortedUserScores,
   RankingCategory,
-  RankingType,
+  RankingType
 } from "../../types/page/ranking";
 
 import { IUser, UserBadge } from "../../types/user/user";
@@ -87,7 +87,7 @@ function RankingOverview({
                 <Badge
                   colorScheme={BADGE_COLOR[userBadge]}
                   fontSize="14px"
-                  border="1px solid var(--font-h5)"
+                  border="1px solid var(--gray-5)"
                 >
                   {userBadge}
                 </Badge>
@@ -107,7 +107,7 @@ function RankingOverview({
   );
 }
 const Layout = styled.div`
-  margin: 0 var(--margin-sub);
+  margin: 0 var(--gap-3);
   height: 20vh;
   display: flex;
   justify-content: space-around;
@@ -125,19 +125,19 @@ const RankContainer = styled.div`
 const MyRank = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 
 const MyRankText = styled.span`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-size: 13px;
   font-weight: 600;
-  margin-right: var(--margin-min);
+  margin-right: var(--gap-1);
 `;
 
 const TotalCnt = styled.div`
   height: 20px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 13px;
   width: 67px;
 `;
@@ -202,10 +202,10 @@ const RankBadge = styled.div`
 `;
 
 const ScoreText = styled.span`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-weight: 600;
 
-  margin-right: var(--margin-min);
+  margin-right: var(--gap-1);
 `;
 
 const ScoreValue = styled.span<{ color: string }>`

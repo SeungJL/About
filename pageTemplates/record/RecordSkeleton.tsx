@@ -60,7 +60,7 @@ function RecordSkeleton({ isCalendar }: IRecordSkeleton) {
             </div>
           </MyRecordItem>
         </MyRecord>
-        <Button w="60px" h="40px" color="var(--font-h2)">
+        <Button w="60px" h="40px" color="var(--gray-2)">
           분석
         </Button>
       </RecordOverview>
@@ -144,7 +144,7 @@ const Layout = styled.div``;
 
 /** overview */
 const RecordOverview = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -174,15 +174,15 @@ const MyRecordItem = styled.div`
   }
 `;
 const ContentName = styled.span`
-  margin-right: var(--margin-md);
-  color: var(--font-h3);
+  margin-right: var(--gap-2);
+  color: var(--gray-3);
   font-size: 13px;
 `;
 
 const ContentValue = styled.span`
   font-weight: 700;
   font-size: 14px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 const SpaceBadge = styled.section`
   display: flex;
@@ -192,7 +192,7 @@ const SpaceBadge = styled.section`
 const Button2 = styled.button<{
   location: Location;
 }>`
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
   font-weight: 600;
   color: ${(props) => LOCATION_TABLE_COLOR[props.location]};
   font-size: 12px;
@@ -200,21 +200,21 @@ const Button2 = styled.button<{
 
 /** category */
 const Category = styled.div`
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--font-h7);
-  border-top: 1px solid var(--font-h6);
-  border-bottom: 1px solid var(--font-h6);
+  background-color: var(--gray-7);
+  border-top: 1px solid var(--gray-6);
+  border-bottom: 1px solid var(--gray-6);
   > div {
     display: flex;
     align-items: center;
   }
   > span:last-child {
     font-size: 10px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
@@ -226,7 +226,7 @@ const CallenderDays = styled.div`
   display: grid;
   grid-auto-rows: 72px;
   grid-template-columns: repeat(7, 1fr);
-  margin: 0 var(--margin-min);
+  margin: 0 var(--gap-1);
   font-size: 14px;
 `;
 const DayItem = styled.div`
@@ -234,7 +234,7 @@ const DayItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid var(--font-h56);
+  border: 1px solid var(--gray-7);
 `;
 
 const DayItemDate = styled.span<{ isToday: boolean }>`
@@ -248,10 +248,10 @@ const Open = styled.div`
 `;
 
 const DayLine = styled.div`
-  margin: var(--margin-md) 24px;
+  margin: var(--gap-2) 24px;
   display: flex;
   justify-content: space-between;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
 `;
 
@@ -262,31 +262,31 @@ export const Detail = styled.div`
   flex-direction: column;
 `;
 const Block = styled.div`
-  border-top: 4px solid var(--font-h56);
-  padding: var(--padding-sub) var(--padding-main);
+  border-top: 4px solid var(--gray-7);
+  padding: var(--gap-3) var(--gap-4);
   padding-bottom: 0;
 `;
 const Date = styled.div`
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   font-size: 13px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 const StudyInfo = styled.div`
   font-size: 12px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 const PlaceInfo = styled.div`
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const PlaceName = styled.div`
   display: flex;
   align-items: center;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 14px;
   > span:first-child {
     font-weight: 600;
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 const OpenLocation = styled.span`
@@ -294,7 +294,7 @@ const OpenLocation = styled.span`
 `;
 
 const MemberWrapper = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20%, auto));
@@ -303,7 +303,7 @@ const MemberWrapper = styled.div`
 `;
 
 const Member = styled.span`
-  margin-right: var(--margin-min);
-  color: var(--font-h3);
+  margin-right: var(--gap-1);
+  color: var(--gray-3);
 `;
 export default RecordSkeleton;

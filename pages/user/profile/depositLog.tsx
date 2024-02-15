@@ -14,7 +14,7 @@ function ScoreLog() {
   const { data: depositLog, isLoading } = usePointSystemLogQuery("deposit");
 
   const filterLog = depositLog?.filter((item) => item?.meta?.value);
- 
+
   return (
     <>
       <Header title="보증금 기록" url="/user/profile" />
@@ -61,13 +61,13 @@ const LogHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: 1px solid var(--gray-5);
   font-size: 13px;
   > span {
     text-align: center;
   }
   > span:first-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;
 
@@ -79,11 +79,11 @@ const MyPoint = styled.div`
   width: 160px;
   height: 40px;
   font-size: 12px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   border: 1.5px solid var(--color-mint);
-  color: var(--font-h3);
+  color: var(--gray-3);
   > span:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-size: 17px;
     font-weight: 600;
   }
@@ -96,17 +96,17 @@ const Container = styled.div`
 `;
 
 const Item = styled.div`
-  color: var(--font-h1);
+  color: var(--gray-1);
   height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--font-h6);
+  border-bottom: 1px solid var(--gray-6);
   font-size: 12px;
 `;
 
 const Date = styled.span`
-  color: var(--font-h3);
+  color: var(--gray-3);
   margin-right: 14px;
   width: 54px;
   text-align: center;
@@ -117,7 +117,7 @@ const Content = styled.span`
 `;
 
 const Point = styled.span`
-  color: var(--font-h1);
+  color: var(--gray-1);
 
   text-align: center;
   width: 54px;

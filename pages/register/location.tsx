@@ -143,24 +143,22 @@ function RegisterLocation() {
 }
 
 const ButtonNav = styled.nav`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-sub);
+  gap: var(--gap-3);
 `;
 
 const Button = styled.button<{ $picked: string }>`
-  padding: var(--padding-md) var(--padding-sub);
+  padding: var(--gap-2) var(--gap-3);
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
   height: 68px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   border: ${(props) =>
-    props.$picked === "true"
-      ? "1.5px solid var(--font-h1)"
-      : "var(--border-main)"};
+    props.$picked === "true" ? "1.5px solid var(--gray-1)" : "var(--border)"};
 `;
 
 const Message = styled.div`
@@ -169,7 +167,7 @@ const Message = styled.div`
   bottom: -20px;
   font-size: 10px;
   left: 50%;
-  color: var(--font-h3);
+  color: var(--gray-3);
   transform: translate(-50%, 0);
 `;
 

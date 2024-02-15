@@ -177,17 +177,17 @@ const Layout = styled.div``;
 const PointContainer = styled.div`
   line-height: 2;
   width: 206px;
-  padding: var(--padding-md) var(--padding-sub);
+  padding: var(--gap-2) var(--gap-3);
   border-radius: 4px;
-  border: var(--border-main);
+  border: var(--border);
 
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 const Point = styled.div`
   display: flex;
   > span:first-child {
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
   > span:nth-child(2) {
     display: inline-block;
@@ -198,17 +198,17 @@ const Point = styled.div`
 
 const HrDiv = styled.div`
   height: 4px;
-  background-color: var(--font-h56);
+  background-color: var(--gray-7);
 `;
 
 const Text = styled.div`
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 `;
 
 const Fee = styled.div`
   display: flex;
   > span:first-child {
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
   > span:nth-child(2) {
     display: inline-block;
@@ -219,14 +219,14 @@ const Fee = styled.div`
 
 const SelectContainer = styled.div`
   margin-top: auto;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
   > div {
     display: flex;
     > button {
       flex: 1;
     }
     > button:first-child {
-      margin-right: var(--margin-sub);
+      margin-right: var(--gap-3);
     }
   }
 `;

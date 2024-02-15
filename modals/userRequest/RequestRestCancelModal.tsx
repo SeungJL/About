@@ -88,7 +88,7 @@ const Item = styled.div`
     font-weight: 600;
   }
   > span:last-child {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 

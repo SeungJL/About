@@ -90,9 +90,9 @@ function UserProfile() {
 }
 
 const UserOverview = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
   > div {
-    padding: var(--padding-main) 0;
+    padding: var(--gap-4) 0;
     display: flex;
     align-items: center;
   }
@@ -100,26 +100,26 @@ const UserOverview = styled.div`
 
 const Name = styled.div`
   font-weight: 600;
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   > span:first-child {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 
 const Score = styled.div`
-  margin-top: var(--margin-md);
-  padding: var(--padding-main);
+  margin-top: var(--gap-2);
+  padding: var(--gap-4);
 `;
 
 const Detail = styled.ul`
-  padding: var(--padding-main);
-  background-color: var(--font-h7);
+  padding: var(--gap-4);
+  background-color: var(--gray-7);
   font-size: 12px;
   > li {
-    margin-left: var(--margin-md);
-    color: var(--font-h2);
+    margin-left: var(--gap-2);
+    color: var(--gray-2);
     > span:first-child {
-      margin-right: var(--margin-min);
+      margin-right: var(--gap-1);
     }
   }
 `;
@@ -134,8 +134,8 @@ const BlockItem = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--padding-main);
-  border-bottom: var(--border-main-light);
+  padding: var(--gap-4);
+  border-bottom: var(--border);
   font-weight: 700;
   > span:first-child {
     > b {

@@ -59,13 +59,13 @@ function GroupStudyWritingHashTag() {
 const Container = styled.div``;
 
 const Input = styled.input`
-  margin-top: var(--margin-main);
-  padding: var(--padding-md);
+  margin-top: var(--gap-4);
+  padding: var(--gap-2);
   width: 100%;
-  border: var(--border-main);
-  border-radius: var(--border-radius2);
+  border: var(--border);
+  border-radius: var(--rounded);
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 

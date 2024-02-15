@@ -81,13 +81,13 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-  padding: 0 var(--padding-md);
+  padding: 0 var(--gap-2);
   width: 100%;
   display: flex;
   justify-content: space-around;
   height: 100%;
   align-items: center;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
 
   > div {
     flex: 1;

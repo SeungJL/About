@@ -40,15 +40,15 @@ function ReviewStatus({ temp }: { temp?: any }) {
 
 const Layout = styled.div`
   display: flex;
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
   > span {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
     font-weight: 600;
     font-size: 15px;
   }

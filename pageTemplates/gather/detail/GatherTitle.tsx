@@ -22,14 +22,14 @@ function GatherTitle({ status, title }: IGatherTitle) {
 }
 
 const Layout = styled.div<{ status: GatherStatus }>`
-  padding: Var(--padding-main);
+  padding: Var(--gap-4);
   background-color: white;
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-size: 16px;
   font-weight: 700;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   > span:last-child {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 

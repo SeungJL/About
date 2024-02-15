@@ -64,7 +64,7 @@ const Layout = styled.div`
   display: flex;
   margin-top: auto;
   justify-content: space-between;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 13px;
 `;
 
@@ -92,7 +92,7 @@ const Slash = styled.span`
 `;
 
 const Participants = styled.span`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
 `;
 
 const InfinityWrapper = styled.div``;

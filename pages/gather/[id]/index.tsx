@@ -75,7 +75,7 @@ function GatherDetail() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
   padding-bottom: 100px;
 `;
 

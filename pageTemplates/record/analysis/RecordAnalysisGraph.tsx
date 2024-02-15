@@ -10,7 +10,7 @@ function RecordAnalysisGraph() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-md);
+  margin: 0 var(--gap-2);
 `;
 
 export default RecordAnalysisGraph;

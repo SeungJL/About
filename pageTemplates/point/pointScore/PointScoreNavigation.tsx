@@ -40,7 +40,7 @@ const Button = styled.button`
   font-weight: 700;
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-sub) var(--padding-md);
+  padding: var(--gap-3) var(--gap-2);
   > div:first-child {
     font-size: 14px;
   }
@@ -48,7 +48,7 @@ const Button = styled.button`
     display: flex;
     align-items: center;
     > span:first-child {
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
     }
   }
 `;

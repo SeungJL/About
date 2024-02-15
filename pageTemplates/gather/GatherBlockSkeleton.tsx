@@ -42,9 +42,9 @@ export default GatherBlockSkeleton;
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: var(--border-main-light);
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  border-bottom: var(--border);
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
 `;
 
 const GatherBlockHeader = styled.div`
@@ -58,19 +58,19 @@ const GatherDetail = styled.div`
   font-size: 12px;
   > span {
     width: 80px;
-    margin: var(--margin-min) 0;
+    margin: var(--gap-1) 0;
   }
 `;
 
 const GatherMember = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   font-size: 12px;
   display: flex;
   justify-content: space-between;
 `;
 
 const Title = styled.div`
-  margin: var(--margin-min) 0;
+  margin: var(--gap-1) 0;
   width: 100px;
   font-size: 15px;
 `;
@@ -78,7 +78,7 @@ const Writer = styled.div`
   display: flex;
   align-items: center;
   > span {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 

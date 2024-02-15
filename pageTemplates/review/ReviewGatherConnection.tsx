@@ -6,8 +6,8 @@ function ReviewGatherConnection() {
 
 const Layout = styled.div`
   margin: 14px;
-  border: 1.5px solid var(--font-h5);
-  border-radius: var(--border-radius-sub);
+  border: 1.5px solid var(--gray-5);
+  border-radius: var(--rounded-lg);
   height: 50px;
 `;
 

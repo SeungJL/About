@@ -6,7 +6,7 @@ import { IModal } from "../../../types/reactTypes";
 function RuleIcon({ setIsModal }: IModal) {
   return (
     <Layout onClick={() => setIsModal(true)}>
-      <FontAwesomeIcon icon={faInfoCircle} size="xl" color="var(--font-h2)" />
+      <FontAwesomeIcon icon={faInfoCircle} size="xl" color="var(--gray-2)" />
     </Layout>
   );
 }

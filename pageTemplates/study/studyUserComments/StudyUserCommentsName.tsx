@@ -39,9 +39,9 @@ const Layout = styled.div`
   align-items: center;
   font-size: 14px;
   > span:first-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-weight: 600;
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 

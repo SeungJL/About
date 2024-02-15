@@ -48,17 +48,17 @@ function GatherBlock({ gather, isImagePriority }: IGatherBlock) {
 }
 
 const Layout = styled.div`
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   background-color: white;
-  border-radius: var(--border-radius2);
-  box-shadow: var(--box-shadow-b);
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
 `;
 
 const UpPart = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
-  border-bottom: var(--border-sub);
+  padding: var(--gap-3) var(--gap-4);
+  border-bottom: var(--border-light);
 `;
 
 const Title = styled.div`

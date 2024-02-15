@@ -26,7 +26,7 @@ const Layout = styled.div``;
 const Wrapper = styled.div``;
 const HrDiv = styled.div`
   height: 1px;
-  background-color: var(--font-h56);
+  background-color: var(--gray-7);
 `;
 
 export default studySkeleton;

@@ -74,15 +74,14 @@ const ButtonNav = styled.nav`
 `;
 
 const Button = styled.button<{ $isSelected: boolean }>`
-  color: ${(props) =>
-    props.$isSelected ? "var(--font-h1)" : "var(--font-h4)"};
-  border-radius: var(--border-radius-sub);
+  color: ${(props) => (props.$isSelected ? "var(--gray-1)" : "var(--gray-4)")};
+  border-radius: var(--rounded-lg);
   flex: 0.49;
   height: 48px;
   font-size: 14px;
   font-weight: ${(props) => props.$isSelected && "600"};
   border: ${(props) =>
-    props.$isSelected ? "var(--border-thick)" : "var(--border-main)"};
+    props.$isSelected ? "var(--border-thick)" : "var(--border)"};
 `;
 
 export default Gender;

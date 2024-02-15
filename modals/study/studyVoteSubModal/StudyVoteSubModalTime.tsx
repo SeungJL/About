@@ -88,13 +88,13 @@ const TimeWrapper = styled.div`
 
   > span {
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
     font-size: 13px;
   }
 `;
 
 const Spacer = styled.div`
-  width: var(--margin-main);
+  width: var(--gap-4);
 `;
 
 export default StudyVoteSubModalTime;

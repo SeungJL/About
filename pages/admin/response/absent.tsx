@@ -74,8 +74,8 @@ const Layout = styled.div``;
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 6px solid var(--font-h6);
-  padding: var(--padding-main);
+  border-bottom: 6px solid var(--gray-6);
+  padding: var(--gap-4);
 `;
 
 const ItemHeader = styled.header`
@@ -86,12 +86,12 @@ const ItemHeader = styled.header`
   font-size: 13px;
   > div {
     span {
-      margin-right: var(--margin-md);
-      color: var(--font-h1);
+      margin-right: var(--gap-2);
+      color: var(--gray-1);
     }
     > span:last-child {
       font-size: 12px;
-      color: var(--font-h3);
+      color: var(--gray-3);
     }
   }
 `;
@@ -110,7 +110,7 @@ const ButtonNav = styled.div`
 
 const Content = styled.div`
   padding-top: 8px;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
   min-height: 20px;
 `;

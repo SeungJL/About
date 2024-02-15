@@ -33,7 +33,7 @@ const RecordDetailStudyBlock = ({
                     <FontAwesomeIcon
                       icon={faEllipsis}
                       size="sm"
-                      color="var(--font-h3)"
+                      color="var(--gray-3)"
                     />
                   )}
                 </Fragment>
@@ -59,22 +59,22 @@ const Container = styled.div`
 const PlaceInfo = styled.div<{ location: Location }>`
   width: 148px;
   flex-shrink: 0;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
   border: ${(props) => `1px solid ${LOCATION_TABLE_COLOR[props.location]}`};
-  box-shadow: var(--box-shadow);
-  border-radius: var(--border-radius-main);
-  padding: var(--padding-md);
-  margin-right: var(--margin-md);
+  box-shadow: var(--shadow);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-2);
+  margin-right: var(--gap-2);
 `;
 
 const PlaceName = styled.div`
   display: flex;
   align-items: center;
-  color: var(--font-h2);
+  color: var(--gray-2);
   > span:first-child {
     font-size: 13px;
     font-weight: 600;
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
 `;
 
@@ -84,14 +84,14 @@ const OpenLocation = styled.span<{ location: Location }>`
 `;
 
 const MemberWrapper = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
   align-items: center;
 `;
 
 const Member = styled.span`
-  margin-right: var(--margin-min);
-  color: var(--font-h3);
+  margin-right: var(--gap-1);
+  color: var(--gray-3);
   font-size: 13px;
 `;
 

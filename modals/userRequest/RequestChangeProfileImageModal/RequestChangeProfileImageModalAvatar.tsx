@@ -155,16 +155,16 @@ const ArrowIcon = styled.div<{ isLeft: boolean }>`
 const DownPart = styled.div`
   display: flex;
   align-items: center;
-  padding: var(--padding-md) 0;
-  margin-top: var(--margin-sub);
-  border-top: var(--border-sub);
-  border-bottom: var(--border-sub);
+  padding: var(--gap-2) 0;
+  margin-top: var(--gap-3);
+  border-top: var(--border-light);
+  border-bottom: var(--border-light);
 `;
 
 const Icon = styled.div<{ bg: string }>`
   width: 100px;
   height: 100px;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   display: flex;
   justify-content: center;
   align-items: center;

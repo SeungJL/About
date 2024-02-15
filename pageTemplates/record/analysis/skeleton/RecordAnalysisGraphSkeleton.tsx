@@ -13,7 +13,7 @@ function RecordAnalysisGraphSkeleton() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 const Title = styled.span`
@@ -21,7 +21,7 @@ const Title = styled.span`
 `;
 
 const Graph = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   height: 200px;
 `;
 

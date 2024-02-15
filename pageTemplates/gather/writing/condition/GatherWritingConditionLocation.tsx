@@ -28,7 +28,7 @@ function GatherWritingConditionLocation({
           size="sm"
           key={item}
           colorScheme={buttonType === item ? "mintTheme" : "gray"}
-          mr="var(--margin-md)"
+          mr="var(--gap-2)"
           onClick={() => setButtonType(item)}
         >
           {item}
@@ -39,7 +39,7 @@ function GatherWritingConditionLocation({
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
 `;
 

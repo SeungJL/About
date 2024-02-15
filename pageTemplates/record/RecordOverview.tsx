@@ -90,12 +90,7 @@ function RecordOverview({ arrivedCalendar }: IRecordOverview) {
             </div>
           </MyRecordItem>
         </MyRecord>
-        <Button
-          w="60px"
-          h="40px"
-          color="var(--font-h2)"
-          onClick={onClickDetail}
-        >
+        <Button w="60px" h="40px" color="var(--gray-2)" onClick={onClickDetail}>
           분석
         </Button>
       </Layout>
@@ -105,7 +100,7 @@ function RecordOverview({ arrivedCalendar }: IRecordOverview) {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -135,15 +130,15 @@ const MyRecordItem = styled.div`
 `;
 
 const ContentName = styled.span`
-  margin-right: var(--margin-md);
-  color: var(--font-h3);
+  margin-right: var(--gap-2);
+  color: var(--gray-3);
   font-size: 13px;
 `;
 
 const ContentValue = styled.span`
   font-weight: 700;
   font-size: 14px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 export default RecordOverview;

@@ -42,8 +42,6 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
     }
   );
 
-
-
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {
       completeToast("free", "이번 달 열공멤버가 되었습니다!");
@@ -120,37 +118,37 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
 const CurrentMember = styled.div`
   border: var(--border-mint);
   width: max-content;
-  padding: var(--padding-min) var(--padding-md);
-  border-radius: var(--border-radius-sub);
+  padding: var(--gap-1) var(--gap-2);
+  border-radius: var(--rounded-lg);
   font-size: 13px;
   > span {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
     color: var(--color-mint);
   }
 `;
 
 const Container = styled.ul`
-  margin-top: var(--margin-sub);
-  margin-left: var(--margin-main);
+  margin-top: var(--gap-3);
+  margin-left: var(--gap-4);
   font-size: 14px;
-  line-height: var(--line-height);
+
   > li {
-    margin-bottom: var(--margin-min);
+    margin-bottom: var(--gap-1);
   }
 `;
 
 const Condition = styled.ol`
-  margin-left: var(--margin-main);
+  margin-left: var(--gap-4);
   font-size: 13px;
   > li {
     > b {
-      margin-left: var(--margin-min);
+      margin-left: var(--gap-1);
       color: var(--color-mint);
     }
   }
   > span {
     font-size: 12px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 

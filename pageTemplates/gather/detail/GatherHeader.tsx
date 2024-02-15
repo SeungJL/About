@@ -75,7 +75,7 @@ const IconWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
 `;
 
 export default GatherHeader;

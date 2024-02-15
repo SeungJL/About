@@ -86,7 +86,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
         </ModalSubtitle>
       </ModalBody>
       <ModalFooter
-        m="var(--padding-main) var(--padding-max)"
+        m="var(--gap-4) var(--gap-5)"
         p="0"
         display="flex"
         justifyContent="space-between"
@@ -123,7 +123,7 @@ const Layout = styled.div`
   display: flex;
   height: 46px;
   > button:first-child {
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
   }
   > button {
     flex: 1;

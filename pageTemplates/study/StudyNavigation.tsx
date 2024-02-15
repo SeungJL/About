@@ -249,7 +249,7 @@ const Layout = styled.nav`
   padding: 16px;
   background-color: white;
   z-index: 50;
-  box-shadow: var(--box-shadow-top-b);
+  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
 `;
 
 const Wrapper = styled.div`

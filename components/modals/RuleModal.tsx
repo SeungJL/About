@@ -53,14 +53,14 @@ const Item = styled.div``;
 
 const ItemContent = styled.ul`
   font-size: 12px;
-  margin-left: var(--margin-main);
-  margin-top: var(--margin-min);
-  margin-bottom: var(--margin-sub);
-  line-height: var(--line-height);
+  margin-left: var(--gap-4);
+  margin-top: var(--gap-1);
+  margin-bottom: var(--gap-3);
+
 `;
 
 const RuleTitle = styled.span`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-size: 13px;
   font-weight: 600;
 `;

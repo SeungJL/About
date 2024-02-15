@@ -24,7 +24,7 @@ const Layout = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: 1px solid var(--gray-5);
 `;
 const Title = styled.span`
   font-size: 16px;

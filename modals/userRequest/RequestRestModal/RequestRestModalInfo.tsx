@@ -93,16 +93,16 @@ const Form = styled.form`
 `;
 const Item = styled.div`
   display: flex;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   align-items: center;
   > span:first-child {
-    width: var(--width-inline-title);
+    width: 15%;
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
   > input,
   select {
-    padding: var(--padding-min);
+    padding: var(--gap-1);
   }
 `;
 
@@ -111,14 +111,14 @@ const DateItem = styled(Item)`
     flex: 0.5;
   }
   > input:nth-child(2) {
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
   }
 `;
 
 const DateInput = styled.input`
-  padding: var(--padding-min);
+  padding: var(--gap-1);
   background-color: var(--input-bg);
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
 `;
 
 const ErrorMessage = styled.div`
@@ -129,8 +129,8 @@ const ErrorMessage = styled.div`
 
 const TypeSelect = styled.select`
   background-color: var(--input-bg);
-  border-radius: var(--border-radius-sub);
-  margin-right: var(--margin-sub);
+  border-radius: var(--rounded-lg);
+  margin-right: var(--gap-3);
 `;
 
 const Reason = styled.span`
@@ -138,11 +138,11 @@ const Reason = styled.span`
 `;
 
 const Textarea = styled.textarea`
-  padding: var(--padding-md);
+  padding: var(--gap-2);
   flex: 1;
   height: 100%;
-  background-color: var(--font-h7);
-  border-radius: var(--border-radius-sub);
+  background-color: var(--gray-7);
+  border-radius: var(--rounded-lg);
 `;
 
 export default RequestRestModalInfo;

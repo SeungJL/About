@@ -75,10 +75,7 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
             <ImageText>이미지를 꾹 눌러서 저장해주세요!</ImageText>
           </ImageContainer>
         )}
-        <Button
-          mt="var(--margin-min)"
-          onClick={() => setIsFirst((old) => !old)}
-        >
+        <Button mt="var(--gap-1)" onClick={() => setIsFirst((old) => !old)}>
           {isFirst ? "이미지 다운로드" : "돌아가기"}
         </Button>
         <Message>
@@ -98,13 +95,13 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
 }
 
 const Overview = styled.div`
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   font-weight: 600;
 `;
 
 const ImageText = styled.span`
   font-size: 12px;
-  color: var(--font-h1);
+  color: var(--gray-1);
   margin-bottom: auto;
 `;
 const Container = styled.div``;
@@ -118,11 +115,11 @@ const ImageContainer = styled.div`
 `;
 
 const CopyWrapper = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
 `;
 
 const Message = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   text-align: center;
   font-weight: 600;
 `;

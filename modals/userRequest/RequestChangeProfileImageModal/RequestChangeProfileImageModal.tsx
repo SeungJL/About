@@ -88,8 +88,8 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
 }
 
 const Container = styled.div`
-  margin-bottom: var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin-bottom: var(--gap-4);
+  padding: var(--gap-3) 0;
   height: 100%;
   display: flex;
   flex-direction: column;

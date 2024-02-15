@@ -30,11 +30,11 @@ function studyUserCommentsCheck({
             color="var(--color-mint)"
             variant="outline"
             border="1.5px solid var(--color-mint)"
-            borderRadius="var(--border-radius2)"
+            borderRadius="var(--rounded)"
             boxShadow="none"
             fontSize="12px"
             textAlign="center"
-            p="0 var(--padding-min)"
+            p="0 var(--gap-1)"
           >
             출석
           </Badge>
@@ -46,11 +46,11 @@ function studyUserCommentsCheck({
             color="var(--color-red)"
             variant="outline"
             border="1.5px solid var(--color-red)"
-            borderRadius="var(--border-radius2)"
+            borderRadius="var(--rounded)"
             boxShadow="none"
             fontSize="12px"
             textAlign="center"
-            p="0 var(--padding-min)"
+            p="0 var(--gap-1)"
           >
             불참
           </Badge>
@@ -67,7 +67,7 @@ const Layout = styled.div`
 `;
 
 const Check = styled.div<{ isCheck: boolean }>`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   margin-left: auto;
   width: 40px;
   display: flex;
@@ -80,7 +80,7 @@ const Check = styled.div<{ isCheck: boolean }>`
     display: inline-block;
     margin-top: 2px;
     font-size: 10px;
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
 `;
 

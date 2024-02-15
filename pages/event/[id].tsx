@@ -45,10 +45,10 @@ function EventPage() {
 const Layout = styled.div``;
 const Wrapper = styled.div`
   padding: 16px;
-  border-bottom: 6px solid var(--font-h6);
+  border-bottom: 6px solid var(--gray-6);
 `;
 const Title = styled.span`
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-size: 18px;
   font-weight: 600;
 `;
@@ -61,7 +61,7 @@ const EventHeader = styled.header`
     margin-bottom: 4px;
     > span {
       margin-right: 16px;
-      color: var(--font-h3);
+      color: var(--gray-3);
     }
     > div {
       width: 80%;

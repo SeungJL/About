@@ -41,13 +41,13 @@ const Header = ({ title, url, children, isNoLine }: IHeader) => {
 const Layout = styled.div<{ isNoLine: boolean }>`
   background-color: white;
   height: 52px;
-  padding-right: var(--padding-main);
+  padding-right: var(--gap-4);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: var(--font-h1);
-  border-bottom: ${(props) => !props.isNoLine && "1px solid var(--font-h56)"};
+  color: var(--gray-1);
+  border-bottom: ${(props) => !props.isNoLine && "1px solid var(--gray-7)"};
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.04);
 `;
 
@@ -55,11 +55,11 @@ const IconWrapper = styled.button`
   height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
 `;
 
 const Title = styled.span`
-  color: var(--font-h1);
+  color: var(--gray-1);
 
   font-weight: 600;
 `;

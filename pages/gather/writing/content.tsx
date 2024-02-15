@@ -66,31 +66,31 @@ function WritingGatherContent() {
 const Container = styled.div``;
 
 const TitleInput = styled.input`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   border-bottom: var(--border-thick);
   width: 100%;
-  padding-left: var(--padding-min);
+  padding-left: var(--gap-1);
   height: 40px;
   background-color: inherit;
   outline: none;
   font-size: 15px;
   font-weight: 600;
   ::placeholder {
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
 `;
 
 const Content = styled.textarea`
   margin-top: 40px;
-  border: var(--border-main);
-  border-radius: var(--border-radius-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
   height: 200px;
   width: 100%;
-  padding: var(--padding-sub);
+  padding: var(--gap-3);
   font-size: 12px;
   :focus {
     outline: none;
-    border: var(--border-focus);
+    border: var(--border-thick);
   }
 `;
 

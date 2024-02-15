@@ -47,20 +47,20 @@ const GatherBlockParticipants = styled.div`
 const Layout = styled.div`
   height: 110px;
   background-color: white;
-  box-shadow: var(--box-shadow-b);
-  border-radius: var(--border-radius2);
+  box-shadow: var(--shadow);
+  border-radius: var(--rounded);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-main);
-  padding: var(--padding-sub);
+  margin-bottom: var(--gap-4);
+  padding: var(--gap-3);
 `;
 
 const ImageContainer = styled.div`
   position: relative;
   height: 100%;
   aspect-ratio: 1/1;
-  border: var(--border-sub);
-  border-radius: var(--border-radius2);
+  border: var(--border-light);
+  border-radius: var(--rounded);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,7 +68,7 @@ const ImageContainer = styled.div`
 `;
 
 const SpaceInfo = styled.div`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -78,7 +78,7 @@ const SpaceInfo = styled.div`
 const Info = styled.div`
   display: flex;
   width: 92px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 13px;
   margin-bottom: auto;
 `;

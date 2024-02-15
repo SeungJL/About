@@ -20,32 +20,32 @@ function NoticeItem() {
           <AccordionItem
             borderTop="none"
             key={item.id}
-            borderBottom="1px solid var(--font-h7)"
+            borderBottom="1px solid var(--gray-7)"
           >
             <AccordionButton
               _focus={{ outline: "none" }}
-              p="var(--padding-sub) var(--padding-max)"
+              p="var(--gap-3) var(--gap-5)"
             >
               <Box as="span" flex="1" textAlign="left" display="flex">
                 <Flex width="48px" align="center">
                   <NoticeIcon type={item.category} />
                 </Flex>
-                <Flex direction="column" flex="1" ml="var(--margin-sub)">
-                  <Text fontSize="16px" fontWeight="500" color="var(--font-h1)">
+                <Flex direction="column" flex="1" ml="var(--gap-3)">
+                  <Text fontSize="16px" fontWeight="500" color="var(--gray-1)">
                     {item.title}
                   </Text>
-                  <Text fontSize="13px" color="var(--font-h3)">
+                  <Text fontSize="13px" color="var(--gray-3)">
                     {item.date}
                   </Text>
                 </Flex>
               </Box>
-              <AccordionIcon fontSize="24px" color="var(--font-h2)" />
+              <AccordionIcon fontSize="24px" color="var(--gray-2)" />
             </AccordionButton>
             <AccordionPanel
-              mt="var(--margin-sub)"
-              p="0 var(--padding-max)"
-              pb="var(--padding-sub)"
-              color="var(--font-h2)"
+              mt="var(--gap-3)"
+              p="0 var(--gap-5)"
+              pb="var(--gap-3)"
+              color="var(--gray-2)"
               lineHeight="22px"
             >
               {item.content}

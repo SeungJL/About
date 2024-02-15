@@ -50,7 +50,7 @@ const Layout = styled.div<{ size: "md" | "lg" }>`
   display: flex;
   height: ${(props) => (props.size === "lg" ? "46px" : "42px")};
   > button:first-child {
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
   }
   > button {
     flex: 1;

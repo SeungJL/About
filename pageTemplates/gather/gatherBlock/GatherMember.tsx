@@ -48,7 +48,7 @@ function GatherMember({
         ) : (
           <>
             <span />
-            <FontAwesomeIcon icon={faInfinity} color="var(--font-h2)" />
+            <FontAwesomeIcon icon={faInfinity} color="var(--gray-2)" />
           </>
         )}
       </Voter>
@@ -57,7 +57,7 @@ function GatherMember({
 }
 
 const Layout = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
   font-size: 13px;
   display: flex;
   justify-content: space-between;
@@ -68,7 +68,7 @@ const Writer = styled.div`
   align-items: center;
   > span {
     font-weight: 600;
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 
@@ -81,8 +81,8 @@ const Voter = styled.div`
     color: var(--color-mint);
   }
   > span:last-child {
-    color: var(--font-h2);
-    margin-left: var(--margin-min);
+    color: var(--gray-2);
+    margin-left: var(--gap-1);
   }
 `;
 

@@ -62,7 +62,7 @@ function PromotionModal({ setIsModal }: IModal) {
 }
 
 const ImageContainer = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   height: 100%;
   position: relative;
 `;
@@ -76,19 +76,19 @@ const IconWrapper = styled.div`
   justify-content: center;
   align-items: flex-end;
   > div:last-child {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
   }
 `;
 
 const Info = styled.div`
-  line-height: var(--line-height);
+
   position: absolute;
   bottom: 24px;
   right: 4px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-weight: 600;
   font-size: 12px;
 `;

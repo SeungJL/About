@@ -28,8 +28,6 @@ function PromotionAllCoolTimeModal({
       item.uid !== "2259633694" &&
       item.uid !== "2636066822"
   ).length;
- 
-  
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
@@ -48,11 +46,11 @@ function PromotionAllCoolTimeModal({
           </Explanation>
         </Detail>
         <div onClick={() => setIsModal(false)}>
-          <FontAwesomeIcon icon={faXmark} size="lg" color="var(--font-h2)" />
+          <FontAwesomeIcon icon={faXmark} size="lg" color="var(--gray-2)" />
         </div>
       </ModalHeader>
       <ModalBody
-        p="var(--padding-min) var(--padding-main)"
+        p="var(--gap-1) var(--gap-4)"
         display="flex"
         flexDir="column"
         position="relative"
@@ -97,7 +95,7 @@ function PromotionAllCoolTimeModal({
         </Container>
       </ModalBody>
       <ModalFooter
-        p="var(--padding-sub) var(--padding-main)"
+        p="var(--gap-3) var(--gap-4)"
         display="flex"
         justifyContent="space-between"
       >
@@ -129,32 +127,32 @@ const Detail = styled.div`
   align-items: center;
   font-size: 16px;
   font-weight: 700;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const Explanation = styled.div`
   font-size: 12px;
   display: flex;
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
   align-items: center;
   > div {
     font-weight: 400;
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
     > span {
-      margin-left: var(--margin-min);
-      color: var(--font-h3);
+      margin-left: var(--gap-1);
+      color: var(--gray-3);
     }
   }
 `;
 
 const Container = styled.div`
   border: var(--border-mint);
-  border-radius: var(--border-radius-main);
-  padding: var(--padding-md);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-2);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40%, auto));
   grid-auto-rows: 36px;
-  gap: var(--margin-md) var(--margin-sub);
+  gap: var(--gap-2) var(--gap-3);
   overflow-y: auto;
 `;
 
@@ -163,7 +161,7 @@ const Item = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--padding-min);
+  padding: 0 var(--gap-1);
 `;
 
 const UniName = styled.div`
@@ -193,11 +191,11 @@ const Ok = styled.div`
 
 const Sum = styled.div`
   font-size: 12px;
-  margin-left: var(--margin-min);
-  color: var(--font-h2);
+  margin-left: var(--gap-1);
+  color: var(--gray-2);
 
   > span:first-child {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 
@@ -209,7 +207,7 @@ export const ModalFooterNav = styled.footer`
   > button {
     font-size: 14px;
     font-weight: 600;
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
     cursor: pointer;
   }
 `;

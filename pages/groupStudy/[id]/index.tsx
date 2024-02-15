@@ -128,7 +128,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 100px;
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
 `;
 
 export default GroupStudyDetail;

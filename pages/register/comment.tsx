@@ -120,36 +120,35 @@ const Container = styled.div`
 
 const Item = styled.div<{ $isSelected: boolean }>`
   width: 100%;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 48px;
-  margin-bottom: var(--margin-sub);
-  color: ${(props) =>
-    props.$isSelected ? "var(--font-h1)" : "var(--font-h4)"};
+  margin-bottom: var(--gap-3);
+  color: ${(props) => (props.$isSelected ? "var(--gray-1)" : "var(--gray-4)")};
   border: ${(props) =>
-    props.$isSelected ? "var(--border-thick)" : "1.5px solid var(--font-h6)"};
+    props.$isSelected ? "var(--border-thick)" : "1.5px solid var(--gray-6)"};
 `;
 
 const Input = styled.input`
   width: 100%;
-  color: var(--font-h4);
-  border: 1.5px solid var(--font-h6);
-  border-radius: var(--border-radius-sub);
+  color: var(--gray-4);
+  border: 1.5px solid var(--gray-6);
+  border-radius: var(--rounded-lg);
   display: flex;
   justify-content: center;
   text-align: center;
   background-color: inherit;
   align-items: center;
   height: 48px;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
 
   ::placeholder {
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 

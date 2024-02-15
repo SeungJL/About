@@ -18,10 +18,10 @@ import {
   useErrorToast,
   useFailToast,
 } from "../../hooks/custom/CustomToast";
-import { useStudyArrivedMutation } from "../../hooks/study/mutations";
+import { useStudyAttendCheckMutation } from "../../hooks/study/mutations";
 import { useImageUploadMutation } from "../../hooks/sub/utilMutations";
 import { useAboutPointMutation } from "../../hooks/user/mutations";
-import { useCollectionAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
+import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 
 import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
@@ -37,8 +37,8 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
   const setTransferAlphabetState = useSetRecoilState(transferAlphabetState);
 
   const { mutate: getAboutPoint } = useAboutPointMutation();
-  const { mutate: getAlphabet } = useCollectionAlphabetMutation("get");
-  const { mutate: handleArrived } = useStudyArrivedMutation(
+  const { mutate: getAlphabet } = useAlphabetMutation("get");
+  const { mutate: handleArrived } = useStudyAttendCheckMutation(
     now().startOf("day"),
     {
       onSuccess() {
@@ -135,7 +135,7 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
               <FontAwesomeIcon
                 icon={faCameraViewfinder}
                 size="4x"
-                color="var(--font-h4)"
+                color="var(--gray-4)"
               />
               <CameraText>사진 올리기</CameraText>
             </>
@@ -163,20 +163,20 @@ const Input = styled.input`
 const CameraText = styled.span`
   font-size: 14px;
   font-weight: 600;
-  color: var(--font-h4);
-  margin-top: var(--margin-sub);
+  color: var(--gray-4);
+  margin-top: var(--gap-3);
 `;
 
 const Container = styled.div`
-  margin: var(--margin-min) 0;
+  margin: var(--gap-1) 0;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1.5px dashed var(--font-h5);
-  border-radius: var(--border-radius-main);
-  background-color: var(--font-h8);
+  border: 1.5px dashed var(--gray-5);
+  border-radius: var(--rounded-lg);
+  background-color: var(--gray-8);
 `;
 
 const ImageContainer = styled.div`

@@ -40,7 +40,7 @@ function PointSystemsModal({ setIsModal }: IModal) {
 const Title = styled.span`
   font-size: 24px;
   font-weight: 600;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const Nav = styled.nav`
@@ -51,20 +51,20 @@ const Nav = styled.nav`
 const Wrapper = styled.div`
   height: 100%;
 
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
   flex: 1;
   font-weight: 600;
   font-size: 12px;
-  padding-bottom: var(--padding-md);
-  color: var(--font-h1);
+  padding-bottom: var(--gap-2);
+  color: var(--gray-1);
   :focus {
     outline: none;
   }
   border-bottom: ${(props) =>
-    props.isSelected ? "2px solid var(--font-h1)" : "1px solid var(--font-h6)"};
+    props.isSelected ? "2px solid var(--gray-1)" : "1px solid var(--gray-6)"};
 `;
 
 export default PointSystemsModal;

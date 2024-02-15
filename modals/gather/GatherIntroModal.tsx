@@ -30,10 +30,10 @@ function GatherIntroModal({ setIsModal }: IModal) {
 }
 
 const Ol = styled.ol`
-  margin-left: var(--margin-main);
+  margin-left: var(--gap-4);
   font-size: 13px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
   line-height: 2;
   > ul:last-child {
     margin-bottom: 0;
@@ -43,9 +43,9 @@ const Ol = styled.ol`
 const Ul = styled.ul`
   line-height: 1.6;
   font-size: 12px;
-  margin-left: var(--margin-sub);
-  margin-top: var(--margin-min);
-  margin-bottom: var(--margin-md);
+  margin-left: var(--gap-3);
+  margin-top: var(--gap-1);
+  margin-bottom: var(--gap-2);
   font-weight: 400;
   li {
     list-style-type: disc;

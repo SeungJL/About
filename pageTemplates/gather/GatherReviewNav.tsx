@@ -30,7 +30,7 @@ function GatherReviewNav() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-sub) 0;
+  padding: var(--gap-3) 0;
   display: flex;
   background-color: white;
   align-items: center;

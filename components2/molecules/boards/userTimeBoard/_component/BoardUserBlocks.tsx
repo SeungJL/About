@@ -51,7 +51,7 @@ const UserBlock = styled.div`
   height: 36px; /* h-9 */
   position: relative;
   z-index: 10;
-  border-radius: var(--border-radius-sub); /* rounded-lg */
+  border-radius: var(--rounded-lg); /* rounded-lg */
   padding: 4px; /* p-1 */
   display: flex;
   flex-direction: column;

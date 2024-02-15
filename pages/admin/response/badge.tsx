@@ -41,20 +41,20 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   padding: 12px;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: 1px solid var(--gray-5);
   > div:first-child {
     > span:first-child {
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
     }
     > span:last-child {
-      color: var(--font-h3);
+      color: var(--gray-3);
       font-size: 12px;
     }
   }
   > span:nth-child(2) {
     font-size: 13px;
-    color: var(--font-h2);
-    margin-bottom: var(--margin-md);
+    color: var(--gray-2);
+    margin-bottom: var(--gap-2);
   }
 `;
 

@@ -116,11 +116,11 @@ const Layout = styled.button`
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: var(--border-radius2);
-  box-shadow: var(--box-shadow-b);
-  padding: var(--padding-sub);
-  margin-bottom: var(--margin-main);
-  box-shadow: var(--box-shadow-b);
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
+  padding: var(--gap-3);
+  margin-bottom: var(--gap-4);
+  box-shadow: var(--shadow);
 `;
 
 const Header = styled.header`
@@ -130,16 +130,16 @@ const Header = styled.header`
   font-size: 14px;
   font-weight: 600;
   color: var(--color-mint);
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   > div:first-child {
     display: flex;
     align-items: center;
 
     > span {
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
     }
     > span:nth-child(2) {
-      margin-left: var(--margin-md);
+      margin-left: var(--gap-2);
     }
 
     > svg {
@@ -154,11 +154,11 @@ const Title = styled.div`
 const Info = styled.div`
   width: 100%;
 
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   display: grid;
   grid-template-columns: 0.9fr 0.8fr 1.2fr;
-  gap: var(--margin-min);
-  border-bottom: var(--border-sub);
+  gap: var(--gap-1);
+  border-bottom: var(--border-light);
 `;
 
 const InfoItem = styled.div`
@@ -166,20 +166,20 @@ const InfoItem = styled.div`
   font-size: 13px;
   > span:first-child {
     display: inline-block;
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
   > span:last-child {
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
 const Content = styled.pre`
   text-align: start;
   font-size: 13px;
-  color: var(--font-h2);
-  padding-top: var(--padding-sub);
+  color: var(--gray-2);
+  padding-top: var(--gap-3);
   font-family: apple;
   white-space: pre-wrap;
   /* display: -webkit-box;

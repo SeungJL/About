@@ -122,7 +122,7 @@ const UserLayout = styled.div`
 const Navigation = styled.nav`
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--font-h5);
+  border: 1px solid var(--gray-5);
   border-radius: 6px;
   overflow: hidden;
   padding: 0px 0;
@@ -130,26 +130,26 @@ const Navigation = styled.nav`
 
 const BlockName = styled.div`
   padding-bottom: 3px;
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
   font-weight: 600;
   font-size: 12px;
   height: 24px;
   display: flex;
   align-items: end;
-  color: var(--font-h2);
+  color: var(--gray-2);
   padding-left: 6px;
 `;
 
 const NavBlock = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
   padding-left: 6px;
   > button {
     text-align: start;
     height: 42px;
     font-size: 13px;
-    border-bottom: 1.5px solid var(--font-h6);
+    border-bottom: 1.5px solid var(--gray-6);
   }
 `;
 

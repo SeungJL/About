@@ -7,7 +7,7 @@ import {
   ModalFooterOne,
   ModalFooterTwo,
   ModalHeader,
-  ModalLayout,
+  ModalLayout
 } from "../../../components/modals/Modals";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { dayjsToFormat, dayjsToStr } from "../../../helpers/dateHelpers";
@@ -15,18 +15,18 @@ import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
-  useFailToast,
+  useFailToast
 } from "../../../hooks/custom/CustomToast";
 import {
   useStudyOpenFreeMutation,
-  useStudyParticipationMutation,
+  useStudyParticipationMutation
 } from "../../../hooks/study/mutations";
 
 import {
   myVotingState,
   participationsState,
   studyDateStatusState,
-  voteDateState,
+  voteDateState
 } from "../../../recoil/studyAtoms";
 import { locationState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
@@ -199,8 +199,8 @@ const Subtitle = styled.div`
   color: var(--color-mint);
   font-size: 15px;
   font-weight: 700;
-  margin-top: var(--margin-min);
-  margin-bottom: var(--margin-sub);
+  margin-top: var(--gap-1);
+  margin-bottom: var(--gap-3);
   margin-left: 2px;
 `;
 

@@ -23,7 +23,7 @@ function GatherBadge({ typeTitle }: IGatherBadge) {
 }
 
 const Category = styled.span`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
 `;
 
 export default GatherBadge;

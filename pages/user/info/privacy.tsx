@@ -5,7 +5,7 @@ import {
   Link,
   List,
   ListItem,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Header from "../../../components/layout/Header";
@@ -15,7 +15,7 @@ const Privacy = () => {
   return (
     <PageSlide>
       <Header title="개인정보 취급방침" url="/user" />
-      <Container mt="var(--margin-main)">
+      <Container mt="var(--gap-4)">
         <Text marginBottom="10px">
           Vote Helper 스터디 참여 투표 자동화 서비스(이하 Vote Helper)는
           이용자의 동의를 기반으로 개인정보를 수집·이용 및 제공하고 있으며,
@@ -37,7 +37,7 @@ const Privacy = () => {
         <Heading as="h3" size="lg" marginTop="15px">
           1. 처리하는 개인정보 항목
         </Heading>
-        <Heading as="h4" size="sm" mt="var(--margin-sub)">
+        <Heading as="h4" size="sm" mt="var(--gap-3)">
           회원정보
         </Heading>
         <List as="ol" marginLeft="1em" styleType="number">

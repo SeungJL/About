@@ -38,11 +38,11 @@ function StudyPlace() {
 }
 
 const Main = styled.main`
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
 `;
 
 const Spacer = styled.div`
-  height: var(--margin-max);
+  height: var(--gap-5);
 `;
 
 export default StudyPlace;

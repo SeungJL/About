@@ -84,7 +84,7 @@ const Search = styled.div`
   }
 `;
 const SearchInput = styled.input`
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
   margin-right: 6px;
 `;
 const Layout = styled.div`
@@ -99,7 +99,7 @@ const SectionHeader = styled.header`
   justify-content: center;
   font-size: 16px;
   font-weight: 600;
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
 `;
 
 const Section = styled.section`

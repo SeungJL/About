@@ -81,7 +81,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
 
-  border-bottom: 6px solid var(--font-h6);
+  border-bottom: 6px solid var(--gray-6);
   padding: 16px 0;
 `;
 
@@ -97,14 +97,14 @@ const Header = styled.header`
   > div {
     span {
       font-size: 10px;
-      color: var(--font-h3);
+      color: var(--gray-3);
       margin-left: 8px;
     }
   }
 `;
 const Form = styled.form`
-  border-top: 1px solid var(--font-h5);
-  border-bottom: 1px solid var(--font-h5);
+  border-top: 1px solid var(--gray-5);
+  border-bottom: 1px solid var(--gray-5);
 `;
 
 const Title = styled.div`
@@ -115,7 +115,7 @@ const Title = styled.div`
 
 const Content = styled.div`
   padding: 8px 0;
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
   min-height: 48px;
   display: flex;
@@ -144,7 +144,7 @@ const InputItem = styled.div`
       align-items: center;
 
       font-size: 14px;
-      color: var(--font-h1);
+      color: var(--gray-1);
       margin-bottom: 3px;
     }
   }
@@ -176,8 +176,8 @@ const VoteFooter = styled.footer`
   }
 `;
 const IconLayout = styled.span`
-  background-color: var(--font-h6);
-  color: var(--font-h1);
+  background-color: var(--gray-6);
+  color: var(--gray-1);
   font-size: 10px;
   width: max-content;
 

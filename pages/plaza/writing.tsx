@@ -76,13 +76,13 @@ const TitleInput = styled.input`
   height: 44px;
   display: flex;
   align-items: center;
-  border-bottom: 2px solid var(--font-h6);
-  background-color: var(--font-h8);
-  color: var(--font-h2);
+  border-bottom: 2px solid var(--gray-6);
+  background-color: var(--gray-8);
+  color: var(--gray-2);
   ::placeholder {
     font-size: 16px;
     font-weight: 600;
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
 `;
 

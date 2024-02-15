@@ -58,16 +58,16 @@ const DayLine = styled.div`
   margin: 8px 22px;
   display: flex;
   justify-content: space-between;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
   padding: 2px;
-  padding-top: var(--padding-sub);
-  margin-bottom: var(--margin-sub);
+  padding-top: var(--gap-3);
+  margin-bottom: var(--gap-3);
 `;
 
 const CallenderDays = styled.div`
-  color: var(--font-h2);
-  margin: 0px var(--margin-min);
+  color: var(--gray-2);
+  margin: 0px var(--gap-1);
   font-size: 14px;
   padding: 0;
   display: grid;

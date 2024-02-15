@@ -40,7 +40,7 @@ const Layout = styled.header`
 `;
 
 const Category = styled.span`
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 export default GatherBlockHeader;

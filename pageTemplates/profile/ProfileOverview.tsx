@@ -25,8 +25,8 @@ function ProfileOverview({ user }: IProfileOverview) {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
   display: flex;
   flex-direction: column;
 `;

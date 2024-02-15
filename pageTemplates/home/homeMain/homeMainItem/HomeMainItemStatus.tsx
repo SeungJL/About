@@ -25,7 +25,6 @@ function AboutMainItemStatus({
     (study) => study.place_id === place?._id
   )?.startTime;
 
-
   const plusCnt =
     status === "pending" &&
     (memberCnt === 0 ? 10 : memberCnt === 1 ? 5 : memberCnt === 2 ? 2 : null);
@@ -65,7 +64,7 @@ const Layout = styled.div`
     align-items: center;
 
     > span {
-      margin-left: var(--margin-md);
+      margin-left: var(--gap-2);
     }
   }
 `;
@@ -78,12 +77,12 @@ const Result = styled.div`
   display: flex;
   align-items: center;
   font-size: 11px;
-  margin-left: var(--margin-md);
-  color: var(--font-h2);
+  margin-left: var(--gap-2);
+  color: var(--gray-2);
 `;
 
 const ResultInfo = styled.div`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
 `;
 
 export default AboutMainItemStatus;

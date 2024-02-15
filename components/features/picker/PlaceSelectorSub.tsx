@@ -88,8 +88,8 @@ const Layout = styled.div<{ isTwoPage: boolean }>`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
 
-  gap: var(--margin-min);
-  padding: ${(props) => (props.isTwoPage ? "0 var(--margin-main)" : null)};
+  gap: var(--gap-1);
+  padding: ${(props) => (props.isTwoPage ? "0 var(--gap-4)" : null)};
 `;
 
 const Item = styled.div<{ isSelected: boolean }>`
@@ -97,20 +97,20 @@ const Item = styled.div<{ isSelected: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   border: ${(props) =>
-    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-sub)"};
+    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-light)"};
 `;
 
 const Place = styled.div`
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   overflow: hidden;
   width: 64px;
   height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 
 const Name = styled.span`
@@ -119,12 +119,12 @@ const Name = styled.span`
 `;
 
 const LeftArrow = styled.div`
-  padding: var(--padding-min);
+  padding: var(--gap-1);
   position: absolute;
   top: 42%;
 `;
 const RightArrow = styled.div`
-  padding: var(--padding-min);
+  padding: var(--gap-1);
   position: absolute;
   top: 42%;
   right: -8px;

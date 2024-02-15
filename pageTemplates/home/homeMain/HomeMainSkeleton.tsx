@@ -41,16 +41,16 @@ function AboutMainSkeleton() {
 
 const Layout = styled.div`
   min-height: 422px;
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   margin-bottom: 32px;
 `;
 const Item = styled.div`
   height: 110px;
   background-color: white;
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
   padding: 12px;
 `;
 const ImageContainer = styled.div`
@@ -58,7 +58,7 @@ const ImageContainer = styled.div`
   height: 84.7px;
 `;
 const SpaceInfo = styled.div`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -98,14 +98,14 @@ const Participants = styled.div`
 
 const MoreInfoBtn = styled.button`
   width: 100%;
-  box-shadow: var(--box-shadow-b);
+  box-shadow: var(--shadow);
   height: 44px;
   display: flex;
   margin-top: auto;
   justify-content: center;
   background-color: white;
   align-items: center;
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
   color: var(--color-mint);
   font-weight: 600;
 `;

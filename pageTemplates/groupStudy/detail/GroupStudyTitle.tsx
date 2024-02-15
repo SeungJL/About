@@ -83,10 +83,10 @@ const IconWrapper = styled.div`
 `;
 
 const Layout = styled.div<{ status: GatherStatus }>`
-  padding: Var(--padding-main);
-  padding-bottom: var(--padding-md);
+  padding: Var(--gap-4);
+  padding-bottom: var(--gap-2);
   background-color: white;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   display: flex;
   flex-direction: column;
 `;
@@ -96,9 +96,9 @@ const SettingBtnNav = styled.nav`
   margin-left: auto;
 
   > button {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
     border-radius: 50%;
-    background-color: var(--font-h56);
+    background-color: var(--gray-7);
     width: 32px;
     height: 32px;
     display: flex;
@@ -113,14 +113,14 @@ const SettingBtnNav = styled.nav`
 const Title = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-min);
-  color: var(--font-h1);
+  margin-bottom: var(--gap-1);
+  color: var(--gray-1);
   font-size: 18px;
 
   font-weight: 800;
   > div:first-child {
     > span {
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
     }
   }
 `;
@@ -129,7 +129,7 @@ const SubInfo = styled.div`
   height: 32px;
   font-size: 13px;
   display: flex;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 export default GroupStudyTitle;

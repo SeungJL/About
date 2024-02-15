@@ -5,11 +5,11 @@ import styled from "styled-components";
 import {
   ModalBody,
   ModalFooterTwo,
-  ModalLayout,
+  ModalLayout
 } from "../../components/modals/Modals";
 import {
   GATHER_CONTENT,
-  GROUP_STUDY_ALL,
+  GROUP_STUDY_ALL
 } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../hooks/gather/mutations";
@@ -125,7 +125,7 @@ function GatherCommentEditModal({
 
 const Container = styled.div`
   height: 100%;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -139,11 +139,11 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  margin-top: var(--margin-md);
-  padding: var(--padding-md);
+  margin-top: var(--gap-2);
+  padding: var(--gap-2);
   width: 100%;
-  border: var(--border-main-light);
-  border-radius: var(--border-radius-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
   font-size: 12px;
   :focus {
     outline: none;

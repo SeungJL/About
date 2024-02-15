@@ -51,15 +51,15 @@ function Gather() {
 }
 
 const Layout = styled.div`
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
 `;
 
 const ReviewWrapper = styled.div`
-  border-bottom: 6px solid var(--font-h56);
+  border-bottom: 6px solid var(--gray-7);
 `;
 
 const NavWrapper = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
 
   background-color: white;
 `;

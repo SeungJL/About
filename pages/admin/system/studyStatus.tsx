@@ -48,13 +48,13 @@ function AdminStudyStatus() {
         <Date>
           <FontAwesomeIcon
             icon={faChevronLeft}
-            color="var(--font-h2)"
+            color="var(--gray-2)"
             onClick={() => setDate((old) => old.subtract(1, "day"))}
           />
           <span>{date.format("M월 DD일")}</span>
           <FontAwesomeIcon
             icon={faChevronRight}
-            color="var(--font-h2)"
+            color="var(--gray-2)"
             onClick={() => setDate((old) => old.add(1, "day"))}
           />
         </Date>

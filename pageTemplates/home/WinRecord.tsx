@@ -34,7 +34,7 @@ function AboutWinRecord() {
             ))}
         </Container>
         <IconWrapper>
-          <FontAwesomeIcon icon={faEllipsis} size="lg" color="var(--font-h3)" />
+          <FontAwesomeIcon icon={faEllipsis} size="lg" color="var(--gray-3)" />
         </IconWrapper>
       </Content>
     </Layout>
@@ -42,29 +42,29 @@ function AboutWinRecord() {
 }
 
 const Layout = styled.div`
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-main);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-4);
   height: 328px;
   background-color: white;
-  box-shadow: var(--box-shadow-b);
-  border-radius: var(--border-radius-main);
-  padding: var(--padding-md) 0;
+  box-shadow: var(--shadow);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-2) 0;
 `;
 
 const Header = styled.header`
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   display: flex;
   font-size: 13px;
-  color: var(--font-h1);
+  color: var(--gray-1);
   font-weight: 500;
-  padding-bottom: var(--padding-md);
-  border-bottom: var(--border-sub);
+  padding-bottom: var(--gap-2);
+  border-bottom: var(--border-light);
   > span:first-child {
     flex: 0.15;
   }
@@ -80,15 +80,15 @@ const Header = styled.header`
 `;
 
 const Container = styled.div`
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
 `;
 
 const Item = styled.div`
-  border-bottom: 1px solid var(--font-h7);
+  border-bottom: 1px solid var(--gray-7);
   font-size: 11px;
-  color: var(--font-h2);
+  color: var(--gray-2);
   display: flex;
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   > span:first-child {
     flex: 0.15;
   }
@@ -104,7 +104,7 @@ const Item = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  padding-top: var(--padding-min);
+  padding-top: var(--gap-1);
   flex: 1;
   display: flex;
   justify-content: center;

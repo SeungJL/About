@@ -32,8 +32,8 @@ function StudyDateBarSkeleton() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  padding-top: var(--padding-max);
+  margin: 0 var(--gap-4);
+  padding-top: var(--gap-5);
   display: flex;
   flex-direction: column;
   > span:first-child {
@@ -46,16 +46,16 @@ const Layout = styled.div`
 `;
 
 const Container = styled.div`
-  margin: var(--margin-min) 0;
+  margin: var(--gap-1) 0;
   display: flex;
   align-items: center;
-  color: var(--font-h2);
+  color: var(--gray-2);
   > div {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
     display: flex;
     align-items: center;
     > span {
-      margin-left: var(--margin-min);
+      margin-left: var(--gap-1);
       display: inline-block;
       height: 20px;
       width: 8px;

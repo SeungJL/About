@@ -25,15 +25,15 @@ function PromotionTitle() {
 
 const Layout = styled.div`
   margin: 0 20px;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   text-align: center;
 `;
 
 const EveryTime = styled.div`
   position: relative;
   z-index: 2;
-  background-color: var(--font-h8);
-  border-radius: var(--border-radius-main);
+  background-color: var(--gray-8);
+  border-radius: var(--rounded-lg);
 `;
 
 const Title = styled.div`
@@ -46,19 +46,19 @@ const Title = styled.div`
 `;
 
 const Detail = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   font-weight: 600;
   font-size: 13px;
-  color: var(--font-h2);
+  color: var(--gray-2);
   > div:first-child {
-    margin-bottom: var(--margin-md);
+    margin-bottom: var(--gap-2);
     > b {
       color: #c62917;
       font-weight: 800;
     }
   }
   > div:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;
 

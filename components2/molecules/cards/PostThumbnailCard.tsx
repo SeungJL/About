@@ -92,11 +92,11 @@ const CardLink = styled(Link)`
   display: flex;
   padding: 12px;
   background-color: white;
-
-  border-radius: var(--border-radius-sub);
-  box-shadow: var(--box-shadow-b);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
+  box-shadow: var(--shadow);
   &:hover {
-    background-color: var(--font-h56); // gray-100
+    background-color: var(--gray-7); // gray-100
   }
 `;
 
@@ -118,7 +118,7 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  color: var(--font-h3); // text-gray-500
+  color: var(--gray-3); // text-gray-500
   font-size: 13px;
 `;
 
@@ -130,7 +130,7 @@ const StatusContainer = styled.div`
     display: flex;
     margin-left: auto;
     align-items: center;
-    color: var(--font-h4); // text-gray-500
+    color: var(--gray-4); // text-gray-500
     .userIconContainer {
       display: flex;
       align-items: center;
@@ -148,10 +148,10 @@ const SkeletonContainer = styled.div`
   padding: 12px;
   background-color: white;
 
-  border-radius: var(--border-radius-sub);
-  box-shadow: var(--box-shadow-b);
+  border-radius: var(--rounded-lg);
+  box-shadow: var(--shadow);
   &:hover {
-    background-color: var(--font-h56); // gray-100
+    background-color: var(--gray-7); // gray-100
   }
 `;
 

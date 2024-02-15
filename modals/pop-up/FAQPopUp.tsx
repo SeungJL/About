@@ -53,7 +53,7 @@ function FAQPopUp({ setIsModal }: IModal) {
 }
 
 const Wrapper = styled.div`
-  padding: var(--padding-sub);
+  padding: var(--gap-3);
   background-color: rgba(255, 204, 34, 0.1);
   flex: 1;
   display: flex;

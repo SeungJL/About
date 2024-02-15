@@ -28,7 +28,7 @@ function ImageSliderGatherReviewNav({
       style={{
         width: "100%",
         height: "auto",
-        marginLeft: "var(--margin-sub)",
+        marginLeft: "var(--gap-3)",
       }}
       slidesPerView={4.5}
     >
@@ -69,7 +69,7 @@ const GatherReviewNavItem = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const ReviewItem = styled(GatherReviewNavItem)`
@@ -79,14 +79,14 @@ const ReviewItem = styled(GatherReviewNavItem)`
 `;
 
 const ImageWrapper = styled.div`
-  border-radius: var(--border-radius2);
+  border-radius: var(--rounded);
   width: 54px;
   height: 54px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.16);
 `;
 
@@ -100,6 +100,6 @@ const Text = styled.div`
 
 const ReviewIcon = styled(ImageWrapper)`
   box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.16);
-  background-color: var(--font-h7);
+  background-color: var(--gray-7);
 `;
 export default ImageSliderGatherReviewNav;

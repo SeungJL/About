@@ -105,17 +105,17 @@ function FriendCategory() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-md);
+  gap: var(--gap-2);
 `;
 
 const Item = styled.div`
-  border: var(--border-main-light);
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-md);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-2);
 `;
 
 const ProfileHeader = styled.div`
@@ -123,17 +123,17 @@ const ProfileHeader = styled.div`
   align-items: center;
   > span {
     font-weight: 600;
-    margin-left: var(--margin-main);
+    margin-left: var(--gap-4);
     font-size: 15px;
   }
 `;
 
 const Info = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
   flex-direction: column;
   line-height: 2.2;
-  padding-left: var(--padding-min);
+  padding-left: var(--gap-1);
 `;
 
 const Detail = styled.div`
@@ -144,18 +144,18 @@ const Detail = styled.div`
     width: 50px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   > span:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-size: 13px;
   }
 `;
 
 const Birthday = styled.span`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
   font-weight: 600;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 export default FriendCategory;

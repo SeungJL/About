@@ -45,12 +45,12 @@ function GatherDetail({ age, date, location }: IGatherDetail) {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
 
   display: flex;
   flex-direction: column;
-  color: var(--font-h2);
-  border-bottom: var(--border-sub);
+  color: var(--gray-2);
+  border-bottom: var(--border-light);
   > div:nth-child(2) {
     > span {
       margin-left: 6px;
@@ -62,9 +62,9 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   > span {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 

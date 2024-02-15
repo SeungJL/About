@@ -59,10 +59,10 @@ const TitleWrapper = styled.div`
 
 const Button = styled.button`
   align-self: flex-end;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
   > span {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 

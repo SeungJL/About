@@ -39,11 +39,11 @@ export default function AboutFooter() {
 }
 
 const Layout = styled.div`
-  border-top: 1px solid var(--font-h5);
+  border-top: 1px solid var(--gray-5);
   margin-top: 30vh;
-  color: var(--font-h3);
+  color: var(--gray-3);
   > div:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     > span {
       margin-right: 10px;
     }

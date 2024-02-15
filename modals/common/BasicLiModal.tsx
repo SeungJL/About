@@ -94,7 +94,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
       onClose={onClose}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent m="auto var(--margin-main)">
+        <AlertDialogContent m="auto var(--gap-4)">
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             운영진에 지원하시겠어요?
           </AlertDialogHeader>
@@ -106,7 +106,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
             <Button
               colorScheme="mintTheme"
               onClick={handleSubmit}
-              ml="var(--margin-min)"
+              ml="var(--gap-1)"
             >
               신청
             </Button>
@@ -118,23 +118,23 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
 };
 
 const Subtitile = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 
 const Ol = styled.ol`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 12px;
-  margin-left: var(--margin-main);
-  margin-bottom: var(--margin-md);
+  margin-left: var(--gap-4);
+  margin-bottom: var(--gap-2);
 `;
 
 const Ul = styled.ul`
   font-size: 12px;
-  color: var(--font-h2);
-  margin-left: var(--margin-main);
+  color: var(--gray-2);
+  margin-left: var(--gap-4);
 `;
 
 export default ManagerPopUp;

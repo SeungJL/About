@@ -2,7 +2,7 @@ import {
   RangeSlider,
   RangeSliderFilledTrack,
   RangeSliderThumb,
-  RangeSliderTrack,
+  RangeSliderTrack
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
@@ -30,7 +30,7 @@ function GatherWritingConditionAgeRange({
         alignSelf="center"
         onChange={(value) => setAge(value)}
       >
-        <RangeSliderTrack bg="var(--font-h5)">
+        <RangeSliderTrack bg="var(--gray-5)">
           <RangeSliderFilledTrack bg="var(--color-mint)" />
         </RangeSliderTrack>
         <RangeSliderThumb boxSize={6} index={0} />
@@ -46,8 +46,8 @@ function GatherWritingConditionAgeRange({
 }
 
 const Layout = styled(motion.div)`
-  margin: 0 var(--margin-min);
-  margin-top: var(--margin-sub);
+  margin: 0 var(--gap-1);
+  margin-top: var(--gap-3);
   display: flex;
   flex-direction: column;
 `;

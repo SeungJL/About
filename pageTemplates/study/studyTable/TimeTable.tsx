@@ -22,15 +22,15 @@ const TimeBlock = ({ hour }: { hour?: number }) => {
 };
 
 const Layout = styled.div`
-  padding: 0 var(--padding-md);
+  padding: 0 var(--gap-2);
   position: absolute;
   width: 100%;
   height: 100%;
-  padding-bottom: var(--padding-main);
+  padding-bottom: var(--gap-4);
   opacity: 1;
   display: flex;
   justify-content: space-around;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
 `;
 
@@ -42,11 +42,11 @@ const TimeBlockLayout = styled.div`
 `;
 
 const Time = styled.div`
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 const Block = styled.div`
   flex: 1;
-  border-left: 1px solid var(--font-h56);
+  border-left: 1px solid var(--gray-7);
 `;
 
 export default TimeTable;

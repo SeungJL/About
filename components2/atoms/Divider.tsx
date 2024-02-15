@@ -6,5 +6,5 @@ export default function Divider() {
 
 const Layout = styled.div`
   height: 6px;
-  background-color: var(--font-h7);
+  background-color: var(--gray-7);
 `;

@@ -30,22 +30,22 @@ const Layout = styled(motion.div)`
   margin-top: 12px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--font-h1);
+  color: var(--gray-1);
   padding-bottom: 12px;
-  border-bottom: 2px solid var(--font-h6);
+  border-bottom: 2px solid var(--gray-6);
 `;
 
 const Content = styled.textarea<{ isVote: boolean }>`
   width: 100%;
   height: ${(props) => (props.isVote ? "68px" : "380px")};
   padding: 2px;
-  color: var(--font-h2);
-  background-color: var(--font-h8);
+  color: var(--gray-2);
+  background-color: var(--gray-8);
 
   ::placeholder {
     font-size: 15px;
     transition: none;
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
 `;
 

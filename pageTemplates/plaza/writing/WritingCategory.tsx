@@ -57,7 +57,7 @@ const Layout = styled.div`
 const Header = styled.header`
   font-weight: 600;
   margin-bottom: 6px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const Nav = styled.nav`
@@ -66,7 +66,7 @@ const Nav = styled.nav`
 `;
 
 const Label = styled.label`
-  color: var(--font-h3);
+  color: var(--gray-3);
   margin-right: 12px;
   display: inline-block;
   vertical-align: middle;

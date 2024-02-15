@@ -60,21 +60,21 @@ function RecordLocationCategory({
 }
 
 const Layout = styled.div`
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--font-h7);
-  border-top: 1px solid var(--font-h6);
-  border-bottom: 1px solid var(--font-h6);
+  background-color: var(--gray-7);
+  border-top: 1px solid var(--gray-6);
+  border-bottom: 1px solid var(--gray-6);
   > div {
     display: flex;
     align-items: center;
   }
   > span:last-child {
     font-size: 10px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
@@ -87,7 +87,7 @@ const Button = styled.button<{
   location: Location;
   category: LocationFilterType;
 }>`
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
   font-weight: 600;
   color: ${(props) => LOCATION_TABLE_COLOR[props.location]};
   font-size: ${(props) =>

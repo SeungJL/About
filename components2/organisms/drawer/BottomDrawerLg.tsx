@@ -60,7 +60,7 @@ export default function BottomDrawerLg({
           w="100%"
           colorScheme="mintTheme"
           size="lg"
-          borderRadius="var(--border-radius-sub)"
+          borderRadius="var(--rounded-lg)"
           mt="20px"
           onClick={onClick}
         >
@@ -77,8 +77,8 @@ const Layout = styled(motion.div)`
   bottom: 0;
   width: 100%;
   max-width: var(--max-width);
-  border-top-left-radius: var(--border-radius-main);
-  border-top-right-radius: var(--border-radius-main);
+  border-top-left-radius: var(--rounded-lg);
+  border-top-right-radius: var(--rounded-lg);
   background-color: white;
   z-index: 5000;
   padding: 20px;
@@ -91,24 +91,24 @@ const TopNav = styled.nav`
   width: 56px;
   height: 4px;
   border-radius: 4px;
-  background-color: var(--font-h5);
-  margin-bottom: var(--margin-max);
+  background-color: var(--gray-5);
+  margin-bottom: var(--gap-5);
 `;
 
 const Header = styled.header`
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--margin-max);
+  margin-bottom: var(--gap-5);
   > span:first-child {
     font-weight: 600;
     font-size: 15px;
-    color: var(--font-h2);
-    margin-bottom: var(--margin-min);
+    color: var(--gray-2);
+    margin-bottom: var(--gap-1);
   }
   > span:last-child {
     font-size: 20px;
     font-weight: 600;
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;

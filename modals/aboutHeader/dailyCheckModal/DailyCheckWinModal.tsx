@@ -27,7 +27,7 @@ function DailyCheckWinModal({ setIsModal }: IModal) {
     <ModalLayout onClose={() => setIsModal(false)} size="md">
       <ModalHeader
         display="flex"
-        p="var(--padding-sub) var(--padding-main)"
+        p="var(--gap-3) var(--gap-4)"
         justifyContent="space-between"
       >
         <FontAwesomeIcon icon={faLollipop} color="var(--color-mint)" />
@@ -63,7 +63,7 @@ const Gift = styled.div`
   border: var(--border-mint);
   width: 80%;
   height: 60%;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   font-size: 16px;
   font-weight: 600;
   display: flex;
@@ -73,15 +73,15 @@ const Gift = styled.div`
 
 const Message = styled.div`
   text-align: center;
-  color: var(--font-h1);
+  color: var(--gray-1);
   > span:nth-child(2) {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
 `;
 
 const SubMessage = styled.span`
   font-size: 12px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   text-align: center;
 `;
 

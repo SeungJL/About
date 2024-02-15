@@ -65,9 +65,9 @@ const Layout = styled.div``;
 
 const Item = styled.div`
   display: flex;
-  padding: var(--padding-sub);
+  padding: var(--gap-3);
   align-items: center;
-  border-bottom: var(--border-main-light);
+  border-bottom: var(--border);
 `;
 
 const Name = styled.div`
@@ -85,7 +85,7 @@ const Rank = styled.div`
 const Score = styled.div``;
 
 const RankingMine = styled.div<{ isMine?: boolean }>`
-  margin: 0 var(--margin-sub);
+  margin: 0 var(--gap-3);
   font-weight: 600;
   color: ${(props) => props.isMine && "var(--color-mint)"};
   font-weight: ${(props) => props.isMine && "600"};

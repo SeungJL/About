@@ -124,7 +124,7 @@ function Chart({ type, user }: IChart) {
 
 const ChartWrapper = styled.div`
   min-height: 213px;
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
 `;
 
 export default Chart;

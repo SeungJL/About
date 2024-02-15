@@ -44,9 +44,9 @@ const Layout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--margin-sub) var(--margin-main);
+  padding: var(--gap-3) var(--gap-4);
   background-color: white;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
   > div:first-child {
     display: flex;
   }
@@ -57,7 +57,7 @@ const Category = styled.div``;
 const Writer = styled.span``;
 
 const Info = styled.div`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -68,7 +68,7 @@ const Info = styled.div`
   }
   > span:last-child {
     font-size: 12px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 

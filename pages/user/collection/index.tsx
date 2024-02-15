@@ -91,12 +91,12 @@ function Collection() {
 
 const HrDiv = styled.div`
   height: 8px;
-  background-color: var(--font-h56);
+  background-color: var(--gray-7);
 `;
 
 const Container = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-main) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-4) 0;
 `;
 
 const Title = styled.div`
@@ -114,7 +114,7 @@ const Title = styled.div`
     align-items: center;
     font-weight: 600;
     > button:first-child {
-      margin-right: var(--margin-min);
+      margin-right: var(--gap-1);
     }
   }
 `;
@@ -133,15 +133,15 @@ const AlphabetContainer = styled.div`
 const AlphabetQNABtn = styled.button`
   display: flex;
   align-items: center;
-  background-color: var(--font-h56);
+  background-color: var(--gray-7);
   width: 100%;
-  padding: var(--padding-sub) var(--padding-main);
-  border-radius: var(--border-radius-main);
+  padding: var(--gap-3) var(--gap-4);
+  border-radius: var(--rounded-lg);
   color: var(--color-font-h2);
 `;
 
 const IconWrapper = styled.div`
-  margin-right: var(--margin-sub);
+  margin-right: var(--gap-3);
 `;
 
 const AlphabetQNABtnContents = styled.div`
@@ -150,11 +150,11 @@ const AlphabetQNABtnContents = styled.div`
   align-items: flex-start;
   > span:first-child {
     font-size: 12px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   > span:last-child {
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
     font-size: 14px;
   }
 `;

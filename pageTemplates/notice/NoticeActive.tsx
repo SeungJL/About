@@ -15,7 +15,7 @@ import {
   useFailToast,
 } from "../../hooks/custom/CustomToast";
 import { useUserFriendMutation } from "../../hooks/user/mutations";
-import { useCollectionAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
+import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { useInteractionMutation } from "../../hooks/user/sub/interaction/mutations";
 import { userInfoState } from "../../recoil/userAtoms";
 import { INoticeActiveLog } from "../../types/interaction";
@@ -37,8 +37,7 @@ function NoticeActive({ activeLogs }: INoticeActive) {
   const { mutate: registerFriend } = useUserFriendMutation("patch", {
     onError: errorToast,
   });
-  const { mutate: changeAlphabet, data } =
-    useCollectionAlphabetMutation("change");
+  const { mutate: changeAlphabet, data } = useAlphabetMutation("change");
 
   const { mutate: interactionFriend } = useInteractionMutation(
     "friend",
@@ -112,7 +111,7 @@ function NoticeActive({ activeLogs }: INoticeActive) {
                 님{message} {type === "like" && <Point>+2 point</Point>}
               </Content>
               {type === "alphabet" && (
-                <AlphabetWrapper style={{ marginRight: "var(--margin-md)" }}>
+                <AlphabetWrapper style={{ marginRight: "var(--gap-2)" }}>
                   <AlphabetIcon
                     alphabet={alphabet[0] as Alphabet}
                     isCircle={true}
@@ -130,13 +129,13 @@ function NoticeActive({ activeLogs }: INoticeActive) {
                 item.status === "pending" ? (
                   <FriendButtons>
                     <Button
-                      mx="var(--margin-min)"
+                      mx="var(--gap-1)"
                       size="xs"
                       border="1px solid var(--color-mint)"
                       borderRadius="11px"
                       fontSize="12px"
                       fontWeight="700"
-                      mr="var(--margin-md)"
+                      mr="var(--gap-2)"
                       variant="ghost"
                       color="var(--color-mint)"
                       onClick={() =>
@@ -152,10 +151,10 @@ function NoticeActive({ activeLogs }: INoticeActive) {
                     </Button>
                     <Button
                       fontSize="12px"
-                      border="1px solid var(--font-h2)"
+                      border="1px solid var(--gray-2)"
                       borderRadius="11px"
                       size="xs"
-                      color="var(--font-h2)"
+                      color="var(--gray-2)"
                       variant="ghost"
                       onClick={() =>
                         onClickFriendRequest(
@@ -196,20 +195,20 @@ const AlphabetWrapper = styled.div`
   font-size: 8px;
 
   > span {
-    margin: 0 var(--margin-min);
+    margin: 0 var(--gap-1);
   }
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  padding: var(--padding-sub) var(--padding-max);
+  padding: var(--gap-3) var(--gap-5);
   font-size: 13px;
-  border-bottom: 1px solid var(--font-h56);
+  border-bottom: 1px solid var(--gray-7);
 `;
 
 const IconWrapper = styled.div`
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Name = styled.div`
@@ -222,11 +221,11 @@ const Content = styled.div`
   align-items: center;
   white-space: nowrap;
   height: 22px;
-  margin-right: var(--margin-md);
+  margin-right: var(--gap-2);
 `;
 
 const Point = styled.span`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
   color: var(--color-mint);
   font-size: 12px;
   font-weight: 600;
@@ -235,7 +234,7 @@ const Point = styled.span`
 const Date = styled.span`
   margin-left: auto;
   white-space: nowrap;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 11px;
 `;
 
@@ -246,7 +245,7 @@ const FriendButtons = styled.div`
 
 const FriendComplete = styled.span`
   margin-left: auto;
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-weight: 500;
   font-size: 12px;
 `;

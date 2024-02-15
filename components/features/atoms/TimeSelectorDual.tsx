@@ -24,7 +24,7 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
     <Layout>
       <Select
         w="72px"
-        mr="var(--margin-md)"
+        mr="var(--gap-2)"
         name="hour"
         value={time.hours}
         placeholder="시간"
@@ -39,7 +39,7 @@ function TimeSelectorDual({ time, setTime, timeArr }: ITimeSelectorDual) {
       :
       <Select
         w="72px"
-        ml="var(--margin-md)"
+        ml="var(--gap-2)"
         name="minute"
         defaultValue={String(time.minutes).padStart(2, "0")}
         placeholder="분"

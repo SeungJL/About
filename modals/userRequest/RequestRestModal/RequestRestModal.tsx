@@ -72,9 +72,9 @@ function RequestRestModal({ setIsModal }: IModal) {
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
       <ModalHeader text="휴식신청" />
       <RequestRestModalInfo onSubmit={onSubmit} />
-      <ModalFooter p="var(--padding-main) var(--padding-max)">
+      <ModalFooter p="var(--gap-4) var(--gap-5)">
         <Button
-          mr="var(--margin-sub)"
+          mr="var(--gap-3)"
           variant="ghost"
           type="button"
           onClick={() => setIsModal(false)}

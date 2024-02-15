@@ -126,16 +126,16 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--margin-max);
+  margin-bottom: var(--gap-5);
 `;
 
 const BlockName = styled.div`
-  padding: var(--padding-md) var(--padding-main);
+  padding: var(--gap-2) var(--gap-4);
   font-size: 14px;
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
   font-weight: 600;
   display: flex;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 const NavBlock = styled.div`
@@ -143,9 +143,9 @@ const NavBlock = styled.div`
   flex-direction: column;
 
   > button {
-    padding: var(--padding-main) var(--padding-main);
+    padding: var(--gap-4) var(--gap-4);
     text-align: start;
-    border-bottom: var(--border-sub);
+    border-bottom: var(--border-light);
   }
 `;
 

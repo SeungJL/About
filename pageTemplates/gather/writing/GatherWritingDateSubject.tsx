@@ -105,32 +105,32 @@ const Layout = styled.div`
 `;
 
 const Message = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   font-size: 13px;
-  color: var(--font-h4);
+  color: var(--gray-4);
 `;
 const TimeContent = styled.div`
   display: flex;
   align-items: center;
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   > span:first-child {
-    color: var(--font-h2);
+    color: var(--gray-2);
     font-size: 14px;
     font-weight: 600;
-    margin-right: var(--margin-sub);
+    margin-right: var(--gap-3);
   }
 `;
 
 const TimeContentInput = styled.input`
   flex: 1;
-  border: var(--border-main);
-  border-radius: var(--border-radius-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
   height: 36px;
-  padding: var(--padding-md);
+  padding: var(--gap-2);
   font-size: 12px;
   :focus {
     outline: none;
-    border: var(--border-focus);
+    border: var(--border-thick);
   }
 `;
 export default GatherWritingDateSubject;

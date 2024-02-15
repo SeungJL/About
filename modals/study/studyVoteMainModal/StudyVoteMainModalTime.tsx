@@ -71,7 +71,7 @@ const Layout = styled.div`
     font-size: 14px;
     font-weight: 600;
     display: inline-block;
-    margin-bottom: var(--margin-md);
+    margin-bottom: var(--gap-2);
   }
 `;
 

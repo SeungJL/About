@@ -64,18 +64,18 @@ function RequestSecedeModal({ setIsModal }: IModal) {
 
 const Textarea = styled.textarea`
   flex: 1;
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   background-color: var(--input-bg);
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-md);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-2);
 `;
 
 const Message = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
   font-size: 14px;
   text-align: center;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 export default RequestSecedeModal;

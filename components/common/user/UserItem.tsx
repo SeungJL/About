@@ -34,19 +34,19 @@ export const UserItem = ({ user, children }: IUserItem) => {
 };
 
 const MemberItem = styled.div`
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   display: flex;
   align-items: center;
 
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border-light);
 `;
 
 const UserOverview = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  line-height: var(--line-height);
-  margin-left: var(--margin-sub);
+
+  margin-left: var(--gap-3);
   > span:first-child {
     font-size: 14px;
     font-weight: 600;
@@ -58,7 +58,7 @@ const UserOverview = styled.div`
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-size: 13px;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;
 

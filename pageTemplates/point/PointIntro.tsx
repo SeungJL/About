@@ -12,13 +12,13 @@ function PointIntro() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-md);
-  margin-bottom: var(--margin-max);
-  margin-left: var(--margin-min);
+  margin-top: var(--gap-2);
+  margin-bottom: var(--gap-5);
+  margin-left: var(--gap-1);
   font-size: 16px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   > span {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-size: 18px;
     font-weight: 600;
   }

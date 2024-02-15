@@ -8,7 +8,7 @@ import {
   ModalLayout,
 } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
-import { useStudyArrivedMutation } from "../../hooks/study/mutations";
+import { useStudyAttendCheckMutation } from "../../hooks/study/mutations";
 import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { voteDateState } from "../../recoil/studyAtoms";
 import { Textarea } from "../../styles/layout/input";
@@ -31,7 +31,7 @@ function StudyChangeArrivedModal({
 
   const [memo, setMemo] = useState(user?.memo);
 
-  const { mutate: changeMemo } = useStudyArrivedMutation(dayjs(voteDate), {
+  const { mutate: changeMemo } = useStudyAttendCheckMutation(dayjs(voteDate), {
     onSuccess() {
       completeToast("success");
       setIsRefetch(true);

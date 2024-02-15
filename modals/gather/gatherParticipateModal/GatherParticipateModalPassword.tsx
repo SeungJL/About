@@ -30,7 +30,7 @@ function GatherParticipateModalPassword({
       <ModalBody>
         <CodeText>전달 받은 암호 네자리를 입력해 주세요.</CodeText>
         <Container>
-          <FontAwesomeIcon icon={faUnlock} color="var(--font-h4)" />
+          <FontAwesomeIcon icon={faUnlock} color="var(--gray-4)" />
           <Input
             placeholder="암호 입력"
             value={password}
@@ -51,7 +51,7 @@ function GatherParticipateModalPassword({
 }
 
 const Container = styled.div`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   flex: 1;
   display: flex;
   align-items: center;
@@ -62,10 +62,10 @@ const CodeText = styled.span`
 `;
 
 const Input = styled.input`
-  margin-left: var(--margin-md);
-  background-color: var(--font-h7);
-  padding: var(--padding-min) var(--padding-md);
-  border-radius: var(--border-radius-sub);
+  margin-left: var(--gap-2);
+  background-color: var(--gray-7);
+  padding: var(--gap-1) var(--gap-2);
+  border-radius: var(--rounded-lg);
 `;
 
 export default GatherParticipateModalPassword;

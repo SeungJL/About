@@ -15,6 +15,7 @@ export default function ShadowCircleButton({
   buttonProps,
   onClick,
 }: IShadowCircleButton) {
+  console.log(buttonProps);
   return (
     <OuterCircle shadow={buttonProps.shadow} onClick={onClick}>
       <InnerButton color={buttonProps.color}>{buttonProps.text}</InnerButton>
@@ -25,9 +26,9 @@ export default function ShadowCircleButton({
 const OuterCircle = styled.div`
   position: relative;
   z-index: 10;
-  width: 96px; /* w-24 */
-  height: 96px; /* h-24 */
-  border-radius: 9999px; /* rounded-full */
+  width: 96px;
+  height: 96px;
+  border-radius: 9999px;
   background-color: ${({ shadow }) => shadow || "transparent"};
   display: flex;
   justify-content: center;
@@ -36,9 +37,9 @@ const OuterCircle = styled.div`
 
 // Styled component for the inner button
 const InnerButton = styled.button`
-  width: 80px; /* w-20 */
-  height: 80px; /* h-20 */
-  border-radius: 9999px; /* rounded-full */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   background-color: ${({ color }) => color || "transparent"};
   color: white;
   font-weight: bold;

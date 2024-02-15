@@ -25,8 +25,8 @@ function ReviewItemHeader({ writer, date }: IReviewItemHeader) {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 var(--margin-main);
-  margin-bottom: var(--margin-sub);
+  margin: 0 var(--gap-4);
+  margin-bottom: var(--gap-3);
   align-items: center;
 `;
 
@@ -46,12 +46,12 @@ const Profile = styled.div`
   display: flex;
   align-items: center;
   > div:last-child {
-    margin-left: var(--margin-sub);
+    margin-left: var(--gap-3);
     display: flex;
     flex-direction: column;
 
     > span:last-child {
-      color: var(--font-h3);
+      color: var(--gray-3);
       font-size: 10px;
     }
   }

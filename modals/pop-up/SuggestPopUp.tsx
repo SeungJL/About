@@ -54,7 +54,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 export default SuggestPopUp;

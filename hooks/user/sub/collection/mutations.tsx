@@ -11,7 +11,7 @@ type CollectionAlphabetParam<T> = T extends "get"
   ? { alphabet: Alphabet }
   : { mine: Alphabet; opponent: Alphabet; myId: string; toUid: string };
 
-export const useCollectionAlphabetMutation = <T extends "get" | "change">(
+export const useAlphabetMutation = <T extends "get" | "change">(
   type: T,
   options?: MutationOptions<CollectionAlphabetParam<T>>
 ) => {

@@ -42,8 +42,8 @@ function MemberOverviewSkeleton() {
 }
 
 const Layout = styled.div`
-  padding: var(--padding-md) 0;
-  margin: 0 var(--margin-main);
+  padding: var(--gap-2) 0;
+  margin: 0 var(--gap-4);
 `;
 const Title = styled.div`
   width: 75px;
@@ -52,7 +52,7 @@ const Title = styled.div`
 
 const Info = styled.div`
   font-size: 12px;
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   line-height: 2;
   > li {
     display: flex;
@@ -60,9 +60,9 @@ const Info = styled.div`
     list-style-type: none;
 
     > span:first-child {
-      margin-right: var(--margin-md);
+      margin-right: var(--gap-2);
       font-weight: 600;
-      color: var(--font-h1);
+      color: var(--gray-1);
     }
     > span:last-child {
       display: inline-block;
@@ -72,7 +72,7 @@ const Info = styled.div`
   > li::before {
     content: "•";
     font-size: 10px;
-    padding-right: var(--padding-min);
+    padding-right: var(--gap-1);
   }
 `;
 
@@ -88,7 +88,7 @@ const ActiveLocation = styled.li<{ location: Location }>`
 const studys = styled.div<{ location: Location }>`
   flex: 1;
 
-  color: var(--font-h2);
+  color: var(--gray-2);
   margin-top: 4px;
   height: ${(props) =>
     props.location === "수원"
@@ -98,7 +98,7 @@ const studys = styled.div<{ location: Location }>`
       : "20px"};
 
   > span {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
 `;
 

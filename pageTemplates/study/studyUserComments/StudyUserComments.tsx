@@ -116,12 +116,12 @@ function studyUserComments({
 
 const Layout = styled.div<{ isNoMember: boolean }>`
   min-height: 160px;
-  margin-top: var(--margin-main);
-  padding: var(--padding-main);
+  margin-top: var(--gap-4);
+  padding: var(--gap-4);
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-bottom: ${(props) => props.isNoMember && "1.5px solid var(--font-h7)"};
+  border-bottom: ${(props) => props.isNoMember && "1.5px solid var(--gray-7)"};
 `;
 
 const Message = styled.div`
@@ -132,25 +132,25 @@ const Message = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 15px;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 
 const Title = styled.div`
   font-weight: 600;
   font-size: 16px;
-  padding-bottom: var(--padding-sub);
+  padding-bottom: var(--gap-3);
 `;
 
 const Wrapper = styled.div<{ isPrivate: boolean }>`
-  border-bottom: ${(props) => props.isPrivate && "var(--border-main-light)"};
+  border-bottom: ${(props) => props.isPrivate && "var(--border)"};
 `;
 
 const Block = styled.div`
   height: 60px;
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--font-h7);
+  border-bottom: 1px solid var(--gray-7);
 `;
 
 const ProfileIconWrapper = styled.div``;
@@ -159,7 +159,7 @@ const BlockInfo = styled.div`
   height: 100%;
   display: flex;
   flex: 1;
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
 `;
 
 const Info = styled.div`
@@ -167,11 +167,11 @@ const Info = styled.div`
   flex-direction: column;
   display: flex;
   justify-content: center;
-  padding: var(--padding-min) 0;
+  padding: var(--gap-1) 0;
   > div {
     font-size: 14px;
-    margin-top: var(--margin-min);
-    color: var(--font-h3);
+    margin-top: var(--gap-1);
+    color: var(--gray-3);
     display: flex;
     align-items: center;
   }

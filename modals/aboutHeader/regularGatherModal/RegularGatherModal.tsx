@@ -6,14 +6,14 @@ import styled from "styled-components";
 import {
   ModalBody,
   ModalHeader,
-  ModalLayout,
+  ModalLayout
 } from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 import {
   useCompleteToast,
   useErrorToast,
-  useFailToast,
+  useFailToast
 } from "../../../hooks/custom/CustomToast";
 
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -106,7 +106,7 @@ function RegularGatherModal({
         </Form>
       </ModalBody>
 
-      <ModalFooter p="var(--padding-sub) var(--padding-main)">
+      <ModalFooter p="var(--gap-3) var(--gap-4)">
         <Button
           w="100%"
           size="lg"
@@ -130,35 +130,35 @@ function RegularGatherModal({
 }
 
 const Overview = styled.div`
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const Count = styled.div`
-  color: var(--font-h1);
+  color: var(--gray-1);
   width: max-content;
-  padding: var(--padding-min) var(--padding-md);
-  border-radius: var(--border-radius-main);
+  padding: var(--gap-1) var(--gap-2);
+  border-radius: var(--rounded-lg);
   border: var(--border-mint);
-  margin: var(--margin-sub) 0;
+  margin: var(--gap-3) 0;
   font-size: 13px;
   > span:last-child {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
     color: var(--color-mint);
     font-weight: 600;
   }
 `;
 
 const Rule = styled.div`
-  color: var(--font-h3);
-  margin-top: var(--margin-md);
-  line-height: var(--line-height);
+  color: var(--gray-3);
+  margin-top: var(--gap-2);
+  
   font-size: 11px;
   display: flex;
   flex-direction: column;
 `;
 
 const Form = styled.form`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -171,7 +171,7 @@ const Item = styled.div`
   display: flex;
 
   min-height: 28px;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   align-items: center;
 
   > span {
@@ -196,18 +196,18 @@ const Content = styled.div`
   }
   > span:last-child {
     font-size: 11px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
 const ContentInput = styled.textarea`
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   display: block;
   width: 100%;
   font-size: 12px;
   height: 100%;
   background-color: var(--input-bg);
-  padding: var(--padding-min);
+  padding: var(--gap-1);
   :focus {
     outline: none;
   }

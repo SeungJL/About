@@ -107,7 +107,7 @@ function Major() {
 }
 
 const Section = styled.section`
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 const SectionTitle = styled.span`
@@ -116,18 +116,18 @@ const SectionTitle = styled.span`
 `;
 
 const SectionContent = styled.div`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   display: flex;
   flex-wrap: wrap;
 `;
 
 const Content = styled.button<{ $isSelected: boolean }>`
-  padding: var(--padding-min) var(--padding-md);
+  padding: var(--gap-1) var(--gap-2);
   font-size: 12px;
   border-radius: 100px;
-  border: 1px solid var(--font-h5);
-  margin-right: var(--margin-md);
-  margin-bottom: var(--margin-md);
+  border: 1px solid var(--gray-5);
+  margin-right: var(--gap-2);
+  margin-bottom: var(--gap-2);
   background-color: ${(props) => props.$isSelected && "var(--color-mint)"};
   color: ${(props) => props.$isSelected && "white"};
 `;

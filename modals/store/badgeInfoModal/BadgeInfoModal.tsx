@@ -48,7 +48,7 @@ const Subtitle = styled.div`
 `;
 
 const Footer = styled.footer`
-  padding: var(--padding-sub) var(--padding-main);
+  padding: var(--gap-3) var(--gap-4);
   display: flex;
   justify-content: center;
 `;

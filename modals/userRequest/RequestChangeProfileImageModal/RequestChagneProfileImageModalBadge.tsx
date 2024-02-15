@@ -87,10 +87,10 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
 
 const Message = styled.span`
   font-size: 12px;
-  color: var(--font-h3);
+  color: var(--gray-3);
   > b,
   u {
-    color: var(--font-h1);
+    color: var(--gray-1);
   }
 `;
 
@@ -106,11 +106,11 @@ const Item = styled.div<{ isSelected: boolean }>`
   justify-content: center;
   align-items: center;
   flex: 0.45;
-  padding: var(--padding-max) 0;
-  border: var(--border-main-light);
+  padding: var(--gap-5) 0;
+  border: var(--border);
   border-color: ${(props) =>
-    props.isSelected ? "var(--color-mint)" : "var(--font-h6)"};
-  border-radius: var(--border-radius-main);
+    props.isSelected ? "var(--color-mint)" : "var(--gray-6)"};
+  border-radius: var(--rounded-lg);
 `;
 
 export default RequestChagneProfileImageModalBadge;

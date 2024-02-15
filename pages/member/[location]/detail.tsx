@@ -53,7 +53,7 @@ function MemberDetail() {
                   <Badge
                     fontSize={10}
                     colorScheme={BADGE_COLOR[badge]}
-                    ml="var(--margin-md)"
+                    ml="var(--gap-2)"
                   >
                     {badge}
                   </Badge>
@@ -98,27 +98,27 @@ function MemberDetail() {
 }
 
 const Container = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 const Item = styled.div`
   display: flex;
-  padding: var(--padding-sub) 0;
-  border-top: var(--border-sub);
-  border-bottom: var(--border-sub);
+  padding: var(--gap-3) 0;
+  border-top: var(--border-light);
+  border-bottom: var(--border-light);
 `;
 
 const ProfileWrapper = styled.div``;
 
 const Info = styled.div`
-  margin-left: var(--margin-sub);
+  margin-left: var(--gap-3);
   display: flex;
   flex-direction: column;
 
   justify-content: space-between;
   > div:last-child {
     font-size: 11px;
-    color: var(--font-h3);
+    color: var(--gray-3);
     display: flex;
     flex-direction: column;
   }
@@ -126,16 +126,16 @@ const Info = styled.div`
 
 const RestInfo = styled.div`
   > span:first-child {
-    margin-right: var(--margin-min);
+    margin-right: var(--gap-1);
   }
   > span:nth-child(2) {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
   }
 `;
 
 const DDay = styled.span`
   color: var(--color-red);
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
 `;
 
 const Name = styled.div`

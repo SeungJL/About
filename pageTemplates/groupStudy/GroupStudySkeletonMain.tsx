@@ -39,7 +39,7 @@ const ItemBlock = () => (
 );
 
 const Layout = styled.div`
-  margin: var(--margin-main);
+  margin: var(--gap-4);
 `;
 
 const Badge = styled.div`
@@ -51,11 +51,11 @@ const ItemBlockLayout = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: var(--border-radius2);
-  box-shadow: var(--box-shadow-b);
-  padding: var(--padding-sub);
-  margin-bottom: var(--margin-main);
-  box-shadow: var(--box-shadow-b);
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
+  padding: var(--gap-3);
+  margin-bottom: var(--gap-4);
+  box-shadow: var(--shadow);
 `;
 
 const Header = styled.header`
@@ -65,7 +65,7 @@ const Header = styled.header`
   font-size: 14px;
   font-weight: 600;
   color: var(--color-mint);
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   > div:first-child {
     display: flex;
     align-items: center;
@@ -80,11 +80,11 @@ const Title = styled.div`
 const Info = styled.div`
   width: 100%;
 
-  padding: var(--padding-md) 0;
+  padding: var(--gap-2) 0;
   display: grid;
   grid-template-columns: 1.1fr 1.1fr 1.4fr;
-  gap: var(--margin-min);
-  border-bottom: var(--border-sub);
+  gap: var(--gap-1);
+  border-bottom: var(--border-light);
 `;
 
 const InfoItem = styled.div`
@@ -94,12 +94,12 @@ const InfoItem = styled.div`
   width: 90px;
   > span:first-child {
     display: inline-block;
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
     font-weight: 600;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   > span:last-child {
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
@@ -107,8 +107,8 @@ const Content = styled.pre`
   height: 36px;
   text-align: start;
   font-size: 12px;
-  color: var(--font-h2);
-  margin-top: var(--padding-sub);
+  color: var(--gray-2);
+  margin-top: var(--gap-3);
   white-space: pre-wrap;
   /* display: -webkit-box;
   -webkit-line-clamp: 7;

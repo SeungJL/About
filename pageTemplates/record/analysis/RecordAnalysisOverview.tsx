@@ -41,7 +41,7 @@ function RecordAnalysisOverview() {
 }
 
 const Layout = styled.div`
-  padding: 0 var(--padding-main);
+  padding: 0 var(--gap-4);
   height: 140px;
   background-color: var(--color-mint);
   color: white;
@@ -62,14 +62,14 @@ const ChangeBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   background-color: #08ad9f;
   width: 58px;
   height: 28px;
   font-size: 13px;
-  border-radius: var(--border-radius-main);
+  border-radius: var(--rounded-lg);
   > span:first-child {
-    margin-right: var(--margin-md);
+    margin-right: var(--gap-2);
   }
 `;
 

@@ -51,20 +51,20 @@ function ContentPopUp({ content, setIsModal }: IContentPopUp) {
 }
 
 const Subtitile = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 
 const Ul = styled.ul`
   font-size: 12px;
-  color: var(--font-h2);
-  margin-left: var(--margin-main);
+  color: var(--gray-2);
+  margin-left: var(--gap-4);
 `;
 const Wrapper = styled.div`
   > div:first-child {
-    margin-bottom: var(--margin-md);
+    margin-bottom: var(--gap-2);
   }
 `;
 

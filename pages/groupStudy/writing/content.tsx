@@ -104,14 +104,14 @@ function GroupStudyWritingContent() {
 }
 
 const RuleTitle = styled.div`
-  margin-top: var(--margin-main);
-  margin-bottom: Var(--margin-md);
+  margin-top: var(--gap-4);
+  margin-bottom: Var(--gap-2);
   font-size: 15px;
   font-weight: 600;
 `;
 
 const MinusWrapper = styled.button`
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
 `;
 
 const Container = styled.div``;
@@ -119,37 +119,37 @@ const Container = styled.div``;
 const RuleContainer = styled.ol``;
 
 const RuleItem = styled.li`
-  margin-left: var(--margin-max);
-  margin-bottom: var(--margin-md);
+  margin-left: var(--gap-5);
+  margin-bottom: var(--gap-2);
   > input {
     width: 260px;
-    margin-left: var(--margin-md);
-    border: var(--border-main);
+    margin-left: var(--gap-2);
+    border: var(--border);
     border-radius: 4px;
     padding: 4px 8px;
 
     :focus {
-      outline-color: var(--font-h1);
+      outline-color: var(--gray-1);
     }
   }
 `;
 
 const PlusWrapper = styled.button`
   margin-top: 4px;
-  padding: 0 var(--padding-min);
+  padding: 0 var(--gap-1);
 `;
 
 const Content = styled.textarea`
   margin-top: 40px;
-  border: var(--border-main);
-  border-radius: var(--border-radius-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
   height: 200px;
   width: 100%;
-  padding: var(--padding-sub);
+  padding: var(--gap-3);
   font-size: 12px;
   :focus {
     outline: none;
-    border: var(--border-focus);
+    border: var(--border-thick);
   }
 `;
 

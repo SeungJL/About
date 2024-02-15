@@ -18,7 +18,7 @@ function Avatar() {
 }
 
 const Layout = styled.div`
-  margin: var(--margin-main);
+  margin: var(--gap-4);
 `;
 
 export default Avatar;

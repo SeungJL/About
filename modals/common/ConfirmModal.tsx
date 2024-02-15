@@ -16,10 +16,10 @@ function ConfirmModal({ content, setIsModal }: IConfirmModal) {
   return (
     <ModalLayout size="xs" onClose={() => setIsModal(false)}>
       <ModalHeader
-        mt="var(--margin-min)"
+        mt="var(--gap-1)"
         fontWeight={400}
         fontSize={15}
-        p="var(--padding-sub) var(--padding-main)"
+        p="var(--gap-3) var(--gap-4)"
       >
         {content.title}
       </ModalHeader>

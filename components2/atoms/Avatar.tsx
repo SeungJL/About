@@ -81,7 +81,7 @@ const AvatarContainer = styled.div<{
           padding: ${props.hasType ? "4px" : "0px"};
         `}
   background-color: ${(props) =>
-    props.bg ? props.bg : "var(--font-h7)"}; // bg-gray-200 as fallback
+    props.bg ? props.bg : "var(--gray-7)"}; // bg-gray-200 as fallback
 `;
 
 const ImageContainer = styled.div`

@@ -67,7 +67,7 @@ const Container = styled.div`
 const Layout = styled.div``;
 
 const HrDiv = styled.div`
-  background-color: var(--font-h7);
+  background-color: var(--gray-7);
   height: 10px;
 `;
 export default ProfilePage;
