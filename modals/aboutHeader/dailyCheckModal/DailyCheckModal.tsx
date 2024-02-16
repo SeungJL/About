@@ -64,6 +64,8 @@ function DailyCheckModal({ setIsModal }: IModal) {
     createdAt: dayjs(item?.createdAt),
   }));
 
+
+  
   const onClickCheck = () => {
     if (isGuest) {
       typeToast("guest");

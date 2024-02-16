@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
-import Header from "../../components/layout/Header";
+import Header from "../../components2/Header";
 import GatherRuleModal from "../../modals/gather/GatherRuleModal";
 
 function GatherHeader() {

@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import UserNavigation from "../../pageTemplates/user/userNavigation/UserNavigation";
+import UserHeader from "../../pageTemplates/user/userHeader";
 import UserOverview from "../../pageTemplates/user/userOverview/UserOverView";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
@@ -31,13 +30,12 @@ function UserInfo() {
   return (
     <>
       <Slide isFixed={true}>
-        <Header title="마이페이지" />
+        <UserHeader />
       </Slide>
       <Slide>
         {(userInfo || isGuest) && (
           <UserLayout>
             <UserOverview userInfo={userInfo} />
-            <UserNavigation />
           </UserLayout>
         )}
       </Slide>

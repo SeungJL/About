@@ -17,7 +17,6 @@ import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useNoticeActiveLogQuery } from "../../../hooks/user/sub/interaction/queries";
 import { NOTICE_ARR } from "../../../storage/notice";
 import { AlertIcon } from "../../../styles/icons";
-import { HomeHeaderIconType } from "./HomeHeader";
 
 interface IHomeHeaderIcons {
   setIconType: React.Dispatch<HomeHeaderIconType>;

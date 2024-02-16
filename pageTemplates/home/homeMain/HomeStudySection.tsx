@@ -121,7 +121,10 @@ export const setStudyDataToCardCol = (
       priority: true,
     },
     badge: getBadgeText(data.status, getVotePoint(data.attendences.length)),
-    statusText: data.attendences.some((who) => who.user.uid === uid) && "GOOD",
+    statusText:
+      data.status === "pending" &&
+      data.attendences.some((who) => who.user.uid === uid) &&
+      "GOOD",
   }));
   return cardColData;
 };

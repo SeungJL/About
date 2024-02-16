@@ -7,7 +7,7 @@ import { useGatherQuery } from "../../hooks/gather/queries";
 import { isGatherLoadingState } from "../../recoil/loadingAtoms";
 import { IGather } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
-import AboutGatherBlock from "../home/main/homeGather/homeGatherBlock/homeGatherBlock";
+
 import GatherBlockSkeleton from "./GatherBlockSkeleton";
 
 interface IGatherMain {

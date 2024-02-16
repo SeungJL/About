@@ -31,7 +31,7 @@ function StudyControllerDates({ selectedDate }: IStudyControllerDates) {
   const onClick = (date: number) => {
     const newDate = handleChangeDate(selectedDateDayjs, "date", date);
     newSearchParams.set("date", newDate);
-    router.replace(`/home?${newSearchParams.toString()}`);
+    router.replace(`/home?${newSearchParams.toString()}`, { scroll: false });
   };
 
   return (

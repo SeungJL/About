@@ -1,62 +1,78 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+import { Box } from "@chakra-ui/react";
 import {
-  NOTICE_ALERT,
-  RABBIT_POP_UP,
-} from "../../../constants/keys/localStorage";
-import { useFailToast } from "../../../hooks/custom/CustomToast";
-import { attendCheckWinGiftState } from "../../../recoil/renderTriggerAtoms";
-import { isGuestState } from "../../../recoil/userAtoms";
-import { NOTICE_ARR } from "../../../storage/notice";
-import HomeHeaderIcons from "./HomeHeaderIcons";
-import HomeHeaderModals from "./HomeHeaderModals";
+  faBadgeCheck,
+  faBell,
+  faCircleP,
+  faCircleUser,
+} from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import styled from "styled-components";
+import IconButtonNav, {
+  IconButtonNavBtn,
+} from "../../../components2/molecules/navs/IconButtonNav";
+import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
+import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
+import { AlertIcon } from "../../../styles/icons";
+// export type HomeHeaderModalType =
+//   | "promotion"
+//   | "rabbit"
+//   | "rule"
+//   | "notice"
+//   | "user"
+//   | "attendCheck"
+//   | "attendCheckWin";
 
-export type HomeHeaderIconType =
-  | "promotion"
-  | "rabbit"
-  | "rule"
-  | "notice"
-  | "user"
-  | "attendCheck"
-  | "attendCheckWin";
+export type HomeHeaderModalType = "dailyCheck" | "pointGuide" | null;
+type IconType = "user" | "notice" | HomeHeaderModalType;
 
 function HomeHeader() {
-  const router = useRouter();
-  const failToast = useFailToast();
-
-  const isGuest = useRecoilValue(isGuestState);
-  const attendCheckWinGift = useRecoilValue(attendCheckWinGiftState);
-
-  const [iconType, setIconType] = useState<HomeHeaderIconType>(null);
+  const [modalType, setModalType] = useState<HomeHeaderModalType>(null);
   const [isRabbitRun, setIsRabbitRun] = useState(false);
 
-  useEffect(() => {
-    if (iconType === "promotion" && isGuest) {
-      failToast("guest");
-      return;
-    }
-    if (iconType === "notice") {
-      localStorage.setItem(NOTICE_ALERT, String(NOTICE_ARR.length));
-    }
-    if (iconType === "rabbit") setIsRabbitRun(false);
-    const iconTypeArr = ["notice", "user", "promotion"] as HomeHeaderIconType[];
-    if (iconTypeArr.includes(iconType)) router.push(iconType);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [iconType, isGuest, router]);
+  // useEffect(() => {
 
-  useEffect(() => {
-    if (!!attendCheckWinGift) setIconType("attendCheckWin");
-    if (!localStorage.getItem(RABBIT_POP_UP)) setIsRabbitRun(true);
-  }, [attendCheckWinGift]);
-  console.log(iconType);
+  //   if (!localStorage.getItem(RABBIT_POP_UP)) setIsRabbitRun(true);
+  // }, []);
+
+  const iconBtnArr: IconButtonNavBtn[] = [
+    {
+      icon: <FontAwesomeIcon icon={faBadgeCheck} color="var(--color-mint)" />,
+      func: () => setModalType("dailyCheck"),
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCircleP} />,
+      func: () => setModalType("pointGuide"),
+    },
+    {
+      icon: (
+        <>
+          <FontAwesomeIcon icon={faBell} />
+          <Alert />
+        </>
+      ),
+      link: "/notice",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCircleUser} />,
+      link: "/user",
+    },
+  ];
   return (
-    <Layout>
-      <Title>ABOUT</Title>
-      <HomeHeaderIcons setIconType={setIconType} isRabbitRun={isRabbitRun} />
-      <HomeHeaderModals iconType={iconType} setIconType={setIconType} />
-    </Layout>
+    <>
+      <Layout>
+        <Title>ABOUT</Title>
+        <Box className="about_header" fontSize="20px">
+          <IconButtonNav iconList={iconBtnArr} />
+        </Box>
+      </Layout>
+      {modalType === "pointGuide" && (
+        <PointSystemsModal setIsModal={() => setModalType(null)} />
+      )}
+      {modalType === "dailyCheck" && (
+        <DailyCheckModal setIsModal={() => setModalType(null)} />
+      )}
+    </>
   );
 }
 
@@ -83,6 +99,12 @@ const Layout = styled.header`
 const Title = styled.span`
   font-weight: 800;
   color: var(--gray-1);
+`;
+
+const Alert = styled(AlertIcon)`
+  position: absolute;
+  right: 14px;
+  bottom: 24px;
 `;
 
 export default HomeHeader;

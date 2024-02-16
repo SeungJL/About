@@ -1,20 +1,25 @@
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import WritingIcon from "../../components/common/Icon/WritingIcon";
-import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import { GATHER_INTRO_MODAL } from "../../constants/keys/localStorage";
-import { LOCATION_USE_ALL } from "../../constants/location";
 import { checkAndSetLocalStorage } from "../../helpers/storageHelpers";
 import GatherIntroModal from "../../modals/gather/GatherIntroModal";
 import GatherHeader from "../../pageTemplates/gather/GatherHeader";
 import GatherMain from "../../pageTemplates/gather/GatherMain";
-import GatherReviewNav from "../../pageTemplates/gather/GatherReviewNav";
 import { isGatherAlertState } from "../../recoil/alertAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
 import { LocationFilterType } from "../../types/system";
+import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 function Gather() {
+  const searchParams = useSearchParams();
+  const location = convertLocationLangTo(
+    searchParams.get("location") as LocationEn,
+    "kr"
+  );
+
   const isGuest = useRecoilValue(isGuestState);
   const [category, setCategory] = useState<LocationFilterType>("전체");
   const [isModal, setIsModal] = useState(false);
@@ -30,7 +35,12 @@ function Gather() {
 
   return (
     <>
-      <Layout>
+      <GatherHeader/>
+      <GatherReviewSlider />
+      <Divider />
+      <GatherLocationFilter searchParam={location} />
+      <GatherMain />
+      {/* <Layout>
         <GatherHeader />
         <ReviewWrapper>
           <GatherReviewNav />
@@ -44,7 +54,7 @@ function Gather() {
         </NavWrapper>
         <GatherMain category={category} />
         {!isGuest && <WritingIcon url="/gather/writing/category" />}
-      </Layout>
+      </Layout> */}
       {isModal && <GatherIntroModal setIsModal={setIsModal} />}
     </>
   );

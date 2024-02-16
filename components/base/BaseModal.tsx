@@ -1,7 +1,9 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import DailyCheckWinModal from "../../modals/aboutHeader/dailyCheckModal/DailyCheckWinModal";
 import AlphabetModal from "../../modals/common/AlphabetModal";
 import ErrorUserInfoPopUp from "../../modals/pop-up/ErrorUserInfoPopUp";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
+import { transferDailyCheckWinState } from "../../recoils/transferRecoils";
 import { DispatchBoolean } from "../../types/reactTypes";
 import GuestBottomNav from "../layout/atoms/GuestBottomNav";
 
@@ -16,8 +18,11 @@ function BaseModal({ isGuest, isError, setIsError }: IBaseModal) {
     transferAlphabetState
   );
 
+  const dailyCheckWin = useRecoilValue(transferDailyCheckWinState);
+  console.log(42, dailyCheckWin);
   return (
     <>
+      {!!dailyCheckWin && <DailyCheckWinModal />}
       {isGuest && <GuestBottomNav />}
       {isError && <ErrorUserInfoPopUp setIsModal={setIsError} />}
       {transferAlphabet && (

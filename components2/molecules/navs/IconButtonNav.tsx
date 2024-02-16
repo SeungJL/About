@@ -1,4 +1,6 @@
+import { Flex } from "@chakra-ui/react";
 import Link from "next/link";
+import IconButton from "../../atoms/buttons/IconButton";
 
 export type IconButtonNavBtn =
   | {
@@ -18,19 +20,29 @@ interface IIconButtonNav {
 
 export default function IconButtonNav({ iconList }: IIconButtonNav) {
   return (
-    <nav className="h-full flex items-center">
-      {iconList?.map((icon, idx) => (
-        <div
-          className="w-7 h-7 flex justify-center items-center ml-2 text-gray-2"
+    <Flex h="100%" alignItems="center" as="nav">
+      {iconList.map((icon, idx) => (
+        <Flex
+          w="28px"
+          h="28px"
+          justify="center"
+          align="center"
+          ml="8px"
+          color="var(--gray-2)"
           key={idx}
         >
           {icon?.link ? (
-            <Link href={icon.link}>{icon.icon}</Link>
+            <Link
+              style={{ position: "relative", padding: "16px" }}
+              href={icon.link}
+            >
+              {icon.icon}
+            </Link>
           ) : (
-            <button onClick={icon.func}>{icon.icon}</button>
+            <IconButton onClick={icon.func}>{icon.icon}</IconButton>
           )}
-        </div>
+        </Flex>
       ))}
-    </nav>
+    </Flex>
   );
 }

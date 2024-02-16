@@ -22,5 +22,5 @@ export default function ArrowBackButton({ url }: IArrowBackButton) {
 }
 
 const Button = styled.button`
-  padding: 8px;
+  padding: 16px;
 `;

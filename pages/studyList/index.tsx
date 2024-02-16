@@ -1,6 +1,8 @@
+import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
 import { useRecoilValue } from "recoil";
+import Slide from "../../components/layout/PageSlide";
 import Header from "../../components2/Header";
 import { PostThumbnailCard } from "../../components2/molecules/cards/PostThumbnailCard";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
@@ -14,14 +16,18 @@ export default function StudyList() {
 
   return (
     <>
-      <Header title={dayjsToFormat(dayjs(date), "M월 D일 스터디")} />
-      <div className="px-4">
-        {sortedStudyCardList?.map((card, idx) => (
-          <div className="mt-3" key={idx}>
-            <PostThumbnailCard postThumbnailCardProps={card} />
-          </div>
-        ))}
-      </div>
+      <Slide isFixed={true}>
+        <Header title={dayjsToFormat(dayjs(date), "M월 D일 스터디")} />
+      </Slide>
+      <Slide>
+        <Box px="16px">
+          {sortedStudyCardList?.map((card, idx) => (
+            <Box mt="12px" key={idx}>
+              <PostThumbnailCard postThumbnailCardProps={card} />
+            </Box>
+          ))}
+        </Box>
+      </Slide>
     </>
   );
 }

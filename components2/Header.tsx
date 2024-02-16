@@ -18,17 +18,10 @@ export default function Header({ title, url, children }: IHeader) {
   );
 }
 const HeaderContainer = styled.header`
-  /* position: fixed; */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
   background-color: white;
-
   height: var(--header-h);
   font-size: 16px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-right: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,7 +36,6 @@ const LeftSection = styled.div`
 
 // Title 스타일
 const Title = styled.div`
-  margin-left: 4px; /* ml-1 */
   font-weight: 800; /* font-extrabold */
   color: var(--gray-1); /* text-gray-1 - 색상은 예시입니다 */
 `;

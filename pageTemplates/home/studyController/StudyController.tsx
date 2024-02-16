@@ -38,7 +38,7 @@ function StudyController() {
   const onClick = (month: number) => {
     const newDate = handleChangeDate(selectedDateDayjs, "month", month);
     newSearchParams.set("date", newDate);
-    router.replace(`/?${newSearchParams.toString()}`);
+    router.replace(`/home?${newSearchParams.toString()}`, { scroll: false });
   };
 
   const textSwitcherProps = getTextSwitcherProps(selectedDateDayjs, onClick);
