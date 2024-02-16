@@ -11,12 +11,7 @@ import { UseMutateFunction } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ImageSlider from "../../../components/dataViews/imageSlider/ImageSlider";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import {
   AVATAR_COLOR,
   AVATAR_COST,
@@ -82,49 +77,56 @@ function RequestChangeProfileImageModalAvatar({
     setIsModal(false);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "변경",
+      func: onSubmit,
+    },
+  };
+
   return (
-    <ModalLayout size="xl" onClose={() => setIsModal(false)}>
-      <ModalHeader text="아바타 캐릭터 선택" />
-      <ModalBody>
-        <UpPart>
-          <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
-            {iconIdx !== 0 && <FontAwesomeIcon icon={faChevronLeft} />}
-          </ArrowIcon>
-          <AnimatePresence>
-            <IconWrapper
-              custom={back}
-              variants={variants}
-              initial="entry"
-              animate="center"
-              exit="exit"
-              key={iconIdx}
-            >
-              <Icon bg={AVATAR_COLOR[BG]}>
-                <Image
-                  width={80}
-                  height={80}
-                  src={AVATAR_ICON[iconIdx]}
-                  alt="avatar"
-                />
-              </Icon>
-              <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
-            </IconWrapper>
-          </AnimatePresence>
-          <ArrowIcon isLeft={false} onClick={() => handleMove("next")}>
-            {iconIdx !== AVATAR_ICON.length - 1 && (
-              <FontAwesomeIcon icon={faChevronRight} />
-            )}
-          </ArrowIcon>
-        </UpPart>
-        <DownPart>
-          <ImageSlider
-            type="avatarColor"
-            imageContainer={AVATAR_COLOR}
-            onClick={(idx) => setBG(idx)}
-          />
-        </DownPart>
-      </ModalBody>
-      <ModalFooterOne text="변경" onClick={onSubmit} isFull={true} />
+    <ModalLayout
+      title="아바타 프로필"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <UpPart>
+        <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
+          {iconIdx !== 0 && <FontAwesomeIcon icon={faChevronLeft} />}
+        </ArrowIcon>
+        <AnimatePresence>
+          <IconWrapper
+            custom={back}
+            variants={variants}
+            initial="entry"
+            animate="center"
+            exit="exit"
+            key={iconIdx}
+          >
+            <Icon bg={AVATAR_COLOR[BG]}>
+              <Image
+                width={80}
+                height={80}
+                src={AVATAR_ICON[iconIdx]}
+                alt="avatar"
+              />
+            </Icon>
+            <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
+          </IconWrapper>
+        </AnimatePresence>
+        <ArrowIcon isLeft={false} onClick={() => handleMove("next")}>
+          {iconIdx !== AVATAR_ICON.length - 1 && (
+            <FontAwesomeIcon icon={faChevronRight} />
+          )}
+        </ArrowIcon>
+      </UpPart>
+      <DownPart>
+        <ImageSlider
+          type="avatarColor"
+          imageContainer={AVATAR_COLOR}
+          onClick={(idx) => setBG(idx)}
+        />
+      </DownPart>
     </ModalLayout>
   );
 }

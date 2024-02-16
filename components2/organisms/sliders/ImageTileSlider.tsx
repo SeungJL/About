@@ -1,5 +1,6 @@
-"use client";
+import styled from "styled-components";
 
+import { AspectRatio } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import SwiperCore from "swiper";
@@ -10,12 +11,13 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { SingleLineText } from "../../../styles/layout/components";
 
 SwiperCore.use([Navigation, Pagination]);
 
 type Size = "md";
 
-interface IImageTile {
+export interface IImageTile {
   imageUrl: string;
   text: string;
   url: string;
@@ -37,16 +39,29 @@ function ImageTileSlider({ imageTileArr, size }: IImageTileSlider) {
     <Swiper slidesPerView={4.5} spaceBetween={20}>
       {imageTileArr.map((imageTile, index) => (
         <SwiperSlide key={index}>
-          <Link href={imageTile.url} className="flex flex-col">
-            <div className="aspect-square relative rounded-lg overflow-hidden">
+          <Link
+            href={imageTile.url}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <AspectRatio
+              ratio={1}
+              pos="relative"
+              rounded="lg"
+              overflow="hidden"
+            >
               <Image src={imageTile.imageUrl} fill={true} alt="eventImg" />
-            </div>
-            <div className="webkit-clamp-1 pt-2 text-xs">{imageTile.text}</div>
+            </AspectRatio>
+            <Text>{imageTile.text}</Text>
           </Link>
         </SwiperSlide>
       ))}
     </Swiper>
   );
 }
+
+const Text = styled(SingleLineText)`
+  padding-top: 8px;
+  font-size: 12px;
+`;
 
 export default ImageTileSlider;

@@ -1,20 +1,17 @@
-import { Button } from "@chakra-ui/react";
+import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Slide from "../../components/layout/PageSlide";
 
-import { dayjsToFormat } from "../../helpers/dateHelpers";
-import { getUserBadge } from "../../helpers/userHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import {
-  isProfileEditState,
-  prevPageUrlState,
-} from "../../recoil/previousAtoms";
+import { isProfileEditState } from "../../recoil/previousAtoms";
+import { getUserRole } from "../../utils/convertUtils/convertDatas";
+import { dayjsToFormat } from "../../utils/dateTimeUtils";
 import PointScoreBar from "../point/pointScore/PointScoreBar";
 
 function UserProfile() {
@@ -22,7 +19,6 @@ function UserProfile() {
 
   const router = useRouter();
 
-  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
 
   // const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
@@ -30,91 +26,83 @@ function UserProfile() {
   // );
 
   const { data: userInfo } = useUserInfoQuery();
-  console.log(2, userInfo);
-  const { badge } = getUserBadge(userInfo?.score, userInfo?.uid);
-  const onClickProfile = () => {
-    setIsProfileEdit(true);
-    setPrevPageUrl("/user/profile");
-    router.push("/register/location");
-  };
-  return;
+
   return (
-    <Slide>
-      <UserOverview>
-        <Button w="100%" onClick={onClickProfile}>
-          프로필 수정
-        </Button>
-      </UserOverview>
+    <>
       <Score>
         <PointScoreBar myScore={userInfo?.score} />
       </Score>
       <Detail>
-        <li>
-          <span>내 가입일:</span>
-          {dayjsToFormat(dayjs(userInfo?.registerDate), "YYYY년 M월 D일")}
-        </li>
-        <li>
-          <span>내 스터디 누적 참여 횟수:</span>
-          {myArrivedCnt}회
-        </li>
+        <UnorderedList>
+          <ListItem>
+            <Box display="inline-block" w="60px">
+              역할 구성:
+            </Box>
+            <b>{getUserRole(userInfo.role)}</b>
+          </ListItem>
+          <ListItem>
+            <Box display="inline-block" w="60px">
+              활동 지역:
+            </Box>
+            <b>{userInfo.location}</b>
+          </ListItem>
+          <ListItem>
+            <Box display="inline-block" w="60px">
+              내 가입일:
+            </Box>
+            <b>
+              {dayjsToFormat(dayjs(userInfo?.registerDate), "YY년 M월 D일")}
+            </b>
+          </ListItem>
+        </UnorderedList>
       </Detail>
       <Info>
-        <BlockItem onClick={() => router.push("/user/profile/depositLog")}>
-          <span>
-            내 보증금 <b>{userInfo?.deposit}</b>원
-          </span>
-          <FontAwesomeIcon icon={faChevronRight} />
-        </BlockItem>
-        <BlockItem onClick={() => router.push("/user/profile/friend")}>
-          <span>
-            내 친구 <b>{userInfo?.friend?.length}</b>명
-          </span>
-          <FontAwesomeIcon icon={faChevronRight} />
-        </BlockItem>
-        <BlockItem onClick={() => router.push("/user/profile/like")}>
-          <span>
-            받은 좋아요 <b>7</b>개
-          </span>
-          <FontAwesomeIcon icon={faChevronRight} />
-        </BlockItem>
+        <Link href="/user/friend">
+          <BlockItem>
+            <span>
+              내 친구 <b>{userInfo?.friend.length}</b>명
+            </span>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </BlockItem>
+        </Link>
+        <Link href="/user/like">
+          <BlockItem>
+            <span>
+              받은 좋아요 <b>7</b>개
+            </span>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </BlockItem>
+        </Link>
+        <Link href="/user/point">
+          <BlockItem>
+            <span>
+              내 포인트 <b>{userInfo?.deposit}</b>원
+            </span>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </BlockItem>
+        </Link>
+        <Link href="/user/deposit">
+          <BlockItem>
+            <span>
+              내 보증금 <b>{userInfo?.deposit}</b>원
+            </span>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </BlockItem>
+        </Link>
       </Info>
-    </Slide>
+    </>
   );
 }
 
-const UserOverview = styled.div`
-  margin: 0 var(--gap-4);
-  > div {
-    padding: var(--gap-4) 0;
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const Name = styled.div`
-  font-weight: 600;
-  margin-left: var(--gap-3);
-  > span:first-child {
-    margin-right: var(--gap-1);
-  }
-`;
-
 const Score = styled.div`
-  margin-top: var(--gap-2);
-  padding: var(--gap-4);
+  margin: 0px 16px;
+  margin-bottom: 12px;
 `;
 
 const Detail = styled.ul`
   padding: var(--gap-4);
   background-color: var(--gray-7);
-  font-size: 12px;
-  > li {
-    margin-left: var(--gap-2);
-    color: var(--gray-2);
-    > span:first-child {
-      margin-right: var(--gap-1);
-    }
-  }
+  font-size: 13px;
 `;
 
 const Info = styled.div`
@@ -123,13 +111,13 @@ const Info = styled.div`
 `;
 
 const BlockItem = styled.button`
-  flex: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--gap-4);
   border-bottom: var(--border);
-  font-weight: 700;
+  font-weight: 600;
   > span:first-child {
     > b {
       color: var(--color-mint);

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
-import { prevPageUrlState } from "../../recoils/urlRecoils";
+import { prevPageUrlState } from "../../recoils/navigationRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 

@@ -1,12 +1,10 @@
-"use client";
-
 import {
+  faCirclePlus,
   faHandshake as faDefaultHandShake,
   faHouse as faDefaultHouse,
-  faPlusCircle,
   faRankingStar as faDefaultRankingStar,
   faUsersRectangle as faDefaultUsersRectangle,
-} from "@fortawesome/pro-regular-svg-icons";
+} from "@fortawesome/pro-light-svg-icons";
 import {
   faHandshake,
   faHouse,
@@ -33,7 +31,7 @@ export default function BottomNav() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
-  console.log(pathname, searchParams);
+
   return (
     <Nav>
       {navItems.map((item, idx) => (
@@ -77,7 +75,7 @@ const navItems: INavButtonProps[] = [
     url: "/ranking",
   },
   {
-    defaultIcon: <FontAwesomeIcon icon={faPlusCircle} size="xl" />,
+    defaultIcon: <FontAwesomeIcon icon={faCirclePlus} fontSize="36px" />,
     url: "/",
   },
   {
@@ -103,7 +101,7 @@ const Nav = styled.nav`
   height: 64px; /* Adjusted from the inline style */
   background-color: white;
   z-index: 10;
-  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow);
   border-top: var(--border);
 `;
 
@@ -113,11 +111,13 @@ const NavLink = styled<{ active: "true" | "false" }>(Link)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 16px;
+  margin-top: 4px;
   color: ${({ active }: { active: "true" | "false" }) =>
-    active === "true" ? "text-gray-2" : "text-gray-4"};
+    active === "true" ? "var(--gray-2)" : "var(--gray-3)"};
 `;
 
 const NavText = styled.div`
-  margin-top: 8px; /* 2rem if you're using rem */
+  margin-top: 6px; /* 2rem if you're using rem */
   font-size: 12px; /* Adjusted for text-xs */
 `;

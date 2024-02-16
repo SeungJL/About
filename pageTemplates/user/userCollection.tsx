@@ -1,12 +1,11 @@
-import { faChevronRight, faStars } from "@fortawesome/pro-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
-import { PopOverIcon } from "../../components/common/Icon/PopOverIcon";
-import Slide from "../../components/layout/PageSlide";
 
 import { useCollectionAlphabetQuery } from "../../hooks/user/sub/collection/queries";
 import UserCollectionAlphabetModal from "../../modals/user/collection/UserCollectionAlphabetModal";
@@ -26,67 +25,53 @@ export default function UserCollection() {
 
   return (
     <>
-      <Slide>
-        <Container>
-          <Title>
-            <div>
-              <span>알파벳 컬렉션</span>
-              <button>
-                <PopOverIcon
-                  title="알파벳 컬렉션"
-                  text="일일 출석체크, 스터디 출석체크를 통해 알파벳을 획득할 수 있어요! 개인 스터디, FREE 오픈에서도 획득 가능합니다."
-                />
-              </button>
-            </div>
-            <div onClick={() => router.push("/user/collection/alphabet")}>
-              <button>전체 획득 현황</button>
-              <FontAwesomeIcon icon={faChevronRight} />
-            </div>
-          </Title>
-          <AlphabetContainer>
-            <AlphabetIcon
-              alphabet="A"
-              isDuotone={!alphabetArr?.includes("A")}
+      <Link href="/user/alphabet">
+        <BlockItem>
+          <span>알파벳 컬렉션</span>
+          <FontAwesomeIcon icon={faChevronRight} />
+        </BlockItem>
+      </Link>
+      <AlphabetContainer>
+        <AlphabetIcon alphabet="A" isDuotone={!alphabetArr?.includes("A")} />
+        <AlphabetIcon alphabet="B" isDuotone={!alphabetArr?.includes("B")} />
+        <AlphabetIcon alphabet="O" isDuotone={!alphabetArr?.includes("O")} />
+        <AlphabetIcon alphabet="U" isDuotone={!alphabetArr?.includes("U")} />
+        <AlphabetIcon alphabet="T" isDuotone={!alphabetArr?.includes("T")} />
+      </AlphabetContainer>
+      {/* <AlphabetQNABtn onClick={() => setIsAlphabetModal(true)}>
+          <IconWrapper>
+            <FontAwesomeIcon
+              icon={faStars}
+              size="2x"
+              color="var(--color-mint)"
             />
-            <AlphabetIcon
-              alphabet="B"
-              isDuotone={!alphabetArr?.includes("B")}
-            />
-            <AlphabetIcon
-              alphabet="O"
-              isDuotone={!alphabetArr?.includes("O")}
-            />
-            <AlphabetIcon
-              alphabet="U"
-              isDuotone={!alphabetArr?.includes("U")}
-            />
-            <AlphabetIcon
-              alphabet="T"
-              isDuotone={!alphabetArr?.includes("T")}
-            />
-          </AlphabetContainer>
-          <AlphabetQNABtn onClick={() => setIsAlphabetModal(true)}>
-            <IconWrapper>
-              <FontAwesomeIcon
-                icon={faStars}
-                size="2x"
-                color="var(--color-mint)"
-              />
-            </IconWrapper>
-            <AlphabetQNABtnContents>
-              <span>여러번 수집하면 보상이 더 올라가요!</span>
-              <span>컬렉션 수집 보상</span>
-            </AlphabetQNABtnContents>
-          </AlphabetQNABtn>
-        </Container>
-        <HrDiv />
-      </Slide>
+          </IconWrapper>
+          <AlphabetQNABtnContents>
+            <span>여러번 수집하면 보상이 더 올라가요!</span>
+            <span>컬렉션 수집 보상</span>
+          </AlphabetQNABtnContents>
+        </AlphabetQNABtn> */}
       {isAlphabetModal && (
         <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />
       )}
     </>
   );
 }
+
+const BlockItem = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-4);
+
+  font-weight: 600;
+  > span:first-child {
+    > b {
+      color: var(--color-mint);
+    }
+  }
+`;
 
 const HrDiv = styled.div`
   height: 8px;
@@ -119,7 +104,8 @@ const Title = styled.div`
 `;
 
 const AlphabetContainer = styled.div`
-  margin: 32px 0;
+  padding-top: 16px;
+  padding-bottom: 32px;
   display: flex;
   justify-content: center;
   font-size: 24px;
@@ -127,13 +113,16 @@ const AlphabetContainer = styled.div`
   > * {
     margin-right: 8px;
   }
+  border-bottom: var(--border);
 `;
 
 const AlphabetQNABtn = styled.button`
+  margin: 0 16px;
+  width: 100%;
   display: flex;
   align-items: center;
   background-color: var(--gray-7);
-  width: 100%;
+
   padding: var(--gap-3) var(--gap-4);
   border-radius: var(--rounded-lg);
   color: var(--color-font-h2);

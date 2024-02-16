@@ -13,7 +13,7 @@ const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
   const onChangeTimeEnd = (endTime) => {
     setTimes({ start: null, end: endTime });
   };
-  console.log(24);
+  
   return (
     <>
       <Layout>

@@ -32,7 +32,7 @@ export interface IFooterOptions {
 
 interface IModalLayout extends IModal {
   title: string;
-  footerOptions: IFooterOptions;
+  footerOptions?: IFooterOptions;
   children: React.ReactNode;
   size?: Size;
   initialRef?: any;
@@ -42,11 +42,7 @@ interface IModalLayout extends IModal {
 export const ModalLayout = ({
   title,
   setIsModal,
-  footerOptions: {
-    main: { text = "확인", func = () => setIsModal(false) },
-    sub,
-    isFull = true,
-  },
+  footerOptions,
   headerOptions,
   size,
   initialRef,
@@ -54,8 +50,10 @@ export const ModalLayout = ({
 }: IModalLayout) => {
   const onClose = () => setIsModal(false);
 
+  const { main, sub, isFull = true } = footerOptions || {};
+  const { text = "확인", func = onClose } = main || {};
   const { text: subText = "닫기", func: subFunc = onClose } = sub || {};
-  console.log(4, onClose);
+
   return (
     <Modal
       isOpen={true}
@@ -102,22 +100,24 @@ export const ModalLayout = ({
         <ChakraModalBody pt="16px" pb="4px" px="20px">
           {children}
         </ChakraModalBody>
-        <ChakraModalFooter p="20px">
-          {!sub ? (
-            <Button size="lg" colorScheme="mintTheme" w="100%" onClick={func}>
-              {text}
-            </Button>
-          ) : isFull ? (
-            <TwoButtonNav
-              leftText={subText}
-              rightText={text}
-              onClickLeft={subFunc}
-              onClickRight={func}
-            />
-          ) : (
-            <></>
-          )}
-          {/* {isFull ? (
+
+        {footerOptions && (
+          <ChakraModalFooter p="20px">
+            {!sub ? (
+              <Button size="lg" colorScheme="mintTheme" w="100%" onClick={func}>
+                {text}
+              </Button>
+            ) : isFull ? (
+              <TwoButtonNav
+                leftText={subText}
+                rightText={text}
+                onClickLeft={subFunc}
+                onClickRight={func}
+              />
+            ) : (
+              <></>
+            )}
+            {/* {isFull ? (
             <>
               {sub && (
                 <Button
@@ -144,7 +144,8 @@ export const ModalLayout = ({
               </button>
             </>
           )} */}
-        </ChakraModalFooter>
+          </ChakraModalFooter>
+        )}
       </ModalContent>
     </Modal>
   );

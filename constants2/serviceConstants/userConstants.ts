@@ -6,3 +6,4 @@ export const USER_ROLE = [
   "resting",
   "enthusiastic",
 ] as const;
+

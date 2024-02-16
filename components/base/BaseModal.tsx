@@ -19,7 +19,7 @@ function BaseModal({ isGuest, isError, setIsError }: IBaseModal) {
   );
 
   const dailyCheckWin = useRecoilValue(transferDailyCheckWinState);
-  console.log(42, dailyCheckWin);
+
   return (
     <>
       {!!dailyCheckWin && <DailyCheckWinModal />}

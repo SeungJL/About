@@ -129,7 +129,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
 };
 
 export const PLACE_TO_LOCATION = createPlaceToLocationMap(LOCATION_TO_PLACE);
-console.log(25, PLACE_TO_LOCATION);
+
 function createPlaceToLocationMap(obj: LocationToPlace) {
   const placeToLocationMap: { [key: string]: ActiveLocation } = {};
 

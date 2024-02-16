@@ -33,7 +33,7 @@ function Layout({ children }: ILayout) {
   const segments = pathname?.split("/").filter(Boolean);
   const firstSegment = segments?.length ? segments[0] : null;
 
-  console.log(2, router, pathname, firstSegment);
+
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const { data: session } = useSession();

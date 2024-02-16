@@ -6,7 +6,7 @@ import {
   ActiveLocation,
   LocationEn,
 } from "../../types2/serviceTypes/locationTypes";
-import { UserBadge } from "../../types2/userTypes/userInfoTypes";
+import { UserBadge, UserRole } from "../../types2/userTypes/userInfoTypes";
 
 export const getUserBadge = (score: number, uid: string): UserBadge => {
   let badge: UserBadge = "아메리카노";
@@ -85,4 +85,21 @@ export const convertLocationLangTo = <T extends "kr" | "en">(
   }
 
   throw new Error("Invalid 'to' parameter or location type");
+};
+
+export const getUserRole = (role: UserRole) => {
+  switch (role) {
+    case "human":
+      return "수습 멤버";
+    case "member":
+      return "동아리원";
+    case "manager":
+      return "운영진";
+    case "previliged":
+      return "운영진";
+    case "resting":
+      return "휴식 멤버";
+    case "enthusiastic":
+      return "열활 멤버";
+  }
 };

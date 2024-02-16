@@ -2,11 +2,15 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import Slide from "../../components/layout/PageSlide";
+import Divider from "../../components2/atoms/Divider";
 import { GATHER_INTRO_MODAL } from "../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../helpers/storageHelpers";
 import GatherIntroModal from "../../modals/gather/GatherIntroModal";
 import GatherHeader from "../../pageTemplates/gather/GatherHeader";
+import GatherLocationFilter from "../../pageTemplates/gather/GatherLocationFilter";
 import GatherMain from "../../pageTemplates/gather/GatherMain";
+import GatherReviewSlider from "../../pageTemplates/gather/GatherReviewSlider";
 import { isGatherAlertState } from "../../recoil/alertAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
 import { LocationFilterType } from "../../types/system";
@@ -35,12 +39,15 @@ function Gather() {
 
   return (
     <>
-      <GatherHeader/>
-      <GatherReviewSlider />
-      <Divider />
-      <GatherLocationFilter searchParam={location} />
-      <GatherMain />
-      {/* <Layout>
+      <Slide isFixed={true}>
+        <GatherHeader />
+      </Slide>
+      <Slide>
+        <GatherReviewSlider />
+        <Divider />
+        <GatherLocationFilter />
+        <GatherMain />
+        {/* <Layout>
         <GatherHeader />
         <ReviewWrapper>
           <GatherReviewNav />
@@ -55,6 +62,7 @@ function Gather() {
         <GatherMain category={category} />
         {!isGuest && <WritingIcon url="/gather/writing/category" />}
       </Layout> */}
+      </Slide>
       {isModal && <GatherIntroModal setIsModal={setIsModal} />}
     </>
   );

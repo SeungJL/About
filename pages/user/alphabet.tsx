@@ -7,28 +7,26 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
-import { MainLoading } from "../../../components/common/loaders/MainLoading";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
-import { BADGE_COLOR } from "../../../constants/settingValue/badge";
-import { getUserBadge } from "../../../helpers/userHelpers";
-import {
-  useCompleteToast,
-  useFailToast,
-} from "../../../hooks/custom/CustomToast";
-import { useAlphabetCompletedMutation } from "../../../hooks/user/sub/collection/mutations";
+
+import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
+import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
+import Slide from "../../components/layout/PageSlide";
+import Header from "../../components2/Header";
+import { BADGE_COLOR } from "../../constants/settingValue/badge";
+import { getUserBadge } from "../../helpers/userHelpers";
+import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
+import { useAlphabetCompletedMutation } from "../../hooks/user/sub/collection/mutations";
 import {
   useCollectionAlphabetAllQuery,
   useCollectionAlphabetQuery,
-} from "../../../hooks/user/sub/collection/queries";
-import AlphabetChangeModal from "../../../modals/user/collection/AlphabetChangeModal";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { isGuestState, userInfoState } from "../../../recoil/userAtoms";
-import { Alphabet, ICollectionAlphabet } from "../../../types/user/collections";
-import { IUser } from "../../../types/user/user";
+} from "../../hooks/user/sub/collection/queries";
+import AlphabetChangeModal from "../../modals/user/collection/AlphabetChangeModal";
+import { prevPageUrlState } from "../../recoil/previousAtoms";
+import { transferUserDataState } from "../../recoil/transferDataAtoms";
+import { isGuestState, userInfoState } from "../../recoil/userAtoms";
+import { Alphabet, ICollectionAlphabet } from "../../types/user/collections";
+import { IUser } from "../../types/user/user";
 
 const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];
 
@@ -117,8 +115,10 @@ function CollectionAlphabet() {
 
   return (
     <>
+      <Slide isFixed={true}>
+        <Header title="전체 수집 현황" />
+      </Slide>
       <Slide>
-        <Header title="전체 수집 현황" url="/user/collection" />
         {!isLoading ? (
           <>
             <Members>

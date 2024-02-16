@@ -40,7 +40,7 @@ const Layout = styled.div`
   align-items: center;
 `;
 const Item = styled.div`
-  padding: 0 var(--gap-2);
+  padding: 12px 16px;
   width: 100%;
   display: flex;
   justify-content: space-around;

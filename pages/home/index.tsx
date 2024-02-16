@@ -3,6 +3,7 @@ import EventBanner from "../../pageTemplates/home/EventBanner";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import Slide from "../../components/layout/PageSlide";
 import { getUrlWithLocationAndDate } from "../../helpers/urlHelpers";
 import HomeCategoryNav from "../../pageTemplates/home/HomeCategoryNav";
 import HomeGatherSection from "../../pageTemplates/home/HomeGatherSection";
@@ -36,15 +37,19 @@ function Home() {
   return (
     <>
       <HomeInitialSetting />
-      <HomeHeader />
-      <HomeCategoryNav />
-      <HomeLocationBar />
-      <StudyController />
-      <HomeStudySection />
-      <EventBanner />
-      <HomeGatherSection />
-      <HomeReviewSection />
-      <HomeWinRecordSection />
+      <Slide isFixed={true}>
+        <HomeHeader />
+      </Slide>
+      <Slide>
+        <HomeCategoryNav />
+        <HomeLocationBar />
+        <StudyController />
+        <HomeStudySection />
+        <EventBanner />
+        <HomeGatherSection />
+        <HomeReviewSection />
+        <HomeWinRecordSection />
+      </Slide>
     </>
   );
 }

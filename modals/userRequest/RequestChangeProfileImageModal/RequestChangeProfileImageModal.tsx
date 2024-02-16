@@ -2,11 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+import { ModalLayout } from "../../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
@@ -55,25 +51,22 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   return (
     <>
       {pageNum === 0 ? (
-        <ModalLayout onClose={() => setIsModal(false)} size="lg">
-          <ModalHeader text="프로필 이미지 변경" />
-          <ModalBody>
-            <Container>
-              <Button
-                colorScheme="mintTheme"
-                size="lg"
-                onClick={() => setPageNum(1)}
-              >
-                아바타 선택
-              </Button>
-              <Button size="lg" onClick={onClickKakao}>
-                카카오 프로필로 변경 / 업데이트
-              </Button>
-              <Button size="lg" onClick={() => setPageNum(2)}>
-                이벤트 배지로 변경
-              </Button>
-            </Container>
-          </ModalBody>
+        <ModalLayout title="프로필 변경" setIsModal={setIsModal}>
+          <Container>
+            <Button
+              colorScheme="mintTheme"
+              size="lg"
+              onClick={() => setPageNum(1)}
+            >
+              아바타 선택
+            </Button>
+            <Button mt="12px" size="lg" onClick={onClickKakao}>
+              카카오 프로필로 변경 / 업데이트
+            </Button>
+            <Button mt="12px" size="lg" onClick={() => setPageNum(2)}>
+              이벤트 배지로 변경
+            </Button>
+          </Container>
         </ModalLayout>
       ) : pageNum === 1 ? (
         <RequestChangeProfileImageModalAvatar
@@ -88,12 +81,9 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
 }
 
 const Container = styled.div`
-  margin-bottom: var(--gap-4);
-  padding: var(--gap-3) 0;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  margin-bottom: 20px;
 `;
 
 export default RequestChangeProfileImageModal;

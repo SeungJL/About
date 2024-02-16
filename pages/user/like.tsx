@@ -2,47 +2,52 @@ import { faCircleHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { useInteractionLikeQuery } from "../../../hooks/user/sub/interaction/queries";
+import Slide from "../../components/layout/PageSlide";
+import Header from "../../components2/Header";
+
+import { dayjsToFormat } from "../../helpers/dateHelpers";
+import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";
 
 function Like() {
   const { data: activeLogs } = useInteractionLikeQuery();
   return (
-    <Slide>
-      <Header title="좋아요 기록" isNoLine={true} url="/user/profile" />
-      <Container>
-        {activeLogs
-          ?.slice()
-          ?.reverse()
-          ?.map((item, idx) => {
-            const type = item.type;
-            const [name, message] = item.message.split("님");
+    <>
+      <Slide isFixed={true}>
+        <Header title="좋아요 기록" />
+      </Slide>
+      <Slide>
+        <Container>
+          {activeLogs
+            ?.slice()
+            ?.reverse()
+            ?.map((item, idx) => {
+              const type = item.type;
+              const [name, message] = item.message.split("님");
 
-            return (
-              <ItemContainer key={idx}>
-                <span>
-                  {dayjsToFormat(dayjs(item.createdAt), "YYYY년 M월 D일")}
-                </span>
-                <Item>
-                  <IconWrapper>
-                    <FontAwesomeIcon
-                      color="var(--color-red)"
-                      icon={faCircleHeart}
-                      size="xl"
-                    />
-                  </IconWrapper>
-                  <Name>{name}</Name>
-                  <Content>
-                    님{message} {type === "like" && <Point>+2 point</Point>}
-                  </Content>
-                </Item>
-              </ItemContainer>
-            );
-          })}
-      </Container>
-    </Slide>
+              return (
+                <ItemContainer key={idx}>
+                  <span>
+                    {dayjsToFormat(dayjs(item.createdAt), "YYYY년 M월 D일")}
+                  </span>
+                  <Item>
+                    <IconWrapper>
+                      <FontAwesomeIcon
+                        color="var(--color-red)"
+                        icon={faCircleHeart}
+                        size="xl"
+                      />
+                    </IconWrapper>
+                    <Name>{name}</Name>
+                    <Content>
+                      님{message} {type === "like" && <Point>+2 point</Point>}
+                    </Content>
+                  </Item>
+                </ItemContainer>
+              );
+            })}
+        </Container>
+      </Slide>
+    </>
   );
 }
 

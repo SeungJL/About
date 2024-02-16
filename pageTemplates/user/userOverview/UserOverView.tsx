@@ -1,22 +1,20 @@
+import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import TwoButtonNav from "../../../components/layout/TwoButtonNav";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import { isGuestState } from "../../../recoil/userAtoms";
-import { IUser } from "../../../types/user/user";
 import UserOverviewBadge from "./UserOverviewBadge";
 import UserOverviewComment from "./UserOverviewComment";
 
-interface IUserOverview {
-  userInfo: IUser;
-}
-
-export default function UserOverview({ userInfo }: IUserOverview) {
+export default function UserOverview() {
   const isGuest = useRecoilValue(isGuestState);
   const router = useRouter();
+
+  const { data: userInfo } = useUserInfoQuery();
 
   const [isProfileModal, setIsProfileModal] = useState(false);
 
@@ -38,12 +36,9 @@ export default function UserOverview({ userInfo }: IUserOverview) {
             </IconWrapper>
           </UserImg>
         </UserInfoContainer>
-        <TwoButtonNav
-          leftText="내 컬렉션"
-          rightText="내 프로필 정보"
-          onClickLeft={() => router.push("/user/collection")}
-          onClickRight={() => router.push("/user/profile")}
-        />
+        <Button w="100%" fontSize="16px">
+          프로필 수정
+        </Button>
       </Layout>
       {isProfileModal && (
         <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />

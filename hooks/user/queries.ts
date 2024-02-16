@@ -9,7 +9,7 @@ import {
 import { SERVER_URI } from "../../constants/system";
 import { QueryOptions } from "../../types/reactTypes";
 import { IPointLog } from "../../types/user/pointSystem";
-import { IUser } from "../../types/user/user";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
 
 export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>
   useQuery<IUser, AxiosError, IUser>(

@@ -1,60 +1,52 @@
+import { Box } from "@chakra-ui/react";
 import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import Header from "../../components/layout/Header";
+import Slide from "../../components/layout/PageSlide";
+import Header from "../../components2/Header";
+import SummaryTable from "../../components2/organisms/tables/SummaryTable";
 import {
   usePointSystemLogQuery,
   usePointSystemQuery,
 } from "../../hooks/user/queries";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 function PointLog() {
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
-
   const { data: point } = usePointSystemQuery("point");
   const { data: pointLog, isLoading } = usePointSystemLogQuery("point");
 
   const filterLog = pointLog?.filter((item) => item.meta.value);
 
+  const headerInfos = ["날짜", "내용", "점수"];
+  const tableInfosArr = filterLog?.map((log) => [
+    dayjs(log.timestamp).format("M.DD"),
+    log.message,
+    log.meta.value + "",
+  ]);
+
   return (
     <>
-      <Header title="포인트 로그" url={prevPageUrl || "/point"} />
-      <Layout>
-        <MyPoint>
-          <span>내 포인트</span>
-          <FontAwesomeIcon icon={faArrowRight} />
-          <span>{point} 점</span>
-        </MyPoint>
-        <Container>
-          <LogHeader>
-            <Date>날짜</Date>
-            <Content>내용</Content>
-            <Point>점수</Point>
-          </LogHeader>
-          <>
-            {!isLoading ? (
-              filterLog?.map((item, idx) => {
-                const value = item?.meta.value;
-                return (
-                  <Item key={idx}>
-                    <Date>{dayjs(item?.timestamp).format("M.DD")}</Date>
-                    <Content>{item?.message}</Content>
-                    <Point isMinus={value < 0}>
-                      {value > 0 && "+"}
-                      {value} point
-                    </Point>
-                  </Item>
-                );
-              })
-            ) : (
-              <MainLoading />
+      <Slide isFixed={true}>
+        <Header title="포인트 기록" />
+      </Slide>
+      <Slide>
+        <Layout>
+          <MyPoint>
+            <span>내 포인트</span>
+            <FontAwesomeIcon icon={faArrowRight} />
+            <span>{point} 점</span>
+          </MyPoint>
+          <Box border="var(--border)" rounded="md">
+            {pointLog && (
+              <SummaryTable
+                headerInfos={headerInfos}
+                tableInfosArr={tableInfosArr}
+                size="lg"
+              />
             )}
-          </>
-        </Container>
-      </Layout>
+          </Box>
+        </Layout>
+      </Slide>
     </>
   );
 }
@@ -94,6 +86,7 @@ const MyPoint = styled.div`
   border: var(--border-mint);
   color: var(--gray-2);
   font-size: 14px;
+  margin-bottom: 20px;
   > span:first-child {
     flex: 1;
   }

@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled, { css } from "styled-components";
@@ -28,37 +29,34 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
   };
 
   return (
-    <AvatarContainer
-      onClick={onClickAvatar}
-      size={size}
-      bg={avatarProps.bg}
-      hasType={!!avatar?.type}
-    >
-      <ImageContainer>
-        <Image
-          src={avatarProps.image || AVATAR_IMAGE_ARR[0]}
-          fill={true}
-          sizes={size === "sm" ? "28px" : size === "md" ? "44px" : "80px"}
-          alt="avatar"
-        />
+    <AvatarContainer onClick={onClickAvatar} size={size}>
+      <ImageContainer bg={avatarProps.bg} hasType={!!avatar?.type}>
+        <Box w="100%" h="100%" pos="relative">
+          <Image
+            src={avatarProps.image || AVATAR_IMAGE_ARR[0]}
+            fill={true}
+            sizes={size === "sm" ? "28px" : size === "md" ? "44px" : "80px"}
+            alt="avatar"
+          />
+        </Box>
       </ImageContainer>
     </AvatarContainer>
   );
 }
 const AvatarContainer = styled.div<{
   size: Size;
-  bg: string | null;
-  hasType: boolean;
 }>`
   overflow: hidden;
   position: relative;
-  border-radius: 9999px; // rounded-full
+  border-radius: 50%; // rounded-full
+  background-color: var(--gray-8);
   ${(props) => {
     switch (props.size) {
       case "sm":
         return css`
           width: 28px; // w-7
           height: 28px; // h-7
+          padding: 2px;
         `;
       case "md":
         return css`
@@ -72,22 +70,24 @@ const AvatarContainer = styled.div<{
         `;
     }
   }}
-  ${(props) =>
-    props.size === "sm"
-      ? css`
-          padding: ${props.hasType ? "3px" : "2px"};
-        `
-      : css`
-          padding: ${props.hasType ? "4px" : "0px"};
-        `}
-  background-color: ${(props) =>
-    props.bg ? props.bg : "var(--gray-7)"}; // bg-gray-200 as fallback
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{
+  bg: string | null;
+  hasType: boolean;
+}>`
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 9999px;
+  border-radius: 50%;
   overflow: hidden;
+
+  ${(props) =>
+    props.hasType
+      ? css`
+          padding: 2px;
+        `
+      : null}
+  background-color: ${(props) =>
+    props.bg ? props.bg : "var(--gray-7)"}; // bg-gray-200 as fallback
 `;

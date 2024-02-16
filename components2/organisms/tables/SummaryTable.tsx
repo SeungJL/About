@@ -7,55 +7,43 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { faCircle } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-interface ITableContent {
-  date: string;
-  name: string;
-  detail: string;
-  present: string;
-}
 
 interface ISummaryTable {
-  tableContentArr: ITableContent[];
+  headerInfos: string[];
+  tableInfosArr: string[][];
+  size: "sm" | "md" | "lg";
 }
 
-export default function SummaryTable({ tableContentArr }: ISummaryTable) {
+export default function SummaryTable({
+  headerInfos,
+  tableInfosArr,
+  size = "md",
+}: ISummaryTable) {
   return (
     <TableContainer overflow="hidden">
-      <Table variant="striped" size="sm" colorScheme="gray" whiteSpace="nowrap">
+      <Table
+        variant="striped"
+        size={size}
+        colorScheme="gray"
+        whiteSpace="nowrap"
+      >
         <Thead>
           <Tr>
-            <Th textAlign="center" p="4px 12px">
-              날짜
-            </Th>
-            <Th textAlign="center" p="4px 12px">
-              이름
-            </Th>
-            <Th textAlign="center" p="4px 12px">
-              내용
-            </Th>
-            <Th textAlign="center" p="4px 12px">
-              상품
-            </Th>
+          {headerInfos.map((info, idx) => (
+              <Th key={idx} textAlign="center" p="4px 12px">
+                {info}
+              </Th>
+            ))}
           </Tr>
         </Thead>
         <Tbody>
-          {tableContentArr.map((content, idx) => (
+          {tableInfosArr.map((info, idx) => (
             <Tr key={idx}>
-              <Td textAlign="center" p="4px 12px">
-                {content.date}
-              </Td>
-              <Td textAlign="center" p="4px 12px">
-                {content.name}
-                <FontAwesomeIcon icon={faCircle} size="sm" />
-              </Td>
-              <Td textAlign="center" p="4px 12px">
-                {content.detail}
-              </Td>
-              <Td textAlign="center" p="4px 12px">
-                {content.present}
-              </Td>
+              {info.map((content, idx) => (
+                <Td key={idx} fontWeight={400} textAlign="center" p="4px 12px">
+                  {content}
+                </Td>
+              ))}
             </Tr>
           ))}
         </Tbody>

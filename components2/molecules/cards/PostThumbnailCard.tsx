@@ -35,10 +35,13 @@ export function PostThumbnailCard({
     statusText = undefined,
   },
 }: IPostThumbnailCardObj) {
-  const userAvatarArr = participants.map((par) => ({
-    image: par.profileImage,
-    ...(par.avatar?.type !== null ? { avatar: par.avatar } : {}),
-  }));
+  const userAvatarArr = participants.map((par, idx) => {
+    
+    return {
+      image: par.profileImage,
+      ...(par.avatar?.type !== null ? { avatar: par.avatar } : {}),
+    };
+  });
 
   return (
     <CardLink href={url}>
@@ -48,12 +51,16 @@ export function PostThumbnailCard({
         priority={image.priority}
         width={86.5}
         height={86.5}
-        style={{ borderRadius: "0.5rem" }}
+        style={{ borderRadius: "var(--rounded)" }}
       />
       <ContentContainer>
         <TitleHeader>
           <Title>{title}</Title>
-          <OutlineBadge text={badge.text} colorScheme={badge.colorScheme} />
+          <OutlineBadge
+            size="sm"
+            text={badge.text}
+            colorScheme={badge.colorScheme}
+          />
         </TitleHeader>
         <Subtitle>{subtitle}</Subtitle>
         <StatusContainer>
@@ -137,7 +144,7 @@ const StatusContainer = styled.div`
     display: flex;
     margin-left: auto;
     align-items: center;
-    color: var(--gray-4); // text-gray-500
+    color: var(--gray-3); // text-gray-500
     .userIconContainer {
       display: flex;
       align-items: center;
@@ -146,7 +153,7 @@ const StatusContainer = styled.div`
         margin-bottom: 2px;
       }
       > span:last-child {
-        margin-left: 4px;
+        margin-left: 6px;
       }
     }
   }

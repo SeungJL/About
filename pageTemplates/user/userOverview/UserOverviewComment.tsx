@@ -1,3 +1,4 @@
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { faPenCircle } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
@@ -77,29 +78,32 @@ function UserOverviewComment() {
   } = {
     "--fa-secondary-color": "white",
     "--fa-secondary-opacity": 1,
-    border: isFocused ? "1px solid var(--gray-1)" : "1px solid var(--gray-6)",
+    border: isFocused
+      ? "1px solid var(--color-mint)"
+      : "1px solid var(--gray-6)",
     borderRadius: "50%",
   };
 
   return (
-    <Layout onClick={handleWrite}>
-      <Message
+    <InputGroup size="md" onClick={handleWrite}>
+      <Input
         value={value}
         ref={inputRef}
         type="text"
         onBlur={handleSubmit}
         onChange={onWrite}
+        border="var(--border)"
+        focusBorderColor="gray.300"
       />
-      <button>
+      <InputRightElement>
         <FontAwesomeIcon
           icon={faPenCircle}
           size="lg"
-          color={isFocused ? "var(--gray-1)" : "var(--gray-4)"}
-          className="fa-swap-opacity"
+          color={isFocused ? "var(--color-mint)" : "var(--gray-4)"}
           style={iconStyle}
         />
-      </button>
-    </Layout>
+      </InputRightElement>
+    </InputGroup>
   );
 }
 

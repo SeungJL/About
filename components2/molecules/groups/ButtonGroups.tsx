@@ -1,8 +1,6 @@
-import BgColorButton from "@/components/atoms/buttons/BgColorButton";
-import OutlineButton from "@/components/atoms/buttons/OutlinedButton";
-import { ButtonSize } from "@/types/assetTypes";
-import "../../../styles/customClass.css";
-
+import { Button, Flex } from "@chakra-ui/react";
+import styled from "styled-components";
+import { ButtonSize } from "../../../types2/assetTypes";
 interface IButtonData {
   text: string;
   func: () => void;
@@ -19,24 +17,26 @@ export default function ButtonGroups({
   size = "md",
 }: IButtonGroups) {
   return (
-    <div className="hide-scrollbar flex gap-3 flex-nowrap overflow-x-auto">
+    <Layout>
       {buttonDataArr.map((buttonData, idx) => (
-        <div className="flex flex-shrink-0" key={idx} onClick={buttonData.func}>
+        <Flex flexShrink={0} key={idx} onClick={buttonData.func}>
           {buttonData.text === currentValue ? (
-            <BgColorButton
-              text={buttonData.text}
-              colorType="mint"
-              size={size}
-            />
+            <Button colorScheme="mintTheme">{buttonData.text}</Button>
           ) : (
-            <OutlineButton
-              text={buttonData.text}
-              size={size}
-              colorType="gray"
-            />
+            <Button variant="outline">{buttonData.text}</Button>
           )}
-        </div>
+        </Flex>
       ))}
-    </div>
+    </Layout>
   );
 }
+
+const Layout = styled.div`
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  display: flex;
+  padding: 12px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+`;
