@@ -16,7 +16,7 @@ export const USER_EVENT_BADGE_ARR = [] as const;
 export const USER_BADGE_ARR = [
   ...USER_SCORE_BADGE_ARR,
   ...USER_EVENT_BADGE_ARR,
-  MANAGER_BADGE,
+MANAGER_BADGE,
 ] as const;
 
 export const BADGE_SCORE_MAPPINGS: {

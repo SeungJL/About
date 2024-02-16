@@ -31,4 +31,4 @@ export const RABBIT_RUN = "rabbitRun";
 
 export const REGISTER_INFO = "registerInfo";
 
-export const USE_GUIDE = "useGuide";
+export const USER_GUIDE = "useGuide";

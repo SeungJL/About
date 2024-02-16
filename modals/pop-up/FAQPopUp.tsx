@@ -1,13 +1,8 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import { prevPageUrlState } from "../../recoils/urlRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -21,33 +16,36 @@ function FAQPopUp({ setIsModal }: IModal) {
     router.push(`/faq`);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "보러가기",
+      func: onSubmit,
+    },
+    sub: {},
+    isFull: true,
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text="뉴비 가이드" />
-      <ModalBody>
-        <ModalSubtitle>
-          아직도 이걸 모른다고?! 아직도 이걸 모르는 당신은 뉴비! 궁금한 거
-          있으면 보고 가~
-        </ModalSubtitle>
-        <Wrapper>
-          <Center>
-            <LeftWrapper>
-              <LeftThunder />
-            </LeftWrapper>
-            <GuideBook />
-            <RightWrapper>
-              <RightThunder />
-            </RightWrapper>
-          </Center>
-        </Wrapper>
-      </ModalBody>
-      <ModalFooterTwo
-        leftText="닫기"
-        rightText="보러가기"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onSubmit}
-        isFull={true}
-      />
+    <ModalLayout
+      title="뉴비 가이드"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <ModalSubtitle>
+        아직도 이걸 모른다고?! 아직도 이걸 모르는 당신은 뉴비! 궁금한 거 있으면
+        보고 가~
+      </ModalSubtitle>
+      <Wrapper>
+        <Center>
+          <LeftWrapper>
+            <LeftThunder />
+          </LeftWrapper>
+          <GuideBook />
+          <RightWrapper>
+            <RightThunder />
+          </RightWrapper>
+        </Center>
+      </Wrapper>
     </ModalLayout>
   );
 }

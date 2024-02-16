@@ -4,15 +4,15 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
-import { useCollectionAlphabetQuery } from "../../../hooks/user/sub/collection/queries";
-import UserCollectionAlphabetModal from "../../../modals/user/collection/UserCollectionAlphabetModal";
-import { isGuestState } from "../../../recoil/userAtoms";
+import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
+import { PopOverIcon } from "../../components/common/Icon/PopOverIcon";
+import Slide from "../../components/layout/PageSlide";
 
-function Collection() {
+import { useCollectionAlphabetQuery } from "../../hooks/user/sub/collection/queries";
+import UserCollectionAlphabetModal from "../../modals/user/collection/UserCollectionAlphabetModal";
+import { isGuestState } from "../../recoil/userAtoms";
+
+export default function UserCollection() {
   const router = useRouter();
   const isGuest = useRecoilValue(isGuestState);
 
@@ -27,7 +27,6 @@ function Collection() {
   return (
     <>
       <Slide>
-        <Header title="컬렉션" url="/user" />
         <Container>
           <Title>
             <div>
@@ -158,5 +157,3 @@ const AlphabetQNABtnContents = styled.div`
     font-size: 14px;
   }
 `;
-
-export default Collection;

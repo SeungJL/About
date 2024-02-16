@@ -1,4 +1,7 @@
-import { BADGE_SCORE_MAPPINGS } from "../../constants2/serviceConstants/badgeConstants";
+import {
+  BADGE_SCORE_MAPPINGS,
+  USER_SCORE_BADGE_ARR,
+} from "../../constants2/serviceConstants/badgeConstants";
 import {
   ActiveLocation,
   LocationEn,
@@ -39,6 +42,17 @@ export const getUserBadge = (score: number, uid: string): UserBadge => {
   //   }
 
   //   return { badge };
+};
+
+export const getNextBadge = (currentBadge: UserBadge): string | null => {
+  const idx = USER_SCORE_BADGE_ARR.indexOf(
+    currentBadge as typeof USER_SCORE_BADGE_ARR[number]
+  );
+  if (idx === -1 || idx === USER_SCORE_BADGE_ARR.length - 1) {
+    return null;
+  } else if (idx < USER_SCORE_BADGE_ARR.length - 1) {
+    return USER_SCORE_BADGE_ARR[idx + 1];
+  }
 };
 
 type ReturnLocationLang<T> = T extends "kr" ? ActiveLocation : LocationEn;

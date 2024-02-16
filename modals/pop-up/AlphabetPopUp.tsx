@@ -1,12 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { Alphabet } from "../../types/user/collections";
@@ -14,26 +9,31 @@ import { Alphabet } from "../../types/user/collections";
 function AlphabetPopUp({ setIsModal }: IModal) {
   const router = useRouter();
   const alphabets: Alphabet[] = ["A", "B", "O", "U", "T"];
+
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "보러가기",
+      func: () => router.push("/user/collection"),
+    },
+    sub: {},
+    isFull: true,
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text="알파벳 컬렉션" />
-      <ModalBody>
-        <ModalSubtitle>
-          스터디 출석 또는 친구와의 교환을 통해 알파벳을 수집해봐요! 다양한
-          상품을 드립니다!
-        </ModalSubtitle>
-        <AlphabetContainer>
-          {alphabets.map((item) => (
-            <AlphabetIcon key={item} alphabet={item} size="md" isBg={true} />
-          ))}
-        </AlphabetContainer>
-      </ModalBody>
-      <ModalFooterTwo
-        isFull={true}
-        rightText="보러가기"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={() => router.push("/user/collection")}
-      />
+    <ModalLayout
+      title="알파벳 컬렉션"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <ModalSubtitle>
+        스터디 출석 또는 친구와의 교환을 통해 알파벳을 수집해봐요! 다양한 상품을
+        드립니다!
+      </ModalSubtitle>
+      <AlphabetContainer>
+        {alphabets.map((item) => (
+          <AlphabetIcon key={item} alphabet={item} size="md" isBg={true} />
+        ))}
+      </AlphabetContainer>
     </ModalLayout>
   );
 }

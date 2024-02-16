@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Slide from "../../components/layout/PageSlide";
+import Divider from "../../components2/atoms/Divider";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import UserCollection from "../../pageTemplates/user/userCollection";
 import UserHeader from "../../pageTemplates/user/userHeader";
 import UserOverview from "../../pageTemplates/user/userOverview/UserOverView";
+import UserProfile from "../../pageTemplates/user/userProfile";
 import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
 
@@ -36,6 +39,9 @@ function UserInfo() {
         {(userInfo || isGuest) && (
           <UserLayout>
             <UserOverview userInfo={userInfo} />
+            <Divider />
+            <UserProfile />
+            <UserCollection />
           </UserLayout>
         )}
       </Slide>

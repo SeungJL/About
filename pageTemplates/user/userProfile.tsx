@@ -1,53 +1,46 @@
-import { Badge, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
-import { BADGE_COLOR } from "../../../constants/settingValue/badge";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { getUserBadge } from "../../../helpers/userHelpers";
-import { useStudyArrivedCntQuery } from "../../../hooks/study/queries";
-import PointScoreBar from "../../../pageTemplates/point/pointScore/PointScoreBar";
+import Slide from "../../components/layout/PageSlide";
+
+import { dayjsToFormat } from "../../helpers/dateHelpers";
+import { getUserBadge } from "../../helpers/userHelpers";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import {
   isProfileEditState,
   prevPageUrlState,
-} from "../../../recoil/previousAtoms";
-import { userInfoState } from "../../../recoil/userAtoms";
+} from "../../recoil/previousAtoms";
+import PointScoreBar from "../point/pointScore/PointScoreBar";
 
 function UserProfile() {
+  const { data: session } = useSession();
+
   const router = useRouter();
-  const userInfo = useRecoilValue(userInfoState);
-  const { badge } = getUserBadge(userInfo?.score, userInfo?.uid);
 
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
   const setIsProfileEdit = useSetRecoilState(isProfileEditState);
 
-  const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
-    userInfo?.uid as string
-  );
+  // const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
+  //   userInfo?.uid as string
+  // );
 
+  const { data: userInfo } = useUserInfoQuery();
+  console.log(2, userInfo);
+  const { badge } = getUserBadge(userInfo?.score, userInfo?.uid);
   const onClickProfile = () => {
     setIsProfileEdit(true);
     setPrevPageUrl("/user/profile");
     router.push("/register/location");
   };
-
+  return;
   return (
     <Slide>
-      <Header title="내 프로필" url="/user" />
       <UserOverview>
-        <div>
-          <ProfileIcon user={userInfo} size="lg" />
-          <Name>
-            <span>{userInfo?.name}</span>
-            <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
-          </Name>
-        </div>
         <Button w="100%" onClick={onClickProfile}>
           프로필 수정
         </Button>

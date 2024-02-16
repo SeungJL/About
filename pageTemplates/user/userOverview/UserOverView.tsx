@@ -55,7 +55,6 @@ export default function UserOverview({ userInfo }: IUserOverview) {
 const Layout = styled.div`
   padding: 0 var(--gap-5);
   padding-bottom: var(--gap-5);
-  border-bottom: 6px solid var(--gray-7);
 `;
 
 const UserInfoContainer = styled.div`

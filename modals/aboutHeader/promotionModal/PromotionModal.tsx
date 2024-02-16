@@ -3,11 +3,7 @@ import { faCoins, faGift } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import { IModal } from "../../../types/reactTypes";
 import PromotionModalOverview from "./PromotionModalOverview";
 
@@ -17,46 +13,52 @@ function PromotionModal({ setIsModal }: IModal) {
     router.push(`/promotion`);
     setIsModal(false);
   };
+
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "참여 할래!",
+      func: onClickAttend,
+    },
+    sub: {
+      text: "다음에",
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xl">
-      <ModalBody>
-        <PromotionModalOverview />
-        <ImageContainer>
-          <IconWrapper>
-            <div>
-              <FontAwesomeIcon
-                icon={faGift}
-                size="6x"
-                color="var(--color-red)"
-                style={
-                  {
-                    "--fa-primary-opacity": "1",
-                    "--fa-secondary-opacity": "0.4",
-                  } as React.CSSProperties
-                }
-              />
-            </div>
-            <div>
-              <FontAwesomeIcon
-                icon={faCoins}
-                size="3x"
-                color="var(--color-red)"
-              />
-            </div>
-          </IconWrapper>
-          <Info>
-            <span>+ 100 POINT</span>
-            <span>+ 추첨 선물</span>
-          </Info>
-        </ImageContainer>
-      </ModalBody>
-      <ModalFooterTwo
-        isFull={true}
-        leftText="다음에"
-        rightText="참여할래 !"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onClickAttend}
-      />
+    <ModalLayout
+      title={null}
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <PromotionModalOverview />
+      <ImageContainer>
+        <IconWrapper>
+          <div>
+            <FontAwesomeIcon
+              icon={faGift}
+              size="6x"
+              color="var(--color-red)"
+              style={
+                {
+                  "--fa-primary-opacity": "1",
+                  "--fa-secondary-opacity": "0.4",
+                } as React.CSSProperties
+              }
+            />
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={faCoins}
+              size="3x"
+              color="var(--color-red)"
+            />
+          </div>
+        </IconWrapper>
+        <Info>
+          <span>+ 100 POINT</span>
+          <span>+ 추첨 선물</span>
+        </Info>
+      </ImageContainer>
     </ModalLayout>
   );
 }
@@ -81,7 +83,6 @@ const IconWrapper = styled.div`
 `;
 
 const Info = styled.div`
-
   position: absolute;
   bottom: 24px;
   right: 4px;

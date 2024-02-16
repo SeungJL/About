@@ -1,12 +1,8 @@
+import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import {
   useCompleteToast,
   useFailToast,
@@ -62,51 +58,55 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
   };
 
   const isExpired = LOCATION_WIN[location] <= memberCnt;
+
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "지원하기",
+      func: () => setIsConfirmModal(true),
+    },
+    sub: {},
+    isFull: true,
+  };
+
   return (
     <>
-      <ModalLayout size="xxl" onClose={() => setIsModal(false)}>
-        <ModalHeader text="1월 열공멤버 신청" />
-        <ModalBody>
-          <ModalSubtitle>
-            매 달마다 선착순으로 열공멤버 신청을 받습니다!
-          </ModalSubtitle>
-          <CurrentMember>
-            현재 인원:
-            <span>
-              {!isLoading &&
-                (isExpired ? "모집 마감" : `${memberCnt + 1 || 1}명`)}
-            </span>
-          </CurrentMember>
-          <Container>
+      <ModalLayout
+        title={`${dayjs().month() + 2}월 열공멤버 신청 `}
+        footerOptions={footerOptions}
+        setIsModal={setIsModal}
+      >
+        <ModalSubtitle>
+          매 달마다 선착순으로 열공멤버 신청을 받습니다!
+        </ModalSubtitle>
+        <CurrentMember>
+          현재 인원:
+          <span>
+            {!isLoading &&
+              (isExpired ? "모집 마감" : `${memberCnt + 1 || 1}명`)}
+          </span>
+        </CurrentMember>
+        <Container>
+          <li>
+            <b>모집 인원:</b> {LOCATION_WIN[location]}명
+          </li>
+          <li>
+            <b>지원 조건</b>
+          </li>
+          <Condition>
+            <li>만 19~23세의 대학생</li>
+            <li>인원 당 1회만 등록 가능</li>
             <li>
-              <b>모집 인원:</b> {LOCATION_WIN[location]}명
+              한달 동안
+              <b>
+                <u>4번 스터디 참여 또는 신청</u>
+              </b>
             </li>
-            <li>
-              <b>지원 조건</b>
-            </li>
-            <Condition>
-              <li>만 19~23세의 대학생</li>
-              <li>인원 당 1회만 등록 가능</li>
-              <li>
-                한달 동안
-                <b>
-                  <u>4번 스터디 참여 또는 신청</u>
-                </b>
-              </li>
-              <span>(미오픈 투표, FREE 오픈, 개인스터디 = 2회당 1번)</span>
-            </Condition>
-            <Win>
-              <b>300 POINT 지급 !</b>
-            </Win>
-          </Container>
-        </ModalBody>
-        <ModalFooterTwo
-          leftText="닫기"
-          rightText="지원"
-          onClickLeft={() => setIsModal(false)}
-          onClickRight={() => setIsConfirmModal(true)}
-          isFull={true}
-        />
+            <span>(미오픈 투표, FREE 오픈, 개인스터디 = 2회당 1번)</span>
+          </Condition>
+          <Win>
+            <b>300 POINT 지급 !</b>
+          </Win>
+        </Container>
       </ModalLayout>
       {isConfirmModal && (
         <ConfirmModal content={confirmContent} setIsModal={setIsConfirmModal} />

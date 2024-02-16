@@ -1,34 +1,29 @@
 import dayjs from "dayjs";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { PopOverIcon } from "../../components/common/Icon/PopOverIcon";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { BADGE_INFO } from "../../constants/settingValue/badge";
 import { USER_ROLE } from "../../constants/settingValue/role";
-import { getUserBadge } from "../../helpers/userHelpers";
 import {
   IStudyRecord,
   useAdminStudyRecordQuery,
 } from "../../hooks/admin/quries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import PointScoreBar from "../../pageTemplates/point/pointScore/PointScoreBar";
-import { locationState } from "../../recoil/userAtoms";
 
 import { IModal } from "../../types/reactTypes";
+import {
+  getNextBadge,
+  getUserBadge,
+} from "../../utils/convertUtils/convertDatas";
 
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const lastWeekFirstDay = dayjs().day(1).subtract(1, "week").startOf("date");
   const lastWeekLastDay = dayjs().day(0).startOf("date");
 
   const { data: userInfo } = useUserInfoQuery();
-  const location = useRecoilValue(locationState);
 
   const { data: attendRecord, isLoading } = useAdminStudyRecordQuery(
     dayjs().month() !== lastWeekFirstDay.month()
@@ -36,10 +31,10 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
       : lastWeekFirstDay,
     lastWeekLastDay,
     undefined,
-    userInfo.location,
-    userInfo.uid,
+    userInfo?.location,
+    userInfo?.uid,
     {
-      enabled: !!location && !!userInfo.uid,
+      enabled: !!userInfo,
     }
   );
 
@@ -53,12 +48,12 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const differenceInDays = today.diff(firstDayOfMonth, "day");
   const weekNumber = Math.floor(differenceInDays / 7) + 1;
 
-  const { nextBadge } = getUserBadge(userInfo?.score, userInfo?.uid);
+  const badge = getUserBadge(userInfo?.score, userInfo?.uid);
+  const nextBadge = getNextBadge(badge);
 
   const getBadgePoint = () => {
     for (let i = 0; i < BADGE_INFO.length; i++) {
       const badgeInfo = BADGE_INFO[i];
-
       if (badgeInfo.badge === nextBadge) {
         return {
           nextBadgePoint: badgeInfo.minScore,
@@ -119,89 +114,93 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
       </Item>
     </Info>
   );
+
+  const footerOptions: IFooterOptions = {
+    main: {},
+    isFull: true,
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
-      <ModalHeader
-        isLine={true}
-        text={`${dayjs().month() + 1}월 ${weekNumber}주차 주간 체크`}
-      />
-      <ModalBody>
-        <ScoreBarWrapper>
-          <PointScoreBar myScore={userInfo.score} hasQuestion={false} />
-          {nextBadge ? (
-            <span>
-              {nextBadge} 달성시 +10 포인트,{" "}
-              {nextAvatar[String(nextBadgePoint)]} 아바타 해금!
-            </span>
-          ) : (
-            <span>킹왕짱</span>
-          )}
-        </ScoreBarWrapper>
-        <ProfileWrapper>
+    <ModalLayout
+      title={`${dayjs().month() + 1}월 ${weekNumber}주차 주간 체크`}
+      headerOptions={{}}
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <ScoreBarWrapper>
+        <PointScoreBar myScore={userInfo.score} hasQuestion={false} />
+        {nextBadge ? (
           <span>
-            {userInfo?.name} ({USER_ROLE?.[userInfo?.role]})
+            {nextBadge} 달성시 +10 포인트, {nextAvatar[String(nextBadgePoint)]}{" "}
+            아바타 해금!
           </span>
-          <ImageWrapper>
-            <ProfileIcon user={userInfo} size="sm" />
-          </ImageWrapper>
-        </ProfileWrapper>
-        <Container>
-          {!isLoading ? (
-            <Info>
-              <Item>
-                <span>{weekNumber}주차 스터디 투표</span>
-                <span>{recordValue.vote || 0} 회</span>
-              </Item>
-              <Item>
-                <span>{weekNumber}주차 스터디 출석</span>
-                <span>{recordValue.attend} 회</span>
-              </Item>
-              <Item>
-                <div style={{ display: "flex" }}>
-                  <span>이번 달 스터디 점수</span>
-                  <PopOverIcon
-                    title="월간 스터디 점수"
-                    text="최소 1점을 넘어야합니다. 출석을 기준으로 정규 스터디는 1회당 1점, 개인, FREE 스터디는 2회당 1점입니다."
-                  />
-                </div>
-                <span>{Math.floor(recordValue.monthAcc) || 0} 점</span>
-              </Item>
-              <Item>
-                <span>다음 참여 정산일</span>
-                <span> {dayjs().add(1, "month").month() + 1}월 1일</span>
-              </Item>
-              <Item>
-                <span>보유 보증금</span>
-                <span>{userInfo?.deposit}원</span>
-              </Item>
-            </Info>
-          ) : (
-            <LayoutSkeleton />
-          )}
-        </Container>
-        <Message>
-          {dayjs(userInfo?.registerDate).diff(dayjs(), "month") === 0 ? (
-            <div>
-              🎉신규 가입을 환영해요🎉
-              <br />
-              앞으로 열심히 활동해봐요~!
-            </div>
-          ) : recordValue?.monthAcc < 1 ? (
-            <div>
-              이번 달에 아직 스터디에 참여하지 않았어요.
-              <br /> {-dayjs().add(1, "month").date(1).diff(dayjs(), "day")}일
-              뒤에 경고를 받습니다.
-            </div>
-          ) : (
-            <div>
-              p 🎉잘 하고 있어요🎉
-              <br />
-              이번주도 열심히 파이팅~!
-            </div>
-          )}
-        </Message>
-      </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} isFull={true} />
+        ) : (
+          <span>킹왕짱</span>
+        )}
+      </ScoreBarWrapper>
+      <ProfileWrapper>
+        <span>
+          {userInfo?.name} ({USER_ROLE?.[userInfo?.role]})
+        </span>
+        <ImageWrapper>
+          <ProfileIcon user={userInfo} size="sm" />
+        </ImageWrapper>
+      </ProfileWrapper>
+      <Container>
+        {!isLoading ? (
+          <Info>
+            <Item>
+              <span>{weekNumber}주차 스터디 투표</span>
+              <span>{recordValue.vote || 0} 회</span>
+            </Item>
+            <Item>
+              <span>{weekNumber}주차 스터디 출석</span>
+              <span>{recordValue.attend} 회</span>
+            </Item>
+            <Item>
+              <div style={{ display: "flex" }}>
+                <span>이번 달 스터디 점수</span>
+                <PopOverIcon
+                  title="월간 스터디 점수"
+                  text="최소 1점을 넘어야합니다. 출석을 기준으로 정규 스터디는 1회당 1점, 개인, FREE 스터디는 2회당 1점입니다."
+                />
+              </div>
+              <span>{Math.floor(recordValue.monthAcc) || 0} 점</span>
+            </Item>
+            <Item>
+              <span>다음 참여 정산일</span>
+              <span> {dayjs().add(1, "month").month() + 1}월 1일</span>
+            </Item>
+            <Item>
+              <span>보유 보증금</span>
+              <span>{userInfo?.deposit}원</span>
+            </Item>
+          </Info>
+        ) : (
+          <LayoutSkeleton />
+        )}
+      </Container>
+      <Message>
+        {dayjs(userInfo?.registerDate).diff(dayjs(), "month") === 0 ? (
+          <div>
+            🎉신규 가입을 환영해요🎉
+            <br />
+            앞으로 열심히 활동해봐요~!
+          </div>
+        ) : recordValue?.monthAcc < 1 ? (
+          <div>
+            이번 달에 아직 스터디에 참여하지 않았어요.
+            <br /> {-dayjs().add(1, "month").date(1).diff(dayjs(), "day")}일
+            뒤에 경고를 받습니다.
+          </div>
+        ) : (
+          <div>
+            p 🎉잘 하고 있어요🎉
+            <br />
+            이번주도 열심히 파이팅~!
+          </div>
+        )}
+      </Message>
     </ModalLayout>
   );
 }

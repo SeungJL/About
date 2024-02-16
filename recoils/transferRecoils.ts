@@ -11,3 +11,4 @@ export const transferDailyCheckWinState = atom<IDailyCheckWinList>({
   key: "TransferDailyCheckWin",
   default: null,
 });
+

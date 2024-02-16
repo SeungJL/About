@@ -1,10 +1,4 @@
-import styled from "styled-components";
-
+import { Divider as ChakraDivder } from "@chakra-ui/react";
 export default function Divider() {
-  return <Layout />;
+  return <ChakraDivder h="6px" bgColor="var(--gray-5)" />;
 }
-
-const Layout = styled.div`
-  height: 6px;
-  background-color: var(--gray-7);
-`;

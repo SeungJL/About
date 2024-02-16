@@ -4,7 +4,7 @@ import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import { STEPS_CONTENTS } from "../../constants/contents/GuideContents";
-import { FAQ_POP_UP, USE_GUIDE } from "../../constants/keys/localStorage";
+import { FAQ_POP_UP, USER_GUIDE } from "../../constants/keys/localStorage";
 import { COLOR_SCHEME_BG } from "../../constants/styles";
 import { checkAndSetLocalStorage } from "../../helpers/storageHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -29,18 +29,18 @@ export default function UserSetting() {
 
   useEffect(() => {
     if (isGuest) {
-      if (!checkAndSetLocalStorage(USE_GUIDE, 3)) {
+      if (!checkAndSetLocalStorage(USER_GUIDE, 3)) {
         setIsGuide(true);
       }
     }
     if (!userInfoData) return;
 
     if (dayjs().diff(dayjs(userInfoData?.registerDate)) <= 7) {
-      if (!checkAndSetLocalStorage(USE_GUIDE, 3)) {
+      if (!checkAndSetLocalStorage(USER_GUIDE, 3)) {
         setIsGuide(true);
       }
     } else {
-      if (!checkAndSetLocalStorage(USE_GUIDE, 14)) {
+      if (!checkAndSetLocalStorage(USER_GUIDE, 14)) {
         setIsGuide(true);
       }
     }
@@ -74,6 +74,8 @@ export default function UserSetting() {
   return (
     <>
       <GlobalStyle />
+      {isPopUpCondition && <UserSettingPopUp cnt={isGuide ? 1 : 0} />}
+      {isGuestPopUp && <FAQPopUp setIsModal={setIsGuestPopUp} />}
       <Joyride
         hideCloseButton={true}
         callback={handleJoyrideCallback}
@@ -82,8 +84,6 @@ export default function UserSetting() {
         run={isGuide}
         showSkipButton
       />
-      {isPopUpCondition && <UserSettingPopUp cnt={isGuide ? 1 : 0} />}
-      {isGuestPopUp && <FAQPopUp setIsModal={setIsGuestPopUp} />}
     </>
   );
 }

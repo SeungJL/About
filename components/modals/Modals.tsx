@@ -55,7 +55,7 @@ export const ModalLayout = ({
   const onClose = () => setIsModal(false);
 
   const { text: subText = "닫기", func: subFunc = onClose } = sub || {};
-
+  console.log(4, onClose);
   return (
     <Modal
       isOpen={true}

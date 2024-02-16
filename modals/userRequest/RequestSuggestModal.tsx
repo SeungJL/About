@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
+  IFooterOptions,
   ModalBody,
   ModalHeader,
   ModalLayout,
@@ -83,6 +84,12 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
       : type === "declare"
       ? "불편사항 신고"
       : "스터디 장소 추천";
+
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "제출",
+    },
+  };
 
   return (
     <ModalLayout onClose={() => setIsModal(false)} size="xl">
