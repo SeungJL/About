@@ -83,7 +83,6 @@ export default function UserSettingPopUp({ cnt }) {
   }, []);
 
   const filterModalTypes = (type: UserPopUp) => {
-    console.log(423, type, modalTypes);
     setModalTypes((popUps) => popUps.filter((popUp) => popUp !== type));
   };
 
