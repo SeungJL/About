@@ -6,7 +6,7 @@ import styled from "styled-components";
 import BlurredPart from "../../../../components/common/masks/BlurredPart";
 import { userInfoState } from "../../../../recoil/userAtoms";
 import { IGroupStudy } from "../../../../types/page/groupStudy";
-import GroupStudyDetailInfo from "../GroupStudyDetail";
+import GroupStudyDetailInfo from "../GroupDetail";
 
 interface IContentInfo {
   groupStudy: IGroupStudy;
