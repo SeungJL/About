@@ -79,7 +79,9 @@ function VoteMapController({
   };
 
   const onClickPreset = (type: "first" | "second" | null) => {
-    setPreset(type);
+    if (preset === type) setPreset(null);
+    else setPreset(type);
+
     // if (!preferInfo) {
     //   failToast("free", "설정된 스터디 프리셋이 없습니다.");
     //   return;

@@ -8,8 +8,9 @@ import styled from "styled-components";
 import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
-import Header from "../../components/layout/Header";
+import Slide from "../../components/layout/PageSlide";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
+import Header from "../../components2/Header";
 import { DEFAULT_IMAGE_URL } from "../../constants/image/imageUrl";
 import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
@@ -153,65 +154,65 @@ function Review() {
 
   return (
     <>
-      <Header
-        title="모임 리뷰"
-        url={prevPageUrl || "/gather"}
-        isPrev={!!prevPageUrl}
-      >
-        <KakaoShareBtn
-          title="모임 리뷰"
-          subtitle="즐거운 모임 가득 ~!"
-          url={url}
-          img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
-        />
-      </Header>
-      <Layout>
-        {reviewData ? (
-          <>
-            <NavWrapper>
-              <ButtonCheckNav
-                buttonList={["전체", ...LOCATION_USE_ALL]}
-                selectedButton={category}
-                setSelectedButton={setCategory}
-              />
-            </NavWrapper>
-            <Main>
-              {reviewData.slice(0, visibleCnt).map((item) => (
-                <Item id={"review" + item.id} key={item.id}>
-                  <ReviewItemHeader
-                    writer={writers[item?.writer || "이승주"]}
-                    date={item.dateCreated}
-                  />
-                  <ImageWrapper>
-                    <ImageSlider imageContainer={item.images} type="review" />
-                  </ImageWrapper>
-                  {item.summary ? (
-                    <ReviewGatherSummary summary={item.summary} />
-                  ) : (
-                    <Spacing />
-                  )}
-                  {item?.text && <ReviewContent text={item.text} />}
-                  <ReviewStatus temp={writers["이승주"]} />
-                </Item>
-              ))}
-              {visibleCnt < reviewData.length && (
-                <Button
-                  onClick={handleLoadMore}
-                  m="var(--gap-4)"
-                  colorScheme="gray"
-                  boxShadow="var(--shadow)"
-                  color="var(--gray-3)"
-                >
-                  <Box mr="var(--gap-2)">더 보기</Box>
-                  <FontAwesomeIcon icon={faEllipsis} />
-                </Button>
-              )}
-            </Main>
-          </>
-        ) : (
-          <MainLoading />
-        )}
-      </Layout>
+      <Slide isFixed={true}>
+        <Header title="모임 리뷰" url="/gather">
+          <KakaoShareBtn
+            title="모임 리뷰"
+            subtitle="즐거운 모임 가득 ~!"
+            url={url}
+            img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
+          />
+        </Header>
+      </Slide>
+      <Slide>
+        <Layout>
+          {reviewData ? (
+            <>
+              <NavWrapper>
+                <ButtonCheckNav
+                  buttonList={["전체", ...LOCATION_USE_ALL]}
+                  selectedButton={category}
+                  setSelectedButton={setCategory}
+                />
+              </NavWrapper>
+              <Main>
+                {reviewData.slice(0, visibleCnt).map((item) => (
+                  <Item id={"review" + item.id} key={item.id}>
+                    <ReviewItemHeader
+                      writer={writers[item?.writer || "이승주"]}
+                      date={item.dateCreated}
+                    />
+                    <ImageWrapper>
+                      <ImageSlider imageContainer={item.images} type="review" />
+                    </ImageWrapper>
+                    {item.summary ? (
+                      <ReviewGatherSummary summary={item.summary} />
+                    ) : (
+                      <Spacing />
+                    )}
+                    {item?.text && <ReviewContent text={item.text} />}
+                    <ReviewStatus temp={writers["이승주"]} />
+                  </Item>
+                ))}
+                {visibleCnt < reviewData.length && (
+                  <Button
+                    onClick={handleLoadMore}
+                    m="var(--gap-4)"
+                    colorScheme="gray"
+                    boxShadow="var(--shadow)"
+                    color="var(--gray-3)"
+                  >
+                    <Box mr="var(--gap-2)">더 보기</Box>
+                    <FontAwesomeIcon icon={faEllipsis} />
+                  </Button>
+                )}
+              </Main>
+            </>
+          ) : (
+            <MainLoading />
+          )}
+        </Layout>
+      </Slide>
     </>
   );
 }

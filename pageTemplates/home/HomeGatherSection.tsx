@@ -55,7 +55,7 @@ export const setGatherDataToCardCol = (
       " · " +
       dayjs(gather.date).format("M월 D일(ddd)"),
     participants: [...gather.participants.map((par) => par.user), gather.user],
-    url: "/",
+    url: `/gather/${gather.id}`,
     image: {
       url: gather.image || getRandomImage("gather"),
       priority: true,

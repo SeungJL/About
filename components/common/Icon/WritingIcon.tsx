@@ -19,8 +19,8 @@ function WritingIcon({ url }: IWritingIcon) {
 const Layout = styled.button`
   font-size: 16px;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 80px;
+  right: 16px;
   background-color: var(--color-mint);
   width: 58px;
   height: 58px;

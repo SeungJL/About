@@ -7,6 +7,8 @@ import BetweenTextSwitcher from "../../../components2/molecules/navs/BetweenText
 import StudyVoteMap from "../../../components2/services/studyVote/StudyVoteMap";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
 import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
+import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
+import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToFormat, dayjsToStr } from "../../../utils/dateTimeUtils";
 import StudyControllerDate from "./StudyControllerDates";
 import StudyControllerDays from "./StudyControllerDays";
@@ -24,7 +26,11 @@ function StudyController() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
-  const date = newSearchParams.get("date");
+  const date = searchParams.get("date");
+  const location = convertLocationLangTo(
+    searchParams.get("location") as LocationEn,
+    "kr"
+  );
 
   const [selectedDate, setSelectedDate] = useState<string>();
   const [modalType, setModalType] = useState<VoteType>(null);
@@ -88,7 +94,10 @@ function StudyController() {
         <StudyVoteMap setIsModal={() => setModalType(null)} />
       )}
       {modalType === "attendCheck" && (
-        <StudyAttendCheckModal setIsModal={() => setModalType(null)} />
+        <StudyAttendCheckModal
+          location={location}
+          setIsModal={() => setModalType(null)}
+        />
       )}
       {modalType === "attendPrivate" && (
         <StudyCheckImageModal setIsModal={() => setModalType(null)} />

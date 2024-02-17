@@ -6,7 +6,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { IGather } from "../../../types/page/gather";
+import { IGather } from "../../../types2/gatherTypes/gatherTypes";
 dayjs.locale("ko");
 
 interface IGatherDetailInfo {

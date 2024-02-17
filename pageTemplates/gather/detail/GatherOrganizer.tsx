@@ -1,15 +1,16 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { Badge } from "../../../components/common/customComponents/Badges";
-import { AboutIcon } from "../../../components/common/Icon/homeIcon";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import { AboutIcon } from "../../../components/common/Icon/AboutIcon";
+
+import Avatar from "../../../components2/atoms/Avatar";
 import { ABOUT_UID } from "../../../constants/system";
 import { getDateDiff } from "../../../helpers/dateHelpers";
-import { IUser } from "../../../types/user/user";
+import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
 interface IGatherOrganizer {
   createdAt: string;
-  organizer: IUser;
+  organizer: IUserSummary;
   isAdminOpen: boolean;
   category: string;
 }
@@ -28,7 +29,12 @@ function GatherOrganizer({
         {isABOUT ? (
           <AboutIcon size="md" />
         ) : (
-          <ProfileIcon user={organizer} size="sm" />
+          <Avatar
+            avatar={organizer.avatar}
+            uid={organizer.uid}
+            image={organizer.profileImage}
+            size="sm"
+          />
         )}
         <Info>
           <Writer>{isABOUT ? "어바웃" : organizer.name}</Writer>

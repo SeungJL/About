@@ -1,10 +1,12 @@
 import { Button } from "@chakra-ui/react";
 import dayjs, { Dayjs } from "dayjs";
 import { AnimatePresence } from "framer-motion";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
@@ -13,22 +15,23 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
-import { IModal } from "../../../types/reactTypes";
 import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 import AlertModal, { IAlertModalOptions } from "../../AlertModal";
 import { IBottomDrawerLgOptions } from "../../organisms/drawer/BottomDrawerLg";
 import StudyVoteTimeRulletDrawer from "./StudyVoteTimeRulletDrawer";
 
-interface IMapBottomNav extends IModal {
+interface IMapBottomNav {
   myVote: IStudyVote;
   voteScore: number;
 }
 
-function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
+function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
+  const router = useRouter();
   const toast = useToast();
   const typeToast = useTypeToast();
   const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams);
 
   const date = searchParams.get("date");
 
@@ -38,6 +41,10 @@ function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
   const [voteTime, setVoteTime] = useState<{ start: Dayjs; end: Dayjs }>();
   const [modalType, setModalType] = useState<"timePick" | "voteCancel">(null);
 
+  const moveToLink = () => {
+    router.push(`/home?${newSearchParams.toString()}`);
+  };
+
   const onClickTimeSelect = () => {
     if (!myVote?.place) {
       toast("error", "장소를 먼저 선택해주세요!");
@@ -45,6 +52,8 @@ function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
     }
     setModalType("timePick");
   };
+
+  const queryClient = useQueryClient();
 
   const { data: pointLog } = usePointSystemLogQuery("point", true, {
     enabled: !!myStudy,
@@ -78,29 +87,30 @@ function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
             value: -myPrevVotePoint,
           });
         }
-        setIsModal(false);
+        moveToLink();
         toast("success", "취소되었습니다.");
       },
       onError: () => typeToast("error"),
     }
   );
 
-  const handleSuccess = async () => {
+  const handleSuccess = () => {
+    queryClient.invalidateQueries([STUDY_VOTE, date, location]);
     if (myPrevVotePoint) {
-      await getPoint({
+      getPoint({
         message: "스터디 투표 취소",
         value: -myPrevVotePoint,
       });
     }
     if (studyDateStatus === "not passed" && voteScore) {
-      await getPoint({
+      getPoint({
         value: voteScore,
         message: "스터디 투표",
         sub: date,
       });
       toast("success", `투표 완료! ${!myStudy && "포인트가 적립되었습니다."}`);
     } else toast("success", "투표 완료!");
-    setIsModal(false);
+    moveToLink();
   };
 
   const onSubmit = () => {
@@ -144,7 +154,7 @@ function MapBottomNav({ setIsModal, myVote, voteScore }: IMapBottomNav) {
             참여 취소
           </Button>
         )}
-        <Button mt="8px" size="lg" onClick={() => setIsModal(false)}>
+        <Button mt="8px" size="lg" onClick={moveToLink}>
           닫기
         </Button>
       </Layout>

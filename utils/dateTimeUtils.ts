@@ -20,7 +20,7 @@ export const createTimeArr = (
   return timeArr;
 };
 
-export const parseTimeToDayjs = (timeString) => {
+export const parseTimeToDayjs = (timeString: string) => {
   const [hours, minutes] = timeString.split(":").map(Number); // "14:00"을 시간과 분으로 분리하고 숫자로 변환
   const now = new Date(); // 현재 날짜와 시간의 Date 객체
   now.setHours(hours, minutes, 0, 0); // 시간과 분 설정 (초와 밀리초는 0으로 설정)

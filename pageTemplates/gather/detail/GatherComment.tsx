@@ -12,7 +12,7 @@ import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
-import { IGatherComment } from "../../../types/page/gather";
+import { IGatherComment } from "../../../types2/gatherTypes/gatherTypes";
 export interface IGatherCommentUnit {
   gatherId: number;
   comment: string;

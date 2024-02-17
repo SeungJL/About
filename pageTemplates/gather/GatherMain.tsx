@@ -23,7 +23,7 @@ export default function GatherMain({}: IGatherMain) {
   }, [gathers]);
 
   return (
-    <Box p="16px">
+    <Box m="0 16px">
       {cardDataArr && (
         <>
           {cardDataArr.map((cardData, idx) => (

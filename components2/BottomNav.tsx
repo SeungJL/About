@@ -34,16 +34,22 @@ export default function BottomNav() {
 
   return (
     <Nav>
-      {navItems.map((item, idx) => (
-        <NavButton
-          text={item.text}
-          key={idx}
-          url={item.url + `?${newSearchParams.toString()}`}
-          activeIcon={item.activeIcon}
-          defaultIcon={item.defaultIcon}
-          active={pathname === item.url}
-        />
-      ))}
+      {navItems.map((item, idx) => {
+        const params =
+          item.text === "통계"
+            ? `location=${newSearchParams.get("location")}`
+            : newSearchParams.toString();
+        return (
+          <NavButton
+            text={item.text}
+            key={idx}
+            url={item.url + `?${params}`}
+            activeIcon={item.activeIcon}
+            defaultIcon={item.defaultIcon}
+            active={pathname === item.url}
+          />
+        );
+      })}
     </Nav>
   );
 }
@@ -55,7 +61,7 @@ const NavButton = ({
   defaultIcon,
   active,
 }: INavButton) => (
-  <NavLink href={url} replace={true} scroll={false} active={active.toString()}>
+  <NavLink href={url} scroll={false} active={active.toString()}>
     {active ? activeIcon || defaultIcon : defaultIcon}
     <NavText>{text}</NavText>
   </NavLink>
@@ -71,8 +77,8 @@ const navItems: INavButtonProps[] = [
   {
     activeIcon: <FontAwesomeIcon icon={faRankingStar} size="xl" />,
     defaultIcon: <FontAwesomeIcon icon={faDefaultRankingStar} size="xl" />,
-    text: "랭킹",
-    url: "/ranking",
+    text: "통계",
+    url: "/statistics",
   },
   {
     defaultIcon: <FontAwesomeIcon icon={faCirclePlus} fontSize="36px" />,

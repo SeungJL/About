@@ -2,7 +2,9 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
+import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { useToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
@@ -44,6 +46,8 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
     setMyVote((old) => ({ ...old, ...voteTime, ...votePlaces }));
   }, [voteTime, votePlaces]);
 
+  const queryClient = useQueryClient();
+
   const { data: pointLog } = usePointSystemLogQuery("point", true, {
     enabled: !!myStudy,
   });
@@ -67,6 +71,7 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
   );
 
   const handleSuccess = async () => {
+    queryClient.invalidateQueries([STUDY_VOTE, date, location]);
     if (myPrevVotePoint) {
       await getPoint({
         message: "스터디 투표 취소",
@@ -85,7 +90,12 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
   };
 
   const onSubmit = () => {
-    patchAttend(myVote);
+    const temp = {
+      ...myVote,
+      place: { _id: myVote.place },
+      subPlace: myVote.subPlace.map((sub) => ({ _id: sub })),
+    };
+    patchAttend(temp);
   };
 
   const drawerOptions: IBottomDrawerLgOptions = {

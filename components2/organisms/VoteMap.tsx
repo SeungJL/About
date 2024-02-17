@@ -33,8 +33,8 @@ export default function VoteMap({
   }, []);
 
   useEffect(() => {
-    if (!mapRef?.current || typeof naver === "undefined") return;
     const map = mapInstanceRef.current;
+    if (!mapRef?.current || !map || typeof naver === "undefined") return;
 
     //새로운 옵션 적용 전 초기화
     mapElementsRef.current.markers.forEach((marker) => marker.setMap(null));

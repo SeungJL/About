@@ -12,7 +12,8 @@ import {
 import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
-import { GatherStatus, IGather } from "../../../types/page/gather";
+import { GatherStatus } from "../../../types/page/gather";
+import { IGather } from "../../../types2/gatherTypes/gatherTypes";
 
 interface IGatherBottomNav {
   data: IGather;
@@ -26,7 +27,7 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
 
   const errorToast = useErrorToast();
   const { data: session } = useSession();
-  const myUid = session.uid;
+  const myUid = session?.user.uid;
   const myGather = data.user.uid === myUid;
   const isParticipant = data?.participants.some(
     (who) => who?.user && who.user.uid === myUid

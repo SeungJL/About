@@ -7,6 +7,7 @@ interface IHeader {
 }
 
 export default function Header({ title, url, children }: IHeader) {
+  console.log(2, url);
   return (
     <HeaderContainer>
       <LeftSection>

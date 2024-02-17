@@ -1,7 +1,9 @@
+import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import WritingIcon from "../../components/common/Icon/WritingIcon";
 import Slide from "../../components/layout/PageSlide";
 import Divider from "../../components2/atoms/Divider";
 import { GATHER_INTRO_MODAL } from "../../constants/keys/localStorage";
@@ -12,19 +14,19 @@ import GatherLocationFilter from "../../pageTemplates/gather/GatherLocationFilte
 import GatherMain from "../../pageTemplates/gather/GatherMain";
 import GatherReviewSlider from "../../pageTemplates/gather/GatherReviewSlider";
 import { isGatherAlertState } from "../../recoil/alertAtoms";
-import { isGuestState } from "../../recoil/userAtoms";
 import { LocationFilterType } from "../../types/system";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 function Gather() {
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
   const location = convertLocationLangTo(
     searchParams.get("location") as LocationEn,
     "kr"
   );
+  const isGuest = session?.user.name === "guest";
 
-  const isGuest = useRecoilValue(isGuestState);
   const [category, setCategory] = useState<LocationFilterType>("전체");
   const [isModal, setIsModal] = useState(false);
   const setIsGatherAlert = useSetRecoilState(isGatherAlertState);
@@ -36,7 +38,7 @@ function Gather() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(44);
   return (
     <>
       <Slide isFixed={true}>
@@ -47,22 +49,8 @@ function Gather() {
         <Divider />
         <GatherLocationFilter />
         <GatherMain />
-        {/* <Layout>
-        <GatherHeader />
-        <ReviewWrapper>
-          <GatherReviewNav />
-        </ReviewWrapper>
-        <NavWrapper>
-          <ButtonCheckNav
-            buttonList={["전체", ...LOCATION_USE_ALL]}
-            selectedButton={category}
-            setSelectedButton={setCategory}
-          />
-        </NavWrapper>
-        <GatherMain category={category} />
-        {!isGuest && <WritingIcon url="/gather/writing/category" />}
-      </Layout> */}
       </Slide>
+      {!isGuest && <WritingIcon url="/gather/writing/category" />}
       {isModal && <GatherIntroModal setIsModal={setIsModal} />}
     </>
   );

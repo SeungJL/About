@@ -9,12 +9,14 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IAlertModalOptions } from "../../components2/AlertModal";
 
 import { IIconLinkTile } from "../../components2/atoms/IconLinkTile";
 import IconTileRowLayout from "../../components2/organisms/IconTileRowLayout";
+import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { MAX_USER_PER_PLACE } from "../../constants/settingValue/study/study";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../hooks/study/mutations";
@@ -45,6 +47,8 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
   const { data: session } = useSession();
   const { id, date } = useParams<{ id: string; date: string }>() || {};
 
+  const queryClient = useQueryClient();
+
   const location = PLACE_TO_LOCATION[id];
   const isGuest = session?.user.name === "guest";
 
@@ -74,6 +78,7 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
     "delete",
     {
       onSuccess() {
+        queryClient.invalidateQueries([STUDY_VOTE, date, location]);
         if (myPrevVotePoint) {
           getPoint({
             message: "스터디 투표 취소",

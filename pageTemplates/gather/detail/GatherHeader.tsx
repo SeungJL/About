@@ -12,7 +12,7 @@ import { isGatherEditState } from "../../../recoil/checkAtoms";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { userInfoState } from "../../../recoil/userAtoms";
-import { IGather } from "../../../types/page/gather";
+import { IGather } from "../../../types2/gatherTypes/gatherTypes";
 
 interface IGatherHeader {
   gatherData: IGather;

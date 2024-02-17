@@ -13,6 +13,7 @@ interface IAvatar {
   avatar?: IAvatarProp;
   uid?: string;
 }
+
 export default function Avatar({ image, size, avatar, uid }: IAvatar) {
   const router = useRouter();
 
@@ -68,6 +69,7 @@ const AvatarContainer = styled.div<{
           width: 80px; // w-20
           height: 80px; // h-20
         `;
+  
     }
   }}
 `;

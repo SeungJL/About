@@ -61,7 +61,7 @@ export default function GatherLocationFilter() {
   ];
 
   return (
-    <Box bgColor="white" px="16px" py="12px">
+    <Box>
       <ButtonGroups buttonDataArr={buttonDataArr} currentValue={location} />
     </Box>
   );

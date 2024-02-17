@@ -1,6 +1,6 @@
 import { Tab, TabList, Tabs } from "@chakra-ui/react";
 
-export interface ITabNav {
+export interface ITabNavOptions {
   left: {
     text: string;
     func: () => void;
@@ -11,7 +11,11 @@ export interface ITabNav {
   };
 }
 
-export default function TabNav({ left, right }: ITabNav) {
+interface ITabNav {
+  options: ITabNavOptions;
+}
+
+export default function TabNav({ options: { left, right } }: ITabNav) {
   return (
     <>
       <Tabs colorScheme="mintTheme">

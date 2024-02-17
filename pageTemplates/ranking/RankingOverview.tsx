@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
-import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
+import Avatar from "../../components2/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { schemeToColor } from "../../helpers/converterHelpers";
 import { getUserBadge } from "../../helpers/userHelpers";
@@ -12,13 +12,14 @@ import {
   ISortedUserAttends,
   ISortedUserScores,
   RankingCategory,
-  RankingType
+  RankingType,
 } from "../../types/page/ranking";
 
-import { IUser, UserBadge } from "../../types/user/user";
+import { UserBadge } from "../../types/user/user";
+import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
 
 interface IRankingOverview {
-  userInfo: IUser;
+  userInfo: IUserSummary;
   rankInfo: RankingType;
   isLoading: boolean;
   category: RankingCategory;
@@ -74,7 +75,12 @@ function RankingOverview({
         <ProfileContainer isGuest={isGuest}>
           <Skeleton isLoad={!isLoading}>
             <ProfileWrapper>
-              <ProfileIcon user={userInfo || "guest"} size="xl" />
+              <Avatar
+                image={userInfo.profileImage}
+                avatar={userInfo.avatar}
+                uid={userInfo.uid}
+                size="lg"
+              />
               <ProfileUserName>{userInfo?.name}</ProfileUserName>
             </ProfileWrapper>
           </Skeleton>
@@ -108,7 +114,6 @@ function RankingOverview({
 }
 const Layout = styled.div`
   margin: 0 var(--gap-3);
-  height: 20vh;
   display: flex;
   justify-content: space-around;
   align-items: center;

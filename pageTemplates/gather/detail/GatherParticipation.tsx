@@ -2,7 +2,7 @@ import {
   fa1,
   fa2,
   faCrown,
-  faInfinity
+  faInfinity,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
@@ -11,8 +11,8 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { IGather } from "../../../types/page/gather";
 import { IUser } from "../../../types/user/user";
+import { IGather } from "../../../types2/gatherTypes/gatherTypes";
 
 interface IGatherParticipation {
   data: IGather;

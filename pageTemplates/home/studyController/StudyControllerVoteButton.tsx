@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ShadowCircleButton, {
@@ -39,8 +39,11 @@ interface IStudyControllerVoteButton {
 function StudyControllerVoteButton({
   setModalType,
 }: IStudyControllerVoteButton) {
-  const { data } = useSession();
+  const router = useRouter();
   const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams);
+
+  const { data } = useSession();
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
@@ -53,6 +56,10 @@ function StudyControllerVoteButton({
 
   const handleModalOpen = () => {
     const type = buttonProps.text;
+    if (type === "참여 신청") {
+      router.push(`/vote?${newSearchParams.toString()}`);
+      return;
+    }
     setModalType(ACTION_TO_VOTE_TYPE[type]);
   };
 

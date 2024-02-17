@@ -3,10 +3,12 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
+import { useQueryClient } from "react-query";
 // import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import Spinner from "../../components2/atoms/Spinner";
+import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import { POINT_SYSTEM_PLUS } from "../../constants2/serviceConstants/pointSystemConstants";
 import { now } from "../../helpers/dateHelpers";
@@ -24,10 +26,18 @@ import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import { ActiveLocation } from "../../types2/serviceTypes/locationTypes";
 
 const LOCATE_GAP = 0.00008;
 
-function StudyAttendCheckModal({ setIsModal }: IModal) {
+interface IStudyAttendCheckModal extends IModal {
+  location: ActiveLocation;
+}
+
+function StudyAttendCheckModal({
+  setIsModal,
+  location,
+}: IStudyAttendCheckModal) {
   const { data: session } = useSession();
   const toast = useToast();
   const typeToast = useTypeToast();
@@ -43,6 +53,8 @@ function StudyAttendCheckModal({ setIsModal }: IModal) {
 
   const setTransferAlphabet = useSetRecoilState(transferAlphabetState);
 
+  const queryClient = useQueryClient();
+
   const { mutate: getAboutPoint } = useAboutPointMutation();
   const { mutate: getAlphabet } = useAlphabetMutation("get");
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
@@ -51,6 +63,7 @@ function StudyAttendCheckModal({ setIsModal }: IModal) {
     now().startOf("day"),
     {
       onSuccess() {
+        queryClient.invalidateQueries([STUDY_VOTE, date, location]);
         const alphabet = getRandomAlphabet(20);
         if (alphabet) {
           getAlphabet({ alphabet });

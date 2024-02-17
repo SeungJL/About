@@ -1,8 +1,8 @@
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { Dispatch, useEffect, useState } from "react";
 import { STUDY_VOTE_HOUR_ARR } from "../../../constants2/serviceConstants/studyConstants/studyTimeConstant";
 import { IModal } from "../../../types/reactTypes";
-import { createTimeArr } from "../../../utils/dateTimeUtils";
+import { createTimeArr, parseTimeToDayjs } from "../../../utils/dateTimeUtils";
 import RulletPickerTwo from "../../molecules/picker/RulletPickerTwo";
 import BottomDrawerLg, {
   IBottomDrawerLgOptions,
@@ -40,9 +40,10 @@ export default function StudyVoteTimeRulletDrawer({
   });
 
   useEffect(() => {
+    console.log(55, rulletValue);
     setVoteTime({
-      start: dayjs(rulletValue.left),
-      end: dayjs(rulletValue.right),
+      start: parseTimeToDayjs(rulletValue.left),
+      end: parseTimeToDayjs(rulletValue.right),
     });
   }, [rulletValue]);
 

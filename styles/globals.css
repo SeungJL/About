@@ -33,6 +33,10 @@ a {
   box-sizing: border-box;
 }
 
+.ReactQueryDevtoolsPanel {
+  height: 320px !important;
+}
+
 #__next {
   min-width: 360px;
   max-width: 390px;
