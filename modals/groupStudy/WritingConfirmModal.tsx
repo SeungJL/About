@@ -15,90 +15,88 @@ import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
-import { useGroupStudyWritingMutation } from "../../hooks/groupStudy/mutations";
-import { transferGroupStudyDataState } from "../../recoil/transferDataAtoms";
+import { useGroupWritingMutation } from "../../hooks/Group/mutations";
+import { transferGroupDataState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGroupStudy, IGroupStudyWriting } from "../../types/page/groupStudy";
+import { IGroup, IGroupWriting } from "../../types/page/Group";
 import { DispatchType, IModal } from "../../types/reactTypes";
 
-interface IGroupStudyConfirmModal extends IModal {
-  groupStudyWriting: IGroupStudyWriting;
-  setGroupStudyWriting: DispatchType<IGroupStudyWriting>;
+interface IGroupConfirmModal extends IModal {
+  GroupWriting: IGroupWriting;
+  setGroupWriting: DispatchType<IGroupWriting>;
 }
 
-function GroupStudyConfirmModal({
+function GroupConfirmModal({
   setIsModal,
-  setGroupStudyWriting,
-  groupStudyWriting,
-}: IGroupStudyConfirmModal) {
+  setGroupWriting,
+  GroupWriting,
+}: IGroupConfirmModal) {
   const router = useRouter();
   const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
 
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
-  const setGroupStudy = useSetRecoilState(transferGroupStudyDataState);
+  const setGroup = useSetRecoilState(transferGroupDataState);
   const resetQueryData = useResetQueryData();
 
-  const { mutate } = useGroupStudyWritingMutation("post", {
+  const { mutate } = useGroupWritingMutation("post", {
     onSuccess() {
       resetQueryData([GROUP_STUDY_ALL]);
-      setGroupStudy(null);
-      setGroupStudyWriting(null);
+      setGroup(null);
+      setGroupWriting(null);
       setIsSuccessScreen(true);
     },
     onError: errorToast,
   });
-  const { mutate: updateGroupStudy } = useGroupStudyWritingMutation("patch", {
+  const { mutate: updateGroup } = useGroupWritingMutation("patch", {
     onSuccess() {
-      setGroupStudyWriting(null);
-      setGroupStudy(null);
+      setGroupWriting(null);
+      setGroup(null);
       completeToast("free", "수정되었습니다.");
       resetQueryData([GROUP_STUDY_ALL], () => {
-        router.push(`/groupStudy/${groupStudyWriting.id}`);
+        router.push(`/Group/${GroupWriting.id}`);
       });
     },
     onError: errorToast,
   });
 
   const onSubmit = () => {
-    if (groupStudyWriting?.id) {
-      updateGroupStudy({ groupStudy: groupStudyWriting as IGroupStudy });
-    } else mutate({ groupStudy: groupStudyWriting });
+    if (GroupWriting?.id) {
+      updateGroup({ Group: GroupWriting as IGroup });
+    } else mutate({ Group: GroupWriting });
   };
 
   return (
     <>
-      {groupStudyWriting && (
+      {GroupWriting && (
         <ModalLayout onClose={() => setIsModal(false)} size="lg">
-          <ModalHeader
-            text={groupStudyWriting.id ? "내용 수정" : "소모임 개설"}
-          />
+          <ModalHeader text={GroupWriting.id ? "내용 수정" : "소모임 개설"} />
           <ModalBody>
             <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
             <Container>
               <Item>
                 <span>제목:</span>
-                <span>{groupStudyWriting?.title}</span>
+                <span>{GroupWriting?.title}</span>
               </Item>
               <Item>
                 <span>날짜:</span>
-                <span>{groupStudyWriting?.category?.sub}</span>
+                <span>{GroupWriting?.category?.sub}</span>
               </Item>
               <Item>
                 <span>주제:</span>
-                <span>{groupStudyWriting.guide}</span>
+                <span>{GroupWriting.guide}</span>
               </Item>
             </Container>
           </ModalBody>
           <ModalFooterOne
             isFull={true}
-            text={groupStudyWriting.id ? "내용 수정" : "소모임 개설"}
+            text={GroupWriting.id ? "내용 수정" : "소모임 개설"}
             onClick={onSubmit}
           />
         </ModalLayout>
       )}
       {isSuccessScreen && (
-        <SuccessScreen url={`/groupStudy`}>
+        <SuccessScreen url={`/Group`}>
           <>
             <span>소모임 개설 성공</span>
             <div>소모임 오픈 소식을 단톡방에 공유해 주세요!</div>
@@ -133,4 +131,4 @@ const Item = styled.div`
   }
 `;
 
-export default GroupStudyConfirmModal;
+export default GroupConfirmModal;

@@ -8,28 +8,28 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { getDateDiff } from "../../../helpers/dateHelpers";
-// import { GROUPSTUDY_CONTENT } from "../../../constants/keys/queryKeys";
+// import { Group_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { useGroupStudyCommentMutation } from "../../../hooks/groupStudy/mutations";
+import { useGroupCommentMutation } from "../../../hooks/Group/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
 import { IGatherComment } from "../../../types/page/gather";
-// import GroupStudyCommentEditModal from "../../../modals/groupStudy/GroupStudyCommentEditModal";
+// import GroupCommentEditModal from "../../../modals/Group/GroupCommentEditModal";
 
-export interface IGroupStudyCommentUnit {
-  groupStudyId: number;
+export interface IGroupCommentUnit {
+  GroupId: number;
   comment: string;
 }
 
-interface IGroupStudyComments {
+interface IGroupComments {
   comment: IGatherComment[];
 }
 
-function GroupStudyComments({ comment }: IGroupStudyComments) {
+function GroupComments({ comment }: IGroupComments) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const router = useRouter();
-  const groupStudyId = +router.query.id;
+  const GroupId = +router.query.id;
   const { data: userInfo } = useUserInfoQuery();
   const [value, setValue] = useState("");
 
@@ -48,15 +48,11 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
 
   const resetQueryData = useResetQueryData();
 
-  const { mutate: writeComment } = useGroupStudyCommentMutation(
-    "post",
-    groupStudyId,
-    {
-      onSuccess(data) {
-        resetQueryData([GROUP_STUDY_ALL]);
-      },
-    }
-  );
+  const { mutate: writeComment } = useGroupCommentMutation("post", GroupId, {
+    onSuccess(data) {
+      resetQueryData([GROUP_STUDY_ALL]);
+    },
+  });
   const onSubmit = () => {
     writeComment({ comment: value });
     setValue("");
@@ -122,7 +118,7 @@ function GroupStudyComments({ comment }: IGroupStudyComments) {
           commentText={commentText}
           commentId={commentId}
           setIsModal={setIsEditModal}
-          type="groupStudy"
+          type="Group"
         />
       )}
     </>
@@ -208,4 +204,4 @@ const SubmitBtn = styled.button<{ focus: boolean }>`
   color: ${(props) => (props.focus ? "var(--color-mint)" : "var(--gray-4)")};
 `;
 
-export default GroupStudyComments;
+export default GroupComments;

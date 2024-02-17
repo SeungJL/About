@@ -11,10 +11,11 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IRuleModalContent } from "../../components/modals/RuleModal";
-import { GroupStudyCategory } from "../../types/page/groupStudy";
+import { GroupCategory } from "../../types/page/Group";
 import { TABLE_COLORS } from "../styles";
 
-export const GROUP_STUDY_CATEGORY_ARR: GroupStudyCategory[] = [
+export const GROUP_STUDY_CATEGORY_ARR = [
+  "전체",
   "어학",
   "프로그래밍",
   "자기계발",
@@ -24,9 +25,10 @@ export const GROUP_STUDY_CATEGORY_ARR: GroupStudyCategory[] = [
   "친목",
   "운동",
   "기타",
-];
+] as const;
 
-export const GROUP_STUDY_SUB_CATEGORY = {
+export const GROUP_STUDY_SUB_CATEGORY: { [key in GroupCategory]: string[] } = {
+  전체: [],
   어학: ["토익", "오픽", "토플", "회화", "일본어"],
   자격증: ["컴활", "한국사", "정보처리기사"],
   프로그래밍: ["코딩테스트", "프로젝트", "언어 공부"],

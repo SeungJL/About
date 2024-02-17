@@ -7,7 +7,7 @@ import { DispatchString } from "../../types/reactTypes";
 interface ICheckBoxNav {
   buttonList: string[];
   selectedButton: string;
-  setSelectedButton: DispatchString;
+  setSelectedButton: (value:string) => void;
 }
 
 function CheckBoxNav({

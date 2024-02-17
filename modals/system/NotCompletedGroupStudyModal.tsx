@@ -7,7 +7,7 @@ import {
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
-function NotCompletedGroupStudyModal({ setIsModal }: IModal) {
+function NotCompletedGroupModal({ setIsModal }: IModal) {
   return (
     <>
       <ModalLayout onClose={() => setIsModal(false)} size="lg">
@@ -27,4 +27,4 @@ function NotCompletedGroupStudyModal({ setIsModal }: IModal) {
   );
 }
 
-export default NotCompletedGroupStudyModal;
+export default NotCompletedGroupModal;

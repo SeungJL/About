@@ -14,9 +14,9 @@ import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import {
-  useGroupStudyParticipationMutation,
-  useGroupStudyWaitingMutation,
-} from "../../hooks/groupStudy/mutations";
+  useGroupParticipationMutation,
+  useGroupWaitingMutation,
+} from "../../hooks/Group/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { userInfoState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -58,24 +58,20 @@ function ParticipateModal({
     }
   };
 
-  const { mutate: participate } = useGroupStudyParticipationMutation(
-    "post",
-    id,
-    {
-      onSuccess() {
-        if (isFree) chargePoint();
-        completeToast("free", "가입이 완료되었습니다.");
-        resetQueryData([GROUP_STUDY_ALL]);
-        router.push("/groupStudy");
-      },
-    }
-  );
+  const { mutate: participate } = useGroupParticipationMutation("post", id, {
+    onSuccess() {
+      if (isFree) chargePoint();
+      completeToast("free", "가입이 완료되었습니다.");
+      resetQueryData([GROUP_STUDY_ALL]);
+      router.push("/Group");
+    },
+  });
 
-  const { mutate: sendRegisterForm } = useGroupStudyWaitingMutation(id, {
+  const { mutate: sendRegisterForm } = useGroupWaitingMutation(id, {
     onSuccess() {
       completeToast("free", "가입 신청이 완료되었습니다.");
       resetQueryData([GROUP_STUDY_ALL]);
-      router.push("/groupStudy");
+      router.push("/Group");
     },
   });
 

@@ -1,117 +1,118 @@
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
-import Header from "../../components/layout/Header";
+import Slide from "../../components/layout/PageSlide";
 import RuleModal from "../../components/modals/RuleModal";
 import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import CheckBoxNav from "../../components/templates/CheckBoxNav";
+import Header from "../../components2/Header";
+import SectionBar from "../../components2/molecules/bars/SectionBar";
 import {
   GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_RULE_CONTENT,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contents/GroupStudyContents";
 import { shuffleArray } from "../../helpers/utilHelpers";
-import { useGroupStudyAllQuery } from "../../hooks/groupStudy/queries";
-import { useUserInfoQuery } from "../../hooks/user/queries";
-import GroupStudyBlock from "../../pageTemplates/groupStudy/GroupBlock";
-import GroupStudyMine from "../../pageTemplates/groupStudy/GroupMine";
-import GroupStudySkeletonMain from "../../pageTemplates/groupStudy/GroupSkeletonMain";
-import GroupStudySkeletonMine from "../../pageTemplates/groupStudy/GroupSkeletonMine";
-import { isGuestState, userInfoState } from "../../recoil/userAtoms";
-import { IGroupStudy } from "../../types/page/groupStudy";
+import { useGroupQuery } from "../../hooks/groupStudy/queries";
+import GroupBlock from "../../pageTemplates/group/GroupBlock";
+import GroupMine from "../../pageTemplates/group/GroupMine";
+import GroupSkeletonMain from "../../pageTemplates/group/GroupSkeletonMain";
+import GroupSkeletonMine from "../../pageTemplates/group/GroupSkeletonMine";
+import { GroupCategory, IGroup } from "../../types/page/Group";
+
+interface ICategory {
+  main: GroupCategory;
+  sub: string | null;
+}
 
 function Index() {
-  const isGuest = useRecoilValue(isGuestState);
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
 
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
-  useUserInfoQuery({
-    enabled: !userInfo,
-    onSuccess(data) {
-      setUserInfo(data);
-    },
+  const [category, setCategory] = useState<ICategory>({
+    main: "전체",
+    sub: null,
   });
-
-  const [groupStudies, setGroupStudies] = useState<IGroupStudy[]>();
-  const [category, setCategory] = useState("전체");
-  const [subCategory, setSubCategory] = useState();
-  const [myStudies, setMyStudies] = useState([]);
-
+  const [groupStudies, setGroupStudies] = useState<IGroup[]>();
+  const [myGroups, setMyGroups] = useState<IGroup[]>([]);
   const [isRuleModal, setIsRuleModal] = useState(false);
 
-  const { data: groupStudyAll, isLoading } = useGroupStudyAllQuery();
-
+  const { data: groups, isLoading } = useGroupQuery();
+  console.log(groups);
   useEffect(() => {
-    if (isLoading || (!userInfo && !isGuest)) return;
-
+    if (!groups) return;
     if (!isGuest) {
-      setMyStudies(
-        groupStudyAll.filter((item) =>
-          item.participants.some((who) => who.user.uid === userInfo.uid)
+      setMyGroups(
+        groups.filter((item) =>
+          item.participants.some((who) => who.user.uid === session?.user.uid)
         )
       );
     }
-
     const filtered =
-      category === "전체"
-        ? groupStudyAll
-        : groupStudyAll.filter(
+      category.main === "전체"
+        ? groups
+        : groups.filter(
             (item) =>
-              (item.category.main === category && !subCategory) ||
-              item.category.sub === subCategory
+              (item.category.main === category.main && !category.sub) ||
+              item.category.sub === category.sub
           );
     setGroupStudies(shuffleArray(filtered));
-  }, [category, groupStudyAll, isGuest, isLoading, subCategory, userInfo]);
+  }, [category, groups, isGuest]);
 
   return (
     <>
-      <Layout>
+      <Slide isFixed={true}>
         <Header title="소모임 그룹">
           <RuleIcon setIsModal={setIsRuleModal} />
-        </Header>{" "}
-        <Title>내 소모임</Title>
-        {!groupStudies ? (
-          <GroupStudySkeletonMine />
-        ) : (
-          <GroupStudyMine myStudies={myStudies} />
-        )}
-        <Title>전체 소모임</Title>
-        <NavWrapper>
-          <ButtonCheckNav
-            buttonList={["전체", ...GROUP_STUDY_CATEGORY_ARR]}
-            selectedButton={category}
-            setSelectedButton={setCategory}
-            isLineBtn={true}
-          />
-        </NavWrapper>
-        <SubNavWrapper>
-          <CheckBoxNav
-            buttonList={GROUP_STUDY_SUB_CATEGORY[category]}
-            selectedButton={subCategory}
-            setSelectedButton={setSubCategory}
-          />
-        </SubNavWrapper>
-        <>
-          {isLoading ? (
-            <GroupStudySkeletonMain />
+        </Header>
+      </Slide>
+      <Slide>
+        <Layout>
+          <SectionBar title="내 소모임" />
+          {!groupStudies ? (
+            <GroupSkeletonMine />
           ) : (
-            <Main>
-              {groupStudies
-                ?.slice()
-                ?.reverse()
-                ?.map((groupStudy) => (
-                  <GroupStudyBlock
-                    groupStudy={groupStudy}
-                    key={groupStudy.id}
-                  />
-                ))}
-            </Main>
+            <GroupMine myGroups={myGroups} />
           )}
-        </>
-      </Layout>
-      {!isGuest && <WritingIcon url="/groupStudy/writing/category/main" />}
+          <SectionBar title="전체 소모임" />
+          <NavWrapper>
+            <ButtonCheckNav
+              buttonList={[...GROUP_STUDY_CATEGORY_ARR]}
+              selectedButton={category.main}
+              setSelectedButton={(value: string) =>
+                setCategory((old) => ({ ...old, sub: value }))
+              }
+              isLineBtn={true}
+            />
+          </NavWrapper>
+          <SubNavWrapper>
+            <CheckBoxNav
+              buttonList={GROUP_STUDY_SUB_CATEGORY[category.main]}
+              selectedButton={category.sub}
+              setSelectedButton={(value: string) =>
+                setCategory((old) => ({ ...old, sub: value }))
+              }
+            />
+          </SubNavWrapper>
+          <>
+            {isLoading ? (
+              <GroupSkeletonMain />
+            ) : (
+              <Main>
+                {groupStudies
+                  ?.slice()
+                  ?.reverse()
+                  ?.map((Group) => (
+                    <GroupBlock Group={Group} key={Group.id} />
+                  ))}
+              </Main>
+            )}
+          </>
+        </Layout>
+      </Slide>
+      {!isGuest && <WritingIcon url="/Group/writing/category/main" />}
 
       {isRuleModal && (
         <RuleModal

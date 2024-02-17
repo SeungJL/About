@@ -9,19 +9,17 @@ import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
+import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 
-function GroupStudyWritingGuide() {
+function GroupWritingGuide() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [groupStudy, setGroupStudy] = useRecoilState(
-    sharedGroupStudyWritingState
-  );
+  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
 
   //초기 input 세팅
-  const [title, setTitle] = useState(groupStudy?.title || "");
-  const [guide, setGuide] = useState(groupStudy?.guide || "");
+  const [title, setTitle] = useState(Group?.title || "");
+  const [guide, setGuide] = useState(Group?.guide || "");
 
   const onClickNext = () => {
     if (!title || !guide) {
@@ -29,18 +27,18 @@ function GroupStudyWritingGuide() {
       return;
     }
 
-    setGroupStudy((old) => ({
+    setGroup((old) => ({
       ...old,
       title,
       guide,
     }));
-    router.push(`/groupStudy/writing/content`);
+    router.push(`/Group/writing/content`);
   };
 
   return (
     <Slide>
       <ProgressStatus value={42} />
-      <Header title="" url="/groupStudy/writing/category/sub" />
+      <Header title="" url="/Group/writing/category/sub" />
       <RegisterLayout>
         <RegisterOverview>
           <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>
@@ -95,4 +93,4 @@ const Guide = styled.textarea`
   }
 `;
 
-export default GroupStudyWritingGuide;
+export default GroupWritingGuide;

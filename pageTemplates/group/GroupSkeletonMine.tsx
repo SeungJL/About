@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 
-function GroupStudySkeletonMine() {
+function GroupSkeletonMine() {
   return (
     <Layout>
       <Skeleton>
@@ -20,4 +20,4 @@ const Wrapper = styled.div`
   padding-bottom: var(--gap-4);
 `;
 
-export default GroupStudySkeletonMine;
+export default GroupSkeletonMine;

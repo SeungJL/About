@@ -10,10 +10,10 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
-import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
-import { transferGroupStudyDataState } from "../../../../recoil/transferDataAtoms";
+import AttendCheckModal from "../../../../modals/Group/AttendCheckModal";
+import { transferGroupDataState } from "../../../../recoil/transferDataAtoms";
 import { isGuestState, userInfoState } from "../../../../recoil/userAtoms";
-import { IWeekRecord } from "../../../../types/page/groupStudy";
+import { IWeekRecord } from "../../../../types/page/Group";
 
 function ContentAttend() {
   const router = useRouter();
@@ -29,11 +29,11 @@ function ContentAttend() {
   const weekDay = ["월", "화", "수", "목", "금", "토", "일"];
   const topLineArr = ["이름", ...weekDay];
 
-  const groupStudy = useRecoilValue(transferGroupStudyDataState);
+  const Group = useRecoilValue(transferGroupDataState);
 
   const isNotMember =
-    groupStudy.organizer.uid !== userInfo.uid &&
-    !groupStudy.participants.some((who) => who.user.uid === userInfo.uid);
+    Group.organizer.uid !== userInfo.uid &&
+    !Group.participants.some((who) => who.user.uid === userInfo.uid);
 
   const sortArr = (arr: IWeekRecord[]): IWeekRecord[] => {
     const temp: IWeekRecord[] = [];
@@ -53,13 +53,13 @@ function ContentAttend() {
   };
 
   useEffect(() => {
-    const attendance = groupStudy.attendance;
+    const attendance = Group.attendance;
     const weekArr = isThisWeek
       ? sortArr(attendance.thisWeek)
       : sortArr(attendance.lastWeek);
 
-    for (let i = 0; i < groupStudy.participants.length; i++) {
-      const who = groupStudy.participants[i];
+    for (let i = 0; i < Group.participants.length; i++) {
+      const who = Group.participants[i];
       if (!weekArr.find((item) => item.uid === who.user.uid)) {
         weekArr.push({
           uid: who.user.uid,
@@ -72,11 +72,7 @@ function ContentAttend() {
     setAttendRecord(weekArr || []);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    groupStudy.attendance?.lastWeek,
-    groupStudy.attendance?.thisWeek,
-    isThisWeek,
-  ]);
+  }, [Group.attendance?.lastWeek, Group.attendance?.thisWeek, isThisWeek]);
 
   const onClickAttend = () => {
     if (isNotMember) {

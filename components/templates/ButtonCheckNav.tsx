@@ -1,11 +1,10 @@
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import styled from "styled-components";
-import { DispatchString } from "../../types/reactTypes";
 
 interface IButtonCheckNav {
   buttonList: string[];
   selectedButton: string;
-  setSelectedButton: DispatchString;
+  setSelectedButton: (value: string) => void;
   isLineBtn?: boolean;
   isWrap?: boolean;
 }

@@ -7,38 +7,35 @@ import styled from "styled-components";
 import { Badge } from "../../components/common/customComponents/Badges";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useFailToast } from "../../hooks/custom/CustomToast";
-import { transferGroupStudyDataState } from "../../recoil/transferDataAtoms";
+import { transferGroupDataState } from "../../recoil/transferDataAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
-import { IGroupStudy } from "../../types/page/groupStudy";
+import { IGroup } from "../../types/page/Group";
 
-interface IGroupStudyBlock {
-  groupStudy: IGroupStudy;
+interface IGroupBlock {
+  Group: IGroup;
 }
 
-function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
+function GroupBlock({ Group }: IGroupBlock) {
   const router = useRouter();
   const failToast = useFailToast();
   const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
 
   const isGuest = useRecoilValue(isGuestState);
-  const setGroupStudy = useSetRecoilState(transferGroupStudyDataState);
+  const setGroup = useSetRecoilState(transferGroupDataState);
 
-  const groupStudyInfo = {
-    그룹장:
-      groupStudy.organizer.name === "이승주"
-        ? "어바웃"
-        : groupStudy.organizer.name,
-    인원: `${groupStudy.participants.length}/${
-      groupStudy.memberCnt.max === 0 ? "자유" : groupStudy.memberCnt.max + "명"
+  const GroupInfo = {
+    그룹장: Group.organizer.name === "이승주" ? "어바웃" : Group.organizer.name,
+    인원: `${Group.participants.length}/${
+      Group.memberCnt.max === 0 ? "자유" : Group.memberCnt.max + "명"
     }`,
     조건: `${
-      groupStudy.age[0] === 19 && groupStudy.age[1] === 28
+      Group.age[0] === 19 && Group.age[1] === 28
         ? "제한없음"
-        : groupStudy.age[0] + " ~ " + groupStudy.age[1] + "세"
+        : Group.age[0] + " ~ " + Group.age[1] + "세"
     }`,
-    참여금: `${groupStudy.fee ? groupStudy.fee + "원" : "기본"}`,
-    진행: `${groupStudy.period || "자율"}`,
-    개설: dayjsToFormat(dayjs(groupStudy.createdAt), "YY년 M월 D일"),
+    참여금: `${Group.fee ? Group.fee + "원" : "기본"}`,
+    진행: `${Group.period || "자율"}`,
+    개설: dayjsToFormat(dayjs(Group.createdAt), "YY년 M월 D일"),
   };
 
   const onClick = () => {
@@ -47,15 +44,15 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
       return;
     }
 
-    setGroupStudy(groupStudy);
-    router.push(`/groupStudy/${groupStudy.id}`);
+    setGroup(Group);
+    router.push(`/Group/${Group.id}`);
   };
 
   const getBadgeText = () => {
-    const status = groupStudy.status;
-    const min = groupStudy.memberCnt.min;
-    const max = groupStudy.memberCnt.max;
-    const participantCnt = groupStudy.participants.length;
+    const status = Group.status;
+    const min = Group.memberCnt.min;
+    const max = Group.memberCnt.max;
+    const participantCnt = Group.participants.length;
     if (status === "pending") {
       if (participantCnt < min) {
         return {
@@ -86,9 +83,8 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
     <Layout onClick={onClick}>
       <Header>
         <div>
-          <span>{groupStudy.category.main}</span>·
-          <span>{groupStudy.category.sub}</span>
-          {!groupStudy?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
+          <span>{Group.category.main}</span>·<span>{Group.category.sub}</span>
+          {!Group?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
         </div>
         <Badge
           text={getBadgeText().text}
@@ -97,16 +93,16 @@ function GroupStudyBlock({ groupStudy }: IGroupStudyBlock) {
           size="md"
         />
       </Header>
-      <Title>{groupStudy.title}</Title>
+      <Title>{Group.title}</Title>
       <Info>
         {infoArrText.map((item) => (
           <InfoItem key={item}>
             <span>{item}</span>
-            <span>{groupStudyInfo[item]}</span>
+            <span>{GroupInfo[item]}</span>
           </InfoItem>
         ))}
       </Info>
-      <Content>{groupStudy.guide}</Content>
+      <Content>{Group.guide}</Content>
     </Layout>
   );
 }
@@ -188,4 +184,4 @@ const Content = styled.pre`
   overflow: hidden; */
 `;
 
-export default GroupStudyBlock;
+export default GroupBlock;

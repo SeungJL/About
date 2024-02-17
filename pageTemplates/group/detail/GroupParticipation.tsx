@@ -4,17 +4,17 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
+import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/Group";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { IGroupStudy } from "../../../types/page/groupStudy";
+import { IGroup } from "../../../types/page/Group";
 import { IUser } from "../../../types/user/user";
 
-interface IGroupStudyParticipation {
-  data: IGroupStudy;
+interface IGroupParticipation {
+  data: IGroup;
 }
 
-function GroupStudyParticipation({ data }: IGroupStudyParticipation) {
+function GroupParticipation({ data }: IGroupParticipation) {
   const router = useRouter();
   const setUserData = useSetRecoilState(transferUserDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
@@ -182,4 +182,4 @@ const Empty = styled.div`
   }
 `;
 
-export default GroupStudyParticipation;
+export default GroupParticipation;

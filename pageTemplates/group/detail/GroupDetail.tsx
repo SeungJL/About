@@ -3,38 +3,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { IGroupStudy } from "../../../types/page/groupStudy";
+import { IGroup } from "../../../types/page/Group";
 dayjs.locale("ko");
 
-interface IGroupStudyDetailInfo {
-  groupStudy: IGroupStudy;
+interface IGroupDetailInfo {
+  Group: IGroup;
 }
 
-function GroupStudyDetailInfo({ groupStudy }: IGroupStudyDetailInfo) {
+function GroupDetailInfo({ Group }: IGroupDetailInfo) {
   return (
     <Layout>
       <Item>
         <ItemText>지역</ItemText>
-        <span>{groupStudy.location}</span>
+        <span>{Group.location}</span>
       </Item>
       <Item>
         <ItemText>목적</ItemText>
         <span>
-          {groupStudy.category.main} - {groupStudy.category.sub}
+          {Group.category.main} - {Group.category.sub}
         </span>
-        {groupStudy.gender && (
-          <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />
-        )}
+        {Group.gender && <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />}
       </Item>
       <Item>
         <ItemText>활동</ItemText>
-        <span>{groupStudy.period}</span>
+        <span>{Group.period}</span>
       </Item>
       <Item>
         <ItemText>개설</ItemText>
-        <span>
-          {dayjsToFormat(dayjs(groupStudy.createdAt), "YYYY년 M월 D일")}
-        </span>
+        <span>{dayjsToFormat(dayjs(Group.createdAt), "YYYY년 M월 D일")}</span>
       </Item>
     </Layout>
   );
@@ -81,4 +77,4 @@ const Secret = styled.div`
   }
 `;
 
-export default GroupStudyDetailInfo;
+export default GroupDetailInfo;

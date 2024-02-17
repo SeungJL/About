@@ -9,17 +9,15 @@ import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
+import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 
-function GroupStudyWritingHashTag() {
+function GroupWritingHashTag() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [groupStudy, setGroupStudy] = useRecoilState(
-    sharedGroupStudyWritingState
-  );
+  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
 
-  const [text, setText] = useState(groupStudy?.hashTag || "");
+  const [text, setText] = useState(Group?.hashTag || "");
 
   const onClickNext = () => {
     if (!text) {
@@ -27,17 +25,17 @@ function GroupStudyWritingHashTag() {
       return;
     }
 
-    setGroupStudy((old) => ({
+    setGroup((old) => ({
       ...old,
       hashTag: text,
     }));
-    router.push(`/groupStudy/writing/condition`);
+    router.push(`/Group/writing/condition`);
   };
 
   return (
     <Slide>
       <ProgressStatus value={86} />
-      <Header title="" url="/groupStudy/writing/period" />
+      <Header title="" url="/Group/writing/period" />
       <RegisterLayout>
         <RegisterOverview>
           <span>모임을 소개할 수 있는 해쉬태그를 달아봐요!</span>
@@ -69,4 +67,4 @@ const Input = styled.input`
   }
 `;
 
-export default GroupStudyWritingHashTag;
+export default GroupWritingHashTag;

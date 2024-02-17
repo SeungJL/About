@@ -5,19 +5,19 @@ import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { getDateDiff } from "../../../helpers/dateHelpers";
 import { IUser } from "../../../types/user/user";
 
-interface IGroupStudyOrganizer {
+interface IGroupOrganizer {
   createdAt: string;
   organizer: IUser;
 
   category: string;
 }
 
-function GroupStudyOrganizer({
+function GroupOrganizer({
   createdAt,
   organizer,
 
   category,
-}: IGroupStudyOrganizer) {
+}: IGroupOrganizer) {
   const writingDate = getDateDiff(dayjs(createdAt));
   // const isABOUT = organizer.uid === ABOUT_UID || isAdminOpen;
   return (
@@ -66,4 +66,4 @@ const Info = styled.div`
   }
 `;
 
-export default GroupStudyOrganizer;
+export default GroupOrganizer;

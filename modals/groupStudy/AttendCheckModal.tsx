@@ -6,14 +6,14 @@ import {
   ModalBody,
   ModalFooterTwo,
   ModalHeader,
-  ModalLayout
+  ModalLayout,
 } from "../../components/modals/Modals";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
-import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/groupStudy";
+import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/Group";
 import { dayjsToFormat, getDateWeek } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
-import { useGroupStudyAttendMutation } from "../../hooks/groupStudy/mutations";
+import { useGroupAttendMutation } from "../../hooks/Group/mutations";
 import { IModal } from "../../types/reactTypes";
 
 interface IAttendCheckModal extends IModal {
@@ -41,7 +41,7 @@ function AttendCheckModal({
 
   const isSubRecord = GROUP_STUDY_ATTEND_SUB_LIST.includes(+id);
 
-  const { mutate, isLoading } = useGroupStudyAttendMutation(id, {
+  const { mutate, isLoading } = useGroupAttendMutation(id, {
     onSuccess() {
       completeToast("free", "저장되었습니다.");
       resetQueryData([GROUP_STUDY_ALL]);

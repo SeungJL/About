@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { IGiftEntry } from "../pages/store";
 import { IGather } from "../types/page/gather";
-import { IGroupStudy } from "../types/page/groupStudy";
+import { IGroup } from "../types/page/Group";
 import { MemberGroup } from "../types/page/member";
 
 import { IParticipation } from "../types/study/studyDetail";
@@ -16,8 +16,8 @@ export const transferGatherDataState = atom<IGather>({
   key: "transferGatherDataState",
   default: null,
 });
-export const transferGroupStudyDataState = atom<IGroupStudy>({
-  key: "transferGroupStudyDataState",
+export const transferGroupDataState = atom<IGroup>({
+  key: "transferGroupDataState",
   default: null,
 });
 

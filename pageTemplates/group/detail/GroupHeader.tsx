@@ -13,64 +13,60 @@ import {
   useCompleteToast,
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
-import { useGroupStudyParticipationMutation } from "../../../hooks/groupStudy/mutations";
-import { isGroupStudyEditState } from "../../../recoil/checkAtoms";
+import { useGroupParticipationMutation } from "../../../hooks/Group/mutations";
+import { isGroupEditState } from "../../../recoil/checkAtoms";
 
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
+import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 
 import { userInfoState } from "../../../recoil/userAtoms";
-import { IGroupStudy } from "../../../types/page/groupStudy";
+import { IGroup } from "../../../types/page/Group";
 import BottomDrawer from "../../profile/BottomDrawer";
 
-interface IGroupStudyHeader {
-  groupStudy: IGroupStudy;
+interface IGroupHeader {
+  Group: IGroup;
 }
 
-function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
+function GroupHeader({ Group }: IGroupHeader) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const router = useRouter();
 
-  const title = groupStudy?.title;
-  // const date = groupStudy?.date;
-  // const locationMain = groupStudy?.location.main;
-  const organizer = groupStudy?.organizer;
+  const title = Group?.title;
+  // const date = Group?.date;
+  // const locationMain = Group?.location.main;
+  const organizer = Group?.organizer;
 
   const userInfo = useRecoilValue(userInfoState);
-  // const setGroupStudyWriting = useSetRecoilState(sharedGroupStudyWritingState);
-  const setIsGroupStudyEdit = useSetRecoilState(isGroupStudyEditState);
+  // const setGroupWriting = useSetRecoilState(sharedGroupWritingState);
+  const setIsGroupEdit = useSetRecoilState(isGroupEditState);
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
 
   const [isModal, setIsModal] = useState(false);
 
   const [isSettigModal, setIsSettingModal] = useState(false);
 
-  const setGroupStudyWriting = useSetRecoilState(sharedGroupStudyWritingState);
+  const setGroupWriting = useSetRecoilState(sharedGroupWritingState);
 
   const resetQueryData = useResetQueryData();
 
   const onClick = () => {
-    setGroupStudyWriting(groupStudy);
+    setGroupWriting(Group);
     setPrevPageUrl(`${router.asPath}`);
 
-    router.push("/groupStudy/writing/category/main");
+    router.push("/Group/writing/category/main");
   };
 
   const movePage = async () => {
     completeToast("free", "탈퇴되었습니다.");
     await resetQueryData([GROUP_STUDY_ALL], () => {
-      router.push("/groupStudy");
+      router.push("/Group");
     });
   };
 
-  const { mutate } = useGroupStudyParticipationMutation(
-    "delete",
-    groupStudy.id,
-    {
-      onSuccess: movePage,
-    }
-  );
+  const { mutate } = useGroupParticipationMutation("delete", Group.id, {
+    onSuccess: movePage,
+  });
 
   const handleQuit = () => {
     mutate();
@@ -80,7 +76,7 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
     <>
       <Header
         title="소모임"
-        url={prevPageUrl || "/groupStudy"}
+        url={prevPageUrl || "/Group"}
         isPrev={!!prevPageUrl}
       >
         {userInfo?.uid === organizer?.uid && (
@@ -90,10 +86,10 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
         )}
         <Wrapper>
           <KakaoShareBtn
-            title={groupStudy.title}
-            subtitle={groupStudy.guide}
-            url={WEB_URL + `/groupStudy/${groupStudy.id}`}
-            img={groupStudy?.image}
+            title={Group.title}
+            subtitle={Group.guide}
+            url={WEB_URL + `/Group/${Group.id}`}
+            img={Group?.image}
             type="gather"
           />
         </Wrapper>
@@ -107,14 +103,14 @@ function GroupStudyHeader({ groupStudy }: IGroupStudyHeader) {
       </Header>
 
       <BottomDrawer
-        type="groupStudy"
+        type="Group"
         isModal={isSettigModal}
         setIsModal={setIsSettingModal}
         onSubmit={handleQuit}
       />
 
       {/* {isModal && (
-        <GroupStudyKakaoShareModal
+        <GroupKakaoShareModal
           setIsModal={setIsModal}
           title={title}
           date={date}
@@ -143,4 +139,4 @@ const IconWrapper = styled.button`
   margin-left: var(--gap-3);
 `;
 
-export default GroupStudyHeader;
+export default GroupHeader;

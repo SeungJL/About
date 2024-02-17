@@ -10,25 +10,23 @@ import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
-function GroupStudyWritingContent() {
+import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
+function GroupWritingContent() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [groupStudy, setGroupStudy] = useRecoilState(
-    sharedGroupStudyWritingState
-  );
+  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
 
-  const [period, setPeriod] = useState(groupStudy?.period || "주 1회");
+  const [period, setPeriod] = useState(Group?.period || "주 1회");
 
   //초기 input 세팅
 
   const onClickNext = () => {
-    setGroupStudy((old) => ({
+    setGroup((old) => ({
       ...old,
       period,
     }));
-    router.push(`/groupStudy/writing/hashTag`);
+    router.push(`/Group/writing/hashTag`);
   };
 
   const periodArr = [
@@ -48,7 +46,7 @@ function GroupStudyWritingContent() {
   return (
     <Slide>
       <ProgressStatus value={72} />
-      <Header title="" url="/groupStudy/writing/content" />
+      <Header title="" url="/Group/writing/content" />
       <RegisterLayout>
         <RegisterOverview>
           <span>진행 주기를 체크해주세요!</span>
@@ -86,4 +84,4 @@ const Content = styled.textarea`
   }
 `;
 
-export default GroupStudyWritingContent;
+export default GroupWritingContent;

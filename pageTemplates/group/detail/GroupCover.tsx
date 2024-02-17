@@ -2,11 +2,11 @@ import Image from "next/image";
 import styled from "styled-components";
 import { SQUARE_RANDOM_IMAGE } from "../../../constants/image/imageUrl";
 
-interface IGroupStudyCover {
+interface IGroupCover {
   image: string;
 }
 
-function GroupStudyCover({ image }: IGroupStudyCover) {
+function GroupCover({ image }: IGroupCover) {
   return (
     <Layout>
       <Image
@@ -26,4 +26,4 @@ const Layout = styled.div`
   height: 200px;
 `;
 
-export default GroupStudyCover;
+export default GroupCover;

@@ -10,18 +10,18 @@ import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
-import { useGroupStudyParticipationMutation } from "../../../hooks/groupStudy/mutations";
+import { useGroupParticipationMutation } from "../../../hooks/Group/mutations";
 import { userInfoState } from "../../../recoil/userAtoms";
 import { GatherStatus } from "../../../types/page/gather";
-import { IGroupStudy } from "../../../types/page/groupStudy";
+import { IGroup } from "../../../types/page/Group";
 
-interface IGroupStudyBottomNav {
-  data: IGroupStudy;
+interface IGroupBottomNav {
+  data: IGroup;
 }
 
 type ButtonType = "cancel" | "participate" | "expire";
 
-function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
+function GroupBottomNav({ data }: IGroupBottomNav) {
   const router = useRouter();
   const completeToast = useCompleteToast();
 
@@ -32,7 +32,7 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
 
   const url = router.asPath;
   const myUid = userInfo.uid;
-  const myGroupStudy = data.organizer.uid === myUid;
+  const myGroup = data.organizer.uid === myUid;
   const isParticipant = data?.participants.some(
     (who) => who && who.user.uid === myUid
   );
@@ -40,33 +40,29 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
 
   const [isExpirationModal, setIsExpirationModal] = useState(false);
   const [isParticipationModal, setIsParticipationModal] = useState(false);
-  const groupStudyId = +router.query.id;
+  const GroupId = +router.query.id;
 
   const resetQueryData = useResetQueryData();
 
-  const { mutate: participate } = useGroupStudyParticipationMutation(
+  const { mutate: participate } = useGroupParticipationMutation(
     "post",
-    groupStudyId,
+    GroupId,
     {
       onSuccess() {
         completeToast("free", "신청되었습니다", true);
-        // resetQueryData([GROUPSTUDY_CONTENT]);
+        // resetQueryData([Group_CONTENT]);
       },
       onError: errorToast,
     }
   );
 
-  const { mutate: cancel } = useGroupStudyParticipationMutation(
-    "delete",
-    groupStudyId,
-    {
-      onSuccess() {
-        completeToast("free", "참여 신청이 취소되었습니다.", true);
-        // resetQueryData([GROUPSTUDY_CONTENT]);
-      },
-      onError: errorToast,
-    }
-  );
+  const { mutate: cancel } = useGroupParticipationMutation("delete", GroupId, {
+    onSuccess() {
+      completeToast("free", "참여 신청이 취소되었습니다.", true);
+      // resetQueryData([Group_CONTENT]);
+    },
+    onError: errorToast,
+  });
 
   const onClick = (type: ButtonType) => {
     if (type === "cancel") cancel();
@@ -110,10 +106,10 @@ function GroupStudyBottomNav({ data }: IGroupStudyBottomNav) {
         </Button>
       </Layout>
       {/* {isParticipationModal && (
-        <GroupStudyParticipateModal setIsModal={setIsParticipationModal} />
+        <GroupParticipateModal setIsModal={setIsParticipationModal} />
       )}
       {isExpirationModal && (
-        <GroupStudyExpireModal setIsModal={setIsExpirationModal} />
+        <GroupExpireModal setIsModal={setIsExpirationModal} />
       )} */}
     </>
   );
@@ -129,4 +125,4 @@ const Layout = styled.nav`
   padding: var(--gap-4);
 `;
 
-export default GroupStudyBottomNav;
+export default GroupBottomNav;

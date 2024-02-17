@@ -14,7 +14,7 @@ interface IBottomDrawer {
   isModal: boolean;
   setIsModal: DispatchBoolean;
   setDeclareModal?: DispatchType<DeclareRequest>;
-  type?: "groupStudy";
+  type?: "Group";
   onSubmit?: () => void;
 }
 
@@ -49,7 +49,7 @@ function BottomDrawer({
       <DrawerOverlay />
       <DrawerContent bg="transparent">
         <DrawerBody display="flex" flexDir="column" p="0 var(--gap-2)">
-          {type === "groupStudy" ? (
+          {type === "Group" ? (
             <Button onClick={onClickAbsent} size="lg" color="var(--color-red)">
               탈퇴하기
             </Button>

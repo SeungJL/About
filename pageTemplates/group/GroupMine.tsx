@@ -1,16 +1,29 @@
 import styled from "styled-components";
-import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
-import { IGroupStudy } from "../../types/page/groupStudy";
+import ImageTileSlider, {
+  IImageTile,
+} from "../../components2/organisms/sliders/ImageTileSlider";
+import { IGroup } from "../../types/page/Group";
 
-interface IGroupStudyMine {
-  myStudies: IGroupStudy[];
+interface IGroupMine {
+  myGroups: IGroup[];
 }
 
-function GroupStudyMine({ myStudies }: IGroupStudyMine) {
+function GroupMine({ myGroups }: IGroupMine) {
+  const imageTileArr: IImageTile[] = myGroups?.map((group) => ({
+    imageUrl: group.image,
+    text: group.title,
+    url: `/group/${group.id}`,
+  }));
+
   return (
     <Layout>
-      {myStudies?.length ? (
-        <ImageSlider imageContainer={myStudies} type="groupStudy" />
+      {myGroups?.length ? (
+        <ImageTileSlider
+          imageTileArr={imageTileArr}
+          slidesPerView={2.2}
+          size="lg"
+          aspect={2}
+        />
       ) : (
         <BlockLayout>가입중인 소모임이 없습니다.</BlockLayout>
       )}
@@ -21,7 +34,7 @@ function GroupStudyMine({ myStudies }: IGroupStudyMine) {
 const Layout = styled.div`
   background-color: var(--gray-8);
   border-bottom: 6px solid var(--gray-7);
-  padding-top: var(--gap-4);
+  padding: 16px;
 `;
 
 const Title = styled.div`
@@ -66,4 +79,4 @@ const Name = styled.div`
   font-weight: 600;
   margin-top: var(--gap-2);
 `;
-export default GroupStudyMine;
+export default GroupMine;

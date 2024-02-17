@@ -1,57 +1,53 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../helpers/methodHelpers";
-import { IGroupStudy, IGroupStudyWriting } from "../../types/page/groupStudy";
+import { IGroup, IGroupWriting } from "../../types/page/Group";
 
 import { MutationOptions } from "../../types/reactTypes";
 
-type GroupStudyWritingParam<T> = T extends "post"
-  ? { groupStudy: IGroupStudyWriting }
+type GroupWritingParam<T> = T extends "post"
+  ? { Group: IGroupWriting }
   : T extends "patch"
-  ? { groupStudy: IGroupStudy }
-  : { groupStudyId: number };
+  ? { Group: IGroup }
+  : { GroupId: number };
 
-/** groupstudy info */
-export const useGroupStudyWritingMutation = <
-  T extends "post" | "patch" | "delete"
->(
+/** Group info */
+export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
   method: T,
-  options?: MutationOptions<GroupStudyWritingParam<T>>
+  options?: MutationOptions<GroupWritingParam<T>>
 ) =>
-  useMutation<void, AxiosError, GroupStudyWritingParam<T>>(
+  useMutation<void, AxiosError, GroupWritingParam<T>>(
     (param) =>
-      requestServer<GroupStudyWritingParam<T>>({
+      requestServer<GroupWritingParam<T>>({
         method,
-        url: "groupStudy",
+        url: "Group",
         body: param,
       }),
     options
   );
 
-type GroupStudyParticipationParam<T> = T extends "post"
-  ? "first" | "second"
-  : void;
+type GroupParticipationParam<T> = T extends "post" ? "first" | "second" : void;
 
-interface IGroupStudyParticipationRequest<T> {
+interface IGroupParticipationRequest<T> {
   id: number;
 }
 
-export const useGroupStudyParticipationMutation = <T extends "post" | "delete">(
+export const useGroupParticipationMutation = <T extends "post" | "delete">(
   method: T,
   id: number,
   options?: MutationOptions<void>
 ) =>
   useMutation<void, AxiosError, void>(
     () =>
-      requestServer<IGroupStudyParticipationRequest<T>>({
+      requestServer<IGroupParticipationRequest<T>>({
         method,
-        url: "groupStudy/participate",
+        url: "Group/participate",
         body: { id },
       }),
     options
   );
 
-interface IUserGroupStudyAttendRequest extends IAttendMutationParam {
+interface IUserGroupAttendRequest extends IAttendMutationParam {
   id: number;
 }
 
@@ -61,21 +57,21 @@ interface IAttendMutationParam {
   type: "this" | "last";
 }
 
-export const useGroupStudyAttendMutation = (
+export const useGroupAttendMutation = (
   id: number,
   options?: MutationOptions<IAttendMutationParam>
 ) =>
   useMutation<void, AxiosError, IAttendMutationParam>(
     ({ weekRecord, type, weekRecordSub }) =>
-      requestServer<IUserGroupStudyAttendRequest>({
+      requestServer<IUserGroupAttendRequest>({
         method: "patch",
-        url: "groupStudy/attendance",
+        url: "Group/attendance",
         body: { id, weekRecord, type, weekRecordSub },
       }),
     options
   );
 
-type GroupStudyCommentParam<T> = T extends "post"
+type GroupCommentParam<T> = T extends "post"
   ? {
       comment: string;
       commentId?: string;
@@ -90,25 +86,23 @@ type GroupStudyCommentParam<T> = T extends "post"
       commentId: string;
     };
 
-interface IGroupStudyCommentRequest<T> {
+interface IGroupCommentRequest<T> {
   id: number;
   comment?: string;
   commentId?: string;
 }
-export const useGroupStudyCommentMutation = <
-  T extends "post" | "patch" | "delete"
->(
+export const useGroupCommentMutation = <T extends "post" | "patch" | "delete">(
   method: T,
-  groupstudyId: number,
-  options?: MutationOptions<GroupStudyCommentParam<T>>
+  GroupId: number,
+  options?: MutationOptions<GroupCommentParam<T>>
 ) =>
-  useMutation<void, AxiosError, GroupStudyCommentParam<T>>(
+  useMutation<void, AxiosError, GroupCommentParam<T>>(
     (param) =>
-      requestServer<IGroupStudyCommentRequest<T>>({
+      requestServer<IGroupCommentRequest<T>>({
         method,
-        url: "groupstudy/comment",
+        url: "Group/comment",
         body: {
-          id: groupstudyId,
+          id: GroupId,
           comment: param?.comment,
           commentId: param?.commentId,
         },
@@ -118,38 +112,38 @@ export const useGroupStudyCommentMutation = <
 
 type Status = "pending" | "open" | "close" | "end";
 
-interface IGroupStudyStatusRequest {
-  groupstudyId: number;
+interface IGroupStatusRequest {
+  GroupId: number;
   status: Status;
 }
 
-export const useGroupStudyStatusMutation = (
-  groupstudyId: number,
+export const useGroupStatusMutation = (
+  GroupId: number,
   options?: MutationOptions<Status>
 ) =>
   useMutation<void, AxiosError, Status>(
     (status) =>
-      requestServer<IGroupStudyStatusRequest>({
+      requestServer<IGroupStatusRequest>({
         method: "patch",
-        url: "groupstudy/status",
+        url: "Group/status",
         body: {
-          groupstudyId,
+          GroupId,
           status,
         },
       }),
     options
   );
 
-interface IGroupStudyWaitingParam {
+interface IGroupWaitingParam {
   answer: string;
   pointType: "point" | "deposit";
 }
 
-export const useGroupStudyWaitingMutation = (
+export const useGroupWaitingMutation = (
   id: number,
-  options?: MutationOptions<IGroupStudyWaitingParam>
+  options?: MutationOptions<IGroupWaitingParam>
 ) =>
-  useMutation<void, AxiosError, IGroupStudyWaitingParam>(
+  useMutation<void, AxiosError, IGroupWaitingParam>(
     ({ answer, pointType }) =>
       requestServer<{
         id: number;
@@ -157,7 +151,7 @@ export const useGroupStudyWaitingMutation = (
         pointType: "point" | "deposit";
       }>({
         method: "post",
-        url: "groupstudy/waiting",
+        url: "Group/waiting",
         body: {
           id,
           answer,
@@ -176,7 +170,7 @@ interface IWaitingStatusRequest extends IWaitingStatusParam {
   id: number;
 }
 
-export const useGroupStudyWaitingStatusMutation = (
+export const useGroupWaitingStatusMutation = (
   id: number,
   options?: MutationOptions<IWaitingStatusParam>
 ) =>
@@ -184,7 +178,7 @@ export const useGroupStudyWaitingStatusMutation = (
     ({ status, userId }) =>
       requestServer<IWaitingStatusRequest>({
         method: "post",
-        url: "groupstudy/waiting/status",
+        url: "Group/waiting/status",
         body: {
           id,
           status,
@@ -194,7 +188,7 @@ export const useGroupStudyWaitingStatusMutation = (
     options
   );
 
-export const useGroupStudyAttendancePatchMutation = (
+export const useGroupAttendancePatchMutation = (
   id: number,
   options?: MutationOptions<void>
 ) =>
@@ -202,7 +196,7 @@ export const useGroupStudyAttendancePatchMutation = (
     () =>
       requestServer<{ id: number }>({
         method: "patch",
-        url: "groupstudy/attendance/confirm",
+        url: "Group/attendance/confirm",
         body: {
           id,
         },

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 
-function GroupStudySkeletonMain() {
+function GroupSkeletonMain() {
   const temp = [1, 2, 3, 4, 5];
   return (
     <Layout>
@@ -116,4 +116,4 @@ const Content = styled.pre`
   overflow: hidden; */
 `;
 
-export default GroupStudySkeletonMain;
+export default GroupSkeletonMain;

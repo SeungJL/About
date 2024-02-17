@@ -5,63 +5,63 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BlurredPart from "../../../../components/common/masks/BlurredPart";
 import { userInfoState } from "../../../../recoil/userAtoms";
-import { IGroupStudy } from "../../../../types/page/groupStudy";
-import GroupStudyDetailInfo from "../GroupDetail";
+import { IGroup } from "../../../../types/page/Group";
+import GroupDetailInfo from "../GroupDetail";
 
 interface IContentInfo {
-  groupStudy: IGroupStudy;
+  Group: IGroup;
 }
 
-function ContentInfo({ groupStudy }: IContentInfo) {
-  const hashTagText = groupStudy.hashTag;
+function ContentInfo({ Group }: IContentInfo) {
+  const hashTagText = Group.hashTag;
   const hashTagArr = hashTagText?.split("#");
   const userInfo = useRecoilValue(userInfoState);
 
-  const isMember = groupStudy?.participants?.some(
+  const isMember = Group?.participants?.some(
     (who) => who.user.uid === userInfo?.uid
   );
 
   return (
     <Layout>
       <Wrapper>
-        <GroupStudyDetailInfo groupStudy={groupStudy} />
+        <GroupDetailInfo Group={Group} />
       </Wrapper>
       <ContentWrapper>
         <span>소개</span>
-        <Content>{groupStudy.content}</Content>
+        <Content>{Group.content}</Content>
       </ContentWrapper>
-      {!!groupStudy?.rules?.length && (
+      {!!Group?.rules?.length && (
         <ContentWrapper>
           <span>규칙</span>
           <Rules>
-            {groupStudy?.rules.map((rule, idx) => (
+            {Group?.rules.map((rule, idx) => (
               <Rule key={idx}>{rule}</Rule>
             ))}
           </Rules>
         </ContentWrapper>
       )}
-      {groupStudy?.link && (
+      {Group?.link && (
         <KakaoLink>
           <span>오픈채팅방 주소(참여 인원 전용)</span>
           <div>
             <BlurredPart isBlur={!isMember} isCenter={false}>
-              <Link href={groupStudy.link}>
+              <Link href={Group.link}>
                 <a
                   onClick={(e) => {
                     if (!isMember) e.preventDefault();
                   }}
                 >
-                  {groupStudy?.link}
+                  {Group?.link}
                 </a>
               </Link>
             </BlurredPart>
           </div>
         </KakaoLink>
       )}
-      {groupStudy?.challenge && (
+      {Group?.challenge && (
         <Challenge>
           <FontAwesomeIcon icon={faBellOn} color="var(--color-red)" />
-          {groupStudy?.challenge}
+          {Group?.challenge}
         </Challenge>
       )}
       <Tag>

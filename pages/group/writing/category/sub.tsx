@@ -10,49 +10,47 @@ import ProgressStatus from "../../../../components/templates/ProgressStatus";
 import {
   GROUP_STUDY_CATEGORY_ARR_ICONS,
   GROUP_STUDY_SUB_CATEGORY,
-} from "../../../../constants/contents/GroupStudyContents";
+} from "../../../../constants/contents/GroupContents";
 
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../../pageTemplates/register/RegisterOverview";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { sharedGroupStudyWritingState } from "../../../../recoil/sharedDataAtoms";
+import { sharedGroupWritingState } from "../../../../recoil/sharedDataAtoms";
 function WritingStudyCategorySub() {
   const router = useRouter();
   const failToast = useFailToast();
 
   const prevPageUrl = useRecoilValue(prevPageUrlState);
-  const [groupStudyWriting, setGroupStudyWriting] = useRecoilState(
-    sharedGroupStudyWritingState
+  const [GroupWriting, setGroupWriting] = useRecoilState(
+    sharedGroupWritingState
   );
 
-  const mainCategory = groupStudyWriting?.category?.main;
+  const mainCategory = GroupWriting?.category?.main;
 
-  const [category, setCategory] = useState<string>(
-    groupStudyWriting?.category?.sub
-  );
+  const [category, setCategory] = useState<string>(GroupWriting?.category?.sub);
 
   const onClickNext = () => {
     if (!category) {
       failToast("free", "주제를 선택해 주세요!", true);
       return;
     }
-    setGroupStudyWriting((old) => ({
+    setGroupWriting((old) => ({
       ...old,
       category: { ...old.category, sub: category },
     }));
-    router.push(`/groupStudy/writing/guide`);
+    router.push(`/Group/writing/guide`);
   };
 
   useEffect(() => {
-    if (!mainCategory) router.push("/groupStudy/writing/category/main");
+    if (!mainCategory) router.push("/Group/writing/category/main");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainCategory]);
 
   return (
     <Slide>
       <ProgressStatus value={28} />
-      <Header title="" url={"/groupStudy/writing/category/main"} />
+      <Header title="" url={"/Group/writing/category/main"} />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>

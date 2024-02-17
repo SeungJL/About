@@ -6,7 +6,7 @@ import { Badge } from "../../../components/common/customComponents/Badges";
 import { NewAlertIcon } from "../../../components/common/Icon/AlertIcon";
 import { GatherStatus } from "../../../types/page/gather";
 
-interface IGroupStudyTitle {
+interface IGroupTitle {
   title: string;
   status: GatherStatus;
   memberCnt: number;
@@ -16,7 +16,7 @@ interface IGroupStudyTitle {
   isWaiting: boolean;
 }
 
-function GroupStudyTitle({
+function GroupTitle({
   isAdmin,
   status,
   title,
@@ -24,7 +24,7 @@ function GroupStudyTitle({
   category,
   maxCnt,
   isWaiting,
-}: IGroupStudyTitle) {
+}: IGroupTitle) {
   const router = useRouter();
   const color =
     status === "pending"
@@ -132,4 +132,4 @@ const SubInfo = styled.div`
   color: var(--gray-3);
 `;
 
-export default GroupStudyTitle;
+export default GroupTitle;

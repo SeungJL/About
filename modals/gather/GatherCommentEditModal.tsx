@@ -5,21 +5,21 @@ import styled from "styled-components";
 import {
   ModalBody,
   ModalFooterTwo,
-  ModalLayout
+  ModalLayout,
 } from "../../components/modals/Modals";
 import {
   GATHER_CONTENT,
-  GROUP_STUDY_ALL
+  GROUP_STUDY_ALL,
 } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../hooks/gather/mutations";
-import { useGroupStudyCommentMutation } from "../../hooks/groupStudy/mutations";
+import { useGroupCommentMutation } from "../../hooks/Group/mutations";
 import { IModal } from "../../types/reactTypes";
 
 interface IGatherCommentEditModal extends IModal {
   commentText: string;
   commentId: string;
-  type?: "groupStudy";
+  type?: "Group";
 }
 
 function GatherCommentEditModal({
@@ -37,7 +37,7 @@ function GatherCommentEditModal({
 
   const resetQueryData = useResetQueryData();
 
-  const { mutate: deleteCommentGroupStudy } = useGroupStudyCommentMutation(
+  const { mutate: deleteCommentGroup } = useGroupCommentMutation(
     "delete",
     gatherId,
     {
@@ -46,7 +46,7 @@ function GatherCommentEditModal({
       },
     }
   );
-  const { mutate: editCommentGroupStudy } = useGroupStudyCommentMutation(
+  const { mutate: editCommentGroup } = useGroupCommentMutation(
     "patch",
     gatherId,
     {
@@ -75,14 +75,13 @@ function GatherCommentEditModal({
   };
 
   const onDelete = () => {
-    if (type === "groupStudy") deleteCommentGroupStudy({ commentId });
+    if (type === "Group") deleteCommentGroup({ commentId });
     else deleteComment({ commentId });
     onComplete();
   };
 
   const onEdit = () => {
-    if (type === "groupStudy")
-      editCommentGroupStudy({ comment: value, commentId });
+    if (type === "Group") editCommentGroup({ comment: value, commentId });
     else editComment({ comment: value, commentId });
     onComplete();
   };

@@ -10,7 +10,7 @@ export const isRefetchUserInfoState = atom({
   default: false,
 });
 
-export const isRefetchGroupStudyInfoState = atom({
-  key: "isRefetchGroupStudy",
+export const isRefetchGroupInfoState = atom({
+  key: "isRefetchGroup",
   default: false,
 });

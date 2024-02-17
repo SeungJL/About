@@ -1,18 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { IGroupStudy } from "../../../../types/page/groupStudy";
+import { IGroup } from "../../../../types/page/Group";
 import ContentAttend from "./ContentAttendance";
 import ContentChat from "./ContentChat";
 import ContentGather from "./ContentGather";
 import ContentInfo from "./ContentInfo";
 
-interface IGroupStudyContent {
-  groupStudy: IGroupStudy;
+interface IGroupContent {
+  Group: IGroup;
 }
 
 type Category = "정보" | "모임" | "출석부" | "채팅";
 
-function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
+function GroupContent({ Group }: IGroupContent) {
   const [category, setCategory] = useState<Category>("정보");
 
   const categoryArr: Category[] = ["정보", "출석부", "모임", "채팅"];
@@ -32,7 +32,7 @@ function GroupStudyContent({ groupStudy }: IGroupStudyContent) {
       </ContentNav>
       <ContentContainer>
         {category === "정보" ? (
-          <ContentInfo groupStudy={groupStudy} />
+          <ContentInfo Group={Group} />
         ) : category === "모임" ? (
           <ContentGather />
         ) : category === "출석부" ? (
@@ -73,4 +73,4 @@ const ContentContainer = styled.div`
   min-height: 440px;
 `;
 
-export default GroupStudyContent;
+export default GroupContent;

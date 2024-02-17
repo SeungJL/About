@@ -10,24 +10,24 @@ import ProgressStatus from "../../../../components/templates/ProgressStatus";
 import {
   GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_CATEGORY_ARR_ICONS,
-} from "../../../../constants/contents/GroupStudyContents";
+} from "../../../../constants/contents/GroupContents";
 
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../../pageTemplates/register/RegisterOverview";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { sharedGroupStudyWritingState } from "../../../../recoil/sharedDataAtoms";
+import { sharedGroupWritingState } from "../../../../recoil/sharedDataAtoms";
 function WritingStudyCategoryMain() {
   const router = useRouter();
   const failToast = useFailToast();
 
   const prevPageUrl = useRecoilValue(prevPageUrlState);
-  const [groupStudyWriting, setGroupStudyWriting] = useRecoilState(
-    sharedGroupStudyWritingState
+  const [GroupWriting, setGroupWriting] = useRecoilState(
+    sharedGroupWritingState
   );
 
   const [category, setCategory] = useState<string>(
-    groupStudyWriting?.category?.main
+    GroupWriting?.category?.main
   );
 
   const onClickNext = () => {
@@ -35,17 +35,17 @@ function WritingStudyCategoryMain() {
       failToast("free", "주제를 선택해 주세요!", true);
       return;
     }
-    setGroupStudyWriting((old) => ({
+    setGroupWriting((old) => ({
       ...old,
       category: { ...old?.category, main: category },
     }));
-    router.push(`/groupStudy/writing/category/sub`);
+    router.push(`/Group/writing/category/sub`);
   };
 
   return (
     <Slide>
       <ProgressStatus value={14} />
-      <Header title="" url={prevPageUrl || "/groupStudy"} />
+      <Header title="" url={prevPageUrl || "/Group"} />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>

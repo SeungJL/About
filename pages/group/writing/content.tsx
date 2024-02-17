@@ -14,21 +14,19 @@ import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
+import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 
-function GroupStudyWritingContent() {
+function GroupWritingContent() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [groupStudy, setGroupStudy] = useRecoilState(
-    sharedGroupStudyWritingState
-  );
+  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
 
   //초기 input 세팅
 
-  const [content, setContent] = useState(groupStudy?.content || "");
+  const [content, setContent] = useState(Group?.content || "");
   const [rules, setRules] = useState<string[]>(
-    groupStudy?.rules?.length ? groupStudy?.rules : [""]
+    Group?.rules?.length ? Group?.rules : [""]
   );
 
   const onClickNext = () => {
@@ -37,12 +35,12 @@ function GroupStudyWritingContent() {
       return;
     }
 
-    setGroupStudy((old) => ({
+    setGroup((old) => ({
       ...old,
       rules: rules[0] === "" ? [] : rules,
       content,
     }));
-    router.push(`/groupStudy/writing/period`);
+    router.push(`/Group/writing/period`);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
@@ -65,7 +63,7 @@ function GroupStudyWritingContent() {
   return (
     <Slide>
       <ProgressStatus value={56} />
-      <Header title="" url="/groupStudy/writing/guide" />
+      <Header title="" url="/Group/writing/guide" />
       <RegisterLayout>
         <RegisterOverview>
           <span>어떤 모임인지 작성해주세요!</span>
@@ -153,4 +151,4 @@ const Content = styled.textarea`
   }
 `;
 
-export default GroupStudyWritingContent;
+export default GroupWritingContent;

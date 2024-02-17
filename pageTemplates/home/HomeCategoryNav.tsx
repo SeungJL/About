@@ -7,7 +7,7 @@ import styled from "styled-components";
 import {
   CalendarIcon,
   CampfireIcon,
-  GroupStudyIcon,
+  GroupIcon,
   MemberIcon,
   StoreIcon,
 } from "../../assets/icons/CategoryIcons";
@@ -22,7 +22,7 @@ type HomeCategory =
   | "member"
   | "gather"
   | "plaza"
-  | "groupStudy";
+  | "Group";
 
 function HomeCategoryNav() {
   const router = useRouter();
@@ -83,8 +83,8 @@ function HomeCategoryNav() {
         <span>모임/번개</span>
       </Item>
       <Item className="about_navigation5">
-        <Button onClick={() => onClickItem("groupStudy")}>
-          <GroupStudyIcon />{" "}
+        <Button onClick={() => onClickItem("Group")}>
+          <GroupIcon />{" "}
           <IconWrapper>
             <NewAlertIcon size="lg" />
           </IconWrapper>

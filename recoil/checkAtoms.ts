@@ -4,7 +4,7 @@ export const isGatherEditState = atom({
   key: "isGatherEdit",
   default: false,
 });
-export const isGroupStudyEditState = atom({
-  key: "isGroupStudyEdit",
+export const isGroupEditState = atom({
+  key: "isGroupEdit",
   default: false,
 });

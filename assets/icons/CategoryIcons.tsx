@@ -367,7 +367,7 @@ export const PlazaIcon = () => (
   </svg>
 );
 
-export const GroupStudyIcon = () => (
+export const GroupIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"

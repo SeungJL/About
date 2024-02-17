@@ -8,28 +8,25 @@ import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { useGroupStudyAttendancePatchMutation } from "../../../hooks/groupStudy/mutations";
-import { useGroupStudyAllQuery } from "../../../hooks/groupStudy/queries";
+import { useGroupAttendancePatchMutation } from "../../../hooks/Group/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import GroupStudyBottomNav from "../../../pageTemplates/groupStudy/detail/GroupBottomNav";
-import GroupStudyComments from "../../../pageTemplates/groupStudy/detail/GroupComment";
-import GroupStudyContent from "../../../pageTemplates/groupStudy/detail/GroupContent/GroupStudyContent";
-import GroupStudyCover from "../../../pageTemplates/groupStudy/detail/GroupCover";
-import GroupStudyHeader from "../../../pageTemplates/groupStudy/detail/GroupHeader";
-import GroupStudyParticipation from "../../../pageTemplates/groupStudy/detail/GroupParticipation";
-import GroupStudyTitle from "../../../pageTemplates/groupStudy/detail/GroupTitle";
-import { isRefetchGroupStudyInfoState } from "../../../recoil/refetchingAtoms";
-import { transferGroupStudyDataState } from "../../../recoil/transferDataAtoms";
+import GroupBottomNav from "../../../pageTemplates/Group/detail/GroupBottomNav";
+import GroupComments from "../../../pageTemplates/Group/detail/GroupComment";
+import GroupContent from "../../../pageTemplates/Group/detail/GroupContent/GroupContent";
+import GroupCover from "../../../pageTemplates/Group/detail/GroupCover";
+import GroupHeader from "../../../pageTemplates/Group/detail/GroupHeader";
+import GroupParticipation from "../../../pageTemplates/Group/detail/GroupParticipation";
+import GroupTitle from "../../../pageTemplates/Group/detail/GroupTitle";
+import { isRefetchGroupInfoState } from "../../../recoil/refetchingAtoms";
+import { transferGroupDataState } from "../../../recoil/transferDataAtoms";
 import { userAccessUidState, userInfoState } from "../../../recoil/userAtoms";
 
-function GroupStudyDetail() {
+function GroupDetail() {
   const router = useRouter();
-  const groupStudyId = router.query.id;
+  const GroupId = router.query.id;
 
   const uid = useRecoilValue(userAccessUidState);
-  const [groupStudy, setGroupStudy] = useRecoilState(
-    transferGroupStudyDataState
-  );
+  const [Group, setGroup] = useRecoilState(transferGroupDataState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   useUserInfoQuery({
@@ -40,21 +37,21 @@ function GroupStudyDetail() {
   });
 
   const [adminIsRefetch, setAdminIsRefetch] = useRecoilState(
-    isRefetchGroupStudyInfoState
+    isRefetchGroupInfoState
   );
   const [isRefetch, setIsRefetch] = useState(false);
 
-  const { refetch } = useGroupStudyAllQuery({
-    enabled: !groupStudy,
+  const { refetch } = useGroupAllQuery({
+    enabled: !Group,
     onSuccess(data) {
-      setGroupStudy(data.find((item) => item.id === +groupStudyId));
+      setGroup(data.find((item) => item.id === +GroupId));
     },
   });
 
   const resetQueryData = useResetQueryData();
 
-  const { mutate: patchAttendance } = useGroupStudyAttendancePatchMutation(
-    +groupStudyId,
+  const { mutate: patchAttendance } = useGroupAttendancePatchMutation(
+    +GroupId,
     {
       onSuccess() {
         resetQueryData([GROUP_STUDY_ALL]);
@@ -63,8 +60,8 @@ function GroupStudyDetail() {
   );
 
   useEffect(() => {
-    if (!groupStudy) return;
-    const firstDate = groupStudy.attendance.firstDate;
+    if (!Group) return;
+    const firstDate = Group.attendance.firstDate;
 
     if (
       firstDate &&
@@ -74,10 +71,10 @@ function GroupStudyDetail() {
       patchAttendance();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupStudy?.attendance?.firstDate]);
+  }, [Group?.attendance?.firstDate]);
 
   useEffect(() => {
-    if (isRefetch || !groupStudy || adminIsRefetch) {
+    if (isRefetch || !Group || adminIsRefetch) {
       setTimeout(() => {
         refetch();
         setIsRefetch(false);
@@ -85,37 +82,37 @@ function GroupStudyDetail() {
       }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupStudy, isRefetch]);
+  }, [Group, isRefetch]);
 
   return (
     <>
-      {groupStudy ? (
+      {Group ? (
         <>
           <Layout>
-            <GroupStudyHeader groupStudy={groupStudy} />
-            <GroupStudyCover image={groupStudy?.image} />
+            <GroupHeader Group={Group} />
+            <GroupCover image={Group?.image} />
 
-            <GroupStudyTitle
-              isAdmin={groupStudy.organizer.uid === uid}
-              memberCnt={groupStudy.participants.length}
-              title={groupStudy.title}
-              status={groupStudy.status}
-              category={groupStudy.category.main}
-              maxCnt={groupStudy.memberCnt.max}
-              isWaiting={groupStudy.waiting.length !== 0}
+            <GroupTitle
+              isAdmin={Group.organizer.uid === uid}
+              memberCnt={Group.participants.length}
+              title={Group.title}
+              status={Group.status}
+              category={Group.category.main}
+              maxCnt={Group.memberCnt.max}
+              isWaiting={Group.waiting.length !== 0}
             />
-            <GroupStudyContent groupStudy={groupStudy} />
-            <GroupStudyParticipation data={groupStudy} />
-            <GroupStudyComments comment={groupStudy.comment} />
+            <GroupContent Group={Group} />
+            <GroupParticipation data={Group} />
+            <GroupComments comment={Group.comment} />
 
             {![
-              groupStudy.organizer,
-              ...groupStudy.participants.map((who) => who.user),
+              Group.organizer,
+              ...Group.participants.map((who) => who.user),
             ].some((who) => who.uid === uid) ? (
-              <GroupStudyBottomNav data={groupStudy} />
+              <GroupBottomNav data={Group} />
             ) : null}
           </Layout>
-          {/* {!isGuest && <GroupStudyBottomNav data={groupStudy} />} */}
+          {/* {!isGuest && <GroupBottomNav data={Group} />} */}
         </>
       ) : (
         <MainLoading />
@@ -131,4 +128,4 @@ const Layout = styled.div`
   background-color: var(--gray-8);
 `;
 
-export default GroupStudyDetail;
+export default GroupDetail;

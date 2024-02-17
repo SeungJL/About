@@ -25,12 +25,12 @@ import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 
 import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
-import GroupStudyConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
+import GroupConfirmModal from "../../../modals/Group/WritingConfirmModal";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
-import QuestionBottomDrawer from "../../../pageTemplates/groupStudy/writing/QuestionBottomDrawer";
-import { sharedGroupStudyWritingState } from "../../../recoil/sharedDataAtoms";
+import QuestionBottomDrawer from "../../../pageTemplates/Group/writing/QuestionBottomDrawer";
+import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt } from "../../../types/page/gather";
-import { IGroupStudyWriting } from "../../../types/page/groupStudy";
+import { IGroupWriting } from "../../../types/page/Group";
 import { Location, LocationFilterType } from "../../../types/system";
 
 type ButtonType =
@@ -47,53 +47,48 @@ export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 function WritingCondition() {
   const errorToast = useErrorToast();
 
-  const [groupStudyWriting, setGroupStudyWriting] = useRecoilState(
-    sharedGroupStudyWritingState
+  const [GroupWriting, setGroupWriting] = useRecoilState(
+    sharedGroupWritingState
   );
 
   const { data: userInfo } = useUserInfoQuery();
 
   const [condition, setCondition] = useState({
-    gender: groupStudyWriting?.gender || false,
-    age: groupStudyWriting?.age ? true : false,
-    isFree:
-      groupStudyWriting?.isFree !== undefined
-        ? groupStudyWriting?.isFree
-        : true,
+    gender: GroupWriting?.gender || false,
+    age: GroupWriting?.age ? true : false,
+    isFree: GroupWriting?.isFree !== undefined ? GroupWriting?.isFree : true,
     location:
-      groupStudyWriting?.location !== undefined
-        ? groupStudyWriting?.location === userInfo?.location
+      GroupWriting?.location !== undefined
+        ? GroupWriting?.location === userInfo?.location
         : true,
-    challenge: groupStudyWriting?.challenge ? true : false,
+    challenge: GroupWriting?.challenge ? true : false,
     fee:
-      groupStudyWriting?.fee !== undefined
-        ? groupStudyWriting?.fee !== 200 && groupStudyWriting?.fee !== 0
+      GroupWriting?.fee !== undefined
+        ? GroupWriting?.fee !== 200 && GroupWriting?.fee !== 0
         : false,
   });
 
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
-    min: groupStudyWriting?.memberCnt?.min || 4,
+    min: GroupWriting?.memberCnt?.min || 4,
     max:
-      groupStudyWriting?.memberCnt?.max === undefined
+      GroupWriting?.memberCnt?.max === undefined
         ? 8
-        : groupStudyWriting?.memberCnt?.max,
+        : GroupWriting?.memberCnt?.max,
   });
 
-  const [age, setAge] = useState(groupStudyWriting?.age || [19, 28]);
+  const [age, setAge] = useState(GroupWriting?.age || [19, 28]);
 
   const [challenge, setChallenge] = useState("");
 
-  const [fee, setFee] = useState(groupStudyWriting?.fee || "1000");
+  const [fee, setFee] = useState(GroupWriting?.fee || "1000");
   const [feeText, setFeeText] = useState(
-    groupStudyWriting?.feeText || "기본 참여비"
+    GroupWriting?.feeText || "기본 참여비"
   );
 
-  const [question, setQuestion] = useState(
-    groupStudyWriting?.questionText || ""
-  );
+  const [question, setQuestion] = useState(GroupWriting?.questionText || "");
   const [location, setLocation] = useState<
     Location | CombinedLocation | LocationFilterType
-  >(groupStudyWriting?.location || userInfo?.location);
+  >(GroupWriting?.location || userInfo?.location);
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const [isQuestionModal, setIsQuestionModal] = useState(false);
@@ -104,8 +99,8 @@ function WritingCondition() {
   }, [condition.isFree]);
 
   const onClickNext = async () => {
-    const groupStudyData: IGroupStudyWriting = {
-      ...groupStudyWriting,
+    const GroupData: IGroupWriting = {
+      ...GroupWriting,
       fee: condition.fee ? +fee : 0,
       feeText,
       isFree: condition.isFree,
@@ -117,7 +112,7 @@ function WritingCondition() {
       questionText: question,
       challenge,
     };
-    setGroupStudyWriting(groupStudyData);
+    setGroupWriting(GroupData);
     setIsConfirmModal(true);
   };
 
@@ -137,7 +132,7 @@ function WritingCondition() {
     <>
       <Slide>
         <ProgressStatus value={100} />
-        <Header title="" url="/groupStudy/writing/hashTag" />
+        <Header title="" url="/Group/writing/hashTag" />
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>
@@ -305,10 +300,10 @@ function WritingCondition() {
       />
 
       {isConfirmModal && (
-        <GroupStudyConfirmModal
+        <GroupConfirmModal
           setIsModal={setIsConfirmModal}
-          groupStudyWriting={groupStudyWriting}
-          setGroupStudyWriting={setGroupStudyWriting}
+          GroupWriting={GroupWriting}
+          setGroupWriting={setGroupWriting}
         />
       )}
     </>

@@ -1,28 +1,22 @@
+import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contents/GroupStudyContents";
 import { LocationFilterType } from "../system";
 import { ITimeStamps } from "../timeAndDate";
 import { IUser } from "../user/user";
 import { GatherStatus, IGatherComment } from "./gather";
 
-export type GroupStudyCategory =
-  | "전체"
-  | "어학"
-  | "프로그래밍"
-  | "자격증"
-  | "취업준비"
-  | "자기계발"
-  | "게임"
-  | "기타"
-  | "운동"
-  | "친목";
-export interface IGroupStudy extends IGroupStudyWriting {
+export type GroupCategory = typeof GROUP_STUDY_CATEGORY_ARR[number];
+
+
+
+export interface IGroup extends IGroupWriting {
   createdAt: string;
   participants: { user: IUser; role: "member" | "manager" | "admin" }[];
   comment: IGatherComment[];
   link?: string;
 }
 
-export interface IGroupStudyWriting extends ITimeStamps {
-  category: IGroupStudyWritingCategory;
+export interface IGroupWriting extends ITimeStamps {
+  category: IGroupWritingCategory;
   challenge?: string;
   title: string;
   content: string;
@@ -42,7 +36,7 @@ export interface IGroupStudyWriting extends ITimeStamps {
 
   questionText?: string;
   hashTag?: string;
-  attendance: IGroupStudyAttendance;
+  attendance: IGroupAttendance;
   waiting: {
     user: IUser;
     answer?: string;
@@ -55,7 +49,7 @@ export interface IGroupStudyWriting extends ITimeStamps {
   id: number;
 }
 
-export interface IGroupStudyWritingCategory {
+export interface IGroupWritingCategory {
   main: string;
   sub: string;
 }
@@ -65,7 +59,7 @@ export interface IWeekRecord {
   attendRecord: string[];
   attendRecordSub?: string[];
 }
-export interface IGroupStudyAttendance {
+export interface IGroupAttendance {
   firstDate: string;
   lastWeek: IWeekRecord[];
   thisWeek: IWeekRecord[];

@@ -8,44 +8,41 @@ import {
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
 import { IGather } from "../../types/page/gather";
-import {
-  IGroupStudy,
-  IGroupStudyAttendance,
-} from "../../types/page/groupStudy";
+import { IGroup, IGroupAttendance } from "../../types/page/Group";
 import { QueryOptions } from "../../types/reactTypes";
 
-export const useGroupStudyAllQuery = (options?: QueryOptions<IGroupStudy[]>) =>
-  useQuery<IGroupStudy[], AxiosError, IGroupStudy[]>(
+export const useGroupQuery = (options?: QueryOptions<IGroup[]>) =>
+  useQuery<IGroup[], AxiosError, IGroup[]>(
     [GROUP_STUDY_ALL],
     async () => {
-      const res = await axios.get<IGroupStudy[]>(`${SERVER_URI}/groupStudy`);
+      const res = await axios.get<IGroup[]>(`${SERVER_URI}/groupStudy`);
       return res.data;
     },
     options
   );
-export const useGroupStudyAttendanceQuery = (
+export const useGroupAttendanceQuery = (
   id: number,
-  options?: QueryOptions<IGroupStudyAttendance>
+  options?: QueryOptions<IGroupAttendance>
 ) =>
-  useQuery<IGroupStudyAttendance, AxiosError, IGroupStudyAttendance>(
+  useQuery<IGroupAttendance, AxiosError, IGroupAttendance>(
     [GROUP_STUDY, "attendance"],
     async () => {
-      const res = await axios.get<IGroupStudyAttendance>(
-        `${SERVER_URI}/groupStudy/attendance/${id}`
+      const res = await axios.get<IGroupAttendance>(
+        `${SERVER_URI}/Group/attendance/${id}`
       );
       return res.data;
     },
     options
   );
-export const useGroupStudyWaitingQuery = (
+export const useGroupWaitingQuery = (
   id: number,
-  options?: QueryOptions<IGroupStudyAttendance>
+  options?: QueryOptions<IGroupAttendance>
 ) =>
-  useQuery<IGroupStudyAttendance, AxiosError, IGroupStudyAttendance>(
+  useQuery<IGroupAttendance, AxiosError, IGroupAttendance>(
     [GROUP_STUDY, "waiting"],
     async () => {
-      const res = await axios.get<IGroupStudyAttendance>(
-        `${SERVER_URI}/groupStudy/waiting/${id}`
+      const res = await axios.get<IGroupAttendance>(
+        `${SERVER_URI}/Group/waiting/${id}`
       );
       return res.data;
     },

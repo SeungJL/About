@@ -15,7 +15,7 @@ import { SingleLineText } from "../../../styles/layout/components";
 
 SwiperCore.use([Navigation, Pagination]);
 
-type Size = "md";
+type Size = "sm" | "md" | "lg";
 
 export interface IImageTile {
   imageUrl: string;
@@ -26,25 +26,31 @@ export interface IImageTile {
 interface IImageTileSlider {
   imageTileArr: IImageTile[];
   size: Size;
+  slidesPerView: number;
+  aspect?: number;
 }
 
-function ImageTileSlider({ imageTileArr, size }: IImageTileSlider) {
+function ImageTileSlider({
+  imageTileArr,
+  size,
+  aspect = 1,
+  slidesPerView,
+}: IImageTileSlider) {
   const imageSizeObj: { [key in Size]: number } = {
+    sm: 60,
     md: 80,
+    lg: 120,
   };
 
   const imageSize = imageSizeObj[size];
 
   return (
-    <Swiper slidesPerView={4.5} spaceBetween={20}>
+    <Swiper slidesPerView={slidesPerView} spaceBetween={12}>
       {imageTileArr.map((imageTile, index) => (
         <SwiperSlide key={index}>
-          <Link
-            href={imageTile.url}
-            style={{ display: "flex", flexDirection: "column" }}
-          >
+          <CustomLink href={imageTile.url}>
             <AspectRatio
-              ratio={1}
+              ratio={aspect / 1}
               pos="relative"
               rounded="lg"
               overflow="hidden"
@@ -52,14 +58,27 @@ function ImageTileSlider({ imageTileArr, size }: IImageTileSlider) {
               <Image src={imageTile.imageUrl} fill={true} alt="eventImg" />
             </AspectRatio>
             <Text>{imageTile.text}</Text>
-          </Link>
+          </CustomLink>
         </SwiperSlide>
       ))}
     </Swiper>
   );
 }
 
+const CustomLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 12px;
+  padding-bottom: 4px;
+  border: var(--border);
+  border-radius: var(--rounded-lg);
+  box-shadow: var(--shadow);
+`;
+
 const Text = styled(SingleLineText)`
+  text-align: center;
+  font-weight: 600;
   padding-top: 8px;
   font-size: 12px;
 `;
