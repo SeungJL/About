@@ -1,14 +1,18 @@
 import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
 import Slide from "../../components/layout/PageSlide";
 import RuleModal from "../../components/modals/RuleModal";
-import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import CheckBoxNav from "../../components/templates/CheckBoxNav";
+import Selector from "../../components2/atoms/Selector";
 import Header from "../../components2/Header";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
+import TabNav, {
+  ITabNavOptions,
+} from "../../components2/molecules/navs/TabNav";
 import {
   GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_RULE_CONTENT,
@@ -20,7 +24,7 @@ import GroupBlock from "../../pageTemplates/group/GroupBlock";
 import GroupMine from "../../pageTemplates/group/GroupMine";
 import GroupSkeletonMain from "../../pageTemplates/group/GroupSkeletonMain";
 import GroupSkeletonMine from "../../pageTemplates/group/GroupSkeletonMine";
-import { GroupCategory, IGroup } from "../../types/page/Group";
+import { GroupCategory, IGroup } from "../../types/page/group";
 
 interface ICategory {
   main: GroupCategory;
@@ -28,19 +32,27 @@ interface ICategory {
 }
 
 function Index() {
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams);
+  const categoryIdx = searchParams.get("category");
+  const router = useRouter();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
+  const [status, setStatus] = useState<"모집중" | "종료" | "모집 마감">(
+    "모집중"
+  );
   const [category, setCategory] = useState<ICategory>({
-    main: "전체",
+    main: categoryIdx !== null ? GROUP_STUDY_CATEGORY_ARR[categoryIdx] : "전체",
     sub: null,
   });
+
   const [groupStudies, setGroupStudies] = useState<IGroup[]>();
   const [myGroups, setMyGroups] = useState<IGroup[]>([]);
   const [isRuleModal, setIsRuleModal] = useState(false);
 
   const { data: groups, isLoading } = useGroupQuery();
-  console.log(groups);
+
   useEffect(() => {
     if (!groups) return;
     if (!isGuest) {
@@ -58,8 +70,31 @@ function Index() {
               (item.category.main === category.main && !category.sub) ||
               item.category.sub === category.sub
           );
+    console.log(4, filtered, groups, category);
     setGroupStudies(shuffleArray(filtered));
   }, [category, groups, isGuest]);
+  console.log(groupStudies);
+
+  const mainTabOptionsArr: ITabNavOptions[] = GROUP_STUDY_CATEGORY_ARR.map(
+    (category, idx) => ({
+      text: category,
+      func: () => {
+        router.replace(`/group?category=${idx}`, { scroll: false });
+        setCategory({
+          main: GROUP_STUDY_CATEGORY_ARR[idx],
+          sub: null,
+        });
+      },
+    })
+  );
+
+  const StatusSelector = () => (
+    <Selector
+      defaultValue={status}
+      setValue={setStatus}
+      options={["모집중", "모집 마감", "종료"]}
+    />
+  );
 
   return (
     <>
@@ -70,22 +105,15 @@ function Index() {
       </Slide>
       <Slide>
         <Layout>
-          <SectionBar title="내 소모임" />
+          <SectionBar title="내 소모임" hasMoreBtn={false} />
           {!groupStudies ? (
             <GroupSkeletonMine />
           ) : (
             <GroupMine myGroups={myGroups} />
           )}
-          <SectionBar title="전체 소모임" />
+          <SectionBar title="전체 소모임" rightComponent={<StatusSelector />} />
           <NavWrapper>
-            <ButtonCheckNav
-              buttonList={[...GROUP_STUDY_CATEGORY_ARR]}
-              selectedButton={category.main}
-              setSelectedButton={(value: string) =>
-                setCategory((old) => ({ ...old, sub: value }))
-              }
-              isLineBtn={true}
-            />
+            <TabNav tabOptionsArr={mainTabOptionsArr} />
           </NavWrapper>
           <SubNavWrapper>
             <CheckBoxNav
@@ -104,15 +132,15 @@ function Index() {
                 {groupStudies
                   ?.slice()
                   ?.reverse()
-                  ?.map((Group) => (
-                    <GroupBlock Group={Group} key={Group.id} />
+                  ?.map((group) => (
+                    <GroupBlock group={group} key={group.id} />
                   ))}
               </Main>
             )}
           </>
         </Layout>
       </Slide>
-      {!isGuest && <WritingIcon url="/Group/writing/category/main" />}
+      {!isGuest && <WritingIcon url="/group/writing/category/main" />}
 
       {isRuleModal && (
         <RuleModal
@@ -135,8 +163,7 @@ const Layout = styled.div`
 `;
 
 const NavWrapper = styled.div`
-  padding: var(--gap-3) var(--gap-4);
-  padding-bottom: 0;
+  padding: 12px 16px;
 `;
 
 const SubNavWrapper = styled.div``;

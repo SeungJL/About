@@ -39,18 +39,18 @@ function WritingStudyCategorySub() {
       ...old,
       category: { ...old.category, sub: category },
     }));
-    router.push(`/Group/writing/guide`);
+    router.push(`/group/writing/guide`);
   };
 
   useEffect(() => {
-    if (!mainCategory) router.push("/Group/writing/category/main");
+    if (!mainCategory) router.push("/group/writing/category/main");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainCategory]);
 
   return (
     <Slide>
       <ProgressStatus value={28} />
-      <Header title="" url={"/Group/writing/category/main"} />
+      <Header title="" url={"/group/writing/category/main"} />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>

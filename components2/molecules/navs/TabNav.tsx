@@ -1,41 +1,39 @@
 import { Tab, TabList, Tabs } from "@chakra-ui/react";
-
+import styled from "styled-components";
 export interface ITabNavOptions {
-  left: {
-    text: string;
-    func: () => void;
-  };
-  right: {
-    text: string;
-    func: () => void;
-  };
+  text: string;
+  func: () => void;
 }
 
 interface ITabNav {
-  options: ITabNavOptions;
+  tabOptionsArr: ITabNavOptions[];
 }
 
-export default function TabNav({ options: { left, right } }: ITabNav) {
+export default function TabNav({ tabOptionsArr }: ITabNav) {
   return (
     <>
       <Tabs colorScheme="mintTheme">
-        <TabList>
-          <Tab w="100%" onClick={left.func}>
-            {left.text}
-          </Tab>
-          <Tab w="100%" onClick={right.func}>
-            {right.text}
-          </Tab>
-        </TabList>
-        {/* <TabPanels>
-          <TabPanel>
-            <PointSystemsModalPoint />
-          </TabPanel>
-          <TabPanel>
-            <p>two!</p>
-          </TabPanel>
-        </TabPanels> */}
+        <CustomTabList>
+          {tabOptionsArr.map((tab) => (
+            <CustomTab key={tab.text} onClick={tab.func}>
+              {tab.text}
+            </CustomTab>
+          ))}
+        </CustomTabList>
       </Tabs>
     </>
   );
 }
+const CustomTabList = styled(TabList)`
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none; /* 스크롤바를 숨기는 옵션 */
+  }
+`;
+
+const CustomTab = styled(Tab)`
+  flex-shrink: 0 !important;
+`;

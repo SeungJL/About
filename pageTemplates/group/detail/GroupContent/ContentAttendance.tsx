@@ -10,10 +10,11 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
-import AttendCheckModal from "../../../../modals/Group/AttendCheckModal";
+import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
+
 import { transferGroupDataState } from "../../../../recoil/transferDataAtoms";
 import { isGuestState, userInfoState } from "../../../../recoil/userAtoms";
-import { IWeekRecord } from "../../../../types/page/Group";
+import { IWeekRecord } from "../../../../types/page/group";
 
 function ContentAttend() {
   const router = useRouter();
@@ -29,11 +30,11 @@ function ContentAttend() {
   const weekDay = ["월", "화", "수", "목", "금", "토", "일"];
   const topLineArr = ["이름", ...weekDay];
 
-  const Group = useRecoilValue(transferGroupDataState);
+  const group = useRecoilValue(transferGroupDataState);
 
   const isNotMember =
-    Group.organizer.uid !== userInfo.uid &&
-    !Group.participants.some((who) => who.user.uid === userInfo.uid);
+    group.organizer.uid !== userInfo.uid &&
+    !group.participants.some((who) => who.user.uid === userInfo.uid);
 
   const sortArr = (arr: IWeekRecord[]): IWeekRecord[] => {
     const temp: IWeekRecord[] = [];
@@ -53,13 +54,13 @@ function ContentAttend() {
   };
 
   useEffect(() => {
-    const attendance = Group.attendance;
+    const attendance = group.attendance;
     const weekArr = isThisWeek
       ? sortArr(attendance.thisWeek)
       : sortArr(attendance.lastWeek);
 
-    for (let i = 0; i < Group.participants.length; i++) {
-      const who = Group.participants[i];
+    for (let i = 0; i < group.participants.length; i++) {
+      const who = group.participants[i];
       if (!weekArr.find((item) => item.uid === who.user.uid)) {
         weekArr.push({
           uid: who.user.uid,
@@ -72,7 +73,7 @@ function ContentAttend() {
     setAttendRecord(weekArr || []);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Group.attendance?.lastWeek, Group.attendance?.thisWeek, isThisWeek]);
+  }, [group.attendance?.lastWeek, group.attendance?.thisWeek, isThisWeek]);
 
   const onClickAttend = () => {
     if (isNotMember) {

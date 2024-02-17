@@ -9,7 +9,7 @@ interface ISectionBar {
 export default function SectionBar({
   title,
   hasMoreBtn = true,
-  rightComponent,
+  rightComponent
 }: ISectionBar) {
   return (
     <SectionBarContainer>

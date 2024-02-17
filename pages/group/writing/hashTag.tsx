@@ -15,9 +15,9 @@ function GroupWritingHashTag() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
+  const [group, setGroup] = useRecoilState(sharedGroupWritingState);
 
-  const [text, setText] = useState(Group?.hashTag || "");
+  const [text, setText] = useState(group?.hashTag || "");
 
   const onClickNext = () => {
     if (!text) {
@@ -29,13 +29,13 @@ function GroupWritingHashTag() {
       ...old,
       hashTag: text,
     }));
-    router.push(`/Group/writing/condition`);
+    router.push(`/group/writing/condition`);
   };
 
   return (
     <Slide>
       <ProgressStatus value={86} />
-      <Header title="" url="/Group/writing/period" />
+      <Header title="" url="/group/writing/period" />
       <RegisterLayout>
         <RegisterOverview>
           <span>모임을 소개할 수 있는 해쉬태그를 달아봐요!</span>

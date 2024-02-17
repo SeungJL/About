@@ -55,7 +55,7 @@ function ImageTileSlider({
               rounded="lg"
               overflow="hidden"
             >
-              <Image src={imageTile.imageUrl} fill={true} alt="eventImg" />
+              <Image src={imageTile.imageUrl} fill={true} alt="slideImage" />
             </AspectRatio>
             <Text>{imageTile.text}</Text>
           </CustomLink>

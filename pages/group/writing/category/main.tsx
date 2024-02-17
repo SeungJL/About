@@ -39,13 +39,13 @@ function WritingStudyCategoryMain() {
       ...old,
       category: { ...old?.category, main: category },
     }));
-    router.push(`/Group/writing/category/sub`);
+    router.push(`/group/writing/category/sub`);
   };
 
   return (
     <Slide>
       <ProgressStatus value={14} />
-      <Header title="" url={prevPageUrl || "/Group"} />
+      <Header title="" url={prevPageUrl || "/group"} />
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>

@@ -25,12 +25,12 @@ import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 
 import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
-import GroupConfirmModal from "../../../modals/Group/WritingConfirmModal";
+import GroupConfirmModal from "../../../modals/group/WritingConfirmModal";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
-import QuestionBottomDrawer from "../../../pageTemplates/Group/writing/QuestionBottomDrawer";
+import QuestionBottomDrawer from "../../../pageTemplates/group/writing/QuestionBottomDrawer";
 import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt } from "../../../types/page/gather";
-import { IGroupWriting } from "../../../types/page/Group";
+import { IGroupWriting } from "../../../types/page/group";
 import { Location, LocationFilterType } from "../../../types/system";
 
 type ButtonType =
@@ -132,7 +132,7 @@ function WritingCondition() {
     <>
       <Slide>
         <ProgressStatus value={100} />
-        <Header title="" url="/Group/writing/hashTag" />
+        <Header title="" url="/group/writing/hashTag" />
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>

@@ -1,17 +1,17 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../helpers/methodHelpers";
-import { IGroup, IGroupWriting } from "../../types/page/Group";
+import { IGroup, IGroupWriting } from "../../types/page/group";
 
 import { MutationOptions } from "../../types/reactTypes";
 
 type GroupWritingParam<T> = T extends "post"
-  ? { Group: IGroupWriting }
+  ? { group: IGroupWriting }
   : T extends "patch"
-  ? { Group: IGroup }
+  ? { group: IGroup }
   : { GroupId: number };
 
-/** Group info */
+/** group info */
 export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
   method: T,
   options?: MutationOptions<GroupWritingParam<T>>
@@ -20,7 +20,7 @@ export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
     (param) =>
       requestServer<GroupWritingParam<T>>({
         method,
-        url: "Group",
+        url: "group",
         body: param,
       }),
     options
@@ -41,7 +41,7 @@ export const useGroupParticipationMutation = <T extends "post" | "delete">(
     () =>
       requestServer<IGroupParticipationRequest<T>>({
         method,
-        url: "Group/participate",
+        url: "group/participate",
         body: { id },
       }),
     options
@@ -65,7 +65,7 @@ export const useGroupAttendMutation = (
     ({ weekRecord, type, weekRecordSub }) =>
       requestServer<IUserGroupAttendRequest>({
         method: "patch",
-        url: "Group/attendance",
+        url: "group/attendance",
         body: { id, weekRecord, type, weekRecordSub },
       }),
     options
@@ -100,7 +100,7 @@ export const useGroupCommentMutation = <T extends "post" | "patch" | "delete">(
     (param) =>
       requestServer<IGroupCommentRequest<T>>({
         method,
-        url: "Group/comment",
+        url: "group/comment",
         body: {
           id: GroupId,
           comment: param?.comment,
@@ -125,7 +125,7 @@ export const useGroupStatusMutation = (
     (status) =>
       requestServer<IGroupStatusRequest>({
         method: "patch",
-        url: "Group/status",
+        url: "group/status",
         body: {
           GroupId,
           status,
@@ -151,7 +151,7 @@ export const useGroupWaitingMutation = (
         pointType: "point" | "deposit";
       }>({
         method: "post",
-        url: "Group/waiting",
+        url: "group/waiting",
         body: {
           id,
           answer,
@@ -178,7 +178,7 @@ export const useGroupWaitingStatusMutation = (
     ({ status, userId }) =>
       requestServer<IWaitingStatusRequest>({
         method: "post",
-        url: "Group/waiting/status",
+        url: "group/waiting/status",
         body: {
           id,
           status,
@@ -196,7 +196,7 @@ export const useGroupAttendancePatchMutation = (
     () =>
       requestServer<{ id: number }>({
         method: "patch",
-        url: "Group/attendance/confirm",
+        url: "group/attendance/confirm",
         body: {
           id,
         },

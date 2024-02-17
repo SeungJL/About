@@ -16,7 +16,7 @@ import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import {
   useGroupParticipationMutation,
   useGroupWaitingMutation,
-} from "../../hooks/Group/mutations";
+} from "../../hooks/group/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { userInfoState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -63,7 +63,7 @@ function ParticipateModal({
       if (isFree) chargePoint();
       completeToast("free", "가입이 완료되었습니다.");
       resetQueryData([GROUP_STUDY_ALL]);
-      router.push("/Group");
+      router.push("/group");
     },
   });
 
@@ -71,7 +71,7 @@ function ParticipateModal({
     onSuccess() {
       completeToast("free", "가입 신청이 완료되었습니다.");
       resetQueryData([GROUP_STUDY_ALL]);
-      router.push("/Group");
+      router.push("/group");
     },
   });
 

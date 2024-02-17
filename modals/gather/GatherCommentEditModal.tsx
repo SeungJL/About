@@ -2,24 +2,21 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import {
   GATHER_CONTENT,
   GROUP_STUDY_ALL,
 } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../hooks/gather/mutations";
-import { useGroupCommentMutation } from "../../hooks/Group/mutations";
+import { useGroupCommentMutation } from "../../hooks/groupStudy/mutations";
+
 import { IModal } from "../../types/reactTypes";
 
 interface IGatherCommentEditModal extends IModal {
   commentText: string;
   commentId: string;
-  type?: "Group";
+  type?: "group";
 }
 
 function GatherCommentEditModal({
@@ -75,50 +72,46 @@ function GatherCommentEditModal({
   };
 
   const onDelete = () => {
-    if (type === "Group") deleteCommentGroup({ commentId });
+    if (type === "group") deleteCommentGroup({ commentId });
     else deleteComment({ commentId });
     onComplete();
   };
 
   const onEdit = () => {
-    if (type === "Group") editCommentGroup({ comment: value, commentId });
+    if (type === "group") editCommentGroup({ comment: value, commentId });
     else editComment({ comment: value, commentId });
     onComplete();
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "변경",
+      func: onEdit,
+    },
+    sub: {
+      text: "취소",
+    },
+  };
+
   return (
-    <>
-      <ModalLayout
-        onClose={() => setIsModal(false)}
-        size={isFirst ? "xs" : "sm"}
-      >
-        <ModalBody>
-          <Container>
-            {isFirst ? (
-              <>
-                <button onClick={() => setIsFirst(false)}>수정하기</button>
-                <button onClick={onDelete}>삭제하기</button>
-              </>
-            ) : (
-              <>
-                <Input
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-              </>
-            )}
-          </Container>
-        </ModalBody>
-        {!isFirst && (
-          <ModalFooterTwo
-            leftText="취소"
-            rightText="변경"
-            onClickLeft={() => setIsModal(false)}
-            onClickRight={onEdit}
-          />
+    <ModalLayout
+      title=""
+      footerOptions={isFirst ? null : footerOptions}
+      setIsModal={setIsModal}
+    >
+      <Container>
+        {isFirst ? (
+          <>
+            <button onClick={() => setIsFirst(false)}>수정하기</button>
+            <button onClick={onDelete}>삭제하기</button>
+          </>
+        ) : (
+          <>
+            <Input value={value} onChange={(e) => setValue(e.target.value)} />
+          </>
         )}
-      </ModalLayout>
-    </>
+      </Container>
+    </ModalLayout>
   );
 }
 

@@ -11,19 +11,19 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IRuleModalContent } from "../../components/modals/RuleModal";
-import { GroupCategory } from "../../types/page/Group";
+import { GroupCategory } from "../../types/page/group";
 import { TABLE_COLORS } from "../styles";
 
 export const GROUP_STUDY_CATEGORY_ARR = [
   "전체",
-  "어학",
-  "프로그래밍",
   "자기계발",
+  "운동",
+  "프로그래밍",
+  "어학",
   "자격증",
   "취업준비",
   "게임",
   "친목",
-  "운동",
   "기타",
 ] as const;
 
@@ -35,7 +35,6 @@ export const GROUP_STUDY_SUB_CATEGORY: { [key in GroupCategory]: string[] } = {
   취업준비: ["공기업 면접", "사기업 면접", "인적성(NCS)"],
   자기계발: [
     "투두메이트",
-    "블로그",
     "다이어리",
     "시사/경제",
     "공부인증/열품타",

@@ -13,29 +13,30 @@ import {
   useCompleteToast,
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
-import { useGroupParticipationMutation } from "../../../hooks/Group/mutations";
+import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
+
 import { isGroupEditState } from "../../../recoil/checkAtoms";
 
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 
 import { userInfoState } from "../../../recoil/userAtoms";
-import { IGroup } from "../../../types/page/Group";
+import { IGroup } from "../../../types/page/group";
 import BottomDrawer from "../../profile/BottomDrawer";
 
 interface IGroupHeader {
-  Group: IGroup;
+  group: IGroup;
 }
 
-function GroupHeader({ Group }: IGroupHeader) {
+function GroupHeader({ group }: IGroupHeader) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const router = useRouter();
 
-  const title = Group?.title;
-  // const date = Group?.date;
-  // const locationMain = Group?.location.main;
-  const organizer = Group?.organizer;
+  const title = group?.title;
+  // const date = group?.date;
+  // const locationMain = group?.location.main;
+  const organizer = group?.organizer;
 
   const userInfo = useRecoilValue(userInfoState);
   // const setGroupWriting = useSetRecoilState(sharedGroupWritingState);
@@ -51,20 +52,20 @@ function GroupHeader({ Group }: IGroupHeader) {
   const resetQueryData = useResetQueryData();
 
   const onClick = () => {
-    setGroupWriting(Group);
+    setGroupWriting(group);
     setPrevPageUrl(`${router.asPath}`);
 
-    router.push("/Group/writing/category/main");
+    router.push("/group/writing/category/main");
   };
 
   const movePage = async () => {
     completeToast("free", "탈퇴되었습니다.");
     await resetQueryData([GROUP_STUDY_ALL], () => {
-      router.push("/Group");
+      router.push("/group");
     });
   };
 
-  const { mutate } = useGroupParticipationMutation("delete", Group.id, {
+  const { mutate } = useGroupParticipationMutation("delete", group.id, {
     onSuccess: movePage,
   });
 
@@ -76,7 +77,7 @@ function GroupHeader({ Group }: IGroupHeader) {
     <>
       <Header
         title="소모임"
-        url={prevPageUrl || "/Group"}
+        url={prevPageUrl || "/group"}
         isPrev={!!prevPageUrl}
       >
         {userInfo?.uid === organizer?.uid && (
@@ -86,10 +87,10 @@ function GroupHeader({ Group }: IGroupHeader) {
         )}
         <Wrapper>
           <KakaoShareBtn
-            title={Group.title}
-            subtitle={Group.guide}
-            url={WEB_URL + `/Group/${Group.id}`}
-            img={Group?.image}
+            title={group.title}
+            subtitle={group.guide}
+            url={WEB_URL + `/group/${group.id}`}
+            img={group?.image}
             type="gather"
           />
         </Wrapper>
@@ -103,7 +104,7 @@ function GroupHeader({ Group }: IGroupHeader) {
       </Header>
 
       <BottomDrawer
-        type="Group"
+        type="group"
         isModal={isSettigModal}
         setIsModal={setIsSettingModal}
         onSubmit={handleQuit}

@@ -15,10 +15,10 @@ import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
-import { useGroupWritingMutation } from "../../hooks/Group/mutations";
+import { useGroupWritingMutation } from "../../hooks/group/mutations";
 import { transferGroupDataState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGroup, IGroupWriting } from "../../types/page/Group";
+import { IGroup, IGroupWriting } from "../../types/page/group";
 import { DispatchType, IModal } from "../../types/reactTypes";
 
 interface IGroupConfirmModal extends IModal {
@@ -54,7 +54,7 @@ function GroupConfirmModal({
       setGroup(null);
       completeToast("free", "수정되었습니다.");
       resetQueryData([GROUP_STUDY_ALL], () => {
-        router.push(`/Group/${GroupWriting.id}`);
+        router.push(`/group/${GroupWriting.id}`);
       });
     },
     onError: errorToast,
@@ -62,8 +62,8 @@ function GroupConfirmModal({
 
   const onSubmit = () => {
     if (GroupWriting?.id) {
-      updateGroup({ Group: GroupWriting as IGroup });
-    } else mutate({ Group: GroupWriting });
+      updateGroup({ group: GroupWriting as IGroup });
+    } else mutate({ group: GroupWriting });
   };
 
   return (
@@ -96,7 +96,7 @@ function GroupConfirmModal({
         </ModalLayout>
       )}
       {isSuccessScreen && (
-        <SuccessScreen url={`/Group`}>
+        <SuccessScreen url={`/group`}>
           <>
             <span>소모임 개설 성공</span>
             <div>소모임 오픈 소식을 단톡방에 공유해 주세요!</div>

@@ -10,10 +10,11 @@ import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
-import { useGroupParticipationMutation } from "../../../hooks/Group/mutations";
+import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
+
 import { userInfoState } from "../../../recoil/userAtoms";
 import { GatherStatus } from "../../../types/page/gather";
-import { IGroup } from "../../../types/page/Group";
+import { IGroup } from "../../../types/page/group";
 
 interface IGroupBottomNav {
   data: IGroup;

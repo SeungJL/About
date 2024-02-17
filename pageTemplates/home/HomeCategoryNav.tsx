@@ -22,7 +22,7 @@ type HomeCategory =
   | "member"
   | "gather"
   | "plaza"
-  | "Group";
+  | "group";
 
 function HomeCategoryNav() {
   const router = useRouter();
@@ -83,7 +83,7 @@ function HomeCategoryNav() {
         <span>모임/번개</span>
       </Item>
       <Item className="about_navigation5">
-        <Button onClick={() => onClickItem("Group")}>
+        <Button onClick={() => onClickItem("group")}>
           <GroupIcon />{" "}
           <IconWrapper>
             <NewAlertIcon size="lg" />

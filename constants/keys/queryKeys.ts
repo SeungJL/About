@@ -30,7 +30,7 @@ export const PLAZA_FINDALL = "plaza_findall";
 export const USER_REQUEST = "user_request";
 export const GATHER_CONTENT = "GATHER";
 export const GROUP_STUDY_ALL = "GroupAll";
-export const GROUP_STUDY = "Group";
+export const GROUP_STUDY = "group";
 
 export const STORE_GIFT = "storeGift";
 

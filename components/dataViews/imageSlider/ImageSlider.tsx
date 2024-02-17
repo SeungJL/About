@@ -54,7 +54,7 @@ function ImageSlider({ type, imageContainer, onClick }: IImageSlider) {
             />
           ) : type === "eventBanner" ? (
             <ImageSliderEventBanner imageContainer={imageContainer} />
-          ) : type === "Group" ? (
+          ) : type === "group" ? (
             <ImageSliderGroup imageContainer={imageContainer} />
           ) : null}
         </Layout>

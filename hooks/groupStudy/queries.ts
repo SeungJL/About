@@ -8,7 +8,7 @@ import {
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
 import { IGather } from "../../types/page/gather";
-import { IGroup, IGroupAttendance } from "../../types/page/Group";
+import { IGroup, IGroupAttendance } from "../../types/page/group";
 import { QueryOptions } from "../../types/reactTypes";
 
 export const useGroupQuery = (options?: QueryOptions<IGroup[]>) =>
@@ -28,7 +28,7 @@ export const useGroupAttendanceQuery = (
     [GROUP_STUDY, "attendance"],
     async () => {
       const res = await axios.get<IGroupAttendance>(
-        `${SERVER_URI}/Group/attendance/${id}`
+        `${SERVER_URI}/group/attendance/${id}`
       );
       return res.data;
     },
@@ -42,7 +42,7 @@ export const useGroupWaitingQuery = (
     [GROUP_STUDY, "waiting"],
     async () => {
       const res = await axios.get<IGroupAttendance>(
-        `${SERVER_URI}/Group/waiting/${id}`
+        `${SERVER_URI}/group/waiting/${id}`
       );
       return res.data;
     },

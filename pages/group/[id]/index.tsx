@@ -1,119 +1,85 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import Slide from "../../../components/layout/PageSlide";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
-import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { useGroupAttendancePatchMutation } from "../../../hooks/Group/mutations";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
-import GroupBottomNav from "../../../pageTemplates/Group/detail/GroupBottomNav";
-import GroupComments from "../../../pageTemplates/Group/detail/GroupComment";
-import GroupContent from "../../../pageTemplates/Group/detail/GroupContent/GroupContent";
-import GroupCover from "../../../pageTemplates/Group/detail/GroupCover";
-import GroupHeader from "../../../pageTemplates/Group/detail/GroupHeader";
-import GroupParticipation from "../../../pageTemplates/Group/detail/GroupParticipation";
-import GroupTitle from "../../../pageTemplates/Group/detail/GroupTitle";
-import { isRefetchGroupInfoState } from "../../../recoil/refetchingAtoms";
-import { transferGroupDataState } from "../../../recoil/transferDataAtoms";
-import { userAccessUidState, userInfoState } from "../../../recoil/userAtoms";
+import { useGroupAttendancePatchMutation } from "../../../hooks/groupStudy/mutations";
+import { useGroupQuery } from "../../../hooks/groupStudy/queries";
+import GroupBottomNav from "../../../pageTemplates/group/detail/GroupBottomNav";
+import GroupComments from "../../../pageTemplates/group/detail/GroupComment";
+import GroupContent from "../../../pageTemplates/group/detail/GroupContent/GroupStudyContent";
+import GroupCover from "../../../pageTemplates/group/detail/GroupCover";
+import GroupHeader from "../../../pageTemplates/group/detail/GroupHeader";
+import GroupParticipation from "../../../pageTemplates/group/detail/GroupParticipation";
+import GroupTitle from "../../../pageTemplates/group/detail/GroupTitle";
+import { IGroup } from "../../../types/page/group";
 
 function GroupDetail() {
-  const router = useRouter();
-  const GroupId = router.query.id;
+  const { data: session } = useSession();
+  const { id } = useParams<{ id: string }>() || {};
 
-  const uid = useRecoilValue(userAccessUidState);
-  const [Group, setGroup] = useRecoilState(transferGroupDataState);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [group, setGroup] = useState<IGroup>();
 
-  useUserInfoQuery({
-    enabled: !userInfo,
-    onSuccess(data) {
-      setUserInfo(data);
-    },
-  });
-
-  const [adminIsRefetch, setAdminIsRefetch] = useRecoilState(
-    isRefetchGroupInfoState
-  );
-  const [isRefetch, setIsRefetch] = useState(false);
-
-  const { refetch } = useGroupAllQuery({
-    enabled: !Group,
-    onSuccess(data) {
-      setGroup(data.find((item) => item.id === +GroupId));
-    },
-  });
-
-  const resetQueryData = useResetQueryData();
-
-  const { mutate: patchAttendance } = useGroupAttendancePatchMutation(
-    +GroupId,
-    {
-      onSuccess() {
-        resetQueryData([GROUP_STUDY_ALL]);
-      },
-    }
-  );
+  const { data: groups } = useGroupQuery();
 
   useEffect(() => {
-    if (!Group) return;
-    const firstDate = Group.attendance.firstDate;
+    if (groups) setGroup(groups.find((item) => item.id + "" === id));
+  }, [groups]);
 
+  const queryClient = useQueryClient();
+
+  const { mutate: patchAttendance } = useGroupAttendancePatchMutation(+id, {
+    onSuccess() {
+      queryClient.invalidateQueries([GROUP_STUDY_ALL]);
+    },
+  });
+
+  useEffect(() => {
+    if (!group) return;
+    const firstDate = group.attendance.firstDate;
+    if (!firstDate) return;
     if (
-      firstDate &&
       firstDate !==
-        dayjsToStr(dayjs().subtract(1, "day").startOf("week").add(1, "day"))
-    ) {
+      dayjsToStr(dayjs().subtract(1, "day").startOf("week").add(1, "day"))
+    )
       patchAttendance();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Group?.attendance?.firstDate]);
-
-  useEffect(() => {
-    if (isRefetch || !Group || adminIsRefetch) {
-      setTimeout(() => {
-        refetch();
-        setIsRefetch(false);
-        setAdminIsRefetch(false);
-      }, 1000);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Group, isRefetch]);
+  }, [group?.attendance?.firstDate]);
 
   return (
     <>
-      {Group ? (
-        <>
+      <Slide isFixed={true}>
+        <GroupHeader group={group} />
+      </Slide>
+      {group ? (
+        <Slide>
           <Layout>
-            <GroupHeader Group={Group} />
-            <GroupCover image={Group?.image} />
-
+            <GroupCover image={group?.image} />
             <GroupTitle
-              isAdmin={Group.organizer.uid === uid}
-              memberCnt={Group.participants.length}
-              title={Group.title}
-              status={Group.status}
-              category={Group.category.main}
-              maxCnt={Group.memberCnt.max}
-              isWaiting={Group.waiting.length !== 0}
+              isAdmin={group.organizer.uid === session?.user.uid}
+              memberCnt={group.participants.length}
+              title={group.title}
+              status={group.status}
+              category={group.category.main}
+              maxCnt={group.memberCnt.max}
+              isWaiting={group.waiting.length !== 0}
             />
-            <GroupContent Group={Group} />
-            <GroupParticipation data={Group} />
-            <GroupComments comment={Group.comment} />
-
+            <GroupContent group={group} />
+            <GroupParticipation data={group} />
+            <GroupComments comment={group.comment} />
             {![
-              Group.organizer,
-              ...Group.participants.map((who) => who.user),
-            ].some((who) => who.uid === uid) ? (
-              <GroupBottomNav data={Group} />
+              group.organizer,
+              ...group.participants.map((who) => who.user),
+            ].some((who) => who.uid === session?.user.uid) ? (
+              <GroupBottomNav data={group} />
             ) : null}
           </Layout>
-          {/* {!isGuest && <GroupBottomNav data={Group} />} */}
-        </>
+        </Slide>
       ) : (
         <MainLoading />
       )}

@@ -8,19 +8,19 @@ import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/Slide";
 import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
-import { useGroupWaitingStatusMutation } from "../../../hooks/Group/mutations";
+import { useGroupWaitingStatusMutation } from "../../../hooks/group/mutations";
 import { isRefetchGroupInfoState } from "../../../recoil/refetchingAtoms";
 import { transferGroupDataState } from "../../../recoil/transferDataAtoms";
 import { IUser } from "../../../types/user/user";
 
 function Admin() {
   const completeToast = useCompleteToast();
-  const Group = useRecoilValue(transferGroupDataState);
+  const group = useRecoilValue(transferGroupDataState);
 
   const [deletedUsers, setDeletedUser] = useState([]);
 
   const setIsRefetch = useSetRecoilState(isRefetchGroupInfoState);
-  const { mutate, isLoading } = useGroupWaitingStatusMutation(Group.id, {
+  const { mutate, isLoading } = useGroupWaitingStatusMutation(group.id, {
     onSuccess() {
       completeToast("free", "처리되었습니다.");
       setIsRefetch(true);
@@ -40,7 +40,7 @@ function Admin() {
       type: pointType,
       message: "동아리 가입",
       value:
-        pointType === "deposit" ? -Group.fee || -200 : -Group.fee * 0.15 || -30,
+        pointType === "deposit" ? -group.fee || -200 : -group.fee * 0.15 || -30,
     };
 
     e.stopPropagation();
@@ -54,9 +54,9 @@ function Admin() {
       <Header title="관리자 페이지" url="back" />
       <Layout>
         <Title>가입 신청</Title>
-        <Question>가입 질문: {Group?.questionText} </Question>
+        <Question>가입 질문: {group?.questionText} </Question>
         <Container>
-          {Group?.waiting?.map((who, idx) =>
+          {group?.waiting?.map((who, idx) =>
             deletedUsers.includes(who.user._id) && !isLoading ? null : (
               <Item key={idx}>
                 <UserItem user={who.user}>

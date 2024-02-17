@@ -3,34 +3,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { IGroup } from "../../../types/page/Group";
+import { IGroup } from "../../../types/page/group";
 dayjs.locale("ko");
 
 interface IGroupDetailInfo {
-  Group: IGroup;
+  group: IGroup;
 }
 
-function GroupDetailInfo({ Group }: IGroupDetailInfo) {
+function GroupDetailInfo({ group }: IGroupDetailInfo) {
   return (
     <Layout>
       <Item>
         <ItemText>지역</ItemText>
-        <span>{Group.location}</span>
+        <span>{group.location}</span>
       </Item>
       <Item>
         <ItemText>목적</ItemText>
         <span>
-          {Group.category.main} - {Group.category.sub}
+          {group.category.main} - {group.category.sub}
         </span>
-        {Group.gender && <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />}
+        {group.gender && <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />}
       </Item>
       <Item>
         <ItemText>활동</ItemText>
-        <span>{Group.period}</span>
+        <span>{group.period}</span>
       </Item>
       <Item>
         <ItemText>개설</ItemText>
-        <span>{dayjsToFormat(dayjs(Group.createdAt), "YYYY년 M월 D일")}</span>
+        <span>{dayjsToFormat(dayjs(group.createdAt), "YYYY년 M월 D일")}</span>
       </Item>
     </Layout>
   );

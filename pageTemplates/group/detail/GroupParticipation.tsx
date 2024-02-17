@@ -4,10 +4,11 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/Group";
+import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
+
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { IGroup } from "../../../types/page/Group";
+import { IGroup } from "../../../types/page/group";
 import { IUser } from "../../../types/user/user";
 
 interface IGroupParticipation {

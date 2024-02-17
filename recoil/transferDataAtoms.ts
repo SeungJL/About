@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { IGiftEntry } from "../pages/store";
 import { IGather } from "../types/page/gather";
-import { IGroup } from "../types/page/Group";
+import { IGroup } from "../types/page/group";
 import { MemberGroup } from "../types/page/member";
 
 import { IParticipation } from "../types/study/studyDetail";

@@ -15,9 +15,9 @@ function GroupWritingContent() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
+  const [group, setGroup] = useRecoilState(sharedGroupWritingState);
 
-  const [period, setPeriod] = useState(Group?.period || "주 1회");
+  const [period, setPeriod] = useState(group?.period || "주 1회");
 
   //초기 input 세팅
 
@@ -26,7 +26,7 @@ function GroupWritingContent() {
       ...old,
       period,
     }));
-    router.push(`/Group/writing/hashTag`);
+    router.push(`/group/writing/hashTag`);
   };
 
   const periodArr = [
@@ -46,7 +46,7 @@ function GroupWritingContent() {
   return (
     <Slide>
       <ProgressStatus value={72} />
-      <Header title="" url="/Group/writing/content" />
+      <Header title="" url="/group/writing/content" />
       <RegisterLayout>
         <RegisterOverview>
           <span>진행 주기를 체크해주세요!</span>

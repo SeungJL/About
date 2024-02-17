@@ -104,9 +104,24 @@ export const ModalLayout = ({
         {footerOptions && (
           <ChakraModalFooter p="20px">
             {!sub ? (
-              <Button size="lg" colorScheme="mintTheme" w="100%" onClick={func}>
-                {text}
-              </Button>
+              isFull ? (
+                <Button
+                  size="lg"
+                  colorScheme="mintTheme"
+                  w="100%"
+                  onClick={func}
+                >
+                  {text}
+                </Button>
+              ) : (
+                <Button
+                  onClick={func}
+                  variant="ghost"
+                  color="var(--color-mint)"
+                >
+                  {text}
+                </Button>
+              )
             ) : isFull ? (
               <TwoButtonNav
                 leftText={subText}

@@ -4,13 +4,13 @@ import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/Slide";
-import ParticipateModal from "../../../pageTemplates/Group/ParticipateModal";
+import ParticipateModal from "../../../pageTemplates/group/ParticipateModal";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { transferGroupDataState } from "../../../recoil/transferDataAtoms";
 
 function Participate() {
-  const Group = useRecoilValue(transferGroupDataState);
+  const group = useRecoilValue(transferGroupDataState);
 
   const [questionText, setQuestionText] = useState("");
   const [isModal, setIsModal] = useState(false);
@@ -25,7 +25,7 @@ function Participate() {
         <Header title="" url="back" />
         <RegisterLayout>
           <RegisterOverview>
-            {Group?.questionText ? (
+            {group?.questionText ? (
               <>
                 <span>모임장의 승인이 필요한 모임입니다!</span>
                 <span>모임장이 설정한 질문에 답변해주세요.</span>
@@ -38,9 +38,9 @@ function Participate() {
             )}
           </RegisterOverview>
           <Container>
-            {Group?.questionText && (
+            {group?.questionText && (
               <Item>
-                <Title>Q&#41; {Group?.questionText}</Title>
+                <Title>Q&#41; {group?.questionText}</Title>
                 <AnswerText
                   placeholder="부담없이 작성해주세요!"
                   value={questionText}
@@ -56,9 +56,9 @@ function Participate() {
         <ParticipateModal
           isFree={!questionText}
           answer={questionText}
-          id={Group.id}
-          fee={Group.fee}
-          feeText={Group.feeText}
+          id={group.id}
+          fee={group.fee}
+          feeText={group.feeText}
           setIsModal={setIsModal}
         />
       )}

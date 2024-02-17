@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ImageTileSlider, {
   IImageTile,
 } from "../../components2/organisms/sliders/ImageTileSlider";
-import { IGroup } from "../../types/page/Group";
+import { IGroup } from "../../types/page/group";
 
 interface IGroupMine {
   myGroups: IGroup[];

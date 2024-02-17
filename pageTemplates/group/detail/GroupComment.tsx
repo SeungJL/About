@@ -10,11 +10,12 @@ import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { getDateDiff } from "../../../helpers/dateHelpers";
 // import { Group_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { useGroupCommentMutation } from "../../../hooks/Group/mutations";
+import { useGroupCommentMutation } from "../../../hooks/groupStudy/mutations";
+
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
 import { IGatherComment } from "../../../types/page/gather";
-// import GroupCommentEditModal from "../../../modals/Group/GroupCommentEditModal";
+// import GroupCommentEditModal from "../../../modals/group/GroupCommentEditModal";
 
 export interface IGroupCommentUnit {
   GroupId: number;
@@ -118,7 +119,7 @@ function GroupComments({ comment }: IGroupComments) {
           commentText={commentText}
           commentId={commentId}
           setIsModal={setIsEditModal}
-          type="Group"
+          type="group"
         />
       )}
     </>

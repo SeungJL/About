@@ -37,13 +37,15 @@ export default function BottomNav() {
       {navItems.map((item, idx) => {
         const params =
           item.text === "통계"
-            ? `location=${newSearchParams.get("location")}`
-            : newSearchParams.toString();
+            ? `?location=${newSearchParams.get("location")}`
+            : item.text === "소그룹"
+            ? ""
+            : `?${newSearchParams.toString()}`;
         return (
           <NavButton
             text={item.text}
             key={idx}
-            url={item.url + `?${params}`}
+            url={item.url + `${params}`}
             activeIcon={item.activeIcon}
             defaultIcon={item.defaultIcon}
             active={pathname === item.url}

@@ -3,12 +3,7 @@ import { ModalSubtitle } from "../../styles/layout/modal";
 
 import { IContentBasic } from "../../types/common";
 import { IModal } from "../../types/reactTypes";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeaderCenter,
-  ModalLayout,
-} from "./Modals";
+import { IFooterOptions, ModalLayout } from "./Modals";
 
 export interface IRuleModalContent {
   headerContent: IContentBasic;
@@ -35,16 +30,21 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
     </Item>
   );
 
+  const footerOptions: IFooterOptions = {
+    main: {},
+    isFull: false,
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
-      <ModalHeaderCenter text={header.title} />
-      <ModalBody>
-        <ModalSubtitle isLight={true}>{header.text}</ModalSubtitle>
-        {main.map((item, idx) => (
-          <ContentItem title={item.title} texts={item.texts} key={idx} />
-        ))}
-      </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} />
+    <ModalLayout
+      title={header.title}
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <ModalSubtitle isLight={true}>{header.text}</ModalSubtitle>
+      {main.map((item, idx) => (
+        <ContentItem title={item.title} texts={item.texts} key={idx} />
+      ))}
     </ModalLayout>
   );
 }
@@ -56,7 +56,6 @@ const ItemContent = styled.ul`
   margin-left: var(--gap-4);
   margin-top: var(--gap-1);
   margin-bottom: var(--gap-3);
-
 `;
 
 const RuleTitle = styled.span`

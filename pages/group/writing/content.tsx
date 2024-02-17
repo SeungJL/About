@@ -20,13 +20,13 @@ function GroupWritingContent() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
+  const [group, setGroup] = useRecoilState(sharedGroupWritingState);
 
   //초기 input 세팅
 
-  const [content, setContent] = useState(Group?.content || "");
+  const [content, setContent] = useState(group?.content || "");
   const [rules, setRules] = useState<string[]>(
-    Group?.rules?.length ? Group?.rules : [""]
+    group?.rules?.length ? group?.rules : [""]
   );
 
   const onClickNext = () => {
@@ -40,7 +40,7 @@ function GroupWritingContent() {
       rules: rules[0] === "" ? [] : rules,
       content,
     }));
-    router.push(`/Group/writing/period`);
+    router.push(`/group/writing/period`);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
@@ -63,7 +63,7 @@ function GroupWritingContent() {
   return (
     <Slide>
       <ProgressStatus value={56} />
-      <Header title="" url="/Group/writing/guide" />
+      <Header title="" url="/group/writing/guide" />
       <RegisterLayout>
         <RegisterOverview>
           <span>어떤 모임인지 작성해주세요!</span>

@@ -15,11 +15,11 @@ function GroupWritingGuide() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [Group, setGroup] = useRecoilState(sharedGroupWritingState);
+  const [group, setGroup] = useRecoilState(sharedGroupWritingState);
 
   //초기 input 세팅
-  const [title, setTitle] = useState(Group?.title || "");
-  const [guide, setGuide] = useState(Group?.guide || "");
+  const [title, setTitle] = useState(group?.title || "");
+  const [guide, setGuide] = useState(group?.guide || "");
 
   const onClickNext = () => {
     if (!title || !guide) {
@@ -32,13 +32,13 @@ function GroupWritingGuide() {
       title,
       guide,
     }));
-    router.push(`/Group/writing/content`);
+    router.push(`/group/writing/content`);
   };
 
   return (
     <Slide>
       <ProgressStatus value={42} />
-      <Header title="" url="/Group/writing/category/sub" />
+      <Header title="" url="/group/writing/category/sub" />
       <RegisterLayout>
         <RegisterOverview>
           <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>

@@ -2,18 +2,15 @@ import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
-import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/Group";
+import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/groupStudy";
+
 import { dayjsToFormat, getDateWeek } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
-import { useGroupAttendMutation } from "../../hooks/Group/mutations";
+import { useGroupAttendMutation } from "../../hooks/groupStudy/mutations";
+
 import { IModal } from "../../types/reactTypes";
 
 interface IAttendCheckModal extends IModal {
@@ -75,58 +72,60 @@ function AttendCheckModal({
     mutate({ weekRecord: myAttend, type, weekRecordSub: mySubAttend });
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "저장",
+      func: onSubmit,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text={`${dateWeek}주차 출석체크`} />
-      <ModalBody>
-        <CheckContainer>
-          {dayArr.map((item, idx) => {
-            const day = dayjsToFormat(item, "ddd");
-            return (
-              <Button
-                key={idx}
-                onClick={() => onClickBtn(day)}
-                colorScheme={
-                  myAttend?.includes(day)
-                    ? "mintTheme"
-                    : mySubAttend?.includes(day)
-                    ? "yellowTheme"
-                    : "gray"
-                }
-              >
-                {dayjsToFormat(item, "ddd요일")}
-              </Button>
-            );
-          })}
-          <Button
-            colorScheme={myAttend.length === 7 ? "mintTheme" : "gray"}
-            w="64px"
-            onClick={() => onClickBtn("all")}
-          >
-            전체
-          </Button>
-        </CheckContainer>
-        <ColorView>
-          <ColorItem>
-            <Color color="var(--color-mint)" />
-            <span>완료</span>
-          </ColorItem>
-          <ColorItem>
-            <Color color="#FEBC5A" />
-            <span>절반 완료</span>
-          </ColorItem>
-          <ColorItem>
-            <Color color="#E2E8F0" />
-            <span>미실시</span>
-          </ColorItem>
-        </ColorView>
-      </ModalBody>
-      <ModalFooterTwo
-        rightText="저장"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onSubmit}
-        isLoading={isLoading}
-      />
+    <ModalLayout
+      title={`${dateWeek}주차 출석체크`}
+      setIsModal={setIsModal}
+      footerOptions={footerOptions}
+    >
+      <CheckContainer>
+        {dayArr.map((item, idx) => {
+          const day = dayjsToFormat(item, "ddd");
+          return (
+            <Button
+              key={idx}
+              onClick={() => onClickBtn(day)}
+              colorScheme={
+                myAttend?.includes(day)
+                  ? "mintTheme"
+                  : mySubAttend?.includes(day)
+                  ? "yellowTheme"
+                  : "gray"
+              }
+            >
+              {dayjsToFormat(item, "ddd요일")}
+            </Button>
+          );
+        })}
+        <Button
+          colorScheme={myAttend.length === 7 ? "mintTheme" : "gray"}
+          w="64px"
+          onClick={() => onClickBtn("all")}
+        >
+          전체
+        </Button>
+      </CheckContainer>
+      <ColorView>
+        <ColorItem>
+          <Color color="var(--color-mint)" />
+          <span>완료</span>
+        </ColorItem>
+        <ColorItem>
+          <Color color="#FEBC5A" />
+          <span>절반 완료</span>
+        </ColorItem>
+        <ColorItem>
+          <Color color="#E2E8F0" />
+          <span>미실시</span>
+        </ColorItem>
+      </ColorView>
     </ModalLayout>
   );
 }

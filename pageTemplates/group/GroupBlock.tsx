@@ -9,13 +9,13 @@ import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import { transferGroupDataState } from "../../recoil/transferDataAtoms";
 import { isGuestState } from "../../recoil/userAtoms";
-import { IGroup } from "../../types/page/Group";
+import { IGroup } from "../../types/page/group";
 
 interface IGroupBlock {
-  Group: IGroup;
+  group: IGroup;
 }
 
-function GroupBlock({ Group }: IGroupBlock) {
+function GroupBlock({ group }: IGroupBlock) {
   const router = useRouter();
   const failToast = useFailToast();
   const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
@@ -23,19 +23,19 @@ function GroupBlock({ Group }: IGroupBlock) {
   const isGuest = useRecoilValue(isGuestState);
   const setGroup = useSetRecoilState(transferGroupDataState);
 
-  const GroupInfo = {
-    그룹장: Group.organizer.name === "이승주" ? "어바웃" : Group.organizer.name,
-    인원: `${Group.participants.length}/${
-      Group.memberCnt.max === 0 ? "자유" : Group.memberCnt.max + "명"
+  const groupInfo = {
+    그룹장: group.organizer.name === "이승주" ? "어바웃" : group.organizer.name,
+    인원: `${group.participants.length}/${
+      group.memberCnt.max === 0 ? "자유" : group.memberCnt.max + "명"
     }`,
     조건: `${
-      Group.age[0] === 19 && Group.age[1] === 28
+      group.age[0] === 19 && group.age[1] === 28
         ? "제한없음"
-        : Group.age[0] + " ~ " + Group.age[1] + "세"
+        : group.age[0] + " ~ " + group.age[1] + "세"
     }`,
-    참여금: `${Group.fee ? Group.fee + "원" : "기본"}`,
-    진행: `${Group.period || "자율"}`,
-    개설: dayjsToFormat(dayjs(Group.createdAt), "YY년 M월 D일"),
+    참여금: `${group.fee ? group.fee + "원" : "기본"}`,
+    진행: `${group.period || "자율"}`,
+    개설: dayjsToFormat(dayjs(group.createdAt), "YY년 M월 D일"),
   };
 
   const onClick = () => {
@@ -44,15 +44,15 @@ function GroupBlock({ Group }: IGroupBlock) {
       return;
     }
 
-    setGroup(Group);
-    router.push(`/Group/${Group.id}`);
+    setGroup(group);
+    router.push(`/group/${group.id}`);
   };
 
   const getBadgeText = () => {
-    const status = Group.status;
-    const min = Group.memberCnt.min;
-    const max = Group.memberCnt.max;
-    const participantCnt = Group.participants.length;
+    const status = group.status;
+    const min = group.memberCnt.min;
+    const max = group.memberCnt.max;
+    const participantCnt = group.participants.length;
     if (status === "pending") {
       if (participantCnt < min) {
         return {
@@ -83,8 +83,8 @@ function GroupBlock({ Group }: IGroupBlock) {
     <Layout onClick={onClick}>
       <Header>
         <div>
-          <span>{Group.category.main}</span>·<span>{Group.category.sub}</span>
-          {!Group?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
+          <span>{group.category.main}</span>·<span>{group.category.sub}</span>
+          {!group?.isFree && <FontAwesomeIcon icon={faLockKeyhole} />}
         </div>
         <Badge
           text={getBadgeText().text}
@@ -93,16 +93,16 @@ function GroupBlock({ Group }: IGroupBlock) {
           size="md"
         />
       </Header>
-      <Title>{Group.title}</Title>
+      <Title>{group.title}</Title>
       <Info>
         {infoArrText.map((item) => (
           <InfoItem key={item}>
             <span>{item}</span>
-            <span>{GroupInfo[item]}</span>
+            <span>{groupInfo[item]}</span>
           </InfoItem>
         ))}
       </Info>
-      <Content>{Group.guide}</Content>
+      <Content>{group.guide}</Content>
     </Layout>
   );
 }
@@ -117,6 +117,7 @@ const Layout = styled.button`
   padding: var(--gap-3);
   margin-bottom: var(--gap-4);
   box-shadow: var(--shadow);
+  border: var(--border);
 `;
 
 const Header = styled.header`
