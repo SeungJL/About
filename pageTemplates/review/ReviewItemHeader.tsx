@@ -23,10 +23,11 @@ function ReviewItemHeader({ writer, date }: IReviewItemHeader) {
 }
 
 const Layout = styled.div`
+  background-color: white;
   display: flex;
   justify-content: space-between;
-  margin: 0 var(--gap-4);
-  margin-bottom: var(--gap-3);
+  padding: 12px 16px;
+  border: var(--border);
   align-items: center;
 `;
 

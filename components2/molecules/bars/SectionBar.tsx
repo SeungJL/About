@@ -5,23 +5,27 @@ interface ISectionBar {
   title: string;
   hasMoreBtn?: boolean;
   rightComponent?: React.ReactNode;
+  size?: "md" | "lg";
 }
 export default function SectionBar({
   title,
   hasMoreBtn = true,
-  rightComponent
+  rightComponent,
+  size = "lg",
 }: ISectionBar) {
   return (
     <SectionBarContainer>
-      <TitleContainer>{title}</TitleContainer>
+      <TitleContainer size={size}>{title}</TitleContainer>
       {hasMoreBtn && !rightComponent && <HighlightedTextButton text="더보기" />}
       {rightComponent}
     </SectionBarContainer>
   );
 }
 
-const SectionBarContainer = styled.div`
-  padding: 16px; /* 4px */
+const SectionBarContainer = styled.div<{ size: "md" | "lg" }>`
+  width: 100%;
+  height: ${(props) => (props.size === "md" ? "51px " : "59px")};
+  padding: 0 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,9 +36,11 @@ const SectionBarContainer = styled.div`
   border-bottom: var(--border);
 `;
 
-const TitleContainer = styled.div`
-  font-size: 18px; /* text-lg */
-  font-weight: 700; /* font-semibold */
+const TitleContainer = styled.div<{ size: "md" | "lg" }>`
+  font-size: ${(props) =>
+    props.size === "lg" ? "18px" : "16px"}; /* text-lg */
+  font-weight: ${(props) => (props.size === "lg" ? 700 : 600)};
+
   display: flex;
   align-items: center;
 `;

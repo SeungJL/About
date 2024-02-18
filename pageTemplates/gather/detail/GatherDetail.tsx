@@ -67,10 +67,10 @@ const Layout = styled.div`
   flex-direction: column;
   margin: var(--gap-3) var(--gap-4);
   padding: var(--gap-2) var(--gap-3);
-
   background-color: white;
   border-radius: var(--rounded);
   box-shadow: var(--shadow);
+  border: var(--border);
 `;
 
 const ItemText = styled.span`

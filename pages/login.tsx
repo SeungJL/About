@@ -120,7 +120,7 @@ const Login: NextPage<{
               height="40px"
               background="var(--gray-7)"
               onClick={() => setIsModal(true)}
-              border="var(--border-light)"
+              border="var(--border)"
               mb="var(--gap-2)"
             >
               게스트 로그인

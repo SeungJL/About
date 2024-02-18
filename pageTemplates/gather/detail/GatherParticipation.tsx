@@ -8,11 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { IUser } from "../../../types/user/user";
+import Avatar from "../../../components2/atoms/Avatar";
+import { prevPageUrlState } from "../../../recoils/navigationRecoils";
+import { transferUserSummaryState } from "../../../recoils/transferRecoils";
 import { IGather } from "../../../types2/gatherTypes/gatherTypes";
+import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
 interface IGatherParticipation {
   data: IGather;
@@ -20,8 +20,8 @@ interface IGatherParticipation {
 
 function GatherParticipation({ data }: IGatherParticipation) {
   const router = useRouter();
-  const setUserData = useSetRecoilState(transferUserDataState);
-  const setBeforePage = useSetRecoilState(prevPageUrlState);
+  const setTransferUserSummary = useSetRecoilState(transferUserSummaryState);
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
   const organizer = data.user;
   const status = data.status;
@@ -29,9 +29,9 @@ function GatherParticipation({ data }: IGatherParticipation) {
 
   const isAdminOpen = data.isAdminOpen;
 
-  const onClickProfile = (user: IUser) => {
-    setUserData(user);
-    setBeforePage(router?.asPath);
+  const onClickProfile = (user: IUserSummary) => {
+    setTransferUserSummary(user);
+    setPrevPageUrl(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
 
@@ -57,7 +57,12 @@ function GatherParticipation({ data }: IGatherParticipation) {
             onClick={() => onClickProfile(organizer)}
           >
             <Organizer>
-              <ProfileIcon user={organizer} size="sm" />
+              <Avatar
+                image={organizer.profileImage}
+                avatar={organizer.avatar}
+                uid={organizer.uid}
+                size="md"
+              />
               <CrownWrapper>
                 <FontAwesomeIcon icon={faCrown} color="var(--color-orange)" />
               </CrownWrapper>
@@ -79,7 +84,12 @@ function GatherParticipation({ data }: IGatherParticipation) {
                 key={who?.user.uid}
                 onClick={() => onClickProfile(who.user)}
               >
-                <ProfileIcon user={who.user} size="sm" />
+                <Avatar
+                  image={who.user.profileImage}
+                  avatar={who.user.avatar}
+                  uid={who.user.uid}
+                  size="md"
+                />
                 <UserOverview>
                   <span>{who?.user?.name}</span>
                   <div>{who?.user.comment}</div>
@@ -104,14 +114,14 @@ const MemberItem = styled.div`
   display: flex;
   align-items: center;
 
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
 `;
 
 const Header = styled.header`
   font-size: 16px;
   padding: var(--gap-4);
   font-weight: 600;
-
+  border-bottom: var(--border);
   > span:first-child {
     margin-right: var(--gap-3);
   }
@@ -180,6 +190,7 @@ const Layout = styled.div`
   flex-direction: column;
   background-color: white;
   padding-bottom: var(--gap-4);
+  border: var(--border);
 `;
 
 const Empty = styled.div`

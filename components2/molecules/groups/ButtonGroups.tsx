@@ -1,13 +1,13 @@
 import { Button, Flex } from "@chakra-ui/react";
 import styled from "styled-components";
 import { ButtonSize } from "../../../types2/assetTypes";
-interface IButtonData {
+export interface IButtonOpions {
   text: string;
   func: () => void;
 }
 
 interface IButtonGroups {
-  buttonDataArr: IButtonData[];
+  buttonDataArr: IButtonOpions[];
   currentValue: string;
   size?: ButtonSize;
 }
@@ -25,7 +25,7 @@ export default function ButtonGroups({
               {buttonData.text}
             </Button>
           ) : (
-            <Button mr="8px" variant="outline">
+            <Button mr="8px" variant="outline" bg="white">
               {buttonData.text}
             </Button>
           )}

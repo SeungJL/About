@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
@@ -12,7 +11,6 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
 
-import { userInfoState } from "../../../recoil/userAtoms";
 import { GatherStatus } from "../../../types/page/gather";
 import { IGroup } from "../../../types/page/group";
 
@@ -29,10 +27,8 @@ function GroupBottomNav({ data }: IGroupBottomNav) {
   const errorToast = useErrorToast();
   const { data: session } = useSession();
 
-  const userInfo = useRecoilValue(userInfoState);
-
   const url = router.asPath;
-  const myUid = userInfo.uid;
+  const myUid = session?.user.uid;
   const myGroup = data.organizer.uid === myUid;
   const isParticipant = data?.participants.some(
     (who) => who && who.user.uid === myUid

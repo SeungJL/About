@@ -7,20 +7,34 @@ import {
   PostThumbnailCard,
 } from "../../components2/molecules/cards/PostThumbnailCard";
 import { useGatherQuery } from "../../hooks/gather/queries";
+import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { setGatherDataToCardCol } from "../home/HomeGatherSection";
 
-interface IGatherMain {}
-export default function GatherMain({}: IGatherMain) {
+export default function GatherMain() {
   const searchParams = useSearchParams();
   const { data } = useSession();
+  const location = convertLocationLangTo(
+    searchParams.get("location") as LocationEn,
+    "kr"
+  );
   const [cardDataArr, setCardDataArr] = useState<IPostThumbnailCard[]>();
 
   const { data: gathers } = useGatherQuery();
 
   useEffect(() => {
     if (!gathers) return;
-    setCardDataArr(setGatherDataToCardCol(gathers));
-  }, [gathers]);
+    setCardDataArr(
+      setGatherDataToCardCol(
+        location
+          ? gathers.filter(
+              (gather) =>
+                gather.place === "전체" || gather.place.includes(location)
+            )
+          : gathers
+      )
+    );
+  }, [gathers, location]);
 
   return (
     <Box m="0 16px">

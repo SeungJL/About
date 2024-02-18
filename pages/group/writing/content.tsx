@@ -9,7 +9,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
+
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
@@ -61,43 +62,51 @@ function GroupWritingContent() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={56} />
-      <Header title="" url="/group/writing/guide" />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>어떤 모임인지 작성해주세요!</span>
-          <span>가입 이전에 어떤 활동과 방식의 모임인지 알 수 있어야 해요</span>
-        </RegisterOverview>
-        <Container>
-          <Content
-            placeholder="내용을 작성해주세요."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-          <RuleTitle>규칙이 있나요?</RuleTitle>
-          <RuleContainer>
-            {rules.map((item, idx) => (
-              <RuleItem key={idx}>
-                <input value={item} onChange={(e) => onChange(e, idx)} />
-                <MinusWrapper
-                  onClick={() =>
-                    setRules((old) => old.filter((rule) => rule !== item))
-                  }
-                >
-                  <FontAwesomeIcon icon={faMinusCircle} />
-                </MinusWrapper>
-              </RuleItem>
-            ))}
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={56} />
+        <Header title="" url="/group/writing/guide" />
+      </Slide>
+      <Slide>
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>어떤 모임인지 작성해주세요!</span>
+            <span>
+              가입 이전에 어떤 활동과 방식의 모임인지 알 수 있어야 해요
+            </span>
+          </RegisterOverview>
+          <Container>
+            <Content
+              placeholder="내용을 작성해주세요."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+            <RuleTitle>규칙이 있나요?</RuleTitle>
+            <RuleContainer>
+              {rules.map((item, idx) => (
+                <RuleItem key={idx}>
+                  <input value={item} onChange={(e) => onChange(e, idx)} />
+                  <MinusWrapper
+                    onClick={() =>
+                      setRules((old) => old.filter((rule) => rule !== item))
+                    }
+                  >
+                    <FontAwesomeIcon icon={faMinusCircle} />
+                  </MinusWrapper>
+                </RuleItem>
+              ))}
 
-            <PlusWrapper onClick={() => handleAdd()}>
-              <FontAwesomeIcon icon={faPlusCircle} />
-            </PlusWrapper>
-          </RuleContainer>
-        </Container>
+              <PlusWrapper onClick={() => handleAdd()}>
+                <FontAwesomeIcon icon={faPlusCircle} />
+              </PlusWrapper>
+            </RuleContainer>
+          </Container>
+        </RegisterLayout>
+      </Slide>
+      <Slide isFixed={true} posZero="top">
         <BottomNav onClick={() => onClickNext()} />
-      </RegisterLayout>
-    </Slide>
+      </Slide>
+    </>
   );
 }
 

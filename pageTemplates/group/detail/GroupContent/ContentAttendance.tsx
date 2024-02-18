@@ -255,14 +255,14 @@ const Container = styled.div`
 const TopLine = styled.div`
   display: flex;
   background-color: var(--gray-8);
-  border: var(--border-light);
+  border: var(--border);
   font-size: 13px;
   color: var(--gray-3);
   > div {
     padding: var(--gap-1) 0;
     flex: 1;
     text-align: center;
-    border-left: var(--border-light);
+    border-left: var(--border);
   }
   > div:first-child {
     flex: 1.5;
@@ -274,10 +274,10 @@ const Main = styled.main``;
 
 const MainLine = styled.div`
   display: flex;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   > div {
     text-align: center;
-    border-left: var(--border-light);
+    border-left: var(--border);
     padding: var(--gap-1) 0;
   }
   > div:first-child {

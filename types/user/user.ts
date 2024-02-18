@@ -10,7 +10,7 @@ export interface IUser extends IUserRegisterForm {
   avatar: IAvatar;
   deposit: number;
   profileImage: string;
-  thumbnailImage: string;
+  // thumbnailImage: string;
   friend: string[];
   like: number;
   belong?: string;

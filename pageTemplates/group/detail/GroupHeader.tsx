@@ -32,7 +32,7 @@ function GroupHeader({ group }: IGroupHeader) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const router = useRouter();
-
+  console.log(4, group);
   const title = group?.title;
   // const date = group?.date;
   // const locationMain = group?.location.main;
@@ -65,7 +65,7 @@ function GroupHeader({ group }: IGroupHeader) {
     });
   };
 
-  const { mutate } = useGroupParticipationMutation("delete", group.id, {
+  const { mutate } = useGroupParticipationMutation("delete", group?.id, {
     onSuccess: movePage,
   });
 
@@ -86,13 +86,15 @@ function GroupHeader({ group }: IGroupHeader) {
           </IconWrapper>
         )}
         <Wrapper>
-          <KakaoShareBtn
-            title={group.title}
-            subtitle={group.guide}
-            url={WEB_URL + `/group/${group.id}`}
-            img={group?.image}
-            type="gather"
-          />
+          {group && (
+            <KakaoShareBtn
+              title={group.title}
+              subtitle={group.guide}
+              url={WEB_URL + `/group/${group.id}`}
+              img={group?.image}
+              type="gather"
+            />
+          )}
         </Wrapper>
         <IconWrapper onClick={() => setIsSettingModal(true)}>
           <FontAwesomeIcon

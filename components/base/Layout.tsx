@@ -30,9 +30,9 @@ interface ILayout {
 function Layout({ children }: ILayout) {
   const router = useRouter();
   const pathname = usePathname();
-  const segments = pathname?.split("/").filter(Boolean);
-  const firstSegment = segments?.length ? segments[0] : null;
-
+  console.log(2, pathname);
+  // const segments = pathname?.split("/").filter(Boolean);
+  // const firstSegment = segments?.length ? segments[0] : null;
 
   const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -113,7 +113,7 @@ function Layout({ children }: ILayout) {
       {token && (
         <>
           <div id="root-modal">{children}</div>
-          {BASE_BOTTOM_NAV_URL.includes(firstSegment) && <BottomNav />}
+          {BASE_BOTTOM_NAV_URL.includes(pathname) && <BottomNav />}
           <BaseModal
             isGuest={isGuest}
             isError={isErrorModal}
@@ -126,6 +126,6 @@ function Layout({ children }: ILayout) {
   );
 }
 
-const BASE_BOTTOM_NAV_URL = ["home", "ranking", "gather", "group"];
+const BASE_BOTTOM_NAV_URL = ["/home", "/ranking", "/gather", "/group"];
 
 export default Layout;

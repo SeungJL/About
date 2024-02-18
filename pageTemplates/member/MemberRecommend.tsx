@@ -91,7 +91,7 @@ const Nav = styled.nav`
 
 const Button = styled.button`
   border-radius: var(--rounded-lg);
-  border: var(--border-light);
+  border: var(--border);
   height: 60px;
   margin-top: var(--gap-2);
   font-size: 15px;

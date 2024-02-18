@@ -4,13 +4,13 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../../components/layout/BottomNav";
 import Header from "../../../../components/layout/Header";
-import Slide from "../../../../components/layout/Slide";
+import Slide from "../../../../components/layout/PageSlide";
 
 import ProgressStatus from "../../../../components/templates/ProgressStatus";
 import {
   GROUP_STUDY_CATEGORY_ARR_ICONS,
   GROUP_STUDY_SUB_CATEGORY,
-} from "../../../../constants/contents/GroupContents";
+} from "../../../../constants/contents/GroupStudyContents";
 
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
@@ -48,30 +48,36 @@ function WritingStudyCategorySub() {
   }, [mainCategory]);
 
   return (
-    <Slide>
-      <ProgressStatus value={28} />
-      <Header title="" url={"/group/writing/category/main"} />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>주제를 선택해 주세요.</span>
-        </RegisterOverview>
-        <ItemContainer>
-          {GROUP_STUDY_SUB_CATEGORY[mainCategory].map((type, idx) => (
-            <Item
-              key={idx}
-              isSelected={type === category}
-              onClick={() => setCategory(type)}
-            >
-              <IconWrapper>
-                {GROUP_STUDY_CATEGORY_ARR_ICONS[mainCategory]}
-              </IconWrapper>
-              <Info>{type}</Info>
-            </Item>
-          ))}
-        </ItemContainer>
-      </RegisterLayout>
-      <BottomNav onClick={onClickNext} />
-    </Slide>
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={28} />
+        <Header title="" url={"/group/writing/category/main"} />
+      </Slide>
+      <Slide>
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>주제를 선택해 주세요.</span>
+          </RegisterOverview>
+          <ItemContainer>
+            {GROUP_STUDY_SUB_CATEGORY[mainCategory].map((type, idx) => (
+              <Item
+                key={idx}
+                isSelected={type === category}
+                onClick={() => setCategory(type)}
+              >
+                <IconWrapper>
+                  {GROUP_STUDY_CATEGORY_ARR_ICONS[mainCategory]}
+                </IconWrapper>
+                <Info>{type}</Info>
+              </Item>
+            ))}
+          </ItemContainer>
+        </RegisterLayout>
+      </Slide>
+      <Slide isFixed={true} posZero="top">
+        <BottomNav onClick={onClickNext} />
+      </Slide>
+    </>
   );
 }
 

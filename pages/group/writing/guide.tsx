@@ -4,7 +4,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
+
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
@@ -36,29 +37,35 @@ function GroupWritingGuide() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={42} />
-      <Header title="" url="/group/writing/category/sub" />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>
-          <span>스터디 소개에 가장 먼저 노출됩니다.</span>
-        </RegisterOverview>
-        <Container>
-          <TitleInput
-            placeholder="제목"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Guide
-            placeholder="간단하게 작성해주세요."
-            value={guide}
-            onChange={(e) => setGuide(e.target.value)}
-          />
-        </Container>
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={42} />
+        <Header title="" url="/group/writing/category/sub" />
+      </Slide>
+      <Slide>
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>
+            <span>스터디 소개에 가장 먼저 노출됩니다.</span>
+          </RegisterOverview>
+          <Container>
+            <TitleInput
+              placeholder="제목"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Guide
+              placeholder="간단하게 작성해주세요."
+              value={guide}
+              onChange={(e) => setGuide(e.target.value)}
+            />
+          </Container>
+        </RegisterLayout>
+      </Slide>
+      <Slide isFixed={true} posZero="top">
         <BottomNav onClick={() => onClickNext()} />
-      </RegisterLayout>
-    </Slide>
+      </Slide>
+    </>
   );
 }
 

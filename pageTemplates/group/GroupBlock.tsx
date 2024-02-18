@@ -155,7 +155,7 @@ const Info = styled.div`
   display: grid;
   grid-template-columns: 0.9fr 0.8fr 1.2fr;
   gap: var(--gap-1);
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
 `;
 
 const InfoItem = styled.div`

@@ -86,7 +86,7 @@ const Layout = styled.div<{ status: GatherStatus }>`
   padding: Var(--gap-4);
   padding-bottom: var(--gap-2);
   background-color: white;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   display: flex;
   flex-direction: column;
 `;

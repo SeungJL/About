@@ -252,7 +252,7 @@ const Item = styled.div`
   justify-content: space-between;
   padding: var(--gap-4) 0;
   align-items: center;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
 `;
 
 const PopOverWrapper = styled.span`

@@ -99,7 +99,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   align-items: center;
   border-radius: var(--rounded-lg);
   border: ${(props) =>
-    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-light)"};
+    props.isSelected ? "2px solid var(--color-mint)" : "var(--border)"};
 `;
 
 const Place = styled.div`

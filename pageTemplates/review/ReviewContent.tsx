@@ -21,7 +21,6 @@ const P = styled.p<{ isShort: boolean }>`
   overflow: hidden;   `}
 
   padding: 0 var(--gap-4);
-  margin-bottom: var(--gap-5);
   font-size: 13px;
   display: -webkit-box;
 

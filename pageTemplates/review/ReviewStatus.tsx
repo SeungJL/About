@@ -2,7 +2,6 @@ import { faHeart, faMessage } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import ProfileIconXsOverwrap from "../../components/common/user/Profile/ProfileIconXsOverwrap";
 import ModalPortal from "../../components/modals/ModalPortal";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -23,11 +22,11 @@ function ReviewStatus({ temp }: { temp?: any }) {
           <FontAwesomeIcon icon={faMessage} size="xl" />
           <span>10</span>
         </Item>
-        <Profile>
+        {/* <Profile>
           <ProfileContainer zIndex={0}>
             <ProfileIconXsOverwrap user={temp} isOverlap={false} />
           </ProfileContainer>
-        </Profile>
+        </Profile> */}
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
@@ -40,7 +39,8 @@ function ReviewStatus({ temp }: { temp?: any }) {
 
 const Layout = styled.div`
   display: flex;
-  margin: 0 var(--gap-4);
+
+  padding: 16px;
 `;
 
 const Item = styled.div`

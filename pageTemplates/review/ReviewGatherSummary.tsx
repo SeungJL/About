@@ -48,7 +48,7 @@ const Layout = styled.button`
   margin: var(--gap-4);
   margin-bottom: var(--gap-5);
   border: var(--border);
-
+  background-color: white;
   box-shadow: var(--shadow);
 
   border-radius: var(--rounded-lg);

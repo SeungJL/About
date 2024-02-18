@@ -1,6 +1,8 @@
+import { useSearchParams } from "next/navigation";
 import { useRecoilState, useRecoilValue } from "recoil";
 import DailyCheckWinModal from "../../modals/aboutHeader/dailyCheckModal/DailyCheckWinModal";
 import AlphabetModal from "../../modals/common/AlphabetModal";
+import WriteDrawer from "../../modals/home/writeDrawer";
 import ErrorUserInfoPopUp from "../../modals/pop-up/ErrorUserInfoPopUp";
 import { transferAlphabetState } from "../../recoil/transferDataAtoms";
 import { transferDailyCheckWinState } from "../../recoils/transferRecoils";
@@ -14,6 +16,9 @@ interface IBaseModal {
 }
 
 function BaseModal({ isGuest, isError, setIsError }: IBaseModal) {
+  const searchParams = useSearchParams();
+  const isWriteModal = !!searchParams.get("write");
+  console.log(isWriteModal);
   const [transferAlphabet, setTransferAlphabet] = useRecoilState(
     transferAlphabetState
   );
@@ -25,6 +30,7 @@ function BaseModal({ isGuest, isError, setIsError }: IBaseModal) {
       {!!dailyCheckWin && <DailyCheckWinModal />}
       {isGuest && <GuestBottomNav />}
       {isError && <ErrorUserInfoPopUp setIsModal={setIsError} />}
+      {isWriteModal && <WriteDrawer />}
       {transferAlphabet && (
         <AlphabetModal
           setIsModal={() => setTransferAlphabet(null)}

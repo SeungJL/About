@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
 import ButtonCheckNav from "../../../components/templates/ButtonCheckNav";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
@@ -44,25 +44,31 @@ function GroupWritingContent() {
   ];
 
   return (
-    <Slide>
-      <ProgressStatus value={72} />
-      <Header title="" url="/group/writing/content" />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>진행 주기를 체크해주세요!</span>
-          <span>나중에 변경할 수 있습니다.</span>
-        </RegisterOverview>
-        <Container>
-          <ButtonCheckNav
-            buttonList={periodArr}
-            setSelectedButton={setPeriod}
-            selectedButton={period}
-            isWrap={true}
-          />
-        </Container>
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={72} />
+        <Header title="" url="/group/writing/content" />
+      </Slide>
+      <Slide>
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>진행 주기를 체크해주세요!</span>
+            <span>나중에 변경할 수 있습니다.</span>
+          </RegisterOverview>
+          <Container>
+            <ButtonCheckNav
+              buttonList={periodArr}
+              setSelectedButton={setPeriod}
+              selectedButton={period}
+              isWrap={true}
+            />
+          </Container>
+        </RegisterLayout>
+      </Slide>
+      <Slide isFixed={true} posZero="top">
         <BottomNav onClick={() => onClickNext()} />
-      </RegisterLayout>
-    </Slide>
+      </Slide>
+    </>
   );
 }
 

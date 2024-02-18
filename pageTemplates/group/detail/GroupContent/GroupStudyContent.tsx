@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import TabNav, {
+  ITabNavOptions,
+} from "../../../../components2/molecules/navs/TabNav";
 import { IGroup } from "../../../../types/page/group";
 import ContentAttend from "./ContentAttendance";
 import ContentChat from "./ContentChat";
@@ -17,9 +20,16 @@ function GroupContent({ group }: IGroupContent) {
 
   const categoryArr: Category[] = ["정보", "출석부", "모임", "채팅"];
 
+  const tabArr: ITabNavOptions[] = categoryArr.map((category) => ({
+    text: category,
+    func: () => setCategory(category),
+    flex: 1,
+  }));
+
   return (
     <Layout>
-      <ContentNav>
+      <TabNav tabOptionsArr={tabArr} />
+      {/* <ContentNav>
         {categoryArr.map((item) => (
           <ContentBtn
             onClick={() => setCategory(item)}
@@ -29,7 +39,7 @@ function GroupContent({ group }: IGroupContent) {
             {item}
           </ContentBtn>
         ))}
-      </ContentNav>
+      </ContentNav> */}
       <ContentContainer>
         {category === "정보" ? (
           <ContentInfo group={group} />

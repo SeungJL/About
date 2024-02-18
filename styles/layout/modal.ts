@@ -15,7 +15,7 @@ export const ModalHeaderLine = styled.header`
   color: var(--gray-1);
   font-weight: 600;
   font-size: 16px;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   padding-bottom: var(--gap-3);
 `;
 

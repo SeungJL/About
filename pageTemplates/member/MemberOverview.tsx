@@ -130,7 +130,7 @@ const GroupInfo = styled.div`
   display: grid;
   grid-template-columns: 1.2fr 1fr 1.5fr;
   gap: var(--gap-1);
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
 `;
 const InfoItem = styled.div`
   text-align: start;

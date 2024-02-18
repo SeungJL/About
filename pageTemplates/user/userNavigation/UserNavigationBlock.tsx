@@ -145,7 +145,7 @@ const NavBlock = styled.div`
   > button {
     padding: var(--gap-4) var(--gap-4);
     text-align: start;
-    border-bottom: var(--border-light);
+    border-bottom: var(--border);
   }
 `;
 

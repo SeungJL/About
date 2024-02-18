@@ -3,19 +3,15 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import SuccessScreen from "../../components/layout/SuccessScreen";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
-import { useGroupWritingMutation } from "../../hooks/group/mutations";
+import { useGroupWritingMutation } from "../../hooks/groupStudy/mutations";
+
 import { transferGroupDataState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGroup, IGroupWriting } from "../../types/page/group";
@@ -66,33 +62,36 @@ function GroupConfirmModal({
     } else mutate({ group: GroupWriting });
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: GroupWriting.id ? "내용 수정" : "소모임 개설",
+      func: onSubmit,
+    },
+  };
+
   return (
     <>
       {GroupWriting && (
-        <ModalLayout onClose={() => setIsModal(false)} size="lg">
-          <ModalHeader text={GroupWriting.id ? "내용 수정" : "소모임 개설"} />
-          <ModalBody>
-            <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
-            <Container>
-              <Item>
-                <span>제목:</span>
-                <span>{GroupWriting?.title}</span>
-              </Item>
-              <Item>
-                <span>날짜:</span>
-                <span>{GroupWriting?.category?.sub}</span>
-              </Item>
-              <Item>
-                <span>주제:</span>
-                <span>{GroupWriting.guide}</span>
-              </Item>
-            </Container>
-          </ModalBody>
-          <ModalFooterOne
-            isFull={true}
-            text={GroupWriting.id ? "내용 수정" : "소모임 개설"}
-            onClick={onSubmit}
-          />
+        <ModalLayout
+          title={GroupWriting.id ? "내용 수정" : "소모임 개설"}
+          setIsModal={setIsModal}
+          footerOptions={footerOptions}
+        >
+          <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
+          <Container>
+            <Item>
+              <span>제목:</span>
+              <span>{GroupWriting?.title}</span>
+            </Item>
+            <Item>
+              <span>날짜:</span>
+              <span>{GroupWriting?.category?.sub}</span>
+            </Item>
+            <Item>
+              <span>주제:</span>
+              <span>{GroupWriting.guide}</span>
+            </Item>
+          </Container>
         </ModalLayout>
       )}
       {isSuccessScreen && (

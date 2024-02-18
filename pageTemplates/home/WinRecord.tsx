@@ -64,7 +64,7 @@ const Header = styled.header`
   color: var(--gray-1);
   font-weight: 500;
   padding-bottom: var(--gap-2);
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   > span:first-child {
     flex: 0.15;
   }

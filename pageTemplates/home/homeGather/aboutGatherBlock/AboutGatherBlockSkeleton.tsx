@@ -59,7 +59,7 @@ const ImageContainer = styled.div`
   position: relative;
   height: 100%;
   aspect-ratio: 1/1;
-  border: var(--border-light);
+  border: var(--border);
   border-radius: var(--rounded);
   display: flex;
   justify-content: center;

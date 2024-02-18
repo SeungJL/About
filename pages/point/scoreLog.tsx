@@ -66,7 +66,7 @@ const LogHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   font-size: 13px;
   > span {
     text-align: center;
@@ -114,7 +114,7 @@ const Item = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   font-size: 12px;
 `;
 

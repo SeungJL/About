@@ -104,8 +104,8 @@ const Container = styled.div`
 const Item = styled.div`
   display: flex;
   padding: var(--gap-3) 0;
-  border-top: var(--border-light);
-  border-bottom: var(--border-light);
+  border-top: var(--border);
+  border-bottom: var(--border);
 `;
 
 const ProfileWrapper = styled.div``;

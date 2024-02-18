@@ -1,7 +1,7 @@
 import { Box, Button } from "@chakra-ui/react";
 import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -9,11 +9,13 @@ import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
 import Slide from "../../components/layout/PageSlide";
-import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
 import Header from "../../components2/Header";
+import ButtonGroups, {
+  IButtonOpions,
+} from "../../components2/molecules/groups/ButtonGroups";
 import { DEFAULT_IMAGE_URL } from "../../constants/image/imageUrl";
-import { LOCATION_USE_ALL } from "../../constants/location";
 import { WEB_URL } from "../../constants/system";
+import { ACTIVE_LOCATIONS } from "../../constants2/locationConstants";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherAllSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pageTemplates/review/ReviewContent";
@@ -27,6 +29,12 @@ import {
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
 import { IGatherLocation, IGatherType } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
+import {
+  ActiveLocation,
+  ActiveLocationAll,
+  LocationEn,
+} from "../../types2/serviceTypes/locationTypes";
+import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 export interface IGatherSummary {
   title: string;
@@ -43,10 +51,14 @@ interface IReview extends IReviewData {
 
 function Review() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const location = searchParams.get("location");
+  const locationKr = convertLocationLangTo(location as LocationEn, "kr");
   const errorToast = useErrorToast();
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
-  const [category, setCategory] = useState<LocationFilterType>("전체");
+  const [category, setCategory] = useState<ActiveLocationAll>("전체");
 
   const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [reviewContentId, setReviewContentId] =
@@ -54,7 +66,7 @@ function Review() {
 
   const [visibleCnt, setVisibleCnt] = useState(8);
 
-  const url = WEB_URL + router?.asPath;
+  // const url = WEB_URL + router?.asPath;
 
   const writers = {
     이승주: {
@@ -152,14 +164,29 @@ function Review() {
     setVisibleCnt((old) => old + 8);
   };
 
+  const buttonArr: IButtonOpions[] = ["전체", ...ACTIVE_LOCATIONS].map(
+    (location) => ({
+      text: location,
+      func: () =>
+        location === "전체"
+          ? router.replace("/review")
+          : router.replace(
+              `/review?location=${convertLocationLangTo(
+                location as ActiveLocation,
+                "en"
+              )}`
+            ),
+    })
+  );
+
   return (
     <>
       <Slide isFixed={true}>
-        <Header title="모임 리뷰" url="/gather">
+        <Header title="모임 리뷰">
           <KakaoShareBtn
             title="모임 리뷰"
             subtitle="즐거운 모임 가득 ~!"
-            url={url}
+            url={`${WEB_URL}/review?location=${location}`}
             img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
           />
         </Header>
@@ -168,13 +195,13 @@ function Review() {
         <Layout>
           {reviewData ? (
             <>
-              <NavWrapper>
-                <ButtonCheckNav
-                  buttonList={["전체", ...LOCATION_USE_ALL]}
-                  selectedButton={category}
-                  setSelectedButton={setCategory}
-                />
-              </NavWrapper>
+              <ButtonGroups
+                buttonDataArr={buttonArr}
+                currentValue={
+                  convertLocationLangTo(location as LocationEn, "kr") || "전체"
+                }
+              />
+
               <Main>
                 {reviewData.slice(0, visibleCnt).map((item) => (
                   <Item id={"review" + item.id} key={item.id}>
@@ -221,12 +248,7 @@ const Layout = styled.div`
   margin-top: var(--gap-1);
 `;
 
-const NavWrapper = styled.div`
-  padding: var(--gap-2) var(--gap-3);
-`;
-
 const Main = styled.main`
-  margin-top: var(--gap-3);
   display: flex;
   flex-direction: column;
 `;
@@ -237,9 +259,10 @@ const ImageWrapper = styled.div`
 `;
 
 const Item = styled.div`
-  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
+  border: var(--border);
+  box-shadow: var(--shadow);
 `;
 
 const Spacing = styled.div`

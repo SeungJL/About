@@ -1,5 +1,6 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -22,6 +23,7 @@ type HomeCategory =
   | "member"
   | "gather"
   | "plaza"
+  | "review"
   | "group";
 
 function HomeCategoryNav() {
@@ -42,13 +44,13 @@ function HomeCategoryNav() {
   return (
     <Layout>
       <Item className="about_navigation1">
-        <Button onClick={() => onClickItem("record")}>
+        <CustomLink href="/record">
           <CalendarIcon />
-        </Button>
+        </CustomLink>
         <span>캘린더</span>
       </Item>
       <Item className="about_navigation2">
-        <Button onClick={() => onClickItem("point")}>
+        <CustomLink href="store">
           <StoreIcon />
           {isPointAlert && (
             <IconWrapper>
@@ -59,20 +61,29 @@ function HomeCategoryNav() {
               />
             </IconWrapper>
           )}
-        </Button>
-        <span>스토어</span>
+        </CustomLink>
+        <span>이벤트</span>
       </Item>
       <Item className="about_navigation3">
-        <Button onClick={() => onClickItem("member")}>
+        <CustomLink href="member">
           <MemberIcon />{" "}
           <IconWrapper>
             <NewAlertIcon size="lg" />
           </IconWrapper>
-        </Button>
+        </CustomLink>
         <span>동아리원</span>
       </Item>
       <Item className="about_navigation4">
-        <Button onClick={() => onClickItem("gather")}>
+        <CustomLink href="review">
+          <GroupIcon />{" "}
+          <IconWrapper>
+            <NewAlertIcon size="lg" />
+          </IconWrapper>
+        </CustomLink>
+        <span>리뷰</span>
+      </Item>
+      <Item className="about_navigation5">
+        <Button>
           <CampfireIcon />
           {isGatherAlert && (
             <IconWrapper>
@@ -80,16 +91,7 @@ function HomeCategoryNav() {
             </IconWrapper>
           )}
         </Button>
-        <span>모임/번개</span>
-      </Item>
-      <Item className="about_navigation5">
-        <Button onClick={() => onClickItem("group")}>
-          <GroupIcon />{" "}
-          <IconWrapper>
-            <NewAlertIcon size="lg" />
-          </IconWrapper>
-        </Button>
-        <span>소모임</span>
+        <span>? ? ?</span>
       </Item>
     </Layout>
   );
@@ -122,9 +124,12 @@ const Item = styled.div`
   }
 `;
 
+const CustomLink = styled(Link)`
+  margin-bottom: 8px;
+  position: relative;
+`;
+
 const Button = styled.button`
-  width: 46px;
-  height: 46px;
   margin-bottom: 9px;
   position: relative;
 `;

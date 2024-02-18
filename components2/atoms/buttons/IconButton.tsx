@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface IIconButton {
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
 }
 export default function IconButton({ children, onClick }: IIconButton) {

@@ -153,7 +153,7 @@ const Form = styled.form`
 const AutoItem = styled.div`
   padding: var(--gap-2) 0;
   padding-left: 14px;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   border-color: black;
   color: var(--gray-2);
   font-size: 13px;

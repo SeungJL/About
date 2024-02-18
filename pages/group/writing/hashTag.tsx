@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
@@ -33,24 +33,30 @@ function GroupWritingHashTag() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={86} />
-      <Header title="" url="/group/writing/period" />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>모임을 소개할 수 있는 해쉬태그를 달아봐요!</span>
-          <span>#을 포함해서 작성해주세요!</span>
-        </RegisterOverview>
-        <Container>
-          <Input
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="ex) #코딩 #블로그"
-          />
-        </Container>
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={86} />
+        <Header title="" url="/group/writing/period" />
+      </Slide>
+      <Slide>
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>모임을 소개할 수 있는 해쉬태그를 달아봐요!</span>
+            <span>#을 포함해서 작성해주세요!</span>
+          </RegisterOverview>
+          <Container>
+            <Input
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="ex) #코딩 #블로그"
+            />
+          </Container>
+        </RegisterLayout>
+      </Slide>
+      <Slide isFixed={true} posZero="top">
         <BottomNav onClick={() => onClickNext()} />
-      </RegisterLayout>
-    </Slide>
+      </Slide>
+    </>
   );
 }
 

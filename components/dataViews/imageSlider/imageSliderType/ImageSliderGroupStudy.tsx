@@ -82,7 +82,7 @@ const ImageContainer = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  border: var(--border-light);
+  border: var(--border);
   border-radius: var(--rounded);
   display: flex;
   justify-content: center;

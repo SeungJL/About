@@ -74,7 +74,7 @@ export const ModalLayout = ({
             <ChakraModalHeader
               p="var(--gap-4)"
               fontSize="18px"
-              borderBottom="var(--border-light)"
+              borderBottom="var(--border)"
             >
               {title}
             </ChakraModalHeader>
@@ -185,7 +185,7 @@ export const ModalHeader = ({
       fontWeight="700"
       fontSize="18px"
       color="var(--gray-1)"
-      borderBottom={isLine && "var(--border-light)"}
+      borderBottom={isLine && "var(--border)"}
     >
       {text}
     </ChakraModalHeader>

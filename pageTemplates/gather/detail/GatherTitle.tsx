@@ -27,7 +27,7 @@ const Layout = styled.div<{ status: GatherStatus }>`
   color: var(--gray-1);
   font-size: 16px;
   font-weight: 700;
-  border-bottom: var(--border-light);
+  border: var(--border);
   > span:last-child {
     margin-left: var(--gap-2);
   }

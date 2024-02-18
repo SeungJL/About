@@ -2,7 +2,8 @@ import {
   ActiveLocation,
   InactiveLocation,
   Location,
-} from "@/types/serviceTypes/locationTypes";
+  LocationEn,
+} from "../types2/serviceTypes/locationTypes";
 
 export const ACTIVE_LOCATIONS: ActiveLocation[] = [
   "수원",
@@ -18,3 +19,19 @@ export const LOCATIONS: Location[] = [
   ...ACTIVE_LOCATIONS,
   ...INACTIVE_LOCATIONS,
 ];
+
+export const krToEnMapping: Record<ActiveLocation, LocationEn> = {
+  수원: "suw",
+  강남: "gan",
+  동대문: "don",
+  안양: "any",
+  양천: "yan",
+};
+
+export const enToKrMapping: Record<LocationEn, ActiveLocation> = {
+  suw: "수원",
+  gan: "강남",
+  don: "동대문",
+  any: "안양",
+  yan: "양천",
+};

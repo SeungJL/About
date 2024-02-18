@@ -4,13 +4,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../../components/layout/BottomNav";
 import Header from "../../../../components/layout/Header";
-import Slide from "../../../../components/layout/Slide";
-
+import Slide from "../../../../components/layout/PageSlide";
 import ProgressStatus from "../../../../components/templates/ProgressStatus";
 import {
   GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_CATEGORY_ARR_ICONS,
-} from "../../../../constants/contents/GroupContents";
+} from "../../../../constants/contents/GroupStudyContents";
 
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
@@ -43,28 +42,38 @@ function WritingStudyCategoryMain() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={14} />
-      <Header title="" url={prevPageUrl || "/group"} />
-      <RegisterLayout>
-        <RegisterOverview>
-          <span>주제를 선택해 주세요.</span>
-        </RegisterOverview>
-        <ItemContainer>
-          {GROUP_STUDY_CATEGORY_ARR.map((type, idx) => (
-            <Item
-              key={idx}
-              isSelected={type === category}
-              onClick={() => setCategory(type)}
-            >
-              <IconWrapper>{GROUP_STUDY_CATEGORY_ARR_ICONS[type]}</IconWrapper>
-              <Info>{type}</Info>
-            </Item>
-          ))}
-        </ItemContainer>
-      </RegisterLayout>
-      <BottomNav onClick={onClickNext} />
-    </Slide>
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={14} />
+        <Header title="" url={prevPageUrl || "/group"} />
+      </Slide>
+      <Slide>
+        <RegisterLayout>
+          <RegisterOverview>
+            <span>주제를 선택해 주세요.</span>
+          </RegisterOverview>
+          <ItemContainer>
+            {GROUP_STUDY_CATEGORY_ARR.map((type, idx) =>
+              type !== "전체" ? (
+                <Item
+                  key={idx}
+                  isSelected={type === category}
+                  onClick={() => setCategory(type)}
+                >
+                  <IconWrapper>
+                    {GROUP_STUDY_CATEGORY_ARR_ICONS[type]}
+                  </IconWrapper>
+                  <Info>{type}</Info>
+                </Item>
+              ) : null
+            )}
+          </ItemContainer>
+        </RegisterLayout>
+      </Slide>
+      <Slide isFixed={true} posZero="top">
+        <BottomNav onClick={onClickNext} />
+      </Slide>
+    </>
   );
 }
 
@@ -81,6 +90,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   height: 60px;
   background-color: white;
   border-radius: var(--rounded-lg);
+  box-shadow: var(--shadow);
   border: ${(props) =>
     props.isSelected ? "2px solid var(--color-mint)" : "var(--border)"};
 `;

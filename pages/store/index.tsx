@@ -27,7 +27,7 @@ interface IGiftEntries {
   inactive: IGiftEntry[];
 }
 
-function Store() {
+function Event() {
   const router = useRouter();
   const errorToast = useErrorToast();
   const [giftEntries, setGiftEntries] = useState<IGiftEntries>();
@@ -260,4 +260,4 @@ const CompletedRapple = styled.div`
   opacity: 0.5;
 `;
 
-export default Store;
+export default Event;

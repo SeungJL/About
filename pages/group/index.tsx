@@ -70,10 +70,10 @@ function Index() {
               (item.category.main === category.main && !category.sub) ||
               item.category.sub === category.sub
           );
-    console.log(4, filtered, groups, category);
+    
     setGroupStudies(shuffleArray(filtered));
   }, [category, groups, isGuest]);
-  console.log(groupStudies);
+
 
   const mainTabOptionsArr: ITabNavOptions[] = GROUP_STUDY_CATEGORY_ARR.map(
     (category, idx) => ({
@@ -99,7 +99,7 @@ function Index() {
   return (
     <>
       <Slide isFixed={true}>
-        <Header title="소모임 그룹">
+        <Header title="소모임 그룹" url="/home">
           <RuleIcon setIsModal={setIsRuleModal} />
         </Header>
       </Slide>
@@ -169,7 +169,7 @@ const NavWrapper = styled.div`
 const SubNavWrapper = styled.div``;
 
 const Main = styled.main`
-  margin: var(--gap-4);
+  margin: 8px var(--gap-4);
 `;
 
 export default Index;

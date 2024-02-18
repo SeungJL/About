@@ -217,7 +217,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   > span:first-child {
     font-weight: 500;
     font-size: 16px;
@@ -226,7 +226,7 @@ const ProfileWrapper = styled.div`
 
 const ScoreBarWrapper = styled.div`
   padding: var(--gap-2) 0;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   display: flex;
   flex-direction: column;
   > span {

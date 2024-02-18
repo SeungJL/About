@@ -1,4 +1,8 @@
 import {
+  enToKrMapping,
+  krToEnMapping,
+} from "../../constants2/locationConstants";
+import {
   BADGE_SCORE_MAPPINGS,
   USER_SCORE_BADGE_ARR,
 } from "../../constants2/serviceConstants/badgeConstants";
@@ -61,22 +65,6 @@ export const convertLocationLangTo = <T extends "kr" | "en">(
   location: ActiveLocation | LocationEn,
   to: T
 ): ReturnLocationLang<T> => {
-  const krToEnMapping: Record<ActiveLocation, LocationEn> = {
-    수원: "suw",
-    강남: "gan",
-    동대문: "don",
-    안양: "any",
-    양천: "yan",
-  };
-
-  const enToKrMapping: Record<LocationEn, ActiveLocation> = {
-    suw: "수원",
-    gan: "강남",
-    don: "동대문",
-    any: "안양",
-    yan: "양천",
-  };
-
   if (to === "kr") {
     return enToKrMapping[location as LocationEn] as ReturnLocationLang<T>;
   }

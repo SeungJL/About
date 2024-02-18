@@ -15,13 +15,14 @@
   font-weight: 700;
   font-display: swap;
 }
+html {
+  padding-top: 56px;
+  padding-bottom: 40px;
+}
 
-html,
 body {
   font-family: apple;
   font-size: 14px;
-  padding-top: 28px;
-  padding-bottom: 20px;
 }
 
 a {

@@ -16,7 +16,7 @@ export default function CircleLogoImage({
 }
 
 const CircleLogoWrapper = styled.div`
-  background-color: var(--gray-7); /* bg-gray-100 */
+  background-color: var(--gray-6);
   border-radius: 50%;
   overflow: hidden;
   position: relative;

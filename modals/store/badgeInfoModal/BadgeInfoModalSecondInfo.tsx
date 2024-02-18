@@ -46,7 +46,7 @@ const Item = styled.div`
   justify-content: space-around;
   height: 100%;
   align-items: center;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
 
   > div {
     flex: 1;

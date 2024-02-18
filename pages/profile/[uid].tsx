@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
+import Slide from "../../components/layout/PageSlide";
 import { useUidToUserInfoQuery } from "../../hooks/user/queries";
 import BottomDrawer from "../../pageTemplates/profile/BottomDrawer";
 import DeclareDrawer from "../../pageTemplates/profile/DeclareDrawer";
@@ -30,7 +31,7 @@ function ProfilePage() {
 
   return (
     <>
-      <Container>
+      <Slide isFixed={true}>
         <Header title="" url={beforePage}>
           <button>
             <FontAwesomeIcon
@@ -40,12 +41,16 @@ function ProfilePage() {
             />
           </button>
         </Header>
-        <Layout>
-          <ProfileOverview user={userData || userInfo} />
-          <HrDiv />
-          <DetailInfo user={userData || userInfo} />
-        </Layout>
-      </Container>
+      </Slide>
+      <Slide>
+        <Container>
+          <Layout>
+            <ProfileOverview user={userData || userInfo} />
+            <HrDiv />
+            <DetailInfo user={userData || userInfo} />
+          </Layout>
+        </Container>
+      </Slide>
       <BottomDrawer
         isModal={isModal}
         setIsModal={setIsModal}

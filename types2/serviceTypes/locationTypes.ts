@@ -11,3 +11,5 @@ export type CombinedLocation =
   | "수원/안양"
   | "양천/강남"
   | ActiveLocation;
+
+export type ActiveLocationAll = ActiveLocation | "전체";

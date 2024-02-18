@@ -49,7 +49,7 @@ const Layout = styled.nav`
 
 const Button = styled.button<{ isSelected: boolean }>`
   padding: var(--gap-1) var(--gap-3);
-  border: var(--border-light);
+  border: var(--border);
   border-radius: var(--rounded-lg);
   margin-right: var(--gap-3);
   color: ${(props) => (props.isSelected ? "white" : "var(--gray-2)")};

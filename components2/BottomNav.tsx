@@ -12,14 +12,17 @@ import {
   faUsersRectangle,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import styled from "styled-components";
+import { getStudyStandardDate } from "../libs/study/date/getStudyStandardDate";
+import { convertLocationLangTo } from "../utils/convertUtils/convertDatas";
 
 interface INavButtonProps {
   url: string;
   defaultIcon: React.ReactNode;
-  text?: string;
+  text?: Category;
   activeIcon?: React.ReactNode;
 }
 
@@ -27,25 +30,39 @@ interface INavButton extends INavButtonProps {
   active: boolean;
 }
 
+type Category = "홈" | "통계" | "모임" | "소그룹";
+
 export default function BottomNav() {
+  const { data: session } = useSession();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
 
+  const locationEn = convertLocationLangTo(session?.user.location, "en");
+
   return (
     <Nav>
       {navItems.map((item, idx) => {
-        const params =
-          item.text === "통계"
-            ? `?location=${newSearchParams.get("location")}`
-            : item.text === "소그룹"
-            ? ""
-            : `?${newSearchParams.toString()}`;
+        console.log(item);
+        const getParams = (category: Category) => {
+          switch (category) {
+            case "홈":
+              return `/?location=${locationEn}&date=${getStudyStandardDate()}`;
+            case "모임":
+              return `/?location=${locationEn}`;
+            case undefined:
+              newSearchParams.append("write", "on");
+              return pathname + "?" + newSearchParams.toString();
+          }
+          return "";
+        };
+        console.log(4, item.text);
+
         return (
           <NavButton
             text={item.text}
             key={idx}
-            url={item.url + `${params}`}
+            url={item.url + `${getParams(item.text)}`}
             activeIcon={item.activeIcon}
             defaultIcon={item.defaultIcon}
             active={pathname === item.url}
@@ -62,12 +79,14 @@ const NavButton = ({
   activeIcon,
   defaultIcon,
   active,
-}: INavButton) => (
-  <NavLink href={url} scroll={false} active={active.toString()}>
-    {active ? activeIcon || defaultIcon : defaultIcon}
-    <NavText>{text}</NavText>
-  </NavLink>
-);
+}: INavButton) => {
+  return (
+    <NavLink href={url} active={active.toString()} replace={!text}>
+      {active ? activeIcon || defaultIcon : defaultIcon}
+      <NavText>{text}</NavText>
+    </NavLink>
+  );
+};
 
 const navItems: INavButtonProps[] = [
   {
@@ -84,7 +103,7 @@ const navItems: INavButtonProps[] = [
   },
   {
     defaultIcon: <FontAwesomeIcon icon={faCirclePlus} fontSize="36px" />,
-    url: "/",
+    url: "",
   },
   {
     activeIcon: <FontAwesomeIcon icon={faHandshake} size="xl" />,

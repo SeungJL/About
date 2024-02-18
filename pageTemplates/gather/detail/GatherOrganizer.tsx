@@ -52,7 +52,7 @@ const Layout = styled.div`
   align-items: center;
   padding: var(--gap-3) var(--gap-4);
   background-color: white;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   > div:first-child {
     display: flex;
   }

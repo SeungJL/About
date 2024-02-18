@@ -13,7 +13,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -25,7 +25,9 @@ import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 
 import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
-import GroupConfirmModal from "../../../modals/group/WritingConfirmModal";
+
+import Slide from "../../../components/layout/PageSlide";
+import GroupConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import QuestionBottomDrawer from "../../../pageTemplates/group/writing/QuestionBottomDrawer";
 import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
@@ -130,9 +132,11 @@ function WritingCondition() {
 
   return (
     <>
-      <Slide>
+      <Slide isFixed={true}>
         <ProgressStatus value={100} />
         <Header title="" url="/group/writing/hashTag" />
+      </Slide>
+      <Slide>
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>
@@ -288,10 +292,12 @@ function WritingCondition() {
               </Fee>
             )}
           </Container>
-          <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
       </Slide>
 
+      <Slide isFixed={true} posZero="top">
+        <BottomNav onClick={() => onClickNext()} text="완료" />
+      </Slide>
       <QuestionBottomDrawer
         isModal={isQuestionModal}
         setIsModal={setIsQuestionModal}
@@ -361,7 +367,7 @@ const Item = styled.div`
   justify-content: space-between;
   padding: var(--gap-4) 0;
   align-items: center;
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
 `;
 
 const PopOverWrapper = styled.span`

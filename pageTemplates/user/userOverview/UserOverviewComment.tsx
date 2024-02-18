@@ -109,7 +109,7 @@ function UserOverviewComment() {
 
 const Layout = styled.div`
   padding: var(--gap-1) var(--gap-2);
-  border: var(--border-light);
+  border: var(--border);
   border-radius: var(--rounded);
   display: flex;
   align-items: center;

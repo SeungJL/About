@@ -41,10 +41,10 @@ const Content = styled.pre`
 `;
 
 const ListContainer = styled.div`
-  margin: 0 var(--gap-4);
-  padding: var(--gap-3) 0;
+  padding: var(--gap-3) 16px;
 
   background-color: var(--gray-8);
+  border: var(--border);
 `;
 
 const ListBlock = styled.div`

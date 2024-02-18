@@ -50,7 +50,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   color: var(--gray-2);
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
   > div:nth-child(2) {
     > span {
       margin-left: 6px;

@@ -21,7 +21,7 @@ function GroupMine({ myGroups }: IGroupMine) {
         <ImageTileSlider
           imageTileArr={imageTileArr}
           slidesPerView={2.2}
-          size="lg"
+          size="md"
           aspect={2}
         />
       ) : (
@@ -37,13 +37,6 @@ const Layout = styled.div`
   padding: 16px;
 `;
 
-const Title = styled.div`
-  margin-bottom: var(--gap-4);
-  background-color: white;
-  padding: var(--gap-4) var(--gap-4);
-  font-weight: 600;
-  font-size: 18px;
-`;
 const BlockLayout = styled.div`
   height: 110px;
 
@@ -67,7 +60,7 @@ const ImageContainer = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  border: var(--border-light);
+  border: var(--border);
   border-radius: var(--rounded);
   display: flex;
   justify-content: center;

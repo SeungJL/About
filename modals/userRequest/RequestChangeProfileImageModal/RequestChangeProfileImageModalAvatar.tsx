@@ -159,8 +159,8 @@ const DownPart = styled.div`
   align-items: center;
   padding: var(--gap-2) 0;
   margin-top: var(--gap-3);
-  border-top: var(--border-light);
-  border-bottom: var(--border-light);
+  border-top: var(--border);
+  border-bottom: var(--border);
 `;
 
 const Icon = styled.div<{ bg: string }>`

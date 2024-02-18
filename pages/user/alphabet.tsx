@@ -255,8 +255,8 @@ const Item = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: var(--border-light);
-  border-bottom: var(--border-light);
+  border-top: var(--border);
+  border-bottom: var(--border);
 `;
 const ProfileWrapper = styled.div``;
 

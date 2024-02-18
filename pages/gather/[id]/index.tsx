@@ -1,7 +1,7 @@
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import Slide from "../../../components/layout/PageSlide";
@@ -14,32 +14,20 @@ import GatherHeader from "../../../pageTemplates/gather/detail/GatherHeader";
 import GatherOrganizer from "../../../pageTemplates/gather/detail/GatherOrganizer";
 import GatherParticipation from "../../../pageTemplates/gather/detail/GatherParticipation";
 import GatherTitle from "../../../pageTemplates/gather/detail/GatherTitle";
-import { isGuestState } from "../../../recoil/userAtoms";
 import { IGather } from "../../../types2/gatherTypes/gatherTypes";
 
 function GatherDetail() {
-  const router = useRouter();
-  const gatherId = router.query.id;
+  const { data: session } = useSession();
+  const { id } = useParams<{ id: string }>() || {};
+  const isGuest = session?.user.name === "guest";
 
-  const isGuest = useRecoilValue(isGuestState);
   const [gatherData, setGatherData] = useState<IGather>();
-  const [isRefetch, setIsRefetch] = useState(false);
 
-  const { refetch } = useGatherQuery({
-    onSuccess(data) {
-      setGatherData(data.find((item) => item.id === +gatherId));
-    },
-  });
+  const { data: gathers } = useGatherQuery();
 
   useEffect(() => {
-    if (isRefetch || !gatherData) {
-      setTimeout(() => {
-        refetch();
-        setIsRefetch(false);
-      }, 1000);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gatherData, isRefetch]);
+    if (gathers) setGatherData(gathers.find((item) => item.id + "" === id));
+  }, [gathers]);
 
   return (
     <>

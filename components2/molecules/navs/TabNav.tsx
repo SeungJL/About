@@ -3,6 +3,7 @@ import styled from "styled-components";
 export interface ITabNavOptions {
   text: string;
   func: () => void;
+  flex?: 1;
 }
 
 interface ITabNav {
@@ -15,7 +16,7 @@ export default function TabNav({ tabOptionsArr }: ITabNav) {
       <Tabs colorScheme="mintTheme">
         <CustomTabList>
           {tabOptionsArr.map((tab) => (
-            <CustomTab key={tab.text} onClick={tab.func}>
+            <CustomTab flex={tab?.flex} key={tab.text} onClick={tab.func}>
               {tab.text}
             </CustomTab>
           ))}
@@ -27,8 +28,8 @@ export default function TabNav({ tabOptionsArr }: ITabNav) {
 const CustomTabList = styled(TabList)`
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
-
+  overflow-x: scroll;
+  padding-bottom: 2px;
   &::-webkit-scrollbar {
     display: none; /* 스크롤바를 숨기는 옵션 */
   }

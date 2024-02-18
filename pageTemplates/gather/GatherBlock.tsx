@@ -58,7 +58,7 @@ const Layout = styled.div`
 
 const UpPart = styled.div`
   padding: var(--gap-3) var(--gap-4);
-  border-bottom: var(--border-light);
+  border-bottom: var(--border);
 `;
 
 const Title = styled.div`
