@@ -32,7 +32,7 @@ function HomeInitialSetting() {
   }, [dateParam]);
 
   useEffect(() => {
-    if (isGuest && checkAndSetLocalStorage(USER_GUIDE, 1)) {
+    if (isGuest && !checkAndSetLocalStorage(USER_GUIDE, 1)) {
       setIsGuestModal(true);
       setIsGuide(true);
     }

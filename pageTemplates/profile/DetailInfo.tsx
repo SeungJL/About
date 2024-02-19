@@ -1,16 +1,16 @@
-import { useRecoilValue } from "recoil";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import BlurredPart from "../../components/common/masks/BlurredPart";
 import Chart from "../../components/dataViews/chart/Chart";
 import { birthToAge } from "../../helpers/converterHelpers";
-import { isGuestState } from "../../recoil/userAtoms";
 import { IUser } from "../../types/user/user";
 
 function DetailInfo({ user }: { user: IUser }) {
-  const isGuest = useRecoilValue(isGuestState);
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   return (
     <Layout>
-      <BlurredPart isBlur={isGuest}>
+      <BlurredPart isBlur={!isGuest}>
         <Profile>
           <ProfileItem>
             <span>나이</span>

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BottomNav from "../../components2/BottomNav";
 import { useToken } from "../../hooks/custom/CustomHooks";
+import GuestBottomNav from "../layout/atoms/GuestBottomNav";
 import BaseModal from "./BaseModal";
 import BaseScript from "./BaseScript";
 import Seo from "./Seo";
@@ -23,7 +24,7 @@ function Layout({ children }: ILayout) {
 
   const segment = pathname.split("/")[1];
 
-  const PUBLIC_SEGMENT = ["register"];
+  const PUBLIC_SEGMENT = ["register", "login"];
 
   const isPublicUrl = pathname;
 
@@ -45,11 +46,11 @@ function Layout({ children }: ILayout) {
   // const status = router.query?.status;
   console.log("app", session);
   useEffect(() => {
-    // if (PUBLIC_SEGMENT.includes(segment)) return;
-    // if (session === null) router.push("/login");
-    // const role = session?.user.role;
-    // if (role === "newUser") router.push("/register/location");
-    // if (role === "waiting") router.push("/login?status=waiting");
+    if (PUBLIC_SEGMENT.includes(segment)) return;
+    if (session === null) router.push("/login");
+    const role = session?.user.role;
+    if (role === "newUser") router.push("/register/location");
+    if (role === "waiting") router.push("/login?status=waiting");
   }, [session]);
 
   const navigateTo = (path: string) => {
@@ -63,6 +64,9 @@ function Layout({ children }: ILayout) {
         <>
           <div id="root-modal">{children}</div>
           {BASE_BOTTOM_NAV_URL.includes(pathname) && <BottomNav />}
+          {isGuest && BASE_BOTTOM_NAV_URL.includes(pathname) && (
+            <GuestBottomNav />
+          )}
           <BaseModal
             isGuest={isGuest}
             isError={isErrorModal}

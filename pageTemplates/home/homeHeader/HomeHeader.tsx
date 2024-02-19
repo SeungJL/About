@@ -6,8 +6,11 @@ import {
   faCircleUser,
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
+import Slide from "../../../components/layout/PageSlide";
 import IconButtonNav, {
   IconButtonNavBtn,
 } from "../../../components2/molecules/navs/IconButtonNav";
@@ -24,11 +27,14 @@ import { AlertIcon } from "../../../styles/icons";
 //   | "attendCheckWin";
 
 export type HomeHeaderModalType = "dailyCheck" | "pointGuide" | null;
-type IconType = "user" | "notice" | HomeHeaderModalType;
 
 function HomeHeader() {
+  const searchParams = useSearchParams();
+  const newSearchparams = new URLSearchParams(searchParams);
+  const router = useRouter();
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const [modalType, setModalType] = useState<HomeHeaderModalType>(null);
-  const [isRabbitRun, setIsRabbitRun] = useState(false);
 
   // useEffect(() => {
 
@@ -55,17 +61,22 @@ function HomeHeader() {
     },
     {
       icon: <FontAwesomeIcon icon={faCircleUser} />,
-      link: "/user",
+      link: !isGuest ? "/user" : null,
+      func: isGuest
+        ? () => router.replace(`/home?${newSearchparams.toString()}&logout=on`)
+        : null,
     },
   ];
   return (
     <>
-      <Layout>
-        <Title>ABOUT</Title>
-        <Box className="about_header" fontSize="20px">
-          <IconButtonNav iconList={iconBtnArr} />
-        </Box>
-      </Layout>
+      <Slide isFixed={true}>
+        <Layout>
+          <Title>ABOUT</Title>
+          <Box className="about_header" fontSize="20px">
+            <IconButtonNav iconList={iconBtnArr} />
+          </Box>
+        </Layout>
+      </Slide>
       {modalType === "pointGuide" && (
         <PointSystemsModal setIsModal={() => setModalType(null)} />
       )}

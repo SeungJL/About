@@ -20,14 +20,14 @@ import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
-  useFailToast
+  useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 import { userInfoState } from "../../../recoil/userAtoms";
 import {
   IInteractionLikeStorage,
-  IInteractionSendLike
+  IInteractionSendLike,
 } from "../../../types/interaction";
 import { IUser } from "../../../types/user/user";
 
@@ -78,7 +78,7 @@ function ProfileInfo({ user }: IProfileInfo) {
       data.forEach((study) => {
         study.arrivedInfoList.forEach((arrivedInfoList) => {
           const bothAttend = arrivedInfoList.arrivedInfo.filter(
-            (item) => item.uid === user.uid || item.uid === session.uid
+            (item) => item.uid === user.uid || item.uid === session.user.uid
           );
           if (bothAttend.length >= 2) {
             setIsConditionOk(true);

@@ -45,7 +45,7 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
       )} */}
       {type === "vote" && <StudyVoteDrawer setIsModal={closeModal} />}
       {type === "cancelVote" && (
-        <AlertModal setIsModal={closeModal} alertModalOptions={modalOptions} />
+        <AlertModal setIsModal={closeModal} options={modalOptions} />
       )}
       {type === "changeTime" && (
         <StudyChangeTimeModal setIsModal={closeModal} />

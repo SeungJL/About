@@ -38,9 +38,9 @@ function Home() {
   return (
     <>
       <HomeInitialSetting />
-      <Slide isFixed={true}>
+     
         <HomeHeader />
-      </Slide>
+   
       <Slide>
         <HomeCategoryNav />
         <HomeLocationBar />

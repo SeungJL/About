@@ -1,11 +1,11 @@
 import { Button } from "@chakra-ui/react";
-import { signOut } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 
 function GuestBottomNav() {
-  const logout = () => {
-    signOut({ callbackUrl: "/login" });
-  };
+  const searchParams = useSearchParams();
+  const newSearchparams = new URLSearchParams(searchParams);
+  const router = useRouter();
 
   return (
     <Layout>
@@ -13,8 +13,10 @@ function GuestBottomNav() {
       <Button
         backgroundColor="var(--color-red)"
         color="white"
-        size="sm"
-        onClick={logout}
+        size="xs"
+        onClick={() =>
+          router.replace(`/home?${newSearchparams.toString()}&logout=on`)
+        }
       >
         로그아웃
       </Button>
@@ -24,11 +26,12 @@ function GuestBottomNav() {
 
 const Layout = styled.div`
   position: fixed;
-  bottom: 0;
+  bottom: 60px;
   max-width: 390px;
   background-color: white;
   height: 50px;
-  width: 100vw;
+  width: 100dvw;
+  border: var(--border);
   z-index: 100;
   display: flex;
   align-items: center;

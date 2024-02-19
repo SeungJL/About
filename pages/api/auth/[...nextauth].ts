@@ -99,7 +99,7 @@ export const authOptions: NextAuthOptions = {
     },
     //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
     async session({ session, token, user, trigger }) {
-      console.log("session", session, token);
+      console.log("session", session, token, user);
       if (trigger === "update") {
         return session;
       }

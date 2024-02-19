@@ -14,16 +14,17 @@ export interface IAlertModalOptions {
   title: string;
   subTitle: string;
   func: () => void;
+  text?: string;
 }
 
 interface IAlertModal extends IModal {
-  alertModalOptions: IAlertModalOptions;
+  options: IAlertModalOptions;
   colorType?: "mintTheme" | "redTheme";
 }
 
 export default function AlertModal({
   setIsModal,
-  alertModalOptions: { title, subTitle, func },
+  options: { title, subTitle, func, text = "취소합니다" },
   colorType = "mintTheme",
 }: IAlertModal) {
   const cancelRef = React.useRef();
@@ -52,7 +53,7 @@ export default function AlertModal({
           <AlertDialogFooter p="16px">
             <Button onClick={() => setIsModal(false)}>아니요</Button>
             <Button onClick={handleProcess} colorScheme={colorType} ml="12px">
-              취소합니다
+              {text}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

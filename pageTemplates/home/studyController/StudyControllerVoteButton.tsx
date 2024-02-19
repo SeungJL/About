@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ShadowCircleButton, {
   IShadowCircleProps,
 } from "../../../components2/atoms/buttons/ShadowCircleButton";
+import { useTypeToast } from "../../../hooks/custom/CustomToast";
 
 import {
   myStudyState,
@@ -39,11 +40,12 @@ interface IStudyControllerVoteButton {
 function StudyControllerVoteButton({
   setModalType,
 }: IStudyControllerVoteButton) {
+  const typeToast = useTypeToast();
   const router = useRouter();
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
-
-  const { data } = useSession();
+  const isGuest = session?.user.name === "guest";
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
@@ -51,10 +53,14 @@ function StudyControllerVoteButton({
   const buttonProps = getStudyVoteButtonProps(
     studyDateStatus,
     myStudy,
-    data?.user?.uid
+    session?.user.uid
   );
 
   const handleModalOpen = () => {
+    if (isGuest) {
+      typeToast("guest");
+      return;
+    }
     const type = buttonProps.text;
     if (type === "참여 신청" || type === "투표 변경") {
       router.push(`/vote?${newSearchParams.toString()}`);

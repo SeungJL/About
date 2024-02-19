@@ -17,9 +17,7 @@ function UserInfo() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <UserHeader />
-      </Slide>
+      <UserHeader />
       <Slide>
         {(userInfo || isGuest) && (
           <UserLayout>

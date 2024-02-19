@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Slide from "../components/layout/PageSlide";
 import ArrowBackButton from "./atoms/buttons/ArrowBackButton";
 interface IHeader {
   title: string;
@@ -8,13 +9,15 @@ interface IHeader {
 
 export default function Header({ title, url, children }: IHeader) {
   return (
-    <HeaderContainer>
-      <LeftSection>
-        <ArrowBackButton url={url} />
-        <Title>{title}</Title>
-      </LeftSection>
-      <div>{children}</div>
-    </HeaderContainer>
+    <Slide isFixed={true}>
+      <HeaderContainer>
+        <LeftSection>
+          <ArrowBackButton url={url} />
+          <Title>{title}</Title>
+        </LeftSection>
+        <div>{children}</div>
+      </HeaderContainer>
+    </Slide>
   );
 }
 const HeaderContainer = styled.header`

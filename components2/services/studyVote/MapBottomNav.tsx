@@ -168,7 +168,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
         )}
         {modalType === "voteCancel" && (
           <AlertModal
-            alertModalOptions={alertOptions}
+            options={alertOptions}
             setIsModal={() => setModalType(null)}
             colorType="redTheme"
           />

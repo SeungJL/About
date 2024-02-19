@@ -2,17 +2,11 @@ import { Flex } from "@chakra-ui/react";
 import Link from "next/link";
 import IconButton from "../../atoms/buttons/IconButton";
 
-export type IconButtonNavBtn =
-  | {
-      icon: React.ReactNode;
-      func: () => void;
-      link?: never;
-    }
-  | {
-      icon: React.ReactNode;
-      func?: never;
-      link: string;
-    };
+export type IconButtonNavBtn = {
+  icon: React.ReactNode;
+  func?: () => void;
+  link?: string;
+};
 
 interface IIconButtonNav {
   iconList: IconButtonNavBtn[];
