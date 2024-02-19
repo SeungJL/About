@@ -22,7 +22,6 @@ function Layout({ children }: ILayout) {
   const pathname = usePathname();
 
   const segment = pathname.split("/")[1];
-  console.log(5, segment, pathname, 2, "/".split("/"));
 
   const PUBLIC_SEGMENT = ["register"];
 
@@ -44,36 +43,14 @@ function Layout({ children }: ILayout) {
   // const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
 
   // const status = router.query?.status;
-  console.log(2444, pathname);
+  console.log("app", session);
   useEffect(() => {
-    if (PUBLIC_SEGMENT.includes(segment)) return;
-    if (session === null) router.push("/login");
-    if (session?.user.role === "newUser") router.push("/register/location");
+    // if (PUBLIC_SEGMENT.includes(segment)) return;
+    // if (session === null) router.push("/login");
+    // const role = session?.user.role;
+    // if (role === "newUser") router.push("/register/location");
+    // if (role === "waiting") router.push("/login?status=waiting");
   }, [session]);
-
-  // useUserInfoQuery({
-  //   enabled:
-  //     (!!session && isCondition && userInitialInfo === null) ||
-  //     status === "login",
-  //   onSuccess(data) {
-  //     console.log(data);
-  //     if (!isCondition || (userInitialInfo && status !== "login")) return;
-  //     //유저 데이터 없음
-  //     if (data === null || !data.registerDate || data.isActive === false) {
-  //       if (router.query.status === "login") navigateTo(`/register/location`);
-  //       else navigateTo("/login/?status=noMember");
-  //       return;
-  //     }
-  //     //유저 데이터 에러
-  //     if (session && data._id !== session.user.id) {
-  //       setIsErrorModal(true);
-  //       return;
-  //     }
-  //   },
-  //   onError() {
-  //     navigateTo("/checkingServer");
-  //   },
-  // });
 
   const navigateTo = (path: string) => {
     router.push(path);

@@ -45,14 +45,14 @@ function Ranking() {
 
   useEffect(() => {
     if (!attendRecords) return;
-    console.log(attendRecords);
+
     return;
     const filtered = isLocationFilter
       ? initialUsersData.filter((who) => who.location === location)
       : initialUsersData;
     const A = sortUserAttends(filtered, session?.user?.uid as string);
     const B = sortUserScores(filtered, session?.user?.uid as string);
-    console.log(A, B);
+   
   }, [attendRecords]);
 
   return (

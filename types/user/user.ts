@@ -40,6 +40,7 @@ export interface IUserIdentity {
 export type Gender = "남성" | "여성" | "";
 
 export type Role =
+  | "guest"
   | "noMember"
   | "waiting"
   | "human"

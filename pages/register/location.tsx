@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -25,6 +26,8 @@ import { Location } from "../../types/system";
 import { IUserRegisterFormWriting } from "../../types/user/user";
 
 function RegisterLocation() {
+  const { data: session } = useSession();
+
   const router = useRouter();
 
   const info: IUserRegisterFormWriting = JSON.parse(

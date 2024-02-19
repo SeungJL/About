@@ -21,7 +21,7 @@ function Fee() {
   const { data: session, update } = useSession();
   const errorToast = useErrorToast();
   const router = useRouter();
-  console.log(12, session);
+
   const info = getLocalStorageObj(REGISTER_INFO);
 
   const { mutate } = useUserRegisterMutation({
@@ -40,7 +40,6 @@ function Fee() {
   return (
     <>
       <ProgressHeader title="회원가입" url="/register/phone" value={100} />
-
       <RegisterLayout>
         <RegisterOverview>
           <span>회비 납부</span>

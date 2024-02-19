@@ -32,7 +32,7 @@ function GroupHeader({ group }: IGroupHeader) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const router = useRouter();
-  console.log(4, group);
+
   const title = group?.title;
   // const date = group?.date;
   // const locationMain = group?.location.main;

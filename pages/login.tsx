@@ -15,9 +15,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useUserRegisterFormsQuery } from "../hooks/admin/quries";
-import { useCompleteToast, useFailToast } from "../hooks/custom/CustomToast";
+import { IFooterOptions, ModalLayout } from "../components/modals/Modals";
+import { useToast } from "../hooks/custom/CustomToast";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
+import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";
 
 const Login: NextPage<{
@@ -26,57 +27,51 @@ const Login: NextPage<{
     ClientSafeProvider
   >;
 }> = ({ providers }) => {
-  const { data: session } = useSession();
-  const completeToast = useCompleteToast();
-  const failToast = useFailToast();
   const router = useRouter();
+  const { data: session } = useSession();
+  const toast = useToast();
+
   const status = router.query?.status;
   const kakaoProvider = Object.values(providers).find((p) => p.id == "kakao");
-
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  const [isCheckModal, setIsCheckModal] = useState(false);
-  const [isApplicant, setIsApplicant] = useState(false);
-
-  const { isLoading } = useUserRegisterFormsQuery({
-    enabled: !!session,
-    onSuccess(data) {
-      if (data?.find((who) => who.uid === session.user.uid))
-        setIsApplicant(true);
-    },
-  });
+  const [isWaitingModal, setIsWaitingModal] = useState(false);
 
   useEffect(() => {
-    if (status === "logout") completeToast("free", "로그아웃 되었습니다.");
-    if (status === "noMember")
-      failToast("free", "동아리에 소속되어 있지 않습니다.");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    switch (status) {
+      case "logout":
+        toast("success", "로그아웃 되었습니다.");
+      case "noMember":
+        toast("error", "동아리에 소속되어 있지 않습니다.");
+      case "waiting":
+        toast("warning", "가입 대기중입니다.");
+    }
   }, [status]);
 
   const customSignin = async (type: "member" | "guest") => {
     const provider = type === "member" ? kakaoProvider.id : "guest";
-
-    setLoading(true);
+    setIsLoading(true);
     if (provider === "guest") {
       setIsModal(false);
       signIn(provider, { callbackUrl: `${window.location.origin}/home` });
       return;
     }
-    if (isLoading) await new Promise((resolve) => setTimeout(resolve, 1000));
-    if (isApplicant) {
-      setIsCheckModal(true);
-      setLoading(false);
+
+    if (session?.user.role === "waiting") {
+      setIsWaitingModal(true);
+      setIsLoading(false);
       return;
     }
-
-    //카카오 로그인시 무조건 유저 테이블에는 데이터가 생성 또는 업데이트 된다.
-
     signIn(provider, {
-      callbackUrl: `${window.location.origin}/home?status=login`,
+      callbackUrl: `${window.location.origin}/home`,
     });
-
-    setLoading(false);
+    await new Promise(() => setTimeout(() => setIsLoading(false), 3000));
   };
+
+  const waitingFooterOptions: IFooterOptions = {
+    main: {},
+  };
+
   return (
     <>
       <Layout>
@@ -102,7 +97,7 @@ const Login: NextPage<{
             width="100%"
             backgroundColor="#FEE500"
             rounded="md"
-            isLoading={loading}
+            isLoading={isLoading}
             onClick={() => customSignin("member")}
             mb="8px"
             display="flex"
@@ -129,27 +124,29 @@ const Login: NextPage<{
             <div />
           </Button>
           <Message>활동 및 가입신청은 카카오 로그인을 이용해주세요!</Message>
-          <Link mt="4px" href="/" isExternal fontSize="12px">
+          <Link
+            mt="4px"
+            href="https://open.kakao.com/o/sjDgVzmf"
+            isExternal
+            fontSize="12px"
+          >
             로그인이 안되시나요?
           </Link>
         </MainWrapper>
         <ForceLogoutDialog />
       </Layout>
-      {/* {isModal && (
+      {isModal && (
         <GuestLoginModal setIsModal={setIsModal} customSignin={customSignin} />
-      )} */}
-      {/* {isCheckModal && (
-        <ModalLayout onClose={() => setIsModal(false)} size="sm">
-          <ModalHeaderCenter text="가입 대기중" />
-          <ModalBody>
-            가입 대기중입니다. <br /> 며칠 내에 카톡으로 연락드려요!
-          </ModalBody>
-          <ModalFooterOne
-            isFull={true}
-            onClick={() => setIsCheckModal(false)}
-          />
+      )}
+      {isWaitingModal && (
+        <ModalLayout
+          title="가입 대기"
+          setIsModal={setIsWaitingModal}
+          footerOptions={waitingFooterOptions}
+        >
+          가입 대기중입니다. <br /> 며칠 내에 카톡으로 연락드려요!
         </ModalLayout>
-      )} */}
+      )}
     </>
   );
 };

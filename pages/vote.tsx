@@ -72,14 +72,14 @@ export default function StudyVoteMap() {
   const { data: studyPreference } = useStudyPreferenceQuery({
     enabled: !preferenceStorage,
   });
-  console.log(2, preferInfo);
+ 
 
   //스터디 프리셋 적용
   useEffect(() => {
     if (data?.user?.location !== location) return;
     if (!preferenceStorage && studyPreference === undefined) return;
     if (preferenceStorage) {
-      console.log(44, preferenceStorage);
+    
       setPreferInfo({ preset: "first", prefer: JSON.parse(preferenceStorage) });
     } else if (!studyPreference) {
       infoToast(

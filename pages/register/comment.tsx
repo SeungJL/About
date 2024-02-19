@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 import { useSession } from "next-auth/react";
@@ -21,6 +20,7 @@ import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import { isProfileEditState } from "../../recoil/previousAtoms";
 
 function Comment() {
@@ -33,6 +33,7 @@ function Comment() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [value, setValue] = useState(info?.comment || "");
+
   const [index, setIndex] = useState(null);
 
   const resetQueryData = useResetQueryData();
@@ -100,6 +101,7 @@ function Comment() {
             </Item>
           ))}
         </Container>
+
         <div onClick={() => setIndex(InputIdx)}>
           <Input
             placeholder="직접 입력"
@@ -118,6 +120,7 @@ function Comment() {
           />
         </div>
       </RegisterLayout>
+
       <BottomNav onClick={onClickNext} text={isProfileEdit ? "완료" : null} />
     </>
   );

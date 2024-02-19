@@ -43,7 +43,7 @@ export default function BottomNav() {
   return (
     <Nav>
       {navItems.map((item, idx) => {
-        console.log(item);
+       
         const getParams = (category: Category) => {
           switch (category) {
             case "홈":
@@ -56,7 +56,7 @@ export default function BottomNav() {
           }
           return "";
         };
-        console.log(4, item.text);
+       
 
         return (
           <NavButton

@@ -1,4 +1,5 @@
 export const USER_ROLE = [
+  "guest",
   "newUser",
   "human",
   "member",

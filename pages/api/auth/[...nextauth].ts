@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
           id: "0",
           uid: "0",
           name: "guest",
-          role: "member" as Role,
+          role: "guest" as Role,
           profileImage: "",
           isActive: true,
         };
@@ -68,35 +68,22 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/home",
     // signOut: "/login",
-    error: "/register/location",
+    error: "/login",
     // verifyRequest: "/2",
     newUser: "/register/location",
   },
-  events: {
-    signIn: async (message) => {
-      /* 사용자가 로그인한 후 실행할 로직 */
-    },
-    signOut: async (message) => {
-      /* 사용자가 로그아웃한 후 실행할 로직 */
-    },
-    createUser: async (user) => {
-      /* 새 사용자가 생성된 후 실행할 로직 */
-    },
-    session: async (user) => {
-      console.log(33);
-      /* 새 사용자가 생성된 후 실행할 로직 */
-    },
-  },
+
   callbacks: {
     async signIn({ account, user, profile, credentials }) {
+      if (account.provider === "guest") return true;
+      console.log("first-signIn", account, user, profile, credentials);
       if (!account.access_token) return false;
 
-      if (account.provider === "guest") return true;
+      console.log("not guest");
       // if (user.role === "newUser") return false;
 
       const profileImage =
         profile.properties.thumbnail_image || profile.properties.profile_image;
-
       const endcodedToken = await encode({ token: account, secret });
       await dbConnect();
       await User.updateOne(
@@ -112,17 +99,18 @@ export const authOptions: NextAuthOptions = {
     },
     //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
     async session({ session, token, user, trigger }) {
-      console.log(55, session, token);
+      console.log("session", session, token);
       if (trigger === "update") {
         return session;
       }
 
       if (session.user.name === "guest") {
-        // session.id = "0";
-        // session.uid = "0";
-        // session.role = "guest";
-        // session.error = "";
-        // session.isActive = false;
+        session.user.id = "0";
+        session.user.uid = "0";
+        session.user.name = "guest";
+        session.user.role = "guest";
+        session.user.location = "수원";
+        session.user.isActive = false;
       } else {
         session.user.id = token.id.toString();
         session.user.uid = token.uid.toString();
@@ -134,10 +122,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    //token 빼고는 모두 초기값으로 undefined
-    //
+
     async jwt({ token, account, user, trigger, session }) {
-      console.log(24);
+      console.log("jwt", account);
       if (trigger === "update" && token?.role) {
         token.role = "waiting";
         return token;

@@ -18,7 +18,7 @@ interface IBaseModal {
 function BaseModal({ isGuest, isError, setIsError }: IBaseModal) {
   const searchParams = useSearchParams();
   const isWriteModal = !!searchParams.get("write");
-  console.log(isWriteModal);
+
   const [transferAlphabet, setTransferAlphabet] = useRecoilState(
     transferAlphabetState
   );
