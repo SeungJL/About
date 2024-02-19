@@ -4,9 +4,8 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { majors_DATA } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
@@ -66,18 +65,19 @@ function Major() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={60} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/mbti"
+        value={60}
       />
+
       <RegisterLayout>
         <RegisterOverview>
           <span>전공을 선택해 주세요</span>
           <span>다중 선택도 가능해요.</span>
         </RegisterOverview>
-        <div style={{ height: "40px" }} />
+
         {majors_DATA?.map((item, idx) => (
           <Section key={idx}>
             <SectionTitle>{item.department}</SectionTitle>
@@ -102,7 +102,7 @@ function Major() {
         ))}
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </Slide>
+    </>
   );
 }
 

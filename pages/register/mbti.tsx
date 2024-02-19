@@ -1,12 +1,10 @@
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { MBTI } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
@@ -39,12 +37,13 @@ function Mbti() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={50} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/birthday"
+        value={50}
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>MBTI를 선택해 주세요</span>
@@ -63,13 +62,9 @@ function Mbti() {
         </ButtonNav>
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </Slide>
+    </>
   );
 }
-
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
 
 const ButtonNav = styled.nav`
   margin-top: 40px;

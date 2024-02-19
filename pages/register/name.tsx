@@ -1,12 +1,12 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+import Input from "../../components2/atoms/Input";
+
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,
@@ -23,6 +23,14 @@ function Name() {
   const { data: session } = useSession();
 
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
+
+  const inputRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (inputRef.current) {
+  //     inputRef.current.focus();
+  //   }
+  // }, []);
 
   const isProfileEdit = useRecoilValue(isProfileEditState);
 
@@ -48,25 +56,26 @@ function Name() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={20} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/location"
+        value={20}
       />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
-          <span>이름을 입력해주세요</span>
+          <span>이름을 입력해 주세요</span>
           <span>실명으로 작성해주세요!</span>
         </RegisterOverview>
-        <NameInput
+        <Input
+          ref={inputRef}
           value={value}
           onChange={onChange}
           placeholder="이름을 입력해주세요."
         />
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </Slide>
+    </>
   );
 }
 

@@ -72,10 +72,23 @@ export const authOptions: NextAuthOptions = {
     // verifyRequest: "/2",
     newUser: "/register/location",
   },
+  events: {
+    signIn: async (message) => {
+      /* 사용자가 로그인한 후 실행할 로직 */
+    },
+    signOut: async (message) => {
+      /* 사용자가 로그아웃한 후 실행할 로직 */
+    },
+    createUser: async (user) => {
+      /* 새 사용자가 생성된 후 실행할 로직 */
+    },
+    session: async (user) => {
+      console.log(33);
+      /* 새 사용자가 생성된 후 실행할 로직 */
+    },
+  },
   callbacks: {
     async signIn({ account, user, profile, credentials }) {
-    
-
       if (!account.access_token) return false;
 
       if (account.provider === "guest") return true;
@@ -99,11 +112,11 @@ export const authOptions: NextAuthOptions = {
     },
     //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
     async session({ session, token, user, trigger }) {
+      console.log(55, session, token);
       if (trigger === "update") {
-       
         return session;
       }
-     
+
       if (session.user.name === "guest") {
         // session.id = "0";
         // session.uid = "0";
@@ -124,7 +137,7 @@ export const authOptions: NextAuthOptions = {
     //token 빼고는 모두 초기값으로 undefined
     //
     async jwt({ token, account, user, trigger, session }) {
-    
+      console.log(24);
       if (trigger === "update" && token?.role) {
         token.role = "waiting";
         return token;

@@ -1,3 +1,4 @@
+import { Button, Flex } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
@@ -8,14 +9,22 @@ interface IRecordNavigation {
 
 function RecordNavigation({ isCalendar, setIsCalendar }: IRecordNavigation) {
   return (
-    <Layout>
-      <Button isSelected={isCalendar} onClick={() => setIsCalendar(true)}>
+    <Flex w="90vw" m="auto" mb="16px">
+      <Button
+        flex="1"
+        colorScheme={isCalendar ? "mintTheme" : "gray"}
+        onClick={() => setIsCalendar(true)}
+      >
         달력
       </Button>
-      <Button isSelected={!isCalendar} onClick={() => setIsCalendar(false)}>
+      <Button
+        flex="1"
+        colorScheme={!isCalendar ? "mintTheme" : "gray"}
+        onClick={() => setIsCalendar(false)}
+      >
         상세
       </Button>
-    </Layout>
+    </Flex>
   );
 }
 
@@ -36,15 +45,15 @@ const Layout = styled.div`
   font-weight: 600;
 `;
 
-const Button = styled.button<{ isSelected: boolean }>`
-  height: 100%;
-  flex: 1;
-  border-radius: 24px;
-  font-size: 15px;
-  background-color: ${(props) =>
-    props.isSelected ? "var(--color-mint)" : null};
-  color: ${(props) => (props.isSelected ? "white" : null)};
-  font-weight: ${(props) => (props.isSelected ? "600" : null)};
-`;
+// const Button = styled.button<{ isSelected: boolean }>`
+//   height: 100%;
+//   flex: 1;
+//   border-radius: 24px;
+//   font-size: 15px;
+//   background-color: ${(props) =>
+//     props.isSelected ? "var(--color-mint)" : null};
+//   color: ${(props) => (props.isSelected ? "white" : null)};
+//   font-weight: ${(props) => (props.isSelected ? "600" : null)};
+// `;
 
 export default RecordNavigation;

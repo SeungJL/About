@@ -1,4 +1,6 @@
-import { Button } from "@chakra-ui/react";
+import { AspectRatio, Button, Link } from "@chakra-ui/react";
+import { faUser } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { GetServerSideProps, NextPage } from "next";
 import { BuiltInProviderType } from "next-auth/providers";
@@ -13,16 +15,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeaderCenter,
-  ModalLayout,
-} from "../components/modals/Modals";
 import { useUserRegisterFormsQuery } from "../hooks/admin/quries";
 import { useCompleteToast, useFailToast } from "../hooks/custom/CustomToast";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
-import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";
 
 const Login: NextPage<{
@@ -85,55 +80,65 @@ const Login: NextPage<{
   return (
     <>
       <Layout>
-        <Wrapper>
-          <ImageWrapper
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-          >
+        <ImageWrapper
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+        >
+          <AspectRatio pos="relative" ratio={2 / 1}>
             <Image
               alt="aboutPoster"
-              width={350}
-              height={190}
+              fill={true}
+              sizes="400px"
               src={`https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/%EB%A1%9C%EA%B3%A0+short.webp`}
               priority
             />
-          </ImageWrapper>
-          <MainWrapper key={kakaoProvider.id}>
-            <Button
-              width="270px"
-              height="40px"
-              backgroundColor="#FEE500"
-              borderRadius="var(--rounded-lg)"
-              isLoading={loading}
-              onClick={() => customSignin("member")}
-              mb="var(--gap-2)"
-              display="flex"
-              justifyContent="space-between"
-            >
-              <IconKakao />
-              <span style={{ marginRight: "16px" }}>카카오로 로그인</span>
-              <div />
-            </Button>
-            <Button
-              width="270px"
-              height="40px"
-              background="var(--gray-7)"
-              onClick={() => setIsModal(true)}
-              border="var(--border)"
-              mb="var(--gap-2)"
-            >
-              게스트 로그인
-            </Button>
-            <Message>활동 및 가입신청은 카카오 로그인을 이용해주세요!</Message>
-          </MainWrapper>
-          <ForceLogoutDialog />
-        </Wrapper>
+          </AspectRatio>
+        </ImageWrapper>
+        <MainWrapper key={kakaoProvider.id}>
+          <Button
+            size="lg"
+            fontSize="16px"
+            width="100%"
+            backgroundColor="#FEE500"
+            rounded="md"
+            isLoading={loading}
+            onClick={() => customSignin("member")}
+            mb="8px"
+            display="flex"
+            justifyContent="space-between"
+            leftIcon={<IconKakao />}
+            pr="32px"
+          >
+            <span>카카오 로그인</span>
+            <div />
+          </Button>
+          <Button
+            size="lg"
+            fontSize="16px"
+            width="100%"
+            rounded="md"
+            background="var(--gray-7)"
+            onClick={() => setIsModal(true)}
+            mb="16px"
+            justifyContent="space-between"
+            leftIcon={<FontAwesomeIcon icon={faUser} />}
+            pr="32px"
+          >
+            <span>게스트 로그인</span>
+            <div />
+          </Button>
+          <Message>활동 및 가입신청은 카카오 로그인을 이용해주세요!</Message>
+          <Link mt="4px" href="/" isExternal fontSize="12px">
+            로그인이 안되시나요?
+          </Link>
+        </MainWrapper>
+        <ForceLogoutDialog />
       </Layout>
-      {isModal && (
+      {/* {isModal && (
         <GuestLoginModal setIsModal={setIsModal} customSignin={customSignin} />
-      )}
-      {isCheckModal && (
+      )} */}
+      {/* {isCheckModal && (
         <ModalLayout onClose={() => setIsModal(false)} size="sm">
           <ModalHeaderCenter text="가입 대기중" />
           <ModalBody>
@@ -144,7 +149,7 @@ const Login: NextPage<{
             onClick={() => setIsCheckModal(false)}
           />
         </ModalLayout>
-      )}
+      )} */}
     </>
   );
 };
@@ -158,32 +163,34 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Layout = styled.div`
-  width: 375px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+  width: 100vw;
+  max-width: var(--max-width);
 
-const ImageWrapper = styled(motion.div)``;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 400px;
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const ImageWrapper = styled(motion.div)`
+  width: 100%;
 `;
 
 const MainWrapper = styled.div`
-  margin-top: 40px;
+  width: 100%;
+  padding: 28px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const Message = styled.span`
-  font-size: 10px;
+  font-size: 12px;
   text-align: center;
   color: var(--color-red);
 `;

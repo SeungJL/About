@@ -4,9 +4,9 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+import Slide from "../../components/layout/PageSlide";
+
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   LOCATION_ALL,
@@ -91,12 +91,13 @@ function RegisterLocation() {
       {isLoading ? (
         <MainLoading />
       ) : (
-        <Slide>
-          <ProgressStatus value={10} />
-          <Header
+        <>
+          <ProgressHeader
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
             url={isProfileEdit ? "/user/profile" : "/login"}
+            value={10}
           />
+
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
               <span>지역을 선택해 주세요</span>
@@ -135,8 +136,11 @@ function RegisterLocation() {
               ))}
             </ButtonNav>
           </RegisterLayout>
-          <BottomNav onClick={() => onClickNext()} />
-        </Slide>
+
+          <Slide isFixed={true} posZero="top">
+            <BottomNav onClick={() => onClickNext()} />
+          </Slide>
+        </>
       )}
     </>
   );
@@ -158,7 +162,7 @@ const Button = styled.button<{ $picked: string }>`
   height: 68px;
   border-radius: var(--rounded-lg);
   border: ${(props) =>
-    props.$picked === "true" ? "1.5px solid var(--gray-1)" : "var(--border)"};
+    props.$picked === "true" ? "var(--border-thick)" : "var(--border)"};
 `;
 
 const Message = styled.div`

@@ -49,8 +49,8 @@ export const LOCATION_MEMBER_CNT: {
   안양: { member: 23, new: 3 },
   강남: { member: 53, new: 2 },
   동대문: { member: 43, new: 2 },
-  마포: { member: 18, new: 2 },
-  인천: { member: 7, new: 3 },
+  마포: { member: 23, new: 2 },
+  인천: { member: 21, new: 3 },
 };
 
 export const LOCATION_TABLE_COLOR = {

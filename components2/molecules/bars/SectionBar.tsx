@@ -14,7 +14,7 @@ export default function SectionBar({
   size = "lg",
 }: ISectionBar) {
   return (
-    <SectionBarContainer>
+    <SectionBarContainer size={size}>
       <TitleContainer size={size}>{title}</TitleContainer>
       {hasMoreBtn && !rightComponent && <HighlightedTextButton text="더보기" />}
       {rightComponent}

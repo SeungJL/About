@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+import Input from "../../components2/atoms/Input";
+
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,
@@ -37,22 +37,27 @@ function Phone() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={88} />
-      <Header title="회원가입" url="/register/comment" />
+    <>
+      <ProgressHeader title="회원가입" url="/register/comment" value={90} />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>핸드폰 번호를 작성해 주세요</span>
           <span>해당 번호로 연락을 드리니 정확하게 작성해 주세요.</span>
         </RegisterOverview>
-        <NameInput
+        <Input
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="전화번호를 입력해 주세요."
         />
-        <BottomNav onClick={() => onClickNext()} />
+        {/* <NameInput
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="전화번호를 입력해 주세요."
+        /> */}
       </RegisterLayout>
-    </Slide>
+      <BottomNav onClick={() => onClickNext()} />
+    </>
   );
 }
 

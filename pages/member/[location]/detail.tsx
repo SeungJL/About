@@ -6,7 +6,8 @@ import styled from "styled-components";
 import { SECTION_NAME } from ".";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
+
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { getUserBadge } from "../../../helpers/userHelpers";
@@ -33,67 +34,75 @@ function MemberDetail() {
   };
 
   return (
-    <Slide>
-      <Header
-        title={SECTION_NAME[section]}
-        url={`/member/${router.query?.location}`}
-      />
-      <Container>
-        {memberData?.members.map((who) => {
-          const { badge } = getUserBadge(who.score, who.uid);
-          const rest = section === "resting" && who?.rest;
-          return (
-            <Item key={who.uid} onClick={() => onClickUser(who)}>
-              <ProfileWrapper>
-                <ProfileIcon user={who} size="sm" />
-              </ProfileWrapper>
-              <Info>
-                <Name>
-                  <span>{who.name}</span>
-                  <Badge
-                    fontSize={10}
-                    colorScheme={BADGE_COLOR[badge]}
-                    ml="var(--gap-2)"
-                  >
-                    {badge}
-                  </Badge>
-                </Name>
-                <div>
-                  {section === "member" || section?.includes("group") ? (
-                    who.comment
-                  ) : section === "human" ? (
-                    `가입일: ${dayjs(who.registerDate).format(
-                      "YYYY년 M월 D일"
-                    )}`
-                  ) : (
-                    <>
-                      <RestInfo>
-                        <span>{rest.type}휴식</span>/
-                        {rest.type === "일반" ? (
-                          <>
-                            <span>
-                              {dayjsToFormat(dayjs(rest.startDate), "YY-MM-DD")}{" "}
-                              ~ {dayjsToFormat(dayjs(rest.endDate), "YY-MM-DD")}
-                            </span>
-                            <DDay>
-                              D-
-                              {dayjs(rest.endDate).diff(dayjs(), "day")}{" "}
-                            </DDay>
-                          </>
-                        ) : (
-                          <span>자율참여 멤버</span>
-                        )}
-                      </RestInfo>
-                      <span>{rest?.content}</span>
-                    </>
-                  )}
-                </div>
-              </Info>
-            </Item>
-          );
-        })}
-      </Container>
-    </Slide>
+    <>
+      <Slide isFixed={true}>
+        <Header
+          title={SECTION_NAME[section]}
+          url={`/member/${router.query?.location}`}
+        />
+      </Slide>
+      <Slide>
+        <Container>
+          {memberData?.members.map((who) => {
+            const { badge } = getUserBadge(who.score, who.uid);
+            const rest = section === "resting" && who?.rest;
+            return (
+              <Item key={who.uid} onClick={() => onClickUser(who)}>
+                <ProfileWrapper>
+                  <ProfileIcon user={who} size="sm" />
+                </ProfileWrapper>
+                <Info>
+                  <Name>
+                    <span>{who.name}</span>
+                    <Badge
+                      fontSize={10}
+                      colorScheme={BADGE_COLOR[badge]}
+                      ml="var(--gap-2)"
+                    >
+                      {badge}
+                    </Badge>
+                  </Name>
+                  <div>
+                    {section === "member" || section?.includes("group") ? (
+                      who.comment
+                    ) : section === "human" ? (
+                      `가입일: ${dayjs(who.registerDate).format(
+                        "YYYY년 M월 D일"
+                      )}`
+                    ) : (
+                      <>
+                        <RestInfo>
+                          <span>{rest.type}휴식</span>/
+                          {rest.type === "일반" ? (
+                            <>
+                              <span>
+                                {dayjsToFormat(
+                                  dayjs(rest.startDate),
+                                  "YY-MM-DD"
+                                )}{" "}
+                                ~{" "}
+                                {dayjsToFormat(dayjs(rest.endDate), "YY-MM-DD")}
+                              </span>
+                              <DDay>
+                                D-
+                                {dayjs(rest.endDate).diff(dayjs(), "day")}{" "}
+                              </DDay>
+                            </>
+                          ) : (
+                            <span>자율참여 멤버</span>
+                          )}
+                        </RestInfo>
+                        <span>{rest?.content}</span>
+                      </>
+                    )}
+                  </div>
+                </Info>
+              </Item>
+            );
+          })}
+        </Container>
+      </Slide>
+    </>
   );
 }
 

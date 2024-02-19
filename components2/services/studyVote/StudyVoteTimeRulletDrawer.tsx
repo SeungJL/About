@@ -40,7 +40,6 @@ export default function StudyVoteTimeRulletDrawer({
   });
 
   useEffect(() => {
-    console.log(55, rulletValue);
     setVoteTime({
       start: parseTimeToDayjs(rulletValue.left),
       end: parseTimeToDayjs(rulletValue.right),

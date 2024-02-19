@@ -1,4 +1,5 @@
 export const USER_ROLE = [
+  "newUser",
   "human",
   "member",
   "manager",
@@ -6,4 +7,3 @@ export const USER_ROLE = [
   "resting",
   "enthusiastic",
 ] as const;
-

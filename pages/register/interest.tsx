@@ -3,12 +3,11 @@ import { ChangeEvent, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import ProgressStatus from "../../components/templates/ProgressStatus";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
-import Slide from "../../components/layout/Slide";
+import Input from "../../components2/atoms/Input";
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { INTEREST_DATA } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
@@ -48,12 +47,13 @@ function Interest() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={70} />
-      <Header
+    <>
+      <ProgressHeader
+        value={70}
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/major"
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>관심 분야를 선택해 주세요</span>
@@ -87,7 +87,7 @@ function Interest() {
         </Container>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} />
-    </Slide>
+    </>
   );
 }
 
@@ -99,8 +99,8 @@ const Container = styled.div`
     > span {
       display: inline-block;
       color: var(--gray-1);
-      font-weight: 600;
-      font-size: 12px;
+
+      font-size: 14px;
       margin-bottom: var(--gap-2);
     }
   }
@@ -117,6 +117,7 @@ const Example = styled.div`
     border-radius: var(--rounded-lg);
     display: flex;
     flex-wrap: wrap;
+
     > span {
       font-size: 12px;
       margin-right: 6px;
@@ -129,17 +130,17 @@ const Item = styled.div`
   flex-direction: column;
 `;
 
-const Input = styled.input`
-  padding: var(--gap-3) var(--gap-2);
-  border: 1px solid var(--gray-6);
-  background-color: var(--gray-7);
-  border-radius: var(--rounded-lg);
-  ::placeholder {
-    color: var(--gray-4);
-  }
-  :focus {
-    outline-color: var(--gray-1);
-  }
-`;
+// const Input = styled.input`
+//   padding: var(--gap-3) var(--gap-2);
+//   border: 1px solid var(--gray-6);
+//   background-color: var(--gray-7);
+//   border-radius: var(--rounded-lg);
+//   ::placeholder {
+//     color: var(--gray-4);
+//   }
+//   :focus {
+//     outline-color: var(--gray-1);
+//   }
+// `;
 
 export default Interest;

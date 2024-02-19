@@ -2,6 +2,7 @@ import "next-auth";
 
 import { DefaultSession } from "next-auth";
 import { ActiveLocation } from "./serviceTypes/locationTypes";
+import { UserRole } from "./userTypes/userInfoTypes";
 declare module "next-auth/jwt" {
   // JWT 토큰의 타입을 확장합니다.
   interface JWT {
@@ -12,7 +13,7 @@ declare module "next-auth/jwt" {
     uid: string;
     name: string;
     profileImage: string;
-    role: string;
+    role: UserRole;
     isActive: boolean;
     location: ActiveLocation;
   }
@@ -55,7 +56,7 @@ declare module "next-auth" {
       id: string;
       uid: string;
       name: string;
-      role: string;
+      role: UserRole;
       isActive: boolean;
       profileImage: string;
       location: ActiveLocation;

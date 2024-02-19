@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -5,11 +6,11 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import BlurredPart from "../../../components/common/masks/BlurredPart";
+import Slide from "../../../components/layout/PageSlide";
+import SectionBar from "../../../components2/molecules/bars/SectionBar";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { useAdminUsersLocationControlQuery } from "../../../hooks/admin/quries";
-import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import MemberHeader from "../../../pageTemplates/member/MemberHeader";
-import MemberOverview from "../../../pageTemplates/member/MemberOverview";
 import MemberRecommend from "../../../pageTemplates/member/MemberRecommend";
 import MemberSectionList from "../../../pageTemplates/member/MemberSectionList";
 import MemberSectionTitle from "../../../pageTemplates/member/MemberSectionTitle";
@@ -33,12 +34,6 @@ export const SECTION_NAME: Record<MemberGroup, string> = {
   enthusiastic: "열공 멤버",
   resting: "휴식 멤버",
   birth: "생일",
-  groupA: "소그룹 A",
-  groupB: "소그룹 B",
-  groupC: "소그룹 C",
-  groupD: "소그룹 D",
-  groupE: "소그룹 E",
-  groupF: "소그룹 F",
 };
 
 function Member() {
@@ -58,8 +53,6 @@ function Member() {
     }
   );
 
-  const { data: studyPlaces } = useStudyPlacesQuery(location as Location);
-
   //멤버 분류
   useEffect(() => {
     if (!location || isLoading) return;
@@ -75,12 +68,6 @@ function Member() {
       resting: [],
       birth: [],
       enthusiastic: [],
-      groupA: [],
-      groupB: [],
-      groupC: [],
-      groupD: [],
-      groupE: [],
-      groupF: [],
     };
     locationMembers.forEach((who) => {
       switch (who.role) {
@@ -100,13 +87,6 @@ function Member() {
           else classified.member.push(who);
           break;
       }
-      const belong = who?.belong?.split("/")?.[1];
-      if (belong === "A") classified.groupA.push(who);
-      if (belong === "B") classified.groupB.push(who);
-      if (belong === "C") classified.groupC.push(who);
-      if (belong === "D") classified.groupD.push(who);
-      if (belong === "E") classified.groupE.push(who);
-      if (belong === "F") classified.groupF.push(who);
 
       const today = dayjsToFormat(dayjs(), "MMDD");
       if (who.role !== "human" && who.birth.slice(2) === today) {
@@ -140,37 +120,13 @@ function Member() {
 
   return (
     <>
-      <MemberHeader />
+      <Slide isFixed={true}>
+        <MemberHeader />
+      </Slide>
       {groupedMembers ? (
-        <Layout>
-          <MemberOverview
-            onClickSection={onClickSection}
-            groups={[
-              groupedMembers?.groupA.length
-                ? sortGroup(groupedMembers.groupA)
-                : null,
-              groupedMembers?.groupB.length
-                ? sortGroup(groupedMembers.groupB)
-                : null,
-              groupedMembers?.groupC.length
-                ? sortGroup(groupedMembers.groupC)
-                : null,
-              groupedMembers?.groupD.length
-                ? sortGroup(groupedMembers.groupD)
-                : null,
-              groupedMembers?.groupE.length
-                ? sortGroup(groupedMembers.groupE)
-                : null,
-              groupedMembers?.groupF.length
-                ? sortGroup(groupedMembers.groupF)
-                : null,
-            ]}
-          />
-          <HrDiv />
-
-          <HrDiv />
-          <MembersContainer>
-            <MemberTitle>멤버 소개</MemberTitle>
+        <Slide>
+          <SectionBar title="멤버 소개" size="md" hasMoreBtn={false} />
+          <Box mx="16px">
             {MEMBER_SECTIONS.map((section) => {
               if (section === "birth" && groupedMembers.birth.length === 0)
                 return;
@@ -186,10 +142,11 @@ function Member() {
                 </Section>
               );
             })}
-          </MembersContainer>
-          <HrDiv />
+
+            <HrDiv />
+          </Box>
           <MemberRecommend members={locationMembers} />
-        </Layout>
+        </Slide>
       ) : (
         <MainLoading />
         // <MemberSkeleton />
@@ -198,32 +155,13 @@ function Member() {
   );
 }
 
-const MembersContainer = styled.div`
-  margin: 0 var(--gap-4);
-  padding: var(--gap-3) 0;
-  > section {
-    margin-top: var(--gap-3);
-  }
-`;
-
-const Layout = styled.div`
-  margin-top: var(--gap-1);
-  > div:first-child {
-    margin-top: 0;
-  }
-`;
-
 const Section = styled.section`
+  margin-top: 12px;
   > div:last-child {
     height: 60px;
     margin-top: var(--gap-3);
     margin-left: -8px;
   }
-`;
-const MemberTitle = styled.span`
-  font-size: 18px;
-  font-weight: 600;
-  padding: 16px 0;
 `;
 
 const HrDiv = styled.div`

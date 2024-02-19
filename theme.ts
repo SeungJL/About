@@ -1,5 +1,18 @@
 import { extendTheme } from "@chakra-ui/react";
 
+import { inputAnatomy } from "@chakra-ui/anatomy";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
+
+const { definePartsStyle, defineMultiStyleConfig } =
+  createMultiStyleConfigHelpers(inputAnatomy.keys);
+
+const baseStyle = definePartsStyle({
+  // define the part you're going to style
+  field: {},
+});
+
+export const inputTheme = defineMultiStyleConfig({ baseStyle });
+
 const theme = extendTheme({
   styles: {
     global: {
@@ -58,6 +71,7 @@ const theme = extendTheme({
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
   components: {
+    Input: inputTheme,
     Textarea: {
       baseStyle: {
         // 포커스 됐을 때의 스타일

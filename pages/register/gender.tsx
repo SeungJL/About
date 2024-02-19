@@ -3,9 +3,8 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import { setLocalStorageObj } from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
@@ -36,12 +35,13 @@ function Gender() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={30} />
-      <Header
+    <>
+      <ProgressHeader
+        value={30}
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/name"
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>성별을 입력해 주세요</span>
@@ -63,7 +63,7 @@ function Gender() {
         </ButtonNav>
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </Slide>
+    </>
   );
 }
 

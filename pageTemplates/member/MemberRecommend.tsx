@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import SectionBar from "../../components2/molecules/bars/SectionBar";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../constants/contents/friend";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import { transferMemberDataState } from "../../recoil/transferDataAtoms";
@@ -39,8 +40,8 @@ function MemberRecommend({ members }: IMemberRecommend) {
   };
 
   return (
-    <Layout>
-      <Title>친구 추천</Title>
+    <>
+      <SectionBar title="친구 추천" size="md" hasMoreBtn={false} />
       <Nav>
         <Button onClick={() => onClickBtn(0)}>
           <FontAwesomeIcon icon={faDragon} color="#FF8896" />
@@ -67,15 +68,11 @@ function MemberRecommend({ members }: IMemberRecommend) {
           <span>{FRIEND_RECOMMEND_CATEGORY[5]}</span>
         </Button>
       </Nav>
-    </Layout>
+    </>
   );
 }
 
-const Layout = styled.div`
-  padding-top: var(--gap-3);
-  padding-bottom: var(--gap-4);
-  margin: 0 var(--gap-4);
-`;
+const Layout = styled.div``;
 
 const Title = styled.span`
   font-weight: 600;
@@ -85,15 +82,17 @@ const Title = styled.span`
 `;
 
 const Nav = styled.nav`
+  padding: 16px;
   display: flex;
   flex-direction: column;
 `;
 
 const Button = styled.button`
+  background-color: white;
   border-radius: var(--rounded-lg);
   border: var(--border);
   height: 60px;
-  margin-top: var(--gap-2);
+  margin-bottom: var(--gap-2);
   font-size: 15px;
   text-align: start;
   padding: 0 var(--gap-5);

@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import ProgressStatus from "../../components/templates/ProgressStatus";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 import { useSession } from "next-auth/react";
-import Slide from "../../components/layout/Slide";
+
+import { Input } from "@chakra-ui/react";
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { MESSAGE_DATA } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import { USER_INFO } from "../../constants/keys/queryKeys";
@@ -73,16 +73,17 @@ function Comment() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (index === null && value !== "") inputRef.current.focus();
+    if (index === null && value !== "") inputRef.current?.focus();
   }, [index, value]);
 
   return (
-    <Slide>
-      <ProgressStatus value={80} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/interest"
+        value={80}
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>자기 소개 문장을 입력해 주세요</span>
@@ -99,16 +100,26 @@ function Comment() {
             </Item>
           ))}
         </Container>
-        <Input
-          onClick={() => setIndex(InputIdx)}
-          placeholder="직접 입력"
-          ref={inputRef}
-          onChange={(e) => setValue(e.target?.value)}
-          value={value}
-        />
+        <div onClick={() => setIndex(InputIdx)}>
+          <Input
+            placeholder="직접 입력"
+            ref={inputRef}
+            onChange={(e) => setValue(e.target?.value)}
+            value={value}
+            h="48px"
+            color="var(--gray-4)"
+            focusBorderColor="#00c2b3"
+            textAlign="center"
+            fontSize="14px"
+            borderWidth="1.5px"
+            _placeholder={{
+              color: "var(--gray-4)",
+            }}
+          />
+        </div>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} text={isProfileEdit ? "완료" : null} />
-    </Slide>
+    </>
   );
 }
 
@@ -129,27 +140,6 @@ const Item = styled.div<{ $isSelected: boolean }>`
   color: ${(props) => (props.$isSelected ? "var(--gray-1)" : "var(--gray-4)")};
   border: ${(props) =>
     props.$isSelected ? "var(--border-thick)" : "1.5px solid var(--gray-6)"};
-`;
-
-const Input = styled.input`
-  width: 100%;
-  color: var(--gray-4);
-  border: 1.5px solid var(--gray-6);
-  border-radius: var(--rounded-lg);
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  background-color: inherit;
-  align-items: center;
-  height: 48px;
-  margin-bottom: var(--gap-3);
-
-  ::placeholder {
-    color: var(--gray-4);
-  }
-  :focus {
-    outline-color: var(--gray-1);
-  }
 `;
 
 export default Comment;

@@ -1,7 +1,7 @@
-import Header from "../../components/layout/Header";
+import Header from "../../components2/Header";
 
 function MemberHeader() {
-  return <Header title="멤버" />;
+  return <Header title="멤버" url="/home" />;
 }
 
 export default MemberHeader;

@@ -41,6 +41,7 @@ function MemberSectionTitle({ section, onClickSection }: IMemberSectionTitle) {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const TitleWrapper = styled.div`

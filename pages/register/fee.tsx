@@ -2,10 +2,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
+
 import Accordion from "../../components/templates/Accordion";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { ACCORDION_CONTENT_FEE } from "../../constants/contents/accordionContents";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
@@ -19,10 +18,10 @@ import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 function Fee() {
-  const { data, update } = useSession();
+  const { data: session, update } = useSession();
   const errorToast = useErrorToast();
   const router = useRouter();
-
+  console.log(12, session);
   const info = getLocalStorageObj(REGISTER_INFO);
 
   const { mutate } = useUserRegisterMutation({
@@ -39,9 +38,9 @@ function Fee() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={100} />
-      <Header title="회원가입" url="/register/phone" />
+    <>
+      <ProgressHeader title="회원가입" url="/register/phone" value={100} />
+
       <RegisterLayout>
         <RegisterOverview>
           <span>회비 납부</span>
@@ -61,7 +60,7 @@ function Fee() {
         <Accordion contentArr={ACCORDION_CONTENT_FEE} />
       </RegisterLayout>
       <BottomNav onClick={onClickNext} text="신청완료" />
-    </Slide>
+    </>
   );
 }
 

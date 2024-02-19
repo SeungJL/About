@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import Slide from "../../components/layout/PageSlide";
 
 function RegisterLayout({
   children,
@@ -13,10 +14,12 @@ function RegisterLayout({
 
   const onValid = (data) => {};
   return (
-    <Layout onSubmit={handleSubmit(onValid)}>
-      {children}
-      <Message>{errorMessage}</Message>
-    </Layout>
+    <Slide>
+      <Layout onSubmit={handleSubmit(onValid)}>
+        {children}
+        <Message>{errorMessage}</Message>
+      </Layout>
+    </Slide>
   );
 }
 

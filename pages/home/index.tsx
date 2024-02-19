@@ -24,6 +24,7 @@ function Home() {
   const dateParam = searchParams.get("date");
 
   useEffect(() => {
+ 
     if (session?.user && (!locationParam || !dateParam)) {
       const initialUrl = getUrlWithLocationAndDate(
         locationParam,

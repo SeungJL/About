@@ -2,20 +2,10 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
 import BottomNav from "../../components2/BottomNav";
-import { USER_INITIAL_INFO } from "../../constants/keys/queryKeys";
 import { useToken } from "../../hooks/custom/CustomHooks";
-import { useUserInfoQuery } from "../../hooks/user/queries";
-import {
-  isGuestState,
-  locationState,
-  userAccessUidState,
-} from "../../recoil/userAtoms";
-import { Location } from "../../types/system";
 import BaseModal from "./BaseModal";
 import BaseScript from "./BaseScript";
 import Seo from "./Seo";
@@ -30,7 +20,14 @@ interface ILayout {
 function Layout({ children }: ILayout) {
   const router = useRouter();
   const pathname = usePathname();
-  console.log(2, pathname);
+
+  const segment = pathname.split("/")[1];
+  console.log(5, segment, pathname, 2, "/".split("/"));
+
+  const PUBLIC_SEGMENT = ["register"];
+
+  const isPublicUrl = pathname;
+
   // const segments = pathname?.split("/").filter(Boolean);
   // const firstSegment = segments?.length ? segments[0] : null;
 
@@ -39,69 +36,44 @@ function Layout({ children }: ILayout) {
   const { data: session } = useSession();
 
   const isGuest = session?.user.name === "guest";
-
-  const setUserAccessUid = useSetRecoilState(userAccessUidState);
-  const setLocation = useSetRecoilState(locationState);
-  const setIsGuest = useSetRecoilState(isGuestState);
-
   const [isErrorModal, setIsErrorModal] = useState(false);
 
-  let userInitialInfo;
-  if (typeof window !== "undefined") {
-    userInitialInfo = localStorage.getItem(USER_INITIAL_INFO);
-  }
+  // const isPublicRoute = PUBLIC_ROUTES.some((route) =>
+  //   router.asPath.startsWith(route)
+  // );
+  // const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
 
+  // const status = router.query?.status;
+  console.log(2444, pathname);
   useEffect(() => {
-    if (isGuest) {
-      setLocation("수원");
-      setIsGuest(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGuest]);
+    if (PUBLIC_SEGMENT.includes(segment)) return;
+    if (session === null) router.push("/login");
+    if (session?.user.role === "newUser") router.push("/register/location");
+  }, [session]);
 
-  useEffect(() => {
-    if (userInitialInfo && !isGuest) {
-      const info: { uid: string; location: Location } =
-        JSON.parse(userInitialInfo);
-      setUserAccessUid(info.uid);
-      setLocation(info.location);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInitialInfo]);
-
-  const isPublicRoute = PUBLIC_ROUTES.some((route) =>
-    router.asPath.startsWith(route)
-  );
-  const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
-
-  const status = router.query?.status;
-
-  useUserInfoQuery({
-    enabled: (isCondition && userInitialInfo === null) || status === "login",
-    onSuccess(data) {
-      if (!isCondition || (userInitialInfo && status !== "login")) return;
-      //유저 데이터 없음
-      if (data === null || !data.registerDate || data.isActive === false) {
-        if (router.query.status === "login") navigateTo(`/register/location`);
-        else navigateTo("/login/?status=noMember");
-        return;
-      }
-      //유저 데이터 에러
-      if (session && data._id !== session.user.id) {
-        setIsErrorModal(true);
-        return;
-      }
-      setUserAccessUid(data.uid);
-      setLocation(data.location);
-      localStorage.setItem(
-        USER_INITIAL_INFO,
-        JSON.stringify({ uid: data.uid, location: data.location })
-      );
-    },
-    onError() {
-      navigateTo("/checkingServer");
-    },
-  });
+  // useUserInfoQuery({
+  //   enabled:
+  //     (!!session && isCondition && userInitialInfo === null) ||
+  //     status === "login",
+  //   onSuccess(data) {
+  //     console.log(data);
+  //     if (!isCondition || (userInitialInfo && status !== "login")) return;
+  //     //유저 데이터 없음
+  //     if (data === null || !data.registerDate || data.isActive === false) {
+  //       if (router.query.status === "login") navigateTo(`/register/location`);
+  //       else navigateTo("/login/?status=noMember");
+  //       return;
+  //     }
+  //     //유저 데이터 에러
+  //     if (session && data._id !== session.user.id) {
+  //       setIsErrorModal(true);
+  //       return;
+  //     }
+  //   },
+  //   onError() {
+  //     navigateTo("/checkingServer");
+  //   },
+  // });
 
   const navigateTo = (path: string) => {
     router.push(path);

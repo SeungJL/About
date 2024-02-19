@@ -1,7 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -9,9 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+
+import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import { birthToAge } from "../../helpers/converterHelpers";
 import {
@@ -72,12 +70,13 @@ function Birthday() {
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
 
   return (
-    <Slide>
-      <ProgressStatus value={40} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
         url="/register/gender"
+        value={40}
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>생년월일을 입력해 주세요</span>
@@ -118,7 +117,7 @@ function Birthday() {
         </DateContainer>
       </RegisterLayout>
       <BottomNav onClick={() => onClickNext()} />
-    </Slide>
+    </>
   );
 }
 
@@ -131,10 +130,7 @@ const StyledDatePicker = styled(DatePicker)`
   font-size: 13px;
   font-weight: 600;
   color: var(--gray-2);
-`;
-
-const Layout = styled(motion.div)`
-  height: 100vh;
+  outline: none;
 `;
 
 const DateStr = styled.div`

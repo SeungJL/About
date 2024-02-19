@@ -15,14 +15,14 @@
   font-weight: 700;
   font-display: swap;
 }
-html {
-  padding-top: 56px;
-  padding-bottom: 40px;
-}
 
 body {
+  padding-top: 56px;
+  padding-bottom: 40px;
   font-family: apple;
   font-size: 14px;
+  background-color: var(--gray-8);
+  color: var(--gray-1);
 }
 
 a {
@@ -45,8 +45,6 @@ a {
   min-height: 100vh;
   height: 100%;
   overflow: hidden;
-  background-color: var(--gray-8);
-  color: var(--gray-1);
 }
 
 .CircularProgressbar-trail {

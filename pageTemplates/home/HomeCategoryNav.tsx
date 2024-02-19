@@ -1,6 +1,7 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -15,7 +16,8 @@ import {
 import { NewAlertIcon } from "../../components/common/Icon/AlertIcon";
 
 import { isGatherAlertState } from "../../recoil/alertAtoms";
-import { locationState } from "../../recoil/userAtoms";
+import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 type HomeCategory =
   | "record"
@@ -27,8 +29,9 @@ type HomeCategory =
   | "group";
 
 function HomeCategoryNav() {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const location = useRecoilValue(locationState);
+  const location = searchParams.get("location");
 
   const isGatherAlert = useRecoilValue(isGatherAlertState);
   const [isPointAlert, setIsPointAlert] = useState(false);
@@ -44,13 +47,13 @@ function HomeCategoryNav() {
   return (
     <Layout>
       <Item className="about_navigation1">
-        <CustomLink href="/record">
+        <CustomLink href="/calendar">
           <CalendarIcon />
         </CustomLink>
         <span>캘린더</span>
       </Item>
       <Item className="about_navigation2">
-        <CustomLink href="store">
+        <CustomLink href="event">
           <StoreIcon />
           {isPointAlert && (
             <IconWrapper>
@@ -65,7 +68,12 @@ function HomeCategoryNav() {
         <span>이벤트</span>
       </Item>
       <Item className="about_navigation3">
-        <CustomLink href="member">
+        <CustomLink
+          href={`/member/${convertLocationLangTo(
+            location as LocationEn,
+            "kr"
+          )}`}
+        >
           <MemberIcon />{" "}
           <IconWrapper>
             <NewAlertIcon size="lg" />
