@@ -1,13 +1,11 @@
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
-import { useSession } from "next-auth/react";
-
 import { Input } from "@chakra-ui/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryClient } from "react-query";
 import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { MESSAGE_DATA } from "../../constants/contents/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
@@ -16,36 +14,36 @@ import {
   getLocalStorageObj,
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
-import { useResetQueryData } from "../../hooks/custom/CustomHooks";
-import { useCompleteToast } from "../../hooks/custom/CustomToast";
+import { useCompleteToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 
 function Comment() {
+  const searchParams = useSearchParams();
+  const typeToast = useTypeToast();
   const completeToast = useCompleteToast();
   const router = useRouter();
-  const { data: session } = useSession();
-
+  console.log(searchParams);
   const info = getLocalStorageObj(REGISTER_INFO);
-  const [isProfileEdit, setIsProfileEdit] = useRecoilState(isProfileEditState);
 
+  const isProfileEdit = !!searchParams.get("edit");
   const [errorMessage, setErrorMessage] = useState("");
   const [value, setValue] = useState(info?.comment || "");
 
-  const [index, setIndex] = useState(null);
+  const [index, setIndex] = useState<number>();
 
-  const resetQueryData = useResetQueryData();
+  const queryClient = useQueryClient();
 
   const { data: userInfo } = useUserInfoQuery({ enabled: isProfileEdit });
   const { mutate: updateUserInfo } = useUserInfoMutation({
     onSuccess() {
       setLocalStorageObj(REGISTER_INFO, null);
-      resetQueryData(USER_INFO);
+      queryClient.invalidateQueries([USER_INFO]);
+      router.replace("/user");
       completeToast("free", "변경되었습니다.");
-      router.push(`/home`);
     },
+    onError: () => typeToast("error"),
   });
 
   const InputIdx = MESSAGE_DATA?.length;
@@ -62,7 +60,6 @@ function Comment() {
     setLocalStorageObj(REGISTER_INFO, { ...info, comment: tempComment });
 
     if (isProfileEdit) {
-      setIsProfileEdit(false);
       updateUserInfo({
         ...userInfo,
         ...info,
@@ -74,14 +71,17 @@ function Comment() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (index === null && value !== "") inputRef.current?.focus();
+    if (!index && value !== "") {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 500);
+    }
   }, [index, value]);
 
   return (
     <>
       <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/interest"
         value={80}
       />
 
@@ -121,7 +121,11 @@ function Comment() {
         </div>
       </RegisterLayout>
 
-      <BottomNav onClick={onClickNext} text={isProfileEdit ? "완료" : null} />
+      <BottomNav
+        onClick={onClickNext}
+        text={isProfileEdit ? "완료" : null}
+        url={!isProfileEdit && "/register/phone"}
+      />
     </>
   );
 }

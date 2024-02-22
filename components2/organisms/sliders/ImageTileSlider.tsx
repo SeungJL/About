@@ -45,7 +45,7 @@ function ImageTileSlider({
   };
 
   const imageSize = imageSizeObj[size];
-
+  console.log(imageTileArr);
   return (
     <Swiper slidesPerView={slidesPerView} spaceBetween={12}>
       {imageTileArr.map((imageTile, index) => (
@@ -65,6 +65,7 @@ function ImageTileSlider({
                   priority={imageTile?.priority}
                   fill={true}
                   alt="slideImage"
+                  sizes="60px"
                 />
               </AspectRatio>
             </Box>

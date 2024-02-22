@@ -1,7 +1,9 @@
+import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TimeSelectorUnit from "../../../components/features/atoms/TimeSelectorUnit";
+import Input from "../../../components2/atoms/Input";
 import { TIME_SELECTOR_UNIT } from "../../../constants/util/util";
 import { IGatherListItem, IGatherWriting } from "../../../types/page/gather";
 import { DispatchType } from "../../../types/reactTypes";
@@ -68,11 +70,15 @@ function GatherWritingDateSubject({
     <Layout>
       <TimeContent>
         <span>1차 모임</span>
-        <TimeContentInput
-          placeholder="ex) 보드게임"
-          value={firstGather?.text}
-          onChange={(e) => onChangeInput(e, "first")}
-        />
+
+        <Box flex={1}>
+          <Input
+            placeholder="ex) 보드게임"
+            value={firstGather?.text}
+            onChange={(e) => onChangeInput(e, "first")}
+          />
+        </Box>
+        <Box h="40px" />
         <TimeSelectorUnit
           time={firstGather?.time}
           setTime={(time) => setFirstGather((old) => ({ ...old, time }))}
@@ -81,11 +87,14 @@ function GatherWritingDateSubject({
       </TimeContent>
       <TimeContent>
         <span>2차 모임</span>
-        <TimeContentInput
-          placeholder="ex) 뒤풀이"
-          value={secondGather?.text}
-          onChange={(e) => onChangeInput(e, "second")}
-        />
+        <Box flex={1}>
+          <Input
+            placeholder="ex) 뒤풀이"
+            value={secondGather?.text}
+            onChange={(e) => onChangeInput(e, "second")}
+          />
+        </Box>
+        <Box h="40px" />
         <TimeSelectorUnit
           time={secondGather?.time}
           setTime={(time) => setSecondGather((old) => ({ ...old, time }))}

@@ -25,13 +25,13 @@ function Gender() {
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<Gender>(info?.gender);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (!gender) {
       setErrorMessage("성별을 선택해 주세요.");
+      e.preventDefault();
       return;
     }
     setLocalStorageObj(REGISTER_INFO, { ...info, gender });
-    router.push(`/register/birthday`);
   };
 
   return (
@@ -39,7 +39,6 @@ function Gender() {
       <ProgressHeader
         value={30}
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/name"
       />
 
       <RegisterLayout errorMessage={errorMessage}>
@@ -62,7 +61,7 @@ function Gender() {
           </Button>
         </ButtonNav>
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
+      <BottomNav onClick={onClickNext} url="/register/birthday" />
     </>
   );
 }

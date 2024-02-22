@@ -1,7 +1,7 @@
 import SectionBar from "../../components2/molecules/bars/SectionBar";
 import ImageTileGridLayout, {
   IImageTileData,
-} from "../../components2/organisms/ImageTitleGridLayout";
+} from "../../components2/molecules/layouts/ImageTitleGridLayout";
 import { REVIEW_DATA } from "../../storage/Review";
 
 export default function HomeReviewSection() {
@@ -10,7 +10,7 @@ export default function HomeReviewSection() {
     .map((review) => ({
       imageUrl: review.images[0],
       text: review.text,
-      url: "/",
+      url: `/`,
     }));
 
   return (

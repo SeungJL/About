@@ -6,9 +6,8 @@ import EventMission from "../../pageTemplates/event/EventMission";
 export default function Index() {
   return (
     <>
-      <Slide isFixed={true}>
-        <EventHeader />
-      </Slide>
+      <EventHeader />
+
       <Slide>
         <EventMission />
         <EventMain />

@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalLayout } from "../../../components/modals/Modals";
 import {
@@ -13,17 +14,17 @@ import {
   useUserUpdateProfileImageMutation,
 } from "../../../hooks/user/mutations";
 import { isRefetchUserInfoState } from "../../../recoil/refetchingAtoms";
-import { isGuestState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
 import RequestChagneProfileImageModalBadge from "./RequestChagneProfileImageModalBadge";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";
 
 function RequestChangeProfileImageModal({ setIsModal }: IModal) {
+  const { data: session } = useSession();
   const failToast = useFailToast();
   const errorToast = useErrorToast();
   const completeToast = useCompleteToast();
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const setIsRefetchUserInfo = useSetRecoilState(isRefetchUserInfoState);
 
   const [pageNum, setPageNum] = useState(0);

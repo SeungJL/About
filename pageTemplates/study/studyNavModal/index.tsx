@@ -43,6 +43,7 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
           />
         </ModalPortal>
       )} */}
+
       {type === "vote" && <StudyVoteDrawer setIsModal={closeModal} />}
       {type === "cancelVote" && (
         <AlertModal setIsModal={closeModal} options={modalOptions} />

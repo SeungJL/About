@@ -7,15 +7,16 @@ interface IScreenOverlay {
 }
 
 const ScreenOverlay = ({ onClick, zIndex, darken = false }: IScreenOverlay) => {
+  console.log(1234);
   return <StyledOverlay darken={darken} onClick={onClick} zIndex={zIndex} />;
 };
 
 const StyledOverlay = styled.div<{ zIndex: number; darken: boolean }>`
   position: fixed;
   top: 0;
-  right: 0;
   left: 0;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow-y: auto;
   z-index: ${(props) => props.zIndex || 100};
   overflow-x: hidden;
@@ -24,9 +25,5 @@ const StyledOverlay = styled.div<{ zIndex: number; darken: boolean }>`
   justify-content: center;
   background-color: ${(props) =>
     props.darken ? "rgba(0,0,0,0.7)" : "rgba(0, 0, 0, 0.5)"};
-  @media (min-width: 768px) {
-    inset: 0;
-    height: 100%;
-  }
 `;
 export default ScreenOverlay;

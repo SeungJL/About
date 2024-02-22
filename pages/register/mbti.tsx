@@ -26,21 +26,19 @@ function Mbti() {
   const [mbti, setMbti] = useState(info?.mbti);
   const isProfileEdit = useRecoilValue(isProfileEditState);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (!mbti) {
+      e.preventDefault();
       setErrorMessage("항목을 선택해 주세요.");
       return;
     }
     setLocalStorageObj(REGISTER_INFO, { ...info, mbti });
-
-    router.push(`/register/major`);
   };
 
   return (
     <>
       <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/birthday"
         value={50}
       />
 
@@ -61,7 +59,7 @@ function Mbti() {
           ))}
         </ButtonNav>
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
+      <BottomNav onClick={onClickNext} url="/register/major" />
     </>
   );
 }

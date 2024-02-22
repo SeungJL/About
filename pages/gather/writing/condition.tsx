@@ -11,8 +11,6 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import { randomPassword } from "../../../helpers/validHelpers";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
@@ -27,6 +25,8 @@ import { faUserPolice } from "@fortawesome/pro-solid-svg-icons";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
 
+import Slide from "../../../components/layout/PageSlide";
+import Header from "../../../components2/Header";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
@@ -99,9 +99,11 @@ function WritingCondition() {
 
   return (
     <>
-      <Slide>
-        <ProgressStatus value={100} />
-        <Header title="" url="/gather/writing/location" />
+      <>
+        <Slide isFixed={true}>
+          <ProgressStatus value={100} />
+          <Header isSlide={false} title="" url="/gather/writing/location" />
+        </Slide>
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>
@@ -221,9 +223,9 @@ function WritingCondition() {
               </Item>
             )}
           </Container>
-          <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
-      </Slide>
+        <BottomNav onClick={() => onClickNext()} text="완료" />
+      </>
       {isConfirmModal && (
         <GatherWritingConfirmModal
           setIsModal={setIsConfirmModal}

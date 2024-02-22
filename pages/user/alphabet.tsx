@@ -24,7 +24,7 @@ import {
 import AlphabetChangeModal from "../../modals/user/collection/AlphabetChangeModal";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
 import { transferUserDataState } from "../../recoil/transferDataAtoms";
-import { isGuestState, userInfoState } from "../../recoil/userAtoms";
+import { userInfoState } from "../../recoil/userAtoms";
 import { Alphabet, ICollectionAlphabet } from "../../types/user/collections";
 import { IUser } from "../../types/user/user";
 
@@ -35,7 +35,7 @@ function CollectionAlphabet() {
   const completeToast = useCompleteToast();
   const router = useRouter();
   const { data: session } = useSession();
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   const userInfo = useRecoilValue(userInfoState);
   const setUserData = useSetRecoilState(transferUserDataState);

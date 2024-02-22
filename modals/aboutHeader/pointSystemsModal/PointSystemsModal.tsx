@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
-import TabNav from "../../../components2/molecules/navs/TabNav";
+import TabNav, {
+  ITabNavOptions,
+} from "../../../components2/molecules/navs/TabNav";
 import { IModal } from "../../../types/reactTypes";
 import PointSystemsModalFee from "./PointSystemsModalFee";
 import PointSystemsModalPoint from "./PointSystemsModalPoint";
@@ -13,6 +15,19 @@ function PointSystemsModal({ setIsModal }: IModal) {
     main: {},
   };
 
+  const tabNavOptions: ITabNavOptions[] = [
+    {
+      text: "ABOUT 포인트",
+      func: () => setIsFirst(true),
+      flex: 1,
+    },
+    {
+      text: "스터디 벌금",
+      func: () => setIsFirst(false),
+      flex: 1,
+    },
+  ];
+
   return (
     <ModalLayout
       title="포인트 가이드"
@@ -22,10 +37,7 @@ function PointSystemsModal({ setIsModal }: IModal) {
       }}
       setIsModal={setIsModal}
     >
-      <TabNav
-        left={{ text: "ABOUT 포인트", func: () => setIsFirst(true) }}
-        right={{ text: "스터디 벌금", func: () => setIsFirst(false) }}
-      />
+      <TabNav tabOptionsArr={tabNavOptions} />
       <Wrapper>
         {isFirst ? <PointSystemsModalPoint /> : <PointSystemsModalFee />}
       </Wrapper>

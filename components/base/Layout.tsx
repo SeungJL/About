@@ -22,7 +22,7 @@ function Layout({ children }: ILayout) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const segment = pathname.split("/")[1];
+  const segment = pathname?.split("/")?.[1];
 
   const PUBLIC_SEGMENT = ["register", "login"];
 
@@ -60,6 +60,7 @@ function Layout({ children }: ILayout) {
   return (
     <>
       <Seo title="ABOUT" />
+
       {token && (
         <>
           <div id="root-modal">{children}</div>

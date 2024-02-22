@@ -16,9 +16,9 @@ export default function StudyList() {
 
   return (
     <>
-      <Slide isFixed={true}>
+    
         <Header title={dayjsToFormat(dayjs(date), "M월 D일 스터디")} />
-      </Slide>
+    
       <Slide>
         <Box px="16px">
           {sortedStudyCardList?.map((card, idx) => (

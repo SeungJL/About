@@ -2,7 +2,6 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -15,10 +14,10 @@ import {
 } from "../../assets/icons/CategoryIcons";
 import { NewAlertIcon } from "../../components/common/Icon/AlertIcon";
 
+import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { isGatherAlertState } from "../../recoil/alertAtoms";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
-
 type HomeCategory =
   | "record"
   | "point"
@@ -30,78 +29,70 @@ type HomeCategory =
 
 function HomeCategoryNav() {
   const searchParams = useSearchParams();
-  const router = useRouter();
+
   const location = searchParams.get("location");
 
   const isGatherAlert = useRecoilValue(isGatherAlertState);
   const [isPointAlert, setIsPointAlert] = useState(false);
-
-  const onClickItem = (type: HomeCategory) => {
-    if (type === "member") {
-      router.push(`/member/${location}`);
-      return;
-    }
-    router.push(type);
-  };
-
+  const [isNotCompletedModal, setIsNotCompletedModal] = useState(false);
   return (
-    <Layout>
-      <Item className="about_navigation1">
-        <CustomLink href="/calendar">
-          <CalendarIcon />
-        </CustomLink>
-        <span>캘린더</span>
-      </Item>
-      <Item className="about_navigation2">
-        <CustomLink href="event">
-          <StoreIcon />
-          {isPointAlert && (
-            <IconWrapper>
-              <FontAwesomeIcon
-                icon={faStar}
-                color="var(--color-red)"
-                size="sm"
-              />
-            </IconWrapper>
-          )}
-        </CustomLink>
-        <span>이벤트</span>
-      </Item>
-      <Item className="about_navigation3">
-        <CustomLink
-          href={`/member/${convertLocationLangTo(
-            location as LocationEn,
-            "kr"
-          )}`}
-        >
-          <MemberIcon />{" "}
-          <IconWrapper>
-            <NewAlertIcon size="lg" />
-          </IconWrapper>
-        </CustomLink>
-        <span>동아리원</span>
-      </Item>
-      <Item className="about_navigation4">
-        <CustomLink href="review">
-          <GroupIcon />{" "}
-          <IconWrapper>
-            <NewAlertIcon size="lg" />
-          </IconWrapper>
-        </CustomLink>
-        <span>리뷰</span>
-      </Item>
-      <Item className="about_navigation5">
-        <Button>
-          <CampfireIcon />
-          {isGatherAlert && (
+    <>
+      <Layout>
+        <Item className="about_navigation1">
+          <CustomLink href="/calendar">
+            <CalendarIcon />
+          </CustomLink>
+          <span>캘린더</span>
+        </Item>
+        <Item className="about_navigation2">
+          <CustomLink href="event">
+            <StoreIcon />
+            {isPointAlert && (
+              <IconWrapper>
+                <FontAwesomeIcon
+                  icon={faStar}
+                  color="var(--color-red)"
+                  size="sm"
+                />
+              </IconWrapper>
+            )}
+          </CustomLink>
+          <span>이벤트</span>
+        </Item>
+        <Item className="about_navigation3">
+          <CustomLink
+            href={`/member/${convertLocationLangTo(
+              location as LocationEn,
+              "kr"
+            )}`}
+          >
+            <MemberIcon />{" "}
             <IconWrapper>
               <NewAlertIcon size="lg" />
             </IconWrapper>
-          )}
-        </Button>
-        <span>? ? ?</span>
-      </Item>
-    </Layout>
+          </CustomLink>
+          <span>동아리원</span>
+        </Item>
+        <Item className="about_navigation4">
+          <CustomLink href="review">
+            <GroupIcon />{" "}
+            <IconWrapper>
+              <NewAlertIcon size="lg" />
+            </IconWrapper>
+          </CustomLink>
+          <span>리뷰</span>
+        </Item>
+        <Item>
+          <Button onClick={() => setIsNotCompletedModal(true)}>
+            <CampfireIcon />
+          </Button>
+          <span>? ? ?</span>
+        </Item>
+      </Layout>
+      {isNotCompletedModal && (
+        <NotCompletedModal setIsModal={setIsNotCompletedModal} />
+      )}
+    </>
   );
 }
 

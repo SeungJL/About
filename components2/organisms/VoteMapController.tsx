@@ -17,7 +17,6 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
 import { useFailToast } from "../../hooks/custom/CustomToast";
-import StudyQuickVoteRegisterModal from "../../modals/study/studyQuickVoteModal/StudyQuickVoteRegisterModal";
 import { DispatchNumber } from "../../types/reactTypes";
 import { DispatchType } from "../../types2/reactTypes";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
@@ -157,8 +156,6 @@ function VoteMapController({
           </Button>
         </BottomNav>
       </Layout>
-      {/* {isLoading && <MainLoadingAbsolute />} */}
-      {isModal && <StudyQuickVoteRegisterModal setIsModal={setIsModal} />}
     </>
   );
 }

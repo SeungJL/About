@@ -149,8 +149,7 @@ export const STEPS_CONTENTS: Step[] = [
   {
     content: (
       <Content>
-        매일 출석체크, 포인트 가이드, 홍보 이벤트, 알림 페이지, 마이페이지가
-        있어요!
+        매일 출석체크, 포인트 가이드, 알림 페이지, 마이페이지가 있어요!
       </Content>
     ),
 

@@ -16,7 +16,7 @@ export type UserOverviewModal =
 
 function UserNavigation() {
   const [modalOpen, setModalOpen] = useState<UserOverviewModal>();
-
+  console.log("AAAA", modalOpen);
   return (
     <>
       <UserNavigationBlock setModalOpen={setModalOpen} />

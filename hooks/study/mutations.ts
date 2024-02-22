@@ -4,9 +4,13 @@ import { useMutation } from "react-query";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { requestServer } from "../../helpers/methodHelpers";
 import { MutationOptions } from "../../types/reactTypes";
-import { IStudyParticipate, IStudyPlaces } from "../../types/study/study";
+import { IStudyParticipate } from "../../types/study/study";
 
-import { IStudyTime, IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
+import {
+  IStudyPlaces,
+  IStudyTime,
+  IStudyVote,
+} from "../../types2/studyTypes/studyVoteTypes";
 
 type StudyParticipationParam<T> = T extends "post"
   ? IStudyVote

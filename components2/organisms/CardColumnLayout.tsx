@@ -23,12 +23,16 @@ export function CardColumnLayout({ cardDataArr, url }: ICardColumnLayout) {
   );
 }
 
-export function CardColumnLayoutSkeleton() {
+export function CardColumnLayoutSkeleton({
+  type,
+}: {
+  type: "study" | "gather";
+}) {
   return (
     <Layout>
       {[1, 2, 3].map((item) => (
         <Item key={item}>
-          <PostThumbnailCardSkeleton />
+          <PostThumbnailCardSkeleton type={type} />
         </Item>
       ))}
       <ShadowBlockButton text="더보기" />

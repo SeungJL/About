@@ -4,12 +4,7 @@ import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import SuccessScreen from "../../components/layout/SuccessScreen";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
@@ -65,33 +60,36 @@ function GatherWritingConfirmModal({
     }
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: isGatherEdit ? "모임 수정" : "모임 개설",
+      func: onSubmit,
+    },
+  };
+
   return (
     <>
       {gatherData && (
-        <ModalLayout onClose={() => setIsModal(false)} size="lg">
-          <ModalHeader text={isGatherEdit ? "모임 수정" : "모임 개설"} />
-          <ModalBody>
-            <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
-            <Container>
-              <Item>
-                <span>제목:</span>
-                <span>{gatherData?.title}</span>
-              </Item>
-              <Item>
-                <span>날짜:</span>
-                <span>{dayjs(gatherData.date).format("M월 D일, H시 m분")}</span>
-              </Item>
-              <Item>
-                <span>주제:</span>
-                <span>{gatherData.type.subtitle || "기타"}</span>
-              </Item>
-            </Container>
-          </ModalBody>
-          <ModalFooterOne
-            isFull={true}
-            text={isGatherEdit ? "모임 수정" : "모임 개설"}
-            onClick={onSubmit}
-          />
+        <ModalLayout
+          title={isGatherEdit ? "모임 수정" : "모임 개설"}
+          setIsModal={setIsModal}
+          footerOptions={footerOptions}
+        >
+          <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
+          <Container>
+            <Item>
+              <span>제목:</span>
+              <span>{gatherData?.title}</span>
+            </Item>
+            <Item>
+              <span>날짜:</span>
+              <span>{dayjs(gatherData.date).format("M월 D일, H시 m분")}</span>
+            </Item>
+            <Item>
+              <span>주제:</span>
+              <span>{gatherData.type.subtitle || "기타"}</span>
+            </Item>
+          </Container>
         </ModalLayout>
       )}
       {isSuccessScreen && (

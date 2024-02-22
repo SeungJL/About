@@ -1,15 +1,8 @@
 import { useSession } from "next-auth/react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { userInfoState } from "../../recoil/userAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -18,8 +11,7 @@ function RequestBirthModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
   const { data: session } = useSession();
 
-  const userInfo = useRecoilValue(userInfoState);
-  const role = userInfo?.role;
+  const role = session?.user.role;
 
   const { mutate } = useUserRequestMutation({
     onSuccess() {
@@ -41,22 +33,26 @@ function RequestBirthModal({ setIsModal }: IModal) {
     });
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "비공개",
+    },
+    sub: {
+      text: "공개",
+      func: onClick,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeader text="생일 공개 설정" />
-      <ModalBody>
-        <ModalSubtitle>
-          기본 설정으로 동아리원 생일에는 축하를 위해 멤버게시판에 프로필이
-          표시됩니다.
-        </ModalSubtitle>
-      </ModalBody>
-      <ModalFooterTwo
-        leftText="공개"
-        rightText="비공개"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onClick}
-        isFull={true}
-      />
+    <ModalLayout
+      footerOptions={footerOptions}
+      title="생일 공개 설정"
+      setIsModal={setIsModal}
+    >
+      <ModalSubtitle>
+        기본 설정으로 동아리원 생일에는 축하를 위해 멤버게시판에 프로필이
+        표시됩니다.
+      </ModalSubtitle>
     </ModalLayout>
   );
 }

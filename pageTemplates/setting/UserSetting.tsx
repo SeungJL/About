@@ -10,11 +10,11 @@ import { checkAndSetLocalStorage } from "../../helpers/storageHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import FAQPopUp from "../../modals/pop-up/FAQPopUp";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
-import { isGuestState, userInfoState } from "../../recoil/userAtoms";
+import { userInfoState } from "../../recoil/userAtoms";
 import UserSettingPopUp from "./userSetting/userSettingPopUp";
 
 export default function UserSetting() {
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const isMainLoading = useRecoilValue(isMainLoadingState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 

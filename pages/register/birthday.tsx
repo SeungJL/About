@@ -50,11 +50,12 @@ function Birthday() {
   const isProfileEdit = useRecoilValue(isProfileEditState);
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     const age = birthToAge(dayjs(startDate).format("YYMMDD"));
 
     if (age < 19 || age > 26) {
       setErrorMessage("죄송합니다. 19 ~ 26세의 인원만 가입이 가능합니다.");
+      e.preventDefault();
       return;
     }
 
@@ -64,7 +65,6 @@ function Birthday() {
         birth: dayjs(startDate).format("YYMMDD"),
       });
     }
-    router.push(`mbti`);
   };
 
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
@@ -73,7 +73,6 @@ function Birthday() {
     <>
       <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/gender"
         value={40}
       />
 
@@ -116,7 +115,7 @@ function Birthday() {
           </Button>
         </DateContainer>
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
+      <BottomNav onClick={onClickNext} url="/register/mbti" />
     </>
   );
 }

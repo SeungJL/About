@@ -1,6 +1,6 @@
 import { Flex, ListItem, UnorderedList } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { STUDY_VOTE_ICON } from "../assets/icons/MapChoiceIcon";
@@ -10,7 +10,7 @@ import VoteMapController from "../components2/organisms/VoteMapController";
 import MapBottomNav from "../components2/services/studyVote/MapBottomNav";
 import { STUDY_PREFERENCE_LOCAL } from "../constants/keys/queryKeys";
 import { STUDY_DISTANCE } from "../constants2/serviceConstants/studyConstants/studyDistanceConstants";
-import { useInfoToast } from "../hooks/custom/CustomToast";
+import { useToast } from "../hooks/custom/CustomToast";
 import {
   useStudyPreferenceQuery,
   useStudyVoteQuery,
@@ -19,6 +19,7 @@ import {
   getVoteLocationCenterDot,
   getVoteLocationMaxBound,
 } from "../libs/study/getStudyVoteMap";
+import StudyPresetModal from "../modals/userRequest/StudyPresetModal";
 import { PLACE_TO_LOCATION } from "../storage/study";
 import { IMapOptions, IMarkerOptions } from "../types2/lib/naverMapTypes";
 import { ActiveLocation } from "../types2/serviceTypes/locationTypes";
@@ -33,12 +34,14 @@ import { convertLocationLangTo } from "../utils/convertUtils/convertDatas";
 export type ChoiceRank = "first" | "second" | "third";
 
 export default function StudyVoteMap() {
+  const pathname = usePathname();
   const router = useRouter();
   const { data } = useSession();
-  const infoToast = useInfoToast();
+  const toast = useToast();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
   const date = searchParams.get("date");
+  const isPreset = !!searchParams.get("preset");
   const location = convertLocationLangTo(
     searchParams.get("location") as ActiveLocation,
     "kr"
@@ -57,14 +60,14 @@ export default function StudyVoteMap() {
   const [voteScore, setVoteScore] = useState(2);
   const [markersOptions, setMarkersOptions] = useState<IMarkerOptions[]>();
   const [subSecond, setSubSecond] = useState<string[]>();
-  const [isPresetModal, setIsPresetModal] = useState(false);
+
   const [centerValue, setCenterValue] = useState<{ lat: number; lng: number }>(
     null
   );
 
   const subPlacePoint = myVote?.subPlace?.length || 0;
 
-  const { data: studyVoteData } = useStudyVoteQuery(date, location, {
+  const { data: studyVoteData, isLoading } = useStudyVoteQuery(date, location, {
     enabled: !!location && !!date,
   });
 
@@ -72,21 +75,20 @@ export default function StudyVoteMap() {
   const { data: studyPreference } = useStudyPreferenceQuery({
     enabled: !preferenceStorage,
   });
- 
 
   //스터디 프리셋 적용
   useEffect(() => {
     if (data?.user?.location !== location) return;
-    if (!preferenceStorage && studyPreference === undefined) return;
+    if (!preferenceStorage && isLoading) return;
     if (preferenceStorage) {
-    
       setPreferInfo({ preset: "first", prefer: JSON.parse(preferenceStorage) });
     } else if (!studyPreference) {
-      infoToast(
-        "free",
+      toast(
+        "info",
         "최초 1회 프리셋 등록이 필요합니다. 앞으로는 더 빠르게 투표할 수 있고, 이후 마이페이지에서도 변경이 가능합니다."
       );
-      setIsPresetModal(true);
+      newSearchParams.append("preset", "on");
+      router.replace(pathname + "?" + newSearchParams.toString());
     } else {
       setPreferInfo({ preset: "first", prefer: studyPreference });
       localStorage.setItem(
@@ -188,6 +190,7 @@ export default function StudyVoteMap() {
         </MapLayout>
         <MapBottomNav myVote={myVote} voteScore={voteScore + subPlacePoint} />
       </Layout>
+      {isPreset && <StudyPresetModal/>}
     </>
   );
 }

@@ -4,9 +4,10 @@ import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
 import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
+
 import ProgressStatus from "../../../components/templates/ProgressStatus";
+import Header from "../../../components2/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherWritingDateDate from "../../../pageTemplates/gather/writing/GatherWritingDateDate";
 import GatherWritingDateSubject from "../../../pageTemplates/gather/writing/GatherWritingDateSubject";
@@ -45,9 +46,11 @@ function WritingDate() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={60} />
-      <Header title="" url="/gather/writing/content" />
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={60} />
+        <Header isSlide={false} title="" url="/gather/writing/content" />
+      </Slide>
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 주제를 선택해 주세요.</span>
@@ -62,9 +65,9 @@ function WritingDate() {
           setGatherList={setGatherList}
           date={date}
         />
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </Slide>
+      <BottomNav onClick={() => onClickNext()} />
+    </>
   );
 }
 

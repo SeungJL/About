@@ -12,7 +12,10 @@ import {
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
-import { useUserRegisterMutation } from "../../hooks/user/mutations";
+import {
+  useUserInfoFieldMutation,
+  useUserRegisterMutation,
+} from "../../hooks/user/mutations";
 import RegisterCost from "../../pageTemplates/register/fee/RegisterCost";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
@@ -24,9 +27,11 @@ function Fee() {
 
   const info = getLocalStorageObj(REGISTER_INFO);
 
+  const { mutate: changeRole } = useUserInfoFieldMutation("role");
+
   const { mutate } = useUserRegisterMutation({
     onSuccess() {
-      update({ role: "waiting" });
+      changeRole({ role: "waiting" });
       setLocalStorageObj(REGISTER_INFO, null);
       router.push(`/register/success`);
     },
@@ -39,7 +44,7 @@ function Fee() {
 
   return (
     <>
-      <ProgressHeader title="회원가입" url="/register/phone" value={100} />
+      <ProgressHeader title="회원가입" value={100} />
       <RegisterLayout>
         <RegisterOverview>
           <span>회비 납부</span>

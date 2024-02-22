@@ -8,14 +8,14 @@ import {
 } from "../../../components/modals/Modals";
 import { ModalSubtitle } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
-import RequestStudyPreferenceModal from "../../userRequest/RequestStudyPreferenceModal";
+import StudyPresetModal from "../../userRequest/StudyPresetModal";
 
 function StudyQuickVoteRegisterModal({ setIsModal }: IModal) {
   const [isPreference, setIsPreference] = useState(false);
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="md">
+      <ModalLayout setIsModal={setIsModal}>
         <ModalHeader text="스터디 프리셋" />
         <ModalBody>
           <ModalSubtitle>
@@ -32,7 +32,7 @@ function StudyQuickVoteRegisterModal({ setIsModal }: IModal) {
       </ModalLayout>
       {isPreference && (
         <ModalPortal setIsModal={setIsPreference}>
-          <RequestStudyPreferenceModal setIsModal={setIsModal} />
+          <StudyPresetModal setIsModal={setIsModal} />
         </ModalPortal>
       )}
     </>

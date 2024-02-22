@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { MY_TODAY_STUDY_FIXED } from "../../constants/keys/localStorage";
 import {
   STUDY_VOTE_START_HOUR,
@@ -11,10 +11,9 @@ import { dayjsToStr, getCurrentDate, getHour } from "../../helpers/dateHelpers";
 import { getInterestingDate } from "../../helpers/studyHelpers";
 import { isMainLoadingState } from "../../recoil/loadingAtoms";
 import { participationsState, voteDateState } from "../../recoil/studyAtoms";
-import { isGuestState } from "../../recoil/userAtoms";
 
 function DateSetting() {
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const [voteDate, setVoteDate] = useRecoilState(voteDateState);
   const setParticipations = useSetRecoilState(participationsState);
   const setIsMainLoading = useSetRecoilState(isMainLoadingState);

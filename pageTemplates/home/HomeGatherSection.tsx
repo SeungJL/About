@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import HighlightedTextButton from "../../components2/atoms/buttons/HighlightedTextButton";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
 import { IPostThumbnailCard } from "../../components2/molecules/cards/PostThumbnailCard";
 import {
@@ -14,6 +15,7 @@ import { ITextAndColorSchemes } from "../../types2/propTypes";
 import { getRandomImage } from "../../utils/imageUtils";
 
 export default function HomeGatherSection() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const location = searchParams.get("location");
 
@@ -28,7 +30,15 @@ export default function HomeGatherSection() {
 
   return (
     <>
-      <SectionBar title="ABOUT 모임" />
+      <SectionBar
+        title="ABOUT 모임"
+        rightComponent={
+          <HighlightedTextButton
+            text="더보기"
+            onClick={() => router.push(`/gather?location=${location}`)}
+          />
+        }
+      />
       <Layout>
         {cardDataArr ? (
           <CardColumnLayout
@@ -36,7 +46,7 @@ export default function HomeGatherSection() {
             url={`/gather?location=${location}`}
           />
         ) : (
-          <CardColumnLayoutSkeleton />
+          <CardColumnLayoutSkeleton type="gather" />
         )}
       </Layout>
     </>
@@ -46,7 +56,7 @@ export default function HomeGatherSection() {
 export const setGatherDataToCardCol = (
   gathers: IGather[]
 ): IPostThumbnailCard[] => {
-  const cardCol = gathers.map((gather) => ({
+  const cardCol: IPostThumbnailCard[] = gathers.map((gather) => ({
     title: gather.title,
     subtitle:
       gather.place +
@@ -61,6 +71,7 @@ export const setGatherDataToCardCol = (
       priority: true,
     },
     badge: getGatherBadge(gather.status),
+    maxCnt: gather.memberCnt.max,
   }));
 
   return cardCol;

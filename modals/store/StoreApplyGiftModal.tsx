@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
 import CountNum from "../../components/features/atoms/CountNum";
@@ -21,7 +20,6 @@ import {
 import { useStoreMutation } from "../../hooks/sub/store/mutation";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemQuery } from "../../hooks/user/queries";
-import { isGuestState } from "../../recoil/userAtoms";
 import { IStoreApplicant, IStoreGift } from "../../types/page/store";
 import { IModal } from "../../types/reactTypes";
 
@@ -37,7 +35,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   const [value, setValue] = useState(1);
 

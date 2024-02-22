@@ -115,6 +115,7 @@ function Test() {
   return (
     <>
       <GlobalStyle />
+
       <Layout>
         <Button onClick={onClick}>CLICK</Button>
       </Layout>

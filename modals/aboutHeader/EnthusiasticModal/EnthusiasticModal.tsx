@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import {
@@ -9,7 +9,7 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
-import { locationState } from "../../../recoil/userAtoms";
+
 import { ModalSubtitle } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import ConfirmModal, { IConfirmContent } from "../../common/ConfirmModal";
@@ -24,10 +24,10 @@ const LOCATION_WIN = {
 };
 
 function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
+  const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
-  const location = useRecoilValue(locationState);
-
+  const location = session?.user.location;
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const { data: memberCnt, isLoading } = useCounterQuery(

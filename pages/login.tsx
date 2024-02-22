@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../components/modals/Modals";
 import { useToast } from "../hooks/custom/CustomToast";
+import { useUserInfoQuery } from "../hooks/user/queries";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
 import GuestLoginModal from "../modals/login/GuestLoginModal";
 import { IconKakao } from "../public/icons/Icons";
@@ -37,27 +38,34 @@ const Login: NextPage<{
   const [isModal, setIsModal] = useState(false);
   const [isWaitingModal, setIsWaitingModal] = useState(false);
 
+  const { data: userInfo } = useUserInfoQuery({
+    enabled: !!session,
+  });
+
   useEffect(() => {
     switch (status) {
       case "logout":
         toast("success", "로그아웃 되었습니다.");
+        break;
       case "noMember":
         toast("error", "동아리에 소속되어 있지 않습니다.");
+        break;
       case "waiting":
         toast("warning", "가입 대기중입니다.");
+        break;
     }
   }, [status]);
 
   const customSignin = async (type: "member" | "guest") => {
     const provider = type === "member" ? kakaoProvider.id : "guest";
-    setIsLoading(true);
     if (provider === "guest") {
       setIsModal(false);
       signIn(provider, { callbackUrl: `${window.location.origin}/home` });
       return;
     }
+    setIsLoading(true);
 
-    if (session?.user.role === "waiting") {
+    if (userInfo?.role === "waiting") {
       setIsWaitingModal(true);
       setIsLoading(false);
       return;

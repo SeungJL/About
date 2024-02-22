@@ -4,9 +4,9 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import LocationSearch from "../../../components/features/location/LocationSearch";
 import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
+import Header from "../../../components2/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
@@ -37,9 +37,11 @@ function WritingGahterLocation() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={80} />
-      <Header title="" url="/gather/writing/date" />
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={80} />
+        <Header isSlide={false} title="" url="/gather/writing/date" />
+      </Slide>
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 장소를 선택해 주세요.</span>
@@ -54,10 +56,9 @@ function WritingGahterLocation() {
             }
           />
         </Location>
-
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </Slide>
+      <BottomNav onClick={() => onClickNext()} />
+    </>
   );
 }
 

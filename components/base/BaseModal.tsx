@@ -33,7 +33,7 @@ function BaseModal({ isGuest, isError, setIsError }: IBaseModal) {
   const [transferAlphabet, setTransferAlphabet] = useRecoilState(
     transferAlphabetState
   );
-  console.log(2, isLogoutModal);
+ 
   const dailyCheckWin = useRecoilValue(transferDailyCheckWinState);
 
   const cancelLogout = () => {

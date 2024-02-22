@@ -15,9 +15,10 @@ import {
   faCloudBolt,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { MouseEvent, useEffect } from "react";
 
 export default function WriteDrawer() {
   const router = useRouter();
@@ -54,18 +55,21 @@ export default function WriteDrawer() {
             onClick={onClose}
           >
             <SocialButton
+              url="/gather/writing"
               title="모임"
               subTitle="재밌는 모임으로 친해져요"
               icon={<FontAwesomeIcon icon={faCloudBolt} color="white" />}
               color="red.400"
             />
             <SocialButton
+              url="/group/writing"
               title="소그룹"
               subTitle="비슷한 관심사의 인원들을 모아봐요"
               icon={<FontAwesomeIcon icon={faCampfire} color="white" />}
               color="blue.400"
             />
             <SocialButton
+              url="/"
               title="스터디"
               subTitle="직접 스터디를 만들어봐요"
               icon={<FontAwesomeIcon icon={faBooks} color="white" />}
@@ -79,15 +83,21 @@ export default function WriteDrawer() {
 }
 
 interface ISocialButton {
+  url: string;
   title: string;
   subTitle: string;
   icon: React.ReactNode;
   color: string;
 }
 
-const SocialButton = ({ title, subTitle, icon, color }: ISocialButton) => {
+const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
+  const onClick = (e: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+  };
   return (
-    <Link href="">
+    <Link href={url} onClick={(e) => onClick(e)}>
       <Button
         bgColor="white"
         w="90vw"

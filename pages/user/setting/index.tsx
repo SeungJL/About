@@ -5,9 +5,7 @@ import UserNavigation from "../../../pageTemplates/user/userNavigation/UserNavig
 export default function Index() {
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="설정" />
-      </Slide>
+      <Header title="설정" />
       <Slide>
         <UserNavigation />
       </Slide>

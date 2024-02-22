@@ -1,13 +1,11 @@
 import { Badge } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import Avatar from "../../components2/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { schemeToColor } from "../../helpers/converterHelpers";
 import { getUserBadge } from "../../helpers/userHelpers";
-import { isGuestState } from "../../recoil/userAtoms";
 import {
   ISortedUserAttends,
   ISortedUserScores,
@@ -31,7 +29,7 @@ function RankingOverview({
   isLoading,
   category,
 }: IRankingOverview) {
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const [userBadge, setUserBadge] = useState<UserBadge>();
 
   useEffect(() => {

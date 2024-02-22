@@ -18,11 +18,14 @@ export default function HomeLocationBar() {
   const [location, setLocation] = useState<ActiveLocation>(locationKr);
 
   useEffect(() => {
+    setLocation(locationKr);
+  }, [locationKr]);
+
+  useEffect(() => {
     if (locationKr !== location) {
       newSearchParams.set("location", convertLocationLangTo(location, "en"));
       router.replace(`/home?${newSearchParams.toString()}`);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import TimeSelector from "../../components/features/picker/TimeSelector";
 import {
   ModalBody,
@@ -21,7 +21,7 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,
 } from "../../hooks/study/mutations";
-import { locationState } from "../../recoil/userAtoms";
+
 import { IModal } from "../../types/reactTypes";
 import { IStudyParticipate } from "../../types/study/study";
 import { IPlace } from "../../types/study/studyDetail";
@@ -32,6 +32,7 @@ interface IStudyFreeOpenModal extends IModal {
 }
 
 function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const completeToast = useCompleteToast();
@@ -42,7 +43,7 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
   const voteDate = dayjs(router.query.date as string);
   const placeId = router.query.placeId;
 
-  const location = useRecoilValue(locationState);
+  const location = session?.user.location;
 
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hours: 14, minutes: 0 },

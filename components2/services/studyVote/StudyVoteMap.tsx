@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { STUDY_VOTE_ICON } from "../../../assets/icons/MapChoiceIcon";
@@ -35,9 +35,14 @@ export type ChoiceRank = "first" | "second" | "third";
 interface IStudyVoteMap extends IModal {}
 
 export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
+  const pathname = usePathname();
+
+  const searchParams = useSearchParams();
+
+  const router = useRouter();
   const { data } = useSession();
   const infoToast = useInfoToast();
-  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams);
   const date = searchParams.get("date");
   const location = convertLocationLangTo(
     searchParams.get("location") as ActiveLocation,
@@ -66,7 +71,7 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
   const { data: studyPreference } = useStudyPreferenceQuery({
     enabled: !preferenceStorage,
   });
-
+  
   //스터디 프리셋 적용
   useEffect(() => {
     if (data?.user?.location !== location) return;
@@ -78,7 +83,9 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
         "free",
         "최초 1회 프리셋 등록이 필요합니다. 앞으로는 더 빠르게 투표할 수 있고, 이후 마이페이지에서도 변경이 가능합니다."
       );
-      setIsPresetModal(true);
+      newSearchParams.append("preset", "on");
+
+      router.replace(pathname + "?" + newSearchParams.toString());
     } else {
       setPreferInfo({ preset: "first", prefer: studyPreference });
       localStorage.setItem(
@@ -160,11 +167,7 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
             setCenterValue={setCenterValue}
           />
         </MapLayout>
-        <MapBottomNav
-          setIsModal={setIsModal}
-          myVote={myVote}
-          voteScore={voteScore}
-        />
+        <MapBottomNav myVote={myVote} voteScore={voteScore} />
       </Layout>
     </>
   );

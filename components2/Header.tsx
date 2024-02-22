@@ -4,22 +4,39 @@ import ArrowBackButton from "./atoms/buttons/ArrowBackButton";
 interface IHeader {
   title: string;
   url?: string;
+  isSlide?: boolean;
   children?: React.ReactNode;
 }
 
-export default function Header({ title, url, children }: IHeader) {
+export default function Header({
+  title,
+  isSlide = true,
+  url,
+  children,
+}: IHeader) {
+  const HeaderLayout = () => (
+    <HeaderContainer>
+      <LeftSection>
+        <ArrowBackButton url={url} />
+        <Title>{title}</Title>
+      </LeftSection>
+      <div>{children}</div>
+    </HeaderContainer>
+  );
+
   return (
-    <Slide isFixed={true}>
-      <HeaderContainer>
-        <LeftSection>
-          <ArrowBackButton url={url} />
-          <Title>{title}</Title>
-        </LeftSection>
-        <div>{children}</div>
-      </HeaderContainer>
-    </Slide>
+    <>
+      {isSlide ? (
+        <Slide isFixed={true}>
+          <HeaderLayout />
+        </Slide>
+      ) : (
+        <HeaderLayout />
+      )}
+    </>
   );
 }
+
 const HeaderContainer = styled.header`
   background-color: white;
   height: var(--header-h);

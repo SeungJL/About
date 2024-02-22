@@ -5,10 +5,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ImageSlider from "../../../components/dataViews/imageSlider/ImageSlider";
 import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
@@ -19,7 +19,7 @@ import {
 } from "../../../constants/settingValue/avatar";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
-import { isGuestState } from "../../../recoil/userAtoms";
+
 import { IModal } from "../../../types/reactTypes";
 import { IAvatar } from "../../../types/user/user";
 
@@ -36,9 +36,10 @@ function RequestChangeProfileImageModalAvatar({
   setIsModal,
   setUserAvatar,
 }: IRequestChangeProfileImageModalAvatar) {
+  const { data: session } = useSession();
   const failToast = useFailToast();
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   const [iconIdx, setIconIdx] = useState(0);
   const [back, setBack] = useState(false);

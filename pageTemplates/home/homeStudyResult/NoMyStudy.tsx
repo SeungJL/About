@@ -2,15 +2,13 @@ import { Button } from "@chakra-ui/react";
 import { faSparkles } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import StudyVoteMainModal from "../../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
-import { isGuestState } from "../../../../recoil/userAtoms";
 
 function NoMyStudy() {
   const failToast = useFailToast();
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const [isFreeOpenModal, setIsFreeOpenModal] = useState(false);
 
   const onClickFreeOpen = () => {

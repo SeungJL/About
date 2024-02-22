@@ -70,10 +70,9 @@ function Index() {
               (item.category.main === category.main && !category.sub) ||
               item.category.sub === category.sub
           );
-    
+
     setGroupStudies(shuffleArray(filtered));
   }, [category, groups, isGuest]);
-
 
   const mainTabOptionsArr: ITabNavOptions[] = GROUP_STUDY_CATEGORY_ARR.map(
     (category, idx) => ({
@@ -98,14 +97,13 @@ function Index() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="소모임 그룹" url="/home">
-          <RuleIcon setIsModal={setIsRuleModal} />
-        </Header>
-      </Slide>
+      <Header title="소모임 그룹" url="/home">
+        <RuleIcon setIsModal={setIsRuleModal} />
+      </Header>
+
       <Slide>
         <Layout>
-          <SectionBar title="내 소모임" hasMoreBtn={false} />
+          <SectionBar title="내 소모임" />
           {!groupStudies ? (
             <GroupSkeletonMine />
           ) : (

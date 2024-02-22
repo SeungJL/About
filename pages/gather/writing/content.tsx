@@ -1,11 +1,15 @@
+import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
+
 import ProgressStatus from "../../../components/templates/ProgressStatus";
+import Input from "../../../components2/atoms/Input";
+import Textarea from "../../../components2/atoms/Textarea";
+import Header from "../../../components2/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
@@ -38,28 +42,32 @@ function WritingGatherContent() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={40} />
-      <Header title="" url="/gather/writing/category" />
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={40} />
+        <Header isSlide={false} title="" url="/gather/writing/category" />
+      </Slide>
       <RegisterLayout>
         <RegisterOverview>
           <span>내용을 입력해 주세요.</span>
         </RegisterOverview>
         <Container>
-          <TitleInput
+          <Input
             placeholder="제목"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <Content
+          <Box h="20px" />
+          <Textarea
             placeholder="소개글을 입력해 주세요"
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            minHeight={200}
           />
         </Container>
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </Slide>
+      <BottomNav onClick={() => onClickNext()} />
+    </>
   );
 }
 

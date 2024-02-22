@@ -1,19 +1,19 @@
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
 
 import { useCollectionAlphabetQuery } from "../../hooks/user/sub/collection/queries";
 import UserCollectionAlphabetModal from "../../modals/user/collection/UserCollectionAlphabetModal";
-import { isGuestState } from "../../recoil/userAtoms";
 
 export default function UserCollection() {
+  const { data: session } = useSession();
   const router = useRouter();
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   const [isAlphabetModal, setIsAlphabetModal] = useState(false);
 

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import Slide from "../../components/layout/PageSlide";
 import { IAlertModalOptions } from "../../components2/AlertModal";
 
 import { IIconLinkTile } from "../../components2/atoms/IconLinkTile";
@@ -154,20 +155,22 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
 
   return (
     <>
-      <Layout>
-        {isSubNav && (
-          <Wrapper>
-            <IconTileRowLayout tileDataArr={subNavOptions} size="lg" />
-          </Wrapper>
-        )}
-        <Button
-          onClick={() => handleMainButton(mainFuncType)}
-          colorScheme={mainFuncType ? "mintTheme" : "blackAlpha"}
-          size="lg"
-        >
-          {mainText}
-        </Button>
-      </Layout>
+      <Slide isFixed={true} posZero="top">
+        <Layout>
+          {isSubNav && (
+            <Wrapper>
+              <IconTileRowLayout tileDataArr={subNavOptions} size="lg" />
+            </Wrapper>
+          )}
+          <Button
+            onClick={() => handleMainButton(mainFuncType)}
+            colorScheme={mainFuncType ? "mintTheme" : "blackAlpha"}
+            size="lg"
+          >
+            {mainText}
+          </Button>
+        </Layout>
+      </Slide>
       <StudyNavModal
         type={modalType}
         setType={setModalType}

@@ -92,8 +92,8 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
   const onSubmit = () => {
     const temp = {
       ...myVote,
-      place: { _id: myVote.place },
-      subPlace: myVote.subPlace.map((sub) => ({ _id: sub })),
+      place: myVote.place,
+      subPlace: myVote.subPlace,
     };
     patchAttend(temp);
   };

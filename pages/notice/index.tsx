@@ -22,7 +22,7 @@ function Notice() {
   return (
     <>
       <Slide isFixed={true}>
-        <Header title="공지" />
+        <Header title="공지" isSlide={false} />
         <NoticeNav
           isNotice={isNotice}
           setIsNotice={setIsNotice}

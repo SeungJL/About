@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import Input from "../../components2/atoms/Input";
@@ -22,23 +22,32 @@ function Phone() {
   const [errorMessage, setErrorMessage] = useState("");
   const [value, setValue] = useState(info?.telephone || "");
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (value === "") {
       setErrorMessage("핸드폰 번호를 입력해 주세요.");
+      e.preventDefault();
       return;
     }
     if (value.length < 11) {
       setErrorMessage("핸드폰 번호를 확인해 주세요.");
+      e.preventDefault();
       return;
     }
 
     setLocalStorageObj(REGISTER_INFO, { ...info, telephone: value });
-    router.push(`/register/fee`);
   };
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      inputRef?.current?.focus();
+    }, 500);
+  }, []);
 
   return (
     <>
-      <ProgressHeader title="회원가입" url="/register/comment" value={90} />
+      <ProgressHeader title="회원가입" value={90} />
 
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -49,6 +58,7 @@ function Phone() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="전화번호를 입력해 주세요."
+          inputRef={inputRef}
         />
         {/* <NameInput
           value={value}
@@ -56,7 +66,7 @@ function Phone() {
           placeholder="전화번호를 입력해 주세요."
         /> */}
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
+      <BottomNav onClick={onClickNext} url="/register/fee" />
     </>
   );
 }

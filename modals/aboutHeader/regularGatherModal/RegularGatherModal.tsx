@@ -1,24 +1,22 @@
 import { Button, ModalFooter } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   ModalBody,
   ModalHeader,
-  ModalLayout
+  ModalLayout,
 } from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 import {
   useCompleteToast,
   useErrorToast,
-  useFailToast
+  useFailToast,
 } from "../../../hooks/custom/CustomToast";
 
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
-import { isGuestState } from "../../../recoil/userAtoms";
 import { DispatchBoolean, IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
 
@@ -30,7 +28,7 @@ function RegularGatherModal({
   setIsModal,
   setIsRabbitRun,
 }: IRegularGatherModal) {
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
@@ -151,7 +149,7 @@ const Count = styled.div`
 const Rule = styled.div`
   color: var(--gray-3);
   margin-top: var(--gap-2);
-  
+
   font-size: 11px;
   display: flex;
   flex-direction: column;

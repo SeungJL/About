@@ -1,6 +1,7 @@
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 
 import RequestBirthModal from "../../../modals/userRequest/RequestBirthModal";
 import RequestChargeDepositModal from "../../../modals/userRequest/RequestChargeDepositModal";
@@ -9,9 +10,9 @@ import RequestLogoutModal from "../../../modals/userRequest/RequestLogoutModal";
 import RequestRestCancelModal from "../../../modals/userRequest/RequestRestCancelModal";
 import RequestRestModal from "../../../modals/userRequest/RequestRestModal/RequestRestModal";
 import RequestSecedeModal from "../../../modals/userRequest/RequestSecedeModal";
-import Settingstudy from "../../../modals/userRequest/RequestStudyPreferenceModal";
 import RequestSuggestModal from "../../../modals/userRequest/RequestSuggestModal";
-import { userInfoState } from "../../../recoil/userAtoms";
+import StudyPresetModal from "../../../modals/userRequest/StudyPresetModal";
+
 import { UserOverviewModal } from "./UserNavigation";
 
 interface IUserNavigationModals {
@@ -23,14 +24,20 @@ function UserNavigationModals({
   modalOpen,
   setModalOpen,
 }: IUserNavigationModals) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isPresetModal = !!searchParams.get("preset");
   const [isModal, setIsModal] = useState<boolean>();
 
-  const userInfo = useRecoilValue(userInfoState);
+  const { data: userInfo } = useUserInfoQuery();
 
   useEffect(() => {
-    if (modalOpen) setIsModal(true);
+    if (modalOpen === "spaceSetting") {
+      router.replace("/user/setting?preset=on");
+      setModalOpen(null);
+      return;
+    } else if (modalOpen) setIsModal(true);
     if (isModal === false) setModalOpen(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalOpen, isModal]);
 
   return (
@@ -61,7 +68,7 @@ function UserNavigationModals({
       )}
 
       {modalOpen === "secede" && <RequestSecedeModal setIsModal={setIsModal} />}
-      {modalOpen === "spaceSetting" && <Settingstudy setIsModal={setIsModal} />}
+      {isPresetModal && <StudyPresetModal />}
       {modalOpen === "birthday" && (
         <RequestBirthModal setIsModal={setIsModal} />
       )}

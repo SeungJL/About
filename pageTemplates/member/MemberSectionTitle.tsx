@@ -1,9 +1,7 @@
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { SECTION_NAME } from "../../pages/member/[location]";
-import { isGuestState } from "../../recoil/userAtoms";
 import { MemberGroup } from "../../types/page/member";
 
 interface IMemberSectionTitle {
@@ -20,7 +18,7 @@ const SECTION_TEXT = {
 };
 
 function MemberSectionTitle({ section, onClickSection }: IMemberSectionTitle) {
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   return (
     <Layout>

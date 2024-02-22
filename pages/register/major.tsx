@@ -28,7 +28,7 @@ function Major() {
 
   const [majors, setmajors] = useState<IMajor[]>(info?.majors || []);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (!majors.length) {
       toast({
         title: "진행 불가",
@@ -38,11 +38,11 @@ function Major() {
         isClosable: true,
         position: "top",
       });
+      e.preventDefault();
       return;
     }
 
     setLocalStorageObj(REGISTER_INFO, { ...info, majors });
-    router.push(`/register/interest`);
   };
 
   const onClickBtn = (department: string, detail: string) => {
@@ -68,7 +68,7 @@ function Major() {
     <>
       <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/mbti"
+     
         value={60}
       />
 
@@ -101,7 +101,7 @@ function Major() {
           </Section>
         ))}
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
+      <BottomNav onClick={onClickNext} url="/register/interest" />
     </>
   );
 }

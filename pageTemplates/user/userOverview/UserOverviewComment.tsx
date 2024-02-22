@@ -2,7 +2,6 @@ import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { faPenCircle } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { USER_INFO } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
@@ -12,12 +11,11 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { isGuestState } from "../../../recoil/userAtoms";
 
 function UserOverviewComment() {
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
-  const isGuest = useRecoilValue(isGuestState);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [value, setValue] = useState("");
@@ -52,10 +50,6 @@ function UserOverviewComment() {
   }, []);
 
   const handleWrite = () => {
-    if (isGuest) {
-      failToast("guest");
-      return;
-    }
     const input = inputRef.current;
     input.focus();
   };

@@ -1,7 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   useCompleteToast,
@@ -14,7 +13,6 @@ import ConfirmModal, {
   IConfirmContent,
 } from "../../../modals/common/ConfirmModal";
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
-import { isGuestState } from "../../../recoil/userAtoms";
 import { IUser } from "../../../types/user/user";
 
 interface IProfileRelation {
@@ -26,7 +24,7 @@ function ProfileRelation({ user }: IProfileRelation) {
   const completeToast = useCompleteToast();
   const { data: session } = useSession();
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const [modalType, setModalType] = useState<
     "requestFriend" | "cancelFriend" | "isMyProfile"
   >();

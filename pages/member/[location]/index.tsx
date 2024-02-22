@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import BlurredPart from "../../../components/common/masks/BlurredPart";
@@ -15,7 +15,6 @@ import MemberRecommend from "../../../pageTemplates/member/MemberRecommend";
 import MemberSectionList from "../../../pageTemplates/member/MemberSectionList";
 import MemberSectionTitle from "../../../pageTemplates/member/MemberSectionTitle";
 import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
-import { isGuestState } from "../../../recoil/userAtoms";
 import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
 import { Location } from "../../../types/system";
 import { IUser } from "../../../types/user/user";
@@ -39,7 +38,7 @@ export const SECTION_NAME: Record<MemberGroup, string> = {
 function Member() {
   const router = useRouter();
   const location = router.query.location;
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   const setTransferMemberData = useSetRecoilState(transferMemberDataState);
 
@@ -120,12 +119,11 @@ function Member() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <MemberHeader />
-      </Slide>
+      <MemberHeader />
+
       {groupedMembers ? (
         <Slide>
-          <SectionBar title="멤버 소개" size="md" hasMoreBtn={false} />
+          <SectionBar title="멤버 소개" size="md" />
           <Box mx="16px">
             {MEMBER_SECTIONS.map((section) => {
               if (section === "birth" && groupedMembers.birth.length === 0)

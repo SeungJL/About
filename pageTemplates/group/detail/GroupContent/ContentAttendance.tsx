@@ -13,7 +13,7 @@ import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
 
 import { transferGroupDataState } from "../../../../recoil/transferDataAtoms";
-import { isGuestState, userInfoState } from "../../../../recoil/userAtoms";
+import { userInfoState } from "../../../../recoil/userAtoms";
 import { IWeekRecord } from "../../../../types/page/group";
 
 function ContentAttend() {
@@ -21,7 +21,7 @@ function ContentAttend() {
   const [isModal, setIsModal] = useState(false);
   const failToast = useFailToast();
   const [isThisWeek, setIsThisWeek] = useState(true);
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const id = router.query.id;
 
   const userInfo = useRecoilValue(userInfoState);

@@ -2,13 +2,12 @@ import { faLockKeyhole } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Badge } from "../../components/common/customComponents/Badges";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import { transferGroupDataState } from "../../recoil/transferDataAtoms";
-import { isGuestState } from "../../recoil/userAtoms";
 import { IGroup } from "../../types/page/group";
 
 interface IGroupBlock {
@@ -20,7 +19,7 @@ function GroupBlock({ group }: IGroupBlock) {
   const failToast = useFailToast();
   const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const setGroup = useSetRecoilState(transferGroupDataState);
 
   const groupInfo = {

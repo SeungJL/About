@@ -1,32 +1,48 @@
 import { Button } from "@chakra-ui/react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import Slide from "./PageSlide";
 
 interface IBottomNav {
-  onClick: () => void;
+  onClick: (e?: any) => void;
   text?: string;
+  url?: string;
 }
 
-function BottomNav({ onClick, text }: IBottomNav) {
+function BottomNav({ onClick, text, url }: IBottomNav) {
+  const searchParams = useSearchParams();
+  const params = searchParams.toString();
+  console.log(url, !!searchParams, searchParams.toString());
+  const BottomButton = () => (
+    <Button
+      position="fixed"
+      left="50%"
+      bottom="0"
+      maxW="var(--view-max-width)"
+      transform="translate(-50%,0)"
+      width={`calc(100% - 2*var(--gap-4))`}
+      size="lg"
+      mb="var(--gap-4)"
+      borderRadius="var(--rounded)"
+      backgroundColor="var(--color-mint)"
+      color="white"
+      fontSize="15px"
+      onClick={onClick}
+      _focus={{ backgroundColor: "var(--color-mint)", color: "white" }}
+    >
+      {text || "다음"}
+    </Button>
+  );
+
   return (
     <Slide isFixed={true} posZero="top">
-      <Button
-        position="fixed"
-        left="50%"
-        bottom="0"
-        maxW="var(--view-max-width)"
-        transform="translate(-50%,0)"
-        width={`calc(100% - 2*var(--gap-4))`}
-        size="lg"
-        mb="var(--gap-4)"
-        borderRadius="var(--rounded)"
-        backgroundColor="var(--color-mint)"
-        color="white"
-        fontSize="15px"
-        onClick={onClick}
-        _focus={{ backgroundColor: "var(--color-mint)", color: "white" }}
-      >
-        {text || "다음"}
-      </Button>
+      {url ? (
+        <Link href={url + (params ? `?${params}` : "")}>
+          <BottomButton />
+        </Link>
+      ) : (
+        <BottomButton />
+      )}
     </Slide>
   );
 }

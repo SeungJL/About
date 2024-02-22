@@ -19,6 +19,7 @@ export interface IPostThumbnailCard {
   url: string;
   badge: ITextAndColorSchemes;
   statusText?: string;
+  maxCnt?: number;
 }
 
 interface IPostThumbnailCardObj {
@@ -33,10 +34,10 @@ export function PostThumbnailCard({
     url,
     badge,
     statusText = undefined,
+    maxCnt = undefined,
   },
 }: IPostThumbnailCardObj) {
   const userAvatarArr = participants.map((par, idx) => {
-    
     return {
       image: par.profileImage,
       ...(par.avatar?.type !== null ? { avatar: par.avatar } : {}),
@@ -71,7 +72,9 @@ export function PostThumbnailCard({
             </Box>
             <div className="userIconContainer">
               <UserIcon />
-              <span>{participants.length}/8</span>
+              <span>
+                {participants.length}/{maxCnt || 8}
+              </span>
             </div>
           </div>
         </StatusContainer>
@@ -80,7 +83,11 @@ export function PostThumbnailCard({
   );
 }
 
-export function PostThumbnailCardSkeleton() {
+export function PostThumbnailCardSkeleton({
+  type,
+}: {
+  type: "study" | "gather";
+}) {
   return (
     <SkeletonContainer>
       <SkeletonBlock style={{ width: "86.5px", height: "86.5px" }}>
@@ -88,13 +95,16 @@ export function PostThumbnailCardSkeleton() {
       </SkeletonBlock>
       <ContentContainer>
         <TitleHeader style={{ marginBottom: "4px" }}>
-          <Title>
+          <Box w="60px">
             <Skeleton>temp</Skeleton>
-          </Title>
+          </Box>
+          <Box w="60px">
+            <Skeleton>temp</Skeleton>
+          </Box>
         </TitleHeader>
-        <Subtitle>
+        <Box w="40px">
           <Skeleton> temp</Skeleton>
-        </Subtitle>
+        </Box>
       </ContentContainer>
     </SkeletonContainer>
   );
@@ -126,14 +136,15 @@ const TitleHeader = styled.div`
 `;
 
 const Title = styled(SingleLineText)`
-  flex: 0.8;
+  flex: 0.9;
   font-size: 16px;
   font-weight: 600;
 `;
 
-const Subtitle = styled.div`
+const Subtitle = styled(SingleLineText)`
   color: var(--gray-3); // text-gray-500
   font-size: 13px;
+  width: 78%;
 `;
 
 const StatusContainer = styled.div`

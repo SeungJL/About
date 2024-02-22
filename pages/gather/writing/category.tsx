@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
+
 import ProgressStatus from "../../../components/templates/ProgressStatus";
+import Header from "../../../components2/Header";
 import {
   GatherCategoryIcons,
   GATHER_TYPES,
@@ -41,9 +42,11 @@ function WritingGatherCategory() {
   };
 
   return (
-    <Slide>
-      <ProgressStatus value={20} />
-      <Header title="" url={prevPageUrl || "/gather"} />
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={20} />
+        <Header isSlide={false} title="" url={prevPageUrl || "/gather"} />
+      </Slide>
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>
@@ -65,7 +68,7 @@ function WritingGatherCategory() {
         </ItemContainer>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} />
-    </Slide>
+    </>
   );
 }
 

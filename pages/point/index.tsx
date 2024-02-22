@@ -1,4 +1,3 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -6,10 +5,9 @@ import PointIntro from "../../pageTemplates/point/PointIntro";
 import PointPoint from "../../pageTemplates/point/PointPoint";
 import PointScore from "../../pageTemplates/point/PointScore";
 import PointSkeleton from "../../pageTemplates/point/skeleton/PointSkeleton";
-import { isGuestState } from "../../recoil/userAtoms";
 
 function Point() {
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,
   });

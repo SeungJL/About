@@ -30,7 +30,7 @@ import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas"
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 export default function HomeStudySection() {
-  const { data } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
@@ -46,12 +46,17 @@ export default function HomeStudySection() {
   const [studyCardColData, setStudyCardColData] =
     useState<IPostThumbnailCard[]>();
 
-  const { data: studyVoteData } = useStudyVoteQuery(date as string, location, {
-    enabled: !!date && !!location,
-  });
+  const { data: studyVoteData, isLoading } = useStudyVoteQuery(
+    date as string,
+    location,
+    {
+      enabled: !!date && !!location,
+    }
+  );
 
   useEffect(() => {
-    if (!studyVoteData || !studyVoteData.length || !data?.user) return;
+    if (!studyVoteData || !studyVoteData.length || !session?.user) return;
+
     const sortedData = sortStudyVoteData(
       studyVoteData,
       studyDateStatus !== "not passed"
@@ -60,11 +65,11 @@ export default function HomeStudySection() {
     const cardList = setStudyDataToCardCol(
       sortedData,
       date as string,
-      data?.user.uid
+      session?.user.uid
     );
     setStudyCardColData(cardList.slice(0, 3));
     setSortedStudyCardList(cardList);
-    setMyStudy(getMyStudy(studyVoteData, data.user.uid));
+    setMyStudy(getMyStudy(studyVoteData, session.user.uid));
 
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[0].status)) {
       //patch
@@ -86,13 +91,13 @@ export default function HomeStudySection() {
         dragElastic={1}
         onDragEnd={(_, panInfo) => onDragEnd(panInfo)}
       >
-        {studyCardColData ? (
+        {!isLoading && studyCardColData ? (
           <CardColumnLayout
             cardDataArr={studyCardColData}
             url={`/studyList/?${newSearchParams.toString()}`}
           />
         ) : (
-          <CardColumnLayoutSkeleton />
+          <CardColumnLayoutSkeleton type="study" />
         )}
       </MotionDiv>
     </AnimatePresence>

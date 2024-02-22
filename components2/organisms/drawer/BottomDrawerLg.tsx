@@ -58,10 +58,10 @@ export default function BottomDrawerLg({
         {children}
         <Button
           w="100%"
+          mt="auto"
           colorScheme="mintTheme"
           size="lg"
           borderRadius="var(--rounded-lg)"
-          mt="20px"
           onClick={onClick}
         >
           {buttonText}

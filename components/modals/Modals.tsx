@@ -130,7 +130,18 @@ export const ModalLayout = ({
                 onClickRight={func}
               />
             ) : (
-              <></>
+              <>
+                <Button
+                  onClick={subFunc}
+                  variant="ghost"
+                  color="var(--color-mint)"
+                >
+                  {subText}
+                </Button>
+                <Button onClick={func} variant="ghost">
+                  {text}
+                </Button>
+              </>
             )}
             {/* {isFull ? (
             <>

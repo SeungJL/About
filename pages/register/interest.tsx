@@ -33,8 +33,9 @@ function Interest() {
     if (isFirst) setFirstValue(value);
     else setSecondValue(value);
   };
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (firstValue === "") {
+      e.preventDefault();
       setErrorMessage("관심사를 작성해 주세요.");
       return;
     }
@@ -43,7 +44,6 @@ function Interest() {
       ...info,
       interests: { first: firstValue, second: secondValue },
     });
-    router.push(`/register/comment`);
   };
 
   return (
@@ -51,7 +51,6 @@ function Interest() {
       <ProgressHeader
         value={70}
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/major"
       />
 
       <RegisterLayout errorMessage={errorMessage}>
@@ -86,7 +85,7 @@ function Interest() {
           </Item>
         </Container>
       </RegisterLayout>
-      <BottomNav onClick={onClickNext} />
+      <BottomNav onClick={onClickNext} url="/register/comment" />
     </>
   );
 }

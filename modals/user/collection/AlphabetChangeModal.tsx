@@ -13,7 +13,7 @@ import {
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import { isGuestState, userInfoState } from "../../../recoil/userAtoms";
+import { userInfoState } from "../../../recoil/userAtoms";
 import { IModal } from "../../../types/reactTypes";
 import { Alphabet } from "../../../types/user/collections";
 
@@ -31,7 +31,7 @@ function AlphabetChangeModal({
 }: IAlphabetChangeModal) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const userInfo = useRecoilValue(userInfoState);
 
   const { mutate: requestAlphabet } = useInteractionMutation(

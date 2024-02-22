@@ -51,9 +51,7 @@ export default function Page() {
     <Layout>
       {study && (
         <>
-          <Slide isFixed={true}>
-            <StudyHeader place={place} />
-          </Slide>
+          <StudyHeader place={place} />
           <Slide>
             <StudyCover imageUrl={place.coverImage} brand={place.brand} />
             <StudyOverview
@@ -77,12 +75,10 @@ export default function Page() {
               absences={study.absences}
             />
           </Slide>
-          <Slide isFixed={true} posZero="top">
-            <StudyNavigation
-              voteCnt={attendances?.length}
-              studyStatus={study.status}
-            />
-          </Slide>
+          <StudyNavigation
+            voteCnt={attendances?.length}
+            studyStatus={study.status}
+          />
         </>
       )}
     </Layout>

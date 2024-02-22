@@ -30,6 +30,7 @@ export const YANG_스타벅스 = "64bbc30787f8dc1a5210da6a";
 export const YANG_카페꼼마 = "650afdb79ea186d7d9b2a1b6";
 export const YANG_몽글 = "650afd559ea186d7d9b2a1b5";
 export const YANG_신풍역 = "6551d99dd01680084c5c6a92";
+
 export const YANG_신길역 = "6551d7cbd01680084c5c6a91";
 export const YANG_신월동 = "6551d5bdd01680084c5c6a90";
 export const YANG_양천구청역 = "6551d2b3d01680084c5c6a8f";

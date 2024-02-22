@@ -1,13 +1,11 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import ScoreBadge from "../../components/common/user/ScoreBadge";
 import { USER_ROLE } from "../../constants/settingValue/role";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { isGuestState } from "../../recoil/userAtoms";
 function MemberMyProfile() {
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const { data: userInfo } = useUserInfoQuery();
   return (
     <Layout>

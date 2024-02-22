@@ -13,12 +13,11 @@ import StudyQuickVoteModal from "../../../modals/study/studyQuickVoteModal/Study
 import StudyQuickVoteRegisterModal from "../../../modals/study/studyQuickVoteModal/StudyQuickVoteRegisterModal";
 import StudyVoteMainModal from "../../../modals/study/studyVoteMainModal/StudyVoteMainModal";
 import { participationsState } from "../../../recoil/studyAtoms";
-import { isGuestState } from "../../../recoil/userAtoms";
 
 function AboutVoteNav() {
   const failToast = useFailToast();
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
   const participations = useRecoilValue(participationsState);
 
   const [isVoteModal, setIsVoteModal] = useState(false);

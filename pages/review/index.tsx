@@ -181,16 +181,15 @@ function Review() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="모임 리뷰">
-          <KakaoShareBtn
-            title="모임 리뷰"
-            subtitle="즐거운 모임 가득 ~!"
-            url={`${WEB_URL}/review?location=${location}`}
-            img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
-          />
-        </Header>
-      </Slide>
+      <Header title="모임 리뷰">
+        <KakaoShareBtn
+          title="모임 리뷰"
+          subtitle="즐거운 모임 가득 ~!"
+          url={`${WEB_URL}/review?location=${location}`}
+          img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
+        />
+      </Header>
+
       <Slide>
         <Layout>
           {reviewData ? (

@@ -1,22 +1,24 @@
 import { Button } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
-import { isGuestState } from "../../../recoil/userAtoms";
 import UserOverviewBadge from "./UserOverviewBadge";
 import UserOverviewComment from "./UserOverviewComment";
 
 export default function UserOverview() {
-  const isGuest = useRecoilValue(isGuestState);
   const router = useRouter();
 
   const { data: userInfo } = useUserInfoQuery();
 
   const [isProfileModal, setIsProfileModal] = useState(false);
+
+  const onClickProfileChange = () => {
+    router.push("/register/location?edit=on");
+  };
 
   return (
     <>
@@ -24,7 +26,7 @@ export default function UserOverview() {
         <UserInfoContainer>
           <UserInfo>
             <UserProfile>
-              <UserName>{isGuest ? "게스트" : userInfo?.name}</UserName>
+              <UserName>{userInfo?.name}</UserName>
               <UserOverviewBadge />
             </UserProfile>
             <UserOverviewComment />
@@ -36,9 +38,16 @@ export default function UserOverview() {
             </IconWrapper>
           </UserImg>
         </UserInfoContainer>
-        <Button w="100%" fontSize="16px">
-          프로필 수정
-        </Button>
+        <Link
+          href={{
+            href: "/register/location",
+            query: { edit: "on" },
+          }}
+        >
+          <Button w="100%" fontSize="16px" onClick={onClickProfileChange}>
+            프로필 수정
+          </Button>
+        </Link>
       </Layout>
       {isProfileModal && (
         <RequestChangeProfileImageModal setIsModal={setIsProfileModal} />

@@ -2,12 +2,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { ACCOUNT_SHORT } from "../../constants/contents/Private";
 import { USER_INFO } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
@@ -51,56 +46,56 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 
   const myDeposit = deposit;
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: isFirst ? "충전 신청" : "입금 완료",
+      func: () => (isFirst ? setIsFirst(false) : onComplete()),
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text="보증금 충전" />
-      <ModalBody>
-        {myDeposit &&
-          (isFirst ? (
-            <>
-              <MainItem>
-                <span>보유 보증금</span>
-                <MyDeposit>{myDeposit}원</MyDeposit>
-              </MainItem>
-              <MainItem>
-                <span>충전 금액</span>
-                <ChargeDeposit>+ 2000원</ChargeDeposit>
-              </MainItem>
-              <Hr />
-              <MainItem>
-                <span>충전 후 보증금</span>
-                <span>= {myDeposit + 2000}원</span>
-              </MainItem>
-            </>
-          ) : (
-            <>
-              <MainItem>
-                <span>입금 계좌</span>
-                <div>
-                  <span> {ACCOUNT_SHORT}</span>
-                  <CopyBtn text={ACCOUNT_SHORT} />
-                </div>
-              </MainItem>
-              <MainItem>
-                <span>입금자 명</span>
-                <span>{session.user.name}</span>
-              </MainItem>
-              <MainItem>
-                <span>입금 금액</span>
-                <span>2000원</span>
-              </MainItem>
-              <Message>위의 계좌로 입금 후 완료 버튼을 눌러주세요!</Message>
-            </>
-          ))}
-      </ModalBody>
-      <ModalFooterTwo
-        isLoading={isLoading}
-        leftText="닫기"
-        rightText={isFirst ? "충전 신청" : "입금 완료"}
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={() => (isFirst ? setIsFirst(false) : onComplete())}
-        isFull={true}
-      />
+    <ModalLayout
+      footerOptions={footerOptions}
+      title="보증금 충전"
+      setIsModal={setIsModal}
+    >
+      {myDeposit &&
+        (isFirst ? (
+          <>
+            <MainItem>
+              <span>보유 보증금</span>
+              <MyDeposit>{myDeposit}원</MyDeposit>
+            </MainItem>
+            <MainItem>
+              <span>충전 금액</span>
+              <ChargeDeposit>+ 2000원</ChargeDeposit>
+            </MainItem>
+            <Hr />
+            <MainItem>
+              <span>충전 후 보증금</span>
+              <span>= {myDeposit + 2000}원</span>
+            </MainItem>
+          </>
+        ) : (
+          <>
+            <MainItem>
+              <span>입금 계좌</span>
+              <div>
+                <span> {ACCOUNT_SHORT}</span>
+                <CopyBtn text={ACCOUNT_SHORT} />
+              </div>
+            </MainItem>
+            <MainItem>
+              <span>입금자 명</span>
+              <span>{session.user.name}</span>
+            </MainItem>
+            <MainItem>
+              <span>입금 금액</span>
+              <span>2000원</span>
+            </MainItem>
+            <Message>위의 계좌로 입금 후 완료 버튼을 눌러주세요!</Message>
+          </>
+        ))}
     </ModalLayout>
   );
 }

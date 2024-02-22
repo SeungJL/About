@@ -1,11 +1,9 @@
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import BottomNav from "../../components/layout/BottomNav";
-import Slide from "../../components/layout/PageSlide";
 
 import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
@@ -21,12 +19,13 @@ import LocationMember from "../../pageTemplates/register/location/LocationMember
 import LocationTitle from "../../pageTemplates/register/location/LocationTitle";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 import { Location } from "../../types/system";
 import { IUserRegisterFormWriting } from "../../types/user/user";
 
 function RegisterLocation() {
+  const searchParams = useSearchParams();
   const { data: session } = useSession();
+  const isProfileEdit = !!searchParams.get("edit");
 
   const router = useRouter();
 
@@ -34,7 +33,6 @@ function RegisterLocation() {
     localStorage.getItem(REGISTER_INFO)
   );
 
-  const isProfileEdit = useRecoilValue(isProfileEditState);
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(info?.location);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,13 +78,14 @@ function RegisterLocation() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProfileEdit, userInfo]);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (location === null) {
+      e.preventDefault();
       setErrorMessage("지역을 선택해 주세요.");
       return;
     }
+
     setLocalStorageObj(REGISTER_INFO, { ...info, location });
-    router.push(`/register/name`);
   };
 
   return (
@@ -97,19 +96,16 @@ function RegisterLocation() {
         <>
           <ProgressHeader
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-            url={isProfileEdit ? "/user/profile" : "/login"}
             value={10}
           />
 
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
               <span>지역을 선택해 주세요</span>
-              {isProfileEdit ? (
+              {!isProfileEdit ? (
                 <span>오픈 또는 예약중인 지역만 선택할 수 있습니다.</span>
               ) : (
-                <span>
-                  이후 다른 지역으로의 변경은 운영진에게 문의해주세요!
-                </span>
+                <span>활동 지역 변경은 운영진을 통해서만 가능합니다.</span>
               )}
             </RegisterOverview>
             <ButtonNav>
@@ -139,10 +135,7 @@ function RegisterLocation() {
               ))}
             </ButtonNav>
           </RegisterLayout>
-
-          <Slide isFixed={true} posZero="top">
-            <BottomNav onClick={() => onClickNext()} />
-          </Slide>
+          <BottomNav onClick={onClickNext} url="/register/name" />
         </>
       )}
     </>

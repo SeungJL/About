@@ -13,7 +13,7 @@ export default function UserHeader({}: IUserHeader) {
     },
   ];
   return (
-    <Header title="마이페이지">
+    <Header title="마이페이지" url="/home">
       <IconButtonNav iconList={iconBtnArr} />
     </Header>
   );

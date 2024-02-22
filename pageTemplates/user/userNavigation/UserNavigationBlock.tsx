@@ -1,8 +1,7 @@
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
-import { isGuestState, userInfoState } from "../../../recoil/userAtoms";
 import { DispatchString } from "../../../types/reactTypes";
 import { UserOverviewModal } from "./UserNavigation";
 
@@ -15,13 +14,12 @@ type ContentByType<T extends "page" | "modal"> = T extends "page"
   : UserOverviewModal;
 
 function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
+  const { data: session } = useSession();
   const router = useRouter();
   const failToast = useFailToast();
 
-  const isGuest = useRecoilValue(isGuestState);
-
-  const userInfo = useRecoilValue(userInfoState);
-  const role = userInfo?.role;
+  const isGuest = session?.user.name === "guest";
+  const role = session?.user.role;
   const isAdmin = role === "previliged" || role === "manager";
 
   //네비게이션 함수
@@ -43,6 +41,7 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
           return;
         }
       }
+
       setModalOpen(content);
     }
   };

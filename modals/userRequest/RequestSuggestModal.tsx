@@ -1,6 +1,5 @@
 import {
-  Button,
-  ModalFooter,
+  Input,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -8,6 +7,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Textarea,
 } from "@chakra-ui/react";
 import { faCircleExclamation } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,18 +15,11 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  IFooterOptions,
-  ModalBody,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { userInfoState } from "../../recoil/userAtoms";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
 
@@ -46,8 +39,8 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
       content: "",
     },
   });
-  const userInfo = useRecoilValue(userInfoState);
-  const location = userInfo?.location;
+
+  const location = session?.user.location;
 
   const { mutate } = usePointSystemMutation("point", {
     onSuccess() {
@@ -88,97 +81,85 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
   const footerOptions: IFooterOptions = {
     main: {
       text: "제출",
+      func: handleSubmit(onValid),
     },
+    sub: {
+      text: "취소",
+    },
+    isFull: false,
   };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xl">
-      <ModalHeader text={title} />
-      <ModalBody>
-        <Form onSubmit={handleSubmit(onValid)} id="declaration">
+    <ModalLayout
+      title={title}
+      setIsModal={setIsModal}
+      footerOptions={footerOptions}
+    >
+      <Form onSubmit={handleSubmit(onValid)} id="declaration">
+        <Item>
+          <span>제목: </span>
+          <Input size="sm" {...register("title")} focusBorderColor="#00c2b3" />
+        </Item>
+        <Item>
+          <span>작성일:</span>
+          <div>{dayjs().format("YYYY-MM-DD")}</div>
+        </Item>
+        {type !== "study" && (
           <Item>
-            <span>제목: </span>
-            <TitleInput {...register("title")} />
-          </Item>
-          <Item>
-            <span>작성일:</span>
-            <div>{dayjs().format("YYYY-MM-DD")}</div>
-          </Item>
-          {type !== "study" && (
-            <Item>
-              <span>작성자: </span>
-              <Writer>
-                <WriterBtn
-                  type="button"
-                  isSelected={isRealName}
-                  onClick={() => setIsRealName(true)}
-                >
-                  실명
-                </WriterBtn>
-                <WriterBtn
-                  type="button"
-                  isSelected={!isRealName}
-                  onClick={() => setIsRealName(false)}
-                >
-                  익명
-                </WriterBtn>
-                <div />
-                <Popover>
-                  <PopoverTrigger>
-                    <FontAwesomeIcon
-                      icon={faCircleExclamation}
-                      color="var(--gray-2)"
-                      size="sm"
-                    />
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <PopoverArrow />
-                    <PopoverCloseButton />
-                    <PopoverHeader fontSize="11px">익명 제출</PopoverHeader>
-                    <PopoverBody fontSize="11px">
-                      익명으로 제출한 건의/문의/불만 등에 대해서는 철저하게
-                      익명을 보장합니다. 단, 채택되어도 상품을 받을 수 없습니다.
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
-              </Writer>
-            </Item>
-          )}
-          <Item>
-            <Content>내용:</Content>
-            <ContentInput {...register("content")} />
-          </Item>
-        </Form>
-        {type === "study" && (
-          <Item
-            style={{
-              color: "var(--gray-3)",
-              marginTop: "var(--gap-1)",
-              marginBottom: "0",
-            }}
-          >
-            ※ 활동 지역을 벗어나는 곳은 채택이 어려워요.
+            <span>작성자: </span>
+            <Writer>
+              <WriterBtn
+                type="button"
+                isSelected={isRealName}
+                onClick={() => setIsRealName(true)}
+              >
+                실명
+              </WriterBtn>
+              <WriterBtn
+                type="button"
+                isSelected={!isRealName}
+                onClick={() => setIsRealName(false)}
+              >
+                익명
+              </WriterBtn>
+              <div />
+              <Popover>
+                <PopoverTrigger>
+                  <FontAwesomeIcon
+                    icon={faCircleExclamation}
+                    color="var(--gray-2)"
+                    size="sm"
+                  />
+                </PopoverTrigger>
+                <PopoverContent>
+                  <PopoverArrow />
+                  <PopoverCloseButton />
+                  <PopoverHeader fontSize="11px">익명 제출</PopoverHeader>
+                  <PopoverBody fontSize="11px">
+                    익명으로 제출한 건의/문의/불만 등에 대해서는 철저하게 익명을
+                    보장합니다. 단, 채택되어도 상품을 받을 수 없습니다.
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
+            </Writer>
           </Item>
         )}
-      </ModalBody>
-      <ModalFooter p="var(--gap-4) var(--gap-5)">
-        <Button
-          mr="var(--gap-3)"
-          variant="ghost"
-          type="button"
-          onClick={() => setIsModal(false)}
+        <Item>
+          <Content>내용:</Content>
+          <Textarea {...register("content")} focusBorderColor="#00c2b3" />
+        </Item>
+      </Form>
+      {type === "study" && (
+        <Item
+          style={{
+            color: "var(--gray-3)",
+            marginTop: "var(--gap-1)",
+            marginBottom: "0",
+          }}
         >
-          취소
-        </Button>
-        <Button
-          form="declaration"
-          type="submit"
-          variant="ghost"
-          color="var(--color-mint)"
-        >
-          제출
-        </Button>
-      </ModalFooter>
+          ※ 활동 지역을 벗어나는 곳은 채택이 어려워요.
+        </Item>
+      )}
     </ModalLayout>
   );
 }
@@ -203,10 +184,6 @@ const Item = styled.div`
     display: inline-block;
     min-width: 20%;
     font-weight: 600;
-  }
-  > input {
-    height: 90%;
-    flex: 1;
   }
 `;
 

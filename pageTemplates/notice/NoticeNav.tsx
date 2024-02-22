@@ -65,12 +65,5 @@ const IconWrapper = styled.div`
   bottom: 8px;
 `;
 
-const Alert = styled(AlertIcon)`
-  position: absolute;
-  top: 0;
-  right: 30%;
-  width: 6px;
-  height: 6px;
-`;
 
 export default NoticeNav;

@@ -2,11 +2,13 @@ import { faLeft, faRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
+import ImageTileGridLayout, {
+  IImageTileData,
+} from "../../../components2/molecules/layouts/ImageTitleGridLayout";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study/study";
 import { useToast } from "../../../hooks/custom/CustomToast";
 import { IPlace } from "../../../types/study/studyDetail";
 import { IParticipation } from "../../../types2/studyTypes/studyVoteTypes";
-import { StudyLogo } from "../../utils/CustomImages";
 
 interface IPlaceSelectorSub {
   places: IParticipation[];
@@ -42,6 +44,7 @@ function PlaceSelectorSub({
       return;
     }
     const place = par.place;
+
     setSelectPlaces((old) => {
       if (old.includes(place)) return old.filter((item) => item !== place);
       return [...old, place];
@@ -53,20 +56,25 @@ function PlaceSelectorSub({
     if (type === "right") setIsFirst(false);
   };
 
+  const imageDataArr: IImageTileData[] = (
+    isFirst ? pagePlaces?.first : pagePlaces?.second
+  )?.map((par) => ({
+    imageUrl: par.place.image,
+    text: par.place.brand,
+    func: () => onClick(par),
+    id: par.place._id,
+  }));
+
   return (
     <Layout isTwoPage={isTwoPage}>
-      {(isFirst ? pagePlaces?.first : pagePlaces?.second)?.map((par) => (
-        <Item
-          key={par.place._id}
-          isSelected={selectPlaces.includes(par.place)}
-          onClick={() => onClick(par)}
-        >
-          <Place>
-            <StudyLogo place={par.place} isBig={true} />
-          </Place>
-          <Name>{par.place.branch}</Name>
-        </Item>
-      ))}
+      {imageDataArr && (
+        <ImageTileGridLayout
+          imageDataArr={imageDataArr}
+          grid={{ row: 2, col: 4 }}
+          selectedId={selectPlaces.map((place) => place._id)}
+        />
+      )}
+
       {!isFirst && (
         <LeftArrow onClick={() => onClickArrow("left")}>
           <FontAwesomeIcon icon={faLeft} />
@@ -84,12 +92,7 @@ function PlaceSelectorSub({
 const Layout = styled.div<{ isTwoPage: boolean }>`
   position: relative;
   height: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-
-  gap: var(--gap-1);
-  padding: ${(props) => (props.isTwoPage ? "0 var(--gap-4)" : null)};
+  padding: 12px 20px;
 `;
 
 const Item = styled.div<{ isSelected: boolean }>`
@@ -119,14 +122,15 @@ const Name = styled.span`
 `;
 
 const LeftArrow = styled.div`
-  padding: var(--gap-1);
+  padding: 8px;
   position: absolute;
-  top: 42%;
+  top: 38%;
+  left: -8px;
 `;
 const RightArrow = styled.div`
-  padding: var(--gap-1);
+  padding: 8px;
   position: absolute;
-  top: 42%;
+  top: 38%;
   right: -8px;
 `;
 

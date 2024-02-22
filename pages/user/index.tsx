@@ -1,4 +1,3 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Slide from "../../components/layout/PageSlide";
 
@@ -7,19 +6,15 @@ import UserCollection from "../../pageTemplates/user/userCollection";
 import UserHeader from "../../pageTemplates/user/userHeader";
 import UserOverview from "../../pageTemplates/user/userOverview/UserOverView";
 import UserProfile from "../../pageTemplates/user/userProfile";
-import { isGuestState } from "../../recoil/userAtoms";
 
 function UserInfo() {
-  const isGuest = useRecoilValue(isGuestState);
-  const { data: userInfo, refetch } = useUserInfoQuery({
-    enabled: !isGuest,
-  });
+  const { data: userInfo } = useUserInfoQuery({});
 
   return (
     <>
       <UserHeader />
       <Slide>
-        {(userInfo || isGuest) && (
+        {userInfo && (
           <UserLayout>
             <UserOverview />
             <UserProfile />

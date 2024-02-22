@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
 import { forwardRef, useEffect } from "react";
@@ -43,7 +43,7 @@ function GatherWritingDateDate({
     ({ value, onClick }, ref) => {
       const isDefault =
         value === dayjsToFormat(dayjs().hour(14).minute(0), "M월 D일 HH:mm");
-
+      
       return (
         <Button
           size="lg"
@@ -73,22 +73,24 @@ function GatherWritingDateDate({
   return (
     <Layout>
       <Container>
-        <StyledDatePicker
-          {...PICKER_DATE_AND_TIME}
-          customInput={<CustomInput />}
-          locale={ko}
-          onChange={(date) => setDate(date as Date)}
-          selected={date}
-          minTime={TIME_RANGE_MIN}
-          maxTime={TIME_RAGNE_MAX}
-          renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
-            <PickerDateAndTimeHeader
-              date={date}
-              decreaseMonth={decreaseMonth}
-              increaseMonth={increaseMonth}
-            />
-          )}
-        />
+        <Box mx="auto">
+          <StyledDatePicker
+            {...PICKER_DATE_AND_TIME}
+            customInput={<CustomInput />}
+            locale={ko}
+            onChange={(date) => setDate(date as Date)}
+            selected={date}
+            minTime={TIME_RANGE_MIN}
+            maxTime={TIME_RAGNE_MAX}
+            renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+              <PickerDateAndTimeHeader
+                date={date}
+                decreaseMonth={decreaseMonth}
+                increaseMonth={increaseMonth}
+              />
+            )}
+          />
+        </Box>
       </Container>
       <Message>1차 모임 기준으로 선택해 주세요!</Message>
     </Layout>
@@ -103,7 +105,10 @@ const Container = styled.div`
   margin-top: var(--gap-5);
   display: flex;
   align-items: center;
+  justify-items: center;
+
   background-color: inherit;
+
   .react-datepicker__header {
     font-size: 14px;
   }
@@ -135,6 +140,7 @@ const Container = styled.div`
 const StyledDatePicker = styled(DatePicker)`
   background-color: inherit;
   padding: var(--gap-3) 0;
+
   margin-left: var(--gap-2);
 `;
 
