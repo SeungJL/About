@@ -5,12 +5,7 @@ import { useQueryClient } from "react-query";
 import styled from "styled-components";
 import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
 import CountNum from "../../components/features/atoms/CountNum";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { STORE_GIFT } from "../../constants/keys/queryKeys";
 import {
   useCompleteToast,
@@ -66,7 +61,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
     }
     const info: IStoreApplicant = {
       name: session.user.name,
-      uid: session.uid,
+      uid: session.user.uid,
       cnt: value,
       giftId: giftInfo.giftId,
     };
@@ -74,35 +69,42 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
     applyGift(info);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "응모하기",
+      func: onApply,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text="상품 응모" />
-      <ModalBody>
-        {!isLoading ? (
-          <>
-            <Item>
-              <span>상품</span>
-              <span>{giftInfo?.name}</span>
-            </Item>
-            <Item>
-              <span>보유 포인트</span>
-              <span>{myPoint} point</span>
-            </Item>
-            <Item>
-              <span>필요 포인트</span>
-              <NeedPoint overMax={totalCost > myPoint}>
-                {totalCost} point
-              </NeedPoint>
-            </Item>
-            <CountNav>
-              <CountNum value={value} setValue={setValue} />
-            </CountNav>
-          </>
-        ) : (
-          <MainLoadingAbsolute />
-        )}
-      </ModalBody>
-      <ModalFooterOne text="응모하기" onClick={onApply} isFull={true} />
+    <ModalLayout
+      title="상품 응모"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      {!isLoading ? (
+        <>
+          <Item>
+            <span>상품</span>
+            <span>{giftInfo?.name}</span>
+          </Item>
+          <Item>
+            <span>보유 포인트</span>
+            <span>{myPoint} point</span>
+          </Item>
+          <Item>
+            <span>필요 포인트</span>
+            <NeedPoint overMax={totalCost > myPoint}>
+              {totalCost} point
+            </NeedPoint>
+          </Item>
+          <CountNav>
+            <CountNum value={value} setValue={setValue} />
+          </CountNav>
+        </>
+      ) : (
+        <MainLoadingAbsolute />
+      )}
     </ModalLayout>
   );
 }

@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 
 import { selectRandomWinners } from "../../helpers/validHelpers";
 import { IGiftEntry } from "../../pages/store";
@@ -32,18 +27,24 @@ function StoreGiftWinModal({
     applicants.giftId
   );
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "확인",
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeader text="당첨자 발표" />
-      <ModalBody>
-        <Message>당첨을 축하합니다!</Message>
-        <Winner>
-          {winners.map((num, idx) => (
-            <Win key={idx}>{users[num]?.name || "비공개"}</Win>
-          ))}
-        </Winner>
-      </ModalBody>
-      <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />
+    <ModalLayout
+      title="당첨자 발표"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <Message>당첨을 축하합니다!</Message>
+      <Winner>
+        {winners.map((num, idx) => (
+          <Win key={idx}>{users[num]?.name || "비공개"}</Win>
+        ))}
+      </Winner>
     </ModalLayout>
   );
 }
@@ -58,9 +59,10 @@ const Message = styled.div`
 `;
 
 const Winner = styled.div`
+  padding: 12px 0;
   display: flex;
   align-items: center;
-  flex: 1;
+
   border-radius: var(--rounded-lg);
   justify-content: space-around;
   border: var(--border-mint);

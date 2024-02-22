@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
@@ -23,8 +22,9 @@ import {
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import { userInfoState } from "../../../recoil/userAtoms";
+
 import {
   IInteractionLikeStorage,
   IInteractionSendLike,
@@ -41,7 +41,7 @@ function ProfileInfo({ user }: IProfileInfo) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const userInfo = useRecoilValue(userInfoState);
+  const { data: userInfo } = useUserInfoQuery();
 
   const [isConditionOk, setIsConditionOk] = useState(false);
   const [isHeartLoading, setIsHeartLoading] = useState(true);

@@ -10,7 +10,7 @@ function DetailInfo({ user }: { user: IUser }) {
   const isGuest = session?.user.name === "guest";
   return (
     <Layout>
-      <BlurredPart isBlur={!isGuest}>
+      <BlurredPart isBlur={isGuest}>
         <Profile>
           <ProfileItem>
             <span>나이</span>

@@ -4,22 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 import { getUserRole } from "../../utils/convertUtils/convertDatas";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 import PointScoreBar from "../point/pointScore/PointScoreBar";
 
 function UserProfile() {
   const { data: session } = useSession();
-
-  const router = useRouter();
-
-  const setIsProfileEdit = useSetRecoilState(isProfileEditState);
 
   // const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
   //   userInfo?.uid as string
@@ -76,7 +69,7 @@ function UserProfile() {
         <Link href="/user/point">
           <BlockItem>
             <span>
-              내 포인트 <b>{userInfo?.deposit}</b>원
+              내 포인트 <b>{userInfo?.point}</b> P
             </span>
             <FontAwesomeIcon icon={faChevronRight} />
           </BlockItem>
@@ -84,7 +77,7 @@ function UserProfile() {
         <Link href="/user/deposit">
           <BlockItem>
             <span>
-              내 보증금 <b>{userInfo?.deposit}</b>원
+              내 보증금 <b>{userInfo?.deposit}</b> M
             </span>
             <FontAwesomeIcon icon={faChevronRight} />
           </BlockItem>

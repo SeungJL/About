@@ -101,13 +101,13 @@ function UserNavigationBlock({ setModalOpen }: IUserNavigationBlock) {
           <button onClick={() => onClickBlock("page", `/faq`)}>
             자주 묻는 질문
           </button>
-          <button onClick={() => onClickBlock("page", `user/info/policy`)}>
+          <button onClick={() => onClickBlock("page", `/user/info/policy`)}>
             서비스 이용 약관
           </button>
-          <button onClick={() => onClickBlock("page", `user/info/privacy`)}>
+          <button onClick={() => onClickBlock("page", `/user/info/privacy`)}>
             개인정보 처리방침
           </button>
-          <button onClick={() => onClickBlock("page", `user/info/avatar`)}>
+          <button onClick={() => onClickBlock("page", `/user/info/avatar`)}>
             아바타 아이콘 저작권
           </button>
           <button onClick={() => onClickBlock("modal", "secede")}>

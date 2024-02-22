@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -90,9 +89,6 @@ function RecordOverview({ arrivedCalendar }: IRecordOverview) {
             </div>
           </MyRecordItem>
         </MyRecord>
-        <Button w="60px" h="40px" color="var(--gray-2)" onClick={onClickDetail}>
-          분석
-        </Button>
       </Layout>
       {isNotCompleted && <NotCompletedModal setIsModal={setIsNotCompleted} />}
     </>

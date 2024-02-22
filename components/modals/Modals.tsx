@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import styled from "styled-components";
 import { IModal } from "../../types/reactTypes";
-import { Size } from "../../types2/assetTypes";
 import TwoButtonNav from "../layout/TwoButtonNav";
 
 export interface IHeaderOptions {
@@ -34,7 +33,7 @@ interface IModalLayout extends IModal {
   title: string;
   footerOptions?: IFooterOptions;
   children: React.ReactNode;
-  size?: Size;
+
   initialRef?: any;
   headerOptions?: IHeaderOptions;
 }
@@ -44,7 +43,7 @@ export const ModalLayout = ({
   setIsModal,
   footerOptions,
   headerOptions,
-  size,
+
   initialRef,
   children,
 }: IModalLayout) => {
@@ -55,12 +54,7 @@ export const ModalLayout = ({
   const { text: subText = "닫기", func: subFunc = onClose } = sub || {};
 
   return (
-    <Modal
-      isOpen={true}
-      onClose={onClose}
-      size={size}
-      initialFocusRef={initialRef}
-    >
+    <Modal isOpen={true} onClose={onClose} initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent
         mx="var(--gap-4)"

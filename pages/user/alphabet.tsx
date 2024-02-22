@@ -5,17 +5,18 @@ import { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
-import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import Slide from "../../components/layout/PageSlide";
+import Avatar from "../../components2/atoms/Avatar";
 import Header from "../../components2/Header";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { getUserBadge } from "../../helpers/userHelpers";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useAlphabetCompletedMutation } from "../../hooks/user/sub/collection/mutations";
 import {
   useCollectionAlphabetAllQuery,
@@ -23,10 +24,10 @@ import {
 } from "../../hooks/user/sub/collection/queries";
 import AlphabetChangeModal from "../../modals/user/collection/AlphabetChangeModal";
 import { prevPageUrlState } from "../../recoil/previousAtoms";
-import { transferUserDataState } from "../../recoil/transferDataAtoms";
-import { userInfoState } from "../../recoil/userAtoms";
+import { transferUserSummaryState } from "../../recoils/transferRecoils";
+
 import { Alphabet, ICollectionAlphabet } from "../../types/user/collections";
-import { IUser } from "../../types/user/user";
+import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
 
 const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];
 
@@ -35,15 +36,13 @@ function CollectionAlphabet() {
   const completeToast = useCompleteToast();
   const router = useRouter();
   const { data: session } = useSession();
-  const isGuest = session?.user.name === "guest";
 
-  const userInfo = useRecoilValue(userInfoState);
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const setTransferUser = useSetRecoilState(transferUserSummaryState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
 
-  const { data: alphabets } = useCollectionAlphabetQuery({
-    enabled: !isGuest,
-  });
+  const { data: userInfo } = useUserInfoQuery();
+
+  const { data: alphabets } = useCollectionAlphabetQuery();
 
   const { mutate: mutate2, isLoading: completeLoading } =
     useAlphabetCompletedMutation({
@@ -74,7 +73,7 @@ function CollectionAlphabet() {
   useEffect(() => {
     if (isLoading) return;
     const findItem = userAlphabetAll.find(
-      (who) => who.user.uid === session?.user?.uid
+      (who) => who?.user?.uid === session?.user.uid
     );
 
     if (
@@ -93,13 +92,13 @@ function CollectionAlphabet() {
     setMembers(userAlphabetAll);
   }, [isLoading, session?.user?.uid, userAlphabetAll]);
 
-  const onClickProfile = (user: IUser) => {
-    setUserData(user);
+  const onClickProfile = (user: IUserSummary) => {
+    setTransferUser(user);
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
 
-  const onClickChangeBtn = (user: IUser, alphabets: Alphabet[]) => {
+  const onClickChangeBtn = (user: IUserSummary, alphabets: Alphabet[]) => {
     const myFriends = userInfo?.friend;
     if (!myFriends?.includes(user.uid)) {
       failToast("free", "친구끼리만 교환 신청이 가능합니다.");
@@ -140,7 +139,12 @@ function CollectionAlphabet() {
                 return (
                   <Item key={user.uid}>
                     <ProfileWrapper onClick={() => onClickProfile(user)}>
-                      <ProfileIcon user={user} size="sm" />
+                      <Avatar
+                        size="md"
+                        image={user.profileImage}
+                        avatar={user.avatar}
+                        uid={user.uid}
+                      />
                     </ProfileWrapper>
                     <Info>
                       <Name>

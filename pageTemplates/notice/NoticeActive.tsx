@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/react";
 import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
 import { ActiveIcon } from "../../components/common/Icon/NoticeIcons";
@@ -15,9 +14,10 @@ import {
   useFailToast,
 } from "../../hooks/custom/CustomToast";
 import { useUserFriendMutation } from "../../hooks/user/mutations";
+import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { useInteractionMutation } from "../../hooks/user/sub/interaction/mutations";
-import { userInfoState } from "../../recoil/userAtoms";
+
 import { INoticeActiveLog } from "../../types/interaction";
 import { Alphabet } from "../../types/user/collections";
 
@@ -33,7 +33,7 @@ function NoticeActive({ activeLogs }: INoticeActive) {
 
   const resetQueryData = useResetQueryData();
 
-  const userInfo = useRecoilValue(userInfoState);
+  const { data: userInfo } = useUserInfoQuery();
   const { mutate: registerFriend } = useUserFriendMutation("patch", {
     onError: errorToast,
   });

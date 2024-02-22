@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -37,8 +38,9 @@ export const SECTION_NAME: Record<MemberGroup, string> = {
 
 function Member() {
   const router = useRouter();
+  const { data: session } = useSession();
   const location = router.query.location;
-  const isGuest = session?.user.name === "guest";
+  const isGuest = session?.user?.name === "guest";
 
   const setTransferMemberData = useSetRecoilState(transferMemberDataState);
 

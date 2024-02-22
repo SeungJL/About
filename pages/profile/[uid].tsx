@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
+import Header from "../../components2/Header";
 import { useUidToUserInfoQuery } from "../../hooks/user/queries";
 import BottomDrawer from "../../pageTemplates/profile/BottomDrawer";
 import DeclareDrawer from "../../pageTemplates/profile/DeclareDrawer";
@@ -31,17 +31,16 @@ function ProfilePage() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="" url={beforePage}>
-          <button>
-            <FontAwesomeIcon
-              icon={faEllipsisVertical}
-              size="lg"
-              onClick={() => setIsModal(true)}
-            />
-          </button>
-        </Header>
-      </Slide>
+      <Header title="" url={beforePage}>
+        <button>
+          <FontAwesomeIcon
+            icon={faEllipsisVertical}
+            size="lg"
+            onClick={() => setIsModal(true)}
+          />
+        </button>
+      </Header>
+
       <Slide>
         <Container>
           <Layout>

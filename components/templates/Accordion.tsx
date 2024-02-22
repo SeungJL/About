@@ -21,12 +21,7 @@ interface IAccordion {
 
 function Accordion({ contentArr, isFull, isQ = true }: IAccordion) {
   return (
-    <ChakraAccordion
-      allowToggle
-      marginTop="40px"
-      fontSize="13px"
-      color="var(--gray-2)"
-    >
+    <ChakraAccordion allowToggle fontSize="13px" color="var(--gray-2)">
       {contentArr?.map((item, idx) => {
         const content = item.content;
         return (

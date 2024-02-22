@@ -1,33 +1,28 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/Slide";
+import Slide from "../../components/layout/PageSlide";
+
 import Accordion from "../../components/templates/Accordion";
+import Header from "../../components2/Header";
+import SectionBar from "../../components2/molecules/bars/SectionBar";
 import { ACCORDION_CONTENT_FAQ } from "../../constants/contents/accordionContents";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
 
 function Faq() {
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
   return (
-    <Slide>
-      <Header title="자주 묻는 질문" url={prevPageUrl || "/user"} />
-      <Layout>
-        <Title>ABOUT 동아리 가이드</Title>
-        <Container>
-          <Accordion contentArr={ACCORDION_CONTENT_FAQ} isFull={true} />
-        </Container>
-      </Layout>
-    </Slide>
+    <>
+      <Header title="자주 묻는 질문" />
+      <Slide>
+        <Layout>
+          <SectionBar title="동아리 가이드" />
+          <Container>
+            <Accordion contentArr={ACCORDION_CONTENT_FAQ} isFull={true} />
+          </Container>
+        </Layout>
+      </Slide>
+    </>
   );
 }
 
 const Layout = styled.div``;
-
-const Title = styled.div`
-  margin: var(--gap-5) var(--gap-4);
-  font-weight: 800;
-  font-size: 20px;
-`;
 
 const Container = styled.div``;
 

@@ -1,5 +1,6 @@
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import { SECTION_NAME } from "../../pages/member/[location]";
 import { MemberGroup } from "../../types/page/member";
@@ -18,6 +19,7 @@ const SECTION_TEXT = {
 };
 
 function MemberSectionTitle({ section, onClickSection }: IMemberSectionTitle) {
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
   return (

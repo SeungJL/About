@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import Header from "../../../components/layout/Header";
 import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 
+import Slide from "../../../components/layout/PageSlide";
+import Header from "../../../components2/Header";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contents/friend";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
@@ -63,43 +64,42 @@ function FriendCategory() {
 
   return (
     <>
-      <Header
-        title={FRIEND_RECOMMEND_CATEGORY[idx]}
-        url={`/member/${locationUrl}`}
-      />
-      <Layout>
-        {filterMember?.map((who) => (
-          <Item key={who.uid} onClick={() => onClickProfile(who)}>
-            <ProfileHeader>
-              <ProfileIcon user={who} size="md" />
-              <span>{who.name}</span>
-            </ProfileHeader>
-            <Info>
-              <Detail>
-                <span>나이</span>
-                <span>{birthToAge(who.birth)}</span>
-                {idx === 2 && (
-                  <Birthday>
-                    / {dayjsToFormat(birthToDayjs(who.birth), "M월 D일")}
-                  </Birthday>
-                )}
-              </Detail>
-              <Detail>
-                <span>성별</span>
-                <span>{who?.gender.slice(0, 1)}</span>
-              </Detail>
-              <Detail>
-                <span>MBTI</span>
-                <span>{who?.mbti || "미작성"}</span>
-              </Detail>
-              <Detail>
-                <span>전공</span>
-                <span>{who?.majors ? who?.majors[0]?.detail : "미작성"}</span>
-              </Detail>
-            </Info>
-          </Item>
-        ))}
-      </Layout>
+      <Header title={FRIEND_RECOMMEND_CATEGORY[idx]} />
+      <Slide>
+        <Layout>
+          {filterMember?.map((who) => (
+            <Item key={who.uid} onClick={() => onClickProfile(who)}>
+              <ProfileHeader>
+                <ProfileIcon user={who} size="md" />
+                <span>{who.name}</span>
+              </ProfileHeader>
+              <Info>
+                <Detail>
+                  <span>나이</span>
+                  <span>{birthToAge(who.birth)}</span>
+                  {idx === 2 && (
+                    <Birthday>
+                      / {dayjsToFormat(birthToDayjs(who.birth), "M월 D일")}
+                    </Birthday>
+                  )}
+                </Detail>
+                <Detail>
+                  <span>성별</span>
+                  <span>{who?.gender.slice(0, 1)}</span>
+                </Detail>
+                <Detail>
+                  <span>MBTI</span>
+                  <span>{who?.mbti || "미작성"}</span>
+                </Detail>
+                <Detail>
+                  <span>전공</span>
+                  <span>{who?.majors ? who?.majors[0]?.detail : "미작성"}</span>
+                </Detail>
+              </Info>
+            </Item>
+          ))}
+        </Layout>
+      </Slide>
     </>
   );
 }

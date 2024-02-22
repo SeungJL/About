@@ -2,6 +2,9 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import AlertModal, {
+  IAlertModalOptions,
+} from "../../../components2/AlertModal";
 import {
   useCompleteToast,
   useFailToast,
@@ -9,9 +12,6 @@ import {
 import { useUserFriendMutation } from "../../../hooks/user/mutations";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 
-import ConfirmModal, {
-  IConfirmContent,
-} from "../../../modals/common/ConfirmModal";
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
 import { IUser } from "../../../types/user/user";
 
@@ -63,17 +63,22 @@ function ProfileRelation({ user }: IProfileRelation) {
     setModalType("isMyProfile");
   };
 
-  const requestFriendConrirm: IConfirmContent = {
-    title: "친구 요청을 보내시겠어요?",
-    onClickRight: () =>
+  const alertModalOptions: IAlertModalOptions = {
+    title: "친구 요청",
+    subTitle: "친구 요청을 보내시겠습니까?",
+    func: () =>
       requestFriend({
         toUid: user?.uid,
         message: `${session?.user?.name}님의 친구추가 요청`,
       }),
+    text: "전송",
   };
-  const cancelFriendConrirm: IConfirmContent = {
-    title: "친구 목록에서 삭제하시겠어요?",
-    onClickRight: () => deleteFriend(user.uid),
+
+  const cancelAlertModalOptions: IAlertModalOptions = {
+    title: "친구 삭제",
+    subTitle: "친구 목록에서 삭제하시겠습니까?",
+    func: () => deleteFriend(user.uid),
+    text: "전송",
   };
 
   return (
@@ -124,15 +129,15 @@ function ProfileRelation({ user }: IProfileRelation) {
         <ProfileCardModal setIsModal={() => setModalType(null)} />
       )}
       {modalType === "requestFriend" && (
-        <ConfirmModal
+        <AlertModal
+          options={alertModalOptions}
           setIsModal={() => setModalType(null)}
-          content={requestFriendConrirm}
         />
       )}
       {modalType === "cancelFriend" && (
-        <ConfirmModal
+        <AlertModal
+          options={cancelAlertModalOptions}
           setIsModal={() => setModalType(null)}
-          content={cancelFriendConrirm}
         />
       )}
     </>

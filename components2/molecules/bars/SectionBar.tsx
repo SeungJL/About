@@ -7,7 +7,6 @@ interface ISectionBar {
 }
 export default function SectionBar({
   title,
-
   rightComponent,
   size = "lg",
 }: ISectionBar) {

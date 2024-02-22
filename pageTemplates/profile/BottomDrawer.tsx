@@ -61,6 +61,7 @@ function BottomDrawer({
                 size="lg"
                 borderBottomRadius={0}
                 borderBottom="var(--border)"
+                borderColor="var(--gray-4)"
               >
                 거리두기
               </Button>

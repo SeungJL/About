@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
-import Header from "../../components/layout/Header";
 import { useStoreGiftEntryQuery } from "../../hooks/sub/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
@@ -12,7 +11,9 @@ import { IStoreApplicant } from "../../types/page/store";
 
 import { Button } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import Slide from "../../components/layout/PageSlide";
 import { StoreGiftImage } from "../../components/utils/CustomImages";
+import Header from "../../components2/Header";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { isPrevBooleanState } from "../../recoil/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoil/transferDataAtoms";
@@ -93,66 +94,68 @@ function Event() {
 
   return (
     <>
-      <Header title="포인트 스토어" url="/point">
+      <Header title="포인트 스토어" url="/home">
         <RuleIcon setIsModal={setIsModal} />
       </Header>
-      <Layout>
-        <Nav>
-          <Button
-            onClick={() => setIsShowActive(true)}
-            colorScheme={isShowActive ? "mintTheme" : "gray"}
-          >
-            현재 상품
-          </Button>
-          <Button
-            onClick={() => setIsShowActive(false)}
-            colorScheme={!isShowActive ? "mintTheme" : "gray"}
-          >
-            지난 상품
-          </Button>
-        </Nav>
-        {!isLoading && (
-          <Container>
-            {giftArr.map((item, idx) => (
-              <Item key={idx} onClick={() => onClickGift(item)}>
-                <Status>
-                  <Trophy>
-                    {new Array(item.winner).fill(0).map((_, idx) => (
-                      <div key={idx}>
-                        <FontAwesomeIcon
-                          icon={faTrophy}
-                          color="var(--color-mint)"
-                        />
-                      </div>
-                    ))}
-                  </Trophy>
-                  <ApplyCnt>
-                    <span>{isShowActive ? item.totalCnt : item.max}</span>
-                    <span>/{item.max}</span>
-                  </ApplyCnt>
-                </Status>
-                <ImageWrapper>
-                  <StoreGiftImage
-                    imageSrc={item.image}
-                    giftId={item.giftId}
-                    isImagePriority={idx < 6}
-                  />
+      <Slide>
+        <Layout>
+          <Nav>
+            <Button
+              onClick={() => setIsShowActive(true)}
+              colorScheme={isShowActive ? "mintTheme" : "gray"}
+            >
+              현재 상품
+            </Button>
+            <Button
+              onClick={() => setIsShowActive(false)}
+              colorScheme={!isShowActive ? "mintTheme" : "gray"}
+            >
+              지난 상품
+            </Button>
+          </Nav>
+          {!isLoading && (
+            <Container>
+              {giftArr.map((item, idx) => (
+                <Item key={idx} onClick={() => onClickGift(item)}>
+                  <Status>
+                    <Trophy>
+                      {new Array(item.winner).fill(0).map((_, idx) => (
+                        <div key={idx}>
+                          <FontAwesomeIcon
+                            icon={faTrophy}
+                            color="var(--color-mint)"
+                          />
+                        </div>
+                      ))}
+                    </Trophy>
+                    <ApplyCnt>
+                      <span>{isShowActive ? item.totalCnt : item.max}</span>
+                      <span>/{item.max}</span>
+                    </ApplyCnt>
+                  </Status>
+                  <ImageWrapper>
+                    <StoreGiftImage
+                      imageSrc={item.image}
+                      giftId={item.giftId}
+                      isImagePriority={idx < 6}
+                    />
+                    {(!isShowActive || item.max <= item.totalCnt) && (
+                      <Circle>추첨 완료</Circle>
+                    )}
+                  </ImageWrapper>
+                  <Info>
+                    <Name>{item.name}</Name>
+                    <Point>{item.point} point</Point>
+                  </Info>
                   {(!isShowActive || item.max <= item.totalCnt) && (
-                    <Circle>추첨 완료</Circle>
+                    <CompletedRapple />
                   )}
-                </ImageWrapper>
-                <Info>
-                  <Name>{item.name}</Name>
-                  <Point>{item.point} point</Point>
-                </Info>
-                {(!isShowActive || item.max <= item.totalCnt) && (
-                  <CompletedRapple />
-                )}
-              </Item>
-            ))}
-          </Container>
-        )}
-      </Layout>
+                </Item>
+              ))}
+            </Container>
+          )}
+        </Layout>
+      </Slide>
       {isModal && <StoreRuleModal setIsModal={setIsModal} />}
     </>
   );

@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Badge, Box, Button, Flex } from "@chakra-ui/react";
 
 export interface IIconButtonColBlockProps {
   icon: React.ReactNode;
@@ -28,9 +28,10 @@ export default function IconButtonColBlock({
       align="center"
     >
       <Box fontSize="36px">{icon}</Box>
-      <Box mb="16px" mt="8px" fontSize="18px" fontWeight={800}>
-        {title}
-      </Box>
+      <Badge fontSize="14px" mb="16px" colorScheme="red">
+        라즈베리
+      </Badge>
+
       <Button
         size="sm"
         w="100%"

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
+import Slide from "../../../components/layout/PageSlide";
+import Header from "../../../components2/Header";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
 import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";
 import StoreDetailCover from "../../../pageTemplates/store/detail/StoreDetailCover";
@@ -26,24 +27,29 @@ function StoreItem() {
 
   return (
     <>
-      <Header title="상세 정보" url="/store" />
-      {storeGiftData && (
-        <Layout>
-          <StoreDetailCover image={giftInfo.image} isCompleted={!isActive} />
-          <StoreDetailOverview
-            info={giftInfo}
-            totalApplyCnt={giftInfo.totalCnt}
-            isActive={isActive}
-          />
-          <StoreDetailNav
-            applyUsers={giftInfo.users}
-            isCompleted={!isActive}
-            setIsApplyModal={setIsApplyModal}
-            setIsWinModal={setIsWinModal}
-          />
-          <StoreDetailDetails winnerCnt={giftInfo.winner} max={giftInfo.max} />
-        </Layout>
-      )}
+      <Header title="상세 정보" />
+      <Slide>
+        {storeGiftData && (
+          <Layout>
+            <StoreDetailCover image={giftInfo.image} isCompleted={!isActive} />
+            <StoreDetailOverview
+              info={giftInfo}
+              totalApplyCnt={giftInfo.totalCnt}
+              isActive={isActive}
+            />
+            <StoreDetailNav
+              applyUsers={giftInfo.users}
+              isCompleted={!isActive}
+              setIsApplyModal={setIsApplyModal}
+              setIsWinModal={setIsWinModal}
+            />
+            <StoreDetailDetails
+              winnerCnt={giftInfo.winner}
+              max={giftInfo.max}
+            />
+          </Layout>
+        )}
+      </Slide>
       {isApplyModal && (
         <StoreApplyGiftModal setIsModal={setIsApplyModal} giftInfo={giftInfo} />
       )}
