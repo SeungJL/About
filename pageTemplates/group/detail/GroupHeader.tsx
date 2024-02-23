@@ -1,8 +1,9 @@
 import { faGear, faPenCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import KakaoShareBtn from "../../../components/common/Icon/KakaoShareBtn";
 import Header from "../../../components/layout/Header";
@@ -20,7 +21,6 @@ import { isGroupEditState } from "../../../recoil/checkAtoms";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
 
-import { userInfoState } from "../../../recoil/userAtoms";
 import { IGroup } from "../../../types/page/group";
 import BottomDrawer from "../../profile/BottomDrawer";
 
@@ -38,7 +38,7 @@ function GroupHeader({ group }: IGroupHeader) {
   // const locationMain = group?.location.main;
   const organizer = group?.organizer;
 
-  const userInfo = useRecoilValue(userInfoState);
+  const { data: session } = useSession();
   // const setGroupWriting = useSetRecoilState(sharedGroupWritingState);
   const setIsGroupEdit = useSetRecoilState(isGroupEditState);
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
@@ -80,7 +80,7 @@ function GroupHeader({ group }: IGroupHeader) {
         url={prevPageUrl || "/group"}
         isPrev={!!prevPageUrl}
       >
-        {userInfo?.uid === organizer?.uid && (
+        {session?.user.uid === organizer?.uid && (
           <IconWrapper onClick={onClick}>
             <FontAwesomeIcon icon={faPenCircle} size="xl" />
           </IconWrapper>

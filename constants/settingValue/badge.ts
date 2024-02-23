@@ -1,11 +1,11 @@
-import { UserBadge } from "../../types/user/user";
+import { EventBadge, UserBadge } from "../../types/user/user";
 
 interface IBadgeInfo {
   badge: UserBadge;
   minScore: number;
 }
 
-export const EVENT_BADGE: UserBadge[] = ["딸기스무디", "라벤더", "민트초코"];
+export const EVENT_BADGE: EventBadge[] = ["딸기스무디", "라벤더", "민트초코"];
 
 export const BADGE_COLOR: Record<UserBadge, string> = {
   아메리카노: "gray",

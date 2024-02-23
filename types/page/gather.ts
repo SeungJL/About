@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
+import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
 import { LocationFilterType } from "../system";
 import { ITime } from "../timeAndDate";
-import { IUser } from "../user/user";
 
 export interface IGather extends Omit<IGatherWriting, "date"> {
   date: string;
@@ -26,7 +26,7 @@ export interface IGatherWriting {
   password?: string;
   age: number[];
   preCnt?: number;
-  user: IUser;
+  user: IUserSummary;
   isAdminOpen?: boolean;
   image?: string;
 }
@@ -52,11 +52,11 @@ export interface IGatherListItem {
   time: ITime;
 }
 export interface IGatherParticipants {
-  user: IUser;
+  user: IUserSummary;
   phase: ParticipationPhase;
 }
 export interface IGatherComment {
-  user: IUser;
+  user: IUserSummary;
   comment: string;
   creadtedAt?: string;
   updatedAt?: string;

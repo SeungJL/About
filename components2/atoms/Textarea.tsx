@@ -22,6 +22,7 @@ export default function Textarea({
       placeholder={placeholder}
       focusBorderColor="#00c2b3"
       minHeight={minHeight}
+      backgroundColor="white"
     />
   );
 }

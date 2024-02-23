@@ -18,7 +18,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { MouseEvent, useEffect } from "react";
+import { useEffect } from "react";
+import { useToast } from "../../hooks/custom/CustomToast";
 
 export default function WriteDrawer() {
   const router = useRouter();
@@ -55,21 +56,21 @@ export default function WriteDrawer() {
             onClick={onClose}
           >
             <SocialButton
-              url="/gather/writing"
+              url="/gather/writing/category"
               title="모임"
               subTitle="재밌는 모임으로 친해져요"
               icon={<FontAwesomeIcon icon={faCloudBolt} color="white" />}
               color="red.400"
             />
             <SocialButton
-              url="/group/writing"
+              url="/group/writing/category/main"
               title="소그룹"
               subTitle="비슷한 관심사의 인원들을 모아봐요"
               icon={<FontAwesomeIcon icon={faCampfire} color="white" />}
               color="blue.400"
             />
             <SocialButton
-              url="/"
+              url="*"
               title="스터디"
               subTitle="직접 스터디를 만들어봐요"
               icon={<FontAwesomeIcon icon={faBooks} color="white" />}
@@ -91,13 +92,17 @@ interface ISocialButton {
 }
 
 const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
+  const toast = useToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
-  const onClick = (e: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
+  const onClick = (e: any) => {
+    if (url === "*") {
+      e.preventDefault();
+      toast("error", "준비중인 기능입니다.");
+    }
   };
   return (
-    <Link href={url} onClick={(e) => onClick(e)}>
+    <Link href={url} onClick={onClick}>
       <Button
         bgColor="white"
         w="90vw"

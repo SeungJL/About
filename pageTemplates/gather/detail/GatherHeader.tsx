@@ -1,9 +1,10 @@
 import { faPenCircle, faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
@@ -11,7 +12,7 @@ import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal"
 import { isGatherEditState } from "../../../recoil/checkAtoms";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { userInfoState } from "../../../recoil/userAtoms";
+
 import { IGather } from "../../../types2/gatherTypes/gatherTypes";
 
 interface IGatherHeader {
@@ -26,8 +27,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   const date = gatherData?.date;
   const locationMain = gatherData?.location.main;
   const organizer = gatherData?.user;
-
-  const userInfo = useRecoilValue(userInfoState);
+  const { data: session } = useSession();
   const setGatherWriting = useSetRecoilState(sharedGatherWritingState);
   const setIsGatherEdit = useSetRecoilState(isGatherEditState);
   const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
@@ -44,7 +44,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   return (
     <>
       <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>
-        {userInfo?.uid === organizer?.uid && (
+        {session?.user.uid === organizer?.uid && (
           <IconWrapper onClick={onClick}>
             <FontAwesomeIcon icon={faPenCircle} size="xl" />
           </IconWrapper>

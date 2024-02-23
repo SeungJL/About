@@ -1,4 +1,5 @@
 import { Badge, Box, Button, Flex } from "@chakra-ui/react";
+import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 
 export interface IIconButtonColBlockProps {
   icon: React.ReactNode;
@@ -17,6 +18,7 @@ export default function IconButtonColBlock({
     icon,
     title,
     buttonProp: { text, func },
+    disabled,
   },
 }: IIconButtonColBlock) {
   return (
@@ -28,16 +30,16 @@ export default function IconButtonColBlock({
       align="center"
     >
       <Box fontSize="36px">{icon}</Box>
-      <Badge fontSize="14px" mb="16px" colorScheme="red">
-        라즈베리
+      <Badge fontSize="14px" mb="16px" colorScheme={BADGE_COLOR[title]}>
+        {title}
       </Badge>
 
       <Button
         size="sm"
         w="100%"
         rounded="lg"
-        colorScheme="mintTheme"
-        disabled={true}
+        colorScheme={!disabled ? "mintTheme" : "blackAlpha"}
+        disabled={disabled}
         onClick={func}
       >
         {text}

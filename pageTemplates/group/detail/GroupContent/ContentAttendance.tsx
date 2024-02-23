@@ -4,6 +4,7 @@ import { faCheckCircle as checkCircle } from "@fortawesome/pro-regular-svg-icons
 import { faCaretLeft, faCaretRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -13,18 +14,19 @@ import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
 
 import { transferGroupDataState } from "../../../../recoil/transferDataAtoms";
-import { userInfoState } from "../../../../recoil/userAtoms";
+
 import { IWeekRecord } from "../../../../types/page/group";
 
 function ContentAttend() {
+  const { data: session } = useSession();
   const router = useRouter();
   const [isModal, setIsModal] = useState(false);
   const failToast = useFailToast();
   const [isThisWeek, setIsThisWeek] = useState(true);
   const isGuest = session?.user.name === "guest";
   const id = router.query.id;
+  const uid = session?.user.uid;
 
-  const userInfo = useRecoilValue(userInfoState);
   const [attendRecord, setAttendRecord] = useState<IWeekRecord[]>([]);
 
   const weekDay = ["월", "화", "수", "목", "금", "토", "일"];
@@ -33,8 +35,8 @@ function ContentAttend() {
   const group = useRecoilValue(transferGroupDataState);
 
   const isNotMember =
-    group.organizer.uid !== userInfo.uid &&
-    !group.participants.some((who) => who.user.uid === userInfo.uid);
+    group.organizer.uid !== uid &&
+    !group.participants.some((who) => who.user.uid === uid);
 
   const sortArr = (arr: IWeekRecord[]): IWeekRecord[] => {
     const temp: IWeekRecord[] = [];
@@ -42,7 +44,7 @@ function ContentAttend() {
 
     for (let i = 0; i < arr.length; i++) {
       const who = arr[i];
-      if (who.uid === userInfo.uid) {
+      if (who.uid === uid) {
         idxNum = i;
         break;
       }
@@ -187,12 +189,10 @@ function ContentAttend() {
       {isModal && (
         <AttendCheckModal
           attendRecordSub={
-            attendRecord.find((who) => who.uid === userInfo.uid)
-              ?.attendRecordSub || []
+            attendRecord.find((who) => who.uid === uid)?.attendRecordSub || []
           }
           attendRecord={
-            attendRecord.find((who) => who.uid === userInfo.uid)
-              ?.attendRecord || []
+            attendRecord.find((who) => who.uid === uid)?.attendRecord || []
           }
           type={isThisWeek ? "this" : "last"}
           setIsModal={setIsModal}

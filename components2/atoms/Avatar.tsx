@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import styled, { css } from "styled-components";
 import { COLOR_TABLE_LIGHT } from "../../constants2/colorConstants";
 import { AVATAR_IMAGE_ARR } from "../../storage/avatarStorage";
@@ -24,9 +25,17 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
         bg: COLOR_TABLE_LIGHT[avatar.bg],
       };
 
+  const [imageUrl, setImageUrl] = useState(
+    avatarProps.image || AVATAR_IMAGE_ARR[0]
+  );
+
   const onClickAvatar = () => {
     if (size === "sm") return;
     router.push(`/profile/${uid}`);
+  };
+
+  const onError = () => {
+    setImageUrl(AVATAR_IMAGE_ARR[0]);
   };
 
   return (
@@ -34,10 +43,11 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
       <ImageContainer bg={avatarProps.bg} hasType={!!avatar?.type}>
         <Box w="100%" h="100%" pos="relative">
           <Image
-            src={avatarProps.image || AVATAR_IMAGE_ARR[0]}
+            src={imageUrl}
             fill={true}
             sizes={size === "sm" ? "28px" : size === "md" ? "44px" : "80px"}
             alt="avatar"
+            onError={onError}
           />
         </Box>
       </ImageContainer>
@@ -69,7 +79,6 @@ const AvatarContainer = styled.div<{
           width: 80px; // w-20
           height: 80px; // h-20
         `;
-  
     }
   }}
 `;

@@ -27,7 +27,7 @@ export default function EventPoint({}: IEventPoint) {
               </Box>
               동아리 활동에 참여하고
             </Flex>
-            <ArrowTextButton dir="right" text="400P 받기" size="md" />
+            <ArrowTextButton dir="right" text="500P 받기" size="md" />
           </Flex>
         </Link>
         <Link href="/event/point/mission">
@@ -42,7 +42,7 @@ export default function EventPoint({}: IEventPoint) {
               </Box>
               이벤트에 참여하고
             </Flex>
-            <ArrowTextButton dir="right" text="400P 받기" size="md" />
+            <ArrowTextButton dir="right" text="500P 받기" size="md" />
           </Flex>
         </Link>
       </Box>

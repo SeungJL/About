@@ -1,6 +1,7 @@
-import { Box } from "@chakra-ui/react";
-import { faCircleP } from "@fortawesome/pro-duotone-svg-icons";
+import { Box, Flex } from "@chakra-ui/react";
+import { faCircleP } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import Header from "../../components2/Header";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
@@ -10,18 +11,18 @@ export default function EventHeader({}: IEventHeader) {
 
   return (
     <Header title="이벤트">
-      <Box>
-        <FontAwesomeIcon
-          icon={faCircleP}
-          style={
-            {
-              "--fa-primary-color": "#51261f",
-              "--fa-secondary-color": "#1f5135",
-            } as React.CSSProperties
-          }
-        />
-        {userInfo?.point} P
-      </Box>
+      <Link href="/user/point">
+        <Flex fontWeight={600}>
+          <Box mr="6px">
+            <FontAwesomeIcon
+              icon={faCircleP}
+              color="var(--color-mint)"
+              size="lg"
+            />
+          </Box>
+          {userInfo?.point} P
+        </Flex>
+      </Link>
     </Header>
   );
 }

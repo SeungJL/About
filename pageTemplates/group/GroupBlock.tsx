@@ -1,6 +1,7 @@
 import { faLockKeyhole } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -16,6 +17,7 @@ interface IGroupBlock {
 
 function GroupBlock({ group }: IGroupBlock) {
   const router = useRouter();
+  const { data: session } = useSession();
   const failToast = useFailToast();
   const infoArrText = ["그룹장", "인원", "조건", "참여금", "진행", "개설"];
 

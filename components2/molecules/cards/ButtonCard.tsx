@@ -27,7 +27,7 @@ export default function ButtonCard({
         <Box fontWeight={600} fontSize="14px" color="var(--gray-2)">
           {title}
         </Box>
-        <Box fontSize="15px">{subTitle}</Box>
+        <Box fontSize="14px">{subTitle}</Box>
       </Box>
       <Button colorScheme="mintTheme" size="sm" w="64px">
         {buttonText}

@@ -1,10 +1,10 @@
 import { faBellOn } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BlurredPart from "../../../../components/common/masks/BlurredPart";
-import { userInfoState } from "../../../../recoil/userAtoms";
+
 import { IGroup } from "../../../../types/page/group";
 import GroupDetailInfo from "../GroupDetail";
 
@@ -13,12 +13,12 @@ interface IContentInfo {
 }
 
 function ContentInfo({ group }: IContentInfo) {
+  const { data: session } = useSession();
   const hashTagText = group.hashTag;
   const hashTagArr = hashTagText?.split("#");
-  const userInfo = useRecoilValue(userInfoState);
 
   const isMember = group?.participants?.some(
-    (who) => who.user.uid === userInfo?.uid
+    (who) => who.user.uid === session?.user.uid
   );
 
   return (
